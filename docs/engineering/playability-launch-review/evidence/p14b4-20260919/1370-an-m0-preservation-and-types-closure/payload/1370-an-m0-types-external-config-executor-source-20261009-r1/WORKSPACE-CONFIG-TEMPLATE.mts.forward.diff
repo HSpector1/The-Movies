@@ -1,0 +1,29 @@
+--- /Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/HISTORICAL-WORKSPACE-CONFIG.txt	2026-10-09 22:44:59.000000000 -0500
++++ /Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/WORKSPACE-CONFIG-TEMPLATE.mts	2026-10-09 22:44:58.000000000 -0500
+@@ -13,6 +13,8 @@
+ 
+ export default defineWorkspace([
+   {
++    root: "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
++    cacheDir: "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r1/20261009-m0-types-external-after-an-r1/external-config/cache",
+     // The pure simulation core — unchanged node-environment tests.
+     test: {
+       name: 'core',
+@@ -21,6 +23,8 @@
+     },
+   },
+   {
++    root: "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
++    cacheDir: "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r1/20261009-m0-types-external-after-an-r1/external-config/cache",
+     // The M1A UI — jsdom + React + testing-library.
+     plugins: [react()],
+     test: {
+@@ -28,7 +32,7 @@
+       environment: 'jsdom',
+       globals: true,
+       include: ['ui/**/*.test.{ts,tsx}'],
+-      setupFiles: ['ui/src/test/setup.ts'],
++      setupFiles: ["/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/ui/src/test/setup.ts"],
+       // Owner decision D-1339-1 (record 1340-O): App-mount leaves ran 5.6-24.8 s in
+       // recorded gates, past Vitest's 5 s default. Harness budget only, not a
+       // performance requirement. The core project keeps the default.

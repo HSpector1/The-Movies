@@ -1,0 +1,167 @@
+{
+  "schema": "1370-disposable-parent-adapter-independent-source-review/v1",
+  "decision": "ACCEPT_STATIC_DISPOSABLE_CONTROLS_PARENT_ADAPTER_SOURCE_ONLY",
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/SOURCE-PINS.json",
+    "bytes": 2539,
+    "sha256": "16a42f267504d4b7414301d9a464c27563269db5d5d9a761bdd3f4dd9878dc76"
+  },
+  "concreteFindings": [],
+  "executionAuthorization": false,
+  "independence": {
+    "adapterAuthor": "/root/m0_types_source_review",
+    "reviewer": "/root/b109_focused_route_review",
+    "adapterNotAuthoredByReviewer": true,
+    "disclosure": "Reviewer authored the upstream disposable R2 controller package. This independent review covers only the separate parent adapter authored by m0_types_source_review; upstream controller qualification belongs to cleanup_independent_red."
+  },
+  "reviewedFiles": {
+    "BASE-launch-focused-controls.py.txt": {
+      "bytes": 6244,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/BASE-launch-focused-controls.py.txt",
+      "sha256": "fa5621d99981397b0c3d669056ea2c375a4dad55de798b5a26ef07cf997539b1"
+    },
+    "BASE-run_b109_controls_once.py.txt": {
+      "bytes": 3199,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/BASE-run_b109_controls_once.py.txt",
+      "sha256": "4f1bb0d52c5dc4bf04e0aea6c6e313016be1fda00d9fe52653b59ba087c75c51"
+    },
+    "CONTRACT.json": {
+      "bytes": 4528,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/CONTRACT.json",
+      "sha256": "418799848bc54b7e353491e35cceec226facc7465edd11f365705fd40154e4c0"
+    },
+    "LESSONS.txt": {
+      "bytes": 428,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/LESSONS.txt",
+      "sha256": "25134f6467a23655d8496107386e3b3b6d66d9c60d37a283d09b970af8c28618"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 2283,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/SOURCE-PROOF.json",
+      "sha256": "2290175700e049ce6c0cf96fc16ea28ef921aa5097697ef1be40934af766bfb8"
+    },
+    "adapter.forward.diff": {
+      "bytes": 15801,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/adapter.forward.diff",
+      "sha256": "1ab85ec2ecd40170192d513dc12d0c005a9e46ad00d7028b6245947b521796d8"
+    },
+    "adapter.inverse.diff": {
+      "bytes": 15801,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/adapter.inverse.diff",
+      "sha256": "d7714fbf06d2de1510a0a8d596b075f2de4c927cd72f0ed9b928542d3d81e1e5"
+    },
+    "launch-disposable-controls.py": {
+      "bytes": 10107,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/launch-disposable-controls.py",
+      "sha256": "7be4998c90bc4cb4c35c774201210855db1f2f49aea921e1ba277fa607c8ca6b"
+    }
+  },
+  "manifestSizesAndHashesVerified": true,
+  "exactLauncher": {
+    "bytes": 10107,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/launch-disposable-controls.py",
+    "sha256": "7be4998c90bc4cb4c35c774201210855db1f2f49aea921e1ba277fa607c8ca6b"
+  },
+  "wholeForwardInverseVerified": {
+    "forward": true,
+    "inverse": true
+  },
+  "originalQualifiedRoles": {
+    "focusedLauncher": {
+      "bytes": 6244,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/launch-focused-controls.py",
+      "sha256": "fa5621d99981397b0c3d669056ea2c375a4dad55de798b5a26ef07cf997539b1"
+    },
+    "rootParent": {
+      "bytes": 3199,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_b109_controls_once.py",
+      "sha256": "4f1bb0d52c5dc4bf04e0aea6c6e313016be1fda00d9fe52653b59ba087c75c51"
+    }
+  },
+  "boundUpstreamRoles": {
+    "sourcePins": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/SOURCE-PINS.json",
+      "bytes": 11166,
+      "sha256": "bc7fcfc7bcd4ab5e4472733260e1ee5f89658c827a09412d7f98d60b10ffd573"
+    },
+    "recipe": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/RECIPE.json",
+      "bytes": 9918,
+      "sha256": "0998870942ff8f188fcc3ce14f853119a49f45b1e78d08ad18685f83b5ab432b"
+    },
+    "config": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/CONFIG.json",
+      "bytes": 3637,
+      "sha256": "c3c58fc2b2ba77b0a2e92415f1e74d386cf899506b07aacbe677f2ad9b061c14"
+    }
+  },
+  "checks": [
+    {
+      "topic": "external authority and no hash cycle",
+      "accepted": true,
+      "evidence": "Adapter creates no grant. It consumes exact supplied GRANT.json path/SHA, required once schema/decision, bool executionAuthorization true/oneAggregateRun true/automaticRetry false; authenticates adapter SOURCE-PINS/self/all eight files and independent acceptance/sourcePins before exec. Adapter review/source role are external grant fields. Neither upstream CONFIG nor source pins is mutated."
+    },
+    {
+      "topic": "upstream exact source interfaces",
+      "accepted": true,
+      "evidence": "Pins upstream SOURCE-PINS bc7fcfc7, recipe099887 and configc3c58 exact. Authenticates all upstream manifest roles and sourceReview schema/decision/routeSourcePins/concreteFindings/authorization. Grant argv/cwd/bounds/environment compare recursively with exact types. Literal r8 helper/Python -I -B recorder verification argv matches recipe. Adapter claim schema1370-disposable-controls-launch-claim/v1 and measured helper fields match retained consumer contract."
+    },
+    {
+      "topic": "current AM source and refs",
+      "accepted": true,
+      "evidence": "Checks exact HEAD7087f116cf998fd86e33fb8e004df628e0686dbd, HEAD:src13880d9b0ba72aff5d4c5bcf5d12fe682c5de554, branch wip/headless-program-20260916-ts, tracking branch7087, local refs/remotes/origin/main c902a704eb948cc576083d0973c8c23e59937dc1, clean status, and exact advertised working branch plus refs/heads/main. Local main and advertised main have distinct actual roles. Source-only review does not execute these checks or assert their future outcomes."
+    },
+    {
+      "topic": "source/tool immutable reads",
+      "accepted": true,
+      "evidence": "Role authenticates physical absolute regular nlink1 path with NOFOLLOW, before/open/read/end metadata and SHA,128MiB cap. Wanted roles require strict bytes int, exact three keys and lowercase64hex. Authenticates public cfg roles and recipe helper/Python/Node; binds genuine runtimeTools physical path/bytes/SHA and executable bit for Python/Node. Duplicate JSON keys and nonfinite constants rejected; no application source import."
+    },
+    {
+      "topic": "preparation clock exact scope",
+      "accepted": true,
+      "evidence": "START/monotonic remaining and SIGALRM60 guard preparation including source hash and current commands. Subprocess preflight commands use timeout min15/remaining. Before exec, claim/fsync/source role read/remaining/free-lane/print/chdir occur while alarm armed, then setitimer0 immediately precedes execvpe. No timer restoration/rearm or outer runtime90 exists. Claimed combinedPreparationRuntimeDeadline is null; recorder alone starts aggregate60/active75/whole90."
+    },
+    {
+      "topic": "direct owned identity",
+      "accepted": true,
+      "evidence": "Exactly adopts setsid iff currentPGID differs from ownPID, then requires measured ownPGID==PID; records actual SID positive without assuming SID==PID. Claim uses actual helperPid/helperPgid/helperSid, actualOwnGroupConfirmed true, root PID becomes helper through direct exec. No detach, process-group signals, new runtime watcher or extra child is introduced by the adapter."
+    },
+    {
+      "topic": "fresh paths and actual claims",
+      "accepted": true,
+      "evidence": "External grant parent is exact physical direct scratch parent; fresh LAUNCH-CLAIM exclusiveNOFOLLOW file/fsync. Recorder output, disposable artifact and lane dirs must each be direct scratch and absent. Scratch physical and cfg artifact root match. Creates only fresh lane0700; required runtime writes stay in disposable route. Free lane checked during preflight and immediately before exec; disk>=3.5GiB, AC Power checked. Actual ownership/absence/outcomes remain root-recorded after execution."
+    },
+    {
+      "topic": "environment and warnings",
+      "accepted": true,
+      "evidence": "Inherited HOME/home/CODEX_HOME are not reassigned. Exact environment changes only GIT_OPTIONAL_LOCKS0/PYTHONDONTWRITEBYTECODE1; pinned Python -I-B. Producer Node sanitization is owned upstream recorder, not claimed parent behavior. Parent merged-stream cap is null, so no all-stream cap or quiet-stream claim is invented. Qualified recorder warning preservation stays upstream."
+    }
+  ],
+  "clockScope": {
+    "prepSeconds": 60,
+    "alarmCanceledBeforeExec": true,
+    "parentRuntimeClock": null,
+    "combinedDeadline": null,
+    "runtimeOwner": "upstream qualified recorder only",
+    "recorderBounds": {
+      "aggregateController": 60,
+      "active": 75,
+      "whole": 90
+    },
+    "helperWait": "Original helper can wait; unexpected wait is STOP per claim/recipe, never claimed bounded by recorder90."
+  },
+  "notAccepted": [
+    "No actual run, actual root grant, cleanup observation, source preservation result or disposable RED/GREEN outcome is supplied by this receipt.",
+    "No upstream controller independent acceptance is asserted by this parent-only review.",
+    "No original M0 private inventory, metadata continuity, source/dependencyAfter preservation or original cause acceptance.",
+    "No elapsed runtime claim; Git/source/preparation/helper waits do not become part of recorder90."
+  ],
+  "runtimeExecuted": false,
+  "testsExecuted": false,
+  "importsExecuted": false,
+  "privateInventories": false,
+  "gitExecuted": false,
+  "protectedMutations": false,
+  "actualGrant": null,
+  "actualOutcome": null
+}

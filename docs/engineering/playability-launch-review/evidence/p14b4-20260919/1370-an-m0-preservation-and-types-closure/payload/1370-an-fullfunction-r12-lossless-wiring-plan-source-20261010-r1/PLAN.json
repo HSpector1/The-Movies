@@ -1,0 +1,102 @@
+{
+  "acceptedRepresentationSource": {
+    "bytes": 9104,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "7f2ef8499136e025a90ec67c417b1788e1209c69764a448527bb0a5244d68027"
+  },
+  "aliasCount": 15,
+  "basedOnActualRouteSource": {
+    "bytes": 47821,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r11/SOURCE-PINS.json",
+    "sha256": "18b014711ab516c421e5ade49a6cea9757f34ba9aa85f896e126087be3349b36"
+  },
+  "changesRequired": [
+    "Fresh R12 local executable/config/binding/template paths and all actual selector targets must consistently use newR5 runtime/recorder/lane/parent identities, including recorder OUTPUTS.",
+    "Preserve original source/dependency proof methods/caller leaf, all pre-private authority checks/first-proof chain, canonical TS transform, full functions and original clocks/owned cleanup.",
+    "Resolution binding changes probe role to exact tested C/R3 path and adds src/core/m0TraceCodec.mjs exact role; no original mirror source/config is written or repinned.",
+    "Runtime write roster copies accepted ordering.ts and traceSequences.mjs exact bytes together; existing relative ordering import works and fullbody ../traceSequences.mjs resolves correctly.",
+    "Canonical probe relative ./m0TraceCodec.mjs resolves to one authenticated canonical identity; codec builtin node:zlib/assert imports retain platform passthrough.",
+    "Existing12 review aliases become15: codec/lazy/ordering added; probe/fullbodytemplate replaced. Authenticate sourcePins and routeSourcePins equal exact manifest aliases in Python and direct Node consumers.",
+    "Parent manifest gate permits only two fixed F7 parser roles plus five fixed final C/R3 representation roles; all other runtime manifest aliases local. Do not claim controls executed relocated modules.",
+    "Replace R11 diagnostic-bytes-equality gate with explicitly adopted representation design and independently source-qualified C/R3 inputs plus genuine future root observed public49 adoption matching exact candidate/control/input/output roles. Preserve old diagnostic authority/actualSTOP history documentary.",
+    "Genuine pure observed adoption belongs in external grant, preventing source-authority hash cycle; CONFIG can state expected role/protocol contracts without manufacturing actual pass/tool/protection.",
+    "Root readback and mandatory shared-post adapters require fresh selectors and exact15-role maps; no outcome/success/IDs assumed."
+  ],
+  "executionAuthorization": false,
+  "fixedParserExternalRoles": {
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    }
+  },
+  "fixedRepresentationExternalRoles": {
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "bytes": 9744,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "324c7cc754497e43cc5a9d46865f4cbf7e1a635b5e2ce5ac0857defab8661a02"
+    },
+    "m0TraceCodec.mjs": {
+      "bytes": 7882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+    },
+    "m0WiringProbe.ts": {
+      "bytes": 1800,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0WiringProbe.ts",
+      "sha256": "c3da292f943a37ae5c3c30005dfec71eb485bf17a211ecfddaa03efe0460c5a9"
+    },
+    "ordering.ts": {
+      "bytes": 11927,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/ordering.ts",
+      "sha256": "8599945b1c3057ebb777ffcf56c55ddc30121b505f6ec29dacbc87aef216a803"
+    },
+    "traceSequences.mjs": {
+      "bytes": 1286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    }
+  },
+  "futureInputs": {
+    "actualFullProtectedPostflight": null,
+    "actualR12Result": null,
+    "freshCurrentProtection": null,
+    "freshParentGrant": null,
+    "pureObservedIndependentReview": null,
+    "pureRecordedRouteSource": null,
+    "pureRootObservedAdoption": null
+  },
+  "implementationPerformed": false,
+  "proposedSourceReviewAliasRoster": [
+    "CONFIG-TEMPLATE.mts",
+    "CONFIG.json",
+    "CORE-TEST-TEMPLATE.ts",
+    "FULL-BODY-CONTROLS-TEMPLATE.ts",
+    "RESOLUTION-SOURCE-BINDING.json",
+    "canonical-typescript-transform.mjs",
+    "exact-json.mjs",
+    "m0TraceCodec.mjs",
+    "m0WiringProbe.ts",
+    "ordering.ts",
+    "record-fullfunction.py",
+    "run-fullfunction.mjs",
+    "run-fullfunction.py",
+    "run-parser-controls.mjs",
+    "traceSequences.mjs"
+  ],
+  "runtimePerformed": false,
+  "schema": "1370-fullfunction-lossless-wiring-source-plan/v1",
+  "scope": "PLAN_ONLY_NOT_RUNTIME_RECIPE",
+  "typeAndSemanticImplications": [
+    "New .mjs is already accepted by canonical resolver extension logic; TypeScript type-only GameState import in probe is erased by existing qualified canonical transformer.",
+    "No original1740 source/mirror config or root/UI typecheck authority changes.",
+    "Original observer512/16KiB/2MiB unchanged; helper16384 logical/64KiB expanded row unchanged; helper2MiB accounting explicitly becomes16+sum(encoded frames), never old-expanded-total PASS.",
+    "Public49 includes affected original18 ordering cases; unchanged parser32 remains admitted separately and is not replayed.",
+    "Natural generation, baseline, specific real typed-catch mutant ordering and complete before/after proofs remain original; actual fit/time/success unknown."
+  ]
+}

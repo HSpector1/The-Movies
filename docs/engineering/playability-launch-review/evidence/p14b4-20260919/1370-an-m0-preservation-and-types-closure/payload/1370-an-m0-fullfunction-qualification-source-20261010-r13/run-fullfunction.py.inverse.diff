@@ -1,0 +1,56 @@
+--- R12/run-fullfunction.py
++++ R11/run-fullfunction.py
+@@ -1,7 +1,7 @@
+ """Future one-aggregate real full-function qualifier. Source work never executes this route."""
+ import hashlib,json,math,os,pathlib,selectors,signal,stat,subprocess,sys,time,traceback
+ HERE=pathlib.Path(__file__).resolve().parent
+-CONFIG_SHA='efb9f7b597a6781a69488437faea4755f4a4d186848bfe30baa1c801fa4cf669'
++CONFIG_SHA='8a6e67c7bea7c897e83f27f418d4743bfd1b9035ddd70147e9615e92658c81d6'
+ START=time.monotonic();END=START+300;CAP=128*1024**2
+ def need(v,m):
+  if not v:raise RuntimeError('STOP_'+m)
+@@ -63,11 +63,10 @@
+  manifest=load(g['sourcePins'],131072);need(manifest['schema']=='1370-fullfunction-qualification-source-pins/v1' and manifest['executionAuthorization'] is False,'SOURCE_MANIFEST')
+  for name,r in manifest['files'].items():
+   if name in c['parserInputs']:need(r==c['parserInputs'][name],'EXACT_EXTERNAL_TESTED_PARSER_ROLE')
+-  elif name in c['representationInputs']:need(r==c['representationInputs'][name],'EXACT_FIXED_REPRESENTATION_ROLE')
+   else:need(pathlib.Path(r['path'])==HERE/name,'SOURCE_PATH')
+   read(r)
+  review=load(g['sourceReview'],131072);need(review['decision']=='ACCEPT_STATIC_REAL_FULL_FUNCTION_QUALIFICATION_ROUTE_SOURCE_ONLY' and review['executionAuthorization'] is False and review['concreteFindings']==[] and review['sourceManifest']==g['sourcePins'],'INDEPENDENT_SOURCE_REVIEW')
+- for name in ['CONFIG.json','run-fullfunction.py','run-fullfunction.mjs','record-fullfunction.py','CORE-TEST-TEMPLATE.ts','CONFIG-TEMPLATE.mts','FULL-BODY-CONTROLS-TEMPLATE.ts','exact-json.mjs','run-parser-controls.mjs','canonical-typescript-transform.mjs','m0WiringProbe.ts','RESOLUTION-SOURCE-BINDING.json','m0TraceCodec.mjs','traceSequences.mjs','ordering.ts']:need(review['sourcePins'][name]==review['routeSourcePins'][name]==manifest['files'][name],'SOURCE_ROLE_ALIASES')
++ for name in ['CONFIG.json','run-fullfunction.py','run-fullfunction.mjs','record-fullfunction.py','CORE-TEST-TEMPLATE.ts','CONFIG-TEMPLATE.mts','FULL-BODY-CONTROLS-TEMPLATE.ts','exact-json.mjs','run-parser-controls.mjs','canonical-typescript-transform.mjs','m0WiringProbe.ts','RESOLUTION-SOURCE-BINDING.json']:need(review['sourcePins'][name]==review['routeSourcePins'][name]==manifest['files'][name],'SOURCE_ROLE_ALIASES')
+  need(manifest['files']['run-fullfunction.py']==role(pathlib.Path(__file__).resolve()),'CONTROLLER_SELF')
+  for r in [c['acceptedR3SourcePins'],c['acceptedR3RootAdoption'],c['acceptedR3IndependentReview'],*c['inputs'].values(),*c['templates'].values()]:read(r)
+  held=load(c['acceptedR3RootAdoption']);need(held['status']=='ROOT_ADOPTED_HELD_SOURCE_R3_FIXTURE_RESOLVER_AND_TWO_ORDERING_REPAIRS' and held['executionAuthorization'] is False,'HELD_R3_AUTHORITY')
+@@ -78,30 +77,7 @@
+  da=c['probeDiagnosticAuthorities'];ad=load(da['rootAdoption']);di=load(da['independentSourceReview']);dm=load(da['sourceManifest'])
+  need(ad['schema']=='1370-root-held-probe-overflow-diagnostic-source-adoption/v1' and ad['status']=='ROOT_ADOPTED_HELD_FIRST_OVERFLOW_DIAGNOSTIC_SOURCE_ONLY' and ad['executionAuthorization'] is False and ad['runtimeReady'] is False and ad['limitsChanged'] is False and ad['completeTraceStillRequired'] is True and ad['sourceManifest']==da['sourceManifest'] and ad['independentSourceReview']==da['independentSourceReview'],'ADOPTED_DIAGNOSTIC_ONLY')
+  need(di['decision']=='ACCEPT_STATIC_BOUNDED_PROBE_OVERFLOW_DIAGNOSTIC_PROPOSAL_ONLY' and di['executionAuthorization'] is False and di['concreteFindings']==[] and di['sourceManifest']==da['sourceManifest'],'DIAGNOSTIC_SOURCE_REVIEW')
+- # Historical first-overflow adoption remains provenance; current representation requires its distinct adopted authority.
+- la=c['losslessRepresentationAuthorities'];lm=load(la['implementationSourcePins']);lr=load(la['implementationSourceReview']);cm=load(la['controlsSourcePins']);cv=load(la['controlsSourceReview']);design=load(la['rootDesignAdoption']);source_ad=load(la['implementationControlsSourceAdoption'])
+- need(lr['decision']=='ACCEPT_STATIC_LOSSLESS_TRACE_CODEC_AND_STREAMING_CONSUMERS_WITH_ORDERING_ADAPTER_SOURCE_ONLY' and lr['sourceManifest']==la['implementationSourcePins'] and lr['executionAuthorization'] is False and lr['concreteFindings']==[],'REPRESENTATION_SOURCE_REVIEW')
+- need(cv['decision']=='ACCEPT_STATIC_PURE_LOSSLESS_TRACE_CONTROLS_SOURCE_ONLY' and cv['sourceManifest']==la['controlsSourcePins'] and cv['executionAuthorization'] is False and cv['concreteFindings']==[],'CONTROLS_SOURCE_REVIEW')
+- need(design['status']=='ROOT_ADOPTED_EXACT_LOSSLESS_COMPRESSED_TRACE_DESIGN_FOR_IMPLEMENTATION_ONLY' and design['executionAuthorization'] is False and design['stickyOperationalFailureRequired'] is True,'EXACT_ADOPTED_REPRESENTATION_DESIGN')
+- need(source_ad['status']=='ROOT_ADOPTED_LOSSLESS_IMPLEMENTATION_R3_AND_INDEPENDENT_CONTROLS_R2_SOURCE_ONLY' and source_ad['executionAuthorization'] is False,'IMPLEMENTATION_CONTROLS_SOURCE_ADOPTION')
+- for actual,expected in [('implementationSourcePins','implementationSourcePins'),('implementationReview','implementationSourceReview'),('controlsSourcePins','controlsSourcePins'),('controlsReview','controlsSourceReview'),('rootDesignAdoption','rootDesignAdoption')]:need(source_ad[actual]==la[expected],'IMPLEMENTATION_CONTROLS_ROLE_BINDINGS')
+- for name,r in c['representationInputs'].items():need(r==lm['files'][name]==lr['sourcePins'][name]==lr['routeSourcePins'][name]==manifest['files'][name],'FIXED_REPRESENTATION_SOURCE_BINDINGS');read(r)
+- need(g['losslessControlsObservedAdoption']==c['actualLosslessControlsObservedAdoption'],'EXACT_ROOT_OBSERVED_CONTROLS_ROLE');observed=load(g['losslessControlsObservedAdoption']);oc=c['losslessControlsObservedAdoptionContract']
+- need(observed['schema']==oc['schema'] and observed['status']==oc['status'],'ACTUAL_LOSSLESS_CONTROLS_ADOPTION')
+- for k in ['caseCount','positiveCount','specificNegativeCount','originalOrderingCases','originalParserCasesReplayed']:need(type(observed[k]) is int and observed[k]==oc[k],'EXACT_CONTROL_COUNTS')
+- need(type(observed['actualExit']) is int and observed['actualExit']==0 and observed['soleLaneReleased'] is True,'ACTUAL_CONTROLS_EXIT_OWNERSHIP')
+- for k in ['executionAuthorization','game','privateM0ReadOrWritten','fullQualificationAccepted','fullBodyGameAssertionsExecuted']:need(observed[k] is False,'CONTROLS_ONLY_SCOPE')
+- for k in ['implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption','implementationControlsSourceAdoption']:need(observed[k]==la[k],'OBSERVED_CONTROLS_SOURCE_BINDINGS')
+- need(observed['sourceReviewedFullBodyTemplate']==c['representationInputs']['FULL-BODY-CONTROLS-TEMPLATE.ts'],'SOURCE_REVIEWED_UNRUN_FULLBODY_TEMPLATE')
+- ov=load(observed['independentObservedReview']);need(ov['decision']=='ACCEPT_ACTUAL_PURE_LOSSLESS_CODEC_AND_AFFECTED_ORDERING_CONTROLS_ONLY' and ov['executionAuthorization'] is False and ov['concreteFindings']==[],'ACTUAL_CONTROLS_INDEPENDENT_REVIEW')
+- rr=load(observed['result']);matrix=load(cm['files']['MATRIX.json'])
+- need(rr['schema']=='1370-lossless-trace-independent-controls-result/v1' and rr['status']=='PURE_LOSSLESS_CODEC_AND_AFFECTED_ORDERING_COMPLETED_UNADOPTED' and rr['positiveCount']==9 and rr['specificNegativeCount']==40 and rr['originalOrderingCases']==18 and rr['originalParserCasesReplayed']==0,'ACTUAL_CONTROLS_RESULT')
+- need(rr['executionAuthorization'] is False and rr['game'] is False and rr['originalM0ReadOrWritten'] is False,'PURE_RESULT_SCOPE')
+- need(rr['results']==[{**row,'verdict':'ACCEPT_POSITIVE' if row['expected']=='GREEN' else 'ACCEPT_SPECIFIC_REFUSAL'} for row in matrix['cases']] and len(rr['results'])==49,'EXACT_OBSERVED_CONTROL_ROSTER')
+- need(rr['inputRoles']==observed['inputRoles'],'OBSERVED_CONTROL_INPUT_ROLES')
+- for name in ['m0TraceCodec.mjs','traceSequences.mjs','m0WiringProbe.ts','ordering.ts']:need(observed['inputRoles'][name]==c['representationInputs'][name],'ACTUAL_TESTED_FIXED_INPUT_ROLE')
+- for k in ['implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption']:need(rr[k]==la[k],'CONTROL_RESULT_AUTHORITY_BINDINGS')
+- for k in ['readback','actualTool','sourceAdoption']:read(observed[k],16*1024**2)
++ for local,prior in [(c['inputs']['m0WiringProbe.ts'],dm['files']['m0WiringProbe.ts']),(c['templates']['FULL-BODY-CONTROLS-TEMPLATE.ts'],dm['files']['full-body-controls.ts'])]:need((local['bytes'],local['sha256'])==(prior['bytes'],prior['sha256']),'EXACT_ADOPTED_DIAGNOSTIC_BYTES')
+  proof_config=load(c['proofConfig']);t=authenticate_types(g,c,proof_config)
+  artifact=load(g['artifactBoundAdoption']);need(artifact['schema']=='1370-root-full-state-fixture-artifact-bound/v1' and artifact['status']=='ROOT_AUTHORIZED_FULL_STATE_FIXTURE_ARTIFACT_BYTE_BOUND' and type(artifact['bytes']) is int and artifact['bytes']==c['bounds']['fixturePacketBytes']==67108864 and artifact['serializedPacketFiles']==1 and artifact['fullStateSerializationsInPacket']==10 and artifact['operationalStopBoundNotFitPrediction'] is True,'GENUINE_ARTIFACT_BOUND')
+  protection=load(g['currentProtection']);need(protection['schema']=='1370-root-fullfunction-current-protection/v1' and protection['status']=='ROOT_ADOPTED_CURRENT_FULLFUNCTION_PREFLIGHT_UNDER_CONTINUOUS_FREEZE' and protection['productionHead']==c['operationalHead'] and protection['productionSourceTree']==c['productionSourceTree'] and protection['typesAdoption']==g['typesAdoption'] and protection['fullPostflightSnapshot']==t['fullPostflightSnapshot'] and protection['protectedFreezeContinues'] is True and protection['executionAuthorization'] is False,'CURRENT_FULLFUNCTION_PROTECTION')

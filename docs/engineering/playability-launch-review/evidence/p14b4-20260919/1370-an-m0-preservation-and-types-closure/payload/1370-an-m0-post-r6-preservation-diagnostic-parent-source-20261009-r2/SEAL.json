@@ -1,0 +1,9 @@
+{
+  "executionAuthorization": false,
+  "schema": "1370-source-only-seal/v1",
+  "sourcePins": {
+    "bytes": 3626,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "38648e516daf240705f6583a580594d947835240e73e1bb53b8105252e67276b"
+  }
+}

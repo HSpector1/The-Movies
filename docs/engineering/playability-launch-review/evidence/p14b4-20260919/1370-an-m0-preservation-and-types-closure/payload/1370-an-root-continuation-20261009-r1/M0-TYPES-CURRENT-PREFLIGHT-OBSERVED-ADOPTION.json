@@ -1,0 +1,85 @@
+{
+  "actualTool": {
+    "bytes": 1269,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-prelaunch-parent-recorded-20261009-r1/ACTUAL-TOOL.json",
+    "sha256": "c265a8a815cfdd642aea5d7f3633869e7e88dcf6c6f5dca73bd88c8b60d1d479"
+  },
+  "actualToolSessionId": 78183,
+  "baseline": {
+    "bytes": 8833072,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/SNAPSHOT.json",
+    "sha256": "0136b4370cca27ab9af635c16124283049eb394b3dbaa63c32a755973e9c3596"
+  },
+  "currentProtection": {
+    "bytes": 3294,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-CURRENT-EXTERNAL-CONFIG-TYPES-PROTECTION.json",
+    "sha256": "5980e69d3e2962f068f10fa3217caa45f3ff752cc93a5064eb0637f54a2439d0"
+  },
+  "executionAuthorization": false,
+  "fullMapReuseUnderOriginalContinuousFreezeProvision": true,
+  "game": false,
+  "grant": {
+    "bytes": 3197,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-prelaunch-parent-recorded-20261009-r1/GRANT.json",
+    "sha256": "37bc8bb8f23c852320e0c7a4eb5e8e54b79581e8d780dcccfe05f9a60d459c43"
+  },
+  "mode": "types",
+  "newFullInventory": false,
+  "nineRootsAndAncestryAndCurrentChecksAccepted": true,
+  "originalFullSnapshot": {
+    "bytes": 8835180,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-preservation-diagnostic-r2/SNAPSHOT.json",
+    "sha256": "2cf60469b8080a91e66b18da72127d4bd5e7a7ce531017a7f057849d538a2308"
+  },
+  "postOwnScannerChecks": [
+    {
+      "id": 11041,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 11041,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "postR6RootAdoption": {
+    "bytes": 4446,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-POST-R6-PRESERVATION-DIAGNOSTIC-OBSERVED-ADOPTION.json",
+    "sha256": "5b5e062b8c5ac12bc70aa5ccb46ad101340ad692cdf0147ea44890882c0f44e1"
+  },
+  "preflight": {
+    "bytes": 9470,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-prelaunch-output-20261009-r1/PREFLIGHT.json",
+    "sha256": "1018583ed7dba2f784e4a9d08cba18c47a1e030bbeeb65809e7f9598e892185a"
+  },
+  "proofOrTypesAccepted": false,
+  "protectedFreezeContinues": true,
+  "rawLocalOnlyBytes": 1538224,
+  "rawLocalOnlyClassification": {
+    "bytes": 1200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-prelaunch-output-20261009-r1/RAW-LOCAL-ONLY-ROLES.json",
+    "sha256": "1fea1826dfe96b46c5cc43206d996056f89890f5428ab8adf138c444d870672c"
+  },
+  "rawLocalOnlyRoles": 4,
+  "scannerAbsent": true,
+  "schema": "1370-root-original-current-root-preflight-observed-adoption/v1",
+  "scope": "OriginalA208 nineprotectedroots/R9/shareddeps/currentAM only; current M0 fullsource/dependency proofs remain separate",
+  "sourceReview": {
+    "bytes": 7652,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "6f7e329107fb6942580553a40ea7395695b090ef32d256e69b59a708baf672b9"
+  },
+  "status": "ROOT_ADOPTED_ORIGINAL_CURRENT_ROOT_PREFLIGHT",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-prelaunch-parent-recorded-20261009-r1/prelaunch.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 262,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-prelaunch-parent-recorded-20261009-r1/prelaunch.stdout",
+    "sha256": "cf1d22a662f665ee7adc1e226911f4ec21648419b0bde2f2856a59d8ff9c4a4c"
+  },
+  "toolExit": 0
+}

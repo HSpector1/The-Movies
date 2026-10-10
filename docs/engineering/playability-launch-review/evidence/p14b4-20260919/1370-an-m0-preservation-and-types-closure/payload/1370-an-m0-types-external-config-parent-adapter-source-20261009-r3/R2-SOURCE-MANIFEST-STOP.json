@@ -1,0 +1,17 @@
+{
+  "schema": "1370-m0-external-types-unrun-r2-source-manifest-stop/v1",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "executorSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r2/SOURCE-PINS.json",
+    "bytes": 14851,
+    "sha256": "c9c642f03ecfe95b0b4b9126801aac2753b2c561fd17936b1cb82a451d2d2593"
+  },
+  "parentSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r2/SOURCE-PINS.json",
+    "bytes": 7288,
+    "sha256": "988071d1b25dc1d1a837c18faa1864d1a87793c03d71ab76cfbe46a432799448"
+  },
+  "finding": "Only E2 RECIPE.json declared byte count +1 due double-newline in-memory lossless serializer versus retained single-newline. Both packages preserved; no review acceptance, grant or execution occurred.",
+  "correction": "Fresh R3 source/parent paths, exact consequent hashes, manifest roles built from actual retained raw bytes."
+}

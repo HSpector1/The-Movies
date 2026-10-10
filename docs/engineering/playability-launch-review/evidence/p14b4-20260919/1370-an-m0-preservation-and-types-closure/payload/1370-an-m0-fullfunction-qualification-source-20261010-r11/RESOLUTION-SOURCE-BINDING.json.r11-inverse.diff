@@ -1,0 +1,15 @@
+--- 
++++ 
+@@ -10,9 +10,9 @@
+       "sha256": "07262d62f6c6de0a849e5bfea124d01be2dbcbbb7edb7b3b6ead32025318b75a"
+     },
+     "src/core/m0WiringProbe.ts": {
+-      "bytes": 3016,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r11/m0WiringProbe.ts",
+-      "sha256": "417389eef7b3295a19cde420f8561e638f028b979c4e031b25f89f8d38a2ac39"
++      "bytes": 2457,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/m0WiringProbe.ts",
++      "sha256": "3a3d75e5d849a94e14806239566bc72ca10af497bca71925a6f59d7db5714a85"
+     },
+     "src/core/opportunityPromises.ts": {
+       "bytes": 25031,

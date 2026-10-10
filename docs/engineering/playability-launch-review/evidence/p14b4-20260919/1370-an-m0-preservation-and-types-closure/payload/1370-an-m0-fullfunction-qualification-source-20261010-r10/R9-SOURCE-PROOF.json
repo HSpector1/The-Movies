@@ -1,0 +1,17 @@
+{
+  "actual95737AndR8SourceStopPreserved": true,
+  "losslessRestorationVerified": true,
+  "predecessor": {
+    "bytes": 29705,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/SOURCE-PINS.json",
+    "sha256": "f589b6bad34751afd46856d59f53910cfa6992ee9b7621205aa09c882a199da0"
+  },
+  "remainingSubstantiveDelta": "Recorder OUTPUTS verification selector bound to original already-declared fresh R2 path; other changes only package/hash bindings.",
+  "runtimeExecuted": false,
+  "wholeForwardInversePairs": [
+    "CONFIG.json",
+    "run-fullfunction.py",
+    "run-fullfunction.mjs",
+    "record-fullfunction.py"
+  ]
+}

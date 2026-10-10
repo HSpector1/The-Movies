@@ -1,0 +1,216 @@
+{
+  "schema": "1370-disposable-controls-source-pins/v1",
+  "status": "SOURCE_ONLY_UNRUN_EXECUTABLE_PAIR_WITH_PARENT_ROUTE_HELD",
+  "files": {
+    "metadata-controls.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/metadata-controls.mjs",
+      "bytes": 12326,
+      "sha256": "83f9b8a4f29811f7ebb03c715a7d0b73bbb09b4a112f45b842b0a4a5fbfec6f7"
+    },
+    "fixture-package.txt": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/fixture-package.txt",
+      "bytes": 18,
+      "sha256": "1239d4d885dcad42201a27ed9324f8f0f760b78700d8db9ced39a511cffe7eae"
+    },
+    "fixture-test.txt": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/fixture-test.txt",
+      "bytes": 118,
+      "sha256": "c6d96353ccf47203c6add9d79e6237ebf5b1bf427d28da5987a81584a4606071"
+    },
+    "TEMPLATES.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/TEMPLATES.json",
+      "bytes": 74,
+      "sha256": "507bfcb41469571b3688619ab8f6bb5f15db08106de9d45e74fdda2720fac1e5"
+    },
+    "CONFIG.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/CONFIG.json",
+      "bytes": 3637,
+      "sha256": "c3c58fc2b2ba77b0a2e92415f1e74d386cf899506b07aacbe677f2ad9b061c14"
+    },
+    "record-metadata.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/record-metadata.py",
+      "bytes": 14851,
+      "sha256": "6e1895ddcd544fb690dc2fbb31cd73cdf82f1d95592882de5c7a390aac0a8790"
+    },
+    "consume-controls.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/consume-controls.py",
+      "bytes": 14204,
+      "sha256": "495006dd626bbbb8888b51c300410a1b889b91f1a609567e457ba4703faee063"
+    },
+    "RECIPE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/RECIPE.json",
+      "bytes": 9918,
+      "sha256": "0998870942ff8f188fcc3ce14f853119a49f45b1e78d08ad18685f83b5ab432b"
+    },
+    "INVERSE-QUALIFIED-RECORDER.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/INVERSE-QUALIFIED-RECORDER.py",
+      "bytes": 14539,
+      "sha256": "dd76ceec50be94b50a4ff52c8a070ec9a691b9bbe781fabc1ac0914543bf0346"
+    },
+    "COMPLETE-RECORDER-INVERSE.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/COMPLETE-RECORDER-INVERSE.diff",
+      "bytes": 29963,
+      "sha256": "9e165525a2cfdbae18e348d0315cf6bf897d899ae6b6aca493e4c78490517135"
+    },
+    "LESSONS.txt": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/LESSONS.txt",
+      "bytes": 2741,
+      "sha256": "e4337ce97e99d088d84a856063f70f6fb0ee02480309e6840c325de116c6e7c4"
+    },
+    "REPORT.txt": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/REPORT.txt",
+      "bytes": 2493,
+      "sha256": "f8a35e01e2d0829a8faf15717d6cadee24385d35ea8f36a6935e60d45471a6c1"
+    },
+    "SOURCE-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/SOURCE-PROOF.json",
+      "bytes": 10998,
+      "sha256": "7d7fcc4c4c7d3a8d5a663cc80769d1779ebd612f8977649d9c6f11c26e2f0e1b"
+    },
+    "R1-CORRECTION.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/R1-CORRECTION.json",
+      "bytes": 4791,
+      "sha256": "b6396c1cc724c02cb82775c59e771a4d5fda70e8e63ee4ce56efbff564d89224"
+    },
+    "INVERSE-R1-CONTROLLER.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/INVERSE-R1-CONTROLLER.mjs",
+      "bytes": 12385,
+      "sha256": "5f3a387de558ef35ee1c69dbb46e941474c2113f08dcfaf6c66c2e9925abee80"
+    }
+  },
+  "roles": {
+    "controller": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/metadata-controls.mjs",
+      "bytes": 12326,
+      "sha256": "83f9b8a4f29811f7ebb03c715a7d0b73bbb09b4a112f45b842b0a4a5fbfec6f7"
+    },
+    "config": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/CONFIG.json",
+      "bytes": 3637,
+      "sha256": "c3c58fc2b2ba77b0a2e92415f1e74d386cf899506b07aacbe677f2ad9b061c14"
+    },
+    "recorder": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/record-metadata.py",
+      "bytes": 14851,
+      "sha256": "6e1895ddcd544fb690dc2fbb31cd73cdf82f1d95592882de5c7a390aac0a8790"
+    },
+    "consumer": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/consume-controls.py",
+      "bytes": 14204,
+      "sha256": "495006dd626bbbb8888b51c300410a1b889b91f1a609567e457ba4703faee063"
+    },
+    "recipe": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/RECIPE.json",
+      "bytes": 9918,
+      "sha256": "0998870942ff8f188fcc3ce14f853119a49f45b1e78d08ad18685f83b5ab432b"
+    },
+    "proof": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/SOURCE-PROOF.json",
+      "bytes": 10998,
+      "sha256": "7d7fcc4c4c7d3a8d5a663cc80769d1779ebd612f8977649d9c6f11c26e2f0e1b"
+    },
+    "publicSources": [
+      {
+        "bytes": 4995,
+        "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/package.json",
+        "sha256": "6ea35e567829660d9832744086c18526b9ddebd5358c4a0cadfb0a355925f917"
+      },
+      {
+        "bytes": 4893,
+        "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/package.json",
+        "sha256": "e9802045cdc313b6da55ec2e2dd79312074645816089d64f6021f567c10c0a03"
+      },
+      {
+        "bytes": 2086035,
+        "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js",
+        "sha256": "bfa94186daff535fefdf286088c1588fad6b02c01ef11cd3b42a6cb3e4c90767"
+      },
+      {
+        "bytes": 358970,
+        "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/cli-api.DqsSTaIi.js",
+        "sha256": "46b1b0faedd7050c3e3132eae84f1803f05a046fe1aecf7a6d09f0ab86f11d5b"
+      }
+    ],
+    "installedCli": {
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs",
+      "bytes": 43,
+      "sha256": "39db22f579acf5639bbb17a261408debbde03f4692c0c439e77e7f13aeba74d6"
+    },
+    "tools": {
+      "helper": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "bytes": 3361,
+        "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+      },
+      "python": {
+        "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "bytes": 50472,
+        "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+      },
+      "node": {
+        "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "bytes": 115440320,
+        "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+      }
+    },
+    "r1Correction": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/R1-CORRECTION.json",
+      "bytes": 4791,
+      "sha256": "b6396c1cc724c02cb82775c59e771a4d5fda70e8e63ee4ce56efbff564d89224"
+    }
+  },
+  "qualifiedRecorderPrecursor": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/record-pure-node.py",
+    "bytes": 14539,
+    "sha256": "dd76ceec50be94b50a4ff52c8a070ec9a691b9bbe781fabc1ac0914543bf0346"
+  },
+  "originalMetadataStop": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r6/READBACK.json",
+    "bytes": 11504,
+    "sha256": "1456317c3f33bdba89e30cef89a133a649c79517eed36dda43c6c5f67afe57f3"
+  },
+  "independentMechanismProposal": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-r6-config-write-independent-source-proposal-after-al-20261009-r2/PROPOSAL.json",
+    "bytes": 6167,
+    "sha256": "3341dff99805dcd8a793116cc6466439971e6589f3ebfbbc4b1956257b07fcb2"
+  },
+  "rootAdoptedDirection": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-CONFIG-WRITE-REPAIR-DIRECTION-ADOPTION.json",
+    "bytes": 1329,
+    "sha256": "1aba12bdc647b2a67d462e7e706657fce3b3dfdf3a534fe00e9923a27b8709a3"
+  },
+  "sourceOnlyChecks": {
+    "wholeRecorderInverseByteExact": true,
+    "allNonmainFunctionsAndOwnedChildByteExact": true,
+    "operationalRecorderMechanismsUnchanged": true,
+    "pinsSourceFilesOnly": true,
+    "noHashCycle": true,
+    "controllerWholeR1InverseByteExact": true,
+    "parentClockClaimCorrected": true,
+    "originalHomePreserved": true
+  },
+  "controlsExecuted": false,
+  "syntheticFixtureActualResult": null,
+  "futureAuthority": {
+    "operationalHead": null,
+    "independentSourceReview": null,
+    "rootOnceGrant": null,
+    "parentActualOutcome": null,
+    "independentObservedReview": null
+  },
+  "heldGaps": [
+    "Independent source receipt not yet supplied.",
+    "Actual concrete root parent binding is omitted/held; root must adapt the original direct-exec own-group wrapper contract with genuine external grant/current identity. Original parents do not supply an outer90 clock.",
+    "Current published operational HEAD, separate once grant and actual tool outcome all null.",
+    "All disposable RED/GREEN observations UNRUN; original M0 cause and repair still pending."
+  ],
+  "executionAuthorization": false,
+  "originalM0CauseAdmission": false,
+  "originalM0SourcePreservationAdmission": false,
+  "game": false,
+  "preservedR1SourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "bytes": 9806,
+    "sha256": "21de8c9e65a08a46ba946ea881ac0e6973b4ac83549db70f5ca333a4ba996ed2"
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "acceptedR3IndependentReview": {
+    "bytes": 25747,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-independent-source-review-after-al-20261009-r3/RECEIPT.json",
+    "sha256": "b2a2e12cb88992b695d3a5e355a1ac58a95698187b05c4f74fec045fd0065bb9"
+  },
+  "acceptedR3RootAdoption": {
+    "bytes": 1847,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-FULLBODY-R3-HELD-SOURCE-ADOPTION.json",
+    "sha256": "2d528f4e64c051e666f328acca7fa65bbdb65deea784fe89392862bde341eab4"
+  },
+  "acceptedR3SourcePins": {
+    "bytes": 10016,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/SOURCE-PINS.json",
+    "sha256": "2703e1453288f7fea1008757e921e9e62eda8ea4ac9130931f99e325baeee15f"
+  },
+  "actualExecutionPerformed": false,
+  "clockProof": "Original recorder child300 starts before fork/GO, active320, whole330 including cleanup/streams/result; Python shared300 covers prerequisites/two proofs/all3 phases; Node uses remaining Python deadline. No three independent300 clocks.",
+  "completeInversePairs": [
+    {
+      "basis": {
+        "bytes": 9385,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/BASE-R3-full-body-controls.ts.txt",
+        "sha256": "a74fd2342b7cc8b5cdb059acd187e68c49f9c6d9e35b46ceaf2166829d35e71c"
+      },
+      "completeForwardAndInverse": true,
+      "derivative": {
+        "bytes": 9487,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/FULL-BODY-CONTROLS-TEMPLATE.ts",
+        "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+      }
+    },
+    {
+      "basis": {
+        "bytes": 2528,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/BASE-R3-core.test.ts.txt",
+        "sha256": "b2af5a489d29cb285d89b37cedd3a87f5275f90cfdc46574a6b541fde51f25da"
+      },
+      "completeForwardAndInverse": true,
+      "derivative": {
+        "bytes": 3955,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/CORE-TEST-TEMPLATE.ts",
+        "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+      }
+    },
+    {
+      "basis": {
+        "bytes": 1016,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/BASE-R3-config.mjs.txt",
+        "sha256": "39036ee18c368b5166f1dc8ea191cf8bdffca6d2b1316e29aa4ec84590c39a96"
+      },
+      "completeForwardAndInverse": true,
+      "derivative": {
+        "bytes": 930,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/CONFIG-TEMPLATE.mts",
+        "sha256": "8be9467a794ddbd134dd04c4a92249c7e85e357ef96619562bd99f4ad10ecf5e"
+      }
+    },
+    {
+      "basis": {
+        "bytes": 16236,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/BASE-record-ordering-controls.py.txt",
+        "sha256": "ea6f813f5d732cf08277fd0ff60fa0f1074b9839419e55448fbba2c06afb7533"
+      },
+      "completeForwardAndInverse": true,
+      "derivative": {
+        "bytes": 16750,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/record-fullfunction.py",
+        "sha256": "da4a37273cd52ca0c5a9ae876e47d949b7b944a42fc9f3765b8d200db8091e3d"
+      }
+    }
+  ],
+  "directNodeEntryGate": "Same externalgrant/sourcepins-review/currenttypes-root/protection/artifactbound/originalcopiedsource/controllerPID-firstproof plus genuine observed parser-controls adoption before private imports.",
+  "downstreamJsonWrites": {
+    "Nodefinalreport": "three pinned core-template result objects contain only safe bounded bytecounts,status/errorstrings,booleans; roles and phase exits/times/treecounts safe; proof/root/type/firstProof BigInt-bearing objects remain validation-only.",
+    "Nodephasebinding": "operationalHead/sourceTree strings, sourceRoles byte counts within safe range,cap67108864,fixture path/bytes/hash and small phase labels; no proof/root/firstProof objects inserted.",
+    "OriginalAuthorityBytes": "All receipt/proof/packet source bytes remain untouched; parser retains exact values for validation only.",
+    "Purecontrolreport": "only ID/predicate/verdict strings plus safe casecount/sourcebytecounts/booleans; exact unsafe values asserted in memory, not serialized or silently stringified into authority artifacts.",
+    "PythonFIRST_PROOF_and_CONTROLLER_BINDING": "Python json.dumps preserves original arbitrary precision integer proof tokens."
+  },
+  "exactJsonDataScope": "Isolated pure exact-json.mjs: unsafe integer tokens BigInt, typed structural equality, duplicate keys/depth/trailing/invalidUTF8 rejected;32 finite purecontrols unrun. No general game serialization decoder.",
+  "executionAuthorization": false,
+  "fixtureSerializationSourceBasis": {
+    "encoding": "UTF-8 JSON.stringify",
+    "fixturesExplicitSyntheticVariants": 4,
+    "fixturesNaturalFields": 3,
+    "fullStateOccurrences": 10,
+    "naturalFields": 3,
+    "packetFiles": 1,
+    "retainedMeasuredFullstateSize": null
+  },
+  "originalSourcesUnmodified": true,
+  "proofReuse": {
+    "config": {
+      "bytes": 32755,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/CONFIG.json",
+      "sha256": "c40c0a34d07532d4690552318958029ec736d32283dcec59b0b33191bf82bc4c"
+    },
+    "functionSourcesUnchanged": true,
+    "historicalAuthorityGateBeforePrivateReads": true,
+    "onlyProofConfigRuntimeRebindings": [
+      "runId",
+      "laneLog"
+    ],
+    "runtimeLibraryExecutionOnly": true,
+    "source": {
+      "bytes": 44067,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py",
+      "sha256": "b9ff56da6524243c95045b0e09f25ca4ec5c8225bbdd3eb76820e75b928e350d"
+    },
+    "successfulCurrentTypesAdoptionAuthenticatedBeforePrivateReads": true,
+    "twoComplete1740FileNonrootMetadataAndDependencyScans": true
+  },
+  "publicCliSourceRoles": [
+    {
+      "bytes": 51638,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/cac.CB_9Zo9Q.js",
+      "sha256": "8481a51dbcf8c959b967c215620fc14bc4ef782aeef927dcab8671a9ab0d165f"
+    },
+    {
+      "bytes": 43,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs",
+      "sha256": "39db22f579acf5639bbb17a261408debbde03f4692c0c439e77e7f13aeba74d6"
+    },
+    {
+      "bytes": 201,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/cli.js",
+      "sha256": "88e96cc0817e9248dadf452c0db5f543dc25ec9ce1c801c2310ca3ac8ffdf48d"
+    }
+  ],
+  "recorderChangeProof": {
+    "bytes": 7062,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/RECORDER-CHANGE-PROOF.json",
+    "sha256": "e6a890840cb49ff0429eed409510664027a9c4ef8708de30cf845d02e4b09c39"
+  },
+  "schema": "1370-fullfunction-qualification-source-proof/v1",
+  "sourceMethod": "Finite named source reads, pure AST parsing and complete text projections. No source execution/imports/tests/private inventory/Git/process probes.",
+  "specificMutantPredicate": {
+    "actualUndefined": true,
+    "baselineMustPassFirst": true,
+    "builtinErrorType": "AssertionError",
+    "code": "ERR_ASSERTION",
+    "faultKind": "row-cap",
+    "fullControlBodyTagDelta": "Only annotate original assert.throws failure with exact current fault kind, then rethrow. Original game candidate and mutant bytes unchanged.",
+    "message": "Missing expected exception: actual recorder failure must cross actual submitProposal catch",
+    "mutantRole": {
+      "bytes": 119464,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/mutants/typed-propagation-removed-talentMarket.ts",
+      "sha256": "074d0cfd58e245bb35883b79bf72dda428884fc2bb49ea918da6f2320c235ef3"
+    },
+    "operator": "throws",
+    "realGameplayFunction": "advanceTalentMarketWeek actual submitProposal typed catch",
+    "stackSourceIncludes": "/controls/full-body-controls.ts",
+    "unknownLoaderGameplayErrorNeverRed": true
+  }
+}

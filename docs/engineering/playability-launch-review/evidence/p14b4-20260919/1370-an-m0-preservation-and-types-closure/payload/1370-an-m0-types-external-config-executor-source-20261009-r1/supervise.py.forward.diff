@@ -1,0 +1,40 @@
+--- /Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BASELINE-R6-supervise.py	2026-10-09 22:44:59.000000000 -0500
++++ /Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/supervise.py	2026-10-09 22:54:59.000000000 -0500
+@@ -4,22 +4,22 @@
+ import hashlib,json,math,os,pathlib,selectors,shutil,signal,stat,subprocess,sys,time
+ S=pathlib.Path('/Users/zacheryspector/studio-scratch')
+ REPO=pathlib.Path('/Users/zacheryspector/The-Movies-headless-program')
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6')
+-RESULT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r3/20261009-m0-types-after-al-r3.RECORDER-RESULT.json')
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1')
++RESULT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-recorder-results-20261009-r1/20261009-m0-types-external-after-an-r1.RECORDER-RESULT.json')
+ BOOTSTRAP=P/'BOOTSTRAP.py'
+-BOOTSTRAP_SHA='d2f66d1b78b3d09ad0eb897ac4b0d2fdfbaf0ab6656f8aa106c97aecabb6ea88'
+-RUNNER_SHA='5c18ad22e7b78d978c59eace50d5e4349ea415efa4ebf5840860e75561fa2e4b'
++BOOTSTRAP_SHA='8e4af6c0f9d92167ab1768368a443403abdded854c9eedc039c378285b86422a'
++RUNNER_SHA='8fd2ad12b9d7751b486687df2d4887831254501f5866795bcb4d16ae7e38e466'
+ AUTHORITY=globals()['_AUTHORITY']
+ CONTEXT=pathlib.Path(globals()['_CONTEXT_PATH'])
+ CONTEXT_SHA=globals()['_CONTEXT_SHA']
+ HELPER=globals()['_HELPER']
+-HEAD='8cb704e2f18e6a635943893422c9cfdc206e106d'
++HEAD='7087f116cf998fd86e33fb8e004df628e0686dbd'
+ SRC='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554'
+ PRODUCTION_REF='refs/heads/wip/headless-program-20260916-ts'
+ MAIN_REF='refs/heads/main'
+ LOCAL_MAIN_REF='refs/remotes/origin/main'
+ MAIN_OID='c902a704eb948cc576083d0973c8c23e59937dc1'
+-LANE_LOG='c0-m0-types-20261009-m0-types-after-al-r3.lane.log'
++LANE_LOG='c0-m0-types-20261009-m0-types-external-after-an-r1.lane.log'
+ ACTIVE=320
+ LIMIT=330
+ START=globals()['LAUNCH_START']
+@@ -252,7 +252,7 @@
+  failure=None
+  try:
+   preflight()
+-  need(AUTHORITY['configSha256']=='f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7','exact M0 source config')
++  need(AUTHORITY['configSha256']=='224b8f1614208215cb07993fc4b015d8438413e95b805c7360105bee0575b154','exact M0 source config')
+   bootstrap_source=read_pin(BOOTSTRAP,100000,BOOTSTRAP_SHA).decode('utf-8')
+   need(shutil.disk_usage(S).free>=3*1024**3,'3 GiB floor')
+   clean={k:v for k,v in os.environ.items() if not k.startswith('GIT_')}

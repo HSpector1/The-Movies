@@ -1,0 +1,11 @@
+{
+  "executionAuthorization": false,
+  "payloadCount": 11,
+  "readbackAllPayloadsVerified": true,
+  "schema": "1370-fresh-disk-recovery-postflight-source-seal/v1",
+  "sourceManifest": {
+    "bytes": 3328,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r7/SOURCE-PINS.json",
+    "sha256": "827e809acded4d54a4d69ed34a1dfb06f3b31f5ea6ce2ddcd5f732abb1681342"
+  }
+}

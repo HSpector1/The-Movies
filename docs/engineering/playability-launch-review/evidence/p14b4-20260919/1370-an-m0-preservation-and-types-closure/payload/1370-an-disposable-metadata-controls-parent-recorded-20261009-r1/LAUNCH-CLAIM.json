@@ -1,0 +1,76 @@
+{
+  "acPower": true,
+  "actualOwnGroupConfirmed": true,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-metadata-controls-lane-after-al-20261009-r2/controls.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/record-metadata.py",
+    "verification"
+  ],
+  "combinedPreparationRuntimeDeadline": null,
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2",
+  "executionAuthorization": false,
+  "freeBytes": 3966967808,
+  "grant": {
+    "bytes": 4771,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/GRANT.json",
+    "sha256": "77db69b8567732fcf70dbc432f007c9571fe12cca7ddd706363fad5170eb64e7"
+  },
+  "helperPgid": 42574,
+  "helperPid": 42574,
+  "helperSid": 42574,
+  "operational": {
+    "advertisedMainRef": "refs/heads/main",
+    "branch": "wip/headless-program-20260916-ts",
+    "head": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+    "localMainRef": "refs/remotes/origin/main",
+    "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "trackingWorkingHead": "7087f116cf998fd86e33fb8e004df628e0686dbd"
+  },
+  "parentAdapterSourcePins": {
+    "bytes": 2539,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "16a42f267504d4b7414301d9a464c27563269db5d5d9a761bdd3f4dd9878dc76"
+  },
+  "parentAdapterSourceReview": {
+    "bytes": 10544,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "97aa5fc2914c5f648a2ede322e2286fb14f7a09820cdf040a989c0879d2f915d"
+  },
+  "preparationDeadlineSeconds": 60,
+  "preparationElapsedSeconds": 1.9852769849967444,
+  "runtimeBounds": {
+    "activeRecorderSeconds": 75,
+    "aggregateControllerSeconds": 60,
+    "ledgerEachBytes": 65536,
+    "nestedStreamsEachBytes": 1048576,
+    "parentLaunchClock": null,
+    "preparationAlarmIfUsed": {
+      "canceledBeforeExec": true,
+      "includedInRecorderClock": false,
+      "seconds": 60
+    },
+    "producerStreamsEachBytes": 1048576,
+    "status": "PROPOSED_SAME_QUALIFIED_MECHANISMS_NEW_WORKLOAD_UNRUN",
+    "wholeRecorderSeconds": 90
+  },
+  "schema": "1370-disposable-controls-launch-claim/v1",
+  "scope": "Disposable fixture behavior only. No original M0 source/dependency/private inventory or preservation acceptance.",
+  "sourcePins": {
+    "bytes": 11166,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "bc7fcfc7bcd4ab5e4472733260e1ee5f89658c827a09412d7f98d60b10ffd573"
+  },
+  "sourceReview": {
+    "bytes": 9283,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "dd835fc294482503f5845ca658dd7ba8431255a3bbd36cb4722edf14308ab578"
+  },
+  "unexpectedHelperWaitIsStop": true
+}

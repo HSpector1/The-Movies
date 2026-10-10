@@ -1,0 +1,72 @@
+{
+  "decision": "HELD_SOURCE_ONLY_DEFINITIVE_OPERATIONAL_REPRESENTATION_AMENDMENT_PROPOSAL",
+  "design": {
+    "bytes": 8421,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-lossless-trace-representation-design-20261010-r3/DESIGN.txt",
+    "sha256": "95b3e3c86752583bd67a68975a6fa2ea615a64940d2529a0f323c2a60e1c8675"
+  },
+  "exactHeapByteGuarantee": null,
+  "executionAuthorization": false,
+  "explicitAmendmentRequired": true,
+  "fitPrediction": null,
+  "format": {
+    "compressionOutputLimit": 131072,
+    "decodeOutputLimit": 65536,
+    "encodedCap": 2097152,
+    "expandedRowBytes": 65536,
+    "frameHeaderBytes": 9,
+    "headerBytes": 16,
+    "logicalEntries": 16384,
+    "maximumConcurrentDecodedRows": 2,
+    "retainedEncodedByteFormula": "16 + sum(ownedFrame.byteLength)",
+    "retainedIndexArrays": 0
+  },
+  "implementationPerformed": false,
+  "observerLimitsChanged": false,
+  "oldExpandedTotalPredicatePreserved": false,
+  "publicApiExcerpt": {
+    "bytes": 1516,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-lossless-trace-representation-design-20261010-r3/PUBLIC-CODEC-API.txt",
+    "sha256": "b5cf022f6f30a035ecd9d4af36b7c97565b509bedb571aadd9456cc5991a0a45"
+  },
+  "runtimeApiEnforcementObserved": false,
+  "runtimePerformed": false,
+  "schema": "1370-fullfunction-lossless-trace-representation-design/v1",
+  "sourceInputs": {
+    "actualBaselineReport": {
+      "bytes": 2543,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r4/baseline.report.json",
+      "sha256": "f737da2c7a1a7de4dd6fdfd80480ae6156eceed2fda128682e920633640e240e"
+    },
+    "controls": {
+      "bytes": 9539,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r11/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "9cff56902912ab029af4a4a73398bb314e28593e59823a09acdab5a9b26ea6ca"
+    },
+    "ordering": {
+      "bytes": 11339,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ordering.ts",
+      "sha256": "e40ea62523d13e1c74361766757b85faa14acdb889bc57f7ae452449a361bb1d"
+    },
+    "probe": {
+      "bytes": 3016,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r11/m0WiringProbe.ts",
+      "sha256": "417389eef7b3295a19cde420f8561e638f028b979c4e031b25f89f8d38a2ac39"
+    },
+    "producerCatch": {
+      "bytes": 119434,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/talentMarket.ts",
+      "sha256": "ce06afb3069c83dc1d9ee1fb8a03b7f1609c0db41fc3ea8078b455061455ed2d"
+    },
+    "publicCodecDeclarations": {
+      "bytes": 22874,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@types/node/zlib.d.ts",
+      "sha256": "c9a2daf6cd1eb854cd5b9e424247c5e306692055738c2effd35f7871d942b76e"
+    }
+  },
+  "supersedes": {
+    "bytes": 2334,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-lossless-trace-representation-design-20261010-r2/RECEIPT.json",
+    "sha256": "e600d37df9fb52e43590924e4df534c1f3b58a3bef51feee65c307f128e2a0fa"
+  }
+}

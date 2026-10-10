@@ -1,0 +1,36 @@
+--- before/FULL-BODY-CONTROLS-TEMPLATE.ts
++++ after/FULL-BODY-CONTROLS-TEMPLATE.ts
+@@ -40,7 +40,7 @@
+   }
+   if(capture)assertFullProjectionOrdering(probe,market,feasibility)
+   return{after,probe,market,feasibility}
+- }finally{try{m0WiringProbe.end()}finally{m0WiringTestApi.reset()}}
++ }finally{m0WiringProbe.end();m0WiringTestApi.reset()}
+ }
+ function pair(boundary:Boundary){
+  const off=arm(boundary,false),on=arm(boundary,true)
+@@ -108,7 +108,7 @@
+     const trace=m0WiringProbe.end();assert.equal(trace.overflow,false)
+     assert.equal(drainM0MarketDecisionRows().length,0,'trigger-specific off-target filter')
+     outcomes.push({value,trace,rngState:state.rngState})
+-   }finally{try{m0WiringProbe.end()}finally{m0WiringTestApi.reset()}}
++   }finally{m0WiringProbe.end();m0WiringTestApi.reset()}
+   }
+   assert.deepEqual({value:outcomes[0].value,rngState:outcomes[0].rngState},{value:outcomes[1].value,rngState:outcomes[1].rngState})
+   assertCallTraceEqual(outcomes[0].trace,outcomes[1].trace,'trigger helper/RNG trace')
+@@ -127,7 +127,7 @@
+    const trace=m0WiringProbe.end();assert.equal(trace.overflow,false)
+    assert.deepEqual(trace.faultReached,{kind,phase:'draftPrice'})
+    callsInOrder(traceSequence(()=>trace.calls()).map(c=>c.name),['advanceTalentMarketWeek','submitProposal','proposalDraft'])
+-  }finally{try{m0WiringProbe.end()}finally{m0WiringTestApi.reset()}}
++  }finally{m0WiringProbe.end();m0WiringTestApi.reset()}
+  }
+  m0WiringTestApi.reset();m0WiringProbe.begin(true,'ordinary-refusal')
+  try{
+@@ -137,5 +137,5 @@
+   const rows=drainM0MarketDecisionRows() as {phase:string;detail:{outcome?:string;refusal?:string}}[]
+   assert.ok(rows.some(row=>row.phase==='issuerAttempt'&&row.detail.outcome==='SUBMISSION_REFUSED'&&
+    row.detail.refusal==='M0 wiring ordinary submission refusal fixture'),'ordinary gameplay refusal stays a refusal')
+- }finally{try{m0WiringProbe.end()}finally{m0WiringTestApi.reset()}}
++ }finally{m0WiringProbe.end();m0WiringTestApi.reset()}
+ }

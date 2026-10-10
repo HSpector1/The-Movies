@@ -1,0 +1,5 @@
+The source-only overflow diagnostic proposal is accepted as held. All 12 payload roles and named original/actual roles authenticate; both complete forward/inverse source pairs reconstruct exactly.
+
+The three original helper-probe refusal thresholds, fatal completeness assertion, calls/evaluations, gameplay faults and reset behavior remain unchanged. firstOverflow records only the first rejected row's predicate booleans and scalar counts/bytes; its scalar JSON is added to the existing fatal assertion. This is distinct from the user observer's 512 rows /16KiB rows /2MiB aggregate limits: the helper probe remains 16384 entries /64KiB rows /2MiB aggregate.
+
+Actual R3 generation passed and produced the authenticated natural196/197/208 packet. Baseline failed its first off(author196) helper-probe completeness assertion. The threshold combination and counts were not captured in that attempt. No baseline, catch-mutant RED or complete qualification is admitted. No caps, clocks or scientific criteria are waived, and no automatic retry or replay is authorized by this held proposal.

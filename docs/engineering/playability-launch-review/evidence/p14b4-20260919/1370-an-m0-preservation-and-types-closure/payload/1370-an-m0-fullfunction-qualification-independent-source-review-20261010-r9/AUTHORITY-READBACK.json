@@ -1,0 +1,22 @@
+{
+  "candidateImported": false,
+  "privateInventory": false,
+  "roles": {
+    "CONFIG.json": {
+      "bytes": 32755,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/CONFIG.json",
+      "sha256": "c40c0a34d07532d4690552318958029ec736d32283dcec59b0b33191bf82bc4c"
+    },
+    "OBSERVED-COPY-ADOPTION.json": {
+      "bytes": 1860,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/OBSERVED-COPY-ADOPTION.json",
+      "sha256": "ec17dc69df4c1b8c3e5af8ef88d43fc4bceea82b2278325ec14cf2398651a8dd"
+    },
+    "runner.py": {
+      "bytes": 44067,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py",
+      "sha256": "b9ff56da6524243c95045b0e09f25ca4ec5c8225bbdd3eb76820e75b928e350d"
+    }
+  },
+  "schema": "1370-finite-retained-source-bytes-readback/v1"
+}

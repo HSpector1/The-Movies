@@ -1,0 +1,101 @@
+{
+  "files": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2/runtime/core.test.ts",
+      "bytes": 3955,
+      "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2/runtime/fixtures.ts",
+      "bytes": 6863,
+      "sha256": "5ff38007b8126571e9fa84a9efe94f35866be409d3c35b22f9c90b5ce3e0315d"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2/runtime/ordering.ts",
+      "bytes": 11339,
+      "sha256": "e40ea62523d13e1c74361766757b85faa14acdb889bc57f7ae452449a361bb1d"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2/runtime/controls/full-body-controls.ts",
+      "bytes": 9487,
+      "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2/runtime/config.mts",
+      "bytes": 930,
+      "sha256": "8be9467a794ddbd134dd04c4a92249c7e85e357ef96619562bd99f4ad10ecf5e"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/CORE-TEST-TEMPLATE.ts",
+      "bytes": 3955,
+      "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "bytes": 9487,
+      "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/CONFIG-TEMPLATE.mts",
+      "bytes": 930,
+      "sha256": "8be9467a794ddbd134dd04c4a92249c7e85e357ef96619562bd99f4ad10ecf5e"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/canonical-resolver.mjs",
+      "bytes": 2363,
+      "sha256": "429cc7b8ad0f6be2f851a2f10ef431d63192b912e0864c7602fd6072c4ae14fd"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/mutants/typed-propagation-removed-talentMarket.ts",
+      "bytes": 119464,
+      "sha256": "074d0cfd58e245bb35883b79bf72dda428884fc2bb49ea918da6f2320c235ef3"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/talentMarket.ts",
+      "bytes": 119434,
+      "sha256": "ce06afb3069c83dc1d9ee1fb8a03b7f1609c0db41fc3ea8078b455061455ed2d"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/opportunityPromises.ts",
+      "bytes": 25031,
+      "sha256": "90d49b0c76553a06d9c0bbabe568b8624270fe939b8e502a26fac9adc99065ee"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/promises.ts",
+      "bytes": 113287,
+      "sha256": "0e14a0056d8d70ed2b93d217bc0829c6284142fd9ed93033ce8880e56691b6cb"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/employment.ts",
+      "bytes": 28353,
+      "sha256": "07262d62f6c6de0a849e5bfea124d01be2dbcbbb7edb7b3b6ead32025318b75a"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/rng.ts",
+      "bytes": 8719,
+      "sha256": "04a835a5f63bf64994d01608423876b8d3a0e2862c8da095212848683becf9e5"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/m0WiringProbe.ts",
+      "bytes": 2457,
+      "sha256": "3a3d75e5d849a94e14806239566bc72ca10af497bca71925a6f59d7db5714a85"
+    }
+  ],
+  "parser": {
+    "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/lib/typescript.js",
+    "bytes": 9112572,
+    "sha256": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675"
+  },
+  "parserPackage": {
+    "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/package.json",
+    "bytes": 3620,
+    "sha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+  },
+  "parserVersion": "5.9.3",
+  "node": {
+    "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+    "bytes": 115440320,
+    "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+  },
+  "purpose": "Parse-only finite public/retained source inputs; no generated module imports/exec, no private graph traversal."
+}

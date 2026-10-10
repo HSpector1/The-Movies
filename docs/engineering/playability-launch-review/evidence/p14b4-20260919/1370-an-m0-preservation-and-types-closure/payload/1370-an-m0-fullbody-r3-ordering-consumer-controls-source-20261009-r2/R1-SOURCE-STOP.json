@@ -1,0 +1,17 @@
+{
+  "authentic": "5.9.3",
+  "authenticPackage": {
+    "bytes": 3620,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/package.json",
+    "sha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+  },
+  "executionPerformed": false,
+  "guessed": "5.8.3",
+  "r1Preserved": true,
+  "r1SourcePins": {
+    "bytes": 1835,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "f663f3926f1747ad52dbd697422910c530a2e3227d02a9418eeba13492da8b75"
+  },
+  "status": "STOP_SOURCE_GUESSED_TYPESCRIPT_VERSION"
+}

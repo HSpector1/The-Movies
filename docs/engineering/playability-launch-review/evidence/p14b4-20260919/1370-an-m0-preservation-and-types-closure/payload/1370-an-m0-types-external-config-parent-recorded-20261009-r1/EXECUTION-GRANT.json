@@ -1,0 +1,19 @@
+{
+  "configSha256": "224b8f1614208215cb07993fc4b015d8438413e95b805c7360105bee0575b154",
+  "contextWithoutGrantSha256": "32969276118e09072fd227797bebacfaf8c4f8919d0693f097bd19614882465c",
+  "currentProtectionSha256": "5980e69d3e2962f068f10fa3217caa45f3ff752cc93a5064eb0637f54a2439d0",
+  "executionAuthorization": true,
+  "gameAuthorization": false,
+  "ownedIdentity": {
+    "bytes": 468,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r1/OWNED-IDENTITY.json",
+    "sha256": "c4d89d5c3db03b7e45e74bbc4c7bd15d510d7800b2849726301ac54521f171da"
+  },
+  "parentIssuedViaReviewedOnceOnlyLauncher": true,
+  "parentSpecSha256": "4c65175d32b2828181a7869a29020f4f0d91360d06436c4575d344bdd7d04626",
+  "postR6RootAdoptionSha256": "5b5e062b8c5ac12bc70aa5ccb46ad101340ad692cdf0147ea44890882c0f44e1",
+  "runId": "20261009-m0-types-external-after-an-r1",
+  "schema": "1370-root-m0-types-execution-grant/v1",
+  "scope": "M0_FOUR_COMMAND_TYPES_AND_DIAGNOSTIC_COLLECTION_ONLY",
+  "sourceReviewSha256": "fcb639f515966761dcf3dd7442b38a8da84c96f4dd0c0905b07bcaa8b0303c1f"
+}

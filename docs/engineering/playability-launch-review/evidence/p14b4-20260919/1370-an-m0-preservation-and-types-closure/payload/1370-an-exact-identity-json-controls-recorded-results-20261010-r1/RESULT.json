@@ -1,0 +1,32 @@
+{
+  "actualChildExit": 0,
+  "boundsSeconds": {
+    "active": 320,
+    "node": 300,
+    "whole": 330
+  },
+  "childPid": 40853,
+  "configSha256": "501a9f61f9e305b7b97e5833f953974495c8cb3b5eaee7975962b744942d768e",
+  "controlsResultPath": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-results-20261010-r1/CONTROLS-RESULT.json",
+  "elapsedSeconds": 0.9883989310037578,
+  "executionAuthorization": false,
+  "game": false,
+  "groupClear": true,
+  "mode": "verification",
+  "ownedPgid": 40853,
+  "pgidConfirmed": true,
+  "sanitizedEnvironment": [
+    "NODE_OPTIONS",
+    "NODE_PATH"
+  ],
+  "schema": "1370-exact-identity-json-controls-recorder/v1",
+  "sourceOrGameplayAdoption": false,
+  "startupOwnedBeforeExec": true,
+  "status": "EXACT_IDENTITY_JSON_CONTROLS_COMPLETE_UNADOPTED",
+  "stderrBytes": 0,
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutBytes": 4818,
+  "stdoutSha256": "5c665f43d6da0010bddf96022fd378f0e14e898914531823f134e491e18aef0f",
+  "timedOut": false,
+  "utc": "2026-10-10T05:11:45.253753+00:00"
+}

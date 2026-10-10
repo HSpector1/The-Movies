@@ -1,0 +1,26 @@
+{
+  "schema": "1370-an-disk-stop-initial-observations/v1",
+  "scope": "Actual post-stop disk/swap and previously approved cache sizes only. No claim that swap growth was directly traced during compilation.",
+  "actualToolResults": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "8a2619",
+        "wall_time_seconds": 0.78341013,
+        "exit_code": 0,
+        "original_token_count": 350,
+        "output": "Filesystem   1024-blocks     Used Available Capacity iused    ifree %iused  Mounted on\n/dev/disk1s1   118284248 93181292   2771052    98% 1012201 27710520    4%   /System/Volumes/Data\nvm.swapusage: total = 3072.00M  used = 1745.25M  free = 1326.75M  (encrypted)\nMach Virtual Memory Statistics: (page size of 4096 bytes)\nPages free:                              158184.\nPages active:                            472601.\nPages inactive:                          542694.\nPages speculative:                        33573.\nPages throttled:                              0.\nPages wired down:                        392966.\nPages purgeable:                           1577.\n\"Translation faults\":                1548492525.\nPages copy-on-write:                  376411693.\nPages zero filled:                    310068533.\nPages reactivated:                     20328657.\nPages purged:                            774156.\nFile-backed pages:                       318426.\nAnonymous pages:                         730442.\nPages stored in compressor:             1649872.\nPages occupied by compressor:            496852.\nDecompressions:                        12288267.\nCompressions:                          16607962.\nPageins:                               25033677.\nPageouts:                                166721.\nSwapins:                                 211621.\nSwapouts:                                652796.\n"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "chunk_id": "2a04b6",
+        "wall_time_seconds": 1.079163849,
+        "exit_code": 1,
+        "original_token_count": 109,
+        "output": "du: /Users/zacheryspector/Library/Caches/com.google.Chrome: No such file or directory\n187912\t/Users/zacheryspector/Library/Caches/Google\n454520\t/Users/zacheryspector/Library/Application Support/Code/CachedExtensionVSIXs\n24264\t/Users/zacheryspector/Library/Application Support/Code/logs\n67796\t/Users/zacheryspector/Library/Application Support/Google/Chrome/Default/Service Worker/CacheStorage\n63500\t/Users/zacheryspector/.npm/_cacache\n"
+      }
+    }
+  ]
+}

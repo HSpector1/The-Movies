@@ -1,0 +1,29 @@
+{
+  "actualControlsRun": false,
+  "executionAuthorization": false,
+  "finding": "Proposed recipe requires an already-qualified aggregate90-second parent orchestrator. The named original qualified parent mechanism direct-execs and does not implement such a separate outer clock. Original recorder implements child60/active75/whole90 starting in its own main. A new stronger parent promise is not an inherited requirement.",
+  "oldR6StopPreserved": true,
+  "originalQualifiedWrapper": {
+    "bytes": 6244,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/launch-focused-controls.py",
+    "sha256": "fa5621d99981397b0c3d669056ea2c375a4dad55de798b5a26ef07cf997539b1"
+  },
+  "originalRootLauncher": {
+    "bytes": 3199,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_b109_controls_once.py",
+    "sha256": "4f1bb0d52c5dc4bf04e0aea6c6e313016be1fda00d9fe52653b59ba087c75c51"
+  },
+  "recipe": {
+    "bytes": 9497,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r1/RECIPE.json",
+    "sha256": "1aabfb01a918ff3aecbb791b26874e6ca208a9cb70b02e2def04127168987b92"
+  },
+  "requiredRepair": "Preserve R1 and create a fresh recipe using actual original phases and ownership. Keep one aggregate child60/active75/whole90. If preparation is bounded, name its separate clock and cancel it before unchanged runtime; do not invent combined90 or extra outer watchdog. Review a concrete minimal direct-exec parent adapter before any separate grant.",
+  "schema": "1370-an-root-proposed-parent-clock-finding/v1",
+  "sourcePins": {
+    "bytes": 9806,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "21de8c9e65a08a46ba946ea881ac0e6973b4ac83549db70f5ca333a4ba996ed2"
+  },
+  "status": "SOURCE_PROPOSAL_HELD_NO_RUNTIME"
+}

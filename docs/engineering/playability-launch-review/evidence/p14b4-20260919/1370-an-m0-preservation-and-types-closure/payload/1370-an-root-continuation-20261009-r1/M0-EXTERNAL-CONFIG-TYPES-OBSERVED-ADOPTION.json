@@ -1,0 +1,116 @@
+{
+  "actualTool": {
+    "bytes": 1212,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r3/ACTUAL-TOOL.json",
+    "sha256": "277ab7570f1c6276746681cfb650e08e2f94aeaa9c02c9080720199df14626ff"
+  },
+  "collection": {
+    "bytes": 238,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3/collection.json",
+    "sha256": "5e6d1f48f5aa9721c571e0e3d6429a5e1041760e49efa3837346dd5a89050a3a"
+  },
+  "collectionAccepted": true,
+  "currentProtection": {
+    "bytes": 3294,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-CURRENT-EXTERNAL-CONFIG-TYPES-PROTECTION.json",
+    "sha256": "5980e69d3e2962f068f10fa3217caa45f3ff752cc93a5064eb0637f54a2439d0"
+  },
+  "executionAuthorization": false,
+  "freshDependencyProof": {
+    "contentAndMetadataSha256": "a06e929a60a5ede6ce0d72467d4d587e50d1c4fa3788bee3d07f1ea3388cd21d",
+    "contentBytes": 348223802,
+    "entries": 12484,
+    "rootDevice": 16777220,
+    "rootIdentity": [
+      16777220,
+      158487026,
+      16877,
+      154,
+      4928,
+      1790738039503311431,
+      1790738039503311431
+    ],
+    "rootInode": 158487026
+  },
+  "freshSourceProof": {
+    "dependencyLink": [
+      16777220,
+      166769275,
+      41408,
+      1,
+      62,
+      1791577446298712967,
+      1791577446298712967,
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    ],
+    "fileProofDigestSha256": "fbbfed3ec13da5618a0194204e2f6c8a87eebb5ee22102707d466340fbe6e1e0",
+    "historicalRootSubstitutedMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "mirrorBytes": 119393120,
+    "mirrorFiles": 1740,
+    "mirrorRootIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791600924862151724,
+      1791600924862151724
+    ],
+    "nonrootMetadataSha256": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
+    "physicalMetadataSha256": "12c3dd50b99860c1c4e56ee98488d5f04613b37c93496d0257cc560a4fb83038",
+    "traversedEntries": 1853
+  },
+  "fullPostflightActualTool": {
+    "bytes": 894,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-fullpostflight-parent-recorded-20261009-r3/ACTUAL-TOOL.json",
+    "sha256": "d0757dbe696c98b990cbd488548c85cdfdff018d880c2614326b393665abf6d3"
+  },
+  "fullPostflightReadback": {
+    "bytes": 4798,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-fullpostflight-parent-recorded-20261009-r3/READBACK.json",
+    "sha256": "d9e54a27bd9c43e26792997b45d3771dd831cbd875d2555e0773278d52b2c3b4"
+  },
+  "fullPostflightSnapshot": {
+    "bytes": 8847484,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r3/SNAPSHOT.json",
+    "sha256": "0700ce99c57f33956c3fb1b5f26d3c6e28e6e323551fb1f6f084db2f9c370dff"
+  },
+  "fullProtectedPostflightAccepted": true,
+  "game": false,
+  "historicalRootUnchanged": false,
+  "independentObservedReview": {
+    "bytes": 27172,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-independent-observed-review-20261009-r3/RECEIPT.json",
+    "sha256": "aa9b78e2591dfba86233b7c216a85f3eff89088444c2fd138d4c08bc37c8df87"
+  },
+  "originalR1DiskStopPreserved": true,
+  "originalR6StopPreserved": true,
+  "postR6RootAdoption": {
+    "bytes": 4446,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-POST-R6-PRESERVATION-DIAGNOSTIC-OBSERVED-ADOPTION.json",
+    "sha256": "5b5e062b8c5ac12bc70aa5ccb46ad101340ad692cdf0147ea44890882c0f44e1"
+  },
+  "preflightObservedAdoption": {
+    "bytes": 3829,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-TYPES-RETRY-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "b32e06dad9a1da9df311dd85c7372fb22c7b8a717f4ac488ed79867da5a1f256"
+  },
+  "productionHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "protectedFreezeContinues": true,
+  "readback": {
+    "bytes": 10149,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r3/READBACK.json",
+    "sha256": "e02e9bd9313b48207bfdb4de7538a16cb2c3ed9ed3075108a3a8a507a497d146"
+  },
+  "result": {
+    "bytes": 31642,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3/RESULT.json",
+    "sha256": "86c8f171813998d6f1a4b710a558381bd5e2d88058bc4d29a14e8c7c3625ab8f"
+  },
+  "schema": "1370-root-m0-external-config-types-observed-adoption/v1",
+  "scope": "Fresh R3 M0 root and UI type checks, exact one-test collection and full protected preservation only. Collection did not execute the diagnostic or gameplay. Historical failures remain failures.",
+  "soleLaneReleased": true,
+  "status": "ROOT_ADOPTED_M0_EXTERNAL_CONFIG_TYPES_AND_COLLECTION_WITH_FULL_POSTFLIGHT",
+  "typesAccepted": true
+}

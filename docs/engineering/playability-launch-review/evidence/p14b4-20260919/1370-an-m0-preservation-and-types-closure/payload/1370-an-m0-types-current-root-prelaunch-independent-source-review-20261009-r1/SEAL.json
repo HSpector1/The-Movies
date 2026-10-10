@@ -1,0 +1,23 @@
+{
+  "schema": "1370-independent-current-am-prelaunch-source-review-seal/v1",
+  "decision": "ACCEPT_STATIC_CURRENT_AM_ORIGINAL_M0_PRELAUNCH_SOURCE_ONLY",
+  "receipt": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-independent-source-review-20261009-r1/RECEIPT.json",
+    "bytes": 7652,
+    "sha256": "6f7e329107fb6942580553a40ea7395695b090ef32d256e69b59a708baf672b9"
+  },
+  "report": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-independent-source-review-20261009-r1/REPORT.txt",
+    "bytes": 733,
+    "sha256": "796bf79a0f8553ed50b1dafac9ead273c52a4e73dee30d0e7acb3af707aab015"
+  },
+  "sourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/SOURCE-PINS.json",
+    "bytes": 3506,
+    "sha256": "7015e2de01cb9964fcc6e362338461e9d8c3e5d6ab81bd618f67d04b4e51c455"
+  },
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "fileModes": "0444",
+  "directoryMode": "0555"
+}

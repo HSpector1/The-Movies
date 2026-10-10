@@ -1,0 +1,16 @@
+{
+  "futureActualRouteReadback": null,
+  "futureActualTool": null,
+  "futureGrant": null,
+  "predecessor": {
+    "bytes": 3379,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "d1589a7039240dc5415ffc80ab980f1ff1537b80fa6956eac36e7fe8a85dc889"
+  },
+  "runtimeExecuted": false,
+  "substantiveDelta": "Only next parent output/evidence label, and recipe adapter source path. All protocol/code/helper/guard/baseline/clock predicates unchanged.",
+  "wholeForwardInversePairs": [
+    "launch-fullpostflight.py",
+    "read-fullpostflight.py"
+  ]
+}

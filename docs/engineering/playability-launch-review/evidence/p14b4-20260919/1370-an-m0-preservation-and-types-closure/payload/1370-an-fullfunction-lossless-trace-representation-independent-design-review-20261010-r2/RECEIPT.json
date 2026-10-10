@@ -1,0 +1,62 @@
+{
+  "acceptedDirectionOnly": [
+    "Explicit old sum of expanded JSON+newline sizes versus new encoded storage amendment; neither is represented as equivalent.",
+    "Independent exact-row compression and fixed logical16384/expanded-row65536 caps, unchanged gameplay observer bounds.",
+    "Exact reversible call payloads, canonicalInputs strings, evaluation semantic fields, contexts, ordering and duplicate occurrences; no sampling or hash-only witness.",
+    "Lazy indexed trace consumers, exact corrupt-frame refusal and codec errors remain operational STOP."
+  ],
+  "actualFitPrediction": null,
+  "concreteFindings": [
+    {
+      "code": "EXACT_STORAGE_ACCOUNTING_PROVISIONAL",
+      "detail": "Packet-header bytes remain unspecified and frame-index accounting remains a proposal plus unspecified kind-index overhead. The exact retained encoded budget cannot yet be adopted from this format."
+    },
+    {
+      "code": "SCRATCH_BYTE_GUARANTEE_PROVISIONAL",
+      "detail": "The proposed8MiB scratch size has no stated enforceable simultaneous allocation accounting. A finite structural bound of at most two decoded rows <=64KiB serialized and individually bounded codec Buffers is acceptable with JS heap overhead explicitly not a fixed byte guarantee."
+    }
+  ],
+  "decision": "STOP_EXACT_RETAINED_STORAGE_ACCOUNTING_NOT_YET_SPECIFIED_DESIGN_ONLY",
+  "design": {
+    "bytes": 6767,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-lossless-trace-representation-design-20261010-r2/DESIGN.txt",
+    "sha256": "914ed0ac1898bac685c5f87dbe27f44ec12bdf8feae2290f3b524802990fce06"
+  },
+  "executionAuthorization": false,
+  "original40169AndLatestOverflowStopPreserved": true,
+  "qualification": "R2 remains held and unrun. Review does not require generic heap measurement or new legitimate payload exclusions. Root awaits a precise R3 format before design adoption. Original off/on evaluation semantic comparison excludes context while context source binding remains separately checked.",
+  "runtimePerformed": false,
+  "schema": "1370-lossless-trace-independent-design-review/v1",
+  "sourceInputs": {
+    "actualBaselineReport": {
+      "bytes": 2543,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r4/baseline.report.json",
+      "sha256": "f737da2c7a1a7de4dd6fdfd80480ae6156eceed2fda128682e920633640e240e"
+    },
+    "controls": {
+      "bytes": 9539,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r11/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "9cff56902912ab029af4a4a73398bb314e28593e59823a09acdab5a9b26ea6ca"
+    },
+    "ordering": {
+      "bytes": 11339,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ordering.ts",
+      "sha256": "e40ea62523d13e1c74361766757b85faa14acdb889bc57f7ae452449a361bb1d"
+    },
+    "probe": {
+      "bytes": 3016,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r11/m0WiringProbe.ts",
+      "sha256": "417389eef7b3295a19cde420f8561e638f028b979c4e031b25f89f8d38a2ac39"
+    },
+    "resolver": {
+      "bytes": 2363,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/canonical-resolver.mjs",
+      "sha256": "429cc7b8ad0f6be2f851a2f10ef431d63192b912e0864c7602fd6072c4ae14fd"
+    }
+  },
+  "sourceReceipt": {
+    "bytes": 2334,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-lossless-trace-representation-design-20261010-r2/RECEIPT.json",
+    "sha256": "e600d37df9fb52e43590924e4df534c1f3b58a3bef51feee65c307f128e2a0fa"
+  }
+}

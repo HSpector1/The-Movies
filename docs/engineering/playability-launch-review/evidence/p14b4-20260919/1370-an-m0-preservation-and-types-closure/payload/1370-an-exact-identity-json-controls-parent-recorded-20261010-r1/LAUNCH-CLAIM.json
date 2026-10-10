@@ -1,0 +1,79 @@
+{
+  "actualOwnGroupConfirmed": true,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-parent-recorded-20261010-r1/parser.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/record-parser-controls.py",
+    "verification",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-parent-recorded-20261010-r1/GRANT.json",
+    "962977972eb09cd61d6e4f09faefd909750bc5b9adac2843f8c6690b6716d4ee"
+  ],
+  "combinedPreparationRuntimeDeadline": null,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesOuterIdentity": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "fixtureQualification": false,
+  "game": false,
+  "grant": {
+    "bytes": 4589,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "962977972eb09cd61d6e4f09faefd909750bc5b9adac2843f8c6690b6716d4ee"
+  },
+  "helperPgid": 40597,
+  "helperPid": 40597,
+  "helperSid": 40597,
+  "meaningfulCatchMutantRed": false,
+  "originalM0ReadOrWritten": false,
+  "parentAdapterSourcePins": {
+    "bytes": 4561,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "640d300aadc66b4f7bc225f91841b5fd235945d446c056214d8b4cda27b4313a"
+  },
+  "parentAdapterSourceReview": {
+    "bytes": 11984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "fa786064f3951863c6642760b288d3d2fe0c0c5e2263dc12bfc0d5a314c16836"
+  },
+  "preparationDeadlineSeconds": 60,
+  "preparationElapsedSeconds": 0.5114078879996669,
+  "runtimeBounds": {
+    "active": 320,
+    "childStreamBytes": 8388608,
+    "resultBytes": 131072,
+    "runner": 300,
+    "whole": 330
+  },
+  "runtimeClockOwnedByRecorder": true,
+  "runtimeToolsObservation": {
+    "bytes": 5401,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-RUNTIME-TOOLS.json",
+    "sha256": "a681efc4a9b29dfc62bffb6c1e7cd434107bfb1064769f712fca48227bd64106"
+  },
+  "schema": "1370-exact-identity-json-controls-parent-launch-claim/v1",
+  "sourceAdoption": {
+    "bytes": 1341,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/PARSER-CONTROLS-SOURCE-ADOPTION.json",
+    "sha256": "7e01ee224a04b285c3bcfc9dac9ce9e38370fa1678c6053db2bb6e53201c7525"
+  },
+  "sourcePins": {
+    "bytes": 4561,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "640d300aadc66b4f7bc225f91841b5fd235945d446c056214d8b4cda27b4313a"
+  },
+  "sourceReview": {
+    "bytes": 11984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "fa786064f3951863c6642760b288d3d2fe0c0c5e2263dc12bfc0d5a314c16836"
+  },
+  "syntheticOnly": true,
+  "unexpectedHelperWaitIsStop": true
+}

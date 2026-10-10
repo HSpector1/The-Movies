@@ -1,0 +1,26 @@
+{
+  "schema": "1370-path-only-adapter-full-diff-application-audit/v1",
+  "checks": [
+    {
+      "kind": "parent",
+      "file": "launch-fullfunction.py",
+      "wholeForwardExact": true,
+      "wholeInverseExact": true
+    },
+    {
+      "kind": "post",
+      "file": "launch-fullpostflight.py",
+      "wholeForwardExact": true,
+      "wholeInverseExact": true
+    },
+    {
+      "kind": "post",
+      "file": "read-fullpostflight.py",
+      "wholeForwardExact": true,
+      "wholeInverseExact": true
+    }
+  ],
+  "allThreeFullForwardAndInversePairsExact": true,
+  "candidateExecuted": false,
+  "privateReads": false
+}

@@ -1,0 +1,317 @@
+{
+  "schema": "1370-r3-ordering-consumer-controls-independent-source-review/v1",
+  "decision": "ACCEPT_STATIC_R3_ORDERING_CONSUMER_CONTROLS_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "sourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/SOURCE-PINS.json",
+    "bytes": 4114,
+    "sha256": "9976469fd0db93e77eea6842f28572493d02aded92b0924f984785f48f1d2938"
+  },
+  "sourcePins": {
+    "CONFIG.json": {
+      "bytes": 5198,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/CONFIG.json",
+      "sha256": "83bce1b4b19f7b9f6ae3c75fc33b5960aa21738891e4add3aa4941c45aaac631"
+    },
+    "run-ordering-controls.mjs": {
+      "bytes": 7904,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/run-ordering-controls.mjs",
+      "sha256": "0465271ed0e0d1d9e1311982154ab1bfc70f7ef7d1c935b050f32a13d4afb2dd"
+    },
+    "record-ordering-controls.py": {
+      "bytes": 16236,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/record-ordering-controls.py",
+      "sha256": "ea6f813f5d732cf08277fd0ff60fa0f1074b9839419e55448fbba2c06afb7533"
+    }
+  },
+  "routeSourcePins": {
+    "CONFIG.json": {
+      "bytes": 5198,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/CONFIG.json",
+      "sha256": "83bce1b4b19f7b9f6ae3c75fc33b5960aa21738891e4add3aa4941c45aaac631"
+    },
+    "run-ordering-controls.mjs": {
+      "bytes": 7904,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/run-ordering-controls.mjs",
+      "sha256": "0465271ed0e0d1d9e1311982154ab1bfc70f7ef7d1c935b050f32a13d4afb2dd"
+    },
+    "record-ordering-controls.py": {
+      "bytes": 16236,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/record-ordering-controls.py",
+      "sha256": "ea6f813f5d732cf08277fd0ff60fa0f1074b9839419e55448fbba2c06afb7533"
+    }
+  },
+  "concreteFindings": [],
+  "findings": [],
+  "reviewerIndependence": "Did not author this worker, recorder derivative, configuration or recipe. Authored qualified disposable recorder predecessor; review independently checks current complete source.",
+  "reviewedPayloadCount": 14,
+  "allPayloadHashesAndSizesAuthenticated": true,
+  "sourceDirectoryMode": "0555",
+  "payloadFileModes": "0444",
+  "sourceProof": {
+    "bytes": 4688,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/SOURCE-PROOF.json",
+    "sha256": "0773c0e6ba78b8db3c3477943d96cea217076a9e2cd1a7a9d72d796503adc1ed"
+  },
+  "recipe": {
+    "bytes": 5676,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/RECIPE.json",
+    "sha256": "b88b6919d468225f4772a758eb98af4c6935310962bc13d10911180295a47bea"
+  },
+  "acceptedUnchangedSource": {
+    "sourcePins": {
+      "bytes": 10016,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/SOURCE-PINS.json",
+      "sha256": "2703e1453288f7fea1008757e921e9e62eda8ea4ac9130931f99e325baeee15f"
+    },
+    "independentReview": {
+      "bytes": 25747,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-independent-source-review-after-al-20261009-r3/RECEIPT.json",
+      "sha256": "b2a2e12cb88992b695d3a5e355a1ac58a95698187b05c4f74fec045fd0065bb9"
+    },
+    "rootAdoption": {
+      "bytes": 1847,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-FULLBODY-R3-HELD-SOURCE-ADOPTION.json",
+      "sha256": "2d528f4e64c051e666f328acca7fa65bbdb65deea784fe89392862bde341eab4"
+    },
+    "inputs": {
+      "ORDERING-SOURCE-CASES.json": {
+        "bytes": 27476,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+        "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+      },
+      "ordering-source-controls.ts": {
+        "bytes": 2237,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ordering-source-controls.ts",
+        "sha256": "e4109cd7a2560639c483ffbcc5fd4b65864c77148add2ad8e1289b096382241f"
+      },
+      "ordering.ts": {
+        "bytes": 11339,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ordering.ts",
+        "sha256": "e40ea62523d13e1c74361766757b85faa14acdb889bc57f7ae452449a361bb1d"
+      }
+    },
+    "actualHeldRootAdoptionInterfaceMatched": true,
+    "candidateSourceEdited": false
+  },
+  "syntheticControls": {
+    "caseCount": 18,
+    "positiveCount": 2,
+    "specificNegativeCount": 16,
+    "caseIdsAndExpectedLabelsExactlyMatchPinnedR3Packet": true,
+    "expectedCases": [
+      {
+        "assertion": null,
+        "expected": "GREEN",
+        "id": "author-two-issuers-schema-GREEN"
+      },
+      {
+        "assertion": null,
+        "expected": "GREEN",
+        "id": "freeze-complete-prefix-failure-suffix-GREEN"
+      },
+      {
+        "assertion": "evaluated and skipped candidates preserve full order",
+        "expected": "RED",
+        "id": "candidate-other-issuer-grouping-RED"
+      },
+      {
+        "assertion": "every actual evaluation binds an authenticated source-array projection",
+        "expected": "RED",
+        "id": "candidate-context-issuer-correlation-RED"
+      },
+      {
+        "assertion": "complete identity-bound freeze predicate order",
+        "expected": "RED",
+        "id": "freeze-missing-slot-RED"
+      },
+      {
+        "assertion": "complete identity-bound freeze predicate order",
+        "expected": "RED",
+        "id": "freeze-swapped-slots-RED"
+      },
+      {
+        "assertion": "complete identity-bound freeze predicate order",
+        "expected": "RED",
+        "id": "freeze-wrong-name-RED"
+      },
+      {
+        "assertion": "complete identity-bound freeze predicate order",
+        "expected": "RED",
+        "id": "freeze-wrong-ordinal-RED"
+      },
+      {
+        "assertion": "complete identity-bound freeze predicate order",
+        "expected": "RED",
+        "id": "freeze-wrong-occurrence-RED"
+      },
+      {
+        "assertion": "complete identity-bound freeze predicate order",
+        "expected": "RED",
+        "id": "freeze-wrong-issuer-RED"
+      },
+      {
+        "assertion": "freeze predicate FAILED slot agrees with drop",
+        "expected": "RED",
+        "id": "freeze-failure-slot-missing-RED"
+      },
+      {
+        "assertion": "freeze predicate FAILED slot agrees with drop",
+        "expected": "RED",
+        "id": "freeze-drop-disagrees-RED"
+      },
+      {
+        "assertion": "freeze predicate prefix status",
+        "expected": "RED",
+        "id": "freeze-early-unreached-RED"
+      },
+      {
+        "assertion": "freeze predicate suffix is NOT_REACHED",
+        "expected": "RED",
+        "id": "freeze-suffix-resumes-RED"
+      },
+      {
+        "assertion": "unreached predicate has no evaluated values",
+        "expected": "RED",
+        "id": "freeze-suffix-values-forged-RED"
+      },
+      {
+        "assertion": "freeze predicate FAILED slot agrees with drop",
+        "expected": "RED",
+        "id": "freeze-second-failure-RED"
+      },
+      {
+        "assertion": "freeze predicate prefix status",
+        "expected": "RED",
+        "id": "freeze-illegal-not-evaluated-prefix-RED"
+      },
+      {
+        "assertion": "freeze drop names an existing predicate",
+        "expected": "RED",
+        "id": "freeze-unknown-drop-RED"
+      }
+    ],
+    "negativeMechanism": "Unchanged accepted R3 helper applies each edit outside the negative predicate, then assert.throws accepts only built-in assert.AssertionError with message.includes(exact pinned intended label). This is a specific label match, not arbitrary whole-message equality.",
+    "unexpectedErrorPolicy": "Loader, compiler, tool, bad premise/edit, unknown nonmatching assertion and timeout errors propagate to a nonzero aggregate STOP; no generic error-as-RED path.",
+    "positivePolicy": "Both unedited bases must complete original consumer without exceptions.",
+    "claimsLimitedToPureConsumerInputs": true,
+    "fixtureQualification": false,
+    "meaningfulCatchMutantRed": false,
+    "game": false,
+    "originalM0ReadOrWritten": false
+  },
+  "compiler": {
+    "packageRole": {
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/package.json",
+      "bytes": 3620,
+      "sha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+    },
+    "compilerRole": {
+      "bytes": 9112572,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/lib/typescript.js",
+      "sha256": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675"
+    },
+    "actualPublicFileHashesVerified": true,
+    "actualPackageVersion": "5.9.3",
+    "workerRequiresNodeVersion": "v22.23.2",
+    "transformation": "Standard actual TypeScript transpileModule ES2022/ES2022 with error diagnostics rejected before controls. Output two external .mjs modules; one exact logical ./ordering.js dependency rewrites to ./ordering.mjs in emitted control module. Accepted .ts bytes never modified.",
+    "transpileOrSourceImportsPerformedByReviewer": false,
+    "typecheckClaim": false
+  },
+  "completeRecordedRoute": {
+    "recorderSource": {
+      "bytes": 16236,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/record-ordering-controls.py",
+      "sha256": "ea6f813f5d732cf08277fd0ff60fa0f1074b9839419e55448fbba2c06afb7533"
+    },
+    "predecessor": {
+      "bytes": 14851,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/record-metadata.py",
+      "sha256": "6e1895ddcd544fb690dc2fbb31cd73cdf82f1d95592882de5c7a390aac0a8790"
+    },
+    "predecessorSourcePins": {
+      "bytes": 11166,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/SOURCE-PINS.json",
+      "sha256": "bc7fcfc7bcd4ab5e4472733260e1ee5f89658c827a09412d7f98d60b10ffd573"
+    },
+    "completeWorkerForwardAndInverseAppliedExactly": true,
+    "completeRecorderForwardAndInverseAppliedExactly": true,
+    "recorderFunctionEquality": {
+      "originalFunctions": 17,
+      "newFunctions": 17,
+      "unchanged": [
+        "require",
+        "sha",
+        "write",
+        "metadata",
+        "authenticate",
+        "process_alive",
+        "start_owned",
+        "ready_go",
+        "close_startup_fds",
+        "clear",
+        "observed_exit_guard",
+        "child_environment",
+        "finalize_result"
+      ],
+      "changed": [
+        "alarm",
+        "whole_guard",
+        "active_guard",
+        "main"
+      ]
+    },
+    "OwnedChildClassByteExact": true,
+    "deadlineLabelChangesOnlyInThreeGuardFunctions": true,
+    "bounds": {
+      "active": 320,
+      "childStreamBytes": 8388608,
+      "compiledModuleBytes": 131072,
+      "resultBytes": 131072,
+      "runner": 300,
+      "whole": 330
+    },
+    "childClock": "One 300-second aggregate Node child starts before fork/readiness/GO; no three separate phase budgets.",
+    "activeClock": "320 from recorder main entry covers authentication/startup/child/cleanup/report verification.",
+    "wholeClock": "330 timer starts in recorder main before authenticated reads and remains armed through cleanup, raw streams, fsync, RESULT/override and summary; cancellation only in outer finalization.",
+    "parentClockClaim": "No additional combined parent watchdog or assertion that runtime330 includes external parent preparation. Root owns the real qualified helper/directexec/grant/lane/current-tool envelope.",
+    "ownedMechanisms": "Original SIGALRM-blocked fork/register/readiness/GO/session identity, exact owned process/group reaping and TERM/KILL cleanup, observed EOF/exit guard,8MiB streams,finalization override precedence and environment sanitization retained.",
+    "HOMEInherited": true,
+    "originalPythonCombinedLogWarning": "Any actual retained qualified Python warning belongs to parent/helper combined logging, separate from worker stderr; this source receipt makes no all-streams-quiet claim."
+  },
+  "interfaces": {
+    "grantSchema": "1370-root-r3-ordering-controls-once-grant/v1",
+    "grantScope": "PURE_SYNTHETIC_ORDERING_CONSUMER_18_CASES_ONLY",
+    "reviewDecision": "ACCEPT_STATIC_R3_ORDERING_CONSUMER_CONTROLS_SOURCE_ONLY",
+    "configWorkerAndRecorderAliasesIncluded": true,
+    "workerConfigSHA": "83bce1b4b19f7b9f6ae3c75fc33b5960aa21738891e4add3aa4941c45aaac631",
+    "recorderBindsExactWorkerSHA": "0465271ed0e0d1d9e1311982154ab1bfc70f7ef7d1c935b050f32a13d4afb2dd",
+    "workerAndRecorderRequireSameBounds": true,
+    "workerRequiresGenuineAcceptedHeldRootRoles": true,
+    "compilerRoleAlsoBindsGrant": true,
+    "rootOwnsSingleRecordedLane": true
+  },
+  "preservedFailure": {
+    "r1StopRole": {
+      "bytes": 651,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/R1-SOURCE-STOP.json",
+      "sha256": "bf2e0fde091720c7c7e4367fe8ef09cafa11582a499613e017b31e1003300fbe"
+    },
+    "guessedVersion": "5.8.3",
+    "authenticVersion": "5.9.3",
+    "originalR1Preserved": true,
+    "r1NeverExecuted": true
+  },
+  "nextFullBodyBoundary": "NEXT-BASELINE-CATCH-ROUTE remains held design guidance: real pre-market196/197/208 artifacts, accepted actual M0 types/protection, one complete shared aggregate for baseline-before-mutant, exact typed-propagation assertion, lifecycle cleanup and full protected postflight are not supplied or qualified by these controls.",
+  "futureActual": {
+    "grant": null,
+    "runtimeTools": null,
+    "recordedRoute": null,
+    "result": null,
+    "independentObservedReview": null,
+    "rootObservedAdoption": null
+  },
+  "automaticRetry": false,
+  "reviewMethod": "Named scratch/public source/artifact reads; finite SHA/size/mode verification, complete data-only diff application and function/class text comparison. No runtime/Node/import/compile/test/private mirror inventory/Git/probe or source edit."
+}

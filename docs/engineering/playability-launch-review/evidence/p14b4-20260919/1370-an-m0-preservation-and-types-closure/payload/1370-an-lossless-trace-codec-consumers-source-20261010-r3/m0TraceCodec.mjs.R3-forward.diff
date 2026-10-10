@@ -1,0 +1,11 @@
+--- before/m0TraceCodec.mjs
++++ after/m0TraceCodec.mjs
+@@ -64,7 +64,7 @@
+  let frames=[],calls=0,evaluations=0,bytes=16,overflow=false,firstOverflow=null,closed=false,view=null
+  const state={failed:false}
+  function append(row,tag){
+-  if(closed)fail('STORE_CLOSED','append after snapshot')
++  if(closed){state.failed=true;fail('STORE_CLOSED','append after snapshot')}
+   if(state.failed)fail('TRACE_OPERATIONAL','trace operational failure is sticky')
+   if(overflow)return false
+   try{

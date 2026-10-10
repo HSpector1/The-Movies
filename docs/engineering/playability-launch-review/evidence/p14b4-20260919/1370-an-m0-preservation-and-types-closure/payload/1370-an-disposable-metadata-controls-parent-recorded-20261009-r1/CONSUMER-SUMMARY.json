@@ -1,0 +1,16 @@
+{
+  "collectedTests": 1,
+  "decision": "ACCEPT_ACTUAL_DISPOSABLE_PAIR_ONLY",
+  "executionAuthorization": false,
+  "game": false,
+  "greenFullFixtureMetadataStable": true,
+  "helperCombinedLogBytes": 440,
+  "originalM0CauseAdmission": false,
+  "originalM0SourcePreservationAdmission": false,
+  "outcomePath": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/OUTCOME.json",
+  "outcomeSha256": "3375ca3ccebfe91c05560e3f09b32d495d91ba1c19c20c109074e19f8d601ba4",
+  "producerStderrBytes": 0,
+  "redMetadataChanged": true,
+  "sameRawCollectedTestIdentity": true,
+  "schema": "1370-disposable-controls-consumption/v1"
+}

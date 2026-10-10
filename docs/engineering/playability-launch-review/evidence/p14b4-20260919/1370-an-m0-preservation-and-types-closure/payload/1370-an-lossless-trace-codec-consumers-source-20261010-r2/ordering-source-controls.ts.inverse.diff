@@ -1,0 +1,26 @@
+--- before/helper
++++ after/helper
+@@ -1,6 +1,5 @@
+ // Finite synthetic witness-consumer inputs only. No game or fixture producer imports.
+ import assert from 'node:assert/strict'
+-import {createTraceStore} from './m0TraceCodec.mjs'
+ import {assertFullProjectionOrdering,assertFreezePredicateOrdering} from './ordering.js'
+ type Edit={op:'set'|'remove'|'swap';path:(string|number)[];value?:unknown;other?:number}
+ type Args={probe?:unknown;marketValues:unknown[];feasibilityValues?:unknown[];freezeValues?:unknown[];refs?:any[]}
+@@ -30,16 +29,6 @@
+   return packet.cases.map(test=>{
+     const base=packet.bases[test.base];assert.ok(base)
+     const args=apply(base.args,test.edits)
+-    // Synthetic envelope only, AFTER original edits; no gameplay fixture claim.
+-    // These operations are outside assert.throws: codec failure is never RED.
+-    if(base.method==='author'){
+-      const probe=args.probe as {calls:any[];evaluations:any[]},store=createTraceStore()
+-      for(const [sequence,row] of probe.calls.entries())
+-        assert.equal(store.appendCall({sequence,name:row.name,detail:row.detail===undefined?null:row.detail}),true)
+-      for(const row of probe.evaluations)
+-        assert.equal(store.appendEvaluation({inputs:[],canonicalInputs:'[]',result:null,context:row.context}),true)
+-      args.probe=store.snapshot()
+-    }
+     const run=()=>base.method==='author'
+       ?assertFullProjectionOrdering(args.probe,args.marketValues,args.feasibilityValues!)
+       :assertFreezePredicateOrdering(args.marketValues,args.freezeValues!,args.refs!)

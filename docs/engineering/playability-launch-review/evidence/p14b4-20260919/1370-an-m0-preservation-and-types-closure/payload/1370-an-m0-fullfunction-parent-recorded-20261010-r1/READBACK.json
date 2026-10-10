@@ -1,0 +1,178 @@
+{
+  "actualGameplayPrefixExecuted": false,
+  "actualTool": {
+    "bytes": 1272,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "9d7c1f1a887d5db39289ef55a48d416452e581c99a086023711e151cc783ab0c"
+  },
+  "completed": true,
+  "controllerFinallyWarningPreserved": true,
+  "currentProtection": {
+    "bytes": 1884,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-CURRENT-PROTECTION.json",
+    "sha256": "8c84ecee6ab02940d9c34248674b6e0f0c651cabc3edf381187ad367816f814b"
+  },
+  "dependencyAfter": null,
+  "diagnosis": "Caller passes the configured mirror container rather than authenticated leaf. Original guard correctly refuses its wrong identity before enumeration. Independently review attribution; do not repin metadata.",
+  "diagnosticRootMetadataOnly": {
+    "authenticConfiguredLeaf": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+    "completeSourceOrDependencyProof": false,
+    "containerIdentity": [
+      16777220,
+      166751331,
+      16832,
+      4,
+      128,
+      1791567307990813418,
+      1791567307990813418
+    ],
+    "containerIdentityDoesNotMatchLeaf": true,
+    "containerPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2",
+    "expectedLeafIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791600924862151724,
+      1791600924862151724
+    ],
+    "leafIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791600924862151724,
+      1791600924862151724
+    ],
+    "leafIdentityMatches": true
+  },
+  "executionAuthorization": false,
+  "fixtureQualificationAccepted": false,
+  "fullM0SourceProofCompleted": false,
+  "fullProtectedPostflightAccepted": false,
+  "gameNotStartedEvidence": "Exact unique first full_source_check leaf-root metadata gate, before output directory creation and Node spawn in pinned controller; output directory absent. Not inferred from absent success alone.",
+  "grant": {
+    "bytes": 4100,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r1/EXECUTION-GRANT.json",
+    "sha256": "3136385105c3db3a084fd06492bb635a12c8e48063db05da458125c53aec4aac"
+  },
+  "helperExit": 2,
+  "laneLog": {
+    "bytes": 687,
+    "path": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-20261009-r1.lane.log",
+    "sha256": "13d45463ba80d585bf7612eae046c662466ad59dcbf7f6e5243ae5d8acb3ec91"
+  },
+  "laneMetadata": {
+    "bytes": 507,
+    "path": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-20261009-r1.lane.log.meta",
+    "sha256": "699ad165438aaba1f7b5053233f74523b4c09d6d87242e2842b2af4a99d3cb28"
+  },
+  "laneReleased": true,
+  "neutralityAccepted": false,
+  "nodePid": null,
+  "parserControlsAdoption": {
+    "bytes": 1983,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/PARSER-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "2684b2b4a2c0e90b1d9fec5ee079ede8eb945eb3378ff88619f3cd04b943735d"
+  },
+  "preflightObservedAdoption": {
+    "bytes": 4134,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "57661966ff99c6ae2a0441a3c85187969745b1f30ee0f2051a3314dd94e38163"
+  },
+  "recordedOwnedGroupIds": [
+    49057,
+    49312,
+    49313
+  ],
+  "recordedOwnedPids": [
+    49057,
+    49312,
+    49313
+  ],
+  "recorderExit": 2,
+  "recorderLaunchClaim": {
+    "bytes": 1652,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r1/RECORDER-LAUNCH-CLAIM.json",
+    "sha256": "5d2280a7391774fcbda5a11f70fb2d9b0befe56aa3e859fe0d56412695caacfa"
+  },
+  "recorderResult": {
+    "bytes": 975,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261009-r1/RESULT.json",
+    "sha256": "02272427f9b755de836b1c0c0290cfafe753742da6fb5df3cf61bcea5260a3c4"
+  },
+  "recorderSeconds": 4.919851471000584,
+  "rootLaunchClaim": {
+    "bytes": 1799,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r1/ROOT-LAUNCH-CLAIM.json",
+    "sha256": "476cc82832a1705544239ed7ab4ff3fc6252f0ceb44da7c3d9fb599878130ba7"
+  },
+  "runnerExit": 1,
+  "runnerStatus": "EXITED_NONZERO",
+  "runtimeOutputAbsent": true,
+  "schema": "1370-root-fullfunction-actual-stop-readback/v1",
+  "scopedOwnershipChecks": [
+    {
+      "id": 49057,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 49057,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 49312,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 49312,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 49313,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 49313,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "sourceAfter": null,
+  "sourcePins": {
+    "bytes": 25278,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/SOURCE-PINS.json",
+    "sha256": "d1357e8fe9b082313f79b27e870df63ec01245d52e725c5698b9045bfe77ac7f"
+  },
+  "sourceReview": {
+    "bytes": 14338,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r7/RECEIPT.json",
+    "sha256": "3f8c38d007d381db407bf1953781a089488fa3c4979d742f452697c4bef9d48f"
+  },
+  "status": "ACTUAL_STOP_WRONG_CONTAINER_ARGUMENT_AT_FIRST_LEAF_METADATA_GATE",
+  "stderr": {
+    "bytes": 381,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261009-r1/stderr.bin",
+    "sha256": "f3125983077da1bdf243cf67604e21d808247b9b341e36e94d7473c9517d90a3"
+  },
+  "stdout": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261009-r1/stdout.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "timedOut": false,
+  "toolExit": 2,
+  "toolSessionId": 95737,
+  "typesAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  }
+}

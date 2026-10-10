@@ -1,0 +1,32 @@
+{
+  "checks": {
+    "allTenManifestRolesAuthenticated": true,
+    "noCandidateExecution": true,
+    "sourceOperationalDiffLimitedToFreshDestinationsAndStopStatus": true
+  },
+  "concreteFindings": [
+    {
+      "code": "EXACT_ARGV_WRONG_SCRIPT_AND_FIRST_OPERAND_POSITIONS",
+      "consequence": "The advertised exact invocations cannot execute the reviewed R5 scripts with their required contracts; they would invoke old scripts with wrong first operands. No execution occurred.",
+      "launcher": "Physical Python-I-B makes script index3. R5 map keeps consumed R3 launcher there and places R5 launcher at index4, where the authentic types independent-review JSON path is required.",
+      "minimalCorrection": "Fresh immutable package with full argv constructed explicitly: Python-I-B,new script at index3, then all required genuine or future operands in documented order. Validate array lengths/positions and authentic static role operands; preserve R5.",
+      "qualifiedCorrectField": "originalExecutedArgv config index4 correctly names the fresh R4 filled config.",
+      "reader": "Map keeps R3 reader at index3 and inserts R5 reader at index4, where a genuine future session ID is required.",
+      "role": {
+        "bytes": 3387,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r5/EXACT-ARGV.json",
+        "sha256": "f6deed9a8190d5d27c456dac7a3c5945d556f97c5efb16e5ea9c93d23fb9567e"
+      }
+    }
+  ],
+  "decision": "STOP_STATIC_PRELAUNCH_PREPARATION_EXACT_ARGV_POSITION_ERROR",
+  "executionAuthorization": false,
+  "findingOrigin": "Root identified the index error while this independent review was reading sealed sources; reviewer independently confirmed exact contents.",
+  "schema": "1370-fullfunction-current-prelaunch-independent-source-review/v1",
+  "scope": "Source-only STOP, not a scanner, protected interval or runtime failure. Original R4/R5 packages remain preserved; corrected R6 is reviewed separately. No inventory, private traversal, process probes, Git or production writes.",
+  "sourceManifest": {
+    "bytes": 3095,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r5/SOURCE-PINS.json",
+    "sha256": "00c4f12d92255a0d8eda2949cb77bd59a6e5e8b5dda04892ccd0bbf6091ca9d5"
+  }
+}

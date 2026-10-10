@@ -1,0 +1,96 @@
+{
+  "actualExternalFields": {
+    "actualGrant": null,
+    "parentAdapterSourcePins": null,
+    "parentAdapterSourceReview": null,
+    "runtimeTools": null,
+    "sourceReview": null
+  },
+  "adapterReviewContract": {
+    "concreteFindings": [],
+    "decision": "ACCEPT_STATIC_DISPOSABLE_CONTROLS_PARENT_ADAPTER_SOURCE_ONLY",
+    "executionAuthorization": false,
+    "sourcePins": "exact adapter SOURCE-PINS role"
+  },
+  "argv": [
+    "__ACTUAL_PHYSICAL_PINNED_PYTHON__",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/launch-disposable-controls.py",
+    "__ACTUAL_EXTERNAL_GRANT_PATH__",
+    "__ACTUAL_GRANT_SHA256__"
+  ],
+  "claimPath": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/LAUNCH-CLAIM.json",
+  "combinedRuntimeDeadline": null,
+  "executionAuthorization": false,
+  "grantPath": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/GRANT.json",
+  "parentMergedStreamCap": null,
+  "prepClockSeconds": 60,
+  "requiredGrantBindings": {
+    "argv": [
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-metadata-controls-lane-after-al-20261009-r2/controls.lane.log",
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/record-metadata.py",
+      "verification"
+    ],
+    "automaticRetry": false,
+    "bounds": {
+      "activeRecorderSeconds": 75,
+      "aggregateControllerSeconds": 60,
+      "ledgerEachBytes": 65536,
+      "nestedStreamsEachBytes": 1048576,
+      "parentLaunchClock": null,
+      "preparationAlarmIfUsed": {
+        "canceledBeforeExec": true,
+        "includedInRecorderClock": false,
+        "seconds": 60
+      },
+      "producerStreamsEachBytes": 1048576,
+      "status": "PROPOSED_SAME_QUALIFIED_MECHANISMS_NEW_WORKLOAD_UNRUN",
+      "wholeRecorderSeconds": 90
+    },
+    "config": {
+      "bytes": 3637,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/CONFIG.json",
+      "sha256": "c3c58fc2b2ba77b0a2e92415f1e74d386cf899506b07aacbe677f2ad9b061c14"
+    },
+    "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2",
+    "environment": {
+      "GIT_OPTIONAL_LOCKS": "0",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "executionAuthorization": true,
+    "oneAggregateRun": true,
+    "operational": {
+      "advertisedMainRef": "refs/heads/main",
+      "branch": "wip/headless-program-20260916-ts",
+      "head": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+      "localMainRef": "refs/remotes/origin/main",
+      "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+      "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+      "trackingWorkingHead": "7087f116cf998fd86e33fb8e004df628e0686dbd"
+    },
+    "recipe": {
+      "bytes": 9918,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/RECIPE.json",
+      "sha256": "0998870942ff8f188fcc3ce14f853119a49f45b1e78d08ad18685f83b5ab432b"
+    },
+    "sourcePins": {
+      "bytes": 11166,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/SOURCE-PINS.json",
+      "sha256": "bc7fcfc7bcd4ab5e4472733260e1ee5f89658c827a09412d7f98d60b10ffd573"
+    }
+  },
+  "rootGrantDecision": "GRANTED_ONCE_DISPOSABLE_METADATA_CONTROLS",
+  "rootGrantSchema": "1370-disposable-controls-root-once-grant/v1",
+  "runtimeClockOwner": "original recorder only aggregate60/active75/whole90",
+  "runtimeToolsContract": "Authenticated genuine observation with runtimeTools.python/node physicalPath/bytes/sha256 exactly matching recipe.tools; direct source/tool hashes also rechecked.",
+  "schema": "1370-disposable-controls-parent-adapter-contract/v1",
+  "scope": "Disposable new fixture behavior only; current Git authority is AM. Prior shared postflight is historical, not a fresh M0 or dependency proof. No original M0/private writes or inventories.",
+  "timerCanceledImmediatelyBeforeExec": true
+}

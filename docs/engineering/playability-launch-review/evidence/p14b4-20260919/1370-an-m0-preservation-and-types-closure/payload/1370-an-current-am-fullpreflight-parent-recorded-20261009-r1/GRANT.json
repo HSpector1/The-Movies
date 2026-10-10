@@ -1,0 +1,52 @@
+{
+  "actualFullInventoryRun": true,
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "before-fill",
+    "before-fill-current-am-r1"
+  ],
+  "automaticRetry": false,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesPid": true,
+  "executionAuthorization": true,
+  "game": false,
+  "noHelperOriginalLockAbsentRequired": true,
+  "originalM0ContentProof": false,
+  "ownedPgid": 58529,
+  "ownedPid": 58529,
+  "ownedSid": 58529,
+  "perCommandTimeoutSeconds": 180,
+  "rawPsFdLocalOnly": true,
+  "rootLauncher": {
+    "bytes": 3803,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/run_current_fullguard_once.py",
+    "sha256": "90e771d7e6ad494849a953a773d6f534cb929291f7db02602731091e255f8c39"
+  },
+  "schema": "1370-an-root-direct-current-am-fullpreflight-grant/v1",
+  "sourceAdoption": {
+    "bytes": 1039,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/CURRENT-AM-FULLGUARD-SOURCE-ADOPTION.json",
+    "sha256": "4cfef5308b2581dcbf5171355b34dd69fcfcafc410f21067e487a67c091b3d50"
+  },
+  "sourcePins": {
+    "bytes": 2286,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "e638252b8082aa756f56471552327706a17dcf0e2d6bd01628710624ce7ec435"
+  },
+  "sourceReview": {
+    "bytes": 7200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "8a8756307aeecff6e3d9f299a5d2db8014e81c9c7dd5ade42f1f53514ba8ad45"
+  },
+  "startMonotonic": 110254.190961225,
+  "status": "GRANTED_ONCE_ORIGINAL_COMPLETE_CURRENT_AM_FULL_PREFLIGHT",
+  "utc": "2026-10-10T03:48:33.572996+00:00",
+  "wholeScanDeadline": null
+}

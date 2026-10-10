@@ -1,0 +1,19 @@
+--- NEW/read-fullpostflight.py
++++ BASE/read-fullpostflight.py
+@@ -1,6 +1,6 @@
+ import datetime,hashlib,json,os,stat,sys
+ from pathlib import Path
+-S=Path('/Users/zacheryspector/studio-scratch');P=S/'1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r5';G=S/'1370-an-current-operational-fullguard-source-20261009-r1'
++S=Path('/Users/zacheryspector/studio-scratch');P=S/'1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4-disk-retry';G=S/'1370-an-current-operational-fullguard-source-20261009-r1'
+ def role(p):
+  p=Path(p);st=p.lstat();assert p.is_absolute() and p.resolve(strict=True)==p and stat.S_ISREG(st.st_mode) and st.st_nlink==1
+  b=p.read_bytes();return {'path':str(p),'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}
+@@ -15,7 +15,7 @@
+ for key in ('actualRouteReadback','guardSource','guardConfig','baseline','guardSourceReview','guardSourcePins'):assert role(g[key]['path'])==g[key]
+ rb=read(g['actualRouteReadback']['path']);assert rb['recordedOwnedGroupIds']==g['actualPriorOwnedIds'] and rb['recordedOwnedPids']==g['actualPriorOwnedPids'] and rb['completed'] is True and rb['laneReleased'] is True
+ assert rb['status']==g['priorRouteStatus'] and {k:rb[k] for k in g['priorRouteExits']}==g['priorRouteExits']
+-O=Path(g['outputDirectory']);assert O==G/'evidence/postflight-fullfunction-qualification-r5'
++O=Path(g['outputDirectory']);assert O==G/'evidence/postflight-fullfunction-qualification-r4-disk-retry'
+ summary=read(P/'postflight.stdout');assert summary['status']=='GUARDS_ACCEPTED_READONLY' and summary['snapshotPath']==str(O/'SNAPSHOT.json') and summary['snapshotSha256']==role(O/'SNAPSHOT.json')['sha256'] and summary['pinsSha256']==role(O/'PINS.json')['sha256']
+ assert (P/'postflight.stderr').read_bytes()==b''
+ for name,h in read(O/'PINS.json')['files'].items():assert '/' not in name and role(O/name)['sha256']==h

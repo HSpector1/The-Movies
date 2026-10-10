@@ -1,0 +1,26 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "AN-REPORT-PROPOSED.md": {
+      "bytes": 14137,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r9/AN-REPORT-PROPOSED.md",
+      "sha256": "799592a8bd92dff912dcbe83fae68c43a1a0dafa38f5e1f3a1c09636d18e51d2"
+    },
+    "DRAFT-AUDIT.json": {
+      "bytes": 4881,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r9/DRAFT-AUDIT.json",
+      "sha256": "901dc4ff2472d967d060d1be12674b21fe984437de8a96212c8d8bcf9207e442"
+    },
+    "HANDOFF-PROPOSED.md": {
+      "bytes": 15313,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r9/HANDOFF-PROPOSED.md",
+      "sha256": "c9c8145c56ede36ede6bbf12d8e35894a890657c5ececacbc1dc3b1a77f230f8"
+    },
+    "prepare-drafts.py": {
+      "bytes": 17367,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r9/prepare-drafts.py",
+      "sha256": "64caacaef56dcba267873aaaa7011a30f5258b938deabc9521433babd4333818"
+    }
+  },
+  "schema": "1370-scratch-checkpoint-drafts-seal/v1"
+}

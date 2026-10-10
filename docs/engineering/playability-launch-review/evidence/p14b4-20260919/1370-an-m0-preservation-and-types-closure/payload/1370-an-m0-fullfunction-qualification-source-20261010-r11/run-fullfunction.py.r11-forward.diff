@@ -1,0 +1,31 @@
+--- 
++++ 
+@@ -1,7 +1,7 @@
+ """Future one-aggregate real full-function qualifier. Source work never executes this route."""
+ import hashlib,json,math,os,pathlib,selectors,signal,stat,subprocess,sys,time,traceback
+ HERE=pathlib.Path(__file__).resolve().parent
+-CONFIG_SHA='d687a7bc560e103ae5c359622991ecb773a88546f64e41918c8c297b0b3da811'
++CONFIG_SHA='8a6e67c7bea7c897e83f27f418d4743bfd1b9035ddd70147e9615e92658c81d6'
+ START=time.monotonic();END=START+300;CAP=128*1024**2
+ def need(v,m):
+  if not v:raise RuntimeError('STOP_'+m)
+@@ -66,7 +66,7 @@
+   else:need(pathlib.Path(r['path'])==HERE/name,'SOURCE_PATH')
+   read(r)
+  review=load(g['sourceReview'],131072);need(review['decision']=='ACCEPT_STATIC_REAL_FULL_FUNCTION_QUALIFICATION_ROUTE_SOURCE_ONLY' and review['executionAuthorization'] is False and review['concreteFindings']==[] and review['sourceManifest']==g['sourcePins'],'INDEPENDENT_SOURCE_REVIEW')
+- for name in ['CONFIG.json','run-fullfunction.py','run-fullfunction.mjs','record-fullfunction.py','CORE-TEST-TEMPLATE.ts','CONFIG-TEMPLATE.mts','FULL-BODY-CONTROLS-TEMPLATE.ts','exact-json.mjs','run-parser-controls.mjs','canonical-typescript-transform.mjs']:need(review['sourcePins'][name]==review['routeSourcePins'][name]==manifest['files'][name],'SOURCE_ROLE_ALIASES')
++ for name in ['CONFIG.json','run-fullfunction.py','run-fullfunction.mjs','record-fullfunction.py','CORE-TEST-TEMPLATE.ts','CONFIG-TEMPLATE.mts','FULL-BODY-CONTROLS-TEMPLATE.ts','exact-json.mjs','run-parser-controls.mjs','canonical-typescript-transform.mjs','m0WiringProbe.ts','RESOLUTION-SOURCE-BINDING.json']:need(review['sourcePins'][name]==review['routeSourcePins'][name]==manifest['files'][name],'SOURCE_ROLE_ALIASES')
+  need(manifest['files']['run-fullfunction.py']==role(pathlib.Path(__file__).resolve()),'CONTROLLER_SELF')
+  for r in [c['acceptedR3SourcePins'],c['acceptedR3RootAdoption'],c['acceptedR3IndependentReview'],*c['inputs'].values(),*c['templates'].values()]:read(r)
+  held=load(c['acceptedR3RootAdoption']);need(held['status']=='ROOT_ADOPTED_HELD_SOURCE_R3_FIXTURE_RESOLVER_AND_TWO_ORDERING_REPAIRS' and held['executionAuthorization'] is False,'HELD_R3_AUTHORITY')
+@@ -74,6 +74,10 @@
+  parser_review=load(parser_adoption['independentObservedReview']);need(parser_review['decision']=='ACCEPT_ACTUAL_EXACT_IDENTITY_JSON_PURE_CONTROLS_ONLY' and parser_review['executionAuthorization'] is False and parser_review['concreteFindings']==[],'OBSERVED_PARSER_CONTROLS_REVIEW')
+  parser_result=load(parser_adoption['result']);need(parser_result['status']=='PASS_EXACT_IDENTITY_JSON_PURE_CONTROLS_ALL_CASES_ONLY' and parser_result['caseCount']==32 and parser_result['privateM0ReadOrWritten'] is False and parser_result['game'] is False and parser_result['parserSource']==manifest['files']['exact-json.mjs'] and parser_result['controlsSource']==manifest['files']['run-parser-controls.mjs'],'ACTUAL_PARSER_CONTROLS_RESULT');read(parser_adoption['actualTool'],16*1024**2)
+  for r in c['transformTools'].values():read(r,2*1024**2)
++ da=c['probeDiagnosticAuthorities'];ad=load(da['rootAdoption']);di=load(da['independentSourceReview']);dm=load(da['sourceManifest'])
++ need(ad['schema']=='1370-root-held-probe-overflow-diagnostic-source-adoption/v1' and ad['status']=='ROOT_ADOPTED_HELD_FIRST_OVERFLOW_DIAGNOSTIC_SOURCE_ONLY' and ad['executionAuthorization'] is False and ad['runtimeReady'] is False and ad['limitsChanged'] is False and ad['completeTraceStillRequired'] is True and ad['sourceManifest']==da['sourceManifest'] and ad['independentSourceReview']==da['independentSourceReview'],'ADOPTED_DIAGNOSTIC_ONLY')
++ need(di['decision']=='ACCEPT_STATIC_BOUNDED_PROBE_OVERFLOW_DIAGNOSTIC_PROPOSAL_ONLY' and di['executionAuthorization'] is False and di['concreteFindings']==[] and di['sourceManifest']==da['sourceManifest'],'DIAGNOSTIC_SOURCE_REVIEW')
++ for local,prior in [(c['inputs']['m0WiringProbe.ts'],dm['files']['m0WiringProbe.ts']),(c['templates']['FULL-BODY-CONTROLS-TEMPLATE.ts'],dm['files']['full-body-controls.ts'])]:need((local['bytes'],local['sha256'])==(prior['bytes'],prior['sha256']),'EXACT_ADOPTED_DIAGNOSTIC_BYTES')
+  proof_config=load(c['proofConfig']);t=authenticate_types(g,c,proof_config)
+  artifact=load(g['artifactBoundAdoption']);need(artifact['schema']=='1370-root-full-state-fixture-artifact-bound/v1' and artifact['status']=='ROOT_AUTHORIZED_FULL_STATE_FIXTURE_ARTIFACT_BYTE_BOUND' and type(artifact['bytes']) is int and artifact['bytes']==c['bounds']['fixturePacketBytes']==67108864 and artifact['serializedPacketFiles']==1 and artifact['fullStateSerializationsInPacket']==10 and artifact['operationalStopBoundNotFitPrediction'] is True,'GENUINE_ARTIFACT_BOUND')
+  protection=load(g['currentProtection']);need(protection['schema']=='1370-root-fullfunction-current-protection/v1' and protection['status']=='ROOT_ADOPTED_CURRENT_FULLFUNCTION_PREFLIGHT_UNDER_CONTINUOUS_FREEZE' and protection['productionHead']==c['operationalHead'] and protection['productionSourceTree']==c['productionSourceTree'] and protection['typesAdoption']==g['typesAdoption'] and protection['fullPostflightSnapshot']==t['fullPostflightSnapshot'] and protection['protectedFreezeContinues'] is True and protection['executionAuthorization'] is False,'CURRENT_FULLFUNCTION_PROTECTION')

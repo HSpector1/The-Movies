@@ -1,0 +1,73 @@
+{
+  "actualFullInventoryRun": false,
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/original-current-root-prelaunch.py",
+    "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-CURRENT-PRELAUNCH-CONFIG.json",
+    "43608cd0518b5cf5bd07bcdda5ec05289a6b4092aad814cf78060e3e67e402a3"
+  ],
+  "automaticRetry": false,
+  "config": {
+    "bytes": 2695,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-CURRENT-PRELAUNCH-CONFIG.json",
+    "sha256": "43608cd0518b5cf5bd07bcdda5ec05289a6b4092aad814cf78060e3e67e402a3"
+  },
+  "currentProtection": {
+    "bytes": 3294,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-CURRENT-EXTERNAL-CONFIG-TYPES-PROTECTION.json",
+    "sha256": "5980e69d3e2962f068f10fa3217caa45f3ff752cc93a5064eb0637f54a2439d0"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesPid": true,
+  "executionAuthorization": true,
+  "game": false,
+  "mode": "fullfunction-current-protection",
+  "noHelperOriginalLockAbsentRequired": true,
+  "originalFullObservationsReusedUnderContinuousFreeze": true,
+  "ownedGroupAbsenceClaimInPreflight": true,
+  "ownedPgid": 27171,
+  "ownedPgidsPassedToOriginalCurrent": [
+    16743,
+    17014,
+    17258,
+    31386
+  ],
+  "ownedPid": 27171,
+  "ownedSid": 27171,
+  "perCommandTimeoutSeconds": 180,
+  "postR6RootAdoption": {
+    "bytes": 4446,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-POST-R6-PRESERVATION-DIAGNOSTIC-OBSERVED-ADOPTION.json",
+    "sha256": "5b5e062b8c5ac12bc70aa5ccb46ad101340ad692cdf0147ea44890882c0f44e1"
+  },
+  "proofOrTypesAccepted": false,
+  "protectedFreezeContinues": true,
+  "rawPsFdLocalOnly": true,
+  "rootLauncher": {
+    "bytes": 6563,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261009-r1/run_fullfunction_current_prelaunch_once.py",
+    "sha256": "051cea5507c302ebadc57ebf5aa0029cbb4fa5d16309c8a2549dd97f6fa60a40"
+  },
+  "schema": "1370-root-direct-m0-original-prelaunch-observation-grant/v1",
+  "sourcePins": {
+    "bytes": 3506,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "7015e2de01cb9964fcc6e362338461e9d8c3e5d6ab81bd618f67d04b4e51c455"
+  },
+  "sourceReview": {
+    "bytes": 7652,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "6f7e329107fb6942580553a40ea7395695b090ef32d256e69b59a708baf672b9"
+  },
+  "startMonotonic": 115024.129706258,
+  "status": "GRANTED_ONCE_ORIGINAL_CURRENT_ROOT_PREFLIGHT",
+  "successfulTypesAndFullPostflightAuthority": true,
+  "typesObservedAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  },
+  "utc": "2026-10-10T05:08:03.709790+00:00"
+}

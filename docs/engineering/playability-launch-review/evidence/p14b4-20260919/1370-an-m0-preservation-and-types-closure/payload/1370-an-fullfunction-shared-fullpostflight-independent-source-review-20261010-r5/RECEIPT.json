@@ -1,0 +1,84 @@
+{
+  "schema": "1370-fullfunction-shared-fullpostflight-independent-source-review/v1",
+  "decision": "ACCEPT_STATIC_ORIGINAL_SHARED_FULL_POSTFLIGHT_ADAPTER_AFTER_FULLFUNCTION_PASS_OR_STOP",
+  "sourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5/SOURCE-PINS.json",
+    "bytes": 2804,
+    "sha256": "1d4a2357eb6bbeef8f8c282eea04d6babaf001e17e78a7de9a142e3b54cb4db8"
+  },
+  "sourcePins": {
+    "launch-fullpostflight.py": {
+      "bytes": 5274,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5/launch-fullpostflight.py",
+      "sha256": "a6367944102b47e1ef2bb95d1055e1ec761c6f2cf371add8304b3cd4823917be"
+    },
+    "read-fullpostflight.py": {
+      "bytes": 5405,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5/read-fullpostflight.py",
+      "sha256": "173343039506ae5f5593a728931cae52cec2c96bc0dfb142318ee4fc589e4ece"
+    }
+  },
+  "routeSourcePins": {
+    "launch-fullpostflight.py": {
+      "bytes": 5274,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5/launch-fullpostflight.py",
+      "sha256": "a6367944102b47e1ef2bb95d1055e1ec761c6f2cf371add8304b3cd4823917be"
+    },
+    "read-fullpostflight.py": {
+      "bytes": 5405,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5/read-fullpostflight.py",
+      "sha256": "173343039506ae5f5593a728931cae52cec2c96bc0dfb142318ee4fc589e4ece"
+    }
+  },
+  "concreteFindings": [],
+  "findings": [],
+  "executionAuthorization": false,
+  "predecessorSourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r4/SOURCE-PINS.json",
+    "bytes": 5824,
+    "sha256": "f98fcdbffe35eab67ebd18e3da43cafc91b4b719f6831166c5a58cce4f76ad36"
+  },
+  "predecessorIndependentRootReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-RETRY-SHARED-POST-SOURCE-REVIEW.json",
+    "bytes": 1135,
+    "sha256": "bf7e39de998c13c49e0d8641e7a33153005061da1488c7e0206b0a57618259ae"
+  },
+  "evidenceReadback": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-independent-source-review-20261010-r5/EVIDENCE-READBACK.json",
+    "bytes": 4227,
+    "sha256": "97ea389f2041ac6b7424e894f408d89e6e8576176790314e67c7e9110f5e0f50"
+  },
+  "verified": {
+    "allNineManifestPayloadRolesAndManifestAuthenticated": true,
+    "genuinePredecessorLaunchAndReaderAuthenticated": true,
+    "completeForwardInverseForBothWholeSourcesExact": true,
+    "changesOnly": [
+      [
+        "1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r2",
+        "1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r3"
+      ],
+      [
+        "postflight-fullfunction-qualification-r2",
+        "postflight-fullfunction-qualification-r3"
+      ]
+    ],
+    "oneOccurrenceOfEachLiteralPerSource": true,
+    "allOtherSourceBytesUnchanged": true,
+    "originalGuardConfigAndBaselineAuthorityUnchanged": true,
+    "actualFutureRouteReadbackPathAndShaRemainExternalArguments": true,
+    "noMissingExitCoercion": true,
+    "priorActualStopPreserved": true,
+    "separateActualPidsAndActualGroupRosters": true,
+    "actualOwnGroupAndDirectExecScannerUnchanged": true,
+    "noHelperAndFreeLaneRequired": true,
+    "originalPerCommandTimeoutSeconds": 180,
+    "wholeScanDeadline": null,
+    "combinedParentRecorderClock": null,
+    "originalCompleteImmutableNineRootAndScratchIdentityChecksUnchanged": true,
+    "originalLocalOnlyRawPsFdClassificationUnchanged": true,
+    "originalCurrentFactsBeforeAfterChecksAndFreshOwnedAbsencesUnchanged": true,
+    "originalR6StopPreservationAndNoScientificOutcomeClaimUnchanged": true
+  },
+  "scope": "Independent static acceptance of the two exact attempt-path substitutions in each complete launcher/reader. R4 root review authenticated. No execution, candidate import, new guard, inventory, private read, process probes, Git operation, or filled future grant. Actual38091 postflight remains unadmitted by this source receipt.",
+  "lesson": "Fresh parent/output paths must be changed consistently while preserving the original full scanner, authenticated baseline, truthful missing exits, separate PID and process-group rosters, and original clock scope."
+}

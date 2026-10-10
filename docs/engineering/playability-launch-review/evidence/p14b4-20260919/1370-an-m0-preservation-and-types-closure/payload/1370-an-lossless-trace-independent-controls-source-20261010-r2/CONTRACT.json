@@ -1,0 +1,79 @@
+{
+  "actualGrant": null,
+  "actualResult": null,
+  "codecSeam": "{codec:{deflateRawSync,inflateRawSync}}; runtime probe never supplies seam",
+  "executionAuthorization": false,
+  "expectedReport": {
+    "executionAuthorization": false,
+    "game": false,
+    "originalM0ReadOrWritten": false,
+    "originalOrderingCases": 18,
+    "originalParserCasesReplayed": 0,
+    "positiveCount": 9,
+    "rows": 49,
+    "schema": "1370-lossless-trace-independent-controls-result/v1",
+    "specificNegativeCount": 40,
+    "status": "PURE_LOSSLESS_CODEC_AND_AFFECTED_ORDERING_COMPLETED_UNADOPTED"
+  },
+  "exports": {
+    "runLosslessTraceControls": [
+      "codecApi",
+      "probeApi",
+      "runOrderingSourceControls",
+      "orderingPacket"
+    ]
+  },
+  "fullbodyCleanupSourceReview": "Four actual template finally sites must run reset in nested finally when end throws. This is source-review criterion; no game import or invented cleanup execution claim.",
+  "implementationRoles": null,
+  "lessons": [
+    "Specific premises belong outside injected failing codecs, so a swallowed premise AssertionError cannot masquerade as intended operational refusal.",
+    "Exact charge accounting includes16-byte header and9-byte per-row header plus actual compressed bytes; a >old2MiB expanded GREEN demonstrates the semantic amendment directly.",
+    "Snapshot ownership/reset needs the actual probe API as well as direct codec tests.",
+    "Changed consumer must rerun all18 original ordering predicates; unchanged parser32 needs no replay."
+  ],
+  "negativeRules": [
+    "Operational errors require exact TraceOperationalError class and stable code.",
+    "Semantic ordering/pair failures require AssertionError and exact original assertion substring.",
+    "Public codec output limit requires exact ERR_BUFFER_TOO_LARGE.",
+    "Resource refusal requires append false plus unchanged admitted counts/charged bytes and the specific firstOverflow predicate.",
+    "Module/compiler/import/timeout/unknown/premise failures escape the aggregate; never count RED."
+  ],
+  "originalOrderingHelper": {
+    "bytes": 2237,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ordering-source-controls.ts",
+    "sha256": "e4109cd7a2560639c483ffbcc5fd4b65864c77148add2ad8e1289b096382241f"
+  },
+  "originalOrderingPacket": {
+    "bytes": 27476,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+    "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+  },
+  "requiredCodecExports": [
+    "createTraceStore",
+    "importEncodedSnapshot",
+    "TraceOperationalError",
+    "assertTracePairEqual"
+  ],
+  "rootDesignAdoption": {
+    "bytes": 2505,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LOSSLESS-TRACE-REPRESENTATION-DESIGN-ADOPTION.json",
+    "sha256": "bafc6e88970215b0ff90c476f5fb62f2019404847de9b218aee8d71db97a1d86"
+  },
+  "schema": "1370-lossless-independent-controls-source-contract/v1",
+  "scopeLimits": [
+    "Synthetic pure API/consumer inputs only; compression fit of actual natural fixture remains unknown.",
+    "Old expanded-sum cap is explicitly amended, original logical/expanded-row and observer caps unchanged.",
+    "Representation controls do not qualify real gameplay fixtures or typed-catch mutant; original parser32 remains unchanged/reused."
+  ],
+  "stickyApiAmendment": "Adopted broad API-error contract includes append after snapshot. STORE_CLOSED must latch operational failure before throw; subsequent store.snapshot() and all saved snapshot access reject TRACE_OPERATIONAL, even after original error was swallowed.",
+  "workerRequirements": [
+    "Authenticate this source and every implementation, original packet and compiler role before imports; stable physical-role rehash afterward.",
+    "Import only sealed local pure codec/trace-comparison and type-erased probe/ordering/source-case adapter modules plus pinned public TypeScript/Node tools; no game modules or private roots.",
+    "TypeScript transpile uses admitted public API/options, reports zero Error diagnostics, and emits exact authenticated modules to declared fresh scratch output under the original recorder caps.",
+    "Original ordering18 packet cases/edits/labels remain unchanged. Adapter fills only missing synthetic codec-envelope fields after original edits: call sequence=i with exact name/detail; evaluation inputs=[],canonicalInputs='[]',result=null with exact original context. No gameplay evidence claim for these fields.",
+    "Ordering callback must be the authenticated migrated actual ordering-source-case entry, never a fake/stub or independent reimplementation.",
+    "Bind actual sealed candidate and test-source hashes in a reviewed original recorded route before execution; original300/320/330 runtime and8MiB streams stay as specified by adopted route, no invented outer timer.",
+    "Compare full producer report rows to MATRIX.json plus exact counts/status; no generic exit0-only acceptance.",
+    "Output/control stdout/stderr/tool identities and owned cleanup will be independently reviewed before adoption; current source is unrun."
+  ]
+}

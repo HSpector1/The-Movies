@@ -1,0 +1,29 @@
+{
+  "actualGrant": null,
+  "actualResult": null,
+  "candidateRolesPendingSeparateSealedImplementation": true,
+  "executionAuthorization": false,
+  "files": {
+    "CONTRACT.json": {
+      "bytes": 4779,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r1/CONTRACT.json",
+      "sha256": "1e6fb49278d26affcfd2a3496afe5984028a32d2f1d8a2d8e306c3494e469f8e"
+    },
+    "LESSONS.txt": {
+      "bytes": 504,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r1/LESSONS.txt",
+      "sha256": "5d14c98b2e1defeb4af222bbc71c3129587db94a71845435c4c2246c6b32f7dc"
+    },
+    "MATRIX.json": {
+      "bytes": 7681,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r1/MATRIX.json",
+      "sha256": "ddb9abb30b36c82307e38b542401e2f37ac906e3dc3bba769206dfc5e1a7bf1a"
+    },
+    "run-lossless-controls.mjs": {
+      "bytes": 15680,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r1/run-lossless-controls.mjs",
+      "sha256": "c21ac0a00c52d458c0d4e61fc2f93852707f5e1b0daaa0614a4795e7f74b84d5"
+    }
+  },
+  "schema": "1370-lossless-independent-controls-source-pins/v1"
+}

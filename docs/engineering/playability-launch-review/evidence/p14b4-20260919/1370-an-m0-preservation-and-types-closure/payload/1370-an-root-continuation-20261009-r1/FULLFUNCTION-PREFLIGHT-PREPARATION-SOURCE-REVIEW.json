@@ -1,0 +1,57 @@
+{
+  "actualPreflight": null,
+  "checks": [
+    {
+      "byteExactHelpers": [
+        "role",
+        "check",
+        "put"
+      ],
+      "completeForwardAndInverseExact": true,
+      "source": "run_fullfunction_current_prelaunch_once.py"
+    },
+    {
+      "byteExactHelpers": [
+        "role",
+        "put"
+      ],
+      "completeForwardAndInverseExact": true,
+      "source": "read_fullfunction_current_prelaunch.py"
+    }
+  ],
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_FULLFUNCTION_CURRENT_PRELAUNCH_PREPARATION_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "independentReviewer": "root; source authored by cleanup_independent_red",
+  "schema": "1370-root-independent-fullfunction-prelaunch-preparation-source-review/v1",
+  "semanticReview": [
+    "Only original three unfilled configuration roles are filled: actual successful shared snapshot0700, recorded four prior IDs and fresh external output. Accepted current-AM original scanner7015/review6f7e remain unchanged.",
+    "Genuine types be632/observed aa9b/fullpost d9e5 chain is checked, prior R6 and disk STOP scope preserved. Readback typesAccepted=false is its original pending-stage claim, not substituted for final types admission.",
+    "Original direct scanner executes with lock absent, actual PID=PGID=SID recorded; original180-second individual-command bounds retained, no added whole clock or inventory.",
+    "Reader takes actual future session/scanner values, checks retained actual tool/exit and grant, authenticates filled config and actual stdout-reported preflight hash, nine strict roots, genuine full-map reuse and all original current predicates.",
+    "Raw whole-machine PS/FD remains four exact local-only roles. Reader only claims current shared preflight; no game or new types result."
+  ],
+  "sourceManifest": {
+    "bytes": 3273,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "753704a28f8e044181f9d722201ce09a4b475170a1f4ba95f3beb05c4fd1cece"
+  },
+  "sourceOnly": true,
+  "sourcePins": {
+    "EXACT-ARGV.json": {
+      "bytes": 2792,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261009-r1/EXACT-ARGV.json",
+      "sha256": "6f69e6f40f9a61cbd19ef94b04bf4b8f19871b0287f9d1ede5a100cd70275698"
+    },
+    "read_fullfunction_current_prelaunch.py": {
+      "bytes": 4920,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261009-r1/read_fullfunction_current_prelaunch.py",
+      "sha256": "5c0072a020d59f69d2541c771896296b4d1b0172bd332f210a7f7ff15a6686d5"
+    },
+    "run_fullfunction_current_prelaunch_once.py": {
+      "bytes": 6563,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261009-r1/run_fullfunction_current_prelaunch_once.py",
+      "sha256": "051cea5507c302ebadc57ebf5aa0029cbb4fa5d16309c8a2549dd97f6fa60a40"
+    }
+  }
+}

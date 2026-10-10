@@ -1,0 +1,20 @@
+{
+  "toolSessionId": 32283,
+  "chunks": [
+    {
+      "chunk_id": "dc55f7",
+      "wall_time_seconds": 1.000395639,
+      "session_id": 32283,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "ef05a0",
+      "wall_time_seconds": 0.00001797,
+      "exit_code": 0,
+      "original_token_count": 133,
+      "output": "{\"preparationAdoption\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-R5-PRELAUNCH-PREPARATION-ADOPTION.json\", \"bytes\": 1816, \"sha256\": \"516ed70c5b5bcf7745a4b6a792f71898f746811d0289519e372e0e62729c72f4\"}}\n{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r5/GRANT.json\", \"bytes\": 4588, \"sha256\": \"29323eaa0d7d515aa27773a14394af3822599a9ec4cc78df7f3d7ca15cfaefd6\"}, \"ownPid\": 89985, \"ownPgid\": 89985}\n"
+    }
+  ],
+  "finalExit": 0
+}

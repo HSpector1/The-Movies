@@ -1,0 +1,15 @@
+{
+  "actualOutcome": null,
+  "adoption": "No fullfunction acceptance until original mandatory shared fullpostflight and independent observed review. No neutrality/game release/default enable claims.",
+  "controllerMissing": "If no controller RESULT, mark absent; no sourceAfter/dependencyAfter/Node/fixture claim. actualGameplayPrefixExecuted=false only when actual pre-Node source gate failed; otherwise unknown/null without proof. Never manufacture controller output.",
+  "controllerPresent": "Authenticate RESULT role and exact schema1370-real-fullfunction-qualification-result/v1; retain status, before/after source+dependency, actualNodeExit,nodePid,nodeResult,fixture,elapsedSeconds and prefix/natural scope verbatim.",
+  "failure": "Preserve any nonzero tool/helper/recorder/runner exit and controller failure status. Missing or partial after-proof remains unverified; successful prefix can be true only from validated Node result, otherwise unknown when Node attempted. Do not accept generic compiler/loader/resource error as meaningful mutant RED.",
+  "ownership": "recordedOwnedPids includes actual helper, recorder, owned Python child, plus Node PID only if recorded. recordedOwnedGroupIds includes only genuinely confirmed group leaders; Node shares the Python child group and is not a new PGID merely because it has a PID. Probe only root-recorded IDs, retain each ESRCH outcome and lane absence.",
+  "postAdapterInput": "completed true means terminal execution and scoped cleanup record complete, not qualification success. laneReleased true; integer toolExit/helperExit/recorderExit; runnerExit integer or null with runnerStatus NOT_STARTED/UNKNOWN; genuine preflightObservedAdoption role; sorted distinct recordedOwnedPids and recordedOwnedGroupIds; original status retained.",
+  "recordedSources": "R9 controller and recorder pinned by independently accepted R9 manifest51926780 and review1c7ee4.",
+  "recorder": "Authenticate RESULT/streams role bytes+sha; require childPid actual captured ID and ownedPgid same confirmed recorder child-group identity; groupClear true and separately genuine scoped absence. Preserve status/actualChildExit/timedOut/stderr bytes verbatim.",
+  "scope": "Source-derived recommendations for genuine root readback; no observed result supplied.",
+  "sourceOnly": true,
+  "success": "Require exact PASS_REAL_FULL_FUNCTION_QUALIFICATION_PENDING_FULL_POSTFLIGHT, actualNodeExit integer0, both complete before/after proofs equal genuine adopted current types plain proofs; sourceBefore==sourceAfter and dependencyBefore==dependencyAfter. Node result role is genuine and status PASS_REAL_FULL_FUNCTION_FIXTURES_BASELINE_SPECIFIC_TYPED_CATCH_RED; prefix true, natural weeks196197208, three phase names generate/baseline/typed-catch-mutant, each actual child exit0, fixture same across phases, baseline status and exact specific mutant assertion fields. Full protected postflight still pending.",
+  "tool": "Retain full original tool envelope/chunks, exact final exit, helper log/.meta exit and recorder explicit child-command exit; never infer missing exit as zero."
+}

@@ -1,0 +1,21 @@
+{
+  "schema": "1370-root-actual-tool-transcript/v1",
+  "sessionId": 40169,
+  "allToolChunks": [
+    {
+      "chunk_id": "28e566",
+      "wall_time_seconds": 1.001255112,
+      "session_id": 40169,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "c50b71",
+      "wall_time_seconds": 0.000017491,
+      "exit_code": 2,
+      "original_token_count": 198,
+      "output": "{\"rootBinding\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-ROOT-BINDING-R3.json\", \"bytes\": 4477, \"sha256\": \"996c0af710c1c16965ef0802e4f498fcd2a644a33144d4efd925b9c7944055c8\"}, \"sourceAdoption\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-QUALIFICATION-SOURCE-ADOPTION-R3.json\", \"bytes\": 2721, \"sha256\": \"c0b3806488e979ae5f020a95e1793e5cd3165d4120da0e4a21d29a279a39be8e\"}}\n{\"launchClaim\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r3/ROOT-LAUNCH-CLAIM.json\", \"bytes\": 1806, \"sha256\": \"a2b9bc200e40d1f6e4fc158a86c05d773fb27b096178b46eef1b387b1bd715d9\"}, \"mode\": \"outer\", \"actualOwned\": {\"pid\": 35444, \"pgid\": 35444, \"sid\": 35444}}\n"
+    }
+  ],
+  "finalExit": 2
+}

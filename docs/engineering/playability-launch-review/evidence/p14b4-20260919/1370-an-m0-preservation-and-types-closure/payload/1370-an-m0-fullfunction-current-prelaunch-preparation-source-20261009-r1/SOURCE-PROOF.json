@@ -1,0 +1,82 @@
+{
+  "actualExecution": null,
+  "executionAuthorization": false,
+  "pending": "Root independent source review and explicit once-only grant; future actual tool/session/scanner/preflight roles remain unknown.",
+  "retained": [
+    "Original no-helper direct exec/own PID-PGID-SID claim, original lock/FD/current predicates, original continuous-freeze full-map reuse.",
+    "Original per-command180 timeout; no total scan deadline or new inventory/clock.",
+    "Reader scoped scanner PID/PGID zero-signal absence checks occur only when root actually executes the reviewed reader; none performed during preparation.",
+    "Four semantic rawPS/FD local hash-size-only roles.",
+    "HistoricalRootUnchangedfalse, R6/R1 STOP preserved; no repin or waiver."
+  ],
+  "schema": "1370-fullfunction-current-prelaunch-preparation-source-proof/v1",
+  "semanticChanges": [
+    "Fresh fullfunction protection parent/output/config/adoption paths; root authority directory explicit because source now resides in a separate package.",
+    "Parent authenticates genuine successful R3 observed types review and root adoption/fullpost relationship, instead of R1 failed-attempt adoption.",
+    "Original immutable config fills only protectedSnapshot0700, ownedPgids16743/17014/17258/31386, and fresh output path. Original shared guard source/config, inventories and source7015/review6f7e unchanged.",
+    "Reader takes genuine future tool session/scanner PID as arguments and matches actual transcript/grant; actual PREFLIGHT SHA binds genuine stdout instead of guessing a future hash.",
+    "Reader authenticates actual filled config and successful types adoption before accepting protected snapshot and nine-root/current facts.",
+    "Grant/readback documentary mode is fullfunction-current-protection; this establishes current protection only and never fullfunction/game execution or outcome."
+  ],
+  "sources": {
+    "acceptedTypesRetryLauncher": {
+      "bytes": 5412,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/run_types_retry_prelaunch_once.py",
+      "sha256": "bca282dc849b911b43d57723344afb6d618cc04640b85b42e7c2d0bdeabc0285"
+    },
+    "acceptedTypesRetryReader": {
+      "bytes": 3835,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/read_types_retry_prelaunch.py",
+      "sha256": "5b44a45b546f832b19279e50efe72d8ef4d251789aec6cc81d2423dd6014cbed"
+    },
+    "originalPrelaunchSourcePins": {
+      "bytes": 3506,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/SOURCE-PINS.json",
+      "sha256": "7015e2de01cb9964fcc6e362338461e9d8c3e5d6ab81bd618f67d04b4e51c455"
+    },
+    "originalPrelaunchSourceReview": {
+      "bytes": 7652,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "6f7e329107fb6942580553a40ea7395695b090ef32d256e69b59a708baf672b9"
+    },
+    "successfulTypesAdoption": {
+      "bytes": 5170,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+      "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+    },
+    "successfulTypesFullPostflightReadback": {
+      "bytes": 4798,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-fullpostflight-parent-recorded-20261009-r3/READBACK.json",
+      "sha256": "d9e54a27bd9c43e26792997b45d3771dd831cbd875d2555e0773278d52b2c3b4"
+    },
+    "successfulTypesObservedReview": {
+      "bytes": 27172,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-independent-observed-review-20261009-r3/RECEIPT.json",
+      "sha256": "aa9b78e2591dfba86233b7c216a85f3eff89088444c2fd138d4c08bc37c8df87"
+    }
+  },
+  "syntaxCheck": "Built-in compile only with SyntaxWarning-as-error; neither source executed/imported.",
+  "unchangedFunctions": {
+    "launcher": [
+      "role",
+      "check",
+      "put"
+    ],
+    "reader": [
+      "role",
+      "put"
+    ]
+  },
+  "wholeFileInverseDiffs": {
+    "launcher": {
+      "bytes": 8300,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261009-r1/launcher.inverse.diff",
+      "sha256": "382e878d9525876d82ae11375cf7a579ff198c2f836c13c3c81b886ac732ee93"
+    },
+    "reader": {
+      "bytes": 7521,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261009-r1/reader.inverse.diff",
+      "sha256": "642cbdfa15c3ebb2631817fb48355bf5fdd155d5b9a322b76230f117903ff17a"
+    }
+  }
+}

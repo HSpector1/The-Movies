@@ -1,0 +1,33 @@
+{
+  "GitExecuted": false,
+  "autoBytes": 796,
+  "autoBytesPreservedExact": true,
+  "autoSha256": "39c20c726e9779c2f8ba73dd37ba55476302ac7b17040bf3d5e487f5c7268a4d",
+  "currentRepoHandoffReadOnlyRole": {
+    "bytes": 11256,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/HANDOFF.md",
+    "sha256": "b2784da6a3a1378a919734fe892fc00841861f47b79687446b41f6273ba8d292"
+  },
+  "draft": {
+    "bytes": 13879,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r7/HANDOFF-PROPOSED.md",
+    "sha256": "e1fc0d74890f22a7b851d7612fd18aa46b26619b793ba02a1dd81a526f2ede29"
+  },
+  "executionAuthorization": false,
+  "futureANArchive": null,
+  "futureANCommit": null,
+  "futureR13ObservedOutcome": null,
+  "lessons": {
+    "bytes": 43193,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LESSONS-r16.md",
+    "sha256": "644d7d1ec2512131aeba0be2b634dbbb6b81761b511bda1c318fb1770b801324"
+  },
+  "repoWritten": false,
+  "rootR6Report": {
+    "bytes": 10715,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r6/AN-REPORT-PROPOSED.md",
+    "sha256": "c7c0671f5107da37430c72ba4891d02fd1e0551e7ca9e5551a05631746a390df"
+  },
+  "rootReconciliationRequired": true,
+  "schema": "1370-scratch-handoff-draft-source-audit/v1"
+}

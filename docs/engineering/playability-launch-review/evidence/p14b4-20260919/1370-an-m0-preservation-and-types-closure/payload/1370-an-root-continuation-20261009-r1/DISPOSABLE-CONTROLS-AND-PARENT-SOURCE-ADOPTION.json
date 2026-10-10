@@ -1,0 +1,60 @@
+{
+  "actualControlsAccepted": false,
+  "combinedPreparationRuntimeDeadline": null,
+  "executionAuthorization": false,
+  "originalR1ClockAndHomeFindingsPreserved": true,
+  "parentAdapterSourcePins": {
+    "bytes": 2539,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "16a42f267504d4b7414301d9a464c27563269db5d5d9a761bdd3f4dd9878dc76"
+  },
+  "parentAdapterSourceReview": {
+    "bytes": 10544,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "97aa5fc2914c5f648a2ede322e2286fb14f7a09820cdf040a989c0879d2f915d"
+  },
+  "preparationSeconds": 60,
+  "publishedOperationalPredecessor": {
+    "bytes": 1771,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+    "sha256": "a7ca327d2d4610704f426630d79343722fb92c19f3762dd521221d77a567479b"
+  },
+  "recipe": {
+    "bytes": 9918,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/RECIPE.json",
+    "sha256": "0998870942ff8f188fcc3ce14f853119a49f45b1e78d08ad18685f83b5ab432b"
+  },
+  "runtimeBounds": {
+    "activeRecorderSeconds": 75,
+    "aggregateControllerSeconds": 60,
+    "ledgerEachBytes": 65536,
+    "nestedStreamsEachBytes": 1048576,
+    "parentLaunchClock": null,
+    "preparationAlarmIfUsed": {
+      "canceledBeforeExec": true,
+      "includedInRecorderClock": false,
+      "seconds": 60
+    },
+    "producerStreamsEachBytes": 1048576,
+    "status": "PROPOSED_SAME_QUALIFIED_MECHANISMS_NEW_WORKLOAD_UNRUN",
+    "wholeRecorderSeconds": 90
+  },
+  "runtimeTools": {
+    "bytes": 1916,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/RUNTIME-TOOLS.json",
+    "sha256": "059056bbee66b15d0f944e390dc16c9312f1349e33bb3094059de4c47b5bfc6f"
+  },
+  "schema": "1370-an-root-disposable-controls-source-adoption/v1",
+  "sourcePins": {
+    "bytes": 11166,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "bc7fcfc7bcd4ab5e4472733260e1ee5f89658c827a09412d7f98d60b10ffd573"
+  },
+  "sourceReview": {
+    "bytes": 9283,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "dd835fc294482503f5845ca658dd7ba8431255a3bbd36cb4722edf14308ab578"
+  },
+  "status": "ROOT_ADOPTED_REVIEWED_DISPOSABLE_PAIR_AND_DIRECT_EXEC_PARENT_SOURCE",
+  "typesOrOriginalM0PreservationAccepted": false
+}

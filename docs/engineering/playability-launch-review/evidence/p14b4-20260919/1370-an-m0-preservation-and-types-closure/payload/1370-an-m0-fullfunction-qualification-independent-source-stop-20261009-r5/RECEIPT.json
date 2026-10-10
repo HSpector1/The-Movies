@@ -1,0 +1,354 @@
+{
+  "schema": "1370-independent-real-fullfunction-qualification-source-review/v1",
+  "decision": "STOP_R5_FAILURE_SCOPE_REPORTING",
+  "sourceManifest": {
+    "bytes": 19426,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/SOURCE-PINS.json",
+    "sha256": "d47daec21a5bf3493e3bdc558b0c50671772ba82b825bfe94cdaa484c8fb4c7f"
+  },
+  "sourceSeal": {
+    "bytes": 400,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/SEAL.json",
+    "sha256": "fbe69fce67037fc4839854903ee6d985841e4c49a6a514d8cfec5c53eb3beade"
+  },
+  "sourcePins": {
+    "CONFIG-TEMPLATE.mts": {
+      "bytes": 930,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/CONFIG-TEMPLATE.mts",
+      "sha256": "8be9467a794ddbd134dd04c4a92249c7e85e357ef96619562bd99f4ad10ecf5e"
+    },
+    "CONFIG.json": {
+      "bytes": 6279,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/CONFIG.json",
+      "sha256": "ffaed15c7b88989fa2170cdf65338d0a68df552c4b2c3ac303d26352c7e02b9c"
+    },
+    "CORE-TEST-TEMPLATE.ts": {
+      "bytes": 3955,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/CORE-TEST-TEMPLATE.ts",
+      "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "bytes": 9487,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+    },
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "record-fullfunction.py": {
+      "bytes": 16750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/record-fullfunction.py",
+      "sha256": "da4a37273cd52ca0c5a9ae876e47d949b7b944a42fc9f3765b8d200db8091e3d"
+    },
+    "run-fullfunction.mjs": {
+      "bytes": 20216,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/run-fullfunction.mjs",
+      "sha256": "ef2d6378f1f59f3896de4a608bca0462e885fe2e37b8d589ca473dfa15ad1fc0"
+    },
+    "run-fullfunction.py": {
+      "bytes": 15720,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/run-fullfunction.py",
+      "sha256": "99c330548af2c70d99c79ada0d6d23d100a26de273af92499ca893d07a8f73f1"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    }
+  },
+  "routeSourcePins": {
+    "CONFIG-TEMPLATE.mts": {
+      "bytes": 930,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/CONFIG-TEMPLATE.mts",
+      "sha256": "8be9467a794ddbd134dd04c4a92249c7e85e357ef96619562bd99f4ad10ecf5e"
+    },
+    "CONFIG.json": {
+      "bytes": 6279,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/CONFIG.json",
+      "sha256": "ffaed15c7b88989fa2170cdf65338d0a68df552c4b2c3ac303d26352c7e02b9c"
+    },
+    "CORE-TEST-TEMPLATE.ts": {
+      "bytes": 3955,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/CORE-TEST-TEMPLATE.ts",
+      "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "bytes": 9487,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+    },
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "record-fullfunction.py": {
+      "bytes": 16750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/record-fullfunction.py",
+      "sha256": "da4a37273cd52ca0c5a9ae876e47d949b7b944a42fc9f3765b8d200db8091e3d"
+    },
+    "run-fullfunction.mjs": {
+      "bytes": 20216,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/run-fullfunction.mjs",
+      "sha256": "ef2d6378f1f59f3896de4a608bca0462e885fe2e37b8d589ca473dfa15ad1fc0"
+    },
+    "run-fullfunction.py": {
+      "bytes": 15720,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/run-fullfunction.py",
+      "sha256": "99c330548af2c70d99c79ada0d6d23d100a26de273af92499ca893d07a8f73f1"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    }
+  },
+  "executionAuthorization": false,
+  "actualRuntimeExecuted": false,
+  "actualParserControls": "UNRUN",
+  "actualFixtures": "UNRUN",
+  "actualBaseline": "UNRUN",
+  "actualTypedCatchMutant": "UNRUN",
+  "concreteFindings": [
+    {
+      "id": "F1",
+      "severity": "STOP",
+      "source": {
+        "bytes": 15720,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/run-fullfunction.py",
+        "sha256": "99c330548af2c70d99c79ada0d6d23d100a26de273af92499ca893d07a8f73f1"
+      },
+      "location": "main() final RESULT construction",
+      "finding": "actualGameplayPrefixExecuted is derived solely from availability of final NODE-RESULT, so it falsely reports false when Node started a real prefix then failed before that report. naturalBoundaryWeeks always lists requested target weeks as if they were actual observed boundaries.",
+      "minimalRepair": "Use true only after a validated successful Node result, null/unknown when Node started without such proof, and false only when no Node ever started. Populate actual naturalBoundaryWeeks only when proven; retain requestedNaturalBoundaryWeeks separately. Preserve every prior failure, bounds, source authority, scan count and original source role."
+    }
+  ],
+  "checks": {
+    "retainedBytes": {
+      "payloadRoles": 67,
+      "totalRolesIncludingManifestAndSeal": 69,
+      "allManifestSizesAndHashesMatched": true,
+      "sourceReadback": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-stop-20261009-r5/SOURCE-READBACK.json",
+        "bytes": 19784,
+        "sha256": "35e08ce5d01d845cc923570566cc49b20af13b1b9592fd60ee7a4d43a29993b4"
+      }
+    },
+    "completeForwardAndInversePairs": [
+      {
+        "prefix": "controls",
+        "base": "BASE-R3-full-body-controls.ts.txt",
+        "next": "FULL-BODY-CONTROLS-TEMPLATE.ts",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "prefix": "core",
+        "base": "BASE-R3-core.test.ts.txt",
+        "next": "CORE-TEST-TEMPLATE.ts",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "prefix": "config",
+        "base": "BASE-R3-config.mjs.txt",
+        "next": "CONFIG-TEMPLATE.mts",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "prefix": "recorder",
+        "base": "BASE-record-ordering-controls.py.txt",
+        "next": "record-fullfunction.py",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "prefix": "CONFIG.json.r1",
+        "base": "R1-CONFIG.json.txt",
+        "next": "R2-CONFIG.json.txt",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "prefix": "run-fullfunction.py.r1",
+        "base": "R1-run-fullfunction.py.txt",
+        "next": "R2-run-fullfunction.py.txt",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "prefix": "run-fullfunction.mjs.r1",
+        "base": "R1-run-fullfunction.mjs.txt",
+        "next": "R2-run-fullfunction.mjs.txt",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "prefix": "CONFIG.json.r2",
+        "base": "R2-CONFIG.json.txt",
+        "next": "R3-CONFIG.json.txt",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "prefix": "run-fullfunction.py.r2",
+        "base": "R2-run-fullfunction.py.txt",
+        "next": "R3-run-fullfunction.py.txt",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "prefix": "run-fullfunction.mjs.r2",
+        "base": "R2-run-fullfunction.mjs.txt",
+        "next": "R3-run-fullfunction.mjs.txt",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "prefix": "CONFIG.json.r3",
+        "base": "R3-CONFIG.json.txt",
+        "next": "R4-CONFIG.json.txt",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "prefix": "run-fullfunction.py.r3",
+        "base": "R3-run-fullfunction.py.txt",
+        "next": "R4-run-fullfunction.py.txt",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "prefix": "run-fullfunction.mjs.r3",
+        "base": "R3-run-fullfunction.mjs.txt",
+        "next": "R4-run-fullfunction.mjs.txt",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "prefix": "CONFIG.json.r4",
+        "base": "R4-CONFIG.json.txt",
+        "next": "CONFIG.json",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "prefix": "run-fullfunction.py.r4",
+        "base": "R4-run-fullfunction.py.txt",
+        "next": "run-fullfunction.py",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "prefix": "run-fullfunction.mjs.r4",
+        "base": "R4-run-fullfunction.mjs.txt",
+        "next": "run-fullfunction.mjs",
+        "forward": true,
+        "inverse": true
+      }
+    ],
+    "originalRecorder": {
+      "helpersByteExact": [
+        "require",
+        "sha",
+        "write",
+        "metadata",
+        "authenticate",
+        "process_alive",
+        "start_owned",
+        "ready_go",
+        "close_startup_fds",
+        "clear",
+        "alarm",
+        "whole_guard",
+        "active_guard",
+        "observed_exit_guard",
+        "child_environment",
+        "finalize_result"
+      ],
+      "ownedChildByteExact": true,
+      "childSeconds": 300,
+      "activeRecorderSeconds": 320,
+      "wholeRecorderSeconds": 330,
+      "streamBytes": 8388608,
+      "noInventedCombinedParentClock": true
+    },
+    "exactParser": {
+      "unsafeIntegerTokens": "BigInt in validation memory",
+      "safeIntegerTokens": "Number",
+      "typedEquality": "distinguishes BigInt/Number, boolean/Number and array/object; recursively matches exact own keys and values",
+      "duplicateKeysRejected": true,
+      "utf8Fatal": true,
+      "malformedStringValidation": "native JSON.parse on exact string slice",
+      "depthCap": 100,
+      "completeTrailingFraming": true,
+      "pureControls": {
+        "fixedUniqueIds": [
+          "safe-positive-max",
+          "unsafe-positive-boundary",
+          "unsafe-positive-neighbor",
+          "safe-negative-min",
+          "unsafe-negative-boundary",
+          "unsafe-negative-neighbor",
+          "actual-known-root-nanoseconds",
+          "adjacent-root-nanoseconds",
+          "integer-negative-zero",
+          "ordinary-fraction",
+          "fraction-negative-zero",
+          "finite-exponent",
+          "duplicate-key",
+          "nested-duplicate-key",
+          "malformed-leading-zero",
+          "malformed-fraction",
+          "malformed-exponent",
+          "fraction-overflow",
+          "unsupported-nan",
+          "malformed-escape",
+          "raw-control-in-string",
+          "unterminated-string",
+          "malformed-utf8",
+          "depth-overflow",
+          "trailing-data",
+          "array-trailing-comma",
+          "object-trailing-comma",
+          "unsupported-undefined",
+          "escaped-string",
+          "prototype-key",
+          "typed-structure-equality",
+          "nested-proof-exactness"
+        ],
+        "count": 32,
+        "negativePredicates": "Exact intended STOP labels; native SyntaxError only for malformed JSON string cases; TypeError plus ERR_ENCODING_INVALID_ENCODED_DATA for invalid UTF-8. Loader, tool or unrelated errors fail.",
+        "sourceOnlyUnrun": true
+      }
+    },
+    "serializationTrace": {
+      "pythonProofArtifacts": "FIRST-PROOF and CONTROLLER-BINDING use Python json.dumps with exact arbitrary precision numeric proof tokens.",
+      "nodeValidationOnly": "types/root/first-proof/proof-config/authority nanosecond BigInts remain in validation objects; none are copied into Node writeJson arguments.",
+      "nodePhaseBindings": "role objects with small bounded bytes, paths and hashes; head/tree strings, booleans and safe fixture cap.",
+      "coreResults": "generation/baseline/mutant result objects contain safe bounded artifact roles, status/error strings, fault tag, booleans; complete game packet uses original JSON serialization independently of proof decoder.",
+      "nodeFinalAndStdout": "phase result objects, safe PIDs/exits/counts/durations/byte bounds and roles; final stdout contains result role and status.",
+      "pureControlStdout": "fixed ID/predicate/verdict strings, safe source role byte counts and caseCount, booleans. No unsafe proof numbers serialized or coerced to strings."
+    },
+    "prerequisitesBeforePrivateAccess": "Python authenticates source/review aliases, genuine successful types/root/protection, genuine exact-helper parser-controls observed adoption, original copied-source authority and first complete proof before Node. Node independently authenticates same grant/source/review/types/root/protection/parser adoption and actual controller PPID/FIRST-PROOF chain before private imports.",
+    "originalInventories": "Exactly two original complete 1740-file/nonroot/dependency proofs; no new whole inventory gate.",
+    "realFixtureScope": "Natural pre-market196/197/208 prefix and four explicitly synthetic trigger/attachment variants remain requested future source scope. No actual fixture or game outcome is asserted.",
+    "specificCatchMutant": "Baseline before mutant; only original AssertionError ERR_ASSERTION/operator throws/exact missing-exception message/actual undefined/row-cap fault tag/complete controls source stack accepted. Loader, resource, deadline or other gameplay failure STOP.",
+    "parentAndPureControls": "Complete fullfunction owned recorder is implemented. Standalone pure32 entry has no children/game/private imports. Its genuine recorded parent/grant/tool and observed adoption remain external unfilled requirements; R5 does not implement or authorize that separate parent.",
+    "priorFailuresPreserved": [
+      "R1 success SystemExit caught plus artifact/traversal cap issues",
+      "R2 direct Node prerequisite gate",
+      "R3 unsafe nanosecond rounding",
+      "R4 parser qualification held",
+      "original H13/R5/R6/external-types disk-floor STOPs"
+    ],
+    "additionalConcreteFindings": []
+  },
+  "reviewMethod": "Finite named scratch source reads, actual retained-byte readback and pure complete text projection checks. No candidate import, runtime, parser control execution, compile, game, private inventory, Git or process probe.",
+  "sourcePromotion": false,
+  "neutralityAccepted": false,
+  "wholeGameAccepted": false
+}

@@ -1,0 +1,55 @@
+{
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "freshOutputPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261009-r1",
+  "freshParentPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261009-r1",
+  "futureReadbackPath": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json",
+  "originalActualScannerArgvTemplate": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/original-current-root-prelaunch.py",
+    "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-CURRENT-PRELAUNCH-CONFIG.json",
+    "ACTUAL_FILLED_CONFIG_SHA256"
+  ],
+  "ownedPgids": [
+    16743,
+    17014,
+    17258,
+    31386
+  ],
+  "parentArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261009-r1/run_fullfunction_current_prelaunch_once.py",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-independent-observed-review-20261009-r3/RECEIPT.json",
+    "aa9b78e2591dfba86233b7c216a85f3eff89088444c2fd138d4c08bc37c8df87",
+    "d9e54a27bd9c43e26792997b45d3771dd831cbd875d2555e0773278d52b2c3b4",
+    "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  ],
+  "protectedSnapshot": {
+    "bytes": 8847484,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r3/SNAPSHOT.json",
+    "sha256": "0700ce99c57f33956c3fb1b5f26d3c6e28e6e323551fb1f6f084db2f9c370dff"
+  },
+  "readerArgvTemplate": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261009-r1/read_fullfunction_current_prelaunch.py",
+    "ACTUAL_FUTURE_TOOL_SESSION_ID",
+    "ACTUAL_FUTURE_SCANNER_PID"
+  ],
+  "readerInputsUnknown": {
+    "preflightSha256": null,
+    "scannerPid": null,
+    "toolSessionId": null
+  },
+  "schema": "1370-fullfunction-current-prelaunch-exact-argv/v1",
+  "scope": "Original current-AM shared protection prelaunch only, with original full-map continuous-freeze reuse; no fullfunction/game launch."
+}

@@ -1,0 +1,111 @@
+{
+  "authenticPriorStopReadback": {
+    "bytes": 6812,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r2/READBACK.json",
+    "sha256": "fcc8bebdacd7ea7730e5b861676c980b386c8ef6d1e97e453daf03895b2822d1"
+  },
+  "baseIndependentRootReview": {
+    "bytes": 3105,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-RETRY-PREFLIGHT-PREPARATION-SOURCE-REVIEW.json",
+    "sha256": "6a5de4f910701a05248c4baabaa97cf830ededd9f58a56a67a073f903e84fd74"
+  },
+  "baseManifest": {
+    "bytes": 3286,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "07832ac63601daf7077d126514a44feb91adb4c553afe2148d80b8fbbc516ce7"
+  },
+  "compileOnlySyntaxWarningError": true,
+  "executionAuthorization": false,
+  "functions": {
+    "launcher": [
+      {
+        "byteExact": true,
+        "bytes": 229,
+        "name": "role",
+        "sha256": "81c86b57cb1cd1f8a6738135674740771668b5e044ced6e8018ce626d8089ef5"
+      },
+      {
+        "byteExact": true,
+        "bytes": 90,
+        "name": "check",
+        "sha256": "63554af215e8852b8021bc803bde14577230a234ed5d544700eaf2641213b18a"
+      },
+      {
+        "byteExact": true,
+        "bytes": 151,
+        "name": "put",
+        "sha256": "8a546251be9c88fe7c35f1850427198c0e2370c41a930f42e19898faefeb084b"
+      }
+    ],
+    "reader": [
+      {
+        "byteExact": true,
+        "bytes": 209,
+        "name": "role",
+        "sha256": "f45e9c8a8b7cd0ff6e6bec0d9d47bcf8c618e934495e3b0ab328b2c6a4780d67"
+      },
+      {
+        "byteExact": true,
+        "bytes": 151,
+        "name": "put",
+        "sha256": "8a546251be9c88fe7c35f1850427198c0e2370c41a930f42e19898faefeb084b"
+      }
+    ]
+  },
+  "originalScannerAndSourceReviewUnchanged": true,
+  "runtimeExecution": false,
+  "schema": "1370-fullfunction-third-current-prelaunch-source-proof/v1",
+  "scope": "Fresh third-attempt prelaunch outputs and generated TypeScript parse STOP status/predicate only. Existing external genuine latest fullpost+reviewed root STOP roles remain null until completed. TYPES0700 remains separate from latest shared map; no new source proof, repin, inventory or clock.",
+  "sourceChanges": {
+    "launcher": [
+      {
+        "after": "1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r3",
+        "before": "1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r2",
+        "occurrences": 1
+      },
+      {
+        "after": "1370-an-m0-fullfunction-current-prelaunch-output-20261010-r3",
+        "before": "1370-an-m0-fullfunction-current-prelaunch-output-20261010-r2",
+        "occurrences": 1
+      },
+      {
+        "after": "ROOT_ADOPTED_FULLFUNCTION_GENERATED_TYPESCRIPT_PARSE_STOP_WITH_FULL_SHARED_POSTFLIGHT",
+        "before": "ROOT_ADOPTED_FULLFUNCTION_WRONG_MIRROR_SUBJECT_STOP_WITH_FULL_SHARED_POSTFLIGHT",
+        "occurrences": 1
+      },
+      {
+        "after": "M0-FULLFUNCTION-R3-CURRENT-PRELAUNCH-CONFIG.json",
+        "before": "M0-FULLFUNCTION-RETRY-CURRENT-PRELAUNCH-CONFIG.json",
+        "occurrences": 1
+      },
+      {
+        "after": "assert prior['status']=='ACTUAL_FULLFUNCTION_STOP_PRESERVED_PENDING_SHARED_FULL_POSTFLIGHT' and prior['completed'] is True and prior['toolExit']==2 and prior['controllerStatus']=='STOP_NODE_EXIT' and prior['runnerExit']==1 and prior['actualGameplayPrefixExecuted'] is None and prior['naturalBoundaryWeeks'] is None and prior['nodeResult'] is None and prior['sourceAfter'] is None and prior['dependencyAfter'] is None",
+        "before": "assert prior['status']=='ACTUAL_STOP_WRONG_CONTAINER_ARGUMENT_AT_FIRST_LEAF_METADATA_GATE' and prior['completed'] is True and prior['toolExit']==2 and prior['actualGameplayPrefixExecuted'] is False and prior['nodePid'] is None and prior['sourceAfter'] is None and prior['dependencyAfter'] is None",
+        "occurrences": 1
+      }
+    ],
+    "reader": [
+      {
+        "after": "1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r3",
+        "before": "1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r2",
+        "occurrences": 1
+      },
+      {
+        "after": "1370-an-m0-fullfunction-current-prelaunch-output-20261010-r3",
+        "before": "1370-an-m0-fullfunction-current-prelaunch-output-20261010-r2",
+        "occurrences": 1
+      },
+      {
+        "after": "ROOT_ADOPTED_FULLFUNCTION_GENERATED_TYPESCRIPT_PARSE_STOP_WITH_FULL_SHARED_POSTFLIGHT",
+        "before": "ROOT_ADOPTED_FULLFUNCTION_WRONG_MIRROR_SUBJECT_STOP_WITH_FULL_SHARED_POSTFLIGHT",
+        "occurrences": 1
+      },
+      {
+        "after": "M0-FULLFUNCTION-R3-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json",
+        "before": "M0-FULLFUNCTION-RETRY-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json",
+        "occurrences": 1
+      }
+    ]
+  },
+  "wholeInversesRecoverAcceptedR2": true
+}

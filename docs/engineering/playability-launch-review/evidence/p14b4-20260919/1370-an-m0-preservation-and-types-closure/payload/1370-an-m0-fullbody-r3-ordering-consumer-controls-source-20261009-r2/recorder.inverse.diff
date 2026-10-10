@@ -1,0 +1,86 @@
+--- recorder
++++ recorder
+@@ -2,8 +2,8 @@
+ No original M0 cause, game, private mirror, or execution authority."""
+ import datetime,hashlib,json,os,pathlib,selectors,select,signal,stat,sys,time
+ HERE=pathlib.Path(__file__).resolve().parent;SCRATCH=pathlib.Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='83bce1b4b19f7b9f6ae3c75fc33b5960aa21738891e4add3aa4941c45aaac631';WORKER_SHA='0465271ed0e0d1d9e1311982154ab1bfc70f7ef7d1c935b050f32a13d4afb2dd';CAP=8*1024**2;CHILD=300;ACTIVE=320;WHOLE=330
+-OUTPUTS={'verification':SCRATCH/'1370-an-m0-fullbody-r3-ordering-consumer-recorder-results-20261009-r2'}
++CONFIG_SHA='c3c58fc2b2ba77b0a2e92415f1e74d386cf899506b07aacbe677f2ad9b061c14';CAP=1024**2;CHILD=60;ACTIVE=75;WHOLE=90
++OUTPUTS={mode:SCRATCH/('1370-c0-m0-config-metadata-controls-'+mode+'-output-after-al-20261009-r2') for mode in ('verification',)}
+ def require(v,m):
+  if not v:raise RuntimeError('STOP_'+m)
+ def sha(b):return hashlib.sha256(b).hexdigest()
+@@ -148,9 +148,9 @@
+     return process.returncode is not None and not process_alive(process.pid)
+ 
+ 
+-def alarm(*_):raise TimeoutError('STOP_WHOLE_330_SECONDS')
+-def whole_guard(end,clock=time.monotonic):require(clock()<end,'WHOLE_330_SECONDS')
+-def active_guard(started,clock=time.monotonic):require(clock()<started+ACTIVE,'ACTIVE_320_SECONDS')
++def alarm(*_):raise TimeoutError('STOP_WHOLE_90_SECONDS')
++def whole_guard(end,clock=time.monotonic):require(clock()<end,'WHOLE_90_SECONDS')
++def active_guard(started,clock=time.monotonic):require(clock()<started+ACTIVE,'ACTIVE_75_SECONDS')
+ def observed_exit_guard(started,child_started,stdout_bytes,stderr_bytes,clock=time.monotonic):
+  require(clock()<min(started+ACTIVE,child_started+CHILD),'OBSERVED_CHILD_OR_ACTIVE_DEADLINE')
+  require(max(stdout_bytes,stderr_bytes)<=CAP,'OBSERVED_STREAM_CAP')
+@@ -175,18 +175,14 @@
+  previous_handler=signal.getsignal(signal.SIGALRM);signal.signal(signal.SIGALRM,alarm);signal.setitimer(signal.ITIMER_REAL,WHOLE)
+  owned={};pipes=[];sel=None;output=None;buffers={'stdout':bytearray(),'stderr':bytearray()};child=None;child_started=None;failure=None;mode=None;groupclear=True;timedout=False
+  try:
+-  require(sys.dont_write_bytecode and not sys.flags.optimize,'PYTHON_B_REQUIRED');require(len(sys.argv)==4 and sys.argv[1] in OUTPUTS,'EXACT_MODE');mode=sys.argv[1]
+-  configraw=(HERE/'CONFIG.json').read_bytes();require(sha(configraw)==CONFIG_SHA,'CONFIG_HASH');config=json.loads(configraw);require(config.get('schema')=='1370-r3-ordering-controls-config/v1' and config.get('executionAuthorization') is False and config.get('syntheticOnly') is True,'PURE_ORDERING_CONFIG')
+-  grantpath=pathlib.Path(sys.argv[2]);authenticate(grantpath,sys.argv[3],128*1024);grant=json.loads(grantpath.read_bytes())
+-  require(grant['schema']=='1370-root-r3-ordering-controls-once-grant/v1' and grant['executionAuthorization'] is True and grant['scope']=='PURE_SYNTHETIC_ORDERING_CONSUMER_18_CASES_ONLY' and grant['oneAggregateRun'] is True and grant['automaticRetry'] is False,'ROOT_ONCE_GRANT')
+-  require(grant['configSha256']==CONFIG_SHA and grant['bounds']==config['bounds'] and grant['clockEnforcedByOriginalRecordedRoute'] is True,'EXACT_AGGREGATE_BOUNDS')
+-  for role in config['inputs'].values():authenticate(role['path'],role['sha256'],128*1024);whole_guard(end)
+-  script=HERE/'run-ordering-controls.mjs';authenticate(script,WORKER_SHA,128*1024)
+-  node=grant['runtimeTools']['node'];authenticate(node['path'],node['sha256'],128*1024**2);require(os.access(node['path'],os.X_OK),'NODE_EXECUTABLE');active_guard(started)
++  require(sys.dont_write_bytecode and not sys.flags.optimize,'PYTHON_B_REQUIRED');require(len(sys.argv)==2 and sys.argv[1] in OUTPUTS,'EXACT_MODE');mode=sys.argv[1]
++  configraw=(HERE/'CONFIG.json').read_bytes();require(sha(configraw)==CONFIG_SHA,'CONFIG_HASH');config=json.loads(configraw);require(config.get('schema')=='1370-disposable-config-metadata-controls/v1' and config.get('executionAuthorization') is False and config.get('originalM0CauseAdmission') is False,'DISPOSABLE_CONFIG')
++  for role in config['roles'].values():authenticate(role['path'],role['sha256'],16*1024**2);whole_guard(end)
++  authenticate(config['nodePath'],config['nodeSha256']);require(os.access(config['nodePath'],os.X_OK),'NODE_EXECUTABLE');active_guard(started)
+   output=OUTPUTS[mode];require(output.parent==SCRATCH and SCRATCH.resolve(strict=True)==SCRATCH and not os.path.lexists(output),'ABSENT_OWNED_OUTPUT');output.mkdir(mode=0o700)
+-  argv=[node['path'],str(script),str(grantpath),sys.argv[3]]
++  script=config['roles']['verification']['path'];argv=[config['nodePath'],script,CONFIG_SHA]
+   out_read,out_write=os.pipe();pipes.extend([out_read,out_write]);err_read,err_write=os.pipe();pipes.extend([err_read,err_write])
+-  child_started=time.monotonic() # 300 starts before fork or GO permits execution.
++  child_started=time.monotonic() # 60 starts before fork or GO permits execution.
+   start_owned(argv,str(HERE),child_environment(),out_write,err_write,owned)
+   child=owned['child'];os.close(out_write);pipes.remove(out_write);os.close(err_write);pipes.remove(err_write)
+   ready_go(owned,min(child_started+CHILD,started+ACTIVE));sel=selectors.DefaultSelector()
+@@ -212,7 +208,7 @@
+     except BaseException as exc:
+      groupclear=False;failure='STOP_OWNED_GROUP_CLEARANCE_UNKNOWN_'+repr(exc)
+      # Alarm during cleanup still receives an exact-owned emergency KILL.
+-     # No wait or blocking artifact write is introduced after whole330.
++     # No wait or blocking artifact write is introduced after whole90.
+      for target in ('group','pid'):
+       try:
+        if target=='group':os.killpg(child.pid,signal.SIGKILL)
+@@ -223,21 +219,16 @@
+    for fd in pipes:
+     try:os.close(fd)
+     except OSError:pass
+-   if time.monotonic()>=end:failure='STOP_WHOLE_330_SECONDS';timedout=True
++   if time.monotonic()>=end:failure='STOP_WHOLE_90_SECONDS';timedout=True
+    if not failure:
+     try:
+      require(child is not None and child.poll()==0,'CHILD_EXIT_'+str(None if child is None else child.returncode))
+      observed_exit_guard(started,child_started,len(buffers['stdout']),len(buffers['stderr']))
+-     last=json.loads(bytes(buffers['stdout']).splitlines()[-1]);expected='PURE_ORDERING_CONSUMER_18_CASES_COMPLETED_PENDING_OBSERVED_REVIEW'
+-     require(last.get('status')==expected and not buffers['stderr'],'WORKER_FRAME')
+-     rr=last['result'];require(set(rr)=={'path','bytes','sha256'} and rr['path']==str(pathlib.Path(config['outputPath'])/'RESULT.json') and type(rr['bytes']) is int and 0<rr['bytes']<=128*1024,'PURE_REPORT_ROLE')
+-     authenticate(rr['path'],rr['sha256'],128*1024);report=json.loads(pathlib.Path(rr['path']).read_bytes())
+-     require(report['schema']=='1370-r3-ordering-consumer-controls-result/v1' and report['status']==expected and report['positiveCount']==2 and report['specificNegativeCount']==16 and report['syntheticOnly'] is True and report['candidateChanged'] is False and report['fixtureQualification'] is False and report['meaningfulCatchMutantRed'] is False and report['game'] is False and report['originalM0ReadOrWritten'] is False,'PURE_REPORT_SCOPE')
+-     projected=[{'id':r['id'],'expected':r['expected'],'assertion':r['intendedAssertion']} for r in report['results']]
+-     require(projected==config['cases'] and all(r['verdict']==('ACCEPT_POSITIVE_CONSUMER_INPUT' if r['expected']=='GREEN' else 'ACCEPT_EXPECTED_CONSUMER_ASSERTION') and r['negativePredicate']==(None if r['expected']=='GREEN' else 'AssertionError && message.includes(intendedAssertion)') for r in report['results']),'EXACT_18_SPECIFIC_VERDICTS');active_guard(started)
++     last=json.loads(bytes(buffers['stdout']).splitlines()[-1]);expected='M0_CONFIG_METADATA_CONTROLS_AGREE'
++     require(last.get('status')==expected and not buffers['stderr'] and (last.get('schema')=='1370-disposable-config-metadata-controls-report/v1' and last.get('configSha256')==CONFIG_SHA and type(last.get('collectedTests')) is int and last.get('collectedTests')==1 and type(last.get('arms')) is list and len(last.get('arms'))==2 and last.get('sameCollectedIdentity') is True and last.get('redMetadataChanged') is True and last.get('greenStrictMetadataStable') is True and last.get('originalM0CauseAdmission') is False and last.get('originalM0SourcePreservationAdmission') is False and last.get('executionAuthorization') is False),'REPORT_ROLE');active_guard(started)
+     except BaseException as exc:
+      failure=str(exc) or repr(exc);timedout=isinstance(exc,TimeoutError) or 'DEADLINE' in failure or '_SECONDS' in failure
+-   result={'schema':'1370-r3-ordering-consumer-recorder/v1','status':failure or 'R3_ORDERING_CONSUMER_CONTROLS_COMPLETE_UNADOPTED','mode':mode,'configSha256':CONFIG_SHA,'actualChildExit':None if child is None else child.returncode,'childPid':None if child is None else child.pid,'ownedPgid':None if child is None else child.pid,'startupOwnedBeforeExec':child is not None,'pgidConfirmed':owned.get('pgidConfirmed',False),'groupClear':groupclear,'timedOut':timedout,'elapsedSeconds':time.monotonic()-started,'boundsSeconds':{'node':CHILD,'active':ACTIVE,'whole':WHOLE},'stdoutBytes':len(buffers['stdout']),'stdoutSha256':sha(bytes(buffers['stdout'])),'stderrBytes':len(buffers['stderr']),'stderrSha256':sha(bytes(buffers['stderr'])),'sanitizedEnvironment':['NODE_OPTIONS','NODE_PATH'],'game':False,'sourceOrGameplayAdoption':False,'executionAuthorization':False,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}
++   result={'schema':'1370-b109-pure-encoder-recorder-r4','status':failure or 'M0_DISPOSABLE_METADATA_'+str(mode).upper()+'_COMPLETE_UNADOPTED','mode':mode,'configSha256':CONFIG_SHA,'actualChildExit':None if child is None else child.returncode,'childPid':None if child is None else child.pid,'ownedPgid':None if child is None else child.pid,'startupOwnedBeforeExec':child is not None,'pgidConfirmed':owned.get('pgidConfirmed',False),'groupClear':groupclear,'timedOut':timedout,'elapsedSeconds':time.monotonic()-started,'boundsSeconds':{'node':CHILD,'active':ACTIVE,'whole':WHOLE},'stdoutBytes':len(buffers['stdout']),'stdoutSha256':sha(bytes(buffers['stdout'])),'stderrBytes':len(buffers['stderr']),'stderrSha256':sha(bytes(buffers['stderr'])),'sanitizedEnvironment':['NODE_OPTIONS','NODE_PATH'],'game':False,'sourceOrGameplayAdoption':False,'executionAuthorization':False,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+    if output is not None and time.monotonic()<end:
+     for name,raw in buffers.items():whole_guard(end);write(output/(name+'.bin'),bytes(raw));whole_guard(end)
+     if not failure:active_guard(started)

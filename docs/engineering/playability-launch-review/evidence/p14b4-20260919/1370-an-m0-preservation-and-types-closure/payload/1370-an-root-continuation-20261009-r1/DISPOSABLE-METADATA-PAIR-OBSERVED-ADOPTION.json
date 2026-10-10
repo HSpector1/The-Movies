@@ -1,0 +1,182 @@
+{
+  "actualTool": {
+    "bytes": 1631,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/ACTUAL-TOOL.json",
+    "sha256": "cf93423279291c23020e9c6db253d82c6960fefb97a5f1c721db11e8cbb165dd"
+  },
+  "automaticRetry": false,
+  "collectionAcceptedForOriginalM0": false,
+  "consumerActualTool": {
+    "bytes": 1270,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/CONSUMER-ACTUAL.json",
+    "sha256": "8465b1f9f27db26133c752a2505357efafeaf858a8db9c6506c02a41aa6c4ef9"
+  },
+  "consumerSummary": {
+    "bytes": 667,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/CONSUMER-SUMMARY.json",
+    "sha256": "d6bded9f182134d506b26aae61d40233be49cc245d34c5fbb801fd92d1289765"
+  },
+  "executionAuthorization": false,
+  "freshOwnedAbsence": {
+    "bytes": 637,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/FRESH-OWNED-ABSENCE.json",
+    "sha256": "fde7c1cb7e78b78f9251be5b5596d4b66ca25702dc67c546d0d02ca84444076b"
+  },
+  "game": false,
+  "independentObservedReview": {
+    "bytes": 12614,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-independent-observed-review-20261009-r1/RECEIPT.json",
+    "sha256": "d1fc49491307cf21c93be748f99839574d51733ba17f3d4260b3e0d262f8a1e7"
+  },
+  "majorLessons": [
+    "Actual installed nested loader matters: the fixture confirms expected metadata RED with local configs and strict GREEN with external root/workspace/project configs while preserving exact collection semantics.",
+    "An unchanged final roster/content can coexist with directory mtime/ctime changes. Use exact integer nanosecond metadata and retain both maps; do not infer that no temporary entry existed.",
+    "Externalize every configuration path that can be bundled, including workspace-extended project config. Cache relocation alone is not an equivalent repair; inherited HOME must remain intact.",
+    "Clock claims must follow implemented phase ownership: separate prep60 is canceled before direct exec; recorder owns the single pair60/75/90 and parent/helper waits are outside those clocks.",
+    "Keep the original R1 parent90/HOME findings and corrected inverse proofs. A successful disposable fixture does not retroactively repair an original failed route or missing complete M0-after proofs.",
+    "Qualify synthetic extended-workspace coverage, observed child/group scope and parsed consumer-summary retention honestly. Source-backed temporary-file mechanism is not traced actual-original-R6 causation."
+  ],
+  "originalM0CauseAdmission": false,
+  "originalM0SourcePreservationAdmission": false,
+  "outcome": {
+    "bytes": 3725,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/OUTCOME.json",
+    "sha256": "3375ca3ccebfe91c05560e3f09b32d495d91ba1c19c20c109074e19f8d601ba4"
+  },
+  "parentAdapterSourcePins": {
+    "bytes": 2539,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "16a42f267504d4b7414301d9a464c27563269db5d5d9a761bdd3f4dd9878dc76"
+  },
+  "parentAdapterSourceReview": {
+    "bytes": 10544,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "97aa5fc2914c5f648a2ede322e2286fb14f7a09820cdf040a989c0879d2f915d"
+  },
+  "recordedFacts": {
+    "actualExits": {
+      "GREEN": 0,
+      "RED": 0,
+      "controller": 0,
+      "helper": 0,
+      "recorder": 0,
+      "tool": 0
+    },
+    "actualToolSessionId": 7647,
+    "boundsSeconds": {
+      "activeRecorder": 75,
+      "controller": 60,
+      "wholeRecorder": 90
+    },
+    "collectedTestsEachArm": 1,
+    "combinedParentRuntimeBound": null,
+    "consumerArtifactQualification": "Authenticated actual tool metadata and exact parsed stdout summary; no retained complete consumer stdout/transcript is claimed. Producer complete raw frame and all actual evidence were independently authenticated and compared.",
+    "consumerDecision": "ACCEPT_ACTUAL_DISPOSABLE_PAIR_ONLY",
+    "consumerExit": 0,
+    "consumerToolChunkId": "202e94",
+    "controllerElapsedSeconds": 3.9781038730000002,
+    "controllerPidOwnedPgid": 43084,
+    "fixtureMapEntriesEach": 8,
+    "freshScopedChecks": [
+      {
+        "id": 42574,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 43084,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 42574,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 43084,
+        "kind": "pgid",
+        "result": "ESRCH"
+      }
+    ],
+    "greenCompleteEightEntryMapEqual": true,
+    "greenElapsedSeconds": 1.8442522250000002,
+    "greenRootNoChangedFields": true,
+    "helperCombinedLogBytes": 440,
+    "helperPidPgidSid": 42574,
+    "laneLockAbsent": true,
+    "nestedCliRecordedPids": [
+      43086,
+      43115
+    ],
+    "nestedNumericPostAbsenceNotClaimed": true,
+    "nestedStdoutStderrEachBytes": 0,
+    "preparationBoundSeconds": 60,
+    "preparationElapsedSeconds": 1.9852769849967444,
+    "producerStderrBytes": 0,
+    "producerStdoutBytes": 8617,
+    "qualifiedHelperWarning": "Only the byte-preserved recorder main outer-finally SyntaxWarning plus success summary appears in helper log. Producer and both nested CLI streams are empty except producer report.",
+    "recordedOwnedGroupClear": true,
+    "recorderElapsedSeconds": 5.054661210000631,
+    "recorderOverrideStopAbsent": true,
+    "redAfterEqualsGreenBeforeAndAfter": true,
+    "redElapsedSeconds": 1.8134058570000002,
+    "redFinalRosterExact": true,
+    "redNonrootMetadataContentAndLinkExact": true,
+    "redRootAfter": [
+      "16777220",
+      "166838978",
+      "16832",
+      "8",
+      "256",
+      "1791603603334877380",
+      "1791603603334877380"
+    ],
+    "redRootBefore": [
+      "16777220",
+      "166838978",
+      "16832",
+      "8",
+      "256",
+      "1791603602324824920",
+      "1791603602324824920"
+    ],
+    "redRootChangedFields": [
+      "mtimeNs",
+      "ctimeNs"
+    ],
+    "redRootDevInoModeNlinkSizeStable": true,
+    "retainedToolChunks": 2,
+    "sameRawCollectionBytes": 238,
+    "sameRawCollectionSha256": "ee5357a3e11207f72668978e761796bfff0a7fac67ae0573da3e013de64cfe5b",
+    "versions": {
+      "node": "v22.23.2",
+      "vite": "5.4.21",
+      "vitest": "2.1.9"
+    }
+  },
+  "recorderResult": {
+    "bytes": 937,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-metadata-controls-verification-output-after-al-20261009-r2/RESULT.json",
+    "sha256": "417cb089c3263ce252f9893e698167c0c0e087f05719406cbe5a6ccebc6040de"
+  },
+  "schema": "1370-an-root-disposable-metadata-pair-observed-adoption/v1",
+  "scope": "Actual disposable loader RED/GREEN only; original R6 STOP and absent M0 after-proofs stay open. Complete original M0 preservation diagnostic and fresh external-config types/collection route remain required.",
+  "sourceAdoption": {
+    "bytes": 2770,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/DISPOSABLE-CONTROLS-AND-PARENT-SOURCE-ADOPTION.json",
+    "sha256": "bdf09a659998d75bbd2b5c3a9473e56cf2cdd19d129b0f318608ea6f6341fb6c"
+  },
+  "sourcePins": {
+    "bytes": 11166,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "bc7fcfc7bcd4ab5e4472733260e1ee5f89658c827a09412d7f98d60b10ffd573"
+  },
+  "sourceReview": {
+    "bytes": 9283,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "dd835fc294482503f5845ca658dd7ba8431255a3bbd36cb4722edf14308ab578"
+  },
+  "status": "ROOT_ADOPTED_ACTUAL_DISPOSABLE_METADATA_PAIR_ONLY",
+  "typesAccepted": false
+}

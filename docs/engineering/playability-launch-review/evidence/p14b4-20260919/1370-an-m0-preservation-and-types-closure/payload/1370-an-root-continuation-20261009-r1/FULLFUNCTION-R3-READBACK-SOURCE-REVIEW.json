@@ -1,0 +1,47 @@
+{
+  "actualOutcome": null,
+  "allPassStopProofNullAndOwnershipClausesUnchanged": true,
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_FINITE_R3_FULLFUNCTION_RETAINED_READBACK_ONLY",
+  "executionAuthorization": false,
+  "onlyFiveLiteralSubstitutions": [
+    [
+      "1370-an-m0-fullfunction-parent-recorded-20261010-r2",
+      "1370-an-m0-fullfunction-parent-recorded-20261010-r3"
+    ],
+    [
+      "1370-an-m0-fullfunction-qualification-source-20261010-r9",
+      "1370-an-m0-fullfunction-qualification-source-20261010-r10"
+    ],
+    [
+      "bc07641ef731c7d1fa2ebef4b171c61796064d9bbec8a1314e7a2721e9c168ea",
+      "d687a7bc560e103ae5c359622991ecb773a88546f64e41918c8c297b0b3da811"
+    ],
+    [
+      "51926780c880416000d592b6f7e3ba8a0c42f005a833e6813708abc25823087c",
+      "eb43fa973b7a9ded1a834a944b2351150236df1c5b7e566b8df904661f689f46"
+    ],
+    [
+      "'exact-json.mjs','run-parser-controls.mjs'):",
+      "'exact-json.mjs','run-parser-controls.mjs','canonical-typescript-transform.mjs'):"
+    ]
+  ],
+  "previousRootReview": {
+    "bytes": 2027,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-RETRY-READBACK-SOURCE-REVIEW.json",
+    "sha256": "6290b94bbd19bb67eaab6a9e7a0c5bc632458d9e348d70272ec75fe64d0e86a9"
+  },
+  "reviewer": "root; source authored by m0_types_source_review",
+  "schema": "1370-root-independent-fullfunction-retained-readback-source-review/v1",
+  "source": {
+    "bytes": 12395,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-root-readback-source-20261010-r1/read-fullfunction.py",
+    "sha256": "337ffd007b97b49a6b6f5fd3df8ad0daacd1428b314b3907ed58f93fffa6aa3d"
+  },
+  "sourceManifest": {
+    "bytes": 2044,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-root-readback-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "da2b559914cda2cf97519a46ea52f8178adc2be6fce04ff99b04e1f6d298ffce"
+  },
+  "wholeForwardAndInverseExact": true
+}

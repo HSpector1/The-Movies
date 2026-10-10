@@ -1,0 +1,77 @@
+{
+  "actualOwnedGroupIds": null,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "expectedPriorReadback": {
+    "bytes": 6808,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r4/READBACK.json",
+    "sha256": "568c92e332879885a53726cc359b296d4279c9f763236edeed019f7d92a06e28"
+  },
+  "expectedPriorStopAdoptionPath": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R4-STOP-OBSERVED-ADOPTION.json",
+  "futureRootStopStatus": "ROOT_ADOPTED_FULLFUNCTION_HELPER_PROBE_TOTAL_BYTE_CAP_STOP_WITH_REAL_GENERATION_AND_FULL_SHARED_POSTFLIGHT",
+  "knownPriorProtectedStopAdoption": {
+    "bytes": 5113,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R4-STOP-OBSERVED-ADOPTION.json",
+    "sha256": "d684408bdfcc6eb43f59c56594b4b30018904bec3b142cd0d7c1f14a335332ee"
+  },
+  "knownPriorSharedReadback": {
+    "bytes": 5254,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4-disk-retry/READBACK.json",
+    "sha256": "23bca5ae5c387c7e10a5e4fb0ab95c4307ce9c28b7c579dd186f7e1eb17350e3"
+  },
+  "latestCompletedSharedReadback": null,
+  "launcherArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r7/run_fullfunction_current_prelaunch_once.py",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-independent-observed-review-20261009-r3/RECEIPT.json",
+    "aa9b78e2591dfba86233b7c216a85f3eff89088444c2fd138d4c08bc37c8df87",
+    "d9e54a27bd9c43e26792997b45d3771dd831cbd875d2555e0773278d52b2c3b4",
+    "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83",
+    null,
+    null,
+    null,
+    null
+  ],
+  "launcherFutureArgs": [
+    "completed latest shared fullpost READBACK path",
+    "that exact raw READBACK SHA256",
+    "reviewed root protected STOP adoption path",
+    "that exact adoption SHA256"
+  ],
+  "originalExecutedArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/original-current-root-prelaunch.py",
+    "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-R5-CURRENT-PRELAUNCH-CONFIG.json",
+    null
+  ],
+  "readerArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r7/read_fullfunction_current_prelaunch.py",
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "readerFutureArgs": [
+    "genuine completed actual prelaunch session ID",
+    "genuine recorded scanner PID/PGID/SID",
+    "same completed latest shared fullpost READBACK path",
+    "its exact SHA256",
+    "same reviewed root protected STOP adoption path",
+    "its exact SHA256"
+  ],
+  "schema": "1370-fullfunction-fifth-current-prelaunch-exact-argv/v1",
+  "scope": "Original source7015/review6f7e unchanged, original180s per command and continuous-freeze full-map reuse. Only protectedSnapshot/ownedPgids/outputPath null fills. Latest known R4 retry post and exact R4 protected STOP remain external authority; original7509 failure stays preserved. TYPES0700 separate. No new full inventory or game/control replay."
+}

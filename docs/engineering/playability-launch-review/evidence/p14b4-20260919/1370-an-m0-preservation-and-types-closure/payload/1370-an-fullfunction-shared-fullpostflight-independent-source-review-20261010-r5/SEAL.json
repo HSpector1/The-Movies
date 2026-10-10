@@ -1,0 +1,31 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "EVIDENCE-INPUT.json": {
+      "bytes": 4074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-independent-source-review-20261010-r5/EVIDENCE-INPUT.json",
+      "sha256": "efa8253b1c6149402512d3ceead54e45e0898ce11fdaa377a7c52c8e6a806137"
+    },
+    "EVIDENCE-READBACK.json": {
+      "bytes": 4227,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-independent-source-review-20261010-r5/EVIDENCE-READBACK.json",
+      "sha256": "97ea389f2041ac6b7424e894f408d89e6e8576176790314e67c7e9110f5e0f50"
+    },
+    "RECEIPT.json": {
+      "bytes": 4516,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-independent-source-review-20261010-r5/RECEIPT.json",
+      "sha256": "a87f2fcd38975403b09f9769e87858b651e5c0160f972bcb9a2554183354dbad"
+    },
+    "audit-source-evidence.py": {
+      "bytes": 1491,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-independent-source-review-20261010-r5/audit-source-evidence.py",
+      "sha256": "b4a7784ae7deea3deb70e8df8589fdad77113b8576475807cbd32747ba8f83ea"
+    },
+    "seal-review.py": {
+      "bytes": 743,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-independent-source-review-20261010-r5/seal-review.py",
+      "sha256": "c3b5426943e14548113c2c8bf8200511f2c951811746b8ee7337b55cd168d78b"
+    }
+  },
+  "schema": "1370-independent-shared-post-r5-review-seal/v1"
+}

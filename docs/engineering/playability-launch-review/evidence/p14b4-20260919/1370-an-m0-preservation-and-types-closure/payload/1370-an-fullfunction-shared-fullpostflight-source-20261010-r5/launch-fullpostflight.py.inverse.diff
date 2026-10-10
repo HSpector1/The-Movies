@@ -1,0 +1,19 @@
+--- before
++++ after
+@@ -1,6 +1,6 @@
+ import datetime,hashlib,json,os,stat,sys,time
+ from pathlib import Path
+-S=Path('/Users/zacheryspector/studio-scratch');A=S/'1370-an-root-continuation-20261009-r1';D=S/'1370-an-m0-types-external-config-parent-recorded-20261009-r3';G=S/'1370-an-current-operational-fullguard-source-20261009-r1';P=S/'1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r3'
++S=Path('/Users/zacheryspector/studio-scratch');A=S/'1370-an-root-continuation-20261009-r1';D=S/'1370-an-m0-types-external-config-parent-recorded-20261009-r3';G=S/'1370-an-current-operational-fullguard-source-20261009-r1';P=S/'1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r2'
+ def role(p):
+  p=Path(p);st=p.lstat();assert p.is_absolute() and p.resolve(strict=True)==p and stat.S_ISREG(st.st_mode) and st.st_nlink==1
+  b=p.read_bytes();return {'path':str(p),'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}
+@@ -27,7 +27,7 @@
+   try:fn(n,0)
+   except ProcessLookupError:checks.append({'kind':kind,'id':n,'result':'ESRCH'})
+   else:raise RuntimeError('Prior owned identity present')
+-label='postflight-fullfunction-qualification-r3';output=G/'evidence'/label
++label='postflight-fullfunction-qualification-r2';output=G/'evidence'/label
+ assert not os.path.lexists(P) and not os.path.lexists(output) and not os.path.lexists(S/'HEAVY-LANE-LOCK')
+ PY=config['requiredPythonPath'];assert role(PY)['sha256']==config['requiredPythonSha256']
+ argv=[PY,'-I','-B',str(G/'snapshot.py'),config['observedCopyReceipt']['path'],config['observedCopyReceipt']['sha256'],config['observedDecision'],str(S/'1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1'),'postflight',label,baseline['path'],baseline['sha256'],','.join(map(str,ids))]

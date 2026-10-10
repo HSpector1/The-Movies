@@ -1,0 +1,13 @@
+{
+  "decision": "STOP_SOURCE_JSON_NANOSECOND_PRECISION_LOSS",
+  "executionAuthorization": false,
+  "finding": "Native JSON.parse rounds nanosecond identity integers beyond2^53; stringify-based proof equality could conceal integer differences.",
+  "originalR3Preserved": true,
+  "predecessor": {
+    "bytes": 12731,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r3/SOURCE-PINS.json",
+    "sha256": "db8cf3e7fd687e93ede85b6be1d0eed4375d52355fdaed320d02128aa71910ff"
+  },
+  "repair": "Finite strict JSON data parser preserves unsafe plain integer tokens as BigInt and rejects duplicate keys; recursive equality requires identical primitive types and exact values. Native JSON.parse is retained solely to decode one already-delimited JSON string token, never numeric authority data.",
+  "runtimeExecuted": false
+}

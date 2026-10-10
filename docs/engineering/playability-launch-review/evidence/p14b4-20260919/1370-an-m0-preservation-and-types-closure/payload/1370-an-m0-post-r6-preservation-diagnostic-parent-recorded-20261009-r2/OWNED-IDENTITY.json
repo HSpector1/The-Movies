@@ -1,0 +1,12 @@
+{
+  "mode": "proof",
+  "numericIdentityReuseCaveat": true,
+  "pgid": 32757,
+  "pid": 32757,
+  "preparationDeadlineSeconds": 60,
+  "preparationStartMonotonic": 110971.434073293,
+  "schema": "1370-root-m0-parent-owned-exec-identity/v1",
+  "sid": 32757,
+  "specPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-recorded-20261009-r2/FILLED-SPEC.json",
+  "specSha256": "00c152581ac4f3a053a87daed7e363d04f3ba73c3d97ed7e3467c6c4a9226768"
+}

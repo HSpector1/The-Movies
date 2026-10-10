@@ -1,0 +1,657 @@
+{
+  "claims": {
+    "collectionAccepted": false,
+    "currentRootPreservationObserved": false,
+    "diagnosticExecuted": false,
+    "gameAccepted": false,
+    "historicalRootUnchanged": false,
+    "newRootBaselineAdopted": false,
+    "originalR6StopPreserved": true,
+    "typesAccepted": false
+  },
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_POST_R6_M0_PRESERVATION_DIAGNOSTIC_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "majorLessons": [
+    "A passing command is not a preservation proof: R6 remains STOP_POSTFLIGHT_UNVERIFIED despite four zero child exits.",
+    "A diagnostic can authenticate known root drift without claiming historical root unchanged or inventing a new baseline.",
+    "Use full retained-fact digest arithmetic rather than weakening metadata checks or rescanning private state during source review.",
+    "Keep preparation60 separate from inherited launch330/active320/runner300; no combined parent timer is claimed.",
+    "Preserve HOME in both executed and dormant source paths.",
+    "Authenticate real consumer schemas and source-role maps; avoid guessed result structures and source/grant hash cycles."
+  ],
+  "preservedR1Finding": {
+    "issue": "Inherited dormant run_child assigned HOME; fresh R2 removes that assignment. R1 remains immutable.",
+    "status": "SOURCE_STOP_NO_EXECUTION"
+  },
+  "prospectiveRefusalCriteriaNotExecuted": [
+    {
+      "expectedSourceRefusal": "exact recordedAfterIdentity equality fails",
+      "mutation": "Any extra root timestamp, inode, device, mode, nlink or size change"
+    },
+    {
+      "expectedSourceRefusal": "original strict metadata/content/count/identity checks or complete nonroot digest fails",
+      "mutation": "Any nonroot directory, file, link, content or roster change"
+    },
+    {
+      "expectedSourceRefusal": "original full dependency checks or before/after proof equality fails",
+      "mutation": "Any dependency or repeated complete proof change"
+    },
+    {
+      "expectedSourceRefusal": "strict authority consumer validation fails before private source traversal",
+      "mutation": "Nonzero/malformed consumer tool or nonadopted/mismatched controls/preflight evidence"
+    },
+    {
+      "expectedSourceRefusal": "launch and diagnostic validator require null",
+      "mutation": "Invented future source/dependency proof or currentProtection at launch"
+    },
+    {
+      "expectedSourceRefusal": "original qualified recorder and runner refusal precedence retained",
+      "mutation": "Deadline, output cap, surviving owned group, or cleanup failure"
+    }
+  ],
+  "remainingActions": [
+    "Separate complete parent source review and root adoption.",
+    "Genuine current-AM full-preflight observed adoption and exact runtime-role/context/grant filling.",
+    "Root recorded diagnostic execution, new original current-AM full protected postflight and independent observed admission."
+  ],
+  "reviewScope": "Independent finite source/evidence arithmetic review only; no source imports, diagnostic execution, private mirror traversal, probes, Git changes or production writes.",
+  "routeSourcePins": {
+    "BOOTSTRAP.py": {
+      "bytes": 2722,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/BOOTSTRAP.py",
+      "sha256": "2b11e6c1c8595af573ffe9186a6e895c192f6fc05f0a7b35c5627a451c7bcdb3"
+    },
+    "BOOTSTRAP.py.original-forward.diff": {
+      "bytes": 695,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/BOOTSTRAP.py.original-forward.diff",
+      "sha256": "9b98ba4867cd3308e7775c0b3fa60b987e2609567d7e2afe65164363417a5d7e"
+    },
+    "BOOTSTRAP.py.original-inverse.diff": {
+      "bytes": 695,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/BOOTSTRAP.py.original-inverse.diff",
+      "sha256": "3de1f1b34189b191325471b71349705f91561302ab4215903823a700809a7ec5"
+    },
+    "BOOTSTRAP.py.r1-forward.diff": {
+      "bytes": 680,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/BOOTSTRAP.py.r1-forward.diff",
+      "sha256": "a9ed19b458c881d73593d8980b9c8759fd119f686fb3fdca44a72aa9b8e1f85d"
+    },
+    "BOOTSTRAP.py.r1-inverse.diff": {
+      "bytes": 680,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/BOOTSTRAP.py.r1-inverse.diff",
+      "sha256": "c6cba078f8f7cf367c8d02051262461b8001579de23f0ebc8d0b6af02aff6d3f"
+    },
+    "CONFIG.json": {
+      "bytes": 32755,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/CONFIG.json",
+      "sha256": "c40c0a34d07532d4690552318958029ec736d32283dcec59b0b33191bf82bc4c"
+    },
+    "CONFIG.json.original-forward.diff": {
+      "bytes": 6886,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/CONFIG.json.original-forward.diff",
+      "sha256": "9b97cc99385ae0dfd3a1d75f76bff8f40d9b7ecfb4c5ec34877cf6acc7720ddd"
+    },
+    "CONFIG.json.original-inverse.diff": {
+      "bytes": 6886,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/CONFIG.json.original-inverse.diff",
+      "sha256": "8704cfd7523c43361b4a5e73aec13f78d5fa1463516c735e52d1860507e26aa3"
+    },
+    "CONFIG.json.r1-forward.diff": {
+      "bytes": 1760,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/CONFIG.json.r1-forward.diff",
+      "sha256": "49cfb06a877a470edd3055863896c3a4e9ae75ee89568f245fc56ae86d639ff9"
+    },
+    "CONFIG.json.r1-inverse.diff": {
+      "bytes": 1760,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/CONFIG.json.r1-inverse.diff",
+      "sha256": "3b2ea19062dbe560fb725d552fcf1e0ce1e8c8e333bd7ebf6478e9ad9e4fa15a"
+    },
+    "EXECUTION-CONTEXT-UNFILLED.json": {
+      "bytes": 750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/EXECUTION-CONTEXT-UNFILLED.json",
+      "sha256": "5afb6291366a3f063063ccbcaa8618c08419089c0ac80cbe0666e863f6d709c5"
+    },
+    "EXECUTION-CONTEXT-UNFILLED.json.original-forward.diff": {
+      "bytes": 1074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/EXECUTION-CONTEXT-UNFILLED.json.original-forward.diff",
+      "sha256": "390c1497888be0e88239e27e26640f8f848cf88dfce225a384c4f05940cb5266"
+    },
+    "EXECUTION-CONTEXT-UNFILLED.json.original-inverse.diff": {
+      "bytes": 1074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/EXECUTION-CONTEXT-UNFILLED.json.original-inverse.diff",
+      "sha256": "5aff3f3475e390be8dfc67dec13afe2aa46dc0a4b6ef92e61b585f16c891627d"
+    },
+    "EXECUTION-CONTEXT-UNFILLED.json.r1-forward.diff": {
+      "bytes": 840,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/EXECUTION-CONTEXT-UNFILLED.json.r1-forward.diff",
+      "sha256": "e1eb00a3ff9c1d33cb54a26f2ec19cd3c7fef789b2af71f9d367abbed59dd108"
+    },
+    "EXECUTION-CONTEXT-UNFILLED.json.r1-inverse.diff": {
+      "bytes": 840,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/EXECUTION-CONTEXT-UNFILLED.json.r1-inverse.diff",
+      "sha256": "791a81cb84afbf4c8c31e46d7af84e0debe2847be34442f78ea117021079f6d2"
+    },
+    "FULL-SOURCE-CHECK.txt": {
+      "bytes": 5356,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/FULL-SOURCE-CHECK.txt",
+      "sha256": "ea68ed6e720f185c98dbd9fd1068d96e61c0ac7bb804ffb0f5a2797b9439b8e8"
+    },
+    "LAUNCH.py": {
+      "bytes": 7098,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/LAUNCH.py",
+      "sha256": "0b314837bb1de9513d16fb7ecaba7fb9b706fe4414db12583449495f1a650ef0"
+    },
+    "LAUNCH.py.original-forward.diff": {
+      "bytes": 4153,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/LAUNCH.py.original-forward.diff",
+      "sha256": "c3a1ea6774d10e4466afb3fa02ee6e9c4acba345979a120a5f58977fc5dac169"
+    },
+    "LAUNCH.py.original-inverse.diff": {
+      "bytes": 4153,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/LAUNCH.py.original-inverse.diff",
+      "sha256": "9c5930776b5db426d38161584c205f0ada5ff62738e80e49be6e17a7a5766006"
+    },
+    "LAUNCH.py.r1-forward.diff": {
+      "bytes": 1935,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/LAUNCH.py.r1-forward.diff",
+      "sha256": "990e695b4b6301dd4d72c3e2b72e8bac624d6d91c9d9852647347c5297b2160c"
+    },
+    "LAUNCH.py.r1-inverse.diff": {
+      "bytes": 1935,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/LAUNCH.py.r1-inverse.diff",
+      "sha256": "bf01175dc9f409b8be6adbf07f974e183ef08e85be1b9985303eb06db12ee15e"
+    },
+    "LESSONS.txt": {
+      "bytes": 701,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/LESSONS.txt",
+      "sha256": "4b9196f8d473a8e3326e2ebff191fc7ddd8232330e93c6c737ad600cc445fd5b"
+    },
+    "PRESERVED-R1-SOURCE-STOP.json": {
+      "bytes": 673,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/PRESERVED-R1-SOURCE-STOP.json",
+      "sha256": "5ffd403d02767123c80c6975a37b7cac4156e346a603a74cad02da220bf3edcf"
+    },
+    "RECIPE.json": {
+      "bytes": 7077,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/RECIPE.json",
+      "sha256": "1a63d5b25c9218495160f7777bbdc5b22ffc38f454615c01c20bb14776be5293"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 9540,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/SOURCE-PROOF.json",
+      "sha256": "3871c8a28ebc2de9cbbcfbfc9fa893b16fc571d8d86eaca0bbb86aad106a652e"
+    },
+    "check-deps.mjs": {
+      "bytes": 1918,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/check-deps.mjs",
+      "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+    },
+    "original-BASE-BOOTSTRAP.py": {
+      "bytes": 2731,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/original-BASE-BOOTSTRAP.py",
+      "sha256": "53c9330d960da3dc8e562bd87ca89a8e1c2f5992010b9a35eb7ca3f3963e438c"
+    },
+    "original-BASE-CONFIG.json": {
+      "bytes": 29945,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/original-BASE-CONFIG.json",
+      "sha256": "17ac5abcd1e26c83fcd8d3794bd0c6356cd9f141416e01974cdd34f510b72bb5"
+    },
+    "original-BASE-EXECUTION-CONTEXT-UNFILLED.json": {
+      "bytes": 555,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/original-BASE-EXECUTION-CONTEXT-UNFILLED.json",
+      "sha256": "5b59f0d772a154f251d0d921c1e2052908040af15965b1f6e477872c473899ae"
+    },
+    "original-BASE-LAUNCH.py": {
+      "bytes": 6875,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/original-BASE-LAUNCH.py",
+      "sha256": "57b660767095cc9a03fb1c1acbff741557b9b2487780b1cfa030ea09dbf131c9"
+    },
+    "original-BASE-runner.py": {
+      "bytes": 34856,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/original-BASE-runner.py",
+      "sha256": "d32007ecb462d6a535432959317e1851d09d37cb0fa96897fa3dcc213c45b05c"
+    },
+    "original-BASE-supervise.py": {
+      "bytes": 13751,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/original-BASE-supervise.py",
+      "sha256": "d38761d46cfa3980b7556313fce52fda662b8d479d0e6cb0b252227193670645"
+    },
+    "r1-BASE-BOOTSTRAP.py": {
+      "bytes": 2722,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/r1-BASE-BOOTSTRAP.py",
+      "sha256": "7581248b3cde60c94100ed2b3ae927b031e496d5e892e63e9d89b491d41c1fac"
+    },
+    "r1-BASE-CONFIG.json": {
+      "bytes": 32755,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/r1-BASE-CONFIG.json",
+      "sha256": "114d5cabe8e201193e57a8667ec9d419712fb439e6ee7e98adb6a197e833d30c"
+    },
+    "r1-BASE-EXECUTION-CONTEXT-UNFILLED.json": {
+      "bytes": 750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/r1-BASE-EXECUTION-CONTEXT-UNFILLED.json",
+      "sha256": "2c7b35f96b26f436fe5c50d9ef62eb8e3b0fea142d5425782a22825f2f663616"
+    },
+    "r1-BASE-LAUNCH.py": {
+      "bytes": 7098,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/r1-BASE-LAUNCH.py",
+      "sha256": "52a9ec0099de0c606be6fa2dcd1582a90a99bc910ba227893115824647fccc67"
+    },
+    "r1-BASE-runner.py": {
+      "bytes": 44083,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/r1-BASE-runner.py",
+      "sha256": "cf25620abdcd6a15101e9c9a8746efb46c89f92f62b3f86b4db24eb150ab0e67"
+    },
+    "r1-BASE-supervise.py": {
+      "bytes": 13749,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/r1-BASE-supervise.py",
+      "sha256": "704098513cf8c48914569dd7ad35e7b5bc46590e8f2910f31dfea1104f74c3c8"
+    },
+    "runner.py": {
+      "bytes": 44067,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py",
+      "sha256": "b9ff56da6524243c95045b0e09f25ca4ec5c8225bbdd3eb76820e75b928e350d"
+    },
+    "runner.py.original-forward.diff": {
+      "bytes": 15967,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py.original-forward.diff",
+      "sha256": "99b19542b5157d34dec51e471ec5661e4830fbaf3212385ba418f9bdfe15fc38"
+    },
+    "runner.py.original-inverse.diff": {
+      "bytes": 15967,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py.original-inverse.diff",
+      "sha256": "261b3d4b908634e2acb5fc261606dc7daed71c88f062ec87e827ebf9329ce773"
+    },
+    "runner.py.r1-forward.diff": {
+      "bytes": 1750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py.r1-forward.diff",
+      "sha256": "0fe7a5d38d2ae837a93b5d52c67e393c131af12f0451ef05be3bd62ed00093f5"
+    },
+    "runner.py.r1-inverse.diff": {
+      "bytes": 1750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py.r1-inverse.diff",
+      "sha256": "4200526e206a1a2182a43042986d91a03010985d5dde2d94766cdf19a41a6d79"
+    },
+    "supervise.py": {
+      "bytes": 13749,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/supervise.py",
+      "sha256": "b8c6a45e658f2620b0ae16a9feb89897cb36c9a0c1afd15e322ec3487927994b"
+    },
+    "supervise.py.original-forward.diff": {
+      "bytes": 3224,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/supervise.py.original-forward.diff",
+      "sha256": "52af735974e4101ae89f9b132c8b856ec6f5b26a713664023543fac5c4082d49"
+    },
+    "supervise.py.original-inverse.diff": {
+      "bytes": 3224,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/supervise.py.original-inverse.diff",
+      "sha256": "61add16255d2183ec99162ea6984a064101b6e66db5880732bfedf7b971bb324"
+    },
+    "supervise.py.r1-forward.diff": {
+      "bytes": 2249,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/supervise.py.r1-forward.diff",
+      "sha256": "d989af240e246bbba6883a49ab59d9f636cae003e2c02e64619054be9fcbf08e"
+    },
+    "supervise.py.r1-inverse.diff": {
+      "bytes": 2249,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/supervise.py.r1-inverse.diff",
+      "sha256": "e635ad09ee6a29589d6be44bfc3f82642fd52d21d30b082c56225ccef903458f"
+    }
+  },
+  "schema": "1370-post-r6-m0-preservation-diagnostic-independent-source-review/v1",
+  "sourceConclusions": [
+    "Only the dot directory may differ from historical metadata, and only by exact equality to the already recorded R6 raw after tuple. Historical raw/normalized root tuples and the entire original root roster remain authenticated.",
+    "All 1740 file bytes/blob hashes/metadata, 112 nonroot directory metadata, sole dependency link, full dependency inventory and traversal races remain checked. Two complete source/dependency proofs must equal. The root-substituted historical digest and separate nonroot digest are checked without writing or restoring any private metadata.",
+    "Prerequisite consumers use genuine completed disposable outcome/summary/consumer shapes, including actualTool.exit_code and stdoutSummary. The current-AM full preflight consumer binds real source/config/scope roles, full inventory, actual terminal tool and scoped ownership plus local-only machine evidence classification.",
+    "Future protection/source/dependency proofs remain null at launch, so the grant binds only preexisting roles. Final current-root diagnostic adoption and fresh complete protected postflight remain later observed requirements.",
+    "Required source-review aliases match the actual LAUNCH.py consumer and include the exact LAUNCH.py physical role. Original alarm/registration/reap/group-clear/result behavior remains under the qualified original 300/320/330 route and 8 MiB streams."
+  ],
+  "sourcePins": {
+    "BOOTSTRAP.py": {
+      "bytes": 2722,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/BOOTSTRAP.py",
+      "sha256": "2b11e6c1c8595af573ffe9186a6e895c192f6fc05f0a7b35c5627a451c7bcdb3"
+    },
+    "BOOTSTRAP.py.original-forward.diff": {
+      "bytes": 695,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/BOOTSTRAP.py.original-forward.diff",
+      "sha256": "9b98ba4867cd3308e7775c0b3fa60b987e2609567d7e2afe65164363417a5d7e"
+    },
+    "BOOTSTRAP.py.original-inverse.diff": {
+      "bytes": 695,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/BOOTSTRAP.py.original-inverse.diff",
+      "sha256": "3de1f1b34189b191325471b71349705f91561302ab4215903823a700809a7ec5"
+    },
+    "BOOTSTRAP.py.r1-forward.diff": {
+      "bytes": 680,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/BOOTSTRAP.py.r1-forward.diff",
+      "sha256": "a9ed19b458c881d73593d8980b9c8759fd119f686fb3fdca44a72aa9b8e1f85d"
+    },
+    "BOOTSTRAP.py.r1-inverse.diff": {
+      "bytes": 680,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/BOOTSTRAP.py.r1-inverse.diff",
+      "sha256": "c6cba078f8f7cf367c8d02051262461b8001579de23f0ebc8d0b6af02aff6d3f"
+    },
+    "CONFIG.json": {
+      "bytes": 32755,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/CONFIG.json",
+      "sha256": "c40c0a34d07532d4690552318958029ec736d32283dcec59b0b33191bf82bc4c"
+    },
+    "CONFIG.json.original-forward.diff": {
+      "bytes": 6886,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/CONFIG.json.original-forward.diff",
+      "sha256": "9b97cc99385ae0dfd3a1d75f76bff8f40d9b7ecfb4c5ec34877cf6acc7720ddd"
+    },
+    "CONFIG.json.original-inverse.diff": {
+      "bytes": 6886,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/CONFIG.json.original-inverse.diff",
+      "sha256": "8704cfd7523c43361b4a5e73aec13f78d5fa1463516c735e52d1860507e26aa3"
+    },
+    "CONFIG.json.r1-forward.diff": {
+      "bytes": 1760,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/CONFIG.json.r1-forward.diff",
+      "sha256": "49cfb06a877a470edd3055863896c3a4e9ae75ee89568f245fc56ae86d639ff9"
+    },
+    "CONFIG.json.r1-inverse.diff": {
+      "bytes": 1760,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/CONFIG.json.r1-inverse.diff",
+      "sha256": "3b2ea19062dbe560fb725d552fcf1e0ce1e8c8e333bd7ebf6478e9ad9e4fa15a"
+    },
+    "EXECUTION-CONTEXT-UNFILLED.json": {
+      "bytes": 750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/EXECUTION-CONTEXT-UNFILLED.json",
+      "sha256": "5afb6291366a3f063063ccbcaa8618c08419089c0ac80cbe0666e863f6d709c5"
+    },
+    "EXECUTION-CONTEXT-UNFILLED.json.original-forward.diff": {
+      "bytes": 1074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/EXECUTION-CONTEXT-UNFILLED.json.original-forward.diff",
+      "sha256": "390c1497888be0e88239e27e26640f8f848cf88dfce225a384c4f05940cb5266"
+    },
+    "EXECUTION-CONTEXT-UNFILLED.json.original-inverse.diff": {
+      "bytes": 1074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/EXECUTION-CONTEXT-UNFILLED.json.original-inverse.diff",
+      "sha256": "5aff3f3475e390be8dfc67dec13afe2aa46dc0a4b6ef92e61b585f16c891627d"
+    },
+    "EXECUTION-CONTEXT-UNFILLED.json.r1-forward.diff": {
+      "bytes": 840,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/EXECUTION-CONTEXT-UNFILLED.json.r1-forward.diff",
+      "sha256": "e1eb00a3ff9c1d33cb54a26f2ec19cd3c7fef789b2af71f9d367abbed59dd108"
+    },
+    "EXECUTION-CONTEXT-UNFILLED.json.r1-inverse.diff": {
+      "bytes": 840,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/EXECUTION-CONTEXT-UNFILLED.json.r1-inverse.diff",
+      "sha256": "791a81cb84afbf4c8c31e46d7af84e0debe2847be34442f78ea117021079f6d2"
+    },
+    "FULL-SOURCE-CHECK.txt": {
+      "bytes": 5356,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/FULL-SOURCE-CHECK.txt",
+      "sha256": "ea68ed6e720f185c98dbd9fd1068d96e61c0ac7bb804ffb0f5a2797b9439b8e8"
+    },
+    "LAUNCH.py": {
+      "bytes": 7098,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/LAUNCH.py",
+      "sha256": "0b314837bb1de9513d16fb7ecaba7fb9b706fe4414db12583449495f1a650ef0"
+    },
+    "LAUNCH.py.original-forward.diff": {
+      "bytes": 4153,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/LAUNCH.py.original-forward.diff",
+      "sha256": "c3a1ea6774d10e4466afb3fa02ee6e9c4acba345979a120a5f58977fc5dac169"
+    },
+    "LAUNCH.py.original-inverse.diff": {
+      "bytes": 4153,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/LAUNCH.py.original-inverse.diff",
+      "sha256": "9c5930776b5db426d38161584c205f0ada5ff62738e80e49be6e17a7a5766006"
+    },
+    "LAUNCH.py.r1-forward.diff": {
+      "bytes": 1935,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/LAUNCH.py.r1-forward.diff",
+      "sha256": "990e695b4b6301dd4d72c3e2b72e8bac624d6d91c9d9852647347c5297b2160c"
+    },
+    "LAUNCH.py.r1-inverse.diff": {
+      "bytes": 1935,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/LAUNCH.py.r1-inverse.diff",
+      "sha256": "bf01175dc9f409b8be6adbf07f974e183ef08e85be1b9985303eb06db12ee15e"
+    },
+    "LESSONS.txt": {
+      "bytes": 701,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/LESSONS.txt",
+      "sha256": "4b9196f8d473a8e3326e2ebff191fc7ddd8232330e93c6c737ad600cc445fd5b"
+    },
+    "PRESERVED-R1-SOURCE-STOP.json": {
+      "bytes": 673,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/PRESERVED-R1-SOURCE-STOP.json",
+      "sha256": "5ffd403d02767123c80c6975a37b7cac4156e346a603a74cad02da220bf3edcf"
+    },
+    "RECIPE.json": {
+      "bytes": 7077,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/RECIPE.json",
+      "sha256": "1a63d5b25c9218495160f7777bbdc5b22ffc38f454615c01c20bb14776be5293"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 9540,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/SOURCE-PROOF.json",
+      "sha256": "3871c8a28ebc2de9cbbcfbfc9fa893b16fc571d8d86eaca0bbb86aad106a652e"
+    },
+    "check-deps.mjs": {
+      "bytes": 1918,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/check-deps.mjs",
+      "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+    },
+    "original-BASE-BOOTSTRAP.py": {
+      "bytes": 2731,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/original-BASE-BOOTSTRAP.py",
+      "sha256": "53c9330d960da3dc8e562bd87ca89a8e1c2f5992010b9a35eb7ca3f3963e438c"
+    },
+    "original-BASE-CONFIG.json": {
+      "bytes": 29945,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/original-BASE-CONFIG.json",
+      "sha256": "17ac5abcd1e26c83fcd8d3794bd0c6356cd9f141416e01974cdd34f510b72bb5"
+    },
+    "original-BASE-EXECUTION-CONTEXT-UNFILLED.json": {
+      "bytes": 555,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/original-BASE-EXECUTION-CONTEXT-UNFILLED.json",
+      "sha256": "5b59f0d772a154f251d0d921c1e2052908040af15965b1f6e477872c473899ae"
+    },
+    "original-BASE-LAUNCH.py": {
+      "bytes": 6875,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/original-BASE-LAUNCH.py",
+      "sha256": "57b660767095cc9a03fb1c1acbff741557b9b2487780b1cfa030ea09dbf131c9"
+    },
+    "original-BASE-runner.py": {
+      "bytes": 34856,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/original-BASE-runner.py",
+      "sha256": "d32007ecb462d6a535432959317e1851d09d37cb0fa96897fa3dcc213c45b05c"
+    },
+    "original-BASE-supervise.py": {
+      "bytes": 13751,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/original-BASE-supervise.py",
+      "sha256": "d38761d46cfa3980b7556313fce52fda662b8d479d0e6cb0b252227193670645"
+    },
+    "r1-BASE-BOOTSTRAP.py": {
+      "bytes": 2722,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/r1-BASE-BOOTSTRAP.py",
+      "sha256": "7581248b3cde60c94100ed2b3ae927b031e496d5e892e63e9d89b491d41c1fac"
+    },
+    "r1-BASE-CONFIG.json": {
+      "bytes": 32755,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/r1-BASE-CONFIG.json",
+      "sha256": "114d5cabe8e201193e57a8667ec9d419712fb439e6ee7e98adb6a197e833d30c"
+    },
+    "r1-BASE-EXECUTION-CONTEXT-UNFILLED.json": {
+      "bytes": 750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/r1-BASE-EXECUTION-CONTEXT-UNFILLED.json",
+      "sha256": "2c7b35f96b26f436fe5c50d9ef62eb8e3b0fea142d5425782a22825f2f663616"
+    },
+    "r1-BASE-LAUNCH.py": {
+      "bytes": 7098,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/r1-BASE-LAUNCH.py",
+      "sha256": "52a9ec0099de0c606be6fa2dcd1582a90a99bc910ba227893115824647fccc67"
+    },
+    "r1-BASE-runner.py": {
+      "bytes": 44083,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/r1-BASE-runner.py",
+      "sha256": "cf25620abdcd6a15101e9c9a8746efb46c89f92f62b3f86b4db24eb150ab0e67"
+    },
+    "r1-BASE-supervise.py": {
+      "bytes": 13749,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/r1-BASE-supervise.py",
+      "sha256": "704098513cf8c48914569dd7ad35e7b5bc46590e8f2910f31dfea1104f74c3c8"
+    },
+    "runner.py": {
+      "bytes": 44067,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py",
+      "sha256": "b9ff56da6524243c95045b0e09f25ca4ec5c8225bbdd3eb76820e75b928e350d"
+    },
+    "runner.py.original-forward.diff": {
+      "bytes": 15967,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py.original-forward.diff",
+      "sha256": "99b19542b5157d34dec51e471ec5661e4830fbaf3212385ba418f9bdfe15fc38"
+    },
+    "runner.py.original-inverse.diff": {
+      "bytes": 15967,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py.original-inverse.diff",
+      "sha256": "261b3d4b908634e2acb5fc261606dc7daed71c88f062ec87e827ebf9329ce773"
+    },
+    "runner.py.r1-forward.diff": {
+      "bytes": 1750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py.r1-forward.diff",
+      "sha256": "0fe7a5d38d2ae837a93b5d52c67e393c131af12f0451ef05be3bd62ed00093f5"
+    },
+    "runner.py.r1-inverse.diff": {
+      "bytes": 1750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py.r1-inverse.diff",
+      "sha256": "4200526e206a1a2182a43042986d91a03010985d5dde2d94766cdf19a41a6d79"
+    },
+    "supervise.py": {
+      "bytes": 13749,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/supervise.py",
+      "sha256": "b8c6a45e658f2620b0ae16a9feb89897cb36c9a0c1afd15e322ec3487927994b"
+    },
+    "supervise.py.original-forward.diff": {
+      "bytes": 3224,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/supervise.py.original-forward.diff",
+      "sha256": "52af735974e4101ae89f9b132c8b856ec6f5b26a713664023543fac5c4082d49"
+    },
+    "supervise.py.original-inverse.diff": {
+      "bytes": 3224,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/supervise.py.original-inverse.diff",
+      "sha256": "61add16255d2183ec99162ea6984a064101b6e66db5880732bfedf7b971bb324"
+    },
+    "supervise.py.r1-forward.diff": {
+      "bytes": 2249,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/supervise.py.r1-forward.diff",
+      "sha256": "d989af240e246bbba6883a49ab59d9f636cae003e2c02e64619054be9fcbf08e"
+    },
+    "supervise.py.r1-inverse.diff": {
+      "bytes": 2249,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/supervise.py.r1-inverse.diff",
+      "sha256": "e635ad09ee6a29589d6be44bfc3f82642fd52d21d30b082c56225ccef903458f"
+    }
+  },
+  "sourcePinsRole": {
+    "bytes": 14200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "42611a6faecc6b13e7b8a18cfef210b06d7167bb3e2a23d08862db65c4531262"
+  },
+  "sourcePinsSha256": "42611a6faecc6b13e7b8a18cfef210b06d7167bb3e2a23d08862db65c4531262",
+  "verified": {
+    "HOMEAssignmentAbsentFromExecutableSources": true,
+    "bootstrapFunctionsUnchanged": 4,
+    "changedOriginalRunnerFunctions": [
+      "run_child",
+      "full_source_check",
+      "main"
+    ],
+    "combinedPreparationRuntimeDeadline": null,
+    "completeForwardInversePairs": 12,
+    "completeHistoricalMetadataRowsIncludingRoot": 1854,
+    "currentAMGuardSourcePins": {
+      "bytes": 2286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/SOURCE-PINS.json",
+      "sha256": "e638252b8082aa756f56471552327706a17dcf0e2d6bd01628710624ce7ec435"
+    },
+    "dependencyCheckerUnchanged": true,
+    "fullSourceCheckFragmentSha256": "ea68ed6e720f185c98dbd9fd1068d96e61c0ac7bb804ffb0f5a2797b9439b8e8",
+    "historicalMetadataSha256ReconstructedFromRetainedFacts": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "historicalSharedGuardConfig": {
+      "bytes": 3906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
+      "sha256": "20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41"
+    },
+    "knownRootDrift": {
+      "historicalMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+      "historicalNormalizedIdentity": [
+        16777220,
+        166751332,
+        448,
+        13,
+        416,
+        1791577446298737027,
+        1791577446298737027
+      ],
+      "nonrootMetadataSha256": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
+      "recordedAfterIdentity": [
+        16777220,
+        166751332,
+        16832,
+        13,
+        416,
+        1791600924862151724,
+        1791600924862151724
+      ],
+      "recordedBeforeIdentity": [
+        16777220,
+        166751332,
+        16832,
+        13,
+        416,
+        1791577446298737027,
+        1791577446298737027
+      ],
+      "rosterSha256": "aa0270269ea341ec4d0029307c799518b5ff89e81b0044d165763408ea533f57"
+    },
+    "launcherFunctionsUnchanged": 6,
+    "manifestPayloadRoles": 48,
+    "newRunnerFunctions": [
+      "diagnostic_role",
+      "validate_diagnostic_inputs"
+    ],
+    "nonrootMetadataSha256ReconstructedFromRetainedFacts": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
+    "originalR6EvidenceAuthenticated": {
+      "r6ObservedReview": {
+        "bytes": 31865,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-independent-observed-metadata-stop-review-after-al-20261009-r6/RECEIPT.json",
+        "sha256": "e47157a2d9b7aacfabb8a3bafa0473f18c0b798fea9d129c2e442fcf5c27081f"
+      },
+      "r6Readback": {
+        "bytes": 11504,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r6/READBACK.json",
+        "sha256": "1456317c3f33bdba89e30cef89a133a649c79517eed36dda43c6c5f67afe57f3"
+      },
+      "r6Result": {
+        "bytes": 26635,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3/20261009-m0-types-after-al-r3/RESULT.json",
+        "sha256": "85e1f6763f40b8232b851ef2caf3611ed9e3b6d3962d748eeeda063da608d781"
+      },
+      "r6RootStopAdoption": {
+        "bytes": 6232,
+        "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-R6-METADATA-STOP-OBSERVED-ADOPTION.json",
+        "sha256": "5eeaa12cbae608f67ba6ef36d39bcb528662fc8b95db4cacf2a88f7d93c45142"
+      }
+    },
+    "originalRunnerFunctions": 34,
+    "originalRunnerFunctionsUnchanged": 31,
+    "proofMainNeverCallsDormantRunChild": true,
+    "retainedSourceRegularBytes": 119393120,
+    "retainedSourceRegularFiles": 1740,
+    "runtimeBoundsSeconds": {
+      "active": 320,
+      "runner": 300,
+      "whole": 330
+    },
+    "separatePreparationSeconds": 60,
+    "strictNonrootDirectories": 112,
+    "supervisorFunctionsUnchanged": 18,
+    "totalPackageFiles": 50
+  }
+}

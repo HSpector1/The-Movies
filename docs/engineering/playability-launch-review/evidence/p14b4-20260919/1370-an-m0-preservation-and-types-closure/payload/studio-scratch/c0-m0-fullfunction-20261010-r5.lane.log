@@ -1,0 +1,4 @@
+{"launchClaim": {"path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r5/RECORDER-LAUNCH-CLAIM.json", "bytes": 1657, "sha256": "19ef314d2fba0f195c89731ff286e3f69aaf9bfc569a58a3791aec5304c2b368"}, "mode": "inner", "actualOwned": {"pid": 10530, "pgid": 10530, "sid": 10530}}
+/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r13/record-fullfunction.py:249: SyntaxWarning: 'return' in a 'finally' block
+  return code
+{"status": "STOP_CHILD_EXIT_1", "output": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261010-r5", "actualChildExit": 1, "groupClear": true}

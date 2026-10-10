@@ -1,0 +1,32 @@
+--- CONFIG.json
++++ r1-BASE-CONFIG.json
+@@ -474,7 +474,7 @@
+     ],
+     "rosterSha256": "aa0270269ea341ec4d0029307c799518b5ff89e81b0044d165763408ea533f57"
+   },
+-  "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-post-r6-preservation-diagnostic-20261009-r2.lane.log",
++  "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-post-r6-preservation-diagnostic-20261009-r1.lane.log",
+   "localMainRef": "refs/remotes/origin/main",
+   "mainOid": "c902a704eb948cc576083d0973c8c23e59937dc1",
+   "mainRef": "refs/heads/main",
+@@ -661,7 +661,7 @@
+   "operationalAuthorityVerifiedThisSlice": false,
+   "operationalProductionHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+   "operationalReadback": null,
+-  "outputRoot": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-results-20261009-r2",
++  "outputRoot": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-results-20261009-r1",
+   "planningAuthorities": {
+     "BINDING-UNFILLED.json": {
+       "bytes": 27520,
+@@ -716,9 +716,9 @@
+     "vitest.workspace.ts"
+   ],
+   "recorderActiveSeconds": 320,
+-  "recorderResult": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-recorder-results-20261009-r2/20261009-m0-post-r6-preservation-diagnostic-r2.RECORDER-RESULT.json",
++  "recorderResult": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-recorder-results-20261009-r1/20261009-m0-post-r6-preservation-diagnostic-r1.RECORDER-RESULT.json",
+   "recorderWallSeconds": 330,
+-  "runId": "20261009-m0-post-r6-preservation-diagnostic-r2",
++  "runId": "20261009-m0-post-r6-preservation-diagnostic-r1",
+   "runtimeFieldsUnfilled": {
+     "actualGrant": null,
+     "actualSourceReview": null,

@@ -1,0 +1,21 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "BASE-ordering-parent.py.txt": {
+      "bytes": 10686,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r1/BASE-ordering-parent.py.txt",
+      "sha256": "44ef7942429e0b42129cc4e16548376260136b65c3e61f83252af39beb6848b8"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 2302,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r1/SOURCE-PROOF.json",
+      "sha256": "1d461fba0c51f0698ffb4e07618ff252ec61778803ee0658492ce41ea4ea5f05"
+    },
+    "launch-fullfunction.py": {
+      "bytes": 11699,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r1/launch-fullfunction.py",
+      "sha256": "6019f717cbddc322541c10d41b7fda5869751df95fe8c6ef2f45443bd9660f82"
+    }
+  },
+  "schema": "1370-fullfunction-parent-source-pins/v1"
+}

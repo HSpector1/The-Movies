@@ -1,0 +1,21 @@
+{
+  "schema": "1370-root-actual-tool-transcript/v1",
+  "toolSessionId": 23931,
+  "chunks": [
+    {
+      "chunk_id": "02f15d",
+      "wall_time_seconds": 1.003571223,
+      "session_id": 23931,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "586ff3",
+      "wall_time_seconds": 0.000019359,
+      "exit_code": 0,
+      "original_token_count": 60,
+      "output": "{\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-R4-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json\", \"bytes\": 5362, \"sha256\": \"3a16c3fa9a8ff6aff4b30cfe4de4c5ffe262ff55fa91beeae3f46a007505c157\"}\n"
+    }
+  ],
+  "finalExit": 0
+}

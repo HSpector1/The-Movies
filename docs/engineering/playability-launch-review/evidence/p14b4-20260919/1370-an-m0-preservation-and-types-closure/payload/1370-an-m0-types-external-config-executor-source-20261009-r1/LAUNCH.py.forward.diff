@@ -1,0 +1,35 @@
+--- /Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BASELINE-R6-LAUNCH.py	2026-10-09 22:44:59.000000000 -0500
++++ /Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/LAUNCH.py	2026-10-09 22:55:23.000000000 -0500
+@@ -43,10 +43,10 @@
+   return raw
+  finally:
+   for item in reversed(held):os.close(item)
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6')
+-config=json.loads(read_pin(P/'CONFIG.json','f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7',100000))
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1')
++config=json.loads(read_pin(P/'CONFIG.json','224b8f1614208215cb07993fc4b015d8438413e95b805c7360105bee0575b154',100000))
+ authority=json.loads(read_pin(context,context_sha,128*1024))
+-expected={'runner.py':'5c18ad22e7b78d978c59eace50d5e4349ea415efa4ebf5840860e75561fa2e4b','BOOTSTRAP.py':'d2f66d1b78b3d09ad0eb897ac4b0d2fdfbaf0ab6656f8aa106c97aecabb6ea88','supervise.py':'af8c2b89380031262c2deec4271c6b39339cca721e14abc89bf57860d6ce57eb','CONFIG.json':'f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7','check-deps.mjs':'e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64'}
++expected={'runner.py':'8fd2ad12b9d7751b486687df2d4887831254501f5866795bcb4d16ae7e38e466','BOOTSTRAP.py':'8e4af6c0f9d92167ab1768368a443403abdded854c9eedc039c378285b86422a','supervise.py':'339ae9263f60b5f554826e5919add321940c07440d31b33ed67020354a4e6eb0','CONFIG.json':'224b8f1614208215cb07993fc4b015d8438413e95b805c7360105bee0575b154','check-deps.mjs':'e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64','ROOT-CONFIG-TEMPLATE.mts':'a593f1e4366309b0b68cc08610a42c9d26f6f28285434121a02f88c46300a384','WORKSPACE-CONFIG-TEMPLATE.mts':'e47ce2329889e0f690af0eeb318461eee38ecf5d8346b4fd0ef2aac99ca0e814'}
+ assert authority['schema']=='1370-m0-types-execution-context/v1'
+ assert authority['configSha256']==expected['CONFIG.json'] and authority['runId']==config['runId'] and authority['mirrorPath']==config['mirrorPath']
+ def role(name,cap=100000):
+@@ -71,6 +71,18 @@
+ assert grant['runId']==config['runId'] and grant['configSha256']==expected['CONFIG.json']
+ assert grant['sourceReviewSha256']==authority['sourceReview']['sha256'] and grant['currentProtectionSha256']==authority['currentProtection']['sha256']
+ assert grant['scope']=='M0_FOUR_COMMAND_TYPES_AND_DIAGNOSTIC_COLLECTION_ONLY' and grant['gameAuthorization'] is False
++post_role=authority['postR6RootAdoption']
++assert pathlib.Path(post_role['path']).is_relative_to(pathlib.Path('/Users/zacheryspector/studio-scratch')) and not pathlib.Path(post_role['path']).is_relative_to(pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2'))
++post=role('postR6RootAdoption');contract=config['postR6RootAdoptionContract']
++assert post['schema']==contract['schema'] and post['status']==contract['status']
++for name,wanted in [('currentRootBaselineQualified',True),('historicalRootUnchanged',False),
++                    ('originalR6StopPreserved',True),('typesAccepted',False),('collectionAccepted',False)]:
++ assert post[name] is wanted
++assert post['knownRootDrift']==config['knownRootDrift'] and post['freshSourceProof']==authority['freshSourceProof'] and post['freshDependencyProof']==authority['freshDependencyProof']
++assert post['freshSourceProof']['mirrorRootIdentity']==config['knownRootDrift']['recordedAfterIdentity']
++assert post['freshSourceProof']['historicalRootSubstitutedMetadataSha256']==config['knownRootDrift']['historicalMetadataSha256'] and post['freshSourceProof']['nonrootMetadataSha256']==config['knownRootDrift']['nonrootMetadataSha256']
++assert protection['postR6RootAdoptionSha256']==post_role['sha256']
++assert grant['postR6RootAdoptionSha256']==post_role['sha256']
+ assert type(authority['additionalRefs']) is dict
+ assert set(authority['runtimeTools'])=={'node','python','rootCompilerWrapper','uiCompilerWrapper','collectionWrapper'}
+ def normalized(st):return [st.st_dev,st.st_ino,stat.S_IMODE(st.st_mode),st.st_nlink,st.st_size,st.st_mtime_ns,st.st_ctime_ns]

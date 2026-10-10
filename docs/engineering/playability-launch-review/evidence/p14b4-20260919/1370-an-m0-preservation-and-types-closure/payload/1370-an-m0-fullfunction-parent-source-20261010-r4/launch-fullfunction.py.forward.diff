@@ -1,0 +1,11 @@
+--- old/launch-fullfunction.py
++++ new/launch-fullfunction.py
+@@ -87,7 +87,7 @@
+  require(Path(sys.executable).resolve(strict=True)==Path(rt['python']['path']) and rt['python']['sha256']=='7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835' and rt['node']['sha256']=='0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6','PHYSICAL_PYTHON_NODE')
+  require(load(rt['vitestPackage']['path'])['version']=='2.1.9' and os.access(rt['node']['path'],os.X_OK),'RUNTIME_VERSIONS')
+  helper=authenticate(b['helper']);require(b['helper']['sha256']=='aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e','ORIGINAL_R8_HELPER')
+- out=Path(b['parentPath']);require(out==S/'1370-an-m0-fullfunction-parent-recorded-20261010-r3' and Path(c['laneLog']).parent==S and Path(c['outputPath']).parent==S and Path(c['recorderOutputPath']).parent==S,'OWNED_OUTPUT_SCOPE')
++ out=Path(b['parentPath']);require(out==S/'1370-an-m0-fullfunction-parent-recorded-20261010-r4' and Path(c['laneLog']).parent==S and Path(c['outputPath']).parent==S and Path(c['recorderOutputPath']).parent==S,'OWNED_OUTPUT_SCOPE')
+  for p in (Path(c['outputPath']),Path(c['recorderOutputPath'])):require(not os.path.lexists(p),'FRESH_RUNTIME_OUTPUT')
+  require(b['cwd']==str(R) and b['environment']=={'PYTHONDONTWRITEBYTECODE':'1','GIT_OPTIONAL_LOCKS':'0'},'ORIGINAL_ENVIRONMENT')
+  if os.getpgid(0)!=os.getpid():os.setsid()

@@ -1,0 +1,10 @@
+{
+  "executionAuthorization": false,
+  "payloadCount": 23,
+  "schema": "1370-lossless-trace-codec-consumers-source-seal/v1",
+  "sourcePins": {
+    "bytes": 6976,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "d64262b17864c9843c590867c1ce19232f91c727ea1baeae402b75461cbcce40"
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "predecessor": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/record-ordering-controls.py",
+    "bytes": 16236,
+    "sha256": "ea6f813f5d732cf08277fd0ff60fa0f1074b9839419e55448fbba2c06afb7533"
+  },
+  "derivative": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r4/record-fullfunction.py",
+    "bytes": 16750,
+    "sha256": "a426b58a7573623e5abe7338ec4d2a9c30adb0763974b1115e423374f14330a4"
+  },
+  "wholeInverseVerified": true,
+  "unchangedFunctions": [
+    "require",
+    "sha",
+    "write",
+    "metadata",
+    "authenticate",
+    "process_alive",
+    "start_owned",
+    "ready_go",
+    "close_startup_fds",
+    "clear",
+    "alarm",
+    "whole_guard",
+    "active_guard",
+    "observed_exit_guard",
+    "child_environment",
+    "finalize_result"
+  ],
+  "onlyChangedFunction": "main",
+  "literalChanges": [
+    {
+      "old": "\"\"\"SOURCE ONLY disposable paired metadata controls; qualified owned recorder mechanisms retained.\nNo original M0 cause, game, private mirror, or execution authority.\"\"\"",
+      "new": "\"\"\"One aggregate real full-function qualification; original owned recorder retained.\nFuture runtime only; no source-authored execution authority.\"\"\""
+    },
+    {
+      "old": "CONFIG_SHA='83bce1b4b19f7b9f6ae3c75fc33b5960aa21738891e4add3aa4941c45aaac631';WORKER_SHA='0465271ed0e0d1d9e1311982154ab1bfc70f7ef7d1c935b050f32a13d4afb2dd'",
+      "new": "CONFIG_SHA='ba9baaa29b1ac5dfa7788c140a4a7c1f3bc1b380c2a61bbe993fb07e20bd9268';WORKER_SHA='66ed85473517488b0008cf5f90a352f7c0952a28f8c3af823fe4645348f3fb6d'"
+    },
+    {
+      "old": "OUTPUTS={'verification':SCRATCH/'1370-an-m0-fullbody-r3-ordering-consumer-recorder-results-20261009-r2'}",
+      "new": "OUTPUTS={'verification':SCRATCH/'1370-an-m0-fullfunction-qualification-recorder-results-20261009-r1'}"
+    },
+    {
+      "old": "config.get('schema')=='1370-r3-ordering-controls-config/v1' and config.get('executionAuthorization') is False and config.get('syntheticOnly') is True,'PURE_ORDERING_CONFIG'",
+      "new": "config.get('schema')=='1370-fullfunction-qualification-config/v1' and config.get('executionAuthorization') is False,'FULLFUNCTION_CONFIG'"
+    },
+    {
+      "old": "grant['schema']=='1370-root-r3-ordering-controls-once-grant/v1' and grant['executionAuthorization'] is True and grant['scope']=='PURE_SYNTHETIC_ORDERING_CONSUMER_18_CASES_ONLY'",
+      "new": "grant['schema']=='1370-root-fullfunction-qualification-once-grant/v1' and grant['executionAuthorization'] is True and grant['scope']=='REAL_FULL_FUNCTION_BOUNDARIES_BASELINE_AND_TYPED_CATCH_MUTANT_ONLY'"
+    },
+    {
+      "old": "script=HERE/'run-ordering-controls.mjs'",
+      "new": "script=HERE/'run-fullfunction.py'"
+    },
+    {
+      "old": "node=grant['runtimeTools']['node'];authenticate(node['path'],node['sha256'],128*1024**2);require(os.access(node['path'],os.X_OK),'NODE_EXECUTABLE');active_guard(started)",
+      "new": "python=grant['runtimeTools']['python'];authenticate(python['path'],python['sha256'],128*1024**2);require(os.access(python['path'],os.X_OK),'PYTHON_EXECUTABLE');active_guard(started)"
+    },
+    {
+      "old": "argv=[node['path'],str(script),str(grantpath),sys.argv[3]]",
+      "new": "argv=[python['path'],'-I','-B',str(script),str(grantpath),sys.argv[3]]"
+    },
+    {
+      "old": "expected='PURE_ORDERING_CONSUMER_18_CASES_COMPLETED_PENDING_OBSERVED_REVIEW'",
+      "new": "expected='PASS_REAL_FULL_FUNCTION_QUALIFICATION_PENDING_FULL_POSTFLIGHT'"
+    },
+    {
+      "old": "'PURE_REPORT_ROLE'",
+      "new": "'FULLFUNCTION_REPORT_ROLE'"
+    },
+    {
+      "old": "     require(report['schema']=='1370-r3-ordering-consumer-controls-result/v1' and report['status']==expected and report['positiveCount']==2 and report['specificNegativeCount']==16 and report['syntheticOnly'] is True and report['candidateChanged'] is False and report['fixtureQualification'] is False and report['meaningfulCatchMutantRed'] is False and report['game'] is False and report['originalM0ReadOrWritten'] is False,'PURE_REPORT_SCOPE')\n     projected=[{'id':r['id'],'expected':r['expected'],'assertion':r['intendedAssertion']} for r in report['results']]\n     require(projected==config['cases'] and all(r['verdict']==('ACCEPT_POSITIVE_CONSUMER_INPUT' if r['expected']=='GREEN' else 'ACCEPT_EXPECTED_CONSUMER_ASSERTION') and r['negativePredicate']==(None if r['expected']=='GREEN' else 'AssertionError && message.includes(intendedAssertion)') for r in report['results']),'EXACT_18_SPECIFIC_VERDICTS');active_guard(started)\n    except BaseException as exc:\n     failure=str(exc) or repr(exc);timedout=isinstance(exc,TimeoutError) or 'DEADLINE' in failure or '_SECONDS' in failure\n",
+      "new": "     require(report['schema']=='1370-real-fullfunction-qualification-result/v1' and report['status']==expected and report['actualNodeExit']==0 and report['sourceAfter']==report['sourceBefore'] and report['dependencyAfter']==report['dependencyBefore'] and report['actualGameplayPrefixExecuted'] is True and report['naturalBoundaryWeeks']==[196,197,208] and report['syntheticVariantsExplicit'] is True and report['neutralityAccepted'] is False and report['fullProtectedPostflightAccepted'] is False,'FULLFUNCTION_COMPLETE_SCOPE')\n     nr=report['nodeResult'];authenticate(nr['path'],nr['sha256'],128*1024);node_report=json.loads(pathlib.Path(nr['path']).read_bytes())\n     require(node_report['status']=='PASS_REAL_FULL_FUNCTION_FIXTURES_BASELINE_SPECIFIC_TYPED_CATCH_RED' and len(node_report['phases'])==3 and [r['name'] for r in node_report['phases']]==['generate','baseline','typed-catch-mutant'] and all(r['childExit']==0 for r in node_report['phases']),'THREE_ONE_AGGREGATE_PHASES')\n     require(node_report['phases'][1]['result']['status']=='BASELINE_FULL_FUNCTION_CONTROLS_PASSED' and node_report['phases'][2]['result']['status']=='EXPECTED_REAL_TYPED_CATCH_PROPAGATION_ASSERTION_RED' and node_report['phases'][2]['result']['faultKind']=='row-cap' and node_report['phases'][2]['result']['loaderOrOtherErrorAccepted'] is False,'SPECIFIC_REAL_TYPED_CATCH_RED');active_guard(started)\n    except BaseException as exc:\n     failure=str(exc) or repr(exc);timedout=isinstance(exc,TimeoutError) or 'DEADLINE' in failure or '_SECONDS' in failure\n"
+    },
+    {
+      "old": "'schema':'1370-r3-ordering-consumer-recorder/v1'",
+      "new": "'schema':'1370-real-fullfunction-qualification-recorder/v1'"
+    },
+    {
+      "old": "'R3_ORDERING_CONSUMER_CONTROLS_COMPLETE_UNADOPTED'",
+      "new": "'REAL_FULLFUNCTION_QUALIFICATION_COMPLETE_UNADOPTED'"
+    },
+    {
+      "old": "'boundsSeconds':{'node':CHILD,'active':ACTIVE,'whole':WHOLE}",
+      "new": "'boundsSeconds':{'aggregateChild':CHILD,'active':ACTIVE,'whole':WHOLE}"
+    },
+    {
+      "old": "'game':False,'sourceOrGameplayAdoption':False",
+      "new": "'realGameplayPrefixScope':True,'sourceOrGameplayAdoption':False,'neutralityAccepted':False"
+    }
+  ],
+  "executionAuthorization": false
+}

@@ -1,0 +1,66 @@
+--- NEW/record-lossless-controls.py
++++ BASE/record-lossless-controls.py
+@@ -2,8 +2,8 @@
+ No M0 imports, private traversal, game, fixture or execution authority."""
+ import datetime,hashlib,json,os,pathlib,selectors,select,signal,stat,sys,time
+ HERE=pathlib.Path(__file__).resolve().parent;SCRATCH=pathlib.Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='dcd42621abc00468ddd73bf38ca5fccf6297909eea796ab5470c40a105050be8';WORKER_SHA='8904891aee2cea92164dac09a8e815c9d789d7656407877f3856acb03c1f32c1';CAP=8*1024**2;CHILD=300;ACTIVE=320;WHOLE=330
+-OUTPUTS={'verification':SCRATCH/'1370-an-lossless-trace-pure-controls-recorder-results-20261010-r1'}
++CONFIG_SHA='501a9f61f9e305b7b97e5833f953974495c8cb3b5eaee7975962b744942d768e';WORKER_SHA='612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7';CAP=8*1024**2;CHILD=300;ACTIVE=320;WHOLE=330
++OUTPUTS={'verification':SCRATCH/'1370-an-exact-identity-json-controls-recorded-results-20261010-r1'}
+ def require(v,m):
+  if not v:raise RuntimeError('STOP_'+m)
+ def sha(b):return hashlib.sha256(b).hexdigest()
+@@ -176,17 +176,15 @@
+  owned={};pipes=[];sel=None;output=None;buffers={'stdout':bytearray(),'stderr':bytearray()};child=None;child_started=None;failure=None;mode=None;groupclear=True;timedout=False
+  try:
+   require(sys.dont_write_bytecode and not sys.flags.optimize,'PYTHON_B_REQUIRED');require(len(sys.argv)==4 and sys.argv[1] in OUTPUTS,'EXACT_MODE');mode=sys.argv[1]
+-  configraw=(HERE/'CONFIG.json').read_bytes();require(sha(configraw)==CONFIG_SHA,'CONFIG_HASH');config=json.loads(configraw);require(config.get('schema')=='1370-lossless-trace-pure-controls-recorded-config/v1' and config.get('executionAuthorization') is False and config.get('syntheticOnly') is True,'PURE_PARSER_CONFIG')
++  configraw=(HERE/'CONFIG.json').read_bytes();require(sha(configraw)==CONFIG_SHA,'CONFIG_HASH');config=json.loads(configraw);require(config.get('schema')=='1370-exact-identity-json-controls-config/v1' and config.get('executionAuthorization') is False and config.get('syntheticOnly') is True,'PURE_PARSER_CONFIG')
+   grantpath=pathlib.Path(sys.argv[2]);authenticate(grantpath,sys.argv[3],128*1024);grant=json.loads(grantpath.read_bytes())
+-  require(grant['schema']=='1370-root-lossless-trace-pure-controls-once-grant/v1' and grant['executionAuthorization'] is True and grant['scope']=='PURE_PUBLIC_LOSSLESS_CODEC_AND_AFFECTED_ORDERING_CONTROLS_ONLY' and grant['oneAggregateRun'] is True and grant['automaticRetry'] is False,'ROOT_ONCE_GRANT')
++  require(grant['schema']=='1370-root-exact-identity-json-controls-once-grant/v1' and grant['executionAuthorization'] is True and grant['scope']=='PURE_PUBLIC_EXACT_IDENTITY_JSON_32_CONTROLS_ONLY' and grant['oneAggregateRun'] is True and grant['automaticRetry'] is False,'ROOT_ONCE_GRANT')
+   require(grant['configSha256']==CONFIG_SHA and grant['bounds']==config['bounds'] and grant['clockEnforcedByOriginalRecordedRoute'] is True,'EXACT_AGGREGATE_BOUNDS')
+   for role in config['inputs'].values():authenticate(role['path'],role['sha256'],128*1024);whole_guard(end)
+-  script=HERE/'run-lossless-recorded-controls.mjs';require(str(script)==config['workerPath'],'EXACT_WORKER_PATH');authenticate(script,WORKER_SHA,128*1024)
+-  for key in ('typescript','typescriptPackage'):
+-   wanted=config['typescriptCompiler'] if key=='typescript' else config['typescriptPackage'];require(grant['runtimeTools'][key]==wanted,'EXACT_COMPILER_BINDING');authenticate(wanted['path'],wanted['sha256'],16*1024**2);whole_guard(end)
++  script=pathlib.Path(config['inputs']['run-parser-controls.mjs']['path']);authenticate(script,WORKER_SHA,128*1024)
+   node=grant['runtimeTools']['node'];authenticate(node['path'],node['sha256'],128*1024**2);require(os.access(node['path'],os.X_OK),'NODE_EXECUTABLE');active_guard(started)
+-  output=OUTPUTS[mode];require(str(output)==config['recorderOutputPath'],'EXACT_RECORDER_OUTPUT');require(output.parent==SCRATCH and SCRATCH.resolve(strict=True)==SCRATCH and not os.path.lexists(output),'ABSENT_OWNED_OUTPUT');output.mkdir(mode=0o700)
+-  argv=[node['path'],str(script),str(grantpath),sys.argv[3]]
++  output=OUTPUTS[mode];require(output.parent==SCRATCH and SCRATCH.resolve(strict=True)==SCRATCH and not os.path.lexists(output),'ABSENT_OWNED_OUTPUT');output.mkdir(mode=0o700)
++  argv=[node['path'],str(script)]
+   out_read,out_write=os.pipe();pipes.extend([out_read,out_write]);err_read,err_write=os.pipe();pipes.extend([err_read,err_write])
+   child_started=time.monotonic() # 300 starts before fork or GO permits execution.
+   start_owned(argv,str(HERE),child_environment(),out_write,err_write,owned)
+@@ -230,25 +228,13 @@
+     try:
+      require(child is not None and child.poll()==0,'CHILD_EXIT_'+str(None if child is None else child.returncode))
+      observed_exit_guard(started,child_started,len(buffers['stdout']),len(buffers['stderr']))
+-     def duplicate_keys(rows):
+-      out={}
+-      for key,value in rows:require(key not in out,'DUPLICATE_REPORT_KEY');out[key]=value
+-      return out
+-     def typed_equal(a,b):
+-      if type(a) is not type(b):return False
+-      if isinstance(a,dict):return set(a)==set(b) and all(typed_equal(a[k],b[k]) for k in a)
+-      if isinstance(a,list):return len(a)==len(b) and all(typed_equal(x,y) for x,y in zip(a,b))
+-      return a==b
+-     report=json.loads(bytes(buffers['stdout']),object_pairs_hook=duplicate_keys,parse_constant=lambda value:(_ for _ in ()).throw(RuntimeError('STOP_REPORT_CONSTANT')))
+-     require(report['schema']=='1370-lossless-trace-independent-controls-result/v1' and report['status']=='PURE_LOSSLESS_CODEC_AND_AFFECTED_ORDERING_COMPLETED_UNADOPTED' and report['originalM0ReadOrWritten'] is False and report['game'] is False and report['executionAuthorization'] is False and not buffers['stderr'],'EXACT_PUBLIC_LOSSLESS_REPORT')
+-     matrixrole=config['inputs']['MATRIX.json'];authenticate(matrixrole['path'],matrixrole['sha256'],128*1024);matrix=json.loads(pathlib.Path(matrixrole['path']).read_bytes())
+-     expected=[dict(case,verdict='ACCEPT_POSITIVE' if case['expected']=='GREEN' else 'ACCEPT_SPECIFIC_REFUSAL') for case in matrix['cases']]
+-     require(typed_equal(report['results'],expected) and type(report['positiveCount']) is int and report['positiveCount']==9 and type(report['specificNegativeCount']) is int and report['specificNegativeCount']==40 and type(report['originalOrderingCases']) is int and report['originalOrderingCases']==18 and type(report['originalParserCasesReplayed']) is int and report['originalParserCasesReplayed']==0,'EXACT_SOURCE_MATRIX_ROWS_COUNTS')
+-     require(typed_equal(report['inputRoles'],config['inputs']) and report['grantSha256']==sys.argv[3] and typed_equal(report['runtimeTools'],grant['runtimeTools']),'EXACT_SOURCE_TOOL_GRANT_BINDINGS')
++     report=json.loads(bytes(buffers['stdout']));expected='PASS_EXACT_IDENTITY_JSON_PURE_CONTROLS_ALL_CASES_ONLY'
++     require(report['schema']=='1370-exact-identity-json-pure-controls-result/v1' and report['status']==expected and report['caseCount']==32 and report['privateM0ReadOrWritten'] is False and report['game'] is False and report['executionAuthorization'] is False and report['originalJsonArtifactBytesChanged'] is False and not buffers['stderr'],'EXACT_PUBLIC_PARSER_REPORT')
++     require(report['parserSource']==config['inputs']['exact-json.mjs'] and report['controlsSource']==config['inputs']['run-parser-controls.mjs'] and len(report['results'])==32 and all(r['verdict']=='PASS_SPECIFIC_PURE_CONTROL' for r in report['results']),'EXACT_PARSER_SOURCE_CASES')
+      control_raw=(json.dumps(report,sort_keys=True,separators=(',',':'))+'\n').encode();require(len(control_raw)<=128*1024,'PURE_REPORT_CAP');control_path=output/'CONTROLS-RESULT.json';write(control_path,control_raw);active_guard(started)
+     except BaseException as exc:
+      failure=str(exc) or repr(exc);timedout=isinstance(exc,TimeoutError) or 'DEADLINE' in failure or '_SECONDS' in failure
+-   result={'schema':'1370-lossless-trace-pure-controls-recorder/v1','status':failure or 'LOSSLESS_TRACE_PURE_CONTROLS_COMPLETE_UNADOPTED','mode':mode,'configSha256':CONFIG_SHA,'actualChildExit':None if child is None else child.returncode,'childPid':None if child is None else child.pid,'ownedPgid':None if child is None else child.pid,'startupOwnedBeforeExec':child is not None,'pgidConfirmed':owned.get('pgidConfirmed',False),'groupClear':groupclear,'timedOut':timedout,'elapsedSeconds':time.monotonic()-started,'boundsSeconds':{'node':CHILD,'active':ACTIVE,'whole':WHOLE},'controlsResultPath':None if failure or output is None else str(output/'CONTROLS-RESULT.json'),'stdoutBytes':len(buffers['stdout']),'stdoutSha256':sha(bytes(buffers['stdout'])),'stderrBytes':len(buffers['stderr']),'stderrSha256':sha(bytes(buffers['stderr'])),'sanitizedEnvironment':['NODE_OPTIONS','NODE_PATH'],'game':False,'sourceOrGameplayAdoption':False,'executionAuthorization':False,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}
++   result={'schema':'1370-exact-identity-json-controls-recorder/v1','status':failure or 'EXACT_IDENTITY_JSON_CONTROLS_COMPLETE_UNADOPTED','mode':mode,'configSha256':CONFIG_SHA,'actualChildExit':None if child is None else child.returncode,'childPid':None if child is None else child.pid,'ownedPgid':None if child is None else child.pid,'startupOwnedBeforeExec':child is not None,'pgidConfirmed':owned.get('pgidConfirmed',False),'groupClear':groupclear,'timedOut':timedout,'elapsedSeconds':time.monotonic()-started,'boundsSeconds':{'node':CHILD,'active':ACTIVE,'whole':WHOLE},'controlsResultPath':None if failure or output is None else str(output/'CONTROLS-RESULT.json'),'stdoutBytes':len(buffers['stdout']),'stdoutSha256':sha(bytes(buffers['stdout'])),'stderrBytes':len(buffers['stderr']),'stderrSha256':sha(bytes(buffers['stderr'])),'sanitizedEnvironment':['NODE_OPTIONS','NODE_PATH'],'game':False,'sourceOrGameplayAdoption':False,'executionAuthorization':False,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+    if output is not None and time.monotonic()<end:
+     for name,raw in buffers.items():whole_guard(end);write(output/(name+'.bin'),bytes(raw));whole_guard(end)
+     if not failure:active_guard(started)

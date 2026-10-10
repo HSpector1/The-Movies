@@ -1,0 +1,37 @@
+{
+  "candidateImported": false,
+  "privateInventory": false,
+  "roles": {
+    "DIAGNOSTIC-FULL-SOURCE-CHECK.txt": {
+      "bytes": 5356,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/DIAGNOSTIC-FULL-SOURCE-CHECK.txt",
+      "sha256": "ea68ed6e720f185c98dbd9fd1068d96e61c0ac7bb804ffb0f5a2797b9439b8e8"
+    },
+    "HISTORICAL-ROOT-CONFIG.txt": {
+      "bytes": 176,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/HISTORICAL-ROOT-CONFIG.txt",
+      "sha256": "2939ba611a5c025c2974043c98c06af10aadd3065925103d3f506bd1f1d07faa"
+    },
+    "HISTORICAL-WORKSPACE-CONFIG.txt": {
+      "bytes": 1489,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/HISTORICAL-WORKSPACE-CONFIG.txt",
+      "sha256": "423ba7332b1348114c751b71d1ed551c48aa57ecb4de75daf876b20d8ab34a82"
+    },
+    "ROOT-CONFIG-TEMPLATE.mts": {
+      "bytes": 460,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/ROOT-CONFIG-TEMPLATE.mts",
+      "sha256": "1e63e7e4ea56b7892c9568bf15b917ad401100037d353488a36b137bbf7ff966"
+    },
+    "WORKSPACE-CONFIG-TEMPLATE.mts": {
+      "bytes": 2163,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/WORKSPACE-CONFIG-TEMPLATE.mts",
+      "sha256": "9a0d4d08138f7bfb6665347aa314f37801377fc2f926f2b40e1ba29e36018bbd"
+    },
+    "check-deps.mjs": {
+      "bytes": 1918,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/check-deps.mjs",
+      "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+    }
+  },
+  "schema": "1370-finite-retained-source-bytes-readback/v1"
+}

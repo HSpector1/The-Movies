@@ -1,0 +1,23 @@
+--- worker
++++ worker
+@@ -6,7 +6,7 @@
+ import {createHash} from 'node:crypto'
+ import {fileURLToPath,pathToFileURL} from 'node:url'
+ const HERE=path.dirname(fileURLToPath(import.meta.url)), S='/Users/zacheryspector/studio-scratch'
+-const CONFIG_SHA='c0f90ed7902ab5ecb3f8b2f48f2b8772adbc7cb2ad24ebaa303d440cd8077384'
++const CONFIG_SHA='83bce1b4b19f7b9f6ae3c75fc33b5960aa21738891e4add3aa4941c45aaac631'
+ const sha=b=>createHash('sha256').update(b).digest('hex')
+ const attrs=s=>[s.dev,s.ino,s.mode,s.nlink,s.size,s.mtimeNs.toString(),s.ctimeNs.toString()]
+ function stable(p,cap){
+@@ -37,9 +37,9 @@
+ const packet=JSON.parse(inputs['ORDERING-SOURCE-CASES.json']);assert.equal(packet.schema,'1370-m0-ordering-synthetic-source-inputs/v1');assert.equal(packet.claim,'SYNTHETIC_WITNESS_CONSUMER_INPUTS_NOT_GAME_STATES_OR_OBSERVED_RESULTS')
+ assert.deepEqual(packet.cases.map(c=>({id:c.id,expected:c.expected,assertion:c.assertion??null})),config.cases);assert.equal(packet.cases.length,18)
+ assert.equal(process.version,'v22.23.2');assert.equal(fs.realpathSync(process.execPath),grant.runtimeTools.node.path);pinned(grant.runtimeTools.node,134217728)
+-const compilerRole=grant.runtimeTools.typescript;const compilerBytes=pinned(compilerRole,16777216)
++const compilerRole=grant.runtimeTools.typescript;assert.deepEqual(compilerRole,config.typescriptCompiler);const compilerBytes=pinned(compilerRole,16777216)
+ const compilerNamespace=await import(pathToFileURL(compilerRole.path).href);assert.deepEqual(stable(compilerRole.path,16777216),compilerBytes)
+-const ts=compilerNamespace.default??compilerNamespace;assert.equal(ts.version,'5.8.3');assert.equal(typeof ts.transpileModule,'function')
++const ts=compilerNamespace.default??compilerNamespace;assert.equal(ts.version,config.typescriptVersion);assert.equal(typeof ts.transpileModule,'function')
+ assert.ok(!fs.existsSync(config.outputPath)&&path.dirname(config.outputPath)===S,'fresh exact direct scratch output');fs.mkdirSync(config.outputPath,{mode:0o700})
+ const out=config.outputPath, generated={}
+ for(const [n,target] of [['ordering.ts','ordering.mjs'],['ordering-source-controls.ts','controls.mjs']]){

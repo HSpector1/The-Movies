@@ -1,0 +1,44 @@
+{
+  "actual95737StopPreserved": true,
+  "controllerAstWarnings": [],
+  "fourCompleteForwardInversePairs": [
+    "CONFIG.json",
+    "run-fullfunction.py",
+    "record-fullfunction.py",
+    "run-fullfunction.mjs"
+  ],
+  "leafSourceBasis": {
+    "firstProofCallLine": 735,
+    "mainLine": 717,
+    "originalRunner": {
+      "bytes": 44067,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py",
+      "sha256": "b9ff56da6524243c95045b0e09f25ca4ec5c8225bbdd3eb76820e75b928e350d"
+    },
+    "pathAuthenticationLine": 718,
+    "secondProofCallLine": 739
+  },
+  "losslessDiffRestorationVerified": true,
+  "parserExecutionRelocated": false,
+  "parserInputs": {
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    }
+  },
+  "predecessor": {
+    "bytes": 25278,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/SOURCE-PINS.json",
+    "sha256": "d1357e8fe9b082313f79b27e870df63ec01245d52e725c5698b9045bfe77ac7f"
+  },
+  "privateOriginalReadByAuthor": false,
+  "runtimeExecutedByAuthor": false,
+  "schema": "1370-fullfunction-qualified-source-narrow-repair-proof/v1",
+  "sourceOnly": true
+}

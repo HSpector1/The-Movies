@@ -1,0 +1,25 @@
+{
+  "actualFutureDiagnostic": null,
+  "delta": "Store first failed predicate booleans and counters only, reset per begin, retain in end, append tiny diagnostic object to existing fatal assertion message. No trace row is newly accepted after overflow.",
+  "executionAuthorization": false,
+  "limits": {
+    "activeRecorder": 320,
+    "aggregateChild": 300,
+    "fixtureBytes": 67108864,
+    "observerRowBytes": 16384,
+    "observerRows": 512,
+    "observerTotalBytes": 2097152,
+    "probeEntries": 16384,
+    "probeRowBytes": 65536,
+    "probeTotalBytes": 2097152,
+    "wholeRecorder": 330
+  },
+  "next": "Independent source review and root explicit once route binding only after actual40169 STOP plus required postflight71517 are closed; do not retry from this proposal. Use captured first cause to evaluate a lossless bounded representation rather than increase caps or sample calls.",
+  "noCapIncrease": true,
+  "noDroppedCalls": true,
+  "noGameplayPolicyChanges": true,
+  "noReplayAuthorized": true,
+  "noSuccessClaim": true,
+  "schema": "1370-bounded-probe-overflow-retention-proposal/v1",
+  "scope": "Future focused diagnostic preserves the failing complete-trace assertion and all original logical trace/observer/artifact/time bounds."
+}

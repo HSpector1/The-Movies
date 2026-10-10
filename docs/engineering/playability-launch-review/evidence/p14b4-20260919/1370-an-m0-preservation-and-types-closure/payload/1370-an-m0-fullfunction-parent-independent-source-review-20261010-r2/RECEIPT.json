@@ -1,0 +1,78 @@
+{
+  "actualParserControlsAdoption": {
+    "bytes": 1983,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/PARSER-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "2684b2b4a2c0e90b1d9fec5ee079ede8eb945eb3378ff88619f3cd04b943735d"
+  },
+  "authenticatedParserConfig": {
+    "bytes": 6843,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/CONFIG.json",
+    "sha256": "7dd64bf16908076887593eac1843f05d205426ba97897e42cc7a479b938187a6"
+  },
+  "baseSource": {
+    "bytes": 11699,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r1/launch-fullfunction.py",
+    "sha256": "6019f717cbddc322541c10d41b7fda5869751df95fe8c6ef2f45443bd9660f82"
+  },
+  "checks": {
+    "allFiveManifestRolesAuthenticated": true,
+    "allOtherManifestPathsRemainLocalAndEveryRoleAuthenticated": true,
+    "clockOwnershipCleanupAndDirectExecLogicUnchanged": true,
+    "externalAliasesEqualAuthenticatedConfigAndActualAdoption": true,
+    "freshParentPathOnlyOtherChange": true,
+    "independentSourceReviewAliasChecksUnchanged": true,
+    "onlyTwoExactExternalParserAliasesAllowed": true,
+    "tenUnchangedHelpersByteExact": [
+      "require",
+      "prep_timeout",
+      "remaining",
+      "metadata",
+      "role",
+      "authenticate",
+      "pairs",
+      "load",
+      "exact",
+      "write"
+    ],
+    "wholeInverseRestoresAcceptedR1Bytes": true
+  },
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_FULLFUNCTION_ONCE_PARENT_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "externalAliasRoles": {
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    }
+  },
+  "majorLesson": "Pin only the two actually tested external parser aliases by exact fixed path and authenticated config role; preserve local-path enforcement for every other manifest role rather than widening the exception.",
+  "parentSource": {
+    "bytes": 12103,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r2/launch-fullfunction.py",
+    "sha256": "eb09e8a20b7ee6039c059108c11262cc9a01130a90e2f1fd39646b1b68b93180"
+  },
+  "proof": {
+    "bytes": 2531,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r2/SOURCE-PROOF.json",
+    "sha256": "b743b04e6e77099fe90009ebd7b7c343e37e9e61aff5a7c171af062e5ed20c4f"
+  },
+  "reviewedRouteManifestForAliasCompatibility": {
+    "bytes": 29705,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/SOURCE-PINS.json",
+    "sha256": "f589b6bad34751afd46856d59f53910cfa6992ee9b7621205aa09c882a199da0"
+  },
+  "runtimeContract": "Separate outer and inner preparation60 canceled before direct exec; original recorder300/320/330 retains runtime authority. No added outer watchdog.",
+  "schema": "1370-fullfunction-parent-independent-source-review/v1",
+  "scope": "Independent review of root-authored parent R2 source only. Fullfunction R8 route is reviewed separately by another agent. Actual95737 STOP remains a failed attempt; mandatory shared postflight remains pending. No runtime, private traversal, process probes, Git changes, fixture, mutant or game acceptance.",
+  "sourceManifest": {
+    "bytes": 1410,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "fb047e0bcf7685b40fd80bcd4d5550f2cef7a967ee936a3644bb0446309da62e"
+  }
+}

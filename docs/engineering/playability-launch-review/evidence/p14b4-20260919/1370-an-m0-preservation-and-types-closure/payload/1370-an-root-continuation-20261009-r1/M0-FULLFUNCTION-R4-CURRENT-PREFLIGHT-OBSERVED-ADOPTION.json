@@ -1,0 +1,111 @@
+{
+  "actualTool": {
+    "bytes": 717,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r4/ACTUAL-TOOL.json",
+    "sha256": "95972de25e56b585204be81482db433e5ee09cbc7ba0e2c9c600ec8f62f706a7"
+  },
+  "actualToolSessionId": 67992,
+  "baseline": {
+    "bytes": 8833072,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/SNAPSHOT.json",
+    "sha256": "0136b4370cca27ab9af635c16124283049eb394b3dbaa63c32a755973e9c3596"
+  },
+  "currentProtection": {
+    "bytes": 3294,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-CURRENT-EXTERNAL-CONFIG-TYPES-PROTECTION.json",
+    "sha256": "5980e69d3e2962f068f10fa3217caa45f3ff752cc93a5064eb0637f54a2439d0"
+  },
+  "executionAuthorization": false,
+  "fullMapReuseUnderOriginalContinuousFreezeProvision": true,
+  "fullPostflightSnapshot": {
+    "bytes": 8847484,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r3/SNAPSHOT.json",
+    "sha256": "0700ce99c57f33956c3fb1b5f26d3c6e28e6e323551fb1f6f084db2f9c370dff"
+  },
+  "game": false,
+  "grant": {
+    "bytes": 4568,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r4/GRANT.json",
+    "sha256": "9c1b7394da88bee8bcdc2e88354bbc4493afe45d66d2263e46dca48b48c9d169"
+  },
+  "latestSharedFullPostflightReadback": {
+    "bytes": 5188,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r3/READBACK.json",
+    "sha256": "ecd96dcdd8056b646f2df1c2a89da7d5aaf956b099a813cdc88c821aa8b6df10"
+  },
+  "latestSharedFullPostflightSnapshot": {
+    "bytes": 8860529,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r3/SNAPSHOT.json",
+    "sha256": "f240937b656180b175253bf025fe13243b4591e5d05b895de1152956d44283d9"
+  },
+  "mode": "fullfunction-current-protection",
+  "newFullInventory": false,
+  "nineRootsAndAncestryAndCurrentChecksAccepted": true,
+  "originalAttemptRemainsStop": true,
+  "originalFullSnapshot": {
+    "bytes": 8860529,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r3/SNAPSHOT.json",
+    "sha256": "f240937b656180b175253bf025fe13243b4591e5d05b895de1152956d44283d9"
+  },
+  "postOwnScannerChecks": [
+    {
+      "id": 17359,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 17359,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "postR6RootAdoption": {
+    "bytes": 4446,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-POST-R6-PRESERVATION-DIAGNOSTIC-OBSERVED-ADOPTION.json",
+    "sha256": "5b5e062b8c5ac12bc70aa5ccb46ad101340ad692cdf0147ea44890882c0f44e1"
+  },
+  "preflight": {
+    "bytes": 9508,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261010-r4/PREFLIGHT.json",
+    "sha256": "d0ff6ee1bb38bc311f0f7213e404730bd1a9afcf667b4221ba1ad398d9beafa4"
+  },
+  "proofOrTypesAccepted": false,
+  "protectedFreezeContinues": true,
+  "rawLocalOnlyBytes": 1520659,
+  "rawLocalOnlyClassification": {
+    "bytes": 1228,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261010-r4/RAW-LOCAL-ONLY-ROLES.json",
+    "sha256": "8c08421d4c6e29a3cc0832a419936bfd67dfc629ce748daffb3202f9f3f77460"
+  },
+  "rawLocalOnlyRoles": 4,
+  "reviewedPriorStopAdoption": {
+    "bytes": 3629,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R3-STOP-OBSERVED-ADOPTION.json",
+    "sha256": "80f45b590a15db4964f3852ddd5bed73da836ad0a84dd56ddbf4ac02bd767c17"
+  },
+  "scannerAbsent": true,
+  "schema": "1370-root-original-current-root-preflight-observed-adoption/v1",
+  "scope": "OriginalA208 nineprotectedroots/R9/shareddeps/currentAM only; current M0 fullsource/dependency proofs remain separate",
+  "sourceReview": {
+    "bytes": 7652,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "6f7e329107fb6942580553a40ea7395695b090ef32d256e69b59a708baf672b9"
+  },
+  "status": "ROOT_ADOPTED_ORIGINAL_CURRENT_ROOT_PREFLIGHT",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r4/prelaunch.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 269,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r4/prelaunch.stdout",
+    "sha256": "90c6399f0faac5dad8093c0f16175bb2989fb4f4dc860aa9b04fd318a775118b"
+  },
+  "toolExit": 0,
+  "typesObservedAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  }
+}

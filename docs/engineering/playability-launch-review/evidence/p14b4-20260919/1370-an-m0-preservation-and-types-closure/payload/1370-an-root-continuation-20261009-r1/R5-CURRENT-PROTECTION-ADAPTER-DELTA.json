@@ -1,0 +1,22 @@
+{
+  "actualIndependentObservedReview": null,
+  "baseSha256": "41566094df486483eb7df67e7b9c5906fe4dccc30d6a11105dd944384c2d0453",
+  "changes": [
+    [
+      "M0-FULLFUNCTION-R4-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json",
+      "M0-FULLFUNCTION-R5-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json"
+    ],
+    [
+      "FULLFUNCTION-R3-STOP-OBSERVED-ADOPTION.json",
+      "FULLFUNCTION-R4-STOP-OBSERVED-ADOPTION.json"
+    ],
+    [
+      "M0-FULLFUNCTION-R4-CURRENT-PROTECTION.json",
+      "M0-FULLFUNCTION-R5-CURRENT-PROTECTION.json"
+    ]
+  ],
+  "executionAuthorization": false,
+  "schema": "1370-root-fifth-current-protection-adapter-delta/v1",
+  "updatedSha256": "bb9b85cf135efeb66c1e038fa8a6004e3756e459a75404efbef272773701bafb",
+  "wholeInverseExact": true
+}

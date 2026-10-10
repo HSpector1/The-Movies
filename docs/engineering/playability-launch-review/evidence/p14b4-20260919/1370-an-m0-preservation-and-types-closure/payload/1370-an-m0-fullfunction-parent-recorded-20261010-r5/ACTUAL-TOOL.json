@@ -1,0 +1,41 @@
+{
+  "sessionId": 56544,
+  "allToolChunks": [
+    {
+      "chunk_id": "c22b0d",
+      "wall_time_seconds": 1.001833337,
+      "session_id": 56544,
+      "original_token_count": 121,
+      "output": "{\"rootBinding\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-ROOT-BINDING-R5.json\", \"bytes\": 4759, \"sha256\": \"8dc5c4af7d12a77795e5f0d30e11ea234172a83aa3733dbccef125837deec125\"}, \"sourceAdoption\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-QUALIFICATION-SOURCE-ADOPTION-R5.json\", \"bytes\": 3000, \"sha256\": \"118bc3cc0f65bd4bd1040c8da101e5892286759f2c81ff7f578526bf34a17934\"}}\n"
+    },
+    {
+      "chunk_id": "f351be",
+      "wall_time_seconds": 5.001776614,
+      "session_id": 56544,
+      "original_token_count": 78,
+      "output": "{\"launchClaim\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r5/ROOT-LAUNCH-CLAIM.json\", \"bytes\": 1805, \"sha256\": \"07f5b662422bd344c38aba286b66be267cfc6a25a33b82d95c1274312874f086\"}, \"mode\": \"outer\", \"actualOwned\": {\"pid\": 10032, \"pgid\": 10032, \"sid\": 10032}}\n"
+    },
+    {
+      "chunk_id": "a118ad",
+      "wall_time_seconds": 5.000621708,
+      "session_id": 56544,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "88f8dd",
+      "wall_time_seconds": 5.002310517,
+      "session_id": 56544,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "034397",
+      "wall_time_seconds": 0.000044859,
+      "exit_code": 2,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ],
+  "finalExit": 2
+}

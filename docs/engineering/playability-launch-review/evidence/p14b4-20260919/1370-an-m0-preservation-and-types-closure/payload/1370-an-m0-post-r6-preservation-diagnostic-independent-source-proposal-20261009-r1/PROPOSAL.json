@@ -1,0 +1,92 @@
+{
+  "actualCurrentAuthority": null,
+  "actualGrant": null,
+  "actualR6Result": {
+    "bytes": 26635,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3/20261009-m0-types-after-al-r3/RESULT.json",
+    "sha256": "85e1f6763f40b8232b851ef2caf3611ed9e3b6d3962d748eeeda063da608d781"
+  },
+  "actualToolPreflight": null,
+  "baselineProofSource": {
+    "bytes": 11146,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "0dbae918dad76dd85350d5804f0eaee131c4cce18543ea2bb6fb716a06068926"
+  },
+  "baselineRunner": {
+    "bytes": 34856,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/runner.py",
+    "sha256": "d32007ecb462d6a535432959317e1851d09d37cb0fa96897fa3dcc213c45b05c"
+  },
+  "concreteFunctionDerivative": {
+    "allOtherFunctionBytesUnchanged": true,
+    "changedPredicateOnlyForDot": true,
+    "fragmentsOnlyNotExecutableRecipe": true,
+    "sourceFunction": "full_source_check",
+    "wholeFunctionInverseExact": true
+  },
+  "controlledMetadataRedGreen": null,
+  "decision": "PROPOSE_MINIMAL_ORIGINAL_PROOF_DERIVATIVE_SOURCE_ONLY_NOT_RUNTIME_READY",
+  "executionAuthorization": false,
+  "futureOperationalHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+  "knownRootDrift": {
+    "afterRosterSha256": "aa0270269ea341ec4d0029307c799518b5ff89e81b0044d165763408ea533f57",
+    "beforeRosterSha256": "aa0270269ea341ec4d0029307c799518b5ff89e81b0044d165763408ea533f57",
+    "historicalNormalizedIdentity": [
+      16777220,
+      166751332,
+      448,
+      13,
+      416,
+      1791577446298737027,
+      1791577446298737027
+    ],
+    "onlyChangedFields": [
+      "mtimeNs",
+      "ctimeNs"
+    ],
+    "recordedAfterIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791600924862151724,
+      1791600924862151724
+    ],
+    "recordedBeforeIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791577446298737027,
+      1791577446298737027
+    ]
+  },
+  "limits": [
+    "This package contains function fragments and a concrete derivative proposal only; not a complete executable source package and not runtime authorized.",
+    "No current M0 file/content/nonroot/dependency audit performed here; qualification requires later genuine bounded runtime under root grant.",
+    "No copy/rematerialization/timestamp restoration/protected writes/unexplained repin."
+  ],
+  "majorLessons": [
+    "Known timestamp drift must be an exact evidence-bound exception in a separately labelled diagnostic, not a broad metadata waiver.",
+    "Complete unchanged file and nonroot metadata proof precedes baseline adoption; source approval alone cannot qualify a current root."
+  ],
+  "requiredRecipeChangesBeforeQualification": [
+    "Bind knownRootDrift through authentic R6 result/readback/independent STOP/root adoption roles; immutable authority must provide exact recorded old/new identities and authentic historical normalized dot identity.",
+    "Change route/result schema and status to explicit post-R6 preservation diagnostic; never emit original proof PASS as though dot metadata unchanged. Record old/new dot identities, historical facts digest, actual complete source/file/nonroot/dependency proof digests, and exactly which predicate is conditionally qualified.",
+    "Retain main two full source/dependency scans and exact equality; prohibit types/game/collection execution in diagnostic.",
+    "Add finite proof of historical metadata digest reconstructed by substituting authentic old dot row, or an exact nonroot metadata digest, to make unchanged remainder directly reviewable.",
+    "Rebind fresh operational HEAD/source/run/output/supervisor/bootstrap/LAUNCH/config hashes with complete forward/inverse proofs and independent source review; actual preflight/tools/lane/grant remain genuine external fills.",
+    "Only after actual complete diagnostic and independent observed review may root explicitly adopt a new current M0 root baseline; original R6/H13 STOP never relabeled.",
+    "Disposable original/external nested-loader metadata RED/GREEN must be observed before fresh M0 types acceptance."
+  ],
+  "retainedRequirements": [
+    "Authenticate intact historical4711/e9 authority before any private reads; original1740 files119393120B/113dirs/1853entries/oneexactlink/fiveoverlays/bridge63 and file SHA/Git OID/mode/identity remain exact.",
+    "All112 nonroot directory metadata rows remain equal to authentic historical facts; only explicitly recorded dot metadata differs.",
+    "Both scans must see exact recorded known new dot identity, never any arbitrary current root, and retain intra-scan open/no-follow/stability checks and before-after equality.",
+    "Original exact21 package projection against1802 facts and complete dependency12484entries348223802B/digest/rootmetadata checks twice remain unchanged.",
+    "Original300/320/330 clocks, all caps/ownership/cleanup, source guards and external grant protocol remain unchanged."
+  ],
+  "schema": "1370-independent-post-r6-preservation-diagnostic-source-proposal/v1"
+}

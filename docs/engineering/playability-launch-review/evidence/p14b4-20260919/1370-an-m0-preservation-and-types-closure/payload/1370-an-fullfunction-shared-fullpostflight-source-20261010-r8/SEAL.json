@@ -1,0 +1,10 @@
+{
+  "allManifestRolesReadbackEqual": true,
+  "executionAuthorization": false,
+  "schema": "1370-fresh-source-path-adapter-seal/v1",
+  "sourceManifest": {
+    "bytes": 3328,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r8/SOURCE-PINS.json",
+    "sha256": "9af7b525628eb79336121909f54ca7a6c6afb342c2172fb199507eef57146878"
+  }
+}

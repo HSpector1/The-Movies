@@ -1,0 +1,9 @@
+{
+  "executionAuthorization": false,
+  "receipt": {
+    "bytes": 9283,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "dd835fc294482503f5845ca658dd7ba8431255a3bbd36cb4722edf14308ab578"
+  },
+  "schema": "1370-independent-source-review-seal/v1"
+}

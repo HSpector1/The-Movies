@@ -1,0 +1,148 @@
+--- original-BASE-CONFIG.json
++++ CONFIG.json
+@@ -74,7 +74,7 @@
+   "bridgeRecordedProjectionSha256": "3fd1507e0d93b23707b70450be406c3801d85545387b65b4aebecc4d96de0f93",
+   "bridgeTree": "faa227af051c5ec529644b5f84151314ea63cc30",
+   "childWallSeconds": 300,
+-  "claimLimit": "SOURCE_ONLY_TYPES_AND_COLLECTION_NO_GAME_OR_H_METADATA_WAIVER",
++  "claimLimit": "COMPLETE_FILES_NONROOT_AND_DEPENDENCIES_WITH_EXACT_KNOWN_ROOT_DRIFT_ONLY_NO_TYPE_GAME_OR_H_WAIVER",
+   "currentProtectedScopeAdoption": null,
+   "dependencyPackages": {
+     "/Users/zacheryspector/The-Movies-headless-program/node_modules/@playwright/test/package.json": {
+@@ -391,6 +391,48 @@
+       ],
+       "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/package.json",
+       "sha256": "6ea35e567829660d9832744086c18526b9ddebd5358c4a0cadfb0a355925f917"
++    }
++  },
++  "diagnosticEvidence": {
++    "currentAMGuardSourcePins": {
++      "bytes": 2286,
++      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/SOURCE-PINS.json",
++      "sha256": "e638252b8082aa756f56471552327706a17dcf0e2d6bd01628710624ce7ec435"
++    },
++    "historicalSharedGuardConfig": {
++      "bytes": 3906,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
++      "sha256": "20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41"
++    },
++    "proposal": {
++      "bytes": 5241,
++      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-independent-source-proposal-20261009-r1/PROPOSAL.json",
++      "sha256": "b6e571c5314eec6a0decf53996f8f07af2930dd8a85f370951a1bea60b489d6d"
++    },
++    "r6ObservedReview": {
++      "bytes": 31865,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-independent-observed-metadata-stop-review-after-al-20261009-r6/RECEIPT.json",
++      "sha256": "e47157a2d9b7aacfabb8a3bafa0473f18c0b798fea9d129c2e442fcf5c27081f"
++    },
++    "r6Readback": {
++      "bytes": 11504,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r6/READBACK.json",
++      "sha256": "1456317c3f33bdba89e30cef89a133a649c79517eed36dda43c6c5f67afe57f3"
++    },
++    "r6Result": {
++      "bytes": 26635,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3/20261009-m0-types-after-al-r3/RESULT.json",
++      "sha256": "85e1f6763f40b8232b851ef2caf3611ed9e3b6d3962d748eeeda063da608d781"
++    },
++    "r6RootStopAdoption": {
++      "bytes": 6232,
++      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-R6-METADATA-STOP-OBSERVED-ADOPTION.json",
++      "sha256": "5eeaa12cbae608f67ba6ef36d39bcb528662fc8b95db4cacf2a88f7d93c45142"
++    },
++    "sharedGuardSource": {
++      "bytes": 21984,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
++      "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+     }
+   },
+   "entryCap": 1853,
+@@ -400,7 +442,39 @@
+   "historicalDataAuthorityHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+   "historicalHSourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+   "historicalM0SourceCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+-  "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-current-proof-20261009-m0-current-proof-after-al-r2.lane.log",
++  "knownRootDrift": {
++    "historicalMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
++    "historicalNormalizedIdentity": [
++      16777220,
++      166751332,
++      448,
++      13,
++      416,
++      1791577446298737027,
++      1791577446298737027
++    ],
++    "nonrootMetadataSha256": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
++    "recordedAfterIdentity": [
++      16777220,
++      166751332,
++      16832,
++      13,
++      416,
++      1791600924862151724,
++      1791600924862151724
++    ],
++    "recordedBeforeIdentity": [
++      16777220,
++      166751332,
++      16832,
++      13,
++      416,
++      1791577446298737027,
++      1791577446298737027
++    ],
++    "rosterSha256": "aa0270269ea341ec4d0029307c799518b5ff89e81b0044d165763408ea533f57"
++  },
++  "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-post-r6-preservation-diagnostic-20261009-r2.lane.log",
+   "localMainRef": "refs/remotes/origin/main",
+   "mainOid": "c902a704eb948cc576083d0973c8c23e59937dc1",
+   "mainRef": "refs/heads/main",
+@@ -584,14 +658,10 @@
+     ],
+     "target": "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+   },
+-  "operationalAuthorityVerifiedThisSlice": true,
+-  "operationalProductionHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+-  "operationalReadback": {
+-    "bytes": 1250,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+-    "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+-  },
+-  "outputRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-results-after-al-20261009-r2",
++  "operationalAuthorityVerifiedThisSlice": false,
++  "operationalProductionHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
++  "operationalReadback": null,
++  "outputRoot": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-results-20261009-r2",
+   "planningAuthorities": {
+     "BINDING-UNFILLED.json": {
+       "bytes": 27520,
+@@ -646,9 +716,9 @@
+     "vitest.workspace.ts"
+   ],
+   "recorderActiveSeconds": 320,
+-  "recorderResult": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-recorder-results-after-al-20261009-r2/20261009-m0-current-proof-after-al-r2.RECORDER-RESULT.json",
++  "recorderResult": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-recorder-results-20261009-r2/20261009-m0-post-r6-preservation-diagnostic-r2.RECORDER-RESULT.json",
+   "recorderWallSeconds": 330,
+-  "runId": "20261009-m0-current-proof-after-al-r2",
++  "runId": "20261009-m0-post-r6-preservation-diagnostic-r2",
+   "runtimeFieldsUnfilled": {
+     "actualGrant": null,
+     "actualSourceReview": null,
+@@ -656,7 +726,7 @@
+     "runtimeToolsAndPhysicalWrapperRoles": null
+   },
+   "runtimeToolsAndPhysicalWrapperRoles": null,
+-  "schema": "1370-m0-types-collection-source-config/v1",
++  "schema": "1370-post-r6-m0-preservation-diagnostic-config/v1",
+   "sourceAuthorities": {
+     "depsChecker": {
+       "bytes": 1918,
+@@ -769,5 +839,5 @@
+       "sha256": "17514022b90852f03fa215d6748875d45eef0ae17270517cc2f55e1c8ba1cf08"
+     }
+   },
+-  "status": "HELD_SOURCE_ONLY_CURRENT_M0_SOURCE_DEPENDENCY_PROOF_NO_TYPES_OR_GAME"
++  "status": "HELD_SOURCE_ONLY_POST_R6_EXACT_ROOT_DRIFT_DIAGNOSTIC"
+ }

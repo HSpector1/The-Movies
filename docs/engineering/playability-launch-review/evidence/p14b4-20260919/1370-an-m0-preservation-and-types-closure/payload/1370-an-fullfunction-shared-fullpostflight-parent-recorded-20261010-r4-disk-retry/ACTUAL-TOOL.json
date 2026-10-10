@@ -1,0 +1,34 @@
+{
+  "sessionId": 17336,
+  "allToolChunks": [
+    {
+      "chunk_id": "69a794",
+      "wall_time_seconds": 1.001627194,
+      "session_id": 17336,
+      "original_token_count": 72,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4-disk-retry/GRANT.json\", \"bytes\": 5273, \"sha256\": \"2145155894f92d7613a69b5bddaa0f78595c09e2080a0089edde69cef93aba36\"}, \"scannerPid\": 735, \"scannerPgid\": 735}\n"
+    },
+    {
+      "chunk_id": "d7c85c",
+      "wall_time_seconds": 5.00170644,
+      "session_id": 17336,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "745a06",
+      "wall_time_seconds": 5.002398856,
+      "session_id": 17336,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "ed3d45",
+      "wall_time_seconds": 0.000016761,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ],
+  "finalExit": 0
+}

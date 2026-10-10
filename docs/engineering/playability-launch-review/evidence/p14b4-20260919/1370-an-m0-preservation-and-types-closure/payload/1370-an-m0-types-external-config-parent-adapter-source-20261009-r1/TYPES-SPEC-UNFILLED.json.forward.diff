@@ -1,0 +1,10 @@
+--- /Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/BASELINE-R4-TYPES-SPEC-UNFILLED.json	2026-10-09 23:05:56.000000000 -0500
++++ /Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/TYPES-SPEC-UNFILLED.json	2026-10-09 23:05:56.000000000 -0500
+@@ -5,5 +5,6 @@
+   "mode": "types",
+   "runtimeTools": null,
+   "schema": "1370-root-m0-parent-fill-launch-spec/v1",
+-  "sourceReview": null
++  "sourceReview": null,
++  "postR6RootAdoption": null
+ }

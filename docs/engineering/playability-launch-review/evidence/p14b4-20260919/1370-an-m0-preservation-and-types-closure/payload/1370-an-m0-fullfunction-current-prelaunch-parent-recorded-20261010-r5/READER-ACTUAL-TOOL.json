@@ -1,0 +1,20 @@
+{
+  "sessionId": 40232,
+  "allToolChunks": [
+    {
+      "chunk_id": "bfb242",
+      "wall_time_seconds": 1.001784891,
+      "session_id": 40232,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "5896aa",
+      "wall_time_seconds": 0.000027664,
+      "exit_code": 0,
+      "original_token_count": 60,
+      "output": "{\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-R5-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json\", \"bytes\": 5395, \"sha256\": \"c4faad39e17cf51491db0069ba29d90d47b1a398ce18a80a9cb0892507e28d38\"}\n"
+    }
+  ],
+  "finalExit": 0
+}

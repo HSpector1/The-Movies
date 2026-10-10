@@ -1,0 +1,5 @@
+Specific premises belong outside injected failing codecs, so a swallowed premise AssertionError cannot masquerade as intended operational refusal.
+Exact charge accounting includes16-byte header and9-byte per-row header plus actual compressed bytes; a >old2MiB expanded GREEN demonstrates the semantic amendment directly.
+Snapshot ownership/reset needs the actual probe API as well as direct codec tests.
+Changed consumer must rerun all18 original ordering predicates; unchanged parser32 needs no replay.
+API misuse cannot be silently carved out of an adopted sticky-error contract; reset must run even when new end failure is terminal.

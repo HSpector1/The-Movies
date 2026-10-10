@@ -1,0 +1,42 @@
+{
+  "archiveManifest": {
+    "bytes": 4647724,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-am-natural208-and-renewal-pricing-closure/ARCHIVE-MANIFEST.json",
+    "sha256": "f9c9926ce5b94f446c89284c48295e0631bd888a5b582521c947a4eb892dc6c6"
+  },
+  "concreteFindings": [],
+  "decision": "ACCEPT_FINITE_AM_ARCHIVE_PAYLOAD_AND_PRIOR_HEAD_AUTHENTICATION",
+  "executionAuthorization": false,
+  "inputClaimDocsReview": {
+    "bytes": 2246,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-final-input-claim-doc-independent-review-20261009-r1/RECEIPT.json",
+    "sha256": "2e687468d9f4a9a330959006b42c8b52010ae19aae8c6420edb5a3bb6df66996"
+  },
+  "inventory": {
+    "bytes": 648291,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-root-finalization-20261009-r1/INVENTORY-FINAL.json",
+    "sha256": "d88c0468a6857f1735567e026543e47917133512ecd65867f52b1977288e2a01"
+  },
+  "limits": [
+    "Finite archive payload reads and specifically authorized read-only Git ls-tree/cat-file only, optional locks/GC/maintenance disabled.",
+    "No raw machine contents or private inventories read; no tests/runtime or repo edits.",
+    "Publication/staged blob/remote readback remains parent responsibility; archive acceptance does not alter observed M0 STOP or authorize runtime."
+  ],
+  "schema": "1370-independent-final-am-archive-readback/v1",
+  "verified": {
+    "allCopiedBytesAndSha256Exact": true,
+    "allMappingsExactALTreeModeAndOid": true,
+    "allPriorBlobBytesAndSha256Exact": true,
+    "authenticatedPriorHeadBlobRoles": 82,
+    "authenticatedPriorHeadMappingRows": 14652,
+    "copiedBytes": 65315268,
+    "copiedRoles": 1130,
+    "headAuthenticated": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+    "inventoryAndRootClaimPinsExact": true,
+    "localHashSizeOnlyRoles": 41,
+    "localRawNoExportOrGitReuse": true,
+    "noPayloadSymlinks": true,
+    "payloadSetExactlyManifestNoExtras": true,
+    "roles": 1253
+  }
+}

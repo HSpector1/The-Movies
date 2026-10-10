@@ -1,0 +1,28 @@
+{
+  "roles": [
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 97846,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-retry-current-prelaunch-output-20261009-r2/BEFORE-PS.LOCAL",
+      "sha256": "06ec6718a7002a25692d5b2414e1b7103977414565cc68ef6b1cc8fcd9d3db81"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 666189,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-retry-current-prelaunch-output-20261009-r2/BEFORE-LSOF.LOCAL",
+      "sha256": "cd7decbef7b0d1fd7b2b807633454bdac55158c05e8d85fccdaf85810c282986"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 97846,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-retry-current-prelaunch-output-20261009-r2/AFTER-PS.LOCAL",
+      "sha256": "e83b32c2f7a2b5dd06a9aa6db71fec0e4e19a8a1670f74aea7c24980ba7453c7"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 666188,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-retry-current-prelaunch-output-20261009-r2/AFTER-LSOF.LOCAL",
+      "sha256": "2371bbb1739cb12ea1e2db8316db3d2f1001cbc5a255e392be76eb031697071e"
+    }
+  ]
+}

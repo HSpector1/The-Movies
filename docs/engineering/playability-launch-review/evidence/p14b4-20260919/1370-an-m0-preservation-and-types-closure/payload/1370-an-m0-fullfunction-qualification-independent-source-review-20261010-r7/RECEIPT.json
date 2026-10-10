@@ -1,0 +1,264 @@
+{
+  "schema": "1370-independent-real-fullfunction-qualification-source-review/v1",
+  "decision": "ACCEPT_STATIC_REAL_FULL_FUNCTION_QUALIFICATION_ROUTE_SOURCE_ONLY",
+  "sourceManifest": {
+    "bytes": 25278,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/SOURCE-PINS.json",
+    "sha256": "d1357e8fe9b082313f79b27e870df63ec01245d52e725c5698b9045bfe77ac7f"
+  },
+  "sourceSeal": {
+    "bytes": 400,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/SEAL.json",
+    "sha256": "3e3ee5fc6a98b8d570b038a212c903cf2e4c671c30d820913bf1dc36adb81ba8"
+  },
+  "sourcePins": {
+    "CONFIG-TEMPLATE.mts": {
+      "bytes": 930,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/CONFIG-TEMPLATE.mts",
+      "sha256": "8be9467a794ddbd134dd04c4a92249c7e85e357ef96619562bd99f4ad10ecf5e"
+    },
+    "CONFIG.json": {
+      "bytes": 6279,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/CONFIG.json",
+      "sha256": "c41b0b344ecb2abed6079075e0f4a3571d0fb957ae8bddee7e7a1e6f927a9808"
+    },
+    "CORE-TEST-TEMPLATE.ts": {
+      "bytes": 3955,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/CORE-TEST-TEMPLATE.ts",
+      "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "bytes": 9487,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+    },
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "record-fullfunction.py": {
+      "bytes": 16750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/record-fullfunction.py",
+      "sha256": "8569b57e64dce4cf2831c12cff8ee5c1ed497663bcceb0523479b8cc8ee6b46e"
+    },
+    "run-fullfunction.mjs": {
+      "bytes": 20216,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-fullfunction.mjs",
+      "sha256": "6cd57184275938b164151f1d0a66ab25be9fa1c59a80c8596983a18c2093abdf"
+    },
+    "run-fullfunction.py": {
+      "bytes": 16297,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-fullfunction.py",
+      "sha256": "f75fcf82debb83d3a588e70c9295ff8a0739dbed41ad19d592b6a86710594516"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    }
+  },
+  "routeSourcePins": {
+    "CONFIG-TEMPLATE.mts": {
+      "bytes": 930,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/CONFIG-TEMPLATE.mts",
+      "sha256": "8be9467a794ddbd134dd04c4a92249c7e85e357ef96619562bd99f4ad10ecf5e"
+    },
+    "CONFIG.json": {
+      "bytes": 6279,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/CONFIG.json",
+      "sha256": "c41b0b344ecb2abed6079075e0f4a3571d0fb957ae8bddee7e7a1e6f927a9808"
+    },
+    "CORE-TEST-TEMPLATE.ts": {
+      "bytes": 3955,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/CORE-TEST-TEMPLATE.ts",
+      "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "bytes": 9487,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+    },
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "record-fullfunction.py": {
+      "bytes": 16750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/record-fullfunction.py",
+      "sha256": "8569b57e64dce4cf2831c12cff8ee5c1ed497663bcceb0523479b8cc8ee6b46e"
+    },
+    "run-fullfunction.mjs": {
+      "bytes": 20216,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-fullfunction.mjs",
+      "sha256": "6cd57184275938b164151f1d0a66ab25be9fa1c59a80c8596983a18c2093abdf"
+    },
+    "run-fullfunction.py": {
+      "bytes": 16297,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-fullfunction.py",
+      "sha256": "f75fcf82debb83d3a588e70c9295ff8a0739dbed41ad19d592b6a86710594516"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    }
+  },
+  "concreteFindings": [],
+  "executionAuthorization": false,
+  "acceptedScope": "Complete held source for authentic prerequisite gates, original two complete proofs, real prefix fixture generation, same-fixture full-body baseline and specific typed-catch mutant under one original recorded aggregate. Actual parser controls, fixtures, baseline and mutant remain UNRUN; future genuine roles and root grant are not substituted.",
+  "sourceReadback": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r7/SOURCE-READBACK.json",
+    "bytes": 25636,
+    "sha256": "7faf7923286a3a884b27faa0bf48be7ea922fe2dc1ddf5b97e242552cd1ec5ef"
+  },
+  "allRetainedPayloadByteHashesMatched": true,
+  "payloadRoles": 87,
+  "narrowRepair": {
+    "originalR5FailureScopeStopPreserved": true,
+    "originalR6UnvalidatedReportStopPreserved": true,
+    "validationBeforeAssignment": "Loaded Node result stays candidate until exact success status, actual prefix true, weeks196/197/208, explicit synthetic flag, nonneutral flag, exact generate/baseline/typed-catch-mutant phase order and all phase exits0 pass. Only then node_result is assigned.",
+    "failureScope": "No spawn attempt => false; attempted Node without validated result => null/unknown; validated result => true. Actual weeks null until proof; requestedNaturalBoundaryWeeks retained separately.",
+    "completeR6ToR7Projections": [
+      {
+        "n": "CONFIG.json",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "n": "run-fullfunction.py",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "n": "run-fullfunction.mjs",
+        "forward": true,
+        "inverse": true
+      }
+    ]
+  },
+  "verifiedMechanisms": {
+    "originalRecorderHelpers": [
+      "require",
+      "sha",
+      "write",
+      "metadata",
+      "authenticate",
+      "process_alive",
+      "start_owned",
+      "ready_go",
+      "close_startup_fds",
+      "clear",
+      "alarm",
+      "whole_guard",
+      "active_guard",
+      "observed_exit_guard",
+      "child_environment",
+      "finalize_result"
+    ],
+    "ownedChildByteExact": true,
+    "clocks": {
+      "aggregateChild": 300,
+      "activeRecorder": 320,
+      "wholeRecorder": 330
+    },
+    "streamBytes": 8388608,
+    "ownedReadinessGoReapCleanupFinalizationPreserved": true,
+    "twoOriginalWholeProofScansOnly": true,
+    "capFirstNoFollowStreamingArtifactReads": true,
+    "boundedDirectoryTraversal": true,
+    "NodeSameSourceExceptConfigSha": true,
+    "helperPure32AndThreeTemplatesByteUnchangedSinceR5": true,
+    "noInventedCombinedParentClock": true
+  },
+  "exactJsonAndSerialization": {
+    "pythonProofArtifacts": "FIRST-PROOF and CONTROLLER-BINDING use Python json.dumps with exact arbitrary precision numeric proof tokens.",
+    "nodeValidationOnly": "types/root/first-proof/proof-config/authority nanosecond BigInts remain in validation objects; none are copied into Node writeJson arguments.",
+    "nodePhaseBindings": "role objects with small bounded bytes, paths and hashes; head/tree strings, booleans and safe fixture cap.",
+    "coreResults": "generation/baseline/mutant result objects contain safe bounded artifact roles, status/error strings, fault tag, booleans; complete game packet uses original JSON serialization independently of proof decoder.",
+    "nodeFinalAndStdout": "phase result objects, safe PIDs/exits/counts/durations/byte bounds and roles; final stdout contains result role and status.",
+    "pureControlStdout": "fixed ID/predicate/verdict strings, safe source role byte counts and caseCount, booleans. No unsafe proof numbers serialized or coerced to strings."
+  },
+  "parserControls": {
+    "unsafeIntegerTokens": "BigInt in validation memory",
+    "safeIntegerTokens": "Number",
+    "typedEquality": "distinguishes BigInt/Number, boolean/Number and array/object; recursively matches exact own keys and values",
+    "duplicateKeysRejected": true,
+    "utf8Fatal": true,
+    "malformedStringValidation": "native JSON.parse on exact string slice",
+    "depthCap": 100,
+    "completeTrailingFraming": true,
+    "pureControls": {
+      "fixedUniqueIds": [
+        "safe-positive-max",
+        "unsafe-positive-boundary",
+        "unsafe-positive-neighbor",
+        "safe-negative-min",
+        "unsafe-negative-boundary",
+        "unsafe-negative-neighbor",
+        "actual-known-root-nanoseconds",
+        "adjacent-root-nanoseconds",
+        "integer-negative-zero",
+        "ordinary-fraction",
+        "fraction-negative-zero",
+        "finite-exponent",
+        "duplicate-key",
+        "nested-duplicate-key",
+        "malformed-leading-zero",
+        "malformed-fraction",
+        "malformed-exponent",
+        "fraction-overflow",
+        "unsupported-nan",
+        "malformed-escape",
+        "raw-control-in-string",
+        "unterminated-string",
+        "malformed-utf8",
+        "depth-overflow",
+        "trailing-data",
+        "array-trailing-comma",
+        "object-trailing-comma",
+        "unsupported-undefined",
+        "escaped-string",
+        "prototype-key",
+        "typed-structure-equality",
+        "nested-proof-exactness"
+      ],
+      "count": 32,
+      "negativePredicates": "Exact intended STOP labels; native SyntaxError only for malformed JSON string cases; TypeError plus ERR_ENCODING_INVALID_ENCODED_DATA for invalid UTF-8. Loader, tool or unrelated errors fail.",
+      "sourceOnlyUnrun": true
+    }
+  },
+  "prerequisiteGate": "Python authenticates source/review aliases, genuine successful types/root/protection, genuine exact-helper parser-controls observed adoption, original copied-source authority and first complete proof before Node. Node independently authenticates same grant/source/review/types/root/protection/parser adoption and actual controller PPID/FIRST-PROOF chain before private imports.",
+  "fullFunctionScope": {
+    "naturalBoundaries": "Requested future natural pre-market196/197/208 through real tick prefix208; no returned195/207 shortcut.",
+    "syntheticVariants": "Four explicit legal trigger/attachment controls stay synthetic, not invented natural outcomes.",
+    "singleFixturePacket": "One ten-full-state-occurrence packet capped at genuine prospective64MiB operationalSTOP bound; no fit prediction.",
+    "baselineThenMutant": "Same immutable fixture must pass full baseline first. Real typed-catch mutant counts only original AssertionError/ERR_ASSERTION/operator throws/exact missing-exception message/actual undefined/row-cap tag/complete controls stack. Loader/resource/deadline/other errors STOP.",
+    "gameplay": "Actual fullfunction prefix is gameplay scope and awaits root execution; no neutrality416/default enable/game release/full-game/source promotion.",
+    "actualControlsAndFixtures": "UNRUN"
+  },
+  "originalFailureReferences": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-stop-20261009-r5/RECEIPT.json",
+      "bytes": 15997,
+      "sha256": "aa7ceade9584881e10030756fdf6490fdc362a8ab51a8167cbc6b86519a33c3c"
+    },
+    {
+      "bytes": 7770,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r6/RECEIPT.json",
+      "sha256": "cf64e2fbf174b028ad03c1ee5e7af2f1539803d4ade4790461248f45e6b4f468"
+    }
+  ],
+  "predecessorVerification": "Independent R5 review verified all67 payload byte/hash roles, sixteen complete source projections, sixteen recorder helpers plus OwnedChild, all32 fixed specific parser cases, authority gates and complete output serialization trace. Independent R6 verified all77 byte/hash roles and three additional complete forward/inverse pairs. R7 preserves unchanged helper/control/template bytes and extends exactly three complete R6 forward/inverse pairs; earlier failures remain archived unaccepted.",
+  "futurePureControlsRoute": "Standalone finite pure32 entry imports only exact-json plus builtins, no game/M0/children. Complete separately qualified recorded parent/recorder/grant and genuine observed parser adoption remain required external roles. This receipt does not assert actual32 passes or qualify an unseen pure parent.",
+  "reviewMethod": "Finite named scratch source reads, actual retained-byte readback and pure complete source text projections. No candidate import/runtime/test/compile/private inventory/Git/process probe.",
+  "actualRuntimeExecuted": false,
+  "actualParserControlsExecuted": false,
+  "actualFixturesGenerated": false,
+  "actualBaselinePassed": false,
+  "actualTypedCatchMutantRed": false,
+  "neutralityAccepted": false,
+  "wholeGameAccepted": false,
+  "sourcePromotion": false
+}

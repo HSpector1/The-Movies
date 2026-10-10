@@ -1,0 +1,137 @@
+{
+  "argv": [
+    "GENUINE_PHYSICAL_PYTHON",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/read-fullfunction.py",
+    "ACTUAL_SESSION_ID",
+    "ACTUAL_FINAL_EXIT",
+    "ACTUAL_EXECUTION_GRANT_SHA256",
+    "ACTUAL_TOOL_SHA256"
+  ],
+  "checks": {
+    "configHash": "3a9e349f746c57a2aadb33d344eb5102abfca2e6cf4d5d017871b466c5ed3604",
+    "exactThreeSingleSubstitutions": [
+      [
+        "1370-an-m0-fullfunction-qualification-source-20261010-r12",
+        "1370-an-m0-fullfunction-qualification-source-20261010-r13"
+      ],
+      [
+        "efb9f7b597a6781a69488437faea4755f4a4d186848bfe30baa1c801fa4cf669",
+        "3a9e349f746c57a2aadb33d344eb5102abfca2e6cf4d5d017871b466c5ed3604"
+      ],
+      [
+        "79d9400a49dc02abc836d9e3b9e9f4a814966da47cae67293f299b1993deb283",
+        "5eb4371205271d8ae2b88d6c4dd2f7f20057b8ae30430fd8905e1ed3816d98d3"
+      ]
+    ],
+    "expectedRuntimeAliasesAuthenticated": 15,
+    "futureActualRolesRemainNull": true,
+    "nonMainHelpersByteEqual": 8,
+    "passStopNullabilityProofPhaseMutantCleanupPredicatesUnchanged": true,
+    "priorQualifiedR4ToHeldR1FiveSubstitutionsExact": true,
+    "sourcePinsHash": "5eb4371205271d8ae2b88d6c4dd2f7f20057b8ae30430fd8905e1ed3816d98d3",
+    "wholeNormalizationInverseExact": true
+  },
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_FULLFUNCTION_ROOT_READBACK_SOURCE_ONLY",
+  "documentaryQualification": "RECIPE inherited parent=r4/scopeR11R4/runtimeSourceReviewAliases12 are nonoperative historical remnants. Authoritative executable P is freshr5/F isR13, executable alias loop and recipe reviewAliases both exact15; recipe freshParentPath and argv are correct. Acceptance is of the actual reader source and correct execution arguments, not stale inherited documentary values.",
+  "executionAuthorization": false,
+  "prospectiveRouteConfig": {
+    "bytes": 13790,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r13/CONFIG.json",
+    "sha256": "3a9e349f746c57a2aadb33d344eb5102abfca2e6cf4d5d017871b466c5ed3604"
+  },
+  "prospectiveRouteSourceManifest": {
+    "bytes": 20567,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r13/SOURCE-PINS.json",
+    "sha256": "5eb4371205271d8ae2b88d6c4dd2f7f20057b8ae30430fd8905e1ed3816d98d3"
+  },
+  "readbackProtocol": "Original terminal actualtool, authenticatedgrant/config/sourcealiases, distinctrecorder/controller/Node result, exactfullproofs/3phases/specificmutantRED onsuccess, knownPID/PGID-onlyabsence/lanelock checks. Overall success remains pending mandatory full shared postflight and independent observed review.",
+  "reader": {
+    "bytes": 12515,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/read-fullfunction.py",
+    "sha256": "130cfb8a528ba38e8242918012414a2becf0a2beb81c505b7616050542e51a90"
+  },
+  "routeSourcePins": {
+    "BASELINE-read-fullfunction.py": {
+      "bytes": 12515,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/BASELINE-read-fullfunction.py",
+      "sha256": "548b062d82ad39c8e7a2917aaefaf0cb3352e5cabf5d65fc825506da0e50dd86"
+    },
+    "LESSONS.txt": {
+      "bytes": 450,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/LESSONS.txt",
+      "sha256": "0b2ce684cddc651c75cf51058ad956e5c60c1cbce6e1f4320a9c57ebf662e025"
+    },
+    "RECIPE.json": {
+      "bytes": 2890,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/RECIPE.json",
+      "sha256": "8e07d86b595997d1b690265194f3d795b17990fa90b1030f5f90f41ee8e3c6b3"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 7579,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/SOURCE-PROOF.json",
+      "sha256": "dc073f692ee0225f9a0c162b5be5562f75d83cc31c5624e8812c0fa1d4185f3d"
+    },
+    "read-fullfunction.forward.diff": {
+      "bytes": 3492,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/read-fullfunction.forward.diff",
+      "sha256": "755da61787aa575b8a28e4ead798d652fef215eff5e9225256fac9ee0c3cf2ef"
+    },
+    "read-fullfunction.inverse.diff": {
+      "bytes": 3492,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/read-fullfunction.inverse.diff",
+      "sha256": "7e46d5f631ba7d6b18bc80bd927af903b5357dd558c25e3559efef42a9438feb"
+    },
+    "read-fullfunction.py": {
+      "bytes": 12515,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/read-fullfunction.py",
+      "sha256": "130cfb8a528ba38e8242918012414a2becf0a2beb81c505b7616050542e51a90"
+    }
+  },
+  "schema": "1370-fullfunction-root-readback-independent-source-review/v1",
+  "scope": "Source-only root retained-evidence reader. No imports/execution/new inventory/private traversal/scoped-ID probes by reviewer. Future actual session/finalexit/grantSHA/toolSHA must be genuine external arguments; incomplete readback does not admit postflight or gameplay.",
+  "sourceManifest": {
+    "bytes": 2045,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "ddcbae6b479bc97087dcd64f4337a94507bd65c4a63c2cc83d09ec438002dfc6"
+  },
+  "sourcePins": {
+    "BASELINE-read-fullfunction.py": {
+      "bytes": 12515,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/BASELINE-read-fullfunction.py",
+      "sha256": "548b062d82ad39c8e7a2917aaefaf0cb3352e5cabf5d65fc825506da0e50dd86"
+    },
+    "LESSONS.txt": {
+      "bytes": 450,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/LESSONS.txt",
+      "sha256": "0b2ce684cddc651c75cf51058ad956e5c60c1cbce6e1f4320a9c57ebf662e025"
+    },
+    "RECIPE.json": {
+      "bytes": 2890,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/RECIPE.json",
+      "sha256": "8e07d86b595997d1b690265194f3d795b17990fa90b1030f5f90f41ee8e3c6b3"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 7579,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/SOURCE-PROOF.json",
+      "sha256": "dc073f692ee0225f9a0c162b5be5562f75d83cc31c5624e8812c0fa1d4185f3d"
+    },
+    "read-fullfunction.forward.diff": {
+      "bytes": 3492,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/read-fullfunction.forward.diff",
+      "sha256": "755da61787aa575b8a28e4ead798d652fef215eff5e9225256fac9ee0c3cf2ef"
+    },
+    "read-fullfunction.inverse.diff": {
+      "bytes": 3492,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/read-fullfunction.inverse.diff",
+      "sha256": "7e46d5f631ba7d6b18bc80bd927af903b5357dd558c25e3559efef42a9438feb"
+    },
+    "read-fullfunction.py": {
+      "bytes": 12515,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/read-fullfunction.py",
+      "sha256": "130cfb8a528ba38e8242918012414a2becf0a2beb81c505b7616050542e51a90"
+    }
+  }
+}

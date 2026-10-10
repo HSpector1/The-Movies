@@ -1,0 +1,27 @@
+{
+  "actualOutcome": null,
+  "executionAuthorization": false,
+  "game": false,
+  "parentAdapterSourcePins": {
+    "bytes": 7306,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "2b035412243347f60e8a1148a290899158ce975f755a1b8837324b1e07bd644f"
+  },
+  "parentAdapterSourceReview": {
+    "bytes": 10553,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "58fc31745df49f8a5c2019326a4fe7e168d4192f729c5ec2c47126a02643ad59"
+  },
+  "schema": "1370-root-lossless-trace-pure-controls-source-adoption/v1",
+  "sourcePins": {
+    "bytes": 7306,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "2b035412243347f60e8a1148a290899158ce975f755a1b8837324b1e07bd644f"
+  },
+  "sourceReview": {
+    "bytes": 10553,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "58fc31745df49f8a5c2019326a4fe7e168d4192f729c5ec2c47126a02643ad59"
+  },
+  "status": "ROOT_ADOPTED_PURE_LOSSLESS_TRACE_CONTROLS_SOURCE_ONLY"
+}

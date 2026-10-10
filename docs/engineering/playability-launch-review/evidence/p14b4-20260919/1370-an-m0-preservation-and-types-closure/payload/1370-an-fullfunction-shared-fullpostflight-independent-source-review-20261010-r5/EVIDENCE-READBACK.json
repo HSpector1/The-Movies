@@ -1,0 +1,78 @@
+{
+  "allRolesMatched": true,
+  "candidateImported": false,
+  "privateInventory": false,
+  "roles": {
+    "BASE-r4-launch-fullpostflight.py": {
+      "bytes": 5274,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5/BASE-r4-launch-fullpostflight.py",
+      "sha256": "b915f665bf014ae4a4a45a0e632a6ba81a6378e7f04e340b49fb6abb574de945"
+    },
+    "BASE-r4-read-fullpostflight.py": {
+      "bytes": 5405,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5/BASE-r4-read-fullpostflight.py",
+      "sha256": "a80b0a6858011e2cfc74521beadfa2369e939a054a5ee19a08386cae602a034e"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 731,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5/SOURCE-PROOF.json",
+      "sha256": "9c0d6862d3569793feeb06bf27a59fde06437e7e46607a346704c07b70600ca4"
+    },
+    "launch-fullpostflight.py": {
+      "bytes": 5274,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5/launch-fullpostflight.py",
+      "sha256": "a6367944102b47e1ef2bb95d1055e1ec761c6f2cf371add8304b3cd4823917be"
+    },
+    "launch-fullpostflight.py.forward.diff": {
+      "bytes": 1756,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5/launch-fullpostflight.py.forward.diff",
+      "sha256": "02179801484c8920edd5006e7dc1bc345fee32e0a89b0faaeeddc05a8bfffcdf"
+    },
+    "launch-fullpostflight.py.inverse.diff": {
+      "bytes": 1756,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5/launch-fullpostflight.py.inverse.diff",
+      "sha256": "637f0628d03bfaae96be8b757ffe053cc0ec8361e034b21f950dfd69f647cf4d"
+    },
+    "predecessorLaunch": {
+      "bytes": 5274,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r4/launch-fullpostflight.py",
+      "sha256": "b915f665bf014ae4a4a45a0e632a6ba81a6378e7f04e340b49fb6abb574de945"
+    },
+    "predecessorManifest": {
+      "bytes": 5824,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r4/SOURCE-PINS.json",
+      "sha256": "f98fcdbffe35eab67ebd18e3da43cafc91b4b719f6831166c5a58cce4f76ad36"
+    },
+    "predecessorRead": {
+      "bytes": 5405,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r4/read-fullpostflight.py",
+      "sha256": "a80b0a6858011e2cfc74521beadfa2369e939a054a5ee19a08386cae602a034e"
+    },
+    "predecessorReview": {
+      "bytes": 1135,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-RETRY-SHARED-POST-SOURCE-REVIEW.json",
+      "sha256": "bf7e39de998c13c49e0d8641e7a33153005061da1488c7e0206b0a57618259ae"
+    },
+    "read-fullpostflight.py": {
+      "bytes": 5405,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5/read-fullpostflight.py",
+      "sha256": "173343039506ae5f5593a728931cae52cec2c96bc0dfb142318ee4fc589e4ece"
+    },
+    "read-fullpostflight.py.forward.diff": {
+      "bytes": 1819,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5/read-fullpostflight.py.forward.diff",
+      "sha256": "de4b575a6e6944fa623cd52e7ee7184890f55faaa401d4d04abfe331d0858586"
+    },
+    "read-fullpostflight.py.inverse.diff": {
+      "bytes": 1819,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5/read-fullpostflight.py.inverse.diff",
+      "sha256": "ea789716db9a2dc5c51815e1fd79a0b5c6c76ada08b3f554b24bd68f94e57cdd"
+    },
+    "sourceManifest": {
+      "bytes": 2804,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5/SOURCE-PINS.json",
+      "sha256": "1d4a2357eb6bbeef8f8c282eea04d6babaf001e17e78a7de9a142e3b54cb4db8"
+    }
+  },
+  "schema": "1370-finite-shared-post-r5-source-evidence-audit/v1"
+}

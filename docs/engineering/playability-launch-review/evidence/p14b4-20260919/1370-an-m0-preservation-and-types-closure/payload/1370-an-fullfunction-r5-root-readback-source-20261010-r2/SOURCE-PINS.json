@@ -1,0 +1,41 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "BASELINE-read-fullfunction.py": {
+      "bytes": 12515,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/BASELINE-read-fullfunction.py",
+      "sha256": "548b062d82ad39c8e7a2917aaefaf0cb3352e5cabf5d65fc825506da0e50dd86"
+    },
+    "LESSONS.txt": {
+      "bytes": 450,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/LESSONS.txt",
+      "sha256": "0b2ce684cddc651c75cf51058ad956e5c60c1cbce6e1f4320a9c57ebf662e025"
+    },
+    "RECIPE.json": {
+      "bytes": 2890,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/RECIPE.json",
+      "sha256": "8e07d86b595997d1b690265194f3d795b17990fa90b1030f5f90f41ee8e3c6b3"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 7579,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/SOURCE-PROOF.json",
+      "sha256": "dc073f692ee0225f9a0c162b5be5562f75d83cc31c5624e8812c0fa1d4185f3d"
+    },
+    "read-fullfunction.forward.diff": {
+      "bytes": 3492,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/read-fullfunction.forward.diff",
+      "sha256": "755da61787aa575b8a28e4ead798d652fef215eff5e9225256fac9ee0c3cf2ef"
+    },
+    "read-fullfunction.inverse.diff": {
+      "bytes": 3492,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/read-fullfunction.inverse.diff",
+      "sha256": "7e46d5f631ba7d6b18bc80bd927af903b5357dd558c25e3559efef42a9438feb"
+    },
+    "read-fullfunction.py": {
+      "bytes": 12515,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/read-fullfunction.py",
+      "sha256": "130cfb8a528ba38e8242918012414a2becf0a2beb81c505b7616050542e51a90"
+    }
+  },
+  "schema": "1370-fullfunction-root-readback-source-pins/v1"
+}

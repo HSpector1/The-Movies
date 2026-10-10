@@ -1,0 +1,128 @@
+{
+  "accepted": true,
+  "actualTool": {
+    "bytes": 940,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r5/ACTUAL-TOOL.json",
+    "sha256": "1c1efce00784e46bceb3a3c5760bc5c8cea5310612be7cc3d7f47fac9526c60f"
+  },
+  "checks": {
+    "actualExits": [
+      0,
+      0
+    ],
+    "actualPrelaunchSession": 32283,
+    "actualReaderSession": 40232,
+    "freshScannerChecks": [
+      {
+        "id": 89985,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 89985,
+        "kind": "pgid",
+        "result": "ESRCH"
+      }
+    ],
+    "newFullInventory": false,
+    "original180SecondPerCommandTimeout": true,
+    "originalConfigFills": [
+      "protectedSnapshot",
+      "ownedPgids",
+      "outputPath"
+    ],
+    "originalContinuousFreezeReuse": true,
+    "rawContentsInspected": false,
+    "rawLocalOnlyBytes": 1353197,
+    "rawLocalOnlyRoles": 4,
+    "retainedOwnedGroupIds": [
+      735,
+      31838,
+      32093,
+      32094
+    ],
+    "strictRootsEqual": 9,
+    "wholeSharedImmutableEqual": true
+  },
+  "concreteFindings": [],
+  "decision": "ACCEPT_ACTUAL_CURRENT_AM_FULLFUNCTION_PRELAUNCH_ONLY",
+  "evidenceReadback": {
+    "bytes": 5395,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-R5-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "c4faad39e17cf51491db0069ba29d90d47b1a398ce18a80a9cb0892507e28d38"
+  },
+  "executionAuthorization": false,
+  "findings": [],
+  "fullFunctionQualificationAccepted": false,
+  "fullPostflightSnapshot": {
+    "bytes": 8847484,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r3/SNAPSHOT.json",
+    "sha256": "0700ce99c57f33956c3fb1b5f26d3c6e28e6e323551fb1f6f084db2f9c370dff"
+  },
+  "gameAccepted": false,
+  "grant": {
+    "bytes": 4588,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r5/GRANT.json",
+    "sha256": "29323eaa0d7d515aa27773a14394af3822599a9ec4cc78df7f3d7ca15cfaefd6"
+  },
+  "independence": "Reviewer previously authored the narrow prelaunch adapter; root independently reviewed its source. This receipt reviews retained actual observations and exact original scanner/config bindings, not self-review of authored source.",
+  "latestSharedFullPostflightReadback": {
+    "bytes": 5254,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4-disk-retry/READBACK.json",
+    "sha256": "23bca5ae5c387c7e10a5e4fb0ab95c4307ce9c28b7c579dd186f7e1eb17350e3"
+  },
+  "latestSharedFullPostflightSnapshot": {
+    "bytes": 8867475,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r4-disk-retry/SNAPSHOT.json",
+    "sha256": "33302fe35a9320a1b16f5bd7ab6575e33ca74e69562e9cccb3b7fe261692eeb1"
+  },
+  "originalCurrentSourcePins": {
+    "bytes": 3506,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "7015e2de01cb9964fcc6e362338461e9d8c3e5d6ab81bd618f67d04b4e51c455"
+  },
+  "originalCurrentSourceReview": {
+    "bytes": 7652,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "6f7e329107fb6942580553a40ea7395695b090ef32d256e69b59a708baf672b9"
+  },
+  "preflight": {
+    "bytes": 9515,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261010-r5/PREFLIGHT.json",
+    "sha256": "8811ddc42c9ec59e44e1f12584f2e1c096a8d306ac64b6b890e7ee8c12fd9cad"
+  },
+  "readback": {
+    "bytes": 5395,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-R5-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "c4faad39e17cf51491db0069ba29d90d47b1a398ce18a80a9cb0892507e28d38"
+  },
+  "readerActualTool": {
+    "bytes": 635,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r5/READER-ACTUAL-TOOL.json",
+    "sha256": "fb167f45c6976577c6fddaf0c6795e5c2e67143ce3b7599b3415473b2e85a271"
+  },
+  "reviewedPriorStopAdoption": {
+    "bytes": 5113,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R4-STOP-OBSERVED-ADOPTION.json",
+    "sha256": "d684408bdfcc6eb43f59c56594b4b30018904bec3b142cd0d7c1f14a335332ee"
+  },
+  "runtimeToolsAuthorityUnchanged": true,
+  "schema": "1370-current-am-fullfunction-prelaunch-independent-observed-review/v1",
+  "scope": "Retained original current prelaunch observation only; no fresh full inventory, private source/dependency traversal, new probes or execution. TYPES snapshot0700 remains distinct from latest shared snapshot33302; R4 trace-cap STOP and failed original shared post remain preserved.",
+  "sourceManifest": {
+    "bytes": 3095,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r7/SOURCE-PINS.json",
+    "sha256": "2615fe13cac2b243b94606f79e28031ceb603efe8cf4562375651570431eaea2"
+  },
+  "sourceReview": {
+    "bytes": 5066,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-independent-source-review-20261010-r7/RECEIPT.json",
+    "sha256": "3ad6913607e10e4076ede01f611a0931f92cffcfb612a80ae939156ecdf23f11"
+  },
+  "typesAcceptedByThisPrelaunch": false,
+  "typesObservedAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  }
+}

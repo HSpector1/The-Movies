@@ -1,0 +1,36 @@
+{
+  "executionAuthorization": false,
+  "failedPost7509Preserved": true,
+  "failedScanner35222FreshAbsenceEvidence": "Separate root-owned actual before/after observation; original R4 route readback and passed owned groups remain unchanged.",
+  "freshEvidenceLabel": "postflight-fullfunction-qualification-r5",
+  "freshParentPath": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r5",
+  "futureActualRouteReadback": null,
+  "futureGrant": null,
+  "futureSourceReview": null,
+  "launcherArgv": [
+    "<original pinned PY>",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r8/launch-fullpostflight.py",
+    "<genuine completed route readback path>",
+    "<readback SHA256>"
+  ],
+  "noActualExecutionAuthority": true,
+  "noGameplayAcceptance": true,
+  "noOriginalHelperOrSharedLaneAcquisition": true,
+  "originalPerCommandTimeoutSeconds": 180,
+  "originalScannerConfigBaselineAndAllPreservationChecksUnchanged": true,
+  "readerArgv": [
+    "<original pinned PY>",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r8/read-fullpostflight.py",
+    "<actual scanner session ID>",
+    "<genuine grant SHA256>"
+  ],
+  "schema": "1370-fullfunction-fresh-attempt5-original-shared-postflight-source-recipe/v1",
+  "sourceManifestReviewDecision": "ACCEPT_STATIC_ORIGINAL_SHARED_FULL_POSTFLIGHT_ADAPTER_AFTER_FULLFUNCTION_PASS_OR_STOP",
+  "sourceScope": "Path-only source preparation for a future separately authorized original postflight after a genuine attempt5 PASS or STOP. No invocation, automatic retry or cap waiver.",
+  "successOrStopBothPreserved": true,
+  "wholeScanDeadline": null
+}

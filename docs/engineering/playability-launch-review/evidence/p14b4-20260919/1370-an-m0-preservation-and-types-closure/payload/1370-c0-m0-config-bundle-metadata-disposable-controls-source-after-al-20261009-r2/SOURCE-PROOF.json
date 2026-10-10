@@ -1,0 +1,169 @@
+{
+  "schema": "1370-disposable-controls-source-proof/v1",
+  "status": "SOURCE_ONLY_UNRUN_NO_ACTUAL_ROLE",
+  "recorderPrecursor": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/record-pure-node.py",
+    "bytes": 14539,
+    "sha256": "dd76ceec50be94b50a4ff52c8a070ec9a691b9bbe781fabc1ac0914543bf0346"
+  },
+  "recorderDerivative": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/record-metadata.py",
+    "bytes": 14851,
+    "sha256": "6e1895ddcd544fb690dc2fbb31cd73cdf82f1d95592882de5c7a390aac0a8790"
+  },
+  "inverse": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/INVERSE-QUALIFIED-RECORDER.py",
+    "bytes": 14539,
+    "sha256": "dd76ceec50be94b50a4ff52c8a070ec9a691b9bbe781fabc1ac0914543bf0346"
+  },
+  "wholeByteInverseExact": true,
+  "inverseMethod": "Seven unique forward literal replacements and reverse replacements reconstruct entire authenticated precursor bytes. Fresh inverse file hashes to precursor. No application import or runtime was used.",
+  "replacements": [
+    {
+      "label": "purpose docstring",
+      "before": "\"\"\"UNRUN r4 recorder failure-capture repair only: exact owned fork/READY/GO, hard whole timer,\nlate exit/active checks and sanitized Node environment; no game or Save imports.\"\"\"\n",
+      "after": "\"\"\"SOURCE ONLY disposable paired metadata controls; qualified owned recorder mechanisms retained.\nNo original M0 cause, game, private mirror, or execution authority.\"\"\"\n"
+    },
+    {
+      "label": "CONFIG_SHA",
+      "before": "CONFIG_SHA='49508521d31a2d1f9a384ebcfa4f3b09306426d8868aa92900da93f2b8d872ef'",
+      "after": "CONFIG_SHA='c3c58fc2b2ba77b0a2e92415f1e74d386cf899506b07aacbe677f2ad9b061c14'"
+    },
+    {
+      "label": "owned output binding",
+      "before": "OUTPUTS={mode:SCRATCH/('1370-c0-renewal208-pure16-pricing-'+mode+'-output-after-al-20261009-r1') for mode in ('verification',)}",
+      "after": "OUTPUTS={mode:SCRATCH/('1370-c0-m0-config-metadata-controls-'+mode+'-output-after-al-20261009-r2') for mode in ('verification',)}"
+    },
+    {
+      "label": "fixture-specific source config gate",
+      "before": "require(isinstance(config.get('futureA208'),dict),'A208_UNFILLED');require(all(config['roles'].get(n) for n in ['A208SourcePins','A208Config','A208Result','A208Stdout','A208Snapshot','A208IndependentReceipt']),'A208_ROLES_UNFILLED')",
+      "after": "require(config.get('schema')=='1370-disposable-config-metadata-controls/v1' and config.get('executionAuthorization') is False and config.get('originalM0CauseAdmission') is False,'DISPOSABLE_CONFIG')"
+    },
+    {
+      "label": "report status",
+      "before": "expected='PURE_RENEWAL208_PRICING_PAIRS_AGREE'",
+      "after": "expected='M0_CONFIG_METADATA_CONTROLS_AGREE'"
+    },
+    {
+      "label": "report predicates",
+      "before": "(last.get('selectedRows')==16 and last.get('immutablePairs')==44 and last.get('mismatches')==0 and last.get('originalOfferLocalCapture') is False and last.get('renewalCauseAdmission') is False)",
+      "after": "(last.get('schema')=='1370-disposable-config-metadata-controls-report/v1' and last.get('configSha256')==CONFIG_SHA and type(last.get('collectedTests')) is int and last.get('collectedTests')==1 and type(last.get('arms')) is list and len(last.get('arms'))==2 and last.get('sameCollectedIdentity') is True and last.get('redMetadataChanged') is True and last.get('greenStrictMetadataStable') is True and last.get('originalM0CauseAdmission') is False and last.get('originalM0SourcePreservationAdmission') is False and last.get('executionAuthorization') is False)"
+    },
+    {
+      "label": "result data label",
+      "before": "'PURE_RENEWAL208_PURE16_PRICING_'+str(mode).upper()+'_COMPLETE_UNADOPTED'",
+      "after": "'M0_DISPOSABLE_METADATA_'+str(mode).upper()+'_COMPLETE_UNADOPTED'"
+    }
+  ],
+  "helperSectionByteExact": true,
+  "allNonmainTopLevelFunctionsByteExact": [
+    "require",
+    "sha",
+    "write",
+    "metadata",
+    "authenticate",
+    "process_alive",
+    "start_owned",
+    "ready_go",
+    "close_startup_fds",
+    "clear",
+    "alarm",
+    "whole_guard",
+    "active_guard",
+    "observed_exit_guard",
+    "child_environment",
+    "finalize_result"
+  ],
+  "ownedChildClassByteExact": true,
+  "mainOperationalMechanismsPreserved": [
+    "SIGALRM WHOLE90 before authentication through raw fsync/finalization/summary",
+    "CHILD60 before fork/READY/GO",
+    "ACTIVE75 and late observed exits",
+    "1MiB stdout/stderr caps",
+    "physical SHA source authentication",
+    "OwnedChild waitpid no detached subprocess",
+    "owned child setsid/record PID before exec/READY confirms actual PGID",
+    "exact PID/PGID cleanup TERM3/KILL4 bounded by whole end",
+    "unknown clearance STOP and emergency exact-owned KILL",
+    "sanitized Node environment",
+    "RESULT/override failure precedence and retained warning main outer-finally"
+  ],
+  "publicLoaderBasis": [
+    {
+      "bytes": 4995,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/package.json",
+      "sha256": "6ea35e567829660d9832744086c18526b9ddebd5358c4a0cadfb0a355925f917"
+    },
+    {
+      "bytes": 4893,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/package.json",
+      "sha256": "e9802045cdc313b6da55ec2e2dd79312074645816089d64f6021f567c10c0a03"
+    },
+    {
+      "bytes": 2086035,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js",
+      "sha256": "bfa94186daff535fefdf286088c1588fad6b02c01ef11cd3b42a6cb3e4c90767"
+    },
+    {
+      "bytes": 358970,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/cli-api.DqsSTaIi.js",
+      "sha256": "46b1b0faedd7050c3e3132eae84f1803f05a046fe1aecf7a6d09f0ab86f11d5b"
+    }
+  ],
+  "sourceLoaderLines": [
+    {
+      "finding": "loadConfigFromFile bundles config and passes original resolved path to bundled loader.",
+      "line": 66795,
+      "role": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js"
+    },
+    {
+      "finding": "ESM bundled loader writes a timestamp .mjs sibling of config then asynchronously unlinks it; directory metadata can change despite identical final roster.",
+      "line": 66968,
+      "role": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js"
+    },
+    {
+      "finding": "createVitest honors explicit external options.config; default discovers config under root.",
+      "line": 11453,
+      "role": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/cli-api.DqsSTaIi.js"
+    },
+    {
+      "finding": "workspace project extends resolves against workspaceConfigPath; project roots/config-relative paths require exact preservation.",
+      "line": 9847,
+      "role": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/cli-api.DqsSTaIi.js"
+    },
+    {
+      "finding": "workspace definition is executed by Vitest runner; explicit external workspace needs exact project scope and extends handling.",
+      "line": 10562,
+      "role": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/cli-api.DqsSTaIi.js"
+    }
+  ],
+  "controlDesign": {
+    "actualSoftware": "Pinned Node22.23.2 invoking actual Vitest2.1.9 CLI and its resolved nested Vite5.4.21 package; no mock.",
+    "fixture": "One newly created scratch mirror only, one test registration whose body throws if executed, local and external config sets both present before RED baseline, installed dependencies accessed by a fixture symlink never traversed by metadata maps.",
+    "selection": "Synthetic extra coverage, not exact original R6 inline workspace: workspace .mts extends relative core.config.mts; core project name exists only in extended project config; explicit --project core list command and same absolute one test identity/count/raw bytes.",
+    "sameOptions": "Project configs byte-identical across locations; root config differs only explicit workspace absolute path. Cache/temp/raw outputs external for both arms. HOME inherited unchanged. GREEN root/workspace/project all external.",
+    "metadata": "Seven exact integers represented as decimal strings avoid nanosecond precision loss; fixture root and every ordinary file/directory/link measured, sha content and link target retained; no atime. Eight exact roster entries. RED allows root size/time mutation but requires same dev/ino/mode/nlink and both mtime_ns/ctime_ns changed; nonroot exact. GREEN entire map exact.",
+    "transientEvents": "No event tracer. Authenticated actual loader ESM branch writes temporary sibling .mjs and async unlinks. Source branch is retained; actual transient events are not observed and original R6 cause remains unproven.",
+    "rawArtifacts": "Each actual nested CLI stdout/stderr, collection bytes, before/after maps, run and validated records, generated exact configs, report or STOP retained with caps.",
+    "clocks": "Pair sequential within one recorder child60; no per-arm renewed60. Recorder active75/whole90 source mechanisms preserved; whole90 starts before recorder authentication. No original parent outer timer exists; Git/source/parent prep and helper waits not included. Optional preparation60 canceled before direct exec. Concrete parent direct-exec own-group binding held for root.",
+    "consumer": "Strict duplicate-key and nonfinite rejection, typed integer exits vs bool, role sizes/hashes/physical reads, exact source/receipt/grant/claim bindings, actual helper PID/PGID/SID, recorder child group identity, fresh absence attestation, raw-stream and collection equality, independently reconstructed metadata and exact configs."
+  },
+  "limits": [
+    "No runtime, test execution, syntax compile, source imports, private inventory, process probes, Git or protected source changes.",
+    "New route is not runtime-ready until original direct-exec own-group parent binding is concretely supplied and genuine grant issued.",
+    "No actual external authority or operational HEAD prefilled; immutable source avoids hash cycles.",
+    "No original M0 source/dependencyAfter acceptance, metadata waiver, timestamp repair, retry or cause attribution."
+  ],
+  "executionAuthorization": false,
+  "originalM0CauseAdmission": false,
+  "r1PreservedTwoFindings": {
+    "role": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/R1-CORRECTION.json"
+    },
+    "findings": [
+      "F1_FALSE_PARENT90_CLAIM",
+      "F2_PROHIBITED_HOME_OVERRIDE"
+    ],
+    "runtimeExecuted": false
+  }
+}

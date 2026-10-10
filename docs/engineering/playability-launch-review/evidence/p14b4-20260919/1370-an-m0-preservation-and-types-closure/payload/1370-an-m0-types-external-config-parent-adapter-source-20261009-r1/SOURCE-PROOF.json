@@ -1,0 +1,223 @@
+{
+  "schema": "1370-m0-types-external-config-parent-adapter-source-proof/v1",
+  "status": "SOURCE_ONLY_COMPLETE_STATIC_INVERSES_UNRUN",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "predecessorSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r4/SOURCE-PINS.json",
+    "bytes": 9058,
+    "sha256": "f27d8eae1416d94346dd43e495acad272bd203dfb1270c818e2ca949bdb35d15"
+  },
+  "predecessorIndependentReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-independent-source-review-after-al-20261009-r4/RECEIPT.json",
+    "bytes": 18771,
+    "sha256": "63f3482c050b339375eb868178a614ff5d2191b2712cc454e619094c127306c5"
+  },
+  "wholeInverseResults": [
+    {
+      "name": "fill-grant-exec.py",
+      "original": {
+        "bytes": 11380,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r4/fill-grant-exec.py",
+        "sha256": "02a4e354c29714e311bf87e8c254ec2cf75dc9f3c1ef995ffd24b7b56f060fb9"
+      },
+      "baseline": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/BASELINE-R4-fill-grant-exec.py",
+        "bytes": 11380,
+        "sha256": "02a4e354c29714e311bf87e8c254ec2cf75dc9f3c1ef995ffd24b7b56f060fb9"
+      },
+      "newSource": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/fill-grant-exec.py",
+        "bytes": 14054,
+        "sha256": "06ef36769f3f2918c0cec46d08022bfafb5328ce4159f3d4deb8003c1d99e99f"
+      },
+      "forwardDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/fill-grant-exec.py.forward.diff",
+        "bytes": 9457,
+        "sha256": "f9bdaa4307967bf18b3d9703231a77c2f2a7d6ff5ef6a05cd76cb11e3ff4da52"
+      },
+      "inverseDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/fill-grant-exec.py.inverse.diff",
+        "bytes": 9457,
+        "sha256": "f6212c51361d345a32dd390e4366e5497d687b4cad82580211f139b223185fc4"
+      },
+      "completeOriginalBytesReconstructedExactly": true
+    },
+    {
+      "name": "PROFILES.json",
+      "original": {
+        "bytes": 6187,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r4/PROFILES.json",
+        "sha256": "071b094107ff6a7aee5006cb9bd4f9513561f3f183883afd421b2447c2ff1d8f"
+      },
+      "baseline": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/BASELINE-R4-PROFILES.json",
+        "bytes": 6187,
+        "sha256": "071b094107ff6a7aee5006cb9bd4f9513561f3f183883afd421b2447c2ff1d8f"
+      },
+      "newSource": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/PROFILES.json",
+        "bytes": 6780,
+        "sha256": "b2758d0e15403b7448dfe6ae9f7394b52e504aebfaace09c9e6f43141c9a1a5c"
+      },
+      "forwardDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/PROFILES.json.forward.diff",
+        "bytes": 6323,
+        "sha256": "16e1b5ef7acb27045378522bee61e2ec2d852a8d94665907319fdb945124bec5"
+      },
+      "inverseDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/PROFILES.json.inverse.diff",
+        "bytes": 6323,
+        "sha256": "c950de15dcc902698d119d703608344909ce21399293dcfa827f3e1c49db7e12"
+      },
+      "completeOriginalBytesReconstructedExactly": true
+    },
+    {
+      "name": "TYPES-SPEC-UNFILLED.json",
+      "original": {
+        "bytes": 213,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r4/TYPES-SPEC-UNFILLED.json",
+        "sha256": "2f4fb5e89c6ad8b88d7c0f5f69b9dfef80f186fc46e983054d1a9f198b362a0b"
+      },
+      "baseline": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/BASELINE-R4-TYPES-SPEC-UNFILLED.json",
+        "bytes": 213,
+        "sha256": "2f4fb5e89c6ad8b88d7c0f5f69b9dfef80f186fc46e983054d1a9f198b362a0b"
+      },
+      "newSource": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/TYPES-SPEC-UNFILLED.json",
+        "bytes": 243,
+        "sha256": "9ae8c89184a1f6f066698208ac9592de7334b1dfb50103b180e6c1d087b20c54"
+      },
+      "forwardDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/TYPES-SPEC-UNFILLED.json.forward.diff",
+        "bytes": 549,
+        "sha256": "f1ec866fe86951fe31a6ffb07fe4ebe9432c08af0b12723bd50618b4313d2cbe"
+      },
+      "inverseDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/TYPES-SPEC-UNFILLED.json.inverse.diff",
+        "bytes": 549,
+        "sha256": "45877e35bdd57c35f83390dc0c7ebfbc7c56dd885451a684843eac68e3b63bf1"
+      },
+      "completeOriginalBytesReconstructedExactly": true
+    }
+  ],
+  "executableReplacementOperations": [
+    {
+      "before": "PROFILE_SHA='071b094107ff6a7aee5006cb9bd4f9513561f3f183883afd421b2447c2ff1d8f'",
+      "after": "PROFILE_SHA='b2758d0e15403b7448dfe6ae9f7394b52e504aebfaace09c9e6f43141c9a1a5c'",
+      "count": 1
+    },
+    {
+      "before": "require(spec['mode'] in profiles,'EXACT_MODE')",
+      "after": "require(spec['mode']=='types' and spec['mode'] in profiles,'EXACT_TYPES_ONLY_MODE')",
+      "count": 1
+    },
+    {
+      "before": "cfg['operationalProductionHead']=='8cb704e2f18e6a635943893422c9cfdc206e106d'",
+      "after": "cfg['operationalProductionHead']=='7087f116cf998fd86e33fb8e004df628e0686dbd'",
+      "count": 1
+    },
+    {
+      "before": "'CURRENT_AL_SCOPE'",
+      "after": "'CURRENT_AM_SCOPE'",
+      "count": 1
+    },
+    {
+      "before": " else:\n  prot=json.loads(pin(protection));require(prot['schema']",
+      "after": " else:\n  postrole=spec['postR6RootAdoption']\n  for external in (postrole,protection):\n   require(type(external) is dict and set(external)=={'path','bytes','sha256'},'EXTERNAL_ADOPTION_PROTECTION_ROLE')\n   path=pathlib.Path(external['path'])\n   require(path.is_relative_to(S) and not path.is_relative_to(pathlib.Path(p['mirrorPath']).parent),'EXTERNAL_ADOPTION_PROTECTION_PATH')\n  post=json.loads(pin(postrole));contract=cfg['postR6RootAdoptionContract']\n  require(post['schema']==contract['schema'] and post['status']==contract['status'],'GENUINE_POST_R6_ROOT_ADOPTION')\n  for name,wanted in [('currentRootBaselineQualified',True),('historicalRootUnchanged',False),\n                      ('originalR6StopPreserved',True),('typesAccepted',False),('collectionAccepted',False)]:\n   require(post[name] is wanted,'DIAGNOSTIC_ADOPTION_SCOPE_'+name)\n  require(post['knownRootDrift']==cfg['knownRootDrift'],'EXACT_KNOWN_ROOT_DRIFT')\n  require(type(post['freshSourceProof']) is dict and type(post['freshDependencyProof']) is dict,'GENUINE_DIAGNOSTIC_PLAIN_PROOFS')\n  require(set(post['freshSourceProof'])=={'fileProofDigestSha256','physicalMetadataSha256','historicalRootSubstitutedMetadataSha256','nonrootMetadataSha256','mirrorFiles','mirrorBytes','dependencyLink','traversedEntries','mirrorRootIdentity'},'EXACT_NINE_FIELD_SOURCE_PROOF')\n  require(post['freshSourceProof']['mirrorRootIdentity']==cfg['knownRootDrift']['recordedAfterIdentity'] and\n          post['freshSourceProof']['historicalRootSubstitutedMetadataSha256']==cfg['knownRootDrift']['historicalMetadataSha256'] and\n          post['freshSourceProof']['nonrootMetadataSha256']==cfg['knownRootDrift']['nonrootMetadataSha256'],'DIAGNOSTIC_CURRENT_AND_HISTORICAL_REMAINDER')\n  for name in ('diagnosticObservedReview','actualResult','fullPostflightSnapshot'):\n   r=post[name]\n   require(type(r) is dict and set(r)=={'path','bytes','sha256'} and type(r['bytes']) is int and r['bytes']>0 and\n           type(r['sha256']) is str and len(r['sha256'])==64 and set(r['sha256'])<=set('0123456789abcdef') and\n           pathlib.Path(r['path']).is_relative_to(S) and not pathlib.Path(r['path']).is_relative_to(pathlib.Path(p['mirrorPath']).parent),'GENUINE_DIAGNOSTIC_ROLE_'+name)\n  prot=json.loads(pin(protection));require(prot['schema']",
+      "count": 1
+    },
+    {
+      "before": "  source=prot['freshSourceProof'];deps=prot['freshDependencyProof'];require(type(source) is dict and type(deps) is dict,'OBSERVED_PLAIN_PROOF_OBJECTS')",
+      "after": "  source=prot['freshSourceProof'];deps=prot['freshDependencyProof'];require(type(source) is dict and type(deps) is dict,'OBSERVED_PLAIN_PROOF_OBJECTS')\n  require(prot['postR6RootAdoptionSha256']==postrole['sha256'] and source==post['freshSourceProof'] and deps==post['freshDependencyProof'],'PROTECTION_EXACT_DIAGNOSTIC_ADOPTION_PROOFS')",
+      "count": 1
+    },
+    {
+      "before": " ungranted=digest(json.dumps(context",
+      "after": " context['postR6RootAdoption']=postrole\n ungranted=digest(json.dumps(context",
+      "count": 1
+    },
+    {
+      "before": " if spec['mode']=='types':grant['currentProtectionSha256']=protection['sha256']",
+      "after": " if spec['mode']=='types':\n  grant['currentProtectionSha256']=protection['sha256'];grant['postR6RootAdoptionSha256']=postrole['sha256']",
+      "count": 1
+    },
+    {
+      "before": "'proofOrTypesAccepted':False,'preparationStartMonotonic'",
+      "after": "'proofOrTypesAccepted':False,'postR6RootAdoption':postrole,'postR6CurrentRootDiagnosticQualified':True,'historicalRootUnchanged':False,'originalR6StopPreserved':True,'preparationStartMonotonic'",
+      "count": 1
+    }
+  ],
+  "profileInverse": "Replace only types profile with retained original types object; entire PROFILES.json6187 bytes reconstructed. Historical proof profile byte/data unchanged but explicitly inactive.",
+  "specInverse": "Remove only postR6RootAdoption placeholder; original TYPES-SPEC213 bytes reconstructed.",
+  "functionEquality": {
+    "method": "Complete top-level function body text, no AST/import/runtime execution",
+    "originalFunctionCount": 10,
+    "unchanged": [
+      "prep_alarm",
+      "require",
+      "stamp",
+      "normalized",
+      "physical",
+      "read",
+      "digest",
+      "pin",
+      "durable"
+    ],
+    "changed": [
+      "main"
+    ],
+    "clockSetupRetained": "PREP_START captured before imports/read operations, prep60 timer exact; cancellation before os.execve exact.",
+    "helperMechanismsRetained": true
+  },
+  "authorityInterface": {
+    "executorSourcePins": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/SOURCE-PINS.json",
+      "bytes": 14126,
+      "sha256": "cabe9f492a2f67091e4b6aefa6051536773fdc4014256d072728932f7b52d53f"
+    },
+    "executorRecipe": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/RECIPE.json",
+      "bytes": 12239,
+      "sha256": "afcad3e8ec6f3ba82f480617544609fc1195ee72697ec27fa09a2d6272b8d42a"
+    },
+    "executorSourceReview": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-independent-source-review-20261009-r1/RECEIPT.json",
+      "bytes": 20234,
+      "sha256": "fcb639f515966761dcf3dd7442b38a8da84c96f4dd0c0905b07bcaa8b0303c1f"
+    },
+    "postR6RootAdoptionContract": {
+      "schema": "1370-root-post-r6-m0-current-root-diagnostic-adoption/v1",
+      "status": "ROOT_ADOPTED_POST_R6_M0_PRESERVATION_DIAGNOSTIC_KNOWN_ROOT_DRIFT",
+      "currentRootBaselineQualified": true,
+      "historicalRootUnchanged": false,
+      "originalR6StopPreserved": true,
+      "typesAccepted": false,
+      "collectionAccepted": false,
+      "roleIsExternal": true,
+      "executionAuthority": false
+    },
+    "nineSourceProofKeys": [
+      "fileProofDigestSha256",
+      "physicalMetadataSha256",
+      "historicalRootSubstitutedMetadataSha256",
+      "nonrootMetadataSha256",
+      "mirrorFiles",
+      "mirrorBytes",
+      "dependencyLink",
+      "traversedEntries",
+      "mirrorRootIdentity"
+    ],
+    "protectionContextGrantSHAExplicit": true,
+    "canonicalContextDigestOmitsActualGrantOnly": true,
+    "noHashCycle": true,
+    "noSourceIdentityInvention": true,
+    "allFutureInputsNull": true
+  },
+  "scope": "Only corrected types profile can execute. Original four children/300-320-330 aggregate route and separate preparation60 retained. No runtime/import/Git/private inventory, no proof replay or full-body work. Actual diagnostic root adoption and full postflight remain root-owned prerequisites; source proposal does not fill them.",
+  "originalR6StopPreserved": true,
+  "historicalRootUnchanged": false,
+  "actualTypesAccepted": false,
+  "actualCollectionAccepted": false
+}

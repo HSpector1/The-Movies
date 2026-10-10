@@ -1,0 +1,36 @@
+18:         /** compression only */
+19:         level?: number | undefined;
+20:         /** compression only */
+21:         memLevel?: number | undefined;
+22:         /** compression only */
+23:         strategy?: number | undefined;
+24:         /** deflate/inflate only, empty dictionary by default */
+25:         dictionary?: NodeJS.ArrayBufferView | ArrayBuffer | undefined;
+26:         /**
+27:          * If `true`, returns an object with `buffer` and `engine`.
+28:          */
+29:         info?: boolean | undefined;
+30:         /**
+31:          * Limits output size when using convenience methods.
+32:          * @default buffer.kMaxLength
+33:          */
+34:         maxOutputLength?: number | undefined;
+35:     }
+310:     function deflateRaw(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
+311:     namespace deflateRaw {
+312:         function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<NonSharedBuffer>;
+313:     }
+314:     /**
+315:      * Compress a chunk of data with `DeflateRaw`.
+316:      * @since v0.11.12
+317:      */
+318:     function deflateRawSync(buf: InputType, options?: ZlibOptions): NonSharedBuffer;
+319:     /**
+364:         function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<NonSharedBuffer>;
+365:     }
+366:     /**
+367:      * Decompress a chunk of data with `InflateRaw`.
+368:      * @since v0.11.12
+369:      */
+370:     function inflateRawSync(buf: InputType, options?: ZlibOptions): NonSharedBuffer;
+371:     /**

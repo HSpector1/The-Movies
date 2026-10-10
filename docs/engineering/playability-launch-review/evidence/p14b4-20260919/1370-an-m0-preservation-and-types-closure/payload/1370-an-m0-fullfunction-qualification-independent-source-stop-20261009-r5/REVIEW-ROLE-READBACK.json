@@ -1,0 +1,17 @@
+{
+  "candidateImported": false,
+  "privateInventory": false,
+  "roles": {
+    "RECEIPT.json": {
+      "bytes": 15997,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-stop-20261009-r5/RECEIPT.json",
+      "sha256": "aa7ceade9584881e10030756fdf6490fdc362a8ab51a8167cbc6b86519a33c3c"
+    },
+    "SOURCE-READBACK.json": {
+      "bytes": 19784,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-stop-20261009-r5/SOURCE-READBACK.json",
+      "sha256": "35e08ce5d01d845cc923570566cc49b20af13b1b9592fd60ee7a4d43a29993b4"
+    }
+  },
+  "schema": "1370-finite-retained-source-bytes-readback/v1"
+}

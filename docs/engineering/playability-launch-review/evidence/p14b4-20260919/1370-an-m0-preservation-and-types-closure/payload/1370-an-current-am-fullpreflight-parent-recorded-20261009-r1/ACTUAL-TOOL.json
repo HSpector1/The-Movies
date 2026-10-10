@@ -1,0 +1,42 @@
+{
+  "schema": "1370-an-current-am-fullpreflight-actual-tool/v1",
+  "finalExit": 0,
+  "sessionId": 82607,
+  "allToolChunks": [
+    {
+      "chunk_id": "31ac38",
+      "wall_time_seconds": 1.002319809,
+      "session_id": 82607,
+      "original_token_count": 66,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-current-am-fullpreflight-parent-recorded-20261009-r1/GRANT.json\", \"bytes\": 2333, \"sha256\": \"eb2eba9f652065e3d9e79950adc4086f561d5d00bd8db9d601926e62ed77689e\"}, \"ownedPid\": 58529, \"ownedPgid\": 58529}\n"
+    },
+    {
+      "chunk_id": "07ba0f",
+      "wall_time_seconds": 5.002384275,
+      "session_id": 82607,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "bf9adb",
+      "wall_time_seconds": 5.001671421,
+      "session_id": 82607,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "08795c",
+      "wall_time_seconds": 5.001271435,
+      "session_id": 82607,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "5845c1",
+      "wall_time_seconds": 1.505177765,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ]
+}

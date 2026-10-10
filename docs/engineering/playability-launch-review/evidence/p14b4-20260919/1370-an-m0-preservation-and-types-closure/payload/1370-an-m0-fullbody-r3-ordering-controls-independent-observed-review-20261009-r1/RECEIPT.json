@@ -1,0 +1,336 @@
+{
+  "acceptedSourcePins": {
+    "bytes": 10016,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/SOURCE-PINS.json",
+    "sha256": "2703e1453288f7fea1008757e921e9e62eda8ea4ac9130931f99e325baeee15f"
+  },
+  "actualResult": {
+    "bytes": 7516,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-results-20261009-r2/RESULT.json",
+    "sha256": "3334a63ac65fe435100f906528e8df20cad721a0d86809bf38d39b2de9621948"
+  },
+  "actualTool": {
+    "bytes": 1257,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/ACTUAL-TOOL.json",
+    "sha256": "282c198ac4e4a8eb190269bf983881777628dac84d86841c722072b57151bd15"
+  },
+  "candidateChanged": false,
+  "caseResults": [
+    {
+      "expected": "GREEN",
+      "id": "author-two-issuers-schema-GREEN",
+      "intendedAssertion": null,
+      "negativePredicate": null,
+      "verdict": "ACCEPT_POSITIVE_CONSUMER_INPUT"
+    },
+    {
+      "expected": "GREEN",
+      "id": "freeze-complete-prefix-failure-suffix-GREEN",
+      "intendedAssertion": null,
+      "negativePredicate": null,
+      "verdict": "ACCEPT_POSITIVE_CONSUMER_INPUT"
+    },
+    {
+      "expected": "RED",
+      "id": "candidate-other-issuer-grouping-RED",
+      "intendedAssertion": "evaluated and skipped candidates preserve full order",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION"
+    },
+    {
+      "expected": "RED",
+      "id": "candidate-context-issuer-correlation-RED",
+      "intendedAssertion": "every actual evaluation binds an authenticated source-array projection",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-missing-slot-RED",
+      "intendedAssertion": "complete identity-bound freeze predicate order",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-swapped-slots-RED",
+      "intendedAssertion": "complete identity-bound freeze predicate order",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-wrong-name-RED",
+      "intendedAssertion": "complete identity-bound freeze predicate order",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-wrong-ordinal-RED",
+      "intendedAssertion": "complete identity-bound freeze predicate order",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-wrong-occurrence-RED",
+      "intendedAssertion": "complete identity-bound freeze predicate order",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-wrong-issuer-RED",
+      "intendedAssertion": "complete identity-bound freeze predicate order",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-failure-slot-missing-RED",
+      "intendedAssertion": "freeze predicate FAILED slot agrees with drop",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-drop-disagrees-RED",
+      "intendedAssertion": "freeze predicate FAILED slot agrees with drop",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-early-unreached-RED",
+      "intendedAssertion": "freeze predicate prefix status",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-suffix-resumes-RED",
+      "intendedAssertion": "freeze predicate suffix is NOT_REACHED",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-suffix-values-forged-RED",
+      "intendedAssertion": "unreached predicate has no evaluated values",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-second-failure-RED",
+      "intendedAssertion": "freeze predicate FAILED slot agrees with drop",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-illegal-not-evaluated-prefix-RED",
+      "intendedAssertion": "freeze predicate prefix status",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION"
+    },
+    {
+      "expected": "RED",
+      "id": "freeze-unknown-drop-RED",
+      "intendedAssertion": "freeze drop names an existing predicate",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION"
+    }
+  ],
+  "concreteFindings": [],
+  "config": {
+    "bytes": 5198,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/CONFIG.json",
+    "sha256": "83bce1b4b19f7b9f6ae3c75fc33b5960aa21738891e4add3aa4941c45aaac631"
+  },
+  "decision": "ACCEPT_OBSERVED_PURE_R3_ORDERING_CONSUMER_18_CONTROLS_ONLY",
+  "executionAuthorization": false,
+  "fixtureQualification": false,
+  "game": false,
+  "generatedModules": {
+    "ordering-source-controls.ts": {
+      "bytes": 2095,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-results-20261009-r2/controls.mjs",
+      "sha256": "a1050e29ba0cee14669cdac910ce2ebe26efb57089c080fb309abb8784544edb"
+    },
+    "ordering.ts": {
+      "bytes": 12122,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-results-20261009-r2/ordering.mjs",
+      "sha256": "3a9c3a34fe796d21879ef63a7172b7e8b751ad4489658b467eab505f9bb3d9f6"
+    }
+  },
+  "heldRootAdoption": {
+    "bytes": 1847,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-FULLBODY-R3-HELD-SOURCE-ADOPTION.json",
+    "sha256": "2d528f4e64c051e666f328acca7fa65bbdb65deea784fe89392862bde341eab4"
+  },
+  "laneLog": {
+    "bytes": 423,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/ordering.lane.log",
+    "sha256": "b0d40e4523bcf168568118af12e4f21c380c37d137e5cd48e0f7c2129eecec85"
+  },
+  "laneMetadata": {
+    "bytes": 549,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/ordering.lane.log.meta",
+    "sha256": "794273fef43130058413c3fe626b3ea3fa1945a35e5d06c5985db38252c9889e"
+  },
+  "laneReleased": true,
+  "launchClaim": {
+    "bytes": 3543,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/LAUNCH-CLAIM.json",
+    "sha256": "40472328a05873aaf93aedec0eeff8e273c02b96ed30aaf78332770cf4391758"
+  },
+  "majorLessons": [
+    "Bind every negative to its intended assertion; aggregate nonzero is insufficient RED evidence.",
+    "Keep source-held qualification and actual pure consumer outcomes separate from real fixture and catch-mutant admission.",
+    "Do not turn separate preparation/runtime clocks into an invented combined parent deadline.",
+    "Retain helper diagnostics separately from producer stderr rather than claiming all logs empty."
+  ],
+  "meaningfulCatchMutantRed": false,
+  "originalM0ReadOrWritten": false,
+  "parentAdapterSourcePins": {
+    "bytes": 3149,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "30ae3db8d6cf974e85ff5e416ed360a65b004b5cd5945a3289cb1d880c062a7c"
+  },
+  "parentAdapterSourceReview": {
+    "bytes": 2776,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-independent-source-review-20261009-r2/RECEIPT.json",
+    "sha256": "8d25710323efd209c4ec86bc2ee72ce96ef7074e4f4b5bd80d18ef8793879b1e"
+  },
+  "positiveCount": 2,
+  "priorLaneReleaseReadback": {
+    "bytes": 4872,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-fullpostflight-parent-recorded-20261009-r1/READBACK.json",
+    "sha256": "1f3224082ef2321ce7199505ea8066556667f728e43956bc5af881d3e2dfcceb"
+  },
+  "qualifications": [
+    "Known inherited helper-only SyntaxWarning is preserved in lane log and is separate from empty Node producer stderr.",
+    "These synthetic consumer cases establish neither real full-function fixture qualification nor a meaningful typed-catch mutant RED.",
+    "No gameplay, M0 source/dependency preservation or types/collection acceptance follows from this pure18 result."
+  ],
+  "readback": {
+    "bytes": 3337,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/READBACK.json",
+    "sha256": "ba1e1575320b6c3695a50479eab0436241d3e1450e3d6b393563f3c294038fd9"
+  },
+  "recipe": {
+    "bytes": 5676,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/RECIPE.json",
+    "sha256": "b88b6919d468225f4772a758eb98af4c6935310962bc13d10911180295a47bea"
+  },
+  "recordedOwnedIds": [
+    334,
+    606
+  ],
+  "recorderResult": {
+    "bytes": 933,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-recorder-results-20261009-r2/RESULT.json",
+    "sha256": "2dde623a9d04f25af5578238cbd33c47124f7503f8f65a1b2268e5795e99755b"
+  },
+  "reviewMethod": {
+    "candidateImports": false,
+    "gitMutation": false,
+    "newExecution": false,
+    "privateMirrorTraversal": false,
+    "processProbes": false,
+    "retainedFiniteEvidenceOnly": true
+  },
+  "rootGrant": {
+    "bytes": 5412,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/GRANT.json",
+    "sha256": "501a866b7b442f23f0783461ed5ade364d37bdb32920966cd9ee01738de842c6"
+  },
+  "runtimeToolsObservation": {
+    "bytes": 5401,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-RUNTIME-TOOLS.json",
+    "sha256": "a681efc4a9b29dfc62bffb6c1e7cd434107bfb1064769f712fca48227bd64106"
+  },
+  "schema": "1370-r3-ordering-controls-independent-observed-review/v1",
+  "scopedOwnershipChecks": [
+    {
+      "id": 334,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 334,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 606,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 606,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "sourceAdoption": {
+    "bytes": 1386,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/ORDERING-CONTROLS-SOURCE-ADOPTION.json",
+    "sha256": "67557eab16c1f8d83acac3ce0f373ee07e10a2afd9bd8d8b0d4b4989e03eca9f"
+  },
+  "sourcePins": {
+    "bytes": 4114,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "9976469fd0db93e77eea6842f28572493d02aded92b0924f984785f48f1d2938"
+  },
+  "sourceReview": {
+    "bytes": 15506,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-independent-source-review-20261009-r3/RECEIPT.json",
+    "sha256": "0bf5c4456471f1efee11f552e7cbb0f79f2c6a27ea5949f4acb41f8395521419"
+  },
+  "specificNegativeCount": 16,
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-recorder-results-20261009-r2/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 307,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-recorder-results-20261009-r2/stdout.bin",
+    "sha256": "00ecf5b2f79c2984664423337fa1b4414e657cbd0b3f3fb414fe5568362f0a53"
+  },
+  "syntheticOnly": true,
+  "timing": {
+    "bounds": {
+      "active": 320,
+      "childStreamBytes": 8388608,
+      "compiledModuleBytes": 131072,
+      "resultBytes": 131072,
+      "runner": 300,
+      "whole": 330
+    },
+    "combinedPreparationRuntimeDeadline": null,
+    "preparationCanceledBeforeExec": true,
+    "preparationDeadlineSeconds": 60,
+    "preparationElapsedSeconds": 0.6761403179989429,
+    "recorderElapsedSeconds": 3.0539382220013067
+  },
+  "totalCaseCount": 18,
+  "typesAccepted": false,
+  "utc": "2026-10-10T04:50:03.563055+00:00",
+  "verified": [
+    "All retained evidence roles, complete route and parent manifests, input source roles and generated modules match exact bytes and SHA256.",
+    "Root grant, source adoption, independent source reviews, actual launch claim and exact grant-resolved argv agree.",
+    "Exact ordered roster: two accepted positive inputs and sixteen expected AssertionError outcomes with per-case intended label. Unexpected loader/operational errors cannot satisfy the authenticated negative matcher.",
+    "Producer compact stdout authenticates exact report; empty producer stderr; recorded child0/group clear/not timed out; actual outer tool0.",
+    "Recorded parent cleanup proves only PID/PGID334 and606 ESRCH and lane released; no global absence claim.",
+    "No result override; aggregate recorder300/320/330 and8MiB streams,131072B compiled module/report caps retained. Separate parent prep60 cancels before exec."
+  ],
+  "workerResult": {
+    "bytes": 7516,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-results-20261009-r2/RESULT.json",
+    "sha256": "3334a63ac65fe435100f906528e8df20cad721a0d86809bf38d39b2de9621948"
+  }
+}

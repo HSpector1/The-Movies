@@ -1,0 +1,19 @@
+{
+  "roles": {
+    "excerpt": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-vite-transform-options-excerpt-20261010-r1/VITE-FILTER-API-OPTIONS.txt",
+      "bytes": 7192,
+      "sha256": "dcb07309027011559b9f65ded10cd1693cb561ecf1847f31c36dba04f8ca0ccd"
+    },
+    "excerptSourcePins": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-vite-transform-options-excerpt-20261010-r1/SOURCE-PINS.json",
+      "bytes": 1186,
+      "sha256": "0309322eff22fb4471118a85f7bf17c522c630c2916240ba91bef189e981872c"
+    }
+  },
+  "implementation": {
+    "bytes": 2086035,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js",
+    "sha256": "bfa94186daff535fefdf286088c1588fad6b02c01ef11cd3b42a6cb3e4c90767"
+  }
+}

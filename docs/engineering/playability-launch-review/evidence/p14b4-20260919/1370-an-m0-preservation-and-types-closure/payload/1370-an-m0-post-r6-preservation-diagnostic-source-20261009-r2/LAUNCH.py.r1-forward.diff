@@ -1,0 +1,16 @@
+--- r1-BASE-LAUNCH.py
++++ LAUNCH.py
+@@ -43,10 +43,10 @@
+   return raw
+  finally:
+   for item in reversed(held):os.close(item)
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r1')
+-config=json.loads(read_pin(P/'CONFIG.json','114d5cabe8e201193e57a8667ec9d419712fb439e6ee7e98adb6a197e833d30c',100000))
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2')
++config=json.loads(read_pin(P/'CONFIG.json','c40c0a34d07532d4690552318958029ec736d32283dcec59b0b33191bf82bc4c',100000))
+ authority=json.loads(read_pin(context,context_sha,128*1024))
+-expected={'runner.py':'cf25620abdcd6a15101e9c9a8746efb46c89f92f62b3f86b4db24eb150ab0e67','BOOTSTRAP.py':'7581248b3cde60c94100ed2b3ae927b031e496d5e892e63e9d89b491d41c1fac','supervise.py':'704098513cf8c48914569dd7ad35e7b5bc46590e8f2910f31dfea1104f74c3c8','CONFIG.json':'114d5cabe8e201193e57a8667ec9d419712fb439e6ee7e98adb6a197e833d30c','check-deps.mjs':'e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64'}
++expected={'runner.py':'b9ff56da6524243c95045b0e09f25ca4ec5c8225bbdd3eb76820e75b928e350d','BOOTSTRAP.py':'2b11e6c1c8595af573ffe9186a6e895c192f6fc05f0a7b35c5627a451c7bcdb3','supervise.py':'b8c6a45e658f2620b0ae16a9feb89897cb36c9a0c1afd15e322ec3487927994b','CONFIG.json':'c40c0a34d07532d4690552318958029ec736d32283dcec59b0b33191bf82bc4c','check-deps.mjs':'e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64'}
+ assert authority['schema']=='1370-post-r6-m0-preservation-diagnostic-context/v1'
+ assert type(authority['diagnosticInputs']) is dict and set(authority['diagnosticInputs'])=={'controlsObservedReview','controlsRootAdoption','currentAMFullPreflight','currentAMFullPreflightAdoption'}
+ assert authority['configSha256']==expected['CONFIG.json'] and authority['runId']==config['runId'] and authority['mirrorPath']==config['mirrorPath']

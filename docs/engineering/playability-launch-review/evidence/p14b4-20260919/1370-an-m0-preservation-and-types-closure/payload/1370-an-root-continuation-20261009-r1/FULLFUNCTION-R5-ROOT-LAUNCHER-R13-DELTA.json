@@ -1,0 +1,28 @@
+{
+  "candidate": {
+    "bytes": 6400,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/run_fullfunction_fifth_once_r2.py",
+    "sha256": "3f77b9d4887cdbebf9e0de4c1aa2a2c8d09b6578ebe2649644c61c124f13a533"
+  },
+  "compileOnly": true,
+  "completeInverseRestoresPredecessor": true,
+  "exactSingleSubstitutions": [
+    [
+      "1370-an-m0-fullfunction-qualification-source-20261010-r12",
+      "1370-an-m0-fullfunction-qualification-source-20261010-r13"
+    ],
+    [
+      "79d9400a49dc02abc836d9e3b9e9f4a814966da47cae67293f299b1993deb283",
+      "5eb4371205271d8ae2b88d6c4dd2f7f20057b8ae30430fd8905e1ed3816d98d3"
+    ]
+  ],
+  "predecessor": {
+    "bytes": 6400,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/run_fullfunction_fifth_once.py",
+    "sha256": "50670f38f20f78e9ace2a7364e598c1938698fd63b8f02ccef4e23a58d2a3c9c"
+  },
+  "preservedHeldR12Launcher": true,
+  "runtimeExecuted": false,
+  "schema": "1370-root-r5-launcher-r13-binding-correction/v1",
+  "sourceOnly": true
+}

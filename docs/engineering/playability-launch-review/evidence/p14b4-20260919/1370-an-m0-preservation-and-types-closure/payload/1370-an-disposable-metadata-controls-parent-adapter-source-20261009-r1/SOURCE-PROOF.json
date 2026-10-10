@@ -1,0 +1,41 @@
+{
+  "actualRuntimeTestsExecuted": false,
+  "allActualFieldsRemainExternal": true,
+  "baseFocusedLauncher": {
+    "bytes": 6244,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/launch-focused-controls.py",
+    "sha256": "fa5621d99981397b0c3d669056ea2c375a4dad55de798b5a26ef07cf997539b1"
+  },
+  "baseRootParent": {
+    "bytes": 3199,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_b109_controls_once.py",
+    "sha256": "4f1bb0d52c5dc4bf04e0aea6c6e313016be1fda00d9fe52653b59ba087c75c51"
+  },
+  "candidate": {
+    "bytes": 10107,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/launch-disposable-controls.py",
+    "sha256": "7be4998c90bc4cb4c35c774201210855db1f2f49aea921e1ba277fa607c8ca6b"
+  },
+  "changes": [
+    "Exact disposable R2 source/config/recipe/independent-review and external grant bindings, no grant generation.",
+    "Inline exact typed JSON comparison and duplicate-key rejection replace generated strict_contract import.",
+    "Current AM localtracking/advertised main refs and clean source checks; no prior AL metadata interval claim.",
+    "Separate preparation60 timer canceled immediately before original r8 exec; no inherited runtime watchdog.",
+    "Actual measured own PID/PGID/SID claim, fresh direct scratch outputs and one-exec collision checks.",
+    "Source/tool physical/hash stability, actual external tool observation, AC/disk/free lane; no HOME override."
+  ],
+  "clockFinding": {
+    "bytes": 1998,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/DISPOSABLE-PARENT-CLOCK-PREGRANT-FINDING.json",
+    "sha256": "3a960a334377028a71cdb90342a1da0029ff088d5bb61702bf4201b1396328cf"
+  },
+  "completeForwardInverseVerified": true,
+  "executionAuthorization": false,
+  "schema": "1370-disposable-parent-adapter-source-proof/v1",
+  "syntaxParsedOnly": true,
+  "upstreamSourcePins": {
+    "bytes": 11166,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "bc7fcfc7bcd4ab5e4472733260e1ee5f89658c827a09412d7f98d60b10ffd573"
+  }
+}

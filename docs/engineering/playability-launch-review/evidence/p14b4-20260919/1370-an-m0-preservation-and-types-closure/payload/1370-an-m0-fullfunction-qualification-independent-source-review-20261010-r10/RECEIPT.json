@@ -1,0 +1,320 @@
+{
+  "schema": "1370-real-fullfunction-qualification-independent-source-review/v1",
+  "decision": "ACCEPT_STATIC_REAL_FULL_FUNCTION_QUALIFICATION_ROUTE_SOURCE_ONLY",
+  "sourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/SOURCE-PINS.json",
+    "bytes": 39330,
+    "sha256": "eb43fa973b7a9ded1a834a944b2351150236df1c5b7e566b8df904661f689f46"
+  },
+  "sourcePins": {
+    "CONFIG-TEMPLATE.mts": {
+      "bytes": 1143,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/CONFIG-TEMPLATE.mts",
+      "sha256": "15565b9fcab49c39989732bd4d2105d549ffc66c9348149b9d2eaf67092ada0e"
+    },
+    "CONFIG.json": {
+      "bytes": 7957,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/CONFIG.json",
+      "sha256": "d687a7bc560e103ae5c359622991ecb773a88546f64e41918c8c297b0b3da811"
+    },
+    "CORE-TEST-TEMPLATE.ts": {
+      "bytes": 3955,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/CORE-TEST-TEMPLATE.ts",
+      "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "bytes": 9487,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+    },
+    "canonical-typescript-transform.mjs": {
+      "bytes": 1906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/canonical-typescript-transform.mjs",
+      "sha256": "71c3f791da660a280b04fcfb9038e037ff3c3ac2a080fec38f2164f85176751a"
+    },
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "record-fullfunction.py": {
+      "bytes": 16750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/record-fullfunction.py",
+      "sha256": "bb0df9a8daff798d67eeb28509c2fba121d7293114d6caef49e7daad147a2374"
+    },
+    "run-fullfunction.mjs": {
+      "bytes": 20539,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/run-fullfunction.mjs",
+      "sha256": "a47ae6cd91686bfb8de78b3070a90f3f1a79c6c48fe6c4c1249e51c0eb932889"
+    },
+    "run-fullfunction.py": {
+      "bytes": 16755,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/run-fullfunction.py",
+      "sha256": "9304a4f837be3686537a6f3865b8569a525e1896747883a78320c113ebd42842"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    }
+  },
+  "routeSourcePins": {
+    "CONFIG-TEMPLATE.mts": {
+      "bytes": 1143,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/CONFIG-TEMPLATE.mts",
+      "sha256": "15565b9fcab49c39989732bd4d2105d549ffc66c9348149b9d2eaf67092ada0e"
+    },
+    "CONFIG.json": {
+      "bytes": 7957,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/CONFIG.json",
+      "sha256": "d687a7bc560e103ae5c359622991ecb773a88546f64e41918c8c297b0b3da811"
+    },
+    "CORE-TEST-TEMPLATE.ts": {
+      "bytes": 3955,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/CORE-TEST-TEMPLATE.ts",
+      "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "bytes": 9487,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+    },
+    "canonical-typescript-transform.mjs": {
+      "bytes": 1906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/canonical-typescript-transform.mjs",
+      "sha256": "71c3f791da660a280b04fcfb9038e037ff3c3ac2a080fec38f2164f85176751a"
+    },
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "record-fullfunction.py": {
+      "bytes": 16750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/record-fullfunction.py",
+      "sha256": "bb0df9a8daff798d67eeb28509c2fba121d7293114d6caef49e7daad147a2374"
+    },
+    "run-fullfunction.mjs": {
+      "bytes": 20539,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/run-fullfunction.mjs",
+      "sha256": "a47ae6cd91686bfb8de78b3070a90f3f1a79c6c48fe6c4c1249e51c0eb932889"
+    },
+    "run-fullfunction.py": {
+      "bytes": 16755,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/run-fullfunction.py",
+      "sha256": "9304a4f837be3686537a6f3865b8569a525e1896747883a78320c113ebd42842"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    }
+  },
+  "concreteFindings": [],
+  "findings": [],
+  "executionAuthorization": false,
+  "predecessorSourceManifest": {
+    "bytes": 33835,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/SOURCE-PINS.json",
+    "sha256": "51926780c880416000d592b6f7e3ba8a0c42f005a833e6813708abc25823087c"
+  },
+  "predecessorIndependentSourceReview": {
+    "bytes": 14183,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r9/RECEIPT.json",
+    "sha256": "1c7ee4c57f05f16cf509efd5739ca3106e1703da8653d7f7a971597cef3ca1d8"
+  },
+  "evidenceReadback": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r10/EVIDENCE-READBACK.json",
+    "bytes": 55076,
+    "sha256": "b95c5634afdf4c57e0068d5ae7ea1895e023c4af3b4f4eab3c0e9bd11a3de2d6"
+  },
+  "publicViteExcerpt": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-vite-transform-options-excerpt-20261010-r1/VITE-FILTER-API-OPTIONS.txt",
+    "bytes": 7192,
+    "sha256": "dcb07309027011559b9f65ded10cd1693cb561ecf1847f31c36dba04f8ca0ccd"
+  },
+  "publicViteExcerptSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-vite-transform-options-excerpt-20261010-r1/SOURCE-PINS.json",
+    "bytes": 1186,
+    "sha256": "0309322eff22fb4471118a85f7bf17c522c630c2916240ba91bef189e981872c"
+  },
+  "publicViteExcerptAudit": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r10/VITE-EXCERPT-READBACK.json",
+    "bytes": 1619,
+    "sha256": "c495adc71238d44524cb9c8533127ef4fbfa213182eb6410193a2ada8ebfb1c5"
+  },
+  "previousActualR1Stop": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-wrong-mirror-subject-independent-observed-review-20261010-r1/RECEIPT.json",
+    "bytes": 13431,
+    "sha256": "26076d01598ed3778e7c2aed814002ba9cd85f7484da0b6c454c93c4124e9ad3"
+  },
+  "previousActualR2Stop": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-observed-review-20261010-r2/RECEIPT.json",
+    "bytes": 18241,
+    "sha256": "5bee4c5fbe9dda318684acd74e06cd0221b71bc73bb8125aa27edb4eeaccc751"
+  },
+  "verified": {
+    "manifestPayloadCount": 132,
+    "finiteRetainedRoleCount": 184,
+    "allRetainedFileSizesAndHashesMatched": true,
+    "tenReviewAliasMapsExact": true,
+    "completeWholeForwardAndInversePairs": [
+      "CONFIG-TEMPLATE.mts",
+      "CONFIG.json",
+      "run-fullfunction.py",
+      "run-fullfunction.mjs",
+      "record-fullfunction.py"
+    ],
+    "genuineR9WholeBaselinesAuthenticated": true,
+    "substantiveChanges": "Adds a pre-transform for admitted canonical TypeScript modules, registers it beside the byte-unchanged canonical resolver, authenticates three pinned public Vite roles in both entrypoints, and adds its tenth review alias. Fresh R3 paths and required source/config/hash bindings accompany the change.",
+    "canonicalResolverRole": {
+      "bytes": 2363,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/canonical-resolver.mjs",
+      "sha256": "429cc7b8ad0f6be2f851a2f10ef431d63192b912e0864c7602fd6072c4ae14fd"
+    },
+    "canonicalResolverBytesUnchanged": true,
+    "canonicalIdsAndCyclicModuleIdentityUnchanged": true,
+    "rawCanonicalLoadHashGateUnchanged": true,
+    "exactTransformRole": {
+      "bytes": 1906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/canonical-typescript-transform.mjs",
+      "sha256": "71c3f791da660a280b04fcfb9038e037ff3c3ac2a080fec38f2164f85176751a"
+    },
+    "transformSemantics": {
+      "prefix": "NUL m0-full-body/",
+      "onlyAuthenticatedCanonicalModules": true,
+      "logicalRoleLookup": "binding.derivatives[logical] or binding.sourceFiles[logical], matching the unchanged canonical resolver.",
+      "inputRawUtf8ByteCountAndSha256Checked": true,
+      "transformApi": {
+        "bytes": 7527,
+        "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/index.js",
+        "sha256": "2b295e9da790eb9d1b02b167a4678bd9106253d97e07a75f774cd2f3b1930476"
+      },
+      "recordedImplementation": {
+        "bytes": 2086035,
+        "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js",
+        "sha256": "bfa94186daff535fefdf286088c1588fad6b02c01ef11cd3b42a6cb3e4c90767"
+      },
+      "recordedPackage": {
+        "bytes": 4893,
+        "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/package.json",
+        "sha256": "e9802045cdc313b6da55ec2e2dd79312074645816089d64f6021f567c10c0a03"
+      },
+      "physicalFilename": "Exact admitted role.path passed to original transformWithEsbuild, preserving extension loader selection and physical tsconfig lookup.",
+      "originalViteFilter": "Pinned original createFilter rejects NUL IDs before ordinary vite:esbuild runs. The helper explicitly transforms that admitted canonical prefix.",
+      "options": "Original resolved config.esbuild destructuring and esnext/utf8 defaults, minify/identifier/syntax/whitespace/treeShaking/keepNames overrides, and supported dynamic-import/import-meta defaults match the pinned ordinary vite:esbuild branch.",
+      "optionsResolvedBeforeTransform": true,
+      "jsxInjection": "Pinned config requests no injection; helper refuses unexpected jsxInject.",
+      "codeAndMapReturnedFromOriginalApi": true,
+      "warnings": "Forwarded through plugin this.warn; no silent removal. Ordinary plugin's presentation uses prettifyMessage, so this receipt claims transform options/code semantics rather than byte-identical warning presentation.",
+      "extraTransformDoesNotEditOriginalRawModules": true
+    },
+    "originalCandidateFullBodiesFixtureGeneratorOrderingAndMutantRolesUnchanged": true,
+    "originalCoreAndFullBodyControlTemplatesUnchanged": true,
+    "parserInputs": {
+      "exact-json.mjs": {
+        "bytes": 2202,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+        "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+      },
+      "run-parser-controls.mjs": {
+        "bytes": 7028,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+        "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+      }
+    },
+    "actuallyExercisedF7ParserControlRolesPreservedExactly": true,
+    "pure32NotReplayedOrRebound": true,
+    "unchangedBounds": {
+      "activeRecorder": 320,
+      "aggregateChild": 300,
+      "aggregateOutputTreeBytes": 268435456,
+      "fixturePacketBytes": 67108864,
+      "outputTreeEntryCap": 10000,
+      "resultBytes": 131072,
+      "streamBytes": 8388608,
+      "vitestReportBytes": 1048576,
+      "wholeRecorder": 330
+    },
+    "recorderSixteenHelpersAndOwnedChildByteExact": true,
+    "originalOwnedChildReadinessGoGroupReapCleanupFinalizationAndTimersUnchanged": true,
+    "exactMirrorLeafForBothFullProofsPreserved": true,
+    "originalCompleteAuthorityGateBeforePrivateReadsPreserved": true,
+    "twoOriginalCompleteSourceAndDependencyScansPreserved": true,
+    "nineFieldCurrentSourceProofAndLosslessEqualityPreserved": true,
+    "downstreamBigIntScope": "Unsafe proof/root/first-proof identities remain validation-only in Node; Python writes them losslessly. New helper role in sourceRoles contains only safe byte counts, paths and hashes.",
+    "originalSpecificTypedCatchPredicateUnchanged": true,
+    "arbitraryLoaderOrResourceErrorsRemainStop": true,
+    "prefixFailureScope": "Started Node without a validated Node result retains unknown/null prefix and actual weeks. Only a validated successful result supplies true and196/197/208.",
+    "freshSelectors": {
+      "controllerOutput": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3",
+      "nodeRuntime": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/runtime",
+      "recorderOutput": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261010-r3",
+      "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-20261010-r3.lane.log",
+      "runId": "20261010-m0-fullfunction-after-an-r3",
+      "parentRecordedPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r3"
+    },
+    "originalRecorderOutputSelectorMatchesConfigAndRecipe": true,
+    "inheritedHomeEnvironmentPreserved": true,
+    "noInventedCombinedPreparationRuntimeOrPostflightDeadline": true,
+    "freshOnceRootGrantAndCurrentProtectionRemainExternal": true,
+    "sourceActualFutureRolesUnfilled": true
+  },
+  "retainedPublicDiagnosis": {
+    "diagnosis": {
+      "bytes": 3223,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/DIAGNOSIS.json",
+      "sha256": "c1e13014049a8aed47c3a0e76ebe0396c5f3b991d84006f5803644d20077217e"
+    },
+    "rawParserResult": {
+      "bytes": 5857,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/RESULT.json",
+      "sha256": "88c07eeefcf1358b5b3d4cfe09586ba13ce03aa66cded379e19923f25e700853"
+    },
+    "publicTransformResult": {
+      "bytes": 10327,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/TRANSFORM-RESULT.json",
+      "sha256": "c81ebe9e64366910c37b2d302e658d2c0bfefb8155ef38e86ae467997c6937a7"
+    },
+    "changedParserResult": {
+      "bytes": 810,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/R10-DELTA-PARSE.json",
+      "sha256": "952804407c0fcd4af52f34b922b51ac87eb17ab70f6720701be1ec6d0cd9f8e7"
+    },
+    "rawSourceFiles": 16,
+    "transformedPublicFiles": 15,
+    "changedFilesSyntaxParsed": 2,
+    "retainedSyntaxDiagnostics": 0,
+    "retainedTransformWarnings": 0,
+    "parserVersion": "5.9.3",
+    "parserRole": "Retained report pins original3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675 compiler role.",
+    "nodeVersion": "22.23.2",
+    "generatedModulesImportedOrExecutedByTheseReproductions": false,
+    "privateModuleGraphReadByTheseReproductions": false,
+    "exactFailedVirtualModuleOrTokenCaptured": false,
+    "installedViteRoleTiming": "Original public transform reports do not claim a separate earlier Vite file observation; the implementation was observed after reproduction. The exact named excerpt was extracted later from the same pinned public source and is labelled accordingly.",
+    "inference": "The original raw canonical TS loader and NUL-rejecting ordinary filter provide a concrete missing-transform mechanism consistent with the actual generation parse STOP. Finite syntax/transform reports do not establish the identity of the precise failing virtual dependency, execution of the complete graph, or success of the repair."
+  },
+  "independence": {
+    "reviewer": "/root/b109_focused_route_review",
+    "sourceAuthor": "/root/m0_types_source_review",
+    "candidateNotAuthoredByReviewer": true,
+    "candidateNotImportedOrExecutedByReviewer": true,
+    "reviewerUsedNamedScratchSourceAndRetainedDataOnly": true,
+    "reviewerPrivateInventory": false,
+    "reviewerPublicInstalledToolsRehashed": false,
+    "originalToolAuthorityWillBePhysicallyRehashedByQualifiedRuntime": true
+  },
+  "sourceOnlyHeld": true,
+  "actualFixtureGenerationAccepted": false,
+  "actualBaselineAccepted": false,
+  "actualCatchMutantRedAccepted": false,
+  "actualGameplayOrNeutralityAccepted": false,
+  "lessons": [
+    "A canonical virtual ID keeps cyclic module identity but may bypass the ordinary compiler filter. Preserve authenticated raw roles and explicitly apply the qualified compiler at that boundary.",
+    "Use the admitted physical filename and original resolved transform options; retain code/maps and warnings.",
+    "Raw syntax parsing and public API transform outputs are finite evidence, distinct from the actual generated graph and meaningful fixture/control execution.",
+    "Fresh attempt isolation must update all executed output selectors while preserving actual-tested external parser roles and original proof/clock contracts."
+  ],
+  "claimLimit": "Static source acceptance of the exact R10 route and ten aliases only. Previous actual R1/R2 failures remain STOP. No new execution grant, generated real-fixture success, baseline success, meaningful mutant RED, neutrality, broad1363/P17/P18, performance or source promotion is claimed. Root owns fresh authority, sole lane execution, mandatory original shared postflight and actual independent admission."
+}

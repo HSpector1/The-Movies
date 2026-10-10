@@ -1,0 +1,134 @@
+{
+  "actualPriorOwnedIds": [
+    10032,
+    10530,
+    10531
+  ],
+  "actualPriorOwnedPids": [
+    10032,
+    10530,
+    10531,
+    12621
+  ],
+  "actualRouteReadback": {
+    "bytes": 6808,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r5/READBACK.json",
+    "sha256": "321035432c082f1238587d7783300b0c49d10c4935042d05968136cb6c727489"
+  },
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "postflight",
+    "postflight-fullfunction-qualification-r5",
+    "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/SNAPSHOT.json",
+    "0136b4370cca27ab9af635c16124283049eb394b3dbaa63c32a755973e9c3596",
+    "10032,10530,10531"
+  ],
+  "automaticRetry": false,
+  "baseline": {
+    "bytes": 8833072,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/SNAPSHOT.json",
+    "sha256": "0136b4370cca27ab9af635c16124283049eb394b3dbaa63c32a755973e9c3596"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesPid": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": true,
+  "guardConfig": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/CONFIG.json",
+    "sha256": "e0c7a2b839eaa1e0940665711c8e9b57af4f09738290ca5d15d828f01200b42e"
+  },
+  "guardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py",
+    "sha256": "9e2618b58849ccf0bc36512b20de16c23e49b2f08cdc6982ca9fe2fc20143047"
+  },
+  "guardSourcePins": {
+    "bytes": 2286,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "e638252b8082aa756f56471552327706a17dcf0e2d6bd01628710624ce7ec435"
+  },
+  "guardSourceReview": {
+    "bytes": 7200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "8a8756307aeecff6e3d9f299a5d2db8014e81c9c7dd5ade42f1f53514ba8ad45"
+  },
+  "mode": "fullfunction-qualification",
+  "noHelperOriginalLockAbsentRequired": true,
+  "outputDirectory": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r5",
+  "ownedScannerPgid": 14120,
+  "ownedScannerPid": 14120,
+  "ownedScannerSid": 14120,
+  "perCommandTimeoutSeconds": 180,
+  "priorOwnedIdentityPostChecks": [
+    {
+      "id": 10032,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 10530,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 10531,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 12621,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 10032,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 10530,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 10531,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "priorRouteExits": {
+    "helperExit": 2,
+    "recorderExit": 2,
+    "runnerExit": 1,
+    "toolExit": 2
+  },
+  "priorRouteStatus": "ACTUAL_FULLFUNCTION_STOP_PRESERVED_PENDING_SHARED_FULL_POSTFLIGHT",
+  "priorStopPreserved": true,
+  "proofOrTypesAccepted": false,
+  "protectedFreezeContinues": true,
+  "rawPsFdLocalOnly": true,
+  "rootLauncher": {
+    "bytes": 5274,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r8/launch-fullpostflight.py",
+    "sha256": "75603678180a3f2f4c2bb53de55ea4024ea91a801a0c238da86f0d99ec914885"
+  },
+  "schema": "1370-root-m0-direct-original-shared-full-postflight-grant/v1",
+  "scope": "Original shared nine-root/R9/dependency/full protected maps under current AM. Actual fullfunction qualification result, including any STOP, remains pending separate independent observed review; this shared postflight does not establish gameplay acceptance. Original R6 STOP remains preserved.",
+  "startMonotonic": 124418.070256732,
+  "status": "GRANTED_ONCE_ORIGINAL_SHARED_FULL_POSTFLIGHT",
+  "stderrPath": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r5/postflight.stderr",
+  "stdoutPath": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r5/postflight.stdout",
+  "utc": "2026-10-10T07:44:38.068130+00:00",
+  "wholeScanDeadline": null
+}

@@ -1,0 +1,49 @@
+--- supervise.py
++++ BASE-supervise.py
+@@ -4,22 +4,22 @@
+ import hashlib,json,math,os,pathlib,selectors,shutil,signal,stat,subprocess,sys,time
+ S=pathlib.Path('/Users/zacheryspector/studio-scratch')
+ REPO=pathlib.Path('/Users/zacheryspector/The-Movies-headless-program')
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r1')
+-RESULT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-recorder-results-20261009-r1/20261009-m0-post-r6-preservation-diagnostic-r1.RECORDER-RESULT.json')
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2')
++RESULT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-recorder-results-after-al-20261009-r2/20261009-m0-current-proof-after-al-r2.RECORDER-RESULT.json')
+ BOOTSTRAP=P/'BOOTSTRAP.py'
+-BOOTSTRAP_SHA='7581248b3cde60c94100ed2b3ae927b031e496d5e892e63e9d89b491d41c1fac'
+-RUNNER_SHA='cf25620abdcd6a15101e9c9a8746efb46c89f92f62b3f86b4db24eb150ab0e67'
++BOOTSTRAP_SHA='53c9330d960da3dc8e562bd87ca89a8e1c2f5992010b9a35eb7ca3f3963e438c'
++RUNNER_SHA='d32007ecb462d6a535432959317e1851d09d37cb0fa96897fa3dcc213c45b05c'
+ AUTHORITY=globals()['_AUTHORITY']
+ CONTEXT=pathlib.Path(globals()['_CONTEXT_PATH'])
+ CONTEXT_SHA=globals()['_CONTEXT_SHA']
+ HELPER=globals()['_HELPER']
+-HEAD='7087f116cf998fd86e33fb8e004df628e0686dbd'
++HEAD='8cb704e2f18e6a635943893422c9cfdc206e106d'
+ SRC='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554'
+ PRODUCTION_REF='refs/heads/wip/headless-program-20260916-ts'
+ MAIN_REF='refs/heads/main'
+ LOCAL_MAIN_REF='refs/remotes/origin/main'
+ MAIN_OID='c902a704eb948cc576083d0973c8c23e59937dc1'
+-LANE_LOG='c0-m0-post-r6-preservation-diagnostic-20261009-r1.lane.log'
++LANE_LOG='c0-m0-current-proof-20261009-m0-current-proof-after-al-r2.lane.log'
+ ACTIVE=320
+ LIMIT=330
+ START=globals()['LAUNCH_START']
+@@ -244,7 +244,7 @@
+  need(not os.path.lexists(RESULT),'recorder result collision')
+  need(not os.path.lexists(pathlib.Path(str(RESULT)+'.partial')),'recorder partial collision')
+  need(hashlib.sha256(read_pin(CONTEXT,128*1024)).hexdigest()==CONTEXT_SHA,'filled context SHA')
+- row={'schema':'1370-post-r6-m0-preservation-diagnostic-recorder-result/v1','status':'RUNNING',
++ row={'schema':'1370-m0-types-collection-recorder-result/v1','status':'RUNNING',
+       'sourceDeadlineSeconds':300,'recorderActiveSeconds':ACTIVE,'recorderWholeSeconds':LIMIT,
+       'sourceSha256':RUNNER_SHA,
+       'bootstrapSha256':BOOTSTRAP_SHA,'contextSha256':CONTEXT_SHA,'helperPid':HELPER['pid'],'helperPgid':HELPER['pgid'],'helperSid':HELPER['sid'],
+@@ -252,7 +252,7 @@
+  failure=None
+  try:
+   preflight()
+-  need(AUTHORITY['configSha256']=='114d5cabe8e201193e57a8667ec9d419712fb439e6ee7e98adb6a197e833d30c','exact M0 source config')
++  need(AUTHORITY['configSha256']=='17ac5abcd1e26c83fcd8d3794bd0c6356cd9f141416e01974cdd34f510b72bb5','exact M0 source config')
+   bootstrap_source=read_pin(BOOTSTRAP,100000,BOOTSTRAP_SHA).decode('utf-8')
+   need(shutil.disk_usage(S).free>=3*1024**3,'3 GiB floor')
+   clean={k:v for k,v in os.environ.items() if not k.startswith('GIT_')}

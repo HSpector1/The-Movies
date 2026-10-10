@@ -1,0 +1,44 @@
+{
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r13/record-fullfunction.py",
+    "verification",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r5/EXECUTION-GRANT.json",
+    "cd846b55e171117a5d3d214157406df69f98e3562e45fce5d8a6d5a0853d6ea2"
+  ],
+  "combinedPreparationRuntimeDeadline": null,
+  "directExecPreservesIdentity": true,
+  "executionAuthorization": false,
+  "gameExecutedByPreparation": false,
+  "grant": {
+    "bytes": 4386,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r5/EXECUTION-GRANT.json",
+    "sha256": "cd846b55e171117a5d3d214157406df69f98e3562e45fce5d8a6d5a0853d6ea2"
+  },
+  "ownedRecorder": {
+    "pgid": 10530,
+    "pid": 10530,
+    "sid": 10530
+  },
+  "preparationDeadlineSeconds": 60,
+  "preparationElapsedSeconds": 0.39635148500383366,
+  "rootBinding": {
+    "bytes": 4759,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-ROOT-BINDING-R5.json",
+    "sha256": "8dc5c4af7d12a77795e5f0d30e11ea234172a83aa3733dbccef125837deec125"
+  },
+  "runtimeBounds": {
+    "activeRecorder": 320,
+    "aggregateChild": 300,
+    "aggregateOutputTreeBytes": 268435456,
+    "fixturePacketBytes": 67108864,
+    "outputTreeEntryCap": 10000,
+    "resultBytes": 131072,
+    "streamBytes": 8388608,
+    "vitestReportBytes": 1048576,
+    "wholeRecorder": 330
+  },
+  "schema": "1370-fullfunction-recorder-launch-claim/v1"
+}

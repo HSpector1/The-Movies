@@ -1,0 +1,45 @@
+--- R7/run-fullfunction.py
++++ R8/run-fullfunction.py
+@@ -1,7 +1,7 @@
+ """Future one-aggregate real full-function qualifier. Source work never executes this route."""
+ import hashlib,json,math,os,pathlib,selectors,signal,stat,subprocess,sys,time,traceback
+ HERE=pathlib.Path(__file__).resolve().parent
+-CONFIG_SHA='c41b0b344ecb2abed6079075e0f4a3571d0fb957ae8bddee7e7a1e6f927a9808'
++CONFIG_SHA='7dd64bf16908076887593eac1843f05d205426ba97897e42cc7a479b938187a6'
+ START=time.monotonic();END=START+300;CAP=128*1024**2
+ def need(v,m):
+  if not v:raise RuntimeError('STOP_'+m)
+@@ -61,7 +61,10 @@
+  need(g['schema']=='1370-root-fullfunction-qualification-once-grant/v1' and g['scope']=='REAL_FULL_FUNCTION_BOUNDARIES_BASELINE_AND_TYPED_CATCH_MUTANT_ONLY' and g['executionAuthorization'] is True and g['oneAggregateRun'] is True and g['automaticRetry'] is False and g['clockEnforcedByOriginalRecordedRoute'] is True,'ROOT_ONCE_GRANT')
+  need(g['config']==cr and g['bounds']==c['bounds'],'EXACT_CONFIG_BOUNDS')
+  manifest=load(g['sourcePins'],131072);need(manifest['schema']=='1370-fullfunction-qualification-source-pins/v1' and manifest['executionAuthorization'] is False,'SOURCE_MANIFEST')
+- for name,r in manifest['files'].items():need(pathlib.Path(r['path'])==HERE/name,'SOURCE_PATH');read(r)
++ for name,r in manifest['files'].items():
++  if name in c['parserInputs']:need(r==c['parserInputs'][name],'EXACT_EXTERNAL_TESTED_PARSER_ROLE')
++  else:need(pathlib.Path(r['path'])==HERE/name,'SOURCE_PATH')
++  read(r)
+  review=load(g['sourceReview'],131072);need(review['decision']=='ACCEPT_STATIC_REAL_FULL_FUNCTION_QUALIFICATION_ROUTE_SOURCE_ONLY' and review['executionAuthorization'] is False and review['concreteFindings']==[] and review['sourceManifest']==g['sourcePins'],'INDEPENDENT_SOURCE_REVIEW')
+  for name in ['CONFIG.json','run-fullfunction.py','run-fullfunction.mjs','record-fullfunction.py','CORE-TEST-TEMPLATE.ts','CONFIG-TEMPLATE.mts','FULL-BODY-CONTROLS-TEMPLATE.ts','exact-json.mjs','run-parser-controls.mjs']:need(review['sourcePins'][name]==review['routeSourcePins'][name]==manifest['files'][name],'SOURCE_ROLE_ALIASES')
+  need(manifest['files']['run-fullfunction.py']==role(pathlib.Path(__file__).resolve()),'CONTROLLER_SELF')
+@@ -79,9 +82,10 @@
+  need(pathlib.Path(sys.executable).resolve(strict=True)==pathlib.Path(tools['python']['path']),'ACTUAL_PYTHON');need(load(tools['vitestPackage'])['version']=='2.1.9','VITEST_VERSION');need(os.access(tools['node']['path'],os.X_OK),'EXECUTABLE_NODE')
+  source=read(c['proofMethods']);ns={'__name__':'qualified_fullfunction_proof_library','__file__':c['proofMethods']['path'],'_BOOTSTRAP_START':START,'_AUTHORITY':{'laneLock':g['laneLock'],'additionalRefs':g.get('additionalRefs',{})}};exec(compile(source,c['proofMethods']['path'],'exec'),ns)
+  proof_config=dict(proof_config,runId=c['runId'],laneLog=c['laneLog']);ns['CONFIG']=proof_config;run=c['runId'];manifest5=ns['load_m0_authorities']();ns['guard'](run)
++ copied=load(proof_config['sourceAuthorities']['m0CopyParentAdoption']);mirror=pathlib.Path(proof_config['mirrorPath']);need(mirror==pathlib.Path(copied['mirrorPath']) and mirror.is_absolute() and mirror.parent==ns['MIRROR_ROOT'],'AUTHENTIC_ADMITTED_MIRROR_LEAF')
+  need(ns['shutil'].disk_usage(ns['S']).free>=ns['PREFLIGHT'],'ORIGINAL_3_5_GIB_PREFLIGHT')
+  def proofs():
+-  ns['guard'](run);sp=ns['full_source_check'](ns['MIRROR_ROOT'],manifest5,run,True);ns['exact_package_roles'](run);dp=ns['full_dependency_check'](ns['REPO']/'node_modules',run);need(sp==t['freshSourceProof'] and dp==t['freshDependencyProof'],'ACTUAL_CURRENT_FULL_PROOFS');return sp,dp
++  ns['guard'](run);sp=ns['full_source_check'](mirror,manifest5,run,True);ns['exact_package_roles'](run);dp=ns['full_dependency_check'](ns['REPO']/'node_modules',run);need(sp==t['freshSourceProof'] and dp==t['freshDependencyProof'],'ACTUAL_CURRENT_FULL_PROOFS');return sp,dp
+  before_source,before_deps=proofs();out=pathlib.Path(c['outputPath']);need(out.parent==ns['S'] and not os.path.lexists(out),'FRESH_OUTPUT');out.mkdir(mode=0o700)
+  first=write(out/'FIRST-PROOF.json',{'schema':'1370-fullfunction-first-proof/v1','controllerPid':os.getpid(),'grant':gr,'typesAdoption':g['typesAdoption'],'proofMethods':c['proofMethods'],'proofConfig':c['proofConfig'],'sourceProof':before_source,'dependencyProof':before_deps})
+  binding={'controllerPid':os.getpid(),'grant':gr,'firstProof':first,'currentProtection':g['currentProtection'],'schema':'1370-fullfunction-controller-binding/v1','genuineTypesAdoptionAuthenticated':True,'artifactBoundAuthenticated':True,'sourceReviewAuthenticated':True,'typesAdoption':g['typesAdoption'],'artifactBoundAdoption':g['artifactBoundAdoption'],'sourceReview':g['sourceReview'],'operationalHead':c['operationalHead'],'productionSourceTree':c['productionSourceTree'],'outputPath':str(out),'runtimeTools':tools,'remainingSeconds':remaining(),'sourceBefore':before_source,'dependencyBefore':before_deps};br=write(out/'CONTROLLER-BINDING.json',binding)
+@@ -116,7 +120,8 @@
+    fd=os.open(out/(name+'.bin'),os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)
+    with os.fdopen(fd,'wb') as f:f.write(b);f.flush();os.fsync(f.fileno())
+   result={'schema':'1370-real-fullfunction-qualification-result/v1','status':failure or 'PASS_REAL_FULL_FUNCTION_QUALIFICATION_PENDING_FULL_POSTFLIGHT','sourceBefore':before_source,'dependencyBefore':before_deps,'sourceAfter':after_source,'dependencyAfter':after_deps,'actualNodeExit':None if child is None else child.returncode,'nodePid':None if child is None else child.pid,'nodeResult':None if node_result is None else nr,'typesAdoption':g['typesAdoption'],'artifactBoundAdoption':g['artifactBoundAdoption'],'currentProtection':g['currentProtection'],'fixture':None if node_result is None else node_result['fixture'],'actualGameplayPrefixExecuted':True if node_result is not None else (None if node_spawn_attempted else False),'requestedNaturalBoundaryWeeks':[196,197,208],'naturalBoundaryWeeks':None if node_result is None else node_result['naturalBoundaryWeeks'],'syntheticVariantsExplicit':True,'neutralityAccepted':False,'fullProtectedPostflightAccepted':False,'executionAuthorization':False,'elapsedSeconds':time.monotonic()-START,'aggregateChildSeconds':300}
+-  rr=write(out/'RESULT.json',result);remaining();print(json.dumps({'status':result['status'],'result':rr}),flush=True);return 1 if failure else 0
++  rr=write(out/'RESULT.json',result);remaining();print(json.dumps({'status':result['status'],'result':rr}),flush=True)
++ return 1 if failure else 0
+ if __name__=='__main__':
+  try:code=main()
+  except BaseException as exc:print('STOP_FULLFUNCTION '+repr(exc),file=sys.stderr,flush=True);code=1

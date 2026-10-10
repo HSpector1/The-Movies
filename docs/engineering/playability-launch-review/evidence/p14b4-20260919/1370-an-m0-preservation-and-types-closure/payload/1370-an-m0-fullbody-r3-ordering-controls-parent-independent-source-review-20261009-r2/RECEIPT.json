@@ -1,0 +1,50 @@
+{
+  "schema": "1370-r3-ordering-controls-parent-independent-source-review/v1",
+  "decision": "ACCEPT_STATIC_R3_ORDERING_CONTROLS_PARENT_SOURCE_ONLY",
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/SOURCE-PINS.json",
+    "bytes": 3149,
+    "sha256": "30ae3db8d6cf974e85ff5e416ed360a65b004b5cd5945a3289cb1d880c062a7c"
+  },
+  "routeSourcePins": {
+    "launch-ordering-controls.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/launch-ordering-controls.py",
+      "bytes": 10686,
+      "sha256": "44ef7942429e0b42129cc4e16548376260136b65c3e61f83252af39beb6848b8"
+    },
+    "CONTRACT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/CONTRACT.json",
+      "bytes": 3352,
+      "sha256": "c027f9769998bf1c463e83565cb1781353fe82e74f88a81a4ae8c65ca052e056"
+    }
+  },
+  "concreteFindings": [],
+  "executionAuthorization": false,
+  "sourceOnly": true,
+  "predecessorStopPreserved": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-independent-source-stop-20261009-r1/RECEIPT.json",
+    "bytes": 1469,
+    "sha256": "a7b284e3152b0d6ce10079f1411727867bf00da9c0613febd4a69fb910c8bb16"
+  },
+  "verified": [
+    "Every R2 manifest payload hash and encoded-byte count matches, including corrected2184B proof.",
+    "All executable/contract/baseline/diff/sourceproof/lesson bytes identical to R1. Prior bounded review verified ten unchanged predecessor helpers and complete whole-file forward/inverse reconstruction.",
+    "Main authenticates exact external once grant/source adoption/manifest-role parent review and executable-map controls review aliases, physical Python/Node/helper/transpiler, fresh paths, actual PID/PGID/SID durable claim and direct exec.",
+    "One original aggregate recorder300/320/330; separate prep60 canceled immediately before exec; HOME inherited.",
+    "Pure synthetic2positive16specificnegative consumer scope; no current M0/game/realfixture/catch-mutant authority."
+  ],
+  "remainingGenuineFills": [
+    "Root source adoption",
+    "Exact external one-run grant",
+    "Actual execution and independent observed review"
+  ],
+  "limits": [
+    "No generated source executed/imported; no tests, process probes, private inventory or Git.",
+    "Source acceptance does not authorize execution."
+  ],
+  "majorLessons": [
+    "Seal UTF-8 encoded bytes, not Unicode character counts.",
+    "Keep parent manifest-role and child executable-map review contracts explicit.",
+    "Synthetic ordering cases do not establish real full-function fixtures or typed-catch RED."
+  ]
+}

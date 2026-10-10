@@ -1,0 +1,19 @@
+{
+  "schema": "1370-fullfunction-shared-fullpostflight-source-proof/v1",
+  "predecessors": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/run_m0_external_types_r3_fullpostflight_once.py",
+      "bytes": 4814,
+      "sha256": "16d21f15eb90eb3cef57fc66150444dca8569e55c83b9d942c98462e667858ea"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/read_m0_external_types_r3_fullpostflight.py",
+      "bytes": 4737,
+      "sha256": "fde01bcd09a43e90797c4d979bf3884be2869f13e460f14886a8ce8e237e574e"
+    }
+  ],
+  "helperBodiesUnchanged": true,
+  "originalGuardArgumentsAndInventoriesUnchanged": true,
+  "sourceOnly": true,
+  "runtimeExecuted": false
+}

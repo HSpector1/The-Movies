@@ -1,0 +1,17 @@
+{
+  "candidateImported": false,
+  "privateInventory": false,
+  "roles": {
+    "SEAL.json": {
+      "bytes": 12244,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/SEAL.json",
+      "sha256": "3a5cddb09936fd3f2056ea261645808f9aca08293b9b03a85cf85f3ef537cb41"
+    },
+    "SOURCE-PINS.json": {
+      "bytes": 15420,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/SOURCE-PINS.json",
+      "sha256": "4a6a87c20feffe96e08807b605019e8d6caeb896d0a4eb6069f55e8e98cc934f"
+    }
+  },
+  "schema": "1370-finite-retained-source-bytes-readback/v1"
+}

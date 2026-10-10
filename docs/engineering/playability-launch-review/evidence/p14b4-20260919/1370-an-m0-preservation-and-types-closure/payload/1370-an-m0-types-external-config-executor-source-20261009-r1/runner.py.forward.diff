@@ -1,0 +1,185 @@
+--- /Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BASELINE-R6-runner.py	2026-10-09 22:44:59.000000000 -0500
++++ /Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/runner.py	2026-10-09 22:54:33.000000000 -0500
+@@ -3,12 +3,12 @@
+ import argparse, hashlib, json, math, os, pathlib, re, selectors, shutil, signal, stat, subprocess, sys, time, traceback
+ S=pathlib.Path('/Users/zacheryspector/studio-scratch')
+ REPO=pathlib.Path('/Users/zacheryspector/The-Movies-headless-program')
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6')
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1')
+ CONFIG_PATH=P/'CONFIG.json'
+-CONFIG_SHA='f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7'
+-OUT_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3')
++CONFIG_SHA='224b8f1614208215cb07993fc4b015d8438413e95b805c7360105bee0575b154'
++OUT_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r1')
+ MIRROR_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2')
+-CURRENT_HEAD='8cb704e2f18e6a635943893422c9cfdc206e106d'
++CURRENT_HEAD='7087f116cf998fd86e33fb8e004df628e0686dbd'
+ TREE='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554'
+ REF='refs/heads/wip/headless-program-20260916-ts'
+ MAIN_REF='refs/heads/main'
+@@ -458,7 +458,7 @@
+   try:
+    env={k:v for k,v in os.environ.items() if not k.startswith('GIT_')}
+    env.update({'PATH':str(pathlib.Path(NODE).parent)+':/usr/local/bin:/usr/bin:/bin',
+-               'HOME':str(out),'TMPDIR':str(out),'VITEST_CACHE_DIR':str(out/'vitest-cache')})
++               'TMPDIR':str(out),'VITEST_CACHE_DIR':str(out/'vitest-cache')})
+    if extra_env:
+     need(name=='diagnostic-collection' and set(extra_env)=={'PREIMAGE_OUTPUT'} and
+          extra_env['PREIMAGE_OUTPUT']==str(out/'preimage-output'),'unsafe child env override')
+@@ -559,7 +559,11 @@
+   def descend(fd,prefix):
+    nonlocal total,deps_link
+    before=fields(os.fstat(fd));dirrel=prefix[:-1] if prefix else '.'
+-   need(dirrel in directories and normalized(os.fstat(fd))==tuple(directories[dirrel]),'admitted directory metadata '+dirrel)
++   if dirrel=='.':
++    need(fields(os.fstat(fd))==tuple(CONFIG['knownRootDrift']['recordedAfterIdentity']),'exact recorded post-R6 root metadata')
++    need(tuple(directories['.'])==tuple(CONFIG['knownRootDrift']['historicalNormalizedIdentity']),'historical root metadata binding')
++   else:
++    need(dirrel in directories and normalized(os.fstat(fd))==tuple(directories[dirrel]),'admitted directory metadata '+dirrel)
+    seen_dirs.add(dirrel);metadata_rows[dirrel]=list(before)
+    for name in bounded_names(fd,state,CONFIG['entryCap'],run_id):
+     source_step(run_id)
+@@ -602,7 +606,12 @@
+        deps_link is not None and state['entries']==CONFIG['entryCap'],'M0 complete roster/count/bytes/link')
+   need(fields(os.fstat(rootfd))==root_before,'mirror root mutation');verify_dir_chain(mirror,held)
+   meta=b''.join(json.dumps([k,metadata_rows[k]],separators=(',',':')).encode()+b'\n' for k in sorted(metadata_rows,key=lambda x:x.encode()))
++  historical_rows=dict(metadata_rows);historical_rows['.']=CONFIG['knownRootDrift']['recordedBeforeIdentity']
++  historical_meta=b''.join(json.dumps([k,historical_rows[k]],separators=(',',':')).encode()+b'\n' for k in sorted(historical_rows,key=lambda x:x.encode()))
++  nonroot_meta=b''.join(json.dumps([k,metadata_rows[k]],separators=(',',':')).encode()+b'\n' for k in sorted(metadata_rows,key=lambda x:x.encode()) if k!='.')
++  need(sha(historical_meta)==CONFIG['knownRootDrift']['historicalMetadataSha256'] and sha(nonroot_meta)==CONFIG['knownRootDrift']['nonrootMetadataSha256'],'complete historical remainder metadata')
+   return {'fileProofDigestSha256':canonical_proof(proof_rows),'physicalMetadataSha256':sha(meta),
++          'historicalRootSubstitutedMetadataSha256':sha(historical_meta),'nonrootMetadataSha256':sha(nonroot_meta),
+           'mirrorFiles':len(proof_rows),'mirrorBytes':total,'dependencyLink':list(deps_link),'traversedEntries':state['entries'],'mirrorRootIdentity':list(root_before)}
+  finally:close_chain(held)
+ def load_m0_authorities():
+@@ -651,6 +660,82 @@
+    need(len(raw)==row['bytes'] and normalized(os.stat(p.name,dir_fd=held[-1],follow_symlinks=False))==tuple(row['identity']),'dependency package role drift '+path)
+    verify_dir_chain(p.parent,held)
+   finally:close_chain(held)
++def authenticate_post_r6_root():
++ r=AUTHORITY['postR6RootAdoption']
++ need(type(r) is dict and set(r)=={'path','bytes','sha256'} and type(r['bytes']) is int and 0<r['bytes']<=100000,'post-R6 root adoption role')
++ path=pathlib.Path(r['path'])
++ need(path.is_relative_to(S) and not path.is_relative_to(MIRROR_ROOT),'external post-R6 authority path')
++ raw=read_pin(path,r['sha256'],100000);need(len(raw)==r['bytes'],'post-R6 authority bytes')
++ adopted=json.loads(raw);contract=CONFIG['postR6RootAdoptionContract']
++ need(adopted['schema']==contract['schema'] and adopted['status']==contract['status'],'genuine post-R6 diagnostic root adoption')
++ for name,wanted in [('currentRootBaselineQualified',True),('historicalRootUnchanged',False),
++                     ('originalR6StopPreserved',True),('typesAccepted',False),('collectionAccepted',False)]:
++  need(adopted[name] is wanted,'post-R6 diagnostic adoption scope '+name)
++ need(adopted['knownRootDrift']==CONFIG['knownRootDrift'] and
++      adopted['freshSourceProof']==AUTHORITY['freshSourceProof'] and
++      adopted['freshDependencyProof']==AUTHORITY['freshDependencyProof'],'post-R6 exact current root/proofs')
++ need(adopted['freshSourceProof']['mirrorRootIdentity']==CONFIG['knownRootDrift']['recordedAfterIdentity'] and
++      adopted['freshSourceProof']['historicalRootSubstitutedMetadataSha256']==CONFIG['knownRootDrift']['historicalMetadataSha256'] and
++      adopted['freshSourceProof']['nonrootMetadataSha256']==CONFIG['knownRootDrift']['nonrootMetadataSha256'],'post-R6 complete historical remainder')
++ for name in ('diagnosticObservedReview','actualResult','fullPostflightSnapshot'):
++  role=adopted[name]
++  need(type(role) is dict and set(role)=={'path','bytes','sha256'} and type(role['bytes']) is int and role['bytes']>0 and
++       pathlib.Path(role['path']).is_relative_to(S) and not pathlib.Path(role['path']).is_relative_to(MIRROR_ROOT) and
++       re.fullmatch('[0-9a-f]{64}',role['sha256'] or ''),'genuine retained diagnostic role '+name)
++ return r
++
++def prepare_external_configs(out,run_id):
++ """Fresh writable config copies only outside the complete protected mirror."""
++ spec=CONFIG['externalCollectionConfig'];target=out/'external-config'
++ need(target==pathlib.Path(spec['runtimeDirectory']) and target.is_relative_to(S) and
++      not target.is_relative_to(MIRROR_ROOT) and not os.path.lexists(target),'fresh external config directory')
++ need(spec['moduleLinkTarget']==str(REPO/'node_modules') and
++      pathlib.Path(spec['cacheDirectory'])==target/'cache','external module/cache resolution target')
++ held=open_dir_chain(out)
++ try:
++  os.mkdir(target.name,0o700,dir_fd=held[-1]);verify_dir_chain(out,held)
++ finally:close_chain(held)
++ held=open_dir_chain(target)
++ try:
++  fd=held[-1];os.mkdir('cache',0o700,dir_fd=fd)
++  os.symlink(spec['moduleLinkTarget'],'node_modules',dir_fd=fd)
++  written={}
++  for key,name in [('rootTemplate',spec['rootFilename']),('workspaceTemplate',spec['workspaceFilename'])]:
++   need(name in ('root-config.mts','workspace-config.mts'),'external config filename')
++   r=spec[key];need(pathlib.Path(r['path']).parent==P and type(r['bytes']) is int and 0<r['bytes']<10000,'source config template role')
++   raw=read_pin(pathlib.Path(r['path']),r['sha256'],10000);need(len(raw)==r['bytes'],'external template bytes')
++   filefd=os.open(name,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600,dir_fd=fd)
++   try:
++    view=memoryview(raw)
++    while view:remaining();view=view[os.write(filefd,view):]
++    os.fsync(filefd)
++   finally:os.close(filefd)
++   proof=stable_output(target/name,10000,True)
++   need(proof['bytes']==r['bytes'] and proof['sha256']==r['sha256'] and proof['body']==raw,'external config copy readback')
++   written[key]={'path':str(target/name),'bytes':r['bytes'],'sha256':r['sha256']}
++  os.fsync(fd);verify_dir_chain(target,held)
++ finally:close_chain(held)
++ return {'schema':'1370-m0-external-config-runtime-copies/v1','directory':str(target),
++         'moduleLinkTarget':spec['moduleLinkTarget'],'cacheDirectory':spec['cacheDirectory'],'files':written}
++
++
++def verify_external_configs(copies,run_id):
++ """Authenticate retained config bytes; temp sibling activity is allowed only externally."""
++ spec=CONFIG['externalCollectionConfig'];target=pathlib.Path(copies['directory']);held=open_dir_chain(target)
++ try:
++  fd=held[-1];link=os.stat('node_modules',dir_fd=fd,follow_symlinks=False)
++  need(stat.S_ISLNK(link.st_mode) and link.st_nlink==1 and os.readlink('node_modules',dir_fd=fd)==spec['moduleLinkTarget'],'external dependency link drift')
++  for key in ('rootTemplate','workspaceTemplate'):
++   source_step(run_id);r=copies['files'][key];wanted=spec[key]
++   need(pathlib.Path(r['path']).parent==target and r['bytes']==wanted['bytes'] and r['sha256']==wanted['sha256'],'external config role drift')
++   got=stable_output(pathlib.Path(r['path']),10000)
++   need(got['bytes']==r['bytes'] and got['sha256']==r['sha256'],'external config bytes changed')
++  verify_dir_chain(target,held)
++ finally:close_chain(held)
++ return copies
++
++
++
+ def main():
+  global CONFIG
+  signal.signal(signal.SIGTERM,on_signal);signal.signal(signal.SIGINT,on_signal)
+@@ -658,6 +743,7 @@
+  CONFIG=json.loads(read_pin(CONFIG_PATH,CONFIG_SHA,100000))
+  run_id=CONFIG['runId'];mirror=pathlib.Path(CONFIG['mirrorPath']);out=OUT_ROOT/run_id
+  need(mirror==pathlib.Path(AUTHORITY['mirrorPath']) and not os.path.lexists(out),'mirror role/output collision')
++ post_r6_adoption=authenticate_post_r6_root()
+  guard(run_id);need(shutil.disk_usage(S).free>=PREFLIGHT,'3.5 GiB preflight')
+  manifest=load_m0_authorities()
+  source_before=full_source_check(mirror,manifest,run_id,True)
+@@ -674,9 +760,12 @@
+          'physicalFactsSha256':CONFIG['sourceAuthorities']['m0PhysicalFacts']['sha256'],
+          'h13MetadataStopSha256':CONFIG['sourceAuthorities']['typeObservedHStop']['sha256'],'h13MetadataStopWaived':False,
+          'currentProtectionSha256':AUTHORITY['currentProtection']['sha256'],'actualGrantSha256':AUTHORITY['actualGrant']['sha256'],
++         'postR6RootAdoption':post_r6_adoption,'originalR6StopPreserved':True,'historicalRootUnchanged':False,
+          'sourceBefore':source_before,'nodeModulesBefore':dep_before,'children':[],'gameAccepted':False}
++ copies=None
+  try:
+   guard(run_id)
++  copies=prepare_external_configs(out,run_id);record['externalConfigCopies']=copies
+   node=NODE;tsc=str(REPO/'node_modules/.bin/tsc');vitest=str(REPO/'node_modules/.bin/vitest')
+   dependency_check=str(P/'check-deps.mjs')
+   read_pin(pathlib.Path(dependency_check),DEPS_CHECK_SHA,100000)
+@@ -685,7 +774,7 @@
+       ('dependency-versions',[node,dependency_check,str(mirror),str(REPO),LOCK_SHA]),
+       ('root-tsc',[tsc,'--noEmit','--allowImportingTsExtensions']),
+       ('ui-tsc',[tsc,'-p','ui/tsconfig.json','--noEmit']),
+-      ('diagnostic-collection',[vitest,'list','tests/diagnostic.test.ts','--project','core','--json',str(out/'collection.json'),'--no-cache'])]:
++      ('diagnostic-collection',[vitest,'list','tests/diagnostic.test.ts','--config',copies['files']['rootTemplate']['path'],'--workspace',copies['files']['workspaceTemplate']['path'],'--project','core','--json',str(out/'collection.json'),'--no-cache'])]:
+    before_child=root_checkpoint(mirror,run_id)
+    boundary={'name':name,'before':before_child,'after':None}
+    record.setdefault('rootChildBoundaries',[]).append(boundary)
+@@ -712,7 +801,8 @@
+   collection=out/'collection.json'
+   collected=stable_output(collection,MAX_COLLECTION,True)
+   raw=collected['body'];parsed=json.loads(raw)
+-  need('tests/diagnostic.test.ts' in json.dumps(parsed) and len(raw)>10,'diagnostic test not collected')
++  need(parsed==[{"name":"records the full p13a original digest preimages","file":"/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/tests/diagnostic.test.ts","projectName":"core"}],'exact original diagnostic collection identity/count/project')
++  record['collectionIdentities']=parsed;record['collectionCount']=len(parsed)
+   record['collectionSha256']=collected['sha256'];record['collectionBytes']=collected['bytes']
+   need(full_source_check(mirror,manifest,run_id,True)==source_before,'source content or metadata changed during checks')
+   guard(run_id)
+@@ -723,6 +813,7 @@
+  finally:
+   record['groupAlternateProofs']=GROUP_ALTERNATE_PROOFS
+   try:
++   if copies is not None:record['externalConfigCopiesAfter']=verify_external_configs(copies,run_id)
+    record['sourceAfter']=full_source_check(mirror,manifest,run_id,True)
+    record['nodeModulesAfter']=full_dependency_check(prod_deps,run_id)
+    if record['sourceAfter']!=source_before or record['nodeModulesAfter']!=dep_before:

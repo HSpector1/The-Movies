@@ -1,0 +1,21 @@
+{
+  "schema": "1370-root-approved-cache-cleanup-actual-tool/v1",
+  "sessionId": 22198,
+  "allToolChunks": [
+    {
+      "chunk_id": "1a4272",
+      "wall_time_seconds": 1.001416377,
+      "session_id": 22198,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "e65c48",
+      "wall_time_seconds": 0.000018043,
+      "exit_code": 0,
+      "original_token_count": 71,
+      "output": "{\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-approved-vscode-cache-cleanup-20261009-r1/RESULT.json\", \"bytes\": 1622, \"sha256\": \"1bcf5bfa467b2003a4160b6425991984bc4809b0a0c2fad37b2943a85a5eb1d3\"}\n{\"freeBytes\": 4268802048, \"reclaimedBytes\": 1476890624, \"updaterExited\": true}\n"
+    }
+  ],
+  "finalExit": 0
+}

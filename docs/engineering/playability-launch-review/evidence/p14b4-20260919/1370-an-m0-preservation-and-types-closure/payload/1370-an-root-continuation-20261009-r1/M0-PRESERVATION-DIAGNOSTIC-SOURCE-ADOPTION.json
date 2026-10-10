@@ -1,0 +1,40 @@
+{
+  "actualDiagnosticAccepted": false,
+  "controlsRootAdoption": {
+    "bytes": 8126,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/DISPOSABLE-METADATA-PAIR-OBSERVED-ADOPTION.json",
+    "sha256": "9badcf90e1e70153c5a51a9cf27ec3be1e889304188750b573bea422b33c5c01"
+  },
+  "currentAMPreflightAdoption": {
+    "bytes": 4459,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/CURRENT-AM-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "ac3c336fcf4c57b4de25a2d03fe4642719e7137d34ffe24d2106a8210ecc1612"
+  },
+  "executionAuthorization": false,
+  "game": false,
+  "originalR6StopPreserved": true,
+  "parentSourcePins": {
+    "bytes": 3626,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "38648e516daf240705f6583a580594d947835240e73e1bb53b8105252e67276b"
+  },
+  "parentSourceReview": {
+    "bytes": 10603,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-independent-source-review-20261009-r2/RECEIPT.json",
+    "sha256": "c6aa159c8404f4587711c9bfaac08178f8a8fb3865f00d22ac9c29e3936a6434"
+  },
+  "schema": "1370-an-root-m0-preservation-diagnostic-source-adoption/v1",
+  "scope": "Complete historical content/nonroot/dependencies audit with only separately recorded post-R6 root tuple. Original before-root identity remains historical; new root baseline needs actual diagnostic, full postflight and independent observed adoption.",
+  "sourcePins": {
+    "bytes": 14200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "42611a6faecc6b13e7b8a18cfef210b06d7167bb3e2a23d08862db65c4531262"
+  },
+  "sourceReview": {
+    "bytes": 36937,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-independent-source-review-20261009-r2/RECEIPT.json",
+    "sha256": "69c21815277b22aedf9c6c222a8fac25f265296e473de9973f21999ec4f03d8d"
+  },
+  "status": "ROOT_ADOPTED_M0_PRESERVATION_DIAGNOSTIC_EXECUTOR_AND_PARENT_SOURCE",
+  "typesAccepted": false
+}

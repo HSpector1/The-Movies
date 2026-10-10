@@ -1,0 +1,134 @@
+{
+  "actualObservedReview": null,
+  "actualResult": null,
+  "actualRootGrant": null,
+  "actualRootSourceAdoption": null,
+  "actualSourceReview": null,
+  "actualTool": null,
+  "executionAuthorization": false,
+  "externalInputs": {
+    "CONTROLS-CONTRACT.json": {
+      "bytes": 5260,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "09fb4555708c5ccfe2ed79265789baeca5c6d350bbd1045a86d55deb9a5b1ce5"
+    },
+    "MATRIX.json": {
+      "bytes": 7851,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "7fe45df7b9e2702450bb1b538ac7e6ffbce5196d688eaac6f7d47a64d973638f"
+    },
+    "ORDERING-SOURCE-CASES.json": {
+      "bytes": 27476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+      "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+    },
+    "m0TraceCodec.mjs": {
+      "bytes": 7882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+    },
+    "m0WiringProbe.ts": {
+      "bytes": 1800,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0WiringProbe.ts",
+      "sha256": "c3da292f943a37ae5c3c30005dfec71eb485bf17a211ecfddaa03efe0460c5a9"
+    },
+    "ordering-source-controls.ts": {
+      "bytes": 2941,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/ordering-source-controls.ts",
+      "sha256": "7fd03b25ea5c258584652c051d7ffab977d5380824043be233f375f17944f0f5"
+    },
+    "ordering.ts": {
+      "bytes": 11927,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/ordering.ts",
+      "sha256": "8599945b1c3057ebb777ffcf56c55ddc30121b505f6ec29dacbc87aef216a803"
+    },
+    "run-lossless-controls.mjs": {
+      "bytes": 16090,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/run-lossless-controls.mjs",
+      "sha256": "2333bedb5974313c3885ce679b6385ff6f995cd68e8e7107c0e0f45a2e5f9be8"
+    },
+    "traceSequences.mjs": {
+      "bytes": 1286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    }
+  },
+  "files": {
+    "BASE-launch-parser-controls.py.txt": {
+      "bytes": 10637,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/BASE-launch-parser-controls.py.txt",
+      "sha256": "e55ac0f04dcbd66626165897dceff0607ada7336e293bf7cd4724d74d5e94197"
+    },
+    "BASE-record-parser-controls.py.txt": {
+      "bytes": 15872,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/BASE-record-parser-controls.py.txt",
+      "sha256": "d7d3b9c901cc3ea4c13817e03e78a312815465770f7f5450e07d8f4bdeabc1e8"
+    },
+    "CONFIG.json": {
+      "bytes": 7933,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/CONFIG.json",
+      "sha256": "24fb559ed249ce928fbc5f476ec431d92c4b8bd9398d093fa70156a7ec6745c3"
+    },
+    "CONTRACT.json": {
+      "bytes": 5571,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/CONTRACT.json",
+      "sha256": "d79a9de6f0bfe7b318fff334cfe1f9e923996f83890bb13dd31104bebefd9eb4"
+    },
+    "LESSONS.txt": {
+      "bytes": 468,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/LESSONS.txt",
+      "sha256": "f7be7aafbaece1ca281c702d330b82619afacfa85f4fe2420f48e9aa9da1c5bb"
+    },
+    "R1-SOURCE-STOP.json": {
+      "bytes": 659,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/R1-SOURCE-STOP.json",
+      "sha256": "6253938cf3d5aa61a904fcc63162036bcb67ed0a4244179fc8e7256bc7a85bee"
+    },
+    "RECIPE.json": {
+      "bytes": 9629,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/RECIPE.json",
+      "sha256": "a2b53e875ad3505b8404d414e570240150939339d8004c714ba2e01c36361dfd"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 4556,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/SOURCE-PROOF.json",
+      "sha256": "9a6f744834ee0c081b9638618fc8d65724ed6aeb09940896ca904c13688360ad"
+    },
+    "launch-lossless-controls.py": {
+      "bytes": 11510,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/launch-lossless-controls.py",
+      "sha256": "3ea515ac04ae75c617daaef7d865811b3c00f841a3a6d297821c6f10b2c1c697"
+    },
+    "launch-lossless-controls.py.forward.diff": {
+      "bytes": 12417,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/launch-lossless-controls.py.forward.diff",
+      "sha256": "e66f46106bb16617571d13c4d92dddd93dd3de51e056b55ca654c248d49f8634"
+    },
+    "launch-lossless-controls.py.inverse.diff": {
+      "bytes": 12417,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/launch-lossless-controls.py.inverse.diff",
+      "sha256": "943c2914a0cd5683c9ddf578eef0d230c49c297314054ebde1bc5565523fbf52"
+    },
+    "record-lossless-controls.py": {
+      "bytes": 17454,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/record-lossless-controls.py",
+      "sha256": "92c593f8e130dafbdf57373be956014c68d3ba3b0b1b58929a5f965b86049337"
+    },
+    "record-lossless-controls.py.forward.diff": {
+      "bytes": 10219,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/record-lossless-controls.py.forward.diff",
+      "sha256": "994b1e695300dd6531119aa0e37b042b2fe2c2848b753ba5d76a9567d8e42d09"
+    },
+    "record-lossless-controls.py.inverse.diff": {
+      "bytes": 10219,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/record-lossless-controls.py.inverse.diff",
+      "sha256": "027e21b694b342b62ade34101599ed1e690ceee56d6e7b53abf1659cc7c24f2a"
+    },
+    "run-lossless-recorded-controls.mjs": {
+      "bytes": 13369,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/run-lossless-recorded-controls.mjs",
+      "sha256": "6473d8ba2631da787c9d1b66df3eefcb09959974c4ce34ed94f4e5f3cd4f9024"
+    }
+  },
+  "schema": "1370-lossless-trace-pure-controls-recorded-route-source-pins/v1"
+}

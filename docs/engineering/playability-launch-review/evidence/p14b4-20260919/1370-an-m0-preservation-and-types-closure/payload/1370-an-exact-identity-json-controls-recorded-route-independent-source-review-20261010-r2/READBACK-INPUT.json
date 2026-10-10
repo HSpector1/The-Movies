@@ -1,0 +1,22 @@
+{
+  "paths": [
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/SEAL.json",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/BASE-launch-ordering-controls.py.txt",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/BASE-record-ordering-controls.py.txt",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/CONFIG.json",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/CONTRACT.json",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/LESSONS.txt",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/RECIPE.json",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/SOURCE-PROOF.json",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/launch-parser-controls.py",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/parent.forward.diff",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/parent.inverse.diff",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/record-parser-controls.py",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/recorder.forward.diff",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/recorder.inverse.diff",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs"
+  ],
+  "output": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-independent-source-review-20261010-r2/SOURCE-READBACK.json"
+}

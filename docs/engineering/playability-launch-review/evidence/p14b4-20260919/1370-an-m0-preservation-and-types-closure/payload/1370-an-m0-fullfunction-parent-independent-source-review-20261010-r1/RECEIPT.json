@@ -1,0 +1,159 @@
+{
+  "baseSource": {
+    "bytes": 10686,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/launch-ordering-controls.py",
+    "sha256": "44ef7942429e0b42129cc4e16548376260136b65c3e61f83252af39beb6848b8"
+  },
+  "builder": {
+    "bytes": 11666,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/prepare_fullfunction_parent_source.py",
+    "sha256": "00808dc17a259f31f6f49f76daabca7e21fe08d00e7f1d1360b278316bdef1ec"
+  },
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_FULLFUNCTION_ONCE_PARENT_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "genuineTypesAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  },
+  "majorLessons": [
+    "Separate preparation timers from recorder aggregate runtime; exclusive grant/claim creation plus eventual actual exits and cleanup determine admission.",
+    "Pin future prerequisites as external real roles after they exist; static source acceptance cannot manufacture parser/prelaunch outcome.",
+    "Keep source self-manifest and executable alias contracts exact across parent and recorder."
+  ],
+  "originalHelper": {
+    "bytes": 3361,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+  },
+  "qualifications": [
+    "This is independent review of root-authored parent main and preserved helpers only. B109 independently reviews full R6 route; this receipt does not substitute for that review.",
+    "Root binding/currentProtection/parserControlsAdoption and actual runtime roles remain genuine future fills; no executable run or fixture/catch-mutant/game result is admitted here.",
+    "Original r8 may wait on lock/heavy detection; any unexpected helper wait is STOP for observed admission. There is no claimed wall bound on original helper waiting or logging.",
+    "Historical root drift and all earlier STOPs remain unchanged; only independently adopted current root protection can authorize a later exact run."
+  ],
+  "reviewMethod": {
+    "candidateImports": false,
+    "gitMutation": false,
+    "privateM0Traversal": false,
+    "processProbes": false,
+    "readOnlyNamedSourcesAndRetainedPublicEvidence": true,
+    "runtime": false
+  },
+  "routeManifestForInterfaceReview": {
+    "bytes": 22347,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r6/SOURCE-PINS.json",
+    "sha256": "f074ef495be6e3356baa5ebc61d22b2f6753a8a30d76be236c0d63c0681e73bc"
+  },
+  "routeRolesReadForInterfaceReview": {
+    "CONFIG.json": {
+      "bytes": 6279,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r6/CONFIG.json",
+      "sha256": "72095e91d42496e16f0394bab62e0253749debd547561c74ee48405916e566e7"
+    },
+    "record-fullfunction.py": {
+      "bytes": 16750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r6/record-fullfunction.py",
+      "sha256": "936f576e38f88832c9ef5d3f3f73d5777853a9b411d659661c979cbfca3a2e1e"
+    },
+    "run-fullfunction.py": {
+      "bytes": 15931,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r6/run-fullfunction.py",
+      "sha256": "69bfa6f9f0fe890e81c03be4533aca96715b202012d6040cea0670577af855c3"
+    }
+  },
+  "routeSourcePins": {
+    "BASE-ordering-parent.py.txt": {
+      "bytes": 10686,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r1/BASE-ordering-parent.py.txt",
+      "sha256": "44ef7942429e0b42129cc4e16548376260136b65c3e61f83252af39beb6848b8"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 2302,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r1/SOURCE-PROOF.json",
+      "sha256": "1d461fba0c51f0698ffb4e07618ff252ec61778803ee0658492ce41ea4ea5f05"
+    },
+    "launch-fullfunction.py": {
+      "bytes": 11699,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r1/launch-fullfunction.py",
+      "sha256": "6019f717cbddc322541c10d41b7fda5869751df95fe8c6ef2f45443bd9660f82"
+    }
+  },
+  "schema": "1370-fullfunction-once-parent-independent-source-review/v1",
+  "sourceManifest": {
+    "bytes": 922,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "522109288f54a5a08a758ef58175ca670bbd8d76a4e78b98098c35753c3b9aeb"
+  },
+  "sourceOnly": true,
+  "sourcePins": {
+    "bytes": 922,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "522109288f54a5a08a758ef58175ca670bbd8d76a4e78b98098c35753c3b9aeb"
+  },
+  "unchangedHelpers": {
+    "authenticate": {
+      "byteExact": true,
+      "bytes": 403,
+      "sha256": "8e7ae763311522676148fc4587897808fe92e9f88ec6447c932bd24e7a7b94ef"
+    },
+    "exact": {
+      "byteExact": true,
+      "bytes": 235,
+      "sha256": "29cce380d194f185b309f3e5396cc861ac80b31d18b4597b51f8ca2d7d60ca78"
+    },
+    "load": {
+      "byteExact": true,
+      "bytes": 344,
+      "sha256": "25dfa0234be498affc25fc4fa3ab0f94226b5d8e2200b5ed4d820a6d156dbfa0"
+    },
+    "metadata": {
+      "byteExact": true,
+      "bytes": 109,
+      "sha256": "98b8e811b56c6420468977fbd8e3fefd1fc3356f60b4b0b7fea75d74d7001ab1"
+    },
+    "pairs": {
+      "byteExact": true,
+      "bytes": 117,
+      "sha256": "9f7611a7011a1d91799d90b598207668e8bedc4a2d977f01f5ac34659e8ab688"
+    },
+    "prep_timeout": {
+      "byteExact": true,
+      "bytes": 80,
+      "sha256": "cbfebbaf53aeec5cbc463040fbf563f1589c4654bf634f9b51556d1b7612f06b"
+    },
+    "remaining": {
+      "byteExact": true,
+      "bytes": 103,
+      "sha256": "0be52242fd6133fb9faf5f53ac888ed94718ce777a82c93c451fe1be2f4108f3"
+    },
+    "require": {
+      "byteExact": true,
+      "bytes": 71,
+      "sha256": "ddf8d661efb7a5cfc567f2e044736852767018d3d47720be887f3bb4c7f959f0"
+    },
+    "role": {
+      "byteExact": true,
+      "bytes": 711,
+      "sha256": "0d33295e9a00fb23003a5baaca4adb1d777789bd41d1e26e6715e0419a84da97"
+    },
+    "write": {
+      "byteExact": true,
+      "bytes": 244,
+      "sha256": "e4569be3e32748fe774795f98bc482dcd42bd7d3cc8fdc1acbebb4b5b37ae59c"
+    }
+  },
+  "utc": "2026-10-10T05:07:03.727245+00:00",
+  "verified": [
+    "All three manifest roles match retained encoded byte counts and SHA256; ten inherited helper source bodies exactly match accepted ordering parent44ef.",
+    "New main authenticates external once-binding schema/authorization/no-retry, parent self-manifest and independent sourceManifest review, entire route manifest, nine source review aliases and exact current-AM config.",
+    "Successful actual types adoption matches current AM/source and collection/fullpost/lane release. Future currentProtection must bind the same types adoption/fullpost, authenticated actualPreflight and independentPreflightReview roles, continuous freeze and current refs.",
+    "Parser adoption must have actualExit integer0 and bind the exact parser/control source bytes; artifact adoption must be64MiB/one packet/ten serializations/operational bound. Controller further authenticates these same prerequisite schemas/review roles; source acceptance alone grants no runtime.",
+    "Outer uses one original r8 helper after free lane/fresh log/meta/parent/output checks; emits actual own PID=PGID=SID, durable root claim and exact argv before direct exec.",
+    "Inner has its own exact PID=PGID=SID, authenticates the same root binding/claim, captures and authenticates actual original lane-lock marker, exclusively writes EXECUTION-GRANT and recorder claim before direct physical-Python recorder exec.",
+    "Generated grant keys/schema/scope/config/bounds/source/runtimeTools/prerequisites/laneLock match actual R6 recorder and controller consumers. Fullfunction controller supplies this laneLock to its inherited preservation guard.",
+    "Outer and inner each enforce separate prep60 and cancel immediately before exec; original recorder300/320/330 remains sole aggregate runtime authority. No invented combined deadline/parent logging cap.",
+    "HOME inherited; environment binds only no-bytecode and optional Git locks0; no new inventory, cleanup signals or workload methods."
+  ]
+}

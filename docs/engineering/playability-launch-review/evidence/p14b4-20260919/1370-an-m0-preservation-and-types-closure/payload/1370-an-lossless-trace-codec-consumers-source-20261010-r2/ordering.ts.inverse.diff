@@ -1,0 +1,49 @@
+--- current/ordering.ts
++++ baseline/ordering.ts
+@@ -1,23 +1,14 @@
+ import assert from 'node:assert/strict'
+-import {TraceSequence,traceSequence} from './traceSequences.mjs'
+ type Row={sequence:number;week:number;phase:string;issuerStudioId:string|null;detail:any}
+ type Ref={digest:string;proposalSourceIndex:number;proposalOccurrence:number}
+ const key=(r:Ref)=>JSON.stringify(r)
+-function exactly(actual:unknown,expected:unknown,label:string){
+- if(actual instanceof TraceSequence||expected instanceof TraceSequence){
+-  assert.ok(Array.isArray(actual)||actual instanceof TraceSequence,label)
+-  assert.ok(Array.isArray(expected)||expected instanceof TraceSequence,label)
+-  const a=(actual as Iterable<unknown>)[Symbol.iterator](),b=(expected as Iterable<unknown>)[Symbol.iterator]()
+-  for(;;){const x=a.next(),y=b.next();assert.equal(x.done,y.done,label);if(x.done)return;assert.deepEqual(x.value,y.value,label)}
+- }
+- assert.deepEqual(actual,expected,label)
+-}
++function exactly(actual:unknown,expected:unknown,label:string){assert.deepEqual(actual,expected,label)}
+ 
+ // Exact unchanged m0FreezeOrder from the complete talentMarket producer.
+ const FREEZE_ORDER=['issuerNotEntered','retirementCap','issuerDistrusted','nemesisOnRoster',
+   'subjectCommittedElsewhere','startWeekMoved','noSeatForRole','belowAsk',
+   'belowRetirementReservation','materialTermsChanged','promiseNotFeasible','bonusUnaffordable'] as const
+-export function assertFreezePredicateOrdering(marketValues:readonly unknown[],freezeValues:readonly unknown[],refs:readonly Ref[]|TraceSequence):void{
++export function assertFreezePredicateOrdering(marketValues:readonly unknown[],freezeValues:readonly unknown[],refs:readonly Ref[]):void{
+   const market=marketValues as Row[],freezes=freezeValues as Row[]
+   assert.equal(freezes.length,refs.length,'one freeze identity per submitted proposal')
+   const predicates=market.filter(row=>row.phase==='freezePredicate')
+@@ -52,9 +43,9 @@
+ }
+ 
+ export function assertFullProjectionOrdering(probe:any,marketValues:readonly unknown[],feasibilityValues:readonly unknown[]):void{
+-  const market=marketValues as Row[],sources=traceSequence(()=>probe.calls()).filter((c:any)=>c.name==='m0SourceArrays').map((c:any)=>c.detail)
++  const market=marketValues as Row[],sources=probe.calls.filter((c:any)=>c.name==='m0SourceArrays').map((c:any)=>c.detail)
+   const tupleRows=(feasibilityValues as any[]).filter(row=>row.kind==='inputTuple')
+-  const evaluated=traceSequence(()=>probe.evaluations()).filter((e:any)=>e.context!==null).map((e:any)=>e.context)
++  const evaluated=probe.evaluations.filter((e:any)=>e.context!==null).map((e:any)=>e.context)
+   exactly(tupleRows.map(r=>r.context),evaluated,'every tuple follows the actual evaluation order')
+   for(const context of evaluated)assert.ok(sources.some((s:any)=>JSON.stringify(s.context)===JSON.stringify(context)),
+     'every actual evaluation binds an authenticated source-array projection')
+@@ -90,7 +81,7 @@
+   assert.equal(freezeSources.length,freezes.length,'one real attached-feasibility quote slot per submitted proposal')
+   // A proposal with no attached promise has no input tuple. Its source slot is
+   // still projected by m0Capture; actual evaluations below use only promise slots.
+-  const freezeRefs=freezeSources.map((s:any)=>({digest:s.proposals[s.context.proposalSourceIndex].digest,
++  const freezeRefs:Ref[]=freezeSources.map((s:any)=>({digest:s.proposals[s.context.proposalSourceIndex].digest,
+     proposalSourceIndex:s.context.proposalSourceIndex,proposalOccurrence:s.context.proposalOccurrence}))
+   exactly(freezes.map(row=>row.issuerStudioId),freezeSources.map((source:any)=>source.context.issuer),'freeze issuer binds actual source context')
+   assertFreezePredicateOrdering(market,freezes,freezeRefs)

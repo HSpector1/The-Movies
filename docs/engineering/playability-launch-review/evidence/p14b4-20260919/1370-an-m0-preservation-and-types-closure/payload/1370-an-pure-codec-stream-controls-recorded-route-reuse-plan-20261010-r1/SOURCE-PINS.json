@@ -1,0 +1,21 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "BASE-AUTHENTICATION.json": {
+      "bytes": 6382,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-pure-codec-stream-controls-recorded-route-reuse-plan-20261010-r1/BASE-AUTHENTICATION.json",
+      "sha256": "9941468c3c6af5f554a728122c8bbbe1f0b15e89f71168db0576d0eb37002ad3"
+    },
+    "PLAN.json": {
+      "bytes": 13804,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-pure-codec-stream-controls-recorded-route-reuse-plan-20261010-r1/PLAN.json",
+      "sha256": "82951ac6cd5229cc770196d47f7cd7b2521767de1c52f143aa8808f7c50deacb"
+    },
+    "prepare-plan.py": {
+      "bytes": 11701,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-pure-codec-stream-controls-recorded-route-reuse-plan-20261010-r1/prepare-plan.py",
+      "sha256": "f1867ba25296b123081edd6c7a05f28dff46c968fe57cc844bfc42eb667ac54d"
+    }
+  },
+  "schema": "1370-source-only-pure-controls-route-reuse-plan-pins/v1"
+}

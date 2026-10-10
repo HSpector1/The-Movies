@@ -1,0 +1,17 @@
+{
+  "actualFitMeasured": false,
+  "bound": {
+    "bytes": 2172,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULL-STATE-FIXTURE-ARTIFACT-BOUND.json",
+    "sha256": "186c55ff7381787d3abe401e175d8c1c468be5bfb5e8ef169f89d7c94a0bc546"
+  },
+  "executionAuthorization": false,
+  "independentSourceReview": {
+    "bytes": 2713,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-full-state-fixture-artifact-bound-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "3e743cf1d08b01c4d86b802d481c7d92360f02ddcbc0b54db1d02050b9ae166c"
+  },
+  "schema": "1370-root-full-state-fixture-artifact-bound-review-adoption/v1",
+  "sourceAndTimeLimitsUnchanged": true,
+  "status": "ROOT_ADOPTED_INDEPENDENTLY_REVIEWED_OPERATIONAL_FIXTURE_BOUND_ONLY"
+}

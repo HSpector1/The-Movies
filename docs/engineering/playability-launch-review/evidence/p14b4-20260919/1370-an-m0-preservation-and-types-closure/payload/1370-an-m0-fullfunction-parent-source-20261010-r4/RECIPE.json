@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "<physical pinned PY>",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r4/launch-fullfunction.py",
+    "outer",
+    "<genuine root binding path>",
+    "<binding SHA256>"
+  ],
+  "combinedPreparationRuntimeDeadline": null,
+  "executionAuthorization": false,
+  "freshParentPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r4",
+  "futureBinding": null,
+  "futureRouteSourcePins": null,
+  "futureSourceReview": null,
+  "innerArgvOwnedByOriginalOuter": true,
+  "mode": "Source-only parent path derivative; root owns independent review and actual external once binding.",
+  "noActualExecutionAuthority": true,
+  "originalPreparationCanceledBeforeDirectExec": true,
+  "originalRuntimeSeconds": {
+    "activeRecorder": 320,
+    "aggregateChild": 300,
+    "wholeRecorder": 330
+  },
+  "originalSeparatePreparationSecondsPerStage": 60,
+  "schema": "1370-fullfunction-fresh-attempt4-parent-source-recipe/v1",
+  "sourceManifestReviewDecision": "ACCEPT_STATIC_FULLFUNCTION_ONCE_PARENT_SOURCE_ONLY",
+  "unchangedTestedParserAllowlist": "Only the exact tested F7 helper/control roles matched to actual CONFIG.parserInputs are external; all other route roles local."
+}

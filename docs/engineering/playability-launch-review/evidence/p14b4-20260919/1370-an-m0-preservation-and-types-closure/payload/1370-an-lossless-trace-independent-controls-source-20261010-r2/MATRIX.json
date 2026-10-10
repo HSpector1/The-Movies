@@ -1,0 +1,253 @@
+{
+  "cases": [
+    {
+      "expected": "GREEN",
+      "id": "exact-literals-order-multiplicity-GREEN",
+      "predicate": "exact expanded JSON, Unicode/NUL/newline, canonical string and duplicates"
+    },
+    {
+      "expected": "GREEN",
+      "id": "independent-snapshots-caller-and-decoded-mutation-GREEN",
+      "predicate": "old snapshot survives fresh store and external mutations"
+    },
+    {
+      "expected": "RED",
+      "id": "closed-api-error-sticky-RED",
+      "predicate": "STORE_CLOSED invalidates store and saved snapshot even if swallowed"
+    },
+    {
+      "expected": "GREEN",
+      "id": "actual-probe-begin-end-reset-GREEN",
+      "predicate": "public probe snapshots coexist across capture modes and overflow reset"
+    },
+    {
+      "expected": "GREEN",
+      "id": "import-owns-header-frame-inputs-GREEN",
+      "predicate": "defensive ownership excludes input mutation"
+    },
+    {
+      "expected": "GREEN",
+      "id": "expanded65536-GREEN",
+      "predicate": "exact admitted expanded-row boundary includes newline"
+    },
+    {
+      "expected": "GREEN",
+      "id": "new-budget-over-old-expanded2MiB-GREEN",
+      "predicate": "all exact rows retained beyond old sum, encoded budget charged"
+    },
+    {
+      "expected": "RED",
+      "id": "logical16384-then16385-resource-RED",
+      "predicate": "exact logical cap then sticky overflow without partial row"
+    },
+    {
+      "expected": "RED",
+      "id": "expanded65537-resource-RED",
+      "predicate": "oversized row refuses even when tiny compressed"
+    },
+    {
+      "expected": "RED",
+      "id": "encoded-budget-headers-atomicity-resource-RED",
+      "predicate": "16+9+actual compression drives aggregate refusal"
+    },
+    {
+      "expected": "RED",
+      "id": "header-framing-variants-RED",
+      "predicate": "bad magic/version/reserved/counts rejected as FRAME_INVALID"
+    },
+    {
+      "expected": "RED",
+      "id": "frame-tag-and-length-variants-RED",
+      "predicate": "tag and declared lengths reject precisely"
+    },
+    {
+      "expected": "RED",
+      "id": "expanded-length-newline-RED",
+      "predicate": "decoded length and final newline reject as FRAME_INVALID"
+    },
+    {
+      "expected": "RED",
+      "id": "utf8-json-rowshape-RED",
+      "predicate": "invalid UTF8, JSON and fixed fields reject as DECODE_INVALID"
+    },
+    {
+      "expected": "RED",
+      "id": "trailing-concatenated-noncanonical-RED",
+      "predicate": "exact recompressed bytes reject alternate compressed representation"
+    },
+    {
+      "expected": "RED",
+      "id": "corrupt-codec-stream-RED",
+      "predicate": "invalid deflate is CODEC_OPERATIONAL then sticky"
+    },
+    {
+      "expected": "RED",
+      "id": "inflate-output-limit-RED",
+      "predicate": "real public codec refuses beyond65536 before oversized decode"
+    },
+    {
+      "expected": "RED",
+      "id": "codec-options-and-swallowed-failure-RED",
+      "predicate": "actual configured bounds supplied, swallowed exception cannot pass snapshot"
+    },
+    {
+      "expected": "RED",
+      "id": "public-compression-output-limit-RED",
+      "predicate": "actual public convenience API enforces supplied output bound"
+    },
+    {
+      "expected": "RED",
+      "id": "unhonored-codec-output-limit-RED",
+      "predicate": "oversized injected codec result remains operational STOP"
+    },
+    {
+      "expected": "RED",
+      "id": "encoded-import-budget-RED",
+      "predicate": "all owned headers and backing bytes charged before decode"
+    },
+    {
+      "expected": "GREEN",
+      "id": "context-projection-scope-GREEN",
+      "predicate": "off/on context differs while original semantic tuple comparison passes"
+    },
+    {
+      "expected": "RED",
+      "id": "rng-seed-RED",
+      "predicate": "helper and RNG call order/counts/stream keys"
+    },
+    {
+      "expected": "RED",
+      "id": "rng-purpose-RED",
+      "predicate": "helper and RNG call order/counts/stream keys"
+    },
+    {
+      "expected": "RED",
+      "id": "rng-key-RED",
+      "predicate": "helper and RNG call order/counts/stream keys"
+    },
+    {
+      "expected": "RED",
+      "id": "omitted-call-RED",
+      "predicate": "helper and RNG call order/counts/stream keys"
+    },
+    {
+      "expected": "RED",
+      "id": "reordered-call-RED",
+      "predicate": "helper and RNG call order/counts/stream keys"
+    },
+    {
+      "expected": "RED",
+      "id": "duplicate-call-count-RED",
+      "predicate": "helper and RNG call order/counts/stream keys"
+    },
+    {
+      "expected": "RED",
+      "id": "tuple-RED",
+      "predicate": "actual receipt bytes/inputs unaffected"
+    },
+    {
+      "expected": "RED",
+      "id": "canonical-literal-RED",
+      "predicate": "actual receipt bytes/inputs unaffected"
+    },
+    {
+      "expected": "RED",
+      "id": "result-RED",
+      "predicate": "actual receipt bytes/inputs unaffected"
+    },
+    {
+      "expected": "GREEN",
+      "id": "ordering:author-two-issuers-schema-GREEN",
+      "predicate": "original positive source-case"
+    },
+    {
+      "expected": "GREEN",
+      "id": "ordering:freeze-complete-prefix-failure-suffix-GREEN",
+      "predicate": "original positive source-case"
+    },
+    {
+      "expected": "RED",
+      "id": "ordering:candidate-other-issuer-grouping-RED",
+      "predicate": "evaluated and skipped candidates preserve full order"
+    },
+    {
+      "expected": "RED",
+      "id": "ordering:candidate-context-issuer-correlation-RED",
+      "predicate": "every actual evaluation binds an authenticated source-array projection"
+    },
+    {
+      "expected": "RED",
+      "id": "ordering:freeze-missing-slot-RED",
+      "predicate": "complete identity-bound freeze predicate order"
+    },
+    {
+      "expected": "RED",
+      "id": "ordering:freeze-swapped-slots-RED",
+      "predicate": "complete identity-bound freeze predicate order"
+    },
+    {
+      "expected": "RED",
+      "id": "ordering:freeze-wrong-name-RED",
+      "predicate": "complete identity-bound freeze predicate order"
+    },
+    {
+      "expected": "RED",
+      "id": "ordering:freeze-wrong-ordinal-RED",
+      "predicate": "complete identity-bound freeze predicate order"
+    },
+    {
+      "expected": "RED",
+      "id": "ordering:freeze-wrong-occurrence-RED",
+      "predicate": "complete identity-bound freeze predicate order"
+    },
+    {
+      "expected": "RED",
+      "id": "ordering:freeze-wrong-issuer-RED",
+      "predicate": "complete identity-bound freeze predicate order"
+    },
+    {
+      "expected": "RED",
+      "id": "ordering:freeze-failure-slot-missing-RED",
+      "predicate": "freeze predicate FAILED slot agrees with drop"
+    },
+    {
+      "expected": "RED",
+      "id": "ordering:freeze-drop-disagrees-RED",
+      "predicate": "freeze predicate FAILED slot agrees with drop"
+    },
+    {
+      "expected": "RED",
+      "id": "ordering:freeze-early-unreached-RED",
+      "predicate": "freeze predicate prefix status"
+    },
+    {
+      "expected": "RED",
+      "id": "ordering:freeze-suffix-resumes-RED",
+      "predicate": "freeze predicate suffix is NOT_REACHED"
+    },
+    {
+      "expected": "RED",
+      "id": "ordering:freeze-suffix-values-forged-RED",
+      "predicate": "unreached predicate has no evaluated values"
+    },
+    {
+      "expected": "RED",
+      "id": "ordering:freeze-second-failure-RED",
+      "predicate": "freeze predicate FAILED slot agrees with drop"
+    },
+    {
+      "expected": "RED",
+      "id": "ordering:freeze-illegal-not-evaluated-prefix-RED",
+      "predicate": "freeze predicate prefix status"
+    },
+    {
+      "expected": "RED",
+      "id": "ordering:freeze-unknown-drop-RED",
+      "predicate": "freeze drop names an existing predicate"
+    }
+  ],
+  "positiveCount": 9,
+  "schema": "1370-lossless-independent-controls-matrix/v1",
+  "specificNegativeCount": 40,
+  "total": 49
+}

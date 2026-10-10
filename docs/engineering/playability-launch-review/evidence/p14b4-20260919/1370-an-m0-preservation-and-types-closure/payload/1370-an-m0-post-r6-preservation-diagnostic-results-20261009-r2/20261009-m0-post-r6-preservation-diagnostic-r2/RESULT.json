@@ -1,0 +1,166 @@
+{
+  "actualGrantSha256": "ea0c4e9192465be07db95b75ed285fd9bbbbaf23a141a38b16f86f0e2eadbd66",
+  "collectionCommandsExecuted": 0,
+  "completeM0AdoptionSha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad",
+  "currentProtection": null,
+  "dependencyAfter": {
+    "contentAndMetadataSha256": "a06e929a60a5ede6ce0d72467d4d587e50d1c4fa3788bee3d07f1ea3388cd21d",
+    "contentBytes": 348223802,
+    "entries": 12484,
+    "rootDevice": 16777220,
+    "rootIdentity": [
+      16777220,
+      158487026,
+      16877,
+      154,
+      4928,
+      1790738039503311431,
+      1790738039503311431
+    ],
+    "rootInode": 158487026
+  },
+  "diagnosticInputs": {
+    "controlsObservedReview": {
+      "bytes": 12614,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "d1fc49491307cf21c93be748f99839574d51733ba17f3d4260b3e0d262f8a1e7"
+    },
+    "controlsRootAdoption": {
+      "bytes": 8126,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/DISPOSABLE-METADATA-PAIR-OBSERVED-ADOPTION.json",
+      "sha256": "9badcf90e1e70153c5a51a9cf27ec3be1e889304188750b573bea422b33c5c01"
+    },
+    "currentAMFullPreflight": {
+      "bytes": 8833072,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/SNAPSHOT.json",
+      "sha256": "0136b4370cca27ab9af635c16124283049eb394b3dbaa63c32a755973e9c3596"
+    },
+    "currentAMFullPreflightAdoption": {
+      "bytes": 4459,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/CURRENT-AM-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+      "sha256": "ac3c336fcf4c57b4de25a2d03fe4642719e7137d34ffe24d2106a8210ecc1612"
+    }
+  },
+  "elapsedSeconds": 67.606,
+  "freshDependencyProof": {
+    "contentAndMetadataSha256": "a06e929a60a5ede6ce0d72467d4d587e50d1c4fa3788bee3d07f1ea3388cd21d",
+    "contentBytes": 348223802,
+    "entries": 12484,
+    "rootDevice": 16777220,
+    "rootIdentity": [
+      16777220,
+      158487026,
+      16877,
+      154,
+      4928,
+      1790738039503311431,
+      1790738039503311431
+    ],
+    "rootInode": 158487026
+  },
+  "freshSourceProof": {
+    "dependencyLink": [
+      16777220,
+      166769275,
+      41408,
+      1,
+      62,
+      1791577446298712967,
+      1791577446298712967,
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    ],
+    "fileProofDigestSha256": "fbbfed3ec13da5618a0194204e2f6c8a87eebb5ee22102707d466340fbe6e1e0",
+    "historicalRootSubstitutedMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "mirrorBytes": 119393120,
+    "mirrorFiles": 1740,
+    "mirrorRootIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791600924862151724,
+      1791600924862151724
+    ],
+    "nonrootMetadataSha256": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
+    "physicalMetadataSha256": "12c3dd50b99860c1c4e56ee98488d5f04613b37c93496d0257cc560a4fb83038",
+    "traversedEntries": 1853
+  },
+  "game": false,
+  "groupAlternateProofs": [],
+  "historicalDataAuthorityHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "historicalRootUnchanged": false,
+  "knownRootDrift": {
+    "historicalMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "historicalNormalizedIdentity": [
+      16777220,
+      166751332,
+      448,
+      13,
+      416,
+      1791577446298737027,
+      1791577446298737027
+    ],
+    "nonrootMetadataSha256": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
+    "recordedAfterIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791600924862151724,
+      1791600924862151724
+    ],
+    "recordedBeforeIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791577446298737027,
+      1791577446298737027
+    ],
+    "rosterSha256": "aa0270269ea341ec4d0029307c799518b5ff89e81b0044d165763408ea533f57"
+  },
+  "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+  "newRootBaselineAdopted": false,
+  "originalR6StopPreserved": true,
+  "physicalFactsSha256": "e9f4829c501cc90475b9067c8ae32580fe5fca14fc40950ee083031f89081ba2",
+  "productionHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "runId": "20261009-m0-post-r6-preservation-diagnostic-r2",
+  "schema": "1370-post-r6-m0-preservation-diagnostic-result/v1",
+  "sourceAfter": {
+    "dependencyLink": [
+      16777220,
+      166769275,
+      41408,
+      1,
+      62,
+      1791577446298712967,
+      1791577446298712967,
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    ],
+    "fileProofDigestSha256": "fbbfed3ec13da5618a0194204e2f6c8a87eebb5ee22102707d466340fbe6e1e0",
+    "historicalRootSubstitutedMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "mirrorBytes": 119393120,
+    "mirrorFiles": 1740,
+    "mirrorRootIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791600924862151724,
+      1791600924862151724
+    ],
+    "nonrootMetadataSha256": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
+    "physicalMetadataSha256": "12c3dd50b99860c1c4e56ee98488d5f04613b37c93496d0257cc560a4fb83038",
+    "traversedEntries": 1853
+  },
+  "sourceCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "sourceReviewSha256": "69c21815277b22aedf9c6c222a8fac25f265296e473de9973f21999ec4f03d8d",
+  "status": "PASS_READONLY_POST_R6_M0_PRESERVATION_DIAGNOSTIC_KNOWN_ROOT_DRIFT",
+  "typesAccepted": false,
+  "typesCommandsExecuted": 0
+}

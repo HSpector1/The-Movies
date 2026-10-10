@@ -1,0 +1,68 @@
+{
+  "schema": "1370-fullfunction-once-parent-independent-source-review/v1",
+  "decision": "ACCEPT_STATIC_FULLFUNCTION_ONCE_PARENT_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "concreteFindings": [],
+  "findings": [],
+  "sourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r3/SOURCE-PINS.json",
+    "bytes": 1409,
+    "sha256": "bfd2caee59bf7bdc5698b97bca19340513dcf0b761ef66dfe3b970eef39eec86"
+  },
+  "sourcePins": {
+    "launch-fullfunction.py": {
+      "bytes": 12103,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r3/launch-fullfunction.py",
+      "sha256": "02590fe451ab2c8bcf28fd2b3ee8e63e181f81839daffd515c28806283ac85cb"
+    }
+  },
+  "routeSourcePins": {
+    "launch-fullfunction.py": {
+      "bytes": 12103,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r3/launch-fullfunction.py",
+      "sha256": "02590fe451ab2c8bcf28fd2b3ee8e63e181f81839daffd515c28806283ac85cb"
+    }
+  },
+  "predecessorSource": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r2/launch-fullfunction.py",
+    "bytes": 12103,
+    "sha256": "eb09e8a20b7ee6039c059108c11262cc9a01130a90e2f1fd39646b1b68b93180"
+  },
+  "predecessorSourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 1410,
+    "sha256": "fb047e0bcf7685b40fd80bcd4d5550f2cef7a967ee936a3644bb0446309da62e"
+  },
+  "predecessorIndependentReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-independent-source-review-20261010-r2/RECEIPT.json",
+    "bytes": 3972,
+    "sha256": "785b2a13d304e24a21b39f2de075bffb75ccb43cb086b677a32e4bca10ee3c93"
+  },
+  "evidenceReadback": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-independent-source-review-20261010-r3/EVIDENCE-READBACK.json",
+    "bytes": 2524,
+    "sha256": "65ed0c8490f687ac2e6adfa6648562c2030900a7c21278fa521b8d60e1436eb3"
+  },
+  "verified": {
+    "allFiveManifestPayloadRolesAndManifestBytesMatched": true,
+    "predecessorSourceAndManifestAndGenuineReviewAuthenticated": true,
+    "completeForwardDiffApplicationExact": true,
+    "completeInverseDiffApplicationExact": true,
+    "entireSourceProjection": "Replacing the single literal parent-recorded-20261010-r2 with parent-recorded-20261010-r3 exactly reconstructs the derivative; reversing it reconstructs the genuine predecessor source.",
+    "changedOccurrences": 1,
+    "allOtherSourceBytesUnchanged": true,
+    "allTenHelperFunctionBodiesByteExact": true,
+    "currentOperationalHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+    "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "authenticExternalParserRestrictions": "Exactly two external roles must equal authenticated CONFIG.parserInputs and fixed previously exercised F7 paths; all other route roles remain local. Both source-review alias maps and exact sourceManifest authority remain required.",
+    "actualOwnIdentity": "Each stage performs setsid only if current PGID differs from PID and requires actual PID=PGID=SID, retaining the actual values in the corresponding durable launch claim.",
+    "clocks": "Separate60-second preparation timer per stage is canceled before direct exec. Recorder300/320/330 runtime remains unchanged; no combined preparation/runtime or protection scan clock is asserted.",
+    "grantAndLane": "Outer direct exec goes through original r8 once lane wrapper. Inner emits the original exact CONFIG/configSHA/source/type/protection/parser/artifact/runtime role grant only after authenticating its owned lane lock, then direct execs pinned physical Python-I-B recorder.",
+    "environment": "Original inherited environment plus PYTHONDONTWRITEBYTECODE=1 and GIT_OPTIONAL_LOCKS=0 remains unchanged; no HOME replacement.",
+    "freshParentPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r3",
+    "originalFreshOutputAndLaneChecksUnchanged": true,
+    "onceOnlyAndAutomaticRetryFalseUnchanged": true
+  },
+  "scope": "Independent static acceptance of the exact single path literal derivative of the independently accepted R2 parent. No candidate imports, compile, tests, runtime, private inventory, process probes, repository writes, filled future authority or scientific outcome claims. Actual R1 and R2 STOP evidence remains separate; R2 full shared postflight is not admitted by this source receipt.",
+  "lesson": "Fresh attempt isolation requires all concrete parent/run/output selectors to agree while preserving genuine tested external roles and original clock phases."
+}

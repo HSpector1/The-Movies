@@ -1,0 +1,18 @@
+{
+  "executionAuthorization": false,
+  "expectedRows": 49,
+  "positiveCount": 9,
+  "priorSourcePins": {
+    "bytes": 1304,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "c57c38cf2167323cfa659154f0570992459a826e339f532067126802f24c4fb3"
+  },
+  "priorUnrun": true,
+  "runtimePerformed": false,
+  "schema": "1370-lossless-controls-source-correction/v1",
+  "semanticsChanged": [
+    "Remove old isolated STORE_CLOSED check from GREEN lifecycle case.",
+    "Add strict grouped STORE_CLOSED then later TRACE_OPERATIONAL refusals for original store and saved trace; no generic error accepted."
+  ],
+  "specificNegativeCount": 40
+}

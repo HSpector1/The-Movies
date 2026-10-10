@@ -1,0 +1,10 @@
+{
+  "allManifestRolesReadbackEqual": true,
+  "executionAuthorization": false,
+  "schema": "1370-fresh-source-parent-adapter-seal/v1",
+  "sourceManifest": {
+    "bytes": 2017,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r5/SOURCE-PINS.json",
+    "sha256": "541be09dd5c5d0232ce19653c700115b440f2e3e599e9f919cb5f7624ca74a0b"
+  }
+}

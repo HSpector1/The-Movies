@@ -1,0 +1,629 @@
+{
+  "schema": "1370-m0-external-config-source-proof/v1",
+  "decision": "SOURCE_TRANSFORM_COMPLETE_UNRUN_PENDING_INDEPENDENT_REVIEW",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "scope": "Named public/archived/scratch source transformation only; no protected mirror or dependency inventory read, no source import/compile/test/Node/Git mutation.",
+  "predecessorSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6/SOURCE-PINS.json",
+    "bytes": null,
+    "sha256": "05ca05fbe689bcb48ab78507679373938bee867e846ea57b42e203fc9a92e3cf"
+  },
+  "diagnosticProposal": {
+    "sourcePins": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/SOURCE-PINS.json",
+      "bytes": 14200,
+      "sha256": "42611a6faecc6b13e7b8a18cfef210b06d7167bb3e2a23d08862db65c4531262"
+    },
+    "config": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/CONFIG.json",
+      "bytes": 32755,
+      "sha256": "c40c0a34d07532d4690552318958029ec736d32283dcec59b0b33191bf82bc4c"
+    },
+    "function": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/FULL-SOURCE-CHECK.txt",
+      "bytes": 5356,
+      "sha256": "ea68ed6e720f185c98dbd9fd1068d96e61c0ac7bb804ffb0f5a2797b9439b8e8"
+    },
+    "functionByteExact": true,
+    "knownRootDriftDataExact": true,
+    "diagnosticActual": null,
+    "diagnosticObservedReview": null,
+    "rootObservedAdoption": null
+  },
+  "historicalConfigDiagnosis": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-r6-config-resolution-independent-source-diagnosis-20261009-r1/DIAGNOSIS.json",
+    "bytes": 8402,
+    "sha256": "97f3d4d0a72d4d0d4379ad7363187e4e31e886ed769c83df4de34d354b423f81"
+  },
+  "wholeInverseResults": [
+    {
+      "name": "runner.py",
+      "predecessor": {
+        "bytes": 37199,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6/runner.py",
+        "sha256": "5c18ad22e7b78d978c59eace50d5e4349ea415efa4ebf5840860e75561fa2e4b"
+      },
+      "baseline": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BASELINE-R6-runner.py",
+        "bytes": 37199,
+        "sha256": "5c18ad22e7b78d978c59eace50d5e4349ea415efa4ebf5840860e75561fa2e4b"
+      },
+      "newSource": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/runner.py",
+        "bytes": 43951,
+        "sha256": "8fd2ad12b9d7751b486687df2d4887831254501f5866795bcb4d16ae7e38e466"
+      },
+      "forwardDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/runner.py.forward.diff",
+        "bytes": 13441,
+        "sha256": "e77bd725c50d508a9cb5f77932b134956f913511f7756473228cc2c35017d963"
+      },
+      "inverseDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/runner.py.inverse.diff",
+        "bytes": 13441,
+        "sha256": "95a855197bd1446a046988b5f114045f1f2376e12c0e3ef05acd74d4cb95b080"
+      },
+      "wholeOriginalReconstructedExactly": true,
+      "method": "Reverse every recorded textual replacement in reverse order, with exact occurrence count; entire original string equality."
+    },
+    {
+      "name": "supervise.py",
+      "predecessor": {
+        "bytes": 13706,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6/supervise.py",
+        "sha256": "af8c2b89380031262c2deec4271c6b39339cca721e14abc89bf57860d6ce57eb"
+      },
+      "baseline": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BASELINE-R6-supervise.py",
+        "bytes": 13706,
+        "sha256": "af8c2b89380031262c2deec4271c6b39339cca721e14abc89bf57860d6ce57eb"
+      },
+      "newSource": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/supervise.py",
+        "bytes": 13716,
+        "sha256": "339ae9263f60b5f554826e5919add321940c07440d31b33ed67020354a4e6eb0"
+      },
+      "forwardDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/supervise.py.forward.diff",
+        "bytes": 2694,
+        "sha256": "9b44678dc450918a0e8165a0956cc3a6ab8bdfa384a8331ed196fa675aecc21c"
+      },
+      "inverseDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/supervise.py.inverse.diff",
+        "bytes": 2694,
+        "sha256": "9df390642dd1ff592de9a7095617c7f4cc1e4a63e2b1844e70f611520ae406a6"
+      },
+      "wholeOriginalReconstructedExactly": true,
+      "method": "Reverse every recorded textual replacement in reverse order, with exact occurrence count; entire original string equality."
+    },
+    {
+      "name": "BOOTSTRAP.py",
+      "predecessor": {
+        "bytes": 2725,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6/BOOTSTRAP.py",
+        "sha256": "d2f66d1b78b3d09ad0eb897ac4b0d2fdfbaf0ab6656f8aa106c97aecabb6ea88"
+      },
+      "baseline": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BASELINE-R6-BOOTSTRAP.py",
+        "bytes": 2725,
+        "sha256": "d2f66d1b78b3d09ad0eb897ac4b0d2fdfbaf0ab6656f8aa106c97aecabb6ea88"
+      },
+      "newSource": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BOOTSTRAP.py",
+        "bytes": 2721,
+        "sha256": "8e4af6c0f9d92167ab1768368a443403abdded854c9eedc039c378285b86422a"
+      },
+      "forwardDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BOOTSTRAP.py.forward.diff",
+        "bytes": 954,
+        "sha256": "599f8e6a19abc9b024fb989328332ab5bb47bb3df7788984922d4ec17a31bb86"
+      },
+      "inverseDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BOOTSTRAP.py.inverse.diff",
+        "bytes": 954,
+        "sha256": "51c5d806a92472cc4076f6bd156c5e8e2099a5423ead9d95b800df980645df18"
+      },
+      "wholeOriginalReconstructedExactly": true,
+      "method": "Reverse every recorded textual replacement in reverse order, with exact occurrence count; entire original string equality."
+    },
+    {
+      "name": "LAUNCH.py",
+      "predecessor": {
+        "bytes": 7596,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6/LAUNCH.py",
+        "sha256": "6367ece93954fadc4726d766af6bdaf94aaeda53be86c96a3938522075142836"
+      },
+      "baseline": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BASELINE-R6-LAUNCH.py",
+        "bytes": 7596,
+        "sha256": "6367ece93954fadc4726d766af6bdaf94aaeda53be86c96a3938522075142836"
+      },
+      "newSource": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/LAUNCH.py",
+        "bytes": 9125,
+        "sha256": "6f2d9628bcf753a382232eaf5e2ffaaec2f73c17969ed54d804c23fac8a8310b"
+      },
+      "forwardDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/LAUNCH.py.forward.diff",
+        "bytes": 4244,
+        "sha256": "f40d8ef14aad66c4cd32b9bf0281bbe2d74d8de4fda0b7a06a64b192a37e66d6"
+      },
+      "inverseDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/LAUNCH.py.inverse.diff",
+        "bytes": 4244,
+        "sha256": "68369461319d66e3a2f5e0ac3bb6e8c08e78f15ac6163f5d3a8c8a64122c51e1"
+      },
+      "wholeOriginalReconstructedExactly": true,
+      "method": "Reverse every recorded textual replacement in reverse order, with exact occurrence count; entire original string equality."
+    },
+    {
+      "name": "CONFIG.json",
+      "predecessor": {
+        "bytes": 29857,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6/CONFIG.json",
+        "sha256": "f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7"
+      },
+      "baseline": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BASELINE-R6-CONFIG.json",
+        "bytes": 29857,
+        "sha256": "f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7"
+      },
+      "newSource": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/CONFIG.json",
+        "bytes": 32807,
+        "sha256": "224b8f1614208215cb07993fc4b015d8438413e95b805c7360105bee0575b154"
+      },
+      "forwardDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/CONFIG.json.forward.diff",
+        "bytes": 6262,
+        "sha256": "f68bf0e13572fe33e0e9d99040eec0dc1dd0169be78e0d3475cfd37026e7ffc8"
+      },
+      "inverseDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/CONFIG.json.inverse.diff",
+        "bytes": 6262,
+        "sha256": "a20498972f22bffb6743dd999137671417caa169f5b7e80117241ae59128a00f"
+      },
+      "wholeOriginalReconstructedExactly": true,
+      "method": "Lossless JSON tokens; restore only declared changed keys/delete new keys; pretty bytes equal all original29857 bytes."
+    },
+    {
+      "name": "EXECUTION-CONTEXT-UNFILLED.json",
+      "predecessor": {
+        "bytes": 539,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6/EXECUTION-CONTEXT-UNFILLED.json",
+        "sha256": "690a9d95b88b1c6338392623c9b3345733ac674866ac83f719eadcd3915eecd4"
+      },
+      "baseline": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BASELINE-R6-EXECUTION-CONTEXT-UNFILLED.json",
+        "bytes": 539,
+        "sha256": "690a9d95b88b1c6338392623c9b3345733ac674866ac83f719eadcd3915eecd4"
+      },
+      "newSource": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/EXECUTION-CONTEXT-UNFILLED.json",
+        "bytes": 578,
+        "sha256": "5fe2bb6167a2845b2c7b8ae17db8b13c33f65fe397a813eb8da47b65a47196cb"
+      },
+      "forwardDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/EXECUTION-CONTEXT-UNFILLED.json.forward.diff",
+        "bytes": 1120,
+        "sha256": "4873ddab26ad949bf1ddb1dcf9f7298a6b909b67b6a0fc0d722553e122cd6240"
+      },
+      "inverseDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/EXECUTION-CONTEXT-UNFILLED.json.inverse.diff",
+        "bytes": 1120,
+        "sha256": "5e4817bdaea7ab46716d71df64e35768a5ef7f744e9b48eda21cfbced22bc2f4"
+      },
+      "wholeOriginalReconstructedExactly": true,
+      "method": "Restore original runId/config SHA; remove only postR6RootAdoption placeholder; all original keys/empty additionalRefs/executionAuthorization false preserved."
+    }
+  ],
+  "sourceTransform": {
+    "runnerReplacementOperations": [
+      {
+        "before": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6",
+        "after": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1",
+        "count": 1
+      },
+      {
+        "before": "f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7",
+        "after": "224b8f1614208215cb07993fc4b015d8438413e95b805c7360105bee0575b154",
+        "count": 1
+      },
+      {
+        "before": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3",
+        "after": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r1",
+        "count": 1
+      },
+      {
+        "before": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+        "after": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+        "count": 1
+      },
+      {
+        "before": "def full_source_check(mirror,manifest,run_id,allow_deps_link=False):\n \"\"\"Exact admitted M0 roster, content and physical metadata through no-follow dirfds.\"\"\"\n expected=M0_FACTS['files'];directories=M0_FACTS['directories'];links=M0_FACTS['symlinks']\n need(len(expected)==1740 and sum(r['bytes'] for r in expected.values())==119393120 and\n      len(directories)==113 and set(links)=={'node_modules'},'M0 authenticated roster')\n overlays={r['destination']:r for r in manifest['files']}\n need(len(overlays)==5 and all(expected[k]['bytes']==v['bytes'] and expected[k]['sha256']==v['sha256'] for k,v in overlays.items()),'five M0 overlays')\n held=open_dir_chain(mirror);rootfd=held[-1];root_before=fields(os.fstat(rootfd))\n proof_rows={};metadata_rows={};seen_dirs=set();state={'entries':0};total=0;deps_link=None\n try:\n  def descend(fd,prefix):\n   nonlocal total,deps_link\n   before=fields(os.fstat(fd));dirrel=prefix[:-1] if prefix else '.'\n   need(dirrel in directories and normalized(os.fstat(fd))==tuple(directories[dirrel]),'admitted directory metadata '+dirrel)\n   seen_dirs.add(dirrel);metadata_rows[dirrel]=list(before)\n   for name in bounded_names(fd,state,CONFIG['entryCap'],run_id):\n    source_step(run_id)\n    need(name not in ('','.','..') and '/' not in name,'unsafe mirror name')\n    rel=prefix+name;st=os.stat(name,dir_fd=fd,follow_symlinks=False)\n    if stat.S_ISDIR(st.st_mode):\n     need(rel in directories,'extra mirror directory '+rel)\n     child=os.open(name,os.O_RDONLY|os.O_DIRECTORY|os.O_NOFOLLOW,dir_fd=fd)\n     try:\n      need(fields(os.fstat(child))==fields(st),'mirror directory open drift')\n      descend(child,rel+'/')\n      need(fields(os.fstat(child))==fields(os.stat(name,dir_fd=fd,follow_symlinks=False)),'mirror directory changed')\n     finally:os.close(child)\n    elif stat.S_ISLNK(st.st_mode):\n     need(allow_deps_link and rel=='node_modules' and deps_link is None and st.st_nlink==1,'unexpected dependency link')\n     target=os.readlink(name,dir_fd=fd)\n     need(normalized(st)==tuple(links[rel]['identity']) and target==links[rel]['target']==str(REPO/'node_modules') and\n          fields(st)==fields(os.stat(name,dir_fd=fd,follow_symlinks=False)),'dependency link changed')\n     deps_link=fields(st)+(target,);metadata_rows[rel]=list(deps_link)\n    else:\n     need(rel in expected and rel not in proof_rows,'extra/duplicate mirror file '+rel)\n     row=expected[rel];size=row['bytes']\n     need(stat.S_ISREG(st.st_mode) and st.st_nlink==1 and st.st_size==size and normalized(st)==tuple(row['identity']),'admitted mirror file metadata '+rel)\n     filefd=os.open(name,os.O_RDONLY|os.O_NOFOLLOW,dir_fd=fd)\n     try:\n      need(fields(os.fstat(filefd))==fields(st),'mirror open drift '+rel)\n      blob=hashlib.sha1(f'blob {size}\\0'.encode());content=hashlib.sha256();count=0\n      while True:\n       source_step(run_id);chunk=os.read(filefd,1<<20)\n       if not chunk:break\n       count+=len(chunk);need(count<=size,'mirror file grew '+rel);blob.update(chunk);content.update(chunk)\n      need(count==size and fields(os.fstat(filefd))==fields(st)==fields(os.stat(name,dir_fd=fd,follow_symlinks=False)),'mirror file read drift '+rel)\n     finally:os.close(filefd)\n     got_oid=blob.hexdigest();got_sha=content.hexdigest();got_mode=stat.S_IMODE(st.st_mode)\n     need(got_oid==row['gitBlobOid'] and got_sha==row['sha256'],'M0 file bytes '+rel)\n     proof_rows[rel]=[rel,size,got_oid,got_sha,got_mode];metadata_rows[rel]=list(fields(st));total+=size\n   need(fields(os.fstat(fd))==before,'mirror directory mutation')\n  descend(rootfd,'')\n  need(set(proof_rows)==set(expected) and seen_dirs==set(directories) and len(proof_rows)==1740 and total==119393120 and\n       deps_link is not None and state['entries']==CONFIG['entryCap'],'M0 complete roster/count/bytes/link')\n  need(fields(os.fstat(rootfd))==root_before,'mirror root mutation');verify_dir_chain(mirror,held)\n  meta=b''.join(json.dumps([k,metadata_rows[k]],separators=(',',':')).encode()+b'\\n' for k in sorted(metadata_rows,key=lambda x:x.encode()))\n  return {'fileProofDigestSha256':canonical_proof(proof_rows),'physicalMetadataSha256':sha(meta),\n          'mirrorFiles':len(proof_rows),'mirrorBytes':total,'dependencyLink':list(deps_link),'traversedEntries':state['entries'],'mirrorRootIdentity':list(root_before)}\n finally:close_chain(held)\n",
+        "after": "def full_source_check(mirror,manifest,run_id,allow_deps_link=False):\n \"\"\"Exact admitted M0 roster, content and physical metadata through no-follow dirfds.\"\"\"\n expected=M0_FACTS['files'];directories=M0_FACTS['directories'];links=M0_FACTS['symlinks']\n need(len(expected)==1740 and sum(r['bytes'] for r in expected.values())==119393120 and\n      len(directories)==113 and set(links)=={'node_modules'},'M0 authenticated roster')\n overlays={r['destination']:r for r in manifest['files']}\n need(len(overlays)==5 and all(expected[k]['bytes']==v['bytes'] and expected[k]['sha256']==v['sha256'] for k,v in overlays.items()),'five M0 overlays')\n held=open_dir_chain(mirror);rootfd=held[-1];root_before=fields(os.fstat(rootfd))\n proof_rows={};metadata_rows={};seen_dirs=set();state={'entries':0};total=0;deps_link=None\n try:\n  def descend(fd,prefix):\n   nonlocal total,deps_link\n   before=fields(os.fstat(fd));dirrel=prefix[:-1] if prefix else '.'\n   if dirrel=='.':\n    need(fields(os.fstat(fd))==tuple(CONFIG['knownRootDrift']['recordedAfterIdentity']),'exact recorded post-R6 root metadata')\n    need(tuple(directories['.'])==tuple(CONFIG['knownRootDrift']['historicalNormalizedIdentity']),'historical root metadata binding')\n   else:\n    need(dirrel in directories and normalized(os.fstat(fd))==tuple(directories[dirrel]),'admitted directory metadata '+dirrel)\n   seen_dirs.add(dirrel);metadata_rows[dirrel]=list(before)\n   for name in bounded_names(fd,state,CONFIG['entryCap'],run_id):\n    source_step(run_id)\n    need(name not in ('','.','..') and '/' not in name,'unsafe mirror name')\n    rel=prefix+name;st=os.stat(name,dir_fd=fd,follow_symlinks=False)\n    if stat.S_ISDIR(st.st_mode):\n     need(rel in directories,'extra mirror directory '+rel)\n     child=os.open(name,os.O_RDONLY|os.O_DIRECTORY|os.O_NOFOLLOW,dir_fd=fd)\n     try:\n      need(fields(os.fstat(child))==fields(st),'mirror directory open drift')\n      descend(child,rel+'/')\n      need(fields(os.fstat(child))==fields(os.stat(name,dir_fd=fd,follow_symlinks=False)),'mirror directory changed')\n     finally:os.close(child)\n    elif stat.S_ISLNK(st.st_mode):\n     need(allow_deps_link and rel=='node_modules' and deps_link is None and st.st_nlink==1,'unexpected dependency link')\n     target=os.readlink(name,dir_fd=fd)\n     need(normalized(st)==tuple(links[rel]['identity']) and target==links[rel]['target']==str(REPO/'node_modules') and\n          fields(st)==fields(os.stat(name,dir_fd=fd,follow_symlinks=False)),'dependency link changed')\n     deps_link=fields(st)+(target,);metadata_rows[rel]=list(deps_link)\n    else:\n     need(rel in expected and rel not in proof_rows,'extra/duplicate mirror file '+rel)\n     row=expected[rel];size=row['bytes']\n     need(stat.S_ISREG(st.st_mode) and st.st_nlink==1 and st.st_size==size and normalized(st)==tuple(row['identity']),'admitted mirror file metadata '+rel)\n     filefd=os.open(name,os.O_RDONLY|os.O_NOFOLLOW,dir_fd=fd)\n     try:\n      need(fields(os.fstat(filefd))==fields(st),'mirror open drift '+rel)\n      blob=hashlib.sha1(f'blob {size}\\0'.encode());content=hashlib.sha256();count=0\n      while True:\n       source_step(run_id);chunk=os.read(filefd,1<<20)\n       if not chunk:break\n       count+=len(chunk);need(count<=size,'mirror file grew '+rel);blob.update(chunk);content.update(chunk)\n      need(count==size and fields(os.fstat(filefd))==fields(st)==fields(os.stat(name,dir_fd=fd,follow_symlinks=False)),'mirror file read drift '+rel)\n     finally:os.close(filefd)\n     got_oid=blob.hexdigest();got_sha=content.hexdigest();got_mode=stat.S_IMODE(st.st_mode)\n     need(got_oid==row['gitBlobOid'] and got_sha==row['sha256'],'M0 file bytes '+rel)\n     proof_rows[rel]=[rel,size,got_oid,got_sha,got_mode];metadata_rows[rel]=list(fields(st));total+=size\n   need(fields(os.fstat(fd))==before,'mirror directory mutation')\n  descend(rootfd,'')\n  need(set(proof_rows)==set(expected) and seen_dirs==set(directories) and len(proof_rows)==1740 and total==119393120 and\n       deps_link is not None and state['entries']==CONFIG['entryCap'],'M0 complete roster/count/bytes/link')\n  need(fields(os.fstat(rootfd))==root_before,'mirror root mutation');verify_dir_chain(mirror,held)\n  meta=b''.join(json.dumps([k,metadata_rows[k]],separators=(',',':')).encode()+b'\\n' for k in sorted(metadata_rows,key=lambda x:x.encode()))\n  historical_rows=dict(metadata_rows);historical_rows['.']=CONFIG['knownRootDrift']['recordedBeforeIdentity']\n  historical_meta=b''.join(json.dumps([k,historical_rows[k]],separators=(',',':')).encode()+b'\\n' for k in sorted(historical_rows,key=lambda x:x.encode()))\n  nonroot_meta=b''.join(json.dumps([k,metadata_rows[k]],separators=(',',':')).encode()+b'\\n' for k in sorted(metadata_rows,key=lambda x:x.encode()) if k!='.')\n  need(sha(historical_meta)==CONFIG['knownRootDrift']['historicalMetadataSha256'] and sha(nonroot_meta)==CONFIG['knownRootDrift']['nonrootMetadataSha256'],'complete historical remainder metadata')\n  return {'fileProofDigestSha256':canonical_proof(proof_rows),'physicalMetadataSha256':sha(meta),\n          'historicalRootSubstitutedMetadataSha256':sha(historical_meta),'nonrootMetadataSha256':sha(nonroot_meta),\n          'mirrorFiles':len(proof_rows),'mirrorBytes':total,'dependencyLink':list(deps_link),'traversedEntries':state['entries'],'mirrorRootIdentity':list(root_before)}\n finally:close_chain(held)\n",
+        "count": 1
+      },
+      {
+        "before": "               'HOME':str(out),'TMPDIR':str(out),'VITEST_CACHE_DIR':str(out/'vitest-cache')})",
+        "after": "               'TMPDIR':str(out),'VITEST_CACHE_DIR':str(out/'vitest-cache')})",
+        "count": 1
+      },
+      {
+        "before": "def main():",
+        "after": "def authenticate_post_r6_root():\n r=AUTHORITY['postR6RootAdoption']\n need(type(r) is dict and set(r)=={'path','bytes','sha256'} and type(r['bytes']) is int and 0<r['bytes']<=100000,'post-R6 root adoption role')\n path=pathlib.Path(r['path'])\n need(path.is_relative_to(S) and not path.is_relative_to(MIRROR_ROOT),'external post-R6 authority path')\n raw=read_pin(path,r['sha256'],100000);need(len(raw)==r['bytes'],'post-R6 authority bytes')\n adopted=json.loads(raw);contract=CONFIG['postR6RootAdoptionContract']\n need(adopted['schema']==contract['schema'] and adopted['status']==contract['status'],'genuine post-R6 diagnostic root adoption')\n for name,wanted in [('currentRootBaselineQualified',True),('historicalRootUnchanged',False),\n                     ('originalR6StopPreserved',True),('typesAccepted',False),('collectionAccepted',False)]:\n  need(adopted[name] is wanted,'post-R6 diagnostic adoption scope '+name)\n need(adopted['knownRootDrift']==CONFIG['knownRootDrift'] and\n      adopted['freshSourceProof']==AUTHORITY['freshSourceProof'] and\n      adopted['freshDependencyProof']==AUTHORITY['freshDependencyProof'],'post-R6 exact current root/proofs')\n need(adopted['freshSourceProof']['mirrorRootIdentity']==CONFIG['knownRootDrift']['recordedAfterIdentity'] and\n      adopted['freshSourceProof']['historicalRootSubstitutedMetadataSha256']==CONFIG['knownRootDrift']['historicalMetadataSha256'] and\n      adopted['freshSourceProof']['nonrootMetadataSha256']==CONFIG['knownRootDrift']['nonrootMetadataSha256'],'post-R6 complete historical remainder')\n for name in ('diagnosticObservedReview','actualResult','fullPostflightSnapshot'):\n  role=adopted[name]\n  need(type(role) is dict and set(role)=={'path','bytes','sha256'} and type(role['bytes']) is int and role['bytes']>0 and\n       pathlib.Path(role['path']).is_relative_to(S) and not pathlib.Path(role['path']).is_relative_to(MIRROR_ROOT) and\n       re.fullmatch('[0-9a-f]{64}',role['sha256'] or ''),'genuine retained diagnostic role '+name)\n return r\n\ndef prepare_external_configs(out,run_id):\n \"\"\"Fresh writable config copies only outside the complete protected mirror.\"\"\"\n spec=CONFIG['externalCollectionConfig'];target=out/'external-config'\n need(target==pathlib.Path(spec['runtimeDirectory']) and target.is_relative_to(S) and\n      not target.is_relative_to(MIRROR_ROOT) and not os.path.lexists(target),'fresh external config directory')\n need(spec['moduleLinkTarget']==str(REPO/'node_modules') and\n      pathlib.Path(spec['cacheDirectory'])==target/'cache','external module/cache resolution target')\n held=open_dir_chain(out)\n try:\n  os.mkdir(target.name,0o700,dir_fd=held[-1]);verify_dir_chain(out,held)\n finally:close_chain(held)\n held=open_dir_chain(target)\n try:\n  fd=held[-1];os.mkdir('cache',0o700,dir_fd=fd)\n  os.symlink(spec['moduleLinkTarget'],'node_modules',dir_fd=fd)\n  written={}\n  for key,name in [('rootTemplate',spec['rootFilename']),('workspaceTemplate',spec['workspaceFilename'])]:\n   need(name in ('root-config.mts','workspace-config.mts'),'external config filename')\n   r=spec[key];need(pathlib.Path(r['path']).parent==P and type(r['bytes']) is int and 0<r['bytes']<10000,'source config template role')\n   raw=read_pin(pathlib.Path(r['path']),r['sha256'],10000);need(len(raw)==r['bytes'],'external template bytes')\n   filefd=os.open(name,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600,dir_fd=fd)\n   try:\n    view=memoryview(raw)\n    while view:remaining();view=view[os.write(filefd,view):]\n    os.fsync(filefd)\n   finally:os.close(filefd)\n   proof=stable_output(target/name,10000,True)\n   need(proof['bytes']==r['bytes'] and proof['sha256']==r['sha256'] and proof['body']==raw,'external config copy readback')\n   written[key]={'path':str(target/name),'bytes':r['bytes'],'sha256':r['sha256']}\n  os.fsync(fd);verify_dir_chain(target,held)\n finally:close_chain(held)\n return {'schema':'1370-m0-external-config-runtime-copies/v1','directory':str(target),\n         'moduleLinkTarget':spec['moduleLinkTarget'],'cacheDirectory':spec['cacheDirectory'],'files':written}\n\n\ndef verify_external_configs(copies,run_id):\n \"\"\"Authenticate retained config bytes; temp sibling activity is allowed only externally.\"\"\"\n spec=CONFIG['externalCollectionConfig'];target=pathlib.Path(copies['directory']);held=open_dir_chain(target)\n try:\n  fd=held[-1];link=os.stat('node_modules',dir_fd=fd,follow_symlinks=False)\n  need(stat.S_ISLNK(link.st_mode) and link.st_nlink==1 and os.readlink('node_modules',dir_fd=fd)==spec['moduleLinkTarget'],'external dependency link drift')\n  for key in ('rootTemplate','workspaceTemplate'):\n   source_step(run_id);r=copies['files'][key];wanted=spec[key]\n   need(pathlib.Path(r['path']).parent==target and r['bytes']==wanted['bytes'] and r['sha256']==wanted['sha256'],'external config role drift')\n   got=stable_output(pathlib.Path(r['path']),10000)\n   need(got['bytes']==r['bytes'] and got['sha256']==r['sha256'],'external config bytes changed')\n  verify_dir_chain(target,held)\n finally:close_chain(held)\n return copies\n\n\n\ndef main():",
+        "count": 1
+      },
+      {
+        "before": " guard(run_id);need(shutil.disk_usage(S).free>=PREFLIGHT,'3.5 GiB preflight')",
+        "after": " post_r6_adoption=authenticate_post_r6_root()\n guard(run_id);need(shutil.disk_usage(S).free>=PREFLIGHT,'3.5 GiB preflight')",
+        "count": 1
+      },
+      {
+        "before": "         'sourceBefore':source_before,'nodeModulesBefore':dep_before,'children':[],'gameAccepted':False}",
+        "after": "         'postR6RootAdoption':post_r6_adoption,'originalR6StopPreserved':True,'historicalRootUnchanged':False,\n         'sourceBefore':source_before,'nodeModulesBefore':dep_before,'children':[],'gameAccepted':False}\n copies=None",
+        "count": 1
+      },
+      {
+        "before": " try:\n  guard(run_id)\n  node=NODE;",
+        "after": " try:\n  guard(run_id)\n  copies=prepare_external_configs(out,run_id);record['externalConfigCopies']=copies\n  node=NODE;",
+        "count": 1
+      },
+      {
+        "before": "('diagnostic-collection',[vitest,'list','tests/diagnostic.test.ts','--project','core','--json',str(out/'collection.json'),'--no-cache'])",
+        "after": "('diagnostic-collection',[vitest,'list','tests/diagnostic.test.ts','--config',copies['files']['rootTemplate']['path'],'--workspace',copies['files']['workspaceTemplate']['path'],'--project','core','--json',str(out/'collection.json'),'--no-cache'])",
+        "count": 1
+      },
+      {
+        "before": "  need('tests/diagnostic.test.ts' in json.dumps(parsed) and len(raw)>10,'diagnostic test not collected')",
+        "after": "  need(parsed==[{\"name\":\"records the full p13a original digest preimages\",\"file\":\"/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/tests/diagnostic.test.ts\",\"projectName\":\"core\"}],'exact original diagnostic collection identity/count/project')\n  record['collectionIdentities']=parsed;record['collectionCount']=len(parsed)",
+        "count": 1
+      },
+      {
+        "before": "  try:\n   record['sourceAfter']=full_source_check",
+        "after": "  try:\n   if copies is not None:record['externalConfigCopiesAfter']=verify_external_configs(copies,run_id)\n   record['sourceAfter']=full_source_check",
+        "count": 1
+      }
+    ],
+    "supervisorReplacementOperations": [
+      {
+        "before": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6",
+        "after": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1",
+        "count": 1
+      },
+      {
+        "before": "d2f66d1b78b3d09ad0eb897ac4b0d2fdfbaf0ab6656f8aa106c97aecabb6ea88",
+        "after": "8e4af6c0f9d92167ab1768368a443403abdded854c9eedc039c378285b86422a",
+        "count": 1
+      },
+      {
+        "before": "5c18ad22e7b78d978c59eace50d5e4349ea415efa4ebf5840860e75561fa2e4b",
+        "after": "8fd2ad12b9d7751b486687df2d4887831254501f5866795bcb4d16ae7e38e466",
+        "count": 1
+      },
+      {
+        "before": "f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7",
+        "after": "224b8f1614208215cb07993fc4b015d8438413e95b805c7360105bee0575b154",
+        "count": 1
+      },
+      {
+        "before": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+        "after": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+        "count": 1
+      },
+      {
+        "before": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r3/20261009-m0-types-after-al-r3.RECORDER-RESULT.json",
+        "after": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-recorder-results-20261009-r1/20261009-m0-types-external-after-an-r1.RECORDER-RESULT.json",
+        "count": 1
+      },
+      {
+        "before": "c0-m0-types-20261009-m0-types-after-al-r3.lane.log",
+        "after": "c0-m0-types-20261009-m0-types-external-after-an-r1.lane.log",
+        "count": 1
+      }
+    ],
+    "launcherReplacementOperations": [
+      {
+        "before": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6",
+        "after": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1",
+        "count": 1
+      },
+      {
+        "before": "f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7",
+        "after": "224b8f1614208215cb07993fc4b015d8438413e95b805c7360105bee0575b154",
+        "count": 2
+      },
+      {
+        "before": "5c18ad22e7b78d978c59eace50d5e4349ea415efa4ebf5840860e75561fa2e4b",
+        "after": "8fd2ad12b9d7751b486687df2d4887831254501f5866795bcb4d16ae7e38e466",
+        "count": 1
+      },
+      {
+        "before": "d2f66d1b78b3d09ad0eb897ac4b0d2fdfbaf0ab6656f8aa106c97aecabb6ea88",
+        "after": "8e4af6c0f9d92167ab1768368a443403abdded854c9eedc039c378285b86422a",
+        "count": 1
+      },
+      {
+        "before": "af8c2b89380031262c2deec4271c6b39339cca721e14abc89bf57860d6ce57eb",
+        "after": "339ae9263f60b5f554826e5919add321940c07440d31b33ed67020354a4e6eb0",
+        "count": 1
+      },
+      {
+        "before": "'check-deps.mjs':'e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64'}",
+        "after": "'check-deps.mjs':'e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64','ROOT-CONFIG-TEMPLATE.mts':'a593f1e4366309b0b68cc08610a42c9d26f6f28285434121a02f88c46300a384','WORKSPACE-CONFIG-TEMPLATE.mts':'e47ce2329889e0f690af0eeb318461eee38ecf5d8346b4fd0ef2aac99ca0e814'}",
+        "count": 1
+      },
+      {
+        "before": "assert grant['scope']=='M0_FOUR_COMMAND_TYPES_AND_DIAGNOSTIC_COLLECTION_ONLY' and grant['gameAuthorization'] is False\n",
+        "after": "assert grant['scope']=='M0_FOUR_COMMAND_TYPES_AND_DIAGNOSTIC_COLLECTION_ONLY' and grant['gameAuthorization'] is False\npost_role=authority['postR6RootAdoption']\nassert pathlib.Path(post_role['path']).is_relative_to(pathlib.Path('/Users/zacheryspector/studio-scratch')) and not pathlib.Path(post_role['path']).is_relative_to(pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2'))\npost=role('postR6RootAdoption');contract=config['postR6RootAdoptionContract']\nassert post['schema']==contract['schema'] and post['status']==contract['status']\nfor name,wanted in [('currentRootBaselineQualified',True),('historicalRootUnchanged',False),\n                    ('originalR6StopPreserved',True),('typesAccepted',False),('collectionAccepted',False)]:\n assert post[name] is wanted\nassert post['knownRootDrift']==config['knownRootDrift'] and post['freshSourceProof']==authority['freshSourceProof'] and post['freshDependencyProof']==authority['freshDependencyProof']\nassert post['freshSourceProof']['mirrorRootIdentity']==config['knownRootDrift']['recordedAfterIdentity']\nassert post['freshSourceProof']['historicalRootSubstitutedMetadataSha256']==config['knownRootDrift']['historicalMetadataSha256'] and post['freshSourceProof']['nonrootMetadataSha256']==config['knownRootDrift']['nonrootMetadataSha256']\nassert protection['postR6RootAdoptionSha256']==post_role['sha256']\nassert grant['postR6RootAdoptionSha256']==post_role['sha256']\n",
+        "count": 1
+      }
+    ],
+    "bootstrapReplacement": {
+      "before": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6",
+      "after": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1",
+      "count": 1
+    },
+    "configurationChangedKeys": [
+      "laneLog",
+      "operationalAuthorityVerifiedThisSlice",
+      "operationalProductionHead",
+      "operationalReadback",
+      "outputRoot",
+      "recorderResult",
+      "runId",
+      "runtimeFieldsUnfilled",
+      "status",
+      "externalCollectionConfig",
+      "recordedRootIdentityScope",
+      "postR6CurrentRootAdoption",
+      "knownRootDrift",
+      "postR6RootAdoptionContract"
+    ],
+    "configurationInverseOriginalKeys": {
+      "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-after-al-r3.lane.log",
+      "operationalAuthorityVerifiedThisSlice": true,
+      "operationalProductionHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+      "operationalReadback": {
+        "bytes": 1250,
+        "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+        "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+      },
+      "outputRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3",
+      "recorderResult": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r3/20261009-m0-types-after-al-r3.RECORDER-RESULT.json",
+      "runId": "20261009-m0-types-after-al-r3",
+      "runtimeFieldsUnfilled": {
+        "actualGrant": null,
+        "actualSourceReview": null,
+        "currentProtectedScopeAdoption": null,
+        "runtimeToolsAndPhysicalWrapperRoles": null
+      },
+      "status": "HELD_SOURCE_ONLY_NO_RUNTIME_GRANT"
+    },
+    "configurationAddedKeys": [
+      "externalCollectionConfig",
+      "recordedRootIdentityScope",
+      "postR6CurrentRootAdoption",
+      "knownRootDrift",
+      "postR6RootAdoptionContract"
+    ],
+    "integerTokensPreservedExactly": true
+  },
+  "functions": {
+    "method": "Complete top-level function-body text comparison; no AST/import/runtime claim.",
+    "runnerOriginalCount": 34,
+    "runnerUnchanged": [
+      "stop_current",
+      "on_signal",
+      "need",
+      "sha",
+      "remaining",
+      "fields",
+      "open_dir_chain",
+      "verify_dir_chain",
+      "close_chain",
+      "read_pin",
+      "clean_git_env",
+      "bounded_ps_snapshot",
+      "group_alive",
+      "signal_group",
+      "stop_group",
+      "guard_command_bytes",
+      "cmd",
+      "source_step",
+      "bounded_names",
+      "walk_meta",
+      "canonical_proof",
+      "stable_output",
+      "write_result",
+      "root_checkpoint",
+      "scratch_preimage_output",
+      "check_preimage_output",
+      "guard",
+      "normalized",
+      "load_m0_authorities",
+      "full_dependency_check",
+      "exact_package_roles"
+    ],
+    "runnerChanged": [
+      "run_child",
+      "full_source_check",
+      "main"
+    ],
+    "runnerAdded": [
+      "authenticate_post_r6_root",
+      "prepare_external_configs",
+      "verify_external_configs"
+    ],
+    "supervisorOriginalCount": 19,
+    "supervisorUnchanged": [
+      "need",
+      "identity",
+      "attrs",
+      "parent_fd",
+      "read_pin",
+      "command",
+      "git",
+      "remaining_active",
+      "remaining_total",
+      "group_alive",
+      "signal_group",
+      "stop_group",
+      "alarm",
+      "hard_alarm",
+      "interrupted",
+      "scratch_fd",
+      "safe_result",
+      "preflight"
+    ],
+    "supervisorChanged": [
+      "main"
+    ],
+    "launchReadPinUnchanged": true
+  },
+  "templates": [
+    {
+      "name": "root",
+      "historical": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/HISTORICAL-ROOT-CONFIG.txt",
+        "bytes": 176,
+        "sha256": "2939ba611a5c025c2974043c98c06af10aadd3065925103d3f506bd1f1d07faa"
+      },
+      "newSource": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/ROOT-CONFIG-TEMPLATE.mts",
+        "bytes": 460,
+        "sha256": "a593f1e4366309b0b68cc08610a42c9d26f6f28285434121a02f88c46300a384"
+      },
+      "forwardDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/ROOT-CONFIG-TEMPLATE.mts.forward.diff",
+        "bytes": 804,
+        "sha256": "f5311c43a4534b6b7b1a161fd043fa60a5a9721bbde6c75e6bc2e2e3c89f728b"
+      },
+      "inverseDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/ROOT-CONFIG-TEMPLATE.mts.inverse.diff",
+        "bytes": 804,
+        "sha256": "3a6000ae4f7362d13fd4576727763c0d80a6864a154c82ae6be326233c9c956c"
+      },
+      "inverseExact": true,
+      "changes": "Explicit mirror root and external cacheDir only; all includes/environment/import remain exact."
+    },
+    {
+      "name": "workspace",
+      "historical": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/HISTORICAL-WORKSPACE-CONFIG.txt",
+        "bytes": 1489,
+        "sha256": "423ba7332b1348114c751b71d1ed551c48aa57ecb4de75daf876b20d8ab34a82"
+      },
+      "newSource": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/WORKSPACE-CONFIG-TEMPLATE.mts",
+        "bytes": 2163,
+        "sha256": "e47ce2329889e0f690af0eeb318461eee38ecf5d8346b4fd0ef2aac99ca0e814"
+      },
+      "forwardDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/WORKSPACE-CONFIG-TEMPLATE.mts.forward.diff",
+        "bytes": 1750,
+        "sha256": "0ba8b83547057c181c597d66831ee8ec5eda956d5b7d0c9063a43b9f6b4995dc"
+      },
+      "inverseDiff": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/WORKSPACE-CONFIG-TEMPLATE.mts.inverse.diff",
+        "bytes": 1750,
+        "sha256": "4e1e1095ddb19ec648922ce289c855e781826f204d1b8f8cc66bb40855da0072"
+      },
+      "inverseExact": true,
+      "changes": "Explicit mirror root/external cacheDir in each of original two inline objects; original UI setup path rebased absolute. No synthetic extends, aliases, include or other option changes."
+    }
+  ],
+  "loaderSemantics": {
+    "installedVersion": "actual nested Vite5.4.21 / Vitest2.1.9 / Node22.23.2 qualified lineage, subject to genuine runtimeTools readback",
+    "initializeProject": "Explicit inline root overrides workspace directory. Original inline objects have no extends.",
+    "globFiles": "fastglob uses original relative include and cwd=config.dir||config.root; absolute source filename returned.",
+    "isTargetFile": "Matches relativeId against include; absolute include transformation would not preserve this path.",
+    "moduleResolution": "Fresh external node_modules symlink targets exact unchanged production dependencies; templates .mts preserve ESM; writable0600 copies allow actual Vite temporary sibling outside mirror.",
+    "actualCurrentLoaderRun": false
+  },
+  "collectionContract": {
+    "historicalResultPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3/20261009-m0-types-after-al-r3/collection.json",
+    "historicalBytes": 238,
+    "expectedIdentities": [
+      {
+        "name": "records the full p13a original digest preimages",
+        "file": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/tests/diagnostic.test.ts",
+        "projectName": "core"
+      }
+    ],
+    "newGate": "Parsed equality against exact original one-entry identity/count/project; no claimed actual output yet.",
+    "historicalResultRole": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3/20261009-m0-types-after-al-r3/collection.json",
+      "bytes": 238,
+      "sha256": "5e6d1f48f5aa9721c571e0e3d6429a5e1041760e49efa3837346dd5a89050a3a"
+    }
+  },
+  "preservation": {
+    "allHistoricalNonrootMetadataStrict": true,
+    "onlyKnownRootTupleExceptionExplicit": true,
+    "knownRootDrift": {
+      "historicalMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+      "historicalNormalizedIdentity": [
+        16777220,
+        166751332,
+        448,
+        13,
+        416,
+        1791577446298737027,
+        1791577446298737027
+      ],
+      "nonrootMetadataSha256": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
+      "recordedAfterIdentity": [
+        16777220,
+        166751332,
+        16832,
+        13,
+        416,
+        1791600924862151724,
+        1791600924862151724
+      ],
+      "recordedBeforeIdentity": [
+        16777220,
+        166751332,
+        16832,
+        13,
+        416,
+        1791577446298737027,
+        1791577446298737027
+      ],
+      "rosterSha256": "aa0270269ea341ec4d0029307c799518b5ff89e81b0044d165763408ea533f57"
+    },
+    "currentProofRequiresGenuineFutureRootAdoption": true,
+    "historicalRootUnchangedClaim": false,
+    "original1740MirrorConfigBytesUntouched": true,
+    "HOMEInherited": true,
+    "originalFourCommandsOrdered": true,
+    "original300320330Clocks": true,
+    "originalCleanupAndCapsPreserved": true,
+    "sourceAndDependenciesTwiceRequired": true
+  },
+  "preservedFailures": {
+    "originalR6Stop": true,
+    "rootMtimeCtimeDrift": true,
+    "allFourHistoricalChildrenExitZeroNotPreservationAcceptance": true,
+    "afterSourceDependencyProofsHistoricalUnavailable": true,
+    "noSilentTimestampRepair": true,
+    "noBlindRetry": true
+  },
+  "unfilledActualAuthority": {
+    "sourceReview": null,
+    "postR6DiagnosticObservedReview": null,
+    "postR6RootAdoption": null,
+    "currentProtection": null,
+    "runtimeTools": null,
+    "laneLock": null,
+    "currentContext": null,
+    "actualGrant": null,
+    "actualLaunch": null,
+    "actualOutcome": null,
+    "fullPostflightSnapshot": null,
+    "independentObservedReview": null,
+    "rootObservedAdoption": null
+  }
+}

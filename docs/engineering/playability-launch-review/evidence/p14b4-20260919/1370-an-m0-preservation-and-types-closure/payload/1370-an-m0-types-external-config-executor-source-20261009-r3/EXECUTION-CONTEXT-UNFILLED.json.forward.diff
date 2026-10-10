@@ -1,0 +1,35 @@
+--- BASELINE-R1-EXECUTION-CONTEXT-UNFILLED.json
++++ EXECUTION-CONTEXT-UNFILLED.json
+@@ -1,16 +1,16 @@
+-{
+-  "actualGrant": null,
+-  "additionalRefs": {},
+-  "configSha256": "224b8f1614208215cb07993fc4b015d8438413e95b805c7360105bee0575b154",
+-  "currentProtection": null,
+-  "executionAuthorization": false,
+-  "freshDependencyProof": null,
+-  "freshSourceProof": null,
+-  "laneLock": null,
+-  "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+-  "runId": "20261009-m0-types-external-after-an-r1",
+-  "runtimeTools": null,
+-  "schema": "1370-m0-types-execution-context/v1",
+-  "sourceReview": null,
+-  "postR6RootAdoption": null
+-}
++{
++  "actualGrant": null,
++  "additionalRefs": {},
++  "configSha256": "f4fc6834b8a38b3a32b16dad1aaee3de5096ee1d34805741deef7654bb206884",
++  "currentProtection": null,
++  "executionAuthorization": false,
++  "freshDependencyProof": null,
++  "freshSourceProof": null,
++  "laneLock": null,
++  "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
++  "runId": "20261009-m0-types-external-after-an-r3",
++  "runtimeTools": null,
++  "schema": "1370-m0-types-execution-context/v1",
++  "sourceReview": null,
++  "postR6RootAdoption": null
++}

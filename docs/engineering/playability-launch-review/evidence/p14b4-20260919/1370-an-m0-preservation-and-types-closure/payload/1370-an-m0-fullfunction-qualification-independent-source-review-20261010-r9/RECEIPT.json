@@ -1,0 +1,265 @@
+{
+  "schema": "1370-independent-real-fullfunction-qualification-source-review/v1",
+  "decision": "ACCEPT_STATIC_REAL_FULL_FUNCTION_QUALIFICATION_ROUTE_SOURCE_ONLY",
+  "sourceManifest": {
+    "bytes": 33835,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/SOURCE-PINS.json",
+    "sha256": "51926780c880416000d592b6f7e3ba8a0c42f005a833e6813708abc25823087c"
+  },
+  "sourceSeal": {
+    "bytes": 316,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/SEAL.json",
+    "sha256": "75ea4cc566c4344f86ed637c1df3ee35160ac1de6e3fdc5ef21b478f9e69bb4f"
+  },
+  "sourcePins": {
+    "CONFIG-TEMPLATE.mts": {
+      "bytes": 930,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/CONFIG-TEMPLATE.mts",
+      "sha256": "8be9467a794ddbd134dd04c4a92249c7e85e357ef96619562bd99f4ad10ecf5e"
+    },
+    "CONFIG.json": {
+      "bytes": 6843,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/CONFIG.json",
+      "sha256": "bc07641ef731c7d1fa2ebef4b171c61796064d9bbec8a1314e7a2721e9c168ea"
+    },
+    "CORE-TEST-TEMPLATE.ts": {
+      "bytes": 3955,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/CORE-TEST-TEMPLATE.ts",
+      "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "bytes": 9487,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+    },
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "record-fullfunction.py": {
+      "bytes": 16750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/record-fullfunction.py",
+      "sha256": "62afac1de8f0437dfe0df3029158e9ec88356a1120a79165b286a802d94c0995"
+    },
+    "run-fullfunction.mjs": {
+      "bytes": 20430,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/run-fullfunction.mjs",
+      "sha256": "bacdd8d080d43becd867232ffa592871f2f6cbaa29d4d2d02b980e66429de78f"
+    },
+    "run-fullfunction.py": {
+      "bytes": 16661,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/run-fullfunction.py",
+      "sha256": "19af00ff0ed65283c154dae88a841324e109ccdc8612f108f190940a074a280c"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    }
+  },
+  "routeSourcePins": {
+    "CONFIG-TEMPLATE.mts": {
+      "bytes": 930,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/CONFIG-TEMPLATE.mts",
+      "sha256": "8be9467a794ddbd134dd04c4a92249c7e85e357ef96619562bd99f4ad10ecf5e"
+    },
+    "CONFIG.json": {
+      "bytes": 6843,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/CONFIG.json",
+      "sha256": "bc07641ef731c7d1fa2ebef4b171c61796064d9bbec8a1314e7a2721e9c168ea"
+    },
+    "CORE-TEST-TEMPLATE.ts": {
+      "bytes": 3955,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/CORE-TEST-TEMPLATE.ts",
+      "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "bytes": 9487,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+    },
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "record-fullfunction.py": {
+      "bytes": 16750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/record-fullfunction.py",
+      "sha256": "62afac1de8f0437dfe0df3029158e9ec88356a1120a79165b286a802d94c0995"
+    },
+    "run-fullfunction.mjs": {
+      "bytes": 20430,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/run-fullfunction.mjs",
+      "sha256": "bacdd8d080d43becd867232ffa592871f2f6cbaa29d4d2d02b980e66429de78f"
+    },
+    "run-fullfunction.py": {
+      "bytes": 16661,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/run-fullfunction.py",
+      "sha256": "19af00ff0ed65283c154dae88a841324e109ccdc8612f108f190940a074a280c"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    }
+  },
+  "concreteFindings": [],
+  "executionAuthorization": false,
+  "acceptedScope": "Fresh fullfunction source only. Exact mirror-leaf caller, controller return outside finally, actual testedF7 external parser identity and complete fresh path selectors are statically qualified. New fullfunction runtime, proofs, fixtures, baseline and typed-catch RED remain unrun; genuine root authority inputs remain external.",
+  "allManifestRolesMatchActualRetainedBytes": true,
+  "manifestFileRoles": 114,
+  "externalParserRoles": 2,
+  "sourceReadback": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r9/SOURCE-READBACK.json",
+    "bytes": 33620,
+    "sha256": "67fab9eeb37ff5ab322ec6c0eef30c5f2c8db3b461a3d97beda7cf373a830a6d"
+  },
+  "authoritySourceReadback": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r9/AUTHORITY-READBACK.json",
+    "bytes": 933,
+    "sha256": "d1778d9b3bce6108be68ae38a9aa174e49cdb2ad73b3b3a43044cc7b19667e20"
+  },
+  "fixes": {
+    "leaf": "After original load_m0_authorities, authenticated proof_config.mirrorPath must equal authenticated historical copiedAdoption.mirrorPath, be absolute and have original MIRROR_ROOT as parent. Both proofs use this same leaf. Genuine original diagnostic main717/718/735/739 confirms that target. Root metadata predicate still precedes enumeration.",
+    "controllerCleanup": "Return is outside finally; cleanup/stream/result exception propagates to top-level STOP. Actual95737 did not demonstrate suppressed cleanup; latent structural risk corrected without suppressing or relabeling its warning.",
+    "freshOutput": "Recorder OUTPUTS.verification resolves to exact fresh CONFIG.recorderOutputPath and RECIPE.outputPaths.recorder. Controller outputPath and every Node runtime/phase/fixture join agree with fresh recipe. Original usedR1 evidence is retained.",
+    "parser": "CONFIG.parserInputs is exactly the two actualtestedF7 helper/control roles, in manifest and nine review aliases. Python/Node authenticate only these exact external exceptions; Node imports actualF7 helper. Actualpure32 adoption remains valid without rerun."
+  },
+  "completeR7ToR8ForwardInversePairs": [
+    {
+      "n": "CONFIG.json",
+      "forward": true,
+      "inverse": true
+    },
+    {
+      "n": "run-fullfunction.py",
+      "forward": true,
+      "inverse": true
+    },
+    {
+      "n": "run-fullfunction.mjs",
+      "forward": true,
+      "inverse": true
+    },
+    {
+      "n": "record-fullfunction.py",
+      "forward": true,
+      "inverse": true
+    }
+  ],
+  "completeR8ToR9ForwardInversePairs": [
+    {
+      "n": "CONFIG.json",
+      "forward": true,
+      "inverse": true
+    },
+    {
+      "n": "run-fullfunction.py",
+      "forward": true,
+      "inverse": true
+    },
+    {
+      "n": "run-fullfunction.mjs",
+      "forward": true,
+      "inverse": true
+    },
+    {
+      "n": "record-fullfunction.py",
+      "forward": true,
+      "inverse": true
+    }
+  ],
+  "changeBoundary": "R9 substantive change is recorder OUTPUTS selector. Whole normalized controller/Node byteequal to R8 aside from CONFIG_SHA; recorder byteequal aside from CONFIG_SHA,WORKER_SHA,OUTPUTS. Necessary template/source-package bindings follow. Original16 recorder helpers and OwnedChild remain byteexact.",
+  "originalMechanisms": {
+    "recorderHelpers": [
+      "require",
+      "sha",
+      "write",
+      "metadata",
+      "authenticate",
+      "process_alive",
+      "start_owned",
+      "ready_go",
+      "close_startup_fds",
+      "clear",
+      "alarm",
+      "whole_guard",
+      "active_guard",
+      "observed_exit_guard",
+      "child_environment",
+      "finalize_result"
+    ],
+    "OwnedChildByteExact": true,
+    "aggregateChildSeconds": 300,
+    "activeRecorderSeconds": 320,
+    "wholeRecorderSeconds": 330,
+    "streamBytes": 8388608,
+    "fixturePacketBytes": 67108864,
+    "capOperationalSTOPNotFitPrediction": true,
+    "noCombinedParentClock": true,
+    "twoOriginalCompleteProofScansOnly": true,
+    "noMetadataRepinOrRestore": true,
+    "historicalCopiedSourceAuthorityBeforePrivateReads": true,
+    "genuineCurrentTypesNineProofAndRootPrerequisitesUnchanged": true,
+    "actualControllerPPIDFirstProofNodeGateUnchanged": true
+  },
+  "parserAndSerialization": {
+    "actualPureControlsReview": {
+      "bytes": 12178,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-independent-observed-review-20261010-r1/RECEIPT.json",
+      "sha256": "113d10553caccefa0d3248eaf9507d6768db961933c3d697b3004e8e2539b353"
+    },
+    "testedF7Inputs": {
+      "exact-json.mjs": {
+        "bytes": 2202,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+        "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+      },
+      "run-parser-controls.mjs": {
+        "bytes": 7028,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+        "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+      }
+    },
+    "unsafeNanosecondIntegers": "Exact BigInt and typeddeep comparison in validation only. Node phase/core/final output objects contain safe counts/roles/strings/booleans; Python proof artifacts retain numeric exact integer tokens. No BigInt JSON write or proof-number coercion introduced.",
+    "observedAdoptionRequired": "Both entries authenticate exact-role genuine actual32 result/tool/independent review/rootadoption before private imports."
+  },
+  "fullFunctionControls": {
+    "naturalBoundaries": "Requested future natural pre-market196/197/208 through real tick prefix208; no returned195/207 shortcut.",
+    "syntheticVariants": "Four explicit legal trigger/attachment controls stay synthetic, not invented natural outcomes.",
+    "singleFixturePacket": "One ten-full-state-occurrence packet capped at genuine prospective64MiB operationalSTOP bound; no fit prediction.",
+    "baselineThenMutant": "Same immutable fixture must pass full baseline first. Real typed-catch mutant counts only original AssertionError/ERR_ASSERTION/operator throws/exact missing-exception message/actual undefined/row-cap tag/complete controls stack. Loader/resource/deadline/other errors STOP.",
+    "gameplay": "Actual fullfunction prefix is gameplay scope and awaits root execution; no neutrality416/default enable/game release/full-game/source promotion.",
+    "actualControlsAndFixtures": "UNRUN"
+  },
+  "freshRuntimePaths": {
+    "controller": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2",
+    "recorder": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261010-r2",
+    "lane": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-20261010-r2.lane.log",
+    "runId": "20261010-m0-fullfunction-after-an-r2",
+    "nodeRuntime": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2/runtime",
+    "recipeAndExecutedSelectorsAllEqual": true
+  },
+  "parentBoundary": "Root separately qualifies fresh parentR2 with exactF7 role exceptions. This receipt does not duplicate that review or grant runtime.",
+  "priorFailures": {
+    "actual95737RemainsStop": true,
+    "actual95737IndependentFullAdmissionPendingMandatoryPostflight": true,
+    "R8SourceStop": {
+      "bytes": 9725,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r8/RECEIPT.json",
+      "sha256": "d1433c5c1deca8d9e0758106db41a9c2faedb656263d6e2c956791eeb391038b"
+    },
+    "originalR1ThroughR6SourceStopsPreserved": true
+  },
+  "lesson": "Composition review must compare caller arguments with authentic original call sites and actual output selectors with CONFIG/RECIPE, in addition to helper byte equality. Preserve tested external parser roles when rebinding a game package.",
+  "reviewMethod": "Finite named scratch source/evidence reads, actual retained-byte hashes and pure complete text projections/caller/selector comparisons. No candidate import/runtime/test/compile/private inventory/Git/process probe.",
+  "actualNewRuntimeExecuted": false,
+  "actualFixturesGenerated": false,
+  "actualBaselinePassed": false,
+  "actualTypedCatchMutantRed": false,
+  "gameAccepted": false,
+  "neutralityAccepted": false,
+  "sourcePromotion": false
+}

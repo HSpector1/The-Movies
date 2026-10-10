@@ -1,0 +1,181 @@
+{
+  "schema": "1370-r3-ordering-consumer-controls-result/v1",
+  "status": "PURE_ORDERING_CONSUMER_18_CASES_COMPLETED_PENDING_OBSERVED_REVIEW",
+  "sourceReview": {
+    "bytes": 15506,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-independent-source-review-20261009-r3/RECEIPT.json",
+    "sha256": "0bf5c4456471f1efee11f552e7cbb0f79f2c6a27ea5949f4acb41f8395521419"
+  },
+  "acceptedSourcePins": {
+    "bytes": 10016,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/SOURCE-PINS.json",
+    "sha256": "2703e1453288f7fea1008757e921e9e62eda8ea4ac9130931f99e325baeee15f"
+  },
+  "heldRootAdoption": {
+    "bytes": 1847,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-FULLBODY-R3-HELD-SOURCE-ADOPTION.json",
+    "sha256": "2d528f4e64c051e666f328acca7fa65bbdb65deea784fe89392862bde341eab4"
+  },
+  "grantSha256": "501a866b7b442f23f0783461ed5ade364d37bdb32920966cd9ee01738de842c6",
+  "runtimeTools": {
+    "node": {
+      "bytes": 115440320,
+      "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+      "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+    },
+    "typescript": {
+      "bytes": 9112572,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/lib/typescript.js",
+      "sha256": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675"
+    }
+  },
+  "generatedModules": {
+    "ordering.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-results-20261009-r2/ordering.mjs",
+      "bytes": 12122,
+      "sha256": "3a9c3a34fe796d21879ef63a7172b7e8b751ad4489658b467eab505f9bb3d9f6"
+    },
+    "ordering-source-controls.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-results-20261009-r2/controls.mjs",
+      "bytes": 2095,
+      "sha256": "a1050e29ba0cee14669cdac910ce2ebe26efb57089c080fb309abb8784544edb"
+    }
+  },
+  "results": [
+    {
+      "id": "author-two-issuers-schema-GREEN",
+      "expected": "GREEN",
+      "verdict": "ACCEPT_POSITIVE_CONSUMER_INPUT",
+      "intendedAssertion": null,
+      "negativePredicate": null
+    },
+    {
+      "id": "freeze-complete-prefix-failure-suffix-GREEN",
+      "expected": "GREEN",
+      "verdict": "ACCEPT_POSITIVE_CONSUMER_INPUT",
+      "intendedAssertion": null,
+      "negativePredicate": null
+    },
+    {
+      "id": "candidate-other-issuer-grouping-RED",
+      "expected": "RED",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION",
+      "intendedAssertion": "evaluated and skipped candidates preserve full order",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)"
+    },
+    {
+      "id": "candidate-context-issuer-correlation-RED",
+      "expected": "RED",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION",
+      "intendedAssertion": "every actual evaluation binds an authenticated source-array projection",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)"
+    },
+    {
+      "id": "freeze-missing-slot-RED",
+      "expected": "RED",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION",
+      "intendedAssertion": "complete identity-bound freeze predicate order",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)"
+    },
+    {
+      "id": "freeze-swapped-slots-RED",
+      "expected": "RED",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION",
+      "intendedAssertion": "complete identity-bound freeze predicate order",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)"
+    },
+    {
+      "id": "freeze-wrong-name-RED",
+      "expected": "RED",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION",
+      "intendedAssertion": "complete identity-bound freeze predicate order",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)"
+    },
+    {
+      "id": "freeze-wrong-ordinal-RED",
+      "expected": "RED",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION",
+      "intendedAssertion": "complete identity-bound freeze predicate order",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)"
+    },
+    {
+      "id": "freeze-wrong-occurrence-RED",
+      "expected": "RED",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION",
+      "intendedAssertion": "complete identity-bound freeze predicate order",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)"
+    },
+    {
+      "id": "freeze-wrong-issuer-RED",
+      "expected": "RED",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION",
+      "intendedAssertion": "complete identity-bound freeze predicate order",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)"
+    },
+    {
+      "id": "freeze-failure-slot-missing-RED",
+      "expected": "RED",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION",
+      "intendedAssertion": "freeze predicate FAILED slot agrees with drop",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)"
+    },
+    {
+      "id": "freeze-drop-disagrees-RED",
+      "expected": "RED",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION",
+      "intendedAssertion": "freeze predicate FAILED slot agrees with drop",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)"
+    },
+    {
+      "id": "freeze-early-unreached-RED",
+      "expected": "RED",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION",
+      "intendedAssertion": "freeze predicate prefix status",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)"
+    },
+    {
+      "id": "freeze-suffix-resumes-RED",
+      "expected": "RED",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION",
+      "intendedAssertion": "freeze predicate suffix is NOT_REACHED",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)"
+    },
+    {
+      "id": "freeze-suffix-values-forged-RED",
+      "expected": "RED",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION",
+      "intendedAssertion": "unreached predicate has no evaluated values",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)"
+    },
+    {
+      "id": "freeze-second-failure-RED",
+      "expected": "RED",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION",
+      "intendedAssertion": "freeze predicate FAILED slot agrees with drop",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)"
+    },
+    {
+      "id": "freeze-illegal-not-evaluated-prefix-RED",
+      "expected": "RED",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION",
+      "intendedAssertion": "freeze predicate prefix status",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)"
+    },
+    {
+      "id": "freeze-unknown-drop-RED",
+      "expected": "RED",
+      "verdict": "ACCEPT_EXPECTED_CONSUMER_ASSERTION",
+      "intendedAssertion": "freeze drop names an existing predicate",
+      "negativePredicate": "AssertionError && message.includes(intendedAssertion)"
+    }
+  ],
+  "positiveCount": 2,
+  "specificNegativeCount": 16,
+  "candidateChanged": false,
+  "syntheticOnly": true,
+  "fixtureQualification": false,
+  "meaningfulCatchMutantRed": false,
+  "game": false,
+  "originalM0ReadOrWritten": false,
+  "executionAuthorization": false
+}

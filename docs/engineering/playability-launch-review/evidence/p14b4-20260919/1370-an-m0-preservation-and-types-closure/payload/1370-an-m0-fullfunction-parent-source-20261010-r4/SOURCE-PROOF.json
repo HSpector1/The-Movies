@@ -1,0 +1,46 @@
+{
+  "allPriorStopsPreserved": true,
+  "candidateExecuted": false,
+  "executionAuthorization": false,
+  "freshFutureGrant": null,
+  "method": "Authenticate predecessor complete manifests/reviews; apply only listed one-occurrence literal replacements; reverse replacements reconstruct entire original UTF-8 bytes and all helper function ASTs remain exact; complete source reversal also reconstructs the original complete AST. Write finalized bytes once, derive every manifest byte count/SHA from retained readback.",
+  "pairs": {
+    "launch-fullfunction.py": {
+      "allHelperFunctionsAstExact": true,
+      "allOtherSourceBytesUnchanged": true,
+      "exactLiteralChanges": [
+        {
+          "from": "1370-an-m0-fullfunction-parent-recorded-20261010-r3",
+          "occurrences": 1,
+          "to": "1370-an-m0-fullfunction-parent-recorded-20261010-r4"
+        }
+      ],
+      "helperFunctionCount": 10,
+      "mainContainsOnlyListedLiteralChange": true,
+      "originalSource": {
+        "bytes": 12103,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r3/launch-fullfunction.py",
+        "sha256": "02590fe451ab2c8bcf28fd2b3ee8e63e181f81839daffd515c28806283ac85cb"
+      },
+      "updatedSource": {
+        "bytes": 12103,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r4/launch-fullfunction.py",
+        "sha256": "c891282f2f781df48e758f6ee0ea68de3d3cff3093c8db71da7d5d490906131e"
+      },
+      "wholeInverseNormalizationByteExact": true
+    }
+  },
+  "predecessorIndependentSourceReview": {
+    "bytes": 4782,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-independent-source-review-20261010-r3/RECEIPT.json",
+    "sha256": "410d3e784e742abe9c089a8b9ae52cd4db426dabda6022212ea2f09df2417fe7"
+  },
+  "predecessorSourcePins": {
+    "bytes": 1409,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "bfd2caee59bf7bdc5698b97bca19340513dcf0b761ef66dfe3b970eef39eec86"
+  },
+  "privateReads": false,
+  "runtimeTests": false,
+  "schema": "1370-fullfunction-fresh-attempt4-path-only-source-proof/v1"
+}

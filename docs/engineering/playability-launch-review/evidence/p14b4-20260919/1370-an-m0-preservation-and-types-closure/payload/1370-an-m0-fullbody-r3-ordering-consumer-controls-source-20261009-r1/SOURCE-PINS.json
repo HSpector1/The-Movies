@@ -1,0 +1,38 @@
+{
+  "actualGrant": null,
+  "actualReview": null,
+  "executionAuthorization": false,
+  "files": {
+    "CONFIG.json": {
+      "bytes": 4791,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r1/CONFIG.json",
+      "sha256": "c0f90ed7902ab5ecb3f8b2f48f2b8772adbc7cb2ad24ebaa303d440cd8077384"
+    },
+    "LESSONS.txt": {
+      "bytes": 396,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r1/LESSONS.txt",
+      "sha256": "90ffc38a69ef6f51b8bc966d4b39379e4488281e43cf0926efc32a3b70e4ac5f"
+    },
+    "NEXT-BASELINE-CATCH-ROUTE.txt": {
+      "bytes": 1571,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r1/NEXT-BASELINE-CATCH-ROUTE.txt",
+      "sha256": "2041b55332f9988dd8df773ed81c3c99a4b63c81882cc6d35719893291b106ae"
+    },
+    "RECIPE.json": {
+      "bytes": 4318,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r1/RECIPE.json",
+      "sha256": "1be67516b561eca3f4e15f1145e0c589e6ed9db2511c268cf39feb97b95e8c12"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 3999,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r1/SOURCE-PROOF.json",
+      "sha256": "4cbd64d6f8e042611b7787af94f07d8e03df34da81af900ec3fbed4fb18f6c4f"
+    },
+    "run-ordering-controls.mjs": {
+      "bytes": 7830,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r1/run-ordering-controls.mjs",
+      "sha256": "d9533c3efb358d8d55cc89e86d56147d38c2b84a4702e7b8212a938f1b39e31d"
+    }
+  },
+  "schema": "1370-r3-ordering-controls-source-pins/v1"
+}

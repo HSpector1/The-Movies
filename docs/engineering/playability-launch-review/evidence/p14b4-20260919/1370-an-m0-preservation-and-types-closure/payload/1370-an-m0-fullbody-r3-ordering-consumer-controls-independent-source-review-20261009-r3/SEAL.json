@@ -1,0 +1,28 @@
+{
+  "schema": "1370-ordering-consumer-independent-source-review-seal/v1",
+  "decision": "ACCEPT_STATIC_R3_ORDERING_CONSUMER_CONTROLS_SOURCE_ONLY",
+  "receipt": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-independent-source-review-20261009-r3/RECEIPT.json",
+    "bytes": 15506,
+    "sha256": "0bf5c4456471f1efee11f552e7cbb0f79f2c6a27ea5949f4acb41f8395521419"
+  },
+  "report": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-independent-source-review-20261009-r3/REPORT.txt",
+    "bytes": 521,
+    "sha256": "13fd9dbee343be952c307110de7473b3438f5acbadf70e67fd3fbacf4a27ee69"
+  },
+  "sourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/SOURCE-PINS.json",
+    "bytes": 4114,
+    "sha256": "9976469fd0db93e77eea6842f28572493d02aded92b0924f984785f48f1d2938"
+  },
+  "previousReceiptPreserved": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-independent-source-review-20261009-r2/RECEIPT.json",
+    "bytes": 14698,
+    "sha256": "fa130bbec3e060238ce1316d2c135e315475398d817771023fe9b8a4bd5e21e0"
+  },
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "fileModes": "0444",
+  "directoryMode": "0555"
+}

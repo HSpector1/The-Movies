@@ -1,0 +1,11 @@
+--- R7/record-fullfunction.py
++++ R8/record-fullfunction.py
+@@ -2,7 +2,7 @@
+ Future runtime only; no source-authored execution authority."""
+ import datetime,hashlib,json,os,pathlib,selectors,select,signal,stat,sys,time
+ HERE=pathlib.Path(__file__).resolve().parent;SCRATCH=pathlib.Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='c41b0b344ecb2abed6079075e0f4a3571d0fb957ae8bddee7e7a1e6f927a9808';WORKER_SHA='f75fcf82debb83d3a588e70c9295ff8a0739dbed41ad19d592b6a86710594516';CAP=8*1024**2;CHILD=300;ACTIVE=320;WHOLE=330
++CONFIG_SHA='7dd64bf16908076887593eac1843f05d205426ba97897e42cc7a479b938187a6';WORKER_SHA='4101413fc879dd013c5a86d9dd6a77a362aeb5e0fcb6df565ae401fe6675d8c6';CAP=8*1024**2;CHILD=300;ACTIVE=320;WHOLE=330
+ OUTPUTS={'verification':SCRATCH/'1370-an-m0-fullfunction-qualification-recorder-results-20261009-r1'}
+ def require(v,m):
+  if not v:raise RuntimeError('STOP_'+m)

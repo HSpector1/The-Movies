@@ -1,0 +1,11 @@
+{
+  "executionAuthorization": false,
+  "priorReview": {
+    "bytes": 6633,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-independent-source-review-20261010-r5/RECEIPT.json",
+    "sha256": "3298d4569626e6b2a837f8dc772e78a9201916b1faad34853f7cdd94ef8a6edd"
+  },
+  "runtimeAttempted": false,
+  "schema": "1370-root-review-contract-label-correction/v1",
+  "scope": "Original R5 source review checks succeeded but root used a free-form decision label inconsistent with unchanged parent PARENT_REVIEW predicate. Source/runtime unchanged; no run was attempted using that receipt. Fresh review reruns identical full normalization/helpers/role checks with exact required ACCEPT_STATIC_FULLFUNCTION_ONCE_PARENT_SOURCE_ONLY label."
+}

@@ -1,0 +1,80 @@
+{
+  "actualOwnGroupConfirmed": true,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/ordering.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/record-ordering-controls.py",
+    "verification",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/GRANT.json",
+    "501a866b7b442f23f0783461ed5ade364d37bdb32920966cd9ee01738de842c6"
+  ],
+  "combinedPreparationRuntimeDeadline": null,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesOuterIdentity": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "fixtureQualification": false,
+  "game": false,
+  "grant": {
+    "bytes": 5412,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/GRANT.json",
+    "sha256": "501a866b7b442f23f0783461ed5ade364d37bdb32920966cd9ee01738de842c6"
+  },
+  "helperPgid": 334,
+  "helperPid": 334,
+  "helperSid": 334,
+  "meaningfulCatchMutantRed": false,
+  "originalM0ReadOrWritten": false,
+  "parentAdapterSourcePins": {
+    "bytes": 3149,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "30ae3db8d6cf974e85ff5e416ed360a65b004b5cd5945a3289cb1d880c062a7c"
+  },
+  "parentAdapterSourceReview": {
+    "bytes": 2776,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-independent-source-review-20261009-r2/RECEIPT.json",
+    "sha256": "8d25710323efd209c4ec86bc2ee72ce96ef7074e4f4b5bd80d18ef8793879b1e"
+  },
+  "preparationDeadlineSeconds": 60,
+  "preparationElapsedSeconds": 0.6761403179989429,
+  "runtimeBounds": {
+    "active": 320,
+    "childStreamBytes": 8388608,
+    "compiledModuleBytes": 131072,
+    "resultBytes": 131072,
+    "runner": 300,
+    "whole": 330
+  },
+  "runtimeClockOwnedByRecorder": true,
+  "runtimeToolsObservation": {
+    "bytes": 5401,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-RUNTIME-TOOLS.json",
+    "sha256": "a681efc4a9b29dfc62bffb6c1e7cd434107bfb1064769f712fca48227bd64106"
+  },
+  "schema": "1370-r3-ordering-controls-parent-launch-claim/v1",
+  "sourceAdoption": {
+    "bytes": 1386,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/ORDERING-CONTROLS-SOURCE-ADOPTION.json",
+    "sha256": "67557eab16c1f8d83acac3ce0f373ee07e10a2afd9bd8d8b0d4b4989e03eca9f"
+  },
+  "sourcePins": {
+    "bytes": 4114,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "9976469fd0db93e77eea6842f28572493d02aded92b0924f984785f48f1d2938"
+  },
+  "sourceReview": {
+    "bytes": 15506,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-independent-source-review-20261009-r3/RECEIPT.json",
+    "sha256": "0bf5c4456471f1efee11f552e7cbb0f79f2c6a27ea5949f4acb41f8395521419"
+  },
+  "syntheticOnly": true,
+  "unexpectedHelperWaitIsStop": true
+}

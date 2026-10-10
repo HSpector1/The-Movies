@@ -1,0 +1,31 @@
+{
+  "classification": "LOCAL_HASH_SIZE_ONLY",
+  "rawBytesIncluded": false,
+  "roles": [
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 98345,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r3/BEFORE-PS.txt",
+      "sha256": "ebe7776438290a10a78b4ee93306be1b451a4eae3cf8ff3c64a529f4cf625c73"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 670525,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r3/BEFORE-LSOF.bin",
+      "sha256": "1d604d2c8b1aa203f0f31db4d4481d97e62bf6dac78fde855f11f2c9f0b6ed7d"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 96954,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r3/AFTER-PS.txt",
+      "sha256": "388e09b3a6e8bda9e72fa958738999598f9046d9d1e9cfaff7c6e8ae163f8828"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 666331,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r3/AFTER-LSOF.bin",
+      "sha256": "8c6ddeb341e5149555880a4823e56ef38183d9a87796c6c92a88b1f79457a394"
+    }
+  ],
+  "schema": "1370-an-fullpostflight-raw-local-only/v1"
+}

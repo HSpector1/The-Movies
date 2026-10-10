@@ -1,0 +1,88 @@
+{
+  "actualOutcome": null,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/c0-m0-post-r6-preservation-diagnostic-20261009-r2.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/fill-grant-exec.py",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-recorded-20261009-r2/FILLED-SPEC.json",
+    "00c152581ac4f3a053a87daed7e363d04f3ba73c3d97ed7e3467c6c4a9226768"
+  ],
+  "automaticRetry": false,
+  "combinedFillRuntime330Claim": false,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesOuterHelperIdentity": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": true,
+  "filledSpec": {
+    "bytes": 6345,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-recorded-20261009-r2/FILLED-SPEC.json",
+    "sha256": "00c152581ac4f3a053a87daed7e363d04f3ba73c3d97ed7e3467c6c4a9226768"
+  },
+  "game": false,
+  "helperCapture": "Original r8 combined log; no added live parent byte limiter",
+  "mode": "proof",
+  "originalChildCommandStreamCapsBytes": 8388608,
+  "ownedOuterHelperPgid": 32502,
+  "ownedOuterHelperPid": 32502,
+  "ownedOuterHelperSid": 32502,
+  "parentFillAndPrelaunchSourceReview": {
+    "bytes": 10603,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-independent-source-review-20261009-r2/RECEIPT.json",
+    "sha256": "c6aa159c8404f4587711c9bfaac08178f8a8fb3865f00d22ac9c29e3936a6434"
+  },
+  "parentSourcePins": {
+    "bytes": 3626,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "38648e516daf240705f6583a580594d947835240e73e1bb53b8105252e67276b"
+  },
+  "preflightObservedAdoption": {
+    "bytes": 4459,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/CURRENT-AM-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "ac3c336fcf4c57b4de25a2d03fe4642719e7137d34ffe24d2106a8210ecc1612"
+  },
+  "preparationSeconds": 60,
+  "proofOrTypesAccepted": false,
+  "protectedFreezeContinues": true,
+  "rootLauncher": {
+    "bytes": 7336,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/run_m0_preservation_diagnostic_once.py",
+    "sha256": "a3a17bf55e1204cd6182fffc0e8cbd6fc2b9e0364f4df49a923dd2ce6050d6db"
+  },
+  "runtimeBoundsSeconds": {
+    "active": 320,
+    "runner": 300,
+    "whole": 330
+  },
+  "runtimeClockStartsInsideUnchangedLAUNCH": true,
+  "runtimeToolsObservation": {
+    "bytes": 5401,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-RUNTIME-TOOLS.json",
+    "sha256": "a681efc4a9b29dfc62bffb6c1e7cd434107bfb1064769f712fca48227bd64106"
+  },
+  "schema": "1370-root-m0-once-recorded-lane-grant/v1",
+  "sourceAdoption": {
+    "bytes": 2200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-PRESERVATION-DIAGNOSTIC-SOURCE-ADOPTION.json",
+    "sha256": "e40aae3fc22a7ef352b8cf670dc7c38f63eedeeb0ab7d23012335858925474e2"
+  },
+  "sourcePins": {
+    "bytes": 14200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "42611a6faecc6b13e7b8a18cfef210b06d7167bb3e2a23d08862db65c4531262"
+  },
+  "sourceReview": {
+    "bytes": 36937,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-independent-source-review-20261009-r2/RECEIPT.json",
+    "sha256": "69c21815277b22aedf9c6c222a8fac25f265296e473de9973f21999ec4f03d8d"
+  },
+  "status": "GRANTED_ONCE_EXACT_POST_R6_M0_PRESERVATION_DIAGNOSTIC",
+  "utc": "2026-10-10T04:00:30.568673+00:00"
+}

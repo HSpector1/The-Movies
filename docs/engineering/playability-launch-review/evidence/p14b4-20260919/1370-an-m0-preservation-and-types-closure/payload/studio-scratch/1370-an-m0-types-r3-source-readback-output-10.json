@@ -1,0 +1,12 @@
+{
+  "candidateImported": false,
+  "privateInventory": false,
+  "roles": {
+    "fill-grant-exec.py": {
+      "bytes": 14054,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/fill-grant-exec.py",
+      "sha256": "c41b8e0eb917175cb2fdcc1885ddfa0d9e63ae0e46753e2a857b5984cdcb5bd8"
+    }
+  },
+  "schema": "1370-finite-retained-source-bytes-readback/v1"
+}

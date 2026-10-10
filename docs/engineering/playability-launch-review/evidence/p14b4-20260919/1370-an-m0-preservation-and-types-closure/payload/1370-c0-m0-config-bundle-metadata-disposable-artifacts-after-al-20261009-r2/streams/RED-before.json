@@ -1,0 +1,130 @@
+{
+  "schema": "1370-disposable-strict-metadata-map/v1",
+  "root": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/mirror",
+  "metadataFields": [
+    "dev",
+    "ino",
+    "mode",
+    "nlink",
+    "size",
+    "mtimeNs",
+    "ctimeNs"
+  ],
+  "entries": [
+    {
+      "path": ".",
+      "metadata": [
+        "16777220",
+        "166838978",
+        "16832",
+        "8",
+        "256",
+        "1791603602324824920",
+        "1791603602324824920"
+      ],
+      "kind": "directory"
+    },
+    {
+      "path": "core.config.mts",
+      "metadata": [
+        "16777220",
+        "166838988",
+        "33152",
+        "1",
+        "571",
+        "1791603602307821230",
+        "1791603602307821230"
+      ],
+      "kind": "file",
+      "bytes": 571,
+      "sha256": "01a597f537ce6a61ec207b0cf123d9dd372c4c4b2419ea86ead9843eee6a2944"
+    },
+    {
+      "path": "node_modules",
+      "metadata": [
+        "16777220",
+        "166838984",
+        "41408",
+        "1",
+        "62",
+        "1791603602255184740",
+        "1791603602255184740"
+      ],
+      "kind": "link",
+      "target": "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    },
+    {
+      "path": "package.json",
+      "metadata": [
+        "16777220",
+        "166838985",
+        "33152",
+        "1",
+        "18",
+        "1791603602256855004",
+        "1791603602256855004"
+      ],
+      "kind": "file",
+      "bytes": 18,
+      "sha256": "1239d4d885dcad42201a27ed9324f8f0f760b78700d8db9ced39a511cffe7eae"
+    },
+    {
+      "path": "tests",
+      "metadata": [
+        "16777220",
+        "166838981",
+        "16832",
+        "3",
+        "96",
+        "1791603602273801123",
+        "1791603602273801123"
+      ],
+      "kind": "directory"
+    },
+    {
+      "path": "tests/meta-control.test.ts",
+      "metadata": [
+        "16777220",
+        "166838986",
+        "33152",
+        "1",
+        "118",
+        "1791603602274133753",
+        "1791603602274133753"
+      ],
+      "kind": "file",
+      "bytes": 118,
+      "sha256": "c6d96353ccf47203c6add9d79e6237ebf5b1bf427d28da5987a81584a4606071"
+    },
+    {
+      "path": "vitest.config.mts",
+      "metadata": [
+        "16777220",
+        "166838987",
+        "33152",
+        "1",
+        "544",
+        "1791603602287413278",
+        "1791603602287413278"
+      ],
+      "kind": "file",
+      "bytes": 544,
+      "sha256": "15a9fbadf9afe3747bcb4e2bd107de430d8c29a3ef2b4bfa0eca3f518d89bb57"
+    },
+    {
+      "path": "vitest.workspace.mts",
+      "metadata": [
+        "16777220",
+        "166838989",
+        "33152",
+        "1",
+        "51",
+        "1791603602325042312",
+        "1791603602325042312"
+      ],
+      "kind": "file",
+      "bytes": 51,
+      "sha256": "a125d69ec8d6d4aa93cf4d4a9e42980064e06f1e18d1d20c55c11be7a3753c61"
+    }
+  ]
+}

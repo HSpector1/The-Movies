@@ -1,0 +1,157 @@
+--- ADAPTER
++++ BASE
+@@ -1,104 +1,67 @@
+-"""External root grant only. Source preparation never invokes this adapter."""
+-import datetime,hashlib,json,os,shutil,signal,stat,subprocess,sys,time
++"""Held after-AL launch: external reviewed route plus separately recorded root grant.
++No grant is created by this wrapper. Never invoke during source preparation."""
++import hashlib, json, os, shutil, stat, subprocess, sys
+ from pathlib import Path
+ S=Path('/Users/zacheryspector/studio-scratch')
+ R=Path('/Users/zacheryspector/The-Movies-headless-program')
+ P=Path(__file__).resolve().parent
+-Q=S/'1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2'
+-START=time.monotonic()
+-HEAD='7087f116cf998fd86e33fb8e004df628e0686dbd'
+-TREE='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554'
+-MAIN='c902a704eb948cc576083d0973c8c23e59937dc1'
+-BRANCH='wip/headless-program-20260916-ts'
+-CAP=128*1024*1024
+-
+ def require(ok,message):
+  if not ok:raise RuntimeError('STOP_'+message)
+-def prep_timeout(signum,frame):raise RuntimeError('STOP_PREPARATION_60_SECONDS')
+-signal.signal(signal.SIGALRM,prep_timeout)
+-signal.setitimer(signal.ITIMER_REAL,60)
+-def remaining():
+- left=60-(time.monotonic()-START);require(left>0,'PREPARATION_60_SECONDS');return left
+ def metadata(st):return (st.st_dev,st.st_ino,st.st_size,st.st_mtime_ns,st.st_ctime_ns,st.st_mode,st.st_nlink)
+ def role(path):
+- p=Path(path);require(p.is_absolute() and p.resolve(strict=True)==p and not p.is_symlink(),'PHYSICAL_SOURCE');before=p.lstat();require(stat.S_ISREG(before.st_mode) and before.st_nlink==1 and before.st_size<=CAP,'REGULAR_SOURCE_CAP')
++ p=Path(path);require(p.resolve(strict=True)==p and not p.is_symlink(),'PHYSICAL_SOURCE');before=p.lstat();require(stat.S_ISREG(before.st_mode) and before.st_nlink==1,'REGULAR_SOURCE')
+  fd=os.open(p,os.O_RDONLY|os.O_NOFOLLOW)
+  try:
+   require(metadata(os.fstat(fd))==metadata(before),'SOURCE_OPEN_RACE');h=hashlib.sha256();size=0
+   while True:
+-   remaining();block=os.read(fd,1024**2)
++   block=os.read(fd,1024**2)
+    if not block:break
+-   h.update(block);size+=len(block);require(size<=CAP,'SOURCE_CAP')
++   h.update(block);size+=len(block)
+   require(metadata(os.fstat(fd))==metadata(before)==metadata(p.lstat()),'SOURCE_READ_RACE')
+  finally:os.close(fd)
+  return {'path':str(p),'bytes':size,'sha256':h.hexdigest()}
+ def authenticate(wanted):
+- require(type(wanted) is dict and set(wanted)=={'path','bytes','sha256'} and type(wanted['path']) is str and type(wanted['bytes']) is int and wanted['bytes']>=0 and type(wanted['sha256']) is str and len(wanted['sha256'])==64 and all(c in '0123456789abcdef' for c in wanted['sha256']),'ROLE_SCHEMA')
+- require(role(wanted['path'])==wanted,'ROLE_HASH');return Path(wanted['path'])
+-def pairs(rows):
+- result={}
+- for k,v in rows:require(k not in result,'DUPLICATE_JSON_KEY');result[k]=v
+- return result
+-def load(path):
+- wanted=role(path);require(wanted['bytes']<=1024*1024,'JSON_CAP');raw=Path(path).read_bytes();require(len(raw)==wanted['bytes'] and hashlib.sha256(raw).hexdigest()==wanted['sha256'],'JSON_READ_RACE');return json.loads(raw,object_pairs_hook=pairs,parse_constant=lambda x:(_ for _ in ()).throw(RuntimeError('STOP_JSON_CONSTANT')))
+-def exact(a,b):
+- if type(a) is not type(b):return False
+- if isinstance(a,dict):return set(a)==set(b) and all(exact(a[k],b[k]) for k in a)
+- if isinstance(a,list):return len(a)==len(b) and all(exact(x,y) for x,y in zip(a,b))
+- return a==b
+-def command(argv):
+- env=dict(os.environ,GIT_OPTIONAL_LOCKS='0');run=subprocess.run(argv,cwd=R,env=env,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=min(15,remaining()),check=True)
+- require(len(run.stdout)<=2*1024*1024 and len(run.stderr)<=2*1024*1024,'PREFLIGHT_COMMAND_CAP');return run.stdout.decode().strip()
+-def git(*args):return command(['/usr/bin/git','-c','gc.auto=0','-c','maintenance.auto=0','--no-optional-locks',*args])
+-def write(path,obj):
+- raw=(json.dumps(obj,sort_keys=True,indent=2)+'\n').encode();fd=os.open(path,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)
+- with os.fdopen(fd,'wb') as f:f.write(raw);f.flush();os.fsync(f.fileno())
+- return role(path)
+-def main():
+- require(sys.flags.isolated and sys.dont_write_bytecode and not sys.flags.optimize and len(sys.argv)==3,'EXACT_PYTHON_I_B_GRANT_ARGS')
+- gp=Path(sys.argv[1]);require(gp.is_absolute() and gp.name=='GRANT.json' and gp.parent==S/'1370-an-disposable-metadata-controls-parent-recorded-20261009-r1' and gp.parent.resolve(strict=True)==gp.parent,'ROOT_GRANT_LOCATION')
+- gr=role(gp);require(gr['sha256']==sys.argv[2],'ROOT_GRANT_HASH');g=load(gp)
+- require(g['schema']=='1370-disposable-controls-root-once-grant/v1' and g['decision']=='GRANTED_ONCE_DISPOSABLE_METADATA_CONTROLS' and g['executionAuthorization'] is True and g['oneAggregateRun'] is True and g['automaticRetry'] is False,'EXTERNAL_ROOT_GRANT')
+- ap=authenticate(g['parentAdapterSourcePins']);require(ap==P/'SOURCE-PINS.json','ADAPTER_PINS_PATH');pins=load(ap)
+- for name,r in pins['files'].items():require(Path(r['path'])==P/name,'ADAPTER_FILE_PATH');authenticate(r)
+- require(pins['files']['launch-disposable-controls.py']==role(Path(__file__).resolve()),'ADAPTER_SELF')
+- ar=load(authenticate(g['parentAdapterSourceReview']))
+- require(ar['decision']=='ACCEPT_STATIC_DISPOSABLE_CONTROLS_PARENT_ADAPTER_SOURCE_ONLY' and ar['executionAuthorization'] is False and ar['concreteFindings']==[] and exact(ar['sourcePins'],g['parentAdapterSourcePins']),'ADAPTER_REVIEW')
+- sp=authenticate(g['sourcePins']);require(sp==Q/'SOURCE-PINS.json' and g['sourcePins']['sha256']=='bc7fcfc7bcd4ab5e4472733260e1ee5f89658c827a09412d7f98d60b10ffd573','CONTROLS_PINS_PATH');sourcepins=load(sp)
+- require(sourcepins['schema']=='1370-disposable-controls-source-pins/v1' and sourcepins['executionAuthorization'] is False,'CONTROLS_PINS_PROTOCOL')
+- for name,r in sourcepins['files'].items():require(Path(r['path'])==Q/name,'CONTROLS_SOURCE_PATH');authenticate(r)
+- require(exact(sourcepins['files']['RECIPE.json'],g['recipe']) and exact(sourcepins['files']['CONFIG.json'],g['config']),'RECIPE_CONFIG_ROLES')
+- recipe=load(authenticate(g['recipe']));config=load(authenticate(g['config']))
+- require(g['recipe']['sha256']=='0998870942ff8f188fcc3ce14f853119a49f45b1e78d08ad18685f83b5ab432b' and g['config']['sha256']=='c3c58fc2b2ba77b0a2e92415f1e74d386cf899506b07aacbe677f2ad9b061c14','QUALIFIED_RECIPE_CONFIG_HASH')
+- rv=load(authenticate(g['sourceReview']));require(rv['schema']=='1370-disposable-controls-independent-source-review/v1' and rv['decision']=='ACCEPT_SOURCE_ONLY_UNRUN_HELD' and exact(rv['routeSourcePins'],g['sourcePins']) and rv['executionAuthorization'] is False and rv['concreteFindings']==[],'CONTROLS_SOURCE_REVIEW')
+- for key in ('argv','cwd','bounds','environment'):require(exact(g[key],recipe[key]),'ROOT_BINDING_'+key.upper())
+- require(recipe['environment']=={'GIT_OPTIONAL_LOCKS':'0','PYTHONDONTWRITEBYTECODE':'1'} and 'HOME' not in recipe['environment'],'EXACT_ENVIRONMENT')
+- require(recipe['cwd']==str(Q) and recipe['config']==g['config'],'RECIPE_BINDINGS')
+- require(recipe['bounds']['aggregateControllerSeconds']==60 and recipe['bounds']['activeRecorderSeconds']==75 and recipe['bounds']['wholeRecorderSeconds']==90 and recipe['bounds']['parentLaunchClock'] is None,'ORIGINAL_CLOCK_SCOPE')
+- require(exact(g['operational'],{'head':HEAD,'sourceTree':TREE,'main':MAIN,'branch':BRANCH,'trackingWorkingHead':HEAD,'localMainRef':'refs/remotes/origin/main','advertisedMainRef':'refs/heads/main'}),'CURRENT_AM_AUTHORITY')
+- for r in config['roles'].values():authenticate(r)
+- for r in recipe['tools'].values():authenticate(r)
+- tools=load(authenticate(g['runtimeTools']))['runtimeTools']
+- for key in ('python','node'):
+-  row=tools[key];wanted=recipe['tools'][key];require(row['physicalPath']==wanted['path'] and row['bytes']==wanted['bytes'] and row['sha256']==wanted['sha256'],'ACTUAL_TOOL_'+key.upper());require(os.access(wanted['path'],os.X_OK),'EXECUTABLE_TOOL')
+- argv=recipe['argv'];require(exact(argv,['/bin/bash',recipe['tools']['helper']['path'],'0',recipe['laneLog'],recipe['tools']['python']['path'],'-I','-B',str(Q/'record-metadata.py'),'verification']),'EXACT_R8_ARGV')
+- require(git('rev-parse','HEAD')==HEAD and git('rev-parse','HEAD:src')==TREE,'CURRENT_AM_SOURCE')
+- require(git('branch','--show-current')==BRANCH and git('rev-parse','refs/remotes/origin/'+BRANCH)==HEAD and git('rev-parse','refs/remotes/origin/main')==MAIN,'CURRENT_LOCAL_REFS')
+- require(not git('status','--porcelain=v1','--untracked-files=all'),'CLEAN_WORKTREE')
+- require(git('ls-remote','origin','refs/heads/'+BRANCH,'refs/heads/main')==MAIN+'\trefs/heads/main\n'+HEAD+'\trefs/heads/'+BRANCH,'EXACT_ADVERTISED_REFS')
+- require(not os.path.lexists(S/'HEAVY-LANE-LOCK'),'FREE_LANE')
+- free=shutil.disk_usage(S).free;require(free>=3.5*1024**3,'DISK_HEADROOM');require('AC Power' in command(['/usr/bin/pmset','-g','batt']),'AC_POWER')
+- lane=Path(recipe['laneLog']).parent
+- for path in [Path(recipe['recorderOutput']),Path(recipe['disposableArtifactRoot']),lane]:require(path.parent==S and not os.path.lexists(path),'FRESH_DIRECT_SCRATCH_OUTPUT')
+- require(S.resolve(strict=True)==S and Path(recipe['disposableArtifactRoot'])==Path(config['artifactRoot']),'PHYSICAL_DISPOSABLE_ROOT')
+- require(not os.path.lexists(gp.parent/'LAUNCH-CLAIM.json'),'FRESH_CLAIM')
+- if os.getpgid(0)!=os.getpid():os.setsid()
+- pid=os.getpid();pgid=os.getpgid(0);sid=os.getsid(0);require(pid>1 and pgid==pid and sid>1,'OWN_HELPER_GROUP')
+- lane.mkdir(mode=0o700)
+- claim={'schema':'1370-disposable-controls-launch-claim/v1','grant':gr,'argv':argv,'cwd':recipe['cwd'],'helperPid':pid,'helperPgid':pgid,'helperSid':sid,'actualOwnGroupConfirmed':True,'unexpectedHelperWaitIsStop':True,'sourcePins':g['sourcePins'],'sourceReview':g['sourceReview'],'parentAdapterSourcePins':g['parentAdapterSourcePins'],'parentAdapterSourceReview':g['parentAdapterSourceReview'],'freeBytes':free,'acPower':True,'operational':g['operational'],'preparationElapsedSeconds':time.monotonic()-START,'preparationDeadlineSeconds':60,'combinedPreparationRuntimeDeadline':None,'runtimeBounds':recipe['bounds'],'scope':'Disposable fixture behavior only. No original M0 source/dependency/private inventory or preservation acceptance.','executionAuthorization':False}
+- cr=write(gp.parent/'LAUNCH-CLAIM.json',claim);remaining();require(not os.path.lexists(S/'HEAVY-LANE-LOCK'),'FREE_LANE_IMMEDIATELY_BEFORE_EXEC')
+- print(json.dumps({'launchClaim':cr,'helperPid':pid}),flush=True)
+- os.chdir(recipe['cwd'])
+- signal.setitimer(signal.ITIMER_REAL,0)
+- os.execvpe(argv[0],argv,dict(os.environ,**recipe['environment']))
+-if __name__=='__main__':main()
++ require(type(wanted) is dict and set(wanted)=={'path','bytes','sha256'} and type(wanted['path']) is str and type(wanted['bytes']) is int and type(wanted['sha256']) is str,'ROLE_SCHEMA')
++ require(role(wanted['path'])==wanted,'ROLE_HASH')
++ return Path(wanted['path'])
++def git(*args):return subprocess.check_output(['/usr/bin/git','-c','gc.auto=0','-c','maintenance.auto=0','--no-optional-locks',*args],cwd=R,text=True).strip()
++require(sys.dont_write_bytecode and not sys.flags.optimize and len(sys.argv)==3,'EXACT_PYTHON_B_GRANT_ARGS')
++gp=Path(sys.argv[1]);require(gp.parent==S/'1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r2' and gp.name=='GRANT.json','ROOT_GRANT_LOCATION')
++grant_role=role(gp);require(grant_role['sha256']==sys.argv[2],'ROOT_GRANT_HASH')
++g=json.loads(gp.read_bytes())
++require(g['schema']=='1370-root-b109-ascii-focused-controls-grant/v1' and g['status']=='GRANT_EXACT_B109_ASCII_FOCUSED_CONTROLS_ONCE' and g['executionAuthorization'] is True,'EXTERNAL_ROOT_GRANT')
++require(g['scope']=='PURE_FOCUSED_CONTROLS_ONLY' and g['game'] is False and g['benchmark'] is False and g['full109'] is False,'ROOT_SCOPE')
++sourcepins_path=authenticate(g['routeSourcePins']);require(sourcepins_path==P/'SOURCE-PINS.json','ROUTE_PINS_PATH')
++sourcepins=json.loads(sourcepins_path.read_bytes())
++for expected_role in sourcepins['files'].values():authenticate(expected_role)
++require(sourcepins['files']['launch-focused-controls.py']==role(Path(__file__).resolve()),'SELF_ROLE')
++recipe=json.loads((P/'CONTROL-RECIPE.json').read_bytes());c=json.loads((P/'CONFIG.json').read_bytes())
++review_path=authenticate(g['routeSourceReview']);review=json.loads(review_path.read_bytes())
++require(review['decision']==recipe['sourceReviewDecisionRequired'] and review['routeSourcePins']==g['routeSourcePins'] and review['executionAuthorization'] is False,'EXACT_ROUTE_SOURCE_REVIEW')
++protection_path=authenticate(g['currentProtection']);protection=json.loads(protection_path.read_bytes())
++require(g['currentProtection']==c['roles']['currentProtection'],'EXACT_CURRENT_PROTECTION_ROLE')
++for key,wanted in c['currentProtectionContract'].items():require(type(protection[key]) is type(wanted) and protection[key]==wanted,'ROOT_CURRENT_PROTECTION_'+key.upper())
++from strict_contract import exact
++for key in ('argv','cwd','bounds','expected','operational'):require(exact(g[key],recipe[key]),'ROOT_BINDING_'+key.upper())
++require(g['environment']==recipe['requiredEnvironment'],'ROOT_ENVIRONMENT')
++for expected_role in c['roles'].values():authenticate(expected_role)
++node={'path':c['nodePath'],'bytes':c['nodeBytes'],'sha256':c['nodeSha256']};authenticate(node);require(os.access(c['nodePath'],os.X_OK),'NODE_EXECUTABLE')
++authenticate(recipe['helper']);authenticate(recipe['python'])
++ops=c['operational'];require(git('rev-parse','HEAD')==ops['head'] and git('rev-parse','HEAD:src')==ops['sourceTree'],'CURRENT_AL_SOURCE')
++require(git('branch','--show-current')==ops['branch'] and git('rev-parse','refs/remotes/origin/'+ops['branch'])==ops['trackingWorkingHead'],'CURRENT_WORKING_REFS')
++require(not git('status','--porcelain=v1','--untracked-files=all'),'CLEAN_WORKTREE')
++require(git('ls-remote','origin','refs/heads/'+ops['branch'],'refs/heads/main')==ops['main']+'\trefs/heads/main\n'+ops['head']+'\trefs/heads/'+ops['branch'],'EXACT_ADVERTISED_REFS')
++require(not os.path.lexists(S/'HEAVY-LANE-LOCK'),'FREE_LANE')
++free=shutil.disk_usage(S).free;require(free>=3.5*1024**3,'DISK_HEADROOM')
++require('AC Power' in subprocess.check_output(['/usr/bin/pmset','-g','batt'],text=True),'AC_POWER')
++require(not os.path.lexists(recipe['outputPath']) and not os.path.lexists(recipe['parentCreatesPrivateFreshLaneDirectory']),'FRESH_OUTPUT_AND_LANE')
++require(S.resolve(strict=True)==S and gp.parent.resolve(strict=True)==gp.parent,'PHYSICAL_SCRATCH')
++# Direct exec preserves the exact PID. Establish only this wrapper's own group; no signals.
++if os.getpgid(0)!=os.getpid():os.setsid()
++helper_pid=os.getpid();helper_pgid=os.getpgid(0);require(helper_pgid==helper_pid,'OWNED_HELPER_GROUP');helper_sid=os.getsid(0)
++claim=gp.parent/'LAUNCH-CLAIM.json';fd=os.open(claim,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600)
++with os.fdopen(fd,'w') as f:
++ json.dump({'schema':'1370-b109-ascii-focused-controls-launch-claim/v1','grant':grant_role,'routeSourcePins':g['routeSourcePins'],'routeSourceReview':g['routeSourceReview'],'currentProtection':g['currentProtection'],'helperPid':helper_pid,'helperPgid':helper_pgid,'helperSid':helper_sid,'helperGroupVerifiedBeforeExec':True,'argv':recipe['argv'],'cwd':recipe['cwd'],'freeBytes':free,'acPower':True,'rootPidBecomesHelperPid':True,'unexpectedHelperWaitIsStop':True},f,indent=2,sort_keys=True);f.write('\n');f.flush();os.fsync(f.fileno())
++Path(recipe['parentCreatesPrivateFreshLaneDirectory']).mkdir(mode=0o700)
++print(json.dumps({'launchClaim':role(claim),'helperPid':os.getpid()}),flush=True)
++os.chdir(R);os.execvpe(recipe['argv'][0],recipe['argv'],dict(os.environ,**recipe['requiredEnvironment']))

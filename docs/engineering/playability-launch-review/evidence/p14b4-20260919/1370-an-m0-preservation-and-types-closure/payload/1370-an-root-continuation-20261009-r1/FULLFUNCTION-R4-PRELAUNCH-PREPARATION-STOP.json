@@ -1,0 +1,7 @@
+{
+  "executionAuthorization": false,
+  "finding": "Execution source correctly used fresh R4 and prior R3 overflow STOP, but EXACT-ARGV retained stale R2 prior role/status and original executed R3 config. Preserve unrun package; fresh R5 preparation corrects documentation roles from genuine completed R3 evidence. Runtime selectors remain R4.",
+  "sourceManifestPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r4/SOURCE-PINS.json",
+  "sourceManifestSha256": "5f1170b67672276af454058d2f321b8e53de8f9d07d561cd3eadda32ee4ef2c2",
+  "status": "UNRUN_ROOT_PREPARATION_STOP"
+}

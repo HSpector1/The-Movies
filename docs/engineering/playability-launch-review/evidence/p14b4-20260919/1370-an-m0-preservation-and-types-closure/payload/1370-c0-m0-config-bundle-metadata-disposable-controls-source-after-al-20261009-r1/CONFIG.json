@@ -1,0 +1,82 @@
+{
+  "schema": "1370-disposable-config-metadata-controls/v1",
+  "status": "SOURCE_ONLY_UNRUN_BOUND_PAIR",
+  "scratchRoot": "/Users/zacheryspector/studio-scratch",
+  "artifactRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r1",
+  "dependencyRoot": "/Users/zacheryspector/The-Movies-headless-program/node_modules",
+  "nodePath": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+  "nodeBytes": 115440320,
+  "nodeSha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6",
+  "nodeVersion": "v22.23.2",
+  "roles": {
+    "verification": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r1/metadata-controls.mjs",
+      "bytes": 12385,
+      "sha256": "5f3a387de558ef35ee1c69dbb46e941474c2113f08dcfaf6c66c2e9925abee80"
+    },
+    "fixturePackage": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r1/fixture-package.txt",
+      "bytes": 18,
+      "sha256": "1239d4d885dcad42201a27ed9324f8f0f760b78700d8db9ced39a511cffe7eae"
+    },
+    "fixtureTest": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r1/fixture-test.txt",
+      "bytes": 118,
+      "sha256": "c6d96353ccf47203c6add9d79e6237ebf5b1bf427d28da5987a81584a4606071"
+    },
+    "templates": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r1/TEMPLATES.json",
+      "bytes": 74,
+      "sha256": "507bfcb41469571b3688619ab8f6bb5f15db08106de9d45e74fdda2720fac1e5"
+    },
+    "vitestPackage": {
+      "bytes": 4995,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/package.json",
+      "sha256": "6ea35e567829660d9832744086c18526b9ddebd5358c4a0cadfb0a355925f917"
+    },
+    "vitePackage": {
+      "bytes": 4893,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/package.json",
+      "sha256": "e9802045cdc313b6da55ec2e2dd79312074645816089d64f6021f567c10c0a03"
+    },
+    "viteLoader": {
+      "bytes": 2086035,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js",
+      "sha256": "bfa94186daff535fefdf286088c1588fad6b02c01ef11cd3b42a6cb3e4c90767"
+    },
+    "vitestLoader": {
+      "bytes": 358970,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/cli-api.DqsSTaIi.js",
+      "sha256": "46b1b0faedd7050c3e3132eae84f1803f05a046fe1aecf7a6d09f0ab86f11d5b"
+    },
+    "cli": {
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs",
+      "bytes": 43,
+      "sha256": "39db22f579acf5639bbb17a261408debbde03f4692c0c439e77e7f13aeba74d6"
+    }
+  },
+  "plannedArms": [
+    "RED_LOCAL_CONFIGS",
+    "GREEN_EXTERNAL_CONFIGS"
+  ],
+  "expectedCollectedTests": 1,
+  "expectedName": "metadata-collected-only",
+  "expectedProject": "core",
+  "boundsSeconds": {
+    "aggregateController": 60,
+    "activeRecorder": 75,
+    "wholeRecorder": 90
+  },
+  "streamCapBytes": 1048576,
+  "ledgerCapBytes": 65536,
+  "executionAuthorization": false,
+  "originalM0CauseAdmission": false,
+  "originalM0SourcePreservationAdmission": false,
+  "game": false,
+  "futureAuthority": {
+    "independentSourceReview": null,
+    "rootOnceGrant": null,
+    "parentActualOutcome": null,
+    "independentObservedReview": null
+  }
+}

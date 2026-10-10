@@ -1,0 +1,9 @@
+{
+  "executionAuthorization": false,
+  "receipt": {
+    "bytes": 7200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "8a8756307aeecff6e3d9f299a5d2db8014e81c9c7dd5ade42f1f53514ba8ad45"
+  },
+  "schema": "1370-independent-source-review-seal/v1"
+}

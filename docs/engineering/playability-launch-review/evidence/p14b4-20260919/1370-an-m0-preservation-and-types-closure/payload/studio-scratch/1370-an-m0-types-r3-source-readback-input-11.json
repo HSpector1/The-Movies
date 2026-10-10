@@ -1,0 +1,19 @@
+{
+  "paths": [
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/PROFILES.json",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/TYPES-SPEC-UNFILLED.json",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/CURRENT-TYPES-PROTECTION-UNFILLED.json",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/fill-grant-exec.py",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/BASELINE-R1-PROFILES.json",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/PROFILES.json.forward.diff",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/PROFILES.json.inverse.diff",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/BASELINE-R1-fill-grant-exec.py",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/fill-grant-exec.py.forward.diff",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/fill-grant-exec.py.inverse.diff",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/RECIPE.json",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/SOURCE-PROOF.json",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/R2-SOURCE-MANIFEST-STOP.json",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/LESSONS.md"
+  ],
+  "output": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-r3-source-readback-output-11.json"
+}

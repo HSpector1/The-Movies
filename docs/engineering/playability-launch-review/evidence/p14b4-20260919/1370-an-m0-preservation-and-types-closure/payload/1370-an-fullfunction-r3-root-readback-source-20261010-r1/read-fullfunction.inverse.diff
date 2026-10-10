@@ -1,0 +1,24 @@
+--- 
++++ 
+@@ -1,7 +1,7 @@
+ """Root-only future finite retained-evidence readback. No source-author runtime."""
+ import hashlib,json,os,re,stat,sys
+ from pathlib import Path
+-S=Path('/Users/zacheryspector/studio-scratch');P=S/'1370-an-m0-fullfunction-parent-recorded-20261010-r3';F=S/'1370-an-m0-fullfunction-qualification-source-20261010-r10'
++S=Path('/Users/zacheryspector/studio-scratch');P=S/'1370-an-m0-fullfunction-parent-recorded-20261010-r2';F=S/'1370-an-m0-fullfunction-qualification-source-20261010-r9'
+ def need(v,m):
+  if not v:raise RuntimeError(m)
+ def meta(s):return s.st_dev,s.st_ino,s.st_mode,s.st_nlink,s.st_size,s.st_mtime_ns,s.st_ctime_ns
+@@ -35,9 +35,9 @@
+  session=int(sys.argv[1]);final=int(sys.argv[2]);toolRole=role(P/'ACTUAL-TOOL.json',16*1024**2);need(toolRole['sha256']==sys.argv[4],'TOOL_PIN');actual=load(toolRole,16*1024**2)
+  need(type(actual['sessionId']) is int and actual['sessionId']==session and type(actual['finalExit']) is int and actual['finalExit']==final and actual['allToolChunks'] and type(actual['allToolChunks'][-1]['exit_code']) is int and actual['allToolChunks'][-1]['exit_code']==final,'TERMINAL_ACTUAL_TOOL')
+  gr=role(P/'EXECUTION-GRANT.json');need(gr['sha256']==sys.argv[3],'GRANT_SHA');g=load(gr);need(g['schema']=='1370-root-fullfunction-qualification-once-grant/v1' and g['oneAggregateRun'] is True and g['automaticRetry'] is False,'GRANT_PROTOCOL')
+- cfgRole=role(F/'CONFIG.json');need(cfgRole==g['config'] and cfgRole['sha256']==g['configSha256']=='d687a7bc560e103ae5c359622991ecb773a88546f64e41918c8c297b0b3da811','R9_CONFIG');c=load(cfgRole)
+- manifest=load(g['sourcePins']);need(g['sourcePins']==role(F/'SOURCE-PINS.json') and g['sourcePins']['sha256']=='eb43fa973b7a9ded1a834a944b2351150236df1c5b7e566b8df904661f689f46','R9_MANIFEST');review=load(g['sourceReview']);need(review['decision']=='ACCEPT_STATIC_REAL_FULL_FUNCTION_QUALIFICATION_ROUTE_SOURCE_ONLY' and review['concreteFindings']==[] and review['executionAuthorization'] is False and review['sourceManifest']==g['sourcePins'],'R9_REVIEW')
+- for n in ('CONFIG.json','run-fullfunction.py','run-fullfunction.mjs','record-fullfunction.py','CORE-TEST-TEMPLATE.ts','CONFIG-TEMPLATE.mts','FULL-BODY-CONTROLS-TEMPLATE.ts','exact-json.mjs','run-parser-controls.mjs','canonical-typescript-transform.mjs'):
++ cfgRole=role(F/'CONFIG.json');need(cfgRole==g['config'] and cfgRole['sha256']==g['configSha256']=='bc07641ef731c7d1fa2ebef4b171c61796064d9bbec8a1314e7a2721e9c168ea','R9_CONFIG');c=load(cfgRole)
++ manifest=load(g['sourcePins']);need(g['sourcePins']==role(F/'SOURCE-PINS.json') and g['sourcePins']['sha256']=='51926780c880416000d592b6f7e3ba8a0c42f005a833e6813708abc25823087c','R9_MANIFEST');review=load(g['sourceReview']);need(review['decision']=='ACCEPT_STATIC_REAL_FULL_FUNCTION_QUALIFICATION_ROUTE_SOURCE_ONLY' and review['concreteFindings']==[] and review['executionAuthorization'] is False and review['sourceManifest']==g['sourcePins'],'R9_REVIEW')
++ for n in ('CONFIG.json','run-fullfunction.py','run-fullfunction.mjs','record-fullfunction.py','CORE-TEST-TEMPLATE.ts','CONFIG-TEMPLATE.mts','FULL-BODY-CONTROLS-TEMPLATE.ts','exact-json.mjs','run-parser-controls.mjs'):
+   need(review['sourcePins'][n]==review['routeSourcePins'][n]==manifest['files'][n],'R9_ALIASES');loadrole=manifest['files'][n];need(role(loadrole['path'],131072)==loadrole,'SOURCE_AUTH')
+  protection=load(g['currentProtection']);pre=protection['rootPreflightReadback'];load(pre);need(protection['protectedFreezeContinues'] is True,'CURRENT_PREFLIGHT')
+  rootRole=role(P/'ROOT-LAUNCH-CLAIM.json');root=load(rootRole);innerRole=role(P/'RECORDER-LAUNCH-CLAIM.json');inner=load(innerRole)

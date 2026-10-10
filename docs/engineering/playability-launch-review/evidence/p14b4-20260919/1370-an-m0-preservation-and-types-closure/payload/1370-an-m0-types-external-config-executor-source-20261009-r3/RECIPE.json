@@ -1,0 +1,236 @@
+{
+  "schema": "1370-m0-external-config-types-recipe/v1",
+  "status": "HELD_SOURCE_ONLY_UNRUN_FRESH_R3_PENDING_INDEPENDENT_REVIEW",
+  "executionAuthorization": false,
+  "runId": "20261009-m0-types-external-after-an-r3",
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3",
+  "configSha256": "f4fc6834b8a38b3a32b16dad1aaee3de5096ee1d34805741deef7654bb206884",
+  "launchSource": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/LAUNCH.py",
+    "bytes": 9125,
+    "sha256": "df73f09e824512aa8550f5fa5bfea22dfa7eb6722403b1369bd12e83351fa707"
+  },
+  "launchArgv": [
+    "/usr/local/bin/python3",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/LAUNCH.py",
+    "<genuine external execution-context path>",
+    "<exact actual execution-context SHA256>"
+  ],
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "parentPreparationSeconds": 60,
+  "parentPreparationClockScope": "Separate bounded preparation canceled before exec; it does not enlarge or define recorder runtime.",
+  "clockBounds": {
+    "bootstrapAndRunnerWholeSeconds": 300,
+    "recorderActiveSeconds": 320,
+    "launchAndRecorderWholeSeconds": 330,
+    "wholeStart": "LAUNCH_START captured before authenticated launch reads; propagated to supervisor. Child bootstrap captures its own start before runner authentication."
+  },
+  "caps": {
+    "childStreamBytes": 8388608,
+    "collectionBytes": 1048576,
+    "runnerResultBytes": 131072,
+    "launchContextBytes": 131072,
+    "sourceConfigBytes": 100000,
+    "templateBytes": 10000,
+    "guardCommandPipeBytes": 2097152,
+    "guardCommandSeconds": 15,
+    "dependencyContentBytes": 536870912,
+    "dependencyEntryCount": 500000,
+    "mirrorEntryCount": 1853,
+    "preflightDiskBytes": 3758096384,
+    "runtimeDiskFloorBytes": 3221225472
+  },
+  "fourChildren": [
+    {
+      "name": "dependency-versions",
+      "argv": [
+        "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/check-deps.mjs",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+        "/Users/zacheryspector/The-Movies-headless-program",
+        "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+      ]
+    },
+    {
+      "name": "root-tsc",
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+        "--noEmit",
+        "--allowImportingTsExtensions"
+      ]
+    },
+    {
+      "name": "ui-tsc",
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+        "-p",
+        "ui/tsconfig.json",
+        "--noEmit"
+      ]
+    },
+    {
+      "name": "diagnostic-collection",
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/vitest",
+        "list",
+        "tests/diagnostic.test.ts",
+        "--config",
+        "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3/external-config/root-config.mts",
+        "--workspace",
+        "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3/external-config/workspace-config.mts",
+        "--project",
+        "core",
+        "--json",
+        "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3/collection.json",
+        "--no-cache"
+      ]
+    }
+  ],
+  "allChildCwd": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+  "childEnvironment": {
+    "inheritHome": true,
+    "gitVariablesRemoved": true,
+    "PATH": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/local/bin:/usr/bin:/bin",
+    "TMPDIR": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3",
+    "VITEST_CACHE_DIR": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3/vitest-cache",
+    "collectionOnlyPREIMAGE_OUTPUT": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3/preimage-output"
+  },
+  "configSemantics": {
+    "originalRootConfig": {
+      "bytes": 176,
+      "gitBlobOid": "3416b9e0bc1dbcbf901af6dd67e19a473127f190",
+      "identity": [
+        16777220,
+        166753260,
+        420,
+        1,
+        176,
+        1791567306979694396,
+        1791567306998603060
+      ],
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/vitest.config.ts",
+      "sha256": "2939ba611a5c025c2974043c98c06af10aadd3065925103d3f506bd1f1d07faa"
+    },
+    "originalWorkspaceConfig": {
+      "bytes": 1489,
+      "gitBlobOid": "f7e6a817c71088865397657e378c40a83cb5ccad",
+      "identity": [
+        16777220,
+        166753261,
+        420,
+        1,
+        1489,
+        1791567307021069393,
+        1791567307040365658
+      ],
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/vitest.workspace.ts",
+      "sha256": "423ba7332b1348114c751b71d1ed551c48aa57ecb4de75daf876b20d8ab34a82"
+    },
+    "copies": "Only sealed templates copied exclusively into fresh writable external-config; original mirror bytes and entries remain intact. .mts preserves original ESM semantics. Both configs are selected explicitly.",
+    "root": "Exact original mirror absolute path in root config and each inline workspace project",
+    "includes": "All original relative include patterns unchanged, anchored by explicit mirror root; installed globFiles uses cwd and isTargetFile matches relativeId.",
+    "workspace": "Exactly original core/node + ui/jsdom inline objects; no extends or aliases introduced. Original React plugin, globals, timeout and other options preserved.",
+    "rebase": "Only original UI setupFiles relative path becomes absolute mirror setup path; bare package imports resolve through external node_modules link to unchanged production deps; cacheDir external in all three config objects.",
+    "externalConfigCopies": {
+      "schema": "1370-m0-external-collection-config/v1",
+      "rootTemplate": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/ROOT-CONFIG-TEMPLATE.mts",
+        "bytes": 460,
+        "sha256": "1e63e7e4ea56b7892c9568bf15b917ad401100037d353488a36b137bbf7ff966"
+      },
+      "workspaceTemplate": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/WORKSPACE-CONFIG-TEMPLATE.mts",
+        "bytes": 2163,
+        "sha256": "9a0d4d08138f7bfb6665347aa314f37801377fc2f926f2b40e1ba29e36018bbd"
+      },
+      "runtimeDirectory": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3/external-config",
+      "rootFilename": "root-config.mts",
+      "workspaceFilename": "workspace-config.mts",
+      "moduleLinkTarget": "/Users/zacheryspector/The-Movies-headless-program/node_modules",
+      "cacheDirectory": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3/external-config/cache",
+      "originalRootConfigSha256": "2939ba611a5c025c2974043c98c06af10aadd3065925103d3f506bd1f1d07faa",
+      "originalWorkspaceConfigSha256": "423ba7332b1348114c751b71d1ed551c48aa57ecb4de75daf876b20d8ab34a82",
+      "includes": "Original relative patterns anchored by explicit absolute mirror root preserve both globFiles and relative isTargetFile semantics.",
+      "workspace": "Original two inline project objects; no extends and no aliases added.",
+      "actualExecuted": false
+    },
+    "expectedCollection": [
+      {
+        "name": "records the full p13a original digest preimages",
+        "file": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/tests/diagnostic.test.ts",
+        "projectName": "core"
+      }
+    ],
+    "sameCollectedIdentityAndCount": true
+  },
+  "authority": {
+    "contextSchema": "1370-m0-types-execution-context/v1",
+    "sourceReviewDecision": "ACCEPT_STATIC_M0_TYPES_COLLECTION_SOURCE_ONLY",
+    "sourceReviewSourcePins": "Filename-keyed roles for runner.py, BOOTSTRAP.py, supervise.py, CONFIG.json, check-deps.mjs, both .mts templates and LAUNCH.py; launcher compares exact SHA and authenticates LAUNCH self-role without hash cycle.",
+    "currentProtectionSchema": "1370-root-current-m0-types-protection/v1",
+    "currentProtectionAdditionalBinding": "postR6RootAdoptionSha256 equals context postR6RootAdoption SHA; both fresh proofs equal emitted genuine diagnostic proofs.",
+    "grantSchema": "1370-root-m0-types-execution-grant/v1",
+    "grantAdditionalBinding": "postR6RootAdoptionSha256 equal context role; contextWithoutGrantSha256 retains original canonical JSON contract.",
+    "postR6RootAdoption": {
+      "schema": "1370-root-post-r6-m0-current-root-diagnostic-adoption/v1",
+      "status": "ROOT_ADOPTED_POST_R6_M0_PRESERVATION_DIAGNOSTIC_KNOWN_ROOT_DRIFT",
+      "currentRootBaselineQualified": true,
+      "historicalRootUnchanged": false,
+      "originalR6StopPreserved": true,
+      "typesAccepted": false,
+      "collectionAccepted": false,
+      "roleIsExternal": true,
+      "executionAuthority": false
+    },
+    "postR6RoleKeys": [
+      "diagnosticObservedReview",
+      "actualResult",
+      "fullPostflightSnapshot"
+    ],
+    "knownRootDrift": "Exact separately proposed R2 diagnostic CONFIG object; source proposal does not admit it as observed/current. Read only after genuine independently reviewed diagnostic + root adoption supplied externally.",
+    "operationalProductionHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+    "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "localMainRef": "refs/remotes/origin/main",
+    "advertisedRemoteMainRef": "refs/heads/main",
+    "mainOid": "c902a704eb948cc576083d0973c8c23e59937dc1"
+  },
+  "outputs": {
+    "runnerRoot": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3",
+    "runnerResult": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3/RESULT.json",
+    "recorderResult": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-recorder-results-20261009-r3/20261009-m0-types-external-after-an-r3.RECORDER-RESULT.json",
+    "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-external-after-an-r3.lane.log",
+    "parentDirectory": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r3"
+  },
+  "requiredPreservation": "Full source/dependency proofs twice, exact admitted post-R6 root tuple, all 1740 original accepted files/113 directories/link, complete historical remainder hashes, all four strict root boundaries unchanged, config copies unchanged, actual owned helper/bootstrap/child groups cleaned and postchecked. Original full protected postflight and independent observed review remain required.",
+  "scope": "Four commands only. No actual game, catch controls, full-body fixtures, P17/P18 neutrality, historical-H waiver or source promotion.",
+  "futureActualRoles": {
+    "sourceReview": null,
+    "postR6DiagnosticObservedReview": null,
+    "postR6RootAdoption": null,
+    "currentProtection": null,
+    "runtimeTools": null,
+    "laneLock": null,
+    "currentContext": null,
+    "actualGrant": null,
+    "actualLaunch": null,
+    "actualOutcome": null,
+    "fullPostflightSnapshot": null,
+    "independentObservedReview": null,
+    "rootObservedAdoption": null
+  },
+  "automaticRetry": false,
+  "executionBoundary": "Existing source contract remains: separately genuine post-R6 root adoption/current protection/runtime tools, independent prior STOP plus mandatory original fullpost acceptance and fresh original current-root preflight before root issues a new once-only grant. Historical5b5e/5980 are prospective inputs only, never a replacement for fresh preflight. Original fresh complete M0 source/dependency proof still precedes any compiler.",
+  "codeDelta": "Only fresh physical package/result/recorder/parent/lane/runId and consequent exact hash bindings; all original include/root/options/children/deadlines/floors/caps/cleanup/proof checks unchanged.",
+  "precedingAttempt": {
+    "tool": "55264",
+    "scope": "Root-reported disk floor STOP during second child root compiler; dependencies completed, UI and collection unrun.",
+    "originalAttemptPreserved": true,
+    "independentObservedRole": null,
+    "actualRootAdmission": null,
+    "noAfterProofInFailedAttempt": true,
+    "freshRunIdAndPathsOnly": true
+  },
+  "precedingSourceR2ManifestStopPreserved": true
+}

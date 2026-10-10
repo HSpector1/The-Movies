@@ -1,0 +1,64 @@
+--- R12/run-fullfunction.mjs
++++ R11/run-fullfunction.mjs
+@@ -5,7 +5,7 @@
+ import {spawn} from 'node:child_process';
+ import {fileURLToPath} from 'node:url';
+ const HERE=path.dirname(fileURLToPath(import.meta.url));
+-const CONFIG_SHA='efb9f7b597a6781a69488437faea4755f4a4d186848bfe30baa1c801fa4cf669';
++const CONFIG_SHA='8a6e67c7bea7c897e83f27f418d4743bfd1b9035ddd70147e9615e92658c81d6';
+ const need=(v,m)=>{if(!v)throw Error('STOP_'+m)};
+ const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+ import {equal,parseExact} from 'file:///Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs';
+@@ -40,9 +40,9 @@
+ need(grant.schema==='1370-root-fullfunction-qualification-once-grant/v1'&&grant.scope==='REAL_FULL_FUNCTION_BOUNDARIES_BASELINE_AND_TYPED_CATCH_MUTANT_ONLY'&&grant.executionAuthorization===true&&grant.oneAggregateRun===true&&grant.automaticRetry===false&&grant.clockEnforcedByOriginalRecordedRoute===true&&equal(grant.config,configRole)&&equal(grant.bounds,c.bounds),'EXTERNAL_ROOT_ONCE_GRANT');
+ need(equal(grant.runtimeTools,binding.runtimeTools)&&equal(grant.typesAdoption,binding.typesAdoption)&&equal(grant.artifactBoundAdoption,binding.artifactBoundAdoption)&&equal(grant.currentProtection,binding.currentProtection),'GRANT_PREREQUISITE_ROLES');
+ need(grant.sourcePins.path===path.join(HERE,'SOURCE-PINS.json'),'MANIFEST_PATH');const manifest=json(grant.sourcePins,131072);need(manifest.schema==='1370-fullfunction-qualification-source-pins/v1'&&manifest.executionAuthorization===false,'MANIFEST_PROTOCOL');
+-for(const [name,r] of Object.entries(manifest.files)){if(Object.hasOwn(c.parserInputs,name))need(equal(r,c.parserInputs[name]),'EXACT_EXTERNAL_TESTED_PARSER_ROLE');else if(Object.hasOwn(c.representationInputs,name))need(equal(r,c.representationInputs[name]),'EXACT_FIXED_REPRESENTATION_ROLE');else need(r.path===path.join(HERE,name),'MANIFEST_ROLE_PATH');readRole(r)}
++for(const [name,r] of Object.entries(manifest.files)){if(Object.hasOwn(c.parserInputs,name))need(equal(r,c.parserInputs[name]),'EXACT_EXTERNAL_TESTED_PARSER_ROLE');else need(r.path===path.join(HERE,name),'MANIFEST_ROLE_PATH');readRole(r)}
+ const sourceReview=json(grant.sourceReview,131072);need(sourceReview.decision==='ACCEPT_STATIC_REAL_FULL_FUNCTION_QUALIFICATION_ROUTE_SOURCE_ONLY'&&sourceReview.executionAuthorization===false&&equal(sourceReview.concreteFindings,[])&&equal(sourceReview.sourceManifest,grant.sourcePins),'INDEPENDENT_SOURCE_REVIEW');
+-for(const name of ['CONFIG.json','run-fullfunction.py','run-fullfunction.mjs','record-fullfunction.py','CORE-TEST-TEMPLATE.ts','CONFIG-TEMPLATE.mts','FULL-BODY-CONTROLS-TEMPLATE.ts','exact-json.mjs','run-parser-controls.mjs','canonical-typescript-transform.mjs','m0WiringProbe.ts','RESOLUTION-SOURCE-BINDING.json','m0TraceCodec.mjs','traceSequences.mjs','ordering.ts'])need(equal(sourceReview.sourcePins[name],manifest.files[name])&&equal(sourceReview.routeSourcePins[name],manifest.files[name]),'SOURCE_REVIEW_ALIASES');
++for(const name of ['CONFIG.json','run-fullfunction.py','run-fullfunction.mjs','record-fullfunction.py','CORE-TEST-TEMPLATE.ts','CONFIG-TEMPLATE.mts','FULL-BODY-CONTROLS-TEMPLATE.ts','exact-json.mjs','run-parser-controls.mjs','canonical-typescript-transform.mjs','m0WiringProbe.ts','RESOLUTION-SOURCE-BINDING.json'])need(equal(sourceReview.sourcePins[name],manifest.files[name])&&equal(sourceReview.routeSourcePins[name],manifest.files[name]),'SOURCE_REVIEW_ALIASES');
+ need(manifest.files['run-fullfunction.mjs'].path===fileURLToPath(import.meta.url),'WORKER_SELF');
+ const types=json(grant.typesAdoption),contract=c.typesAdoptionContract;
+ need(types.schema===contract.schema&&types.status===contract.status&&types.productionHead===c.operationalHead&&types.productionSourceTree===c.productionSourceTree,'ACTUAL_CURRENT_TYPES_ADOPTION');
+@@ -55,30 +55,7 @@
+ const da=c.probeDiagnosticAuthorities,ad=json(da.rootAdoption),di=json(da.independentSourceReview),dm=json(da.sourceManifest);
+ need(ad.schema==='1370-root-held-probe-overflow-diagnostic-source-adoption/v1'&&ad.status==='ROOT_ADOPTED_HELD_FIRST_OVERFLOW_DIAGNOSTIC_SOURCE_ONLY'&&ad.executionAuthorization===false&&ad.runtimeReady===false&&ad.limitsChanged===false&&ad.completeTraceStillRequired===true&&equal(ad.sourceManifest,da.sourceManifest)&&equal(ad.independentSourceReview,da.independentSourceReview),'ADOPTED_DIAGNOSTIC_ONLY');
+ need(di.decision==='ACCEPT_STATIC_BOUNDED_PROBE_OVERFLOW_DIAGNOSTIC_PROPOSAL_ONLY'&&di.executionAuthorization===false&&equal(di.concreteFindings,[])&&equal(di.sourceManifest,da.sourceManifest),'DIAGNOSTIC_SOURCE_REVIEW');
+-// Current representation authority is distinct from preserved historical first-overflow provenance.
+-const la=c.losslessRepresentationAuthorities,lm=json(la.implementationSourcePins),lr=json(la.implementationSourceReview),cm=json(la.controlsSourcePins),cv=json(la.controlsSourceReview),design=json(la.rootDesignAdoption),sourceAd=json(la.implementationControlsSourceAdoption);
+-need(lr.decision==='ACCEPT_STATIC_LOSSLESS_TRACE_CODEC_AND_STREAMING_CONSUMERS_WITH_ORDERING_ADAPTER_SOURCE_ONLY'&&equal(lr.sourceManifest,la.implementationSourcePins)&&lr.executionAuthorization===false&&equal(lr.concreteFindings,[]),'REPRESENTATION_SOURCE_REVIEW');
+-need(cv.decision==='ACCEPT_STATIC_PURE_LOSSLESS_TRACE_CONTROLS_SOURCE_ONLY'&&equal(cv.sourceManifest,la.controlsSourcePins)&&cv.executionAuthorization===false&&equal(cv.concreteFindings,[]),'CONTROLS_SOURCE_REVIEW');
+-need(design.status==='ROOT_ADOPTED_EXACT_LOSSLESS_COMPRESSED_TRACE_DESIGN_FOR_IMPLEMENTATION_ONLY'&&design.executionAuthorization===false&&design.stickyOperationalFailureRequired===true,'EXACT_ADOPTED_REPRESENTATION_DESIGN');
+-need(sourceAd.status==='ROOT_ADOPTED_LOSSLESS_IMPLEMENTATION_R3_AND_INDEPENDENT_CONTROLS_R2_SOURCE_ONLY'&&sourceAd.executionAuthorization===false,'IMPLEMENTATION_CONTROLS_SOURCE_ADOPTION');
+-for(const [actual,expected] of [['implementationSourcePins','implementationSourcePins'],['implementationReview','implementationSourceReview'],['controlsSourcePins','controlsSourcePins'],['controlsReview','controlsSourceReview'],['rootDesignAdoption','rootDesignAdoption']])need(equal(sourceAd[actual],la[expected]),'IMPLEMENTATION_CONTROLS_ROLE_BINDINGS');
+-for(const [name,r] of Object.entries(c.representationInputs)){need(equal(r,lm.files[name])&&equal(r,lr.sourcePins[name])&&equal(r,lr.routeSourcePins[name])&&equal(r,manifest.files[name]),'FIXED_REPRESENTATION_SOURCE_BINDINGS');readRole(r)}
+-need(equal(grant.losslessControlsObservedAdoption,c.actualLosslessControlsObservedAdoption),'EXACT_ROOT_OBSERVED_CONTROLS_ROLE');const losslessObserved=json(grant.losslessControlsObservedAdoption),oc=c.losslessControlsObservedAdoptionContract;
+-need(losslessObserved.schema===oc.schema&&losslessObserved.status===oc.status,'ACTUAL_LOSSLESS_CONTROLS_ADOPTION');
+-for(const k of ['caseCount','positiveCount','specificNegativeCount','originalOrderingCases','originalParserCasesReplayed'])need(Number.isSafeInteger(losslessObserved[k])&&losslessObserved[k]===oc[k],'EXACT_CONTROL_COUNTS');
+-need(losslessObserved.actualExit===0&&losslessObserved.soleLaneReleased===true,'ACTUAL_CONTROLS_EXIT_OWNERSHIP');
+-for(const k of ['executionAuthorization','game','privateM0ReadOrWritten','fullQualificationAccepted','fullBodyGameAssertionsExecuted'])need(losslessObserved[k]===false,'CONTROLS_ONLY_SCOPE');
+-for(const k of ['implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption','implementationControlsSourceAdoption'])need(equal(losslessObserved[k],la[k]),'OBSERVED_CONTROLS_SOURCE_BINDINGS');
+-need(equal(losslessObserved.sourceReviewedFullBodyTemplate,c.representationInputs['FULL-BODY-CONTROLS-TEMPLATE.ts']),'SOURCE_REVIEWED_UNRUN_FULLBODY_TEMPLATE');
+-const losslessReview=json(losslessObserved.independentObservedReview);need(losslessReview.decision==='ACCEPT_ACTUAL_PURE_LOSSLESS_CODEC_AND_AFFECTED_ORDERING_CONTROLS_ONLY'&&losslessReview.executionAuthorization===false&&equal(losslessReview.concreteFindings,[]),'ACTUAL_CONTROLS_INDEPENDENT_REVIEW');
+-const losslessResult=json(losslessObserved.result),losslessMatrix=json(cm.files['MATRIX.json']);
+-need(losslessResult.schema==='1370-lossless-trace-independent-controls-result/v1'&&losslessResult.status==='PURE_LOSSLESS_CODEC_AND_AFFECTED_ORDERING_COMPLETED_UNADOPTED'&&losslessResult.positiveCount===9&&losslessResult.specificNegativeCount===40&&losslessResult.originalOrderingCases===18&&losslessResult.originalParserCasesReplayed===0,'ACTUAL_CONTROLS_RESULT');
+-need(losslessResult.executionAuthorization===false&&losslessResult.game===false&&losslessResult.originalM0ReadOrWritten===false,'PURE_RESULT_SCOPE');
+-need(equal(losslessResult.results,losslessMatrix.cases.map(row=>({...row,verdict:row.expected==='GREEN'?'ACCEPT_POSITIVE':'ACCEPT_SPECIFIC_REFUSAL'})))&&losslessResult.results.length===49,'EXACT_OBSERVED_CONTROL_ROSTER');
+-need(equal(losslessResult.inputRoles,losslessObserved.inputRoles),'OBSERVED_CONTROL_INPUT_ROLES');
+-for(const name of ['m0TraceCodec.mjs','traceSequences.mjs','m0WiringProbe.ts','ordering.ts'])need(equal(losslessObserved.inputRoles[name],c.representationInputs[name]),'ACTUAL_TESTED_FIXED_INPUT_ROLE');
+-for(const k of ['implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption'])need(equal(losslessResult[k],la[k]),'CONTROL_RESULT_AUTHORITY_BINDINGS');
+-for(const k of ['readback','actualTool','sourceAdoption'])readRole(losslessObserved[k],16*1024*1024);
++for(const [local,prior] of [[c.inputs['m0WiringProbe.ts'],dm.files['m0WiringProbe.ts']],[c.templates['FULL-BODY-CONTROLS-TEMPLATE.ts'],dm.files['full-body-controls.ts']]])need(local.bytes===prior.bytes&&local.sha256===prior.sha256,'EXACT_ADOPTED_DIAGNOSTIC_BYTES');
+ for(const r of Object.values(c.transformTools))readRole(r,2*1024*1024);
+ const proofConfig=json(c.proofConfig),root=json(types.postR6RootAdoption);
+ need(root.schema==='1370-root-post-r6-m0-current-root-diagnostic-adoption/v1'&&root.status==='ROOT_ADOPTED_POST_R6_M0_PRESERVATION_DIAGNOSTIC_KNOWN_ROOT_DRIFT'&&root.currentRootBaselineQualified===true&&root.historicalRootUnchanged===false&&root.originalR6StopPreserved===true&&root.typesAccepted===false&&root.collectionAccepted===false&&equal(root.knownRootDrift,proofConfig.knownRootDrift)&&equal(root.freshSourceProof,types.freshSourceProof)&&equal(root.freshDependencyProof,types.freshDependencyProof),'AUTHENTIC_POST_R6_ROOT');
+@@ -96,7 +73,7 @@
+ for(const r of Object.values(c.templates))readRole(r,131072);
+ readRole(c.acceptedR3SourcePins,131072);readRole(c.acceptedR3IndependentReview,131072);readRole(c.acceptedR3RootAdoption,131072);
+ const out=c.outputPath,runtime=path.join(out,'runtime');need(fs.realpathSync(out)===out&&!fs.existsSync(runtime),'FRESH_RUNTIME');fs.mkdirSync(runtime,{mode:0o700});fs.mkdirSync(path.join(runtime,'controls'),{mode:0o700});
+-for(const [dest,r] of Object.entries({'fixtures.ts':c.inputs['fixtures.ts'],'ordering.ts':c.inputs['ordering.ts'],'traceSequences.mjs':c.inputs['traceSequences.mjs'],'RESOLUTION-SOURCE-BINDING.json':c.inputs['RESOLUTION-SOURCE-BINDING.json'],'controls/full-body-controls.ts':c.templates['FULL-BODY-CONTROLS-TEMPLATE.ts'],'core.test.ts':c.templates['CORE-TEST-TEMPLATE.ts'],'config.mts':c.templates['CONFIG-TEMPLATE.mts']}))write(path.join(runtime,dest),readRole(r),r.bytes);
++for(const [dest,r] of Object.entries({'fixtures.ts':c.inputs['fixtures.ts'],'ordering.ts':c.inputs['ordering.ts'],'RESOLUTION-SOURCE-BINDING.json':c.inputs['RESOLUTION-SOURCE-BINDING.json'],'controls/full-body-controls.ts':c.templates['FULL-BODY-CONTROLS-TEMPLATE.ts'],'core.test.ts':c.templates['CORE-TEST-TEMPLATE.ts'],'config.mts':c.templates['CONFIG-TEMPLATE.mts']}))write(path.join(runtime,dest),readRole(r),r.bytes);
+ const resolution=json(c.inputs['RESOLUTION-SOURCE-BINDING.json'],131072);need(path.isAbsolute(resolution.dependencyRoot),'DEPENDENCY_ROOT');fs.symlinkSync(resolution.dependencyRoot,path.join(runtime,'node_modules'),'dir');
+ for(const n of ['cache','tmp'])fs.mkdirSync(path.join(out,n),{mode:0o700});
+ function outputBound(){

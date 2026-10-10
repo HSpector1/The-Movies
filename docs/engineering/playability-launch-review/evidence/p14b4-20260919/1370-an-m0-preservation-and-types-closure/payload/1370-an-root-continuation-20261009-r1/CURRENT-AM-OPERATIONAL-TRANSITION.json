@@ -1,0 +1,23 @@
+{
+  "actualHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+  "docsOnlyPathCount": 1135,
+  "docsOnlyPathsNulSha256": "3d98d6c411ab4427695ca9b7bb6c0ea78691c8316a1c65554a2fd3e2981da1a1",
+  "docsOnlyVerified": true,
+  "executionAuthorization": false,
+  "fullGuardsYetRun": false,
+  "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+  "predecessor": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "publishedReadback": {
+    "bytes": 1771,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+    "sha256": "a7ca327d2d4610704f426630d79343722fb92c19f3762dd521221d77a567479b"
+  },
+  "remoteRefsVerified": {
+    "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "refs/heads/wip/headless-program-20260916-ts": "7087f116cf998fd86e33fb8e004df628e0686dbd"
+  },
+  "schema": "1370-an-current-am-operational-transition/v1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "utc": "2026-10-10T03:43:45.183529+00:00",
+  "workingTreeClean": true
+}

@@ -1,0 +1,238 @@
+{
+  "actualPreflight": {
+    "bytes": 9503,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261009-r1/PREFLIGHT.json",
+    "sha256": "96a155f946285a31bb5b59d611f82f2b3f72060df0e35fdf0323a592b46a0878"
+  },
+  "actualTool": {
+    "bytes": 725,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261009-r1/ACTUAL-TOOL.json",
+    "sha256": "52e47516aa549f455b7f391eb33d7c185cac0038434b3a5b62e5ec80829aef24"
+  },
+  "actualToolSessionId": 86072,
+  "baseline": {
+    "bytes": 8833072,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/SNAPSHOT.json",
+    "sha256": "0136b4370cca27ab9af635c16124283049eb394b3dbaa63c32a755973e9c3596"
+  },
+  "concreteFindings": [],
+  "currentAfter": {
+    "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+    "fdOriginalAndEphemeralAndRetainedHPassed": true,
+    "fdOriginalM0ParentPassed": true,
+    "freeBytes": 4253917184,
+    "lsofRawBytes": 649677,
+    "lsofRawSha256": "fe3bc8ff5e8e42963a1e6129638c90ab4df3d89ec643d32e9a155dc7fbfa34e7",
+    "oldNumericPidsAbsent": true,
+    "ownedGroupClearanceClaim": true,
+    "ownedGroupIdsChecked": [
+      16743,
+      17014,
+      17258,
+      31386
+    ],
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+    "psRawBytes": 97567,
+    "psRawSha256": "39ac04c84cb67f849b82c20542b0653b80d4ad13a5711f601a954ab03a40c886",
+    "relevantWorkersAbsent": true
+  },
+  "currentBefore": {
+    "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+    "fdOriginalAndEphemeralAndRetainedHPassed": true,
+    "fdOriginalM0ParentPassed": true,
+    "freeBytes": 4253937664,
+    "lsofRawBytes": 651531,
+    "lsofRawSha256": "cc52634a05e8c9e0c36476f6e4c1f0b07f348adf059b7d5ac5104c9674205575",
+    "oldNumericPidsAbsent": true,
+    "ownedGroupClearanceClaim": true,
+    "ownedGroupIdsChecked": [
+      16743,
+      17014,
+      17258,
+      31386
+    ],
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+    "psRawBytes": 99043,
+    "psRawSha256": "c7be038b5b9cc35c8a1a23eeb754a3249456cae0bcef0adc90b2ab8bc078163b",
+    "relevantWorkersAbsent": true
+  },
+  "currentSharedProtectionAccepted": true,
+  "decision": "ACCEPT_ACTUAL_CURRENT_AM_FULLFUNCTION_PRELAUNCH_ONLY",
+  "executionAuthorization": false,
+  "filledConfig": {
+    "bytes": 2695,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-CURRENT-PRELAUNCH-CONFIG.json",
+    "sha256": "43608cd0518b5cf5bd07bcdda5ec05289a6b4092aad814cf78060e3e67e402a3"
+  },
+  "fullMapReusedUnderOriginalContinuousFreezeProvision": true,
+  "fullPostflightSnapshot": {
+    "bytes": 8847484,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r3/SNAPSHOT.json",
+    "sha256": "0700ce99c57f33956c3fb1b5f26d3c6e28e6e323551fb1f6f084db2f9c370dff"
+  },
+  "fullfunctionFixturesAccepted": false,
+  "game": false,
+  "grant": {
+    "bytes": 3331,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261009-r1/GRANT.json",
+    "sha256": "3cf6c4597b5f68d4c036a14232541d3af71bf43d44a21fe263dc63419a462a4e"
+  },
+  "historicalRootUnchanged": false,
+  "majorLessons": [
+    "Authenticate actual caller/session/identity/output hashes instead of guessing future PID or serialized result hash.",
+    "Source authorship and independent source review are recorded separately from observed evidence review.",
+    "Current prelaunch full-map reuse under continuous freeze is original protection policy, not a substitute for dedicated M0 before/after proof or mandatory later postflight.",
+    "A preflight pass does not authorize gameplay by itself; root must bind genuine parser/current-protection roles and issue the separate exact once-only grant."
+  ],
+  "meaningfulCatchMutantRed": false,
+  "newFullInventory": false,
+  "newM0SourceDependencyProof": false,
+  "newTypesOutcomeAdmitted": false,
+  "originalR1DiskStopPreserved": true,
+  "originalR6StopPreserved": true,
+  "postR6RootAdoption": {
+    "bytes": 4446,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-POST-R6-PRESERVATION-DIAGNOSTIC-OBSERVED-ADOPTION.json",
+    "sha256": "5b5e062b8c5ac12bc70aa5ccb46ad101340ad692cdf0147ea44890882c0f44e1"
+  },
+  "preflight": {
+    "bytes": 9503,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261009-r1/PREFLIGHT.json",
+    "sha256": "96a155f946285a31bb5b59d611f82f2b3f72060df0e35fdf0323a592b46a0878"
+  },
+  "preparationSourceManifest": {
+    "bytes": 3273,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "753704a28f8e044181f9d722201ce09a4b475170a1f4ba95f3beb05c4fd1cece"
+  },
+  "protectedFreezeContinues": true,
+  "qualifiedTypesProtection": {
+    "bytes": 3294,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-CURRENT-EXTERNAL-CONFIG-TYPES-PROTECTION.json",
+    "sha256": "5980e69d3e2962f068f10fa3217caa45f3ff752cc93a5064eb0637f54a2439d0"
+  },
+  "rawLocalOnlyBytes": 1497818,
+  "rawLocalOnlyClassification": {
+    "bytes": 1228,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261009-r1/RAW-LOCAL-ONLY-ROLES.json",
+    "sha256": "0df51cee0c8460e6a4d16a8f76dc05ca75868233e05a93e5c75cc4f9a11f921b"
+  },
+  "rawLocalOnlyRoles": [
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 99043,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261009-r1/BEFORE-PS.LOCAL",
+      "sha256": "c7be038b5b9cc35c8a1a23eeb754a3249456cae0bcef0adc90b2ab8bc078163b"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 651531,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261009-r1/BEFORE-LSOF.LOCAL",
+      "sha256": "cc52634a05e8c9e0c36476f6e4c1f0b07f348adf059b7d5ac5104c9674205575"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 97567,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261009-r1/AFTER-PS.LOCAL",
+      "sha256": "39ac04c84cb67f849b82c20542b0653b80d4ad13a5711f601a954ab03a40c886"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 649677,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261009-r1/AFTER-LSOF.LOCAL",
+      "sha256": "fe3bc8ff5e8e42963a1e6129638c90ab4df3d89ec643d32e9a155dc7fbfa34e7"
+    }
+  ],
+  "readback": {
+    "bytes": 4134,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "57661966ff99c6ae2a0441a3c85187969745b1f30ee0f2051a3314dd94e38163"
+  },
+  "readerActualTool": {
+    "bytes": 693,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261009-r1/READER-ACTUAL-TOOL.json",
+    "sha256": "4cb5d29648052974f3506cf3d5cf40957a6e5266f9777197abc4252385351185"
+  },
+  "readerSource": {
+    "bytes": 4920,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261009-r1/read_fullfunction_current_prelaunch.py",
+    "sha256": "5c0072a020d59f69d2541c771896296b4d1b0172bd332f210a7f7ff15a6686d5"
+  },
+  "recordedScannerPid": 27171,
+  "reviewMethod": {
+    "candidateImports": false,
+    "finiteRetainedEvidenceOnly": true,
+    "gitMutation": false,
+    "newExecution": false,
+    "privateMirrorTraversal": false,
+    "processProbes": false,
+    "rawPsFdContentsRead": false
+  },
+  "reviewerSeparation": {
+    "actualExecutionAndReader": "root",
+    "claim": "This review authenticates retained actual evidence independently of root execution. It does not self-label the wrapper source review as independent.",
+    "independentPreparationSourceReviewer": "root",
+    "observedEvidenceReviewer": "cleanup_independent_red",
+    "preparationSourceAuthor": "cleanup_independent_red"
+  },
+  "rootIndependentPreparationSourceReview": {
+    "bytes": 3046,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-PREFLIGHT-PREPARATION-SOURCE-REVIEW.json",
+    "sha256": "d6da8becb03efd4040906a3bbf93afb8ac5e52a2010d7ecd4e9cf64720261daa"
+  },
+  "rootLauncher": {
+    "bytes": 6563,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261009-r1/run_fullfunction_current_prelaunch_once.py",
+    "sha256": "051cea5507c302ebadc57ebf5aa0029cbb4fa5d16309c8a2549dd97f6fa60a40"
+  },
+  "scannerAbsent": true,
+  "schema": "1370-fullfunction-current-prelaunch-independent-observed-review/v1",
+  "scopedOwnershipChecks": [
+    {
+      "id": 27171,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 27171,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "sourcePins": {
+    "bytes": 3506,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "7015e2de01cb9964fcc6e362338461e9d8c3e5d6ab81bd618f67d04b4e51c455"
+  },
+  "sourceReview": {
+    "bytes": 7652,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "6f7e329107fb6942580553a40ea7395695b090ef32d256e69b59a708baf672b9"
+  },
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261009-r1/prelaunch.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 269,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261009-r1/prelaunch.stdout",
+    "sha256": "a144b909651673ae5d850c5284b230cbe2c0b74976505208e89ea8cedf0be896"
+  },
+  "typesAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  },
+  "utc": "2026-10-10T05:12:16.755874+00:00",
+  "verified": [
+    "Actual86072 transcriptcd2f8f/d7d6a0 exits0 and binds grant3cf6/actual scannerPID=PGID=SID27171. Original physicalPython-I-B scanner7015/review6f7e and exact argv retained.",
+    "Only original protectedSnapshot/ownedPgids/outputPath are filled; exact0700 successful types fullpost and actual priorIDs16743/17014/17258/31386. Original config is otherwise complete-byte semantic identical.",
+    "Output9503B96a155 matches actual stdout hash; empty stderr. Nine strict roots before/after equal successful fullpost0700 and original full immutable map0136. No fresh full private inventory was added.",
+    "Fresh current FD/workers/boot/disk/AC/owned-group predicates passed before/after. Original continuous-freeze reuse applies only to current shared protection; dedicated M0 full source/dependency proofs remain separate.",
+    "Four semantic local-only rawPS/FD roles1497818B match authenticated output/classification and producer hash-size summaries. Raw whole-machine contents were not read by this reviewer.",
+    "Reader recorded scanner27171 PID/PGID ESRCH and absent lane lock; no global or unrelated process absence claim.",
+    "Genuine successful typesbe632 and prior root5b5e authority remain qualified, with historicalRootUnchangedfalse and historical failures preserved.",
+    "Reader actual36194 b0967d/a94ad2 terminal0 authenticates exact readback576619; artifact existence was not treated as proof of future exit."
+  ]
+}

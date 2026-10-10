@@ -1,0 +1,80 @@
+{
+  "allPriorStopsPreserved": true,
+  "candidateExecuted": false,
+  "executionAuthorization": false,
+  "freshFutureGrant": null,
+  "method": "Authenticate predecessor complete manifests/reviews; apply only listed one-occurrence literal replacements; reverse replacements reconstruct entire original UTF-8 bytes and all helper function ASTs remain exact; complete source reversal also reconstructs the original complete AST. Write finalized bytes once, derive every manifest byte count/SHA from retained readback.",
+  "pairs": {
+    "launch-fullpostflight.py": {
+      "allHelperFunctionsAstExact": true,
+      "allOtherSourceBytesUnchanged": true,
+      "exactLiteralChanges": [
+        {
+          "from": "1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r3",
+          "occurrences": 1,
+          "to": "1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4"
+        },
+        {
+          "from": "postflight-fullfunction-qualification-r3",
+          "occurrences": 1,
+          "to": "postflight-fullfunction-qualification-r4"
+        }
+      ],
+      "helperFunctionCount": 3,
+      "mainContainsOnlyListedLiteralChange": true,
+      "originalSource": {
+        "bytes": 5274,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5/launch-fullpostflight.py",
+        "sha256": "a6367944102b47e1ef2bb95d1055e1ec761c6f2cf371add8304b3cd4823917be"
+      },
+      "updatedSource": {
+        "bytes": 5274,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6/launch-fullpostflight.py",
+        "sha256": "a54e130d1fa13f1ab4ac8733a4e2ec63a20ecef53cdff1198c944816a5636a78"
+      },
+      "wholeInverseNormalizationByteExact": true
+    },
+    "read-fullpostflight.py": {
+      "allHelperFunctionsAstExact": true,
+      "allOtherSourceBytesUnchanged": true,
+      "exactLiteralChanges": [
+        {
+          "from": "1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r3",
+          "occurrences": 1,
+          "to": "1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4"
+        },
+        {
+          "from": "postflight-fullfunction-qualification-r3",
+          "occurrences": 1,
+          "to": "postflight-fullfunction-qualification-r4"
+        }
+      ],
+      "helperFunctionCount": 3,
+      "mainContainsOnlyListedLiteralChange": true,
+      "originalSource": {
+        "bytes": 5405,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5/read-fullpostflight.py",
+        "sha256": "173343039506ae5f5593a728931cae52cec2c96bc0dfb142318ee4fc589e4ece"
+      },
+      "updatedSource": {
+        "bytes": 5405,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6/read-fullpostflight.py",
+        "sha256": "58090a98b1c34c211e82ebf46abc29d00339fbd0b12d9a3c00d0efaf768b5c67"
+      },
+      "wholeInverseNormalizationByteExact": true
+    }
+  },
+  "predecessorIndependentSourceReview": {
+    "bytes": 4516,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-independent-source-review-20261010-r5/RECEIPT.json",
+    "sha256": "a87f2fcd38975403b09f9769e87858b651e5c0160f972bcb9a2554183354dbad"
+  },
+  "predecessorSourcePins": {
+    "bytes": 2804,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5/SOURCE-PINS.json",
+    "sha256": "1d4a2357eb6bbeef8f8c282eea04d6babaf001e17e78a7de9a142e3b54cb4db8"
+  },
+  "privateReads": false,
+  "runtimeTests": false,
+  "schema": "1370-fullfunction-fresh-attempt4-path-only-source-proof/v1"
+}

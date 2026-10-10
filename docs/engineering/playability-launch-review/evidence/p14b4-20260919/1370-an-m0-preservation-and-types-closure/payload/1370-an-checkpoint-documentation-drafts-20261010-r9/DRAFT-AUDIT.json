@@ -1,0 +1,100 @@
+{
+  "autoBlockExact": true,
+  "autoBlockSha256": "39c20c726e9779c2f8ba73dd37ba55476302ac7b17040bf3d5e487f5c7268a4d",
+  "candidateExecutionOrPrivateTraversalByDraftAuthor": false,
+  "drafts": {
+    "handoff": {
+      "bytes": 15313,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r9/HANDOFF-PROPOSED.md",
+      "sha256": "c9c8145c56ede36ede6bbf12d8e35894a890657c5ececacbc1dc3b1a77f230f8"
+    },
+    "report": {
+      "bytes": 14137,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r9/AN-REPORT-PROPOSED.md",
+      "sha256": "799592a8bd92dff912dcbe83fae68c43a1a0dafa38f5e1f3a1c09636d18e51d2"
+    }
+  },
+  "executionAuthorization": false,
+  "inputCutoff": "Retained56544 partial observed review; original92358/scanner14120 still running according to root. No live output reads.",
+  "inputs": {
+    "actualTool": {
+      "bytes": 1708,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r5/ACTUAL-TOOL.json",
+      "sha256": "62e3ef00085892de9f4c719867174efb9447acba6a2ca5799908e32176ad6dc6"
+    },
+    "baselineReport": {
+      "bytes": 2701,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r5/baseline.report.json",
+      "sha256": "152cb6a301f4f16171428a3153a376577d2b4cfa03c3099c0718878ba3ba86fc"
+    },
+    "fullbodyTemplate": {
+      "bytes": 9744,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "324c7cc754497e43cc5a9d46865f4cbf7e1a635b5e2ce5ac0857defab8661a02"
+    },
+    "generationReport": {
+      "bytes": 946,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r5/generate.report.json",
+      "sha256": "ba902601cb4099c2042cf76cbccd693da3a03ff471d957a5451d17efdb0bc1d4"
+    },
+    "lessonsR17": {
+      "bytes": 48015,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LESSONS-r17.md",
+      "sha256": "de514f44b783ba457e30b69279efd04e5d440d6bd94aa8df61707590fb6703cc"
+    },
+    "partialObservedReview": {
+      "bytes": 7826,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-partial-observed-review-20261010-r5/RECEIPT.json",
+      "sha256": "92868e9640ec9b6c52a076964d2c9a541cb21a28a9b528bf0da97cb524ffda59"
+    },
+    "previousHandoff": {
+      "bytes": 13879,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r7/HANDOFF-PROPOSED.md",
+      "sha256": "e1fc0d74890f22a7b851d7612fd18aa46b26619b793ba02a1dd81a526f2ede29"
+    },
+    "previousReport": {
+      "bytes": 10715,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r6/AN-REPORT-PROPOSED.md",
+      "sha256": "c7c0671f5107da37430c72ba4891d02fd1e0551e7ca9e5551a05631746a390df"
+    },
+    "readback": {
+      "bytes": 6808,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r5/READBACK.json",
+      "sha256": "321035432c082f1238587d7783300b0c49d10c4935042d05968136cb6c727489"
+    },
+    "readerSourceReview": {
+      "bytes": 7500,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-independent-source-review-20261010-r2/RECEIPT.json",
+      "sha256": "2927e08c69b4a02232f68f7723e6a1f496dd6de24442e60ce14ea0a1e47345d2"
+    },
+    "resolutionBinding": {
+      "bytes": 77415,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r13/RESOLUTION-SOURCE-BINDING.json",
+      "sha256": "beccc36285426dc51ec89ba1f2428177db3c8209b3f29dcf9365729f8928f987"
+    },
+    "scalarReservationSource": {
+      "bytes": 113287,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/promises.ts",
+      "sha256": "0e14a0056d8d70ed2b93d217bc0829c6284142fd9ed93033ce8880e56691b6cb"
+    },
+    "sourceReview": {
+      "bytes": 12539,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r13/RECEIPT.json",
+      "sha256": "1120c87f9509b5e3a7b19dbd35974b6c2e7f1a88391304a4bf0fbf1e6a226e02"
+    }
+  },
+  "pending": {
+    "finalArchive": null,
+    "finalDiagnosticDesign": null,
+    "fullPostflightObservedReview": null,
+    "fullPostflightReadback": null,
+    "publisherIdentity": null
+  },
+  "repoAndRootANModified": false,
+  "schema": "1370-scratch-checkpoint-drafts-audit/v1",
+  "sourceAnalysisOnly": {
+    "count1001DoesNotExpandReservationArray": true,
+    "exactFailingSyntheticIterationUnknown": true,
+    "exactOffendingObserverRowUnknown": true
+  }
+}

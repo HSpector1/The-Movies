@@ -1,0 +1,28 @@
+{
+  "schema": "1370-disposable-controls-source-seal/v1",
+  "status": "SEALED_SOURCE_ONLY_UNRUN_PARENT_ROUTE_HELD",
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "bytes": 9806,
+    "sha256": "21de8c9e65a08a46ba946ea881ac0e6973b4ac83549db70f5ca333a4ba996ed2"
+  },
+  "manifestFiles": 13,
+  "totalFilesIncludingPinsAndSeal": 15,
+  "fileMode": "0444",
+  "directoryMode": "0555",
+  "allManifestFileReadbacksVerified": true,
+  "recorderWholeInverseByteExact": true,
+  "runtimeExecuted": false,
+  "testsExecuted": false,
+  "applicationImports": false,
+  "privateInventories": false,
+  "protectedMutations": false,
+  "executionAuthorization": false,
+  "futureAuthority": {
+    "operationalHead": null,
+    "sourceReview": null,
+    "rootOnceGrant": null,
+    "parentActualOutcome": null
+  },
+  "note": "Independent cleanup reviewer receives immutable source-only package. Root supplies concrete qualified parent90 adapter and any genuine grant later. Synthetic extended project is additional coverage, not exact original R6 workspace."
+}

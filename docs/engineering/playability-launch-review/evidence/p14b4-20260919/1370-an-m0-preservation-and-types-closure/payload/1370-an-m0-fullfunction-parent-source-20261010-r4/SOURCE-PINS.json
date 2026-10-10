@@ -1,0 +1,41 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "BASELINE-launch-fullfunction.py": {
+      "bytes": 12103,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r4/BASELINE-launch-fullfunction.py",
+      "sha256": "02590fe451ab2c8bcf28fd2b3ee8e63e181f81839daffd515c28806283ac85cb"
+    },
+    "LESSONS.txt": {
+      "bytes": 503,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r4/LESSONS.txt",
+      "sha256": "9c3df0e5f6f60ed422b7dcd98cc65f97189bf4702e92f76fbf12792d4647898c"
+    },
+    "RECIPE.json": {
+      "bytes": 1276,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r4/RECIPE.json",
+      "sha256": "f59fc4a494a86b3f7f553a43b632accf2e0c4741178034d1fa0ac204e43cf6bc"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 2225,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r4/SOURCE-PROOF.json",
+      "sha256": "ecfbe9186a526f860569e3a482ac621c1e4d3b8e10b67726ac489cb945428ab8"
+    },
+    "launch-fullfunction.py": {
+      "bytes": 12103,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r4/launch-fullfunction.py",
+      "sha256": "c891282f2f781df48e758f6ee0ea68de3d3cff3093c8db71da7d5d490906131e"
+    },
+    "launch-fullfunction.py.forward.diff": {
+      "bytes": 1411,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r4/launch-fullfunction.py.forward.diff",
+      "sha256": "734cc013ec78a98a5516130d2184c07abe7723cf071d4f71ae6d021c8e6a0976"
+    },
+    "launch-fullfunction.py.inverse.diff": {
+      "bytes": 1411,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r4/launch-fullfunction.py.inverse.diff",
+      "sha256": "c8a7798326cea6383d2ad835e3c9f74b4d117371eed48905e274b640bb45b8bc"
+    }
+  },
+  "schema": "1370-fullfunction-parent-source-pins/v1"
+}

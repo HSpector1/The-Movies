@@ -1,0 +1,87 @@
+{
+  "actualExits": {
+    "GREEN": 0,
+    "RED": 0,
+    "controller": 0,
+    "helper": 0,
+    "recorder": 0,
+    "tool": 0
+  },
+  "actualOwnedGroupsFreshlyAbsent": [
+    42574,
+    43084
+  ],
+  "actualOwnedPidsFreshlyAbsent": [
+    42574,
+    43084
+  ],
+  "actualTool": {
+    "bytes": 1631,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/ACTUAL-TOOL.json",
+    "sha256": "cf93423279291c23020e9c6db253d82c6960fefb97a5f1c721db11e8cbb165dd"
+  },
+  "automaticRetry": false,
+  "config": {
+    "bytes": 3637,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/CONFIG.json",
+    "sha256": "c3c58fc2b2ba77b0a2e92415f1e74d386cf899506b07aacbe677f2ad9b061c14"
+  },
+  "grant": {
+    "bytes": 4771,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/GRANT.json",
+    "sha256": "77db69b8567732fcf70dbc432f007c9571fe12cca7ddd706363fad5170eb64e7"
+  },
+  "helperCombinedLog": {
+    "bytes": 440,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-metadata-controls-lane-after-al-20261009-r2/controls.lane.log",
+    "sha256": "9517a030a70f02f36ed789b760e81101ad23cd280814f8d8db05efb15a49b973"
+  },
+  "helperPgid": 42574,
+  "helperPid": 42574,
+  "helperSid": 42574,
+  "laneMeta": {
+    "bytes": 371,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-metadata-controls-lane-after-al-20261009-r2/controls.lane.log.meta",
+    "sha256": "7afbb72b64425174575ab0a95e9742be42ac419e16823ae79366fa4ab4fd3790"
+  },
+  "laneReleased": true,
+  "launchClaim": {
+    "bytes": 3497,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/LAUNCH-CLAIM.json",
+    "sha256": "93840ab4b17a117b069269975da059f9146d57317d9de97e076ea8e504f02c42"
+  },
+  "oneAggregateRun": true,
+  "overrideStopAbsent": true,
+  "producerStderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-metadata-controls-verification-output-after-al-20261009-r2/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "producerStdout": {
+    "bytes": 8617,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-metadata-controls-verification-output-after-al-20261009-r2/stdout.bin",
+    "sha256": "59116d75516dd19912d1fac8ede130d11d5b5c8bc2f245266fd030477efd86af"
+  },
+  "recipe": {
+    "bytes": 9918,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/RECIPE.json",
+    "sha256": "0998870942ff8f188fcc3ce14f853119a49f45b1e78d08ad18685f83b5ab432b"
+  },
+  "recorderResult": {
+    "bytes": 937,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-metadata-controls-verification-output-after-al-20261009-r2/RESULT.json",
+    "sha256": "417cb089c3263ce252f9893e698167c0c0e087f05719406cbe5a6ccebc6040de"
+  },
+  "schema": "1370-disposable-controls-completed-outcome/v1",
+  "sourcePins": {
+    "bytes": 11166,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "bc7fcfc7bcd4ab5e4472733260e1ee5f89658c827a09412d7f98d60b10ffd573"
+  },
+  "sourceReview": {
+    "bytes": 9283,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "dd835fc294482503f5845ca658dd7ba8431255a3bbd36cb4722edf14308ab578"
+  },
+  "status": "ACTUAL_DISPOSABLE_METADATA_CONTROLS_COMPLETED"
+}

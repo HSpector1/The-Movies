@@ -1,0 +1,11 @@
+--- 
++++ 
+@@ -26,7 +26,7 @@
+  try{
+   const after=advanceTalentMarketWeek(state)
+   const probe=m0WiringProbe.end(),market=drainM0MarketDecisionRows(),feasibility=drainM0FeasibilityRows()
+-  assert.equal(probe.overflow,false,'complete bounded helper/RNG trace, never dropped evidence')
++  assert.equal(probe.overflow,false,'complete bounded helper/RNG trace, never dropped evidence; firstOverflow='+JSON.stringify(probe.firstOverflow))
+   assert.equal(encode(state),before,'full caller input is unchanged')
+   for(const row of probe.evaluations) assert.equal(sortedInputs(row.inputs),row.canonicalInputs,'actual canonical tuple')
+   for(const value of feasibility){

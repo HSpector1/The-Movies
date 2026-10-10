@@ -1,0 +1,12 @@
+{
+  "mode": "types",
+  "numericIdentityReuseCaveat": true,
+  "pgid": 17014,
+  "pid": 17014,
+  "preparationDeadlineSeconds": 60,
+  "preparationStartMonotonic": 113704.263278875,
+  "schema": "1370-root-m0-parent-owned-exec-identity/v1",
+  "sid": 17014,
+  "specPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r3/FILLED-SPEC.json",
+  "specSha256": "19d32381a2721297304251f2b2b2135c382e60cde7aa95612567977f7bbaa73f"
+}

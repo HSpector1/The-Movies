@@ -1,0 +1,52 @@
+{
+  "proof": {
+    "config": {
+      "bytes": 32755,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/CONFIG.json",
+      "sha256": "c40c0a34d07532d4690552318958029ec736d32283dcec59b0b33191bf82bc4c"
+    },
+    "contextSchema": "1370-post-r6-m0-preservation-diagnostic-context/v1",
+    "executableRoles": {
+      "BOOTSTRAP.py": {
+        "bytes": 2722,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/BOOTSTRAP.py",
+        "sha256": "2b11e6c1c8595af573ffe9186a6e895c192f6fc05f0a7b35c5627a451c7bcdb3"
+      },
+      "LAUNCH.py": {
+        "bytes": 7098,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/LAUNCH.py",
+        "sha256": "0b314837bb1de9513d16fb7ecaba7fb9b706fe4414db12583449495f1a650ef0"
+      },
+      "check-deps.mjs": {
+        "bytes": 1918,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/check-deps.mjs",
+        "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+      },
+      "runner.py": {
+        "bytes": 44067,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py",
+        "sha256": "b9ff56da6524243c95045b0e09f25ca4ec5c8225bbdd3eb76820e75b928e350d"
+      },
+      "supervise.py": {
+        "bytes": 13749,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/supervise.py",
+        "sha256": "b8c6a45e658f2620b0ae16a9feb89897cb36c9a0c1afd15e322ec3487927994b"
+      }
+    },
+    "grantSchema": "1370-root-post-r6-m0-preservation-diagnostic-grant/v1",
+    "grantScope": "READONLY_POST_R6_M0_PRESERVATION_DIAGNOSTIC_KNOWN_ROOT_DRIFT_ONLY",
+    "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-post-r6-preservation-diagnostic-20261009-r2.lane.log",
+    "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+    "packagePath": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2",
+    "parentPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-recorded-20261009-r2",
+    "recorderResult": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-recorder-results-20261009-r2/20261009-m0-post-r6-preservation-diagnostic-r2.RECORDER-RESULT.json",
+    "resultRoot": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-results-20261009-r2",
+    "runId": "20261009-m0-post-r6-preservation-diagnostic-r2",
+    "sourcePins": {
+      "bytes": 14200,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/SOURCE-PINS.json",
+      "sha256": "42611a6faecc6b13e7b8a18cfef210b06d7167bb3e2a23d08862db65c4531262"
+    },
+    "sourceReviewDecision": "ACCEPT_STATIC_POST_R6_M0_PRESERVATION_DIAGNOSTIC_SOURCE_ONLY"
+  }
+}

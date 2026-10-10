@@ -1,0 +1,12 @@
+{
+  "candidateImported": false,
+  "privateInventory": false,
+  "roles": {
+    "RECEIPT.json": {
+      "bytes": 11984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-independent-source-review-20261010-r2/RECEIPT.json",
+      "sha256": "fa786064f3951863c6642760b288d3d2fe0c0c5e2263dc12bfc0d5a314c16836"
+    }
+  },
+  "schema": "1370-finite-retained-source-bytes-readback/v1"
+}

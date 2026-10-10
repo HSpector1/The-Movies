@@ -1,0 +1,29 @@
+{
+  "actualControlOutcome": null,
+  "executionAuthorization": false,
+  "fixtureQualification": false,
+  "game": false,
+  "meaningfulCatchMutantRed": false,
+  "parentAdapterSourcePins": {
+    "bytes": 3149,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "30ae3db8d6cf974e85ff5e416ed360a65b004b5cd5945a3289cb1d880c062a7c"
+  },
+  "parentAdapterSourceReview": {
+    "bytes": 2776,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-independent-source-review-20261009-r2/RECEIPT.json",
+    "sha256": "8d25710323efd209c4ec86bc2ee72ce96ef7074e4f4b5bd80d18ef8793879b1e"
+  },
+  "schema": "1370-root-r3-ordering-controls-source-adoption/v1",
+  "sourcePins": {
+    "bytes": 4114,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "9976469fd0db93e77eea6842f28572493d02aded92b0924f984785f48f1d2938"
+  },
+  "sourceReview": {
+    "bytes": 15506,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-independent-source-review-20261009-r3/RECEIPT.json",
+    "sha256": "0bf5c4456471f1efee11f552e7cbb0f79f2c6a27ea5949f4acb41f8395521419"
+  },
+  "status": "ROOT_ADOPTED_PURE_ORDERING_CONTROLS_SOURCE_ONLY"
+}

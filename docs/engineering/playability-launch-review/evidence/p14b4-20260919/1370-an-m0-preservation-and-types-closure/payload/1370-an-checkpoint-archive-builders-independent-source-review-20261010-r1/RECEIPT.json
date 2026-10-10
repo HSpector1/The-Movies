@@ -1,0 +1,62 @@
+{
+  "actualInventoryRun": false,
+  "concreteFindings": [
+    {
+      "evidence": "roots excludes D and extras contain no individual file under D; therefore both current builders, INVENTORY-SOURCE-BINDING.json and the generated input list are omitted. AM prepare_final_inputs.py explicitly selected its named builder/input roles.",
+      "id": "FINALIZER_SOURCE_AND_INPUT_ROLES_OMITTED",
+      "minimalCorrection": "Include exact named finalizer source/binding files and generated INPUT-PACKAGES-FINAL.json as individual input roles. Do not include current inventory itself or introduce a circular self-hash. Final archive docs/review roles may be appended through the original finite closure."
+    },
+    {
+      "evidence": "prepare_final_packages.py derives raw only from name prefix or .LOCAL suffix. prepare_inventory.py checks the same names. This is a defense but not the original producer-based semantic classification used by AM.",
+      "id": "SEMANTIC_RAW_SEED_IS_FILENAME_ONLY",
+      "minimalCorrection": "Seed or union localRawPaths from authenticated selected actual RAW-LOCAL-ONLY classification roles and rawLocalOnly producer arrays; include rebuildable Node compile-cache paths as explicit local roles. Keep filename heuristics as a secondary refusal check and final seen_local equality."
+    }
+  ],
+  "confirmedBehavior": [
+    "No original M0 mirror, private R9, production dependencies or common Git roots are named in extras; retained source/evidence reads do not imply copying those referenced source trees.",
+    "Known genuine disposable source/actual outcome/recorder/lane and current AN preservation/types/ordering adoption evidence paths are covered by the AN family and explicit disposable/log extras.",
+    "Current inventory only follows supplied named roots; regular physical files/nlink1/no symlink alias/forbidden .git,node_modules,__pycache__ guard is inherited from accepted AM workflow.",
+    "Every selected file is hashed between equal physical metadata tuples, duplicates refused, finite <10000 role limit preserved.",
+    "All local roles must be encountered; payload action is LOCAL_HASH_SIZE_ONLY and carries size/hash only.",
+    "Active lane is refused by builder; fullfunction retry lane is included only if genuinely present after routes complete. No actual runtime success is inferred."
+  ],
+  "decision": "SOURCE_ONLY_REVIEW_WITH_TWO_FINITE_CLOSURE_FINDINGS",
+  "executionAuthorization": false,
+  "majorLesson": "The frozen input list should identify every builder/binding needed to reproduce selection and every actual semantic raw role explicitly; suffix checks alone cannot establish archive disposition.",
+  "pending": [
+    "Actual fullfunction R2 result and mandatory shared postflight if applicable",
+    "Exact final frozen explicit path and semantic local-role lists",
+    "Final root docs/lessons and finite inventory independent admission"
+  ],
+  "priorFiniteWorkflow": {
+    "prepare_final_inputs.py": {
+      "bytes": 2860,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-root-finalization-20261009-r1/prepare_final_inputs.py",
+      "sha256": "10b0d4fc7b166fed017ae20f6186164a227e3d7d9bbe110a8648ee115fa60ae0"
+    },
+    "prepare_inventory.py": {
+      "bytes": 3147,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-root-finalization-20261009-r1/prepare_inventory.py",
+      "sha256": "3418ee7d62f76bf50d1ccfd215134c02364dbe74fa8b361dfb56a51081f86b8b"
+    }
+  },
+  "reviewedSources": {
+    "INVENTORY-SOURCE-BINDING.json": {
+      "bytes": 695,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/INVENTORY-SOURCE-BINDING.json",
+      "sha256": "4d60f61918c9801b47f89ab04005560899b10b200bafeac5cf48824f5547daa1"
+    },
+    "prepare_final_packages.py": {
+      "bytes": 3751,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/prepare_final_packages.py",
+      "sha256": "b5c228102e5f4fbdd9d2d068325a8d42fe0d9bbf797d50703dd55f0e04ed81d7"
+    },
+    "prepare_inventory.py": {
+      "bytes": 3147,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/prepare_inventory.py",
+      "sha256": "dfdf6dcfb30c7f17b840abda82a5e36f86b1749056c52d8be8a7521ed82a0b92"
+    }
+  },
+  "schema": "1370-an-checkpoint-archive-builder-independent-source-review/v1",
+  "scope": "Read-only named-source review only, plus named retained adoption/outcome roles to check obvious package coverage. No selected-package inventory, private traversal, raw PS/FD content inspection, process probes, candidate imports, runtime, Git or production writes. Final source amendments and actual finite inventory/role closure require ordinary root review; this is not final archive admission."
+}

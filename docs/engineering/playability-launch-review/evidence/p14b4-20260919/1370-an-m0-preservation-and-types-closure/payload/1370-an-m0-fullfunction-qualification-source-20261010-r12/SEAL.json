@@ -1,0 +1,16 @@
+{
+  "executionAuthorization": false,
+  "payloadRoleCount": 48,
+  "schema": "1370-source-only-seal/v1",
+  "sourceOnly": true,
+  "sourcePins": {
+    "bytes": 14385,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/SOURCE-PINS.json",
+    "sha256": "79d9400a49dc02abc836d9e3b9e9f4a814966da47cae67293f299b1993deb283"
+  },
+  "sourceProof": {
+    "bytes": 15857,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/SOURCE-PROOF.json",
+    "sha256": "de7dc2ee134300b553b5efe8d90d57978fe35dac53a40c3188bfb79f12f2240b"
+  }
+}

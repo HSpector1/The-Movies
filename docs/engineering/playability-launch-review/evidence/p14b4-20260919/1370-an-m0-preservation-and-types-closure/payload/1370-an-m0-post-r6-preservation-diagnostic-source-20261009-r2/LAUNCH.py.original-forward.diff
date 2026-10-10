@@ -1,0 +1,39 @@
+--- original-BASE-LAUNCH.py
++++ LAUNCH.py
+@@ -43,28 +43,29 @@
+   return raw
+  finally:
+   for item in reversed(held):os.close(item)
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2')
+-config=json.loads(read_pin(P/'CONFIG.json','17ac5abcd1e26c83fcd8d3794bd0c6356cd9f141416e01974cdd34f510b72bb5',100000))
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2')
++config=json.loads(read_pin(P/'CONFIG.json','c40c0a34d07532d4690552318958029ec736d32283dcec59b0b33191bf82bc4c',100000))
+ authority=json.loads(read_pin(context,context_sha,128*1024))
+-expected={'runner.py':'d32007ecb462d6a535432959317e1851d09d37cb0fa96897fa3dcc213c45b05c','BOOTSTRAP.py':'53c9330d960da3dc8e562bd87ca89a8e1c2f5992010b9a35eb7ca3f3963e438c','supervise.py':'d38761d46cfa3980b7556313fce52fda662b8d479d0e6cb0b252227193670645','CONFIG.json':'17ac5abcd1e26c83fcd8d3794bd0c6356cd9f141416e01974cdd34f510b72bb5','check-deps.mjs':'e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64'}
+-assert authority['schema']=='1370-current-m0-proof-execution-context/v1'
++expected={'runner.py':'b9ff56da6524243c95045b0e09f25ca4ec5c8225bbdd3eb76820e75b928e350d','BOOTSTRAP.py':'2b11e6c1c8595af573ffe9186a6e895c192f6fc05f0a7b35c5627a451c7bcdb3','supervise.py':'b8c6a45e658f2620b0ae16a9feb89897cb36c9a0c1afd15e322ec3487927994b','CONFIG.json':'c40c0a34d07532d4690552318958029ec736d32283dcec59b0b33191bf82bc4c','check-deps.mjs':'e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64'}
++assert authority['schema']=='1370-post-r6-m0-preservation-diagnostic-context/v1'
++assert type(authority['diagnosticInputs']) is dict and set(authority['diagnosticInputs'])=={'controlsObservedReview','controlsRootAdoption','currentAMFullPreflight','currentAMFullPreflightAdoption'}
+ assert authority['configSha256']==expected['CONFIG.json'] and authority['runId']==config['runId'] and authority['mirrorPath']==config['mirrorPath']
+ def role(name,cap=100000):
+  r=authority[name]
+  assert type(r) is dict and set(r)=={'path','bytes','sha256'} and type(r['bytes']) is int and 0<r['bytes']<=cap
+  raw=read_pin(pathlib.Path(r['path']),r['sha256'],cap);assert len(raw)==r['bytes'];return json.loads(raw)
+ review=role('sourceReview');grant=role('actualGrant')
+-assert review['decision']=='ACCEPT_STATIC_CURRENT_M0_SOURCE_DEPENDENCY_PROOF_SOURCE_ONLY'
++assert review['decision']=='ACCEPT_STATIC_POST_R6_M0_PRESERVATION_DIAGNOSTIC_SOURCE_ONLY'
+ assert all(review['sourcePins'][k]['sha256']==v for k,v in expected.items())
+ launch_role=review['sourcePins']['LAUNCH.py']
+ launch_bytes=read_pin(P/'LAUNCH.py',launch_role['sha256'],250000)
+ assert launch_role['path']==str(P/'LAUNCH.py') and launch_role['bytes']==len(launch_bytes)
+ assert authority.get('currentProtection') is None and authority.get('freshSourceProof') is None and authority.get('freshDependencyProof') is None,'future proof/protection must remain null at proof launch'
+-assert grant['schema']=='1370-root-current-m0-proof-execution-grant/v1' and grant['executionAuthorization'] is True
++assert grant['schema']=='1370-root-post-r6-m0-preservation-diagnostic-grant/v1' and grant['executionAuthorization'] is True
+ assert grant['contextWithoutGrantSha256']==hashlib.sha256(json.dumps({k:v for k,v in authority.items() if k!='actualGrant'},sort_keys=True,separators=(',',':')).encode()).hexdigest()
+ assert grant['runId']==config['runId'] and grant['configSha256']==expected['CONFIG.json']
+ assert grant['sourceReviewSha256']==authority['sourceReview']['sha256']
+-assert grant['scope']=='READONLY_CURRENT_M0_SOURCE_DEPENDENCY_PROOF_ONLY' and grant['gameAuthorization'] is False
++assert grant['scope']=='READONLY_POST_R6_M0_PRESERVATION_DIAGNOSTIC_KNOWN_ROOT_DRIFT_ONLY' and grant['gameAuthorization'] is False
+ assert type(authority['additionalRefs']) is dict
+ assert set(authority['runtimeTools'])=={'node','python','rootCompilerWrapper','uiCompilerWrapper','collectionWrapper'}
+ def normalized(st):return [st.st_dev,st.st_ino,stat.S_IMODE(st.st_mode),st.st_nlink,st.st_size,st.st_mtime_ns,st.st_ctime_ns]

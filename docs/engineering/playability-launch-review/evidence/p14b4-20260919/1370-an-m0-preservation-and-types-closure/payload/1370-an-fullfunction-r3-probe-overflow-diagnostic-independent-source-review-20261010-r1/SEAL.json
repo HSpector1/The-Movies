@@ -1,0 +1,26 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "EVIDENCE-READBACK.json": {
+      "bytes": 6353,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-independent-source-review-20261010-r1/EVIDENCE-READBACK.json",
+      "sha256": "e09f46463a754e308e89114c5c69458be4bc54b26d1f4d81584ed8dd2399b54e"
+    },
+    "RECEIPT.json": {
+      "bytes": 10763,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-independent-source-review-20261010-r1/RECEIPT.json",
+      "sha256": "d2da23a4e866001b528027d76591efbb3c724712e4aea00e1259d0dbf5e7759f"
+    },
+    "REPORT.txt": {
+      "bytes": 1088,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-independent-source-review-20261010-r1/REPORT.txt",
+      "sha256": "eaf616ecf005e6e6ca98d3b8d746c603ff44b66aed971270a04a7d40f41b493e"
+    },
+    "audit-retained-roles.py": {
+      "bytes": 2476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-independent-source-review-20261010-r1/audit-retained-roles.py",
+      "sha256": "aedb71a423a7b71171fdd895e91b70c7f2fffa0236c74721c3401de122d71def"
+    }
+  },
+  "schema": "1370-independent-review-seal/v1"
+}

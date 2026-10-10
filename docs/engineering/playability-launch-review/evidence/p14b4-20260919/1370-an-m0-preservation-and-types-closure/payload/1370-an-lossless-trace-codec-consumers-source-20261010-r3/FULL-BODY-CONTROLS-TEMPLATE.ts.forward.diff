@@ -1,0 +1,107 @@
+--- baseline/FULL-BODY-CONTROLS-TEMPLATE.ts
++++ current/FULL-BODY-CONTROLS-TEMPLATE.ts
+@@ -1,6 +1,8 @@
+ // HELD source-only controls API. Every tested implementation is a full imported
+ // derivative module. Fixtures must come from actual recorded caller boundaries.
+ import assert from 'node:assert/strict'
++import {assertTracePairEqual,assertCallTraceEqual} from 'm0:src/core/m0TraceCodec.mjs'
++import {traceSequence} from '../traceSequences.mjs'
+ import {assertFullProjectionOrdering} from '../ordering.js'
+ import {advanceTalentMarketWeek,drainM0MarketDecisionRows,drainM0FeasibilityRows,
+   rivalProposalTrigger,m0WiringTestApi} from 'm0:src/core/talentMarket.js'
+@@ -28,11 +30,11 @@
+   const probe=m0WiringProbe.end(),market=drainM0MarketDecisionRows(),feasibility=drainM0FeasibilityRows()
+   assert.equal(probe.overflow,false,'complete bounded helper/RNG trace, never dropped evidence; firstOverflow='+JSON.stringify(probe.firstOverflow))
+   assert.equal(encode(state),before,'full caller input is unchanged')
+-  for(const row of probe.evaluations) assert.equal(sortedInputs(row.inputs),row.canonicalInputs,'actual canonical tuple')
++  for(const row of probe.evaluations()) assert.equal(sortedInputs(row.inputs),row.canonicalInputs,'actual canonical tuple')
+   for(const value of feasibility){
+    const row=value as {kind:string;context:unknown;detail:{canonicalInputs?:string;inputsDigest?:string}}
+    if(row.kind!=='inputTuple')continue
+-   const evaluations=probe.evaluations.filter(e=>encode(e.context)===encode(row.context))
++   const evaluations=traceSequence(()=>probe.evaluations()).filter(e=>encode(e.context)===encode(row.context))
+    assert.ok(evaluations.some(e=>e.canonicalInputs===row.detail.canonicalInputs&&
+     (e.result as {inputsDigest:string}).inputsDigest===row.detail.inputsDigest),'witness is the actual full-body evaluation tuple')
+   }
+@@ -43,13 +45,11 @@
+ function pair(boundary:Boundary){
+  const off=arm(boundary,false),on=arm(boundary,true)
+  assert.equal(encode(on.after),encode(off.after),'all policy output, including promises/receipts/employment and RNG')
+- assert.equal(encode(on.probe.calls),encode(off.probe.calls),'helper and RNG call order/counts/stream keys')
+- const semantic=(rows:typeof on.probe.evaluations)=>rows.map(({inputs,canonicalInputs,result})=>({inputs,canonicalInputs,result}))
+- assert.equal(encode(semantic(on.probe.evaluations)),encode(semantic(off.probe.evaluations)),'actual receipt bytes/inputs unaffected')
++ assertTracePairEqual(off.probe,on.probe)
+  assert.equal(off.market.length,0);assert.equal(off.feasibility.length,0)
+  return on
+ }
+-function callsInOrder(names:string[],wanted:string[]):void{
++function callsInOrder(names:Iterable<string>,wanted:string[]):void{
+  let at=0;for(const name of names)if(name===wanted[at])at++
+  assert.equal(at,wanted.length,'complete real full-body caller chain was reached')
+ }
+@@ -64,13 +64,18 @@
+ }
+ export function runFullBodyWiringControls(fixtures:WiringFixtures):void{
+  assert.equal(fixtures.author196.state.market.tick,196);assert.equal(fixtures.freeze208.state.market.tick,208)
+- const author=pair(fixtures.author196),freeze=pair(fixtures.freeze208)
+- callsInOrder(author.probe.calls.map(c=>c.name),['advanceTalentMarketWeek','submitProposal','proposalDraft','authorRivalPromise','promiseFeasibility','receipt'])
+- callsInOrder(freeze.probe.calls.map(c=>c.name),['advanceTalentMarketWeek','settleCase','attachedFeasibility','promiseFeasibility','receipt'])
+- assert.ok(author.feasibility.length>0);assert.ok(freeze.feasibility.length>0)
+- assertOrdinals(author.feasibility);assertOrdinals(freeze.feasibility)
++ {
++  const author=pair(fixtures.author196)
++  callsInOrder(traceSequence(()=>author.probe.calls()).map(c=>c.name),['advanceTalentMarketWeek','submitProposal','proposalDraft','authorRivalPromise','promiseFeasibility','receipt'])
++  assert.ok(author.feasibility.length>0);assertOrdinals(author.feasibility)
++ }
++ {
++  const freeze=pair(fixtures.freeze208)
++  callsInOrder(traceSequence(()=>freeze.probe.calls()).map(c=>c.name),['advanceTalentMarketWeek','settleCase','attachedFeasibility','promiseFeasibility','receipt'])
++  assert.ok(freeze.feasibility.length>0);assertOrdinals(freeze.feasibility)
++ }
+  assert.ok(fixtures.offWeek.state.market.tick!==196&&fixtures.offWeek.state.market.tick!==208)
+- const other=pair(fixtures.offWeek);assert.equal(other.market.length,0);assert.equal(other.feasibility.length,0)
++ {const other=pair(fixtures.offWeek);assert.equal(other.market.length,0);assert.equal(other.feasibility.length,0)}
+  assert.equal(fixtures.opportunity196.state.market.tick,196)
+  assert.equal(fixtures.opportunity208.state.market.tick,208)
+  assert.equal(fixtures.opportunity196.sourcePhase,'synthetic.valid-market-state')
+@@ -79,14 +84,14 @@
+   assert.ok(fixture.state.market.tick===196||fixture.state.market.tick===208)
+   const result=pair(fixture)
+   const phase=fixture.state.market.tick===196?'authorCandidate':'freezeProposal'
+-  const targetEvaluations=result.probe.evaluations.filter(e=>{const c=e.context as {subject?:string;phase?:string}|null;
++  const targetEvaluations=traceSequence(()=>result.probe.evaluations()).filter(e=>{const c=e.context as {subject?:string;phase?:string}|null;
+    const inputs=e.inputs as unknown[];return c?.subject===SUBJECT&&c.phase===phase&&
+     ['SPECIFIC_PROJECT','PREFERRED_GENRE_OPPORTUNITY'].includes(inputs[0] as string)})
+   assert.ok(targetEvaluations.length>0,'target caller, phase and real opportunity tuple are reached')
+-  assert.ok(result.probe.calls.some(c=>{const d=c.detail as {week?:number;subject?:string;family?:string}|null;
++  assert.ok(traceSequence(()=>result.probe.calls()).some(c=>{const d=c.detail as {week?:number;subject?:string;family?:string}|null;
+    return c.name==='opportunityAssessment'&&d?.week===fixture.state.market.tick&&d.subject===SUBJECT&&
+     targetEvaluations.some(e=>(e.inputs as unknown[])[0]===d.family)}),'actual target opportunity evaluator invocation')
+-  callsInOrder(result.probe.calls.map(c=>c.name),fixture.state.market.tick===196
++  callsInOrder(traceSequence(()=>result.probe.calls()).map(c=>c.name),fixture.state.market.tick===196
+    ? ['advanceTalentMarketWeek','authorRivalPromise','promiseFeasibility','opportunityAssessment']
+    : ['advanceTalentMarketWeek','settleCase','attachedFeasibility','promiseFeasibility','opportunityAssessment'])
+  }
+@@ -102,10 +107,11 @@
+     const value=rivalProposalTrigger(state,state.hollywood!,clone(fixture.business),clone(fixture.descriptor),196)
+     const trace=m0WiringProbe.end();assert.equal(trace.overflow,false)
+     assert.equal(drainM0MarketDecisionRows().length,0,'trigger-specific off-target filter')
+-    outcomes.push({value,calls:trace.calls,rngState:state.rngState})
++    outcomes.push({value,trace,rngState:state.rngState})
+    }finally{m0WiringProbe.end();m0WiringTestApi.reset()}
+   }
+-  assert.deepEqual(outcomes[0],outcomes[1])
++  assert.deepEqual({value:outcomes[0].value,rngState:outcomes[0].rngState},{value:outcomes[1].value,rngState:outcomes[1].rngState})
++  assertCallTraceEqual(outcomes[0].trace,outcomes[1].trace,'trigger helper/RNG trace')
+  }
+  for(const [kind,message] of [['row-cap','row bound exceeded'],['row-byte-cap','row byte bound exceeded'],
+   ['total-byte-cap','total byte bound exceeded'],['serialization','recording failed']] as const){
+@@ -120,7 +126,7 @@
+    }
+    const trace=m0WiringProbe.end();assert.equal(trace.overflow,false)
+    assert.deepEqual(trace.faultReached,{kind,phase:'draftPrice'})
+-   callsInOrder(trace.calls.map(c=>c.name),['advanceTalentMarketWeek','submitProposal','proposalDraft'])
++   callsInOrder(traceSequence(()=>trace.calls()).map(c=>c.name),['advanceTalentMarketWeek','submitProposal','proposalDraft'])
+   }finally{m0WiringProbe.end();m0WiringTestApi.reset()}
+  }
+  m0WiringTestApi.reset();m0WiringProbe.begin(true,'ordinary-refusal')

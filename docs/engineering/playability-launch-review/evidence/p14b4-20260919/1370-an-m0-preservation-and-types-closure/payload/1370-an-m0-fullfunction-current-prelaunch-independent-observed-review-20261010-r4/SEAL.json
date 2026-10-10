@@ -1,0 +1,26 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "EVIDENCE-READBACK.json": {
+      "bytes": 17021,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-independent-observed-review-20261010-r4/EVIDENCE-READBACK.json",
+      "sha256": "f7128832189a102a83d7902bad4622e8087265e919c0825ad6486a899e1196c0"
+    },
+    "INPUT.json": {
+      "bytes": 5681,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-independent-observed-review-20261010-r4/INPUT.json",
+      "sha256": "c09c8d25aa719f6b8739ead79931230204c582d5e7b5235fd6ac1b355bbdfac9"
+    },
+    "RECEIPT.json": {
+      "bytes": 5558,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-independent-observed-review-20261010-r4/RECEIPT.json",
+      "sha256": "27e2c7b299391cdab8f3189469f07e17f8fb0ae83106794696e8774b8c99e54b"
+    },
+    "audit-and-seal.py": {
+      "bytes": 10607,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-independent-observed-review-20261010-r4/audit-and-seal.py",
+      "sha256": "336f3d1be9829c6f93cb022665dbe2efd38c38f932c3dbaa43dfad59ce64af32"
+    }
+  },
+  "schema": "1370-independent-observed-review-seal/v1"
+}

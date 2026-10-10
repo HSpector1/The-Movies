@@ -1,0 +1,17 @@
+{
+  "candidateImported": false,
+  "privateInventory": false,
+  "roles": {
+    "EXECUTION-CONTEXT-UNFILLED.json": {
+      "bytes": 578,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/EXECUTION-CONTEXT-UNFILLED.json",
+      "sha256": "4e3042416530cf328a6f793dbb2ae1da69077fc9128e9b16f8a1516beaa81b5a"
+    },
+    "LAUNCH.py": {
+      "bytes": 9125,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/LAUNCH.py",
+      "sha256": "df73f09e824512aa8550f5fa5bfea22dfa7eb6722403b1369bd12e83351fa707"
+    }
+  },
+  "schema": "1370-finite-retained-source-bytes-readback/v1"
+}

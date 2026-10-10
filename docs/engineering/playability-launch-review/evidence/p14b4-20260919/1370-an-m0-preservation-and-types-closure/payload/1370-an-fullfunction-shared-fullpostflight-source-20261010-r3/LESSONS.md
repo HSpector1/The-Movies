@@ -1,0 +1,2 @@
+Preserve STOP and successful exits verbatim; shared postflight is distinct from fullfunction qualification. PID absence and group absence are different claims: never promote a shared-group Node PID to PGID. Use genuine future runtime fields, not guessed session/grant hashes. Original scan source, baseline, maps, per-command 180 seconds and unbounded aggregate scan clock remain unchanged. No runtime executed by author.
+A recorder can fail before any owned child starts: preserve null runnerExit with explicit NOT_STARTED/UNKNOWN instead of inventing an integer.

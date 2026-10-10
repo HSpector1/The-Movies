@@ -1,0 +1,65 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "BASELINE-full-body-controls.ts": {
+      "bytes": 9487,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-source-proposal-20261010-r1/BASELINE-full-body-controls.ts",
+      "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+    },
+    "BASELINE-m0WiringProbe.ts": {
+      "bytes": 2457,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-source-proposal-20261010-r1/BASELINE-m0WiringProbe.ts",
+      "sha256": "3a3d75e5d849a94e14806239566bc72ca10af497bca71925a6f59d7db5714a85"
+    },
+    "DIAGNOSIS.json": {
+      "bytes": 2660,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-source-proposal-20261010-r1/DIAGNOSIS.json",
+      "sha256": "3e9f877a01f3af8fb1e8c56b309de61267cff1f8c6a0c74fab55f1dec103ef5b"
+    },
+    "LESSONS.txt": {
+      "bytes": 503,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-source-proposal-20261010-r1/LESSONS.txt",
+      "sha256": "b6b791436a2681a6589d6e69a1c9efc0bc1f285ba98a3be71153cd9a89c0b247"
+    },
+    "PROPOSAL.json": {
+      "bytes": 1244,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-source-proposal-20261010-r1/PROPOSAL.json",
+      "sha256": "2eb99e3c52d870237ce606c37f99b8cd9ed22d86f6883474e447bca5f92ecda1"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 808,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-source-proposal-20261010-r1/SOURCE-PROOF.json",
+      "sha256": "4bb56fa7115a73d015083fd5b2f9d687d07c768450ebf8d3d16c3234b190e15a"
+    },
+    "full-body-controls.ts": {
+      "bytes": 9539,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-source-proposal-20261010-r1/full-body-controls.ts",
+      "sha256": "9cff56902912ab029af4a4a73398bb314e28593e59823a09acdab5a9b26ea6ca"
+    },
+    "full-body-controls.ts.forward.diff": {
+      "bytes": 666,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-source-proposal-20261010-r1/full-body-controls.ts.forward.diff",
+      "sha256": "c02861b9a2a394624b54584976f4fd019020aca7134ab04f9f534cd61cc52369"
+    },
+    "full-body-controls.ts.inverse.diff": {
+      "bytes": 666,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-source-proposal-20261010-r1/full-body-controls.ts.inverse.diff",
+      "sha256": "dc9d305f7a4ef229768adba81931c57c1d572f5d37d69233b81bfaef5147a572"
+    },
+    "m0WiringProbe.ts": {
+      "bytes": 3016,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-source-proposal-20261010-r1/m0WiringProbe.ts",
+      "sha256": "417389eef7b3295a19cde420f8561e638f028b979c4e031b25f89f8d38a2ac39"
+    },
+    "m0WiringProbe.ts.forward.diff": {
+      "bytes": 2129,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-source-proposal-20261010-r1/m0WiringProbe.ts.forward.diff",
+      "sha256": "57d0f756bed01d39bae44c2615974f3d54a2964ed3261a4157304cf025a821a9"
+    },
+    "m0WiringProbe.ts.inverse.diff": {
+      "bytes": 2129,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-source-proposal-20261010-r1/m0WiringProbe.ts.inverse.diff",
+      "sha256": "87b28d9b0575275eef62dd7924a8134fbc047b3f5202106abf86213a702a9cf0"
+    }
+  }
+}

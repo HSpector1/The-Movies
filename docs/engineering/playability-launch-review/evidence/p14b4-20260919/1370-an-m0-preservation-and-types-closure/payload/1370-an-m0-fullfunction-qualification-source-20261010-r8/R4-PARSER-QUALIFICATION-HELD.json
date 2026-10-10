@@ -1,0 +1,13 @@
+{
+  "decision": "HELD_NEW_LOSSLESS_PARSER_UNQUALIFIED_BY_RUNTIME_CONTROLS",
+  "executionAuthorization": false,
+  "originalR4Preserved": true,
+  "predecessor": {
+    "bytes": 15652,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r4/SOURCE-PINS.json",
+    "sha256": "cbc102e9cd4ae3c868ce975d3f5b75b4545d431e159d3a00a1f36de15821391c"
+  },
+  "repair": "Same parser logic isolated in exact-json.mjs; decoded using fatalUTF8; genuine observed parser controls root adoption required before private reads.",
+  "runtimeExecuted": false,
+  "scope": "Lossless protected-identity equality only. Fresh isolated helper and finite pure controls, including strictUTF8 refusal, need actual recorded independent acceptance before fullfunction."
+}

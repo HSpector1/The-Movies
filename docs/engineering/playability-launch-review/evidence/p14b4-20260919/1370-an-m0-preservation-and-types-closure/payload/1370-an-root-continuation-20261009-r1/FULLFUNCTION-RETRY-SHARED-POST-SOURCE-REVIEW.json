@@ -1,0 +1,31 @@
+{
+  "checks": [
+    {
+      "compileOnly": true,
+      "completeForwardAndInverseExact": true,
+      "onlyFreshParentAndEvidencePathsChanged": true,
+      "source": "launch-fullpostflight.py"
+    },
+    {
+      "compileOnly": true,
+      "completeForwardAndInverseExact": true,
+      "onlyFreshParentAndEvidencePathsChanged": true,
+      "source": "read-fullpostflight.py"
+    }
+  ],
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_ORIGINAL_SHARED_FULL_POSTFLIGHT_ADAPTER_AFTER_FULLFUNCTION_PASS_OR_STOP",
+  "executionAuthorization": false,
+  "noMissingExitCoercion": true,
+  "originalGuardConfigBaselineAndClocksUnchanged": true,
+  "rawPsFdLocalOnly": true,
+  "reviewer": "root; adapter authored by m0_types_source_review",
+  "schema": "1370-root-independent-fullfunction-shared-post-source-review/v1",
+  "separateRecordedPidsAndGroupIds": true,
+  "sourceManifest": {
+    "bytes": 5824,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r4/SOURCE-PINS.json",
+    "sha256": "f98fcdbffe35eab67ebd18e3da43cafc91b4b719f6831166c5a58cce4f76ad36"
+  },
+  "sourceOnly": true
+}

@@ -1,0 +1,80 @@
+{
+  "actualOwnGroupConfirmed": true,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-parent-recorded-20261010-r1/controls.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/record-lossless-controls.py",
+    "verification",
+    "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+    "d0f5d29f5b9c91af2e6d3f279b1a85e2ce10328efcb0a67472ce354e84e86069"
+  ],
+  "combinedPreparationRuntimeDeadline": null,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesOuterIdentity": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "fixtureQualification": false,
+  "game": false,
+  "grant": {
+    "bytes": 7258,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "d0f5d29f5b9c91af2e6d3f279b1a85e2ce10328efcb0a67472ce354e84e86069"
+  },
+  "helperPgid": 86859,
+  "helperPid": 86859,
+  "helperSid": 86859,
+  "meaningfulCatchMutantRed": false,
+  "originalM0ReadOrWritten": false,
+  "parentAdapterSourcePins": {
+    "bytes": 7306,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "2b035412243347f60e8a1148a290899158ce975f755a1b8837324b1e07bd644f"
+  },
+  "parentAdapterSourceReview": {
+    "bytes": 10553,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "58fc31745df49f8a5c2019326a4fe7e168d4192f729c5ec2c47126a02643ad59"
+  },
+  "preparationDeadlineSeconds": 60,
+  "preparationElapsedSeconds": 0.7195598340040306,
+  "runtimeBounds": {
+    "active": 320,
+    "childStreamBytes": 8388608,
+    "compiledModuleBytes": 131072,
+    "resultBytes": 131072,
+    "runner": 300,
+    "whole": 330
+  },
+  "runtimeClockOwnedByRecorder": true,
+  "runtimeToolsObservation": {
+    "bytes": 1366,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LOSSLESS-CONTROLS-RUNTIME-TOOLS.json",
+    "sha256": "19327bf21bd5379586ffa98ad853ac3b6c91b22dd18eb2637c4137f74fae306a"
+  },
+  "schema": "1370-lossless-trace-pure-controls-parent-launch-claim/v1",
+  "sourceAdoption": {
+    "bytes": 1336,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LOSSLESS-CONTROLS-SOURCE-ADOPTION.json",
+    "sha256": "5d5b15b7f60ccbeadb0d624bb64b9c7eca9f68f0d2305a57361f2485423cb344"
+  },
+  "sourcePins": {
+    "bytes": 7306,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "2b035412243347f60e8a1148a290899158ce975f755a1b8837324b1e07bd644f"
+  },
+  "sourceReview": {
+    "bytes": 10553,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "58fc31745df49f8a5c2019326a4fe7e168d4192f729c5ec2c47126a02643ad59"
+  },
+  "syntheticOnly": true,
+  "unexpectedHelperWaitIsStop": true
+}

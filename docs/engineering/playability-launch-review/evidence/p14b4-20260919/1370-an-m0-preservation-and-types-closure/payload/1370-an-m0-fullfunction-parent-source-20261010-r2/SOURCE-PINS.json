@@ -1,0 +1,31 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "BASE-r1-parent.py.txt": {
+      "bytes": 11699,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r2/BASE-r1-parent.py.txt",
+      "sha256": "6019f717cbddc322541c10d41b7fda5869751df95fe8c6ef2f45443bd9660f82"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 2531,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r2/SOURCE-PROOF.json",
+      "sha256": "b743b04e6e77099fe90009ebd7b7c343e37e9e61aff5a7c171af062e5ed20c4f"
+    },
+    "forward.diff": {
+      "bytes": 3416,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r2/forward.diff",
+      "sha256": "34e01947abd91cab03202d5eebca11d29e848fda47bce4154473d05ecd6227e2"
+    },
+    "inverse.diff": {
+      "bytes": 3416,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r2/inverse.diff",
+      "sha256": "8ff70baa6ab101118d6052a6b54b852f0c23db37f6c776e37b651de54e2ad052"
+    },
+    "launch-fullfunction.py": {
+      "bytes": 12103,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r2/launch-fullfunction.py",
+      "sha256": "eb09e8a20b7ee6039c059108c11262cc9a01130a90e2f1fd39646b1b68b93180"
+    }
+  },
+  "schema": "1370-fullfunction-parent-source-pins/v1"
+}

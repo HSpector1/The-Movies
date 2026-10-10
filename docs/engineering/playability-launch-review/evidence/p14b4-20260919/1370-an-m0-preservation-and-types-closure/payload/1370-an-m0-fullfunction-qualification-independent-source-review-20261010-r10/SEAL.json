@@ -1,0 +1,46 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "EVIDENCE-INPUT.json": {
+      "bytes": 54471,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r10/EVIDENCE-INPUT.json",
+      "sha256": "78dae64f3d9eaac92e2f54a14c669e43add59cfbfe73b0d82609e00113711b76"
+    },
+    "EVIDENCE-READBACK.json": {
+      "bytes": 55076,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r10/EVIDENCE-READBACK.json",
+      "sha256": "b95c5634afdf4c57e0068d5ae7ea1895e023c4af3b4f4eab3c0e9bd11a3de2d6"
+    },
+    "RECEIPT.json": {
+      "bytes": 19125,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r10/RECEIPT.json",
+      "sha256": "6b9c7256a3fafac6f1f3413f764aa82de5160c5e2ee557a2320f05a567cc3fcd"
+    },
+    "VITE-EXCERPT-INPUT.json": {
+      "bytes": 833,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r10/VITE-EXCERPT-INPUT.json",
+      "sha256": "69bde06f4f289d46b9198e667de82e342271c665f242d7e0e507437572059d21"
+    },
+    "VITE-EXCERPT-READBACK.json": {
+      "bytes": 1619,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r10/VITE-EXCERPT-READBACK.json",
+      "sha256": "c495adc71238d44524cb9c8533127ef4fbfa213182eb6410193a2ada8ebfb1c5"
+    },
+    "audit-source-evidence.py": {
+      "bytes": 5247,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r10/audit-source-evidence.py",
+      "sha256": "81db459ecd2a6a93fbe231368300bca9096e9f241eb07cc8b8bd99da2eaf5f68"
+    },
+    "audit-vite-excerpt.py": {
+      "bytes": 1954,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r10/audit-vite-excerpt.py",
+      "sha256": "e9df99251023b88062c696dfc3eccabf173ea5b9bf8ae34987a7f7ed4f5e09d9"
+    },
+    "seal-review.py": {
+      "bytes": 882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r10/seal-review.py",
+      "sha256": "e4b43a13599848b2df203feaed1d00d09967b17e631228eef12e798b32d10187"
+    }
+  },
+  "schema": "1370-independent-fullfunction-r10-source-review-seal/v1"
+}

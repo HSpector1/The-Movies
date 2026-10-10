@@ -1,0 +1,104 @@
+{
+  "schema": "1370-fullfunction-terminal-observed-review-contract/v1",
+  "status": "PREPARED_FROM_ACCEPTED_SOURCE_AWAITING_TERMINAL_ACTUAL_EVIDENCE",
+  "executionAuthorization": false,
+  "actualReceipt": null,
+  "actualReadback": null,
+  "actualPostflight": null,
+  "admittedSourceManifest": {
+    "bytes": 33835,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/SOURCE-PINS.json",
+    "sha256": "51926780c880416000d592b6f7e3ba8a0c42f005a833e6813708abc25823087c"
+  },
+  "admittedSourceReview": {
+    "bytes": 14183,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r9/RECEIPT.json",
+    "sha256": "1c7ee4c57f05f16cf509efd5739ca3106e1703da8653d7f7a971597cef3ca1d8"
+  },
+  "expectedAttempt": {
+    "toolSessionId": 21388,
+    "sourceRevision": "R9",
+    "parentRevision": "R2",
+    "currentProtectionSha256": "8001969b00dad04da2dc43a409f057a2e94afbc096e6939481fec08686bcb19d",
+    "prelaunchToolSessionId": 67549,
+    "independentPrelaunchReviewSha256": "81abeac71186878431dbc98db24fbe45631cf63131f153dcc7d6e98357d5a47b"
+  },
+  "inheritedR1Stop": {
+    "receipt": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-wrong-mirror-subject-independent-observed-review-20261010-r1/RECEIPT.json",
+      "bytes": 13431,
+      "sha256": "26076d01598ed3778e7c2aed814002ba9cd85f7484da0b6c454c93c4124e9ad3"
+    },
+    "rootAdoption": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R1-STOP-OBSERVED-ADOPTION.json",
+      "bytes": 2147,
+      "sha256": "ba123465c37b7fdccc5555f1b374cf4adcafed7c221a9bfb6caaefc93b48e604"
+    },
+    "remainsStop": true
+  },
+  "reviewMethod": {
+    "terminalEvidenceOnly": true,
+    "readLiveOutputs": false,
+    "replay": false,
+    "candidateImports": false,
+    "privateM0Inventory": false,
+    "repositoryMutation": false,
+    "processProbes": false,
+    "numericProofComparison": "Lossless original JSON integer tokens with type-strict comparison; boolean is not integer.",
+    "roleAuthentication": "Actual retained bytes/length/SHA256 with no-follow bounded file reads; existing stream/artifact caps remain the operational contract.",
+    "additionalRuntimeGates": false
+  },
+  "requiredCommonEvidence": [
+    "Genuine final tool transcript, root readback, once grant, source manifest/review, runtime tool observations, current types/protection/preflight roles, root/recorder claims and durable lane metadata.",
+    "Actual PID/PGID/SID identity records, inherited group ownership and fresh recorded post-absence checks; release of the sole lane.",
+    "Original separate preparation deadlines and recorder aggregate300/active320/whole330; preserve actual clocks and all stream bytes/hashes, including warnings.",
+    "Completed original shared protection postflight, exact entire immutable projection and all nine strict roots against the admitted baseline; raw process/FD contents remain local hash/size evidence.",
+    "R1 STOP remains admitted separately; no inference of M0 proof or real fixture acceptance from shared protection equality alone."
+  ],
+  "passEvidence": {
+    "exits": "Actual tool, helper, recorder, controller, Node and three named framework phases all zero; no timeout or override.",
+    "controllerStatus": "PASS_REAL_FULL_FUNCTION_QUALIFICATION_PENDING_FULL_POSTFLIGHT",
+    "nodeStatus": "PASS_REAL_FULL_FUNCTION_FIXTURES_BASELINE_SPECIFIC_TYPED_CATCH_RED",
+    "completeM0Proofs": "Both complete source/dependency scans match the exact separately qualified current-types proofs, and before equals after with all nine source-proof fields retained losslessly.",
+    "phaseOrder": [
+      "generate",
+      "baseline",
+      "typed-catch-mutant"
+    ],
+    "phaseStatuses": [
+      "REAL_BOUNDARY_AND_EXPLICIT_VARIANTS_GENERATED_UNADMITTED",
+      "BASELINE_FULL_FUNCTION_CONTROLS_PASSED",
+      "EXPECTED_REAL_TYPED_CATCH_PROPAGATION_ASSERTION_RED"
+    ],
+    "phaseReports": "Each retained actual framework report has one exact passed test identity: recorded M0 whole-body fixture generation or controls. All report/control/stream roles authenticate.",
+    "fixtures": "One authenticated retained packet role within64MiB. Generation receipt uses tick.before.advanceTalentMarketWeek and natural incremented pre-market196/197/208, rather than returned195/196/207. Explicit synthetic variants remain distinct, and the same complete packet hash binds generation/baseline/mutant.",
+    "actualGameplayPrefixExecuted": true,
+    "naturalBoundaryWeeks": [
+      196,
+      197,
+      208
+    ],
+    "syntheticVariantsExplicit": true,
+    "neutralityAccepted": false,
+    "specificMutant": {
+      "faultKind": "row-cap",
+      "errorCode": "ERR_ASSERTION",
+      "operator": "throws",
+      "message": "Missing expected exception: actual recorder failure must cross actual submitProposal catch",
+      "actualUndefined": true,
+      "loaderOrOtherErrorAccepted": false,
+      "earlierNonfaultChecks": "Backed by the unchanged exact sequential full-body control source and retained actual phase result, not inferred from a generic nonzero exit."
+    },
+    "outputCaps": "Original64MiB fixture,256MiB aggregate output,10000 entries,8MiB streams and128KiB result bounds; use retained roles and output-tree ledgers, no directory inventory by the reviewer.",
+    "acceptedScope": "Actual real boundary generation and unchanged complete-body baseline controls plus the single exact typed-catch mutant witness, with completed full shared protection. No broad neutrality, full1363 digest, P17/P18, or promotion claim."
+  },
+  "stopEvidence": {
+    "preserveActualStatusExitsAndStreams": true,
+    "acceptGenericFailureAsMutantRed": false,
+    "proofAvailability": "Preserve actual completed proof roles or null; never manufacture absent after proofs.",
+    "prefixAvailability": "True only on source-contract-validated Node success; unknown/null when Node may have started without a validated report; false only when an authenticated source barrier proves no Node/game start.",
+    "sourceAttribution": "Compare the specific authenticated error and call site with actual retained artifacts; do not repin source or metadata to fit failure.",
+    "completedSharedPostflight": "Protects original roots and immutable state while leaving the scientific/fixture result STOP.",
+    "acceptedScope": "Only the specific observed STOP, truthful completed-work boundary, ownership cleanup and completed shared protection."
+  }
+}

@@ -1,0 +1,74 @@
+--- /Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/BASELINE-R4-fill-grant-exec.py	2026-10-09 23:05:56.000000000 -0500
++++ /Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/fill-grant-exec.py	2026-10-09 23:07:04.000000000 -0500
+@@ -8,7 +8,7 @@
+ signal.setitimer(signal.ITIMER_REAL,60)
+ S=pathlib.Path('/Users/zacheryspector/studio-scratch')
+ HERE=pathlib.Path(__file__).resolve().parent
+-PROFILE_SHA='071b094107ff6a7aee5006cb9bd4f9513561f3f183883afd421b2447c2ff1d8f'
++PROFILE_SHA='b2758d0e15403b7448dfe6ae9f7394b52e504aebfaace09c9e6f43141c9a1a5c'
+ CAP=128*1024*1024
+ 
+ def require(ok,msg):
+@@ -54,13 +54,13 @@
+  raw,_=read(specpath,128*1024);require(digest(raw)==sys.argv[2],'SPEC_SHA');spec=json.loads(raw)
+  require(spec['schema']=='1370-root-m0-parent-fill-launch-spec/v1' and spec['executionAuthorization'] is True,'REAL_PARENT_GRANT_SPEC_REQUIRED')
+  pr,_=read(HERE/'PROFILES.json',128*1024);require(digest(pr)==PROFILE_SHA,'PROFILES_SHA');profiles=json.loads(pr)
+- require(spec['mode'] in profiles,'EXACT_MODE');p=profiles[spec['mode']]
++ require(spec['mode']=='types' and spec['mode'] in profiles,'EXACT_TYPES_ONLY_MODE');p=profiles[spec['mode']]
+  cfg=json.loads(pin(p['config']));pin(p['sourcePins'])
+  for r in p['executableRoles'].values():pin(r)
+  accepted=json.loads(pin(spec['sourceReview']));require(accepted['decision']==p['sourceReviewDecision'],'SOURCE_REVIEW_DECISION')
+  for name,r in dict(p['executableRoles'],**{'CONFIG.json':p['config']}).items():require(accepted['sourcePins'][name]==r,'SOURCE_REVIEW_EXACT_ROLE')
+  require(cfg['runId']==p['runId'] and cfg['mirrorPath']==p['mirrorPath'] and cfg['laneLog']==p['laneLog'],'CONFIG_PATHS')
+- require(cfg['operationalProductionHead']=='8cb704e2f18e6a635943893422c9cfdc206e106d' and cfg['productionSourceTree']=='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554','CURRENT_AL_SCOPE')
++ require(cfg['operationalProductionHead']=='7087f116cf998fd86e33fb8e004df628e0686dbd' and cfg['productionSourceTree']=='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554','CURRENT_AM_SCOPE')
+  require(cfg['mainOid']=='c902a704eb948cc576083d0973c8c23e59937dc1' and cfg['localMainRef']=='refs/remotes/origin/main' and cfg['mainRef']=='refs/heads/main','DISTINCT_MAIN_ROLES')
+  # Recorded identity is durable before GO/exec and remains the same in LAUNCH.py.
+  if os.getpgrp()!=os.getpid():os.setsid()
+@@ -93,20 +93,44 @@
+  require(type(additional) is dict,'ADDITIONAL_REFS_MAP')
+  if spec['mode']=='proof':require(protection is None,'PROOF_PROTECTION_NULL')
+  else:
++  postrole=spec['postR6RootAdoption']
++  for external in (postrole,protection):
++   require(type(external) is dict and set(external)=={'path','bytes','sha256'},'EXTERNAL_ADOPTION_PROTECTION_ROLE')
++   path=pathlib.Path(external['path'])
++   require(path.is_relative_to(S) and not path.is_relative_to(pathlib.Path(p['mirrorPath']).parent),'EXTERNAL_ADOPTION_PROTECTION_PATH')
++  post=json.loads(pin(postrole));contract=cfg['postR6RootAdoptionContract']
++  require(post['schema']==contract['schema'] and post['status']==contract['status'],'GENUINE_POST_R6_ROOT_ADOPTION')
++  for name,wanted in [('currentRootBaselineQualified',True),('historicalRootUnchanged',False),
++                      ('originalR6StopPreserved',True),('typesAccepted',False),('collectionAccepted',False)]:
++   require(post[name] is wanted,'DIAGNOSTIC_ADOPTION_SCOPE_'+name)
++  require(post['knownRootDrift']==cfg['knownRootDrift'],'EXACT_KNOWN_ROOT_DRIFT')
++  require(type(post['freshSourceProof']) is dict and type(post['freshDependencyProof']) is dict,'GENUINE_DIAGNOSTIC_PLAIN_PROOFS')
++  require(set(post['freshSourceProof'])=={'fileProofDigestSha256','physicalMetadataSha256','historicalRootSubstitutedMetadataSha256','nonrootMetadataSha256','mirrorFiles','mirrorBytes','dependencyLink','traversedEntries','mirrorRootIdentity'},'EXACT_NINE_FIELD_SOURCE_PROOF')
++  require(post['freshSourceProof']['mirrorRootIdentity']==cfg['knownRootDrift']['recordedAfterIdentity'] and
++          post['freshSourceProof']['historicalRootSubstitutedMetadataSha256']==cfg['knownRootDrift']['historicalMetadataSha256'] and
++          post['freshSourceProof']['nonrootMetadataSha256']==cfg['knownRootDrift']['nonrootMetadataSha256'],'DIAGNOSTIC_CURRENT_AND_HISTORICAL_REMAINDER')
++  for name in ('diagnosticObservedReview','actualResult','fullPostflightSnapshot'):
++   r=post[name]
++   require(type(r) is dict and set(r)=={'path','bytes','sha256'} and type(r['bytes']) is int and r['bytes']>0 and
++           type(r['sha256']) is str and len(r['sha256'])==64 and set(r['sha256'])<=set('0123456789abcdef') and
++           pathlib.Path(r['path']).is_relative_to(S) and not pathlib.Path(r['path']).is_relative_to(pathlib.Path(p['mirrorPath']).parent),'GENUINE_DIAGNOSTIC_ROLE_'+name)
+   prot=json.loads(pin(protection));require(prot['schema']=='1370-root-current-m0-types-protection/v1' and prot['m0TypesProtectionAccepted'] is True,'ACTUAL_TYPES_PROTECTION')
+   require(prot['productionHead']==cfg['operationalProductionHead'] and prot['productionSourceTree']==cfg['productionSourceTree'] and prot['mirrorPath']==cfg['mirrorPath'],'PROTECTION_CURRENT_SCOPE')
+   require(prot['physicalFactsSha256']==cfg['sourceAuthorities']['m0PhysicalFacts']['sha256'] and prot['completeM0AdoptionSha256']==cfg['sourceAuthorities']['m0CompleteParentAdoption']['sha256'],'PROTECTION_HISTORICAL_LINKS')
+   require(prot['fullProtectedPostflightAccepted'] is True and prot['soleLaneReleased'] is True and prot['additionalRefs']==additional,'PROTECTION_ACTUAL_POSTFLIGHT')
+   source=prot['freshSourceProof'];deps=prot['freshDependencyProof'];require(type(source) is dict and type(deps) is dict,'OBSERVED_PLAIN_PROOF_OBJECTS')
++  require(prot['postR6RootAdoptionSha256']==postrole['sha256'] and source==post['freshSourceProof'] and deps==post['freshDependencyProof'],'PROTECTION_EXACT_DIAGNOSTIC_ADOPTION_PROOFS')
+  context={'schema':p['contextSchema'],'configSha256':p['config']['sha256'],'runId':p['runId'],'mirrorPath':p['mirrorPath'],'sourceReview':spec['sourceReview'],'currentProtection':protection,'freshSourceProof':source,'freshDependencyProof':deps,'additionalRefs':additional,'runtimeTools':tools,'laneLock':lockrole,'executionAuthorization':False}
++ context['postR6RootAdoption']=postrole
+  ungranted=digest(json.dumps(context,sort_keys=True,separators=(',',':')).encode())
+  grant={'schema':p['grantSchema'],'executionAuthorization':True,'contextWithoutGrantSha256':ungranted,'runId':p['runId'],'configSha256':p['config']['sha256'],'sourceReviewSha256':spec['sourceReview']['sha256'],'scope':p['grantScope'],'gameAuthorization':False,'parentIssuedViaReviewedOnceOnlyLauncher':True,'parentSpecSha256':sys.argv[2],'ownedIdentity':owned}
+- if spec['mode']=='types':grant['currentProtectionSha256']=protection['sha256']
++ if spec['mode']=='types':
++  grant['currentProtectionSha256']=protection['sha256'];grant['postR6RootAdoptionSha256']=postrole['sha256']
+  gr=durable(parent,'EXECUTION-GRANT.json',grant);context['actualGrant']=gr;cr=durable(parent,'EXECUTION-CONTEXT.json',context)
+  require(digest(json.dumps({k:v for k,v in context.items() if k!='actualGrant'},sort_keys=True,separators=(',',':')).encode())==ungranted,'ACYCLIC_GRANT_DIGEST')
+  require(stamp(lock.lstat())==stamp(lockst) and read(lock,10000)[0]==lockraw,'LOCK_REBOUND_READBACK')
+  argv=[tools['python']['physicalPath'],'-I','-B',p['executableRoles']['LAUNCH.py']['path'],cr['path'],cr['sha256']]
+- durable(parent,'FILL-RESULT.json',{'schema':'1370-root-m0-recorded-context-fill-result/v1','status':'ACTUAL_BINDINGS_WRITTEN_EXECUTION_NOT_YET_MEASURED','mode':spec['mode'],'sourceReview':spec['sourceReview'],'context':cr,'grant':gr,'ownedIdentity':owned,'laneLock':lockrole,'runtimeTools':tools,'argv':argv,'cwd':'/Users/zacheryspector/The-Movies-headless-program','proofOrTypesAccepted':False,'preparationStartMonotonic':PREP_START,'preparationElapsedSeconds':time.monotonic()-PREP_START,'preparationDeadlineSeconds':60,'runtimeBoundsSeconds':{'runner':300,'active':320,'whole':330},'runtimeClockStartsInsideUnchangedLAUNCH':True,'combinedPreparationRuntimeDeadline':None})
++ durable(parent,'FILL-RESULT.json',{'schema':'1370-root-m0-recorded-context-fill-result/v1','status':'ACTUAL_BINDINGS_WRITTEN_EXECUTION_NOT_YET_MEASURED','mode':spec['mode'],'sourceReview':spec['sourceReview'],'context':cr,'grant':gr,'ownedIdentity':owned,'laneLock':lockrole,'runtimeTools':tools,'argv':argv,'cwd':'/Users/zacheryspector/The-Movies-headless-program','proofOrTypesAccepted':False,'postR6RootAdoption':postrole,'postR6CurrentRootDiagnosticQualified':True,'historicalRootUnchanged':False,'originalR6StopPreserved':True,'preparationStartMonotonic':PREP_START,'preparationElapsedSeconds':time.monotonic()-PREP_START,'preparationDeadlineSeconds':60,'runtimeBoundsSeconds':{'runner':300,'active':320,'whole':330},'runtimeClockStartsInsideUnchangedLAUNCH':True,'combinedPreparationRuntimeDeadline':None})
+  print(json.dumps({'status':'PARENT_CONTEXT_GRANT_WRITTEN_BEFORE_EXEC','pid':os.getpid(),'pgid':os.getpgrp(),'sid':os.getsid(0),'context':cr,'grant':gr}),flush=True)
+  os.chdir('/Users/zacheryspector/The-Movies-headless-program')
+  env=dict(os.environ);env.pop('NODE_OPTIONS',None);env.pop('NODE_PATH',None);env['PATH']='/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/bin:/bin:/usr/sbin:/sbin';env['PYTHONDONTWRITEBYTECODE']='1'

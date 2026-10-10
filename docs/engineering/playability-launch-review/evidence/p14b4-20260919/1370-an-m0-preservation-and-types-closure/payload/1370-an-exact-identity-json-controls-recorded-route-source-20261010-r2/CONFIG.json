@@ -1,0 +1,45 @@
+{
+  "actualFixtureQualification": false,
+  "actualResult": null,
+  "actualReview": null,
+  "actualRootGrant": null,
+  "bounds": {
+    "active": 320,
+    "childStreamBytes": 8388608,
+    "resultBytes": 131072,
+    "runner": 300,
+    "whole": 330
+  },
+  "candidateChanged": false,
+  "caseCount": 32,
+  "executionAuthorization": false,
+  "fullfunctionSourcePins": {
+    "bytes": 25278,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/SOURCE-PINS.json",
+    "sha256": "d1357e8fe9b082313f79b27e870df63ec01245d52e725c5698b9045bfe77ac7f"
+  },
+  "inputs": {
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    }
+  },
+  "laneLog": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-parent-recorded-20261010-r1/parser.lane.log",
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-results-20261010-r1",
+  "parentPath": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-parent-recorded-20261010-r1",
+  "recorderOutputPath": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-results-20261010-r1",
+  "runtimeToolsObservation": {
+    "bytes": 5401,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-RUNTIME-TOOLS.json",
+    "sha256": "a681efc4a9b29dfc62bffb6c1e7cd434107bfb1064769f712fca48227bd64106"
+  },
+  "schema": "1370-exact-identity-json-controls-config/v1",
+  "scope": "PURE_PUBLIC_EXACT_IDENTITY_JSON_32_CONTROLS_ONLY",
+  "syntheticOnly": true
+}

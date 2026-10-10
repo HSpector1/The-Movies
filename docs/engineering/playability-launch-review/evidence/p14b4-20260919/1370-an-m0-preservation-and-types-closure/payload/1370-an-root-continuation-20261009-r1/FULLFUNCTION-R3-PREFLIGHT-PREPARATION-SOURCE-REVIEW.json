@@ -1,0 +1,61 @@
+{
+  "actualPreflight": null,
+  "checks": [
+    {
+      "byteExactHelpers": [
+        "role",
+        "check",
+        "put"
+      ],
+      "compileOnlySyntaxWarningError": true,
+      "declaredChangesInverseExact": true,
+      "source": "run_fullfunction_current_prelaunch_once.py",
+      "wholeForwardAndInverseExact": true
+    },
+    {
+      "byteExactHelpers": [
+        "role",
+        "put"
+      ],
+      "compileOnlySyntaxWarningError": true,
+      "declaredChangesInverseExact": true,
+      "source": "read_fullfunction_current_prelaunch.py",
+      "wholeForwardAndInverseExact": true
+    }
+  ],
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_FULLFUNCTION_RETRY_CURRENT_PRELAUNCH_PREPARATION_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "independentReviewer": "root; source authored by cleanup_independent_red",
+  "schema": "1370-root-independent-fullfunction-prelaunch-preparation-source-review/v1",
+  "semanticReview": [
+    "Original scanner7015/review6f7e, nine strict roots, continuous freeze map reuse and per-command180 bound are unchanged. No new inventory or overall clock.",
+    "Genuine future latest completed shared postflight and independently reviewed root STOP are separately authenticated from accepted TYPES0700. Original0136 immutable map equality is required; old attempt remains STOP.",
+    "Only original three null configuration fields are filled: latest shared snapshot, producer recorded actual group IDs, and fresh R3 output. PID/group identities are not inferred.",
+    "Reader requires genuine completed session/scanner, exact grant/config/output, all original current checks and fresh scanner ESRCH. Four raw PS/FD roles remain local-only.",
+    "TYPES0700 remains the separate exact types prerequisite; latest shared postflight is explicitly named. No game, new types or historical pass claimed."
+  ],
+  "sourceManifest": {
+    "bytes": 3284,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "91b581a7658c2875186cbbc57e1245d0fd7a83a9aa025b84900bbc64b73e1cbc"
+  },
+  "sourceOnly": true,
+  "sourcePins": {
+    "EXACT-ARGV.json": {
+      "bytes": 3193,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r3/EXACT-ARGV.json",
+      "sha256": "f7a2e86e81ad39422a4f16c55350a3431ba0fb4705a04b38ea2de9ee4599e1da"
+    },
+    "read_fullfunction_current_prelaunch.py": {
+      "bytes": 6615,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r3/read_fullfunction_current_prelaunch.py",
+      "sha256": "13a1527f51e8a57fe7b10557a096b9e34cb5e94f6d3e3b198e388930f8c6c491"
+    },
+    "run_fullfunction_current_prelaunch_once.py": {
+      "bytes": 9167,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r3/run_fullfunction_current_prelaunch_once.py",
+      "sha256": "8b7158bf827d000455ffdd208513c5431b217edab1075a74587178c6074302e7"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+--- R7/run-fullfunction.mjs
++++ R8/run-fullfunction.mjs
+@@ -5,10 +5,10 @@
+ import {spawn} from 'node:child_process';
+ import {fileURLToPath} from 'node:url';
+ const HERE=path.dirname(fileURLToPath(import.meta.url));
+-const CONFIG_SHA='c41b0b344ecb2abed6079075e0f4a3571d0fb957ae8bddee7e7a1e6f927a9808';
++const CONFIG_SHA='7dd64bf16908076887593eac1843f05d205426ba97897e42cc7a479b938187a6';
+ const need=(v,m)=>{if(!v)throw Error('STOP_'+m)};
+ const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+-import {equal,parseExact} from './exact-json.mjs';
++import {equal,parseExact} from 'file:///Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs';
+ let clockGuard=()=>{};
+ const identity=s=>[s.dev,s.ino,s.mode,s.nlink,s.size,s.mtimeNs,s.ctimeNs].map(String).join(':');
+ function readRole(r,cap=128*1024*1024){
+@@ -40,7 +40,7 @@
+ need(grant.schema==='1370-root-fullfunction-qualification-once-grant/v1'&&grant.scope==='REAL_FULL_FUNCTION_BOUNDARIES_BASELINE_AND_TYPED_CATCH_MUTANT_ONLY'&&grant.executionAuthorization===true&&grant.oneAggregateRun===true&&grant.automaticRetry===false&&grant.clockEnforcedByOriginalRecordedRoute===true&&equal(grant.config,configRole)&&equal(grant.bounds,c.bounds),'EXTERNAL_ROOT_ONCE_GRANT');
+ need(equal(grant.runtimeTools,binding.runtimeTools)&&equal(grant.typesAdoption,binding.typesAdoption)&&equal(grant.artifactBoundAdoption,binding.artifactBoundAdoption)&&equal(grant.currentProtection,binding.currentProtection),'GRANT_PREREQUISITE_ROLES');
+ need(grant.sourcePins.path===path.join(HERE,'SOURCE-PINS.json'),'MANIFEST_PATH');const manifest=json(grant.sourcePins,131072);need(manifest.schema==='1370-fullfunction-qualification-source-pins/v1'&&manifest.executionAuthorization===false,'MANIFEST_PROTOCOL');
+-for(const [name,r] of Object.entries(manifest.files)){need(r.path===path.join(HERE,name),'MANIFEST_ROLE_PATH');readRole(r)}
++for(const [name,r] of Object.entries(manifest.files)){if(Object.hasOwn(c.parserInputs,name))need(equal(r,c.parserInputs[name]),'EXACT_EXTERNAL_TESTED_PARSER_ROLE');else need(r.path===path.join(HERE,name),'MANIFEST_ROLE_PATH');readRole(r)}
+ const sourceReview=json(grant.sourceReview,131072);need(sourceReview.decision==='ACCEPT_STATIC_REAL_FULL_FUNCTION_QUALIFICATION_ROUTE_SOURCE_ONLY'&&sourceReview.executionAuthorization===false&&equal(sourceReview.concreteFindings,[])&&equal(sourceReview.sourceManifest,grant.sourcePins),'INDEPENDENT_SOURCE_REVIEW');
+ for(const name of ['CONFIG.json','run-fullfunction.py','run-fullfunction.mjs','record-fullfunction.py','CORE-TEST-TEMPLATE.ts','CONFIG-TEMPLATE.mts','FULL-BODY-CONTROLS-TEMPLATE.ts','exact-json.mjs','run-parser-controls.mjs'])need(equal(sourceReview.sourcePins[name],manifest.files[name])&&equal(sourceReview.routeSourcePins[name],manifest.files[name]),'SOURCE_REVIEW_ALIASES');
+ need(manifest.files['run-fullfunction.mjs'].path===fileURLToPath(import.meta.url),'WORKER_SELF');

@@ -1,0 +1,19 @@
+{
+  "actualRouteReadback": null,
+  "allOtherBytesUnchanged": true,
+  "baseManifestPath": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r4/SOURCE-PINS.json",
+  "baseManifestSha256": "f98fcdbffe35eab67ebd18e3da43cafc91b4b719f6831166c5a58cce4f76ad36",
+  "changes": [
+    [
+      "1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r2",
+      "1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r3"
+    ],
+    [
+      "postflight-fullfunction-qualification-r2",
+      "postflight-fullfunction-qualification-r3"
+    ]
+  ],
+  "executionAuthorization": false,
+  "schema": "1370-shared-fullpost-path-only-source-proof/v1",
+  "wholeInversesExact": true
+}

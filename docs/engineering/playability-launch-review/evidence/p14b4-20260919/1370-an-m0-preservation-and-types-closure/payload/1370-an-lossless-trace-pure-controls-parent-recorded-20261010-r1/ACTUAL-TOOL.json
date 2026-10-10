@@ -1,0 +1,20 @@
+{
+  "sessionId": 17643,
+  "allToolChunks": [
+    {
+      "chunk_id": "8648d6",
+      "wall_time_seconds": 1.000705151,
+      "session_id": 17643,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "3a3f64",
+      "wall_time_seconds": 0.000030309,
+      "exit_code": 0,
+      "original_token_count": 193,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-parent-recorded-20261010-r1/GRANT.json\", \"bytes\": 7258, \"sha256\": \"d0f5d29f5b9c91af2e6d3f279b1a85e2ce10328efcb0a67472ce354e84e86069\"}, \"sourceAdoption\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LOSSLESS-CONTROLS-SOURCE-ADOPTION.json\", \"bytes\": 1336, \"sha256\": \"5d5b15b7f60ccbeadb0d624bb64b9c7eca9f68f0d2305a57361f2485423cb344\"}}\n{\"launchClaim\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-parent-recorded-20261010-r1/LAUNCH-CLAIM.json\", \"bytes\": 3575, \"sha256\": \"556dbdc49320faaf81271ec56c946801976538732b16e0e21d3838e2c302c4a9\"}, \"helperPid\": 86859, \"helperPgid\": 86859, \"helperSid\": 86859}\n"
+    }
+  ],
+  "finalExit": 0
+}

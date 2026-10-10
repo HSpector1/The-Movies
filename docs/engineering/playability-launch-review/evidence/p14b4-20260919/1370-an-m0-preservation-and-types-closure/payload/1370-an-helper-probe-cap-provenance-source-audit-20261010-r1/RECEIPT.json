@@ -1,0 +1,99 @@
+{
+  "capChangeProposed": false,
+  "claimLimit": "Finite named records only; absence of an Owner-fixed declaration in these records is not proof about every historical user instruction. Current adopted route enforces both cap sets. Any later amendment requires a specific separately reviewed and explicitly adopted derivative, preserving original observer constraints.",
+  "decision": "FINITE_SOURCE_PROVENANCE_DISTINGUISHED_NO_CAP_CHANGE",
+  "executionAuthorization": false,
+  "findings": [
+    "Original observer design explicitly requires its caps, no truncation/sampling and exact refusal controls.",
+    "Helper caps are defined in the separate test-only probe and preserved byte-exact by held R3 source proof.",
+    "Held notes explicitly state cap sufficiency is unknown/unmeasured.",
+    "Held root adoptions accept source only and withhold runtime; inspected roles do not label helper values Owner-fixed or delegate permission to change them.",
+    "Current root diagnostic adoption lists helper and observer caps separately and explicitly preserves limits."
+  ],
+  "helperProbeCaps": {
+    "entries": 16384,
+    "rowBytes": 65536,
+    "totalBytes": 2097152
+  },
+  "inspectedRoles": {
+    "diagnosticRootAdoption": {
+      "bytes": 1659,
+      "lineReferences": [
+        10,
+        11,
+        12,
+        13,
+        20,
+        21,
+        22,
+        23
+      ],
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/PROBE-OVERFLOW-DIAGNOSTIC-HELD-SOURCE-ADOPTION.json",
+      "sha256": "b926b19abcdd32344c2d58b5121cde868c5f0f5309cefc26dbea459f62a1f482"
+    },
+    "heldDesignNotes": {
+      "bytes": 4700,
+      "lineReferences": [
+        9,
+        11,
+        17
+      ],
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/NEXT-STEPS.md",
+      "sha256": "43e7adea2828a1cdb0d1ce2de74d2f44005c4d9eba0a7f3f1991d51f53a94f3b"
+    },
+    "heldDesignRootAdoption": {
+      "bytes": 1726,
+      "lineReferences": [],
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-FULLBODY-HELD-DESIGN-SOURCE-ADOPTION.json",
+      "sha256": "d61438e23ad54f42c50f31f0c81e14a54f36f6ed629d950884a8dbace7a9ecb8"
+    },
+    "heldResolverRootAdoption": {
+      "bytes": 1847,
+      "lineReferences": [],
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-FULLBODY-R3-HELD-SOURCE-ADOPTION.json",
+      "sha256": "2d528f4e64c051e666f328acca7fa65bbdb65deea784fe89392862bde341eab4"
+    },
+    "helperProbe": {
+      "bytes": 2457,
+      "lineReferences": [
+        11,
+        16
+      ],
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/derivative/src/core/m0WiringProbe.ts",
+      "sha256": "3a3d75e5d849a94e14806239566bc72ca10af497bca71925a6f59d7db5714a85"
+    },
+    "observerDesign": {
+      "bytes": 9567,
+      "lineReferences": [
+        14,
+        16
+      ],
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-verification-design-r2/PLAN.md",
+      "sha256": "416e3d827934c6e0748532b37eaffb1f7447d914788112713eec0b9ed7c74eb7"
+    },
+    "resolverNotes": {
+      "bytes": 6932,
+      "lineReferences": [
+        15,
+        17,
+        19
+      ],
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/NEXT-STEPS.md",
+      "sha256": "6ca07bc048d8104794f519f2fa96768e27b1528d817bc5573fb563532c3667e4"
+    },
+    "resolverSourceProof": {
+      "bytes": 6886,
+      "lineReferences": [],
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/SOURCE-PROOF.json",
+      "sha256": "745c011c9e98f86115730a10121aa08a3c2e57514cb558d375577a407ccd882b"
+    }
+  },
+  "limitsChanged": false,
+  "observerCaps": {
+    "rowBytes": 16384,
+    "rows": 512,
+    "totalBytes": 2097152
+  },
+  "runtimePerformed": false,
+  "schema": "1370-helper-probe-cap-provenance-source-audit/v1"
+}

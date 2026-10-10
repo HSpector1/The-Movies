@@ -1,0 +1,86 @@
+{
+  "actualFailedLoopIteration": null,
+  "actualFailedRowBytes": null,
+  "actualFailedRowKind": null,
+  "actualFailedTupleFamily": null,
+  "authorReceipt": {
+    "bytes": 2816,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-observer-row-diagnostic-design-20261010-r1/RECEIPT.json",
+    "sha256": "b58c7b8f9330a833c3d7315bbad4ceadbf9b8b7e64c0a0e7257f5ffb9a18c7fe"
+  },
+  "concreteFindings": [],
+  "decision": "ACCEPT_HELD_BOUNDED_OBSERVER_ROW_DIAGNOSTIC_DESIGN_SOURCE_ONLY",
+  "design": {
+    "bytes": 6551,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-observer-row-diagnostic-design-20261010-r1/DESIGN.md",
+    "sha256": "cafbcdf5b12bff61c3cf1d1bef2b30a6cf9cff768c32a2cf90bf93f18ff0a74f"
+  },
+  "executionAuthorization": false,
+  "fullQualificationAccepted": false,
+  "futureSpecificControls": [
+    "GREEN authoritative16384 rowaccepted plus unchangednonoverflow row/context/order/occurrence parity. RED16385originalexactrowbyteError andsameobjectpropagation; count513/totaloverflow retainoriginalspecificrefusals ratherthanarbitrarycatchRED.",
+    "Compare reconstructionbytes with realauthoritative serialization forUnicode/escapedquotes/newline and nonzero sequence+sameidentityoccurrence; preserveexactidentity differences forcase/proposaloccurrences and candidate/submitted/survivor ordinals.",
+    "REDinputTuple andassessment firstfail; assessmentfamily only from actualprecedingsamecontextinputTuple, unavailable ifnone. No guessedfamily orcontextmigration.",
+    "Swallowedfirstfailure stillrefusescompletion; diagnosticserializer/emitterfailure cannotturn refusal intopass or replaceoriginalerror; repeatedfailure retainsfirstonly; reset/snapshot ownership controls.",
+    "No realgame baseline/mutant acceptance frompurediagnosticcontrols. Actualnewroute remainsSTOPwithmetadata untila separatelyreviewedlawfulrepair and fulloriginalqualification pass."
+  ],
+  "game": false,
+  "implementationAuthorizedByThisReceipt": false,
+  "implementationReviewCriteria": [
+    "Bound diagnostic to4096 UTF8bytes includingnewline/framing usedbyemitter. Firstfailureonly; no rawtuple/payload. Bound canonicalparse explicitly beforeparse (e.g existing65536 helperexpandedrow ceiling); larger/missing/malformed evidence yieldsunavailable whilepreservingSTOP. Existing sink.rows copy is bounded512/2MiB; no repeated/unbounded reconstruction cache.",
+    "Freeze originalcontextreference using actualcapture.context; count sameidentity occurrence in exactactualretainedrows; never inferordinal0/probecounter. Existingdetail/context serialize only asrequired forbytecount/components; guard diagnosticexceptions separately so sameoriginalError stillwins.",
+    "Before anypotentialdiagnosticthrow setstickyoperationalrefusal; arm checks it afterreturnedcall. OriginalError instance/name/message/stack mustpropagate when gameplay broadcatch swallows it; never relabel as intentionalM0ObserverError or ERR_ASSERTION mutantRED.",
+    "Onlyexisting perarm resetclears diagnosticstate; immutable emitteddiagnostic survives laterreset/begin; successfulcapture produces noextraoutput and exactsinkrows unchanged."
+  ],
+  "originalObserverCapsChanged": false,
+  "schema": "1370-observer-failed-row-diagnostic-independent-held-design-review/v1",
+  "scope": "Held design/RED criteria only; no implementation, imports, runtime, private original/mirror reads, repair or postflight claim. Earlier1001 expansion hypothesis rejected; actualrowkind/bytes/family/iteration remain unknown.",
+  "sourceAndObservedRoles": [
+    {
+      "bytes": 2701,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r5/baseline.report.json",
+      "sha256": "152cb6a301f4f16171428a3153a376577d2b4cfa03c3099c0718878ba3ba86fc"
+    },
+    {
+      "bytes": 77415,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r13/RESOLUTION-SOURCE-BINDING.json",
+      "sha256": "beccc36285426dc51ec89ba1f2428177db3c8209b3f29dcf9365729f8928f987"
+    },
+    {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    {
+      "bytes": 9744,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "324c7cc754497e43cc5a9d46865f4cbf7e1a635b5e2ce5ac0857defab8661a02"
+    },
+    {
+      "bytes": 113287,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/promises.ts",
+      "sha256": "0e14a0056d8d70ed2b93d217bc0829c6284142fd9ed93033ce8880e56691b6cb"
+    },
+    {
+      "bytes": 119434,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/talentMarket.ts",
+      "sha256": "ce06afb3069c83dc1d9ee1fb8a03b7f1609c0db41fc3ea8078b455061455ed2d"
+    },
+    {
+      "bytes": 25031,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/opportunityPromises.ts",
+      "sha256": "90d49b0c76553a06d9c0bbabe568b8624270fe939b8e502a26fac9adc99065ee"
+    },
+    {
+      "bytes": 6863,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/fixtures.ts",
+      "sha256": "5ff38007b8126571e9fa84a9efe94f35866be409d3c35b22f9c90b5ce3e0315d"
+    }
+  ],
+  "sourceAssessment": [
+    "Pinned public witness bytes/hash equal actualR13canonical binding. Rowsequence equals retainedrows.length; occurrence counts the original full10-field identity, excluding exactly those fields originalidentity excludes. Rowbytecheck precedes bothrows.push and occurrence increment, so priorrows can reconstruct first refusedrow occurrence without advancing the authoritative sink.",
+    "Exact nativefieldorder schema/sequence/occurrence/context/kind/detail and originalJSON.stringify+newline UTF8 counting are required. Reconstruction is diagnostic; originalrecord predicate remains authority.",
+    "Publicwrapper calls originalrecord first and retains firstfailure+sameError before diagnosticwork/rethrow. Completion rejects swallowedrefusal; nestedend/resetfinally remains; diagnostic emission precedesreset. No observer/canonicaltuple/policy/cap changes.",
+    "Canonicaltuple fullworld projections and escaped canonicalInputs support a possible size mechanism; no individualcomponent causalbytes measured. Reservation1001 is scalar; changingcount is not justified."
+  ]
+}

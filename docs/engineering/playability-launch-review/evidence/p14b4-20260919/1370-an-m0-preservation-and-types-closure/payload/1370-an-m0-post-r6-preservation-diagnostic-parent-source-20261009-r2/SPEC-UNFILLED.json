@@ -1,0 +1,15 @@
+{
+  "additionalRefs": {},
+  "currentProtection": null,
+  "diagnosticInputs": {
+    "controlsObservedReview": null,
+    "controlsRootAdoption": null,
+    "currentAMFullPreflight": null,
+    "currentAMFullPreflightAdoption": null
+  },
+  "executionAuthorization": false,
+  "mode": "proof",
+  "runtimeTools": null,
+  "schema": "1370-root-m0-parent-fill-launch-spec/v1",
+  "sourceReview": null
+}

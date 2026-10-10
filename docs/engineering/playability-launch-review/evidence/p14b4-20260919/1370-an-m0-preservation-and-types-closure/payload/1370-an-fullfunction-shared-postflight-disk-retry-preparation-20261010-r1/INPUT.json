@@ -1,0 +1,31 @@
+{
+  "baseManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6/SOURCE-PINS.json",
+    "bytes": 3328,
+    "sha256": "e8a7ee7fefcd3401787dc7e04e7d5928143d6ddab056e66f81f332ae17caf01d"
+  },
+  "acceptedRootReviewSha256": "450f617c0e064bd928f5569de139efd38a1a07567ea73a686a1d04e39dc6b5f7",
+  "acceptedRootReviewRole": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-independent-source-review-20261010-r6/RECEIPT.json",
+    "bytes": 4532,
+    "sha256": "450f617c0e064bd928f5569de139efd38a1a07567ea73a686a1d04e39dc6b5f7"
+  },
+  "failedPostAudit": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-disk-floor-stop-independent-observed-audit-20261010-r1/RECEIPT.json",
+    "bytes": 6722,
+    "sha256": "4b333b4836a3f52474afc2ee3dd5eb01c1aebb12fd369cf0c75292b684140517"
+  },
+  "changes": [
+    [
+      "1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4",
+      "1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4-disk-retry"
+    ],
+    [
+      "postflight-fullfunction-qualification-r4",
+      "postflight-fullfunction-qualification-r4-disk-retry"
+    ]
+  ],
+  "futureActualRouteReadback": null,
+  "futureGrant": null,
+  "executionAuthorization": false
+}

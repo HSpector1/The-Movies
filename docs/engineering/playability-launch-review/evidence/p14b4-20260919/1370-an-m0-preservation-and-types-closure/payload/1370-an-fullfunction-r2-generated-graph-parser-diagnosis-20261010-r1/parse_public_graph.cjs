@@ -1,0 +1,11 @@
+const fs=require('node:fs'),crypto=require('node:crypto');
+const D='/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1';
+const input=JSON.parse(fs.readFileSync(D+'/INPUTS.json'));
+const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
+const read=r=>{const b=fs.readFileSync(r.path);if(b.length!==r.bytes||hash(b)!==r.sha256)throw Error('SOURCE_PIN');return b};
+read(input.parser);read(input.parserPackage);read(input.node);
+const ts=require(input.parser.path);if(ts.version!==input.parserVersion)throw Error('VERSION');
+const rows=input.files.map(r=>{const text=read(r).toString('utf8');const s=ts.createSourceFile(r.path,text,ts.ScriptTarget.Latest,true,r.path.endsWith('.mjs')?ts.ScriptKind.JS:ts.ScriptKind.TS);return {source:r,diagnostics:s.parseDiagnostics.map(d=>{const p=s.getLineAndCharacterOfPosition(d.start||0);return {code:d.code,line:p.line+1,column:p.character+1,message:ts.flattenDiagnosticMessageText(d.messageText,'\n')}})}});
+for(const r of [...input.files,input.parser,input.parserPackage,input.node])read(r);
+const result={schema:'1370-finite-retained-source-parse-observation/v1',scope:'SYNTAX_PARSE_ONLY_NO_GENERATED_SOURCE_EXECUTION_OR_PRIVATE_IMPORT',parser:input.parser,parserVersion:ts.version,node:input.node,fileCount:rows.length,diagnosticCount:rows.reduce((n,r)=>n+r.diagnostics.length,0),rows,game:false,privateInventory:false,sourceAuthoredRuntime:false};
+fs.writeFileSync(D+'/RESULT.json',JSON.stringify(result,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({fileCount:result.fileCount,diagnosticCount:result.diagnosticCount}));

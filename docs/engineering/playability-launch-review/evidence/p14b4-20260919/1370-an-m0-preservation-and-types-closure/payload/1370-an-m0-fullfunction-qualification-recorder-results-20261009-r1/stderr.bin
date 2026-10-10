@@ -1,0 +1,3 @@
+/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-fullfunction.py:119: SyntaxWarning: 'return' in a 'finally' block
+  rr=write(out/'RESULT.json',result);remaining();print(json.dumps({'status':result['status'],'result':rr}),flush=True);return 1 if failure else 0
+STOP_FULLFUNCTION RuntimeError('exact recorded post-R6 root metadata')

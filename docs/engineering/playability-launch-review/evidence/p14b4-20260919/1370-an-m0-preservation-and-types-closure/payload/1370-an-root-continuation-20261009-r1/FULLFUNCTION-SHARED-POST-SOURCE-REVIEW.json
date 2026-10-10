@@ -1,0 +1,41 @@
+{
+  "checks": [
+    {
+      "byteExactHelpers": [
+        "role",
+        "read",
+        "put"
+      ],
+      "completeForwardAndInverseExact": true,
+      "source": "launch-fullpostflight.py"
+    },
+    {
+      "byteExactHelpers": [
+        "role",
+        "read",
+        "put"
+      ],
+      "completeForwardAndInverseExact": true,
+      "source": "read-fullpostflight.py"
+    }
+  ],
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_ORIGINAL_SHARED_FULL_POSTFLIGHT_ADAPTER_AFTER_FULLFUNCTION_PASS_OR_STOP",
+  "executionAuthorization": false,
+  "reviewer": "root; adapter authored by m0_types_source_review",
+  "schema": "1370-root-independent-fullfunction-shared-post-source-review/v1",
+  "sourceManifest": {
+    "bytes": 3379,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "d1589a7039240dc5415ffc80ab980f1ff1537b80fa6956eac36e7fe8a85dc889"
+  },
+  "sourceOnly": true,
+  "verified": [
+    "Original shared G source/config/current-AM baseline/admission/prior review identities and exact original guard argv retained; no alternate scope, new clock or new inventory method.",
+    "Only fresh parent/output label and authentic completed actualroute readback interface change; PASS or STOP retained literally, no zero coercion for nullable unstarted runner.",
+    "Actual recorded PID and PGID sets are separately validated, passed only in their proper probe roles; original guard receives group IDs only.",
+    "Own scanner PID=PGID=SID recorded before direct exec, source role/pins checked and lane absent. Original180s percommand/no whole timer retained.",
+    "Reader checks actual terminal tool0/grant hash supplied after completion, full immutable maps/nine roots/scratchidentity, original raw4localonly, actual priorstatus/exits and cleanup. This never admits game, fullfunction or missing M0 afterproofs.",
+    "Relocated launcher explicitly uses actual AN root authority path; original staleDconstant unused and harmless. Earlier sourceR1/R2 preserved unrun."
+  ]
+}

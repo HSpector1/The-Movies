@@ -1,0 +1,461 @@
+{
+  "actualResult": {
+    "bytes": 5827,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-results-20261009-r2/20261009-m0-post-r6-preservation-diagnostic-r2/RESULT.json",
+    "sha256": "308e00da323a8e1f67dde25e9069c7171dccdf027e9f93745a9a5e7346107f8a"
+  },
+  "claims": {
+    "HScientificAcceptance": false,
+    "collectionAccepted": false,
+    "currentRootBaselineQualified": true,
+    "executionAuthorization": false,
+    "fullCurrentAMSharedPostflightAccepted": true,
+    "gameAccepted": false,
+    "historicalRootUnchanged": false,
+    "observedKnownRootDriftPreservationDiagnosticAccepted": true,
+    "originalR6CauseProven": false,
+    "originalR6StopPreserved": true,
+    "rootBaselineAdoptedByReviewer": false,
+    "typesAccepted": false
+  },
+  "collectionAccepted": false,
+  "concreteFindings": [],
+  "currentRootBaselineQualified": true,
+  "decision": "ACCEPT_OBSERVED_POST_R6_M0_PRESERVATION_DIAGNOSTIC_KNOWN_ROOT_DRIFT_WITH_FULL_POSTFLIGHT",
+  "diagnosticActualTool": {
+    "bytes": 750,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-recorded-20261009-r2/ACTUAL-TOOL.json",
+    "sha256": "be2753e3ab370bf3e934185c6bdc2de0e661b0ef1dae1326e0fb79f96cf43790"
+  },
+  "diagnosticContext": {
+    "bytes": 7117,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-recorded-20261009-r2/EXECUTION-CONTEXT.json",
+    "sha256": "850a51577e56acebc35249c275bff0e4a41a673384a3ee498df8ab1685960ad2"
+  },
+  "diagnosticFillResult": {
+    "bytes": 6998,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-recorded-20261009-r2/FILL-RESULT.json",
+    "sha256": "596cb6a25d0dcc8454a3fe2eacf0f9a0765257c6d41aed02678cf36706dce4a3"
+  },
+  "diagnosticGrant": {
+    "bytes": 963,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-recorded-20261009-r2/EXECUTION-GRANT.json",
+    "sha256": "ea0c4e9192465be07db95b75ed285fd9bbbbaf23a141a38b16f86f0e2eadbd66"
+  },
+  "diagnosticLaneLog": {
+    "bytes": 1218,
+    "path": "/Users/zacheryspector/studio-scratch/c0-m0-post-r6-preservation-diagnostic-20261009-r2.lane.log",
+    "sha256": "66d5bd31795a979b7af893f086b31817e0f0a2abdeaafcafd15bb92ca9238c99"
+  },
+  "diagnosticLaneMetadata": {
+    "bytes": 535,
+    "path": "/Users/zacheryspector/studio-scratch/c0-m0-post-r6-preservation-diagnostic-20261009-r2.lane.log.meta",
+    "sha256": "30f46eee9082e27b351a570c2d3c0f40d49d4244c657eeb06aa9cdadae1ec3fc"
+  },
+  "diagnosticPrerequisites": {
+    "controlsObservedReview": {
+      "bytes": 12614,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "d1fc49491307cf21c93be748f99839574d51733ba17f3d4260b3e0d262f8a1e7"
+    },
+    "controlsRootAdoption": {
+      "bytes": 8126,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/DISPOSABLE-METADATA-PAIR-OBSERVED-ADOPTION.json",
+      "sha256": "9badcf90e1e70153c5a51a9cf27ec3be1e889304188750b573bea422b33c5c01"
+    },
+    "currentAMFullPreflight": {
+      "bytes": 8833072,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/SNAPSHOT.json",
+      "sha256": "0136b4370cca27ab9af635c16124283049eb394b3dbaa63c32a755973e9c3596"
+    },
+    "currentAMFullPreflightAdoption": {
+      "bytes": 4459,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/CURRENT-AM-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+      "sha256": "ac3c336fcf4c57b4de25a2d03fe4642719e7137d34ffe24d2106a8210ecc1612"
+    }
+  },
+  "diagnosticReadback": {
+    "bytes": 5919,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-recorded-20261009-r2/READBACK.json",
+    "sha256": "7d6f24c7bedaf8ff18441de661312f77d86e8e258ca0da95fbe2e7c8c29a7626"
+  },
+  "diagnosticRecorderResult": {
+    "bytes": 928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-recorder-results-20261009-r2/20261009-m0-post-r6-preservation-diagnostic-r2.RECORDER-RESULT.json",
+    "sha256": "beff0089209578196c76fcd520f091bee6686ac680db3bf74694617baa59b02d"
+  },
+  "diagnosticRootLaneGrant": {
+    "bytes": 4115,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-recorded-20261009-r2/ROOT-LANE-GRANT.json",
+    "sha256": "280270ba8766ed5b3e4f22514cb3006663806f5ed2d274b90774450ef7dcdcc3"
+  },
+  "executionAuthorization": false,
+  "findingsAndConclusions": [
+    "Actual completed tool, original lane metadata exit0, exact four complete JSON log lines, supervisor result child0/groupClear and diagnostic PASS result authenticate the originally granted one-shot route. All source/config/review/parent/spec/context/grant identities match; the acyclic grant excludes its own role and includes genuine observed controls/current-AM preflight prerequisites. No invented future proof was consumed.",
+    "Both full 1740-file/119393120-byte/1853-entry source proof objects and both full 12484-entry/348223802-byte dependency proof objects match exactly. Independently reconstructed fbbfed/12c3dd50/5ce916/0c9cfd digests from retained e9 facts agree with actual emitted objects. Actual root identity equals the previously recorded R6 after tuple exactly; the historical unchanged-root claim remains false.",
+    "The mandatory original current-AM postflight completed terminal0 with empty stderr and complete JSON stdout bound to new snapshot2cf604/PINS39b95. Its complete immutable object equals fresh before-fill0136, including entire private source/dependency/protected/ancestry/current-AM authority maps. All nine strict roots remain exact.",
+    "Scratch parent device/inode/mode/path remain exact; only informational timestamps differ under the original accepted policy. That exception is not used for production, common, private copy, retained-H roots or admitted M0 metadata.",
+    "Current before/after observations retain original writable-FD/workers/boot/power/free-space predicates and scoped group clearance for actual diagnostic IDs32502/32757/33019. Parent postchecks add scanner37863, producing eight recorded PID/PGID ESRCH checks and lane lock absence; no global or unrecorded identity absence is claimed.",
+    "All four postflight PS/FD raw roles are explicitly LOCAL_HASH_SIZE_ONLY and individually verified by byte count/hash against snapshot/PINS fields. Their raw contents were not inspected or copied into this receipt.",
+    "This accepts the observed complete preservation diagnostic under the exact known root drift, with full shared protection postflight. Root may separately adopt its qualified current root/proof baseline. It does not rewrite or retroactively admit the original R6 metadata STOP, prove the original drift cause, or admit types, collection, game or historical H scientific results."
+  ],
+  "freshDependencyProof": {
+    "contentAndMetadataSha256": "a06e929a60a5ede6ce0d72467d4d587e50d1c4fa3788bee3d07f1ea3388cd21d",
+    "contentBytes": 348223802,
+    "entries": 12484,
+    "rootDevice": 16777220,
+    "rootIdentity": [
+      16777220,
+      158487026,
+      16877,
+      154,
+      4928,
+      1790738039503311431,
+      1790738039503311431
+    ],
+    "rootInode": 158487026
+  },
+  "freshSourceProof": {
+    "dependencyLink": [
+      16777220,
+      166769275,
+      41408,
+      1,
+      62,
+      1791577446298712967,
+      1791577446298712967,
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    ],
+    "fileProofDigestSha256": "fbbfed3ec13da5618a0194204e2f6c8a87eebb5ee22102707d466340fbe6e1e0",
+    "historicalRootSubstitutedMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "mirrorBytes": 119393120,
+    "mirrorFiles": 1740,
+    "mirrorRootIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791600924862151724,
+      1791600924862151724
+    ],
+    "nonrootMetadataSha256": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
+    "physicalMetadataSha256": "12c3dd50b99860c1c4e56ee98488d5f04613b37c93496d0257cc560a4fb83038",
+    "traversedEntries": 1853
+  },
+  "fullPostflightActualTool": {
+    "bytes": 1232,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-preservation-diagnostic-fullpostflight-parent-recorded-20261009-r2/ACTUAL-TOOL.json",
+    "sha256": "a43f4efd6e0b888ec40b05d87f49356414caf67e007f7f1d0b2871eb35d366bc"
+  },
+  "fullPostflightBaseline": {
+    "bytes": 8833072,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/SNAPSHOT.json",
+    "sha256": "0136b4370cca27ab9af635c16124283049eb394b3dbaa63c32a755973e9c3596"
+  },
+  "fullPostflightConfig": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/CONFIG.json",
+    "sha256": "e0c7a2b839eaa1e0940665711c8e9b57af4f09738290ca5d15d828f01200b42e"
+  },
+  "fullPostflightGrant": {
+    "bytes": 4820,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-preservation-diagnostic-fullpostflight-parent-recorded-20261009-r2/GRANT.json",
+    "sha256": "c5a968e5ae983011eb1b55c30157b1f1aa42e88370c8f806034c4fe729fe609f"
+  },
+  "fullPostflightRawLocalOnlyClassification": {
+    "bytes": 1533,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-preservation-diagnostic-fullpostflight-parent-recorded-20261009-r2/RAW-LOCAL-ONLY-CLASSIFICATION.json",
+    "sha256": "0a8477780c333786335bccea80e4d0b3f798ed06970c5f43e22ca3dc2c9f1833"
+  },
+  "fullPostflightReadback": {
+    "bytes": 4810,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-preservation-diagnostic-fullpostflight-parent-recorded-20261009-r2/READBACK.json",
+    "sha256": "93236d6b55f391765eed41fd2d8f9af541f00493ee43e7b24a531ffddda1a7f4"
+  },
+  "fullPostflightSnapshot": {
+    "bytes": 8835180,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-preservation-diagnostic-r2/SNAPSHOT.json",
+    "sha256": "2cf60469b8080a91e66b18da72127d4bd5e7a7ce531017a7f057849d538a2308"
+  },
+  "fullPostflightSnapshotPins": {
+    "bytes": 507,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-preservation-diagnostic-r2/PINS.json",
+    "sha256": "39b95ec0fadd396b6cd8c530820c5b62480896a27ee5b6974459e063a1c6251f"
+  },
+  "fullPostflightSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py",
+    "sha256": "9e2618b58849ccf0bc36512b20de16c23e49b2f08cdc6982ca9fe2fc20143047"
+  },
+  "fullPostflightSourcePins": {
+    "bytes": 2286,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "e638252b8082aa756f56471552327706a17dcf0e2d6bd01628710624ce7ec435"
+  },
+  "fullPostflightSourceReview": {
+    "bytes": 7200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "8a8756307aeecff6e3d9f299a5d2db8014e81c9c7dd5ade42f1f53514ba8ad45"
+  },
+  "fullPostflightStderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-preservation-diagnostic-fullpostflight-parent-recorded-20261009-r2/postflight.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "fullPostflightStdout": {
+    "bytes": 469,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-preservation-diagnostic-fullpostflight-parent-recorded-20261009-r2/postflight.stdout",
+    "sha256": "cd18b85086e6bfd35e7c96852751ba5afad6ec719b1368a7d9efa1a08562ab6e"
+  },
+  "game": false,
+  "historicalRootUnchanged": false,
+  "knownRootDrift": {
+    "historicalMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "historicalNormalizedIdentity": [
+      16777220,
+      166751332,
+      448,
+      13,
+      416,
+      1791577446298737027,
+      1791577446298737027
+    ],
+    "nonrootMetadataSha256": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
+    "recordedAfterIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791600924862151724,
+      1791600924862151724
+    ],
+    "recordedBeforeIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791577446298737027,
+      1791577446298737027
+    ],
+    "rosterSha256": "aa0270269ea341ec4d0029307c799518b5ff89e81b0044d165763408ea533f57"
+  },
+  "majorLessons": [
+    "Four successful child commands cannot override strict metadata refusal; keep original R6 STOP immutable.",
+    "Use a separate explicitly qualified complete preservation diagnostic for known root drift, with exact recorded tuple and strict full historical remainder rather than arbitrary metadata repinning.",
+    "A synthetic local/external config pair supports a bounded mitigation mechanism; it does not prove the cause of the original R6 drift.",
+    "Authenticate genuine observed prerequisite producer schemas and role maps before private traversal; keep future proof/adoption roles outside the launch grant cycle.",
+    "Preserve HOME in dormant as well as executed helpers; keep preparation60 separate from original runner300/recorder320/launch330.",
+    "Use the original root policy and owned-identity scope precisely, and classify raw machine evidence by semantic role, never its extension."
+  ],
+  "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+  "newRootBaselineAdopted": false,
+  "observed": {
+    "allRecordedIds": [
+      32502,
+      32757,
+      33019,
+      37863
+    ],
+    "collectionCommandsExecuted": 0,
+    "combinedLaneBytes": 1218,
+    "combinedLaneJsonLines": 4,
+    "combinedPreparationRuntimeDeadline": null,
+    "dependencyContentBytes": 348223802,
+    "dependencyEntriesExcludingRoot": 12484,
+    "dependencyProofsEqual": true,
+    "diagnosticScopedAbsenceChecks": [
+      {
+        "id": 32502,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 32502,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 32757,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 32757,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 33019,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 33019,
+        "kind": "pgid",
+        "result": "ESRCH"
+      }
+    ],
+    "diagnosticToolExit": 0,
+    "diagnosticToolSessionId": 64460,
+    "fullPostflightDependencyEntriesPerCopy": 12485,
+    "fullPostflightInventorySeconds": 396.99310764200345,
+    "fullPostflightMachineRawBytes": 1525629,
+    "fullPostflightMachineRawRoles": [
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 97296,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-preservation-diagnostic-r2/BEFORE-PS.txt",
+        "sha256": "a1b8a5e81dcea6081a04287c407bdae7c3bbe0a50d657003d02d982f20075724"
+      },
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 666439,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-preservation-diagnostic-r2/BEFORE-LSOF.bin",
+        "sha256": "7f9b91d51356061bd0f51a0431167d2fe6938054cc7888da8d0c88830d48e6df"
+      },
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 96804,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-preservation-diagnostic-r2/AFTER-PS.txt",
+        "sha256": "259ec8d383c00b083840390597ab37ade41d64427ba41c149f6915899fcdef2c"
+      },
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 665090,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-preservation-diagnostic-r2/AFTER-LSOF.bin",
+        "sha256": "40ba5e7016c15b27f9c163b7a39de9600e0c2f84786b15195a0a67650772042e"
+      }
+    ],
+    "fullPostflightNineStrictRootsEqual": true,
+    "fullPostflightPrivateSourceEntries": 176,
+    "fullPostflightScannerPgid": 37863,
+    "fullPostflightScannerPid": 37863,
+    "fullPostflightScopedAbsenceChecks": [
+      {
+        "id": 32502,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 32502,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 32757,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 32757,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 33019,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 33019,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 37863,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 37863,
+        "kind": "pgid",
+        "result": "ESRCH"
+      }
+    ],
+    "fullPostflightScratchIdentityOnlyEqual": true,
+    "fullPostflightSeconds": 502.27634844300337,
+    "fullPostflightStderrBytes": 0,
+    "fullPostflightToolExit": 0,
+    "fullPostflightToolSessionId": 59252,
+    "fullPostflightWholeImmutableMapEqualFreshAMBaseline": true,
+    "laneLockReleased": true,
+    "nonrootDirectories": 112,
+    "originalChildCommandStreamCapBytes": 8388608,
+    "outerHelperExit": 0,
+    "preparationElapsedSeconds": 0.8993108750000829,
+    "rawContentsInspected": false,
+    "recordedDiagnosticIds": [
+      32502,
+      32757,
+      33019
+    ],
+    "recorderChildPid": 33019,
+    "recorderElapsedSeconds": 70.325,
+    "recorderExit": 0,
+    "recorderGroupClear": true,
+    "runnerElapsedSeconds": 67.606,
+    "runnerExit": 0,
+    "runtimeBoundsSeconds": {
+      "active": 320,
+      "runner": 300,
+      "whole": 330
+    },
+    "separatePreparationSeconds": 60,
+    "sourceBytes": 119393120,
+    "sourceCommandsExecuted": 0,
+    "sourceEntriesExcludingRoot": 1853,
+    "sourceFiles": 1740,
+    "sourceProofsEqual": true,
+    "typesCommandsExecuted": 0
+  },
+  "originalR6StopPreserved": true,
+  "parentSourcePins": {
+    "bytes": 3626,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "38648e516daf240705f6583a580594d947835240e73e1bb53b8105252e67276b"
+  },
+  "parentSourceReview": {
+    "bytes": 10603,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-independent-source-review-20261009-r2/RECEIPT.json",
+    "sha256": "c6aa159c8404f4587711c9bfaac08178f8a8fb3865f00d22ac9c29e3936a6434"
+  },
+  "productionHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "proofInterpretation": {
+    "actualRecordedRootMetadataDigestReconstructedFromRetainedFacts": "12c3dd50b99860c1c4e56ee98488d5f04613b37c93496d0257cc560a4fb83038",
+    "dependencyProofBeforeEqualsAfterAndFreshDependencyProof": true,
+    "fileProofDigestReconstructedFromRetainedFacts": "fbbfed3ec13da5618a0194204e2f6c8a87eebb5ee22102707d466340fbe6e1e0",
+    "fullPostflightMeaning": "Original shared current-AM protection scan reruns complete accepted R9 private/source/dependency/strict-root maps and writable-FD protection including M0 parent. It does not independently retraverse the 1740-file M0 content proof; that separately executed diagnostic supplies the two complete M0 proofs.",
+    "historicalRootSubstitutionDigestReconstructedFromRetainedFacts": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "nonrootMetadataDigestReconstructedFromRetainedFacts": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
+    "rootException": "Only the exact authenticated recorded post-R6 dot tuple; all other historical file/directory/link metadata and content remain strict. No private metadata was restored or altered by the diagnostic.",
+    "sourceProofBeforeEqualsAfterAndFreshSourceProof": true,
+    "substitutionMeaning": "In-memory replacement of the single root metadata row reproduces historical complete digest5ce916; independent nonroot digest0c9cfd reproduces the unchanged remainder. Current actual complete digest12c3dd50 remains explicitly distinct."
+  },
+  "remainingActions": [
+    "Root may issue a separate truthful adoption of this actual qualified current root baseline and exact plain proof objects.",
+    "Any type/collection retry needs separately reviewed source/authority bindings, root grant, genuine recorded execution and required protection/admission."
+  ],
+  "reviewScope": "Independent finite retained evidence/source-role graph, complete recorded proof/map comparison and digest reconstruction from authenticated historical facts. No runtime, candidate import, replay, probes, private-original reads, private inventory, Git or production mutation.",
+  "runId": "20261009-m0-post-r6-preservation-diagnostic-r2",
+  "schema": "1370-post-r6-m0-preservation-diagnostic-independent-observed-review/v1",
+  "sourceAdoption": {
+    "bytes": 2200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-PRESERVATION-DIAGNOSTIC-SOURCE-ADOPTION.json",
+    "sha256": "e40aae3fc22a7ef352b8cf670dc7c38f63eedeeb0ab7d23012335858925474e2"
+  },
+  "sourcePins": {
+    "bytes": 14200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "42611a6faecc6b13e7b8a18cfef210b06d7167bb3e2a23d08862db65c4531262"
+  },
+  "sourceReview": {
+    "bytes": 36937,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-independent-source-review-20261009-r2/RECEIPT.json",
+    "sha256": "69c21815277b22aedf9c6c222a8fac25f265296e473de9973f21999ec4f03d8d"
+  },
+  "typesAccepted": false
+}

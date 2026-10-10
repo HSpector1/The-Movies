@@ -1,0 +1,28 @@
+{
+  "schema": "1370-an-actual-consumer-tool/v1",
+  "actualTool": {
+    "chunk_id": "202e94",
+    "wall_time_seconds": 0.766592274,
+    "exit_code": 0,
+    "original_token_count": 387
+  },
+  "stdoutSummary": {
+    "collectedTests": 1,
+    "decision": "ACCEPT_ACTUAL_DISPOSABLE_PAIR_ONLY",
+    "executionAuthorization": false,
+    "game": false,
+    "greenFullFixtureMetadataStable": true,
+    "helperCombinedLogBytes": 440,
+    "originalM0CauseAdmission": false,
+    "originalM0SourcePreservationAdmission": false,
+    "outcomePath": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/OUTCOME.json",
+    "outcomeSha256": "3375ca3ccebfe91c05560e3f09b32d495d91ba1c19c20c109074e19f8d601ba4",
+    "producerStderrBytes": 0,
+    "redMetadataChanged": true,
+    "sameRawCollectedTestIdentity": true,
+    "schema": "1370-disposable-controls-consumption/v1"
+  },
+  "readerPath": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/read_disposable_controls.py",
+  "outcomeSha256": "3375ca3ccebfe91c05560e3f09b32d495d91ba1c19c20c109074e19f8d601ba4",
+  "scope": "Actual tool metadata and exact parsed second stdout JSON frame; this is not a substitute for the retained controller and recorder artifacts."
+}

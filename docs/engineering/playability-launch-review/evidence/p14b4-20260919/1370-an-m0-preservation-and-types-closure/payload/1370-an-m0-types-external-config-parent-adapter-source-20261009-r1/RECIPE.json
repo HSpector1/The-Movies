@@ -1,0 +1,180 @@
+{
+  "schema": "1370-m0-types-external-config-parent-adapter-recipe/v1",
+  "status": "HELD_SOURCE_ONLY_UNRUN",
+  "executionAuthorization": false,
+  "launchSource": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/fill-grant-exec.py",
+    "bytes": 14054,
+    "sha256": "06ef36769f3f2918c0cec46d08022bfafb5328ce4159f3d4deb8003c1d99e99f"
+  },
+  "argv": [
+    "/usr/local/bin/python3",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/fill-grant-exec.py",
+    "<genuine separately filled external types specification path>",
+    "<exact actual types specification SHA256>"
+  ],
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "profile": {
+    "config": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/CONFIG.json",
+      "bytes": 32807,
+      "sha256": "224b8f1614208215cb07993fc4b015d8438413e95b805c7360105bee0575b154"
+    },
+    "contextSchema": "1370-m0-types-execution-context/v1",
+    "executableRoles": {
+      "BOOTSTRAP.py": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BOOTSTRAP.py",
+        "bytes": 2721,
+        "sha256": "8e4af6c0f9d92167ab1768368a443403abdded854c9eedc039c378285b86422a"
+      },
+      "LAUNCH.py": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/LAUNCH.py",
+        "bytes": 9125,
+        "sha256": "6f2d9628bcf753a382232eaf5e2ffaaec2f73c17969ed54d804c23fac8a8310b"
+      },
+      "check-deps.mjs": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/check-deps.mjs",
+        "bytes": 1918,
+        "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+      },
+      "runner.py": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/runner.py",
+        "bytes": 43951,
+        "sha256": "8fd2ad12b9d7751b486687df2d4887831254501f5866795bcb4d16ae7e38e466"
+      },
+      "supervise.py": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/supervise.py",
+        "bytes": 13716,
+        "sha256": "339ae9263f60b5f554826e5919add321940c07440d31b33ed67020354a4e6eb0"
+      },
+      "ROOT-CONFIG-TEMPLATE.mts": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/ROOT-CONFIG-TEMPLATE.mts",
+        "bytes": 460,
+        "sha256": "a593f1e4366309b0b68cc08610a42c9d26f6f28285434121a02f88c46300a384"
+      },
+      "WORKSPACE-CONFIG-TEMPLATE.mts": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/WORKSPACE-CONFIG-TEMPLATE.mts",
+        "bytes": 2163,
+        "sha256": "e47ce2329889e0f690af0eeb318461eee38ecf5d8346b4fd0ef2aac99ca0e814"
+      }
+    },
+    "grantSchema": "1370-root-m0-types-execution-grant/v1",
+    "grantScope": "M0_FOUR_COMMAND_TYPES_AND_DIAGNOSTIC_COLLECTION_ONLY",
+    "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-external-after-an-r1.lane.log",
+    "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+    "packagePath": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1",
+    "parentPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r1",
+    "recorderResult": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-recorder-results-20261009-r1/20261009-m0-types-external-after-an-r1.RECORDER-RESULT.json",
+    "resultRoot": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r1",
+    "runId": "20261009-m0-types-external-after-an-r1",
+    "sourcePins": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/SOURCE-PINS.json",
+      "bytes": 14126,
+      "sha256": "cabe9f492a2f67091e4b6aefa6051536773fdc4014256d072728932f7b52d53f"
+    },
+    "sourceReviewDecision": "ACCEPT_STATIC_M0_TYPES_COLLECTION_SOURCE_ONLY"
+  },
+  "activeMode": "types",
+  "historicalProofProfile": "Documentary predecessor data only; source explicitly requires mode == types. No proof replay, no fresh proof authority invented.",
+  "acceptedExecutorSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/SOURCE-PINS.json",
+    "bytes": 14126,
+    "sha256": "cabe9f492a2f67091e4b6aefa6051536773fdc4014256d072728932f7b52d53f"
+  },
+  "executorSourceReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-independent-source-review-20261009-r1/RECEIPT.json",
+    "bytes": 20234,
+    "sha256": "fcb639f515966761dcf3dd7442b38a8da84c96f4dd0c0905b07bcaa8b0303c1f"
+  },
+  "executorRecipe": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/RECIPE.json",
+    "bytes": 12239,
+    "sha256": "afcad3e8ec6f3ba82f480617544609fc1195ee72697ec27fa09a2d6272b8d42a"
+  },
+  "specificationSchema": "1370-root-m0-parent-fill-launch-spec/v1",
+  "specificationFields": {
+    "mode": "types",
+    "executionAuthorization": "Root fills true only after genuine parent+executor source admission and current qualified diagnostic/fullpostflight/prelaunch.",
+    "sourceReview": "Genuine accepted executor receipt; exact roles including both templates/LAUNCH.",
+    "runtimeTools": "Five actual physical roles and alias chains in original exact schema.",
+    "additionalRefs": "Genuine original fresh current refs map.",
+    "currentProtection": "Genuine CURRENT-TYPES-PROTECTION exact role.",
+    "postR6RootAdoption": "Genuine externally authenticated root diagnostic adoption role."
+  },
+  "postR6RootAdoptionContract": {
+    "schema": "1370-root-post-r6-m0-current-root-diagnostic-adoption/v1",
+    "status": "ROOT_ADOPTED_POST_R6_M0_PRESERVATION_DIAGNOSTIC_KNOWN_ROOT_DRIFT",
+    "currentRootBaselineQualified": true,
+    "historicalRootUnchanged": false,
+    "originalR6StopPreserved": true,
+    "typesAccepted": false,
+    "collectionAccepted": false,
+    "roleIsExternal": true,
+    "executionAuthority": false
+  },
+  "postR6RoleNames": [
+    "diagnosticObservedReview",
+    "actualResult",
+    "fullPostflightSnapshot"
+  ],
+  "sourceProofKeys": [
+    "fileProofDigestSha256",
+    "physicalMetadataSha256",
+    "historicalRootSubstitutedMetadataSha256",
+    "nonrootMetadataSha256",
+    "mirrorFiles",
+    "mirrorBytes",
+    "dependencyLink",
+    "traversedEntries",
+    "mirrorRootIdentity"
+  ],
+  "proofInterface": "Parent loads exact plain source/dependency objects from genuine root adoption and requires byte/data identity to CURRENT-TYPES-PROTECTION. No current proof is fabricated from source constants or historical pre-R6 identity.",
+  "currentProtectionInterface": "Original 1370-root-current-m0-types-protection/v1 fields preserved; postR6RootAdoptionSha256 equals exact context adoption role SHA. Two proofs equal genuine adoption. Current AM/source/mirror/facts/adoption/ref/accepted-fullpostflight/lane-release checks preserved. Root must independently authenticate the pending fullpostflight and fresh original current-root prelaunch under continuous freeze before filling accepted flags; the parent does not run or replace that prelaunch.",
+  "contextInterface": "Original context schema and canonical digest, plus postR6RootAdoption exact role before hashing. actualGrant omitted in canonical digest and added only after durable grant write.",
+  "grantInterface": "Original grant schema/scope, currentProtectionSha256 preserved and postR6RootAdoptionSha256 added. Same contextWithoutGrant digest; no hash cycle.",
+  "identity": "Original actual PID/PGID/SID own-session assertion and durable OWNED-IDENTITY before GO; same process execs qualified LAUNCH. Separate child groups owned by original recorder/runner and remain subject to original cleanup plus genuine parent actual post-absence review.",
+  "clocks": {
+    "parentPreparationSeconds": 60,
+    "parentClockStarts": "Before source profile/spec/tool reads",
+    "parentClockCanceled": "Immediately before direct os.execve after elapsed<60",
+    "runtimeBootstrapWholeSeconds": 300,
+    "runtimeRecorderActiveSeconds": 320,
+    "runtimeLaunchAndRecorderWholeSeconds": 330,
+    "combinedPreparationRuntimeDeadline": null,
+    "noAddedOuterWatchdog": true
+  },
+  "capsAndMechanisms": "All original read128MiB maximum/tool schemas,128KiB durable journal/readback,once-only output collisions,exact heavy lock binding/re-read,signal timer,durable writes,tool links/hash/physical metadata,Node22/Python pins and directexec inherited environment remain byte-identical except declared source bindings and adoption fields. HOME is inherited.",
+  "outputs": {
+    "parentPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r1",
+    "ownedIdentity": "OWNED-IDENTITY.json",
+    "grant": "EXECUTION-GRANT.json",
+    "context": "EXECUTION-CONTEXT.json",
+    "fillResult": "FILL-RESULT.json",
+    "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-external-after-an-r1.lane.log",
+    "recorderResult": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-recorder-results-20261009-r1/20261009-m0-types-external-after-an-r1.RECORDER-RESULT.json",
+    "resultRoot": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r1"
+  },
+  "futureAuthority": {
+    "parentSourceReview": null,
+    "currentTypesProtection": null,
+    "postR6DiagnosticRootAdoption": null,
+    "actualFullPostflightSnapshot": null,
+    "actualCurrentRootPrelaunch": null,
+    "actualRuntimeTools": null,
+    "actualAdditionalRefs": null,
+    "actualLaneLock": null,
+    "actualFilledSpec": null,
+    "actualGrant": null,
+    "actualContext": null,
+    "actualResult": null,
+    "independentObservedReview": null,
+    "rootTypesObservedAdoption": null
+  },
+  "automaticRetry": false,
+  "gameAuthorization": false,
+  "actualTypesAccepted": false,
+  "actualCollectionAccepted": false,
+  "originalR6StopPreserved": true
+}

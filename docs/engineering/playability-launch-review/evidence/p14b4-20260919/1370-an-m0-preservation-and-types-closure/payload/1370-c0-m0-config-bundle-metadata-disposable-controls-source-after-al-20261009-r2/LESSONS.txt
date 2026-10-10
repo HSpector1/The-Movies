@@ -1,0 +1,14 @@
+The actual nested Vite 5.4.21 loader used by Vitest 2.1.9 differs from top-level Vite 6. Cache redirection alone cannot move the ESM bundled config's temporary sibling writes. Moving only a root config leaves workspace extends/project config loads able to write locally.
+
+A disposable fixture must use the real loader, preserve the same collected test identity/count and exact project selection, and retain both strict metadata maps and actual raw outputs. This source proposes local RED and fully external GREEN within one aggregate child clock. It does not execute tests or touch the protected M0 mirror.
+
+Directory metadata is evidence. It is never restored, waived or silently repinned. RED is a strict metadata predicate failure with actual CLI exit0, not a generic process failure. GREEN requires the complete fixture metadata map unchanged. Exact decimal strings preserve nanosecond integers.
+
+A pinned loader branch and this synthetic extended-project fixture have their own scope. The extended project is extra test coverage, not the exact original R6 inline workspace. This pair does not itself admit the original R6 cause; a separately authenticated actual source/config causal diagnosis may establish mandatory writes without a file-event capture. The original metadata STOP and unavailable sourceAfter/dependencyAfter remain preserved even if this pair succeeds.
+
+Recorded helper warnings remain separate from empty producer stderr. The admitted Python main outer-finally warning is neither hidden nor relabeled. All actual exits, owned PID/PGID/SID and fresh scoped absence remain separate retained evidence.
+
+A source recipe is not an actual grant. Published operational authority, concrete direct-exec own-group parent adapter, genuine independent review and future outcomes remain null/held; root owns any execution after checkpoint. No blind M0 retry follows from source acceptance or fixture success.
+
+R1 incorrectly described an inherited parent90 clock. The actual original focused wrapper and root launcher have direct exec and no outer timer. R1 remains sealed and stopped. R2 removes that claim; only recorder authentication/startup/runtime/finalization have its whole90. Git/source/current-identity preparation and helper lane waits are not included. Optional preparation60 is a separate alarm canceled before exec. No custom outer watchdog or false combined-clock claim is introduced.
+R2 also removes the prohibited HOME override and unused external/home directory. The inherited HOME remains unchanged; explicit external Vite cache, TMPDIR/TMP/TEMP and XDG_CACHE_HOME remain. Generated fixture configs and the registered test do not access HOME or write files; no whole dependency home-write guarantee is claimed.

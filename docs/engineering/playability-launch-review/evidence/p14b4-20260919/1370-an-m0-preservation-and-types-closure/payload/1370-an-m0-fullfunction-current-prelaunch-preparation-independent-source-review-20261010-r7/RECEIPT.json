@@ -1,0 +1,94 @@
+{
+  "actualPrelaunch": null,
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_FULLFUNCTION_RETRY_CURRENT_PRELAUNCH_PREPARATION_SOURCE_ONLY",
+  "documentaryActualBindings": {
+    "expectedPriorReadback": {
+      "bytes": 6808,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r4/READBACK.json",
+      "sha256": "568c92e332879885a53726cc359b296d4279c9f763236edeed019f7d92a06e28"
+    },
+    "knownPriorProtectedStopAdoption": {
+      "bytes": 5113,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R4-STOP-OBSERVED-ADOPTION.json",
+      "sha256": "d684408bdfcc6eb43f59c56594b4b30018904bec3b142cd0d7c1f14a335332ee"
+    },
+    "knownPriorSharedReadback": {
+      "bytes": 5254,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4-disk-retry/READBACK.json",
+      "sha256": "23bca5ae5c387c7e10a5e4fb0ab95c4307ce9c28b7c579dd186f7e1eb17350e3"
+    }
+  },
+  "executionAuthorization": false,
+  "game": false,
+  "priorSourceReview": {
+    "bytes": 5018,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-independent-source-review-20261010-r6/RECEIPT.json",
+    "sha256": "5c5234c488a5c375a6f163fc9d9e100c0ea35fc5bc8551c54d9857354479d9b3"
+  },
+  "qualifications": [
+    "Source-only preparation for a freshR5 prelaunch under continuous freeze; actual session/scanner/currentProtection remain future.",
+    "The genuine priorR4 total-cap STOP and separate completed protected disk-recovery post are linked exactly. Original failed7509 interval remains preserved; this review does not repair it.",
+    "Original180s per command/protection/reuse predicates retained; no new full inventory, source/dependency proof, parser/codec replay or runtime clocks.",
+    "Prior accepted TYPES0700 contract is preserved separately from latest shared fullpost map.",
+    "No private/M0 reads, process probes, candidate import/execution, tests, Git or production writes performed."
+  ],
+  "routeSourcePins": {
+    "EXACT-ARGV.json": {
+      "bytes": 3785,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r7/EXACT-ARGV.json",
+      "sha256": "95ae3295252ae414c3528233146cc9e53865a416595ef83c6d98ef0585cc1430"
+    },
+    "read_fullfunction_current_prelaunch.py": {
+      "bytes": 6636,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r7/read_fullfunction_current_prelaunch.py",
+      "sha256": "2d9416b966b449421cbb2a24843766ea7e831b36f8492d6f20e4255f7a147093"
+    },
+    "run_fullfunction_current_prelaunch_once.py": {
+      "bytes": 9188,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r7/run_fullfunction_current_prelaunch_once.py",
+      "sha256": "30bd872b6c7e11e95f5e2347d610c79880d1de6b88f5e04a4521a4edfa86a30b"
+    }
+  },
+  "runtimePerformed": false,
+  "schema": "1370-fullfunction-current-prelaunch-preparation-independent-source-review/v1",
+  "sourceManifest": {
+    "bytes": 3095,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r7/SOURCE-PINS.json",
+    "sha256": "2615fe13cac2b243b94606f79e28031ceb603efe8cf4562375651570431eaea2"
+  },
+  "sourcePins": {
+    "EXACT-ARGV.json": {
+      "bytes": 3785,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r7/EXACT-ARGV.json",
+      "sha256": "95ae3295252ae414c3528233146cc9e53865a416595ef83c6d98ef0585cc1430"
+    },
+    "read_fullfunction_current_prelaunch.py": {
+      "bytes": 6636,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r7/read_fullfunction_current_prelaunch.py",
+      "sha256": "2d9416b966b449421cbb2a24843766ea7e831b36f8492d6f20e4255f7a147093"
+    },
+    "run_fullfunction_current_prelaunch_once.py": {
+      "bytes": 9188,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r7/run_fullfunction_current_prelaunch_once.py",
+      "sha256": "30bd872b6c7e11e95f5e2347d610c79880d1de6b88f5e04a4521a4edfa86a30b"
+    }
+  },
+  "verification": {
+    "allTenManifestRolesAuthenticated": true,
+    "fiveHelperDefinitionsByteExact": true,
+    "fourOneOccurrenceChangesPerAdapterOnly": true,
+    "fullLauncherReaderScannerArgvLengths": [
+      12,
+      10,
+      6
+    ],
+    "genuineR4TotalCapStopAndCompletedDiskRecoveryPostAuthenticated": true,
+    "onlyOriginalThreeNullConfigFills": true,
+    "originalScannerSourceAndReviewUnchanged": true,
+    "pinnedPythonWarningAsErrorCompileNoExecution": true,
+    "scriptIndex3AndExecutedConfigIndex4Correct": true,
+    "twoCompleteForwardInversePairsVerified": true,
+    "typesFullSnapshotRemainsDistinctFromLatestSharedSnapshot": true
+  }
+}

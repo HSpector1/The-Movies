@@ -1,0 +1,106 @@
+{
+  "accepted": {
+    "actualReader23931Exit0": true,
+    "actualScanner67992Exit0": true,
+    "completeLatestBaselineTypesSharedImmutableLosslesslyEqual": true,
+    "freshCurrentFdProcessPriorGroupsBootAcDiskRefsAndAncestryAcceptedByOriginalProcedure": true,
+    "freshNineRootMetadataLosslesslyEqual": true,
+    "fullLatestMapReuseUnderOriginalContinuousFreezeProvision": true,
+    "newAggregateClock": false,
+    "newScansOrProbesByReviewer": false,
+    "noHelperDirectOwnPidPgidSid17359": true,
+    "originalAttemptRemainsStop": true,
+    "originalPerCommand180": true,
+    "privateInventoryByReviewer": false,
+    "rawLocalFourRolesHashSizeOnly": true,
+    "recordedScannerPidAndPgidFreshlyAbsent": true,
+    "sourceAndActualArgvBoundToQualifiedPreparationR6": true
+  },
+  "actualTool": {
+    "bytes": 717,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r4/ACTUAL-TOOL.json",
+    "sha256": "95972de25e56b585204be81482db433e5ee09cbc7ba0e2c9c600ec8f62f706a7"
+  },
+  "concreteFindings": [],
+  "decision": "ACCEPT_ACTUAL_CURRENT_AM_FULLFUNCTION_PRELAUNCH_ONLY",
+  "evidenceReadback": {
+    "bytes": 17021,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-independent-observed-review-20261010-r4/EVIDENCE-READBACK.json",
+    "sha256": "f7128832189a102a83d7902bad4622e8087265e919c0825ad6486a899e1196c0"
+  },
+  "executionAuthorization": false,
+  "findings": [],
+  "fullFunctionQualificationAccepted": false,
+  "gameAccepted": false,
+  "grant": {
+    "bytes": 4568,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r4/GRANT.json",
+    "sha256": "9c1b7394da88bee8bcdc2e88354bbc4493afe45d66d2263e46dca48b48c9d169"
+  },
+  "independence": {
+    "actualExecutor": "/root",
+    "method": "Finite named retained data authentication, original admitted source/argv chain and lossless typed proof comparisons only.",
+    "originalSourceAuthor": "/root/m0_types_source_review",
+    "preparationAuthor": "/root/cleanup_independent_red",
+    "reviewer": "/root/b109_focused_route_review"
+  },
+  "latestSharedFullPostflightReadback": {
+    "bytes": 5188,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r3/READBACK.json",
+    "sha256": "ecd96dcdd8056b646f2df1c2a89da7d5aaf956b099a813cdc88c821aa8b6df10"
+  },
+  "latestSharedFullPostflightSnapshot": {
+    "bytes": 8860529,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r3/SNAPSHOT.json",
+    "sha256": "f240937b656180b175253bf025fe13243b4591e5d05b895de1152956d44283d9"
+  },
+  "originalCurrentSourcePins": {
+    "bytes": 3506,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "7015e2de01cb9964fcc6e362338461e9d8c3e5d6ab81bd618f67d04b4e51c455"
+  },
+  "originalCurrentSourceReview": {
+    "bytes": 7652,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "6f7e329107fb6942580553a40ea7395695b090ef32d256e69b59a708baf672b9"
+  },
+  "preflight": {
+    "bytes": 9508,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261010-r4/PREFLIGHT.json",
+    "sha256": "d0ff6ee1bb38bc311f0f7213e404730bd1a9afcf667b4221ba1ad398d9beafa4"
+  },
+  "readback": {
+    "bytes": 5362,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-R4-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "3a16c3fa9a8ff6aff4b30cfe4de4c5ffe262ff55fa91beeae3f46a007505c157"
+  },
+  "readerActualTool": {
+    "bytes": 683,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r4/READER-ACTUAL-TOOL.json",
+    "sha256": "8c952183c8f65773d9a28fcf779f2841b8f4198479357605b6f8c2b8ddcc7a11"
+  },
+  "reviewedPriorStopAdoption": {
+    "bytes": 3629,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R3-STOP-OBSERVED-ADOPTION.json",
+    "sha256": "80f45b590a15db4964f3852ddd5bed73da836ad0a84dd56ddbf4ac02bd767c17"
+  },
+  "runtimeToolsAuthorityUnchanged": true,
+  "schema": "1370-current-am-fullfunction-prelaunch-independent-observed-review/v1",
+  "scope": "Only original current prelaunch under continuous freeze and fresh current facts/nine roots; complete M0 proofs, real fixture/baseline/catch qualification remain separate.",
+  "sourceManifest": {
+    "bytes": 3397,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r6/SOURCE-PINS.json",
+    "sha256": "b4a8f9eb919c35d805fd238be602cc7f05df84d9ce0cae2e19a544a2ed271a7b"
+  },
+  "sourceReview": {
+    "bytes": 5018,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-independent-source-review-20261010-r6/RECEIPT.json",
+    "sha256": "5c5234c488a5c375a6f163fc9d9e100c0ea35fc5bc8551c54d9857354479d9b3"
+  },
+  "typesAcceptedByThisPrelaunch": false,
+  "typesObservedAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  }
+}

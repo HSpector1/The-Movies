@@ -1,0 +1,36 @@
+{
+  "authority": "Owner explicitly approved removal of VS Code cached extension installers; separately approved stopping only the idle updater and clearing its staged cache after exit. That exact still-idle Oct8 updater is present. Authorization persists; no new deletion categories.",
+  "diskFreeBefore": 2791911424,
+  "duBefore": {
+    "argv": [
+      "/usr/bin/du",
+      "-sk",
+      "/Users/zacheryspector/Library/Caches/com.microsoft.VSCode.ShipIt/update.eWV5hFm",
+      "/Users/zacheryspector/Library/Application Support/Code/CachedExtensionVSIXs"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "stdout": "985900\t/Users/zacheryspector/Library/Caches/com.microsoft.VSCode.ShipIt/update.eWV5hFm\n454520\t/Users/zacheryspector/Library/Application Support/Code/CachedExtensionVSIXs\n"
+  },
+  "exactCommand": "/Applications/Visual Studio Code.app/Contents/Frameworks/Squirrel.framework/Resources/ShipIt com.microsoft.VSCode.ShipIt /Users/zacheryspector/Library/Caches/com.microsoft.VSCode.ShipIt/ShipItState.plist",
+  "method": "SIGTERM exact observed updater only; require disappearance, verify no open files in exact caches, remove staged update and installer cache contents; retain editor and cache root.",
+  "processBefore": {
+    "argv": [
+      "/bin/ps",
+      "-p",
+      "51453",
+      "-o",
+      "pid=,lstart=,command="
+    ],
+    "exit": 0,
+    "stderr": "",
+    "stdout": "51453 Thu Oct  8 17:14:33 2026     /Applications/Visual Studio Code.app/Contents/Frameworks/Squirrel.framework/Resources/ShipIt com.microsoft.VSCode.ShipIt /Users/zacheryspector/Library/Caches/com.microsoft.VSCode.ShipIt/ShipItState.plist\n"
+  },
+  "schema": "1370-root-approved-cache-cleanup/v1",
+  "targets": [
+    "/Users/zacheryspector/Library/Caches/com.microsoft.VSCode.ShipIt/update.eWV5hFm",
+    "/Users/zacheryspector/Library/Application Support/Code/CachedExtensionVSIXs"
+  ],
+  "updater": 51453,
+  "utc": "2026-10-10T04:29:56.810760+00:00"
+}

@@ -1,0 +1,28 @@
+{
+  "roles": [
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 98484,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261010-r2/BEFORE-PS.LOCAL",
+      "sha256": "ec5faac8b77712942b60959c6c40b49b0dfb9331d600f261140c5564c28970ba"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 669790,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261010-r2/BEFORE-LSOF.LOCAL",
+      "sha256": "17143190149897f0b4050e22942aa9999d9e3717ce098feacdf185505fb246e1"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 97992,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261010-r2/AFTER-PS.LOCAL",
+      "sha256": "d148919eff6749b75cc6f625f9f9f01b66b52ab0584a859c64c7fc6b3b3e5239"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 669843,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261010-r2/AFTER-LSOF.LOCAL",
+      "sha256": "dd6cb949402a565c36ee65702c93a63ab937bc8b81c35ab612b2d5983ecdb31c"
+    }
+  ]
+}

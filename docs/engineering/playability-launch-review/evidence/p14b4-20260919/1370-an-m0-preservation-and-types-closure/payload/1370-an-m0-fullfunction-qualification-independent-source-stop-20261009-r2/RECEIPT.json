@@ -1,0 +1,169 @@
+{
+  "schema": "1370-fullfunction-independent-source-review/v1",
+  "decision": "STOP_DIRECT_NODE_PREREQUISITE_AUTHENTICATION",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "sourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r2/SOURCE-PINS.json",
+    "bytes": 9816,
+    "sha256": "6af108f92bd7446d18cc2bba79faff7ad1618cc60db15e6ac49dd36e9f49339b"
+  },
+  "sourcePins": {
+    "CONFIG-TEMPLATE.mts": {
+      "bytes": 930,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r2/CONFIG-TEMPLATE.mts",
+      "sha256": "8be9467a794ddbd134dd04c4a92249c7e85e357ef96619562bd99f4ad10ecf5e"
+    },
+    "CONFIG.json": {
+      "bytes": 6279,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r2/CONFIG.json",
+      "sha256": "6df271f0d0c12d04b9bc8aae6c5b8b9acfdb697de9eafbdf6fbef0b9092b3472"
+    },
+    "CORE-TEST-TEMPLATE.ts": {
+      "bytes": 3955,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r2/CORE-TEST-TEMPLATE.ts",
+      "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "bytes": 9487,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r2/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+    },
+    "record-fullfunction.py": {
+      "bytes": 16750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r2/record-fullfunction.py",
+      "sha256": "8fcf15a86d28c359cc168b573ea3f81f9426eb5edf6622bdbfb9d7c1a81d79fa"
+    },
+    "run-fullfunction.mjs": {
+      "bytes": 11852,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r2/run-fullfunction.mjs",
+      "sha256": "f873b46fb652f4cad8209d8d8565cda9d545729a8e53260168228f4ce14af531"
+    },
+    "run-fullfunction.py": {
+      "bytes": 13962,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r2/run-fullfunction.py",
+      "sha256": "274adbd5fe611c43f7d8df8703587839edfc0e3566483ae62989d504ebe54640"
+    }
+  },
+  "routeSourcePins": {
+    "CONFIG-TEMPLATE.mts": {
+      "bytes": 930,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r2/CONFIG-TEMPLATE.mts",
+      "sha256": "8be9467a794ddbd134dd04c4a92249c7e85e357ef96619562bd99f4ad10ecf5e"
+    },
+    "CONFIG.json": {
+      "bytes": 6279,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r2/CONFIG.json",
+      "sha256": "6df271f0d0c12d04b9bc8aae6c5b8b9acfdb697de9eafbdf6fbef0b9092b3472"
+    },
+    "CORE-TEST-TEMPLATE.ts": {
+      "bytes": 3955,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r2/CORE-TEST-TEMPLATE.ts",
+      "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "bytes": 9487,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r2/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+    },
+    "record-fullfunction.py": {
+      "bytes": 16750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r2/record-fullfunction.py",
+      "sha256": "8fcf15a86d28c359cc168b573ea3f81f9426eb5edf6622bdbfb9d7c1a81d79fa"
+    },
+    "run-fullfunction.mjs": {
+      "bytes": 11852,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r2/run-fullfunction.mjs",
+      "sha256": "f873b46fb652f4cad8209d8d8565cda9d545729a8e53260168228f4ce14af531"
+    },
+    "run-fullfunction.py": {
+      "bytes": 13962,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r2/run-fullfunction.py",
+      "sha256": "274adbd5fe611c43f7d8df8703587839edfc0e3566483ae62989d504ebe54640"
+    }
+  },
+  "concreteFindings": [
+    {
+      "id": "F1",
+      "file": "run-fullfunction.mjs",
+      "finding": "The direct Node entry accepts a caller-chosen binding SHA and three prerequisite true flags without authenticating the genuine external grant, source review, successful types/root/current-protection, artifact-bound and copied-source authority chain. It then creates a resolver capable of importing private M0 files. Qualified Python validates those roles on its intended path, but the Node entry itself does not establish that binding came from that controller.",
+      "repair": "Carry and authenticate the same original genuine role chain and first-proof artifact/actual controller ownership before private imports. Preserve Python's existing two complete scans; no extra full inventory, clock, gate or guessed authority is needed."
+    }
+  ],
+  "all34PayloadRolesHashSizeVerified": true,
+  "sourceReadback": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-stop-20261009-r2/SOURCE-READBACK.json",
+    "bytes": 10173,
+    "sha256": "69383d21443c957aa5c6748368faf45051da2a30ca78e6b0a2dd1645c6a59de5"
+  },
+  "sevenCompleteForwardInversePairs": [
+    [
+      "controls",
+      "BASE-R3-full-body-controls.ts.txt",
+      "FULL-BODY-CONTROLS-TEMPLATE.ts"
+    ],
+    [
+      "core",
+      "BASE-R3-core.test.ts.txt",
+      "CORE-TEST-TEMPLATE.ts"
+    ],
+    [
+      "config",
+      "BASE-R3-config.mjs.txt",
+      "CONFIG-TEMPLATE.mts"
+    ],
+    [
+      "recorder",
+      "BASE-record-ordering-controls.py.txt",
+      "record-fullfunction.py"
+    ],
+    [
+      "run-fullfunction.py.r1",
+      "R1-run-fullfunction.py.txt",
+      "run-fullfunction.py"
+    ],
+    [
+      "run-fullfunction.mjs.r1",
+      "R1-run-fullfunction.mjs.txt",
+      "run-fullfunction.mjs"
+    ],
+    [
+      "CONFIG.json.r1",
+      "R1-CONFIG.json.txt",
+      "CONFIG.json"
+    ]
+  ],
+  "sixteenRecorderHelpersByteExact": [
+    "require",
+    "sha",
+    "write",
+    "metadata",
+    "authenticate",
+    "process_alive",
+    "start_owned",
+    "ready_go",
+    "close_startup_fds",
+    "clear",
+    "alarm",
+    "whole_guard",
+    "active_guard",
+    "observed_exit_guard",
+    "child_environment",
+    "finalize_result"
+  ],
+  "ownedChildByteExact": true,
+  "acceptedRepairSubstance": [
+    "R1 success SystemExit is no longer caught; sys.exit occurs outside the try.",
+    "Artifact reads use cap-first physical regular/single-link/no-follow checks and bounded hashing.",
+    "Output-tree enumeration uses bounded opendir iteration.",
+    "Original recorder aggregate300/active320/whole330 ownership and cleanup/finalization remain complete.",
+    "Natural pre-market196/197/208 are future outputs of real seeded prefix; four opportunity/off-target variants stay explicit synthetic premises.",
+    "Complete baseline controls run before one specific typed-catch mutant. Exact first row-cap AssertionError/code/operator/message/undefined-actual/fault-kind and stack-source predicate excludes loader/tool/unknown failures."
+  ],
+  "limits": [
+    "No execution/import/tests/compiler/private inventory/Git/probes.",
+    "Actual successful types/root/fullpost prerequisites, fixture generation, baseline and meaningful catch-mutant RED remain unrun and external.",
+    "R1 exit/cap findings and R2 gate STOP preserved. Fresh R3 can repair the same existing interface contract."
+  ],
+  "nextReview": "Author has provided fresh R3 for independent continuation; this receipt does not accept R3 or grant execution."
+}

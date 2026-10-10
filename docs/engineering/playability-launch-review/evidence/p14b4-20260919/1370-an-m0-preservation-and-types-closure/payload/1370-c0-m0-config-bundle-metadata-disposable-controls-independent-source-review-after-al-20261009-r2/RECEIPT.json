@@ -1,0 +1,127 @@
+{
+  "actualControlsAccepted": false,
+  "actualResult": null,
+  "basis": {
+    "adoptedDirection": {
+      "bytes": 1329,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-CONFIG-WRITE-REPAIR-DIRECTION-ADOPTION.json",
+      "sha256": "1aba12bdc647b2a67d462e7e706657fce3b3dfdf3a534fe00e9923a27b8709a3"
+    },
+    "possibleMechanismProposal": {
+      "bytes": 6167,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-r6-config-write-independent-source-proposal-after-al-20261009-r2/PROPOSAL.json",
+      "sha256": "3341dff99805dcd8a793116cc6466439971e6589f3ebfbbc4b1956257b07fcb2"
+    },
+    "preservedR1SourcePins": {
+      "bytes": 9806,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r1/SOURCE-PINS.json",
+      "sha256": "21de8c9e65a08a46ba946ea881ac0e6973b4ac83549db70f5ca333a4ba996ed2"
+    },
+    "qualifiedRecorder": {
+      "bytes": 14539,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/record-pure-node.py",
+      "sha256": "dd76ceec50be94b50a4ff52c8a070ec9a691b9bbe781fabc1ac0914543bf0346"
+    }
+  },
+  "boundsAndCleanup": {
+    "activeRecorderSeconds": 75,
+    "aggregateControllerSeconds": 60,
+    "artifactLedgerEachBytes": 65536,
+    "failurePrecedence": "Source/hash/cap/deadline/nonzero/unknown-cleanup/override failures refuse success. Late durable RESULT cannot pass without actual helper+recorder0 and complete authenticated output. Qualified original main outer-finally warning remains permitted only in combined helper log; producer stderr must be empty.",
+    "ownership": "Recorder retains exact owned PID registration before exec, setsid/READY group confirmation, TERM3/KILL4 grace bounded by whole end, unknown clearance STOP and emergency exact-owned KILL. Nested CLI uses detachedfalse and inherits recorded controller group.",
+    "parentLaunchClock": null,
+    "phaseScope": "Controller pair sequential inside a single recorded owned child;60 begins before fork/READY/GO. Recorder75/90 spans its original active and complete source-authentication/startup/cleanup/raw-write/fsync/finalization/summary phases. Parent Git/source/preparation/helper waits are outside recorder runtime; any separate prep60 must be canceled before direct exec.",
+    "producerAndNestedStreamsEachBytes": 1048576,
+    "wholeRecorderSeconds": 90
+  },
+  "concreteFindings": [],
+  "consumerReview": "Physical capped reads, duplicate-key/nonfinite rejection, typed zero exits, exact source-review/grant/claim/recipe/config/actual-tool linkage, real helper PID/PGID/SID, recorded controller PID/PGID, actual scoped absence attestation, lane metadata and no override, exact producer frame, recomputed maps, configs and raw collection equality. Acceptance is disposable pair only.",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_HELD",
+  "executionAuthorization": false,
+  "game": false,
+  "inspectionToolQualifier": "An ad-hoc textual HOME check initially matched XDG_CACHE_HOME; exact standalone-property inspection corrected that review utility false positive. This was no candidate execution or source finding.",
+  "originalM0CauseAdmission": false,
+  "originalM0SourcePreservationAdmission": false,
+  "pairReview": {
+    "disposableOnly": "One fresh direct scratch artifact root; only its eight-entry fixture is traversed. Public dependency symlink is retained as a link and never followed by metadata maps. Artifacts/maps/streams/temp/cache are external to fixture.",
+    "green": "Complete fixture before/after map equality, including root and all seven metadata fields, every content hash and link target. All root/workspace/project configs are external; no strict predicate is waived.",
+    "realEventQualifier": "No event tracer or actual temporary-file event claim. Source branch plus recorded disposable behavior may support a fixture result only.",
+    "realSoftware": "Pinned Node22.23.2 and actual installed CLI2.1.9 resolving its nested loader5.4.21. The named ESM loader branch writes a timestamp sibling then unlinks it; source confirms possible behavior, not original R6 attribution.",
+    "red": "Eight-entry final roster, all nonroot metadata/content/link target exact; root dev/ino/mode/nlink stable and both nanosecond mtime/ctime must differ. Root size changes are retained and permitted only in this expected RED.",
+    "sameCollection": "Both real CLI exits must be strict integer0. Same exactly one test registration/file/project object and exact raw collection bytes/hashes are required. The body throws if executed; this is collection only.",
+    "sameResolution": "Both arms retain the same explicit test root, cache path and project options. Workspace relative extends resolves from each config directory to its local core config. Project name core exists only in the extended project config. Root project has a deliberately different name and disjoint include, so a default-project substitution cannot satisfy the declared collection oracle.",
+    "semanticQualifier": "Synthetic extended workspace adds loader-resolution coverage; it does not claim the original R6 inline workspace or supply an executable M0 repair."
+  },
+  "preservedR1Findings": [
+    "F1 false whole-parent90 overstatement",
+    "F2 prohibited HOME override"
+  ],
+  "remainingExternalFacts": [
+    "Separately accepted complete parent adapter and genuine current operational/tool roles.",
+    "One authentic external root grant and exact launch claim.",
+    "Actual retained result/streams/RED-GREEN maps/collection, scoped cleanup and independent observed admission."
+  ],
+  "reviewedRoles": {
+    "config": {
+      "bytes": 3637,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/CONFIG.json",
+      "sha256": "c3c58fc2b2ba77b0a2e92415f1e74d386cf899506b07aacbe677f2ad9b061c14"
+    },
+    "consumer": {
+      "bytes": 14204,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/consume-controls.py",
+      "sha256": "495006dd626bbbb8888b51c300410a1b889b91f1a609567e457ba4703faee063"
+    },
+    "controller": {
+      "bytes": 12326,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/metadata-controls.mjs",
+      "sha256": "83f9b8a4f29811f7ebb03c715a7d0b73bbb09b4a112f45b842b0a4a5fbfec6f7"
+    },
+    "proof": {
+      "bytes": 10998,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/SOURCE-PROOF.json",
+      "sha256": "7d7fcc4c4c7d3a8d5a663cc80769d1779ebd612f8977649d9c6f11c26e2f0e1b"
+    },
+    "r1Correction": {
+      "bytes": 4791,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/R1-CORRECTION.json",
+      "sha256": "b6396c1cc724c02cb82775c59e771a4d5fda70e8e63ee4ce56efbff564d89224"
+    },
+    "recipe": {
+      "bytes": 9918,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/RECIPE.json",
+      "sha256": "0998870942ff8f188fcc3ce14f853119a49f45b1e78d08ad18685f83b5ab432b"
+    },
+    "recorder": {
+      "bytes": 14851,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/record-metadata.py",
+      "sha256": "6e1895ddcd544fb690dc2fbb31cd73cdf82f1d95592882de5c7a390aac0a8790"
+    },
+    "seal": {
+      "bytes": 1776,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/SEAL.json",
+      "sha256": "c3fcfef71e0460f3898b3821e6fd8c6789e6cce3f265c91f9e50128319996f84"
+    }
+  },
+  "reviewerScope": "Independent source review of controls/controller/recorder/consumer and pair recipe only. Parent adapter is separately reviewed by its independent reviewer. No actual controls, child import, compiler, process probe, private inventory or Git operation was performed.",
+  "routeSourcePins": {
+    "bytes": 11166,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "bc7fcfc7bcd4ab5e4472733260e1ee5f89658c827a09412d7f98d60b10ffd573"
+  },
+  "schema": "1370-disposable-controls-independent-source-review/v1",
+  "sourceChecks": {
+    "all15ManifestPayloadRolesExact": true,
+    "allFourInstalledPublicSourcesAndInstalledCliAuthenticated": true,
+    "configRoleShaRecipeRecorderAndConsumerBindingsExact": true,
+    "controllerWholeR1InverseExactTwoHomeCorrections": true,
+    "homeInheritedWithoutOverride": true,
+    "noParentWhole90Claim": true,
+    "pythonAstParsedWithoutImportOrExecution": true,
+    "recorder16NonMainFunctionsAndOwnedChildByteExact": true,
+    "recorderSevenStatementWholeInverseExact": true,
+    "rolesRemainImmutableAndActualAuthorityExternal": true
+  },
+  "sourcePinsSha256": "bc7fcfc7bcd4ab5e4472733260e1ee5f89658c827a09412d7f98d60b10ffd573",
+  "typesAccepted": false
+}

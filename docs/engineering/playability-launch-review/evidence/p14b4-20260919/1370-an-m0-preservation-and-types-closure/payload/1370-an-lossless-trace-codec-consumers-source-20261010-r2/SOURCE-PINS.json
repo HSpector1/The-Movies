@@ -1,0 +1,127 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "BASELINE-FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "bytes": 9539,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/BASELINE-FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "9cff56902912ab029af4a4a73398bb314e28593e59823a09acdab5a9b26ea6ca"
+    },
+    "BASELINE-m0WiringProbe.ts": {
+      "bytes": 3016,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/BASELINE-m0WiringProbe.ts",
+      "sha256": "417389eef7b3295a19cde420f8561e638f028b979c4e031b25f89f8d38a2ac39"
+    },
+    "BASELINE-ordering-source-controls.ts": {
+      "bytes": 2237,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/BASELINE-ordering-source-controls.ts",
+      "sha256": "e4109cd7a2560639c483ffbcc5fd4b65864c77148add2ad8e1289b096382241f"
+    },
+    "BASELINE-ordering.ts": {
+      "bytes": 11339,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/BASELINE-ordering.ts",
+      "sha256": "e40ea62523d13e1c74361766757b85faa14acdb889bc57f7ae452449a361bb1d"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "bytes": 9692,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "97ef6c53c7ec2e5e24ec039d464507e3bf6d251588a342ccc27c742c4ce8ce0b"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts.forward.diff": {
+      "bytes": 7895,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/FULL-BODY-CONTROLS-TEMPLATE.ts.forward.diff",
+      "sha256": "ff909e3b392d22a0099ba118dedccec7864e8490b36d17ff098fc9043a2936d3"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts.inverse.diff": {
+      "bytes": 7895,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/FULL-BODY-CONTROLS-TEMPLATE.ts.inverse.diff",
+      "sha256": "dbe48059d6cace5d97b1d2ce85828de8351b6d9f5e71a67ef05b5cbc4893a8fe"
+    },
+    "INTERFACE.json": {
+      "bytes": 1411,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/INTERFACE.json",
+      "sha256": "bee2cd53582729827aba069c8aded94a32e2c09f747d4d4252b24d040d761cb5"
+    },
+    "LESSONS.md": {
+      "bytes": 676,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/LESSONS.md",
+      "sha256": "8eb10169648b26de49c97943ff6ad8f44d029469a9a4e785d2e68d4de6948edb"
+    },
+    "R2-SOURCE-PROOF.json": {
+      "bytes": 2864,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/R2-SOURCE-PROOF.json",
+      "sha256": "d898bc167ab1fec40eb9f4f5df78d8ef617a0d5c81c25fcd643397bdc768ce4a"
+    },
+    "RECIPE-UNFILLED.json": {
+      "bytes": 1261,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/RECIPE-UNFILLED.json",
+      "sha256": "55741c290a8b5f4fcbdf6b90c722211173918fe8d4261166b36052687a3c6136"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 3327,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/SOURCE-PROOF.json",
+      "sha256": "8aab1acfda9171c0b66eabf81ac7d33d5ff24cc600504a265ee15791ff0307d8"
+    },
+    "m0TraceCodec.mjs": {
+      "bytes": 7862,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/m0TraceCodec.mjs",
+      "sha256": "b788311252c0969152d079f980775dc5b2dbd7acf64e4afa224425d2719b4812"
+    },
+    "m0WiringProbe.ts": {
+      "bytes": 1800,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/m0WiringProbe.ts",
+      "sha256": "c3da292f943a37ae5c3c30005dfec71eb485bf17a211ecfddaa03efe0460c5a9"
+    },
+    "m0WiringProbe.ts.forward.diff": {
+      "bytes": 3626,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/m0WiringProbe.ts.forward.diff",
+      "sha256": "0c7e23a8ab17479b679ae91a7e8dad349f3e7b2afd1c2b45f570eb390df226c7"
+    },
+    "m0WiringProbe.ts.inverse.diff": {
+      "bytes": 3626,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/m0WiringProbe.ts.inverse.diff",
+      "sha256": "e7ecc923f403155b8266e42b4016474e754621b336803d38d7abf6206e1fce71"
+    },
+    "ordering-source-controls.ts": {
+      "bytes": 2941,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/ordering-source-controls.ts",
+      "sha256": "7fd03b25ea5c258584652c051d7ffab977d5380824043be233f375f17944f0f5"
+    },
+    "ordering-source-controls.ts.forward.diff": {
+      "bytes": 1565,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/ordering-source-controls.ts.forward.diff",
+      "sha256": "68864b3a35c2fe86b55e3a15ca0c970b309dd9b8c46a9a1e611a19d45a551347"
+    },
+    "ordering-source-controls.ts.inverse.diff": {
+      "bytes": 1565,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/ordering-source-controls.ts.inverse.diff",
+      "sha256": "b687bfaa820b17026bbdcdc3f58328f169674f3449e7ca9ac469831bb6315578"
+    },
+    "ordering.ts": {
+      "bytes": 11927,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/ordering.ts",
+      "sha256": "8599945b1c3057ebb777ffcf56c55ddc30121b505f6ec29dacbc87aef216a803"
+    },
+    "ordering.ts.forward.diff": {
+      "bytes": 3799,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/ordering.ts.forward.diff",
+      "sha256": "485968c0548eb0aee27249ece1635b9157b6838053b065e29f99125b48f264bc"
+    },
+    "ordering.ts.inverse.diff": {
+      "bytes": 3799,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/ordering.ts.inverse.diff",
+      "sha256": "2454a82fb6e75ecdf3cf8f142ffb7ac3d430a523498938a328f434227acef1d8"
+    },
+    "traceSequences.mjs": {
+      "bytes": 1286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r2/traceSequences.mjs",
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    }
+  },
+  "predecessorSourcePins": {
+    "bytes": 5218,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "ab99d9ff130b7b4be4d77f80fa9db190111bc99db5968d7dafb1123b1eedd291"
+  },
+  "runtimePerformed": false,
+  "schema": "1370-lossless-trace-codec-consumers-source-pins/v1"
+}

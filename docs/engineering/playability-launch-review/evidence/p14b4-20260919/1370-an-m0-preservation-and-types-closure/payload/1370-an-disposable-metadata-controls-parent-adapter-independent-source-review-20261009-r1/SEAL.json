@@ -1,0 +1,24 @@
+{
+  "schema": "1370-disposable-parent-adapter-independent-source-review-seal/v1",
+  "decision": "ACCEPT_STATIC_DISPOSABLE_CONTROLS_PARENT_ADAPTER_SOURCE_ONLY",
+  "receipt": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-independent-source-review-20261009-r1/RECEIPT.json",
+    "bytes": 10544,
+    "sha256": "97aa5fc2914c5f648a2ede322e2286fb14f7a09820cdf040a989c0879d2f915d"
+  },
+  "report": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-independent-source-review-20261009-r1/REPORT.txt",
+    "bytes": 865,
+    "sha256": "039538bf31f192ebac5289ad6ec45b39103695e6e20b4913da858e0cea37eee4"
+  },
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/SOURCE-PINS.json",
+    "bytes": 2539,
+    "sha256": "16a42f267504d4b7414301d9a464c27563269db5d5d9a761bdd3f4dd9878dc76"
+  },
+  "sourceOnly": true,
+  "executionAuthorization": false,
+  "concreteFindings": [],
+  "fileMode": "0444",
+  "directoryMode": "0555"
+}

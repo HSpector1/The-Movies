@@ -1,0 +1,134 @@
+{
+  "checks": {
+    "allRolesAuthenticated": true,
+    "allTenOriginalHelpersExact": [
+      "require",
+      "prep_timeout",
+      "remaining",
+      "metadata",
+      "role",
+      "authenticate",
+      "pairs",
+      "load",
+      "exact",
+      "write"
+    ],
+    "clocksAndOwnershipUnchanged": true,
+    "compileOnly": true,
+    "explicitReviewAliasCount": 15,
+    "fixedFiveRepresentationRoles": {
+      "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+        "bytes": 9744,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/FULL-BODY-CONTROLS-TEMPLATE.ts",
+        "sha256": "324c7cc754497e43cc5a9d46865f4cbf7e1a635b5e2ce5ac0857defab8661a02"
+      },
+      "m0TraceCodec.mjs": {
+        "bytes": 7882,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+        "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+      },
+      "m0WiringProbe.ts": {
+        "bytes": 1800,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0WiringProbe.ts",
+        "sha256": "c3da292f943a37ae5c3c30005dfec71eb485bf17a211ecfddaa03efe0460c5a9"
+      },
+      "ordering.ts": {
+        "bytes": 11927,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/ordering.ts",
+        "sha256": "8599945b1c3057ebb777ffcf56c55ddc30121b505f6ec29dacbc87aef216a803"
+      },
+      "traceSequences.mjs": {
+        "bytes": 1286,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+        "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+      }
+    },
+    "originalTwoParserExceptionsUnchanged": true,
+    "wholeExactDeclaredForwardAndInverse": true
+  },
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_COMPLETE_FULLFUNCTION_PARENT_LAUNCHER_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "reviewer": "root, independent from b109 author",
+  "routeSourcePins": {
+    "BASELINE-launch-fullfunction.py": {
+      "bytes": 12103,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r5/BASELINE-launch-fullfunction.py",
+      "sha256": "c891282f2f781df48e758f6ee0ea68de3d3cff3093c8db71da7d5d490906131e"
+    },
+    "LESSONS.txt": {
+      "bytes": 656,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r5/LESSONS.txt",
+      "sha256": "ddf56c7fad88072708c63a0599d1bf60f01d3c148702650ccb62f0987859fb4b"
+    },
+    "RECIPE.json": {
+      "bytes": 3825,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r5/RECIPE.json",
+      "sha256": "c0975195c51d1f38181195a7052dac441c622662d6274c6de45a9c557beb49a9"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 4757,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r5/SOURCE-PROOF.json",
+      "sha256": "0c3dbc3adbc4713329e354acdecb2aeaadd698755a37c94b8f3c5db110964641"
+    },
+    "launch-fullfunction.py": {
+      "bytes": 13972,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r5/launch-fullfunction.py",
+      "sha256": "351fbdd0708753345330ba76b32a74b0bc8b08d618ed78449bcc5c7f70a9901c"
+    },
+    "launch-fullfunction.py.forward.diff": {
+      "bytes": 9967,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r5/launch-fullfunction.py.forward.diff",
+      "sha256": "b1837016c54a83ad4bcf90c7477e28d327dbbef53a9263a4ce622eb60d040a40"
+    },
+    "launch-fullfunction.py.inverse.diff": {
+      "bytes": 9967,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r5/launch-fullfunction.py.inverse.diff",
+      "sha256": "a619636da7f40fcebefddb96d595cb7491effd50dcb75f020cd906839207056f"
+    }
+  },
+  "schema": "1370-root-independent-fullfunction-parent-source-review/v1",
+  "scope": "Fresh R5 parent only. Exact five C/R3 representation roles plus two original F7 parser exceptions; other route files local. Genuine observed49 external role authenticated and transferred into grant; independently reviewed R12 controller and Node must validate its semantics before private work. No actual runtime acceptance.",
+  "sourceManifest": {
+    "bytes": 2017,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r5/SOURCE-PINS.json",
+    "sha256": "541be09dd5c5d0232ce19653c700115b440f2e3e599e9f919cb5f7624ca74a0b"
+  },
+  "sourcePins": {
+    "BASELINE-launch-fullfunction.py": {
+      "bytes": 12103,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r5/BASELINE-launch-fullfunction.py",
+      "sha256": "c891282f2f781df48e758f6ee0ea68de3d3cff3093c8db71da7d5d490906131e"
+    },
+    "LESSONS.txt": {
+      "bytes": 656,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r5/LESSONS.txt",
+      "sha256": "ddf56c7fad88072708c63a0599d1bf60f01d3c148702650ccb62f0987859fb4b"
+    },
+    "RECIPE.json": {
+      "bytes": 3825,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r5/RECIPE.json",
+      "sha256": "c0975195c51d1f38181195a7052dac441c622662d6274c6de45a9c557beb49a9"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 4757,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r5/SOURCE-PROOF.json",
+      "sha256": "0c3dbc3adbc4713329e354acdecb2aeaadd698755a37c94b8f3c5db110964641"
+    },
+    "launch-fullfunction.py": {
+      "bytes": 13972,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r5/launch-fullfunction.py",
+      "sha256": "351fbdd0708753345330ba76b32a74b0bc8b08d618ed78449bcc5c7f70a9901c"
+    },
+    "launch-fullfunction.py.forward.diff": {
+      "bytes": 9967,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r5/launch-fullfunction.py.forward.diff",
+      "sha256": "b1837016c54a83ad4bcf90c7477e28d327dbbef53a9263a4ce622eb60d040a40"
+    },
+    "launch-fullfunction.py.inverse.diff": {
+      "bytes": 9967,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r5/launch-fullfunction.py.inverse.diff",
+      "sha256": "a619636da7f40fcebefddb96d595cb7491effd50dcb75f020cd906839207056f"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "scope": "R10_CHANGED_CONFIG_AND_TRANSFORM_HELPER_SYNTAX_PARSE_ONLY",
+  "parserVersion": "5.9.3",
+  "rows": [
+    {
+      "source": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/CONFIG-TEMPLATE.mts",
+        "bytes": 1143,
+        "sha256": "15565b9fcab49c39989732bd4d2105d549ffc66c9348149b9d2eaf67092ada0e"
+      },
+      "diagnostics": []
+    },
+    {
+      "source": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/canonical-typescript-transform.mjs",
+        "bytes": 1906,
+        "sha256": "71c3f791da660a280b04fcfb9038e037ff3c3ac2a080fec38f2164f85176751a"
+      },
+      "diagnostics": []
+    }
+  ],
+  "diagnosticCount": 0,
+  "candidateImportedOrExecuted": false
+}

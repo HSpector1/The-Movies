@@ -1,0 +1,56 @@
+{
+  "actual21388StopPreserved": true,
+  "actualParseCount": 16,
+  "actualParseDiagnostics": 0,
+  "actualPublicTsTransformCount": 15,
+  "actualTransformWarnings": 0,
+  "actualTransformedJsDiagnostics": 0,
+  "canonicalResolverUnchanged": {
+    "bytes": 2363,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/canonical-resolver.mjs",
+    "sha256": "429cc7b8ad0f6be2f851a2f10ef431d63192b912e0864c7602fd6072c4ae14fd"
+  },
+  "fiveWholeForwardInversePairs": [
+    "CONFIG-TEMPLATE.mts",
+    "CONFIG.json",
+    "run-fullfunction.py",
+    "run-fullfunction.mjs",
+    "record-fullfunction.py"
+  ],
+  "gameplayExecutedByAuthor": false,
+  "losslessRestorationVerified": true,
+  "predecessor": {
+    "bytes": 33835,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/SOURCE-PINS.json",
+    "sha256": "51926780c880416000d592b6f7e3ba8a0c42f005a833e6813708abc25823087c"
+  },
+  "privateModuleGraphReadByAuthor": false,
+  "publicTransformReproduction": {
+    "bytes": 10327,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/TRANSFORM-RESULT.json",
+    "sha256": "c81ebe9e64366910c37b2d302e658d2c0bfefb8155ef38e86ae467997c6937a7"
+  },
+  "rawSourceParserObservation": {
+    "bytes": 5857,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/RESULT.json",
+    "sha256": "88c07eeefcf1358b5b3d4cfe09586ba13ce03aa66cded379e19923f25e700853"
+  },
+  "specificFailingModuleOrTokenCaptured": false,
+  "transformTools": {
+    "viteApi": {
+      "bytes": 7527,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/index.js",
+      "sha256": "2b295e9da790eb9d1b02b167a4678bd9106253d97e07a75f774cd2f3b1930476"
+    },
+    "viteImplementation": {
+      "bytes": 2086035,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js",
+      "sha256": "bfa94186daff535fefdf286088c1588fad6b02c01ef11cd3b42a6cb3e4c90767"
+    },
+    "vitePackage": {
+      "bytes": 4893,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/package.json",
+      "sha256": "e9802045cdc313b6da55ec2e2dd79312074645816089d64f6021f567c10c0a03"
+    }
+  }
+}

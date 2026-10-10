@@ -1,0 +1,53 @@
+{
+  "actualSharedFullPostflightRootReadback": {
+    "bytes": 5098,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "735e8d8fcaf1ae96f2b4f39608f71a66d85eba14b1941e5bd97d23afda096b55"
+  },
+  "actualSharedFullPostflightSnapshot": {
+    "bytes": 8853570,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r1/SNAPSHOT.json",
+    "sha256": "f1eb127210b9cf6c5f3e9746cfb3c0f6865167d468921d05795805843a6ad1d6"
+  },
+  "correctedR9IndependentSourceReview": {
+    "bytes": 14183,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r9/RECEIPT.json",
+    "sha256": "1c7ee4c57f05f16cf509efd5739ca3106e1703da8653d7f7a971597cef3ca1d8"
+  },
+  "correctedR9SourceManifest": {
+    "bytes": 33835,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/SOURCE-PINS.json",
+    "sha256": "51926780c880416000d592b6f7e3ba8a0c42f005a833e6813708abc25823087c"
+  },
+  "draftOnly": true,
+  "executionAuthorization": false,
+  "futureObservedPrelaunchChecklist": {
+    "bytes": 6376,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-retry-current-prelaunch-observed-review-readiness-20261010-r1/CHECKLIST.json",
+    "sha256": "8b4b7458701882c98c719808d732d1b7a346ab839f6e712117952e0f000a597a"
+  },
+  "pending": [
+    "Independent protected95737 STOP/fullpost review and genuine root adoption",
+    "Latest shared map actual current prelaunch and independent observed receipt",
+    "Once-only corrected R9 actual qualification and mandatory original fullpost",
+    "Real fixture/catch-mutant/neutrality acceptance",
+    "Final root lessons/archive/publication"
+  ],
+  "priorDraftManifest": {
+    "bytes": 969,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r2/SOURCE-PINS.json",
+    "sha256": "d0277c19e53e76b2a2ea908c4f99c6dd122b74f04e7e166e5845bab6487d05f2"
+  },
+  "retryPrelaunchIndependentRootSourceReview": {
+    "bytes": 3105,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-RETRY-PREFLIGHT-PREPARATION-SOURCE-REVIEW.json",
+    "sha256": "6a5de4f910701a05248c4baabaa97cf830ededd9f58a56a67a073f903e84fd74"
+  },
+  "rootLatestLessonsPreservedAsPrefix": {
+    "bytes": 20748,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LESSONS-r9.md",
+    "sha256": "b6869bf331576d4cf2571f2f08a3887ad37476b480601cc08467827c8cf4a20e"
+  },
+  "schema": "1370-an-documentation-draft-inputs/v3",
+  "scope": "Scratch documentation only. Preserve exact AUTO/prior drafts/root lessons; root integrates later genuine actuals. Source acceptance is not runtime or fixture acceptance."
+}

@@ -1,0 +1,36 @@
+{
+  "schema": "1370-m0-types-external-config-parent-adapter-source-seal/v1",
+  "status": "SOURCE_ONLY_UNRUN",
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/SOURCE-PINS.json",
+    "bytes": 7541,
+    "sha256": "f2f5cf509f2fe221ca68998616b85b2f555265ddf81d10abd908de511e46a132"
+  },
+  "sourceProof": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/SOURCE-PROOF.json",
+    "bytes": 13157,
+    "sha256": "6ff45eb7261942f3f99f40ed5ff7cbb22d0ed94aeb24a91c73f1e0358c4dda58"
+  },
+  "profile": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/PROFILES.json",
+    "bytes": 6780,
+    "sha256": "b2758d0e15403b7448dfe6ae9f7394b52e504aebfaace09c9e6f43141c9a1a5c"
+  },
+  "executable": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/fill-grant-exec.py",
+    "bytes": 14054,
+    "sha256": "06ef36769f3f2918c0cec46d08022bfafb5328ce4159f3d4deb8003c1d99e99f"
+  },
+  "recipe": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/RECIPE.json",
+    "bytes": 10494,
+    "sha256": "1ddf8e478084c5c2f0ff24d7d5bd8231a4823af7e2a8abfe1bb714987e402918"
+  },
+  "manifestPayloadFiles": 16,
+  "totalFiles": 18,
+  "fileModes": "0444",
+  "directoryMode": "0555",
+  "executionAuthorization": false,
+  "futureActualInputsUnfilled": true,
+  "importsTestsPrivateInventoryGitMutationsPerformed": false
+}

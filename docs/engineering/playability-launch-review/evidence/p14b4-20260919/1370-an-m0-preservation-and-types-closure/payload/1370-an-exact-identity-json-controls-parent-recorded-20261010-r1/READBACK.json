@@ -1,0 +1,95 @@
+{
+  "actualOwnedIds": [
+    40597,
+    40853
+  ],
+  "actualTool": {
+    "bytes": 1248,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "77afd5b35ba27f1db427fb3f63518b3b905ad0053363d4785a4c8bc14822af3a"
+  },
+  "allSpecificControlsPassed": true,
+  "caseCount": 32,
+  "controlsSource": {
+    "bytes": 7028,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+    "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+  },
+  "executionAuthorization": false,
+  "game": false,
+  "grant": {
+    "bytes": 4589,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "962977972eb09cd61d6e4f09faefd909750bc5b9adac2843f8c6690b6716d4ee"
+  },
+  "laneLog": {
+    "bytes": 418,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-parent-recorded-20261010-r1/parser.lane.log",
+    "sha256": "fb31e21b94c2c0da981b2a16cb41cfdc93e587f04df7bb3133fe794144b5bce9"
+  },
+  "laneMetadata": {
+    "bytes": 545,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-parent-recorded-20261010-r1/parser.lane.log.meta",
+    "sha256": "eb5977606c091c3c8bffe9cbe74eb0dd9857b9575d83e8113eb557230f623fa9"
+  },
+  "laneReleased": true,
+  "parentClaim": {
+    "bytes": 3519,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-parent-recorded-20261010-r1/LAUNCH-CLAIM.json",
+    "sha256": "1eddd227d4023d177faadd43653a602ab959bcb5ee3053488e00f475f4c22f4d"
+  },
+  "parserSource": {
+    "bytes": 2202,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+    "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+  },
+  "preparationSeconds": 0.5114078879996669,
+  "privateM0ReadOrWritten": false,
+  "recorderResult": {
+    "bytes": 1096,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-results-20261010-r1/RESULT.json",
+    "sha256": "c1038eb783592e03645019ba2571f64187e641a2fc29210db3fb9afa83672f2d"
+  },
+  "recorderSeconds": 0.9883989310037578,
+  "result": {
+    "bytes": 4818,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-results-20261010-r1/CONTROLS-RESULT.json",
+    "sha256": "0b94b15b70de59f228d3a7ec3dabf80c2192beb4717d2c9928016e750f3d391f"
+  },
+  "schema": "1370-root-exact-json-controls-actual-readback/v1",
+  "scopedOwnershipChecks": [
+    {
+      "id": 40597,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 40597,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 40853,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 40853,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "status": "ACTUAL_PURE_32_CONTROLS_COMPLETE_PENDING_INDEPENDENT_REVIEW",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-results-20261010-r1/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 4818,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-results-20261010-r1/stdout.bin",
+    "sha256": "5c665f43d6da0010bddf96022fd378f0e14e898914531823f134e491e18aef0f"
+  },
+  "toolExit": 0,
+  "toolSessionId": 91619
+}

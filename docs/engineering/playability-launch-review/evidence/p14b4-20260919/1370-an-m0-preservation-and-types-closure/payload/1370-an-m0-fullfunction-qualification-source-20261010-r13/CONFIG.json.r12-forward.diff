@@ -1,0 +1,36 @@
+--- R12/CONFIG.json
++++ R13/CONFIG.json
+@@ -48,7 +48,7 @@
+   "inputs": {
+     "RESOLUTION-SOURCE-BINDING.json": {
+       "bytes": 77415,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/RESOLUTION-SOURCE-BINDING.json",
++      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r13/RESOLUTION-SOURCE-BINDING.json",
+       "sha256": "beccc36285426dc51ec89ba1f2428177db3c8209b3f29dcf9365729f8928f987"
+     },
+     "canonical-resolver.mjs": {
+@@ -58,7 +58,7 @@
+     },
+     "canonical-typescript-transform.mjs": {
+       "bytes": 1906,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/canonical-typescript-transform.mjs",
++      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r13/canonical-typescript-transform.mjs",
+       "sha256": "71c3f791da660a280b04fcfb9038e037ff3c3ac2a080fec38f2164f85176751a"
+     },
+     "config.mjs": {
+@@ -232,12 +232,12 @@
+   "templates": {
+     "CONFIG-TEMPLATE.mts": {
+       "bytes": 1143,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/CONFIG-TEMPLATE.mts",
+-      "sha256": "94f2d12170bb9d4808e07d34357abd6104ef7ab508c1c198b79bc06d597308ce"
++      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r13/CONFIG-TEMPLATE.mts",
++      "sha256": "f7bbedcb1fd6cb7702640e0e1f430e48d988a33326b1050ad4d3a99184321408"
+     },
+     "CORE-TEST-TEMPLATE.ts": {
+       "bytes": 3955,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/CORE-TEST-TEMPLATE.ts",
++      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r13/CORE-TEST-TEMPLATE.ts",
+       "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+     },
+     "FULL-BODY-CONTROLS-TEMPLATE.ts": {

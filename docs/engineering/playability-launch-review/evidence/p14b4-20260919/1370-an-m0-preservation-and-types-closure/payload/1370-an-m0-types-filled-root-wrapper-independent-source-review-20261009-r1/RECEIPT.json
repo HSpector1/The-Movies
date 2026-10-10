@@ -1,0 +1,52 @@
+{
+  "schema": "1370-independent-root-m0-external-types-once-static-review/v1",
+  "decision": "ACCEPT_STATIC_ROOT_M0_EXTERNAL_TYPES_ONCE_BINDING_ONLY",
+  "executionAuthorization": false,
+  "actualExecutionPerformed": false,
+  "concreteFindings": [],
+  "sourceRole": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/run_m0_external_types_once.py",
+    "bytes": 6684,
+    "sha256": "1fb7b3910298da88412b9f63ec702c0d1b4aeb726ce0509dbde8b889d991a909"
+  },
+  "acceptedParentSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/SOURCE-PINS.json",
+    "bytes": 7541,
+    "sha256": "f2f5cf509f2fe221ca68998616b85b2f555265ddf81d10abd908de511e46a132"
+  },
+  "parentReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-independent-source-review-20261009-r1/RECEIPT.json",
+    "bytes": 8891,
+    "sha256": "bfab228a3860e008206c47c0fcac8b8232d1c91fb4b4f655077b090d2049864f"
+  },
+  "executorSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/SOURCE-PINS.json",
+    "bytes": 14126,
+    "sha256": "cabe9f492a2f67091e4b6aefa6051536773fdc4014256d072728932f7b52d53f"
+  },
+  "executorReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-independent-source-review-20261009-r1/RECEIPT.json",
+    "bytes": 20234,
+    "sha256": "fcb639f515966761dcf3dd7442b38a8da84c96f4dd0c0905b07bcaa8b0303c1f"
+  },
+  "authenticatedBindings": {
+    "diagnosticAdoptionSha256": "5b5e062b8c5ac12bc70aa5ccb46ad101340ad692cdf0147ea44890882c0f44e1",
+    "currentProtectionSha256": "5980e69d3e2962f068f10fa3217caa45f3ff752cc93a5064eb0637f54a2439d0",
+    "runtimeToolsObservationSha256": "a681efc4a9b29dfc62bffb6c1e7cd434107bfb1064769f712fca48227bd64106",
+    "currentPreflight": "Named root-owned actual adoption; requires accepted original current-root preflight status, types mode, exit zero, scanner absence, continuing freeze, exact seven artifact roles, and exact links to diagnostic adoption and current protection."
+  },
+  "reviewedChecks": [
+    "Every parent and executor manifest payload is rehashed. Required review decisions, source-role aliases, empty findings and source-only authorization match the accepted interfaces.",
+    "Only null future roles in the accepted types specification are filled with genuine source review, runtime tools, current protection, post-R6 adoption and additional refs.",
+    "The accepted parent retains complete diagnostic/protection schema, nine source-proof keys and exact adopted proof comparisons before private reads. The root wrapper does not replace these checks or infer authority from a map.",
+    "Fresh parent, lane, metadata, result and recorder paths and absent heavy lock are required before exclusive writes. Actual own PID, PGID and SID equality is established before exact original r8 helper exec.",
+    "Physical Python and original r8 helper hashes are required. The exact argv invokes Python -I -B and the accepted filler. Required environment is added while HOME remains inherited.",
+    "Prep60 is the accepted filler phase; runtime 300/320/330 begins inside the accepted executor. No combined preflight/preparation/runtime clock or added parent 330 watchdog is claimed.",
+    "Diagnostic known-root drift remains qualified as such; historical-root-unchanged is false, original R6 stop is preserved, and types/collection/game acceptance remains false until actual review."
+  ],
+  "limits": [
+    "Static wrapper and consumed source interfaces only.",
+    "No execution, imports, compiler invocation, probes, Git action, private inventory or protected write performed.",
+    "Root retains sole responsibility for actual grant, exclusive lane, observed outcome and postflight."
+  ]
+}

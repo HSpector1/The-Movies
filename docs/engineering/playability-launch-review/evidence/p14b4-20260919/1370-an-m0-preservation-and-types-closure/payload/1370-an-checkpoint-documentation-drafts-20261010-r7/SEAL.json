@@ -1,0 +1,21 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "DRAFT-AUDIT.json": {
+      "bytes": 1351,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r7/DRAFT-AUDIT.json",
+      "sha256": "8dab6fa317a71b55b748682c01fcf27a96e4149826571934e63369623f7a5ee0"
+    },
+    "HANDOFF-PROPOSED.md": {
+      "bytes": 13879,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r7/HANDOFF-PROPOSED.md",
+      "sha256": "e1fc0d74890f22a7b851d7612fd18aa46b26619b793ba02a1dd81a526f2ede29"
+    },
+    "prepare-handoff.py": {
+      "bytes": 15177,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r7/prepare-handoff.py",
+      "sha256": "b908371ee9c5f8f07379a411bf8f49798c4406fa578f7fd8f43d3849dc6cabcd"
+    }
+  },
+  "schema": "1370-scratch-documentation-draft-seal/v1"
+}

@@ -1,0 +1,31 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "EVIDENCE-INPUT.json": {
+      "bytes": 2376,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-independent-source-review-20261010-r3/EVIDENCE-INPUT.json",
+      "sha256": "771ea3972206d761fc9f404f01874f92d38b1005599fe9d324abb8f5cebefdc4"
+    },
+    "EVIDENCE-READBACK.json": {
+      "bytes": 2524,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-independent-source-review-20261010-r3/EVIDENCE-READBACK.json",
+      "sha256": "65ed0c8490f687ac2e6adfa6648562c2030900a7c21278fa521b8d60e1436eb3"
+    },
+    "RECEIPT.json": {
+      "bytes": 4782,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-independent-source-review-20261010-r3/RECEIPT.json",
+      "sha256": "410d3e784e742abe9c089a8b9ae52cd4db426dabda6022212ea2f09df2417fe7"
+    },
+    "audit-source-evidence.py": {
+      "bytes": 1451,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-independent-source-review-20261010-r3/audit-source-evidence.py",
+      "sha256": "9810df0528e45450d092dcb647b1f774abfff7aac4346a7295a6e1848a837a01"
+    },
+    "seal-review.py": {
+      "bytes": 738,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-independent-source-review-20261010-r3/seal-review.py",
+      "sha256": "b68c8d9f1d496a8f5256113dbdaa105f84c83d6d760857c0d55a67d44042a836"
+    }
+  },
+  "schema": "1370-independent-parent-r3-review-seal/v1"
+}

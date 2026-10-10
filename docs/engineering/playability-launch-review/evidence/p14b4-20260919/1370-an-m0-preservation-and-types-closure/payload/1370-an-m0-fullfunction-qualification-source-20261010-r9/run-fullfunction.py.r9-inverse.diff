@@ -1,0 +1,11 @@
+--- R8/run-fullfunction.py
++++ R9/run-fullfunction.py
+@@ -1,7 +1,7 @@
+ """Future one-aggregate real full-function qualifier. Source work never executes this route."""
+ import hashlib,json,math,os,pathlib,selectors,signal,stat,subprocess,sys,time,traceback
+ HERE=pathlib.Path(__file__).resolve().parent
+-CONFIG_SHA='bc07641ef731c7d1fa2ebef4b171c61796064d9bbec8a1314e7a2721e9c168ea'
++CONFIG_SHA='7dd64bf16908076887593eac1843f05d205426ba97897e42cc7a479b938187a6'
+ START=time.monotonic();END=START+300;CAP=128*1024**2
+ def need(v,m):
+  if not v:raise RuntimeError('STOP_'+m)

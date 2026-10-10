@@ -1,0 +1,35 @@
+{
+  "schema": "1370-m0-external-config-types-source-seal/v1",
+  "status": "SOURCE_ONLY_UNRUN",
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/SOURCE-PINS.json",
+    "bytes": 14126,
+    "sha256": "cabe9f492a2f67091e4b6aefa6051536773fdc4014256d072728932f7b52d53f"
+  },
+  "sourceProof": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/SOURCE-PROOF.json",
+    "bytes": 45611,
+    "sha256": "a210608638f520bf76d630eebd5c35175027633766ef62d71c3b336f46d0f018"
+  },
+  "recipe": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/RECIPE.json",
+    "bytes": 12239,
+    "sha256": "afcad3e8ec6f3ba82f480617544609fc1195ee72697ec27fa09a2d6272b8d42a"
+  },
+  "config": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/CONFIG.json",
+    "bytes": 32807,
+    "sha256": "224b8f1614208215cb07993fc4b015d8438413e95b805c7360105bee0575b154"
+  },
+  "payloadFileCount": 38,
+  "totalFileCount": 40,
+  "allFileModes": "0444",
+  "sourceDirectoryMode": "0555",
+  "executionAuthorization": false,
+  "actualExecutionPerformed": false,
+  "futureAuthorityAllNull": true,
+  "sourceImportsOrTestsPerformed": false,
+  "privateInventoryPerformed": false,
+  "gitMutationsPerformed": false,
+  "originalR6StopPreserved": true
+}

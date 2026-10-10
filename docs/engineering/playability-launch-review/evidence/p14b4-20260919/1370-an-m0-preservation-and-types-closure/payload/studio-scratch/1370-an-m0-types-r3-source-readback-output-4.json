@@ -1,0 +1,12 @@
+{
+  "candidateImported": false,
+  "privateInventory": false,
+  "roles": {
+    "supervise.py": {
+      "bytes": 13716,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/supervise.py",
+      "sha256": "1696522b113166d7b34f5b6518c2262a307863b8cb3325e95abb77004cfed016"
+    }
+  },
+  "schema": "1370-finite-retained-source-bytes-readback/v1"
+}

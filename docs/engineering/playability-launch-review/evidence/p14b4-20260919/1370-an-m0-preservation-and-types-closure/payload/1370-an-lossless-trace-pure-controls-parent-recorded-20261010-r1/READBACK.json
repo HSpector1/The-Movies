@@ -1,0 +1,218 @@
+{
+  "actualOwnedIds": [
+    86859,
+    87303
+  ],
+  "actualTool": {
+    "bytes": 1199,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "e53c3b271c25b3fab2c75c6124d260c60d83c84347a30d0bc4e37b6860584f33"
+  },
+  "allSpecificControlsPassed": true,
+  "caseCount": 49,
+  "controlsSourcePins": {
+    "bytes": 1578,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "45d34dbe026cc53c4cb102a77b39e3e5319240f327eb7f5bcb4f12cebf27c33f"
+  },
+  "controlsSourceReview": {
+    "bytes": 3111,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "ef8bfd51dd7298f377853bf242eb7968651c6f912a6e8a971c38dae4acafec50"
+  },
+  "executionAuthorization": false,
+  "game": false,
+  "generatedModules": {
+    "m0TraceCodec.mjs": {
+      "bytes": 7882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-results-20261010-r1/m0TraceCodec.mjs",
+      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+    },
+    "m0WiringProbe.ts": {
+      "bytes": 1491,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-results-20261010-r1/m0WiringProbe.mjs",
+      "sha256": "4000d131841c2670c2688ebc8fa1e01960d1103962cd1d0a659f96dcfe325bf1"
+    },
+    "ordering-source-controls.ts": {
+      "bytes": 2864,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-results-20261010-r1/ordering-source-controls.mjs",
+      "sha256": "3ac8f94d04146560094f32f4eadc683c8dfcc06128b6a58d7960db215b34d3f3"
+    },
+    "ordering.ts": {
+      "bytes": 12804,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-results-20261010-r1/ordering.mjs",
+      "sha256": "e683e6bed09b58d7a74c10bd0dc468c9f6c1c76ef4de0aede0aa3129ccbc030b"
+    },
+    "run-lossless-controls.mjs": {
+      "bytes": 16090,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-results-20261010-r1/run-lossless-controls.mjs",
+      "sha256": "2333bedb5974313c3885ce679b6385ff6f995cd68e8e7107c0e0f45a2e5f9be8"
+    },
+    "traceSequences.mjs": {
+      "bytes": 1286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-results-20261010-r1/traceSequences.mjs",
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    }
+  },
+  "grant": {
+    "bytes": 7258,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "d0f5d29f5b9c91af2e6d3f279b1a85e2ce10328efcb0a67472ce354e84e86069"
+  },
+  "implementationControlsSourceAdoption": {
+    "bytes": 12274,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LOSSLESS-IMPLEMENTATION-CONTROLS-SOURCE-ADOPTION.json",
+    "sha256": "d508ed71a4607104aeab0541887dd456687378467bc79915c8425b339e4e47b7"
+  },
+  "implementationSourcePins": {
+    "bytes": 9104,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "7f2ef8499136e025a90ec67c417b1788e1209c69764a448527bb0a5244d68027"
+  },
+  "implementationSourceReview": {
+    "bytes": 20821,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-independent-source-review-20261010-r3/RECEIPT.json",
+    "sha256": "c2e5a3929f49115e1ab8f70545d8578e0533937d0f8672e26f6957389fcefb4f"
+  },
+  "inputRoles": {
+    "CONTROLS-CONTRACT.json": {
+      "bytes": 5260,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "09fb4555708c5ccfe2ed79265789baeca5c6d350bbd1045a86d55deb9a5b1ce5"
+    },
+    "MATRIX.json": {
+      "bytes": 7851,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "7fe45df7b9e2702450bb1b538ac7e6ffbce5196d688eaac6f7d47a64d973638f"
+    },
+    "ORDERING-SOURCE-CASES.json": {
+      "bytes": 27476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+      "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+    },
+    "m0TraceCodec.mjs": {
+      "bytes": 7882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+    },
+    "m0WiringProbe.ts": {
+      "bytes": 1800,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0WiringProbe.ts",
+      "sha256": "c3da292f943a37ae5c3c30005dfec71eb485bf17a211ecfddaa03efe0460c5a9"
+    },
+    "ordering-source-controls.ts": {
+      "bytes": 2941,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/ordering-source-controls.ts",
+      "sha256": "7fd03b25ea5c258584652c051d7ffab977d5380824043be233f375f17944f0f5"
+    },
+    "ordering.ts": {
+      "bytes": 11927,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/ordering.ts",
+      "sha256": "8599945b1c3057ebb777ffcf56c55ddc30121b505f6ec29dacbc87aef216a803"
+    },
+    "run-lossless-controls.mjs": {
+      "bytes": 16090,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/run-lossless-controls.mjs",
+      "sha256": "2333bedb5974313c3885ce679b6385ff6f995cd68e8e7107c0e0f45a2e5f9be8"
+    },
+    "traceSequences.mjs": {
+      "bytes": 1286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    }
+  },
+  "laneLog": {
+    "bytes": 420,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-parent-recorded-20261010-r1/controls.lane.log",
+    "sha256": "ea291fa3428c76d4d92bf64224fd021097cc6e5594971379fbdb1254ad9d93be"
+  },
+  "laneMetadata": {
+    "bytes": 547,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-parent-recorded-20261010-r1/controls.lane.log.meta",
+    "sha256": "07774458ee18c5afab63614cea96be3478ef7d6a1125804732ad0c8fc08c2c20"
+  },
+  "laneReleased": true,
+  "originalOrderingCases": 18,
+  "originalParserCasesReplayed": 0,
+  "parentClaim": {
+    "bytes": 3575,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-parent-recorded-20261010-r1/LAUNCH-CLAIM.json",
+    "sha256": "556dbdc49320faaf81271ec56c946801976538732b16e0e21d3838e2c302c4a9"
+  },
+  "positiveCount": 9,
+  "preparationSeconds": 0.7195598340040306,
+  "privateM0ReadOrWritten": false,
+  "recorderResult": {
+    "bytes": 1096,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorder-results-20261010-r1/RESULT.json",
+    "sha256": "25a5b12d37e4577f826e435dc6f6ed3973a5c0e177081cd73dc35e6b7aea1027"
+  },
+  "recorderSeconds": 7.404906245996244,
+  "result": {
+    "bytes": 14486,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorder-results-20261010-r1/CONTROLS-RESULT.json",
+    "sha256": "e7919709b73b65bd69e2237428be7ba5a2dd7fb7a2da7b2ba2e571a80f1e7af3"
+  },
+  "rootDesignAdoption": {
+    "bytes": 2505,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LOSSLESS-TRACE-REPRESENTATION-DESIGN-ADOPTION.json",
+    "sha256": "bafc6e88970215b0ff90c476f5fb62f2019404847de9b218aee8d71db97a1d86"
+  },
+  "schema": "1370-root-lossless-trace-controls-actual-readback/v1",
+  "scopedOwnershipChecks": [
+    {
+      "id": 86859,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 86859,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 87303,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 87303,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "sourceAdoption": {
+    "bytes": 1336,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LOSSLESS-CONTROLS-SOURCE-ADOPTION.json",
+    "sha256": "5d5b15b7f60ccbeadb0d624bb64b9c7eca9f68f0d2305a57361f2485423cb344"
+  },
+  "sourcePins": {
+    "bytes": 7306,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "2b035412243347f60e8a1148a290899158ce975f755a1b8837324b1e07bd644f"
+  },
+  "sourceReview": {
+    "bytes": 10553,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "58fc31745df49f8a5c2019326a4fe7e168d4192f729c5ec2c47126a02643ad59"
+  },
+  "specificNegativeCount": 40,
+  "status": "ACTUAL_PURE_49_CONTROLS_COMPLETE_PENDING_INDEPENDENT_REVIEW",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorder-results-20261010-r1/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 14486,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorder-results-20261010-r1/stdout.bin",
+    "sha256": "9f20c17ee8ea01639006d712e2c6dceadc4095db7185989a75d684b8e7d39b7e"
+  },
+  "toolExit": 0,
+  "toolSessionId": 17643,
+  "workerResult": {
+    "bytes": 17488,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-results-20261010-r1/CONTROLS-RESULT.json",
+    "sha256": "0acd9a9433dce5370f6a67f48893558f05e00aa119f2aedc3dcf384037ab958a"
+  }
+}

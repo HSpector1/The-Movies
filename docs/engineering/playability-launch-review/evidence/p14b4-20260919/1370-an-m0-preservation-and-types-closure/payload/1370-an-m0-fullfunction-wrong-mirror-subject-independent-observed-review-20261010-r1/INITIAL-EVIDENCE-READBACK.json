@@ -1,0 +1,107 @@
+{
+  "candidateImported": false,
+  "privateInventory": false,
+  "roles": {
+    "ACTUAL-TOOL.json": {
+      "bytes": 1272,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+      "sha256": "9d7c1f1a887d5db39289ef55a48d416452e581c99a086023711e151cc783ab0c"
+    },
+    "AUTHORITY-READBACK.json": {
+      "bytes": 933,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r9/AUTHORITY-READBACK.json",
+      "sha256": "d1778d9b3bce6108be68ae38a9aa174e49cdb2ad73b3b3a43044cc7b19667e20"
+    },
+    "CONFIG.json": {
+      "bytes": 6279,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/CONFIG.json",
+      "sha256": "c41b0b344ecb2abed6079075e0f4a3571d0fb957ae8bddee7e7a1e6f927a9808"
+    },
+    "EXECUTION-GRANT.json": {
+      "bytes": 4100,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r1/EXECUTION-GRANT.json",
+      "sha256": "3136385105c3db3a084fd06492bb635a12c8e48063db05da458125c53aec4aac"
+    },
+    "FULLFUNCTION-ROOT-BINDING.json": {
+      "bytes": 4462,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-ROOT-BINDING.json",
+      "sha256": "a19172af8e25fec987cfacb00982eb98a8ad781f3c851cb8bc383b58373e7198"
+    },
+    "M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json": {
+      "bytes": 5170,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+      "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+    },
+    "M0-FULLFUNCTION-CURRENT-PROTECTION.json": {
+      "bytes": 1884,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-CURRENT-PROTECTION.json",
+      "sha256": "8c84ecee6ab02940d9c34248674b6e0f0c651cabc3edf381187ad367816f814b"
+    },
+    "PARSER-CONTROLS-OBSERVED-ADOPTION.json": {
+      "bytes": 1983,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/PARSER-CONTROLS-OBSERVED-ADOPTION.json",
+      "sha256": "2684b2b4a2c0e90b1d9fec5ee079ede8eb945eb3378ff88619f3cd04b943735d"
+    },
+    "READBACK.json": {
+      "bytes": 6478,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r1/READBACK.json",
+      "sha256": "2292a2f92aac3d837885b5686720416bdaf4fff123f2610c3ce3dd81ac73c30d"
+    },
+    "RECEIPT.json": {
+      "bytes": 14338,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r7/RECEIPT.json",
+      "sha256": "3f8c38d007d381db407bf1953781a089488fa3c4979d742f452697c4bef9d48f"
+    },
+    "RECORDER-LAUNCH-CLAIM.json": {
+      "bytes": 1652,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r1/RECORDER-LAUNCH-CLAIM.json",
+      "sha256": "5d2280a7391774fcbda5a11f70fb2d9b0befe56aa3e859fe0d56412695caacfa"
+    },
+    "RESULT.json": {
+      "bytes": 975,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261009-r1/RESULT.json",
+      "sha256": "02272427f9b755de836b1c0c0290cfafe753742da6fb5df3cf61bcea5260a3c4"
+    },
+    "ROOT-LAUNCH-CLAIM.json": {
+      "bytes": 1799,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r1/ROOT-LAUNCH-CLAIM.json",
+      "sha256": "476cc82832a1705544239ed7ab4ff3fc6252f0ceb44da7c3d9fb599878130ba7"
+    },
+    "SOURCE-PINS.json": {
+      "bytes": 25278,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/SOURCE-PINS.json",
+      "sha256": "d1357e8fe9b082313f79b27e870df63ec01245d52e725c5698b9045bfe77ac7f"
+    },
+    "c0-m0-fullfunction-20261009-r1.lane.log": {
+      "bytes": 687,
+      "path": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-20261009-r1.lane.log",
+      "sha256": "13d45463ba80d585bf7612eae046c662466ad59dcbf7f6e5243ae5d8acb3ec91"
+    },
+    "c0-m0-fullfunction-20261009-r1.lane.log.meta": {
+      "bytes": 507,
+      "path": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-20261009-r1.lane.log.meta",
+      "sha256": "699ad165438aaba1f7b5053233f74523b4c09d6d87242e2842b2af4a99d3cb28"
+    },
+    "record-fullfunction.py": {
+      "bytes": 16750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/record-fullfunction.py",
+      "sha256": "8569b57e64dce4cf2831c12cff8ee5c1ed497663bcceb0523479b8cc8ee6b46e"
+    },
+    "run-fullfunction.py": {
+      "bytes": 16297,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-fullfunction.py",
+      "sha256": "f75fcf82debb83d3a588e70c9295ff8a0739dbed41ad19d592b6a86710594516"
+    },
+    "stderr.bin": {
+      "bytes": 381,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261009-r1/stderr.bin",
+      "sha256": "f3125983077da1bdf243cf67604e21d808247b9b341e36e94d7473c9517d90a3"
+    },
+    "stdout.bin": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261009-r1/stdout.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "schema": "1370-finite-retained-source-bytes-readback/v1"
+}

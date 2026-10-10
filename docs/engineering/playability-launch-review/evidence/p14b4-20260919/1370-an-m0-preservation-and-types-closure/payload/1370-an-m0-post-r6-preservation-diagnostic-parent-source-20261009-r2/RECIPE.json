@@ -1,0 +1,47 @@
+{
+  "actualGrant": null,
+  "actualReviews": null,
+  "alreadyAcquiredOriginalHelperLaneRequired": true,
+  "argv": [
+    "ACTUAL_PHYSICAL_PYTHON",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/fill-grant-exec.py",
+    "ACTUAL_ROOT_SPEC_PATH",
+    "ACTUAL_ROOT_SPEC_SHA256"
+  ],
+  "collectionAccepted": false,
+  "combinedPreparationRuntimeDeadline": null,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "executionAuthorization": false,
+  "executorSourceDecision": "ACCEPT_STATIC_POST_R6_M0_PRESERVATION_DIAGNOSTIC_SOURCE_ONLY",
+  "externalRootSpecRequired": true,
+  "newRootBaselineAdopted": false,
+  "noRuntimeExecuted": true,
+  "originalR6StopPreserved": true,
+  "ownSessionDirectExec": true,
+  "parentSourceDecision": "ACCEPT_STATIC_POST_R6_M0_PRESERVATION_DIAGNOSTIC_PARENT_SOURCE_ONLY",
+  "phaseSeconds": {
+    "activeRecorder": 320,
+    "preparation": 60,
+    "runner": 300,
+    "wholeLaunch": 330
+  },
+  "preparationAlarmCanceledImmediatelyBeforeExec": true,
+  "runtimeToolsObservation": {
+    "bytes": 5401,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-RUNTIME-TOOLS.json",
+    "sha256": "a681efc4a9b29dfc62bffb6c1e7cd434107bfb1064769f712fca48227bd64106"
+  },
+  "schema": "1370-post-r6-diagnostic-parent-recipe/v1",
+  "sourceReviewMapKeys": [
+    "BOOTSTRAP.py",
+    "LAUNCH.py",
+    "check-deps.mjs",
+    "runner.py",
+    "supervise.py",
+    "CONFIG.json"
+  ],
+  "sourceReviewMapMeaning": "Both sourcePins and routeSourcePins are filename-to-exact-role maps; SOURCE-PINS.json is a separate manifest role.",
+  "typesAccepted": false
+}

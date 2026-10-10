@@ -1,0 +1,12 @@
+{
+  "candidateImported": false,
+  "privateInventory": false,
+  "roles": {
+    "RECEIPT.json": {
+      "bytes": 9725,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r8/RECEIPT.json",
+      "sha256": "d1433c5c1deca8d9e0758106db41a9c2faedb656263d6e2c956791eeb391038b"
+    }
+  },
+  "schema": "1370-finite-retained-source-bytes-readback/v1"
+}

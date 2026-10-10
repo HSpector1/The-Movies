@@ -1,0 +1,40 @@
+{
+  "config": {
+    "bytes": 6843,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/CONFIG.json",
+    "sha256": "bc07641ef731c7d1fa2ebef4b171c61796064d9bbec8a1314e7a2721e9c168ea"
+  },
+  "controllerExecutedOutput": {
+    "expression": "out=pathlib.Path(c['outputPath'])",
+    "resolvedPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2"
+  },
+  "nodePhaseOutputs": "All phase report/control/stream/binding files and fixture/node results are joins under c.outputPath or its runtime child. No executed old R1 output literal remains.",
+  "nodeRuntimeDirectory": {
+    "expression": "const out=c.outputPath,runtime=path.join(out,'runtime')",
+    "resolvedPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2/runtime"
+  },
+  "parserInputs": {
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    }
+  },
+  "proofRuntimeBinding": {
+    "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-20261010-r2.lane.log",
+    "runId": "20261010-m0-fullfunction-after-an-r2"
+  },
+  "recipeOutputPathsEqualExecutedSelectors": true,
+  "recorderExecutedSelector": {
+    "expression": "OUTPUTS={'verification':SCRATCH/'1370-an-m0-fullfunction-qualification-recorder-results-20261010-r2'}",
+    "resolvedPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261010-r2"
+  },
+  "runtimeExecuted": false,
+  "schema": "1370-fullfunction-executed-path-source-check/v1",
+  "sourceOnly": true
+}

@@ -1,0 +1,24 @@
+{
+  "actualCapturedTemporaryFileEvent": false,
+  "currentM0FullPreservationAccepted": false,
+  "currentProductionHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+  "currentSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "exclusiveCauseClaim": false,
+  "executionAuthorization": false,
+  "m0TypesAccepted": false,
+  "next": "Review real nested-loader disposable RED/GREEN source and qualified parent route, run once after genuine current bindings; separately establish complete current M0 content/nonroot metadata and explicitly qualify known root drift before any fresh M0 route.",
+  "oldR6StopPreserved": true,
+  "publishedPredecessor": {
+    "bytes": 1771,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+    "sha256": "a7ca327d2d4610704f426630d79343722fb92c19f3762dd521221d77a567479b"
+  },
+  "schema": "1370-an-root-continuation-start/v1",
+  "sourceDiagnosis": {
+    "bytes": 8402,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-r6-config-resolution-independent-source-diagnosis-20261009-r1/DIAGNOSIS.json",
+    "sha256": "97f3d4d0a72d4d0d4379ad7363187e4e31e886ed769c83df4de34d354b423f81"
+  },
+  "sourceDiagnosisAdoptedAtSourceScope": true,
+  "utc": "2026-10-10T03:23:15.816779+00:00"
+}

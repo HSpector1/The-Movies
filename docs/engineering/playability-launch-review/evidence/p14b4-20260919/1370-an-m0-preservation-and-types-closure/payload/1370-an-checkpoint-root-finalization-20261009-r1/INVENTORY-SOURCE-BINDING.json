@@ -1,0 +1,13 @@
+{
+  "schema": "1370-an-inventory-source-binding/v1",
+  "source": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-root-finalization-20261009-r1/prepare_inventory.py",
+    "bytes": 3147,
+    "sha256": "3418ee7d62f76bf50d1ccfd215134c02364dbe74fa8b361dfb56a51081f86b8b"
+  },
+  "authenticatedPublishedHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+  "publishedPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-am-natural208-and-renewal-pricing-closure/payload/1370-am-checkpoint-root-finalization-20261009-r1/prepare_inventory.py",
+  "wholeInverseExact": true,
+  "onlyChange": "AM inventory schema becomes AN",
+  "actualInventoryRun": false
+}

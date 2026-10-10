@@ -1,0 +1,177 @@
+{
+  "schema": "1370-independent-real-fullfunction-qualification-source-review/v1",
+  "decision": "STOP_R8_RECORDER_OUTPUT_PATH_BINDING",
+  "sourceManifest": {
+    "bytes": 29705,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/SOURCE-PINS.json",
+    "sha256": "f589b6bad34751afd46856d59f53910cfa6992ee9b7621205aa09c882a199da0"
+  },
+  "sourceSeal": {
+    "bytes": 346,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/SEAL.json",
+    "sha256": "213e8567f359d3c53e74a69ba273046a1349d452b23616629c34a53e84b4c9d6"
+  },
+  "sourcePins": {
+    "CONFIG-TEMPLATE.mts": {
+      "bytes": 930,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/CONFIG-TEMPLATE.mts",
+      "sha256": "8be9467a794ddbd134dd04c4a92249c7e85e357ef96619562bd99f4ad10ecf5e"
+    },
+    "CONFIG.json": {
+      "bytes": 6843,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/CONFIG.json",
+      "sha256": "7dd64bf16908076887593eac1843f05d205426ba97897e42cc7a479b938187a6"
+    },
+    "CORE-TEST-TEMPLATE.ts": {
+      "bytes": 3955,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/CORE-TEST-TEMPLATE.ts",
+      "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "bytes": 9487,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+    },
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "record-fullfunction.py": {
+      "bytes": 16750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/record-fullfunction.py",
+      "sha256": "828568095897c97ad0600ca6a971f7d79b694d26f6bb6baf08c79845c9b1dc47"
+    },
+    "run-fullfunction.mjs": {
+      "bytes": 20430,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/run-fullfunction.mjs",
+      "sha256": "3d4472d75475c11b92473813dfea0bffbbd7f5d393e4184a19e8fb727098de64"
+    },
+    "run-fullfunction.py": {
+      "bytes": 16661,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/run-fullfunction.py",
+      "sha256": "4101413fc879dd013c5a86d9dd6a77a362aeb5e0fcb6df565ae401fe6675d8c6"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    }
+  },
+  "routeSourcePins": {
+    "CONFIG-TEMPLATE.mts": {
+      "bytes": 930,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/CONFIG-TEMPLATE.mts",
+      "sha256": "8be9467a794ddbd134dd04c4a92249c7e85e357ef96619562bd99f4ad10ecf5e"
+    },
+    "CONFIG.json": {
+      "bytes": 6843,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/CONFIG.json",
+      "sha256": "7dd64bf16908076887593eac1843f05d205426ba97897e42cc7a479b938187a6"
+    },
+    "CORE-TEST-TEMPLATE.ts": {
+      "bytes": 3955,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/CORE-TEST-TEMPLATE.ts",
+      "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "bytes": 9487,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+    },
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "record-fullfunction.py": {
+      "bytes": 16750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/record-fullfunction.py",
+      "sha256": "828568095897c97ad0600ca6a971f7d79b694d26f6bb6baf08c79845c9b1dc47"
+    },
+    "run-fullfunction.mjs": {
+      "bytes": 20430,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/run-fullfunction.mjs",
+      "sha256": "3d4472d75475c11b92473813dfea0bffbbd7f5d393e4184a19e8fb727098de64"
+    },
+    "run-fullfunction.py": {
+      "bytes": 16661,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/run-fullfunction.py",
+      "sha256": "4101413fc879dd013c5a86d9dd6a77a362aeb5e0fcb6df565ae401fe6675d8c6"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    }
+  },
+  "concreteFindings": [
+    {
+      "id": "F1",
+      "source": {
+        "bytes": 16750,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/record-fullfunction.py",
+        "sha256": "828568095897c97ad0600ca6a971f7d79b694d26f6bb6baf08c79845c9b1dc47"
+      },
+      "finding": "OUTPUTS.verification remains recorder-results-20261009-r1 while fresh CONFIG/RECIPE recorderOutputPath is recorder-results-20261010-r2. Recorder main uses OUTPUTS and requires absence; the original path exists from actual95737. The derivative cannot execute its documented fresh recorded route.",
+      "minimalRepair": "Bind OUTPUTS.verification to exact fresh CONFIG recorderOutputPath in a fresh immutable derivative; update source pin and complete forward/inverse. Preserve original attempt and all helpers, clocks and caps."
+    }
+  ],
+  "executionAuthorization": false,
+  "actualRuntime": "UNRUN",
+  "verified": {
+    "all100ManifestFileRolesIncludingTwoExternalAliasesMatchActualBytes": true,
+    "completeFourR7ForwardAndInversePairs": [
+      {
+        "n": "CONFIG.json",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "n": "run-fullfunction.py",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "n": "run-fullfunction.mjs",
+        "forward": true,
+        "inverse": true
+      },
+      {
+        "n": "record-fullfunction.py",
+        "forward": true,
+        "inverse": true
+      }
+    ],
+    "originalSixteenRecorderHelpersAndOwnedChildByteExact": true,
+    "leafRepair": "proof_config.mirrorPath equals authenticated original copiedAdoption.mirrorPath and its parent is original MIRROR_ROOT; closure passes that leaf to both original complete proof calls. Original diagnostic caller717/718/735/739 confirms exact leaf source basis; root metadata predicate still precedes any enumeration.",
+    "cleanupRepair": "Controller success/failure return is after finally; cleanup exception propagates to top-level STOP. Actual95737 did not demonstrate a suppressed cleanup exception; structural risk is corrected without relabeling its warning or result.",
+    "testedParserRepair": "Exact originalF7 parser and control source paths/bytes/hashes retained via CONFIG.parserInputs and exact two manifest exceptions. Node imports that actual tested helper file. Both genuine parser adoption/result/review gates still bind those roles; no pure32 rerun required.",
+    "bounds": "Original one300/320/330 and8MiB/64MiB output bound, two complete inventories and all prerequisite gates unchanged.",
+    "freshness": "Controller runtime/lane/runId/config are freshR2; only recorder OUTPUTS remains wrong. Root independently prepares fresh-path parent with matching exactF7 exception; this receipt does not review that separate parent."
+  },
+  "sourceReadback": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r8/SOURCE-READBACK.json",
+    "bytes": 29490,
+    "sha256": "0cf34daf874afa1674a45bd0981ffc65bbde4d55dc8ba3bc2ebc0f6fe8beab3d"
+  },
+  "actualPriorFailure": {
+    "toolSessionId": 95737,
+    "toolExit": 2,
+    "helperExit": 2,
+    "recorderExit": 2,
+    "controllerExit": 1,
+    "rootReadback": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r1/READBACK.json",
+      "bytes": 6478,
+      "sha256": "2292a2f92aac3d837885b5686720416bdaf4fff123f2610c3ce3dd81ac73c30d"
+    },
+    "independentFullFailureAdmissionPendingOriginalFullPostflight": true
+  },
+  "lesson": "Composition review must verify every caller target and every actual output literal against the authentic original call and current recipe/config; byte-unchanged helpers alone do not establish those bindings.",
+  "reviewMethod": "Finite named scratch source/evidence reads, actual byte/hash readback and pure full-source diff applications. No runtime/import/test/compile/private inventory/Git/process probe.",
+  "gameAccepted": false,
+  "fixtureQualificationAccepted": false,
+  "neutralityAccepted": false,
+  "sourcePromotion": false
+}

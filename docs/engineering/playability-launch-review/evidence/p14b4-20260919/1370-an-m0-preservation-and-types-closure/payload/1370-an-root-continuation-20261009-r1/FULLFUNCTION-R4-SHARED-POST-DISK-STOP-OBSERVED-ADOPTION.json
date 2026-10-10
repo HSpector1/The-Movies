@@ -1,0 +1,51 @@
+{
+  "actualRouteReadback": {
+    "bytes": 6808,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r4/READBACK.json",
+    "sha256": "568c92e332879885a53726cc359b296d4279c9f763236edeed019f7d92a06e28"
+  },
+  "automaticRetry": false,
+  "cleanupPartialPermissionStopPreserved": true,
+  "cleanupResult": {
+    "bytes": 1646,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-approved-browser-npm-cache-cleanup-20261010-r1/RESULT.json",
+    "sha256": "9d481eaa9640ccd9bdacfd28d98d0ff5449077d220fe47a6140bc422ec66e707"
+  },
+  "executionAuthorization": false,
+  "failedPostActualTool": {
+    "bytes": 1682,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4/ACTUAL-TOOL.json",
+    "sha256": "11b986e4e5e22c1ee2bf1185c9966d1d6dde6a2d99b88fb35a8c18a7844aed3e"
+  },
+  "failedPostGrant": {
+    "bytes": 5235,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4/GRANT.json",
+    "sha256": "a397d1e42a7ae8537e1e30cb9dcea7aca77109f9cdcb532767c038031666c84c"
+  },
+  "freeBytesNow": 5499637760,
+  "fullSharedPostflightAccepted": false,
+  "independentFailureAudit": {
+    "bytes": 6722,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-disk-floor-stop-independent-observed-audit-20261010-r1/RECEIPT.json",
+    "sha256": "4b333b4836a3f52474afc2ee3dd5eb01c1aebb12fd369cf0c75292b684140517"
+  },
+  "original7509RemainsFailure": true,
+  "postScannerChecks": [
+    {
+      "id": 35222,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 35222,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "protectedFreezeContinues": true,
+  "requiredFreeBytes": 3758096384,
+  "schema": "1370-root-failed-postflight-and-restored-reserve-observation/v1",
+  "scope": "Failed original post7509 remains unaccepted; actual source root maps not manufactured. Already-approved Google/Chrome cache content cleanup completed and npm partial PermissionError preserved; Chrome reopened. Measured reserve restored, not guaranteed. Fresh separately reviewed/recorded original post required; scoped failed scanner absent now, to be checked again after fresh post.",
+  "snapshotRole": null,
+  "status": "ROOT_ADOPTED_FAILED_SHARED_POST_DISK_STOP_ONLY_RESERVE_RESTORED"
+}

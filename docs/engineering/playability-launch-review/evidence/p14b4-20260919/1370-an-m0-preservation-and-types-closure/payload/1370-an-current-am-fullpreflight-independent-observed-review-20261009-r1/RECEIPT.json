@@ -1,0 +1,190 @@
+{
+  "actualTool": {
+    "bytes": 1208,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-am-fullpreflight-parent-recorded-20261009-r1/ACTUAL-TOOL.json",
+    "sha256": "479fd8d2c4ec67ba75afb9528955ce8f5d98528bff8b54db4d0458f814f8e924"
+  },
+  "claims": {
+    "HScientificAcceptance": false,
+    "M0RootMetadataBaselineAdopted": false,
+    "collectionAccepted": false,
+    "currentM0PreservationAccepted": false,
+    "executionAuthorization": false,
+    "freshCurrentAMProtectionBaselineAccepted": true,
+    "gameAccepted": false,
+    "originalM0ContentProof": false,
+    "typesAccepted": false
+  },
+  "concreteFindings": [],
+  "config": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/CONFIG.json",
+    "sha256": "e0c7a2b839eaa1e0940665711c8e9b57af4f09738290ca5d15d828f01200b42e"
+  },
+  "decision": "ACCEPT_ACTUAL_CURRENT_AM_FULL_PREFLIGHT_ONLY",
+  "dependencyEntriesPerCopy": 12485,
+  "executionAuthorization": false,
+  "findingsAndConclusions": [
+    "Actual tool terminal0 and exact complete parsed stdout authenticate the genuine new current-AM snapshot and PINS; empty stderr, exact reviewed source/config, original before-fill argv and once-only direct-exec grant are bound. No old AL snapshot is substituted.",
+    "The complete recorded private source map, private protected digest, full copied/production dependency maps, allocation and original copy output/binding roles match authenticated accepted R9 proof555867. Both12485-entry dependency maps have exact original shapes and comparable semantics, with distinct regular-file inodes.",
+    "Nine strict roots exactly equal before/after/immutable records. Scratch parent device/inode/mode/path are strict; informational mtime/ctime changed during authorized scratch preparation, as explicitly permitted by unchanged original policy. That exception is not applied to production/common/copied or retained-H roots.",
+    "Actual current-AM operational scope is independently authenticated with unchanged src13880, original4812 copy authority, docs-only paths, distinct current remote refs, H-first unchanged and H8708 not waived. Fresh production/common protected digests establish a new operational protection baseline only.",
+    "Both current observations record original/ephemeral/retained-H and M0-parent writable-FD protections, worker/old-numeric absence checks, current boot/AC/disk predicates. This review uses their authenticated accepted source semantics and retained fields, without new machine checks.",
+    "Four machine-wide PS/FD artifacts are verified by exact byte count/hash and snapshot/PINS linkage only, explicitly LOCAL_HASH_SIZE_ONLY. No raw contents are reproduced or interpreted. Fresh postabsence is limited to scanner58529 PID+PGID plus lock absent; no invented internal IDs or global absence claim."
+  ],
+  "freshFullInventory": true,
+  "game": false,
+  "grant": {
+    "bytes": 2333,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-am-fullpreflight-parent-recorded-20261009-r1/GRANT.json",
+    "sha256": "eb2eba9f652065e3d9e79950adc4086f561d5d00bd8db9d601926e62ed77689e"
+  },
+  "guardSeconds": 499.3813009990117,
+  "guardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py",
+    "sha256": "9e2618b58849ccf0bc36512b20de16c23e49b2f08cdc6982ca9fe2fc20143047"
+  },
+  "inventorySeconds": 400.81212525299634,
+  "majorLessons": [
+    "Publish/current-head transitions require a fresh whole operational guard baseline; source unchanged does not make an old config/procedure snapshot reusable.",
+    "Keep protection scans separate from M0 content/type/collection proof and from historical H scientific acceptance.",
+    "Use the original strict-root policy: scratch-parent timestamps are informational; private/production/common root metadata remain strict.",
+    "Scope ownership evidence to observed numeric identities and classify raw PS/FD by semantic role rather than extension."
+  ],
+  "observed": {
+    "actualFinalExit": 0,
+    "completeMapsEqualAcceptedHistoricalPrivateProof": true,
+    "dependencyAllocatedBytesPerCopy": 250314752,
+    "dependencyComparableMapsEqual": true,
+    "dependencyCountsPerCopy": {
+      "directory": 1401,
+      "regular": 11060,
+      "symlink": 24
+    },
+    "dependencyEntriesPerCopy": 12485,
+    "docsOnlyChangedPaths": 4480,
+    "fourMachineRawRoles": [
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 96564,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/BEFORE-PS.txt",
+        "sha256": "b73b5dad91111ba5b9a6dde5bb5233d92d3bf9d5350daa3ac5af21dd0e924d35"
+      },
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 666950,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/BEFORE-LSOF.bin",
+        "sha256": "f89233bd56e047c1814666a34763093ac14fa042fb3c87730e665f81c7befed1"
+      },
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 96602,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/AFTER-PS.txt",
+        "sha256": "bb170b5a35de7394359ebc1d2ec5e015a52730f5191fc029bd82af54e1cc2f0e"
+      },
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 665614,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/AFTER-LSOF.bin",
+        "sha256": "62a28526a91fdfa1857d5432a3ee1f4ba39981a6ce1c46b66dc654af527aaadd"
+      }
+    ],
+    "guardSeconds": 499.3813009990117,
+    "heavyLaneLockAbsent": true,
+    "inventorySeconds": 400.81212525299634,
+    "originalCopyProductionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+    "privateAcceptedFullProof": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r9-20261009-r1/SNAPSHOT.json",
+      "sha256": "555867b2be0abf76728fc8b905c52a73512b5da31d24162d804e7e1b9d8c9347"
+    },
+    "productionHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+    "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "rawBytesTotal": 1525730,
+    "rawContentsInspected": false,
+    "regularDependencyInodesIndependent": true,
+    "scannerPgid": 58529,
+    "scannerPid": 58529,
+    "scannerSid": 58529,
+    "scopedFreshAbsenceChecks": [
+      {
+        "id": 58529,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 58529,
+        "kind": "pgid",
+        "result": "ESRCH"
+      }
+    ],
+    "sessionId": 82607,
+    "snapshotOwnedGroupClearanceClaim": false,
+    "snapshotOwnedGroupIdsChecked": [],
+    "sourceEntries": 176,
+    "stderrBytes": 0,
+    "strictRoots": 9
+  },
+  "originalM0ContentProof": false,
+  "postOwnership": {
+    "bytes": 339,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-am-fullpreflight-parent-recorded-20261009-r1/POST-OWNERSHIP.json",
+    "sha256": "047dc2eee48a5d37886e8c61abc0951d97b11842bfd61be618f32be8f56a74b4"
+  },
+  "privateSourceEntries": 176,
+  "productionHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "rawLocalOnlyClassification": {
+    "bytes": 1472,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-am-fullpreflight-parent-recorded-20261009-r1/RAW-LOCAL-ONLY-CLASSIFICATION.json",
+    "sha256": "4e434dfeb9042c3726e9b66b2dd0d1ce0a9f58d0a8fea357c28bcd9fe47f3030"
+  },
+  "readback": {
+    "bytes": 3900,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-am-fullpreflight-parent-recorded-20261009-r1/READBACK.json",
+    "sha256": "12f58775e2fdaae5622393f53397cff9ea0f3cbdbb07ac1af91bb768ee2cfad2"
+  },
+  "remainingActions": [
+    "Root adoption of this observed current-AM full preflight.",
+    "Separately authorized recorded preservation diagnostic with real prerequisite role bindings, then required new current-AM full protected postflight and independent admission."
+  ],
+  "reviewScope": "Independent finite retained evidence, source/role graph and complete recorded-map comparison; no rerun, probes, private original reads, Git edits or new inventory.",
+  "scanStderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-am-fullpreflight-parent-recorded-20261009-r1/scan.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scanStdout": {
+    "bytes": 453,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-am-fullpreflight-parent-recorded-20261009-r1/scan.stdout",
+    "sha256": "767fb2e7a5ea4b510806b326f8898150e8a360386f887bd9dda30f4af79ae944"
+  },
+  "schema": "1370-current-am-fullpreflight-independent-observed-review/v1",
+  "snapshot": {
+    "bytes": 8833072,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/SNAPSHOT.json",
+    "sha256": "0136b4370cca27ab9af635c16124283049eb394b3dbaa63c32a755973e9c3596"
+  },
+  "snapshotPins": {
+    "bytes": 507,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/PINS.json",
+    "sha256": "a8421e6228f07ac0376f36069671935d731f90514e8a4e093bc934d74f15d9d0"
+  },
+  "sourceAdoption": {
+    "bytes": 1039,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/CURRENT-AM-FULLGUARD-SOURCE-ADOPTION.json",
+    "sha256": "4cfef5308b2581dcbf5171355b34dd69fcfcafc410f21067e487a67c091b3d50"
+  },
+  "sourcePins": {
+    "bytes": 2286,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "e638252b8082aa756f56471552327706a17dcf0e2d6bd01628710624ce7ec435"
+  },
+  "sourceReview": {
+    "bytes": 7200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "8a8756307aeecff6e3d9f299a5d2db8014e81c9c7dd5ade42f1f53514ba8ad45"
+  },
+  "status": "INDEPENDENTLY_ACCEPTED_ACTUAL_CURRENT_AM_FULL_PREFLIGHT_ONLY",
+  "strictRoots": 9
+}

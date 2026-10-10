@@ -1,0 +1,183 @@
+Source lines 2718..2741
+2718: const createFilter$1 = function createFilter(include, exclude, options) {
+2719:     const resolutionBase = options && options.resolve;
+2720:     const getMatcher = (id) => id instanceof RegExp
+2721:         ? id
+2722:         : {
+2723:             test: (what) => {
+2724:                 // this refactor is a tad overly verbose but makes for easy debugging
+2725:                 const pattern = getMatcherString(id, resolutionBase);
+2726:                 const fn = picomatch$4(pattern, { dot: true });
+2727:                 const result = fn(what);
+2728:                 return result;
+2729:             }
+2730:         };
+2731:     const includeMatchers = ensureArray(include).map(getMatcher);
+2732:     const excludeMatchers = ensureArray(exclude).map(getMatcher);
+2733:     return function result(id) {
+2734:         if (typeof id !== 'string')
+2735:             return false;
+2736:         if (/\0/.test(id))
+2737:             return false;
+2738:         const pathId = normalizePath$5(id);
+2739:         for (let i = 0; i < excludeMatchers.length; ++i) {
+2740:             const matcher = excludeMatchers[i];
+2741:             if (matcher.test(pathId))
+
+Source lines 19160..19263
+19160: const defaultEsbuildSupported = {
+19161:   "dynamic-import": true,
+19162:   "import-meta": true
+19163: };
+19164: let server;
+19165: async function transformWithEsbuild(code, filename, options, inMap) {
+19166:   let loader = options?.loader;
+19167:   if (!loader) {
+19168:     const ext = path$n.extname(validExtensionRE.test(filename) ? filename : cleanUrl(filename)).slice(1);
+19169:     if (ext === "cjs" || ext === "mjs") {
+19170:       loader = "js";
+19171:     } else if (ext === "cts" || ext === "mts") {
+19172:       loader = "ts";
+19173:     } else {
+19174:       loader = ext;
+19175:     }
+19176:   }
+19177:   let tsconfigRaw = options?.tsconfigRaw;
+19178:   if (typeof tsconfigRaw !== "string") {
+19179:     const meaningfulFields = [
+19180:       "alwaysStrict",
+19181:       "experimentalDecorators",
+19182:       "importsNotUsedAsValues",
+19183:       "jsx",
+19184:       "jsxFactory",
+19185:       "jsxFragmentFactory",
+19186:       "jsxImportSource",
+19187:       "preserveValueImports",
+19188:       "target",
+19189:       "useDefineForClassFields",
+19190:       "verbatimModuleSyntax"
+19191:     ];
+19192:     const compilerOptionsForFile = {};
+19193:     if (loader === "ts" || loader === "tsx") {
+19194:       const loadedTsconfig = await loadTsconfigJsonForFile(filename);
+19195:       const loadedCompilerOptions = loadedTsconfig.compilerOptions ?? {};
+19196:       for (const field of meaningfulFields) {
+19197:         if (field in loadedCompilerOptions) {
+19198:           compilerOptionsForFile[field] = loadedCompilerOptions[field];
+19199:         }
+19200:       }
+19201:     }
+19202:     const compilerOptions = {
+19203:       ...compilerOptionsForFile,
+19204:       ...tsconfigRaw?.compilerOptions
+19205:     };
+19206:     if (compilerOptions.useDefineForClassFields === void 0 && compilerOptions.target === void 0) {
+19207:       compilerOptions.useDefineForClassFields = false;
+19208:     }
+19209:     if (options) {
+19210:       options.jsx && (compilerOptions.jsx = void 0);
+19211:       options.jsxFactory && (compilerOptions.jsxFactory = void 0);
+19212:       options.jsxFragment && (compilerOptions.jsxFragmentFactory = void 0);
+19213:       options.jsxImportSource && (compilerOptions.jsxImportSource = void 0);
+19214:     }
+19215:     tsconfigRaw = {
+19216:       ...tsconfigRaw,
+19217:       compilerOptions
+19218:     };
+19219:   }
+19220:   const resolvedOptions = {
+19221:     sourcemap: true,
+19222:     // ensure source file name contains full query
+19223:     sourcefile: filename,
+19224:     ...options,
+19225:     loader,
+19226:     tsconfigRaw
+19227:   };
+19228:   delete resolvedOptions.include;
+19229:   delete resolvedOptions.exclude;
+19230:   delete resolvedOptions.jsxInject;
+19231:   try {
+19232:     const result = await transform$1(code, resolvedOptions);
+19233:     let map;
+19234:     if (inMap && resolvedOptions.sourcemap) {
+19235:       const nextMap = JSON.parse(result.map);
+19236:       nextMap.sourcesContent = [];
+19237:       map = combineSourcemaps(filename, [
+19238:         nextMap,
+19239:         inMap
+19240:       ]);
+19241:     } else {
+19242:       map = resolvedOptions.sourcemap && resolvedOptions.sourcemap !== "inline" ? JSON.parse(result.map) : { mappings: "" };
+19243:     }
+19244:     return {
+19245:       ...result,
+19246:       map
+19247:     };
+19248:   } catch (e) {
+19249:     debug$h?.(`esbuild error with options used: `, resolvedOptions);
+19250:     if (e.errors) {
+19251:       e.frame = "";
+19252:       e.errors.forEach((m) => {
+19253:         if (m.text === "Experimental decorators are not currently enabled" || m.text === "Parameter decorators only work when experimental decorators are enabled") {
+19254:           m.text += '. Vite 5 now uses esbuild 0.18 and you need to enable them by adding "experimentalDecorators": true in your "tsconfig.json" file.';
+19255:         }
+19256:         e.frame += `
+19257: ` + prettifyMessage(m, code);
+19258:       });
+19259:       e.loc = e.errors[0].location;
+19260:     }
+19261:     throw e;
+19262:   }
+19263: }
+
+Source lines 19264..19312
+19264: function esbuildPlugin(config) {
+19265:   const options = config.esbuild;
+19266:   const { jsxInject, include, exclude, ...esbuildTransformOptions } = options;
+19267:   const filter = createFilter(include || /\.(m?ts|[jt]sx)$/, exclude || /\.js$/);
+19268:   const transformOptions = {
+19269:     target: "esnext",
+19270:     charset: "utf8",
+19271:     ...esbuildTransformOptions,
+19272:     minify: false,
+19273:     minifyIdentifiers: false,
+19274:     minifySyntax: false,
+19275:     minifyWhitespace: false,
+19276:     treeShaking: false,
+19277:     // keepNames is not needed when minify is disabled.
+19278:     // Also transforming multiple times with keepNames enabled breaks
+19279:     // tree-shaking. (#9164)
+19280:     keepNames: false,
+19281:     supported: {
+19282:       ...defaultEsbuildSupported,
+19283:       ...esbuildTransformOptions.supported
+19284:     }
+19285:   };
+19286:   return {
+19287:     name: "vite:esbuild",
+19288:     configureServer(_server) {
+19289:       server = _server;
+19290:       server.watcher.on("add", reloadOnTsconfigChange).on("change", reloadOnTsconfigChange).on("unlink", reloadOnTsconfigChange);
+19291:     },
+19292:     buildEnd() {
+19293:       server = null;
+19294:     },
+19295:     async transform(code, id) {
+19296:       if (filter(id) || filter(cleanUrl(id))) {
+19297:         const result = await transformWithEsbuild(code, id, transformOptions);
+19298:         if (result.warnings.length) {
+19299:           result.warnings.forEach((m) => {
+19300:             this.warn(prettifyMessage(m, code));
+19301:           });
+19302:         }
+19303:         if (jsxInject && jsxExtensionsRE.test(id)) {
+19304:           result.code = jsxInject + ";" + result.code;
+19305:         }
+19306:         return {
+19307:           code: result.code,
+19308:           map: result.map
+19309:         };
+19310:       }
+19311:     }
+19312:   };
+

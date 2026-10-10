@@ -1,0 +1,40 @@
+{
+  "codecSeamMembers": [
+    "deflateRawSync",
+    "inflateRawSync"
+  ],
+  "contextExcludedOnlyFromOffOnSemanticEquality": true,
+  "errorCodes": {
+    "CODEC_OPERATIONAL": "codec or capture unknown exception",
+    "DECODE_INVALID": "UTF8/JSON/row shape/call sequence",
+    "FRAME_INVALID": "header/tag/count/length/ordinal/noncanonical compressed bytes",
+    "STORE_CLOSED": "append after snapshot",
+    "TRACE_OPERATIONAL": "later access/snapshot after operational failure",
+    "TRACE_OVERFLOW": "access after resource overflow"
+  },
+  "exports": [
+    "createTraceStore",
+    "importEncodedSnapshot",
+    "TraceOperationalError",
+    "assertCallTraceEqual",
+    "assertTracePairEqual"
+  ],
+  "module": "m0TraceCodec.mjs",
+  "noRuntimePerformed": true,
+  "orderingSourceCasesRemainExact": true,
+  "orderingSyntheticAdapter": "Only envelope defaults sequence=i,inputs=[],canonicalInputs=[],result=null are synthetic scaffolding; original context/source projections/case mutations and all18 intended assertion labels unchanged. canonicalInputs default is the string []",
+  "runtimeProbeSuppliesCodecSeam": false,
+  "schema": "1370-lossless-trace-public-api/v1",
+  "semanticEvaluationProjection": [
+    "inputs",
+    "canonicalInputs",
+    "result"
+  ],
+  "snapshotMethods": [
+    "calls",
+    "evaluations",
+    "callAt",
+    "evaluationAt"
+  ],
+  "snapshotOverflowIsReturnedForFatalConsumerAssertion": true
+}

@@ -1,0 +1,109 @@
+{
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_LOSSLESS_TRACE_REPRESENTATION_AMENDMENT_DESIGN_ONLY",
+  "design": {
+    "bytes": 8421,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-lossless-trace-representation-design-20261010-r3/DESIGN.txt",
+    "sha256": "95b3e3c86752583bd67a68975a6fa2ea615a64940d2529a0f323c2a60e1c8675"
+  },
+  "executionAuthorization": false,
+  "explicitBoundSemanticsAmendment": {
+    "completeTraceAssertionPreserved": true,
+    "equivalentPredicates": false,
+    "expandedRowBytes": 65536,
+    "frameHeaderBytes": 9,
+    "logicalEntries": 16384,
+    "new": "16 + sum(dedicated owned row frame byteLength) <=2097152 per trace",
+    "noIndexVectorsOrDuplicateSerializedPacket": true,
+    "observerCapsUnchanged": {
+      "entries": 512,
+      "rowBytes": 16384,
+      "totalBytes": 2097152
+    },
+    "old": "sum of expanded JSON+newline row sizes <=2097152"
+  },
+  "implementationReviewCriteria": [
+    "Dedicated exact backing for16-byte header and every9+compressedLength frame; atomic commit and exact charged counts under original logical/expanded-row and amended encoded caps.",
+    "Snapshot ownership remains independent across end/begin/reset; off/on immutable traces coexist at<=2MiB encoded each. Previous snapshot headers, frames, counters and decode closures cannot be overwritten by next capture.",
+    "No eager full trace arrays, retained decoded payload cache or extra index vectors; streamed comparisons and source lookups keep at most two complete trace rows live.",
+    "All original helper/RNG, tuple/result, source duplicate-occurrence, freeze/chooser ordering, input purity, full output/RNG and typed observer-catch assertions remain meaningful.",
+    "Exact header/frame/tag/count/length/UTF8/JSON-shape verification and canonical recompression byte comparison; malformed, extra, concatenated, corrupted or noncanonical streams fail closed.",
+    "Explicit maxOutputLength supplied before compression/inflation; codec/allocation errors sticky and distinct from deliberate observer faults and resource overflow.",
+    "Specific finite recorded public controls assert exact error/verdict for roundtrip, mutation, seed/tuple/context/order/multiplicity changes, each cap, corruption, API limits and swallowed codec failures; loader/unknown failures never count as semantic RED."
+  ],
+  "majorLessons": [
+    "A representation budget amendment must state the old and new predicates explicitly; equal numeric caps do not make them equivalent.",
+    "Encoded payload bytes and exact backing storage can be accounted without inventing an exact generic JavaScript heap guarantee.",
+    "Operational exceptions require sticky terminal evidence because a legitimate gameplay catch may swallow the immediate exception.",
+    "Full exact trace preservation requires bounded streaming consumers as well as a reversible codec."
+  ],
+  "priorDesignFindingsResolved": true,
+  "priorIndependentDesignFinding": {
+    "bytes": 3727,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-lossless-trace-representation-independent-design-review-20261010-r2/RECEIPT.json",
+    "sha256": "b065e4d4a771113ecbd39f1e24115cc645beab209b977804fe9ca5b16e9fdadb"
+  },
+  "publicApiExcerpt": {
+    "bytes": 1516,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-lossless-trace-representation-design-20261010-r3/PUBLIC-CODEC-API.txt",
+    "sha256": "b5cf022f6f30a035ecd9d4af36b7c97565b509bedb571aadd9456cc5991a0a45"
+  },
+  "schema": "1370-lossless-trace-independent-design-review/v1",
+  "scopeLimits": {
+    "baselineAccepted": false,
+    "fitPrediction": null,
+    "gameAccepted": false,
+    "implementationPerformed": false,
+    "meaningfulMutantAccepted": false,
+    "performancePrediction": null,
+    "priorProtectedStopsPreserved": true,
+    "rootDesignAdoptionAndIndependentImplementationControlsStillRequired": true,
+    "runtimeApiEnforcementObserved": false,
+    "runtimePerformed": false
+  },
+  "sourceInputs": {
+    "actualBaselineReport": {
+      "bytes": 2543,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r4/baseline.report.json",
+      "sha256": "f737da2c7a1a7de4dd6fdfd80480ae6156eceed2fda128682e920633640e240e"
+    },
+    "controls": {
+      "bytes": 9539,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r11/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "9cff56902912ab029af4a4a73398bb314e28593e59823a09acdab5a9b26ea6ca"
+    },
+    "ordering": {
+      "bytes": 11339,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ordering.ts",
+      "sha256": "e40ea62523d13e1c74361766757b85faa14acdb889bc57f7ae452449a361bb1d"
+    },
+    "probe": {
+      "bytes": 3016,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r11/m0WiringProbe.ts",
+      "sha256": "417389eef7b3295a19cde420f8561e638f028b979c4e031b25f89f8d38a2ac39"
+    },
+    "producerCatch": {
+      "bytes": 119434,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/talentMarket.ts",
+      "sha256": "ce06afb3069c83dc1d9ee1fb8a03b7f1609c0db41fc3ea8078b455061455ed2d"
+    },
+    "publicCodecDeclarations": {
+      "bytes": 22874,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@types/node/zlib.d.ts",
+      "sha256": "c9a2daf6cd1eb854cd5b9e424247c5e306692055738c2effd35f7871d942b76e"
+    }
+  },
+  "sourceReceipt": {
+    "bytes": 3257,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-lossless-trace-representation-design-20261010-r3/RECEIPT.json",
+    "sha256": "4bf0c136dabb47a4afd610ec72f416120f2ad07a7ee00ba4014c6d652c615b0d"
+  },
+  "sourceReviewConclusions": [
+    "Exact16-byte header and9-byte independent compressed row frame yield complete backing-length accounting; bounded frame-vector JS bookkeeping is separately qualified.",
+    "Lossless exact JSON capture preserves every call sequence/name/detail, canonicalInputs literal and evaluation inputs/result/context; no filtering, sampling or hash-only substitution.",
+    "Off/on evaluation comparison remains exactly inputs/canonicalInputs/result; context equality across arms is not added. Existing context/source and complete ordering assertions must migrate without weakening.",
+    "At most two decoded row buffers<=65536 and one codec output<=131072; exact JS heap byte guarantee is not claimed. Codec internals and stringify/parse overhead remain qualified and governed by existing operational controls.",
+    "Source-backed broad submitProposal catch can swallow ordinary codec errors. Separate operational failure recorded before rethrow and unconditional end/accessor rejection prevents silent trace acceptance.",
+    "Resolver passes platform imports through; static declarations support maxOutputLength option but actual runtime codec enforcement remains unobserved."
+  ]
+}

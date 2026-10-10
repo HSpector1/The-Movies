@@ -1,0 +1,164 @@
+{
+  "schema": "1370-r3-ordering-controls-parent-source-recipe/v1",
+  "scope": "PURE_SYNTHETIC_ORDERING_CONSUMER_18_CASES_ONLY",
+  "executionAuthorization": false,
+  "actualRootGrant": null,
+  "actualSourceAdoption": null,
+  "actualParentReview": null,
+  "actualResult": null,
+  "oneAggregateRun": true,
+  "automaticRetry": false,
+  "parentSourcePins": null,
+  "parentSourceReviewDecision": "ACCEPT_STATIC_R3_ORDERING_CONTROLS_PARENT_SOURCE_ONLY",
+  "parentSourceReviewContract": {
+    "sourcePins": "Exact parent SOURCE-PINS.json role",
+    "concreteFindings": [],
+    "executionAuthorization": false
+  },
+  "cli": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r1/launch-ordering-controls.py",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/GRANT.json",
+    "ACTUAL_ROOT_GRANT_SHA256"
+  ],
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/ordering.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/record-ordering-controls.py",
+    "verification",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/GRANT.json",
+    "ACTUAL_ROOT_GRANT_SHA256"
+  ],
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "GIT_OPTIONAL_LOCKS": "0"
+  },
+  "parentPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1",
+  "laneLog": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/ordering.lane.log",
+  "outputs": {
+    "worker": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-results-20261009-r2",
+    "recorder": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-recorder-results-20261009-r2",
+    "claim": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/LAUNCH-CLAIM.json"
+  },
+  "bounds": {
+    "preparationSeconds": 60,
+    "combinedPreparationRuntimeDeadline": null,
+    "recorder": {
+      "active": 320,
+      "childStreamBytes": 8388608,
+      "compiledModuleBytes": 131072,
+      "resultBytes": 131072,
+      "runner": 300,
+      "whole": 330
+    }
+  },
+  "clockScope": "Separate parent preparation timer60 is canceled immediately before original r8 direct exec. Recorder whole330 begins before its authentication; one Node aggregate300 starts before fork/GO, active320. Failure cleanup/finalization uses remaining whole330. No outer combined timer or live parent stream cap.",
+  "grantSchema": "1370-root-r3-ordering-controls-once-grant/v1",
+  "grantRequiredFields": [
+    "schema",
+    "executionAuthorization",
+    "scope",
+    "oneAggregateRun",
+    "automaticRetry",
+    "parentAdapterSourcePins",
+    "parentAdapterSourceReview",
+    "sourcePins",
+    "sourceReview",
+    "config",
+    "recipe",
+    "bounds",
+    "clockEnforcedByOriginalRecordedRoute",
+    "configSha256",
+    "outputPath",
+    "acceptedSourcePins",
+    "heldRootAdoption",
+    "sourceAdoption",
+    "runtimeToolsObservation",
+    "runtimeTools",
+    "argvTemplate",
+    "cwd",
+    "environment",
+    "laneLog"
+  ],
+  "grantRuntimeTools": {
+    "node": {
+      "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+      "bytes": 115440320,
+      "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+    },
+    "typescript": {
+      "bytes": 9112572,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/lib/typescript.js",
+      "sha256": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675"
+    }
+  },
+  "sourceRoles": {
+    "sourcePins": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/SOURCE-PINS.json",
+      "bytes": 4114,
+      "sha256": "9976469fd0db93e77eea6842f28572493d02aded92b0924f984785f48f1d2938"
+    },
+    "sourceReview": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-independent-source-review-20261009-r3/RECEIPT.json",
+      "bytes": 15506,
+      "sha256": "0bf5c4456471f1efee11f552e7cbb0f79f2c6a27ea5949f4acb41f8395521419"
+    },
+    "config": {
+      "bytes": 5198,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/CONFIG.json",
+      "sha256": "83bce1b4b19f7b9f6ae3c75fc33b5960aa21738891e4add3aa4941c45aaac631"
+    },
+    "recipe": {
+      "bytes": 5676,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/RECIPE.json",
+      "sha256": "b88b6919d468225f4772a758eb98af4c6935310962bc13d10911180295a47bea"
+    }
+  },
+  "sourceAdoptionContract": {
+    "schema": "1370-root-r3-ordering-controls-source-adoption/v1",
+    "status": "ROOT_ADOPTED_PURE_ORDERING_CONTROLS_SOURCE_ONLY",
+    "executionAuthorization": false,
+    "sourcePins": "Exact controls manifest role",
+    "sourceReview": "Exact independent controls receipt",
+    "parentAdapterSourcePins": "Exact parent manifest role",
+    "parentAdapterSourceReview": "Genuine independent parent receipt"
+  },
+  "runtimeToolsObservation": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-RUNTIME-TOOLS.json",
+    "bytes": 5401,
+    "sha256": "a681efc4a9b29dfc62bffb6c1e7cd434107bfb1064769f712fca48227bd64106"
+  },
+  "rootPreparation": "Root exclusively creates fresh physical parent0700 and external GRANT.json. Root supplies genuine parent review and source adoption roles, exact argvTemplate with EXTERNAL_GRANT_SHA256 placeholder (no grant self-hash); parent resolves the actual grant SHA into its launch claim and exec argv, and once-only lane authority after current exclusive-lane release. Parent authenticates all manifest payloads, strict roles/JSON, held source/review aliases, actual tool observation and fresh physical hashes. Parent creates only exclusive claim; original helper owns lane lock/log/meta.",
+  "observedAcceptance": "Requires actual helper/recorder/worker exits, exact2 positive+16 specifically intended consumer assertions, retained report and streams/overrides, measured actual helperPID/PGID/SID and recorder-owned child identities with separately scoped fresh absence. Any loader/tool/unknown error or override is STOP. Helper combined warning stays separate from worker stderr.",
+  "excludedClaims": [
+    "Fixture/game qualification",
+    "Meaningful typed-catch-mutant RED",
+    "Private M0 preservation",
+    "Types/collection acceptance",
+    "R3 source promotion",
+    "Actual control outcomes before root execution"
+  ],
+  "requiredSourceUnchanged": "Accepted ordering worker, recorder, candidate, helper, case packet and compiler source are referenced and never edited by this parent.",
+  "notes": "Pure finite synthetic consumer controls. No Git command, protected tree inventory, fixture loader or private copy read is invoked.",
+  "grantArgvTemplate": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/ordering.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/record-ordering-controls.py",
+    "verification",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/GRANT.json",
+    "EXTERNAL_GRANT_SHA256"
+  ]
+}

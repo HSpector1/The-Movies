@@ -1,0 +1,80 @@
+{
+  "autoBlockPreservedByteExact": true,
+  "autoBlockSha256": "39c20c726e9779c2f8ba73dd37ba55476302ac7b17040bf3d5e487f5c7268a4d",
+  "draftOnly": true,
+  "executionAuthorization": false,
+  "gitMutation": false,
+  "inputs": [
+    {
+      "bytes": 11256,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/HANDOFF.md",
+      "sha256": "b2784da6a3a1378a919734fe892fc00841861f47b79687446b41f6273ba8d292"
+    },
+    {
+      "bytes": 15855,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LESSONS-r7.md",
+      "sha256": "5028e95ec064db8771654feaacd236a0bf88ec3795f87948bae67c1adccc6c2a"
+    },
+    {
+      "bytes": 8126,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/DISPOSABLE-METADATA-PAIR-OBSERVED-ADOPTION.json",
+      "sha256": "9badcf90e1e70153c5a51a9cf27ec3be1e889304188750b573bea422b33c5c01"
+    },
+    {
+      "bytes": 4446,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-POST-R6-PRESERVATION-DIAGNOSTIC-OBSERVED-ADOPTION.json",
+      "sha256": "5b5e062b8c5ac12bc70aa5ccb46ad101340ad692cdf0147ea44890882c0f44e1"
+    },
+    {
+      "bytes": 4076,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-R1-DISK-STOP-OBSERVED-ADOPTION.json",
+      "sha256": "5d1976a6e498101a028cd3b2e371b1cb1bef2986c3446df15c5670a649972612"
+    },
+    {
+      "bytes": 5170,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+      "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+    },
+    {
+      "bytes": 2697,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/ORDERING-CONTROLS-OBSERVED-ADOPTION.json",
+      "sha256": "c0e9fb42d0f9f855e095c56c5e2b9a06ed7df3347c65b64173ee76ace931f414"
+    },
+    {
+      "bytes": 4134,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json",
+      "sha256": "57661966ff99c6ae2a0441a3c85187969745b1f30ee0f2051a3314dd94e38163"
+    },
+    {
+      "bytes": 1622,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-approved-vscode-cache-cleanup-20261009-r1/RESULT.json",
+      "sha256": "1bcf5bfa467b2003a4160b6425991984bc4809b0a0c2fad37b2943a85a5eb1d3"
+    },
+    {
+      "bytes": 12176,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-independent-observed-review-20261010-r1/RECEIPT.json",
+      "sha256": "0634f1b2c7cbc1efd7aca7eaea0fa35d200e69e6818c7e91b44403e9599cb661"
+    }
+  ],
+  "pending": [
+    "Parser actual controls and observed admission",
+    "Root final fullfunction currentProtection binding and separate grant",
+    "Real fixtures/catch-mutant/fullfunction outcome/neutral416",
+    "Final lessons newer thanr7",
+    "AN finite archive/admission/publication/current-ref readback"
+  ],
+  "productionWrites": false,
+  "prospectiveArchivePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-an-m0-preservation-and-types-closure",
+  "prospectiveReportPath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AN-m0-preservation-and-types-closure.md",
+  "rootFinalizerInstruction": "Retain original drafts, reconcile genuine later measurements and final lessons, repair prospective links against actual archive, then independently review final report/HANDOFF/archive. No future pass is implied.",
+  "schema": "1370-an-checkpoint-documentation-draft-inputs/v1",
+  "utc": "2026-10-10T05:15:40.237649+00:00",
+  "verifiedDraftBoundary": [
+    "Disposable9bad",
+    "Current M0 preservation5b5e",
+    "Protected disk STOP5d197/authorized cache cleanup",
+    "Successful R3 typesbe632/indaa9b/sharedpost0700",
+    "Pure18c0e9",
+    "Shared fullfunction prelaunch86072/0634 only"
+  ]
+}

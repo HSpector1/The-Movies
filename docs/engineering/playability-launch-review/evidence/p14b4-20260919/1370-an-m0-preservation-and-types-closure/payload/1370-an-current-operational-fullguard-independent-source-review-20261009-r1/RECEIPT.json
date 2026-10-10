@@ -1,0 +1,121 @@
+{
+  "admissionOrdering": "The exact existing parser authenticates scope status/head/source/docsOnly/current refs/no-waiver before original observed-copy admission and any copied-root read. Complete original inventories/private metadata/inode/source predicates remain mandatory at future runtime; none was executed in this source review.",
+  "authorityReview": {
+    "H8708Waived": false,
+    "actualOperationalHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+    "actualScanGrant": null,
+    "combinedHFirstRouteUnchanged": true,
+    "docsOnlyChangedPathCount": 1135,
+    "docsOnlyPathsNulSha256": "3d98d6c411ab4427695ca9b7bb6c0ea78691c8316a1c65554a2fd3e2981da1a1",
+    "executionAuthorization": false,
+    "gameGrant": null,
+    "m0RematerializationAuthorized": false,
+    "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "predecessorAL": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+    "publicationRoleAuthenticatesActualAMAndUnchangedSource": true,
+    "retainedFactsCleanAndAdvertisedRefsMatchConfig": true,
+    "scopeStatus": "PARENT_ADOPTED_A208_OPERATIONAL_GUARD_SCOPE_ONLY",
+    "sourceMutationAuthorized": false,
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+  },
+  "baselineChronology": "AM publication ended earlier production/common metadata continuity. Any genuine new first baseline must bind this confige0c7a2 and procedure9e2618 plus actual current roles. Original after/postflight gates require those exact config/procedure hashes and complete immutable equality to that new baseline. Prior AL snapshots stay historical; their baseline cannot satisfy these new bindings.",
+  "concreteFindings": [],
+  "currentOperationalFacts": {
+    "bytes": 1030,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/CURRENT-AM-OPERATIONAL-TRANSITION.json",
+    "sha256": "f52fe808f66e166541338295c676e4f61ec11bc6fa6bba237ff57e882440ceaa"
+  },
+  "currentOperationalScope": {
+    "bytes": 2905,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/CURRENT-AM-FULLGUARD-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "4538db926c027283d074c57193bb68c89b41bcf763ad35f9bbc623691e3572db"
+  },
+  "decision": "ACCEPT_CURRENT_AM_FULLGUARD_BINDINGS_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "historicalWordingQualification": "Original source docstrings/output claim retain historical A208/post-AL wording exactly. PROOF explicitly discloses that unchanged wording; new CONFIG and current root scope establish actual AM binding. A future observed report must name current AM/procedure/config roles and retain claim limits, without interpreting the historical wording as current unfilled authority or M0 admission.",
+  "majorLessons": [
+    "Publication changes current operational authority and metadata interval; rebind exact current config/scope and require a genuine fresh baseline without relabeling historical evidence.",
+    "Narrow configuration rebinding must preserve the whole original procedure/inventory/predicates and complete byte inverse.",
+    "Reusing the unchanged A208 protection parser for a M0 diagnostic is truthful only when its scope explicitly remains shared protection and adds no M0 preservation, type, scientific or runtime acceptance."
+  ],
+  "publishedReadback": {
+    "bytes": 1771,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+    "sha256": "a7ca327d2d4610704f426630d79343722fb92c19f3762dd521221d77a567479b"
+  },
+  "reviewedRoles": {
+    "BASE-CONFIG.json": {
+      "bytes": 3906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/BASE-CONFIG.json",
+      "sha256": "20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41"
+    },
+    "BASE-snapshot.py.txt": {
+      "bytes": 21984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/BASE-snapshot.py.txt",
+      "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+    },
+    "CONFIG.json": {
+      "bytes": 3928,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/CONFIG.json",
+      "sha256": "e0c7a2b839eaa1e0940665711c8e9b57af4f09738290ca5d15d828f01200b42e"
+    },
+    "PROOF.json": {
+      "bytes": 2086,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/PROOF.json",
+      "sha256": "c99421a42fd0729fd74223abd1bba34cb1af81bb8de4367601d4c65f32dc151c"
+    },
+    "forward.diff": {
+      "bytes": 570,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/forward.diff",
+      "sha256": "b86753999cabf3a1b63d3cb2a52692c54d61a46fd1ff8e99c92004159a2e49d8"
+    },
+    "inverse.diff": {
+      "bytes": 570,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/inverse.diff",
+      "sha256": "158c23a88fc9a72d5e075833c3da2d655121890e30bef60a126e3a1311bc3083"
+    },
+    "snapshot.py": {
+      "bytes": 21984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py",
+      "sha256": "9e2618b58849ccf0bc36512b20de16c23e49b2f08cdc6982ca9fe2fc20143047"
+    }
+  },
+  "schema": "1370-current-am-fullguard-independent-source-review/v1",
+  "sourceChecks": {
+    "all10NonMainHelpersAndEntireMainLogicUnchanged": true,
+    "allOtherConfigFieldsExact": true,
+    "allSevenNamedPayloadPinsExact": true,
+    "configChangedKeys": [
+      "operationalRemoteRefs",
+      "parentScopeAdoption",
+      "productionHead",
+      "status"
+    ],
+    "entireAstInverseExact": true,
+    "entireGuardByteInverseRestoresOriginal3cd553": true,
+    "noFdLockWorkerOrMetadataPredicateChange": true,
+    "original180SecondsPerCommandAndNoOverallDeadlineUnchanged": true,
+    "originalGuardAndInventoryPredicatesUnchanged": true,
+    "soleSourceChange": "CONFIG_SHA literal20c302 to e0c7a2"
+  },
+  "sourceOnlyLimits": {
+    "currentAMFullguardRunOrResultAccepted": false,
+    "game": false,
+    "gitOrProbePerformed": false,
+    "originalM0CauseAdmission": false,
+    "originalM0SourcePreservationAdmission": false,
+    "privateInventoryPerformed": false,
+    "runtimeGrantIssuedByReviewer": false,
+    "sourceImportedOrExecuted": false,
+    "strictProtectionWaived": false,
+    "timestampRestorationAllowed": false,
+    "typesAccepted": false
+  },
+  "sourcePins": {
+    "bytes": 2286,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "e638252b8082aa756f56471552327706a17dcf0e2d6bd01628710624ce7ec435"
+  },
+  "sourcePinsSha256": "e638252b8082aa756f56471552327706a17dcf0e2d6bd01628710624ce7ec435",
+  "truthfulScope": "Original A208 shared protection procedure reused for current M0 diagnostic/type-route protection only. The scope record explicitly preserves historical M0/R9 authority, known M0 metadata STOP and missing complete M0-after proofs. It does not assert a new M0 source preservation, type, collection, scientific or game result."
+}

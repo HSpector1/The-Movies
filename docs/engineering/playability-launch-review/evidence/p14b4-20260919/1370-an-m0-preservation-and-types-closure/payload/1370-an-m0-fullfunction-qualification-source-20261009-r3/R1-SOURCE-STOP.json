@@ -1,0 +1,29 @@
+{
+  "concreteFindings": [
+    {
+      "finding": "Successful sys.exit(main()) is caught by except BaseException, converting success into exit1.",
+      "foundBy": "Independent b109 source reviewer",
+      "repair": "Evaluate main in try and call sys.exit(code) outside it."
+    },
+    {
+      "finding": "Artifact role() read whole file before cap, no-follow and stable metadata checks.",
+      "foundBy": "Author reread",
+      "repair": "Cap-first no-follow streamed hash and capped source reads."
+    },
+    {
+      "finding": "Output tree readdirSync enumerates complete directory before entry limit.",
+      "foundBy": "Author reread",
+      "repair": "Bounded opendirSync iteration with exact entry limit."
+    }
+  ],
+  "decision": "STOP_SOURCE_CONTROLLER_EXIT_AND_CAP_FIRST_CONTRACTS",
+  "executionAuthorization": false,
+  "originalR1Preserved": true,
+  "predecessor": {
+    "bytes": 6908,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "018e9614908a2697f7bd964c3ae4814915ab63b9b28d19235deb07f7cbfdb458"
+  },
+  "runtimeExecuted": false,
+  "schema": "1370-fullfunction-source-prelaunch-stop/v1"
+}

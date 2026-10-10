@@ -1,0 +1,46 @@
+--- PRELAUNCH-CONFIG-UNFILLED.json
++++ PRELAUNCH-CONFIG-UNFILLED.json
+@@ -1,8 +1,8 @@
+ {
+   "baseline": {
+-    "bytes": 8562268,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+-    "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
++    "bytes": 8833072,
++    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/SNAPSHOT.json",
++    "sha256": "0136b4370cca27ab9af635c16124283049eb394b3dbaa63c32a755973e9c3596"
+   },
+   "copyAdmission": {
+     "bytes": 3717,
+@@ -11,14 +11,14 @@
+   },
+   "executionAuthorization": false,
+   "guardConfig": {
+-    "bytes": 3906,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
+-    "sha256": "20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41"
++    "bytes": 3928,
++    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/CONFIG.json",
++    "sha256": "e0c7a2b839eaa1e0940665711c8e9b57af4f09738290ca5d15d828f01200b42e"
+   },
+   "guardSource": {
+     "bytes": 21984,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+-    "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
++    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py",
++    "sha256": "9e2618b58849ccf0bc36512b20de16c23e49b2f08cdc6982ca9fe2fc20143047"
+   },
+   "materializerBinding": {
+     "bytes": 4295,
+@@ -43,10 +43,6 @@
+   "outputPath": null,
+   "ownedPgids": null,
+   "protectedFreezeContinues": true,
+-  "protectedSnapshot": {
+-    "bytes": 8568780,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4/SNAPSHOT.json",
+-    "sha256": "6922608bdeedd86e289aeac3c56c297e257b6eb98964e0fe00b95def5dc51e1d"
+-  },
++  "protectedSnapshot": null,
+   "schema": "1370-root-m0-original-current-root-prelaunch-config/v1"
+ }

@@ -1,0 +1,11 @@
+--- R8/run-fullfunction.mjs
++++ R9/run-fullfunction.mjs
+@@ -5,7 +5,7 @@
+ import {spawn} from 'node:child_process';
+ import {fileURLToPath} from 'node:url';
+ const HERE=path.dirname(fileURLToPath(import.meta.url));
+-const CONFIG_SHA='7dd64bf16908076887593eac1843f05d205426ba97897e42cc7a479b938187a6';
++const CONFIG_SHA='bc07641ef731c7d1fa2ebef4b171c61796064d9bbec8a1314e7a2721e9c168ea';
+ const need=(v,m)=>{if(!v)throw Error('STOP_'+m)};
+ const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+ import {equal,parseExact} from 'file:///Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs';

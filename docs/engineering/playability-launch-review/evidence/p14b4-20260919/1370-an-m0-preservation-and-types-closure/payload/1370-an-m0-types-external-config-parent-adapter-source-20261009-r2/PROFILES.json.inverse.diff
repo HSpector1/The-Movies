@@ -1,0 +1,227 @@
+--- PROFILES.json
++++ BASELINE-R1-PROFILES.json
+@@ -1,112 +1,112 @@
+-{
+-  "proof": {
+-    "config": {
+-      "bytes": 29945,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/CONFIG.json",
+-      "sha256": "17ac5abcd1e26c83fcd8d3794bd0c6356cd9f141416e01974cdd34f510b72bb5"
+-    },
+-    "contextSchema": "1370-current-m0-proof-execution-context/v1",
+-    "executableRoles": {
+-      "BOOTSTRAP.py": {
+-        "bytes": 2731,
+-        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/BOOTSTRAP.py",
+-        "sha256": "53c9330d960da3dc8e562bd87ca89a8e1c2f5992010b9a35eb7ca3f3963e438c"
+-      },
+-      "LAUNCH.py": {
+-        "bytes": 6875,
+-        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/LAUNCH.py",
+-        "sha256": "57b660767095cc9a03fb1c1acbff741557b9b2487780b1cfa030ea09dbf131c9"
+-      },
+-      "check-deps.mjs": {
+-        "bytes": 1918,
+-        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/check-deps.mjs",
+-        "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+-      },
+-      "runner.py": {
+-        "bytes": 34856,
+-        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/runner.py",
+-        "sha256": "d32007ecb462d6a535432959317e1851d09d37cb0fa96897fa3dcc213c45b05c"
+-      },
+-      "supervise.py": {
+-        "bytes": 13751,
+-        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/supervise.py",
+-        "sha256": "d38761d46cfa3980b7556313fce52fda662b8d479d0e6cb0b252227193670645"
+-      }
+-    },
+-    "grantSchema": "1370-root-current-m0-proof-execution-grant/v1",
+-    "grantScope": "READONLY_CURRENT_M0_SOURCE_DEPENDENCY_PROOF_ONLY",
+-    "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-current-proof-20261009-m0-current-proof-after-al-r2.lane.log",
+-    "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+-    "packagePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2",
+-    "parentPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-proof-parent-recorded-after-al-20261009-r2",
+-    "recorderResult": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-recorder-results-after-al-20261009-r2/20261009-m0-current-proof-after-al-r2.RECORDER-RESULT.json",
+-    "resultRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-results-after-al-20261009-r2",
+-    "runId": "20261009-m0-current-proof-after-al-r2",
+-    "sourcePins": {
+-      "bytes": 11146,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/SOURCE-PINS.json",
+-      "sha256": "0dbae918dad76dd85350d5804f0eaee131c4cce18543ea2bb6fb716a06068926"
+-    },
+-    "sourceReviewDecision": "ACCEPT_STATIC_CURRENT_M0_SOURCE_DEPENDENCY_PROOF_SOURCE_ONLY"
+-  },
+-  "types": {
+-    "config": {
+-      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r2/CONFIG.json",
+-      "bytes": 32807,
+-      "sha256": "6907995db2e8b89a1c801e0426011cabd651fddf2d40309f9fe7d1ae94d73aa8"
+-    },
+-    "contextSchema": "1370-m0-types-execution-context/v1",
+-    "executableRoles": {
+-      "BOOTSTRAP.py": {
+-        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r2/BOOTSTRAP.py",
+-        "bytes": 2721,
+-        "sha256": "9ee6f99e0e27544653ffe69bb2f5c916150d94deb7c35e1f49963a444dd4b42a"
+-      },
+-      "LAUNCH.py": {
+-        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r2/LAUNCH.py",
+-        "bytes": 9125,
+-        "sha256": "422a8eadb542f3fb34b834dabd4cb1945d31c7ee928b46cd6908b28aca9f71ca"
+-      },
+-      "check-deps.mjs": {
+-        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r2/check-deps.mjs",
+-        "bytes": 1918,
+-        "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+-      },
+-      "runner.py": {
+-        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r2/runner.py",
+-        "bytes": 43951,
+-        "sha256": "f3ce5bc03f44e1de41237eb0a5a68f17130b78aa5c9129286780dbc9f8f895d0"
+-      },
+-      "supervise.py": {
+-        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r2/supervise.py",
+-        "bytes": 13716,
+-        "sha256": "c8a8205123469986975979595e4711292f11643e0f896b5ff79239e31f4ad269"
+-      },
+-      "ROOT-CONFIG-TEMPLATE.mts": {
+-        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r2/ROOT-CONFIG-TEMPLATE.mts",
+-        "bytes": 460,
+-        "sha256": "580ef6c30c0d8106dd111ca67f2e49cb2ec9a2681f26f743cc75398b6ca441a3"
+-      },
+-      "WORKSPACE-CONFIG-TEMPLATE.mts": {
+-        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r2/WORKSPACE-CONFIG-TEMPLATE.mts",
+-        "bytes": 2163,
+-        "sha256": "dffb1ea1d1aeab91bbfbbf3e219f25ae64dd66d8bff31cd545f09a46643e70fd"
+-      }
+-    },
+-    "grantSchema": "1370-root-m0-types-execution-grant/v1",
+-    "grantScope": "M0_FOUR_COMMAND_TYPES_AND_DIAGNOSTIC_COLLECTION_ONLY",
+-    "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-external-after-an-r2.lane.log",
+-    "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+-    "packagePath": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r2",
+-    "parentPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r2",
+-    "recorderResult": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-recorder-results-20261009-r2/20261009-m0-types-external-after-an-r2.RECORDER-RESULT.json",
+-    "resultRoot": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r2",
+-    "runId": "20261009-m0-types-external-after-an-r2",
+-    "sourcePins": {
+-      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r2/SOURCE-PINS.json",
+-      "bytes": 14851,
+-      "sha256": "c9c642f03ecfe95b0b4b9126801aac2753b2c561fd17936b1cb82a451d2d2593"
+-    },
+-    "sourceReviewDecision": "ACCEPT_STATIC_M0_TYPES_COLLECTION_SOURCE_ONLY"
+-  }
+-}
++{
++  "proof": {
++    "config": {
++      "bytes": 29945,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/CONFIG.json",
++      "sha256": "17ac5abcd1e26c83fcd8d3794bd0c6356cd9f141416e01974cdd34f510b72bb5"
++    },
++    "contextSchema": "1370-current-m0-proof-execution-context/v1",
++    "executableRoles": {
++      "BOOTSTRAP.py": {
++        "bytes": 2731,
++        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/BOOTSTRAP.py",
++        "sha256": "53c9330d960da3dc8e562bd87ca89a8e1c2f5992010b9a35eb7ca3f3963e438c"
++      },
++      "LAUNCH.py": {
++        "bytes": 6875,
++        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/LAUNCH.py",
++        "sha256": "57b660767095cc9a03fb1c1acbff741557b9b2487780b1cfa030ea09dbf131c9"
++      },
++      "check-deps.mjs": {
++        "bytes": 1918,
++        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/check-deps.mjs",
++        "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
++      },
++      "runner.py": {
++        "bytes": 34856,
++        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/runner.py",
++        "sha256": "d32007ecb462d6a535432959317e1851d09d37cb0fa96897fa3dcc213c45b05c"
++      },
++      "supervise.py": {
++        "bytes": 13751,
++        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/supervise.py",
++        "sha256": "d38761d46cfa3980b7556313fce52fda662b8d479d0e6cb0b252227193670645"
++      }
++    },
++    "grantSchema": "1370-root-current-m0-proof-execution-grant/v1",
++    "grantScope": "READONLY_CURRENT_M0_SOURCE_DEPENDENCY_PROOF_ONLY",
++    "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-current-proof-20261009-m0-current-proof-after-al-r2.lane.log",
++    "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
++    "packagePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2",
++    "parentPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-proof-parent-recorded-after-al-20261009-r2",
++    "recorderResult": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-recorder-results-after-al-20261009-r2/20261009-m0-current-proof-after-al-r2.RECORDER-RESULT.json",
++    "resultRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-results-after-al-20261009-r2",
++    "runId": "20261009-m0-current-proof-after-al-r2",
++    "sourcePins": {
++      "bytes": 11146,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/SOURCE-PINS.json",
++      "sha256": "0dbae918dad76dd85350d5804f0eaee131c4cce18543ea2bb6fb716a06068926"
++    },
++    "sourceReviewDecision": "ACCEPT_STATIC_CURRENT_M0_SOURCE_DEPENDENCY_PROOF_SOURCE_ONLY"
++  },
++  "types": {
++    "config": {
++      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/CONFIG.json",
++      "bytes": 32807,
++      "sha256": "224b8f1614208215cb07993fc4b015d8438413e95b805c7360105bee0575b154"
++    },
++    "contextSchema": "1370-m0-types-execution-context/v1",
++    "executableRoles": {
++      "BOOTSTRAP.py": {
++        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BOOTSTRAP.py",
++        "bytes": 2721,
++        "sha256": "8e4af6c0f9d92167ab1768368a443403abdded854c9eedc039c378285b86422a"
++      },
++      "LAUNCH.py": {
++        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/LAUNCH.py",
++        "bytes": 9125,
++        "sha256": "6f2d9628bcf753a382232eaf5e2ffaaec2f73c17969ed54d804c23fac8a8310b"
++      },
++      "check-deps.mjs": {
++        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/check-deps.mjs",
++        "bytes": 1918,
++        "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
++      },
++      "runner.py": {
++        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/runner.py",
++        "bytes": 43951,
++        "sha256": "8fd2ad12b9d7751b486687df2d4887831254501f5866795bcb4d16ae7e38e466"
++      },
++      "supervise.py": {
++        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/supervise.py",
++        "bytes": 13716,
++        "sha256": "339ae9263f60b5f554826e5919add321940c07440d31b33ed67020354a4e6eb0"
++      },
++      "ROOT-CONFIG-TEMPLATE.mts": {
++        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/ROOT-CONFIG-TEMPLATE.mts",
++        "bytes": 460,
++        "sha256": "a593f1e4366309b0b68cc08610a42c9d26f6f28285434121a02f88c46300a384"
++      },
++      "WORKSPACE-CONFIG-TEMPLATE.mts": {
++        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/WORKSPACE-CONFIG-TEMPLATE.mts",
++        "bytes": 2163,
++        "sha256": "e47ce2329889e0f690af0eeb318461eee38ecf5d8346b4fd0ef2aac99ca0e814"
++      }
++    },
++    "grantSchema": "1370-root-m0-types-execution-grant/v1",
++    "grantScope": "M0_FOUR_COMMAND_TYPES_AND_DIAGNOSTIC_COLLECTION_ONLY",
++    "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-external-after-an-r1.lane.log",
++    "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
++    "packagePath": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1",
++    "parentPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r1",
++    "recorderResult": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-recorder-results-20261009-r1/20261009-m0-types-external-after-an-r1.RECORDER-RESULT.json",
++    "resultRoot": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r1",
++    "runId": "20261009-m0-types-external-after-an-r1",
++    "sourcePins": {
++      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/SOURCE-PINS.json",
++      "bytes": 14126,
++      "sha256": "cabe9f492a2f67091e4b6aefa6051536773fdc4014256d072728932f7b52d53f"
++    },
++    "sourceReviewDecision": "ACCEPT_STATIC_M0_TYPES_COLLECTION_SOURCE_ONLY"
++  }
++}

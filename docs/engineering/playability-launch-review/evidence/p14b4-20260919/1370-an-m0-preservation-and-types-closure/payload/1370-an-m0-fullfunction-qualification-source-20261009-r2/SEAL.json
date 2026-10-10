@@ -1,0 +1,11 @@
+{
+  "executionAuthorization": false,
+  "payloadFiles": 34,
+  "runtimeExecuted": false,
+  "schema": "1370-fullfunction-qualification-source-seal/v1",
+  "sourcePins": {
+    "bytes": 9816,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "6af108f92bd7446d18cc2bba79faff7ad1618cc60db15e6ac49dd36e9f49339b"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "candidateImported": false,
+  "privateInventory": false,
+  "roles": {
+    "BASELINE-R1-PROFILES.json": {
+      "bytes": 6780,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/BASELINE-R1-PROFILES.json",
+      "sha256": "b2758d0e15403b7448dfe6ae9f7394b52e504aebfaace09c9e6f43141c9a1a5c"
+    },
+    "BASELINE-R1-fill-grant-exec.py": {
+      "bytes": 14054,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/BASELINE-R1-fill-grant-exec.py",
+      "sha256": "06ef36769f3f2918c0cec46d08022bfafb5328ce4159f3d4deb8003c1d99e99f"
+    },
+    "CURRENT-TYPES-PROTECTION-UNFILLED.json": {
+      "bytes": 1185,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/CURRENT-TYPES-PROTECTION-UNFILLED.json",
+      "sha256": "14cc3fad42abb314cf593ee1caebb4e88b3b8f752b326aca116a73b379339ad9"
+    },
+    "LESSONS.md": {
+      "bytes": 737,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/LESSONS.md",
+      "sha256": "24a4251599c39ba1238a4f7dd652abc6624ef541d7574bc303107d1a331132a3"
+    },
+    "PROFILES.json": {
+      "bytes": 6780,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/PROFILES.json",
+      "sha256": "2a2ee5c622894529b54bc24edd6b72002f3c7703a47215ee983a6450b0d0eab9"
+    },
+    "PROFILES.json.forward.diff": {
+      "bytes": 13852,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/PROFILES.json.forward.diff",
+      "sha256": "eba2a61f623a404f069035f449aee7798fca846a7fa2a488ba8408d609a6b0dd"
+    },
+    "PROFILES.json.inverse.diff": {
+      "bytes": 13852,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/PROFILES.json.inverse.diff",
+      "sha256": "5cafb4cabf596fc12606f9f5008f85f24ce322ab9004f92effaf88264340d58d"
+    },
+    "R2-SOURCE-MANIFEST-STOP.json": {
+      "bytes": 1010,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/R2-SOURCE-MANIFEST-STOP.json",
+      "sha256": "77af1ffd4b0742e1c7e0971c5c47bf7198a14348ca1195166f7e9d984e21309f"
+    },
+    "RECIPE.json": {
+      "bytes": 11010,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/RECIPE.json",
+      "sha256": "b8c12be7667ffbe75d41939551f352be129ff55bd7ed295f5c49fdf60ee5ac65"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 3883,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/SOURCE-PROOF.json",
+      "sha256": "32bf7d33bc905ae79cab3c981911e8f92e9fe4350bc6ddf0ad4f6a0487a2b970"
+    },
+    "TYPES-SPEC-UNFILLED.json": {
+      "bytes": 243,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/TYPES-SPEC-UNFILLED.json",
+      "sha256": "9ae8c89184a1f6f066698208ac9592de7334b1dfb50103b180e6c1d087b20c54"
+    },
+    "fill-grant-exec.py": {
+      "bytes": 14054,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/fill-grant-exec.py",
+      "sha256": "c41b8e0eb917175cb2fdcc1885ddfa0d9e63ae0e46753e2a857b5984cdcb5bd8"
+    },
+    "fill-grant-exec.py.forward.diff": {
+      "bytes": 28476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/fill-grant-exec.py.forward.diff",
+      "sha256": "58bc3b3a472b6e209bed4c484b97186e33d3767faef358aa2f390dc5d2d8d1ea"
+    },
+    "fill-grant-exec.py.inverse.diff": {
+      "bytes": 28476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/fill-grant-exec.py.inverse.diff",
+      "sha256": "77f00e9a881ae964cfd9f76464c50b8dd177d6926945f61e2870f24d8fb16479"
+    }
+  },
+  "schema": "1370-finite-retained-source-bytes-readback/v1"
+}

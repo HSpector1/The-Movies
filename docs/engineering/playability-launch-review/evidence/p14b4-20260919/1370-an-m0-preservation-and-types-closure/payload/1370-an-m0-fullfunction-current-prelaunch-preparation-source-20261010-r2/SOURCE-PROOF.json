@@ -1,0 +1,139 @@
+{
+  "baseManifest": {
+    "bytes": 3273,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "753704a28f8e044181f9d722201ce09a4b475170a1f4ba95f3beb05c4fd1cece"
+  },
+  "compileOnlySyntaxWarningError": true,
+  "executionAuthorization": false,
+  "functions": {
+    "launcher": [
+      {
+        "byteExact": true,
+        "bytes": 229,
+        "name": "role",
+        "sha256": "81c86b57cb1cd1f8a6738135674740771668b5e044ced6e8018ce626d8089ef5"
+      },
+      {
+        "byteExact": true,
+        "bytes": 90,
+        "name": "check",
+        "sha256": "63554af215e8852b8021bc803bde14577230a234ed5d544700eaf2641213b18a"
+      },
+      {
+        "byteExact": true,
+        "bytes": 151,
+        "name": "put",
+        "sha256": "8a546251be9c88fe7c35f1850427198c0e2370c41a930f42e19898faefeb084b"
+      }
+    ],
+    "reader": [
+      {
+        "byteExact": true,
+        "bytes": 209,
+        "name": "role",
+        "sha256": "f45e9c8a8b7cd0ff6e6bec0d9d47bcf8c618e934495e3b0ab328b2c6a4780d67"
+      },
+      {
+        "byteExact": true,
+        "bytes": 151,
+        "name": "put",
+        "sha256": "8a546251be9c88fe7c35f1850427198c0e2370c41a930f42e19898faefeb084b"
+      }
+    ]
+  },
+  "noCandidateExecution": true,
+  "schema": "1370-fullfunction-retry-current-prelaunch-source-proof/v1",
+  "sourceChanges": {
+    "launcher": [
+      {
+        "after": "1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r2",
+        "before": "1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261009-r1",
+        "occurrences": 1
+      },
+      {
+        "after": "1370-an-m0-fullfunction-current-prelaunch-output-20261010-r2",
+        "before": "1370-an-m0-fullfunction-current-prelaunch-output-20261009-r1",
+        "occurrences": 1
+      },
+      {
+        "after": "M0-FULLFUNCTION-RETRY-CURRENT-PRELAUNCH-CONFIG.json",
+        "before": "M0-FULLFUNCTION-CURRENT-PRELAUNCH-CONFIG.json",
+        "occurrences": 1
+      },
+      {
+        "after": "len(sys.argv)==9",
+        "before": "len(sys.argv)==5",
+        "occurrences": 1
+      },
+      {
+        "after": "typespost=post\nlatestrole,latest=check(sys.argv[5],sys.argv[6]);stoprole,stop=check(sys.argv[7],sys.argv[8])\nassert stop['schema']=='1370-root-fullfunction-protected-stop-observed-adoption/v1' and stop['status']=='ROOT_ADOPTED_FULLFUNCTION_WRONG_MIRROR_SUBJECT_STOP_WITH_FULL_SHARED_POSTFLIGHT'\nassert stop['originalAttemptRemainsStop'] is True and stop['fullSharedPostflightAccepted'] is True and stop['soleLaneReleased'] is True and stop['executionAuthorization'] is False and stop['game'] is False\nassert stop['currentTypesAdoption']==typesrole and stop['fullPostflightReadback']==latestrole and stop['fullPostflightSnapshot']==latest['fullPostflightSnapshot'] and stop['readback']==latest['actualRouteReadback']\nfor key in ('independentObservedReview','readback','fullPostflightReadback','fullPostflightSnapshot','currentTypesAdoption'):assert role(stop[key]['path'])==stop[key]\nprior=json.loads(Path(stop['readback']['path']).read_bytes())\nassert prior['status']=='ACTUAL_STOP_WRONG_CONTAINER_ARGUMENT_AT_FIRST_LEAF_METADATA_GATE' and prior['completed'] is True and prior['toolExit']==2 and prior['actualGameplayPrefixExecuted'] is False and prior['nodePid'] is None and prior['sourceAfter'] is None and prior['dependencyAfter'] is None\nassert latest['schema']=='1370-an-fullfunction-shared-fullpostflight-readback/v1' and latest['toolExit']==0 and latest['fullImmutableEqual'] is True and latest['nineStrictRootsEqual'] is True and latest['scratchIdentityOnlyEqual'] is True and latest['laneReleased'] is True and latest['priorStopPreserved'] is True\nfor key in ('fullPostflightSnapshot','baseline','guardSource','guardConfig','guardSourcePins','actualRouteReadback'):assert role(latest[key]['path'])==latest[key]\nsnapshot=json.loads(Path(latest['fullPostflightSnapshot']['path']).read_bytes());baseline=json.loads(Path(latest['baseline']['path']).read_bytes())\nassert latest['baseline']['sha256']=='0136b4370cca27ab9af635c16124283049eb394b3dbaa63c32a755973e9c3596' and snapshot['immutable']==baseline['immutable']\nassert latest['actualOwnedGroupIds'] and all(type(n) is int and n>1 for n in latest['actualOwnedGroupIds']) and len(set(latest['actualOwnedGroupIds']))==len(latest['actualOwnedGroupIds'])\npost=latest\npr,preReview=check(S/'1370-an-m0-types-current-root-prelaunch-independent-source-review-20261009-r1/RECEIPT.json'",
+        "before": "pr,preReview=check(S/'1370-an-m0-types-current-root-prelaunch-independent-source-review-20261009-r1/RECEIPT.json'",
+        "occurrences": 1
+      },
+      {
+        "after": "config['ownedPgids']=post['actualOwnedGroupIds']",
+        "before": "config['ownedPgids']=post['actualOwnedIds']",
+        "occurrences": 1
+      },
+      {
+        "after": "'successfulTypesAndFullPostflightAuthority':True,'typesFullPostflightSnapshot':types['fullPostflightSnapshot'],'latestSharedFullPostflightSnapshot':post['fullPostflightSnapshot'],'latestSharedFullPostflightReadback':latestrole,'reviewedPriorStopAdoption':stoprole,'originalAttemptRemainsStop':True}",
+        "before": "'successfulTypesAndFullPostflightAuthority':True}",
+        "occurrences": 1
+      }
+    ],
+    "reader": [
+      {
+        "after": "1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r2",
+        "before": "1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261009-r1",
+        "occurrences": 1
+      },
+      {
+        "after": "1370-an-m0-fullfunction-current-prelaunch-output-20261010-r2",
+        "before": "1370-an-m0-fullfunction-current-prelaunch-output-20261009-r1",
+        "occurrences": 1
+      },
+      {
+        "after": "M0-FULLFUNCTION-RETRY-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json",
+        "before": "M0-FULLFUNCTION-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json",
+        "occurrences": 1
+      },
+      {
+        "after": "len(sys.argv)==7",
+        "before": "len(sys.argv)==3",
+        "occurrences": 1
+      },
+      {
+        "after": "sys.argv[1:3]);actual_session,actual_scanner=map(int,sys.argv[1:3])",
+        "before": "sys.argv[1:]);actual_session,actual_scanner=map(int,sys.argv[1:])",
+        "occurrences": 1
+      },
+      {
+        "after": "latestrole=role(sys.argv[3]);assert latestrole['sha256']==sys.argv[4];latest=json.loads(Path(latestrole['path']).read_bytes())\nstoprole=role(sys.argv[5]);assert stoprole['sha256']==sys.argv[6];stop=json.loads(Path(stoprole['path']).read_bytes())\nassert g['latestSharedFullPostflightReadback']==latestrole and g['reviewedPriorStopAdoption']==stoprole and stop['currentTypesAdoption']==g['typesObservedAdoption']\nassert stop['schema']=='1370-root-fullfunction-protected-stop-observed-adoption/v1' and stop['status']=='ROOT_ADOPTED_FULLFUNCTION_WRONG_MIRROR_SUBJECT_STOP_WITH_FULL_SHARED_POSTFLIGHT' and stop['fullPostflightReadback']==latestrole and stop['fullPostflightSnapshot']==latest['fullPostflightSnapshot'] and stop['readback']==latest['actualRouteReadback']\nassert stop['originalAttemptRemainsStop'] is True and stop['fullSharedPostflightAccepted'] is True and stop['soleLaneReleased'] is True and stop['executionAuthorization'] is False and stop['game'] is False\nfor key in ('independentObservedReview','readback','fullPostflightReadback','fullPostflightSnapshot','currentTypesAdoption'):assert role(stop[key]['path'])==stop[key]\nassert latest['toolExit']==0 and latest['fullImmutableEqual'] is True and latest['laneReleased'] is True and latest['priorStopPreserved'] is True\nassert g['typesFullPostflightSnapshot']==authority['fullPostflightSnapshot'] and g['latestSharedFullPostflightSnapshot']==latest['fullPostflightSnapshot'] and g['originalAttemptRemainsStop'] is True\nconfig=json.loads(Path(g['config']['path']).read_bytes())",
+        "before": "config=json.loads(Path(g['config']['path']).read_bytes())",
+        "occurrences": 1
+      },
+      {
+        "after": "config['protectedSnapshot']==latest['fullPostflightSnapshot']",
+        "before": "config['protectedSnapshot']==authority['fullPostflightSnapshot']",
+        "occurrences": 1
+      },
+      {
+        "after": "==latest['actualOwnedGroupIds']",
+        "before": "==[16743,17014,17258,31386]",
+        "occurrences": 2
+      },
+      {
+        "after": "v['protectedSnapshot']==latest['fullPostflightSnapshot']",
+        "before": "v['protectedSnapshot']['sha256']=='0700ce99c57f33956c3fb1b5f26d3c6e28e6e323551fb1f6f084db2f9c370dff'",
+        "occurrences": 1
+      },
+      {
+        "after": "'typesObservedAdoption':g['typesObservedAdoption'],'fullPostflightSnapshot':authority['fullPostflightSnapshot'],'latestSharedFullPostflightSnapshot':v['protectedSnapshot'],'latestSharedFullPostflightReadback':latestrole,'reviewedPriorStopAdoption':stoprole,'originalAttemptRemainsStop':True}",
+        "before": "'typesObservedAdoption':g['typesObservedAdoption']}",
+        "occurrences": 1
+      }
+    ]
+  },
+  "wholeInversesRecoverAcceptedR1": true
+}

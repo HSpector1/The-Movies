@@ -1,0 +1,20 @@
+{
+  "actualRuntimeExecuted": false,
+  "extraEndKey": "firstOverflow",
+  "losslessRestorationVerified": true,
+  "originalCapsAndFatalPredicateUnchanged": true,
+  "originalControlsTemplate": {
+    "bytes": 9487,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/FULL-BODY-CONTROLS-TEMPLATE.ts",
+    "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+  },
+  "originalProbe": {
+    "bytes": 2457,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/m0WiringProbe.ts",
+    "sha256": "3a3d75e5d849a94e14806239566bc72ca10af497bca71925a6f59d7db5714a85"
+  },
+  "wholeForwardInversePairs": [
+    "m0WiringProbe.ts",
+    "full-body-controls.ts"
+  ]
+}

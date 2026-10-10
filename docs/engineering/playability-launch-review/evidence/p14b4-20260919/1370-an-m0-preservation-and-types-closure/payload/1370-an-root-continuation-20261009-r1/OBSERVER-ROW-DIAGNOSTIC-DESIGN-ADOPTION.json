@@ -1,0 +1,39 @@
+{
+  "authorReceipt": {
+    "bytes": 2816,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-observer-row-diagnostic-design-20261010-r1/RECEIPT.json",
+    "sha256": "b58c7b8f9330a833c3d7315bbad4ceadbf9b8b7e64c0a0e7257f5ffb9a18c7fe"
+  },
+  "design": {
+    "bytes": 6551,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-observer-row-diagnostic-design-20261010-r1/DESIGN.md",
+    "sha256": "cafbcdf5b12bff61c3cf1d1bef2b30a6cf9cff768c32a2cf90bf93f18ff0a74f"
+  },
+  "executionAuthorization": false,
+  "futureSpecificControls": [
+    "GREEN authoritative16384 rowaccepted plus unchangednonoverflow row/context/order/occurrence parity. RED16385originalexactrowbyteError andsameobjectpropagation; count513/totaloverflow retainoriginalspecificrefusals ratherthanarbitrarycatchRED.",
+    "Compare reconstructionbytes with realauthoritative serialization forUnicode/escapedquotes/newline and nonzero sequence+sameidentityoccurrence; preserveexactidentity differences forcase/proposaloccurrences and candidate/submitted/survivor ordinals.",
+    "REDinputTuple andassessment firstfail; assessmentfamily only from actualprecedingsamecontextinputTuple, unavailable ifnone. No guessedfamily orcontextmigration.",
+    "Swallowedfirstfailure stillrefusescompletion; diagnosticserializer/emitterfailure cannotturn refusal intopass or replaceoriginalerror; repeatedfailure retainsfirstonly; reset/snapshot ownership controls.",
+    "No realgame baseline/mutant acceptance frompurediagnosticcontrols. Actualnewroute remainsSTOPwithmetadata untila separatelyreviewedlawfulrepair and fulloriginalqualification pass."
+  ],
+  "game": false,
+  "implementationAccepted": false,
+  "implementationReviewCriteria": [
+    "Bound diagnostic to4096 UTF8bytes includingnewline/framing usedbyemitter. Firstfailureonly; no rawtuple/payload. Bound canonicalparse explicitly beforeparse (e.g existing65536 helperexpandedrow ceiling); larger/missing/malformed evidence yieldsunavailable whilepreservingSTOP. Existing sink.rows copy is bounded512/2MiB; no repeated/unbounded reconstruction cache.",
+    "Freeze originalcontextreference using actualcapture.context; count sameidentity occurrence in exactactualretainedrows; never inferordinal0/probecounter. Existingdetail/context serialize only asrequired forbytecount/components; guard diagnosticexceptions separately so sameoriginalError stillwins.",
+    "Before anypotentialdiagnosticthrow setstickyoperationalrefusal; arm checks it afterreturnedcall. OriginalError instance/name/message/stack mustpropagate when gameplay broadcatch swallows it; never relabel as intentionalM0ObserverError or ERR_ASSERTION mutantRED.",
+    "Onlyexisting perarm resetclears diagnosticstate; immutable emitteddiagnostic survives laterreset/begin; successfulcapture produces noextraoutput and exactsinkrows unchanged."
+  ],
+  "independentDesignReview": {
+    "bytes": 6763,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-observer-row-diagnostic-independent-design-review-20261010-r1/RECEIPT.json",
+    "sha256": "49255bea728ec37f5ae30e0819c2bc1acf598dfb986f2ef4868b64ce81a8335e"
+  },
+  "limitsChanged": false,
+  "schema": "1370-root-observer-row-diagnostic-design-adoption/v1",
+  "scope": "Prepare independent specific RED controls and the exact public wrapper/fullbody diagnostic. Preserve original authoritative witness predicate, same Error, first-only sticky STOP and 4096-byte emitted diagnostic. No private observer, fixture, gameplay or cap changes. Actual row metadata and any repair remain pending. Fresh postpublication operational authority required before runtime.",
+  "sourceOnly": true,
+  "sourcePreparationAuthorized": true,
+  "status": "ROOT_ADOPTED_BOUNDED_FIRST_REFUSED_OBSERVER_ROW_DIAGNOSTIC_DESIGN_ONLY"
+}

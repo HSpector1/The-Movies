@@ -1,0 +1,26 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "LESSONS.txt": {
+      "bytes": 463,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-root-readback-source-20261010-r1/LESSONS.txt",
+      "sha256": "30f7370bfba9175cfe37a0f4efd8baf9be3e2694e00fe0f73065b68c48bcc7d6"
+    },
+    "RECIPE.json": {
+      "bytes": 932,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-root-readback-source-20261010-r1/RECIPE.json",
+      "sha256": "8876df3df3ff9bbf587587debdd783d1282152bcdc2d4f09c0d435028ed5d76e"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 1248,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-root-readback-source-20261010-r1/SOURCE-PROOF.json",
+      "sha256": "c368e732ecf34c4d6cb3945d35470b976faacfc3cfde9780db34079bf3e16ac9"
+    },
+    "read-fullfunction.py": {
+      "bytes": 12357,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-root-readback-source-20261010-r1/read-fullfunction.py",
+      "sha256": "fb660a270df060ff72234099f4148c317f33df31f658b5f42354e78f2edd8909"
+    }
+  },
+  "schema": "1370-fullfunction-root-readback-source-pins/v1"
+}

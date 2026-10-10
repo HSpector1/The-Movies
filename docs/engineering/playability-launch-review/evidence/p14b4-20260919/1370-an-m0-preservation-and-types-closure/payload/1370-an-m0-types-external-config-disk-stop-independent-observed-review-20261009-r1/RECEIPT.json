@@ -1,0 +1,437 @@
+{
+  "actualResult": {
+    "bytes": 14206,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r1/20261009-m0-types-external-after-an-r1/RESULT.json",
+    "sha256": "b725d97e93fd0344d96b30e304246df447c39d517ef26d734aa42cb527767637"
+  },
+  "actualTool": {
+    "bytes": 1051,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r1/ACTUAL-TOOL.json",
+    "sha256": "32d00c125b6443556b90920bb90006ad8c9be03c27cc7813a5a0a951a4ff7548"
+  },
+  "attribution": [
+    "The exact authenticated runner traceback identifies source_step disk-floor refusal during the root compiler pipe pump. The same3GiB floor also prevents its after-boundary and complete final proof collection. This is a runtime disk-floor STOP, not timeout or an observed completed compiler verdict.",
+    "Only the dependency child completed exit0. No root compiler exit is recorded; zero-byte retained compiler stdout/stderr do not prove compilation success or failure. UI compiler and diagnostic collection were not executed.",
+    "Full sourceBefore and dependencyBefore match genuine current protection5980 and root adoption5b5e. The dependency child root boundary is exact before/after; the root compiler after-boundary and both complete after-proof objects are absent. Their absence remains a preservation nonacceptance.",
+    "Original AM shared fullpostflight97939 completed0 with empty stderr and exact complete JSON. Its entire immutable map equals before-fill0136, all nine strict roots match and scratch parent physical identity remains exact under the original informational timestamp policy. This verifies shared protected scope; it does not manufacture an M0 source/dependency after-proof or admit types.",
+    "Parent recorded all three attempt IDs absent before fullpostflight and all four attempt/scanner IDs absent after it, eight scoped PID/PGID ESRCH checks and lane absence. Scope is limited to these actual IDs.",
+    "Four fullpostflight machine PS/FD roles are exact local hash/size-only records, linked to snapshot/PINS/current facts. No raw contents are read or reproduced.",
+    "Post-stop free-space/swap observations and authorized cache cleanup explain restored headroom as recorded facts. They do not trace swap growth during compilation or prove which allocation caused the original shortfall.",
+    "Original R6 metadata STOP, original H13 STOP, historical-root-unchanged false and all unrun phases remain preserved."
+  ],
+  "claims": {
+    "H13StopWaived": false,
+    "failedR1CollectionAccepted": false,
+    "failedR1M0AfterPreservationAccepted": false,
+    "failedR1TypesAccepted": false,
+    "fullSharedProtectedPostflightAccepted": true,
+    "gameAccepted": false,
+    "historicalRootUnchanged": false,
+    "operationalDiskFloorStopAdmitted": true,
+    "originalR6StopPreserved": true,
+    "retryExecutedOrAuthorizedByReview": false,
+    "swapGrowthCauseProven": false
+  },
+  "collectionAccepted": false,
+  "concreteFindings": [],
+  "conditionalRetryDirection": {
+    "candidateSourceAcceptedByThisReceipt": false,
+    "designAccepted": true,
+    "direction": "Fresh path/runId-only derivative of accepted executor cabe9 and parent f2f5; immutable failed R1 remains unchanged. Continue original current-AM protected freeze; bind genuine5b5e/5980 as EXPECTED qualified baseline, successful original fullpostc64cd and a fresh original current prelaunch.",
+    "executionAuthorization": false,
+    "mandatoryExecutorChecks": "Unchanged executor must perform complete fresh source/dependency proof equality before any compiler, then complete equal after-proofs for acceptance. Disk floors, original300/320/330 clocks, separateprep60, caps, owned cleanup and full scope remain unchanged.",
+    "noExtraDuplicateDiagnosticNeeded": "No concrete gap requires a second external M0 traversal in addition to the unchanged mandatory pre-command full proofs. The failed R1 is never labeled preserved or passed.",
+    "remainingConditions": [
+      "Exact fresh derivative source/hash review.",
+      "Genuine fresh current prelaunch and separate root once-only runtime grant.",
+      "Actual recorded type/collection execution and required complete after-proofs plus original mandatory full protected postflight and independent admission."
+    ]
+  },
+  "context": {
+    "bytes": 7626,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r1/EXECUTION-CONTEXT.json",
+    "sha256": "a090a3df274361c7cdfb0515b9d2eab099948b2ad76c2e633b9f3e7db64df813"
+  },
+  "currentProtection": {
+    "bytes": 3294,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-CURRENT-EXTERNAL-CONFIG-TYPES-PROTECTION.json",
+    "sha256": "5980e69d3e2962f068f10fa3217caa45f3ff752cc93a5064eb0637f54a2439d0"
+  },
+  "decision": "ACCEPT_OBSERVED_M0_EXTERNAL_CONFIG_TYPES_DISK_FLOOR_STOP_WITH_FULL_SHARED_POSTFLIGHT",
+  "dependencyAfter": null,
+  "dependencyAfterPreservationAccepted": false,
+  "dependencyBefore": {
+    "contentAndMetadataSha256": "a06e929a60a5ede6ce0d72467d4d587e50d1c4fa3788bee3d07f1ea3388cd21d",
+    "contentBytes": 348223802,
+    "entries": 12484,
+    "rootDevice": 16777220,
+    "rootIdentity": [
+      16777220,
+      158487026,
+      16877,
+      154,
+      4928,
+      1790738039503311431,
+      1790738039503311431
+    ],
+    "rootInode": 158487026
+  },
+  "executionAuthorization": false,
+  "fillResult": {
+    "bytes": 7345,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r1/FILL-RESULT.json",
+    "sha256": "bf24fe175d18f07831754867ad73b85242e8afa16a60af02727b8026814f782d"
+  },
+  "fullPostflightEvidence": {
+    "actualTool": {
+      "bytes": 1557,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-fullpostflight-parent-recorded-20261009-r1/ACTUAL-TOOL.json",
+      "sha256": "6290faf34bb6a6a8e053c25a82a457a4189806750391fc5e77392b987e495933"
+    },
+    "baseline": {
+      "bytes": 8833072,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/SNAPSHOT.json",
+      "sha256": "0136b4370cca27ab9af635c16124283049eb394b3dbaa63c32a755973e9c3596"
+    },
+    "grant": {
+      "bytes": 4878,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-fullpostflight-parent-recorded-20261009-r1/GRANT.json",
+      "sha256": "4e06f35f78c11ae3bdd9f4eba4d02cc65cbb8b5d4abf0d25ff0cb500f834e41a"
+    },
+    "guardConfig": {
+      "bytes": 3928,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/CONFIG.json",
+      "sha256": "e0c7a2b839eaa1e0940665711c8e9b57af4f09738290ca5d15d828f01200b42e"
+    },
+    "guardSource": {
+      "bytes": 21984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py",
+      "sha256": "9e2618b58849ccf0bc36512b20de16c23e49b2f08cdc6982ca9fe2fc20143047"
+    },
+    "guardSourcePins": {
+      "bytes": 2286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/SOURCE-PINS.json",
+      "sha256": "e638252b8082aa756f56471552327706a17dcf0e2d6bd01628710624ce7ec435"
+    },
+    "guardSourceReview": {
+      "bytes": 7200,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "8a8756307aeecff6e3d9f299a5d2db8014e81c9c7dd5ade42f1f53514ba8ad45"
+    },
+    "rawLocalOnlyClassification": {
+      "bytes": 1525,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-fullpostflight-parent-recorded-20261009-r1/RAW-LOCAL-ONLY-CLASSIFICATION.json",
+      "sha256": "fa080f8ef6e8f056c179e4acd665e03133023048a15d853e1c05abda1c31ee65"
+    },
+    "snapshotPins": {
+      "bytes": 507,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r1/PINS.json",
+      "sha256": "a3220843dba814da63f19951a068e7000a1fd8ce2f9dc135e303faa249b277d9"
+    },
+    "stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-fullpostflight-parent-recorded-20261009-r1/postflight.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 466,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-fullpostflight-parent-recorded-20261009-r1/postflight.stdout",
+      "sha256": "79d2d6517217961181976d3c1b3c4e906c5540b0553b0020109b1dbd160c4cf0"
+    }
+  },
+  "fullPostflightReadback": {
+    "bytes": 4872,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-fullpostflight-parent-recorded-20261009-r1/READBACK.json",
+    "sha256": "1f3224082ef2321ce7199505ea8066556667f728e43956bc5af881d3e2dfcceb"
+  },
+  "fullPostflightSnapshot": {
+    "bytes": 8839199,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r1/SNAPSHOT.json",
+    "sha256": "c64cd51fcb90736dfbfb03fd89ed3bf75ca750ade12382963784577f8a36d9ef"
+  },
+  "fullProtectedSharedPostflightAccepted": true,
+  "game": false,
+  "grant": {
+    "bytes": 1111,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r1/EXECUTION-GRANT.json",
+    "sha256": "19c41c147acadc0e3c321d22144dfd42fd8c9be95dba490d5f40a5564f282a1e"
+  },
+  "historicalRootUnchanged": false,
+  "laneLog": {
+    "bytes": 1200,
+    "path": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-external-after-an-r1.lane.log",
+    "sha256": "775b08f8cc52258c1c74fea3515e253354a61d822fe90a14ba83459c347e01fa"
+  },
+  "laneMetadata": {
+    "bytes": 523,
+    "path": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-external-after-an-r1.lane.log.meta",
+    "sha256": "3f8820539454799c41194f4e38577d0330d664fcfa7672d6732d57ae2eb28c16"
+  },
+  "majorLessons": [
+    "Zero dependency exit does not imply a completed compiler or complete preservation after-proofs.",
+    "A runtime disk-floor failure can also block cleanup-phase evidence collection; keep missing after-proofs explicit.",
+    "A successful shared protection postflight does not replace missing full M0 content/dependency after-proofs.",
+    "Separate observed low disk/swap facts from an unmeasured allocation cause; restore headroom under existing authorization without weakening floors.",
+    "Retain failed attempts unchanged and use prior genuine proof as an expected baseline, checked afresh inside any new executor.",
+    "Preserve original clocks/caps, current-AM binding, historical root qualification and scoped/raw evidence limits."
+  ],
+  "observed": {
+    "allRecordedIds": [
+      24146,
+      24401,
+      24665,
+      33017
+    ],
+    "combinedPreparationRuntimeDeadline": null,
+    "commandsUnrun": [
+      "ui-tsc",
+      "diagnostic-collection"
+    ],
+    "completedChild": "dependency-versions",
+    "completedDependencyChildExit": 0,
+    "completedDependencyChildStderrBytes": 0,
+    "completedDependencyChildStdoutBytes": 1038,
+    "dependencyAfterProofAvailable": false,
+    "dependencyBeforeMatchesExpectedQualifiedProof": true,
+    "dependencyRootBoundaryBeforeAfterEqual": true,
+    "fullImmutableEqualFreshAMBaseline": true,
+    "fullPostflightInventorySeconds": 432.81269445701037,
+    "fullPostflightScopedAbsenceChecks": [
+      {
+        "id": 24146,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 24146,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 24401,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 24401,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 24665,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 24665,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 33017,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 33017,
+        "kind": "pgid",
+        "result": "ESRCH"
+      }
+    ],
+    "fullPostflightSeconds": 540.0023477810028,
+    "fullPostflightStderrBytes": 0,
+    "fullPostflightToolExit": 0,
+    "fullPostflightToolSessionId": 97939,
+    "laneReleased": true,
+    "nineStrictRootsEqual": true,
+    "outerHelperExit": 1,
+    "postflightError": "RuntimeError('3 GiB disk floor')",
+    "preparationSeconds": 1.687263643994811,
+    "rawContentsInspected": false,
+    "rawLocalOnlyBytes": 1529203,
+    "rawLocalOnlyRoles": [
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 96358,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r1/BEFORE-PS.txt",
+        "sha256": "4c08d90ad1b7dd6f0189eb3b1f1b81eaae60e9bfca5b273f6079beda46528704"
+      },
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 665700,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r1/BEFORE-LSOF.bin",
+        "sha256": "d4742efad765be897f9d376bc2cacfdd8134faf45af8a0e71323dd6a5822c1c6"
+      },
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 98714,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r1/AFTER-PS.txt",
+        "sha256": "fba2826227aa9c0dde02aaf848ffb62ca4ba4fd8aae57c0ad9cdb0839e4283fd"
+      },
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 668431,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r1/AFTER-LSOF.bin",
+        "sha256": "230e63f9d315d11f7d34b866145689ea6705dbe7321e429b7d23d9cb8292de49"
+      }
+    ],
+    "recorderExit": 1,
+    "recorderGroupClear": true,
+    "recorderSeconds": 84.288,
+    "rootCompilerAfterBoundary": null,
+    "rootCompilerBeforeBoundaryMatchesQualifiedRoot": true,
+    "rootCompilerCompletedExit": null,
+    "rootCompilerPhase": "pipe-pump",
+    "rootCompilerRetainedStderrBytes": 0,
+    "rootCompilerRetainedStdoutBytes": 0,
+    "runnerExit": 1,
+    "runnerSeconds": 81.284,
+    "runtimeBoundsSeconds": {
+      "active": 320,
+      "runner": 300,
+      "whole": 330
+    },
+    "runtimeError": "RuntimeError('3 GiB disk floor')",
+    "scratchPhysicalIdentityEqual": true,
+    "separatePreparationBoundSeconds": 60,
+    "sourceAfterProofAvailable": false,
+    "sourceBeforeMatchesExpectedQualifiedProof": true,
+    "typesRecordedIds": [
+      24146,
+      24401,
+      24665
+    ],
+    "typesScopedAbsenceChecks": [
+      {
+        "id": 24146,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 24146,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 24401,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 24401,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 24665,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 24665,
+        "kind": "pgid",
+        "result": "ESRCH"
+      }
+    ],
+    "typesToolExit": 1,
+    "typesToolSessionId": 55264
+  },
+  "operationalDiskEvidence": {
+    "approvedCacheCleanupResult": {
+      "bytes": 1622,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-approved-vscode-cache-cleanup-20261009-r1/RESULT.json",
+      "sha256": "1bcf5bfa467b2003a4160b6425991984bc4809b0a0c2fad37b2943a85a5eb1d3"
+    },
+    "initialPostStopObservations": {
+      "bytes": 2550,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/DISK-STOP-INITIAL-OBSERVATIONS.json",
+      "sha256": "1241958afd8efd6e76748283e4739328f0c6c0c5db53f7ba6ce2eb0ddf510260"
+    },
+    "scope": "Retained observations and recovery provenance only; no observed swap-growth or compiler-memory causal attribution, and no independent expansion of cleanup authorization."
+  },
+  "originalR6StopPreserved": true,
+  "parentSourcePins": {
+    "bytes": 7541,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "f2f5cf509f2fe221ca68998616b85b2f555265ddf81d10abd908de511e46a132"
+  },
+  "parentSourceReview": {
+    "bytes": 8891,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "bfab228a3860e008206c47c0fcac8b8232d1c91fb4b4f655077b090d2049864f"
+  },
+  "postR6RootAdoption": {
+    "bytes": 4446,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-POST-R6-PRESERVATION-DIAGNOSTIC-OBSERVED-ADOPTION.json",
+    "sha256": "5b5e062b8c5ac12bc70aa5ccb46ad101340ad692cdf0147ea44890882c0f44e1"
+  },
+  "prelaunchObservedAdoption": {
+    "bytes": 3797,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-TYPES-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "4c9fb9b7a7c807a39e772c6f49f23e3bdfd69d56286fc52617cac237fb1d6654"
+  },
+  "readback": {
+    "bytes": 9033,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r1/READBACK.json",
+    "sha256": "086b42e92ce198afe0dec08b16aa12af6519a4f867cd40ace596d642711278dc"
+  },
+  "recorderResult": {
+    "bytes": 892,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-recorder-results-20261009-r1/20261009-m0-types-external-after-an-r1.RECORDER-RESULT.json",
+    "sha256": "633b0938dfd37bfe35db8bb60b34ca166f6db08785b50bab53cca02498752085"
+  },
+  "result": {
+    "bytes": 14206,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r1/20261009-m0-types-external-after-an-r1/RESULT.json",
+    "sha256": "b725d97e93fd0344d96b30e304246df447c39d517ef26d734aa42cb527767637"
+  },
+  "reviewScope": "Independent finite retained actual/source/role and complete recorded-map review only; no runtime, source import, process probes, private original reads, dependency traversal, new inventory, Git or production writes.",
+  "rootLaneGrant": {
+    "bytes": 4598,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r1/ROOT-LANE-GRANT.json",
+    "sha256": "8e76abd014b193e296e9e3f63f48b5346f822ccc10401d057ae71ddeccca9acb"
+  },
+  "schema": "1370-m0-external-config-types-disk-floor-stop-independent-observed-review/v1",
+  "soleLaneReleased": true,
+  "sourceAfter": null,
+  "sourceAfterPreservationAccepted": false,
+  "sourceBefore": {
+    "dependencyLink": [
+      16777220,
+      166769275,
+      41408,
+      1,
+      62,
+      1791577446298712967,
+      1791577446298712967,
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    ],
+    "fileProofDigestSha256": "fbbfed3ec13da5618a0194204e2f6c8a87eebb5ee22102707d466340fbe6e1e0",
+    "historicalRootSubstitutedMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "mirrorBytes": 119393120,
+    "mirrorFiles": 1740,
+    "mirrorRootIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791600924862151724,
+      1791600924862151724
+    ],
+    "nonrootMetadataSha256": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
+    "physicalMetadataSha256": "12c3dd50b99860c1c4e56ee98488d5f04613b37c93496d0257cc560a4fb83038",
+    "traversedEntries": 1853
+  },
+  "sourcePins": {
+    "bytes": 14126,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "cabe9f492a2f67091e4b6aefa6051536773fdc4014256d072728932f7b52d53f"
+  },
+  "sourceReview": {
+    "bytes": 20234,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "fcb639f515966761dcf3dd7442b38a8da84c96f4dd0c0905b07bcaa8b0303c1f"
+  },
+  "typesAccepted": false
+}

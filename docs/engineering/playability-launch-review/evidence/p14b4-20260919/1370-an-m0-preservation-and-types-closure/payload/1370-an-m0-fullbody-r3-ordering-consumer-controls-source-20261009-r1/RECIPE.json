@@ -1,0 +1,125 @@
+{
+  "actualRecordedRoute": null,
+  "actualResult": null,
+  "actualRootGrant": null,
+  "actualTools": null,
+  "argv": [
+    "ACTUAL_PINNED_NODE22_PHYSICAL_PATH",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r1/run-ordering-controls.mjs",
+    "ACTUAL_EXTERNAL_ROOT_GRANT_PATH",
+    "ACTUAL_GRANT_SHA256"
+  ],
+  "bounds": {
+    "active": 320,
+    "childStreamBytes": 8388608,
+    "compiledModuleBytes": 131072,
+    "resultBytes": 131072,
+    "runner": 300,
+    "whole": 330
+  },
+  "cases": [
+    {
+      "assertion": null,
+      "expected": "GREEN",
+      "id": "author-two-issuers-schema-GREEN"
+    },
+    {
+      "assertion": null,
+      "expected": "GREEN",
+      "id": "freeze-complete-prefix-failure-suffix-GREEN"
+    },
+    {
+      "assertion": "evaluated and skipped candidates preserve full order",
+      "expected": "RED",
+      "id": "candidate-other-issuer-grouping-RED"
+    },
+    {
+      "assertion": "every actual evaluation binds an authenticated source-array projection",
+      "expected": "RED",
+      "id": "candidate-context-issuer-correlation-RED"
+    },
+    {
+      "assertion": "complete identity-bound freeze predicate order",
+      "expected": "RED",
+      "id": "freeze-missing-slot-RED"
+    },
+    {
+      "assertion": "complete identity-bound freeze predicate order",
+      "expected": "RED",
+      "id": "freeze-swapped-slots-RED"
+    },
+    {
+      "assertion": "complete identity-bound freeze predicate order",
+      "expected": "RED",
+      "id": "freeze-wrong-name-RED"
+    },
+    {
+      "assertion": "complete identity-bound freeze predicate order",
+      "expected": "RED",
+      "id": "freeze-wrong-ordinal-RED"
+    },
+    {
+      "assertion": "complete identity-bound freeze predicate order",
+      "expected": "RED",
+      "id": "freeze-wrong-occurrence-RED"
+    },
+    {
+      "assertion": "complete identity-bound freeze predicate order",
+      "expected": "RED",
+      "id": "freeze-wrong-issuer-RED"
+    },
+    {
+      "assertion": "freeze predicate FAILED slot agrees with drop",
+      "expected": "RED",
+      "id": "freeze-failure-slot-missing-RED"
+    },
+    {
+      "assertion": "freeze predicate FAILED slot agrees with drop",
+      "expected": "RED",
+      "id": "freeze-drop-disagrees-RED"
+    },
+    {
+      "assertion": "freeze predicate prefix status",
+      "expected": "RED",
+      "id": "freeze-early-unreached-RED"
+    },
+    {
+      "assertion": "freeze predicate suffix is NOT_REACHED",
+      "expected": "RED",
+      "id": "freeze-suffix-resumes-RED"
+    },
+    {
+      "assertion": "unreached predicate has no evaluated values",
+      "expected": "RED",
+      "id": "freeze-suffix-values-forged-RED"
+    },
+    {
+      "assertion": "freeze predicate FAILED slot agrees with drop",
+      "expected": "RED",
+      "id": "freeze-second-failure-RED"
+    },
+    {
+      "assertion": "freeze predicate prefix status",
+      "expected": "RED",
+      "id": "freeze-illegal-not-evaluated-prefix-RED"
+    },
+    {
+      "assertion": "freeze drop names an existing predicate",
+      "expected": "RED",
+      "id": "freeze-unknown-drop-RED"
+    }
+  ],
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "executionAuthorization": false,
+  "expectedTerminalStatus": "PURE_ORDERING_CONSUMER_18_CASES_COMPLETED_PENDING_OBSERVED_REVIEW",
+  "fixtureQualification": false,
+  "grantSchema": "1370-root-r3-ordering-controls-once-grant/v1",
+  "grantScope": "PURE_SYNTHETIC_ORDERING_CONSUMER_18_CASES_ONLY",
+  "loaderOrUnexpectedErrors": "Nonzero aggregate STOP, never specific negative acceptance.",
+  "oneAggregateRun": true,
+  "requiredRecordedRoute": "Original qualified300 runner/320 active/330 whole owner/recorder and8MiB streams. Worker is one pure controls child; root must bind exact actual tool/recorder/owned groups and cleanup, no three independent300s.",
+  "runtimeTools": "Exact observed physical Node22.23.2 and TypeScript5.8.3 compiler module path/bytes/SHA roles; compiler executes only at authorized runtime.",
+  "schema": "1370-r3-ordering-controls-source-recipe/v1",
+  "sourceReviewDecision": "ACCEPT_STATIC_R3_ORDERING_CONSUMER_CONTROLS_SOURCE_ONLY",
+  "sourceRoleAliases": "sourcePins and routeSourcePins filename role maps CONFIG.json/run-ordering-controls.mjs; manifest separate"
+}

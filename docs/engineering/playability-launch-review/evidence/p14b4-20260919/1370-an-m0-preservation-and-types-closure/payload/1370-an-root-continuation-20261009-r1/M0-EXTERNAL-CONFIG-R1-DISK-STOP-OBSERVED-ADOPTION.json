@@ -1,0 +1,65 @@
+{
+  "collectionAccepted": false,
+  "conditionalRetryDirection": {
+    "candidateSourceAcceptedByThisReceipt": false,
+    "designAccepted": true,
+    "direction": "Fresh path/runId-only derivative of accepted executor cabe9 and parent f2f5; immutable failed R1 remains unchanged. Continue original current-AM protected freeze; bind genuine5b5e/5980 as EXPECTED qualified baseline, successful original fullpostc64cd and a fresh original current prelaunch.",
+    "executionAuthorization": false,
+    "mandatoryExecutorChecks": "Unchanged executor must perform complete fresh source/dependency proof equality before any compiler, then complete equal after-proofs for acceptance. Disk floors, original300/320/330 clocks, separateprep60, caps, owned cleanup and full scope remain unchanged.",
+    "noExtraDuplicateDiagnosticNeeded": "No concrete gap requires a second external M0 traversal in addition to the unchanged mandatory pre-command full proofs. The failed R1 is never labeled preserved or passed.",
+    "remainingConditions": [
+      "Exact fresh derivative source/hash review.",
+      "Genuine fresh current prelaunch and separate root once-only runtime grant.",
+      "Actual recorded type/collection execution and required complete after-proofs plus original mandatory full protected postflight and independent admission."
+    ]
+  },
+  "currentProtection": {
+    "bytes": 3294,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-CURRENT-EXTERNAL-CONFIG-TYPES-PROTECTION.json",
+    "sha256": "5980e69d3e2962f068f10fa3217caa45f3ff752cc93a5064eb0637f54a2439d0"
+  },
+  "dependencyAfterAvailable": false,
+  "executionAuthorization": false,
+  "fullPostflightReadback": {
+    "bytes": 4872,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-fullpostflight-parent-recorded-20261009-r1/READBACK.json",
+    "sha256": "1f3224082ef2321ce7199505ea8066556667f728e43956bc5af881d3e2dfcceb"
+  },
+  "fullPostflightSnapshot": {
+    "bytes": 8839199,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r1/SNAPSHOT.json",
+    "sha256": "c64cd51fcb90736dfbfb03fd89ed3bf75ca750ade12382963784577f8a36d9ef"
+  },
+  "fullProtectedSharedPostflightAccepted": true,
+  "game": false,
+  "historicalRootUnchanged": false,
+  "independentObservedReview": {
+    "bytes": 20548,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-disk-stop-independent-observed-review-20261009-r1/RECEIPT.json",
+    "sha256": "02efc14545ff32b9dd54420cb8ff08dd49c4b984c904ea8f2793d30b5f8c2fc0"
+  },
+  "originalAttemptRemainsStop": true,
+  "originalR6StopPreserved": true,
+  "postR6RootAdoption": {
+    "bytes": 4446,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-POST-R6-PRESERVATION-DIAGNOSTIC-OBSERVED-ADOPTION.json",
+    "sha256": "5b5e062b8c5ac12bc70aa5ccb46ad101340ad692cdf0147ea44890882c0f44e1"
+  },
+  "protectedFreezeContinues": true,
+  "readback": {
+    "bytes": 9033,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r1/READBACK.json",
+    "sha256": "086b42e92ce198afe0dec08b16aa12af6519a4f867cd40ace596d642711278dc"
+  },
+  "result": {
+    "bytes": 14206,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r1/20261009-m0-types-external-after-an-r1/RESULT.json",
+    "sha256": "b725d97e93fd0344d96b30e304246df447c39d517ef26d734aa42cb527767637"
+  },
+  "schema": "1370-root-m0-external-config-types-disk-stop-observed-adoption/v1",
+  "scope": "Protected operational failure only. Exact expected baseline remains authority for unchanged fresh pre-command verification on separately reviewed fresh route; no failed-attempt after-proof or compiler outcome is invented.",
+  "soleLaneReleased": true,
+  "sourceAfterAvailable": false,
+  "status": "ROOT_ADOPTED_M0_EXTERNAL_CONFIG_R1_DISK_FLOOR_STOP_WITH_FULL_SHARED_POSTFLIGHT",
+  "typesAccepted": false
+}

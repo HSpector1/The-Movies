@@ -1,0 +1,51 @@
+{
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_PURE_LOSSLESS_TRACE_CONTROLS_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "limits": [
+    "Source-only library acceptance; actual compiler/tool/source review/worker/grant/result/cleanup remain genuine future roles.",
+    "No Node imports, codec execution, public tests, private inventory or gameplay performed by this reviewer.",
+    "Specific public codec refusal expectations must be confirmed by recorded controls on pinned actual Node.",
+    "No natural-fixture compression-fit or actual qualification claim.",
+    "No independent acceptance of my own candidate codec is implied; cleanup independently reviews candidate implementation."
+  ],
+  "reviewScope": [
+    "All four payload hashes/bytes verified against exact manifest.",
+    "Static library/code contract/matrix reviewed;48 exact cases9GREEN39specificRED include original18 ordering cases.",
+    "Controls call actual public probe and semantic pair API, not a separate fake comparator.",
+    "Every operational negative requires TraceOperationalError exact code; semantic negatives require built-in AssertionError and pinned specific label; unknown/premise/loader errors escape.",
+    "Codec-option premises are outside injected failure catches.",
+    "Actual unchanged original ordering packet is an external authenticated input; migrated helper applies original edits before codec envelope wrapping outside intended-negative assertion.",
+    "Positive expanded-sum>old2MiB control exercises the explicit amended storage predicate and exact streamed row roundtrip.",
+    "Snapshot lifetime/reset/caller mutation, exact row/logical limits, actual compression/frame accounting, decompression API refusal, corruption/trailing/canonical-frame and sticky operational errors covered."
+  ],
+  "runtimePerformed": false,
+  "schema": "1370-lossless-trace-independent-controls-source-review/v1",
+  "sourceManifest": {
+    "bytes": 1304,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "c57c38cf2167323cfa659154f0570992459a826e339f532067126802f24c4fb3"
+  },
+  "sourcePins": {
+    "CONTRACT.json": {
+      "bytes": 4779,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r1/CONTRACT.json",
+      "sha256": "1e6fb49278d26affcfd2a3496afe5984028a32d2f1d8a2d8e306c3494e469f8e"
+    },
+    "LESSONS.txt": {
+      "bytes": 504,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r1/LESSONS.txt",
+      "sha256": "5d14c98b2e1defeb4af222bbc71c3129587db94a71845435c4c2246c6b32f7dc"
+    },
+    "MATRIX.json": {
+      "bytes": 7681,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r1/MATRIX.json",
+      "sha256": "ddb9abb30b36c82307e38b542401e2f37ac906e3dc3bba769206dfc5e1a7bf1a"
+    },
+    "run-lossless-controls.mjs": {
+      "bytes": 15680,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r1/run-lossless-controls.mjs",
+      "sha256": "c21ac0a00c52d458c0d4e61fc2f93852707f5e1b0daaa0614a4795e7f74b84d5"
+    }
+  }
+}

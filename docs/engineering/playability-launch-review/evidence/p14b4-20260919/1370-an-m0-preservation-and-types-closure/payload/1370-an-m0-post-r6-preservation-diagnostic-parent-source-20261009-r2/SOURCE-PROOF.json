@@ -1,0 +1,54 @@
+{
+  "HOMEInherited": true,
+  "allFunctions": [
+    "prep_alarm",
+    "require",
+    "stamp",
+    "normalized",
+    "physical",
+    "read",
+    "digest",
+    "pin",
+    "durable",
+    "main"
+  ],
+  "astParsedOnly": true,
+  "baseFiller": {
+    "bytes": 11380,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2/fill-grant-exec.py",
+    "sha256": "6977c7a6d86c8cee8bc9f8af7d0647b4e4afa71cb8f88d3c9e252b2addd9b5f9"
+  },
+  "baseProfiles": {
+    "bytes": 6187,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2/PROFILES.json",
+    "sha256": "63b70fb7d08a73ad14ef7370dac4002348634ed7d08e5a822133c5791f1826d9"
+  },
+  "changedFunction": [
+    "main"
+  ],
+  "completeFillerInverseExact": true,
+  "delta": [
+    "AM current-head literal",
+    "one diagnostic proof profile",
+    "authenticate four external diagnostic roles and include them in acyclic context"
+  ],
+  "executorSourcePins": {
+    "bytes": 14200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "42611a6faecc6b13e7b8a18cfef210b06d7167bb3e2a23d08862db65c4531262"
+  },
+  "generatedSourcesExecuted": false,
+  "prep60AndRuntime300320330Preserved": true,
+  "schema": "1370-post-r6-diagnostic-parent-source-proof/v1",
+  "unchangedFunctions": [
+    "prep_alarm",
+    "require",
+    "stamp",
+    "normalized",
+    "physical",
+    "read",
+    "digest",
+    "pin",
+    "durable"
+  ]
+}

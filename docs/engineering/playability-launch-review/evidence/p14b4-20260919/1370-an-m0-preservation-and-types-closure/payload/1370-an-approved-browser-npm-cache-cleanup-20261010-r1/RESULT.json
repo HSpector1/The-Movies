@@ -1,0 +1,51 @@
+{
+  "afterFreeBytes": 5496209408,
+  "afterFreeBytesBeforeReopen": 5496213504,
+  "authorization": "Prior explicit user approvals for Google app cache, Chrome Service Worker CacheStorage, npm download cache, including briefly close/reopen Chrome. No new scope. Chrome normal quit separately completed0 after observed PID96707.",
+  "beforeFreeBytes": 5230362624,
+  "chromeMainAbsent": true,
+  "error": "[Errno 13] Permission denied: '/Users/zacheryspector/.npm/_cacache/content-v2/sha512/78/bb'",
+  "errorType": "PermissionError",
+  "projectEvidenceTouched": false,
+  "reopenChrome": {
+    "argv": [
+      "/usr/bin/open",
+      "-a",
+      "Google Chrome"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "roots": [
+    {
+      "allocatedBytesAfter": 0,
+      "allocatedBytesBefore": 192450560,
+      "childEntries": 1,
+      "completed": true,
+      "noOpenFiles": true,
+      "path": "/Users/zacheryspector/Library/Caches/Google",
+      "rootRetained": true
+    },
+    {
+      "allocatedBytesAfter": 0,
+      "allocatedBytesBefore": 69423104,
+      "childEntries": 8,
+      "completed": true,
+      "noOpenFiles": true,
+      "path": "/Users/zacheryspector/Library/Application Support/Google/Chrome/Default/Service Worker/CacheStorage",
+      "rootRetained": true
+    },
+    {
+      "allocatedBytesBefore": 65024000,
+      "childEntries": 3,
+      "completed": false,
+      "noOpenFiles": true,
+      "path": "/Users/zacheryspector/.npm/_cacache",
+      "rootRetained": true
+    }
+  ],
+  "schema": "1370-previously-authorized-cache-cleanup/v1",
+  "status": "STOP_CACHE_CLEANUP",
+  "utc": "2026-10-10T06:42:41.771424+00:00"
+}

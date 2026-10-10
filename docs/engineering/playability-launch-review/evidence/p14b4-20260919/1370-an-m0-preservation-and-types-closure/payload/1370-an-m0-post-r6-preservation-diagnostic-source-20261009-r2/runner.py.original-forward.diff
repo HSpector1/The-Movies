@@ -1,0 +1,152 @@
+--- original-BASE-runner.py
++++ runner.py
+@@ -3,12 +3,12 @@
+ import argparse, hashlib, json, math, os, pathlib, re, selectors, shutil, signal, stat, subprocess, sys, time, traceback
+ S=pathlib.Path('/Users/zacheryspector/studio-scratch')
+ REPO=pathlib.Path('/Users/zacheryspector/The-Movies-headless-program')
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2')
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2')
+ CONFIG_PATH=P/'CONFIG.json'
+-CONFIG_SHA='17ac5abcd1e26c83fcd8d3794bd0c6356cd9f141416e01974cdd34f510b72bb5'
+-OUT_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-results-after-al-20261009-r2')
++CONFIG_SHA='c40c0a34d07532d4690552318958029ec736d32283dcec59b0b33191bf82bc4c'
++OUT_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-results-20261009-r2')
+ MIRROR_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2')
+-CURRENT_HEAD='8cb704e2f18e6a635943893422c9cfdc206e106d'
++CURRENT_HEAD='7087f116cf998fd86e33fb8e004df628e0686dbd'
+ TREE='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554'
+ REF='refs/heads/wip/headless-program-20260916-ts'
+ MAIN_REF='refs/heads/main'
+@@ -458,7 +458,7 @@
+   try:
+    env={k:v for k,v in os.environ.items() if not k.startswith('GIT_')}
+    env.update({'PATH':str(pathlib.Path(NODE).parent)+':/usr/local/bin:/usr/bin:/bin',
+-               'HOME':str(out),'TMPDIR':str(out),'VITEST_CACHE_DIR':str(out/'vitest-cache')})
++               'TMPDIR':str(out),'VITEST_CACHE_DIR':str(out/'vitest-cache')})
+    if extra_env:
+     need(name=='diagnostic-collection' and set(extra_env)=={'PREIMAGE_OUTPUT'} and
+          extra_env['PREIMAGE_OUTPUT']==str(out/'preimage-output'),'unsafe child env override')
+@@ -559,7 +559,11 @@
+   def descend(fd,prefix):
+    nonlocal total,deps_link
+    before=fields(os.fstat(fd));dirrel=prefix[:-1] if prefix else '.'
+-   need(dirrel in directories and normalized(os.fstat(fd))==tuple(directories[dirrel]),'admitted directory metadata '+dirrel)
++   if dirrel=='.':
++    need(fields(os.fstat(fd))==tuple(CONFIG['knownRootDrift']['recordedAfterIdentity']),'exact recorded post-R6 root metadata')
++    need(tuple(directories['.'])==tuple(CONFIG['knownRootDrift']['historicalNormalizedIdentity']),'historical root metadata binding')
++   else:
++    need(dirrel in directories and normalized(os.fstat(fd))==tuple(directories[dirrel]),'admitted directory metadata '+dirrel)
+    seen_dirs.add(dirrel);metadata_rows[dirrel]=list(before)
+    for name in bounded_names(fd,state,CONFIG['entryCap'],run_id):
+     source_step(run_id)
+@@ -602,7 +606,12 @@
+        deps_link is not None and state['entries']==CONFIG['entryCap'],'M0 complete roster/count/bytes/link')
+   need(fields(os.fstat(rootfd))==root_before,'mirror root mutation');verify_dir_chain(mirror,held)
+   meta=b''.join(json.dumps([k,metadata_rows[k]],separators=(',',':')).encode()+b'\n' for k in sorted(metadata_rows,key=lambda x:x.encode()))
++  historical_rows=dict(metadata_rows);historical_rows['.']=CONFIG['knownRootDrift']['recordedBeforeIdentity']
++  historical_meta=b''.join(json.dumps([k,historical_rows[k]],separators=(',',':')).encode()+b'\n' for k in sorted(historical_rows,key=lambda x:x.encode()))
++  nonroot_meta=b''.join(json.dumps([k,metadata_rows[k]],separators=(',',':')).encode()+b'\n' for k in sorted(metadata_rows,key=lambda x:x.encode()) if k!='.')
++  need(sha(historical_meta)==CONFIG['knownRootDrift']['historicalMetadataSha256'] and sha(nonroot_meta)==CONFIG['knownRootDrift']['nonrootMetadataSha256'],'complete historical remainder metadata')
+   return {'fileProofDigestSha256':canonical_proof(proof_rows),'physicalMetadataSha256':sha(meta),
++          'historicalRootSubstitutedMetadataSha256':sha(historical_meta),'nonrootMetadataSha256':sha(nonroot_meta),
+           'mirrorFiles':len(proof_rows),'mirrorBytes':total,'dependencyLink':list(deps_link),'traversedEntries':state['entries'],'mirrorRootIdentity':list(root_before)}
+  finally:close_chain(held)
+ def load_m0_authorities():
+@@ -651,6 +660,55 @@
+    need(len(raw)==row['bytes'] and normalized(os.stat(p.name,dir_fd=held[-1],follow_symlinks=False))==tuple(row['identity']),'dependency package role drift '+path)
+    verify_dir_chain(p.parent,held)
+   finally:close_chain(held)
++def diagnostic_role(r,cap=128*1024,parse_json=True):
++ need(type(r) is dict and set(r)=={'path','bytes','sha256'} and type(r['bytes']) is int and 0<r['bytes']<=cap,'diagnostic evidence role schema')
++ raw=read_pin(pathlib.Path(r['path']),r['sha256'],cap);need(len(raw)==r['bytes'],'diagnostic evidence role size')
++ return json.loads(raw) if parse_json else raw
++
++def validate_diagnostic_inputs():
++ evidence=CONFIG['diagnosticEvidence'];known=CONFIG['knownRootDrift']
++ result=diagnostic_role(evidence['r6Result']);rb=diagnostic_role(evidence['r6Readback']);review=diagnostic_role(evidence['r6ObservedReview']);adoption=diagnostic_role(evidence['r6RootStopAdoption'])
++ need(result['status']=='STOP_POSTFLIGHT_UNVERIFIED' and 'sourceAfter' not in result and 'nodeModulesAfter' not in result,'original R6 STOP and missing after proofs')
++ boundary=result['rootChildBoundaries'][3]
++ need(boundary['name']=='diagnostic-collection' and boundary['before']['identity']==known['recordedBeforeIdentity'] and boundary['after']['identity']==known['recordedAfterIdentity'] and boundary['before']['entries']==boundary['after']['entries'] and boundary['before']['rosterSha256']==boundary['after']['rosterSha256']==known['rosterSha256'],'exact R6 recorded root drift')
++ need(known['recordedBeforeIdentity'][:5]==known['recordedAfterIdentity'][:5] and known['recordedBeforeIdentity'][5:]!=known['recordedAfterIdentity'][5:],'only known root timestamps')
++ need(rb['typesResult']==evidence['r6Result'] and rb['sourceAfterAvailable'] is False and rb['dependencyAfterAvailable'] is False,'actual R6 readback')
++ need(review['decision']=='ACCEPT_OBSERVED_STOP_M0_TYPES_ROOT_METADATA_DRIFT_WITH_SHARED_FULL_POSTFLIGHT' and review['result']==evidence['r6Result'] and review['typesAccepted'] is False and review['m0SourcePreservationAccepted'] is False,'independent original STOP')
++ need(adoption['status']=='ROOT_ADOPTED_OBSERVED_STOP_M0_TYPES_ROOT_METADATA_DRIFT_WITH_SHARED_FULL_POSTFLIGHT' and adoption['actualTypesResult']==evidence['r6Result'] and adoption['independentObservedReview']==evidence['r6ObservedReview'] and adoption['typesAccepted'] is False and adoption['m0SourcePreservationAccepted'] is False,'root original STOP')
++ need(M0_FACTS['directories']['.']==known['historicalNormalizedIdentity'],'authentic historical dot identity')
++ historic=list(known['historicalNormalizedIdentity']);historic[2]|=stat.S_IFDIR
++ need(historic==known['recordedBeforeIdentity'],'historical raw dot equals recorded before')
++ inputs=AUTHORITY['diagnosticInputs']
++ need(type(inputs) is dict and set(inputs)=={'controlsObservedReview','controlsRootAdoption','currentAMFullPreflight','currentAMFullPreflightAdoption'},'external diagnostic prerequisites')
++ controls_review=diagnostic_role(inputs['controlsObservedReview']);controls_adoption=diagnostic_role(inputs['controlsRootAdoption'])
++ need(controls_review['decision']=='ACCEPT_ACTUAL_DISPOSABLE_METADATA_PAIR_ONLY' and controls_review['concreteFindings']==[] and controls_review['executionAuthorization'] is False,'observed disposable pair independent review')
++ need(controls_adoption['status']=='ROOT_ADOPTED_ACTUAL_DISPOSABLE_METADATA_PAIR_ONLY' and controls_adoption['independentObservedReview']==inputs['controlsObservedReview'],'root observed disposable pair adoption')
++ outcome=diagnostic_role(controls_adoption['outcome']);summary=diagnostic_role(controls_adoption['consumerSummary']);tool=diagnostic_role(controls_adoption['consumerActualTool'])
++ need(outcome['status']=='ACTUAL_DISPOSABLE_METADATA_CONTROLS_COMPLETED' and outcome['oneAggregateRun'] is True and outcome['automaticRetry'] is False and all(type(v) is int and v==0 for v in outcome['actualExits'].values()) and set(outcome['actualExits'])=={'tool','helper','recorder','controller','RED','GREEN'},'actual six disposable exits')
++ need(summary['decision']=='ACCEPT_ACTUAL_DISPOSABLE_PAIR_ONLY' and summary['outcomePath']==controls_adoption['outcome']['path'] and summary['outcomeSha256']==controls_adoption['outcome']['sha256'] and summary['redMetadataChanged'] is True and summary['greenFullFixtureMetadataStable'] is True and summary['sameRawCollectedTestIdentity'] is True and summary['originalM0CauseAdmission'] is False and summary['originalM0SourcePreservationAdmission'] is False,'actual disposable consumer scope')
++ need(type(tool['actualTool']['exit_code']) is int and tool['actualTool']['exit_code']==0 and tool['stdoutSummary']==summary,'actual disposable consumer terminal tool and retained summary')
++ guard_adoption=diagnostic_role(inputs['currentAMFullPreflightAdoption']);snapshot=diagnostic_role(inputs['currentAMFullPreflight'],16*1024*1024)
++ need(guard_adoption['status']=='ROOT_ADOPTED_CURRENT_AM_FULL_PREFLIGHT' and guard_adoption['productionHead']==CURRENT_HEAD and guard_adoption['productionSourceTree']==TREE and guard_adoption['freshFullInventory'] is True and guard_adoption['snapshot']==inputs['currentAMFullPreflight'],'fresh current AM full protection adoption')
++ need(guard_adoption['sourcePins']==evidence['currentAMGuardSourcePins'],'reviewed AM guard source pins')
++ guard_pins=diagnostic_role(evidence['currentAMGuardSourcePins'])
++ need(guard_adoption['guardSource']==guard_pins['files']['snapshot.py'] and guard_adoption['config']==guard_pins['files']['CONFIG.json'],'exact original guard AM-only binding')
++ diagnostic_role(guard_adoption['guardSource'],parse_json=False);guard_config=diagnostic_role(guard_adoption['config']);old_config=diagnostic_role(evidence['historicalSharedGuardConfig'])
++ actual_guard_tool=diagnostic_role(guard_adoption['actualTool']);ownership=diagnostic_role(guard_adoption['postOwnership']);raw_roles=diagnostic_role(guard_adoption['rawLocalOnlyClassification'])
++ need(type(actual_guard_tool['finalExit']) is int and actual_guard_tool['finalExit']==0 and ownership['heavyLaneLockAbsent'] is True and all(r['result']=='ESRCH' for r in ownership['checks']),'actual full preflight and scanner clearance')
++ need(len(raw_roles['roles'])==4 and all(r['archiveDisposition']=='LOCAL_HASH_SIZE_ONLY' for r in raw_roles['roles']),'full preflight raw local-only classification')
++ allowed={'productionHead','operationalRemoteRefs','parentScopeAdoption','status','declaredWitnessScratchChildren','sourceReviewSha256','sourcePinsSha256'}
++ need(set(guard_config)==set(old_config) and all(guard_config[k]==v for k,v in old_config.items() if k not in allowed),'original full guard config protections')
++ need(guard_config['productionHead']==CURRENT_HEAD and guard_config['productionSourceTree']==TREE and guard_config['operationalRemoteRefs']=={REF:CURRENT_HEAD,MAIN_REF:MAIN_OID} and all(k in guard_config['declaredWitnessScratchChildren'] for k in old_config['declaredWitnessScratchChildren']),'current AM guard bindings')
++ scope_role=guard_pins['operationalScope']
++ need(guard_config['parentScopeAdoption']=={k:scope_role[k] for k in ('path','sha256')},'exact AM operational scope role')
++ scope=diagnostic_role(scope_role)
++ need(scope['productionGuardHead']==CURRENT_HEAD and scope['productionSourceTree']==TREE,'genuine AM operational scope')
++ need(snapshot['status']=='GUARDS_ACCEPTED_READONLY' and snapshot['snapshotProcedureSha256']==guard_adoption['guardSource']['sha256'] and snapshot['configSha256']==guard_adoption['config']['sha256'] and type(snapshot['inventoryElapsedSeconds']) in (int,float) and math.isfinite(snapshot['inventoryElapsedSeconds']) and snapshot['inventoryElapsedSeconds']>0,'actual fresh full AM inventory')
++ for side in ('currentBefore','currentAfter'):
++  current=snapshot[side]
++  need(current['fdOriginalAndEphemeralAndRetainedHPassed'] is True and current['fdOriginalM0ParentPassed'] is True and current['relevantWorkersAbsent'] is True,'full AM current FD/worker guards')
++ need(AUTHORITY.get('currentProtection') is None and AUTHORITY.get('freshSourceProof') is None and AUTHORITY.get('freshDependencyProof') is None,'no future diagnostic proof authority cycle')
++
+ def main():
+  global CONFIG
+  signal.signal(signal.SIGTERM,on_signal);signal.signal(signal.SIGINT,on_signal)
+@@ -660,17 +718,19 @@
+  need(mirror==pathlib.Path(AUTHORITY['mirrorPath']) and not os.path.lexists(out),'mirror role/output collision')
+  need(AUTHORITY.get('currentProtection') is None and AUTHORITY.get('freshSourceProof') is None and AUTHORITY.get('freshDependencyProof') is None,'no manufactured future proof/protection')
+  guard(run_id);need(shutil.disk_usage(S).free>=PREFLIGHT,'3.5 GiB preflight')
+- manifest=load_m0_authorities()
++ manifest=load_m0_authorities();validate_diagnostic_inputs()
+  prod_deps=REPO/'node_modules';need(prod_deps.is_dir() and not prod_deps.is_symlink(),'production deps root')
+  OUT_ROOT.mkdir(mode=0o700,exist_ok=True);out.mkdir(mode=0o700)
+- record={'schema':'1370-current-m0-source-dependency-proof-result/v1','status':'RUNNING','runId':run_id,
++ record={'schema':'1370-post-r6-m0-preservation-diagnostic-result/v1','status':'RUNNING','runId':run_id,
+          'productionHead':CURRENT_HEAD,'productionSourceTree':TREE,'sourceCommit':CONFIG['historicalM0SourceCommit'],
+          'historicalDataAuthorityHead':CONFIG['historicalDataAuthorityHead'],'mirrorPath':str(mirror),
+          'completeM0AdoptionSha256':CONFIG['sourceAuthorities']['m0CompleteParentAdoption']['sha256'],
+          'physicalFactsSha256':CONFIG['sourceAuthorities']['m0PhysicalFacts']['sha256'],
+          'sourceReviewSha256':AUTHORITY['sourceReview']['sha256'],'actualGrantSha256':AUTHORITY['actualGrant']['sha256'],
+          'freshSourceProof':None,'freshDependencyProof':None,'sourceAfter':None,'dependencyAfter':None,
+-         'typesCommandsExecuted':0,'collectionCommandsExecuted':0,'game':False,'currentProtection':None}
++         'typesCommandsExecuted':0,'collectionCommandsExecuted':0,'game':False,'currentProtection':None,
++         'knownRootDrift':CONFIG['knownRootDrift'],'diagnosticInputs':AUTHORITY['diagnosticInputs'],
++         'historicalRootUnchanged':False,'newRootBaselineAdopted':False,'typesAccepted':False,'originalR6StopPreserved':True}
+  try:
+   source_before=full_source_check(mirror,manifest,run_id,True)
+   exact_package_roles(run_id);dep_before=full_dependency_check(prod_deps,run_id)
+@@ -679,15 +739,15 @@
+   record['sourceAfter']=full_source_check(mirror,manifest,run_id,True)
+   exact_package_roles(run_id);record['dependencyAfter']=full_dependency_check(prod_deps,run_id)
+   need(record['sourceAfter']==source_before and record['dependencyAfter']==dep_before,'current source/dependency proof drift')
+-  guard(run_id);record['status']='PASS_READONLY_CURRENT_M0_SOURCE_DEPENDENCY_PROOF'
++  guard(run_id);record['status']='PASS_READONLY_POST_R6_M0_PRESERVATION_DIAGNOSTIC_KNOWN_ROOT_DRIFT'
+  except BaseException as error:
+-  record['status']='STOP_CURRENT_M0_SOURCE_DEPENDENCY_PROOF';record['error']=repr(error);raise
++  record['status']='STOP_POST_R6_M0_PRESERVATION_DIAGNOSTIC';record['error']=repr(error);raise
+  finally:
+   record['groupAlternateProofs']=GROUP_ALTERNATE_PROOFS
+   record['elapsedSeconds']=round(time.monotonic()-START,3)
+   receipt=out/'RESULT.json';receipt_sha=write_result(receipt,record)
+   print(json.dumps({'status':record['status'],'receipt':str(receipt),'sha256':receipt_sha}),flush=True)
+- need(record['status']=='PASS_READONLY_CURRENT_M0_SOURCE_DEPENDENCY_PROOF','proof failure')
++ need(record['status']=='PASS_READONLY_POST_R6_M0_PRESERVATION_DIAGNOSTIC_KNOWN_ROOT_DRIFT','proof failure')
+ if __name__=='__main__':
+  try:main()
+  except BaseException as e:

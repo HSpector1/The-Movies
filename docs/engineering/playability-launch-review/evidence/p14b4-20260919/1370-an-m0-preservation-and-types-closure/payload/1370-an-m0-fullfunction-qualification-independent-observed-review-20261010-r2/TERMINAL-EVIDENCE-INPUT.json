@@ -1,0 +1,100 @@
+{
+  "roles": {
+    "readback": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r2/READBACK.json",
+      "bytes": 6812,
+      "sha256": "fcc8bebdacd7ea7730e5b861676c980b386c8ef6d1e97e453daf03895b2822d1"
+    },
+    "actualTool": {
+      "bytes": 1437,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r2/ACTUAL-TOOL.json",
+      "sha256": "8fca10675914224df962eb111680c48e3073ed21d01c04b42447bd714ac6662b"
+    },
+    "controllerResult": {
+      "bytes": 2225,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2/RESULT.json",
+      "sha256": "eef7c9c0651b1cddc3a6ca874aa7582962bc94db681582d5931475eac9dfd31b"
+    },
+    "currentProtection": {
+      "bytes": 2812,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-RETRY-CURRENT-PROTECTION.json",
+      "sha256": "8001969b00dad04da2dc43a409f057a2e94afbc096e6939481fec08686bcb19d"
+    },
+    "grant": {
+      "bytes": 4109,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r2/EXECUTION-GRANT.json",
+      "sha256": "bd0bf7af5324f417f95ffc1763870ccdbadfe954ce63b8e006b51450b40e7a15"
+    },
+    "laneLog": {
+      "bytes": 687,
+      "path": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-20261010-r2.lane.log",
+      "sha256": "b2dfa1504d433201dc69f89d8e2784afbe0caa9aa0e1b1a3439cdb1aea68506f"
+    },
+    "laneMetadata": {
+      "bytes": 510,
+      "path": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-20261010-r2.lane.log.meta",
+      "sha256": "50c024a01ac2bc996e4a1cc47669edb5d1122d425be7cd95f9e39a3ebf57eb28"
+    },
+    "parserControlsAdoption": {
+      "bytes": 1983,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/PARSER-CONTROLS-OBSERVED-ADOPTION.json",
+      "sha256": "2684b2b4a2c0e90b1d9fec5ee079ede8eb945eb3378ff88619f3cd04b943735d"
+    },
+    "preflightObservedAdoption": {
+      "bytes": 5362,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-RETRY-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json",
+      "sha256": "eff28a054b239aef16db01af4f88a9f374d2a1cfb4eb24b2c2fc445bdefd1d8b"
+    },
+    "recorderLaunchClaim": {
+      "bytes": 1655,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r2/RECORDER-LAUNCH-CLAIM.json",
+      "sha256": "b5c946c487a1db3f1d5935284647c41ce1e835eb5a8aea5eb894773ad3b7a22a"
+    },
+    "recorderResult": {
+      "bytes": 976,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261010-r2/RESULT.json",
+      "sha256": "8bab8eaa7d79976fc2e905cff9c302c7aa7a11e27823754f88c73a536f9d0fda"
+    },
+    "rootLaunchClaim": {
+      "bytes": 1805,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r2/ROOT-LAUNCH-CLAIM.json",
+      "sha256": "57cbf112d79144e60b50f28143ab03043b1569eb0b4093f4087c3f4cfade847b"
+    },
+    "sourcePins": {
+      "bytes": 33835,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/SOURCE-PINS.json",
+      "sha256": "51926780c880416000d592b6f7e3ba8a0c42f005a833e6813708abc25823087c"
+    },
+    "sourceReview": {
+      "bytes": 14183,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r9/RECEIPT.json",
+      "sha256": "1c7ee4c57f05f16cf509efd5739ca3106e1703da8653d7f7a971597cef3ca1d8"
+    },
+    "stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261010-r2/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 252,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261010-r2/stdout.bin",
+      "sha256": "b9328a133983a315db20f248bb2a3829beed3491896ad361ab81d114863505f9"
+    },
+    "typesAdoption": {
+      "bytes": 5170,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+      "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+    }
+  },
+  "extras": {
+    "firstProof": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2/FIRST-PROOF.json",
+    "controllerBinding": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2/CONTROLLER-BINDING.json",
+    "generateReport": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2/generate.report.json",
+    "generateStdout": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2/generate.stdout",
+    "generateStderr": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2/generate.stderr",
+    "nodeStdout": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2/stdout.bin",
+    "nodeStderr": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2/stderr.bin",
+    "generateBinding": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2/generate.binding.json",
+    "coreTest": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2/runtime/core.test.ts"
+  }
+}

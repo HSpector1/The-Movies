@@ -1,0 +1,183 @@
+{
+  "claims": {
+    "collectionAccepted": false,
+    "diagnosticExecuted": false,
+    "gameAccepted": false,
+    "historicalRootUnchanged": false,
+    "newRootBaselineAdopted": false,
+    "originalR6StopPreserved": true,
+    "typesAccepted": false
+  },
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_POST_R6_M0_PRESERVATION_DIAGNOSTIC_PARENT_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "findingsAndConclusions": [
+    "One profile binds the accepted fresh executor R2 config, all five executable roles, source pins and exact source-review decision/filename-role aliases. Fresh result, parent and lane paths match its config.",
+    "All nine helper functions remain exact original AST/source. Whole forward/inverse pairs for filler and profiles restore the authenticated accepted base bytes. Necessary changes only rebind current AM, one diagnostic proof profile, four authenticated external diagnostic prerequisites and associated hashes.",
+    "External true root specification is required. Four diagnostic role schemas/hashes/bytes are authenticated before immutable context emission; deeper producer semantics are enforced by accepted executor before private traversal. Context contains only existing prerequisite roles, null future source/dependency/protection proofs and a grant that binds the context excluding itself.",
+    "Owned PID/PGID/SID is durably recorded before context/grant and same-PID direct exec. Collision checks make the fixed parent emissions once-only; the original lane lock is authenticated and rebound immediately before exec.",
+    "Pinned real tools/physical/link identities, Node22, isolated no-bytecode Python, exact working directory and inherited HOME remain enforced. Preparation60 is canceled immediately before LAUNCH; original launch330/recorder320/runner300 begins there. No combined or outer runtime watchdog is claimed."
+  ],
+  "remainingActions": [
+    "Root genuine current-AM full-preflight observed adoption and exact external specification/grant filling.",
+    "Root recorded diagnostic followed by required current-AM full protected postflight and independent observed admission."
+  ],
+  "reviewScope": "Independent finite source/retained-role review only; no execution, imports, private mirror reads, process probes or Git changes.",
+  "routeSourcePins": {
+    "BASE-PROFILES.json.txt": {
+      "bytes": 6187,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/BASE-PROFILES.json.txt",
+      "sha256": "63b70fb7d08a73ad14ef7370dac4002348634ed7d08e5a822133c5791f1826d9"
+    },
+    "BASE-fill-grant-exec.py.txt": {
+      "bytes": 11380,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/BASE-fill-grant-exec.py.txt",
+      "sha256": "6977c7a6d86c8cee8bc9f8af7d0647b4e4afa71cb8f88d3c9e252b2addd9b5f9"
+    },
+    "LESSONS.txt": {
+      "bytes": 358,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/LESSONS.txt",
+      "sha256": "427c041446b038da1cb457e8b1268214814cbe75ecafa2511ba56e4e118a9654"
+    },
+    "PROFILES.json": {
+      "bytes": 3125,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/PROFILES.json",
+      "sha256": "640814ab17810d46dd47f5653cc9ef961823a1674ec1d2d2f38bcb2a274cd9e0"
+    },
+    "PROFILES.json.forward.diff": {
+      "bytes": 9008,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/PROFILES.json.forward.diff",
+      "sha256": "31ddde992afee78ee30cb968af7b33b2a89b6d61869eca9bed7ca50111d07b72"
+    },
+    "PROFILES.json.inverse.diff": {
+      "bytes": 9008,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/PROFILES.json.inverse.diff",
+      "sha256": "68efb722ff5f86922561f62ca5ff7cd04a52e15974f3b2cb7675674b4e5872c0"
+    },
+    "RECIPE.json": {
+      "bytes": 1688,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/RECIPE.json",
+      "sha256": "36a65c61c0138751939d2e4534e1d29b84c039e8015038e5e7fc6974dad633fb"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 1565,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/SOURCE-PROOF.json",
+      "sha256": "0ee86e4bedc5b0cad1008ec6af68f4e3e3b4352f2cc5929f7e2c2cdbd95c066c"
+    },
+    "SPEC-UNFILLED.json": {
+      "bytes": 391,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/SPEC-UNFILLED.json",
+      "sha256": "ac61d231ed9e9deb5348fb664d2e107e562a06250fa1fa46e2924301e51b3524"
+    },
+    "fill-grant-exec.py": {
+      "bytes": 11743,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/fill-grant-exec.py",
+      "sha256": "98c673a9f690978d7a2dccf715c8237b2ab8e98a2d3f285b3a669bf5db14af0e"
+    },
+    "fill-grant-exec.py.forward.diff": {
+      "bytes": 3652,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/fill-grant-exec.py.forward.diff",
+      "sha256": "feb68b30a3535017194ebc21293f7cc68ad6f0f54a77dae9d6efbae13648aa07"
+    },
+    "fill-grant-exec.py.inverse.diff": {
+      "bytes": 3652,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/fill-grant-exec.py.inverse.diff",
+      "sha256": "0670c6dc95c65a60454f2758fdc2f7f0ebac4753e1be6a8effb591985c1fba16"
+    }
+  },
+  "schema": "1370-post-r6-diagnostic-parent-independent-source-review/v1",
+  "sourcePins": {
+    "BASE-PROFILES.json.txt": {
+      "bytes": 6187,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/BASE-PROFILES.json.txt",
+      "sha256": "63b70fb7d08a73ad14ef7370dac4002348634ed7d08e5a822133c5791f1826d9"
+    },
+    "BASE-fill-grant-exec.py.txt": {
+      "bytes": 11380,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/BASE-fill-grant-exec.py.txt",
+      "sha256": "6977c7a6d86c8cee8bc9f8af7d0647b4e4afa71cb8f88d3c9e252b2addd9b5f9"
+    },
+    "LESSONS.txt": {
+      "bytes": 358,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/LESSONS.txt",
+      "sha256": "427c041446b038da1cb457e8b1268214814cbe75ecafa2511ba56e4e118a9654"
+    },
+    "PROFILES.json": {
+      "bytes": 3125,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/PROFILES.json",
+      "sha256": "640814ab17810d46dd47f5653cc9ef961823a1674ec1d2d2f38bcb2a274cd9e0"
+    },
+    "PROFILES.json.forward.diff": {
+      "bytes": 9008,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/PROFILES.json.forward.diff",
+      "sha256": "31ddde992afee78ee30cb968af7b33b2a89b6d61869eca9bed7ca50111d07b72"
+    },
+    "PROFILES.json.inverse.diff": {
+      "bytes": 9008,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/PROFILES.json.inverse.diff",
+      "sha256": "68efb722ff5f86922561f62ca5ff7cd04a52e15974f3b2cb7675674b4e5872c0"
+    },
+    "RECIPE.json": {
+      "bytes": 1688,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/RECIPE.json",
+      "sha256": "36a65c61c0138751939d2e4534e1d29b84c039e8015038e5e7fc6974dad633fb"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 1565,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/SOURCE-PROOF.json",
+      "sha256": "0ee86e4bedc5b0cad1008ec6af68f4e3e3b4352f2cc5929f7e2c2cdbd95c066c"
+    },
+    "SPEC-UNFILLED.json": {
+      "bytes": 391,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/SPEC-UNFILLED.json",
+      "sha256": "ac61d231ed9e9deb5348fb664d2e107e562a06250fa1fa46e2924301e51b3524"
+    },
+    "fill-grant-exec.py": {
+      "bytes": 11743,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/fill-grant-exec.py",
+      "sha256": "98c673a9f690978d7a2dccf715c8237b2ab8e98a2d3f285b3a669bf5db14af0e"
+    },
+    "fill-grant-exec.py.forward.diff": {
+      "bytes": 3652,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/fill-grant-exec.py.forward.diff",
+      "sha256": "feb68b30a3535017194ebc21293f7cc68ad6f0f54a77dae9d6efbae13648aa07"
+    },
+    "fill-grant-exec.py.inverse.diff": {
+      "bytes": 3652,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/fill-grant-exec.py.inverse.diff",
+      "sha256": "0670c6dc95c65a60454f2758fdc2f7f0ebac4753e1be6a8effb591985c1fba16"
+    }
+  },
+  "sourcePinsRole": {
+    "bytes": 3626,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "38648e516daf240705f6583a580594d947835240e73e1bb53b8105252e67276b"
+  },
+  "sourcePinsSha256": "38648e516daf240705f6583a580594d947835240e73e1bb53b8105252e67276b",
+  "verified": {
+    "HOMEInherited": true,
+    "changedFunction": "main",
+    "combinedPreparationRuntimeDeadline": null,
+    "completeForwardInversePairs": 2,
+    "exactExecutorSourcePins": {
+      "bytes": 14200,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/SOURCE-PINS.json",
+      "sha256": "42611a6faecc6b13e7b8a18cfef210b06d7167bb3e2a23d08862db65c4531262"
+    },
+    "payloadRoles": 12,
+    "phaseSeconds": {
+      "activeRecorder": 320,
+      "preparation": 60,
+      "runner": 300,
+      "wholeLaunch": 330
+    },
+    "runtimeToolsObservation": {
+      "bytes": 5401,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-RUNTIME-TOOLS.json",
+      "sha256": "a681efc4a9b29dfc62bffb6c1e7cd434107bfb1064769f712fca48227bd64106"
+    },
+    "singleProofProfile": true,
+    "totalFiles": 14,
+    "unchangedOriginalHelpers": 9
+  }
+}

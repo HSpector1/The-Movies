@@ -1,0 +1,29 @@
+{
+  "checks": [
+    {
+      "id": 42574,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 43084,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 42574,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 43084,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "laneLockAbsent": true,
+  "overrideStopAbsent": true,
+  "overrideStopPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-metadata-controls-verification-output-after-al-20261009-r2/OVERRIDE-STOP.json",
+  "schema": "1370-an-scoped-owned-absence/v1",
+  "utc": "2026-10-10T03:41:15.269431+00:00"
+}

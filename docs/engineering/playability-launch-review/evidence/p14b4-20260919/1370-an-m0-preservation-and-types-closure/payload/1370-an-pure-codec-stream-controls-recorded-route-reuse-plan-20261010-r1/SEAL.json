@@ -1,0 +1,10 @@
+{
+  "allManifestRolesReadbackEqual": true,
+  "executionAuthorization": false,
+  "schema": "1370-source-only-plan-seal/v1",
+  "sourcePins": {
+    "bytes": 971,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-pure-codec-stream-controls-recorded-route-reuse-plan-20261010-r1/SOURCE-PINS.json",
+    "sha256": "d57253705b2d71b2ce5dee7c34d2564c5c3dc895ceef098110eeb9616bd566df"
+  }
+}

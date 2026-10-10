@@ -1,0 +1,151 @@
+{
+  "schema": "1370-current-am-original-m0-prelaunch-independent-source-review/v1",
+  "decision": "ACCEPT_STATIC_CURRENT_AM_ORIGINAL_M0_PRELAUNCH_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "sourceManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/SOURCE-PINS.json",
+    "bytes": 3506,
+    "sha256": "7015e2de01cb9964fcc6e362338461e9d8c3e5d6ab81bd618f67d04b4e51c455"
+  },
+  "sourcePins": {
+    "original-current-root-prelaunch.py": {
+      "bytes": 13703,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/original-current-root-prelaunch.py",
+      "sha256": "a4f5b6c92bafacdbe70aa2d0dfcec50cbb3b6e3ec85821d9ec2e3294368e6ef8"
+    },
+    "PRELAUNCH-CONFIG-UNFILLED.json": {
+      "bytes": 2281,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/PRELAUNCH-CONFIG-UNFILLED.json",
+      "sha256": "569bafc1885f831a935fe0c00bf3cfa8b264511be952b81c68542d1cd31536a6"
+    }
+  },
+  "routeSourcePins": {
+    "original-current-root-prelaunch.py": {
+      "bytes": 13703,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/original-current-root-prelaunch.py",
+      "sha256": "a4f5b6c92bafacdbe70aa2d0dfcec50cbb3b6e3ec85821d9ec2e3294368e6ef8"
+    },
+    "PRELAUNCH-CONFIG-UNFILLED.json": {
+      "bytes": 2281,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/PRELAUNCH-CONFIG-UNFILLED.json",
+      "sha256": "569bafc1885f831a935fe0c00bf3cfa8b264511be952b81c68542d1cd31536a6"
+    }
+  },
+  "concreteFindings": [],
+  "findings": [],
+  "reviewer": "Independent author of corrected executor/parent; did not author this prelaunch derivative.",
+  "authenticatedPayloadFiles": 11,
+  "sourceProof": {
+    "bytes": 3882,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/SOURCE-PROOF.json",
+    "sha256": "497492d0a93c516ddf5864fbbff9ef34576cf6213cceb9209d01a0dfa4804500"
+  },
+  "recipe": {
+    "bytes": 2997,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/RECIPE.json",
+    "sha256": "5e7bf0c7654b6b4dda1802c30605e4e3723d4490c6001d644684bcd287b6dc2e"
+  },
+  "allPayloadHashesSizesAuthenticated": true,
+  "fileModes": "0444",
+  "directoryMode": "0555",
+  "wholeInverses": {
+    "sourceLiteralInverseExactTo13702Original": true,
+    "sourceForwardDiffAppliedExactly": true,
+    "sourceInverseDiffAppliedExactly": true,
+    "configForwardDiffAppliedExactly": true,
+    "configInverseDiffAppliedExactly": true,
+    "sourcePredecessor": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2/original-current-root-prelaunch.py",
+      "bytes": 13702,
+      "sha256": "128cc3f6f0fec2251f4d9f4742760c77fdb114760238be9b914b93b849f6d12f"
+    },
+    "configPredecessor": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2/PRELAUNCH-CONFIG-UNFILLED.json",
+      "bytes": 2539,
+      "sha256": "6626254dc596e3d491ed8553dc09a6a75aea89227282be5887381d23a16d6471"
+    }
+  },
+  "functionEquality": {
+    "originalCount": 12,
+    "newCount": 12,
+    "changed": [
+      "main"
+    ],
+    "unchanged": [
+      "require",
+      "sha",
+      "canonical",
+      "read",
+      "write",
+      "dump",
+      "command",
+      "directory_identity",
+      "ancestry",
+      "current",
+      "exact_role"
+    ],
+    "method": "Independent complete function-body text comparison; no source import, compile, execution or AST/runtime inference.",
+    "all11HelpersExact": true
+  },
+  "permittedDelta": "Seven declared literal substitutions confined to main: external root config parent AN, current-AM fullguard directory/config/source/baseline hashes, published AM7087 operational head and truthful currentAM labels. Config updates exactly corresponding source roles/current baseline and keeps actual postflight/output/owned groups unfilled.",
+  "currentBinding": {
+    "productionHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+    "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "currentGuardConfig": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/CONFIG.json",
+      "bytes": 3928,
+      "sha256": "e0c7a2b839eaa1e0940665711c8e9b57af4f09738290ca5d15d828f01200b42e"
+    },
+    "currentGuardSource": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py",
+      "bytes": 21984,
+      "sha256": "9e2618b58849ccf0bc36512b20de16c23e49b2f08cdc6982ca9fe2fc20143047"
+    },
+    "currentBaselineRole": {
+      "bytes": 8833072,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/SNAPSHOT.json",
+      "sha256": "0136b4370cca27ab9af635c16124283049eb394b3dbaa63c32a755973e9c3596"
+    },
+    "currentBaselineAdoption": {
+      "bytes": 4459,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/CURRENT-AM-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+      "sha256": "ac3c336fcf4c57b4de25a2d03fe4642719e7137d34ffe24d2106a8210ecc1612"
+    },
+    "currentBaselineAdoptionAuthenticated": true
+  },
+  "retainedProtocol": {
+    "continuousFreezeInventoryReuse": true,
+    "noNewFullInventoryGate": true,
+    "fullPostflightImmutableEqualityToExactBeforeFillRequired": true,
+    "snapshotProducerConfigProcedureAndBaselinePinsRequired": true,
+    "freshBeforeAfterBootPowerDiskCleanHeadSourceAdvertisedRefsLocalMain": true,
+    "freshBeforeAfterProcessAndOwnedGroups": true,
+    "freshWritableFDGuardsProductionCopiedRetainedHAndM0": true,
+    "strictNineProtectedRootsAndAncestry": true,
+    "scratchParentIdentityOnly": true,
+    "observedCopyAdmissionBeforePrivateAccess": true,
+    "originalPerCommandTimeoutSeconds": 180,
+    "newAggregateTimer": false,
+    "originalRawFourLOCALFilesAndHashSizeOnlyArchiveDisposition": true,
+    "externalConfigKnownParentBeforeRead": true,
+    "actualSnapshotOutputAndOwnedIDsUnfilled": true
+  },
+  "authorityBoundary": "This source review accepts only the original current/root prelaunch procedure with current-AM bindings. Root supplies a genuine completed/admitted fullpostflight and actual recorded groups under continuous freeze. It remains read-only observation with executionAuthorization false and m0ProofOrTypesAccepted false. This reviewer did not run it, inspect private trees or validate future actual observations.",
+  "scope": "Original nine shared strict roots/R9/shared dependencies/current AM and fresh current/FD/root/ancestry checks; current M0 full source/dependency diagnostic and actual types/collection remain separately admitted.",
+  "preservedFailures": {
+    "r6MetadataStop": true,
+    "noHistoricalRootUnchangedClaim": true,
+    "noM0TypesOrCollectionAcceptance": true,
+    "noGameOrFullBodyFixtureClaim": true
+  },
+  "futureActual": {
+    "protectedSnapshot": null,
+    "outputPath": null,
+    "ownedPgids": null,
+    "actualGrant": null,
+    "actualObservation": null,
+    "actualObservedAdoption": null
+  },
+  "reviewMethod": "Named scratch/public source and retained authority reads, finite hash/size/mode readback, data-only JSON/diff/function comparison, fresh review-only output. No runtime/import/test/compile/Git/private inventory/probe."
+}

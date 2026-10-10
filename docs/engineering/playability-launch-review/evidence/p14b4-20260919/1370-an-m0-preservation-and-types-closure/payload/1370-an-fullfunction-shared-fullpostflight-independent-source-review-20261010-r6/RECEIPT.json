@@ -1,0 +1,92 @@
+{
+  "checks": [
+    {
+      "byteExactHelperFunctions": [
+        "role",
+        "read",
+        "put"
+      ],
+      "compileOnly": true,
+      "exactWholeForwardAndInverse": true,
+      "name": "launch-fullpostflight.py"
+    },
+    {
+      "byteExactHelperFunctions": [
+        "role",
+        "read",
+        "put"
+      ],
+      "compileOnly": true,
+      "exactWholeForwardAndInverse": true,
+      "name": "read-fullpostflight.py"
+    }
+  ],
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_ORIGINAL_SHARED_FULL_POSTFLIGHT_ADAPTER_AFTER_FULLFUNCTION_PASS_OR_STOP",
+  "executionAuthorization": false,
+  "reviewer": "root, independent from b109_focused_route_review author",
+  "schema": "1370-root-independent-path-only-adapter-source-review/v1",
+  "scope": "Only explicitly enumerated fresh R4 identities. Original parent helpers, external alias allowlist, separate preparation60 and300/320/330 bounds, original full shared scanner/config/baseline/percommand180/no whole timer remain byte-exact. Future runtime roles are not admitted.",
+  "sourceManifest": {
+    "bytes": 3328,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6/SOURCE-PINS.json",
+    "sha256": "e8a7ee7fefcd3401787dc7e04e7d5928143d6ddab056e66f81f332ae17caf01d"
+  },
+  "sourcePins": {
+    "BASELINE-launch-fullpostflight.py": {
+      "bytes": 5274,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6/BASELINE-launch-fullpostflight.py",
+      "sha256": "a6367944102b47e1ef2bb95d1055e1ec761c6f2cf371add8304b3cd4823917be"
+    },
+    "BASELINE-read-fullpostflight.py": {
+      "bytes": 5405,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6/BASELINE-read-fullpostflight.py",
+      "sha256": "173343039506ae5f5593a728931cae52cec2c96bc0dfb142318ee4fc589e4ece"
+    },
+    "LESSONS.txt": {
+      "bytes": 503,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6/LESSONS.txt",
+      "sha256": "9c3df0e5f6f60ed422b7dcd98cc65f97189bf4702e92f76fbf12792d4647898c"
+    },
+    "RECIPE.json": {
+      "bytes": 1364,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6/RECIPE.json",
+      "sha256": "5f9dec3d0c4d7b1205c74b3cca8033bebe109860c933781c055536a7ce6f21ce"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 3747,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6/SOURCE-PROOF.json",
+      "sha256": "c23712c1ade5cce7be6057e35159fbfc539512f96d8faa03fdf7c1652e1b06d5"
+    },
+    "launch-fullpostflight.py": {
+      "bytes": 5274,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6/launch-fullpostflight.py",
+      "sha256": "a54e130d1fa13f1ab4ac8733a4e2ec63a20ecef53cdff1198c944816a5636a78"
+    },
+    "launch-fullpostflight.py.forward.diff": {
+      "bytes": 1801,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6/launch-fullpostflight.py.forward.diff",
+      "sha256": "b20cebb7cca35a1b01c28c63dc46908c91fd13f2f076773096c5d4543b8f00d5"
+    },
+    "launch-fullpostflight.py.inverse.diff": {
+      "bytes": 1801,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6/launch-fullpostflight.py.inverse.diff",
+      "sha256": "7becc43a40f42df0cd03e3cc5ba52cd9a133896efafe1696554a91ed08557fa5"
+    },
+    "read-fullpostflight.py": {
+      "bytes": 5405,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6/read-fullpostflight.py",
+      "sha256": "58090a98b1c34c211e82ebf46abc29d00339fbd0b12d9a3c00d0efaf768b5c67"
+    },
+    "read-fullpostflight.py.forward.diff": {
+      "bytes": 1860,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6/read-fullpostflight.py.forward.diff",
+      "sha256": "b77814ead10095a41439b7ad35827ddf1c879fb820901498fe6a0b8403df87b7"
+    },
+    "read-fullpostflight.py.inverse.diff": {
+      "bytes": 1860,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6/read-fullpostflight.py.inverse.diff",
+      "sha256": "890f0b32ae6c5bce36bfc6234f4ddd7a19b8c05e8b7a07cd9ef72283c1fa3b6b"
+    }
+  }
+}

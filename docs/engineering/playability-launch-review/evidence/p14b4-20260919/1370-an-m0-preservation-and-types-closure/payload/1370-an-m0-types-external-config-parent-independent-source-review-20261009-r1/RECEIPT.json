@@ -1,0 +1,187 @@
+{
+  "argv": [
+    "/usr/local/bin/python3",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/fill-grant-exec.py",
+    "<genuine separately filled external types specification path>",
+    "<exact actual types specification SHA256>"
+  ],
+  "clocks": {
+    "combinedPreparationRuntimeDeadline": null,
+    "noAddedOuterWatchdog": true,
+    "parentClockCanceled": "Immediately before direct os.execve after elapsed<60",
+    "parentClockStarts": "Before source profile/spec/tool reads",
+    "parentPreparationSeconds": 60,
+    "runtimeBootstrapWholeSeconds": 300,
+    "runtimeLaunchAndRecorderWholeSeconds": 330,
+    "runtimeRecorderActiveSeconds": 320
+  },
+  "completeForwardInverseApplications": 6,
+  "concreteFindings": [],
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "decision": "ACCEPT_STATIC_M0_TYPES_EXTERNAL_CONFIG_PARENT_ADAPTER_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "executorIndependentReview": {
+    "bytes": 20234,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "fcb639f515966761dcf3dd7442b38a8da84c96f4dd0c0905b07bcaa8b0303c1f"
+  },
+  "executorSourcePins": {
+    "bytes": 14126,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "cabe9f492a2f67091e4b6aefa6051536773fdc4014256d072728932f7b52d53f"
+  },
+  "functionPreservation": {
+    "changed": [
+      "main"
+    ],
+    "current": 10,
+    "original": 10,
+    "unchanged": [
+      "prep_alarm",
+      "require",
+      "stamp",
+      "normalized",
+      "physical",
+      "read",
+      "digest",
+      "pin",
+      "durable"
+    ]
+  },
+  "limits": {
+    "collectionAccepted": false,
+    "executionPerformed": false,
+    "historicalRootUnchanged": false,
+    "newRootBaselineAdopted": false,
+    "noAdditionalAggregateWatchdog": true,
+    "originalR6StopPreserved": true,
+    "privateM0ReadPerformed": false,
+    "sourceAcceptanceAuthorizesRuntime": false,
+    "typesAccepted": false
+  },
+  "majorLessons": [
+    "Keep inactive historical profiles documentary; only types mode may launch this fresh adapter.",
+    "Plain nine-field diagnostic source proof and genuine external root adoption are data inputs, not source constants standing in for observed authority.",
+    "Parent preparation60 ends before original LAUNCH330/recorder320/runner300; no combined clock or extra stream limiter claimed.",
+    "Source-role maps and manifest role are separate interfaces; both templates and LAUNCH must be authenticated.",
+    "Durable same-process ownership/grant/context and original lane token remain necessary; HOME stays inherited."
+  ],
+  "method": "Independent named finite source/evidence reads, exact byte/SHA authentication, AST parse only and six complete pure unified diff applications. No generated-source execution/import/compile/tests/private inventory/Git writes.",
+  "predecessorSourcePins": {
+    "bytes": 9058,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r4/SOURCE-PINS.json",
+    "sha256": "f27d8eae1416d94346dd43e495acad272bd203dfb1270c818e2ca949bdb35d15"
+  },
+  "recipe": {
+    "bytes": 10494,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/RECIPE.json",
+    "sha256": "1ddf8e478084c5c2f0ff24d7d5bd8231a4823af7e2a8abfe1bb714987e402918"
+  },
+  "remainingGenuineFills": [
+    "actual independently reviewed diagnostic and mandatory full protected postflight",
+    "explicit current-root baseline adoption",
+    "fresh original current-root prelaunch/adoption under continuous current-AM freeze",
+    "current protection/five tool role observation/additional refs",
+    "root filled actual external spec and acquired exclusive lane",
+    "genuine observed four-command result, cleanup/full preservation and original full protected postflight"
+  ],
+  "routeSourcePins": {
+    "CURRENT-TYPES-PROTECTION-UNFILLED.json": {
+      "bytes": 1185,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/CURRENT-TYPES-PROTECTION-UNFILLED.json",
+      "sha256": "14cc3fad42abb314cf593ee1caebb4e88b3b8f752b326aca116a73b379339ad9"
+    },
+    "PROFILES.json": {
+      "bytes": 6780,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/PROFILES.json",
+      "sha256": "b2758d0e15403b7448dfe6ae9f7394b52e504aebfaace09c9e6f43141c9a1a5c"
+    },
+    "TYPES-SPEC-UNFILLED.json": {
+      "bytes": 243,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/TYPES-SPEC-UNFILLED.json",
+      "sha256": "9ae8c89184a1f6f066698208ac9592de7334b1dfb50103b180e6c1d087b20c54"
+    },
+    "fill-grant-exec.py": {
+      "bytes": 14054,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/fill-grant-exec.py",
+      "sha256": "06ef36769f3f2918c0cec46d08022bfafb5328ce4159f3d4deb8003c1d99e99f"
+    }
+  },
+  "schema": "1370-m0-types-external-config-parent-independent-source-review/v1",
+  "seal": {
+    "bytes": 1633,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/SEAL.json",
+    "sha256": "3cc7210f49394f5196494ef958a8ba90d3f3c67c19f9c97ed0af99d03f902d2a"
+  },
+  "sourceManifest": {
+    "bytes": 7541,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "f2f5cf509f2fe221ca68998616b85b2f555265ddf81d10abd908de511e46a132"
+  },
+  "sourcePins": {
+    "CURRENT-TYPES-PROTECTION-UNFILLED.json": {
+      "bytes": 1185,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/CURRENT-TYPES-PROTECTION-UNFILLED.json",
+      "sha256": "14cc3fad42abb314cf593ee1caebb4e88b3b8f752b326aca116a73b379339ad9"
+    },
+    "PROFILES.json": {
+      "bytes": 6780,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/PROFILES.json",
+      "sha256": "b2758d0e15403b7448dfe6ae9f7394b52e504aebfaace09c9e6f43141c9a1a5c"
+    },
+    "TYPES-SPEC-UNFILLED.json": {
+      "bytes": 243,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/TYPES-SPEC-UNFILLED.json",
+      "sha256": "9ae8c89184a1f6f066698208ac9592de7334b1dfb50103b180e6c1d087b20c54"
+    },
+    "fill-grant-exec.py": {
+      "bytes": 14054,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/fill-grant-exec.py",
+      "sha256": "06ef36769f3f2918c0cec46d08022bfafb5328ce4159f3d4deb8003c1d99e99f"
+    }
+  },
+  "sourceProof": {
+    "bytes": 13157,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/SOURCE-PROOF.json",
+    "sha256": "6ff45eb7261942f3f99f40ed5ff7cbb22d0ed94aeb24a91c73f1e0358c4dda58"
+  },
+  "verifiedBindings": {
+    "HOMEInherited": true,
+    "activeModeTypesOnly": true,
+    "actualGrantOmittedDigestAcyclic": true,
+    "currentAMHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+    "currentProtectionOriginalScopeAcceptedFullPostflightLaneReleaseAndProofEqualityPreserved": true,
+    "currentProtectionShaAndRootAdoptionShaBothBindGrant": true,
+    "distinctLocalTrackingAndAdvertisedMainRefsPreserved": true,
+    "exactKnownRootDriftAndHistoricalRemainderChecks": true,
+    "executorRoleMapsExactIncludingBothTemplatesAndLaunch": true,
+    "genuineFiveToolPhysicalRolesAndLinksPinned": true,
+    "historicalProofProfileByteExactAndInactive": true,
+    "onceOnlyFreshDurableOwnedIdentityGrantContextFillReadbacks": true,
+    "originalAcquiredLaneTokenAndLockReadback": true,
+    "retainedDiagnosticRoleKeys": [
+      "diagnosticObservedReview",
+      "actualResult",
+      "fullPostflightSnapshot"
+    ],
+    "rootAdoptionRoleIncludedBeforeCanonicalContextDigest": true,
+    "rootAdoptionSchema": "1370-root-post-r6-m0-current-root-diagnostic-adoption/v1",
+    "rootAdoptionStatus": "ROOT_ADOPTED_POST_R6_M0_PRESERVATION_DIAGNOSTIC_KNOWN_ROOT_DRIFT",
+    "samePIDPGIDSIDSessionDirectExec": true,
+    "sourceProofNineKeys": [
+      "fileProofDigestSha256",
+      "physicalMetadataSha256",
+      "historicalRootSubstitutedMetadataSha256",
+      "nonrootMetadataSha256",
+      "mirrorFiles",
+      "mirrorBytes",
+      "dependencyLink",
+      "traversedEntries",
+      "mirrorRootIdentity"
+    ],
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+  },
+  "verifiedPayloadFiles": 16
+}

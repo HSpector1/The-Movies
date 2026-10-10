@@ -1,0 +1,23 @@
+{
+  "actualRuntimeExecuted": false,
+  "limits": "Readback validates retained actual roles, propagates explicit STOP/partial/null values, separates exact PID/group IDs, and writes incomplete fallback on missing evidence or unverified cleanup. It does not execute the route or accept qualification.",
+  "schema": "1370-finite-fullfunction-r2-root-readback-source-proof/v1",
+  "sourceBasis": {
+    "R9IndependentReview": {
+      "bytes": 14183,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r9/RECEIPT.json",
+      "sha256": "1c7ee4c57f05f16cf509efd5739ca3106e1703da8653d7f7a971597cef3ca1d8"
+    },
+    "R9Manifest": {
+      "bytes": 33835,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/SOURCE-PINS.json",
+      "sha256": "51926780c880416000d592b6f7e3ba8a0c42f005a833e6813708abc25823087c"
+    },
+    "postflightInputContract": {
+      "bytes": 3109,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r4/ROOT-READBACK-CHECKS.json",
+      "sha256": "abf5d1f5441f35e6e6baa5fad5e4d6f833ce47b16819937ea1fa6e1e6533e726"
+    }
+  },
+  "sourceOnly": true
+}

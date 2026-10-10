@@ -1,0 +1,42 @@
+{
+  "configChangedKeys": [
+    "operationalRemoteRefs",
+    "parentScopeAdoption",
+    "productionHead",
+    "status"
+  ],
+  "currentOperationalFacts": {
+    "bytes": 1030,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/CURRENT-AM-OPERATIONAL-TRANSITION.json",
+    "sha256": "f52fe808f66e166541338295c676e4f61ec11bc6fa6bba237ff57e882440ceaa"
+  },
+  "currentOperationalScope": {
+    "bytes": 2905,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/CURRENT-AM-FULLGUARD-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "4538db926c027283d074c57193bb68c89b41bcf763ad35f9bbc623691e3572db"
+  },
+  "executionAuthorization": false,
+  "newConfig": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/CONFIG.json",
+    "sha256": "e0c7a2b839eaa1e0940665711c8e9b57af4f09738290ca5d15d828f01200b42e"
+  },
+  "newSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py",
+    "sha256": "9e2618b58849ccf0bc36512b20de16c23e49b2f08cdc6982ca9fe2fc20143047"
+  },
+  "originalConfig": {
+    "bytes": 3906,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
+    "sha256": "20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41"
+  },
+  "originalSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+    "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+  },
+  "runtimeOccurred": false,
+  "schema": "1370-an-fullguard-am-binding-source-proof/v1",
+  "sourceDelta": "Only CONFIG_SHA literal; complete inverse byte-equal. All procedure logic/180s per command/no overall deadline/guards/private inventory/cleanup/claim limit unchanged. Original docstrings contain historical A208/post-AL wording; current config and explicit root scope determine actual AM role."
+}

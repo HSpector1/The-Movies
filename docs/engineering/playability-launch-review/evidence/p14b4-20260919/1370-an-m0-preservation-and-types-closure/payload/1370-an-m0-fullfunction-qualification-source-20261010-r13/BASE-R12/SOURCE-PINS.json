@@ -1,0 +1,256 @@
+{
+  "actualControlsObservedAdoption": {
+    "bytes": 6868,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LOSSLESS-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "fa668549c4526317f1c5f7f17494ae3bdaec2f6713e6b72351f30d384cfa096a"
+  },
+  "actualCurrentProtection": null,
+  "actualFullProtectedPostflight": null,
+  "actualFullfunctionResult": null,
+  "actualRootGrant": null,
+  "actualSourceReview": null,
+  "executionAuthorization": false,
+  "files": {
+    "BASE-R11/CONFIG-TEMPLATE.mts": {
+      "bytes": 1143,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/BASE-R11/CONFIG-TEMPLATE.mts",
+      "sha256": "2b88f8b9bb4b142ef04db7684ab27bf60603dcb667d7308cbe673deb1b46f15e"
+    },
+    "BASE-R11/CONFIG.json": {
+      "bytes": 9114,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/BASE-R11/CONFIG.json",
+      "sha256": "8a6e67c7bea7c897e83f27f418d4743bfd1b9035ddd70147e9615e92658c81d6"
+    },
+    "BASE-R11/CORE-TEST-TEMPLATE.ts": {
+      "bytes": 3955,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/BASE-R11/CORE-TEST-TEMPLATE.ts",
+      "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+    },
+    "BASE-R11/FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "bytes": 9539,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/BASE-R11/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "9cff56902912ab029af4a4a73398bb314e28593e59823a09acdab5a9b26ea6ca"
+    },
+    "BASE-R11/RESOLUTION-SOURCE-BINDING.json": {
+      "bytes": 77140,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/BASE-R11/RESOLUTION-SOURCE-BINDING.json",
+      "sha256": "885f1c4348b85bd22a5b47bba4ba0c76cc5d346184ab1649aceecc42ba795c5b"
+    },
+    "BASE-R11/canonical-typescript-transform.mjs": {
+      "bytes": 1906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/BASE-R11/canonical-typescript-transform.mjs",
+      "sha256": "71c3f791da660a280b04fcfb9038e037ff3c3ac2a080fec38f2164f85176751a"
+    },
+    "BASE-R11/m0WiringProbe.ts": {
+      "bytes": 3016,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/BASE-R11/m0WiringProbe.ts",
+      "sha256": "417389eef7b3295a19cde420f8561e638f028b979c4e031b25f89f8d38a2ac39"
+    },
+    "BASE-R11/ordering.ts": {
+      "bytes": 11339,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/BASE-R11/ordering.ts",
+      "sha256": "e40ea62523d13e1c74361766757b85faa14acdb889bc57f7ae452449a361bb1d"
+    },
+    "BASE-R11/record-fullfunction.py": {
+      "bytes": 16750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/BASE-R11/record-fullfunction.py",
+      "sha256": "e416dafe98636bb42e59c9aa3e345e617db203ed5d29378b13aa60ee36a9071d"
+    },
+    "BASE-R11/run-fullfunction.mjs": {
+      "bytes": 21614,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/BASE-R11/run-fullfunction.mjs",
+      "sha256": "db1ee5e766ec41bc1fc87a0de2c3e40b395ff3728c8889746e6833cb8ad6b0b9"
+    },
+    "BASE-R11/run-fullfunction.py": {
+      "bytes": 17905,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/BASE-R11/run-fullfunction.py",
+      "sha256": "97d417ab180adfbb58d960e0f6639cfab245c3cdacb291320e7de02921ae5418"
+    },
+    "CONFIG-TEMPLATE.mts": {
+      "bytes": 1143,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/CONFIG-TEMPLATE.mts",
+      "sha256": "94f2d12170bb9d4808e07d34357abd6104ef7ab508c1c198b79bc06d597308ce"
+    },
+    "CONFIG-TEMPLATE.mts.forward.diff": {
+      "bytes": 952,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/CONFIG-TEMPLATE.mts.forward.diff",
+      "sha256": "addbd7c768dc3a3e1f30667076daf83994e9c9ff3919201827dd4614fdc01527"
+    },
+    "CONFIG-TEMPLATE.mts.inverse.diff": {
+      "bytes": 952,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/CONFIG-TEMPLATE.mts.inverse.diff",
+      "sha256": "f950902e97166914f676699373c323cc93f70b1b6bd68dcc9b703c63f2207b39"
+    },
+    "CONFIG.json": {
+      "bytes": 13790,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/CONFIG.json",
+      "sha256": "efb9f7b597a6781a69488437faea4755f4a4d186848bfe30baa1c801fa4cf669"
+    },
+    "CONFIG.json.forward.diff": {
+      "bytes": 10402,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/CONFIG.json.forward.diff",
+      "sha256": "3fe50b54c7d8efb8e3762f753e13fec882cd78da485c68c81237dd333bf581be"
+    },
+    "CONFIG.json.inverse.diff": {
+      "bytes": 10389,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/CONFIG.json.inverse.diff",
+      "sha256": "bc073f3edfbe0f903d7b8e33b19c7f9e64896c5e2d3e653079bb1b5418278148"
+    },
+    "CORE-TEST-TEMPLATE.ts": {
+      "bytes": 3955,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/CORE-TEST-TEMPLATE.ts",
+      "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "bytes": 9744,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "324c7cc754497e43cc5a9d46865f4cbf7e1a635b5e2ce5ac0857defab8661a02"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts.forward.diff": {
+      "bytes": 8731,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/FULL-BODY-CONTROLS-TEMPLATE.ts.forward.diff",
+      "sha256": "ae1cb885f239897d22da0df840b8f78ca65e00111b94f9ae2b684a8ecf40ebf9"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts.inverse.diff": {
+      "bytes": 8731,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/FULL-BODY-CONTROLS-TEMPLATE.ts.inverse.diff",
+      "sha256": "5fbb9ec0bebb656a89c485cf811e2bfdda1e8a1bac831fc3e46f4e7e6ddaddfc"
+    },
+    "LESSONS.txt": {
+      "bytes": 661,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/LESSONS.txt",
+      "sha256": "28e41565615fd317320fda23ec2ffab781fa3333eabb455e3095a103d055ac20"
+    },
+    "RECIPE.json": {
+      "bytes": 16936,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/RECIPE.json",
+      "sha256": "be413a62e195fa81e76d95fde70658def220f71293c909e90cb583cb41d840f4"
+    },
+    "RESOLUTION-SOURCE-BINDING.json": {
+      "bytes": 77415,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/RESOLUTION-SOURCE-BINDING.json",
+      "sha256": "beccc36285426dc51ec89ba1f2428177db3c8209b3f29dcf9365729f8928f987"
+    },
+    "RESOLUTION-SOURCE-BINDING.json.forward.diff": {
+      "bytes": 1204,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/RESOLUTION-SOURCE-BINDING.json.forward.diff",
+      "sha256": "7dca11a6d5dfdece5efd466e193a0ca159b55abedf947cddb0bac055f6a47dbc"
+    },
+    "RESOLUTION-SOURCE-BINDING.json.inverse.diff": {
+      "bytes": 1204,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/RESOLUTION-SOURCE-BINDING.json.inverse.diff",
+      "sha256": "de03210bce4417f197c4b9744404ebaa118abfdac3ba371d76b7a38678c4144d"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 15857,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/SOURCE-PROOF.json",
+      "sha256": "de7dc2ee134300b553b5efe8d90d57978fe35dac53a40c3188bfb79f12f2240b"
+    },
+    "SOURCE-STATE-UNFILLED.json": {
+      "bytes": 568,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/SOURCE-STATE-UNFILLED.json",
+      "sha256": "371f6edbf8912b6f3029d95bc7a5561a43bdd2276df03d15dd959bcbef26a36b"
+    },
+    "canonical-typescript-transform.mjs": {
+      "bytes": 1906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/canonical-typescript-transform.mjs",
+      "sha256": "71c3f791da660a280b04fcfb9038e037ff3c3ac2a080fec38f2164f85176751a"
+    },
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "m0TraceCodec.mjs": {
+      "bytes": 7882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+    },
+    "m0WiringProbe.ts": {
+      "bytes": 1800,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0WiringProbe.ts",
+      "sha256": "c3da292f943a37ae5c3c30005dfec71eb485bf17a211ecfddaa03efe0460c5a9"
+    },
+    "m0WiringProbe.ts.forward.diff": {
+      "bytes": 3624,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/m0WiringProbe.ts.forward.diff",
+      "sha256": "ebc6cc51663a08a70a1d76aa9a40592ef437fe3c2ca6cfc3a72fdcce1b700399"
+    },
+    "m0WiringProbe.ts.inverse.diff": {
+      "bytes": 3624,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/m0WiringProbe.ts.inverse.diff",
+      "sha256": "e6b2ed73a78b4df8cde12cb015c7c099ca91dcd6ee33d14d13d3065950e8a71c"
+    },
+    "ordering.ts": {
+      "bytes": 11927,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/ordering.ts",
+      "sha256": "8599945b1c3057ebb777ffcf56c55ddc30121b505f6ec29dacbc87aef216a803"
+    },
+    "ordering.ts.forward.diff": {
+      "bytes": 3797,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/ordering.ts.forward.diff",
+      "sha256": "e52d4b1dd85b497b7fe15122831a83efb98ee983a3e3edcf5c52d5dfdc5f7b7a"
+    },
+    "ordering.ts.inverse.diff": {
+      "bytes": 3797,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/ordering.ts.inverse.diff",
+      "sha256": "23ea73faca670a30d664520e081d400bca6c6bce44da5f84794e321495feb94f"
+    },
+    "record-fullfunction.py": {
+      "bytes": 16750,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/record-fullfunction.py",
+      "sha256": "aefc47165d7b9349236f13f744b7cbba4b95964ca730bfff71dd069906df394b"
+    },
+    "record-fullfunction.py.forward.diff": {
+      "bytes": 1048,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/record-fullfunction.py.forward.diff",
+      "sha256": "de0aa13cea6db6e7b49ec8e2b8d0e8b4a8b1a82770419466db9e3cbec67193d1"
+    },
+    "record-fullfunction.py.inverse.diff": {
+      "bytes": 1048,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/record-fullfunction.py.inverse.diff",
+      "sha256": "e5f31ac0db32d41a3fa7b4106ace58a2de39e335979f0d145cc25730637501ab"
+    },
+    "run-fullfunction.mjs": {
+      "bytes": 26514,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/run-fullfunction.mjs",
+      "sha256": "436d96da3342c2ba83e2d64444747ea98fcbc35af90c09af23d960979a0574a9"
+    },
+    "run-fullfunction.mjs.forward.diff": {
+      "bytes": 12225,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/run-fullfunction.mjs.forward.diff",
+      "sha256": "919cceceb7fa0803e07ae7555a0f52da3cffd630f4cc564c09aeeb1b2fe63eeb"
+    },
+    "run-fullfunction.mjs.inverse.diff": {
+      "bytes": 12225,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/run-fullfunction.mjs.inverse.diff",
+      "sha256": "801bf48de80269d7587365f78c03b91368c52747e3bd083374f1831bcb629f8c"
+    },
+    "run-fullfunction.py": {
+      "bytes": 22468,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/run-fullfunction.py",
+      "sha256": "4162a32c9a8bb22c381a4408b1ad1e599411c61a77d65936bb3d032dc0dbeb28"
+    },
+    "run-fullfunction.py.forward.diff": {
+      "bytes": 9729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/run-fullfunction.py.forward.diff",
+      "sha256": "40414e3acb00228ff9bff3bdba6bf4ba7bf4e9db07d224d293d662f2da378bfe"
+    },
+    "run-fullfunction.py.inverse.diff": {
+      "bytes": 9729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/run-fullfunction.py.inverse.diff",
+      "sha256": "c0ad5eeb3ea37d489966b76248cf9edba348792f62472de9b5a3758db07bd53e"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    },
+    "traceSequences.mjs": {
+      "bytes": 1286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    }
+  },
+  "schema": "1370-fullfunction-qualification-source-pins/v1"
+}

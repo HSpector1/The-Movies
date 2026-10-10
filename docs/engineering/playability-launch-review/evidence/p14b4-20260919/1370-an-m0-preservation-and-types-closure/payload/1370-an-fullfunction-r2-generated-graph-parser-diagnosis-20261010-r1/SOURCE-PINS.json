@@ -1,0 +1,120 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "DIAGNOSIS.json": {
+      "bytes": 3223,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/DIAGNOSIS.json",
+      "sha256": "c1e13014049a8aed47c3a0e76ebe0396c5f3b991d84006f5803644d20077217e"
+    },
+    "INPUTS.json": {
+      "bytes": 5034,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/INPUTS.json",
+      "sha256": "f0031faed536cce24017950c2d93f83a6c0bb1d0dcb52ff71c59a510509d7cc6"
+    },
+    "R10-DELTA-PARSE.json": {
+      "bytes": 810,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/R10-DELTA-PARSE.json",
+      "sha256": "952804407c0fcd4af52f34b922b51ac87eb17ab70f6720701be1ec6d0cd9f8e7"
+    },
+    "RESULT.json": {
+      "bytes": 5857,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/RESULT.json",
+      "sha256": "88c07eeefcf1358b5b3d4cfe09586ba13ce03aa66cded379e19923f25e700853"
+    },
+    "TRANSFORM-RESULT.json": {
+      "bytes": 10327,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/TRANSFORM-RESULT.json",
+      "sha256": "c81ebe9e64366910c37b2d302e658d2c0bfefb8155ef38e86ae467997c6937a7"
+    },
+    "parse_public_graph.cjs": {
+      "bytes": 1635,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/parse_public_graph.cjs",
+      "sha256": "6a05e0d041710699492853ce84332e2b3e0415b8b3e74daf90ba4e61bb676449"
+    },
+    "parse_repair_delta.cjs": {
+      "bytes": 1203,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/parse_repair_delta.cjs",
+      "sha256": "6b7e3ed9e39fabd102a3adc1977ecbf085364fac8bef72d1fd1db4ce133707a7"
+    },
+    "reproduce_public_transform.mjs": {
+      "bytes": 2311,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/reproduce_public_transform.mjs",
+      "sha256": "fa81d51b030768a5b366a8b7bf5a7a6abcae171056fc1ce2eca723193970cf79"
+    },
+    "transformed/00.js": {
+      "bytes": 4190,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/transformed/00.js",
+      "sha256": "65f50651f0833e4ed921163cd5950346cf435d7b5958730c5fcbace0afdcbd3e"
+    },
+    "transformed/01.js": {
+      "bytes": 5783,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/transformed/01.js",
+      "sha256": "d45bc42d56ce27af0501237e2a411b3753e76801118d21dc568bcaf4db5b3faa"
+    },
+    "transformed/02.js": {
+      "bytes": 11427,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/transformed/02.js",
+      "sha256": "4546741b4fcfb87199f5be6ebcdaa323aa87b33b22cc69e03e3b927558247c38"
+    },
+    "transformed/03.js": {
+      "bytes": 8902,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/transformed/03.js",
+      "sha256": "58833fb3e89560fe346ea4c5f4431f0e7cdcfe5b2523d217d06657247f334a4b"
+    },
+    "transformed/04.js": {
+      "bytes": 1003,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/transformed/04.js",
+      "sha256": "c8412f76308cd099c3e811b8c7c349516c4b9884c7db19a80b50323bb42375bf"
+    },
+    "transformed/05.js": {
+      "bytes": 4190,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/transformed/05.js",
+      "sha256": "65f50651f0833e4ed921163cd5950346cf435d7b5958730c5fcbace0afdcbd3e"
+    },
+    "transformed/06.js": {
+      "bytes": 8902,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/transformed/06.js",
+      "sha256": "58833fb3e89560fe346ea4c5f4431f0e7cdcfe5b2523d217d06657247f334a4b"
+    },
+    "transformed/07.js": {
+      "bytes": 1003,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/transformed/07.js",
+      "sha256": "c8412f76308cd099c3e811b8c7c349516c4b9884c7db19a80b50323bb42375bf"
+    },
+    "transformed/09.js": {
+      "bytes": 80058,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/transformed/09.js",
+      "sha256": "29955d2b32108b4ff000af7da7c122aba0f663bbeced97d461ddd4f4e7b027bf"
+    },
+    "transformed/10.js": {
+      "bytes": 80117,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/transformed/10.js",
+      "sha256": "7f20af0cf0445f52458b405a7673a4a3352f88152c21f43317eae276110cb74b"
+    },
+    "transformed/11.js": {
+      "bytes": 22799,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/transformed/11.js",
+      "sha256": "01f881b00834959066d29db9eb5b0428c58b3f7f21b3993b9baa7fc4f900c1fd"
+    },
+    "transformed/12.js": {
+      "bytes": 74124,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/transformed/12.js",
+      "sha256": "9347f6c7ed7021e2b19a73e00b1a8004bc7f1294896e18bfa1cf504809004c64"
+    },
+    "transformed/13.js": {
+      "bytes": 12546,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/transformed/13.js",
+      "sha256": "9aef2cca4bd30dbe9e1bd7a82b3532e4087c46ac2dfa54869df6cc75416184a3"
+    },
+    "transformed/14.js": {
+      "bytes": 3953,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/transformed/14.js",
+      "sha256": "f334ea9b50fba78b34ccc08e99efb0b1c92962a6a09527e054d1b65051e015d7"
+    },
+    "transformed/15.js": {
+      "bytes": 1776,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/transformed/15.js",
+      "sha256": "885668c624ed3920ab6068f44d349e9656310e639160cf7dff29e707a4cc9de1"
+    }
+  }
+}

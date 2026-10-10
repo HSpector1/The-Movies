@@ -1,0 +1,61 @@
+{
+  "schema": "1370-retained-generated-ts-transform-source-diagnosis/v1",
+  "actualReport": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2/generate.report.json",
+    "bytes": 733,
+    "sha256": "6ec97c977e860e231f586d6858c453847cfe13cfbb895d8b41f181c907ac0f83"
+  },
+  "retainedCore": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2/runtime/core.test.ts",
+    "bytes": 3955,
+    "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+  },
+  "originalTemplate": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r9/CORE-TEST-TEMPLATE.ts",
+    "bytes": 3955,
+    "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+  },
+  "originalCanonicalResolver": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/canonical-resolver.mjs",
+    "bytes": 2363,
+    "sha256": "429cc7b8ad0f6be2f851a2f10ef431d63192b912e0864c7602fd6072c4ae14fd"
+  },
+  "installedViteSourceObserved": {
+    "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js",
+    "bytes": 2086035,
+    "sha256": "bfa94186daff535fefdf286088c1588fad6b02c01ef11cd3b42a6cb3e4c90767"
+  },
+  "sourceBasis": {
+    "createFilterRejectsNulIdsLines": [
+      2734,
+      2737
+    ],
+    "ordinaryEsbuildTransformFilterLines": [
+      19264,
+      19300
+    ],
+    "transformApiConfigLookupLines": [
+      19165,
+      19228
+    ]
+  },
+  "mechanism": "Canonical NUL module IDs bypass ordinary Vite TS transform filter; original resolver returns raw authenticated TypeScript. Importer suite parser location need not identify the untransformed virtual dependency. Explicit transform preserves canonical IDs and source roles.",
+  "exactFailedVirtualModuleOrTokenCaptured": false,
+  "rawFiniteParse": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/RESULT.json",
+    "bytes": 5857,
+    "sha256": "88c07eeefcf1358b5b3d4cfe09586ba13ce03aa66cded379e19923f25e700853"
+  },
+  "publicTransformReproduction": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/TRANSFORM-RESULT.json",
+    "bytes": 10327,
+    "sha256": "c81ebe9e64366910c37b2d302e658d2c0bfefb8155ef38e86ae467997c6937a7"
+  },
+  "repairDeltaSyntaxParse": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-generated-graph-parser-diagnosis-20261010-r1/R10-DELTA-PARSE.json",
+    "bytes": 810,
+    "sha256": "952804407c0fcd4af52f34b922b51ac87eb17ab70f6720701be1ec6d0cd9f8e7"
+  },
+  "claimLimits": "Only finite retained/public source syntax and public API transform were executed; no generated module, resolver, gameplay test, or private module graph was imported/executed. Public transform output is syntax evidence, not fixture/control/game qualification. Installed Vite source role observed after reproduction; no separate earlier Vite file observation claimed.",
+  "gameplayAcceptance": false
+}

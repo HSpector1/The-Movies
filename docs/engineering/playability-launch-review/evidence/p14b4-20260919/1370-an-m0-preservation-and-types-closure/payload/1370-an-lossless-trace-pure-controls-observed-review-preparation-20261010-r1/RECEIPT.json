@@ -1,0 +1,47 @@
+{
+  "actualOutcome": null,
+  "concreteFindings": [],
+  "config": {
+    "bytes": 7933,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/CONFIG.json",
+    "sha256": "24fb559ed249ce928fbc5f476ec431d92c4b8bd9398d093fa70156a7ec6745c3"
+  },
+  "decision": "ACCEPT_SOURCE_ONLY_LOSSLESS49_ROOT_READER_PROTOCOL_PREPARED",
+  "executionAuthorization": false,
+  "futureActualReviewDecision": "ACCEPT_ACTUAL_PURE_LOSSLESS_CODEC_AND_AFFECTED_ORDERING_CONTROLS_ONLY",
+  "initialIdentityTighteningAppliedBeforeRun": {
+    "sixExactGeneratedKeysAndPhysicalOutputPaths": true,
+    "threeCopiedJsModulesExactInputBytesAndSha": true
+  },
+  "matrix": {
+    "bytes": 7851,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/MATRIX.json",
+    "sha256": "7fe45df7b9e2702450bb1b538ac7e6ffbce5196d688eaac6f7d47a64d973638f"
+  },
+  "observedReviewChecklist": [
+    "Authenticate retained actual tool final0/session/grant/source reviews/source authority and exact own-group claim; never infer unrecorded process IDs.",
+    "Distinct recorder RESULT and recorder/worker CONTROLS-RESULT roles; actualchild0/groupclear/notimedout/noOVERRIDE and original300/320/330 plus8MiB childstreams.",
+    "Exactly49 full producer rows equal matrix with original specific predicates and expected verdict,9positive40negative; original18 ordering and no parser32 replay.",
+    "Hash authenticated nine physical input roles plus public runtime tool roles and all six emitted pure modules; copiedJS modules equal source inputs, emittedTS generatedpath+hash exact.",
+    "Compact stdout object equals both sorted recorder and pretty worker control result objects; workerstderr empty is distinct from known helperlog warning.",
+    "Original lane statusframe/helpermeta completion and scoped actual helper+Node PID/PGID ESRCH/lock absence required from genuine parent readback; no probes by reviewer.",
+    "Scope purecodec/probe/pair/ordering only: no naturalfixture-fit, fullbody game assertions, baseline, typedcatchmutant or gameplay acceptance."
+  ],
+  "reader": {
+    "bytes": 6003,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/read_lossless_controls.py",
+    "sha256": "5aa670e2d1a96821009e1adbdc6b0f539fd1f19e0bcc980109245a6f683c25f4"
+  },
+  "recipe": {
+    "bytes": 9629,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/RECIPE.json",
+    "sha256": "a2b53e875ad3505b8404d414e570240150939339d8004c714ba2e01c36361dfd"
+  },
+  "routeSourcePins": {
+    "bytes": 7306,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "2b035412243347f60e8a1148a290899158ce975f755a1b8837324b1e07bd644f"
+  },
+  "runtimePerformed": false,
+  "schema": "1370-lossless-controls-observed-review-preparation/v1"
+}

@@ -1,0 +1,73 @@
+{
+  "schema": "1370-r3-ordering-controls-parent-contract/v1",
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/SOURCE-PINS.json",
+    "bytes": 4114,
+    "sha256": "9976469fd0db93e77eea6842f28572493d02aded92b0924f984785f48f1d2938"
+  },
+  "sourceReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-independent-source-review-20261009-r3/RECEIPT.json",
+    "bytes": 15506,
+    "sha256": "0bf5c4456471f1efee11f552e7cbb0f79f2c6a27ea5949f4acb41f8395521419"
+  },
+  "config": {
+    "bytes": 5198,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/CONFIG.json",
+    "sha256": "83bce1b4b19f7b9f6ae3c75fc33b5960aa21738891e4add3aa4941c45aaac631"
+  },
+  "recipe": {
+    "bytes": 5676,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/RECIPE.json",
+    "sha256": "b88b6919d468225f4772a758eb98af4c6935310962bc13d10911180295a47bea"
+  },
+  "bounds": {
+    "active": 320,
+    "childStreamBytes": 8388608,
+    "compiledModuleBytes": 131072,
+    "resultBytes": 131072,
+    "runner": 300,
+    "whole": 330
+  },
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-results-20261009-r2",
+  "recorderOutputPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-recorder-results-20261009-r2",
+  "parentPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1",
+  "laneLog": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/ordering.lane.log",
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "GIT_OPTIONAL_LOCKS": "0"
+  },
+  "tools": {
+    "python": {
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "bytes": 50472,
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "node": {
+      "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+      "bytes": 115440320,
+      "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+    },
+    "typescript": {
+      "bytes": 9112572,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/lib/typescript.js",
+      "sha256": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675"
+    },
+    "helper": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "bytes": 3361,
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    }
+  },
+  "scope": "PURE_SYNTHETIC_ORDERING_CONSUMER_18_CASES_ONLY",
+  "executionAuthorization": false,
+  "actualGrant": null,
+  "actualOutcome": null,
+  "actualParentReview": null,
+  "runtimeToolsObservation": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-RUNTIME-TOOLS.json",
+    "bytes": 5401,
+    "sha256": "a681efc4a9b29dfc62bffb6c1e7cd434107bfb1064769f712fca48227bd64106"
+  },
+  "sourceAdoption": null
+}

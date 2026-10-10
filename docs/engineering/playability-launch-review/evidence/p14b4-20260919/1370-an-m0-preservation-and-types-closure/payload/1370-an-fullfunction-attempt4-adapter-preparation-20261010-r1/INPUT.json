@@ -1,0 +1,57 @@
+{
+  "definitions": [
+    {
+      "kind": "parent",
+      "baseDir": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r3",
+      "newDir": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r4",
+      "pins": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r3/SOURCE-PINS.json",
+        "bytes": 1409,
+        "sha256": "bfd2caee59bf7bdc5698b97bca19340513dcf0b761ef66dfe3b970eef39eec86"
+      },
+      "review": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-independent-source-review-20261010-r3/RECEIPT.json",
+        "bytes": 4782,
+        "sha256": "410d3e784e742abe9c089a8b9ae52cd4db426dabda6022212ea2f09df2417fe7"
+      },
+      "files": [
+        "launch-fullfunction.py"
+      ],
+      "changes": [
+        [
+          "1370-an-m0-fullfunction-parent-recorded-20261010-r3",
+          "1370-an-m0-fullfunction-parent-recorded-20261010-r4"
+        ]
+      ]
+    },
+    {
+      "kind": "post",
+      "baseDir": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5",
+      "newDir": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6",
+      "pins": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r5/SOURCE-PINS.json",
+        "bytes": 2804,
+        "sha256": "1d4a2357eb6bbeef8f8c282eea04d6babaf001e17e78a7de9a142e3b54cb4db8"
+      },
+      "review": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-independent-source-review-20261010-r5/RECEIPT.json",
+        "bytes": 4516,
+        "sha256": "a87f2fcd38975403b09f9769e87858b651e5c0160f972bcb9a2554183354dbad"
+      },
+      "files": [
+        "launch-fullpostflight.py",
+        "read-fullpostflight.py"
+      ],
+      "changes": [
+        [
+          "1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r3",
+          "1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4"
+        ],
+        [
+          "postflight-fullfunction-qualification-r3",
+          "postflight-fullfunction-qualification-r4"
+        ]
+      ]
+    }
+  ]
+}

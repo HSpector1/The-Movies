@@ -1,0 +1,90 @@
+{
+  "actualTool": {
+    "bytes": 1257,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/ACTUAL-TOOL.json",
+    "sha256": "282c198ac4e4a8eb190269bf983881777628dac84d86841c722072b57151bd15"
+  },
+  "executionAuthorization": false,
+  "fixtureQualification": false,
+  "game": false,
+  "helperWarningsSeparateFromEmptyProducerStderr": true,
+  "laneLog": {
+    "bytes": 423,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/ordering.lane.log",
+    "sha256": "b0d40e4523bcf168568118af12e4f21c380c37d137e5cd48e0f7c2129eecec85"
+  },
+  "laneMetadata": {
+    "bytes": 549,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/ordering.lane.log.meta",
+    "sha256": "794273fef43130058413c3fe626b3ea3fa1945a35e5d06c5985db38252c9889e"
+  },
+  "laneReleased": true,
+  "launchClaim": {
+    "bytes": 3543,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/LAUNCH-CLAIM.json",
+    "sha256": "40472328a05873aaf93aedec0eeff8e273c02b96ed30aaf78332770cf4391758"
+  },
+  "meaningfulCatchMutantRed": false,
+  "originalM0ReadOrWritten": false,
+  "positiveCount": 2,
+  "preparationElapsedSeconds": 0.6761403179989429,
+  "recordedOwnedIds": [
+    334,
+    606
+  ],
+  "recorderElapsedSeconds": 3.0539382220013067,
+  "recorderResult": {
+    "bytes": 933,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-recorder-results-20261009-r2/RESULT.json",
+    "sha256": "2dde623a9d04f25af5578238cbd33c47124f7503f8f65a1b2268e5795e99755b"
+  },
+  "rootGrant": {
+    "bytes": 5412,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/GRANT.json",
+    "sha256": "501a866b7b442f23f0783461ed5ade364d37bdb32920966cd9ee01738de842c6"
+  },
+  "schema": "1370-root-r3-ordering-controls-actual-readback/v1",
+  "scopedOwnershipChecks": [
+    {
+      "id": 334,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 334,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 606,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 606,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "specificNegativeCount": 16,
+  "status": "ACTUAL_PURE_ORDERING_CONTROLS_COMPLETE_PENDING_INDEPENDENT_REVIEW",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-recorder-results-20261009-r2/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 307,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-recorder-results-20261009-r2/stdout.bin",
+    "sha256": "00ecf5b2f79c2984664423337fa1b4414e657cbd0b3f3fb414fe5568362f0a53"
+  },
+  "syntheticOnly": true,
+  "toolExit": 0,
+  "toolSessionId": 6493,
+  "typesAccepted": false,
+  "workerResult": {
+    "bytes": 7516,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-results-20261009-r2/RESULT.json",
+    "sha256": "3334a63ac65fe435100f906528e8df20cad721a0d86809bf38d39b2de9621948"
+  }
+}

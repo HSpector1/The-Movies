@@ -1,0 +1,28 @@
+{
+  "schema": "1370-root-actual-tool-transcript/v1",
+  "sessionId": 46072,
+  "allToolChunks": [
+    {
+      "chunk_id": "d209f3",
+      "wall_time_seconds": 1.00202965,
+      "session_id": 46072,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "e5ff8c",
+      "wall_time_seconds": 5.003196446,
+      "session_id": 46072,
+      "original_token_count": 71,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-fullpostflight-parent-recorded-20261009-r3/GRANT.json\", \"bytes\": 4814, \"sha256\": \"5d8643d666b45236458992bf5c8175ba5cb185dc7f1a0c9b96b5ad4aa46bfcef\"}, \"scannerPid\": 31386, \"scannerPgid\": 31386}\n"
+    },
+    {
+      "chunk_id": "84c58d",
+      "wall_time_seconds": 0.000016707,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ],
+  "finalExit": 0
+}

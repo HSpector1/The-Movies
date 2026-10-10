@@ -1,0 +1,60 @@
+{
+  "actualResult": {
+    "bytes": 7516,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-results-20261009-r2/RESULT.json",
+    "sha256": "3334a63ac65fe435100f906528e8df20cad721a0d86809bf38d39b2de9621948"
+  },
+  "candidateChanged": false,
+  "executionAuthorization": false,
+  "fixtureQualification": false,
+  "game": false,
+  "independentObservedReview": {
+    "bytes": 14874,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-independent-observed-review-20261009-r1/RECEIPT.json",
+    "sha256": "d2e91a683ebd4c5ed0b8f7da1521df497036be7e05a3c13e58f2385f5c10ec29"
+  },
+  "laneReleased": true,
+  "meaningfulCatchMutantRed": false,
+  "originalM0ReadOrWritten": false,
+  "parentSourcePins": {
+    "bytes": 3149,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "30ae3db8d6cf974e85ff5e416ed360a65b004b5cd5945a3289cb1d880c062a7c"
+  },
+  "parentSourceReview": {
+    "bytes": 2776,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-independent-source-review-20261009-r2/RECEIPT.json",
+    "sha256": "8d25710323efd209c4ec86bc2ee72ce96ef7074e4f4b5bd80d18ef8793879b1e"
+  },
+  "positiveCount": 2,
+  "readback": {
+    "bytes": 3337,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1/READBACK.json",
+    "sha256": "ba1e1575320b6c3695a50479eab0436241d3e1450e3d6b393563f3c294038fd9"
+  },
+  "recordedOwnedIds": [
+    334,
+    606
+  ],
+  "recorderElapsedSeconds": 3.0539382220013067,
+  "recorderResult": {
+    "bytes": 933,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-recorder-results-20261009-r2/RESULT.json",
+    "sha256": "2dde623a9d04f25af5578238cbd33c47124f7503f8f65a1b2268e5795e99755b"
+  },
+  "schema": "1370-root-r3-ordering-controls-observed-adoption/v1",
+  "sourcePins": {
+    "bytes": 4114,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "9976469fd0db93e77eea6842f28572493d02aded92b0924f984785f48f1d2938"
+  },
+  "sourceReview": {
+    "bytes": 15506,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-independent-source-review-20261009-r3/RECEIPT.json",
+    "sha256": "0bf5c4456471f1efee11f552e7cbb0f79f2c6a27ea5949f4acb41f8395521419"
+  },
+  "specificNegativeCount": 16,
+  "status": "ROOT_ADOPTED_PURE_R3_ORDERING_CONSUMER_18_CONTROLS_ONLY",
+  "syntheticOnly": true,
+  "typesAccepted": false
+}

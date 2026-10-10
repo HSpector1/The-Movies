@@ -1,0 +1,190 @@
+{
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_LOSSLESS_TRACE_PURE_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "limits": [
+    "No codec runtime or natural-fixture compression fit demonstrated by this receipt.",
+    "Fullbody template game assertions remain unrun; pure49 covers codec/probe/pair/order and original18 ordering only.",
+    "Parser32 is unchanged and not replayed.",
+    "Original merged helper log has no extra outer live stream limiter; inherited recorder warning is not producer stderr."
+  ],
+  "majorLessons": [
+    "Authenticate compiler and emitted dependency graph explicitly; pure transpilation does not inherit game authority.",
+    "Executed output selectors and post-control tool hashes must match their declared bindings.",
+    "Specific RED predicates must reject loader/tool/unknown failures rather than count them as intended negatives."
+  ],
+  "remainingGenuineFills": [
+    "Root source adoption and once grant",
+    "Actual pure49 recorded outcome, cleanup and independent observed review",
+    "Root observed adoption before dependent fullfunction qualification"
+  ],
+  "reviewScope": "Independent finite static source and retained-role review only; no candidate imports, runtime, compiler execution, game or private inventories.",
+  "routeSourcePins": {
+    "CONFIG.json": {
+      "bytes": 7933,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/CONFIG.json",
+      "sha256": "24fb559ed249ce928fbc5f476ec431d92c4b8bd9398d093fa70156a7ec6745c3"
+    },
+    "CONTRACT.json": {
+      "bytes": 5571,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/CONTRACT.json",
+      "sha256": "d79a9de6f0bfe7b318fff334cfe1f9e923996f83890bb13dd31104bebefd9eb4"
+    },
+    "CONTROLS-CONTRACT.json": {
+      "bytes": 5260,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "09fb4555708c5ccfe2ed79265789baeca5c6d350bbd1045a86d55deb9a5b1ce5"
+    },
+    "MATRIX.json": {
+      "bytes": 7851,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "7fe45df7b9e2702450bb1b538ac7e6ffbce5196d688eaac6f7d47a64d973638f"
+    },
+    "ORDERING-SOURCE-CASES.json": {
+      "bytes": 27476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+      "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+    },
+    "launch-lossless-controls.py": {
+      "bytes": 11510,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/launch-lossless-controls.py",
+      "sha256": "3ea515ac04ae75c617daaef7d865811b3c00f841a3a6d297821c6f10b2c1c697"
+    },
+    "m0TraceCodec.mjs": {
+      "bytes": 7882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+    },
+    "m0WiringProbe.ts": {
+      "bytes": 1800,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0WiringProbe.ts",
+      "sha256": "c3da292f943a37ae5c3c30005dfec71eb485bf17a211ecfddaa03efe0460c5a9"
+    },
+    "ordering-source-controls.ts": {
+      "bytes": 2941,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/ordering-source-controls.ts",
+      "sha256": "7fd03b25ea5c258584652c051d7ffab977d5380824043be233f375f17944f0f5"
+    },
+    "ordering.ts": {
+      "bytes": 11927,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/ordering.ts",
+      "sha256": "8599945b1c3057ebb777ffcf56c55ddc30121b505f6ec29dacbc87aef216a803"
+    },
+    "record-lossless-controls.py": {
+      "bytes": 17454,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/record-lossless-controls.py",
+      "sha256": "92c593f8e130dafbdf57373be956014c68d3ba3b0b1b58929a5f965b86049337"
+    },
+    "run-lossless-controls.mjs": {
+      "bytes": 16090,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/run-lossless-controls.mjs",
+      "sha256": "2333bedb5974313c3885ce679b6385ff6f995cd68e8e7107c0e0f45a2e5f9be8"
+    },
+    "run-lossless-recorded-controls.mjs": {
+      "bytes": 13369,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/run-lossless-recorded-controls.mjs",
+      "sha256": "6473d8ba2631da787c9d1b66df3eefcb09959974c4ce34ed94f4e5f3cd4f9024"
+    },
+    "traceSequences.mjs": {
+      "bytes": 1286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    }
+  },
+  "schema": "1370-lossless-trace-pure-controls-recorded-route-independent-source-review/v1",
+  "sourceManifest": {
+    "bytes": 7306,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "2b035412243347f60e8a1148a290899158ce975f755a1b8837324b1e07bd644f"
+  },
+  "sourcePins": {
+    "CONFIG.json": {
+      "bytes": 7933,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/CONFIG.json",
+      "sha256": "24fb559ed249ce928fbc5f476ec431d92c4b8bd9398d093fa70156a7ec6745c3"
+    },
+    "CONTRACT.json": {
+      "bytes": 5571,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/CONTRACT.json",
+      "sha256": "d79a9de6f0bfe7b318fff334cfe1f9e923996f83890bb13dd31104bebefd9eb4"
+    },
+    "CONTROLS-CONTRACT.json": {
+      "bytes": 5260,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "09fb4555708c5ccfe2ed79265789baeca5c6d350bbd1045a86d55deb9a5b1ce5"
+    },
+    "MATRIX.json": {
+      "bytes": 7851,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "7fe45df7b9e2702450bb1b538ac7e6ffbce5196d688eaac6f7d47a64d973638f"
+    },
+    "ORDERING-SOURCE-CASES.json": {
+      "bytes": 27476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+      "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+    },
+    "launch-lossless-controls.py": {
+      "bytes": 11510,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/launch-lossless-controls.py",
+      "sha256": "3ea515ac04ae75c617daaef7d865811b3c00f841a3a6d297821c6f10b2c1c697"
+    },
+    "m0TraceCodec.mjs": {
+      "bytes": 7882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+      "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+    },
+    "m0WiringProbe.ts": {
+      "bytes": 1800,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0WiringProbe.ts",
+      "sha256": "c3da292f943a37ae5c3c30005dfec71eb485bf17a211ecfddaa03efe0460c5a9"
+    },
+    "ordering-source-controls.ts": {
+      "bytes": 2941,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/ordering-source-controls.ts",
+      "sha256": "7fd03b25ea5c258584652c051d7ffab977d5380824043be233f375f17944f0f5"
+    },
+    "ordering.ts": {
+      "bytes": 11927,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/ordering.ts",
+      "sha256": "8599945b1c3057ebb777ffcf56c55ddc30121b505f6ec29dacbc87aef216a803"
+    },
+    "record-lossless-controls.py": {
+      "bytes": 17454,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/record-lossless-controls.py",
+      "sha256": "92c593f8e130dafbdf57373be956014c68d3ba3b0b1b58929a5f965b86049337"
+    },
+    "run-lossless-controls.mjs": {
+      "bytes": 16090,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/run-lossless-controls.mjs",
+      "sha256": "2333bedb5974313c3885ce679b6385ff6f995cd68e8e7107c0e0f45a2e5f9be8"
+    },
+    "run-lossless-recorded-controls.mjs": {
+      "bytes": 13369,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/run-lossless-recorded-controls.mjs",
+      "sha256": "6473d8ba2631da787c9d1b66df3eefcb09959974c4ce34ed94f4e5f3cd4f9024"
+    },
+    "traceSequences.mjs": {
+      "bytes": 1286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+      "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+    }
+  },
+  "verification": {
+    "authority": "External once grant and authentic implementation, controls, design and source reviews required; exact source-role aliases avoid authority cycles; all five public tools rehashed after controls.",
+    "compiler": "Authenticated TypeScript 5.9.3 ES2022 transpileModule only for three pure TS modules; exact emitted import whitelist and single ordering dependency rebase.",
+    "exactCaseRoster": {
+      "originalOrderingCases": 18,
+      "positive": 9,
+      "specificNegative": 40,
+      "total": 49
+    },
+    "externalInputs": 9,
+    "manifestFiles": 15,
+    "ownedChildClassUnchanged": true,
+    "recording": "Original 300 runner / 320 active / 330 whole; separate canceled preparation 60; 8MiB child streams and 128KiB module/report bounds; actual output selectors agree with config and recipe.",
+    "reviewAliases": 14,
+    "unchangedParentHelpers": 10,
+    "unchangedRecorderHelpers": 16,
+    "wholeForwardInverseApplications": 4
+  }
+}

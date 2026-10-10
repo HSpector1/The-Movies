@@ -1,0 +1,268 @@
+{
+  "schema": "1370-m0-external-config-types-source-pins/v1",
+  "status": "HELD_SOURCE_ONLY_UNRUN_PENDING_INDEPENDENT_REVIEW",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1",
+  "productionHeadTarget": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "productionRef": "refs/heads/wip/headless-program-20260916-ts",
+  "localMainRef": "refs/remotes/origin/main",
+  "advertisedMainRef": "refs/heads/main",
+  "mainOid": "c902a704eb948cc576083d0973c8c23e59937dc1",
+  "files": {
+    "BASELINE-R6-BOOTSTRAP.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BASELINE-R6-BOOTSTRAP.py",
+      "bytes": 2725,
+      "sha256": "d2f66d1b78b3d09ad0eb897ac4b0d2fdfbaf0ab6656f8aa106c97aecabb6ea88"
+    },
+    "BASELINE-R6-CONFIG.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BASELINE-R6-CONFIG.json",
+      "bytes": 29857,
+      "sha256": "f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7"
+    },
+    "BASELINE-R6-LAUNCH.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BASELINE-R6-LAUNCH.py",
+      "bytes": 7596,
+      "sha256": "6367ece93954fadc4726d766af6bdaf94aaeda53be86c96a3938522075142836"
+    },
+    "BASELINE-R6-runner.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BASELINE-R6-runner.py",
+      "bytes": 37199,
+      "sha256": "5c18ad22e7b78d978c59eace50d5e4349ea415efa4ebf5840860e75561fa2e4b"
+    },
+    "BASELINE-R6-supervise.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BASELINE-R6-supervise.py",
+      "bytes": 13706,
+      "sha256": "af8c2b89380031262c2deec4271c6b39339cca721e14abc89bf57860d6ce57eb"
+    },
+    "BOOTSTRAP.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BOOTSTRAP.py",
+      "bytes": 2721,
+      "sha256": "8e4af6c0f9d92167ab1768368a443403abdded854c9eedc039c378285b86422a"
+    },
+    "BOOTSTRAP.py.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BOOTSTRAP.py.forward.diff",
+      "bytes": 954,
+      "sha256": "599f8e6a19abc9b024fb989328332ab5bb47bb3df7788984922d4ec17a31bb86"
+    },
+    "BOOTSTRAP.py.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BOOTSTRAP.py.inverse.diff",
+      "bytes": 954,
+      "sha256": "51c5d806a92472cc4076f6bd156c5e8e2099a5423ead9d95b800df980645df18"
+    },
+    "CONFIG.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/CONFIG.json",
+      "bytes": 32807,
+      "sha256": "224b8f1614208215cb07993fc4b015d8438413e95b805c7360105bee0575b154"
+    },
+    "CONFIG.json.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/CONFIG.json.forward.diff",
+      "bytes": 6262,
+      "sha256": "f68bf0e13572fe33e0e9d99040eec0dc1dd0169be78e0d3475cfd37026e7ffc8"
+    },
+    "CONFIG.json.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/CONFIG.json.inverse.diff",
+      "bytes": 6262,
+      "sha256": "a20498972f22bffb6743dd999137671417caa169f5b7e80117241ae59128a00f"
+    },
+    "DIAGNOSTIC-FULL-SOURCE-CHECK.txt": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/DIAGNOSTIC-FULL-SOURCE-CHECK.txt",
+      "bytes": 5356,
+      "sha256": "ea68ed6e720f185c98dbd9fd1068d96e61c0ac7bb804ffb0f5a2797b9439b8e8"
+    },
+    "EXECUTION-CONTEXT-UNFILLED.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/EXECUTION-CONTEXT-UNFILLED.json",
+      "bytes": 578,
+      "sha256": "5fe2bb6167a2845b2c7b8ae17db8b13c33f65fe397a813eb8da47b65a47196cb"
+    },
+    "HISTORICAL-ROOT-CONFIG.txt": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/HISTORICAL-ROOT-CONFIG.txt",
+      "bytes": 176,
+      "sha256": "2939ba611a5c025c2974043c98c06af10aadd3065925103d3f506bd1f1d07faa"
+    },
+    "HISTORICAL-WORKSPACE-CONFIG.txt": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/HISTORICAL-WORKSPACE-CONFIG.txt",
+      "bytes": 1489,
+      "sha256": "423ba7332b1348114c751b71d1ed551c48aa57ecb4de75daf876b20d8ab34a82"
+    },
+    "LAUNCH.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/LAUNCH.py",
+      "bytes": 9125,
+      "sha256": "6f2d9628bcf753a382232eaf5e2ffaaec2f73c17969ed54d804c23fac8a8310b"
+    },
+    "LAUNCH.py.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/LAUNCH.py.forward.diff",
+      "bytes": 4244,
+      "sha256": "f40d8ef14aad66c4cd32b9bf0281bbe2d74d8de4fda0b7a06a64b192a37e66d6"
+    },
+    "LAUNCH.py.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/LAUNCH.py.inverse.diff",
+      "bytes": 4244,
+      "sha256": "68369461319d66e3a2f5e0ac3bb6e8c08e78f15ac6163f5d3a8c8a64122c51e1"
+    },
+    "LESSONS.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/LESSONS.md",
+      "bytes": 1749,
+      "sha256": "28ca532e7134b5d0ee3fef0ee95d31edb9fab966e5c1002f361990bbd2e4a6d0"
+    },
+    "RECIPE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/RECIPE.json",
+      "bytes": 12239,
+      "sha256": "afcad3e8ec6f3ba82f480617544609fc1195ee72697ec27fa09a2d6272b8d42a"
+    },
+    "RECIPE.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/RECIPE.md",
+      "bytes": 1577,
+      "sha256": "23af53c3555476ef2d68c6b0de6a62d9c35a79e33ff7752a6849dad4ddb43e1b"
+    },
+    "ROOT-CONFIG-TEMPLATE.mts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/ROOT-CONFIG-TEMPLATE.mts",
+      "bytes": 460,
+      "sha256": "a593f1e4366309b0b68cc08610a42c9d26f6f28285434121a02f88c46300a384"
+    },
+    "ROOT-CONFIG-TEMPLATE.mts.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/ROOT-CONFIG-TEMPLATE.mts.forward.diff",
+      "bytes": 804,
+      "sha256": "f5311c43a4534b6b7b1a161fd043fa60a5a9721bbde6c75e6bc2e2e3c89f728b"
+    },
+    "ROOT-CONFIG-TEMPLATE.mts.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/ROOT-CONFIG-TEMPLATE.mts.inverse.diff",
+      "bytes": 804,
+      "sha256": "3a6000ae4f7362d13fd4576727763c0d80a6864a154c82ae6be326233c9c956c"
+    },
+    "WORKSPACE-CONFIG-TEMPLATE.mts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/WORKSPACE-CONFIG-TEMPLATE.mts",
+      "bytes": 2163,
+      "sha256": "e47ce2329889e0f690af0eeb318461eee38ecf5d8346b4fd0ef2aac99ca0e814"
+    },
+    "WORKSPACE-CONFIG-TEMPLATE.mts.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/WORKSPACE-CONFIG-TEMPLATE.mts.forward.diff",
+      "bytes": 1750,
+      "sha256": "0ba8b83547057c181c597d66831ee8ec5eda956d5b7d0c9063a43b9f6b4995dc"
+    },
+    "WORKSPACE-CONFIG-TEMPLATE.mts.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/WORKSPACE-CONFIG-TEMPLATE.mts.inverse.diff",
+      "bytes": 1750,
+      "sha256": "4e1e1095ddb19ec648922ce289c855e781826f204d1b8f8cc66bb40855da0072"
+    },
+    "check-deps.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/check-deps.mjs",
+      "bytes": 1918,
+      "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+    },
+    "runner.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/runner.py",
+      "bytes": 43951,
+      "sha256": "8fd2ad12b9d7751b486687df2d4887831254501f5866795bcb4d16ae7e38e466"
+    },
+    "runner.py.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/runner.py.forward.diff",
+      "bytes": 13441,
+      "sha256": "e77bd725c50d508a9cb5f77932b134956f913511f7756473228cc2c35017d963"
+    },
+    "runner.py.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/runner.py.inverse.diff",
+      "bytes": 13441,
+      "sha256": "95a855197bd1446a046988b5f114045f1f2376e12c0e3ef05acd74d4cb95b080"
+    },
+    "supervise.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/supervise.py",
+      "bytes": 13716,
+      "sha256": "339ae9263f60b5f554826e5919add321940c07440d31b33ed67020354a4e6eb0"
+    },
+    "supervise.py.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/supervise.py.forward.diff",
+      "bytes": 2694,
+      "sha256": "9b44678dc450918a0e8165a0956cc3a6ab8bdfa384a8331ed196fa675aecc21c"
+    },
+    "supervise.py.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/supervise.py.inverse.diff",
+      "bytes": 2694,
+      "sha256": "9df390642dd1ff592de9a7095617c7f4cc1e4a63e2b1844e70f611520ae406a6"
+    },
+    "SOURCE-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/SOURCE-PROOF.json",
+      "bytes": 45611,
+      "sha256": "a210608638f520bf76d630eebd5c35175027633766ef62d71c3b336f46d0f018"
+    },
+    "BASELINE-R6-EXECUTION-CONTEXT-UNFILLED.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BASELINE-R6-EXECUTION-CONTEXT-UNFILLED.json",
+      "bytes": 539,
+      "sha256": "690a9d95b88b1c6338392623c9b3345733ac674866ac83f719eadcd3915eecd4"
+    },
+    "EXECUTION-CONTEXT-UNFILLED.json.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/EXECUTION-CONTEXT-UNFILLED.json.forward.diff",
+      "bytes": 1120,
+      "sha256": "4873ddab26ad949bf1ddb1dcf9f7298a6b909b67b6a0fc0d722553e122cd6240"
+    },
+    "EXECUTION-CONTEXT-UNFILLED.json.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/EXECUTION-CONTEXT-UNFILLED.json.inverse.diff",
+      "bytes": 1120,
+      "sha256": "5e4817bdaea7ab46716d71df64e35768a5ef7f744e9b48eda21cfbced22bc2f4"
+    }
+  },
+  "predecessorSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6/SOURCE-PINS.json",
+    "bytes": null,
+    "sha256": "05ca05fbe689bcb48ab78507679373938bee867e846ea57b42e203fc9a92e3cf"
+  },
+  "diagnosticProposal": {
+    "sourcePins": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/SOURCE-PINS.json",
+      "bytes": 14200,
+      "sha256": "42611a6faecc6b13e7b8a18cfef210b06d7167bb3e2a23d08862db65c4531262"
+    },
+    "config": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/CONFIG.json",
+      "bytes": 32755,
+      "sha256": "c40c0a34d07532d4690552318958029ec736d32283dcec59b0b33191bf82bc4c"
+    },
+    "function": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/FULL-SOURCE-CHECK.txt",
+      "bytes": 5356,
+      "sha256": "ea68ed6e720f185c98dbd9fd1068d96e61c0ac7bb804ffb0f5a2797b9439b8e8"
+    },
+    "functionByteExact": true,
+    "knownRootDriftDataExact": true,
+    "diagnosticActual": null,
+    "diagnosticObservedReview": null,
+    "rootObservedAdoption": null
+  },
+  "sourceReviewInterface": {
+    "decision": "ACCEPT_STATIC_M0_TYPES_COLLECTION_SOURCE_ONLY",
+    "sourcePins": "Filename-keyed exact role map; launcher consumes sourcePins, not a guessed alias.",
+    "requiredOperationalFilenames": [
+      "runner.py",
+      "BOOTSTRAP.py",
+      "supervise.py",
+      "CONFIG.json",
+      "check-deps.mjs",
+      "ROOT-CONFIG-TEMPLATE.mts",
+      "WORKSPACE-CONFIG-TEMPLATE.mts",
+      "LAUNCH.py"
+    ],
+    "concreteFindings": [],
+    "executionAuthorization": false
+  },
+  "authorityBoundary": "Source proposal can name exact known historical drift and copied proof function; only genuine future externally authenticated root diagnostic adoption admits current root baseline. No historical root restoration or implicit acceptance.",
+  "futureAuthority": {
+    "sourceReview": null,
+    "postR6DiagnosticObservedReview": null,
+    "postR6RootAdoption": null,
+    "currentProtection": null,
+    "runtimeTools": null,
+    "laneLock": null,
+    "currentContext": null,
+    "actualGrant": null,
+    "actualLaunch": null,
+    "actualOutcome": null,
+    "fullPostflightSnapshot": null,
+    "independentObservedReview": null,
+    "rootObservedAdoption": null
+  },
+  "originalR6StopPreserved": true,
+  "actualTypeAcceptance": false,
+  "actualCollectionAcceptance": false,
+  "gameAuthority": false
+}

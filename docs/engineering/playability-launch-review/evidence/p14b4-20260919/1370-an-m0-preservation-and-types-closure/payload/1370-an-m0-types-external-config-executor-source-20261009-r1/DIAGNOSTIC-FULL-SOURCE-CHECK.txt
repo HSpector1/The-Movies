@@ -1,0 +1,68 @@
+def full_source_check(mirror,manifest,run_id,allow_deps_link=False):
+ """Exact admitted M0 roster, content and physical metadata through no-follow dirfds."""
+ expected=M0_FACTS['files'];directories=M0_FACTS['directories'];links=M0_FACTS['symlinks']
+ need(len(expected)==1740 and sum(r['bytes'] for r in expected.values())==119393120 and
+      len(directories)==113 and set(links)=={'node_modules'},'M0 authenticated roster')
+ overlays={r['destination']:r for r in manifest['files']}
+ need(len(overlays)==5 and all(expected[k]['bytes']==v['bytes'] and expected[k]['sha256']==v['sha256'] for k,v in overlays.items()),'five M0 overlays')
+ held=open_dir_chain(mirror);rootfd=held[-1];root_before=fields(os.fstat(rootfd))
+ proof_rows={};metadata_rows={};seen_dirs=set();state={'entries':0};total=0;deps_link=None
+ try:
+  def descend(fd,prefix):
+   nonlocal total,deps_link
+   before=fields(os.fstat(fd));dirrel=prefix[:-1] if prefix else '.'
+   if dirrel=='.':
+    need(fields(os.fstat(fd))==tuple(CONFIG['knownRootDrift']['recordedAfterIdentity']),'exact recorded post-R6 root metadata')
+    need(tuple(directories['.'])==tuple(CONFIG['knownRootDrift']['historicalNormalizedIdentity']),'historical root metadata binding')
+   else:
+    need(dirrel in directories and normalized(os.fstat(fd))==tuple(directories[dirrel]),'admitted directory metadata '+dirrel)
+   seen_dirs.add(dirrel);metadata_rows[dirrel]=list(before)
+   for name in bounded_names(fd,state,CONFIG['entryCap'],run_id):
+    source_step(run_id)
+    need(name not in ('','.','..') and '/' not in name,'unsafe mirror name')
+    rel=prefix+name;st=os.stat(name,dir_fd=fd,follow_symlinks=False)
+    if stat.S_ISDIR(st.st_mode):
+     need(rel in directories,'extra mirror directory '+rel)
+     child=os.open(name,os.O_RDONLY|os.O_DIRECTORY|os.O_NOFOLLOW,dir_fd=fd)
+     try:
+      need(fields(os.fstat(child))==fields(st),'mirror directory open drift')
+      descend(child,rel+'/')
+      need(fields(os.fstat(child))==fields(os.stat(name,dir_fd=fd,follow_symlinks=False)),'mirror directory changed')
+     finally:os.close(child)
+    elif stat.S_ISLNK(st.st_mode):
+     need(allow_deps_link and rel=='node_modules' and deps_link is None and st.st_nlink==1,'unexpected dependency link')
+     target=os.readlink(name,dir_fd=fd)
+     need(normalized(st)==tuple(links[rel]['identity']) and target==links[rel]['target']==str(REPO/'node_modules') and
+          fields(st)==fields(os.stat(name,dir_fd=fd,follow_symlinks=False)),'dependency link changed')
+     deps_link=fields(st)+(target,);metadata_rows[rel]=list(deps_link)
+    else:
+     need(rel in expected and rel not in proof_rows,'extra/duplicate mirror file '+rel)
+     row=expected[rel];size=row['bytes']
+     need(stat.S_ISREG(st.st_mode) and st.st_nlink==1 and st.st_size==size and normalized(st)==tuple(row['identity']),'admitted mirror file metadata '+rel)
+     filefd=os.open(name,os.O_RDONLY|os.O_NOFOLLOW,dir_fd=fd)
+     try:
+      need(fields(os.fstat(filefd))==fields(st),'mirror open drift '+rel)
+      blob=hashlib.sha1(f'blob {size}\0'.encode());content=hashlib.sha256();count=0
+      while True:
+       source_step(run_id);chunk=os.read(filefd,1<<20)
+       if not chunk:break
+       count+=len(chunk);need(count<=size,'mirror file grew '+rel);blob.update(chunk);content.update(chunk)
+      need(count==size and fields(os.fstat(filefd))==fields(st)==fields(os.stat(name,dir_fd=fd,follow_symlinks=False)),'mirror file read drift '+rel)
+     finally:os.close(filefd)
+     got_oid=blob.hexdigest();got_sha=content.hexdigest();got_mode=stat.S_IMODE(st.st_mode)
+     need(got_oid==row['gitBlobOid'] and got_sha==row['sha256'],'M0 file bytes '+rel)
+     proof_rows[rel]=[rel,size,got_oid,got_sha,got_mode];metadata_rows[rel]=list(fields(st));total+=size
+   need(fields(os.fstat(fd))==before,'mirror directory mutation')
+  descend(rootfd,'')
+  need(set(proof_rows)==set(expected) and seen_dirs==set(directories) and len(proof_rows)==1740 and total==119393120 and
+       deps_link is not None and state['entries']==CONFIG['entryCap'],'M0 complete roster/count/bytes/link')
+  need(fields(os.fstat(rootfd))==root_before,'mirror root mutation');verify_dir_chain(mirror,held)
+  meta=b''.join(json.dumps([k,metadata_rows[k]],separators=(',',':')).encode()+b'\n' for k in sorted(metadata_rows,key=lambda x:x.encode()))
+  historical_rows=dict(metadata_rows);historical_rows['.']=CONFIG['knownRootDrift']['recordedBeforeIdentity']
+  historical_meta=b''.join(json.dumps([k,historical_rows[k]],separators=(',',':')).encode()+b'\n' for k in sorted(historical_rows,key=lambda x:x.encode()))
+  nonroot_meta=b''.join(json.dumps([k,metadata_rows[k]],separators=(',',':')).encode()+b'\n' for k in sorted(metadata_rows,key=lambda x:x.encode()) if k!='.')
+  need(sha(historical_meta)==CONFIG['knownRootDrift']['historicalMetadataSha256'] and sha(nonroot_meta)==CONFIG['knownRootDrift']['nonrootMetadataSha256'],'complete historical remainder metadata')
+  return {'fileProofDigestSha256':canonical_proof(proof_rows),'physicalMetadataSha256':sha(meta),
+          'historicalRootSubstitutedMetadataSha256':sha(historical_meta),'nonrootMetadataSha256':sha(nonroot_meta),
+          'mirrorFiles':len(proof_rows),'mirrorBytes':total,'dependencyLink':list(deps_link),'traversedEntries':state['entries'],'mirrorRootIdentity':list(root_before)}
+ finally:close_chain(held)

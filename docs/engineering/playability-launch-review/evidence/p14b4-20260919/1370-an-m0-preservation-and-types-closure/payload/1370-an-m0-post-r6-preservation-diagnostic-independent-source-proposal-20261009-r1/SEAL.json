@@ -1,0 +1,29 @@
+{
+  "proposal": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-independent-source-proposal-20261009-r1/PROPOSAL.json",
+    "bytes": 5241,
+    "sha256": "b6e571c5314eec6a0decf53996f8f07af2930dd8a85f370951a1bea60b489d6d"
+  },
+  "fragments": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-independent-source-proposal-20261009-r1/BASE-full_source_check.py.txt",
+      "bytes": 4327,
+      "sha256": "89810ba3e0f86e476feedca5d82ff9e8fb856dd60ef946160fca05822a9b617c"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-independent-source-proposal-20261009-r1/PROPOSED-full_source_check.py.txt",
+      "bytes": 4627,
+      "sha256": "9b6592992945b29024e1116d844c67addcb6d4f8f3481084a132502af2df25f2"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-independent-source-proposal-20261009-r1/function.forward.diff",
+      "bytes": 878,
+      "sha256": "16831b9dfa834679b519a68fe70c82566308cb5e298a6e23258f99f80abc1dc3"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-independent-source-proposal-20261009-r1/function.inverse.diff",
+      "bytes": 878,
+      "sha256": "280d57edbfc0d3ae481df53300b3ce8dd816ba07d666a171f785cd01d6436e4c"
+    }
+  ]
+}

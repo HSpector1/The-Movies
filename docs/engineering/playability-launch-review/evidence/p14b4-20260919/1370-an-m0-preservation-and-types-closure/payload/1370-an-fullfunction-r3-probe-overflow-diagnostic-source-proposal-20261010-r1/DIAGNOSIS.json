@@ -1,0 +1,52 @@
+{
+  "actualBaselineReport": {
+    "bytes": 2363,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/baseline.report.json",
+    "sha256": "ec5dae63dafdef6c1897054b9f571ed36cc02c031774118701758c6b1d8ffadc"
+  },
+  "actualControls": {
+    "bytes": 9487,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/runtime/controls/full-body-controls.ts",
+    "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+  },
+  "actualCoreTemplate": {
+    "bytes": 3955,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/runtime/core.test.ts",
+    "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+  },
+  "actualFixture": {
+    "bytes": 12428510,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/fixtures.json",
+    "sha256": "0ae4a9a261600c23b1bfd05eb860d65ef0f6769c9918670eb97bf7120b74ec62"
+  },
+  "actualGenerationReport": {
+    "bytes": 945,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/generate.report.json",
+    "sha256": "94e528734a484cdc9aff36d5949e8314b0a3b51a7d572cd98c0cab109ba38548"
+  },
+  "baselineAccepted": false,
+  "caps": {
+    "aggregateBytes": 2097152,
+    "entries": 16384,
+    "rowBytes": 65536
+  },
+  "dependencyAfter": null,
+  "fixtureQualificationAccepted": false,
+  "generationObservation": "Retained real generation test passes with 12428510B fixture below 67108864B cap; only this measured packet fits, not a universal fit guarantee.",
+  "known": "Actual first off arm of author196 hits probe overflow assertion; source sets that boolean only for entry cap, row-byte cap, or aggregate-byte cap.",
+  "mutantAttempted": false,
+  "newRuntimeExecuted": false,
+  "notKnown": [
+    "Which predicate or combination failed",
+    "First failing row or total counts",
+    "Whether a smaller lossless representation would fit original caps"
+  ],
+  "otherFailureClasses": "JSON.stringify/parse exceptions throw rather than set overflow. Requested gameplay fault/refusal state is separate and does not set overflow; first arm requests no fault.",
+  "probeSource": {
+    "bytes": 2457,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/m0WiringProbe.ts",
+    "sha256": "3a3d75e5d849a94e14806239566bc72ca10af497bca71925a6f59d7db5714a85"
+  },
+  "schema": "1370-fullfunction-probe-overflow-source-only-diagnosis/v1",
+  "sourceAfter": null
+}

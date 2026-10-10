@@ -1,0 +1,32 @@
+{
+  "schema": "1370-disposable-controls-retained-tool/v1",
+  "actualExit": 0,
+  "launchClaim": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/LAUNCH-CLAIM.json",
+    "bytes": 3497,
+    "sha256": "93840ab4b17a117b069269975da059f9146d57317d9de97e076ea8e504f02c42"
+  },
+  "toolResult": {
+    "chunk_id": "c6cac4",
+    "wall_time_seconds": 0.000020245,
+    "exit_code": 0,
+    "original_token_count": 66,
+    "output": "{\"launchClaim\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/LAUNCH-CLAIM.json\", \"bytes\": 3497, \"sha256\": \"93840ab4b17a117b069269975da059f9146d57317d9de97e076ea8e504f02c42\"}, \"helperPid\": 42574}\n"
+  },
+  "allToolChunks": [
+    {
+      "chunk_id": "6d67ad",
+      "wall_time_seconds": 1.003705825,
+      "session_id": 7647,
+      "original_token_count": 58,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/GRANT.json\", \"bytes\": 4771, \"sha256\": \"77db69b8567732fcf70dbc432f007c9571fe12cca7ddd706363fad5170eb64e7\"}}\n"
+    },
+    {
+      "chunk_id": "c6cac4",
+      "wall_time_seconds": 0.000020245,
+      "exit_code": 0,
+      "original_token_count": 66,
+      "output": "{\"launchClaim\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/LAUNCH-CLAIM.json\", \"bytes\": 3497, \"sha256\": \"93840ab4b17a117b069269975da059f9146d57317d9de97e076ea8e504f02c42\"}, \"helperPid\": 42574}\n"
+    }
+  ]
+}

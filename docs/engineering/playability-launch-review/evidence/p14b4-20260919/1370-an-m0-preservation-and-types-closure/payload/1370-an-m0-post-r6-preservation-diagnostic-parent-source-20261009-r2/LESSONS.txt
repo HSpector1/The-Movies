@@ -1,0 +1,1 @@
+Source reviews authenticate executable role maps, not manifest roles. External role bindings prevent future-authority cycles. Parent preparation ends before original LAUNCH clock starts. A diagnosed root timestamp change never implies full preservation or acceptance. HOME remains inherited. No source, private audit, or runtime was executed by this author.

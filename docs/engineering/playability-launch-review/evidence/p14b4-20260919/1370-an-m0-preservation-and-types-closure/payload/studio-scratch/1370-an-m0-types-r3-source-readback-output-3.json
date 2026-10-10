@@ -1,0 +1,17 @@
+{
+  "candidateImported": false,
+  "privateInventory": false,
+  "roles": {
+    "BOOTSTRAP.py": {
+      "bytes": 2721,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/BOOTSTRAP.py",
+      "sha256": "3901b5ab92ad8d390712a696cbfb3a1b1a24a0c8086f21370ccfb1950fff7317"
+    },
+    "runner.py": {
+      "bytes": 43951,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/runner.py",
+      "sha256": "4b1470b72a3742ec724f4e83d403a95b42527474f81fbcc5641df91b3d2c5163"
+    }
+  },
+  "schema": "1370-finite-retained-source-bytes-readback/v1"
+}

@@ -1,0 +1,240 @@
+{
+  "actualM0RetryAuthorized": false,
+  "actualTool": {
+    "bytes": 1631,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/ACTUAL-TOOL.json",
+    "sha256": "cf93423279291c23020e9c6db253d82c6960fefb97a5f1c721db11e8cbb165dd"
+  },
+  "collectionAcceptedForOriginalM0": false,
+  "concreteFindings": [],
+  "config": {
+    "bytes": 3637,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/CONFIG.json",
+    "sha256": "c3c58fc2b2ba77b0a2e92415f1e74d386cf899506b07aacbe677f2ad9b061c14"
+  },
+  "consumerActual": {
+    "bytes": 1270,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/CONSUMER-ACTUAL.json",
+    "sha256": "8465b1f9f27db26133c752a2505357efafeaf858a8db9c6506c02a41aa6c4ef9"
+  },
+  "decision": "ACCEPT_ACTUAL_DISPOSABLE_METADATA_PAIR_ONLY",
+  "executionAuthorization": false,
+  "freshOwnedAbsence": {
+    "bytes": 637,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/FRESH-OWNED-ABSENCE.json",
+    "sha256": "fde7c1cb7e78b78f9251be5b5596d4b66ca25702dc67c546d0d02ca84444076b"
+  },
+  "game": false,
+  "grant": {
+    "bytes": 4771,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/GRANT.json",
+    "sha256": "77db69b8567732fcf70dbc432f007c9571fe12cca7ddd706363fad5170eb64e7"
+  },
+  "helperCombinedLog": {
+    "bytes": 440,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-metadata-controls-lane-after-al-20261009-r2/controls.lane.log",
+    "sha256": "9517a030a70f02f36ed789b760e81101ad23cd280814f8d8db05efb15a49b973"
+  },
+  "independentEvidenceChecks": [
+    "Physical regular nlink1 capped reads with unchanged identities; exact outcome role and all bound source/grant/claim/tool/recipe/config/result/streams/meta hashes authenticated.",
+    "All15 controller package payload roles and all parent adapter manifest roles authenticated; exact independent source receipts and genuine external source adoption/root grant/claim align.",
+    "Published AM7087/source13880 and genuine runtime-tool observations bind actual adapter/current authority. No new Git, process or tool-version invocation was made.",
+    "Actual two-chunk tool record binds first grant and final launch claim, terminal integer0; all six reported exits are typed integer0 and recorded controller0/groupClear/READY ownership are valid.",
+    "Both exact nested argv/cwd/config locations/collection paths align with source. Core comes from the extended project config, root-unselected remains disjoint; project options are byte-identical, root configs differ only explicit workspace path.",
+    "All six generated configs, template extends, fixture source bytes, dependency symlink target, four before/after maps, raw streams, collection roles, retained validated arms/generated-role ledger/report authenticated and compared.",
+    "RED root changes only exact nanosecond mtime/ctime; entire nonroot slice and all final entries match. GREEN complete map matches; RED-after and GREEN-before/after map hashes all6c9b1b40 match.",
+    "Exact one test name/file/core identity and raw238-byte collection match both arms. Registration body is the source-qualified throw-if-executed fixture; observation is list/collection only.",
+    "Recorded controller/recorder/preparation durations and stream/ledger sizes are inside declared phase bounds/caps. Original helper lane metadata has one start and one end exit0, no STOP, and no implied whole-parent90 timer.",
+    "Authenticated four fresh scoped ESRCH results and lock/override absence bind exactly helper42574/controller43084. Nested CLI exits0 plus inherited owned-group clearance are source-qualified; no fresh numeric post-absence claim for nested CLI IDs or unrelated processes."
+  ],
+  "laneMeta": {
+    "bytes": 371,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-metadata-controls-lane-after-al-20261009-r2/controls.lane.log.meta",
+    "sha256": "7afbb72b64425174575ab0a95e9742be42ac419e16823ae79366fa4ab4fd3790"
+  },
+  "launchClaim": {
+    "bytes": 3497,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/LAUNCH-CLAIM.json",
+    "sha256": "93840ab4b17a117b069269975da059f9146d57317d9de97e076ea8e504f02c42"
+  },
+  "majorLessons": [
+    "Actual installed nested loader matters: the fixture confirms expected metadata RED with local configs and strict GREEN with external root/workspace/project configs while preserving exact collection semantics.",
+    "An unchanged final roster/content can coexist with directory mtime/ctime changes. Use exact integer nanosecond metadata and retain both maps; do not infer that no temporary entry existed.",
+    "Externalize every configuration path that can be bundled, including workspace-extended project config. Cache relocation alone is not an equivalent repair; inherited HOME must remain intact.",
+    "Clock claims must follow implemented phase ownership: separate prep60 is canceled before direct exec; recorder owns the single pair60/75/90 and parent/helper waits are outside those clocks.",
+    "Keep the original R1 parent90/HOME findings and corrected inverse proofs. A successful disposable fixture does not retroactively repair an original failed route or missing complete M0-after proofs.",
+    "Qualify synthetic extended-workspace coverage, observed child/group scope and parsed consumer-summary retention honestly. Source-backed temporary-file mechanism is not traced actual-original-R6 causation."
+  ],
+  "newRuntimeOrProbeOrGitOrPrivateInventoryPerformed": false,
+  "observed": {
+    "actualExits": {
+      "GREEN": 0,
+      "RED": 0,
+      "controller": 0,
+      "helper": 0,
+      "recorder": 0,
+      "tool": 0
+    },
+    "actualToolSessionId": 7647,
+    "boundsSeconds": {
+      "activeRecorder": 75,
+      "controller": 60,
+      "wholeRecorder": 90
+    },
+    "collectedTestsEachArm": 1,
+    "combinedParentRuntimeBound": null,
+    "consumerArtifactQualification": "Authenticated actual tool metadata and exact parsed stdout summary; no retained complete consumer stdout/transcript is claimed. Producer complete raw frame and all actual evidence were independently authenticated and compared.",
+    "consumerDecision": "ACCEPT_ACTUAL_DISPOSABLE_PAIR_ONLY",
+    "consumerExit": 0,
+    "consumerToolChunkId": "202e94",
+    "controllerElapsedSeconds": 3.9781038730000002,
+    "controllerPidOwnedPgid": 43084,
+    "fixtureMapEntriesEach": 8,
+    "freshScopedChecks": [
+      {
+        "id": 42574,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 43084,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 42574,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 43084,
+        "kind": "pgid",
+        "result": "ESRCH"
+      }
+    ],
+    "greenCompleteEightEntryMapEqual": true,
+    "greenElapsedSeconds": 1.8442522250000002,
+    "greenRootNoChangedFields": true,
+    "helperCombinedLogBytes": 440,
+    "helperPidPgidSid": 42574,
+    "laneLockAbsent": true,
+    "nestedCliRecordedPids": [
+      43086,
+      43115
+    ],
+    "nestedNumericPostAbsenceNotClaimed": true,
+    "nestedStdoutStderrEachBytes": 0,
+    "preparationBoundSeconds": 60,
+    "preparationElapsedSeconds": 1.9852769849967444,
+    "producerStderrBytes": 0,
+    "producerStdoutBytes": 8617,
+    "qualifiedHelperWarning": "Only the byte-preserved recorder main outer-finally SyntaxWarning plus success summary appears in helper log. Producer and both nested CLI streams are empty except producer report.",
+    "recordedOwnedGroupClear": true,
+    "recorderElapsedSeconds": 5.054661210000631,
+    "recorderOverrideStopAbsent": true,
+    "redAfterEqualsGreenBeforeAndAfter": true,
+    "redElapsedSeconds": 1.8134058570000002,
+    "redFinalRosterExact": true,
+    "redNonrootMetadataContentAndLinkExact": true,
+    "redRootAfter": [
+      "16777220",
+      "166838978",
+      "16832",
+      "8",
+      "256",
+      "1791603603334877380",
+      "1791603603334877380"
+    ],
+    "redRootBefore": [
+      "16777220",
+      "166838978",
+      "16832",
+      "8",
+      "256",
+      "1791603602324824920",
+      "1791603602324824920"
+    ],
+    "redRootChangedFields": [
+      "mtimeNs",
+      "ctimeNs"
+    ],
+    "redRootDevInoModeNlinkSizeStable": true,
+    "retainedToolChunks": 2,
+    "sameRawCollectionBytes": 238,
+    "sameRawCollectionSha256": "ee5357a3e11207f72668978e761796bfff0a7fac67ae0573da3e013de64cfe5b",
+    "versions": {
+      "node": "v22.23.2",
+      "vite": "5.4.21",
+      "vitest": "2.1.9"
+    }
+  },
+  "originalM0CauseAdmission": false,
+  "originalM0SourcePreservationAdmission": false,
+  "originalR6MetadataStopAndMissingAfterProofsPreserved": true,
+  "outcome": {
+    "bytes": 3725,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-recorded-20261009-r1/OUTCOME.json",
+    "sha256": "3375ca3ccebfe91c05560e3f09b32d495d91ba1c19c20c109074e19f8d601ba4"
+  },
+  "outcomeSha256": "3375ca3ccebfe91c05560e3f09b32d495d91ba1c19c20c109074e19f8d601ba4",
+  "parentAdapterSourcePins": {
+    "bytes": 2539,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "16a42f267504d4b7414301d9a464c27563269db5d5d9a761bdd3f4dd9878dc76"
+  },
+  "parentAdapterSourceReview": {
+    "bytes": 10544,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "97aa5fc2914c5f648a2ede322e2286fb14f7a09820cdf040a989c0879d2f915d"
+  },
+  "producerStderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-metadata-controls-verification-output-after-al-20261009-r2/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "producerStdout": {
+    "bytes": 8617,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-metadata-controls-verification-output-after-al-20261009-r2/stdout.bin",
+    "sha256": "59116d75516dd19912d1fac8ede130d11d5b5c8bc2f245266fd030477efd86af"
+  },
+  "publishedPredecessor": {
+    "bytes": 1771,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+    "sha256": "a7ca327d2d4610704f426630d79343722fb92c19f3762dd521221d77a567479b"
+  },
+  "recipe": {
+    "bytes": 9918,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/RECIPE.json",
+    "sha256": "0998870942ff8f188fcc3ce14f853119a49f45b1e78d08ad18685f83b5ab432b"
+  },
+  "recorderResult": {
+    "bytes": 937,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-metadata-controls-verification-output-after-al-20261009-r2/RESULT.json",
+    "sha256": "417cb089c3263ce252f9893e698167c0c0e087f05719406cbe5a6ccebc6040de"
+  },
+  "routeSourcePins": {
+    "bytes": 11166,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "bc7fcfc7bcd4ab5e4472733260e1ee5f89658c827a09412d7f98d60b10ffd573"
+  },
+  "runtimeTools": {
+    "bytes": 1916,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/RUNTIME-TOOLS.json",
+    "sha256": "059056bbee66b15d0f944e390dc16c9312f1349e33bb3094059de4c47b5bfc6f"
+  },
+  "schema": "1370-disposable-metadata-pair-independent-observed-review/v1",
+  "scope": "Observed disposable synthetic extended-workspace loader pair only. No original M0/private mirror or dependency inventory was read, changed, imported or rerun for this review.",
+  "sourceAdoption": {
+    "bytes": 2770,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/DISPOSABLE-CONTROLS-AND-PARENT-SOURCE-ADOPTION.json",
+    "sha256": "bdf09a659998d75bbd2b5c3a9473e56cf2cdd19d129b0f318608ea6f6341fb6c"
+  },
+  "sourceReview": {
+    "bytes": 9283,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "dd835fc294482503f5845ca658dd7ba8431255a3bbd36cb4722edf14308ab578"
+  },
+  "strictProtectionWaived": false,
+  "timestampRestorationAllowed": false,
+  "typesAccepted": false
+}

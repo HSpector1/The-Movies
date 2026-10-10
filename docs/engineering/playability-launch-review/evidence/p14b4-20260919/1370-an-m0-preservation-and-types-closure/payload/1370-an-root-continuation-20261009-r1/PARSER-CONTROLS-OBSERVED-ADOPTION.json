@@ -1,0 +1,41 @@
+{
+  "actualExit": 0,
+  "actualTool": {
+    "bytes": 1248,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "77afd5b35ba27f1db427fb3f63518b3b905ad0053363d4785a4c8bc14822af3a"
+  },
+  "caseCount": 32,
+  "controlsSource": {
+    "bytes": 7028,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+    "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+  },
+  "executionAuthorization": false,
+  "game": false,
+  "independentObservedReview": {
+    "bytes": 12178,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-independent-observed-review-20261010-r1/RECEIPT.json",
+    "sha256": "113d10553caccefa0d3248eaf9507d6768db961933c3d697b3004e8e2539b353"
+  },
+  "parserSource": {
+    "bytes": 2202,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+    "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+  },
+  "privateM0ReadOrWritten": false,
+  "readback": {
+    "bytes": 3621,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "e12da8f225f30e06caf072d56797b2d420b98cac682ff9bad585297031ff96e4"
+  },
+  "result": {
+    "bytes": 4818,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-results-20261010-r1/CONTROLS-RESULT.json",
+    "sha256": "0b94b15b70de59f228d3a7ec3dabf80c2192beb4717d2c9928016e750f3d391f"
+  },
+  "schema": "1370-root-exact-identity-json-controls-observed-adoption/v1",
+  "scope": "The actual finite32 public exact-JSON controls only. No full-function fixture, mutant or neutrality acceptance.",
+  "soleLaneReleased": true,
+  "status": "ROOT_ADOPTED_ACTUAL_EXACT_IDENTITY_JSON_CONTROLS_ONLY"
+}

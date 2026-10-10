@@ -1,0 +1,63 @@
+--- fixed-C-R3/m0WiringProbe.ts
++++ R11/m0WiringProbe.ts
+@@ -1,26 +1,45 @@
+ // Test derivative only. Default behavior leaves the accepted observer enabled.
+ // No GameState writes, no RNG, no globals monkey-patching, no gameplay stubs.
+ import type { GameState } from './types.js'
+-import {createTraceStore} from './m0TraceCodec.mjs'
+ type Fault = 'row-cap' | 'row-byte-cap' | 'total-byte-cap' | 'serialization' | 'ordinary-refusal'
+-let active = false, enabled = true, fault: Fault | null = null
+-let store=createTraceStore(),acceptedCalls=0
++type Call = { sequence: number; name: string; detail: unknown }
++type Evaluation = { inputs: unknown; canonicalInputs: string; result: unknown; context: unknown }
++let active = false, enabled = true, overflow = false, fault: Fault | null = null
++let calls: Call[] = [], evaluations: Evaluation[] = [], bytes = 0
+ let boundary: ((state: GameState) => void) | null = null
+ let faultReached: { kind: Fault; phase: string } | null = null
++type OverflowDiagnostic = { entryCap: boolean; rowByteCap: boolean; totalByteCap: boolean; entries: number; calls: number; evaluations: number; retainedBytes: number; nextRowBytes: number }
++let firstOverflow: OverflowDiagnostic | null = null
++const MAX_ENTRIES=16384, MAX_ROW_BYTES=64*1024, MAX_TOTAL_BYTES=2*1024*1024
++function bounded(value: unknown): unknown | undefined {
++  if (overflow) return undefined
++  const raw = JSON.stringify(value)
++  const n = new TextEncoder().encode(raw + '\n').length
++  if (calls.length + evaluations.length >= MAX_ENTRIES || n > MAX_ROW_BYTES || bytes + n > MAX_TOTAL_BYTES) {
++    firstOverflow={entryCap:calls.length+evaluations.length>=MAX_ENTRIES,
++      rowByteCap:n>MAX_ROW_BYTES,totalByteCap:bytes+n>MAX_TOTAL_BYTES,
++      entries:calls.length+evaluations.length,calls:calls.length,evaluations:evaluations.length,
++      retainedBytes:bytes,nextRowBytes:n}
++    overflow = true; return undefined
++  }
++  bytes += n; return JSON.parse(raw) as unknown
++}
+ export const m0WiringProbe = Object.freeze({
+   captureEnabled: (): boolean => enabled,
+   call(name: string, detail: unknown = null): void {
+     if (!active) return
+-    if(store.appendCall({sequence:acceptedCalls,name,detail}))acceptedCalls++
++    const row=bounded({ sequence:calls.length,name,detail })
++    if (row !== undefined) calls.push(row as Call)
+   },
+   evaluation(inputs: readonly unknown[], canonicalInputs: string, result: unknown, context: unknown): void {
+     if (!active) return
+-    store.appendEvaluation({inputs,canonicalInputs,result,context})
++    const row=bounded({inputs,canonicalInputs,result,context})
++    if (row !== undefined) evaluations.push(row as Evaluation)
+   },
+   beforeAdvance(state: GameState): void { boundary?.(state) },
+   setBoundaryConsumer(value: ((state: GameState) => void) | null): void { boundary=value },
+   begin(capture: boolean, requestedFault: Fault | null = null): void {
+-    store=createTraceStore();acceptedCalls=0;active=true;enabled=capture;fault=requestedFault;faultReached=null
++    active=true;enabled=capture;overflow=false;calls=[];evaluations=[];bytes=0;fault=requestedFault;faultReached=null;firstOverflow=null
+   },
+   consumeFault(phase: string): Fault | null {
+     if (!active || fault === null || (fault === 'ordinary-refusal' ? phase !== 'submitProposal' : phase !== 'draftPrice')) return null
+@@ -28,7 +47,6 @@
+   },
+   end() {
+     active=false;enabled=true;fault=null
+-    const trace=store.snapshot()
+-    return Object.freeze({...trace,faultReached,bytes:trace.encodedBytes})
++    return {calls,evaluations,overflow,faultReached,bytes,firstOverflow}
+   },
+ })

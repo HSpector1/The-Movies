@@ -1,0 +1,12 @@
+{
+  "decision": "STOP_SOURCE_ONLY_DORMANT_HOME_OVERRIDE_REMOVE_IN_FRESH_R2",
+  "finding": "Original proof retains dormant run_child HOME=str(out). Source R1 preserves it; fresh R2 removes only that assignment with exact inverse. Original routes are not claimed to lack this issue.",
+  "proofMainCallsRunChild": false,
+  "r1SourcePins": {
+    "bytes": 8591,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "3084bb195697dd244aea332f18f150753ffe7898d5d1e6a2155f6ae8826928be"
+  },
+  "runtimeExecuted": false,
+  "schema": "1370-post-r6-diagnostic-r1-dormant-home-source-stop/v1"
+}

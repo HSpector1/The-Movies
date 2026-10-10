@@ -1,0 +1,21 @@
+{
+  "bootstrapSha256": "3901b5ab92ad8d390712a696cbfb3a1b1a24a0c8086f21370ccfb1950fff7317",
+  "childExit": 0,
+  "childPid": 17258,
+  "contextSha256": "85a81629a61551cc497995a02c1e08377a4dc56278c0fdcae5e61ffa62cb0203",
+  "elapsedSeconds": 197.555,
+  "groupClear": true,
+  "helperPgid": 17014,
+  "helperPid": 17014,
+  "helperSid": 17014,
+  "mainOid": "c902a704eb948cc576083d0973c8c23e59937dc1",
+  "productionHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "recorderActiveSeconds": 320,
+  "recorderWholeSeconds": 330,
+  "schema": "1370-m0-types-collection-recorder-result/v1",
+  "sourceDeadlineSeconds": 300,
+  "sourceSha256": "4b1470b72a3742ec724f4e83d403a95b42527474f81fbcc5641df91b3d2c5163",
+  "staticReviewSha256": "930551d5e29fd43427854f1acdfb55f27c7846e2f3e39ff3c5dc533510f45435",
+  "status": "CHILD_EXIT_ZERO_PENDING_OBSERVED_REVIEW"
+}

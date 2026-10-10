@@ -1,0 +1,26 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "1370-AN-m0-preservation-and-types-closure-PROPOSED.md": {
+      "bytes": 11492,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r3/1370-AN-m0-preservation-and-types-closure-PROPOSED.md",
+      "sha256": "391f3e20fbaa546d694a86b35fe7fbb62a1c990f71901b3d6920e6a11f74fa1b"
+    },
+    "DRAFT-INPUTS.json": {
+      "bytes": 2933,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r3/DRAFT-INPUTS.json",
+      "sha256": "e317781600ec098ea0fdf6341c5600af36531ee1bb586f40e6a8a121fc7f3ee4"
+    },
+    "HANDOFF-PROPOSED.md": {
+      "bytes": 9570,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r3/HANDOFF-PROPOSED.md",
+      "sha256": "1cafeb89291dcc66a361aee33de08b3a204a5e8c55381dcd01f79053b17719cf"
+    },
+    "LESSONS-PROPOSED.md": {
+      "bytes": 22230,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r3/LESSONS-PROPOSED.md",
+      "sha256": "1222dee879eebca83d3703ca2b57f9f47984f0dd8f6b821b90359671bdf07ca0"
+    }
+  },
+  "schema": "1370-an-documentation-draft-pins/v3"
+}

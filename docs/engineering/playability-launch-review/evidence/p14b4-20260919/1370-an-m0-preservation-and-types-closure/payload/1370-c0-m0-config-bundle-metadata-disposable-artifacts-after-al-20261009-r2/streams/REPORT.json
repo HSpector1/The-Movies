@@ -1,0 +1,195 @@
+{
+  "schema": "1370-disposable-config-metadata-controls-report/v1",
+  "status": "M0_CONFIG_METADATA_CONTROLS_AGREE",
+  "configSha256": "c3c58fc2b2ba77b0a2e92415f1e74d386cf899506b07aacbe677f2ad9b061c14",
+  "artifactRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2",
+  "fixtureRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/mirror",
+  "versions": {
+    "node": "v22.23.2",
+    "vitest": "2.1.9",
+    "vite": "5.4.21"
+  },
+  "arms": [
+    {
+      "arm": "RED",
+      "argv": [
+        "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs",
+        "list",
+        "tests/meta-control.test.ts",
+        "--config",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/mirror/vitest.config.mts",
+        "--workspace",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/mirror/vitest.workspace.mts",
+        "--project",
+        "core",
+        "--json",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/streams/RED-collection.json",
+        "--no-cache"
+      ],
+      "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/mirror",
+      "cliPid": 43086,
+      "actualExit": 0,
+      "actualSignal": null,
+      "elapsedSeconds": 1.8134058570000002,
+      "stdout": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/streams/RED-stdout.bin",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/streams/RED-stderr.bin",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "before": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/streams/RED-before.json",
+        "bytes": 2862,
+        "sha256": "54bf47dd9529daf57c62b9e69e813ada1bc49a8972fbcdb6fcf6f8b90d25859d"
+      },
+      "after": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/streams/RED-after.json",
+        "bytes": 2862,
+        "sha256": "6c9b1b40dab731121055d7dece3edf0b059a918351e051ba334416353fb7cad5"
+      },
+      "configDir": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/mirror",
+      "rootConfig": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/mirror/vitest.config.mts",
+      "workspaceConfig": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/mirror/vitest.workspace.mts",
+      "projectConfig": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/mirror/core.config.mts",
+      "runError": null,
+      "collection": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/streams/RED-collection.json",
+        "bytes": 238,
+        "sha256": "ee5357a3e11207f72668978e761796bfff0a7fac67ae0573da3e013de64cfe5b"
+      },
+      "collected": [
+        {
+          "name": "metadata-collected-only",
+          "file": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/mirror/tests/meta-control.test.ts",
+          "projectName": "core"
+        }
+      ],
+      "metadata": {
+        "strictRootEqual": false,
+        "completeMapEqual": false,
+        "changedRootFields": [
+          "mtimeNs",
+          "ctimeNs"
+        ],
+        "nonrootEqual": true,
+        "finalRosterEqual": true
+      }
+    },
+    {
+      "arm": "GREEN",
+      "argv": [
+        "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs",
+        "list",
+        "tests/meta-control.test.ts",
+        "--config",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/external/vitest.config.mts",
+        "--workspace",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/external/vitest.workspace.mts",
+        "--project",
+        "core",
+        "--json",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/streams/GREEN-collection.json",
+        "--no-cache"
+      ],
+      "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/mirror",
+      "cliPid": 43115,
+      "actualExit": 0,
+      "actualSignal": null,
+      "elapsedSeconds": 1.8442522250000002,
+      "stdout": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/streams/GREEN-stdout.bin",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/streams/GREEN-stderr.bin",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "before": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/streams/GREEN-before.json",
+        "bytes": 2862,
+        "sha256": "6c9b1b40dab731121055d7dece3edf0b059a918351e051ba334416353fb7cad5"
+      },
+      "after": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/streams/GREEN-after.json",
+        "bytes": 2862,
+        "sha256": "6c9b1b40dab731121055d7dece3edf0b059a918351e051ba334416353fb7cad5"
+      },
+      "configDir": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/external",
+      "rootConfig": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/external/vitest.config.mts",
+      "workspaceConfig": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/external/vitest.workspace.mts",
+      "projectConfig": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/external/core.config.mts",
+      "runError": null,
+      "collection": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/streams/GREEN-collection.json",
+        "bytes": 238,
+        "sha256": "ee5357a3e11207f72668978e761796bfff0a7fac67ae0573da3e013de64cfe5b"
+      },
+      "collected": [
+        {
+          "name": "metadata-collected-only",
+          "file": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/mirror/tests/meta-control.test.ts",
+          "projectName": "core"
+        }
+      ],
+      "metadata": {
+        "strictRootEqual": true,
+        "completeMapEqual": true,
+        "changedRootFields": [],
+        "nonrootEqual": true,
+        "finalRosterEqual": true
+      }
+    }
+  ],
+  "collectedTests": 1,
+  "sameCollectedIdentity": true,
+  "redMetadataChanged": true,
+  "greenStrictMetadataStable": true,
+  "aggregateElapsedSeconds": 3.9781038730000002,
+  "generatedConfigs": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/mirror/vitest.config.mts",
+      "bytes": 544,
+      "sha256": "15a9fbadf9afe3747bcb4e2bd107de430d8c29a3ef2b4bfa0eca3f518d89bb57"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/mirror/core.config.mts",
+      "bytes": 571,
+      "sha256": "01a597f537ce6a61ec207b0cf123d9dd372c4c4b2419ea86ead9843eee6a2944"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/mirror/vitest.workspace.mts",
+      "bytes": 51,
+      "sha256": "a125d69ec8d6d4aa93cf4d4a9e42980064e06f1e18d1d20c55c11be7a3753c61"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/external/vitest.config.mts",
+      "bytes": 546,
+      "sha256": "894cb129d57c9c03654380008227a804cbb38b579dca85b2659e6bb6466c8f4b"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/external/core.config.mts",
+      "bytes": 571,
+      "sha256": "01a597f537ce6a61ec207b0cf123d9dd372c4c4b2419ea86ead9843eee6a2944"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r2/external/vitest.workspace.mts",
+      "bytes": 51,
+      "sha256": "a125d69ec8d6d4aa93cf4d4a9e42980064e06f1e18d1d20c55c11be7a3753c61"
+    }
+  ],
+  "transientFileEventEvidence": null,
+  "eventTracerInstalled": false,
+  "sourceLoaderBranchAuthenticated": true,
+  "originalM0CauseAdmission": false,
+  "originalM0SourcePreservationAdmission": false,
+  "game": false,
+  "executionAuthorization": false
+}

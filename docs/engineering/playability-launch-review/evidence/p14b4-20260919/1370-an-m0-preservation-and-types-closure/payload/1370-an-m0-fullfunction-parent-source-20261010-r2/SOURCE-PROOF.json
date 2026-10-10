@@ -1,0 +1,78 @@
+{
+  "allOtherSourceRecoveredByInverse": true,
+  "baseSource": {
+    "bytes": 11699,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r1/launch-fullfunction.py",
+    "sha256": "6019f717cbddc322541c10d41b7fda5869751df95fe8c6ef2f45443bd9660f82"
+  },
+  "changes": [
+    "Fresh parent-recorded-r2 once path after actual95737 consumed r1.",
+    "Only two named manifest aliases may resolve externally: exact-json.mjs and run-parser-controls.mjs, both exact fixed actually tested R7 paths and equal authenticated CONFIG.parserInputs roles. All other manifest paths remain local. Source review and every role hash still required."
+  ],
+  "executionAuthorization": false,
+  "helpers": [
+    {
+      "byteExact": true,
+      "bytes": 71,
+      "name": "require",
+      "sha256": "ddf8d661efb7a5cfc567f2e044736852767018d3d47720be887f3bb4c7f959f0"
+    },
+    {
+      "byteExact": true,
+      "bytes": 80,
+      "name": "prep_timeout",
+      "sha256": "cbfebbaf53aeec5cbc463040fbf563f1589c4654bf634f9b51556d1b7612f06b"
+    },
+    {
+      "byteExact": true,
+      "bytes": 103,
+      "name": "remaining",
+      "sha256": "0be52242fd6133fb9faf5f53ac888ed94718ce777a82c93c451fe1be2f4108f3"
+    },
+    {
+      "byteExact": true,
+      "bytes": 109,
+      "name": "metadata",
+      "sha256": "98b8e811b56c6420468977fbd8e3fefd1fc3356f60b4b0b7fea75d74d7001ab1"
+    },
+    {
+      "byteExact": true,
+      "bytes": 711,
+      "name": "role",
+      "sha256": "0d33295e9a00fb23003a5baaca4adb1d777789bd41d1e26e6715e0419a84da97"
+    },
+    {
+      "byteExact": true,
+      "bytes": 403,
+      "name": "authenticate",
+      "sha256": "8e7ae763311522676148fc4587897808fe92e9f88ec6447c932bd24e7a7b94ef"
+    },
+    {
+      "byteExact": true,
+      "bytes": 117,
+      "name": "pairs",
+      "sha256": "9f7611a7011a1d91799d90b598207668e8bedc4a2d977f01f5ac34659e8ab688"
+    },
+    {
+      "byteExact": true,
+      "bytes": 344,
+      "name": "load",
+      "sha256": "25dfa0234be498affc25fc4fa3ab0f94226b5d8e2200b5ed4d820a6d156dbfa0"
+    },
+    {
+      "byteExact": true,
+      "bytes": 235,
+      "name": "exact",
+      "sha256": "29cce380d194f185b309f3e5396cc861ac80b31d18b4597b51f8ca2d7d60ca78"
+    },
+    {
+      "byteExact": true,
+      "bytes": 244,
+      "name": "write",
+      "sha256": "e4569be3e32748fe774795f98bc482dcd42bd7d3cc8fdc1acbebb4b5b37ae59c"
+    }
+  ],
+  "runtimeClocksOrOwnershipOrCleanupChanged": false,
+  "schema": "1370-fullfunction-parent-r2-narrow-source-proof/v1",
+  "sourceOnly": true
+}

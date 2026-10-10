@@ -1,0 +1,21 @@
+{
+  "schema": "1370-an-m0-preservation-diagnostic-actual-tool/v1",
+  "toolSessionId": 64460,
+  "finalExit": 0,
+  "allToolChunks": [
+    {
+      "chunk_id": "9448a0",
+      "wall_time_seconds": 1.002105889,
+      "session_id": 64460,
+      "original_token_count": 70,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-recorded-20261009-r2/ROOT-LANE-GRANT.json\", \"bytes\": 4115, \"sha256\": \"280270ba8766ed5b3e4f22514cb3006663806f5ed2d274b90774450ef7dcdcc3\"}, \"ownPid\": 32502, \"ownPgid\": 32502}\n"
+    },
+    {
+      "chunk_id": "38dcd5",
+      "wall_time_seconds": 0.000024242,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ]
+}

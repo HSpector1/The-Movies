@@ -1,0 +1,261 @@
+{
+  "actualTerminalExit": 0,
+  "allExactRolesMatched": true,
+  "candidateImported": false,
+  "classification": {
+    "classification": "LOCAL_HASH_SIZE_ONLY",
+    "rawBytesIncluded": false,
+    "roles": [
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 79536,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r4-disk-retry/BEFORE-PS.txt",
+        "sha256": "534d88b7d6ba295887db3ff330beb70ec7062fbb97e27fa2b2b1988e001e1399"
+      },
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 594447,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r4-disk-retry/BEFORE-LSOF.bin",
+        "sha256": "38b702d5781fafb463f86e5786d75aa148e24402c24d549b5013f549b27153d3"
+      },
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 79075,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r4-disk-retry/AFTER-PS.txt",
+        "sha256": "7f5970271e1af80f0738eb71551dcb8ea2a2682e1bbcdfbd84ae0c016bd7b64a"
+      },
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 595098,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r4-disk-retry/AFTER-LSOF.bin",
+        "sha256": "f98fa7fb23652730d3916605992a6e803cd801fbf255c9b084539eb6f518fbd1"
+      }
+    ],
+    "schema": "1370-an-fullpostflight-raw-local-only/v1"
+  },
+  "completeImmutableTypedEqual": true,
+  "currentAfter": {
+    "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+    "fdOriginalAndEphemeralAndRetainedHPassed": true,
+    "fdOriginalM0ParentPassed": true,
+    "freeBytes": 5503762432,
+    "lsofRawBytes": 595098,
+    "lsofRawSha256": "f98fa7fb23652730d3916605992a6e803cd801fbf255c9b084539eb6f518fbd1",
+    "oldNumericPidsAbsent": true,
+    "ownedGroupClearanceClaim": true,
+    "ownedGroupIdsChecked": [
+      31838,
+      32093,
+      32094
+    ],
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+    "psRawBytes": 79075,
+    "psRawSha256": "7f5970271e1af80f0738eb71551dcb8ea2a2682e1bbcdfbd84ae0c016bd7b64a",
+    "relevantWorkersAbsent": true
+  },
+  "currentBefore": {
+    "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+    "fdOriginalAndEphemeralAndRetainedHPassed": true,
+    "fdOriginalM0ParentPassed": true,
+    "freeBytes": 5500092416,
+    "lsofRawBytes": 594447,
+    "lsofRawSha256": "38b702d5781fafb463f86e5786d75aa148e24402c24d549b5013f549b27153d3",
+    "oldNumericPidsAbsent": true,
+    "ownedGroupClearanceClaim": true,
+    "ownedGroupIdsChecked": [
+      31838,
+      32093,
+      32094
+    ],
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+    "psRawBytes": 79536,
+    "psRawSha256": "534d88b7d6ba295887db3ff330beb70ec7062fbb97e27fa2b2b1988e001e1399",
+    "relevantWorkersAbsent": true
+  },
+  "duplicateKeysRejected": true,
+  "duringSnapshotStrictRootsTypedEqual": true,
+  "immutableKeys": [
+    "actualCopyPayloadSha256",
+    "actualCopyResultSha256",
+    "actualCopySupervisorSha256",
+    "allocatedBytes",
+    "ancestry",
+    "bindingSha256",
+    "copiedDependencies",
+    "docsOnlyChangedPaths",
+    "operationalProductionHead",
+    "operationalSourceTree",
+    "originalCopyProductionHead",
+    "parentScopeAdoption",
+    "physicalCheckout",
+    "privateAcceptedFullProof",
+    "productionDependencies",
+    "protectedDigests",
+    "retainedHLeaf",
+    "scratchParentIdentity",
+    "strictRoots"
+  ],
+  "losslessIntegerParsing": true,
+  "nineStrictRootsTypedEqual": true,
+  "originalOwnedGroupRoster": [
+    31838,
+    32093,
+    32094
+  ],
+  "privateInventory": false,
+  "processProbesExecuted": false,
+  "rawLocalOnlyFourRolesAuthenticated": true,
+  "retainedStdout": "{\"elapsedSeconds\": 526.112769053012, \"inventoryElapsedSeconds\": 411.1576840189955, \"pinsSha256\": \"db7100693f42759bf9c449a37f1e8bd493edd2dbf080d355460a13f445b3143c\", \"snapshotPath\": \"/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r4-disk-retry/SNAPSHOT.json\", \"snapshotSha256\": \"33302fe35a9320a1b16f5bd7ab6575e33ca74e69562e9cccb3b7fe261692eeb1\", \"status\": \"GUARDS_ACCEPTED_READONLY\"}\n",
+  "roles": {
+    "actualTool": {
+      "bytes": 1005,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4-disk-retry/ACTUAL-TOOL.json",
+      "sha256": "ebf4b13208cef81a3fefe0e5fe1fd84e97cb67ea33af40f459128e3384e845f0"
+    },
+    "baseline": {
+      "bytes": 8833072,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/SNAPSHOT.json",
+      "sha256": "0136b4370cca27ab9af635c16124283049eb394b3dbaa63c32a755973e9c3596"
+    },
+    "fullPostflightReadback": {
+      "bytes": 5254,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4-disk-retry/READBACK.json",
+      "sha256": "23bca5ae5c387c7e10a5e4fb0ab95c4307ce9c28b7c579dd186f7e1eb17350e3"
+    },
+    "fullPostflightSnapshot": {
+      "bytes": 8867475,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r4-disk-retry/SNAPSHOT.json",
+      "sha256": "33302fe35a9320a1b16f5bd7ab6575e33ca74e69562e9cccb3b7fe261692eeb1"
+    },
+    "grant": {
+      "bytes": 5273,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4-disk-retry/GRANT.json",
+      "sha256": "2145155894f92d7613a69b5bddaa0f78595c09e2080a0089edde69cef93aba36"
+    },
+    "guardConfig": {
+      "bytes": 3928,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/CONFIG.json",
+      "sha256": "e0c7a2b839eaa1e0940665711c8e9b57af4f09738290ca5d15d828f01200b42e"
+    },
+    "guardSource": {
+      "bytes": 21984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py",
+      "sha256": "9e2618b58849ccf0bc36512b20de16c23e49b2f08cdc6982ca9fe2fc20143047"
+    },
+    "guardSourceReview": {
+      "bytes": 7200,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "8a8756307aeecff6e3d9f299a5d2db8014e81c9c7dd5ade42f1f53514ba8ad45"
+    },
+    "rawLocalOnlyClassification": {
+      "bytes": 1577,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4-disk-retry/RAW-LOCAL-ONLY-CLASSIFICATION.json",
+      "sha256": "41760e0dff26d1463e308839a101df2b57d4bca3d6ce38af865d43aabffaf4e7"
+    },
+    "readerActualTool": {
+      "bytes": 1058,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4-disk-retry/READER-ACTUAL-TOOL.json",
+      "sha256": "72b024c14741855fc593767765e0d4a54c0f6338ea2c066fb71f7a05fc092654"
+    },
+    "snapshotPins": {
+      "bytes": 507,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r4-disk-retry/PINS.json",
+      "sha256": "db7100693f42759bf9c449a37f1e8bd493edd2dbf080d355460a13f445b3143c"
+    },
+    "stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4-disk-retry/postflight.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 477,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4-disk-retry/postflight.stdout",
+      "sha256": "0031e767b664996d56e1e89b129fa44ac5d6f62e23eac09c23757435fec836eb"
+    }
+  },
+  "scannerRecordedAbsenceFromRootReadback": 735,
+  "schema": "1370-finite-fullfunction-stop-post-evidence-audit/v1",
+  "scopedRecordedAbsences": [
+    {
+      "id": 735,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 31838,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 32093,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 32094,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 34407,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 735,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 31838,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 32093,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 32094,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "scratchIdentityTypedEqual": true,
+  "snapshotGuardElapsedSeconds": 526.112769053012,
+  "snapshotInventoryElapsedSeconds": 411.1576840189955,
+  "snapshotKeys": [
+    "admission",
+    "baseline",
+    "claimLimit",
+    "configSha256",
+    "currentAfter",
+    "currentBefore",
+    "declaredWitnessScratchChildren",
+    "elapsedSeconds",
+    "immutable",
+    "inventoryElapsedSeconds",
+    "phase",
+    "rootsAfter",
+    "rootsBefore",
+    "schema",
+    "scratchParentChildrenAfter",
+    "scratchParentChildrenBefore",
+    "scratchParentPolicy",
+    "snapshotProcedureSha256",
+    "status",
+    "utc"
+  ],
+  "strictRootNames": [
+    "commonGitRoot",
+    "commonObjects",
+    "copiedDependencies",
+    "copiedGit",
+    "copiedRoot",
+    "productionDependencyRoot",
+    "productionRoot",
+    "retainedHLeaf",
+    "retainedHParent"
+  ]
+}

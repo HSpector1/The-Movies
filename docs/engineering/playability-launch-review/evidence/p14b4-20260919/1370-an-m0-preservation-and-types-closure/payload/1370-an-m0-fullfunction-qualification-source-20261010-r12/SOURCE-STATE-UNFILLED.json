@@ -1,0 +1,15 @@
+{
+  "actualControlsObservedAdoption": {
+    "bytes": 6868,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LOSSLESS-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "fa668549c4526317f1c5f7f17494ae3bdaec2f6713e6b72351f30d384cfa096a"
+  },
+  "actualCurrentProtection": null,
+  "actualFullfunctionResult": null,
+  "actualGrant": null,
+  "actualSourceReview": null,
+  "executionAuthorization": false,
+  "runtimeAuthorizationUnfilled": true,
+  "schema": "1370-r12-source-preparation-state/v1",
+  "sourceImplementationComplete": true
+}

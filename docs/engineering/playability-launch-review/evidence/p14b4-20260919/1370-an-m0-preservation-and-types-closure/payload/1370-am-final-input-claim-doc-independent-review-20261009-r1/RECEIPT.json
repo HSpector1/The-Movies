@@ -1,0 +1,45 @@
+{
+  "concreteFindings": [],
+  "decision": "ACCEPT_FINITE_AM_INPUT_AND_DOCUMENT_CLAIMS_PENDING_ARCHIVE_READBACK",
+  "executionAuthorization": false,
+  "limits": [
+    "Review covers finite input declarations and document truthfulness against independently reviewed M0 evidence and referenced admissions. Other specialist runtime results are retained at their admitted scope, not replayed here.",
+    "Archive inventory, actual copied/reused payload verification, raw exclusion and publication remain pending.",
+    "No raw content, private mirror traversal, runtime tests, imports, Git operations or repo edits."
+  ],
+  "roles": {
+    "HANDOFF-FINAL.md": {
+      "bytes": 11256,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-root-finalization-20261009-r1/HANDOFF-FINAL.md",
+      "sha256": "b2784da6a3a1378a919734fe892fc00841861f47b79687446b41f6273ba8d292"
+    },
+    "INPUT-PACKAGES-FINAL.json": {
+      "bytes": 24178,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-root-finalization-20261009-r1/INPUT-PACKAGES-FINAL.json",
+      "sha256": "7c3ffebfef85b3b1159b0119da5bdd38155fd86b6ca382c84e2078d42d4f53f6"
+    },
+    "REPORT-FINAL.md": {
+      "bytes": 18147,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-root-finalization-20261009-r1/REPORT-FINAL.md",
+      "sha256": "c3b12f6c2552b5afc96b39eef2159a23b85548178052940628f089d5c5246c9e"
+    },
+    "ROOT-FINAL-CLAIM.txt": {
+      "bytes": 2238,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-root-finalization-20261009-r1/ROOT-FINAL-CLAIM.txt",
+      "sha256": "53d485165a8636da9907b336966d911bc4fcc355d7e5cdcb6e4fbc38113cd108"
+    }
+  },
+  "schema": "1370-independent-am-final-input-claim-doc-review/v1",
+  "verified": {
+    "activeOrderPreserved": true,
+    "allExactScratchRoleTableHashesVerified": true,
+    "configFixturePackageExcluded": true,
+    "explicitPaths151UniqueExist": true,
+    "handoffAutoByteExactToLive": true,
+    "noAcceptedTypesOrCollectionOrActualTransientCauseClaim": true,
+    "noInputAncestorDuplicates": true,
+    "preR6ProofVersusR5AndR6StopsSeparated": true,
+    "semanticRaw41UniqueIncludesR6PostflightFour": true,
+    "sharedPostflightNotM0AfterProof": true
+  }
+}

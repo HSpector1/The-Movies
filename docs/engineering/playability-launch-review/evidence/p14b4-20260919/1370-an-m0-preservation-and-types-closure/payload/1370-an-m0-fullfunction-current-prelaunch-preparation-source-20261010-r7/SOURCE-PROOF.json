@@ -1,0 +1,59 @@
+{
+  "allHelpersUnchanged": true,
+  "baseManifest": {
+    "bytes": 3397,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r6/SOURCE-PINS.json",
+    "sha256": "b4a8f9eb919c35d805fd238be602cc7f05df84d9ce0cae2e19a544a2ed271a7b"
+  },
+  "executionAuthorization": false,
+  "helperDefinitionsVerified": 5,
+  "scope": "Fresh R5 current prelaunch based on actualR4 total-byte-cap STOP and passing separate disk-recovery originalpost. Only four one-occurrence substitutions per adapter; original current scanner and three-null fills unchanged.",
+  "sourceChanges": {
+    "launcher": [
+      {
+        "after": "1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r5",
+        "before": "1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r4",
+        "occurrences": 1
+      },
+      {
+        "after": "1370-an-m0-fullfunction-current-prelaunch-output-20261010-r5",
+        "before": "1370-an-m0-fullfunction-current-prelaunch-output-20261010-r4",
+        "occurrences": 1
+      },
+      {
+        "after": "M0-FULLFUNCTION-R5-CURRENT-",
+        "before": "M0-FULLFUNCTION-R4-CURRENT-",
+        "occurrences": 1
+      },
+      {
+        "after": "ROOT_ADOPTED_FULLFUNCTION_HELPER_PROBE_TOTAL_BYTE_CAP_STOP_WITH_REAL_GENERATION_AND_FULL_SHARED_POSTFLIGHT",
+        "before": "ROOT_ADOPTED_FULLFUNCTION_BASELINE_TRACE_OVERFLOW_STOP_WITH_REAL_GENERATION_AND_FULL_SHARED_POSTFLIGHT",
+        "occurrences": 1
+      }
+    ],
+    "reader": [
+      {
+        "after": "1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r5",
+        "before": "1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r4",
+        "occurrences": 1
+      },
+      {
+        "after": "1370-an-m0-fullfunction-current-prelaunch-output-20261010-r5",
+        "before": "1370-an-m0-fullfunction-current-prelaunch-output-20261010-r4",
+        "occurrences": 1
+      },
+      {
+        "after": "M0-FULLFUNCTION-R5-CURRENT-",
+        "before": "M0-FULLFUNCTION-R4-CURRENT-",
+        "occurrences": 1
+      },
+      {
+        "after": "ROOT_ADOPTED_FULLFUNCTION_HELPER_PROBE_TOTAL_BYTE_CAP_STOP_WITH_REAL_GENERATION_AND_FULL_SHARED_POSTFLIGHT",
+        "before": "ROOT_ADOPTED_FULLFUNCTION_BASELINE_TRACE_OVERFLOW_STOP_WITH_REAL_GENERATION_AND_FULL_SHARED_POSTFLIGHT",
+        "occurrences": 1
+      }
+    ]
+  },
+  "sourceOnly": true,
+  "wholeInversesExact": true
+}

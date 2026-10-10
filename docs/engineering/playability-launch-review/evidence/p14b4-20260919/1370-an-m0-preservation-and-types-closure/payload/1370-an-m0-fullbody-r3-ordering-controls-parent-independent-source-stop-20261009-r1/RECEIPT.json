@@ -1,0 +1,33 @@
+{
+  "decision": "STOP_SOURCE_MANIFEST_UTF8_BYTE_COUNT_MISMATCH",
+  "executionAuthorization": false,
+  "sourceOnly": true,
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r1/SOURCE-PINS.json",
+    "bytes": 2498,
+    "sha256": "d046396b4b9580ff11ff0c1fa8e06785854a4d6bc6de058e2a5f365498b573b6"
+  },
+  "concreteFindings": [
+    {
+      "role": "SOURCE-PROOF.json",
+      "manifestBytes": 2180,
+      "actualUtf8Bytes": 2184,
+      "actualSha256": "3ac11c788355727aaea7af940902fff46989c7802e653a88a910569d80e1eaf5",
+      "hashMatches": true,
+      "impact": "Parent authenticates every manifest role, so role authentication would STOP before direct exec."
+    }
+  ],
+  "boundedVerification": [
+    "All other manifest roles have exact bytes/hash.",
+    "Ten retained helper bodies unchanged.",
+    "Both complete source diff projections reconstruct predecessor and derivative.",
+    "Reviewed main external once grant/source review/aliases/synthetic scope/physical tools/fresh paths/group ownership/durable claim/direct exec/prep60 cancellation; no additional concrete finding identified."
+  ],
+  "limits": [
+    "No candidate executed or imported; no tests/private inventory/process probes/Git."
+  ],
+  "majorLessons": [
+    "Count encoded UTF-8 bytes, not Unicode characters, when sealing source roles.",
+    "A matching SHA does not cure a mismatched exact byte-count contract."
+  ]
+}

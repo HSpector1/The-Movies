@@ -1,0 +1,175 @@
+{
+  "schema": "1370-disposable-controls-recorded-recipe/v1",
+  "status": "SOURCE_ONLY_UNRUN_HELD_NEXT_SLICE",
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r1",
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-metadata-controls-lane-after-al-20261009-r1/controls.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r1/record-metadata.py",
+    "verification"
+  ],
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "config": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r1/CONFIG.json",
+    "bytes": 3637,
+    "sha256": "90331fd97252bca6ce83c6704e8e9740f120026f14a1a6e44198d0eb15dcdb9e"
+  },
+  "recorderOutput": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-metadata-controls-verification-output-after-al-20261009-r1",
+  "laneLog": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-metadata-controls-lane-after-al-20261009-r1/controls.lane.log",
+  "disposableArtifactRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-artifacts-after-al-20261009-r1",
+  "tools": {
+    "helper": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "bytes": 3361,
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "python": {
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "bytes": 50472,
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "node": {
+      "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+      "bytes": 115440320,
+      "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+    }
+  },
+  "bounds": {
+    "status": "PROPOSED_SAME_QUALIFIED_MECHANISMS_NEW_WORKLOAD_UNRUN",
+    "aggregateControllerSeconds": 60,
+    "activeRecorderSeconds": 75,
+    "wholeRecorderSeconds": 90,
+    "wholeParentLaunchSeconds": 90,
+    "producerStreamsEachBytes": 1048576,
+    "nestedStreamsEachBytes": 1048576,
+    "ledgerEachBytes": 65536
+  },
+  "parentLaunchContract": [
+    "Root authenticates this exact SOURCE-PINS and independent source receipt before issuing one separate external grant. All source files and CONFIG remain immutable. No actual role or operational HEAD is prefilled by source.",
+    "Root authenticates exact helper/Python/Node/public source pins, current genuine published operational authority, lane absence, and fresh output/artifact/lane/parent paths under scratch. Original heavy lane and live shared protection constraints stay in force.",
+    "Root owns one aggregate parent launch clock of 90 seconds starting before own-session helper launch; accepted owned timer/cleanup mechanism must be used. Recipe supplies no executable parent orchestrator and no actual grant. Until root supplies that already-qualified concrete orchestrator, the parent route is held.",
+    "Immediately before exec of exact recipe argv, root establishes own group using admitted setsid-if-current-PGID-differs-from-PID pattern; requires actual PGID==PID and records actual helperPid/helperPgid/helperSid plus actualOwnGroupConfirmed=true in external launch claim. SID is measured, not assumed.",
+    "Original helper receives wait PID0 with lane already absent; literal lane dirname alone is created0700 by root. No controls/artifact/output dir exists before execution. Helper runs physical pinned Python -I -B recorder, whose child60 starts before fork and owns controller PID/PGID. No detached CLI; two actual CLI children inherit that group.",
+    "Preserve all runtime errors, caps, late exits, override STOP and unknown ownership. No retries and no original M0/private mirror writes, inventories, timestamp repair or preservation waiver.",
+    "After terminal completion, root records actual tool/helper/recorder/controller/RED/GREEN integer exits independently, four fresh zero-probe ESRCH observations for helper PID/PGID and controller PID/ownedPGID, lane absence, and override absence. Every scope must be genuine retained actual evidence.",
+    "Combined helper log is retained even when nonempty; qualified recorder main outer-finally SyntaxWarning may occur. Empty producer stderr does not mean every stream is quiet. Nested CLI stderr is separately retained with both actual CLI exit0.",
+    "Consume only finite retained artifacts via physical pinned Python -I -B consume-controls.py OUTCOME_PATH OUTCOME_SHA256; parent owns execution and actual independent observed adoption remains separate."
+  ],
+  "sourceReviewContract": {
+    "schema": "1370-disposable-controls-independent-source-review/v1",
+    "decision": "ACCEPT_SOURCE_ONLY_UNRUN_HELD",
+    "routeSourcePins": "exact SOURCE-PINS role supplied externally",
+    "concreteFindings": [],
+    "executionAuthorization": false
+  },
+  "rootGrantContract": {
+    "schema": "1370-disposable-controls-root-once-grant/v1",
+    "decision": "GRANTED_ONCE_DISPOSABLE_METADATA_CONTROLS",
+    "sourcePins": "exact immutable role",
+    "sourceReview": "genuine independent role",
+    "recipe": "exact immutable role",
+    "config": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r1/CONFIG.json",
+      "bytes": 3637,
+      "sha256": "90331fd97252bca6ce83c6704e8e9740f120026f14a1a6e44198d0eb15dcdb9e"
+    },
+    "argv": "recipe.argv exact",
+    "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r1",
+    "oneAggregateRun": true,
+    "automaticRetry": false
+  },
+  "launchClaimContract": {
+    "schema": "1370-disposable-controls-launch-claim/v1",
+    "grant": "actual separate grant role",
+    "argv": "recipe.argv exact",
+    "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r1",
+    "helperPid": "actual strict positive integer",
+    "helperPgid": "actual strict positive integer",
+    "helperSid": "actual strict positive integer",
+    "actualOwnGroupConfirmed": true
+  },
+  "actualToolContract": {
+    "schema": "1370-disposable-controls-retained-tool/v1",
+    "actualExit": "actual integer0 required",
+    "launchClaim": "exact launch-claim role",
+    "toolResult": "complete actual terminal exec result with integer exit_code0; no invented result"
+  },
+  "completedOutcomeContract": {
+    "schema": "1370-disposable-controls-completed-outcome/v1",
+    "status": "ACTUAL_DISPOSABLE_METADATA_CONTROLS_COMPLETED",
+    "exactKeys": [
+      "schema",
+      "status",
+      "sourcePins",
+      "sourceReview",
+      "grant",
+      "launchClaim",
+      "actualTool",
+      "recipe",
+      "config",
+      "recorderResult",
+      "producerStdout",
+      "producerStderr",
+      "helperCombinedLog",
+      "laneMeta",
+      "actualExits",
+      "helperPid",
+      "helperPgid",
+      "helperSid",
+      "actualOwnedPidsFreshlyAbsent",
+      "actualOwnedGroupsFreshlyAbsent",
+      "laneReleased",
+      "overrideStopAbsent",
+      "oneAggregateRun",
+      "automaticRetry"
+    ],
+    "roleShape": {
+      "path": "absolute physical regular nlink1",
+      "bytes": "strict integer",
+      "sha256": "exact lowercase SHA256"
+    },
+    "actualExits": {
+      "tool": 0,
+      "helper": 0,
+      "recorder": 0,
+      "controller": 0,
+      "RED": 0,
+      "GREEN": 0
+    },
+    "actualOwnedPidsFreshlyAbsent": "[actual helperPid, recorder actual childPid]",
+    "actualOwnedGroupsFreshlyAbsent": "[actual helperPgid, recorder actual ownedPgid]",
+    "laneReleased": true,
+    "overrideStopAbsent": true,
+    "oneAggregateRun": true,
+    "automaticRetry": false
+  },
+  "expectedCases": {
+    "RED": "Both actual CLI0 and same one collected test, final complete fixture roster/content and all nonroot metadata equal; root dev/ino/mode/nlink equal but mtime_ns and ctime_ns changed. Directory size may truthfully change and is retained.",
+    "GREEN": "Both actual CLI0 and same exact raw collection bytes; whole fixture map including root and every file/directory/symlink metadata unchanged. All root/workspace/project configs and cache/temp/output destinations external."
+  },
+  "heldGaps": [
+    "Independent source receipt not yet supplied.",
+    "Actual concrete parent once orchestrator/90s clock and cleanup integration not included; root must use established owned route without extending bounds.",
+    "Current published operational HEAD, separate once grant and actual tool outcome all null.",
+    "All disposable RED/GREEN observations UNRUN; original M0 cause and repair still pending."
+  ],
+  "futureAuthority": {
+    "operationalHead": null,
+    "independentSourceReview": null,
+    "rootOnceGrant": null,
+    "parentActualOutcome": null,
+    "independentObservedReview": null
+  },
+  "executionAuthorization": false,
+  "originalM0CauseAdmission": false,
+  "originalM0SourcePreservationAdmission": false,
+  "game": false
+}

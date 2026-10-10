@@ -1,0 +1,16 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "RECEIPT.json": {
+      "bytes": 6722,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-disk-floor-stop-independent-observed-audit-20261010-r1/RECEIPT.json",
+      "sha256": "4b333b4836a3f52474afc2ee3dd5eb01c1aebb12fd369cf0c75292b684140517"
+    },
+    "audit-and-seal.py": {
+      "bytes": 7088,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-disk-floor-stop-independent-observed-audit-20261010-r1/audit-and-seal.py",
+      "sha256": "a37c8b7f7e84819aa9412ef573051d1d5bc8f643993940cdf6d9e9d682177763"
+    }
+  },
+  "schema": "1370-independent-failed-post-audit-seal/v1"
+}

@@ -1,0 +1,10 @@
+{
+  "allManifestRolesReadbackEqual": true,
+  "executionAuthorization": false,
+  "schema": "1370-fresh-root-readback-source-seal/v1",
+  "sourceManifest": {
+    "bytes": 2045,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r5-root-readback-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "ddcbae6b479bc97087dcd64f4337a94507bd65c4a63c2cc83d09ec438002dfc6"
+  }
+}

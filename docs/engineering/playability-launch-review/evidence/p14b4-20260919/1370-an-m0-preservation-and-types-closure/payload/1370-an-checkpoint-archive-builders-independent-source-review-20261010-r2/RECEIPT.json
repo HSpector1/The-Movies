@@ -1,0 +1,59 @@
+{
+  "actualInventoryRun": false,
+  "checks": {
+    "filenameChecksRemainDefense": true,
+    "futureGeneratedInputListSelectedAfterCreation": true,
+    "inventoryAndPublishedSourceBindingUnchanged": true,
+    "inventoryItselfExcludedAvoidingSelfHash": true,
+    "inventoryWholeInverseRestoresAMWithSchemaOnly": true,
+    "noNewPrivateMirrorOrDependenciesRootSelected": true,
+    "nodeCompileCachePathsStayLocalHashSizeOnly": true,
+    "semanticPathsRequiredInsideFiniteSelectedFiles": true,
+    "semanticRawClassificationAndPreflightRolesSeedLocalPaths": true,
+    "threeExplicitBuilderSourceAndBindingFilesSelected": true,
+    "wholeInverseRestoresPreviouslyReviewedBuilderBytes": true
+  },
+  "concreteFindings": [],
+  "decision": "ACCEPT_SOURCE_ONLY_AN_FINITE_ARCHIVE_BUILDER_CORRECTIONS_UNRUN",
+  "executionAuthorization": false,
+  "findingsResolved": [
+    {
+      "priorId": "FINALIZER_SOURCE_AND_INPUT_ROLES_OMITTED",
+      "resolution": "The exact two builders and INVENTORY-SOURCE-BINDING.json are individual selected roots; the generated INPUT-PACKAGES-FINAL.json is appended as a file role. Inventory itself remains excluded."
+    },
+    {
+      "priorId": "SEMANTIC_RAW_SEED_IS_FILENAME_ONLY",
+      "resolution": "Actual RAW-LOCAL-ONLY producer roles and PREFLIGHT.rawLocalOnly seed the set; union with filename defenses and rebuildable cache paths is local-only, and all semantic paths must be within selected files."
+    }
+  ],
+  "majorLesson": "Producer semantic roles seed archival disposition; filename checks are additional refusal defenses. Include builder and exact input-list source roles without hashing the inventory into itself.",
+  "pending": [
+    "All active routes and required postflight must complete before builder execution.",
+    "Freeze exact selected package/local semantic role lists and authenticate actual file identities through existing finite inventory.",
+    "Final docs/lessons and finite inventory require original independent archive admission."
+  ],
+  "priorFindingsReceipt": {
+    "bytes": 4811,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-archive-builders-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "4eb37943f9caa4a2bcb3be22ebf5f0e8d5a5354cfbb35ffc002126ebb64d2194"
+  },
+  "reviewedSources": {
+    "INVENTORY-SOURCE-BINDING.json": {
+      "bytes": 695,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/INVENTORY-SOURCE-BINDING.json",
+      "sha256": "4d60f61918c9801b47f89ab04005560899b10b200bafeac5cf48824f5547daa1"
+    },
+    "prepare_final_packages.py": {
+      "bytes": 4655,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/prepare_final_packages.py",
+      "sha256": "dcb78889ae79346d1e11c7debe89c007a2dd2346cdb1bf8fd31939ab8519328f"
+    },
+    "prepare_inventory.py": {
+      "bytes": 3147,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/prepare_inventory.py",
+      "sha256": "dfdf6dcfb30c7f17b840abda82a5e36f86b1749056c52d8be8a7521ed82a0b92"
+    }
+  },
+  "schema": "1370-an-checkpoint-archive-builder-independent-source-review/v2",
+  "scope": "Narrow read-only source correction review only. No package selection, inventory, raw-content inspection, private traversal, runtime, process probes, Git or production writes. Source acceptance does not admit current active fullfunction or final archive."
+}

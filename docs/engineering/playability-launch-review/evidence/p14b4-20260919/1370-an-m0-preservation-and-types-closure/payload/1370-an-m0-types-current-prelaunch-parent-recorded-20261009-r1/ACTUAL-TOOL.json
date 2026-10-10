@@ -1,0 +1,21 @@
+{
+  "schema": "1370-root-original-current-root-prelaunch-actual-tool/v1",
+  "toolSessionId": 78183,
+  "chunks": [
+    {
+      "chunk_id": "851b7c",
+      "wall_time_seconds": 1.001239838,
+      "session_id": 78183,
+      "original_token_count": 194,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-prelaunch-parent-recorded-20261009-r1/GRANT.json\", \"bytes\": 3197, \"sha256\": \"37bc8bb8f23c852320e0c7a4eb5e8e54b79581e8d780dcccfe05f9a60d459c43\"}, \"postR6RootAdoption\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-POST-R6-PRESERVATION-DIAGNOSTIC-OBSERVED-ADOPTION.json\", \"bytes\": 4446, \"sha256\": \"5b5e062b8c5ac12bc70aa5ccb46ad101340ad692cdf0147ea44890882c0f44e1\"}, \"currentProtection\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-CURRENT-EXTERNAL-CONFIG-TYPES-PROTECTION.json\", \"bytes\": 3294, \"sha256\": \"5980e69d3e2962f068f10fa3217caa45f3ff752cc93a5064eb0637f54a2439d0\"}, \"ownPid\": 11041, \"ownPgid\": 11041}\n"
+    },
+    {
+      "chunk_id": "1beef6",
+      "wall_time_seconds": 0.000016904,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ],
+  "finalExit": 0
+}

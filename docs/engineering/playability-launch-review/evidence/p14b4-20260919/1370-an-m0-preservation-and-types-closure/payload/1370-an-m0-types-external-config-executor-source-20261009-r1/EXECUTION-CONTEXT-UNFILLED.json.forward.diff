@@ -1,0 +1,22 @@
+--- /Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/BASELINE-R6-EXECUTION-CONTEXT-UNFILLED.json	2026-10-09 23:01:13.000000000 -0500
++++ /Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/EXECUTION-CONTEXT-UNFILLED.json	2026-10-09 23:01:31.000000000 -0500
+@@ -1,15 +1,16 @@
+ {
+   "actualGrant": null,
+   "additionalRefs": {},
+-  "configSha256": "f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7",
++  "configSha256": "224b8f1614208215cb07993fc4b015d8438413e95b805c7360105bee0575b154",
+   "currentProtection": null,
+   "executionAuthorization": false,
+   "freshDependencyProof": null,
+   "freshSourceProof": null,
+   "laneLock": null,
+   "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+-  "runId": "20261009-m0-types-after-al-r3",
++  "runId": "20261009-m0-types-external-after-an-r1",
+   "runtimeTools": null,
+   "schema": "1370-m0-types-execution-context/v1",
+-  "sourceReview": null
++  "sourceReview": null,
++  "postR6RootAdoption": null
+ }

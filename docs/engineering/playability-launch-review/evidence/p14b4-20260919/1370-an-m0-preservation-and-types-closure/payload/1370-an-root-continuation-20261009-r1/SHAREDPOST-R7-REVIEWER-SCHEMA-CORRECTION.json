@@ -1,0 +1,8 @@
+{
+  "actualCheckerChunk": "111f02",
+  "actualCheckerExit": 1,
+  "cause": "Review reuse assumed earlier documentary proof key names. Exact sealed R7 proof uses predecessorSourceManifest/predecessorAcceptedRootReviewRole and predecessorSource/freshSource; same complete source checks retained with actual shape. No candidate change or execution.",
+  "error": "KeyError: predecessorSourcePins",
+  "executionAuthorization": false,
+  "sourceOnly": true
+}

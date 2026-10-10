@@ -1,0 +1,21 @@
+{
+  "schema": "1370-root-original-prelaunch-actual-tool/v1",
+  "toolSessionId": 86072,
+  "chunks": [
+    {
+      "chunk_id": "cd2f8f",
+      "wall_time_seconds": 1.003822325,
+      "session_id": 86072,
+      "original_token_count": 68,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261009-r1/GRANT.json\", \"bytes\": 3331, \"sha256\": \"3cf6c4597b5f68d4c036a14232541d3af71bf43d44a21fe263dc63419a462a4e\"}, \"ownPid\": 27171, \"ownPgid\": 27171}\n"
+    },
+    {
+      "chunk_id": "d7d6a0",
+      "wall_time_seconds": 0.00001525,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ],
+  "finalExit": 0
+}

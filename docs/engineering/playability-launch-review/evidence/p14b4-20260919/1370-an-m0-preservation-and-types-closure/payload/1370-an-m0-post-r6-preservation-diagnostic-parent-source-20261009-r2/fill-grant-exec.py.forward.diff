@@ -1,0 +1,31 @@
+--- fill-grant-exec.py
++++ fill-grant-exec.py
+@@ -8,7 +8,7 @@
+ signal.setitimer(signal.ITIMER_REAL,60)
+ S=pathlib.Path('/Users/zacheryspector/studio-scratch')
+ HERE=pathlib.Path(__file__).resolve().parent
+-PROFILE_SHA='63b70fb7d08a73ad14ef7370dac4002348634ed7d08e5a822133c5791f1826d9'
++PROFILE_SHA='640814ab17810d46dd47f5653cc9ef961823a1674ec1d2d2f38bcb2a274cd9e0'
+ CAP=128*1024*1024
+ 
+ def require(ok,msg):
+@@ -60,7 +60,7 @@
+  accepted=json.loads(pin(spec['sourceReview']));require(accepted['decision']==p['sourceReviewDecision'],'SOURCE_REVIEW_DECISION')
+  for name,r in dict(p['executableRoles'],**{'CONFIG.json':p['config']}).items():require(accepted['sourcePins'][name]==r,'SOURCE_REVIEW_EXACT_ROLE')
+  require(cfg['runId']==p['runId'] and cfg['mirrorPath']==p['mirrorPath'] and cfg['laneLog']==p['laneLog'],'CONFIG_PATHS')
+- require(cfg['operationalProductionHead']=='8cb704e2f18e6a635943893422c9cfdc206e106d' and cfg['productionSourceTree']=='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554','CURRENT_AL_SCOPE')
++ require(cfg['operationalProductionHead']=='7087f116cf998fd86e33fb8e004df628e0686dbd' and cfg['productionSourceTree']=='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554','CURRENT_AM_SCOPE')
+  require(cfg['mainOid']=='c902a704eb948cc576083d0973c8c23e59937dc1' and cfg['localMainRef']=='refs/remotes/origin/main' and cfg['mainRef']=='refs/heads/main','DISTINCT_MAIN_ROLES')
+  # Recorded identity is durable before GO/exec and remains the same in LAUNCH.py.
+  if os.getpgrp()!=os.getpid():os.setsid()
+@@ -98,7 +98,9 @@
+   require(prot['physicalFactsSha256']==cfg['sourceAuthorities']['m0PhysicalFacts']['sha256'] and prot['completeM0AdoptionSha256']==cfg['sourceAuthorities']['m0CompleteParentAdoption']['sha256'],'PROTECTION_HISTORICAL_LINKS')
+   require(prot['fullProtectedPostflightAccepted'] is True and prot['soleLaneReleased'] is True and prot['additionalRefs']==additional,'PROTECTION_ACTUAL_POSTFLIGHT')
+   source=prot['freshSourceProof'];deps=prot['freshDependencyProof'];require(type(source) is dict and type(deps) is dict,'OBSERVED_PLAIN_PROOF_OBJECTS')
+- context={'schema':p['contextSchema'],'configSha256':p['config']['sha256'],'runId':p['runId'],'mirrorPath':p['mirrorPath'],'sourceReview':spec['sourceReview'],'currentProtection':protection,'freshSourceProof':source,'freshDependencyProof':deps,'additionalRefs':additional,'runtimeTools':tools,'laneLock':lockrole,'executionAuthorization':False}
++ diagnostic=spec['diagnosticInputs'];require(type(diagnostic) is dict and set(diagnostic)=={'controlsObservedReview','controlsRootAdoption','currentAMFullPreflight','currentAMFullPreflightAdoption'},'EXACT_DIAGNOSTIC_INPUT_ROLES')
++ for name,r in diagnostic.items():pin(r,16*1024*1024 if name=='currentAMFullPreflight' else 128*1024)
++ context={'schema':p['contextSchema'],'configSha256':p['config']['sha256'],'runId':p['runId'],'mirrorPath':p['mirrorPath'],'sourceReview':spec['sourceReview'],'diagnosticInputs':diagnostic,'currentProtection':protection,'freshSourceProof':source,'freshDependencyProof':deps,'additionalRefs':additional,'runtimeTools':tools,'laneLock':lockrole,'executionAuthorization':False}
+  ungranted=digest(json.dumps(context,sort_keys=True,separators=(',',':')).encode())
+  grant={'schema':p['grantSchema'],'executionAuthorization':True,'contextWithoutGrantSha256':ungranted,'runId':p['runId'],'configSha256':p['config']['sha256'],'sourceReviewSha256':spec['sourceReview']['sha256'],'scope':p['grantScope'],'gameAuthorization':False,'parentIssuedViaReviewedOnceOnlyLauncher':True,'parentSpecSha256':sys.argv[2],'ownedIdentity':owned}
+  if spec['mode']=='types':grant['currentProtectionSha256']=protection['sha256']

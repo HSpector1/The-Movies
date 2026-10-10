@@ -1,0 +1,40 @@
+{
+  "scope": "Original shared full protected postflight after completed fullfunction PASS or STOP. Not a fullfunction acceptance.",
+  "launcherArgv": [
+    "PHYSICAL_PYTHON",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r4/launch-fullpostflight.py",
+    "ACTUAL_FULLFUNCTION_READBACK_PATH",
+    "ACTUAL_READBACK_SHA256"
+  ],
+  "readerArgv": [
+    "PHYSICAL_PYTHON",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r4/read-fullpostflight.py",
+    "ACTUAL_TOOL_SESSION_ID",
+    "ACTUAL_POSTFLIGHT_GRANT_SHA256"
+  ],
+  "requiredReadbackFields": [
+    "status",
+    "completed",
+    "laneReleased",
+    "toolExit",
+    "helperExit",
+    "recorderExit",
+    "runnerExit",
+    "preflightObservedAdoption",
+    "recordedOwnedPids",
+    "recordedOwnedGroupIds"
+  ],
+  "ownership": "Node PID belongs in recordedOwnedPids only unless genuine evidence separately establishes it as a group leader. Guard receives only group IDs.",
+  "parentOutput": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r2",
+  "futureActualReadback": null,
+  "futureActualTool": null,
+  "futureGrant": null,
+  "executionAuthorization": false,
+  "perCommandTimeoutSeconds": 180,
+  "wholeScanDeadline": null,
+  "runnerExitSemantics": "Integer actual child exit, or null only with runnerStatus NOT_STARTED or UNKNOWN; never infer missing exit as zero."
+}

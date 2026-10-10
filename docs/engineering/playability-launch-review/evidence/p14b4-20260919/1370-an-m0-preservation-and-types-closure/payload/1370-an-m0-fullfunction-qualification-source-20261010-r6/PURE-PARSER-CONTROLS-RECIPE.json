@@ -1,0 +1,54 @@
+{
+  "actualIndependentObservedReview": null,
+  "actualResult": null,
+  "actualRootAdoption": null,
+  "actualTool": null,
+  "caseCount": 32,
+  "controlsSource": {
+    "bytes": 7028,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r6/run-parser-controls.mjs",
+    "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+  },
+  "directArgv": [
+    "EXACT_GENUINELY_OBSERVED_PHYSICAL_NODE22_23_2",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r6/run-parser-controls.mjs"
+  ],
+  "executionAuthorization": false,
+  "observedReviewDecision": "ACCEPT_ACTUAL_EXACT_IDENTITY_JSON_PURE_CONTROLS_ONLY",
+  "outputContract": {
+    "exit": 0,
+    "game": false,
+    "negativePredicate": "Specific parser STOP label, native malformed JSON string SyntaxError, or malformedUTF8 TypeError with exactERR_ENCODING_INVALID_ENCODED_DATA; loader/tool/unknown errors STOP.",
+    "privateM0ReadOrWritten": false,
+    "schema": "1370-exact-identity-json-pure-controls-result/v1",
+    "status": "PASS_EXACT_IDENTITY_JSON_PURE_CONTROLS_ALL_CASES_ONLY",
+    "stdoutSingleJsonResultBytes": 131072
+  },
+  "parentRequirement": "Root records under qualified original owned recorder/direct parent with exact source-role grant and existing300/320/330/8MiB limits; no new clock. This standalone finite public entry imports only pure parser and nodebuiltins, has no children and never resolves M0. Actual parent/grant/tool/result remain external genuine roles.",
+  "parserSource": {
+    "bytes": 2202,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r6/exact-json.mjs",
+    "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+  },
+  "rootAdoptionContract": {
+    "actualExit": 0,
+    "actualTool": "original genuine recorded tool envelope role",
+    "controlsSource": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r6/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    },
+    "executionAuthorization": false,
+    "independentObservedReview": "genuine observed acceptance decision above",
+    "parserSource": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r6/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "result": "exact retained parsed stdout JSON role",
+    "schema": "1370-root-exact-identity-json-controls-observed-adoption/v1",
+    "status": "ROOT_ADOPTED_ACTUAL_EXACT_IDENTITY_JSON_CONTROLS_ONLY"
+  },
+  "schema": "1370-exact-identity-json-pure-controls-recipe/v1",
+  "scope": "PURE_PUBLIC_JSON_DATA_AND_PROTECTED_IDENTITY_EQUALITY_ONLY"
+}

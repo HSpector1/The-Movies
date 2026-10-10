@@ -1,0 +1,26 @@
+{
+  "actualArguments": null,
+  "argv": [
+    "GENUINE_PHYSICAL_PYTHON",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r2-root-readback-source-20261010-r1/read-fullfunction.py",
+    "ACTUAL_SESSION_ID",
+    "ACTUAL_FINAL_EXIT",
+    "ACTUAL_EXECUTION_GRANT_SHA256",
+    "ACTUAL_TOOL_SHA256"
+  ],
+  "executionAuthorization": false,
+  "fixtureHashCap": 67108864,
+  "incompleteDoesNotAdmitPostflight": true,
+  "incompleteFallback": "INCOMPLETE-READBACK.json",
+  "knownIdsOnly": true,
+  "noNewRuntimeClock": true,
+  "nodePidNotPromotedToPgid": true,
+  "parent": "1370-an-m0-fullfunction-parent-recorded-20261010-r2",
+  "readback": "READBACK.json",
+  "scope": "Finite root retained-evidence readback and root-scoped known-ID absence after actual R9 fullfunction R2; no private inventories or gameplay execution.",
+  "sourceAndReportCap": 131072,
+  "streamCap": 8388608,
+  "toolEnvelopeCap": 16777216
+}

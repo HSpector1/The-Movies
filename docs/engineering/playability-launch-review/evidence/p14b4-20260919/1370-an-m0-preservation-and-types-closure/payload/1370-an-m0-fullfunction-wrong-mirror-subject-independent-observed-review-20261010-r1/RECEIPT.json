@@ -1,0 +1,312 @@
+{
+  "schema": "1370-fullfunction-wrong-mirror-subject-independent-observed-review/v1",
+  "decision": "ACCEPT_OBSERVED_FULLFUNCTION_WRONG_MIRROR_SUBJECT_STOP_WITH_FULL_SHARED_POSTFLIGHT",
+  "executionAuthorization": false,
+  "concreteFindings": [],
+  "findings": [],
+  "readback": {
+    "bytes": 6478,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "2292a2f92aac3d837885b5686720416bdaf4fff123f2610c3ce3dd81ac73c30d"
+  },
+  "currentTypesAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  },
+  "fullPostflightReadback": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1/READBACK.json",
+    "bytes": 5098,
+    "sha256": "735e8d8fcaf1ae96f2b4f39608f71a66d85eba14b1941e5bd97d23afda096b55"
+  },
+  "fullPostflightSnapshot": {
+    "bytes": 8853570,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r1/SNAPSHOT.json",
+    "sha256": "f1eb127210b9cf6c5f3e9746cfb3c0f6865167d468921d05795805843a6ad1d6"
+  },
+  "actualAttemptTool": {
+    "bytes": 1272,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "9d7c1f1a887d5db39289ef55a48d416452e581c99a086023711e151cc783ab0c"
+  },
+  "actualPostflightTool": {
+    "bytes": 1210,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "d6dfdc3af57757e3805a2380e6d757117402f6a69e7bc3518bc33603e47b495a"
+  },
+  "sourceManifest": {
+    "bytes": 25278,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/SOURCE-PINS.json",
+    "sha256": "d1357e8fe9b082313f79b27e870df63ec01245d52e725c5698b9045bfe77ac7f"
+  },
+  "sourceReview": {
+    "bytes": 14338,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r7/RECEIPT.json",
+    "sha256": "3f8c38d007d381db407bf1953781a089488fa3c4979d742f452697c4bef9d48f"
+  },
+  "baseline": {
+    "bytes": 8833072,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/SNAPSHOT.json",
+    "sha256": "0136b4370cca27ab9af635c16124283049eb394b3dbaa63c32a755973e9c3596"
+  },
+  "fullPostflightGrant": {
+    "bytes": 5146,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "436001e69014cd9b4b504d6c54e78ffe7f8b2792463498e9e84305da13578c90"
+  },
+  "guardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py",
+    "sha256": "9e2618b58849ccf0bc36512b20de16c23e49b2f08cdc6982ca9fe2fc20143047"
+  },
+  "guardConfig": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/CONFIG.json",
+    "sha256": "e0c7a2b839eaa1e0940665711c8e9b57af4f09738290ca5d15d828f01200b42e"
+  },
+  "guardSourceReview": {
+    "bytes": 7200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "8a8756307aeecff6e3d9f299a5d2db8014e81c9c7dd5ade42f1f53514ba8ad45"
+  },
+  "initialEvidenceAudit": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-wrong-mirror-subject-independent-observed-review-20261010-r1/INITIAL-EVIDENCE-READBACK.json",
+    "bytes": 5585,
+    "sha256": "6e18c4c527b5c540604c5645e50e4f7ca21421adc696aeaa04a0252a3f5a491c"
+  },
+  "finalPostflightEvidenceAudit": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-wrong-mirror-subject-independent-observed-review-20261010-r1/FINAL-POST-EVIDENCE-AUDIT.json",
+    "bytes": 10127,
+    "sha256": "384a978258918a3283c2f2ba3027b9a90e9c9e602a22ec25c573e47523b595df"
+  },
+  "independence": {
+    "sourceAuthor": "/root/m0_types_source_review",
+    "actualExecutor": "/root",
+    "reviewer": "/root/b109_focused_route_review",
+    "reviewerDidNotAuthorCandidate": true,
+    "reviewerDidNotExecuteCandidate": true,
+    "scope": "Independent finite retained source and actual artifact audit; no imports, replay, private inventory, repository mutation, or fresh process probes."
+  },
+  "observedAttempt": {
+    "toolSessionId": 95737,
+    "toolExit": 2,
+    "helperExit": 2,
+    "recorderExit": 2,
+    "runnerExit": 1,
+    "recorderStatus": "STOP_CHILD_EXIT_1",
+    "recorderSeconds": 4.919851471000584,
+    "timedOut": false,
+    "actualHelper": {
+      "pid": 49057,
+      "pgid": 49057,
+      "sid": 49057
+    },
+    "actualRecorder": {
+      "pid": 49312,
+      "pgid": 49312,
+      "sid": 49312
+    },
+    "actualController": {
+      "pid": 49313,
+      "pgid": 49313,
+      "startupOwnedBeforeExec": true,
+      "pgidConfirmed": true
+    },
+    "preparationSeconds": {
+      "outer": 0.4950481790001504,
+      "inner": 0.5032209869968938
+    },
+    "preparationDeadlineSecondsPerStage": 60,
+    "combinedPreparationRuntimeDeadline": null,
+    "runtimeBoundsSeconds": {
+      "aggregateChild": 300,
+      "activeRecorder": 320,
+      "wholeRecorder": 330
+    },
+    "laneReleased": true,
+    "originalAttemptRemainsStop": true,
+    "originalR6StopPreserved": true,
+    "firstCompleteSourceProofCompleted": false,
+    "firstCompleteDependencyProofCompleted": false,
+    "sourceAfter": null,
+    "dependencyAfter": null,
+    "nodePid": null,
+    "actualGameplayPrefixExecuted": false,
+    "fixtureQualificationAccepted": false,
+    "neutralityAccepted": false,
+    "typesAcceptedByThisAttempt": false,
+    "collectionAcceptedByThisAttempt": false,
+    "currentTypesAdoptionRemainsSeparatePriorAcceptedEvidence": true,
+    "noNodeGameEvidence": "Authenticated controller calls the first proofs() before creating its runtime output directory or spawning Node. The exact unique leaf-root metadata error occurs before bounded_names enumeration in the original proof library; the root readback records output absence. This attribution uses the source barrier and exact error, not absence of a success report alone.",
+    "ownedGroupsCleared": true,
+    "recordedInitialAbsences": [
+      {
+        "id": 49057,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 49057,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 49312,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 49312,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 49313,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 49313,
+        "kind": "pgid",
+        "result": "ESRCH"
+      }
+    ]
+  },
+  "preservedFailure": {
+    "status": "ACTUAL_STOP_WRONG_CONTAINER_ARGUMENT_AT_FIRST_LEAF_METADATA_GATE",
+    "concreteCause": "R7 proofs() passed the proof library MIRROR_ROOT container instead of CONFIG.mirrorPath, the authenticated copied leaf. The original exact leaf-identity guard correctly refused that argument before enumeration.",
+    "authenticLeafPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+    "wrongContainerPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2",
+    "exactLeafRecordedAfterIdentityMatched": true,
+    "nanosecondIdentityComparison": "Exact original JSON integer tokens were compared against the authenticated proof configuration; rounded JavaScript numbers were not used for this conclusion.",
+    "metadataOnlyDiagnosisIsNotCompleteSourceOrDependencyProof": true,
+    "authorityMetadataRepinned": false,
+    "metadataRestored": false,
+    "controllerWarning": {
+      "retained": true,
+      "scope": "Producer stderr",
+      "attribution": "Pinned R7 run-fullfunction.py line119 return inside finally; followed by the exact STOP_FULLFUNCTION RuntimeError.",
+      "stderr": {
+        "bytes": 381,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261009-r1/stderr.bin",
+        "sha256": "f3125983077da1bdf243cf67604e21d808247b9b341e36e94d7473c9517d90a3"
+      }
+    },
+    "recorderWarning": {
+      "retained": true,
+      "scope": "Combined helper log, distinct from producer stderr",
+      "attribution": "Pinned qualified recorder main() outer finally return at line249.",
+      "combinedLog": {
+        "bytes": 687,
+        "path": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-20261009-r1.lane.log",
+        "sha256": "13d45463ba80d585bf7612eae046c662466ad59dcbf7f6e5243ae5d8acb3ec91"
+      }
+    },
+    "actualCleanupExceptionSuppressionObserved": false,
+    "stdout": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261009-r1/stdout.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "bytes": 381,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261009-r1/stderr.bin",
+      "sha256": "f3125983077da1bdf243cf67604e21d808247b9b341e36e94d7473c9517d90a3"
+    },
+    "combinedLog": {
+      "bytes": 687,
+      "path": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-20261009-r1.lane.log",
+      "sha256": "13d45463ba80d585bf7612eae046c662466ad59dcbf7f6e5243ae5d8acb3ec91"
+    },
+    "laneMetadata": {
+      "bytes": 507,
+      "path": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-20261009-r1.lane.log.meta",
+      "sha256": "699ad165438aaba1f7b5053233f74523b4c09d6d87242e2842b2af4a99d3cb28"
+    }
+  },
+  "sharedPostflight": {
+    "toolSessionId": 89456,
+    "toolExit": 0,
+    "status": "GUARDS_ACCEPTED_READONLY",
+    "guardSeconds": 519.4980317869922,
+    "inventorySeconds": 406.80188915500185,
+    "fullSharedPostflightAccepted": true,
+    "fullImmutableTypedEqual": true,
+    "nineStrictRootsTypedEqual": true,
+    "duringSnapshotStrictRootsTypedEqual": true,
+    "scratchIdentityOnlyTypedEqual": true,
+    "losslessIntegerParsing": true,
+    "duplicateJsonKeysRejected": true,
+    "currentBeforeAfterAccepted": true,
+    "rawLocalOnlyFourPsFdRolesAuthenticated": true,
+    "rawPsFdDisposition": "LOCAL_HASH_SIZE_ONLY; raw contents excluded from this receipt.",
+    "originalCompletePrivateR9InventoryPerformedByQualifiedRootScanner": true,
+    "additionalPrivateInventoryByReviewer": false,
+    "originalM0AfterProofSuppliedByThisPostflight": false,
+    "recordedFreshAbsences": [
+      {
+        "id": 49057,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 49312,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 49313,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 61080,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 49057,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 49312,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 49313,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 61080,
+        "kind": "pgid",
+        "result": "ESRCH"
+      }
+    ],
+    "laneReleased": true,
+    "stdout": {
+      "bytes": 468,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1/postflight.stdout",
+      "sha256": "c8406ef6414db2b9b062540f3b3ec99a16430b73e8a7a6cb2c2281ed9677de52"
+    },
+    "stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1/postflight.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "originalAttemptRemainsStop": true,
+  "fullSharedPostflightAccepted": true,
+  "soleLaneReleased": true,
+  "noNewExecutionGranted": true,
+  "sourceOrGameplayAdoption": false,
+  "lessons": [
+    "Unchanged proof helpers do not establish correct caller composition: compare the authentic original call's mirror subject with the admitted configuration leaf.",
+    "Retain failing exits, absent complete proofs, and each warning in its measured stream; a successful shared protection postflight preserves the STOP and supplies no missing M0 proof.",
+    "Compare nanosecond identity integers losslessly. Derive role byte counts and hashes from retained UTF-8 file bytes.",
+    "Preparation deadlines are separate and canceled before direct exec; recorder 300/320/330 runtime bounds do not include preparation or a whole protection scan."
+  ],
+  "claimLimit": "Accepts the authenticated wrong-mirror-subject STOP and completed original shared protection postflight only. No real fixture, baseline, mutant, gameplay, neutrality, performance, broad digest, P17/P18, or source promotion acceptance. Fresh R9 source review and any future execution authority remain separate."
+}

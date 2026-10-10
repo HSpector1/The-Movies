@@ -1,0 +1,17 @@
+{
+  "allHelpersAndClocksAndRoleChecksUnchanged": true,
+  "baseSource": {
+    "bytes": 12103,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r2/launch-fullfunction.py",
+    "sha256": "eb09e8a20b7ee6039c059108c11262cc9a01130a90e2f1fd39646b1b68b93180"
+  },
+  "change": {
+    "after": "1370-an-m0-fullfunction-parent-recorded-20261010-r3",
+    "before": "1370-an-m0-fullfunction-parent-recorded-20261010-r2",
+    "occurrences": 1
+  },
+  "executionAuthorization": false,
+  "schema": "1370-fullfunction-parent-r3-path-only-source-proof/v1",
+  "sourceOnly": true,
+  "wholeInverseExact": true
+}

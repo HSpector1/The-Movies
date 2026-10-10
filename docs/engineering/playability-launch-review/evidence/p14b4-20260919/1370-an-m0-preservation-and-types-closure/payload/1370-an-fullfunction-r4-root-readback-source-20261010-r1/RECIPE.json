@@ -1,0 +1,41 @@
+{
+  "actualArguments": null,
+  "argv": [
+    "GENUINE_PHYSICAL_PYTHON",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r4-root-readback-source-20261010-r1/read-fullfunction.py",
+    "ACTUAL_SESSION_ID",
+    "ACTUAL_FINAL_EXIT",
+    "ACTUAL_EXECUTION_GRANT_SHA256",
+    "ACTUAL_TOOL_SHA256"
+  ],
+  "executionAuthorization": false,
+  "fixtureHashCap": 67108864,
+  "incompleteDoesNotAdmitPostflight": true,
+  "incompleteFallback": "INCOMPLETE-READBACK.json",
+  "knownIdsOnly": true,
+  "noNewRuntimeClock": true,
+  "nodePidNotPromotedToPgid": true,
+  "parent": "1370-an-m0-fullfunction-parent-recorded-20261010-r4",
+  "readback": "READBACK.json",
+  "runtimeSourceReviewAliases": [
+    "CONFIG.json",
+    "run-fullfunction.py",
+    "run-fullfunction.mjs",
+    "record-fullfunction.py",
+    "CORE-TEST-TEMPLATE.ts",
+    "CONFIG-TEMPLATE.mts",
+    "FULL-BODY-CONTROLS-TEMPLATE.ts",
+    "exact-json.mjs",
+    "run-parser-controls.mjs",
+    "canonical-typescript-transform.mjs",
+    "m0WiringProbe.ts",
+    "RESOLUTION-SOURCE-BINDING.json"
+  ],
+  "runtimeSourceReviewFuture": null,
+  "scope": "Finite root retained-evidence readback and root-scoped known-ID absence after actual R11 fullfunction R4; no private inventories or gameplay execution.",
+  "sourceAndReportCap": 131072,
+  "streamCap": 8388608,
+  "toolEnvelopeCap": 16777216
+}

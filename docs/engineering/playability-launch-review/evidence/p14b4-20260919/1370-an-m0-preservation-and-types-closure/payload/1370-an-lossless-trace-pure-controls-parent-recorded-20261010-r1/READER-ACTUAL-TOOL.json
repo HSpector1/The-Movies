@@ -1,0 +1,20 @@
+{
+  "sessionId": 78019,
+  "allToolChunks": [
+    {
+      "chunk_id": "2bf939",
+      "wall_time_seconds": 1.003098103,
+      "session_id": 78019,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "4d35d8",
+      "wall_time_seconds": 0.000025438,
+      "exit_code": 0,
+      "original_token_count": 82,
+      "output": "{\"readback\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-parent-recorded-20261010-r1/READBACK.json\", \"bytes\": 10086, \"sha256\": \"465611a4c3c8693616d0a857804400117cf8452a71ca9b1a0658b1f4718ebdd5\"}, \"recorderSeconds\": 7.404906245996244, \"actualOwnedIds\": [86859, 87303], \"caseCount\": 49}\n"
+    }
+  ],
+  "finalExit": 0
+}

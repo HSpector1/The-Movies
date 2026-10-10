@@ -1,0 +1,62 @@
+{
+  "actualGrant": null,
+  "actualPreflight": null,
+  "actualRootSourceReview": null,
+  "actualTool": null,
+  "executionAuthorization": false,
+  "files": {
+    "BASE-r1-launcher.py.txt": {
+      "bytes": 6563,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r2/BASE-r1-launcher.py.txt",
+      "sha256": "051cea5507c302ebadc57ebf5aa0029cbb4fa5d16309c8a2549dd97f6fa60a40"
+    },
+    "BASE-r1-reader.py.txt": {
+      "bytes": 4920,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r2/BASE-r1-reader.py.txt",
+      "sha256": "5c0072a020d59f69d2541c771896296b4d1b0172bd332f210a7f7ff15a6686d5"
+    },
+    "EXACT-ARGV.json": {
+      "bytes": 2600,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r2/EXACT-ARGV.json",
+      "sha256": "a6a4c11e283a58873def9f38fcd331d2b8daeff70cac46b2a0901e4c57d7a80a"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 9060,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r2/SOURCE-PROOF.json",
+      "sha256": "a829c5b7832fdd750a593f567e991a5314d37680a7040f17e431151b7a434d83"
+    },
+    "launcher.forward.diff": {
+      "bytes": 10095,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r2/launcher.forward.diff",
+      "sha256": "1fbd5439396164fa39f0edafdb441bbff02a4947e90f5dc2d8bc970b9069796a"
+    },
+    "launcher.inverse.diff": {
+      "bytes": 10095,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r2/launcher.inverse.diff",
+      "sha256": "3b5050074131913cf86c5c3034b2460163f1a87e8ef6c931d910262de8834d44"
+    },
+    "read_fullfunction_current_prelaunch.py": {
+      "bytes": 6612,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r2/read_fullfunction_current_prelaunch.py",
+      "sha256": "a8a03904ad45707394daac487db42fcb435e4918dc11185786f9593300dfbc13"
+    },
+    "reader.forward.diff": {
+      "bytes": 9386,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r2/reader.forward.diff",
+      "sha256": "975133b64578e8d8dd2b76edfde3979846bcf5de7820a0fc9164795867a5b26b"
+    },
+    "reader.inverse.diff": {
+      "bytes": 9386,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r2/reader.inverse.diff",
+      "sha256": "cc4d35443408517cc7d64f19fe8f39e6fdf946076f4ae8c743cefd264dd020af"
+    },
+    "run_fullfunction_current_prelaunch_once.py": {
+      "bytes": 9044,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r2/run_fullfunction_current_prelaunch_once.py",
+      "sha256": "b2d80378db234242bf3a7edfa8497ea4c35edfaab0bad6191f1b3917668777c4"
+    }
+  },
+  "latestActualFullPostflightReadback": null,
+  "reviewedPriorStopAdoption": null,
+  "schema": "1370-fullfunction-current-prelaunch-preparation-source-pins/v2"
+}

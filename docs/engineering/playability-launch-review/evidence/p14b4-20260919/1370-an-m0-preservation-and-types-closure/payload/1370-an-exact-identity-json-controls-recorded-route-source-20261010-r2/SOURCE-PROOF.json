@@ -1,0 +1,197 @@
+{
+  "clock": "originaloneNode300/active320/whole330 inclcleanup/stream/result; separateprep60 canceled immediatelybeforedirectr8 exec",
+  "executionAuthorization": false,
+  "externalParserControls": {
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    }
+  },
+  "fullfunctionSourcePins": {
+    "bytes": 25278,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/SOURCE-PINS.json",
+    "sha256": "d1357e8fe9b082313f79b27e870df63ec01245d52e725c5698b9045bfe77ac7f"
+  },
+  "parentChanges": [
+    {
+      "new": "Q=P",
+      "old": "Q=S/'1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2'"
+    },
+    {
+      "new": "S/'1370-an-exact-identity-json-controls-parent-recorded-20261010-r1'",
+      "old": "S/'1370-an-m0-fullbody-r3-ordering-controls-parent-recorded-20261009-r1'"
+    },
+    {
+      "new": "g['schema']=='1370-root-exact-identity-json-controls-once-grant/v1'",
+      "old": "g['schema']=='1370-root-r3-ordering-controls-once-grant/v1'"
+    },
+    {
+      "new": "g['scope']=='PURE_PUBLIC_EXACT_IDENTITY_JSON_32_CONTROLS_ONLY'",
+      "old": "g['scope']=='PURE_SYNTHETIC_ORDERING_CONSUMER_18_CASES_ONLY'"
+    },
+    {
+      "new": "pins['schema']=='1370-exact-identity-json-controls-source-pins/v1'",
+      "old": "pins['schema']=='1370-r3-ordering-controls-parent-source-pins/v1'"
+    },
+    {
+      "new": "pins['files']['launch-parser-controls.py']",
+      "old": "pins['files']['launch-ordering-controls.py']"
+    },
+    {
+      "new": "ar['decision']=='ACCEPT_STATIC_EXACT_IDENTITY_JSON_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY'",
+      "old": "ar['decision']=='ACCEPT_STATIC_R3_ORDERING_CONTROLS_PARENT_SOURCE_ONLY'"
+    },
+    {
+      "new": "exact(ar['sourceManifest'],g['parentAdapterSourcePins'])",
+      "old": "exact(ar['sourcePins'],g['parentAdapterSourcePins'])"
+    },
+    {
+      "new": "sp==Q/'SOURCE-PINS.json' and exact(g['sourcePins'],g['parentAdapterSourcePins'])",
+      "old": "sp==Q/'SOURCE-PINS.json' and exact(g['sourcePins'],contract['sourcePins'])"
+    },
+    {
+      "new": "sourcepins['schema']=='1370-exact-identity-json-controls-source-pins/v1'",
+      "old": "sourcepins['schema']=='1370-r3-ordering-controls-source-pins/v1'"
+    },
+    {
+      "new": "exact(g['config'],contract['config']) and Path(g['recipe']['path'])==Path(contract['recipePath']) and exact(g['sourceReview'],g['parentAdapterSourceReview'])",
+      "old": "exact(g['config'],contract['config']) and exact(g['recipe'],contract['recipe']) and exact(g['sourceReview'],contract['sourceReview'])"
+    },
+    {
+      "new": "rv['schema']=='1370-exact-identity-json-controls-recorded-route-independent-source-review/v1'",
+      "old": "rv['schema']=='1370-r3-ordering-consumer-controls-independent-source-review/v1'"
+    },
+    {
+      "new": "rv['decision']=='ACCEPT_STATIC_EXACT_IDENTITY_JSON_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY'",
+      "old": "rv['decision']=='ACCEPT_STATIC_R3_ORDERING_CONSUMER_CONTROLS_SOURCE_ONLY'"
+    },
+    {
+      "new": " for name in ('CONFIG.json','CONTRACT.json','record-parser-controls.py','launch-parser-controls.py','exact-json.mjs','run-parser-controls.mjs'):\n  wanted=sourcepins['files'].get(name,sourcepins['externalInputs'].get(name));require(exact(rv['sourcePins'][name],wanted) and exact(rv['routeSourcePins'][name],wanted),'REVIEW_ROLE_ALIAS')",
+      "old": " for name in ('CONFIG.json','run-ordering-controls.mjs','record-ordering-controls.py'):require(exact(rv['sourcePins'][name],sourcepins['files'][name]) and exact(rv['routeSourcePins'][name],sourcepins['files'][name]),'REVIEW_ROLE_ALIAS')"
+    },
+    {
+      "new": " require(exact(config['inputs'],contract['inputs']) and config['caseCount']==32,'PURE_PUBLIC_SOURCE_BINDINGS')",
+      "old": " require(exact(g['acceptedSourcePins'],config['acceptedSourcePins']) and exact(g['heldRootAdoption'],config['heldRootAdoption']),'HELD_SOURCE_BINDINGS')"
+    },
+    {
+      "new": "adoption['schema']=='1370-root-exact-identity-json-controls-source-adoption/v1' and adoption['status']=='ROOT_ADOPTED_PURE_EXACT_IDENTITY_JSON_CONTROLS_SOURCE_ONLY'",
+      "old": "adoption['schema']=='1370-root-r3-ordering-controls-source-adoption/v1' and adoption['status']=='ROOT_ADOPTED_PURE_ORDERING_CONTROLS_SOURCE_ONLY'"
+    },
+    {
+      "new": " require(exact(g['runtimeTools'],{'node':contract['tools']['node']}),'ACTUAL_NODE_BINDING')\n for wanted in contract['inputs'].values():authenticate(wanted)\n authenticate(contract['tools']['helper'])",
+      "old": " require(exact(g['runtimeTools'],{'node':contract['tools']['node'],'typescript':contract['tools']['typescript']}) and exact(config['typescriptCompiler'],contract['tools']['typescript']) and config['typescriptVersion']=='5.9.3','ACTUAL_NODE_COMPILER_BINDINGS')\n authenticate(contract['tools']['typescript']);authenticate(contract['tools']['helper'])"
+    },
+    {
+      "new": "str(Q/'record-parser-controls.py')",
+      "old": "str(Q/'record-ordering-controls.py')"
+    },
+    {
+      "new": "'schema':'1370-exact-identity-json-controls-parent-launch-claim/v1'",
+      "old": "'schema':'1370-r3-ordering-controls-parent-launch-claim/v1'"
+    }
+  ],
+  "parentUnchangedHelpers": [
+    "require",
+    "prep_timeout",
+    "remaining",
+    "metadata",
+    "role",
+    "authenticate",
+    "pairs",
+    "load",
+    "exact",
+    "write"
+  ],
+  "qualifiedParentPredecessor": {
+    "bytes": 10686,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/launch-ordering-controls.py",
+    "sha256": "44ef7942429e0b42129cc4e16548376260136b65c3e61f83252af39beb6848b8"
+  },
+  "qualifiedRecorderPredecessor": {
+    "bytes": 16236,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/record-ordering-controls.py",
+    "sha256": "ea6f813f5d732cf08277fd0ff60fa0f1074b9839419e55448fbba2c06afb7533"
+  },
+  "recorderChanges": [
+    {
+      "new": "\"\"\"Pure32 exact identity JSON controls; qualified owned recorder unchanged.\nNo M0 imports, private traversal, game, fixture or execution authority.\"\"\"",
+      "old": "\"\"\"SOURCE ONLY disposable paired metadata controls; qualified owned recorder mechanisms retained.\nNo original M0 cause, game, private mirror, or execution authority.\"\"\""
+    },
+    {
+      "new": "CONFIG_SHA='501a9f61f9e305b7b97e5833f953974495c8cb3b5eaee7975962b744942d768e';WORKER_SHA='612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7'",
+      "old": "CONFIG_SHA='83bce1b4b19f7b9f6ae3c75fc33b5960aa21738891e4add3aa4941c45aaac631';WORKER_SHA='0465271ed0e0d1d9e1311982154ab1bfc70f7ef7d1c935b050f32a13d4afb2dd'"
+    },
+    {
+      "new": "OUTPUTS={'verification':SCRATCH/'1370-an-exact-identity-json-controls-recorded-results-20261010-r1'}",
+      "old": "OUTPUTS={'verification':SCRATCH/'1370-an-m0-fullbody-r3-ordering-consumer-recorder-results-20261009-r2'}"
+    },
+    {
+      "new": "config.get('schema')=='1370-exact-identity-json-controls-config/v1'",
+      "old": "config.get('schema')=='1370-r3-ordering-controls-config/v1'"
+    },
+    {
+      "new": "'PURE_PARSER_CONFIG'",
+      "old": "'PURE_ORDERING_CONFIG'"
+    },
+    {
+      "new": "grant['schema']=='1370-root-exact-identity-json-controls-once-grant/v1'",
+      "old": "grant['schema']=='1370-root-r3-ordering-controls-once-grant/v1'"
+    },
+    {
+      "new": "grant['scope']=='PURE_PUBLIC_EXACT_IDENTITY_JSON_32_CONTROLS_ONLY'",
+      "old": "grant['scope']=='PURE_SYNTHETIC_ORDERING_CONSUMER_18_CASES_ONLY'"
+    },
+    {
+      "new": "  script=pathlib.Path(config['inputs']['run-parser-controls.mjs']['path']);authenticate(script,WORKER_SHA,128*1024)",
+      "old": "  script=HERE/'run-ordering-controls.mjs';authenticate(script,WORKER_SHA,128*1024)"
+    },
+    {
+      "new": "  argv=[node['path'],str(script)]",
+      "old": "  argv=[node['path'],str(script),str(grantpath),sys.argv[3]]"
+    },
+    {
+      "new": "     report=json.loads(bytes(buffers['stdout']));expected='PASS_EXACT_IDENTITY_JSON_PURE_CONTROLS_ALL_CASES_ONLY'\n     require(report['schema']=='1370-exact-identity-json-pure-controls-result/v1' and report['status']==expected and report['caseCount']==32 and report['privateM0ReadOrWritten'] is False and report['game'] is False and report['executionAuthorization'] is False and report['originalJsonArtifactBytesChanged'] is False and not buffers['stderr'],'EXACT_PUBLIC_PARSER_REPORT')\n     require(report['parserSource']==config['inputs']['exact-json.mjs'] and report['controlsSource']==config['inputs']['run-parser-controls.mjs'] and len(report['results'])==32 and all(r['verdict']=='PASS_SPECIFIC_PURE_CONTROL' for r in report['results']),'EXACT_PARSER_SOURCE_CASES')\n     control_raw=(json.dumps(report,sort_keys=True,separators=(',',':'))+'\\n').encode();require(len(control_raw)<=128*1024,'PURE_REPORT_CAP');control_path=output/'CONTROLS-RESULT.json';write(control_path,control_raw);active_guard(started)\n",
+      "old": "     last=json.loads(bytes(buffers['stdout']).splitlines()[-1]);expected='PURE_ORDERING_CONSUMER_18_CASES_COMPLETED_PENDING_OBSERVED_REVIEW'\n     require(last.get('status')==expected and not buffers['stderr'],'WORKER_FRAME')\n     rr=last['result'];require(set(rr)=={'path','bytes','sha256'} and rr['path']==str(pathlib.Path(config['outputPath'])/'RESULT.json') and type(rr['bytes']) is int and 0<rr['bytes']<=128*1024,'PURE_REPORT_ROLE')\n     authenticate(rr['path'],rr['sha256'],128*1024);report=json.loads(pathlib.Path(rr['path']).read_bytes())\n     require(report['schema']=='1370-r3-ordering-consumer-controls-result/v1' and report['status']==expected and report['positiveCount']==2 and report['specificNegativeCount']==16 and report['syntheticOnly'] is True and report['candidateChanged'] is False and report['fixtureQualification'] is False and report['meaningfulCatchMutantRed'] is False and report['game'] is False and report['originalM0ReadOrWritten'] is False,'PURE_REPORT_SCOPE')\n     projected=[{'id':r['id'],'expected':r['expected'],'assertion':r['intendedAssertion']} for r in report['results']]\n     require(projected==config['cases'] and all(r['verdict']==('ACCEPT_POSITIVE_CONSUMER_INPUT' if r['expected']=='GREEN' else 'ACCEPT_EXPECTED_CONSUMER_ASSERTION') and r['negativePredicate']==(None if r['expected']=='GREEN' else 'AssertionError && message.includes(intendedAssertion)') for r in report['results']),'EXACT_18_SPECIFIC_VERDICTS');active_guard(started)\n"
+    },
+    {
+      "new": "'schema':'1370-exact-identity-json-controls-recorder/v1'",
+      "old": "'schema':'1370-r3-ordering-consumer-recorder/v1'"
+    },
+    {
+      "new": "'EXACT_IDENTITY_JSON_CONTROLS_COMPLETE_UNADOPTED'",
+      "old": "'R3_ORDERING_CONSUMER_CONTROLS_COMPLETE_UNADOPTED'"
+    },
+    {
+      "new": "'boundsSeconds':{'node':CHILD,'active':ACTIVE,'whole':WHOLE},'controlsResultPath':None if failure or output is None else str(output/'CONTROLS-RESULT.json')",
+      "old": "'boundsSeconds':{'node':CHILD,'active':ACTIVE,'whole':WHOLE}"
+    }
+  ],
+  "recorderUnchangedHelpers": [
+    "require",
+    "sha",
+    "write",
+    "metadata",
+    "authenticate",
+    "process_alive",
+    "start_owned",
+    "ready_go",
+    "close_startup_fds",
+    "clear",
+    "alarm",
+    "whole_guard",
+    "active_guard",
+    "observed_exit_guard",
+    "child_environment",
+    "finalize_result"
+  ],
+  "runtimeExecuted": false,
+  "sameOwnedChildClass": "byteexact",
+  "scope": "32pure fixed publicinputs/Nodebuiltins/ownsource hash; nochildimports/privateM0/game/compiler/fixture",
+  "wholeInverseVerified": true
+}

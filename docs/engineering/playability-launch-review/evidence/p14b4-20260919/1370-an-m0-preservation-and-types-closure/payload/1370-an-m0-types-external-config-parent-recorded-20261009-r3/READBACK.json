@@ -1,0 +1,260 @@
+{
+  "actualTool": {
+    "bytes": 1212,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r3/ACTUAL-TOOL.json",
+    "sha256": "277ab7570f1c6276746681cfb650e08e2f94aeaa9c02c9080720199df14626ff"
+  },
+  "children": [
+    {
+      "argv": [
+        "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/check-deps.mjs",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+        "/Users/zacheryspector/The-Movies-headless-program",
+        "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+      ],
+      "exit": 0,
+      "name": "dependency-versions",
+      "seconds": 1.437,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 1038,
+      "stdoutSha256": "57ffd6f3cf26f598b7740e928201b00602b1f0fa44f458fb9957fa82aa715071"
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+        "--noEmit",
+        "--allowImportingTsExtensions"
+      ],
+      "exit": 0,
+      "name": "root-tsc",
+      "seconds": 54.762,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+        "-p",
+        "ui/tsconfig.json",
+        "--noEmit"
+      ],
+      "exit": 0,
+      "name": "ui-tsc",
+      "seconds": 56.218,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/vitest",
+        "list",
+        "tests/diagnostic.test.ts",
+        "--config",
+        "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3/external-config/root-config.mts",
+        "--workspace",
+        "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3/external-config/workspace-config.mts",
+        "--project",
+        "core",
+        "--json",
+        "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3/collection.json",
+        "--no-cache"
+      ],
+      "exit": 0,
+      "name": "diagnostic-collection",
+      "seconds": 6.054,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "collection": {
+    "bytes": 238,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3/collection.json",
+    "sha256": "5e6d1f48f5aa9721c571e0e3d6429a5e1041760e49efa3837346dd5a89050a3a"
+  },
+  "collectionIdentities": [
+    {
+      "file": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/tests/diagnostic.test.ts",
+      "name": "records the full p13a original digest preimages",
+      "projectName": "core"
+    }
+  ],
+  "context": {
+    "bytes": 7626,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r3/EXECUTION-CONTEXT.json",
+    "sha256": "85a81629a61551cc497995a02c1e08377a4dc56278c0fdcae5e61ffa62cb0203"
+  },
+  "currentProtection": {
+    "bytes": 3294,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-CURRENT-EXTERNAL-CONFIG-TYPES-PROTECTION.json",
+    "sha256": "5980e69d3e2962f068f10fa3217caa45f3ff752cc93a5064eb0637f54a2439d0"
+  },
+  "dependencyProofsEqual": true,
+  "executionAuthorization": false,
+  "externalConfigCopies": {
+    "cacheDirectory": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3/external-config/cache",
+    "directory": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3/external-config",
+    "files": {
+      "rootTemplate": {
+        "bytes": 460,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3/external-config/root-config.mts",
+        "sha256": "1e63e7e4ea56b7892c9568bf15b917ad401100037d353488a36b137bbf7ff966"
+      },
+      "workspaceTemplate": {
+        "bytes": 2163,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3/external-config/workspace-config.mts",
+        "sha256": "9a0d4d08138f7bfb6665347aa314f37801377fc2f926f2b40e1ba29e36018bbd"
+      }
+    },
+    "moduleLinkTarget": "/Users/zacheryspector/The-Movies-headless-program/node_modules",
+    "schema": "1370-m0-external-config-runtime-copies/v1"
+  },
+  "fill": {
+    "bytes": 7346,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r3/FILL-RESULT.json",
+    "sha256": "0eed03d62a5ce265ba7a5882101bc85a5dfc1b4bd73cfe21055818234e69aa16"
+  },
+  "fourChildExitsZero": true,
+  "fourChildRootBoundariesEqual": true,
+  "freshDependencyProof": {
+    "contentAndMetadataSha256": "a06e929a60a5ede6ce0d72467d4d587e50d1c4fa3788bee3d07f1ea3388cd21d",
+    "contentBytes": 348223802,
+    "entries": 12484,
+    "rootDevice": 16777220,
+    "rootIdentity": [
+      16777220,
+      158487026,
+      16877,
+      154,
+      4928,
+      1790738039503311431,
+      1790738039503311431
+    ],
+    "rootInode": 158487026
+  },
+  "freshSourceProof": {
+    "dependencyLink": [
+      16777220,
+      166769275,
+      41408,
+      1,
+      62,
+      1791577446298712967,
+      1791577446298712967,
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    ],
+    "fileProofDigestSha256": "fbbfed3ec13da5618a0194204e2f6c8a87eebb5ee22102707d466340fbe6e1e0",
+    "historicalRootSubstitutedMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "mirrorBytes": 119393120,
+    "mirrorFiles": 1740,
+    "mirrorRootIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791600924862151724,
+      1791600924862151724
+    ],
+    "nonrootMetadataSha256": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
+    "physicalMetadataSha256": "12c3dd50b99860c1c4e56ee98488d5f04613b37c93496d0257cc560a4fb83038",
+    "traversedEntries": 1853
+  },
+  "game": false,
+  "grant": {
+    "bytes": 1111,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r3/EXECUTION-GRANT.json",
+    "sha256": "eac14b28cee661903b5b7906c018df7a1306ee994acdf1af6eeaa45eb965b422"
+  },
+  "h13HistoricalStopWaived": false,
+  "helperExit": 0,
+  "historicalRootUnchanged": false,
+  "laneLog": {
+    "bytes": 1169,
+    "path": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-external-after-an-r3.lane.log",
+    "sha256": "303181ce074bd95d607beea12f75d82fa1bba9289972efdddb3bc48d33119ff3"
+  },
+  "laneMetadata": {
+    "bytes": 523,
+    "path": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-external-after-an-r3.lane.log.meta",
+    "sha256": "3a03a9430ae92274015203d5c29f7910c71103d4298f28c5a986e1fb2a1ea44f"
+  },
+  "laneReleased": true,
+  "mode": "types",
+  "originalR6StopPreserved": true,
+  "postR6RootAdoption": {
+    "bytes": 4446,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-POST-R6-PRESERVATION-DIAGNOSTIC-OBSERVED-ADOPTION.json",
+    "sha256": "5b5e062b8c5ac12bc70aa5ccb46ad101340ad692cdf0147ea44890882c0f44e1"
+  },
+  "preparationElapsedSeconds": 1.4393647120014066,
+  "proofOrTypesAccepted": false,
+  "recordedOwnedIds": [
+    16743,
+    17014,
+    17258
+  ],
+  "recorderElapsedSeconds": 197.555,
+  "recorderExit": 0,
+  "recorderResult": {
+    "bytes": 914,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-recorder-results-20261009-r3/20261009-m0-types-external-after-an-r3.RECORDER-RESULT.json",
+    "sha256": "58384b2373dbea86af611ef714ab77acfb397b972e4f124b0a146cd9d7a679fe"
+  },
+  "rootLaneGrant": {
+    "bytes": 4964,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r3/ROOT-LANE-GRANT.json",
+    "sha256": "04d32ec304fea47c5c243e097886b959b7b9ffdfbf0d8dc44ce05c15f12e3c88"
+  },
+  "runnerElapsedSeconds": 194.862,
+  "runnerExit": 0,
+  "schema": "1370-root-m0-types-actual-readback/v1",
+  "scopedOwnershipChecks": [
+    {
+      "id": 16743,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 16743,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 17014,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 17014,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 17258,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 17258,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "sourceProofsEqual": true,
+  "status": "ACTUAL_M0_TYPES_COMPLETE_PENDING_FULL_POSTFLIGHT_AND_INDEPENDENT_REVIEW",
+  "toolExit": 0,
+  "toolSessionId": 56426,
+  "typesResult": {
+    "bytes": 31642,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r3/20261009-m0-types-external-after-an-r3/RESULT.json",
+    "sha256": "86c8f171813998d6f1a4b710a558381bd5e2d88058bc4d29a14e8c7c3625ab8f"
+  }
+}

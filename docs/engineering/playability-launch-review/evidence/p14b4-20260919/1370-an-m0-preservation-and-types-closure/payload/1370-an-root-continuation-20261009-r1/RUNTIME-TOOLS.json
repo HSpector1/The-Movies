@@ -1,0 +1,65 @@
+{
+  "executionAuthorization": false,
+  "nodeExecutedHere": false,
+  "runningPythonPhysicalPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+  "runningPythonReportedPath": "/usr/local/opt/python@3.14/bin/python3.14",
+  "runningPythonVersion": [
+    3,
+    14,
+    4
+  ],
+  "runtimeTools": {
+    "node": {
+      "afterIdentity": [
+        16777220,
+        158092549,
+        33261,
+        1,
+        115440320,
+        1785277486000000000,
+        1788891257831136852
+      ],
+      "beforeIdentity": [
+        16777220,
+        158092549,
+        33261,
+        1,
+        115440320,
+        1785277486000000000,
+        1788891257831136852
+      ],
+      "bytes": 115440320,
+      "executable": true,
+      "physicalPath": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+      "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+    },
+    "python": {
+      "afterIdentity": [
+        16777220,
+        72062271,
+        33261,
+        1,
+        50472,
+        1777768792071538162,
+        1777768792073003377
+      ],
+      "beforeIdentity": [
+        16777220,
+        72062271,
+        33261,
+        1,
+        50472,
+        1777768792071538162,
+        1777768792073003377
+      ],
+      "bytes": 50472,
+      "executable": true,
+      "physicalPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    }
+  },
+  "schema": "1370-an-actual-runtime-tool-file-observation/v1",
+  "scope": "Actual stable physical executable file observations. Python is this running interpreter; Node is hashed but not executed here. Actual Node version and nested loader identity remain required controller checks.",
+  "sourceOrGameAcceptance": false,
+  "utc": "2026-10-10T03:30:26.403787+00:00"
+}

@@ -1,0 +1,176 @@
+{
+  "actualReaderSessionId": 55012,
+  "actualScannerId": 39275,
+  "actualTool": {
+    "bytes": 718,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r2/ACTUAL-TOOL.json",
+    "sha256": "ec4b78e846e05f265102f9de1ded9ed6d323119d9b9f675aa32bffd3054a343f"
+  },
+  "actualToolSessionId": 67549,
+  "authorshipAndObservation": "Preparation source was authored by this reviewer and independently reviewed by root6a5. This receipt independently verifies genuine actual retained prelaunch evidence; it does not claim independent source authorship.",
+  "checks": {
+    "actualPriorAttemptRemainsStop": true,
+    "actualReaderCompleteExit0AndEmittedRoleExact": true,
+    "latestWholeImmutableEquals0136And0700": true,
+    "nineRootsBeforeAfterExact": true,
+    "onlyThreeOriginalNullConfigFieldsFilled": true,
+    "originalContinuousFreezeReuseAccepted": true,
+    "originalCurrentFDWorkersBootACDiskAndRecordedGroupsPassed": true,
+    "rawContentsNotInspectedOrExported": true,
+    "sourceAndEveryNamedManifestRoleAuthenticated": true,
+    "stdoutCompleteAuthenticPreflightAndStderrEmpty": true,
+    "types0700RetainedDistinctFromLatestSharedF1eb": true
+  },
+  "concreteFindings": [],
+  "config": {
+    "bytes": 2697,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-RETRY-CURRENT-PRELAUNCH-CONFIG.json",
+    "sha256": "840ebb85571a72e261d69c78b45e2ab4c2f70ddf31c5a303216ce2accde07cc3"
+  },
+  "counts": {
+    "freshScannerScopedAbsenceChecks": 2,
+    "newFullInventory": 0,
+    "priorOwnedGroupIds": 4,
+    "rawLocalOnlyBytes": 1536109,
+    "rawLocalOnlyRoles": 4,
+    "strictRoots": 9
+  },
+  "decision": "ACCEPT_ACTUAL_CURRENT_AM_FULLFUNCTION_PRELAUNCH_ONLY",
+  "executionAuthorization": false,
+  "fixtureQualificationAccepted": false,
+  "fullPostflightSnapshot": {
+    "bytes": 8847484,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r3/SNAPSHOT.json",
+    "sha256": "0700ce99c57f33956c3fb1b5f26d3c6e28e6e323551fb1f6f084db2f9c370dff"
+  },
+  "game": false,
+  "grant": {
+    "bytes": 4574,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r2/GRANT.json",
+    "sha256": "fa7ab9feb36ff89bc3f199a89dce2914d5c08221bedee902bdae534f1b1b43bb"
+  },
+  "independentPreparationSourceReview": {
+    "bytes": 3105,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-RETRY-PREFLIGHT-PREPARATION-SOURCE-REVIEW.json",
+    "sha256": "6a5de4f910701a05248c4baabaa97cf830ededd9f58a56a67a073f903e84fd74"
+  },
+  "latestSharedFullPostflightReadback": {
+    "bytes": 5098,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "735e8d8fcaf1ae96f2b4f39608f71a66d85eba14b1941e5bd97d23afda096b55"
+  },
+  "latestSharedFullPostflightSnapshot": {
+    "bytes": 8853570,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r1/SNAPSHOT.json",
+    "sha256": "f1eb127210b9cf6c5f3e9746cfb3c0f6865167d468921d05795805843a6ad1d6"
+  },
+  "majorLesson": "Keep accepted TYPES0700 authority and latest shared protection f1eb separate, deriving prelaunch IDs from the completed shared producer; successful shared protection cannot retroactively fill failed M0 afterproofs.",
+  "neutralityAccepted": false,
+  "newFullInventory": false,
+  "originalAttemptRemainsStop": true,
+  "originalScannerSourcePins": {
+    "bytes": 3506,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "7015e2de01cb9964fcc6e362338461e9d8c3e5d6ab81bd618f67d04b4e51c455"
+  },
+  "originalScannerSourceReview": {
+    "bytes": 7652,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "6f7e329107fb6942580553a40ea7395695b090ef32d256e69b59a708baf672b9"
+  },
+  "preflight": {
+    "bytes": 9511,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261010-r2/PREFLIGHT.json",
+    "sha256": "ee9728ea2dfb98036374db594d4bc1203c511bcedb44a0aea520327a6b1da12e"
+  },
+  "proofOrTypesAccepted": false,
+  "protectedFreezeContinues": true,
+  "rawLocalOnlyClassification": {
+    "bytes": 1228,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261010-r2/RAW-LOCAL-ONLY-ROLES.json",
+    "sha256": "d9688a74786b19650f03001eec75514e236a07f73004d6773a0ef0acfdce9c8c"
+  },
+  "rawLocalOnlyRoles": [
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 98484,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261010-r2/BEFORE-PS.LOCAL",
+      "sha256": "ec5faac8b77712942b60959c6c40b49b0dfb9331d600f261140c5564c28970ba"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 669790,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261010-r2/BEFORE-LSOF.LOCAL",
+      "sha256": "17143190149897f0b4050e22942aa9999d9e3717ce098feacdf185505fb246e1"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 97992,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261010-r2/AFTER-PS.LOCAL",
+      "sha256": "d148919eff6749b75cc6f625f9f9f01b66b52ab0584a859c64c7fc6b3b3e5239"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 669843,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-output-20261010-r2/AFTER-LSOF.LOCAL",
+      "sha256": "dd6cb949402a565c36ee65702c93a63ab937bc8b81c35ab612b2d5983ecdb31c"
+    }
+  ],
+  "readback": {
+    "bytes": 5362,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-RETRY-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "eff28a054b239aef16db01af4f88a9f374d2a1cfb4eb24b2c2fc445bdefd1d8b"
+  },
+  "readerActualTool": {
+    "bytes": 686,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r2/READER-ACTUAL-TOOL.json",
+    "sha256": "29bf2ad870cc03e55f0e238642640642a30f1b7b32d42ff1ffc256ac339462c2"
+  },
+  "retainedPostScannerChecks": [
+    {
+      "id": 39275,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 39275,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "retainedReaderChunks": [
+    "aa90d6",
+    "e226ad"
+  ],
+  "retainedToolChunks": [
+    "c678e2",
+    "f2c5d3"
+  ],
+  "reviewedPriorStopAdoption": {
+    "bytes": 2147,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R1-STOP-OBSERVED-ADOPTION.json",
+    "sha256": "ba123465c37b7fdccc5555f1b374cf4adcafed7c221a9bfb6caaefc93b48e604"
+  },
+  "schema": "1370-fullfunction-current-prelaunch-independent-observed-review/v2",
+  "scope": "Fresh original current-AM shared protection prelaunch only under the original continuous freeze provision. No new full inventory, private M0 source/dependency proof, new types/collection acceptance, real fixture, catch-mutant, neutrality or game outcome. No rerun, process probes, private traversal, Git or production writes.",
+  "sourceManifest": {
+    "bytes": 3286,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "07832ac63601daf7077d126514a44feb91adb4c553afe2148d80b8fbbc516ce7"
+  },
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r2/prelaunch.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 269,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r2/prelaunch.stdout",
+    "sha256": "e0a8008158e28d4c6c717a5696dc03b5a8bd04686c3581b0be9578f863ce53b9"
+  },
+  "typesObservedAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  }
+}

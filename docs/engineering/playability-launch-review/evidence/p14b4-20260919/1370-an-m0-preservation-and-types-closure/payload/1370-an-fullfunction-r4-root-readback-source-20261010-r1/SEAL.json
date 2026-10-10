@@ -1,0 +1,11 @@
+{
+  "executionAuthorization": false,
+  "payloadCount": 7,
+  "readbackAllPayloadsVerified": true,
+  "schema": "1370-finite-readback-source-seal/v1",
+  "sourceManifest": {
+    "bytes": 2045,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r4-root-readback-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "66b77f4029f90c14f919a82a6633d1d9c76030a3af6b068b6b49e9ed8434e34b"
+  }
+}

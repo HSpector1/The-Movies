@@ -1,0 +1,131 @@
+--- r6
++++ r7
+@@ -1,125 +1,125 @@
+ {
+   "acceptedR3IndependentReview": {
+     "bytes": 25747,
+     "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-independent-source-review-after-al-20261009-r3/RECEIPT.json",
+     "sha256": "b2a2e12cb88992b695d3a5e355a1ac58a95698187b05c4f74fec045fd0065bb9"
+   },
+   "acceptedR3RootAdoption": {
+     "bytes": 1847,
+     "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-FULLBODY-R3-HELD-SOURCE-ADOPTION.json",
+     "sha256": "2d528f4e64c051e666f328acca7fa65bbdb65deea784fe89392862bde341eab4"
+   },
+   "acceptedR3SourcePins": {
+     "bytes": 10016,
+     "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/SOURCE-PINS.json",
+     "sha256": "2703e1453288f7fea1008757e921e9e62eda8ea4ac9130931f99e325baeee15f"
+   },
+   "actualFixtures": null,
+   "actualGrant": null,
+   "actualMeaningfulMutantRed": null,
+   "actualSourceReview": null,
+   "actualSuccessfulTypesAdoption": null,
+   "artifactBoundProposal": {
+     "bytes": 67108864,
+     "encoding": "UTF-8 JSON.stringify {schema,natural,fixtures,synthetic}; natural three included again under fixtures",
+     "fullStateSerializationsInPacket": 10,
+     "observedFullstateBytesAvailable": false,
+     "operationalStopBoundNotFitPrediction": true,
+     "rootAdoptionRole": null,
+     "serializedPacketFiles": 1
+   },
+   "bounds": {
+     "activeRecorder": 320,
+     "aggregateChild": 300,
+     "aggregateOutputTreeBytes": 268435456,
+     "fixturePacketBytes": 67108864,
+     "outputTreeEntryCap": 10000,
+     "resultBytes": 131072,
+     "streamBytes": 8388608,
+     "vitestReportBytes": 1048576,
+     "wholeRecorder": 330
+   },
+   "executionAuthorization": false,
+   "inputs": {
+     "RESOLUTION-SOURCE-BINDING.json": {
+       "bytes": 77168,
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/RESOLUTION-SOURCE-BINDING.json",
+       "sha256": "f752d87a093b15fc45ca7c6bf70705793d91836a19e314ab907a9e82a7422e28"
+     },
+     "canonical-resolver.mjs": {
+       "bytes": 2363,
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/canonical-resolver.mjs",
+       "sha256": "429cc7b8ad0f6be2f851a2f10ef431d63192b912e0864c7602fd6072c4ae14fd"
+     },
+     "config.mjs": {
+       "bytes": 1016,
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/config.mjs",
+       "sha256": "39036ee18c368b5166f1dc8ea191cf8bdffca6d2b1316e29aa4ec84590c39a96"
+     },
+     "controls/full-body-controls.ts": {
+       "bytes": 9385,
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/controls/full-body-controls.ts",
+       "sha256": "a74fd2342b7cc8b5cdb059acd187e68c49f9c6d9e35b46ceaf2166829d35e71c"
+     },
+     "core.test.ts": {
+       "bytes": 2528,
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/core.test.ts",
+       "sha256": "b2af5a489d29cb285d89b37cedd3a87f5275f90cfdc46574a6b541fde51f25da"
+     },
+     "fixtures.ts": {
+       "bytes": 6863,
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/fixtures.ts",
+       "sha256": "5ff38007b8126571e9fa84a9efe94f35866be409d3c35b22f9c90b5ce3e0315d"
+     },
+     "mutants/typed-propagation-removed-talentMarket.ts": {
+       "bytes": 119464,
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/mutants/typed-propagation-removed-talentMarket.ts",
+       "sha256": "074d0cfd58e245bb35883b79bf72dda428884fc2bb49ea918da6f2320c235ef3"
+     },
+     "ordering.ts": {
+       "bytes": 11339,
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ordering.ts",
+       "sha256": "e40ea62523d13e1c74361766757b85faa14acdb889bc57f7ae452449a361bb1d"
+     }
+   },
+   "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-20261009-r1.lane.log",
+   "operationalHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+   "originalFailuresPreserved": true,
+   "outputPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261009-r1",
+   "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+   "proofConfig": {
+     "bytes": 32755,
+     "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/CONFIG.json",
+     "sha256": "c40c0a34d07532d4690552318958029ec736d32283dcec59b0b33191bf82bc4c"
+   },
+   "proofMethods": {
+     "bytes": 44067,
+     "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py",
+     "sha256": "b9ff56da6524243c95045b0e09f25ca4ec5c8225bbdd3eb76820e75b928e350d"
+   },
+   "recorderOutputPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261009-r1",
+   "runId": "20261009-m0-fullfunction-after-an-r1",
+   "schema": "1370-fullfunction-qualification-config/v1",
+   "templates": {
+     "CONFIG-TEMPLATE.mts": {
+       "bytes": 930,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/CONFIG-TEMPLATE.mts",
++      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r6/CONFIG-TEMPLATE.mts",
+       "sha256": "8be9467a794ddbd134dd04c4a92249c7e85e357ef96619562bd99f4ad10ecf5e"
+     },
+     "CORE-TEST-TEMPLATE.ts": {
+       "bytes": 3955,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/CORE-TEST-TEMPLATE.ts",
++      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r6/CORE-TEST-TEMPLATE.ts",
+       "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+     },
+     "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+       "bytes": 9487,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/FULL-BODY-CONTROLS-TEMPLATE.ts",
++      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r6/FULL-BODY-CONTROLS-TEMPLATE.ts",
+       "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+     }
+   },
+   "typesAdoptionContract": {
+     "reviewDecision": "ACCEPT_OBSERVED_M0_EXTERNAL_CONFIG_TYPES_COLLECTION_WITH_FULL_POSTFLIGHT",
+     "schema": "1370-root-m0-external-config-types-observed-adoption/v1",
+     "status": "ROOT_ADOPTED_M0_EXTERNAL_CONFIG_TYPES_AND_COLLECTION_WITH_FULL_POSTFLIGHT"
+   }
+ }

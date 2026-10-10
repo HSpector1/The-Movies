@@ -1,0 +1,7 @@
+# Held external-config M0 types and collection
+
+Source only; no execution or future authority has been admitted. Use RECIPE.json exact paths and contracts. Root supplies a genuine separately admitted post-R6 diagnostic root adoption, fresh full proofs/current protection/tool roles, independently accepted source receipt and one grant in a fresh external context. Historical recordedRootIdentity remains historical. Never restore root timestamps or use the old pre-R6 proof as current.
+
+Run the unchanged four children in order: dependencies, full root no-emit types with the already qualified extension flag, UI no-emit types, exact original diagnostic collection. Collection alone adds explicit fresh external root and workspace config paths. Templates retain original relative includes and two inline project objects with explicit mirror roots; UI setup path is rebased, package imports resolve through the owned external dependency link, all Vite config temporary siblings/cache belong outside the protected mirror. No synthetic extends or aliases.
+
+The original launch/recorder has a real 330-second timer starting before authentication; recorder active 320, bootstrap/runner whole 300. Any root preparation60 is separate and canceled before exec. Original cleanup, caps, signal registration, full source/dependency checks, AC/ref/clean guards and disk floor are preserved. HOME is inherited. This proposal does not certify actual types/collection or authorize games; original failure evidence remains intact. No agent execution/import/compile/private inventory occurred.

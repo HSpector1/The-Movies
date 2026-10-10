@@ -1,0 +1,57 @@
+{
+  "addedObservedLosslessGate": "lossless=checked(A/'LOSSLESS-CONTROLS-OBSERVED-ADOPTION.json','fa668549c4526317f1c5f7f17494ae3bdaec2f6713e6b72351f30d384cfa096a');lv=read(lossless['path'])\nassert lv['schema']=='1370-root-lossless-trace-controls-observed-adoption/v1' and lv['status']=='ROOT_ADOPTED_ACTUAL_LOSSLESS_TRACE_49_CONTROLS_ONLY' and lv['actualExit']==0 and lv['caseCount']==49 and lv['positiveCount']==9 and lv['specificNegativeCount']==40 and lv['soleLaneReleased'] is True and lv['executionAuthorization'] is False and lv['game'] is False and lv['fullBodyGameAssertionsExecuted'] is False\nfor key in ('independentObservedReview','readback','result','actualTool','implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','sourceReviewedFullBodyTemplate'):assert role(lv[key]['path'])==lv[key]\nassert read(lv['independentObservedReview']['path'])['decision']=='ACCEPT_ACTUAL_PURE_LOSSLESS_CODEC_AND_AFFECTED_ORDERING_CONTROLS_ONLY'\nassert lv['sourceReviewedFullBodyTemplate']==pins['files']['FULL-BODY-CONTROLS-TEMPLATE.ts']\nfor key in ('m0TraceCodec.mjs','m0WiringProbe.ts','ordering.ts','traceSequences.mjs'):assert lv['inputRoles'][key]==pins['files'][key]\nconfig=read(Q/'CONFIG.json');assert config['actualLosslessControlsObservedAdoption']==lossless\nfor name in read(Q/'RECIPE.json')['reviewAliases']:assert read(sr['path'])['sourcePins'][name]==read(sr['path'])['routeSourcePins'][name]==pins['files'][name]\n",
+  "baseSha256": "b5e8f7fee7d7503753a197dc0cbeca3032717d471b467ecadbe3d306538c0bbc",
+  "changes": [
+    [
+      "1370-an-m0-fullfunction-qualification-source-20261010-r11",
+      "1370-an-m0-fullfunction-qualification-source-20261010-r12"
+    ],
+    [
+      "1370-an-m0-fullfunction-parent-source-20261010-r4",
+      "1370-an-m0-fullfunction-parent-source-20261010-r5"
+    ],
+    [
+      "18b014711ab516c421e5ade49a6cea9757f34ba9aa85f896e126087be3349b36",
+      "79d9400a49dc02abc836d9e3b9e9f4a814966da47cae67293f299b1993deb283"
+    ],
+    [
+      "bbd9477ee57d96fbf4b325277542819725cff0d707418aea6acd038d10d55618",
+      "541be09dd5c5d0232ce19653c700115b440f2e3e599e9f919cb5f7624ca74a0b"
+    ],
+    [
+      "1370-an-m0-fullfunction-parent-independent-source-review-20261010-r4",
+      "1370-an-m0-fullfunction-parent-independent-source-review-20261010-r5-r2"
+    ],
+    [
+      "6ebdd529dbb7d5a1fff2483c72eff328230dbac794da9ea35928fd47213fd86d",
+      "b29b7f890250b749ea6bda0d7a4751016c75a684945021a6bdb22cee4e3b274a"
+    ],
+    [
+      "M0-FULLFUNCTION-R4-CURRENT-PROTECTION.json",
+      "M0-FULLFUNCTION-R5-CURRENT-PROTECTION.json"
+    ],
+    [
+      "FULLFUNCTION-QUALIFICATION-SOURCE-ADOPTION-R4.json",
+      "FULLFUNCTION-QUALIFICATION-SOURCE-ADOPTION-R5.json"
+    ],
+    [
+      "1370-an-m0-fullfunction-parent-recorded-20261010-r4",
+      "1370-an-m0-fullfunction-parent-recorded-20261010-r5"
+    ],
+    [
+      "FULLFUNCTION-ROOT-BINDING-R4.json",
+      "FULLFUNCTION-ROOT-BINDING-R5.json"
+    ]
+  ],
+  "executionAuthorization": false,
+  "futureSourceReviewPassedExternally": true,
+  "losslessRolePassedIntoSourceAdoptionAndRootBinding": true,
+  "schema": "1370-root-fullfunction-fifth-source-delta/v1",
+  "sourceOnly": true,
+  "updated": {
+    "bytes": 6400,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/run_fullfunction_fifth_once.py",
+    "sha256": "50670f38f20f78e9ace2a7364e598c1938698fd63b8f02ccef4e23a58d2a3c9c"
+  },
+  "wholeInverseExact": true
+}

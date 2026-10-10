@@ -1,0 +1,94 @@
+{
+  "actualFullInventoryRun": false,
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/original-current-root-prelaunch.py",
+    "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-R4-CURRENT-PRELAUNCH-CONFIG.json",
+    "d77e82f8669c02f2e04518b04b6c160ee87504e68bc711df8d5e27ecb8166691"
+  ],
+  "automaticRetry": false,
+  "config": {
+    "bytes": 2697,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-R4-CURRENT-PRELAUNCH-CONFIG.json",
+    "sha256": "d77e82f8669c02f2e04518b04b6c160ee87504e68bc711df8d5e27ecb8166691"
+  },
+  "currentProtection": {
+    "bytes": 3294,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-CURRENT-EXTERNAL-CONFIG-TYPES-PROTECTION.json",
+    "sha256": "5980e69d3e2962f068f10fa3217caa45f3ff752cc93a5064eb0637f54a2439d0"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesPid": true,
+  "executionAuthorization": true,
+  "game": false,
+  "latestSharedFullPostflightReadback": {
+    "bytes": 5188,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r3/READBACK.json",
+    "sha256": "ecd96dcdd8056b646f2df1c2a89da7d5aaf956b099a813cdc88c821aa8b6df10"
+  },
+  "latestSharedFullPostflightSnapshot": {
+    "bytes": 8860529,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r3/SNAPSHOT.json",
+    "sha256": "f240937b656180b175253bf025fe13243b4591e5d05b895de1152956d44283d9"
+  },
+  "mode": "fullfunction-current-protection",
+  "noHelperOriginalLockAbsentRequired": true,
+  "originalAttemptRemainsStop": true,
+  "originalFullObservationsReusedUnderContinuousFreeze": true,
+  "ownedGroupAbsenceClaimInPreflight": true,
+  "ownedPgid": 17359,
+  "ownedPgidsPassedToOriginalCurrent": [
+    35444,
+    35699,
+    35700,
+    37856
+  ],
+  "ownedPid": 17359,
+  "ownedSid": 17359,
+  "perCommandTimeoutSeconds": 180,
+  "postR6RootAdoption": {
+    "bytes": 4446,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-POST-R6-PRESERVATION-DIAGNOSTIC-OBSERVED-ADOPTION.json",
+    "sha256": "5b5e062b8c5ac12bc70aa5ccb46ad101340ad692cdf0147ea44890882c0f44e1"
+  },
+  "proofOrTypesAccepted": false,
+  "protectedFreezeContinues": true,
+  "rawPsFdLocalOnly": true,
+  "reviewedPriorStopAdoption": {
+    "bytes": 3629,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R3-STOP-OBSERVED-ADOPTION.json",
+    "sha256": "80f45b590a15db4964f3852ddd5bed73da836ad0a84dd56ddbf4ac02bd767c17"
+  },
+  "rootLauncher": {
+    "bytes": 9184,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r6/run_fullfunction_current_prelaunch_once.py",
+    "sha256": "9e123a4434b8e9af22d6fda1a453af80f7fce29a37b329731da2338108683925"
+  },
+  "schema": "1370-root-direct-m0-original-prelaunch-observation-grant/v1",
+  "sourcePins": {
+    "bytes": 3506,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "7015e2de01cb9964fcc6e362338461e9d8c3e5d6ab81bd618f67d04b4e51c455"
+  },
+  "sourceReview": {
+    "bytes": 7652,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "6f7e329107fb6942580553a40ea7395695b090ef32d256e69b59a708baf672b9"
+  },
+  "startMonotonic": 119511.998922621,
+  "status": "GRANTED_ONCE_ORIGINAL_CURRENT_ROOT_PREFLIGHT",
+  "successfulTypesAndFullPostflightAuthority": true,
+  "typesFullPostflightSnapshot": {
+    "bytes": 8847484,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-external-config-types-r3/SNAPSHOT.json",
+    "sha256": "0700ce99c57f33956c3fb1b5f26d3c6e28e6e323551fb1f6f084db2f9c370dff"
+  },
+  "typesObservedAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  },
+  "utc": "2026-10-10T06:22:51.818352+00:00"
+}

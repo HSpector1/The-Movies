@@ -1,0 +1,94 @@
+[
+  {
+    "id": "green_exact_roundtrip",
+    "intendedPredicate": "every fixed call/evaluation field reconstructs original expanded bytes"
+  },
+  {
+    "id": "green_duplicate_events",
+    "intendedPredicate": "identical payload events retain distinct order/multiplicity/sequence"
+  },
+  {
+    "id": "green_snapshot",
+    "intendedPredicate": "later mutation of source objects leaves earlier captured bytes unchanged"
+  },
+  {
+    "id": "green_canonical_literal",
+    "intendedPredicate": "canonical string whitespace/escape/key-order bytes survive unchanged"
+  },
+  {
+    "id": "green_utf8_framing",
+    "intendedPredicate": "multibyte,newline,colon,NUL strings have exact length-delimited framing"
+  },
+  {
+    "id": "red_call_omitted",
+    "intendedPredicate": "exact logical count/order comparator rejects omitted call"
+  },
+  {
+    "id": "red_call_reordered",
+    "intendedPredicate": "exact ordered comparator rejects reordered call"
+  },
+  {
+    "id": "red_rng_key",
+    "intendedPredicate": "complete seed/purpose/key comparison rejects one changed field"
+  },
+  {
+    "id": "red_tuple_byte",
+    "intendedPredicate": "inputs/canonical/result exact comparator rejects one-byte mutation"
+  },
+  {
+    "id": "red_context",
+    "intendedPredicate": "context identity/order comparator rejects changed context"
+  },
+  {
+    "id": "red_source_occurrence",
+    "intendedPredicate": "source index/key/duplicate occurrence assertion rejects altered duplicate"
+  },
+  {
+    "id": "red_missing_reference",
+    "intendedPredicate": "decoder rejects nonexistent reference with specific framing error"
+  },
+  {
+    "id": "red_forward_reference",
+    "intendedPredicate": "decoder rejects not-yet-defined reference with specific framing error"
+  },
+  {
+    "id": "red_length",
+    "intendedPredicate": "decoder rejects truncated/mismatched dictionary byte length"
+  },
+  {
+    "id": "red_utf8",
+    "intendedPredicate": "decoder rejects malformed UTF-8 rather than replacing bytes"
+  },
+  {
+    "id": "red_unknown_tag",
+    "intendedPredicate": "decoder rejects unsupported event/frame tag"
+  },
+  {
+    "id": "red_entry_limit",
+    "intendedPredicate": "16385th logical row refuses even if every payload is reused"
+  },
+  {
+    "id": "red_expanded_row_limit",
+    "intendedPredicate": "65537-byte expanded row refuses even if compact references fit"
+  },
+  {
+    "id": "red_encoded_total_limit",
+    "intendedPredicate": "2097153 retained encoded bytes refuse with totalByteCap"
+  },
+  {
+    "id": "green_atomic_refusal",
+    "intendedPredicate": "failed row leaves dictionary/events/counts unchanged and overflow sticky"
+  },
+  {
+    "id": "green_reset",
+    "intendedPredicate": "begin after failure has empty table/counters and no stale references"
+  },
+  {
+    "id": "red_hash_collision_substitute",
+    "intendedPredicate": "distinct exact strings never merge despite equal fabricated lookup digest"
+  },
+  {
+    "id": "red_canonical_recompute",
+    "intendedPredicate": "normalized but byte-different canonical string fails exact witness comparison"
+  }
+]

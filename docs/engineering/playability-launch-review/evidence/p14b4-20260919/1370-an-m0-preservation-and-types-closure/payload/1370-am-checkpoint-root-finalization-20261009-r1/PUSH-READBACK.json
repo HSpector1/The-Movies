@@ -1,0 +1,37 @@
+{
+  "branch": "wip/headless-program-20260916-ts",
+  "files": {
+    "HANDOFF.md": {
+      "bytes": 11256,
+      "sha256": "b2784da6a3a1378a919734fe892fc00841861f47b79687446b41f6273ba8d292"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AM-natural208-and-renewal-pricing-closure.md": {
+      "bytes": 18147,
+      "sha256": "c3b12f6c2552b5afc96b39eef2159a23b85548178052940628f089d5c5246c9e"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-am-natural208-and-renewal-pricing-closure/ARCHIVE-MANIFEST.json": {
+      "bytes": 4647724,
+      "sha256": "f9c9926ce5b94f446c89284c48295e0631bd888a5b582521c947a4eb892dc6c6"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-am-natural208-and-renewal-pricing-closure/payload/1370-am-root-continuation-20261009-r1/LESSONS-r22.md": {
+      "bytes": 25249,
+      "sha256": "072881362b441459a7e7a4983bf85afdf9380d64b2767851bee68bc85071fda0"
+    }
+  },
+  "futureOperationalAuthorityMustUseActualAM": true,
+  "head": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+  "heavyLaneLockAbsent": true,
+  "mainMerged": false,
+  "parent": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "previousOperationalFreezeEnded": true,
+  "remoteAdvertised": {
+    "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "refs/heads/wip/headless-program-20260916-ts": "7087f116cf998fd86e33fb8e004df628e0686dbd"
+  },
+  "schema": "1370-am-published-checkpoint-readback/v1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "PUBLISHED_REMOTE_AND_ANCESTRY_AND_SOURCE_AND_DOCUMENTS_VERIFIED",
+  "trackedMain": "c902a704eb948cc576083d0973c8c23e59937dc1",
+  "utc": "2026-10-10T03:20:45.488779+00:00",
+  "workingTreeClean": true
+}

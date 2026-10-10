@@ -1,0 +1,138 @@
+{
+  "actualRouteReadback": {
+    "bytes": 6808,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r4/READBACK.json",
+    "sha256": "568c92e332879885a53726cc359b296d4279c9f763236edeed019f7d92a06e28"
+  },
+  "actualTool": {
+    "bytes": 1682,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4/ACTUAL-TOOL.json",
+    "sha256": "11b986e4e5e22c1ee2bf1185c9966d1d6dde6a2d99b88fb35a8c18a7844aed3e"
+  },
+  "concreteFindings": [],
+  "decision": "OBSERVED_SHARED_FULL_POSTFLIGHT_DISK_FLOOR_STOP_ONLY_NO_PROTECTION_ADMISSION",
+  "executionAuthorization": false,
+  "findings": [],
+  "grant": {
+    "bytes": 5235,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4/GRANT.json",
+    "sha256": "a397d1e42a7ae8537e1e30cb9dcea7aca77109f9cdcb532767c038031666c84c"
+  },
+  "guardConfig": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/CONFIG.json",
+    "sha256": "e0c7a2b839eaa1e0940665711c8e9b57af4f09738290ca5d15d828f01200b42e"
+  },
+  "guardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py",
+    "sha256": "9e2618b58849ccf0bc36512b20de16c23e49b2f08cdc6982ca9fe2fc20143047"
+  },
+  "independence": {
+    "actualExecutor": "/root",
+    "method": "Named retained source/grant/streams/transcript only; no source imports, runtime, private inventory, output-directory scans or new process probes.",
+    "reviewer": "/root/b109_focused_route_review"
+  },
+  "observed": {
+    "actualFinalExit": 1,
+    "actualFreeBytesAtFailure": null,
+    "actualTerminalChunk": "5c13e9",
+    "elapsedSecondsUnavailable": true,
+    "error": "RuntimeError: STOP: disk floor/reserve",
+    "factsAfterIncomplete": true,
+    "finalBaselineEqualityNotReached": true,
+    "immutableFinalConstructionNotReached": true,
+    "inventoryMetricsUnavailable": true,
+    "postScannerFreshAbsenceNotClaimed": true,
+    "requiredFreeBytes": 3758096384,
+    "rootsAfterNotReached": true,
+    "scannerOwnedClaim": {
+      "pgid": 35222,
+      "pid": 35222,
+      "sid": 35222
+    },
+    "snapshotAndPinsEmissionNotReached": true,
+    "sourceFailureBoundary": "snapshot.py main line146 -> current line60 -> require line17",
+    "stderrRetained": true,
+    "stdoutEmpty": true,
+    "toolSessionId": 7509
+  },
+  "qualification": {
+    "finalR4ObservedRouteAdmission": false,
+    "freshSeparatelyRecordedOriginalPostRequiredByRoot": true,
+    "fullProtectedMapAccepted": false,
+    "fullSharedPostflightAccepted": false,
+    "missingM0AfterProofsStillMissing": true,
+    "nineRootAfterEqualityAccepted": false,
+    "noAutomaticRetry": true,
+    "noCapFloorWaiver": true,
+    "noCompletedInventoryPromotedToSnapshotSuccess": true,
+    "originalRouteR4RemainsStop": true,
+    "priorGenerationAndFirstOverflowEvidenceRetainedSeparately": true,
+    "snapshotRoleForAcceptance": null
+  },
+  "roles": {
+    "actualRouteReadback": {
+      "bytes": 6808,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r4/READBACK.json",
+      "sha256": "568c92e332879885a53726cc359b296d4279c9f763236edeed019f7d92a06e28"
+    },
+    "actualTool": {
+      "bytes": 1682,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4/ACTUAL-TOOL.json",
+      "sha256": "11b986e4e5e22c1ee2bf1185c9966d1d6dde6a2d99b88fb35a8c18a7844aed3e"
+    },
+    "grant": {
+      "bytes": 5235,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4/GRANT.json",
+      "sha256": "a397d1e42a7ae8537e1e30cb9dcea7aca77109f9cdcb532767c038031666c84c"
+    },
+    "guardConfig": {
+      "bytes": 3928,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/CONFIG.json",
+      "sha256": "e0c7a2b839eaa1e0940665711c8e9b57af4f09738290ca5d15d828f01200b42e"
+    },
+    "guardSource": {
+      "bytes": 21984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py",
+      "sha256": "9e2618b58849ccf0bc36512b20de16c23e49b2f08cdc6982ca9fe2fc20143047"
+    },
+    "guardSourcePins": {
+      "bytes": 2286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/SOURCE-PINS.json",
+      "sha256": "e638252b8082aa756f56471552327706a17dcf0e2d6bd01628710624ce7ec435"
+    },
+    "guardSourceReview": {
+      "bytes": 7200,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "8a8756307aeecff6e3d9f299a5d2db8014e81c9c7dd5ade42f1f53514ba8ad45"
+    },
+    "rootLauncher": {
+      "bytes": 5274,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6/launch-fullpostflight.py",
+      "sha256": "a54e130d1fa13f1ab4ac8733a4e2ec63a20ecef53cdff1198c944816a5636a78"
+    },
+    "stderr": {
+      "bytes": 1072,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4/postflight.stderr",
+      "sha256": "ef4c8a881f1c9861c6e89517e3bc1d0d33142c4d0db185c8dfa94cd6f60c19bf"
+    },
+    "stdout": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4/postflight.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "schema": "1370-failed-shared-postflight-disk-floor-independent-observed-audit/v1",
+  "scope": "Finite initial failed-post audit only. Authenticates original scanner/config, actual grant/transcript and precise floor refusal before final current/roots/immutable/snapshot completion. Does not accept preservation, infer complete protected maps from earlier inventory control flow, invent missing results or authorize recovery/retry.",
+  "stderr": {
+    "bytes": 1072,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4/postflight.stderr",
+    "sha256": "ef4c8a881f1c9861c6e89517e3bc1d0d33142c4d0db185c8dfa94cd6f60c19bf"
+  },
+  "stdout": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4/postflight.stdout",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "CONTRACT.json": {
+      "bytes": 6572,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-observed-review-20261010-r2/CONTRACT.json",
+      "sha256": "2a3dab0b3ff61824b50cf8bbaf98e3efe44a7cf9ff1047ae87c6b9b232332826"
+    },
+    "FINAL-POST-EVIDENCE-AUDIT.json": {
+      "bytes": 10202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-observed-review-20261010-r2/FINAL-POST-EVIDENCE-AUDIT.json",
+      "sha256": "14e28fdbb0ad921540c6e35cbec2d5e4584088c34e4f256876aa140b631f5cc1"
+    },
+    "INITIAL-TERMINAL-EVIDENCE-AUDIT.json": {
+      "bytes": 13779,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-observed-review-20261010-r2/INITIAL-TERMINAL-EVIDENCE-AUDIT.json",
+      "sha256": "8e5e92a960b331bcc795e914cd1ea4aae710b40154c748817e25b446ac2682f3"
+    },
+    "POST-EVIDENCE-INPUT.json": {
+      "bytes": 3912,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-observed-review-20261010-r2/POST-EVIDENCE-INPUT.json",
+      "sha256": "43a1b6abe8ed3987db1a57060077f30ad4f02740ddfa1a4f15425feb712b2217"
+    },
+    "RECEIPT-DRAFT.json": {
+      "bytes": 17951,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-observed-review-20261010-r2/RECEIPT-DRAFT.json",
+      "sha256": "34c1a3d1d25ed5faeeec6f983d083dc02504dffe1f138af4cec9316f260d9d8b"
+    },
+    "RECEIPT.json": {
+      "bytes": 18241,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-observed-review-20261010-r2/RECEIPT.json",
+      "sha256": "5bee4c5fbe9dda318684acd74e06cd0221b71bc73bb8125aa27edb4eeaccc751"
+    },
+    "TERMINAL-EVIDENCE-INPUT.json": {
+      "bytes": 5713,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-observed-review-20261010-r2/TERMINAL-EVIDENCE-INPUT.json",
+      "sha256": "077ac43c5955a27da35661f1f34a2cfaf80521b1ddf1bd7c3286bab4905deb00"
+    },
+    "audit-post-evidence.py": {
+      "bytes": 6482,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-observed-review-20261010-r2/audit-post-evidence.py",
+      "sha256": "92bc1a1f1b679e8ec24c657f551cfd5b175333fdc9a5ad341e9442b707b967e2"
+    },
+    "audit-terminal-evidence.py": {
+      "bytes": 6708,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-observed-review-20261010-r2/audit-terminal-evidence.py",
+      "sha256": "a0b219f40e915f7032d5db85029311a1f57471a27e3c69aebbbd0266cb1dc55c"
+    },
+    "seal-review.py": {
+      "bytes": 1790,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-observed-review-20261010-r2/seal-review.py",
+      "sha256": "e15e9cab9a874d1b5591b07b34b708e4cecb6305dc0a0e96f102d4fc964facad"
+    }
+  },
+  "schema": "1370-fullfunction-r2-stop-independent-review-seal/v1"
+}

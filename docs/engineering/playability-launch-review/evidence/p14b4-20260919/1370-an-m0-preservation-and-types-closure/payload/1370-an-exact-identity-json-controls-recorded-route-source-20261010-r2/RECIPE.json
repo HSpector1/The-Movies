@@ -1,0 +1,146 @@
+{
+  "actualGrant": null,
+  "actualObservedReview": null,
+  "actualObservedReviewDecision": "ACCEPT_ACTUAL_EXACT_IDENTITY_JSON_PURE_CONTROLS_ONLY",
+  "actualResult": null,
+  "actualRootObservedAdoption": null,
+  "bounds": {
+    "active": 320,
+    "childStreamBytes": 8388608,
+    "resultBytes": 131072,
+    "runner": 300,
+    "whole": 330
+  },
+  "config": {
+    "bytes": 2056,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/CONFIG.json",
+    "sha256": "501a9f61f9e305b7b97e5833f953974495c8cb3b5eaee7975962b744942d768e"
+  },
+  "contract": {
+    "bytes": 3102,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/CONTRACT.json",
+    "sha256": "49159047bc68a95127b1c22e26019bc5b4cb8fd5ad6aa2eb84a92735be86616c"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "fullfunctionParserAdoptionContract": {
+    "actualExit": 0,
+    "actualTool": "genuine original actual-tool envelope role",
+    "controlsSource": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    },
+    "executionAuthorization": false,
+    "independentObservedReview": "genuine observed decisionabove",
+    "parserSource": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "result": "genuine immutable CONTROLS-RESULT.json role",
+    "schema": "1370-root-exact-identity-json-controls-observed-adoption/v1",
+    "status": "ROOT_ADOPTED_ACTUAL_EXACT_IDENTITY_JSON_CONTROLS_ONLY"
+  },
+  "helperArgvTemplate": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-parent-recorded-20261010-r1/parser.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/record-parser-controls.py",
+    "verification",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-parent-recorded-20261010-r1/GRANT.json",
+    "EXTERNAL_GRANT_SHA256"
+  ],
+  "maxOutputs": {
+    "nodeStderr": 8388608,
+    "nodeStdout": 8388608,
+    "outerMergedHelperLog": "Original r8 log no extra live limiter; qualified Node perstream recorder bounds remain.",
+    "recorderResult": 131072,
+    "specificPureReport": 131072
+  },
+  "outputs": {
+    "lane": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-parent-recorded-20261010-r1/parser.lane.log",
+    "parentClaim": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-parent-recorded-20261010-r1/LAUNCH-CLAIM.json",
+    "parserResult": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-results-20261010-r1/CONTROLS-RESULT.json",
+    "recorder": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-results-20261010-r1"
+  },
+  "parentArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/launch-parser-controls.py",
+    "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-parent-recorded-20261010-r1/GRANT.json",
+    "EXTERNAL_GRANT_SHA256"
+  ],
+  "rootOnceGrantContract": {
+    "argvTemplate": "helperArgvTemplate above finalplaceholderliteral EXTERNAL_GRANT_SHA256",
+    "automaticRetry": false,
+    "clockEnforcedByOriginalRecordedRoute": true,
+    "configSha256": "501a9f61f9e305b7b97e5833f953974495c8cb3b5eaee7975962b744942d768e",
+    "executionAuthorization": true,
+    "fields": [
+      "parentAdapterSourcePins",
+      "parentAdapterSourceReview",
+      "sourcePins",
+      "sourceReview",
+      "config",
+      "recipe",
+      "bounds",
+      "outputPath",
+      "sourceAdoption",
+      "runtimeToolsObservation",
+      "runtimeTools",
+      "argvTemplate",
+      "cwd",
+      "environment",
+      "laneLog"
+    ],
+    "oneAggregateRun": true,
+    "runtimeTools": {
+      "node": {
+        "bytes": 115440320,
+        "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+      }
+    },
+    "schema": "1370-root-exact-identity-json-controls-once-grant/v1",
+    "scope": "PURE_PUBLIC_EXACT_IDENTITY_JSON_32_CONTROLS_ONLY"
+  },
+  "rootSourceAdoptionContract": {
+    "executionAuthorization": false,
+    "fields": [
+      "sourcePins",
+      "sourceReview",
+      "parentAdapterSourcePins",
+      "parentAdapterSourceReview"
+    ],
+    "parentAndControlsReviewAreSameRole": true,
+    "parentAndControlsSourcePinsAreSameRole": true,
+    "schema": "1370-root-exact-identity-json-controls-source-adoption/v1",
+    "status": "ROOT_ADOPTED_PURE_EXACT_IDENTITY_JSON_CONTROLS_SOURCE_ONLY"
+  },
+  "runtimeToolsObservation": {
+    "bytes": 5401,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-RUNTIME-TOOLS.json",
+    "sha256": "a681efc4a9b29dfc62bffb6c1e7cd434107bfb1064769f712fca48227bd64106"
+  },
+  "schema": "1370-exact-identity-json-controls-recorded-route-recipe/v1",
+  "scope": "PURE_PUBLIC_EXACT_IDENTITY_JSON_32_CONTROLS_ONLY",
+  "sourceReviewContract": {
+    "concreteFindings": [],
+    "decision": "ACCEPT_STATIC_EXACT_IDENTITY_JSON_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY",
+    "executionAuthorization": false,
+    "routeSourcePins": "samealiases",
+    "schema": "1370-exact-identity-json-controls-recorded-route-independent-source-review/v1",
+    "sourceManifest": "exact SOURCE-PINS.json role",
+    "sourcePins": "filename\u2192exactrolesCONFIG,CONTRACT,recorder,parent andexternalhelper/controlscript"
+  }
+}

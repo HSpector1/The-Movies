@@ -1,0 +1,21 @@
+{
+  "schema": "1370-root-actual-tool-transcript/v1",
+  "sessionId": 91619,
+  "allToolChunks": [
+    {
+      "chunk_id": "3c8613",
+      "wall_time_seconds": 1.001239625,
+      "session_id": 91619,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "2a3314",
+      "wall_time_seconds": 0.000017066,
+      "exit_code": 0,
+      "original_token_count": 192,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-parent-recorded-20261010-r1/GRANT.json\", \"bytes\": 4589, \"sha256\": \"962977972eb09cd61d6e4f09faefd909750bc5b9adac2843f8c6690b6716d4ee\"}, \"sourceAdoption\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/PARSER-CONTROLS-SOURCE-ADOPTION.json\", \"bytes\": 1341, \"sha256\": \"7e01ee224a04b285c3bcfc9dac9ce9e38370fa1678c6053db2bb6e53201c7525\"}}\n{\"launchClaim\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-parent-recorded-20261010-r1/LAUNCH-CLAIM.json\", \"bytes\": 3519, \"sha256\": \"1eddd227d4023d177faadd43653a602ab959bcb5ee3053488e00f475f4c22f4d\"}, \"helperPid\": 40597, \"helperPgid\": 40597, \"helperSid\": 40597}\n"
+    }
+  ],
+  "finalExit": 0
+}

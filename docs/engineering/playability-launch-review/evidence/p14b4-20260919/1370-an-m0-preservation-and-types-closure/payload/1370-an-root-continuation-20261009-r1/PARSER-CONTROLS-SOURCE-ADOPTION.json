@@ -1,0 +1,27 @@
+{
+  "actualOutcome": null,
+  "executionAuthorization": false,
+  "game": false,
+  "parentAdapterSourcePins": {
+    "bytes": 4561,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "640d300aadc66b4f7bc225f91841b5fd235945d446c056214d8b4cda27b4313a"
+  },
+  "parentAdapterSourceReview": {
+    "bytes": 11984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "fa786064f3951863c6642760b288d3d2fe0c0c5e2263dc12bfc0d5a314c16836"
+  },
+  "schema": "1370-root-exact-identity-json-controls-source-adoption/v1",
+  "sourcePins": {
+    "bytes": 4561,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "640d300aadc66b4f7bc225f91841b5fd235945d446c056214d8b4cda27b4313a"
+  },
+  "sourceReview": {
+    "bytes": 11984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "fa786064f3951863c6642760b288d3d2fe0c0c5e2263dc12bfc0d5a314c16836"
+  },
+  "status": "ROOT_ADOPTED_PURE_EXACT_IDENTITY_JSON_CONTROLS_SOURCE_ONLY"
+}

@@ -1,0 +1,60 @@
+{
+  "afterSha256": "d69cd29cbc1134211b89e7fa95a8c6708a5c39fda41821326978ffc83067da60",
+  "beforeSha256": "3b139127f029d1601a4c20d7bfd868e3d4a46d2f6dab78f4b9a6eb72a2f0322a",
+  "changes": [
+    {
+      "after": "1370-an-m0-fullfunction-qualification-source-20261010-r9",
+      "before": "1370-an-m0-fullfunction-qualification-source-20261010-r7"
+    },
+    {
+      "after": "1370-an-m0-fullfunction-parent-source-20261010-r2",
+      "before": "1370-an-m0-fullfunction-parent-source-20261010-r1"
+    },
+    {
+      "after": "51926780c880416000d592b6f7e3ba8a0c42f005a833e6813708abc25823087c",
+      "before": "d1357e8fe9b082313f79b27e870df63ec01245d52e725c5698b9045bfe77ac7f"
+    },
+    {
+      "after": "1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r9",
+      "before": "1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r7"
+    },
+    {
+      "after": "1c7ee4c57f05f16cf509efd5739ca3106e1703da8653d7f7a971597cef3ca1d8",
+      "before": "3f8c38d007d381db407bf1953781a089488fa3c4979d742f452697c4bef9d48f"
+    },
+    {
+      "after": "fb047e0bcf7685b40fd80bcd4d5550f2cef7a967ee936a3644bb0446309da62e",
+      "before": "522109288f54a5a08a758ef58175ca670bbd8d76a4e78b98098c35753c3b9aeb"
+    },
+    {
+      "after": "1370-an-m0-fullfunction-parent-independent-source-review-20261010-r2",
+      "before": "1370-an-m0-fullfunction-parent-independent-source-review-20261010-r1"
+    },
+    {
+      "after": "785b2a13d304e24a21b39f2de075bffb75ccb43cb086b677a32e4bca10ee3c93",
+      "before": "5b34d36a67c86692ca172251cae85f51ced6beb47a76eb7927d8d64a94ff6834"
+    },
+    {
+      "after": "M0-FULLFUNCTION-RETRY-CURRENT-PROTECTION.json",
+      "before": "M0-FULLFUNCTION-CURRENT-PROTECTION.json"
+    },
+    {
+      "after": "FULLFUNCTION-QUALIFICATION-SOURCE-ADOPTION-R2.json",
+      "before": "FULLFUNCTION-QUALIFICATION-SOURCE-ADOPTION.json"
+    },
+    {
+      "after": "1370-an-m0-fullfunction-parent-recorded-20261010-r2",
+      "before": "1370-an-m0-fullfunction-parent-recorded-20261010-r1"
+    },
+    {
+      "after": "FULLFUNCTION-ROOT-BINDING-R2.json",
+      "before": "FULLFUNCTION-ROOT-BINDING.json"
+    }
+  ],
+  "completeInverseExact": true,
+  "executionAuthorization": false,
+  "preservedParserObservedAdoption": "2684b2b4a2c0e90b1d9fec5ee079ede8eb945eb3378ff88619f3cd04b943735d",
+  "schema": "1370-root-fullfunction-retry-launcher-source-delta/v1",
+  "sourceOnly": true,
+  "sourcePath": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/run_fullfunction_retry_once.py"
+}

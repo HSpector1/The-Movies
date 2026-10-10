@@ -1,0 +1,3 @@
+waiting for pid 0; then: /usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14 -I -B /Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/record-lossless-controls.py verification /Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-parent-recorded-20261010-r1/GRANT.json d0f5d29f5b9c91af2e6d3f279b1a85e2ce10328efcb0a67472ce354e84e86069; 2026-10-10 02:20:13 CDT
+start; 2026-10-10 02:20:14 CDT
+end, exit 0; 2026-10-10 02:20:21 CDT

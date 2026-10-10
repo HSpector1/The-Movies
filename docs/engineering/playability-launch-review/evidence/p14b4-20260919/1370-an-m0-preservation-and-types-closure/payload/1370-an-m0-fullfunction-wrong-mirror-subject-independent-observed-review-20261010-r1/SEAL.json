@@ -1,0 +1,52 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "FINAL-POST-EVIDENCE-AUDIT.json": {
+      "bytes": 10127,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-wrong-mirror-subject-independent-observed-review-20261010-r1/FINAL-POST-EVIDENCE-AUDIT.json",
+      "sha256": "384a978258918a3283c2f2ba3027b9a90e9c9e602a22ec25c573e47523b595df"
+    },
+    "INITIAL-EVIDENCE-READBACK.json": {
+      "bytes": 5585,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-wrong-mirror-subject-independent-observed-review-20261010-r1/INITIAL-EVIDENCE-READBACK.json",
+      "sha256": "6e18c4c527b5c540604c5645e50e4f7ca21421adc696aeaa04a0252a3f5a491c"
+    },
+    "INITIAL-READBACK-INPUT.json": {
+      "bytes": 2549,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-wrong-mirror-subject-independent-observed-review-20261010-r1/INITIAL-READBACK-INPUT.json",
+      "sha256": "4e684365e74895897c3bad612595b237b0ef13cb104815afdf86026e842d7544"
+    },
+    "POST-EVIDENCE-AUDIT.json": {
+      "bytes": 8478,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-wrong-mirror-subject-independent-observed-review-20261010-r1/POST-EVIDENCE-AUDIT.json",
+      "sha256": "cde274efcaeb544300e9a47d23938cb206a6aa963a72fefaa16ba48665dcbed3"
+    },
+    "POST-EVIDENCE-INPUT.json": {
+      "bytes": 3912,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-wrong-mirror-subject-independent-observed-review-20261010-r1/POST-EVIDENCE-INPUT.json",
+      "sha256": "c28336ca6d2b34260a24bcf134eeb09fb6568d45866a9f41a9cc2d8a6b81c445"
+    },
+    "RECEIPT.json": {
+      "bytes": 13431,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-wrong-mirror-subject-independent-observed-review-20261010-r1/RECEIPT.json",
+      "sha256": "26076d01598ed3778e7c2aed814002ba9cd85f7484da0b6c454c93c4124e9ad3"
+    },
+    "audit-post-evidence.py": {
+      "bytes": 4305,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-wrong-mirror-subject-independent-observed-review-20261010-r1/audit-post-evidence.py",
+      "sha256": "cbcb858ff095da9e7cfc05a9bbc8bd038d6e79fde73fc33cdb044f8d299a48c7"
+    },
+    "audit-post-facts.py": {
+      "bytes": 2618,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-wrong-mirror-subject-independent-observed-review-20261010-r1/audit-post-facts.py",
+      "sha256": "7f2cae6bd0194b3991c29a9d07142f48cb216abd1140198b31678a141a219355"
+    },
+    "seal-review.py": {
+      "bytes": 1143,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-wrong-mirror-subject-independent-observed-review-20261010-r1/seal-review.py",
+      "sha256": "6171f92b54546f0a92fd07390aab080da71455d8de98fae3afbcee5553d28058"
+    }
+  },
+  "privateInventory": false,
+  "schema": "1370-independent-retained-stop-review-seal/v1"
+}

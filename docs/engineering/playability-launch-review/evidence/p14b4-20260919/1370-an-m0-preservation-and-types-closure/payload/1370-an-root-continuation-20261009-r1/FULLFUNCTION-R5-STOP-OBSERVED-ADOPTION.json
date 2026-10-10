@@ -1,0 +1,95 @@
+{
+  "actualGameplayPrefixExecuted": null,
+  "actualGenerationPhaseSucceeded": true,
+  "baselineAccepted": false,
+  "baselineReport": {
+    "bytes": 2701,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r5/baseline.report.json",
+    "sha256": "152cb6a301f4f16171428a3153a376577d2b4cfa03c3099c0718878ba3ba86fc"
+  },
+  "broadReplayAccepted": false,
+  "completeBeforeSourceAndDependenciesMatch": true,
+  "currentGenerationFixture": {
+    "bytes": 12428510,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r5/fixtures.json",
+    "sha256": "0ae4a9a261600c23b1bfd05eb860d65ef0f6769c9918670eb97bf7120b74ec62"
+  },
+  "currentTypesAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  },
+  "dependencyAfter": null,
+  "diagnosis": {
+    "actualFailedLoopIteration": null,
+    "actualFailedRowBytes": null,
+    "actualFailedRowKind": null,
+    "actualFailedTupleFamily": null,
+    "error": "M0 feasibility row byte bound exceeded",
+    "observerRowLimit": 16384
+  },
+  "executionAuthorization": false,
+  "fixture": {
+    "bytes": 12428510,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r5/fixtures.json",
+    "sha256": "0ae4a9a261600c23b1bfd05eb860d65ef0f6769c9918670eb97bf7120b74ec62"
+  },
+  "fixtureQualificationAccepted": false,
+  "freshPassingSharedPostSession": 92358,
+  "fullM0AfterProofAccepted": false,
+  "fullPostflightReadback": {
+    "bytes": 5186,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r5/READBACK.json",
+    "sha256": "1af7a89810d94e59fc70e043aa9c478a09feae62511d2b128fe270365d97be67"
+  },
+  "fullPostflightSnapshot": {
+    "bytes": 8876022,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r5/SNAPSHOT.json",
+    "sha256": "8222e0888b5f05f82295d16b2941ac5de46e4a9269b48751d6d177d9e3b63cf0"
+  },
+  "fullSharedPostflightAccepted": true,
+  "game": false,
+  "generatedNaturalBoundaryWeeks": [
+    196,
+    197,
+    208
+  ],
+  "generationReceipt": {
+    "bytes": 3461,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r5/fixtures.receipt.json",
+    "sha256": "df7a1aa7b5e02712acbdfe04e8162095fb7773a485bdb60440e453652bc55da1"
+  },
+  "generationReport": {
+    "bytes": 946,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r5/generate.report.json",
+    "sha256": "ba902601cb4099c2042cf76cbccd693da3a03ff471d957a5451d17efdb0bc1d4"
+  },
+  "independentObservedReview": {
+    "bytes": 10893,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-observed-review-20261010-r5/RECEIPT.json",
+    "sha256": "e364387908a227f5d80de1d721ee832c4c40fdbe3b1d448723bd73ea49a57f93"
+  },
+  "mutantAccepted": false,
+  "neutralityAccepted": false,
+  "observedFixtureWithinApprovedCap": true,
+  "observerLimitsChanged": false,
+  "originalAttemptRemainsStop": true,
+  "priorGenerationFixture": {
+    "bytes": 12428510,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r4/fixtures.json",
+    "sha256": "0ae4a9a261600c23b1bfd05eb860d65ef0f6769c9918670eb97bf7120b74ec62"
+  },
+  "protectedFreezeContinues": true,
+  "readback": {
+    "bytes": 6808,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r5/READBACK.json",
+    "sha256": "321035432c082f1238587d7783300b0c49d10c4935042d05968136cb6c727489"
+  },
+  "recorderSeconds": 55.66051677400537,
+  "repeatedFixtureBytesEqual": true,
+  "schema": "1370-root-fullfunction-protected-stop-observed-adoption/v1",
+  "scope": "Actual56544 repeated real natural generation then failed original feasibility observer row-byte predicate in synthetic opportunity loop. Earlier natural checks returned by exact sequential source, not a complete baseline or independent per-pair result. Unknown offending bytes/kind/family/iteration remain null. Actual92358 proves full shared preservation, not missing M0 AFTER proofs. No full qualification, catch-mutant, neutrality, ledger or downstream acceptance.",
+  "soleLaneReleased": true,
+  "sourceAfter": null,
+  "status": "ROOT_ADOPTED_FULLFUNCTION_FEASIBILITY_ROW_BYTE_CAP_STOP_WITH_REAL_GENERATION_AND_FULL_SHARED_POSTFLIGHT"
+}

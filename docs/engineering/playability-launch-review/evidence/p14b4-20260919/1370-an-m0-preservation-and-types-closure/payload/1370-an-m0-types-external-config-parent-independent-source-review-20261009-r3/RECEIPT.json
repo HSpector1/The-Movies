@@ -1,0 +1,243 @@
+{
+  "claims": {
+    "actualCollectionAccepted": false,
+    "actualTypesAccepted": false,
+    "executionAuthorization": false,
+    "failedR1PreservationAccepted": false,
+    "gameAccepted": false,
+    "runtimePerformed": false
+  },
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_M0_TYPES_EXTERNAL_CONFIG_PARENT_ADAPTER_SOURCE_ONLY",
+  "documentaryQualification": "Recipe freshExecutionBoundary retains the inherited Fresh R2 wording; all actual source/profile/argv/context/output/runId roles are consistently fresh R3. This documentary phrase creates no runtime authority and is not treated as an actual R2 or R3 outcome.",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "fillerDelta": {
+    "field": "PROFILE_SHA",
+    "from": "b2758d0e15403b7448dfe6ae9f7394b52e504aebfaace09c9e6f43141c9a1a5c",
+    "to": "2a2ee5c622894529b54bc24edd6b72002f3c7703a47215ee983a6450b0d0eab9"
+  },
+  "findingsAndConclusions": [
+    "All manifest roles, predecessor source/review roles and retained-byte readback evidence authenticate; direct complete forward/inverse diffs reproduce accepted original bytes. The preserved unrun R2 manifest count failure is not accepted or relabeled.",
+    "Only declared fresh path/runId/hash literal bindings differ in operational executor modules, JSON config/context and templates; normalized whole-byte equality and AST structure hold. The parent changes PROFILE_SHA only, with all10 helper/main function bodies byte exact; types profile rebinds exact E3/config/template/source roles and inactive proof profile remains unchanged.",
+    "Source/config/profile/template/LAUNCH role aliases match the real source-review consumers. Required filename maps are provided exactly, including both templates and LAUNCH for the executor and filler/PROFILES for the parent.",
+    "Original complete1740-file source and full dependency proof equality before any compiler and complete equal after-proofs, root boundaries, historical nonroot metadata, owned process cleanup and strict deadline/cap/disk floors remain unchanged. No source/dependency mirror or original config is altered.",
+    "External config templates retain original explicit mirror root, test include/inline workspace/options and setup semantics under only fresh result paths. Source selection, four child order, full type scope and Node22 remain unchanged.",
+    "Actual source review, current protection/root adoption, fresh original current prelaunch, tools, lane/grant/context/result and final outcome roles remain future/external; the source itself grants no run and fabricates no missing failed-R1 after-proof.",
+    "Prospective5b5e/5980 are EXPECTED qualified baselines; only the unchanged actual mandatory pre-command proof can confirm readiness. A later run requires root once-only grant and genuine result/after-proof/fullpostflight/independent admission."
+  ],
+  "majorLessons": [
+    "Derive role bytes and hashes from actual retained-file bytes after writing; serializer/newline estimates are insufficient.",
+    "Use fresh paths and runId rather than modifying or repinning failed attempts.",
+    "A prior genuine proof is an expected baseline, not a fabricated current proof: unchanged before/after checks remain mandatory.",
+    "Keep separate preparation60 and original runtime300/320/330, strict floors/caps and inherited HOME."
+  ],
+  "predecessorIndependentReview": {
+    "bytes": 8891,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "bfab228a3860e008206c47c0fcac8b8232d1c91fb4b4f655077b090d2049864f"
+  },
+  "predecessorSourcePins": {
+    "bytes": 7541,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "f2f5cf509f2fe221ca68998616b85b2f555265ddf81d10abd908de511e46a132"
+  },
+  "preservedFailures": {
+    "actualR1AfterProofsAbsent": true,
+    "actualR1DiskFloorStop": true,
+    "historicalRootUnchanged": false,
+    "originalR6MetadataStop": true,
+    "unrunR2SourceManifestStop": true
+  },
+  "recipe": {
+    "bytes": 11010,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/RECIPE.json",
+    "sha256": "b8c12be7667ffbe75d41939551f352be129ff55bd7ed295f5c49fdf60ee5ac65"
+  },
+  "remainingActions": [
+    "Root genuine fresh original current prelaunch and accepted prior STOP/fullpost bindings.",
+    "Separately granted recorded fresh type/collection attempt, complete after-proofs, mandatory original full protected postflight and independent admission."
+  ],
+  "reviewScope": "Independent finite retained source/JSON/diff/hash/full-text and AST-only review; no source imports, tests, runtime, private mirror/dependency traversal, probes, Git or production mutation.",
+  "routeSourcePins": {
+    "BASELINE-R1-PROFILES.json": {
+      "bytes": 6780,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/BASELINE-R1-PROFILES.json",
+      "sha256": "b2758d0e15403b7448dfe6ae9f7394b52e504aebfaace09c9e6f43141c9a1a5c"
+    },
+    "BASELINE-R1-fill-grant-exec.py": {
+      "bytes": 14054,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/BASELINE-R1-fill-grant-exec.py",
+      "sha256": "06ef36769f3f2918c0cec46d08022bfafb5328ce4159f3d4deb8003c1d99e99f"
+    },
+    "CURRENT-TYPES-PROTECTION-UNFILLED.json": {
+      "bytes": 1185,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/CURRENT-TYPES-PROTECTION-UNFILLED.json",
+      "sha256": "14cc3fad42abb314cf593ee1caebb4e88b3b8f752b326aca116a73b379339ad9"
+    },
+    "LESSONS.md": {
+      "bytes": 737,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/LESSONS.md",
+      "sha256": "24a4251599c39ba1238a4f7dd652abc6624ef541d7574bc303107d1a331132a3"
+    },
+    "PROFILES.json": {
+      "bytes": 6780,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/PROFILES.json",
+      "sha256": "2a2ee5c622894529b54bc24edd6b72002f3c7703a47215ee983a6450b0d0eab9"
+    },
+    "PROFILES.json.forward.diff": {
+      "bytes": 13852,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/PROFILES.json.forward.diff",
+      "sha256": "eba2a61f623a404f069035f449aee7798fca846a7fa2a488ba8408d609a6b0dd"
+    },
+    "PROFILES.json.inverse.diff": {
+      "bytes": 13852,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/PROFILES.json.inverse.diff",
+      "sha256": "5cafb4cabf596fc12606f9f5008f85f24ce322ab9004f92effaf88264340d58d"
+    },
+    "R2-SOURCE-MANIFEST-STOP.json": {
+      "bytes": 1010,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/R2-SOURCE-MANIFEST-STOP.json",
+      "sha256": "77af1ffd4b0742e1c7e0971c5c47bf7198a14348ca1195166f7e9d984e21309f"
+    },
+    "RECIPE.json": {
+      "bytes": 11010,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/RECIPE.json",
+      "sha256": "b8c12be7667ffbe75d41939551f352be129ff55bd7ed295f5c49fdf60ee5ac65"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 3883,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/SOURCE-PROOF.json",
+      "sha256": "32bf7d33bc905ae79cab3c981911e8f92e9fe4350bc6ddf0ad4f6a0487a2b970"
+    },
+    "TYPES-SPEC-UNFILLED.json": {
+      "bytes": 243,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/TYPES-SPEC-UNFILLED.json",
+      "sha256": "9ae8c89184a1f6f066698208ac9592de7334b1dfb50103b180e6c1d087b20c54"
+    },
+    "fill-grant-exec.py": {
+      "bytes": 14054,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/fill-grant-exec.py",
+      "sha256": "c41b8e0eb917175cb2fdcc1885ddfa0d9e63ae0e46753e2a857b5984cdcb5bd8"
+    },
+    "fill-grant-exec.py.forward.diff": {
+      "bytes": 28476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/fill-grant-exec.py.forward.diff",
+      "sha256": "58bc3b3a472b6e209bed4c484b97186e33d3767faef358aa2f390dc5d2d8d1ea"
+    },
+    "fill-grant-exec.py.inverse.diff": {
+      "bytes": 28476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/fill-grant-exec.py.inverse.diff",
+      "sha256": "77f00e9a881ae964cfd9f76464c50b8dd177d6926945f61e2870f24d8fb16479"
+    }
+  },
+  "schema": "1370-m0-external-config-types-parent-independent-source-review/v1",
+  "selectedExecutorSourcePins": {
+    "bytes": 15420,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/SOURCE-PINS.json",
+    "sha256": "4a6a87c20feffe96e08807b605019e8d6caeb896d0a4eb6069f55e8e98cc934f"
+  },
+  "sourceManifest": {
+    "bytes": 7869,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/SOURCE-PINS.json",
+    "sha256": "257e049bb9c2aba5aca3c96b83dccfd376c18cedd524328fb151e4cfc0091603"
+  },
+  "sourcePins": {
+    "BASELINE-R1-PROFILES.json": {
+      "bytes": 6780,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/BASELINE-R1-PROFILES.json",
+      "sha256": "b2758d0e15403b7448dfe6ae9f7394b52e504aebfaace09c9e6f43141c9a1a5c"
+    },
+    "BASELINE-R1-fill-grant-exec.py": {
+      "bytes": 14054,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/BASELINE-R1-fill-grant-exec.py",
+      "sha256": "06ef36769f3f2918c0cec46d08022bfafb5328ce4159f3d4deb8003c1d99e99f"
+    },
+    "CURRENT-TYPES-PROTECTION-UNFILLED.json": {
+      "bytes": 1185,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/CURRENT-TYPES-PROTECTION-UNFILLED.json",
+      "sha256": "14cc3fad42abb314cf593ee1caebb4e88b3b8f752b326aca116a73b379339ad9"
+    },
+    "LESSONS.md": {
+      "bytes": 737,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/LESSONS.md",
+      "sha256": "24a4251599c39ba1238a4f7dd652abc6624ef541d7574bc303107d1a331132a3"
+    },
+    "PROFILES.json": {
+      "bytes": 6780,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/PROFILES.json",
+      "sha256": "2a2ee5c622894529b54bc24edd6b72002f3c7703a47215ee983a6450b0d0eab9"
+    },
+    "PROFILES.json.forward.diff": {
+      "bytes": 13852,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/PROFILES.json.forward.diff",
+      "sha256": "eba2a61f623a404f069035f449aee7798fca846a7fa2a488ba8408d609a6b0dd"
+    },
+    "PROFILES.json.inverse.diff": {
+      "bytes": 13852,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/PROFILES.json.inverse.diff",
+      "sha256": "5cafb4cabf596fc12606f9f5008f85f24ce322ab9004f92effaf88264340d58d"
+    },
+    "R2-SOURCE-MANIFEST-STOP.json": {
+      "bytes": 1010,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/R2-SOURCE-MANIFEST-STOP.json",
+      "sha256": "77af1ffd4b0742e1c7e0971c5c47bf7198a14348ca1195166f7e9d984e21309f"
+    },
+    "RECIPE.json": {
+      "bytes": 11010,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/RECIPE.json",
+      "sha256": "b8c12be7667ffbe75d41939551f352be129ff55bd7ed295f5c49fdf60ee5ac65"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 3883,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/SOURCE-PROOF.json",
+      "sha256": "32bf7d33bc905ae79cab3c981911e8f92e9fe4350bc6ddf0ad4f6a0487a2b970"
+    },
+    "TYPES-SPEC-UNFILLED.json": {
+      "bytes": 243,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/TYPES-SPEC-UNFILLED.json",
+      "sha256": "9ae8c89184a1f6f066698208ac9592de7334b1dfb50103b180e6c1d087b20c54"
+    },
+    "fill-grant-exec.py": {
+      "bytes": 14054,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/fill-grant-exec.py",
+      "sha256": "c41b8e0eb917175cb2fdcc1885ddfa0d9e63ae0e46753e2a857b5984cdcb5bd8"
+    },
+    "fill-grant-exec.py.forward.diff": {
+      "bytes": 28476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/fill-grant-exec.py.forward.diff",
+      "sha256": "58bc3b3a472b6e209bed4c484b97186e33d3767faef358aa2f390dc5d2d8d1ea"
+    },
+    "fill-grant-exec.py.inverse.diff": {
+      "bytes": 28476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/fill-grant-exec.py.inverse.diff",
+      "sha256": "77f00e9a881ae964cfd9f76464c50b8dd177d6926945f61e2870f24d8fb16479"
+    }
+  },
+  "sourcePinsSha256": "257e049bb9c2aba5aca3c96b83dccfd376c18cedd524328fb151e4cfc0091603",
+  "sourceProof": {
+    "bytes": 3883,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/SOURCE-PROOF.json",
+    "sha256": "32bf7d33bc905ae79cab3c981911e8f92e9fe4350bc6ddf0ad4f6a0487a2b970"
+  },
+  "verified": {
+    "HOMEInherited": true,
+    "allOriginalFunctionBodiesTextExact": 10,
+    "allRoleByteCountsAndHashesMatchActualRetainedBytes": true,
+    "combinedPreparationRuntimeDeadline": null,
+    "futureActualRolesUnfilled": true,
+    "manifestPayloadRoles": 14,
+    "originalChildStreamCapsBytes": 8388608,
+    "originalRuntimeBoundsSeconds": {
+      "active": 320,
+      "runner": 300,
+      "whole": 330
+    },
+    "preflightDiskFloorBytes": 3758096384,
+    "runtimeDiskFloorBytes": 3221225472,
+    "separatePreparationSeconds": 60,
+    "totalPackageFiles": 16,
+    "wholeExecutableTextIdentityModuloDeclaredBindings": true,
+    "wholeForwardInversePairs": 2
+  }
+}

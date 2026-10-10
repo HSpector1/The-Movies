@@ -1,0 +1,99 @@
+{
+  "actualPreflight": null,
+  "allElevenManifestRolesAuthenticated": true,
+  "checks": [
+    {
+      "byteExactHelpers": [
+        "role",
+        "check",
+        "put"
+      ],
+      "compileOnlyWarningError": true,
+      "source": "run_fullfunction_current_prelaunch_once.py",
+      "wholeInverseExact": true
+    },
+    {
+      "byteExactHelpers": [
+        "role",
+        "put"
+      ],
+      "compileOnlyWarningError": true,
+      "source": "read_fullfunction_current_prelaunch.py",
+      "wholeInverseExact": true
+    }
+  ],
+  "concreteFindings": [],
+  "currentPriorStopAdoption": {
+    "bytes": 3629,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R3-STOP-OBSERVED-ADOPTION.json",
+    "sha256": "80f45b590a15db4964f3852ddd5bed73da836ad0a84dd56ddbf4ac02bd767c17"
+  },
+  "decision": "ACCEPT_STATIC_FULLFUNCTION_RETRY_CURRENT_PRELAUNCH_PREPARATION_SOURCE_ONLY",
+  "exactArgumentMapChecks": {
+    "allStaticTypeAuthorityShaArgumentsAuthenticated": true,
+    "freshR4ExecutedConfigIndex4Correct": true,
+    "futureLatestAndStopRolePairsNull": true,
+    "futureReaderSessionScannerRolePairsNull": true,
+    "genuineTypesReviewOperandIndex4Restored": true,
+    "lengths": [
+      12,
+      10,
+      6
+    ],
+    "priorReadback62802AndRootStop80f45Authentic": true,
+    "scriptIndex3Correct": true
+  },
+  "executionAuthorization": false,
+  "majorLesson": "Build the complete executable argument vector from the command contract and authenticate each static role; an exact source inverse does not validate argv positions.",
+  "preparationCorrection": {
+    "bytes": 701,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r6/PREPARATION-CORRECTION.json",
+    "sha256": "a52d78dac8ef4b5c55fc1cfb3a8eb63f3af4955e7ae83c4a8e5f1f69025ec979"
+  },
+  "priorPreparationStopReview": {
+    "bytes": 2351,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-independent-source-review-20261010-r5/RECEIPT.json",
+    "sha256": "73c01854cfdd7a4124ff8f4e0491e23e8fecbc7ce58dc7c6be98b1ad9c998c2a"
+  },
+  "routeSourcePins": {
+    "EXACT-ARGV.json": {
+      "bytes": 3211,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r6/EXACT-ARGV.json",
+      "sha256": "49035df849f23c731116714e0c8dec419451981746830a159be230a6949477e9"
+    },
+    "read_fullfunction_current_prelaunch.py": {
+      "bytes": 6632,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r6/read_fullfunction_current_prelaunch.py",
+      "sha256": "5dd6d86e38d8006c89266490fdc4f396832494359292468c7202e194588d68e6"
+    },
+    "run_fullfunction_current_prelaunch_once.py": {
+      "bytes": 9184,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r6/run_fullfunction_current_prelaunch_once.py",
+      "sha256": "9e123a4434b8e9af22d6fda1a453af80f7fce29a37b329731da2338108683925"
+    }
+  },
+  "schema": "1370-fullfunction-current-prelaunch-independent-source-review/v2",
+  "scope": "Independent review of root-authored R6 preparation only. Complete source inverses recover accepted R3; execution scripts are byte-identical to held R5 and corrected exact argument map uses R6 scripts. Original scanner7015/review6f7e, three null configuration fills, physical direct exec, per-command180 and continuous-freeze reuse are unchanged. TYPES0700 remains distinct from latest shared map. No scan, inventory, private traversal, runtime, import, process probes, Git or production writes. No new real fixture, baseline, catch-mutant, neutrality or game admission.",
+  "sourceManifest": {
+    "bytes": 3397,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r6/SOURCE-PINS.json",
+    "sha256": "b4a8f9eb919c35d805fd238be602cc7f05df84d9ce0cae2e19a544a2ed271a7b"
+  },
+  "sourcePins": {
+    "EXACT-ARGV.json": {
+      "bytes": 3211,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r6/EXACT-ARGV.json",
+      "sha256": "49035df849f23c731116714e0c8dec419451981746830a159be230a6949477e9"
+    },
+    "read_fullfunction_current_prelaunch.py": {
+      "bytes": 6632,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r6/read_fullfunction_current_prelaunch.py",
+      "sha256": "5dd6d86e38d8006c89266490fdc4f396832494359292468c7202e194588d68e6"
+    },
+    "run_fullfunction_current_prelaunch_once.py": {
+      "bytes": 9184,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r6/run_fullfunction_current_prelaunch_once.py",
+      "sha256": "9e123a4434b8e9af22d6fda1a453af80f7fce29a37b329731da2338108683925"
+    }
+  }
+}

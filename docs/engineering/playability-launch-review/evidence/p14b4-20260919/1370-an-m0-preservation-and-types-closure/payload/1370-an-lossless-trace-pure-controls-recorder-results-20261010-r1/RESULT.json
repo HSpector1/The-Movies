@@ -1,0 +1,32 @@
+{
+  "actualChildExit": 0,
+  "boundsSeconds": {
+    "active": 320,
+    "node": 300,
+    "whole": 330
+  },
+  "childPid": 87303,
+  "configSha256": "24fb559ed249ce928fbc5f476ec431d92c4b8bd9398d093fa70156a7ec6745c3",
+  "controlsResultPath": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorder-results-20261010-r1/CONTROLS-RESULT.json",
+  "elapsedSeconds": 7.404906245996244,
+  "executionAuthorization": false,
+  "game": false,
+  "groupClear": true,
+  "mode": "verification",
+  "ownedPgid": 87303,
+  "pgidConfirmed": true,
+  "sanitizedEnvironment": [
+    "NODE_OPTIONS",
+    "NODE_PATH"
+  ],
+  "schema": "1370-lossless-trace-pure-controls-recorder/v1",
+  "sourceOrGameplayAdoption": false,
+  "startupOwnedBeforeExec": true,
+  "status": "LOSSLESS_TRACE_PURE_CONTROLS_COMPLETE_UNADOPTED",
+  "stderrBytes": 0,
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutBytes": 14486,
+  "stdoutSha256": "9f20c17ee8ea01639006d712e2c6dceadc4095db7185989a75d684b8e7d39b7e",
+  "timedOut": false,
+  "utc": "2026-10-10T07:20:21.680675+00:00"
+}

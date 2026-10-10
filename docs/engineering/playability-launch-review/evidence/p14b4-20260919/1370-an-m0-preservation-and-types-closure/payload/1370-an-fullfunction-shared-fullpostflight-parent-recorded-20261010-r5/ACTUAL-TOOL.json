@@ -1,0 +1,83 @@
+{
+  "sessionId": 92358,
+  "allToolChunks": [
+    {
+      "chunk_id": "b638e8",
+      "wall_time_seconds": 1.001950589,
+      "session_id": 92358,
+      "original_token_count": 70,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r5/GRANT.json\", \"bytes\": 5235, \"sha256\": \"77a0a037e1d74a9c5135610c3c3e9a5d84d58ff5d8efdad2fb6439761fe5c855\"}, \"scannerPid\": 14120, \"scannerPgid\": 14120}\n"
+    },
+    {
+      "chunk_id": "fa4c0d",
+      "wall_time_seconds": 5.001648638,
+      "session_id": 92358,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "8119f8",
+      "wall_time_seconds": 5.001281983,
+      "session_id": 92358,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "d6d167",
+      "wall_time_seconds": 5.002310352,
+      "session_id": 92358,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "3b9d9e",
+      "wall_time_seconds": 5.002341617,
+      "session_id": 92358,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "22d120",
+      "wall_time_seconds": 5.002736554,
+      "session_id": 92358,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "cffea2",
+      "wall_time_seconds": 5.00127258,
+      "session_id": 92358,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "6da566",
+      "wall_time_seconds": 5.001653446,
+      "session_id": 92358,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "5dce8f",
+      "wall_time_seconds": 5.001498324,
+      "session_id": 92358,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "115f73",
+      "wall_time_seconds": 5.001503687,
+      "session_id": 92358,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "3a84ca",
+      "wall_time_seconds": 0.000015082,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ],
+  "finalExit": 0
+}

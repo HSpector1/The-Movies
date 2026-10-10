@@ -1,0 +1,213 @@
+{
+  "actualGrant": null,
+  "actualObservedReview": null,
+  "actualObservedReviewDecision": "ACCEPT_ACTUAL_PURE_LOSSLESS_CODEC_AND_AFFECTED_ORDERING_CONTROLS_ONLY",
+  "actualResult": null,
+  "actualRootObservedAdoption": null,
+  "bounds": {
+    "active": 320,
+    "childStreamBytes": 8388608,
+    "compiledModuleBytes": 131072,
+    "resultBytes": 131072,
+    "runner": 300,
+    "whole": 330
+  },
+  "caseCount": 49,
+  "claimLimits": [
+    "Pure synthetic API controls and unchanged original18 ordering inputs only. No real natural fixture compression fit, game, meaningful catch mutant, fullfunction, performance or source promotion acceptance.",
+    "Parser32 helper unchanged; original actual outcome reused, not replayed.",
+    "Source transpilations happen inside single owned Node aggregate; no independent compiler child, game graph or private copy."
+  ],
+  "combinedPreparationRuntimeDeadline": null,
+  "config": {
+    "bytes": 7933,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r1/CONFIG.json",
+    "sha256": "dcd42621abc00468ddd73bf38ca5fccf6297909eea796ab5470c40a105050be8"
+  },
+  "contract": {
+    "bytes": 5571,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r1/CONTRACT.json",
+    "sha256": "a5e0dd4fbd805fb129bedeb7c62e6c88e77ae0860d8ced1ee49821fbbca7aee3"
+  },
+  "controlsSourcePins": {
+    "bytes": 1578,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "45d34dbe026cc53c4cb102a77b39e3e5319240f327eb7f5bcb4f12cebf27c33f"
+  },
+  "controlsSourceReview": {
+    "bytes": 3111,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "ef8bfd51dd7298f377853bf242eb7968651c6f912a6e8a971c38dae4acafec50"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "helperArgvTemplate": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-parent-recorded-20261010-r1/controls.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r1/record-lossless-controls.py",
+    "verification",
+    "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+    "EXTERNAL_GRANT_SHA256"
+  ],
+  "implementationControlsSourceAdoption": {
+    "bytes": 12274,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LOSSLESS-IMPLEMENTATION-CONTROLS-SOURCE-ADOPTION.json",
+    "sha256": "d508ed71a4607104aeab0541887dd456687378467bc79915c8425b339e4e47b7"
+  },
+  "implementationSourcePins": {
+    "bytes": 9104,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "7f2ef8499136e025a90ec67c417b1788e1209c69764a448527bb0a5244d68027"
+  },
+  "implementationSourceReview": {
+    "bytes": 20821,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-independent-source-review-20261010-r3/RECEIPT.json",
+    "sha256": "c2e5a3929f49115e1ab8f70545d8578e0533937d0f8672e26f6957389fcefb4f"
+  },
+  "maxOutputs": {
+    "childStderr": 8388608,
+    "childStdout": 8388608,
+    "compiledModuleBytesEach": 131072,
+    "outerMergedHelperLog": "Original r8 log no extra live limiter; no allstreamsquiet claim.",
+    "resultBytes": 131072
+  },
+  "outputs": {
+    "lane": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-parent-recorded-20261010-r1/controls.lane.log",
+    "parentClaim": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-parent-recorded-20261010-r1/LAUNCH-CLAIM.json",
+    "pureEmittedModules": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-results-20261010-r1",
+    "recorder": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorder-results-20261010-r1",
+    "recorderControlResult": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorder-results-20261010-r1/CONTROLS-RESULT.json",
+    "workerControlResult": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-results-20261010-r1/CONTROLS-RESULT.json"
+  },
+  "parentArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r1/launch-lossless-controls.py",
+    "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+    "EXTERNAL_GRANT_SHA256"
+  ],
+  "positiveCount": 9,
+  "preparationCancelledBeforeExec": true,
+  "preparationClockSeconds": 60,
+  "reviewAliases": [
+    "CONFIG.json",
+    "CONTRACT.json",
+    "record-lossless-controls.py",
+    "launch-lossless-controls.py",
+    "run-lossless-recorded-controls.mjs",
+    "m0TraceCodec.mjs",
+    "traceSequences.mjs",
+    "m0WiringProbe.ts",
+    "ordering.ts",
+    "ordering-source-controls.ts",
+    "run-lossless-controls.mjs",
+    "MATRIX.json",
+    "CONTROLS-CONTRACT.json",
+    "ORDERING-SOURCE-CASES.json"
+  ],
+  "rootDesignAdoption": {
+    "bytes": 2505,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LOSSLESS-TRACE-REPRESENTATION-DESIGN-ADOPTION.json",
+    "sha256": "bafc6e88970215b0ff90c476f5fb62f2019404847de9b218aee8d71db97a1d86"
+  },
+  "rootOnceGrantContract": {
+    "automaticRetry": false,
+    "clockEnforcedByOriginalRecordedRoute": true,
+    "configSha256": "dcd42621abc00468ddd73bf38ca5fccf6297909eea796ab5470c40a105050be8",
+    "executionAuthorization": true,
+    "fields": [
+      "parentAdapterSourcePins",
+      "parentAdapterSourceReview",
+      "sourcePins",
+      "sourceReview",
+      "config",
+      "recipe",
+      "bounds",
+      "outputPath",
+      "sourceAdoption",
+      "runtimeToolsObservation",
+      "runtimeTools",
+      "argvTemplate",
+      "cwd",
+      "environment",
+      "laneLog",
+      "implementationSourcePins",
+      "implementationSourceReview",
+      "controlsSourcePins",
+      "controlsSourceReview",
+      "rootDesignAdoption",
+      "implementationControlsSourceAdoption"
+    ],
+    "oneAggregateRun": true,
+    "runtimeTools": {
+      "helper": {
+        "bytes": 3361,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+        "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+      },
+      "node": {
+        "bytes": 115440320,
+        "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+      },
+      "python": {
+        "bytes": 50472,
+        "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+      },
+      "typescript": {
+        "bytes": 9112572,
+        "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/lib/typescript.js",
+        "sha256": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675"
+      },
+      "typescriptPackage": {
+        "bytes": 3620,
+        "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/package.json",
+        "sha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+      }
+    },
+    "schema": "1370-root-lossless-trace-pure-controls-once-grant/v1",
+    "scope": "PURE_PUBLIC_LOSSLESS_CODEC_AND_AFFECTED_ORDERING_CONTROLS_ONLY"
+  },
+  "rootSourceAdoptionContract": {
+    "executionAuthorization": false,
+    "fields": [
+      "sourcePins",
+      "sourceReview",
+      "parentAdapterSourcePins",
+      "parentAdapterSourceReview"
+    ],
+    "parentAndControlsReviewAreSameRole": true,
+    "parentAndControlsSourcePinsAreSameRole": true,
+    "schema": "1370-root-lossless-trace-pure-controls-source-adoption/v1",
+    "status": "ROOT_ADOPTED_PURE_LOSSLESS_TRACE_CONTROLS_SOURCE_ONLY"
+  },
+  "runtimeClockOwnedByOriginalRecorder": true,
+  "runtimeToolsObservation": {
+    "bytes": 1366,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LOSSLESS-CONTROLS-RUNTIME-TOOLS.json",
+    "sha256": "19327bf21bd5379586ffa98ad853ac3b6c91b22dd18eb2637c4137f74fae306a"
+  },
+  "schema": "1370-lossless-trace-pure-controls-recorded-route-recipe/v1",
+  "scope": "PURE_PUBLIC_LOSSLESS_CODEC_AND_AFFECTED_ORDERING_CONTROLS_ONLY",
+  "sourceReviewContract": {
+    "concreteFindings": [],
+    "decision": "ACCEPT_STATIC_LOSSLESS_TRACE_PURE_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY",
+    "executionAuthorization": false,
+    "routeSourcePins": "same exact aliases",
+    "schema": "1370-lossless-trace-pure-controls-recorded-route-independent-source-review/v1",
+    "sourceManifest": "exact retained SOURCE-PINS.json role",
+    "sourcePins": "exact filename-role map for reviewAliases"
+  },
+  "specificNegativeCount": 40
+}

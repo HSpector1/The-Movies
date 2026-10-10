@@ -1,0 +1,47 @@
+{
+  "actualOutcome": null,
+  "allPassStopProofNullAndOwnershipClausesUnchanged": true,
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_FINITE_R4_FULLFUNCTION_RETAINED_READBACK_ONLY",
+  "executionAuthorization": false,
+  "onlyFiveLiteralSubstitutions": [
+    [
+      "1370-an-m0-fullfunction-parent-recorded-20261010-r3",
+      "1370-an-m0-fullfunction-parent-recorded-20261010-r4"
+    ],
+    [
+      "1370-an-m0-fullfunction-qualification-source-20261010-r10",
+      "1370-an-m0-fullfunction-qualification-source-20261010-r11"
+    ],
+    [
+      "d687a7bc560e103ae5c359622991ecb773a88546f64e41918c8c297b0b3da811",
+      "8a6e67c7bea7c897e83f27f418d4743bfd1b9035ddd70147e9615e92658c81d6"
+    ],
+    [
+      "eb43fa973b7a9ded1a834a944b2351150236df1c5b7e566b8df904661f689f46",
+      "18b014711ab516c421e5ade49a6cea9757f34ba9aa85f896e126087be3349b36"
+    ],
+    [
+      "'canonical-typescript-transform.mjs'):",
+      "'canonical-typescript-transform.mjs','m0WiringProbe.ts','RESOLUTION-SOURCE-BINDING.json'):"
+    ]
+  ],
+  "previousRootReview": {
+    "bytes": 1982,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R3-READBACK-SOURCE-REVIEW.json",
+    "sha256": "de0c734d76902e2756b04cdeaa0a8f48afe38abf565ebefa4887b4a82f964053"
+  },
+  "reviewer": "root; source authored by b109_focused_route_review",
+  "schema": "1370-root-independent-fullfunction-retained-readback-source-review/v1",
+  "source": {
+    "bytes": 12447,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r4-root-readback-source-20261010-r1/read-fullfunction.py",
+    "sha256": "9fe1259e4efa335077c0766508206d293070e0731ad8103dbfeb4182adfef527"
+  },
+  "sourceManifest": {
+    "bytes": 2045,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r4-root-readback-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "66b77f4029f90c14f919a82a6633d1d9c76030a3af6b068b6b49e9ed8434e34b"
+  },
+  "wholeForwardAndInverseExact": true
+}

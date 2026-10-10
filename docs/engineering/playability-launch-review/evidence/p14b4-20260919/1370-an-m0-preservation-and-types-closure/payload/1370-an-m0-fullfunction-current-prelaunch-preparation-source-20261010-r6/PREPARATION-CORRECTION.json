@@ -1,0 +1,10 @@
+{
+  "executionAuthorization": false,
+  "finding": "The R5 documentation builder assigned new script paths at index4; script is index3 after executable,-I,-B. Runtime source was correct and unrun. R6 reconstructs argv from authenticated original, changes index3, preserves original review operand/index4 and null future reader operands, and validates complete argv lengths/suffix roles.",
+  "sourceManifest": {
+    "bytes": 3095,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r5/SOURCE-PINS.json",
+    "sha256": "00c4f12d92255a0d8eda2949cb77bd59a6e5e8b5dda04892ccd0bbf6091ca9d5"
+  },
+  "status": "UNRUN_ROOT_PREPARATION_STOP"
+}

@@ -1,0 +1,10 @@
+{
+  "allManifestRolesReadbackEqual": true,
+  "executionAuthorization": false,
+  "schema": "1370-source-only-route-seal/v1",
+  "sourceManifest": {
+    "bytes": 7022,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "8cab7a2f9f2b1460a1767e7fa3e3e6df5efbac0a6f0139e7de421f3cce0d8828"
+  }
+}

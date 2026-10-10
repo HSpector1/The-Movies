@@ -1,0 +1,115 @@
+{
+  "actualPriorOwnedIds": [
+    32502,
+    32757,
+    33019
+  ],
+  "actualRouteReadback": {
+    "bytes": 5919,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-recorded-20261009-r2/READBACK.json",
+    "sha256": "7d6f24c7bedaf8ff18441de661312f77d86e8e258ca0da95fbe2e7c8c29a7626"
+  },
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "postflight",
+    "postflight-m0-preservation-diagnostic-r2",
+    "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/SNAPSHOT.json",
+    "0136b4370cca27ab9af635c16124283049eb394b3dbaa63c32a755973e9c3596",
+    "32502,32757,33019"
+  ],
+  "automaticRetry": false,
+  "baseline": {
+    "bytes": 8833072,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/SNAPSHOT.json",
+    "sha256": "0136b4370cca27ab9af635c16124283049eb394b3dbaa63c32a755973e9c3596"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesPid": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": true,
+  "guardConfig": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/CONFIG.json",
+    "sha256": "e0c7a2b839eaa1e0940665711c8e9b57af4f09738290ca5d15d828f01200b42e"
+  },
+  "guardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py",
+    "sha256": "9e2618b58849ccf0bc36512b20de16c23e49b2f08cdc6982ca9fe2fc20143047"
+  },
+  "guardSourcePins": {
+    "bytes": 2286,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "e638252b8082aa756f56471552327706a17dcf0e2d6bd01628710624ce7ec435"
+  },
+  "guardSourceReview": {
+    "bytes": 7200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "8a8756307aeecff6e3d9f299a5d2db8014e81c9c7dd5ade42f1f53514ba8ad45"
+  },
+  "mode": "post-r6-preservation-diagnostic",
+  "noHelperOriginalLockAbsentRequired": true,
+  "outputDirectory": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-m0-preservation-diagnostic-r2",
+  "ownedScannerPgid": 37863,
+  "ownedScannerPid": 37863,
+  "ownedScannerSid": 37863,
+  "perCommandTimeoutSeconds": 180,
+  "priorOwnedIdentityPostChecks": [
+    {
+      "id": 32502,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 32502,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 32757,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 32757,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 33019,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 33019,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "proofOrTypesAccepted": false,
+  "protectedFreezeContinues": true,
+  "rawPsFdLocalOnly": true,
+  "rootLauncher": {
+    "bytes": 4639,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/run_m0_diagnostic_fullpostflight_once.py",
+    "sha256": "52b6cd52539e6498c19183d0633fc121aa8db413fa80a73f1b810fe5ecd51f67"
+  },
+  "schema": "1370-root-m0-direct-original-shared-full-postflight-grant/v1",
+  "scope": "Original shared nine-root/R9/dependency/full protected maps under current AM. Actual complete M0 source/dependency diagnostic stays a separately reviewed result. No root baseline adoption until actual independent observed admission.",
+  "startMonotonic": 111128.026356622,
+  "status": "GRANTED_ONCE_ORIGINAL_SHARED_FULL_POSTFLIGHT",
+  "stderrPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-preservation-diagnostic-fullpostflight-parent-recorded-20261009-r2/postflight.stderr",
+  "stdoutPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-preservation-diagnostic-fullpostflight-parent-recorded-20261009-r2/postflight.stdout",
+  "utc": "2026-10-10T04:03:07.477873+00:00",
+  "wholeScanDeadline": null
+}

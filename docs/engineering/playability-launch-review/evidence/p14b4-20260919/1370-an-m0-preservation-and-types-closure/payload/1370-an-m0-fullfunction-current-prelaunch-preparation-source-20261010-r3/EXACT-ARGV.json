@@ -1,0 +1,67 @@
+{
+  "actualOwnedGroupIds": null,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "expectedPriorReadback": {
+    "bytes": 6812,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r2/READBACK.json",
+    "sha256": "fcc8bebdacd7ea7730e5b861676c980b386c8ef6d1e97e453daf03895b2822d1"
+  },
+  "expectedPriorStopAdoptionPath": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R2-STOP-OBSERVED-ADOPTION.json",
+  "futureRootStopStatus": "ROOT_ADOPTED_FULLFUNCTION_GENERATED_TYPESCRIPT_PARSE_STOP_WITH_FULL_SHARED_POSTFLIGHT",
+  "latestCompletedSharedReadback": null,
+  "launcherArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r3/run_fullfunction_current_prelaunch_once.py",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-independent-observed-review-20261009-r3/RECEIPT.json",
+    "aa9b78e2591dfba86233b7c216a85f3eff89088444c2fd138d4c08bc37c8df87",
+    "d9e54a27bd9c43e26792997b45d3771dd831cbd875d2555e0773278d52b2c3b4",
+    "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83",
+    null,
+    null,
+    null,
+    null
+  ],
+  "launcherFutureArgs": [
+    "completed latest shared fullpost READBACK path",
+    "that exact raw READBACK SHA256",
+    "reviewed root protected STOP adoption path",
+    "that exact adoption SHA256"
+  ],
+  "originalExecutedArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-types-current-root-prelaunch-source-20261009-r1/original-current-root-prelaunch.py",
+    "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-R3-CURRENT-PRELAUNCH-CONFIG.json",
+    null
+  ],
+  "readerArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r3/read_fullfunction_current_prelaunch.py",
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "readerFutureArgs": [
+    "genuine completed actual prelaunch session ID",
+    "genuine recorded scanner PID/PGID/SID",
+    "same completed latest shared fullpost READBACK path",
+    "its exact SHA256",
+    "same reviewed root protected STOP adoption path",
+    "its exact SHA256"
+  ],
+  "schema": "1370-fullfunction-third-current-prelaunch-exact-argv/v1",
+  "scope": "Original source7015/review6f7e unchanged; original per-command180 and continuous-freeze full map reuse. Only config protectedSnapshot/ownedPgids/outputPath filled. Latest actual shared map/IDs are external future facts; TYPES0700 snapshot remains separate exact prerequisite. Root independently reviews source and grants actual invocation."
+}

@@ -1,0 +1,57 @@
+{
+  "claimLimits": [
+    "No candidate/codec/public-control/game import or execution by reviewer.",
+    "Recorded worker/compiler/tool/source/grant/result/cleanup remain genuine future inputs.",
+    "No compression-fit or original-expanded-total acceptance implied."
+  ],
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_PURE_LOSSLESS_TRACE_CONTROLS_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "priorReview": {
+    "bytes": 3272,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "74f050325b4e0a2221f7f3353fc182c46cbcfdf9413d9126dcc76a1a1555ca43"
+  },
+  "reviewScope": [
+    "Every fresh manifest payload exact size/hash verified.",
+    "Full R1-to-R2 library/contract/matrix diff inspected.",
+    "R1 snapshot GREEN removes its terminal closed-append operation; new independent specific RED requires STORE_CLOSED then repeat snapshot/saved-call/saved-call-iterator/saved-evaluation-iterator TRACE_OPERATIONAL.",
+    "Original other48 cases/predicates unchanged; new roster49=9GREEN40RED.",
+    "Four full-body nested-finally/reset sites remain an explicit source-review criterion, not an invented game execution claim.",
+    "Unknown/loader/tool/premise errors still escape expected RED checks; exact operational classes/codes and semantic labels preserved."
+  ],
+  "runtimePerformed": false,
+  "schema": "1370-lossless-trace-independent-controls-source-review/v1",
+  "sourceManifest": {
+    "bytes": 1578,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "45d34dbe026cc53c4cb102a77b39e3e5319240f327eb7f5bcb4f12cebf27c33f"
+  },
+  "sourcePins": {
+    "CONTRACT.json": {
+      "bytes": 5260,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "09fb4555708c5ccfe2ed79265789baeca5c6d350bbd1045a86d55deb9a5b1ce5"
+    },
+    "LESSONS.txt": {
+      "bytes": 636,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/LESSONS.txt",
+      "sha256": "3d30bf0b2f69f9103b405c6834c9473dfdc10e01af8ccaa33a23e97b9349d939"
+    },
+    "MATRIX.json": {
+      "bytes": 7851,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "7fe45df7b9e2702450bb1b538ac7e6ffbce5196d688eaac6f7d47a64d973638f"
+    },
+    "R1-CORRECTION.json": {
+      "bytes": 724,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/R1-CORRECTION.json",
+      "sha256": "77eab5cd9a715b5b2bc22443fe8c0df9e4ad466883da30f1ad7a85591920c5b3"
+    },
+    "run-lossless-controls.mjs": {
+      "bytes": 16090,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-independent-controls-source-20261010-r2/run-lossless-controls.mjs",
+      "sha256": "2333bedb5974313c3885ce679b6385ff6f995cd68e8e7107c0e0f45a2e5f9be8"
+    }
+  }
+}

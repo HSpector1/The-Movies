@@ -1,0 +1,15 @@
+--- BASE
++++ PROPOSED
+@@ -11,7 +11,11 @@
+   def descend(fd,prefix):
+    nonlocal total,deps_link
+    before=fields(os.fstat(fd));dirrel=prefix[:-1] if prefix else '.'
+-   need(dirrel in directories and normalized(os.fstat(fd))==tuple(directories[dirrel]),'admitted directory metadata '+dirrel)
++   if dirrel=='.':
++    need(fields(os.fstat(fd))==tuple(AUTHORITY['knownRootDrift']['recordedAfterIdentity']),'explicit recorded post-R6 root metadata')
++    need(tuple(directories['.'])==tuple(AUTHORITY['knownRootDrift']['historicalNormalizedIdentity']),'historical root metadata binding')
++   else:
++    need(dirrel in directories and normalized(os.fstat(fd))==tuple(directories[dirrel]),'admitted directory metadata '+dirrel)
+    seen_dirs.add(dirrel);metadata_rows[dirrel]=list(before)
+    for name in bounded_names(fd,state,CONFIG['entryCap'],run_id):
+     source_step(run_id)

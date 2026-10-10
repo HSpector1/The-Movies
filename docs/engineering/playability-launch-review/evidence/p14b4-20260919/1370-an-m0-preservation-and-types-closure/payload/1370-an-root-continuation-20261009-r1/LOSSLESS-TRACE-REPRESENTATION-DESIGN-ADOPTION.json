@@ -1,0 +1,48 @@
+{
+  "actualEncodedFit": null,
+  "allLogicalEventsAndExactPayloadsRequired": true,
+  "clocksUnchangedSeconds": [
+    300,
+    320,
+    330
+  ],
+  "completeFatalTraceRequirementUnchanged": true,
+  "design": {
+    "bytes": 8421,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-lossless-trace-representation-design-20261010-r3/DESIGN.txt",
+    "sha256": "95b3e3c86752583bd67a68975a6fa2ea615a64940d2529a0f323c2a60e1c8675"
+  },
+  "designReceipt": {
+    "bytes": 3257,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-lossless-trace-representation-design-20261010-r3/RECEIPT.json",
+    "sha256": "4bf0c136dabb47a4afd610ec72f416120f2ad07a7ee00ba4014c6d652c615b0d"
+  },
+  "executionAuthorization": false,
+  "fixedJsHeapByteGuarantee": null,
+  "helperExpandedRowBytesCap": 65536,
+  "helperLogicalEventCap": 16384,
+  "helperRetainedEncodedBytesCap": 2097152,
+  "implementationAuthorized": true,
+  "independentDesignReview": {
+    "bytes": 7086,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-lossless-trace-representation-independent-design-review-20261010-r3/RECEIPT.json",
+    "sha256": "4e2f0dcc8f53424e03929ea56d84e4bd0e22a8ab15ac5cb00a9d6923fd3536d2"
+  },
+  "independentSnapshotsAcrossBeginEndRequired": true,
+  "newAccounting": "16-byte dedicated header plus sum of dedicated frame lengths (9-byte row header + exact compressed bytes) <=2097152 per trace",
+  "next": "One scratch implementation writer implements exact codec/probe and bounded consumer migration; independent RED matrix and source review; recorded public codec/affected-consumer controls before a newly reviewed real fullfunction route. Reuse unchanged original18/32 outcomes only for byte-exact helpers; rerun affected original ordering predicates on changed consumer implementation as regression, without relabeling old evidence. No game mutation, M0/private scan or runtime granted here.",
+  "observerCapsUnchanged": {
+    "rowBytes": 16384,
+    "rows": 512,
+    "totalBytes": 2097152
+  },
+  "oldAccounting": "sum of expanded JSON+newline bytes <=2097152",
+  "oldExpandedTotalPredicatePreserved": false,
+  "originalFailuresRemainFailures": true,
+  "productionGameplayChangesAuthorized": false,
+  "runtimeReady": false,
+  "schema": "1370-root-lossless-helper-trace-representation-amendment/v1",
+  "status": "ROOT_ADOPTED_EXACT_LOSSLESS_COMPRESSED_TRACE_DESIGN_FOR_IMPLEMENTATION_ONLY",
+  "stickyOperationalFailureRequired": true,
+  "twoDecodedRowTraversalRequired": true
+}

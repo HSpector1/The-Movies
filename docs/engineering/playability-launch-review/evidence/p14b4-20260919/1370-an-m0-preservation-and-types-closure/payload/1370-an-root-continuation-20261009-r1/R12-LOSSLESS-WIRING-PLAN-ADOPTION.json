@@ -1,0 +1,20 @@
+{
+  "actualFit": null,
+  "actualPureControlsAdoption": null,
+  "baselineAccepted": false,
+  "executionAuthorization": false,
+  "independentSourceReview": {
+    "bytes": 6046,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r12-lossless-wiring-plan-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "e3d329beaf14ba63e26a1e5a78f949af998a0933c71d69fa23cc0a7ffe9b5e1e"
+  },
+  "mutantAccepted": false,
+  "schema": "1370-root-fullfunction-lossless-wiring-plan-adoption/v1",
+  "scope": "Exact R11 derivative and fixed genuine representation source aliases, future R5 runtime selectors. Preserve original proof, source/dependency guards and clocks. Seal runtime authority only with genuine observed pure49 adoption. Pure49 exercises codec/probe/pair/order and18 original source cases; fullbodytemplate is only source-reviewed/authenticated until real qualification.",
+  "sourcePlan": {
+    "bytes": 6301,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r12-lossless-wiring-plan-source-20261010-r1/PLAN.json",
+    "sha256": "b08eae014f4b6b7b27ac21a3040f833ce68d401a84a60cf8e46b6461a05f6dcc"
+  },
+  "status": "ROOT_ADOPTED_R12_LOSSLESS_WIRING_PLAN_FOR_SOURCE_PREPARATION_ONLY"
+}

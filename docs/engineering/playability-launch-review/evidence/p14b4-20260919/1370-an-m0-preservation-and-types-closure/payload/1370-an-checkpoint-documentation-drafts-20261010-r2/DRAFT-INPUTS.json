@@ -1,0 +1,33 @@
+{
+  "actualFullfunctionStopRootReadback": {
+    "bytes": 6478,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "2292a2f92aac3d837885b5686720416bdaf4fff123f2610c3ce3dd81ac73c30d"
+  },
+  "draftOnly": true,
+  "executionAuthorization": false,
+  "parentR2IndependentSourceReview": {
+    "bytes": 3972,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "785b2a13d304e24a21b39f2de075bffb75ccb43cb086b677a32e4bca10ee3c93"
+  },
+  "parserControlsObservedAdoption": {
+    "bytes": 1983,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/PARSER-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "2684b2b4a2c0e90b1d9fec5ee079ede8eb945eb3378ff88619f3cd04b943735d"
+  },
+  "pending": [
+    "Mandatory actual fullpost89456/scanner61080 completion and independent review",
+    "Corrected R8 route independent source review",
+    "Fresh current-prelaunch and corrected once-only grant/run",
+    "Real fixture/catch-mutant/neutrality acceptance",
+    "Final root lesson version and publication"
+  ],
+  "priorDraftManifest": {
+    "bytes": 1000,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r1/SOURCE-PINS.json",
+    "sha256": "0433e634d695ca2e10930d4468464e43626d05c5122e14f15af4537b31a5406c"
+  },
+  "schema": "1370-an-documentation-draft-inputs/v2",
+  "scope": "Scratch documentation only; no repo, Git, private content or AUTO edits. Actual STOP readback is root-retained evidence; no independent protected STOP admission is claimed before postflight."
+}

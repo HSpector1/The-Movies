@@ -1,0 +1,76 @@
+{
+  "allRetainedFullForwardAndInverseApplicationsExact": true,
+  "candidateOrCompilerExecutedByAuthor": false,
+  "clock": "Separate parent preparation60 canceled before directexec; original Node300/active320/whole330 recorder aggregate retained; no combined parent deadline.",
+  "compilerAddition": "Genuine TypeScript5.9.3 physical library/package roles from root19327; worker rehashes before import and after controls. No author compiler import or execution. ES2022 admitted transpile options and explicit pure local dependency whitelist.",
+  "executionAuthorization": false,
+  "matrix": "Final exact49 rows,9GREEN40specificRED, source-pinned after closed sticky repair; whole producer rows compared exactly, never generic exit success.",
+  "outputSelectors": {
+    "OUTPUTSVerification": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorder-results-20261010-r1",
+    "configRecorderOutput": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorder-results-20261010-r1",
+    "parentOutputsFreshAndDistinct": true,
+    "workerOutput": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-results-20261010-r1"
+  },
+  "parentTenHelperSourcesByteEqual": true,
+  "parserControlsSourceReviewHistorical": {
+    "bytes": 11984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "fa786064f3951863c6642760b288d3d2fe0c0c5e2263dc12bfc0d5a314c16836"
+  },
+  "predecessorSourceManifest": {
+    "bytes": 4561,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "640d300aadc66b4f7bc225f91841b5fd235945d446c056214d8b4cda27b4313a"
+  },
+  "privateM0ReadOrWritten": false,
+  "recorderSixteenHelpersAndOwnedChildSourcesByteEqual": true,
+  "schema": "1370-lossless-trace-pure-controls-recorded-route-source-proof/v1",
+  "wholeSourceDiffPairs": [
+    {
+      "baseline": {
+        "bytes": 10637,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/BASE-launch-parser-controls.py.txt",
+        "sha256": "e55ac0f04dcbd66626165897dceff0607ada7336e293bf7cd4724d74d5e94197"
+      },
+      "derivative": {
+        "bytes": 11510,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/launch-lossless-controls.py",
+        "sha256": "3ea515ac04ae75c617daaef7d865811b3c00f841a3a6d297821c6f10b2c1c697"
+      },
+      "file": "launch-lossless-controls.py",
+      "forward": {
+        "bytes": 12417,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/launch-lossless-controls.py.forward.diff",
+        "sha256": "e66f46106bb16617571d13c4d92dddd93dd3de51e056b55ca654c248d49f8634"
+      },
+      "inverse": {
+        "bytes": 12417,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/launch-lossless-controls.py.inverse.diff",
+        "sha256": "943c2914a0cd5683c9ddf578eef0d230c49c297314054ebde1bc5565523fbf52"
+      }
+    },
+    {
+      "baseline": {
+        "bytes": 15872,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/BASE-record-parser-controls.py.txt",
+        "sha256": "d7d3b9c901cc3ea4c13817e03e78a312815465770f7f5450e07d8f4bdeabc1e8"
+      },
+      "derivative": {
+        "bytes": 17454,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/record-lossless-controls.py",
+        "sha256": "92c593f8e130dafbdf57373be956014c68d3ba3b0b1b58929a5f965b86049337"
+      },
+      "file": "record-lossless-controls.py",
+      "forward": {
+        "bytes": 10219,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/record-lossless-controls.py.forward.diff",
+        "sha256": "994b1e695300dd6531119aa0e37b042b2fe2c2848b753ba5d76a9567d8e42d09"
+      },
+      "inverse": {
+        "bytes": 10219,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/record-lossless-controls.py.inverse.diff",
+        "sha256": "027e21b694b342b62ade34101599ed1e690ceee56d6e7b53abf1659cc7c24f2a"
+      }
+    }
+  ]
+}

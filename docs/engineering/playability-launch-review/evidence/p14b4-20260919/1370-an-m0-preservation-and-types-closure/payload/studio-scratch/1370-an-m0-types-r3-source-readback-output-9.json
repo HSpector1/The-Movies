@@ -1,0 +1,22 @@
+{
+  "candidateImported": false,
+  "privateInventory": false,
+  "roles": {
+    "CURRENT-TYPES-PROTECTION-UNFILLED.json": {
+      "bytes": 1185,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/CURRENT-TYPES-PROTECTION-UNFILLED.json",
+      "sha256": "14cc3fad42abb314cf593ee1caebb4e88b3b8f752b326aca116a73b379339ad9"
+    },
+    "PROFILES.json": {
+      "bytes": 6780,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/PROFILES.json",
+      "sha256": "2a2ee5c622894529b54bc24edd6b72002f3c7703a47215ee983a6450b0d0eab9"
+    },
+    "TYPES-SPEC-UNFILLED.json": {
+      "bytes": 243,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/TYPES-SPEC-UNFILLED.json",
+      "sha256": "9ae8c89184a1f6f066698208ac9592de7334b1dfb50103b180e6c1d087b20c54"
+    }
+  },
+  "schema": "1370-finite-retained-source-bytes-readback/v1"
+}

@@ -1,0 +1,106 @@
+{
+  "automaticRetry": false,
+  "cleanupResult": {
+    "afterFreeBytes": 5496209408,
+    "afterFreeBytesBeforeReopen": 5496213504,
+    "authorization": "Prior explicit user approvals for Google app cache, Chrome Service Worker CacheStorage, npm download cache, including briefly close/reopen Chrome. No new scope. Chrome normal quit separately completed0 after observed PID96707.",
+    "beforeFreeBytes": 5230362624,
+    "chromeMainAbsent": true,
+    "error": "[Errno 13] Permission denied: '/Users/zacheryspector/.npm/_cacache/content-v2/sha512/78/bb'",
+    "errorType": "PermissionError",
+    "projectEvidenceTouched": false,
+    "reopenChrome": {
+      "argv": [
+        "/usr/bin/open",
+        "-a",
+        "Google Chrome"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": ""
+    },
+    "roots": [
+      {
+        "allocatedBytesAfter": 0,
+        "allocatedBytesBefore": 192450560,
+        "childEntries": 1,
+        "completed": true,
+        "noOpenFiles": true,
+        "path": "/Users/zacheryspector/Library/Caches/Google",
+        "rootRetained": true
+      },
+      {
+        "allocatedBytesAfter": 0,
+        "allocatedBytesBefore": 69423104,
+        "childEntries": 8,
+        "completed": true,
+        "noOpenFiles": true,
+        "path": "/Users/zacheryspector/Library/Application Support/Google/Chrome/Default/Service Worker/CacheStorage",
+        "rootRetained": true
+      },
+      {
+        "allocatedBytesBefore": 65024000,
+        "childEntries": 3,
+        "completed": false,
+        "noOpenFiles": true,
+        "path": "/Users/zacheryspector/.npm/_cacache",
+        "rootRetained": true
+      }
+    ],
+    "schema": "1370-previously-authorized-cache-cleanup/v1",
+    "status": "STOP_CACHE_CLEANUP",
+    "utc": "2026-10-10T06:42:41.771424+00:00"
+  },
+  "executionAuthorization": false,
+  "failedPostScannerNotInsertedIntoSuccessfulScannerRoster": true,
+  "failedPostWasNotFullMapAccepted": true,
+  "noExclusiveCausalityClaim": true,
+  "original7509RemainsFailure": true,
+  "partialPermissionStopPreserved": true,
+  "requiredFreeBytes": 3758096384,
+  "roles": {
+    "cleanupResult": {
+      "bytes": 1646,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-approved-browser-npm-cache-cleanup-20261010-r1/RESULT.json",
+      "sha256": "9d481eaa9640ccd9bdacfd28d98d0ff5449077d220fe47a6140bc422ec66e707"
+    },
+    "failedPostActualTool": {
+      "bytes": 1682,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4/ACTUAL-TOOL.json",
+      "sha256": "11b986e4e5e22c1ee2bf1185c9966d1d6dde6a2d99b88fb35a8c18a7844aed3e"
+    },
+    "failedPostGrant": {
+      "bytes": 5235,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4/GRANT.json",
+      "sha256": "a397d1e42a7ae8537e1e30cb9dcea7aca77109f9cdcb532767c038031666c84c"
+    },
+    "failedPostRootObservation": {
+      "bytes": 2387,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R4-SHARED-POST-DISK-STOP-OBSERVED-ADOPTION.json",
+      "sha256": "317c5e580df7599c83c390b1269e1d2a64f34788b1622d89941c7b077a763307"
+    },
+    "failedScannerAfterRecovery": {
+      "bytes": 855,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FAILED-POST-SCANNER-AFTER-RECOVERY.json",
+      "sha256": "a8c1ccc4522fe64dfdab4e6b96ac243fd164a410d97a557028067e7c7c71676e"
+    },
+    "independentFailedPostAudit": {
+      "bytes": 6722,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-disk-floor-stop-independent-observed-audit-20261010-r1/RECEIPT.json",
+      "sha256": "4b333b4836a3f52474afc2ee3dd5eb01c1aebb12fd369cf0c75292b684140517"
+    }
+  },
+  "rootReserveObservationFreeBytes": 5499637760,
+  "separateFailedScanner35222ChecksBeforeAndAfterRecovery": [
+    {
+      "id": 35222,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 35222,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ]
+}

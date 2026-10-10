@@ -1,0 +1,58 @@
+{
+  "allHelpersUnchanged": true,
+  "baseManifest": {
+    "bytes": 3284,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "91b581a7658c2875186cbbc57e1245d0fd7a83a9aa025b84900bbc64b73e1cbc"
+  },
+  "executionAuthorization": false,
+  "scope": "Fresh R4 current prelaunch; exact independently/root admitted prior R3 generation-plus-overflow STOP status, original current scanner and three null configuration fills unchanged. No new inventory or type/control replay.",
+  "sourceChanges": {
+    "launcher": [
+      {
+        "after": "1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r4",
+        "before": "1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r3",
+        "occurrences": 1
+      },
+      {
+        "after": "1370-an-m0-fullfunction-current-prelaunch-output-20261010-r4",
+        "before": "1370-an-m0-fullfunction-current-prelaunch-output-20261010-r3",
+        "occurrences": 1
+      },
+      {
+        "after": "M0-FULLFUNCTION-R4-CURRENT-",
+        "before": "M0-FULLFUNCTION-R3-CURRENT-",
+        "occurrences": 1
+      },
+      {
+        "after": "ROOT_ADOPTED_FULLFUNCTION_BASELINE_TRACE_OVERFLOW_STOP_WITH_REAL_GENERATION_AND_FULL_SHARED_POSTFLIGHT",
+        "before": "ROOT_ADOPTED_FULLFUNCTION_GENERATED_TYPESCRIPT_PARSE_STOP_WITH_FULL_SHARED_POSTFLIGHT",
+        "occurrences": 1
+      }
+    ],
+    "reader": [
+      {
+        "after": "1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r4",
+        "before": "1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r3",
+        "occurrences": 1
+      },
+      {
+        "after": "1370-an-m0-fullfunction-current-prelaunch-output-20261010-r4",
+        "before": "1370-an-m0-fullfunction-current-prelaunch-output-20261010-r3",
+        "occurrences": 1
+      },
+      {
+        "after": "M0-FULLFUNCTION-R4-CURRENT-",
+        "before": "M0-FULLFUNCTION-R3-CURRENT-",
+        "occurrences": 1
+      },
+      {
+        "after": "ROOT_ADOPTED_FULLFUNCTION_BASELINE_TRACE_OVERFLOW_STOP_WITH_REAL_GENERATION_AND_FULL_SHARED_POSTFLIGHT",
+        "before": "ROOT_ADOPTED_FULLFUNCTION_GENERATED_TYPESCRIPT_PARSE_STOP_WITH_FULL_SHARED_POSTFLIGHT",
+        "occurrences": 1
+      }
+    ]
+  },
+  "sourceOnly": true,
+  "wholeInversesExact": true
+}

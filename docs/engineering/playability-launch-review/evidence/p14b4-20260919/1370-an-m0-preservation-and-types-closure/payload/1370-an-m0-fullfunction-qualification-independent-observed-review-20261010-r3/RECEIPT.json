@@ -1,0 +1,497 @@
+{
+  "actualGenerationPhaseSucceeded": true,
+  "actualTool": {
+    "bytes": 1278,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r3/ACTUAL-TOOL.json",
+    "sha256": "08804de14f583aaed573e6916823f735dc15e919cd0fd5b1177bcd223c89e6da"
+  },
+  "baselineAccepted": false,
+  "baselineBinding": {
+    "bytes": 3166,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/baseline.binding.json",
+    "sha256": "0ddbfcc7ab3f6327cac7880f3998e61b8ebc7bb0870f72004af62b2c1b301780"
+  },
+  "baselineReport": {
+    "bytes": 2363,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/baseline.report.json",
+    "sha256": "ec5dae63dafdef6c1897054b9f571ed36cc02c031774118701758c6b1d8ffadc"
+  },
+  "claimLimit": "Accepts only authenticated partial natural generation, the baseline bounded helper-probe overflow STOP, complete BEFORE/current proof boundary, owned cleanup and completed original shared preservation postflight. Original attempt remains STOP; no complete baseline, meaningful catch-mutant RED, fullfixture/game/neutrality/performance/full1363/P17/P18 or source promotion acceptance. No new execution authority.",
+  "concreteFindings": [],
+  "controllerBinding": {
+    "bytes": 3651,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/CONTROLLER-BINDING.json",
+    "sha256": "508e2db43cfbbfec43d4856597a56fd9521e81756db4b1cc14e76bd8afca04b7"
+  },
+  "controllerResult": {
+    "bytes": 2222,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/RESULT.json",
+    "sha256": "f33b71b2619296bf125a5a55ce3eb91a8726991b4375f61c23162d75492d7be7"
+  },
+  "currentProtection": {
+    "bytes": 2803,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-R3-CURRENT-PROTECTION.json",
+    "sha256": "6cea28fac4144d1cee0a97481184b322ab76c86ef5956b79aab11a704cd00881"
+  },
+  "currentTypesAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  },
+  "decision": "ACCEPT_OBSERVED_FULLFUNCTION_BASELINE_TRACE_OVERFLOW_STOP_WITH_REAL_GENERATION_AND_FULL_SHARED_POSTFLIGHT",
+  "executionAuthorization": false,
+  "finalPostflightEvidenceAudit": {
+    "bytes": 10232,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-observed-review-20261010-r3/FINAL-POST-EVIDENCE-AUDIT.json",
+    "sha256": "2bcf54c9560b1fdf6d0200486c2ac89152c12026d429138eea4cf826b4589d2a"
+  },
+  "findings": [],
+  "firstProof": {
+    "bytes": 1981,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/FIRST-PROOF.json",
+    "sha256": "66174e130ca649f8af65a366472a5b92f09d88b980f3a87985fbeca44ce5b655"
+  },
+  "fixture": {
+    "bytes": 12428510,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/fixtures.json",
+    "sha256": "0ae4a9a261600c23b1bfd05eb860d65ef0f6769c9918670eb97bf7120b74ec62"
+  },
+  "fixtureQualificationAccepted": false,
+  "fullFunctionQualificationAccepted": false,
+  "fullPostflightReadback": {
+    "bytes": 5188,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r3/READBACK.json",
+    "sha256": "ecd96dcdd8056b646f2df1c2a89da7d5aaf956b099a813cdc88c821aa8b6df10"
+  },
+  "fullPostflightReaderActualTool": {
+    "bytes": 1105,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r3/READER-ACTUAL-TOOL.json",
+    "sha256": "3a26e47170496dbb93989761a2f9c43ce403cf3c8b280c9f1567474a28dd9a0b"
+  },
+  "fullPostflightSnapshot": {
+    "bytes": 8860529,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r3/SNAPSHOT.json",
+    "sha256": "f240937b656180b175253bf025fe13243b4591e5d05b895de1152956d44283d9"
+  },
+  "fullSharedPostflightAccepted": true,
+  "generatedNaturalBoundaryWeeks": [
+    196,
+    197,
+    208
+  ],
+  "generationBinding": {
+    "bytes": 2958,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/generate.binding.json",
+    "sha256": "c5b5c0c05abf09199d04242223af35c244a17481a547205f0d489011f5ebc6c9"
+  },
+  "generationControl": {
+    "bytes": 292,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/generate.control.json",
+    "sha256": "8c47b50a4e10b183449458c28b53ad3f61bb3b2084fdb55aebac42f36eb926f0"
+  },
+  "generationReceipt": {
+    "bytes": 2780,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/fixtures.receipt.json",
+    "sha256": "629b953951a43747192861d9d96cb185899ac54301a8b9fad784465f598fa05a"
+  },
+  "generationReport": {
+    "bytes": 945,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/generate.report.json",
+    "sha256": "94e528734a484cdc9aff36d5949e8314b0a3b51a7d572cd98c0cab109ba38548"
+  },
+  "generationScope": {
+    "actualNaturalReturnedWeeksUsedAsBoundaries": false,
+    "actualNaturalSourcePhase": "tick.before.advanceTalentMarketWeek",
+    "artifactFitClaim": "This measured packet is below the original64MiB cap; no universal fit guarantee.",
+    "durationMilliseconds": 4665.353005999999,
+    "explicitSyntheticRoles": [
+      "opportunity196:same-week-real-market-replay-and-real-reservation",
+      "opportunity208:real-proposal-revision-and-real-project-attachment",
+      "offSubject:real-non-target-open-case-trigger-parameter",
+      "offIssuer196:player-ID-business-parameter-if-no-fourth-rival"
+    ],
+    "failedTests": 0,
+    "fixtureBytes": 12428510,
+    "fullStateOccurrences": 10,
+    "packetIdentitySameForGenerateAndAttemptedBaseline": true,
+    "packetNaturalAndFixtureCopiesTypeExact": true,
+    "passedTests": 1,
+    "qualification": "Authenticated passing generation, admitted generation source and retained packet establish actual natural prefix generation despite the final controller summary being null. Generated packet and explicit synthetic variants remain unqualified for full baseline/neutrality/game acceptance."
+  },
+  "grant": {
+    "bytes": 4109,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r3/EXECUTION-GRANT.json",
+    "sha256": "48375e855cc5d5f344061a2fa12e5916b2d338cb1c0638cd97520adc34c42d02"
+  },
+  "independence": {
+    "actualExecutor": "/root",
+    "candidateNotAuthoredOrExecutedByReviewer": true,
+    "method": "Finite named retained scratch artifact byte/hash authentication and lossless typed comparisons; no imports, runtime replay, private traversal, inventory or new process probes.",
+    "reviewer": "/root/b109_focused_route_review",
+    "sourceAuthor": "/root/m0_types_source_review"
+  },
+  "initialTerminalEvidenceAudit": {
+    "bytes": 20254,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-observed-review-20261010-r3/INITIAL-TERMINAL-EVIDENCE-AUDIT.json",
+    "sha256": "be40cee06802e052b80ef470e56358a3572fb2d66e52d4c87a94e5f8e4a09f2e"
+  },
+  "lessons": [
+    "A terminal null prefix summary does not erase an independently authenticated completed generation phase; preserve both scopes.",
+    "Fatal trace overflow is incomplete evidence, never helper/RNG parity or a meaningful catch-mutant RED. Retain first refusal predicates/counts before considering any lossless representation; no cap increase or sampling is authorized.",
+    "The helper probe16384/64KiB/2MiB limits are separate from the user observer512/16KiB/2MiB limits.",
+    "Complete BEFORE proof and completed shared protection scan do not manufacture absent M0 after proofs.",
+    "Preserve nested baseline failure and helper-only warning separately from empty recorder producer stderr."
+  ],
+  "meaningfulCatchMutantRedAccepted": false,
+  "observedAttempt": {
+    "actualController": {
+      "pgid": 35700,
+      "pid": 35700
+    },
+    "actualGameplayPrefixExecuted": null,
+    "actualHelper": {
+      "pgid": 35444,
+      "pid": 35444,
+      "sid": 35444
+    },
+    "actualNodeExit": 1,
+    "actualNodePid": 35829,
+    "actualRecorder": {
+      "pgid": 35699,
+      "pid": 35699,
+      "sid": 35699
+    },
+    "beforeProofsExactAcrossFirstProofControllerBindingResultAndReadback": true,
+    "collectionAcceptedByThisAttempt": false,
+    "combinedPreparationRuntimeDeadline": null,
+    "comparisonLosslessAndTypeStrict": true,
+    "controllerSeconds": 52.46932593999372,
+    "controllerStatus": "STOP_NODE_EXIT",
+    "dependencyAfter": null,
+    "dependencyBeforeComplete": true,
+    "dependencyBeforeExactCurrentTypes": true,
+    "freshRecordedScopedAbsences": [
+      {
+        "id": 35444,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 35699,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 35700,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 35829,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 35444,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 35699,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 35700,
+        "kind": "pgid",
+        "result": "ESRCH"
+      }
+    ],
+    "helperExit": 2,
+    "laneReleased": true,
+    "naturalBoundaryWeeks": null,
+    "neutralityAccepted": false,
+    "nineSourceProofFieldsRetained": true,
+    "nodeResult": null,
+    "recorderExit": 2,
+    "recorderSeconds": 53.149371539999265,
+    "recorderStatus": "STOP_CHILD_EXIT_1",
+    "requestedNaturalBoundaryWeeks": [
+      196,
+      197,
+      208
+    ],
+    "runnerExit": 1,
+    "runtimeBoundsSeconds": {
+      "activeRecorder": 320,
+      "aggregateChild": 300,
+      "wholeRecorder": 330
+    },
+    "separatePreparationDeadlineSecondsPerStage": 60,
+    "sessionId": 40169,
+    "sourceAfter": null,
+    "sourceBeforeComplete": true,
+    "sourceBeforeExactCurrentTypes": true,
+    "timedOut": false,
+    "toolExit": 2,
+    "typesAcceptedByThisAttempt": false
+  },
+  "originalAttemptRemainsStop": true,
+  "originalR1AndR2StopPreserved": true,
+  "originalR6StopPreserved": true,
+  "parserControlsAdoption": {
+    "bytes": 1983,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/PARSER-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "2684b2b4a2c0e90b1d9fec5ee079ede8eb945eb3378ff88619f3cd04b943735d"
+  },
+  "preflightObservedAdoption": {
+    "bytes": 5362,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-R3-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "62589852a029304d0747bfb2fc3114e5c351acbd672175f59b3ed5a1b9a916c8"
+  },
+  "readback": {
+    "bytes": 6808,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r3/READBACK.json",
+    "sha256": "62802d2fff9906c2d8e90d7559b627af66f1d413d9d320b6c7b3a3a2da927e5a"
+  },
+  "retainedCore": {
+    "bytes": 3955,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/runtime/core.test.ts",
+    "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+  },
+  "retainedFullBodyControls": {
+    "bytes": 9487,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/runtime/controls/full-body-controls.ts",
+    "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+  },
+  "schema": "1370-fullfunction-baseline-trace-overflow-stop-independent-observed-review/v1",
+  "sharedPostflight": {
+    "actualTool": {
+      "bytes": 1370,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r3/ACTUAL-TOOL.json",
+      "sha256": "935af57f3a3c39b4edd57fec3475ddcedaa92743cd71c5404e7d049a7c9b9055"
+    },
+    "baseline": {
+      "bytes": 8833072,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/before-fill-current-am-r1/SNAPSHOT.json",
+      "sha256": "0136b4370cca27ab9af635c16124283049eb394b3dbaa63c32a755973e9c3596"
+    },
+    "completeImmutableLosslessTypedEqual": true,
+    "currentFactsBeforeAfterAccepted": true,
+    "duringSnapshotStrictRootsEqual": true,
+    "freshRecordedScopedAbsences": [
+      {
+        "id": 35444,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 35699,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 35700,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 35829,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 37856,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 35444,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 35699,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 35700,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 37856,
+        "kind": "pgid",
+        "result": "ESRCH"
+      }
+    ],
+    "grant": {
+      "bytes": 5235,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r3/GRANT.json",
+      "sha256": "cb91d08492c7b1d5c0a159495cfe9a33d1598f30e644cb92704bc67656e76360"
+    },
+    "guardConfig": {
+      "bytes": 3928,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/CONFIG.json",
+      "sha256": "e0c7a2b839eaa1e0940665711c8e9b57af4f09738290ca5d15d828f01200b42e"
+    },
+    "guardSeconds": 496.50447477599664,
+    "guardSource": {
+      "bytes": 21984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py",
+      "sha256": "9e2618b58849ccf0bc36512b20de16c23e49b2f08cdc6982ca9fe2fc20143047"
+    },
+    "guardSourceReview": {
+      "bytes": 7200,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "8a8756307aeecff6e3d9f299a5d2db8014e81c9c7dd5ade42f1f53514ba8ad45"
+    },
+    "independentAdditionalInventory": false,
+    "inventorySeconds": 393.70356167299906,
+    "laneReleased": true,
+    "missingM0AfterProofSuppliedBySharedScan": false,
+    "nineStrictRootsLosslessTypedEqual": true,
+    "originalPerCommandTimeoutSeconds": 180,
+    "originalQualifiedFullSharedScannerUsed": true,
+    "rawLocalOnlyFourPsFdRoleHashesAuthenticated": true,
+    "rawPsFdDisposition": "LOCAL_HASH_SIZE_ONLY; raw contents excluded.",
+    "recordedOwnedGroups": [
+      35444,
+      35699,
+      35700,
+      37856
+    ],
+    "recordedOwnedPids": [
+      35444,
+      35699,
+      35700,
+      35829,
+      37856
+    ],
+    "scratchIdentityOnlyEqual": true,
+    "sessionId": 71517,
+    "snapshotPins": {
+      "bytes": 507,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r3/PINS.json",
+      "sha256": "8eb3df80118e49bf629c440814668cbf03f5ba551d504eae5cb8e72a69ca3093"
+    },
+    "status": "GUARDS_ACCEPTED_READONLY",
+    "stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r3/postflight.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 469,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r3/postflight.stdout",
+      "sha256": "960055ae4228a27f71c902d434886affd21795c8bde777f324ca1d5947b562b3"
+    },
+    "terminalToolExit": 0,
+    "wholeScanDeadline": null
+  },
+  "soleLaneReleased": true,
+  "sourceManifest": {
+    "bytes": 39330,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/SOURCE-PINS.json",
+    "sha256": "eb43fa973b7a9ded1a834a944b2351150236df1c5b7e566b8df904661f689f46"
+  },
+  "sourceReview": {
+    "bytes": 19125,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r10/RECEIPT.json",
+    "sha256": "6b9c7256a3fafac6f1f3413f764aa82de5160c5e2ee557a2320f05a567cc3fcd"
+  },
+  "specificStopEvidence": {
+    "actual": "true !== false",
+    "assertion": "complete bounded helper/RNG trace, never dropped evidence",
+    "catchMutantAttempted": false,
+    "causeQualification": "Source sets the sticky helper-probe overflow flag only when at least one of its original three bounds refuses the next row. The first baseline off(author196) arm failed the fatal completeness assertion. The failed threshold combination and counts were not captured; no cap choice, waiver or truncated-trace parity is admitted.",
+    "controllerNullSummaryPreserved": true,
+    "failedTests": 1,
+    "failureIsNotMeaningfulMutantRed": true,
+    "firstArm": "off(author196)",
+    "location": "full-body-controls.ts arm line29, pair line44, controls line67",
+    "nestedNodeError": "STOP_PHASE_EXIT_baseline",
+    "noMissingAfterProofInvented": true,
+    "passedTests": 0,
+    "phase": "baseline",
+    "sourceBoundedRefusalPredicates": {
+      "probeAggregateBytes": 2097152,
+      "probeEntries": 16384,
+      "probeRowBytes": 65536
+    },
+    "totalTests": 1,
+    "userObserverSeparateLimits": {
+      "aggregateBytes": 2097152,
+      "rowBytes": 16384,
+      "rows": 512
+    },
+    "whichThresholdOrCountsCaptured": false
+  },
+  "streams": {
+    "allStreamsQuiet": false,
+    "baselineStderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/baseline.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "baselineStdout": {
+      "bytes": 139,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/baseline.stdout",
+      "sha256": "3344fee9ccd0084c15f46f9cb91ac25b1b99e217c5ebcd1ec9aadf7196f9d02a"
+    },
+    "combinedHelperLog": {
+      "bytes": 688,
+      "path": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-20261010-r3.lane.log",
+      "sha256": "84f5c748d6929175efdd7e37cc4537231436e6e8aad42dbdf2aceb978fc95aba"
+    },
+    "controllerFinallyWarningObserved": false,
+    "generationStderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/generate.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "generationStdout": {
+      "bytes": 139,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/generate.stdout",
+      "sha256": "3410b357c458ef86871da486166d75469f903ac15997d354f45294990dbf82d8"
+    },
+    "laneMetadata": {
+      "bytes": 510,
+      "path": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-20261010-r3.lane.log.meta",
+      "sha256": "edfb90be4d731b1672a02af52bb8567c57ac34f46464d64ded78eef04257d8e9"
+    },
+    "nestedNodeStderr": {
+      "bytes": 687,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/stderr.bin",
+      "sha256": "2f1c4583d7427b6e8d0228dd131ad75721eb578ff6c94bedf3b11c6fc3fcfdfd"
+    },
+    "nestedNodeStdout": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/stdout.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "qualifiedRecorderWarning": {
+      "location": "main() outer finally, line249",
+      "preserved": true,
+      "scope": "Combined helper log only",
+      "source": {
+        "bytes": 16750,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/record-fullfunction.py",
+        "sha256": "bb0df9a8daff798d67eeb28509c2fba121d7293114d6caef49e7daad147a2374"
+      }
+    },
+    "recorderStderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261010-r3/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "recorderStderrEmpty": true,
+    "recorderStdout": {
+      "bytes": 252,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261010-r3/stdout.bin",
+      "sha256": "32440f878683f3dad903f6f74836d7c98b411ea4350d62b17fb5afb9f3a13d82"
+    },
+    "recorderStdoutSingleSummaryStatus": "STOP_NODE_EXIT"
+  }
+}

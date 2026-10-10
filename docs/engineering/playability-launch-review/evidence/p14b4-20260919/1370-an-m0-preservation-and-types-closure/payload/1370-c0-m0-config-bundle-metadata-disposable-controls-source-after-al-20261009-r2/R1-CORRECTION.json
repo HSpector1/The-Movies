@@ -1,0 +1,78 @@
+{
+  "schema": "1370-disposable-controls-r2-correction/v1",
+  "decision": "SOURCE_ONLY_REPAIR_TWO_R1_FINDINGS",
+  "preservedR1SourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "bytes": 9806,
+    "sha256": "21de8c9e65a08a46ba946ea881ac0e6973b4ac83549db70f5ca333a4ba996ed2"
+  },
+  "preservedR1Seal": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r1/SEAL.json",
+    "bytes": 1156,
+    "sha256": "84c6da87f29799aa04a74497a705c4f288089210b5c4d5cf96fd0b92cb2f9385"
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "finding": "R1 falsely claimed qualified parent90 bound. Actual original focused wrapper/root parent use direct exec and no outer timer.",
+      "repair": "Remove wholeParentLaunchSeconds90 and parent90 inherited adapter wording/gap. Only recorder owns aggregate60/active75/whole90. Optional prep60 separately canceled before exec; no outer watchdog.",
+      "qualifiedActualSource": [
+        {
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/launch-focused-controls.py",
+          "bytes": 6244,
+          "sha256": "fa5621d99981397b0c3d669056ea2c375a4dad55de798b5a26ef07cf997539b1"
+        },
+        {
+          "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_b109_controls_once.py",
+          "bytes": 3199,
+          "sha256": "4f1bb0d52c5dc4bf04e0aea6c6e313016be1fda00d9fe52653b59ba087c75c51"
+        }
+      ]
+    },
+    {
+      "id": "F2",
+      "finding": "R1 child environment repurposed HOME, prohibited by developer instruction.",
+      "repair": "Remove HOME override and unused external/home creation. Preserve original HOME; keep TMPDIR/TMP/TEMP/XDG_CACHE_HOME and explicit Vite cacheDir/cachefalse/--no-cache."
+    }
+  ],
+  "controllerChanges": [
+    {
+      "before": "XDG_CACHE_HOME:path.join(external,'cache'),HOME:path.join(external,'home'),CI:'1'",
+      "after": "XDG_CACHE_HOME:path.join(external,'cache'),CI:'1'"
+    },
+    {
+      "before": "path.join(external,'tmp'),path.join(external,'home')])",
+      "after": "path.join(external,'tmp')])"
+    }
+  ],
+  "controllerWholeR1InverseByteExact": true,
+  "controllerInverse": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/INVERSE-R1-CONTROLLER.mjs",
+    "bytes": 12385,
+    "sha256": "5f3a387de558ef35ee1c69dbb46e941474c2113f08dcfaf6c66c2e9925abee80"
+  },
+  "configChanges": "Only fresh local source role paths/controller SHA and fresh disposable artifact path; original config can be reconstructed by restoring R1 local paths and controller role.",
+  "recorderChanges": "Only CONFIG_SHA and fresh owned OUTPUTS binding differ from R1; entire original qualified recorder remains reconstructible by seven documented replacements.",
+  "consumerChanges": "Only CONFIG_SHA differs from R1.",
+  "otherDeltas": "Recipe corrects F1 plus unavoidable local path/config-role hashes; source proof/pins and reports bind honest R2. Fixture package/test/workspace templates and original-qualified inverse unchanged.",
+  "fixtureHomeSourceScope": "Registered test and generated root/workspace/project configs contain no HOME/home access or filesystem writes. Controller preserves inherited HOME. Explicit cacheDir/cachefalse/--no-cache and TMPDIR/TMP/TEMP/XDG_CACHE_HOME handle this fixture's declared write destinations. No whole installed dependency home-write guarantee is claimed.",
+  "recipeForwardCorrection": {
+    "removed": {
+      "wholeParentLaunchSeconds": 90
+    },
+    "added": {
+      "parentLaunchClock": null,
+      "preparationAlarmIfUsed": {
+        "seconds": 60,
+        "canceledBeforeExec": true,
+        "includedInRecorderClock": false
+      }
+    },
+    "newContract": "The authenticated original focused wrapper and root launcher use direct exec and have no outer runtime timer. Recorder alone owns aggregate controller60/active75/whole90, starting its whole90 before recorder authentication. Those clocks do not include earlier Git/source/parent preflight or helper lane waits. A separate preparation alarm60 may bound prep only and must be canceled before exec. No outer watchdog is added or inherited.",
+    "newGap": "Actual concrete root parent binding is omitted/held; root must adapt the original direct-exec own-group wrapper contract with genuine external grant/current identity. Original parents do not supply an outer90 clock."
+  },
+  "originalM0CauseAdmission": false,
+  "originalM0SourcePreservationAdmission": false,
+  "executionAuthorization": false,
+  "runtimeExecuted": false
+}

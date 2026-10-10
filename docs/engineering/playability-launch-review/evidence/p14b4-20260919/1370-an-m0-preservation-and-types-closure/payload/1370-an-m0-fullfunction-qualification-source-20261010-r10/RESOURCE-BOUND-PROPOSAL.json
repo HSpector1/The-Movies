@@ -1,0 +1,38 @@
+{
+  "actualRootAdoption": null,
+  "aggregateTreeIncludes": "Packet, phase streams/reports/bindings, writable runtime configs and cache/temp at each phase boundary. Controller streams are added after worker: up to16MiB; outer recorder streams up to16MiB. Thus conservative total288MiB, not272MiB.",
+  "encoding": "UTF-8 JSON.stringify packet plus envelope",
+  "executionAuthorization": false,
+  "fullStateSerializationOccurrences": 10,
+  "ledger": {
+    "aggregatePotentialRetainedOutputBytes": 301989888,
+    "originalLiveDiskFloorBytes": 3221225472,
+    "originalPreflightBytes": 3758096384,
+    "outerRecorderStreamsMaximumBytes": 16777216,
+    "packetMaximumBytes": 67108864,
+    "remainingAtMinimumPreflightAfterOutputBudgetBytes": 3456106496,
+    "runtimeOutputTreeMaximumBytes": 268435456,
+    "sixPhaseStreamsMaximumBytes": 50331648,
+    "threePhaseReportsMaximumBytes": 3145728,
+    "twoNodeControllerStreamsMaximumBytes": 16777216
+  },
+  "measuredFullstateBytes": null,
+  "notPredictionOfFit": true,
+  "observerBoundsUnchanged": {
+    "rowBytes": 16384,
+    "totalBytes": 2097152
+  },
+  "overflowDisposition": "STOP, no time/disk/output waiver or partial fixture acceptance",
+  "packetCount": 1,
+  "proposedRootFixtureBoundBytes": 67108864,
+  "requiredGenuineRootInput": {
+    "bytes": 67108864,
+    "fullStateSerializationsInPacket": 10,
+    "operationalStopBoundNotFitPrediction": true,
+    "schema": "1370-root-full-state-fixture-artifact-bound/v1",
+    "serializedPacketFiles": 1,
+    "status": "ROOT_AUTHORIZED_FULL_STATE_FIXTURE_ARTIFACT_BYTE_BOUND"
+  },
+  "schema": "1370-fullfunction-resource-bound-proposal/v1",
+  "treeBoundaryVersusLiveFloor": "Output tree byte/entry bound is audited at each phase boundary; unrelated or transient growth remains subject to original live3GiB disk-floor guards, which can STOP before the tree audit."
+}

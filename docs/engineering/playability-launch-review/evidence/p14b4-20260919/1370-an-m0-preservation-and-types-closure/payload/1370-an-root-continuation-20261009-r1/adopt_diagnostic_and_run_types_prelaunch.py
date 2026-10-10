@@ -1,0 +1,41 @@
+import datetime,hashlib,json,os,stat,sys,time
+from pathlib import Path
+S=Path('/Users/zacheryspector/studio-scratch');A=Path(__file__).parent;D=S/'1370-an-m0-post-r6-preservation-diagnostic-parent-recorded-20261009-r2';F=S/'1370-an-m0-preservation-diagnostic-fullpostflight-parent-recorded-20261009-r2';Q=S/'1370-an-m0-types-current-root-prelaunch-source-20261009-r1';P=S/'1370-an-m0-types-current-prelaunch-parent-recorded-20261009-r1'
+def role(p):
+ p=Path(p);st=p.lstat();assert p.is_absolute() and p.resolve(strict=True)==p and stat.S_ISREG(st.st_mode) and st.st_nlink==1
+ b=p.read_bytes();return {'path':str(p),'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}
+def check(p,h):
+ r=role(p);assert r['sha256']==h;return r,json.loads(Path(p).read_bytes())
+def put(p,v):
+ with p.open('x') as f:json.dump(v,f,sort_keys=True,indent=2);f.write('\n');f.flush();os.fsync(f.fileno())
+ p.chmod(0o444);return role(p)
+assert sys.flags.isolated and sys.dont_write_bytecode and not sys.flags.optimize and len(sys.argv)==5
+rr,review=check(sys.argv[1],sys.argv[2]);pr,preReview=check(sys.argv[3],sys.argv[4])
+assert review['decision']=='ACCEPT_OBSERVED_POST_R6_M0_PRESERVATION_DIAGNOSTIC_KNOWN_ROOT_DRIFT_WITH_FULL_POSTFLIGHT' and review['concreteFindings']==[] and review['executionAuthorization'] is False
+dr,diag=check(D/'READBACK.json','7d6f24c7bedaf8ff18441de661312f77d86e8e258ca0da95fbe2e7c8c29a7626');fr,post=check(F/'READBACK.json','93236d6b55f391765eed41fd2d8f9af541f00493ee43e7b24a531ffddda1a7f4')
+assert diag['toolExit']==diag['helperExit']==diag['recorderExit']==diag['runnerExit']==post['toolExit']==0 and diag['laneReleased'] is True and post['laneReleased'] is True and post['fullImmutableEqual'] is True
+for obj in (diag,post):
+ for r in obj.values():
+  if type(r) is dict and set(r)=={'path','bytes','sha256'}:assert role(r['path'])==r
+assert review['actualResult']==diag['sourceDependencyResult'] and review['fullPostflightSnapshot']==post['fullPostflightSnapshot'] and review['freshSourceProof']==diag['freshSourceProof'] and review['freshDependencyProof']==diag['freshDependencyProof'] and review['knownRootDrift']==diag['knownRootDrift']
+assert preReview['decision']=='ACCEPT_STATIC_CURRENT_AM_ORIGINAL_M0_PRELAUNCH_SOURCE_ONLY' and preReview['concreteFindings']==[] and preReview['executionAuthorization'] is False
+sp,pins=check(Q/'SOURCE-PINS.json','7015e2de01cb9964fcc6e362338461e9d8c3e5d6ab81bd618f67d04b4e51c455')
+for r in pins['files'].values():assert role(r['path'])==r
+for name in ('original-current-root-prelaunch.py','PRELAUNCH-CONFIG-UNFILLED.json'):assert preReview['sourcePins'][name]==preReview['routeSourcePins'][name]==pins['files'][name]
+config=json.loads((Q/'PRELAUNCH-CONFIG-UNFILLED.json').read_bytes());assert config['protectedSnapshot'] is None and config['ownedPgids'] is None and config['outputPath'] is None
+config['protectedSnapshot']=post['fullPostflightSnapshot'];config['ownedPgids']=post['actualOwnedIds'];config['outputPath']=str(S/'1370-an-m0-types-current-prelaunch-output-20261009-r1')
+for name in ('baseline','copyAdmission','guardConfig','guardSource','materializerBinding','materializerSource','originalPrelaunchSource','originalReusePlan','protectedSnapshot'):assert role(config[name]['path'])==config[name]
+assert not os.path.lexists(P) and not os.path.lexists(config['outputPath']) and not os.path.lexists(S/'HEAVY-LANE-LOCK')
+ad={'schema':'1370-root-post-r6-m0-current-root-diagnostic-adoption/v1','status':'ROOT_ADOPTED_POST_R6_M0_PRESERVATION_DIAGNOSTIC_KNOWN_ROOT_DRIFT','diagnosticObservedReview':rr,'actualResult':diag['sourceDependencyResult'],'actualReadback':dr,'fullPostflightReadback':fr,'fullPostflightSnapshot':post['fullPostflightSnapshot'],'freshSourceProof':diag['freshSourceProof'],'freshDependencyProof':diag['freshDependencyProof'],'knownRootDrift':diag['knownRootDrift'],'productionHead':'7087f116cf998fd86e33fb8e004df628e0686dbd','productionSourceTree':'13880d9b0ba72aff5d4c5bcf5d12fe682c5de554','currentRootBaselineQualified':True,'historicalRootUnchanged':False,'originalR6StopPreserved':True,'typesAccepted':False,'collectionAccepted':False,'game':False,'executionAuthorization':False,'fullProtectedPostflightAccepted':True,'soleLaneReleased':True,'protectedFreezeContinues':True,'scope':'Observed full current M0 content, exact historical nonroot metadata, dependencies and recorded post-R6 root tuple only, with original full shared postflight. The historical root metadata failure and all absent R6 after-proofs remain historical failures; no compiler, collection or game acceptance.'}
+ar=put(A/'M0-POST-R6-PRESERVATION-DIAGNOSTIC-OBSERVED-ADOPTION.json',ad)
+prot={'schema':'1370-root-current-m0-types-protection/v1','m0TypesProtectionAccepted':True,'productionHead':ad['productionHead'],'productionSourceTree':ad['productionSourceTree'],'mirrorPath':'/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2','physicalFactsSha256':'e9f4829c501cc90475b9067c8ae32580fe5fca14fc40950ee083031f89081ba2','completeM0AdoptionSha256':'4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad','freshSourceProof':ad['freshSourceProof'],'freshDependencyProof':ad['freshDependencyProof'],'fullPostflightSnapshot':ad['fullPostflightSnapshot'],'fullProtectedPostflightAccepted':True,'soleLaneReleased':True,'independentObservedReview':rr,'observedProofAdoption':ar,'postR6RootAdoptionSha256':ar['sha256'],'additionalRefs':{},'typesOrGameOutcomeAdmitted':False,'executionAuthorization':False,'historicalRootUnchanged':False,'originalR6StopPreserved':True,'scope':'Current source/dependency protection authority for separately reviewed and granted fresh external-config type/collection execution. Genuine diagnostic qualifies exact recorded new root tuple. No type/collection outcome is yet admitted.'}
+protr=put(A/'M0-CURRENT-EXTERNAL-CONFIG-TYPES-PROTECTION.json',prot)
+sad=put(A/'M0-TYPES-CURRENT-PRELAUNCH-SOURCE-ADOPTION.json',{'schema':'1370-an-root-types-current-prelaunch-source-adoption/v1','status':'ROOT_ADOPTED_CURRENT_AM_ORIGINAL_PRELAUNCH_SOURCE_ONLY','sourcePins':sp,'sourceReview':pr,'postR6RootAdoption':ar,'currentProtection':protr,'originalFreshChecksPreserved':True,'fullInventoryReusedUnderContinuousFreeze':True,'executionAuthorization':False})
+cr=put(A/'M0-TYPES-CURRENT-PRELAUNCH-CONFIG.json',config)
+PY='/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14';assert role(PY)['sha256']=='7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835'
+if os.getpgrp()!=os.getpid():os.setsid()
+assert os.getpid()==os.getpgrp()==os.getsid(0)
+P.mkdir(mode=0o700);out=P/'prelaunch.stdout';err=P/'prelaunch.stderr';argv=[PY,'-I','-B',str(Q/'original-current-root-prelaunch.py'),cr['path'],cr['sha256']]
+grant={'schema':'1370-root-direct-m0-original-prelaunch-observation-grant/v1','status':'GRANTED_ONCE_ORIGINAL_CURRENT_ROOT_PREFLIGHT','executionAuthorization':True,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'startMonotonic':time.monotonic(),'mode':'types','sourceReview':pr,'sourcePins':sp,'sourceAdoption':sad,'rootLauncher':role(__file__),'config':cr,'argv':argv,'cwd':'/Users/zacheryspector/The-Movies-headless-program','ownedPid':os.getpid(),'ownedPgid':os.getpgrp(),'ownedSid':os.getsid(0),'directExecPreservesPid':True,'perCommandTimeoutSeconds':180,'originalFullObservationsReusedUnderContinuousFreeze':True,'actualFullInventoryRun':False,'noHelperOriginalLockAbsentRequired':True,'rawPsFdLocalOnly':True,'ownedPgidsPassedToOriginalCurrent':config['ownedPgids'],'ownedGroupAbsenceClaimInPreflight':True,'protectedFreezeContinues':True,'proofOrTypesAccepted':False,'game':False,'automaticRetry':False,'postR6RootAdoption':ar,'currentProtection':protr}
+gr=put(P/'GRANT.json',grant);print(json.dumps({'grant':gr,'postR6RootAdoption':ar,'currentProtection':protr,'ownPid':os.getpid(),'ownPgid':os.getpgrp()}),flush=True)
+fo=os.open(out,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600);fe=os.open(err,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600);os.dup2(fo,1);os.dup2(fe,2);os.close(fo);os.close(fe);os.chdir(grant['cwd']);os.execve(argv[0],argv,dict(os.environ,PYTHONDONTWRITEBYTECODE='1',GIT_OPTIONAL_LOCKS='0'))

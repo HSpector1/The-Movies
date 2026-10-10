@@ -1,0 +1,66 @@
+// Future runtime only. Authoring and source review never execute this module.
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import {spawn} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
+const HERE=path.dirname(fileURLToPath(import.meta.url));
+const CONFIG_SHA='57d89af4d211ea206e042399fafe03bda8a310a1098dd06c80294cb1ff69e4ab';
+const need=(v,m)=>{if(!v)throw Error('STOP_'+m)};
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const canonical=v=>Array.isArray(v)?v.map(canonical):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canonical(v[k])])):v;
+const equal=(a,b)=>JSON.stringify(canonical(a))===JSON.stringify(canonical(b));
+const identity=s=>[s.dev,s.ino,s.mode,s.nlink,s.size,s.mtimeNs,s.ctimeNs].map(String).join(':');
+function readRole(r,cap=128*1024*1024){
+ need(r&&Object.keys(r).sort().join(',')==='bytes,path,sha256'&&typeof r.path==='string'&&Number.isSafeInteger(r.bytes)&&r.bytes>=0&&r.bytes<=cap&&/^[a-f0-9]{64}$/.test(r.sha256),'ROLE_SCHEMA');
+ need(path.isAbsolute(r.path)&&fs.realpathSync(r.path)===r.path,'PHYSICAL_ROLE');
+ const before=fs.lstatSync(r.path,{bigint:true});need(before.isFile()&&before.nlink===1n&&before.size===BigInt(r.bytes),'REGULAR_ROLE');
+ const fd=fs.openSync(r.path,fs.constants.O_RDONLY|fs.constants.O_NOFOLLOW);
+ try{need(identity(fs.fstatSync(fd,{bigint:true}))===identity(before),'ROLE_OPEN_RACE');const b=fs.readFileSync(fd);need(b.length===r.bytes&&sha(b)===r.sha256,'ROLE_HASH');need(identity(fs.fstatSync(fd,{bigint:true}))===identity(before)&&identity(fs.lstatSync(r.path,{bigint:true}))===identity(before),'ROLE_READ_RACE');return b}finally{fs.closeSync(fd)}
+}
+const role=(p,cap)=>{const b=fs.readFileSync(p);need(b.length<=cap,'ARTIFACT_CAP');const r={path:p,bytes:b.length,sha256:sha(b)};readRole(r,cap);return r};
+const json=(r,cap=1024*1024)=>JSON.parse(readRole(r,cap).toString('utf8'));
+const write=(p,b,cap)=>{need(b.length<=cap,'OUTPUT_CAP');const fd=fs.openSync(p,fs.constants.O_WRONLY|fs.constants.O_CREAT|fs.constants.O_EXCL|fs.constants.O_NOFOLLOW,0o600);try{fs.writeFileSync(fd,b);fs.fsyncSync(fd)}finally{fs.closeSync(fd)};return role(p,cap)};
+const writeJson=(p,v,cap=131072)=>write(p,Buffer.from(JSON.stringify(v)+'\n'),cap);
+need(process.argv.length===4,'BINDING_ARGS');
+const bindingRole=role(process.argv[2],131072);need(bindingRole.sha256===process.argv[3],'BINDING_HASH');const binding=json(bindingRole);
+const configRole=role(path.join(HERE,'CONFIG.json'),131072);need(configRole.sha256===CONFIG_SHA,'CONFIG_HASH');const c=json(configRole);
+need(binding.schema==='1370-fullfunction-controller-binding/v1'&&binding.genuineTypesAdoptionAuthenticated===true&&binding.artifactBoundAuthenticated===true&&binding.sourceReviewAuthenticated===true,'GENUINE_PREREQUISITES');
+need(binding.operationalHead===c.operationalHead&&binding.productionSourceTree===c.productionSourceTree&&binding.outputPath===c.outputPath,'BINDING_SCOPE');
+need(Number.isFinite(binding.remainingSeconds)&&binding.remainingSeconds>0&&binding.remainingSeconds<=300,'ONE_AGGREGATE_REMAINDER');
+need(process.version==='v22.23.2'&&fs.realpathSync(process.execPath)===binding.runtimeTools.node.path,'NODE_PROCESS');readRole(binding.runtimeTools.node);readRole(binding.runtimeTools.vitestEntry,131072);
+const start=performance.now(),deadline=start+binding.remainingSeconds*1000;
+const remaining=()=>{const n=deadline-performance.now();need(n>0,'ONE_AGGREGATE_300');return n};
+for(const r of Object.values(c.inputs))readRole(r);
+for(const r of Object.values(c.templates))readRole(r,131072);
+readRole(c.acceptedR3SourcePins,131072);readRole(c.acceptedR3IndependentReview,131072);readRole(c.acceptedR3RootAdoption,131072);
+const out=c.outputPath,runtime=path.join(out,'runtime');need(fs.realpathSync(out)===out&&!fs.existsSync(runtime),'FRESH_RUNTIME');fs.mkdirSync(runtime,{mode:0o700});fs.mkdirSync(path.join(runtime,'controls'),{mode:0o700});
+for(const [dest,r] of Object.entries({'fixtures.ts':c.inputs['fixtures.ts'],'ordering.ts':c.inputs['ordering.ts'],'RESOLUTION-SOURCE-BINDING.json':c.inputs['RESOLUTION-SOURCE-BINDING.json'],'controls/full-body-controls.ts':c.templates['FULL-BODY-CONTROLS-TEMPLATE.ts'],'core.test.ts':c.templates['CORE-TEST-TEMPLATE.ts'],'config.mts':c.templates['CONFIG-TEMPLATE.mts']}))write(path.join(runtime,dest),readRole(r),r.bytes);
+const resolution=json(c.inputs['RESOLUTION-SOURCE-BINDING.json'],131072);need(path.isAbsolute(resolution.dependencyRoot),'DEPENDENCY_ROOT');fs.symlinkSync(resolution.dependencyRoot,path.join(runtime,'node_modules'),'dir');
+for(const n of ['cache','tmp'])fs.mkdirSync(path.join(out,n),{mode:0o700});
+function outputBound(){
+ let bytes=0,count=0;const visit=p=>{remaining();const st=fs.lstatSync(p);count++;need(count<=c.bounds.outputTreeEntryCap,'OUTPUT_ENTRY_CAP');if(st.isSymbolicLink()){need(p===path.join(runtime,'node_modules')&&fs.readlinkSync(p)===resolution.dependencyRoot,'OUTPUT_LINK');return}if(st.isDirectory()){for(const n of fs.readdirSync(p))visit(path.join(p,n));return}need(st.isFile()&&st.nlink===1,'OUTPUT_REGULAR');bytes+=st.size;need(bytes<=c.bounds.aggregateOutputTreeBytes,'OUTPUT_AGGREGATE_CAP')};visit(out);return {bytes,entries:count};
+}
+async function phase(name,phaseName,arm,fixtureRole=null){
+ remaining();const reportPath=path.join(out,name+'.report.json'),controlResult=path.join(out,name+'.control.json');
+ const pb={schema:'1370-fullfunction-phase-binding/v1',operationalHead:c.operationalHead,productionSourceTree:c.productionSourceTree,genuineTypesAdoptionAuthenticated:true,sourceRoles:c.inputs,fixtureArtifactBytes:c.bounds.fixturePacketBytes,fixtureOutput:path.join(out,'fixtures.json'),fixtureReceipt:path.join(out,'fixtures.receipt.json'),fixtureRole,controlResult};
+ const pr=writeJson(path.join(out,name+'.binding.json'),pb);const argv=[binding.runtimeTools.vitestEntry.path,'run','core.test.ts','--config',path.join(runtime,'config.mts'),'--reporter=json','--outputFile',reportPath,'--no-cache'];
+ const env={...process.env,M0_WIRING_ROUTE:pr.path,M0_WIRING_PHASE:phaseName,M0_WIRING_ARM:arm,M0_WIRING_TEST_TIMEOUT_MS:String(Math.max(1,Math.floor(remaining()))),M0_WIRING_CACHE:path.join(out,'cache'),TMPDIR:path.join(out,'tmp')};
+ const streams={};for(const n of ['stdout','stderr'])streams[n]={fd:fs.openSync(path.join(out,name+'.'+n),fs.constants.O_WRONLY|fs.constants.O_CREAT|fs.constants.O_EXCL|fs.constants.O_NOFOLLOW,0o600),bytes:0};
+ const child=spawn(binding.runtimeTools.node.path,argv,{cwd:runtime,env,stdio:['ignore','pipe','pipe'],detached:false});need(Number.isSafeInteger(child.pid)&&child.pid>1,'PHASE_CHILD_ID');
+ let failure=null,closeCode=null,closeSignal=null;const timer=setTimeout(()=>{failure=Error('STOP_ONE_AGGREGATE_300');child.kill('SIGKILL')},Math.max(1,Math.floor(remaining())));
+ for(const n of ['stdout','stderr'])child[n].on('data',b=>{try{streams[n].bytes+=b.length;need(streams[n].bytes<=c.bounds.streamBytes,'PHASE_'+n.toUpperCase()+'_CAP');remaining();fs.writeSync(streams[n].fd,b)}catch(e){failure??=e;child.kill('SIGKILL')}});
+ try{await new Promise((resolve,reject)=>{child.once('error',reject);child.once('close',(code,signal)=>{closeCode=code;closeSignal=signal;resolve()})})}finally{clearTimeout(timer);for(const v of Object.values(streams)){fs.fsyncSync(v.fd);fs.closeSync(v.fd)}}
+ if(failure)throw failure;need(closeCode===0&&closeSignal===null,'PHASE_EXIT_'+name);remaining();const reportRole=role(reportPath,c.bounds.vitestReportBytes),report=json(reportRole,c.bounds.vitestReportBytes);
+ need(report.success===true&&report.numTotalTests===1&&report.numPassedTests===1&&report.numFailedTests===0,'PHASE_TEST_REPORT');const assertions=report.testResults.flatMap(r=>r.assertionResults);need(assertions.length===1&&assertions[0].status==='passed'&&assertions[0].title==='recorded M0 whole-body fixture generation or controls','EXACT_TEST_IDENTITY');
+ const cr=role(controlResult,c.bounds.resultBytes),result=json(cr,c.bounds.resultBytes);const tree=outputBound();return {name,argv,cwd:runtime,childPid:child.pid,childExit:closeCode,report:reportRole,controlResult:cr,result,streams:Object.fromEntries(Object.keys(streams).map(n=>[n,role(path.join(out,name+'.'+n),c.bounds.streamBytes)])),outputTree:tree};
+}
+const phases=[];
+phases.push(await phase('generate','fixture-generation','baseline'));
+need(phases[0].result.status==='REAL_BOUNDARY_AND_EXPLICIT_VARIANTS_GENERATED_UNADMITTED','GENERATION_STATUS');const fixture=role(path.join(out,'fixtures.json'),c.bounds.fixturePacketBytes);need(equal(phases[0].result.fixture,fixture),'GENERATION_ARTIFACT');
+const receiptRole=role(path.join(out,'fixtures.receipt.json'),c.bounds.resultBytes),receipt=json(receiptRole,c.bounds.resultBytes);need(receipt.schema==='1370-fullfunction-real-boundary-generation/v1'&&receipt.sourcePhase==='tick.before.advanceTalentMarketWeek'&&equal(receipt.naturalWeeks,[196,197,208])&&equal(receipt.artifact,fixture)&&receipt.outcome==='GENERATED_UNADMITTED'&&receipt.actualNaturalReturnedWeeksUsedAsBoundaries===false&&receipt.syntheticOutcomeClaims===false,'REAL_BOUNDARY_RECEIPT');
+phases.push(await phase('baseline','controls','baseline',fixture));need(phases[1].result.status==='BASELINE_FULL_FUNCTION_CONTROLS_PASSED'&&equal(phases[1].result.fixture,fixture),'BASELINE_PREREQUISITE');
+phases.push(await phase('typed-catch-mutant','controls','typed-catch-mutant',fixture));const mutant=phases[2].result;
+need(mutant.status==='EXPECTED_REAL_TYPED_CATCH_PROPAGATION_ASSERTION_RED'&&mutant.faultKind==='row-cap'&&equal(mutant.fixture,fixture)&&mutant.loaderOrOtherErrorAccepted===false&&mutant.earlierNonfaultFullFunctionChecksPassedByExactSequentialSource===true&&mutant.error.code==='ERR_ASSERTION'&&mutant.error.operator==='throws'&&mutant.error.message==='Missing expected exception: actual recorder failure must cross actual submitProposal catch'&&mutant.error.actualUndefined===true,'SPECIFIC_REAL_MUTANT_RED');
+readRole(fixture,c.bounds.fixturePacketBytes);const final={schema:'1370-fullfunction-node-result/v1',status:'PASS_REAL_FULL_FUNCTION_FIXTURES_BASELINE_SPECIFIC_TYPED_CATCH_RED',fixture,fixtureReceipt:receiptRole,phases,oneAggregateSeconds:(performance.now()-start)/1000,outputTree:outputBound(),actualGameplayPrefixExecuted:true,naturalBoundaryWeeks:[196,197,208],syntheticVariantsExplicit:true,neutralityAccepted:false,sourceOnlyAuthority:false,executionAuthorization:false};
+const finalRole=writeJson(path.join(out,'NODE-RESULT.json'),final,c.bounds.resultBytes);process.stdout.write(JSON.stringify({result:finalRole,status:final.status})+'\n');

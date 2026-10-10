@@ -1,0 +1,47 @@
+{
+  "activeEditorStopped": false,
+  "diskFreeAfter": 4268802048,
+  "diskFreeBefore": 2791911424,
+  "evidenceTouched": false,
+  "freeByteIncrease": 1476890624,
+  "gameFilesTouched": false,
+  "grant": {
+    "bytes": 1939,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-approved-vscode-cache-cleanup-20261009-r1/GRANT.json",
+    "sha256": "ef9ec4d3979b1de8767c4376e2040a436c112f4278c31c0719b7693adfed906b"
+  },
+  "openFileChecks": [
+    {
+      "argv": [
+        "/usr/sbin/lsof",
+        "-nP",
+        "+D",
+        "/Users/zacheryspector/Library/Caches/com.microsoft.VSCode.ShipIt/update.eWV5hFm"
+      ],
+      "exit": 1,
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "argv": [
+        "/usr/sbin/lsof",
+        "-nP",
+        "+D",
+        "/Users/zacheryspector/Library/Application Support/Code/CachedExtensionVSIXs"
+      ],
+      "exit": 1,
+      "stderr": "",
+      "stdout": ""
+    }
+  ],
+  "removedPaths": [
+    "/Users/zacheryspector/Library/Caches/com.microsoft.VSCode.ShipIt/update.eWV5hFm",
+    "/Users/zacheryspector/Library/Application Support/Code/CachedExtensionVSIXs/openai.chatgpt-26.1007.21434-darwin-x64",
+    "/Users/zacheryspector/Library/Application Support/Code/CachedExtensionVSIXs/openai.codex-audio-26.1007.21434",
+    "/Users/zacheryspector/Library/Application Support/Code/CachedExtensionVSIXs/anthropic.claude-code-2.1.295-darwin-x64",
+    "/Users/zacheryspector/Library/Application Support/Code/CachedExtensionVSIXs/.trash"
+  ],
+  "schema": "1370-root-approved-cache-cleanup-result/v1",
+  "status": "APPROVED_TWO_VSCODE_CACHE_SCOPES_CLEARED",
+  "updaterEsrch": true
+}

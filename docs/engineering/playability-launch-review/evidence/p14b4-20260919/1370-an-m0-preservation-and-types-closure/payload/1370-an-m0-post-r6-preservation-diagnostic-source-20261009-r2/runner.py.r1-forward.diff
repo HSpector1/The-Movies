@@ -1,0 +1,25 @@
+--- r1-BASE-runner.py
++++ runner.py
+@@ -3,10 +3,10 @@
+ import argparse, hashlib, json, math, os, pathlib, re, selectors, shutil, signal, stat, subprocess, sys, time, traceback
+ S=pathlib.Path('/Users/zacheryspector/studio-scratch')
+ REPO=pathlib.Path('/Users/zacheryspector/The-Movies-headless-program')
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r1')
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2')
+ CONFIG_PATH=P/'CONFIG.json'
+-CONFIG_SHA='114d5cabe8e201193e57a8667ec9d419712fb439e6ee7e98adb6a197e833d30c'
+-OUT_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-results-20261009-r1')
++CONFIG_SHA='c40c0a34d07532d4690552318958029ec736d32283dcec59b0b33191bf82bc4c'
++OUT_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-results-20261009-r2')
+ MIRROR_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2')
+ CURRENT_HEAD='7087f116cf998fd86e33fb8e004df628e0686dbd'
+ TREE='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554'
+@@ -458,7 +458,7 @@
+   try:
+    env={k:v for k,v in os.environ.items() if not k.startswith('GIT_')}
+    env.update({'PATH':str(pathlib.Path(NODE).parent)+':/usr/local/bin:/usr/bin:/bin',
+-               'HOME':str(out),'TMPDIR':str(out),'VITEST_CACHE_DIR':str(out/'vitest-cache')})
++               'TMPDIR':str(out),'VITEST_CACHE_DIR':str(out/'vitest-cache')})
+    if extra_env:
+     need(name=='diagnostic-collection' and set(extra_env)=={'PREIMAGE_OUTPUT'} and
+          extra_env['PREIMAGE_OUTPUT']==str(out/'preimage-output'),'unsafe child env override')

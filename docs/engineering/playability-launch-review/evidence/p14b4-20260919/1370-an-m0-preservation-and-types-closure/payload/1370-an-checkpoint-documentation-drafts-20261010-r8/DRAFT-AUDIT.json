@@ -1,0 +1,101 @@
+{
+  "appendedBytes": 4822,
+  "builderFailureEvidenceScope": "Authenticated root correction record; no separately supplied raw 0552 tool envelope is invented.",
+  "candidateRuntimeExecutedByAuthor": false,
+  "draft": {
+    "bytes": 48015,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r8/LESSONS-r17-PROPOSED.md",
+    "sha256": "de514f44b783ba457e30b69279efd04e5d440d6bd94aa8df61707590fb6703cc"
+  },
+  "exactR16PrefixPreserved": true,
+  "fullQualificationAcceptedByDraft": false,
+  "idleAgentLessonEvidence": "Declared collaboration tool send_message and followup_task contracts.",
+  "inputCutoff": "Source-only named-role review before root supplied actual56544; root explicitly requested this historical draft remain at that cutoff.",
+  "inputs": {
+    "correctedParentReview": {
+      "bytes": 6620,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-independent-source-review-20261010-r5-r2/RECEIPT.json",
+      "sha256": "b29b7f890250b749ea6bda0d7a4751016c75a684945021a6bdb22cee4e3b274a"
+    },
+    "currentProtection": {
+      "bytes": 2825,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-R5-CURRENT-PROTECTION.json",
+      "sha256": "1f0844105f6c76c94603099fccf0cff5d7769775e8e5a0cc840fabcf79cc0bcb"
+    },
+    "parentLabelCorrection": {
+      "bytes": 758,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/R5-PARENT-REVIEW-LABEL-CORRECTION.json",
+      "sha256": "386cbc41d9e3158edb7938a3cb13335db7fe1665ae50365d584db06965d970e1"
+    },
+    "prelaunchIndependentReview": {
+      "bytes": 5939,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-independent-observed-review-20261010-r5/RECEIPT.json",
+      "sha256": "b03035336055bc806e76a7749eabc79da399185170908d7463862d0b25e73f8e"
+    },
+    "prelaunch_actualTool": {
+      "bytes": 940,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r5/ACTUAL-TOOL.json",
+      "sha256": "1c1efce00784e46bceb3a3c5760bc5c8cea5310612be7cc3d7f47fac9526c60f"
+    },
+    "prelaunch_readback": {
+      "bytes": 5395,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-R5-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json",
+      "sha256": "c4faad39e17cf51491db0069ba29d90d47b1a398ce18a80a9cb0892507e28d38"
+    },
+    "prelaunch_readerActualTool": {
+      "bytes": 635,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r5/READER-ACTUAL-TOOL.json",
+      "sha256": "fb167f45c6976577c6fddaf0c6795e5c2e67143ce3b7599b3415473b2e85a271"
+    },
+    "previousLessons": {
+      "bytes": 43193,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LESSONS-r16.md",
+      "sha256": "644d7d1ec2512131aeba0be2b634dbbb6b81761b511bda1c318fb1770b801324"
+    },
+    "priorParentReview": {
+      "bytes": 6633,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-independent-source-review-20261010-r5/RECEIPT.json",
+      "sha256": "3298d4569626e6b2a837f8dc772e78a9201916b1faad34853f7cdd94ef8a6edd"
+    },
+    "pure49IndependentObservedReview": {
+      "bytes": 14004,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-independent-observed-review-20261010-r1/RECEIPT.json",
+      "sha256": "9879d8a775565f7bf78fe11fe0f9d336d8f1b46742cc1533b5ce28f10ff18bd9"
+    },
+    "pure49RootAdoption": {
+      "bytes": 6868,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LOSSLESS-CONTROLS-OBSERVED-ADOPTION.json",
+      "sha256": "fa668549c4526317f1c5f7f17494ae3bdaec2f6713e6b72351f30d384cfa096a"
+    },
+    "r12PreservedSourceStop": {
+      "bytes": 8080,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r12/RECEIPT.json",
+      "sha256": "34d228234553139b55c60cebf4cfa07a73652681e439f2244397443d5c270845"
+    },
+    "r13IndependentSourceReview": {
+      "bytes": 12539,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r13/RECEIPT.json",
+      "sha256": "1120c87f9509b5e3a7b19dbd35974b6c2e7f1a88391304a4bf0fbf1e6a226e02"
+    },
+    "r13SourceManifest": {
+      "bytes": 20567,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r13/SOURCE-PINS.json",
+      "sha256": "5eb4371205271d8ae2b88d6c4dd2f7f20057b8ae30430fd8905e1ed3816d98d3"
+    },
+    "rootBuilderCorrection": {
+      "bytes": 346,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/R5-ROOT-BUILDER-ALIAS-LOCATION-CORRECTION.json",
+      "sha256": "74e622c5f023d0c07a006f9f8878923b4778a3538dbdb76e55f8db08e46a0ece"
+    },
+    "rootLauncherCorrection": {
+      "bytes": 1054,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R5-ROOT-LAUNCHER-R13-DELTA.json",
+      "sha256": "4fa515501f2a908f86f6fd720f7d95280690dc473d7e04babcb2b58c427d3ace"
+    }
+  },
+  "originalPrefixBytes": 43193,
+  "r5RuntimeOutcome": null,
+  "repoOrRootANModified": false,
+  "schema": "1370-scratch-lessons-draft-audit/v1",
+  "sourceOnlyDocumentaryDraft": true
+}

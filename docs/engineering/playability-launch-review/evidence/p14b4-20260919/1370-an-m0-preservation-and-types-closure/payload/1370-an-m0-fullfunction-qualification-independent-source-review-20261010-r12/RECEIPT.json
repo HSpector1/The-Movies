@@ -1,0 +1,187 @@
+{
+  "concreteFindings": [
+    {
+      "code": "RECIPE_ROLE_MAP_STALE",
+      "impact": "Concrete published recipe role map conflicts with actual15 consumer aliases. Runtime consumers use authenticated sourceReview maps, so no demonstrated bypass or falsepass. Correct map before source acceptance; preserve sealed R12.",
+      "mismatchedRoles": {
+        "CONFIG-TEMPLATE.mts": {
+          "actual": {
+            "bytes": 1143,
+            "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/CONFIG-TEMPLATE.mts",
+            "sha256": "94f2d12170bb9d4808e07d34357abd6104ef7ab508c1c198b79bc06d597308ce"
+          },
+          "recipe": {
+            "bytes": 1143,
+            "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/CONFIG-TEMPLATE.mts",
+            "sha256": "2b88f8b9bb4b142ef04db7684ab27bf60603dcb667d7308cbe673deb1b46f15e"
+          }
+        },
+        "CONFIG.json": {
+          "actual": {
+            "bytes": 13790,
+            "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/CONFIG.json",
+            "sha256": "efb9f7b597a6781a69488437faea4755f4a4d186848bfe30baa1c801fa4cf669"
+          },
+          "recipe": {
+            "bytes": 9114,
+            "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/CONFIG.json",
+            "sha256": "8a6e67c7bea7c897e83f27f418d4743bfd1b9035ddd70147e9615e92658c81d6"
+          }
+        },
+        "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+          "actual": {
+            "bytes": 9744,
+            "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/FULL-BODY-CONTROLS-TEMPLATE.ts",
+            "sha256": "324c7cc754497e43cc5a9d46865f4cbf7e1a635b5e2ce5ac0857defab8661a02"
+          },
+          "recipe": {
+            "bytes": 9539,
+            "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/FULL-BODY-CONTROLS-TEMPLATE.ts",
+            "sha256": "9cff56902912ab029af4a4a73398bb314e28593e59823a09acdab5a9b26ea6ca"
+          }
+        },
+        "RESOLUTION-SOURCE-BINDING.json": {
+          "actual": {
+            "bytes": 77415,
+            "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/RESOLUTION-SOURCE-BINDING.json",
+            "sha256": "beccc36285426dc51ec89ba1f2428177db3c8209b3f29dcf9365729f8928f987"
+          },
+          "recipe": {
+            "bytes": 77140,
+            "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/RESOLUTION-SOURCE-BINDING.json",
+            "sha256": "885f1c4348b85bd22a5b47bba4ba0c76cc5d346184ab1649aceecc42ba795c5b"
+          }
+        },
+        "m0WiringProbe.ts": {
+          "actual": {
+            "bytes": 1800,
+            "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0WiringProbe.ts",
+            "sha256": "c3da292f943a37ae5c3c30005dfec71eb485bf17a211ecfddaa03efe0460c5a9"
+          },
+          "recipe": {
+            "bytes": 3016,
+            "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/m0WiringProbe.ts",
+            "sha256": "417389eef7b3295a19cde420f8561e638f028b979c4e031b25f89f8d38a2ac39"
+          }
+        },
+        "record-fullfunction.py": {
+          "actual": {
+            "bytes": 16750,
+            "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/record-fullfunction.py",
+            "sha256": "aefc47165d7b9349236f13f744b7cbba4b95964ca730bfff71dd069906df394b"
+          },
+          "recipe": {
+            "bytes": 16750,
+            "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/record-fullfunction.py",
+            "sha256": "e416dafe98636bb42e59c9aa3e345e617db203ed5d29378b13aa60ee36a9071d"
+          }
+        },
+        "run-fullfunction.mjs": {
+          "actual": {
+            "bytes": 26514,
+            "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/run-fullfunction.mjs",
+            "sha256": "436d96da3342c2ba83e2d64444747ea98fcbc35af90c09af23d960979a0574a9"
+          },
+          "recipe": {
+            "bytes": 21614,
+            "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/run-fullfunction.mjs",
+            "sha256": "db1ee5e766ec41bc1fc87a0de2c3e40b395ff3728c8889746e6833cb8ad6b0b9"
+          }
+        },
+        "run-fullfunction.py": {
+          "actual": {
+            "bytes": 22468,
+            "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/run-fullfunction.py",
+            "sha256": "4162a32c9a8bb22c381a4408b1ad1e599411c61a77d65936bb3d032dc0dbeb28"
+          },
+          "recipe": {
+            "bytes": 17905,
+            "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/run-fullfunction.py",
+            "sha256": "97d417ab180adfbb58d960e0f6639cfab245c3cdacb291320e7de02921ae5418"
+          }
+        }
+      },
+      "missingAliases": [
+        "m0TraceCodec.mjs",
+        "ordering.ts",
+        "traceSequences.mjs"
+      ],
+      "sourceField": "RECIPE.json.routeSourcePins"
+    }
+  ],
+  "config": {
+    "bytes": 13790,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/CONFIG.json",
+    "sha256": "efb9f7b597a6781a69488437faea4755f4a4d186848bfe30baa1c801fa4cf669"
+  },
+  "decision": "STOP_STATIC_R12_RECIPE_ROLE_MAP_STALE",
+  "executionAuthorization": false,
+  "recipe": {
+    "bytes": 16936,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/RECIPE.json",
+    "sha256": "be413a62e195fa81e76d95fde70658def220f71293c909e90cb583cb41d840f4"
+  },
+  "remainingChecks": {
+    "actualPure49RootResultMatrixBindingsMatch": true,
+    "boundsUnchanged": {
+      "activeRecorder": 320,
+      "aggregateChild": 300,
+      "aggregateOutputTreeBytes": 268435456,
+      "fixturePacketBytes": 67108864,
+      "outputTreeEntryCap": 10000,
+      "resultBytes": 131072,
+      "streamBytes": 8388608,
+      "vitestReportBytes": 1048576,
+      "wholeRecorder": 330
+    },
+    "candidateExecuted": false,
+    "canonicalBindingOtherEntriesUnchanged": true,
+    "completeWholeInversePairs": 9,
+    "fiveFixedImplementationRolesExact": true,
+    "manifestRolesAuthenticated": 48,
+    "parserRolesUnchanged": true,
+    "privateReadsPerformed": false,
+    "proofMethodsConfigUnchanged": true,
+    "unchangedNamedPythonFunctions": {
+      "record-fullfunction.py": [
+        "require",
+        "sha",
+        "write",
+        "metadata",
+        "authenticate",
+        "process_alive",
+        "OwnedChild",
+        "start_owned",
+        "ready_go",
+        "close_startup_fds",
+        "clear",
+        "alarm",
+        "whole_guard",
+        "active_guard",
+        "observed_exit_guard",
+        "child_environment",
+        "finalize_result"
+      ],
+      "run-fullfunction.py": [
+        "need",
+        "timeout",
+        "remaining",
+        "meta",
+        "read",
+        "role",
+        "pairs",
+        "load",
+        "write",
+        "authenticate_types"
+      ]
+    },
+    "wholeDiffApplicationsVerified": 18
+  },
+  "schema": "1370-real-fullfunction-qualification-independent-source-review/v1",
+  "scope": "Source-only bounded integration review. All actual fullbody/fixture fit/currentgrant outcomes remain future; pure49 scope is kept separate.",
+  "sourceManifest": {
+    "bytes": 14385,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r12/SOURCE-PINS.json",
+    "sha256": "79d9400a49dc02abc836d9e3b9e9f4a814966da47cae67293f299b1993deb283"
+  }
+}

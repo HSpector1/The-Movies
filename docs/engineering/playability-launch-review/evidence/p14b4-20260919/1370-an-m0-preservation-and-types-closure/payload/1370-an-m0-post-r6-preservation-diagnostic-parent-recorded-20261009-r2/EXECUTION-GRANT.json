@@ -1,0 +1,17 @@
+{
+  "configSha256": "c40c0a34d07532d4690552318958029ec736d32283dcec59b0b33191bf82bc4c",
+  "contextWithoutGrantSha256": "f0112cbf00774b01b177f979331cc6afed1359e12eaf42e6486438bb54dcbd75",
+  "executionAuthorization": true,
+  "gameAuthorization": false,
+  "ownedIdentity": {
+    "bytes": 478,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-recorded-20261009-r2/OWNED-IDENTITY.json",
+    "sha256": "c78ca49d2592935cad3a0a84eb3ae3b1d1f71beb94ea02b3b7d97e170584d91a"
+  },
+  "parentIssuedViaReviewedOnceOnlyLauncher": true,
+  "parentSpecSha256": "00c152581ac4f3a053a87daed7e363d04f3ba73c3d97ed7e3467c6c4a9226768",
+  "runId": "20261009-m0-post-r6-preservation-diagnostic-r2",
+  "schema": "1370-root-post-r6-m0-preservation-diagnostic-grant/v1",
+  "scope": "READONLY_POST_R6_M0_PRESERVATION_DIAGNOSTIC_KNOWN_ROOT_DRIFT_ONLY",
+  "sourceReviewSha256": "69c21815277b22aedf9c6c222a8fac25f265296e473de9973f21999ec4f03d8d"
+}

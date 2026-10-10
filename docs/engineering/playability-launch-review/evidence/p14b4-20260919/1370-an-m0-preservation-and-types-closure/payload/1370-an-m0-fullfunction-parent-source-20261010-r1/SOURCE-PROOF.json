@@ -1,0 +1,64 @@
+{
+  "baseSource": {
+    "bytes": 10686,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/launch-ordering-controls.py",
+    "sha256": "44ef7942429e0b42129cc4e16548376260136b65c3e61f83252af39beb6848b8"
+  },
+  "clockPolicy": "Original separate prep60 for outer/inner canceled immediately before direct exec. No combined parent runtime clock; qualified recorder300/320/330 remains sole aggregate runtime authority. r8 has its original lock/heavy waits; unexpected wait is STOP for admission, no fictitious bound on helper logging.",
+  "executionAuthorization": false,
+  "helpers": {
+    "authenticate": {
+      "byteExact": true,
+      "bytes": 403,
+      "sha256": "8e7ae763311522676148fc4587897808fe92e9f88ec6447c932bd24e7a7b94ef"
+    },
+    "exact": {
+      "byteExact": true,
+      "bytes": 235,
+      "sha256": "29cce380d194f185b309f3e5396cc861ac80b31d18b4597b51f8ca2d7d60ca78"
+    },
+    "load": {
+      "byteExact": true,
+      "bytes": 344,
+      "sha256": "25dfa0234be498affc25fc4fa3ab0f94226b5d8e2200b5ed4d820a6d156dbfa0"
+    },
+    "metadata": {
+      "byteExact": true,
+      "bytes": 109,
+      "sha256": "98b8e811b56c6420468977fbd8e3fefd1fc3356f60b4b0b7fea75d74d7001ab1"
+    },
+    "pairs": {
+      "byteExact": true,
+      "bytes": 117,
+      "sha256": "9f7611a7011a1d91799d90b598207668e8bedc4a2d977f01f5ac34659e8ab688"
+    },
+    "prep_timeout": {
+      "byteExact": true,
+      "bytes": 80,
+      "sha256": "cbfebbaf53aeec5cbc463040fbf563f1589c4654bf634f9b51556d1b7612f06b"
+    },
+    "remaining": {
+      "byteExact": true,
+      "bytes": 103,
+      "sha256": "0be52242fd6133fb9faf5f53ac888ed94718ce777a82c93c451fe1be2f4108f3"
+    },
+    "require": {
+      "byteExact": true,
+      "bytes": 71,
+      "sha256": "ddf8d661efb7a5cfc567f2e044736852767018d3d47720be887f3bb4c7f959f0"
+    },
+    "role": {
+      "byteExact": true,
+      "bytes": 711,
+      "sha256": "0d33295e9a00fb23003a5baaca4adb1d777789bd41d1e26e6715e0419a84da97"
+    },
+    "write": {
+      "byteExact": true,
+      "bytes": 244,
+      "sha256": "e4569be3e32748fe774795f98bc482dcd42bd7d3cc8fdc1acbebb4b5b37ae59c"
+    }
+  },
+  "mainIsNewSourceForIndependentReview": true,
+  "schema": "1370-fullfunction-parent-source-reuse-proof/v1",
+  "sourceOnly": true
+}

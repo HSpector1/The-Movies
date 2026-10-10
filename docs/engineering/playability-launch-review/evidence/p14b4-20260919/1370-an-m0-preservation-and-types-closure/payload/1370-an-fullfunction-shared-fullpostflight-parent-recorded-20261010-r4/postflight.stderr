@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py", line 161, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py", line 146, in main
+    facts_after=current(config,binding,module,copied,owned);roots_after=roots()
+  File "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py", line 60, in current
+    free=shutil.disk_usage(SCRATCH).free;require(free>=config['requiredFreeBytes'],'disk floor/reserve')
+                                         ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py", line 17, in require
+    if not ok:raise RuntimeError('STOP: '+msg)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: STOP: disk floor/reserve

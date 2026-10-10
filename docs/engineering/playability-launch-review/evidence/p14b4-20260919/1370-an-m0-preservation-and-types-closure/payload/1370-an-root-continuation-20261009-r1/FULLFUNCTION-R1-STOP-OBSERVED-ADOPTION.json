@@ -1,0 +1,40 @@
+{
+  "actualGameplayPrefixExecuted": false,
+  "currentTypesAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  },
+  "dependencyAfter": null,
+  "executionAuthorization": false,
+  "fullM0AfterProofAccepted": false,
+  "fullPostflightReadback": {
+    "bytes": 5098,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "735e8d8fcaf1ae96f2b4f39608f71a66d85eba14b1941e5bd97d23afda096b55"
+  },
+  "fullPostflightSnapshot": {
+    "bytes": 8853570,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r1/SNAPSHOT.json",
+    "sha256": "f1eb127210b9cf6c5f3e9746cfb3c0f6865167d468921d05795805843a6ad1d6"
+  },
+  "fullSharedPostflightAccepted": true,
+  "game": false,
+  "independentObservedReview": {
+    "bytes": 13431,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-wrong-mirror-subject-independent-observed-review-20261010-r1/RECEIPT.json",
+    "sha256": "26076d01598ed3778e7c2aed814002ba9cd85f7484da0b6c454c93c4124e9ad3"
+  },
+  "originalAttemptRemainsStop": true,
+  "protectedFreezeContinues": true,
+  "readback": {
+    "bytes": 6478,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "2292a2f92aac3d837885b5686720416bdaf4fff123f2610c3ce3dd81ac73c30d"
+  },
+  "schema": "1370-root-fullfunction-protected-stop-observed-adoption/v1",
+  "scope": "Original95737 failed at wrong container argument before enumeration or Node. Shared protected postflight passed; no fixture qualification, full M0 after-proof or neutrality admission. Retry requires reviewed correction and fresh original current preflight.",
+  "soleLaneReleased": true,
+  "sourceAfter": null,
+  "status": "ROOT_ADOPTED_FULLFUNCTION_WRONG_MIRROR_SUBJECT_STOP_WITH_FULL_SHARED_POSTFLIGHT"
+}

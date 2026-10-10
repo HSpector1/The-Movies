@@ -1,0 +1,35 @@
+{
+  "automaticRetry": false,
+  "completeTraceStillRequired": true,
+  "diagnosis": {
+    "bytes": 2660,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-source-proposal-20261010-r1/DIAGNOSIS.json",
+    "sha256": "3e9f877a01f3af8fb1e8c56b309de61267cff1f8c6a0c74fab55f1dec103ef5b"
+  },
+  "executionAuthorization": false,
+  "helperProbeCaps": {
+    "entries": 16384,
+    "rowBytes": 65536,
+    "totalBytes": 2097152
+  },
+  "independentSourceReview": {
+    "bytes": 10763,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "d2da23a4e866001b528027d76591efbb3c724712e4aea00e1259d0dbf5e7759f"
+  },
+  "limitsChanged": false,
+  "observerCaps": {
+    "rowBytes": 16384,
+    "rows": 512,
+    "totalBytes": 2097152
+  },
+  "runtimeReady": false,
+  "schema": "1370-root-held-probe-overflow-diagnostic-source-adoption/v1",
+  "scope": "Retain only the first failed resource predicates and scalar counters in the existing fatal assertion. No acceptance of truncated evidence, cap increase, call filtering, replay or gameplay change. Integrate in a fresh independently reviewed recorded diagnostic route under actual next operational authority before execution.",
+  "sourceManifest": {
+    "bytes": 3645,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-source-proposal-20261010-r1/SOURCE-PINS.json",
+    "sha256": "54cdeea9afeda3135d87affcd455ce1dcd2805c54cf7e7ed654bf0665aa9e830"
+  },
+  "status": "ROOT_ADOPTED_HELD_FIRST_OVERFLOW_DIAGNOSTIC_SOURCE_ONLY"
+}

@@ -1,0 +1,185 @@
+{
+  "actualTool": {
+    "bytes": 750,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-recorded-20261009-r2/ACTUAL-TOOL.json",
+    "sha256": "be2753e3ab370bf3e934185c6bdc2de0e661b0ef1dae1326e0fb79f96cf43790"
+  },
+  "context": {
+    "bytes": 7117,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-recorded-20261009-r2/EXECUTION-CONTEXT.json",
+    "sha256": "850a51577e56acebc35249c275bff0e4a41a673384a3ee498df8ab1685960ad2"
+  },
+  "dependencyContentBytes": 348223802,
+  "dependencyEntriesExcludingRoot": 12484,
+  "dependencyProofsEqual": true,
+  "executionAuthorization": false,
+  "fill": {
+    "bytes": 6998,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-recorded-20261009-r2/FILL-RESULT.json",
+    "sha256": "596cb6a25d0dcc8454a3fe2eacf0f9a0765257c6d41aed02678cf36706dce4a3"
+  },
+  "freshDependencyProof": {
+    "contentAndMetadataSha256": "a06e929a60a5ede6ce0d72467d4d587e50d1c4fa3788bee3d07f1ea3388cd21d",
+    "contentBytes": 348223802,
+    "entries": 12484,
+    "rootDevice": 16777220,
+    "rootIdentity": [
+      16777220,
+      158487026,
+      16877,
+      154,
+      4928,
+      1790738039503311431,
+      1790738039503311431
+    ],
+    "rootInode": 158487026
+  },
+  "freshSourceProof": {
+    "dependencyLink": [
+      16777220,
+      166769275,
+      41408,
+      1,
+      62,
+      1791577446298712967,
+      1791577446298712967,
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    ],
+    "fileProofDigestSha256": "fbbfed3ec13da5618a0194204e2f6c8a87eebb5ee22102707d466340fbe6e1e0",
+    "historicalRootSubstitutedMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "mirrorBytes": 119393120,
+    "mirrorFiles": 1740,
+    "mirrorRootIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791600924862151724,
+      1791600924862151724
+    ],
+    "nonrootMetadataSha256": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
+    "physicalMetadataSha256": "12c3dd50b99860c1c4e56ee98488d5f04613b37c93496d0257cc560a4fb83038",
+    "traversedEntries": 1853
+  },
+  "game": false,
+  "grant": {
+    "bytes": 963,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-recorded-20261009-r2/EXECUTION-GRANT.json",
+    "sha256": "ea0c4e9192465be07db95b75ed285fd9bbbbaf23a141a38b16f86f0e2eadbd66"
+  },
+  "helperExit": 0,
+  "historicalRootUnchanged": false,
+  "knownRootDrift": {
+    "historicalMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "historicalNormalizedIdentity": [
+      16777220,
+      166751332,
+      448,
+      13,
+      416,
+      1791577446298737027,
+      1791577446298737027
+    ],
+    "nonrootMetadataSha256": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
+    "recordedAfterIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791600924862151724,
+      1791600924862151724
+    ],
+    "recordedBeforeIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791577446298737027,
+      1791577446298737027
+    ],
+    "rosterSha256": "aa0270269ea341ec4d0029307c799518b5ff89e81b0044d165763408ea533f57"
+  },
+  "laneLog": {
+    "bytes": 1218,
+    "path": "/Users/zacheryspector/studio-scratch/c0-m0-post-r6-preservation-diagnostic-20261009-r2.lane.log",
+    "sha256": "66d5bd31795a979b7af893f086b31817e0f0a2abdeaafcafd15bb92ca9238c99"
+  },
+  "laneMetadata": {
+    "bytes": 535,
+    "path": "/Users/zacheryspector/studio-scratch/c0-m0-post-r6-preservation-diagnostic-20261009-r2.lane.log.meta",
+    "sha256": "30f46eee9082e27b351a570c2d3c0f40d49d4244c657eeb06aa9cdadae1ec3fc"
+  },
+  "laneReleased": true,
+  "mirrorBytes": 119393120,
+  "mirrorEntriesExcludingRoot": 1853,
+  "mirrorFiles": 1740,
+  "mode": "proof",
+  "newRootBaselineAdopted": false,
+  "originalR6StopPreserved": true,
+  "preparationElapsedSeconds": 0.8993108750000829,
+  "proofOrTypesAccepted": false,
+  "recordedOwnedIds": [
+    32502,
+    32757,
+    33019
+  ],
+  "recorderElapsedSeconds": 70.325,
+  "recorderExit": 0,
+  "recorderResult": {
+    "bytes": 928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-recorder-results-20261009-r2/20261009-m0-post-r6-preservation-diagnostic-r2.RECORDER-RESULT.json",
+    "sha256": "beff0089209578196c76fcd520f091bee6686ac680db3bf74694617baa59b02d"
+  },
+  "rootLaneGrant": {
+    "bytes": 4115,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-recorded-20261009-r2/ROOT-LANE-GRANT.json",
+    "sha256": "280270ba8766ed5b3e4f22514cb3006663806f5ed2d274b90774450ef7dcdcc3"
+  },
+  "runnerElapsedSeconds": 67.606,
+  "runnerExit": 0,
+  "schema": "1370-an-m0-preservation-diagnostic-actual-readback/v1",
+  "scopedOwnershipChecks": [
+    {
+      "id": 32502,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 32502,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 32757,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 32757,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 33019,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 33019,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "sourceDependencyResult": {
+    "bytes": 5827,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-results-20261009-r2/20261009-m0-post-r6-preservation-diagnostic-r2/RESULT.json",
+    "sha256": "308e00da323a8e1f67dde25e9069c7171dccdf027e9f93745a9a5e7346107f8a"
+  },
+  "sourceProofsEqual": true,
+  "status": "ACTUAL_M0_PRESERVATION_DIAGNOSTIC_COMPLETE_PENDING_FULL_POSTFLIGHT_AND_INDEPENDENT_REVIEW",
+  "toolExit": 0,
+  "toolSessionId": 64460
+}

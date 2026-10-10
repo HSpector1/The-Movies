@@ -1,0 +1,61 @@
+{
+  "schema": "1370-r3-ordering-controls-parent-source-pins/v1",
+  "executionAuthorization": false,
+  "actualIndependentReview": null,
+  "actualRootGrant": null,
+  "actualSourceAdoption": null,
+  "actualOutcome": null,
+  "files": {
+    "launch-ordering-controls.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/launch-ordering-controls.py",
+      "bytes": 10686,
+      "sha256": "44ef7942429e0b42129cc4e16548376260136b65c3e61f83252af39beb6848b8"
+    },
+    "CONTRACT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/CONTRACT.json",
+      "bytes": 3352,
+      "sha256": "c027f9769998bf1c463e83565cb1781353fe82e74f88a81a4ae8c65ca052e056"
+    },
+    "BASE-launch-disposable-controls.py.txt": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/BASE-launch-disposable-controls.py.txt",
+      "bytes": 10107,
+      "sha256": "7be4998c90bc4cb4c35c774201210855db1f2f49aea921e1ba277fa607c8ca6b"
+    },
+    "adapter.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/adapter.forward.diff",
+      "bytes": 21088,
+      "sha256": "35a981c2d5147080a0a3e0d409f94ed2c67736bc4c39a60e375a48cd10517990"
+    },
+    "adapter.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/adapter.inverse.diff",
+      "bytes": 21088,
+      "sha256": "aa3d6742416268a8d49e040f460aa72757592e0e4cb9cd78c236eebdf7cd14cd"
+    },
+    "RECIPE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/RECIPE.json",
+      "bytes": 8367,
+      "sha256": "d4d94bce655cc87c4fa23116bb23c1bea5c40e3e13f23e6dc653b8c225eeb9dc"
+    },
+    "SOURCE-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/SOURCE-PROOF.json",
+      "bytes": 2184,
+      "sha256": "3ac11c788355727aaea7af940902fff46989c7802e653a88a910569d80e1eaf5"
+    },
+    "LESSONS.txt": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/LESSONS.txt",
+      "bytes": 655,
+      "sha256": "7718a79486aaef075fc5966405407b8c55d5c69a2d53c9b6c62acc2d97b72477"
+    },
+    "R1-MANIFEST-STOP.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/R1-MANIFEST-STOP.json",
+      "bytes": 1010,
+      "sha256": "34f26848adae0c021d28f3230a2ca49daea6e891283eaa9526280b2a376f60a6"
+    }
+  },
+  "preservedR1Stop": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-controls-parent-source-20261009-r2/R1-MANIFEST-STOP.json",
+    "bytes": 1010,
+    "sha256": "34f26848adae0c021d28f3230a2ca49daea6e891283eaa9526280b2a376f60a6"
+  },
+  "correction": "UTF-8 encoded byte count; original operational source and contract unchanged."
+}

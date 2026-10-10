@@ -1,0 +1,17 @@
+{
+  "schema": "1370-fresh-disk-postflight-full-diff-application-audit/v1",
+  "checks": [
+    {
+      "file": "launch-fullpostflight.py",
+      "wholeForwardExact": true,
+      "wholeInverseExact": true
+    },
+    {
+      "file": "read-fullpostflight.py",
+      "wholeForwardExact": true,
+      "wholeInverseExact": true
+    }
+  ],
+  "candidateExecuted": false,
+  "privateReads": false
+}

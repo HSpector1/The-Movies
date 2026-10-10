@@ -1,0 +1,60 @@
+{
+  "schema": "1370-m0-external-types-parent-r2-literal-rebinding-source-proof/v1",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "predecessorSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/SOURCE-PINS.json",
+    "bytes": 7541,
+    "sha256": "f2f5cf509f2fe221ca68998616b85b2f555265ddf81d10abd908de511e46a132"
+  },
+  "predecessorIndependentReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-independent-source-review-20261009-r1/RECEIPT.json",
+    "bytes": 8891,
+    "sha256": "bfab228a3860e008206c47c0fcac8b8232d1c91fb4b4f655077b090d2049864f"
+  },
+  "predecessorRoles": {
+    "PROFILES.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/PROFILES.json",
+      "bytes": 6780,
+      "sha256": "b2758d0e15403b7448dfe6ae9f7394b52e504aebfaace09c9e6f43141c9a1a5c"
+    },
+    "fill-grant-exec.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/fill-grant-exec.py",
+      "bytes": 14054,
+      "sha256": "06ef36769f3f2918c0cec46d08022bfafb5328ce4159f3d4deb8003c1d99e99f"
+    }
+  },
+  "selectedExecutorSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r2/SOURCE-PINS.json",
+    "bytes": 14851,
+    "sha256": "c9c642f03ecfe95b0b4b9126801aac2753b2c561fd17936b1cb82a451d2d2593"
+  },
+  "actualSelectedExecutorReview": null,
+  "changes": [
+    "PROFILES.json",
+    "fill-grant-exec.py"
+  ],
+  "fillerDelta": {
+    "field": "PROFILE_SHA",
+    "from": "b2758d0e15403b7448dfe6ae9f7394b52e504aebfaace09c9e6f43141c9a1a5c",
+    "to": "023a3d693a24aac46b747cdf36b7196d7cfb5e055a37ea111ec20ff2f28026fd"
+  },
+  "wholeFillerNormalizedByteExact": true,
+  "allFillerFunctionsByteExact": true,
+  "profileDelta": "Only types-mode fresh package/result/recorder/parent/lane/runId and executor/config/executable/template/manifest role sizes/hashes. Inactive historical proof profile equal.",
+  "unfilledSpecAndProtectionByteExact": true,
+  "wholeForwardInverseVerified": true,
+  "clocksUnchanged": {
+    "parentPreparationSeconds": 60,
+    "parentClockStarts": "Before source profile/spec/tool reads",
+    "parentClockCanceled": "Immediately before direct os.execve after elapsed<60",
+    "runtimeBootstrapWholeSeconds": 300,
+    "runtimeRecorderActiveSeconds": 320,
+    "runtimeLaunchAndRecorderWholeSeconds": 330,
+    "combinedPreparationRuntimeDeadline": null,
+    "noAddedOuterWatchdog": true
+  },
+  "preservedAuthority": "Same genuine post-R6 diagnostic/current-protection proof contract and exact nine keys; actual execution requires independently accepted mandatory fullpost and fresh current preflight. No new diagnostic/future role/source identity invented.",
+  "scope": "Existing four child types/collection route only, no game/fullbody/catch controls; disk-floor R1STOP and missing after-proof preserved.",
+  "sourceMethod": "Finite named scratch source/text/JSON/hash/diff proof only; no imports/tests/compilation/runtime/private/Git/probes."
+}

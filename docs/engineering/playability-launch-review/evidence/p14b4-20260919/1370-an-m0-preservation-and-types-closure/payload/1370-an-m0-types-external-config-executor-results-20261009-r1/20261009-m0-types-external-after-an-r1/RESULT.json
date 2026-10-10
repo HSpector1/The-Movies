@@ -1,0 +1,494 @@
+{
+  "actualGrantSha256": "19c41c147acadc0e3c321d22144dfd42fd8c9be95dba490d5f40a5564f282a1e",
+  "arm": "M0",
+  "children": [
+    {
+      "argv": [
+        "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/check-deps.mjs",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+        "/Users/zacheryspector/The-Movies-headless-program",
+        "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+      ],
+      "exit": 0,
+      "name": "dependency-versions",
+      "seconds": 1.399,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 1038,
+      "stdoutSha256": "57ffd6f3cf26f598b7740e928201b00602b1f0fa44f458fb9957fa82aa715071"
+    }
+  ],
+  "completeM0AdoptionSha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad",
+  "currentProtectionSha256": "5980e69d3e2962f068f10fa3217caa45f3ff752cc93a5064eb0637f54a2439d0",
+  "elapsedSeconds": 81.284,
+  "error": "RuntimeError('3 GiB disk floor')",
+  "externalConfigCopies": {
+    "cacheDirectory": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r1/20261009-m0-types-external-after-an-r1/external-config/cache",
+    "directory": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r1/20261009-m0-types-external-after-an-r1/external-config",
+    "files": {
+      "rootTemplate": {
+        "bytes": 460,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r1/20261009-m0-types-external-after-an-r1/external-config/root-config.mts",
+        "sha256": "a593f1e4366309b0b68cc08610a42c9d26f6f28285434121a02f88c46300a384"
+      },
+      "workspaceTemplate": {
+        "bytes": 2163,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r1/20261009-m0-types-external-after-an-r1/external-config/workspace-config.mts",
+        "sha256": "e47ce2329889e0f690af0eeb318461eee38ecf5d8346b4fd0ef2aac99ca0e814"
+      }
+    },
+    "moduleLinkTarget": "/Users/zacheryspector/The-Movies-headless-program/node_modules",
+    "schema": "1370-m0-external-config-runtime-copies/v1"
+  },
+  "gameAccepted": false,
+  "groupAlternateProofs": [],
+  "h13MetadataStopSha256": "15e901e356b72d80fdebef469bf9e20b171c13a32f34e94bf26858bf2d883ad1",
+  "h13MetadataStopWaived": false,
+  "historicalDataAuthorityHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "historicalRootUnchanged": false,
+  "nodeModulesBefore": {
+    "contentAndMetadataSha256": "a06e929a60a5ede6ce0d72467d4d587e50d1c4fa3788bee3d07f1ea3388cd21d",
+    "contentBytes": 348223802,
+    "entries": 12484,
+    "rootDevice": 16777220,
+    "rootIdentity": [
+      16777220,
+      158487026,
+      16877,
+      154,
+      4928,
+      1790738039503311431,
+      1790738039503311431
+    ],
+    "rootInode": 158487026
+  },
+  "originalR6StopPreserved": true,
+  "physicalFactsSha256": "e9f4829c501cc90475b9067c8ae32580fe5fca14fc40950ee083031f89081ba2",
+  "postR6RootAdoption": {
+    "bytes": 4446,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-POST-R6-PRESERVATION-DIAGNOSTIC-OBSERVED-ADOPTION.json",
+    "sha256": "5b5e062b8c5ac12bc70aa5ccb46ad101340ad692cdf0147ea44890882c0f44e1"
+  },
+  "postflightError": "RuntimeError('3 GiB disk floor')",
+  "productionHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "rootChildBoundaries": [
+    {
+      "after": {
+        "entries": [
+          [
+            "bridge",
+            16832,
+            16777220,
+            166769206,
+            40,
+            1280,
+            1791577446282474179,
+            1791577446282474179
+          ],
+          [
+            "node_modules",
+            41408,
+            16777220,
+            166769275,
+            1,
+            62,
+            1791577446298712967,
+            1791577446298712967
+          ],
+          [
+            "package-lock.json",
+            33188,
+            16777220,
+            166751333,
+            1,
+            149287,
+            1791567229044113154,
+            1791567229065787471
+          ],
+          [
+            "package.json",
+            33188,
+            16777220,
+            166751334,
+            1,
+            2726,
+            1791567229158429215,
+            1791567229202783717
+          ],
+          [
+            "src",
+            16832,
+            16777220,
+            166751335,
+            4,
+            128,
+            1791567234613893016,
+            1791567234613893016
+          ],
+          [
+            "tests",
+            16832,
+            16777220,
+            166751538,
+            471,
+            15072,
+            1791567307170045969,
+            1791567307170045969
+          ],
+          [
+            "tsconfig.json",
+            33188,
+            16777220,
+            166752408,
+            1,
+            706,
+            1791567273264477522,
+            1791567273292032823
+          ],
+          [
+            "tsconfig.src.json",
+            33188,
+            16777220,
+            166752409,
+            1,
+            119,
+            1791567273314012826,
+            1791567273332387407
+          ],
+          [
+            "ui",
+            16832,
+            16777220,
+            166752410,
+            11,
+            352,
+            1791567306940089544,
+            1791567306940089544
+          ],
+          [
+            "vitest.config.ts",
+            33188,
+            16777220,
+            166753260,
+            1,
+            176,
+            1791567306979694396,
+            1791567306998603060
+          ],
+          [
+            "vitest.workspace.ts",
+            33188,
+            16777220,
+            166753261,
+            1,
+            1489,
+            1791567307021069393,
+            1791567307040365658
+          ]
+        ],
+        "identity": [
+          16777220,
+          166751332,
+          16832,
+          13,
+          416,
+          1791600924862151724,
+          1791600924862151724
+        ],
+        "rosterSha256": "aa0270269ea341ec4d0029307c799518b5ff89e81b0044d165763408ea533f57"
+      },
+      "before": {
+        "entries": [
+          [
+            "bridge",
+            16832,
+            16777220,
+            166769206,
+            40,
+            1280,
+            1791577446282474179,
+            1791577446282474179
+          ],
+          [
+            "node_modules",
+            41408,
+            16777220,
+            166769275,
+            1,
+            62,
+            1791577446298712967,
+            1791577446298712967
+          ],
+          [
+            "package-lock.json",
+            33188,
+            16777220,
+            166751333,
+            1,
+            149287,
+            1791567229044113154,
+            1791567229065787471
+          ],
+          [
+            "package.json",
+            33188,
+            16777220,
+            166751334,
+            1,
+            2726,
+            1791567229158429215,
+            1791567229202783717
+          ],
+          [
+            "src",
+            16832,
+            16777220,
+            166751335,
+            4,
+            128,
+            1791567234613893016,
+            1791567234613893016
+          ],
+          [
+            "tests",
+            16832,
+            16777220,
+            166751538,
+            471,
+            15072,
+            1791567307170045969,
+            1791567307170045969
+          ],
+          [
+            "tsconfig.json",
+            33188,
+            16777220,
+            166752408,
+            1,
+            706,
+            1791567273264477522,
+            1791567273292032823
+          ],
+          [
+            "tsconfig.src.json",
+            33188,
+            16777220,
+            166752409,
+            1,
+            119,
+            1791567273314012826,
+            1791567273332387407
+          ],
+          [
+            "ui",
+            16832,
+            16777220,
+            166752410,
+            11,
+            352,
+            1791567306940089544,
+            1791567306940089544
+          ],
+          [
+            "vitest.config.ts",
+            33188,
+            16777220,
+            166753260,
+            1,
+            176,
+            1791567306979694396,
+            1791567306998603060
+          ],
+          [
+            "vitest.workspace.ts",
+            33188,
+            16777220,
+            166753261,
+            1,
+            1489,
+            1791567307021069393,
+            1791567307040365658
+          ]
+        ],
+        "identity": [
+          16777220,
+          166751332,
+          16832,
+          13,
+          416,
+          1791600924862151724,
+          1791600924862151724
+        ],
+        "rosterSha256": "aa0270269ea341ec4d0029307c799518b5ff89e81b0044d165763408ea533f57"
+      },
+      "name": "dependency-versions"
+    },
+    {
+      "after": null,
+      "afterError": "RuntimeError('3 GiB disk floor')",
+      "before": {
+        "entries": [
+          [
+            "bridge",
+            16832,
+            16777220,
+            166769206,
+            40,
+            1280,
+            1791577446282474179,
+            1791577446282474179
+          ],
+          [
+            "node_modules",
+            41408,
+            16777220,
+            166769275,
+            1,
+            62,
+            1791577446298712967,
+            1791577446298712967
+          ],
+          [
+            "package-lock.json",
+            33188,
+            16777220,
+            166751333,
+            1,
+            149287,
+            1791567229044113154,
+            1791567229065787471
+          ],
+          [
+            "package.json",
+            33188,
+            16777220,
+            166751334,
+            1,
+            2726,
+            1791567229158429215,
+            1791567229202783717
+          ],
+          [
+            "src",
+            16832,
+            16777220,
+            166751335,
+            4,
+            128,
+            1791567234613893016,
+            1791567234613893016
+          ],
+          [
+            "tests",
+            16832,
+            16777220,
+            166751538,
+            471,
+            15072,
+            1791567307170045969,
+            1791567307170045969
+          ],
+          [
+            "tsconfig.json",
+            33188,
+            16777220,
+            166752408,
+            1,
+            706,
+            1791567273264477522,
+            1791567273292032823
+          ],
+          [
+            "tsconfig.src.json",
+            33188,
+            16777220,
+            166752409,
+            1,
+            119,
+            1791567273314012826,
+            1791567273332387407
+          ],
+          [
+            "ui",
+            16832,
+            16777220,
+            166752410,
+            11,
+            352,
+            1791567306940089544,
+            1791567306940089544
+          ],
+          [
+            "vitest.config.ts",
+            33188,
+            16777220,
+            166753260,
+            1,
+            176,
+            1791567306979694396,
+            1791567306998603060
+          ],
+          [
+            "vitest.workspace.ts",
+            33188,
+            16777220,
+            166753261,
+            1,
+            1489,
+            1791567307021069393,
+            1791567307040365658
+          ]
+        ],
+        "identity": [
+          16777220,
+          166751332,
+          16832,
+          13,
+          416,
+          1791600924862151724,
+          1791600924862151724
+        ],
+        "rosterSha256": "aa0270269ea341ec4d0029307c799518b5ff89e81b0044d165763408ea533f57"
+      },
+      "childError": "RuntimeError('3 GiB disk floor')",
+      "childPhase": "pipe-pump",
+      "childTraceback": "Traceback (most recent call last):\n  File \"/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/runner.py\", line 783, in main\n    child=run_child(name,argv,mirror,out,run_id,child_env)\n  File \"/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/runner.py\", line 489, in run_child\n    source_step(run_id)\n    ~~~~~~~~~~~^^^^^^^^\n  File \"/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/runner.py\", line 266, in source_step\n    need(shutil.disk_usage(S).free>=FLOOR,'3 GiB disk floor')\n    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/runner.py\", line 46, in need\n    if not ok:raise RuntimeError(msg)\n              ^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: 3 GiB disk floor\n",
+      "name": "root-tsc"
+    }
+  ],
+  "runId": "20261009-m0-types-external-after-an-r1",
+  "schema": "1370-m0-types-collection-result/v1",
+  "sourceBefore": {
+    "dependencyLink": [
+      16777220,
+      166769275,
+      41408,
+      1,
+      62,
+      1791577446298712967,
+      1791577446298712967,
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    ],
+    "fileProofDigestSha256": "fbbfed3ec13da5618a0194204e2f6c8a87eebb5ee22102707d466340fbe6e1e0",
+    "historicalRootSubstitutedMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "mirrorBytes": 119393120,
+    "mirrorFiles": 1740,
+    "mirrorRootIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791600924862151724,
+      1791600924862151724
+    ],
+    "nonrootMetadataSha256": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
+    "physicalMetadataSha256": "12c3dd50b99860c1c4e56ee98488d5f04613b37c93496d0257cc560a4fb83038",
+    "traversedEntries": 1853
+  },
+  "sourceCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "sourceManifestSha256": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba",
+  "status": "STOP_POSTFLIGHT_UNVERIFIED"
+}

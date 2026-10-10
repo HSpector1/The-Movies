@@ -1,0 +1,42 @@
+{
+  "schema": "1370-an-m0-diagnostic-fullpostflight-actual-tool/v1",
+  "sessionId": 59252,
+  "finalExit": 0,
+  "allToolChunks": [
+    {
+      "chunk_id": "ac5b22",
+      "wall_time_seconds": 1.002574855,
+      "session_id": 59252,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "f11760",
+      "wall_time_seconds": 5.002205068,
+      "session_id": 59252,
+      "original_token_count": 72,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-m0-preservation-diagnostic-fullpostflight-parent-recorded-20261009-r2/GRANT.json\", \"bytes\": 4820, \"sha256\": \"c5a968e5ae983011eb1b55c30157b1f1aa42e88370c8f806034c4fe729fe609f\"}, \"scannerPid\": 37863, \"scannerPgid\": 37863}\n"
+    },
+    {
+      "chunk_id": "e1b45a",
+      "wall_time_seconds": 5.00121852,
+      "session_id": 59252,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "af709f",
+      "wall_time_seconds": 5.001648296,
+      "session_id": 59252,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "64fe8b",
+      "wall_time_seconds": 0.000016422,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ]
+}

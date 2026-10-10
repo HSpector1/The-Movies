@@ -1,0 +1,25 @@
+--- reader-r2
++++ reader-r3
+@@ -1,6 +1,6 @@
+ import hashlib,json,os,stat,sys
+ from pathlib import Path
+-S=Path('/Users/zacheryspector/studio-scratch');A=S/'1370-an-root-continuation-20261009-r1';P=S/'1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r2';O=S/'1370-an-m0-fullfunction-current-prelaunch-output-20261010-r2'
++S=Path('/Users/zacheryspector/studio-scratch');A=S/'1370-an-root-continuation-20261009-r1';P=S/'1370-an-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r3';O=S/'1370-an-m0-fullfunction-current-prelaunch-output-20261010-r3'
+ def role(p):
+  p=Path(p);s=p.lstat();assert p.resolve(strict=True)==p and stat.S_ISREG(s.st_mode) and s.st_nlink==1
+  b=p.read_bytes();return {'path':str(p),'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}
+@@ -15,7 +15,7 @@
+ latestrole=role(sys.argv[3]);assert latestrole['sha256']==sys.argv[4];latest=json.loads(Path(latestrole['path']).read_bytes())
+ stoprole=role(sys.argv[5]);assert stoprole['sha256']==sys.argv[6];stop=json.loads(Path(stoprole['path']).read_bytes())
+ assert g['latestSharedFullPostflightReadback']==latestrole and g['reviewedPriorStopAdoption']==stoprole and stop['currentTypesAdoption']==g['typesObservedAdoption']
+-assert stop['schema']=='1370-root-fullfunction-protected-stop-observed-adoption/v1' and stop['status']=='ROOT_ADOPTED_FULLFUNCTION_WRONG_MIRROR_SUBJECT_STOP_WITH_FULL_SHARED_POSTFLIGHT' and stop['fullPostflightReadback']==latestrole and stop['fullPostflightSnapshot']==latest['fullPostflightSnapshot'] and stop['readback']==latest['actualRouteReadback']
++assert stop['schema']=='1370-root-fullfunction-protected-stop-observed-adoption/v1' and stop['status']=='ROOT_ADOPTED_FULLFUNCTION_GENERATED_TYPESCRIPT_PARSE_STOP_WITH_FULL_SHARED_POSTFLIGHT' and stop['fullPostflightReadback']==latestrole and stop['fullPostflightSnapshot']==latest['fullPostflightSnapshot'] and stop['readback']==latest['actualRouteReadback']
+ assert stop['originalAttemptRemainsStop'] is True and stop['fullSharedPostflightAccepted'] is True and stop['soleLaneReleased'] is True and stop['executionAuthorization'] is False and stop['game'] is False
+ for key in ('independentObservedReview','readback','fullPostflightReadback','fullPostflightSnapshot','currentTypesAdoption'):assert role(stop[key]['path'])==stop[key]
+ assert latest['toolExit']==0 and latest['fullImmutableEqual'] is True and latest['laneReleased'] is True and latest['priorStopPreserved'] is True
+@@ -36,4 +36,4 @@
+  else:raise RuntimeError('STOP own scanner remains')
+ assert not os.path.lexists(S/'HEAVY-LANE-LOCK')
+ d={'schema':'1370-root-original-current-root-preflight-observed-adoption/v1','status':'ROOT_ADOPTED_ORIGINAL_CURRENT_ROOT_PREFLIGHT','mode':'fullfunction-current-protection','actualTool':role(P/'ACTUAL-TOOL.json'),'actualToolSessionId':a['toolSessionId'],'toolExit':0,'grant':role(P/'GRANT.json'),'sourceReview':g['sourceReview'],'preflight':role(O/'PREFLIGHT.json'),'stdout':role(P/'prelaunch.stdout'),'stderr':role(P/'prelaunch.stderr'),'originalFullSnapshot':v['protectedSnapshot'],'baseline':v['baseline'],'nineRootsAndAncestryAndCurrentChecksAccepted':True,'fullMapReuseUnderOriginalContinuousFreezeProvision':True,'newFullInventory':False,'postOwnScannerChecks':checks,'scannerAbsent':True,'rawLocalOnlyClassification':role(O/'RAW-LOCAL-ONLY-ROLES.json'),'rawLocalOnlyRoles':4,'rawLocalOnlyBytes':sum(x['bytes'] for x in v['rawLocalOnly']),'scope':v['scope'],'protectedFreezeContinues':True,'proofOrTypesAccepted':False,'game':False,'executionAuthorization':False,'postR6RootAdoption':g['postR6RootAdoption'],'currentProtection':g['currentProtection'],'typesObservedAdoption':g['typesObservedAdoption'],'fullPostflightSnapshot':authority['fullPostflightSnapshot'],'latestSharedFullPostflightSnapshot':v['protectedSnapshot'],'latestSharedFullPostflightReadback':latestrole,'reviewedPriorStopAdoption':stoprole,'originalAttemptRemainsStop':True}
+-print(json.dumps(put(A/'M0-FULLFUNCTION-RETRY-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json',d)))
++print(json.dumps(put(A/'M0-FULLFUNCTION-R3-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json',d)))

@@ -1,0 +1,27 @@
+--- EXECUTION-CONTEXT-UNFILLED.json
++++ original-BASE-EXECUTION-CONTEXT-UNFILLED.json
+@@ -1,21 +1,15 @@
+ {
+   "actualGrant": null,
+   "additionalRefs": {},
+-  "configSha256": "c40c0a34d07532d4690552318958029ec736d32283dcec59b0b33191bf82bc4c",
++  "configSha256": "17ac5abcd1e26c83fcd8d3794bd0c6356cd9f141416e01974cdd34f510b72bb5",
+   "currentProtection": null,
+-  "diagnosticInputs": {
+-    "controlsObservedReview": null,
+-    "controlsRootAdoption": null,
+-    "currentAMFullPreflight": null,
+-    "currentAMFullPreflightAdoption": null
+-  },
+   "executionAuthorization": false,
+   "freshDependencyProof": null,
+   "freshSourceProof": null,
+   "laneLock": null,
+   "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+-  "runId": "20261009-m0-post-r6-preservation-diagnostic-r2",
++  "runId": "20261009-m0-current-proof-after-al-r2",
+   "runtimeTools": null,
+-  "schema": "1370-post-r6-m0-preservation-diagnostic-context/v1",
++  "schema": "1370-current-m0-proof-execution-context/v1",
+   "sourceReview": null
+ }

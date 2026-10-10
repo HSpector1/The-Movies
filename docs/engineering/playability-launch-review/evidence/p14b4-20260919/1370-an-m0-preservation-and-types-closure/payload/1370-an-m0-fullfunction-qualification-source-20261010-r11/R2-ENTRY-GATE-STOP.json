@@ -1,0 +1,14 @@
+{
+  "decision": "STOP_SOURCE_UNAUTHENTICATED_DIRECT_NODE_PREREQUISITE_FLAGS",
+  "executionAuthorization": false,
+  "finding": "Direct Node entry accepted caller-chosen binding SHA and three true flags before resolving private M0 modules.",
+  "foundBy": "Independent b109 reviewer, following author interface question",
+  "originalR2Preserved": true,
+  "predecessor": {
+    "bytes": 9816,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r2/SOURCE-PINS.json",
+    "sha256": "6af108f92bd7446d18cc2bba79faff7ad1618cc60db15e6ac49dd36e9f49339b"
+  },
+  "repair": "Authenticate the same externalgrant/sourcepins+review/currenttypes+root/protection/artifactbound and originalcopied-source authority; authenticate controller PID and durable first-proof artifact before private imports. No duplicate scan or runtime claim.",
+  "runtimeExecuted": false
+}

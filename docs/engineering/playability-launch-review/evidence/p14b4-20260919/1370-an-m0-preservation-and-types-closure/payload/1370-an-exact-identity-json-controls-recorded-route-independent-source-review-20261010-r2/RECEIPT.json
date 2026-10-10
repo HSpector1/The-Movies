@@ -1,0 +1,226 @@
+{
+  "schema": "1370-exact-identity-json-controls-recorded-route-independent-source-review/v1",
+  "decision": "ACCEPT_STATIC_EXACT_IDENTITY_JSON_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY",
+  "sourceManifest": {
+    "bytes": 4561,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "640d300aadc66b4f7bc225f91841b5fd235945d446c056214d8b4cda27b4313a"
+  },
+  "sourceSeal": {
+    "bytes": 415,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/SEAL.json",
+    "sha256": "6b3165bcc5e5f07f2a6a8b18a4b2f88b8c06e9ea2a0b708476bcbb40d5d0eee8"
+  },
+  "sourcePins": {
+    "CONFIG.json": {
+      "bytes": 2056,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/CONFIG.json",
+      "sha256": "501a9f61f9e305b7b97e5833f953974495c8cb3b5eaee7975962b744942d768e"
+    },
+    "CONTRACT.json": {
+      "bytes": 3102,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/CONTRACT.json",
+      "sha256": "49159047bc68a95127b1c22e26019bc5b4cb8fd5ad6aa2eb84a92735be86616c"
+    },
+    "record-parser-controls.py": {
+      "bytes": 15872,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/record-parser-controls.py",
+      "sha256": "d7d3b9c901cc3ea4c13817e03e78a312815465770f7f5450e07d8f4bdeabc1e8"
+    },
+    "launch-parser-controls.py": {
+      "bytes": 10637,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/launch-parser-controls.py",
+      "sha256": "e55ac0f04dcbd66626165897dceff0607ada7336e293bf7cd4724d74d5e94197"
+    },
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    }
+  },
+  "routeSourcePins": {
+    "CONFIG.json": {
+      "bytes": 2056,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/CONFIG.json",
+      "sha256": "501a9f61f9e305b7b97e5833f953974495c8cb3b5eaee7975962b744942d768e"
+    },
+    "CONTRACT.json": {
+      "bytes": 3102,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/CONTRACT.json",
+      "sha256": "49159047bc68a95127b1c22e26019bc5b4cb8fd5ad6aa2eb84a92735be86616c"
+    },
+    "record-parser-controls.py": {
+      "bytes": 15872,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/record-parser-controls.py",
+      "sha256": "d7d3b9c901cc3ea4c13817e03e78a312815465770f7f5450e07d8f4bdeabc1e8"
+    },
+    "launch-parser-controls.py": {
+      "bytes": 10637,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/launch-parser-controls.py",
+      "sha256": "e55ac0f04dcbd66626165897dceff0607ada7336e293bf7cd4724d74d5e94197"
+    },
+    "exact-json.mjs": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "run-parser-controls.mjs": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    }
+  },
+  "concreteFindings": [],
+  "executionAuthorization": false,
+  "actualControls": "UNRUN",
+  "actualGrant": null,
+  "actualTool": null,
+  "actualObservedReview": null,
+  "acceptedScope": "One complete owned recorded run of the unchanged32 finite pure JSON controls. No private M0 access, gameplay, fixture generation, compile, child creation by the pure Node worker, candidate mutation or catch-mutant qualification.",
+  "retainedSourceReadback": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-independent-source-review-20261010-r2/SOURCE-READBACK.json",
+    "bytes": 4972,
+    "sha256": "7d45845ddf4d82fbf7b4b38b92b16b3c83435f90136420657b64ec8553f1281d"
+  },
+  "all13PackagePayloadRolesAndTwoExternalInputRolesMatchActualBytes": true,
+  "completeForwardAndInverse": {
+    "parent": true,
+    "recorder": true,
+    "bases": {
+      "parent": {
+        "bytes": 10686,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/BASE-launch-ordering-controls.py.txt",
+        "sha256": "44ef7942429e0b42129cc4e16548376260136b65c3e61f83252af39beb6848b8"
+      },
+      "recorder": {
+        "bytes": 16236,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/BASE-record-ordering-controls.py.txt",
+        "sha256": "ea6f813f5d732cf08277fd0ff60fa0f1074b9839419e55448fbba2c06afb7533"
+      }
+    }
+  },
+  "mechanisms": {
+    "parentTenHelpersByteExact": [
+      "require",
+      "prep_timeout",
+      "remaining",
+      "metadata",
+      "role",
+      "authenticate",
+      "pairs",
+      "load",
+      "exact",
+      "write"
+    ],
+    "recorderSixteenHelpersByteExact": [
+      "require",
+      "sha",
+      "write",
+      "metadata",
+      "authenticate",
+      "process_alive",
+      "start_owned",
+      "ready_go",
+      "close_startup_fds",
+      "clear",
+      "alarm",
+      "whole_guard",
+      "active_guard",
+      "observed_exit_guard",
+      "child_environment",
+      "finalize_result"
+    ],
+    "OwnedChildByteExact": true,
+    "readyGoOwnershipBeforeExecution": true,
+    "noDetach": true,
+    "ownedGroupClearanceAndDirectChildReap": true,
+    "startupFdCleanup": true,
+    "hardAlarmThroughStreamFsyncFinalization": true,
+    "nonzeroExitOrOverrideTakesPrecedence": true,
+    "bounds": {
+      "runner": 300,
+      "active": 320,
+      "whole": 330,
+      "childStreamBytes": 8388608,
+      "pureReportBytes": 131072
+    },
+    "clockScope": "Recorder whole330 begins before authentication. Child300 begins before fork/GO, active320 includes successful report/retained work, whole330 includes cleanup/finalization. Parent has separateprep60 canceled immediately before exact r8 direct exec. No combined parent runtime deadline.",
+    "environment": "Preserves HOME/CODEX_HOME; Node options/path sanitized by unchanged child_environment. Exact two recipe overrides PYTHONDONTWRITEBYTECODE=1/GIT_OPTIONAL_LOCKS=0.",
+    "diagnostics": "No suppression or promise that all parent/helper streams are quiet. Producer child stderr must be empty for successful exact report; any Python warning in helper stream remains separate retained evidence."
+  },
+  "externalInterfaces": {
+    "manifestAndReview": "Combined route+parent manifest is the same genuine role in sourcePins/parentAdapterSourcePins; sourceReview/parentAdapterSourceReview are the same genuine independent receipt. Consumer requires exact sourceManifest and six filename-role aliases in both maps.",
+    "grant": "Exact schema/scope/once=true/retry=false, actual configSha256/bounds/output/recipe/argv template, source adoption and genuine runtime observation; final grant SHA substituted only after grant retained, avoiding hash cycles.",
+    "toolAuthority": "Genuine a681 observation binds exact physical Python and Node roles; parent freshly authenticates physical binaries/execute permission and original r8helper before direct exec. Node worker requires actual22.23.2 process.",
+    "ownership": "Parent establishes group if needed, requires actualPID==actualPGID, records actualSID separately in durable exclusive launch claim. Exact r8 argv enters original physicalPython-I-B recorder; no assumed helper/recorder/child identity equality.",
+    "freshness": "Fixed fresh parent/output/lane/metadata/claim paths; free exclusive HEAVY-LANE-LOCK immediately before helperexec, no automatic retry.",
+    "adoption": "Future fullfunction adoption must bind finalR7 helper/control roles, genuine immutable CONTROLS-RESULT, actual recorded tool and independent observed decision ACCEPT_ACTUAL_EXACT_IDENTITY_JSON_PURE_CONTROLS_ONLY. No future outcome substituted."
+  },
+  "pureControls": {
+    "parserSource": {
+      "bytes": 2202,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+    },
+    "controlsSource": {
+      "bytes": 7028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+    },
+    "sameFinalR7RoleBytes": true,
+    "fixedUniqueCaseIds": [
+      "safe-positive-max",
+      "unsafe-positive-boundary",
+      "unsafe-positive-neighbor",
+      "safe-negative-min",
+      "unsafe-negative-boundary",
+      "unsafe-negative-neighbor",
+      "actual-known-root-nanoseconds",
+      "adjacent-root-nanoseconds",
+      "integer-negative-zero",
+      "ordinary-fraction",
+      "fraction-negative-zero",
+      "finite-exponent",
+      "duplicate-key",
+      "nested-duplicate-key",
+      "malformed-leading-zero",
+      "malformed-fraction",
+      "malformed-exponent",
+      "fraction-overflow",
+      "unsupported-nan",
+      "malformed-escape",
+      "raw-control-in-string",
+      "unterminated-string",
+      "malformed-utf8",
+      "depth-overflow",
+      "trailing-data",
+      "array-trailing-comma",
+      "object-trailing-comma",
+      "unsupported-undefined",
+      "escaped-string",
+      "prototype-key",
+      "typed-structure-equality",
+      "nested-proof-exactness"
+    ],
+    "caseCount": 32,
+    "negativeVerdict": "Exact STOP labels for fixed parser errors, native SyntaxError for malformed string cases, TypeError plus exact UTF8 error code; loader/tool/unrelated errors fail. All case bodies complete before the sole success report.",
+    "identity": "Unsafe numeric integer tokens remain exact BigInt in validation, safe integers Number; typed deep equality rejects bigint/number, bool/number, array/object confusion and unequal adjacent nanosecond identity.",
+    "serialization": "Pure output stores IDs/predicates/verdict strings and safe counts/roles, no BigInts or proof-token string coercion. Original authority bytes unchanged.",
+    "retention": "Original Node stdout/stderr raw streams retained; parsed successful report capped128KiB written as exclusive durable CONTROLS-RESULT; recorder result/group cleanup and all actual exits still require independent observed verification."
+  },
+  "predecessorFullfunctionReview": {
+    "bytes": 14338,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r7/RECEIPT.json",
+    "sha256": "3f8c38d007d381db407bf1953781a089488fa3c4979d742f452697c4bef9d48f"
+  },
+  "reviewMethod": "Finite named scratch source reads, actual retained-byte readback, complete pure text diff applications and helper byte comparisons. No candidate runtime/import/test, compile, game, private inventory, Git or process probe.",
+  "noGameAcceptance": true,
+  "noFixtureQualification": true,
+  "noMeaningfulCatchMutantRed": true,
+  "noSourcePromotion": true
+}

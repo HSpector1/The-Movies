@@ -1,0 +1,146 @@
+{
+  "actualCurrentAMPreflight": null,
+  "actualGrant": null,
+  "actualObservedAdmission": null,
+  "actualResult": null,
+  "actualSourceReview": null,
+  "combinedPreparationRuntimeDeadline": null,
+  "config": {
+    "bytes": 32755,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r1/CONFIG.json",
+    "sha256": "114d5cabe8e201193e57a8667ec9d419712fb439e6ee7e98adb6a197e833d30c"
+  },
+  "contextGrantDigest": "Compact sorted context with actualGrant omitted; actual prerequisite roles included, no future emitted source/dependency proof or current protection.",
+  "contextSchema": "1370-post-r6-m0-preservation-diagnostic-context/v1",
+  "controlsRootAdoptionContract": {
+    "consumerActualTool": "actualTool.exit_code strict integer0 and stdoutSummary exact summary",
+    "consumerSummary": "actual ACCEPT_ACTUAL_DISPOSABLE_PAIR_ONLY with matching outcome path/SHA and exact scopes",
+    "independentObservedReview": "exact diagnosticInputs.controlsObservedReview",
+    "outcome": "actual ACTUAL_DISPOSABLE_METADATA_CONTROLS_COMPLETED one pair/six strict integer0 exits",
+    "status": "ROOT_ADOPTED_ACTUAL_DISPOSABLE_METADATA_PAIR_ONLY"
+  },
+  "currentAMPreflightAdoptionContract": {
+    "actualTool": "actual terminal finalExit strict integer0",
+    "config": "exact sourcePins.files.CONFIG.json",
+    "freshFullInventory": true,
+    "guardSource": "exact sourcePins.files.snapshot.py",
+    "postOwnership": "heavyLaneLockAbsent true and actual scoped checks ESRCH",
+    "productionHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+    "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "rawLocalOnlyClassification": "four semantic machine PS/FD roles LOCAL_HASH_SIZE_ONLY",
+    "snapshot": "exact actual fresh full inventory role; separate context input matches",
+    "sourcePins": {
+      "bytes": 2286,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/SOURCE-PINS.json",
+      "sha256": "e638252b8082aa756f56471552327706a17dcf0e2d6bd01628710624ce7ec435"
+    },
+    "status": "ROOT_ADOPTED_CURRENT_AM_FULL_PREFLIGHT"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directLaunchArgv": [
+    "__ACTUAL_PHYSICAL_PINNED_PYTHON__",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r1/LAUNCH.py",
+    "__ACTUAL_FINAL_CONTEXT_PATH__",
+    "__ACTUAL_CONTEXT_SHA256__"
+  ],
+  "executables": {
+    "BOOTSTRAP.py": {
+      "bytes": 2722,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r1/BOOTSTRAP.py",
+      "sha256": "7581248b3cde60c94100ed2b3ae927b031e496d5e892e63e9d89b491d41c1fac"
+    },
+    "LAUNCH.py": {
+      "bytes": 7098,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r1/LAUNCH.py",
+      "sha256": "52a9ec0099de0c606be6fa2dcd1582a90a99bc910ba227893115824647fccc67"
+    },
+    "check-deps.mjs": {
+      "bytes": 1918,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r1/check-deps.mjs",
+      "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+    },
+    "runner.py": {
+      "bytes": 44083,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r1/runner.py",
+      "sha256": "cf25620abdcd6a15101e9c9a8746efb46c89f92f62b3f86b4db24eb150ab0e67"
+    },
+    "supervise.py": {
+      "bytes": 13749,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r1/supervise.py",
+      "sha256": "704098513cf8c48914569dd7ad35e7b5bc46590e8f2910f31dfea1104f74c3c8"
+    }
+  },
+  "executionAuthorization": false,
+  "expectedResultSchema": "1370-post-r6-m0-preservation-diagnostic-result/v1",
+  "expectedResultStatus": "PASS_READONLY_POST_R6_M0_PRESERVATION_DIAGNOSTIC_KNOWN_ROOT_DRIFT",
+  "grantSchema": "1370-root-post-r6-m0-preservation-diagnostic-grant/v1",
+  "grantScope": "READONLY_POST_R6_M0_PRESERVATION_DIAGNOSTIC_KNOWN_ROOT_DRIFT_ONLY",
+  "parentProfileMode": "proof",
+  "parentSourcePath": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-parent-source-20261009-r1",
+  "preparationSecondsSeparate": 60,
+  "requiredExternalDiagnosticInputs": {
+    "controlsObservedReview": null,
+    "controlsRootAdoption": null,
+    "currentAMFullPreflight": null,
+    "currentAMFullPreflightAdoption": null
+  },
+  "requiredObservation": "Actual tool/helper/recorder/runner0, groupClear, two equal complete proof objects, scopes/root exception explicit, cleanup and separately required original current-AM full protected postflight plus independent observed review.",
+  "rootBaselineAdoptionContract": {
+    "actualResult": "exact actual diagnostic RESULT role",
+    "collectionAccepted": false,
+    "currentRootBaselineQualified": true,
+    "diagnosticObservedReview": "actual independent observed receipt role",
+    "freshDependencyProof": "exact actually emitted plain dependency proof object",
+    "freshSourceProof": "exact actually emitted extended plain proof object",
+    "fullPostflightSnapshot": "genuine new current-AM full protected postflight",
+    "historicalRootUnchanged": false,
+    "knownRootDrift": {
+      "historicalMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+      "historicalNormalizedIdentity": [
+        16777220,
+        166751332,
+        448,
+        13,
+        416,
+        1791577446298737027,
+        1791577446298737027
+      ],
+      "nonrootMetadataSha256": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
+      "recordedAfterIdentity": [
+        16777220,
+        166751332,
+        16832,
+        13,
+        416,
+        1791600924862151724,
+        1791600924862151724
+      ],
+      "recordedBeforeIdentity": [
+        16777220,
+        166751332,
+        16832,
+        13,
+        416,
+        1791577446298737027,
+        1791577446298737027
+      ],
+      "rosterSha256": "aa0270269ea341ec4d0029307c799518b5ff89e81b0044d165763408ea533f57"
+    },
+    "originalR6StopPreserved": true,
+    "schema": "1370-root-post-r6-m0-current-root-diagnostic-adoption/v1",
+    "status": "ROOT_ADOPTED_POST_R6_M0_PRESERVATION_DIAGNOSTIC_KNOWN_ROOT_DRIFT",
+    "typesAccepted": false
+  },
+  "runId": "20261009-m0-post-r6-preservation-diagnostic-r1",
+  "runtimeBoundsSeconds": {
+    "active": 320,
+    "runner": 300,
+    "whole": 330
+  },
+  "schema": "1370-post-r6-m0-preservation-diagnostic-recipe/v1",
+  "scope": "Read-only complete historical files/nonroot/dependencies, exact separately recorded post-R6 dot tuple only. No types/collection/game and no historical-root-unchanged or scientific claim.",
+  "sourceReviewDecision": "ACCEPT_STATIC_POST_R6_M0_PRESERVATION_DIAGNOSTIC_SOURCE_ONLY",
+  "sourceReviewExecutableAliases": "sourcePins and routeSourcePins filename-to-exact-role maps including LAUNCH.py"
+}

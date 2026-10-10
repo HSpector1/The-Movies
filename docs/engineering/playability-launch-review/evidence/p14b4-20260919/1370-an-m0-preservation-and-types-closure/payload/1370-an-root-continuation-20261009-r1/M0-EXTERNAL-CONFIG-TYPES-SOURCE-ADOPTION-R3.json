@@ -1,0 +1,40 @@
+{
+  "collectionAccepted": false,
+  "currentProtection": {
+    "bytes": 3294,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-CURRENT-EXTERNAL-CONFIG-TYPES-PROTECTION.json",
+    "sha256": "5980e69d3e2962f068f10fa3217caa45f3ff752cc93a5064eb0637f54a2439d0"
+  },
+  "executionAuthorization": false,
+  "executorSourcePins": {
+    "bytes": 15420,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/SOURCE-PINS.json",
+    "sha256": "4a6a87c20feffe96e08807b605019e8d6caeb896d0a4eb6069f55e8e98cc934f"
+  },
+  "executorSourceReview": {
+    "bytes": 32162,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-independent-source-review-20261009-r3/RECEIPT.json",
+    "sha256": "930551d5e29fd43427854f1acdfb55f27c7846e2f3e39ff3c5dc533510f45435"
+  },
+  "game": false,
+  "historicalRootUnchanged": false,
+  "originalR6StopPreserved": true,
+  "parentSourcePins": {
+    "bytes": 7869,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r3/SOURCE-PINS.json",
+    "sha256": "257e049bb9c2aba5aca3c96b83dccfd376c18cedd524328fb151e4cfc0091603"
+  },
+  "parentSourceReview": {
+    "bytes": 14686,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-independent-source-review-20261009-r3/RECEIPT.json",
+    "sha256": "adc6b46e2d86d085efe3b006fa91dd44a5fbfc83febe4554366ee9d4726948c7"
+  },
+  "postR6RootAdoption": {
+    "bytes": 4446,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-POST-R6-PRESERVATION-DIAGNOSTIC-OBSERVED-ADOPTION.json",
+    "sha256": "5b5e062b8c5ac12bc70aa5ccb46ad101340ad692cdf0147ea44890882c0f44e1"
+  },
+  "schema": "1370-root-external-config-m0-types-source-adoption/v1",
+  "status": "ROOT_ADOPTED_EXTERNAL_CONFIG_M0_TYPES_SOURCE_ONLY",
+  "typesAccepted": false
+}

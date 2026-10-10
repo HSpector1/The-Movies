@@ -1,0 +1,278 @@
+{
+  "actualRuntimeDiskFloorStop": true,
+  "actualTool": {
+    "bytes": 1051,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r1/ACTUAL-TOOL.json",
+    "sha256": "32d00c125b6443556b90920bb90006ad8c9be03c27cc7813a5a0a951a4ff7548"
+  },
+  "automaticRetry": false,
+  "children": [
+    {
+      "argv": [
+        "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/check-deps.mjs",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+        "/Users/zacheryspector/The-Movies-headless-program",
+        "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+      ],
+      "exit": 0,
+      "name": "dependency-versions",
+      "seconds": 1.399,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 1038,
+      "stdoutSha256": "57ffd6f3cf26f598b7740e928201b00602b1f0fa44f458fb9957fa82aa715071"
+    }
+  ],
+  "collectionAccepted": false,
+  "commandsNotExecuted": [
+    "ui-tsc",
+    "diagnostic-collection"
+  ],
+  "context": {
+    "bytes": 7626,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r1/EXECUTION-CONTEXT.json",
+    "sha256": "a090a3df274361c7cdfb0515b9d2eab099948b2ad76c2e633b9f3e7db64df813"
+  },
+  "currentProtection": {
+    "bytes": 3294,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-CURRENT-EXTERNAL-CONFIG-TYPES-PROTECTION.json",
+    "sha256": "5980e69d3e2962f068f10fa3217caa45f3ff752cc93a5064eb0637f54a2439d0"
+  },
+  "dependencyAfterAvailable": false,
+  "dependencyChildRootBoundaryEqual": true,
+  "dependencyPreservationAccepted": false,
+  "diskFloorError": "RuntimeError('3 GiB disk floor')",
+  "executionAuthorization": false,
+  "fill": {
+    "bytes": 7345,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r1/FILL-RESULT.json",
+    "sha256": "bf24fe175d18f07831754867ad73b85242e8afa16a60af02727b8026814f782d"
+  },
+  "game": false,
+  "grant": {
+    "bytes": 1111,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r1/EXECUTION-GRANT.json",
+    "sha256": "19c41c147acadc0e3c321d22144dfd42fd8c9be95dba490d5f40a5564f282a1e"
+  },
+  "h13HistoricalStopWaived": false,
+  "helperExit": 1,
+  "historicalRootUnchanged": false,
+  "laneLog": {
+    "bytes": 1200,
+    "path": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-external-after-an-r1.lane.log",
+    "sha256": "775b08f8cc52258c1c74fea3515e253354a61d822fe90a14ba83459c347e01fa"
+  },
+  "laneMetadata": {
+    "bytes": 523,
+    "path": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-external-after-an-r1.lane.log.meta",
+    "sha256": "3f8820539454799c41194f4e38577d0330d664fcfa7672d6732d57ae2eb28c16"
+  },
+  "laneReleased": true,
+  "mode": "types",
+  "originalR6StopPreserved": true,
+  "postR6RootAdoption": {
+    "bytes": 4446,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-POST-R6-PRESERVATION-DIAGNOSTIC-OBSERVED-ADOPTION.json",
+    "sha256": "5b5e062b8c5ac12bc70aa5ccb46ad101340ad692cdf0147ea44890882c0f44e1"
+  },
+  "postflightError": "RuntimeError('3 GiB disk floor')",
+  "preparationElapsedSeconds": 1.687263643994811,
+  "proofOrTypesAccepted": false,
+  "recordedOwnedIds": [
+    24146,
+    24401,
+    24665
+  ],
+  "recorderElapsedSeconds": 84.288,
+  "recorderExit": 1,
+  "recorderResult": {
+    "bytes": 892,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-recorder-results-20261009-r1/20261009-m0-types-external-after-an-r1.RECORDER-RESULT.json",
+    "sha256": "633b0938dfd37bfe35db8bb60b34ca166f6db08785b50bab53cca02498752085"
+  },
+  "retainedCollectionArtifact": null,
+  "rootCompilerBoundary": {
+    "after": null,
+    "afterError": "RuntimeError('3 GiB disk floor')",
+    "before": {
+      "entries": [
+        [
+          "bridge",
+          16832,
+          16777220,
+          166769206,
+          40,
+          1280,
+          1791577446282474179,
+          1791577446282474179
+        ],
+        [
+          "node_modules",
+          41408,
+          16777220,
+          166769275,
+          1,
+          62,
+          1791577446298712967,
+          1791577446298712967
+        ],
+        [
+          "package-lock.json",
+          33188,
+          16777220,
+          166751333,
+          1,
+          149287,
+          1791567229044113154,
+          1791567229065787471
+        ],
+        [
+          "package.json",
+          33188,
+          16777220,
+          166751334,
+          1,
+          2726,
+          1791567229158429215,
+          1791567229202783717
+        ],
+        [
+          "src",
+          16832,
+          16777220,
+          166751335,
+          4,
+          128,
+          1791567234613893016,
+          1791567234613893016
+        ],
+        [
+          "tests",
+          16832,
+          16777220,
+          166751538,
+          471,
+          15072,
+          1791567307170045969,
+          1791567307170045969
+        ],
+        [
+          "tsconfig.json",
+          33188,
+          16777220,
+          166752408,
+          1,
+          706,
+          1791567273264477522,
+          1791567273292032823
+        ],
+        [
+          "tsconfig.src.json",
+          33188,
+          16777220,
+          166752409,
+          1,
+          119,
+          1791567273314012826,
+          1791567273332387407
+        ],
+        [
+          "ui",
+          16832,
+          16777220,
+          166752410,
+          11,
+          352,
+          1791567306940089544,
+          1791567306940089544
+        ],
+        [
+          "vitest.config.ts",
+          33188,
+          16777220,
+          166753260,
+          1,
+          176,
+          1791567306979694396,
+          1791567306998603060
+        ],
+        [
+          "vitest.workspace.ts",
+          33188,
+          16777220,
+          166753261,
+          1,
+          1489,
+          1791567307021069393,
+          1791567307040365658
+        ]
+      ],
+      "identity": [
+        16777220,
+        166751332,
+        16832,
+        13,
+        416,
+        1791600924862151724,
+        1791600924862151724
+      ],
+      "rosterSha256": "aa0270269ea341ec4d0029307c799518b5ff89e81b0044d165763408ea533f57"
+    },
+    "childError": "RuntimeError('3 GiB disk floor')",
+    "childPhase": "pipe-pump",
+    "childTraceback": "Traceback (most recent call last):\n  File \"/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/runner.py\", line 783, in main\n    child=run_child(name,argv,mirror,out,run_id,child_env)\n  File \"/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/runner.py\", line 489, in run_child\n    source_step(run_id)\n    ~~~~~~~~~~~^^^^^^^^\n  File \"/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/runner.py\", line 266, in source_step\n    need(shutil.disk_usage(S).free>=FLOOR,'3 GiB disk floor')\n    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1/runner.py\", line 46, in need\n    if not ok:raise RuntimeError(msg)\n              ^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: 3 GiB disk floor\n",
+    "name": "root-tsc"
+  },
+  "rootCompilerInterrupted": true,
+  "rootLaneGrant": {
+    "bytes": 4598,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-recorded-20261009-r1/ROOT-LANE-GRANT.json",
+    "sha256": "8e76abd014b193e296e9e3f63f48b5346f822ccc10401d057ae71ddeccca9acb"
+  },
+  "runnerElapsedSeconds": 81.284,
+  "runnerExit": 1,
+  "schema": "1370-root-m0-types-actual-stop-readback/v1",
+  "scopedOwnershipChecks": [
+    {
+      "id": 24146,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 24146,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 24401,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 24401,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 24665,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 24665,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "sourceAfterAvailable": false,
+  "sourcePreservationAccepted": false,
+  "status": "ACTUAL_M0_TYPES_DISK_FLOOR_STOP_PENDING_FULL_POSTFLIGHT_AND_INDEPENDENT_REVIEW",
+  "toolExit": 1,
+  "toolSessionId": 55264,
+  "typesResult": {
+    "bytes": 14206,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r1/20261009-m0-types-external-after-an-r1/RESULT.json",
+    "sha256": "b725d97e93fd0344d96b30e304246df447c39d517ef26d734aa42cb527767637"
+  }
+}

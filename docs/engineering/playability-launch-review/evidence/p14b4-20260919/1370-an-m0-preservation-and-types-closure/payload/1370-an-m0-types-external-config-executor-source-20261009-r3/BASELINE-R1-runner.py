@@ -1,0 +1,833 @@
+#!/usr/bin/env python3
+"""HELD M0 dependency, types and diagnostic collection executor; no runtime grant embedded."""
+import argparse, hashlib, json, math, os, pathlib, re, selectors, shutil, signal, stat, subprocess, sys, time, traceback
+S=pathlib.Path('/Users/zacheryspector/studio-scratch')
+REPO=pathlib.Path('/Users/zacheryspector/The-Movies-headless-program')
+P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r1')
+CONFIG_PATH=P/'CONFIG.json'
+CONFIG_SHA='224b8f1614208215cb07993fc4b015d8438413e95b805c7360105bee0575b154'
+OUT_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-results-20261009-r1')
+MIRROR_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2')
+CURRENT_HEAD='7087f116cf998fd86e33fb8e004df628e0686dbd'
+TREE='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554'
+REF='refs/heads/wip/headless-program-20260916-ts'
+MAIN_REF='refs/heads/main'
+LOCAL_MAIN_REF='refs/remotes/origin/main'
+MAIN_OID='c902a704eb948cc576083d0973c8c23e59937dc1'
+ORIGIN='https://github.com/HSpector1/The-Movies.git'
+LOCK_SHA='728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de'
+DEPS_CHECK_SHA='e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64'
+NODE='/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node'
+MAX_CHILD_LOG=8*1024*1024
+MAX_COLLECTION=1*1024*1024
+MAX_RESULT=128*1024
+WALL=300
+FLOOR=3*1024**3
+PREFLIGHT=int(3.5*1024**3)
+START=globals().get('_BOOTSTRAP_START')
+AUTHORITY=globals().get('_AUTHORITY')
+CURRENT=None
+GROUP_ALTERNATE_PROOFS=[]
+CONFIG=None
+M0_FACTS=None
+def stop_current():
+ global CURRENT
+ proc=CURRENT;CURRENT=None
+ if proc is None:return
+ stop_group(proc)
+
+
+def on_signal(signum,_frame):
+ stop_current()
+ raise InterruptedError('runner interrupted by signal '+str(signum))
+
+
+def need(ok,msg):
+ if not ok:raise RuntimeError(msg)
+
+
+def sha(raw):return hashlib.sha256(raw).hexdigest()
+
+
+def remaining():
+ need(type(START) in (int,float) and math.isfinite(float(START)),
+      'invalid authenticated child start')
+ elapsed=time.monotonic()-START
+ need(math.isfinite(elapsed) and 0<=elapsed<WALL,'300-second whole-child deadline')
+ return WALL-elapsed
+
+
+def fields(st):
+ return st.st_dev,st.st_ino,st.st_mode,st.st_nlink,st.st_size,st.st_mtime_ns,st.st_ctime_ns
+
+
+def open_dir_chain(path):
+ need(path.is_absolute(),'absolute directory path')
+ held=[os.open('/',os.O_RDONLY|os.O_DIRECTORY)]
+ try:
+  for name in path.parts[1:]:
+   parent=held[-1]
+   need(name not in ('','.','..'),'unsafe directory component')
+   before=os.stat(name,dir_fd=parent,follow_symlinks=False)
+   need(stat.S_ISDIR(before.st_mode),'symlink/non-directory parent')
+   child=os.open(name,os.O_RDONLY|os.O_DIRECTORY|os.O_NOFOLLOW,dir_fd=parent)
+   need(fields(os.fstat(child))==fields(before)==fields(os.stat(name,dir_fd=parent,follow_symlinks=False)),
+        'directory open drift')
+   held.append(child)
+  return held
+ except BaseException:
+  for fd in reversed(held):os.close(fd)
+  raise
+
+
+def verify_dir_chain(path,held):
+ need(len(held)==len(path.parts),'directory chain length')
+ for parent,child,name in zip(held,held[1:],path.parts[1:]):
+  need(fields(os.fstat(child))==fields(os.stat(name,dir_fd=parent,follow_symlinks=False)),
+       'directory chain drift')
+
+
+def close_chain(held):
+ for fd in reversed(held):os.close(fd)
+
+
+def read_pin(path,expected,cap=1<<20):
+ need(path.is_absolute() and re.fullmatch('[0-9a-f]{64}',expected or ''),'pinned control path/SHA')
+ held=open_dir_chain(path.parent)
+ try:
+  parent=held[-1];before=os.stat(path.name,dir_fd=parent,follow_symlinks=False)
+  need(stat.S_ISREG(before.st_mode) and before.st_nlink==1 and 0<=before.st_size<=cap,'unsafe pinned file '+str(path))
+  fd=os.open(path.name,os.O_RDONLY|os.O_NOFOLLOW,dir_fd=parent)
+  try:
+   need(fields(os.fstat(fd))==fields(before),'control open drift')
+   data=bytearray()
+   while True:
+    remaining();chunk=os.read(fd,min(65536,cap+1-len(data)))
+    if not chunk:break
+    data.extend(chunk);need(len(data)<=before.st_size and len(data)<=cap,'control grew')
+   need(len(data)==before.st_size and fields(os.fstat(fd))==fields(before)==
+        fields(os.stat(path.name,dir_fd=parent,follow_symlinks=False)),'control changed')
+  finally:os.close(fd)
+  verify_dir_chain(path.parent,held)
+  raw=bytes(data);need(sha(raw)==expected,'pin drift '+str(path));return raw
+ finally:close_chain(held)
+
+
+def clean_git_env():
+ return {k:v for k,v in os.environ.items() if not k.startswith('GIT_')}
+
+
+def bounded_ps_snapshot(argv=None):
+ """Read the full ps table with live pipe caps; never inherit its own group status."""
+ deadline=time.monotonic()+min(5,remaining())
+ if argv is None:argv=['/bin/ps','-axo','pid=,ppid=,pgid=,uid=']
+ proc=subprocess.Popen(argv,stdin=subprocess.DEVNULL,
+                       stdout=subprocess.PIPE,stderr=subprocess.PIPE,start_new_session=True,
+                       env=clean_git_env())
+ selector=selectors.DefaultSelector();out=bytearray();err=bytearray()
+ try:
+  for stream,target in ((proc.stdout,out),(proc.stderr,err)):
+   os.set_blocking(stream.fileno(),False);selector.register(stream,selectors.EVENT_READ,target)
+  while selector.get_map():
+   need(time.monotonic()<deadline,'EPERM process-table deadline')
+   for key,_ in selector.select(timeout=min(.1,max(.001,deadline-time.monotonic()))):
+    try:part=os.read(key.fileobj.fileno(),65536)
+    except BlockingIOError:continue
+    if not part:selector.unregister(key.fileobj);key.fileobj.close()
+    else:key.data.extend(part);need(len(key.data)<=2*1024*1024,'EPERM process-table stream cap')
+  proc.wait(timeout=min(remaining(),max(.001,deadline-time.monotonic())))
+  need(proc.returncode==0 and out and not err,'EPERM process-table unavailable')
+  try:os.killpg(proc.pid,0)
+  except ProcessLookupError:pass
+  except PermissionError as error:raise RuntimeError('EPERM process-table child group unclear') from error
+  else:raise RuntimeError('EPERM process-table child group survived')
+  return bytes(out)
+ except BaseException:
+  try:os.killpg(proc.pid,signal.SIGTERM)
+  except ProcessLookupError:pass
+  except PermissionError as error:raise RuntimeError('EPERM ps cleanup signal denied') from error
+  try:proc.wait(timeout=2)
+  except subprocess.TimeoutExpired:pass
+  try:os.killpg(proc.pid,0)
+  except ProcessLookupError:pass
+  except PermissionError as error:raise RuntimeError('EPERM ps cleanup group unclear') from error
+  else:
+   try:os.killpg(proc.pid,signal.SIGKILL)
+   except ProcessLookupError:pass
+   except PermissionError as error:raise RuntimeError('EPERM ps cleanup KILL denied') from error
+   try:proc.wait(timeout=2)
+   except subprocess.TimeoutExpired:pass
+  raise
+ finally:
+  selector.close()
+  for stream in (proc.stdout,proc.stderr):
+   if stream is not None and not stream.closed:stream.close()
+
+
+def group_alive(pid,proc=None):
+ try:os.killpg(pid,0);return True
+ except ProcessLookupError:return False
+ except PermissionError as error:
+  # EPERM itself proves neither survival nor clearance. The direct child must
+  # already be reaped, and two complete process-table samples must agree.
+  need(proc is not None and proc.pid==pid and proc.poll() is not None,
+       'EPERM with unreaped/unidentified group')
+  samples=[]
+  for sample in range(2):
+   probe=bounded_ps_snapshot()
+   parsed=[]
+   for line in probe.splitlines():
+    cols=line.split();need(len(cols)==4 and all(x.isdigit() for x in cols),'EPERM process-table parse')
+    parsed.append(tuple(map(int,cols)))
+   need(parsed and all(row[2]!=pid and row[1]!=pid for row in parsed),
+        'EPERM group/child descendant remains or inventory uncertain')
+   samples.append({'sample':sample,'rows':len(parsed),'exactGroupMembers':0,'directChildren':0})
+   if sample==0:time.sleep(.05)
+  GROUP_ALTERNATE_PROOFS.append({'pgid':pid,'reason':'EPERM_DIRECT_CHILD_REAPED',
+                                 'samples':samples,'originalError':repr(error)})
+  return False
+
+
+def signal_group(pid,sig,proc=None):
+ if not group_alive(pid,proc):return
+ try:os.killpg(pid,sig)
+ except ProcessLookupError:return
+ except PermissionError as error:
+  raise RuntimeError('group signal denied; no accepted cleanup regardless of later clearance') from error
+
+
+def stop_group(proc):
+ if not group_alive(proc.pid,proc):
+  try:proc.wait(timeout=1)
+  except subprocess.TimeoutExpired as error:raise RuntimeError('group absent but direct child not reaped') from error
+  need(proc.poll() is not None,'group absent but direct child status unknown')
+  return
+ signal_group(proc.pid,signal.SIGTERM,proc)
+ try:proc.wait(timeout=2)
+ except subprocess.TimeoutExpired:pass
+ deadline=time.monotonic()+2
+ while group_alive(proc.pid,proc) and time.monotonic()<deadline:time.sleep(.05)
+ if group_alive(proc.pid,proc):
+  signal_group(proc.pid,signal.SIGKILL,proc)
+  try:proc.wait(timeout=2)
+  except subprocess.TimeoutExpired:pass
+  deadline=time.monotonic()+2
+  while group_alive(proc.pid,proc) and time.monotonic()<deadline:time.sleep(.05)
+ need(not group_alive(proc.pid,proc),'guard/child process group survived cleanup')
+ need(proc.poll() is not None,'direct child not reaped after cleanup')
+
+
+def guard_command_bytes(argv,cwd=REPO,cap=2*1024*1024):
+ """Cap captured pipes, not child filesystem writes, and reap descendants."""
+ need(cap<=2*1024*1024 and cap>0,'guard output cap')
+ deadline=time.monotonic()+min(15,remaining())
+ env=clean_git_env() if argv and argv[0]=='git' else os.environ.copy()
+ selector=selectors.DefaultSelector()
+ try:
+  proc=subprocess.Popen(argv,cwd=cwd,env=env,stdin=subprocess.DEVNULL,
+                        stdout=subprocess.PIPE,stderr=subprocess.PIPE,start_new_session=True)
+ except BaseException:
+  selector.close()
+  raise
+ out=bytearray();err=bytearray()
+ try:
+  for stream,target in ((proc.stdout,out),(proc.stderr,err)):
+   os.set_blocking(stream.fileno(),False)
+   selector.register(stream,selectors.EVENT_READ,target)
+  while selector.get_map():
+   need(time.monotonic()<deadline,'guard command 15-second deadline')
+   remaining()
+   for key,_ in selector.select(timeout=min(.25,deadline-time.monotonic())):
+    try:chunk=os.read(key.fileobj.fileno(),65536)
+    except BlockingIOError:continue
+    if not chunk:
+     selector.unregister(key.fileobj);key.fileobj.close()
+    else:
+     key.data.extend(chunk);need(len(key.data)<=cap,'guard command output cap')
+  proc.wait(timeout=min(remaining(),max(.001,deadline-time.monotonic())))
+  need(not group_alive(proc.pid,proc),'guard command descendant survived')
+  need(proc.returncode==0,'guard command failed: '+repr(argv)+' '+repr(bytes(err[-500:])))
+  return bytes(out)
+ except BaseException:
+  stop_group(proc)
+  raise
+ finally:
+  selector.close()
+  for stream in (proc.stdout,proc.stderr):
+   if stream is not None and not stream.closed:stream.close()
+
+
+def cmd(argv,cwd=REPO):return guard_command_bytes(argv,cwd).decode('utf-8','replace').strip()
+
+
+def source_step(run_id):
+ global SOURCE_LAST_GUARD
+ remaining()
+ need(shutil.disk_usage(S).free>=FLOOR,'3 GiB disk floor')
+ now=time.monotonic()
+ if now-SOURCE_LAST_GUARD>=5:
+  guard(run_id);SOURCE_LAST_GUARD=now
+
+
+def bounded_names(fd,state,cap,run_id):
+ names=[];local=0
+ source_step(run_id)
+ with os.scandir(fd) as it:
+  for item in it:
+   local+=1;state['entries']+=1
+   need(local<=cap and state['entries']<=cap,'directory/global entry cap')
+   if local%16==0:source_step(run_id)
+   names.append(item.name)
+ source_step(run_id)
+ return sorted(names,key=lambda x:x.encode('utf-8'))
+
+
+def walk_meta(root,run_id):
+ """No-follow dependency proof with stable dirfd reads and a 512 MiB content cap."""
+ held=open_dir_chain(root);rootfd=held[-1];root_before=fields(os.fstat(rootfd))
+ digest=hashlib.sha256();state={'entries':0};content_bytes=0
+ try:
+  def descend(fd,prefix):
+   nonlocal content_bytes
+   before=fields(os.fstat(fd))
+   for name in bounded_names(fd,state,500000,run_id):
+    source_step(run_id)
+    need(name not in ('','.','..') and '/' not in name and '\n' not in name,'unsafe dependency name')
+    rel=prefix+name
+    st=os.stat(name,dir_fd=fd,follow_symlinks=False)
+    extra='';file_hash=None
+    if stat.S_ISDIR(st.st_mode):
+     child=os.open(name,os.O_RDONLY|os.O_DIRECTORY|os.O_NOFOLLOW,dir_fd=fd)
+     try:
+      need(fields(os.fstat(child))==fields(st),'dependency directory open drift')
+      # Metadata row precedes descendants, preserving a single deterministic walk.
+      row=[rel,st.st_mode,st.st_dev,st.st_ino,st.st_nlink,st.st_size,st.st_mtime_ns,st.st_ctime_ns,extra,file_hash]
+      digest.update(json.dumps(row,separators=(',',':')).encode()+b'\n')
+      descend(child,rel+'/')
+      need(fields(os.fstat(child))==fields(os.stat(name,dir_fd=fd,follow_symlinks=False)),
+           'dependency directory changed')
+     finally:os.close(child)
+    else:
+     if stat.S_ISLNK(st.st_mode):
+      extra=os.readlink(name,dir_fd=fd)
+      need(fields(st)==fields(os.stat(name,dir_fd=fd,follow_symlinks=False)),'dependency link drift')
+     elif stat.S_ISREG(st.st_mode):
+      need(0<=st.st_size<=512*1024**2-content_bytes,'dependency content audit cap')
+      filefd=os.open(name,os.O_RDONLY|os.O_NOFOLLOW,dir_fd=fd)
+      try:
+       need(fields(os.fstat(filefd))==fields(st),'dependency file open drift')
+       h=hashlib.sha256();size=0
+       while True:
+        source_step(run_id);chunk=os.read(filefd,1<<20)
+        if not chunk:break
+        size+=len(chunk);need(size<=st.st_size,'dependency grew during audit');h.update(chunk)
+       need(size==st.st_size and fields(os.fstat(filefd))==fields(st)==
+            fields(os.stat(name,dir_fd=fd,follow_symlinks=False)),'dependency file changed')
+      finally:os.close(filefd)
+      file_hash=h.hexdigest();content_bytes+=size
+     else:raise RuntimeError('special dependency entry '+rel)
+     row=[rel,st.st_mode,st.st_dev,st.st_ino,st.st_nlink,st.st_size,st.st_mtime_ns,st.st_ctime_ns,extra,file_hash]
+     digest.update(json.dumps(row,separators=(',',':')).encode()+b'\n')
+   need(fields(os.fstat(fd))==before,'dependency directory mutation')
+  descend(rootfd,'')
+  need(fields(os.fstat(rootfd))==root_before,'dependency root mutation')
+  verify_dir_chain(root,held)
+  return {'entries':state['entries'],'contentBytes':content_bytes,
+          'contentAndMetadataSha256':digest.hexdigest(),
+          'rootDevice':root_before[0],'rootInode':root_before[1]}
+ finally:close_chain(held)
+
+
+def canonical_proof(rows):
+ """Match the accepted r5 readback: UTF-8 path order and exact five-field rows."""
+ need(isinstance(rows,dict) and len(rows)==len(set(rows)), 'proof row map')
+ digest=hashlib.sha256()
+ for rel in sorted(rows,key=lambda x:x.encode('utf-8')):
+  row=rows[rel]
+  need(isinstance(row,list) and len(row)==5 and row[0]==rel, 'proof row schema/order')
+  digest.update(json.dumps(row,separators=(',',':')).encode('utf-8')+b'\n')
+ return digest.hexdigest()
+
+
+def stable_output(path,cap,body=False):
+ """Bounded, no-follow, stable descriptor read of a child-created regular file."""
+ held=open_dir_chain(path.parent)
+ try:
+  parent=held[-1];before=os.stat(path.name,dir_fd=parent,follow_symlinks=False)
+  need(stat.S_ISREG(before.st_mode) and before.st_nlink==1 and 0<=before.st_size<cap,
+       'child output cap/type '+str(path))
+  fd=os.open(path.name,os.O_RDONLY|os.O_NOFOLLOW,dir_fd=parent)
+  try:
+   need(fields(os.fstat(fd))==fields(before),'child output open drift')
+   h=hashlib.sha256();parts=[];size=0
+   while True:
+    remaining();chunk=os.read(fd,min(65536,cap-size))
+    if not chunk:break
+    size+=len(chunk);need(size<cap and size<=before.st_size,'child output growth')
+    h.update(chunk)
+    if body:parts.append(chunk)
+   need(size==before.st_size and fields(os.fstat(fd))==fields(before)==
+        fields(os.stat(path.name,dir_fd=parent,follow_symlinks=False)),
+        'child output changed')
+  finally:os.close(fd)
+  verify_dir_chain(path.parent,held)
+  return {'sha256':h.hexdigest(),'bytes':size,'body':b''.join(parts) if body else None}
+ finally:close_chain(held)
+
+
+def write_result(path,record):
+ raw=(json.dumps(record,sort_keys=True,indent=2)+'\n').encode()
+ need(len(raw)<=MAX_RESULT,'result receipt cap')
+ held=open_dir_chain(path.parent)
+ try:
+  parent=held[-1]
+  need(not os.path.lexists(path),'result collision')
+  fd=os.open(path.name,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600,dir_fd=parent)
+  try:
+   view=memoryview(raw)
+   while view:
+    remaining();view=view[os.write(fd,view):]
+   os.fsync(fd)
+  finally:os.close(fd)
+  os.fsync(parent)
+  verify_dir_chain(path.parent,held)
+ finally:close_chain(held)
+ proof=stable_output(path,MAX_RESULT+1,True)
+ need(proof['body']==raw,'result receipt readback')
+ return proof['sha256']
+
+
+def root_checkpoint(mirror,run_id):
+ """Bounded no-follow root-entry roster and exact root tuple at a child boundary."""
+ held=open_dir_chain(mirror);fd=held[-1];before=fields(os.fstat(fd));rows=[]
+ try:
+  for name in bounded_names(fd,{'entries':0},1500,run_id):
+   source_step(run_id)
+   need(name not in ('','.','..') and '/' not in name,'unsafe root entry')
+   st=os.stat(name,dir_fd=fd,follow_symlinks=False)
+   need(stat.S_ISDIR(st.st_mode) or stat.S_ISREG(st.st_mode) or stat.S_ISLNK(st.st_mode),
+        'special root entry')
+   rows.append([name,st.st_mode,st.st_dev,st.st_ino,st.st_nlink,st.st_size,
+                st.st_mtime_ns,st.st_ctime_ns])
+  need(fields(os.fstat(fd))==before,'root mutated during checkpoint')
+  verify_dir_chain(mirror,held)
+  raw=b''.join(json.dumps(row,separators=(',',':')).encode()+b'\n' for row in rows)
+  need(len(raw)<=128*1024,'root checkpoint receipt cap')
+  return {'identity':before,'entries':rows,'rosterSha256':sha(raw)}
+ finally:close_chain(held)
+
+
+def scratch_preimage_output(out):
+ """Only a fresh absolute scratch child path can be exported to test imports."""
+ target=out/'preimage-output'
+ need(out.is_absolute() and out.is_relative_to(S) and not out.is_relative_to(MIRROR_ROOT) and
+      target==out/'preimage-output' and not os.path.lexists(target),
+      'unsafe/preexisting PREIMAGE_OUTPUT')
+ held=open_dir_chain(out)
+ try:verify_dir_chain(out,held)
+ finally:close_chain(held)
+ return str(target)
+
+
+def check_preimage_output(out,run_id):
+ """Collection import may create only its fresh scratch output directory."""
+ target=out/'preimage-output'
+ need(target.is_absolute() and target.is_relative_to(S) and not target.is_relative_to(MIRROR_ROOT),
+      'unsafe PREIMAGE_OUTPUT postflight path')
+ held=open_dir_chain(target);fd=held[-1];before=fields(os.fstat(fd))
+ try:
+  names=bounded_names(fd,{'entries':0},32,run_id)
+  need(not names and fields(os.fstat(fd))==before,'collection wrote unexpected preimage files')
+  verify_dir_chain(target,held)
+  return before
+ finally:close_chain(held)
+
+
+def run_child(name,argv,mirror,out,run_id,extra_env=None):
+ global CURRENT
+ phase='preflight';guard(run_id);remaining()
+ stdout=out/(name+'.stdout');stderr=out/(name+'.stderr')
+ need(not os.path.lexists(stdout) and not os.path.lexists(stderr),'child output collision')
+ started=time.monotonic();held=open_dir_chain(out)
+ try:
+  parent=held[-1]
+  phase='open-sidecars'
+  sofd=os.open(stdout.name,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600,dir_fd=parent)
+  try:sefd=os.open(stderr.name,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600,dir_fd=parent)
+  except BaseException:os.close(sofd);raise
+  try:
+   env={k:v for k,v in os.environ.items() if not k.startswith('GIT_')}
+   env.update({'PATH':str(pathlib.Path(NODE).parent)+':/usr/local/bin:/usr/bin:/bin',
+               'TMPDIR':str(out),'VITEST_CACHE_DIR':str(out/'vitest-cache')})
+   if extra_env:
+    need(name=='diagnostic-collection' and set(extra_env)=={'PREIMAGE_OUTPUT'} and
+         extra_env['PREIMAGE_OUTPUT']==str(out/'preimage-output'),'unsafe child env override')
+    env.update(extra_env)
+   blocked={signal.SIGTERM,signal.SIGINT,signal.SIGALRM}
+   oldmask=signal.pthread_sigmask(signal.SIG_BLOCK,blocked)
+   def child_setup():signal.pthread_sigmask(signal.SIG_UNBLOCK,blocked)
+   selector=selectors.DefaultSelector()
+   phase='spawn'
+   try:
+    proc=subprocess.Popen(argv,cwd=mirror,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE,
+                          stderr=subprocess.PIPE,start_new_session=True,preexec_fn=child_setup,env=env)
+    CURRENT=proc
+   except BaseException as spawn_error:
+    selector.close()
+    try:setattr(spawn_error,'_h_type_child_phase',phase)
+    except BaseException:pass
+    raise
+   finally:signal.pthread_sigmask(signal.SIG_SETMASK,oldmask)
+   counts={proc.stdout:0,proc.stderr:0}
+   phase='pipe-pump'
+   try:
+    for stream in (proc.stdout,proc.stderr):
+     os.set_blocking(stream.fileno(),False)
+     selector.register(stream,selectors.EVENT_READ,
+                       sofd if stream is proc.stdout else sefd)
+    while selector.get_map():
+     source_step(run_id)
+     for key,_ in selector.select(timeout=min(.25,remaining())):
+      try:chunk=os.read(key.fileobj.fileno(),65536)
+      except BlockingIOError:continue
+      if not chunk:
+       selector.unregister(key.fileobj);key.fileobj.close()
+      else:
+       counts[key.fileobj]+=len(chunk)
+       need(counts[key.fileobj]<MAX_CHILD_LOG,'child output cap '+name)
+       view=memoryview(chunk)
+       while view:
+        remaining();view=view[os.write(key.data,view):]
+    phase='wait-child'
+    proc.wait(timeout=remaining())
+    source_step(run_id)
+    guard(run_id)
+    phase='probe-child-group'
+    need(not group_alive(proc.pid,proc),name+' process group survivor')
+   except BaseException as child_error:
+    try:stop_current()
+    except BaseException as cleanup_error:
+     raise RuntimeError('child phase '+phase+' failed '+repr(child_error)+
+                        '; cleanup failed '+repr(cleanup_error)) from cleanup_error
+    try:setattr(child_error,'_h_type_child_phase',phase)
+    except BaseException:pass
+    raise
+   finally:
+    selector.close()
+    for stream in (proc.stdout,proc.stderr):
+     if stream is not None and not stream.closed:stream.close()
+    CURRENT=None
+   phase='fsync-sidecars';os.fsync(sofd);os.fsync(sefd)
+  finally:os.close(sofd);os.close(sefd)
+  verify_dir_chain(out,held)
+ finally:close_chain(held)
+ phase='read-sidecars';out_proof=stable_output(stdout,MAX_CHILD_LOG);err_proof=stable_output(stderr,MAX_CHILD_LOG)
+ return {'name':name,'argv':argv,'exit':proc.returncode,'seconds':round(time.monotonic()-started,3),
+         'stdoutSha256':out_proof['sha256'],'stdoutBytes':out_proof['bytes'],
+         'stderrSha256':err_proof['sha256'],'stderrBytes':err_proof['bytes']}
+
+
+remaining()
+SOURCE_LAST_GUARD=float("-inf")
+def guard(run_id):
+ remaining()
+ need(CONFIG is not None and run_id==CONFIG['runId'],'wrong M0 run')
+ lane=read_pin(S/'HEAVY-LANE-LOCK',AUTHORITY['laneLock']['sha256'],10000)
+ need(pathlib.Path(CONFIG['laneLog']).name.encode() in lane,'wrong heavy lane')
+ need(cmd(['pmset','-g','batt']).splitlines()[:1]==["Now drawing from 'AC Power'"],'AC power')
+ need(shutil.disk_usage(S).free>=FLOOR,'3 GiB disk floor')
+ need(cmd(['git','rev-parse','HEAD'])==CURRENT_HEAD and cmd(['git','rev-parse','HEAD:src'])==TREE and
+      cmd(['git','status','--porcelain=v1'])=='','production source drift')
+ need(cmd(['git','remote','get-url','origin'])==ORIGIN,'origin URL drift')
+ for local_ref,remote_ref,oid in ((REF,REF,CURRENT_HEAD),(LOCAL_MAIN_REF,MAIN_REF,MAIN_OID)):
+  need(cmd(['git','rev-parse',local_ref])==oid and cmd(['git','ls-remote','origin',remote_ref])==oid+'\t'+remote_ref,'local/remote ref drift')
+ for ref,oid in AUTHORITY.get('additionalRefs',{}).items():
+  need(type(ref) is str and ref.startswith('refs/heads/') and re.fullmatch('[0-9a-f]{40}',oid),'additional ref type')
+  need(cmd(['git','rev-parse',ref])==oid and cmd(['git','ls-remote','origin',ref])==oid+'\t'+ref,'additional current ref drift')
+def normalized(st):
+ return (st.st_dev,st.st_ino,stat.S_IMODE(st.st_mode),st.st_nlink,st.st_size,st.st_mtime_ns,st.st_ctime_ns)
+def full_source_check(mirror,manifest,run_id,allow_deps_link=False):
+ """Exact admitted M0 roster, content and physical metadata through no-follow dirfds."""
+ expected=M0_FACTS['files'];directories=M0_FACTS['directories'];links=M0_FACTS['symlinks']
+ need(len(expected)==1740 and sum(r['bytes'] for r in expected.values())==119393120 and
+      len(directories)==113 and set(links)=={'node_modules'},'M0 authenticated roster')
+ overlays={r['destination']:r for r in manifest['files']}
+ need(len(overlays)==5 and all(expected[k]['bytes']==v['bytes'] and expected[k]['sha256']==v['sha256'] for k,v in overlays.items()),'five M0 overlays')
+ held=open_dir_chain(mirror);rootfd=held[-1];root_before=fields(os.fstat(rootfd))
+ proof_rows={};metadata_rows={};seen_dirs=set();state={'entries':0};total=0;deps_link=None
+ try:
+  def descend(fd,prefix):
+   nonlocal total,deps_link
+   before=fields(os.fstat(fd));dirrel=prefix[:-1] if prefix else '.'
+   if dirrel=='.':
+    need(fields(os.fstat(fd))==tuple(CONFIG['knownRootDrift']['recordedAfterIdentity']),'exact recorded post-R6 root metadata')
+    need(tuple(directories['.'])==tuple(CONFIG['knownRootDrift']['historicalNormalizedIdentity']),'historical root metadata binding')
+   else:
+    need(dirrel in directories and normalized(os.fstat(fd))==tuple(directories[dirrel]),'admitted directory metadata '+dirrel)
+   seen_dirs.add(dirrel);metadata_rows[dirrel]=list(before)
+   for name in bounded_names(fd,state,CONFIG['entryCap'],run_id):
+    source_step(run_id)
+    need(name not in ('','.','..') and '/' not in name,'unsafe mirror name')
+    rel=prefix+name;st=os.stat(name,dir_fd=fd,follow_symlinks=False)
+    if stat.S_ISDIR(st.st_mode):
+     need(rel in directories,'extra mirror directory '+rel)
+     child=os.open(name,os.O_RDONLY|os.O_DIRECTORY|os.O_NOFOLLOW,dir_fd=fd)
+     try:
+      need(fields(os.fstat(child))==fields(st),'mirror directory open drift')
+      descend(child,rel+'/')
+      need(fields(os.fstat(child))==fields(os.stat(name,dir_fd=fd,follow_symlinks=False)),'mirror directory changed')
+     finally:os.close(child)
+    elif stat.S_ISLNK(st.st_mode):
+     need(allow_deps_link and rel=='node_modules' and deps_link is None and st.st_nlink==1,'unexpected dependency link')
+     target=os.readlink(name,dir_fd=fd)
+     need(normalized(st)==tuple(links[rel]['identity']) and target==links[rel]['target']==str(REPO/'node_modules') and
+          fields(st)==fields(os.stat(name,dir_fd=fd,follow_symlinks=False)),'dependency link changed')
+     deps_link=fields(st)+(target,);metadata_rows[rel]=list(deps_link)
+    else:
+     need(rel in expected and rel not in proof_rows,'extra/duplicate mirror file '+rel)
+     row=expected[rel];size=row['bytes']
+     need(stat.S_ISREG(st.st_mode) and st.st_nlink==1 and st.st_size==size and normalized(st)==tuple(row['identity']),'admitted mirror file metadata '+rel)
+     filefd=os.open(name,os.O_RDONLY|os.O_NOFOLLOW,dir_fd=fd)
+     try:
+      need(fields(os.fstat(filefd))==fields(st),'mirror open drift '+rel)
+      blob=hashlib.sha1(f'blob {size}\0'.encode());content=hashlib.sha256();count=0
+      while True:
+       source_step(run_id);chunk=os.read(filefd,1<<20)
+       if not chunk:break
+       count+=len(chunk);need(count<=size,'mirror file grew '+rel);blob.update(chunk);content.update(chunk)
+      need(count==size and fields(os.fstat(filefd))==fields(st)==fields(os.stat(name,dir_fd=fd,follow_symlinks=False)),'mirror file read drift '+rel)
+     finally:os.close(filefd)
+     got_oid=blob.hexdigest();got_sha=content.hexdigest();got_mode=stat.S_IMODE(st.st_mode)
+     need(got_oid==row['gitBlobOid'] and got_sha==row['sha256'],'M0 file bytes '+rel)
+     proof_rows[rel]=[rel,size,got_oid,got_sha,got_mode];metadata_rows[rel]=list(fields(st));total+=size
+   need(fields(os.fstat(fd))==before,'mirror directory mutation')
+  descend(rootfd,'')
+  need(set(proof_rows)==set(expected) and seen_dirs==set(directories) and len(proof_rows)==1740 and total==119393120 and
+       deps_link is not None and state['entries']==CONFIG['entryCap'],'M0 complete roster/count/bytes/link')
+  need(fields(os.fstat(rootfd))==root_before,'mirror root mutation');verify_dir_chain(mirror,held)
+  meta=b''.join(json.dumps([k,metadata_rows[k]],separators=(',',':')).encode()+b'\n' for k in sorted(metadata_rows,key=lambda x:x.encode()))
+  historical_rows=dict(metadata_rows);historical_rows['.']=CONFIG['knownRootDrift']['recordedBeforeIdentity']
+  historical_meta=b''.join(json.dumps([k,historical_rows[k]],separators=(',',':')).encode()+b'\n' for k in sorted(historical_rows,key=lambda x:x.encode()))
+  nonroot_meta=b''.join(json.dumps([k,metadata_rows[k]],separators=(',',':')).encode()+b'\n' for k in sorted(metadata_rows,key=lambda x:x.encode()) if k!='.')
+  need(sha(historical_meta)==CONFIG['knownRootDrift']['historicalMetadataSha256'] and sha(nonroot_meta)==CONFIG['knownRootDrift']['nonrootMetadataSha256'],'complete historical remainder metadata')
+  return {'fileProofDigestSha256':canonical_proof(proof_rows),'physicalMetadataSha256':sha(meta),
+          'historicalRootSubstitutedMetadataSha256':sha(historical_meta),'nonrootMetadataSha256':sha(nonroot_meta),
+          'mirrorFiles':len(proof_rows),'mirrorBytes':total,'dependencyLink':list(deps_link),'traversedEntries':state['entries'],'mirrorRootIdentity':list(root_before)}
+ finally:close_chain(held)
+def load_m0_authorities():
+ global M0_FACTS
+ def role(name,cap=100000):
+  r=CONFIG['sourceAuthorities'][name];return json.loads(read_pin(pathlib.Path(r['path']),r['sha256'],cap))
+ copied=role('m0CopyParentAdoption');complete=role('m0CompleteParentAdoption');review=role('m0CompleteIndependentReview')
+ need(copied['decision']=='ADOPT_OBSERVED_M0_SOURCE_ONLY_COPY_AND_FULL_POSTFLIGHT','M0 source copy adoption')
+ need(complete['status']=='ROOT_ADOPTED_OBSERVED_M0_ADDITIVE_WITH_FULL_PROTECTION' and
+      review['decision']=='ACCEPT_OBSERVED_M0_ADDITIVE_COMPLETE_WITH_FULL_PROTECTED_POSTFLIGHT','complete M0 adoption/review')
+ need(complete['regularFiles']==1740 and complete['regularBytes']==119393120 and complete['bridgeFiles']==63 and
+      complete['bridgeBytes']==1517743 and complete['dependencyLinks']==1 and complete['dependencyPackageRoles']==21,'M0 complete physical counts')
+ need(complete['acceptedRoles']['facts']==CONFIG['sourceAuthorities']['m0PhysicalFacts'] and
+      complete['acceptedRoles']['completeIndependentReview']==CONFIG['sourceAuthorities']['m0CompleteIndependentReview'] and
+      complete['protectedPostflightAccepted'] is True and complete['fullImmutableEqualityAccepted'] is True and
+      complete['original1677StrictPreservationAccepted'] is True,'complete M0 exact adopted facts/review/protection')
+ M0_FACTS=role('m0PhysicalFacts',2*1024*1024)
+ need(M0_FACTS['original1677StrictFileMetadataPreserved'] is True and M0_FACTS['actualRegularFiles']==1740 and
+      M0_FACTS['actualRegularBytes']==119393120,'original source physical facts')
+ manifest=role('sourceManifest');source_review=role('sourceReview');hstop=role('typeObservedHStop')
+ need(manifest['arm']=='M0' and len(manifest['files'])==5 and source_review['decision']=='ACCEPT_STATIC_FULL_ERA_OBSERVER_ONLY' and
+      source_review['sourceManifestSha256']==CONFIG['sourceAuthorities']['sourceManifest']['sha256'] and
+      source_review['sourceCommit']==copied['sourceCommit']==CONFIG['historicalM0SourceCommit'] and
+      copied['sourceTree']==CONFIG['productionSourceTree'],'M0 five-overlay authority')
+ need(hstop['decision']=='ACCEPT_OBSERVED_STOP_H_TYPECHECK_COLLECTION_R13' and
+      hstop['sourceStatus']=='STOP_POSTFLIGHT_DRIFT' and hstop['runtimeClaim']=='STOP_ONLY_NO_TYPE_GATE','H13 metadata STOP remains')
+ return manifest
+def full_dependency_check(root,run_id):
+ held=open_dir_chain(root)
+ try:
+  before=fields(os.fstat(held[-1]));proof=walk_meta(root,run_id)
+  need(fields(os.fstat(held[-1]))==before,'dependency root metadata mutation')
+  verify_dir_chain(root,held);proof['rootIdentity']=list(before);return proof
+ finally:close_chain(held)
+def exact_package_roles(run_id):
+ packages=CONFIG['dependencyPackages']
+ need(type(packages) is dict and len(packages)==21 and len(M0_FACTS['roleIdentities'])==1802 and
+      all(row==M0_FACTS['roleIdentities'].get(path) for path,row in packages.items()),
+      'exact 21-package projection of complete 1802-role physical facts')
+ for path,row in packages.items():
+  source_step(run_id);p=pathlib.Path(path);held=open_dir_chain(p.parent)
+  try:
+   st=os.stat(p.name,dir_fd=held[-1],follow_symlinks=False)
+   need(normalized(st)==tuple(row['identity']),'dependency package metadata drift '+path)
+   raw=read_pin(p,row['sha256'],1024*1024)
+   need(len(raw)==row['bytes'] and normalized(os.stat(p.name,dir_fd=held[-1],follow_symlinks=False))==tuple(row['identity']),'dependency package role drift '+path)
+   verify_dir_chain(p.parent,held)
+  finally:close_chain(held)
+def authenticate_post_r6_root():
+ r=AUTHORITY['postR6RootAdoption']
+ need(type(r) is dict and set(r)=={'path','bytes','sha256'} and type(r['bytes']) is int and 0<r['bytes']<=100000,'post-R6 root adoption role')
+ path=pathlib.Path(r['path'])
+ need(path.is_relative_to(S) and not path.is_relative_to(MIRROR_ROOT),'external post-R6 authority path')
+ raw=read_pin(path,r['sha256'],100000);need(len(raw)==r['bytes'],'post-R6 authority bytes')
+ adopted=json.loads(raw);contract=CONFIG['postR6RootAdoptionContract']
+ need(adopted['schema']==contract['schema'] and adopted['status']==contract['status'],'genuine post-R6 diagnostic root adoption')
+ for name,wanted in [('currentRootBaselineQualified',True),('historicalRootUnchanged',False),
+                     ('originalR6StopPreserved',True),('typesAccepted',False),('collectionAccepted',False)]:
+  need(adopted[name] is wanted,'post-R6 diagnostic adoption scope '+name)
+ need(adopted['knownRootDrift']==CONFIG['knownRootDrift'] and
+      adopted['freshSourceProof']==AUTHORITY['freshSourceProof'] and
+      adopted['freshDependencyProof']==AUTHORITY['freshDependencyProof'],'post-R6 exact current root/proofs')
+ need(adopted['freshSourceProof']['mirrorRootIdentity']==CONFIG['knownRootDrift']['recordedAfterIdentity'] and
+      adopted['freshSourceProof']['historicalRootSubstitutedMetadataSha256']==CONFIG['knownRootDrift']['historicalMetadataSha256'] and
+      adopted['freshSourceProof']['nonrootMetadataSha256']==CONFIG['knownRootDrift']['nonrootMetadataSha256'],'post-R6 complete historical remainder')
+ for name in ('diagnosticObservedReview','actualResult','fullPostflightSnapshot'):
+  role=adopted[name]
+  need(type(role) is dict and set(role)=={'path','bytes','sha256'} and type(role['bytes']) is int and role['bytes']>0 and
+       pathlib.Path(role['path']).is_relative_to(S) and not pathlib.Path(role['path']).is_relative_to(MIRROR_ROOT) and
+       re.fullmatch('[0-9a-f]{64}',role['sha256'] or ''),'genuine retained diagnostic role '+name)
+ return r
+
+def prepare_external_configs(out,run_id):
+ """Fresh writable config copies only outside the complete protected mirror."""
+ spec=CONFIG['externalCollectionConfig'];target=out/'external-config'
+ need(target==pathlib.Path(spec['runtimeDirectory']) and target.is_relative_to(S) and
+      not target.is_relative_to(MIRROR_ROOT) and not os.path.lexists(target),'fresh external config directory')
+ need(spec['moduleLinkTarget']==str(REPO/'node_modules') and
+      pathlib.Path(spec['cacheDirectory'])==target/'cache','external module/cache resolution target')
+ held=open_dir_chain(out)
+ try:
+  os.mkdir(target.name,0o700,dir_fd=held[-1]);verify_dir_chain(out,held)
+ finally:close_chain(held)
+ held=open_dir_chain(target)
+ try:
+  fd=held[-1];os.mkdir('cache',0o700,dir_fd=fd)
+  os.symlink(spec['moduleLinkTarget'],'node_modules',dir_fd=fd)
+  written={}
+  for key,name in [('rootTemplate',spec['rootFilename']),('workspaceTemplate',spec['workspaceFilename'])]:
+   need(name in ('root-config.mts','workspace-config.mts'),'external config filename')
+   r=spec[key];need(pathlib.Path(r['path']).parent==P and type(r['bytes']) is int and 0<r['bytes']<10000,'source config template role')
+   raw=read_pin(pathlib.Path(r['path']),r['sha256'],10000);need(len(raw)==r['bytes'],'external template bytes')
+   filefd=os.open(name,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600,dir_fd=fd)
+   try:
+    view=memoryview(raw)
+    while view:remaining();view=view[os.write(filefd,view):]
+    os.fsync(filefd)
+   finally:os.close(filefd)
+   proof=stable_output(target/name,10000,True)
+   need(proof['bytes']==r['bytes'] and proof['sha256']==r['sha256'] and proof['body']==raw,'external config copy readback')
+   written[key]={'path':str(target/name),'bytes':r['bytes'],'sha256':r['sha256']}
+  os.fsync(fd);verify_dir_chain(target,held)
+ finally:close_chain(held)
+ return {'schema':'1370-m0-external-config-runtime-copies/v1','directory':str(target),
+         'moduleLinkTarget':spec['moduleLinkTarget'],'cacheDirectory':spec['cacheDirectory'],'files':written}
+
+
+def verify_external_configs(copies,run_id):
+ """Authenticate retained config bytes; temp sibling activity is allowed only externally."""
+ spec=CONFIG['externalCollectionConfig'];target=pathlib.Path(copies['directory']);held=open_dir_chain(target)
+ try:
+  fd=held[-1];link=os.stat('node_modules',dir_fd=fd,follow_symlinks=False)
+  need(stat.S_ISLNK(link.st_mode) and link.st_nlink==1 and os.readlink('node_modules',dir_fd=fd)==spec['moduleLinkTarget'],'external dependency link drift')
+  for key in ('rootTemplate','workspaceTemplate'):
+   source_step(run_id);r=copies['files'][key];wanted=spec[key]
+   need(pathlib.Path(r['path']).parent==target and r['bytes']==wanted['bytes'] and r['sha256']==wanted['sha256'],'external config role drift')
+   got=stable_output(pathlib.Path(r['path']),10000)
+   need(got['bytes']==r['bytes'] and got['sha256']==r['sha256'],'external config bytes changed')
+  verify_dir_chain(target,held)
+ finally:close_chain(held)
+ return copies
+
+
+
+def main():
+ global CONFIG
+ signal.signal(signal.SIGTERM,on_signal);signal.signal(signal.SIGINT,on_signal)
+ need(type(AUTHORITY) is dict,'authenticated external execution authority required')
+ CONFIG=json.loads(read_pin(CONFIG_PATH,CONFIG_SHA,100000))
+ run_id=CONFIG['runId'];mirror=pathlib.Path(CONFIG['mirrorPath']);out=OUT_ROOT/run_id
+ need(mirror==pathlib.Path(AUTHORITY['mirrorPath']) and not os.path.lexists(out),'mirror role/output collision')
+ post_r6_adoption=authenticate_post_r6_root()
+ guard(run_id);need(shutil.disk_usage(S).free>=PREFLIGHT,'3.5 GiB preflight')
+ manifest=load_m0_authorities()
+ source_before=full_source_check(mirror,manifest,run_id,True)
+ need(source_before==AUTHORITY['freshSourceProof'],'fresh admitted M0 source/metadata protection proof')
+ prod_deps=REPO/'node_modules';need(prod_deps.is_dir() and not prod_deps.is_symlink(),'production deps root')
+ exact_package_roles(run_id);dep_before=full_dependency_check(prod_deps,run_id)
+ need(dep_before==AUTHORITY['freshDependencyProof'],'fresh full dependency content/metadata protection proof')
+ OUT_ROOT.mkdir(mode=0o700,exist_ok=True);out.mkdir(mode=0o700)
+ record={'schema':'1370-m0-types-collection-result/v1','status':'RUNNING','arm':'M0','runId':run_id,
+         'productionHead':CURRENT_HEAD,'productionSourceTree':TREE,'sourceCommit':CONFIG['historicalM0SourceCommit'],
+         'historicalDataAuthorityHead':CONFIG['historicalDataAuthorityHead'],
+         'sourceManifestSha256':CONFIG['sourceAuthorities']['sourceManifest']['sha256'],
+         'completeM0AdoptionSha256':CONFIG['sourceAuthorities']['m0CompleteParentAdoption']['sha256'],
+         'physicalFactsSha256':CONFIG['sourceAuthorities']['m0PhysicalFacts']['sha256'],
+         'h13MetadataStopSha256':CONFIG['sourceAuthorities']['typeObservedHStop']['sha256'],'h13MetadataStopWaived':False,
+         'currentProtectionSha256':AUTHORITY['currentProtection']['sha256'],'actualGrantSha256':AUTHORITY['actualGrant']['sha256'],
+         'postR6RootAdoption':post_r6_adoption,'originalR6StopPreserved':True,'historicalRootUnchanged':False,
+         'sourceBefore':source_before,'nodeModulesBefore':dep_before,'children':[],'gameAccepted':False}
+ copies=None
+ try:
+  guard(run_id)
+  copies=prepare_external_configs(out,run_id);record['externalConfigCopies']=copies
+  node=NODE;tsc=str(REPO/'node_modules/.bin/tsc');vitest=str(REPO/'node_modules/.bin/vitest')
+  dependency_check=str(P/'check-deps.mjs')
+  read_pin(pathlib.Path(dependency_check),DEPS_CHECK_SHA,100000)
+  need(cmd([NODE,'--version'])=='v22.23.2','Node runtime drift')
+  for name,argv in [
+      ('dependency-versions',[node,dependency_check,str(mirror),str(REPO),LOCK_SHA]),
+      ('root-tsc',[tsc,'--noEmit','--allowImportingTsExtensions']),
+      ('ui-tsc',[tsc,'-p','ui/tsconfig.json','--noEmit']),
+      ('diagnostic-collection',[vitest,'list','tests/diagnostic.test.ts','--config',copies['files']['rootTemplate']['path'],'--workspace',copies['files']['workspaceTemplate']['path'],'--project','core','--json',str(out/'collection.json'),'--no-cache'])]:
+   before_child=root_checkpoint(mirror,run_id)
+   boundary={'name':name,'before':before_child,'after':None}
+   record.setdefault('rootChildBoundaries',[]).append(boundary)
+   child_env={'PREIMAGE_OUTPUT':scratch_preimage_output(out)} if name=='diagnostic-collection' else None
+   try:
+    child=run_child(name,argv,mirror,out,run_id,child_env)
+   except BaseException as child_error:
+    boundary['childError']=repr(child_error)
+    boundary['childPhase']=getattr(child_error,'_h_type_child_phase','unknown')
+    boundary['childTraceback']=traceback.format_exc()[-6000:]
+    raise
+   finally:
+    try:
+     after_child=root_checkpoint(mirror,run_id)
+     boundary['after']=after_child
+    except BaseException as checkpoint_error:
+     boundary['afterError']=repr(checkpoint_error)
+     raise
+   record['children'].append(child)
+   if name=='diagnostic-collection' and child['exit']==0:
+    record['preimageOutputIdentity']=check_preimage_output(out,run_id)
+   need(child['exit']==0,name+' child exit '+str(child['exit']))
+   need(before_child==after_child,name+' mirror root entry/metadata drift')
+  collection=out/'collection.json'
+  collected=stable_output(collection,MAX_COLLECTION,True)
+  raw=collected['body'];parsed=json.loads(raw)
+  need(parsed==[{"name":"records the full p13a original digest preimages","file":"/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/tests/diagnostic.test.ts","projectName":"core"}],'exact original diagnostic collection identity/count/project')
+  record['collectionIdentities']=parsed;record['collectionCount']=len(parsed)
+  record['collectionSha256']=collected['sha256'];record['collectionBytes']=collected['bytes']
+  need(full_source_check(mirror,manifest,run_id,True)==source_before,'source content or metadata changed during checks')
+  guard(run_id)
+  record['status']='PASS_M0_TYPES_AND_DIAGNOSTIC_COLLECTION_ONLY'
+ except BaseException as error:
+  record['status']='STOP_TYPECHECK_COLLECTION';record['error']=repr(error)
+  raise
+ finally:
+  record['groupAlternateProofs']=GROUP_ALTERNATE_PROOFS
+  try:
+   if copies is not None:record['externalConfigCopiesAfter']=verify_external_configs(copies,run_id)
+   record['sourceAfter']=full_source_check(mirror,manifest,run_id,True)
+   record['nodeModulesAfter']=full_dependency_check(prod_deps,run_id)
+   if record['sourceAfter']!=source_before or record['nodeModulesAfter']!=dep_before:
+    record['status']='STOP_POSTFLIGHT_DRIFT'
+  except BaseException as post_error:
+   record['status']='STOP_POSTFLIGHT_UNVERIFIED';record['postflightError']=repr(post_error)
+  record['elapsedSeconds']=round(time.monotonic()-START,3)
+  receipt=out/'RESULT.json'
+  receipt_sha=write_result(receipt,record)
+  print(json.dumps({'status':record['status'],'receipt':str(receipt),'sha256':receipt_sha}),flush=True)
+  need(record['status']=='PASS_M0_TYPES_AND_DIAGNOSTIC_COLLECTION_ONLY','postflight or child failure')
+
+if __name__=='__main__':
+ try:main()
+ except BaseException as e:
+  print('STOP_TYPECHECK_COLLECTION '+repr(e),file=sys.stderr,flush=True)
+  sys.exit(1)

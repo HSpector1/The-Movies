@@ -1,0 +1,13 @@
+--- 
++++ 
+@@ -2,8 +2,8 @@
+ Future runtime only; no source-authored execution authority."""
+ import datetime,hashlib,json,os,pathlib,selectors,select,signal,stat,sys,time
+ HERE=pathlib.Path(__file__).resolve().parent;SCRATCH=pathlib.Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='d687a7bc560e103ae5c359622991ecb773a88546f64e41918c8c297b0b3da811';WORKER_SHA='9304a4f837be3686537a6f3865b8569a525e1896747883a78320c113ebd42842';CAP=8*1024**2;CHILD=300;ACTIVE=320;WHOLE=330
+-OUTPUTS={'verification':SCRATCH/'1370-an-m0-fullfunction-qualification-recorder-results-20261010-r3'}
++CONFIG_SHA='bc07641ef731c7d1fa2ebef4b171c61796064d9bbec8a1314e7a2721e9c168ea';WORKER_SHA='19af00ff0ed65283c154dae88a841324e109ccdc8612f108f190940a074a280c';CAP=8*1024**2;CHILD=300;ACTIVE=320;WHOLE=330
++OUTPUTS={'verification':SCRATCH/'1370-an-m0-fullfunction-qualification-recorder-results-20261010-r2'}
+ def require(v,m):
+  if not v:raise RuntimeError('STOP_'+m)
+ def sha(b):return hashlib.sha256(b).hexdigest()

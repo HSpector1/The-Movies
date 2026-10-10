@@ -1,0 +1,52 @@
+{
+  "actualRuntimeOutcome": null,
+  "artifactBoundAdoption": {
+    "bytes": 2172,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULL-STATE-FIXTURE-ARTIFACT-BOUND.json",
+    "sha256": "186c55ff7381787d3abe401e175d8c1c468be5bfb5e8ef169f89d7c94a0bc546"
+  },
+  "currentProtection": {
+    "bytes": 2803,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-R4-CURRENT-PROTECTION.json",
+    "sha256": "37dc7de322e6c146624059780a9edfa9bfa4a4c5f8481f3a2faa0ddbb4c35471"
+  },
+  "executionAuthorization": false,
+  "parentSourcePins": {
+    "bytes": 2017,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r4/SOURCE-PINS.json",
+    "sha256": "bbd9477ee57d96fbf4b325277542819725cff0d707418aea6acd038d10d55618"
+  },
+  "parentSourceReview": {
+    "bytes": 3118,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-independent-source-review-20261010-r4/RECEIPT.json",
+    "sha256": "6ebdd529dbb7d5a1fff2483c72eff328230dbac794da9ea35928fd47213fd86d"
+  },
+  "parserControlsAdoption": {
+    "bytes": 1983,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/PARSER-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "2684b2b4a2c0e90b1d9fec5ee079ede8eb945eb3378ff88619f3cd04b943735d"
+  },
+  "runtimeToolsObservation": {
+    "bytes": 1478,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-RUNTIME-TOOLS.json",
+    "sha256": "e7d0f540655698dac3c15f4210307bef0112abe9316283d6c68a8245dd9eca9e"
+  },
+  "schema": "1370-root-fullfunction-qualified-route-source-adoption/v1",
+  "scope": "Bounded real prefix fixture generation, baseline and specific typed-catch mutant only. Not neutrality416 or ledger admission.",
+  "sourcePins": {
+    "bytes": 47821,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r11/SOURCE-PINS.json",
+    "sha256": "18b014711ab516c421e5ade49a6cea9757f34ba9aa85f896e126087be3349b36"
+  },
+  "sourceReview": {
+    "bytes": 11776,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r11/RECEIPT.json",
+    "sha256": "78438c5e6486936521f71183deac021827e9f1779c0a2017996e977617ff7d22"
+  },
+  "status": "ROOT_ADOPTED_REAL_FULL_FUNCTION_QUALIFICATION_SOURCE_WITH_ACTUAL_PREREQUISITES",
+  "typesAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  }
+}

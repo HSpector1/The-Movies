@@ -1,0 +1,46 @@
+{
+  "basePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-root-readback-source-20261010-r1/SOURCE-PINS.json",
+    "bytes": 2044,
+    "sha256": "da2b559914cda2cf97519a46ea52f8178adc2be6fce04ff99b04e1f6d298ffce"
+  },
+  "baseReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R3-READBACK-SOURCE-REVIEW.json",
+    "bytes": 1982,
+    "sha256": "de0c734d76902e2756b04cdeaa0a8f48afe38abf565ebefa4887b4a82f964053"
+  },
+  "routePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r11/SOURCE-PINS.json",
+    "bytes": 47821,
+    "sha256": "18b014711ab516c421e5ade49a6cea9757f34ba9aa85f896e126087be3349b36"
+  },
+  "config": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r11/CONFIG.json",
+    "bytes": 9114,
+    "sha256": "8a6e67c7bea7c897e83f27f418d4743bfd1b9035ddd70147e9615e92658c81d6"
+  },
+  "changes": [
+    [
+      "1370-an-m0-fullfunction-parent-recorded-20261010-r3",
+      "1370-an-m0-fullfunction-parent-recorded-20261010-r4"
+    ],
+    [
+      "1370-an-m0-fullfunction-qualification-source-20261010-r10",
+      "1370-an-m0-fullfunction-qualification-source-20261010-r11"
+    ],
+    [
+      "d687a7bc560e103ae5c359622991ecb773a88546f64e41918c8c297b0b3da811",
+      "8a6e67c7bea7c897e83f27f418d4743bfd1b9035ddd70147e9615e92658c81d6"
+    ],
+    [
+      "eb43fa973b7a9ded1a834a944b2351150236df1c5b7e566b8df904661f689f46",
+      "18b014711ab516c421e5ade49a6cea9757f34ba9aa85f896e126087be3349b36"
+    ],
+    [
+      "'canonical-typescript-transform.mjs'):",
+      "'canonical-typescript-transform.mjs','m0WiringProbe.ts','RESOLUTION-SOURCE-BINDING.json'):"
+    ]
+  ],
+  "futureActualArguments": null,
+  "executionAuthorization": false
+}

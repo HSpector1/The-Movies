@@ -1,0 +1,25 @@
+{
+  "automaticRetry": false,
+  "executionAuthorization": false,
+  "fullBodyTemplate": "FULL-BODY-CONTROLS-TEMPLATE.ts",
+  "futureActualOutcome": null,
+  "futureControlsReview": null,
+  "futureControlsSource": null,
+  "futureGrant": null,
+  "futureRecordedTools": null,
+  "lazyTraversalModule": "traceSequences.mjs",
+  "limits": "Existing root-owned original300/320/330 recorded pure route; this package launches nothing.",
+  "orderingModule": "ordering.ts",
+  "orderingSourceCaseModule": "ordering-source-controls.ts",
+  "originalOrderingPacket": {
+    "bytes": 27476,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+    "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+  },
+  "probeModule": "m0WiringProbe.ts",
+  "publicModule": "m0TraceCodec.mjs",
+  "qualificationRouteR12": null,
+  "schema": "1370-lossless-trace-pure-qualification-recipe-unfilled/v1",
+  "scope": "PURE_CODEC_PROBE_SEMANTIC_PAIR_AND_AFFECTED_ORDERING18_ONLY",
+  "transpilation": "Genuine pinned public TypeScript tool and recorded no-game local emission required; erase type-only GameState import. Rebase only named local codec/lazy imports. No game module load."
+}

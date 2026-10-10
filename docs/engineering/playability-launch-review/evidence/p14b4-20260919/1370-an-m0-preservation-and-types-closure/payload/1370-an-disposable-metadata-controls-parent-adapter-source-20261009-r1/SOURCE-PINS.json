@@ -1,0 +1,49 @@
+{
+  "actualIndependentReview": null,
+  "actualOutcome": null,
+  "actualRootGrant": null,
+  "executionAuthorization": false,
+  "files": {
+    "BASE-launch-focused-controls.py.txt": {
+      "bytes": 6244,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/BASE-launch-focused-controls.py.txt",
+      "sha256": "fa5621d99981397b0c3d669056ea2c375a4dad55de798b5a26ef07cf997539b1"
+    },
+    "BASE-run_b109_controls_once.py.txt": {
+      "bytes": 3199,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/BASE-run_b109_controls_once.py.txt",
+      "sha256": "4f1bb0d52c5dc4bf04e0aea6c6e313016be1fda00d9fe52653b59ba087c75c51"
+    },
+    "CONTRACT.json": {
+      "bytes": 4528,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/CONTRACT.json",
+      "sha256": "418799848bc54b7e353491e35cceec226facc7465edd11f365705fd40154e4c0"
+    },
+    "LESSONS.txt": {
+      "bytes": 428,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/LESSONS.txt",
+      "sha256": "25134f6467a23655d8496107386e3b3b6d66d9c60d37a283d09b970af8c28618"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 2283,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/SOURCE-PROOF.json",
+      "sha256": "2290175700e049ce6c0cf96fc16ea28ef921aa5097697ef1be40934af766bfb8"
+    },
+    "adapter.forward.diff": {
+      "bytes": 15801,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/adapter.forward.diff",
+      "sha256": "1ab85ec2ecd40170192d513dc12d0c005a9e46ad00d7028b6245947b521796d8"
+    },
+    "adapter.inverse.diff": {
+      "bytes": 15801,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/adapter.inverse.diff",
+      "sha256": "d7714fbf06d2de1510a0a8d596b075f2de4c927cd72f0ed9b928542d3d81e1e5"
+    },
+    "launch-disposable-controls.py": {
+      "bytes": 10107,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/launch-disposable-controls.py",
+      "sha256": "7be4998c90bc4cb4c35c774201210855db1f2f49aea921e1ba277fa607c8ca6b"
+    }
+  },
+  "schema": "1370-disposable-parent-adapter-source-pins/v1"
+}

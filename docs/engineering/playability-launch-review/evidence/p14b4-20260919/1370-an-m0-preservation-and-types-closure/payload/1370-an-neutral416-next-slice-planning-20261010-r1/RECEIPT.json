@@ -1,0 +1,64 @@
+{
+  "actualFullQualificationAdoption": null,
+  "executionAuthorization": false,
+  "implementationStarted": false,
+  "inspectedNamedRoles": [
+    {
+      "bytes": 11256,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/HANDOFF.md",
+      "sha256": "b2784da6a3a1378a919734fe892fc00841861f47b79687446b41f6273ba8d292"
+    },
+    {
+      "bytes": 13309,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/plans/HEADLESS-REMAINDER-IMPLEMENTATION-PLAN.md",
+      "sha256": "5e6a769682c3d6d3fc3124d67db3381a88331231307ced9ac721eb989148fe19"
+    },
+    {
+      "bytes": 18147,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AM-natural208-and-renewal-pricing-closure.md",
+      "sha256": "c3b12f6c2552b5afc96b39eef2159a23b85548178052940628f089d5c5246c9e"
+    },
+    {
+      "bytes": 6932,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/NEXT-STEPS.md",
+      "sha256": "6ca07bc048d8104794f519f2fa96768e27b1528d817bc5573fb563532c3667e4"
+    },
+    {
+      "bytes": 3563,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/RECORDED-ROUTE-UNFILLED.json",
+      "sha256": "88d77ade4274b271277babe603bc59cfa1018fb5065eb5453375bcc5bc9bf480"
+    },
+    {
+      "bytes": 4700,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/NEXT-STEPS.md",
+      "sha256": "43e7adea2828a1cdb0d1ce2de74d2f44005c4d9eba0a7f3f1991d51f53a94f3b"
+    },
+    {
+      "bytes": 11436,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/NEXT-SLICE.json",
+      "sha256": "86451a0ba212d871a6bb4ce227acf8744d00b34b0d5ead7766cad827819e8428"
+    },
+    {
+      "bytes": 7400,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-corrected-overlay-source-manifest-r2/M0-SOURCE-MANIFEST.json",
+      "sha256": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba"
+    },
+    {
+      "bytes": 12710,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/diagnostic.test.ts",
+      "sha256": "8a578e20807a34758f6ae3005caea94824f16aebe36eb92d360139dfa15685b7"
+    }
+  ],
+  "limits": [
+    "Finite named source/doc read only",
+    "No assertion that an uninspected neutral adapter does not exist",
+    "No actual neutral artifact fit or outcome",
+    "Root owns runtime and current authority"
+  ],
+  "plan": {
+    "bytes": 5979,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-neutral416-next-slice-planning-20261010-r1/PLAN.md",
+    "sha256": "1370c9e03154df20f5dc690ce6d1170058f08b4cd5de5b2e4f568c50558fa036"
+  },
+  "schema": "1370-neutral416-next-slice-source-plan/v1"
+}

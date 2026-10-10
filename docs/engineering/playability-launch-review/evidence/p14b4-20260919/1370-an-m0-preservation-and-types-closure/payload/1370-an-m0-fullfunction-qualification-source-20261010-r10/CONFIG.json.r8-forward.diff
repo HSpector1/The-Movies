@@ -1,0 +1,56 @@
+--- R7/CONFIG.json
++++ R8/CONFIG.json
+@@ -82,10 +82,22 @@
+       "sha256": "e40ea62523d13e1c74361766757b85faa14acdb889bc57f7ae452449a361bb1d"
+     }
+   },
+-  "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-20261009-r1.lane.log",
++  "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-20261010-r2.lane.log",
+   "operationalHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+   "originalFailuresPreserved": true,
+-  "outputPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261009-r1",
++  "outputPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r2",
++  "parserInputs": {
++    "exact-json.mjs": {
++      "bytes": 2202,
++      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
++      "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
++    },
++    "run-parser-controls.mjs": {
++      "bytes": 7028,
++      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
++      "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
++    }
++  },
+   "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+   "proofConfig": {
+     "bytes": 32755,
+@@ -97,23 +109,23 @@
+     "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py",
+     "sha256": "b9ff56da6524243c95045b0e09f25ca4ec5c8225bbdd3eb76820e75b928e350d"
+   },
+-  "recorderOutputPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261009-r1",
+-  "runId": "20261009-m0-fullfunction-after-an-r1",
++  "recorderOutputPath": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261010-r2",
++  "runId": "20261010-m0-fullfunction-after-an-r2",
+   "schema": "1370-fullfunction-qualification-config/v1",
+   "templates": {
+     "CONFIG-TEMPLATE.mts": {
+       "bytes": 930,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/CONFIG-TEMPLATE.mts",
++      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/CONFIG-TEMPLATE.mts",
+       "sha256": "8be9467a794ddbd134dd04c4a92249c7e85e357ef96619562bd99f4ad10ecf5e"
+     },
+     "CORE-TEST-TEMPLATE.ts": {
+       "bytes": 3955,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/CORE-TEST-TEMPLATE.ts",
++      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/CORE-TEST-TEMPLATE.ts",
+       "sha256": "ca656e7586d50c699e976e83fcfbe78b8bcc62701e9cbe0afac0b700e76045c9"
+     },
+     "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+       "bytes": 9487,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/FULL-BODY-CONTROLS-TEMPLATE.ts",
++      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r8/FULL-BODY-CONTROLS-TEMPLATE.ts",
+       "sha256": "a0e0d288f583f6991d5ef170f12bab174769e6c43f06dffc095f62f8b69657e2"
+     }
+   },

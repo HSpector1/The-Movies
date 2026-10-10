@@ -1,0 +1,66 @@
+{
+  "actualBaselineReport": {
+    "bytes": 2363,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/baseline.report.json",
+    "sha256": "ec5dae63dafdef6c1897054b9f571ed36cc02c031774118701758c6b1d8ffadc"
+  },
+  "actualGameplayPrefixExecuted": null,
+  "actualGenerationReport": {
+    "bytes": 945,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/generate.report.json",
+    "sha256": "94e528734a484cdc9aff36d5949e8314b0a3b51a7d572cd98c0cab109ba38548"
+  },
+  "actualNaturalArtifact": {
+    "bytes": 12428510,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/fixtures.json",
+    "sha256": "0ae4a9a261600c23b1bfd05eb860d65ef0f6769c9918670eb97bf7120b74ec62"
+  },
+  "actualNaturalFixturePhaseReceipt": {
+    "bytes": 2780,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/fixtures.receipt.json",
+    "sha256": "629b953951a43747192861d9d96cb185899ac54301a8b9fad784465f598fa05a"
+  },
+  "actualThirdAttemptRootReadback": {
+    "bytes": 6808,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r3/READBACK.json",
+    "sha256": "62802d2fff9906c2d8e90d7559b627af66f1d413d9d320b6c7b3a3a2da927e5a"
+  },
+  "aggregateResult": {
+    "bytes": 2222,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/RESULT.json",
+    "sha256": "f33b71b2619296bf125a5a55ce3eb91a8726991b4375f61c23162d75492d7be7"
+  },
+  "artifactQualificationStatus": "GENERATED_UNADMITTED",
+  "dependencyAfter": null,
+  "draftOnly": true,
+  "executionAuthorization": false,
+  "mandatorySharedPostflight": {
+    "independentObservedReview": null,
+    "result": null,
+    "runningAtDraftBoundary": true,
+    "scannerId": 37856,
+    "toolSessionId": 71517
+  },
+  "overallQualificationAccepted": false,
+  "pending": [
+    "Mandatory shared post71517 completion",
+    "Independent actual protected STOP/earned phase review and root adoption",
+    "Source-only bounded helper/RNG completeness diagnosis/probe or repair",
+    "Baseline/meaningful typed-catch mutant and neutral416 qualification",
+    "Final lessonr12/roles/archive counts/publication"
+  ],
+  "phaseGenerationObservedPass": true,
+  "priorDraftManifest": {
+    "bytes": 1236,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-documentation-drafts-20261010-r4/SOURCE-PINS.json",
+    "sha256": "4af3673ac33b04a9e3430bfc55c383ad6d9ea9d64d5acfd900b2f0e629c94107"
+  },
+  "rootLatestLessonsPreservedAsPrefix": {
+    "bytes": 25948,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LESSONS-r11.md",
+    "sha256": "0e87f9c872525e276a168abdd29585c7e3fe0acd93c850ac1ed2edf51fa02f58"
+  },
+  "schema": "1370-an-documentation-draft-inputs/v5",
+  "scope": "Scratch documentation only; root-retained phase/result roles authenticated finitely, no independent final overall admission or private traversal. Preserve AUTO/prior drafts, actual generation progress and overall STOP separately.",
+  "sourceAfter": null
+}

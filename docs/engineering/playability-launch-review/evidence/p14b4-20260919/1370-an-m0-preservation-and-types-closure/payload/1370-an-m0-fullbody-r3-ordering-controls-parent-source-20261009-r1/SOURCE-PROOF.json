@@ -1,0 +1,39 @@
+{
+  "schema": "1370-r3-ordering-controls-parent-source-proof/v1",
+  "executionAuthorization": false,
+  "actualExecutionPerformed": false,
+  "predecessor": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/launch-disposable-controls.py",
+    "bytes": 10107,
+    "sha256": "7be4998c90bc4cb4c35c774201210855db1f2f49aea921e1ba277fa607c8ca6b"
+  },
+  "predecessorSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-disposable-metadata-controls-parent-adapter-source-20261009-r1/SOURCE-PINS.json",
+    "bytes": 2539,
+    "sha256": "16a42f267504d4b7414301d9a464c27563269db5d5d9a761bdd3f4dd9878dc76"
+  },
+  "completeForwardAndInverse": "Both full-file diff projections verified byte-for-byte against complete original and derivative, including final newline.",
+  "unchangedFunctions": [
+    "require",
+    "prep_timeout",
+    "remaining",
+    "metadata",
+    "role",
+    "authenticate",
+    "pairs",
+    "load",
+    "exact",
+    "write"
+  ],
+  "delta": [
+    "Remove unused Git/subprocess/AC/disk helpers and old operational constants; pure finite consumer scope does not invoke them.",
+    "Retain complete original prep60/strict bounded role authentication/JSON duplicates and exact-types/exclusive durable claim/direct exec functions.",
+    "Replace main with exact accepted ordering R2/source review/held adoption/grant/config/tool/once paths protocol, actual measured PID/PGID/SID, and original r8→physical Python-I-B→complete recorder.",
+    "Source and runtime bounds untouched; no composite parent deadline.",
+    "HOME and CODEX_HOME remain inherited; no candidate/compiler/private writes."
+  ],
+  "wholeInverseVerified": true,
+  "sourceMethod": "Text review and finite scratch data only; no candidate imports/tests/compiler/runtime/probes/Git.",
+  "futureAuthority": "Actual root grant, independent parent review, source adoption and outcome remain null until genuinely supplied. Historical genuine tools observation is a source input reauthenticated physically by the future parent.",
+  "controlsScope": "2 positive/16 exact intended consumer assertion cases; all unrun by author."
+}

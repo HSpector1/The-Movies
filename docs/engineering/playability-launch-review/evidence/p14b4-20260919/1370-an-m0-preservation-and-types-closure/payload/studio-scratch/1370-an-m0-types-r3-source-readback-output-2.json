@@ -1,0 +1,12 @@
+{
+  "candidateImported": false,
+  "privateInventory": false,
+  "roles": {
+    "CONFIG.json": {
+      "bytes": 32807,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r3/CONFIG.json",
+      "sha256": "f4fc6834b8a38b3a32b16dad1aaee3de5096ee1d34805741deef7654bb206884"
+    }
+  },
+  "schema": "1370-finite-retained-source-bytes-readback/v1"
+}

@@ -1,0 +1,26 @@
+{
+  "executionAuthorization": false,
+  "failedScanner": [
+    {
+      "id": 35222,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 35222,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "passingReaderActual": {
+    "bytes": 1058,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4-disk-retry/READER-ACTUAL-TOOL.json",
+    "sha256": "72b024c14741855fc593767765e0d4a54c0f6338ea2c066fb71f7a05fc092654"
+  },
+  "passingRecoveryReadback": {
+    "bytes": 5254,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4-disk-retry/READBACK.json",
+    "sha256": "23bca5ae5c387c7e10a5e4fb0ab95c4307ce9c28b7c579dd186f7e1eb17350e3"
+  },
+  "schema": "1370-root-failed-post-scanner-after-recovery/v1"
+}

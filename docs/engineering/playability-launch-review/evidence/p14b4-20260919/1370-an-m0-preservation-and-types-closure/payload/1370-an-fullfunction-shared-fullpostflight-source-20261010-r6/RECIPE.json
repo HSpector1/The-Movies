@@ -1,0 +1,32 @@
+{
+  "executionAuthorization": false,
+  "freshEvidenceLabel": "postflight-fullfunction-qualification-r4",
+  "freshParentPath": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4",
+  "futureActualRouteReadback": null,
+  "futureSourceReview": null,
+  "launcherArgv": [
+    "<original pinned PY>",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6/launch-fullpostflight.py",
+    "<genuine completed route readback path>",
+    "<readback SHA256>"
+  ],
+  "noActualExecutionAuthority": true,
+  "noGameplayAcceptance": true,
+  "noOriginalHelperOrSharedLaneAcquisition": true,
+  "originalPerCommandTimeoutSeconds": 180,
+  "originalScannerConfigBaselineAndAllPreservationChecksUnchanged": true,
+  "readerArgv": [
+    "<original pinned PY>",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6/read-fullpostflight.py",
+    "<actual scanner session ID>",
+    "<genuine grant SHA256>"
+  ],
+  "schema": "1370-fullfunction-fresh-attempt4-original-shared-postflight-source-recipe/v1",
+  "sourceManifestReviewDecision": "ACCEPT_STATIC_ORIGINAL_SHARED_FULL_POSTFLIGHT_ADAPTER_AFTER_FULLFUNCTION_PASS_OR_STOP",
+  "successOrStopBothPreserved": true,
+  "wholeScanDeadline": null
+}

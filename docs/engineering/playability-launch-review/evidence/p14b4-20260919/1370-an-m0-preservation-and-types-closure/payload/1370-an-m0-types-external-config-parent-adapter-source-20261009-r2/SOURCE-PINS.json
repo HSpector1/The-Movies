@@ -1,0 +1,146 @@
+{
+  "schema": "1370-m0-types-external-config-parent-adapter-source-pins/v1",
+  "status": "HELD_SOURCE_ONLY_UNRUN_FRESH_LITERAL_BINDING_R2",
+  "files": {
+    "PROFILES.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r2/PROFILES.json",
+      "bytes": 6780,
+      "sha256": "023a3d693a24aac46b747cdf36b7196d7cfb5e055a37ea111ec20ff2f28026fd"
+    },
+    "TYPES-SPEC-UNFILLED.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r2/TYPES-SPEC-UNFILLED.json",
+      "bytes": 243,
+      "sha256": "9ae8c89184a1f6f066698208ac9592de7334b1dfb50103b180e6c1d087b20c54"
+    },
+    "CURRENT-TYPES-PROTECTION-UNFILLED.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r2/CURRENT-TYPES-PROTECTION-UNFILLED.json",
+      "bytes": 1185,
+      "sha256": "14cc3fad42abb314cf593ee1caebb4e88b3b8f752b326aca116a73b379339ad9"
+    },
+    "fill-grant-exec.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r2/fill-grant-exec.py",
+      "bytes": 14054,
+      "sha256": "0874ccc25cbe681cbf344e70052c3a667c43c85306e54dc5508da5ba47e7d4ae"
+    },
+    "BASELINE-R1-PROFILES.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r2/BASELINE-R1-PROFILES.json",
+      "bytes": 6780,
+      "sha256": "b2758d0e15403b7448dfe6ae9f7394b52e504aebfaace09c9e6f43141c9a1a5c"
+    },
+    "PROFILES.json.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r2/PROFILES.json.forward.diff",
+      "bytes": 13852,
+      "sha256": "2b55051fb2c9bed698945c1fdc45c37527c39d5801e0100b399c515dc19e2516"
+    },
+    "PROFILES.json.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r2/PROFILES.json.inverse.diff",
+      "bytes": 13852,
+      "sha256": "4686d3558e92e14cdfb09a0664df2a83ac777aad57adabcd9336bb84b76af2ee"
+    },
+    "BASELINE-R1-fill-grant-exec.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r2/BASELINE-R1-fill-grant-exec.py",
+      "bytes": 14054,
+      "sha256": "06ef36769f3f2918c0cec46d08022bfafb5328ce4159f3d4deb8003c1d99e99f"
+    },
+    "fill-grant-exec.py.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r2/fill-grant-exec.py.forward.diff",
+      "bytes": 28476,
+      "sha256": "8a47eb2073bcb8dd83a3553d9e73c41dd644e6a6aeda0338a352373522818b09"
+    },
+    "fill-grant-exec.py.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r2/fill-grant-exec.py.inverse.diff",
+      "bytes": 28476,
+      "sha256": "efd19e906272543d1424f442408488dce7b773732edc007d2011735544115759"
+    },
+    "RECIPE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r2/RECIPE.json",
+      "bytes": 10964,
+      "sha256": "41e89770feba19259dbb9dbaa79011740272f36018d3841753cad24744d00d88"
+    },
+    "SOURCE-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r2/SOURCE-PROOF.json",
+      "bytes": 3206,
+      "sha256": "d35f8f456bda57ca1055a45b5c8b0fd85b6c7bb98110ce34da18eded8452cdd6"
+    },
+    "LESSONS.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r2/LESSONS.md",
+      "bytes": 633,
+      "sha256": "6a232b7dd2ca97f5331825994e9a971fea1c1dad43b3ffd66f792b28186b5f02"
+    }
+  },
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "sourceDirectory": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r2",
+  "originalR4": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r4/SOURCE-PINS.json",
+    "bytes": 9058,
+    "sha256": "f27d8eae1416d94346dd43e495acad272bd203dfb1270c818e2ca949bdb35d15"
+  },
+  "originalR4IndependentReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-independent-source-review-after-al-20261009-r4/RECEIPT.json",
+    "bytes": 18771,
+    "sha256": "63f3482c050b339375eb868178a614ff5d2191b2712cc454e619094c127306c5"
+  },
+  "acceptedExecutorSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-executor-source-20261009-r2/SOURCE-PINS.json",
+    "bytes": 14851,
+    "sha256": "c9c642f03ecfe95b0b4b9126801aac2753b2c561fd17936b1cb82a451d2d2593"
+  },
+  "acceptedExecutorReview": null,
+  "activeMode": "types",
+  "historicalProofProfileInactive": true,
+  "parentSourceReviewDecision": "ACCEPT_STATIC_M0_TYPES_EXTERNAL_CONFIG_PARENT_ADAPTER_SOURCE_ONLY",
+  "parentSourceReviewRequiredFields": {
+    "sourcePins": "exact filename role map",
+    "concreteFindings": [],
+    "executionAuthorization": false
+  },
+  "futureActualInputs": {
+    "parentSourceReview": null,
+    "currentTypesProtection": null,
+    "postR6DiagnosticRootAdoption": null,
+    "actualFullPostflightSnapshot": null,
+    "actualCurrentRootPrelaunch": null,
+    "actualRuntimeTools": null,
+    "actualAdditionalRefs": null,
+    "actualLaneLock": null,
+    "actualFilledSpec": null,
+    "actualGrant": null,
+    "actualContext": null,
+    "actualResult": null,
+    "independentObservedReview": null,
+    "rootTypesObservedAdoption": null
+  },
+  "clocks": {
+    "parentPreparationSeconds": 60,
+    "parentClockStarts": "Before source profile/spec/tool reads",
+    "parentClockCanceled": "Immediately before direct os.execve after elapsed<60",
+    "runtimeBootstrapWholeSeconds": 300,
+    "runtimeRecorderActiveSeconds": 320,
+    "runtimeLaunchAndRecorderWholeSeconds": 330,
+    "combinedPreparationRuntimeDeadline": null,
+    "noAddedOuterWatchdog": true
+  },
+  "originalR6StopPreserved": true,
+  "gameAuthorization": false,
+  "actualTypesAccepted": false,
+  "actualCollectionAccepted": false,
+  "predecessorParentSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-adapter-source-20261009-r1/SOURCE-PINS.json",
+    "bytes": 7541,
+    "sha256": "f2f5cf509f2fe221ca68998616b85b2f555265ddf81d10abd908de511e46a132"
+  },
+  "predecessorParentReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-parent-independent-source-review-20261009-r1/RECEIPT.json",
+    "bytes": 8891,
+    "sha256": "bfab228a3860e008206c47c0fcac8b8232d1c91fb4b4f655077b090d2049864f"
+  },
+  "predecessorExecutorReview": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-types-external-config-independent-source-review-20261009-r1/RECEIPT.json",
+    "bytes": 20234,
+    "sha256": "fcb639f515966761dcf3dd7442b38a8da84c96f4dd0c0905b07bcaa8b0303c1f"
+  },
+  "precedingAttemptPreserved": true,
+  "actualSourceReview": null,
+  "executorReviewPending": true
+}

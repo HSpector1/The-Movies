@@ -1,0 +1,13 @@
+{
+  "schema": "1370-source-preparation-builder-failure/v1",
+  "originalBuilder": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-attempt4-adapter-preparation-20261010-r1/build-adapters.py",
+  "actualDataAuditTool": {
+    "chunk_id": "c23bc2",
+    "exit_code": 1
+  },
+  "failure": "AST equality assertion compared main() despite the authorized parent path literal inside main(); failed before writing any candidate payload or manifest.",
+  "candidateExecuted": false,
+  "actualGrantIssued": false,
+  "repair": "Compare unchanged helpers; validate complete original bytes/AST after exact inverse normalization; retain main's sole authorized literal delta.",
+  "priorBuilderPreserved": true
+}

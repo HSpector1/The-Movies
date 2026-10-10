@@ -1,0 +1,11 @@
+{
+  "executionAuthorization": false,
+  "payloadCount": 11,
+  "readbackAllPayloadsVerified": true,
+  "schema": "1370-path-only-adapter-source-seal/v1",
+  "sourceManifest": {
+    "bytes": 3328,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r6/SOURCE-PINS.json",
+    "sha256": "e8a7ee7fefcd3401787dc7e04e7d5928143d6ddab056e66f81f332ae17caf01d"
+  }
+}

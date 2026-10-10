@@ -1,0 +1,144 @@
+{
+  "acceptedInputs": {
+    "ORDERING-SOURCE-CASES.json": {
+      "bytes": 27476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+      "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+    },
+    "ordering-source-controls.ts": {
+      "bytes": 2237,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ordering-source-controls.ts",
+      "sha256": "e4109cd7a2560639c483ffbcc5fd4b65864c77148add2ad8e1289b096382241f"
+    },
+    "ordering.ts": {
+      "bytes": 11339,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ordering.ts",
+      "sha256": "e40ea62523d13e1c74361766757b85faa14acdb889bc57f7ae452449a361bb1d"
+    }
+  },
+  "candidateChanged": false,
+  "changedRecorderFunctions": [
+    "alarm",
+    "whole_guard",
+    "active_guard",
+    "main"
+  ],
+  "executionAuthorization": false,
+  "expectedAssertions": [
+    {
+      "assertion": null,
+      "expected": "GREEN",
+      "id": "author-two-issuers-schema-GREEN"
+    },
+    {
+      "assertion": null,
+      "expected": "GREEN",
+      "id": "freeze-complete-prefix-failure-suffix-GREEN"
+    },
+    {
+      "assertion": "evaluated and skipped candidates preserve full order",
+      "expected": "RED",
+      "id": "candidate-other-issuer-grouping-RED"
+    },
+    {
+      "assertion": "every actual evaluation binds an authenticated source-array projection",
+      "expected": "RED",
+      "id": "candidate-context-issuer-correlation-RED"
+    },
+    {
+      "assertion": "complete identity-bound freeze predicate order",
+      "expected": "RED",
+      "id": "freeze-missing-slot-RED"
+    },
+    {
+      "assertion": "complete identity-bound freeze predicate order",
+      "expected": "RED",
+      "id": "freeze-swapped-slots-RED"
+    },
+    {
+      "assertion": "complete identity-bound freeze predicate order",
+      "expected": "RED",
+      "id": "freeze-wrong-name-RED"
+    },
+    {
+      "assertion": "complete identity-bound freeze predicate order",
+      "expected": "RED",
+      "id": "freeze-wrong-ordinal-RED"
+    },
+    {
+      "assertion": "complete identity-bound freeze predicate order",
+      "expected": "RED",
+      "id": "freeze-wrong-occurrence-RED"
+    },
+    {
+      "assertion": "complete identity-bound freeze predicate order",
+      "expected": "RED",
+      "id": "freeze-wrong-issuer-RED"
+    },
+    {
+      "assertion": "freeze predicate FAILED slot agrees with drop",
+      "expected": "RED",
+      "id": "freeze-failure-slot-missing-RED"
+    },
+    {
+      "assertion": "freeze predicate FAILED slot agrees with drop",
+      "expected": "RED",
+      "id": "freeze-drop-disagrees-RED"
+    },
+    {
+      "assertion": "freeze predicate prefix status",
+      "expected": "RED",
+      "id": "freeze-early-unreached-RED"
+    },
+    {
+      "assertion": "freeze predicate suffix is NOT_REACHED",
+      "expected": "RED",
+      "id": "freeze-suffix-resumes-RED"
+    },
+    {
+      "assertion": "unreached predicate has no evaluated values",
+      "expected": "RED",
+      "id": "freeze-suffix-values-forged-RED"
+    },
+    {
+      "assertion": "freeze predicate FAILED slot agrees with drop",
+      "expected": "RED",
+      "id": "freeze-second-failure-RED"
+    },
+    {
+      "assertion": "freeze predicate prefix status",
+      "expected": "RED",
+      "id": "freeze-illegal-not-evaluated-prefix-RED"
+    },
+    {
+      "assertion": "freeze drop names an existing predicate",
+      "expected": "RED",
+      "id": "freeze-unknown-drop-RED"
+    }
+  ],
+  "method": "Fresh driver and narrow owned-recorder derivative; complete forward/inverse supplied for worker correction and recorder. No original candidate source changed. Exact runtime TypeScript transform into external modules only.",
+  "negativeMatcherWholeMessageEqualityClaimed": false,
+  "originalClassesUnchanged": true,
+  "recorderPredecessor": {
+    "bytes": 14851,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-config-bundle-metadata-disposable-controls-source-after-al-20261009-r2/record-metadata.py",
+    "sha256": "6e1895ddcd544fb690dc2fbb31cd73cdf82f1d95592882de5c7a390aac0a8790"
+  },
+  "schema": "1370-r3-ordering-controls-source-proof/v1",
+  "sourceExecutedImportedCompiledOrTested": false,
+  "unchangedRecorderFunctions": [
+    "require",
+    "sha",
+    "write",
+    "metadata",
+    "authenticate",
+    "process_alive",
+    "start_owned",
+    "ready_go",
+    "close_startup_fds",
+    "clear",
+    "observed_exit_guard",
+    "child_environment",
+    "finalize_result"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "executionAuthorization": false,
+  "payloadCount": 13,
+  "runtimeExecuted": false,
+  "schema": "1370-exact-identity-json-controls-source-seal/v1",
+  "sourcePins": {
+    "bytes": 4561,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-exact-identity-json-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "640d300aadc66b4f7bc225f91841b5fd235945d446c056214d8b4cda27b4313a"
+  }
+}

@@ -1,0 +1,248 @@
+{
+  "actualGameplayPrefixExecuted": null,
+  "actualGenerationPhaseSucceeded": true,
+  "actualTool": {
+    "bytes": 1708,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r5/ACTUAL-TOOL.json",
+    "sha256": "62e3ef00085892de9f4c719867174efb9447acba6a2ca5799908e32176ad6dc6"
+  },
+  "baselineAccepted": false,
+  "baselineReport": {
+    "bytes": 2701,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r5/baseline.report.json",
+    "sha256": "152cb6a301f4f16171428a3153a376577d2b4cfa03c3099c0718878ba3ba86fc"
+  },
+  "broadReplayAccepted": false,
+  "checks": {
+    "actualFullfunctionExits": {
+      "helper": 2,
+      "node": 1,
+      "recorder": 2,
+      "runner": 1,
+      "tool": 2
+    },
+    "actualFullfunctionSession": 56544,
+    "actualOwnedGroupIds": [
+      10032,
+      10530,
+      10531,
+      14120
+    ],
+    "actualOwnedPids": [
+      10032,
+      10530,
+      10531,
+      12621,
+      14120
+    ],
+    "completeBeforeSourceAndDependenciesMatchSuccessfulTypes": true,
+    "fullPostflightExit": 0,
+    "fullPostflightGuardSeconds": 485.2248740590003,
+    "fullPostflightInventorySeconds": 389.2570975159906,
+    "fullPostflightSession": 92358,
+    "groupClear": true,
+    "nineStrictRootsEqual": true,
+    "noNodePidPromotedToPgid": true,
+    "originalBoundsSeconds": {
+      "active": 320,
+      "aggregateChild": 300,
+      "whole": 330
+    },
+    "rawPsFdContentsRead": false,
+    "rawRolesBytes": 1341030,
+    "rawRolesLocalHashSizeOnly": 4,
+    "recorderSeconds": 55.66051677400537,
+    "scopedOwnershipChecks": [
+      {
+        "id": 10032,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 10530,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 10531,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 12621,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 14120,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 10032,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 10530,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 10531,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 14120,
+        "kind": "pgid",
+        "result": "ESRCH"
+      }
+    ],
+    "scratchDeviceInodeModeEqual": true,
+    "scratchTimesInformational": true,
+    "timedOut": false,
+    "wholeProtectedImmutableMapEqual": true
+  },
+  "concreteFindings": [],
+  "controllerResult": {
+    "bytes": 2221,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r5/RESULT.json",
+    "sha256": "d584cf42fcdef556db49a389e21bfe3d99827841b5371e62fa956225d8b37448"
+  },
+  "currentGenerationFixture": {
+    "bytes": 12428510,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r5/fixtures.json",
+    "sha256": "0ae4a9a261600c23b1bfd05eb860d65ef0f6769c9918670eb97bf7120b74ec62"
+  },
+  "currentProtection": {
+    "bytes": 2825,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-R5-CURRENT-PROTECTION.json",
+    "sha256": "1f0844105f6c76c94603099fccf0cff5d7769775e8e5a0cc840fabcf79cc0bcb"
+  },
+  "currentTypesAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  },
+  "decision": "ACCEPT_OBSERVED_FULLFUNCTION_FEASIBILITY_ROW_BYTE_CAP_STOP_WITH_REAL_GENERATION_AND_FULL_SHARED_POSTFLIGHT",
+  "dependencyAfter": null,
+  "diagnosis": {
+    "actualFailedLoopIteration": null,
+    "actualFailedRowBytes": null,
+    "actualFailedRowKind": null,
+    "actualFailedTupleFamily": null,
+    "countExpansionHypothesis": "Refutedbypublicsource: reservationcount scalar, no1001elementarray expansion. Candidate mechanism allowner projections+escapedcanonicalInputs remains inference, not measured offendingcomponent.",
+    "exactError": "M0 feasibility row byte bound exceeded",
+    "predicate": "Original feasibility observer expanded row<=16384UTF8bytes",
+    "reservation1001ExpansionCauseAdmitted": false,
+    "sourceLocation": "Publicreceipt\u2192promiseFeasibility\u2192authorRivalPromise\u2192advanceTalentMarketWeek\u2192onarm\u2192pair at fullbody85 syntheticopportunityloop"
+  },
+  "executionAuthorization": false,
+  "fixture": {
+    "bytes": 12428510,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r5/fixtures.json",
+    "sha256": "0ae4a9a261600c23b1bfd05eb860d65ef0f6769c9918670eb97bf7120b74ec62"
+  },
+  "fixtureQualificationAccepted": false,
+  "fullFunctionQualificationAccepted": false,
+  "fullM0AfterProofAccepted": false,
+  "fullPostflightActualTool": {
+    "bytes": 2118,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r5/ACTUAL-TOOL.json",
+    "sha256": "91ef21f2de44006d4bbdc09711eea0535746011c0e39217c475815969d83ae1a"
+  },
+  "fullPostflightGrant": {
+    "bytes": 5235,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r5/GRANT.json",
+    "sha256": "77a0a037e1d74a9c5135610c3c3e9a5d84d58ff5d8efdad2fb6439761fe5c855"
+  },
+  "fullPostflightReadback": {
+    "bytes": 5186,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r5/READBACK.json",
+    "sha256": "1af7a89810d94e59fc70e043aa9c478a09feae62511d2b128fe270365d97be67"
+  },
+  "fullPostflightReaderActualTool": {
+    "bytes": 891,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r5/READER-ACTUAL-TOOL.json",
+    "sha256": "cbee94ee2e29bd30dc3dc0121aa805a693b64214f422745550a4f97612af102b"
+  },
+  "fullPostflightSnapshot": {
+    "bytes": 8876022,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r5/SNAPSHOT.json",
+    "sha256": "8222e0888b5f05f82295d16b2941ac5de46e4a9269b48751d6d177d9e3b63cf0"
+  },
+  "fullSharedPostflightAccepted": true,
+  "game": false,
+  "generationReceipt": {
+    "bytes": 3461,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r5/fixtures.receipt.json",
+    "sha256": "df7a1aa7b5e02712acbdfe04e8162095fb7773a485bdb60440e453652bc55da1"
+  },
+  "generationReport": {
+    "bytes": 946,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r5/generate.report.json",
+    "sha256": "ba902601cb4099c2042cf76cbccd693da3a03ff471d957a5451d17efdb0bc1d4"
+  },
+  "grant": {
+    "bytes": 4386,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r5/EXECUTION-GRANT.json",
+    "sha256": "cd846b55e171117a5d3d214157406df69f98e3562e45fce5d8a6d5a0853d6ea2"
+  },
+  "lessons": [
+    "Losslesshelperrepresentation progressed past earlier helpercapSTOP into laterobserverresource refusal; this is earned progress, not wholebaseline or intendedmutantRED.",
+    "Naturalgeneration again produced exactsame0ae4 packet, but terminal aggregateprefix/fixture/afterproofnulls remain unchanged.",
+    "The synthetic1001 reservation is countscalar; sourceaudit disproves proposed expansioncause. Exactfailedobserverkind/bytes/family/iteration require boundedmetadata diagnostic before selectingrepair.",
+    "Originalobserver512/16384/2MiB caps and exact fulltuples must remain fatal; no clipping/filter/hash-only witness or silentaccounting amendment.",
+    "Passingoriginalsharedpost and scoped9ESRCHcloseprotectedinterval while keeping originalR5STOP and allolderfailures preserved. No all-machine absence or fullM0afterpreservation inferred."
+  ],
+  "mutantAccepted": false,
+  "neutralityAccepted": false,
+  "originalAttemptRemainsStop": true,
+  "partialIndependentObservedReview": {
+    "bytes": 7826,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-partial-observed-review-20261010-r5/RECEIPT.json",
+    "sha256": "92868e9640ec9b6c52a076964d2c9a541cb21a28a9b528bf0da97cb524ffda59"
+  },
+  "preflightObservedAdoption": {
+    "bytes": 5395,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-FULLFUNCTION-R5-CURRENT-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "c4faad39e17cf51491db0069ba29d90d47b1a398ce18a80a9cb0892507e28d38"
+  },
+  "priorGenerationFixture": {
+    "bytes": 12428510,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r4/fixtures.json",
+    "sha256": "0ae4a9a261600c23b1bfd05eb860d65ef0f6769c9918670eb97bf7120b74ec62"
+  },
+  "rawLocalOnlyClassification": {
+    "bytes": 1533,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r5/RAW-LOCAL-ONLY-CLASSIFICATION.json",
+    "sha256": "ebef3a65efa0db2dba9e33e4c80770f9f1af108e24b459fb2578eebd19d8b7a8"
+  },
+  "readback": {
+    "bytes": 6808,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r5/READBACK.json",
+    "sha256": "321035432c082f1238587d7783300b0c49d10c4935042d05968136cb6c727489"
+  },
+  "recorderResult": {
+    "bytes": 975,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-recorder-results-20261010-r5/RESULT.json",
+    "sha256": "920505065e832ea62e24afc65b7c014b1be0f750b67639a236809fafe99a6ed2"
+  },
+  "repeatedFixtureBytesEqual": true,
+  "schema": "1370-fullfunction-qualification-independent-observed-review/v1",
+  "scope": "Independent retained-evidence admission of protected R5 failure and earned real naturalgeneration phase only. Shared original fullpost preserves acceptedAMprotective map; it neither supplies missing M0afterproofs nor converts baselineSTOP to qualificationpass. No new execution/probes/private source/dependency scans/Git writes.",
+  "soleLaneReleased": true,
+  "sourceAfter": null,
+  "sourceManifest": {
+    "bytes": 20567,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r13/SOURCE-PINS.json",
+    "sha256": "5eb4371205271d8ae2b88d6c4dd2f7f20057b8ae30430fd8905e1ed3816d98d3"
+  },
+  "sourceReview": {
+    "bytes": 12539,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r13/RECEIPT.json",
+    "sha256": "1120c87f9509b5e3a7b19dbd35974b6c2e7f1a88391304a4bf0fbf1e6a226e02"
+  },
+  "typedCatchMutantExecuted": false
+}

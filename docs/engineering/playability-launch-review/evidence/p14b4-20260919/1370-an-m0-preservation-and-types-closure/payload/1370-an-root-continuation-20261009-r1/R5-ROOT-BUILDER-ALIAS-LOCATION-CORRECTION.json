@@ -1,0 +1,8 @@
+{
+  "actualContract": "R12 RECIPE.reviewAliases holds the exact15 aliases",
+  "actualFailure": "0552e0 exit1 before launcher output: asserted alias list existed directly in CONFIG",
+  "executionAuthorization": false,
+  "runtimeAttempted": false,
+  "schema": "1370-root-builder-alias-location-correction/v1",
+  "sourceOrCandidateChanged": false
+}

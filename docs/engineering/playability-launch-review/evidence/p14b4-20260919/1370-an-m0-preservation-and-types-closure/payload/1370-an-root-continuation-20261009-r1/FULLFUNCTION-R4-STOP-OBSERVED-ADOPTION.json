@@ -1,0 +1,114 @@
+{
+  "actualGameplayPrefixExecuted": null,
+  "actualGenerationPhaseSucceeded": true,
+  "baselineAccepted": false,
+  "baselineReport": {
+    "bytes": 2543,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r4/baseline.report.json",
+    "sha256": "f737da2c7a1a7de4dd6fdfd80480ae6156eceed2fda128682e920633640e240e"
+  },
+  "broadReplayAccepted": false,
+  "completeBeforeSourceAndDependenciesMatch": true,
+  "currentGenerationFixture": {
+    "bytes": 12428510,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r4/fixtures.json",
+    "sha256": "0ae4a9a261600c23b1bfd05eb860d65ef0f6769c9918670eb97bf7120b74ec62"
+  },
+  "currentTypesAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  },
+  "dependencyAfter": null,
+  "diagnosis": {
+    "calls": 1298,
+    "entries": 1450,
+    "entryCap": false,
+    "evaluations": 152,
+    "nextRowBytes": 32241,
+    "retainedBytes": 2075516,
+    "rowByteCap": false,
+    "totalByteCap": true
+  },
+  "executionAuthorization": false,
+  "failedPostScannerChecksAfterFreshPost": [
+    {
+      "id": 35222,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 35222,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "failedSharedPostPreserved": {
+    "bytes": 2387,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R4-SHARED-POST-DISK-STOP-OBSERVED-ADOPTION.json",
+    "sha256": "317c5e580df7599c83c390b1269e1d2a64f34788b1622d89941c7b077a763307"
+  },
+  "fixture": {
+    "bytes": 12428510,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r4/fixtures.json",
+    "sha256": "0ae4a9a261600c23b1bfd05eb860d65ef0f6769c9918670eb97bf7120b74ec62"
+  },
+  "fixtureQualificationAccepted": false,
+  "freshPassingSharedPostSession": 17336,
+  "fullM0AfterProofAccepted": false,
+  "fullPostflightReadback": {
+    "bytes": 5254,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r4-disk-retry/READBACK.json",
+    "sha256": "23bca5ae5c387c7e10a5e4fb0ab95c4307ce9c28b7c579dd186f7e1eb17350e3"
+  },
+  "fullPostflightSnapshot": {
+    "bytes": 8867475,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r4-disk-retry/SNAPSHOT.json",
+    "sha256": "33302fe35a9320a1b16f5bd7ab6575e33ca74e69562e9cccb3b7fe261692eeb1"
+  },
+  "fullSharedPostflightAccepted": true,
+  "game": false,
+  "generatedNaturalBoundaryWeeks": [
+    196,
+    197,
+    208
+  ],
+  "generationReceipt": {
+    "bytes": 3003,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r4/fixtures.receipt.json",
+    "sha256": "c3ce831f0a80ddbab5b341caa1bc7acbd1c653d2d1100d64f32510ce50381aec"
+  },
+  "generationReport": {
+    "bytes": 940,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r4/generate.report.json",
+    "sha256": "995ff7e99199fb74e2eceb5edc2cd6da4ed50c08e9136bc38781d7968338e1fa"
+  },
+  "independentObservedReview": {
+    "bytes": 27174,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-observed-review-20261010-r4/RECEIPT.json",
+    "sha256": "4c4b1058201c6cdb2e2bead62c172091578f8bf39f602c0907988c3b6991e5d1"
+  },
+  "limitsChanged": false,
+  "mutantAccepted": false,
+  "neutralityAccepted": false,
+  "observedFixtureWithinApprovedCap": true,
+  "originalAttemptRemainsStop": true,
+  "originalSharedPost7509RemainsFailure": true,
+  "priorGenerationFixture": {
+    "bytes": 12428510,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-results-20261010-r3/fixtures.json",
+    "sha256": "0ae4a9a261600c23b1bfd05eb860d65ef0f6769c9918670eb97bf7120b74ec62"
+  },
+  "protectedFreezeContinues": true,
+  "readback": {
+    "bytes": 6808,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r4/READBACK.json",
+    "sha256": "568c92e332879885a53726cc359b296d4279c9f763236edeed019f7d92a06e28"
+  },
+  "repeatedFixtureBytesEqual": true,
+  "schema": "1370-root-fullfunction-protected-stop-observed-adoption/v1",
+  "scope": "Actual21948 reproduced the same real natural boundary packet then failed first off author196 baseline. Total-byte cap alone failed:2075516+32241=2107757 exceeds2097152 by10605. Preserve phase success and finite repeated-packet identity separately from aggregate STOP, terminal nulls and missing afterproofs. No full qualification, broad replay, intended mutant RED, neutrality or ledger acceptance.",
+  "soleLaneReleased": true,
+  "sourceAfter": null,
+  "status": "ROOT_ADOPTED_FULLFUNCTION_HELPER_PROBE_TOTAL_BYTE_CAP_STOP_WITH_REAL_GENERATION_AND_FULL_SHARED_POSTFLIGHT"
+}

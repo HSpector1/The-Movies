@@ -1,0 +1,13 @@
+{
+  "decision": "STOP_SOURCE_FAILED_NODE_PREFIX_SCOPE_FALSE_CLAIM",
+  "executionAuthorization": false,
+  "finding": "No final NODE-RESULT does not prove no real prefix ran. Fixed weeks populated on failure falsely suggest observed boundaries.",
+  "originalR5Preserved": true,
+  "predecessor": {
+    "bytes": 19426,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261009-r5/SOURCE-PINS.json",
+    "sha256": "d47daec21a5bf3493e3bdc558b0c50671772ba82b825bfe94cdaa484c8fb4c7f"
+  },
+  "repair": "True only on validated complete Node report; null if Node spawn was attempted but execution unverified; False only no spawn attempt. Requested weeks separate from actual proven boundary weeks.",
+  "runtimeExecuted": false
+}

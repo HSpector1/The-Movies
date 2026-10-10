@@ -1,0 +1,9 @@
+{
+  "executionAuthorization": false,
+  "receipt": {
+    "bytes": 36937,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-independent-source-review-20261009-r2/RECEIPT.json",
+    "sha256": "69c21815277b22aedf9c6c222a8fac25f265296e473de9973f21999ec4f03d8d"
+  },
+  "schema": "1370-independent-source-review-seal/v1"
+}

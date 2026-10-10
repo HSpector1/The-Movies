@@ -1,0 +1,56 @@
+{
+  "schema": "1370-full-state-fixture-artifact-bound-independent-source-review/v1",
+  "decision": "ACCEPT_STATIC_OPERATIONAL_FULL_STATE_FIXTURE_ARTIFACT_BOUND_ONLY",
+  "artifactBound": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULL-STATE-FIXTURE-ARTIFACT-BOUND.json",
+    "bytes": 2172,
+    "sha256": "186c55ff7381787d3abe401e175d8c1c468be5bfb5e8ef169f89d7c94a0bc546"
+  },
+  "concreteFindings": [],
+  "executionAuthorization": false,
+  "sourceOnly": true,
+  "sourceBasis": {
+    "core.test.ts": {
+      "bytes": 2528,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/core.test.ts",
+      "sha256": "b2af5a489d29cb285d89b37cedd3a87f5275f90cfdc46574a6b541fde51f25da"
+    },
+    "fixtures.ts": {
+      "bytes": 6863,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/fixtures.ts",
+      "sha256": "5ff38007b8126571e9fa84a9efe94f35866be409d3c35b22f9c90b5ce3e0315d"
+    }
+  },
+  "verifiedSerializationCount": {
+    "packetFiles": 1,
+    "encoding": "UTF-8 JSON.stringify",
+    "naturalDirectStates": 3,
+    "sameNaturalStatesIncludedAgainUnderFixtures": 3,
+    "explicitVariantStateOccurrences": 4,
+    "totalFullStateEncodingOccurrences": 10,
+    "uniqueFixtureStateChoices": 7,
+    "receiptSeparate": true
+  },
+  "resourceArithmetic": {
+    "packetBoundBytes": 67108864,
+    "workerTreeBytes": 268435456,
+    "laterControllerStreamsBytes": 16777216,
+    "outerRecorderStreamsBytes": 16777216,
+    "conservativeRetainedOutputBytes": 301989888,
+    "minimumOriginalPreflightBytes": 3758096384,
+    "arithmeticRemainingBytes": 3456106496,
+    "arithmeticRemainingGiB": 3.21875,
+    "originalLiveFloorBytes": 3221225472
+  },
+  "limits": [
+    "No measured serialized fullstate sizes are available; bound does not predict fixture fit or current free space.",
+    "Overflow is STOP with no automatic cap increase, waiver or partial-fixture acceptance.",
+    "Original300/320/330 time envelope,16KiB row/2MiB observer caps and3GiB livefloor remain binding; this review does not authorize execution or accept game results.",
+    "Finite retained source/role verification and arithmetic only; no generated imports/runtime/tests/private inventory/process probes/Git."
+  ],
+  "majorLessons": [
+    "Count serialization occurrences rather than unique in-memory references: JSON repeats three natural states under fixtures.",
+    "A defensible operational stop bound is distinct from empirical proof of fit.",
+    "Include controller streams written after the worker-tree audit and outer recorder streams in the retained-output ledger."
+  ]
+}

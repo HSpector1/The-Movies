@@ -1,0 +1,31 @@
+--- 
++++ 
+@@ -5,7 +5,7 @@
+ import {spawn} from 'node:child_process';
+ import {fileURLToPath} from 'node:url';
+ const HERE=path.dirname(fileURLToPath(import.meta.url));
+-const CONFIG_SHA='d687a7bc560e103ae5c359622991ecb773a88546f64e41918c8c297b0b3da811';
++const CONFIG_SHA='8a6e67c7bea7c897e83f27f418d4743bfd1b9035ddd70147e9615e92658c81d6';
+ const need=(v,m)=>{if(!v)throw Error('STOP_'+m)};
+ const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+ import {equal,parseExact} from 'file:///Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs';
+@@ -42,7 +42,7 @@
+ need(grant.sourcePins.path===path.join(HERE,'SOURCE-PINS.json'),'MANIFEST_PATH');const manifest=json(grant.sourcePins,131072);need(manifest.schema==='1370-fullfunction-qualification-source-pins/v1'&&manifest.executionAuthorization===false,'MANIFEST_PROTOCOL');
+ for(const [name,r] of Object.entries(manifest.files)){if(Object.hasOwn(c.parserInputs,name))need(equal(r,c.parserInputs[name]),'EXACT_EXTERNAL_TESTED_PARSER_ROLE');else need(r.path===path.join(HERE,name),'MANIFEST_ROLE_PATH');readRole(r)}
+ const sourceReview=json(grant.sourceReview,131072);need(sourceReview.decision==='ACCEPT_STATIC_REAL_FULL_FUNCTION_QUALIFICATION_ROUTE_SOURCE_ONLY'&&sourceReview.executionAuthorization===false&&equal(sourceReview.concreteFindings,[])&&equal(sourceReview.sourceManifest,grant.sourcePins),'INDEPENDENT_SOURCE_REVIEW');
+-for(const name of ['CONFIG.json','run-fullfunction.py','run-fullfunction.mjs','record-fullfunction.py','CORE-TEST-TEMPLATE.ts','CONFIG-TEMPLATE.mts','FULL-BODY-CONTROLS-TEMPLATE.ts','exact-json.mjs','run-parser-controls.mjs','canonical-typescript-transform.mjs'])need(equal(sourceReview.sourcePins[name],manifest.files[name])&&equal(sourceReview.routeSourcePins[name],manifest.files[name]),'SOURCE_REVIEW_ALIASES');
++for(const name of ['CONFIG.json','run-fullfunction.py','run-fullfunction.mjs','record-fullfunction.py','CORE-TEST-TEMPLATE.ts','CONFIG-TEMPLATE.mts','FULL-BODY-CONTROLS-TEMPLATE.ts','exact-json.mjs','run-parser-controls.mjs','canonical-typescript-transform.mjs','m0WiringProbe.ts','RESOLUTION-SOURCE-BINDING.json'])need(equal(sourceReview.sourcePins[name],manifest.files[name])&&equal(sourceReview.routeSourcePins[name],manifest.files[name]),'SOURCE_REVIEW_ALIASES');
+ need(manifest.files['run-fullfunction.mjs'].path===fileURLToPath(import.meta.url),'WORKER_SELF');
+ const types=json(grant.typesAdoption),contract=c.typesAdoptionContract;
+ need(types.schema===contract.schema&&types.status===contract.status&&types.productionHead===c.operationalHead&&types.productionSourceTree===c.productionSourceTree,'ACTUAL_CURRENT_TYPES_ADOPTION');
+@@ -52,6 +52,10 @@
+ const observed=json(types.independentObservedReview);need(observed.decision===contract.reviewDecision&&equal(observed.concreteFindings,[])&&observed.executionAuthorization===false,'GENUINE_OBSERVED_TYPES_REVIEW');
+ const result=json(types.result);need(result.status==='PASS_M0_TYPES_AND_DIAGNOSTIC_COLLECTION_ONLY'&&equal(result.sourceBefore,result.sourceAfter)&&equal(result.sourceAfter,types.freshSourceProof)&&equal(result.nodeModulesBefore,result.nodeModulesAfter)&&equal(result.nodeModulesAfter,types.freshDependencyProof),'GENUINE_TYPES_PROOFS');
+ need(Object.keys(types.freshSourceProof).sort().join(',')===['fileProofDigestSha256','physicalMetadataSha256','historicalRootSubstitutedMetadataSha256','nonrootMetadataSha256','mirrorFiles','mirrorBytes','dependencyLink','traversedEntries','mirrorRootIdentity'].sort().join(','),'NINE_FIELD_SOURCE_PROOF');
++const da=c.probeDiagnosticAuthorities,ad=json(da.rootAdoption),di=json(da.independentSourceReview),dm=json(da.sourceManifest);
++need(ad.schema==='1370-root-held-probe-overflow-diagnostic-source-adoption/v1'&&ad.status==='ROOT_ADOPTED_HELD_FIRST_OVERFLOW_DIAGNOSTIC_SOURCE_ONLY'&&ad.executionAuthorization===false&&ad.runtimeReady===false&&ad.limitsChanged===false&&ad.completeTraceStillRequired===true&&equal(ad.sourceManifest,da.sourceManifest)&&equal(ad.independentSourceReview,da.independentSourceReview),'ADOPTED_DIAGNOSTIC_ONLY');
++need(di.decision==='ACCEPT_STATIC_BOUNDED_PROBE_OVERFLOW_DIAGNOSTIC_PROPOSAL_ONLY'&&di.executionAuthorization===false&&equal(di.concreteFindings,[])&&equal(di.sourceManifest,da.sourceManifest),'DIAGNOSTIC_SOURCE_REVIEW');
++for(const [local,prior] of [[c.inputs['m0WiringProbe.ts'],dm.files['m0WiringProbe.ts']],[c.templates['FULL-BODY-CONTROLS-TEMPLATE.ts'],dm.files['full-body-controls.ts']]])need(local.bytes===prior.bytes&&local.sha256===prior.sha256,'EXACT_ADOPTED_DIAGNOSTIC_BYTES');
+ for(const r of Object.values(c.transformTools))readRole(r,2*1024*1024);
+ const proofConfig=json(c.proofConfig),root=json(types.postR6RootAdoption);
+ need(root.schema==='1370-root-post-r6-m0-current-root-diagnostic-adoption/v1'&&root.status==='ROOT_ADOPTED_POST_R6_M0_PRESERVATION_DIAGNOSTIC_KNOWN_ROOT_DRIFT'&&root.currentRootBaselineQualified===true&&root.historicalRootUnchanged===false&&root.originalR6StopPreserved===true&&root.typesAccepted===false&&root.collectionAccepted===false&&equal(root.knownRootDrift,proofConfig.knownRootDrift)&&equal(root.freshSourceProof,types.freshSourceProof)&&equal(root.freshDependencyProof,types.freshDependencyProof),'AUTHENTIC_POST_R6_ROOT');

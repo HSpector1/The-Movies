@@ -1,0 +1,219 @@
+{
+  "ASTParsedOnly": true,
+  "actualRuntimeTestsExecuted": false,
+  "baselineSourcePins": {
+    "bytes": 11146,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "0dbae918dad76dd85350d5804f0eaee131c4cce18543ea2bb6fb716a06068926"
+  },
+  "dependencyCheckerExact": true,
+  "dependencyProjectionAndHistoricalAuthoritiesExact": true,
+  "diagnosticFullSourceFunction": {
+    "bytes": 5356,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/FULL-SOURCE-CHECK.txt",
+    "sha256": "ea68ed6e720f185c98dbd9fd1068d96e61c0ac7bb804ffb0f5a2797b9439b8e8"
+  },
+  "dormantHOMEOverrideRemoved": true,
+  "executionAuthorization": false,
+  "functionPreservation": {
+    "BOOTSTRAP.py": {
+      "changedOriginalFunctions": [],
+      "newFunctions": [],
+      "originalFunctions": 4,
+      "unchangedOriginalFunctions": 4
+    },
+    "LAUNCH.py": {
+      "changedOriginalFunctions": [],
+      "newFunctions": [],
+      "originalFunctions": 6,
+      "unchangedOriginalFunctions": 6
+    },
+    "runner.py": {
+      "changedOriginalFunctions": [
+        "run_child",
+        "full_source_check",
+        "main"
+      ],
+      "newFunctions": [
+        "diagnostic_role",
+        "validate_diagnostic_inputs"
+      ],
+      "originalFunctions": 34,
+      "unchangedOriginalFunctions": 31
+    },
+    "supervise.py": {
+      "changedOriginalFunctions": [
+        "main"
+      ],
+      "newFunctions": [],
+      "originalFunctions": 19,
+      "unchangedOriginalFunctions": 18
+    }
+  },
+  "heldR1SourcePins": {
+    "bytes": 8591,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r1/SOURCE-PINS.json",
+    "sha256": "3084bb195697dd244aea332f18f150753ffe7898d5d1e6a2155f6ae8826928be"
+  },
+  "launcherExecutableHashBindingsVerified": true,
+  "proofMainNeverCallsRunChild": true,
+  "schema": "1370-post-r6-preservation-diagnostic-source-proof/v1",
+  "twelveCompleteForwardInverseProofs": {
+    "original:BOOTSTRAP.py": {
+      "base": {
+        "bytes": 2731,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/BOOTSTRAP.py",
+        "sha256": "53c9330d960da3dc8e562bd87ca89a8e1c2f5992010b9a35eb7ca3f3963e438c"
+      },
+      "candidate": {
+        "bytes": 2722,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/BOOTSTRAP.py",
+        "sha256": "2b11e6c1c8595af573ffe9186a6e895c192f6fc05f0a7b35c5627a451c7bcdb3"
+      },
+      "completeForwardInverseExact": true
+    },
+    "original:CONFIG.json": {
+      "base": {
+        "bytes": 29945,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/CONFIG.json",
+        "sha256": "17ac5abcd1e26c83fcd8d3794bd0c6356cd9f141416e01974cdd34f510b72bb5"
+      },
+      "candidate": {
+        "bytes": 32755,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/CONFIG.json",
+        "sha256": "c40c0a34d07532d4690552318958029ec736d32283dcec59b0b33191bf82bc4c"
+      },
+      "completeForwardInverseExact": true
+    },
+    "original:EXECUTION-CONTEXT-UNFILLED.json": {
+      "base": {
+        "bytes": 555,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/EXECUTION-CONTEXT-UNFILLED.json",
+        "sha256": "5b59f0d772a154f251d0d921c1e2052908040af15965b1f6e477872c473899ae"
+      },
+      "candidate": {
+        "bytes": 750,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/EXECUTION-CONTEXT-UNFILLED.json",
+        "sha256": "5afb6291366a3f063063ccbcaa8618c08419089c0ac80cbe0666e863f6d709c5"
+      },
+      "completeForwardInverseExact": true
+    },
+    "original:LAUNCH.py": {
+      "base": {
+        "bytes": 6875,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/LAUNCH.py",
+        "sha256": "57b660767095cc9a03fb1c1acbff741557b9b2487780b1cfa030ea09dbf131c9"
+      },
+      "candidate": {
+        "bytes": 7098,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/LAUNCH.py",
+        "sha256": "0b314837bb1de9513d16fb7ecaba7fb9b706fe4414db12583449495f1a650ef0"
+      },
+      "completeForwardInverseExact": true
+    },
+    "original:runner.py": {
+      "base": {
+        "bytes": 34856,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/runner.py",
+        "sha256": "d32007ecb462d6a535432959317e1851d09d37cb0fa96897fa3dcc213c45b05c"
+      },
+      "candidate": {
+        "bytes": 44067,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py",
+        "sha256": "b9ff56da6524243c95045b0e09f25ca4ec5c8225bbdd3eb76820e75b928e350d"
+      },
+      "completeForwardInverseExact": true
+    },
+    "original:supervise.py": {
+      "base": {
+        "bytes": 13751,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/supervise.py",
+        "sha256": "d38761d46cfa3980b7556313fce52fda662b8d479d0e6cb0b252227193670645"
+      },
+      "candidate": {
+        "bytes": 13749,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/supervise.py",
+        "sha256": "b8c6a45e658f2620b0ae16a9feb89897cb36c9a0c1afd15e322ec3487927994b"
+      },
+      "completeForwardInverseExact": true
+    },
+    "r1:BOOTSTRAP.py": {
+      "base": {
+        "bytes": 2722,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r1/BOOTSTRAP.py",
+        "sha256": "7581248b3cde60c94100ed2b3ae927b031e496d5e892e63e9d89b491d41c1fac"
+      },
+      "candidate": {
+        "bytes": 2722,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/BOOTSTRAP.py",
+        "sha256": "2b11e6c1c8595af573ffe9186a6e895c192f6fc05f0a7b35c5627a451c7bcdb3"
+      },
+      "completeForwardInverseExact": true
+    },
+    "r1:CONFIG.json": {
+      "base": {
+        "bytes": 32755,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r1/CONFIG.json",
+        "sha256": "114d5cabe8e201193e57a8667ec9d419712fb439e6ee7e98adb6a197e833d30c"
+      },
+      "candidate": {
+        "bytes": 32755,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/CONFIG.json",
+        "sha256": "c40c0a34d07532d4690552318958029ec736d32283dcec59b0b33191bf82bc4c"
+      },
+      "completeForwardInverseExact": true
+    },
+    "r1:EXECUTION-CONTEXT-UNFILLED.json": {
+      "base": {
+        "bytes": 750,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r1/EXECUTION-CONTEXT-UNFILLED.json",
+        "sha256": "2c7b35f96b26f436fe5c50d9ef62eb8e3b0fea142d5425782a22825f2f663616"
+      },
+      "candidate": {
+        "bytes": 750,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/EXECUTION-CONTEXT-UNFILLED.json",
+        "sha256": "5afb6291366a3f063063ccbcaa8618c08419089c0ac80cbe0666e863f6d709c5"
+      },
+      "completeForwardInverseExact": true
+    },
+    "r1:LAUNCH.py": {
+      "base": {
+        "bytes": 7098,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r1/LAUNCH.py",
+        "sha256": "52a9ec0099de0c606be6fa2dcd1582a90a99bc910ba227893115824647fccc67"
+      },
+      "candidate": {
+        "bytes": 7098,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/LAUNCH.py",
+        "sha256": "0b314837bb1de9513d16fb7ecaba7fb9b706fe4414db12583449495f1a650ef0"
+      },
+      "completeForwardInverseExact": true
+    },
+    "r1:runner.py": {
+      "base": {
+        "bytes": 44083,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r1/runner.py",
+        "sha256": "cf25620abdcd6a15101e9c9a8746efb46c89f92f62b3f86b4db24eb150ab0e67"
+      },
+      "candidate": {
+        "bytes": 44067,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/runner.py",
+        "sha256": "b9ff56da6524243c95045b0e09f25ca4ec5c8225bbdd3eb76820e75b928e350d"
+      },
+      "completeForwardInverseExact": true
+    },
+    "r1:supervise.py": {
+      "base": {
+        "bytes": 13749,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r1/supervise.py",
+        "sha256": "704098513cf8c48914569dd7ad35e7b5bc46590e8f2910f31dfea1104f74c3c8"
+      },
+      "candidate": {
+        "bytes": 13749,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-post-r6-preservation-diagnostic-source-20261009-r2/supervise.py",
+        "sha256": "b8c6a45e658f2620b0ae16a9feb89897cb36c9a0c1afd15e322ec3487927994b"
+      },
+      "completeForwardInverseExact": true
+    }
+  }
+}

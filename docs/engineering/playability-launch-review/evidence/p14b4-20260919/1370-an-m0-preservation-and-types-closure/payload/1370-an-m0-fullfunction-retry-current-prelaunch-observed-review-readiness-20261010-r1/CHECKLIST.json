@@ -1,0 +1,105 @@
+{
+  "actualResultUnknown": true,
+  "checks": [
+    {
+      "assertions": [
+        "Authenticate source07832 manifest and root6a5 independent source review plus exact wrapper/reader bytes from manifest.",
+        "Root reviewed source written by this reviewer; future evidence observation is a separate task, never mislabeled independent source authorship.",
+        "Original current-prelaunch source7015/review6f7e is unchanged; original continuous-freeze reuse and per-command180 preserved."
+      ],
+      "name": "source_authority"
+    },
+    {
+      "assertions": [
+        "Authenticate future root STOP schema1370-root-fullfunction-protected-stop-observed-adoption/v1/statusROOT_ADOPTED_FULLFUNCTION_WRONG_MIRROR_SUBJECT_STOP_WITH_FULL_SHARED_POSTFLIGHT and each supplied role.",
+        "Require originalAttemptRemainsStop/fullSharedPostflightAccepted/soleLaneReleased true; executionAuthorization/game false.",
+        "Its readback is actual2292 failure, currentTypesAdoption exactbe632, fullPostflightReadback exact735e and snapshot exactf1eb.",
+        "Authenticate independent STOP review, preserving wrong container refusal before enumeration/no Node; sourceAfter/dependencyAfter remain absent.",
+        "Authenticate successful typesbe632 and its independent aa9b review/result/fullpost0700 authority; do not replace0700 with latest shared map."
+      ],
+      "name": "stop_and_types_roles"
+    },
+    {
+      "assertions": [
+        "Use actual completed parent ACTUAL-TOOL envelope: genuine session ID, every retained chunk and final exit0, not elapsed-time inference.",
+        "Authenticate root GRANT and argv/cwd/environment/source/config roles. Genuine own PID=PGID=SID from recorded grant matches completed actual scanner; never guess IDs.",
+        "CLI uses exact reviewed wrapper plus genuine completed latest READBACK/STOP role pairs; original physical Python-I-B scanner invoked directly.",
+        "Filled config changes exactly protectedSnapshot/ownedPgids/outputPath from original null template; latest snapshot=f1eb and owned list=[49057,49312,49313,61080] from735e."
+      ],
+      "name": "actual_tool_and_grant"
+    },
+    {
+      "assertions": [
+        "Authenticate stdout complete original status/sha JSON and empty stderr; output PREFLIGHT identity equals stdout/raw root readback.",
+        "Raw preflight configSHA and protectedSnapshot match authentic filled config/latest map; status ORIGINAL_CURRENT_ROOT_PREFLIGHT_COMPLETED_UNREVIEWED.",
+        "Reuse booleans true/false: protectedFullMapReusedUnderContinuousFreeze true, freshFullInventoryRun false.",
+        "Nine roots before=after=latest snapshot immutable.strictRoots; whole latest immutable equals original0136.",
+        "CurrentBefore/After retain original boot/current refs/ancestry/ac/disk predicates and recorded old group checks; worker and FD gates true with live3.5GiB floor.",
+        "Authenticate all four raw semantic role hashes/sizes and exact LOCAL_HASH_SIZE_ONLY classification; do not read or export raw PS/FD contents."
+      ],
+      "name": "output_and_maps"
+    },
+    {
+      "assertions": [
+        "Authenticate completed root reader envelope and its final0 separately from emitted readback.",
+        "Root readback binds exact actualTool/session/grant/preflight/stdout/stderr/original snapshot and source review; root-provided scoped fresh scanner PID+PGID ESRCH and lane absent are evidence, no new probes.",
+        "Readback fullPostflightSnapshot keeps TYPE0700, latestSharedFullPostflightSnapshot=f1eb; latestSharedFullPostflightReadback=735e/reviewedPriorStopAdoption matches grant.",
+        "New independent receipt may admit only current shared protection under continuous freeze, not full M0 source/dependency proof, fixture/catch-mutant/neutral/game execution."
+      ],
+      "name": "root_reader_and_ownership"
+    }
+  ],
+  "executionAuthorization": false,
+  "futureRequiredRoles": {
+    "actualGrant": null,
+    "actualPreflight": null,
+    "actualRawLocalClassification": null,
+    "actualRootPreflightReadback": null,
+    "actualRootReaderEnvelope": null,
+    "actualStderr": null,
+    "actualStdout": null,
+    "actualTool": null,
+    "reviewedProtectedStopRootAdoption": null
+  },
+  "independentSourceReview": {
+    "bytes": 3105,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-RETRY-PREFLIGHT-PREPARATION-SOURCE-REVIEW.json",
+    "sha256": "6a5de4f910701a05248c4baabaa97cf830ededd9f58a56a67a073f903e84fd74"
+  },
+  "latestCompletedSharedReadback": {
+    "bytes": 5098,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "735e8d8fcaf1ae96f2b4f39608f71a66d85eba14b1941e5bd97d23afda096b55"
+  },
+  "latestRecordedOwnedIds": [
+    49057,
+    49312,
+    49313,
+    61080
+  ],
+  "latestSharedFullPostflightSnapshot": {
+    "bytes": 8853570,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/evidence/postflight-fullfunction-qualification-r1/SNAPSHOT.json",
+    "sha256": "f1eb127210b9cf6c5f3e9746cfb3c0f6865167d468921d05795805843a6ad1d6"
+  },
+  "pendingAdoptionScope": "Shared postflight is observed complete by root but protected STOP independent final review/root adoption are not manufactured by this readiness package.",
+  "prospectiveDecision": "ACCEPT_ACTUAL_CURRENT_AM_FULLFUNCTION_RETRY_PRELAUNCH_ONLY",
+  "reviewMethod": "Finite retained evidence only. No executable reviewer gate, scans, probes, private traversal, rerun or root grant. The checklist prepares the existing independent observed admission.",
+  "schema": "1370-fullfunction-retry-current-prelaunch-independent-observed-review-readiness/v1",
+  "scopeLimits": {
+    "catchMutantQualification": false,
+    "game": false,
+    "neutralityAcceptance": false,
+    "newFullInventory": false,
+    "newM0SourceDependencyProof": false,
+    "newTypesAcceptance": false,
+    "originalAttemptStillStop": true,
+    "realFixtureQualification": false
+  },
+  "sourceManifest": {
+    "bytes": 3286,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-current-prelaunch-preparation-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "07832ac63601daf7077d126514a44feb91adb4c553afe2148d80b8fbbc516ce7"
+  },
+  "status": "PREPARED_NOT_OBSERVED"
+}

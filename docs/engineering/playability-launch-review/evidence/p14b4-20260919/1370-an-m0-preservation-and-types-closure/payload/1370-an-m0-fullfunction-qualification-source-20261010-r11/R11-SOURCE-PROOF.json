@@ -1,0 +1,54 @@
+{
+  "actual40169StopPreserved": true,
+  "bindingOnlyOneDerivativeRoleChanged": "src/core/m0WiringProbe.ts",
+  "bindingRemainderEqual": true,
+  "completeCallsFatalAssertionAndCapsUnchanged": true,
+  "eightWholeForwardInversePairs": [
+    "CONFIG.json",
+    "run-fullfunction.py",
+    "run-fullfunction.mjs",
+    "record-fullfunction.py",
+    "CONFIG-TEMPLATE.mts",
+    "FULL-BODY-CONTROLS-TEMPLATE.ts",
+    "RESOLUTION-SOURCE-BINDING.json",
+    "m0WiringProbe.ts"
+  ],
+  "exactAdoptedProbeAndControlsBytes": true,
+  "predecessor": {
+    "bytes": 39330,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r10/SOURCE-PINS.json",
+    "sha256": "eb43fa973b7a9ded1a834a944b2351150236df1c5b7e566b8df904661f689f46"
+  },
+  "probeDiagnosticAuthorities": {
+    "independentSourceReview": {
+      "bytes": 10763,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-independent-source-review-20261010-r1/RECEIPT.json",
+      "sha256": "d2da23a4e866001b528027d76591efbb3c724712e4aea00e1259d0dbf5e7759f"
+    },
+    "rootAdoption": {
+      "bytes": 1659,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/PROBE-OVERFLOW-DIAGNOSTIC-HELD-SOURCE-ADOPTION.json",
+      "sha256": "b926b19abcdd32344c2d58b5121cde868c5f0f5309cefc26dbea459f62a1f482"
+    },
+    "sourceManifest": {
+      "bytes": 3645,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-r3-probe-overflow-diagnostic-source-proposal-20261010-r1/SOURCE-PINS.json",
+      "sha256": "54cdeea9afeda3135d87affcd455ce1dcd2805c54cf7e7ed654bf0665aa9e830"
+    }
+  },
+  "runtimeExecuted": false,
+  "twelveSourceReviewAliases": [
+    "CONFIG-TEMPLATE.mts",
+    "CONFIG.json",
+    "CORE-TEST-TEMPLATE.ts",
+    "FULL-BODY-CONTROLS-TEMPLATE.ts",
+    "canonical-typescript-transform.mjs",
+    "exact-json.mjs",
+    "record-fullfunction.py",
+    "run-fullfunction.mjs",
+    "run-fullfunction.py",
+    "run-parser-controls.mjs",
+    "m0WiringProbe.ts",
+    "RESOLUTION-SOURCE-BINDING.json"
+  ]
+}

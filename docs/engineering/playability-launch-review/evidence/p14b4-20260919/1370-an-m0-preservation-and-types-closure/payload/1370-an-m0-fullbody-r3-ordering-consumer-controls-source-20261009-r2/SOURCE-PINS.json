@@ -1,0 +1,78 @@
+{
+  "actualGrant": null,
+  "actualReview": null,
+  "executionAuthorization": false,
+  "files": {
+    "BASE-recorder.txt": {
+      "bytes": 14851,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/BASE-recorder.txt",
+      "sha256": "6e1895ddcd544fb690dc2fbb31cd73cdf82f1d95592882de5c7a390aac0a8790"
+    },
+    "BASE-worker.txt": {
+      "bytes": 7830,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/BASE-worker.txt",
+      "sha256": "d9533c3efb358d8d55cc89e86d56147d38c2b84a4702e7b8212a938f1b39e31d"
+    },
+    "CONFIG.json": {
+      "bytes": 5198,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/CONFIG.json",
+      "sha256": "83bce1b4b19f7b9f6ae3c75fc33b5960aa21738891e4add3aa4941c45aaac631"
+    },
+    "LESSONS.txt": {
+      "bytes": 396,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/LESSONS.txt",
+      "sha256": "90ffc38a69ef6f51b8bc966d4b39379e4488281e43cf0926efc32a3b70e4ac5f"
+    },
+    "NEXT-BASELINE-CATCH-ROUTE.txt": {
+      "bytes": 1571,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/NEXT-BASELINE-CATCH-ROUTE.txt",
+      "sha256": "2041b55332f9988dd8df773ed81c3c99a4b63c81882cc6d35719893291b106ae"
+    },
+    "R1-SOURCE-STOP.json": {
+      "bytes": 651,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/R1-SOURCE-STOP.json",
+      "sha256": "bf2e0fde091720c7c7e4367fe8ef09cafa11582a499613e017b31e1003300fbe"
+    },
+    "RECIPE.json": {
+      "bytes": 5676,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/RECIPE.json",
+      "sha256": "b88b6919d468225f4772a758eb98af4c6935310962bc13d10911180295a47bea"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 4688,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/SOURCE-PROOF.json",
+      "sha256": "0773c0e6ba78b8db3c3477943d96cea217076a9e2cd1a7a9d72d796503adc1ed"
+    },
+    "record-ordering-controls.py": {
+      "bytes": 16236,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/record-ordering-controls.py",
+      "sha256": "ea6f813f5d732cf08277fd0ff60fa0f1074b9839419e55448fbba2c06afb7533"
+    },
+    "recorder.forward.diff": {
+      "bytes": 10655,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/recorder.forward.diff",
+      "sha256": "4af7eea44a3f8d3b9d88bd0e78ff88b37c8ac0b9052e9bfb691dae1827866368"
+    },
+    "recorder.inverse.diff": {
+      "bytes": 10655,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/recorder.inverse.diff",
+      "sha256": "2287a00de62f2296809b05f3453bd0b30dc8062800c27632eb60c362f11c8d7b"
+    },
+    "run-ordering-controls.mjs": {
+      "bytes": 7904,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/run-ordering-controls.mjs",
+      "sha256": "0465271ed0e0d1d9e1311982154ab1bfc70f7ef7d1c935b050f32a13d4afb2dd"
+    },
+    "worker.forward.diff": {
+      "bytes": 2154,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/worker.forward.diff",
+      "sha256": "e079208688a0392e5cf65a38afa778bee10300af978dad4128febd5fe81fbfb5"
+    },
+    "worker.inverse.diff": {
+      "bytes": 2154,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullbody-r3-ordering-consumer-controls-source-20261009-r2/worker.inverse.diff",
+      "sha256": "1b24428960ebe72691391e936888d2924813589f86394970512bac1bf2313abc"
+    }
+  },
+  "schema": "1370-r3-ordering-controls-source-pins/v1"
+}

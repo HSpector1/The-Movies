@@ -1,0 +1,49 @@
+{
+  "roles": {
+    "sourceManifest": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r3/SOURCE-PINS.json",
+      "bytes": 1409,
+      "sha256": "bfd2caee59bf7bdc5698b97bca19340513dcf0b761ef66dfe3b970eef39eec86"
+    },
+    "BASE-r2-parent.py.txt": {
+      "bytes": 12103,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r3/BASE-r2-parent.py.txt",
+      "sha256": "eb09e8a20b7ee6039c059108c11262cc9a01130a90e2f1fd39646b1b68b93180"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 637,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r3/SOURCE-PROOF.json",
+      "sha256": "6e82ad87851dea2884fe6fa3bab9cc65ceff6c436275686c48b7a7ce36072635"
+    },
+    "forward.diff": {
+      "bytes": 1370,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r3/forward.diff",
+      "sha256": "551280d2781f5dc096c84bce63008941c397940abaeb3205f6160fed7bb8e093"
+    },
+    "inverse.diff": {
+      "bytes": 1370,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r3/inverse.diff",
+      "sha256": "41379290b096540efe059ade3057d5053871ff86d9310791c030abe2a90e301a"
+    },
+    "launch-fullfunction.py": {
+      "bytes": 12103,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r3/launch-fullfunction.py",
+      "sha256": "02590fe451ab2c8bcf28fd2b3ee8e63e181f81839daffd515c28806283ac85cb"
+    },
+    "predecessorSource": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r2/launch-fullfunction.py",
+      "bytes": 12103,
+      "sha256": "eb09e8a20b7ee6039c059108c11262cc9a01130a90e2f1fd39646b1b68b93180"
+    },
+    "predecessorManifest": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-source-20261010-r2/SOURCE-PINS.json",
+      "bytes": 1410,
+      "sha256": "fb047e0bcf7685b40fd80bcd4d5550f2cef7a967ee936a3644bb0446309da62e"
+    },
+    "predecessorReview": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-independent-source-review-20261010-r2/RECEIPT.json",
+      "bytes": 3972,
+      "sha256": "785b2a13d304e24a21b39f2de075bffb75ccb43cb086b677a32e4bca10ee3c93"
+    }
+  }
+}

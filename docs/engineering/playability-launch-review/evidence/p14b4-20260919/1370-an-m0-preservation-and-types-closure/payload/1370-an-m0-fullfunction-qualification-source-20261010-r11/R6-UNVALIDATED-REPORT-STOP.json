@@ -1,0 +1,18 @@
+{
+  "decision": "STOP_SOURCE_NODE_RESULT_ASSIGNED_BEFORE_VALIDATION",
+  "executionAuthorization": false,
+  "finding": "Parsed Node report was assigned before status validation; malformed report could imply proven prefix.",
+  "independentStopReview": {
+    "bytes": 7770,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-independent-source-review-20261010-r6/RECEIPT.json",
+    "sha256": "cf64e2fbf174b028ad03c1ee5e7af2f1539803d4ade4790461248f45e6b4f468"
+  },
+  "originalR6Preserved": true,
+  "predecessor": {
+    "bytes": 22347,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r6/SOURCE-PINS.json",
+    "sha256": "f074ef495be6e3356baa5ebc61d22b2f6753a8a30d76be236c0d63c0681e73bc"
+  },
+  "repair": "Stage candidate, verify status/actualprefix/naturalweeks/explicitvariants/no-neutrality/three exact phases and all0, then assign validated node_result.",
+  "runtimeExecuted": false
+}

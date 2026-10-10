@@ -1,0 +1,13 @@
+{
+  "sessionId": null,
+  "allToolChunks": [
+    {
+      "chunk_id": "031abe",
+      "wall_time_seconds": 0.432116014,
+      "exit_code": 0,
+      "original_token_count": 76,
+      "output": "{\"readback\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-parent-recorded-20261010-r5/READBACK.json\", \"bytes\": 6808, \"sha256\": \"321035432c082f1238587d7783300b0c49d10c4935042d05968136cb6c727489\"}, \"status\": \"ACTUAL_FULLFUNCTION_STOP_PRESERVED_PENDING_SHARED_FULL_POSTFLIGHT\"}\n"
+    }
+  ],
+  "finalExit": 0
+}
