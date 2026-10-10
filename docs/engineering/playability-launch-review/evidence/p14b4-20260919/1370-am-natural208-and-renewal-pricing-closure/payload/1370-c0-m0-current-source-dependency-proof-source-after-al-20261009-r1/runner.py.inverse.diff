@@ -1,0 +1,122 @@
+--- proof-only-r1/runner.py
++++ accepted-r4/runner.py
+@@ -3,10 +3,10 @@
+ import argparse, hashlib, json, math, os, pathlib, re, selectors, shutil, signal, stat, subprocess, sys, time, traceback
+ S=pathlib.Path('/Users/zacheryspector/studio-scratch')
+ REPO=pathlib.Path('/Users/zacheryspector/The-Movies-headless-program')
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r1')
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4')
+ CONFIG_PATH=P/'CONFIG.json'
+-CONFIG_SHA='01c5c22d4f7212dd2a835883908b373b0583480487256d2f85933ae42d82b7ed'
+-OUT_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-results-after-al-20261009-r1')
++CONFIG_SHA='7166e022583531d924d67639a3d2a8a8f250bd8461f2a33cace8ce8f41c24f9c'
++OUT_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r1')
+ MIRROR_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2')
+ CURRENT_HEAD='8cb704e2f18e6a635943893422c9cfdc206e106d'
+ TREE='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554'
+@@ -653,40 +653,87 @@
+ def main():
+  global CONFIG
+  signal.signal(signal.SIGTERM,on_signal);signal.signal(signal.SIGINT,on_signal)
+- need(type(AUTHORITY) is dict,'authenticated external proof authority required')
++ need(type(AUTHORITY) is dict,'authenticated external execution authority required')
+  CONFIG=json.loads(read_pin(CONFIG_PATH,CONFIG_SHA,100000))
+  run_id=CONFIG['runId'];mirror=pathlib.Path(CONFIG['mirrorPath']);out=OUT_ROOT/run_id
+  need(mirror==pathlib.Path(AUTHORITY['mirrorPath']) and not os.path.lexists(out),'mirror role/output collision')
+- need(AUTHORITY.get('currentProtection') is None and AUTHORITY.get('freshSourceProof') is None and AUTHORITY.get('freshDependencyProof') is None,'no manufactured future proof/protection')
+  guard(run_id);need(shutil.disk_usage(S).free>=PREFLIGHT,'3.5 GiB preflight')
+  manifest=load_m0_authorities()
++ source_before=full_source_check(mirror,manifest,run_id,True)
++ need(source_before==AUTHORITY['freshSourceProof'],'fresh admitted M0 source/metadata protection proof')
+  prod_deps=REPO/'node_modules';need(prod_deps.is_dir() and not prod_deps.is_symlink(),'production deps root')
++ exact_package_roles(run_id);dep_before=full_dependency_check(prod_deps,run_id)
++ need(dep_before==AUTHORITY['freshDependencyProof'],'fresh full dependency content/metadata protection proof')
+  OUT_ROOT.mkdir(mode=0o700,exist_ok=True);out.mkdir(mode=0o700)
+- record={'schema':'1370-current-m0-source-dependency-proof-result/v1','status':'RUNNING','runId':run_id,
++ record={'schema':'1370-m0-types-collection-result/v1','status':'RUNNING','arm':'M0','runId':run_id,
+          'productionHead':CURRENT_HEAD,'productionSourceTree':TREE,'sourceCommit':CONFIG['historicalM0SourceCommit'],
+-         'historicalDataAuthorityHead':CONFIG['historicalDataAuthorityHead'],'mirrorPath':str(mirror),
++         'historicalDataAuthorityHead':CONFIG['historicalDataAuthorityHead'],
++         'sourceManifestSha256':CONFIG['sourceAuthorities']['sourceManifest']['sha256'],
+          'completeM0AdoptionSha256':CONFIG['sourceAuthorities']['m0CompleteParentAdoption']['sha256'],
+          'physicalFactsSha256':CONFIG['sourceAuthorities']['m0PhysicalFacts']['sha256'],
+-         'sourceReviewSha256':AUTHORITY['sourceReview']['sha256'],'actualGrantSha256':AUTHORITY['actualGrant']['sha256'],
+-         'freshSourceProof':None,'freshDependencyProof':None,'sourceAfter':None,'dependencyAfter':None,
+-         'typesCommandsExecuted':0,'collectionCommandsExecuted':0,'game':False,'currentProtection':None}
+- try:
+-  source_before=full_source_check(mirror,manifest,run_id,True)
+-  exact_package_roles(run_id);dep_before=full_dependency_check(prod_deps,run_id)
+-  record['freshSourceProof']=source_before;record['freshDependencyProof']=dep_before
++         'h13MetadataStopSha256':CONFIG['sourceAuthorities']['typeObservedHStop']['sha256'],'h13MetadataStopWaived':False,
++         'currentProtectionSha256':AUTHORITY['currentProtection']['sha256'],'actualGrantSha256':AUTHORITY['actualGrant']['sha256'],
++         'sourceBefore':source_before,'nodeModulesBefore':dep_before,'children':[],'gameAccepted':False}
++ try:
+   guard(run_id)
+-  record['sourceAfter']=full_source_check(mirror,manifest,run_id,True)
+-  exact_package_roles(run_id);record['dependencyAfter']=full_dependency_check(prod_deps,run_id)
+-  need(record['sourceAfter']==source_before and record['dependencyAfter']==dep_before,'current source/dependency proof drift')
+-  guard(run_id);record['status']='PASS_READONLY_CURRENT_M0_SOURCE_DEPENDENCY_PROOF'
++  node=NODE;tsc=str(REPO/'node_modules/.bin/tsc');vitest=str(REPO/'node_modules/.bin/vitest')
++  dependency_check=str(P/'check-deps.mjs')
++  read_pin(pathlib.Path(dependency_check),DEPS_CHECK_SHA,100000)
++  need(cmd([NODE,'--version'])=='v22.23.2','Node runtime drift')
++  for name,argv in [
++      ('dependency-versions',[node,dependency_check,str(mirror),str(REPO),LOCK_SHA]),
++      ('root-tsc',[tsc,'--noEmit']),
++      ('ui-tsc',[tsc,'-p','ui/tsconfig.json','--noEmit']),
++      ('diagnostic-collection',[vitest,'list','tests/diagnostic.test.ts','--project','core','--json',str(out/'collection.json'),'--no-cache'])]:
++   before_child=root_checkpoint(mirror,run_id)
++   boundary={'name':name,'before':before_child,'after':None}
++   record.setdefault('rootChildBoundaries',[]).append(boundary)
++   child_env={'PREIMAGE_OUTPUT':scratch_preimage_output(out)} if name=='diagnostic-collection' else None
++   try:
++    child=run_child(name,argv,mirror,out,run_id,child_env)
++   except BaseException as child_error:
++    boundary['childError']=repr(child_error)
++    boundary['childPhase']=getattr(child_error,'_h_type_child_phase','unknown')
++    boundary['childTraceback']=traceback.format_exc()[-6000:]
++    raise
++   finally:
++    try:
++     after_child=root_checkpoint(mirror,run_id)
++     boundary['after']=after_child
++    except BaseException as checkpoint_error:
++     boundary['afterError']=repr(checkpoint_error)
++     raise
++   record['children'].append(child)
++   if name=='diagnostic-collection' and child['exit']==0:
++    record['preimageOutputIdentity']=check_preimage_output(out,run_id)
++   need(child['exit']==0,name+' child exit '+str(child['exit']))
++   need(before_child==after_child,name+' mirror root entry/metadata drift')
++  collection=out/'collection.json'
++  collected=stable_output(collection,MAX_COLLECTION,True)
++  raw=collected['body'];parsed=json.loads(raw)
++  need('tests/diagnostic.test.ts' in json.dumps(parsed) and len(raw)>10,'diagnostic test not collected')
++  record['collectionSha256']=collected['sha256'];record['collectionBytes']=collected['bytes']
++  need(full_source_check(mirror,manifest,run_id,True)==source_before,'source content or metadata changed during checks')
++  guard(run_id)
++  record['status']='PASS_M0_TYPES_AND_DIAGNOSTIC_COLLECTION_ONLY'
+  except BaseException as error:
+-  record['status']='STOP_CURRENT_M0_SOURCE_DEPENDENCY_PROOF';record['error']=repr(error);raise
++  record['status']='STOP_TYPECHECK_COLLECTION';record['error']=repr(error)
++  raise
+  finally:
+   record['groupAlternateProofs']=GROUP_ALTERNATE_PROOFS
++  try:
++   record['sourceAfter']=full_source_check(mirror,manifest,run_id,True)
++   record['nodeModulesAfter']=full_dependency_check(prod_deps,run_id)
++   if record['sourceAfter']!=source_before or record['nodeModulesAfter']!=dep_before:
++    record['status']='STOP_POSTFLIGHT_DRIFT'
++  except BaseException as post_error:
++   record['status']='STOP_POSTFLIGHT_UNVERIFIED';record['postflightError']=repr(post_error)
+   record['elapsedSeconds']=round(time.monotonic()-START,3)
+-  receipt=out/'RESULT.json';receipt_sha=write_result(receipt,record)
++  receipt=out/'RESULT.json'
++  receipt_sha=write_result(receipt,record)
+   print(json.dumps({'status':record['status'],'receipt':str(receipt),'sha256':receipt_sha}),flush=True)
+- need(record['status']=='PASS_READONLY_CURRENT_M0_SOURCE_DEPENDENCY_PROOF','proof failure')
++  need(record['status']=='PASS_M0_TYPES_AND_DIAGNOSTIC_COLLECTION_ONLY','postflight or child failure')
++
+ if __name__=='__main__':
+  try:main()
+  except BaseException as e:

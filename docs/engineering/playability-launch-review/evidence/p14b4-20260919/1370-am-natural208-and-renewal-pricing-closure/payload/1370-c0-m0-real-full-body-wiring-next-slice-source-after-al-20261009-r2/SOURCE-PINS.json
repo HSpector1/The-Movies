@@ -1,0 +1,151 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "BUILD-SOURCE.py": {
+      "bytes": 32764,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/BUILD-SOURCE.py",
+      "sha256": "f2b5ce4553dcf639546332dbce6465b98f49c842c4fd5f66540f7aa9097faa67"
+    },
+    "FIXTURE-ROLES-UNFILLED.json": {
+      "bytes": 399,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/FIXTURE-ROLES-UNFILLED.json",
+      "sha256": "e240f919d317d83dc52e7c9ab062c388a198f6ad05a0358ca37b9e5fc04c7d33"
+    },
+    "LESSONS.md": {
+      "bytes": 1643,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/LESSONS.md",
+      "sha256": "5779b1760550dd60a06d87c21b27dc446589d0e36392afa5f8326343838fea69"
+    },
+    "NEXT-SLICE.json": {
+      "bytes": 11436,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/NEXT-SLICE.json",
+      "sha256": "86451a0ba212d871a6bb4ce227acf8744d00b34b0d5ead7766cad827819e8428"
+    },
+    "NEXT-STEPS.md": {
+      "bytes": 4700,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/NEXT-STEPS.md",
+      "sha256": "43e7adea2828a1cdb0d1ce2de74d2f44005c4d9eba0a7f3f1991d51f53a94f3b"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 11980,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/SOURCE-PROOF.json",
+      "sha256": "ce5a86a3e2440218e34ec11c52f1004bfcc303a59a6e071d3a45a90fec144939"
+    },
+    "controls/full-body-controls.ts": {
+      "bytes": 8088,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/controls/full-body-controls.ts",
+      "sha256": "29d959185736afdb0a9419639f7f7dc383cd2578acb8478a73ef0e3fa82d0b3a"
+    },
+    "derivative/src/core/employment.ts": {
+      "bytes": 28353,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/derivative/src/core/employment.ts",
+      "sha256": "07262d62f6c6de0a849e5bfea124d01be2dbcbbb7edb7b3b6ead32025318b75a"
+    },
+    "derivative/src/core/m0WiringProbe.ts": {
+      "bytes": 2457,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/derivative/src/core/m0WiringProbe.ts",
+      "sha256": "3a3d75e5d849a94e14806239566bc72ca10af497bca71925a6f59d7db5714a85"
+    },
+    "derivative/src/core/opportunityPromises.ts": {
+      "bytes": 24915,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/derivative/src/core/opportunityPromises.ts",
+      "sha256": "de775fd48c39b88221775efad8eddba84a7b677c3076361534100c8a1e198656"
+    },
+    "derivative/src/core/promises.ts": {
+      "bytes": 113287,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/derivative/src/core/promises.ts",
+      "sha256": "0e14a0056d8d70ed2b93d217bc0829c6284142fd9ed93033ce8880e56691b6cb"
+    },
+    "derivative/src/core/rng.ts": {
+      "bytes": 8719,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/derivative/src/core/rng.ts",
+      "sha256": "04a835a5f63bf64994d01608423876b8d3a0e2862c8da095212848683becf9e5"
+    },
+    "derivative/src/core/talentMarket.ts": {
+      "bytes": 118839,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/derivative/src/core/talentMarket.ts",
+      "sha256": "6f64f133b649009773e7c03b3ef0069b9976cc25a670bf5405b54fd509661e9e"
+    },
+    "diffs/employment.ts.forward.diff": {
+      "bytes": 1107,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/employment.ts.forward.diff",
+      "sha256": "849096d1d6338c8ceab83c39a3594c8db04bad1721f61d63fc00067e0821959c"
+    },
+    "diffs/employment.ts.inverse.diff": {
+      "bytes": 1107,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/employment.ts.inverse.diff",
+      "sha256": "9f28435dea99ea3bb255c8a7f95f82270b891d4c5da33f3cace5017e2910070a"
+    },
+    "diffs/opportunityPromises.ts.forward.diff": {
+      "bytes": 924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/opportunityPromises.ts.forward.diff",
+      "sha256": "97a5d4702e1204942cf16825dea82ed07521c489e74cf59aba1e5fc87cc81b75"
+    },
+    "diffs/opportunityPromises.ts.inverse.diff": {
+      "bytes": 924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/opportunityPromises.ts.inverse.diff",
+      "sha256": "901fc4181f6e555c44cce75af69ab6821e60489cd4283dd77a5ae438ef7e3931"
+    },
+    "diffs/promises.ts.forward.diff": {
+      "bytes": 2343,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/promises.ts.forward.diff",
+      "sha256": "54469da1eba93c1ba28b41ceb607e443476cae55955f2e1a85516e9845fa59bd"
+    },
+    "diffs/promises.ts.inverse.diff": {
+      "bytes": 2343,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/promises.ts.inverse.diff",
+      "sha256": "bebe5eb477a6efdf4bb536b8a2b8bb1dc165ac3f9a734e94e0b93d0a283e45aa"
+    },
+    "diffs/rng.ts.forward.diff": {
+      "bytes": 889,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/rng.ts.forward.diff",
+      "sha256": "f8d17efe6f64939d84907f97cf05c559522a37f03bbc2a8361614682b25a8f68"
+    },
+    "diffs/rng.ts.inverse.diff": {
+      "bytes": 889,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/rng.ts.inverse.diff",
+      "sha256": "c6ab67c25abf0dbe0c46f8def2e2b2566bc361cc04815815f0ef7f54a8f6692b"
+    },
+    "diffs/talentMarket.ts.forward.diff": {
+      "bytes": 9770,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/talentMarket.ts.forward.diff",
+      "sha256": "ffe2ebc633eb2b0753576a9c403dd303676c7307e34e9b2b8511951a982817a9"
+    },
+    "diffs/talentMarket.ts.inverse.diff": {
+      "bytes": 9770,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/talentMarket.ts.inverse.diff",
+      "sha256": "a0403e66fa5d402120247f872b83a2402e90fad186ccad1a906646dd1be9ceb2"
+    },
+    "mutants/typed-propagation-removed-talentMarket.ts": {
+      "bytes": 118866,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/mutants/typed-propagation-removed-talentMarket.ts",
+      "sha256": "0ea3a3eaaefede61cb6669d2edb96b86162fbcb37f84037a7add563b426d9565"
+    },
+    "predecessor/src/core/employment.ts": {
+      "bytes": 28207,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/predecessor/src/core/employment.ts",
+      "sha256": "6c3fec2129c0a461ec0de8e3e20f4bb47e4150bb9f0c39fd7201fae6a3951ce0"
+    },
+    "predecessor/src/core/opportunityPromises.ts": {
+      "bytes": 24797,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/predecessor/src/core/opportunityPromises.ts",
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+    },
+    "predecessor/src/core/promises.ts": {
+      "bytes": 112969,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/predecessor/src/core/promises.ts",
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+    },
+    "predecessor/src/core/rng.ts": {
+      "bytes": 8555,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/predecessor/src/core/rng.ts",
+      "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a"
+    },
+    "predecessor/src/core/talentMarket.ts": {
+      "bytes": 116906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/predecessor/src/core/talentMarket.ts",
+      "sha256": "71c775336c581fb5c5ad8923d4648bc8bf492ee38f235214f861fd1d0e7ac804"
+    }
+  },
+  "schema": "1370-m0-full-body-wiring-source-pins/v1"
+}

@@ -1,0 +1,22 @@
+{
+  "schema": "1370-root-actual-tool-chunks/v1",
+  "toolSessionId": 9960,
+  "chunks": [
+    {
+      "chunk_id": "28dd58",
+      "wall_time_seconds": 1.001741088,
+      "session_id": 9960,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "4b818e",
+      "wall_time_seconds": 0.000025265,
+      "exit_code": 0,
+      "original_token_count": 68,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-game-adoption-parent-after-al-20261009-r4/ADOPTER-GRANT.json\", \"bytes\": 5154, \"sha256\": \"189e2742a743028ea5b176427e95ee5eec08815082b4b338a9bb9e4a8f3b67f3\"}, \"adopterPid\": 21229, \"adopterPgid\": 21229}\n"
+    }
+  ],
+  "finalExit": 0
+}
+

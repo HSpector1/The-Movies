@@ -1,0 +1,106 @@
+{
+  "schema": "1370-m0-r6-metadata-stop-original-postflight-adapter-source-proof/v1",
+  "status": "SOURCE_ONLY_PENDING_INDEPENDENT_REVIEW_AND_ROOT_GRANT",
+  "author": "/root/b109_focused_route_review",
+  "assignedIndependentReviewer": "/root/m0_types_source_review",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "automaticRetry": false,
+  "original": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_postflight_r6_once.py",
+    "bytes": 4004,
+    "sha256": "bc0b8b4ea24d5f386bf4bc50e6426b072c197fcaddeb6b510fcadd8bf70ac438"
+  },
+  "derivative": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_metadata_stop_postflight_r6_once.py",
+    "bytes": 4958,
+    "sha256": "f97b84ddb61f2313c5dbfe04f5a720cffb81d17673caa479fdfcd5c409089d22"
+  },
+  "methodPredecessor": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_failed_types_postflight_once.py",
+    "bytes": 4250,
+    "sha256": "8cfc673c40e272de990b9e2135e29f066c762fe7f8215bc18e1b2816ad61e3f4"
+  },
+  "methodPredecessorAdapterProof": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-FAILED-TYPES-POSTFLIGHT-ADAPTER.json",
+    "bytes": 2212,
+    "sha256": "cc115912c0e14265f16739b25898671a5a13fdaa46e07cda6b5c6a22810c2271"
+  },
+  "actualFailureReadback": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r6/READBACK.json",
+    "bytes": 11504,
+    "sha256": "1456317c3f33bdba89e30cef89a133a649c79517eed36dda43c6c5f67afe57f3"
+  },
+  "originalArgumentMap": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r4/MAP.json",
+    "bytes": 18933,
+    "sha256": "f0e3ae655e3976ca51ca9556f4bde0b62017502e8b02472a9e6f474b1526458b"
+  },
+  "originalProfiles": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r4/PROFILES.json",
+    "bytes": 6187,
+    "sha256": "071b094107ff6a7aee5006cb9bd4f9513561f3f183883afd421b2447c2ff1d8f"
+  },
+  "exactReplacements": [
+    {
+      "before": "assert rb['toolExit']==rb['helperExit']==rb['recorderExit']==rb['runnerExit']==0 and rb['laneReleased'] is True and rb['mode']==mode",
+      "after": "assert role(parent/'READBACK.json')=={'path':str(parent/'READBACK.json'),'bytes':11504,'sha256':'1456317c3f33bdba89e30cef89a133a649c79517eed36dda43c6c5f67afe57f3'} and all(type(rb[k]) is int and rb[k]==1 for k in ('toolExit','helperExit','recorderExit','runnerExit')) and rb['laneReleased'] is True and rb['mode']==mode and rb['status']=='ACTUAL_M0_TYPES_METADATA_STOP_PENDING_FULL_POSTFLIGHT_AND_INDEPENDENT_REVIEW' and type(rb['children']) is list and [child['name'] for child in rb['children']]==['dependency-versions','root-tsc','ui-tsc','diagnostic-collection'] and all(type(child['exit']) is int and child['exit']==0 for child in rb['children']) and rb['recordedOwnedIds']==[27153,27410,27430] and rb['firstThreeChildRootBoundariesEqual'] is True and rb['fourthChildRootRosterEqual'] is True and rb['fourthChildRootMetadataChanged'] is True and rb['sourceAfterAvailable'] is False and rb['dependencyAfterAvailable'] is False and rb['sourcePreservationAccepted'] is False and rb['dependencyPreservationAccepted'] is False"
+    },
+    {
+      "before": "'status':'GRANTED_ONCE_ORIGINAL_SHARED_FULL_POSTFLIGHT','mode':mode",
+      "after": "'status':'GRANTED_ONCE_ORIGINAL_SHARED_FULL_POSTFLIGHT_AFTER_TYPES_METADATA_STOP','priorMetadataStopPreserved':True,'mode':mode"
+    }
+  ],
+  "wholeFileInverseEqualsOriginal": true,
+  "inverseOriginal": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-metadata-stop-original-postflight-adapter-source-after-al-20261009-r1/INVERSE-ORIGINAL.py",
+    "bytes": 4004,
+    "sha256": "bc0b8b4ea24d5f386bf4bc50e6426b072c197fcaddeb6b510fcadd8bf70ac438"
+  },
+  "completeInverseDiff": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-metadata-stop-original-postflight-adapter-source-after-al-20261009-r1/COMPLETE-INVERSE.diff",
+    "bytes": 9118,
+    "sha256": "45a182c90dae4c5c3d4af767eb1e377047c61a682240eff76bdbcb15775dda51"
+  },
+  "changesOnly": "Replace success readback predicate with exact genuine R6 metadata-stop predicate, and replace the grant status with a failure-only label plus priorMetadataStopPreserved. No other source bytes change.",
+  "preservedMechanisms": "Original scanner/config/copy authority/baseline/map/profile/guard source-role authentication/full inventory/predicates/argument and output paths; all three recorded identities27153,27410,27430; fresh six ESRCH checks; original per-command180, wholeScanDeadline null, no helper and required lock absence; actual owned PID/PGID/SID/session/direct exec and all output/grant recording mechanics.",
+  "preservedOutputParent": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-fullguard-postflight-parent-after-al-20261009-r3",
+  "preservedOutputName": "postflight-after-al-m0-types-r3",
+  "metadataStopBoundary": {
+    "actualToolSessionId": 97276,
+    "toolHelperRecorderRunnerExit": 1,
+    "childNames": [
+      "dependency-versions",
+      "root-tsc",
+      "ui-tsc",
+      "diagnostic-collection"
+    ],
+    "allFourChildExits": 0,
+    "firstThreeChildRootBoundariesEqual": true,
+    "fourthChildRootRosterEqual": true,
+    "fourthChildRootMetadataChanged": true,
+    "rootIdentityFieldsChanged": [
+      "mtime_ns",
+      "ctime_ns"
+    ],
+    "rootEntryRosterUnchanged": true,
+    "sourceAfterAvailable": false,
+    "dependencyAfterAvailable": false,
+    "sourcePreservationAccepted": false,
+    "dependencyPreservationAccepted": false,
+    "metadataMutationCause": "PENDING_UNKNOWN",
+    "typesOrCollectionAccepted": false,
+    "sourceProofEqualityNotAsserted": true,
+    "dependencyProofEqualityNotAsserted": true
+  },
+  "noWaiver": "Child success does not override outer STOP. Original shared full postflight is still required after failure, and cannot by itself fabricate unavailable M0 source/dependency after-proof equality or explain metadata drift.",
+  "lessons": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-metadata-stop-original-postflight-adapter-source-after-al-20261009-r1/LESSONS.md",
+    "bytes": 910,
+    "sha256": "e79fa0c99dd3d82a2d13af5435ec470c1f6f513bc3ec2a56ac0d9e3840b44723"
+  },
+  "limits": "Finite named scratch source/evidence reads and new source artifacts only; no import, generated-source execution, compile/test, scanner, game, private inventory, Git mutation or process probe.",
+  "actualPostflightGrant": null,
+  "actualPostflightOutcome": null,
+  "independentSourceReview": null
+}

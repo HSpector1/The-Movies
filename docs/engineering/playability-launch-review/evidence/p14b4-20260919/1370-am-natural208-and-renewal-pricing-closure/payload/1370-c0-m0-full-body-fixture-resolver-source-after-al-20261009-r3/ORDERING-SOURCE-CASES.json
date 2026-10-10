@@ -1,0 +1,945 @@
+{
+  "bases": {
+    "author-two-issuers": {
+      "args": {
+        "feasibilityValues": [
+          {
+            "context": {
+              "candidateOrdinal": 0,
+              "caseKey": "synthetic-case-key",
+              "caseOccurrence": 0,
+              "caseSourceIndex": 0,
+              "era": "M0",
+              "issuer": "synthetic-issuer-a",
+              "phase": "authorCandidate",
+              "proposalKey": "synthetic-proposal-key-0",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 0,
+              "subject": "synthetic-subject",
+              "week": 196
+            },
+            "kind": "inputTuple"
+          },
+          {
+            "context": {
+              "candidateOrdinal": 0,
+              "caseKey": "synthetic-case-key",
+              "caseOccurrence": 0,
+              "caseSourceIndex": 0,
+              "era": "M0",
+              "issuer": "synthetic-issuer-b",
+              "phase": "authorCandidate",
+              "proposalKey": "synthetic-proposal-key-1",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 0,
+              "subject": "synthetic-subject",
+              "week": 196
+            },
+            "kind": "inputTuple"
+          }
+        ],
+        "marketValues": [
+          {
+            "detail": {
+              "candidates": [
+                {
+                  "attachment": {
+                    "dueWeekExclusive": 416,
+                    "family": "APPEARANCE_COUNT",
+                    "predicate": {
+                      "count": 1
+                    },
+                    "windowStartWeek": 208
+                  },
+                  "ordinal": 0
+                }
+              ]
+            },
+            "issuerStudioId": "synthetic-issuer-a",
+            "phase": "candidateOrder",
+            "sequence": 0,
+            "week": 196
+          },
+          {
+            "detail": {
+              "attachment": {
+                "dueWeekExclusive": 416,
+                "family": "APPEARANCE_COUNT",
+                "predicate": {
+                  "count": 1
+                },
+                "windowStartWeek": 208
+              },
+              "candidateOrdinal": 0,
+              "feasibility": {
+                "classification": "REASONABLY_ACHIEVABLE"
+              }
+            },
+            "issuerStudioId": "synthetic-issuer-a",
+            "phase": "candidateFeasibility",
+            "sequence": 1,
+            "week": 196
+          },
+          {
+            "detail": {
+              "candidates": [
+                {
+                  "attachment": {
+                    "dueWeekExclusive": 416,
+                    "family": "APPEARANCE_COUNT",
+                    "predicate": {
+                      "count": 1
+                    },
+                    "windowStartWeek": 208
+                  },
+                  "ordinal": 0
+                }
+              ]
+            },
+            "issuerStudioId": "synthetic-issuer-b",
+            "phase": "candidateOrder",
+            "sequence": 2,
+            "week": 196
+          },
+          {
+            "detail": {
+              "attachment": {
+                "dueWeekExclusive": 416,
+                "family": "APPEARANCE_COUNT",
+                "predicate": {
+                  "count": 1
+                },
+                "windowStartWeek": 208
+              },
+              "candidateOrdinal": 0,
+              "feasibility": {
+                "classification": "REASONABLY_ACHIEVABLE"
+              }
+            },
+            "issuerStudioId": "synthetic-issuer-b",
+            "phase": "candidateFeasibility",
+            "sequence": 3,
+            "week": 196
+          }
+        ],
+        "probe": {
+          "calls": [
+            {
+              "detail": {
+                "cases": [
+                  {
+                    "key": "synthetic-case-key",
+                    "sourceIndex": 0
+                  }
+                ],
+                "context": {
+                  "candidateOrdinal": 0,
+                  "caseKey": "synthetic-case-key",
+                  "caseOccurrence": 0,
+                  "caseSourceIndex": 0,
+                  "era": "M0",
+                  "issuer": "synthetic-issuer-a",
+                  "phase": "authorCandidate",
+                  "proposalKey": "synthetic-proposal-key-0",
+                  "proposalOccurrence": 0,
+                  "proposalSourceIndex": 0,
+                  "subject": "synthetic-subject",
+                  "week": 196
+                },
+                "proposals": [
+                  {
+                    "digest": "synthetic-digest-0",
+                    "issuer": "synthetic-issuer-a",
+                    "key": "synthetic-proposal-key-0",
+                    "sourceIndex": 0,
+                    "talentId": "synthetic-subject"
+                  }
+                ]
+              },
+              "name": "m0SourceArrays",
+              "sequence": 0
+            },
+            {
+              "detail": {
+                "cases": [
+                  {
+                    "key": "synthetic-case-key",
+                    "sourceIndex": 0
+                  }
+                ],
+                "context": {
+                  "candidateOrdinal": 0,
+                  "caseKey": "synthetic-case-key",
+                  "caseOccurrence": 0,
+                  "caseSourceIndex": 0,
+                  "era": "M0",
+                  "issuer": "synthetic-issuer-b",
+                  "phase": "authorCandidate",
+                  "proposalKey": "synthetic-proposal-key-1",
+                  "proposalOccurrence": 0,
+                  "proposalSourceIndex": 0,
+                  "subject": "synthetic-subject",
+                  "week": 196
+                },
+                "proposals": [
+                  {
+                    "digest": "synthetic-digest-1",
+                    "issuer": "synthetic-issuer-b",
+                    "key": "synthetic-proposal-key-1",
+                    "sourceIndex": 0,
+                    "talentId": "synthetic-subject"
+                  }
+                ]
+              },
+              "name": "m0SourceArrays",
+              "sequence": 1
+            }
+          ],
+          "evaluations": [
+            {
+              "context": {
+                "candidateOrdinal": 0,
+                "caseKey": "synthetic-case-key",
+                "caseOccurrence": 0,
+                "caseSourceIndex": 0,
+                "era": "M0",
+                "issuer": "synthetic-issuer-a",
+                "phase": "authorCandidate",
+                "proposalKey": "synthetic-proposal-key-0",
+                "proposalOccurrence": 0,
+                "proposalSourceIndex": 0,
+                "subject": "synthetic-subject",
+                "week": 196
+              }
+            },
+            {
+              "context": {
+                "candidateOrdinal": 0,
+                "caseKey": "synthetic-case-key",
+                "caseOccurrence": 0,
+                "caseSourceIndex": 0,
+                "era": "M0",
+                "issuer": "synthetic-issuer-b",
+                "phase": "authorCandidate",
+                "proposalKey": "synthetic-proposal-key-1",
+                "proposalOccurrence": 0,
+                "proposalSourceIndex": 0,
+                "subject": "synthetic-subject",
+                "week": 196
+              }
+            }
+          ]
+        }
+      },
+      "method": "author"
+    },
+    "freeze-pass-and-first-failure": {
+      "args": {
+        "freezeValues": [
+          {
+            "detail": {
+              "drop": null,
+              "proposal": {
+                "digest": "synthetic-digest-a"
+              }
+            },
+            "issuerStudioId": "synthetic-issuer-a",
+            "phase": "freezeProposal",
+            "sequence": 100,
+            "week": 208
+          },
+          {
+            "detail": {
+              "drop": "startWeekMoved",
+              "proposal": {
+                "digest": "synthetic-digest-b"
+              }
+            },
+            "issuerStudioId": "synthetic-issuer-b",
+            "phase": "freezeProposal",
+            "sequence": 101,
+            "week": 208
+          }
+        ],
+        "marketValues": [
+          {
+            "detail": {
+              "predicate": "issuerNotEntered",
+              "predicateOrdinal": 0,
+              "proposalDigest": "synthetic-digest-a",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 2,
+              "result": "PASSED",
+              "values": {}
+            },
+            "issuerStudioId": "synthetic-issuer-a",
+            "phase": "freezePredicate",
+            "sequence": 0,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "retirementCap",
+              "predicateOrdinal": 1,
+              "proposalDigest": "synthetic-digest-a",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 2,
+              "result": "PASSED",
+              "values": {}
+            },
+            "issuerStudioId": "synthetic-issuer-a",
+            "phase": "freezePredicate",
+            "sequence": 1,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "issuerDistrusted",
+              "predicateOrdinal": 2,
+              "proposalDigest": "synthetic-digest-a",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 2,
+              "result": "PASSED",
+              "values": {}
+            },
+            "issuerStudioId": "synthetic-issuer-a",
+            "phase": "freezePredicate",
+            "sequence": 2,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "nemesisOnRoster",
+              "predicateOrdinal": 3,
+              "proposalDigest": "synthetic-digest-a",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 2,
+              "result": "PASSED",
+              "values": {}
+            },
+            "issuerStudioId": "synthetic-issuer-a",
+            "phase": "freezePredicate",
+            "sequence": 3,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "subjectCommittedElsewhere",
+              "predicateOrdinal": 4,
+              "proposalDigest": "synthetic-digest-a",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 2,
+              "result": "PASSED",
+              "values": {}
+            },
+            "issuerStudioId": "synthetic-issuer-a",
+            "phase": "freezePredicate",
+            "sequence": 4,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "startWeekMoved",
+              "predicateOrdinal": 5,
+              "proposalDigest": "synthetic-digest-a",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 2,
+              "result": "PASSED",
+              "values": {}
+            },
+            "issuerStudioId": "synthetic-issuer-a",
+            "phase": "freezePredicate",
+            "sequence": 5,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "noSeatForRole",
+              "predicateOrdinal": 6,
+              "proposalDigest": "synthetic-digest-a",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 2,
+              "result": "NOT_EVALUATED",
+              "values": {}
+            },
+            "issuerStudioId": "synthetic-issuer-a",
+            "phase": "freezePredicate",
+            "sequence": 6,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "belowAsk",
+              "predicateOrdinal": 7,
+              "proposalDigest": "synthetic-digest-a",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 2,
+              "result": "PASSED",
+              "values": {}
+            },
+            "issuerStudioId": "synthetic-issuer-a",
+            "phase": "freezePredicate",
+            "sequence": 7,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "belowRetirementReservation",
+              "predicateOrdinal": 8,
+              "proposalDigest": "synthetic-digest-a",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 2,
+              "result": "PASSED",
+              "values": {}
+            },
+            "issuerStudioId": "synthetic-issuer-a",
+            "phase": "freezePredicate",
+            "sequence": 8,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "materialTermsChanged",
+              "predicateOrdinal": 9,
+              "proposalDigest": "synthetic-digest-a",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 2,
+              "result": "PASSED",
+              "values": {}
+            },
+            "issuerStudioId": "synthetic-issuer-a",
+            "phase": "freezePredicate",
+            "sequence": 9,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "promiseNotFeasible",
+              "predicateOrdinal": 10,
+              "proposalDigest": "synthetic-digest-a",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 2,
+              "result": "PASSED",
+              "values": {}
+            },
+            "issuerStudioId": "synthetic-issuer-a",
+            "phase": "freezePredicate",
+            "sequence": 10,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "bonusUnaffordable",
+              "predicateOrdinal": 11,
+              "proposalDigest": "synthetic-digest-a",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 2,
+              "result": "PASSED",
+              "values": {}
+            },
+            "issuerStudioId": "synthetic-issuer-a",
+            "phase": "freezePredicate",
+            "sequence": 11,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "issuerNotEntered",
+              "predicateOrdinal": 0,
+              "proposalDigest": "synthetic-digest-b",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 5,
+              "result": "PASSED",
+              "values": {}
+            },
+            "issuerStudioId": "synthetic-issuer-b",
+            "phase": "freezePredicate",
+            "sequence": 12,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "retirementCap",
+              "predicateOrdinal": 1,
+              "proposalDigest": "synthetic-digest-b",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 5,
+              "result": "PASSED",
+              "values": {}
+            },
+            "issuerStudioId": "synthetic-issuer-b",
+            "phase": "freezePredicate",
+            "sequence": 13,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "issuerDistrusted",
+              "predicateOrdinal": 2,
+              "proposalDigest": "synthetic-digest-b",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 5,
+              "result": "PASSED",
+              "values": {}
+            },
+            "issuerStudioId": "synthetic-issuer-b",
+            "phase": "freezePredicate",
+            "sequence": 14,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "nemesisOnRoster",
+              "predicateOrdinal": 3,
+              "proposalDigest": "synthetic-digest-b",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 5,
+              "result": "PASSED",
+              "values": {}
+            },
+            "issuerStudioId": "synthetic-issuer-b",
+            "phase": "freezePredicate",
+            "sequence": 15,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "subjectCommittedElsewhere",
+              "predicateOrdinal": 4,
+              "proposalDigest": "synthetic-digest-b",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 5,
+              "result": "PASSED",
+              "values": {}
+            },
+            "issuerStudioId": "synthetic-issuer-b",
+            "phase": "freezePredicate",
+            "sequence": 16,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "startWeekMoved",
+              "predicateOrdinal": 5,
+              "proposalDigest": "synthetic-digest-b",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 5,
+              "result": "FAILED",
+              "values": {}
+            },
+            "issuerStudioId": "synthetic-issuer-b",
+            "phase": "freezePredicate",
+            "sequence": 17,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "noSeatForRole",
+              "predicateOrdinal": 6,
+              "proposalDigest": "synthetic-digest-b",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 5,
+              "result": "NOT_REACHED",
+              "values": "NOT_EVALUATED"
+            },
+            "issuerStudioId": "synthetic-issuer-b",
+            "phase": "freezePredicate",
+            "sequence": 18,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "belowAsk",
+              "predicateOrdinal": 7,
+              "proposalDigest": "synthetic-digest-b",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 5,
+              "result": "NOT_REACHED",
+              "values": "NOT_EVALUATED"
+            },
+            "issuerStudioId": "synthetic-issuer-b",
+            "phase": "freezePredicate",
+            "sequence": 19,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "belowRetirementReservation",
+              "predicateOrdinal": 8,
+              "proposalDigest": "synthetic-digest-b",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 5,
+              "result": "NOT_REACHED",
+              "values": "NOT_EVALUATED"
+            },
+            "issuerStudioId": "synthetic-issuer-b",
+            "phase": "freezePredicate",
+            "sequence": 20,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "materialTermsChanged",
+              "predicateOrdinal": 9,
+              "proposalDigest": "synthetic-digest-b",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 5,
+              "result": "NOT_REACHED",
+              "values": "NOT_EVALUATED"
+            },
+            "issuerStudioId": "synthetic-issuer-b",
+            "phase": "freezePredicate",
+            "sequence": 21,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "promiseNotFeasible",
+              "predicateOrdinal": 10,
+              "proposalDigest": "synthetic-digest-b",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 5,
+              "result": "NOT_REACHED",
+              "values": "NOT_EVALUATED"
+            },
+            "issuerStudioId": "synthetic-issuer-b",
+            "phase": "freezePredicate",
+            "sequence": 22,
+            "week": 208
+          },
+          {
+            "detail": {
+              "predicate": "bonusUnaffordable",
+              "predicateOrdinal": 11,
+              "proposalDigest": "synthetic-digest-b",
+              "proposalOccurrence": 0,
+              "proposalSourceIndex": 5,
+              "result": "NOT_REACHED",
+              "values": "NOT_EVALUATED"
+            },
+            "issuerStudioId": "synthetic-issuer-b",
+            "phase": "freezePredicate",
+            "sequence": 23,
+            "week": 208
+          }
+        ],
+        "refs": [
+          {
+            "digest": "synthetic-digest-a",
+            "proposalOccurrence": 0,
+            "proposalSourceIndex": 2
+          },
+          {
+            "digest": "synthetic-digest-b",
+            "proposalOccurrence": 0,
+            "proposalSourceIndex": 5
+          }
+        ]
+      },
+      "method": "freeze"
+    }
+  },
+  "cases": [
+    {
+      "base": "author-two-issuers",
+      "edits": [],
+      "expected": "GREEN",
+      "id": "author-two-issuers-schema-GREEN"
+    },
+    {
+      "base": "freeze-pass-and-first-failure",
+      "edits": [],
+      "expected": "GREEN",
+      "id": "freeze-complete-prefix-failure-suffix-GREEN"
+    },
+    {
+      "assertion": "evaluated and skipped candidates preserve full order",
+      "base": "author-two-issuers",
+      "edits": [
+        {
+          "op": "set",
+          "path": [
+            "marketValues",
+            3,
+            "issuerStudioId"
+          ],
+          "value": "synthetic-issuer-a"
+        }
+      ],
+      "expected": "RED",
+      "id": "candidate-other-issuer-grouping-RED"
+    },
+    {
+      "assertion": "every actual evaluation binds an authenticated source-array projection",
+      "base": "author-two-issuers",
+      "edits": [
+        {
+          "op": "set",
+          "path": [
+            "probe",
+            "calls",
+            1,
+            "detail",
+            "context",
+            "issuer"
+          ],
+          "value": "synthetic-issuer-a"
+        }
+      ],
+      "expected": "RED",
+      "id": "candidate-context-issuer-correlation-RED"
+    },
+    {
+      "assertion": "complete identity-bound freeze predicate order",
+      "base": "freeze-pass-and-first-failure",
+      "edits": [
+        {
+          "op": "remove",
+          "path": [
+            "marketValues",
+            4
+          ]
+        }
+      ],
+      "expected": "RED",
+      "id": "freeze-missing-slot-RED"
+    },
+    {
+      "assertion": "complete identity-bound freeze predicate order",
+      "base": "freeze-pass-and-first-failure",
+      "edits": [
+        {
+          "op": "swap",
+          "other": 4,
+          "path": [
+            "marketValues",
+            3
+          ]
+        }
+      ],
+      "expected": "RED",
+      "id": "freeze-swapped-slots-RED"
+    },
+    {
+      "assertion": "complete identity-bound freeze predicate order",
+      "base": "freeze-pass-and-first-failure",
+      "edits": [
+        {
+          "op": "set",
+          "path": [
+            "marketValues",
+            3,
+            "detail",
+            "predicate"
+          ],
+          "value": "belowAsk"
+        }
+      ],
+      "expected": "RED",
+      "id": "freeze-wrong-name-RED"
+    },
+    {
+      "assertion": "complete identity-bound freeze predicate order",
+      "base": "freeze-pass-and-first-failure",
+      "edits": [
+        {
+          "op": "set",
+          "path": [
+            "marketValues",
+            3,
+            "detail",
+            "predicateOrdinal"
+          ],
+          "value": 4
+        }
+      ],
+      "expected": "RED",
+      "id": "freeze-wrong-ordinal-RED"
+    },
+    {
+      "assertion": "complete identity-bound freeze predicate order",
+      "base": "freeze-pass-and-first-failure",
+      "edits": [
+        {
+          "op": "set",
+          "path": [
+            "marketValues",
+            3,
+            "detail",
+            "proposalOccurrence"
+          ],
+          "value": 1
+        }
+      ],
+      "expected": "RED",
+      "id": "freeze-wrong-occurrence-RED"
+    },
+    {
+      "assertion": "complete identity-bound freeze predicate order",
+      "base": "freeze-pass-and-first-failure",
+      "edits": [
+        {
+          "op": "set",
+          "path": [
+            "marketValues",
+            13,
+            "issuerStudioId"
+          ],
+          "value": "synthetic-issuer-a"
+        }
+      ],
+      "expected": "RED",
+      "id": "freeze-wrong-issuer-RED"
+    },
+    {
+      "assertion": "freeze predicate FAILED slot agrees with drop",
+      "base": "freeze-pass-and-first-failure",
+      "edits": [
+        {
+          "op": "set",
+          "path": [
+            "marketValues",
+            17,
+            "detail",
+            "result"
+          ],
+          "value": "PASSED"
+        }
+      ],
+      "expected": "RED",
+      "id": "freeze-failure-slot-missing-RED"
+    },
+    {
+      "assertion": "freeze predicate FAILED slot agrees with drop",
+      "base": "freeze-pass-and-first-failure",
+      "edits": [
+        {
+          "op": "set",
+          "path": [
+            "freezeValues",
+            1,
+            "detail",
+            "drop"
+          ],
+          "value": "belowAsk"
+        }
+      ],
+      "expected": "RED",
+      "id": "freeze-drop-disagrees-RED"
+    },
+    {
+      "assertion": "freeze predicate prefix status",
+      "base": "freeze-pass-and-first-failure",
+      "edits": [
+        {
+          "op": "set",
+          "path": [
+            "marketValues",
+            14,
+            "detail",
+            "result"
+          ],
+          "value": "NOT_REACHED"
+        }
+      ],
+      "expected": "RED",
+      "id": "freeze-early-unreached-RED"
+    },
+    {
+      "assertion": "freeze predicate suffix is NOT_REACHED",
+      "base": "freeze-pass-and-first-failure",
+      "edits": [
+        {
+          "op": "set",
+          "path": [
+            "marketValues",
+            18,
+            "detail",
+            "result"
+          ],
+          "value": "PASSED"
+        }
+      ],
+      "expected": "RED",
+      "id": "freeze-suffix-resumes-RED"
+    },
+    {
+      "assertion": "unreached predicate has no evaluated values",
+      "base": "freeze-pass-and-first-failure",
+      "edits": [
+        {
+          "op": "set",
+          "path": [
+            "marketValues",
+            19,
+            "detail",
+            "values"
+          ],
+          "value": {}
+        }
+      ],
+      "expected": "RED",
+      "id": "freeze-suffix-values-forged-RED"
+    },
+    {
+      "assertion": "freeze predicate FAILED slot agrees with drop",
+      "base": "freeze-pass-and-first-failure",
+      "edits": [
+        {
+          "op": "set",
+          "path": [
+            "marketValues",
+            18,
+            "detail",
+            "result"
+          ],
+          "value": "FAILED"
+        }
+      ],
+      "expected": "RED",
+      "id": "freeze-second-failure-RED"
+    },
+    {
+      "assertion": "freeze predicate prefix status",
+      "base": "freeze-pass-and-first-failure",
+      "edits": [
+        {
+          "op": "set",
+          "path": [
+            "marketValues",
+            8,
+            "detail",
+            "result"
+          ],
+          "value": "NOT_EVALUATED"
+        }
+      ],
+      "expected": "RED",
+      "id": "freeze-illegal-not-evaluated-prefix-RED"
+    },
+    {
+      "assertion": "freeze drop names an existing predicate",
+      "base": "freeze-pass-and-first-failure",
+      "edits": [
+        {
+          "op": "set",
+          "path": [
+            "freezeValues",
+            1,
+            "detail",
+            "drop"
+          ],
+          "value": "inventedPredicate"
+        }
+      ],
+      "expected": "RED",
+      "id": "freeze-unknown-drop-RED"
+    }
+  ],
+  "claim": "SYNTHETIC_WITNESS_CONSUMER_INPUTS_NOT_GAME_STATES_OR_OBSERVED_RESULTS",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "expectedGreen": 2,
+  "expectedRed": 16,
+  "schema": "1370-m0-ordering-synthetic-source-inputs/v1"
+}

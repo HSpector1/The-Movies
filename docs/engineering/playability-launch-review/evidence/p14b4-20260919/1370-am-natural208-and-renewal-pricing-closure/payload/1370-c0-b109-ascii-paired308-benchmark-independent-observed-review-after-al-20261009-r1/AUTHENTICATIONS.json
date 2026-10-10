@@ -1,0 +1,379 @@
+{
+  "schema": "1370-b109-ascii-paired308-independent-observed-authentications/v1",
+  "allExpectedSourceConfigAndActualEvidenceRolesMatched": true,
+  "mismatches": [],
+  "namedFiniteRoles": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/BENCHMARK-RECIPE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/BENCHMARK-RECIPE.json",
+      "sha256": "b3028cc06a9ae7b5b36eb4353cef5c0deb90f9cfdf39607d67ff88d5d5b19b6e",
+      "bytes": 8434
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/BENCHMARK-RECIPE.json.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/BENCHMARK-RECIPE.json.diff",
+      "sha256": "25dd29c91fe22e56f54147a197cca48ae8fe79521fd5196a1dd012c253e45777",
+      "bytes": 10766
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/BENCHMARK-RECIPE.json.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/BENCHMARK-RECIPE.json.inverse.diff",
+      "sha256": "0ad3cd3660b3f4a6ebb1badf0654bfd3a7ffac0aaeefdd740bcabb3d5cbd979d",
+      "bytes": 10766
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/CONFIG.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/CONFIG.json",
+      "sha256": "cde7f59c308c2cc115946244b97c33dab5dd7ce024eaae03926111684dde6dff",
+      "bytes": 12498
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/CONFIG.json.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/CONFIG.json.diff",
+      "sha256": "a9dd3d9410b19ebd765d64d129f814735bfbcc5c23c5cb39cba4fa3ff94d23d2",
+      "bytes": 18801
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/CONFIG.json.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/CONFIG.json.inverse.diff",
+      "sha256": "52a26ced12d05e9cedb5114a6b63ecc081ff0bc3d503ec9dec4639952e79706c",
+      "bytes": 18801
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/LESSONS.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/LESSONS.md",
+      "sha256": "f149665a471e65126cba282125aa0306b5c9f017b322dfaaab3d4dcce34bbf3b",
+      "bytes": 1210
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/REPORT.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/REPORT.md",
+      "sha256": "f520ad299726b42f18e060c4879e786c43989f666467479f027259cfbcae3b62",
+      "bytes": 3004
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SOURCE-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SOURCE-PROOF.json",
+      "sha256": "828ea173bf4f460817e1e9016a64677caa2697ca3cde69dc226b7cb2ea3715b8",
+      "bytes": 16182
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/benchmark-308.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/benchmark-308.mjs",
+      "sha256": "91fbb09153d9d1b73779d85a36032a68296978fddcc5423d7eeedf9514a5d83a",
+      "bytes": 5703
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/benchmark-308.mjs.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/benchmark-308.mjs.diff",
+      "sha256": "e5735f7380a007ce72e9f24c4225f6328c97db2c73b678df5eed5c7c66b4dbc1",
+      "bytes": 7396
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/benchmark-308.mjs.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/benchmark-308.mjs.inverse.diff",
+      "sha256": "07f576795af95fce2d8d098d9df395ca704357442811efb376566cc51ba2e9e5",
+      "bytes": 7396
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/consume-benchmark.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/consume-benchmark.py",
+      "sha256": "c27fb18b9664ecc3db5a84370a1ba73798937a97b637b718317390b3c00c5069",
+      "bytes": 6874
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/consume-benchmark.py.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/consume-benchmark.py.diff",
+      "sha256": "d6385074796d9897c7f5598cf7903d052150e1da9cafe9db083c08cc74d607ad",
+      "bytes": 7535
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/consume-benchmark.py.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/consume-benchmark.py.inverse.diff",
+      "sha256": "57e5580f14934987d0d87f65c17da56f59eb23f91d42a5a1512eac5537a5a03f",
+      "bytes": 7535
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/launch-benchmark.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/launch-benchmark.py",
+      "sha256": "643eece7f8500f0f4e0fb94866bf457603d039afa78c7d086fdcad6b1fadd7e4",
+      "bytes": 7488
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/launch-benchmark.py.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/launch-benchmark.py.diff",
+      "sha256": "28dc582cb38cdd5cf4d6d0bb72ce332177d1239faa81423b1aa2c7f530919216",
+      "bytes": 6333
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/launch-benchmark.py.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/launch-benchmark.py.inverse.diff",
+      "sha256": "873b70042e9643ed0baffb6f228f103c5850333624f790a7ea6b95a8da7a0915",
+      "bytes": 6333
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py",
+      "sha256": "b23b1c43ca1c3b40c3519b19e301bb64a0f2b1debe8c66c2dc553a2456becbfd",
+      "bytes": 14032
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py.diff",
+      "sha256": "11e9836c8e6e98085d6012ab42dfa163d404eb2a196ecd980a62135316117a7d",
+      "bytes": 3665
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py.inverse.diff",
+      "sha256": "9d3cb92bf61a575f6270ed03b9e42cc9fab74fafde7b28d3a1fee80515687606",
+      "bytes": 3665
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/strict_contract.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/strict_contract.py",
+      "sha256": "9dcb281c249b5bc5fa041bef102ed9efeb03a18b53f2ac59255567d4e732d090",
+      "bytes": 6709
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/strict_contract.py.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/strict_contract.py.diff",
+      "sha256": "f5a99ec5d395e5b47048769f02daadbd8b04a3a4649a21afb8a24606c1f044f3",
+      "bytes": 10639
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/strict_contract.py.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/strict_contract.py.inverse.diff",
+      "sha256": "5dfed0397593599cb5e14cc53e351c9351e74fb4cb6949fad17a9b0f3b24fabd",
+      "bytes": 10639
+    },
+    "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json",
+      "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15",
+      "bytes": 1179
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/grant_before_fill.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/grant_before_fill.py",
+      "sha256": "5100a89373a729fe7f80714fc740b76d6fc3e45f85c869c381246ac29a21678e",
+      "bytes": 9691
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57",
+      "bytes": 11414
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-source-after-al-20261009-r1/bounded-json-candidate.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-source-after-al-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "f382fe6610a69a1c766134120e5382e86700ac6078a82d712547bf027f42810b",
+      "bytes": 2981
+    },
+    "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+      "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3",
+      "bytes": 10578
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-before-fill-independent-observed-review-after-al-20261009-r1/RECEIPT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-before-fill-independent-observed-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "33156edde2041b21cc6208484852646857903aa4c7d5123a673df69fff366574",
+      "bytes": 14438
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-next-performance-design-after-ak-20261009-r1/DESIGN.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-next-performance-design-after-ak-20261009-r1/DESIGN.json",
+      "sha256": "2dc9f9896d0d3f673ea7be9a2e67549cc49e48604cfdb42a918477d3c81bc53b",
+      "bytes": 10681
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-independent-observed-review-20261009-r1/RECEIPT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "59ad5be0c2f356d83febad87c5375937212a0af935ba52cc7214add9d85da29f",
+      "bytes": 1638
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-benchmark-output-20261009-r1/stdout.bin": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-benchmark-output-20261009-r1/stdout.bin",
+      "sha256": "cd5118088253236168961e07732d5738a9cdb8286aab61066b9f31d4a9043b51",
+      "bytes": 3862
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-output-after-al-20261009-r2/RESULT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-output-after-al-20261009-r2/RESULT.json",
+      "sha256": "11d82a514bf703d2e7050d522e6e263f70bfdf2440181863f9f2292d01e2db4c",
+      "bytes": 918
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r2/CONSUMPTION.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r2/CONSUMPTION.json",
+      "sha256": "ecb9fce725fd07ac372a74dc05ba0410c3572ad5100705f86b6e8f2202910fdf",
+      "bytes": 3626
+    },
+    "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-FOCUSED-OBSERVED-ADOPTION.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-FOCUSED-OBSERVED-ADOPTION.json",
+      "sha256": "cabca84e104aaf7864ad0fa46c0c578b690e1f2b67fd42bca51890773d159a68",
+      "bytes": 8077
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-independent-observed-review-after-al-20261009-r2/RECEIPT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-independent-observed-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "45ed83313ed82b9ffa7646204574ef2c02bf42504633133b70b3692c85eb3b9d",
+      "bytes": 10800
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/SOURCE-PINS.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/SOURCE-PINS.json",
+      "sha256": "b5f3103ed8ac1585ff63406be5c776824e0e678089ac0239cb287318ea42520a",
+      "bytes": 11676
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-next-performance-independent-design-review-after-al-20261009-r1/RECEIPT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-next-performance-independent-design-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "75941eea95fc5531db5cb15cfd45a443bfbf96cdceb18e7859006dd9927efa26",
+      "bytes": 13217
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-MEMBER-INDEX-307-416.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-MEMBER-INDEX-307-416.json",
+      "sha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855",
+      "bytes": 24196
+    },
+    "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+      "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04",
+      "bytes": 1250
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-observed-independent-review-20261009-r4/RECEIPT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-observed-independent-review-20261009-r4/RECEIPT.json",
+      "sha256": "32f68913900ce8496a10165c9cdc00d9d106048f62ef6cb41661d04fbdd21efa",
+      "bytes": 3829
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b",
+      "bytes": 2880
+    },
+    "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-DESIGN-ADOPTION.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-DESIGN-ADOPTION.json",
+      "sha256": "afef3458107228e763923d5fccd279151eeafef13aa17245808d218d9b5a2939",
+      "bytes": 5577
+    },
+    "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-SOURCE-ADOPTION.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-SOURCE-ADOPTION.json",
+      "sha256": "d96d57fcd592b9ea04c9e4b37faaef959b24f365d39ad51d60c071ecc7ee03df",
+      "bytes": 4965
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-controls-independent-source-review-after-al-20261009-r1/RECEIPT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-controls-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "1d3d2a791455f626db5c0457cf60aea4482d26343fd34da0ba749f89a9f4af1c",
+      "bytes": 14864
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-independent-source-review-after-al-20261009-r1/RECEIPT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "7096563a7c72f57e19f410c5a8a8cb75ef087934c2002d532f8aeabde907a4e8",
+      "bytes": 6101
+    },
+    "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+      "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88",
+      "bytes": 3074
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SOURCE-PINS.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SOURCE-PINS.json",
+      "sha256": "1800e05d6a9fbab6eae4f4e7a8bee65969da4785e5b47672d1bf06fc4fbba51b",
+      "bytes": 9726
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/RECEIPT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "9b8d4ca1d96e4675c6a589572a1930c31c6f25b722baff1da83f7ee568594502",
+      "bytes": 34035
+    },
+    "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_b109_benchmark_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_b109_benchmark_once.py",
+      "sha256": "73e86973d5e2d0bf1c25f9671ab55122a5e7ab170c9c37e9307bf227e36cd311",
+      "bytes": 3582
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-postflight-parent-after-al-20261009-r4/ACTUAL-TOOL.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-postflight-parent-after-al-20261009-r4/ACTUAL-TOOL.json",
+      "sha256": "96619fb357371b0fae96db2d6e94f395808ca3a9a3c7aba950dc4de5b6c507d9",
+      "bytes": 1632
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-postflight-parent-after-al-20261009-r4/POSTFLIGHT-READBACK.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-postflight-parent-after-al-20261009-r4/POSTFLIGHT-READBACK.json",
+      "sha256": "b89768e00fbaf5f710afdf55ac2dfb7821fff95250b648b6b89b6433e777f1e5",
+      "bytes": 2978
+    },
+    "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-PAIRED308-BENCHMARK-SOURCE-ADOPTION.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-PAIRED308-BENCHMARK-SOURCE-ADOPTION.json",
+      "sha256": "6632ef4e7712bb5a3a7beb14f8b519878cb584124ac12ff454426f34ec2e0481",
+      "bytes": 1524
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e",
+      "bytes": 3361
+    },
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14": {
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835",
+      "bytes": 50472
+    },
+    "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node": {
+      "path": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+      "sha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+      "bytes": 92324688
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/GRANT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/GRANT.json",
+      "sha256": "8d32dd7abb8f8e0bf502242b19854169567e47d948e0fbe74378776a85ee61ba",
+      "bytes": 7059
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/ACTUAL-TOOL.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/ACTUAL-TOOL.json",
+      "sha256": "86309c6a40b2e26fd598b0cd53d78db855a01fdc253b84b308ca31c30d1c1b5e",
+      "bytes": 918
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/LAUNCH-CLAIM.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/LAUNCH-CLAIM.json",
+      "sha256": "6d039371ef79b17b4e858d4fa2a9c55cc2dd25d1acfa5fe82658f38da49c5e00",
+      "bytes": 2446
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-output-after-al-20261009-r1/RESULT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-output-after-al-20261009-r1/RESULT.json",
+      "sha256": "8dcacb784ebde9f990c2fcff92a5ab596a145df9f2001df3906a5d68c232ff16",
+      "bytes": 922
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-lane-after-al-20261009-r1/benchmark.lane.log": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-lane-after-al-20261009-r1/benchmark.lane.log",
+      "sha256": "2ce89ec2cb7faa2c04c3b584d45915350081bb3496ac07f9b9b5876013ddd731",
+      "bytes": 403
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-lane-after-al-20261009-r1/benchmark.lane.log.meta": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-lane-after-al-20261009-r1/benchmark.lane.log.meta",
+      "sha256": "52e939ce20c225e3136da4695d66c5e9649604d544175c64aa9d34679ed701c9",
+      "bytes": 351
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/TOOL-OUTCOME.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/TOOL-OUTCOME.json",
+      "sha256": "2323fba36f9445d6981852026e5a590f4303fed3ef4f85019bcb0e3784001f4f",
+      "bytes": 2798
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-output-after-al-20261009-r1/stdout.bin": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-output-after-al-20261009-r1/stdout.bin",
+      "sha256": "8fe5b9ff89f78033c95be3f868f8a789b98eaff49bf89295ac0bb8fe9a6da412",
+      "bytes": 11199
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-output-after-al-20261009-r1/stderr.bin": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-output-after-al-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/CONSUMPTION.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/CONSUMPTION.json",
+      "sha256": "e92b1dfb490bee6219e1f70ebf1c8326a4529bd71587eb75b109a58e52d0a69b",
+      "bytes": 13919
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/CONSUMER-TOOL.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/CONSUMER-TOOL.json",
+      "sha256": "db585d6618d192e6a13eda437e6b795c354b62314a4a0f3b624935f1180bcc64",
+      "bytes": 126
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SEAL.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SEAL.json",
+      "sha256": "b3a27ca246469705966ea1dfb841879ff3fbc2020d89e83cee0f7b21faf67714",
+      "bytes": 6706
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/INTERFACE-CORRECTION.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/INTERFACE-CORRECTION.json",
+      "sha256": "d1b97fa77ba5c961ded7afc0ef8eb8784a3ff02aa9323c8e88a56bba42378403",
+      "bytes": 2688
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/SEAL.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/SEAL.json",
+      "sha256": "f0b555c51dfb0c00c7f8b7267d013506d0814a02774dcf4f80a23a34852e3855",
+      "bytes": 2566
+    },
+    "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-BENCHMARK-PREGRANT-R1-STOP.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-BENCHMARK-PREGRANT-R1-STOP.json",
+      "sha256": "f3afdbc7433bd27d97f113b4ba3a751062d4f085f811ae46db9fc034a07c0fa4",
+      "bytes": 1398
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/RECEIPT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "af928bb6586a9140b42a94f1a5deeb56c36c8a452e109268e8283858d8d30cbf",
+      "bytes": 33753
+    }
+  },
+  "readerCaptureRoleIntentionallyExcluded": {
+    "bytes": 141237093,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/boundaries.ndjson.gz",
+    "sha256": "69f7d46e8bf305cf5bb3697a674990cb5f8849446927b77f579bf2112a73346e"
+  },
+  "readerCaptureRoleExclusionReason": "Historical whole SHA provenance only; no reviewer capture access or observation.",
+  "nodeOnlyHashedAsNamedAcceptedBinaryNoExecution": true
+}

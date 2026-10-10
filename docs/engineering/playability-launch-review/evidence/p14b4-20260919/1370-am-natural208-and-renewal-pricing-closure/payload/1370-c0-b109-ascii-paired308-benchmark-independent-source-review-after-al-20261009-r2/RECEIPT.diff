@@ -1,0 +1,15 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/RECEIPT.json
++++ /Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/RECEIPT.json
+@@ -678,5 +678,11 @@
+     "protectedProductionCommonDependenciesPrivateFilesReadOrChanged": false,
+     "gitMutationsScansProbesOrPositiveSignalsPerformed": false,
+     "newGateInvented": false
+-  }
++  },
++  "routeSourcePins": {
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SOURCE-PINS.json",
++    "sha256": "1800e05d6a9fbab6eae4f4e7a8bee65969da4785e5b47672d1bf06fc4fbba51b",
++    "bytes": 9726
++  },
++  "findings": []
+ }

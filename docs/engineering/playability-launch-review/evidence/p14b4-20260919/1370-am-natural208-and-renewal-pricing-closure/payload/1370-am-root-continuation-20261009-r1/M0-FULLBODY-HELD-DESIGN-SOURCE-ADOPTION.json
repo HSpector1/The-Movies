@@ -1,0 +1,31 @@
+{
+  "actualControlsAccepted": false,
+  "actualNeutralityAccepted": false,
+  "controlsReadyForRuntime": false,
+  "executionAuthorization": false,
+  "originalFailuresPreserved": true,
+  "remaining": [
+    "Actual current M0 types and complete protections",
+    "Already-incremented pre-market196/208 actual fixture authorities and valid fallback/off-target premises",
+    "Canonical whole-module loader identity and complete source-array/chooser ordinals",
+    "Independently reviewed recorded controls and specific catch-removal RED outcome"
+  ],
+  "review": {
+    "bytes": 20666,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "af4a51151b1c04e18b6b41d03feed32b97aba7c9d3f0d7cbdc69e815d025b881"
+  },
+  "schema": "1370-root-m0-full-body-held-design-adoption/v1",
+  "scope": "Five complete module derivatives and exact catch mutant are accepted as held source design. Continue finite source preparation for fixtures, canonical resolver, complete ordering projections and actual route; no runtime grant is implied.",
+  "sourcePins": {
+    "bytes": 9064,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "1d7b4657a3e6c20daa25b45eda69fa04dc035dae4c1622bf080d881efa8eccb1"
+  },
+  "sourceSeal": {
+    "bytes": 621,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/SEAL.json",
+    "sha256": "fbd1e7fedac8e8d92ca5143ab0b8a126df185b067e94ecc7a7f1edbb94f559ef"
+  },
+  "status": "ROOT_ADOPTED_SOURCE_ONLY_HELD_FULL_BODY_WIRING_DESIGN"
+}

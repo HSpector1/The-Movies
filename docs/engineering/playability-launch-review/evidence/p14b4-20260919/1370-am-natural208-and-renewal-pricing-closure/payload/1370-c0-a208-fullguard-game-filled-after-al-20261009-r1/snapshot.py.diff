@@ -1,0 +1,11 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/snapshot.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py
+@@ -11,7 +11,7 @@
+ HERE=Path(__file__).resolve().parent
+ REPO=Path('/Users/zacheryspector/The-Movies-headless-program')
+ SCRATCH=Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='64628bfc7f2c330a0ec172f8988942ccbbf48033758504b4421dc9a06e4ee259'
++CONFIG_SHA='20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41'
+ EXCLUDED={'status','executionAuthorization','exactBindingReviewPath','exactBindingReviewSha256','exactBindingReviewDecision'}
+ def require(ok,msg):
+  if not ok:raise RuntimeError('STOP: '+msg)

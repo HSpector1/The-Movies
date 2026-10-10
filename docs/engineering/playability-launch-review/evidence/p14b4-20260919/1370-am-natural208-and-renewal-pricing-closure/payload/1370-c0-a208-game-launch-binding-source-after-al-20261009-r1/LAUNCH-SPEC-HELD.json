@@ -1,0 +1,122 @@
+{
+  "acceptedAfterFillGuard": null,
+  "acceptedFullguardBaseline": null,
+  "acceptedFullguardSourceReview": null,
+  "actualArgv": null,
+  "actualControlsAdoption": {
+    "bytes": 8775,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json",
+    "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+  },
+  "actualFrame": null,
+  "adapterReview": {
+    "bytes": 2370,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "b6c6d35760a50ad7814e7e75253a614c6756725795ea88870de562b36ddb2c6f"
+  },
+  "adapters": {
+    "bounded-sink-a208-held.py": {
+      "bytes": 3682,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/bounded-sink-a208-held.py",
+      "sha256": "9138c982912f53d8241721ec231555de3d8e9dae959e651c9b36dcf96a4f9700"
+    },
+    "launch-pipeline-a208-held.sh": {
+      "bytes": 1244,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/launch-pipeline-a208-held.sh",
+      "sha256": "46640b541fb04c67fcd5f72602ab128ca056416cd37ad946f248a50da1d6886a"
+    }
+  },
+  "adoptedPreflight": null,
+  "allRuntimeFieldsPendingUntilActual": true,
+  "archiveAdoption": null,
+  "argvShape": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r1/controls.log",
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/launch-pipeline-a208-held.sh",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r1/BINDING-DRAFT.json",
+    "<ACTUAL_ADOPTED_BINDING_SHA256>"
+  ],
+  "bounds": {
+    "activeStopSeconds": 742,
+    "innerSeconds": 720,
+    "settlement208Bytes": 65536,
+    "settlement208RowBytes": 4096,
+    "sinkForwardSeconds": 10,
+    "sinkReadSeconds": 760,
+    "stderrBytes": 65536,
+    "stdoutBytes": 524288,
+    "wholeRecorderSeconds": 750
+  },
+  "currentAlAuthority": null,
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r1",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exactCandidateReview": null,
+  "executionAuthorization": false,
+  "freshPaths": {
+    "adoptionOutput": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r1",
+    "futureExactCandidate": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r1",
+    "lane": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r1",
+    "preAdoptionArchive": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-pre-adoption-archive-after-al-20261009-r1",
+    "sourceProposal": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-launch-binding-source-after-al-20261009-r1"
+  },
+  "fullPostflight": null,
+  "futurePathAbsenceObservedHere": false,
+  "helper": {
+    "bytes": 3361,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+  },
+  "independentRaw208Full416Review": null,
+  "invariants": {
+    "employmentRows": 44,
+    "employmentSettlementReceiptTakesAndRng": {
+      "employment": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58",
+      "receipts": "af8c4d1325ecb350dbc07fbf2f762dd8257db04075b8030bf7bd975b4cb2a766",
+      "rng": "2598418427,508725886,1318803286,3129010527",
+      "settlement": "706e54c6ec9728df1664025982ebbafeb0fc36afb245b6bd0b983305f6a10a77",
+      "takes": "8af116b1687ed210c02953b5b506456e638a64482e8042b0e549b0d57e428694"
+    },
+    "naturalSelected16CaptureWeek": 208,
+    "selectedOrderAndOccurrence": "A source-order24..39, occurrence0; frozen SELECTION unchanged",
+    "weeks": 416
+  },
+  "launchAuthorized": false,
+  "node": {
+    "bytes": 115440320,
+    "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+    "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+  },
+  "observerSourcePins": {
+    "bytes": 9882,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+    "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+  },
+  "observerSourceReview": {
+    "bytes": 5517,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+  },
+  "python": {
+    "bytes": 50472,
+    "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+  },
+  "repoRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+  "schema": "1370-a208-after-al-game-source-launch-held/v1",
+  "sourceObserverDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1",
+  "sourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "stageOwnership": {
+    "actualAuthorityAndGrants": "root",
+    "fullguardScopeSource": "cleanup_diagnostic_impl",
+    "gameLaunchBindingSource": "a208_operational_prep"
+  },
+  "status": "SOURCE_ONLY_KNOWN_BINDING_FIELDS_FILLED_PENDING_AL_AUTHORITY",
+  "witnessGrant": null
+}

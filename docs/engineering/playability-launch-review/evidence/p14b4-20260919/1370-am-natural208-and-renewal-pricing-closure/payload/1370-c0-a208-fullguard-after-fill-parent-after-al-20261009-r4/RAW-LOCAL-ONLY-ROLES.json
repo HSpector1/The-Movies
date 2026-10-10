@@ -1,0 +1,33 @@
+{
+  "roles": [
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 96852,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/after-fill-after-al-game-r4/BEFORE-PS.txt",
+      "priorGitBlob": null,
+      "sha256": "97d8f5d00526827dcc5fa896ee853ece2e53c2a7e1df0a717d37011b5f66cfc4"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 95195,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/after-fill-after-al-game-r4/AFTER-PS.txt",
+      "priorGitBlob": null,
+      "sha256": "9f0d6d510088e048a53991c9d5ef6d4a554a8607a6b26eefbb48e2cdb5dc8175"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 650698,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/after-fill-after-al-game-r4/BEFORE-LSOF.bin",
+      "priorGitBlob": null,
+      "sha256": "82468fb6a54cf0d31c5923f73b4e54582e2d86793c2ef8d3abaf348a5a31a190"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 652229,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/after-fill-after-al-game-r4/AFTER-LSOF.bin",
+      "priorGitBlob": null,
+      "sha256": "1d16ebcbeaf07889ada4dd4812e7b04b4510ad057785602982e486775c401b59"
+    }
+  ],
+  "schema": "1370-raw-machine-local-only-roles/v1"
+}

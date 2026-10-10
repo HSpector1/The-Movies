@@ -1,0 +1,98 @@
+{
+  "actual": {
+    "benchmark": null,
+    "focusedControls": null,
+    "game": null,
+    "grant": null,
+    "integration": null,
+    "productionMutation": null
+  },
+  "authorProvenance": {
+    "implementationAuthorIdentitySource": "Parent task assignment; artifact author is not independently inferred.",
+    "implementationAuthorTask": "/root/b109_ascii_source",
+    "reviewScope": "Independent implementation source review, not independent re-review of own design receipt or tester acceptance.",
+    "reviewerAuthoredImplementation": false,
+    "reviewerAuthoredPriorDesignReview": true,
+    "reviewerTask": "/root/cleanup_diagnostic_impl"
+  },
+  "candidate": {
+    "bytes": 2981,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-source-after-al-20261009-r1/bounded-json-candidate.mjs",
+    "sha256": "f382fe6610a69a1c766134120e5382e86700ac6078a82d712547bf027f42810b"
+  },
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_B109_ASCII_STRING_TOKEN_IMPLEMENTATION",
+  "executionAuthorization": false,
+  "lessons": [
+    "Keep original raw refusal/coercion checkpoint before the classifier and require exact full inverse.",
+    "Independent implementation review can follow an authored design review if authorship and scope are disclosed.",
+    "Record actual permission modes; hashes and read-only files do not imply directory immutability."
+  ],
+  "limitations": [
+    "Standard native RegExp/String/JSON/Array/Buffer semantics are assumed. Internal primitive builtin call counts change; arbitrary overrides or primitive calltrace parity are not claimed. Source-read and refusal/coercion behavior still requires controls.",
+    "Static source proof does not establish observed correctness or performance. Independent controls must retain original28 groups/321 pairs, append six focused groups and demonstrate three meaningful mutant failures before actual qualification.",
+    "No measured ASCII-hit rate or speedup is established. Future paired308 fixture sampler must compare2529 against this candidate under unchanged60/75/90, truthful labels and weighting.",
+    "Both3526-state/1984-whole-row weights, illustrative aggregate, later-growth and nonencoder limits remain separate from measured acceptance;300/375/390 game bounds and both-arm full110 disposition are unchanged.",
+    "Selected2529 encoder and declined cache outcome remain historical authority. No integration, full109, P17/P18, production or game acceptance follows from this review."
+  ],
+  "materialFindings": [],
+  "predecessor": {
+    "bytes": 2880,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+    "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+  },
+  "priorIndependentDesignReview": {
+    "bytes": 13217,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-next-performance-independent-design-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "75941eea95fc5531db5cb15cfd45a443bfbf96cdceb18e7859006dd9927efa26"
+  },
+  "rootDesignAdoption": {
+    "bytes": 5577,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-DESIGN-ADOPTION.json",
+    "sha256": "afef3458107228e763923d5fccd279151eeafef13aa17245808d218d9b5a2939"
+  },
+  "schema": "1370-b109-ascii-string-independent-implementation-source-review/v1",
+  "semanticFindings": [
+    "Non-global classifier accepts empty strings and sequences of U+0020..U+007F excluding quote/backslash; slash and DEL remain eligible. C0 and every nonASCII code unit, including surrogate pairs and lone surrogates, retain native fallback.",
+    "Eligible token equals two quotes plus unchanged primitive value; UTF8 byte count is value.length+2 under standard native semantics.",
+    "Original raw Buffer.byteLength(value)<=limit and STOP_STRING_CAP check executes before classification. Cumulative token and key-budget comparisons keep their original positions; no limit comparison or coercion is added.",
+    "Only already-read primitive strings/keys are classified. All traversal, source reads, getters/traps, array length observations, container logic, refusals and existing per-call keysMap remain byte-identical.",
+    "No new cache, container serialization, Proxy, global state or source mutation. Default16MiB,4096-token and65536-byte thresholds, oversized tokens and chunk assembly are unchanged."
+  ],
+  "sourcePins": {
+    "bytes": 2467,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "c1d2070f67f63d8a0159af43412691d171f1a8ce96b09a305a64d74d66be9196"
+  },
+  "sourcePinsSha256": "c1d2070f67f63d8a0159af43412691d171f1a8ce96b09a305a64d74d66be9196",
+  "sourcePreparationOnly": true,
+  "sourceProof": {
+    "bytes": 5135,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-source-after-al-20261009-r1/SOURCE-PROOF.json",
+    "sha256": "365633cab3e1a053ab0babd8ee0355e2a63bf835a1ad8450d62be7690792815b"
+  },
+  "sourceSeal": {
+    "bytes": 1913,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-source-after-al-20261009-r1/SEAL.json",
+    "sha256": "5a690947efc271e04a0b5cad7a95cb8cb6b4f367f7abafe169902fad3064d3d2"
+  },
+  "verification": {
+    "GitProcessProbesProtectedOrPrivateMutation": false,
+    "authenticatedPinnedRoles": 8,
+    "authenticatedSealRoles": 7,
+    "directoryImmutabilityClaimed": false,
+    "directoryMode": "0755",
+    "exactInsertedSource": "    if (!/[\\u0000-\\u001f\"\\\\\\u0080-\\uffff]/.test(value)) return ['\"' + value + '\"', value.length + 2]\n",
+    "fileMode": "0444",
+    "forwardAndInverseDiffsIndependentlyReproduced": true,
+    "fullByteInverseRestores2529": true,
+    "javascriptParsedImportedOrEvaluated": false,
+    "originalNativeFallbackVerbatim": true,
+    "originalRawPrecheckVerbatimAndFirst": true,
+    "outsideStringTokenByteIdentical": true,
+    "packageFiles": 8,
+    "removedLines": 0,
+    "runtimeTestsBenchmarksGame": false,
+    "singleInsertedBytes": 101,
+    "singleInsertedLines": 1
+  }
+}

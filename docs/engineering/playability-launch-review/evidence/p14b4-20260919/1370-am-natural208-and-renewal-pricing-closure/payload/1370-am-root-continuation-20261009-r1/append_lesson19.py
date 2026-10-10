@@ -1,0 +1,8 @@
+import hashlib,json,os
+from pathlib import Path
+A=Path('/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1')
+b=(A/'LESSONS-r18.md').read_bytes();assert hashlib.sha256(b).hexdigest()=='1065ea75df63ad8ebb47db5d6bd97db37d81aa7358d823d8d9fdf9d029411e10'
+b+=b'''\n## Current M0 preservation is now measured, with honest inventory scopes\n\nActual M0 proof20818 exits0 through helper, recorder and runner. Both source and dependency traversals agree:1740 original-plus-bridge regular files/119393120 bytes,1853 nonroot source entries, and12484 nonroot dependency entries/348223802 content bytes. The accepted shared full guard counts12485 dependency entries because it includes the root itself. That one-entry difference is an inventory-definition difference, not a missing file, a reason to repin, or permission to substitute one proof for the other. The M0 source proof remains separate from the shared R9/dependency protection map. Full postflight and independent observed admission are still required.\n\nPreparation actually takes1.176433264 seconds under its separate60-second bound; original recorder75.045 and runner72.745 seconds remain under unchanged300/320/330 runtime limits. The durable parent records establish all three actual owned identities89067/89322/89341 before scoped absence checks. This closes the earlier incorrect local-main-ref and launch-contract assumptions at runtime without recreating a branch, re-copying the historical mirror, or relabeling an old failed run.\n'''
+p=A/'LESSONS-r19.md'
+with p.open('xb') as f:f.write(b);f.flush();os.fsync(f.fileno())
+p.chmod(0o444);print(json.dumps({'path':str(p),'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}))

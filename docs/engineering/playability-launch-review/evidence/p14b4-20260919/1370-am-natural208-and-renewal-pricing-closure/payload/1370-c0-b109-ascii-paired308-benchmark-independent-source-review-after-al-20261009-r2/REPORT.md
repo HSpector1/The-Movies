@@ -1,0 +1,5 @@
+This R2 receipt corrects the consumed receipt interface. The preserved R1 receipt af928 accepted the source semantics but omitted routeSourcePins, which launch-benchmark.py explicitly reads. The parent also expected findings and reported a pre-grant KeyError. The original receipt and parent failure remain preserved.
+
+R2 adds only routeSourcePins as an exact alias of sourcePins and findings as an exact alias of concreteFindings. Every original key and value, including the schema, decision, limitations and false authorization flags, is unchanged. The actual launcher requires the recipe's exact acceptance decision, routeSourcePins equal to the separately granted source-pin role, and executionAuthorization false; it does not test a receipt schema. These literal checks were read from the unchanged pinned launch source.
+
+The benchmark remains unrun and no grant was issued by this correction. Route source1800e, review semantics, recorder mechanisms and claim limits are unchanged. This is a receipt interface repair; no tests, imports, execution, capture access, probes, Git operations or protected/private changes were performed.

@@ -1,0 +1,16 @@
+{
+  "claim": "HELD_SOURCE_INTEGRATION_PROPOSAL_WITH_DECLARED_RUNTIME_ROUTE_AND_FIXTURE_PREMISE_BLOCKERS",
+  "executionAuthorization": false,
+  "roles": 25,
+  "schema": "1370-m0-full-body-source-continuation-seal/v1",
+  "sourcePins": {
+    "bytes": 7683,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "c588b4aa72d84ceab8fa67030e0b747345b4fc58820fbf56ed0978b9aa379722"
+  },
+  "sourceProof": {
+    "bytes": 4969,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/SOURCE-PROOF.json",
+    "sha256": "67187f03a0233197d2c3a98822382d6775c10b4feb50c60a79658982d7d25076"
+  }
+}

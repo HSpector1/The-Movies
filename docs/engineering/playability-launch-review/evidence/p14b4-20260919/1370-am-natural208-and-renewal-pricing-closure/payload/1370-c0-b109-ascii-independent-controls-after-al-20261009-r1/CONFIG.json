@@ -1,0 +1,108 @@
+{
+  "actualGrant": null,
+  "actualOutcome": null,
+  "b109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "bounds": {
+    "activeSeconds": 75,
+    "nodeSeconds": 60,
+    "stderrBytes": 1048576,
+    "stdoutBytes": 1048576,
+    "wholeSeconds": 90
+  },
+  "captureDecode": false,
+  "executionAuthorization": false,
+  "expected": {
+    "expectedRed": 3,
+    "newGroups": 6,
+    "newPairs": 344,
+    "originalGroups": 28,
+    "originalPairs": 321,
+    "totalGroups": 34,
+    "totalPairs": 665,
+    "unexpectedRed": 0
+  },
+  "game": false,
+  "nativeBuiltinsAssumption": "Standard native RegExp/String/JSON/Array/Buffer; source getters/proxies/two reads/dynamic length and limit coercion checkpoints are compared. Internal primitive call-count equality is not claimed.",
+  "newOracle": "selected2529",
+  "nodePath": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+  "originalOraclesPreserved": true,
+  "performanceWin": false,
+  "roles": {
+    "baseline": {
+      "bytes": 11414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+    },
+    "candidate": {
+      "bytes": 2981,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-source-after-al-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "f382fe6610a69a1c766134120e5382e86700ac6078a82d712547bf027f42810b"
+    },
+    "controls": {
+      "bytes": 25837,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/controls.mjs",
+      "sha256": "d4c91f0e965648df46707c9d47cc23d24e487f12fd04bb88198a54c9b2683647"
+    },
+    "mutant_escape": {
+      "bytes": 2965,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-escape.mjs",
+      "sha256": "be3d5e5135732335b1a3cda54f74034980a9c89887d90854fa17c6fa6d6df81b"
+    },
+    "mutant_precheck": {
+      "bytes": 2870,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-precheck.mjs",
+      "sha256": "a6747cee6d60f142fa1d5d9a5b8c174719b5699746f4fca8eaa54914d15060ab"
+    },
+    "mutant_unicode": {
+      "bytes": 2955,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-unicode.mjs",
+      "sha256": "c87c53cd0ece378cef4bb65fbc52026600b3dc83b34cd884f95de476bf2393d0"
+    },
+    "node": {
+      "bytes": 92324688,
+      "path": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+      "sha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6"
+    },
+    "operationalReadback": {
+      "bytes": 1250,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+      "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+    },
+    "originalConfig": {
+      "bytes": 4354,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/CONFIG.json",
+      "sha256": "59d94b70eb2e4c3093fde24529326769d8ab74ac51e73c954f8832a180061527"
+    },
+    "originalControls": {
+      "bytes": 15839,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-encoder.mjs",
+      "sha256": "015326a19a12225b5fb736bbf85d637f8e925cf4c0f5bd00240061cf9cd880b4"
+    },
+    "referenceEncoder": {
+      "bytes": 2492,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "994d2adaa4310a71590ebf408c775ee45c1830682c12b0c7f034551f343582e5"
+    },
+    "selectedReference": {
+      "bytes": 2880,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+    },
+    "sourceDesignAdoption": {
+      "bytes": 5577,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-DESIGN-ADOPTION.json",
+      "sha256": "afef3458107228e763923d5fccd279151eeafef13aa17245808d218d9b5a2939"
+    },
+    "sourcePins": {
+      "bytes": 2467,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-source-after-al-20261009-r1/SOURCE-PINS.json",
+      "sha256": "c1d2070f67f63d8a0159af43412691d171f1a8ce96b09a305a64d74d66be9196"
+    }
+  },
+  "schema": "1370-b109-ascii-independent-held-controls-config/v1",
+  "status": "HELD_SOURCE_ONLY_INDEPENDENT_REVIEW_AND_RECORDED_ROOT_GRANT_REQUIRED"
+}

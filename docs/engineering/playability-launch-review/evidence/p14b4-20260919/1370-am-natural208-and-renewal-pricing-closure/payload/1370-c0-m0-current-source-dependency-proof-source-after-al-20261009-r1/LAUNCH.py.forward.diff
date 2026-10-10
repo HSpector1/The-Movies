@@ -1,0 +1,47 @@
+--- accepted-r4/LAUNCH.py
++++ proof-only-r1/LAUNCH.py
+@@ -43,34 +43,28 @@
+   return raw
+  finally:
+   for item in reversed(held):os.close(item)
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4')
+-config=json.loads(read_pin(P/'CONFIG.json','7166e022583531d924d67639a3d2a8a8f250bd8461f2a33cace8ce8f41c24f9c',100000))
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r1')
++config=json.loads(read_pin(P/'CONFIG.json','01c5c22d4f7212dd2a835883908b373b0583480487256d2f85933ae42d82b7ed',100000))
+ authority=json.loads(read_pin(context,context_sha,128*1024))
+-expected={'runner.py':'03768e0be95c3dccf430598f7cab47a9b5d2672be6de7d456705cbf7ec2b68a7','BOOTSTRAP.py':'25696ed2167dafc16751ac00f96eb203d0c9ab7d700b6c382dce816af7b0056b','supervise.py':'7cac27f161cecc3bf683fef49a94a779180c1777dc08199595f08fa1242ca423','CONFIG.json':'7166e022583531d924d67639a3d2a8a8f250bd8461f2a33cace8ce8f41c24f9c','check-deps.mjs':'e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64'}
+-assert authority['schema']=='1370-m0-types-execution-context/v1'
++expected={'runner.py':'1d15705ed1f6ccbd74da3a3b9ec21720ff453d81fefa7daaced3e41c4bb73e25','BOOTSTRAP.py':'25e2deba18177b88a569c4232ae1fa14284cf8e67fe19b16996c930982a45807','supervise.py':'befbeb10e1625f24c94069383363eb9b50124963b8907d4d0cd9a889f1bd3195','CONFIG.json':'01c5c22d4f7212dd2a835883908b373b0583480487256d2f85933ae42d82b7ed','check-deps.mjs':'e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64'}
++assert authority['schema']=='1370-current-m0-proof-execution-context/v1'
+ assert authority['configSha256']==expected['CONFIG.json'] and authority['runId']==config['runId'] and authority['mirrorPath']==config['mirrorPath']
+ def role(name,cap=100000):
+  r=authority[name]
+  assert type(r) is dict and set(r)=={'path','bytes','sha256'} and type(r['bytes']) is int and 0<r['bytes']<=cap
+  raw=read_pin(pathlib.Path(r['path']),r['sha256'],cap);assert len(raw)==r['bytes'];return json.loads(raw)
+-review=role('sourceReview');protection=role('currentProtection');grant=role('actualGrant')
+-assert review['decision']=='ACCEPT_STATIC_M0_TYPES_COLLECTION_SOURCE_ONLY'
++review=role('sourceReview');grant=role('actualGrant')
++assert review['decision']=='ACCEPT_STATIC_CURRENT_M0_SOURCE_DEPENDENCY_PROOF_SOURCE_ONLY'
+ assert all(review['sourcePins'][k]['sha256']==v for k,v in expected.items())
+ launch_role=review['sourcePins']['LAUNCH.py']
+ launch_bytes=read_pin(P/'LAUNCH.py',launch_role['sha256'],250000)
+ assert launch_role['path']==str(P/'LAUNCH.py') and launch_role['bytes']==len(launch_bytes)
+-assert protection['schema']=='1370-root-current-m0-types-protection/v1' and protection['m0TypesProtectionAccepted'] is True
+-assert protection['productionHead']==config['operationalProductionHead'] and protection['productionSourceTree']==config['productionSourceTree']
+-assert protection['mirrorPath']==config['mirrorPath'] and protection['physicalFactsSha256']==config['sourceAuthorities']['m0PhysicalFacts']['sha256']
+-assert protection['completeM0AdoptionSha256']==config['sourceAuthorities']['m0CompleteParentAdoption']['sha256']
+-assert protection['fullProtectedPostflightAccepted'] is True and protection['soleLaneReleased'] is True
+-assert protection['freshSourceProof']==authority['freshSourceProof'] and protection['freshDependencyProof']==authority['freshDependencyProof']
+-assert protection['additionalRefs']==authority['additionalRefs']
+-assert grant['schema']=='1370-root-m0-types-execution-grant/v1' and grant['executionAuthorization'] is True
++assert authority.get('currentProtection') is None and authority.get('freshSourceProof') is None and authority.get('freshDependencyProof') is None,'future proof/protection must remain null at proof launch'
++assert grant['schema']=='1370-root-current-m0-proof-execution-grant/v1' and grant['executionAuthorization'] is True
+ assert grant['contextWithoutGrantSha256']==hashlib.sha256(json.dumps({k:v for k,v in authority.items() if k!='actualGrant'},sort_keys=True,separators=(',',':')).encode()).hexdigest()
+ assert grant['runId']==config['runId'] and grant['configSha256']==expected['CONFIG.json']
+-assert grant['sourceReviewSha256']==authority['sourceReview']['sha256'] and grant['currentProtectionSha256']==authority['currentProtection']['sha256']
+-assert grant['scope']=='M0_FOUR_COMMAND_TYPES_AND_DIAGNOSTIC_COLLECTION_ONLY' and grant['gameAuthorization'] is False
++assert grant['sourceReviewSha256']==authority['sourceReview']['sha256']
++assert grant['scope']=='READONLY_CURRENT_M0_SOURCE_DEPENDENCY_PROOF_ONLY' and grant['gameAuthorization'] is False
+ assert type(authority['additionalRefs']) is dict
+ assert set(authority['runtimeTools'])=={'node','python','rootCompilerWrapper','uiCompilerWrapper','collectionWrapper'}
+ def normalized(st):return [st.st_dev,st.st_ino,stat.S_IMODE(st.st_mode),st.st_nlink,st.st_size,st.st_mtime_ns,st.st_ctime_ns]

@@ -1,0 +1,10 @@
+{
+  "initial": {
+    "chunk_id": "9aff22",
+    "wall_time_seconds": 0.791240681,
+    "exit_code": 0,
+    "original_token_count": 70,
+    "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-controls-parent-recorded-after-al-20261009-r1/CONTROLS-GRANT.json\", \"bytes\": 2403, \"sha256\": \"505a8eae43a7132e9cab987cb0f774c66f3cd25358002af7a6f16378b1782c08\"}, \"ownPid\": 44455, \"ownPgid\": 44455}\n"
+  },
+  "polls": []
+}

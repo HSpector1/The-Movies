@@ -1,0 +1,374 @@
+{
+  "actualCollectionExecuted": false,
+  "actualFailure": {
+    "bridgeFiles": 5,
+    "compilerExit": 2,
+    "dependenciesBeforeAfterExact": true,
+    "dependencyCheckerExit": 0,
+    "diagnostics": 11,
+    "notTimeout": true,
+    "result": {
+      "bytes": 15403,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r2/20261009-m0-types-after-al-r2/RESULT.json",
+      "sha256": "85106763c640e105578d5b38b97c5af732611f34bf307688a8069de6ab241963"
+    },
+    "sourceBeforeAfterExact": true,
+    "status": "STOP_TYPECHECK_COLLECTION",
+    "stdout": {
+      "bytes": 1606,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r2/20261009-m0-types-after-al-r2/root-tsc.stdout",
+      "sha256": "4955f55bd67c6b202a8294db1f10cf759b94553bcd5468aad8f5af3d47712a7e"
+    },
+    "toolSessionId": 79362
+  },
+  "actualTypesPass": false,
+  "actualUIExecuted": false,
+  "bridgeLineage": {
+    "all63InputRolesMatchExpandedAdmittedFacts": true,
+    "bytes": 1517743,
+    "canonicalDiagnosedFiles": {
+      "bridge/protocol.ts": {
+        "bytes": 5409,
+        "canonicalBridgeTreeExact": true,
+        "diagnostics": [
+          {
+            "code": "TS5097",
+            "column": 8,
+            "line": 17,
+            "message": "An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.",
+            "path": "bridge/protocol.ts",
+            "sourceLine": "} from './schema/bridge-schema.ts'"
+          },
+          {
+            "code": "TS5097",
+            "column": 32,
+            "line": 18,
+            "message": "An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.",
+            "path": "bridge/protocol.ts",
+            "sourceLine": "import { schemaIdentity } from './schema/canonical.ts'"
+          },
+          {
+            "code": "TS5097",
+            "column": 51,
+            "line": 19,
+            "message": "An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.",
+            "path": "bridge/protocol.ts",
+            "sourceLine": "import { BridgeSchemaError, parseWireValue } from './schema/runtime.ts'"
+          }
+        ],
+        "expandedAdmittedFactsExact": true,
+        "gitBlobOid": "d8e01e315b7ff800aa42b9e7cc206e8f03c4c8f2",
+        "sha256": "71b920d90ce9a54214c7dd82208a168bd71cab9be60efa11d2ae3a81d7e0b7fa"
+      },
+      "bridge/schema/bridge-schema.ts": {
+        "bytes": 191170,
+        "canonicalBridgeTreeExact": true,
+        "diagnostics": [
+          {
+            "code": "TS5097",
+            "column": 8,
+            "line": 16,
+            "message": "An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.",
+            "path": "bridge/schema/bridge-schema.ts",
+            "sourceLine": "} from './dsl.ts'"
+          },
+          {
+            "code": "TS5097",
+            "column": 40,
+            "line": 17,
+            "message": "An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.",
+            "path": "bridge/schema/bridge-schema.ts",
+            "sourceLine": "import {StudioBridgeIntentOption} from './intent-schema.ts'"
+          },
+          {
+            "code": "TS5097",
+            "column": 38,
+            "line": 18,
+            "message": "An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.",
+            "path": "bridge/schema/bridge-schema.ts",
+            "sourceLine": "export {AVAILABLE_INTENT_KINDS} from './intent-schema.ts'"
+          },
+          {
+            "code": "TS5097",
+            "column": 60,
+            "line": 19,
+            "message": "An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.",
+            "path": "bridge/schema/bridge-schema.ts",
+            "sourceLine": "import {industryDefinitions,StudioIndustryProjection} from './industry-schema.ts'"
+          }
+        ],
+        "expandedAdmittedFactsExact": true,
+        "gitBlobOid": "3007ee5e13b22ffd77acad483628d0116bace49a",
+        "sha256": "d2272d4938b458701ed9feeacc49dc349890857c0c68431c41576988ca424718"
+      },
+      "bridge/schema/industry-schema.ts": {
+        "bytes": 24682,
+        "canonicalBridgeTreeExact": true,
+        "diagnostics": [
+          {
+            "code": "TS5097",
+            "column": 40,
+            "line": 1,
+            "message": "An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.",
+            "path": "bridge/schema/industry-schema.ts",
+            "sourceLine": "import {StudioBridgeIntentOption} from './intent-schema.ts'"
+          },
+          {
+            "code": "TS5097",
+            "column": 145,
+            "line": 2,
+            "message": "An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.",
+            "path": "bridge/schema/industry-schema.ts",
+            "sourceLine": "import {array,boolean as bool,enumeration,integer,literal,nullable,number,object,optional,reference,text,type InferSchema,type JsonSchema} from './dsl.ts'"
+          }
+        ],
+        "expandedAdmittedFactsExact": true,
+        "gitBlobOid": "8c611c8d37244d0a89f23e6cb9642427433f9ced",
+        "sha256": "794ef431e62a5f44674f874f9144ed0a667965781e587d23fc0e71eb65c58453"
+      },
+      "bridge/schema/intent-schema.ts": {
+        "bytes": 3616,
+        "canonicalBridgeTreeExact": true,
+        "diagnostics": [
+          {
+            "code": "TS5097",
+            "column": 48,
+            "line": 1,
+            "message": "An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.",
+            "path": "bridge/schema/intent-schema.ts",
+            "sourceLine": "import {enumeration,nullable,object,text} from './dsl.ts'"
+          }
+        ],
+        "expandedAdmittedFactsExact": true,
+        "gitBlobOid": "a29c0b098dd7943a55577b6648eae20852ed9e4f",
+        "sha256": "6230f858a05da061f5934e85a93ba247e0483e50a4d2aee845b2e9b642ab366a"
+      },
+      "bridge/schema/runtime.ts": {
+        "bytes": 9369,
+        "canonicalBridgeTreeExact": true,
+        "diagnostics": [
+          {
+            "code": "TS5097",
+            "column": 8,
+            "line": 7,
+            "message": "An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.",
+            "path": "bridge/schema/runtime.ts",
+            "sourceLine": "} from './bridge-schema.ts'"
+          }
+        ],
+        "expandedAdmittedFactsExact": true,
+        "gitBlobOid": "e517d491a3fdc251aac2ac695a820d3629e9800e",
+        "sha256": "1b6de0fbb6cb536ad21f86294fe7df1401a9eecaad8f219218289b21194ef180"
+      }
+    },
+    "expandedFactsRole": {
+      "bytes": 1872789,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-facts-after-aj-20261009-r3.json",
+      "sha256": "e9f4829c501cc90475b9067c8ae32580fe5fca14fc40950ee083031f89081ba2"
+    },
+    "files": 63,
+    "inputRole": {
+      "bytes": 27220,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/INPUTS.json",
+      "sha256": "a9f50c1d0cb6ae54084becf514ed7908c41572050e0df19a50007e3a804ff881"
+    },
+    "sourceManifestRole": {
+      "bytes": 7400,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-corrected-overlay-source-manifest-r2/M0-SOURCE-MANIFEST.json",
+      "sha256": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba"
+    },
+    "tree": "faa227af051c5ec529644b5f84151314ea63cc30"
+  },
+  "cause": "Actual original no-emit root program reaches the admitted canonical bridge graph whose value imports use .ts extensions; historical root tsconfig lacks allowImportingTsExtensions. This is a root operational compiler-option mismatch against added canonical imports, not rewritten bridge bytes, dependency drift or timeout. UI already explicitly enables both allowImportingTsExtensions and noEmit.",
+  "executionAuthorization": false,
+  "futureRouteRequirements": [
+    "Independent source review of this exact single-argument change and authenticated actual-cause evidence.",
+    "Author fresh complete operational route binding and output/run roles; update every required runner hash and loader/supervisor source pin without changing the qualified bodies/protections/clocks. Never execute this held PROPOSED-RUNNER.py: its otherwise exact constants still bind baseline R5 paths/output identity.",
+    "Explicitly record the original four-command roster now differs only by this admitted root option; do not preserve a misleading assertion that all original argv bytes remain exact. Historical builder source is preserved, not executed.",
+    "Require genuine fresh current/protection/context/grant for the actual full root/UI/dependency/collection route under original bounds; preserve actual79362 STOP and all old outputs.",
+    "Run all full checks in original order and reject any new diagnostic; root option permits source suffixes only. No UI pass, collection pass, complete types, wiring or neutrality is pre-admitted."
+  ],
+  "historicalPackageTypecheckScript": "tsc --noEmit && tsc -p ui/tsconfig.json --noEmit",
+  "historicalRootAndUI": {
+    "package.json": {
+      "bytes": 2726,
+      "captured": {
+        "bytes": 2726,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/HISTORICAL-PACKAGE.json",
+        "sha256": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f"
+      },
+      "gitBlobOid": "4f6123b0dfb634faaf1a64a7b6162e284320e0a4",
+      "historicalCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+      "materializedFactExact": true,
+      "sha256": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f"
+    },
+    "tsconfig.json": {
+      "bytes": 706,
+      "captured": {
+        "bytes": 706,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/HISTORICAL-ROOT-TSCONFIG.json",
+        "sha256": "f855dfc9191a0d63240d447bccac5e029530a74b83e12f467083f1393bbe6d4f"
+      },
+      "gitBlobOid": "7521893ef93467ed05ef19a1768fc092edac2f2d",
+      "historicalCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+      "materializedFactExact": true,
+      "sha256": "f855dfc9191a0d63240d447bccac5e029530a74b83e12f467083f1393bbe6d4f"
+    },
+    "tsconfig.src.json": {
+      "bytes": 119,
+      "captured": {
+        "bytes": 119,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/HISTORICAL-SRC-TSCONFIG.json",
+        "sha256": "8c3f09111bb20bd51e8611caf00775a9bb78ea20290b765cc82f0ae0663e1dae"
+      },
+      "gitBlobOid": "95c6e861b815acd2409c0bd981d8f8af3fa95245",
+      "historicalCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+      "materializedFactExact": true,
+      "sha256": "8c3f09111bb20bd51e8611caf00775a9bb78ea20290b765cc82f0ae0663e1dae"
+    },
+    "ui/tsconfig.json": {
+      "bytes": 1074,
+      "captured": {
+        "bytes": 1074,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/HISTORICAL-UI-TSCONFIG.json",
+        "sha256": "294e1c6b2bacc3fefb0aec00c5093c5372b7d3c6e1175279aa551b6023f42d9e"
+      },
+      "gitBlobOid": "870b43b2f6db084fbd8ae6539657744b07e4fe68",
+      "historicalCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+      "materializedFactExact": true,
+      "sha256": "294e1c6b2bacc3fefb0aec00c5093c5372b7d3c6e1175279aa551b6023f42d9e"
+    }
+  },
+  "implementationExecuted": false,
+  "inversionProof": {
+    "ASTRemovingOneAddedRootArgRestoresExactBaseline": true,
+    "allOtherSourceBytesAndFourCommandOrderExact": true,
+    "baselineLocalCopy": {
+      "bytes": 37168,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/BASE-RUNNER.py",
+      "sha256": "ac1d7e993c7ad90d73ed0d758727c249c1086c2ae02be9942c4548ceb389f5b5"
+    },
+    "baselineRunnerRole": {
+      "bytes": 37168,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/runner.py",
+      "sha256": "ac1d7e993c7ad90d73ed0d758727c249c1086c2ae02be9942c4548ceb389f5b5"
+    },
+    "forwardDiff": {
+      "bytes": 598,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/runner.forward.diff",
+      "sha256": "f943d8c715dfcfca689adabfeea37840a799a75e3a21571d9a94c3a7dfedc5db"
+    },
+    "inverseDiff": {
+      "bytes": 598,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/runner.inverse.diff",
+      "sha256": "7cfd1d027be1de4e981ac1c466d690281ec43bc4ab53198578ab8054f90e5c36"
+    },
+    "newCommandBlockSha256": "e36af5fa14b92bea3b6a33e11b874e6166e2f73207d40e07de15b33c3affbc75",
+    "oldCommandBlockSha256": "ae58b73c0be257ad63345ea92f7c414e48ba340baa60a9b319aaa648f5a7a8a6",
+    "proposedRunner": {
+      "bytes": 37199,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/PROPOSED-RUNNER.py",
+      "sha256": "2544fd53a0c1352a8fcd1072f205019425c936a1a2a8cf8cade446e0bd4e5e92"
+    },
+    "wholeByteInverseExact": true
+  },
+  "limitsPreserved": {
+    "childCommandStreamCapBytes": 8388608,
+    "noOutputWritesToAdmittedMirror": true,
+    "parentPreparationSeconds": 60,
+    "recorderActiveSeconds": 320,
+    "recorderWholeSeconds": 330,
+    "runnerSeconds": 300,
+    "sourceDependenciesAndRootPredicatesUnmodified": true,
+    "sourceOrConfigMaterializationChanged": false
+  },
+  "minimalOperationalDelta": {
+    "child": "root-tsc",
+    "collectionUnmodified": true,
+    "dependencyCheckerUnmodified": true,
+    "filesExcludedOrDiagnosticsSuppressed": false,
+    "fullImportedGraphRemainsChecked": true,
+    "newArgumentCount": 1,
+    "originalArgv": [
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+      "--noEmit"
+    ],
+    "proposedArgv": [
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+      "--noEmit",
+      "--allowImportingTsExtensions"
+    ],
+    "rootCompilerOptionsUnchanged": {
+      "declaration": true,
+      "esModuleInterop": true,
+      "exactOptionalPropertyTypes": true,
+      "forceConsistentCasingInFileNames": true,
+      "lib": [
+        "ES2022"
+      ],
+      "module": "ES2022",
+      "moduleResolution": "bundler",
+      "noFallthroughCasesInSwitch": true,
+      "noImplicitReturns": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "outDir": "dist",
+      "rootDir": ".",
+      "skipLibCheck": true,
+      "strict": true,
+      "target": "ES2022"
+    },
+    "rootConfigUnmodified": true,
+    "rootExcludeExact": [
+      "node_modules",
+      "dist",
+      "tests/bridge*.test.ts",
+      "tests/r3n1-*.test.ts",
+      "tests/fixtures/bridge-contract-union-fixtures.ts"
+    ],
+    "rootIncludeExact": [
+      "src/**/*.ts",
+      "tests/**/*.ts"
+    ],
+    "uiArgvUnmodified": true,
+    "uiCompilerOptionsUnchanged": {
+      "allowImportingTsExtensions": true,
+      "esModuleInterop": true,
+      "exactOptionalPropertyTypes": true,
+      "forceConsistentCasingInFileNames": true,
+      "jsx": "react-jsx",
+      "lib": [
+        "ES2022",
+        "DOM",
+        "DOM.Iterable"
+      ],
+      "module": "ES2022",
+      "moduleResolution": "bundler",
+      "noEmit": true,
+      "noFallthroughCasesInSwitch": true,
+      "noImplicitReturns": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "resolveJsonModule": true,
+      "skipLibCheck": true,
+      "strict": true,
+      "target": "ES2022",
+      "types": [
+        "node",
+        "vitest/globals",
+        "@testing-library/jest-dom"
+      ]
+    }
+  },
+  "reviewAcceptanceCriteria": [
+    "Eleven actual source-position TS5097 errors authenticate to five canonical bridge blobs and exact historical root/UI/config/package lineage.",
+    "Only root noEmit argv gets the one enabling option; no include/exclude/strictness edits, source rewrites, stubs, ignores or result relabeling.",
+    "Whole-file inverse and one-argument AST inverse restore exact R5 runner; independent complete-route hash/binding review precedes a separate root recorded grant."
+  ],
+  "schema": "1370-m0-ts5097-command-repair-proposal/v1",
+  "status": "HELD_SOURCE_ONLY_MINIMAL_ROOT_COMMAND_REPAIR_REQUIRES_INDEPENDENT_REVIEW_AND_FRESH_ROUTE_BINDING",
+  "typescriptContract": {
+    "interpretation": "Allows TypeScript-specific import suffixes for noEmit or emitDeclarationOnly programs. Existing --noEmit satisfies the documented constraint; this proposal changes path eligibility, not type checking or diagnostic suppression.",
+    "source": "https://www.typescriptlang.org/tsconfig/allowImportingTsExtensions.html"
+  }
+}

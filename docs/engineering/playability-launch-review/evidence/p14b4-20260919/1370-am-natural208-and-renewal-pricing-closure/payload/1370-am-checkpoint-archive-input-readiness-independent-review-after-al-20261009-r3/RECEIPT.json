@@ -1,0 +1,272 @@
+{
+  "activePostflightOutputRead": false,
+  "activePostflightParentExcluded": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-fullguard-postflight-parent-after-al-20261009-r3",
+  "actualTypesAccepted": false,
+  "addedPaths": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-independent-observed-review-after-al-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-failed-types-postflight-adapter-independent-source-review-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-independent-source-review-after-al-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-independent-source-review-after-al-20261009-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-fullguard-postflight-parent-after-al-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r4",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-independent-source-review-after-al-20261009-r4",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-root-option-parent-map-author-stop-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r6",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-fullguard-postflight-parent-after-al-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-independent-observed-stop-review-after-al-20261009-r5",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r5",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r6",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-parent-after-al-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-parent-after-al-20261009-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-r6-independent-stop-diagnosis-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-r6-config-write-independent-source-proposal-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-r6-config-write-independent-source-proposal-after-al-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-r6-metadata-stop-postflight-adapter-independent-source-review-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-metadata-stop-original-postflight-adapter-source-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-archive-input-readiness-independent-review-after-al-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-documentation-drafts-independent-after-al-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-draft-builder-source-after-al-20261009-r3",
+    "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-after-al-r2.lane.log",
+    "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-after-al-r2.lane.log.meta",
+    "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-after-al-r3.lane.log",
+    "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-after-al-r3.lane.log.meta"
+  ],
+  "alFinalizerLateThreeRolesPreserved": true,
+  "decision": "PREPARED_EXPLICIT_AM_INPUTS_PENDING_R6_FULL_POSTFLIGHT_NOT_FINAL_ARCHIVE_ADMISSION",
+  "exactLocalRawPathCount": 37,
+  "exactPathCount": 139,
+  "executionAuthorization": false,
+  "finalInventoryNotRun": true,
+  "guardAncestorAlreadyCoversPostflightEvidence": true,
+  "inventoryExecutionReady": false,
+  "localRawBytes": 13574287,
+  "majorFailuresPreserved": true,
+  "newLocalRawClassifications": [
+    {
+      "bytes": 1561,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-fullguard-postflight-parent-after-al-20261009-r2/RAW-LOCAL-ONLY-ROLES.json",
+      "sha256": "84a71c024d816c6ba7f3f0ee7e31d509275895dac2f02d66238cc887fefd2839"
+    },
+    {
+      "bytes": 1563,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-fullguard-postflight-parent-after-al-20261009-r2/RAW-LOCAL-ONLY-ROLES.json",
+      "sha256": "0a2fd43761ec8840c5c32203be7fc44c58db4beb975b6b925d4d2956d5aae8fd"
+    },
+    {
+      "bytes": 1204,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r2/RAW-LOCAL-ONLY-ROLES.json",
+      "sha256": "9c1d193bc026dbf9e8204323a82ec58dea2e845b7fc0993b92c10982953702ab"
+    },
+    {
+      "bytes": 1204,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r3/RAW-LOCAL-ONLY-ROLES.json",
+      "sha256": "76317f750a6c6905177de3a12df4bf5521520cc578df0cc0b7341042cff1574f"
+    }
+  ],
+  "newLocalRawRows": [
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 98239,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-proof-r2/BEFORE-PS.txt",
+      "sha256": "6a67a0cedf7152624667907bcee2d364a9ff21bb4361f03c0055d69c5bcb438f"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 95943,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-proof-r2/AFTER-PS.txt",
+      "sha256": "a0f0cdd8137b401865191780df8581be9e3073bd4b80887ce242fa7686c72af4"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 661698,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-proof-r2/BEFORE-LSOF.bin",
+      "sha256": "1f408c8f0edc3c1baa5eefe709bafdde7056181e1363f57a920f8c5ff7cc8b68"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 656518,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-proof-r2/AFTER-LSOF.bin",
+      "sha256": "ec6bb1e86a600f916f3a03298f2e6a1f8b4749f8724f58fa82220609f1bf2913"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 100885,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-types-r2/BEFORE-PS.txt",
+      "sha256": "4500e8a286b0d405d7a1adacbdd6844c7573f38e8cff8f02d855500bb83fdcd5"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 100442,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-types-r2/AFTER-PS.txt",
+      "sha256": "8045d1eef7e8e157533a67e4fea2330182239d47a4f2729756790bd826b60036"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 665258,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-types-r2/BEFORE-LSOF.bin",
+      "sha256": "962174eb7a3d4238f62902cf9b46780fec2d89972b5d69906df692cb879bbd52"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 671377,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-types-r2/AFTER-LSOF.bin",
+      "sha256": "754903cff10429fbe8cfb14425a6a88a99a9b8d1d996043e8e862f7b14c61f5d"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 95176,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r2/BEFORE-PS.LOCAL",
+      "sha256": "1c9c2fa7b78e1e927c5e9fab947ee6c53954ed46cc03f394896624877f21b58f"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 652778,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r2/BEFORE-LSOF.LOCAL",
+      "sha256": "541a74d7ba490ab79fdb328b0064d3f0fdce37ce31a02fc6220b5b5b4fea6206"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 95422,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r2/AFTER-PS.LOCAL",
+      "sha256": "55a788810ce4103251b1a61ff3bddbd33a703ac06a9744393fe712b37d99dd1b"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 652833,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r2/AFTER-LSOF.LOCAL",
+      "sha256": "0bc521a1dabd12ae8f900ce67ac758fe876371765c2ee613a7f9dfa1dc675a6f"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 96059,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r3/BEFORE-PS.LOCAL",
+      "sha256": "5a83c627a82158a6354c495ab8223e5c5f6eeb793cb402a7dd7f4cf729f5780c"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 658157,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r3/BEFORE-LSOF.LOCAL",
+      "sha256": "1e85534d0077a3631f8ae82c935ea4199e47df566863bdb9ac129719253c90d3"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 96551,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r3/AFTER-PS.LOCAL",
+      "sha256": "355ed2618bc97cde78b344f1a55a79c1fd36e57cacf22c9f5dd04f788e6a1448"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 658157,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r3/AFTER-LSOF.LOCAL",
+      "sha256": "a42564e94408dfc8d20a1accfb874c7323837f3e50fdf937d868f38f0e75025a"
+    }
+  ],
+  "noDuplicateAncestorDescendants": true,
+  "pendingRootUpdates": [
+    {
+      "actualFullPostflightAccepted": false,
+      "actualFullPostflightToolSessionId": 98815,
+      "expectedAdditionalSemanticRawRoles": 4,
+      "expectedTotalOnlyAfterActualClassification": 41,
+      "finalM0SourceAndDependencyProofsAbsent": true,
+      "noSharedGuardPassCanRepairAbsentM0AfterProofs": true,
+      "parentPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-fullguard-postflight-parent-after-al-20261009-r3",
+      "scannerPidPgid": 39702
+    },
+    "Append this fresh readiness/docs package and final builder/input/manifest/review/publication roles without self-hash cycles."
+  ],
+  "previousPlan": {
+    "bytes": 14848,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-archive-input-readiness-independent-review-after-al-20261009-r2/PROPOSED-INPUT-PACKAGES.json",
+    "sha256": "4a3855fe8368ef408e734b69a3e98cda7158d84ab5d25c29b0c2104df96836db"
+  },
+  "proposedPlan": {
+    "bytes": 21920,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-archive-input-readiness-independent-review-after-al-20261009-r3/PROPOSED-INPUT-PACKAGES.json",
+    "sha256": "949487c7e9751221201098f32ed19ead35c2c14eaa74a7bc9524bbd71f1b839b"
+  },
+  "protectedCopiesOrGitReadOrChanged": false,
+  "rawHashesTakenFromExplicitProducerClassifications": true,
+  "rawPayloadRead": false,
+  "rootContinuationAlreadyCoversAllNewRootAdoptionsAndLessons": true,
+  "schema": "1370-am-archive-input-readiness-source-preparation/v3",
+  "sourceRoles": {
+    "currentProofAdoption": {
+      "bytes": 2981,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-CURRENT-PROOF-OBSERVED-ADOPTION.json",
+      "sha256": "8ef61c8f4e2d614ea2c4312db6c884b6cee9dba71e828a485986504beb5ef9b3"
+    },
+    "fullBodyR3HeldSourceAdoption": {
+      "bytes": 1847,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-FULLBODY-R3-HELD-SOURCE-ADOPTION.json",
+      "sha256": "2d528f4e64c051e666f328acca7fa65bbdb65deea784fe89392862bde341eab4"
+    },
+    "latestLessons": {
+      "bytes": 23037,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/LESSONS-r21.md",
+      "sha256": "efe3afd635d51a1c0d3d21487773fa15a3c4f36c0b17212318ffa9fb549aaf06"
+    },
+    "r5StopAdoption": {
+      "bytes": 6399,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-TYPES-STOP-OBSERVED-ADOPTION.json",
+      "sha256": "f3f4c5386c283a230f6905e3429d4e5dd050f986d6acda7c63e304ebd8dd6633"
+    },
+    "r6ActualReadback": {
+      "bytes": 11504,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r6/READBACK.json",
+      "sha256": "1456317c3f33bdba89e30cef89a133a649c79517eed36dda43c6c5f67afe57f3"
+    },
+    "r6ActualTool": {
+      "bytes": 657,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r6/ACTUAL-TOOL.json",
+      "sha256": "bd8a07d9e9f9dd1c308d36b83139f104ab01c32446fd3c2732f762515beb1c7a"
+    },
+    "r6MetadataStopAdapterSourceReview": {
+      "bytes": 1703,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-r6-metadata-stop-postflight-adapter-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "15304a4e2b57fbd76c729c37a391576fc6c7bce3cac4813af04c83752b2bd969"
+    },
+    "r6PendingStopDiagnosis": {
+      "bytes": 10199,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-r6-independent-stop-diagnosis-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "f41ab334cb318283feec98de2a8818aae1a2a0876751ff6b64073f4ea662fe9c"
+    },
+    "r6PossibleConfigWriteMechanismR1": {
+      "bytes": 5258,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-r6-config-write-independent-source-proposal-after-al-20261009-r1/PROPOSAL.json",
+      "sha256": "b437a90a0bfaf7e41a0c1257628a604874496feae8c757ed3567924ff28ee720"
+    },
+    "r6PossibleConfigWriteMechanismR2": {
+      "bytes": 6167,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-r6-config-write-independent-source-proposal-after-al-20261009-r2/PROPOSAL.json",
+      "sha256": "3341dff99805dcd8a793116cc6466439971e6589f3ebfbbc4b1956257b07fcb2"
+    },
+    "r6PreflightAdoption": {
+      "bytes": 3224,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-TYPES-PREFLIGHT-OBSERVED-ADOPTION-R6.json",
+      "sha256": "a15400a7e31a132e4187a42ed31d040ab91522d2c7f437c285e4991b45a024ee"
+    },
+    "r6RootBindingProof": {
+      "bytes": 11553,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-R6-ROOT-ROUTE-BINDING-PROOF.json",
+      "sha256": "eca05c6660643377cfa9ecdbbbae9bb57137b7b5ee3dbab3f476484c04bb65e9"
+    },
+    "r6SourceAdoption": {
+      "bytes": 2015,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-R6-PARENT-R4-SOURCE-ADOPTION.json",
+      "sha256": "372dd827d18f073275b2216a68f3ff454324e6db5d2ca9fe420f861b46a8a5a5"
+    }
+  }
+}

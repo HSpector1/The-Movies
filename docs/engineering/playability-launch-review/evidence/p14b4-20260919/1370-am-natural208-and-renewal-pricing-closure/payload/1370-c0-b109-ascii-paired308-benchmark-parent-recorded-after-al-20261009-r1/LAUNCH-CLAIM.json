@@ -1,0 +1,56 @@
+{
+  "acPower": true,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-lane-after-al-20261009-r1/benchmark.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py",
+    "benchmark"
+  ],
+  "correctnessAdoption": {
+    "bytes": 8077,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-FOCUSED-OBSERVED-ADOPTION.json",
+    "sha256": "cabca84e104aaf7864ad0fa46c0c578b690e1f2b67fd42bca51890773d159a68"
+  },
+  "currentCaptureMetadata": {
+    "ctimeNs": "1791439909827355864",
+    "dev": "16777220",
+    "ino": "166406220",
+    "mode": "33188",
+    "mtimeNs": "1791439909827355864",
+    "nlink": "1",
+    "size": "141237093"
+  },
+  "currentProtection": {
+    "bytes": 10578,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+    "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "freeBytes": 4211625984,
+  "grant": {
+    "bytes": 7059,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/GRANT.json",
+    "sha256": "8d32dd7abb8f8e0bf502242b19854169567e47d948e0fbe74378776a85ee61ba"
+  },
+  "helperGroupVerifiedBeforeExec": true,
+  "helperPgid": 12029,
+  "helperPid": 12029,
+  "helperSid": 12029,
+  "rootPidBecomesHelperPid": true,
+  "routeSourcePins": {
+    "bytes": 9726,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "1800e05d6a9fbab6eae4f4e7a8bee65969da4785e5b47672d1bf06fc4fbba51b"
+  },
+  "routeSourceReview": {
+    "bytes": 34035,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "9b8d4ca1d96e4675c6a589572a1930c31c6f25b722baff1da83f7ee568594502"
+  },
+  "schema": "1370-b109-ascii-paired308-benchmark-launch-claim/v1",
+  "unexpectedHelperWaitIsStop": true
+}

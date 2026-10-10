@@ -1,0 +1,95 @@
+{
+  "actualGameReadback": {
+    "bytes": 3737,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/ACTUAL-GAME-READBACK.json",
+    "sha256": "9af3e1e93ba5c47045bbe7cef9e5f07204454e2275cb0bf5db9212d4e574d2a1"
+  },
+  "actualOutcome": null,
+  "argumentMap": {
+    "bytes": 13089,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-original-postflight-and-output-argument-map-after-al-20261009-r1/MAP.json",
+    "sha256": "e2227b000a118dc80a0e3af63a875ab2d4b7d4a15abf9be2126286f6cf4102e4"
+  },
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "postflight",
+    "postflight-after-al-a208-r4",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+    "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609",
+    "34390"
+  ],
+  "automaticRetry": false,
+  "baseline": {
+    "bytes": 8562268,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+    "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesPid": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": true,
+  "gameAccepted": false,
+  "guardConfig": {
+    "bytes": 3906,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
+    "sha256": "20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41"
+  },
+  "guardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+    "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+  },
+  "independentExactArgvReview": {
+    "bytes": 4318,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-original-postflight-argument-independent-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "07559d6bdb7c40ecec5c57e3f3592038aca147e4c545df62815a826e20547ad2"
+  },
+  "noHelperBecauseOriginalGuardRequiresLockAbsent": true,
+  "ownedScannerPgid": 42893,
+  "ownedScannerPid": 42893,
+  "ownedScannerSid": 42893,
+  "parentAddedStreamCap": null,
+  "perCommandTimeoutSeconds": 180,
+  "protectedFreezeContinues": true,
+  "rawPsFdLocalOnly": true,
+  "recordedGameOwnerPostChecks": [
+    {
+      "id": 34390,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 34390,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    }
+  ],
+  "rootLauncher": {
+    "bytes": 3624,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_postflight_once.py",
+    "sha256": "33ae434fadf1fc3f447079a443ad5e2250e7f04fe056636ed91aed4b2ef34b3b"
+  },
+  "schema": "1370-root-a208-direct-original-full-postflight-grant/v1",
+  "startMonotonic": 100653.016962442,
+  "status": "GRANTED_ONCE_ORIGINAL_FULL_POSTFLIGHT",
+  "stderrPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-postflight-parent-after-al-20261009-r4/postflight.stderr",
+  "stdoutPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-postflight-parent-after-al-20261009-r4/postflight.stdout",
+  "suppliedActualGameOwnedPgids": [
+    34390
+  ],
+  "unknownNumericSupervisorOrNodeIds": true,
+  "utc": "2026-10-10T01:08:32.003526+00:00",
+  "wholeScanDeadline": null
+}

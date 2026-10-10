@@ -1,0 +1,226 @@
+{
+  "schema": "1370-renewal208-pure16-independent-exact-fill-facts/v1",
+  "sourceDeltaChecks": {
+    "configOnlyPermittedExactDeltas": true,
+    "recorderTwoBindingsOnlyAndFullInverseExact": true,
+    "testerNewShaOnlyAndFullInverseExact": true,
+    "configInverseWholeBytesExact": true
+  },
+  "all18RecorderDefinitionsByteExact": {
+    "require": true,
+    "sha": true,
+    "write": true,
+    "metadata": true,
+    "authenticate": true,
+    "process_alive": true,
+    "OwnedChild": true,
+    "start_owned": true,
+    "ready_go": true,
+    "close_startup_fds": true,
+    "clear": true,
+    "alarm": true,
+    "whole_guard": true,
+    "active_guard": true,
+    "observed_exit_guard": true,
+    "child_environment": true,
+    "finalize_result": true,
+    "main": true
+  },
+  "all17OriginalFilesUnchanged": true,
+  "originalChangedNames": [
+    "CONFIG.json",
+    "PROTOCOL-CHECK-RECIPE.json",
+    "RECIPE.json",
+    "record-pure-node.py",
+    "test-report-protocol.py"
+  ],
+  "all16ActualKeyedDrawBindings": [
+    {
+      "talentId": "person-studio-aca408ec-r01-0",
+      "keyedDrawMatches": true,
+      "sourceOrdersMatch": true,
+      "identityMatches": true,
+      "premiumFloorMatches": true,
+      "premiumTierIndex": 2
+    },
+    {
+      "talentId": "person-studio-aca408ec-r01-1",
+      "keyedDrawMatches": true,
+      "sourceOrdersMatch": true,
+      "identityMatches": true,
+      "premiumFloorMatches": true,
+      "premiumTierIndex": 2
+    },
+    {
+      "talentId": "person-studio-aca408ec-r01-2",
+      "keyedDrawMatches": true,
+      "sourceOrdersMatch": true,
+      "identityMatches": true,
+      "premiumFloorMatches": true,
+      "premiumTierIndex": 2
+    },
+    {
+      "talentId": "person-studio-aca408ec-r01-3",
+      "keyedDrawMatches": true,
+      "sourceOrdersMatch": true,
+      "identityMatches": true,
+      "premiumFloorMatches": true,
+      "premiumTierIndex": 2
+    },
+    {
+      "talentId": "person-studio-aca408ec-r01-4",
+      "keyedDrawMatches": true,
+      "sourceOrdersMatch": true,
+      "identityMatches": true,
+      "premiumFloorMatches": true,
+      "premiumTierIndex": 2
+    },
+    {
+      "talentId": "person-studio-aca408ec-r01-5",
+      "keyedDrawMatches": true,
+      "sourceOrdersMatch": true,
+      "identityMatches": true,
+      "premiumFloorMatches": true,
+      "premiumTierIndex": 2
+    },
+    {
+      "talentId": "person-studio-aca408ec-r02-0",
+      "keyedDrawMatches": true,
+      "sourceOrdersMatch": true,
+      "identityMatches": true,
+      "premiumFloorMatches": true,
+      "premiumTierIndex": 1
+    },
+    {
+      "talentId": "person-studio-aca408ec-r02-1",
+      "keyedDrawMatches": true,
+      "sourceOrdersMatch": true,
+      "identityMatches": true,
+      "premiumFloorMatches": true,
+      "premiumTierIndex": 1
+    },
+    {
+      "talentId": "person-studio-aca408ec-r02-2",
+      "keyedDrawMatches": true,
+      "sourceOrdersMatch": true,
+      "identityMatches": true,
+      "premiumFloorMatches": true,
+      "premiumTierIndex": 1
+    },
+    {
+      "talentId": "person-studio-aca408ec-r02-3",
+      "keyedDrawMatches": true,
+      "sourceOrdersMatch": true,
+      "identityMatches": true,
+      "premiumFloorMatches": true,
+      "premiumTierIndex": 1
+    },
+    {
+      "talentId": "person-studio-aca408ec-r02-4",
+      "keyedDrawMatches": true,
+      "sourceOrdersMatch": true,
+      "identityMatches": true,
+      "premiumFloorMatches": true,
+      "premiumTierIndex": 1
+    },
+    {
+      "talentId": "person-studio-aca408ec-r02-5",
+      "keyedDrawMatches": true,
+      "sourceOrdersMatch": true,
+      "identityMatches": true,
+      "premiumFloorMatches": true,
+      "premiumTierIndex": 1
+    },
+    {
+      "talentId": "person-studio-aca408ec-r03-0",
+      "keyedDrawMatches": true,
+      "sourceOrdersMatch": true,
+      "identityMatches": true,
+      "premiumFloorMatches": true,
+      "premiumTierIndex": 1
+    },
+    {
+      "talentId": "person-studio-aca408ec-r03-1",
+      "keyedDrawMatches": true,
+      "sourceOrdersMatch": true,
+      "identityMatches": true,
+      "premiumFloorMatches": true,
+      "premiumTierIndex": 1
+    },
+    {
+      "talentId": "person-studio-aca408ec-r03-2",
+      "keyedDrawMatches": true,
+      "sourceOrdersMatch": true,
+      "identityMatches": true,
+      "premiumFloorMatches": true,
+      "premiumTierIndex": 1
+    },
+    {
+      "talentId": "person-studio-aca408ec-r03-3",
+      "keyedDrawMatches": true,
+      "sourceOrdersMatch": true,
+      "identityMatches": true,
+      "premiumFloorMatches": true,
+      "premiumTierIndex": 1
+    }
+  ],
+  "actualFrameSnapshotByteChecks": {
+    "rawFrameSingleJsonLine": true,
+    "rows": true,
+    "snapshotBytes": true,
+    "snapshotSha": true,
+    "exactAlreadyDecodedSnapshotEncodedBytes": true,
+    "payloadNotDecodedFromCaptureByReviewer": true
+  },
+  "literalLaunchBindings": {
+    "exactControlAndPricingArgv": true,
+    "cwdFreshSource": true,
+    "constructedRecorderOutputPath": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verification-output-after-al-20261009-r1",
+    "controlParent60SecondsAlarmOwnSessionRecordedIDsBeforeExec": true,
+    "pricing60_75_90And1MiB_64KiBBoundsPreserved": true
+  },
+  "originalFailure": {
+    "bytes": 24354,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "d51edfa6966489365bea950568f21dcf979e61803cc923aaf4ee5ac7230fce31"
+  },
+  "originalAcceptedRepair": {
+    "bytes": 18816,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-root-source-review-after-aj-20261009-r2/RECEIPT.json",
+    "sha256": "b3e5f175da6b2cc0076b5486a6f64d24336151f93b18b84c995ca68dc4b4fd7e"
+  },
+  "acceptedGameReview": {
+    "bytes": 24834,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-independent-observed-review-after-al-20261009-r4/RECEIPT.json",
+    "sha256": "e070833564760624ca723d942324381b1dcbdfb23af0d745bbad6e097eb5a01d"
+  },
+  "acceptedGameRootAdoption": {
+    "bytes": 5419,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-GAME-OBSERVED-ADOPTION.json",
+    "sha256": "17fdc2082a68e1dbc9ca646e7a4467ad34c0a68d8eee70fca01e6970e22aaaa2"
+  },
+  "privateSourceGuardRoleHashesAndPathsUnchangedInConfig": true,
+  "privateSourceProofReusedFrom": {
+    "bytes": 18816,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-root-source-review-after-aj-20261009-r2/RECEIPT.json",
+    "sha256": "b3e5f175da6b2cc0076b5486a6f64d24336151f93b18b84c995ca68dc4b4fd7e"
+  },
+  "privateSourceRolesNotRead": [
+    "A_employment.ts",
+    "A_math.ts",
+    "A_talentMarket.ts",
+    "A_talentSummary.ts",
+    "A_tuning.ts",
+    "A_worldgen.ts",
+    "H_employment.ts",
+    "H_math.ts",
+    "H_talentMarket.ts",
+    "H_talentSummary.ts",
+    "H_tuning.ts",
+    "H_worldgen.ts"
+  ],
+  "numericPayEvaluated": false,
+  "controlsRun": false,
+  "pricingRun": false,
+  "executionAuthorization": false
+}

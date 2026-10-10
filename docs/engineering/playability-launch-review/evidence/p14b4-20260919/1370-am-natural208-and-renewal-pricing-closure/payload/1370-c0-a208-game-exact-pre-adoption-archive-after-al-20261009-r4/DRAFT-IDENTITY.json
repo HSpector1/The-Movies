@@ -1,0 +1,19 @@
+{
+  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json",
+  "bindingSemanticSha256": "dc03453dfb291c85f009666c264af7287114dd3e4a4d5851e4da558af743a254",
+  "candidatePinsSha256": "8cc74c5b47a8cc4b6830917c9f4409063dc99ab3c1994b974c20a36252a735d1",
+  "draftBindingSha256": "023187fa9eda57647abc7070f2e3c5aab42aa61d8020ae3b713f29a9367557ef",
+  "draftPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4",
+  "files": {
+    "BINDING-DRAFT.json": "023187fa9eda57647abc7070f2e3c5aab42aa61d8020ae3b713f29a9367557ef",
+    "BINDING-SEMANTIC.json": "db30abab9b0fa41d45c6d8c297f57e1c54a17fc42f3914bd3f20b0c5b714dbd6",
+    "CANDIDATE-PINS.json": "8cc74c5b47a8cc4b6830917c9f4409063dc99ab3c1994b974c20a36252a735d1",
+    "DRAFT-REPORT.json": "f13613f5098118e3ea84f27f810374a53411a8e86d0714dc60d55eff98f36b20",
+    "LAUNCH-SPEC-DRAFT.json": "ee1ef0ca3270cfb82d6ef7eb72b358bf3dbe2c0ffd89084412e38d02cbdae4c0"
+  },
+  "launchAuthorized": false,
+  "productionHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "schema": "1370-witness-r7-filled-draft-identity-r2",
+  "sourcePinsSha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf",
+  "status": "DRAFT_FILLED_UNREVIEWED_UNRUN"
+}

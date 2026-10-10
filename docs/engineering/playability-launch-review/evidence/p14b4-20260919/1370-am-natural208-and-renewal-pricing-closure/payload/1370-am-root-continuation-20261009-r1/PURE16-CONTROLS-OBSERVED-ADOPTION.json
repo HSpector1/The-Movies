@@ -1,0 +1,54 @@
+{
+  "actualTool": {
+    "bytes": 468,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-controls-parent-recorded-after-al-20261009-r1/ACTUAL-TOOL.json",
+    "sha256": "1fdc92d857b118f447c3a9975931d58b1b0db36d9d64b043694a058708ed5b96"
+  },
+  "actualToolExit": 0,
+  "executionAuthorization": false,
+  "game": false,
+  "grant": {
+    "bytes": 2403,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-controls-parent-recorded-after-al-20261009-r1/CONTROLS-GRANT.json",
+    "sha256": "505a8eae43a7132e9cab987cb0f774c66f3cd25358002af7a6f16378b1782c08"
+  },
+  "independentExactSourceReview": {
+    "bytes": 17964,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "2397b7427328670a34cbd6bfa5fd0b3672a0bccf524f73718dc7fbf0eed9fd6e"
+  },
+  "laneReleased": true,
+  "ownershipChecks": [
+    {
+      "id": 44455,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 44455,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "predicateAssertionsBySource": 10,
+  "pricing": false,
+  "schema": "1370-root-pure16-controls-observed-adoption/v1",
+  "sourcePins": {
+    "bytes": 26013,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "1d739f9a686de05dec167816af5784a95295ecc61f11f7df464018dfea6e1c92"
+  },
+  "status": "ROOT_ADOPTED_ACTUAL_REPORT_PROTOCOL_CONTROLS",
+  "stderr": {
+    "bytes": 98,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-controls-parent-recorded-after-al-20261009-r1/controls.stderr",
+    "sha256": "20f07600223b8fe9057d561239cc10f6baa6ac50c34daceeab97c28b080b8a20"
+  },
+  "stdout": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-controls-parent-recorded-after-al-20261009-r1/controls.stdout",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "subtestsBySource": 6,
+  "unittestMethods": 1
+}

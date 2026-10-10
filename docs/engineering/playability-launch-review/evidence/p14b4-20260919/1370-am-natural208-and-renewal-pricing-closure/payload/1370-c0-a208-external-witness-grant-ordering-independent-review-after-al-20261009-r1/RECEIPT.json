@@ -1,0 +1,181 @@
+{
+  "authenticatedEvidence": {
+    "acceptedProcedure": {
+      "bytes": 1634,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-independent-procedure-review-20261008-r1/RECEIPT.json",
+      "sha256": "0d0d0358356653a50d05b10fedfdeb2bee9c66939ec4ab03a83521fc42a9e693"
+    },
+    "actualControlsAdoption": {
+      "bytes": 8775,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json",
+      "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+    },
+    "frozenObserverPins": {
+      "bytes": 9882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+    },
+    "frozenObserverReview": {
+      "bytes": 5517,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+    },
+    "gamePreparationR2Pins": {
+      "bytes": 4741,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/SOURCE-PINS.json",
+      "sha256": "8a52f0fd5cce071fa5b01aa78a8a57db44edc229883362891fd6db29dfeabac6"
+    },
+    "observerPlan": {
+      "bytes": 4086,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/PLAN.md",
+      "sha256": "0a18eff4f23c83dab62eeff3ec83f555bc656c4bf5b2401a93e7bd0ca8cd161d"
+    },
+    "originalAdoptionProcedure": {
+      "bytes": 13112,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-20261008-r2/adopt_reviewed_candidate.py",
+      "sha256": "5361471a3eee369f2418e92353c731ca0b0120020652d678b8a846707d345eb9"
+    },
+    "originalBindingTemplate": {
+      "bytes": 587,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/BINDING-UNFILLED.json",
+      "sha256": "d2ba88acfbf78221d4795a5f8a4f7b0588f2ab43fc60e8b062cda03dcdf8391a"
+    },
+    "originalFillProcedure": {
+      "bytes": 16046,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-20261008-r2/fill_actual_candidate.py",
+      "sha256": "e89850aeea8dbf8dfd57b7efbeea33977028d1fd4fe6f5497cc6bc3cb76a3516"
+    },
+    "originalProcedurePlan": {
+      "bytes": 4273,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-20261008-r2/PLAN.md",
+      "sha256": "f4e270d3724755305d51d1c8b7681530d89f61531138f7a7959e51039be49f94"
+    }
+  },
+  "decision": "ACCEPT_SOURCE_ONLY_EXTERNAL_FINAL_WITNESS_GRANT_ORDERING_DESIGN",
+  "design": {
+    "bytes": 13392,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-witness-grant-ordering-design-after-al-20261009-r1/DESIGN.json",
+    "sha256": "79bc84e010202b5b3899bd610061762c4c0381d2eeb73f2421e15073e1dc5f53"
+  },
+  "executionAuthorization": false,
+  "findings": {
+    "acceptedArrangement": "witnessGrant is present and intentionally null in draft, semantic artifact, archived original and adopted binding. Actual exclusive final grant stays external and is issued only after independent adopted preflight. Do not add witnessGrant to exclusions or mutate the raw binding after accepted preflight.",
+    "actualRawBindingConsumers": "Sink authenticates raw adopted binding SHA before source/frame validation and again after capture. Pipeline takes exact binding path/SHA and immediately records both PIPESTATUS exits; both must be zero. Witness and supervisor authenticate original reviewed source/runtime/bounds roles before game loading.",
+    "conditionalPrefillNotSelected": "A conditional prefill intent does not replace final grant-after-preflight. Proposed external-final record is sufficient; no extra approval hierarchy or early fake grant is needed.",
+    "consumerFinding": "No frozen executable consumer consults witnessGrant. Source review, exact raw binding/pipeline pins and external parent permission remain the launch authority. This absence cannot waive a genuine final root grant.",
+    "dependencyCycleConfirmed": "Final grant depends on adopted preflight; preflight authenticates adopted raw binding SHA; placing that final grant SHA inside immutable binding makes those dependencies circular. This is a contract-ordering ambiguity, not an observed frozen-runtime failure.",
+    "frozenConsumersAuthenticated": {
+      "bounded-sink-a208-held.py": {
+        "bytes": 3682,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/bounded-sink-a208-held.py",
+        "sha256": "9138c982912f53d8241721ec231555de3d8e9dae959e651c9b36dcf96a4f9700"
+      },
+      "bounds-guard.mjs": {
+        "bytes": 4153,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/bounds-guard.mjs",
+        "sha256": "c5a548b45323f57a9e00f24daecbaca53ede29f0e8348ab2a74c72a5f3d1d36f"
+      },
+      "launch-pipeline-a208-held.sh": {
+        "bytes": 1244,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/launch-pipeline-a208-held.sh",
+        "sha256": "46640b541fb04c67fcd5f72602ab128ca056416cd37ad946f248a50da1d6886a"
+      },
+      "outer-recorder.py": {
+        "bytes": 11082,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/outer-recorder.py",
+        "sha256": "bf7cb565ba6c378323393b0e4f7a89de16e278526e34f73295e54c74bc7e8ef8"
+      },
+      "settlement208-core.mjs": {
+        "bytes": 21888,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/settlement208-core.mjs",
+        "sha256": "8d18864aa6943d1aec534a4f78746eb614c66b32862cac80528e9f2d9bee367e"
+      },
+      "supervise.py": {
+        "bytes": 22673,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/supervise.py",
+        "sha256": "45eda307943fb829a321624d7eca4ad5004a7d8e8bdef042a74c8344b61e153e"
+      },
+      "witness-core.mjs": {
+        "bytes": 3520,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/witness-core.mjs",
+        "sha256": "2c0120734ec7d46e59c953a000f195fddadb24ac7c5ab3e65e68ffb801b8d63d"
+      },
+      "witness.mts": {
+        "bytes": 5731,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/witness.mts",
+        "sha256": "f82c50aa830d672de685bbfc6f49951ef56fcc3f4714ffe7b6a31100fe50e704"
+      },
+      "worktree-guard.mjs": {
+        "bytes": 2211,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/worktree-guard.mjs",
+        "sha256": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4"
+      }
+    },
+    "grantBindingRequirements": [
+      "exact adopted binding path/bytes/raw SHA256",
+      "semantic SHA256 and original archived candidate/adoption readback",
+      "exact admitted adopted preflight path/bytes/SHA256",
+      "actual accepted JS13/Python17 root417adabc evidence",
+      "current AL operational protection authority and full accepted guard roles",
+      "exact original observer18/adapters/tool identities and helper argv/cwd/environment",
+      "existing bounds/once-only fresh lane and owner IDs; required full postflight/raw208/full416 acceptance"
+    ],
+    "materialDefects": [],
+    "minimalSourceRefinementAccepted": [
+      "After independent contract review/root source adoption, bind their exact roles in current preparation provenance/config.",
+      "Assert witnessGrant is explicitly present and null at fill, exact candidate review and adoption/preflight; retain it unchanged.",
+      "Keep EXCLUDED exactly status/executionAuthorization/exactReview.",
+      "Prepare/review the existing parent once-only game wrapper to require the accepted adopted preflight and write the exclusive external final grant before invoking exact helper/pipeline argv.",
+      "Do not change frozen18 observer or two accepted adapter source bytes."
+    ],
+    "nineConsumerWitnessGrantLiteralOrIdentifierOccurrences": 0,
+    "noncircularSequenceAccepted": [
+      "Exact fill/candidate semantics retains witnessGrant:null.",
+      "Independent exact candidate/source/procedure review explicitly admits intentional external-grant arrangement.",
+      "Archive/fsync/read back all six originals; adopt only original3 fields; preserve original pins as archived evidence and authenticate new raw binding SHA.",
+      "Independent adopted preflight accepts that exact raw adopted binding and actual current full protection/argv.",
+      "Root issues exclusive final grant external to binding, pinning adopted binding raw SHA and adopted preflight SHA; invokes only exact reviewed once-only wrapper/helper argv.",
+      "Recorded tool/helper/meta/outer/sink exits and single frame, owned-group clearance, full protected postflight and independent raw208/full416 review precede game/vector admission."
+    ],
+    "originalContractAuthenticated": "Both original fill/adoption EXCLUDED sets are exactly status/executionAuthorization/exactReview; witnessGrant remains within semantic SHA. Original adoption exclusively archives/fsyncs/readbacks all six originals and changes only those three fields. Adopted raw binding and unauthorized launch spec are separately emitted, never permission to launch.",
+    "originalProtectionsRetained": "H-first/no-waiver, original observer18 and adapters, complete current protected/dependency/root/FD/no-detach guards, existing clocks/caps and one finite fresh lane, actual helper/meta/outer/sink exit-zero/single-frame/owned-clearance/full protected postflight/raw208/full416 review all remain required. No M0 rematerialization or new readback gate is introduced.",
+    "permissionTiming": "Source-contract adoption permits preparing reviewed source only. Exact fill, adoption, scan and final once-only game grant remain separate explicit root actions. Final wrapper must require genuine admitted adopted preflight and exact adopted raw binding, emit durable exclusive final grant, then invoke only reviewed helper/pipeline argv."
+  },
+  "nextRequiredStep": "Root adopts this source-contract clarification; later source preparation binds exact design/review/adoption roles and enforces explicit null witnessGrant plus unchanged three-field semantics. Review exact filled candidate and later adopted-preflight/game wrapper before respective grants.",
+  "note": {
+    "bytes": 1857,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-witness-grant-ordering-design-after-al-20261009-r1/NOTE.md",
+    "sha256": "c7287d6ddce5285ef622c8b54039e595665624539e9132f8dc2f44867baa76c6"
+  },
+  "pending": {
+    "actualAdoptedPreflight": null,
+    "actualExactCandidateReview": null,
+    "actualFinalWitnessGrant": null,
+    "actualGameOutcome": null,
+    "rootSourceContractAdoption": null
+  },
+  "reviewerProvenance": {
+    "designAuthor": false,
+    "reviewScope": "Independent read-only contract/ordering/consumer-source review. Reviewer previously designed truthful A208 operational authority amendment; this grant-ordering design is authored by another agent.",
+    "runtimeConsumersAuthor": false
+  },
+  "schema": "1370-a208-external-final-witness-grant-ordering-independent-source-review/v1",
+  "sourcePins": {
+    "bytes": 793,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-witness-grant-ordering-design-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "f6e9b2ce0f505a36ca75e526d09a43d4e9d3f33a4eef782c9a98010d2d9bbbd7"
+  },
+  "verification": {
+    "GitCommands": false,
+    "candidateFillOrAdoption": false,
+    "designAndNoteManifestAuthenticated": true,
+    "grantOrPreflightManufactured": false,
+    "guardOrProcessFdScan": false,
+    "namedConsumerSourcesAuthenticated": 9,
+    "namedEvidenceRolesAuthenticated": 10,
+    "privateRootReadsOrWrites": false,
+    "productionObserverAdapterEdits": false,
+    "signalsOrProcessProbes": false,
+    "sourceExecution": false
+  }
+}

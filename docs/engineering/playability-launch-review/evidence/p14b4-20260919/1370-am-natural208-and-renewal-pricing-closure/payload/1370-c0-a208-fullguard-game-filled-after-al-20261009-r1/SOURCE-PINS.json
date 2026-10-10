@@ -1,0 +1,90 @@
+{
+  "actualControlsAdoption": {
+    "bytes": 8775,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json",
+    "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+  },
+  "actualScanGrant": null,
+  "actualScanOutcome": null,
+  "actualScope": {
+    "bytes": 2476,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "5307f365af644cefb94f6eca5bd8188b9e4a4c2198a9ccf6b72f0671dfd32998"
+  },
+  "executionAuthorization": false,
+  "files": {
+    "CONFIG.json": {
+      "bytes": 3906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
+      "sha256": "20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41"
+    },
+    "CONFIG.json.diff": {
+      "bytes": 2847,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json.diff",
+      "sha256": "88eba9996728205250f1e8fb3cead479e96205dfe97de3b11d13472dca442570"
+    },
+    "CONFIG.json.inverse.diff": {
+      "bytes": 2847,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json.inverse.diff",
+      "sha256": "49eb96510ab62f0aebb8902d89fe76aa7df7a8955e6a77c8143c68bf13df7646"
+    },
+    "EXACT-ARGV.json": {
+      "bytes": 5811,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/EXACT-ARGV.json",
+      "sha256": "27742321d65d6ded933956640fa64656662c1a87defb24f0706417dd4e27bcbe"
+    },
+    "LESSONS.md": {
+      "bytes": 672,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/LESSONS.md",
+      "sha256": "66041cb8c1f908ecb09afda84d668e64bcc1b1bef396468ef1162c28d824f1c4"
+    },
+    "README.md": {
+      "bytes": 1920,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/README.md",
+      "sha256": "dae620f486f5f822a6533d5189b70f36e654a2865eaf89d3fbf96d6134569ab7"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 3207,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/SOURCE-PROOF.json",
+      "sha256": "c532eff15f7b58dc97103bdef1e87e51f050406a0a1d405a9265be943db4f261"
+    },
+    "grant_before_fill.py": {
+      "bytes": 9691,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/grant_before_fill.py",
+      "sha256": "5100a89373a729fe7f80714fc740b76d6fc3e45f85c869c381246ac29a21678e"
+    },
+    "snapshot.py": {
+      "bytes": 21984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+      "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+    },
+    "snapshot.py.diff": {
+      "bytes": 744,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py.diff",
+      "sha256": "e3a9bb84a9dcba11259c99f5331846655de4e35bce2bf75b0a1608007a1a809e"
+    },
+    "snapshot.py.inverse.diff": {
+      "bytes": 744,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py.inverse.diff",
+      "sha256": "3efd704b4d96cec0fe009abd657ba618b6be59e0eabee5bf8120ebf31763d335"
+    }
+  },
+  "gameGrant": null,
+  "heldSourcePins": {
+    "bytes": 4886,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "e7fe2bef4cc0e7ff1695c91b821860e4ec568d543c10dcd3f68205531d155c41"
+  },
+  "outputParentRole": {
+    "device": 16777220,
+    "inode": 166821887,
+    "mode": 448,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence"
+  },
+  "publishedReadback": {
+    "bytes": 1250,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+    "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+  },
+  "schema": "1370-a208-al-exact-filled-fullguard-source-pins/v1"
+}

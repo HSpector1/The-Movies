@@ -1,0 +1,10 @@
+{
+  "executionAuthorization": false,
+  "readOnly": true,
+  "receipt": {
+    "bytes": 13217,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-next-performance-independent-design-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "75941eea95fc5531db5cb15cfd45a443bfbf96cdceb18e7859006dd9927efa26"
+  },
+  "schema": "1370-source-only-review-seal/v1"
+}

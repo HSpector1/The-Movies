@@ -1,0 +1,20 @@
+{
+  "actualWitnessGrant": null,
+  "executionAuthorization": false,
+  "files": {
+    "DESIGN.json": {
+      "bytes": 13392,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-witness-grant-ordering-design-after-al-20261009-r1/DESIGN.json",
+      "sha256": "79bc84e010202b5b3899bd610061762c4c0381d2eeb73f2421e15073e1dc5f53"
+    },
+    "NOTE.md": {
+      "bytes": 1857,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-witness-grant-ordering-design-after-al-20261009-r1/NOTE.md",
+      "sha256": "c7287d6ddce5285ef622c8b54039e595665624539e9132f8dc2f44867baa76c6"
+    }
+  },
+  "independentReview": null,
+  "rootAdoption": null,
+  "schema": "1370-a208-external-witness-grant-ordering-design-pins/v1",
+  "status": "SOURCE_ONLY_UNRUN_REVIEW_PENDING"
+}

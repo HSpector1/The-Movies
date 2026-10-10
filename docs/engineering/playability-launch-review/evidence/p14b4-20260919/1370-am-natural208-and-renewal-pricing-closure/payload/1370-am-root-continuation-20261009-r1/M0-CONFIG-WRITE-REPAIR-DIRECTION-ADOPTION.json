@@ -1,0 +1,23 @@
+{
+  "actualCauseProven": false,
+  "actualR6MetadataStopReadback": {
+    "bytes": 11504,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r6/READBACK.json",
+    "sha256": "1456317c3f33bdba89e30cef89a133a649c79517eed36dda43c6c5f67afe57f3"
+  },
+  "automaticRetry": false,
+  "executionAuthorization": false,
+  "historicalFailurePreserved": true,
+  "m0SourcePreservationAccepted": false,
+  "nextWork": "Prepare and independently review a finite actual nested-loader disposable-fixture RED/GREEN route, then obtain its genuine recorded outcome. Separately verify complete M0 content/nonroot metadata and explicitly qualify known root drift before any changed M0 route. External root/workspace configs must preserve all original resolution and collection semantics.",
+  "proposal": {
+    "bytes": 6167,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-r6-config-write-independent-source-proposal-after-al-20261009-r2/PROPOSAL.json",
+    "sha256": "3341dff99805dcd8a793116cc6466439971e6589f3ebfbbc4b1956257b07fcb2"
+  },
+  "schema": "1370-root-config-write-repair-direction-adoption/v1",
+  "status": "ROOT_ADOPTED_PROSPECTIVE_EXTERNAL_CONFIG_REPAIR_DIRECTION_ONLY",
+  "strictProtectionWaived": false,
+  "timestampRestorationAllowed": false,
+  "typesAccepted": false
+}

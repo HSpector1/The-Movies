@@ -1,0 +1,378 @@
+{
+  "activity": {
+    "candidateExecuted": false,
+    "gitRun": false,
+    "guardRun": false,
+    "namedSourceReadsOnly": true,
+    "newScratchDesignOnly": true,
+    "privateRootReadOrWritten": false,
+    "processProbesOrSignals": false,
+    "testsRun": false
+  },
+  "actualFillGranted": false,
+  "cycleAudit": [
+    {
+      "resolution": "Explicit null remains immutable; genuine final grant external after adopted preflight under root2fd adopted contract.",
+      "risk": "Final grant role embedded in raw binding"
+    },
+    {
+      "resolution": "Actual after-fill travels in existing exact receipt; known config authenticates only actual baseline authority.",
+      "risk": "After-fill role in before-fill config/binding"
+    },
+    {
+      "resolution": "Scope authority honestly qualifies before-fill baseline only; later observations remain independently required external records.",
+      "risk": "Root operational authority requiring same candidate after-fill/preflight"
+    },
+    {
+      "resolution": "Existing review pins draft raw/semantic; adopter inserts review role and produces new raw SHA; later preflight/final grant pin new raw.",
+      "risk": "Exact review pins adopted raw binding including own role"
+    },
+    {
+      "resolution": "Preserve original creation order and subsets; identity hashes other five, not itself.",
+      "risk": "Candidate pins/identity hashing self or later file"
+    },
+    {
+      "resolution": "Retain originals; grant external binds actual roles; adopted launch changes original status/binding/exactReview only.",
+      "risk": "Later filling launch null placeholders modifies archived identity"
+    },
+    {
+      "resolution": "Manifest hashes named source files, not itself; independent source receipt pins manifest; root adoption pins receipt/source externally; none becomes its own source input.",
+      "risk": "Source review/adoption hashing itself"
+    }
+  ],
+  "dependencyEdges": [
+    [
+      "known",
+      "source"
+    ],
+    [
+      "source",
+      "fill"
+    ],
+    [
+      "fill",
+      "afterFill"
+    ],
+    [
+      "afterFill",
+      "exactReview"
+    ],
+    [
+      "fill",
+      "exactReview"
+    ],
+    [
+      "source",
+      "exactReview"
+    ],
+    [
+      "exactReview",
+      "adopt"
+    ],
+    [
+      "adopt",
+      "preflight"
+    ],
+    [
+      "preflight",
+      "grant"
+    ],
+    [
+      "grant",
+      "game"
+    ],
+    [
+      "game",
+      "postflight"
+    ]
+  ],
+  "evidence": {
+    "actualControlsAdoption": {
+      "bytes": 8775,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json",
+      "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+    },
+    "externalFinalGrantContractAdoption": {
+      "bytes": 2592,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/EXTERNAL-FINAL-GRANT-DESIGN-ADOPTION.json",
+      "sha256": "2fd088a0ab757f926a451674ddfdaa48d79715479b65982d7fe68f7df918e847"
+    },
+    "externalFinalGrantContractReview": {
+      "bytes": 12621,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-witness-grant-ordering-independent-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "4ba78de8cf9c3f92e2a1ba2f189fb5a85c7e91fb7b7585c1e7dbf4c08b085ef7"
+    },
+    "externalFinalGrantDesign": {
+      "bytes": 13392,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-witness-grant-ordering-design-after-al-20261009-r1/DESIGN.json",
+      "sha256": "79bc84e010202b5b3899bd610061762c4c0381d2eeb73f2421e15073e1dc5f53"
+    },
+    "heldR3Adopter": {
+      "bytes": 17955,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r3/adopt_reviewed_candidate.py",
+      "sha256": "7c495772a0f4702ff991926d374e4ede27450f0241993ef70d7bb8662c58482c"
+    },
+    "heldR3Config": {
+      "bytes": 10325,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r3/CONFIG-PENDING.json",
+      "sha256": "96459fcc3914e1b3c535ecb2f5ebe8ef2ba7a2749b10b35104d5e8b3d5b2405d"
+    },
+    "heldR3Fill": {
+      "bytes": 20998,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r3/fill_actual_candidate.py",
+      "sha256": "5460d78939a21fe97d2ccfb8c784d9a90bfb216eef06dc049e4e0cef8e6cbcfb"
+    },
+    "heldR3Pins": {
+      "bytes": 5065,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r3/SOURCE-PINS.json",
+      "sha256": "816658e02628e3405213f335b1d9d98865636ba76e9464e76fd94d10e9515918"
+    },
+    "originalAcceptedProcedureReview": {
+      "bytes": 1634,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-independent-procedure-review-20261008-r1/RECEIPT.json",
+      "sha256": "0d0d0358356653a50d05b10fedfdeb2bee9c66939ec4ab03a83521fc42a9e693"
+    },
+    "publishedReadback": {
+      "bytes": 1250,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+      "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+    },
+    "sourceScopeAdoption": {
+      "bytes": 2476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-OPERATIONAL-SCOPE-ADOPTION.json",
+      "sha256": "5307f365af644cefb94f6eca5bd8188b9e4a4c2198a9ccf6b72f0671dfd32998"
+    }
+  },
+  "executionAuthorization": false,
+  "fieldAudit": {
+    "adoptedPreflight": {
+      "carrier": "Separate external actual independently/root admitted record",
+      "mustAuthenticate": "Exact adopted raw binding SHA, semantic SHA, original exact review/archive/adoption/new launch source and actual current full guard requirements",
+      "neverInputToBeforeFillConfig": true
+    },
+    "adopter": {
+      "afterFillGateLocation": "After existing exact receipt raw hash/decision/procedure/candidate identity gates, read receipt actualGuardAfterFill exact role; authenticate bytes/path/size/hash, actual accepted status/scope and current source/head/protection linkage before archive or auth mutation.",
+      "archiveAndMutation": "Original six retained durable/fsync/readback; original three fields only; semantic SHA unchanged.",
+      "baselineAndAuthority": "Receipt baseline/authority must equal immutable config exact roles; after-fill external role must be distinct and genuinely measured after actual fill.",
+      "earlyCurrentRoleGate": "Use immutable known-before-fill config only, without expecting after-fill config key.",
+      "sameCli": "Preserve existing three arguments: exact receipt path/hash/filled identity SHA."
+    },
+    "beforeFillConfig": {
+      "actualAuthorityScope": "Root-adopted observed CURRENT BEFORE-FILL baseline/scope only; must be distinct from source-only scope, may not require or embed candidate-dependent after-fill/adopted preflight/final grant.",
+      "constantPaths": "Planned exclusive candidate/binding/lane/archive/adoption paths are known before fill; naming a path is not an observed role.",
+      "futureObservationKeysRemoved": [
+        "actualGuardAfterFill",
+        "adoptedPreflight",
+        "witnessGrant"
+      ],
+      "immutableOnceActualFillSourceReviewed": true,
+      "pendingToday": [
+        "actualOperationalRuntimeAuthority",
+        "actualOperationalRuntimeAuthorityExpectedStatus",
+        "actualGuardBaseline"
+      ],
+      "retainKnownRoles": [
+        "publishedReadback",
+        "sourceScopeAdoption",
+        "externalFinalGrantDesign",
+        "externalFinalGrantContractReview",
+        "externalFinalGrantContractAdoption",
+        "actualOperationalRuntimeAuthority",
+        "actualOperationalRuntimeAuthorityExpectedStatus",
+        "actualGuardBaseline",
+        "roles",
+        "materializerProductionHead",
+        "materializerBindingPath",
+        "materializerSemanticSha256",
+        "materializerSourcePinsSha256",
+        "productionHead",
+        "productionSourceTree",
+        "operationalRemoteRefs",
+        "bootSessionUuid",
+        "bindingTemplateSha256",
+        "launchTemplateSha256"
+      ],
+      "sourceContractFlagsRetained": [
+        "bindingWitnessGrantExplicitNull",
+        "externalFinalGrantIssuanceAfterAdoptedPreflightRequired"
+      ]
+    },
+    "binding": {
+      "exactReview": "Null draft; becomes exact existing review role only during original auth-field adoption.",
+      "noFutureHashes": [
+        "actualGuardAfterFill",
+        "adoptedPreflight",
+        "externalFinalWitnessGrant"
+      ],
+      "operationalRuntimeAuthority": "Only honest admitted BEFORE-FILL root authority exact role from immutable config.",
+      "unchangedSemanticExclusions": [
+        "status",
+        "executionAuthorization",
+        "exactReview"
+      ],
+      "witnessGrant": "Present explicit null, included in semantic identity permanently; final genuine permission external."
+    },
+    "existingExactReviewReceipt": {
+      "actualSixAuthentication": "Existing identity pins all six via raw hashes; reviewer authenticates exact original-path six plus all actual protection source/report/config/review/adoption linkages; no additional receipt stage.",
+      "afterFillSchema": "Do not invent an observed report status/field schema. Bind exact actual produced schema in fresh reviewed operational source once genuine records exist; no generic truthy or exit0-only acceptance.",
+      "decision": "ACCEPT_EXACT_FILLED_UNRUN",
+      "existingFieldsPreserved": [
+        "reviewedDraftBindingSha256",
+        "bindingSemanticSha256",
+        "candidatePinsSha256",
+        "productionHead",
+        "sourcePinsSha256",
+        "adoptionProcedureSha256",
+        "fillProcedureSha256",
+        "exact original binding/candidate path alias"
+      ],
+      "newContractFields": {
+        "actualGuardAfterFill": "Exact external independently/root admitted actual AFTER-FILL role {path,bytes,sha256}; authenticate retained raw bytes, actual schema/scope and linkage once produced.",
+        "actualGuardBaseline": "Exact immutable before-fill config role",
+        "bindingWitnessGrantExplicitNull": true,
+        "externalFinalGrantContractAdoption": "Exact existing root2fd role",
+        "operationalRuntimeAuthority": "Exact immutable before-fill config role"
+      }
+    },
+    "externalFinalGrant": {
+      "carrier": "Separate exclusive parent artifact, genuine last permission",
+      "mustAuthenticate": [
+        "exact adopted raw binding SHA",
+        "actual adopted preflight exact role",
+        "existing exact candidate review actual after-fill role",
+        "before-fill authority/baseline roles",
+        "reviewed procedures/config/observer/adapters/controls/source roles",
+        "exact cwd/env/argv/bounds/once-only lane"
+      ],
+      "notWrittenIntoBinding": true
+    },
+    "fillOutputs": {
+      "hashConstruction": "Raw binding and semantic first; report next; candidate pins authenticates first three; launch authenticates already-created binding/semantic/pins; final identity authenticates first five, never itself.",
+      "launchFuturePlaceholders": "If retained as documentation, actualGuardAfterFill/adoptedPreflight/externalFinalWitnessGrant/witnessGrant remain explicit null in the immutable draft and adopted-launch derivative; actual external observations go in exact review/preflight/final grant, not retrospectively written into six originals.",
+      "measuredHere": [
+        "rootIdentity",
+        "actualFiles",
+        "actualNode",
+        "runner",
+        "launchEnvironment",
+        "freeBytesAtFill",
+        "utc"
+      ],
+      "newReportKnownProvenance": [
+        "actualGuardBaseline",
+        "operationalRuntimeAuthority",
+        "externalFinalGrantContractAdoption",
+        "bindingWitnessGrantExplicitNull"
+      ],
+      "originalSix": [
+        "BINDING-DRAFT.json",
+        "BINDING-SEMANTIC.json",
+        "DRAFT-REPORT.json",
+        "CANDIDATE-PINS.json",
+        "LAUNCH-SPEC-DRAFT.json",
+        "DRAFT-IDENTITY.json"
+      ]
+    },
+    "postflight": {
+      "carrier": "Separate actual retained reports/reviews after game",
+      "noProspectiveAcceptance": true
+    }
+  },
+  "finding": {
+    "heldR3SharedConfigAfterFill": "R3 fill and adopter both authenticate same pinned CONFIG-PENDING. Adopter requires actualGuardAfterFill from that config at lines57-59; fill must run before actual after-fill exists. Updating shared config later would break pinned config provenance, and embedding a candidate-dependent after-fill role before fill would introduce a causal hash cycle. R3 is held, not runnable accepted source.",
+    "locations": {
+      "adopterAfterFillConfigGate": "adopt_reviewed_candidate.py:57-59",
+      "adopterConfigGate": "adopt_reviewed_candidate.py:71-73",
+      "archiveStarts": "adopt_reviewed_candidate.py:128",
+      "exactReceiptGate": "adopt_reviewed_candidate.py:79-82",
+      "fillConfigGate": "fill_actual_candidate.py:74-76",
+      "onlyThreeFields": "adopt_reviewed_candidate.py:133-134"
+    },
+    "rootChoice": "Move actual after-fill role carrier into existing exact candidate review receipt. Preserve immutable BEFORE-FILL config/raw binding and original review/archive/adopt/preflight/final-grant process."
+  },
+  "game": false,
+  "lessons": [
+    "Distinguish immutable source/config inputs from observations generated by their execution.",
+    "Model every role/hash edge before filling pending fields; a null future placeholder cannot become a back-reference silently.",
+    "A parent observation authority should state its actual time interval; honest before-fill baseline authority avoids a candidate-dependent cycle.",
+    "Existing external exact review is the proper carrier for after-fill evidence already required by original procedure; moving carrier needs explicit reviewed contract, not a new gate.",
+    "Raw adopted binding identity remains exact through final external grant and gameplay; preserve earlier originals and failed held drafts."
+  ],
+  "nextSourceSlice": "After independent design review/root source-contract adoption, author one fresh derivative implementing named carrier changes and exact inverse against frozen R3; actual baseline/authority may fill only after genuine independent/root admission and exact operational source review. No fill now.",
+  "pending": {
+    "actualAdoption": null,
+    "actualBaselineAdmission": null,
+    "actualFill": null,
+    "adoptedPreflight": null,
+    "afterFill": null,
+    "exactCandidateReview": null,
+    "externalFinalGrant": null,
+    "gameOutcome": null,
+    "operationalRuntimeAuthority": null
+  },
+  "phases": [
+    {
+      "description": "Existing immutable source, historical copy acceptance, actual controls, current AL publication/scope and admitted actual BEFORE-FILL baseline plus its honest root operational authority. Future observations are absent.",
+      "id": "known"
+    },
+    {
+      "description": "Fresh reviewed fill/adopter/config source authenticates only known-before-fill inputs. Exact preparation source review and root authorization precede fill.",
+      "id": "source"
+    },
+    {
+      "description": "Filler measures current physical facts and exclusively emits original six actual files; draft binding has exactReview:null, executionAuthorization:false and explicit witnessGrant:null.",
+      "id": "fill"
+    },
+    {
+      "description": "Actual full after-fill protection observation and independent/root admission are separate retained external records. They follow actual six files.",
+      "id": "afterFill"
+    },
+    {
+      "description": "The existing exact candidate reviewer authenticates all six, fill/adopter/config provenance, actual before-fill baseline authority, and actual after-fill role. Same receipt supplies actualGuardAfterFill and admits explicit null/external final grant contract.",
+      "id": "exactReview"
+    },
+    {
+      "description": "Adopter authenticates supplied exact receipt and actualGuardAfterFill external role before archiving/mutating; durable archive retains all six originals; binding changes only status/executionAuthorization/exactReview.",
+      "id": "adopt"
+    },
+    {
+      "description": "Fresh actual independently/root admitted adopted preflight authenticates exact adopted RAW binding SHA and original launch/source/current protection requirements.",
+      "id": "preflight"
+    },
+    {
+      "description": "Genuine exclusive external final grant issued last, pins exact adopted RAW binding and actual preflight plus before/after-fill roles, exact reviewed sources, launch argv/cwd/env/bounds. No binding or archived original rewritten.",
+      "id": "grant"
+    },
+    {
+      "description": "Parent-only once-only exact recorded launch consumes external final permission and exact raw binding; observer/adapters unchanged.",
+      "id": "game"
+    },
+    {
+      "description": "Actual complete protected postflight and independent raw208/full416 review are required. No future outcome implied.",
+      "id": "postflight"
+    }
+  ],
+  "preserved": {
+    "adoptionChangedFieldsExactly": [
+      "status",
+      "executionAuthorization",
+      "exactReview"
+    ],
+    "archiveOriginalCount": 6,
+    "currentProductionHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+    "externalAdaptersUnchanged": true,
+    "frozenObserver18": true,
+    "historicalM0SeparateNoRescan": true,
+    "historicalR9Source": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "materializerProductionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+    "originalAcceptedProcedure": "0d0d",
+    "scienceAndBoundsUnchanged": true,
+    "semanticExclusionsExactly": [
+      "status",
+      "executionAuthorization",
+      "exactReview"
+    ]
+  },
+  "schema": "1370-a208-preparation-causal-order-source-contract-design/v1",
+  "status": "SOURCE_ONLY_PROPOSED_CAUSAL_ORDER_AMENDMENT_UNRUN"
+}

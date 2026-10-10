@@ -1,0 +1,62 @@
+{
+  "escape": {
+    "after": "    if (!/[\\u0080-\\uffff]/.test(value)) return ['\"' + value + '\"', value.length + 2]\n",
+    "before": "    if (!/[\\u0000-\\u001f\"\\\\\\u0080-\\uffff]/.test(value)) return ['\"' + value + '\"', value.length + 2]\n",
+    "forward": {
+      "bytes": 491,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-escape.diff",
+      "sha256": "9be049acae4d905f7589e921746eb97fbc2a146deef92f68647bc1497c60a722"
+    },
+    "inverse": {
+      "bytes": 491,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-escape.inverse.diff",
+      "sha256": "063ed67e6910659bb46cc4199d56d3e61fd19b5399314cfc2023bfebd82fe77c"
+    },
+    "role": {
+      "bytes": 2965,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-escape.mjs",
+      "sha256": "be3d5e5135732335b1a3cda54f74034980a9c89887d90854fa17c6fa6d6df81b"
+    },
+    "wholeSourceInverseExact": true
+  },
+  "precheck": {
+    "after": "",
+    "before": "    const withinLimit=Buffer.byteLength(value)<=limit;if(!withinLimit)assert.ok(withinLimit,'STOP_STRING_CAP')\n",
+    "forward": {
+      "bytes": 423,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-precheck.diff",
+      "sha256": "1fcf97c7a71eef86a345e433fd5f7ddff7271afce0b5dd86689abc739e289572"
+    },
+    "inverse": {
+      "bytes": 423,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-precheck.inverse.diff",
+      "sha256": "74a01e444d68e1680c054874858598a44b5a315b623ce2b6636274928f71e397"
+    },
+    "role": {
+      "bytes": 2870,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-precheck.mjs",
+      "sha256": "a6747cee6d60f142fa1d5d9a5b8c174719b5699746f4fca8eaa54914d15060ab"
+    },
+    "wholeSourceInverseExact": true
+  },
+  "unicode": {
+    "after": "    if (!/[\"\\\\]/.test(value)) return ['\"' + value + '\"', value.length + 2]\n",
+    "before": "    if (!/[\\u0000-\\u001f\"\\\\\\u0080-\\uffff]/.test(value)) return ['\"' + value + '\"', value.length + 2]\n",
+    "forward": {
+      "bytes": 482,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-unicode.diff",
+      "sha256": "fee5d7d747bc554766913681750bb8286e0e2977757d950810a7c022a53f91f7"
+    },
+    "inverse": {
+      "bytes": 482,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-unicode.inverse.diff",
+      "sha256": "52412bc0d653694ac22b10c33161fe070d64b6b8eeafc252a04071a6b5f5e9a0"
+    },
+    "role": {
+      "bytes": 2955,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-unicode.mjs",
+      "sha256": "c87c53cd0ece378cef4bb65fbc52026600b3dc83b34cd884f95de476bf2393d0"
+    },
+    "wholeSourceInverseExact": true
+  }
+}

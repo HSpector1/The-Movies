@@ -1,0 +1,87 @@
+{
+  "actualCauseProven": false,
+  "decision": "SOURCE_ONLY_POSSIBLE_CONFIG_BUNDLE_WRITE_MECHANISM",
+  "executionAuthorization": false,
+  "installedVersions": {
+    "nestedVite": "5.4.21",
+    "topLevelVite": "6.4.3",
+    "vitest": "2.1.9"
+  },
+  "limits": [
+    "Static finite installed package reads only; no imports, tests, runtime, private full inventory or Git mutation.",
+    "No proposed executable or actual retry in this source-only proposal."
+  ],
+  "majorLessons": [
+    "Resolve the package actually used by Vitest; top-level Vite6 and nested Vite5 use different config loaders.",
+    "Source proves a possible transient-write mechanism, not actual event attribution.",
+    "Move unavoidable tooling writes outside protected roots while preserving strict metadata checks."
+  ],
+  "notSufficient": [
+    "Redirecting cache alone does not redirect nested Vite5 config sibling writes.",
+    "Top-level Vite6 configLoader options do not describe installed nested Vite5 loader.",
+    "Moving only the root config without auditing workspace extends/project config loads leaves protected-root write paths possible."
+  ],
+  "observedStopDiagnosis": {
+    "bytes": 10199,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-r6-independent-stop-diagnosis-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "f41ab334cb318283feec98de2a8818aae1a2a0876751ff6b64073f4ea662fe9c"
+  },
+  "prospectiveMinimalRepair": "Provide an authenticated external collection config under fresh scratch, keep mirror test root explicit, retain the complete original project/workspace options and core project selection. Externalize any project config that Vite bundles; ensure extends cannot resolve back to an original mirror config. Use absolute references or equivalent fully authenticated rebasing for every original config-relative path. Direct Vite temporary sibling writes into fresh scratch only. No metadata predicate waiver or timestamp repair.",
+  "qualificationCriteria": [
+    "Finite original copied config content must be authenticated against genuine historical source/facts before external derivative construction.",
+    "Complete original workspace/project semantics, includes/excludes, aliases, root, environment, plugins and diagnostic scope retained with pure forward/inverse proofs.",
+    "All temporary/config/cache/output destinations external; original runtime command otherwise retained, no test execution.",
+    "Strict mirror root metadata remains unchanged before/after every child and final full source/dependency proofs succeed.",
+    "Fresh exclusive grant, scoped cleanup and mandatory original full protected postflight required; four child0 alone does not establish acceptance."
+  ],
+  "schema": "1370-independent-r6-config-write-source-proposal/v1",
+  "sourceBasis": [
+    {
+      "finding": "loadConfigFromFile bundles config and passes original resolved path to bundled loader.",
+      "line": 66795,
+      "role": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js"
+    },
+    {
+      "finding": "ESM bundled loader writes a timestamp .mjs sibling of config then asynchronously unlinks it; directory metadata can change despite identical final roster.",
+      "line": 66968,
+      "role": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js"
+    },
+    {
+      "finding": "createVitest honors explicit external options.config; default discovers config under root.",
+      "line": 11453,
+      "role": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/cli-api.DqsSTaIi.js"
+    },
+    {
+      "finding": "workspace project extends resolves against workspaceConfigPath; project roots/config-relative paths require exact preservation.",
+      "line": 9847,
+      "role": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/cli-api.DqsSTaIi.js"
+    },
+    {
+      "finding": "workspace definition is executed by Vitest runner; explicit external workspace needs exact project scope and extends handling.",
+      "line": 10562,
+      "role": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/cli-api.DqsSTaIi.js"
+    }
+  ],
+  "sourceRoles": [
+    {
+      "bytes": 4995,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/package.json",
+      "sha256": "6ea35e567829660d9832744086c18526b9ddebd5358c4a0cadfb0a355925f917"
+    },
+    {
+      "bytes": 4893,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/package.json",
+      "sha256": "e9802045cdc313b6da55ec2e2dd79312074645816089d64f6021f567c10c0a03"
+    },
+    {
+      "bytes": 2086035,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js",
+      "sha256": "bfa94186daff535fefdf286088c1588fad6b02c01ef11cd3b42a6cb3e4c90767"
+    },
+    {
+      "bytes": 358970,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/cli-api.DqsSTaIi.js",
+      "sha256": "46b1b0faedd7050c3e3132eae84f1803f05a046fe1aecf7a6d09f0ab86f11d5b"
+    }
+  ]
+}

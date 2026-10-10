@@ -1,0 +1,19 @@
+{
+  "executionAuthorization": false,
+  "m0SourcePreservationAccepted": false,
+  "metadataFailurePreserved": true,
+  "originalGuardAndArgumentsUnchanged": true,
+  "schema": "1370-root-metadata-stop-postflight-adapter-source-adoption/v1",
+  "source": {
+    "bytes": 4958,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_metadata_stop_postflight_r6_once.py",
+    "sha256": "f97b84ddb61f2313c5dbfe04f5a720cffb81d17673caa479fdfcd5c409089d22"
+  },
+  "sourceReview": {
+    "bytes": 1703,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-r6-metadata-stop-postflight-adapter-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "15304a4e2b57fbd76c729c37a391576fc6c7bce3cac4813af04c83752b2bd969"
+  },
+  "status": "ROOT_ADOPTED_METADATA_STOP_PARENT_ADAPTER_FOR_ORIGINAL_POSTFLIGHT",
+  "typeRetryAuthorized": false
+}

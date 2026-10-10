@@ -1,0 +1,11 @@
+--- r2/opportunityPromises.ts
++++ r3/opportunityPromises.ts
+@@ -270,7 +270,7 @@
+ 
+ export function opportunityAssessment(state: GameState, draft: PromiseDraft & { predicate: OpportunityPredicate }, week: number,
+   reservations: readonly ProfessionalPromise[], capture?: M0FeasibilityCapture): { classification: PromiseClassification; bottleneck: string | null } {
+-  __m0WiringProbe.call('opportunityAssessment')
++  __m0WiringProbe.call('opportunityAssessment', {week,issuer:draft.issuerStudioId,subject:draft.beneficiaryPersonId,family:draft.family,predicate:draft.predicate})
+   const candidates = paths(state, draft, week, true)
+   if (capture !== undefined) capture.record('opportunityCandidates',
+     { candidates: candidates.map(m0PathSummary), reservationCount: reservations.length })

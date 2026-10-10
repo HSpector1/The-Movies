@@ -1,0 +1,10 @@
+{
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "receipt": {
+    "bytes": 17605,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-independent-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "5f0b45f7acbc85798166524e401e50bb2e06822c104f428ad87fe7004f842edf"
+  },
+  "schema": "1370-source-review-seal/v1"
+}

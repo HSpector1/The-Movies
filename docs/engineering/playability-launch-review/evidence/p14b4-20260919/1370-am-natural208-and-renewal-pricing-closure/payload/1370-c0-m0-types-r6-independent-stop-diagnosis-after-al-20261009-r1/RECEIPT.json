@@ -1,0 +1,370 @@
+{
+  "actualFinalStatus": "STOP_POSTFLIGHT_UNVERIFIED",
+  "actualTool": {
+    "bytes": 657,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r6/ACTUAL-TOOL.json",
+    "sha256": "bd8a07d9e9f9dd1c308d36b83139f104ab01c32446fd3c2732f762515beb1c7a"
+  },
+  "allEightStreamsHashVerified": true,
+  "children": [
+    {
+      "argv": [
+        "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6/check-deps.mjs",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+        "/Users/zacheryspector/The-Movies-headless-program",
+        "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+      ],
+      "exit": 0,
+      "name": "dependency-versions",
+      "seconds": 1.469,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 1038,
+      "stdoutSha256": "57ffd6f3cf26f598b7740e928201b00602b1f0fa44f458fb9957fa82aa715071"
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+        "--noEmit",
+        "--allowImportingTsExtensions"
+      ],
+      "exit": 0,
+      "name": "root-tsc",
+      "seconds": 50.663,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+        "-p",
+        "ui/tsconfig.json",
+        "--noEmit"
+      ],
+      "exit": 0,
+      "name": "ui-tsc",
+      "seconds": 45.133,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/vitest",
+        "list",
+        "tests/diagnostic.test.ts",
+        "--project",
+        "core",
+        "--json",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3/20261009-m0-types-after-al-r3/collection.json",
+        "--no-cache"
+      ],
+      "exit": 0,
+      "name": "diagnostic-collection",
+      "seconds": 7.832,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "decision": "OBSERVED_STOP_R6_MIRROR_ROOT_METADATA_DRIFT_PENDING_FULL_POSTFLIGHT",
+  "dependencyAfterPresent": false,
+  "error": "RuntimeError('diagnostic-collection mirror root entry/metadata drift')",
+  "executionAuthorization": false,
+  "firstThreeBoundariesEqual": true,
+  "fourthBoundary": {
+    "after": {
+      "entries": [
+        [
+          "bridge",
+          16832,
+          16777220,
+          166769206,
+          40,
+          1280,
+          1791577446282474179,
+          1791577446282474179
+        ],
+        [
+          "node_modules",
+          41408,
+          16777220,
+          166769275,
+          1,
+          62,
+          1791577446298712967,
+          1791577446298712967
+        ],
+        [
+          "package-lock.json",
+          33188,
+          16777220,
+          166751333,
+          1,
+          149287,
+          1791567229044113154,
+          1791567229065787471
+        ],
+        [
+          "package.json",
+          33188,
+          16777220,
+          166751334,
+          1,
+          2726,
+          1791567229158429215,
+          1791567229202783717
+        ],
+        [
+          "src",
+          16832,
+          16777220,
+          166751335,
+          4,
+          128,
+          1791567234613893016,
+          1791567234613893016
+        ],
+        [
+          "tests",
+          16832,
+          16777220,
+          166751538,
+          471,
+          15072,
+          1791567307170045969,
+          1791567307170045969
+        ],
+        [
+          "tsconfig.json",
+          33188,
+          16777220,
+          166752408,
+          1,
+          706,
+          1791567273264477522,
+          1791567273292032823
+        ],
+        [
+          "tsconfig.src.json",
+          33188,
+          16777220,
+          166752409,
+          1,
+          119,
+          1791567273314012826,
+          1791567273332387407
+        ],
+        [
+          "ui",
+          16832,
+          16777220,
+          166752410,
+          11,
+          352,
+          1791567306940089544,
+          1791567306940089544
+        ],
+        [
+          "vitest.config.ts",
+          33188,
+          16777220,
+          166753260,
+          1,
+          176,
+          1791567306979694396,
+          1791567306998603060
+        ],
+        [
+          "vitest.workspace.ts",
+          33188,
+          16777220,
+          166753261,
+          1,
+          1489,
+          1791567307021069393,
+          1791567307040365658
+        ]
+      ],
+      "identity": [
+        16777220,
+        166751332,
+        16832,
+        13,
+        416,
+        1791600924862151724,
+        1791600924862151724
+      ],
+      "rosterSha256": "aa0270269ea341ec4d0029307c799518b5ff89e81b0044d165763408ea533f57"
+    },
+    "before": {
+      "entries": [
+        [
+          "bridge",
+          16832,
+          16777220,
+          166769206,
+          40,
+          1280,
+          1791577446282474179,
+          1791577446282474179
+        ],
+        [
+          "node_modules",
+          41408,
+          16777220,
+          166769275,
+          1,
+          62,
+          1791577446298712967,
+          1791577446298712967
+        ],
+        [
+          "package-lock.json",
+          33188,
+          16777220,
+          166751333,
+          1,
+          149287,
+          1791567229044113154,
+          1791567229065787471
+        ],
+        [
+          "package.json",
+          33188,
+          16777220,
+          166751334,
+          1,
+          2726,
+          1791567229158429215,
+          1791567229202783717
+        ],
+        [
+          "src",
+          16832,
+          16777220,
+          166751335,
+          4,
+          128,
+          1791567234613893016,
+          1791567234613893016
+        ],
+        [
+          "tests",
+          16832,
+          16777220,
+          166751538,
+          471,
+          15072,
+          1791567307170045969,
+          1791567307170045969
+        ],
+        [
+          "tsconfig.json",
+          33188,
+          16777220,
+          166752408,
+          1,
+          706,
+          1791567273264477522,
+          1791567273292032823
+        ],
+        [
+          "tsconfig.src.json",
+          33188,
+          16777220,
+          166752409,
+          1,
+          119,
+          1791567273314012826,
+          1791567273332387407
+        ],
+        [
+          "ui",
+          16832,
+          16777220,
+          166752410,
+          11,
+          352,
+          1791567306940089544,
+          1791567306940089544
+        ],
+        [
+          "vitest.config.ts",
+          33188,
+          16777220,
+          166753260,
+          1,
+          176,
+          1791567306979694396,
+          1791567306998603060
+        ],
+        [
+          "vitest.workspace.ts",
+          33188,
+          16777220,
+          166753261,
+          1,
+          1489,
+          1791567307021069393,
+          1791567307040365658
+        ]
+      ],
+      "identity": [
+        16777220,
+        166751332,
+        16832,
+        13,
+        416,
+        1791577446298737027,
+        1791577446298737027
+      ],
+      "rosterSha256": "aa0270269ea341ec4d0029307c799518b5ff89e81b0044d165763408ea533f57"
+    },
+    "name": "diagnostic-collection"
+  },
+  "fullPostflight": null,
+  "limits": [
+    "Finite retained evidence and qualified runner source reads only; no execution, private scans, Git mutation or signals.",
+    "Collection file exists and lists one diagnostic test, but original runner authentication was not reached.",
+    "No transient-write cause established by this receipt."
+  ],
+  "majorLessons": [
+    "Zero exit from all four children is insufficient when enclosing metadata preservation fails.",
+    "The root compiler flag repairs the demonstrated TS5097 cause but does not establish route acceptance.",
+    "Identical final entries and roster hash can coexist with changed directory mtime/ctime; transient writes require a cause supported by evidence.",
+    "A strict metadata failure leaves source/dependency after-proofs unavailable; do not relabel this as preserved source or repair timestamps.",
+    "Mandatory original protected postflight and scoped owned absence remain required after STOP."
+  ],
+  "postflightError": "RuntimeError('admitted directory metadata .')",
+  "recordedIds": [
+    27153,
+    27410,
+    27430
+  ],
+  "recorderGroupClear": true,
+  "recorderResult": {
+    "bytes": 893,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r3/20261009-m0-types-after-al-r3.RECORDER-RESULT.json",
+    "sha256": "a7510f15a02a1cf17dd84aa9fb7dba8de56e7ffa07faa8dca36797ccdd6f8053"
+  },
+  "result": {
+    "bytes": 26635,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3/20261009-m0-types-after-al-r3/RESULT.json",
+    "sha256": "85e1f6763f40b8232b851ef2caf3611ed9e3b6d3962d748eeeda063da608d781"
+  },
+  "retainedCollection": {
+    "bytes": 238,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3/20261009-m0-types-after-al-r3/collection.json",
+    "sha256": "5e6d1f48f5aa9721c571e0e3d6429a5e1041760e49efa3837346dd5a89050a3a"
+  },
+  "rootScopedAbsenceChecks": null,
+  "schema": "1370-independent-r6-stop-diagnosis-pending-full-postflight/v1",
+  "sourceAfterPresent": false,
+  "typesAccepted": false
+}

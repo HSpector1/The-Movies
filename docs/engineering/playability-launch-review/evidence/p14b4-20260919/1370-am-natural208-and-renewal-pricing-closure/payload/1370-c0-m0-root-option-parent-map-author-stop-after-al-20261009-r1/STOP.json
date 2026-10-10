@@ -1,0 +1,23 @@
+{
+  "author": "/root/cleanup_independent_red",
+  "cause": "Author updated argv index8 (phase) instead of index9 (label). Immutable held R3 says new label in phase position and retains old label; original scanner would reject phase. No invocation or runtime occurred.",
+  "correctLabelArgIndex": 9,
+  "decision": "STOP_HELD_PARENT_R3_MAP_PHASE_LABEL_INDEX_ERROR_NO_RUNTIME",
+  "executionAuthorization": false,
+  "heldMap": {
+    "bytes": 18663,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/MAP.json",
+    "sha256": "5daeb05cfff8b5efe1a3179c9aae5055dc21a3f6db31d49ab2013d608e5f9e66"
+  },
+  "heldSourcePins": {
+    "bytes": 6119,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/SOURCE-PINS.json",
+    "sha256": "d05e115cd0ed201ef621bccf0af7c7d86652c1146af206ca78efbc050dd83193"
+  },
+  "incorrectPhaseArgIndex": 8,
+  "newLabel": "postflight-after-al-m0-types-r3",
+  "originalPhase": "postflight",
+  "runtimeExecuted": false,
+  "schema": "1370-m0-parent-map-author-source-stop/v1",
+  "scope": "Acceptance blocker in documentary exact argv; no production/private mutation, scan failure or false runtime admission. Preserve R3 and use fresh R4 corrected source after independent review."
+}

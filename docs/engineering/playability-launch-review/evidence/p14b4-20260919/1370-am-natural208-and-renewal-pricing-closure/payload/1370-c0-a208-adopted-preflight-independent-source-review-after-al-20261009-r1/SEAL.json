@@ -1,0 +1,26 @@
+{
+  "schema": "1370-a208-adopted-preflight-independent-source-review-seal/v1",
+  "executionAuthorization": false,
+  "files": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-source-review-after-al-20261009-r1/FORWARD.independent.diff",
+      "sha256": "b26ed256ef6a2d5c51ce70e5fd14d6482f4cd14b733ae9b349eef4b5f026a4a3",
+      "bytes": 34305
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-source-review-after-al-20261009-r1/INVERSE.independent.diff",
+      "sha256": "2d385c247ce29ca4663aa819c03209459262813284591ac367b63252032281c7",
+      "bytes": 34305
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "3d8823b26a07a7ad84743a05371b3cf514ac24d497c1dd4885bb1a8192975b9a",
+      "bytes": 2978
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-source-review-after-al-20261009-r1/REPORT.md",
+      "sha256": "6c5b6764e8822371d6051f34b88d86ceef5eb0290b19c16d48a65709a9ba4fe2",
+      "bytes": 1426
+    }
+  ]
+}

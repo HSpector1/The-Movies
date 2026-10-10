@@ -1,0 +1,62 @@
+{
+  "actualFailureReadback": {
+    "bytes": 6507,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r5/READBACK.json",
+    "sha256": "940fe91bee93b9a78a4a4a138aa3397088f047434a43481f4a1ee00e417e895e"
+  },
+  "actualStop": {
+    "errorCode": "TS5097",
+    "errors": 11,
+    "files": 5,
+    "recordedOwnedIds": [
+      49780,
+      50035,
+      50062
+    ],
+    "recorderExit": 1,
+    "rootCompilerExit": 2,
+    "runnerExit": 1,
+    "sixRecordedScopedChecks": "ESRCH",
+    "sourceDependencyProofsEqual": true,
+    "toolExit": 1,
+    "toolSessionId": 79362,
+    "unrunCommands": [
+      "ui-tsc",
+      "diagnostic-collection"
+    ]
+  },
+  "actualStopPredicatesMatchRecordedFailure": true,
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_FAILED_TYPES_ORIGINAL_POSTFLIGHT_PARENT_ADAPTER_ONLY",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "limitations": [
+    "Source-only finiteevidence reads; no generatedsourceexecution,tests,Node,Git/private inventories/processprobes/signals.",
+    "Fullpostflight scopeunchangednineprotectedroots/R9/shareddeps/currentAL; M0proofseparate.",
+    "No types/collection/game acceptance orretry authorization."
+  ],
+  "originalGuardSourceConfigBaselineCopyMapArgumentsInventoryCapsTimeoutOwnershipCleanupAndOutputRolesUnchanged": true,
+  "remaining": "Root separately invokes mandatoryoriginalsharedfullpostflight; fullpostflightactual+observedSTOPreceipt remainpending.",
+  "schema": "1370-m0-failed-types-postflight-adapter-independent-source-review/v1",
+  "sourceASTParseOnly": true,
+  "sourcePins": {
+    "M0-FAILED-TYPES-POSTFLIGHT-ADAPTER.json": {
+      "bytes": 2212,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-FAILED-TYPES-POSTFLIGHT-ADAPTER.json",
+      "sha256": "cc115912c0e14265f16739b25898671a5a13fdaa46e07cda6b5c6a22810c2271"
+    },
+    "originalParentPostflightLauncher.py": {
+      "bytes": 4016,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_postflight_once.py",
+      "sha256": "7239e2f2050484393905fff1694fba7c445c7566a757e266d3e57817b9158310"
+    },
+    "run_m0_failed_types_postflight_once.py": {
+      "bytes": 4250,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_failed_types_postflight_once.py",
+      "sha256": "8cfc673c40e272de990b9e2135e29f066c762fe7f8215bc18e1b2816ad61e3f4"
+    }
+  },
+  "sourceScope": "Allow required originalsharedfullpostflight after genuineall1typesSTOP/rootcompiler2; preservesfailure and neverretries/typesruns orrelabelsSTOP.",
+  "threeExactLiteralReplacementsVerified": true,
+  "wholeFileInverseEqualsPreservedOriginal": true
+}

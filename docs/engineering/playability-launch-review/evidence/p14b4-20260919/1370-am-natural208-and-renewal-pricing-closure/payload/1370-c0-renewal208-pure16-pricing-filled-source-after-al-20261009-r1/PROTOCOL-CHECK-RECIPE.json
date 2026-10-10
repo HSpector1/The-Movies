@@ -1,0 +1,50 @@
+{
+  "acceptance": "Actual tool/control exit0, exact unittest1method success, all six subtests and ten expected RED/GREEN/refusal assertions; retained raw stdout/stderr and recorded-ID postflight. Test runner stderr is expected protocol, not pricing child stderr.",
+  "actualRun": false,
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/test-report-protocol.py"
+  ],
+  "checks": "old RED/intended16 GREEN; six wrong field values, missing cause flag and nonempty stderr refuse",
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1",
+  "executionAuthorization": false,
+  "expectedGroups": 1,
+  "expectedPredicateAssertions": 10,
+  "expectedSubtests": 6,
+  "expectedUnittestMethods": 1,
+  "fixtureKind": "explicitly synthetic report only; AST-extracted frozen recorder predicate; no recorder/pricing import, child, Node, engine, RNG or pay computation",
+  "parentRecording": {
+    "actualControlExit": null,
+    "actualGrant": null,
+    "actualOutcome": null,
+    "actualRecordedIds": null,
+    "alarmArmedBeforeExec": true,
+    "alarmPersistsExec": true,
+    "alarmSeconds": 60,
+    "parentOwnSessionBeforeExec": true,
+    "parentSerialization": true,
+    "postOwnership": null,
+    "recordBeforeExec": [
+      "actualPid",
+      "actualPgid",
+      "actualSid"
+    ],
+    "route": "direct recorded exec; no helper or adapter",
+    "stdoutStderrRedirectedToFreshOwnedFiles": true
+  },
+  "recorder": {
+    "bytes": 14539,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/record-pure-node.py",
+    "sha256": "dd76ceec50be94b50a4ff52c8a070ec9a691b9bbe781fabc1ac0914543bf0346"
+  },
+  "separateParentBoundedGrantRequired": true,
+  "sourceParentBoundAuthority": "Root task authorizes source recipe only: direct recorded control exec with60s alarm; parent solely grants/runs.",
+  "status": "SOURCE_ONLY_EXACT_FILLED_UNRUN_SYNTHETIC_PROTOCOL",
+  "tester": {
+    "bytes": 2082,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/test-report-protocol.py",
+    "sha256": "d4385758b42abdc3d6c56b87949e93c9083da4b9bdc465ae092bfceee9ad6194"
+  }
+}

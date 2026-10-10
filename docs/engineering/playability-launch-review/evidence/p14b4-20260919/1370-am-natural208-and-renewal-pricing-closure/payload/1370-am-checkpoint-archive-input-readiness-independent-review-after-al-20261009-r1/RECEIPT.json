@@ -1,0 +1,239 @@
+{
+  "alFinalizerLateThreeAlreadyCovered": [
+    "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+    "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/STAGED-READBACK.json",
+    "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/stage_and_verify.py"
+  ],
+  "benchmarkAliasNote": "Benchmark executable source remains in named after-al-r1 source package. R2 independent source-review aliases are explicitly added; no nonexistent source-r2 package invented. Accepted benchmark measurement/root adoption declines ASCII performance promotion.",
+  "builder": {
+    "bytes": 3147,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-root-finalization-20261009-r1/prepare_inventory.py",
+    "sha256": "3418ee7d62f76bf50d1ccfd215134c02364dbe74fa8b361dfb56a51081f86b8b"
+  },
+  "builderAndDraftExplicitlyAdded": true,
+  "catalogAnchorRoles": {
+    "a208FinalReview": {
+      "bytes": 24834,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-independent-observed-review-after-al-20261009-r4/RECEIPT.json",
+      "sha256": "e070833564760624ca723d942324381b1dcbdfb23af0d745bbad6e097eb5a01d"
+    },
+    "a208RootAdoption": {
+      "bytes": 5419,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-GAME-OBSERVED-ADOPTION.json",
+      "sha256": "17fdc2082a68e1dbc9ca646e7a4467ad34c0a68d8eee70fca01e6970e22aaaa2"
+    },
+    "benchmarkActualReview": {
+      "bytes": 16965,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-observed-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "3965c8bcbe196ca809844cecfbc380a29d8ea05a1b9f7de4dc0e60717357cb96"
+    },
+    "benchmarkR2Review": {
+      "bytes": 34035,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "9b8d4ca1d96e4675c6a589572a1930c31c6f25b722baff1da83f7ee568594502"
+    },
+    "benchmarkRootAdoption": {
+      "bytes": 3509,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-BENCHMARK-OBSERVED-ADOPTION.json",
+      "sha256": "1baf86e2d320ba2743ad377688726fbdf4c342a17b733bc1f44bc1891ff84cd7"
+    },
+    "m0ProofSourcePins": {
+      "bytes": 7521,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r1/SOURCE-PINS.json",
+      "sha256": "6948a3b8e0a9a830c76f4fe867e6ec44b1af8647a686b59ff6cd7d277dd62dee"
+    },
+    "m0ProofSourceReview": {
+      "bytes": 17605,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-independent-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "5f0b45f7acbc85798166524e401e50bb2e06822c104f428ad87fe7004f842edf"
+    },
+    "m0R3Stop": {
+      "bytes": 9627,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r3/RECEIPT.json",
+      "sha256": "07aeb15fb7be8a03b583f99bfc113bc5da95fd726fbf97493b54921c9740c9c4"
+    },
+    "m0R4SourceAcceptance": {
+      "bytes": 22411,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r4/RECEIPT.json",
+      "sha256": "2d6ab3da894efc86513a6909471781aed7a4ddddcd9f9475e33a71031e71aec0"
+    },
+    "pure16FilledSourceReview": {
+      "bytes": 17964,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "2397b7427328670a34cbd6bfa5fd0b3672a0bccf524f73718dc7fbf0eed9fd6e"
+    },
+    "pure16PricingReadback": {
+      "bytes": 2769,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-parent-recorded-after-al-20261009-r1/READBACK.json",
+      "sha256": "cf1edd9cf025ee7a70f7acb2581f5143bb95ce0d0b6a4771e16af2808dcd6380"
+    }
+  },
+  "decision": "READY_PROPOSED_FINITE_AM_ARCHIVE_INPUTS_NOT_FINAL_ARCHIVE_ADMISSION",
+  "draft": {
+    "bytes": 6403,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-root-finalization-20261009-r1/INPUT-PACKAGES-DRAFT.json",
+    "sha256": "a5ad8611b61c1c52484974743a37bb6e2f2de3b93364e68b8a1c69892b9e6595"
+  },
+  "executionAuthorization": false,
+  "forbiddenPrivateTraversalRoles": [],
+  "localOnlyRoleCount": 17,
+  "localOnlyRoles": [
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 95450,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/BEFORE-PS.txt",
+      "priorGitBlob": null,
+      "sha256": "4f971e3e65db395b859d908ae8c7b348a97c20caec980d19b5691b40811d5569"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 95472,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/AFTER-PS.txt",
+      "priorGitBlob": null,
+      "sha256": "ab04755070b272df5370cf34179c960ed4ee6a9843a04ed4c40d25243c5da536"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 647037,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/BEFORE-LSOF.bin",
+      "priorGitBlob": null,
+      "sha256": "a1250656b465f1f80350d71fcf5bc358abbc6b5df45524cdd92b49fc99ce540b"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 652448,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/AFTER-LSOF.bin",
+      "priorGitBlob": null,
+      "sha256": "e683537ca8698560542fa00a4a81fabab37fcc89657bdedd89ecb9ad769b2645"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 96852,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/after-fill-after-al-game-r4/BEFORE-PS.txt",
+      "priorGitBlob": null,
+      "sha256": "97d8f5d00526827dcc5fa896ee853ece2e53c2a7e1df0a717d37011b5f66cfc4"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 95195,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/after-fill-after-al-game-r4/AFTER-PS.txt",
+      "priorGitBlob": null,
+      "sha256": "9f0d6d510088e048a53991c9d5ef6d4a554a8607a6b26eefbb48e2cdb5dc8175"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 650698,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/after-fill-after-al-game-r4/BEFORE-LSOF.bin",
+      "priorGitBlob": null,
+      "sha256": "82468fb6a54cf0d31c5923f73b4e54582e2d86793c2ef8d3abaf348a5a31a190"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 652229,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/after-fill-after-al-game-r4/AFTER-LSOF.bin",
+      "priorGitBlob": null,
+      "sha256": "1d16ebcbeaf07889ada4dd4812e7b04b4510ad057785602982e486775c401b59"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 94554,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4/BEFORE-PS.txt",
+      "sha256": "33d2fad2356c054af35c87b9de4c49b721677580deb4cf481026f61e66e09bef"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 97649,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4/AFTER-PS.txt",
+      "sha256": "9aaf5b45eb8b79ee6313990b1ac55354284b8a667e7cbe5c1801f0c4110dbab4"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 643214,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4/BEFORE-LSOF.bin",
+      "sha256": "d4ef46c8c6bb2aa6870d012546bd8f85b436744f89fcc80ccc0538889ef0b840"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 648627,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4/AFTER-LSOF.bin",
+      "sha256": "5b57793259444c5082f330d5f8f1e67b38a46b80a3d9847356d0eed494537e5b"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 95911,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-output-after-al-20261009-r2/BEFORE-PS.LOCAL",
+      "sha256": "c7b56901338844f63a8ad4bd8b820966ac51aadcf57701335adfef4ee0ed10a0"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 650421,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-output-after-al-20261009-r2/BEFORE-LSOF.LOCAL",
+      "sha256": "f3ef5b90633c2f585a4e7c4ece8bfbad7cb0528aa4dc3ac198370cfb95af0e6e"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 95491,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-output-after-al-20261009-r2/AFTER-PS.LOCAL",
+      "sha256": "e9287b36bada9bb5f735e141b5fd185a49bfb5008d03fb2839bd0c1dd849a9a3"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 652136,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-output-after-al-20261009-r2/AFTER-LSOF.LOCAL",
+      "sha256": "944376a7bccac7b5fb3373c408541b8b8b4609134aae8faccaa88e74b5ce00dc"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 74319,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/ACTIVE-PS.LOCAL",
+      "sha256": "313aa90fa51d5abb033062a1485b77ed4bd4cd75f85ac70d663af4f9f19c15c4"
+    }
+  ],
+  "localOnlyTotalBytes": 6037703,
+  "m0Scope": "Preserve R1-R4 executor sources, exact R3 STOP07aeb and R4 static source acceptance2d6ab plus proof source6948/review5f0b. Source proposals/acceptances are not actual M0 collection/proof outcomes.",
+  "noPrivateOrDependencyRootsCatalogued": true,
+  "nonRegularRoles": [],
+  "omittedExistingPackages": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-independent-observed-review-after-al-20261009-r4",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-observed-review-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-lane-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-output-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-independent-review-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r3",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r4",
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-controls-parent-recorded-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-operational-fill-control-pricing-map-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-independent-source-review-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-lane-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-parent-recorded-after-al-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verification-output-after-al-20261009-r1"
+  ],
+  "omittedPackageCount": 21,
+  "originalPathCount": 56,
+  "prohibitedActionsPerformed": false,
+  "proposedInputs": {
+    "bytes": 11584,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-archive-input-readiness-independent-review-after-al-20261009-r1/PROPOSED-INPUT-PACKAGES.json",
+    "sha256": "441d0456ec6deb85c3df35bd41bc7cb5893e7049ff1ea9766d9aa7d028ef4c66"
+  },
+  "proposedPathCount": 79,
+  "pure16Scope": "Filled source2397 and actual pricing tool94067/output/readback are included as evidence. Readback currently reports ACTUAL_PURE16_PAIRS_AGREE_PENDING_INDEPENDENT_REVIEW; this readiness receipt does not independently admit pricing or renewal cause. Protocol/control refusal evidence remains included as produced.",
+  "rawRoleMethod": "Explicit four existing classification documents plus game ACTIVE-OWNERSHIP rawPs metadata; only stat type/size/nlink and named finite-package metadata checked. No raw PS/FD contents read or rehashed. Raw byte hashes retained as recorded roles. All detector-named raw roles inside proposed finite packages match exact explicit localRawPaths.",
+  "remainingAppendOnlyWork": [
+    "Root must append this readiness package and exact final input/builder roles when freezing the final archive list; avoid any self-hash/circular inventory role.",
+    "Future actual M0 grant/measurement/output/review/adoption packages remain open and must be added only when genuinely produced.",
+    "Any later pure16 independent observed review/root adoption must be appended if produced; none inferred by this prep.",
+    "Final inventory and repository report/HANDOFF claim review are still required before archive admission; this is preparation only."
+  ],
+  "rootContinuationAlreadyCoversNewAdoptions": true,
+  "schema": "1370-independent-am-archive-input-readiness/v1",
+  "sourceOnly": true
+}

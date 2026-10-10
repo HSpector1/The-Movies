@@ -1,0 +1,17 @@
+{
+  "actualRuntimeOrSourceChanged": false,
+  "correction": "The retained recorder SyntaxWarning at line239 return code belongs to main() outer finally, not to the separately named finalize_result() function. The parent phrase original finalize_result return inside finally is imprecise.",
+  "field": "parentRecorderDiagnostic",
+  "helperCombinedLogIsNotEmpty": true,
+  "independentObservedReviewPending": true,
+  "originalOutcomeBytesUnchanged": true,
+  "originalToolOutcome": {
+    "bytes": 2926,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r2/TOOL-OUTCOME.json",
+    "sha256": "62757de8d1a2597bd9f365a9a357596d2650df730a1d25b7358cf0c3c6244f15"
+  },
+  "producerStderrBytes": 0,
+  "schema": "1370-root-b109-parent-diagnostic-attribution-correction/v1",
+  "status": "CORRECTION_TO_PARENT_FUNCTION_NAME_ONLY",
+  "warningPreserved": true
+}

@@ -1,0 +1,515 @@
+{
+  "schema": "1370-m0-full-body-fixture-resolver-independent-held-source-review/v1",
+  "decision": "ACCEPT_SOURCE_ONLY_HELD_R3_ISSUER_AND_FREEZE_ORDERING_REPAIRS",
+  "independentReviewer": "/root/b109_focused_route_review",
+  "sourceAuthor": "/root/m0_fullbody_runtime_prep",
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/SOURCE-PINS.json",
+    "sha256": "2703e1453288f7fea1008757e921e9e62eda8ea4ac9130931f99e325baeee15f",
+    "bytes": 10016
+  },
+  "routeSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/SOURCE-PINS.json",
+    "sha256": "2703e1453288f7fea1008757e921e9e62eda8ea4ac9130931f99e325baeee15f",
+    "bytes": 10016
+  },
+  "sourcePinsSha256": "2703e1453288f7fea1008757e921e9e62eda8ea4ac9130931f99e325baeee15f",
+  "sourceSeal": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/SEAL.json",
+    "sha256": "bc3ba8f8a1928429febece98c47284e3220f8d0e1a03e3499417445a99279ea4",
+    "bytes": 712
+  },
+  "sourceProof": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/SOURCE-PROOF.json",
+    "sha256": "745c011c9e98f86115730a10121aa08a3c2e57514cb558d375577a407ccd882b",
+    "bytes": 6886
+  },
+  "findings": [],
+  "concreteFindings": [],
+  "sourceAccepted": true,
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "automaticRetry": false,
+  "controlsReadyForRuntime": false,
+  "actualFixtures": null,
+  "actualFixtureRoles": null,
+  "actualTypesAccepted": false,
+  "actualControlsAccepted": false,
+  "actualCatchMutantRedAccepted": false,
+  "actualNeutralityAccepted": false,
+  "actualOperationalProtectionAccepted": false,
+  "repairs": {
+    "F1_MARKET_ISSUER_FIELD_MISMATCH": "Repaired. Market Row and candidate row matching use issuerStudioId; source.context.issuer matches order.issuerStudioId. Real producer market schema is unchanged.",
+    "F2_FREEZE_PREDICATE_COMPLETENESS_OMITTED": "Repaired. Every submitted proposal is bound to complete flattened twelve-slot issuer/digest/source-index/occurrence/name/ordinal projection, week, sole FAILED/drop slot, permissible PASSED/conditional noSeatForRole NOT_EVALUATED prefix and strict NOT_REACHED/NOT_EVALUATED suffix. Helper is called by full projection consumer."
+  },
+  "checks": {
+    "all33PayloadRolesAuthenticated": true,
+    "sourcePinsSealProofAuthenticate": true,
+    "wholeOrderingInverseExact": true,
+    "twelveImplementationRolesByteUnchanged": {
+      "canonical-resolver.mjs": true,
+      "config.mjs": true,
+      "fixtures.ts": true,
+      "core.test.ts": true,
+      "controls/full-body-controls.ts": true,
+      "derivative/src/core/employment.ts": true,
+      "derivative/src/core/m0WiringProbe.ts": true,
+      "derivative/src/core/opportunityPromises.ts": true,
+      "derivative/src/core/promises.ts": true,
+      "derivative/src/core/rng.ts": true,
+      "derivative/src/core/talentMarket.ts": true,
+      "mutants/typed-propagation-removed-talentMarket.ts": true
+    },
+    "F1MarketIssuerStudioIdCorrect": true,
+    "F2FullTwelveSlotFlattenedProjection": true,
+    "extraDuplicateMissingReorderedSlotsRejectedByExactArrayEquality": true,
+    "proposalDigestSourceIndexOccurrenceIssuerBound": true,
+    "soleFailedOrdinalBoundToDrop": true,
+    "noSeatForRoleOnlyConditionalNotEvaluatedPrefix": true,
+    "allSuffixStatusesAndValuesBound": true,
+    "weekBoundToFreeze": true,
+    "helperIntegratedIntoActualProjectionConsumer": true,
+    "twoProposedGreenSixteenProposedRedSourceInspectedNotExecuted": true
+  },
+  "ordering": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ordering.ts",
+    "sha256": "e40ea62523d13e1c74361766757b85faa14acdb889bc57f7ae452449a361bb1d",
+    "bytes": 11339
+  },
+  "orderingInverse": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/diffs/ordering.ts.inverse.diff",
+    "sha256": "4f01d990046a8b9c6bd79a0aeb6bd841cc7456d7b5c760f4e76b87cee25161fd",
+    "bytes": 5894
+  },
+  "orderingPredecessorCopy": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/predecessor/ordering.ts",
+    "sha256": "34ae1ca995188fc5b52fcdf203325ab508f3f11882ffb51f8165b5709a166c5e",
+    "bytes": 8471
+  },
+  "syntheticWitnessSourceCases": {
+    "sourceMethod": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ordering-source-controls.ts",
+      "sha256": "e4109cd7a2560639c483ffbcc5fd4b65864c77148add2ad8e1289b096382241f",
+      "bytes": 2237
+    },
+    "sourcePacket": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+      "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7",
+      "bytes": 27476
+    },
+    "claim": "SYNTHETIC_WITNESS_CONSUMER_INPUTS_NOT_GAME_STATES_OR_OBSERVED_RESULTS",
+    "proposedGreen": 2,
+    "proposedRed": 16,
+    "actualGreen": null,
+    "actualRed": null,
+    "executed": false,
+    "gameStateFixtures": false,
+    "catchMutantRedEvidence": false,
+    "caseAudit": [
+      {
+        "id": "author-two-issuers-schema-GREEN",
+        "proposedExpectation": "GREEN",
+        "method": "author",
+        "intendedAssertion": null,
+        "sourceReason": "Complete declared synthetic witness shape follows repaired consumer branches.",
+        "executed": false
+      },
+      {
+        "id": "freeze-complete-prefix-failure-suffix-GREEN",
+        "proposedExpectation": "GREEN",
+        "method": "freeze",
+        "intendedAssertion": null,
+        "sourceReason": "Complete declared synthetic witness shape follows repaired consumer branches.",
+        "executed": false
+      },
+      {
+        "id": "candidate-other-issuer-grouping-RED",
+        "proposedExpectation": "RED",
+        "method": "author",
+        "intendedAssertion": "evaluated and skipped candidates preserve full order",
+        "sourceReason": "The declared edit reaches its named assertion under the repaired consumer, by source inspection.",
+        "executed": false
+      },
+      {
+        "id": "candidate-context-issuer-correlation-RED",
+        "proposedExpectation": "RED",
+        "method": "author",
+        "intendedAssertion": "every actual evaluation binds an authenticated source-array projection",
+        "sourceReason": "The declared edit reaches its named assertion under the repaired consumer, by source inspection.",
+        "executed": false
+      },
+      {
+        "id": "freeze-missing-slot-RED",
+        "proposedExpectation": "RED",
+        "method": "freeze",
+        "intendedAssertion": "complete identity-bound freeze predicate order",
+        "sourceReason": "The declared edit reaches its named assertion under the repaired consumer, by source inspection.",
+        "executed": false
+      },
+      {
+        "id": "freeze-swapped-slots-RED",
+        "proposedExpectation": "RED",
+        "method": "freeze",
+        "intendedAssertion": "complete identity-bound freeze predicate order",
+        "sourceReason": "The declared edit reaches its named assertion under the repaired consumer, by source inspection.",
+        "executed": false
+      },
+      {
+        "id": "freeze-wrong-name-RED",
+        "proposedExpectation": "RED",
+        "method": "freeze",
+        "intendedAssertion": "complete identity-bound freeze predicate order",
+        "sourceReason": "The declared edit reaches its named assertion under the repaired consumer, by source inspection.",
+        "executed": false
+      },
+      {
+        "id": "freeze-wrong-ordinal-RED",
+        "proposedExpectation": "RED",
+        "method": "freeze",
+        "intendedAssertion": "complete identity-bound freeze predicate order",
+        "sourceReason": "The declared edit reaches its named assertion under the repaired consumer, by source inspection.",
+        "executed": false
+      },
+      {
+        "id": "freeze-wrong-occurrence-RED",
+        "proposedExpectation": "RED",
+        "method": "freeze",
+        "intendedAssertion": "complete identity-bound freeze predicate order",
+        "sourceReason": "The declared edit reaches its named assertion under the repaired consumer, by source inspection.",
+        "executed": false
+      },
+      {
+        "id": "freeze-wrong-issuer-RED",
+        "proposedExpectation": "RED",
+        "method": "freeze",
+        "intendedAssertion": "complete identity-bound freeze predicate order",
+        "sourceReason": "The declared edit reaches its named assertion under the repaired consumer, by source inspection.",
+        "executed": false
+      },
+      {
+        "id": "freeze-failure-slot-missing-RED",
+        "proposedExpectation": "RED",
+        "method": "freeze",
+        "intendedAssertion": "freeze predicate FAILED slot agrees with drop",
+        "sourceReason": "The declared edit reaches its named assertion under the repaired consumer, by source inspection.",
+        "executed": false
+      },
+      {
+        "id": "freeze-drop-disagrees-RED",
+        "proposedExpectation": "RED",
+        "method": "freeze",
+        "intendedAssertion": "freeze predicate FAILED slot agrees with drop",
+        "sourceReason": "The declared edit reaches its named assertion under the repaired consumer, by source inspection.",
+        "executed": false
+      },
+      {
+        "id": "freeze-early-unreached-RED",
+        "proposedExpectation": "RED",
+        "method": "freeze",
+        "intendedAssertion": "freeze predicate prefix status",
+        "sourceReason": "The declared edit reaches its named assertion under the repaired consumer, by source inspection.",
+        "executed": false
+      },
+      {
+        "id": "freeze-suffix-resumes-RED",
+        "proposedExpectation": "RED",
+        "method": "freeze",
+        "intendedAssertion": "freeze predicate suffix is NOT_REACHED",
+        "sourceReason": "The declared edit reaches its named assertion under the repaired consumer, by source inspection.",
+        "executed": false
+      },
+      {
+        "id": "freeze-suffix-values-forged-RED",
+        "proposedExpectation": "RED",
+        "method": "freeze",
+        "intendedAssertion": "unreached predicate has no evaluated values",
+        "sourceReason": "The declared edit reaches its named assertion under the repaired consumer, by source inspection.",
+        "executed": false
+      },
+      {
+        "id": "freeze-second-failure-RED",
+        "proposedExpectation": "RED",
+        "method": "freeze",
+        "intendedAssertion": "freeze predicate FAILED slot agrees with drop",
+        "sourceReason": "The declared edit reaches its named assertion under the repaired consumer, by source inspection.",
+        "executed": false
+      },
+      {
+        "id": "freeze-illegal-not-evaluated-prefix-RED",
+        "proposedExpectation": "RED",
+        "method": "freeze",
+        "intendedAssertion": "freeze predicate prefix status",
+        "sourceReason": "The declared edit reaches its named assertion under the repaired consumer, by source inspection.",
+        "executed": false
+      },
+      {
+        "id": "freeze-unknown-drop-RED",
+        "proposedExpectation": "RED",
+        "method": "freeze",
+        "intendedAssertion": "freeze drop names an existing predicate",
+        "sourceReason": "The declared edit reaches its named assertion under the repaired consumer, by source inspection.",
+        "executed": false
+      }
+    ],
+    "independentStaticAssessment": "The two-issuer proposed GREEN exposes the original undefined-market-issuer grouping defect. The freeze proposed GREEN covers a complete survivor and a first-failure/unreached-suffix proposal. Sixteen edited RED inputs reach their named assertions by source inspection. Missing/extra/duplicate/reordered predicate rows fail exact flattened-array equality even where no separate extra-row case is supplied. The harness accepts only matching AssertionError messages for proposed RED, excluding loader/operational substitution. No source method was run; the original R2 lacks the new helper and no missing-export failure is counted as meaningful RED."
+  },
+  "preservedAuthority": {
+    "r2Stop": {
+      "bytes": 20064,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "949ff2cfa022bbaeed177d7d8ba75ec4e388f58d33be9edb608b0ae63f451c12"
+    },
+    "r2SourcePins": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/SOURCE-PINS.json",
+      "bytes": 7683,
+      "sha256": "c588b4aa72d84ceab8fa67030e0b747345b4fc58820fbf56ed0978b9aa379722"
+    },
+    "originalHeldReview": {
+      "bytes": 20666,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "af4a51151b1c04e18b6b41d03feed32b97aba7c9d3f0d7cbdc69e815d025b881"
+    },
+    "rootHeldDesignAdoption": {
+      "bytes": 1726,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-FULLBODY-HELD-DESIGN-SOURCE-ADOPTION.json",
+      "sha256": "d61438e23ad54f42c50f31f0c81e14a54f36f6ed629d950884a8dbace7a9ecb8"
+    },
+    "r2StopUnmodified": true,
+    "unsealedPreparatoryR1NotAdmitted": true
+  },
+  "sourceScopePreserved": {
+    "twelveImplementationRolesUnchanged": {
+      "canonical-resolver.mjs": true,
+      "config.mjs": true,
+      "fixtures.ts": true,
+      "core.test.ts": true,
+      "controls/full-body-controls.ts": true,
+      "derivative/src/core/employment.ts": true,
+      "derivative/src/core/m0WiringProbe.ts": true,
+      "derivative/src/core/opportunityPromises.ts": true,
+      "derivative/src/core/promises.ts": true,
+      "derivative/src/core/rng.ts": true,
+      "derivative/src/core/talentMarket.ts": true,
+      "mutants/typed-propagation-removed-talentMarket.ts": true
+    },
+    "canonicalResolverCyclicIdentityPriorSourceAssessmentRetained": true,
+    "naturalSeedAnd196197208BoundaryPrefixPriorSourceAssessmentRetained": true,
+    "syntheticGameVariantPremisesStillUnproved": true,
+    "originalFullBodiesSharedProbeFaultRestoreAndOneCatchMutantUnchanged": true,
+    "noAdditionalGamePolicyOrFixtureMethodRepair": true,
+    "noNewGate": true
+  },
+  "remainingOriginalRuntimeWork": {
+    "recordedRoute": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/RECORDED-ROUTE-UNFILLED.json",
+      "sha256": "88d77ade4274b271277babe603bc59cfa1018fb5065eb5453375bcc5bc9bf480",
+      "bytes": 3563
+    },
+    "actualRecorderSupervisorToolsGrantsStreamsLifecycleCleanupFixtureArtifactBoundAndQualifiedClockRole": null,
+    "actualFixtures": null,
+    "operationalProtection": null,
+    "actualM0Types": null,
+    "typesHistory": "Parent reports R5 tool79362 failure (eleven TS5097 extension-import errors, dependency checker0/root tsc2, UI and collection unrun). Original failure remains preserved; R6 flag-repair source is pending its separate review. No type acceptance is supplied here.",
+    "clockIntentOnly": {
+      "child": 300,
+      "recorder": 320,
+      "whole": 330
+    },
+    "catchMutantExpectedRedStillRequiresSpecificActualMissingPropagationAssertion": true,
+    "loaderFixtureOverflowTimeoutFailureNotCatchMutantRed": true
+  },
+  "authenticatedNamedRoles": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/SOURCE-PINS.json",
+      "sha256": "2703e1453288f7fea1008757e921e9e62eda8ea4ac9130931f99e325baeee15f",
+      "bytes": 10016
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/SEAL.json",
+      "sha256": "bc3ba8f8a1928429febece98c47284e3220f8d0e1a03e3499417445a99279ea4",
+      "bytes": 712
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/LESSONS.md",
+      "sha256": "948d8eabcd370604008af023899f7bf14e8f10e45bcc1872143d057ace4ffcda",
+      "bytes": 3810
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/NEXT-STEPS.md",
+      "sha256": "6ca07bc048d8104794f519f2fa96768e27b1528d817bc5573fb563532c3667e4",
+      "bytes": 6932
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+      "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7",
+      "bytes": 27476
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/RECORDED-ROUTE-UNFILLED.json",
+      "sha256": "88d77ade4274b271277babe603bc59cfa1018fb5065eb5453375bcc5bc9bf480",
+      "bytes": 3563
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/RESOLUTION-SOURCE-BINDING.json",
+      "sha256": "f752d87a093b15fc45ca7c6bf70705793d91836a19e314ab907a9e82a7422e28",
+      "bytes": 77168
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/SOURCE-PROOF.json",
+      "sha256": "745c011c9e98f86115730a10121aa08a3c2e57514cb558d375577a407ccd882b",
+      "bytes": 6886
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/build-continuation.py",
+      "sha256": "02618706e2d3eb824ee34f7842f53ded33195ae5f99ef06dff51d0800a9dbe17",
+      "bytes": 8039
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/canonical-resolver.mjs",
+      "sha256": "429cc7b8ad0f6be2f851a2f10ef431d63192b912e0864c7602fd6072c4ae14fd",
+      "bytes": 2363
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/config.mjs",
+      "sha256": "39036ee18c368b5166f1dc8ea191cf8bdffca6d2b1316e29aa4ec84590c39a96",
+      "bytes": 1016
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/controls/full-body-controls.ts",
+      "sha256": "a74fd2342b7cc8b5cdb059acd187e68c49f9c6d9e35b46ceaf2166829d35e71c",
+      "bytes": 9385
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/core.test.ts",
+      "sha256": "b2af5a489d29cb285d89b37cedd3a87f5275f90cfdc46574a6b541fde51f25da",
+      "bytes": 2528
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/employment.ts",
+      "sha256": "07262d62f6c6de0a849e5bfea124d01be2dbcbbb7edb7b3b6ead32025318b75a",
+      "bytes": 28353
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/m0WiringProbe.ts",
+      "sha256": "3a3d75e5d849a94e14806239566bc72ca10af497bca71925a6f59d7db5714a85",
+      "bytes": 2457
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/opportunityPromises.ts",
+      "sha256": "90d49b0c76553a06d9c0bbabe568b8624270fe939b8e502a26fac9adc99065ee",
+      "bytes": 25031
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/promises.ts",
+      "sha256": "0e14a0056d8d70ed2b93d217bc0829c6284142fd9ed93033ce8880e56691b6cb",
+      "bytes": 113287
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/rng.ts",
+      "sha256": "04a835a5f63bf64994d01608423876b8d3a0e2862c8da095212848683becf9e5",
+      "bytes": 8719
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/talentMarket.ts",
+      "sha256": "ce06afb3069c83dc1d9ee1fb8a03b7f1609c0db41fc3ea8078b455061455ed2d",
+      "bytes": 119434
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/diffs/controls.forward.diff",
+      "sha256": "45d9e81b018d4b4d9eb992abf7bf1e0536cd202d2218f72e8cc3532b6efb471d",
+      "bytes": 3980
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/diffs/opportunityPromises.ts.forward.diff",
+      "sha256": "209c5e36edc2a219e8914d0040401c095f932451523caee83189f81f67b42888",
+      "bytes": 794
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/diffs/opportunityPromises.ts.inverse.diff",
+      "sha256": "bb145c4b46f8645ce48ee6ee4ccd7f0c62cff19219587ed0524686a26a11015b",
+      "bytes": 794
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/diffs/ordering.ts.forward.diff",
+      "sha256": "a3604bfa3273e3638f5be9fe2d3458d55db694ee85b7fd8ae325314d56422a9b",
+      "bytes": 5894
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/diffs/ordering.ts.inverse.diff",
+      "sha256": "4f01d990046a8b9c6bd79a0aeb6bd841cc7456d7b5c760f4e76b87cee25161fd",
+      "bytes": 5894
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/diffs/talentMarket.ts.forward.diff",
+      "sha256": "0e16c805bf42ddc840d793c8f6c89e8471cd382233a710dd0396393c20730111",
+      "bytes": 1394
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/diffs/talentMarket.ts.inverse.diff",
+      "sha256": "8e6f08f02b2386e2b38dc4ddc60346fea20ce0c0a0d7c4a5ce0c60c24ba116bb",
+      "bytes": 1394
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/final-readback.py",
+      "sha256": "26f9d03009534d7b3a651673cb59e67c54d10697d280f0ddd9fa35018cdc21e1",
+      "bytes": 2190
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/finish-r3.py",
+      "sha256": "7db357d30efef593f07a84af4dfa03a97dcb6f050388fddce41b5ffccbf9dfa6",
+      "bytes": 7644
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/fixtures.ts",
+      "sha256": "5ff38007b8126571e9fa84a9efe94f35866be409d3c35b22f9c90b5ce3e0315d",
+      "bytes": 6863
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/mutants/typed-propagation-removed-talentMarket.ts",
+      "sha256": "074d0cfd58e245bb35883b79bf72dda428884fc2bb49ea918da6f2320c235ef3",
+      "bytes": 119464
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ordering-source-controls.ts",
+      "sha256": "e4109cd7a2560639c483ffbcc5fd4b65864c77148add2ad8e1289b096382241f",
+      "bytes": 2237
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ordering.ts",
+      "sha256": "e40ea62523d13e1c74361766757b85faa14acdb889bc57f7ae452449a361bb1d",
+      "bytes": 11339
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/predecessor/ordering.ts",
+      "sha256": "34ae1ca995188fc5b52fcdf203325ab508f3f11882ffb51f8165b5709a166c5e",
+      "bytes": 8471
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/repair-r2.py",
+      "sha256": "9fdc303a4e37a0adb5bd9eefc2f16258ccda3e9010de784cad166b650f8c89ee",
+      "bytes": 8987
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/seal-source.py",
+      "sha256": "4406815dbfc08d60a02149cac279ce6e514c2607bf129ce1efc8dc9d95ff07a9",
+      "bytes": 3229
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "949ff2cfa022bbaeed177d7d8ba75ec4e388f58d33be9edb608b0ae63f451c12",
+      "bytes": 20064
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/SOURCE-PROOF.json",
+      "sha256": "67187f03a0233197d2c3a98822382d6775c10b4feb50c60a79658982d7d25076",
+      "bytes": 4969
+    }
+  ],
+  "limits": {
+    "finiteNamedScratchSourceAndProofReadsOnly": true,
+    "noSourceProgramsImportedCompiledExecutedOrTested": true,
+    "noNodeGameFixtureGenerationPrivateMirrorInventoryGitMutationProcessProbeOrAutomaticSourceEditing": true,
+    "noRuntimeReadyOrGamePromotionClaim": true
+  }
+}
+

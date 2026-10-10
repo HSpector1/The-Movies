@@ -1,0 +1,38 @@
+PASS exact primitives and finite number rendering
+PASS captured key order, integer keys and escaping
+PASS undefined object omission and sparse-array null
+PASS shared references are allowed while cycles refuse
+PASS own toJSON refuses; inherited toJSON is ignored like baseline
+PASS unsupported atoms and nonfinite numbers refuse
+PASS exact-fit and cap refusal for every small budget
+PASS string raw precheck and escaped token budget
+PASS property-key cache is per call and cannot mask object mutation
+PASS getter visitation order remains identical
+PASS deterministic nested corpus
+PASS stateful first-check and second-value reads
+PASS dynamic array shrink and growth preserve emitted length
+PASS null prototypes prevent inherited hooks including array pollution
+PASS safe proto keys and integer ordering
+PASS token caps and refusals never serialize source containers
+PASS proxy reverse and mixed integer order exact bytes and caps
+PASS nested and shared proxy order is fresh on each occurrence
+PASS proxy omitted names preserve all original hook traces
+PASS proxy stateful values retain two reads and undefined refusal
+PASS null handler ignores inherited get and descriptor traps
+PASS token emission creates no clone Proxy wrapping
+PASS chunk whole-token count and UTF8 byte seams retain exact-fit caps
+PASS oversized whole tokens preserve Unicode escaping and cap refusals
+PASS late refusal after multiple chunks cannot return or retain partial output
+PASS source getters Proxy traces and dynamic length stay exact across seams
+PASS shared references repeated keys and mutation remain fresh across chunks and calls
+PASS chunk token architecture and unusual limit coercion preserve original checkpoints
+PASS ascii128 values keys eligible mixtures empty slash DEL
+PASS native fallback escapes unicode separators surrogate values keys
+PASS raw rendered cumulative key caps and ordered limit coercions
+PASS byte and token flush seams oversized whole tokens late refusal
+PASS source getters proxies two reads dynamic lengths both branches
+PASS shared repeated keys mutations fresh calls no container stringify clone
+EXPECTED_RED escape exclusion mutant
+EXPECTED_RED unicode byte-size mutant
+EXPECTED_RED raw precheck mutant
+{"schema":"1370-b109-ascii-controls/v1","status":"ORIGINAL28_ASCII6_MUTANT3_EXPECTED_RED_GREEN_PASSED","originalGroups":28,"originalPairs":321,"newGroups":6,"newPairs":344,"totalGroups":34,"totalPairs":665,"expectedRed":3,"unexpectedRed":0,"groups":[{"name":"ascii128 values keys eligible mixtures empty slash DEL","status":"GREEN","pairs":268},{"name":"native fallback escapes unicode separators surrogate values keys","status":"GREEN","pairs":34},{"name":"raw rendered cumulative key caps and ordered limit coercions","status":"GREEN","pairs":9},{"name":"byte and token flush seams oversized whole tokens late refusal","status":"GREEN","pairs":15},{"name":"source getters proxies two reads dynamic lengths both branches","status":"GREEN","pairs":8},{"name":"shared repeated keys mutations fresh calls no container stringify clone","status":"GREEN","pairs":10}],"mutants":[{"name":"escape exclusion mutant","status":"EXPECTED_RED","shape":"exact native string and key byte mismatch on quote backslash LF"},{"name":"unicode byte-size mutant","status":"EXPECTED_RED","shape":"é missing terminal byte and budget3 wrongly admitted"},{"name":"raw precheck mutant","status":"EXPECTED_RED","shape":"STRING versus JSON cap plus missing ordered coercion checkpoint"}],"game":false,"saveImports":false,"captureDecode":false,"performanceWin":false}

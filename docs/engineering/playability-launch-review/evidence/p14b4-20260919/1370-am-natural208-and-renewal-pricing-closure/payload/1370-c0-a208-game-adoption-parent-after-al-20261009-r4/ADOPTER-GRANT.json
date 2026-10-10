@@ -1,0 +1,106 @@
+{
+  "actualGuardAfterFill": {
+    "bytes": 8565365,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/after-fill-after-al-game-r4/SNAPSHOT.json",
+    "sha256": "64da19fd4b46d8d0311360cbc08a90d57817175c781e2f73e4fd850925771719"
+  },
+  "actualOriginalSix": {
+    "BINDING-DRAFT.json": {
+      "bytes": 6212,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json",
+      "sha256": "023187fa9eda57647abc7070f2e3c5aab42aa61d8020ae3b713f29a9367557ef"
+    },
+    "BINDING-SEMANTIC.json": {
+      "bytes": 6109,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-SEMANTIC.json",
+      "sha256": "db30abab9b0fa41d45c6d8c297f57e1c54a17fc42f3914bd3f20b0c5b714dbd6"
+    },
+    "CANDIDATE-PINS.json": {
+      "bytes": 1013,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/CANDIDATE-PINS.json",
+      "sha256": "8cc74c5b47a8cc4b6830917c9f4409063dc99ab3c1994b974c20a36252a735d1"
+    },
+    "DRAFT-IDENTITY.json": {
+      "bytes": 1296,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/DRAFT-IDENTITY.json",
+      "sha256": "4e182d6bc66b2ac1e6a6d13c1d99415264d762ea095e7ef72fedc751d433ea08"
+    },
+    "DRAFT-REPORT.json": {
+      "bytes": 16887,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/DRAFT-REPORT.json",
+      "sha256": "f13613f5098118e3ea84f27f810374a53411a8e86d0714dc60d55eff98f36b20"
+    },
+    "LAUNCH-SPEC-DRAFT.json": {
+      "bytes": 14175,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/LAUNCH-SPEC-DRAFT.json",
+      "sha256": "ee1ef0ca3270cfb82d6ef7eb72b358bf3dbe2c0ffd89084412e38d02cbdae4c0"
+    }
+  },
+  "actualOutcome": null,
+  "actualTool": null,
+  "adopter": {
+    "bytes": 23333,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r4/adopt_reviewed_candidate.py",
+    "sha256": "6a17f77f25035e89f38b48cfa4c74d21d50a793fb9d8e47a176b11c4b3f4d669"
+  },
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r4/adopt_reviewed_candidate.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-independent-review-after-al-20261009-r4/RECEIPT.json",
+    "6949f4287cc25b139d1d8fa62d891a876e5e565b078f893b1f665bf3037646cd",
+    "4e182d6bc66b2ac1e6a6d13c1d99415264d762ea095e7ef72fedc751d433ea08"
+  ],
+  "automaticRetry": false,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesPid": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": true,
+  "filledIdentity": {
+    "bytes": 1296,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/DRAFT-IDENTITY.json",
+    "sha256": "4e182d6bc66b2ac1e6a6d13c1d99415264d762ea095e7ef72fedc751d433ea08"
+  },
+  "game": false,
+  "independentExactReview": {
+    "bytes": 16303,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-independent-review-after-al-20261009-r4/RECEIPT.json",
+    "sha256": "6949f4287cc25b139d1d8fa62d891a876e5e565b078f893b1f665bf3037646cd"
+  },
+  "noHelperBecauseOriginalProcedureRequiresLockAbsent": true,
+  "ownedAdopterPgid": 21229,
+  "ownedAdopterPid": 21229,
+  "ownedAdopterSid": 21229,
+  "priorOwnedIdsFreshlyAbsent": [
+    56863,
+    17003,
+    17510
+  ],
+  "rootExactCandidateAdoption": {
+    "bytes": 3200,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-EXACT-CANDIDATE-ADOPTION.json",
+    "sha256": "23677fb1c437491ea0bc0759a6dfaefac22f1865b9ab5ddacfa71bbe2a0d65cd"
+  },
+  "rootLauncher": {
+    "bytes": 4410,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_adopter_once.py",
+    "sha256": "8fc05ef9c291f7fdf5f44e57482f7b81a3fcb3e972aa3b97ff0e3c4e377ec44e"
+  },
+  "schema": "1370-root-a208-exact-adopter-grant/v1",
+  "scope": "EXACT_EXISTING_ARCHIVE_AND_AUTH_FIELD_ADOPTION_ONLY",
+  "sourcePins": {
+    "bytes": 5381,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r4/SOURCE-PINS.json",
+    "sha256": "ce2ef3da4cf01792bab5f3abd084c11bba5daa06ef28d2f6fc9839c67500732e"
+  },
+  "startMonotonic": 99765.597812631,
+  "status": "GRANTED_ONE_EXACT_R4_ARCHIVE6_ADOPT3",
+  "stderrPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-adoption-parent-after-al-20261009-r4/adoption.stderr",
+  "stdoutPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-adoption-parent-after-al-20261009-r4/adoption.stdout",
+  "utc": "2026-10-10T00:53:44.491850+00:00"
+}

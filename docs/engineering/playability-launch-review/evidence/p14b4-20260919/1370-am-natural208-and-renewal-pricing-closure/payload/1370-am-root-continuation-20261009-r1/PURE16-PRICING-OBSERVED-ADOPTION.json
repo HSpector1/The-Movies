@@ -1,0 +1,93 @@
+{
+  "AM0Admission": false,
+  "P17P18Admission": false,
+  "actualA208RootAdoption": {
+    "bytes": 5419,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-GAME-OBSERVED-ADOPTION.json",
+    "sha256": "17fdc2082a68e1dbc9ca646e7a4467ad34c0a68d8eee70fca01e6970e22aaaa2"
+  },
+  "actualControlsRootAdoption": {
+    "bytes": 2107,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/PURE16-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "94b36eb3c1cc32a1894822997305be6a2897286ef7d7e6cfc227b3d7b148571f"
+  },
+  "actualPricingLedger": {
+    "bytes": 15342,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verification-output-after-al-20261009-r1/stdout.bin",
+    "sha256": "507bbccbe79c3b1bed9d2bb4c470033f8bd08a2cf343845acc63a3a0a0ca8ab7"
+  },
+  "actualReadback": {
+    "bytes": 2769,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-parent-recorded-after-al-20261009-r1/READBACK.json",
+    "sha256": "cf1edd9cf025ee7a70f7acb2581f5143bb95ce0d0b6a4771e16af2808dcd6380"
+  },
+  "actualResult": {
+    "bytes": 946,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verification-output-after-al-20261009-r1/RESULT.json",
+    "sha256": "bf71bd934b229f2aaf34b86cab3cf24aa33cede6bd2b1b3ed7656cc20db91684"
+  },
+  "actualTool": {
+    "bytes": 664,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-parent-recorded-after-al-20261009-r1/ACTUAL-TOOL.json",
+    "sha256": "d854f103a55db22322684c095a2bbd5fd81d633d692c972a2caf16f99fc2184c"
+  },
+  "all16AnnualAndBonusAndFullTermsAgree": true,
+  "config": {
+    "bytes": 14970,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/CONFIG.json",
+    "sha256": "49508521d31a2d1f9a384ebcfa4f3b09306426d8868aa92900da93f2b8d872ef"
+  },
+  "elapsedSeconds": 1.543980176007608,
+  "executionAuthorization": false,
+  "immutablePairs": 44,
+  "independentFiniteDataChecks": 229,
+  "independentObservedReview": {
+    "bytes": 21527,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-independent-observed-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "4610a4eeb858466c874d4b9bb2d1a51a35c268b450a93e12df44f12f9f5a6028"
+  },
+  "mismatches": 0,
+  "next": "Carry admitted complete-vector renewal ledger into residual1363 reconciliation. M0 current proof/types/wiring/neutrality and A-to-M0/protected digests/unmatched identities remain separate.",
+  "originalOfferLocalCapture": false,
+  "priorFailuresPreserved": true,
+  "productionMutation": false,
+  "qualifiedRecorderWarningRetained": true,
+  "renewalCauseAdmission": true,
+  "renewalCauseAdmissionScope": {
+    "AM0Admission": false,
+    "P17P18Admission": false,
+    "ageAndOtherPersonRows": 11,
+    "ageOnlyPersonRows": 5,
+    "all16AgeOnlyAttribution": false,
+    "completeHAndATerms": true,
+    "explanation": "Exact original pricing arithmetic on complete authenticated historical H-context and naturally captured A208 input vectors, with shared admitted keyed draw/jitter, premium and null release-floor facts.",
+    "fameDifferenceRows": 10,
+    "historicalHContextTransport": true,
+    "identity": "contractId + occurrence, bound to talentId and source order",
+    "isolatedPerFieldDecomposition": false,
+    "naturalA208Capture": true,
+    "originalOfferLocalCapture": false,
+    "overallCompletion": false,
+    "perceivedSkillDifferenceRows": 2,
+    "rootAdoptionPerformedByReviewer": false,
+    "rootAdoptionPermittedByThisIndependentReceipt": true,
+    "salaryAndSigningBonus": true,
+    "selectedRows": 16,
+    "sourceOrders": [
+      24,
+      39
+    ],
+    "upstreamCauseOfPersonChangesAdmitted": false,
+    "whole1363Admission": false
+  },
+  "schema": "1370-root-pure16-renewal208-observed-pricing-adoption/v1",
+  "selectedRows": 16,
+  "sourcePins": {
+    "bytes": 26013,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "1d739f9a686de05dec167816af5784a95295ecc61f11f7df464018dfea6e1c92"
+  },
+  "stableIdentityOccurrenceAndOrderAccepted": true,
+  "status": "ROOT_ADOPTED_OBSERVED_16_RENEWAL_PRICING_PAIRS_AND_SOURCE_TRANSPORTED_CAUSES",
+  "whole1363Admission": false
+}

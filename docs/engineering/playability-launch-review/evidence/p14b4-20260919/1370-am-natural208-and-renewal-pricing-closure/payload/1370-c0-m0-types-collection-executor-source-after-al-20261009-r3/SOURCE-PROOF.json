@@ -1,0 +1,115 @@
+{
+  "adoptionLiteralFieldNamesVerifiedAgainstPinnedFacts": true,
+  "changes": [
+    "H-only authority graph replaced by admitted complete M0 facts,copy,overlay,full-review roles",
+    "current refs updated to exact AL/main readback, historical source/admission heads preserved",
+    "M0 complete no-follow roster cap1853 derived from1740 files+112 nonroot directories+1link; stream/time/disk caps unchanged",
+    "full physical metadata equality added to source proof, all per-child root checks retained",
+    "external acyclic review/protection/tools/grant context; no future role fabricated"
+  ],
+  "exactFourCommandRosterSha256": "ae58b73c0be257ad63345ea92f7c414e48ba340baa60a9b319aaa648f5a7a8a6",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "parserOnlySyntaxValidation": true,
+  "predecessors": {
+    "runner.py": {
+      "bytes": 59372,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r13/runner.py",
+      "sha256": "946b3c88208db5128e30e668d0e322f11224235a71ff6994362acb124e0831b7"
+    },
+    "supervise.py": {
+      "bytes": 15261,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r5/supervise.py",
+      "sha256": "3145a6b806e9071fb69aa7eb610025c2930515c210c74cf6f3349a7faebdbc50"
+    }
+  },
+  "preparationAuditCorrections": [
+    "actual complete-adoption field is dependencyPackageRoles",
+    "fresh source proof tuples normalized to JSON arrays for exact runtime comparison",
+    "full dependency root metadata retained alongside unchanged qualified walk",
+    "actual helper owns a session and records PID/PGID/SID separately",
+    "LAUNCH own bytes authenticated by external review pin without a self-hash cycle"
+  ],
+  "preparationDraftsPreserved": [
+    "1370-c0-m0-types-collection-executor-source-after-al-20261009-r1",
+    "1370-c0-m0-types-collection-executor-source-after-al-20261009-r2"
+  ],
+  "remainingActualRoleFills": [
+    "independent source review",
+    "root current AL M0 full protection and fresh source/dependency proofs",
+    "physical runtime tools/wrappers and fresh lane-lock pin",
+    "root exact execution grant"
+  ],
+  "retainedByteIdenticalFunctions": {
+    "BOOTSTRAP.py": {
+      "attrs": "c62b15db8c1be65694879c067c02a16339f95e3edc908b5c19085f55f8e70642",
+      "ident": "360e91796ef332cb51174bed616763cac66e6b8b266139294f6505ad7d22b179",
+      "read_pin": "37a7b09c22b30c06c2ff61754fef8945c6f76ff0c9fe96d66064de909b482de7",
+      "remaining_from": "a8dc1bb7c6b31b072adbbfc204146a5197f2def0afee3aafcc57d0960654e69a"
+    },
+    "LAUNCH.py": {
+      "attrs": "9ee728a262b90d00fe5ecbbcea8b612b635444cdf23ef91a3f227d9d2f7830d0",
+      "identity": "c1daeddef7a8f9d23a3714168047badb905fe221dd0356673d00776dc3c43fc0",
+      "read_pin": "40fde812793e6dabf971d744814ba336cece66b6ea7dbaca220947ba67c6f2d8"
+    },
+    "runner.py": {
+      "bounded_names": "f47463e1dd2b9a0d4d43c562842968ef3cf06dd9bdd1c097aba2bd2bb508a429",
+      "bounded_ps_snapshot": "33fec4863d0183aa83492a9c27ef45cf195e9f20db58f58ab6494ba9957f53b5",
+      "canonical_proof": "aa7c4673e6eb00b59229da69c44361f7bc4fd71202b3ebac7ae31b2a819c7c0c",
+      "check_preimage_output": "51ed88833c44552f6a40a9f160a70f804738ee1b2f5628963c7fdde0f6ac1a00",
+      "clean_git_env": "7de5c606f30921f0f367a53535fbbf7227c1cb718b42e4faf148f1d4fe8a7c4b",
+      "close_chain": "b6f382f0243ea4b5d13c53c2485ae9b67a087e86d63a3b8c8efc3a37c4a7791f",
+      "cmd": "3e86a56d627e034ad701b5adc79d93251d62eb5be7dc980a23194ead9d25f43e",
+      "fields": "f1b36ba88f75fe641f1f8fce1b50cd71f16a729fe7377921e60cdd11f78814b6",
+      "group_alive": "0ca6174d1166e9abb1f98b872de3a38e47c3ca1a473a35a66e3968944b966827",
+      "guard_command_bytes": "7fa168ca7deee9bcb2f2923fe256c46d792eed3a25c992012ea1f296068606b3",
+      "need": "7ea61ba975e2d46346a4c91914f83556063ce0eab52189e352ad8f21cacdbfa5",
+      "on_signal": "abb6d616d662f4a62c68bff6c1dadbe34f2ae06a15895c1f4e19d2251b47e2b4",
+      "open_dir_chain": "3e8baca51fa2cab6c0196ac3a0c89d6e6dc72efcf877a035888c4f3f66ed8971",
+      "read_pin": "115bf2409b97651ebc82d84d95dd2014de35e3320cae74c424eba563ed3f5f42",
+      "remaining": "e3d82bef92a391782c725de3e1ba6889597cb04bf5665c8159f82a9f2fdc13ca",
+      "root_checkpoint": "3de24fb201b5a158f66050a16cd94052144e5ab883b4d9a7b46a2061472d4207",
+      "run_child": "4893292249582189748560c63a217d25b539866517796c7fd0cf94ceb9bfad80",
+      "scratch_preimage_output": "5657deeb8803c83d8d2cb654b3c71aa67b0963ea958796df5965faf530df2ff6",
+      "sha": "b982bd233c85810c521cadcca10064970241839919eb0af431ee7512034bd15c",
+      "signal_group": "31cb2c0a14cf77e1afff4b84a6daa121ec6d5d0a4090f132731bc91b41f7e5a9",
+      "source_step": "844858875cb678bc2f7464cbddd7cb975fd771e505592fe819c94a4187dbda1c",
+      "stable_output": "eb2444cfa3fc2ce3def8a52a3daa26c8d87e4d5868005bb4b1e170dbeb7bbb4d",
+      "stop_current": "5d31b48e84251dbed992d78882c9543ff1b335e450494d0a2a08b82e748f5607",
+      "stop_group": "865be07fcf8d74557c8c6c55ce5de8cd39d4dca126af28f832810c987d196446",
+      "verify_dir_chain": "424c5249d45c6f7a7bc07cd0fcf184dbf66cb91bb67c0016f66a4997b663a0f0",
+      "walk_meta": "0f545049e30026cc912558baa323711e26b2a58010d89acee3be709be96b3fde",
+      "write_result": "3dd74dd6951c39085e22c615645a350098cd3903fe25e37b2c64441efe45dbfd"
+    },
+    "supervise.py": {
+      "alarm": "2f23d0db3cae27a8e9a047720d16272b9e109785bb8c8de999b27e7bd3270412",
+      "attrs": "ad7a5d819029828b28cb8dd6bb417f84fbad46cea4d876c78b1188934f06a783",
+      "command": "dcaa51157210f3c4201fc3e1be911fe55affaaa9ab796d6cccb2b42d0bd5d148",
+      "git": "7eab2696cd3707d340a5a3d1a5d123511d1ced69aa14d74974adcdde36ea1117",
+      "group_alive": "683a4f5b9a440da3a2717059c99dffd111b693b91711d78a326595450bed655c",
+      "hard_alarm": "bc4e45bca9b7bdefa8da299825c6720ec531fff20bcf81eab97b069261028a03",
+      "identity": "c3378f7fc79df8a63ea72b7305513528d8c7167651d628b9d09dea9ee8819e76",
+      "interrupted": "af19c5f604815e3c97516b4d9bb257e0f1561a81bd813c1f2a5ed553e3e693ee",
+      "need": "7ea61ba975e2d46346a4c91914f83556063ce0eab52189e352ad8f21cacdbfa5",
+      "parent_fd": "7f910bd58a5f0fd2ec5c62a38db261fe049b5f792fbf529406926ffe88175fe0",
+      "read_pin": "3fb89c61e03ef2450c7c7628721ef651773e9403e94815f5eb25cf4bf1c5dbf7",
+      "remaining_active": "9d10d3552dfd591dec1e182a7ca3ff887b372eae245d6f0f53c8298b2ba45c7c",
+      "remaining_total": "f4e2cfaab17ad16310057196dc83788ee4e1eeed77d692b9f090533ccf2396cd",
+      "safe_result": "31c54bd06b6bd281a3a3dd3a7244117e2e5713c803a51d2e6e723e456572c299",
+      "scratch_fd": "c2f2d4121a9a65f77b1300c62671fcf748d9f4fee9ffd086754fa5bd4c6c9821",
+      "signal_group": "4063b68bf618d7669383cacbb32b615fab2f4809d9dd61ca3e62481d784bd088",
+      "stop_group": "46df3f581278996208c887df6e7996fbe84fa60df17793788239893776dc1ce3"
+    }
+  },
+  "runtimeClaim": null,
+  "schema": "1370-m0-types-source-proof/v1",
+  "sourcePreparationOnly": {
+    "generatedSourceExecuted": false,
+    "gitOperation": false,
+    "mirrorContentRead": false,
+    "mirrorScan": false,
+    "productionRead": false,
+    "rematerialization": false
+  },
+  "wholeByteForwardAndInverseVerified": true
+}

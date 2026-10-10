@@ -1,0 +1,45 @@
+{
+  "actualFillGranted": false,
+  "actualFinalWitnessGrant": null,
+  "actualGameOutcome": null,
+  "bindingNullMeaning": "Immutable marker of externally issued final grant; does not waive final permission.",
+  "bindingWitnessGrantMustBeExplicitNull": true,
+  "concreteSequence": [
+    "Exact fill/candidate semantics retains witnessGrant:null.",
+    "Independent exact candidate/source/procedure review explicitly admits intentional external-grant arrangement.",
+    "Archive/fsync/read back all six originals; adopt only original3 fields; preserve original pins as archived evidence and authenticate new raw binding SHA.",
+    "Independent adopted preflight accepts that exact raw adopted binding and actual current full protection/argv.",
+    "Root issues exclusive final grant external to binding, pinning adopted binding raw SHA and adopted preflight SHA; invokes only exact reviewed once-only wrapper/helper argv.",
+    "Recorded tool/helper/meta/outer/sink exits and single frame, owned-group clearance, full protected postflight and independent raw208/full416 review precede game/vector admission."
+  ],
+  "design": {
+    "bytes": 13392,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-witness-grant-ordering-design-after-al-20261009-r1/DESIGN.json",
+    "sha256": "79bc84e010202b5b3899bd610061762c4c0381d2eeb73f2421e15073e1dc5f53"
+  },
+  "executionAuthorization": false,
+  "externalFinalGrantMustBind": [
+    "exact adopted binding path/bytes/raw SHA256",
+    "semantic SHA256 and original archived candidate/adoption readback",
+    "exact admitted adopted preflight path/bytes/SHA256",
+    "actual accepted JS13/Python17 root417adabc evidence",
+    "current AL operational protection authority and full accepted guard roles",
+    "exact original observer18/adapters/tool identities and helper argv/cwd/environment",
+    "existing bounds/once-only fresh lane and owner IDs; required full postflight/raw208/full416 acceptance"
+  ],
+  "frozenObserverAndAdaptersRemainUnchanged": true,
+  "game": false,
+  "independentReview": {
+    "bytes": 12621,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-witness-grant-ordering-independent-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "4ba78de8cf9c3f92e2a1ba2f189fb5a85c7e91fb7b7585c1e7dbf4c08b085ef7"
+  },
+  "schema": "1370-root-external-final-grant-ordering-adoption/v1",
+  "semanticExclusionsExactly": [
+    "status",
+    "executionAuthorization",
+    "exactReview"
+  ],
+  "sourcePreparationAuthorized": true,
+  "status": "ROOT_ADOPTED_SOURCE_CONTRACT_EXTERNAL_FINAL_WITNESS_GRANT"
+}

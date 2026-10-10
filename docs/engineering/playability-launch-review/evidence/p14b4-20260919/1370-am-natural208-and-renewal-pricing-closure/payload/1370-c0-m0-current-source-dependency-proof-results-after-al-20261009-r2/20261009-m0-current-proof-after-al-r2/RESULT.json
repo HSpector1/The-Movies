@@ -1,0 +1,104 @@
+{
+  "actualGrantSha256": "3d513b77ba50c2f6386c776b804e939b7d288e05e8721f7f2138048baa9d2c41",
+  "collectionCommandsExecuted": 0,
+  "completeM0AdoptionSha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad",
+  "currentProtection": null,
+  "dependencyAfter": {
+    "contentAndMetadataSha256": "a06e929a60a5ede6ce0d72467d4d587e50d1c4fa3788bee3d07f1ea3388cd21d",
+    "contentBytes": 348223802,
+    "entries": 12484,
+    "rootDevice": 16777220,
+    "rootIdentity": [
+      16777220,
+      158487026,
+      16877,
+      154,
+      4928,
+      1790738039503311431,
+      1790738039503311431
+    ],
+    "rootInode": 158487026
+  },
+  "elapsedSeconds": 72.745,
+  "freshDependencyProof": {
+    "contentAndMetadataSha256": "a06e929a60a5ede6ce0d72467d4d587e50d1c4fa3788bee3d07f1ea3388cd21d",
+    "contentBytes": 348223802,
+    "entries": 12484,
+    "rootDevice": 16777220,
+    "rootIdentity": [
+      16777220,
+      158487026,
+      16877,
+      154,
+      4928,
+      1790738039503311431,
+      1790738039503311431
+    ],
+    "rootInode": 158487026
+  },
+  "freshSourceProof": {
+    "dependencyLink": [
+      16777220,
+      166769275,
+      41408,
+      1,
+      62,
+      1791577446298712967,
+      1791577446298712967,
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    ],
+    "fileProofDigestSha256": "fbbfed3ec13da5618a0194204e2f6c8a87eebb5ee22102707d466340fbe6e1e0",
+    "mirrorBytes": 119393120,
+    "mirrorFiles": 1740,
+    "mirrorRootIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791577446298737027,
+      1791577446298737027
+    ],
+    "physicalMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "traversedEntries": 1853
+  },
+  "game": false,
+  "groupAlternateProofs": [],
+  "historicalDataAuthorityHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+  "physicalFactsSha256": "e9f4829c501cc90475b9067c8ae32580fe5fca14fc40950ee083031f89081ba2",
+  "productionHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "runId": "20261009-m0-current-proof-after-al-r2",
+  "schema": "1370-current-m0-source-dependency-proof-result/v1",
+  "sourceAfter": {
+    "dependencyLink": [
+      16777220,
+      166769275,
+      41408,
+      1,
+      62,
+      1791577446298712967,
+      1791577446298712967,
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    ],
+    "fileProofDigestSha256": "fbbfed3ec13da5618a0194204e2f6c8a87eebb5ee22102707d466340fbe6e1e0",
+    "mirrorBytes": 119393120,
+    "mirrorFiles": 1740,
+    "mirrorRootIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791577446298737027,
+      1791577446298737027
+    ],
+    "physicalMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "traversedEntries": 1853
+  },
+  "sourceCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "sourceReviewSha256": "65dfe1810fc36a1c467f3c4e44e578368eb18dde71f3b737fba794a57b972030",
+  "status": "PASS_READONLY_CURRENT_M0_SOURCE_DEPENDENCY_PROOF",
+  "typesCommandsExecuted": 0
+}

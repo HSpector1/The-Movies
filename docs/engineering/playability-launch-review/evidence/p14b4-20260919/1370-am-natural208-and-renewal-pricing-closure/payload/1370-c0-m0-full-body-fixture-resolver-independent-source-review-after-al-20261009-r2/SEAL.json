@@ -1,0 +1,24 @@
+{
+  "schema": "1370-independent-source-stop-review-seal/v1",
+  "decision": "STOP_SOURCE_CONSUMER_SCHEMA_AND_FREEZE_ORDERING_DEFECTS",
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "c588b4aa72d84ceab8fa67030e0b747345b4fc58820fbf56ed0978b9aa379722",
+    "bytes": 7683
+  },
+  "files": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+      "bytes": 20064,
+      "sha256": "949ff2cfa022bbaeed177d7d8ba75ec4e388f58d33be9edb608b0ae63f451c12"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-independent-source-review-after-al-20261009-r2/REPORT.md",
+      "bytes": 2638,
+      "sha256": "87cb670d243359ce2350ad4576e013e7fd1a97b15f30809efa2a59c7dc6f7309"
+    }
+  ],
+  "executionAuthorization": false,
+  "sourceProgramsExecuted": false
+}
+

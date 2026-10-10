@@ -1,0 +1,101 @@
+{
+  "accountingConstraints": {
+    "bothArms": {
+      "state": 3526,
+      "wholeRow": 1984
+    },
+    "boundsUnchanged": [
+      300,
+      375,
+      390
+    ],
+    "completeBoundariesPerArm": 110,
+    "historicalCachePreserved": {
+      "automaticRepeat": false,
+      "groups": 33,
+      "pairs": 353,
+      "promoted": false,
+      "weightedCostIncreasePercent": 10.642868321918852
+    },
+    "historicalSelectedConstantFixtureIllustrationSeconds": 425.46749854799924,
+    "illustrationNotMeasurementLowerBoundOrHeadroom": true,
+    "perArm": {
+      "state": 1763,
+      "wholeRow": 992
+    },
+    "perArmCountArithmetic": "state=5+109*2+110*8+110*6; wholeRow=2+110*5+110*4",
+    "profilesDoNotEstablishSelectedPhaseOrAllocationGcCause": true,
+    "ticksPerArm": 109,
+    "unmeasuredRequiredWork": [
+      "later growth through416 and actual intervention content",
+      "both complete arms and full readback",
+      "small encodes/tick/save/clone/deepEqual/gzip/inflate/CRC/SHA/output/guards/startup"
+    ]
+  },
+  "actualBenchmarkGrant": null,
+  "actualFocusedGrant": null,
+  "design": {
+    "bytes": 10681,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-next-performance-design-after-ak-20261009-r1/DESIGN.json",
+    "sha256": "2dc9f9896d0d3f673ea7be9a2e67549cc49e48604cfdb42a918477d3c81bc53b"
+  },
+  "executionAuthorization": false,
+  "full109Grant": null,
+  "game": false,
+  "implementationScope": "Only stringToken ASCII fast path after byte-identical rawUTF8 cap precheck; native fallback unchanged. No cache/container/source/traversal/budget/chunk change. Native primitive call-count equality not claimed.",
+  "independentRedAndImplementationReviewRequired": true,
+  "independentReview": {
+    "bytes": 13217,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-next-performance-independent-design-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "75941eea95fc5531db5cb15cfd45a443bfbf96cdceb18e7859006dd9927efa26"
+  },
+  "productionSourceMutationAuthorized": false,
+  "publishedOperationalReadback": {
+    "bytes": 1250,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+    "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+  },
+  "requiredBenchmarkRefinements": {
+    "comparison": "Same newly recorded genuine indexed308 state and wholeRow: timed2529 reference versus only the new ASCII candidate; retained streaming12c37 remains reader/parser/certifier, not timed arm.",
+    "futureRawTrialReport": null,
+    "node": "Pinned historicalNode20.20.2 remains the proposed tool; future source/runtime route must authenticate its exact physical role. No current binary qualification or benchmark execution is claimed here.",
+    "performanceWinAccepted": false,
+    "requiredSourceRefinement": "Set config.roles.referenceEncoder to exact2529, not inherited994d. Update producer timed-arm labels/status/claim text and weighted formula alongside source roles; otherwise an unchanged old label could misstate the comparison even when bytes are correct.",
+    "schedule": "One paired warmup then three alternating measured pairs for each input, under unchanged60/75/90 clocks. Preserve per-arm raw trials, complete byte/purity/path+FD identity checks and exact reader closure.",
+    "weightedBothArmFormula": "(3526*stateMedianMs+1984*wholeRowMedianMs)/1000"
+  },
+  "requiredControlRefinements": {
+    "exactNewAuthoredPairCount": null,
+    "mutantRequirements": [
+      {
+        "fault": "Missing quote/backslash/control exclusions",
+        "requiredRed": "Specific native byte mismatch on an escaped string/key, then corrected exact-byte GREEN; a generic nonzero run is insufficient."
+      },
+      {
+        "fault": "Accept nonASCII and use code-unit length as UTF8 size",
+        "requiredRed": "Specific byte-length/output mismatch or wrong cap admission on multibyte text such as \u00e9; corrected native fallback must produce exact text/bytes/refusal."
+      },
+      {
+        "fault": "Bypass or move original raw UTF8 precheck",
+        "requiredRed": "Specific STOP_STRING_CAP versus STOP_JSON_CAP/code/ordered-limit trace mismatch on a raw-cap refusal and stateful limit. Corrected precheck must precede fast and fallback work."
+      }
+    ],
+    "originalGroups": 28,
+    "originalPairs": 321,
+    "originalTestDeclarationsStaticallyCounted": 28,
+    "plannedAdditionalGroups": 6,
+    "plannedMutants": 3,
+    "refinement": "Future tester preserves all28 original source groups and their321 admitted pairs separately, appends six named bounded groups, and pins three exact mutant changes/inverses plus their specific mismatch assertions. Exact final typed roster/count/schema/pair totals are authored and reviewed before any grant; planned counts are not actual GREEN evidence.",
+    "sixGroupCoverage": [
+      "all128ASCII characters/eligible mixtures/keys/empty/slash/DEL",
+      "escape/control/BMP/nonBMP/U2028/U2029/lone-surrogate native fallback",
+      "raw/rendered/cumulative/key caps and NaN/Symbol/stateful limit coercion traces",
+      "65534..65537byte and4095..4097token seams, oversized admitted tokens and late refusal",
+      "getter/Proxy/two-read/dynamic-length and defined/undefined transitions on both branch paths",
+      "shared references, mutations/repeated calls/fresh state and zero-container/no-new-Proxy"
+    ]
+  },
+  "schema": "1370-root-b109-ascii-design-adoption/v1",
+  "sourcePreparationAuthorized": true,
+  "status": "ROOT_ADOPTED_SOURCE_PREPARATION_ONLY_ASCII_STRING_TOKEN_DESIGN"
+}

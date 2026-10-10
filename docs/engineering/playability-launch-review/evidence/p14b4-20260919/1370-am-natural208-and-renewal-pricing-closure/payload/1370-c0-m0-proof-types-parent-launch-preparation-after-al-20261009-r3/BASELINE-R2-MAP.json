@@ -1,0 +1,298 @@
+{
+  "actualPending": {
+    "actualLaneLock": null,
+    "actualProof": null,
+    "actualProofPostflight": null,
+    "actualRuntimeTools": null,
+    "actualSpecs": null,
+    "actualTypes": null,
+    "actualTypesPostflight": null,
+    "context": null,
+    "currentPrelaunch": null,
+    "currentProtection": null,
+    "futureAMHead": null,
+    "grant": null,
+    "newProofSourceReview": null,
+    "newTypesSourceReview": null
+  },
+  "executionAuthorization": false,
+  "helper": {
+    "bytes": 3361,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+  },
+  "helperInvocations": {
+    "proof": [
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/c0-m0-current-proof-20261009-m0-current-proof-after-al-r2.lane.log",
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2/fill-grant-exec.py",
+      "__ACTUAL_PROOF_SPEC_PATH__",
+      "__ACTUAL_SPEC_SHA256__"
+    ],
+    "types": [
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-after-al-r2.lane.log",
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2/fill-grant-exec.py",
+      "__ACTUAL_TYPES_SPEC_PATH__",
+      "__ACTUAL_SPEC_SHA256__"
+    ]
+  },
+  "laneLockSchema": {
+    "bytes": "actualpositiveint<=10000",
+    "creation": "acceptedr8 exclusive noclobber before child invocation; wrapperreadbackpins live file/identity. Never hash missing/futurelock or inventtoken.",
+    "path": "/Users/zacheryspector/studio-scratch/HEAVY-LANE-LOCK",
+    "requiredMarker": "lane-run <exactCONFIG.laneLog> token=<actualuuid> newline",
+    "sha256": "SHA ofactual exacthelper marker bytes"
+  },
+  "laneOrder": [
+    "root fresh originalcurrent/9root/FD/process/boot/refs/clean/AC/disk prelaunch readback under protected freeze",
+    "acceptedr8helper creates exactfreshlane lock before launching this filler",
+    "launcher durably records actualownPIDPGIDSID, authenticates actualsource/tool/link rows and lock",
+    "context without grant -> root once-only grant -> finalcontext -> originalexactLAUNCH exec samePID",
+    "parent captures actual preparation60/runtime330 phase outcomes, originalmergedlog and scopedownedabsence",
+    "unchanged originalfullguard postflight actualrecordedgroups then observedadmission",
+    "root genuinecurrentProtection -> fresh originaltypescontext/grant innewlane -> actualtypes -> originalfullguardpostflight"
+  ],
+  "launcher": {
+    "bytes": 11380,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2/fill-grant-exec.py",
+    "sha256": "6977c7a6d86c8cee8bc9f8af7d0647b4e4afa71cb8f88d3c9e252b2addd9b5f9"
+  },
+  "noRuntimeGitPrivateReadsOrSignalsDuringPreparation": true,
+  "originalProtectionContinuity": {
+    "permittedBeforeLaunchReusePlan": {
+      "bytes": 5164,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/PLAN.md",
+      "sha256": "acd0e3cb6ae3138f531cddba326bced7252c6f74fc13353b9ac728f68375413b"
+    },
+    "proofPostflightCanBeTypesBeforeLaunchBaseline": "Yes after realproof/fullpostflight admission and continuousfreeze plus freshoriginalcurrent/9rootchecks. R5source/depsactualbefore must equal freshproofobjects.",
+    "reason": "OriginaltypesRECIPE and acceptedproof5f require separate observed fullprotectedpostflight afteractualhelper. M0source/dependencychecks do not inventoryshared production/common/R9/Hprotectedbyte maps. Use unchanged originalscanner; no newguard source or waiver.",
+    "scope": "UnchangedA208 currentAL9roots/R9/full production+copied dependencies/common/protected bytes/FD/refs/boot; do not relabel it as a fullM0inventory. M0 full1740/113/depsproofs are separately emitted byqualifiedproofsource.",
+    "typesFinalPostflightRequired": true
+  },
+  "parentExternalBounds": {
+    "combinedPreparationRuntimeDeadline": null,
+    "note": "Preparation timer canceled immediately before unchanged LAUNCH exec. LAUNCH starts original330 only at its entry. Helper/r8 parent output is captured as original, not falsely capped by this source.",
+    "originalCollectionBytes": 1048576,
+    "originalGuardPipeBytes": 2097152,
+    "originalPerCommandStdoutAndStderrBytes": 8388608,
+    "originalRecorderResultBytes": 100000,
+    "parentMergedLaneLogCapture": "originalr8 merged regularfile capture; no invented parent8MiB cap; parent authenticates actuallog size/hash",
+    "preparationSeconds": 60,
+    "runtimeSeconds": {
+      "active": 320,
+      "runner": 300,
+      "whole": 330
+    }
+  },
+  "postflightArgv": {
+    "proof": [
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+      "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+      "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+      "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+      "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+      "postflight",
+      "postflight-after-al-m0-proof-r2",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+      "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609",
+      "__ACTUAL_RECORDED_PROOF_PGIDS_CSV__"
+    ],
+    "types": [
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+      "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+      "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+      "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+      "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+      "postflight",
+      "postflight-after-al-m0-types-r2",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+      "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609",
+      "__ACTUAL_RECORDED_TYPES_PGIDS_CSV__"
+    ]
+  },
+  "postflightOriginalRoles": {
+    "Hleaf": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "baseline": {
+      "bytes": 8562268,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+      "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+    },
+    "config": {
+      "bytes": 3906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
+      "sha256": "20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41"
+    },
+    "copyAdmission": {
+      "bytes": 3717,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+      "sha256": "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d"
+    },
+    "priorActualA208Postflight": {
+      "bytes": 8568780,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4/SNAPSHOT.json",
+      "sha256": "6922608bdeedd86e289aeac3c56c297e257b6eb98964e0fe00b95def5dc51e1d"
+    },
+    "priorActualA208RootAdoption": {
+      "bytes": 5419,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-GAME-OBSERVED-ADOPTION.json",
+      "sha256": "17fdc2082a68e1dbc9ca646e7a4467ad34c0a68d8eee70fca01e6970e22aaaa2"
+    },
+    "source": {
+      "bytes": 21984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+      "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+    }
+  },
+  "preservedR1": {
+    "bytes": 1941,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "d2279bea0dc48505a399803ef86b89d9bd7ad45c94c6c7bb07bd21def253730b"
+  },
+  "profiles": {
+    "proof": {
+      "config": {
+        "bytes": 29945,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/CONFIG.json",
+        "sha256": "17ac5abcd1e26c83fcd8d3794bd0c6356cd9f141416e01974cdd34f510b72bb5"
+      },
+      "contextSchema": "1370-current-m0-proof-execution-context/v1",
+      "executableRoles": {
+        "BOOTSTRAP.py": {
+          "bytes": 2731,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/BOOTSTRAP.py",
+          "sha256": "53c9330d960da3dc8e562bd87ca89a8e1c2f5992010b9a35eb7ca3f3963e438c"
+        },
+        "LAUNCH.py": {
+          "bytes": 6875,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/LAUNCH.py",
+          "sha256": "57b660767095cc9a03fb1c1acbff741557b9b2487780b1cfa030ea09dbf131c9"
+        },
+        "check-deps.mjs": {
+          "bytes": 1918,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/check-deps.mjs",
+          "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+        },
+        "runner.py": {
+          "bytes": 34856,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/runner.py",
+          "sha256": "d32007ecb462d6a535432959317e1851d09d37cb0fa96897fa3dcc213c45b05c"
+        },
+        "supervise.py": {
+          "bytes": 13751,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/supervise.py",
+          "sha256": "d38761d46cfa3980b7556313fce52fda662b8d479d0e6cb0b252227193670645"
+        }
+      },
+      "grantSchema": "1370-root-current-m0-proof-execution-grant/v1",
+      "grantScope": "READONLY_CURRENT_M0_SOURCE_DEPENDENCY_PROOF_ONLY",
+      "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-current-proof-20261009-m0-current-proof-after-al-r2.lane.log",
+      "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+      "packagePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2",
+      "parentPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-proof-parent-recorded-after-al-20261009-r2",
+      "recorderResult": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-recorder-results-after-al-20261009-r2/20261009-m0-current-proof-after-al-r2.RECORDER-RESULT.json",
+      "resultRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-results-after-al-20261009-r2",
+      "runId": "20261009-m0-current-proof-after-al-r2",
+      "sourcePins": {
+        "bytes": 11146,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/SOURCE-PINS.json",
+        "sha256": "0dbae918dad76dd85350d5804f0eaee131c4cce18543ea2bb6fb716a06068926"
+      },
+      "sourceReviewDecision": "ACCEPT_STATIC_CURRENT_M0_SOURCE_DEPENDENCY_PROOF_SOURCE_ONLY"
+    },
+    "types": {
+      "config": {
+        "bytes": 29857,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/CONFIG.json",
+        "sha256": "e52b41bcb57b13e8255f9c5417aa29bdcf99e51850b0058119d4126c2c0d3172"
+      },
+      "contextSchema": "1370-m0-types-execution-context/v1",
+      "executableRoles": {
+        "BOOTSTRAP.py": {
+          "bytes": 2725,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/BOOTSTRAP.py",
+          "sha256": "0ca56de3a190491911061b40728e5a919974c3f18430988ff7ca506dd3b3b922"
+        },
+        "LAUNCH.py": {
+          "bytes": 7596,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/LAUNCH.py",
+          "sha256": "1c1f507c1f04b79683946604fab5f4b04c380f7f51cdf2c0ecfe727f30b986d8"
+        },
+        "check-deps.mjs": {
+          "bytes": 1918,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/check-deps.mjs",
+          "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+        },
+        "runner.py": {
+          "bytes": 37168,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/runner.py",
+          "sha256": "ac1d7e993c7ad90d73ed0d758727c249c1086c2ae02be9942c4548ceb389f5b5"
+        },
+        "supervise.py": {
+          "bytes": 13706,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/supervise.py",
+          "sha256": "a5b04448e4a5205064191cafbef62c01f341b6741f88ac6684dffe12593e2ee9"
+        }
+      },
+      "grantSchema": "1370-root-m0-types-execution-grant/v1",
+      "grantScope": "M0_FOUR_COMMAND_TYPES_AND_DIAGNOSTIC_COLLECTION_ONLY",
+      "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-after-al-r2.lane.log",
+      "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+      "packagePath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5",
+      "parentPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r5",
+      "recorderResult": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r2/20261009-m0-types-after-al-r2.RECORDER-RESULT.json",
+      "resultRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r2",
+      "runId": "20261009-m0-types-after-al-r2",
+      "sourcePins": {
+        "bytes": 13859,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/SOURCE-PINS.json",
+        "sha256": "a3e53517dd38da67abf5f276ea276a454f4ee64d52f41fedc26181965cfb2618"
+      },
+      "sourceReviewDecision": "ACCEPT_STATIC_M0_TYPES_COLLECTION_SOURCE_ONLY"
+    }
+  },
+  "rootFills": "Each actual external SPEC gets genuine independent source-review role and five previously captured exact runtimeTools rows, actual currentProtection only for types, genuine additionalrefs, executionAuthorizationtrue only by root. Parent invokes reviewed launcher once; its grant emission is the existing parent grant, not another authority tier.",
+  "runtimeToolsSchema": {
+    "eachExactFields": [
+      "invokedPath",
+      "physicalPath",
+      "bytes",
+      "sha256",
+      "physicalIdentity",
+      "links"
+    ],
+    "genuineValues": null,
+    "keys": [
+      "node",
+      "python",
+      "rootCompilerWrapper",
+      "uiCompilerWrapper",
+      "collectionWrapper"
+    ],
+    "linkExactFields": [
+      "path",
+      "identity",
+      "target"
+    ],
+    "linkIdentity": "same normalized7fields from lstat; preserved target string; final invokedPath.resolve==physicalPath",
+    "physicalIdentity": "[dev,ino,permissionbits,nlink,size,mtime_ns,ctime_ns], integer7fields; excludesatime"
+  },
+  "schema": "1370-m0-proof-types-parent-launch-and-original-postflight-map/v1",
+  "status": "SOURCE_ONLY_UNRUN_PHASE_CLOCKS_CORRECTED"
+}

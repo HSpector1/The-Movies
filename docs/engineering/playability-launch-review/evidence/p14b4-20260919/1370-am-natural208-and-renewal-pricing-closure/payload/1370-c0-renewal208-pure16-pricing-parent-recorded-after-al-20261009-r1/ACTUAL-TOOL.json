@@ -1,0 +1,20 @@
+{
+  "initial": {
+    "chunk_id": "06e937",
+    "wall_time_seconds": 1.003461179,
+    "session_id": 94067,
+    "original_token_count": 0,
+    "output": ""
+  },
+  "polls": [
+    {
+      "chunk_id": "25dd2b",
+      "wall_time_seconds": 0.000019923,
+      "exit_code": 0,
+      "original_token_count": 68,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-parent-recorded-after-al-20261009-r1/GRANT.json\", \"bytes\": 2631, \"sha256\": \"9f0b2cc46b2a4aba889a5c8e098120758929af79acb848185ecf2b8dc3bca9cc\"}, \"ownPid\": 46727, \"ownPgid\": 46727}\n"
+    }
+  ],
+  "toolSessionId": 94067,
+  "finalExit": 0
+}

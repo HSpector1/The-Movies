@@ -1,0 +1,413 @@
+{
+  "schema": "1370-b109-ascii-paired308-independent-observed-facts/v1",
+  "checks": {
+    "singleProducerJsonLine": true,
+    "rawAsciiBytesMatch": true,
+    "producerStreamRoles": true,
+    "exactReportKeys": true,
+    "exactStaticReportFieldsAndTypes": true,
+    "exactReportRoleMetadataBindings": true,
+    "producerElapsedWithin60": true,
+    "consumerProducerExact": true,
+    "inputRostertimingsMs": true,
+    "inputRosterwarmupMs": true,
+    "inputRostertrialPairs": true,
+    "inputRostermediansMs": true,
+    "statetimingsMsArmRoster": true,
+    "statewarmupMsArmRoster": true,
+    "statemediansMsArmRoster": true,
+    "statereferenceSamples": true,
+    "statereferenceMedian": true,
+    "statecandidateSamples": true,
+    "statecandidateMedian": true,
+    "statePairCount": true,
+    "state0Fields": true,
+    "state0Schedule": true,
+    "state0ArmRoster": true,
+    "state0SampleBinding": true,
+    "state0PurityFdBytes": true,
+    "state1Fields": true,
+    "state1Schedule": true,
+    "state1ArmRoster": true,
+    "state1SampleBinding": true,
+    "state1PurityFdBytes": true,
+    "state2Fields": true,
+    "state2Schedule": true,
+    "state2ArmRoster": true,
+    "state2SampleBinding": true,
+    "state2PurityFdBytes": true,
+    "state3Fields": true,
+    "state3Schedule": true,
+    "state3ArmRoster": true,
+    "state3SampleBinding": true,
+    "state3PurityFdBytes": true,
+    "wholeRowtimingsMsArmRoster": true,
+    "wholeRowwarmupMsArmRoster": true,
+    "wholeRowmediansMsArmRoster": true,
+    "wholeRowreferenceSamples": true,
+    "wholeRowreferenceMedian": true,
+    "wholeRowcandidateSamples": true,
+    "wholeRowcandidateMedian": true,
+    "wholeRowPairCount": true,
+    "wholeRow0Fields": true,
+    "wholeRow0Schedule": true,
+    "wholeRow0ArmRoster": true,
+    "wholeRow0SampleBinding": true,
+    "wholeRow0PurityFdBytes": true,
+    "wholeRow1Fields": true,
+    "wholeRow1Schedule": true,
+    "wholeRow1ArmRoster": true,
+    "wholeRow1SampleBinding": true,
+    "wholeRow1PurityFdBytes": true,
+    "wholeRow2Fields": true,
+    "wholeRow2Schedule": true,
+    "wholeRow2ArmRoster": true,
+    "wholeRow2SampleBinding": true,
+    "wholeRow2PurityFdBytes": true,
+    "wholeRow3Fields": true,
+    "wholeRow3Schedule": true,
+    "wholeRow3ArmRoster": true,
+    "wholeRow3SampleBinding": true,
+    "wholeRow3PurityFdBytes": true,
+    "eightRawPairs": true,
+    "referenceWeightedFormula": true,
+    "candidateWeightedFormula": true,
+    "weightedArmRoster": true,
+    "actualExitFiveStrictZeros": true,
+    "actualToolTerminalZero": true,
+    "consumerActualZeroEmptyToolOutput": true,
+    "grantRecipeBindings": true,
+    "grantTypedScope": true,
+    "grantExactSourceReview": true,
+    "genuineR2ReceiptAliases": true,
+    "claimGrant": true,
+    "claimCoreBindings": true,
+    "helperTypedActualIdentity": true,
+    "helperActualGroupEstablished": true,
+    "childOwnedActualIdentity": true,
+    "recorderFlagsExact": true,
+    "recorderConfigAndBounds": true,
+    "separatePidGroupAbsences": true,
+    "allFourRecordedZeroSignalESRCH": true,
+    "claimACDisk": true,
+    "helperSummaryExactlyOne": true,
+    "helperMetaCompletion": true,
+    "inheritedWarningRetained": true,
+    "priorFullpostflightFinished": true
+  },
+  "strictIntegerTokensVerified": true,
+  "mediansAndWeightedIndependentCalculation": {
+    "mediansMs": {
+      "state": {
+        "reference": 60.471897000000126,
+        "candidate": 67.32958300000018
+      },
+      "wholeRow": {
+        "reference": 121.16290900000013,
+        "candidate": 115.94958499999984
+      }
+    },
+    "weighted": {
+      "reference": 453.6111202780007,
+      "candidate": 467.4480862980003
+    },
+    "weightedDifferenceSeconds": 13.83696601999958,
+    "weightedRegressionPercent": 3.0504027351709184,
+    "stateMedianRegressionPercent": 11.340285885193984,
+    "wholeRowMedianChangePercent": -4.302739215348716,
+    "retainedOutlierMs": 407.5686059999998
+  },
+  "plannedSchedule": {
+    "inputs": [
+      "state",
+      "wholeRow"
+    ],
+    "measuredOrders": [
+      [
+        "reference",
+        "candidate"
+      ],
+      [
+        "candidate",
+        "reference"
+      ],
+      [
+        "reference",
+        "candidate"
+      ]
+    ],
+    "measuredPairsPerInput": 3,
+    "warmupOrder": [
+      "reference",
+      "candidate"
+    ],
+    "warmupPairsPerInput": 1
+  },
+  "rawWarmups": {
+    "state": {
+      "reference": 60.159566999999925,
+      "candidate": 65.60460099999989
+    },
+    "wholeRow": {
+      "reference": 149.89971800000012,
+      "candidate": 122.29811599999994
+    }
+  },
+  "rawMeasuredTimings": {
+    "state": {
+      "reference": [
+        66.89017899999999,
+        60.471897000000126,
+        58.36080899999979
+      ],
+      "candidate": [
+        59.47306600000002,
+        69.8870300000001,
+        67.32958300000018
+      ]
+    },
+    "wholeRow": {
+      "reference": [
+        121.16290900000013,
+        119.77634200000011,
+        153.44643600000018
+      ],
+      "candidate": [
+        115.94958499999984,
+        105.94782299999952,
+        407.5686059999998
+      ]
+    }
+  },
+  "allEightRawPairsRetained": {
+    "state": [
+      {
+        "phase": "warmup",
+        "trial": -1,
+        "order": [
+          "reference",
+          "candidate"
+        ],
+        "timingsMs": {
+          "reference": 60.159566999999925,
+          "candidate": 65.60460099999989
+        },
+        "exactOutputBytes": true,
+        "rowPurity": true,
+        "statePurity": true,
+        "retainedFdAndPathIdentity": true
+      },
+      {
+        "phase": "measured",
+        "trial": 0,
+        "order": [
+          "reference",
+          "candidate"
+        ],
+        "timingsMs": {
+          "reference": 66.89017899999999,
+          "candidate": 59.47306600000002
+        },
+        "exactOutputBytes": true,
+        "rowPurity": true,
+        "statePurity": true,
+        "retainedFdAndPathIdentity": true
+      },
+      {
+        "phase": "measured",
+        "trial": 1,
+        "order": [
+          "candidate",
+          "reference"
+        ],
+        "timingsMs": {
+          "candidate": 69.8870300000001,
+          "reference": 60.471897000000126
+        },
+        "exactOutputBytes": true,
+        "rowPurity": true,
+        "statePurity": true,
+        "retainedFdAndPathIdentity": true
+      },
+      {
+        "phase": "measured",
+        "trial": 2,
+        "order": [
+          "reference",
+          "candidate"
+        ],
+        "timingsMs": {
+          "reference": 58.36080899999979,
+          "candidate": 67.32958300000018
+        },
+        "exactOutputBytes": true,
+        "rowPurity": true,
+        "statePurity": true,
+        "retainedFdAndPathIdentity": true
+      }
+    ],
+    "wholeRow": [
+      {
+        "phase": "warmup",
+        "trial": -1,
+        "order": [
+          "reference",
+          "candidate"
+        ],
+        "timingsMs": {
+          "reference": 149.89971800000012,
+          "candidate": 122.29811599999994
+        },
+        "exactOutputBytes": true,
+        "rowPurity": true,
+        "statePurity": true,
+        "retainedFdAndPathIdentity": true
+      },
+      {
+        "phase": "measured",
+        "trial": 0,
+        "order": [
+          "reference",
+          "candidate"
+        ],
+        "timingsMs": {
+          "reference": 121.16290900000013,
+          "candidate": 115.94958499999984
+        },
+        "exactOutputBytes": true,
+        "rowPurity": true,
+        "statePurity": true,
+        "retainedFdAndPathIdentity": true
+      },
+      {
+        "phase": "measured",
+        "trial": 1,
+        "order": [
+          "candidate",
+          "reference"
+        ],
+        "timingsMs": {
+          "candidate": 105.94782299999952,
+          "reference": 119.77634200000011
+        },
+        "exactOutputBytes": true,
+        "rowPurity": true,
+        "statePurity": true,
+        "retainedFdAndPathIdentity": true
+      },
+      {
+        "phase": "measured",
+        "trial": 2,
+        "order": [
+          "reference",
+          "candidate"
+        ],
+        "timingsMs": {
+          "reference": 153.44643600000018,
+          "candidate": 407.5686059999998
+        },
+        "exactOutputBytes": true,
+        "rowPurity": true,
+        "statePurity": true,
+        "retainedFdAndPathIdentity": true
+      }
+    ]
+  },
+  "fixture": {
+    "member": 308,
+    "rawBytes": 4228063,
+    "rawSha256": "9343625f2cd72964727f7d0b6679d89c0c85ba855208554af13a239d78bb968a",
+    "stateBytes": 2103442,
+    "stateSha256": "cac7fcc155b45be663ac516b244cf3e5fe0c4ec4fb204fb6bd173d9b17d04f7e"
+  },
+  "retainedCaptureMetadata": {
+    "ctimeNs": "1791439909827355864",
+    "dev": "16777220",
+    "ino": "166406220",
+    "mode": "33188",
+    "mtimeNs": "1791439909827355864",
+    "nlink": "1",
+    "size": "141237093"
+  },
+  "sourceConfigGrantClaimReportBindingsExact": true,
+  "observedRecorder": {
+    "actualChildExit": 0,
+    "boundsSeconds": {
+      "active": 75,
+      "node": 60,
+      "whole": 90
+    },
+    "childPid": 12294,
+    "configSha256": "cde7f59c308c2cc115946244b97c33dab5dd7ce024eaae03926111684dde6dff",
+    "elapsedSeconds": 6.744816834994708,
+    "executionAuthorization": false,
+    "game": false,
+    "groupClear": true,
+    "mode": "benchmark",
+    "ownedPgid": 12294,
+    "pgidConfirmed": true,
+    "sanitizedEnvironment": [
+      "NODE_OPTIONS",
+      "NODE_PATH"
+    ],
+    "schema": "1370-b109-pure-encoder-recorder-r4",
+    "sourceOrGameplayAdoption": false,
+    "startupOwnedBeforeExec": true,
+    "status": "PURE_ENCODER_BENCHMARK_COMPLETE_UNADOPTED",
+    "stderrBytes": 0,
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdoutBytes": 11199,
+    "stdoutSha256": "8fe5b9ff89f78033c95be3f868f8a789b98eaff49bf89295ac0bb8fe9a6da412",
+    "timedOut": false,
+    "utc": "2026-10-10T01:20:41.486741+00:00"
+  },
+  "recorderPreservedDefinitions": {
+    "metadata": true,
+    "authenticate": true,
+    "process_alive": true,
+    "start_owned": true,
+    "ready_go": true,
+    "close_startup_fds": true,
+    "clear": true,
+    "alarm": true,
+    "whole_guard": true,
+    "active_guard": true,
+    "observed_exit_guard": true,
+    "child_environment": true,
+    "finalize_result": true,
+    "OwnedChild": true
+  },
+  "pregrantReceiptCorrection": {
+    "originalReview": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+      "bytes": 33753,
+      "sha256": "af928bb6586a9140b42a94f1a5deeb56c36c8a452e109268e8283858d8d30cbf"
+    },
+    "correctedReview": {
+      "bytes": 34035,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "9b8d4ca1d96e4675c6a589572a1930c31c6f25b722baff1da83f7ee568594502"
+    },
+    "aliasesExact": true,
+    "originalSemanticContentUnchanged": true,
+    "pregrantFailure": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-BENCHMARK-PREGRANT-R1-STOP.json",
+      "sha256": "f3afdbc7433bd27d97f113b4ba3a751062d4f085f811ae46db9fc034a07c0fa4",
+      "bytes": 1398
+    },
+    "failureToolChunk": "f30ba9",
+    "grantIssuedAtFailure": false,
+    "benchmarkExecutedAtFailure": false
+  },
+  "verificationLimits": {
+    "retainedEvidenceOnly": true,
+    "captureStatReadHashDecode": false,
+    "sourceImportedExecutedOrTestsRun": false,
+    "newProcessProbes": false,
+    "privateOrProtectedSourceAccessChanges": false,
+    "gitActions": false,
+    "newGate": false,
+    "newBenchmarkRepeat": false
+  },
+  "executionAuthorization": false
+}

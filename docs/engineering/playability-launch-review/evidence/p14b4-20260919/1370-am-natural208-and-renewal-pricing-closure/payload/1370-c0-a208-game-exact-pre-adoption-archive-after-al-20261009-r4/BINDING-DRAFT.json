@@ -1,0 +1,100 @@
+{
+  "boundsAmendment": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r6/AMENDMENT-BOUNDS-PROPOSED.md",
+    "reviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-independent-design-review-r1/RECEIPT.json",
+    "reviewSha256": "8dc9c50b2ba7edf3702b42fd3dbeefb2e26e4089891af32127fa816c1704df3d",
+    "sha256": "3e705b81cd4991b628eff0a084e8088f53005be49098ee449b025c1d8606f0d4"
+  },
+  "controlsGrant": {
+    "bytes": 8775,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json",
+    "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+  },
+  "exactReview": null,
+  "executionAuthorization": false,
+  "independentSourceReviewReceipt": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+  },
+  "nodeExecPath": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+  "nodeVersion": "v22.23.2",
+  "observerSha256": {
+    "POLICY.sb": "8e5756225a70618c763bc888a62c7ba1e1f8382d10392f21be5766fbb96a24b5",
+    "bounds-guard.mjs": "c5a548b45323f57a9e00f24daecbaca53ede29f0e8348ab2a74c72a5f3d1d36f",
+    "outer-recorder.py": "bf7cb565ba6c378323393b0e4f7a89de16e278526e34f73295e54c74bc7e8ef8",
+    "settlement208-core.mjs": "8d18864aa6943d1aec534a4f78746eb614c66b32862cac80528e9f2d9bee367e",
+    "supervise.py": "45eda307943fb829a321624d7eca4ad5004a7d8e8bdef042a74c8344b61e153e",
+    "witness-core.mjs": "2c0120734ec7d46e59c953a000f195fddadb24ac7c5ab3e65e68ffb801b8d63d",
+    "witness.mts": "f82c50aa830d672de685bbfc6f49951ef56fcc3f4714ffe7b6a31100fe50e704",
+    "worktree-guard.mjs": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4"
+  },
+  "operationalRuntimeAuthority": {
+    "bytes": 10578,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+    "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3"
+  },
+  "outputProtocol": "single-bounded-stdout-frame-no-files",
+  "parentBoundsAdoption": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-parent-adoption-r1/ADOPTION.json",
+    "sha256": "6b4b83cd3470a9a882d8045ae6300bca0a39635c793c4a3b312c8d0fed94dc46"
+  },
+  "premiumFloorReview": {
+    "mandatoryTypedFunctionSupplement": {
+      "bytes": 14788,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r2/COMPLETE-TYPED-FUNCTION-SUPPLEMENT.txt",
+      "sha256": "9511e728c09e74421f438b7a3037c8d7ab312bef578923a126e57ab8c68215db"
+    },
+    "parentAdoption": {
+      "bytes": 2092,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "ef30c2fd1be9e503e3b4cc45ffdefb940566f770614fbd2c072c77e1181c3a1d"
+    },
+    "review": {
+      "bytes": 5922,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r2/RECEIPT.json",
+      "sha256": "fd7c8a02893168478ff81fd557dc68f6010d49bd18bbe175d2ec48ed313352cb"
+    }
+  },
+  "productionHeadAtPreparation": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "repoRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+  "runtimeSha256": {
+    "node_modules/vite-node/package.json": "7018dacaa212db8e05f454147ac95b817c96b5e45fe56379f8ed54e11617b138",
+    "node_modules/vite-node/vite-node.mjs": "187a031df1b2c5b9e2251d08c3ec51d0f8c790296da47eb7da8d4ab605c1a500",
+    "node_modules/vite/package.json": "a1d0149fd986fd34b6d35503d2c0d8d9f743c4dbaaf94fbc11812bc84b05884d",
+    "package-lock.json": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de",
+    "package.json": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f"
+  },
+  "selected16InputReview": {
+    "gapAdoption": {
+      "bytes": 1702,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-design-parent-adoption-20261009-r1/ADOPTION.json",
+      "sha256": "8f29b3860b2992378fc3fe7408557cffbefe5b4da6685bc0c42951407d171268"
+    },
+    "gapReview": {
+      "bytes": 3022,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-independent-design-review-20261009-r1/RECEIPT.json",
+      "sha256": "12145d203cd76fd36e94b4b8a862505d9e4e150c0af8058fcc47cba881d8292e"
+    },
+    "sourceReceipt": {
+      "bytes": 5517,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+    }
+  },
+  "sourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "status": "DRAFT_FILLED_UNREVIEWED_UNRUN",
+  "witnessGrant": null,
+  "worktreeSha256": {
+    "src/core/aging.ts": "38fd1e6704213a5b6cca8af7ffe9fcd6562fc9c242792eb1410209a27fa6baec",
+    "src/core/employment.ts": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a",
+    "src/core/hollywood.ts": "0a955b20d534d8eb4433e70e134245f6193723173df93cee05d5aae214c697ea",
+    "src/core/talentMarket.ts": "6c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70",
+    "src/core/talentSummary.ts": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4",
+    "src/core/tick.ts": "c1c0fca42dce79d6e3275650cb22f54f6363ae0cf2b63f1822ad386dfb44ca15",
+    "src/core/tuning.ts": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4",
+    "src/core/worldgen.ts": "774b543a2f34fe4162dcf44609f211322a2cb65fc666a560b4151ffe030943d7",
+    "src/harness/p13a/fixtures.ts": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5",
+    "tests/bridge-p14b5-relationships.test.ts": "39c8523cb5ebeefc6f4b90d0f878d8374a37a375963341bcc3849ce7b8844c9e",
+    "tests/fixtures/p13a/accepted-v19.json.gz": "8c785eae9239d968b939c5de2434ac53819a2dd70edb8bd4f4b6d4a5c5e7101e"
+  }
+}

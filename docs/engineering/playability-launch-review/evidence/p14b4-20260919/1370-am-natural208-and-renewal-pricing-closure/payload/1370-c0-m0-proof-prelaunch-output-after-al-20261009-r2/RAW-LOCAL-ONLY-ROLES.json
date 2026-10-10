@@ -1,0 +1,28 @@
+{
+  "roles": [
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 93869,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-prelaunch-output-after-al-20261009-r2/BEFORE-PS.LOCAL",
+      "sha256": "8d7b60aa8290b06630619b4f60dafe4f849bcd02c8c97db152113811d5a0f4ab"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 646772,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-prelaunch-output-after-al-20261009-r2/BEFORE-LSOF.LOCAL",
+      "sha256": "34abedc5e06e22d70a82251a0fa88057089f92208f364562f5afbba0d38281af"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 93623,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-prelaunch-output-after-al-20261009-r2/AFTER-PS.LOCAL",
+      "sha256": "ccd22c1dbb150e8e34d894efbe41c05a6b5927340e16a9d01658f7d7857681ec"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 646827,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-prelaunch-output-after-al-20261009-r2/AFTER-LSOF.LOCAL",
+      "sha256": "a8a0f6afd556907b6d21de54ea10a6380dc055ce73abf944e544eca4770cda00"
+    }
+  ]
+}

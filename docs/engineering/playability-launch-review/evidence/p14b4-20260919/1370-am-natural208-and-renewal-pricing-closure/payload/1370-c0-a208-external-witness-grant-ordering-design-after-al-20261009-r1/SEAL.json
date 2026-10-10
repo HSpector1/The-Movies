@@ -1,0 +1,18 @@
+{
+  "actualRuntimeAuthority": null,
+  "design": {
+    "bytes": 13392,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-witness-grant-ordering-design-after-al-20261009-r1/DESIGN.json",
+    "sha256": "79bc84e010202b5b3899bd610061762c4c0381d2eeb73f2421e15073e1dc5f53"
+  },
+  "executionPerformed": false,
+  "independentSourceContractReview": null,
+  "rootSourceContractAdoption": null,
+  "schema": "1370-a208-external-witness-grant-ordering-source-seal/v1",
+  "sourcePins": {
+    "bytes": 793,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-witness-grant-ordering-design-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "f6e9b2ce0f505a36ca75e526d09a43d4e9d3f33a4eef782c9a98010d2d9bbbd7"
+  },
+  "status": "SEALED_SOURCE_DESIGN_ONLY_UNRUN"
+}

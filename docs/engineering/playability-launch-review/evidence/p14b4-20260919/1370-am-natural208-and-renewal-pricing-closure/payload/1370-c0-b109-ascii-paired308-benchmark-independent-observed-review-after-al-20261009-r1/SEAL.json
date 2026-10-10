@@ -1,0 +1,46 @@
+{
+  "schema": "1370-b109-ascii-paired308-independent-observed-review-seal/v1",
+  "decision": "ACCEPT_OBSERVED_B109_ASCII_PAIRED308_MEASUREMENT_ONLY",
+  "measurementAccepted": true,
+  "performanceWin": false,
+  "sourcePromotionAuthorized": false,
+  "executionAuthorization": false,
+  "automaticRetry": false,
+  "routeSourcePins": {
+    "bytes": 9726,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "1800e05d6a9fbab6eae4f4e7a8bee65969da4785e5b47672d1bf06fc4fbba51b"
+  },
+  "actualGrant": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/GRANT.json",
+    "sha256": "8d32dd7abb8f8e0bf502242b19854169567e47d948e0fbe74378776a85ee61ba",
+    "bytes": 7059
+  },
+  "actualOutcome": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/TOOL-OUTCOME.json",
+    "sha256": "2323fba36f9445d6981852026e5a590f4303fed3ef4f85019bcb0e3784001f4f",
+    "bytes": 2798
+  },
+  "files": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-observed-review-after-al-20261009-r1/AUTHENTICATIONS.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-observed-review-after-al-20261009-r1/AUTHENTICATIONS.json",
+      "sha256": "b06d82af7db48219a39de8440af1d47d69dbb49c0132e08044cb98fd5eeeeebf",
+      "bytes": 28486
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-observed-review-after-al-20261009-r1/FACTS.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-observed-review-after-al-20261009-r1/FACTS.json",
+      "sha256": "2d62d35ae4173ba2cbe2aa7743975d44823184eeb08e48dd42a26ee2da06c22d",
+      "bytes": 11646
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-observed-review-after-al-20261009-r1/RECEIPT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-observed-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "3965c8bcbe196ca809844cecfbc380a29d8ea05a1b9f7de4dc0e60717357cb96",
+      "bytes": 16965
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-observed-review-after-al-20261009-r1/REPORT.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-observed-review-after-al-20261009-r1/REPORT.md",
+      "sha256": "077f8b38b771f842a826096e6a01486dc8e7a98e2aac345df5c96e8292724aad",
+      "bytes": 3157
+    }
+  }
+}

@@ -1,0 +1,25 @@
+--- runner.py
++++ runner.py
+@@ -3,7 +3,7 @@
+ import argparse, hashlib, json, math, os, pathlib, re, selectors, shutil, signal, stat, subprocess, sys, time, traceback
+ S=pathlib.Path('/Users/zacheryspector/studio-scratch')
+ REPO=pathlib.Path('/Users/zacheryspector/The-Movies-headless-program')
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4')
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3')
+ CONFIG_PATH=P/'CONFIG.json'
+ CONFIG_SHA='7166e022583531d924d67639a3d2a8a8f250bd8461f2a33cace8ce8f41c24f9c'
+ OUT_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r1')
+@@ -637,11 +637,8 @@
+   verify_dir_chain(root,held);proof['rootIdentity']=list(before);return proof
+  finally:close_chain(held)
+ def exact_package_roles(run_id):
+- packages=CONFIG['dependencyPackages']
+- need(type(packages) is dict and len(packages)==21 and len(M0_FACTS['roleIdentities'])==1802 and
+-      all(row==M0_FACTS['roleIdentities'].get(path) for path,row in packages.items()),
+-      'exact 21-package projection of complete 1802-role physical facts')
+- for path,row in packages.items():
++ need(len(M0_FACTS['roleIdentities'])==21,'21 admitted dependency package roles')
++ for path,row in M0_FACTS['roleIdentities'].items():
+   source_step(run_id);p=pathlib.Path(path);held=open_dir_chain(p.parent)
+   try:
+    st=os.stat(p.name,dir_fd=held[-1],follow_symlinks=False)

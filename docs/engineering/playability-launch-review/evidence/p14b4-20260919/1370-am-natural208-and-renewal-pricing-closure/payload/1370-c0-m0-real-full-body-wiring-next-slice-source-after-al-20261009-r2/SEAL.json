@@ -1,0 +1,16 @@
+{
+  "actualControls": null,
+  "actualGrant": null,
+  "actualMutantRed": null,
+  "actualNeutrality": null,
+  "actualTypes": null,
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "schema": "1370-m0-full-body-wiring-held-source-seal/v1",
+  "sourcePins": {
+    "bytes": 9064,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "1d7b4657a3e6c20daa25b45eda69fa04dc035dae4c1622bf080d881efa8eccb1"
+  },
+  "status": "HELD_FULL_MODULE_DERIVATIVE_AND_CONTROLS_API_FIXTURE_AND_LOADER_INTEGRATION_UNSETTLED"
+}

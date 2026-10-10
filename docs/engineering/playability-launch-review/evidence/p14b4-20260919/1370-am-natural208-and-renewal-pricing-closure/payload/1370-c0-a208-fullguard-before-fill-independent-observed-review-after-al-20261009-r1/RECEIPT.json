@@ -1,0 +1,258 @@
+{
+  "actualMeasurement": {
+    "actualToolExit": 0,
+    "argv": [
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+      "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+      "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+      "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+      "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+      "before-fill",
+      "before-fill-after-al-r1"
+    ],
+    "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+    "elapsedSeconds": 503.92237908499374,
+    "environment": {
+      "GIT_OPTIONAL_LOCKS": "0",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "heavyHelperCount": 0,
+    "inventoryElapsedSeconds": 396.2203488410014,
+    "outputParentRole": {
+      "device": 16777220,
+      "inode": 166821887,
+      "mode": 448,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence"
+    },
+    "perCommandTimeoutSeconds": 180,
+    "phase": "before-fill",
+    "scannerGroupVerifiedBeforeDirectExec": true,
+    "scannerPgid": 75073,
+    "scannerPid": 75073,
+    "scannerSid": 75073,
+    "status": "GUARDS_ACCEPTED_READONLY",
+    "stderrBytes": 0,
+    "stdoutBytes": 450,
+    "toolSessionId": 7762,
+    "wholeScanDeadline": null,
+    "wholeScanDeadlineNotInvented": true
+  },
+  "actualRoles": {
+    "actualTool": {
+      "bytes": 1521,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-before-fill-parent-after-al-20261009-r1/ACTUAL-TOOL.json",
+      "sha256": "3ce160c8c43402885241e1dd9ce0c5c487c5da18b706afe41a3a513bb7b73bd3"
+    },
+    "grant": {
+      "bytes": 5124,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-before-fill-parent-after-al-20261009-r1/BEFORE-FILL-GRANT.json",
+      "sha256": "86cada08291887fe71850dea8d849fccb01caa67187d2ea1c9e3f6763be5bd70"
+    },
+    "originalPrivateProof": {
+      "bytes": 7760463,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r9-20261009-r1/SNAPSHOT.json",
+      "sha256": "555867b2be0abf76728fc8b905c52a73512b5da31d24162d804e7e1b9d8c9347"
+    },
+    "pins": {
+      "bytes": 507,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/PINS.json",
+      "sha256": "a6ff48955a724bcbfffb8cd4d33e9fdbc76c5274b2f2a5bc1eb10b7cee9de24b"
+    },
+    "postOwnership": {
+      "bytes": 519,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-before-fill-parent-after-al-20261009-r1/POST-OWNERSHIP.json",
+      "sha256": "fbee40803501ec22d6a8ca0a776d7b56949eab9e6aeef4fd9cc69419697ef337"
+    },
+    "rawLocalOnlyClassification": {
+      "bytes": 1496,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-before-fill-parent-after-al-20261009-r1/RAW-LOCAL-ONLY-ROLES.json",
+      "sha256": "ad08febd4b497c75a702f72ada26e5502572ee333203af00759a6b39656497c0"
+    },
+    "snapshot": {
+      "bytes": 8562268,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+      "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+    },
+    "stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-before-fill-parent-after-al-20261009-r1/before-fill.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 450,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-before-fill-parent-after-al-20261009-r1/before-fill.stdout",
+      "sha256": "6e28858e47248580e730eb91e1cffe3052fbf3d363446edc1da4257f1af618c7"
+    }
+  },
+  "admissionScope": "Accepted independently observed fresh AL BEFORE-FILL protection baseline only. Preserve production/common/R9/H/dependency write+renamer freeze through dependent route and required postflight. This receipt grants no fill/adoption/game and is not after-fill/adopted-preflight authority.",
+  "decision": "ACCEPT_OBSERVED_CURRENT_AL_A208_BEFORE_FILL_FULL_GUARD",
+  "executionAuthorization": false,
+  "nextStep": "Root may adopt this actual before-fill baseline with truthful narrow operational authority; then review fresh causal-order procedure derivative and genuine immutable before-fill config before separately granting actual six-file fill. Original exact after-fill/archive/adopt/preflight/final-grant/postflight chain remains required.",
+  "ownershipScope": {
+    "grant39PriorIDsWerePreflightOnly": true,
+    "heavyLaneLockAbsent": true,
+    "observedPostChecks": [
+      {
+        "id": 75073,
+        "kind": "pid",
+        "result": "ESRCH",
+        "signal": 0
+      },
+      {
+        "id": 75073,
+        "kind": "pgid",
+        "result": "ESRCH",
+        "signal": 0
+      }
+    ],
+    "postAll39PreviouslyRecordedIDsAbsenceClaim": false,
+    "postGlobalWorkerAbsenceClaim": false,
+    "reviewerPerformedFreshProbes": false
+  },
+  "pending": {
+    "actualAdoption": null,
+    "actualAfterFillGuard": null,
+    "actualFillGrant": null,
+    "actualFilledBeforeFillConfigReview": null,
+    "actualGameOrPostflightAcceptance": null,
+    "actualSixCandidateFiles": null,
+    "adoptedPreflight": null,
+    "exactCandidateReview": null,
+    "externalFinalGameGrant": null,
+    "freshCausalOrderProcedureDerivativeSourceReview": null,
+    "rootBaselineOperationalAdoption": null
+  },
+  "rawLocalOnly": {
+    "bytes": 1490407,
+    "fileCount": 4,
+    "roles": [
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 95450,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/BEFORE-PS.txt",
+        "priorGitBlob": null,
+        "sha256": "4f971e3e65db395b859d908ae8c7b348a97c20caec980d19b5691b40811d5569"
+      },
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 95472,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/AFTER-PS.txt",
+        "priorGitBlob": null,
+        "sha256": "ab04755070b272df5370cf34179c960ed4ee6a9843a04ed4c40d25243c5da536"
+      },
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 647037,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/BEFORE-LSOF.bin",
+        "priorGitBlob": null,
+        "sha256": "a1250656b465f1f80350d71fcf5bc358abbc6b5df45524cdd92b49fc99ce540b"
+      },
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 652448,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/AFTER-LSOF.bin",
+        "priorGitBlob": null,
+        "sha256": "e683537ca8698560542fa00a4a81fabab37fcc89657bdedd89ecb9ad769b2645"
+      }
+    ],
+    "rule": "All four BEFORE/AFTER-PS.txt and -LSOF.bin files are LOCAL_HASH_SIZE_ONLY irrespective of absence of .LOCAL suffix. Retain payload locally; publish only path/bytes/SHA metadata, never raw contents or reused Git blobs."
+  },
+  "reviewerProvenance": "Independent retained actual-evidence reviewer; previously accepted exact filled guard/wrapper source7d7657 and authored separate synthetic controls. Did not author guard/wrapper or execute this baseline. No new scans/inventories/probes/Git/candidate execution.",
+  "schema": "1370-a208-current-al-before-fill-independent-observed-review/v1",
+  "sourceAndAuthorityRoles": {
+    "actualControlsAdoption": {
+      "bytes": 8775,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json",
+      "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+    },
+    "actualScope": {
+      "bytes": 2476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-OPERATIONAL-SCOPE-ADOPTION.json",
+      "sha256": "5307f365af644cefb94f6eca5bd8188b9e4a4c2198a9ccf6b72f0671dfd32998"
+    },
+    "config": {
+      "bytes": 3906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
+      "sha256": "20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41"
+    },
+    "exactArgv": {
+      "bytes": 5811,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/EXACT-ARGV.json",
+      "sha256": "27742321d65d6ded933956640fa64656662c1a87defb24f0706417dd4e27bcbe"
+    },
+    "guardSource": {
+      "bytes": 21984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+      "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+    },
+    "independentSourceReview": {
+      "bytes": 8729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-independent-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "7d7657ad84bca8e7963ee50a7f3fa7ca04f54ffe30d876746056df99b817e668"
+    },
+    "publishedReadback": {
+      "bytes": 1250,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+      "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+    },
+    "sourcePins": {
+      "bytes": 4323,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/SOURCE-PINS.json",
+      "sha256": "b8091a89177893e12d9ffd4fc414ae1d338bb9a11f9c441aae2f707a5ed05f42"
+    },
+    "wrapper": {
+      "bytes": 9691,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/grant_before_fill.py",
+      "sha256": "5100a89373a729fe7f80714fc740b76d6fc3e45f85c869c381246ac29a21678e"
+    }
+  },
+  "verifiedFindings": {
+    "actualCurrentAuthority": "Published AL8cb704/source13880/mainc902 and truthful A208 scope5307 match config/snapshot/grant; docsOnlyVerified true, H-first true, H8708Waived false, executionAuthorization false. Scope describes source authority and does not authorize game.",
+    "actualToolChunksBindExactDurableGrantAndScannerIDs": true,
+    "allActualRoleBytesAndSha256BindingsMatch": true,
+    "allDocsOnlyPathsAllowed": "Every retained actual original4812\u2192AL path is HANDOFF.md or under docs/. Source tree remains13880; no production-source change accepted.",
+    "allFivePinsEntriesAuthenticated": "SNAPSHOT plus BEFORE/AFTER PS/LSOF raw files; no extra names.",
+    "completeActualFinalToolExitZero": true,
+    "currentBeforeAfter": "Both retained facts have exact bootUUID, AC, free space above3758096384, original/ephemeral/retainedH/M0 FD guards, old numeric PID and specified worker-marker checks accepted. These are retained guard assertions at its observation interval, not a new global postcheck.",
+    "dependencyAllocatedBytes": {
+      "copied": 250314752,
+      "production": 250314752
+    },
+    "dependencyComparableMapsEqual": "Exact full records except inode compare production/copied; every regular inode differs.",
+    "dependencyRowsPerSide": 12485,
+    "dependencyShapePerSide": {
+      "directory": 1401,
+      "regular": 11060,
+      "symlink": 24
+    },
+    "docsOnlyChangedPaths": 3346,
+    "historicalCopyAuthority": "Original4812 historical materializer/currentR9 copy proof remains distinct from new AL production/common baseline.",
+    "newProtectedBaselines": {
+      "commonGit": "a86736747df721b8ab1bfd466defeee6f84439f2ffa450140f9c806e4946805d",
+      "copied": "f33f505c16fb4e60fc639f5268969e14b9187ebf1c639209eeceae584a8fc5eb",
+      "production": "2a023520eef233cdd32d00c95a36b661822fab872c7e1ac4d2827cbdd3954140",
+      "retainedHLeaf": "a9cd945fe7dc2cd46bd9fddbc1afe2042ce0656da60c7ddb2b1c666c1bd7906e",
+      "retainedHParent": "7783177ca88740e6bc6525f8c98127f43dea38e3bdb3f72c97400956359b6deb"
+    },
+    "nineProtectedRootsStable": "All nine non-scratch strict root records before/after identical and equal immutable.strictRoots, including production/common objects/dependencies, copiedRoot/.git/dependencies, retainedH parent/leaf. Scratch parent path/device/inode/mode remains exact; allowed sibling/time changes informational.",
+    "noNewM0ReadbackRematerializationOrTest": "M0 FD guard unchanged; historical M0 remains separate. No game/save/capture outcome follows this protection baseline.",
+    "originalControlsNoRepeat": "Root417adabc qualified JS13/Python3+14 retained as already completed; baseline executed no control suite.",
+    "originalPrivateEquality": "Both full12485 dependency maps, physical checkout176 rows, copied full protected-byte digest, copiedRoot/copiedGit/copiedDependencies strict roots+ancestry, allocated bytes and immutable binding/supervisor/result/payload hashes equal authenticated original555867 postflight proof. Entire retained map comparison, not samples.",
+    "protectionSemanticLimit": "Production/common and retainedH digests are genuine new full-read protection baselines. They do not repin old scientific/neutrality acceptance or waive historical H STOPs. Original copied full digest must and does equal private555867.",
+    "rawRoleHashesAndSizesMatchBeforeAfterFacts": true,
+    "regularInodesIndependentlyAllocated": 11060,
+    "reviewedSourceAndGrantExact": "Grant independently authenticated reviewed sourcePins b8091a/wrapper5100a/guard3cd553/config20c302/argv277423/review7d7657 before samePID direct exec. Retained sources reauthenticated against exact grant roles.",
+    "stdoutExactlyOneCompleteJSONNewlineBindsSnapshotAndPins": true
+  },
+  "workNotPerformed": {
+    "GitCommandsOrProductionMutation": false,
+    "newProcessFdScans": false,
+    "newRuntimeImportTestsNodeGame": false,
+    "newSignalsOrProbes": false,
+    "privateSourceOrDependencyRead": false,
+    "repeatFullInventoryOrProtectedScan": false
+  }
+}

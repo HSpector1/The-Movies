@@ -1,0 +1,2370 @@
+{
+  "files": {
+    "HANDOFF.md": {
+      "bytes": 18015,
+      "mode": "100644",
+      "oid": "9ed9d1960df00964282867c8446307e3285e4fba",
+      "sha256": "d6fc0fd7d91b4c68a902e806111c849c1de85ab86878714ef1080f1aee909ced"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AL-owned-cleanup-repair-and-a208-control-completion.md": {
+      "bytes": 8429,
+      "mode": "100644",
+      "oid": "8840c46ecc7d83157ddc9ec728051bfacd294e1a",
+      "sha256": "6209cb7667f7b02d5b447619225b32c4c3c463af13205f806d8c0a0c88d69ac9"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/ARCHIVE-MANIFEST.json": {
+      "bytes": 5223756,
+      "mode": "100644",
+      "oid": "ee406c4efa9ded121106cdc1346f29fab85dc784",
+      "sha256": "05d3cf619bdae521d02331cb76959f95a3bd62849355225f91c2f6676163c815"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/INVENTORY-FINAL.json": {
+      "bytes": 244545,
+      "mode": "100644",
+      "oid": "dc847caa4478fb9d6de5fd1f0f2f2016f0015819",
+      "sha256": "a88fd550c246d13a385b67e270413671d9a1a281fb0e8b2bd4598b2065b4f19f"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/ROOT-FINAL-CLAIM.txt": {
+      "bytes": 1621,
+      "mode": "100644",
+      "oid": "8f0a6663ea2e71b0be9a6dfd114fca190cda71bf",
+      "sha256": "782a773b80a59897d41a0773698248c70a491c51ee761b63bb3a35ae19288219"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-ak-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json": {
+      "bytes": 1162,
+      "mode": "100644",
+      "oid": "1a14f35806e8c9c59f898ebdffe75fda73007c15",
+      "sha256": "2c2df2e06bc1223262c71ed8f5062d65e348c6965b7f87f9757411ca9b621eaa"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-archive-and-claims-independent-audit-20261009-r1/RECEIPT.json": {
+      "bytes": 6825,
+      "mode": "100644",
+      "oid": "b1cfd7e2b2454147966c55254b6e19f2f60abff7",
+      "sha256": "a977eb2891533837649b32d6260fffcea0fa96b0cea8393a45ee3cbc2b73f2de"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-checkpoint-root-finalization-20261009-r1/INPUT-PACKAGES.json": {
+      "bytes": 7620,
+      "mode": "100644",
+      "oid": "faa8220dd27815cad1cfa35c8356cd1bb54994c9",
+      "sha256": "c1f7e4f288e4862b1189e45efb5e256918f4ca33e38c0fc9bb572eb360c25aea"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-checkpoint-root-finalization-20261009-r1/INVENTORY-FINAL.json": {
+      "bytes": 241623,
+      "mode": "100644",
+      "oid": "09ec4772292a64c109a7eb86d8970d0458aa4fa6",
+      "sha256": "056c17db59cf0bdcb0de2d5b8f2adab16ed3302bb312539c41daa4166bb6e10b"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-checkpoint-root-finalization-20261009-r1/prepare_inventory.py": {
+      "bytes": 2704,
+      "mode": "100644",
+      "oid": "57004db7c0a0e430b2c60d33cbd545a86c00e947",
+      "sha256": "fd299156deb81f9df3f23c51f6f20ed28c87e386440b603b9b6c21fe7560331a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-checkpoint-root-finalization-20261009-r2/INPUT-PACKAGES.json": {
+      "bytes": 8171,
+      "mode": "100644",
+      "oid": "a9450d1327b270351a30afc56751adbba4692608",
+      "sha256": "8612ab98825832403760d23bc79757f65aec3ebb6cf8464ae964c74e9e8dd9e7"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-checkpoint-root-finalization-20261009-r2/prepare_inventory.py": {
+      "bytes": 2704,
+      "mode": "100644",
+      "oid": "57004db7c0a0e430b2c60d33cbd545a86c00e947",
+      "sha256": "fd299156deb81f9df3f23c51f6f20ed28c87e386440b603b9b6c21fe7560331a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json": {
+      "bytes": 8775,
+      "mode": "100644",
+      "oid": "e32d41cb930e79ce9a2bb743f3a2810a85596026",
+      "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/DIAGNOSTIC-STOP-ADOPTION.json": {
+      "bytes": 1211,
+      "mode": "100644",
+      "oid": "907ab05951d556ca0b4faa2a7397553d13e77fc1",
+      "sha256": "a8dbd2b02127f4e42ee749561dcdfa2d7fda292f2d41d3744d064282211a145a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/HELD-SCOPE-SOURCE-ADOPTION.json": {
+      "bytes": 1554,
+      "mode": "100644",
+      "oid": "b7259faa1e5886f6f88be9a3bf1ed78151e57ee8",
+      "sha256": "fefd5bef762b4bce0b34c21e29d4a653afb42bae8756b29ba0eee02b42a357b8"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/IMPLEMENTATION-SOURCE-ADOPTION.json": {
+      "bytes": 1543,
+      "mode": "100644",
+      "oid": "618de55c32b9dd7cd89404b6a1a4a1efa9b40ddc",
+      "sha256": "4c018cd0d6c6614134c2dce685da518cde0371e12adba9abb2df975408522c99"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/INTEGRATION-OBSERVED-ADOPTION.json": {
+      "bytes": 959,
+      "mode": "100644",
+      "oid": "15919a16e30bf02f729746e189cf99328aefc2cc",
+      "sha256": "2523abaeffe14b085cc29b32ef10bc2636b055caef201a7cbf2c153ef598ba4c"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/LESSONS-r1.md": {
+      "bytes": 1190,
+      "mode": "100644",
+      "oid": "bf556092bc8514e2b2a279d60b5b866ae4616dad",
+      "sha256": "46954ea71dcbaf01d06611b3c7be08c58d2879d2b48c8aabf6317effc4b000e8"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/LESSONS-r2.md": {
+      "bytes": 2116,
+      "mode": "100644",
+      "oid": "48a03b522c0c8606047098697d0a7a67cf92d40c",
+      "sha256": "007d077cc6854fe91a2d9b35524651465c40c429d5a7bd360d294bc8062a32d6"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/LESSONS-r3.md": {
+      "bytes": 2765,
+      "mode": "100644",
+      "oid": "d65c9ee31c4eafcd8c0b8129b6a9f324a961b2d5",
+      "sha256": "903d3c7045c4936df090a825f4a94a366cd789780164d5b16ae775dc342e3078"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/LESSONS-r4.md": {
+      "bytes": 3528,
+      "mode": "100644",
+      "oid": "f43db14533909af9bc744bb24246a1a3625ba73c",
+      "sha256": "973c8cfba71172ba0799664a6a67672fc51e5af3c03f0413ee3dfc91e3ed8675"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/LESSONS-r5.md": {
+      "bytes": 3924,
+      "mode": "100644",
+      "oid": "d66d0a5fe187809d996b76384c414a0fb35a9c3a",
+      "sha256": "eddf74f84e7634dff52011c5d0941abbd3796016424f4c5a634f578728b63cc6"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/LESSONS-r6.md": {
+      "bytes": 5805,
+      "mode": "100644",
+      "oid": "1cc3bf42be6d0ccfe8c6590b9779d551328a15bb",
+      "sha256": "6cc0ddc1606e2c4864821b1bc4987f9518bec732697f7d0fb242c008b49ed518"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/LESSONS-r7.md": {
+      "bytes": 7339,
+      "mode": "100644",
+      "oid": "a2de802fff30d535484cedb87dca34cfa2869253",
+      "sha256": "66f3e1b02dca8fe43c4284deaba6aca3aecaf93c993a4fa4922e59f80b3f6efa"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/LESSONS-r8.md": {
+      "bytes": 7632,
+      "mode": "100644",
+      "oid": "45918125bae3d3449474a8b36ff15141740bb6da",
+      "sha256": "9e7fe80ffb842e51b287d70afa6d71e68e434ca2f04258115c2fdc5f0c57b7c2"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/MICROPROBE-OBSERVED-ADOPTION.json": {
+      "bytes": 4297,
+      "mode": "100644",
+      "oid": "8c5a9ab400ee02d3360a3c93195ed5a39a5f7b4f",
+      "sha256": "cacde61e1209e4923535841c8e06533cfc6d8cfe3d1575b76eea7d6494a80605"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/MICROPROBE-STOP-ADOPTION.json": {
+      "bytes": 1276,
+      "mode": "100644",
+      "oid": "0ed910b6cc3b2a65d6cf6877852b9557f3aa5fe6",
+      "sha256": "aa836ddbecf9e096e6df7704d3ca2c6a20c332d32cbbec4557af5965d9b78866"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/PRE-REAP-DESIGN-ADOPTION.json": {
+      "bytes": 3099,
+      "mode": "100644",
+      "oid": "9215bbd3556a465661ca1fa984ff37207d77ce6d",
+      "sha256": "3bbbd3967f0d9188dc60d3ad4a22941da460c08f923e9dc38b3f13027659887e"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/PRE-REAP-FOCUSED-OBSERVED-ADOPTION.json": {
+      "bytes": 4560,
+      "mode": "100644",
+      "oid": "503fd6493f17777e5e605ebcd0e35f80fb2a258b",
+      "sha256": "376e8a53713604843f4275d69ede9b9bce1d144011e51398f69957e05b6c26bb"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/PRE-REAP-IMPLEMENTATION-ADOPTION.json": {
+      "bytes": 2933,
+      "mode": "100644",
+      "oid": "a347e4827a7602c294d68709ed2bdda3776f822a",
+      "sha256": "779242c3965b1c1e949d0a87927412f6b475f849618abeb29f299eb5d35a3e71"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/PURE-OBSERVED-ADOPTION.json": {
+      "bytes": 2787,
+      "mode": "100644",
+      "oid": "d4c924fc59f801d26321babc128b284d28db54d6",
+      "sha256": "30ba97ac7f300fdd1badad143f684b1642eb1ff1d2951d6eead722dda31f7af4"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/RESUME.json": {
+      "bytes": 548,
+      "mode": "100644",
+      "oid": "c3c6dbe4c849373b62c64063f259a9241f2ab6c5",
+      "sha256": "ec80d0969fc9fc62d805bb635e30b73dc35930fd9139abf71a9314a1c9f57f21"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-al-root-continuation-20261009-r1/SCOPE-AMENDMENT-DESIGN-ADOPTION.json": {
+      "bytes": 1308,
+      "mode": "100644",
+      "oid": "cd0ff1204628321c3576bdc019b78722c7352e74",
+      "sha256": "bd4b15dca9e84e4d694dc129f386c83079f07693f0f84472ad6ff31e3d476217"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-independent-measurement-review-after-ak-20261009-r3/RECEIPT.json": {
+      "bytes": 8235,
+      "mode": "100644",
+      "oid": "1c247c851f1111124d6923d1778de3c3f18fbeab",
+      "sha256": "8aad301ac87ada085929489571431d092cc7cb0f5cd60f8b4ecc81296ce414ac"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r1/94470.probe.stderr": {
+      "bytes": 185,
+      "mode": "100644",
+      "oid": "b94b86e7dee95aa57067f3cd83c51efa6ee97ed3",
+      "sha256": "68b15dd37eecf8bb9478f13bfe8220c1f4ddcc897cb796211ad5724b0ca884af"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r1/94476.outer-refusal.json": {
+      "bytes": 470,
+      "mode": "100644",
+      "oid": "f048899ab91b20ef8a37717ac0ea9456eb05ed8e",
+      "sha256": "52fc1f959787ef0e818880abeffb559a79e655a289c64f9a1feb91f9cd695a36"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r1/94480.outer-refusal.json": {
+      "bytes": 470,
+      "mode": "100644",
+      "oid": "7bf6df120540383d3470f4c740d21ee12028d920",
+      "sha256": "2cad20eadadc9a726ebeb9dde32f4b58e855ae4951dbf006b3761d615de7efb4"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r1/94481.outer-refusal.json": {
+      "bytes": 475,
+      "mode": "100644",
+      "oid": "602c71cf120c9c4c6378920a844fd095bb3c5d79",
+      "sha256": "96f1280077afdb33dc23da4e93255bc3caef9a73fe3a18f40989a2b28f0fba15"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r1/94482.outer-refusal.json": {
+      "bytes": 472,
+      "mode": "100644",
+      "oid": "6ac2fb504c678697f71c03985adcbacb05e8e3bb",
+      "sha256": "c5de0e03ea71ae245d8d638dd869e68f2d654a6d6e97f21f9de5a4f7087265e8"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r1/94485.outer-refusal.json": {
+      "bytes": 468,
+      "mode": "100644",
+      "oid": "5d2bbfd70bd2cfa88db553c648230efec1d4f61b",
+      "sha256": "3d6a02c02783a70bc226e841fb4290a66658121f0f7d6d26d1117851f93f728e"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r1/94487.outer-refusal.json": {
+      "bytes": 468,
+      "mode": "100644",
+      "oid": "d6692249e168a05f44846b8af9da01bdfac6d9fb",
+      "sha256": "b36b05b59b7f684aa6e40643a3f301409217c2d0e017f5b51c5b128c09be6ed3"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r1/94488.outer-refusal.json": {
+      "bytes": 468,
+      "mode": "100644",
+      "oid": "c90c4b8e91881828a698e78f6cdaa87f4efe5115",
+      "sha256": "829b12a72ec588d04e464d970061e5652d87ac88a607ea2d6b642c44e59ed5b5"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r1/OWNED.ndjson": {
+      "bytes": 1793,
+      "mode": "100644",
+      "oid": "cf4c9b1367ed40321d5bf573cdf7b7566fe6de0c",
+      "sha256": "d55aa153014fb0329bf5b6861223aaf3dbb2095301e0e6a4fa1cb9f4d5d32a69"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50460.probe.stderr": {
+      "bytes": 185,
+      "mode": "100644",
+      "oid": "609af93618ea3cc1e8aee2f35d3cb0f6d97dbdb7",
+      "sha256": "3e410b40e26edfa5f6b693669d5126c906ef3f9328f70efbf0f7271b804703cb"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50464.outer-refusal.json": {
+      "bytes": 470,
+      "mode": "100644",
+      "oid": "6bd798c4739a7ad272fdbcb981e6951d99f299e0",
+      "sha256": "29ebdd99687b56961721f1d6b88d442c9bc675df58cbc52160ca9275c37a0f5f"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50469.outer-refusal.json": {
+      "bytes": 470,
+      "mode": "100644",
+      "oid": "15138d8d6f8674b7f0d55f778f50704888c4f2d9",
+      "sha256": "38db049ad50cf3635b1d7ca11effa916564c42dc75f32cb83859c224cac0e5f9"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50470.outer-refusal.json": {
+      "bytes": 475,
+      "mode": "100644",
+      "oid": "8a4aa575661ba89ab6640393f3b55dcc36b3937d",
+      "sha256": "d633003cf0fda468dfe883d7d40e26de307a0b0c47832b9e57d63ad1f5b315f8"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50471.outer-refusal.json": {
+      "bytes": 472,
+      "mode": "100644",
+      "oid": "10aeca088b55d417178c7301ba95bc55da0e1f96",
+      "sha256": "67c58fd2d69a160ea9b6120d2632e7a36a80b950d656b0369b622f300840f39c"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50472.outer-refusal.json": {
+      "bytes": 468,
+      "mode": "100644",
+      "oid": "83c4e5a58c4f8a9d8b09b2234b4bea348aa2118e",
+      "sha256": "1cd74f98c9ec0fe1d188dd93df174a42fb6ff9c833b8f97b901869e3daaf5fe5"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50474.outer-refusal.json": {
+      "bytes": 468,
+      "mode": "100644",
+      "oid": "1ccc6338a23ac6b33a9a593b1f20b25fa71116d7",
+      "sha256": "7578af2790f4a01c59d8e0af0167446e20751f30891cd4d8166d2b405287072b"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50475.outer-refusal.json": {
+      "bytes": 468,
+      "mode": "100644",
+      "oid": "26fbf95083cd13fa0fa14a8af3241c6f9cc7ab3e",
+      "sha256": "1e5f21161d0a70296a88d5da77447c27d0b7e9fd0c8c037684f97c7dd90031cb"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/OWNED.ndjson": {
+      "bytes": 1793,
+      "mode": "100644",
+      "oid": "27918258017c3ab4ef256a9c38fda91738dfc63f",
+      "sha256": "5310f378d1f01d1069bbe9156003fa977368dc29b8584ed9ca1832f94e6c0412"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/RESULT.json": {
+      "bytes": 26551,
+      "mode": "100644",
+      "oid": "60249186d098e03029c49747cb7ba1390d64d9fc",
+      "sha256": "5aba75c9dab28652242e4fdb1811bf3fdd830535e0c8b0c83fdaefd5cbe32fb2"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-lane-after-ak-20261009-r1/controls.log": {
+      "bytes": 379,
+      "mode": "100644",
+      "oid": "6458cf655c217e401c695f244f54cd383621bdf3",
+      "sha256": "e38669ce3a09f29d867c16a8db3aa615286ecf9feaf244df2293fbbb9dca1e55"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-lane-after-ak-20261009-r1/controls.log.meta": {
+      "bytes": 340,
+      "mode": "100644",
+      "oid": "cd8d134a6221306074c823a70efbb643805fbafb",
+      "sha256": "8f505d5758086cec43480c3795a35baa0999ff4bdd8d6ad4253e03d234efaf25"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-lane-after-ak-20261009-r3/controls.log": {
+      "bytes": 402,
+      "mode": "100644",
+      "oid": "61d34ae10c31e126df5aa7bb2138e9d5520b0126",
+      "sha256": "d1c802fbd460ac190a5ad12890b5f53619de3c2e6e1289818b3febcc9b1724c2"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-lane-after-ak-20261009-r3/controls.log.meta": {
+      "bytes": 340,
+      "mode": "100644",
+      "oid": "8869b360aba6efbe7145caf868ceaafd308f145d",
+      "sha256": "3c78ff5f484bd7cfb38957be5dd73ba8d58c3f307d0d8ef632d27b021efb40d5"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-output-after-ak-20261009-r1/RESULT.json": {
+      "bytes": 903,
+      "mode": "100644",
+      "oid": "127a44851fafe4a5896dd8f67ad8539ba08e32c8",
+      "sha256": "89ccc774ff3959c8e26899de532b1a6a1769850f4d432a264a388a6a10038342"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-output-after-ak-20261009-r1/stderr.bin": {
+      "bytes": 3175,
+      "mode": "100644",
+      "oid": "0b6cc03930ed6c32dd6457cff40d1c35a6adfeed",
+      "sha256": "96852b7f2d3cc0f5c2b1a245cd62f681c4afffa08cf84707ec74decb9ca975f8"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-output-after-ak-20261009-r1/stdout.bin": {
+      "bytes": 23985,
+      "mode": "100644",
+      "oid": "d91188fc94e59bc0d472ee0b9872b5b7d0e54056",
+      "sha256": "bb42438e277f9014ef23886087c92317efa62535a82db658a4d919c4e86ff9d5"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-output-after-ak-20261009-r3/RESULT.json": {
+      "bytes": 925,
+      "mode": "100644",
+      "oid": "cbd1f32258cfdd4cd53bddf5cedc4ddf08fa45e6",
+      "sha256": "33ae9f280fed6c0d1cd7a3233a2a17deb1ebe833dff82b70ba7a0b8ed5fe3ab9"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-output-after-ak-20261009-r3/stderr.bin": {
+      "bytes": 2590,
+      "mode": "100644",
+      "oid": "d0edc24ce91d4b51edc73ecafb1f34cfcd10edd0",
+      "sha256": "47b5b1bf7bc3bdfacb01bb219fa96fbcb5c4b2d4db90fb3aafff4b23b8a8db3a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-output-after-ak-20261009-r3/stdout.bin": {
+      "bytes": 49073,
+      "mode": "100644",
+      "oid": "0b456a25e1d3d09b3f3cdb555ff31539bf0df9f4",
+      "sha256": "22f2f2cd69eda2ad68cc0a5dc8476c053344697a310ecfa7b3fa93d3a374a085"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-parent-recorded-after-ak-20261009-r1/ACTUAL-TOOL.json": {
+      "bytes": 663,
+      "mode": "100644",
+      "oid": "533ace3f01680150c753d4453c1053146ac78112",
+      "sha256": "6257c40a4b5e939d6ad7c87f42bc39e545c18298b841113034e065cff5c1ee4b"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-parent-recorded-after-ak-20261009-r1/POST-FAILURE-OWNERSHIP-AND-DIAGNOSTICS.json": {
+      "bytes": 3278,
+      "mode": "100644",
+      "oid": "363fa95676b43cc11846904ece5ee3ea9f85fced",
+      "sha256": "91ae1cfa9e81380ab259bfa4033659baa538a067354f545e0364408108ece013"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-parent-recorded-after-ak-20261009-r1/PYTHON-GRANT.json": {
+      "bytes": 5628,
+      "mode": "100644",
+      "oid": "73d9cd83e66484712400eb5c0c26344006e026da",
+      "sha256": "3e71b8c6d1305869cb59880edfab0804eec2704e3944717773c3b262f1aa04d9"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-parent-recorded-after-ak-20261009-r3/ACTUAL-TOOL.json": {
+      "bytes": 731,
+      "mode": "100644",
+      "oid": "5d10fd6d2de0b02d00fbf72ff5196c85b80f34f2",
+      "sha256": "f5afc9391dde84c5a20463fcfa42b106e82af807c01d358a6fc481f4693ba2e4"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-parent-recorded-after-ak-20261009-r3/POST-OWNERSHIP.json": {
+      "bytes": 4585,
+      "mode": "100644",
+      "oid": "1b06e980b626d89e8e6135d76307fcf088fe3e01",
+      "sha256": "ce669000b28503da350da089f5279d40380fabc619f348e134c1e3c814825046"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-python-parent-recorded-after-ak-20261009-r3/PYTHON-GRANT.json": {
+      "bytes": 8134,
+      "mode": "100644",
+      "oid": "10008b665181473b871216b716101bdf79be80fb",
+      "sha256": "9ce15d64525aeb67822284cb4750698bd152a4bc603e465d4e1a444c7d17a3b2"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/CONFIG.json": {
+      "bytes": 17764,
+      "mode": "100644",
+      "oid": "a06b0cb23188ff5ce2b55e80d83d43cb50efe060",
+      "sha256": "1670a6d9ae9f16c65bbf75c4f51b2a2151740c878efd03de16d6f89ec6fea6b6"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/CONFIG.json.diff": {
+      "bytes": 5634,
+      "mode": "100644",
+      "oid": "a0ee62ecdf521a2ca600fada42264d6cf7d63e0f",
+      "sha256": "2289619ebbfc178944afc16b2beae63d9d25e74ebaf5a2b21f1cc80d1fcad084"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/JS-REUSE-PROOF.json": {
+      "bytes": 1890,
+      "mode": "100644",
+      "oid": "ad617dbf8fff6141a8d3f10fbb2539225386c60c",
+      "sha256": "99f30623337c8e0e7512a4c4cceacdc5511bd23343b6c169db33ba4e0077e475"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/PENDING.json": {
+      "bytes": 947,
+      "mode": "100644",
+      "oid": "639e13c5fe07fe3a66929f2ed449374b405af039",
+      "sha256": "00bcdeac27f1dacb161bb0f43ba19ab3507e24eaf408edba17c851305ae811bf"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/REPORT.md": {
+      "bytes": 2971,
+      "mode": "100644",
+      "oid": "32d9a35a3cbba2bd501e53b2f45d9e209510d55b",
+      "sha256": "921e153dda956ecf43f7cc38f4cadf905cf572f809ef720c03e146476e0f734f"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/ROUTE.json": {
+      "bytes": 3557,
+      "mode": "100644",
+      "oid": "668cf323922cd603711e0ec2b0a7fb6920a1b70e",
+      "sha256": "b50c80b2c897382366b6171865120305610ecaae8b1517cd0863f51487c1d5a3"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/SEAL.json": {
+      "bytes": 494,
+      "mode": "100644",
+      "oid": "2a0f61e154e57759aa23f6fb19e3da4144357d81",
+      "sha256": "fe0b0be0996e3d4fc6d6ac17ae55b8ef7651aa25e431dfa84df958e2cf048a18"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/SOURCE-PINS.json": {
+      "bytes": 5908,
+      "mode": "100644",
+      "oid": "3a787de13746b0d8cceb7e21fa15e9ee253735e8",
+      "sha256": "757b3e4c74154b2fbc6d3fb2c0a7b751d263daf6645e0f933d51478a295a2d2c"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/STATIC-PREPARATION.json": {
+      "bytes": 1096,
+      "mode": "100644",
+      "oid": "85cdecdaf694f2a5d5120226fa171768af8de1d9",
+      "sha256": "61bfc603fe4837ad744e67fa2ac5ecd3866d1fbe69394c43c5afca05fb2e2cc8"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/drive.py": {
+      "bytes": 11344,
+      "mode": "100644",
+      "oid": "a290842f96280cc9334e2e004b7c4b39952c00f9",
+      "sha256": "0a4934e66eb748d7f2912373bd6896b21e80a867fad4a1e72b9f2a7647345369"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/grant-parent.py": {
+      "bytes": 11562,
+      "mode": "100644",
+      "oid": "d66245cb7d7e97d7a2af9eb6936aabb48c7ef084",
+      "sha256": "e0fbd7ab24ca5175afb83917046a27459c97b4968501bde783f093c2129106ef"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/owned_cleanup.py": {
+      "bytes": 9553,
+      "mode": "100644",
+      "oid": "f5648a1b57ae5f420fe9fb1ddb9af1eb5176f889",
+      "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/record.py": {
+      "bytes": 14480,
+      "mode": "100644",
+      "oid": "b13a3b00c3c61da5f303c7fa2086003c017a2729",
+      "sha256": "4e419898da8503b7b1cb1a61d742f9ab280e586cab571eb4a1be8f9eb169649d"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/record.py.diff": {
+      "bytes": 1135,
+      "mode": "100644",
+      "oid": "b8820376402db453df7dac49a2087487ea51c855",
+      "sha256": "f9e31078dd0b19ec54a6cee6917c21ac5b1ecd5421ba0617a22b4aac9029b2f8"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/CONFIG.json": {
+      "bytes": 19934,
+      "mode": "100644",
+      "oid": "a7c331baf18db1b0f6e0c3d810e203df28e0049a",
+      "sha256": "7a1b03be4b5b40a6da0a288bbfbf341fef30191263d203e4865a12f23f9a7351"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/FORWARD.diff": {
+      "bytes": 29161,
+      "mode": "100644",
+      "oid": "e98e36de8670fea7dcdfd69e4ea2d02c344335de",
+      "sha256": "313720714d69843673ae62c1e1c25d54fa076886d1981a98869d2d78c55098d3"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/INVERSE.diff": {
+      "bytes": 29161,
+      "mode": "100644",
+      "oid": "7d8a65645f57631e3abedb1e5d8c014de490ca3b",
+      "sha256": "899315264c02dd5bae3b61a5bf7f424e0aeb00c21085b871dcf0c552616a23fe"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/JS-REUSE-PROOF.json": {
+      "bytes": 1890,
+      "mode": "100644",
+      "oid": "ad617dbf8fff6141a8d3f10fbb2539225386c60c",
+      "sha256": "99f30623337c8e0e7512a4c4cceacdc5511bd23343b6c169db33ba4e0077e475"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/NOTE.md": {
+      "bytes": 2707,
+      "mode": "100644",
+      "oid": "1b3e7434b29f37a14b6f2204633b88fafcce7dfd",
+      "sha256": "96621f5b394760ce3abe1bbde1ca495b8d437284f4512e5283397279b783f7bd"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/ROUTE.json": {
+      "bytes": 4260,
+      "mode": "100644",
+      "oid": "c5b743ca6fe737d184ac8eb4722ae27572be488b",
+      "sha256": "7ef1caee3c6a5c1598cf075349a8e3c10eec095fe2162931d9b2f13e28f92c00"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/SOURCE-PINS.json": {
+      "bytes": 6389,
+      "mode": "100644",
+      "oid": "997c49e47b1fae02a0af89562a175a11e159566e",
+      "sha256": "3dc15b73a33590300e47c3ef44a8201bc7cce268237c0db9488fb2374937722a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/SOURCE-PROOF.json": {
+      "bytes": 3385,
+      "mode": "100644",
+      "oid": "c593fba30235e8a767e740d2568a19aeb662d6c3",
+      "sha256": "edd67ef7c52ffdae33129e46c65899a43f273ea184fb4aef30c8dfc895ccfe18"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/drive.py": {
+      "bytes": 13089,
+      "mode": "100644",
+      "oid": "1deb5b5f74d6a397a5db879936e5ba9d6555b8a0",
+      "sha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/grant-parent.py": {
+      "bytes": 15812,
+      "mode": "100644",
+      "oid": "dec3da0146f893b24baf8511d53b254d0e94925a",
+      "sha256": "a48e99344b1efdebafbac052335ab7d291ef898ea0420994087215bc4ae19a0d"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/owned_cleanup.py": {
+      "bytes": 9553,
+      "mode": "100644",
+      "oid": "f5648a1b57ae5f420fe9fb1ddb9af1eb5176f889",
+      "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/record.py": {
+      "bytes": 14480,
+      "mode": "100644",
+      "oid": "cd43bb0a3a7511c458a5395d0b24ff4581275d19",
+      "sha256": "93aab9ef9b4c55abc116f54b8ce5e509a11b45bea152d251c57da7d95a73694c"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/CONFIG.json": {
+      "bytes": 19934,
+      "mode": "100644",
+      "oid": "8a250caa2a97b0e701051dd455403686be185c82",
+      "sha256": "09d2b7197c42e71594787b6061637d30f84710feef881c7757ea8897dfc24bec"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/FORWARD.diff": {
+      "bytes": 9044,
+      "mode": "100644",
+      "oid": "aa22257638e76459ac791649303b4e11d447d683",
+      "sha256": "484e76e490963b6e9600b10cf7f841d73dd31ffe19e8f5fa596d14722a11343b"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/INVERSE.diff": {
+      "bytes": 9044,
+      "mode": "100644",
+      "oid": "08458414851d9f896471fc47021f04f4c2d2c5ad",
+      "sha256": "ff1abac6a54eedbd26e21e7d2b8f3b76c99c480df819b5acc5dd770c715b0677"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/JS-REUSE-PROOF.json": {
+      "bytes": 1890,
+      "mode": "100644",
+      "oid": "ad617dbf8fff6141a8d3f10fbb2539225386c60c",
+      "sha256": "99f30623337c8e0e7512a4c4cceacdc5511bd23343b6c169db33ba4e0077e475"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/NOTE.md": {
+      "bytes": 3339,
+      "mode": "100644",
+      "oid": "904db01e586ff4d8c9ec8997eeabf2d892793cfb",
+      "sha256": "ab95306177fd6d530896410a00dc05a407242a21330181aa743f56a604949854"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/ROUTE.json": {
+      "bytes": 4260,
+      "mode": "100644",
+      "oid": "3d4b2a15d4362a83bb7de35f52014f3902b76a6f",
+      "sha256": "f606e4debc0349f9ae751f1604cdf19e833946d616a4e1f1c1d16cc0b4c8a902"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/SEAL.json": {
+      "bytes": 1079,
+      "mode": "100644",
+      "oid": "3154ed1e17f120fcb6451a0d365dbfcb4da48f5e",
+      "sha256": "abd400cf8f959a6a27b2a6ba98d2e7d8f030aa75affbff85056ab14f8c78ae0c"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/SOURCE-PINS.json": {
+      "bytes": 6661,
+      "mode": "100644",
+      "oid": "a52b1fed2be287bdfa15d57ad07237e47fe529d9",
+      "sha256": "f4696f348c105e1252065f784ff76b5b930b1191ea3f78a3ba78f1eff357c877"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/SOURCE-PROOF.json": {
+      "bytes": 5791,
+      "mode": "100644",
+      "oid": "b40c14b8464bb11ee8efc0b56d8f9d139457d270",
+      "sha256": "ec934c2338f1bcdd799fc7d02e254c5e4d43563bc5c1b4b8adb416ea80c308de"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/drive.py": {
+      "bytes": 13089,
+      "mode": "100644",
+      "oid": "1deb5b5f74d6a397a5db879936e5ba9d6555b8a0",
+      "sha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/grant-parent.py": {
+      "bytes": 15823,
+      "mode": "100644",
+      "oid": "52fc1fcabebb3da11c9aa18437006f45008b0066",
+      "sha256": "97a0279a394da50f2664ce39c570c855a82a61860dff393204bd8fee9574d53a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/owned_cleanup.py": {
+      "bytes": 9553,
+      "mode": "100644",
+      "oid": "f5648a1b57ae5f420fe9fb1ddb9af1eb5176f889",
+      "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/record.py": {
+      "bytes": 14480,
+      "mode": "100644",
+      "oid": "ec336d0ca284d354a3ac4e5057693c685d8e17e0",
+      "sha256": "a1c9c49831c4665c2acaa720e97c05adb43f32e7704aec4c120e220dd9a58834"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-independent-review-after-ak-20261009-r1/FILLED-RECEIPT.json": {
+      "bytes": 2886,
+      "mode": "100644",
+      "oid": "c5ceb0f4534e5b0ee091c77b0c4b9d67ea97839a",
+      "sha256": "13a404e07460a5e891d84e689b46b4e1b93d91c68b173b845fd24f46f7c43498"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-independent-review-after-ak-20261009-r1/WRAPPER-RECEIPT.json": {
+      "bytes": 2771,
+      "mode": "100644",
+      "oid": "9384afe67e7e3a85c94c62aa1c75db7877240011",
+      "sha256": "4c9743792689d0628a0f99b7c056b7a844a63c4b1c18f75e0db528831984e04e"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-actual-route-independent-review-after-ak-20261009-r3/RECEIPT.json": {
+      "bytes": 9487,
+      "mode": "100644",
+      "oid": "61bf306fc6fc59a3fdc5760fb55c0a220bae5a50",
+      "sha256": "f0dd5a3f0784f07053e226ea96a2f4dfed9df577897f654ad7365b47e7f70641"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-failed-independent-observed-review-after-ak-20261009-r1/RECEIPT.json": {
+      "bytes": 4463,
+      "mode": "100644",
+      "oid": "8ead12347af1799e270c69cbd274b98c7d30b0d3",
+      "sha256": "63f323d230d5d2a55f69f06a952184b93c24e3392c5c7c55ed7440c6f1eab86c"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-independent-observed-review-after-ak-20261009-r3/FIXTURE-ARTIFACTS.json": {
+      "bytes": 14373,
+      "mode": "100644",
+      "oid": "dc2e3de35c010a5edc43130e24cf74b3cd66da84",
+      "sha256": "f15f941af84c5d750e36b984287464e29e1c023de9e5f0db12e79d9571e8722e"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-independent-observed-review-after-ak-20261009-r3/NOTE.md": {
+      "bytes": 1758,
+      "mode": "100644",
+      "oid": "33e63b36aeac3653d95ee09e5be9ab4659e9f104",
+      "sha256": "83bad95460a1487cebcfb83c53fe3f429242ea17b10831996978013272315390"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-independent-observed-review-after-ak-20261009-r3/RECEIPT.json": {
+      "bytes": 14393,
+      "mode": "100644",
+      "oid": "8543f716810e36c8b2637a564679960af21d11c5",
+      "sha256": "30cbea421e047686752bc0f0b765fde3e9763fff82c4d9a8d6ca436fb7b2d507"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-independent-observed-review-after-ak-20261009-r3/SEAL.json": {
+      "bytes": 951,
+      "mode": "100644",
+      "oid": "87c2f932567885a6dd66e1e5943e5f65e1a321ef",
+      "sha256": "c3f94ce988e70e49a9f23cec4f02ab256da2dc8ed49ab3a480bd8cb5796aa306"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-independent-source-review-after-ak-20261009-r1/RECEIPT.json": {
+      "bytes": 4149,
+      "mode": "100644",
+      "oid": "4fe5b1ea87129083f65ab67d87b3b301a03736da",
+      "sha256": "c4379727a85453d6f73e002fa9270ae0e28bf41ad1b9de8ed23599839c741b99"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-independent-source-review-after-ak-20261009-r1/REPORT.md": {
+      "bytes": 3603,
+      "mode": "100644",
+      "oid": "73b04950469792d1870ed0893c18decc2dbc35e3",
+      "sha256": "59447981d9184200262c776ea5409d1cc6a881713f6e83582b489b835e97d35a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/CONFIG.json": {
+      "bytes": 15952,
+      "mode": "100644",
+      "oid": "74f8e42490e3ecb6dcb1fafb7bed3ad0a354a578",
+      "sha256": "a78a8d441009e2c6c9568257e7fe30b4914ef9b17136ae3e09c8cecba9613808"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/CONFIG.json.diff": {
+      "bytes": 5542,
+      "mode": "100644",
+      "oid": "36567df1538b7f1404eeda69310c88f9102f6273",
+      "sha256": "f9445ee20988e1c24edbbfe56d24967f4babecb51b38bbdd3305df78e61b4035"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/CONFIG.json.inverse.diff": {
+      "bytes": 5542,
+      "mode": "100644",
+      "oid": "468fbcbb9d9018ebfba81400a54a703a4c64e303",
+      "sha256": "bb1967af52b3218a5d5e91d5e504552f32fc41b095206e3ce2ec92e10aa6034c"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/INVERSE-AND-ROLE-PROOF.json": {
+      "bytes": 22444,
+      "mode": "100644",
+      "oid": "27b9fd501092900770dddd5476d00e2cc825616f",
+      "sha256": "2458fddb8c22873f0b9fc7f87eb95b25bbc9653c76dab407c14126aefdfde837"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/LESSONS.md": {
+      "bytes": 1417,
+      "mode": "100644",
+      "oid": "1887b17341c70234d3d0fb195bf6713639642ab4",
+      "sha256": "489737078a613df5fbcba5461625fca192c6beeb71a1b27c132384db7e69443d"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/PROVENANCE.json": {
+      "bytes": 1156,
+      "mode": "100644",
+      "oid": "7243d52f70bd0ecad4f366bf69364263fc158d18",
+      "sha256": "e92d16faa96f83bcf7c614e57c613bf415f24dfc298fac174c41461be20d8bc4"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/ROUTE.json": {
+      "bytes": 3787,
+      "mode": "100644",
+      "oid": "617c1c68ccbb61ef4f9be95b7c14b4c49ab77e17",
+      "sha256": "75a38c7de3d0253cc3bd4e76e47ca4d1dcf9286c56d119f118f54b13ec66d070"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/ROUTE.json.diff": {
+      "bytes": 5090,
+      "mode": "100644",
+      "oid": "33b4920354f96c02040f663f4917651c8b3a1803",
+      "sha256": "16722f3cc19344cbe24bb3f519543bc2c029b3907a6ad2b00839dfe650532e8a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/ROUTE.json.inverse.diff": {
+      "bytes": 5090,
+      "mode": "100644",
+      "oid": "20030d98a4f936d5c6a89d932ffc124f24e2ab83",
+      "sha256": "90809626c361d3f231721c6a42a01feeeb242f463667ea153bf84f9f41dbb577"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/SEAL.json": {
+      "bytes": 440,
+      "mode": "100644",
+      "oid": "df4026e906e59cbff67c8c4547fcf6b907796b08",
+      "sha256": "a6307a562a747e366fd1fd4a946363aa7cd2076900ba1ef302b371716d447eaa"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/SOURCE-PINS.json": {
+      "bytes": 6144,
+      "mode": "100644",
+      "oid": "dc4f6397cd4e20785bcd01f1a257284683196c90",
+      "sha256": "ea143dc31e5e87bb0868f501a2c0655c04f670305fe3793713f0cf659c0cc904"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/drive.py": {
+      "bytes": 11344,
+      "mode": "100644",
+      "oid": "a290842f96280cc9334e2e004b7c4b39952c00f9",
+      "sha256": "0a4934e66eb748d7f2912373bd6896b21e80a867fad4a1e72b9f2a7647345369"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/drive.py.diff": {
+      "bytes": 9838,
+      "mode": "100644",
+      "oid": "368339ff63b0637e8fb58d3b6344c2bc9ac556db",
+      "sha256": "c14f2b3630ce1fb0dfba65a8a7ecfaa530f1e4cecb39461ebc9a25e4095a4ea8"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/drive.py.inverse.diff": {
+      "bytes": 9838,
+      "mode": "100644",
+      "oid": "52af36973305f0356f325fdbce8f06b662612c53",
+      "sha256": "6ee1ed911f0af8b5b234a159a016b806dbd9ca3427bf39c10bb99b2daded7340"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/owned_cleanup.py": {
+      "bytes": 9553,
+      "mode": "100644",
+      "oid": "f5648a1b57ae5f420fe9fb1ddb9af1eb5176f889",
+      "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/record.py": {
+      "bytes": 14482,
+      "mode": "100644",
+      "oid": "e0ed70da76ce06a05b934cadb2f65442f1e0cad9",
+      "sha256": "6a875fa9c04f2908eb0d7da25aafcc44e0e6e75c1a4a71306724bcfef64eb30b"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/record.py.diff": {
+      "bytes": 949,
+      "mode": "100644",
+      "oid": "cfd5c464aa72071fbf2ed01399d7cace514bec4e",
+      "sha256": "72be1041eefbfff4aeb6ca93752f6a96d77b0c2185dfc21686447c03ddc1eaeb"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/record.py.inverse.diff": {
+      "bytes": 949,
+      "mode": "100644",
+      "oid": "a9d1ba017d7c4bb50f7b72561f9eee531c3e69d9",
+      "sha256": "0a27b87dab5d9fe48de7fadc5495c570896d0776cba13fe15fa6b26343f06a8e"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/schema.md": {
+      "bytes": 4878,
+      "mode": "100644",
+      "oid": "b0e8b57e2d5597465599cdb96e1d6be1300ba761",
+      "sha256": "b07b2e883ce11cf23b688e9501d1a478558263205dfdcfecc7c7a688d17cf80c"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/CONFIG.json": {
+      "bytes": 16232,
+      "mode": "100644",
+      "oid": "95a3c9d9026fb62ace84e5d79d2b913b95865274",
+      "sha256": "25bb16221880ad6f2e85be0711cf9da980b03ca84d37f8dde82b4457c5495c62"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/CONFIG.json.diff": {
+      "bytes": 2844,
+      "mode": "100644",
+      "oid": "0ca301b7c10e5777de4114980477160c2200e018",
+      "sha256": "da968ae6ad6a6d5ec63914e519a5979f404d95689b236c16301b4485813ddbd5"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/CONFIG.json.inverse.diff": {
+      "bytes": 2844,
+      "mode": "100644",
+      "oid": "6c0eafd1a58cbe522aa5c7a29eaa046726b61d98",
+      "sha256": "635c953ca75d5c011df4330c53445edd3afff74369f703767dc0afb3d201336b"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/INVERSE-AND-ROLE-PROOF.json": {
+      "bytes": 15355,
+      "mode": "100644",
+      "oid": "0c8a9bebe95c37b1ddf54644389837a68b95d1df",
+      "sha256": "d92f29f2f11e285ed09eaea0882efb72f47ec92153cd23703463b4689cac26c2"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/LESSONS.md": {
+      "bytes": 2219,
+      "mode": "100644",
+      "oid": "267bebffe9272b53fb08539c3ef71f8f12f4828e",
+      "sha256": "41de70eadeb46be3a45149a7e531d43bd3b16662215d11b78ae8ba855bce3f4c"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/PROVENANCE.json": {
+      "bytes": 1143,
+      "mode": "100644",
+      "oid": "709ddc6a267dad638592f8e1da40bc294c62dc93",
+      "sha256": "ff9c501cd091b926024eb70cc576dee164bf969fdca0fb5cfab70df47a1d228d"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/ROUTE.json": {
+      "bytes": 4887,
+      "mode": "100644",
+      "oid": "28bca9f81c15d61a00964133b0f240160764266a",
+      "sha256": "4247a7530a1f0cfbbcf66a9b8f072c0231d8a885c2c345a4d1cf651efdfa7dd8"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/ROUTE.json.diff": {
+      "bytes": 4112,
+      "mode": "100644",
+      "oid": "3031e37ec72f07026ba6881233a8aa6a7871dd58",
+      "sha256": "caf835708f9dc561a973338fe414673087c02e616465b89980cc8f932e709b61"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/ROUTE.json.inverse.diff": {
+      "bytes": 4112,
+      "mode": "100644",
+      "oid": "a1e129ceba2b97c8e778cfead1322d5b898b2bef",
+      "sha256": "e221c36dd0f0179364e51cb9217b0fc5621eefca3b296fce53a8a2350fbd6a2c"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/SEAL.json": {
+      "bytes": 392,
+      "mode": "100644",
+      "oid": "123b132ce0fd7d6f797ae939f65d951080727adf",
+      "sha256": "434458c49ae02fa05e0d2eedcc2c85324240f5c488453a52130a02826e8b5490"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/SOURCE-PINS.json": {
+      "bytes": 6303,
+      "mode": "100644",
+      "oid": "f7b536c5ae8fbfa18ad6bea7d6ff93e98431dc88",
+      "sha256": "49723b2fc9d77a1b87d6aba650f750dabae79d8c2506019139c803fe3f4e1f3f"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py": {
+      "bytes": 11349,
+      "mode": "100644",
+      "oid": "e3d08da9444498d9a8b68a68792ee726576056cc",
+      "sha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py.diff": {
+      "bytes": 759,
+      "mode": "100644",
+      "oid": "8f346f970fad42f2a7a1d1913159f89be1322b81",
+      "sha256": "6f224017823f32155f1b50ac4d45bebda682b312d759bc4b50e831a8cb71ec3e"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py.inverse.diff": {
+      "bytes": 759,
+      "mode": "100644",
+      "oid": "f1c7fdab489e689feadd86bf4a517302a5f5bbbf",
+      "sha256": "8c1c5f61aca0dcb640eaf17886f6d9bcb5679b98adf7866e9816acc10b0e0494"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/owned_cleanup.py": {
+      "bytes": 9553,
+      "mode": "100644",
+      "oid": "f5648a1b57ae5f420fe9fb1ddb9af1eb5176f889",
+      "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/record.py": {
+      "bytes": 14482,
+      "mode": "100644",
+      "oid": "2898d83169b6c9d481051e8f416962d49b2fb313",
+      "sha256": "0b0ae1a67957a3518cc4ba20013a274b40f668b20d8a537c308842f245249257"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/record.py.diff": {
+      "bytes": 943,
+      "mode": "100644",
+      "oid": "92bed33e47a6a118e02d90cae32e6f17f664c56d",
+      "sha256": "6351039f4c8d007010fe45b297ad16920f18814b944c63ec1f276dae78d007b4"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/record.py.inverse.diff": {
+      "bytes": 943,
+      "mode": "100644",
+      "oid": "b339d89896e52b1111b755d585cd3faaa109add6",
+      "sha256": "9a3fcf2b1cd4f81d5e8925b26e90fc3bd688369c91b62a887e2137f543ff7a51"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/schema.md": {
+      "bytes": 5403,
+      "mode": "100644",
+      "oid": "90a9cfe5f08f98689ea92fa2e41f75d286a12279",
+      "sha256": "07ed46c65056606486ac0c77b021d28da2ba83e05587ce748b2d17a3008270e1"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/CONFIG.json": {
+      "bytes": 16232,
+      "mode": "100644",
+      "oid": "2750e803af7704ae93f51aa56c04f25b3990c0ec",
+      "sha256": "f3f64438238090573483f38ec9783a24263665cf9cb993bb35cd7fc07cf9d26c"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/CONFIG.json.diff": {
+      "bytes": 2729,
+      "mode": "100644",
+      "oid": "aa75930b0549a86d9cd71447d1a241075e7696ff",
+      "sha256": "209516dafd17c576bee5cd963a374a9d29a7b2f698667851defee0d2cf3b2316"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/CONFIG.json.inverse.diff": {
+      "bytes": 2729,
+      "mode": "100644",
+      "oid": "da2774c9bc945227748dd4254e026d9131cff2c6",
+      "sha256": "0393d2558e9fae4498e8e1895eb48e8891a6defae88ae61a27d9c77a605d7be7"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/LESSONS.md": {
+      "bytes": 3390,
+      "mode": "100644",
+      "oid": "9e8db365caec809a1d96d35551d549f3fb0b17a0",
+      "sha256": "17b719168fea9f29cec90937524a5d2ec750afe1a9cc1df834659a578b19d5b8"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/ROUTE.json": {
+      "bytes": 4228,
+      "mode": "100644",
+      "oid": "908a2693cf72353f0429e454015eb5140522da41",
+      "sha256": "f883332eccba3ae998aae47ef325fb59adca1b550ecf755a032358141f36d91f"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/ROUTE.json.diff": {
+      "bytes": 9249,
+      "mode": "100644",
+      "oid": "ef144380ada33e14de36eea5ae08f7afbfd49ac8",
+      "sha256": "9aa3fc944eacd859da46433e4985171c9204d97652c5e87f46914f3d59746187"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/ROUTE.json.inverse.diff": {
+      "bytes": 9231,
+      "mode": "100644",
+      "oid": "b573faf8aaae08a041a7236cdaaace3db618f845",
+      "sha256": "4839ff80c6cbbdc9e7fdbe1f6d881d7080364b5a6e169d1dd7b546e89060fe1a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/SEAL.json": {
+      "bytes": 433,
+      "mode": "100644",
+      "oid": "fe180cec06c6f8196e3db785226805309ca52cd7",
+      "sha256": "bd861634dfd000e7da6e4e6be5d7db123c7b37e8d32149075a16dc3e6a376fdc"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/SOURCE-PINS.json": {
+      "bytes": 5937,
+      "mode": "100644",
+      "oid": "24cb2f2e7f77f7640c01c535e151b404b35d91cb",
+      "sha256": "2d05274d9f284d424e13594b940612f84b199467d2494a652d0620692e6a8aa0"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/SOURCE-PROOF.json": {
+      "bytes": 3271,
+      "mode": "100644",
+      "oid": "ba0c0e7e86ef248007647e2fd80b6256518755ee",
+      "sha256": "4b69f2b7f1e2167c462352316192ac10870ad4fc17117d1f86d108ebe2ea00c4"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py": {
+      "bytes": 13089,
+      "mode": "100644",
+      "oid": "1deb5b5f74d6a397a5db879936e5ba9d6555b8a0",
+      "sha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py.diff": {
+      "bytes": 2483,
+      "mode": "100644",
+      "oid": "f0f49b748f3b9b6597d4515d1fd8e3b064b41dfb",
+      "sha256": "d85996fe6a7452db7a4407add65eb84390d90d7a8b06c1517878ec6df2584b3a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py.inverse.diff": {
+      "bytes": 2483,
+      "mode": "100644",
+      "oid": "9f5ca7ae99891623fb2ced50bb0a667af8218479",
+      "sha256": "c4bb68a55abfad3fbd95b4cdae1937c5c7a703066a03f38824b3463bfc408152"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/owned_cleanup.py": {
+      "bytes": 9553,
+      "mode": "100644",
+      "oid": "f5648a1b57ae5f420fe9fb1ddb9af1eb5176f889",
+      "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/record.py": {
+      "bytes": 14482,
+      "mode": "100644",
+      "oid": "cdb410b1783d5571dad82128fc5a434cb74d0212",
+      "sha256": "d6741bb3192c5bcb47d76d0b0ea63fc6990012bf3a02d6a1ceec1c285075f795"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/record.py.diff": {
+      "bytes": 1131,
+      "mode": "100644",
+      "oid": "773acf2adc43208712b5e7fbfb27eb888ffb3091",
+      "sha256": "a637316f0d3824b84dfd6c296eac0fb0a663dc3864979f86f56c3ee4cc032119"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/record.py.inverse.diff": {
+      "bytes": 1131,
+      "mode": "100644",
+      "oid": "7c0a3d540ff8f4841feab46ac20fff2d343f3908",
+      "sha256": "ab3565761180d11e653c143af9d661c0e250089bbf8569bcd36fbf9a40ba87eb"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/schema.md": {
+      "bytes": 6065,
+      "mode": "100644",
+      "oid": "7d332692819839deafb4e4a630ca8b9f14732231",
+      "sha256": "afb6f0df133b7c4946cfcdae4b10f1bc8cf3d4d56d818ee2ef8782c73797e19b"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-independent-red-design-after-ak-20261009-r1/DESIGN.md": {
+      "bytes": 7599,
+      "mode": "100644",
+      "oid": "55c6293743fe56d6256e7ebc8c4ec68c1304cec3",
+      "sha256": "7ec3bb7dc5797e0c2a2b10e2930287adb33379f0e18234f95025899478f0af43"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-independent-red-design-after-ak-20261009-r1/RECEIPT.json": {
+      "bytes": 4036,
+      "mode": "100644",
+      "oid": "605a2f00612aa362d46123f031ef84015c93972d",
+      "sha256": "f205a6a59778b36ae071394fca7aaf84dde08fbdd4dc590f0a7fc0bde9ae8e22"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-independent-red-design-after-ak-20261009-r1/controls.py": {
+      "bytes": 18788,
+      "mode": "100644",
+      "oid": "1b7a41bd8670a5615454916a2bf3225fa70b11b0",
+      "sha256": "5acc6a49004a2021e35bc93164754accfce1f8180f40290579c78c60d3dbf328"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-filled-independent-review-after-ak-20261009-r1/RECEIPT.json": {
+      "bytes": 2885,
+      "mode": "100644",
+      "oid": "2659a54a2cd1344f47ad2c7d77918d0e70fc81dd",
+      "sha256": "1c651780bf478ae90362067e31c93d212de98b3f581acdab790de848d906c630"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-independent-observed-review-after-ak-20261009-r1/RECEIPT.json": {
+      "bytes": 5249,
+      "mode": "100644",
+      "oid": "6502048a8e88836903c603664380cadc64e0cfe3",
+      "sha256": "201da395b40717225e3f2c5d4e0fb8871f835b6b26a44e47d34eafc57b9bc716"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/CONFIG.json": {
+      "bytes": 4109,
+      "mode": "100644",
+      "oid": "fa94f655fbb6483765babafdb6589163e0d0a131",
+      "sha256": "215fcae2c6222e9b88628116353f3edbb91219b59dad80b3e25c1eded5b9e181"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/FILL-RECEIPT.json": {
+      "bytes": 1193,
+      "mode": "100644",
+      "oid": "aa92a333d570e56e3c8d485dd515e347310f9b7d",
+      "sha256": "902bba3205845cfb03247f3df35ee472007855388dc9d68ceba1e06cef48c360"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/ROOT-SOURCE-ADOPTION.json": {
+      "bytes": 1230,
+      "mode": "100644",
+      "oid": "8729b0e885a40f7411667a28eaff27f51f765314",
+      "sha256": "82027a8c7fe0516d7ca30fdcbf925fb7f22e2d5da2bf09ffabc13ee13647a411"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/ROUTE.json": {
+      "bytes": 2563,
+      "mode": "100644",
+      "oid": "3e41fb53bea5d9fde03547e8dbbc19ec94090a15",
+      "sha256": "9f12c26febe8b9626e170c27d6c09ab1845f83fad4ea3907528853020fd2e9e9"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/SOURCE-PINS.json": {
+      "bytes": 1933,
+      "mode": "100644",
+      "oid": "f150e43ec8bd9e87cfbdda14a85713f99ef445a2",
+      "sha256": "8099500ec4942bbf25a0fcbb49213a5420017e2c7c4e0c4726059019d7fca795"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/launch.py": {
+      "bytes": 3302,
+      "mode": "100644",
+      "oid": "be5954fc2c7b86e1d238ecfdfcdf5941771c1bb6",
+      "sha256": "5a97d231bc304388e7295f61ba027dfe55811fa5703c064b9a7f8007957d7dbd"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/record.py": {
+      "bytes": 14814,
+      "mode": "100644",
+      "oid": "5a4f956fbda8d96f10247f943e42b430bb363123",
+      "sha256": "4d781e20e47a4e0555839a0aaa5c87984a8b87052051607d5b68eb1460d7f578"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/report_guard.py": {
+      "bytes": 3036,
+      "mode": "100644",
+      "oid": "cc2f06254f33a6e8160f34e3c0b038dc8b83d64b",
+      "sha256": "212d42e10cf1cd530733b5d34ee31e7dd643e7b24964704297a1ab62227f599f"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-lane-after-ak-20261009-r1/controls.log": {
+      "bytes": 392,
+      "mode": "100644",
+      "oid": "6d6b7d9ae068af8c00959652e44d9dc5f5d508b1",
+      "sha256": "f6530b9477e81a1f1ba3b6d48b7a3539d7141b899a68caa71314543ffc0d0333"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-lane-after-ak-20261009-r1/controls.log.meta": {
+      "bytes": 336,
+      "mode": "100644",
+      "oid": "ae6187a1b3f0927c5f73dec9fa866b287e17fa2f",
+      "sha256": "0044fbc5e8e1332bdf07db30a450f75fa47cc9b2a845646ce485814847bd5ad7"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-output-after-ak-20261009-r1/RESULT.json": {
+      "bytes": 933,
+      "mode": "100644",
+      "oid": "3917440792bcbd581d0889b87aebacd201bbc556",
+      "sha256": "9f901209d344c68c40087e5263cb89c57ddde6adbad93fe533a52321bef62fc6"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-output-after-ak-20261009-r1/stdout.bin": {
+      "bytes": 1791,
+      "mode": "100644",
+      "oid": "95891fc9fdec9775569800a5f769296b5c2c66be",
+      "sha256": "260f22be0cf7e5c5529f6d5feac131c62687aa6454448109588511909043a472"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-parent-after-ak-20261009-r1/ACTUAL-TOOL.json": {
+      "bytes": 533,
+      "mode": "100644",
+      "oid": "6857e9e86c863bbc9c9dac96adfd7ae6f487c610",
+      "sha256": "afe4e43909f370cda837b1721635c1805b5542668103036a7d8e72b6e3fcac83"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-parent-after-ak-20261009-r1/GRANT.json": {
+      "bytes": 1446,
+      "mode": "100644",
+      "oid": "574d7e6c44aba885fe0d803edd98f9a0da344b83",
+      "sha256": "fa444a53dad55a5a7e266f3bd95d8e71648781ba362fef1d1662c1e9b37a5b9e"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-parent-after-ak-20261009-r1/HELPER-PID.json": {
+      "bytes": 15,
+      "mode": "100644",
+      "oid": "a10e63e031d947a4d9ae25e1d4154ff81d1c3ebe",
+      "sha256": "e8da5c99d0666902376bd5b6c462de5634d3824266718637718ed96915384d1b"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-parent-after-ak-20261009-r1/TOOL-OUTCOME.json": {
+      "bytes": 1990,
+      "mode": "100644",
+      "oid": "9e3f21ce4a67f9df7d84ecd7f3968bbea301cb61",
+      "sha256": "f2f6753be5ba339cb8701e14c964c708b14727ef4a6a4cade9084e3a70b57326"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-recorder-source-proposal-after-ak-20261009-r1/CONFIG.json": {
+      "bytes": 3370,
+      "mode": "100644",
+      "oid": "bb0d1ba7407f7bdbba1128c48f4de50fc9f443b2",
+      "sha256": "bbd49fdca241d8bd0c475436bc0e151202760f907742d4dd35c36e501f7dc6d8"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-recorder-source-proposal-after-ak-20261009-r1/REPORT.md": {
+      "bytes": 2539,
+      "mode": "100644",
+      "oid": "78c2ab20cac4dcbd99805c0213c4018994da7185",
+      "sha256": "639d64bf25a21bb57498d6e0a3b1800334ba1dfeaead7826abfa698eda3b31d9"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-recorder-source-proposal-after-ak-20261009-r1/ROUTE.json": {
+      "bytes": 2354,
+      "mode": "100644",
+      "oid": "e1b16cd7e3f38b1d8653478526d4d72aae526a68",
+      "sha256": "b0ddb536a7283c54ea1c22d35603bb91256e4d852bb8282f40d8b09e8784a5a3"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-recorder-source-proposal-after-ak-20261009-r1/SOURCE-PINS.json": {
+      "bytes": 2548,
+      "mode": "100644",
+      "oid": "e9cf3648c69efac0eb6fa7b48c9ab440a839b693",
+      "sha256": "c2f7eeb2a05623306e34bba4cbaedee4db853b11ea80cfac78c284a23387d5bc"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-recorder-source-proposal-after-ak-20261009-r1/record.py": {
+      "bytes": 14814,
+      "mode": "100644",
+      "oid": "6d7eeef1a7db38872c1cc0b5b49609086f4c19c3",
+      "sha256": "46f7dfba363550004e09b3ca2756451dd9c00ccbb6b8ded1dc91a2c41eb9d073"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-recorder-source-proposal-after-ak-20261009-r1/record.py.diff": {
+      "bytes": 9067,
+      "mode": "100644",
+      "oid": "9ac15127f48b468d336161715ff4fbae839187c0",
+      "sha256": "50b0ab7c32b68b501213559a4b737d6d9695e03083c1c8465305488a99140bc2"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-cleanup-pure-red-green-recorder-source-proposal-after-ak-20261009-r1/report_guard.py": {
+      "bytes": 3036,
+      "mode": "100644",
+      "oid": "cc2f06254f33a6e8160f34e3c0b038dc8b83d64b",
+      "sha256": "212d42e10cf1cd530733b5d34ee31e7dd643e7b24964704297a1ab62227f599f"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-independent-observed-review-after-ak-20261009-r1/RECEIPT.json": {
+      "bytes": 5539,
+      "mode": "100644",
+      "oid": "2361afaff7c0dbab77acd6322e3f3ca785bfb1b5",
+      "sha256": "f0733ca9f4355035febe34c42b45e9267f1658f4f0e4a70933f1733fa2d55f4b"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-independent-red-design-after-ak-20261009-r1/DESIGN.md": {
+      "bytes": 3848,
+      "mode": "100644",
+      "oid": "87c1639b5cd3bf29b04bfc5a65cc75df63061c78",
+      "sha256": "26b6a60eb46f7e6aa3aa529d93172dec326cad1a4f6a54662ae5d5a93fa0e61b"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-independent-red-design-after-ak-20261009-r1/RECEIPT.json": {
+      "bytes": 2790,
+      "mode": "100644",
+      "oid": "ffe8637d2455b9d5b6368f6c28d32cde979f0be3",
+      "sha256": "d24b538b94cd8f755538bf05d36b2ed5c917372f8e82797724c8e2cdd60d3412"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-independent-red-design-after-ak-20261009-r1/controls.py": {
+      "bytes": 13900,
+      "mode": "100644",
+      "oid": "031dc62080b5cbedeb04ea07a60848764dbb0f4c",
+      "sha256": "532259092bcad48c073282e22e55332d02c1de8f082d9173f4ed817a85c1af0f"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-lane-after-ak-20261009-r2/controls.log": {
+      "bytes": 402,
+      "mode": "100644",
+      "oid": "4f7de1d547f69cbfdf8c45a3e54ce74eb32c92b0",
+      "sha256": "141cc376cad76ce2849c35df49f5581695a9852742e995392bc64d40c8bade44"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-lane-after-ak-20261009-r2/controls.log.meta": {
+      "bytes": 347,
+      "mode": "100644",
+      "oid": "5d918f16badc2deb57e26029541e826d5e06eba7",
+      "sha256": "e1415e062edbf4cc951478fedb8bf62559dcc06511c184a82d9ebaf2118964bc"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-output-after-ak-20261009-r2/RESULT.json": {
+      "bytes": 946,
+      "mode": "100644",
+      "oid": "58f6309c938c6fe073001cfbba69bbd06b6750ac",
+      "sha256": "45b15f9c05870039be22f1a15c78b979ee40064822e48dad2a4b4fe1d81d0534"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-output-after-ak-20261009-r2/stdout.bin": {
+      "bytes": 1179,
+      "mode": "100644",
+      "oid": "ae45c543734cb76e611e57f4b6fa54c80c0a1f85",
+      "sha256": "baba32695db35637711aa4f0f1e3d9e160f0ea6934c19e1daedc5ff867d18aac"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-parent-after-ak-20261009-r2/ACTUAL-TOOL.json": {
+      "bytes": 616,
+      "mode": "100644",
+      "oid": "5d9d86b910cb5dca2e00004ca0fc2ee70d96a27f",
+      "sha256": "1c60faa25bdcfecd7b7e5f84514fad007177a2e8b81115c09e5a17dbdf0afbe6"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-parent-after-ak-20261009-r2/GRANT.json": {
+      "bytes": 3191,
+      "mode": "100644",
+      "oid": "3050852cc9935e3cec82eff8d9697acfdf16454c",
+      "sha256": "8b6ed8cd661d11a677fc4a8a24506f071c56dfe7991cbf1e6c67d7c6d537643e"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-parent-after-ak-20261009-r2/HELPER-PID.json": {
+      "bytes": 15,
+      "mode": "100644",
+      "oid": "51bb415bfaf85c68583a19521648b2120780bd3d",
+      "sha256": "59307050534bb5ca226d4ef5f043e4ec2adf992698499a282a9577a1af2e179a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-parent-after-ak-20261009-r2/POST-OWNERSHIP.json": {
+      "bytes": 485,
+      "mode": "100644",
+      "oid": "4e07ad45327e00924a3238d1480e64c814ffea0d",
+      "sha256": "f2bb54c80a6ce6089d3d36f4b004868b477f52310110d68f92760541c510ec8d"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-parent-after-ak-20261009-r2/PROTECTION-AFTER.json": {
+      "bytes": 3256,
+      "mode": "100644",
+      "oid": "0db01e0e78b871d5d75d3b27614b8c751c357e15",
+      "sha256": "7be950d3ab9fe836ea80ac3bcee2e551d1e017b2dd7fda87d257f43ef69e31e4"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/CONFIG.json": {
+      "bytes": 5169,
+      "mode": "100644",
+      "oid": "10146855b2a0654a1ba085474c4e06fc124cb761",
+      "sha256": "f326221e0314c9ba3d881b5eb001f605495527243eb3c81f31fcf4b69640d099"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/CONFIG.json.diff": {
+      "bytes": 7934,
+      "mode": "100644",
+      "oid": "c6a28a0e28abaf0e284f88bdf547ea64b382dd97",
+      "sha256": "54e41a058be5a6f088a8b84854b252f247eb444186e1e9bb3af6b16a3ff5f568"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/CONFIG.json.inverse.diff": {
+      "bytes": 7934,
+      "mode": "100644",
+      "oid": "f6d02dbab330d572cc9c16b6bd26479606371662",
+      "sha256": "e6bb52ae667c6f33ba2e577604ab169d31509d1605c2ba7352b121c5c1647945"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/INVERSE-AND-ROLE-PROOF.json": {
+      "bytes": 26729,
+      "mode": "100644",
+      "oid": "fe9388a168ecdb4d4a3202868209550f55176bc4",
+      "sha256": "0e56065a8546dfbcea61c2285073264b39bc9b0bb84f84cab5576c663d6d4cbb"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/LESSONS.md": {
+      "bytes": 956,
+      "mode": "100644",
+      "oid": "b84cff9a622caf35f65c01c1d7b56348672812bf",
+      "sha256": "d996b4f7cef702fe3425cce2e66b1fe04aa4a90095fd8d0e2b225c73581c37fc"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/PROVENANCE.json": {
+      "bytes": 1724,
+      "mode": "100644",
+      "oid": "d469f869fa26365d049f2347e4616513440f00f0",
+      "sha256": "81c9694514cfa26d450ba1ce8d8ec45e843fb2a05e38997afcb92083dd185f83"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/RECORDER-REUSE-PROOF.json": {
+      "bytes": 1211,
+      "mode": "100644",
+      "oid": "a86bf025d2b9b1367ca9721fb4803c42586127a5",
+      "sha256": "f4702793b0137766d2fc3cf88f4a40a11f33447392e1d8b0ac11472662d3a832"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/ROUTE.json": {
+      "bytes": 2753,
+      "mode": "100644",
+      "oid": "370d1bdcf5b2ee1749676f8ecdce31ffb2ad4920",
+      "sha256": "f7c7efad9b261fdfb2d5c01aa7c1ce4c5ee2cdbe3b1608f2203f9441871333fe"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/ROUTE.json.diff": {
+      "bytes": 4761,
+      "mode": "100644",
+      "oid": "588f006fff592241f4ae3ceab30e353646b35963",
+      "sha256": "97f0e046784c8573669e84a4d70145c955a31aa00d32f3fc33f18bffdc96fba0"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/ROUTE.json.inverse.diff": {
+      "bytes": 4761,
+      "mode": "100644",
+      "oid": "d794e7647fc20e0cd44641d1d493574d5fa1b71f",
+      "sha256": "6a74bf26e63175fd7f76cb20943987099955323020c662accf19e5ea1e8f1cbb"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/SEAL.json": {
+      "bytes": 663,
+      "mode": "100644",
+      "oid": "cf95c9bfd0e370cd85be87651299410ab0e84f46",
+      "sha256": "2215795b4d994ded9639e532a06485dc4363472911d4aa281129cf0075c36443"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/SOURCE-PINS.json": {
+      "bytes": 6510,
+      "mode": "100644",
+      "oid": "94aa0730fea066d05445ba8e3acdc58c40638374",
+      "sha256": "826f3dfe20387d89467a08945b3928ec160f0124af9c3341a0b21bbaca92f6cf"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/launch.py": {
+      "bytes": 4476,
+      "mode": "100644",
+      "oid": "871352402e76982258e9d0c93668c8f795ea6fe1",
+      "sha256": "9040885ebbdd408744a0b4788a857ec3f672e4a9911941ec30ae978814801dca"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/launch.py.diff": {
+      "bytes": 5629,
+      "mode": "100644",
+      "oid": "0db890b928547a20f76c5496280cd4c8093f73c4",
+      "sha256": "1ee9f621612603511ecb5c2a448c334da2b2c0d51321c9b4a5f0f98ecd918a02"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/launch.py.inverse.diff": {
+      "bytes": 5629,
+      "mode": "100644",
+      "oid": "aee1a7e5ab66bc0a9411caab4b53a86b1e664254",
+      "sha256": "b3eb00b38638f6a3f611905e34487018425461cea86dd852550ea965894fde62"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/record.py": {
+      "bytes": 14808,
+      "mode": "100644",
+      "oid": "4cfe15df1c34c4d4d593f4c2987774bb6c579f2d",
+      "sha256": "2f9466ff115ac526b81641555129ae024962ddd796f9f804e1c615a478822b56"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/record.py.diff": {
+      "bytes": 7049,
+      "mode": "100644",
+      "oid": "1f3026ff4be794bf13cc41389946a8f095ff5cb6",
+      "sha256": "451d700969b8793a090089e29c4fd1ff824c299110e846f25736a29c7d9d1fd2"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/record.py.inverse.diff": {
+      "bytes": 7049,
+      "mode": "100644",
+      "oid": "c97c28ca84b4d17c956870ef831ff7053f71cc20",
+      "sha256": "000371972488bf7c2a7bcf37ac4389a9b9152a6593525593c049bcc8df103dfb"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/report_guard.py": {
+      "bytes": 3500,
+      "mode": "100644",
+      "oid": "b1795ff6dcc41629cc8f04ea1cccf22ab804689b",
+      "sha256": "b32ece6f1765cf395ee0ea83c6f10c4df47480a7c0d4e919b05688b414333f0b"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/report_guard.py.diff": {
+      "bytes": 6700,
+      "mode": "100644",
+      "oid": "070fe20098ad731fcfe7e593d68334e55ebfc4a8",
+      "sha256": "d67f6c9fce65aa25666e856198c2eb7ac279c7e0c96f9e5d5ec1468778621018"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/report_guard.py.inverse.diff": {
+      "bytes": 6700,
+      "mode": "100644",
+      "oid": "4816479d3f8f558a12050635bb20f0b351925728",
+      "sha256": "b95db325a32244f9c7c7c51b5060447b9c400c27deffa038704d3b928259eb82"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/schema.md": {
+      "bytes": 3351,
+      "mode": "100644",
+      "oid": "b637b515ab21aa47b764ca4fe50966d10c0c5818",
+      "sha256": "ac0b5a3bb2d61b3ff1ad4b2add2baaac3c5eba82bde82c78594e386e0c7de930"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-driver-integration-recorded-route-independent-review-after-ak-20261009-r1/RECEIPT.json": {
+      "bytes": 3889,
+      "mode": "100644",
+      "oid": "929c8b7ce8f199589c331c997977670210e5872b",
+      "sha256": "218a18e010594edf49b1c95c730abe0b7c9073ac3d43d2b55a3019cb01455313"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-independent-source-review-after-ak-20261009-r1/RECEIPT.json": {
+      "bytes": 7501,
+      "mode": "100644",
+      "oid": "f39ff99f1a799465ed779b59f7fb1f53b0960037",
+      "sha256": "b664519ddee865f5085d7ab792a310876ded51775218bb88af491275e3e0f4cc"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-independent-source-review-after-al-20261009-r2/RECEIPT.json": {
+      "bytes": 4265,
+      "mode": "100644",
+      "oid": "a07284803b0f088752e7b9feccf6ed653351aa58",
+      "sha256": "6ac882251048b242341019d35747a8428778aff5b8ea6ccfb196976feb4c1f0f"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/BINDING-DRAFT.json": {
+      "bytes": 5675,
+      "mode": "100644",
+      "oid": "841c061be905c5b9fbc306bf02cd6633023e93bc",
+      "sha256": "d08f216653fc9d72c17dbfd9b6e574d1f2d9c098a92ee022a39b6ee3f83ab06a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/CONFIG.json": {
+      "bytes": 3482,
+      "mode": "100644",
+      "oid": "63b7a515fb7ee0513a2722786e064ca1cb35bb1f",
+      "sha256": "ab8fa1fd2b423054b07a3d2c9a98c196c0a8abe25782593514c04219e2ab7e0e"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/CONFIG.json.diff": {
+      "bytes": 3028,
+      "mode": "100644",
+      "oid": "07605f78a4472b9b61f46c1a99368d004f9a2ad5",
+      "sha256": "e722128bfeab4829d1571235a01299d0b6e457a61912818e1378626165b4b7d9"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/CONFIG.json.inverse.diff": {
+      "bytes": 3028,
+      "mode": "100644",
+      "oid": "03ea54e29420cbe98a1b78500748018d13027c27",
+      "sha256": "250ffa80acb2a118beb69a00035554865525abb26c48e3a9f05ea72eb4a24984"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/LESSONS.md": {
+      "bytes": 1006,
+      "mode": "100644",
+      "oid": "9bd909281ae64c017f3e9312ef1e3fc7c383515b",
+      "sha256": "c52ec2fbea7b4178769c7be8b161e83e751d7991dc4b56139f91f33517cbc29a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/NEXT-STEPS.md": {
+      "bytes": 3440,
+      "mode": "100644",
+      "oid": "d57a6de72a582f82bbc66565002672662d744d7b",
+      "sha256": "be7bc5c05120feae96c1fe64e722d237d5bab1bc9568ac2220034c597a37a096"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/PLAN.json": {
+      "bytes": 12663,
+      "mode": "100644",
+      "oid": "2f5b03241c6979cfccbb30bedf5ca336ffc58a2c",
+      "sha256": "d21141d311529aca008bb6e8de22b2c3fc3cd4293cb15ab5cce4f50c7765771f"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/SEAL.json": {
+      "bytes": 429,
+      "mode": "100644",
+      "oid": "ccffa8f72d1f36d6822810a26d1bd7b10fe2af4e",
+      "sha256": "10e7f3cab05eb5882865d4f895bd758e4d5864e522b26c2ebb668d0965942339"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/SOURCE-PINS.json": {
+      "bytes": 3367,
+      "mode": "100644",
+      "oid": "ca383c63bfa669da35e2edccfa022f389b0e897f",
+      "sha256": "7ef212906fc448fe904afa1d5a487dda06cc06cbedeb99fa47f14d83571a9714"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/SOURCE-PROOF.json": {
+      "bytes": 4522,
+      "mode": "100644",
+      "oid": "9e53c59dd03bf2d27881e16b44336975f1033b8c",
+      "sha256": "0402f9661bb9d9aae889d4a06a0389e3ae90b1424ff4aafe82c4ab4f31bae4da"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/snapshot.py": {
+      "bytes": 21657,
+      "mode": "100644",
+      "oid": "473ac4fca5cfd05310c1f61752cfbe647992a88f",
+      "sha256": "f193ab42546c3ddc91d7f22a48ff3234a57b2e7066d638b810e34893ba9d3516"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/snapshot.py.diff": {
+      "bytes": 6378,
+      "mode": "100644",
+      "oid": "f9d9deb13394209a5b077931da30aaef0a93d296",
+      "sha256": "6543c60478158a5575ef2caa163236c376aa7b1404edabaf09416dcd1cf3c40a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/snapshot.py.inverse.diff": {
+      "bytes": 6378,
+      "mode": "100644",
+      "oid": "5a7d200372abb83583301c1e845a1c41d4ffa418",
+      "sha256": "573082badfc95cc107b98de06e553bce1252d16dbba585f4bf444423ed2c958c"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/BINDING-DRAFT.json": {
+      "bytes": 5637,
+      "mode": "100644",
+      "oid": "3fc66fced15ec022803d9f0dbf5e9764a00de432",
+      "sha256": "62cbd6611a13c7ff9adf83c5a56526f46b142d903e7b98d4cfae7c39423dc966"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/BINDING-DRAFT.json.diff": {
+      "bytes": 707,
+      "mode": "100644",
+      "oid": "d4c0cf310ca33e44aaf1c58ac18ea0aa296599bd",
+      "sha256": "8c0f0119ac75c54154c9cafb02098cb940e984a2bd6cfa1a38a3e248aad6ede3"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/BINDING-DRAFT.json.inverse.diff": {
+      "bytes": 707,
+      "mode": "100644",
+      "oid": "4626713a5bdde250f4e700a3bd43d95c91e12684",
+      "sha256": "c9070d2f496784870d920016e14005cac4c8920b22f6472d3f16f0bf74864877"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/CONFIG.json": {
+      "bytes": 3579,
+      "mode": "100644",
+      "oid": "64bd22ceff8c02348a2d131644bb7d89c9225b24",
+      "sha256": "2ef8d934883c458e43df93bb4f57dc4e425941f9730a66ea35375a081fdffb72"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/CONFIG.json.diff": {
+      "bytes": 2753,
+      "mode": "100644",
+      "oid": "b3912f6e4efbcb9c4e9f382a827ac0a18b746349",
+      "sha256": "80fbc8fba8c8da8baac2f2d5f61071f19a699d549a9eb9cca81c3bd86be4cb0d"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/CONFIG.json.inverse.diff": {
+      "bytes": 2753,
+      "mode": "100644",
+      "oid": "ab353851fe8c2822181865146d8f8de96edd7a27",
+      "sha256": "6168bfcf95c0cef6d076c0bf82f7134a74f38d05978086a94fb32600821d358a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/LESSONS.md": {
+      "bytes": 690,
+      "mode": "100644",
+      "oid": "f57def99408a448c3ca47ae7dd665ad0a1918542",
+      "sha256": "666262ac005db968c94006062f3f4ebe780ba863f6baab3ecbf1b5989efb1e48"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/NEXT-STEPS.md": {
+      "bytes": 1400,
+      "mode": "100644",
+      "oid": "91d31ceea34b85adabe44bac8db66b4ff7e32d80",
+      "sha256": "6800214ab534c2386762a42ed5bc8ec2ee32b90bff2873222a7bcedd95fcf353"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/PLAN.json": {
+      "bytes": 13874,
+      "mode": "100644",
+      "oid": "aa7bc597de236594f033cdbb035cec3c9f0aaeb7",
+      "sha256": "449008f87d5d760f3c7a4b14e45aee557efcb201d2833a61af9bc60665e912d5"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/PLAN.json.diff": {
+      "bytes": 11172,
+      "mode": "100644",
+      "oid": "7eb60ff8300510a2a909f111e23bdc04a876210f",
+      "sha256": "ef96242af22f39e1f26b99929ffb2867bbbab817261f38aa97734ee70c6c004d"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/PLAN.json.inverse.diff": {
+      "bytes": 11172,
+      "mode": "100644",
+      "oid": "c2d38b7c06a21a97af29bc1dfe630e8dc3b127b9",
+      "sha256": "3943795be1e904709d1fab509bf7f4c40985015294febdd7287e4c25a15475eb"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/SEAL.json": {
+      "bytes": 434,
+      "mode": "100644",
+      "oid": "1a204e473908e0d8a16a401d674e819e4eb29957",
+      "sha256": "3bddf565b83eea44ce4b9d6a30fc569a07349d837f71aa1833507c18c390798a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/SOURCE-PINS.json": {
+      "bytes": 4615,
+      "mode": "100644",
+      "oid": "8310bc20e63cd1d2e64acbb6646167c3e446b795",
+      "sha256": "7a93016a277e88e06ea2101a600ce780f13c2f31f5cd4274940a47ba4da4bda6"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/SOURCE-PROOF.json": {
+      "bytes": 5278,
+      "mode": "100644",
+      "oid": "4fe8931ba3a31f5c7c2c71a8cf93298d28ed73cc",
+      "sha256": "f495f33340d4c0b333644a3022c16a4647cce6f216d1f00988a221b373c1aec0"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/snapshot.py": {
+      "bytes": 21984,
+      "mode": "100644",
+      "oid": "9d093f99513eaeab47924a8b71ab59d534e27c50",
+      "sha256": "0d1cf215596e9ae0d9027d3d464c7ce07b35383684f613fe1faa42cf08213a6e"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/snapshot.py.diff": {
+      "bytes": 7950,
+      "mode": "100644",
+      "oid": "b6939bb8922246b47c84149376b93141dfaee18b",
+      "sha256": "0871a2f9c4c5926eb31e785a14029db990267f4fe2217c7edb7d3bfee5ec020b"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/snapshot.py.inverse.diff": {
+      "bytes": 7950,
+      "mode": "100644",
+      "oid": "05a3fe9d138cad08efa72eeb0812fcdbba7347e5",
+      "sha256": "7c82ffbf950deffc25bcf5fe6747093166da53dc2d72560743a8428d194c045b"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/BINDING-DRAFT.json": {
+      "bytes": 5637,
+      "mode": "100644",
+      "oid": "3fc66fced15ec022803d9f0dbf5e9764a00de432",
+      "sha256": "62cbd6611a13c7ff9adf83c5a56526f46b142d903e7b98d4cfae7c39423dc966"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/BINDING-DRAFT.json.diff": {
+      "bytes": 707,
+      "mode": "100644",
+      "oid": "9fc686ac74d78ba1917f2645c271f8a8e3538b55",
+      "sha256": "c87a2cd1d86f63db4537695427e5e3c232bfa8f0d3aa5fa8d1899193337edfab"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/BINDING-DRAFT.json.inverse.diff": {
+      "bytes": 707,
+      "mode": "100644",
+      "oid": "20f81bbc2c6288d8b18d57dbbf107e73e546955c",
+      "sha256": "ecdb061a4ce29ff4d9dd9cd9bd1d3ea6220d23db2752c4ec61e61d2044c614e4"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/CONFIG.json": {
+      "bytes": 3579,
+      "mode": "100644",
+      "oid": "65d190fd2721e24dee38c88ddb99f9fc896261da",
+      "sha256": "64628bfc7f2c330a0ec172f8988942ccbbf48033758504b4421dc9a06e4ee259"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/CONFIG.json.diff": {
+      "bytes": 2753,
+      "mode": "100644",
+      "oid": "93d071371838d72fa5289e4a979df1c3af6db966",
+      "sha256": "c382efd1fba66c82e603cfaf617e23dae284465e7c412c01286c7709e7bb1175"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/CONFIG.json.inverse.diff": {
+      "bytes": 2753,
+      "mode": "100644",
+      "oid": "328096934aaf8711079103175eda35654b04c431",
+      "sha256": "58ca3befacf7adf289731c71c3d686110a756c64682bf396695bc1431afd77e2"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/LESSONS.md": {
+      "bytes": 690,
+      "mode": "100644",
+      "oid": "f57def99408a448c3ca47ae7dd665ad0a1918542",
+      "sha256": "666262ac005db968c94006062f3f4ebe780ba863f6baab3ecbf1b5989efb1e48"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/NEXT-STEPS.md": {
+      "bytes": 1400,
+      "mode": "100644",
+      "oid": "91d31ceea34b85adabe44bac8db66b4ff7e32d80",
+      "sha256": "6800214ab534c2386762a42ed5bc8ec2ee32b90bff2873222a7bcedd95fcf353"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/PLAN.json": {
+      "bytes": 14145,
+      "mode": "100644",
+      "oid": "1979cace52c6827481abe5550b04c4d159e90283",
+      "sha256": "38f0ebcc537a4e930b53622f643584408f1acf44818f217f4ec1ff0b451452f9"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/PLAN.json.diff": {
+      "bytes": 11448,
+      "mode": "100644",
+      "oid": "c5cea3dee1cba9818e871e64908fdfc7291a3895",
+      "sha256": "4cb1f2a771781677726bb164a27c439e57f2faaf4a9dbbff5e3781120be63da8"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/PLAN.json.inverse.diff": {
+      "bytes": 11448,
+      "mode": "100644",
+      "oid": "31d0c3c960d4626fa4742296a86e238ae63c360e",
+      "sha256": "5c65164c4a0d0446897c9137f6dde28dc9193001959f7db83667623ed86bac98"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/SEAL.json": {
+      "bytes": 434,
+      "mode": "100644",
+      "oid": "75366ee41996f930e20bc557a46f4a34c40a4c3b",
+      "sha256": "dd6f09ff8004faee4d48b6bb8b2067386ddcb44c64ca5a4db0feaa7f36db7f0d"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/SOURCE-PINS.json": {
+      "bytes": 4886,
+      "mode": "100644",
+      "oid": "242789177b398e0eec99fccb5479d3f0c3deaf3f",
+      "sha256": "e7fe2bef4cc0e7ff1695c91b821860e4ec568d543c10dcd3f68205531d155c41"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/SOURCE-PROOF.json": {
+      "bytes": 6044,
+      "mode": "100644",
+      "oid": "e23ce50172bbfe42239acfd3a3fd5c3ec7a54795",
+      "sha256": "785891fe56426cce9722fbe7e24f79ba1aedc9403b8b0e6e9d1e1c80355e2aa6"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/snapshot.py": {
+      "bytes": 21984,
+      "mode": "100644",
+      "oid": "ae113cb1524a7689fb22f5d97cd5db9470ed96b2",
+      "sha256": "d2e0e8707cd59945cf8766ff10d86386312beb3a1e3e2a209f204a6f043c85e8"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/snapshot.py.diff": {
+      "bytes": 7950,
+      "mode": "100644",
+      "oid": "b7f9aeaeb9459e7c2c8f438fef5c417fccafb8f2",
+      "sha256": "f1d42d9d537f40814210d89ee63cee2371c61ceca8a606b26e3e49005e5b5612"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/snapshot.py.inverse.diff": {
+      "bytes": 7950,
+      "mode": "100644",
+      "oid": "1f23d8b3d18c1304547ce7df0840bc58a79fccd7",
+      "sha256": "21d0b8ea9fe7d5658869af509929f00105c2dce3f20789273be7a7774860d062"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-operational-rebind-map-after-ak-20261009-r1/MAP.json": {
+      "bytes": 29352,
+      "mode": "100644",
+      "oid": "1de8e8dcf9ea65a58320c720940ad6cbdef1334e",
+      "sha256": "bbed5ed18c09b013c5370cd79e514a4c40d0eed2a8f82d549411ad2d74c95c66"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-operational-rebind-map-after-ak-20261009-r1/NOTE.md": {
+      "bytes": 3030,
+      "mode": "100644",
+      "oid": "efb2d7b04d1631ac87dc65684f2e08df74c370c5",
+      "sha256": "d4de7957373cdc3bb32a9cb93a36a0304e15bc2e05d29aea4df87a434ca31b62"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-operational-scope-authority-independent-design-after-ak-20261009-r1/FINDING-AND-DESIGN.json": {
+      "bytes": 9623,
+      "mode": "100644",
+      "oid": "3fdc35403f87bd23c52a248941937ba39d572c08",
+      "sha256": "f43391aae243ccfe05a689c28f46dd76c005d67031d8f281b7c985c3a27bd6aa"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-operational-scope-authority-independent-design-after-ak-20261009-r1/RECEIPT.json": {
+      "bytes": 1188,
+      "mode": "100644",
+      "oid": "4ac2ae1207f4cab4e8967bc080ef0bebc6f154dc",
+      "sha256": "23b767216f248f4bbe74693e8bfa2584d749cc72a0e37000e5a38b9ddfe03270"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-failed-independent-observed-review-after-ak-20261009-r1/RECEIPT.json": {
+      "bytes": 7477,
+      "mode": "100644",
+      "oid": "bac4690c57ef35322daabbb5e2eb23bf4dc90b55",
+      "sha256": "ef1a60ff9c6b3f852d6aacba85b8a8433ff22b64132e9bed087059a7400c7a04"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/CONFIG.json": {
+      "bytes": 3816,
+      "mode": "100644",
+      "oid": "30daaa54b09cf91316ba76b30177bb119a8abdc2",
+      "sha256": "ac008273dc6c4013eb9ccd211b19792190f26f66a17accbdb97aaeb54ae2b48c"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/NOTE.md": {
+      "bytes": 4003,
+      "mode": "100644",
+      "oid": "48621705bc023bc3438f86c8a2f7b7c1c4f59e4a",
+      "sha256": "31645364b5947591de2649b3944f89e07bf348784328b36d592a476ea246b0c0"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/ROUTE.json": {
+      "bytes": 1500,
+      "mode": "100644",
+      "oid": "bd7bb52d2c4ca5753c02d0cff773ac144a271904",
+      "sha256": "99e45ffc5df98d218579895f304f5ae1adfac17aa19aee509a3001de028244dc"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/SEAL.json": {
+      "bytes": 1221,
+      "mode": "100644",
+      "oid": "d402a9f5ed91d301c3199c3206cd7af892b13188",
+      "sha256": "f866c0f7fc923c4e0463a2d0389b9d3aac78fb42920524177284582fcde55a42"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/SOURCE-PINS.json": {
+      "bytes": 3549,
+      "mode": "100644",
+      "oid": "5ae4a7fe50568461f99d88eb92261784f8c06a16",
+      "sha256": "63509772d0e50b7849fb4d83cae0c23dc8aa49d0435c3a21b1c42a729dce6dee"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/SOURCE-PROOF.json": {
+      "bytes": 2624,
+      "mode": "100644",
+      "oid": "f25a4a10cc2172550e7075d4efb1c985d1f17b05",
+      "sha256": "3d826bfc4b81efac19b51fe454da63ac362697d36fd0e4a22118817c67548110"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/launch.py": {
+      "bytes": 9092,
+      "mode": "100644",
+      "oid": "7fc0adbdadae935b48e1a3542d1956b288906142",
+      "sha256": "f6fde167bea64f3bbb2e3ee5014a10899e80ac389b9144957a89991b86c35399"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/launch.py.diff": {
+      "bytes": 10141,
+      "mode": "100644",
+      "oid": "d4a85e75226ee741b1b1973b875f9015467427f2",
+      "sha256": "d65618a3358007218cceca0131f7ffc698d130871942dff28c5846a92890f462"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/probe.py": {
+      "bytes": 8485,
+      "mode": "100644",
+      "oid": "b7d2555c2fbe41336511b98831e2bfaad8f7ec45",
+      "sha256": "2548779e985bcd42167a695edfadb1c16dc690287a4317d0ae745d8a4f22f8c5"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/probe.py.diff": {
+      "bytes": 7904,
+      "mode": "100644",
+      "oid": "bf652f5d139b9a0179fce88b766f878ace3b5610",
+      "sha256": "2442c0dae1f6d8beb1f96f51d42fe0336bfd3ebf186d4cdf52d392e71f7745e3"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/record.py": {
+      "bytes": 14597,
+      "mode": "100644",
+      "oid": "e05aa66029d5ee598e5ac860f8cf70761c369830",
+      "sha256": "bac79df9f6d87ac60c1d944761b52e997b644c4f337e15a59cde0332a6dd4726"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/record.py.diff": {
+      "bytes": 3181,
+      "mode": "100644",
+      "oid": "2b5b619c5ba8ff8930ba6990c6e39d7436f0ec55",
+      "sha256": "b01238a4774ee8492496f7ecb6baec78f57439e8462afad3db6edc7e6d597bd3"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/report_guard.py": {
+      "bytes": 7760,
+      "mode": "100644",
+      "oid": "9faabb326f95229d5ea0cfb736c38ed3495182cd",
+      "sha256": "9e741177c3fbc39494348c6a409c6093683d3dc9a58022d2586ea0815227bc03"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/report_guard.py.diff": {
+      "bytes": 8297,
+      "mode": "100644",
+      "oid": "cdc256fe6a912e42b687ba1c1655cb4f9f3c7f0b",
+      "sha256": "3c365e29d2500948ee1addb14768fc9e2118258b2eaf0e6777a93503f2d744cc"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/COMPILE-PROOF.json": {
+      "bytes": 1580,
+      "mode": "100644",
+      "oid": "1449ef4aefd22be16e83b4902b6c9228d15b68be",
+      "sha256": "749987b775564a7d670c7082a8cddaca86d550615b603f8b47d59a21ed8c7cd4"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/CONFIG.json": {
+      "bytes": 3816,
+      "mode": "100644",
+      "oid": "f885fc607367478cdbda0f3c4a8f593358e5ca1f",
+      "sha256": "7c54b9ecca63c1c3ab4d38ccae0484c4d82c6c36e6426c9979f1971d1c5395d1"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/FORWARD.diff": {
+      "bytes": 9812,
+      "mode": "100644",
+      "oid": "e05f639cd1e0cda508bf8e455d085f70267d659c",
+      "sha256": "6bc50b71fc19e584aef69eac0ee3467ee543509fac734d48b8a3055be7634718"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/INVERSE.diff": {
+      "bytes": 9812,
+      "mode": "100644",
+      "oid": "18a8124e45c9e90abce309215691cea236d69ccb",
+      "sha256": "90c1ee2423512279ab550f5f998d63eace58558a6e0bb634268093863386931e"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/NOTE.md": {
+      "bytes": 2213,
+      "mode": "100644",
+      "oid": "b3a3a21d7b338c7efcc217e0f35bd8e071f7ff41",
+      "sha256": "d83e596bb0a878f4996d7e60df35e3c82a2c4305086dc82a24cc558770583e6f"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/ROUTE.json": {
+      "bytes": 1500,
+      "mode": "100644",
+      "oid": "d40806b2fdecd24e080f9f7cac947fa68a3a1efa",
+      "sha256": "f64b7be752ac0c1b33b28ad9c700e586fa44c5acfb3efb8cf57cfee85a2bbcd8"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/SEAL.json": {
+      "bytes": 1535,
+      "mode": "100644",
+      "oid": "081f85fbd2dd5454464c80e8010efbd7cd826ae9",
+      "sha256": "18190aeba28f576e16c8e96302f6a4d4a331e5696f022c6f50eae2e1e7d43ad3"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/SOURCE-PINS.json": {
+      "bytes": 3337,
+      "mode": "100644",
+      "oid": "7313dcc72c52b5a28406c6c977ed9e23207ba5d9",
+      "sha256": "df479f2012028fa52cfc67e80e29e39eadcf2cf80dabcc0cd16ff42721d9edfe"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/SOURCE-PROOF.json": {
+      "bytes": 1978,
+      "mode": "100644",
+      "oid": "d19c7606ca94bfc69acdc20dab401f8b4a2c0013",
+      "sha256": "80f8001bfb819c654f678099d36f104561dd99d415cd529f831dec063fee33d0"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/launch.py": {
+      "bytes": 9092,
+      "mode": "100644",
+      "oid": "2d40843a973b13b1f5da75088e222d9b4664e28d",
+      "sha256": "ddbef4ea23cf91abede711d26c899701d2be2f4f2d87e0295d61fd2d9861df0e"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/probe.py": {
+      "bytes": 8484,
+      "mode": "100644",
+      "oid": "b90c60997b464cffaaa199f75beaae71480e14ad",
+      "sha256": "cd062ee7a9a846a25591cff23ad02b48cc2b40406cccbcb3b5155435829800cd"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/record.py": {
+      "bytes": 14597,
+      "mode": "100644",
+      "oid": "39840a2a6d4467baaeed58cc52506ae1deeb2ca5",
+      "sha256": "2f84eb244e9f792f64a4548bc523337ae2ffad90ff38ec65fa3703d8398ba0d2"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/report_guard.py": {
+      "bytes": 7760,
+      "mode": "100644",
+      "oid": "01a973b73ec7e62aa986c5c32e5a3f98e101b8d2",
+      "sha256": "f0eab0e8453a3f27ec0049e3b18d2f149c45a15825c273de899daf9f74f4f388"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-independent-review-after-ak-20261009-r1/RECEIPT.json": {
+      "bytes": 5725,
+      "mode": "100644",
+      "oid": "6bc15c3baa6fd0fea7f87f4b0a7552eaaa1994fc",
+      "sha256": "f84c68980a30a3cf9d69c938a4ae1e100771fae59acd33c7650e83ea6dcc3a62"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-filled-route-independent-review-after-ak-20261009-r2/RECEIPT.json": {
+      "bytes": 5052,
+      "mode": "100644",
+      "oid": "5f82e0980110bdb6bb66fd614f71fcb138102cc9",
+      "sha256": "945476bc2b06b1775ce63ee9ea1ce8665ecc77796a49994a67f2069697392100"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-independent-observed-review-after-ak-20261009-r1/RECEIPT.json": {
+      "bytes": 6556,
+      "mode": "100644",
+      "oid": "5f2e5d366035788c4541b78963229b7f7f8053a8",
+      "sha256": "f0272fa01d30498fcaa612814d1dc30a0e00fe8760b9388aca59767ce5fcb991"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r2/controls.log": {
+      "bytes": 397,
+      "mode": "100644",
+      "oid": "929f6783939ef150dcedd7c795287ed093201efc",
+      "sha256": "65799f9e4ae714628ea023bbc9347e3d9e396426bd2ecfcb0942573aa681c229"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r2/controls.log.meta": {
+      "bytes": 344,
+      "mode": "100644",
+      "oid": "22eed063147824d693c7b96b33b8527fb280c400",
+      "sha256": "ad9e552f729380aa7074596659ae71943a708a8217ede86de6657904fc8ffe8f"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r3/controls.log": {
+      "bytes": 405,
+      "mode": "100644",
+      "oid": "c9bbe6a77e4ca9a142ef1f05d8d5647d2335eb64",
+      "sha256": "ba8a17dab327597d83459175ad6bfa4d666f978c0964d558f687fd4c22f52831"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r3/controls.log.meta": {
+      "bytes": 344,
+      "mode": "100644",
+      "oid": "d6a8d6a280a7968d5427efb31ca409e7138a8ab4",
+      "sha256": "0594f5e870b1a86189488ee5be23725cceed14108b4aeefa7b99a1ee49d73a35"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r2/RESULT.json": {
+      "bytes": 933,
+      "mode": "100644",
+      "oid": "45376f56ae8671d9987422869e11b732364746db",
+      "sha256": "4f6c93fa4b11325887eb8bb316762c36729d07a2018787bba86ca541270edb67"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r2/stderr.bin": {
+      "bytes": 204,
+      "mode": "100644",
+      "oid": "f0b479815dc6a21dfdc7fcb4b0f09b9061486e79",
+      "sha256": "f714260584b094857207467c53c0164a65b2e8c3ffc4b48d7f58d083d8b97a59"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r2/stdout.bin": {
+      "bytes": 2701,
+      "mode": "100644",
+      "oid": "9c61650899bc0be2cd941da3eb403d752b5bd22b",
+      "sha256": "e9407f0b2493b27a45bcada13745c11f056c282e5a51e946de1d7bd3e362aad2"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r3/RESULT.json": {
+      "bytes": 940,
+      "mode": "100644",
+      "oid": "2d19b4054328a36da38e3719f63796496e405f60",
+      "sha256": "b1aa6cebc89163e0135ff65a09ac385f2b441092b9e3103a98893b7194f734a7"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r3/stdout.bin": {
+      "bytes": 2706,
+      "mode": "100644",
+      "oid": "de87310122e4d033b08b18caa8044531b714802a",
+      "sha256": "27d935bab0aff0afdd008db88743e9ffcd933282881173384646ef274eb7ff71"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/ACTUAL-TOOL.json": {
+      "bytes": 621,
+      "mode": "100644",
+      "oid": "c767d248da7ad2b389327c91202547feda38343a",
+      "sha256": "81ec409403d52f42b4077ae5e0467cb24ebd5c31fd9926af028852b66031f0fd"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/GRANT.json": {
+      "bytes": 3445,
+      "mode": "100644",
+      "oid": "e82e82b4e89117af5f2ea28e4ff5a7859bbb6b34",
+      "sha256": "d44b1e983c219fd3a3568896c8583742c23f5c530543d10f923934e2fe09006b"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/HELPER-PID.json": {
+      "bytes": 15,
+      "mode": "100644",
+      "oid": "3d20fa9f62e681f44bc8572b9e13dddad644ba13",
+      "sha256": "c1df153dd898e139bfba758303c8fbeae08ee97015b8c2d801853b2b10f0c19f"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/OWNED-MICROCHILD.jsonl": {
+      "bytes": 831,
+      "mode": "100644",
+      "oid": "13071f354950d885086f8c5158c34712a80ec84e",
+      "sha256": "6e23579d1377a2cf9ec99328cd5d0de7c333aaa1e1842ea112cda6895414e576"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/POST-OWNERSHIP.json": {
+      "bytes": 641,
+      "mode": "100644",
+      "oid": "e9c712dea5e187a6eebf118a2bc75272bde363fe",
+      "sha256": "ce39ed201ce2e3f24c1d6ab2237773594c10dfdaf8bd32469e061f1e0f3264ac"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/PROTECTION-AFTER.json": {
+      "bytes": 3256,
+      "mode": "100644",
+      "oid": "0db01e0e78b871d5d75d3b27614b8c751c357e15",
+      "sha256": "7be950d3ab9fe836ea80ac3bcee2e551d1e017b2dd7fda87d257f43ef69e31e4"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/REGISTRY-CAPTURE.json": {
+      "bytes": 2122,
+      "mode": "100644",
+      "oid": "80332f43f56a359bf35c9347e33ad57ef55b1b69",
+      "sha256": "8d14266bd7fb35b7b518e15133208ddf675bdee736dfa438a070c94eaf05d25e"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/ACTUAL-TOOL.json": {
+      "bytes": 621,
+      "mode": "100644",
+      "oid": "40fb1f975247ecb62c6f82ced35580a5aaa74433",
+      "sha256": "e9ff10166068e0b73f69de1dbe76c697ef7ccdfcf458672935d81585d6c42d91"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/GRANT.json": {
+      "bytes": 3445,
+      "mode": "100644",
+      "oid": "88786f82d7b191cf48584a34040b97170368e118",
+      "sha256": "e33c74a2d892e8a2973faf01279cb71037e954b1640595716d3bfaf4229ea82f"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/HELPER-PID.json": {
+      "bytes": 15,
+      "mode": "100644",
+      "oid": "ad72f2398fb3daf55fbfd1ddcfa75dce3d181dd7",
+      "sha256": "8ec0b614bb953cfb22f59c46113570436e38f7aff2b73ba35f8389c0842c1b2b"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/OWNED-MICROCHILD.jsonl": {
+      "bytes": 833,
+      "mode": "100644",
+      "oid": "c7a62d569bd3fdeb675fb2a1c4e15c43c9f430d7",
+      "sha256": "31fd766bf6c99ae15ec30ee3a9f363b86df1b8e9e03ee370fde9f23ad1788d43"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/POST-OWNERSHIP.json": {
+      "bytes": 641,
+      "mode": "100644",
+      "oid": "af78e57be60661755753e627b98267aa802a96a7",
+      "sha256": "9dd1d0376cf7420d0bb4a5e70356e0dda934298722d8e09b0723736e92e6d6f7"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/PROTECTION-AFTER.json": {
+      "bytes": 3256,
+      "mode": "100644",
+      "oid": "0db01e0e78b871d5d75d3b27614b8c751c357e15",
+      "sha256": "7be950d3ab9fe836ea80ac3bcee2e551d1e017b2dd7fda87d257f43ef69e31e4"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/REGISTRY-CAPTURE.json": {
+      "bytes": 2124,
+      "mode": "100644",
+      "oid": "3f7bc3e53ccd5119e79b3e97112c7752492c558e",
+      "sha256": "4e09fd2ca37851c0cfd61e4fa8881d0a519dab3ce2e99a616ae601cbf78854cb"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/CONFIG.json": {
+      "bytes": 2330,
+      "mode": "100644",
+      "oid": "940c7ff05016fd1db6ba94d31f1b8ecc5f344f0b",
+      "sha256": "aaf4eb3a20e7f98ec8b3a3b555a7d1f3d98abdff9de2ebe4286659a1efaa3d99"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/NOTE.md": {
+      "bytes": 4795,
+      "mode": "100644",
+      "oid": "c35e2592bd8befb29281218652b4ed8bfdb68d63",
+      "sha256": "35cd12bdadf23f16c0d701663e18cc814515483579a44a1cf00a8e4dab9cf524"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/PLAN.json": {
+      "bytes": 7130,
+      "mode": "100644",
+      "oid": "547d76ad9b3ecde8855db3a2dce55ed87057e938",
+      "sha256": "269365370e287bc61da5eed7ac2b8f5a01991373e00efebd09f92e1818b4e1b7"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/SEAL.json": {
+      "bytes": 541,
+      "mode": "100644",
+      "oid": "c47841b1159972979e57e29b9805989dbe89df54",
+      "sha256": "aeb6c4d057def7d5a2fd49b75aee2b790c17d0ba0a2025a434ff641ebc36fdd4"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/SOURCE-PINS.json": {
+      "bytes": 1842,
+      "mode": "100644",
+      "oid": "ca868dc8f9fccafff37a1f92a60ed2170445e6d8",
+      "sha256": "11f69b0e76a0d9b7f363900365c68121e534624c4cf6161431e8488e480c76a0"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/probe.py": {
+      "bytes": 6206,
+      "mode": "100644",
+      "oid": "ff775044597154b3a7c1c0b4510947ce8f94a4e2",
+      "sha256": "6dd8f9f475ead831ef8c7fa6889343e9cb24fd2d515e57a390b5bcfa8871e70f"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/record.py": {
+      "bytes": 14558,
+      "mode": "100644",
+      "oid": "a3ca852c823cd9251d4f765dac025e00f4241d5a",
+      "sha256": "056d19d7d8ef0b783459bcab714bf8e3029ff03aed9b5ec22b6c92e42c065431"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/report_guard.py": {
+      "bytes": 4391,
+      "mode": "100644",
+      "oid": "93d9751516766bf0890f6a397964d58e237961eb",
+      "sha256": "6a64c8052bc451fb96d96206f3a01892d8012c36b86ed47a41208f6a725f5fb2"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-driver-independent-source-review-after-ak-20261009-r1/RECEIPT.json": {
+      "bytes": 5018,
+      "mode": "100644",
+      "oid": "70a846e19b1f130c4d2f3e8cc6e44123840cb4fc",
+      "sha256": "dcb0f61baa80cd51406d4783e7806224d07c9ef52f1beb6c0a3e6f12a4334c28"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-driver-independent-source-review-after-ak-20261009-r1/REPORT.md": {
+      "bytes": 2133,
+      "mode": "100644",
+      "oid": "f6605ba856287431c2e3a855ccca42b416d26bb5",
+      "sha256": "ca0969b1c736eb7735b448bfc6c52d4d60784b1971c851ea9d7491362fa7fe18"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-independent-observed-review-after-ak-20261009-r1/RECEIPT.json": {
+      "bytes": 8334,
+      "mode": "100644",
+      "oid": "b91d923a219b9957bd1b69efc4f0e606a3725e37",
+      "sha256": "720c63bcd8872c0a24e54ce3e732ed0b317d6b56d2f47a5461f6bd3ee07440fd"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-lane-after-ak-20261009-r1/controls.log": {
+      "bytes": 396,
+      "mode": "100644",
+      "oid": "e787c624d9185b718c08c4ec758273cb7e640124",
+      "sha256": "703434cce30b24c9c62b4f643e5e344a8d96a238bee9227457de6aeab4e90353"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-lane-after-ak-20261009-r1/controls.log.meta": {
+      "bytes": 342,
+      "mode": "100644",
+      "oid": "88d0f71cfa8e74b61018f3b4030b24d854a0975c",
+      "sha256": "b6f99b4278df372003d63fc990dfc040c020cfdd27a3b50a02513d6c7a9ff05b"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-output-after-ak-20261009-r1/RESULT.json": {
+      "bytes": 939,
+      "mode": "100644",
+      "oid": "d4fa50dc234639d87fd6820e0417dd9b2a1ded88",
+      "sha256": "312cfe670ead7b95187621b41e74f32e59c2af25b55728c073c95c384ddb3743"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-output-after-ak-20261009-r1/stdout.bin": {
+      "bytes": 1408,
+      "mode": "100644",
+      "oid": "f6d7271c756b0445c42a9b671bc9dbd61808a1ca",
+      "sha256": "74b6dbcc35857fd84d97127fda1b1ee55d02f9ab034b0896176047e2d01aa144"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-parent-after-ak-20261009-r1/ACTUAL-TOOL.json": {
+      "bytes": 614,
+      "mode": "100644",
+      "oid": "4bb3febaa790b9ba1e68886170deb7cf5df97eeb",
+      "sha256": "184cca34af83ed5dc41c2b3668890201702dda26f670457c1cf2b54ee1569fd9"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-parent-after-ak-20261009-r1/GRANT.json": {
+      "bytes": 3181,
+      "mode": "100644",
+      "oid": "305e175eaadb4813d3cd0c2c6149b8d9f1e3ca3e",
+      "sha256": "f7d5e4dad5209188d261ebf997b10049ea11cb3e4157c8bce69b6b6a0740c64e"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-parent-after-ak-20261009-r1/HELPER-PID.json": {
+      "bytes": 15,
+      "mode": "100644",
+      "oid": "58f3ade25806a8a71eb6c46c426e0ca56ac651e9",
+      "sha256": "dcf9f8a9aeeee99deda4588e1dee33e0a617cba4425c0b7cb778e324d190a1cf"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-parent-after-ak-20261009-r1/POST-OWNERSHIP.json": {
+      "bytes": 482,
+      "mode": "100644",
+      "oid": "247af65a977d38ba638b6ada61116462145ab4e1",
+      "sha256": "49fbe1a7f1505cbf978f427049481388ccd87f9bd9824ca5e1377b9da5d4d9ba"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-parent-after-ak-20261009-r1/PROTECTION-AFTER.json": {
+      "bytes": 3256,
+      "mode": "100644",
+      "oid": "0db01e0e78b871d5d75d3b27614b8c751c357e15",
+      "sha256": "7be950d3ab9fe836ea80ac3bcee2e551d1e017b2dd7fda87d257f43ef69e31e4"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/CONFIG.json": {
+      "bytes": 8737,
+      "mode": "100644",
+      "oid": "77339a6d2eaf26e52c49a04afde9a9b8f961689f",
+      "sha256": "43dd1d9d33e3b29fc1879e3a5ea5251fb03207bf100add9f8b2240f0f06e744e"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/FORWARD.diff": {
+      "bytes": 18934,
+      "mode": "100644",
+      "oid": "ee145529001ed1e0845e36cb507e770b6804528c",
+      "sha256": "88072cde56a704eb2806868461883c77f872670e2a0edfa2e3848685a06cefe6"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/INVERSE.diff": {
+      "bytes": 18934,
+      "mode": "100644",
+      "oid": "7ec8c1f5379f1671ecf5c60bd7177600398789d6",
+      "sha256": "2dd3f56af5ab568f9059c4b3a39a99f4235cb5e71b13ed00d8fb3e801e5c26c5"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/NOTE.md": {
+      "bytes": 2362,
+      "mode": "100644",
+      "oid": "d619d3a7b66a719279cbdc1e0bdd6fc2ff73d323",
+      "sha256": "cd275c69ba1cee309fbebf634d8a810dba8b758f189077007c241c3bffc6d848"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/ROUTE.json": {
+      "bytes": 4925,
+      "mode": "100644",
+      "oid": "0c055bccc629883818481305fb6d09c6b5744bb6",
+      "sha256": "2b00a825e6d0c7bc2b6c1157dc35ac5a7ae6f55a3c00e6bf994ba402260f3f6a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/SEAL.json": {
+      "bytes": 1053,
+      "mode": "100644",
+      "oid": "e47a04ea736b4d7da093fd2b51669f0c6fe35568",
+      "sha256": "0c66b0a34f36c555e123dabfdd3eee904d54ce8ca977a06e545303355f4ff43e"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/SOURCE-PINS.json": {
+      "bytes": 2824,
+      "mode": "100644",
+      "oid": "aa438715267af17c3d08afa5b5f9b745ed2f9942",
+      "sha256": "8eb02a720ae08466ea36ba6fb3b53d997588ab663c314f4d140cdc9bff4c541c"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/SOURCE-PROOF.json": {
+      "bytes": 2437,
+      "mode": "100644",
+      "oid": "1d1251989c15e2c2a06f6f195e54554fed059462",
+      "sha256": "c476f46e9fbe99031ff3c152d29cf039e7fd09cc5e8be40d9d49fc43598c701b"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/launch.py": {
+      "bytes": 4719,
+      "mode": "100644",
+      "oid": "1692af9e033653fc884762d707e8cdedd0106a94",
+      "sha256": "3e14257fb9c6d363c80a4ae4c0f3020253c74d21897cbea17e7f71ec2c38defb"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/record.py": {
+      "bytes": 14963,
+      "mode": "100644",
+      "oid": "2e0a1d477690910abd07c4f71cad05758f0fa3b7",
+      "sha256": "08d9656507bd9a9b15dbf8a79c3ec7dda515ccacdbbfc6eaba782484db2e6796"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/report_guard.py": {
+      "bytes": 3075,
+      "mode": "100644",
+      "oid": "b714b59e282935eb765558bf508fd24286715160",
+      "sha256": "7cd80acc71caca0acee009e15c2a0c90701d19be010627dcb20e2bfa94785b1c"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-focused-recorded-route-independent-review-after-ak-20261009-r1/RECEIPT.json": {
+      "bytes": 5343,
+      "mode": "100644",
+      "oid": "7993a4e7fde998e2bc3a7a81e171206081713b5e",
+      "sha256": "16ca4682f7d50360a850488af9e380472a48591668e35c584ecbdb92db26f65a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-independent-controls-after-ak-20261009-r1/DESIGN.json": {
+      "bytes": 10043,
+      "mode": "100644",
+      "oid": "7ba23b6892b96a22c24560075dfce26b48aa246d",
+      "sha256": "93c52d7e4ebc1cca269e586bd3688ef16226d47e60fa1cdb402d7442bfd9e107"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-independent-controls-after-ak-20261009-r1/RECEIPT.json": {
+      "bytes": 2685,
+      "mode": "100644",
+      "oid": "ae87814f84ae8962c49939e2b4f5db4d85f41f86",
+      "sha256": "8476254711049bd4691aabd6a695941b4ad1607ca91691a69be3c143b8fc37c1"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-independent-controls-after-ak-20261009-r1/controls.py": {
+      "bytes": 20888,
+      "mode": "100644",
+      "oid": "78475e11a4e328a5cffe61743c16f5eafea089ef",
+      "sha256": "fc835a82b2071b64840711e3fb5a334e3dc25ba531ef2d67ce041aff40c4ea68"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-independent-test-design-after-ak-20261009-r1/DRAFT-DESIGN.md": {
+      "bytes": 7351,
+      "mode": "100644",
+      "oid": "0257f1551568486d046fbf20dd5b7ab46c3e3731",
+      "sha256": "1b7e8561fef70d8f53faba7e231b2fb7bf12615352502e5643edf3682785eb39"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-a208-pre-reap-independent-test-design-after-ak-20261009-r1/DRAFT-RECEIPT.json": {
+      "bytes": 1928,
+      "mode": "100644",
+      "oid": "2d770f02e575b5a3635b74e4fe23daef19f3eee6",
+      "sha256": "5f15023a50ffefb84e39af62b20c32034ed609149282cfb3aa8f14621a4a52cc"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-b109-next-performance-design-after-ak-20261009-r1/DESIGN.json": {
+      "bytes": 10681,
+      "mode": "100644",
+      "oid": "e5deee196922bbf61f2135a9c192e932df7c34b8",
+      "sha256": "2dc9f9896d0d3f673ea7be9a2e67549cc49e48604cfdb42a918477d3c81bc53b"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-b109-next-performance-design-after-ak-20261009-r1/NOTE.md": {
+      "bytes": 5196,
+      "mode": "100644",
+      "oid": "b6382e6cd84a49a8871e52958f4c84841709a393",
+      "sha256": "68172941d35a5d5955170955e4521871a4262f9646ac042fb6b8e2ad40cb7882"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-b109-next-performance-design-after-ak-20261009-r1/SEAL.json": {
+      "bytes": 620,
+      "mode": "100644",
+      "oid": "b69d2a535194f4e44ff6ffb7860751ae703ce0c7",
+      "sha256": "31e220499471ad9778607aff97d6f13aafa6bb01d409e0ec1ed7f8c85ec6adb6"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-m0-types-next-slice-after-ak-20261009-r1/BINDING-UNFILLED.json": {
+      "bytes": 27520,
+      "mode": "100644",
+      "oid": "56b528ba705686e20d8d39f31be0bac30c1528b8",
+      "sha256": "0759609aec4500e0e41f589c3097b8124521b64f1a93ec0c692ec1651f0bcf38"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-m0-types-next-slice-after-ak-20261009-r1/LESSONS.md": {
+      "bytes": 1438,
+      "mode": "100644",
+      "oid": "92c55809217bcab6337fac337390a82603dfd0fa",
+      "sha256": "23f4f84eea63b503d9a78d5db1f182c6ff7c027796ea6d17056ef52ab74b8531"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-m0-types-next-slice-after-ak-20261009-r1/NEXT-STEPS.md": {
+      "bytes": 4866,
+      "mode": "100644",
+      "oid": "bb33084d438956c51a23a0e533a93c2d1936f828",
+      "sha256": "15eb06beca37b6859a5cec58a8ea2a5ea2d0ec5c08686488ea128908b589047a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-m0-types-next-slice-after-ak-20261009-r1/PROVENANCE.json": {
+      "bytes": 526,
+      "mode": "100644",
+      "oid": "ee5be100d2863ee41d32387a85089fd319004115",
+      "sha256": "6d6ab3f9614b3e2f018661cd12e213de52d901abd78cd709de06e9f3704a30d4"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-m0-types-next-slice-after-ak-20261009-r1/ROUTE-PROPOSAL.json": {
+      "bytes": 3012,
+      "mode": "100644",
+      "oid": "c23790f7a6f3a2a8471a1bc7ad0ebf6ec26f6e6c",
+      "sha256": "e59f6edca43240e2ab0014642f5d8a5cc4180c786547e3e2b6f395f10f884a20"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-m0-types-next-slice-after-ak-20261009-r1/SEAL.json": {
+      "bytes": 386,
+      "mode": "100644",
+      "oid": "134daa1b65d55a9b257390ed18a917f47bf586b1",
+      "sha256": "298db370c266d01415dcde3bdc7d235f3e0d19a61a43e9e7621a53e3a92dbfc7"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-m0-types-next-slice-after-ak-20261009-r1/SOURCE-PINS.json": {
+      "bytes": 2484,
+      "mode": "100644",
+      "oid": "31d7229a4d2e5da724f5834ed56ade9d34ed5261",
+      "sha256": "4b38dbfad83af47d48f07470950693a3da95a46b71d9b9e96dfccd7fd29d30a8"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-al-owned-cleanup-repair-and-a208-control-completion/payload/1370-c0-m0-types-next-slice-after-ak-20261009-r1/SOURCE-REUSE-MAPPING.json": {
+      "bytes": 4609,
+      "mode": "100644",
+      "oid": "99b5be1e557534c54fdc6d291713147fd7211e57",
+      "sha256": "908e6b4fbffb10a7d8bd849fc469ee2ba2756d0800f96df9273871e4217d7817"
+    }
+  },
+  "headBefore": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+  "manifestSha256": "05d3cf619bdae521d02331cb76959f95a3bd62849355225f91c2f6676163c815",
+  "rawPaddingPublished": false,
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "stagedPaths": 393,
+  "stagedTree": "d37d20cf0ded891e6bcd92b7c479da4ba1019cb8",
+  "status": "EXACT_STAGED_CHECKPOINT_AND_GIT_BLOBS_VERIFIED",
+  "uniqueGitBlobsReadBack": 375
+}

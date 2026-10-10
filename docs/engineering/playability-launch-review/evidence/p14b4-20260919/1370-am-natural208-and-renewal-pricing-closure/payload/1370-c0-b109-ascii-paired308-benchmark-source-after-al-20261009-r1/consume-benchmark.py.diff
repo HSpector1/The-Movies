@@ -1,0 +1,55 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/consume-focused-controls.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/consume-benchmark.py
+@@ -3,9 +3,9 @@
+ from pathlib import Path
+ from strict_contract import EXPECTED,exact,require,strict_json,validate_producer
+ HERE=Path(__file__).resolve().parent
+-OUTPUT=Path('/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-output-after-al-20261009-r2')
+-LANE=Path('/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-lane-after-al-20261009-r2')
+-GRANTDIR=Path('/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r2')
++OUTPUT=Path('/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-output-after-al-20261009-r1')
++LANE=Path('/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-lane-after-al-20261009-r1')
++GRANTDIR=Path('/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1')
+ def metadata(st):return (st.st_dev,st.st_ino,st.st_size,st.st_mtime_ns,st.st_ctime_ns,st.st_mode,st.st_nlink)
+ def read_role(path,cap):
+  p=Path(path);require(p.resolve(strict=True)==p and not p.is_symlink(),'PHYSICAL_ARTIFACT');before=p.lstat();require(stat.S_ISREG(before.st_mode) and before.st_nlink==1 and before.st_size<=cap,'ARTIFACT_CAP')
+@@ -23,7 +23,7 @@
+  require(sys.dont_write_bytecode and not sys.flags.optimize and len(sys.argv)==3,'EXACT_PYTHON_B_OUTCOME_ARGS')
+  outcome_path=Path(sys.argv[1]);require(outcome_path==GRANTDIR/'TOOL-OUTCOME.json','OUTCOME_PATH')
+  raw,outcome_role=read_role(outcome_path,1048576);require(outcome_role['sha256']==sys.argv[2],'OUTCOME_HASH');o=strict_json(raw)
+- require(o['schema']=='1370-root-b109-ascii-focused-controls-tool-outcome/v1' and o['status']=='ACTUAL_FOCUSED_CONTROLS_COMPLETE_AWAIT_INDEPENDENT_REVIEW','OUTCOME_SCHEMA')
++ require(o['schema']=='1370-root-b109-ascii-paired308-benchmark-tool-outcome/v1' and o['status']=='ACTUAL_PAIRED308_BENCHMARK_COMPLETE_AWAIT_INDEPENDENT_REVIEW','OUTCOME_SCHEMA')
+  for field in ('actualToolExit','helperExit','helperMetaExit','recorderExit','nodeExit'):require(type(o[field]) is int and o[field]==0,'ALL_EXITS_ZERO_'+field.upper())
+  for field in ('helperPid','helperPgid','helperSid'):require(type(o[field]) is int and o[field]>1,'HELPER_IDENTITY_'+field.upper())
+  grant_raw,grant_role=read_role(GRANTDIR/'GRANT.json',1048576);require(exact(o['grant'],grant_role),'OUTCOME_GRANT_ROLE');g=strict_json(grant_raw)
+@@ -36,10 +36,12 @@
+   _,actual=read_role(wanted['path'],16777216);require(exact(actual,wanted),'CURRENT_ROUTE_SOURCE')
+  result_raw,result_role=read_role(OUTPUT/'RESULT.json',1048576);result=strict_json(result_raw)
+  stdout,stdout_role=read_role(OUTPUT/'stdout.bin',1048576);stderr,stderr_role=read_role(OUTPUT/'stderr.bin',1048576)
+- producer=validate_producer(stdout,stderr)
++ config_raw,_=read_role(HERE/'CONFIG.json',1048576);config=strict_json(config_raw)
++ producer=validate_producer(stdout,stderr,config)
++ require(exact(claim['currentCaptureMetadata'],config['currentCaptureMetadata']) and exact(claim['correctnessAdoption'],config['roles']['focusedCorrectnessAdoption']),'CLAIM_CAPTURE_AND_CORRECTNESS_ROLE')
+  require(not os.path.lexists(OUTPUT/'OVERRIDE-STOP.json'),'NO_STOP_OVERRIDE')
+  config_raw,_=read_role(HERE/'CONFIG.json',1048576);config_sha=hashlib.sha256(config_raw).hexdigest()
+- require(result['schema']=='1370-b109-pure-encoder-recorder-r4' and result['status']=='PURE_ENCODER_CONTROLS_COMPLETE_UNADOPTED' and result['mode']=='controls' and result['configSha256']==config_sha,'RECORDER_RESULT')
++ require(result['schema']=='1370-b109-pure-encoder-recorder-r4' and result['status']=='PURE_ENCODER_BENCHMARK_COMPLETE_UNADOPTED' and result['mode']=='benchmark' and result['configSha256']==config_sha,'RECORDER_RESULT')
+  require(type(result['actualChildExit']) is int and result['actualChildExit']==0,'CHILD_EXIT_ZERO')
+  require(type(result['childPid']) is int and result['childPid']>1 and type(result['ownedPgid']) is int and result['ownedPgid']==result['childPid'],'OWNED_IDENTITY')
+  for name,wanted in (('startupOwnedBeforeExec',True),('pgidConfirmed',True),('groupClear',True),('timedOut',False),('game',False),('sourceOrGameplayAdoption',False),('executionAuthorization',False)):require(type(result[name]) is bool and result[name] is wanted,'RECORDER_FLAG_'+name.upper())
+@@ -47,12 +49,12 @@
+  require(type(result['elapsedSeconds']) in (int,float) and 0<=result['elapsedSeconds']<75,'RECORDER_ELAPSED')
+  for name,r in (('stdout',stdout_role),('stderr',stderr_role)):
+   require(type(result[name+'Bytes']) is int and result[name+'Bytes']==r['bytes'] and result[name+'Sha256']==r['sha256'],'RECORDED_STREAM_ROLE')
+- lane_raw,lane_role=read_role(LANE/'controls.lane.log',1048576);meta_raw,meta_role=read_role(LANE/'controls.lane.log.meta',1048576)
++ lane_raw,lane_role=read_role(LANE/'benchmark.lane.log',1048576);meta_raw,meta_role=read_role(LANE/'benchmark.lane.log.meta',1048576)
+  require(exact(o['laneLog'],lane_role) and exact(o['laneMeta'],meta_role),'HELPER_STREAM_ROLES')
+  require(exact(o['actualOwnedPidsFreshlyAbsent'],[o['helperPid'],result['childPid']]),'RECORDED_ACTUAL_PID_ABSENCE')
+  require(exact(o['actualOwnedGroupsFreshlyAbsent'],[o['helperPgid'],result['ownedPgid']]) and o['heavyLaneLockAbsent'] is True,'RECORDED_ACTUAL_PGID_ABSENCE_AND_LANE_CLEAR')
+  meta=meta_raw.decode('utf-8',errors='strict');require(meta.count('start; ')==1 and meta.count('end, exit ')==1 and 'end, exit 0; ' in meta and 'STOP:' not in meta,'HELPER_META_EXIT_ZERO')
+  summary_lines=[line for line in lane_raw.decode('utf-8',errors='strict').splitlines() if line.startswith('{')]
+- require(len(summary_lines)==1,'RECORDER_SUMMARY_COUNT');summary=strict_json(summary_lines[0]);require(exact(summary,{'status':'PURE_ENCODER_CONTROLS_COMPLETE_UNADOPTED','output':str(OUTPUT),'actualChildExit':0,'groupClear':True}),'RECORDER_SUMMARY')
+- print(json.dumps({'schema':'1370-b109-ascii-focused-controls-consumption/v1','status':'EXACT_COMPLETED_FOCUSED_CONTROLS_CONSUMED_UNADOPTED','outcome':outcome_role,'grant':grant_role,'launchClaim':claim_role,'result':result_role,'stdout':stdout_role,'stderr':stderr_role,'laneLog':lane_role,'laneMeta':meta_role,'producer':producer,'helperPid':o['helperPid'],'helperPgid':o['helperPgid'],'helperSid':o['helperSid'],'childPid':result['childPid'],'ownedPgid':result['ownedPgid'],'independentObservedReview':None,'performanceWin':False,'game':False},sort_keys=True))
++ require(len(summary_lines)==1,'RECORDER_SUMMARY_COUNT');summary=strict_json(summary_lines[0]);require(exact(summary,{'status':'PURE_ENCODER_BENCHMARK_COMPLETE_UNADOPTED','output':str(OUTPUT),'actualChildExit':0,'groupClear':True}),'RECORDER_SUMMARY')
++ print(json.dumps({'schema':'1370-b109-ascii-paired308-benchmark-consumption/v1','status':'EXACT_COMPLETED_PAIRED308_BENCHMARK_CONSUMED_UNADOPTED','outcome':outcome_role,'grant':grant_role,'launchClaim':claim_role,'result':result_role,'stdout':stdout_role,'stderr':stderr_role,'laneLog':lane_role,'laneMeta':meta_role,'producer':producer,'helperPid':o['helperPid'],'helperPgid':o['helperPgid'],'helperSid':o['helperSid'],'childPid':result['childPid'],'ownedPgid':result['ownedPgid'],'independentObservedReview':None,'performanceWin':False,'game':False},sort_keys=True))
+ if __name__=='__main__':main()

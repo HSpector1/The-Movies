@@ -1,0 +1,43 @@
+--- R3/SOURCE-PROOF.json
++++ R4/SOURCE-PROOF.json
+@@ -11,15 +11,9 @@
+     "sha256": "05c10ea344c211e4a57e55229a2b7b9244a86e7cf76919efeb08f0a410877572"
+   },
+   "executionAuthorization": false,
+-  "fillerEntireBytesExactToR3": true,
+   "fillerOnlyChangesProfileHash": true,
+   "fillerWholeByteInverseExact": true,
+   "futureFailurePostflight": null,
+-  "heldR3SourceStop": {
+-    "bytes": 1330,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-root-option-parent-map-author-stop-after-al-20261009-r1/STOP.json",
+-    "sha256": "4b7a7034a5f28813d39ffdf8f33fcf2a2c64ab941621e1f5fbeba1b2b89d7d1a"
+-  },
+   "knownEvidence": {
+     "failedTypesReadback": {
+       "bytes": 6507,
+@@ -54,15 +48,7 @@
+     "sha256": "05ca05fbe689bcb48ab78507679373938bee867e846ea57b42e203fc9a92e3cf"
+   },
+   "oldProfileHash": "63b70fb7d08a73ad14ef7370dac4002348634ed7d08e5a822133c5791f1826d9",
+-  "originalCompleteProofPostflightArgvExact": true,
+-  "originalCompleteTypesPostflightArgvCompared": true,
+   "originalPrelaunchEntireFileByteIdentical": true,
+-  "postflightTypesArgvInverse": "Entire original R2 argv except only label index9 changes from after-al types r2 to r3; phase index8 remains postflight and original source/baseline/Hleaf/admission/owned-ID placeholder stay exact.",
+-  "preservedHeldR3Pins": {
+-    "bytes": 6119,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/SOURCE-PINS.json",
+-    "sha256": "d05e115cd0ed201ef621bccf0af7c7d86652c1146af206ca78efbc050dd83193"
+-  },
+   "proofProfileObjectExact": true,
+   "runtimeScopes": {
+     "combinedPreparationRuntimeDeadline": null,
+@@ -79,7 +65,7 @@
+       "whole": 330
+     }
+   },
+-  "schema": "1370-m0-parent-r4-r6-rebind-and-original-argv-proof/v1",
++  "schema": "1370-m0-parent-r3-profile-rebind-proof/v1",
+   "sourceOnly": true,
+   "typesProfileCurrentSourceRolesExact": true
+ }

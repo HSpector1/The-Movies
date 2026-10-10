@@ -1,0 +1,283 @@
+{
+  "acceptedProcedureReceipt": {
+    "bytes": 1634,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-independent-procedure-review-20261008-r1/RECEIPT.json",
+    "sha256": "0d0d0358356653a50d05b10fedfdeb2bee9c66939ec4ab03a83521fc42a9e693"
+  },
+  "actualContractProducerFieldsReadAndMatched": true,
+  "actualControlsAdoption": {
+    "bytes": 8775,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json",
+    "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+  },
+  "actualProtectionAuthorityStillNull": true,
+  "adapterReview": {
+    "bytes": 2370,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "b6c6d35760a50ad7814e7e75253a614c6756725795ea88870de562b36ddb2c6f"
+  },
+  "allActualProtectionAndGameRolesPending": true,
+  "archiveAdoptionExecution": false,
+  "bindingWitnessGrantExplicitNullInSemantic": true,
+  "candidateOrProcedureExecution": false,
+  "changes": {
+    "adopt_reviewed_candidate.py": [
+      {
+        "label": "exact fresh config pin",
+        "new": "CONFIG_SHA='6a17aef0f43cea9c5c480952ef12a69be3d1ee1b1d562166b4968198c5f1e6d4'",
+        "old": "CONFIG_SHA='4b6bf16518e9ab7c472c9147376a9a9ed5ca15f79f0dc656af8175abd85a6bf5'"
+      },
+      {
+        "label": "exact current operational role data gate",
+        "new": "def current_operational_roles(config, adopting=False):\n # Exact actual roles filled in a fresh independently reviewed config; scope is design only.\n for key in ('actualOperationalRuntimeAuthority','actualGuardBaseline'):\n  require(isinstance(config.get(key),dict),'current AL observed protection role pending '+key)\n require(isinstance(config.get('actualOperationalRuntimeAuthorityExpectedStatus'),str),'actual protection status pending')\n require(config['actualOperationalRuntimeAuthority']!=config['sourceScopeAdoption'],'source-only scope is not observed protection authority')\n names=['publishedReadback','sourceScopeAdoption','actualOperationalRuntimeAuthority','actualGuardBaseline']\n if adopting:\n  require(isinstance(config.get('actualGuardAfterFill'),dict),'current AL after-fill protection pending');names.append('actualGuardAfterFill')\n values={}\n for key in names:\n  expected=config[key];raw,_=read(expected['path']);require(sha(raw)==expected['sha256'] and len(raw)==expected['bytes'],'exact current operational role '+key);values[key]=json.loads(raw)\n publication=values['publishedReadback'];scope=values['sourceScopeAdoption'];authority=values['actualOperationalRuntimeAuthority']\n require(publication['status']=='PUSHED_REMOTE_AND_COMMITTED_TREE_VERIFIED' and publication['head']==publication['trackingWorkingHead']==config['productionHead'] and publication['sourceTree']==config['productionSourceTree'] and publication['workingTreeClean'] is True and publication['docsOnlyTransitionVerified'] is True,'current published AL role')\n require(scope['status']=='PARENT_ADOPTED_A208_OPERATIONAL_GUARD_SCOPE_ONLY' and scope['productionGuardHead']==config['productionHead'] and scope['productionSourceTree']==config['productionSourceTree'] and scope['executionAuthorization'] is False and scope['combinedHFirstRouteUnchanged'] is True and scope['H8708Waived'] is False and scope['operationalTransition']['actualHead']==config['productionHead'] and scope['operationalTransition']['docsOnlyVerified'] is True and scope['remoteRefsVerified']==config['operationalRemoteRefs'],'truthful current source-only scope')\n require(authority['status']==config['actualOperationalRuntimeAuthorityExpectedStatus'] and authority['status']!=scope['status'],'exact observed protection authority status')\n return values\n\ndef main():\n",
+        "old": "def main():\n"
+      },
+      {
+        "label": "after-fill gate before archive/private reads",
+        "new": "config=json.loads(configraw)\n current_operational_roles(config,adopting=True)\n draft=",
+        "old": "config=json.loads(configraw)\n draft="
+      },
+      {
+        "label": "same exact current AL role in binding",
+        "new": "require(profile['operationalRuntimeAuthority']==config['actualOperationalRuntimeAuthority'] and profile['productionHeadAtPreparation']==config['productionHead'],'current AL actual binding roles')\n require(profile['status']=='DRAFT_FILLED_UNREVIEWED_UNRUN'",
+        "old": "require(profile['status']=='DRAFT_FILLED_UNREVIEWED_UNRUN'"
+      },
+      {
+        "label": "same one live refs command both exact AL refs",
+        "new": "git+['ls-remote','origin','refs/heads/wip/headless-program-20260916-ts','refs/heads/main']",
+        "old": "git+['ls-remote','origin','refs/heads/wip/headless-program-20260916-ts']"
+      },
+      {
+        "label": "exact current remote map",
+        "new": "''.join(config['operationalRemoteRefs'][key]+'\\t'+key+'\\n' for key in sorted(config['operationalRemoteRefs'])),'live current AL refs drift'",
+        "old": "config['productionHead']+'\\trefs/heads/wip/headless-program-20260916-ts\\n','live remote drift'"
+      }
+    ],
+    "fill_actual_candidate.py": [
+      {
+        "label": "frozen A208 source directory",
+        "new": "SOURCE=SCRATCH/'1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1'",
+        "old": "SOURCE=SCRATCH/'1370-c0-aging-era-employment-witness-source-r7'"
+      },
+      {
+        "label": "exact fresh config pin",
+        "new": "CONFIG_SHA='6a17aef0f43cea9c5c480952ef12a69be3d1ee1b1d562166b4968198c5f1e6d4'",
+        "old": "CONFIG_SHA='4b6bf16518e9ab7c472c9147376a9a9ed5ca15f79f0dc656af8175abd85a6bf5'"
+      },
+      {
+        "label": "three already-reviewed A208 additional source blobs",
+        "new": "BLOBS={'src/core/talentMarket.ts':'f036fcec9191374dc5554c5cdc33372b53cd7926','src/core/talentSummary.ts':'f8e8539d3c0f780e58027640de333d6168db7654','src/core/tuning.ts':'c4fc34447aff0eefd6ea52f34b798a1bfa2fabc9','src/core/aging.ts'",
+        "old": "BLOBS={'src/core/aging.ts'"
+      },
+      {
+        "label": "pending actual protection role data gate",
+        "new": "def current_operational_roles(config, adopting=False):\n # Exact actual roles filled in a fresh independently reviewed config; scope is design only.\n for key in ('actualOperationalRuntimeAuthority','actualGuardBaseline'):\n  require(isinstance(config.get(key),dict),'current AL observed protection role pending '+key)\n require(isinstance(config.get('actualOperationalRuntimeAuthorityExpectedStatus'),str),'actual protection status pending')\n require(config['actualOperationalRuntimeAuthority']!=config['sourceScopeAdoption'],'source-only scope is not observed protection authority')\n names=['publishedReadback','sourceScopeAdoption','actualOperationalRuntimeAuthority','actualGuardBaseline']\n if adopting:\n  require(isinstance(config.get('actualGuardAfterFill'),dict),'current AL after-fill protection pending');names.append('actualGuardAfterFill')\n values={}\n for key in names:\n  expected=config[key];raw,_=read(expected['path']);require(sha(raw)==expected['sha256'] and len(raw)==expected['bytes'],'exact current operational role '+key);values[key]=json.loads(raw)\n publication=values['publishedReadback'];scope=values['sourceScopeAdoption'];authority=values['actualOperationalRuntimeAuthority']\n require(publication['status']=='PUSHED_REMOTE_AND_COMMITTED_TREE_VERIFIED' and publication['head']==publication['trackingWorkingHead']==config['productionHead'] and publication['sourceTree']==config['productionSourceTree'] and publication['workingTreeClean'] is True and publication['docsOnlyTransitionVerified'] is True,'current published AL role')\n require(scope['status']=='PARENT_ADOPTED_A208_OPERATIONAL_GUARD_SCOPE_ONLY' and scope['productionGuardHead']==config['productionHead'] and scope['productionSourceTree']==config['productionSourceTree'] and scope['executionAuthorization'] is False and scope['combinedHFirstRouteUnchanged'] is True and scope['H8708Waived'] is False and scope['operationalTransition']['actualHead']==config['productionHead'] and scope['operationalTransition']['docsOnlyVerified'] is True and scope['remoteRefsVerified']==config['operationalRemoteRefs'],'truthful current source-only scope')\n require(authority['status']==config['actualOperationalRuntimeAuthorityExpectedStatus'] and authority['status']!=scope['status'],'exact observed protection authority status')\n return values\n\ndef main():\n",
+        "old": "def main():\n"
+      },
+      {
+        "label": "exact role gate before private reads",
+        "new": " configraw,_=read(HERE/'CONFIG-PENDING.json'); require(sha(configraw)==CONFIG_SHA,'configuration drift'); config=json.loads(configraw)\n current_operational_roles(config)",
+        "old": " configraw,_=read(HERE/'CONFIG-PENDING.json'); require(sha(configraw)==CONFIG_SHA,'configuration drift'); config=json.loads(configraw)"
+      },
+      {
+        "label": "historical current separation",
+        "new": "require(materializer['productionHead']==config['materializerProductionHead'],'immutable historical materializer HEAD pin')",
+        "old": "require(materializer['productionHead']==config['productionHead'],'materializer HEAD pin')"
+      },
+      {
+        "label": "exact18 observer manifest pin",
+        "new": "require(sha(sourceraw)=='3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf','frozen18 A208 source pins')",
+        "old": "require(sha(sourceraw)=='69ca5043bb533908f722126fbc93fd59ce84f0d7388180f3b60c5074076aebc2','r7 source pins')"
+      },
+      {
+        "label": "exact8 A208 observer map",
+        "new": "require(len(profile['observerSha256'])==8",
+        "old": "require(len(profile['observerSha256'])==7"
+      },
+      {
+        "label": "actual qualified Node22 separate historical materializer",
+        "new": "node=Path(profile['nodeExecPath']); node_role=executable(node);require(node_role['sha256']=='0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6','accepted physical Node22 executable')",
+        "old": "node=Path(materializer['nodePath']); node_role=executable(node);require(node_role['sha256']==materializer['nodeSha256'],'bound materializer Node executable')"
+      },
+      {
+        "label": "current AL binding from actual roles",
+        "new": "profile.update(status='DRAFT_FILLED_UNREVIEWED_UNRUN',executionAuthorization=False,exactReview=None,repoRoot=str(root),productionHeadAtPreparation=config['productionHead'],operationalRuntimeAuthority=config['actualOperationalRuntimeAuthority'])",
+        "old": "profile.update(status='DRAFT_FILLED_UNREVIEWED_UNRUN',executionAuthorization=False,exactReview=None,repoRoot=str(root))"
+      },
+      {
+        "label": "same one live refs command both exact AL refs",
+        "new": "git+['ls-remote','origin','refs/heads/wip/headless-program-20260916-ts','refs/heads/main']",
+        "old": "git+['ls-remote','origin','refs/heads/wip/headless-program-20260916-ts']"
+      },
+      {
+        "label": "exact current remote map",
+        "new": "require(remote==''.join(config['operationalRemoteRefs'][key]+'\\t'+key+'\\n' for key in sorted(config['operationalRemoteRefs'])),'live current AL refs')",
+        "old": "require(remote==config['productionHead']+'\\trefs/heads/wip/headless-program-20260916-ts\\n','live remote HEAD')"
+      }
+    ]
+  },
+  "currentProductionHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "currentPublishedReadback": {
+    "bytes": 1250,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+    "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+  },
+  "exactForwardInverseRestoresFrozenR2Sources": true,
+  "exactForwardInverseRestoresOriginalSources": true,
+  "executionAuthorization": false,
+  "externalFinalGrantContractAdoption": {
+    "bytes": 2592,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/EXTERNAL-FINAL-GRANT-DESIGN-ADOPTION.json",
+    "sha256": "2fd088a0ab757f926a451674ddfdaa48d79715479b65982d7fe68f7df918e847"
+  },
+  "externalFinalGrantContractReview": {
+    "bytes": 12621,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-witness-grant-ordering-independent-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "4ba78de8cf9c3f92e2a1ba2f189fb5a85c7e91fb7b7585c1e7dbf4c08b085ef7"
+  },
+  "externalFinalGrantDesign": {
+    "bytes": 13392,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-witness-grant-ordering-design-after-al-20261009-r1/DESIGN.json",
+    "sha256": "79bc84e010202b5b3899bd610061762c4c0381d2eeb73f2421e15073e1dc5f53"
+  },
+  "m0RematerializationOrNewRescanGate": false,
+  "materializerOriginalHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "observer18Manifest": {
+    "bytes": 9882,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+    "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+  },
+  "observerReview": {
+    "bytes": 5517,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+  },
+  "onlyNewHelper": "external_final_grant_contract",
+  "originalAdopt": {
+    "bytes": 13112,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-20261008-r2/adopt_reviewed_candidate.py",
+    "sha256": "5361471a3eee369f2418e92353c731ca0b0120020652d678b8a846707d345eb9"
+  },
+  "originalAndR2NonMainHelpersASTUnchanged": true,
+  "originalConfig": {
+    "bytes": 6291,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-20261008-r2/CONFIG-PENDING.json",
+    "sha256": "4b6bf16518e9ab7c472c9147376a9a9ed5ca15f79f0dc656af8175abd85a6bf5"
+  },
+  "originalFill": {
+    "bytes": 16046,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-20261008-r2/fill_actual_candidate.py",
+    "sha256": "e89850aeea8dbf8dfd57b7efbeea33977028d1fd4fe6f5497cc6bc3cb76a3516"
+  },
+  "originalHelperASTDefinitionsUnchanged": {
+    "adopt_reviewed_candidate.py": 7,
+    "fill_actual_candidate.py": 6
+  },
+  "originalThreeSemanticExclusionsUnchanged": true,
+  "predecessorFrozenR2Pins": {
+    "bytes": 4741,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "8a52f0fd5cce071fa5b01aa78a8a57db44edc229883362891fd6db29dfeabac6"
+  },
+  "predecessorGamePacket": {
+    "bytes": 1968,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-launch-binding-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "b83746ff6008700739d72ef124006cf1eaac8f53546dfe74245285647c7b0b5e"
+  },
+  "privateReadOrWriteGitScanSignals": false,
+  "r3Changes": {
+    "adopt_reviewed_candidate.py": [
+      {
+        "label": "fresh configuration pin",
+        "new": "96459fcc3914e1b3c535ecb2f5ebe8ef2ba7a2749b10b35104d5e8b3d5b2405d",
+        "old": "6a17aef0f43cea9c5c480952ef12a69be3d1ee1b1d562166b4968198c5f1e6d4"
+      },
+      {
+        "label": "authenticate adopted source contract before existing operational role gate",
+        "new": "def external_final_grant_contract(config, profile=None):\n # Source contract only; final runtime permission remains external and issued last.\n values={}\n for key in ('externalFinalGrantDesign','externalFinalGrantContractReview','externalFinalGrantContractAdoption'):\n  expected=config[key];require(set(expected)=={'path','bytes','sha256'},'exact external grant contract role shape');raw,_=read(expected['path']);require(len(raw)==expected['bytes'] and sha(raw)==expected['sha256'],'external grant contract pin '+key);values[key]=json.loads(raw)\n owner=values['externalFinalGrantContractAdoption'];review=values['externalFinalGrantContractReview']\n require(owner['status']=='ROOT_ADOPTED_SOURCE_CONTRACT_EXTERNAL_FINAL_WITNESS_GRANT' and owner['executionAuthorization'] is False and owner['sourcePreparationAuthorized'] is True and owner['bindingWitnessGrantMustBeExplicitNull'] is True and owner['frozenObserverAndAdaptersRemainUnchanged'] is True,'exact external grant source contract')\n require(owner['design']==config['externalFinalGrantDesign'] and owner['independentReview']==config['externalFinalGrantContractReview'] and owner['semanticExclusionsExactly']==['status','executionAuthorization','exactReview'],'source contract role and unchanged exclusions')\n require(review['decision']=='ACCEPT_SOURCE_ONLY_EXTERNAL_FINAL_WITNESS_GRANT_ORDERING_DESIGN' and review['executionAuthorization'] is False and review['design']==config['externalFinalGrantDesign'],'independent external grant source contract')\n require(EXCLUDED=={'status','executionAuthorization','exactReview'} and config['bindingWitnessGrantExplicitNull'] is True and config['externalFinalGrantIssuanceAfterAdoptedPreflightRequired'] is True,'external grant semantics')\n if profile is not None:require('witnessGrant' in profile and profile['witnessGrant'] is None,'immutable binding witnessGrant must remain explicit null')\n return owner\n\ndef current_operational_roles(config, adopting=False):\n",
+        "old": "def current_operational_roles(config, adopting=False):\n"
+      },
+      {
+        "label": "source contract provenance before private operations",
+        "new": "\n external_final_grant_contract(config)\n current_operational_roles(config",
+        "old": "\n current_operational_roles(config"
+      },
+      {
+        "label": "same exact reviewer explicitly admits null/external contract",
+        "new": " require(review.get('externalFinalGrantContractAdoption')==config['externalFinalGrantContractAdoption'] and review.get('bindingWitnessGrantExplicitNull') is True,'exact review must admit intentional external final grant arrangement')\n old,oldstat=read(binding);",
+        "old": " old,oldstat=read(binding);"
+      },
+      {
+        "label": "explicit immutable null before semantic and archive admission",
+        "new": "profile=json.loads(old)\n external_final_grant_contract(config,profile)\n",
+        "old": "profile=json.loads(old)\n"
+      }
+    ],
+    "fill_actual_candidate.py": [
+      {
+        "label": "fresh configuration pin",
+        "new": "96459fcc3914e1b3c535ecb2f5ebe8ef2ba7a2749b10b35104d5e8b3d5b2405d",
+        "old": "6a17aef0f43cea9c5c480952ef12a69be3d1ee1b1d562166b4968198c5f1e6d4"
+      },
+      {
+        "label": "authenticate adopted source contract before existing operational role gate",
+        "new": "def external_final_grant_contract(config, profile=None):\n # Source contract only; final runtime permission remains external and issued last.\n values={}\n for key in ('externalFinalGrantDesign','externalFinalGrantContractReview','externalFinalGrantContractAdoption'):\n  expected=config[key];require(set(expected)=={'path','bytes','sha256'},'exact external grant contract role shape');raw,_=read(expected['path']);require(len(raw)==expected['bytes'] and sha(raw)==expected['sha256'],'external grant contract pin '+key);values[key]=json.loads(raw)\n owner=values['externalFinalGrantContractAdoption'];review=values['externalFinalGrantContractReview']\n require(owner['status']=='ROOT_ADOPTED_SOURCE_CONTRACT_EXTERNAL_FINAL_WITNESS_GRANT' and owner['executionAuthorization'] is False and owner['sourcePreparationAuthorized'] is True and owner['bindingWitnessGrantMustBeExplicitNull'] is True and owner['frozenObserverAndAdaptersRemainUnchanged'] is True,'exact external grant source contract')\n require(owner['design']==config['externalFinalGrantDesign'] and owner['independentReview']==config['externalFinalGrantContractReview'] and owner['semanticExclusionsExactly']==['status','executionAuthorization','exactReview'],'source contract role and unchanged exclusions')\n require(review['decision']=='ACCEPT_SOURCE_ONLY_EXTERNAL_FINAL_WITNESS_GRANT_ORDERING_DESIGN' and review['executionAuthorization'] is False and review['design']==config['externalFinalGrantDesign'],'independent external grant source contract')\n require(EXCLUDED=={'status','executionAuthorization','exactReview'} and config['bindingWitnessGrantExplicitNull'] is True and config['externalFinalGrantIssuanceAfterAdoptedPreflightRequired'] is True,'external grant semantics')\n if profile is not None:require('witnessGrant' in profile and profile['witnessGrant'] is None,'immutable binding witnessGrant must remain explicit null')\n return owner\n\ndef current_operational_roles(config, adopting=False):\n",
+        "old": "def current_operational_roles(config, adopting=False):\n"
+      },
+      {
+        "label": "source contract provenance before private operations",
+        "new": "\n external_final_grant_contract(config)\n current_operational_roles(config",
+        "old": "\n current_operational_roles(config"
+      },
+      {
+        "label": "explicit immutable null in filled binding",
+        "new": "operationalRuntimeAuthority=config['actualOperationalRuntimeAuthority'])\n external_final_grant_contract(config,profile)",
+        "old": "operationalRuntimeAuthority=config['actualOperationalRuntimeAuthority'])"
+      },
+      {
+        "label": "actual fill report carries exact adopted contract provenance",
+        "new": "'sourceReviewReceipt':profile['independentSourceReviewReceipt'],'externalFinalGrantContractAdoption':config['externalFinalGrantContractAdoption'],'bindingWitnessGrantExplicitNull':True,",
+        "old": "'sourceReviewReceipt':profile['independentSourceReviewReceipt'],"
+      }
+    ]
+  },
+  "schema": "1370-a208-current-al-external-final-grant-preparation-source-proof/v1",
+  "sixFileSourceTemplates": {
+    "BINDING-DRAFT.json": {
+      "bytes": 5986,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r3/candidate-template/BINDING-DRAFT.json",
+      "sha256": "6e5b3e89d9dcc2fcfe4a386adf90eb81b574fa040bd28f6b51489dea17354a99"
+    },
+    "BINDING-SEMANTIC.json": {
+      "bytes": 5877,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r3/candidate-template/BINDING-SEMANTIC.json",
+      "sha256": "a293acbe82982b437a9a3a4deaff641b89f8bca9572a68e332019650dde40d9c"
+    },
+    "CANDIDATE-PINS.json": {
+      "bytes": 726,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r3/candidate-template/CANDIDATE-PINS.json",
+      "sha256": "0e697bdd31973cd2f386714fddc257f2bfed229b76c38606f6d5c33456e08ea0"
+    },
+    "DRAFT-IDENTITY.json": {
+      "bytes": 1491,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r3/candidate-template/DRAFT-IDENTITY.json",
+      "sha256": "d3798f566e68699dfe1bf2adf000d79bdcfab80faa8e01ca14dfd2eab6b49074"
+    },
+    "DRAFT-REPORT.json": {
+      "bytes": 2172,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r3/candidate-template/DRAFT-REPORT.json",
+      "sha256": "e35fca84115cbbe41d416f61c8ddfe384acdb4f06bcdab3d03c68f3a2b07d7ff"
+    },
+    "LAUNCH-SPEC-DRAFT.json": {
+      "bytes": 13037,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r3/candidate-template/LAUNCH-SPEC-DRAFT.json",
+      "sha256": "fe66068cec5cf22d7dbc9729f6aeaa63361aad4598de6e7b844ec036973fdba9"
+    }
+  },
+  "sourceAuthorityNeverFillsOperationalRuntimeAuthority": true,
+  "sourceOnlyScopeAdoption": {
+    "bytes": 2476,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "5307f365af644cefb94f6eca5bd8188b9e4a4c2198a9ccf6b72f0671dfd32998"
+  }
+}

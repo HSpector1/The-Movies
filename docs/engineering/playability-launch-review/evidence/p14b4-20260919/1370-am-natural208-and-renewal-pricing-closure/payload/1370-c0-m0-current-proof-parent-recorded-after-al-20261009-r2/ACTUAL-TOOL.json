@@ -1,0 +1,34 @@
+{
+  "initial": {
+    "chunk_id": "b6cf10",
+    "wall_time_seconds": 1.003274112,
+    "session_id": 20818,
+    "original_token_count": 68,
+    "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-m0-current-proof-parent-recorded-after-al-20261009-r2/ROOT-LANE-GRANT.json\", \"bytes\": 4074, \"sha256\": \"55ebdd3fed727c87fe6add41b0883c764a553a351cc7868ca03bb45bcb655508\"}, \"ownPid\": 89067, \"ownPgid\": 89067}\n"
+  },
+  "polls": [
+    {
+      "chunk_id": "c837d1",
+      "wall_time_seconds": 5.003992029,
+      "session_id": 20818,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "32ba5c",
+      "wall_time_seconds": 5.001937063,
+      "session_id": 20818,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "8a52c7",
+      "wall_time_seconds": 0.000016041,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ],
+  "toolSessionId": 20818,
+  "finalExit": 0
+}

@@ -1,0 +1,62 @@
+{
+  "actualProofReadback": {
+    "bytes": 3678,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-proof-parent-recorded-after-al-20261009-r2/READBACK.json",
+    "sha256": "f6352d724b5c0d6e36f0b3f895382daa5201d8776b322fa6e2a38d4d242dda2e"
+  },
+  "actualProofResult": {
+    "bytes": 3259,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-results-after-al-20261009-r2/20261009-m0-current-proof-after-al-r2/RESULT.json",
+    "sha256": "316d46177641f90cf525ae2044732eafc0de65599ac01976245b1b2bc76e28fa"
+  },
+  "dependencyContentBytes": 348223802,
+  "dependencyEntriesExcludingRoot": 12484,
+  "executionAuthorization": false,
+  "fullGuardDependencyEntriesIncludingRoot": 12485,
+  "fullPostflightReadback": {
+    "bytes": 3094,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-fullguard-postflight-parent-after-al-20261009-r2/POSTFLIGHT-READBACK.json",
+    "sha256": "1797b483a938c7b5c22d19977219dd157dff3b64fa96a160e17fc956299ea935"
+  },
+  "fullPostflightSnapshot": {
+    "bytes": 8576176,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-proof-r2/SNAPSHOT.json",
+    "sha256": "e28f4158e00183be491937e34c98ee67e9427a998b49f9780719c3595acf9d38"
+  },
+  "fullProtectedPostflightAccepted": true,
+  "gameAccepted": false,
+  "h13HistoricalFailureRemains": true,
+  "independentObservedReview": {
+    "bytes": 34396,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-independent-observed-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "09300660dad60e1f0fc956fdd8f676272b3746ae25b438225152dcdf4ab23bef"
+  },
+  "mirrorBytes": 119393120,
+  "mirrorFiles": 1740,
+  "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+  "postOwnership": {
+    "bytes": 1065,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-fullguard-postflight-parent-after-al-20261009-r2/POST-OWNERSHIP.json",
+    "sha256": "bde8ea77050b0b2d99b8d0af2c320bde463409b259f6775ab006ca44a7743de7"
+  },
+  "preflightObservedAdoption": {
+    "bytes": 3220,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-PROOF-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "dd47f4c0f6f4f85ef39037a4ac98bbc512cef5705b534717f3194bb5a2baee37"
+  },
+  "productionHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "protectedFreezeContinues": true,
+  "recordedOwnedIds": [
+    89067,
+    89322,
+    89341
+  ],
+  "schema": "1370-root-current-m0-proof-observed-adoption/v1",
+  "sharedGuardM0SourceScopeSeparate": true,
+  "soleLaneReleased": true,
+  "sourceAndDependencyBeforeAfterEqual": true,
+  "sourceEntriesExcludingRoot": 1853,
+  "status": "ROOT_ADOPTED_CURRENT_M0_SOURCE_DEPENDENCY_PROOF_WITH_FULL_POSTFLIGHT",
+  "typesAccepted": false
+}

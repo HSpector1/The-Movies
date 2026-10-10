@@ -1,0 +1,218 @@
+{
+  "actualCause": "Eleven TS5097 diagnostics authenticate to five canonical bridge files. Root historical config lacks the flag; UI already enables it. Keep canonical bytes and all original source/dependency checks.",
+  "actualFailureFullPostflight": null,
+  "actualTypesAccepted": false,
+  "allRuntimeAuthorityUnfilled": true,
+  "archivedR5SourceProofAndBuilderAreHistoricalOnly": true,
+  "baselineSourcePins": {
+    "bytes": 13859,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/SOURCE-PINS.json",
+    "sha256": "a3e53517dd38da67abf5f276ea276a454f4ee64d52f41fedc26181965cfb2618"
+  },
+  "bounds": {
+    "childCommandStdoutStderrBytes": 8388608,
+    "collectionBytes": 1048576,
+    "parentPreparationSeconds": 60,
+    "recorderActiveSeconds": 320,
+    "recorderWholeSeconds": 330,
+    "runnerSeconds": 300
+  },
+  "executionAuthorization": false,
+  "futureGrant": null,
+  "knownEvidence": {
+    "failedTypesReadback": {
+      "bytes": 6507,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r5/READBACK.json",
+      "sha256": "940fe91bee93b9a78a4a4a138aa3397088f047434a43481f4a1ee00e417e895e"
+    },
+    "failedTypesResult": {
+      "bytes": 15403,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r2/20261009-m0-types-after-al-r2/RESULT.json",
+      "sha256": "85106763c640e105578d5b38b97c5af732611f34bf307688a8069de6ab241963"
+    },
+    "qualifiedCurrentM0Protection": {
+      "bytes": 2795,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-CURRENT-TYPES-PROTECTION.json",
+      "sha256": "865e9e0cd54a280831c5de7133a97d50f66c9ca0145f404c4a8e2a8d29bbef1a"
+    },
+    "qualifiedProofAdoption": {
+      "bytes": 2981,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-CURRENT-PROOF-OBSERVED-ADOPTION.json",
+      "sha256": "8ef61c8f4e2d614ea2c4312db6c884b6cee9dba71e828a485986504beb5ef9b3"
+    },
+    "rootOptionCauseProposal": {
+      "bytes": 17215,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/PROPOSAL.json",
+      "sha256": "c365f5333b4cf7140a74b0c8d4828df64573fc477b65a0cd45fcc1439d5a8447"
+    }
+  },
+  "necessaryBindingChanges": {
+    "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-after-al-r3.lane.log",
+    "outputRoot": [
+      "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r2",
+      "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3"
+    ],
+    "parentPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r6",
+    "recorderRoot": [
+      "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r2",
+      "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r3"
+    ],
+    "runId": [
+      "20261009-m0-types-after-al-r2",
+      "20261009-m0-types-after-al-r3"
+    ],
+    "sourceConfigHashCascadeOnly": true,
+    "sourcePackage": [
+      "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5",
+      "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6"
+    ]
+  },
+  "perFileWholeByteInverseVerified": {
+    "BOOTSTRAP.py": {
+      "baselineSha256": "0ca56de3a190491911061b40728e5a919974c3f18430988ff7ca506dd3b3b922",
+      "inverseExact": true,
+      "literalChanges": [
+        [
+          "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5",
+          "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6"
+        ]
+      ],
+      "newSha256": "d2f66d1b78b3d09ad0eb897ac4b0d2fdfbaf0ab6656f8aa106c97aecabb6ea88"
+    },
+    "CONFIG.json": {
+      "baselineSha256": "e52b41bcb57b13e8255f9c5417aa29bdcf99e51850b0058119d4126c2c0d3172",
+      "inverseExact": true,
+      "literalChanges": [
+        [
+          "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r2",
+          "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3"
+        ],
+        [
+          "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r2",
+          "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r3"
+        ],
+        [
+          "20261009-m0-types-after-al-r2",
+          "20261009-m0-types-after-al-r3"
+        ]
+      ],
+      "newSha256": "f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7"
+    },
+    "EXECUTION-CONTEXT-UNFILLED.json": {
+      "baselineSha256": "f8f11dc2c8e4339d5ea8a8dc11046cd45ac5a45d574e7c2b13144f3379e49ea4",
+      "inverseExact": true,
+      "literalChanges": [
+        [
+          "e52b41bcb57b13e8255f9c5417aa29bdcf99e51850b0058119d4126c2c0d3172",
+          "f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7"
+        ],
+        [
+          "20261009-m0-types-after-al-r2",
+          "20261009-m0-types-after-al-r3"
+        ]
+      ],
+      "newSha256": "690a9d95b88b1c6338392623c9b3345733ac674866ac83f719eadcd3915eecd4"
+    },
+    "LAUNCH.py": {
+      "baselineSha256": "1c1f507c1f04b79683946604fab5f4b04c380f7f51cdf2c0ecfe727f30b986d8",
+      "inverseExact": true,
+      "literalChanges": [
+        [
+          "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5",
+          "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6"
+        ],
+        [
+          "e52b41bcb57b13e8255f9c5417aa29bdcf99e51850b0058119d4126c2c0d3172",
+          "f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7"
+        ],
+        [
+          "ac1d7e993c7ad90d73ed0d758727c249c1086c2ae02be9942c4548ceb389f5b5",
+          "5c18ad22e7b78d978c59eace50d5e4349ea415efa4ebf5840860e75561fa2e4b"
+        ],
+        [
+          "0ca56de3a190491911061b40728e5a919974c3f18430988ff7ca506dd3b3b922",
+          "d2f66d1b78b3d09ad0eb897ac4b0d2fdfbaf0ab6656f8aa106c97aecabb6ea88"
+        ],
+        [
+          "a5b04448e4a5205064191cafbef62c01f341b6741f88ac6684dffe12593e2ee9",
+          "af8c2b89380031262c2deec4271c6b39339cca721e14abc89bf57860d6ce57eb"
+        ]
+      ],
+      "newSha256": "6367ece93954fadc4726d766af6bdaf94aaeda53be86c96a3938522075142836"
+    },
+    "runner.py": {
+      "baselineSha256": "ac1d7e993c7ad90d73ed0d758727c249c1086c2ae02be9942c4548ceb389f5b5",
+      "inverseExact": true,
+      "literalChanges": [
+        [
+          "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5",
+          "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6"
+        ],
+        [
+          "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r2",
+          "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3"
+        ],
+        [
+          "e52b41bcb57b13e8255f9c5417aa29bdcf99e51850b0058119d4126c2c0d3172",
+          "f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7"
+        ],
+        [
+          "('root-tsc',[tsc,'--noEmit']),",
+          "('root-tsc',[tsc,'--noEmit','--allowImportingTsExtensions']),"
+        ]
+      ],
+      "newSha256": "5c18ad22e7b78d978c59eace50d5e4349ea415efa4ebf5840860e75561fa2e4b"
+    },
+    "supervise.py": {
+      "baselineSha256": "a5b04448e4a5205064191cafbef62c01f341b6741f88ac6684dffe12593e2ee9",
+      "inverseExact": true,
+      "literalChanges": [
+        [
+          "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5",
+          "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6"
+        ],
+        [
+          "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r2",
+          "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r3"
+        ],
+        [
+          "20261009-m0-types-after-al-r2",
+          "20261009-m0-types-after-al-r3"
+        ],
+        [
+          "e52b41bcb57b13e8255f9c5417aa29bdcf99e51850b0058119d4126c2c0d3172",
+          "f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7"
+        ],
+        [
+          "0ca56de3a190491911061b40728e5a919974c3f18430988ff7ca506dd3b3b922",
+          "d2f66d1b78b3d09ad0eb897ac4b0d2fdfbaf0ab6656f8aa106c97aecabb6ea88"
+        ],
+        [
+          "ac1d7e993c7ad90d73ed0d758727c249c1086c2ae02be9942c4548ceb389f5b5",
+          "5c18ad22e7b78d978c59eace50d5e4349ea415efa4ebf5840860e75561fa2e4b"
+        ]
+      ],
+      "newSha256": "af8c2b89380031262c2deec4271c6b39339cca721e14abc89bf57860d6ce57eb"
+    }
+  },
+  "preservedOriginalFailure": true,
+  "qualifiedBodiesAndProtectionsExactAfterBindingInverse": true,
+  "runtimeExecuted": false,
+  "schema": "1370-m0-r6-root-command-option-source-proof/v1",
+  "singleSemanticChange": {
+    "addedArgument": "--allowImportingTsExtensions",
+    "child": "root-tsc",
+    "dependencyAndCollectionCommandsExact": true,
+    "existingNoEmitRetained": true,
+    "fullFourCommandOrderExact": true,
+    "rootAndUIIncludeExcludeStrictFlagsUntouched": true,
+    "uiCommandExact": true
+  },
+  "sourceReview": null,
+  "syntaxValidation": "ast.parse only, no module import/execution/timer/process/compiler",
+  "unchangedDependencyChecker": {
+    "bytes": 1918,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6/check-deps.mjs",
+    "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+  }
+}

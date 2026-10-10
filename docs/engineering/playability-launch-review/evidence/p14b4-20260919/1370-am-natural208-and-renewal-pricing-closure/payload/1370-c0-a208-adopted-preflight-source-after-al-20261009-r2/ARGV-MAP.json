@@ -1,0 +1,41 @@
+{
+  "argvTemplate": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r2/preflight.py",
+    "__ACTUAL_EXTERNAL_CONFIG_PATH__",
+    "__ACTUAL_EXTERNAL_CONFIG_SHA256__"
+  ],
+  "config": {
+    "bytes": 4395,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r2/CONFIG-PENDING.json",
+    "sha256": "1dfa2a23d40c878d6a59c32355b08b29e7f29bd53875a22c79f0d1363cee7be8"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "game": false,
+  "noAddedInventory": true,
+  "originalPerCommandTimeoutSeconds": 180,
+  "pendingRoleKeys": [
+    "adoptedBinding",
+    "exactCandidateReview",
+    "afterFillSnapshot",
+    "adoptionResult",
+    "archiveManifest",
+    "adoptedLaunch"
+  ],
+  "procedure": {
+    "bytes": 23349,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r2/preflight.py",
+    "sha256": "fd2f806d140fbd74c34b130d299be20ff3382dd07e71ccf6da3f16d7c95e5fef"
+  },
+  "schema": "1370-a208-original-adopted-preflight-source-argv-map/v1",
+  "status": "SOURCE_ONLY_PENDING_ACTUAL_ADOPTED_ROLES",
+  "wholeProcedureDeadline": null
+}

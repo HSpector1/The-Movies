@@ -1,0 +1,296 @@
+{
+  "actualR6Outcome": null,
+  "executionAuthorization": false,
+  "files": [
+    {
+      "derivative": {
+        "bytes": 3864,
+        "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_preflight_r6_once.py",
+        "sha256": "a2b20670d8c17a2aef469aea33fafd758a2ac55b8de4388fe7a0f66e8fd781fa"
+      },
+      "exactReplacements": [
+        {
+          "after": "1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r4",
+          "before": "1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2",
+          "count": 1
+        },
+        {
+          "after": "f27d8eae1416d94346dd43e495acad272bd203dfb1270c818e2ca949bdb35d15",
+          "before": "05c10ea344c211e4a57e55229a2b7b9244a86e7cf76919efeb08f0a410877572",
+          "count": 1
+        },
+        {
+          "after": "assert mode=='types'",
+          "before": "assert mode in ('proof','types')",
+          "count": 1
+        },
+        {
+          "after": "'-prelaunch-parent-after-al-20261009-r3'",
+          "before": "'-prelaunch-parent-after-al-20261009-r2'",
+          "count": 1
+        },
+        {
+          "after": "'-prelaunch-output-after-al-20261009-r3'",
+          "before": "'-prelaunch-output-after-al-20261009-r2'",
+          "count": 1
+        },
+        {
+          "after": "'-PRELAUNCH-CONFIG-R6.json'",
+          "before": "'-PRELAUNCH-CONFIG.json'",
+          "count": 1
+        },
+        {
+          "after": "M0-TYPES-STOP-OBSERVED-ADOPTION.json",
+          "before": "M0-CURRENT-PROOF-OBSERVED-ADOPTION.json",
+          "count": 1
+        },
+        {
+          "after": "ROOT_ADOPTED_OBSERVED_STOP_M0_TYPES_ROOT_TS5097_WITH_FULL_PROTECTED_POSTFLIGHT",
+          "before": "ROOT_ADOPTED_CURRENT_M0_SOURCE_DEPENDENCY_PROOF_WITH_FULL_POSTFLIGHT",
+          "count": 1
+        }
+      ],
+      "original": {
+        "bytes": 3866,
+        "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_preflight_once.py",
+        "sha256": "b31d537077bbbf69eb6f2fb35be12651b9d33c62c54a2d0baf6f00409b7f264f"
+      },
+      "syntaxParsedOnly": true,
+      "wholeFileInverseEqualsOriginal": true
+    },
+    {
+      "derivative": {
+        "bytes": 3240,
+        "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/read_m0_preflight_r6.py",
+        "sha256": "48e9536f2983c9c36277442b90492b6b01ee914a1caa123a2d6dc76ef3f72b3f"
+      },
+      "exactReplacements": [
+        {
+          "after": "assert mode=='types'",
+          "before": "assert mode in ('proof','types')",
+          "count": 1
+        },
+        {
+          "after": "'-prelaunch-parent-after-al-20261009-r3'",
+          "before": "'-prelaunch-parent-after-al-20261009-r2'",
+          "count": 1
+        },
+        {
+          "after": "'-prelaunch-output-after-al-20261009-r3'",
+          "before": "'-prelaunch-output-after-al-20261009-r2'",
+          "count": 1
+        },
+        {
+          "after": "'-PREFLIGHT-OBSERVED-ADOPTION-R6.json'",
+          "before": "'-PREFLIGHT-OBSERVED-ADOPTION.json'",
+          "count": 1
+        }
+      ],
+      "original": {
+        "bytes": 3249,
+        "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/read_m0_preflight.py",
+        "sha256": "af73dbcc1040a992307a2fe1a0eaeddce1cd62669d8adfe9d72a8224b0132222"
+      },
+      "syntaxParsedOnly": true,
+      "wholeFileInverseEqualsOriginal": true
+    },
+    {
+      "derivative": {
+        "bytes": 5429,
+        "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_types_r6_once.py",
+        "sha256": "89736b035d174e103cf665431ce043a027f69739ffc49589e2206b7ab2a7766c"
+      },
+      "exactReplacements": [
+        {
+          "after": "1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r4",
+          "before": "1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2",
+          "count": 1
+        },
+        {
+          "after": "f27d8eae1416d94346dd43e495acad272bd203dfb1270c818e2ca949bdb35d15",
+          "before": "05c10ea344c211e4a57e55229a2b7b9244a86e7cf76919efeb08f0a410877572",
+          "count": 1
+        },
+        {
+          "after": "1370-c0-m0-proof-types-parent-launch-preparation-independent-source-review-after-al-20261009-r4",
+          "before": "1370-c0-m0-proof-types-parent-launch-preparation-independent-source-review-after-al-20261009-r2",
+          "count": 1
+        },
+        {
+          "after": "63f3482c050b339375eb868178a614ff5d2191b2712cc454e619094c127306c5",
+          "before": "d60c40db318d682289988ad4c86fa27d964d2c555e85d18919def1a1dc794d7c",
+          "count": 1
+        },
+        {
+          "after": "1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r6",
+          "before": "1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r5",
+          "count": 1
+        },
+        {
+          "after": "0b2402bc664192c3a57b73bed3ce7e461d50171e8d01d5d0261ed4c921a101ea",
+          "before": "d857ef103c2a6214d69bf10a2695eda1fdbba7cbe80fa1ac0c0b39c4c0b21de0",
+          "count": 1
+        },
+        {
+          "after": "assert mode=='types'",
+          "before": "assert mode in ('proof','types')",
+          "count": 1
+        },
+        {
+          "after": "M0-CURRENT-TYPES-PROTECTION-R6.json",
+          "before": "M0-CURRENT-TYPES-PROTECTION.json",
+          "count": 1
+        },
+        {
+          "after": "'-PREFLIGHT-OBSERVED-ADOPTION-R6.json'",
+          "before": "'-PREFLIGHT-OBSERVED-ADOPTION.json'",
+          "count": 1
+        }
+      ],
+      "original": {
+        "bytes": 5435,
+        "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_route_once.py",
+        "sha256": "88453b1949ce8b60e564df8f83860b82c038e93344103b2745b4e9e740d0bffa"
+      },
+      "syntaxParsedOnly": true,
+      "wholeFileInverseEqualsOriginal": true
+    },
+    {
+      "derivative": {
+        "bytes": 4976,
+        "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/read_m0_types_r6.py",
+        "sha256": "e3f82fe89311addc6d171ddc8bd90bf51ac4f2188280590633eba905ce2a03c4"
+      },
+      "exactReplacements": [
+        {
+          "after": "1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r4",
+          "before": "1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2",
+          "count": 1
+        },
+        {
+          "after": "M0-CURRENT-TYPES-PROTECTION-R6.json",
+          "before": "M0-CURRENT-TYPES-PROTECTION.json",
+          "count": 2
+        }
+      ],
+      "original": {
+        "bytes": 4970,
+        "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/read_m0_types.py",
+        "sha256": "38e69d13f414b542019bb84f49c43195b5e5176415f4b982687613b3857bf8f6"
+      },
+      "syntaxParsedOnly": true,
+      "wholeFileInverseEqualsOriginal": true
+    },
+    {
+      "derivative": {
+        "bytes": 4004,
+        "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_postflight_r6_once.py",
+        "sha256": "bc0b8b4ea24d5f386bf4bc50e6426b072c197fcaddeb6b510fcadd8bf70ac438"
+      },
+      "exactReplacements": [
+        {
+          "after": "1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r4",
+          "before": "1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2",
+          "count": 1
+        },
+        {
+          "after": "1370-c0-m0-proof-types-parent-launch-preparation-independent-source-review-after-al-20261009-r4",
+          "before": "1370-c0-m0-proof-types-parent-launch-preparation-independent-source-review-after-al-20261009-r2",
+          "count": 1
+        },
+        {
+          "after": "63f3482c050b339375eb868178a614ff5d2191b2712cc454e619094c127306c5",
+          "before": "d60c40db318d682289988ad4c86fa27d964d2c555e85d18919def1a1dc794d7c",
+          "count": 1
+        },
+        {
+          "after": "assert mode=='types'",
+          "before": "assert mode in ('proof','types')",
+          "count": 1
+        },
+        {
+          "after": "'-fullguard-postflight-parent-after-al-20261009-r3'",
+          "before": "'-fullguard-postflight-parent-after-al-20261009-r2'",
+          "count": 1
+        }
+      ],
+      "original": {
+        "bytes": 4016,
+        "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_postflight_once.py",
+        "sha256": "7239e2f2050484393905fff1694fba7c445c7566a757e266d3e57817b9158310"
+      },
+      "syntaxParsedOnly": true,
+      "wholeFileInverseEqualsOriginal": true
+    },
+    {
+      "derivative": {
+        "bytes": 4255,
+        "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/read_m0_postflight_r6.py",
+        "sha256": "2851d7364ac70abb1cc51e35cc1e9c9ace6e5a10f85f9ba016cfc083a7085281"
+      },
+      "exactReplacements": [
+        {
+          "after": "'-fullguard-postflight-parent-after-al-20261009-r3'",
+          "before": "'-fullguard-postflight-parent-after-al-20261009-r2'",
+          "count": 1
+        },
+        {
+          "after": "('postflight-after-al-m0-'+mode+'-r3')",
+          "before": "('postflight-after-al-m0-'+mode+'-r2')",
+          "count": 1
+        },
+        {
+          "after": "sys.argv[1]=='types'",
+          "before": "sys.argv[1] in ('proof','types')",
+          "count": 1
+        }
+      ],
+      "original": {
+        "bytes": 4267,
+        "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/read_m0_postflight.py",
+        "sha256": "c51499627a1a2fba366a4eb19a3dbbc1c01ca435d2466750b0f0a9d703d9fd0c"
+      },
+      "syntaxParsedOnly": true,
+      "wholeFileInverseEqualsOriginal": true
+    },
+    {
+      "derivative": {
+        "bytes": 4584,
+        "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/adopt_m0_types_r6.py",
+        "sha256": "20b5afe3441f6998696caff7c18e2e589b720e491663e634707535916f9eed5a"
+      },
+      "exactReplacements": [
+        {
+          "after": "M0-CURRENT-TYPES-PROTECTION-R6.json",
+          "before": "M0-CURRENT-TYPES-PROTECTION.json",
+          "count": 2
+        },
+        {
+          "after": "M0-TYPES-PREFLIGHT-OBSERVED-ADOPTION-R6.json",
+          "before": "M0-TYPES-PREFLIGHT-OBSERVED-ADOPTION.json",
+          "count": 2
+        },
+        {
+          "after": "1370-c0-m0-types-parent-recorded-after-al-20261009-r6",
+          "before": "1370-c0-m0-types-parent-recorded-after-al-20261009-r5",
+          "count": 1
+        },
+        {
+          "after": "1370-c0-m0-types-fullguard-postflight-parent-after-al-20261009-r3",
+          "before": "1370-c0-m0-types-fullguard-postflight-parent-after-al-20261009-r2",
+          "count": 1
+        }
+      ],
+      "original": {
+        "bytes": 4572,
+        "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/adopt_m0_types.py",
+        "sha256": "81615e42191a57e6e4d8bc5940d959c3fa5fc7846029e6510dbb95780340ab23"
+      },
+      "syntaxParsedOnly": true,
+      "wholeFileInverseEqualsOriginal": true
+    }
+  ],
+  "schema": "1370-root-m0-r6-route-binding-derivatives/v1",
+  "scope": "Rebind genuine reviewed R6 executor/R4 parent, retain original functions, use fresh paths and genuinely adopted R5 STOP full postflight for next preflight. No original failure or evidence overwritten; actual future grants and outcomes remain separate.",
+  "status": "ROOT_SOURCE_BINDING_PREPARATION_ONLY"
+}

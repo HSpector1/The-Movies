@@ -1,0 +1,10 @@
+{
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "receipt": {
+    "bytes": 10222,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "d60c40db318d682289988ad4c86fa27d964d2c555e85d18919def1a1dc794d7c"
+  },
+  "schema": "1370-source-review-seal/v1"
+}

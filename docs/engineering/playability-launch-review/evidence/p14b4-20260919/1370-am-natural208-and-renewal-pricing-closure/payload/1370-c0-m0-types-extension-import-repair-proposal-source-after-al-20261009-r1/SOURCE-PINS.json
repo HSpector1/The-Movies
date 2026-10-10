@@ -1,0 +1,69 @@
+{
+  "actualTestsExecuted": false,
+  "baselineSourcePins": {
+    "bytes": 13859,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/SOURCE-PINS.json",
+    "sha256": "a3e53517dd38da67abf5f276ea276a454f4ee64d52f41fedc26181965cfb2618"
+  },
+  "canonicalBridgeTree": "faa227af051c5ec529644b5f84151314ea63cc30",
+  "executionAuthorization": false,
+  "files": {
+    "ACTUAL-ROOT-DIAGNOSTICS.stdout": {
+      "bytes": 1606,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/ACTUAL-ROOT-DIAGNOSTICS.stdout",
+      "sha256": "4955f55bd67c6b202a8294db1f10cf759b94553bcd5468aad8f5af3d47712a7e"
+    },
+    "BASE-RUNNER.py": {
+      "bytes": 37168,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/BASE-RUNNER.py",
+      "sha256": "ac1d7e993c7ad90d73ed0d758727c249c1086c2ae02be9942c4548ceb389f5b5"
+    },
+    "HISTORICAL-PACKAGE.json": {
+      "bytes": 2726,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/HISTORICAL-PACKAGE.json",
+      "sha256": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f"
+    },
+    "HISTORICAL-ROOT-TSCONFIG.json": {
+      "bytes": 706,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/HISTORICAL-ROOT-TSCONFIG.json",
+      "sha256": "f855dfc9191a0d63240d447bccac5e029530a74b83e12f467083f1393bbe6d4f"
+    },
+    "HISTORICAL-SRC-TSCONFIG.json": {
+      "bytes": 119,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/HISTORICAL-SRC-TSCONFIG.json",
+      "sha256": "8c3f09111bb20bd51e8611caf00775a9bb78ea20290b765cc82f0ae0663e1dae"
+    },
+    "HISTORICAL-UI-TSCONFIG.json": {
+      "bytes": 1074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/HISTORICAL-UI-TSCONFIG.json",
+      "sha256": "294e1c6b2bacc3fefb0aec00c5093c5372b7d3c6e1175279aa551b6023f42d9e"
+    },
+    "LESSONS.md": {
+      "bytes": 651,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/LESSONS.md",
+      "sha256": "128610f6ed9302d94e117f5708ccd9854b018e08d25c73b7b9670aec6870ba48"
+    },
+    "PROPOSAL.json": {
+      "bytes": 17215,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/PROPOSAL.json",
+      "sha256": "c365f5333b4cf7140a74b0c8d4828df64573fc477b65a0cd45fcc1439d5a8447"
+    },
+    "PROPOSED-RUNNER.py": {
+      "bytes": 37199,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/PROPOSED-RUNNER.py",
+      "sha256": "2544fd53a0c1352a8fcd1072f205019425c936a1a2a8cf8cade446e0bd4e5e92"
+    },
+    "runner.forward.diff": {
+      "bytes": 598,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/runner.forward.diff",
+      "sha256": "f943d8c715dfcfca689adabfeea37840a799a75e3a21571d9a94c3a7dfedc5db"
+    },
+    "runner.inverse.diff": {
+      "bytes": 598,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/runner.inverse.diff",
+      "sha256": "7cfd1d027be1de4e981ac1c466d690281ec43bc4ab53198578ab8054f90e5c36"
+    }
+  },
+  "historicalM0SourceCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "schema": "1370-m0-ts5097-repair-proposal-source-pins/v1"
+}

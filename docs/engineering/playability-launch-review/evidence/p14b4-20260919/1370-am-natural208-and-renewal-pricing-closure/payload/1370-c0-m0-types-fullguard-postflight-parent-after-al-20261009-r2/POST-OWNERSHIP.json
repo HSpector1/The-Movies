@@ -1,0 +1,56 @@
+{
+  "checks": [
+    {
+      "id": 49780,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 49780,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50035,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50035,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50062,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50062,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 59298,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 59298,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    }
+  ],
+  "heavyLaneLockAbsent": true,
+  "schema": "1370-root-scoped-post-ownership/v1",
+  "scope": "Actual root helper, preparation/recorder, runner and direct full scanner only. No global or other historical numeric absence claim.",
+  "utc": "2026-10-10T02:44:58.045112+00:00"
+}

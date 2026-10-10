@@ -1,0 +1,57 @@
+{
+  "actualResults": {
+    "benchmark": null,
+    "controls": null,
+    "game": null
+  },
+  "grants": {
+    "benchmark": null,
+    "focusedControls": null,
+    "integrationOrFull109": null,
+    "productionMutation": null
+  },
+  "roles": {
+    "candidate": {
+      "bytes": 2981,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-source-after-al-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "f382fe6610a69a1c766134120e5382e86700ac6078a82d712547bf027f42810b"
+    },
+    "design": {
+      "bytes": 10681,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-next-performance-design-after-ak-20261009-r1/DESIGN.json",
+      "sha256": "2dc9f9896d0d3f673ea7be9a2e67549cc49e48604cfdb42a918477d3c81bc53b"
+    },
+    "designNote": {
+      "bytes": 5196,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-next-performance-design-after-ak-20261009-r1/NOTE.md",
+      "sha256": "68172941d35a5d5955170955e4521871a4262f9646ac042fb6b8e2ad40cb7882"
+    },
+    "forwardDiff": {
+      "bytes": 461,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-source-after-al-20261009-r1/bounded-json-candidate.mjs.diff",
+      "sha256": "7a57f2ab48e411bef27e4c23164aa0d2395b65477321f9ed5365b117c7f250da"
+    },
+    "independentDesignReview": {
+      "bytes": 13217,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-next-performance-independent-design-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "75941eea95fc5531db5cb15cfd45a443bfbf96cdceb18e7859006dd9927efa26"
+    },
+    "inverseDiff": {
+      "bytes": 461,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-source-after-al-20261009-r1/bounded-json-candidate.mjs.inverse.diff",
+      "sha256": "2c5c1f7abd66413d8086b8cc5818acfaf34f1bb9031b6e8d5a859520b745778c"
+    },
+    "predecessor": {
+      "bytes": 2880,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+    },
+    "rootDesignAdoption": {
+      "bytes": 5577,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-DESIGN-ADOPTION.json",
+      "sha256": "afef3458107228e763923d5fccd279151eeafef13aa17245808d218d9b5a2939"
+    }
+  },
+  "schema": "1370-b109-ascii-string-source-pins/v1",
+  "sourcePreparationOnly": true
+}

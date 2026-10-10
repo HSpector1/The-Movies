@@ -1,0 +1,32 @@
+{
+  "actualAdoptedPreflight": null,
+  "actualAfterFill": null,
+  "actualFill": null,
+  "actualFillGrant": null,
+  "actualFinalGameGrant": null,
+  "actualGame": null,
+  "argumentMap": {
+    "bytes": 9440,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-fill-after-fill-argument-map-after-al-20261009-r1/MAP.json",
+    "sha256": "5f23c5c9bc88ba696ef106456da9926fb8ba6c696da0749459a65f707256ed89"
+  },
+  "executionAuthorization": false,
+  "independentSourceReview": {
+    "bytes": 15320,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-independent-source-review-after-al-20261009-r4/RECEIPT.json",
+    "sha256": "105445b8625884887c7c2ebdd310665745781e8964a8953dcbb5a0281fd00661"
+  },
+  "knownBeforeFillAuthority": {
+    "bytes": 10578,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+    "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3"
+  },
+  "originalsPreserved": true,
+  "schema": "1370-a208-source-only-reviewed-exact-procedure-seal/v1",
+  "sourcePins": {
+    "bytes": 5381,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r4/SOURCE-PINS.json",
+    "sha256": "ce2ef3da4cf01792bab5f3abd084c11bba5daa06ef28d2f6fc9839c67500732e"
+  },
+  "status": "SEALED_REVIEWED_SOURCE_ONLY_UNRUN"
+}

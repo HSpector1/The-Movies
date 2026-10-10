@@ -1,0 +1,15 @@
+--- src/core/opportunityPromises.ts
++++ src/core/opportunityPromises.ts
+@@ -1,4 +1,3 @@
+-import { m0WiringProbe as __m0WiringProbe } from './m0WiringProbe.js'
+ // Evaluator7's bounded one-event paths. No allocation, mutation, RNG or second clock.
+ import { assignmentRefusal } from './careerLifecycle.js'
+ import { activeContract } from './employment.js'
+@@ -270,7 +269,6 @@
+ 
+ export function opportunityAssessment(state: GameState, draft: PromiseDraft & { predicate: OpportunityPredicate }, week: number,
+   reservations: readonly ProfessionalPromise[], capture?: M0FeasibilityCapture): { classification: PromiseClassification; bottleneck: string | null } {
+-  __m0WiringProbe.call('opportunityAssessment')
+   const candidates = paths(state, draft, week, true)
+   if (capture !== undefined) capture.record('opportunityCandidates',
+     { candidates: candidates.map(m0PathSummary), reservationCount: reservations.length })

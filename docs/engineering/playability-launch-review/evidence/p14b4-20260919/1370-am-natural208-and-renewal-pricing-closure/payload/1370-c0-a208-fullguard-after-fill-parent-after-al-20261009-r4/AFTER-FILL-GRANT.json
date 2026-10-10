@@ -1,0 +1,159 @@
+{
+  "actualCandidateFiles": {
+    "BINDING-DRAFT.json": {
+      "bytes": 6212,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json",
+      "sha256": "023187fa9eda57647abc7070f2e3c5aab42aa61d8020ae3b713f29a9367557ef"
+    },
+    "BINDING-SEMANTIC.json": {
+      "bytes": 6109,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-SEMANTIC.json",
+      "sha256": "db30abab9b0fa41d45c6d8c297f57e1c54a17fc42f3914bd3f20b0c5b714dbd6"
+    },
+    "CANDIDATE-PINS.json": {
+      "bytes": 1013,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/CANDIDATE-PINS.json",
+      "sha256": "8cc74c5b47a8cc4b6830917c9f4409063dc99ab3c1994b974c20a36252a735d1"
+    },
+    "DRAFT-IDENTITY.json": {
+      "bytes": 1296,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/DRAFT-IDENTITY.json",
+      "sha256": "4e182d6bc66b2ac1e6a6d13c1d99415264d762ea095e7ef72fedc751d433ea08"
+    },
+    "DRAFT-REPORT.json": {
+      "bytes": 16887,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/DRAFT-REPORT.json",
+      "sha256": "f13613f5098118e3ea84f27f810374a53411a8e86d0714dc60d55eff98f36b20"
+    },
+    "LAUNCH-SPEC-DRAFT.json": {
+      "bytes": 14175,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/LAUNCH-SPEC-DRAFT.json",
+      "sha256": "ee1ef0ca3270cfb82d6ef7eb72b358bf3dbe2c0ffd89084412e38d02cbdae4c0"
+    }
+  },
+  "actualCandidateIdentity": {
+    "bytes": 1296,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/DRAFT-IDENTITY.json",
+    "sha256": "4e182d6bc66b2ac1e6a6d13c1d99415264d762ea095e7ef72fedc751d433ea08"
+  },
+  "actualFillReadback": {
+    "bytes": 4150,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-fill-parent-after-al-20261009-r4/ACTUAL-FILL-READBACK.json",
+    "sha256": "d6bd98a2192fdec37f06768e6a780bc3313a3c10c40d7ab6c54079a7fbe0f60f"
+  },
+  "actualOutcome": null,
+  "actualTool": null,
+  "argumentMap": {
+    "bytes": 9440,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-fill-after-fill-argument-map-after-al-20261009-r1/MAP.json",
+    "sha256": "5f23c5c9bc88ba696ef106456da9926fb8ba6c696da0749459a65f707256ed89"
+  },
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "after-fill",
+    "after-fill-after-al-game-r4",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+    "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+  ],
+  "automaticRetry": false,
+  "baseline": {
+    "bytes": 8562268,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+    "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesPid": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": true,
+  "game": false,
+  "globalWorkerAbsenceClaim": false,
+  "guardConfig": {
+    "bytes": 3906,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
+    "sha256": "20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41"
+  },
+  "guardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+    "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+  },
+  "independentSourceAndArgvReview": {
+    "bytes": 15320,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-independent-source-review-after-al-20261009-r4/RECEIPT.json",
+    "sha256": "105445b8625884887c7c2ebdd310665745781e8964a8953dcbb5a0281fd00661"
+  },
+  "noHelperBecauseGuardRequiresLockAbsent": true,
+  "ownedScannerPgid": 56863,
+  "ownedScannerPid": 56863,
+  "ownedScannerSid": 56863,
+  "parentAddedStreamCap": null,
+  "perCommandTimeoutSeconds": 180,
+  "priorRecordedIdsFreshlyAbsent": [
+    33099,
+    33363,
+    37572,
+    37835,
+    37840,
+    37842,
+    37844,
+    37847,
+    37849,
+    37856,
+    37857,
+    37858,
+    37860,
+    37862,
+    37863,
+    44676,
+    45166,
+    45180,
+    45181,
+    45183,
+    45200,
+    50183,
+    50448,
+    50454,
+    50456,
+    50460,
+    50462,
+    50464,
+    50469,
+    50470,
+    50471,
+    50472,
+    50474,
+    50475,
+    54612,
+    65494,
+    66258,
+    73148,
+    75073,
+    76882,
+    93713
+  ],
+  "protectedFreezeContinues": true,
+  "rawPsFdLocalOnly": true,
+  "rootLauncher": {
+    "bytes": 4609,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_after_fill_once.py",
+    "sha256": "2ff2534c71a9749ae388400780897ccb2837ceb5d36323a9266913c417b283d6"
+  },
+  "schema": "1370-root-a208-direct-after-fill-fullguard-grant/v1",
+  "scope": "AFTER_FILL_FULL_PROTECTION_ONLY",
+  "startMonotonic": 99039.767938296,
+  "status": "GRANTED_ONE_EXACT_AL_A208_AFTER_FILL_FULL_GUARD",
+  "stderrPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-after-fill-parent-after-al-20261009-r4/after-fill.stderr",
+  "stdoutPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-after-fill-parent-after-al-20261009-r4/after-fill.stdout",
+  "utc": "2026-10-10T00:41:38.653514+00:00",
+  "wholeScanDeadline": null
+}

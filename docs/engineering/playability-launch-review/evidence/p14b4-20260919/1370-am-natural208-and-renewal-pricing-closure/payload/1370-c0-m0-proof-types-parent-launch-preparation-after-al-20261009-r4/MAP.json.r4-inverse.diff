@@ -1,0 +1,58 @@
+--- R3/MAP.json
++++ R4/MAP.json
+@@ -30,7 +30,7 @@
+       "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+       "-I",
+       "-B",
+-      "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r4/fill-grant-exec.py",
++      "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/fill-grant-exec.py",
+       "__ACTUAL_PROOF_SPEC_PATH__",
+       "__ACTUAL_SPEC_SHA256__"
+     ],
+@@ -42,7 +42,7 @@
+       "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+       "-I",
+       "-B",
+-      "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r4/fill-grant-exec.py",
++      "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/fill-grant-exec.py",
+       "__ACTUAL_TYPES_SPEC_PATH__",
+       "__ACTUAL_SPEC_SHA256__"
+     ]
+@@ -92,7 +92,7 @@
+   ],
+   "launcher": {
+     "bytes": 11380,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r4/fill-grant-exec.py",
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/fill-grant-exec.py",
+     "sha256": "02a4e354c29714e311bf87e8c254ec2cf75dc9f3c1ef995ffd24b7b56f060fb9"
+   },
+   "noRuntimeGitPrivateReadsOrSignalsDuringPreparation": true,
+@@ -147,8 +147,8 @@
+       "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+       "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+       "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+-      "postflight",
+       "postflight-after-al-m0-types-r3",
++      "postflight-after-al-m0-types-r2",
+       "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+       "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609",
+       "__ACTUAL_RECORDED_TYPES_PGIDS_CSV__"
+@@ -186,11 +186,6 @@
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+       "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+     }
+-  },
+-  "preservedHeldR3": {
+-    "bytes": 6119,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/SOURCE-PINS.json",
+-    "sha256": "d05e115cd0ed201ef621bccf0af7c7d86652c1146af206ca78efbc050dd83193"
+   },
+   "preservedR1": {
+     "bytes": 1941,
+@@ -333,5 +328,5 @@
+     "physicalIdentity": "[dev,ino,permissionbits,nlink,size,mtime_ns,ctime_ns], integer7fields; excludesatime"
+   },
+   "schema": "1370-m0-proof-types-parent-launch-and-original-postflight-map/v1",
+-  "status": "SOURCE_ONLY_UNRUN_R6_ROOT_IMPORT_OPTION_FRESH_TYPES_AND_CORRECT_ORIGINAL_POSTFLIGHT_ARGV"
++  "status": "SOURCE_ONLY_UNRUN_R6_ROOT_IMPORT_OPTION_AND_FRESH_TYPES_BINDINGS"
+ }

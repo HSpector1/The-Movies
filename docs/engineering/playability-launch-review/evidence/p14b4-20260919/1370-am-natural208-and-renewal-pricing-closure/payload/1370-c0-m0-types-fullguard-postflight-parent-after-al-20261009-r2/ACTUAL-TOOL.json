@@ -1,0 +1,55 @@
+{
+  "initial": {
+    "chunk_id": "a6c8a6",
+    "wall_time_seconds": 1.003245079,
+    "session_id": 51441,
+    "original_token_count": 0,
+    "output": ""
+  },
+  "polls": [
+    {
+      "chunk_id": "dd1dfa",
+      "wall_time_seconds": 5.002222643,
+      "session_id": 51441,
+      "original_token_count": 69,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-m0-types-fullguard-postflight-parent-after-al-20261009-r2/GRANT.json\", \"bytes\": 4741, \"sha256\": \"416d1279afd5ba1b9f331387b5df47a9487a3ff290e4b777204fec744c2ad77f\"}, \"scannerPid\": 59298, \"scannerPgid\": 59298}\n"
+    },
+    {
+      "chunk_id": "f9cc90",
+      "wall_time_seconds": 5.002045634,
+      "session_id": 51441,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "40129d",
+      "wall_time_seconds": 45.001321808,
+      "session_id": 51441,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "6847a6",
+      "wall_time_seconds": 5.001952631,
+      "session_id": 51441,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "b0e0e9",
+      "wall_time_seconds": 5.00287828,
+      "session_id": 51441,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "700d95",
+      "wall_time_seconds": 0.000019161,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ],
+  "toolSessionId": 51441,
+  "finalExit": 0
+}

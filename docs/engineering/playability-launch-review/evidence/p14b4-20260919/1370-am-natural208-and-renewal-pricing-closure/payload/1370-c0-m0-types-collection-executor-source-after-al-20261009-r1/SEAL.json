@@ -1,0 +1,16 @@
+{
+  "actualCollection": null,
+  "actualControls": null,
+  "actualGame": null,
+  "actualGrant": null,
+  "actualTypes": null,
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "schema": "1370-m0-types-source-seal/v1",
+  "sourcePins": {
+    "bytes": 10668,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "cb1b6ca54944d476f6197e02f2880e391706aa436f1bb7366e12c6c890e0e07c"
+  },
+  "status": "HELD_RUNNABLE_SOURCE_REVIEW_PACKAGE_ONLY"
+}

@@ -1,0 +1,18 @@
+{
+  "initial": {
+    "chunk_id": "750258",
+    "original_token_count": 299,
+    "output": "{\"argv\": [\"/bin/bash\", \"/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh\", \"0\", \"/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r4/controls.log\", \"/bin/bash\", \"/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/launch-pipeline-a208-held.sh\", \"/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json\", \"eb6e99e0021809d7ad165ee5c9eba2e2b0c36ab78e34826fc11d5d488036777e\"], \"grant\": {\"bytes\": 16087, \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/FINAL-GAME-GRANT.json\", \"sha256\": \"3aa7f0d5c9c05dab14bcae752a3d2d23dc9058c146b017dc7d7a6dcc3e33da21\"}, \"ownerIds\": {\"directExecHelperSamePid\": true, \"pgid\": 34390, \"pid\": 34390, \"sid\": 34390}, \"rootPreflightAdoption\": {\"bytes\": 3078, \"path\": \"/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-ADOPTED-PREFLIGHT-OBSERVED-ADOPTION.json\", \"sha256\": \"c9cb14cf47964d22eee1013a26458e3e861ffc37f56121a1e8c35b514a976941\"}, \"status\": \"ROOT_FINAL_GAME_GRANT_ISSUED_EXECUTING_EXACT_ONCE\"}\n",
+    "session_id": 51117,
+    "wall_time_seconds": 1.002814416
+  },
+  "polls": [
+    {
+      "chunk_id": "a00cc1",
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": "",
+      "wall_time_seconds": 2.4293e-05
+    }
+  ]
+}

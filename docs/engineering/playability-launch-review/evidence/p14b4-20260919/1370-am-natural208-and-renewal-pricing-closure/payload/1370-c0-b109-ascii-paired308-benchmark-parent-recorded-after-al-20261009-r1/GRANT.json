@@ -1,0 +1,166 @@
+{
+  "actualOutcome": null,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-lane-after-al-20261009-r1/benchmark.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py",
+    "benchmark"
+  ],
+  "automaticRetry": false,
+  "benchmark": true,
+  "bounds": {
+    "activeSeconds": 75,
+    "nodeSeconds": 60,
+    "stderrBytes": 1048576,
+    "stdoutBytes": 1048576,
+    "wholeSeconds": 90
+  },
+  "currentProtection": {
+    "bytes": 10578,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+    "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": true,
+  "expected": {
+    "P17P18Accepted": false,
+    "captureWholeHashProvenance": "PRIOR_ACCEPTED_ONLY_NOT_REHASHED_HERE",
+    "claimLimit": "Same newly recorded genuine indexed308 selected2529 versus ASCII f382 encoder-only paired timing under standard native builtins. Both-arm weighted values are constant-early-fixture illustrations, not measured full109 runtime, lower bounds or headroom. Later growth, intervention content and non-encoder work remain unmeasured. Preserve regressions; no cross-session controlled comparison, source promotion, game/integration/full109 retry or P17/P18 acceptance. B109300/375/390 and both complete110-boundary arms remain unchanged.",
+    "constantEarlyFixtureIllustrationOnly": true,
+    "currentCaptureMetadataRole": "RETAINED_PRIOR_METADATA_REQUIRED_EXACT_AT_GRANT_AND_READ_NOT_A_NEW_PREPARATION_OBSERVATION",
+    "executionAuthorization": false,
+    "fixture": {
+      "member": 308,
+      "rawBytes": 4228063,
+      "rawSha256": "9343625f2cd72964727f7d0b6679d89c0c85ba855208554af13a239d78bb968a",
+      "stateBytes": 2103442,
+      "stateSha256": "cac7fcc155b45be663ac516b244cf3e5fe0c4ec4fb204fb6bd173d9b17d04f7e"
+    },
+    "formula": "(3526*stateMedianMs+1984*wholeRowMedianMs)/1000",
+    "full109Accepted": false,
+    "game": false,
+    "illustrationNotMeasuredRuntimeLowerBoundOrHeadroom": true,
+    "indexedMemberDecodedOnly": true,
+    "inputPurityEachTrial": true,
+    "performanceWin": false,
+    "rawAndStateExactEachTrial": true,
+    "readerAndPurityRole": "UNCHANGED_STREAMING_12c37_READER_PARSER_BYTE_PURITY_NOT_TIMED",
+    "retainedReaderClosedExact": true,
+    "saveImports": false,
+    "schedule": {
+      "inputs": [
+        "state",
+        "wholeRow"
+      ],
+      "measuredOrders": [
+        [
+          "reference",
+          "candidate"
+        ],
+        [
+          "candidate",
+          "reference"
+        ],
+        [
+          "reference",
+          "candidate"
+        ]
+      ],
+      "measuredPairsPerInput": 3,
+      "warmupOrder": [
+        "reference",
+        "candidate"
+      ],
+      "warmupPairsPerInput": 1
+    },
+    "schema": "1370-b109-ascii-paired308-benchmark/v1",
+    "sourcePromotionAuthorized": false,
+    "status": "PURE_INDEXED308_SELECTED2529_ASCII_STRING_TOKEN_BENCHMARK_COMPLETE",
+    "timedArms": {
+      "candidate": "ASCII_STRING_TOKEN_f382",
+      "reference": "SELECTED_BOUNDED_TOKEN_CHUNK_2529"
+    },
+    "weightsBothArms": {
+      "state": 3526,
+      "wholeRow": 1984
+    },
+    "wholeCaptureReadOrDecoded": false
+  },
+  "full109": false,
+  "game": false,
+  "operational": {
+    "branch": "wip/headless-program-20260916-ts",
+    "docsOnlyTransitionVerified": true,
+    "head": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+    "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "status": "PUSHED_REMOTE_AND_COMMITTED_TREE_VERIFIED",
+    "trackingWorkingHead": "8cb704e2f18e6a635943893422c9cfdc206e106d"
+  },
+  "ownershipContract": {
+    "acceptedMechanismSource": {
+      "bytes": 9691,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/grant_before_fill.py",
+      "sha256": "5100a89373a729fe7f80714fc740b76d6fc3e45f85c869c381246ac29a21678e"
+    },
+    "actualLaunchClaimFields": [
+      "helperPid",
+      "helperPgid",
+      "helperSid",
+      "helperGroupVerifiedBeforeExec"
+    ],
+    "bindAllOutcomeIdentitiesToLaunchClaim": true,
+    "groupAbsenceList": "actualOwnedGroupsFreshlyAbsent exactly [helperPgid, ownedPgid]",
+    "noPidSubstitutionForPgid": true,
+    "pidAbsenceList": "actualOwnedPidsFreshlyAbsent exactly [helperPid, childPid]",
+    "requiredOutcomeNumericIdentityFields": [
+      "helperPid",
+      "helperPgid",
+      "helperSid"
+    ],
+    "wrapperOwnsGroupBeforeExec": "If actual PGID differs from actual PID, call setsid on the wrapper itself; require actual PGID equals actual PID before recording and exec. No positive signals."
+  },
+  "priorActualFullguardTool": {
+    "bytes": 1632,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-postflight-parent-after-al-20261009-r4/ACTUAL-TOOL.json",
+    "sha256": "96619fb357371b0fae96db2d6e94f395808ca3a9a3c7aba950dc4de5b6c507d9"
+  },
+  "priorPostflightReadback": {
+    "bytes": 2978,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-postflight-parent-after-al-20261009-r4/POSTFLIGHT-READBACK.json",
+    "sha256": "b89768e00fbaf5f710afdf55ac2dfb7821fff95250b648b6b89b6433e777f1e5"
+  },
+  "priorScannerPidPgidFreshlyAbsent": 42893,
+  "rootLauncher": {
+    "bytes": 3582,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_b109_benchmark_once.py",
+    "sha256": "73e86973d5e2d0bf1c25f9671ab55122a5e7ab170c9c37e9307bf227e36cd311"
+  },
+  "routeSourcePins": {
+    "bytes": 9726,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "1800e05d6a9fbab6eae4f4e7a8bee65969da4785e5b47672d1bf06fc4fbba51b"
+  },
+  "routeSourceReview": {
+    "bytes": 34035,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "9b8d4ca1d96e4675c6a589572a1930c31c6f25b722baff1da83f7ee568594502"
+  },
+  "schema": "1370-root-b109-ascii-paired308-benchmark-grant/v1",
+  "scope": "PURE_PAIRED_INDEXED308_BENCHMARK_ONLY",
+  "sourceAdoption": {
+    "bytes": 1524,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-PAIRED308-BENCHMARK-SOURCE-ADOPTION.json",
+    "sha256": "6632ef4e7712bb5a3a7beb14f8b519878cb584124ac12ff454426f34ec2e0481"
+  },
+  "status": "GRANT_EXACT_B109_ASCII_PAIRED308_BENCHMARK_ONCE",
+  "utc": "2026-10-10T01:20:32.989270+00:00"
+}

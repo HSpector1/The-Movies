@@ -1,0 +1,114 @@
+{
+  "conclusion": "Original H13/r5 and accepted R5 runtime clock begins at LAUNCH_START inside Python loader after lane dispatch and external binding preparation. Separate root-bounded fill60 followed by untouched LAUNCH330/active320/runner300 preserves original runtimeclocks. Combinedfill+execution must not be claimed <=330.",
+  "decision": "SOURCE_INTERPRETATION_ORIGINAL_CLOCK_BOUNDARIES_AND_STREAM_SCOPE",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "lessons": [
+    "Define clocks by their real monotonic origin, rather than combining preparation and execution in prose.",
+    "Attribute bytecaps to actual producer pipes; a merged logfile is capture, not a live cap."
+  ],
+  "limits": [
+    "Source interpretation only; no runtime source imports/execution, Git,private mirror reads/scans/probes/signals.",
+    "Thisreceipt does not reverify previouslyaccepted source or grant execution.",
+    "Original failedprelaunch/ref outcomes and sourceSTOPs remain preserved.",
+    "No statement that fill60 exists in frozenR1: author must prepare actualfresh executable derivative."
+  ],
+  "lineBasis": {
+    "currentChildStreamCap": {
+      "line": 497,
+      "role": "1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/runner.py"
+    },
+    "currentLoaderClock": {
+      "line": 2,
+      "role": "1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/LAUNCH.py"
+    },
+    "currentSupervisorInheritedOutput": {
+      "line": 261,
+      "role": "1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/supervise.py"
+    },
+    "fillerExecBoundary": {
+      "line": 109,
+      "role": "1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r1/fill-grant-exec.py"
+    },
+    "historicalLoaderClock": {
+      "line": 2,
+      "role": "1370-c0-h-typecheck-collection-filled-exact-r13-r5/EXACT-BOOTSTRAP.py"
+    },
+    "historicalSupervisorClock": {
+      "line": 28,
+      "role": "1370-c0-h-typecheck-collection-recorder-proposal-r5/supervise.py"
+    },
+    "mapUnimplementedWholeScope": {
+      "line": 85,
+      "role": "1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r1/MAP.json"
+    },
+    "r8MergedCapture": {
+      "line": 79,
+      "role": "1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh"
+    }
+  },
+  "newPolicyGate": false,
+  "schema": "1370-m0-fill-and-runtime-clock-source-interpretation/v1",
+  "smallestReuse": "Fresh filler derivative may arm fill60 before fill work, record elapsed/finalargv, cancel filler ITIMER_REAL immediately before samePIDexecve, then unchanged LAUNCH sets330 from its own start. Existinglane/capture/ownership/postflight requirements stay. No extra outer330recorder mandated by historical qualified machinery.",
+  "sourceRoles": {
+    "1370-c0-h-typecheck-collection-filled-exact-r13-r5/EXACT-BOOTSTRAP.py": {
+      "bytes": 3582,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-filled-exact-r13-r5/EXACT-BOOTSTRAP.py",
+      "sha256": "dc2ec7abe44d84e1bd15e1364472e6355da9c4e12792f95b26506b91dc882d62"
+    },
+    "1370-c0-h-typecheck-collection-filled-exact-r13-r5/LAUNCH.command": {
+      "bytes": 4064,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-filled-exact-r13-r5/LAUNCH.command",
+      "sha256": "2190919490c238f7eb590ed6ccdda0bb4f01f92a11be1945d8eb92f163ab9f13"
+    },
+    "1370-c0-h-typecheck-collection-recorder-proposal-r5/supervise.py": {
+      "bytes": 15261,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r5/supervise.py",
+      "sha256": "3145a6b806e9071fb69aa7eb610025c2930515c210c74cf6f3349a7faebdbc50"
+    },
+    "1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r1/MAP.json": {
+      "bytes": 16084,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r1/MAP.json",
+      "sha256": "bc0d2417804f9a5a16a65f2db1cdcde0b15040600369c474d354d336306ea76a"
+    },
+    "1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r1/fill-grant-exec.py": {
+      "bytes": 10693,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r1/fill-grant-exec.py",
+      "sha256": "f6baed97d864069d0e1421ec0cb5c81408b5ed2362dea185865549b672fc1bfd"
+    },
+    "1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/LAUNCH.py": {
+      "bytes": 7596,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/LAUNCH.py",
+      "sha256": "1c1f507c1f04b79683946604fab5f4b04c380f7f51cdf2c0ecfe727f30b986d8"
+    },
+    "1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/RECIPE.md": {
+      "bytes": 3838,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/RECIPE.md",
+      "sha256": "e50f8f2cccf3be13dabfae3c70b0f537b4558df90a58ade575399183f4335ea6"
+    },
+    "1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/runner.py": {
+      "bytes": 37168,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/runner.py",
+      "sha256": "ac1d7e993c7ad90d73ed0d758727c249c1086c2ae02be9942c4548ceb389f5b5"
+    },
+    "1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/supervise.py": {
+      "bytes": 13706,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/supervise.py",
+      "sha256": "a5b04448e4a5205064191cafbef62c01f341b6741f88ac6684dffe12593e2ee9"
+    },
+    "1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh": {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    }
+  },
+  "streamScope": {
+    "guardPerPipeCapBytes": 2097152,
+    "mapR1": "parentExternalBounds stdoutBytes/stderrBytes8MiB are unsupported implementation assertions; correct truthful scope or add explicit limiter ifroot separately elects a newbound. Neverclaim currentr8 provides it.",
+    "originalR5Recipe": "8MiB child-stream scope refers qualifiedrun_child; parent records helperstreams without defined separate8MiB enforcement.",
+    "r8LaneCapture": "Mergedstdout+stderr directly to fresh logfile; no livebytecap.",
+    "realCommandPerStreamCapBytes": 8388608,
+    "realCommandPredicate": "strictly less than8MiB checked before write",
+    "supervisorHelperOutput": "Inherited stdout/stderr; no bytecap in supervisor."
+  }
+}

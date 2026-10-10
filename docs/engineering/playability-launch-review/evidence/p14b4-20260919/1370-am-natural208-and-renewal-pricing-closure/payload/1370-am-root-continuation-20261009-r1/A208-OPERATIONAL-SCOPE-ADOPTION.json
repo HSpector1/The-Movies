@@ -1,0 +1,50 @@
+{
+  "H8708Waived": false,
+  "actualControlsAdoption": {
+    "bytes": 8775,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json",
+    "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+  },
+  "actualScanGrant": null,
+  "combinedHFirstRouteUnchanged": true,
+  "currentFullGuardsYetRun": false,
+  "executionAuthorization": false,
+  "gameGrant": null,
+  "historicalM0Completion": {
+    "bytes": 6133,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-complete-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad"
+  },
+  "m0RematerializationAuthorized": false,
+  "operationalTransition": {
+    "actualHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+    "docsOnlyVerified": true,
+    "docsTransitionFactsRole": {
+      "bytes": 1250,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+      "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+    },
+    "predecessor": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+    "wholeProductionCommonGuardMustRefresh": true
+  },
+  "productionGuardHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "productionSourceChangesAuthorized": false,
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "publishedReadback": {
+    "bytes": 1250,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+    "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+  },
+  "remoteRefsVerified": {
+    "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "refs/heads/wip/headless-program-20260916-ts": "8cb704e2f18e6a635943893422c9cfdc206e106d"
+  },
+  "schema": "1370-a208-current-operational-guard-scope-adoption/v1",
+  "scope": "A208 current operational read-only protection design, distinct from historical isolated M0 authority. Exact filled source and separate recorded scan/game grants remain required.",
+  "sourceAmendmentAdoption": {
+    "bytes": 1554,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/HELD-SCOPE-SOURCE-ADOPTION.json",
+    "sha256": "fefd5bef762b4bce0b34c21e29d4a653afb42bae8756b29ba0eee02b42a357b8"
+  },
+  "status": "PARENT_ADOPTED_A208_OPERATIONAL_GUARD_SCOPE_ONLY"
+}

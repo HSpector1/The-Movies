@@ -1,0 +1,178 @@
+{
+  "actualStopReadback": {
+    "bytes": 6507,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r5/READBACK.json",
+    "sha256": "940fe91bee93b9a78a4a4a138aa3397088f047434a43481f4a1ee00e417e895e"
+  },
+  "actualTypesPreflight": {
+    "bytes": 3224,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-TYPES-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "558aa7f6acd400c40994c36a536a7be455b21172c9be78d1f2c13a4273608975"
+  },
+  "actualTypesResult": {
+    "bytes": 15403,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r2/20261009-m0-types-after-al-r2/RESULT.json",
+    "sha256": "85106763c640e105578d5b38b97c5af732611f34bf307688a8069de6ab241963"
+  },
+  "automaticRetry": false,
+  "children": [
+    {
+      "argv": [
+        "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/check-deps.mjs",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+        "/Users/zacheryspector/The-Movies-headless-program",
+        "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+      ],
+      "exit": 0,
+      "name": "dependency-versions",
+      "seconds": 1.453,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 1038,
+      "stdoutSha256": "57ffd6f3cf26f598b7740e928201b00602b1f0fa44f458fb9957fa82aa715071"
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+        "--noEmit"
+      ],
+      "exit": 2,
+      "name": "root-tsc",
+      "seconds": 45.607,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 1606,
+      "stdoutSha256": "4955f55bd67c6b202a8294db1f10cf759b94553bcd5468aad8f5af3d47712a7e"
+    }
+  ],
+  "collectionAccepted": false,
+  "commandsNotExecuted": [
+    "ui-tsc",
+    "diagnostic-collection"
+  ],
+  "compilerErrors": [
+    {
+      "code": "TS5097",
+      "column": 8,
+      "file": "bridge/protocol.ts",
+      "line": 17
+    },
+    {
+      "code": "TS5097",
+      "column": 32,
+      "file": "bridge/protocol.ts",
+      "line": 18
+    },
+    {
+      "code": "TS5097",
+      "column": 51,
+      "file": "bridge/protocol.ts",
+      "line": 19
+    },
+    {
+      "code": "TS5097",
+      "column": 8,
+      "file": "bridge/schema/bridge-schema.ts",
+      "line": 16
+    },
+    {
+      "code": "TS5097",
+      "column": 40,
+      "file": "bridge/schema/bridge-schema.ts",
+      "line": 17
+    },
+    {
+      "code": "TS5097",
+      "column": 38,
+      "file": "bridge/schema/bridge-schema.ts",
+      "line": 18
+    },
+    {
+      "code": "TS5097",
+      "column": 60,
+      "file": "bridge/schema/bridge-schema.ts",
+      "line": 19
+    },
+    {
+      "code": "TS5097",
+      "column": 40,
+      "file": "bridge/schema/industry-schema.ts",
+      "line": 1
+    },
+    {
+      "code": "TS5097",
+      "column": 145,
+      "file": "bridge/schema/industry-schema.ts",
+      "line": 2
+    },
+    {
+      "code": "TS5097",
+      "column": 48,
+      "file": "bridge/schema/intent-schema.ts",
+      "line": 1
+    },
+    {
+      "code": "TS5097",
+      "column": 8,
+      "file": "bridge/schema/runtime.ts",
+      "line": 7
+    }
+  ],
+  "controlsAccepted": false,
+  "currentProofAdoption": {
+    "bytes": 2981,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-CURRENT-PROOF-OBSERVED-ADOPTION.json",
+    "sha256": "8ef61c8f4e2d614ea2c4312db6c884b6cee9dba71e828a485986504beb5ef9b3"
+  },
+  "currentTypesProtection": {
+    "bytes": 2795,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-CURRENT-TYPES-PROTECTION.json",
+    "sha256": "865e9e0cd54a280831c5de7133a97d50f66c9ca0145f404c4a8e2a8d29bbef1a"
+  },
+  "executionAuthorization": false,
+  "fullPostflightReadback": {
+    "bytes": 3095,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-fullguard-postflight-parent-after-al-20261009-r2/POSTFLIGHT-READBACK.json",
+    "sha256": "3d3d5fd0c513d40bae520938a2c1627b379fda224e7f88283a0437d775119e10"
+  },
+  "fullPostflightSnapshot": {
+    "bytes": 8578642,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-types-r2/SNAPSHOT.json",
+    "sha256": "8b971dd446627f548e813b5c1ddf3141479d632602ff9aa7cd0cb4ef6ce478ed"
+  },
+  "fullProtectedPostflightAccepted": true,
+  "gameAccepted": false,
+  "h13HistoricalFailureWaived": false,
+  "independentObservedReview": {
+    "bytes": 32205,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-independent-observed-stop-review-after-al-20261009-r5/RECEIPT.json",
+    "sha256": "749e76fe3236488dfbb6487846a3d834348baf33f8a6033e47646b6e4e8207c8"
+  },
+  "postOwnership": {
+    "bytes": 1065,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-fullguard-postflight-parent-after-al-20261009-r2/POST-OWNERSHIP.json",
+    "sha256": "63272d5ea358faabe0236e5c4d0f87178be5d0a3e0d906641abe621e1cc0ed11"
+  },
+  "productionHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "protectedFreezeContinues": true,
+  "recordedOwnedIds": [
+    49780,
+    50035,
+    50062
+  ],
+  "rootCompilerStdout": {
+    "bytes": 1606,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r2/20261009-m0-types-after-al-r2/root-tsc.stdout",
+    "sha256": "4955f55bd67c6b202a8294db1f10cf759b94553bcd5468aad8f5af3d47712a7e"
+  },
+  "schema": "1370-root-m0-types-observed-stop-adoption/v1",
+  "scope": "Observed compiler STOP and unchanged source/dependency/shared protections only. Original source proof stays valid in its scope; future corrected type route requires genuine reviewed source and a separate actual grant.",
+  "soleLaneReleased": true,
+  "sourceDependencyProofsEqual": true,
+  "status": "ROOT_ADOPTED_OBSERVED_STOP_M0_TYPES_ROOT_TS5097_WITH_FULL_PROTECTED_POSTFLIGHT",
+  "twoChildRootBoundariesEqual": true,
+  "typeFailurePreserved": true,
+  "typesAccepted": false
+}

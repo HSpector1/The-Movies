@@ -1,0 +1,130 @@
+{
+  "schema": "1370-b109-ascii-focused-route-independent-source-review/v1",
+  "decision": "STOP_B109_ASCII_FOCUSED_ROUTE_HELPER_PGID_UNBOUND",
+  "status": "SOURCE_ONLY_UNRUN_CONCRETE_OWNERSHIP_CONTRACT_STOP",
+  "executionAuthorization": false,
+  "actualGrant": null,
+  "actualOutcome": null,
+  "routeSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "bytes": 7546,
+    "sha256": "4952fa50346b03127afb67c01b9fe86ffd962ad3f48fc3ae5b6e0cc2ca397f64"
+  },
+  "routeSourceSeal": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r1/SEAL.json",
+    "bytes": 3727,
+    "sha256": "a0983b3e19e80c956863865fd0a04972a775db734b03fbc6f2192105011eee19"
+  },
+  "routeSourceProof": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r1/SOURCE-PROOF.json",
+    "bytes": 5425,
+    "sha256": "02c13117375976ffec1416ec33774fa10c322849665d7b1176d2e5f3eb9ee8cf"
+  },
+  "findings": [
+    {
+      "id": "HELPER_PGID_UNBOUND",
+      "severity": "STOP",
+      "wrapperLine": 61,
+      "consumerLine": 50,
+      "wrapperSha256": "25877bea1c606d7d68e02100e50a0af52b7f6fb81b9b6ca3cb96651508222346",
+      "consumerSha256": "9fa7c46790d0af78e55958d72419567dfe41a56f1131ea4663e5ba8b7e2134c9",
+      "problem": "The launch claim records actual helperPgid but completed ownership absence substitutes helperPid; neither wrapper, unchanged helper nor recipe establishes identity equality.",
+      "impact": "An inherited-group invocation can pass the consumer after checking absence of a nonexistent PID-named group without checking the actual helper group.",
+      "minimalCorrection": "Bind strict numeric actual helperPgid in external outcome to launch claim, then require fresh scoped absence for actual helperPgid and recorded child ownedPgid. Root may explicitly establish and record an owned helper session/group before exec; do not assume identity equality.",
+      "extraExecutionGateRequired": false
+    }
+  ],
+  "producerContractSourceAccepted": {
+    "schema": "1370-b109-ascii-controls/v1",
+    "lines": 38,
+    "passLines": 34,
+    "expectedRedLines": 3,
+    "finalJsonLines": 1,
+    "producerStdoutCapBytes": 16384,
+    "producerStderrBytes": 0,
+    "originalGroups": 28,
+    "originalPairs": 321,
+    "newGroups": 6,
+    "newPairs": 344,
+    "totalGroups": 34,
+    "totalPairs": 665,
+    "countsPlannedNotObserved": true,
+    "exactFieldsTypesAndOrderedRosters": true,
+    "boolAsIntRejected": true,
+    "duplicateKeysRejected": true,
+    "extraJsonValueAndExtraLinesRejected": true,
+    "literalFalseScopeFlags": true
+  },
+  "recorderSourceAccepted": {
+    "fourBindingEditsOnly": true,
+    "forwardWholeDiffIndependentlyExact": true,
+    "inverseWholeDiffIndependentlyExact": true,
+    "inversePatchExecuted": false,
+    "OwnedChildExact": true,
+    "exactFunctions": ["metadata", "authenticate", "process_alive", "start_owned", "ready_go", "close_startup_fds", "clear", "alarm", "whole_guard", "active_guard", "observed_exit_guard", "child_environment", "finalize_result"],
+    "nodeSeconds": 60,
+    "activeSeconds": 75,
+    "wholeSeconds": 90,
+    "stdoutBytes": 1048576,
+    "stderrBytes": 1048576,
+    "ownedChildTimersCleanupFailureFinalizationUnchanged": true
+  },
+  "wrapperSourceAcceptedExceptFinding": {
+    "externalReviewAndRootGrant": true,
+    "exclusiveLaunchClaim": true,
+    "currentRefsAndPhysicalRolesBound": true,
+    "freshOutputsRequired": true,
+    "fullForwardInverseDiffsIndependentlyExact": true,
+    "qualifiedHelperSourceUnchanged": true,
+    "rootGrantSchema": "1370-root-b109-ascii-focused-controls-grant/v1",
+    "rootGrantStatus": "GRANT_EXACT_B109_ASCII_FOCUSED_CONTROLS_ONCE"
+  },
+  "completedConsumerSourceAcceptedExceptFinding": {
+    "outcomeSchema": "1370-root-b109-ascii-focused-controls-tool-outcome/v1",
+    "allFiveExitsStrictIntegerZero": ["actualToolExit", "helperExit", "helperMetaExit", "recorderExit", "nodeExit"],
+    "separateExternalActualOutcomeRequired": true,
+    "exactStreamAndResultRoles": true,
+    "overrideStopRejected": true,
+    "laneMetaAndSummaryRequired": true,
+    "outputRemainsUnadopted": true
+  },
+  "sourceAdoptionSha256": "d96d57fcd592b9ea04c9e4b37faaef959b24f365d39ad51d60c071ecc7ee03df",
+  "implementationReviewSha256": "7096563a7c72f57e19f410c5a8a8cb75ef087934c2002d532f8aeabde907a4e8",
+  "controlsReviewSha256": "1d3d2a791455f626db5c0457cf60aea4482d26343fd34da0ba749f89a9f4af1c",
+  "controlsSha256": "d4c91f0e965648df46707c9d47cc23d24e487f12fd04bb88198a54c9b2683647",
+  "producerConfigSha256": "f870f2e8dc3606d7a3419635cdcf3fe89ee5fb1f232389de8837501c668ad142",
+  "controlsSourcePinsSha256": "5e851ce99946847610c69cd99057c43b6f806abbd8432ad66ed660cd577ad8f2",
+  "currentProtectionSha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3",
+  "currentProtectionScope": "Observed AL before-fill only; executionAuthorization false; protected freeze continues; no game authority.",
+  "operational": {
+    "head": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "branch": "wip/headless-program-20260916-ts",
+    "readbackSha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04",
+    "freshGitChecksPerformedByReviewer": false
+  },
+  "nodeRoleBinding": {
+    "version": "20.20.2",
+    "sha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+    "currentNativeRuntimeQualificationPerformed": false
+  },
+  "futureReviewGrantHashCycleAbsent": true,
+  "selected2529RemainsSelected": true,
+  "verification": {
+    "namedScratchSourcesOnly": true,
+    "routePackageSizesAndSha256Matched": true,
+    "independentWholeDiffComparison": true,
+    "sourceEdits": false,
+    "sourceImportsOrExecution": false,
+    "NodeRuntimeTestsOrBenchmark": false,
+    "GitCommandsOrMutations": false,
+    "scansOrProcessProbes": false,
+    "productionOrPrivateSourceReads": false,
+    "dependencyMutations": false
+  },
+  "game": false,
+  "performanceWin": false,
+  "full109Accepted": false,
+  "P17P18Accepted": false
+}

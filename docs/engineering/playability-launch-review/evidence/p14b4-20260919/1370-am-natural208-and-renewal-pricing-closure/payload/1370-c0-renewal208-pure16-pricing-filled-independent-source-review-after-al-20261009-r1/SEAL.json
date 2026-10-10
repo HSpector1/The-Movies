@@ -1,0 +1,50 @@
+{
+  "schema": "1370-renewal208-pure16-independent-filled-source-review-seal/v1",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_PURE16_EXACT_FILL_AND_RECORDED_ROUTES",
+  "executionAuthorization": false,
+  "controlsExecuted": false,
+  "pricingExecuted": false,
+  "renewalCauseAdmission": false,
+  "routeSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "1d739f9a686de05dec167816af5784a95295ecc61f11f7df464018dfea6e1c92",
+    "bytes": 26013
+  },
+  "files": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-independent-source-review-after-al-20261009-r1/AUTHENTICATIONS.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-independent-source-review-after-al-20261009-r1/AUTHENTICATIONS.json",
+      "sha256": "65f82a7913f5a98431f1f45bd4c028023533288032a6c683993a98e40d1f5492",
+      "bytes": 32301
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-independent-source-review-after-al-20261009-r1/FACTS.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-independent-source-review-after-al-20261009-r1/FACTS.json",
+      "sha256": "a06a25e62e3c0b656d4e4367ff30ce28ec79abed184527de71fe044a71eaf964",
+      "bytes": 7059
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-independent-source-review-after-al-20261009-r1/RECEIPT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "2397b7427328670a34cbd6bfa5fd0b3672a0bccf524f73718dc7fbf0eed9fd6e",
+      "bytes": 17964
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-independent-source-review-after-al-20261009-r1/REPORT.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-independent-source-review-after-al-20261009-r1/REPORT.md",
+      "sha256": "8b91229fea6818d409a0cbe1e2e6064522faf8bc532803b273e1578cd08fe54e",
+      "bytes": 2872
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-independent-source-review-after-al-20261009-r1/restored-CONFIG.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-independent-source-review-after-al-20261009-r1/restored-CONFIG.json",
+      "sha256": "c7a24275d784df2c9a81fc8bcf1143f9daa4fe916fc73e095b121498774ce1ce",
+      "bytes": 12590
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-independent-source-review-after-al-20261009-r1/restored-record-pure-node.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-independent-source-review-after-al-20261009-r1/restored-record-pure-node.py",
+      "sha256": "2ee9051143bd569ffa2cfb83d5429ddea86b8c1262e3d76923a9e7acecac1e35",
+      "bytes": 14530
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-independent-source-review-after-al-20261009-r1/restored-test-report-protocol.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-independent-source-review-after-al-20261009-r1/restored-test-report-protocol.py",
+      "sha256": "d99ccb86ad32009c2f5ebe599aaf45f12a6aac6f79d4a61152e3458921231554",
+      "bytes": 2082
+    }
+  }
+}

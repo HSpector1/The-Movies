@@ -1,0 +1,39 @@
+--- proof-only-r1/CONFIG.json
++++ accepted-r4/CONFIG.json
+@@ -400,7 +400,7 @@
+   "historicalDataAuthorityHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+   "historicalHSourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+   "historicalM0SourceCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+-  "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-current-proof-20261009-m0-current-proof-after-al-r1.lane.log",
++  "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-after-al-r1.lane.log",
+   "mainOid": "c902a704eb948cc576083d0973c8c23e59937dc1",
+   "mainRef": "refs/heads/main",
+   "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+@@ -590,7 +590,7 @@
+     "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+     "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+   },
+-  "outputRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-results-after-al-20261009-r1",
++  "outputRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r1",
+   "planningAuthorities": {
+     "BINDING-UNFILLED.json": {
+       "bytes": 27520,
+@@ -645,9 +645,9 @@
+     "vitest.workspace.ts"
+   ],
+   "recorderActiveSeconds": 320,
+-  "recorderResult": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-recorder-results-after-al-20261009-r1/20261009-m0-current-proof-after-al-r1.RECORDER-RESULT.json",
++  "recorderResult": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r1/20261009-m0-types-after-al-r1.RECORDER-RESULT.json",
+   "recorderWallSeconds": 330,
+-  "runId": "20261009-m0-current-proof-after-al-r1",
++  "runId": "20261009-m0-types-after-al-r1",
+   "runtimeFieldsUnfilled": {
+     "actualGrant": null,
+     "actualSourceReview": null,
+@@ -768,5 +768,5 @@
+       "sha256": "17514022b90852f03fa215d6748875d45eef0ae17270517cc2f55e1c8ba1cf08"
+     }
+   },
+-  "status": "HELD_SOURCE_ONLY_CURRENT_M0_SOURCE_DEPENDENCY_PROOF_NO_TYPES_OR_GAME"
++  "status": "HELD_SOURCE_ONLY_NO_RUNTIME_GRANT"
+ }

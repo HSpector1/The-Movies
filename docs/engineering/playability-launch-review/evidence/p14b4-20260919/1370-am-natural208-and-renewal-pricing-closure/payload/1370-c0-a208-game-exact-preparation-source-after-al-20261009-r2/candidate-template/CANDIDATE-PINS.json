@@ -1,0 +1,13 @@
+{
+  "bindingSemanticSha256": "99a30245a8dc87a939f9679030a2a0f791fd11b11ee1006a9d14b2eefe979373",
+  "draftBindingSha256": "6e5b3e89d9dcc2fcfe4a386adf90eb81b574fa040bd28f6b51489dea17354a99",
+  "executionAuthorization": false,
+  "files": {
+    "BINDING-DRAFT.json": "6e5b3e89d9dcc2fcfe4a386adf90eb81b574fa040bd28f6b51489dea17354a99",
+    "BINDING-SEMANTIC.json": "a293acbe82982b437a9a3a4deaff641b89f8bca9572a68e332019650dde40d9c",
+    "DRAFT-REPORT.json": "2831ae055b1e5db5c0062ec904a87f7ee530947f7eadba5b84361c77494599d2"
+  },
+  "schema": "1370-a208-six-file-source-candidate-pins/v1",
+  "sourcePinsSha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf",
+  "status": "SOURCE_ONLY_PARTIAL_CANDIDATE_UNRUN"
+}

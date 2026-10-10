@@ -1,0 +1,17 @@
+--- r1/preflight.py
++++ r2/preflight.py
+@@ -77,11 +77,14 @@
+ 
+ def main():
+  require(sys.flags.isolated and sys.dont_write_bytecode and not sys.flags.optimize and len(sys.argv)==3,'pinned Python -I -B source configPath configSHA')
++ external=Path(sys.argv[1]);private=Path('/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1');require(external.is_absolute() and str(external)!=str(private) and not str(external).startswith(str(private)+os.sep),'external config must be outside known copied root before read')
+  configraw=read(sys.argv[1]);require(sha(configraw)==sys.argv[2],'external preflight config raw SHA');c=json.loads(configraw)
+  require(c['schema']=='1370-a208-adopted-preflight-external-role-config/v1' and c['executionAuthorization'] is False and c['protectedFreezeMustRemainTrue'] is True,'preflight is observation only under continuous protected freeze')
+  for key in ('adoptedBinding','exactCandidateReview','afterFillSnapshot','adoptionResult','archiveManifest','adoptedLaunch'):require(isinstance(c.get(key),dict),'actual adopted role pending '+key)
+  # Authenticated original observed-copy admission precedes every private-root read/tool.
++ require(c['fullGuardConfig']['path']=='/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json','fixed original fullguard config outside copied root')
+  admission=c['observedCopyReceipt'];copied=Path(json.loads(exact_role(c['fullGuardConfig']))['copiedRoot']);receiptpath=Path(admission['path'])
++ require(copied==private,'fixed accepted copied root')
+  require(receiptpath.is_absolute() and str(receiptpath)!=str(copied) and not str(receiptpath).startswith(str(copied)+os.sep),'copy receipt outside private root')
+  raw=read(receiptpath);require(sha(raw)==admission['sha256'],'copy receipt raw SHA');receipt=json.loads(raw)
+  require(admission['decision']==receipt['decision']=='ACCEPT_OBSERVED_MATERIALIZATION_COPY' and str(copied) in [receipt.get(k) for k in ('materializedRoot','scratchRoot','repoRoot','reviewedMaterializedRoot')],'original observed copy admission')

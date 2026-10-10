@@ -1,0 +1,169 @@
+{
+  "schema": "1370-b109-ascii-paired308-independent-source-review-seal/v1",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_B109_ASCII_PAIRED308_BENCHMARK_ROUTE",
+  "executionAuthorization": false,
+  "actualGrant": null,
+  "actualOutcome": null,
+  "files": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/RECEIPT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "af928bb6586a9140b42a94f1a5deeb56c36c8a452e109268e8283858d8d30cbf",
+      "bytes": 33753
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/REPORT.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/REPORT.md",
+      "sha256": "284b76e54e642489f0d0edfe6af64c9fe38bcb20603f54b53adba453a5f73712",
+      "bytes": 3118
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/forward-BENCHMARK-RECIPE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/forward-BENCHMARK-RECIPE.json",
+      "sha256": "b3028cc06a9ae7b5b36eb4353cef5c0deb90f9cfdf39607d67ff88d5d5b19b6e",
+      "bytes": 8434
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/forward-CONFIG.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/forward-CONFIG.json",
+      "sha256": "cde7f59c308c2cc115946244b97c33dab5dd7ce024eaae03926111684dde6dff",
+      "bytes": 12498
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/forward-benchmark-308.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/forward-benchmark-308.mjs",
+      "sha256": "91fbb09153d9d1b73779d85a36032a68296978fddcc5423d7eeedf9514a5d83a",
+      "bytes": 5703
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/forward-consume-benchmark.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/forward-consume-benchmark.py",
+      "sha256": "c27fb18b9664ecc3db5a84370a1ba73798937a97b637b718317390b3c00c5069",
+      "bytes": 6874
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/forward-launch-benchmark.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/forward-launch-benchmark.py",
+      "sha256": "643eece7f8500f0f4e0fb94866bf457603d039afa78c7d086fdcad6b1fadd7e4",
+      "bytes": 7488
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/forward-record-pure-node.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/forward-record-pure-node.py",
+      "sha256": "b23b1c43ca1c3b40c3519b19e301bb64a0f2b1debe8c66c2dc553a2456becbfd",
+      "bytes": 14032
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/forward-strict_contract.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/forward-strict_contract.py",
+      "sha256": "9dcb281c249b5bc5fa041bef102ed9efeb03a18b53f2ac59255567d4e732d090",
+      "bytes": 6709
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-1-forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-1-forward.diff",
+      "sha256": "6199b2767f96292fc95a6c5e24384e558ed35ba19996fd35f0053c59b25a5b28",
+      "bytes": 10887
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-1-inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-1-inverse.diff",
+      "sha256": "6c23d3ec6c329c50d09c082c7f9e36731d6baef34d17937e9195112b03dfc98e",
+      "bytes": 10887
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-2-forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-2-forward.diff",
+      "sha256": "f4d2f04dc40afab5728c6d6995a81049fdd5105dc37300a3b0676494b2388fb7",
+      "bytes": 18588
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-2-inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-2-inverse.diff",
+      "sha256": "95cba4741611f2dbf25cf1df86f9e0f54a6077f0a7f3ae33e6501dec7b31ed6f",
+      "bytes": 18588
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-3-forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-3-forward.diff",
+      "sha256": "e5735f7380a007ce72e9f24c4225f6328c97db2c73b678df5eed5c7c66b4dbc1",
+      "bytes": 7396
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-3-inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-3-inverse.diff",
+      "sha256": "07f576795af95fce2d8d098d9df395ca704357442811efb376566cc51ba2e9e5",
+      "bytes": 7396
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-4-forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-4-forward.diff",
+      "sha256": "d6385074796d9897c7f5598cf7903d052150e1da9cafe9db083c08cc74d607ad",
+      "bytes": 7535
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-4-inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-4-inverse.diff",
+      "sha256": "57e5580f14934987d0d87f65c17da56f59eb23f91d42a5a1512eac5537a5a03f",
+      "bytes": 7535
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-5-forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-5-forward.diff",
+      "sha256": "28dc582cb38cdd5cf4d6d0bb72ce332177d1239faa81423b1aa2c7f530919216",
+      "bytes": 6333
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-5-inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-5-inverse.diff",
+      "sha256": "873b70042e9643ed0baffb6f228f103c5850333624f790a7ea6b95a8da7a0915",
+      "bytes": 6333
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-6-forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-6-forward.diff",
+      "sha256": "11e9836c8e6e98085d6012ab42dfa163d404eb2a196ecd980a62135316117a7d",
+      "bytes": 3665
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-6-inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-6-inverse.diff",
+      "sha256": "9d3cb92bf61a575f6270ed03b9e42cc9fab74fafde7b28d3a1fee80515687606",
+      "bytes": 3665
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-7-forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-7-forward.diff",
+      "sha256": "f5a99ec5d395e5b47048769f02daadbd8b04a3a4649a21afb8a24606c1f044f3",
+      "bytes": 10639
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-7-inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/independent-7-inverse.diff",
+      "sha256": "5dfed0397593599cb5e14cc53e351c9351e74fb4cb6949fad17a9b0f3b24fabd",
+      "bytes": 10639
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/restored-BENCHMARK-RECIPE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/restored-BENCHMARK-RECIPE.json",
+      "sha256": "2bdc77b9889d61ba0c621df209dd8c0657052b03b661d4f7239ae5e3fdaa2ccd",
+      "bytes": 7182
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/restored-CONFIG.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/restored-CONFIG.json",
+      "sha256": "735693898549a19f894318eeedecbbc354f3c514492bf83409ee125952652168",
+      "bytes": 10788
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/restored-benchmark-308.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/restored-benchmark-308.mjs",
+      "sha256": "dbbc202e6b473dd81aec427c8cd05ac09c4c6268c64daa52ac061ffc046ce53a",
+      "bytes": 5649
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/restored-consume-benchmark.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/restored-consume-benchmark.py",
+      "sha256": "d30b04d6a0960daacdefe3552d1c7035f7417e931051953236e79de959411a14",
+      "bytes": 6553
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/restored-launch-benchmark.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/restored-launch-benchmark.py",
+      "sha256": "fa5621d99981397b0c3d669056ea2c375a4dad55de798b5a26ef07cf997539b1",
+      "bytes": 6244
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/restored-record-pure-node.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/restored-record-pure-node.py",
+      "sha256": "f5a1f8d39a31079b4a168364553498a44b10a167e067e5660979dc2cce4277e6",
+      "bytes": 14041
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/restored-strict_contract.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/restored-strict_contract.py",
+      "sha256": "195e7a7be50105ee7b23c7c7a195240f38175504f44d3d90323e1c58a5a34bdb",
+      "bytes": 5251
+    }
+  },
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "1800e05d6a9fbab6eae4f4e7a8bee65969da4785e5b47672d1bf06fc4fbba51b",
+    "bytes": 9726
+  },
+  "sourceSeal": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SEAL.json",
+    "sha256": "b3a27ca246469705966ea1dfb841879ff3fbc2020d89e83cee0f7b21faf67714",
+    "bytes": 6706
+  }
+}

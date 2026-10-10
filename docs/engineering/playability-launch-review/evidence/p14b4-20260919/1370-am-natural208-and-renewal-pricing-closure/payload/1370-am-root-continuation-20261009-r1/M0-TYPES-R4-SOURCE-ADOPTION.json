@@ -1,0 +1,31 @@
+{
+  "H13MetadataStopPreserved": true,
+  "actualM0Neutrality": null,
+  "actualM0Types": null,
+  "all1740SourceFilesAndOriginalFourCommandsRetained": true,
+  "exact21PackageProjectionAgainstWhole1802Facts": true,
+  "executionAuthorization": false,
+  "independentReview": {
+    "bytes": 22411,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r4/RECEIPT.json",
+    "sha256": "2d6ab3da894efc86513a6909471781aed7a4ddddcd9f9475e33a71031e71aec0"
+  },
+  "next": "Prepare genuine current operational/full-source proofs and exact tools/context/once-only externalgrant, independently review actual fill before original recorded four-command route. Preserve historicalM0 copy and do not rematerialize.",
+  "rejectedR3Review": {
+    "bytes": 9627,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r3/RECEIPT.json",
+    "sha256": "07aeb15fb7be8a03b583f99bfc113bc5da95fd726fbf97493b54921c9740c9c4"
+  },
+  "schema": "1370-root-m0-types-source-adoption/v1",
+  "sourcePins": {
+    "bytes": 14743,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/SOURCE-PINS.json",
+    "sha256": "10fc7a0a39cb78f092476a31a351912fc254eb39a2b827c28fe8ba459140fd0a"
+  },
+  "status": "ROOT_ADOPTED_M0_TYPES_COLLECTION_R4_SOURCE_ONLY",
+  "wholeRunnerActiveRecorderWholeRecorderSeconds": [
+    300,
+    320,
+    330
+  ]
+}

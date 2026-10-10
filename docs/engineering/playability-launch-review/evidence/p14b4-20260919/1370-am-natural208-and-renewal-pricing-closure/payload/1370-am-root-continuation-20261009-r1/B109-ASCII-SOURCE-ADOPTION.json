@@ -1,0 +1,109 @@
+{
+  "actualControls": null,
+  "actualPerformance": null,
+  "adoptedRefinements": [
+    "All counts are planned source-derived counts. No runtime GREEN, expected RED, syntax check or capture is claimed. Actual Node grant stays null.",
+    "Original28 declarations/helpers and12c37/994d oracles are verbatim; appended six use2529 independently. Success parity pair counters exclude additional refusal/log/mutant assertions.",
+    "Delegating native JSON/Proxy instrumentation checks no container stringify/new Proxy; it does not establish equality of internal primitive builtin call counts. Standard native behavior remains assumed.",
+    "Synthetic correctness establishes no timing win, ASCII-hit rate, full109/integration/P17/P18 result or production authority. Paired308 sampler remains separate, selected2529 reference and both-arm3526/1984 weights unchanged.",
+    "Existing60/75/90,1MiB streams and300/375/390 bounds remain unchanged. Future actual recorded route must authenticate exact roles, independent source receipts, current refs/protection and once-only grant before execution."
+  ],
+  "bounds": {
+    "activeSeconds": 75,
+    "nodeSeconds": 60,
+    "stderrBytes": 1048576,
+    "stdoutBytes": 1048576,
+    "wholeSeconds": 90
+  },
+  "candidate": {
+    "bytes": 2981,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-source-after-al-20261009-r1/bounded-json-candidate.mjs",
+    "sha256": "f382fe6610a69a1c766134120e5382e86700ac6078a82d712547bf027f42810b"
+  },
+  "config": {
+    "bytes": 4745,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/CONFIG.json",
+    "sha256": "f870f2e8dc3606d7a3419635cdcf3fe89ee5fb1f232389de8837501c668ad142"
+  },
+  "controls": {
+    "bytes": 25837,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/controls.mjs",
+    "sha256": "d4c91f0e965648df46707c9d47cc23d24e487f12fd04bb88198a54c9b2683647"
+  },
+  "controlsReview": {
+    "bytes": 14864,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-controls-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "1d3d2a791455f626db5c0457cf60aea4482d26343fd34da0ba749f89a9f4af1c"
+  },
+  "executionAuthorization": false,
+  "gameGrant": null,
+  "implementationReview": {
+    "bytes": 6101,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "7096563a7c72f57e19f410c5a8a8cb75ef087934c2002d532f8aeabde907a4e8"
+  },
+  "next": "Prepare exact recorded focused route and strict producer consumer under unchanged60/75/90, then independent source review before once-only parent grant. Benchmark is separate after actual correctness admission.",
+  "nodePhysicalRole": {
+    "bytes": 92324688,
+    "path": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "sha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6"
+  },
+  "plannedCounts": {
+    "expectedRed": 3,
+    "newGroups": 6,
+    "newPairs": 344,
+    "originalGroups": 28,
+    "originalPairs": 321,
+    "totalGroups": 34,
+    "totalPairs": 665,
+    "unexpectedRed": 0
+  },
+  "producerContract": {
+    "completeStreamsAndAllProducerHelperRecorderToolExitsRequired": 0,
+    "enforcementScope": "Producer asserts count/roster construction and no generic RED path. Full strict framing/types/rosters/empty-stderr/all-exit enforcement is a requirement for the future filled recorded consumer; no recorded route was authored or executed in this package.",
+    "exactOrderedGroupAndMutantObjects": true,
+    "exactPlannedCountTypes": "integers; future consumer must reject booleans/coercion",
+    "expectedRedLines": 3,
+    "falseFlags": [
+      "game",
+      "saveImports",
+      "captureDecode",
+      "performanceWin"
+    ],
+    "finalJsonLines": 1,
+    "newPassLines": 6,
+    "originalPassLines": 28,
+    "plannedUtf8Bytes": 3559,
+    "producerUpperBoundBytes": 16384,
+    "schema": "1370-b109-ascii-controls/v1",
+    "status": "ORIGINAL28_ASCII6_MUTANT3_EXPECTED_RED_GREEN_PASSED",
+    "stderrBytesRequired": 0,
+    "strictFields": [
+      "schema",
+      "status",
+      "originalGroups",
+      "originalPairs",
+      "newGroups",
+      "newPairs",
+      "totalGroups",
+      "totalPairs",
+      "expectedRed",
+      "unexpectedRed",
+      "groups",
+      "mutants",
+      "game",
+      "saveImports",
+      "captureDecode",
+      "performanceWin"
+    ],
+    "totalLines": 38
+  },
+  "schema": "1370-root-b109-ascii-source-adoption/v1",
+  "selected2529RemainsSelected": true,
+  "sourcePins": {
+    "bytes": 5077,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "5e851ce99946847610c69cd99057c43b6f806abbd8432ad66ed660cd577ad8f2"
+  },
+  "status": "ROOT_ADOPTED_SOURCE_ONLY_UNRUN_B109_ASCII_IMPLEMENTATION_AND_CONTROLS"
+}

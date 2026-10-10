@@ -1,0 +1,32 @@
+{
+  "actualAdoptionReadback": {
+    "bytes": 4600,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-adoption-parent-after-al-20261009-r4/ACTUAL-ADOPTION-READBACK.json",
+    "sha256": "dd8b9a64baacf0a57e1f9df1beab3e861bdd751db6f720cb1c7cc99c45e0f766"
+  },
+  "exactCandidateReview": {
+    "bytes": 16303,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-independent-review-after-al-20261009-r4/RECEIPT.json",
+    "sha256": "6949f4287cc25b139d1d8fa62d891a876e5e565b078f893b1f665bf3037646cd"
+  },
+  "executionAuthorization": false,
+  "game": false,
+  "originalFullAfterFillReuseUnderContinuedFreeze": true,
+  "preservedR1Stop": {
+    "bytes": 2978,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "3d8823b26a07a7ad84743a05371b3cf514ac24d497c1dd4885bb1a8192975b9a"
+  },
+  "schema": "1370-root-a208-original-permitted-preflight-source-adoption/v1",
+  "sourcePins": {
+    "bytes": 3167,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "70a9b35e76220d5b6059729f4859f0cf3d5eda46c6952b3c5d488505cccd3d12"
+  },
+  "sourceReview": {
+    "bytes": 10090,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "a8956c52486499a1bd4e752f9cc27d68c16c1ca1f33323ac5790e864cd3bbea0"
+  },
+  "status": "ROOT_ADOPTED_R2_ORIGINAL_PERMITTED_PREFLIGHT_SOURCE"
+}

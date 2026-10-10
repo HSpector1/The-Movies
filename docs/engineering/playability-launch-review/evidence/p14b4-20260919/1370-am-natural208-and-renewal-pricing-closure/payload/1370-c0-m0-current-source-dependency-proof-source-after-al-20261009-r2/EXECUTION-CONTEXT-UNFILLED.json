@@ -1,0 +1,15 @@
+{
+  "actualGrant": null,
+  "additionalRefs": {},
+  "configSha256": "17ac5abcd1e26c83fcd8d3794bd0c6356cd9f141416e01974cdd34f510b72bb5",
+  "currentProtection": null,
+  "executionAuthorization": false,
+  "freshDependencyProof": null,
+  "freshSourceProof": null,
+  "laneLock": null,
+  "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+  "runId": "20261009-m0-current-proof-after-al-r2",
+  "runtimeTools": null,
+  "schema": "1370-current-m0-proof-execution-context/v1",
+  "sourceReview": null
+}

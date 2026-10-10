@@ -1,0 +1,35 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r1/CONFIG.json
++++ /Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/CONFIG.json
+@@ -110,6 +110,11 @@
+   "performanceWin": false,
+   "producerConfigSha256": "f870f2e8dc3606d7a3419635cdcf3fe89ee5fb1f232389de8837501c668ad142",
+   "roles": {
++    "acceptedOwnGroupSource": {
++      "bytes": 9691,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/grant_before_fill.py",
++      "sha256": "5100a89373a729fe7f80714fc740b76d6fc3e45f85c869c381246ac29a21678e"
++    },
+     "baseline": {
+       "bytes": 11414,
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+@@ -185,6 +190,11 @@
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-encoder.mjs",
+       "sha256": "015326a19a12225b5fb736bbf85d637f8e925cf4c0f5bd00240061cf9cd880b4"
+     },
++    "originalRouteStopReview": {
++      "bytes": 6238,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-independent-review-after-al-20261009-r1/RECEIPT.json",
++      "sha256": "9f77f7c68335132a3bde7a08703ccb1df7628dfd15c25f5382908e480f6fbd2f"
++    },
+     "producerConfig": {
+       "bytes": 4745,
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/CONFIG.json",
+@@ -227,7 +237,7 @@
+     },
+     "strictContract": {
+       "bytes": 5251,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r1/strict_contract.py",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/strict_contract.py",
+       "sha256": "195e7a7be50105ee7b23c7c7a195240f38175504f44d3d90323e1c58a5a34bdb"
+     }
+   },

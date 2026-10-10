@@ -1,0 +1,88 @@
+{
+  "actualOutcome": null,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-after-al-r2.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2/fill-grant-exec.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r5/FILLED-SPEC.json",
+    "e023c34e8b983393940656021dedd75d1798fe65805673491ce32ac72e5aa915"
+  ],
+  "automaticRetry": false,
+  "clockScopeAdoption": {
+    "bytes": 1745,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-CLOCK-STREAM-SCOPE-ADOPTION.json",
+    "sha256": "69c5ca0882d1d0ec33e837a9283b7267ef96a05f2744fe8d5f18123a7f488a83"
+  },
+  "combinedFillRuntime330Claim": false,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesOuterHelperIdentity": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": true,
+  "filledSpec": {
+    "bytes": 5368,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r5/FILLED-SPEC.json",
+    "sha256": "e023c34e8b983393940656021dedd75d1798fe65805673491ce32ac72e5aa915"
+  },
+  "game": false,
+  "helperCapture": "Original r8 combined log; no added live parent byte limiter",
+  "mode": "types",
+  "originalChildCommandStreamCapsBytes": 8388608,
+  "ownedOuterHelperPgid": 49780,
+  "ownedOuterHelperPid": 49780,
+  "ownedOuterHelperSid": 49780,
+  "parentFillAndPrelaunchSourceReview": {
+    "bytes": 10222,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "d60c40db318d682289988ad4c86fa27d964d2c555e85d18919def1a1dc794d7c"
+  },
+  "parentSourcePins": {
+    "bytes": 3310,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "05c10ea344c211e4a57e55229a2b7b9244a86e7cf76919efeb08f0a410877572"
+  },
+  "preflightObservedAdoption": {
+    "bytes": 3224,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-TYPES-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "558aa7f6acd400c40994c36a536a7be455b21172c9be78d1f2c13a4273608975"
+  },
+  "preparationSeconds": 60,
+  "proofOrTypesAccepted": false,
+  "protectedFreezeContinues": true,
+  "rootLauncher": {
+    "bytes": 5435,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_route_once.py",
+    "sha256": "88453b1949ce8b60e564df8f83860b82c038e93344103b2745b4e9e740d0bffa"
+  },
+  "runtimeBoundsSeconds": {
+    "active": 320,
+    "runner": 300,
+    "whole": 330
+  },
+  "runtimeClockStartsInsideUnchangedLAUNCH": true,
+  "runtimeToolsObservation": {
+    "bytes": 5401,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-RUNTIME-TOOLS.json",
+    "sha256": "62be5c7f93316af15d73952140d2ef77316efbf27d73887871eb38f4abf8df7b"
+  },
+  "schema": "1370-root-m0-once-recorded-lane-grant/v1",
+  "sourcePins": {
+    "bytes": 13859,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/SOURCE-PINS.json",
+    "sha256": "a3e53517dd38da67abf5f276ea276a454f4ee64d52f41fedc26181965cfb2618"
+  },
+  "sourceReview": {
+    "bytes": 28281,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r5/RECEIPT.json",
+    "sha256": "d857ef103c2a6214d69bf10a2695eda1fdbba7cbe80fa1ac0c0b39c4c0b21de0"
+  },
+  "status": "GRANTED_ONCE_EXACT_M0_TYPES",
+  "utc": "2026-10-10T02:28:23.271630+00:00"
+}

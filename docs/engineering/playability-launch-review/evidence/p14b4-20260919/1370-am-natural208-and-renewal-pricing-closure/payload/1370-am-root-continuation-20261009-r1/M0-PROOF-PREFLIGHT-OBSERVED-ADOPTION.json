@@ -1,0 +1,75 @@
+{
+  "actualTool": {
+    "bytes": 647,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-prelaunch-parent-after-al-20261009-r2/ACTUAL-TOOL.json",
+    "sha256": "a1045199d94297438b343859a96feb48315e7901a420ba40cbafecc925b97d0d"
+  },
+  "actualToolSessionId": 99593,
+  "baseline": {
+    "bytes": 8562268,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+    "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+  },
+  "executionAuthorization": false,
+  "fullMapReuseUnderOriginalContinuousFreezeProvision": true,
+  "game": false,
+  "grant": {
+    "bytes": 2389,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-prelaunch-parent-after-al-20261009-r2/GRANT.json",
+    "sha256": "617dc07173e62a7f1f4a2e5b7f9bad885019d6d5aaf7b9462c656dd87083556e"
+  },
+  "mode": "proof",
+  "newFullInventory": false,
+  "nineRootsAndAncestryAndCurrentChecksAccepted": true,
+  "originalFullSnapshot": {
+    "bytes": 8568780,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4/SNAPSHOT.json",
+    "sha256": "6922608bdeedd86e289aeac3c56c297e257b6eb98964e0fe00b95def5dc51e1d"
+  },
+  "postOwnScannerChecks": [
+    {
+      "id": 88025,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 88025,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "preflight": {
+    "bytes": 9339,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-prelaunch-output-after-al-20261009-r2/PREFLIGHT.json",
+    "sha256": "a23ab9e0b9244e972ab1f7aa1ca387dfbb10aeb5b3b45635ec0f69f4dba5739d"
+  },
+  "proofOrTypesAccepted": false,
+  "protectedFreezeContinues": true,
+  "rawLocalOnlyBytes": 1481091,
+  "rawLocalOnlyClassification": {
+    "bytes": 1204,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-prelaunch-output-after-al-20261009-r2/RAW-LOCAL-ONLY-ROLES.json",
+    "sha256": "f968b24388a05e848cf816fd58cc74faf82151dde1f728d733ef0f484f639df1"
+  },
+  "rawLocalOnlyRoles": 4,
+  "scannerAbsent": true,
+  "schema": "1370-root-original-current-root-preflight-observed-adoption/v1",
+  "scope": "OriginalA208 nineprotectedroots/R9/shareddeps/currentAL only; current M0 fullsource/dependency proofs remain separate",
+  "sourceReview": {
+    "bytes": 10222,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "d60c40db318d682289988ad4c86fa27d964d2c555e85d18919def1a1dc794d7c"
+  },
+  "status": "ROOT_ADOPTED_ORIGINAL_CURRENT_ROOT_PREFLIGHT",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-prelaunch-parent-after-al-20261009-r2/prelaunch.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 263,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-prelaunch-parent-after-al-20261009-r2/prelaunch.stdout",
+    "sha256": "00e8a3e998e657edefd3af4ff821db41ec54c376fec5837711825b96979da5c8"
+  },
+  "toolExit": 0
+}

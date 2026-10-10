@@ -1,0 +1,27 @@
+{
+  "actualProofRun": false,
+  "actualTypesRun": false,
+  "executionAuthorization": false,
+  "finding": "MAP declares an external330-second wrapper-plus-exec lifetime and8MiB streams, but filler implements no timer or stream recorder before the accepted LAUNCH starts its original330 clock. r8 helper does not implement that extra outer bound. The declared prelaunch full-observation reuse also needs a genuine fresh original current/9root/FD observation before execution.",
+  "knownQualifiedClock": "Original H13/r5 accepted LAUNCH starts330 at loader entry; child runner300 and supervisor320 unchanged. Do not relabel that as timing preceding parent context filling.",
+  "launcher": {
+    "bytes": 10693,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r1/fill-grant-exec.py",
+    "sha256": "f6baed97d864069d0e1421ec0cb5c81408b5ed2362dea185865549b672fc1bfd"
+  },
+  "map": {
+    "bytes": 16084,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r1/MAP.json",
+    "sha256": "bc0d2417804f9a5a16a65f2db1cdcde0b15040600369c474d354d336306ea76a"
+  },
+  "next": "Resolve exact original phase/clock boundary with independent source review and provide minimal executable bounded parent fill plus original prelaunch reuse. Do not invent a passed outer recorder or silently extend actualM0execution330.",
+  "originalM0ProofAndTypesRuntimeSourcesRemainAccepted": true,
+  "productionMutation": false,
+  "schema": "1370-root-m0-parent-launch-pregrant-finding/v1",
+  "sourcePins": {
+    "bytes": 1941,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "d2279bea0dc48505a399803ef86b89d9bd7ad45c94c6c7bb07bd21def253730b"
+  },
+  "status": "HELD_SOURCE_ONLY_PARENT_BOUND_AND_PREFLIGHT_IMPLEMENTATION_NOT_ESTABLISHED"
+}

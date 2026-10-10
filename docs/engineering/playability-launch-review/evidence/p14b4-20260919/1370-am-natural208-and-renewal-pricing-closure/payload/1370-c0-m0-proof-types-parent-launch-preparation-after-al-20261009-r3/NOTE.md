@@ -1,0 +1,3 @@
+# Held parent R3 profiles for M0 types R6
+
+Only generic profile SHA and documentary types package/run/output/recorder/parent/lane bindings change from R2. All filler functions and original-current-root-prelaunch bytes remain exact; separate preparation60 and runtime300/320/330/child8MiB scopes stay unchanged. The proof profile is preserved as historical source, not a replay grant. Types sourceReview/currentProtection/runtimeTools/actualprelaunch/grant remain null in external unfilled templates. Root must use a genuine independent R6 review and fresh protection/prelaunch after the current failure audit; old failed results and qualified proof remain historical distinct evidence. No runtime or private writes performed.

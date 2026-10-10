@@ -1,0 +1,48 @@
+{
+  "initial": {
+    "chunk_id": "76b95d",
+    "wall_time_seconds": 1.003256775,
+    "session_id": 39284,
+    "original_token_count": 69,
+    "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-fullguard-postflight-parent-after-al-20261009-r2/GRANT.json\", \"bytes\": 4680, \"sha256\": \"9118c60799491e694ad0f2da106380667d215492d06cec325c07538db496cf6e\"}, \"scannerPid\": 91197, \"scannerPgid\": 91197}\n"
+  },
+  "polls": [
+    {
+      "chunk_id": "c0e3fa",
+      "wall_time_seconds": 5.00283075,
+      "session_id": 39284,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "d25aa4",
+      "wall_time_seconds": 5.001372986,
+      "session_id": 39284,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "8531d4",
+      "wall_time_seconds": 5.002368128,
+      "session_id": 39284,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "b7d00e",
+      "wall_time_seconds": 45.000654461,
+      "session_id": 39284,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "9b011a",
+      "wall_time_seconds": 38.541824363,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ],
+  "toolSessionId": 39284,
+  "finalExit": 0
+}

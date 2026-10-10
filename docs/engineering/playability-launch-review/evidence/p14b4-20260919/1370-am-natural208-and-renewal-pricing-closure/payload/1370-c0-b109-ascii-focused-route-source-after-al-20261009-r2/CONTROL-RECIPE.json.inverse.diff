@@ -1,0 +1,67 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/CONTROL-RECIPE.json
++++ /Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r1/CONTROL-RECIPE.json
+@@ -5,10 +5,10 @@
+     "/bin/bash",
+     "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+     "0",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-lane-after-al-20261009-r2/controls.lane.log",
++    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-lane-after-al-20261009-r1/controls.lane.log",
+     "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+     "-B",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/record-pure-node.py",
++    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r1/record-pure-node.py",
+     "controls"
+   ],
+   "bounds": {
+@@ -118,37 +118,9 @@
+     "status": "PUSHED_REMOTE_AND_COMMITTED_TREE_VERIFIED",
+     "trackingWorkingHead": "8cb704e2f18e6a635943893422c9cfdc206e106d"
+   },
+-  "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-output-after-al-20261009-r2",
+-  "ownershipContract": {
+-    "acceptedMechanismSource": {
+-      "bytes": 9691,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/grant_before_fill.py",
+-      "sha256": "5100a89373a729fe7f80714fc740b76d6fc3e45f85c869c381246ac29a21678e"
+-    },
+-    "actualLaunchClaimFields": [
+-      "helperPid",
+-      "helperPgid",
+-      "helperSid",
+-      "helperGroupVerifiedBeforeExec"
+-    ],
+-    "bindAllOutcomeIdentitiesToLaunchClaim": true,
+-    "groupAbsenceList": "actualOwnedGroupsFreshlyAbsent exactly [helperPgid, ownedPgid]",
+-    "noPidSubstitutionForPgid": true,
+-    "originalConcreteStopReview": {
+-      "bytes": 6238,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-independent-review-after-al-20261009-r1/RECEIPT.json",
+-      "sha256": "9f77f7c68335132a3bde7a08703ccb1df7628dfd15c25f5382908e480f6fbd2f"
+-    },
+-    "pidAbsenceList": "actualOwnedPidsFreshlyAbsent exactly [helperPid, childPid]",
+-    "requiredOutcomeNumericIdentityFields": [
+-      "helperPid",
+-      "helperPgid",
+-      "helperSid"
+-    ],
+-    "wrapperOwnsGroupBeforeExec": "If actual PGID differs from actual PID, call setsid on the wrapper itself; require actual PGID equals actual PID before recording and exec. No positive signals."
+-  },
+-  "parentCreatesPrivateFreshLaneDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-lane-after-al-20261009-r2",
+-  "parentGrantOutputDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r2",
++  "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-output-after-al-20261009-r1",
++  "parentCreatesPrivateFreshLaneDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-lane-after-al-20261009-r1",
++  "parentGrantOutputDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r1",
+   "postRunRequiredZeroExitFields": [
+     "actualToolExit",
+     "helperExit",
+@@ -163,8 +135,8 @@
+   },
+   "recorder": {
+     "bytes": 14041,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/record-pure-node.py",
+-    "sha256": "f5a1f8d39a31079b4a168364553498a44b10a167e067e5660979dc2cce4277e6"
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r1/record-pure-node.py",
++    "sha256": "4eb5d9f09f2d738c6949af17d3744791a74c585edf330b8b78529996cb409d76"
+   },
+   "requiredEnvironment": {
+     "GIT_OPTIONAL_LOCKS": "0",

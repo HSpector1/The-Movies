@@ -1,0 +1,124 @@
+{
+  "activeOrderVerbatimPreserved": true,
+  "autoBlockByteExact": true,
+  "decision": "PROPOSED_AM_REPORT_AND_HANDOFF_PENDING_ROOT_ACTUAL_M0_AND_ARCHIVE_FINALIZATION",
+  "executionAuthorization": false,
+  "originalHandoff": {
+    "bytes": 18015,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/HANDOFF.md",
+    "sha256": "d6fc0fd7d91b4c68a902e806111c849c1de85ab86878714ef1080f1aee909ced"
+  },
+  "pendingAMPublicationAndArchive": true,
+  "pendingActualM0": true,
+  "productionWriter": "root only",
+  "proposedHandoff": {
+    "bytes": 12688,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-documentation-drafts-independent-after-al-20261009-r1/HANDOFF-PROPOSED.md",
+    "sha256": "40b6070453155eb680bbfdfab57631e01c2f7feaa4179f39bda8dc49b1f73de0"
+  },
+  "report": {
+    "bytes": 12917,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-documentation-drafts-independent-after-al-20261009-r1/1370-AM-natural208-and-renewal-pricing-closure.md",
+    "sha256": "0b9abeed7f74a27c7fa9af92af8feed17fda92d7c6d1563ed9d28b1652f696e4"
+  },
+  "rootMustRefresh": [
+    "Genuine M0 prelaunch/proof/types outputs and independent admissions or preserved actual STOP",
+    "Final archive paths/classifications/manifest/readback",
+    "Actual AM commit and advertised refs/current operational authority"
+  ],
+  "schema": "1370-independent-am-checkpoint-documentation-drafts/v1",
+  "scope": "Read-only named historical/current evidence and scratch-only drafts. No Git/runtime/tests/probes/heavy/private/raw contents or repository changes. Explicit parent scope overrides handoff skill commit/write steps; root owns those final steps.",
+  "sourceRoles": {
+    "A208 game observed review": {
+      "bytes": 24834,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-independent-observed-review-after-al-20261009-r4/RECEIPT.json",
+      "sha256": "e070833564760624ca723d942324381b1dcbdfb23af0d745bbad6e097eb5a01d"
+    },
+    "A208 root adoption": {
+      "bytes": 5419,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-GAME-OBSERVED-ADOPTION.json",
+      "sha256": "17fdc2082a68e1dbc9ca646e7a4467ad34c0a68d8eee70fca01e6970e22aaaa2"
+    },
+    "ASCII benchmark observed review": {
+      "bytes": 16965,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-observed-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "3965c8bcbe196ca809844cecfbc380a29d8ea05a1b9f7de4dc0e60717357cb96"
+    },
+    "ASCII benchmark root adoption": {
+      "bytes": 3509,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-BENCHMARK-OBSERVED-ADOPTION.json",
+      "sha256": "1baf86e2d320ba2743ad377688726fbdf4c342a17b733bc1f44bc1891ff84cd7"
+    },
+    "Archive input readiness": {
+      "bytes": 14909,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-archive-input-readiness-independent-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "74ff50f380c476fbfeba3b0a5cbf3a0da30ea26e836a65a0ec78905aed17f156"
+    },
+    "Full postflight": {
+      "bytes": 8568780,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4/SNAPSHOT.json",
+      "sha256": "6922608bdeedd86e289aeac3c56c297e257b6eb98964e0fe00b95def5dc51e1d"
+    },
+    "Latest preserved lessons": {
+      "bytes": 16371,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/LESSONS-r18.md",
+      "sha256": "1065ea75df63ad8ebb47db5d6bd97db37d81aa7358d823d8d9fdf9d029411e10"
+    },
+    "M0 R3 source STOP": {
+      "bytes": 9627,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r3/RECEIPT.json",
+      "sha256": "07aeb15fb7be8a03b583f99bfc113bc5da95fd726fbf97493b54921c9740c9c4"
+    },
+    "M0 R4 source acceptance": {
+      "bytes": 22411,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r4/RECEIPT.json",
+      "sha256": "2d6ab3da894efc86513a6909471781aed7a4ddddcd9f9475e33a71031e71aec0"
+    },
+    "M0 actual runtime tool identities": {
+      "bytes": 5401,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-RUNTIME-TOOLS.json",
+      "sha256": "62be5c7f93316af15d73952140d2ef77316efbf27d73887871eb38f4abf8df7b"
+    },
+    "M0 clock-scope root adoption": {
+      "bytes": 1745,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-CLOCK-STREAM-SCOPE-ADOPTION.json",
+      "sha256": "69c5ca0882d1d0ec33e837a9283b7267ef96a05f2744fe8d5f18123a7f488a83"
+    },
+    "M0 full-body wiring held R2 source": {
+      "bytes": 9064,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/SOURCE-PINS.json",
+      "sha256": "1d7b4657a3e6c20daa25b45eda69fa04dc035dae4c1622bf080d881efa8eccb1"
+    },
+    "M0 missing-local-main prelaunch STOP": {
+      "bytes": 1072,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-MAIN-REF-PRELAUNCH-OBSERVED-STOP.json",
+      "sha256": "da8e775fe539b348cde83a390b4edc5e0473e9c3ddc5d88e26ffee29e1ea5dd6"
+    },
+    "M0 original-clock interpretation": {
+      "bytes": 6719,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-parent-fill-clock-scope-independent-source-interpretation-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "958eca234d35ff40e2a97712051fc15f6a6f1dcbc73c9fbdd3896963dc111635"
+    },
+    "M0 parent-clock finding": {
+      "bytes": 1940,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-PARENT-LAUNCH-PREGRANT-FINDING.json",
+      "sha256": "7771615c2a884b84ad9ef30156eb029d45b38fc555af657322162c85b6043199"
+    },
+    "M0 proof R2 and types R5 source adoption": {
+      "bytes": 2803,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-PROOF-R2-TYPES-R5-SOURCE-ADOPTION.json",
+      "sha256": "62132ed9cad2410403dc7d5520820f88ceda7f66b5f83cf4b2ed3b158ae03ff5"
+    },
+    "Renewal pricing observed review": {
+      "bytes": 21527,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-independent-observed-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "4610a4eeb858466c874d4b9bb2d1a51a35c268b450a93e12df44f12f9f5a6028"
+    },
+    "Renewal pricing root adoption": {
+      "bytes": 4381,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/PURE16-PRICING-OBSERVED-ADOPTION.json",
+      "sha256": "2c3111b3cb19dbbceee9387be355836aefadc27c36633736a282a1628d6ac3be"
+    }
+  },
+  "sourceSkill": "/Users/zacheryspector/.codex/skills/handoff/SKILL.md"
+}

@@ -1,0 +1,43 @@
+--- src/core/promises.ts
++++ src/core/promises.ts
+@@ -1,4 +1,3 @@
+-import { m0WiringProbe as __m0WiringProbe } from './m0WiringProbe.js'
+ // ── P14B.1 — The First Kept Promise Core ─────────────────────────────────────
+ //
+ // A PURE module (like talentMarket/employment): no React/DOM/async/IO, no time,
+@@ -262,11 +261,9 @@
+   capture?: M0FeasibilityCapture,
+   locals?: Readonly<Record<string, unknown>>,
+ ): PromiseFeasibilityReceipt {
+-  __m0WiringProbe.call('receipt')
+   // Serialize once using the existing sorted-key preimage for both digest and witness.
+   const canonicalInputs = serializeFeasibilityInputs(inputs)
+   const result = { classification, bottleneck, inputsDigest: fnv1a64(canonicalInputs), rulesVersion, week }
+-  __m0WiringProbe.evaluation(inputs,canonicalInputs,result,capture?.context ?? null)
+   if (capture !== undefined) {
+     capture.record('inputTuple', { canonicalInputs, inputBytes: new TextEncoder().encode(canonicalInputs).length,
+       inputsDigest: result.inputsDigest })
+@@ -402,7 +399,6 @@
+ function feasibilityInputs(state: GameState, draft: PromiseDraft, week: number,
+   directingReservations?: readonly ProfessionalPromise[],
+   productionOccupancy: readonly PromiseProductionOccupancy[] = []): readonly unknown[] {
+-  __m0WiringProbe.call('feasibilityInputs')
+   const directingScope = directingReservations !== undefined
+   const requestedRole = isDirectorPredicate(draft.predicate) ? 'director' : 'actor'
+   const rival = state.hollywood !== null && draft.issuerStudioId !== state.hollywood.playerStudioId
+@@ -557,7 +553,6 @@
+  */
+ export function promiseFeasibility(state: GameState, draft: PromiseDraft, week: number,
+   capture?: M0FeasibilityCapture): PromiseFeasibilityReceipt {
+-  __m0WiringProbe.call('promiseFeasibility')
+   const X = draft.predicate.count
+   const from = Math.max(draft.windowStartWeek, week)
+   const opportunityScope = opportunityReservations(state, draft, from)
+@@ -738,7 +733,6 @@
+   issuerStudioId: string,
+   draft: PromiseAttachment,
+ ): GameState {
+-  __m0WiringProbe.call('attachPromise')
+   const week = state.market.tick
+   // P14C.2b (806 §7.1 / §8.4): no promise rides a retirement extension.
+   // C.2c disposes existing obligations without changing that attachment rule.

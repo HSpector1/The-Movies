@@ -1,0 +1,170 @@
+{
+  "claimsLimits": "Source review only; no generated source imported or executed, no runtime controls/tests/Node/Git/mirror reads/scans/signals. No types,game,wiring,neutrality or salary acceptance.",
+  "decision": "REJECT_STATIC_M0_TYPES_COLLECTION_SOURCE_BLOCKED_BY_PACKAGE_ROLE_CARDINALITY",
+  "exactFourCommandRosterSha256": "ae58b73c0be257ad63345ea92f7c414e48ba340baa60a9b319aaa648f5a7a8a6",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "findings": [
+    {
+      "cause": "Pinned M0 facts roleIdentities contains1802 entries; executor requires len==21 before invoking commands. CONFIG.dependencyPackages contains21 and is exactly the admitted facts projection.",
+      "file": "runner.py",
+      "function": "exact_package_roles",
+      "repair": "Use exactly21 CONFIG.dependencyPackages roles after explicit equality against corresponding physical-facts rows; preserve original rejected r3.",
+      "severity": "blocking"
+    }
+  ],
+  "lessons": [
+    "A metadata map name does not define its cardinality: inspect actual pinned producer rows before writing consumer checks.",
+    "Use exact admitted projections for specialized package checks; keep complete source authority separate.",
+    "Whole inverse proof and unchanged function hashes establish source provenance, but do not establish schema compatibility or runtime success."
+  ],
+  "limits": {
+    "childStreamBytes": 8388608,
+    "collectionBytes": 1048576,
+    "diskFloorGiB": 3,
+    "preflightGiB": 3.5,
+    "recorderActiveSeconds": 320,
+    "recorderWholeSeconds": 330,
+    "runnerResultBytes": 131072,
+    "runnerSeconds": 300
+  },
+  "remainingActualFills": [
+    "independent accepted source review after repair",
+    "current AL M0 full protection with freshly admitted complete source and dependency proofs",
+    "physical Node22/Python/compiler/collector roles and fresh lane pin",
+    "parent-only exact execution grant and recorded helper command",
+    "independent observed route and full protected postflight"
+  ],
+  "schema": "1370-m0-types-source-independent-review/v1",
+  "sourceManifestPin": {
+    "bytes": 12392,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/SOURCE-PINS.json",
+    "sha256": "c8519913ffb3098ac591c06269244678c6fedae6f0324707ca0e20815d12fec0"
+  },
+  "sourcePackage": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3",
+  "sourcePins": {
+    "BOOTSTRAP.py": {
+      "bytes": 2725,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/BOOTSTRAP.py",
+      "sha256": "fa7480e7d421853c9e1d53eea14dff514caa2edab4562da5c975a8ab5ab58205"
+    },
+    "BOOTSTRAP.py.forward.diff": {
+      "bytes": 2610,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/BOOTSTRAP.py.forward.diff",
+      "sha256": "89d98624022594a612c56a2ed1f0547e70c7cbe9e76296f7005e47bc8f096121"
+    },
+    "BOOTSTRAP.py.inverse.diff": {
+      "bytes": 2610,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/BOOTSTRAP.py.inverse.diff",
+      "sha256": "d2579af5d7f58580c104abeaa4d48627d13aa52b5088b01696db3a38e628b98e"
+    },
+    "BUILD-SOURCE.py": {
+      "bytes": 36977,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/BUILD-SOURCE.py",
+      "sha256": "af30e1c54d679a03439d62960c8e7b5dfbdbf15f7eef693e0bbd8f37f91f5580"
+    },
+    "CONFIG.json": {
+      "bytes": 29811,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/CONFIG.json",
+      "sha256": "7166e022583531d924d67639a3d2a8a8f250bd8461f2a33cace8ce8f41c24f9c"
+    },
+    "EXECUTION-CONTEXT-UNFILLED.json": {
+      "bytes": 539,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/EXECUTION-CONTEXT-UNFILLED.json",
+      "sha256": "fe3d66a1a725e413996c4766df386a03097eff751f171b785832321d3c965bae"
+    },
+    "LAUNCH.py": {
+      "bytes": 7596,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/LAUNCH.py",
+      "sha256": "7494e57155f5ac7fa78e53ebbaba9df31940906c5c6a807c4829b8777e7f6116"
+    },
+    "LAUNCH.py.forward.diff": {
+      "bytes": 8231,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/LAUNCH.py.forward.diff",
+      "sha256": "8c10e5a49dc2eb5c8a369a37227378a29eae6759a2fc9501b3da31931ad4109c"
+    },
+    "LAUNCH.py.inverse.diff": {
+      "bytes": 8231,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/LAUNCH.py.inverse.diff",
+      "sha256": "a81125b5f2f6ca072128f36b82dbb2620048f038dda7cb35410046a1f5c8854a"
+    },
+    "LESSONS.md": {
+      "bytes": 1275,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/LESSONS.md",
+      "sha256": "a8c01adb77daa0f771eed910559c3676fde50f2101f9d8834de11e716e42b548"
+    },
+    "PREDECESSOR-BOOTSTRAP.py": {
+      "bytes": 3433,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/PREDECESSOR-BOOTSTRAP.py",
+      "sha256": "7a63a2d8028ae5c2abb5b2b1b5bdf79a83887b8c809de7d7866f2a9a7dd5f223"
+    },
+    "PREDECESSOR-LAUNCH.py": {
+      "bytes": 3582,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/PREDECESSOR-LAUNCH.py",
+      "sha256": "dc2ec7abe44d84e1bd15e1364472e6355da9c4e12792f95b26506b91dc882d62"
+    },
+    "PREDECESSOR-runner.py": {
+      "bytes": 59372,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/PREDECESSOR-runner.py",
+      "sha256": "946b3c88208db5128e30e668d0e322f11224235a71ff6994362acb124e0831b7"
+    },
+    "PREDECESSOR-supervise.py": {
+      "bytes": 15261,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/PREDECESSOR-supervise.py",
+      "sha256": "3145a6b806e9071fb69aa7eb610025c2930515c210c74cf6f3349a7faebdbc50"
+    },
+    "RECIPE.md": {
+      "bytes": 3386,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/RECIPE.md",
+      "sha256": "16e16410057368b8da97288535b23e91ec4d04951ad2cac9370bb80a6ec2172b"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 7170,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/SOURCE-PROOF.json",
+      "sha256": "6958ee7e110361a6161b2d5ad0b2ffbd1a29ef2bee772ae8982bde2f3a69466b"
+    },
+    "check-deps.mjs": {
+      "bytes": 1918,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/check-deps.mjs",
+      "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+    },
+    "runner.py": {
+      "bytes": 36873,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/runner.py",
+      "sha256": "4662896be328ed860c987629713fbb31d8a856854a5714fd6c1d7e07065450c6"
+    },
+    "runner.py.forward.diff": {
+      "bytes": 55386,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/runner.py.forward.diff",
+      "sha256": "20b1b8bc398b4fadee68e950118efeb280f2411582fa43a64e2c2c88cb7799c4"
+    },
+    "runner.py.inverse.diff": {
+      "bytes": 55441,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/runner.py.inverse.diff",
+      "sha256": "642e91d0a1854df7eccdc8d78c74d8b1e6ff2942615869f2b86e08194d4cd8a4"
+    },
+    "supervise.py": {
+      "bytes": 13597,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/supervise.py",
+      "sha256": "0b4b7d49e26e4740183e62a657f5d0029ad92e1ed338cc56b540fbcc4498b578"
+    },
+    "supervise.py.forward.diff": {
+      "bytes": 12139,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/supervise.py.forward.diff",
+      "sha256": "6fb848293937ec0cafc14769d4969944c7aaf7b0a6a384cdc09a8b794c02e6c6"
+    },
+    "supervise.py.inverse.diff": {
+      "bytes": 12139,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3/supervise.py.inverse.diff",
+      "sha256": "3e4657d3a2e08750c6f114b242543be3bb8f746aea1e42958d47d909e4bb9766"
+    }
+  },
+  "verified": [
+    "All23 SOURCE-PINS file entries match exact bytes and SHA256; all4 executable Python files parse through AST only.",
+    "All4 complete forward and inverse diffs independently reconstruct exact source and predecessors.",
+    "All27 runner,17 supervisor,4 bootstrap and3 launch retained function bodies and hashes equal original exactly.",
+    "Complete1740-file M0 source/physical metadata authority replaces H1402; five overlays,113 directories,one dependency link,1853 total entries maintained.",
+    "Historical M0/AJ source and current AL/main authority remain distinct; H13 metadata STOP retained.",
+    "External context grants bind canonical context with actualGrant omitted, without self-hash cycle."
+  ]
+}

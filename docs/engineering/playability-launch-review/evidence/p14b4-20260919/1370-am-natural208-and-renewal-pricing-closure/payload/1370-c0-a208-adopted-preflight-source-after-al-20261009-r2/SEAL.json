@@ -1,0 +1,19 @@
+{
+  "actualAdoptedInputsExternallyFilledByRoot": null,
+  "actualFinalGrant": null,
+  "actualGame": null,
+  "actualPreflight": null,
+  "executionAuthorization": false,
+  "independentSourceReview": {
+    "bytes": 10090,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "a8956c52486499a1bd4e752f9cc27d68c16c1ca1f33323ac5790e864cd3bbea0"
+  },
+  "schema": "1370-a208-source-only-adopted-preflight-seal/v1",
+  "sourcePins": {
+    "bytes": 3167,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "70a9b35e76220d5b6059729f4859f0cf3d5eda46c6952b3c5d488505cccd3d12"
+  },
+  "status": "SEALED_REVIEWED_SOURCE_ONLY_UNRUN"
+}

@@ -1,0 +1,15 @@
+{
+  "adoptedPreflight": null,
+  "currentAlAuthority": null,
+  "executionPerformed": false,
+  "independentCandidateReview": null,
+  "pendingExactRuntimeFill": true,
+  "schema": "1370-a208-after-al-game-source-preparation-seal/v1",
+  "sourcePins": {
+    "bytes": 1968,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-launch-binding-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "b83746ff6008700739d72ef124006cf1eaac8f53546dfe74245285647c7b0b5e"
+  },
+  "status": "SEALED_SOURCE_PREPARATION_ONLY_UNRUN",
+  "witnessGrant": null
+}

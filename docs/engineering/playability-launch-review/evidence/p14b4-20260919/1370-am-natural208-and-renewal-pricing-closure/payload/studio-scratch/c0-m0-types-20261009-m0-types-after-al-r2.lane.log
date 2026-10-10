@@ -1,0 +1,5 @@
+{"status": "PARENT_CONTEXT_GRANT_WRITTEN_BEFORE_EXEC", "pid": 50035, "pgid": 50035, "sid": 50035, "context": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r5/EXECUTION-CONTEXT.json", "bytes": 7106, "sha256": "b94963679999c7f8d5909878b330089dda1dcaa56174e2beee0eecfd7134d2a9"}, "grant": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r5/EXECUTION-GRANT.json", "bytes": 997, "sha256": "2d018a052f3a75befab6339913d6dd934031606e177d6d4e24de1d8307f4a0f0"}}
+{"schema": "1370-m0-types-launch-helper-identity/v1", "helperPid": 50035, "helperPgid": 50035, "helperSid": 50035, "contextSha256": "b94963679999c7f8d5909878b330089dda1dcaa56174e2beee0eecfd7134d2a9"}
+{"status": "STOP_TYPECHECK_COLLECTION", "receipt": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r2/20261009-m0-types-after-al-r2/RESULT.json", "sha256": "85106763c640e105578d5b38b97c5af732611f34bf307688a8069de6ab241963"}
+STOP_TYPECHECK_COLLECTION RuntimeError('postflight or child failure')
+{"recorderStatus": "STOP_CHILD_NONZERO", "childExit": 1, "groupClear": true}

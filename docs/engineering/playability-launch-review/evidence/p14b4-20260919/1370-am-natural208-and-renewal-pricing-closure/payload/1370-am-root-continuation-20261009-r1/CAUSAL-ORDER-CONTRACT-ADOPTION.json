@@ -1,0 +1,40 @@
+{
+  "actualFillGrant": null,
+  "adoptedFields": [
+    "all fieldAudit requirements",
+    "all ten phases and eleven forward dependency edges",
+    "all seven cycle resolutions"
+  ],
+  "adoptionFields": [
+    "status",
+    "executionAuthorization",
+    "exactReview"
+  ],
+  "afterFillCarrier": "Existing exact candidate review receipt, authenticated before archive/adoption; same three-argument CLI.",
+  "archiveOriginals": 6,
+  "beforeFillAuthorityScopeOnly": true,
+  "design": {
+    "bytes": 18012,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-preparation-causal-order-contract-design-after-al-20261009-r1/DESIGN.json",
+    "sha256": "8f7b3ae122fb3cc14c3a094dc8cf94583165bbea04923eeaf0d1c7e661e5a73f"
+  },
+  "executionAuthorization": false,
+  "finalExternalGrantAfterActualAdoptedPreflight": true,
+  "gameGrant": null,
+  "independentReview": {
+    "bytes": 12166,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-preparation-causal-order-independent-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "caf636462a6a3cbec6248910f691c519f46bab6e86ad50ed353a1cf91a3a454b"
+  },
+  "knownBeforeFillConfigOnly": true,
+  "next": "Prepare one fresh derivative with exact inverse and independent source review; fill only actual admitted baseline roles.",
+  "r3RemainsHeld": true,
+  "schema": "1370-root-a208-causal-order-contract-adoption/v1",
+  "semanticExclusions": [
+    "status",
+    "executionAuthorization",
+    "exactReview"
+  ],
+  "status": "ROOT_ADOPTED_SOURCE_ONLY_A208_CAUSAL_ORDER_CONTRACT",
+  "witnessGrantBindingExplicitNullPermanent": true
+}

@@ -1,0 +1,81 @@
+{
+  "actualTool": {
+    "bytes": 726,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-parent-after-al-20261009-r2/ACTUAL-TOOL.json",
+    "sha256": "115373b1a2f87ba148377b3476f4bc66787cc994941ee784139efecf2ef4f403"
+  },
+  "actualToolExit": 0,
+  "actualToolSessionId": 75094,
+  "config": {
+    "bytes": 5903,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-parent-after-al-20261009-r2/CONFIG.json",
+    "sha256": "91aa98e32948701857f1829c8fd3a209a709c53d5438fe2b33253553b41e94ba"
+  },
+  "configFillProof": {
+    "bytes": 3710,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-parent-after-al-20261009-r2/CONFIG-FILL-PROOF.json",
+    "sha256": "117f864d047a241d99e3e2c705d3852f0018ab3b753a3d6b8240caa0b372510a"
+  },
+  "finalGameGrant": null,
+  "game": false,
+  "globalWorkerAbsenceClaim": false,
+  "grant": {
+    "bytes": 3387,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-parent-after-al-20261009-r2/PREFLIGHT-GRANT.json",
+    "sha256": "1dc43de50ed83a23520057b7d1d22a0ea8a35ec908f537a24b5b916fa6d10e94"
+  },
+  "heavyLaneLockAbsent": true,
+  "ownedPreflightPgid": 28100,
+  "ownedPreflightPid": 28100,
+  "pins": {
+    "bytes": 577,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-output-after-al-20261009-r2/PINS.json",
+    "sha256": "813a87051be5ef7a54917e536e4c2595cff4b52a746e5fffd9ad4fe71741d6c1"
+  },
+  "preflight": {
+    "bytes": 12735,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-output-after-al-20261009-r2/PREFLIGHT.json",
+    "sha256": "9f4566352756c361199ca994b55d066178d17556fef7cccaac0edf997504e7ee"
+  },
+  "preflightExit": 0,
+  "rawLocalOnlyClassification": {
+    "bytes": 1325,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-output-after-al-20261009-r2/RAW-LOCAL-ONLY-ROLES.json",
+    "sha256": "54a6dc5e8879e1c25bcf90dc677e25c9871a48033ed67d1f5d980a88597fea31"
+  },
+  "schema": "1370-root-a208-actual-adopted-preflight-readback/v1",
+  "status": "ACTUAL_ADOPTED_PREFLIGHT_COMPLETE_PENDING_INDEPENDENT_ADMISSION",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-parent-after-al-20261009-r2/preflight.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 407,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-parent-after-al-20261009-r2/preflight.stdout",
+    "sha256": "0d4d33db8430d6d16479816111286b50e7021910eed7a53fc678b56630b298a5"
+  },
+  "summary": {
+    "executionAuthorization": false,
+    "game": false,
+    "pinsSha256": "813a87051be5ef7a54917e536e4c2595cff4b52a746e5fffd9ad4fe71741d6c1",
+    "preflightPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-output-after-al-20261009-r2/PREFLIGHT.json",
+    "preflightSha256": "9f4566352756c361199ca994b55d066178d17556fef7cccaac0edf997504e7ee",
+    "status": "ADOPTED_PREFLIGHT_COMPLETED_UNREVIEWED_UNRUN"
+  },
+  "utc": "2026-10-10T00:57:53.850909+00:00",
+  "zeroSignalChecks": [
+    {
+      "id": 28100,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 28100,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+Accepted the retained same-run indexed308 paired measurement. The ASCII candidate regressed in the preplanned weighted illustration: 467.448086298 seconds versus selected2529's 453.611120278 seconds, approximately 3.0504% higher. The 407.568606 ms candidate whole-row outlier is retained. Each median uses all three planned measured samples. This accepts the measurement and preserves the regression; it gives no performance win, source promotion, automatic retry, game, full109 or P17/P18 acceptance. Selected2529 remains selected.
+
+| Metric | Selected2529 | ASCII f382 |
+| --- | ---: | ---: |
+| State median, ms | 60.471897 | 67.329583 |
+| Whole-row median, ms | 121.162909 | 115.949585 |
+| Weighted constant-early-fixture illustration, seconds | 453.611120278 | 467.448086298 |
+
+The weighted values use the exact preplanned formula (3526 × state median + 1984 × whole-row median) / 1000. They illustrate this constant early fixture; they are not measured full109 runtimes, lower bounds or headroom. Later growth, intervention content and non-encoder work remain unmeasured. The scheduled two-input benchmark retains eight raw pairs: one warmup and three measured pairs per input, with the planned alternating order. All recorded output-byte, row/state purity and retained FD/path checks passed. Exact raw/state fixture hashes, indexed-reader source and closure claims bind to the unchanged reviewed sources. The reviewer did not access the capture.
+
+Actual tool82873 ended0. Five independently recorded tool/helper/meta/recorder/Node exits and the genuine completed consumer exit are zero. Recorder elapsed6.744816834994708 seconds and producer elapsed5.80771978 seconds fit their bounds. Producer stdout is one strict JSON line, 11199 bytes with SHA256 8fe5b9ff89f78033c95be3f868f8a789b98eaff49bf89295ac0bb8fe9a6da412; producer stderr is empty. The independent review verified exact report types/fields/rosters, sample binding, raw pair schedule, medians and both-arm formula against retained bytes. Exact source pins1800e, configcde7, R2 review9b8d, grant8d32, Node20.20.2 and all bound evidence roles match.
+
+The actual launch claim records helper PID/PGID/SID12029; recorder child PID/PGID12294 is separate. The recorded postchecks authenticate all four signal0 ESRCH results and lane absence, with PID and PGID absence lists bound separately. No reviewer probes ran. The inherited Python SyntaxWarning remains at unchanged recorder line239 in main() outer finally. The helper combined log is403 bytes and contains the diagnostic plus exactly one expected summary. It is separate from empty producer stderr; no all-streams-quiet claim is made. Owned startup, cleanup, timers and finalization remain byte identical in the preserved13 functions and OwnedChild.
+
+The original af928 receipt and pre-grant f30ba9 failure remain preserved. The stop occurred before grant, wrapper or benchmark. The corrected genuine R2 receipt adds only the required routeSourcePins and findings aliases, and that exact receipt is bound into the one actual grant and claim. No failed runtime result was concealed, and no measurement rerun was performed by this reviewer.

@@ -1,0 +1,22 @@
+{
+  "actualTool": {
+    "initial": {
+      "chunk_id": "f30ba9",
+      "exit_code": 1,
+      "original_token_count": 105,
+      "output": "Traceback (most recent call last):\n  File \"/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_b109_benchmark_once.py\", line 14, in <module>\n    assert rv['decision']=='ACCEPT_SOURCE_ONLY_UNRUN_B109_ASCII_PAIRED308_BENCHMARK_ROUTE' and not rv['findings']\n                                                                                                   ~~^^^^^^^^^^^^\nKeyError: 'findings'\n",
+      "wall_time_seconds": 0.453853658
+    },
+    "polls": []
+  },
+  "benchmarkExecuted": false,
+  "cause": "Root reader guessed findings, while actual independent receipt uses concreteFindings; additionally reviewed launch wrapper requires routeSourcePins, while actual receipt only emitted sourcePins. Preserve original receipt af928; reviewer will produce a fresh truthful compatible receipt, with exact pins and no source/runtime change.",
+  "grantIssued": false,
+  "schema": "1370-root-benchmark-pregrant-receipt-interface-stop/v1",
+  "source": {
+    "bytes": 3582,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_b109_benchmark_once.py",
+    "sha256": "73e86973d5e2d0bf1c25f9671ab55122a5e7ab170c9c37e9307bf227e36cd311"
+  },
+  "status": "STOP_BEFORE_GRANT_OR_WRAPPER_OR_BENCHMARK"
+}

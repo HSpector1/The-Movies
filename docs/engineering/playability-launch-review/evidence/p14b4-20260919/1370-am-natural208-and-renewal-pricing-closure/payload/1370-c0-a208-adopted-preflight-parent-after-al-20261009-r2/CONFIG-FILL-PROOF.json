@@ -1,0 +1,101 @@
+{
+  "actualAdoptionReadback": {
+    "bytes": 4600,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-adoption-parent-after-al-20261009-r4/ACTUAL-ADOPTION-READBACK.json",
+    "sha256": "dd8b9a64baacf0a57e1f9df1beab3e861bdd751db6f720cb1c7cc99c45e0f766"
+  },
+  "actualConfig": {
+    "bytes": 5903,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-parent-after-al-20261009-r2/CONFIG.json",
+    "sha256": "91aa98e32948701857f1829c8fd3a209a709c53d5438fe2b33253553b41e94ba"
+  },
+  "changedKeys": [
+    "adoptedBinding",
+    "adoptedLaunch",
+    "adoptionResult",
+    "afterFillSnapshot",
+    "archiveManifest",
+    "exactCandidateReview",
+    "ownedPgids",
+    "status"
+  ],
+  "exactCandidateReview": {
+    "bytes": 16303,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-independent-review-after-al-20261009-r4/RECEIPT.json",
+    "sha256": "6949f4287cc25b139d1d8fa62d891a876e5e565b078f893b1f665bf3037646cd"
+  },
+  "fieldDiff": {
+    "adoptedBinding": {
+      "after": {
+        "bytes": 6466,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json",
+        "sha256": "eb6e99e0021809d7ad165ee5c9eba2e2b0c36ab78e34826fc11d5d488036777e"
+      },
+      "before": null
+    },
+    "adoptedLaunch": {
+      "after": {
+        "bytes": 14438,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4/ADOPTED-LAUNCH-SPEC.json",
+        "sha256": "8b00d32003449bd4710f312c9e5afe1e13732de60a158542c5f546f56f11cde5"
+      },
+      "before": null
+    },
+    "adoptionResult": {
+      "after": {
+        "bytes": 1651,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4/ADOPTION-RESULT.json",
+        "sha256": "d3e50b0410d6c42c6361c6b6cf675c60415a4358649e412719ef60e07ae06a8d"
+      },
+      "before": null
+    },
+    "afterFillSnapshot": {
+      "after": {
+        "bytes": 8565365,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/after-fill-after-al-game-r4/SNAPSHOT.json",
+        "sha256": "64da19fd4b46d8d0311360cbc08a90d57817175c781e2f73e4fd850925771719"
+      },
+      "before": null
+    },
+    "archiveManifest": {
+      "after": {
+        "bytes": 1040,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4/ARCHIVE-MANIFEST.json",
+        "sha256": "e62c9abb2f7ceb1620bff4fec7f5fc3e656dd1888e8a86d701000fba3a602eea"
+      },
+      "before": null
+    },
+    "exactCandidateReview": {
+      "after": {
+        "bytes": 16303,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-independent-review-after-al-20261009-r4/RECEIPT.json",
+        "sha256": "6949f4287cc25b139d1d8fa62d891a876e5e565b078f893b1f665bf3037646cd"
+      },
+      "before": null
+    },
+    "ownedPgids": {
+      "after": [
+        17003,
+        17510,
+        21229,
+        54612,
+        56863,
+        75073
+      ],
+      "before": []
+    },
+    "status": {
+      "after": "FILLED_GENUINE_ADOPTED_ROLES_PREFLIGHT_UNRUN",
+      "before": "SOURCE_ONLY_PENDING_ACTUAL_ADOPTED_ROLES"
+    }
+  },
+  "game": false,
+  "otherFieldsUnchanged": true,
+  "preflightSourceUnchanged": true,
+  "schema": "1370-root-preflight-external-config-literal-fill/v1",
+  "sourcePendingConfig": {
+    "bytes": 4395,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r2/CONFIG-PENDING.json",
+    "sha256": "1dfa2a23d40c878d6a59c32355b08b29e7f29bd53875a22c79f0d1363cee7be8"
+  }
+}

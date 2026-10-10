@@ -1,0 +1,25 @@
+--- R5/runner.py
++++ R6/runner.py
+@@ -3,10 +3,10 @@
+ import argparse, hashlib, json, math, os, pathlib, re, selectors, shutil, signal, stat, subprocess, sys, time, traceback
+ S=pathlib.Path('/Users/zacheryspector/studio-scratch')
+ REPO=pathlib.Path('/Users/zacheryspector/The-Movies-headless-program')
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6')
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5')
+ CONFIG_PATH=P/'CONFIG.json'
+-CONFIG_SHA='f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7'
+-OUT_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3')
++CONFIG_SHA='e52b41bcb57b13e8255f9c5417aa29bdcf99e51850b0058119d4126c2c0d3172'
++OUT_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r2')
+ MIRROR_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2')
+ CURRENT_HEAD='8cb704e2f18e6a635943893422c9cfdc206e106d'
+ TREE='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554'
+@@ -683,7 +683,7 @@
+   need(cmd([NODE,'--version'])=='v22.23.2','Node runtime drift')
+   for name,argv in [
+       ('dependency-versions',[node,dependency_check,str(mirror),str(REPO),LOCK_SHA]),
+-      ('root-tsc',[tsc,'--noEmit','--allowImportingTsExtensions']),
++      ('root-tsc',[tsc,'--noEmit']),
+       ('ui-tsc',[tsc,'-p','ui/tsconfig.json','--noEmit']),
+       ('diagnostic-collection',[vitest,'list','tests/diagnostic.test.ts','--project','core','--json',str(out/'collection.json'),'--no-cache'])]:
+    before_child=root_checkpoint(mirror,run_id)

@@ -1,0 +1,209 @@
+{
+  "accountingFindings": {
+    "bothArms": {
+      "state": 3526,
+      "wholeRow": 1984
+    },
+    "boundsUnchanged": [
+      300,
+      375,
+      390
+    ],
+    "completeBoundariesPerArm": 110,
+    "historicalCachePreserved": {
+      "automaticRepeat": false,
+      "groups": 33,
+      "pairs": 353,
+      "promoted": false,
+      "weightedCostIncreasePercent": 10.642868321918852
+    },
+    "historicalSelectedConstantFixtureIllustrationSeconds": 425.46749854799924,
+    "illustrationNotMeasurementLowerBoundOrHeadroom": true,
+    "perArm": {
+      "state": 1763,
+      "wholeRow": 992
+    },
+    "perArmCountArithmetic": "state=5+109*2+110*8+110*6; wholeRow=2+110*5+110*4",
+    "profilesDoNotEstablishSelectedPhaseOrAllocationGcCause": true,
+    "ticksPerArm": 109,
+    "unmeasuredRequiredWork": [
+      "later growth through416 and actual intervention content",
+      "both complete arms and full readback",
+      "small encodes/tick/save/clone/deepEqual/gzip/inflate/CRC/SHA/output/guards/startup"
+    ]
+  },
+  "actualBenchmarkAdoption": null,
+  "actualCandidateSource": null,
+  "actualFocusedControlsAdoption": null,
+  "actualIntegrationOrFull109Grant": null,
+  "actualPostAlAuthority": null,
+  "artifactAuthor": "Unspecified in artifact and available compacted task record. Parent confirms author identity was not retained; no identity invented.",
+  "benchmarkFindings": {
+    "comparison": "Same newly recorded genuine indexed308 state and wholeRow: timed2529 reference versus only the new ASCII candidate; retained streaming12c37 remains reader/parser/certifier, not timed arm.",
+    "futureRawTrialReport": null,
+    "node": "Pinned historicalNode20.20.2 remains the proposed tool; future source/runtime route must authenticate its exact physical role. No current binary qualification or benchmark execution is claimed here.",
+    "performanceWinAccepted": false,
+    "requiredSourceRefinement": "Set config.roles.referenceEncoder to exact2529, not inherited994d. Update producer timed-arm labels/status/claim text and weighted formula alongside source roles; otherwise an unchanged old label could misstate the comparison even when bytes are correct.",
+    "schedule": "One paired warmup then three alternating measured pairs for each input, under unchanged60/75/90 clocks. Preserve per-arm raw trials, complete byte/purity/path+FD identity checks and exact reader closure.",
+    "weightedBothArmFormula": "(3526*stateMedianMs+1984*wholeRowMedianMs)/1000"
+  },
+  "decision": "ACCEPT_SOURCE_ONLY_B109_ASCII_STRING_TOKEN_DESIGN_WITH_CONCRETE_REFINEMENTS",
+  "design": {
+    "bytes": 10681,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-next-performance-design-after-ak-20261009-r1/DESIGN.json",
+    "sha256": "2dc9f9896d0d3f673ea7be9a2e67549cc49e48604cfdb42a918477d3c81bc53b"
+  },
+  "designSeal": {
+    "bytes": 620,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-next-performance-design-after-ak-20261009-r1/SEAL.json",
+    "sha256": "31e220499471ad9778607aff97d6f13aafa6bb01d409e0ec1ed7f8c85ec6adb6"
+  },
+  "executionAuthorization": false,
+  "focusedControlFindings": {
+    "exactNewAuthoredPairCount": null,
+    "mutantRequirements": [
+      {
+        "fault": "Missing quote/backslash/control exclusions",
+        "requiredRed": "Specific native byte mismatch on an escaped string/key, then corrected exact-byte GREEN; a generic nonzero run is insufficient."
+      },
+      {
+        "fault": "Accept nonASCII and use code-unit length as UTF8 size",
+        "requiredRed": "Specific byte-length/output mismatch or wrong cap admission on multibyte text such as \u00e9; corrected native fallback must produce exact text/bytes/refusal."
+      },
+      {
+        "fault": "Bypass or move original raw UTF8 precheck",
+        "requiredRed": "Specific STOP_STRING_CAP versus STOP_JSON_CAP/code/ordered-limit trace mismatch on a raw-cap refusal and stateful limit. Corrected precheck must precede fast and fallback work."
+      }
+    ],
+    "originalGroups": 28,
+    "originalPairs": 321,
+    "originalTestDeclarationsStaticallyCounted": 28,
+    "plannedAdditionalGroups": 6,
+    "plannedMutants": 3,
+    "refinement": "Future tester preserves all28 original source groups and their321 admitted pairs separately, appends six named bounded groups, and pins three exact mutant changes/inverses plus their specific mismatch assertions. Exact final typed roster/count/schema/pair totals are authored and reviewed before any grant; planned counts are not actual GREEN evidence.",
+    "sixGroupCoverage": [
+      "all128ASCII characters/eligible mixtures/keys/empty/slash/DEL",
+      "escape/control/BMP/nonBMP/U2028/U2029/lone-surrogate native fallback",
+      "raw/rendered/cumulative/key caps and NaN/Symbol/stateful limit coercion traces",
+      "65534..65537byte and4095..4097token seams, oversized admitted tokens and late refusal",
+      "getter/Proxy/two-read/dynamic-length and defined/undefined transitions on both branch paths",
+      "shared references, mutations/repeated calls/fresh state and zero-container/no-new-Proxy"
+    ]
+  },
+  "lessons": [
+    "Exact byte/refusal/source-read/coercion parity precedes timing. New internal primitive calls need truthful scope qualification.",
+    "Mutant RED means an asserted specific failure of the proposed invariant, not generic process failure. Preserve original controls independently from new appended counts.",
+    "Paired timing can regress despite exact correctness. Preserve negative cache evidence and declined promotion.",
+    "Count both complete arms, later growth and residual work before any feasibility conclusion. Early fixture illustrations and predecessor profiles grant no integration, bounds change or blind full109 retry."
+  ],
+  "note": {
+    "bytes": 5196,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-next-performance-design-after-ak-20261009-r1/NOTE.md",
+    "sha256": "68172941d35a5d5955170955e4521871a4262f9646ac042fb6b8e2ad40cb7882"
+  },
+  "operationalRefinement": "Design current-AK wording is historical preparation context. Any future actual controls/benchmark filled route must bind the then-published operational HEAD/docs-transition/current protections; after AL publication use its real reviewed roles. This review does not guess AL identity or create authority.",
+  "parentDesignAdoption": null,
+  "reviewedSourceAndEvidenceRoles": {
+    "priorDescriptiveProfile": {
+      "bytes": 2518,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "13a8df2aaffa2e2129eadffdfeeedcc783108da6ec79e225542618b27f56503f"
+    },
+    "priorDescriptiveProfileReport": {
+      "bytes": 2909,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-independent-observed-review-20261009-r1/REPORT.md",
+      "sha256": "b23cb2904a932b6269546b58b051eb3f62ca3696d38b42a78586243667d054cc"
+    },
+    "priorNativeContainerBenchmark": {
+      "bytes": 1670,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-indexed308-benchmark-observed-independent-review-20261009-r5/RECEIPT.json",
+      "sha256": "b214d12a1f3ac51945924684c7ef005e1201a8fb50a08847dacdc28cda051c22"
+    },
+    "priorNativeContainerSource": {
+      "bytes": 2512,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/bounded-json-candidate.mjs",
+      "sha256": "ff6e47060a7a0ca2cc4502f06ed1aabca8fb71bd11fde245b4cc7194b1bf0697"
+    },
+    "selectedActual28Controls": {
+      "bytes": 1139,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk28-controls-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "4dc5ba780ed74245d508dc117d799b3eee263f3d22d26d3860730981f0bc6272"
+    },
+    "selectedActual7232Benchmark": {
+      "bytes": 1638,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "59ad5be0c2f356d83febad87c5375937212a0af935ba52cc7214add9d85da29f"
+    },
+    "selectedBenchmarkSource": {
+      "bytes": 5649,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/benchmark-308.mjs",
+      "sha256": "dbbc202e6b473dd81aec427c8cd05ac09c4c6268c64daa52ac061ffc046ce53a"
+    },
+    "selectedControlsSource": {
+      "bytes": 15839,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-encoder.mjs",
+      "sha256": "015326a19a12225b5fb736bbf85d637f8e925cf4c0f5bd00240061cf9cd880b4"
+    },
+    "selectedEncoder": {
+      "bytes": 2880,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+    },
+    "selectedRootAdoption": {
+      "bytes": 1453,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-parent-recorded-20261009-r1/BENCHMARK-ADOPTION.json",
+      "sha256": "d63af2ffdb817928ed0b6da7912decd857bb544d2c713b54f99c701e03c182d6"
+    },
+    "selectedSourceAcceptance": {
+      "bytes": 1066,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "b2d82e38b0f9ebf99681a77e58906f5348f4d7c1e95e822bcf76f6a686fd08c8"
+    },
+    "twoArmAccounting": {
+      "bytes": 3135,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-shared-workload-accounting-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "bad58469013de6f0d4884c0fd72496efca242cd4175d49af5dcb8c3bd79bf06b"
+    },
+    "twoArmCounts": {
+      "bytes": 3232,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-two-arm-workload-accounting-proposal-20261009-r1/COUNTS.json",
+      "sha256": "4d24885437baad00cf087b44704de5cb18ac51613504abc941bccbe08a3f8ca1"
+    },
+    "unfavorableCacheBenchmark": {
+      "bytes": 5221,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-benchmark-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "fe9889d0f063e383803523c24e327ff1f404eba3951fa4a0a52e6a9127dfb69c"
+    },
+    "unfavorableCacheRootDisposition": {
+      "bytes": 1801,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-recorded-20261009-r1/BENCHMARK-ADOPTION.json",
+      "sha256": "702fee19076ebfefd35c195a223d46f4f75599b819faede57e5c4e73281b15b5"
+    },
+    "unfavorableCacheSource": {
+      "bytes": 3317,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "25492575847a15a1d7b79daf84e722b6e32f2362ea2a2ad94f29228a09bfe067"
+    }
+  },
+  "reviewerProvenance": {
+    "basis": "Available reviewer task history contains A208 cleanup/fullguard and M0 map work, with no B109 design/source/evidence authorship.",
+    "independentScope": "Read-only semantic/source/receipt/arithmetic review; this is not a new runtime or implementation acceptance.",
+    "reviewerAuthoredThisDesign": false
+  },
+  "schema": "1370-b109-next-performance-independent-source-design-review/v1",
+  "semanticFindings": [
+    "Under stated standard native RegExp/String/JSON/Array/Buffer behavior, classifier accepts exactly empty strings and U+0020..U+007F except quote and backslash. Slash and DEL are legal unescaped JSON. Two surrounding quotes give native text and UTF8 byte length value.length+2 for every eligible primitive string.",
+    "Quotes, backslashes, C0 controls and all nonASCII code units hit the unchanged native JSON.stringify/Buffer.byteLength fallback, including BMP, astral pairs, U+2028/U+2029 and lone surrogates. Use the proposed non-global classifier without Unicode shortcuts or mutable match state.",
+    "Original raw Buffer.byteLength(value)<=limit precheck and STOP_STRING_CAP checkpoint must remain byte-identical and run before classifier/branch. Cumulative add and per-call key budget retain rendered-token byte limits and coercion order. A fresh primitive token cannot change source property reads, captured Object.keys order, first/second getter reads or dynamic array length.",
+    "Native primitive builtin call counts change by design; equivalence claims cover native output/refusals and source getter/trap/limit checkpoint traces, not arbitrary overridden primitive builtin return values or call counts. Existing delegating test instrumentation still must preserve zero-container/no-new-Proxy assertions.",
+    "No new cache, clone/container serialization, source mutation, global shared state, limit/domain restriction, chunk threshold or default budget change belongs in this slice. Classifier overhead and hit frequency remain unmeasured."
+  ],
+  "verification": {
+    "candidateImplemented": false,
+    "candidateImportedOrExecuted": false,
+    "captureReadOrDecoded": false,
+    "fullScanGitProcessProbeOrProtectedMutation": false,
+    "namedDesignSourceEvidenceRolesAuthenticated": 23,
+    "testsBenchmarksNodeGameRun": false
+  }
+}

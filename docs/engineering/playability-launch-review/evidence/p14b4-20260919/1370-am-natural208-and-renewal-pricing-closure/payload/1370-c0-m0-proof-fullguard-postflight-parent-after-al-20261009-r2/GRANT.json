@@ -1,0 +1,115 @@
+{
+  "actualPriorOwnedIds": [
+    89067,
+    89322,
+    89341
+  ],
+  "actualRouteReadback": {
+    "bytes": 3678,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-proof-parent-recorded-after-al-20261009-r2/READBACK.json",
+    "sha256": "f6352d724b5c0d6e36f0b3f895382daa5201d8776b322fa6e2a38d4d242dda2e"
+  },
+  "argumentMap": {
+    "bytes": 16769,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2/MAP.json",
+    "sha256": "1a60aa3572132b23373482c508bd418acb4e86b258a3464d5e9fcf742a02b50f"
+  },
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "postflight",
+    "postflight-after-al-m0-proof-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+    "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609",
+    "89067,89322,89341"
+  ],
+  "automaticRetry": false,
+  "baseline": {
+    "bytes": 8562268,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+    "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesPid": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": true,
+  "guardConfig": {
+    "bytes": 3906,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
+    "sha256": "20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41"
+  },
+  "guardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+    "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+  },
+  "mode": "proof",
+  "noHelperOriginalLockAbsentRequired": true,
+  "outputDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-proof-r2",
+  "ownedScannerPgid": 91197,
+  "ownedScannerPid": 91197,
+  "ownedScannerSid": 91197,
+  "parentRouteSourceReview": {
+    "bytes": 10222,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "d60c40db318d682289988ad4c86fa27d964d2c555e85d18919def1a1dc794d7c"
+  },
+  "perCommandTimeoutSeconds": 180,
+  "priorOwnedIdentityPostChecks": [
+    {
+      "id": 89067,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 89067,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 89322,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 89322,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 89341,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 89341,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "proofOrTypesAccepted": false,
+  "protectedFreezeContinues": true,
+  "rawPsFdLocalOnly": true,
+  "rootLauncher": {
+    "bytes": 4016,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_postflight_once.py",
+    "sha256": "7239e2f2050484393905fff1694fba7c445c7566a757e266d3e57817b9158310"
+  },
+  "schema": "1370-root-m0-direct-original-shared-full-postflight-grant/v1",
+  "scope": "Unchanged original A208/shared nine-root/R9/dependency/fullprotected maps under currentAL. Actual completeM0source/deps proofs remain separate originalroute results.",
+  "startMonotonic": 104766.683634802,
+  "status": "GRANTED_ONCE_ORIGINAL_SHARED_FULL_POSTFLIGHT",
+  "stderrPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-fullguard-postflight-parent-after-al-20261009-r2/postflight.stderr",
+  "stdoutPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-fullguard-postflight-parent-after-al-20261009-r2/postflight.stdout",
+  "utc": "2026-10-10T02:17:05.876551+00:00",
+  "wholeScanDeadline": null
+}

@@ -1,0 +1,35 @@
+{
+  "actualGrant": null,
+  "actualOutcome": null,
+  "config": {
+    "bytes": 4745,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/CONFIG.json",
+    "sha256": "f870f2e8dc3606d7a3419635cdcf3fe89ee5fb1f232389de8837501c668ad142"
+  },
+  "controls": {
+    "bytes": 25837,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/controls.mjs",
+    "sha256": "d4c91f0e965648df46707c9d47cc23d24e487f12fd04bb88198a54c9b2683647"
+  },
+  "decision": "SEALED_AUTHORED_HELD_ORIGINAL28_ASCII6_MUTANT3_SOURCE_ONLY",
+  "design": {
+    "bytes": 17016,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/DESIGN.json",
+    "sha256": "68cc0d49f1ce3e67c751f40e67a73ce37ae296438296a2674916cdd7db898fab"
+  },
+  "executionAuthorization": false,
+  "independentObservedAcceptance": false,
+  "original28VerbatimBlockConfirmed": true,
+  "plannedCounts": {
+    "expectedRed": 3,
+    "newGroups": 6,
+    "newPairs": 344,
+    "originalGroups": 28,
+    "originalPairs": 321,
+    "totalGroups": 34,
+    "totalPairs": 665,
+    "unexpectedRed": 0
+  },
+  "schema": "1370-b109-ascii-independent-controls-authorship-receipt/v1",
+  "sourceOnlyChecks": "Python source builder/finite string/hash/inverse/count checks only; no Node compile/import/execute/test or candidate runtime. Exact planned counts await separately granted actual recorded producer."
+}

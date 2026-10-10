@@ -1,0 +1,14 @@
+Accepted this package only as a held source design and minimal continuation. No concrete source bug was found.
+
+All 31 named package roles authenticate, including SOURCE-PINS 1d7b4657 and SEAL fbd1e7fe. Independently applying each inverse diff as text reconstructs all five complete archived predecessors byte-for-byte. The derivative retains the actual submitProposal, authorRivalPromise, settleCase, attachedFeasibility, promiseFeasibility, opportunityAssessment, pricing/affordability helpers and RNG bodies. The mutant differs by exactly one replacement: the actual typed observer-error rethrow in the original submission catch.
+
+The four cap/serialization faults are consumed only at draftPrice and use the actual recorder checks and error class. Fault consumption clears its request before execution, and m0Record finally restores row length and total bytes. A swallowed inside-submit fault therefore cannot leave injected counters poisoned and produce the described false propagation success at a later issuerAttempt. Ordinary refusal instead throws an ordinary Error at the real submitProposal entry and exercises the original gameplay refusal handling. No preconstructed observer exception or fake submit helper is used.
+
+The shared probe defaults to the accepted enabled observer behavior while inactive, records helper/RNG calls and stream keys without advancing RNG, and uses explicit 16384-entry, 64KiB-row and 2MiB aggregate bounds. Overflow is sticky and rejected by controls. The original observer's separate 512-row/16KiB/2MiB caps remain unchanged. Actual bound sufficiency remains unmeasured.
+
+Capture off/on controls clone independent input states and compare complete returned GameState JSON, input purity, call sequences, canonical evaluation tuples and returned receipt values. Existing inputTuple witnesses are correlated to full-body evaluations. The authoring, freeze and opportunity chains use full imported modules. Off-issuer checks correctly apply only to the196 rival trigger, rather than pretending that freeze208 or price records have that filter.
+
+The package honestly remains incomplete. Numeric nonnegative ordinal checks do not prove submitted/dropped/survivor or chooser ordering. Subsequence call checks do not establish every fixture premise or exact target call identity. Actual196/208 already-incremented boundaries, real opportunity-reaching variants, valid off-target premises, canonical module resolution and exact recorded route remain unresolved. These are the author's declared next implementation work, not new review gates. The receipt gives a prioritized minimal continuation.
+
+No generated TypeScript was parsed, compiled, imported or tested here. No source builder ran. Actual M0 types, protection, neutral policy parity, full-body controls and meaningful mutant RED are not accepted by this source receipt. No production/private tree, Git, runtime, mirror copy or process probe was accessed or changed.
+

@@ -1,0 +1,86 @@
+{
+  "activity": {
+    "finiteNamedSourceAndEvidenceReadsOnly": true,
+    "noRuntimeTestsImportsSignalsProbesGitOrPrivateReads": true
+  },
+  "actualGameReadback": {
+    "bytes": 3737,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/ACTUAL-GAME-READBACK.json",
+    "sha256": "9af3e1e93ba5c47045bbe7cef9e5f07204454e2275cb0bf5db9212d4e574d2a1"
+  },
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "postflight",
+    "postflight-after-al-a208-r4",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+    "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609",
+    "34390"
+  ],
+  "baseline": {
+    "bytes": 8562268,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+    "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_ORIGINAL_A208_POSTFLIGHT_ARGV_KNOWN_HELPER_ONLY",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "findings": [],
+  "freshLabel": "postflight-after-al-a208-r4",
+  "gameGrant": {
+    "bytes": 16087,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/FINAL-GAME-GRANT.json",
+    "sha256": "3aa7f0d5c9c05dab14bcae752a3d2d23dc9058c146b017dc7d7a6dcc3e33da21"
+  },
+  "map": {
+    "bytes": 13089,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-original-postflight-and-output-argument-map-after-al-20261009-r1/MAP.json",
+    "sha256": "e2227b000a118dc80a0e3af63a875ab2d4b7d4a15abf9be2126286f6cf4102e4"
+  },
+  "observedNumericOwner": {
+    "directExecHelperSamePid": true,
+    "pgid": 34390,
+    "pid": 34390,
+    "sid": 34390
+  },
+  "originalPerCommandTimeoutSeconds": 180,
+  "phase": "postflight",
+  "plannedOutputDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4",
+  "preservedRules": {
+    "bothFreshCurrentFdProcessBootRefsCleanAcDiskLockChecks": true,
+    "fullInventoryAndWholeImmutableBaselineEquality": true,
+    "noChildIdsInferred": true,
+    "noM0InventoryOrRematerialization": true,
+    "noNewGuardOrHelperOrObservationStage": true,
+    "originalReceipt3a43AndHLeaf": true,
+    "rawMachinePsFdLocalHashSizeOnly": true
+  },
+  "retainedHLeaf": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+  "reviewScope": "Original unchanged source/arguments only; root separately grants and records full postflight. This is not completed postflight or game acceptance. Numeric clearance from the scanner is confined to known helper34390. Supervisor/Node numeric identities remain unknown; eventual game review reconciles authenticated original internal success checks without manufacturing IDs.",
+  "schema": "1370-a208-original-postflight-exact-argv-source-review/v1",
+  "suppliedOwnedPgids": [
+    34390
+  ],
+  "unchangedConfig": {
+    "bytes": 3906,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
+    "sha256": "20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41"
+  },
+  "unchangedProcedure": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+    "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+  },
+  "unknownNumericChildIdsPreserved": true,
+  "wholeScanDeadline": null
+}

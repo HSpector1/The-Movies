@@ -1,0 +1,176 @@
+--- src/core/talentMarket.ts
++++ src/core/talentMarket.ts
+@@ -1,4 +1,3 @@
+-import { m0WiringProbe as __m0WiringProbe } from './m0WiringProbe.js'
+ // ── P14A.1 — One Contested Expiry Core ───────────────────────────────────────
+ //
+ // THE CONTESTED TALENT MARKET. A PURE module (like employment/talentSummary): no
+@@ -336,7 +335,6 @@
+   /** P14B.1 (3): the attached promises' own digest, `''` when none is attached. */
+   promisePart = '',
+ ): ProposalDraft {
+-  __m0WiringProbe.call('proposalDraft')
+   if (!isPremiumTier(premiumTier)) {
+     throw new Error(
+       `talentMarket: premium tier ${premiumTier} is not offered — P14A prices at ${TUNING.MARKET_PREMIUM_TIERS.join(', ')} and never below the ask (companion §2.1.4/§2.1.7)`,
+@@ -380,7 +378,6 @@
+   proposal: Pick<TalentMarketProposal, 'talentId' | 'issuerStudioId' | 'termWeeks' | 'premiumTier'>,
+   week: number,
+ ): { askAnnual: number; annualSalary: number; signingBonus: number } {
+-  __m0WiringProbe.call('proposalPriceAt')
+   const ask = studioOffer(state, proposal.issuerStudioId, proposal.talentId, proposal.termWeeks, week)
+   const annualSalary = iround(ask.annualSalary * proposal.premiumTier)
+   const signingBonus = iround(annualSalary * TUNING.CONTRACT_SIGNING_BONUS_FRACTION)
+@@ -393,7 +390,6 @@
+ // ── affordability (companion §2.1.4; neither rule is P11's) ──────────────────
+ 
+ function rivalOperatingReserve(business: RivalBusiness, hollywood: HollywoodState, week: number): number {
+-  __m0WiringProbe.call('rivalOperatingReserve')
+   return rivalWeeklyOperatingCost(business, hollywood, week) * business.policy.reserveWeeks
+ }
+ 
+@@ -401,7 +397,6 @@
+  * rival's passes its own reserve rule (P12 strategy). */
+ function affordabilityRefusal(state: GameState, issuerStudioId: string, bonus: number, week: number,
+   capture?: (detail: Record<string, unknown>) => void): string | null {
+-  __m0WiringProbe.call('affordabilityRefusal')
+   const hollywood = state.hollywood!
+   if (issuerStudioId === hollywood.playerStudioId) {
+     const affordable = canAfford(state, bonus)
+@@ -453,8 +448,6 @@
+ }
+ 
+ export function submitProposal(state: GameState, intent: ProposalIntent): GameState {
+-  __m0WiringProbe.call('submitProposal')
+-  if (__m0WiringProbe.consumeFault('submitProposal') === 'ordinary-refusal') throw new Error('M0 wiring ordinary submission refusal fixture')
+   const week = state.market.tick
+   // P14C.2a (773 D8): a person with a retirement record takes no proposal from anyone
+   // (`marketEligibility` → no proposer), refused with the typed token first — their
+@@ -728,7 +721,6 @@
+   descriptor: MarketCaseDescriptor,
+   week: number,
+ ): boolean {
+-  __m0WiringProbe.call('rivalProposalTrigger')
+   const m0ObserveTrigger = descriptor.talentId === M0_SUBJECT && week === 196 &&
+     (M0_ISSUERS as readonly string[]).includes(business.studioId)
+   if (descriptor.subjectStudioId === business.studioId) {
+@@ -803,7 +795,6 @@
+  * The ONE archetype test: both public preferences below read it directly, so the
+  * term preference never rides on the priority order's array positions. */
+ function isProven(state: GameState, talentId: string): boolean {
+-  __m0WiringProbe.call('isProven')
+   const talent = state.talent.find((t) => t.id === talentId)
+   return talent !== undefined && (careerIdentity(talent).identityDisciplines.length > 0 || talent.age >= 30)
+ }
+@@ -894,7 +885,6 @@
+  * committed state at `week` — null when it carries none. */
+ function attachedFeasibility(state: GameState, proposal: TalentMarketProposal, week: number,
+   capture?: M0FeasibilityCapture): PromiseFeasibilityReceipt | null {
+-  __m0WiringProbe.call('attachedFeasibility')
+   const id = proposal.promises[0]
+   if (id === undefined) {
+     if (capture !== undefined) capture.record('NO_ATTACHED_PROMISE', { proposalDigest: proposal.digest })
+@@ -945,7 +935,6 @@
+   week: number,
+   m0Case?: M0CaseIdentity,
+ ): Map<TalentMarketProposal, Record<DescriptorKey, number>> {
+-  __m0WiringProbe.call('bandsFor')
+   const hollywood = state.hollywood!
+   const standings = proposals.map((p) => issuerStanding(state, p.issuerStudioId))
+   const highest = Math.max(...standings)
+@@ -1017,7 +1006,6 @@
+   week: number,
+   m0Case?: M0CaseIdentity,
+ ): ProposalChoice {
+-  __m0WiringProbe.call('chooseProposal')
+   if (survivors.length === 0) return { winner: null, tiedCount: 0 }
+   const bands = bandsFor(state, survivors, kase, week, m0Case)
+   // Dominated proposals are removed first.
+@@ -1305,7 +1293,6 @@
+ function survivesFreeze(
+   state: GameState, proposal: TalentMarketProposal, week: number, feasibility: PromiseFeasibilityReceipt | null,
+ ): FreezeDrop | null {
+-  __m0WiringProbe.call('survivesFreeze')
+   const hollywood = state.hollywood!
+   const enteredIds = enteredStudioIds(hollywood)
+   const issuerEntered = enteredIds.includes(proposal.issuerStudioId)
+@@ -1418,7 +1405,6 @@
+ const EXTENSION_ACCEPTED = 'they accepted the one final extension before retiring'
+ 
+ function settleCase(state: GameState, kase: TalentMarketCaseV36, week: number): GameState {
+-  __m0WiringProbe.call('settleCase')
+   const m0Case = kase.talentId === M0_SUBJECT && week === 208 ? m0CaseIdentity(state, kase) : undefined
+   const submitted = state.talentMarket.proposals.filter((p) => p.talentId === kase.talentId)
+   if (m0Case !== undefined) m0Record(state, 'freezeStart', null, {
+@@ -1550,8 +1536,7 @@
+   return rows
+ }
+ function m0Capture(state: GameState, kaseIdentity: M0CaseIdentity, proposal: TalentMarketProposal,
+-  phase: 'authorCandidate' | 'freezeProposal' | 'chooserBand', ordinal: number): M0FeasibilityCapture | undefined {
+-  if (!__m0WiringProbe.captureEnabled()) return undefined
++  phase: 'authorCandidate' | 'freezeProposal' | 'chooserBand', ordinal: number): M0FeasibilityCapture {
+   const proposalIdentity = m0ProposalIdentity(state, proposal)
+   const base = { era: 'M0' as const, week: state.market.tick, ...kaseIdentity,
+     subject: proposal.talentId, issuer: proposal.issuerStudioId, ...proposalIdentity }
+@@ -1593,16 +1578,9 @@
+ }
+ function m0Record(state: GameState, phase: string, issuerStudioId: string | null, detail: unknown,
+   contractId: string | null = null, variant: string | null = null): void {
+-  if (!__m0WiringProbe.captureEnabled()) return
+-  const __fault = __m0WiringProbe.consumeFault(phase)
+-  const __rowsBefore=m0Rows.length, __totalBefore=m0TotalBytes
+   try {
+     const week = state.market.tick
+     if (week !== 196 && week !== 208) return
+-    if (__fault === 'row-cap') m0Rows.length=M0_MAX_ROWS
+-    if (__fault === 'total-byte-cap') m0TotalBytes=M0_MAX_TOTAL_BYTES
+-    if (__fault === 'row-byte-cap') detail={pad:'x'.repeat(M0_MAX_ROW_BYTES)}
+-    if (__fault === 'serialization') { const cycle: {self?: unknown}={};cycle.self=cycle;detail=cycle }
+     if (m0Rows.length >= M0_MAX_ROWS) throw new M0ObserverError('M0 observer row bound exceeded')
+     const occurrence = m0Rows.filter(row => {
+       const r = row as { week: number; issuerStudioId: string | null; phase: string; contractId: string | null }
+@@ -1622,10 +1600,6 @@
+     if (error instanceof M0ObserverError) throw error
+     throw new M0ObserverError('M0 observer recording failed: ' +
+       (error instanceof Error ? error.message : typeof error))
+-  } finally {
+-    // Fault is single-use: a swallowed submission fault must not fail again
+-    // at a later issuerAttempt and accidentally satisfy the propagation RED.
+-    if (__fault !== null) {m0Rows.length=__rowsBefore;m0TotalBytes=__totalBefore}
+   }
+ }
+ const m0FreezeOrder = ['issuerNotEntered', 'retirementCap', 'issuerDistrusted', 'nemesisOnRoster', 'subjectCommittedElsewhere', 'startWeekMoved', 'noSeatForRole', 'belowAsk', 'belowRetirementReservation', 'materialTermsChanged', 'promiseNotFeasible', 'bonusUnaffordable'] as const
+@@ -1657,8 +1631,6 @@
+ }
+ 
+ export function advanceTalentMarketWeek(state: GameState): GameState {
+-  __m0WiringProbe.call('advanceTalentMarketWeek')
+-  __m0WiringProbe.beforeAdvance(state)
+   // Loud, never silent: a live state MUST carry the V28 root. Skipping the market
+   // for a state that merely looks un-migrated would hide a real migration fault.
+   if (state.talentMarket === undefined) {
+@@ -1832,7 +1804,6 @@
+ 
+ function authorRivalPromise(state: GameState, talentId: string, issuerStudioId: string,
+   m0Case?: M0CaseIdentity): GameState {
+-  __m0WiringProbe.call('authorRivalPromise')
+   const proposal = state.talentMarket.proposals.find((p) => p.talentId === talentId && p.issuerStudioId === issuerStudioId)
+   if (proposal === undefined || proposal.promises.length > 0) return state
+   // P14C.2b (806 §7.1): no promise rides an extension (promises × retirement is C.2c's).
+@@ -1908,7 +1879,6 @@
+  * policy change — an incumbent retains at the ask; a challenger pays above it,
+  * and a cautious studio (a long reserve) pays one band more. */
+ function rivalPremiumTier(business: RivalBusiness, descriptor: MarketCaseDescriptor): number {
+-  __m0WiringProbe.call('rivalPremiumTier')
+   const tiers = TUNING.MARKET_PREMIUM_TIERS
+   const index = (descriptor.subjectStudioId === business.studioId ? 0 : 1) + (business.policy.reserveWeeks >= 16 ? 1 : 0)
+   return tiers[Math.min(index, tiers.length - 1)]!
+@@ -2157,8 +2127,3 @@
+   const kase = latestCase(state, talentId)
+   return kase !== undefined && !TERMINAL.has(caseStatusAt(state, kase, week)) ? kase : undefined
+ }
+-
+-// Test-only access to existing complete implementations; no replacements.
+-export const m0WiringTestApi = Object.freeze({M0ObserverError,authorRivalPromise,settleCase,
+-  reset: (): void => {drainM0MarketDecisionRows();drainM0FeasibilityRows()},
+-})

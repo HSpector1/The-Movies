@@ -1,0 +1,11 @@
+{
+  "schema": "1370-am-draft-builder-author-stop/v1",
+  "decision": "PRESERVED_SCRATCH_DOCUMENT_PREPARATION_ANCHOR_STOP",
+  "executionAuthorization": false,
+  "error": "ValueError: substring not found",
+  "cause": "An exact handoff paragraph anchor used identities where the retained R2 draft used roles.",
+  "repair": "Target the existing unambiguous paragraph prefix; preserve Active order and AUTO with explicit byte equality checks.",
+  "candidateOrProtectedRuntimeExecuted": false,
+  "repositoryOrGitChanged": false,
+  "scope": "Scratch documentation authoring only; input and report drafts were produced, HANDOFF was not written at this STOP. Fresh drafts are not archive acceptance."
+}

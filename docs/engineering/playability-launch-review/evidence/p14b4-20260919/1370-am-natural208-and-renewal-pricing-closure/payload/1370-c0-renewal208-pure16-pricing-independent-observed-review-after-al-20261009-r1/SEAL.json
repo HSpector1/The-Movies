@@ -1,0 +1,40 @@
+{
+  "schema": "1370-independent-observed-review-seal/v1",
+  "decision": "ACCEPT_OBSERVED_PURE16_RENEWAL208_PRICING_AND_SOURCE_TRANSPORTED_CAUSES",
+  "independentReviewer": "/root/b109_focused_route_review",
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "1d739f9a686de05dec167816af5784a95295ecc61f11f7df464018dfea6e1c92",
+    "bytes": 26013
+  },
+  "files": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-independent-observed-review-after-al-20261009-r1/RECEIPT.json",
+      "bytes": 21527,
+      "sha256": "4610a4eeb858466c874d4b9bb2d1a51a35c268b450a93e12df44f12f9f5a6028"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-independent-observed-review-after-al-20261009-r1/ROLE-AUTHENTICATION.json",
+      "sha256": "45b9d82b1bf0fc70fce31e9301eb01196dbcdd967731face79a2cb94ace6f264",
+      "bytes": 19622
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-independent-observed-review-after-al-20261009-r1/LEDGER-AUDIT.json",
+      "sha256": "3a9e454ca11c4246324920651d1a16c839765f2f950c5429d2e1e36272e81172",
+      "bytes": 42024
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-independent-observed-review-after-al-20261009-r1/PERSON-DIFFERENCES.json",
+      "sha256": "7a3dbc3e057f203463f3ee34eac9f212051b5ed759c26ffde9d06babe03f0838",
+      "bytes": 6019
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-independent-observed-review-after-al-20261009-r1/REPORT.md",
+      "sha256": "e95b993b0bfa2c58da1ae7ad0415d2c1c5040e0477ec5e02b046072c9040647c",
+      "bytes": 3417
+    }
+  ],
+  "artifactsImmutableAtSeal": true,
+  "executionAuthorization": false
+}
+

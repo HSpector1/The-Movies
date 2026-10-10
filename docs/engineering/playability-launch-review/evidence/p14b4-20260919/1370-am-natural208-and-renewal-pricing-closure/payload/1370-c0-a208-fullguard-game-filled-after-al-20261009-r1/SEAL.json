@@ -1,0 +1,18 @@
+{
+  "actualScanGrant": null,
+  "directoryMode": "0555",
+  "executionAuthorization": false,
+  "mutableRuntimeDirectory": {
+    "device": 16777220,
+    "inode": 166821887,
+    "mode": 448,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence"
+  },
+  "schema": "1370-source-only-immutable-seal/v1",
+  "sourceFilesMode": "0444",
+  "sourcePins": {
+    "bytes": 4323,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "b8091a89177893e12d9ffd4fc414ae1d338bb9a11f9c441aae2f707a5ed05f42"
+  }
+}

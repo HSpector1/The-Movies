@@ -1,0 +1,236 @@
+{
+  "acceptedRepairReview": {
+    "bytes": 18816,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-root-source-review-after-aj-20261009-r2/RECEIPT.json",
+    "sha256": "b3e5f175da6b2cc0076b5486a6f64d24336151f93b18b84c995ca68dc4b4fd7e"
+  },
+  "actualEntryReceiptFrameSnapshotResultPredicatesSatisfiedByAuthenticatedData": true,
+  "actualProducerContractDataOnlyChecked": true,
+  "all18RecorderFunctionClassASTsEqual": true,
+  "allOther17OriginalFileBytesUnchanged": true,
+  "changedOriginalFileNames": [
+    "CONFIG.json",
+    "PROTOCOL-CHECK-RECIPE.json",
+    "RECIPE.json",
+    "record-pure-node.py",
+    "test-report-protocol.py"
+  ],
+  "config": {
+    "bytes": 14970,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/CONFIG.json",
+    "sha256": "49508521d31a2d1f9a384ebcfa4f3b09306426d8868aa92900da93f2b8d872ef"
+  },
+  "configDeltaOnly": "Six genuine A208 roles + six-hash futureA208 packet + local role path rebind + genuine A208 root observed adoption qualification role. Original historical preparation head/source and all bounds/flags/inputs/source guards remain unchanged.",
+  "configInverseByteExact": true,
+  "derivedResultQualification": "Parent-derived source-backed recorded success, independently admitted in same final game receipt. Not an original recorder RESULT or direct captured child wait status. Numeric Node/supervisor/group IDs remain unknown.",
+  "directControlParentAlarmSeconds": 60,
+  "executionAuthorization": false,
+  "futureA208": {
+    "configSha256": "eb6e99e0021809d7ad165ee5c9eba2e2b0c36ab78e34826fc11d5d488036777e",
+    "resultSha256": "e6dadba182b2f61c58965754cb4262de81575ab8372b9fe0fd38ba3dcf9cdfe0",
+    "reviewSha256": "e070833564760624ca723d942324381b1dcbdfb23af0d745bbad6e097eb5a01d",
+    "snapshotSha256": "caf921cc47b58abc23b30e60f05dd4b50a6dc29900e28a896afef69784643ce3",
+    "sourcePinsSha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf",
+    "stdoutSha256": "c4a7d1a9f2f7c6e9a7699c03ea89b9960b33f8fc79ab73c4aa303cbac6d00131"
+  },
+  "gameRootObservedAdoption": {
+    "bytes": 5419,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-GAME-OBSERVED-ADOPTION.json",
+    "sha256": "17fdc2082a68e1dbc9ca646e7a4467ad34c0a68d8eee70fca01e6970e22aaaa2"
+  },
+  "historicalDocumentation": "Original PREPARE/REPORT/CONFIG-DIFF/RECORDER-REUSE files copied verbatim as historical source/proof; do not execute PREPARE or treat historical source-only labels as current runtime receipts. New EXACT-FILL-PROOF/DELTA, recipes and source pins describe this exact fill.",
+  "nonMainRecorderDefinitions": 17,
+  "original22FileRoles": {
+    "A208-INPUT-CONTRACT.json": {
+      "bytes": 683,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/A208-INPUT-CONTRACT.json",
+      "sha256": "32cedd51027a2f52b015c7f9519ac1558f8f95e0fa7366326be72f41ab1bb500"
+    },
+    "CONFIG-DIFF.patch": {
+      "bytes": 3972,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/CONFIG-DIFF.patch",
+      "sha256": "ecc12c8c0ecb66e40661d3538b38d635eaa863d27ae9f1673c5ff1e31d59faf5"
+    },
+    "CONFIG.json": {
+      "bytes": 12590,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/CONFIG.json",
+      "sha256": "c7a24275d784df2c9a81fc8bcf1143f9daa4fe916fc73e095b121498774ce1ce"
+    },
+    "FILL-REQUIREMENTS.json": {
+      "bytes": 722,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/FILL-REQUIREMENTS.json",
+      "sha256": "be7da5e9d52aee1928a376bf901ef78cfa8f7391592e7129e0c096150a903f6d"
+    },
+    "PREPARE.py": {
+      "bytes": 26154,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/PREPARE.py",
+      "sha256": "4bf5dc0d7e4a320db7328b332a3c3f545d284a88c41606b7e6930bb1f95223fd"
+    },
+    "PRICING-INPUTS.json": {
+      "bytes": 32093,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/PRICING-INPUTS.json",
+      "sha256": "898ba633c28fae5c4a588f3a426c41f7fcde42f94303af7f3a74158591e63390"
+    },
+    "PRIMITIVE-ERASURE.json": {
+      "bytes": 870,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/PRIMITIVE-ERASURE.json",
+      "sha256": "dedb77f72574d33f68361844d7d4815cdddcfdea7ba2070b4e53a6a7cac356d1"
+    },
+    "PROTOCOL-CHECK-RECIPE.json": {
+      "bytes": 863,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/PROTOCOL-CHECK-RECIPE.json",
+      "sha256": "85bdc5b76d8091c71ac5bce8faf19cff814e917e97b65bde8be370a86b1bcd36"
+    },
+    "RECIPE.json": {
+      "bytes": 1614,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/RECIPE.json",
+      "sha256": "7bc4682eb2c563a5ab3974902d4112deff5b879850add17ba449a7219bea0657"
+    },
+    "RECORDER-REUSE.diff": {
+      "bytes": 3322,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/RECORDER-REUSE.diff",
+      "sha256": "f31a46251dfd4b2748d2022c84342be61335d64af5edc810996bb386d9b983a4"
+    },
+    "RECORDER-REUSE.json": {
+      "bytes": 1487,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/RECORDER-REUSE.json",
+      "sha256": "1483cb1f3959b061d1cbdfa21eb589ee1697a183e500df7abe64e08c52c8fce9"
+    },
+    "REPAIR-PROOF.json": {
+      "bytes": 18533,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/REPAIR-PROOF.json",
+      "sha256": "40e82c1bdaed0ef895884abf0ca2a2e8025c90dc894e8157c6a60eef4345f2ca"
+    },
+    "REPAIR-REPORT.md": {
+      "bytes": 1047,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/REPAIR-REPORT.md",
+      "sha256": "cbf64cb8b8db8d6d96fc75be5e39f1dfca1c14436a0422309aefe6039656a3d7"
+    },
+    "REPORT.md": {
+      "bytes": 1695,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/REPORT.md",
+      "sha256": "ca3e3e384b3d68be040596d35055602eb57aefd563c6894e18943a5dd1ebfcca"
+    },
+    "ROUND-SOURCE.txt": {
+      "bytes": 52,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/ROUND-SOURCE.txt",
+      "sha256": "96dc5c33c7f26e47321c49a6630619da4569388a7a32cd606f278383834c0dfd"
+    },
+    "SOURCE-MAP.json": {
+      "bytes": 26773,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/SOURCE-MAP.json",
+      "sha256": "87ed4d610443c4bbd5eefc2d1ceb52a778e4495005fbc392dc80d5619ddac13b"
+    },
+    "SOURCE-SLICES.txt": {
+      "bytes": 20963,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/SOURCE-SLICES.txt",
+      "sha256": "90bd1b716085f39791a93134cb4461472a5836c35e31a586d6fc3cfe2d20014d"
+    },
+    "authenticate-inputs.mjs": {
+      "bytes": 2500,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/authenticate-inputs.mjs",
+      "sha256": "f23609403d723dd999563336c605f27ba7919535c691a72a5690ae51d9d7c98d"
+    },
+    "record-pure-node.py": {
+      "bytes": 14530,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/record-pure-node.py",
+      "sha256": "2ee9051143bd569ffa2cfb83d5429ddea86b8c1262e3d76923a9e7acecac1e35"
+    },
+    "test-report-protocol.py": {
+      "bytes": 2082,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/test-report-protocol.py",
+      "sha256": "d99ccb86ad32009c2f5ebe599aaf45f12a6aac6f79d4a61152e3458921231554"
+    },
+    "verify-pricing-core.mjs": {
+      "bytes": 10881,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/verify-pricing-core.mjs",
+      "sha256": "6aebe062785f1dad699d4dd85a118e9bcdfa08cb748086a864aea80537b67580"
+    },
+    "verify-renewal-pricing.mjs": {
+      "bytes": 1645,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/verify-renewal-pricing.mjs",
+      "sha256": "152acd6f23192b17df3e8c3279989e3d933154929cf99a92690ba5e4d592b135"
+    }
+  },
+  "originalPricingBounds": {
+    "activeSeconds": 75,
+    "ledgerBytes": 65536,
+    "nodeSeconds": 60,
+    "stderrBytes": 1048576,
+    "stdoutBytes": 1048576,
+    "wholeSeconds": 90
+  },
+  "pricingControlsOrExecutionGrants": null,
+  "pricingCoreOrTestsExecuted": false,
+  "recorder": {
+    "bytes": 14539,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/record-pure-node.py",
+    "sha256": "dd76ceec50be94b50a4ff52c8a070ec9a691b9bbe781fabc1ac0914543bf0346"
+  },
+  "recorderForwardInverseSubstitutions": [
+    [
+      "CONFIG_SHA='c7a24275d784df2c9a81fc8bcf1143f9daa4fe916fc73e095b121498774ce1ce'",
+      "CONFIG_SHA='49508521d31a2d1f9a384ebcfa4f3b09306426d8868aa92900da93f2b8d872ef'"
+    ],
+    [
+      "'1370-c0-renewal208-pure16-pricing-'+mode+'-output-20261009-r2'",
+      "'1370-c0-renewal208-pure16-pricing-'+mode+'-output-after-al-20261009-r1'"
+    ]
+  ],
+  "recorderInverseByteExact": true,
+  "rejectedPredecessorReview": {
+    "bytes": 24354,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "d51edfa6966489365bea950568f21dcf979e61803cc923aaf4ee5ac7230fce31"
+  },
+  "schema": "1370-renewal208-pure16-exact-fill-proof/v1",
+  "sixActualRoles": {
+    "A208Config": {
+      "bytes": 6466,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json",
+      "sha256": "eb6e99e0021809d7ad165ee5c9eba2e2b0c36ab78e34826fc11d5d488036777e"
+    },
+    "A208IndependentReceipt": {
+      "bytes": 24834,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-independent-observed-review-after-al-20261009-r4/RECEIPT.json",
+      "sha256": "e070833564760624ca723d942324381b1dcbdfb23af0d745bbad6e097eb5a01d"
+    },
+    "A208Result": {
+      "bytes": 4255,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/QUALIFIED-DERIVED-SUCCESS.json",
+      "sha256": "e6dadba182b2f61c58965754cb4262de81575ab8372b9fe0fd38ba3dcf9cdfe0"
+    },
+    "A208Snapshot": {
+      "bytes": 32249,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/settlement208.json",
+      "sha256": "caf921cc47b58abc23b30e60f05dd4b50a6dc29900e28a896afef69784643ce3"
+    },
+    "A208SourcePins": {
+      "bytes": 9882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+    },
+    "A208Stdout": {
+      "bytes": 74778,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/candidate-frame.stdout",
+      "sha256": "c4a7d1a9f2f7c6e9a7699c03ea89b9960b33f8fc79ab73c4aa303cbac6d00131"
+    }
+  },
+  "sourcePinsPredecessor": {
+    "bytes": 16458,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verifier-proposal-after-aj-20261009-r2/SOURCE-PINS.json",
+    "sha256": "77a01dd3b821ac4a4396ee123b00f86bb28a64f6f6d5cb56dad28fcbababe175"
+  },
+  "status": "SOURCE_ONLY_EXACT_FILLED_UNRUN",
+  "tester": {
+    "bytes": 2082,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/test-report-protocol.py",
+    "sha256": "d4385758b42abdc3d6c56b87949e93c9083da4b9bdc465ae092bfceee9ad6194"
+  },
+  "testerForwardInverseSubstitution": [
+    "NEW_SHA='2ee9051143bd569ffa2cfb83d5429ddea86b8c1262e3d76923a9e7acecac1e35'",
+    "NEW_SHA='dd76ceec50be94b50a4ff52c8a070ec9a691b9bbe781fabc1ac0914543bf0346'"
+  ],
+  "testerFunctionClassASTsEqual": true,
+  "testerInverseByteExact": true
+}

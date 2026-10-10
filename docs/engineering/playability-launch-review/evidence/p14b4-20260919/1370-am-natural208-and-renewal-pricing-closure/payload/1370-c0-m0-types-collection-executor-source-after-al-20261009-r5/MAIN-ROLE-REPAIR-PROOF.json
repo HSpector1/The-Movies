@@ -1,0 +1,137 @@
+{
+  "actualPrelaunchFailureEvidence": null,
+  "advertisedRemoteMainRef": "refs/heads/main",
+  "allFourExecutableWholeByteInversesExact": true,
+  "allOtherRunnerDefinitionsASTExact": true,
+  "bootstrapAndLaunchDefinitionsASTExact": true,
+  "boundsSeconds": {
+    "recorderActive": 320,
+    "recorderWhole": 330,
+    "runner": 300
+  },
+  "configInverseByteExact": true,
+  "exactForwardInverseSubstitutions": {
+    "BOOTSTRAP.py": [
+      [
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5"
+      ]
+    ],
+    "LAUNCH.py": [
+      [
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5"
+      ],
+      [
+        "7166e022583531d924d67639a3d2a8a8f250bd8461f2a33cace8ce8f41c24f9c",
+        "e52b41bcb57b13e8255f9c5417aa29bdcf99e51850b0058119d4126c2c0d3172"
+      ],
+      [
+        "03768e0be95c3dccf430598f7cab47a9b5d2672be6de7d456705cbf7ec2b68a7",
+        "ac1d7e993c7ad90d73ed0d758727c249c1086c2ae02be9942c4548ceb389f5b5"
+      ],
+      [
+        "25696ed2167dafc16751ac00f96eb203d0c9ab7d700b6c382dce816af7b0056b",
+        "0ca56de3a190491911061b40728e5a919974c3f18430988ff7ca506dd3b3b922"
+      ],
+      [
+        "7cac27f161cecc3bf683fef49a94a779180c1777dc08199595f08fa1242ca423",
+        "a5b04448e4a5205064191cafbef62c01f341b6741f88ac6684dffe12593e2ee9"
+      ]
+    ],
+    "runner.py": [
+      [
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5"
+      ],
+      [
+        "7166e022583531d924d67639a3d2a8a8f250bd8461f2a33cace8ce8f41c24f9c",
+        "e52b41bcb57b13e8255f9c5417aa29bdcf99e51850b0058119d4126c2c0d3172"
+      ],
+      [
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r1",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r2"
+      ],
+      [
+        "MAIN_REF='refs/heads/main'",
+        "MAIN_REF='refs/heads/main'\nLOCAL_MAIN_REF='refs/remotes/origin/main'"
+      ],
+      [
+        "for ref,oid in ((REF,CURRENT_HEAD),(MAIN_REF,MAIN_OID)):\n  need(cmd(['git','rev-parse',ref])==oid and cmd(['git','ls-remote','origin',ref])==oid+'\\t'+ref,'local/remote ref drift')",
+        "for local_ref,remote_ref,oid in ((REF,REF,CURRENT_HEAD),(LOCAL_MAIN_REF,MAIN_REF,MAIN_OID)):\n  need(cmd(['git','rev-parse',local_ref])==oid and cmd(['git','ls-remote','origin',remote_ref])==oid+'\\t'+remote_ref,'local/remote ref drift')"
+      ]
+    ],
+    "supervise.py": [
+      [
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5"
+      ],
+      [
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r1/20261009-m0-types-after-al-r1.RECORDER-RESULT.json",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r2/20261009-m0-types-after-al-r2.RECORDER-RESULT.json"
+      ],
+      [
+        "c0-m0-types-20261009-m0-types-after-al-r1.lane.log",
+        "c0-m0-types-20261009-m0-types-after-al-r2.lane.log"
+      ],
+      [
+        "25696ed2167dafc16751ac00f96eb203d0c9ab7d700b6c382dce816af7b0056b",
+        "0ca56de3a190491911061b40728e5a919974c3f18430988ff7ca506dd3b3b922"
+      ],
+      [
+        "03768e0be95c3dccf430598f7cab47a9b5d2672be6de7d456705cbf7ec2b68a7",
+        "ac1d7e993c7ad90d73ed0d758727c249c1086c2ae02be9942c4548ceb389f5b5"
+      ],
+      [
+        "7166e022583531d924d67639a3d2a8a8f250bd8461f2a33cace8ce8f41c24f9c",
+        "e52b41bcb57b13e8255f9c5417aa29bdcf99e51850b0058119d4126c2c0d3172"
+      ],
+      [
+        "MAIN_REF='refs/heads/main'",
+        "MAIN_REF='refs/heads/main'\nLOCAL_MAIN_REF='refs/remotes/origin/main'"
+      ],
+      [
+        "for ref,oid in ((PRODUCTION_REF,HEAD),(MAIN_REF,MAIN_OID)):\n  need(git('rev-parse',ref)==oid and git('ls-remote','origin',ref)==oid+'\\t'+ref,'local/remote ref')",
+        "for local_ref,remote_ref,oid in ((PRODUCTION_REF,PRODUCTION_REF,HEAD),(LOCAL_MAIN_REF,MAIN_REF,MAIN_OID)):\n  need(git('rev-parse',local_ref)==oid and git('ls-remote','origin',remote_ref)==oid+'\\t'+remote_ref,'local/remote ref')"
+      ]
+    ]
+  },
+  "executionAuthorization": false,
+  "freshRuntimeProtectionProofToolsContextGrantUnknown": true,
+  "functionalDelta": "Use distinct local_ref and advertised remote_ref in exactly runner.guard and supervisor.preflight; current branch remains same role for both calls. All OID/TAB/current/source/clean/AC/disk/lane/extra-ref/source/dependency-inventory/ownership/deadline/output predicates remain.",
+  "historicalM0Adoption": {
+    "bytes": 6133,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-complete-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad"
+  },
+  "historicalM0Facts": {
+    "bytes": 1872789,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-facts-after-aj-20261009-r3.json",
+    "sha256": "e9f4829c501cc90475b9067c8ae32580fe5fca14fc40950ee083031f89081ba2"
+  },
+  "localMainRef": "refs/remotes/origin/main",
+  "mainOid": "c902a704eb948cc576083d0973c8c23e59937dc1",
+  "noRuntimeGitBranchesPrivateReadsTestsScansOrSignals": true,
+  "onlyChangedRunnerDefinition": "guard",
+  "onlyChangedSupervisorDefinitionAfterInverseConfigBinding": "preflight",
+  "operationalFailure": "Parent actual prelaunch reports local refs/heads/main nonexistent; refs/remotes/origin/main=c902 is actual local role, advertised remote refs/heads/main stays c902. Existing source preserved operational-incompatible before any grant. No local branch created.",
+  "originalFullSourceCounts": {
+    "dependencyPackages": 21,
+    "directories": 113,
+    "factPhysicalRoles": 1802,
+    "files": 1740,
+    "overlays": 5,
+    "regularBytes": 119393120
+  },
+  "predecessorSourcePins": {
+    "bytes": 14743,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/SOURCE-PINS.json",
+    "sha256": "10fc7a0a39cb78f092476a31a351912fc254eb39a2b827c28fe8ba459140fd0a"
+  },
+  "productionHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "productionRef": "refs/heads/wip/headless-program-20260916-ts",
+  "runnerMainASTUnchanged": true,
+  "schema": "1370-m0-local-main-versus-advertised-main-role-repair/v1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "SOURCE_ONLY_UNRUN_LOCAL_MAIN_ROLE_REPAIR"
+}

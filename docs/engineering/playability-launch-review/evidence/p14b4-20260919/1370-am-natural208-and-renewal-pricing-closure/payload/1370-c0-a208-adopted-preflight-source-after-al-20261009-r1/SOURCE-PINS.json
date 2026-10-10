@@ -1,0 +1,51 @@
+{
+  "actualAdoptedInputRoles": null,
+  "actualFinalGameGrant": null,
+  "actualPreflight": null,
+  "executionAuthorization": false,
+  "files": {
+    "ARGV-MAP.json": {
+      "bytes": 1546,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r1/ARGV-MAP.json",
+      "sha256": "7381f03cf65bd9904e1325a28995abbc5584a51a8180d4c25950f7d946231d3c"
+    },
+    "CONFIG-PENDING.json": {
+      "bytes": 4395,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r1/CONFIG-PENDING.json",
+      "sha256": "30cd4285e6659547d60dec34db8d0413a45e20c0606542e273ab48bcccab92f8"
+    },
+    "FORWARD.diff": {
+      "bytes": 34305,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r1/FORWARD.diff",
+      "sha256": "b26ed256ef6a2d5c51ce70e5fd14d6482f4cd14b733ae9b349eef4b5f026a4a3"
+    },
+    "INVERSE.diff": {
+      "bytes": 34305,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r1/INVERSE.diff",
+      "sha256": "2d385c247ce29ca4663aa819c03209459262813284591ac367b63252032281c7"
+    },
+    "NOTE.md": {
+      "bytes": 891,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r1/NOTE.md",
+      "sha256": "2559d11c01eedecd77fe1418e580cd5cac9abf39b0f1331149a855141c4d0930"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 2168,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r1/SOURCE-PROOF.json",
+      "sha256": "507ed07b9ab37c2999f95cd516a3dc383b64c82c2929a519d398c5c41121cfbd"
+    },
+    "preflight.py": {
+      "bytes": 22777,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r1/preflight.py",
+      "sha256": "4c46eebb61cb36c23c2a32c733c1d7f8eae4d64b069ca003141a80dd0e3c5c5d"
+    }
+  },
+  "game": false,
+  "originalCurrentHelperSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+    "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+  },
+  "schema": "1370-a208-original-permitted-adopted-preflight-source-pins/v1",
+  "status": "FROZEN_SOURCE_ONLY_PENDING_ACTUAL_ADOPTED_ROLES"
+}

@@ -1,0 +1,200 @@
+{
+  "acceptedProcedureReceipt": {
+    "bytes": 1634,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-independent-procedure-review-20261008-r1/RECEIPT.json",
+    "sha256": "0d0d0358356653a50d05b10fedfdeb2bee9c66939ec4ab03a83521fc42a9e693"
+  },
+  "actualControlsAdoption": {
+    "bytes": 8775,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json",
+    "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+  },
+  "adapterReview": {
+    "bytes": 2370,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "b6c6d35760a50ad7814e7e75253a614c6756725795ea88870de562b36ddb2c6f"
+  },
+  "allActualProtectionAndGameRolesPending": true,
+  "archiveAdoptionExecution": false,
+  "candidateOrProcedureExecution": false,
+  "changes": {
+    "adopt_reviewed_candidate.py": [
+      {
+        "label": "exact fresh config pin",
+        "new": "CONFIG_SHA='6a17aef0f43cea9c5c480952ef12a69be3d1ee1b1d562166b4968198c5f1e6d4'",
+        "old": "CONFIG_SHA='4b6bf16518e9ab7c472c9147376a9a9ed5ca15f79f0dc656af8175abd85a6bf5'"
+      },
+      {
+        "label": "exact current operational role data gate",
+        "new": "def current_operational_roles(config, adopting=False):\n # Exact actual roles filled in a fresh independently reviewed config; scope is design only.\n for key in ('actualOperationalRuntimeAuthority','actualGuardBaseline'):\n  require(isinstance(config.get(key),dict),'current AL observed protection role pending '+key)\n require(isinstance(config.get('actualOperationalRuntimeAuthorityExpectedStatus'),str),'actual protection status pending')\n require(config['actualOperationalRuntimeAuthority']!=config['sourceScopeAdoption'],'source-only scope is not observed protection authority')\n names=['publishedReadback','sourceScopeAdoption','actualOperationalRuntimeAuthority','actualGuardBaseline']\n if adopting:\n  require(isinstance(config.get('actualGuardAfterFill'),dict),'current AL after-fill protection pending');names.append('actualGuardAfterFill')\n values={}\n for key in names:\n  expected=config[key];raw,_=read(expected['path']);require(sha(raw)==expected['sha256'] and len(raw)==expected['bytes'],'exact current operational role '+key);values[key]=json.loads(raw)\n publication=values['publishedReadback'];scope=values['sourceScopeAdoption'];authority=values['actualOperationalRuntimeAuthority']\n require(publication['status']=='PUSHED_REMOTE_AND_COMMITTED_TREE_VERIFIED' and publication['head']==publication['trackingWorkingHead']==config['productionHead'] and publication['sourceTree']==config['productionSourceTree'] and publication['workingTreeClean'] is True and publication['docsOnlyTransitionVerified'] is True,'current published AL role')\n require(scope['status']=='PARENT_ADOPTED_A208_OPERATIONAL_GUARD_SCOPE_ONLY' and scope['productionGuardHead']==config['productionHead'] and scope['productionSourceTree']==config['productionSourceTree'] and scope['executionAuthorization'] is False and scope['combinedHFirstRouteUnchanged'] is True and scope['H8708Waived'] is False and scope['operationalTransition']['actualHead']==config['productionHead'] and scope['operationalTransition']['docsOnlyVerified'] is True and scope['remoteRefsVerified']==config['operationalRemoteRefs'],'truthful current source-only scope')\n require(authority['status']==config['actualOperationalRuntimeAuthorityExpectedStatus'] and authority['status']!=scope['status'],'exact observed protection authority status')\n return values\n\ndef main():\n",
+        "old": "def main():\n"
+      },
+      {
+        "label": "after-fill gate before archive/private reads",
+        "new": "config=json.loads(configraw)\n current_operational_roles(config,adopting=True)\n draft=",
+        "old": "config=json.loads(configraw)\n draft="
+      },
+      {
+        "label": "same exact current AL role in binding",
+        "new": "require(profile['operationalRuntimeAuthority']==config['actualOperationalRuntimeAuthority'] and profile['productionHeadAtPreparation']==config['productionHead'],'current AL actual binding roles')\n require(profile['status']=='DRAFT_FILLED_UNREVIEWED_UNRUN'",
+        "old": "require(profile['status']=='DRAFT_FILLED_UNREVIEWED_UNRUN'"
+      },
+      {
+        "label": "same one live refs command both exact AL refs",
+        "new": "git+['ls-remote','origin','refs/heads/wip/headless-program-20260916-ts','refs/heads/main']",
+        "old": "git+['ls-remote','origin','refs/heads/wip/headless-program-20260916-ts']"
+      },
+      {
+        "label": "exact current remote map",
+        "new": "''.join(config['operationalRemoteRefs'][key]+'\\t'+key+'\\n' for key in sorted(config['operationalRemoteRefs'])),'live current AL refs drift'",
+        "old": "config['productionHead']+'\\trefs/heads/wip/headless-program-20260916-ts\\n','live remote drift'"
+      }
+    ],
+    "fill_actual_candidate.py": [
+      {
+        "label": "frozen A208 source directory",
+        "new": "SOURCE=SCRATCH/'1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1'",
+        "old": "SOURCE=SCRATCH/'1370-c0-aging-era-employment-witness-source-r7'"
+      },
+      {
+        "label": "exact fresh config pin",
+        "new": "CONFIG_SHA='6a17aef0f43cea9c5c480952ef12a69be3d1ee1b1d562166b4968198c5f1e6d4'",
+        "old": "CONFIG_SHA='4b6bf16518e9ab7c472c9147376a9a9ed5ca15f79f0dc656af8175abd85a6bf5'"
+      },
+      {
+        "label": "three already-reviewed A208 additional source blobs",
+        "new": "BLOBS={'src/core/talentMarket.ts':'f036fcec9191374dc5554c5cdc33372b53cd7926','src/core/talentSummary.ts':'f8e8539d3c0f780e58027640de333d6168db7654','src/core/tuning.ts':'c4fc34447aff0eefd6ea52f34b798a1bfa2fabc9','src/core/aging.ts'",
+        "old": "BLOBS={'src/core/aging.ts'"
+      },
+      {
+        "label": "pending actual protection role data gate",
+        "new": "def current_operational_roles(config, adopting=False):\n # Exact actual roles filled in a fresh independently reviewed config; scope is design only.\n for key in ('actualOperationalRuntimeAuthority','actualGuardBaseline'):\n  require(isinstance(config.get(key),dict),'current AL observed protection role pending '+key)\n require(isinstance(config.get('actualOperationalRuntimeAuthorityExpectedStatus'),str),'actual protection status pending')\n require(config['actualOperationalRuntimeAuthority']!=config['sourceScopeAdoption'],'source-only scope is not observed protection authority')\n names=['publishedReadback','sourceScopeAdoption','actualOperationalRuntimeAuthority','actualGuardBaseline']\n if adopting:\n  require(isinstance(config.get('actualGuardAfterFill'),dict),'current AL after-fill protection pending');names.append('actualGuardAfterFill')\n values={}\n for key in names:\n  expected=config[key];raw,_=read(expected['path']);require(sha(raw)==expected['sha256'] and len(raw)==expected['bytes'],'exact current operational role '+key);values[key]=json.loads(raw)\n publication=values['publishedReadback'];scope=values['sourceScopeAdoption'];authority=values['actualOperationalRuntimeAuthority']\n require(publication['status']=='PUSHED_REMOTE_AND_COMMITTED_TREE_VERIFIED' and publication['head']==publication['trackingWorkingHead']==config['productionHead'] and publication['sourceTree']==config['productionSourceTree'] and publication['workingTreeClean'] is True and publication['docsOnlyTransitionVerified'] is True,'current published AL role')\n require(scope['status']=='PARENT_ADOPTED_A208_OPERATIONAL_GUARD_SCOPE_ONLY' and scope['productionGuardHead']==config['productionHead'] and scope['productionSourceTree']==config['productionSourceTree'] and scope['executionAuthorization'] is False and scope['combinedHFirstRouteUnchanged'] is True and scope['H8708Waived'] is False and scope['operationalTransition']['actualHead']==config['productionHead'] and scope['operationalTransition']['docsOnlyVerified'] is True and scope['remoteRefsVerified']==config['operationalRemoteRefs'],'truthful current source-only scope')\n require(authority['status']==config['actualOperationalRuntimeAuthorityExpectedStatus'] and authority['status']!=scope['status'],'exact observed protection authority status')\n return values\n\ndef main():\n",
+        "old": "def main():\n"
+      },
+      {
+        "label": "exact role gate before private reads",
+        "new": " configraw,_=read(HERE/'CONFIG-PENDING.json'); require(sha(configraw)==CONFIG_SHA,'configuration drift'); config=json.loads(configraw)\n current_operational_roles(config)",
+        "old": " configraw,_=read(HERE/'CONFIG-PENDING.json'); require(sha(configraw)==CONFIG_SHA,'configuration drift'); config=json.loads(configraw)"
+      },
+      {
+        "label": "historical current separation",
+        "new": "require(materializer['productionHead']==config['materializerProductionHead'],'immutable historical materializer HEAD pin')",
+        "old": "require(materializer['productionHead']==config['productionHead'],'materializer HEAD pin')"
+      },
+      {
+        "label": "exact18 observer manifest pin",
+        "new": "require(sha(sourceraw)=='3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf','frozen18 A208 source pins')",
+        "old": "require(sha(sourceraw)=='69ca5043bb533908f722126fbc93fd59ce84f0d7388180f3b60c5074076aebc2','r7 source pins')"
+      },
+      {
+        "label": "exact8 A208 observer map",
+        "new": "require(len(profile['observerSha256'])==8",
+        "old": "require(len(profile['observerSha256'])==7"
+      },
+      {
+        "label": "actual qualified Node22 separate historical materializer",
+        "new": "node=Path(profile['nodeExecPath']); node_role=executable(node);require(node_role['sha256']=='0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6','accepted physical Node22 executable')",
+        "old": "node=Path(materializer['nodePath']); node_role=executable(node);require(node_role['sha256']==materializer['nodeSha256'],'bound materializer Node executable')"
+      },
+      {
+        "label": "current AL binding from actual roles",
+        "new": "profile.update(status='DRAFT_FILLED_UNREVIEWED_UNRUN',executionAuthorization=False,exactReview=None,repoRoot=str(root),productionHeadAtPreparation=config['productionHead'],operationalRuntimeAuthority=config['actualOperationalRuntimeAuthority'])",
+        "old": "profile.update(status='DRAFT_FILLED_UNREVIEWED_UNRUN',executionAuthorization=False,exactReview=None,repoRoot=str(root))"
+      },
+      {
+        "label": "same one live refs command both exact AL refs",
+        "new": "git+['ls-remote','origin','refs/heads/wip/headless-program-20260916-ts','refs/heads/main']",
+        "old": "git+['ls-remote','origin','refs/heads/wip/headless-program-20260916-ts']"
+      },
+      {
+        "label": "exact current remote map",
+        "new": "require(remote==''.join(config['operationalRemoteRefs'][key]+'\\t'+key+'\\n' for key in sorted(config['operationalRemoteRefs'])),'live current AL refs')",
+        "old": "require(remote==config['productionHead']+'\\trefs/heads/wip/headless-program-20260916-ts\\n','live remote HEAD')"
+      }
+    ]
+  },
+  "currentProductionHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "currentPublishedReadback": {
+    "bytes": 1250,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+    "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+  },
+  "exactForwardInverseRestoresOriginalSources": true,
+  "executionAuthorization": false,
+  "m0RematerializationOrNewRescanGate": false,
+  "materializerOriginalHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+  "observer18Manifest": {
+    "bytes": 9882,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+    "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+  },
+  "observerReview": {
+    "bytes": 5517,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+  },
+  "originalAdopt": {
+    "bytes": 13112,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-20261008-r2/adopt_reviewed_candidate.py",
+    "sha256": "5361471a3eee369f2418e92353c731ca0b0120020652d678b8a846707d345eb9"
+  },
+  "originalConfig": {
+    "bytes": 6291,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-20261008-r2/CONFIG-PENDING.json",
+    "sha256": "4b6bf16518e9ab7c472c9147376a9a9ed5ca15f79f0dc656af8175abd85a6bf5"
+  },
+  "originalFill": {
+    "bytes": 16046,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-20261008-r2/fill_actual_candidate.py",
+    "sha256": "e89850aeea8dbf8dfd57b7efbeea33977028d1fd4fe6f5497cc6bc3cb76a3516"
+  },
+  "originalHelperASTDefinitionsUnchanged": {
+    "adopt_reviewed_candidate.py": 7,
+    "fill_actual_candidate.py": 6
+  },
+  "predecessorGamePacket": {
+    "bytes": 1968,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-launch-binding-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "b83746ff6008700739d72ef124006cf1eaac8f53546dfe74245285647c7b0b5e"
+  },
+  "privateReadOrWriteGitScanSignals": false,
+  "schema": "1370-a208-current-al-exact-preparation-source-proof/v1",
+  "sixFileSourceTemplates": {
+    "BINDING-DRAFT.json": {
+      "bytes": 5986,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/candidate-template/BINDING-DRAFT.json",
+      "sha256": "6e5b3e89d9dcc2fcfe4a386adf90eb81b574fa040bd28f6b51489dea17354a99"
+    },
+    "BINDING-SEMANTIC.json": {
+      "bytes": 5877,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/candidate-template/BINDING-SEMANTIC.json",
+      "sha256": "a293acbe82982b437a9a3a4deaff641b89f8bca9572a68e332019650dde40d9c"
+    },
+    "CANDIDATE-PINS.json": {
+      "bytes": 726,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/candidate-template/CANDIDATE-PINS.json",
+      "sha256": "67dd19a6e82ec911c79f318f0223bdafa7def8fa46dda9415ae1b375be2ed8ba"
+    },
+    "DRAFT-IDENTITY.json": {
+      "bytes": 1491,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/candidate-template/DRAFT-IDENTITY.json",
+      "sha256": "fb138253c87dee38037fceb1640b9a363c800fee3fca11152a8edbf92555f4b0"
+    },
+    "DRAFT-REPORT.json": {
+      "bytes": 1850,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/candidate-template/DRAFT-REPORT.json",
+      "sha256": "2831ae055b1e5db5c0062ec904a87f7ee530947f7eadba5b84361c77494599d2"
+    },
+    "LAUNCH-SPEC-DRAFT.json": {
+      "bytes": 11814,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/candidate-template/LAUNCH-SPEC-DRAFT.json",
+      "sha256": "0afa1e27a6e125f745ad5649e45e6035d43fe46eaa1e3e223b3de2657f0f3440"
+    }
+  },
+  "sourceAuthorityNeverFillsOperationalRuntimeAuthority": true,
+  "sourceOnlyScopeAdoption": {
+    "bytes": 2476,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "5307f365af644cefb94f6eca5bd8188b9e4a4c2198a9ccf6b72f0671dfd32998"
+  }
+}

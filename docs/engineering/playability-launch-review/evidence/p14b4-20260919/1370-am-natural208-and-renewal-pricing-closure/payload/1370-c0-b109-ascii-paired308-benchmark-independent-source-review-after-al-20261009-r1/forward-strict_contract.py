@@ -1,0 +1,78 @@
+"""Held strict paired308 report contract. No execution or grant on import."""
+import json,math
+EXPECTED = {'schema': '1370-b109-ascii-paired308-benchmark/v1', 'status': 'PURE_INDEXED308_SELECTED2529_ASCII_STRING_TOKEN_BENCHMARK_COMPLETE', 'timedArms': {'reference': 'SELECTED_BOUNDED_TOKEN_CHUNK_2529', 'candidate': 'ASCII_STRING_TOKEN_f382'}, 'readerAndPurityRole': 'UNCHANGED_STREAMING_12c37_READER_PARSER_BYTE_PURITY_NOT_TIMED', 'schedule': {'inputs': ['state', 'wholeRow'], 'warmupPairsPerInput': 1, 'measuredPairsPerInput': 3, 'warmupOrder': ['reference', 'candidate'], 'measuredOrders': [['reference', 'candidate'], ['candidate', 'reference'], ['reference', 'candidate']]}, 'weightsBothArms': {'state': 3526, 'wholeRow': 1984}, 'formula': '(3526*stateMedianMs+1984*wholeRowMedianMs)/1000', 'constantEarlyFixtureIllustrationOnly': True, 'illustrationNotMeasuredRuntimeLowerBoundOrHeadroom': True, 'fixture': {'member': 308, 'rawBytes': 4228063, 'rawSha256': '9343625f2cd72964727f7d0b6679d89c0c85ba855208554af13a239d78bb968a', 'stateBytes': 2103442, 'stateSha256': 'cac7fcc155b45be663ac516b244cf3e5fe0c4ec4fb204fb6bd173d9b17d04f7e'}, 'captureWholeHashProvenance': 'PRIOR_ACCEPTED_ONLY_NOT_REHASHED_HERE', 'currentCaptureMetadataRole': 'RETAINED_PRIOR_METADATA_REQUIRED_EXACT_AT_GRANT_AND_READ_NOT_A_NEW_PREPARATION_OBSERVATION', 'retainedReaderClosedExact': True, 'rawAndStateExactEachTrial': True, 'inputPurityEachTrial': True, 'indexedMemberDecodedOnly': True, 'wholeCaptureReadOrDecoded': False, 'game': False, 'saveImports': False, 'executionAuthorization': False, 'performanceWin': False, 'sourcePromotionAuthorized': False, 'full109Accepted': False, 'P17P18Accepted': False, 'claimLimit': 'Same newly recorded genuine indexed308 selected2529 versus ASCII f382 encoder-only paired timing under standard native builtins. Both-arm weighted values are constant-early-fixture illustrations, not measured full109 runtime, lower bounds or headroom. Later growth, intervention content and non-encoder work remain unmeasured. Preserve regressions; no cross-session controlled comparison, source promotion, game/integration/full109 retry or P17/P18 acceptance. B109300/375/390 and both complete110-boundary arms remain unchanged.'}
+PRODUCER_CAP = 1048576
+
+def require(ok, message):
+    if not ok:
+        raise RuntimeError('STOP_' + message)
+
+def unique_object(pairs):
+    result = {}
+    for key, value in pairs:
+        require(key not in result, 'DUPLICATE_JSON_FIELD')
+        result[key] = value
+    return result
+
+def forbidden_constant(value):
+    raise RuntimeError('STOP_NONFINITE_JSON_' + value)
+
+def strict_json(raw):
+    return json.loads(raw, object_pairs_hook=unique_object, parse_constant=forbidden_constant)
+
+def exact(actual, wanted):
+    if type(actual) is not type(wanted):
+        return False
+    if type(wanted) is dict:
+        return set(actual) == set(wanted) and all(exact(actual[k], v) for k, v in wanted.items())
+    if type(wanted) is list:
+        return len(actual) == len(wanted) and all(exact(x, y) for x, y in zip(actual, wanted))
+    return actual == wanted
+
+def number(value):
+    return type(value) in (int,float) and math.isfinite(value) and value >= 0
+
+def validate_producer(stdout, stderr, config):
+    require(type(stdout) is bytes and type(stderr) is bytes, 'STREAM_TYPES')
+    require(0 < len(stdout) <= PRODUCER_CAP and not stderr, 'PRODUCER_STREAM_BOUNDS')
+    require(stdout.endswith(b'\n') and stdout.count(b'\n') == 1, 'SINGLE_JSON_LINE')
+    report = strict_json(stdout.decode('utf-8',errors='strict')[:-1])
+    dynamic = {'timingsMs','warmupMs','trialPairs','mediansMs','weightedBothArmConstantEarlyFixtureIllustrationSeconds','sourceRoles','retainedCaptureMetadata','elapsedSeconds'}
+    require(type(report) is dict and set(report) == set(EXPECTED) | dynamic, 'EXACT_REPORT_FIELDS')
+    require(exact(config['expectedReport'], EXPECTED), 'CONFIG_EXPECTED_REPORT')
+    for key, wanted in EXPECTED.items():
+        require(exact(report[key], wanted), 'REPORT_STATIC_' + key.upper())
+    require(exact(report['sourceRoles'],config['roles']) and exact(report['retainedCaptureMetadata'],config['currentCaptureMetadata']), 'REPORT_SOURCE_AND_CAPTURE_ROLES')
+    require(number(report['elapsedSeconds']) and report['elapsedSeconds'] < 60, 'REPORT_ELAPSED')
+    arms = ['reference','candidate']
+    labels = ['state','wholeRow']
+    for field in ('timingsMs','warmupMs','trialPairs','mediansMs'):
+        require(type(report[field]) is dict and set(report[field]) == set(labels), 'INPUT_ROSTER_' + field.upper())
+    for label in labels:
+        samples = report['timingsMs'][label]
+        warmup = report['warmupMs'][label]
+        medians = report['mediansMs'][label]
+        for rows in (samples,warmup,medians):
+            require(type(rows) is dict and set(rows) == set(arms), 'ARM_ROSTER')
+        for arm in arms:
+            require(type(samples[arm]) is list and len(samples[arm]) == 3 and all(number(v) for v in samples[arm]), 'MEASURED_RAW_SAMPLES')
+            require(number(warmup[arm]) and number(medians[arm]) and medians[arm] == sorted(samples[arm])[1], 'WARMUP_AND_MEDIAN')
+        pairs = report['trialPairs'][label]
+        require(type(pairs) is list and len(pairs) == 4, 'RAW_PAIR_COUNT')
+        for index, pair in enumerate(pairs):
+            require(type(pair) is dict and set(pair) == {'phase','trial','order','timingsMs','exactOutputBytes','rowPurity','statePurity','retainedFdAndPathIdentity'}, 'RAW_PAIR_FIELDS')
+            trial = index - 1
+            order = ['candidate','reference'] if trial == 1 else arms
+            require(type(pair['trial']) is int and pair['trial'] == trial and pair['phase'] == ('warmup' if index == 0 else 'measured') and exact(pair['order'],order), 'RAW_PAIR_SCHEDULE')
+            require(type(pair['timingsMs']) is dict and set(pair['timingsMs']) == set(arms), 'RAW_PAIR_TIMING_ARMS')
+            for arm in arms:
+                wanted = warmup[arm] if index == 0 else samples[arm][trial]
+                require(number(pair['timingsMs'][arm]) and pair['timingsMs'][arm] == wanted, 'RAW_PAIR_SAMPLE_BINDING')
+            for flag in ('exactOutputBytes','rowPurity','statePurity','retainedFdAndPathIdentity'):
+                require(pair[flag] is True, 'RAW_PAIR_CHECK_' + flag.upper())
+    weighted = report['weightedBothArmConstantEarlyFixtureIllustrationSeconds']
+    require(type(weighted) is dict and set(weighted) == set(arms), 'WEIGHTED_ARM_ROSTER')
+    for arm in arms:
+        wanted = (3526*report['mediansMs']['state'][arm]+1984*report['mediansMs']['wholeRow'][arm])/1000
+        require(number(weighted[arm]) and weighted[arm] == wanted, 'WEIGHTED_BOTH_ARM_FORMULA')
+    return report

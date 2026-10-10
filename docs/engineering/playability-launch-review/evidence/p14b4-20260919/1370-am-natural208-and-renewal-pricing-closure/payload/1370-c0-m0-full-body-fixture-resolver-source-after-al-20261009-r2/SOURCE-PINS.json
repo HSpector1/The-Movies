@@ -1,0 +1,137 @@
+{
+  "actualM0Types": null,
+  "controlsReadyForRuntime": false,
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "files": {
+    "LESSONS.md": {
+      "bytes": 2741,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/LESSONS.md",
+      "sha256": "8c9fdccd3724bc5251448c6a9cc40b9a54ea4f92918f4182a6517df36f7a5db0"
+    },
+    "NEXT-STEPS.md": {
+      "bytes": 5920,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/NEXT-STEPS.md",
+      "sha256": "aceb654ec7d371b389fb245ffa89ec70e0e9edbaa4bf272a511250913bc873b5"
+    },
+    "RECORDED-ROUTE-UNFILLED.json": {
+      "bytes": 3563,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/RECORDED-ROUTE-UNFILLED.json",
+      "sha256": "4d8a17c565102c6bc622a4f93af1fb31b0c36f31c94c38f2e58befc1fee9eb04"
+    },
+    "RESOLUTION-SOURCE-BINDING.json": {
+      "bytes": 77168,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/RESOLUTION-SOURCE-BINDING.json",
+      "sha256": "27bd252cb87ed8249baac1aac9b656aaa10d030d39fef576d2be2e8fb18a0db3"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 4969,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/SOURCE-PROOF.json",
+      "sha256": "67187f03a0233197d2c3a98822382d6775c10b4feb50c60a79658982d7d25076"
+    },
+    "build-continuation.py": {
+      "bytes": 8039,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/build-continuation.py",
+      "sha256": "02618706e2d3eb824ee34f7842f53ded33195ae5f99ef06dff51d0800a9dbe17"
+    },
+    "canonical-resolver.mjs": {
+      "bytes": 2363,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/canonical-resolver.mjs",
+      "sha256": "429cc7b8ad0f6be2f851a2f10ef431d63192b912e0864c7602fd6072c4ae14fd"
+    },
+    "config.mjs": {
+      "bytes": 1016,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/config.mjs",
+      "sha256": "39036ee18c368b5166f1dc8ea191cf8bdffca6d2b1316e29aa4ec84590c39a96"
+    },
+    "controls/full-body-controls.ts": {
+      "bytes": 9385,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/controls/full-body-controls.ts",
+      "sha256": "a74fd2342b7cc8b5cdb059acd187e68c49f9c6d9e35b46ceaf2166829d35e71c"
+    },
+    "core.test.ts": {
+      "bytes": 2528,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/core.test.ts",
+      "sha256": "b2af5a489d29cb285d89b37cedd3a87f5275f90cfdc46574a6b541fde51f25da"
+    },
+    "derivative/src/core/employment.ts": {
+      "bytes": 28353,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/derivative/src/core/employment.ts",
+      "sha256": "07262d62f6c6de0a849e5bfea124d01be2dbcbbb7edb7b3b6ead32025318b75a"
+    },
+    "derivative/src/core/m0WiringProbe.ts": {
+      "bytes": 2457,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/derivative/src/core/m0WiringProbe.ts",
+      "sha256": "3a3d75e5d849a94e14806239566bc72ca10af497bca71925a6f59d7db5714a85"
+    },
+    "derivative/src/core/opportunityPromises.ts": {
+      "bytes": 25031,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/derivative/src/core/opportunityPromises.ts",
+      "sha256": "90d49b0c76553a06d9c0bbabe568b8624270fe939b8e502a26fac9adc99065ee"
+    },
+    "derivative/src/core/promises.ts": {
+      "bytes": 113287,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/derivative/src/core/promises.ts",
+      "sha256": "0e14a0056d8d70ed2b93d217bc0829c6284142fd9ed93033ce8880e56691b6cb"
+    },
+    "derivative/src/core/rng.ts": {
+      "bytes": 8719,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/derivative/src/core/rng.ts",
+      "sha256": "04a835a5f63bf64994d01608423876b8d3a0e2862c8da095212848683becf9e5"
+    },
+    "derivative/src/core/talentMarket.ts": {
+      "bytes": 119434,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/derivative/src/core/talentMarket.ts",
+      "sha256": "ce06afb3069c83dc1d9ee1fb8a03b7f1609c0db41fc3ea8078b455061455ed2d"
+    },
+    "diffs/controls.forward.diff": {
+      "bytes": 3980,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/diffs/controls.forward.diff",
+      "sha256": "45d9e81b018d4b4d9eb992abf7bf1e0536cd202d2218f72e8cc3532b6efb471d"
+    },
+    "diffs/opportunityPromises.ts.forward.diff": {
+      "bytes": 794,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/diffs/opportunityPromises.ts.forward.diff",
+      "sha256": "209c5e36edc2a219e8914d0040401c095f932451523caee83189f81f67b42888"
+    },
+    "diffs/opportunityPromises.ts.inverse.diff": {
+      "bytes": 794,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/diffs/opportunityPromises.ts.inverse.diff",
+      "sha256": "bb145c4b46f8645ce48ee6ee4ccd7f0c62cff19219587ed0524686a26a11015b"
+    },
+    "diffs/talentMarket.ts.forward.diff": {
+      "bytes": 1394,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/diffs/talentMarket.ts.forward.diff",
+      "sha256": "0e16c805bf42ddc840d793c8f6c89e8471cd382233a710dd0396393c20730111"
+    },
+    "diffs/talentMarket.ts.inverse.diff": {
+      "bytes": 1394,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/diffs/talentMarket.ts.inverse.diff",
+      "sha256": "8e6f08f02b2386e2b38dc4ddc60346fea20ce0c0a0d7c4a5ce0c60c24ba116bb"
+    },
+    "fixtures.ts": {
+      "bytes": 6863,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/fixtures.ts",
+      "sha256": "5ff38007b8126571e9fa84a9efe94f35866be409d3c35b22f9c90b5ce3e0315d"
+    },
+    "mutants/typed-propagation-removed-talentMarket.ts": {
+      "bytes": 119464,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/mutants/typed-propagation-removed-talentMarket.ts",
+      "sha256": "074d0cfd58e245bb35883b79bf72dda428884fc2bb49ea918da6f2320c235ef3"
+    },
+    "ordering.ts": {
+      "bytes": 8471,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/ordering.ts",
+      "sha256": "34ae1ca995188fc5b52fcdf203325ab508f3f11882ffb51f8165b5709a166c5e"
+    },
+    "seal-source.py": {
+      "bytes": 3229,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/seal-source.py",
+      "sha256": "4406815dbfc08d60a02149cac279ce6e514c2607bf129ce1efc8dc9d95ff07a9"
+    }
+  },
+  "fixtureRoles": null,
+  "operationalProtection": null,
+  "schema": "1370-m0-full-body-source-continuation-pins/v1",
+  "sourceOnlyMethodsNotRuntimeGrants": true
+}

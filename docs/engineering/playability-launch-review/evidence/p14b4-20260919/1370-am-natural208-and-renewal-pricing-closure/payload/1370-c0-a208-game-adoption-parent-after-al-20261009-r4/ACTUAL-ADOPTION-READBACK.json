@@ -1,0 +1,108 @@
+{
+  "actualPreflight": null,
+  "actualTool": {
+    "bytes": 714,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-adoption-parent-after-al-20261009-r4/ACTUAL-TOOL.json",
+    "sha256": "7156441db840018cb556c429d16046d5f6555899de23948fef8f3bf7450f1b8e"
+  },
+  "actualToolExit": 0,
+  "actualToolSessionId": 9960,
+  "adoptedBinding": {
+    "bytes": 6466,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json",
+    "sha256": "eb6e99e0021809d7ad165ee5c9eba2e2b0c36ab78e34826fc11d5d488036777e"
+  },
+  "adoptedLaunch": {
+    "bytes": 14438,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4/ADOPTED-LAUNCH-SPEC.json",
+    "sha256": "8b00d32003449bd4710f312c9e5afe1e13732de60a158542c5f546f56f11cde5"
+  },
+  "adopterExit": 0,
+  "adoptionResult": {
+    "bytes": 1651,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4/ADOPTION-RESULT.json",
+    "sha256": "d3e50b0410d6c42c6361c6b6cf675c60415a4358649e412719ef60e07ae06a8d"
+  },
+  "archiveManifest": {
+    "bytes": 1040,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4/ARCHIVE-MANIFEST.json",
+    "sha256": "e62c9abb2f7ceb1620bff4fec7f5fc3e656dd1888e8a86d701000fba3a602eea"
+  },
+  "archivedSix": {
+    "BINDING-DRAFT.json": {
+      "bytes": 6212,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-pre-adoption-archive-after-al-20261009-r4/BINDING-DRAFT.json",
+      "sha256": "023187fa9eda57647abc7070f2e3c5aab42aa61d8020ae3b713f29a9367557ef"
+    },
+    "BINDING-SEMANTIC.json": {
+      "bytes": 6109,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-pre-adoption-archive-after-al-20261009-r4/BINDING-SEMANTIC.json",
+      "sha256": "db30abab9b0fa41d45c6d8c297f57e1c54a17fc42f3914bd3f20b0c5b714dbd6"
+    },
+    "CANDIDATE-PINS.json": {
+      "bytes": 1013,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-pre-adoption-archive-after-al-20261009-r4/CANDIDATE-PINS.json",
+      "sha256": "8cc74c5b47a8cc4b6830917c9f4409063dc99ab3c1994b974c20a36252a735d1"
+    },
+    "DRAFT-IDENTITY.json": {
+      "bytes": 1296,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-pre-adoption-archive-after-al-20261009-r4/DRAFT-IDENTITY.json",
+      "sha256": "4e182d6bc66b2ac1e6a6d13c1d99415264d762ea095e7ef72fedc751d433ea08"
+    },
+    "DRAFT-REPORT.json": {
+      "bytes": 16887,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-pre-adoption-archive-after-al-20261009-r4/DRAFT-REPORT.json",
+      "sha256": "f13613f5098118e3ea84f27f810374a53411a8e86d0714dc60d55eff98f36b20"
+    },
+    "LAUNCH-SPEC-DRAFT.json": {
+      "bytes": 14175,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-pre-adoption-archive-after-al-20261009-r4/LAUNCH-SPEC-DRAFT.json",
+      "sha256": "ee1ef0ca3270cfb82d6ef7eb72b358bf3dbe2c0ffd89084412e38d02cbdae4c0"
+    }
+  },
+  "changedFields": [
+    "exactReview",
+    "executionAuthorization",
+    "status"
+  ],
+  "finalGameGrant": null,
+  "game": false,
+  "globalWorkerAbsenceClaim": false,
+  "grant": {
+    "bytes": 5154,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-adoption-parent-after-al-20261009-r4/ADOPTER-GRANT.json",
+    "sha256": "189e2742a743028ea5b176427e95ee5eec08815082b4b338a9bb9e4a8f3b67f3"
+  },
+  "heavyLaneLockAbsent": true,
+  "otherFiveOriginalPathsUnchanged": true,
+  "ownedAdopterPgid": 21229,
+  "ownedAdopterPid": 21229,
+  "schema": "1370-root-a208-actual-adoption-readback/v1",
+  "semanticSha256": "dc03453dfb291c85f009666c264af7287114dd3e4a4d5851e4da558af743a254",
+  "status": "ACTUAL_ARCHIVE6_ADOPT3_COMPLETE_PREFLIGHT_REQUIRED",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-adoption-parent-after-al-20261009-r4/adoption.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 1507,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-adoption-parent-after-al-20261009-r4/adoption.stdout",
+    "sha256": "197d1497d46ba3fc2044b2076d587132a12b7dc06d4c69e15d1181aeaf729e55"
+  },
+  "utc": "2026-10-10T00:54:33.651423+00:00",
+  "zeroSignalChecks": [
+    {
+      "id": 21229,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 21229,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    }
+  ]
+}

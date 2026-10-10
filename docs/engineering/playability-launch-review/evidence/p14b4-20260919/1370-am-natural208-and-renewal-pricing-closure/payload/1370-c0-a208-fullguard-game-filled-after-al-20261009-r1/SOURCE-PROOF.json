@@ -1,0 +1,76 @@
+{
+  "GitOrProcessProbes": false,
+  "M0ReadbackGateAdded": false,
+  "actualScanGrant": null,
+  "actualScanOutcome": null,
+  "actualScope": {
+    "bytes": 2476,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "5307f365af644cefb94f6eca5bd8188b9e4a4c2198a9ccf6b72f0671dfd32998"
+  },
+  "candidateImportedOrExecuted": false,
+  "configChangedFields": [
+    "productionHead",
+    "parentScopeAdoption",
+    "operationalRemoteRefs",
+    "declaredWitnessScratchChildren",
+    "status"
+  ],
+  "configStatusChangeIsMetadataOnly": true,
+  "executionAuthorization": false,
+  "filledConfig": {
+    "bytes": 3906,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
+    "sha256": "20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41"
+  },
+  "filledGuard": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+    "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+  },
+  "heldConfig": {
+    "bytes": 3579,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/CONFIG.json",
+    "sha256": "64628bfc7f2c330a0ec172f8988942ccbbf48033758504b4421dc9a06e4ee259"
+  },
+  "heldGuard": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/snapshot.py",
+    "sha256": "d2e0e8707cd59945cf8766ff10d86386312beb3a1e3e2a209f204a6f043c85e8"
+  },
+  "heldPins": {
+    "bytes": 4886,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "e7fe2bef4cc0e7ff1695c91b821860e4ec568d543c10dcd3f68205531d155c41"
+  },
+  "historicalInvocations": {
+    "beforeFillTool": 43355,
+    "postflightTool": 84610
+  },
+  "inventoriesRun": false,
+  "onlyGuardSourceChange": "CONFIG_SHA",
+  "outputParentRole": {
+    "device": 16777220,
+    "inode": 166821887,
+    "mode": 448,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence"
+  },
+  "parentEvidenceDirectoryPreparedBeforeGrant": true,
+  "publishedReadback": {
+    "bytes": 1250,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+    "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+  },
+  "retainedHLeaf": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+  "schema": "1370-a208-al-exact-filled-guard-source-proof/v1",
+  "tenNonMainHelpersAndAllMainPredicatesUnchanged": true,
+  "wholeGuardByteAndASTInverse": true,
+  "wholeScanDeadlineInvented": false,
+  "wrapper": {
+    "bytes": 9691,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/grant_before_fill.py",
+    "sha256": "5100a89373a729fe7f80714fc740b76d6fc3e45f85c869c381246ac29a21678e"
+  },
+  "wrapperActualRoleConsumersCheckedAgainstActualJson": true,
+  "wrapperSyntaxASTParsedOnly": true
+}

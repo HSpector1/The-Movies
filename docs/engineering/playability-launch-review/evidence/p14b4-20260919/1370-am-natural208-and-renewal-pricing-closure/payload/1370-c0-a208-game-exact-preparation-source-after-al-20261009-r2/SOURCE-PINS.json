@@ -1,0 +1,91 @@
+{
+  "actualFillOutcome": null,
+  "actualGuardAfterFill": null,
+  "actualGuardBaseline": null,
+  "actualOperationalRuntimeAuthority": null,
+  "adoptedPreflight": null,
+  "candidateTemplates": {
+    "BINDING-DRAFT.json": {
+      "bytes": 5986,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/candidate-template/BINDING-DRAFT.json",
+      "sha256": "6e5b3e89d9dcc2fcfe4a386adf90eb81b574fa040bd28f6b51489dea17354a99"
+    },
+    "BINDING-SEMANTIC.json": {
+      "bytes": 5877,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/candidate-template/BINDING-SEMANTIC.json",
+      "sha256": "a293acbe82982b437a9a3a4deaff641b89f8bca9572a68e332019650dde40d9c"
+    },
+    "CANDIDATE-PINS.json": {
+      "bytes": 726,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/candidate-template/CANDIDATE-PINS.json",
+      "sha256": "67dd19a6e82ec911c79f318f0223bdafa7def8fa46dda9415ae1b375be2ed8ba"
+    },
+    "DRAFT-IDENTITY.json": {
+      "bytes": 1491,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/candidate-template/DRAFT-IDENTITY.json",
+      "sha256": "fb138253c87dee38037fceb1640b9a363c800fee3fca11152a8edbf92555f4b0"
+    },
+    "DRAFT-REPORT.json": {
+      "bytes": 1850,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/candidate-template/DRAFT-REPORT.json",
+      "sha256": "2831ae055b1e5db5c0062ec904a87f7ee530947f7eadba5b84361c77494599d2"
+    },
+    "LAUNCH-SPEC-DRAFT.json": {
+      "bytes": 11814,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/candidate-template/LAUNCH-SPEC-DRAFT.json",
+      "sha256": "0afa1e27a6e125f745ad5649e45e6035d43fe46eaa1e3e223b3de2657f0f3440"
+    }
+  },
+  "executionAuthorization": false,
+  "files": {
+    "BINDING-TEMPLATE-PENDING.json": {
+      "bytes": 5965,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/BINDING-TEMPLATE-PENDING.json",
+      "sha256": "234a781727d19d0859210837cf0ecc09f624508a29c5e8ed6fb992204e5785c4"
+    },
+    "CONFIG-PENDING.json": {
+      "bytes": 9365,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/CONFIG-PENDING.json",
+      "sha256": "6a17aef0f43cea9c5c480952ef12a69be3d1ee1b1d562166b4968198c5f1e6d4"
+    },
+    "FORWARD.diff": {
+      "bytes": 18414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/FORWARD.diff",
+      "sha256": "8faafc2d689c3e7239183b0c5de19d88e98e42dc745789cbc0118b82218d1527"
+    },
+    "INVERSE.diff": {
+      "bytes": 18414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/INVERSE.diff",
+      "sha256": "1c55db59feb5e15ffd6be23896849ce28b1123966a10cee2c7f21d6b0748370e"
+    },
+    "LAUNCH-SPEC-TEMPLATE.json": {
+      "bytes": 11711,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/LAUNCH-SPEC-TEMPLATE.json",
+      "sha256": "4de9ae39ac07774630b423b9c39a9dcba2ddb7909212590b518eeb955bb964c7"
+    },
+    "NOTE.md": {
+      "bytes": 2642,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/NOTE.md",
+      "sha256": "67640b6923a125a0d751dc484ceaf8ecaec4ef2be0ad1564de51d4e3d88561db"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 15796,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/SOURCE-PROOF.json",
+      "sha256": "9c3da97765235648e4c025c0fe235503a0046f061c4908434d399ecd208f5625"
+    },
+    "adopt_reviewed_candidate.py": {
+      "bytes": 15731,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/adopt_reviewed_candidate.py",
+      "sha256": "68af1dd48c610c254d38f19069f40b2d7cf0a3f130297c759ee0a56c62747f25"
+    },
+    "fill_actual_candidate.py": {
+      "bytes": 18887,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/fill_actual_candidate.py",
+      "sha256": "367a993ce007e9c7ebe57dc3194c303d5bd7210a7b46c6f84598be8c92070517"
+    }
+  },
+  "independentSourceReview": null,
+  "schema": "1370-a208-current-al-exact-preparation-source-pins/v1",
+  "status": "FROZEN_SOURCE_ONLY_UNRUN_INDEPENDENT_REVIEW_PENDING",
+  "witnessGrant": null
+}

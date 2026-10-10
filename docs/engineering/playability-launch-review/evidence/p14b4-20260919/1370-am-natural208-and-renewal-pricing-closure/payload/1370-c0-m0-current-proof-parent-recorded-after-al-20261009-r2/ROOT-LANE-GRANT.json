@@ -1,0 +1,88 @@
+{
+  "actualOutcome": null,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/c0-m0-current-proof-20261009-m0-current-proof-after-al-r2.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2/fill-grant-exec.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-proof-parent-recorded-after-al-20261009-r2/FILLED-SPEC.json",
+    "de4f38e1c1e72716b55b2a44c7c44aa4fa1331a07186c7d5befcb6c5e596d3d7"
+  ],
+  "automaticRetry": false,
+  "clockScopeAdoption": {
+    "bytes": 1745,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-CLOCK-STREAM-SCOPE-ADOPTION.json",
+    "sha256": "69c5ca0882d1d0ec33e837a9283b7267ef96a05f2744fe8d5f18123a7f488a83"
+  },
+  "combinedFillRuntime330Claim": false,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesOuterHelperIdentity": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": true,
+  "filledSpec": {
+    "bytes": 5159,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-proof-parent-recorded-after-al-20261009-r2/FILLED-SPEC.json",
+    "sha256": "de4f38e1c1e72716b55b2a44c7c44aa4fa1331a07186c7d5befcb6c5e596d3d7"
+  },
+  "game": false,
+  "helperCapture": "Original r8 combined log; no added live parent byte limiter",
+  "mode": "proof",
+  "originalChildCommandStreamCapsBytes": 8388608,
+  "ownedOuterHelperPgid": 89067,
+  "ownedOuterHelperPid": 89067,
+  "ownedOuterHelperSid": 89067,
+  "parentFillAndPrelaunchSourceReview": {
+    "bytes": 10222,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "d60c40db318d682289988ad4c86fa27d964d2c555e85d18919def1a1dc794d7c"
+  },
+  "parentSourcePins": {
+    "bytes": 3310,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "05c10ea344c211e4a57e55229a2b7b9244a86e7cf76919efeb08f0a410877572"
+  },
+  "preflightObservedAdoption": {
+    "bytes": 3220,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-PROOF-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "dd47f4c0f6f4f85ef39037a4ac98bbc512cef5705b534717f3194bb5a2baee37"
+  },
+  "preparationSeconds": 60,
+  "proofOrTypesAccepted": false,
+  "protectedFreezeContinues": true,
+  "rootLauncher": {
+    "bytes": 5435,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_route_once.py",
+    "sha256": "88453b1949ce8b60e564df8f83860b82c038e93344103b2745b4e9e740d0bffa"
+  },
+  "runtimeBoundsSeconds": {
+    "active": 320,
+    "runner": 300,
+    "whole": 330
+  },
+  "runtimeClockStartsInsideUnchangedLAUNCH": true,
+  "runtimeToolsObservation": {
+    "bytes": 5401,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-RUNTIME-TOOLS.json",
+    "sha256": "62be5c7f93316af15d73952140d2ef77316efbf27d73887871eb38f4abf8df7b"
+  },
+  "schema": "1370-root-m0-once-recorded-lane-grant/v1",
+  "sourcePins": {
+    "bytes": 11146,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "0dbae918dad76dd85350d5804f0eaee131c4cce18543ea2bb6fb716a06068926"
+  },
+  "sourceReview": {
+    "bytes": 22869,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-independent-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "65dfe1810fc36a1c467f3c4e44e578368eb18dde71f3b737fba794a57b972030"
+  },
+  "status": "GRANTED_ONCE_EXACT_M0_PROOF",
+  "utc": "2026-10-10T02:05:18.836460+00:00"
+}

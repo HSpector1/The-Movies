@@ -1,0 +1,72 @@
+{
+  "actualOutcome": null,
+  "actualTool": null,
+  "argumentMap": {
+    "bytes": 9440,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-fill-after-fill-argument-map-after-al-20261009-r1/MAP.json",
+    "sha256": "5f23c5c9bc88ba696ef106456da9926fb8ba6c696da0749459a65f707256ed89"
+  },
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r4/fill_actual_candidate.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY"
+  ],
+  "automaticRetry": false,
+  "baseline": {
+    "bytes": 8562268,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+    "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+  },
+  "beforeFillAuthority": {
+    "bytes": 10578,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+    "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesPid": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": true,
+  "game": false,
+  "independentSourceReview": {
+    "bytes": 15320,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-independent-source-review-after-al-20261009-r4/RECEIPT.json",
+    "sha256": "105445b8625884887c7c2ebdd310665745781e8964a8953dcbb5a0281fd00661"
+  },
+  "noHelperBecauseFillerRequiresLockAbsent": true,
+  "originalPerCommandTimeoutSeconds": 30,
+  "ownedFillerPgid": 54612,
+  "ownedFillerPid": 54612,
+  "ownedFillerSid": 54612,
+  "parentAddedStreamCap": null,
+  "rootLauncher": {
+    "bytes": 3937,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_fill_once.py",
+    "sha256": "121bdf62a61ba1e93abf38d66d8a0f2ca95a071db06baf7d9c2cd4c31a10025d"
+  },
+  "schema": "1370-root-a208-exact-fill-grant/v1",
+  "scope": "EXACT_SIX_ARTIFACT_FILL_ONLY",
+  "sourceAdoption": {
+    "bytes": 1529,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-R4-PREPARATION-SOURCE-ADOPTION.json",
+    "sha256": "3f09b418aa46c952858b9343c9e048dbd928ac8314937a7bd1c3f80b8d9b657a"
+  },
+  "sourcePins": {
+    "bytes": 5381,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r4/SOURCE-PINS.json",
+    "sha256": "ce2ef3da4cf01792bab5f3abd084c11bba5daa06ef28d2f6fc9839c67500732e"
+  },
+  "startMonotonic": 98955.289740338,
+  "status": "GRANTED_ONE_EXACT_REVIEWED_A208_R4_FILL",
+  "stderrPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-fill-parent-after-al-20261009-r4/fill.stderr",
+  "stdoutPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-fill-parent-after-al-20261009-r4/fill.stdout",
+  "utc": "2026-10-10T00:40:14.173674+00:00",
+  "wholeFillerDeadline": null
+}

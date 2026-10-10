@@ -1,0 +1,252 @@
+{
+  "diffRoles": {
+    "src/core/employment.ts.forward": {
+      "bytes": 1107,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/employment.ts.forward.diff",
+      "sha256": "849096d1d6338c8ceab83c39a3594c8db04bad1721f61d63fc00067e0821959c"
+    },
+    "src/core/employment.ts.inverse": {
+      "bytes": 1107,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/employment.ts.inverse.diff",
+      "sha256": "9f28435dea99ea3bb255c8a7f95f82270b891d4c5da33f3cace5017e2910070a"
+    },
+    "src/core/opportunityPromises.ts.forward": {
+      "bytes": 924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/opportunityPromises.ts.forward.diff",
+      "sha256": "97a5d4702e1204942cf16825dea82ed07521c489e74cf59aba1e5fc87cc81b75"
+    },
+    "src/core/opportunityPromises.ts.inverse": {
+      "bytes": 924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/opportunityPromises.ts.inverse.diff",
+      "sha256": "901fc4181f6e555c44cce75af69ab6821e60489cd4283dd77a5ae438ef7e3931"
+    },
+    "src/core/promises.ts.forward": {
+      "bytes": 2343,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/promises.ts.forward.diff",
+      "sha256": "54469da1eba93c1ba28b41ceb607e443476cae55955f2e1a85516e9845fa59bd"
+    },
+    "src/core/promises.ts.inverse": {
+      "bytes": 2343,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/promises.ts.inverse.diff",
+      "sha256": "bebe5eb477a6efdf4bb536b8a2b8bb1dc165ac3f9a734e94e0b93d0a283e45aa"
+    },
+    "src/core/rng.ts.forward": {
+      "bytes": 889,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/rng.ts.forward.diff",
+      "sha256": "f8d17efe6f64939d84907f97cf05c559522a37f03bbc2a8361614682b25a8f68"
+    },
+    "src/core/rng.ts.inverse": {
+      "bytes": 889,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/rng.ts.inverse.diff",
+      "sha256": "c6ab67c25abf0dbe0c46f8def2e2b2566bc361cc04815815f0ef7f54a8f6692b"
+    },
+    "src/core/talentMarket.ts.forward": {
+      "bytes": 9770,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/talentMarket.ts.forward.diff",
+      "sha256": "ffe2ebc633eb2b0753576a9c403dd303676c7307e34e9b2b8511951a982817a9"
+    },
+    "src/core/talentMarket.ts.inverse": {
+      "bytes": 9770,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/diffs/talentMarket.ts.inverse.diff",
+      "sha256": "a0403e66fa5d402120247f872b83a2402e90fad186ccad1a906646dd1be9ceb2"
+    }
+  },
+  "fullModulesRetained": [
+    "src/core/talentMarket.ts",
+    "src/core/promises.ts",
+    "src/core/opportunityPromises.ts",
+    "src/core/rng.ts",
+    "src/core/employment.ts"
+  ],
+  "generatedSourceExecuted": false,
+  "originalTypedCatchByteIdentical": true,
+  "patches": {
+    "src/core/employment.ts": [
+      {
+        "bytesAdded": 70,
+        "label": "test-only shared probe import"
+      },
+      {
+        "label": "entry call trace canAfford",
+        "originalAnchorSha256": "398bdcce29a4b0189010557180dae6a242829bc11d07d4a05749124000c22548",
+        "replacementSha256": "eac0f260ff68d5df4b1ba51f9154293a18d48d5619ee4dd53720b66aea717b6e"
+      },
+      {
+        "label": "entry call trace contractOffer",
+        "originalAnchorSha256": "1eaa22613a6bd1bedf72f50aadbc9b05dcfa7061bb76674c5d41993df4e5af90",
+        "replacementSha256": "b5fe4202264bd553bf2b9781c8dccb83880654f646d81acbb6217d942b33bd83"
+      }
+    ],
+    "src/core/opportunityPromises.ts": [
+      {
+        "bytesAdded": 70,
+        "label": "test-only shared probe import"
+      },
+      {
+        "label": "entry call trace opportunityAssessment",
+        "originalAnchorSha256": "3dd9a5028fb4b1f1c3fa439987b6aa6bf32d54802abc76cc59892a7b9ac94af6",
+        "replacementSha256": "b6cc0c063c93a31ebfb13777ad1eccfb0ae82026bfe7a011d9f908f3ff87cfb1"
+      }
+    ],
+    "src/core/promises.ts": [
+      {
+        "bytesAdded": 70,
+        "label": "test-only shared probe import"
+      },
+      {
+        "label": "entry call trace promiseFeasibility",
+        "originalAnchorSha256": "3453d2847ef7ac60a8ee8cf898c9036a362ef9281f8f3695c601f8f73ba5ee6e",
+        "replacementSha256": "d63ca819b7f6083d6e1e0ffda5ea48b10bf41f060be719e3e26dfe97cef63b74"
+      },
+      {
+        "label": "entry call trace feasibilityInputs",
+        "originalAnchorSha256": "bd7407a5d09dce3ae3001d1d3d7f399e9816f74c2cc9f8c624153e398574cbcc",
+        "replacementSha256": "d67dafb2704ce1c73c9b6a0b44ef2e2fe613bbe12332c632c46ce25dd29898ac"
+      },
+      {
+        "label": "entry call trace receipt",
+        "originalAnchorSha256": "0a18bd3089a1c7d9a38dfd34b640a1fd6899ede25559a0dddc5fccfd300dd0a5",
+        "replacementSha256": "aaa12c0e48b68c59e6794131c34be1239396b59a119424a05ad560cc03df8e41"
+      },
+      {
+        "label": "actual evaluation canonical tuple/result readback",
+        "originalAnchorSha256": "65dceca8222183fb2c38ffa0b0d2ab6e3280a15f54eda774075c80bbaf10a29f",
+        "replacementSha256": "7a66c24b7959cc9cc57dde3ef7a26aecc559f7fbf339a9e68606bdcd24c0a11a"
+      },
+      {
+        "insertOffset": 42277,
+        "label": "entry call trace attachPromise"
+      }
+    ],
+    "src/core/rng.ts": [
+      {
+        "bytesAdded": 70,
+        "label": "test-only shared probe import"
+      },
+      {
+        "label": "entry call trace RngStream.next",
+        "originalAnchorSha256": "2ce83f35e1d31c5879acd72d207cd769ef59835859b54bf3d252b8410428005f",
+        "replacementSha256": "aa9809d26ddbc0da28767e66f22a2576b2bbde4ab54d8a564a6f710c830bd83a"
+      },
+      {
+        "label": "entry call trace stream",
+        "originalAnchorSha256": "a6f8153aa3a68d804295c66e3acc28d97c314676199f2aa1aa8dec01a7f9cf81",
+        "replacementSha256": "deba5b343ed1ac15e047b1119491894128c16b2a7c75a510bd234d770b6e228a"
+      }
+    ],
+    "src/core/talentMarket.ts": [
+      {
+        "bytesAdded": 70,
+        "label": "test-only shared probe import"
+      },
+      {
+        "label": "entry call trace advanceTalentMarketWeek",
+        "originalAnchorSha256": "ec448dffd106afde67856b38bbe94c2d1c7695806a8c48263ee82f132b87f1de",
+        "replacementSha256": "7801a1a79085dfb7f3717f12c5a9b1d89a2dbd1cb15b01465266d18b687bda6a"
+      },
+      {
+        "label": "entry call trace rivalProposalTrigger",
+        "originalAnchorSha256": "8abc9e748fc6ba6c7c3d70a915bef616cf85cf22b368391ff8e927c7c3db1fb2",
+        "replacementSha256": "949eaa2ef959a5e980c1a9f6f312c26203ca52b08cf2c7d8612bc0e1a0059ded"
+      },
+      {
+        "label": "entry call trace rivalPremiumTier",
+        "originalAnchorSha256": "10de3da3cd9adadbb531bca65aeda0c08b8990521dbf959ad146301a7369b48d",
+        "replacementSha256": "30b1210d9376911b968057b42a35ecbaff3dae3f75960679f7dfc2c17ebfeac7"
+      },
+      {
+        "label": "entry call trace submitProposal",
+        "originalAnchorSha256": "aacc09db72ba2b33a4872165e5476d197e701e6fef2800471e354531d37436ab",
+        "replacementSha256": "e0d70dec38b2dc415eadbc463e6a5b537f53457fcfdaba466c722281106af343"
+      },
+      {
+        "label": "entry call trace proposalDraft",
+        "originalAnchorSha256": "3e35f3b3b567f6bd801705c4485bc4ac60f554630315d041f7d122f04658744b",
+        "replacementSha256": "37edb0c0c06567b523ff25d17df43bd9e17749ded98856919b3ba061a7f41d99"
+      },
+      {
+        "label": "entry call trace proposalPriceAt",
+        "originalAnchorSha256": "09479bee7cea4425b1c3bb145e20d4ac6373f730c15b787201d3d663487bd5f9",
+        "replacementSha256": "5db6d37081723a9b3c7637c78905a5c8658992a208d67108853ffd66570efbb8"
+      },
+      {
+        "label": "entry call trace authorRivalPromise",
+        "originalAnchorSha256": "c623a0df8c5ab1c80ff4eef23daf3122507b40bf71a87a9f8e168c552e766eef",
+        "replacementSha256": "3449f65c550728a593ee8d66c64fbe11ff953fdea49891390852c5cc6faa4427"
+      },
+      {
+        "label": "entry call trace attachedFeasibility",
+        "originalAnchorSha256": "dd51b469333c99e4da0d81ffac9fd9a770af895e4330b14f0e74508928231807",
+        "replacementSha256": "47b94fd44b7bbbe617ec6c32dabe0a1f22336d4e661cfcf57b911d1a30728f10"
+      },
+      {
+        "label": "entry call trace settleCase",
+        "originalAnchorSha256": "1e841efe361f4ea39d17c4815c216b4f2c695067ba27f2447552ee4960990c19",
+        "replacementSha256": "b1f7717e768d296956a21124df22173fa89bb8ec0fb2446b9d6024bff9f3510c"
+      },
+      {
+        "label": "entry call trace isProven",
+        "originalAnchorSha256": "6148c3ef83124f6a1008d510f54d22cd54977cd425c54b73a084fa20528e0cdd",
+        "replacementSha256": "7d7065f2f694e9a9c0a61414e940387e2d888bed5168c3b8f46685401a53aa80"
+      },
+      {
+        "label": "entry call trace rivalOperatingReserve",
+        "originalAnchorSha256": "9e6d60b1d5e9052cf90bfb2ca9e0e99c9bae310884288f78dae763dfa3386df2",
+        "replacementSha256": "ec9abd6d7348723fcc936681f8d3c9185425c09e37d90e2c45218a3e9317a53b"
+      },
+      {
+        "label": "actual already-incremented caller boundary",
+        "originalAnchorSha256": "84c3217896a02c01180783c7628d9ce9c7ef0264dd84d383b8d61eba9bc547fe",
+        "replacementSha256": "5ce8f3343c15e21e78453c97ffcae02a13c82c22c33204335bd4492a7048149a"
+      },
+      {
+        "label": "single-use ordinary refusal through full submit body entry",
+        "originalAnchorSha256": "8f1d35a78279cdcda8ed4dde23b2442d4310817b52cfece773aac929d25fab19",
+        "replacementSha256": "8619b8b11377b01e9b182eb6d64e874da9a1e5680033d6313a88952be17d39cf"
+      },
+      {
+        "label": "test capture-off feasibility sink only",
+        "originalAnchorSha256": "d2628d4355a640374339d7afe8c29fc14b9a75eb20a6377d51d576cbcd1025f9",
+        "replacementSha256": "166b3cf1f061ab0e333c55203b13ab782dffc20098aa07e4dbbbb294d0236ae5"
+      },
+      {
+        "label": "capture toggle and single-use fault snapshot",
+        "originalAnchorSha256": "08c5080085a84d67e57b52234ac58ddb391ad8cce6cc7595211e8a94887dfd7d",
+        "replacementSha256": "d38c9d5495ebc7f804a62976d7091af66bb28fe52ece3094cfbd8e61a8c1c0ee"
+      },
+      {
+        "label": "actual recorder cap/JSON fault at draftPrice",
+        "originalAnchorSha256": "65ef8878fda1e7e901c8f703ec935828e3d4567ad037507752abfe52dfde93c0",
+        "replacementSha256": "f92ec8aa04a599757aa9120cdcebb41fede0d5f77318a05cc3d222f11ccf02bc"
+      },
+      {
+        "label": "restore injected recorder bounds after one actual failure",
+        "originalAnchorSha256": "f556fd009fb745b74f47c0bc58d4ea863b86b7239afd04355b7682a5eaccebd8",
+        "replacementSha256": "bb0fc258d076dfdfb208e52672cfef923f98b446c69901fe5df5b4cebc5f3da5"
+      },
+      {
+        "label": "test-only exports of existing complete functions/class and reset"
+      },
+      {
+        "insertOffset": 64914,
+        "label": "entry call trace survivesFreeze"
+      },
+      {
+        "insertOffset": 45876,
+        "label": "entry call trace bandsFor"
+      },
+      {
+        "insertOffset": 50471,
+        "label": "entry call trace chooseProposal"
+      },
+      {
+        "insertOffset": 19290,
+        "label": "entry call trace affordabilityRefusal"
+      }
+    ]
+  },
+  "privateMirrorRead": false,
+  "schema": "1370-m0-full-body-derivative-source-proof/v1",
+  "sourceClaim": "Full implementations and imports preserved with explicit test probes, capture toggles and single-use faults; fixture/loader integration remains held.",
+  "wholeByteForwardInverseVerified": true
+}

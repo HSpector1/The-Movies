@@ -1,0 +1,88 @@
+{
+  "actualGrant": null,
+  "actualOutcome": null,
+  "bounds": {
+    "activeSeconds": 75,
+    "nodeSeconds": 60,
+    "stderrBytes": 1048576,
+    "stdoutBytes": 1048576,
+    "wholeSeconds": 90
+  },
+  "executionAuthorization": false,
+  "game": false,
+  "independentReview": {
+    "bytes": 9671,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-independent-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "fb4d1883ddd67c49698d6b9e4b4dde12a3ec6f672a40538a2b30eddb8ed1cc47"
+  },
+  "next": "After active fullguard completes and lane is released, root may issue separate once-only exact focused-controls grant. No benchmark before actual focused admission.",
+  "ownershipRepair": {
+    "acceptedOwnGroupMechanismSource": {
+      "bytes": 9691,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/grant_before_fill.py",
+      "sha256": "5100a89373a729fe7f80714fc740b76d6fc3e45f85c869c381246ac29a21678e"
+    },
+    "actualOwnGroupEstablishedBeforeExec": true,
+    "consumer": {
+      "bytes": 6553,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/consume-focused-controls.py",
+      "sha256": "d30b04d6a0960daacdefe3552d1c7035f7417e931051953236e79de959411a14"
+    },
+    "heavyLaneLockAbsenceRequired": true,
+    "mechanism": "If actual PGID differs from actual PID, setsid on the wrapper itself; then require actual PGID equals PID. Record actual helperPid/helperPgid/helperSid and helperGroupVerifiedBeforeExec true.",
+    "noPidSubstitutionForPgid": true,
+    "noSignalsOrHelperDetachIntroduced": true,
+    "outcomeIdentitiesBoundToClaim": true,
+    "outcomeIdentitiesStrictIntegerAndGreaterThanOne": [
+      "helperPid",
+      "helperPgid",
+      "helperSid"
+    ],
+    "pgidAbsence": "actualOwnedGroupsFreshlyAbsent exactly [helperPgid, ownedPgid]",
+    "pidAbsence": "actualOwnedPidsFreshlyAbsent exactly [helperPid, childPid]",
+    "wrapper": {
+      "bytes": 6244,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/launch-focused-controls.py",
+      "sha256": "fa5621d99981397b0c3d669056ea2c375a4dad55de798b5a26ef07cf997539b1"
+    }
+  },
+  "performanceWin": false,
+  "preservedR1Stop": {
+    "bytes": 6238,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-independent-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "9f77f7c68335132a3bde7a08703ccb1df7628dfd15c25f5382908e480f6fbd2f"
+  },
+  "producerContract": {
+    "boolAsIntRejected": true,
+    "countsPlannedNotObserved": true,
+    "duplicateKeysNonfiniteExtraJsonValuesAndExtraLinesRejected": true,
+    "exactFieldsRecursiveTypesAndOrderedRosters": true,
+    "expectedRedLines": 3,
+    "finalJsonLines": 1,
+    "lines": 38,
+    "literalFalseScopeFlags": true,
+    "newGroups": 6,
+    "newPairs": 344,
+    "originalGroups": 28,
+    "originalPairs": 321,
+    "passLines": 34,
+    "producerStderrBytes": 0,
+    "producerStdoutCapBytes": 16384,
+    "schema": "1370-b109-ascii-controls/v1",
+    "totalGroups": 34,
+    "totalPairs": 665
+  },
+  "routeSourcePins": {
+    "bytes": 11676,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "b5f3103ed8ac1585ff63406be5c776824e0e678089ac0239cb287318ea42520a"
+  },
+  "routeSourceProof": {
+    "bytes": 12919,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/SOURCE-PROOF.json",
+    "sha256": "a412cb89f02d28eb5998adeb34e8d7476d8438c6e6dad49aa3d08c59284744c0"
+  },
+  "schema": "1370-root-b109-ascii-focused-route-source-adoption/v1",
+  "selected2529RemainsSelected": true,
+  "status": "ROOT_ADOPTED_UNRUN_R2_FOCUSED_ROUTE_SOURCE"
+}

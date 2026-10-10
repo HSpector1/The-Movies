@@ -1,0 +1,90 @@
+{
+  "actualTool": {
+    "bytes": 1586,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/ACTUAL-TOOL.json",
+    "sha256": "f343e073b176c3f771e5d9a00a01e4f84acee8d2e6a6f8c226d5af29ef461e0c"
+  },
+  "actualToolExit": 0,
+  "decodedPayloads": {
+    "employment.json": {
+      "bytes": 13113,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/employment.json",
+      "sha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58"
+    },
+    "settlement208.json": {
+      "bytes": 32249,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/settlement208.json",
+      "sha256": "caf921cc47b58abc23b30e60f05dd4b50a6dc29900e28a896afef69784643ce3"
+    }
+  },
+  "digests": {
+    "employment": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58",
+    "receipts": "af8c4d1325ecb350dbc07fbf2f762dd8257db04075b8030bf7bd975b4cb2a766",
+    "rng": "2598418427,508725886,1318803286,3129010527",
+    "settlement": "706e54c6ec9728df1664025982ebbafeb0fc36afb245b6bd0b983305f6a10a77",
+    "takes": "8af116b1687ed210c02953b5b506456e638a64482e8042b0e549b0d57e428694"
+  },
+  "elapsedMeaning": "Producer reported4990ms. Helper textual start20:04:52/end20:05:03 local are coarse timestamps only, not precise whole-recorder duration. Original authenticated recorder success enforces original clocks.",
+  "employmentRows": 44,
+  "frameBytes": 74778,
+  "frameSha256": "c4a7d1a9f2f7c6e9a7699c03ea89b9960b33f8fc79ab73c4aa303cbac6d00131",
+  "fullPostflight": null,
+  "gameAccepted": false,
+  "grant": {
+    "bytes": 16087,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/FINAL-GAME-GRANT.json",
+    "sha256": "3aa7f0d5c9c05dab14bcae752a3d2d23dc9058c146b017dc7d7a6dcc3e33da21"
+  },
+  "heavyLaneLockAbsent": true,
+  "helperExit": 0,
+  "helperMetaExit": 0,
+  "independentObservedReview": null,
+  "internalGroupClearanceMeaning": "Unchanged authenticated outer success path reaps supervisor and requires group absent; supervisor success validates Node exit and empty internal stderr. Numeric child IDs were not emitted or observed and are not inferred.",
+  "knownNumericOwner": {
+    "pgid": 34390,
+    "pid": 34390,
+    "sid": 34390
+  },
+  "lateProcessObservation": {
+    "bytes": 567,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/ACTIVE-OWNERSHIP.json",
+    "sha256": "b9e398086e57699977eb89fd406857a88844eb86007f4c93310a7110e49e6461"
+  },
+  "lineCount": 2,
+  "log": {
+    "bytes": 74843,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r4/controls.log",
+    "sha256": "800c3e028210d57b328f9808d4af6725e41a4a0dcc45073438f2f2f2616aed45"
+  },
+  "meta": {
+    "bytes": 438,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r4/controls.log.meta",
+    "sha256": "62132f8845e6af49cf80937515118941fbb6f8be8ebac467b1c685abeaddd08e"
+  },
+  "outerExit": 0,
+  "producerElapsedMs": 4990,
+  "rawPsLocalOnly": true,
+  "recordedPostChecks": [
+    {
+      "id": 34390,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 34390,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    }
+  ],
+  "schema": "1370-root-a208-actual-game-readback/v1",
+  "settlement208Rows": 16,
+  "sinkExit": 0,
+  "status": "ACTUAL_GAME_EXIT0_OUTPUT_CANDIDATE_PENDING_FULL_POSTFLIGHT_AND_REVIEW",
+  "threeSourceFlightsEqual": true,
+  "toolSessionId": 51117,
+  "unknownNumericSupervisorOrNodeIds": true,
+  "utc": "2026-10-10T01:06:52.593021+00:00",
+  "weeks": 416
+}

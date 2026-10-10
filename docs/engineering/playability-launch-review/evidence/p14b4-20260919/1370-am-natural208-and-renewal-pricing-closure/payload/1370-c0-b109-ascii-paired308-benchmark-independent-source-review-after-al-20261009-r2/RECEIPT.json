@@ -1,0 +1,688 @@
+{
+  "schema": "1370-b109-ascii-paired308-independent-source-review/v1",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_B109_ASCII_PAIRED308_BENCHMARK_ROUTE",
+  "independentReviewer": "/root/b109_focused_route_review",
+  "sourceAuthor": "/root/b109_ascii_source",
+  "concreteFindings": [],
+  "executionAuthorization": false,
+  "actualBenchmarkGrant": null,
+  "actualBenchmarkOutcome": null,
+  "benchmarkExecuted": false,
+  "performanceMeasured": false,
+  "performanceWin": false,
+  "sourcePromotionAuthorized": false,
+  "game": false,
+  "full109Accepted": false,
+  "P17P18Accepted": false,
+  "selected2529RemainsSelected": true,
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "1800e05d6a9fbab6eae4f4e7a8bee65969da4785e5b47672d1bf06fc4fbba51b",
+    "bytes": 9726
+  },
+  "sourceSeal": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SEAL.json",
+    "sha256": "b3a27ca246469705966ea1dfb841879ff3fbc2020d89e83cee0f7b21faf67714",
+    "bytes": 6706
+  },
+  "sourceProof": {
+    "bytes": 16182,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SOURCE-PROOF.json",
+    "sha256": "828ea173bf4f460817e1e9016a64677caa2697ca3cde69dc226b7cb2ea3715b8"
+  },
+  "reviewedSourceRoles": {
+    "benchmark-308.mjs": {
+      "bytes": 5703,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/benchmark-308.mjs",
+      "sha256": "91fbb09153d9d1b73779d85a36032a68296978fddcc5423d7eeedf9514a5d83a"
+    },
+    "CONFIG.json": {
+      "bytes": 12498,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/CONFIG.json",
+      "sha256": "cde7f59c308c2cc115946244b97c33dab5dd7ce024eaae03926111684dde6dff"
+    },
+    "BENCHMARK-RECIPE.json": {
+      "bytes": 8434,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/BENCHMARK-RECIPE.json",
+      "sha256": "b3028cc06a9ae7b5b36eb4353cef5c0deb90f9cfdf39607d67ff88d5d5b19b6e"
+    },
+    "launch-benchmark.py": {
+      "bytes": 7488,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/launch-benchmark.py",
+      "sha256": "643eece7f8500f0f4e0fb94866bf457603d039afa78c7d086fdcad6b1fadd7e4"
+    },
+    "record-pure-node.py": {
+      "bytes": 14032,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py",
+      "sha256": "b23b1c43ca1c3b40c3519b19e301bb64a0f2b1debe8c66c2dc553a2456becbfd"
+    },
+    "consume-benchmark.py": {
+      "bytes": 6874,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/consume-benchmark.py",
+      "sha256": "c27fb18b9664ecc3db5a84370a1ba73798937a97b637b718317390b3c00c5069"
+    },
+    "strict_contract.py": {
+      "bytes": 6709,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/strict_contract.py",
+      "sha256": "9dcb281c249b5bc5fa041bef102ed9efeb03a18b53f2ac59255567d4e732d090"
+    }
+  },
+  "all24SourcePinFilesAndSealFileRolesExact": true,
+  "allConfigRoleBytesAndSha256IndependentlyMatched": true,
+  "boundConfigRoles": {
+    "acceptedCaptureReceipt": {
+      "bytes": 1179,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-r3-clean-independent-observed-audit-r1/RECEIPT.json",
+      "sha256": "c98f49e901ac2e4ca8d14eb76b15f01e0030746c046747cf4024717575ce2d15"
+    },
+    "acceptedOwnGroupSource": {
+      "bytes": 9691,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/grant_before_fill.py",
+      "sha256": "5100a89373a729fe7f80714fc740b76d6fc3e45f85c869c381246ac29a21678e"
+    },
+    "baseline": {
+      "bytes": 11414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+    },
+    "benchmark": {
+      "bytes": 5703,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/benchmark-308.mjs",
+      "sha256": "91fbb09153d9d1b73779d85a36032a68296978fddcc5423d7eeedf9514a5d83a"
+    },
+    "candidate": {
+      "bytes": 2981,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-source-after-al-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "f382fe6610a69a1c766134120e5382e86700ac6078a82d712547bf027f42810b"
+    },
+    "currentProtection": {
+      "bytes": 10578,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+      "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3"
+    },
+    "currentProtectionIndependentReview": {
+      "bytes": 14438,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-before-fill-independent-observed-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "33156edde2041b21cc6208484852646857903aa4c7d5123a673df69fff366574"
+    },
+    "design": {
+      "bytes": 10681,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-next-performance-design-after-ak-20261009-r1/DESIGN.json",
+      "sha256": "2dc9f9896d0d3f673ea7be9a2e67549cc49e48604cfdb42a918477d3c81bc53b"
+    },
+    "fixtureMetadataPriorIndependentReview": {
+      "bytes": 1638,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "59ad5be0c2f356d83febad87c5375937212a0af935ba52cc7214add9d85da29f"
+    },
+    "fixtureMetadataPriorObservedReport": {
+      "bytes": 3862,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-benchmark-output-20261009-r1/stdout.bin",
+      "sha256": "cd5118088253236168961e07732d5738a9cdb8286aab61066b9f31d4a9043b51"
+    },
+    "focusedActualResult": {
+      "bytes": 918,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-output-after-al-20261009-r2/RESULT.json",
+      "sha256": "11d82a514bf703d2e7050d522e6e263f70bfdf2440181863f9f2292d01e2db4c"
+    },
+    "focusedCompletedConsumption": {
+      "bytes": 3626,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r2/CONSUMPTION.json",
+      "sha256": "ecb9fce725fd07ac372a74dc05ba0410c3572ad5100705f86b6e8f2202910fdf"
+    },
+    "focusedCorrectnessAdoption": {
+      "bytes": 8077,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-FOCUSED-OBSERVED-ADOPTION.json",
+      "sha256": "cabca84e104aaf7864ad0fa46c0c578b690e1f2b67fd42bca51890773d159a68"
+    },
+    "focusedCorrectnessReview": {
+      "bytes": 10800,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-independent-observed-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "45ed83313ed82b9ffa7646204574ef2c02bf42504633133b70b3692c85eb3b9d"
+    },
+    "focusedSourcePins": {
+      "bytes": 11676,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/SOURCE-PINS.json",
+      "sha256": "b5f3103ed8ac1585ff63406be5c776824e0e678089ac0239cb287318ea42520a"
+    },
+    "independentDesignReview": {
+      "bytes": 13217,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-next-performance-independent-design-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "75941eea95fc5531db5cb15cfd45a443bfbf96cdceb18e7859006dd9927efa26"
+    },
+    "index": {
+      "bytes": 24196,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/DESIGN-MEMBER-INDEX-307-416.json",
+      "sha256": "478c63aeeab130da4a50218b1c1a5ae3d3662007f243e92ed2d525646a292855"
+    },
+    "operationalReadback": {
+      "bytes": 1250,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+      "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+    },
+    "recorderMechanismQualification": {
+      "bytes": 3829,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-recorder-failure-capture-observed-independent-review-20261009-r4/RECEIPT.json",
+      "sha256": "32f68913900ce8496a10165c9cdc00d9d106048f62ef6cb41661d04fbdd21efa"
+    },
+    "referenceEncoder": {
+      "bytes": 2880,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+    },
+    "rootDesignAdoption": {
+      "bytes": 5577,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-DESIGN-ADOPTION.json",
+      "sha256": "afef3458107228e763923d5fccd279151eeafef13aa17245808d218d9b5a2939"
+    },
+    "rootSourceAdoption": {
+      "bytes": 4965,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-SOURCE-ADOPTION.json",
+      "sha256": "d96d57fcd592b9ea04c9e4b37faaef959b24f365d39ad51d60c071ecc7ee03df"
+    },
+    "sourceControlsReview": {
+      "bytes": 14864,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-controls-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "1d3d2a791455f626db5c0457cf60aea4482d26343fd34da0ba749f89a9f4af1c"
+    },
+    "sourceImplementationReview": {
+      "bytes": 6101,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "7096563a7c72f57e19f410c5a8a8cb75ef087934c2002d532f8aeabde907a4e8"
+    },
+    "strictContract": {
+      "bytes": 6709,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/strict_contract.py",
+      "sha256": "9dcb281c249b5bc5fa041bef102ed9efeb03a18b53f2ac59255567d4e732d090"
+    },
+    "targetResult": {
+      "bytes": 3074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/RESULT.json",
+      "sha256": "23115d6a5b059996c8320b7d1db385386d2f57257b95a74c662c2d3df4854d88"
+    }
+  },
+  "admittedCorrectness": {
+    "review": {
+      "bytes": 10800,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-independent-observed-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "45ed83313ed82b9ffa7646204574ef2c02bf42504633133b70b3692c85eb3b9d"
+    },
+    "adoption": {
+      "bytes": 8077,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-FOCUSED-OBSERVED-ADOPTION.json",
+      "sha256": "cabca84e104aaf7864ad0fa46c0c578b690e1f2b67fd42bca51890773d159a68"
+    },
+    "counts": {
+      "totalGroups": 34,
+      "totalPairs": 665,
+      "expectedRed": 3
+    },
+    "allActualSixExitsStrictZero": true,
+    "noNewCorrectnessExecution": true
+  },
+  "benchmarkSource": {
+    "timedReference": {
+      "bytes": 2880,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+    },
+    "timedCandidate": {
+      "bytes": 2981,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-source-after-al-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "f382fe6610a69a1c766134120e5382e86700ac6078a82d712547bf027f42810b"
+    },
+    "readerNotTimed": {
+      "bytes": 11414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+    },
+    "oneGenuineIndexed308MemberRead": true,
+    "originalReaderOpenReadParseBlockExactExceptTwoFixtureAssertions": true,
+    "fixture": {
+      "member": 308,
+      "rawBytes": 4228063,
+      "rawSha256": "9343625f2cd72964727f7d0b6679d89c0c85ba855208554af13a239d78bb968a",
+      "stateBytes": 2103442,
+      "stateSha256": "cac7fcc155b45be663ac516b244cf3e5fe0c4ec4fb204fb6bd173d9b17d04f7e"
+    },
+    "fixtureMatchesPriorObservedReport": true,
+    "priorFixtureReport": {
+      "bytes": 3862,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-benchmark-output-20261009-r1/stdout.bin",
+      "sha256": "cd5118088253236168961e07732d5738a9cdb8286aab61066b9f31d4a9043b51"
+    },
+    "priorFixtureReview": {
+      "bytes": 1638,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "59ad5be0c2f356d83febad87c5375937212a0af935ba52cc7214add9d85da29f"
+    },
+    "priorCaptureMetadataConfig": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/CONFIG.json",
+      "sha256": "59d94b70eb2e4c3093fde24529326769d8ab74ac51e73c954f8832a180061527",
+      "bytes": 4354
+    },
+    "captureMetadataRetainedExactFromPriorConfig": true,
+    "captureNotStatReadHashedOrDecodedInThisReview": true,
+    "wholeCaptureShaHistoricalOnly": true,
+    "standardNativeBuiltinsAssumed": true,
+    "encodeCallOnlyTimed": true,
+    "pairSchedule": {
+      "inputs": [
+        "state",
+        "wholeRow"
+      ],
+      "measuredOrders": [
+        [
+          "reference",
+          "candidate"
+        ],
+        [
+          "candidate",
+          "reference"
+        ],
+        [
+          "reference",
+          "candidate"
+        ]
+      ],
+      "measuredPairsPerInput": 3,
+      "warmupOrder": [
+        "reference",
+        "candidate"
+      ],
+      "warmupPairsPerInput": 1
+    },
+    "plannedRawPairs": 8,
+    "warmupEncodes": 4,
+    "measuredEncodes": 12,
+    "threeMeasuredSamplesPerArmPerInput": true,
+    "allRawPairTimesAndOrderRetained": true,
+    "median": "Each input and arm independently: sorted three measured samples, index 1.",
+    "eachEncodeOutputExactBytes": true,
+    "purityChecksAfterEachPair": true,
+    "retainedFdAndNanosecondPathIdentityAfterEachPair": true,
+    "originalSuccessfulAndFinallyReaderClosureExact": true,
+    "bothArmWeights": {
+      "state": 3526,
+      "wholeRow": 1984
+    },
+    "bothArmFormula": "(3526*stateMedianMs+1984*wholeRowMedianMs)/1000",
+    "constantEarlyFixtureIllustrationOnly": true,
+    "noFull109RuntimeLowerBoundOrHeadroom": true,
+    "noCrossSessionControlledComparison": true
+  },
+  "strictConsumer": {
+    "singleUtf8JsonLine": true,
+    "producerStdoutCapBytes": 1048576,
+    "producerStderrMustBeEmpty": true,
+    "duplicateKeysAndTrailingValuesRejected": true,
+    "nonfiniteAndNegativeNumbersRejected": true,
+    "booleansRejectedAsTimingAndIntegerIdentities": true,
+    "exactReportFieldsStaticTypesRostersAndFalseFlags": true,
+    "eightRawPairsBoundToWarmupAndMeasuredArrays": true,
+    "strictTrialIntegersAndExactOrder": true,
+    "independentMedianAndBothArmFormulaRecalculation": true,
+    "slowerCandidateAcceptedWithoutMandatorySpeedPredicate": true,
+    "externalActualOutcomeRequired": true,
+    "fiveSeparateStrictIntegerZeroExitsRequired": [
+      "actualToolExit",
+      "helperExit",
+      "helperMetaExit",
+      "recorderExit",
+      "nodeExit"
+    ],
+    "exactActualGrantClaimMetaStreamsResultRolesRequired": true,
+    "STOPOverrideFailsClosed": true
+  },
+  "recordedRoute": {
+    "recipeCoreBindingsExact": true,
+    "sourceReviewDecisionRequired": "ACCEPT_SOURCE_ONLY_UNRUN_B109_ASCII_PAIRED308_BENCHMARK_ROUTE",
+    "rootGrantSchemaRequired": "1370-root-b109-ascii-paired308-benchmark-grant/v1",
+    "rootGrantStatusRequired": "GRANT_EXACT_B109_ASCII_PAIRED308_BENCHMARK_ONCE",
+    "sourceReviewAndRootGrantExternal": true,
+    "noFutureConfigHashCycle": true,
+    "mode": "benchmark",
+    "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+    "argv": [
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-lane-after-al-20261009-r1/benchmark.lane.log",
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py",
+      "benchmark"
+    ],
+    "requiredEnvironment": {
+      "GIT_OPTIONAL_LOCKS": "0",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "bounds": {
+      "activeSeconds": 75,
+      "nodeSeconds": 60,
+      "stderrBytes": 1048576,
+      "stdoutBytes": 1048576,
+      "wholeSeconds": 90
+    },
+    "node": {
+      "version": "20.20.2",
+      "path": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+      "bytes": 92324688,
+      "sha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6"
+    },
+    "nodeBinaryNotReexecutedOrRehashedInThisReview": true,
+    "actualPhysicalNodeHashRequiredByLauncherAndRecorder": true,
+    "sanitizedNodeEnvironment": [
+      "NODE_OPTIONS",
+      "NODE_PATH"
+    ],
+    "currentOperational": {
+      "branch": "wip/headless-program-20260916-ts",
+      "docsOnlyTransitionVerified": true,
+      "head": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+      "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+      "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+      "status": "PUSHED_REMOTE_AND_COMMITTED_TREE_VERIFIED",
+      "trackingWorkingHead": "8cb704e2f18e6a635943893422c9cfdc206e106d"
+    },
+    "currentProtection": {
+      "bytes": 10578,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+      "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3"
+    },
+    "currentProtectionContract": {
+      "beforeFillProtectionAccepted": true,
+      "executionAuthorization": false,
+      "operationalRemoteRefs": {
+        "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+        "refs/heads/wip/headless-program-20260916-ts": "8cb704e2f18e6a635943893422c9cfdc206e106d"
+      },
+      "productionHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+      "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+      "protectedFreezeContinues": true,
+      "schema": "1370-root-a208-observed-before-fill-operational-authority/v1",
+      "status": "ROOT_ADOPTED_OBSERVED_AL_A208_BEFORE_FILL_BASELINE_ONLY"
+    },
+    "beforeFillAuthorityOnlyNoGameAuthority": true,
+    "freshLaunchRefsSourceCleanACDiskLaneCaptureMetadataChecksRequired": true,
+    "oneAttemptNoAutomaticRetry": true,
+    "actualPIDPGIDSIDOwnGroupMechanism": {
+      "acceptedMechanismSource": {
+        "bytes": 9691,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/grant_before_fill.py",
+        "sha256": "5100a89373a729fe7f80714fc740b76d6fc3e45f85c869c381246ac29a21678e"
+      },
+      "actualLaunchClaimFields": [
+        "helperPid",
+        "helperPgid",
+        "helperSid",
+        "helperGroupVerifiedBeforeExec"
+      ],
+      "bindAllOutcomeIdentitiesToLaunchClaim": true,
+      "groupAbsenceList": "actualOwnedGroupsFreshlyAbsent exactly [helperPgid, ownedPgid]",
+      "noPidSubstitutionForPgid": true,
+      "pidAbsenceList": "actualOwnedPidsFreshlyAbsent exactly [helperPid, childPid]",
+      "requiredOutcomeNumericIdentityFields": [
+        "helperPid",
+        "helperPgid",
+        "helperSid"
+      ],
+      "wrapperOwnsGroupBeforeExec": "If actual PGID differs from actual PID, call setsid on the wrapper itself; require actual PGID equals actual PID before recording and exec. No positive signals."
+    },
+    "noPidSubstitutionForPgid": true,
+    "separateActualPidAndGroupAbsencesRequired": true,
+    "oneHeavyLaneAfterGameReleaseOnly": true
+  },
+  "preservedRecorder": {
+    "predecessor": {
+      "bytes": 14041,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/record-pure-node.py",
+      "sha256": "f5a1f8d39a31079b4a168364553498a44b10a167e067e5660979dc2cce4277e6"
+    },
+    "candidate": {
+      "bytes": 14032,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py",
+      "sha256": "b23b1c43ca1c3b40c3519b19e301bb64a0f2b1debe8c66c2dc553a2456becbfd"
+    },
+    "thirteenFunctionsAndOwnedChildExact": {
+      "metadata": true,
+      "authenticate": true,
+      "process_alive": true,
+      "start_owned": true,
+      "ready_go": true,
+      "close_startup_fds": true,
+      "clear": true,
+      "alarm": true,
+      "whole_guard": true,
+      "active_guard": true,
+      "observed_exit_guard": true,
+      "child_environment": true,
+      "finalize_result": true,
+      "OwnedChild": true
+    },
+    "fourMainBindingChangesOnly": [
+      "CONFIG_SHA",
+      "fresh output path",
+      "benchmark argv uses reviewed route config SHA",
+      "strict producer validator receives config"
+    ],
+    "noDetachStartupOwnership": true,
+    "ownedCleanupTimersFinalizationAndFailureEvidencePreserved": true,
+    "unchangedWholeActiveChildBoundsAndStreamCaps": true,
+    "warning": {
+      "actualFunction": "main",
+      "allStreamsQuietClaim": false,
+      "block": "main() outer finally",
+      "exactDiagnostic": "'return' in a 'finally' block",
+      "existingContractDisposition": "Accepted: producer stderr must be empty, while helper combined log may retain diagnostic lines and must contain exactly one expected JSON recorder summary; all exits/meta/roles/flags/ownership/override checks still pass.",
+      "helperCombinedLogBytes": 393,
+      "kind": "Python SyntaxWarning",
+      "originalOutcomeUnchanged": true,
+      "parentCorrection": {
+        "bytes": 913,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r2/DIAGNOSTIC-ATTRIBUTION-CORRECTION.json",
+        "sha256": "1b68d5857106f52bb4e35ad15a47bf27619d9b154766ede30e0f4d4c8cca0565"
+      },
+      "producerStderrBytes": 0,
+      "qualifiedRecorderSha256": "d0b8380d0ef982f8675ef8affdafd60bac200717132875fe50f220c648586cc2",
+      "recorderLine": 239,
+      "reviewedRecorderSha256": "f5a1f8d39a31079b4a168364553498a44b10a167e067e5660979dc2cce4277e6",
+      "separateFinalizeResultFunctionAttributionCorrected": true,
+      "statement": "return code",
+      "stream": "Helper combined recorder stdout/stderr log; outside producer stdout.bin/stderr.bin.",
+      "warningStatementAndSurroundingFinalizationSourceUnchanged": true,
+      "warningSuppressedOrRelabeled": false
+    },
+    "warningMainStatementAndSurroundingSourceUnchanged": true,
+    "warningSuppressedOrRelabeled": false,
+    "allStreamsQuietClaim": false
+  },
+  "wholeSourceRestoration": {
+    "sevenPredecessors": {
+      "BENCHMARK-RECIPE.json": {
+        "predecessor": {
+          "bytes": 7182,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/CONTROL-RECIPE.json",
+          "sha256": "2bdc77b9889d61ba0c621df209dd8c0657052b03b661d4f7239ae5e3fdaa2ccd"
+        },
+        "candidate": {
+          "bytes": 8434,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/BENCHMARK-RECIPE.json",
+          "sha256": "b3028cc06a9ae7b5b36eb4353cef5c0deb90f9cfdf39607d67ff88d5d5b19b6e"
+        },
+        "forward": {
+          "bytes": 10766,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/BENCHMARK-RECIPE.json.diff",
+          "sha256": "25dd29c91fe22e56f54147a197cca48ae8fe79521fd5196a1dd012c253e45777"
+        },
+        "inverse": {
+          "bytes": 10766,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/BENCHMARK-RECIPE.json.inverse.diff",
+          "sha256": "0ad3cd3660b3f4a6ebb1badf0654bfd3a7ffac0aaeefdd740bcabb3d5cbd979d"
+        },
+        "independentForwardAppliedToFreshScratchAndCandidateCmpZero": true,
+        "independentInverseAppliedToFreshScratchAndPredecessorCmpZero": true
+      },
+      "CONFIG.json": {
+        "predecessor": {
+          "bytes": 10788,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/CONFIG.json",
+          "sha256": "735693898549a19f894318eeedecbbc354f3c514492bf83409ee125952652168"
+        },
+        "candidate": {
+          "bytes": 12498,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/CONFIG.json",
+          "sha256": "cde7f59c308c2cc115946244b97c33dab5dd7ce024eaae03926111684dde6dff"
+        },
+        "forward": {
+          "bytes": 18801,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/CONFIG.json.diff",
+          "sha256": "a9dd3d9410b19ebd765d64d129f814735bfbcc5c23c5cb39cba4fa3ff94d23d2"
+        },
+        "inverse": {
+          "bytes": 18801,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/CONFIG.json.inverse.diff",
+          "sha256": "52a26ced12d05e9cedb5114a6b63ecc081ff0bc3d503ec9dec4639952e79706c"
+        },
+        "independentForwardAppliedToFreshScratchAndCandidateCmpZero": true,
+        "independentInverseAppliedToFreshScratchAndPredecessorCmpZero": true
+      },
+      "benchmark-308.mjs": {
+        "predecessor": {
+          "bytes": 5649,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/benchmark-308.mjs",
+          "sha256": "dbbc202e6b473dd81aec427c8cd05ac09c4c6268c64daa52ac061ffc046ce53a"
+        },
+        "candidate": {
+          "bytes": 5703,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/benchmark-308.mjs",
+          "sha256": "91fbb09153d9d1b73779d85a36032a68296978fddcc5423d7eeedf9514a5d83a"
+        },
+        "forward": {
+          "bytes": 7396,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/benchmark-308.mjs.diff",
+          "sha256": "e5735f7380a007ce72e9f24c4225f6328c97db2c73b678df5eed5c7c66b4dbc1"
+        },
+        "inverse": {
+          "bytes": 7396,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/benchmark-308.mjs.inverse.diff",
+          "sha256": "07f576795af95fce2d8d098d9df395ca704357442811efb376566cc51ba2e9e5"
+        },
+        "independentForwardAppliedToFreshScratchAndCandidateCmpZero": true,
+        "independentInverseAppliedToFreshScratchAndPredecessorCmpZero": true
+      },
+      "consume-benchmark.py": {
+        "predecessor": {
+          "bytes": 6553,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/consume-focused-controls.py",
+          "sha256": "d30b04d6a0960daacdefe3552d1c7035f7417e931051953236e79de959411a14"
+        },
+        "candidate": {
+          "bytes": 6874,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/consume-benchmark.py",
+          "sha256": "c27fb18b9664ecc3db5a84370a1ba73798937a97b637b718317390b3c00c5069"
+        },
+        "forward": {
+          "bytes": 7535,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/consume-benchmark.py.diff",
+          "sha256": "d6385074796d9897c7f5598cf7903d052150e1da9cafe9db083c08cc74d607ad"
+        },
+        "inverse": {
+          "bytes": 7535,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/consume-benchmark.py.inverse.diff",
+          "sha256": "57e5580f14934987d0d87f65c17da56f59eb23f91d42a5a1512eac5537a5a03f"
+        },
+        "independentForwardAppliedToFreshScratchAndCandidateCmpZero": true,
+        "independentInverseAppliedToFreshScratchAndPredecessorCmpZero": true
+      },
+      "launch-benchmark.py": {
+        "predecessor": {
+          "bytes": 6244,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/launch-focused-controls.py",
+          "sha256": "fa5621d99981397b0c3d669056ea2c375a4dad55de798b5a26ef07cf997539b1"
+        },
+        "candidate": {
+          "bytes": 7488,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/launch-benchmark.py",
+          "sha256": "643eece7f8500f0f4e0fb94866bf457603d039afa78c7d086fdcad6b1fadd7e4"
+        },
+        "forward": {
+          "bytes": 6333,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/launch-benchmark.py.diff",
+          "sha256": "28dc582cb38cdd5cf4d6d0bb72ce332177d1239faa81423b1aa2c7f530919216"
+        },
+        "inverse": {
+          "bytes": 6333,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/launch-benchmark.py.inverse.diff",
+          "sha256": "873b70042e9643ed0baffb6f228f103c5850333624f790a7ea6b95a8da7a0915"
+        },
+        "independentForwardAppliedToFreshScratchAndCandidateCmpZero": true,
+        "independentInverseAppliedToFreshScratchAndPredecessorCmpZero": true
+      },
+      "record-pure-node.py": {
+        "predecessor": {
+          "bytes": 14041,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/record-pure-node.py",
+          "sha256": "f5a1f8d39a31079b4a168364553498a44b10a167e067e5660979dc2cce4277e6"
+        },
+        "candidate": {
+          "bytes": 14032,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py",
+          "sha256": "b23b1c43ca1c3b40c3519b19e301bb64a0f2b1debe8c66c2dc553a2456becbfd"
+        },
+        "forward": {
+          "bytes": 3665,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py.diff",
+          "sha256": "11e9836c8e6e98085d6012ab42dfa163d404eb2a196ecd980a62135316117a7d"
+        },
+        "inverse": {
+          "bytes": 3665,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py.inverse.diff",
+          "sha256": "9d3cb92bf61a575f6270ed03b9e42cc9fab74fafde7b28d3a1fee80515687606"
+        },
+        "independentForwardAppliedToFreshScratchAndCandidateCmpZero": true,
+        "independentInverseAppliedToFreshScratchAndPredecessorCmpZero": true
+      },
+      "strict_contract.py": {
+        "predecessor": {
+          "bytes": 5251,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/strict_contract.py",
+          "sha256": "195e7a7be50105ee7b23c7c7a195240f38175504f44d3d90323e1c58a5a34bdb"
+        },
+        "candidate": {
+          "bytes": 6709,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/strict_contract.py",
+          "sha256": "9dcb281c249b5bc5fa041bef102ed9efeb03a18b53f2ac59255567d4e732d090"
+        },
+        "forward": {
+          "bytes": 10639,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/strict_contract.py.diff",
+          "sha256": "f5a99ec5d395e5b47048769f02daadbd8b04a3a4649a21afb8a24606c1f044f3"
+        },
+        "inverse": {
+          "bytes": 10639,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/strict_contract.py.inverse.diff",
+          "sha256": "5dfed0397593599cb5e14cc53e351c9351e74fb4cb6949fad17a9b0f3b24fabd"
+        },
+        "independentForwardAppliedToFreshScratchAndCandidateCmpZero": true,
+        "independentInverseAppliedToFreshScratchAndPredecessorCmpZero": true
+      }
+    },
+    "sourcesNotEdited": true,
+    "diagnostic": "Platform diff -u chose different hunk grouping for recipe/config than supplied diffs. Preserved independent diffs; both supplied forward and inverse patches separately applied with no failures to fresh scratch copies, then cmp verified whole bytes in both directions for all seven files. No source failure or runtime inference follows from grouping."
+  },
+  "limits": {
+    "sourceReadingHashingAndFreshReviewScratchOnly": true,
+    "sourceExecutionImportTestsOrRuntimePerformed": false,
+    "captureAccessPerformed": false,
+    "protectedProductionCommonDependenciesPrivateFilesReadOrChanged": false,
+    "gitMutationsScansProbesOrPositiveSignalsPerformed": false,
+    "newGateInvented": false
+  },
+  "routeSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "1800e05d6a9fbab6eae4f4e7a8bee65969da4785e5b47672d1bf06fc4fbba51b",
+    "bytes": 9726
+  },
+  "findings": []
+}

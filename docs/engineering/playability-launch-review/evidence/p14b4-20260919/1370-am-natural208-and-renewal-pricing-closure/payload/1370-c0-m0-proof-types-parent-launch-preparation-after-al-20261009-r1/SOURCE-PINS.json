@@ -1,0 +1,41 @@
+{
+  "actualGrant": null,
+  "actualRuntimeTools": null,
+  "actualSourceReview": null,
+  "actualSpecs": null,
+  "executionAuthorization": false,
+  "files": {
+    "MAP.json": {
+      "bytes": 16084,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r1/MAP.json",
+      "sha256": "bc0d2417804f9a5a16a65f2db1cdcde0b15040600369c474d354d336306ea76a"
+    },
+    "NOTE.md": {
+      "bytes": 822,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r1/NOTE.md",
+      "sha256": "ffc090e44bcc8fbf7cb41dcddf532cdaff9a94a8e7b22046b77aab78b272e7b0"
+    },
+    "PROFILES.json": {
+      "bytes": 6187,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r1/PROFILES.json",
+      "sha256": "63b70fb7d08a73ad14ef7370dac4002348634ed7d08e5a822133c5791f1826d9"
+    },
+    "PROOF-SPEC-UNFILLED.json": {
+      "bytes": 213,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r1/PROOF-SPEC-UNFILLED.json",
+      "sha256": "a6eb40948fc4441b1a8af7db110283da1b51250b76e65de4b64309e74664c2d1"
+    },
+    "TYPES-SPEC-UNFILLED.json": {
+      "bytes": 213,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r1/TYPES-SPEC-UNFILLED.json",
+      "sha256": "2f4fb5e89c6ad8b88d7c0f5f69b9dfef80f186fc46e983054d1a9f198b362a0b"
+    },
+    "fill-grant-exec.py": {
+      "bytes": 10693,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r1/fill-grant-exec.py",
+      "sha256": "f6baed97d864069d0e1421ec0cb5c81408b5ed2362dea185865549b672fc1bfd"
+    }
+  },
+  "schema": "1370-m0-parent-fill-launch-source-pins/v1",
+  "status": "SOURCE_ONLY_UNRUN_PENDING_INDEPENDENT_REVIEW"
+}

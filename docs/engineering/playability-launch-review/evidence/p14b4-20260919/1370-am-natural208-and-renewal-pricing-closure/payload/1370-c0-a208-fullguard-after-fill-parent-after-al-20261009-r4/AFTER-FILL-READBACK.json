@@ -1,0 +1,57 @@
+{
+  "actualTool": {
+    "bytes": 2005,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-after-fill-parent-after-al-20261009-r4/ACTUAL-TOOL.json",
+    "sha256": "2b58f4ad5d318af83f9a47eb3c4ea6fe9a2609d8e502ce939b2e45fa68e0d420"
+  },
+  "actualToolExit": 0,
+  "actualToolSessionId": 74599,
+  "fullImmutableMapEqual": true,
+  "game": false,
+  "grant": {
+    "bytes": 6234,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-after-fill-parent-after-al-20261009-r4/AFTER-FILL-GRANT.json",
+    "sha256": "9a04cc84fb17539399075a6a4ca240e9fb35e2e1843f874aa5237d23107b368d"
+  },
+  "pins": {
+    "bytes": 507,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/after-fill-after-al-game-r4/PINS.json",
+    "sha256": "0189803663cd13dc62d2495fdb69227bfcda42bb58c1d19d1173e89daf4ef686"
+  },
+  "postOwnership": {
+    "bytes": 519,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-after-fill-parent-after-al-20261009-r4/POST-OWNERSHIP.json",
+    "sha256": "c3eec1c33248af9dea92fc510e611239a5c949b7af4efa99960d64ff130a19a6"
+  },
+  "rawLocalOnlyClassification": {
+    "bytes": 1512,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-after-fill-parent-after-al-20261009-r4/RAW-LOCAL-ONLY-ROLES.json",
+    "sha256": "9723e8f7ebe704d102c13fa8b6daaa7c078148e9486c0c5e632cdbaf75cf3860"
+  },
+  "scannerExit": 0,
+  "schema": "1370-root-a208-after-fill-readback/v1",
+  "snapshot": {
+    "bytes": 8565365,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/after-fill-after-al-game-r4/SNAPSHOT.json",
+    "sha256": "64da19fd4b46d8d0311360cbc08a90d57817175c781e2f73e4fd850925771719"
+  },
+  "status": "ACTUAL_AFTER_FILL_FULL_MAP_MATCH_PENDING_EXACT_CANDIDATE_REVIEW",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-after-fill-parent-after-al-20261009-r4/after-fill.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 454,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-after-fill-parent-after-al-20261009-r4/after-fill.stdout",
+    "sha256": "fe17f1436b26ecfe6d944c74047371c9676b059c0e0a2c0836d73d07b69926fa"
+  },
+  "summary": {
+    "elapsedSeconds": 498.29218448999745,
+    "inventoryElapsedSeconds": 392.7042404120002,
+    "pinsSha256": "0189803663cd13dc62d2495fdb69227bfcda42bb58c1d19d1173e89daf4ef686",
+    "snapshotPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/after-fill-after-al-game-r4/SNAPSHOT.json",
+    "snapshotSha256": "64da19fd4b46d8d0311360cbc08a90d57817175c781e2f73e4fd850925771719",
+    "status": "GUARDS_ACCEPTED_READONLY"
+  }
+}

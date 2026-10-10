@@ -1,0 +1,31 @@
+{
+  "count": 6,
+  "draftPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4",
+  "files": {
+    "BINDING-DRAFT.json": {
+      "bytes": 6212,
+      "sha256": "023187fa9eda57647abc7070f2e3c5aab42aa61d8020ae3b713f29a9367557ef"
+    },
+    "BINDING-SEMANTIC.json": {
+      "bytes": 6109,
+      "sha256": "db30abab9b0fa41d45c6d8c297f57e1c54a17fc42f3914bd3f20b0c5b714dbd6"
+    },
+    "CANDIDATE-PINS.json": {
+      "bytes": 1013,
+      "sha256": "8cc74c5b47a8cc4b6830917c9f4409063dc99ab3c1994b974c20a36252a735d1"
+    },
+    "DRAFT-IDENTITY.json": {
+      "bytes": 1296,
+      "sha256": "4e182d6bc66b2ac1e6a6d13c1d99415264d762ea095e7ef72fedc751d433ea08"
+    },
+    "DRAFT-REPORT.json": {
+      "bytes": 16887,
+      "sha256": "f13613f5098118e3ea84f27f810374a53411a8e86d0714dc60d55eff98f36b20"
+    },
+    "LAUNCH-SPEC-DRAFT.json": {
+      "bytes": 14175,
+      "sha256": "ee1ef0ca3270cfb82d6ef7eb72b358bf3dbe2c0ffd89084412e38d02cbdae4c0"
+    }
+  },
+  "schema": "1370-witness-r7-pre-adoption-archive-r2"
+}

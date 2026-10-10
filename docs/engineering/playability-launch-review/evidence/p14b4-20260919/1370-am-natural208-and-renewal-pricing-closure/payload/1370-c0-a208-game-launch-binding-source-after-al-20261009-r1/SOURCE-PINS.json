@@ -1,0 +1,43 @@
+{
+  "actualControlsAdoption": {
+    "bytes": 8775,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json",
+    "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+  },
+  "actualGameOutcome": null,
+  "archiveAdoption": null,
+  "currentAlAuthority": null,
+  "exactCandidateReview": null,
+  "executionAuthorization": false,
+  "files": {
+    "BINDING-DRAFT.json": {
+      "bytes": 5927,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-launch-binding-source-after-al-20261009-r1/BINDING-DRAFT.json",
+      "sha256": "73bcdd0e667862206f254497cdd1e35fd18bb69445727704e289e9c49a506a0d"
+    },
+    "FIELD-MAP.json": {
+      "bytes": 8109,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-launch-binding-source-after-al-20261009-r1/FIELD-MAP.json",
+      "sha256": "6b9db6609e7069e2f7bc9f88b159c744f1ab1b5a63c45e6f095fee476bae93dc"
+    },
+    "LAUNCH-SPEC-HELD.json": {
+      "bytes": 5944,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-launch-binding-source-after-al-20261009-r1/LAUNCH-SPEC-HELD.json",
+      "sha256": "9248f082954e5e46ebfaf0514af282ce73d024e22cb8b75f1130ac0f2bc7ca52"
+    },
+    "NOTE.md": {
+      "bytes": 3460,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-launch-binding-source-after-al-20261009-r1/NOTE.md",
+      "sha256": "c7e353d4a2a054be4d595f274505426a8986096a5711c71ef192eb02d777c3b8"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 11812,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-launch-binding-source-after-al-20261009-r1/SOURCE-PROOF.json",
+      "sha256": "812e96fc066772acf023ff03bf08ad0031266f9c83d47e5d19b405fddae7f6be"
+    }
+  },
+  "fullguardAcceptedPreflight": null,
+  "schema": "1370-a208-after-al-game-launch-binding-source-pins/v1",
+  "status": "FROZEN_SOURCE_ONLY_UNRUN_PENDING_AL_FIELDS",
+  "witnessGrant": null
+}

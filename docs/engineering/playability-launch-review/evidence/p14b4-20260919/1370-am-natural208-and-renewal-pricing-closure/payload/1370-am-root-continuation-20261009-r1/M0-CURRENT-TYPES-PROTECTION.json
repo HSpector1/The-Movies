@@ -1,0 +1,71 @@
+{
+  "additionalRefs": {},
+  "completeM0AdoptionSha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad",
+  "freshDependencyProof": {
+    "contentAndMetadataSha256": "a06e929a60a5ede6ce0d72467d4d587e50d1c4fa3788bee3d07f1ea3388cd21d",
+    "contentBytes": 348223802,
+    "entries": 12484,
+    "rootDevice": 16777220,
+    "rootIdentity": [
+      16777220,
+      158487026,
+      16877,
+      154,
+      4928,
+      1790738039503311431,
+      1790738039503311431
+    ],
+    "rootInode": 158487026
+  },
+  "freshSourceProof": {
+    "dependencyLink": [
+      16777220,
+      166769275,
+      41408,
+      1,
+      62,
+      1791577446298712967,
+      1791577446298712967,
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    ],
+    "fileProofDigestSha256": "fbbfed3ec13da5618a0194204e2f6c8a87eebb5ee22102707d466340fbe6e1e0",
+    "mirrorBytes": 119393120,
+    "mirrorFiles": 1740,
+    "mirrorRootIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791577446298737027,
+      1791577446298737027
+    ],
+    "physicalMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "traversedEntries": 1853
+  },
+  "fullPostflightSnapshot": {
+    "bytes": 8576176,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-proof-r2/SNAPSHOT.json",
+    "sha256": "e28f4158e00183be491937e34c98ee67e9427a998b49f9780719c3595acf9d38"
+  },
+  "fullProtectedPostflightAccepted": true,
+  "independentObservedReview": {
+    "bytes": 34396,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-independent-observed-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "09300660dad60e1f0fc956fdd8f676272b3746ae25b438225152dcdf4ab23bef"
+  },
+  "m0TypesProtectionAccepted": true,
+  "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+  "observedProofAdoption": {
+    "bytes": 2981,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-CURRENT-PROOF-OBSERVED-ADOPTION.json",
+    "sha256": "8ef61c8f4e2d614ea2c4312db6c884b6cee9dba71e828a485986504beb5ef9b3"
+  },
+  "physicalFactsSha256": "e9f4829c501cc90475b9067c8ae32580fe5fca14fc40950ee083031f89081ba2",
+  "productionHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "schema": "1370-root-current-m0-types-protection/v1",
+  "scope": "Current source/dependency protection authority for separately granted original four-command M0 type/collection route only; actual type or game outcomes remain unperformed.",
+  "soleLaneReleased": true,
+  "typesOrGameOutcomeAdmitted": false
+}

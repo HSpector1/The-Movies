@@ -1,0 +1,49 @@
+--- fresh-local-main-role/supervise.py
++++ preserved-predecessor/supervise.py
+@@ -4,11 +4,11 @@
+ import hashlib,json,math,os,pathlib,selectors,shutil,signal,stat,subprocess,sys,time
+ S=pathlib.Path('/Users/zacheryspector/studio-scratch')
+ REPO=pathlib.Path('/Users/zacheryspector/The-Movies-headless-program')
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5')
+-RESULT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r2/20261009-m0-types-after-al-r2.RECORDER-RESULT.json')
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4')
++RESULT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r1/20261009-m0-types-after-al-r1.RECORDER-RESULT.json')
+ BOOTSTRAP=P/'BOOTSTRAP.py'
+-BOOTSTRAP_SHA='0ca56de3a190491911061b40728e5a919974c3f18430988ff7ca506dd3b3b922'
+-RUNNER_SHA='ac1d7e993c7ad90d73ed0d758727c249c1086c2ae02be9942c4548ceb389f5b5'
++BOOTSTRAP_SHA='25696ed2167dafc16751ac00f96eb203d0c9ab7d700b6c382dce816af7b0056b'
++RUNNER_SHA='03768e0be95c3dccf430598f7cab47a9b5d2672be6de7d456705cbf7ec2b68a7'
+ AUTHORITY=globals()['_AUTHORITY']
+ CONTEXT=pathlib.Path(globals()['_CONTEXT_PATH'])
+ CONTEXT_SHA=globals()['_CONTEXT_SHA']
+@@ -17,9 +17,8 @@
+ SRC='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554'
+ PRODUCTION_REF='refs/heads/wip/headless-program-20260916-ts'
+ MAIN_REF='refs/heads/main'
+-LOCAL_MAIN_REF='refs/remotes/origin/main'
+ MAIN_OID='c902a704eb948cc576083d0973c8c23e59937dc1'
+-LANE_LOG='c0-m0-types-20261009-m0-types-after-al-r2.lane.log'
++LANE_LOG='c0-m0-types-20261009-m0-types-after-al-r1.lane.log'
+ ACTIVE=320
+ LIMIT=330
+ START=globals()['LAUNCH_START']
+@@ -231,8 +230,8 @@
+  need(git('rev-parse','HEAD')==HEAD and git('rev-parse','HEAD:src')==SRC and git('status','--porcelain=v1')=='','production source identity')
+  need(git('remote','get-url','origin')=='https://github.com/HSpector1/The-Movies.git' and
+       git('config','--get','remote.origin.url')=='https://github.com/HSpector1/The-Movies.git','origin URL')
+- for local_ref,remote_ref,oid in ((PRODUCTION_REF,PRODUCTION_REF,HEAD),(LOCAL_MAIN_REF,MAIN_REF,MAIN_OID)):
+-  need(git('rev-parse',local_ref)==oid and git('ls-remote','origin',remote_ref)==oid+'\t'+remote_ref,'local/remote ref')
++ for ref,oid in ((PRODUCTION_REF,HEAD),(MAIN_REF,MAIN_OID)):
++  need(git('rev-parse',ref)==oid and git('ls-remote','origin',ref)==oid+'\t'+ref,'local/remote ref')
+  need(shutil.disk_usage(S).free>=3*1024**3,'3 GiB floor')
+ 
+ def main():
+@@ -252,7 +251,7 @@
+  failure=None
+  try:
+   preflight()
+-  need(AUTHORITY['configSha256']=='e52b41bcb57b13e8255f9c5417aa29bdcf99e51850b0058119d4126c2c0d3172','exact M0 source config')
++  need(AUTHORITY['configSha256']=='7166e022583531d924d67639a3d2a8a8f250bd8461f2a33cace8ce8f41c24f9c','exact M0 source config')
+   bootstrap_source=read_pin(BOOTSTRAP,100000,BOOTSTRAP_SHA).decode('utf-8')
+   need(shutil.disk_usage(S).free>=3*1024**3,'3 GiB floor')
+   clean={k:v for k,v in os.environ.items() if not k.startswith('GIT_')}

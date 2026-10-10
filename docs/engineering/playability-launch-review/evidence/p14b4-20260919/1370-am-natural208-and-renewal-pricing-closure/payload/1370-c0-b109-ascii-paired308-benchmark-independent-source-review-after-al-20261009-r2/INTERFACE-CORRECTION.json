@@ -1,0 +1,49 @@
+{
+  "schema": "1370-b109-ascii-paired308-independent-review-interface-correction/v1",
+  "originalReceipt": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+    "bytes": 33753,
+    "sha256": "af928bb6586a9140b42a94f1a5deeb56c36c8a452e109268e8283858d8d30cbf"
+  },
+  "originalReceiptPreservedUnchanged": true,
+  "originalRootFailurePreservedByParent": true,
+  "parentReportedFailureSha256Prefix": "f30ba9",
+  "failureArtifactNotReadOrModifiedByReviewer": true,
+  "issue": "Original receipt omitted routeSourcePins required explicitly by source-reviewed launch-benchmark.py. Parent separately guessed findings and stopped before any benchmark grant.",
+  "changes": {
+    "routeSourcePins": "Exact structural alias of sourcePins required by actual launcher.",
+    "findings": "Exact structural alias of concreteFindings for parent interface."
+  },
+  "allOriginalKeysAndValuesUnchanged": true,
+  "semanticReviewContentUnchanged": true,
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_B109_ASCII_PAIRED308_BENCHMARK_ROUTE",
+  "receiptSchemaUnchanged": "1370-b109-ascii-paired308-independent-source-review/v1",
+  "launcherRole": {
+    "bytes": 7488,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/launch-benchmark.py",
+    "sha256": "643eece7f8500f0f4e0fb94866bf457603d039afa78c7d086fdcad6b1fadd7e4"
+  },
+  "launcherReceiptChecks": {
+    "decision": "ACCEPT_SOURCE_ONLY_UNRUN_B109_ASCII_PAIRED308_BENCHMARK_ROUTE",
+    "routeSourcePins": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SOURCE-PINS.json",
+      "sha256": "1800e05d6a9fbab6eae4f4e7a8bee65969da4785e5b47672d1bf06fc4fbba51b",
+      "bytes": 9726
+    },
+    "executionAuthorization": false
+  },
+  "launcherDoesNotCheckReviewSchema": true,
+  "schemaKeyPreserved": "1370-b109-ascii-paired308-independent-source-review/v1",
+  "routeSourcesUnchanged": true,
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "1800e05d6a9fbab6eae4f4e7a8bee65969da4785e5b47672d1bf06fc4fbba51b",
+    "bytes": 9726
+  },
+  "benchmarkUnrun": true,
+  "actualGrant": null,
+  "executionAuthorization": false,
+  "noRuntimeImportTestsOrReviewRerun": true,
+  "noNewGate": true,
+  "preparationDiagnostic": "First correction assembly lacked a prior-turn orchestrator-store recipe value and stopped before writing files. Named immutable recipe was read directly; no source execution or source change occurred."
+}

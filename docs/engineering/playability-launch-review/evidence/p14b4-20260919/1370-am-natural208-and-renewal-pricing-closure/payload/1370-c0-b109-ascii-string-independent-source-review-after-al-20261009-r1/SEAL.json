@@ -1,0 +1,9 @@
+{
+  "executionAuthorization": false,
+  "receipt": {
+    "bytes": 6101,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "7096563a7c72f57e19f410c5a8a8cb75ef087934c2002d532f8aeabde907a4e8"
+  },
+  "schema": "1370-source-only-review-seal/v1"
+}

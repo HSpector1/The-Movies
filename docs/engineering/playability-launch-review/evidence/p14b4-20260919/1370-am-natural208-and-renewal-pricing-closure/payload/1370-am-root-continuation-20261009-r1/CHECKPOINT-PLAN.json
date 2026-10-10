@@ -1,0 +1,24 @@
+{
+  "claimsLimits": [
+    "A208 baseline observed but pending independent/root admission at writing.",
+    "B109 implementation and controls source-reviewed only, runtime and benchmark pending.",
+    "Causal-order contract source-reviewed/root-adopted only; held R3 failure remains preserved.",
+    "No gameplay source changes, no P17/P18 or main merge acceptance."
+  ],
+  "majorLessonsSource": "LESSONS-r4.md",
+  "mustIncludePriorCheckpointFinalization": [
+    "1370-al-checkpoint-root-finalization-20261009-r2/stage_and_verify.py",
+    "1370-al-checkpoint-root-finalization-20261009-r2/STAGED-READBACK.json",
+    "1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json"
+  ],
+  "nextCheckpointTrigger": "After current guard-dependent route reaches a real postflight or a recorded stop; do not mutate production/common baselines merely to checkpoint.",
+  "noProductionEditsDuringProtectionInterval": true,
+  "preserveLocalOnlySemanticRoles": [
+    "all raw whole-machine PS/FD, including BEFORE/AFTER-PS.txt and -LSOF.bin",
+    "synthetic cap padding"
+  ],
+  "productionCommitBase": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "schema": "1370-am-checkpoint-plan/v1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "WORK_IN_FLIGHT_NOT_PUBLISHED"
+}

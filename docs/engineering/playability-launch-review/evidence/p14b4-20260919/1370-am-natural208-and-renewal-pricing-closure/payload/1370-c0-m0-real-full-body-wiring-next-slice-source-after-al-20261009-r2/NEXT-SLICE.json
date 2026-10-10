@@ -1,0 +1,228 @@
+{
+  "actualM0TypesAccepted": false,
+  "actualWiringAccepted": false,
+  "bounds": {
+    "clockAndRecorder": "reuse qualified300/320/330 only in a later reviewed exact route; no route/timing acceptance here",
+    "existingObserverRowBytes": 16384,
+    "existingObserverRows": 512,
+    "existingObserverTotalBytes": 2097152,
+    "testProbeEntries": 16384,
+    "testProbeRowBytes": 65536,
+    "testProbeTotalBytes": 2097152
+  },
+  "codeParsingClaim": "Python source builder parsed by interpreter; generated TypeScript has NOT been parsed, compiled, imported or run",
+  "controlsReadyForRuntime": false,
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "filterContracts": {
+    "authorAndTrigger196": "target subject and three exact issuers",
+    "draftPriceAndPriceAt": "target subject,196/208; not issuer-filtered",
+    "freeze208": "all submitted proposals of target case; not limited to three issuers",
+    "offWeek": "market record returns and feasibility caller contexts absent outside196/208"
+  },
+  "fullBodyChains": {
+    "196": [
+      "advanceTalentMarketWeek",
+      "submitProposal",
+      "proposalDraft",
+      "authorRivalPromise",
+      "promiseFeasibility",
+      "receipt"
+    ],
+    "208": [
+      "advanceTalentMarketWeek",
+      "settleCase",
+      "attachedFeasibility",
+      "promiseFeasibility",
+      "receipt"
+    ],
+    "opportunity196": [
+      "advanceTalentMarketWeek",
+      "authorRivalPromise",
+      "promiseFeasibility",
+      "opportunityAssessment"
+    ],
+    "opportunity208": [
+      "advanceTalentMarketWeek",
+      "settleCase",
+      "attachedFeasibility",
+      "promiseFeasibility",
+      "opportunityAssessment"
+    ]
+  },
+  "fullModuleSourceRoles": {
+    "src/core/employment.ts": {
+      "bytes": 28207,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/src/core/employment.ts",
+      "sha256": "6c3fec2129c0a461ec0de8e3e20f4bb47e4150bb9f0c39fd7201fae6a3951ce0"
+    },
+    "src/core/m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "src/core/opportunityPromises.ts": {
+      "bytes": 24797,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/modern-opportunityPromises.ts",
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd"
+    },
+    "src/core/promises.ts": {
+      "bytes": 112969,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/modern-promises.ts",
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f"
+    },
+    "src/core/rng.ts": {
+      "bytes": 8555,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/src/core/rng.ts",
+      "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a"
+    },
+    "src/core/talentMarket.ts": {
+      "bytes": 116906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/modern-talentMarket.ts",
+      "sha256": "71c775336c581fb5c5ad8923d4648bc8bf492ee38f235214f861fd1d0e7ac804"
+    },
+    "src/harness/p13a/fixtures.ts": {
+      "bytes": 2130,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/src/harness/p13a/fixtures.ts",
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5"
+    },
+    "tests/diagnostic.test.ts": {
+      "bytes": 12710,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/diagnostic.test.ts",
+      "sha256": "8a578e20807a34758f6ae3005caea94824f16aebe36eb92d360139dfa15685b7"
+    }
+  },
+  "historicalAdmissionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "neutralSourceUnmodified": true,
+  "operationalHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "privateMirrorReadOrModified": false,
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "remainingUnknowns": [
+    "actual current M0 types/collection outcome and full protection admission (root work in progress)",
+    "authenticated actual196/208 already-incremented pre-market GameState boundary fixtures; returned195/207 states are different inputs",
+    "minimal explicitly labelled fixture variants that force real authoring and freeze opportunityAssessment without replacing candidate/helper policy",
+    "valid full-state/business/descriptor fixtures for196 off-subject and off-issuer trigger filters; no universal off-issuer observer suppression is valid",
+    "reviewed test-only runtime module resolution/projection: whole-module derivative imports must resolve untouched helpers against admitted M0 without duplicated module identity; never transplant derivatives into neutral mirror",
+    "separate exact recorded controls route/tool/grant and meaningful mutant RED after source/fixture integration"
+  ],
+  "schema": "1370-m0-real-full-body-next-slice/v1",
+  "selectedSourceCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "sourceAuthorities": {
+    "depsChecker": {
+      "bytes": 1918,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-typecheck-collection-route-template-r1/check-deps.mjs",
+      "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+    },
+    "functionOnlyChecker": {
+      "bytes": 5120,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-focused-red-cap-type-gate-proposal-r2/focused-seam-check.mjs",
+      "sha256": "ec85fe511a06ddc3cc9f8d3d1cd880f95b98374ab30f14172f02908439b4d1d2"
+    },
+    "functionOnlyReceipt": {
+      "bytes": 723,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-focused-red-cap-type-gate-independent-review-r2/RECEIPT.json",
+      "sha256": "7b4f3b652d9d4f8c5594927826e756fc7ec792157e8192399c50f02f699848ed"
+    },
+    "h13ExactBinding": {
+      "bytes": 2065,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-filled-exact-r13-r5/EXACT-BINDING.json",
+      "sha256": "8d37d70e3aea0028eee6a5f9f47e67e713bf3722b4fea0c73f81a95f29fe9f5a"
+    },
+    "h13ExactBootstrap": {
+      "bytes": 3582,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-filled-exact-r13-r5/EXACT-BOOTSTRAP.py",
+      "sha256": "dc2ec7abe44d84e1bd15e1364472e6355da9c4e12792f95b26506b91dc882d62"
+    },
+    "h13ExactReview": {
+      "bytes": 1178,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-filled-exact-independent-review-r13-r5/RECEIPT.json",
+      "sha256": "c21107fadcdac99a632c20f9a3e5953a137f5091ff2d5e89c0c9d7187ebb5009"
+    },
+    "h13SourceBinding": {
+      "bytes": 6398,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-filled-exact-r13/BINDING.json",
+      "sha256": "d9bb8b6fd4227e43b191003e3a98182404024f269933cc8de277473b0fb61cf9"
+    },
+    "m0BridgeInputs": {
+      "bytes": 27220,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/INPUTS.json",
+      "sha256": "a9f50c1d0cb6ae54084becf514ed7908c41572050e0df19a50007e3a804ff881"
+    },
+    "m0CompleteIndependentReview": {
+      "bytes": 8376,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-complete-chain-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "002d96ac76da741ffce0e960ffc20afa948574de63e09d79a8ed1e874e6ddb42"
+    },
+    "m0CompleteParentAdoption": {
+      "bytes": 6133,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-complete-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad"
+    },
+    "m0CopyParentAdoption": {
+      "bytes": 1860,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/OBSERVED-COPY-ADOPTION.json",
+      "sha256": "ec17dc69df4c1b8c3e5af8ef88d43fc4bceea82b2278325ec14cf2398651a8dd"
+    },
+    "m0PhysicalFacts": {
+      "bytes": 1872789,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-facts-after-aj-20261009-r3.json",
+      "sha256": "e9f4829c501cc90475b9067c8ae32580fe5fca14fc40950ee083031f89081ba2"
+    },
+    "parentScope": {
+      "bytes": 1496,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r2/ADOPTION.json",
+      "sha256": "476c4bc1e33aa81ca9557e6942f9efe994a80f9378cf4abba1ae04ccce071017"
+    },
+    "r5SourceBootstrap": {
+      "bytes": 3433,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r5/BOOTSTRAP.py",
+      "sha256": "7a63a2d8028ae5c2abb5b2b1b5bdf79a83887b8c809de7d7866f2a9a7dd5f223"
+    },
+    "sourceManifest": {
+      "bytes": 7400,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-corrected-overlay-source-manifest-r2/M0-SOURCE-MANIFEST.json",
+      "sha256": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba"
+    },
+    "sourceReview": {
+      "bytes": 1201,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-corrected-overlay-source-manifest-independent-review-r2/M0-RECEIPT.json",
+      "sha256": "bcd090ec6e8ef391aa7578dd9719f0adda67e8f38610396355ea0c8238549fa8"
+    },
+    "syntheticCatchChecker": {
+      "bytes": 4567,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/r9-catch-propagation-red.mjs",
+      "sha256": "2586ce3c34fe62d3d9e44f98436383ed229992bd68664a04c0332784b724d8e3"
+    },
+    "typeObservedHStop": {
+      "bytes": 4461,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-r13-independent-observed-stop-review-r1/RECEIPT.json",
+      "sha256": "15e901e356b72d80fdebef469bf9e20b171c13a32f34e94bf26858bf2d883ad1"
+    },
+    "typeRecorderPattern": {
+      "bytes": 15261,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r5/supervise.py",
+      "sha256": "3145a6b806e9071fb69aa7eb610025c2930515c210c74cf6f3349a7faebdbc50"
+    },
+    "typeRecorderPatternReview": {
+      "bytes": 1339,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-recorder-r5-independent-static-review-r1/RECEIPT.json",
+      "sha256": "0ffd32cf951984bb61e3e002dcbbbe2b580a7a4295acdbc3fba25c537368be45"
+    },
+    "typeRunnerPattern": {
+      "bytes": 59372,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r13/runner.py",
+      "sha256": "946b3c88208db5128e30e668d0e322f11224235a71ff6994362acb124e0831b7"
+    },
+    "typeRunnerPatternReview": {
+      "bytes": 1852,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-r13-source-independent-static-review-r1/RECEIPT.json",
+      "sha256": "17514022b90852f03fa215d6748875d45eef0ae17270517cc2f55e1c8ba1cf08"
+    }
+  },
+  "status": "HELD_FULL_MODULE_DERIVATIVE_AND_CONTROLS_API_FIXTURE_AND_LOADER_INTEGRATION_UNSETTLED",
+  "typesSourceIndependentReview": {
+    "bytes": 22411,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r4/RECEIPT.json",
+    "sha256": "2d6ab3da894efc86513a6909471781aed7a4ddddcd9f9475e33a71031e71aec0"
+  }
+}

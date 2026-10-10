@@ -1,0 +1,228 @@
+{
+  "activity": {
+    "finiteNamedSourceAndActualReceiptReadsOnly": true,
+    "newScratchMapOnly": true,
+    "testsImportsRuntimeProbesGitPrivateScansOrMutations": false
+  },
+  "executionAuthorization": false,
+  "existingGameOutputAcceptance": {
+    "actualAdoptedPreflight": {
+      "bytes": 12735,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-output-after-al-20261009-r2/PREFLIGHT.json",
+      "sha256": "9f4566352756c361199ca994b55d066178d17556fef7cccaac0edf997504e7ee"
+    },
+    "actualAdoptedPreflightReview": {
+      "bytes": 22784,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-observed-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "8465f006d60042f2ebb3a8e0f3f47fcf6ba425fa50a598881c9deaeb50075763"
+    },
+    "adoptedBinding": {
+      "bytes": 6466,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json",
+      "sha256": "eb6e99e0021809d7ad165ee5c9eba2e2b0c36ab78e34826fc11d5d488036777e"
+    },
+    "adoptedLaunch": {
+      "bytes": 14438,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4/ADOPTED-LAUNCH-SPEC.json",
+      "sha256": "8b00d32003449bd4710f312c9e5afe1e13732de60a158542c5f546f56f11cde5"
+    },
+    "boundedSink": {
+      "bytes": 3682,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/bounded-sink-a208-held.py",
+      "sha256": "9138c982912f53d8241721ec231555de3d8e9dae959e651c9b36dcf96a4f9700"
+    },
+    "claim": "Frame status remains MATCHED_AGING_ERA_PREIMAGE_CANDIDATE until all original observed terminal/group/protection/raw208/full416 requirements accepted. Map creates no new gate.",
+    "exactCandidateReview": {
+      "bytes": 16303,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-independent-review-after-al-20261009-r4/RECEIPT.json",
+      "sha256": "6949f4287cc25b139d1d8fa62d891a876e5e565b078f893b1f665bf3037646cd"
+    },
+    "existingBounds": {
+      "activeStopSeconds": 742,
+      "innerSeconds": 720,
+      "preimageBytes": 262144,
+      "settlement208Bytes": 65536,
+      "settlement208RowBytes": 4096,
+      "sinkForwardSeconds": 10,
+      "sinkReadSeconds": 760,
+      "stderrBytes": 65536,
+      "stdoutFrameBytes": 524288,
+      "wholeRecorderSeconds": 750
+    },
+    "existingInvariants": {
+      "employmentRows": 44,
+      "employmentSettlementReceiptTakesAndRng": {
+        "employment": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58",
+        "receipts": "af8c4d1325ecb350dbc07fbf2f762dd8257db04075b8030bf7bd975b4cb2a766",
+        "rng": "2598418427,508725886,1318803286,3129010527",
+        "settlement": "706e54c6ec9728df1664025982ebbafeb0fc36afb245b6bd0b983305f6a10a77",
+        "takes": "8af116b1687ed210c02953b5b506456e638a64482e8042b0e549b0d57e428694"
+      },
+      "naturalSelected16CaptureWeek": 208,
+      "selectedOrderAndOccurrence": "A source-order24..39, occurrence0; frozen SELECTION unchanged",
+      "weeks": 416
+    },
+    "externalAdapterManifest": {
+      "bytes": 2650,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/SOURCE-PINS.json",
+      "sha256": "470026455632aeac39bf57c3db45722fdd68b96f24689fdee70c3c1da8d40748"
+    },
+    "externalAdapterReview": {
+      "bytes": 2370,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "b6c6d35760a50ad7814e7e75253a614c6756725795ea88870de562b36ddb2c6f"
+    },
+    "frameValidatorRoles": {
+      "outer-recorder.py": {
+        "functions": {
+          "validate_outer_frame": {
+            "lastLine": 175,
+            "line": 159,
+            "sha256": "a86c29b1356ce034718bb8e7314b5fe8626b951a170838056f8a5b68afc06609"
+          },
+          "validate_settlement208_payload": {
+            "lastLine": 156,
+            "line": 138,
+            "sha256": "4cc6b3795f5ccc2d8198cce12c945507b47a54c03cb158f978eb00906c249ec3"
+          }
+        },
+        "role": {
+          "bytes": 11082,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/outer-recorder.py",
+          "sha256": "bf7cb565ba6c378323393b0e4f7a89de16e278526e34f73295e54c74bc7e8ef8"
+        }
+      },
+      "supervise.py": {
+        "functions": {
+          "validate_frame": {
+            "lastLine": 314,
+            "line": 259,
+            "sha256": "a7662ab95349621d3a1d17eeace294eb56d09cf5c2589b29bcd0b46f3b8d6d29"
+          },
+          "validate_settlement208_payload": {
+            "lastLine": 256,
+            "line": 238,
+            "sha256": "4cc6b3795f5ccc2d8198cce12c945507b47a54c03cb158f978eb00906c249ec3"
+          },
+          "validate_source_review": {
+            "lastLine": 235,
+            "line": 198,
+            "sha256": "c168677f0f11fcbc3963fdaf68895d3494b3a5a1f9095ba091b90fe9b7d1540e"
+          }
+        },
+        "role": {
+          "bytes": 22673,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/supervise.py",
+          "sha256": "45eda307943fb829a321624d7eca4ad5004a7d8e8bdef042a74c8344b61e153e"
+        }
+      }
+    },
+    "pipeline": {
+      "bytes": 1244,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/launch-pipeline-a208-held.sh",
+      "sha256": "46640b541fb04c67fcd5f72602ab128ca056416cd37ad946f248a50da1d6886a"
+    },
+    "sourceManifest": {
+      "bytes": 9882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+    },
+    "sourceReview": {
+      "bytes": 5517,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+    },
+    "terminalRequirements": [
+      "Actual parent/tool and helper final0; exactly one final lane meta child exit0",
+      "Exactly one raw frame ending newline with one newline total and <=524288 bytes",
+      "Exactly one immediate PIPESTATUS candidate marker outerExit0/sinkExit0; both actual exits must be0",
+      "Empty original internal stderr; pipeline-exit marker on pipeline stderr is separate expected metadata",
+      "Existing frame validates candidate status/protocol/source3aaf55/seed/full416/44 rows/all four digests+RNG",
+      "Canonical base64 exact44-row employment preimage <=262144 bytes and hash4cff, row/byte counts and original firstQuote index0/age44/id/salary395548/bonus71199",
+      "Captured natural week208 selected16 payload <=65536B/4096 per row; exact schema/phase/week/seed/16/count/hash/canonical base64, pricingHelpersCalled0/extraRngCalls0/premiumAttributionfalse/floorAttributionfalse",
+      "Source/worktree/runtime/Node/bounds preflight/postflight/finalflight frames all equal exact existing bound guard roles",
+      "Actual original owned groups reconciled and cleared, no unauthorized regular writes or detached-child inference",
+      "Original full protected postflight passes; independent raw208/frame/full416 acceptance precedes vector/game/pricing claims"
+    ],
+    "validatorUse": "Existing sink authenticates manifest345 and supervisor45, executes exactly authenticated supervisor bytes, calls validate_source_review(profile,SOURCE) and validate_frame(raw,profile). Outer uses its existing validate_outer_frame. No new validator or test execution authored."
+  },
+  "newGuardSource": false,
+  "pending": {
+    "actualGame": null,
+    "actualGameOwnedPgids": null,
+    "actualPostflight": null,
+    "actualRawFrame": null,
+    "finalGameGrant": null,
+    "independentGameOutputAcceptance": null
+  },
+  "postflight": {
+    "acceptedActualAfterFill": {
+      "bytes": 8565365,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/after-fill-after-al-game-r4/SNAPSHOT.json",
+      "sha256": "64da19fd4b46d8d0311360cbc08a90d57817175c781e2f73e4fd850925771719"
+    },
+    "actualOutput": null,
+    "argvTemplate": [
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+      "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+      "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+      "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+      "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+      "postflight",
+      "postflight-after-al-a208-r4",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+      "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609",
+      "__ACTUAL_GAME_OWNED_PGIDS_CSV_PENDING__"
+    ],
+    "beforeFillBaseline": {
+      "bytes": 8562268,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+      "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+    },
+    "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+    "environment": {
+      "GIT_OPTIONAL_LOCKS": "0",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "expectedPhase": "postflight",
+    "expectedStatus": "GUARDS_ACCEPTED_READONLY",
+    "freshLabel": "postflight-after-al-a208-r4",
+    "originalAcceptance": "Actual tool0, no traceback/nonzero/missing status; authenticate raw SNAPSHOT/PINS and complete local raw evidence. Require immutable equality with genuine before-fill baselinec818, including full protected/source/dependency/root/ancestry maps. Both fresh current passes check original FD/process/UUID/refs/clean/AC/disk/locks and supplied actual owned groups. Actual independent review reconciles game groups/exits/frame before witness acceptance.",
+    "originalDecision": "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "originalObservedCopyReceipt": {
+      "bytes": 3717,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+      "sha256": "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d"
+    },
+    "originalOutputSchema": "1370-a208-current-operational-full-guard-snapshot-r2",
+    "ownedGroups": {
+      "actualValues": null,
+      "format": "Comma-separated decimal integer PGIDs each>1; original source sorts/de-duplicates. Exact recorded ownership and numeric reuse caveat retained.",
+      "literalPlaceholder": "__ACTUAL_GAME_OWNED_PGIDS_CSV_PENDING__",
+      "source": "Parent records actual game-owned helper/pipeline/outer/supervisor/sandbox/Node identities from genuine authorized capture, supplies the applicable observed groups and reconciles original ownership separately. No earlier filler/scanner IDs substitute for game identities.",
+      "unknown": "Do not execute this literal template or invent zero/default/group identities. Missing actual groups leaves ownership unknown; omitting optional CSV cannot claim their clearance."
+    },
+    "perCommandTimeoutSeconds": 180,
+    "phase": "postflight",
+    "plannedOutputDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4",
+    "rawLocalOnly": "Every BEFORE/AFTER PS and LSOF raw payload remains LOCAL_HASH_SIZE_ONLY regardless filename extension; preserve locally, publish only path/size/hash metadata.",
+    "retainedHLeaf": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "scope": "Exact original full inventory/protected postflight; no new guard source/waiver/M0 inventory or rematerialization.",
+    "unchangedConfig": {
+      "bytes": 3906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
+      "sha256": "20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41"
+    },
+    "unchangedProcedure": {
+      "bytes": 21984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+      "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+    },
+    "wholeScanDeadline": null
+  },
+  "schema": "1370-a208-original-full-postflight-and-output-argument-map/v1",
+  "status": "SOURCE_ONLY_POSTFLIGHT_ARGUMENT_FACTS_GAME_IDENTITIES_PENDING"
+}

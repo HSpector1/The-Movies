@@ -1,0 +1,71 @@
+{
+  "actualOutcome": null,
+  "actualTool": null,
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r2/preflight.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-parent-after-al-20261009-r2/CONFIG.json",
+    "91aa98e32948701857f1829c8fd3a209a709c53d5438fe2b33253553b41e94ba"
+  ],
+  "automaticRetry": false,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesPid": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": true,
+  "externalConfig": {
+    "bytes": 5903,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-parent-after-al-20261009-r2/CONFIG.json",
+    "sha256": "91aa98e32948701857f1829c8fd3a209a709c53d5438fe2b33253553b41e94ba"
+  },
+  "game": false,
+  "literalFillProof": {
+    "bytes": 3710,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-parent-after-al-20261009-r2/CONFIG-FILL-PROOF.json",
+    "sha256": "117f864d047a241d99e3e2c705d3852f0018ab3b753a3d6b8240caa0b372510a"
+  },
+  "ownedPreflightPgid": 28100,
+  "ownedPreflightPid": 28100,
+  "ownedPreflightSid": 28100,
+  "perCommandTimeoutSeconds": 180,
+  "protectedFreezeContinues": true,
+  "rawPsFdLocalOnly": true,
+  "rootLauncher": {
+    "bytes": 5411,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_preflight_once.py",
+    "sha256": "0f9db486515af4d9cb34b834aeec5d9a333e47af4a8604a06d5e12d63ece7f94"
+  },
+  "schema": "1370-root-a208-adopted-preflight-grant/v1",
+  "scope": "ADOPTED_CURRENT_AND_ROOT_PREFLIGHT_OBSERVATION_ONLY",
+  "source": {
+    "bytes": 23349,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r2/preflight.py",
+    "sha256": "fd2f806d140fbd74c34b130d299be20ff3382dd07e71ccf6da3f16d7c95e5fef"
+  },
+  "sourceAdoption": {
+    "bytes": 1591,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-PREFLIGHT-SOURCE-ADOPTION.json",
+    "sha256": "a95acf0fefa0e4ac7696ae44c237f8cbf68a84f93aefa7cd167463d967e00381"
+  },
+  "sourcePins": {
+    "bytes": 3167,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "70a9b35e76220d5b6059729f4859f0cf3d5eda46c6952b3c5d488505cccd3d12"
+  },
+  "sourceReview": {
+    "bytes": 10090,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "a8956c52486499a1bd4e752f9cc27d68c16c1ca1f33323ac5790e864cd3bbea0"
+  },
+  "startMonotonic": 99962.84194176,
+  "status": "GRANTED_ONE_EXACT_ORIGINAL_PERMITTED_R2_ADOPTED_PREFLIGHT",
+  "stderrPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-parent-after-al-20261009-r2/preflight.stderr",
+  "stdoutPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-parent-after-al-20261009-r2/preflight.stdout",
+  "utc": "2026-10-10T00:57:01.737345+00:00",
+  "wholePreflightDeadline": null
+}

@@ -1,0 +1,157 @@
+{
+  "absentM0AfterProofsNotRepairedBySharedGuard": true,
+  "actualCurrentProofAccepted": true,
+  "actualFullBodyFixturesAndControlsAccepted": false,
+  "actualR5FailureProtectedPostflightAccepted": true,
+  "actualR6FourChildZero": true,
+  "actualR6RouteExit": 1,
+  "actualTypesAccepted": false,
+  "allOriginalFailuresAndLessonsPreserved": true,
+  "autoBlockByteExact": true,
+  "currentLessons": {
+    "bytes": 23037,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/LESSONS-r21.md",
+    "sha256": "efe3afd635d51a1c0d3d21487773fa15a3c4f36c0b17212318ffa9fb549aaf06"
+  },
+  "decision": "PREPARED_SCRATCH_ONLY_AM_DRAFTS_PENDING_R6_POSTFLIGHT_AND_ROOT_PUBLICATION",
+  "executionAuthorization": false,
+  "fullBodySourceOnly": true,
+  "incompleteGuardOutputRead": false,
+  "isolatedPerFieldOrUpstreamPricingCauseAccepted": false,
+  "originalActiveOrderPreserved": true,
+  "pendingRootUpdates": [
+    {
+      "actualFullPostflightAccepted": false,
+      "actualFullPostflightToolSessionId": 98815,
+      "expectedAdditionalSemanticRawRoles": 4,
+      "expectedTotalOnlyAfterActualClassification": 41,
+      "finalM0SourceAndDependencyProofsAbsent": true,
+      "noSharedGuardPassCanRepairAbsentM0AfterProofs": true,
+      "parentPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-fullguard-postflight-parent-after-al-20261009-r3",
+      "scannerPidPgid": 39702
+    },
+    "Final archive input/inventory/source review and actual AM commit/blob/ref readback."
+  ],
+  "possibleConfigWriteCauseProven": false,
+  "previousDraftReceipt": {
+    "bytes": 7583,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-documentation-drafts-independent-after-al-20261009-r2/DRAFT-RECEIPT.json",
+    "sha256": "28efd2516300106d172522e6bca2e70f07bfd577cc2273a7525226cabe5a794c"
+  },
+  "proposedHandoff": {
+    "bytes": 15279,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-documentation-drafts-independent-after-al-20261009-r3/HANDOFF-PROPOSED.md",
+    "sha256": "8be3c089f28e97f89d6c6a0b434331d1f4a2f4dc35432a33fb1e922ca13c7af3"
+  },
+  "rawContentRead": false,
+  "readinessR3": {
+    "bytes": 16387,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-archive-input-readiness-independent-review-after-al-20261009-r3/RECEIPT.json",
+    "sha256": "59337215ad33f677aeaea8d792b91945e6a916e8591da4239f8897a8b47b0124"
+  },
+  "report": {
+    "bytes": 17542,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-documentation-drafts-independent-after-al-20261009-r3/1370-AM-natural208-and-renewal-pricing-closure.md",
+    "sha256": "c9f09ef696007c6bfcd270a53637f33300ad8aea05219ac28c9f08152f66f971"
+  },
+  "repositoryOrGitChanges": false,
+  "rootSoleProductionWriter": true,
+  "schema": "1370-am-documentation-drafts/v3",
+  "sourceRoles": {
+    "A208 observed acceptance": {
+      "bytes": 24834,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-independent-observed-review-after-al-20261009-r4/RECEIPT.json",
+      "sha256": "e070833564760624ca723d942324381b1dcbdfb23af0d745bbad6e097eb5a01d"
+    },
+    "A208 root adoption": {
+      "bytes": 5419,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-GAME-OBSERVED-ADOPTION.json",
+      "sha256": "17fdc2082a68e1dbc9ca646e7a4467ad34c0a68d8eee70fca01e6970e22aaaa2"
+    },
+    "B109 benchmark root adoption": {
+      "bytes": 3509,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-BENCHMARK-OBSERVED-ADOPTION.json",
+      "sha256": "1baf86e2d320ba2743ad377688726fbdf4c342a17b733bc1f44bc1891ff84cd7"
+    },
+    "Current archive readiness": {
+      "bytes": 16387,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-archive-input-readiness-independent-review-after-al-20261009-r3/RECEIPT.json",
+      "sha256": "59337215ad33f677aeaea8d792b91945e6a916e8591da4239f8897a8b47b0124"
+    },
+    "Pure16 observed acceptance": {
+      "bytes": 21527,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-independent-observed-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "4610a4eeb858466c874d4b9bb2d1a51a35c268b450a93e12df44f12f9f5a6028"
+    },
+    "Pure16 root adoption": {
+      "bytes": 4381,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/PURE16-PRICING-OBSERVED-ADOPTION.json",
+      "sha256": "2c3111b3cb19dbbceee9387be355836aefadc27c36633736a282a1628d6ac3be"
+    },
+    "currentProofAdoption": {
+      "bytes": 2981,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-CURRENT-PROOF-OBSERVED-ADOPTION.json",
+      "sha256": "8ef61c8f4e2d614ea2c4312db6c884b6cee9dba71e828a485986504beb5ef9b3"
+    },
+    "fullBodyR3HeldSourceAdoption": {
+      "bytes": 1847,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-FULLBODY-R3-HELD-SOURCE-ADOPTION.json",
+      "sha256": "2d528f4e64c051e666f328acca7fa65bbdb65deea784fe89392862bde341eab4"
+    },
+    "latestLessons": {
+      "bytes": 23037,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/LESSONS-r21.md",
+      "sha256": "efe3afd635d51a1c0d3d21487773fa15a3c4f36c0b17212318ffa9fb549aaf06"
+    },
+    "r5StopAdoption": {
+      "bytes": 6399,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-TYPES-STOP-OBSERVED-ADOPTION.json",
+      "sha256": "f3f4c5386c283a230f6905e3429d4e5dd050f986d6acda7c63e304ebd8dd6633"
+    },
+    "r6ActualReadback": {
+      "bytes": 11504,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r6/READBACK.json",
+      "sha256": "1456317c3f33bdba89e30cef89a133a649c79517eed36dda43c6c5f67afe57f3"
+    },
+    "r6ActualTool": {
+      "bytes": 657,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r6/ACTUAL-TOOL.json",
+      "sha256": "bd8a07d9e9f9dd1c308d36b83139f104ab01c32446fd3c2732f762515beb1c7a"
+    },
+    "r6MetadataStopAdapterSourceReview": {
+      "bytes": 1703,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-r6-metadata-stop-postflight-adapter-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "15304a4e2b57fbd76c729c37a391576fc6c7bce3cac4813af04c83752b2bd969"
+    },
+    "r6PendingStopDiagnosis": {
+      "bytes": 10199,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-r6-independent-stop-diagnosis-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "f41ab334cb318283feec98de2a8818aae1a2a0876751ff6b64073f4ea662fe9c"
+    },
+    "r6PossibleConfigWriteMechanismR1": {
+      "bytes": 5258,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-r6-config-write-independent-source-proposal-after-al-20261009-r1/PROPOSAL.json",
+      "sha256": "b437a90a0bfaf7e41a0c1257628a604874496feae8c757ed3567924ff28ee720"
+    },
+    "r6PossibleConfigWriteMechanismR2": {
+      "bytes": 6167,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-r6-config-write-independent-source-proposal-after-al-20261009-r2/PROPOSAL.json",
+      "sha256": "3341dff99805dcd8a793116cc6466439971e6589f3ebfbbc4b1956257b07fcb2"
+    },
+    "r6PreflightAdoption": {
+      "bytes": 3224,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-TYPES-PREFLIGHT-OBSERVED-ADOPTION-R6.json",
+      "sha256": "a15400a7e31a132e4187a42ed31d040ab91522d2c7f437c285e4991b45a024ee"
+    },
+    "r6RootBindingProof": {
+      "bytes": 11553,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-R6-ROOT-ROUTE-BINDING-PROOF.json",
+      "sha256": "eca05c6660643377cfa9ecdbbbae9bb57137b7b5ee3dbab3f476484c04bb65e9"
+    },
+    "r6SourceAdoption": {
+      "bytes": 2015,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-R6-PARENT-R4-SOURCE-ADOPTION.json",
+      "sha256": "372dd827d18f073275b2216a68f3ff454324e6db5d2ca9fe420f861b46a8a5a5"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+--- PROPOSED-RUNNER.py
++++ BASE-RUNNER.py
+@@ -683,7 +683,7 @@
+   need(cmd([NODE,'--version'])=='v22.23.2','Node runtime drift')
+   for name,argv in [
+       ('dependency-versions',[node,dependency_check,str(mirror),str(REPO),LOCK_SHA]),
+-      ('root-tsc',[tsc,'--noEmit','--allowImportingTsExtensions']),
++      ('root-tsc',[tsc,'--noEmit']),
+       ('ui-tsc',[tsc,'-p','ui/tsconfig.json','--noEmit']),
+       ('diagnostic-collection',[vitest,'list','tests/diagnostic.test.ts','--project','core','--json',str(out/'collection.json'),'--no-cache'])]:
+    before_child=root_checkpoint(mirror,run_id)

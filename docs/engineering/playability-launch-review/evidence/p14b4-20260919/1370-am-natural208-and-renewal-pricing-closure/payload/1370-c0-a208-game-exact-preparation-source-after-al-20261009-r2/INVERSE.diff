@@ -1,0 +1,146 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/fill_actual_candidate.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-20261008-r2/fill_actual_candidate.py
+@@ -8,10 +8,10 @@
+ HERE=Path(__file__).resolve().parent
+ REPO=Path('/Users/zacheryspector/The-Movies-headless-program')
+ SCRATCH=Path('/Users/zacheryspector/studio-scratch')
+-SOURCE=SCRATCH/'1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1'
+-CONFIG_SHA='6a17aef0f43cea9c5c480952ef12a69be3d1ee1b1d562166b4968198c5f1e6d4'
++SOURCE=SCRATCH/'1370-c0-aging-era-employment-witness-source-r7'
++CONFIG_SHA='4b6bf16518e9ab7c472c9147376a9a9ed5ca15f79f0dc656af8175abd85a6bf5'
+ EXCLUDED={'status','executionAuthorization','exactReview'}
+-BLOBS={'src/core/talentMarket.ts':'f036fcec9191374dc5554c5cdc33372b53cd7926','src/core/talentSummary.ts':'f8e8539d3c0f780e58027640de333d6168db7654','src/core/tuning.ts':'c4fc34447aff0eefd6ea52f34b798a1bfa2fabc9','src/core/aging.ts':'e1b88562ded631e0142b2783555e866d4a884d04','src/core/employment.ts':'e8e5acaa1e6a94ac1de7db13eb46840efb55616f','src/core/hollywood.ts':'377da502bcfa55afe31c243ab0909b2c0012d269','src/core/worldgen.ts':'94f83a85e1e59532013ab4735f73a67a916a5332','src/core/tick.ts':'328c2e28f7e209b4ab6b96c6e59f1d1739ad0db5','src/harness/p13a/fixtures.ts':'9ab3eee75b0b2b2733f350bbc3964aa5ba176de8','tests/bridge-p14b5-relationships.test.ts':'0815114340a983348eae6e98c33843c32c297228','tests/fixtures/p13a/accepted-v19.json.gz':'a987ecc4411c48fc8f256e81c93e9abf1fd61d6c'}
++BLOBS={'src/core/aging.ts':'e1b88562ded631e0142b2783555e866d4a884d04','src/core/employment.ts':'e8e5acaa1e6a94ac1de7db13eb46840efb55616f','src/core/hollywood.ts':'377da502bcfa55afe31c243ab0909b2c0012d269','src/core/worldgen.ts':'94f83a85e1e59532013ab4735f73a67a916a5332','src/core/tick.ts':'328c2e28f7e209b4ab6b96c6e59f1d1739ad0db5','src/harness/p13a/fixtures.ts':'9ab3eee75b0b2b2733f350bbc3964aa5ba176de8','tests/bridge-p14b5-relationships.test.ts':'0815114340a983348eae6e98c33843c32c297228','tests/fixtures/p13a/accepted-v19.json.gz':'a987ecc4411c48fc8f256e81c93e9abf1fd61d6c'}
+ RUNTIME=('package.json','package-lock.json','node_modules/vite/package.json','node_modules/vite-node/package.json','node_modules/vite-node/vite-node.mjs')
+ def require(ok,msg):
+  if not ok: raise RuntimeError('STOP: '+msg)
+@@ -37,29 +37,10 @@
+  p=subprocess.run(argv,cwd=cwd,env=env,stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=30)
+  require(p.returncode==0,'command failed '+str(argv)); return p.stdout
+ 
+-def current_operational_roles(config, adopting=False):
+- # Exact actual roles filled in a fresh independently reviewed config; scope is design only.
+- for key in ('actualOperationalRuntimeAuthority','actualGuardBaseline'):
+-  require(isinstance(config.get(key),dict),'current AL observed protection role pending '+key)
+- require(isinstance(config.get('actualOperationalRuntimeAuthorityExpectedStatus'),str),'actual protection status pending')
+- require(config['actualOperationalRuntimeAuthority']!=config['sourceScopeAdoption'],'source-only scope is not observed protection authority')
+- names=['publishedReadback','sourceScopeAdoption','actualOperationalRuntimeAuthority','actualGuardBaseline']
+- if adopting:
+-  require(isinstance(config.get('actualGuardAfterFill'),dict),'current AL after-fill protection pending');names.append('actualGuardAfterFill')
+- values={}
+- for key in names:
+-  expected=config[key];raw,_=read(expected['path']);require(sha(raw)==expected['sha256'] and len(raw)==expected['bytes'],'exact current operational role '+key);values[key]=json.loads(raw)
+- publication=values['publishedReadback'];scope=values['sourceScopeAdoption'];authority=values['actualOperationalRuntimeAuthority']
+- require(publication['status']=='PUSHED_REMOTE_AND_COMMITTED_TREE_VERIFIED' and publication['head']==publication['trackingWorkingHead']==config['productionHead'] and publication['sourceTree']==config['productionSourceTree'] and publication['workingTreeClean'] is True and publication['docsOnlyTransitionVerified'] is True,'current published AL role')
+- require(scope['status']=='PARENT_ADOPTED_A208_OPERATIONAL_GUARD_SCOPE_ONLY' and scope['productionGuardHead']==config['productionHead'] and scope['productionSourceTree']==config['productionSourceTree'] and scope['executionAuthorization'] is False and scope['combinedHFirstRouteUnchanged'] is True and scope['H8708Waived'] is False and scope['operationalTransition']['actualHead']==config['productionHead'] and scope['operationalTransition']['docsOnlyVerified'] is True and scope['remoteRefsVerified']==config['operationalRemoteRefs'],'truthful current source-only scope')
+- require(authority['status']==config['actualOperationalRuntimeAuthorityExpectedStatus'] and authority['status']!=scope['status'],'exact observed protection authority status')
+- return values
+-
+ def main():
+  require(sys.dont_write_bytecode and not sys.flags.optimize,'invoke Python -B without optimization')
+  require(len(sys.argv)==4,'need approved observed receipt path/hash/decision')
+  configraw,_=read(HERE/'CONFIG-PENDING.json'); require(sha(configraw)==CONFIG_SHA,'configuration drift'); config=json.loads(configraw)
+- current_operational_roles(config)
+  receiptpath=Path(sys.argv[1]); approvedsha=sys.argv[2]; approveddecision=sys.argv[3]
+  require(approveddecision.startswith('ACCEPT_OBSERVED_') and any(x in approveddecision for x in ('MATERIALIZ','COPY')),'receipt decision must mean observed materialization/copy acceptance')
+  receiptraw,_=read(receiptpath); require(sha(receiptraw)==approvedsha,'observed receipt bytes'); receipt=json.loads(receiptraw)
+@@ -72,7 +53,7 @@
+  root_before=root.stat();root_identity={'path':str(root),'device':root_before.st_dev,'inode':root_before.st_ino,'mode':format(stat.S_IMODE(root_before.st_mode),'04o'),'mtimeNs':root_before.st_mtime_ns,'ctimeNs':root_before.st_ctime_ns}
+  mraw,_=read(config['materializerBindingPath']); materializer=json.loads(mraw)
+  require(materializer['scratchRoot']==str(root) and materializer['sourceSha']=='3aaf55e0c06c4b745b0b722cc56913050b1ee229','materializer source/root roles')
+- require(materializer['productionHead']==config['materializerProductionHead'],'immutable historical materializer HEAD pin')
++ require(materializer['productionHead']==config['productionHead'],'materializer HEAD pin')
+  require(materializer['sourcePinsSha256']==config['materializerSourcePinsSha256'],'accepted r6 source pin')
+  excluded={'status','executionAuthorization','exactBindingReviewPath','exactBindingReviewSha256','exactBindingReviewDecision'}
+  require(sha(json.dumps({k:v for k,v in materializer.items() if k not in excluded},sort_keys=True,separators=(',',':')).encode())==config['materializerSemanticSha256'],'exact r6 semantic identity')
+@@ -87,9 +68,9 @@
+  require(not os.path.lexists(materializer['recorderLockPath']) and not os.path.lexists(SCRATCH/'HEAVY-LANE-LOCK'),'copy/other lane still active')
+  for name,role in config['roles'].items():
+   p=Path(role['path']); require(p.is_file() and not p.is_symlink() and sha(p.read_bytes())==role['sha256'] and format(stat.S_IMODE(p.lstat().st_mode),'04o')==role['mode'],'source/adapter/tool role drift '+name)
+- profile_raw,_=read(HERE/'BINDING-TEMPLATE-PENDING.json'); require(sha(profile_raw)==config['bindingTemplateSha256'],'binding template drift'); profile=json.loads(profile_raw); profile.update(status='DRAFT_FILLED_UNREVIEWED_UNRUN',executionAuthorization=False,exactReview=None,repoRoot=str(root),productionHeadAtPreparation=config['productionHead'],operationalRuntimeAuthority=config['actualOperationalRuntimeAuthority'])
++ profile_raw,_=read(HERE/'BINDING-TEMPLATE-PENDING.json'); require(sha(profile_raw)==config['bindingTemplateSha256'],'binding template drift'); profile=json.loads(profile_raw); profile.update(status='DRAFT_FILLED_UNREVIEWED_UNRUN',executionAuthorization=False,exactReview=None,repoRoot=str(root))
+  sourceraw,_=read(SOURCE/'SOURCE-PINS.json'); sourcepins=json.loads(sourceraw)
+- require(sha(sourceraw)=='3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf','frozen18 A208 source pins')
++ require(sha(sourceraw)=='69ca5043bb533908f722126fbc93fd59ce84f0d7388180f3b60c5074076aebc2','r7 source pins')
+  for name,pin in sourcepins['files'].items():
+   raw,_=read(SOURCE/name); require(pin=={'sha256':sha(raw),'bytes':len(raw)},'r7 source file '+name)
+  worktree={}; files={}
+@@ -100,10 +81,10 @@
+   raw,rec=read(root/rel); runtime[rel]=sha(raw);files[rel]=rec
+  require(runtime==materializer['runtimeFiles'],'copied runtime must match observed materializer pins')
+  profile['runtimeSha256']=runtime
+- require(len(profile['observerSha256'])==8 and all(profile['observerSha256'][name]==sourcepins['files'][name]['sha256'] for name in profile['observerSha256']),'seven observers exact')
++ require(len(profile['observerSha256'])==7 and all(profile['observerSha256'][name]==sourcepins['files'][name]['sha256'] for name in profile['observerSha256']),'seven observers exact')
+  runner=root/'node_modules/.bin/vite-node'; require(runner.is_symlink() and os.readlink(runner)=='../vite-node/vite-node.mjs','vite-node runner link')
+  runner_resolved=runner.resolve(strict=True); require(runner_resolved==root/'node_modules/vite-node/vite-node.mjs','contained runner target')
+- node=Path(profile['nodeExecPath']); node_role=executable(node);require(node_role['sha256']=='0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6','accepted physical Node22 executable')
++ node=Path(materializer['nodePath']); node_role=executable(node);require(node_role['sha256']==materializer['nodeSha256'],'bound materializer Node executable')
+  selected_path=str(node.parent)+':/usr/bin:/bin:/usr/sbin:/sbin'
+  launch_env=dict(os.environ,PATH=selected_path,PYTHONDONTWRITEBYTECODE='1',GIT_OPTIONAL_LOCKS='0')
+  require(Path(shutil.which('node',path=selected_path)).resolve(strict=True)==node,'actual env-node shebang selection')
+@@ -116,7 +97,7 @@
+  require(command(git+['rev-parse','HEAD'],REPO,launch_env).decode().strip()==config['productionHead'],'production HEAD')
+  require(command(git+['rev-parse','HEAD:src'],REPO,launch_env).decode().strip()==config['productionSourceTree'],'production src')
+  require(command(git+['status','--porcelain=v1','-z','--untracked-files=all'],REPO,launch_env)==b'','production clean')
+- remote=command(git+['ls-remote','origin','refs/heads/wip/headless-program-20260916-ts','refs/heads/main'],REPO,launch_env).decode();require(remote==''.join(config['operationalRemoteRefs'][key]+'\t'+key+'\n' for key in sorted(config['operationalRemoteRefs'])),'live current AL refs')
++ remote=command(git+['ls-remote','origin','refs/heads/wip/headless-program-20260916-ts'],REPO,launch_env).decode();require(remote==config['productionHead']+'\trefs/heads/wip/headless-program-20260916-ts\n','live remote HEAD')
+  require(b"AC Power" in command(['/usr/bin/pmset','-g','batt'],REPO),'AC unavailable')
+  require(command(['/usr/sbin/sysctl','-n','kern.bootsessionuuid'],REPO).decode().strip()==config['bootSessionUuid'],'boot session identity drift')
+  oldpid=subprocess.run(['/bin/ps','-p','25951,29271','-o','pid='],cwd=REPO,stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=30);require(oldpid.returncode==1 and oldpid.stdout==b'','old numeric PID requires identity review')
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r2/adopt_reviewed_candidate.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-20261008-r2/adopt_reviewed_candidate.py
+@@ -8,7 +8,7 @@
+ HERE=Path(__file__).resolve().parent
+ REPO=Path('/Users/zacheryspector/The-Movies-headless-program')
+ SCRATCH=Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='6a17aef0f43cea9c5c480952ef12a69be3d1ee1b1d562166b4968198c5f1e6d4'
++CONFIG_SHA='4b6bf16518e9ab7c472c9147376a9a9ed5ca15f79f0dc656af8175abd85a6bf5'
+ EXCLUDED={'status','executionAuthorization','exactReview'}
+ def require(ok,msg):
+  if not ok:raise RuntimeError('STOP: '+msg)
+@@ -35,28 +35,9 @@
+  p=subprocess.run(argv,cwd=cwd,env=env,stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=30)
+  require(p.returncode in allowed,'command failed '+argv[0]);return p.stdout
+ 
+-def current_operational_roles(config, adopting=False):
+- # Exact actual roles filled in a fresh independently reviewed config; scope is design only.
+- for key in ('actualOperationalRuntimeAuthority','actualGuardBaseline'):
+-  require(isinstance(config.get(key),dict),'current AL observed protection role pending '+key)
+- require(isinstance(config.get('actualOperationalRuntimeAuthorityExpectedStatus'),str),'actual protection status pending')
+- require(config['actualOperationalRuntimeAuthority']!=config['sourceScopeAdoption'],'source-only scope is not observed protection authority')
+- names=['publishedReadback','sourceScopeAdoption','actualOperationalRuntimeAuthority','actualGuardBaseline']
+- if adopting:
+-  require(isinstance(config.get('actualGuardAfterFill'),dict),'current AL after-fill protection pending');names.append('actualGuardAfterFill')
+- values={}
+- for key in names:
+-  expected=config[key];raw,_=read(expected['path']);require(sha(raw)==expected['sha256'] and len(raw)==expected['bytes'],'exact current operational role '+key);values[key]=json.loads(raw)
+- publication=values['publishedReadback'];scope=values['sourceScopeAdoption'];authority=values['actualOperationalRuntimeAuthority']
+- require(publication['status']=='PUSHED_REMOTE_AND_COMMITTED_TREE_VERIFIED' and publication['head']==publication['trackingWorkingHead']==config['productionHead'] and publication['sourceTree']==config['productionSourceTree'] and publication['workingTreeClean'] is True and publication['docsOnlyTransitionVerified'] is True,'current published AL role')
+- require(scope['status']=='PARENT_ADOPTED_A208_OPERATIONAL_GUARD_SCOPE_ONLY' and scope['productionGuardHead']==config['productionHead'] and scope['productionSourceTree']==config['productionSourceTree'] and scope['executionAuthorization'] is False and scope['combinedHFirstRouteUnchanged'] is True and scope['H8708Waived'] is False and scope['operationalTransition']['actualHead']==config['productionHead'] and scope['operationalTransition']['docsOnlyVerified'] is True and scope['remoteRefsVerified']==config['operationalRemoteRefs'],'truthful current source-only scope')
+- require(authority['status']==config['actualOperationalRuntimeAuthorityExpectedStatus'] and authority['status']!=scope['status'],'exact observed protection authority status')
+- return values
+-
+ def main():
+  require(sys.dont_write_bytecode and not sys.flags.optimize and len(sys.argv)==4,'invoke Python -B with exact receipt/hash/identity hash')
+  configraw,_=read(HERE/'CONFIG-PENDING.json');require(sha(configraw)==CONFIG_SHA,'config drift');config=json.loads(configraw)
+- current_operational_roles(config,adopting=True)
+  draft=Path(config['candidatePath']);binding=Path(config['bindingPath']);archive=Path(config['archivePath']);output=Path(config['adoptionOutputPath'])
+  require(draft.resolve(strict=True)==draft and draft.parent==SCRATCH and archive.parent==SCRATCH and output.parent==SCRATCH,'owned physical paths')
+  require(not os.path.lexists(archive) and not os.path.lexists(output),'archive/adoption output already used')
+@@ -66,7 +47,6 @@
+  for k,v in {'decision':'ACCEPT_EXACT_FILLED_UNRUN','reviewedDraftBindingSha256':identity['draftBindingSha256'],'bindingSemanticSha256':identity['bindingSemanticSha256'],'candidatePinsSha256':identity['candidatePinsSha256'],'productionHead':config['productionHead'],'sourcePinsSha256':identity['sourcePinsSha256'],'adoptionProcedureSha256':sha(read(Path(__file__).resolve())[0]),'fillProcedureSha256':sha(read(HERE/'fill_actual_candidate.py')[0])}.items():require(review.get(k)==v,'exact receipt role '+k)
+  require(str(binding) in (review.get('bindingPath'),review.get('reviewedBindingPath'),review.get('draftBindingPath')) or str(draft) in (review.get('draftPath'),review.get('reviewedDraftPath'),review.get('candidatePath')),'exact original path missing')
+  old,oldstat=read(binding);require(sha(old)==identity['draftBindingSha256'],'draft binding drift');profile=json.loads(old)
+- require(profile['operationalRuntimeAuthority']==config['actualOperationalRuntimeAuthority'] and profile['productionHeadAtPreparation']==config['productionHead'],'current AL actual binding roles')
+  require(profile['status']=='DRAFT_FILLED_UNREVIEWED_UNRUN' and profile['executionAuthorization'] is False and profile['exactReview'] is None,'draft already adopted')
+  semantic={k:v for k,v in profile.items() if k not in EXCLUDED};require(sha(json.dumps(semantic,sort_keys=True,separators=(',',':')).encode())==identity['bindingSemanticSha256'],'semantic drift')
+  require(semantic==json.loads(read(draft/'BINDING-SEMANTIC.json')[0]),'semantic artifact drift')
+@@ -100,7 +80,7 @@
+  for where,head in ((REPO,config['productionHead']),(root,profile['sourceSha'])):
+   require(command(git+['rev-parse','HEAD'],where,env).decode().strip()==head,'HEAD drift');require(command(git+['status','--porcelain=v1','-z','--untracked-files=all'],where,env)==b'','dirty repository')
+  require(command(git+['rev-parse','HEAD:src'],REPO,env).decode().strip()==config['productionSourceTree'],'production source drift')
+- require(command(git+['ls-remote','origin','refs/heads/wip/headless-program-20260916-ts','refs/heads/main'],REPO,env).decode()==''.join(config['operationalRemoteRefs'][key]+'\t'+key+'\n' for key in sorted(config['operationalRemoteRefs'])),'live current AL refs drift')
++ require(command(git+['ls-remote','origin','refs/heads/wip/headless-program-20260916-ts'],REPO,env).decode()==config['productionHead']+'\trefs/heads/wip/headless-program-20260916-ts\n','live remote drift')
+  require(b'AC Power' in command(['/usr/bin/pmset','-g','batt']),'AC unavailable');require(command(['/usr/sbin/sysctl','-n','kern.bootsessionuuid']).decode().strip()==config['bootSessionUuid'],'boot session identity drift')
+  require(shutil.disk_usage(SCRATCH).free>=3*1024**3+128*1024**2,'disk floor/reserve')
+  require(not any('fixture_worker.py' in line or (line.split() and line.split()[0].endswith('node') and ('vitest' in line or '/bin/tsc' in line or '/lib/tsc.js' in line)) for line in command(['/bin/ps','-axo','comm=,args=']).decode().splitlines()),'fixture/heavy activity')

@@ -1,0 +1,24 @@
+{
+  "game": false,
+  "globalWorkerAbsenceClaim": false,
+  "heavyLaneLockAbsent": true,
+  "ownedScannerPgid": 56863,
+  "ownedScannerPid": 56863,
+  "schema": "1370-root-scoped-guard-post-ownership/v1",
+  "status": "RECORDED_SCANNER_PID_AND_PGID_ABSENT",
+  "utc": "2026-10-10T00:50:33.098457+00:00",
+  "zeroSignalChecks": [
+    {
+      "id": 56863,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 56863,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    }
+  ]
+}

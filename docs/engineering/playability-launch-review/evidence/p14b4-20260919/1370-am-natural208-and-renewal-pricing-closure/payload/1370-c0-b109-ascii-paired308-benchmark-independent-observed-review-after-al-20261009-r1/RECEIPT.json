@@ -1,0 +1,424 @@
+{
+  "schema": "1370-b109-ascii-paired308-independent-observed-review/v1",
+  "decision": "ACCEPT_OBSERVED_B109_ASCII_PAIRED308_MEASUREMENT_ONLY",
+  "independentReviewer": "/root/b109_focused_route_review",
+  "concreteFindings": [],
+  "findings": [],
+  "sameRunTimingAccepted": true,
+  "measurementAccepted": true,
+  "performanceMeasured": true,
+  "performanceWin": false,
+  "performanceAccepted": false,
+  "sourcePromotionAuthorized": false,
+  "selected2529RemainsSelected": true,
+  "executionAuthorization": false,
+  "automaticRetry": false,
+  "game": false,
+  "full109Accepted": false,
+  "P17P18Accepted": false,
+  "reviewerRuntimeExecution": false,
+  "reviewerFreshProbes": false,
+  "reviewerCaptureAccess": false,
+  "routeSourcePins": {
+    "bytes": 9726,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "1800e05d6a9fbab6eae4f4e7a8bee65969da4785e5b47672d1bf06fc4fbba51b"
+  },
+  "sourcePins": {
+    "bytes": 9726,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "1800e05d6a9fbab6eae4f4e7a8bee65969da4785e5b47672d1bf06fc4fbba51b"
+  },
+  "routeSourceReview": {
+    "bytes": 34035,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "9b8d4ca1d96e4675c6a589572a1930c31c6f25b722baff1da83f7ee568594502"
+  },
+  "grant": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/GRANT.json",
+    "sha256": "8d32dd7abb8f8e0bf502242b19854169567e47d948e0fbe74378776a85ee61ba",
+    "bytes": 7059
+  },
+  "launchClaim": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/LAUNCH-CLAIM.json",
+    "sha256": "6d039371ef79b17b4e858d4fa2a9c55cc2dd25d1acfa5fe82658f38da49c5e00",
+    "bytes": 2446
+  },
+  "actualTool": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/ACTUAL-TOOL.json",
+    "sha256": "86309c6a40b2e26fd598b0cd53d78db855a01fdc253b84b308ca31c30d1c1b5e",
+    "bytes": 918
+  },
+  "actualToolOutcome": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/TOOL-OUTCOME.json",
+    "sha256": "2323fba36f9445d6981852026e5a590f4303fed3ef4f85019bcb0e3784001f4f",
+    "bytes": 2798
+  },
+  "completedConsumption": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/CONSUMPTION.json",
+    "sha256": "e92b1dfb490bee6219e1f70ebf1c8326a4529bd71587eb75b109a58e52d0a69b",
+    "bytes": 13919
+  },
+  "consumerTool": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/CONSUMER-TOOL.json",
+    "sha256": "db585d6618d192e6a13eda437e6b795c354b62314a4a0f3b624935f1180bcc64",
+    "bytes": 126
+  },
+  "actualResult": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-output-after-al-20261009-r1/RESULT.json",
+    "sha256": "8dcacb784ebde9f990c2fcff92a5ab596a145df9f2001df3906a5d68c232ff16",
+    "bytes": 922
+  },
+  "stdout": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-output-after-al-20261009-r1/stdout.bin",
+    "sha256": "8fe5b9ff89f78033c95be3f868f8a789b98eaff49bf89295ac0bb8fe9a6da412",
+    "bytes": 11199
+  },
+  "stderr": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-output-after-al-20261009-r1/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  "helperCombinedLog": {
+    "bytes": 403,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-lane-after-al-20261009-r1/benchmark.lane.log",
+    "sha256": "2ce89ec2cb7faa2c04c3b584d45915350081bb3496ac07f9b9b5876013ddd731"
+  },
+  "helperMeta": {
+    "bytes": 351,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-lane-after-al-20261009-r1/benchmark.lane.log.meta",
+    "sha256": "52e939ce20c225e3136da4695d66c5e9649604d544175c64aa9d34679ed701c9"
+  },
+  "facts": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-observed-review-after-al-20261009-r1/FACTS.json",
+    "sha256": "2d62d35ae4173ba2cbe2aa7743975d44823184eeb08e48dd42a26ee2da06c22d",
+    "bytes": 11646
+  },
+  "authentications": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-observed-review-after-al-20261009-r1/AUTHENTICATIONS.json",
+    "sha256": "b06d82af7db48219a39de8440af1d47d69dbb49c0132e08044cb98fd5eeeeebf",
+    "bytes": 28486
+  },
+  "report": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-observed-review-after-al-20261009-r1/REPORT.md",
+    "sha256": "077f8b38b771f842a826096e6a01486dc8e7a98e2aac345df5c96e8292724aad",
+    "bytes": 3157
+  },
+  "actualExits": {
+    "actualToolSessionId": 82873,
+    "actualToolExit": 0,
+    "helperExit": 0,
+    "helperMetaExit": 0,
+    "recorderExit": 0,
+    "nodeExit": 0,
+    "consumerExit": 0,
+    "terminalActualToolAndSeparateOutcomeAgree": true,
+    "integerLexemesStrictlyVerified": true
+  },
+  "actualMeasurement": {
+    "timedArms": {
+      "candidate": "ASCII_STRING_TOKEN_f382",
+      "reference": "SELECTED_BOUNDED_TOKEN_CHUNK_2529"
+    },
+    "fixture": {
+      "member": 308,
+      "rawBytes": 4228063,
+      "rawSha256": "9343625f2cd72964727f7d0b6679d89c0c85ba855208554af13a239d78bb968a",
+      "stateBytes": 2103442,
+      "stateSha256": "cac7fcc155b45be663ac516b244cf3e5fe0c4ec4fb204fb6bd173d9b17d04f7e"
+    },
+    "fixtureSourceRolesExact": true,
+    "readerSource": {
+      "bytes": 11414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+    },
+    "readerNotTimed": true,
+    "indexed308OnlyRecordedReadAndDecode": true,
+    "captureWholeShaHistoricalOnly": true,
+    "reviewerDidNotOpenStatHashDecodeCapture": true,
+    "retainedCaptureMetadata": {
+      "ctimeNs": "1791439909827355864",
+      "dev": "16777220",
+      "ino": "166406220",
+      "mode": "33188",
+      "mtimeNs": "1791439909827355864",
+      "nlink": "1",
+      "size": "141237093"
+    },
+    "launchClaimAndReportMetadataExact": true,
+    "originalSuccessfulAndFinallyClosureRequiredByQualifiedSource": true,
+    "allEightRawPairsRetained": true,
+    "rawPairsAndAllSamplesRetainedInFacts": true,
+    "warmupEncodes": 4,
+    "measuredEncodes": 12,
+    "predeclaredSchedule": {
+      "inputs": [
+        "state",
+        "wholeRow"
+      ],
+      "measuredOrders": [
+        [
+          "reference",
+          "candidate"
+        ],
+        [
+          "candidate",
+          "reference"
+        ],
+        [
+          "reference",
+          "candidate"
+        ]
+      ],
+      "measuredPairsPerInput": 3,
+      "warmupOrder": [
+        "reference",
+        "candidate"
+      ],
+      "warmupPairsPerInput": 1
+    },
+    "allRawPairChecks": {
+      "exactOutputBytes": true,
+      "rowPurity": true,
+      "statePurity": true,
+      "retainedFdAndPathIdentity": true
+    },
+    "mediansMs": {
+      "state": {
+        "reference": 60.471897000000126,
+        "candidate": 67.32958300000018
+      },
+      "wholeRow": {
+        "reference": 121.16290900000013,
+        "candidate": 115.94958499999984
+      }
+    },
+    "bothArmWeights": {
+      "state": 3526,
+      "wholeRow": 1984
+    },
+    "bothArmFormula": "(3526*stateMedianMs+1984*wholeRowMedianMs)/1000",
+    "weightedBothArmConstantEarlyFixtureIllustrationSeconds": {
+      "reference": 453.6111202780007,
+      "candidate": 467.4480862980003
+    },
+    "weightedDifferenceSeconds": 13.83696601999958,
+    "weightedRegressionPercent": 3.0504027351709184,
+    "weightedRegressionPercentDisplay": "approximately 3.0504%",
+    "percentageRoundingNote": "Independent 100*(candidate-reference)/reference arithmetic. Final bits may differ from equivalent arithmetic ordering; disposition unchanged.",
+    "candidateStateMedianChangePercent": 11.340285885193984,
+    "candidateWholeRowMedianChangePercent": -4.302739215348716,
+    "retainedCandidateWholeRowOutlierMs": 407.5686059999998,
+    "outlierRemoved": false,
+    "predeclaredThreeSampleMedianUsed": true,
+    "regressionAllowedByExistingContract": true,
+    "measurementNoPerformancePromotion": true,
+    "constantEarlyFixtureIllustrationOnly": true,
+    "notFull109RuntimeLowerBoundOrHeadroom": true,
+    "noControlledCrossSessionComparison": true,
+    "laterGrowthInterventionNonEncoderWorkUnmeasured": true
+  },
+  "strictObservedContract": {
+    "producerSingleUtf8JsonLine": true,
+    "producerStdoutBytes": 11199,
+    "producerStdoutWithin1MiBCap": true,
+    "producerStderrBytes": 0,
+    "independentlyCheckedDuplicateKeysTrailingFramingAndNonfinite": true,
+    "exactStaticFieldsTypesAndFalseFlags": true,
+    "strictIntegerStaticRoleTrialLexemes": true,
+    "allTimingValuesFiniteNonnegative": true,
+    "exactInputAndArmRosters": true,
+    "rawPairsMatchMeasuredAndWarmupArrays": true,
+    "independentlyRecomputedAllMedians": true,
+    "independentlyRecomputedBothArmFormula": true,
+    "consumerProducerExactlyMatchesRawReport": true,
+    "actualQualifiedConsumerExit0AuthenticatesNoSTOPOverride": true,
+    "reviewerDidNotProbeOverridePath": true,
+    "helperExactlyOneExpectedSummary": true,
+    "helperMetaOneStartAndEnd0NoSTOP": true
+  },
+  "actualOwnership": {
+    "helperPid": 12029,
+    "helperPgid": 12029,
+    "helperSid": 12029,
+    "helperGroupVerifiedBeforeExec": true,
+    "childPid": 12294,
+    "ownedPgid": 12294,
+    "startupOwnedBeforeExec": true,
+    "pgidConfirmed": true,
+    "groupClear": true,
+    "actualOwnedPidsFreshlyAbsent": [
+      12029,
+      12294
+    ],
+    "actualOwnedGroupsFreshlyAbsent": [
+      12029,
+      12294
+    ],
+    "heavyLaneLockAbsent": true,
+    "recordedZeroSignalChecks": [
+      {
+        "id": 12029,
+        "kind": "pid",
+        "result": "ESRCH",
+        "signal": 0
+      },
+      {
+        "id": 12294,
+        "kind": "pid",
+        "result": "ESRCH",
+        "signal": 0
+      },
+      {
+        "id": 12029,
+        "kind": "pgid",
+        "result": "ESRCH",
+        "signal": 0
+      },
+      {
+        "id": 12294,
+        "kind": "pgid",
+        "result": "ESRCH",
+        "signal": 0
+      }
+    ],
+    "noPidSubstitutionForPgid": true,
+    "scope": "Authenticated retained root postchecks for exact recorded helper PID/PGID and owned Node child PID/PGID; no independent current probes or global worker-absence claim.",
+    "globalWorkerAbsenceClaim": false
+  },
+  "boundsAndBindings": {
+    "nodeSeconds": 60,
+    "activeSeconds": 75,
+    "wholeSeconds": 90,
+    "stdoutCapBytes": 1048576,
+    "stderrCapBytes": 1048576,
+    "producerElapsedSeconds": 5.80771978,
+    "recorderElapsedSeconds": 6.744816834994708,
+    "timedOut": false,
+    "nativeNode": {
+      "path": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+      "bytes": 92324688,
+      "sha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+      "version": "20.20.2"
+    },
+    "nodePhysicalBytesAndSha256IndependentlyMatch": true,
+    "nodeVersionAndPhysicalExecPathCheckedByQualifiedProducer": true,
+    "all24SourcePinsAndCurrentSourceRolesExact": true,
+    "allConfigRolesShaBytesExact": true,
+    "exactGenuineR2ReviewConsumed": true,
+    "grantRecipeArgvCwdEnvironmentBoundsExpectedOperationalOwnershipExact": true,
+    "externalOnceGrantAndClaimExactRoleBindings": true,
+    "currentProtection": {
+      "bytes": 10578,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+      "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3"
+    },
+    "currentBeforeFillAuthorityOnly": true,
+    "operational": {
+      "branch": "wip/headless-program-20260916-ts",
+      "docsOnlyTransitionVerified": true,
+      "head": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+      "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+      "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+      "status": "PUSHED_REMOTE_AND_COMMITTED_TREE_VERIFIED",
+      "trackingWorkingHead": "8cb704e2f18e6a635943893422c9cfdc206e106d"
+    },
+    "priorFullPostflightTool": {
+      "bytes": 1632,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-postflight-parent-after-al-20261009-r4/ACTUAL-TOOL.json",
+      "sha256": "96619fb357371b0fae96db2d6e94f395808ca3a9a3c7aba950dc4de5b6c507d9"
+    },
+    "priorFullPostflightReadback": {
+      "bytes": 2978,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-postflight-parent-after-al-20261009-r4/POSTFLIGHT-READBACK.json",
+      "sha256": "b89768e00fbaf5f710afdf55ac2dfb7821fff95250b648b6b89b6433e777f1e5"
+    },
+    "priorScannerRecordedFreshlyAbsent": 42893,
+    "oneHeavyLaneOnlyAfterRecordedFullPostflight": true,
+    "launchFreshCaptureMetadataACDiskRefsCleanChecksQualified": true,
+    "actualACPower": true,
+    "actualLaunchFreeBytes": 4211625984,
+    "sanitizedEnvironment": [
+      "NODE_OPTIONS",
+      "NODE_PATH"
+    ],
+    "preserved13FunctionsAndOwnedChild": {
+      "metadata": true,
+      "authenticate": true,
+      "process_alive": true,
+      "start_owned": true,
+      "ready_go": true,
+      "close_startup_fds": true,
+      "clear": true,
+      "alarm": true,
+      "whole_guard": true,
+      "active_guard": true,
+      "observed_exit_guard": true,
+      "child_environment": true,
+      "finalize_result": true,
+      "OwnedChild": true
+    }
+  },
+  "retainedWarning": {
+    "kind": "Python SyntaxWarning",
+    "diagnostic": "'return' in a 'finally' block",
+    "actualFunction": "main",
+    "block": "main() outer finally",
+    "recorderLine": 239,
+    "statement": "return code",
+    "sourceRole": {
+      "bytes": 14032,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py",
+      "sha256": "b23b1c43ca1c3b40c3519b19e301bb64a0f2b1debe8c66c2dc553a2456becbfd"
+    },
+    "warningStatementAndFinalizationSourceUnchanged": true,
+    "stream": "Helper combined recorder stdout/stderr log; separate from producer streams.",
+    "helperCombinedLogBytes": 403,
+    "producerStderrBytes": 0,
+    "warningSuppressedOrRelabeled": false,
+    "allStreamsQuietClaim": false,
+    "existingContractDisposition": "Accepted retained diagnostic plus exactly one expected recorder summary; producer stderr remains empty and every separate exit, role, flag, ownership and override contract check passed."
+  },
+  "preservedPregrantFailure": {
+    "artifact": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-BENCHMARK-PREGRANT-R1-STOP.json",
+      "sha256": "f3afdbc7433bd27d97f113b4ba3a751062d4f085f811ae46db9fc034a07c0fa4",
+      "bytes": 1398
+    },
+    "toolChunk": "f30ba9",
+    "actualExit": 1,
+    "status": "STOP_BEFORE_GRANT_OR_WRAPPER_OR_BENCHMARK",
+    "grantIssued": false,
+    "benchmarkExecuted": false,
+    "originalReceipt": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+      "bytes": 33753,
+      "sha256": "af928bb6586a9140b42a94f1a5deeb56c36c8a452e109268e8283858d8d30cbf"
+    },
+    "originalReceiptStillExact": true,
+    "interfaceCorrection": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/INTERFACE-CORRECTION.json",
+      "sha256": "d1b97fa77ba5c961ded7afc0ef8eb8784a3ff02aa9323c8e88a56bba42378403",
+      "bytes": 2688
+    },
+    "onlyTwoAliasesAdded": true,
+    "routeSourcePinsAliasExact": true,
+    "findingsAliasExact": true,
+    "originalSemanticContentUnchanged": true,
+    "rootLauncherUnchangedAcrossPregrantStopAndActualGrant": {
+      "bytes": 3582,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_b109_benchmark_once.py",
+      "sha256": "73e86973d5e2d0bf1c25f9671ab55122a5e7ab170c9c37e9307bf227e36cd311"
+    },
+    "notFailedBenchmarkOrRerun": true
+  },
+  "verificationLimits": {
+    "retainedFiniteNamedEvidenceAndReviewScratchOnly": true,
+    "noRuntimeTestsImportsOrRepeat": true,
+    "noCapturePrivateOrProtectedAccess": true,
+    "noGitMutationScansProcessProbesOrPositiveSignals": true,
+    "noNewGate": true,
+    "existingRegressionsAndFailureEvidencePreserved": true
+  }
+}

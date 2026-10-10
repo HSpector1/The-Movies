@@ -1,0 +1,111 @@
+{
+  "actualGrant": null,
+  "actualSourceReview": null,
+  "actualSpec": null,
+  "executionAuthorization": false,
+  "files": {
+    "BASELINE-R2-MAP.json": {
+      "bytes": 16769,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/BASELINE-R2-MAP.json",
+      "sha256": "1a60aa3572132b23373482c508bd418acb4e86b258a3464d5e9fcf742a02b50f"
+    },
+    "BASELINE-R2-PROFILES.json": {
+      "bytes": 6187,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/BASELINE-R2-PROFILES.json",
+      "sha256": "63b70fb7d08a73ad14ef7370dac4002348634ed7d08e5a822133c5791f1826d9"
+    },
+    "BASELINE-R2-fill-grant-exec.py": {
+      "bytes": 11380,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/BASELINE-R2-fill-grant-exec.py",
+      "sha256": "6977c7a6d86c8cee8bc9f8af7d0647b4e4afa71cb8f88d3c9e252b2addd9b5f9"
+    },
+    "MAP.json": {
+      "bytes": 18663,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/MAP.json",
+      "sha256": "5daeb05cfff8b5efe1a3179c9aae5055dc21a3f6db31d49ab2013d608e5f9e66"
+    },
+    "MAP.json.r3-forward.diff": {
+      "bytes": 11029,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/MAP.json.r3-forward.diff",
+      "sha256": "a3f836916ed86daca59f8d894a7e99e6c31eadf0eea51d72b3970c144b5035d2"
+    },
+    "MAP.json.r3-inverse.diff": {
+      "bytes": 11161,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/MAP.json.r3-inverse.diff",
+      "sha256": "38c3d14c10d00ceb71ceac985e269e31b404bac160a304718638f6af3c141ecd"
+    },
+    "NOTE.md": {
+      "bytes": 726,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/NOTE.md",
+      "sha256": "04cdd49d3f7a50b6b7c8925acbc843479165818cc5252ec242c8060fae84a61c"
+    },
+    "PRELAUNCH-CONFIG-UNFILLED.json": {
+      "bytes": 2539,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/PRELAUNCH-CONFIG-UNFILLED.json",
+      "sha256": "6626254dc596e3d491ed8553dc09a6a75aea89227282be5887381d23a16d6471"
+    },
+    "PROFILES.json": {
+      "bytes": 6187,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/PROFILES.json",
+      "sha256": "071b094107ff6a7aee5006cb9bd4f9513561f3f183883afd421b2447c2ff1d8f"
+    },
+    "PROFILES.json.r3-forward.diff": {
+      "bytes": 5332,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/PROFILES.json.r3-forward.diff",
+      "sha256": "c42e790b32d099721b77737b3f8a95da7e0cf26f2a0b6aa2206579efddf4fbc0"
+    },
+    "PROFILES.json.r3-inverse.diff": {
+      "bytes": 5332,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/PROFILES.json.r3-inverse.diff",
+      "sha256": "f3ac76eb30fbfe63d4577ecdf5b3c19364cc5e6b26e07cfb5e6a57bb42a47a11"
+    },
+    "PROOF-SPEC-UNFILLED.json": {
+      "bytes": 213,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/PROOF-SPEC-UNFILLED.json",
+      "sha256": "a6eb40948fc4441b1a8af7db110283da1b51250b76e65de4b64309e74664c2d1"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 3421,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/SOURCE-PROOF.json",
+      "sha256": "0cd1359f289e24f177eef2182117222580e92a6b2baed0bfd13fe9ffbc18049b"
+    },
+    "TYPES-SPEC-UNFILLED.json": {
+      "bytes": 213,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/TYPES-SPEC-UNFILLED.json",
+      "sha256": "2f4fb5e89c6ad8b88d7c0f5f69b9dfef80f186fc46e983054d1a9f198b362a0b"
+    },
+    "fill-grant-exec.py": {
+      "bytes": 11380,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/fill-grant-exec.py",
+      "sha256": "02a4e354c29714e311bf87e8c254ec2cf75dc9f3c1ef995ffd24b7b56f060fb9"
+    },
+    "fill-grant-exec.py.r3-forward.diff": {
+      "bytes": 414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/fill-grant-exec.py.r3-forward.diff",
+      "sha256": "24ac8465d839b5bcb273a10e0c124313b35921e5b71bbe37b5ffb507ef84f587"
+    },
+    "fill-grant-exec.py.r3-inverse.diff": {
+      "bytes": 414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/fill-grant-exec.py.r3-inverse.diff",
+      "sha256": "01412e8b4fdf9713ff54432327f582ff7456e1fcb45b5ad518ef936bf2d84133"
+    },
+    "original-current-root-prelaunch.py": {
+      "bytes": 13702,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r3/original-current-root-prelaunch.py",
+      "sha256": "128cc3f6f0fec2251f4d9f4742760c77fdb114760238be9b914b93b849f6d12f"
+    }
+  },
+  "futureActualFailurePostflight": null,
+  "newTypesSourcePins": {
+    "bytes": 11535,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6/SOURCE-PINS.json",
+    "sha256": "05ca05fbe689bcb48ab78507679373938bee867e846ea57b42e203fc9a92e3cf"
+  },
+  "priorParentSourcePins": {
+    "bytes": 3310,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "05c10ea344c211e4a57e55229a2b7b9244a86e7cf76919efeb08f0a410877572"
+  },
+  "schema": "1370-m0-parent-r3-types-r6-rebound-source-pins/v1",
+  "status": "HELD_SOURCE_ONLY_UNRUN_INDEPENDENT_REVIEW_REQUIRED"
+}

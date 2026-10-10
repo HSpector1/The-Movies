@@ -1,0 +1,39 @@
+{
+  "actualR6Outcome": null,
+  "executionAuthorization": false,
+  "originalFailuresPreserved": true,
+  "priorFailedTypesObservedAdoption": {
+    "bytes": 6399,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-TYPES-STOP-OBSERVED-ADOPTION.json",
+    "sha256": "f3f4c5386c283a230f6905e3429d4e5dd050f986d6acda7c63e304ebd8dd6633"
+  },
+  "repair": "One root noEmit command option allows the existing canonical .ts import syntax. No checked file, strict type rule, bridge source, UI command, runtime clock, output cap or preservation predicate is removed. Necessary fresh bindings are independently reviewed.",
+  "schema": "1370-root-m0-types-r6-parent-r4-source-adoption/v1",
+  "sourceRoles": [
+    {
+      "independentSourceReview": {
+        "bytes": 22656,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r6/RECEIPT.json",
+        "sha256": "0b2402bc664192c3a57b73bed3ce7e461d50171e8d01d5d0261ed4c921a101ea"
+      },
+      "sourcePins": {
+        "bytes": 11535,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6/SOURCE-PINS.json",
+        "sha256": "05ca05fbe689bcb48ab78507679373938bee867e846ea57b42e203fc9a92e3cf"
+      }
+    },
+    {
+      "independentSourceReview": {
+        "bytes": 18771,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-independent-source-review-after-al-20261009-r4/RECEIPT.json",
+        "sha256": "63f3482c050b339375eb868178a614ff5d2191b2712cc454e619094c127306c5"
+      },
+      "sourcePins": {
+        "bytes": 9058,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r4/SOURCE-PINS.json",
+        "sha256": "f27d8eae1416d94346dd43e495acad272bd203dfb1270c818e2ca949bdb35d15"
+      }
+    }
+  ],
+  "status": "ROOT_ADOPTED_R6_ROOT_EXTENSION_OPTION_AND_PARENT_R4_SOURCE_ONLY"
+}

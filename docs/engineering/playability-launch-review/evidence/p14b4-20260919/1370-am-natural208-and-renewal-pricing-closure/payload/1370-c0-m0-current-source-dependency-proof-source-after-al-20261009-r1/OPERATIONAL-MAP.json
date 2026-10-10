@@ -1,0 +1,107 @@
+{
+  "actualPending": {
+    "actualDependencyProof": null,
+    "actualSourceProof": null,
+    "context": null,
+    "currentRefsReadback": null,
+    "futureAMHead": null,
+    "futureAMReadback": null,
+    "laneLock": null,
+    "observedReview": null,
+    "proofGrant": null,
+    "protectedPostflight": null,
+    "rootCurrentProtection": null,
+    "runtimeTools": null,
+    "sourceReview": null,
+    "typesContext": null,
+    "typesGrant": null
+  },
+  "acyclicOrder": [
+    "accepted historical M0 copy/adoption4711/factse9f482 and new proof-source review",
+    "real tools and lane-lock roles -> context with proof/protection null, grant omitted",
+    "root proof-only grant binds canonical context without actualGrant",
+    "final external context pins grant -> recorded original-bounds proof-only run",
+    "actual complete source/dependency proof plus protected postflight observed admission",
+    "root currentProtection pins genuine current proof objects and accepted protection scope",
+    "original types external context pins currentProtection/proofs/tools/lane; no grant yet",
+    "root original types grant pins canonical types context without actualGrant",
+    "final types context pins grant -> recorded four original commands -> observed full protected postflight"
+  ],
+  "currentKnownALHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "currentProtectionExactOriginalConsumer": {
+    "additionalRefs": null,
+    "completeM0AdoptionSha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad",
+    "freshDependencyProof": null,
+    "freshSourceProof": null,
+    "fullProtectedPostflightAccepted": null,
+    "m0TypesProtectionAccepted": true,
+    "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+    "physicalFactsSha256": "e9f4829c501cc90475b9067c8ae32580fe5fca14fc40950ee083031f89081ba2",
+    "productionHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+    "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "schema": "1370-root-current-m0-types-protection/v1",
+    "soleLaneReleased": null
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "executionAuthorization": false,
+  "facts": {
+    "bytes": 1872789,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-facts-after-aj-20261009-r3.json",
+    "sha256": "e9f4829c501cc90475b9067c8ae32580fe5fca14fc40950ee083031f89081ba2"
+  },
+  "knownA208PostflightDoesNotSupplyM0ProofObjects": true,
+  "originalConsumerEvidence": {
+    "LAUNCH.py": "62-68 current protection exactscope/facts/adoption/proofs/refs;69-73 original acyclic grant;75-90 exact physical tools",
+    "runner.py": "548-606 exact source1740/113 and metadata;607-631 historical admission before root reads;632-652 full dependency+exact21;653-666 actual source/dependency objects exact;683-687 original four commands"
+  },
+  "originalTypesContext": {
+    "bytes": 539,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/EXECUTION-CONTEXT-UNFILLED.json",
+    "sha256": "fe3d66a1a725e413996c4766df386a03097eff751f171b785832321d3c965bae"
+  },
+  "originalTypesSourcePins": {
+    "bytes": 14743,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/SOURCE-PINS.json",
+    "sha256": "10fc7a0a39cb78f092476a31a351912fc254eb39a2b827c28fe8ba459140fd0a"
+  },
+  "originalTypesSourceReview": {
+    "bytes": 22411,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r4/RECEIPT.json",
+    "sha256": "2d6ab3da894efc86513a6909471781aed7a4ddddcd9f9475e33a71031e71aec0"
+  },
+  "proofLaunchArgv": [
+    "__ACTUAL_PHYSICALLY_ADMITTED_PYTHON__",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r1/LAUNCH.py",
+    "__ACTUAL_CONTEXT_PATH__",
+    "__ACTUAL_CONTEXT_SHA256__"
+  ],
+  "proofRoleObjectsExactlyAsEmitted": {
+    "freshDependencyProof": [
+      "entries",
+      "contentBytes",
+      "contentAndMetadataSha256",
+      "rootDevice",
+      "rootInode",
+      "rootIdentity"
+    ],
+    "freshSourceProof": [
+      "fileProofDigestSha256",
+      "physicalMetadataSha256",
+      "mirrorFiles",
+      "mirrorBytes",
+      "dependencyLink",
+      "traversedEntries",
+      "mirrorRootIdentity"
+    ]
+  },
+  "schema": "1370-current-m0-proof-to-types-operational-map/v1",
+  "sourceAdmission": {
+    "bytes": 6133,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-complete-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad"
+  },
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "SOURCE_ONLY_UNRUN"
+}

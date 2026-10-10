@@ -1,0 +1,32 @@
+--- R5/CONFIG.json
++++ R6/CONFIG.json
+@@ -400,7 +400,7 @@
+   "historicalDataAuthorityHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+   "historicalHSourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+   "historicalM0SourceCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+-  "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-after-al-r2.lane.log",
++  "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-after-al-r3.lane.log",
+   "localMainRef": "refs/remotes/origin/main",
+   "mainOid": "c902a704eb948cc576083d0973c8c23e59937dc1",
+   "mainRef": "refs/heads/main",
+@@ -591,7 +591,7 @@
+     "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+     "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+   },
+-  "outputRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r2",
++  "outputRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3",
+   "planningAuthorities": {
+     "BINDING-UNFILLED.json": {
+       "bytes": 27520,
+@@ -646,9 +646,9 @@
+     "vitest.workspace.ts"
+   ],
+   "recorderActiveSeconds": 320,
+-  "recorderResult": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r2/20261009-m0-types-after-al-r2.RECORDER-RESULT.json",
++  "recorderResult": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r3/20261009-m0-types-after-al-r3.RECORDER-RESULT.json",
+   "recorderWallSeconds": 330,
+-  "runId": "20261009-m0-types-after-al-r2",
++  "runId": "20261009-m0-types-after-al-r3",
+   "runtimeFieldsUnfilled": {
+     "actualGrant": null,
+     "actualSourceReview": null,

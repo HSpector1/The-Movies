@@ -1,0 +1,284 @@
+--- r4/CONFIG-PENDING.json
++++ r3/CONFIG-PENDING.json
+@@ -1,37 +1,16 @@
+ {
+-  "actualGuardBaseline": {
+-    "bytes": 8562268,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+-    "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+-  },
+-  "actualOperationalRuntimeAuthority": {
+-    "bytes": 10578,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+-    "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3"
+-  },
+-  "actualOperationalRuntimeAuthorityExpectedStatus": "ROOT_ADOPTED_OBSERVED_AL_A208_BEFORE_FILL_BASELINE_ONLY",
+-  "adoptionOutputPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4",
+-  "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-pre-adoption-archive-after-al-20261009-r4",
+-  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json",
++  "actualGuardAfterFill": null,
++  "actualGuardBaseline": null,
++  "actualOperationalRuntimeAuthority": null,
++  "actualOperationalRuntimeAuthorityExpectedStatus": null,
++  "adoptedPreflight": null,
++  "adoptionOutputPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r3",
++  "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-pre-adoption-archive-after-al-20261009-r3",
++  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r3/BINDING-DRAFT.json",
+   "bindingTemplateSha256": "234a781727d19d0859210837cf0ecc09f624508a29c5e8ed6fb992204e5785c4",
+   "bindingWitnessGrantExplicitNull": true,
+   "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+-  "candidatePath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4",
+-  "causalOrderContractAdoption": {
+-    "bytes": 1595,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/CAUSAL-ORDER-CONTRACT-ADOPTION.json",
+-    "sha256": "4fd8459c191b6ff46b5c7a02677a4967914791c11ea4232c10818252351a9028"
+-  },
+-  "causalOrderContractReview": {
+-    "bytes": 12166,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-preparation-causal-order-independent-review-after-al-20261009-r1/RECEIPT.json",
+-    "sha256": "caf636462a6a3cbec6248910f691c519f46bab6e86ad50ed353a1cf91a3a454b"
+-  },
+-  "causalOrderDesign": {
+-    "bytes": 18012,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-preparation-causal-order-contract-design-after-al-20261009-r1/DESIGN.json",
+-    "sha256": "8f7b3ae122fb3cc14c3a094dc8cf94583165bbea04923eeaf0d1c7e661e5a73f"
+-  },
++  "candidatePath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r3",
+   "externalFinalGrantContractAdoption": {
+     "bytes": 2592,
+     "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/EXTERNAL-FINAL-GRANT-DESIGN-ADOPTION.json",
+@@ -48,10 +27,10 @@
+     "sha256": "79bc84e010202b5b3899bd610061762c4c0381d2eeb73f2421e15073e1dc5f53"
+   },
+   "externalFinalGrantIssuanceAfterAdoptedPreflightRequired": true,
+-  "laneLog": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r4/controls.log",
+-  "laneParent": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r4",
++  "laneLog": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r3/controls.log",
++  "laneParent": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r3",
+   "launchAuthorized": false,
+-  "launchTemplateSha256": "9651ea84e943ac45a2efe35c1307372bf71f1a20f8d046ca6ca19c2d0679ae5e",
++  "launchTemplateSha256": "dfa48ca068fea06eef04baa768dfc27a25a267f908ce71448406bc6302d75955",
+   "materializedRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+   "materializerBindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1/BINDING-DRAFT.json",
+   "materializerProductionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+@@ -196,5 +175,6 @@
+     "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-OPERATIONAL-SCOPE-ADOPTION.json",
+     "sha256": "5307f365af644cefb94f6eca5bd8188b9e4a4c2198a9ccf6b72f0671dfd32998"
+   },
+-  "status": "SOURCE_ONLY_GENUINE_BEFORE_FILL_ROLES_BOUND_NO_FILL_GRANT"
++  "status": "SOURCE_ONLY_UNRUN_PROTECTION_AND_GRANT_PENDING",
++  "witnessGrant": null
+ }
+--- r4/LAUNCH-SPEC-TEMPLATE.json
++++ r3/LAUNCH-SPEC-TEMPLATE.json
+@@ -5,23 +5,19 @@
+     "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+   },
+   "actualGuardAfterFill": null,
+-  "actualGuardBaseline": {
+-    "bytes": 8562268,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+-    "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+-  },
++  "actualGuardBaseline": null,
+   "adoptedPreflight": null,
+   "argv": [
+     "/bin/bash",
+     "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+     "0",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r4/controls.log",
++    "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r3/controls.log",
+     "/bin/bash",
+     "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/launch-pipeline-a208-held.sh",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json",
++    "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r3/BINDING-DRAFT.json",
+     "__ADOPTED_BINDING_BYTE_SHA256_PENDING__"
+   ],
+-  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json",
++  "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r3/BINDING-DRAFT.json",
+   "bindingSemanticSha256": null,
+   "bindingSha256": null,
+   "bindingWitnessGrantExplicitNull": true,
+@@ -38,12 +34,7 @@
+     "wholeRecorderSeconds": 750
+   },
+   "candidatePinsSha256": null,
+-  "causalOrderContractAdoption": {
+-    "bytes": 1595,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/CAUSAL-ORDER-CONTRACT-ADOPTION.json",
+-    "sha256": "4fd8459c191b6ff46b5c7a02677a4967914791c11ea4232c10818252351a9028"
+-  },
+-  "claimLimit": "Reviewed-source candidate template only; genuine independently/root admitted before-fill roles bound. No actual fill identity, after-fill, adopted preflight, final grant or game outcome.",
++  "claimLimit": "Template only. No incomplete copied root was read. Sink read/forward allowances do not enlarge unchanged r7 bounds or establish a guaranteed whole-helper bound.",
+   "currentAlPublishedReadback": {
+     "bytes": 1250,
+     "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+@@ -83,11 +74,7 @@
+   },
+   "launchAuthorized": false,
+   "observedMaterializationReceipt": null,
+-  "operationalRuntimeAuthority": {
+-    "bytes": 10578,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+-    "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3"
+-  },
++  "operationalRuntimeAuthority": null,
+   "productionHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+   "requiredEnvironment": {
+     "GIT_OPTIONAL_LOCKS": "0",
+--- r4/fill_actual_candidate.py
++++ r3/fill_actual_candidate.py
+@@ -9,7 +9,7 @@
+ REPO=Path('/Users/zacheryspector/The-Movies-headless-program')
+ SCRATCH=Path('/Users/zacheryspector/studio-scratch')
+ SOURCE=SCRATCH/'1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1'
+-CONFIG_SHA='f0ec5af36040f321410d37d7dc7d2767408e519e8537a55ceb0738e7708337d3'
++CONFIG_SHA='96459fcc3914e1b3c535ecb2f5ebe8ef2ba7a2749b10b35104d5e8b3d5b2405d'
+ EXCLUDED={'status','executionAuthorization','exactReview'}
+ BLOBS={'src/core/talentMarket.ts':'f036fcec9191374dc5554c5cdc33372b53cd7926','src/core/talentSummary.ts':'f8e8539d3c0f780e58027640de333d6168db7654','src/core/tuning.ts':'c4fc34447aff0eefd6ea52f34b798a1bfa2fabc9','src/core/aging.ts':'e1b88562ded631e0142b2783555e866d4a884d04','src/core/employment.ts':'e8e5acaa1e6a94ac1de7db13eb46840efb55616f','src/core/hollywood.ts':'377da502bcfa55afe31c243ab0909b2c0012d269','src/core/worldgen.ts':'94f83a85e1e59532013ab4735f73a67a916a5332','src/core/tick.ts':'328c2e28f7e209b4ab6b96c6e59f1d1739ad0db5','src/harness/p13a/fixtures.ts':'9ab3eee75b0b2b2733f350bbc3964aa5ba176de8','tests/bridge-p14b5-relationships.test.ts':'0815114340a983348eae6e98c33843c32c297228','tests/fixtures/p13a/accepted-v19.json.gz':'a987ecc4411c48fc8f256e81c93e9abf1fd61d6c'}
+ RUNTIME=('package.json','package-lock.json','node_modules/vite/package.json','node_modules/vite-node/package.json','node_modules/vite-node/vite-node.mjs')
+@@ -40,7 +40,7 @@
+ def external_final_grant_contract(config, profile=None):
+  # Source contract only; final runtime permission remains external and issued last.
+  values={}
+- for key in ('externalFinalGrantDesign','externalFinalGrantContractReview','externalFinalGrantContractAdoption','causalOrderDesign','causalOrderContractReview','causalOrderContractAdoption'):
++ for key in ('externalFinalGrantDesign','externalFinalGrantContractReview','externalFinalGrantContractAdoption'):
+   expected=config[key];require(set(expected)=={'path','bytes','sha256'},'exact external grant contract role shape');raw,_=read(expected['path']);require(len(raw)==expected['bytes'] and sha(raw)==expected['sha256'],'external grant contract pin '+key);values[key]=json.loads(raw)
+  owner=values['externalFinalGrantContractAdoption'];review=values['externalFinalGrantContractReview']
+  require(owner['status']=='ROOT_ADOPTED_SOURCE_CONTRACT_EXTERNAL_FINAL_WITNESS_GRANT' and owner['executionAuthorization'] is False and owner['sourcePreparationAuthorized'] is True and owner['bindingWitnessGrantMustBeExplicitNull'] is True and owner['frozenObserverAndAdaptersRemainUnchanged'] is True,'exact external grant source contract')
+@@ -48,20 +48,17 @@
+  require(review['decision']=='ACCEPT_SOURCE_ONLY_EXTERNAL_FINAL_WITNESS_GRANT_ORDERING_DESIGN' and review['executionAuthorization'] is False and review['design']==config['externalFinalGrantDesign'],'independent external grant source contract')
+  require(EXCLUDED=={'status','executionAuthorization','exactReview'} and config['bindingWitnessGrantExplicitNull'] is True and config['externalFinalGrantIssuanceAfterAdoptedPreflightRequired'] is True,'external grant semantics')
+  if profile is not None:require('witnessGrant' in profile and profile['witnessGrant'] is None,'immutable binding witnessGrant must remain explicit null')
+- causal=values['causalOrderContractAdoption'];causalreview=values['causalOrderContractReview']
+- require(causal['status']=='ROOT_ADOPTED_SOURCE_ONLY_A208_CAUSAL_ORDER_CONTRACT' and causal['executionAuthorization'] is False and causal['knownBeforeFillConfigOnly'] is True and causal['beforeFillAuthorityScopeOnly'] is True and causal['finalExternalGrantAfterActualAdoptedPreflight'] is True and causal['witnessGrantBindingExplicitNullPermanent'] is True,'exact causal source contract')
+- require(causal['design']==config['causalOrderDesign'] and causal['independentReview']==config['causalOrderContractReview'] and causal['archiveOriginals']==6 and causal['adoptionFields']==['status','executionAuthorization','exactReview'] and causal['semanticExclusions']==['status','executionAuthorization','exactReview'],'causal source roles and original adoption')
+- require(causalreview['decision']=='ACCEPT_SOURCE_ONLY_A208_PREPARATION_CAUSAL_ORDER_CONTRACT_DESIGN' and causalreview['executionAuthorization'] is False and causalreview['design']==config['causalOrderDesign'],'independent causal source contract')
+- require(not any(key in config for key in ('actualGuardAfterFill','adoptedPreflight','witnessGrant')),'before-fill config must not contain future observations')
+  return owner
+ 
+-def current_operational_roles(config):
++def current_operational_roles(config, adopting=False):
+  # Exact actual roles filled in a fresh independently reviewed config; scope is design only.
+  for key in ('actualOperationalRuntimeAuthority','actualGuardBaseline'):
+   require(isinstance(config.get(key),dict),'current AL observed protection role pending '+key)
+  require(isinstance(config.get('actualOperationalRuntimeAuthorityExpectedStatus'),str),'actual protection status pending')
+  require(config['actualOperationalRuntimeAuthority']!=config['sourceScopeAdoption'],'source-only scope is not observed protection authority')
+  names=['publishedReadback','sourceScopeAdoption','actualOperationalRuntimeAuthority','actualGuardBaseline']
++ if adopting:
++  require(isinstance(config.get('actualGuardAfterFill'),dict),'current AL after-fill protection pending');names.append('actualGuardAfterFill')
+  values={}
+  for key in names:
+   expected=config[key];raw,_=read(expected['path']);require(sha(raw)==expected['sha256'] and len(raw)==expected['bytes'],'exact current operational role '+key);values[key]=json.loads(raw)
+@@ -69,9 +66,6 @@
+  require(publication['status']=='PUSHED_REMOTE_AND_COMMITTED_TREE_VERIFIED' and publication['head']==publication['trackingWorkingHead']==config['productionHead'] and publication['sourceTree']==config['productionSourceTree'] and publication['workingTreeClean'] is True and publication['docsOnlyTransitionVerified'] is True,'current published AL role')
+  require(scope['status']=='PARENT_ADOPTED_A208_OPERATIONAL_GUARD_SCOPE_ONLY' and scope['productionGuardHead']==config['productionHead'] and scope['productionSourceTree']==config['productionSourceTree'] and scope['executionAuthorization'] is False and scope['combinedHFirstRouteUnchanged'] is True and scope['H8708Waived'] is False and scope['operationalTransition']['actualHead']==config['productionHead'] and scope['operationalTransition']['docsOnlyVerified'] is True and scope['remoteRefsVerified']==config['operationalRemoteRefs'],'truthful current source-only scope')
+  require(authority['status']==config['actualOperationalRuntimeAuthorityExpectedStatus'] and authority['status']!=scope['status'],'exact observed protection authority status')
+- require(authority['schema']=='1370-root-a208-observed-before-fill-operational-authority/v1' and authority['status']=='ROOT_ADOPTED_OBSERVED_AL_A208_BEFORE_FILL_BASELINE_ONLY' and authority['beforeFillProtectionAccepted'] is True and authority['executionAuthorization'] is False and authority['protectedFreezeContinues'] is True and authority['combinedHFirstRouteUnchanged'] is True and authority['H8708Waived'] is False and authority['actualFillGrant'] is None and authority['gameGrant'] is None,'honest before-fill-only observed authority')
+- require(authority['productionHead']==config['productionHead'] and authority['productionSourceTree']==config['productionSourceTree'] and authority['operationalRemoteRefs']==config['operationalRemoteRefs'] and authority['actualGuardBaseline']==config['actualGuardBaseline'] and authority['roles']['actualScope']==config['sourceScopeAdoption'] and authority['roles']['publishedReadback']==config['publishedReadback'] and authority['roles']['actualControlsAdoption']['sha256']==config['roles']['actualControlsAdoption']['sha256'],'observed baseline/current source role linkage')
+- baseline=values['actualGuardBaseline'];require(baseline['schema']=='1370-a208-current-operational-full-guard-snapshot-r2' and baseline['status']=='GUARDS_ACCEPTED_READONLY' and baseline['phase']=='before-fill' and baseline['baseline'] is None and baseline['configSha256']==authority['roles']['config']['sha256'] and baseline['snapshotProcedureSha256']==authority['roles']['guardSource']['sha256'] and baseline['immutable']['operationalProductionHead']==config['productionHead'] and baseline['immutable']['operationalSourceTree']==config['productionSourceTree'],'actual admitted before-fill producer/source phase')
+  return values
+ 
+ def main():
+@@ -152,7 +146,7 @@
+  require(not os.path.lexists(config['archivePath']) and not os.path.lexists(config['adoptionOutputPath']),'archive/adoption one-shot paths used')
+  candidate.mkdir(mode=0o700);lane.mkdir(mode=0o700)
+  binding_sha=dump(candidate/'BINDING-DRAFT.json',profile);semantic={k:v for k,v in profile.items() if k not in EXCLUDED}; semantic_sha=sha(json.dumps(semantic,sort_keys=True,separators=(',',':')).encode());dump(candidate/'BINDING-SEMANTIC.json',semantic)
+- report={'schema':'1370-r7-exact-draft-report-r1','status':'DRAFT_FILLED_UNREVIEWED_UNRUN','launchAuthorized':False,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'productionHead':config['productionHead'],'productionSourceTree':config['productionSourceTree'],'historicalRoot':str(root),'rootIdentity':root_identity,'materializationReceipt':{'path':str(receiptpath),'sha256':approvedsha,'decision':approveddecision},'materializerBindingSha256':sha(mraw),'materializerActualSupervisorSha256':sha(read(observed_output/'SUPERVISOR.json')[0]),'materializerActualResultSha256':sha(read(observed_output/'RESULT.json')[0]),'bootSessionUuid':config['bootSessionUuid'],'sourcePinsSha256':sha(sourceraw),'sourceReviewReceipt':profile['independentSourceReviewReceipt'],'externalFinalGrantContractAdoption':config['externalFinalGrantContractAdoption'],'bindingWitnessGrantExplicitNull':True,'causalOrderContractAdoption':config['causalOrderContractAdoption'],'actualGuardBaseline':config['actualGuardBaseline'],'operationalRuntimeAuthority':config['actualOperationalRuntimeAuthority'],'adapterControlsReceipt':config['roles']['adapterSourceControlsReceipt'],'roles':config['roles'],'actualFiles':files,'actualNode':node_role,'runner':{'path':str(runner),'target':os.readlink(runner),'resolved':str(runner_resolved),'sha256':runtime['node_modules/vite-node/vite-node.mjs']},'launchEnvironment':{'PATH':selected_path,'PYTHONDONTWRITEBYTECODE':'1','GIT_OPTIONAL_LOCKS':'0'},'freeBytesAtFill':shutil.disk_usage(SCRATCH).free,'claimLimit':'Exact unlaunchable fill only. Parent must fresh-check full physical/dependency/protected roots/FDs/old workers/no-detach/disk/lane guards and independently review exact binding/adoption/argv. No fixture/witness/sandbox/game test ran.'}
++ report={'schema':'1370-r7-exact-draft-report-r1','status':'DRAFT_FILLED_UNREVIEWED_UNRUN','launchAuthorized':False,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'productionHead':config['productionHead'],'productionSourceTree':config['productionSourceTree'],'historicalRoot':str(root),'rootIdentity':root_identity,'materializationReceipt':{'path':str(receiptpath),'sha256':approvedsha,'decision':approveddecision},'materializerBindingSha256':sha(mraw),'materializerActualSupervisorSha256':sha(read(observed_output/'SUPERVISOR.json')[0]),'materializerActualResultSha256':sha(read(observed_output/'RESULT.json')[0]),'bootSessionUuid':config['bootSessionUuid'],'sourcePinsSha256':sha(sourceraw),'sourceReviewReceipt':profile['independentSourceReviewReceipt'],'externalFinalGrantContractAdoption':config['externalFinalGrantContractAdoption'],'bindingWitnessGrantExplicitNull':True,'adapterControlsReceipt':config['roles']['adapterSourceControlsReceipt'],'roles':config['roles'],'actualFiles':files,'actualNode':node_role,'runner':{'path':str(runner),'target':os.readlink(runner),'resolved':str(runner_resolved),'sha256':runtime['node_modules/vite-node/vite-node.mjs']},'launchEnvironment':{'PATH':selected_path,'PYTHONDONTWRITEBYTECODE':'1','GIT_OPTIONAL_LOCKS':'0'},'freeBytesAtFill':shutil.disk_usage(SCRATCH).free,'claimLimit':'Exact unlaunchable fill only. Parent must fresh-check full physical/dependency/protected roots/FDs/old workers/no-detach/disk/lane guards and independently review exact binding/adoption/argv. No fixture/witness/sandbox/game test ran.'}
+  dump(candidate/'DRAFT-REPORT.json',report)
+  pins={'schema':'1370-r7-exact-candidate-pins-r1','status':'DRAFT_FILLED_UNREVIEWED_UNRUN','executionAuthorization':False,'bindingSemanticSha256':semantic_sha,'draftBindingSha256':binding_sha,'files':{p.name:sha(p.read_bytes()) for p in sorted(candidate.iterdir())},'materializationReceipt':report['materializationReceipt'],'sourcePinsSha256':sha(sourceraw)}
+  candidate_sha=dump(candidate/'CANDIDATE-PINS.json',pins)
+--- r4/adopt_reviewed_candidate.py
++++ r3/adopt_reviewed_candidate.py
+@@ -8,7 +8,7 @@
+ HERE=Path(__file__).resolve().parent
+ REPO=Path('/Users/zacheryspector/The-Movies-headless-program')
+ SCRATCH=Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='f0ec5af36040f321410d37d7dc7d2767408e519e8537a55ceb0738e7708337d3'
++CONFIG_SHA='96459fcc3914e1b3c535ecb2f5ebe8ef2ba7a2749b10b35104d5e8b3d5b2405d'
+ EXCLUDED={'status','executionAuthorization','exactReview'}
+ def require(ok,msg):
+  if not ok:raise RuntimeError('STOP: '+msg)
+@@ -38,7 +38,7 @@
+ def external_final_grant_contract(config, profile=None):
+  # Source contract only; final runtime permission remains external and issued last.
+  values={}
+- for key in ('externalFinalGrantDesign','externalFinalGrantContractReview','externalFinalGrantContractAdoption','causalOrderDesign','causalOrderContractReview','causalOrderContractAdoption'):
++ for key in ('externalFinalGrantDesign','externalFinalGrantContractReview','externalFinalGrantContractAdoption'):
+   expected=config[key];require(set(expected)=={'path','bytes','sha256'},'exact external grant contract role shape');raw,_=read(expected['path']);require(len(raw)==expected['bytes'] and sha(raw)==expected['sha256'],'external grant contract pin '+key);values[key]=json.loads(raw)
+  owner=values['externalFinalGrantContractAdoption'];review=values['externalFinalGrantContractReview']
+  require(owner['status']=='ROOT_ADOPTED_SOURCE_CONTRACT_EXTERNAL_FINAL_WITNESS_GRANT' and owner['executionAuthorization'] is False and owner['sourcePreparationAuthorized'] is True and owner['bindingWitnessGrantMustBeExplicitNull'] is True and owner['frozenObserverAndAdaptersRemainUnchanged'] is True,'exact external grant source contract')
+@@ -46,20 +46,17 @@
+  require(review['decision']=='ACCEPT_SOURCE_ONLY_EXTERNAL_FINAL_WITNESS_GRANT_ORDERING_DESIGN' and review['executionAuthorization'] is False and review['design']==config['externalFinalGrantDesign'],'independent external grant source contract')
+  require(EXCLUDED=={'status','executionAuthorization','exactReview'} and config['bindingWitnessGrantExplicitNull'] is True and config['externalFinalGrantIssuanceAfterAdoptedPreflightRequired'] is True,'external grant semantics')
+  if profile is not None:require('witnessGrant' in profile and profile['witnessGrant'] is None,'immutable binding witnessGrant must remain explicit null')
+- causal=values['causalOrderContractAdoption'];causalreview=values['causalOrderContractReview']
+- require(causal['status']=='ROOT_ADOPTED_SOURCE_ONLY_A208_CAUSAL_ORDER_CONTRACT' and causal['executionAuthorization'] is False and causal['knownBeforeFillConfigOnly'] is True and causal['beforeFillAuthorityScopeOnly'] is True and causal['finalExternalGrantAfterActualAdoptedPreflight'] is True and causal['witnessGrantBindingExplicitNullPermanent'] is True,'exact causal source contract')
+- require(causal['design']==config['causalOrderDesign'] and causal['independentReview']==config['causalOrderContractReview'] and causal['archiveOriginals']==6 and causal['adoptionFields']==['status','executionAuthorization','exactReview'] and causal['semanticExclusions']==['status','executionAuthorization','exactReview'],'causal source roles and original adoption')
+- require(causalreview['decision']=='ACCEPT_SOURCE_ONLY_A208_PREPARATION_CAUSAL_ORDER_CONTRACT_DESIGN' and causalreview['executionAuthorization'] is False and causalreview['design']==config['causalOrderDesign'],'independent causal source contract')
+- require(not any(key in config for key in ('actualGuardAfterFill','adoptedPreflight','witnessGrant')),'before-fill config must not contain future observations')
+  return owner
+ 
+-def current_operational_roles(config):
++def current_operational_roles(config, adopting=False):
+  # Exact actual roles filled in a fresh independently reviewed config; scope is design only.
+  for key in ('actualOperationalRuntimeAuthority','actualGuardBaseline'):
+   require(isinstance(config.get(key),dict),'current AL observed protection role pending '+key)
+  require(isinstance(config.get('actualOperationalRuntimeAuthorityExpectedStatus'),str),'actual protection status pending')
+  require(config['actualOperationalRuntimeAuthority']!=config['sourceScopeAdoption'],'source-only scope is not observed protection authority')
+  names=['publishedReadback','sourceScopeAdoption','actualOperationalRuntimeAuthority','actualGuardBaseline']
++ if adopting:
++  require(isinstance(config.get('actualGuardAfterFill'),dict),'current AL after-fill protection pending');names.append('actualGuardAfterFill')
+  values={}
+  for key in names:
+   expected=config[key];raw,_=read(expected['path']);require(sha(raw)==expected['sha256'] and len(raw)==expected['bytes'],'exact current operational role '+key);values[key]=json.loads(raw)
+@@ -67,30 +64,13 @@
+  require(publication['status']=='PUSHED_REMOTE_AND_COMMITTED_TREE_VERIFIED' and publication['head']==publication['trackingWorkingHead']==config['productionHead'] and publication['sourceTree']==config['productionSourceTree'] and publication['workingTreeClean'] is True and publication['docsOnlyTransitionVerified'] is True,'current published AL role')
+  require(scope['status']=='PARENT_ADOPTED_A208_OPERATIONAL_GUARD_SCOPE_ONLY' and scope['productionGuardHead']==config['productionHead'] and scope['productionSourceTree']==config['productionSourceTree'] and scope['executionAuthorization'] is False and scope['combinedHFirstRouteUnchanged'] is True and scope['H8708Waived'] is False and scope['operationalTransition']['actualHead']==config['productionHead'] and scope['operationalTransition']['docsOnlyVerified'] is True and scope['remoteRefsVerified']==config['operationalRemoteRefs'],'truthful current source-only scope')
+  require(authority['status']==config['actualOperationalRuntimeAuthorityExpectedStatus'] and authority['status']!=scope['status'],'exact observed protection authority status')
+- require(authority['schema']=='1370-root-a208-observed-before-fill-operational-authority/v1' and authority['status']=='ROOT_ADOPTED_OBSERVED_AL_A208_BEFORE_FILL_BASELINE_ONLY' and authority['beforeFillProtectionAccepted'] is True and authority['executionAuthorization'] is False and authority['protectedFreezeContinues'] is True and authority['combinedHFirstRouteUnchanged'] is True and authority['H8708Waived'] is False and authority['actualFillGrant'] is None and authority['gameGrant'] is None,'honest before-fill-only observed authority')
+- require(authority['productionHead']==config['productionHead'] and authority['productionSourceTree']==config['productionSourceTree'] and authority['operationalRemoteRefs']==config['operationalRemoteRefs'] and authority['actualGuardBaseline']==config['actualGuardBaseline'] and authority['roles']['actualScope']==config['sourceScopeAdoption'] and authority['roles']['publishedReadback']==config['publishedReadback'] and authority['roles']['actualControlsAdoption']['sha256']==config['roles']['actualControlsAdoption']['sha256'],'observed baseline/current source role linkage')
+- baseline=values['actualGuardBaseline'];require(baseline['schema']=='1370-a208-current-operational-full-guard-snapshot-r2' and baseline['status']=='GUARDS_ACCEPTED_READONLY' and baseline['phase']=='before-fill' and baseline['baseline'] is None and baseline['configSha256']==authority['roles']['config']['sha256'] and baseline['snapshotProcedureSha256']==authority['roles']['guardSource']['sha256'] and baseline['immutable']['operationalProductionHead']==config['productionHead'] and baseline['immutable']['operationalSourceTree']==config['productionSourceTree'],'actual admitted before-fill producer/source phase')
+  return values
+-
+-def reviewed_after_fill(config, review):
+- # Existing exact candidate review is the actual after-fill admission carrier.
+- require(review.get('actualGuardBaseline')==config['actualGuardBaseline'] and review.get('operationalRuntimeAuthority')==config['actualOperationalRuntimeAuthority'],'exact review before-fill roles')
+- require(review.get('causalOrderContractAdoption')==config['causalOrderContractAdoption'],'exact review causal contract')
+- role=review.get('actualGuardAfterFill');require(isinstance(role,dict) and set(role)=={'path','bytes','sha256'} and isinstance(role['path'],str) and type(role['bytes']) is int and role['bytes']>0 and isinstance(role['sha256'],str) and len(role['sha256'])==64,'exact actual after-fill role shape')
+- require(role!=config['actualGuardBaseline'],'after-fill is separate actual observation')
+- raw,_=read(role['path']);require(len(raw)==role['bytes'] and sha(raw)==role['sha256'],'actual after-fill raw pin');after=json.loads(raw)
+- baserole=config['actualGuardBaseline'];baseraw,_=read(baserole['path']);require(len(baseraw)==baserole['bytes'] and sha(baseraw)==baserole['sha256'],'admitted actual baseline raw pin');base=json.loads(baseraw)
+- schema='1370-a208-current-operational-full-guard-snapshot-r2'
+- require(base['schema']==after['schema']==schema and base['status']==after['status']=='GUARDS_ACCEPTED_READONLY' and base['phase']=='before-fill' and after['phase']=='after-fill','exact real fullguard producer schema/status/phases')
+- require(after['baseline']=={'path':baserole['path'],'sha256':baserole['sha256']} and after['configSha256']==base['configSha256'] and after['snapshotProcedureSha256']==base['snapshotProcedureSha256'] and after['admission']==base['admission'] and after['immutable']==base['immutable'],'actual after-fill baseline/producer/full immutable equality')
+- require(base['immutable']['operationalProductionHead']==config['productionHead'] and base['immutable']['operationalSourceTree']==config['productionSourceTree'] and base['immutable']['parentScopeAdoption']=={'path':config['sourceScopeAdoption']['path'],'sha256':config['sourceScopeAdoption']['sha256']},'actual fullguard current AL/source/scope')
+- return role
+ 
+ def main():
+  require(sys.dont_write_bytecode and not sys.flags.optimize and len(sys.argv)==4,'invoke Python -B with exact receipt/hash/identity hash')
+  configraw,_=read(HERE/'CONFIG-PENDING.json');require(sha(configraw)==CONFIG_SHA,'config drift');config=json.loads(configraw)
+  external_final_grant_contract(config)
+- current_operational_roles(config)
++ current_operational_roles(config,adopting=True)
+  draft=Path(config['candidatePath']);binding=Path(config['bindingPath']);archive=Path(config['archivePath']);output=Path(config['adoptionOutputPath'])
+  require(draft.resolve(strict=True)==draft and draft.parent==SCRATCH and archive.parent==SCRATCH and output.parent==SCRATCH,'owned physical paths')
+  require(not os.path.lexists(archive) and not os.path.lexists(output),'archive/adoption output already used')
+@@ -100,7 +80,6 @@
+  for k,v in {'decision':'ACCEPT_EXACT_FILLED_UNRUN','reviewedDraftBindingSha256':identity['draftBindingSha256'],'bindingSemanticSha256':identity['bindingSemanticSha256'],'candidatePinsSha256':identity['candidatePinsSha256'],'productionHead':config['productionHead'],'sourcePinsSha256':identity['sourcePinsSha256'],'adoptionProcedureSha256':sha(read(Path(__file__).resolve())[0]),'fillProcedureSha256':sha(read(HERE/'fill_actual_candidate.py')[0])}.items():require(review.get(k)==v,'exact receipt role '+k)
+  require(str(binding) in (review.get('bindingPath'),review.get('reviewedBindingPath'),review.get('draftBindingPath')) or str(draft) in (review.get('draftPath'),review.get('reviewedDraftPath'),review.get('candidatePath')),'exact original path missing')
+  require(review.get('externalFinalGrantContractAdoption')==config['externalFinalGrantContractAdoption'] and review.get('bindingWitnessGrantExplicitNull') is True,'exact review must admit intentional external final grant arrangement')
+- reviewed_after_fill(config,review)
+  old,oldstat=read(binding);require(sha(old)==identity['draftBindingSha256'],'draft binding drift');profile=json.loads(old)
+  external_final_grant_contract(config,profile)
+  require(profile['operationalRuntimeAuthority']==config['actualOperationalRuntimeAuthority'] and profile['productionHeadAtPreparation']==config['productionHead'],'current AL actual binding roles')
+@@ -112,7 +91,7 @@
+  originals={'DRAFT-IDENTITY.json':identityraw}
+  for name,h in identity['files'].items():
+   raw,_=read(draft/name);require(sha(raw)==h,'filled artifact drift '+name);originals[name]=raw
+- report=json.loads(originals['DRAFT-REPORT.json']);require(report['actualGuardBaseline']==config['actualGuardBaseline'] and report['operationalRuntimeAuthority']==config['actualOperationalRuntimeAuthority'] and report['causalOrderContractAdoption']==config['causalOrderContractAdoption'],'filled known-before-fill provenance');admission=report['materializationReceipt'];receipt_raw,_=read(admission['path']);receipt=json.loads(receipt_raw)
++ report=json.loads(originals['DRAFT-REPORT.json']);admission=report['materializationReceipt'];receipt_raw,_=read(admission['path']);receipt=json.loads(receipt_raw)
+  require(sha(receipt_raw)==admission['sha256'] and receipt['decision']==admission['decision'] and admission['decision'].startswith('ACCEPT_OBSERVED_') and any(x in admission['decision'] for x in ('MATERIALIZ','COPY')),'observed materialization receipt drift')
+  root=Path(config['materializedRoot']);require(str(root) in [receipt.get(k) for k in ('materializedRoot','scratchRoot','repoRoot','reviewedMaterializedRoot')],'observed receipt root')
+  require(profile['repoRoot']==str(root) and root.resolve(strict=True)==root and root.is_dir(),'completed physical root')

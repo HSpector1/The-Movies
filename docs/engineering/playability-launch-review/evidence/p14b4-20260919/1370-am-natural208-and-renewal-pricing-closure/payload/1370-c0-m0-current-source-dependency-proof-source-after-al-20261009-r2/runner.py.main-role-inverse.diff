@@ -1,0 +1,33 @@
+--- fresh-local-main-role/runner.py
++++ preserved-predecessor/runner.py
+@@ -3,16 +3,15 @@
+ import argparse, hashlib, json, math, os, pathlib, re, selectors, shutil, signal, stat, subprocess, sys, time, traceback
+ S=pathlib.Path('/Users/zacheryspector/studio-scratch')
+ REPO=pathlib.Path('/Users/zacheryspector/The-Movies-headless-program')
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2')
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r1')
+ CONFIG_PATH=P/'CONFIG.json'
+-CONFIG_SHA='17ac5abcd1e26c83fcd8d3794bd0c6356cd9f141416e01974cdd34f510b72bb5'
+-OUT_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-results-after-al-20261009-r2')
++CONFIG_SHA='01c5c22d4f7212dd2a835883908b373b0583480487256d2f85933ae42d82b7ed'
++OUT_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-results-after-al-20261009-r1')
+ MIRROR_ROOT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2')
+ CURRENT_HEAD='8cb704e2f18e6a635943893422c9cfdc206e106d'
+ TREE='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554'
+ REF='refs/heads/wip/headless-program-20260916-ts'
+ MAIN_REF='refs/heads/main'
+-LOCAL_MAIN_REF='refs/remotes/origin/main'
+ MAIN_OID='c902a704eb948cc576083d0973c8c23e59937dc1'
+ ORIGIN='https://github.com/HSpector1/The-Movies.git'
+ LOCK_SHA='728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de'
+@@ -539,8 +538,8 @@
+  need(cmd(['git','rev-parse','HEAD'])==CURRENT_HEAD and cmd(['git','rev-parse','HEAD:src'])==TREE and
+       cmd(['git','status','--porcelain=v1'])=='','production source drift')
+  need(cmd(['git','remote','get-url','origin'])==ORIGIN,'origin URL drift')
+- for local_ref,remote_ref,oid in ((REF,REF,CURRENT_HEAD),(LOCAL_MAIN_REF,MAIN_REF,MAIN_OID)):
+-  need(cmd(['git','rev-parse',local_ref])==oid and cmd(['git','ls-remote','origin',remote_ref])==oid+'\t'+remote_ref,'local/remote ref drift')
++ for ref,oid in ((REF,CURRENT_HEAD),(MAIN_REF,MAIN_OID)):
++  need(cmd(['git','rev-parse',ref])==oid and cmd(['git','ls-remote','origin',ref])==oid+'\t'+ref,'local/remote ref drift')
+  for ref,oid in AUTHORITY.get('additionalRefs',{}).items():
+   need(type(ref) is str and ref.startswith('refs/heads/') and re.fullmatch('[0-9a-f]{40}',oid),'additional ref type')
+   need(cmd(['git','rev-parse',ref])==oid and cmd(['git','ls-remote','origin',ref])==oid+'\t'+ref,'additional current ref drift')

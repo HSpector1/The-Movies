@@ -1,0 +1,11 @@
+--- R5/BOOTSTRAP.py
++++ R6/BOOTSTRAP.py
+@@ -10,7 +10,7 @@
+ signal.signal(signal.SIGALRM,lambda *_:(_ for _ in ()).throw(TimeoutError('300-second whole-child typecheck')))
+ signal.setitimer(signal.ITIMER_REAL,remaining_from(start,time.monotonic()))
+ assert len(sys.argv)==4,'exact context hash / context path / runner hash required'
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5')
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6')
+ runner=P/'runner.py'
+ context=pathlib.Path(sys.argv[2])
+ def ident(st):return st.st_dev,st.st_ino,st.st_mode

@@ -1,0 +1,38 @@
+{
+  "actualControlsAdoption": {
+    "bytes": 8775,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json",
+    "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+  },
+  "actualFiles": null,
+  "actualGuardAfterFill": null,
+  "actualGuardBaseline": null,
+  "actualNode": null,
+  "claimLimit": "Source template only. No fill, live private root/Node/runner/protection observation or execution occurred.",
+  "currentAlPublishedReadback": {
+    "bytes": 1250,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+    "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+  },
+  "freeBytesAtFill": null,
+  "historicalRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+  "launchAuthorized": false,
+  "materializationReceipt": {
+    "decision": "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "sha256": "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d"
+  },
+  "operationalRuntimeAuthority": null,
+  "productionHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "rootIdentity": null,
+  "runner": null,
+  "schema": "1370-a208-six-file-source-candidate-report/v1",
+  "sourceOnlyScopeAdoption": {
+    "bytes": 2476,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "5307f365af644cefb94f6eca5bd8188b9e4a4c2198a9ccf6b72f0671dfd32998"
+  },
+  "status": "SOURCE_ONLY_PARTIAL_CANDIDATE_UNRUN",
+  "witnessGrant": null
+}

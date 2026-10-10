@@ -1,0 +1,20 @@
+{
+  "initial": {
+    "chunk_id": "65216f",
+    "wall_time_seconds": 1.00265885,
+    "session_id": 99593,
+    "original_token_count": 64,
+    "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-prelaunch-parent-after-al-20261009-r2/GRANT.json\", \"bytes\": 2389, \"sha256\": \"617dc07173e62a7f1f4a2e5b7f9bad885019d6d5aaf7b9462c656dd87083556e\"}, \"ownPid\": 88025, \"ownPgid\": 88025}\n"
+  },
+  "polls": [
+    {
+      "chunk_id": "844920",
+      "wall_time_seconds": 0.000016758,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ],
+  "toolSessionId": 99593,
+  "finalExit": 0
+}

@@ -1,0 +1,266 @@
+{
+  "acceptedOwnGroupMechanismSource": {
+    "bytes": 9691,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/grant_before_fill.py",
+    "sha256": "5100a89373a729fe7f80714fc740b76d6fc3e45f85c869c381246ac29a21678e"
+  },
+  "actualGrant": null,
+  "actualOutcome": null,
+  "bounds": {
+    "activeSeconds": 75,
+    "nodeSeconds": 60,
+    "stderrBytes": 1048576,
+    "stdoutBytes": 1048576,
+    "wholeSeconds": 90
+  },
+  "executionAuthorization": false,
+  "hashDAG": [
+    "Known sources, original STOP and accepted own-group source -> strict contract -> config -> recorder -> recipe",
+    "Wrapper and completed consumer plus proof/docs/diffs -> source pins -> seal",
+    "Future independent review and final root grant external; no cycles"
+  ],
+  "knownProtection": {
+    "bytes": 10578,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+    "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3"
+  },
+  "onlyR2Repair": "Establish/record actual wrapper group; bind typed actual helper PID/PGID/SID; separate PID absence from actual scoped PGID absence; consistent fresh r2 paths and source hashes.",
+  "ownershipContract": {
+    "acceptedMechanismSource": {
+      "bytes": 9691,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/grant_before_fill.py",
+      "sha256": "5100a89373a729fe7f80714fc740b76d6fc3e45f85c869c381246ac29a21678e"
+    },
+    "actualLaunchClaimFields": [
+      "helperPid",
+      "helperPgid",
+      "helperSid",
+      "helperGroupVerifiedBeforeExec"
+    ],
+    "bindAllOutcomeIdentitiesToLaunchClaim": true,
+    "groupAbsenceList": "actualOwnedGroupsFreshlyAbsent exactly [helperPgid, ownedPgid]",
+    "noPidSubstitutionForPgid": true,
+    "originalConcreteStopReview": {
+      "bytes": 6238,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-independent-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "9f77f7c68335132a3bde7a08703ccb1df7628dfd15c25f5382908e480f6fbd2f"
+    },
+    "pidAbsenceList": "actualOwnedPidsFreshlyAbsent exactly [helperPid, childPid]",
+    "requiredOutcomeNumericIdentityFields": [
+      "helperPid",
+      "helperPgid",
+      "helperSid"
+    ],
+    "wrapperOwnsGroupBeforeExec": "If actual PGID differs from actual PID, call setsid on the wrapper itself; require actual PGID equals actual PID before recording and exec. No positive signals."
+  },
+  "predecessorRoutePins": {
+    "bytes": 7546,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "4952fa50346b03127afb67c01b9fe86ffd962ad3f48fc3ae5b6e0cc2ca397f64"
+  },
+  "preparationVerification": {
+    "GitScansProcessProbesPositiveSignalsOrPrivateAccess": false,
+    "NodeControlsTestsBenchmarkGame": false,
+    "generatedSourcesImportedOrExecuted": false,
+    "sourceBytesAndPythonAstOnly": true
+  },
+  "preservedOriginalStopReview": {
+    "bytes": 6238,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-independent-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "9f77f7c68335132a3bde7a08703ccb1df7628dfd15c25f5382908e480f6fbd2f"
+  },
+  "preservedOwnedChildClassExactSource": true,
+  "preservedRecorderFunctionsExactSource": [
+    "metadata",
+    "authenticate",
+    "process_alive",
+    "start_owned",
+    "ready_go",
+    "close_startup_fds",
+    "clear",
+    "alarm",
+    "whole_guard",
+    "active_guard",
+    "observed_exit_guard",
+    "child_environment",
+    "finalize_result"
+  ],
+  "qualifiedPredecessorRestorations": {
+    "launch-focused-controls.py": {
+      "candidate": {
+        "bytes": 6244,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/launch-focused-controls.py",
+        "sha256": "fa5621d99981397b0c3d669056ea2c375a4dad55de798b5a26ef07cf997539b1"
+      },
+      "forward": {
+        "bytes": 11038,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/launch-focused-controls.py.qualified.diff",
+        "sha256": "95113310ab301c826587cb3405946e1279227a782c11e524e305b805cd73c06d"
+      },
+      "inverse": {
+        "bytes": 11038,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/launch-focused-controls.py.qualified.inverse.diff",
+        "sha256": "2b833a3b2b5a4053856351c0ed63acb42112932bd8df236af96d48478814292a"
+      },
+      "predecessor": {
+        "bytes": 4695,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-parent-recorded-20261009-r1/grant_and_launch.py",
+        "sha256": "3e28c437f6be470968d410971c8344d428223088d57ba2de44759ab3ef12b8a1"
+      },
+      "wholeBytesExact": true
+    },
+    "record-pure-node.py": {
+      "candidate": {
+        "bytes": 14041,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/record-pure-node.py",
+        "sha256": "f5a1f8d39a31079b4a168364553498a44b10a167e067e5660979dc2cce4277e6"
+      },
+      "forward": {
+        "bytes": 3940,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/record-pure-node.py.qualified.diff",
+        "sha256": "8aa6400e6f277b1ed430b0e6844979b5fce52e9ad16bf80431e839a2cc5cfcaa"
+      },
+      "inverse": {
+        "bytes": 3940,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/record-pure-node.py.qualified.inverse.diff",
+        "sha256": "8a31984d7877a8e30f826057c579b6abf43216d6ffeea11c0b0db57f6901a220"
+      },
+      "predecessor": {
+        "bytes": 14258,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/record-pure-node.py",
+        "sha256": "d0b8380d0ef982f8675ef8affdafd60bac200717132875fe50f220c648586cc2"
+      },
+      "wholeBytesExact": true
+    }
+  },
+  "r1AllFilesReadbackByteIdentical": true,
+  "restorations": {
+    "CONFIG.json": {
+      "candidate": {
+        "bytes": 10788,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/CONFIG.json",
+        "sha256": "735693898549a19f894318eeedecbbc354f3c514492bf83409ee125952652168"
+      },
+      "forward": {
+        "bytes": 1976,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/CONFIG.json.diff",
+        "sha256": "4439a9674d80b264c10d422d018215d1a62d8a271e7563ede23a9e731a9b175a"
+      },
+      "forwardExact": true,
+      "inverse": {
+        "bytes": 1976,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/CONFIG.json.inverse.diff",
+        "sha256": "b0229122c82debcb2639e58d8d4f6999a81bc8b146daabdb4afc77a18e47e694"
+      },
+      "inverseWholeBytesExact": true,
+      "predecessor": {
+        "bytes": 10230,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r1/CONFIG.json",
+        "sha256": "651b5f72195a7328de4115433b6534a8644104b30d0d3b2de3def2ae76edeffa"
+      },
+      "restoredSha256": "651b5f72195a7328de4115433b6534a8644104b30d0d3b2de3def2ae76edeffa"
+    },
+    "CONTROL-RECIPE.json": {
+      "candidate": {
+        "bytes": 7182,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/CONTROL-RECIPE.json",
+        "sha256": "2bdc77b9889d61ba0c621df209dd8c0657052b03b661d4f7239ae5e3fdaa2ccd"
+      },
+      "forward": {
+        "bytes": 4006,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/CONTROL-RECIPE.json.diff",
+        "sha256": "148d0803204881ba682648b991539296f40d744e4b2abe96534710c31b16093e"
+      },
+      "forwardExact": true,
+      "inverse": {
+        "bytes": 4006,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/CONTROL-RECIPE.json.inverse.diff",
+        "sha256": "efc2478b419cac4ba48ac6abbdabc8309b3fbf8fcc740c6a21cba0193284ec6e"
+      },
+      "inverseWholeBytesExact": true,
+      "predecessor": {
+        "bytes": 5884,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r1/CONTROL-RECIPE.json",
+        "sha256": "8c38367b256eab6fa86fa8f07d02e16500261df40e8c103d9283cbe866c5eb04"
+      },
+      "restoredSha256": "8c38367b256eab6fa86fa8f07d02e16500261df40e8c103d9283cbe866c5eb04"
+    },
+    "consume-focused-controls.py": {
+      "candidate": {
+        "bytes": 6553,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/consume-focused-controls.py",
+        "sha256": "d30b04d6a0960daacdefe3552d1c7035f7417e931051953236e79de959411a14"
+      },
+      "forward": {
+        "bytes": 5870,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/consume-focused-controls.py.diff",
+        "sha256": "4f16c0b187bcc0159120b30efb7258518e39fb46332af2169c02a9649c5fb707"
+      },
+      "forwardExact": true,
+      "inverse": {
+        "bytes": 5870,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/consume-focused-controls.py.inverse.diff",
+        "sha256": "ba7d6980314406192080f6e0b569c3c6e705b3cdab1b005a933dcb652ffd2aab"
+      },
+      "inverseWholeBytesExact": true,
+      "predecessor": {
+        "bytes": 6071,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r1/consume-focused-controls.py",
+        "sha256": "9fa7c46790d0af78e55958d72419567dfe41a56f1131ea4663e5ba8b7e2134c9"
+      },
+      "restoredSha256": "9fa7c46790d0af78e55958d72419567dfe41a56f1131ea4663e5ba8b7e2134c9"
+    },
+    "launch-focused-controls.py": {
+      "candidate": {
+        "bytes": 6244,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/launch-focused-controls.py",
+        "sha256": "fa5621d99981397b0c3d669056ea2c375a4dad55de798b5a26ef07cf997539b1"
+      },
+      "forward": {
+        "bytes": 3274,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/launch-focused-controls.py.diff",
+        "sha256": "16c125c1b875c2bd1eb999ba85ec67f714c36945d5269a9c33c354360da9c326"
+      },
+      "forwardExact": true,
+      "inverse": {
+        "bytes": 3274,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/launch-focused-controls.py.inverse.diff",
+        "sha256": "db408f940a1a962ab1011338498cf82e35d91868a9b9f362149e77c366594cc0"
+      },
+      "inverseWholeBytesExact": true,
+      "predecessor": {
+        "bytes": 5925,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r1/launch-focused-controls.py",
+        "sha256": "25877bea1c606d7d68e02100e50a0af52b7f6fb81b9b6ca3cb96651508222346"
+      },
+      "restoredSha256": "25877bea1c606d7d68e02100e50a0af52b7f6fb81b9b6ca3cb96651508222346"
+    },
+    "record-pure-node.py": {
+      "candidate": {
+        "bytes": 14041,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/record-pure-node.py",
+        "sha256": "f5a1f8d39a31079b4a168364553498a44b10a167e067e5660979dc2cce4277e6"
+      },
+      "forward": {
+        "bytes": 1070,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/record-pure-node.py.diff",
+        "sha256": "d1899237e63c9e1199f8314eec847eb01330f4474d454ee6b46218a2612c6f88"
+      },
+      "forwardExact": true,
+      "inverse": {
+        "bytes": 1070,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/record-pure-node.py.inverse.diff",
+        "sha256": "3332a39d30028920be7c9a14bc58444248af2f616986f8e64fe78ca75df7404f"
+      },
+      "inverseWholeBytesExact": true,
+      "predecessor": {
+        "bytes": 14041,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r1/record-pure-node.py",
+        "sha256": "4eb5d9f09f2d738c6949af17d3744791a74c585edf330b8b78529996cb409d76"
+      },
+      "restoredSha256": "4eb5d9f09f2d738c6949af17d3744791a74c585edf330b8b78529996cb409d76"
+    }
+  },
+  "schema": "1370-b109-ascii-focused-route-source-proof/v1",
+  "strictProducerContractByteIdenticalToR1": true
+}

@@ -1,0 +1,98 @@
+{
+  "actualBenchmark": null,
+  "actualControls": null,
+  "executionAuthorization": false,
+  "files": {
+    "CONFIG.json": {
+      "bytes": 4745,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/CONFIG.json",
+      "sha256": "f870f2e8dc3606d7a3419635cdcf3fe89ee5fb1f232389de8837501c668ad142"
+    },
+    "DESIGN.json": {
+      "bytes": 17016,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/DESIGN.json",
+      "sha256": "68cc0d49f1ce3e67c751f40e67a73ce37ae296438296a2674916cdd7db898fab"
+    },
+    "LESSONS.md": {
+      "bytes": 730,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/LESSONS.md",
+      "sha256": "3d569ef434c112cce349e3676f117923e456b2f34be6d57049217a87ba2fb9f0"
+    },
+    "MUTANTS.json": {
+      "bytes": 3154,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/MUTANTS.json",
+      "sha256": "215fd98b4a91f1ea3c24c2b72bf27a378f3491e134b2f2f287a33497c3cbb2e9"
+    },
+    "RECEIPT.json": {
+      "bytes": 1492,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "2745282f834220ad9034e7a078afd105ca5ddecf5f9fc5056873c5ea64fbf35a"
+    },
+    "appended-controls.mjs": {
+      "bytes": 9967,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/appended-controls.mjs",
+      "sha256": "f192310a501087033e1a43e341c379b979bd22b8316def3e32419097f2d2a1da"
+    },
+    "build_sources.py": {
+      "bytes": 5921,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/build_sources.py",
+      "sha256": "bb2730c6ec8a81cc71a5ee288d5bad8fdbd61be02527ae5c465ca5ccc7754ae4"
+    },
+    "controls.mjs": {
+      "bytes": 25837,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/controls.mjs",
+      "sha256": "d4c91f0e965648df46707c9d47cc23d24e487f12fd04bb88198a54c9b2683647"
+    },
+    "mutant-escape.diff": {
+      "bytes": 491,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-escape.diff",
+      "sha256": "9be049acae4d905f7589e921746eb97fbc2a146deef92f68647bc1497c60a722"
+    },
+    "mutant-escape.inverse.diff": {
+      "bytes": 491,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-escape.inverse.diff",
+      "sha256": "063ed67e6910659bb46cc4199d56d3e61fd19b5399314cfc2023bfebd82fe77c"
+    },
+    "mutant-escape.mjs": {
+      "bytes": 2965,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-escape.mjs",
+      "sha256": "be3d5e5135732335b1a3cda54f74034980a9c89887d90854fa17c6fa6d6df81b"
+    },
+    "mutant-precheck.diff": {
+      "bytes": 423,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-precheck.diff",
+      "sha256": "1fcf97c7a71eef86a345e433fd5f7ddff7271afce0b5dd86689abc739e289572"
+    },
+    "mutant-precheck.inverse.diff": {
+      "bytes": 423,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-precheck.inverse.diff",
+      "sha256": "74a01e444d68e1680c054874858598a44b5a315b623ce2b6636274928f71e397"
+    },
+    "mutant-precheck.mjs": {
+      "bytes": 2870,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-precheck.mjs",
+      "sha256": "a6747cee6d60f142fa1d5d9a5b8c174719b5699746f4fca8eaa54914d15060ab"
+    },
+    "mutant-unicode.diff": {
+      "bytes": 482,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-unicode.diff",
+      "sha256": "fee5d7d747bc554766913681750bb8286e0e2977757d950810a7c022a53f91f7"
+    },
+    "mutant-unicode.inverse.diff": {
+      "bytes": 482,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-unicode.inverse.diff",
+      "sha256": "52412bc0d653694ac22b10c33161fe070d64b6b8eeafc252a04071a6b5f5e9a0"
+    },
+    "mutant-unicode.mjs": {
+      "bytes": 2955,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-unicode.mjs",
+      "sha256": "c87c53cd0ece378cef4bb65fbc52026600b3dc83b34cd884f95de476bf2393d0"
+    },
+    "original28-block.mjs.txt": {
+      "bytes": 14863,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/original28-block.mjs.txt",
+      "sha256": "3d76f95e668133fbc0adba03f9699bab727ce30099608b8a77b0aa2e07e82452"
+    }
+  },
+  "schema": "1370-b109-ascii-independent-held-controls-pins/v1"
+}

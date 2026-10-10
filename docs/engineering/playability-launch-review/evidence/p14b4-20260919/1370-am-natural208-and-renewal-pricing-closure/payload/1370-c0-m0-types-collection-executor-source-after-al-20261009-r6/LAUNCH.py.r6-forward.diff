@@ -1,0 +1,16 @@
+--- R5/LAUNCH.py
++++ R6/LAUNCH.py
+@@ -43,10 +43,10 @@
+   return raw
+  finally:
+   for item in reversed(held):os.close(item)
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5')
+-config=json.loads(read_pin(P/'CONFIG.json','e52b41bcb57b13e8255f9c5417aa29bdcf99e51850b0058119d4126c2c0d3172',100000))
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6')
++config=json.loads(read_pin(P/'CONFIG.json','f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7',100000))
+ authority=json.loads(read_pin(context,context_sha,128*1024))
+-expected={'runner.py':'ac1d7e993c7ad90d73ed0d758727c249c1086c2ae02be9942c4548ceb389f5b5','BOOTSTRAP.py':'0ca56de3a190491911061b40728e5a919974c3f18430988ff7ca506dd3b3b922','supervise.py':'a5b04448e4a5205064191cafbef62c01f341b6741f88ac6684dffe12593e2ee9','CONFIG.json':'e52b41bcb57b13e8255f9c5417aa29bdcf99e51850b0058119d4126c2c0d3172','check-deps.mjs':'e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64'}
++expected={'runner.py':'5c18ad22e7b78d978c59eace50d5e4349ea415efa4ebf5840860e75561fa2e4b','BOOTSTRAP.py':'d2f66d1b78b3d09ad0eb897ac4b0d2fdfbaf0ab6656f8aa106c97aecabb6ea88','supervise.py':'af8c2b89380031262c2deec4271c6b39339cca721e14abc89bf57860d6ce57eb','CONFIG.json':'f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7','check-deps.mjs':'e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64'}
+ assert authority['schema']=='1370-m0-types-execution-context/v1'
+ assert authority['configSha256']==expected['CONFIG.json'] and authority['runId']==config['runId'] and authority['mirrorPath']==config['mirrorPath']
+ def role(name,cap=100000):

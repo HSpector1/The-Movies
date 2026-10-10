@@ -1,0 +1,76 @@
+{
+  "actualTool": {
+    "bytes": 664,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-parent-recorded-after-al-20261009-r1/ACTUAL-TOOL.json",
+    "sha256": "d854f103a55db22322684c095a2bbd5fd81d633d692c972a2caf16f99fc2184c"
+  },
+  "elapsedSeconds": 1.543980176007608,
+  "executionAuthorization": false,
+  "game": false,
+  "grant": {
+    "bytes": 2631,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-parent-recorded-after-al-20261009-r1/GRANT.json",
+    "sha256": "9f0b2cc46b2a4aba889a5c8e098120758929af79acb848185ecf2b8dc3bca9cc"
+  },
+  "helperExit": 0,
+  "helperLog": {
+    "bytes": 434,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-lane-after-al-20261009-r1/pricing.lane.log",
+    "sha256": "77bbfbafb7ec3a0f71936a83c8b1bb3853ec434d46731b436a361876fd07f382"
+  },
+  "helperMetadata": {
+    "bytes": 359,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-lane-after-al-20261009-r1/pricing.lane.log.meta",
+    "sha256": "50c26f043e2877fc01a8eda53f56eef17445ef69fcc4b9ca03f1549d84ccb1d3"
+  },
+  "immutablePairs": 44,
+  "laneReleased": true,
+  "mismatches": 0,
+  "nodeExit": 0,
+  "originalOfferLocalCapture": false,
+  "ownershipChecks": [
+    {
+      "id": 46727,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 46727,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 46986,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 46986,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "recorderExit": 0,
+  "renewalCauseAdmission": false,
+  "result": {
+    "bytes": 946,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verification-output-after-al-20261009-r1/RESULT.json",
+    "sha256": "bf71bd934b229f2aaf34b86cab3cf24aa33cede6bd2b1b3ed7656cc20db91684"
+  },
+  "schema": "1370-root-actual-pure16-pricing-readback/v1",
+  "selectedRows": 16,
+  "status": "ACTUAL_PURE16_PAIRS_AGREE_PENDING_INDEPENDENT_REVIEW",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verification-output-after-al-20261009-r1/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 15342,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-verification-output-after-al-20261009-r1/stdout.bin",
+    "sha256": "507bbccbe79c3b1bed9d2bb4c470033f8bd08a2cf343845acc63a3a0a0ca8ab7"
+  },
+  "toolExit": 0,
+  "toolSessionId": 94067,
+  "warning": "Qualified recorder main outer-finally emits SyntaxWarning at239 in helper combined log; producer stderr remains0. Original warning retained."
+}

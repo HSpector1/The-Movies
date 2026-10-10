@@ -1,0 +1,84 @@
+{
+  "actualOwnedGroupsFreshlyAbsent": [
+    17003,
+    17510
+  ],
+  "actualOwnedPidsFreshlyAbsent": [
+    17003,
+    17510
+  ],
+  "actualTool": {
+    "bytes": 964,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r2/ACTUAL-TOOL.json",
+    "sha256": "565a7150878272f04fd3e0301cc008f47c17ccdc224416f460145f3bd255dbb1"
+  },
+  "actualToolExit": 0,
+  "actualToolSessionId": 79331,
+  "game": false,
+  "grant": {
+    "bytes": 6356,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r2/GRANT.json",
+    "sha256": "1a6d3421fb2411f1b38f40cba2998a464aa613d8544d7441c919b554ad1ab492"
+  },
+  "heavyLaneLockAbsent": true,
+  "helperExit": 0,
+  "helperGroupVerifiedBeforeExec": true,
+  "helperMetaExit": 0,
+  "helperPgid": 17003,
+  "helperPid": 17003,
+  "helperSid": 17003,
+  "laneLog": {
+    "bytes": 393,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-lane-after-al-20261009-r2/controls.lane.log",
+    "sha256": "d00db3345a374547b1b75c9d7ea15caff167586cb3d30c783aae87b10ff67ebe"
+  },
+  "laneMeta": {
+    "bytes": 344,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-lane-after-al-20261009-r2/controls.lane.log.meta",
+    "sha256": "5d3a284f730ea2efdd2a3269284f6ebe6e75a1800a98b001859a5e48223d0240"
+  },
+  "launchClaim": {
+    "bytes": 1925,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r2/LAUNCH-CLAIM.json",
+    "sha256": "32fb87a8ad34927531e92983987a51683fbd3f456c5a8665d96f37aa148440da"
+  },
+  "nodeExit": 0,
+  "parentRecorderDiagnostic": "Helper combined log retains a Python SyntaxWarning for original finalize_result return inside finally at recorder line239. Producer stderr is empty; no claim of empty helper combined log. Independent observed reviewer must verify unchanged source and existing contract.",
+  "performanceWin": false,
+  "producerStderrBytes": 0,
+  "recordedZeroSignalChecks": [
+    {
+      "id": 17003,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 17510,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 17003,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 17510,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    }
+  ],
+  "recorderExit": 0,
+  "result": {
+    "bytes": 918,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-output-after-al-20261009-r2/RESULT.json",
+    "sha256": "11d82a514bf703d2e7050d522e6e263f70bfdf2440181863f9f2292d01e2db4c"
+  },
+  "schema": "1370-root-b109-ascii-focused-controls-tool-outcome/v1",
+  "status": "ACTUAL_FOCUSED_CONTROLS_COMPLETE_AWAIT_INDEPENDENT_REVIEW",
+  "utc": "2026-10-10T00:51:56.222686+00:00"
+}

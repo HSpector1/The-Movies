@@ -1,0 +1,23 @@
+--- src/core/employment.ts
++++ src/core/employment.ts
+@@ -1,4 +1,3 @@
+-import { m0WiringProbe as __m0WiringProbe } from './m0WiringProbe.js'
+ import { productionCompanyTalentIds } from './productionPeople.js'
+ import { initializeHollywood, industryBusyTalentIds, rivalEmployment } from './hollywood.js'
+ // ── D-11 Studio Employment, Contracts, Roster, Freelancer Market ──────────────
+@@ -80,7 +79,6 @@
+ // illegal commitments with this reason; the UI disables + shows the SAME reason.
+ export type Affordability = { ok: true } | { ok: false; reason: string }
+ export function canAfford(state: CashState, amount: number): Affordability {
+-  __m0WiringProbe.call('canAfford')
+   const after = state.studio.cash - amount
+   if (after >= 0) return { ok: true }
+   return {
+@@ -315,7 +313,6 @@
+   termWeeks: number,
+   week: number = state.market.tick,
+ ): ContractOffer {
+-  __m0WiringProbe.call('contractOffer')
+   const talent = state.talent.find((t) => t.id === talentId)
+   if (talent === undefined) {
+     throw new Error(`contractOffer: unknown talent id "${talentId}"`)

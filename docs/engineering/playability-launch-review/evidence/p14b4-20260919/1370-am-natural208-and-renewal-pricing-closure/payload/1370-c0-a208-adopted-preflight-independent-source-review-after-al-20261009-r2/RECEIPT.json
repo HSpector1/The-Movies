@@ -1,0 +1,205 @@
+{
+  "schema": "1370-a208-adopted-preflight-independent-source-review/v1",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_A208_ORIGINAL_PERMITTED_ADOPTED_PREFLIGHT",
+  "status": "SOURCE_ONLY_R2_EARLY_CONFIG_GATE_REPAIR_ACCEPTED",
+  "executionAuthorization": false,
+  "actualPreflight": null,
+  "actualAdoptedInputRoles": null,
+  "actualFinalGameGrant": null,
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "70a9b35e76220d5b6059729f4859f0cf3d5eda46c6952b3c5d488505cccd3d12",
+    "bytes": 3167
+  },
+  "source": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r2/preflight.py",
+    "sha256": "fd2f806d140fbd74c34b130d299be20ff3382dd07e71ccf6da3f16d7c95e5fef",
+    "bytes": 23349
+  },
+  "configPending": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r2/CONFIG-PENDING.json",
+    "sha256": "1dfa2a23d40c878d6a59c32355b08b29e7f29bd53875a22c79f0d1363cee7be8",
+    "bytes": 4395
+  },
+  "argvMap": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r2/ARGV-MAP.json",
+    "sha256": "24b6e74fd4be40b43c52ce4c605f8850963ecf5121fa4ac9e8e7bc3a4c09ad87",
+    "bytes": 1546
+  },
+  "sourceProof": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r2/SOURCE-PROOF.json",
+    "sha256": "2a322a0ef6a456ac16d17135fa11e11ae6e1b89485c474e58bd694c7a0cf8f45",
+    "bytes": 2801
+  },
+  "findings": [],
+  "preservedR1Stop": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+    "bytes": 2978,
+    "sha256": "3d8823b26a07a7ad84743a05371b3cf514ac24d497c1dd4885bb1a8192975b9a"
+  },
+  "r1Disposition": "Preserved STOP. R2 independently repairs early external config/private-root gate only.",
+  "earlyGateRepair": {
+    "externalConfigLexicallyExcludedBeforeRead": true,
+    "knownCopiedRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+    "originalGuardConfigPathFixedBeforeRead": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
+    "copiedRootMustMatchKnownRoot": true,
+    "exactObservedCopyReceiptAndRootAuthenticatedBeforePrivateReadsToolsAndImports": true
+  },
+  "originalProcedure": {
+    "parentGuardPlan": {
+      "bytes": 5164,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/PLAN.md",
+      "sha256": "acd0e3cb6ae3138f531cddba326bced7252c6f74fc13353b9ac728f68375413b"
+    },
+    "exactPreparationPlan": {
+      "bytes": 4273,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-20261008-r2/PLAN.md",
+      "sha256": "f4e270d3724755305d51d1c8b7681530d89f61531138f7a7959e51039be49f94"
+    },
+    "independentProcedureReceipt": {
+      "bytes": 1634,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-independent-procedure-review-20261008-r1/RECEIPT.json",
+      "sha256": "0d0d0358356653a50d05b10fedfdeb2bee9c66939ec4ab03a83521fc42a9e693"
+    },
+    "explicitFullAfterFillReuseUnderContinuousProtectedFreeze": true,
+    "requiredFreshChecks": [
+      "current writable FDs",
+      "relevant process identities",
+      "boot session UUID",
+      "live and local refs",
+      "clean production/copied roots",
+      "AC power",
+      "disk reserve",
+      "protected root metadata",
+      "physical ancestry"
+    ],
+    "originalFullAfterFillSnapshotRequired": true,
+    "originalBaselineEqualityRequired": true,
+    "newFullInventoryGateAdded": false,
+    "scratchParentDeviceInodeModeStrict": true,
+    "scratchParentTimesAndChildNamesInformational": true,
+    "observationPerCommandTimeoutSeconds": 180,
+    "wholeProcedureDeadline": null,
+    "noWitness750742720ClockChange": true
+  },
+  "originalMechanism": {
+    "originalSource": {
+      "bytes": 21984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+      "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+    },
+    "allTenHelperDefinitionsByteExact": [
+      "require",
+      "sha",
+      "canonical",
+      "read",
+      "write",
+      "dump",
+      "command",
+      "directory_identity",
+      "ancestry",
+      "current"
+    ],
+    "ASTDefinitionsIdenticalAsConsequenceOfExactSource": true,
+    "independentASTParserExecuted": false,
+    "fullForwardInverseDiffsAgainstOriginalIndependentlyExact": true,
+    "fullForwardInverseDiffsAgainstR1IndependentlyExact": true,
+    "inversePatchExecuted": false,
+    "allNineManifestRolesBytesAndShaExact": true,
+    "R1PinsAndStopReceiptHashesPreserved": true
+  },
+  "adoptedMainContract": {
+    "originalR4CandidateArchiveAdoptionPathsExact": true,
+    "knownBeforeFillAuthorityAndBaselineExact": true,
+    "acceptedFullBeforeAfterProducerSchemaPhaseStatusProcedureConfigAdmissionAndImmutableEqualityRequired": true,
+    "adoptedBindingRawHashAndSemanticHashRequired": true,
+    "exactExistingCandidateReviewIdentityContractsAndProtectionRolesRequired": true,
+    "originalArchiveSixFullBytesRequired": true,
+    "onlyOriginalThreeAuthorizationFieldsMayChange": [
+      "status",
+      "executionAuthorization",
+      "exactReview"
+    ],
+    "archiveManifestAndAdoptionResultRawRolesAndCrossLinksRequired": true,
+    "adoptedLaunchMustEqualExactDerivativeOfOriginalLaunchDraft": true,
+    "externalFinalWitnessGrantRemainsNull": true,
+    "original16SourceRuntimeActualFilesRequired": true,
+    "frozenObserver18ManifestSha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf",
+    "physicalNodeSourceToolModesAndRunnerRequired": true,
+    "exactLaunchArgvCwdEnvironmentAndBoundsRequired": true,
+    "currentChecksBeforeAndAfterAndStrictRootAncestryRequired": true,
+    "rawPSAndFdPayloadsLocalHashSizeOnly": true
+  },
+  "literalExternalActualRolesAfterGenuineAdoption": {
+    "roleShape": {
+      "path": "absolute physical file",
+      "bytes": "nonnegative integer; bool rejected",
+      "sha256": "exact raw SHA-256"
+    },
+    "adoptedBinding": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json",
+      "provenance": "Actual adopted original binding raw bytes, status REVIEWED_FILLED_UNRUN, executionAuthorization true, witnessGrant null, exactReview bound."
+    },
+    "exactCandidateReview": {
+      "path": "Exact path of genuine ACCEPT_EXACT_FILLED_UNRUN receipt recorded in adopted binding exactReview",
+      "provenance": "Actual independent exact receipt with genuine after-fill/before-fill protections, original identity/semantic/source pin hashes and causal/final-grant contract adoptions."
+    },
+    "afterFillSnapshot": {
+      "path": "Exact path of genuine admitted complete after-fill SNAPSHOT.json matched by exactCandidateReview.actualGuardAfterFill",
+      "provenance": "Original producer schema 1370-a208-current-operational-full-guard-snapshot-r2, GUARDS_ACCEPTED_READONLY, after-fill phase, actual baseline/config/source/admission links and full immutable equality."
+    },
+    "adoptionResult": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4/ADOPTION-RESULT.json",
+      "provenance": "Genuine completed original adopter result ADOPTED_UNRUN_PREFLIGHT_REQUIRED; actual old/new binding and semantic SHA, exactly three changed fields, archive and launch roles."
+    },
+    "archiveManifest": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4/ARCHIVE-MANIFEST.json",
+      "provenance": "Genuine original six-file archived manifest and physically reread archived bytes at original archivePath."
+    },
+    "adoptedLaunch": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4/ADOPTED-LAUNCH-SPEC.json",
+      "provenance": "Genuine unauthorized exact derivative launch proposal, actual adopted raw binding SHA in argv; launchAuthorized false."
+    }
+  },
+  "externalConfigComposition": {
+    "sixPendingActualRolesRemainNull": true,
+    "rootBindsOnlyGenuineActualRolesAfterAdoption": true,
+    "originalKnownPendingConfigFieldsRemainBound": true,
+    "actualOwnedPgidsMayBeSuppliedAsSortedUniqueRecordedIntegers": true,
+    "externalConfigOutsideKnownCopiedRootAndRawSHAApprovedByRoot": true,
+    "beforeFillFullguardConfigRemainsImmutable": true,
+    "noFutureHashCycle": true,
+    "argv": [
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r2/preflight.py",
+      "ACTUAL_EXTERNAL_CONFIG_PATH",
+      "ACTUAL_EXTERNAL_CONFIG_SHA256"
+    ],
+    "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+    "environment": {
+      "GIT_OPTIONAL_LOCKS": "0",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PATH": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    }
+  },
+  "preflightOutput": {
+    "schema": "1370-a208-original-permitted-adopted-preflight-observation/v1",
+    "status": "ADOPTED_PREFLIGHT_COMPLETED_UNREVIEWED_UNRUN",
+    "executionAuthorization": false,
+    "fullProtectedMapReusedUnderContinuedFreeze": true,
+    "freshFullInventoryRun": false,
+    "finalWitnessGrant": null,
+    "game": false,
+    "genuineObservedCompletionAndIndependentRootAdmissionStillRequired": true
+  },
+  "reviewerScope": {
+    "namedScratchReadsAndFreshReviewWritesOnly": true,
+    "sourceExecutionImportsTestsOrNode": false,
+    "GitScansProbesPrivateReadsProtectedMutations": false
+  },
+  "game": false,
+  "scientificAcceptance": false,
+  "H8708Waived": false
+}

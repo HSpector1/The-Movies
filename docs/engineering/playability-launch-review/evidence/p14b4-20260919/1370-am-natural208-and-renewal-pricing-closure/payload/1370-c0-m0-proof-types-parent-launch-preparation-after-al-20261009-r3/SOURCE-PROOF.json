@@ -1,0 +1,71 @@
+{
+  "actualContext": null,
+  "actualGrant": null,
+  "actualProtection": null,
+  "actualSourceReview": null,
+  "actualTestsExecuted": false,
+  "allFillerFunctionBodiesByteIdentical": true,
+  "baselineParentPins": {
+    "bytes": 3310,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "05c10ea344c211e4a57e55229a2b7b9244a86e7cf76919efeb08f0a410877572"
+  },
+  "executionAuthorization": false,
+  "fillerOnlyChangesProfileHash": true,
+  "fillerWholeByteInverseExact": true,
+  "futureFailurePostflight": null,
+  "knownEvidence": {
+    "failedTypesReadback": {
+      "bytes": 6507,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r5/READBACK.json",
+      "sha256": "940fe91bee93b9a78a4a4a138aa3397088f047434a43481f4a1ee00e417e895e"
+    },
+    "failedTypesResult": {
+      "bytes": 15403,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r2/20261009-m0-types-after-al-r2/RESULT.json",
+      "sha256": "85106763c640e105578d5b38b97c5af732611f34bf307688a8069de6ab241963"
+    },
+    "qualifiedCurrentM0Protection": {
+      "bytes": 2795,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-CURRENT-TYPES-PROTECTION.json",
+      "sha256": "865e9e0cd54a280831c5de7133a97d50f66c9ca0145f404c4a8e2a8d29bbef1a"
+    },
+    "qualifiedProofAdoption": {
+      "bytes": 2981,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-CURRENT-PROOF-OBSERVED-ADOPTION.json",
+      "sha256": "8ef61c8f4e2d614ea2c4312db6c884b6cee9dba71e828a485986504beb5ef9b3"
+    },
+    "rootOptionCauseProposal": {
+      "bytes": 17215,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-extension-import-repair-proposal-source-after-al-20261009-r1/PROPOSAL.json",
+      "sha256": "c365f5333b4cf7140a74b0c8d4828df64573fc477b65a0cd45fcc1439d5a8447"
+    }
+  },
+  "newProfileHash": "071b094107ff6a7aee5006cb9bd4f9513561f3f183883afd421b2447c2ff1d8f",
+  "newTypesSourcePins": {
+    "bytes": 11535,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6/SOURCE-PINS.json",
+    "sha256": "05ca05fbe689bcb48ab78507679373938bee867e846ea57b42e203fc9a92e3cf"
+  },
+  "oldProfileHash": "63b70fb7d08a73ad14ef7370dac4002348634ed7d08e5a822133c5791f1826d9",
+  "originalPrelaunchEntireFileByteIdentical": true,
+  "proofProfileObjectExact": true,
+  "runtimeScopes": {
+    "combinedPreparationRuntimeDeadline": null,
+    "note": "Preparation timer canceled immediately before unchanged LAUNCH exec. LAUNCH starts original330 only at its entry. Helper/r8 parent output is captured as original, not falsely capped by this source.",
+    "originalCollectionBytes": 1048576,
+    "originalGuardPipeBytes": 2097152,
+    "originalPerCommandStdoutAndStderrBytes": 8388608,
+    "originalRecorderResultBytes": 100000,
+    "parentMergedLaneLogCapture": "originalr8 merged regularfile capture; no invented parent8MiB cap; parent authenticates actuallog size/hash",
+    "preparationSeconds": 60,
+    "runtimeSeconds": {
+      "active": 320,
+      "runner": 300,
+      "whole": 330
+    }
+  },
+  "schema": "1370-m0-parent-r3-profile-rebind-proof/v1",
+  "sourceOnly": true,
+  "typesProfileCurrentSourceRolesExact": true
+}

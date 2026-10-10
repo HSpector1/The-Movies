@@ -1,0 +1,59 @@
+{
+  "actualAdoptedRoles": null,
+  "actualFullAfterFillRequired": true,
+  "authBeforePrivateReads": "Original observed copy exact receipt/root gate; all six actual adopted roles must be filled as external input before original private-root reads/tools/imports.",
+  "candidateOrPreflightExecuted": false,
+  "earlyConfigOutsideKnownPrivateRoot": true,
+  "executionAuthorization": false,
+  "fixedAcceptedCopyRoot": true,
+  "fixedOriginalGuardConfigBeforeAdmission": true,
+  "fullInventoryNotRepeatedUnderContinuedFreeze": true,
+  "game": false,
+  "helperCount": 10,
+  "laterRolesExternalNotInBeforeFillConfig": true,
+  "onlyR2SourceChanges": [
+    "lexical exclusion of external config within fixed known private root before read",
+    "fixed original guard config path before read",
+    "fixed copied-root match",
+    "fresh output/config/map paths"
+  ],
+  "originalCurrentHelperSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+    "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+  },
+  "originalHelperBodiesByteAndAstExact": true,
+  "originalHelperDefinitionsAstExact": [
+    "require",
+    "sha",
+    "canonical",
+    "read",
+    "write",
+    "dump",
+    "command",
+    "directory_identity",
+    "ancestry",
+    "current"
+  ],
+  "originalPrefixBeforeMainByteExact": false,
+  "originalProcedureReview": {
+    "bytes": 1634,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-independent-procedure-review-20261008-r1/RECEIPT.json",
+    "sha256": "0d0d0358356653a50d05b10fedfdeb2bee9c66939ec4ab03a83521fc42a9e693"
+  },
+  "originalReusePermission": {
+    "bytes": 5164,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/PLAN.md",
+    "sha256": "acd0e3cb6ae3138f531cddba326bced7252c6f74fc13353b9ac728f68375413b"
+  },
+  "predecessorR1SourcePins": {
+    "bytes": 2398,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "99c48afcb19caa6313a5acb82b09ff0a590a8c3b0b746dd69bfd189b9e74cd54"
+  },
+  "prefixOnlyChange": "Module documentation replaced to describe permitted preflight rather than full-snapshot invocation; original imports/constants/all ten helper definitions exact.",
+  "schema": "1370-a208-original-adopted-preflight-source-proof/v1",
+  "sourceAstParsedOnly": true,
+  "sourceOnlySelfReviewBeforeFreeze": "Original candidate/archive/adoption paths, immutable before-fill config linkage, original identity/report archive linkage and exact producer baseline linkage made explicit before final source freeze.",
+  "status": "SOURCE_ONLY_PENDING_ADOPTED_ACTUAL_ROLES"
+}

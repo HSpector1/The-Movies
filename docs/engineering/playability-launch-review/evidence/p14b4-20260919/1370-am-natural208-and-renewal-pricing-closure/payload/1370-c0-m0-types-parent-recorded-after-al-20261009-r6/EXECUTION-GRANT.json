@@ -1,0 +1,18 @@
+{
+  "configSha256": "f7a17004329aa43310eba693d35572b0c0a5e4d4abb518a60572cde2d7b5d8d7",
+  "contextWithoutGrantSha256": "f90ffdb359e42be7cd4fd2604d3b8aef40dc68140f7972da5879d8b701646c34",
+  "currentProtectionSha256": "4b6f35c19894d27a59b61a744a4c1367e6aa530ce04514264356c0b49cd5737e",
+  "executionAuthorization": true,
+  "gameAuthorization": false,
+  "ownedIdentity": {
+    "bytes": 461,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r6/OWNED-IDENTITY.json",
+    "sha256": "c9ca50734da6736ec6c7342106d378f2809c31dbbf74ab0eba89ab758d35cd6d"
+  },
+  "parentIssuedViaReviewedOnceOnlyLauncher": true,
+  "parentSpecSha256": "7af7420eb4022b035ce1eb7bed41ccf439d130447189caee6f59e5bcd25f6da2",
+  "runId": "20261009-m0-types-after-al-r3",
+  "schema": "1370-root-m0-types-execution-grant/v1",
+  "scope": "M0_FOUR_COMMAND_TYPES_AND_DIAGNOSTIC_COLLECTION_ONLY",
+  "sourceReviewSha256": "0b2402bc664192c3a57b73bed3ce7e461d50171e8d01d5d0261ed4c921a101ea"
+}

@@ -1,0 +1,658 @@
+{
+  "acceptedRoles": {
+    "actualContext": {
+      "bytes": 5905,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-proof-parent-recorded-after-al-20261009-r2/EXECUTION-CONTEXT.json",
+      "sha256": "7dedc4d99e32079c72157ac4154096e4286c655e29a5df475d3a01439b4a7c2e"
+    },
+    "actualFill": {
+      "bytes": 6979,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-proof-parent-recorded-after-al-20261009-r2/FILL-RESULT.json",
+      "sha256": "00a2a2c7e6a8ed10b9221b1b0a0283e0392b6dcc6edd3711a1cc09210e14fe82"
+    },
+    "actualGrant": {
+      "bytes": 920,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-proof-parent-recorded-after-al-20261009-r2/EXECUTION-GRANT.json",
+      "sha256": "3d513b77ba50c2f6386c776b804e939b7d288e05e8721f7f2138048baa9d2c41"
+    },
+    "actualProofReadback": {
+      "bytes": 3678,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-proof-parent-recorded-after-al-20261009-r2/READBACK.json",
+      "sha256": "f6352d724b5c0d6e36f0b3f895382daa5201d8776b322fa6e2a38d4d242dda2e"
+    },
+    "actualProofResult": {
+      "bytes": 3259,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-results-after-al-20261009-r2/20261009-m0-current-proof-after-al-r2/RESULT.json",
+      "sha256": "316d46177641f90cf525ae2044732eafc0de65599ac01976245b1b2bc76e28fa"
+    },
+    "actualProofTool": {
+      "bytes": 985,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-proof-parent-recorded-after-al-20261009-r2/ACTUAL-TOOL.json",
+      "sha256": "427e119b00461e33cc787a1b9c38e1df03a813312fe599ad4abecdb60e15f3c8"
+    },
+    "actualRecorderResult": {
+      "bytes": 913,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-recorder-results-after-al-20261009-r2/20261009-m0-current-proof-after-al-r2.RECORDER-RESULT.json",
+      "sha256": "56c86c85577bab396df5b1c81c0c81f69d23f6c34be0a1b2cb8e4e7d622d098e"
+    },
+    "baseline": {
+      "bytes": 8562268,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+      "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+    },
+    "fullPostflightGrant": {
+      "bytes": 4680,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-fullguard-postflight-parent-after-al-20261009-r2/GRANT.json",
+      "sha256": "9118c60799491e694ad0f2da106380667d215492d06cec325c07538db496cf6e"
+    },
+    "fullPostflightOwnership": {
+      "bytes": 1065,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-fullguard-postflight-parent-after-al-20261009-r2/POST-OWNERSHIP.json",
+      "sha256": "bde8ea77050b0b2d99b8d0af2c320bde463409b259f6775ab006ca44a7743de7"
+    },
+    "fullPostflightPins": {
+      "bytes": 507,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-proof-r2/PINS.json",
+      "sha256": "b389ea4c9cdff123fa1c9ad29726bcfce5bd4485424c02a29f321e70da046c3c"
+    },
+    "fullPostflightRawClassification": {
+      "bytes": 1561,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-fullguard-postflight-parent-after-al-20261009-r2/RAW-LOCAL-ONLY-ROLES.json",
+      "sha256": "84a71c024d816c6ba7f3f0ee7e31d509275895dac2f02d66238cc887fefd2839"
+    },
+    "fullPostflightReadback": {
+      "bytes": 3094,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-fullguard-postflight-parent-after-al-20261009-r2/POSTFLIGHT-READBACK.json",
+      "sha256": "1797b483a938c7b5c22d19977219dd157dff3b64fa96a160e17fc956299ea935"
+    },
+    "fullPostflightSnapshot": {
+      "bytes": 8576176,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-proof-r2/SNAPSHOT.json",
+      "sha256": "e28f4158e00183be491937e34c98ee67e9427a998b49f9780719c3595acf9d38"
+    },
+    "fullPostflightTool": {
+      "bytes": 1308,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-fullguard-postflight-parent-after-al-20261009-r2/ACTUAL-TOOL.json",
+      "sha256": "0745d9e8812f8f18e193a31e63f1992511aea8bde063b0ff21bde58e387a7fbe"
+    },
+    "laneLog": {
+      "bytes": 1183,
+      "path": "/Users/zacheryspector/studio-scratch/c0-m0-current-proof-20261009-m0-current-proof-after-al-r2.lane.log",
+      "sha256": "0c464bf9ceb585a671f1b6f052f7d9f487130fc4732c661309801dfb67b47c96"
+    },
+    "laneMetadata": {
+      "bytes": 527,
+      "path": "/Users/zacheryspector/studio-scratch/c0-m0-current-proof-20261009-m0-current-proof-after-al-r2.lane.log.meta",
+      "sha256": "95a045688326e1845242b692518572b81550fabe71bbf11c4427fe8ae3846fea"
+    },
+    "ownedIdentity": {
+      "bytes": 469,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-proof-parent-recorded-after-al-20261009-r2/OWNED-IDENTITY.json",
+      "sha256": "b8f04f245c8e95c0ee078fd9bde87686edc9fc09732208b0b664fef127da5668"
+    },
+    "parentSourceReview": {
+      "bytes": 10222,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "d60c40db318d682289988ad4c86fa27d964d2c555e85d18919def1a1dc794d7c"
+    },
+    "preflight": {
+      "bytes": 9339,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-prelaunch-output-after-al-20261009-r2/PREFLIGHT.json",
+      "sha256": "a23ab9e0b9244e972ab1f7aa1ca387dfbb10aeb5b3b45635ec0f69f4dba5739d"
+    },
+    "preflightGrant": {
+      "bytes": 2389,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-prelaunch-parent-after-al-20261009-r2/GRANT.json",
+      "sha256": "617dc07173e62a7f1f4a2e5b7f9bad885019d6d5aaf7b9462c656dd87083556e"
+    },
+    "preflightParentAdoption": {
+      "bytes": 3220,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-PROOF-PREFLIGHT-OBSERVED-ADOPTION.json",
+      "sha256": "dd47f4c0f6f4f85ef39037a4ac98bbc512cef5705b534717f3194bb5a2baee37"
+    },
+    "preflightRawClassification": {
+      "bytes": 1204,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-prelaunch-output-after-al-20261009-r2/RAW-LOCAL-ONLY-ROLES.json",
+      "sha256": "f968b24388a05e848cf816fd58cc74faf82151dde1f728d733ef0f484f639df1"
+    },
+    "preflightTool": {
+      "bytes": 647,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-prelaunch-parent-after-al-20261009-r2/ACTUAL-TOOL.json",
+      "sha256": "a1045199d94297438b343859a96feb48315e7901a420ba40cbafecc925b97d0d"
+    },
+    "previousPostflight": {
+      "bytes": 8568780,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4/SNAPSHOT.json",
+      "sha256": "6922608bdeedd86e289aeac3c56c297e257b6eb98964e0fe00b95def5dc51e1d"
+    },
+    "rootLaneGrant": {
+      "bytes": 4074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-proof-parent-recorded-after-al-20261009-r2/ROOT-LANE-GRANT.json",
+      "sha256": "55ebdd3fed727c87fe6add41b0883c764a553a351cc7868ca03bb45bcb655508"
+    },
+    "sourcePackagePins": {
+      "bytes": 11146,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/SOURCE-PINS.json",
+      "sha256": "0dbae918dad76dd85350d5804f0eaee131c4cce18543ea2bb6fb716a06068926"
+    },
+    "sourceReview": {
+      "bytes": 22869,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-independent-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "65dfe1810fc36a1c467f3c4e44e578368eb18dde71f3b737fba794a57b972030"
+    }
+  },
+  "actualCollectionCommands": 0,
+  "actualExecutionObservedFromRecordedEvidence": true,
+  "actualToolExit": 0,
+  "actualToolSessionId": 20818,
+  "actualTypesCommands": 0,
+  "additionalRefs": {},
+  "checks": [
+    "All proof/preflight/fullpostflight exactrole paths,bytes,SHA verified; actualtools final0.",
+    "Originalpreflight692 fullimmutable==c818; freshnine rootbeforeafter andcurrent/FD/boot/refs readback accepted.",
+    "Proofgrant contextWithoutGrant digest exact; futurecurrentProtection/source/dependency objects nullatlaunch; actualreview/config/source hashes consistent.",
+    "Owned89322 identity matches filledcontext log and actualLAUNCHsamePID/helperSID; child89341directexit0/groupCleartrue.",
+    "Original proofsource reads exact21projection from intact1802facts; actualfullsourceproof digests regenerate exactly from authenticated e9files/directories/symlinks.",
+    "Proofsourcebefore==after anddependencybefore==after exact; nodeversions/types/collection/game commands notrun.",
+    "Freshpostflight e28 immutable==692==c818 across all keys;9strictroots unchanged; sharedscratch device/inode/mode unchanged with timestampsinformational only.",
+    "Postflight current checks and8recorded PID/PGID ESRCH checks establishactualownedclearance andlaneabsent."
+  ],
+  "clockScope": {
+    "combinedPreparationRuntime330Claim": false,
+    "fullPostflightClockSeparateFromProofRuntime": true,
+    "fullPostflightElapsedSeconds": 467.6771201380034,
+    "fullPostflightInventoryElapsedSeconds": 369.6201340819971,
+    "preparationDeadlineSeconds": 60,
+    "recordedPreparationElapsedSeconds": 1.176433264001389,
+    "recorderActiveSeconds": 320,
+    "recorderElapsedSeconds": 75.045,
+    "recorderWholeSeconds": 330,
+    "runnerDeadlineSeconds": 300,
+    "runnerElapsedSeconds": 72.745
+  },
+  "collectionAccepted": false,
+  "completeM0AdoptionSha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad",
+  "concreteFindings": [],
+  "decision": "ACCEPT_OBSERVED_CURRENT_M0_SOURCE_DEPENDENCY_PROOF_WITH_FULL_PROTECTED_POSTFLIGHT",
+  "dependencyProofsEqual": true,
+  "executionAuthorization": false,
+  "freshDependencyProof": {
+    "contentAndMetadataSha256": "a06e929a60a5ede6ce0d72467d4d587e50d1c4fa3788bee3d07f1ea3388cd21d",
+    "contentBytes": 348223802,
+    "entries": 12484,
+    "rootDevice": 16777220,
+    "rootIdentity": [
+      16777220,
+      158487026,
+      16877,
+      154,
+      4928,
+      1790738039503311431,
+      1790738039503311431
+    ],
+    "rootInode": 158487026
+  },
+  "freshSourceProof": {
+    "dependencyLink": [
+      16777220,
+      166769275,
+      41408,
+      1,
+      62,
+      1791577446298712967,
+      1791577446298712967,
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    ],
+    "fileProofDigestSha256": "fbbfed3ec13da5618a0194204e2f6c8a87eebb5ee22102707d466340fbe6e1e0",
+    "mirrorBytes": 119393120,
+    "mirrorFiles": 1740,
+    "mirrorRootIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791577446298737027,
+      1791577446298737027
+    ],
+    "physicalMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "traversedEntries": 1853
+  },
+  "fullImmutableEqualityIndependentlyVerified": true,
+  "fullProtectedPostflightAccepted": true,
+  "gameAccepted": false,
+  "helperExit": 0,
+  "historicalDataAuthorityHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "historicalM0SourceCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "inventoryConventions": {
+    "dependencyContentBytes": 348223802,
+    "dependencyProofEntriesExcludingRoot": 12484,
+    "dependencyRegularFiles": 11060,
+    "differentDigestsNotRelabeled": "Proof fullphysicalmetadata stream and guard permission/ACL/xattr/contentmaps differ in row semantics; exactmatching counts/rootconvention and independent respective equality verified.",
+    "fullGuardDependencyRowsIncludingRoot": 12485,
+    "mirrorDirectoriesIncludingRoot": 113,
+    "mirrorRegularBytes": 119393120,
+    "mirrorRegularFiles": 1740,
+    "mirrorTraversalEntriesExcludingRoot": 1853
+  },
+  "lessons": [
+    "Count the root consistently:12484traversalentries and12485guardrows describe same dependencyroster under differentconventions.",
+    "Preparation clock and runtime clock remain separate evenwithsamePIDexec.",
+    "Observed proof acceptance needs the completeprotectedpostflight andownedclearance, beyond zeroexits andmatchingproofs."
+  ],
+  "limitations": [
+    "Finite recordedsource/evidence reads only; no replay/tests/Node/private mirror inventories/Git mutation/processprobes/signals byreviewer.",
+    "Fullpostflight unchangedoriginal A208/sharednine-root/R9/dependency scope is distinct from1740M0proof; no rematerialization orscope relabel.",
+    "No types,game,collection,wiring,neutrality,salary,Hscientific ordownstreamacceptance.",
+    "Original HmetadataSTOP/M0R3sourceSTOP/mainrefprelaunchfailure remainfailed; currentproof doesnot waive them.",
+    "Parent mergedr8 helperlog has no liveparent8MiB limiter; actual1183B capturehashpinned; qualifiedcommandcaps unchanged."
+  ],
+  "nineProtectedRootsAndAncestryAccepted": true,
+  "ownership": {
+    "actualOuterHelperPid": 89067,
+    "actualPostflightScannerPgid": 91197,
+    "actualPostflightScannerPid": 91197,
+    "actualPreparationRecorderPgid": 89322,
+    "actualPreparationRecorderPid": 89322,
+    "actualPreparationRecorderSid": 89322,
+    "actualRunnerPid": 89341,
+    "globalAbsenceClaim": false,
+    "recordedAllFourPidsAndPgidsAbsent": true,
+    "scopedPostflightChecks": [
+      {
+        "id": 89067,
+        "kind": "pid",
+        "result": "ESRCH",
+        "signal": 0
+      },
+      {
+        "id": 89067,
+        "kind": "pgid",
+        "result": "ESRCH",
+        "signal": 0
+      },
+      {
+        "id": 89322,
+        "kind": "pid",
+        "result": "ESRCH",
+        "signal": 0
+      },
+      {
+        "id": 89322,
+        "kind": "pgid",
+        "result": "ESRCH",
+        "signal": 0
+      },
+      {
+        "id": 89341,
+        "kind": "pid",
+        "result": "ESRCH",
+        "signal": 0
+      },
+      {
+        "id": 89341,
+        "kind": "pgid",
+        "result": "ESRCH",
+        "signal": 0
+      },
+      {
+        "id": 91197,
+        "kind": "pid",
+        "result": "ESRCH",
+        "signal": 0
+      },
+      {
+        "id": 91197,
+        "kind": "pgid",
+        "result": "ESRCH",
+        "signal": 0
+      }
+    ]
+  },
+  "physicalFactsSha256": "e9f4829c501cc90475b9067c8ae32580fe5fca14fc40950ee083031f89081ba2",
+  "postflightToolExit": 0,
+  "postflightToolSessionId": 39284,
+  "preflightToolExit": 0,
+  "preflightToolSessionId": 99593,
+  "productionHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "rawMachineCaptures": "Both preflight4roles and postflight4roles explicitlyLOCAL_HASH_SIZE_ONLY; rawbytes not read or published byreviewer. Classification metadata roles pinned.",
+  "recorderExit": 0,
+  "remainingGates": [
+    "root adoption into genuine currentProtection under continuousfreeze",
+    "separate exacttypesR5 filledcontext/grant and actualfourcommands with fullprotectedpostflight",
+    "fullbody wiring qualification before later neutral416/replay preparation"
+  ],
+  "reviewerExecutionPerformed": false,
+  "routeSourcePins": {
+    "BOOTSTRAP.py": {
+      "bytes": 2731,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/BOOTSTRAP.py",
+      "sha256": "53c9330d960da3dc8e562bd87ca89a8e1c2f5992010b9a35eb7ca3f3963e438c"
+    },
+    "BOOTSTRAP.py.forward.diff": {
+      "bytes": 710,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/BOOTSTRAP.py.forward.diff",
+      "sha256": "a2b1a45666c3ce4a2cbedfe8ab750d5a8d9357132a6373a6fdbbebadd11dda5c"
+    },
+    "BOOTSTRAP.py.inverse.diff": {
+      "bytes": 710,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/BOOTSTRAP.py.inverse.diff",
+      "sha256": "3741f87b72f7bef174986c5bf219a09d821b931db9abcb33e7d889b89be7270a"
+    },
+    "BOOTSTRAP.py.main-role-forward.diff": {
+      "bytes": 734,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/BOOTSTRAP.py.main-role-forward.diff",
+      "sha256": "6b1166276fbd92eb6d6aac802ae5f0fbf4b60015b6cbcc07368aad606e13d0b2"
+    },
+    "BOOTSTRAP.py.main-role-inverse.diff": {
+      "bytes": 734,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/BOOTSTRAP.py.main-role-inverse.diff",
+      "sha256": "02f671b678c3ba7e9f8b802c676a0b2edb31c1bdb6654650089a6118ec5d7e6c"
+    },
+    "CONFIG.json": {
+      "bytes": 29945,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/CONFIG.json",
+      "sha256": "17ac5abcd1e26c83fcd8d3794bd0c6356cd9f141416e01974cdd34f510b72bb5"
+    },
+    "CONFIG.json.forward.diff": {
+      "bytes": 2240,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/CONFIG.json.forward.diff",
+      "sha256": "bcf2ebffc32cb89dd59f2b1ff4f41c1054dc9918d36c237a2aa5dc0057610c52"
+    },
+    "CONFIG.json.inverse.diff": {
+      "bytes": 2240,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/CONFIG.json.inverse.diff",
+      "sha256": "5e3943824b2a7216a179318a0ed7e5ecb52bfd7e093792b30928d9135cdce778"
+    },
+    "CONFIG.json.main-role-forward.diff": {
+      "bytes": 2105,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/CONFIG.json.main-role-forward.diff",
+      "sha256": "d5d562e3e293258b90658659c47bd2338d864ab5d9b37786753d4bd2b19b1de6"
+    },
+    "CONFIG.json.main-role-inverse.diff": {
+      "bytes": 2105,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/CONFIG.json.main-role-inverse.diff",
+      "sha256": "f0f4bfa8fc64a29457872962347885c07b9c0ef6363a8f6582c5cc6a4587e355"
+    },
+    "EXECUTION-CONTEXT-UNFILLED.json": {
+      "bytes": 555,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/EXECUTION-CONTEXT-UNFILLED.json",
+      "sha256": "5b59f0d772a154f251d0d921c1e2052908040af15965b1f6e477872c473899ae"
+    },
+    "LAUNCH.py": {
+      "bytes": 6875,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/LAUNCH.py",
+      "sha256": "57b660767095cc9a03fb1c1acbff741557b9b2487780b1cfa030ea09dbf131c9"
+    },
+    "LAUNCH.py.forward.diff": {
+      "bytes": 5002,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/LAUNCH.py.forward.diff",
+      "sha256": "63d055dca1b72c30eb9fe14702bc7cc6421fd60668509d07dd2abf684d39dc29"
+    },
+    "LAUNCH.py.inverse.diff": {
+      "bytes": 5002,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/LAUNCH.py.inverse.diff",
+      "sha256": "f6ca004ab160e9ae738511c202ba07b7e1d1755a99c55ea162dea82cfc63f067"
+    },
+    "LAUNCH.py.main-role-forward.diff": {
+      "bytes": 1809,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/LAUNCH.py.main-role-forward.diff",
+      "sha256": "0cf7d7158c0aaa82058586337f014ad82621d56b26edc917a6880daab531997a"
+    },
+    "LAUNCH.py.main-role-inverse.diff": {
+      "bytes": 1809,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/LAUNCH.py.main-role-inverse.diff",
+      "sha256": "c13631f6ed8c8bfc87171e4db9550cd4028d713271e503168730b52f59736c60"
+    },
+    "LESSONS.md": {
+      "bytes": 1157,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/LESSONS.md",
+      "sha256": "83cbd47ba2f00551dd0f8b8b388682f84fde39c48bb0f47ee8eeb0dea2594fc8"
+    },
+    "MAIN-ROLE-REPAIR-PROOF.json": {
+      "bytes": 7162,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/MAIN-ROLE-REPAIR-PROOF.json",
+      "sha256": "a171086dbd9270c95437dd612105c78f75bcd0f9b64c4d99e48c074e76d3bbd6"
+    },
+    "OPERATIONAL-MAP.json": {
+      "bytes": 4623,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/OPERATIONAL-MAP.json",
+      "sha256": "2c1fca1e4ff2ea89a5877f57660f131a6f6c51a65d11f23e195602487fcbfece"
+    },
+    "RECIPE.md": {
+      "bytes": 3195,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/RECIPE.md",
+      "sha256": "4b3317b9ccfb6597c85008fbdeb6b92e8d902c24f2f9863ce2ce62c149aa65c7"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 4632,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/SOURCE-PROOF.json",
+      "sha256": "388822542012b3befb6871d372fb16240f63dbfe42c97f5d7d74151a735fe4a3"
+    },
+    "check-deps.mjs": {
+      "bytes": 1918,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/check-deps.mjs",
+      "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+    },
+    "runner.py": {
+      "bytes": 34856,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/runner.py",
+      "sha256": "d32007ecb462d6a535432959317e1851d09d37cb0fa96897fa3dcc213c45b05c"
+    },
+    "runner.py.forward.diff": {
+      "bytes": 8340,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/runner.py.forward.diff",
+      "sha256": "54c306c763f8f467251b1eaf583589c01fd0ac44460e854f1979e07d7dbdff48"
+    },
+    "runner.py.inverse.diff": {
+      "bytes": 8340,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/runner.py.inverse.diff",
+      "sha256": "12b7e69432c65f6867aca854c99124b49e4ebd98cf86efa9a4144a7de888316d"
+    },
+    "runner.py.main-role-forward.diff": {
+      "bytes": 2577,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/runner.py.main-role-forward.diff",
+      "sha256": "acd1f12abf6b2c413ed104957c6607198a00b8452772684935bbc38561a2203f"
+    },
+    "runner.py.main-role-inverse.diff": {
+      "bytes": 2577,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/runner.py.main-role-inverse.diff",
+      "sha256": "d658c53e8d3963b15cb9a7b2e40812eedf652d998155caed2a4a8f7586bbe2a4"
+    },
+    "supervise.py": {
+      "bytes": 13751,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/supervise.py",
+      "sha256": "d38761d46cfa3980b7556313fce52fda662b8d479d0e6cb0b252227193670645"
+    },
+    "supervise.py.forward.diff": {
+      "bytes": 2275,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/supervise.py.forward.diff",
+      "sha256": "b63214394b478a708a9f229660546adc004a58e55e7d6aa34825fa12fbc98513"
+    },
+    "supervise.py.inverse.diff": {
+      "bytes": 2275,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/supervise.py.inverse.diff",
+      "sha256": "3e00121d63959222f2415e09983f32dd4328c68946b4fb0bcb4780f5490aae6e"
+    },
+    "supervise.py.main-role-forward.diff": {
+      "bytes": 3262,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/supervise.py.main-role-forward.diff",
+      "sha256": "25f537156c874ee2c9545929246c65843072c40833f1dafb335c6905c91394ad"
+    },
+    "supervise.py.main-role-inverse.diff": {
+      "bytes": 3262,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/supervise.py.main-role-inverse.diff",
+      "sha256": "1e7585df3734e2278998ad51c82428085b98f0a5c504055c2e574073873cc601"
+    }
+  },
+  "runnerExit": 0,
+  "schema": "1370-current-m0-source-dependency-proof-independent-observed-review/v1",
+  "soleLaneReleased": true,
+  "sourceAndDependencyProofAccepted": true,
+  "sourceCanonicalAndPhysicalMetadataDigestsIndependentlyReconstructedFromAuthenticatedFacts": true,
+  "sourcePins": {
+    "BOOTSTRAP.py": {
+      "bytes": 2731,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/BOOTSTRAP.py",
+      "sha256": "53c9330d960da3dc8e562bd87ca89a8e1c2f5992010b9a35eb7ca3f3963e438c"
+    },
+    "BOOTSTRAP.py.forward.diff": {
+      "bytes": 710,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/BOOTSTRAP.py.forward.diff",
+      "sha256": "a2b1a45666c3ce4a2cbedfe8ab750d5a8d9357132a6373a6fdbbebadd11dda5c"
+    },
+    "BOOTSTRAP.py.inverse.diff": {
+      "bytes": 710,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/BOOTSTRAP.py.inverse.diff",
+      "sha256": "3741f87b72f7bef174986c5bf219a09d821b931db9abcb33e7d889b89be7270a"
+    },
+    "BOOTSTRAP.py.main-role-forward.diff": {
+      "bytes": 734,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/BOOTSTRAP.py.main-role-forward.diff",
+      "sha256": "6b1166276fbd92eb6d6aac802ae5f0fbf4b60015b6cbcc07368aad606e13d0b2"
+    },
+    "BOOTSTRAP.py.main-role-inverse.diff": {
+      "bytes": 734,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/BOOTSTRAP.py.main-role-inverse.diff",
+      "sha256": "02f671b678c3ba7e9f8b802c676a0b2edb31c1bdb6654650089a6118ec5d7e6c"
+    },
+    "CONFIG.json": {
+      "bytes": 29945,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/CONFIG.json",
+      "sha256": "17ac5abcd1e26c83fcd8d3794bd0c6356cd9f141416e01974cdd34f510b72bb5"
+    },
+    "CONFIG.json.forward.diff": {
+      "bytes": 2240,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/CONFIG.json.forward.diff",
+      "sha256": "bcf2ebffc32cb89dd59f2b1ff4f41c1054dc9918d36c237a2aa5dc0057610c52"
+    },
+    "CONFIG.json.inverse.diff": {
+      "bytes": 2240,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/CONFIG.json.inverse.diff",
+      "sha256": "5e3943824b2a7216a179318a0ed7e5ecb52bfd7e093792b30928d9135cdce778"
+    },
+    "CONFIG.json.main-role-forward.diff": {
+      "bytes": 2105,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/CONFIG.json.main-role-forward.diff",
+      "sha256": "d5d562e3e293258b90658659c47bd2338d864ab5d9b37786753d4bd2b19b1de6"
+    },
+    "CONFIG.json.main-role-inverse.diff": {
+      "bytes": 2105,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/CONFIG.json.main-role-inverse.diff",
+      "sha256": "f0f4bfa8fc64a29457872962347885c07b9c0ef6363a8f6582c5cc6a4587e355"
+    },
+    "EXECUTION-CONTEXT-UNFILLED.json": {
+      "bytes": 555,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/EXECUTION-CONTEXT-UNFILLED.json",
+      "sha256": "5b59f0d772a154f251d0d921c1e2052908040af15965b1f6e477872c473899ae"
+    },
+    "LAUNCH.py": {
+      "bytes": 6875,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/LAUNCH.py",
+      "sha256": "57b660767095cc9a03fb1c1acbff741557b9b2487780b1cfa030ea09dbf131c9"
+    },
+    "LAUNCH.py.forward.diff": {
+      "bytes": 5002,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/LAUNCH.py.forward.diff",
+      "sha256": "63d055dca1b72c30eb9fe14702bc7cc6421fd60668509d07dd2abf684d39dc29"
+    },
+    "LAUNCH.py.inverse.diff": {
+      "bytes": 5002,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/LAUNCH.py.inverse.diff",
+      "sha256": "f6ca004ab160e9ae738511c202ba07b7e1d1755a99c55ea162dea82cfc63f067"
+    },
+    "LAUNCH.py.main-role-forward.diff": {
+      "bytes": 1809,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/LAUNCH.py.main-role-forward.diff",
+      "sha256": "0cf7d7158c0aaa82058586337f014ad82621d56b26edc917a6880daab531997a"
+    },
+    "LAUNCH.py.main-role-inverse.diff": {
+      "bytes": 1809,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/LAUNCH.py.main-role-inverse.diff",
+      "sha256": "c13631f6ed8c8bfc87171e4db9550cd4028d713271e503168730b52f59736c60"
+    },
+    "LESSONS.md": {
+      "bytes": 1157,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/LESSONS.md",
+      "sha256": "83cbd47ba2f00551dd0f8b8b388682f84fde39c48bb0f47ee8eeb0dea2594fc8"
+    },
+    "MAIN-ROLE-REPAIR-PROOF.json": {
+      "bytes": 7162,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/MAIN-ROLE-REPAIR-PROOF.json",
+      "sha256": "a171086dbd9270c95437dd612105c78f75bcd0f9b64c4d99e48c074e76d3bbd6"
+    },
+    "OPERATIONAL-MAP.json": {
+      "bytes": 4623,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/OPERATIONAL-MAP.json",
+      "sha256": "2c1fca1e4ff2ea89a5877f57660f131a6f6c51a65d11f23e195602487fcbfece"
+    },
+    "RECIPE.md": {
+      "bytes": 3195,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/RECIPE.md",
+      "sha256": "4b3317b9ccfb6597c85008fbdeb6b92e8d902c24f2f9863ce2ce62c149aa65c7"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 4632,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/SOURCE-PROOF.json",
+      "sha256": "388822542012b3befb6871d372fb16240f63dbfe42c97f5d7d74151a735fe4a3"
+    },
+    "check-deps.mjs": {
+      "bytes": 1918,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/check-deps.mjs",
+      "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+    },
+    "runner.py": {
+      "bytes": 34856,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/runner.py",
+      "sha256": "d32007ecb462d6a535432959317e1851d09d37cb0fa96897fa3dcc213c45b05c"
+    },
+    "runner.py.forward.diff": {
+      "bytes": 8340,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/runner.py.forward.diff",
+      "sha256": "54c306c763f8f467251b1eaf583589c01fd0ac44460e854f1979e07d7dbdff48"
+    },
+    "runner.py.inverse.diff": {
+      "bytes": 8340,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/runner.py.inverse.diff",
+      "sha256": "12b7e69432c65f6867aca854c99124b49e4ebd98cf86efa9a4144a7de888316d"
+    },
+    "runner.py.main-role-forward.diff": {
+      "bytes": 2577,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/runner.py.main-role-forward.diff",
+      "sha256": "acd1f12abf6b2c413ed104957c6607198a00b8452772684935bbc38561a2203f"
+    },
+    "runner.py.main-role-inverse.diff": {
+      "bytes": 2577,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/runner.py.main-role-inverse.diff",
+      "sha256": "d658c53e8d3963b15cb9a7b2e40812eedf652d998155caed2a4a8f7586bbe2a4"
+    },
+    "supervise.py": {
+      "bytes": 13751,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/supervise.py",
+      "sha256": "d38761d46cfa3980b7556313fce52fda662b8d479d0e6cb0b252227193670645"
+    },
+    "supervise.py.forward.diff": {
+      "bytes": 2275,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/supervise.py.forward.diff",
+      "sha256": "b63214394b478a708a9f229660546adc004a58e55e7d6aa34825fa12fbc98513"
+    },
+    "supervise.py.inverse.diff": {
+      "bytes": 2275,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/supervise.py.inverse.diff",
+      "sha256": "3e00121d63959222f2415e09983f32dd4328c68946b4fb0bcb4780f5490aae6e"
+    },
+    "supervise.py.main-role-forward.diff": {
+      "bytes": 3262,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/supervise.py.main-role-forward.diff",
+      "sha256": "25f537156c874ee2c9545929246c65843072c40833f1dafb335c6905c91394ad"
+    },
+    "supervise.py.main-role-inverse.diff": {
+      "bytes": 3262,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2/supervise.py.main-role-inverse.diff",
+      "sha256": "1e7585df3734e2278998ad51c82428085b98f0a5c504055c2e574073873cc601"
+    }
+  },
+  "sourceProofsEqual": true,
+  "typesAccepted": false
+}

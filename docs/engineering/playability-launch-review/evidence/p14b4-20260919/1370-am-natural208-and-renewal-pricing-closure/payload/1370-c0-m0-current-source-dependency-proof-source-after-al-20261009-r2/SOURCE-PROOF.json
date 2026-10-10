@@ -1,0 +1,97 @@
+{
+  "acceptedTypesSourcePins": {
+    "bytes": 14743,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/SOURCE-PINS.json",
+    "sha256": "10fc7a0a39cb78f092476a31a351912fc254eb39a2b827c28fe8ba459140fd0a"
+  },
+  "acceptedTypesSourceReview": {
+    "bytes": 22411,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r4/RECEIPT.json",
+    "sha256": "2d6ab3da894efc86513a6909471781aed7a4ddddcd9f9475e33a71031e71aec0"
+  },
+  "all33NonMainRunnerFunctionsExact": true,
+  "allBootstrapAndLaunchDefinitionsASTExact": true,
+  "allOriginalSourceAuthorityRosterMetadataDependencyRolesAndCurrentALRefsUnchanged": true,
+  "boundsSeconds": {
+    "recorderActive": 320,
+    "recorderWhole": 330,
+    "runner": 300
+  },
+  "configChangedKeys": [
+    "laneLog",
+    "outputRoot",
+    "recorderResult",
+    "runId",
+    "status"
+  ],
+  "dependencyInventory": {
+    "contentCapBytes": 536870912,
+    "entryCap": 500000,
+    "fullFactRoleIdentities": 1802,
+    "packages": 21
+  },
+  "executionAuthorization": false,
+  "fullSourceInventory": {
+    "bridgeBytes": 1517743,
+    "bridgeFiles": 63,
+    "bytes": 119393120,
+    "dependencyLinks": 1,
+    "directories": 113,
+    "entryCap": 1853,
+    "files": 1740,
+    "overlays": 5
+  },
+  "inheritedRecorderSchema": "Original recorder schema and CHILD_EXIT_ZERO_PENDING_OBSERVED_REVIEW remain qualified recording machinery, not a type acceptance. Proof runner RESULT alone has proof-only scope and still requires actual exit/ownership/protection observed admission.",
+  "newLaunchExternalGrant": "Same compact sorted context-with-actualGrant-omitted digest method; source review and proof-only grant required; future currentProtection/proof values explicitly null.",
+  "noRuntimePrivateReadOrTestsDuringPreparation": true,
+  "onlyChangedRunnerFunction": "main",
+  "originalExecutableRoles": {
+    "BOOTSTRAP.py": {
+      "bytes": 2725,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/BOOTSTRAP.py",
+      "sha256": "25696ed2167dafc16751ac00f96eb203d0c9ab7d700b6c382dce816af7b0056b"
+    },
+    "CONFIG.json": {
+      "bytes": 29811,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/CONFIG.json",
+      "sha256": "7166e022583531d924d67639a3d2a8a8f250bd8461f2a33cace8ce8f41c24f9c"
+    },
+    "LAUNCH.py": {
+      "bytes": 7596,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/LAUNCH.py",
+      "sha256": "1dbf3454a029c66008173d03ed9f5d22669c7a755a5b92fa84ee88d456fba584"
+    },
+    "check-deps.mjs": {
+      "bytes": 1918,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/check-deps.mjs",
+      "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+    },
+    "runner.py": {
+      "bytes": 37070,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/runner.py",
+      "sha256": "03768e0be95c3dccf430598f7cab47a9b5d2672be6de7d456705cbf7ec2b68a7"
+    },
+    "supervise.py": {
+      "bytes": 13597,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/supervise.py",
+      "sha256": "7cac27f161cecc3bf683fef49a94a779180c1777dc08199595f08fa1242ca423"
+    }
+  },
+  "originalFailuresPreserved": {
+    "HMetadataStop": {
+      "bytes": 4461,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-r13-independent-observed-stop-review-r1/RECEIPT.json",
+      "sha256": "15e901e356b72d80fdebef469bf9e20b171c13a32f34e94bf26858bf2d883ad1"
+    },
+    "M0R3RejectedReview": {
+      "bytes": 9627,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r3/RECEIPT.json",
+      "sha256": "07aeb15fb7be8a03b583f99bfc113bc5da95fd726fbf97493b54921c9740c9c4"
+    }
+  },
+  "runnerMainChange": "Instead of types/collection: authenticate historical complete M0 copy/facts, run exact full source and dependency proof twice with existing guard and21-packageprojection, compare and write bounded proof RESULT. No currentProtection/future proofs required or invented.",
+  "runnerUnchangedNonMainFunctionCount": 33,
+  "schema": "1370-current-m0-source-dependency-proof-source-reuse/v1",
+  "status": "SOURCE_ONLY_UNRUN",
+  "supervisorAllDefinitionsASTExactAfterInverseConfigHashBinding": true
+}

@@ -1,0 +1,23 @@
+{
+  "exactInverseProof": {
+    "bytes": 2212,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-FAILED-TYPES-POSTFLIGHT-ADAPTER.json",
+    "sha256": "cc115912c0e14265f16739b25898671a5a13fdaa46e07cda6b5c6a22810c2271"
+  },
+  "executionAuthorization": false,
+  "originalGuardAndArgumentsUnchanged": true,
+  "schema": "1370-root-failed-types-postflight-parent-adapter-source-adoption/v1",
+  "source": {
+    "bytes": 4250,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_failed_types_postflight_once.py",
+    "sha256": "8cfc673c40e272de990b9e2135e29f066c762fe7f8215bc18e1b2816ad61e3f4"
+  },
+  "sourceReview": {
+    "bytes": 2742,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-failed-types-postflight-adapter-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "50c17c09ce79a9bfcabd2c1b1f0d9fd6ae5f76bcfa87563c198b3e593e14cd4f"
+  },
+  "status": "ROOT_ADOPTED_FAILURE_SPECIFIC_PARENT_READBACK_ADAPTER_FOR_ORIGINAL_POSTFLIGHT",
+  "typeFailurePreserved": true,
+  "typeRetryAuthorized": false
+}

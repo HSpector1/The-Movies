@@ -1,0 +1,260 @@
+{
+  "schema": "1370-pure16-observed-person-input-differences/v1",
+  "source": "Authenticated H pricingInputs.HPerson and natural A208 selected talent person records; data comparison only.",
+  "rows": [
+    {
+      "talentId": "person-studio-aca408ec-r01-0",
+      "differences": [
+        {
+          "path": "age",
+          "H": 44.36540781416331,
+          "A": 48,
+          "difference": 3.634592185836688
+        }
+      ]
+    },
+    {
+      "talentId": "person-studio-aca408ec-r01-1",
+      "differences": [
+        {
+          "path": "age",
+          "H": 48.70801517856732,
+          "A": 52,
+          "difference": 3.2919848214326777
+        },
+        {
+          "path": "skills.directing.performanceDirection.perceived",
+          "H": 53,
+          "A": 52,
+          "difference": -1
+        }
+      ]
+    },
+    {
+      "talentId": "person-studio-aca408ec-r01-2",
+      "differences": [
+        {
+          "path": "age",
+          "H": 30.706232958391467,
+          "A": 34,
+          "difference": 3.2937670416085325
+        }
+      ]
+    },
+    {
+      "talentId": "person-studio-aca408ec-r01-3",
+      "differences": [
+        {
+          "path": "age",
+          "H": 40.04834772311771,
+          "A": 44,
+          "difference": 3.9516522768822924
+        }
+      ]
+    },
+    {
+      "talentId": "person-studio-aca408ec-r01-4",
+      "differences": [
+        {
+          "path": "age",
+          "H": 34.8353363537762,
+          "A": 38,
+          "difference": 3.1646636462238007
+        }
+      ]
+    },
+    {
+      "talentId": "person-studio-aca408ec-r01-5",
+      "differences": [
+        {
+          "path": "age",
+          "H": 29.927234713302248,
+          "A": 33,
+          "difference": 3.072765286697752
+        }
+      ]
+    },
+    {
+      "talentId": "person-studio-aca408ec-r02-0",
+      "differences": [
+        {
+          "path": "age",
+          "H": 53.09611512878311,
+          "A": 57,
+          "difference": 3.9038848712168885
+        },
+        {
+          "path": "fame",
+          "H": 35.85775325300802,
+          "A": 35.85772095281738,
+          "difference": -0.0000323001906394893
+        }
+      ]
+    },
+    {
+      "talentId": "person-studio-aca408ec-r02-1",
+      "differences": [
+        {
+          "path": "age",
+          "H": 40.255207774620324,
+          "A": 44,
+          "difference": 3.744792225379676
+        },
+        {
+          "path": "fame",
+          "H": 35.93217334243641,
+          "A": 35.93212234171582,
+          "difference": -0.000051000720588945114
+        }
+      ]
+    },
+    {
+      "talentId": "person-studio-aca408ec-r02-2",
+      "differences": [
+        {
+          "path": "age",
+          "H": 40.093064922683496,
+          "A": 44,
+          "difference": 3.906935077316504
+        },
+        {
+          "path": "fame",
+          "H": 19.99370577254149,
+          "A": 19.993646304776387,
+          "difference": -0.00005946776510157292
+        },
+        {
+          "path": "skills.acting.comicTiming.perceived",
+          "H": 52,
+          "A": 51,
+          "difference": -1
+        }
+      ]
+    },
+    {
+      "talentId": "person-studio-aca408ec-r02-3",
+      "differences": [
+        {
+          "path": "age",
+          "H": 54.082681874932234,
+          "A": 58,
+          "difference": 3.9173181250677658
+        },
+        {
+          "path": "fame",
+          "H": 71.11625348480334,
+          "A": 71.11623541073158,
+          "difference": -0.000018074071761020605
+        }
+      ]
+    },
+    {
+      "talentId": "person-studio-aca408ec-r02-4",
+      "differences": [
+        {
+          "path": "age",
+          "H": 43.19009438114523,
+          "A": 47,
+          "difference": 3.8099056188547706
+        },
+        {
+          "path": "fame",
+          "H": 54.45031566550803,
+          "A": 54.4502614615346,
+          "difference": -0.00005420397342703609
+        }
+      ]
+    },
+    {
+      "talentId": "person-studio-aca408ec-r02-5",
+      "differences": [
+        {
+          "path": "age",
+          "H": 49.92240797196069,
+          "A": 53,
+          "difference": 3.0775920280393123
+        },
+        {
+          "path": "fame",
+          "H": 29.181791114467813,
+          "A": 29.181769586958787,
+          "difference": -0.000021527509026952885
+        }
+      ]
+    },
+    {
+      "talentId": "person-studio-aca408ec-r03-0",
+      "differences": [
+        {
+          "path": "age",
+          "H": 51.182996256107096,
+          "A": 55,
+          "difference": 3.8170037438929043
+        },
+        {
+          "path": "fame",
+          "H": 36.598332542342405,
+          "A": 36.593769651778516,
+          "difference": -0.004562890563889255
+        }
+      ]
+    },
+    {
+      "talentId": "person-studio-aca408ec-r03-1",
+      "differences": [
+        {
+          "path": "age",
+          "H": 46.581942481860075,
+          "A": 50,
+          "difference": 3.418057518139925
+        },
+        {
+          "path": "fame",
+          "H": 29.12205452637872,
+          "A": 29.113410870567606,
+          "difference": -0.008643655811113149
+        }
+      ]
+    },
+    {
+      "talentId": "person-studio-aca408ec-r03-2",
+      "differences": [
+        {
+          "path": "age",
+          "H": 28,
+          "A": 32,
+          "difference": 4
+        },
+        {
+          "path": "fame",
+          "H": 48.24197645647481,
+          "A": 48.23491792682412,
+          "difference": -0.00705852965069198
+        }
+      ]
+    },
+    {
+      "talentId": "person-studio-aca408ec-r03-3",
+      "differences": [
+        {
+          "path": "age",
+          "H": 31.872599486928138,
+          "A": 35,
+          "difference": 3.127400513071862
+        },
+        {
+          "path": "fame",
+          "H": 65.20885881599932,
+          "A": 65.20401461259245,
+          "difference": -0.004844203406875636
+        }
+      ]
+    }
+  ],
+  "ageOnlyCount": 5,
+  "agePlusOtherCount": 11,
+  "fameDifferences": 10,
+  "perceivedSkillDifferences": 2,
+  "noCausalContributionMagnitudeComputed": true
+}
+

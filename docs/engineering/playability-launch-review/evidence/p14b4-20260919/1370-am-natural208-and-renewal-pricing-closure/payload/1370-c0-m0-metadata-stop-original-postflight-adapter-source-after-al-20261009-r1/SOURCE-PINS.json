@@ -1,0 +1,35 @@
+{
+  "schema": "1370-m0-metadata-stop-postflight-adapter-source-pins/v1",
+  "status": "SOURCE_ONLY_METADATA_STOP_ADAPTER",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "files": {
+    "run_m0_metadata_stop_postflight_r6_once.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_metadata_stop_postflight_r6_once.py",
+      "bytes": 4958,
+      "sha256": "f97b84ddb61f2313c5dbfe04f5a720cffb81d17673caa479fdfcd5c409089d22"
+    },
+    "INVERSE-ORIGINAL.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-metadata-stop-original-postflight-adapter-source-after-al-20261009-r1/INVERSE-ORIGINAL.py",
+      "bytes": 4004,
+      "sha256": "bc0b8b4ea24d5f386bf4bc50e6426b072c197fcaddeb6b510fcadd8bf70ac438"
+    },
+    "COMPLETE-INVERSE.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-metadata-stop-original-postflight-adapter-source-after-al-20261009-r1/COMPLETE-INVERSE.diff",
+      "bytes": 9118,
+      "sha256": "45a182c90dae4c5c3d4af767eb1e377047c61a682240eff76bdbcb15775dda51"
+    },
+    "LESSONS.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-metadata-stop-original-postflight-adapter-source-after-al-20261009-r1/LESSONS.md",
+      "bytes": 910,
+      "sha256": "e79fa0c99dd3d82a2d13af5435ec470c1f6f513bc3ec2a56ac0d9e3840b44723"
+    },
+    "SOURCE-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-metadata-stop-original-postflight-adapter-source-after-al-20261009-r1/SOURCE-PROOF.json",
+      "bytes": 6749,
+      "sha256": "3939448b14327d49bd60615b68fc0dcb1fb002b5af5110ad3ee16d4381a193df"
+    }
+  },
+  "noMetadataPreservationWaiver": true,
+  "noAutomaticRetry": true
+}

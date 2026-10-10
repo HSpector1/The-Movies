@@ -1,0 +1,316 @@
+{
+  "b109BoundsUnchanged": [
+    300,
+    375,
+    390
+  ],
+  "bounds": {
+    "activeSeconds": 75,
+    "nodeSeconds": 60,
+    "stderrBytes": 1048576,
+    "stdoutBytes": 1048576,
+    "wholeSeconds": 90
+  },
+  "candidate": {
+    "bytes": 2981,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-source-after-al-20261009-r1/bounded-json-candidate.mjs",
+    "sha256": "f382fe6610a69a1c766134120e5382e86700ac6078a82d712547bf027f42810b"
+  },
+  "cli": [
+    "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/controls.mjs",
+    "f870f2e8dc3606d7a3419635cdcf3fe89ee5fb1f232389de8837501c668ad142"
+  ],
+  "config": {
+    "bytes": 4745,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/CONFIG.json",
+    "sha256": "f870f2e8dc3606d7a3419635cdcf3fe89ee5fb1f232389de8837501c668ad142"
+  },
+  "controls": {
+    "bytes": 25837,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/controls.mjs",
+    "sha256": "d4c91f0e965648df46707c9d47cc23d24e487f12fd04bb88198a54c9b2683647"
+  },
+  "coverageDetails": {
+    "ascii": "All128 code units each as value and key plus six empty/slash/DEL/eligible mixes;268 admitted pairs.",
+    "caps": "Seven exact rendered fits and every smaller integer cap; raw/key/rawUTF8/precheck versus cumulative errors; NaN/Symbol; two successful ASCII/nonASCII ordered limit traces and key-budget fourth-checkpoint failure;9 pairs.",
+    "fallback": "17 escaped/control/BMP/astral/separator/surrogate mixes each as value and key;34 pairs.",
+    "freshness": "3000 shared references/repeated keys, mutable key/value across calls, frozen structure, delegating JSON instrumentation proves zero container stringify and global Proxy instrumentation zero new Proxy;10 pairs.",
+    "seams": "Rendered scalar and enclosing array byte totals65534..65537, exact/one-under caps; pending-token prefixes4095/4096/4097 traversed at2048 elements, plus neighbor fixtures; oversized admitted ASCII/UTF8/escaped tokens; late nonfinite/bigint/cycle after earlier chunks then fresh call;15 pairs.",
+    "traces": "Both ASCII and fallback names/values; fresh getter and Proxy trap logs, dynamic array shrink/growth, defined-to-undefined second-read rejection with exact code/log;8 pairs."
+  },
+  "designAdoption": {
+    "bytes": 5577,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-DESIGN-ADOPTION.json",
+    "sha256": "afef3458107228e763923d5fccd279151eeafef13aa17245808d218d9b5a2939"
+  },
+  "executionAuthorization": false,
+  "fixtureCaps": "New largest rawUTF8 string80000 bytes (\u00e940000); escaped rendered80002. New arrays <=3000 elements or late-tail2201. Existing original fixtures/caps unchanged. All new encoded data below16MiB default. Producer performs no capture read/decode, child spawn, signals, filesystem mocking or writes.",
+  "futureBenchmarkSeparate": {
+    "actualBenchmarkGrant": null,
+    "full109Grant": null,
+    "noTimingConclusionFromSyntheticControls": true,
+    "pairedWarmupAndThreeAlternatingMeasuredPairsPerIndexed308Input": true,
+    "performanceWin": false,
+    "readerStreaming12c37NotTimed": true,
+    "referenceEncoderMustBe2529": true,
+    "weightedBothArmFormula": "(3526*stateMedianMs+1984*wholeRowMedianMs)/1000"
+  },
+  "lessons": [
+    "Pure module correctness can miss actual integration entry defects; where this narrow slice lives within unchanged encoder traversal, preserve original full28 controls and fresh source-read/cap checkpoint tests rather than testing classifier alone.",
+    "Specific malformed bytes/refusal code/trace establishes mutant RED. A generic nonzero outcome is an unexpected test failure, not accepted RED.",
+    "Do not infer timing or game feasibility from correctness. Selected reference2529, unfavorable historical cache, exact both-arm count accounting and unchanged bounds remain separate.",
+    "Original total token count is odd; report pending prefixes4095/4096/4097 traversed by2048 elements rather than inventing a4096-token complete array."
+  ],
+  "mutants": {
+    "escape": {
+      "after": "    if (!/[\\u0080-\\uffff]/.test(value)) return ['\"' + value + '\"', value.length + 2]\n",
+      "before": "    if (!/[\\u0000-\\u001f\"\\\\\\u0080-\\uffff]/.test(value)) return ['\"' + value + '\"', value.length + 2]\n",
+      "forward": {
+        "bytes": 491,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-escape.diff",
+        "sha256": "9be049acae4d905f7589e921746eb97fbc2a146deef92f68647bc1497c60a722"
+      },
+      "inverse": {
+        "bytes": 491,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-escape.inverse.diff",
+        "sha256": "063ed67e6910659bb46cc4199d56d3e61fd19b5399314cfc2023bfebd82fe77c"
+      },
+      "role": {
+        "bytes": 2965,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-escape.mjs",
+        "sha256": "be3d5e5135732335b1a3cda54f74034980a9c89887d90854fa17c6fa6d6df81b"
+      },
+      "wholeSourceInverseExact": true
+    },
+    "precheck": {
+      "after": "",
+      "before": "    const withinLimit=Buffer.byteLength(value)<=limit;if(!withinLimit)assert.ok(withinLimit,'STOP_STRING_CAP')\n",
+      "forward": {
+        "bytes": 423,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-precheck.diff",
+        "sha256": "1fcf97c7a71eef86a345e433fd5f7ddff7271afce0b5dd86689abc739e289572"
+      },
+      "inverse": {
+        "bytes": 423,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-precheck.inverse.diff",
+        "sha256": "74a01e444d68e1680c054874858598a44b5a315b623ce2b6636274928f71e397"
+      },
+      "role": {
+        "bytes": 2870,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-precheck.mjs",
+        "sha256": "a6747cee6d60f142fa1d5d9a5b8c174719b5699746f4fca8eaa54914d15060ab"
+      },
+      "wholeSourceInverseExact": true
+    },
+    "unicode": {
+      "after": "    if (!/[\"\\\\]/.test(value)) return ['\"' + value + '\"', value.length + 2]\n",
+      "before": "    if (!/[\\u0000-\\u001f\"\\\\\\u0080-\\uffff]/.test(value)) return ['\"' + value + '\"', value.length + 2]\n",
+      "forward": {
+        "bytes": 482,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-unicode.diff",
+        "sha256": "fee5d7d747bc554766913681750bb8286e0e2977757d950810a7c022a53f91f7"
+      },
+      "inverse": {
+        "bytes": 482,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-unicode.inverse.diff",
+        "sha256": "52412bc0d653694ac22b10c33161fe070d64b6b8eeafc252a04071a6b5f5e9a0"
+      },
+      "role": {
+        "bytes": 2955,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/mutant-unicode.mjs",
+        "sha256": "c87c53cd0ece378cef4bb65fbc52026600b3dc83b34cd884f95de476bf2393d0"
+      },
+      "wholeSourceInverseExact": true
+    }
+  },
+  "operationalReadback": {
+    "bytes": 1250,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+    "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+  },
+  "originalControls": {
+    "bytes": 15839,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-encoder.mjs",
+    "sha256": "015326a19a12225b5fb736bbf85d637f8e925cf4c0f5bd00240061cf9cd880b4"
+  },
+  "originalOracles": {
+    "baseline": {
+      "bytes": 11414,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b-release-109-tick-source-proposal-20261008-r2/streaming.mjs",
+      "sha256": "12c37ac107bf386622d92bd575fdc33711821530c6d5dd4877b8e7ce56a2da57"
+    },
+    "referenceEncoder": {
+      "bytes": 2492,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-assertion-fastpass-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "994d2adaa4310a71590ebf408c775ee45c1830682c12b0c7f034551f343582e5"
+    }
+  },
+  "pending": {
+    "actualBenchmark": null,
+    "actualObservedControls": null,
+    "independentTestSourceReview": null,
+    "rootRecordedGrant": null
+  },
+  "plannedProducer": {
+    "actualCounts": null,
+    "counts": {
+      "expectedRed": 3,
+      "newGroups": 6,
+      "newPairs": 344,
+      "originalGroups": 28,
+      "originalPairs": 321,
+      "totalGroups": 34,
+      "totalPairs": 665,
+      "unexpectedRed": 0
+    },
+    "mutantRoster": [
+      {
+        "name": "escape exclusion mutant",
+        "shape": "exact native string and key byte mismatch on quote backslash LF",
+        "status": "EXPECTED_RED"
+      },
+      {
+        "name": "unicode byte-size mutant",
+        "shape": "\u00e9 missing terminal byte and budget3 wrongly admitted",
+        "status": "EXPECTED_RED"
+      },
+      {
+        "name": "raw precheck mutant",
+        "shape": "STRING versus JSON cap plus missing ordered coercion checkpoint",
+        "status": "EXPECTED_RED"
+      }
+    ],
+    "newGroupRoster": [
+      {
+        "name": "ascii128 values keys eligible mixtures empty slash DEL",
+        "pairs": 268,
+        "status": "GREEN"
+      },
+      {
+        "name": "native fallback escapes unicode separators surrogate values keys",
+        "pairs": 34,
+        "status": "GREEN"
+      },
+      {
+        "name": "raw rendered cumulative key caps and ordered limit coercions",
+        "pairs": 9,
+        "status": "GREEN"
+      },
+      {
+        "name": "byte and token flush seams oversized whole tokens late refusal",
+        "pairs": 15,
+        "status": "GREEN"
+      },
+      {
+        "name": "source getters proxies two reads dynamic lengths both branches",
+        "pairs": 8,
+        "status": "GREEN"
+      },
+      {
+        "name": "shared repeated keys mutations fresh calls no container stringify clone",
+        "pairs": 10,
+        "status": "GREEN"
+      }
+    ],
+    "outputUpperBoundBytes": 16384,
+    "schema": "1370-b109-ascii-controls/v1",
+    "status": "ORIGINAL28_ASCII6_MUTANT3_EXPECTED_RED_GREEN_PASSED",
+    "stderr": "Producer stderr empty; any producer warning/traceback rejects. Existing external recorder warning qualifications stay separate.",
+    "stdout": "Exactly original28 PASS lines +six new PASS lines +three EXPECTED_RED lines +one final JSON newline. No arbitrary output or trailing bytes. Future gate must require all producer/helper/recorder/tool exits0 and bounded complete streams, never generic nonzero RED.",
+    "strictFields": [
+      "schema",
+      "status",
+      "originalGroups",
+      "originalPairs",
+      "newGroups",
+      "newPairs",
+      "totalGroups",
+      "totalPairs",
+      "expectedRed",
+      "unexpectedRed",
+      "groups",
+      "mutants",
+      "game",
+      "saveImports",
+      "captureDecode",
+      "performanceWin"
+    ],
+    "strictTypeChecks": "All count fields exact ints (no bool/coercion); six groups and three mutants exact ordered object equality to this roster; all four limitation flags literal false; exact schema/status."
+  },
+  "preservation": {
+    "appended6Selected2529OracleSeparate": true,
+    "baselineStreaming12c37UsedOnlyAsOriginalPureOracle": true,
+    "onlyOriginalHarnessChanges": "Authenticated held config/runtime/roles header plus replaced final producer summary. Original28 test declarations/helper bytes remain one verbatim block, and asserted28/321 before any new group.",
+    "oraclesAndAllHelperTestBodiesUnchanged": true,
+    "original28Block": {
+      "bytes": 14863,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-independent-controls-after-al-20261009-r1/original28-block.mjs.txt",
+      "sha256": "3d76f95e668133fbc0adba03f9699bab727ce30099608b8a77b0aa2e07e82452"
+    },
+    "original994dSecondaryChunkOracleRetained": true,
+    "originalBlockByteExact": true,
+    "originalDeclarationRoster": [
+      "exact primitives and finite number rendering",
+      "captured key order, integer keys and escaping",
+      "undefined object omission and sparse-array null",
+      "shared references are allowed while cycles refuse",
+      "own toJSON refuses; inherited toJSON is ignored like baseline",
+      "unsupported atoms and nonfinite numbers refuse",
+      "exact-fit and cap refusal for every small budget",
+      "string raw precheck and escaped token budget",
+      "property-key cache is per call and cannot mask object mutation",
+      "getter visitation order remains identical",
+      "deterministic nested corpus",
+      "stateful first-check and second-value reads",
+      "dynamic array shrink and growth preserve emitted length",
+      "null prototypes prevent inherited hooks including array pollution",
+      "safe proto keys and integer ordering",
+      "token caps and refusals never serialize source containers",
+      "proxy reverse and mixed integer order exact bytes and caps",
+      "nested and shared proxy order is fresh on each occurrence",
+      "proxy omitted names preserve all original hook traces",
+      "proxy stateful values retain two reads and undefined refusal",
+      "null handler ignores inherited get and descriptor traps",
+      "token emission creates no clone Proxy wrapping",
+      "chunk whole-token count and UTF8 byte seams retain exact-fit caps",
+      "oversized whole tokens preserve Unicode escaping and cap refusals",
+      "late refusal after multiple chunks cannot return or retain partial output",
+      "source getters Proxy traces and dynamic length stay exact across seams",
+      "shared references repeated keys and mutation remain fresh across chunks and calls",
+      "chunk token architecture and unusual limit coercion preserve original checkpoints"
+    ],
+    "originalGroups": 28,
+    "originalPairs": 321
+  },
+  "reviewerRole": "Independent finite-control and fault-mutant author; did not author real ASCII implementation f382fe. Test authorship is not independent observed measurement or test-source acceptance.",
+  "schema": "1370-b109-ascii-independent-finite-red-green-source-design/v1",
+  "selectedNewOracle": {
+    "bytes": 2880,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+    "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+  },
+  "sourceReviewCriteria": [
+    "Real candidate whole-byte inverse restores2529 after only one101-byte insertion; original raw UTF8 precheck/fallback and every traversal/key/chunk/budget line unchanged.",
+    "Original28 block/321 pair assertion and both original oracles untouched.",
+    "Six appended exact source-derived row/pair roster totals344; source getters/traps and limit checkpoints compared under standard native primitive behavior, without assuming same primitive call counts.",
+    "Three exact faulty source patches plus forward/inverse roles are authenticated and no correct candidate mutation belongs to tester. Specific expected bytes/error code/refusal/coercion logs and corrected candidate GREEN must all match.",
+    "Future filled recorded route authenticates current operational refs/readback/protection and exact nativeNode20 physical role; preserves60/75/90 and1MiB streams, strict producer gates and owned cleanup. Source-only role is not runtime qualification."
+  ],
+  "specificRedContracts": {
+    "escape": "Six bounded value/key probes quote/backslash/LF must match exact malformed direct-quoted bytes and differ from2529; quote must be222222 versus225c2222. Correct candidate must equal native bytes for every probe.",
+    "precheck": "ASCII abcd and fallback LF4 limit3 each must be ERR_ASSERTION/AssertionError STOP_STRING_CAP on2529/candidate and STOP_JSON_CAP on mutant. Stateful limit [MAX,3] must cause candidate/reference STOP_JSON_CAP with exact[1,2] coercions; mutant returns exact226162636422 with only[1].",
+    "unicode": "\u00e9 output and limit3 wrongly admitted exact22c3a9 versus correct22c3a922; candidate limit3 must refuse STOP_JSON_CAP. Unicode key mutant drops final brace exactly native bytes minus one; candidate native equality required."
+  },
+  "status": "HELD_AUTHORED_SOURCE_ONLY_REVIEW_AND_RECORDED_ROOT_GRANT_REQUIRED",
+  "workNotPerformed": {
+    "GitOrProcessFdScans": false,
+    "NodeSyntaxCompile": false,
+    "candidateOrMutantImportExecution": false,
+    "captureReadDecode": false,
+    "controlsNodeExecution": false,
+    "gameRun": false,
+    "productionMirrorMutation": false,
+    "signalsProbes": false
+  }
+}

@@ -1,0 +1,306 @@
+{
+  "author": "/root/a208_operational_prep",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_A208_R4_EXACT_PREPARATION_AND_FILL_AFTER_FILL_ARGUMENT_MAP",
+  "exactArgumentReview": {
+    "afterFill": {
+      "argv": [
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-I",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+        "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+        "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+        "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+        "after-fill",
+        "after-fill-after-al-game-r4",
+        "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+        "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+      ],
+      "baseline": {
+        "bytes": 8562268,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+        "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+      },
+      "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+      "environment": {
+        "GIT_OPTIONAL_LOCKS": "0",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "freshLabel": "after-fill-after-al-game-r4",
+      "noNewScannerWrapperOrHelperSemantics": true,
+      "optionalOwnedPgidsArgumentOmitted": true,
+      "originalPerCommandTimeoutSeconds": 180,
+      "phase": "after-fill",
+      "plannedOutputDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/after-fill-after-al-game-r4",
+      "retainedHLeaf": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+      "unchangedConfig": {
+        "bytes": 3906,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
+        "sha256": "20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41"
+      },
+      "unchangedScanner": {
+        "bytes": 21984,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+        "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+      },
+      "wholeScanDeadline": null
+    },
+    "fill": {
+      "argv": [
+        "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+        "-I",
+        "-B",
+        "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r4/fill_actual_candidate.py",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+        "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+        "ACCEPT_OBSERVED_MATERIALIZATION_COPY"
+      ],
+      "baseline": {
+        "bytes": 8562268,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+        "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+      },
+      "config": {
+        "bytes": 11624,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r4/CONFIG-PENDING.json",
+        "sha256": "f0ec5af36040f321410d37d7dc7d2767408e519e8537a55ceb0738e7708337d3"
+      },
+      "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+      "environment": {
+        "GIT_OPTIONAL_LOCKS": "0",
+        "PATH": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "exclusiveFuturePaths": {
+        "adoptionOutputPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4",
+        "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-pre-adoption-archive-after-al-20261009-r4",
+        "bindingPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json",
+        "candidatePath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4",
+        "laneLog": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r4/controls.log",
+        "laneParent": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r4"
+      },
+      "inputDecision": "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+      "inputReceipt": {
+        "bytes": 3717,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+        "sha256": "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d"
+      },
+      "originalPerCommandTimeoutSeconds": 30,
+      "procedure": {
+        "bytes": 24091,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r4/fill_actual_candidate.py",
+        "sha256": "a661eb5b596e094eb1178a6d1a6c86e91f81f552fd6fe3e05bc77e5f025b4720"
+      },
+      "streamCapDefinedBySource": false,
+      "wholeFillerDeadlineDefinedBySource": false
+    },
+    "mapPendingActualsAllNull": true,
+    "mapSchema": "1370-a208-game-fill-after-fill-exact-argument-map/v1",
+    "mapStatus": "SOURCE_ONLY_ARGUMENT_FACTS_UNRUN",
+    "noExtraScannerInvocation": true,
+    "productionWorkingDirectory": true,
+    "pythonIsolatedAndNoBytecode": true,
+    "sameOriginalObservedCopyReceiptAndDecision": true
+  },
+  "executionAuthorization": false,
+  "findings": [],
+  "limitations": {
+    "noActualFilledCandidateReviewed": true,
+    "noAdoptionYet": true,
+    "noAfterFillObservationYet": true,
+    "noCurrentAuthorityManufactured": true,
+    "noGameAcceptance": true,
+    "noRuntimeAcceptance": true,
+    "preservedHeldR3StopReceiptSha256": "53ee2825aaf27a89220f2fb7d8a7a81a975019dda08aebc8261c84e4967f630c"
+  },
+  "nextSteps": [
+    "Root may separately grant and record the exact reviewed direct filler invocation. This receipt is not that grant.",
+    "Authenticate actual emitted six, complete success summary, real terminal tool/filler exits and recorded ownership within the actual route scope.",
+    "Only after actual six exists, root may separately grant and record the unchanged after-fill scanner using the exact reviewed map argv.",
+    "The existing exact candidate review must authenticate actual six and complete genuine before/after-fill recorded evidence; supply its exact actualGuardAfterFill raw role to the existing adopter.",
+    "Separate root adopter grant, original archive6/auth3, actual adopted preflight, and genuine exclusive external final grant remain subsequent requirements before any game."
+  ],
+  "reviewer": "/root/cleanup_independent_red",
+  "roles": {
+    "actualGuardBaseline": {
+      "bytes": 8562268,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+      "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+    },
+    "adopter": {
+      "bytes": 23333,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r4/adopt_reviewed_candidate.py",
+      "sha256": "6a17f77f25035e89f38b48cfa4c74d21d50a793fb9d8e47a176b11c4b3f4d669"
+    },
+    "argumentMap": {
+      "bytes": 9440,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-fill-after-fill-argument-map-after-al-20261009-r1/MAP.json",
+      "sha256": "5f23c5c9bc88ba696ef106456da9926fb8ba6c696da0749459a65f707256ed89"
+    },
+    "causalOrderAdoption": {
+      "bytes": 1595,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/CAUSAL-ORDER-CONTRACT-ADOPTION.json",
+      "sha256": "4fd8459c191b6ff46b5c7a02677a4967914791c11ea4232c10818252351a9028"
+    },
+    "config": {
+      "bytes": 11624,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r4/CONFIG-PENDING.json",
+      "sha256": "f0ec5af36040f321410d37d7dc7d2767408e519e8537a55ceb0738e7708337d3"
+    },
+    "externalFinalGrantAdoption": {
+      "bytes": 2592,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/EXTERNAL-FINAL-GRANT-DESIGN-ADOPTION.json",
+      "sha256": "2fd088a0ab757f926a451674ddfdaa48d79715479b65982d7fe68f7df918e847"
+    },
+    "fill": {
+      "bytes": 24091,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r4/fill_actual_candidate.py",
+      "sha256": "a661eb5b596e094eb1178a6d1a6c86e91f81f552fd6fe3e05bc77e5f025b4720"
+    },
+    "knownBeforeFillAuthority": {
+      "bytes": 10578,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+      "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3"
+    },
+    "sourcePins": {
+      "bytes": 5381,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r4/SOURCE-PINS.json",
+      "sha256": "ce2ef3da4cf01792bab5f3abd084c11bba5daa06ef28d2f6fc9839c67500732e"
+    },
+    "sourceProof": {
+      "bytes": 5901,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r4/SOURCE-PROOF.json",
+      "sha256": "15bff2d15b614cf43772e0747d1b3beb95326e247fda69fd9b3e5f6882adc65e"
+    }
+  },
+  "schema": "1370-a208-r4-exact-preparation-independent-source-review/v1",
+  "scope": "Independent finite source/contract and exact argument review; no procedure, candidate, scanner, test, probe, private inventory, or Git command executed.",
+  "sourceChecks": {
+    "actualKnownRoleConsumers": {
+      "H8708Waived": false,
+      "actualFillGrant": null,
+      "actualJsonFieldsCheckedWithoutExecutingConsumers": true,
+      "authorityBaselineHeadSourceAndSourceProcedureRoleLinksMatch": true,
+      "authoritySchema": "1370-root-a208-observed-before-fill-operational-authority/v1",
+      "authorityStatus": "ROOT_ADOPTED_OBSERVED_AL_A208_BEFORE_FILL_BASELINE_ONLY",
+      "baselineInitialParent": null,
+      "baselinePhase": "before-fill",
+      "baselineSchema": "1370-a208-current-operational-full-guard-snapshot-r2",
+      "baselineStatus": "GUARDS_ACCEPTED_READONLY",
+      "combinedHFirstRouteUnchanged": true,
+      "executionAuthorization": false,
+      "gameGrant": null,
+      "knownAuthorityChecksBeforePrivateAccess": true,
+      "protectedFreezeContinues": true
+    },
+    "argumentMapRoleAuthentications": 11,
+    "causalOrder": {
+      "absentFutureConfigurationKeys": [
+        "actualGuardAfterFill",
+        "adoptedPreflight",
+        "witnessGrant"
+      ],
+      "adoptedContractAuthenticated": true,
+      "afterFillCompleteImmutableEqualityToBeforeFillChecked": true,
+      "afterFillProducerHeadSourceAndScopeChecked": true,
+      "afterFillRawSchemaStatusPhaseBaselineProducerAndAdmissionChecked": true,
+      "afterFillRolePhysicallyReadSizeAndHashChecked": true,
+      "allAfterFillReceiptAndRawChecksBeforeArchiveOrBindingChange": true,
+      "existingExactReviewCarriesAfterFillActualRole": true,
+      "existingReviewBaselineRuntimeAuthorityAndCausalAdoptionMatchConfig": true,
+      "immutableConfigContainsOnlyKnownBeforeFillActualRoles": true,
+      "noConfigMutationAfterFill": true,
+      "noNewObservationStage": true
+    },
+    "finalAuthority": {
+      "adoptedLaunchRemainsFalse": true,
+      "adoptedPreflightBeforeGenuineExclusiveExternalGrant": true,
+      "bindingWitnessGrantExplicitNullPreserved": true,
+      "documentaryFutureLaunchPlaceholdersRemainImmutableNull": true,
+      "externalFinalGrantContractAndAdoptionAuthenticated": true,
+      "finalGrantBindsExactAdoptedRawBindingAndActualPreflight": true,
+      "nullRetainedInSemanticHash": true,
+      "sourceReviewDoesNotAuthorizeFillAdoptionOrGame": true
+    },
+    "freshDeclaredPathsObservedAbsent": [
+      "candidatePath",
+      "bindingPath",
+      "laneParent",
+      "laneLog",
+      "archivePath",
+      "adoptionOutputPath",
+      "afterFillOutput"
+    ],
+    "historicalAndOperationalIdentity": {
+      "currentOperationalHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+      "currentSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+      "historicalAndCurrentRolesRemainDistinct": true,
+      "historicalMaterializerProductionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+      "historicalPrivateSource": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+      "publishedReadbackAndOperationalRemoteRefsAuthenticated": true
+    },
+    "inverse": {
+      "bindingTemplateByteIdenticalToHeldR3": true,
+      "noProductionSourceChange": true,
+      "wholeBytesRestoreHeldR3ForChangedFiles": [
+        "CONFIG-PENDING.json",
+        "LAUNCH-SPEC-TEMPLATE.json",
+        "fill_actual_candidate.py",
+        "adopt_reviewed_candidate.py"
+      ]
+    },
+    "namedSourceRoleAuthentications": 52,
+    "observerSource": {
+      "allFileBytesAndHashesVerified": true,
+      "eightBoundObserverEntriesPreserved": true,
+      "frozenFiles": 18,
+      "observerPinSha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf",
+      "threeAdditionalHistoricalBlobsPreserved": true
+    },
+    "originalHelpers": {
+      "adopterCount": 7,
+      "astIdentical": true,
+      "byteIdentical": true,
+      "count": 13,
+      "fillCount": 6,
+      "originalAcceptedProcedurePreserved": true
+    },
+    "preservedBehavior": {
+      "adopterPositionalCliArguments": 3,
+      "archivedArtifacts": 6,
+      "candidatePinsBeforeLaunchAndIdentity": true,
+      "durableArchiveFsyncReadbackAndBindingAtomicReplacementPreserved": true,
+      "fillOriginalLogicPreservedReportAddsThreeProvenanceRoles": true,
+      "identityBindsFirstFiveWithoutSelfHash": true,
+      "onlyBindingFieldsChangedAtAdoption": [
+        "status",
+        "executionAuthorization",
+        "exactReview"
+      ],
+      "originalCandidateOtherFiveArtifactsRemainByteExact": true,
+      "originalSixHashOrderPreserved": true,
+      "semanticExclusions": [
+        "status",
+        "executionAuthorization",
+        "exactReview"
+      ]
+    },
+    "templates": {
+      "actualFiles": null,
+      "actualFillIdentity": null,
+      "actualNode": null,
+      "count": 6,
+      "notActualEmittedSix": true,
+      "rootIdentity": null,
+      "sourceOnlyPartialCandidate": true
+    },
+    "tools": {
+      "actualVersionPathCheckStillInFiller": true,
+      "nodePath": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+      "nodeSha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6",
+      "pinnedPythonPreserved": true
+    }
+  },
+  "sourcePinsSha256": "ce2ef3da4cf01792bab5f3abd084c11bba5daa06ef28d2f6fc9839c67500732e"
+}

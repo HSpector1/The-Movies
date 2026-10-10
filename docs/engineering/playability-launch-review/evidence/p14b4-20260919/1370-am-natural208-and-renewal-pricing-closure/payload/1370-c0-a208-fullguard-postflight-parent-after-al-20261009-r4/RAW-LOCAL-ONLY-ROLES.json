@@ -1,0 +1,31 @@
+{
+  "reason": "Whole-machine PS/FD raw captures regardless filename extension; publish metadata only.",
+  "roles": [
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 94554,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4/BEFORE-PS.txt",
+      "sha256": "33d2fad2356c054af35c87b9de4c49b721677580deb4cf481026f61e66e09bef"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 97649,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4/AFTER-PS.txt",
+      "sha256": "9aaf5b45eb8b79ee6313990b1ac55354284b8a667e7cbe5c1801f0c4110dbab4"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 643214,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4/BEFORE-LSOF.bin",
+      "sha256": "d4ef46c8c6bb2aa6870d012546bd8f85b436744f89fcc80ccc0538889ef0b840"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 648627,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4/AFTER-LSOF.bin",
+      "sha256": "5b57793259444c5082f330d5f8f1e67b38a46b80a3d9847356d0eed494537e5b"
+    }
+  ],
+  "schema": "1370-explicit-semantic-local-raw-roles/v1",
+  "totalBytes": 1484044
+}

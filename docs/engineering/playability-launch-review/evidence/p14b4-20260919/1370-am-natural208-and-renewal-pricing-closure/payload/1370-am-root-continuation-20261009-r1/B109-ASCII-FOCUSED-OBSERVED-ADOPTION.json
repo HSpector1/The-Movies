@@ -1,0 +1,200 @@
+{
+  "actualBenchmarkGrant": null,
+  "actualCorrectness": {
+    "completedQualifiedStrictConsumerExit": 0,
+    "exactFieldsTypesCountsOrderedRostersAndFalseFlags": true,
+    "expectedRed": 3,
+    "finalJsonLines": 1,
+    "meaningfulExpectedRedAssertionsVerifiedByPinnedControlsSource": true,
+    "mutants": [
+      {
+        "name": "escape exclusion mutant",
+        "shape": "exact native string and key byte mismatch on quote backslash LF",
+        "status": "EXPECTED_RED"
+      },
+      {
+        "name": "unicode byte-size mutant",
+        "shape": "\u00e9 missing terminal byte and budget3 wrongly admitted",
+        "status": "EXPECTED_RED"
+      },
+      {
+        "name": "raw precheck mutant",
+        "shape": "STRING versus JSON cap plus missing ordered coercion checkpoint",
+        "status": "EXPECTED_RED"
+      }
+    ],
+    "nativeBuiltinsAssumption": "Standard native RegExp/String/JSON/Array/Buffer; internal primitive call-count equality is not claimed.",
+    "newGroups": 6,
+    "newPairs": 344,
+    "orderedExpectedRedLines": 3,
+    "orderedPassLines": 34,
+    "originalGroups": 28,
+    "originalPairs": 321,
+    "producerSchema": "1370-b109-ascii-controls/v1",
+    "retainedFinalJsonCanonicalAndNoDuplicateOrTrailingValue": true,
+    "stderrBytes": 0,
+    "stdoutBytes": 3559,
+    "stdoutCap": 16384,
+    "totalGroups": 34,
+    "totalLines": 38,
+    "totalPairs": 665,
+    "unexpectedRed": 0
+  },
+  "actualExits": {
+    "actualToolExit": 0,
+    "actualToolFinalChunkAndSeparateOutcomeAgree": true,
+    "consumerExit": 0,
+    "helperExit": 0,
+    "helperMetaExit": 0,
+    "nodeExit": 0,
+    "recorderExit": 0
+  },
+  "actualOwnership": {
+    "actualOwnedGroupsFreshlyAbsent": [
+      17003,
+      17510
+    ],
+    "actualOwnedPidsFreshlyAbsent": [
+      17003,
+      17510
+    ],
+    "childPid": 17510,
+    "globalWorkerAbsenceClaim": false,
+    "groupClear": true,
+    "heavyLaneLockAbsent": true,
+    "helperGroupVerifiedBeforeExec": true,
+    "helperPgid": 17003,
+    "helperPid": 17003,
+    "helperSid": 17003,
+    "ownedPgid": 17510,
+    "pgidConfirmed": true,
+    "recordedZeroSignalChecks": [
+      {
+        "id": 17003,
+        "kind": "pid",
+        "result": "ESRCH",
+        "signal": 0
+      },
+      {
+        "id": 17510,
+        "kind": "pid",
+        "result": "ESRCH",
+        "signal": 0
+      },
+      {
+        "id": 17003,
+        "kind": "pgid",
+        "result": "ESRCH",
+        "signal": 0
+      },
+      {
+        "id": 17510,
+        "kind": "pgid",
+        "result": "ESRCH",
+        "signal": 0
+      }
+    ],
+    "reviewerPerformedFreshProbes": false,
+    "scope": "Recorded root postchecks for exact helper PID/PGID and owned Node child PID/PGID only.",
+    "startupOwnedBeforeExec": true
+  },
+  "actualResult": {
+    "bytes": 918,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-output-after-al-20261009-r2/RESULT.json",
+    "sha256": "11d82a514bf703d2e7050d522e6e263f70bfdf2440181863f9f2292d01e2db4c"
+  },
+  "actualTool": {
+    "bytes": 964,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r2/ACTUAL-TOOL.json",
+    "sha256": "565a7150878272f04fd3e0301cc008f47c17ccdc224416f460145f3bd255dbb1"
+  },
+  "actualToolOutcome": {
+    "bytes": 2926,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r2/TOOL-OUTCOME.json",
+    "sha256": "62757de8d1a2597bd9f365a9a357596d2650df730a1d25b7358cf0c3c6244f15"
+  },
+  "boundsAndBinding": {
+    "activeSeconds": 75,
+    "allBoundConfigRoleHashesIndependentlyMatched": true,
+    "allReviewedRouteFileRolesStillExact": true,
+    "currentProtection": {
+      "bytes": 10578,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+      "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3"
+    },
+    "elapsedRecorderSeconds": 4.14815171500959,
+    "freshExclusiveGrantClaimLaneAndOutputMechanismVerified": true,
+    "grantRecipeArgvCwdEnvironmentBoundsExpectedOperationalAndOwnershipExact": true,
+    "nativeNodeBytes": 92324688,
+    "nativeNodePath": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+    "nativeNodeSha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+    "nativeNodeVersion": "20.20.2",
+    "nodeActualPhysicalHashIndependentlyMatches": true,
+    "nodeSeconds": 60,
+    "priorFullguardFinishedBeforeControls": {
+      "bytes": 2005,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-after-fill-parent-after-al-20261009-r4/ACTUAL-TOOL.json",
+      "sha256": "2b58f4ad5d318af83f9a47eb3c4ea6fe9a2609d8e502ce939b2e45fa68e0d420"
+    },
+    "priorScannerRecordedAbsent": 56863,
+    "producerChecksExactVersionAndPhysicalExecPath": true,
+    "producerConfigSha256": "f870f2e8dc3606d7a3419635cdcf3fe89ee5fb1f232389de8837501c668ad142",
+    "recorderStderrCapBytes": 1048576,
+    "recorderStdoutCapBytes": 1048576,
+    "routeConfigSha256": "735693898549a19f894318eeedecbbc354f3c514492bf83409ee125952652168",
+    "sanitizedNodeEnvironment": [
+      "NODE_OPTIONS",
+      "NODE_PATH"
+    ],
+    "timedOut": false,
+    "wholeSeconds": 90
+  },
+  "completedConsumption": {
+    "bytes": 3626,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r2/CONSUMPTION.json",
+    "sha256": "ecb9fce725fd07ac372a74dc05ba0410c3572ad5100705f86b6e8f2202910fdf"
+  },
+  "executionAuthorization": false,
+  "game": false,
+  "independentReview": {
+    "bytes": 10800,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-independent-observed-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "45ed83313ed82b9ffa7646204574ef2c02bf42504633133b70b3692c85eb3b9d"
+  },
+  "next": "Prepare independently reviewed selected2529 versus ASCII f382 paired308 benchmark with unchanged60/75/90 bounds, exact real labels and both-arm weighted formula. Separate root grant after current game protection work releases heavy lane.",
+  "performanceMeasured": false,
+  "performanceWin": false,
+  "retainedWarning": {
+    "actualFunction": "main",
+    "allStreamsQuietClaim": false,
+    "block": "main() outer finally",
+    "exactDiagnostic": "'return' in a 'finally' block",
+    "existingContractDisposition": "Accepted: producer stderr must be empty, while helper combined log may retain diagnostic lines and must contain exactly one expected JSON recorder summary; all exits/meta/roles/flags/ownership/override checks still pass.",
+    "helperCombinedLogBytes": 393,
+    "kind": "Python SyntaxWarning",
+    "originalOutcomeUnchanged": true,
+    "parentCorrection": {
+      "bytes": 913,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r2/DIAGNOSTIC-ATTRIBUTION-CORRECTION.json",
+      "sha256": "1b68d5857106f52bb4e35ad15a47bf27619d9b154766ede30e0f4d4c8cca0565"
+    },
+    "producerStderrBytes": 0,
+    "qualifiedRecorderSha256": "d0b8380d0ef982f8675ef8affdafd60bac200717132875fe50f220c648586cc2",
+    "recorderLine": 239,
+    "reviewedRecorderSha256": "f5a1f8d39a31079b4a168364553498a44b10a167e067e5660979dc2cce4277e6",
+    "separateFinalizeResultFunctionAttributionCorrected": true,
+    "statement": "return code",
+    "stream": "Helper combined recorder stdout/stderr log; outside producer stdout.bin/stderr.bin.",
+    "warningStatementAndSurroundingFinalizationSourceUnchanged": true,
+    "warningSuppressedOrRelabeled": false
+  },
+  "schema": "1370-root-b109-ascii-focused-observed-adoption/v1",
+  "selected2529RemainsSelected": true,
+  "sourcePins": {
+    "bytes": 11676,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "b5f3103ed8ac1585ff63406be5c776824e0e678089ac0239cb287318ea42520a"
+  },
+  "sourcePromotionAuthorized": false,
+  "status": "ROOT_ADOPTED_OBSERVED_B109_ASCII_FOCUSED_CORRECTNESS"
+}

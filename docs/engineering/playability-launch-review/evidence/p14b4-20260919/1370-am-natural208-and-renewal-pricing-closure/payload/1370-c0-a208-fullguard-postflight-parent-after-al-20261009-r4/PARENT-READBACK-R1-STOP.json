@@ -1,0 +1,39 @@
+{
+  "actualParentTool": {
+    "chunk_id": "006d6f",
+    "exit_code": 1,
+    "original_token_count": 74,
+    "output": "Traceback (most recent call last):\n  File \"/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/read_postflight.py\", line 16, in <module>\n    assert snapshot['rootsBefore']==snapshot['rootsAfter']\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+    "wall_time_seconds": 1.19991496
+  },
+  "actualScannerExit": 0,
+  "actualScannerStatus": "GUARDS_ACCEPTED_READONLY",
+  "actualScannerToolSessionId": 32424,
+  "after": {
+    "ctimeNs": 1791594862265074372,
+    "device": 16777220,
+    "inode": 164902343,
+    "mode": 493,
+    "mtimeNs": 1791594862265074372,
+    "path": "/Users/zacheryspector/studio-scratch"
+  },
+  "before": {
+    "ctimeNs": 1791594512003432361,
+    "device": 16777220,
+    "inode": 164902343,
+    "mode": 493,
+    "mtimeNs": 1791594512003432361,
+    "path": "/Users/zacheryspector/studio-scratch"
+  },
+  "cause": "Parent readback incorrectly compared informational shared scratch-parent timestamps. Original accepted policy explicitly permits these changes during authorized scratch preparations; all nine strict roots and complete immutable map match. No original guard or snapshot is changed.",
+  "next": "Fresh readback R2 applies already accepted strict/informational distinction; no guard retry or waiver.",
+  "onlyDifferingRoot": "scratchParent",
+  "originalScratchPolicy": "Device/inode/mode strict. Parent mtime/ctime and child deltas informational; parallel authorized scratch-only preparations/reviews may create siblings. This exception never applies to production/common/copied roots or copied .git/node_modules.",
+  "originalSource": {
+    "bytes": 3287,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/read_postflight.py",
+    "sha256": "60762e00d9ec37d21b4db0ecadf2423e03b5e86996dafe21ec2e5b7129b0ccba"
+  },
+  "schema": "1370-root-postflight-readback-assertion-failure/v1",
+  "status": "PARENT_READBACK_R1_STOP_OVERBROAD_SCRATCH_TIMESTAMP_ASSERTION"
+}

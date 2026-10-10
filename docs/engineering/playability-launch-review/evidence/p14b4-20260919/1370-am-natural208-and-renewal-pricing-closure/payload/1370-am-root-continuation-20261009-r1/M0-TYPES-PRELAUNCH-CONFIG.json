@@ -1,0 +1,52 @@
+{
+  "baseline": {
+    "bytes": 8562268,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+    "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+  },
+  "copyAdmission": {
+    "bytes": 3717,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "sha256": "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d"
+  },
+  "executionAuthorization": false,
+  "guardConfig": {
+    "bytes": 3906,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
+    "sha256": "20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41"
+  },
+  "guardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+    "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+  },
+  "materializerBinding": {
+    "bytes": 4295,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1/BINDING-DRAFT.json",
+    "sha256": "5f6de7413b9a28a9e30284062e99bf52a3ea83f9ba0074515b3257515c8b0c0f"
+  },
+  "materializerSource": {
+    "bytes": 30502,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/materialize.py",
+    "sha256": "2d63876297bc85a1ab5192491f4255d2cce7d17de048bfec65c21b479d1f0896"
+  },
+  "originalPrelaunchSource": {
+    "bytes": 23349,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r2/preflight.py",
+    "sha256": "fd2f806d140fbd74c34b130d299be20ff3382dd07e71ccf6da3f16d7c95e5fef"
+  },
+  "originalReusePlan": {
+    "bytes": 5164,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/PLAN.md",
+    "sha256": "acd0e3cb6ae3138f531cddba326bced7252c6f74fc13353b9ac728f68375413b"
+  },
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r2",
+  "ownedPgids": [],
+  "protectedFreezeContinues": true,
+  "protectedSnapshot": {
+    "bytes": 8576176,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-proof-r2/SNAPSHOT.json",
+    "sha256": "e28f4158e00183be491937e34c98ee67e9427a998b49f9780719c3595acf9d38"
+  },
+  "schema": "1370-root-m0-original-current-root-prelaunch-config/v1"
+}

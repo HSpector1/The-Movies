@@ -1,0 +1,37 @@
+{
+  "schema": "1370-a208-adopted-preflight-independent-source-review-seal/v1",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_A208_ORIGINAL_PERMITTED_ADOPTED_PREFLIGHT",
+  "executionAuthorization": false,
+  "files": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-source-review-after-al-20261009-r2/FORWARD.independent.diff",
+      "sha256": "ccfe01b6308c227e289e5301bcdaf50d3f4ab2dde9e4d76c18e3569b1dafa7b4",
+      "bytes": 34880
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-source-review-after-al-20261009-r2/FROM-R1.independent.diff",
+      "sha256": "91900394f1acd3430f9ae0294345e4af7d3a0d10680d2ed6c274c331c1d813f7",
+      "bytes": 2118
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-source-review-after-al-20261009-r2/INVERSE.independent.diff",
+      "sha256": "b4c43522355e33e6a5fbc0277ff8ff34ec36bf8e529c24e5d3de6b289ba45128",
+      "bytes": 34880
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "a8956c52486499a1bd4e752f9cc27d68c16c1ca1f33323ac5790e864cd3bbea0",
+      "bytes": 10090
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-source-review-after-al-20261009-r2/REPORT.md",
+      "sha256": "0cf5a74bd5fa91b231c7ef815e966617a975f79c0638538f1b6deeabdcd13f55",
+      "bytes": 2636
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-source-review-after-al-20261009-r2/TO-R1.independent.diff",
+      "sha256": "61ef5b398742f545fdbc30639b5a9b54b9c18548fedfbcef3bd5467cb12fb727",
+      "bytes": 2118
+    }
+  ]
+}

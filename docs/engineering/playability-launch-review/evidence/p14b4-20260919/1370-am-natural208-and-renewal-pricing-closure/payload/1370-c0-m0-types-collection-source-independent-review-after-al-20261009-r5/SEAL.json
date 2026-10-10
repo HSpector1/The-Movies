@@ -1,0 +1,10 @@
+{
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "receipt": {
+    "bytes": 28281,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r5/RECEIPT.json",
+    "sha256": "d857ef103c2a6214d69bf10a2695eda1fdbba7cbe80fa1ac0c0b39c4c0b21de0"
+  },
+  "schema": "1370-source-review-seal/v1"
+}

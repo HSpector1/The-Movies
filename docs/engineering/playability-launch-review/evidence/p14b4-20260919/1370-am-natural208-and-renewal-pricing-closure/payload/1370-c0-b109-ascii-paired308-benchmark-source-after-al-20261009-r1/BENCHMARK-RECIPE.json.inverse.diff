@@ -1,0 +1,240 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/BENCHMARK-RECIPE.json
++++ /Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/CONTROL-RECIPE.json
+@@ -5,29 +5,18 @@
+     "/bin/bash",
+     "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+     "0",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-lane-after-al-20261009-r1/benchmark.lane.log",
++    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-lane-after-al-20261009-r2/controls.lane.log",
+     "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+     "-B",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py",
+-    "benchmark"
++    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/record-pure-node.py",
++    "controls"
+   ],
+-  "benchmarkPerformanceAcceptance": null,
+   "bounds": {
+     "activeSeconds": 75,
+     "nodeSeconds": 60,
+     "stderrBytes": 1048576,
+     "stdoutBytes": 1048576,
+     "wholeSeconds": 90
+-  },
+-  "correctnessAdoption": {
+-    "bytes": 8077,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-FOCUSED-OBSERVED-ADOPTION.json",
+-    "sha256": "cabca84e104aaf7864ad0fa46c0c578b690e1f2b67fd42bca51890773d159a68"
+-  },
+-  "correctnessReview": {
+-    "bytes": 10800,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-independent-observed-review-after-al-20261009-r2/RECEIPT.json",
+-    "sha256": "45ed83313ed82b9ffa7646204574ef2c02bf42504633133b70b3692c85eb3b9d"
+   },
+   "currentProtection": {
+     "bytes": 10578,
+@@ -50,75 +39,76 @@
+   "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+   "executionAuthorization": false,
+   "expected": {
+-    "P17P18Accepted": false,
+-    "captureWholeHashProvenance": "PRIOR_ACCEPTED_ONLY_NOT_REHASHED_HERE",
+-    "claimLimit": "Same newly recorded genuine indexed308 selected2529 versus ASCII f382 encoder-only paired timing under standard native builtins. Both-arm weighted values are constant-early-fixture illustrations, not measured full109 runtime, lower bounds or headroom. Later growth, intervention content and non-encoder work remain unmeasured. Preserve regressions; no cross-session controlled comparison, source promotion, game/integration/full109 retry or P17/P18 acceptance. B109300/375/390 and both complete110-boundary arms remain unchanged.",
+-    "constantEarlyFixtureIllustrationOnly": true,
+-    "currentCaptureMetadataRole": "RETAINED_PRIOR_METADATA_REQUIRED_EXACT_AT_GRANT_AND_READ_NOT_A_NEW_PREPARATION_OBSERVATION",
+-    "executionAuthorization": false,
+-    "fixture": {
+-      "member": 308,
+-      "rawBytes": 4228063,
+-      "rawSha256": "9343625f2cd72964727f7d0b6679d89c0c85ba855208554af13a239d78bb968a",
+-      "stateBytes": 2103442,
+-      "stateSha256": "cac7fcc155b45be663ac516b244cf3e5fe0c4ec4fb204fb6bd173d9b17d04f7e"
+-    },
+-    "formula": "(3526*stateMedianMs+1984*wholeRowMedianMs)/1000",
+-    "full109Accepted": false,
++    "captureDecode": false,
++    "expectedRed": 3,
+     "game": false,
+-    "illustrationNotMeasuredRuntimeLowerBoundOrHeadroom": true,
+-    "indexedMemberDecodedOnly": true,
+-    "inputPurityEachTrial": true,
++    "groups": [
++      {
++        "name": "ascii128 values keys eligible mixtures empty slash DEL",
++        "pairs": 268,
++        "status": "GREEN"
++      },
++      {
++        "name": "native fallback escapes unicode separators surrogate values keys",
++        "pairs": 34,
++        "status": "GREEN"
++      },
++      {
++        "name": "raw rendered cumulative key caps and ordered limit coercions",
++        "pairs": 9,
++        "status": "GREEN"
++      },
++      {
++        "name": "byte and token flush seams oversized whole tokens late refusal",
++        "pairs": 15,
++        "status": "GREEN"
++      },
++      {
++        "name": "source getters proxies two reads dynamic lengths both branches",
++        "pairs": 8,
++        "status": "GREEN"
++      },
++      {
++        "name": "shared repeated keys mutations fresh calls no container stringify clone",
++        "pairs": 10,
++        "status": "GREEN"
++      }
++    ],
++    "mutants": [
++      {
++        "name": "escape exclusion mutant",
++        "shape": "exact native string and key byte mismatch on quote backslash LF",
++        "status": "EXPECTED_RED"
++      },
++      {
++        "name": "unicode byte-size mutant",
++        "shape": "\u00e9 missing terminal byte and budget3 wrongly admitted",
++        "status": "EXPECTED_RED"
++      },
++      {
++        "name": "raw precheck mutant",
++        "shape": "STRING versus JSON cap plus missing ordered coercion checkpoint",
++        "status": "EXPECTED_RED"
++      }
++    ],
++    "newGroups": 6,
++    "newPairs": 344,
++    "originalGroups": 28,
++    "originalPairs": 321,
+     "performanceWin": false,
+-    "rawAndStateExactEachTrial": true,
+-    "readerAndPurityRole": "UNCHANGED_STREAMING_12c37_READER_PARSER_BYTE_PURITY_NOT_TIMED",
+-    "retainedReaderClosedExact": true,
+     "saveImports": false,
+-    "schedule": {
+-      "inputs": [
+-        "state",
+-        "wholeRow"
+-      ],
+-      "measuredOrders": [
+-        [
+-          "reference",
+-          "candidate"
+-        ],
+-        [
+-          "candidate",
+-          "reference"
+-        ],
+-        [
+-          "reference",
+-          "candidate"
+-        ]
+-      ],
+-      "measuredPairsPerInput": 3,
+-      "warmupOrder": [
+-        "reference",
+-        "candidate"
+-      ],
+-      "warmupPairsPerInput": 1
+-    },
+-    "schema": "1370-b109-ascii-paired308-benchmark/v1",
+-    "sourcePromotionAuthorized": false,
+-    "status": "PURE_INDEXED308_SELECTED2529_ASCII_STRING_TOKEN_BENCHMARK_COMPLETE",
+-    "timedArms": {
+-      "candidate": "ASCII_STRING_TOKEN_f382",
+-      "reference": "SELECTED_BOUNDED_TOKEN_CHUNK_2529"
+-    },
+-    "weightsBothArms": {
+-      "state": 3526,
+-      "wholeRow": 1984
+-    },
+-    "wholeCaptureReadOrDecoded": false
++    "schema": "1370-b109-ascii-controls/v1",
++    "status": "ORIGINAL28_ASCII6_MUTANT3_EXPECTED_RED_GREEN_PASSED",
++    "totalGroups": 34,
++    "totalPairs": 665,
++    "unexpectedRed": 0
+   },
+   "helper": {
+     "bytes": 3361,
+     "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+     "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+   },
+-  "mode": "benchmark",
++  "mode": "controls",
+   "operational": {
+     "branch": "wip/headless-program-20260916-ts",
+     "docsOnlyTransitionVerified": true,
+@@ -128,7 +118,7 @@
+     "status": "PUSHED_REMOTE_AND_COMMITTED_TREE_VERIFIED",
+     "trackingWorkingHead": "8cb704e2f18e6a635943893422c9cfdc206e106d"
+   },
+-  "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-output-after-al-20261009-r1",
++  "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-output-after-al-20261009-r2",
+   "ownershipContract": {
+     "acceptedMechanismSource": {
+       "bytes": 9691,
+@@ -144,6 +134,11 @@
+     "bindAllOutcomeIdentitiesToLaunchClaim": true,
+     "groupAbsenceList": "actualOwnedGroupsFreshlyAbsent exactly [helperPgid, ownedPgid]",
+     "noPidSubstitutionForPgid": true,
++    "originalConcreteStopReview": {
++      "bytes": 6238,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-independent-review-after-al-20261009-r1/RECEIPT.json",
++      "sha256": "9f77f7c68335132a3bde7a08703ccb1df7628dfd15c25f5382908e480f6fbd2f"
++    },
+     "pidAbsenceList": "actualOwnedPidsFreshlyAbsent exactly [helperPid, childPid]",
+     "requiredOutcomeNumericIdentityFields": [
+       "helperPid",
+@@ -152,8 +147,8 @@
+     ],
+     "wrapperOwnsGroupBeforeExec": "If actual PGID differs from actual PID, call setsid on the wrapper itself; require actual PGID equals actual PID before recording and exec. No positive signals."
+   },
+-  "parentCreatesPrivateFreshLaneDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-lane-after-al-20261009-r1",
+-  "parentGrantOutputDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1",
++  "parentCreatesPrivateFreshLaneDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-lane-after-al-20261009-r2",
++  "parentGrantOutputDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r2",
+   "postRunRequiredZeroExitFields": [
+     "actualToolExit",
+     "helperExit",
+@@ -167,27 +162,18 @@
+     "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+   },
+   "recorder": {
+-    "bytes": 14032,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py",
+-    "sha256": "b23b1c43ca1c3b40c3519b19e301bb64a0f2b1debe8c66c2dc553a2456becbfd"
++    "bytes": 14041,
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/record-pure-node.py",
++    "sha256": "f5a1f8d39a31079b4a168364553498a44b10a167e067e5660979dc2cce4277e6"
+   },
+   "requiredEnvironment": {
+     "GIT_OPTIONAL_LOCKS": "0",
+     "PYTHONDONTWRITEBYTECODE": "1"
+   },
+-  "retainedCaptureMetadataRequired": {
+-    "ctimeNs": "1791439909827355864",
+-    "dev": "16777220",
+-    "ino": "166406220",
+-    "mode": "33188",
+-    "mtimeNs": "1791439909827355864",
+-    "nlink": "1",
+-    "size": "141237093"
+-  },
+-  "rootGrantSchemaRequired": "1370-root-b109-ascii-paired308-benchmark-grant/v1",
+-  "rootGrantStatusRequired": "GRANT_EXACT_B109_ASCII_PAIRED308_BENCHMARK_ONCE",
+-  "schema": "1370-b109-ascii-paired308-benchmark-recipe/v1",
+-  "scope": "Pure one-indexed308 paired benchmark only; no whole-capture read/decode, private-copy/game/integration/full109/production/P17/P18 authority.",
++  "rootGrantSchemaRequired": "1370-root-b109-ascii-focused-controls-grant/v1",
++  "rootGrantStatusRequired": "GRANT_EXACT_B109_ASCII_FOCUSED_CONTROLS_ONCE",
++  "schema": "1370-b109-ascii-focused-controls-recipe/v1",
++  "scope": "Pure focused controls only; no benchmark/capture/private-copy/game/integration/full109/production/P17/P18 authority.",
+   "sourceReviewAndRootGrantExternal": true,
+-  "sourceReviewDecisionRequired": "ACCEPT_SOURCE_ONLY_UNRUN_B109_ASCII_PAIRED308_BENCHMARK_ROUTE"
++  "sourceReviewDecisionRequired": "ACCEPT_SOURCE_ONLY_UNRUN_B109_ASCII_FOCUSED_RECORDED_ROUTE"
+ }

@@ -1,0 +1,24 @@
+{
+  "schema": "1370-root-running-tool-chunks/v1",
+  "toolSessionId": 74599,
+  "scannerPid": 56863,
+  "scannerPgid": 56863,
+  "chunks": [
+    {
+      "chunk_id": "07ef45",
+      "wall_time_seconds": 1.000751064,
+      "session_id": 74599,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "8a2aca",
+      "wall_time_seconds": 5.003063196,
+      "session_id": 74599,
+      "original_token_count": 70,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-after-fill-parent-after-al-20261009-r4/AFTER-FILL-GRANT.json\", \"bytes\": 6234, \"sha256\": \"9a04cc84fb17539399075a6a4ca240e9fb35e2e1843f874aa5237d23107b368d\"}, \"scannerPid\": 56863, \"scannerPgid\": 56863}\n"
+    }
+  ],
+  "status": "RUNNING_FINAL_EXIT_UNKNOWN"
+}
+

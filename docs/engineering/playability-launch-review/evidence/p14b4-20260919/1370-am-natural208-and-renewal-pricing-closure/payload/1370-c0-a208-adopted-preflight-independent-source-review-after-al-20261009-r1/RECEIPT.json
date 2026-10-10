@@ -1,0 +1,68 @@
+{
+  "schema": "1370-a208-adopted-preflight-independent-source-review/v1",
+  "decision": "STOP_A208_ADOPTED_PREFLIGHT_EXTERNAL_CONFIG_READ_BEFORE_COPY_GATE",
+  "executionAuthorization": false,
+  "actualPreflight": null,
+  "actualFinalGameGrant": null,
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "bytes": 2398,
+    "sha256": "99c48afcb19caa6313a5acb82b09ff0a590a8c3b0b746dd69bfd189b9e74cd54"
+  },
+  "source": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r1/preflight.py",
+    "bytes": 22777,
+    "sha256": "4c46eebb61cb36c23c2a32c733c1d7f8eae4d64b069ca003141a80dd0e3c5c5d"
+  },
+  "findings": [
+    {
+      "id": "CONFIG_BEFORE_COPY_GATE",
+      "severity": "STOP",
+      "problem": "main invokes read(sys.argv[1]) before authenticating observed-copy admission and without first lexically excluding supplied config path from the known copied root. read resolves, opens and reads caller-supplied path.",
+      "scope": "Pending concrete config is outside copied root; universal original receipt-before-any-private-access contract is nevertheless unenforced.",
+      "minimalCorrection": "Lexically exclude external config from immutable known copied root before reading; bind original fullguard config to exact known scratch path and require its copiedRoot equals that known root before accepting supplied roles.",
+      "newInventoryGateRequired": false
+    }
+  ],
+  "originalReusePermission": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/PLAN.md",
+    "sha256": "acd0e3cb6ae3138f531cddba326bced7252c6f74fc13353b9ac728f68375413b",
+    "explicitContinuousFreezeReusePermitted": true,
+    "freshCurrentFDProcessUUIDRefsCleanACDiskAndPhysicalRootRequired": true
+  },
+  "originalProcedureReviewSha256": "0d0d0358356653a50d05b10fedfdeb2bee9c66939ec4ab03a83521fc42a9e693",
+  "allTenHelperDefinitionsByteExact": [
+    "require",
+    "sha",
+    "canonical",
+    "read",
+    "write",
+    "dump",
+    "command",
+    "directory_identity",
+    "ancestry",
+    "current"
+  ],
+  "ASTDefinitionsIdenticalAsConsequenceOfExactSource": true,
+  "independentASTParserExecuted": false,
+  "wholeForwardInverseDiffsIndependentlyExact": true,
+  "inversePatchExecuted": false,
+  "originalObservationBoundsUnchanged": {
+    "perCommandSeconds": 180,
+    "wholeDeadline": null
+  },
+  "pendingSixActualRoles": [
+    "adoptedBinding",
+    "exactCandidateReview",
+    "afterFillSnapshot",
+    "adoptionResult",
+    "archiveManifest",
+    "adoptedLaunch"
+  ],
+  "pendingSixActualRolesAllNull": true,
+  "laterRolesMustBeGenuineExternalRootBindingsAfterAdoption": true,
+  "noBeforeFillConfigMutationOrFutureHashCycle": true,
+  "noSourceExecutionImportsTestsGitScansProcessProbesOrPrivateReads": true,
+  "workerDetectorLiteralsAvoidedInShellArgv": true,
+  "game": false
+}

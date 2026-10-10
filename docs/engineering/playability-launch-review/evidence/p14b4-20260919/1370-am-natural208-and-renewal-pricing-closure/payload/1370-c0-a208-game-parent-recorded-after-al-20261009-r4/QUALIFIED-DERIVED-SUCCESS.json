@@ -1,0 +1,78 @@
+{
+  "actualChildExit": 0,
+  "actualTool": {
+    "bytes": 1586,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/ACTUAL-TOOL.json",
+    "sha256": "f343e073b176c3f771e5d9a00a01e4f84acee8d2e6a6f8c226d5af29ef461e0c"
+  },
+  "adoptedBinding": {
+    "bytes": 6466,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json",
+    "sha256": "eb6e99e0021809d7ad165ee5c9eba2e2b0c36ab78e34826fc11d5d488036777e"
+  },
+  "artifactKind": "PARENT_DERIVED_SUCCESS_EVIDENCE_NOT_AN_ORIGINAL_RECORDER_RESULT",
+  "exactFrame": {
+    "bytes": 74778,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/candidate-frame.stdout",
+    "sha256": "c4a7d1a9f2f7c6e9a7699c03ea89b9960b33f8fc79ab73c4aa303cbac6d00131"
+  },
+  "finalGrant": {
+    "bytes": 16087,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/FINAL-GAME-GRANT.json",
+    "sha256": "3aa7f0d5c9c05dab14bcae752a3d2d23dc9058c146b017dc7d7a6dcc3e33da21"
+  },
+  "fullPostflight": null,
+  "gameAccepted": false,
+  "groupClear": true,
+  "independentReview": null,
+  "laneMeta": {
+    "bytes": 438,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r4/controls.log.meta",
+    "sha256": "62132f8845e6af49cf80937515118941fbb6f8be8ebac467b1c685abeaddd08e"
+  },
+  "numericNodePid": null,
+  "numericOwnedChildPgid": null,
+  "numericSupervisorPid": null,
+  "pricingAccepted": false,
+  "qualification": {
+    "actualChildExit": "Original authenticated supervisor emits successful frame and exits0 only after actual sandbox/Node child exits0 and is reaped. Actual pipeline outerExit0 proves supervisor exited0. This is source-backed recorded success evidence; parent did not directly capture child wait status.",
+    "groupClear": "Original authenticated outer recorder returns success only after its owned supervisor group is absent. Actual pipeline outerExit0 records that success. Parent did not capture that numeric group or independently signal it.",
+    "numericChildIds": "Unknown; no PID or PGID is invented. Actual known helper34390 has separate recorded numeric clearance.",
+    "timedOut": "Successful original bounded outer and supervisor paths reject deadline or active timeout; actual outerExit0 is recorded. No timeout limit is altered or exact whole-duration inferred."
+  },
+  "rawGameReadback": {
+    "bytes": 3737,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/ACTUAL-GAME-READBACK.json",
+    "sha256": "9af3e1e93ba5c47045bbe7cef9e5f07204454e2275cb0bf5db9212d4e574d2a1"
+  },
+  "rawLog": {
+    "bytes": 74843,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r4/controls.log",
+    "sha256": "800c3e028210d57b328f9808d4af6725e41a4a0dcc45073438f2f2f2616aed45"
+  },
+  "schema": "1370-root-a208-qualified-derived-success-evidence/v1",
+  "snapshot": {
+    "bytes": 32249,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/settlement208.json",
+    "sha256": "caf921cc47b58abc23b30e60f05dd4b50a6dc29900e28a896afef69784643ce3"
+  },
+  "sourceRoles": {
+    "observerSourcePins": {
+      "bytes": 9882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+    },
+    "outerRecorder": {
+      "bytes": 11082,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/outer-recorder.py",
+      "sha256": "bf7cb565ba6c378323393b0e4f7a89de16e278526e34f73295e54c74bc7e8ef8"
+    },
+    "supervisor": {
+      "bytes": 22673,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/supervise.py",
+      "sha256": "45eda307943fb829a321624d7eca4ad5004a7d8e8bdef042a74c8344b61e153e"
+    }
+  },
+  "status": "DERIVED_FROM_ORIGINAL_RECORDED_SUCCESS_PENDING_POSTFLIGHT_AND_INDEPENDENT_ADMISSION",
+  "timedOut": false
+}

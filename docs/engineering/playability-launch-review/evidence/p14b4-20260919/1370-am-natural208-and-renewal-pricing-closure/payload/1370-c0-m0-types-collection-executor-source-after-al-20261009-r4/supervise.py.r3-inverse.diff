@@ -1,0 +1,17 @@
+--- supervise.py
++++ supervise.py
+@@ -4,11 +4,11 @@
+ import hashlib,json,math,os,pathlib,selectors,shutil,signal,stat,subprocess,sys,time
+ S=pathlib.Path('/Users/zacheryspector/studio-scratch')
+ REPO=pathlib.Path('/Users/zacheryspector/The-Movies-headless-program')
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4')
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3')
+ RESULT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r1/20261009-m0-types-after-al-r1.RECORDER-RESULT.json')
+ BOOTSTRAP=P/'BOOTSTRAP.py'
+-BOOTSTRAP_SHA='25696ed2167dafc16751ac00f96eb203d0c9ab7d700b6c382dce816af7b0056b'
+-RUNNER_SHA='03768e0be95c3dccf430598f7cab47a9b5d2672be6de7d456705cbf7ec2b68a7'
++BOOTSTRAP_SHA='fa7480e7d421853c9e1d53eea14dff514caa2edab4562da5c975a8ab5ab58205'
++RUNNER_SHA='4662896be328ed860c987629713fbb31d8a856854a5714fd6c1d7e07065450c6'
+ AUTHORITY=globals()['_AUTHORITY']
+ CONTEXT=pathlib.Path(globals()['_CONTEXT_PATH'])
+ CONTEXT_SHA=globals()['_CONTEXT_SHA']

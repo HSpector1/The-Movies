@@ -1,0 +1,14 @@
+{
+  "absenceClaim": false,
+  "issuingHelperPid": 34390,
+  "method": "Observed transitive PPID ancestry rooted in recorded direct-exec helper34390",
+  "rawPs": {
+    "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+    "bytes": 74319,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/ACTIVE-PS.LOCAL",
+    "sha256": "313aa90fa51d5abb033062a1485b77ed4bd4cd75f85ac70d663af4f9f19c15c4"
+  },
+  "rows": [],
+  "schema": "1370-a208-root-live-owned-descendant-observation/v1",
+  "utc": "2026-10-10T01:05:17.446241+00:00"
+}

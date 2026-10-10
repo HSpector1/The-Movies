@@ -1,0 +1,477 @@
+{
+  "actualLaunch": {
+    "actualToolExit": 0,
+    "bindingWitnessGrantRemainsNull": true,
+    "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+    "environment": {
+      "GIT_OPTIONAL_LOCKS": "0",
+      "PATH": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "exactArgv": [
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r4/controls.log",
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/launch-pipeline-a208-held.sh",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json",
+      "eb6e99e0021809d7ad165ee5c9eba2e2b0c36ab78e34826fc11d5d488036777e"
+    ],
+    "finalGrantExternalToBinding": true,
+    "helperExit": 0,
+    "helperPgid": 34390,
+    "helperPid": 34390,
+    "helperSid": 34390,
+    "originalLaunchAndSourcesUnchanged": true,
+    "outerExit": 0,
+    "sinkExit": 0,
+    "toolSessionId": 51117
+  },
+  "authorityChain": {
+    "actualAdoptionReadback": {
+      "bytes": 4600,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-adoption-parent-after-al-20261009-r4/ACTUAL-ADOPTION-READBACK.json",
+      "sha256": "dd8b9a64baacf0a57e1f9df1beab3e861bdd751db6f720cb1c7cc99c45e0f766"
+    },
+    "actualControlsAdoption": {
+      "bytes": 8775,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json",
+      "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+    },
+    "admittedAdoptedPreflight": {
+      "bytes": 12735,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-output-after-al-20261009-r2/PREFLIGHT.json",
+      "sha256": "9f4566352756c361199ca994b55d066178d17556fef7cccaac0edf997504e7ee"
+    },
+    "adoptedLaunch": {
+      "bytes": 14438,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4/ADOPTED-LAUNCH-SPEC.json",
+      "sha256": "8b00d32003449bd4710f312c9e5afe1e13732de60a158542c5f546f56f11cde5"
+    },
+    "adoptionResult": {
+      "bytes": 1651,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4/ADOPTION-RESULT.json",
+      "sha256": "d3e50b0410d6c42c6361c6b6cf675c60415a4358649e412719ef60e07ae06a8d"
+    },
+    "archiveManifest": {
+      "bytes": 1040,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4/ARCHIVE-MANIFEST.json",
+      "sha256": "e62c9abb2f7ceb1620bff4fec7f5fc3e656dd1888e8a86d701000fba3a602eea"
+    },
+    "causalOrderContractAdoption": {
+      "bytes": 1595,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/CAUSAL-ORDER-CONTRACT-ADOPTION.json",
+      "sha256": "4fd8459c191b6ff46b5c7a02677a4967914791c11ea4232c10818252351a9028"
+    },
+    "currentAlPublishedReadback": {
+      "bytes": 1250,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+      "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+    },
+    "exactCandidateReview": {
+      "bytes": 16303,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-independent-review-after-al-20261009-r4/RECEIPT.json",
+      "sha256": "6949f4287cc25b139d1d8fa62d891a876e5e565b078f893b1f665bf3037646cd"
+    },
+    "externalFinalGrantContractAdoption": {
+      "bytes": 2592,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/EXTERNAL-FINAL-GRANT-DESIGN-ADOPTION.json",
+      "sha256": "2fd088a0ab757f926a451674ddfdaa48d79715479b65982d7fe68f7df918e847"
+    },
+    "fieldMap": {
+      "bytes": 18125,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-final-external-game-grant-fieldmap-after-al-20261009-r1/MAP.json",
+      "sha256": "65d00ce1f69622875b35290694424b7ce1a9329e54394b5d8008df0d14037bc3"
+    },
+    "independentActualPreflightReview": {
+      "bytes": 22784,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-observed-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "8465f006d60042f2ebb3a8e0f3f47fcf6ba425fa50a598881c9deaeb50075763"
+    },
+    "knownBeforeFillAuthority": {
+      "bytes": 10578,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+      "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3"
+    },
+    "rootActualPreflightAdoption": {
+      "bytes": 3078,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-ADOPTED-PREFLIGHT-OBSERVED-ADOPTION.json",
+      "sha256": "c9cb14cf47964d22eee1013a26458e3e861ffc37f56121a1e8c35b514a976941"
+    }
+  },
+  "configSha256": "eb6e99e0021809d7ad165ee5c9eba2e2b0c36ab78e34826fc11d5d488036777e",
+  "consumerRoles": {
+    "A208Config": {
+      "bytes": 6466,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json",
+      "sha256": "eb6e99e0021809d7ad165ee5c9eba2e2b0c36ab78e34826fc11d5d488036777e"
+    },
+    "A208Result": {
+      "bytes": 4255,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/QUALIFIED-DERIVED-SUCCESS.json",
+      "sha256": "e6dadba182b2f61c58965754cb4262de81575ab8372b9fe0fd38ba3dcf9cdfe0"
+    },
+    "A208Snapshot": {
+      "bytes": 32249,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/settlement208.json",
+      "sha256": "caf921cc47b58abc23b30e60f05dd4b50a6dc29900e28a896afef69784643ce3"
+    },
+    "A208SourcePins": {
+      "bytes": 9882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+    },
+    "A208Stdout": {
+      "bytes": 74778,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/candidate-frame.stdout",
+      "sha256": "c4a7d1a9f2f7c6e9a7699c03ea89b9960b33f8fc79ab73c4aa303cbac6d00131"
+    }
+  },
+  "decision": "ACCEPT_OBSERVED_A208_NATURAL_208_AND_FULL_416_GAME_WITH_FULL_POSTFLIGHT",
+  "executionAuthorization": false,
+  "floorAttribution": false,
+  "fullPostflight": {
+    "acceptedPrivateProof": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/evidence/postflight-r9-20261009-r1/SNAPSHOT.json",
+      "sha256": "555867b2be0abf76728fc8b905c52a73512b5da31d24162d804e7e1b9d8c9347"
+    },
+    "actualTool": {
+      "bytes": 1632,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-postflight-parent-after-al-20261009-r4/ACTUAL-TOOL.json",
+      "sha256": "96619fb357371b0fae96db2d6e94f395808ca3a9a3c7aba950dc4de5b6c507d9"
+    },
+    "actualToolExit": 0,
+    "afterFill": {
+      "bytes": 8565365,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/after-fill-after-al-game-r4/SNAPSHOT.json",
+      "sha256": "64da19fd4b46d8d0311360cbc08a90d57817175c781e2f73e4fd850925771719"
+    },
+    "allOriginalCurrentPredicatesPassed": true,
+    "argumentReview": {
+      "bytes": 4318,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-original-postflight-argument-independent-review-after-al-20261009-r1/RECEIPT.json",
+      "sha256": "07559d6bdb7c40ecec5c57e3f3592038aca147e4c545df62815a826e20547ad2"
+    },
+    "baseline": {
+      "bytes": 8562268,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+      "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+    },
+    "grant": {
+      "bytes": 4104,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-postflight-parent-after-al-20261009-r4/POSTFLIGHT-GRANT.json",
+      "sha256": "fbd851737e3de22b99c321d4754e4d911b66af56d2701f593b304f00e0bccbe5"
+    },
+    "guardConfig": {
+      "bytes": 3906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
+      "sha256": "20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41"
+    },
+    "guardSource": {
+      "bytes": 21984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+      "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+    },
+    "heavyLaneLockAbsent": true,
+    "historicalCopyHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+    "operationalHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+    "ownedGameGroupIdsChecked": [
+      34390
+    ],
+    "parentReadback": {
+      "bytes": 2978,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-postflight-parent-after-al-20261009-r4/POSTFLIGHT-READBACK.json",
+      "sha256": "b89768e00fbaf5f710afdf55ac2dfb7821fff95250b648b6b89b6433e777f1e5"
+    },
+    "perCommandTimeoutSeconds": 180,
+    "phase": "postflight",
+    "pins": {
+      "bytes": 507,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4/PINS.json",
+      "sha256": "7b38710f4a07912c1e471a9d23512eab42342edbd5bcfc024727330606c58066"
+    },
+    "postOwnership": {
+      "bytes": 683,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-postflight-parent-after-al-20261009-r4/POST-OWNERSHIP.json",
+      "sha256": "8bcb9d590724880e5b55df16feed5c7f6230bbb5666499a5cf2efc6b5489d5ac"
+    },
+    "privateInventoryReperformedByReviewer": false,
+    "reportedElapsedSeconds": 499.1006373150012,
+    "reportedInventoryElapsedSeconds": 395.71706090000225,
+    "scannerExit": 0,
+    "scannerPgid": 42893,
+    "scannerPid": 42893,
+    "scopedPostChecks": [
+      {
+        "id": 34390,
+        "kind": "pid",
+        "result": "ESRCH",
+        "signal": 0
+      },
+      {
+        "id": 34390,
+        "kind": "pgid",
+        "result": "ESRCH",
+        "signal": 0
+      },
+      {
+        "id": 42893,
+        "kind": "pid",
+        "result": "ESRCH",
+        "signal": 0
+      },
+      {
+        "id": 42893,
+        "kind": "pgid",
+        "result": "ESRCH",
+        "signal": 0
+      }
+    ],
+    "scratchChangedFieldsOnly": [
+      "mtimeNs",
+      "ctimeNs"
+    ],
+    "scratchParentIdentityStrict": {
+      "device": 16777220,
+      "inode": 164902343,
+      "mode": 493,
+      "path": "/Users/zacheryspector/studio-scratch"
+    },
+    "scratchParentPolicy": "Device/inode/mode strict. Parent mtime/ctime and child deltas informational; parallel authorized scratch-only preparations/reviews may create siblings. This exception never applies to production/common/copied roots or copied .git/node_modules.",
+    "snapshot": {
+      "bytes": 8568780,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4/SNAPSHOT.json",
+      "sha256": "6922608bdeedd86e289aeac3c56c297e257b6eb98964e0fe00b95def5dc51e1d"
+    },
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "status": "GUARDS_ACCEPTED_READONLY",
+    "stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-postflight-parent-after-al-20261009-r4/postflight.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 454,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-postflight-parent-after-al-20261009-r4/postflight.stdout",
+      "sha256": "0f3e00aa6d6f339df5b59a599708113fa603c8ae0d36bfb5b09019ea86b41ccb"
+    },
+    "strictRootCount": 9,
+    "strictRootsBeforeAfterAndBaselineEqual": true,
+    "threeFullImmutableMapsEqual": true,
+    "toolSessionId": 32424,
+    "wholeScanDeadline": null
+  },
+  "gameAccepted": true,
+  "limits": [
+    "Admission covers this authenticated historical A208 natural208 selected16 and original full416/44-row game under current AL authority only.",
+    "Numeric supervisor/Node child PID/PGID remain unknown. Numerical postabsence scoped to known helper34390 and scanner42893 only; no global or all-historical-ID postabsence claim.",
+    "Original private full-proof and retained H protection semantics preserved. No H neutrality/H8708 waiver, M0 rematerialization/readback, premium/floor attribution, B109 pricing/vector/benchmark, C0 or1363 acceptance.",
+    "Immutable documentary pending/null fields are not rewritten; actual final admission lives in this receipt. Subsequent execution requires its own existing root authority."
+  ],
+  "localOnlyRawEvidence": {
+    "activeGameProcessCapture": {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 74319,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/ACTIVE-PS.LOCAL",
+      "sha256": "313aa90fa51d5abb033062a1485b77ed4bd4cd75f85ac70d663af4f9f19c15c4"
+    },
+    "allFourPostflightPsFdRolesLocalRegardlessExtension": true,
+    "lateRowsEmptyIsNotAbsenceProof": true,
+    "postflightBytes": 1484044,
+    "postflightClassification": {
+      "bytes": 1532,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-postflight-parent-after-al-20261009-r4/RAW-LOCAL-ONLY-ROLES.json",
+      "sha256": "879701e65e12345efe1e707d615c4485307c8115ddf3502191f897cb44d76c6c"
+    },
+    "postflightRoles": [
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 94554,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4/BEFORE-PS.txt",
+        "sha256": "33d2fad2356c054af35c87b9de4c49b721677580deb4cf481026f61e66e09bef"
+      },
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 97649,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4/AFTER-PS.txt",
+        "sha256": "9aaf5b45eb8b79ee6313990b1ac55354284b8a667e7cbe5c1801f0c4110dbab4"
+      },
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 643214,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4/BEFORE-LSOF.bin",
+        "sha256": "d4ef46c8c6bb2aa6870d012546bd8f85b436744f89fcc80ccc0538889ef0b840"
+      },
+      {
+        "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+        "bytes": 648627,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-a208-r4/AFTER-LSOF.bin",
+        "sha256": "5b57793259444c5082f330d5f8f1e67b38a46b80a3d9847356d0eed494537e5b"
+      }
+    ],
+    "rawMachineContentsNotPublished": true
+  },
+  "originalSuccessPathReview": {
+    "boundsUnchanged": {
+      "activeStopSeconds": 742,
+      "innerSeconds": 720,
+      "preimageBytes": 262144,
+      "raw208Bytes": 65536,
+      "recorderWholeSeconds": 750,
+      "rowBytes": 4096,
+      "stderrBytes": 65536,
+      "stdoutBytes": 524288
+    },
+    "meaning": "Actual outerExit0 authenticates original supervisor reap and owned-group absence. Authenticated supervisor success requires sandbox/Node child exit0 and reaped with empty internal stderr. These are source-backed recorded success facts, not independently captured parent numeric child wait statuses/probes. Original no-detach contract retained.",
+    "outerReapLines": "73-78",
+    "outerSuccessLines": "214-219,230-245",
+    "supervisorBoundedFrameWriteLines": "403-418",
+    "supervisorChildSuccessReapLines": "382-400",
+    "supervisorStopChildLines": "108-126"
+  },
+  "outputFindings": {
+    "coarseHelperTimes": "20:04:52 to20:05:03 local; informational textual timestamps only.",
+    "digestQualification": "Employment raw bytes independently hashed. Settlement/receipt/take digests and RNG are authenticated original successful witness assertions; unreturned full underlying records were not independently rehashed.",
+    "digests": {
+      "employment": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58",
+      "receipts": "af8c4d1325ecb350dbc07fbf2f762dd8257db04075b8030bf7bd975b4cb2a766",
+      "rng": "2598418427,508725886,1318803286,3129010527",
+      "settlement": "706e54c6ec9728df1664025982ebbafeb0fc36afb245b6bd0b983305f6a10a77",
+      "takes": "8af116b1687ed210c02953b5b506456e638a64482e8042b0e549b0d57e428694"
+    },
+    "directWorktreeFiles": 11,
+    "employmentBytes": 13113,
+    "employmentRows": 44,
+    "exactJsonLines": 2,
+    "extraObserverRngCalls": 0,
+    "firstQuote": "Committed age44, salary395548, bonus71199, exact authored provenance and unchanged initial contract match original witness; no salary-cause admission.",
+    "frameBytesIncludingNewline": 74778,
+    "frozenObserverSourcesAuthenticated": 18,
+    "maxRawRowTokenBytesIncludingComma": 2100,
+    "nativeGamePricingCallsClaimedZero": false,
+    "naturalCaptureBytes": 32249,
+    "naturalCapturePhase": "after-natural-tick208-return",
+    "naturalCaptureRows": 16,
+    "naturalCaptureWeek": 208,
+    "observerFiles": 8,
+    "preciseWholeGameDurationClaimed": false,
+    "pricingObserverCalls": 0,
+    "producerReportedElapsedMs": 4990,
+    "protocol": "single-bounded-stdout-frame-no-files",
+    "rawCaptureCapBytes": 65536,
+    "rawEmploymentHashIndependentlyRecomputed": true,
+    "rawLogBytes": 74843,
+    "rowCapBytes": 4096,
+    "runtimeFiles": 5,
+    "selectedRows": "Exact frozen selected16 sourceOrder24..39, occurrence0 identities, old/renewal employment and settlement/business/proposal/termination predicates independently checked against authenticated selection and original source oracles. Current208 renewal has endedWeek null; corresponding full44 final renewal ends416.",
+    "sourceBlobs": 11,
+    "status": "MATCHED_AGING_ERA_PREIMAGE_CANDIDATE",
+    "threeFlightsEqual": true,
+    "weeks": 416
+  },
+  "parentReadbackStop": {
+    "actualScannerExit": 0,
+    "cause": "Root R1 incorrectly asserted equality including informational shared scratch-parent mtime/ctime. Exactly those two timestamp changes authenticated; nine strict roots, strict scratch identity and entire immutable map equal. Fresh R2 readback applies original accepted policy to the same unchanged successful snapshot.",
+    "guardFailure": false,
+    "guardRetry": false,
+    "originalSource": {
+      "bytes": 3287,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/read_postflight.py",
+      "sha256": "60762e00d9ec37d21b4db0ecadf2423e03b5e86996dafe21ec2e5b7129b0ccba"
+    },
+    "originalSourcePreserved": true,
+    "parentReadbackR1Exit": 1,
+    "role": {
+      "bytes": 2099,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-postflight-parent-after-al-20261009-r4/PARENT-READBACK-R1-STOP.json",
+      "sha256": "5cf550f715b5356d2aa3abc7b8ccbb451775550eef09c07b4ee89dc8668341a1"
+    },
+    "waiver": false
+  },
+  "premiumAttribution": false,
+  "pricingAccepted": false,
+  "qualifiedDerivedRole": {
+    "actualChildExit": 0,
+    "artifactKind": "PARENT_DERIVED_SUCCESS_EVIDENCE_NOT_AN_ORIGINAL_RECORDER_RESULT",
+    "finalAdmissionLivesInThisReceipt": true,
+    "groupClear": true,
+    "numericNodePid": null,
+    "numericOwnedChildPgid": null,
+    "numericSupervisorPid": null,
+    "originalRecorderResultClaimed": false,
+    "qualification": {
+      "actualChildExit": "Original authenticated supervisor emits successful frame and exits0 only after actual sandbox/Node child exits0 and is reaped. Actual pipeline outerExit0 proves supervisor exited0. This is source-backed recorded success evidence; parent did not directly capture child wait status.",
+      "groupClear": "Original authenticated outer recorder returns success only after its owned supervisor group is absent. Actual pipeline outerExit0 records that success. Parent did not capture that numeric group or independently signal it.",
+      "numericChildIds": "Unknown; no PID or PGID is invented. Actual known helper34390 has separate recorded numeric clearance.",
+      "timedOut": "Successful original bounded outer and supervisor paths reject deadline or active timeout; actual outerExit0 is recorded. No timeout limit is altered or exact whole-duration inferred."
+    },
+    "role": {
+      "bytes": 4255,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/QUALIFIED-DERIVED-SUCCESS.json",
+      "sha256": "e6dadba182b2f61c58965754cb4262de81575ab8372b9fe0fd38ba3dcf9cdfe0"
+    },
+    "sourceRoles": {
+      "observerSourcePins": {
+        "bytes": 9882,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+        "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+      },
+      "outerRecorder": {
+        "bytes": 11082,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/outer-recorder.py",
+        "sha256": "bf7cb565ba6c378323393b0e4f7a89de16e278526e34f73295e54c74bc7e8ef8"
+      },
+      "supervisor": {
+        "bytes": 22673,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/supervise.py",
+        "sha256": "45eda307943fb829a321624d7eca4ad5004a7d8e8bdef042a74c8344b61e153e"
+      }
+    },
+    "timedOut": false,
+    "unchangedArtifactStillPendingPostflight": true
+  },
+  "rawGameEvidence": {
+    "actualTool": {
+      "bytes": 1586,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/ACTUAL-TOOL.json",
+      "sha256": "f343e073b176c3f771e5d9a00a01e4f84acee8d2e6a6f8c226d5af29ef461e0c"
+    },
+    "employment": {
+      "bytes": 13113,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/employment.json",
+      "sha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58"
+    },
+    "grant": {
+      "bytes": 16087,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/FINAL-GAME-GRANT.json",
+      "sha256": "3aa7f0d5c9c05dab14bcae752a3d2d23dc9058c146b017dc7d7a6dcc3e33da21"
+    },
+    "lateProcessObservation": {
+      "bytes": 567,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/ACTIVE-OWNERSHIP.json",
+      "sha256": "b9e398086e57699977eb89fd406857a88844eb86007f4c93310a7110e49e6461"
+    },
+    "log": {
+      "bytes": 74843,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r4/controls.log",
+      "sha256": "800c3e028210d57b328f9808d4af6725e41a4a0dcc45073438f2f2f2616aed45"
+    },
+    "meta": {
+      "bytes": 438,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r4/controls.log.meta",
+      "sha256": "62132f8845e6af49cf80937515118941fbb6f8be8ebac467b1c685abeaddd08e"
+    },
+    "parentReadback": {
+      "bytes": 3737,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-parent-recorded-after-al-20261009-r4/ACTUAL-GAME-READBACK.json",
+      "sha256": "9af3e1e93ba5c47045bbe7cef9e5f07204454e2275cb0bf5db9212d4e574d2a1"
+    }
+  },
+  "resultSha256": "e6dadba182b2f61c58965754cb4262de81575ab8372b9fe0fd38ba3dcf9cdfe0",
+  "reviewScope": "One original required game/output review including actual full postflight. Independent retained source/evidence reading, hashing, JSON/base64 decoding and comparisons only. No candidate imports or executions, scans, probes, Git, private-root reads or production/common changes by reviewer. Original source and actual measurement scopes distinct; no added gate.",
+  "schema": "1370-independent-a208-natural208-full416-observed-review/v1",
+  "snapshotSha256": "caf921cc47b58abc23b30e60f05dd4b50a6dc29900e28a896afef69784643ce3",
+  "sourcePinsSha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf",
+  "stdoutSha256": "c4a7d1a9f2f7c6e9a7699c03ea89b9960b33f8fc79ab73c4aa303cbac6d00131"
+}

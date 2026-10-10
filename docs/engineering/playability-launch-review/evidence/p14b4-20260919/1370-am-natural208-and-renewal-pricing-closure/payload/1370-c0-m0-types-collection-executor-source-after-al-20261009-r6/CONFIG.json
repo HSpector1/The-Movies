@@ -1,0 +1,773 @@
+{
+  "acceptedOverlayRoles": [
+    {
+      "baseline": {
+        "bytes": 92358,
+        "gitBlob": "c5fd8cf73969bb14084d4cbd3a58fdfc8ecb2c95",
+        "gitMode": "100644",
+        "sha256": "010ed07634a5991674dc867f61b3b78ab022c91699366d29fea26a4d5585c087",
+        "status": "PRESENT"
+      },
+      "bytes": 116906,
+      "destination": "src/core/talentMarket.ts",
+      "sha256": "71c775336c581fb5c5ad8923d4648bc8bf492ee38f235214f861fd1d0e7ac804",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/modern-talentMarket.ts"
+    },
+    {
+      "baseline": {
+        "bytes": 110822,
+        "gitBlob": "ffffa624b13c76c282fa3d5c9a698c789848fbd5",
+        "gitMode": "100644",
+        "sha256": "580ddb7d1e8c5a198f18beb5843d1cecf77680b8b735e1f2603e2c86099e950d",
+        "status": "PRESENT"
+      },
+      "bytes": 112969,
+      "destination": "src/core/promises.ts",
+      "sha256": "d51392856323387e55c495da1a853f11102352038e2d2098925420290bacfa6f",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/modern-promises.ts"
+    },
+    {
+      "baseline": {
+        "bytes": 22184,
+        "gitBlob": "858417e865a4f833e38433b8b51dd8f4cce596d3",
+        "gitMode": "100644",
+        "sha256": "a4acd02eb0151af8c873f939a546bdc26265ca0c680c3c004def056e124a4461",
+        "status": "PRESENT"
+      },
+      "bytes": 24797,
+      "destination": "src/core/opportunityPromises.ts",
+      "sha256": "4df4011157a9cec0ae98a7fb46a8c4cd7557f667c769abef772b2181fc6cb6fd",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/modern-opportunityPromises.ts"
+    },
+    {
+      "baseline": {
+        "bytes": null,
+        "gitBlob": null,
+        "gitMode": null,
+        "sha256": null,
+        "status": "ABSENT_AT_SOURCE_COMMIT"
+      },
+      "bytes": 4729,
+      "destination": "src/core/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/m0FeasibilityWitness.ts"
+    },
+    {
+      "baseline": {
+        "bytes": null,
+        "gitBlob": null,
+        "gitMode": null,
+        "sha256": null,
+        "status": "ABSENT_AT_SOURCE_COMMIT"
+      },
+      "bytes": 12710,
+      "destination": "tests/diagnostic.test.ts",
+      "sha256": "8a578e20807a34758f6ae3005caea94824f16aebe36eb92d360139dfa15685b7",
+      "source": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/diagnostic.test.ts"
+    }
+  ],
+  "actualExecutionRoles": null,
+  "actualGrant": null,
+  "actualSourceReview": null,
+  "bridgeBytes": 1517743,
+  "bridgeFiles": 63,
+  "bridgeRecordedProjectionSha256": "3fd1507e0d93b23707b70450be406c3801d85545387b65b4aebecc4d96de0f93",
+  "bridgeTree": "faa227af051c5ec529644b5f84151314ea63cc30",
+  "childWallSeconds": 300,
+  "claimLimit": "SOURCE_ONLY_TYPES_AND_COLLECTION_NO_GAME_OR_H_METADATA_WAIVER",
+  "currentProtectedScopeAdoption": null,
+  "dependencyPackages": {
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/@playwright/test/package.json": {
+      "bytes": 754,
+      "gitBlobOid": "b0e75bdc341bbb071d16ccb5b04dcdae7df7bdd4",
+      "identity": [
+        16777220,
+        158488340,
+        420,
+        1,
+        754,
+        1787926688398813577,
+        1789555156647400676
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@playwright/test/package.json",
+      "sha256": "351697e1ef6a68a63557ffedf1992955a2d8979b11e0bf9f175820956951c65b"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/jest-dom/package.json": {
+      "bytes": 3906,
+      "gitBlobOid": "815065b97fd4a7a706eb2a029242f37092e4259b",
+      "identity": [
+        16777220,
+        158497421,
+        420,
+        1,
+        3906,
+        1787926688902914085,
+        1789555174179301172
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/jest-dom/package.json",
+      "sha256": "69feda5b43fa7a69ece4cda0626efcf0c762098b9c5a82a85fd8fb33f588720a"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/react/package.json": {
+      "bytes": 3387,
+      "gitBlobOid": "3226821bdb94d3ceaa76959206f3ec582f9cc2d4",
+      "identity": [
+        16777220,
+        158497305,
+        420,
+        1,
+        3387,
+        1787926688781546302,
+        1789555173856134818
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/react/package.json",
+      "sha256": "67974b165512b3f03785a70ce8228c1df0ab84408f02d2185aafac171621ed6e"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/user-event/package.json": {
+      "bytes": 3260,
+      "gitBlobOid": "7cb3d6a76fb8ab2ce70cdbc1aced19eb9efcfcb4",
+      "identity": [
+        16777220,
+        158497276,
+        420,
+        1,
+        3260,
+        1787926692023002972,
+        1789555173818105477
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/user-event/package.json",
+      "sha256": "b1de1b34ef51d3d3b442be033f850cb7db0bdffce5e235d371f7a39aa693fad9"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/@types/node/package.json": {
+      "bytes": 4508,
+      "gitBlobOid": "699c71eb29a64279f105e59c3b2dad3c0752ea6f",
+      "identity": [
+        16777220,
+        158488255,
+        420,
+        1,
+        4508,
+        1787926690311500175,
+        1789555156506063313
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@types/node/package.json",
+      "sha256": "83e7472f5b94b43acde2e60b39cef9adc278a1f2a5d7cc4b4c677e29da3e0ab9"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/@types/react-dom/package.json": {
+      "bytes": 3383,
+      "gitBlobOid": "62ca60ff6595048b267a6945e9154e79483f8c00",
+      "identity": [
+        16777220,
+        158488150,
+        420,
+        1,
+        3383,
+        1787926688075185171,
+        1789555156324678892
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@types/react-dom/package.json",
+      "sha256": "bf90986beaec5f757c164bf1d374f3038dc41b0b06673de4a55fd975d1e5deca"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/@types/react/package.json": {
+      "bytes": 6109,
+      "gitBlobOid": "2fbf589549d2f1e297f46af9af1b04625a2fc5ad",
+      "identity": [
+        16777220,
+        158488298,
+        420,
+        1,
+        6109,
+        1787926688346596911,
+        1789555156582708065
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@types/react/package.json",
+      "sha256": "36496fc09a9dcf31b0ca969ce5677c9ce9ebb5c89da9bd6212e0c89b6fae3f88"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/@types/three/package.json": {
+      "bytes": 1708,
+      "gitBlobOid": "2faa14c978b554d964002c52c02d6fb95630e292",
+      "identity": [
+        16777220,
+        158487103,
+        420,
+        1,
+        1708,
+        1787926687966924358,
+        1789555154400706743
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@types/three/package.json",
+      "sha256": "b216f2cc4711b6c0115276fa97e1e94a3384845acabe25c214784d577e291f3f"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/@vitejs/plugin-react/package.json": {
+      "bytes": 1743,
+      "gitBlobOid": "7ff59d14e2a8e80a704ddad8469e6278692d0f42",
+      "identity": [
+        16777220,
+        158490253,
+        420,
+        1,
+        1743,
+        1787926688070164647,
+        1789555160521590651
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/@vitejs/plugin-react/package.json",
+      "sha256": "d608755568d9d654c34e9e2da06659df9122fa89d2604ee09cdeda457a20c035"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/ajv/package.json": {
+      "bytes": 4405,
+      "gitBlobOid": "50fa6a639c704492f0a6c0c28a3c86d20321a395",
+      "identity": [
+        16777220,
+        158499137,
+        420,
+        1,
+        4405,
+        1787926690760440323,
+        1789555176530411755
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/ajv/package.json",
+      "sha256": "1f9033ee5a6515e7d76938b7072941862d1ed228a6879cc7fe10cdeb75107989"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/package.json": {
+      "bytes": 1490,
+      "gitBlobOid": "afe58fd661266181a1b32ce5d44198b3c5090f08",
+      "identity": [
+        16777220,
+        158496842,
+        420,
+        1,
+        1490,
+        1787926687225078201,
+        1789555173197962139
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/esbuild/package.json",
+      "sha256": "cb7d5b1fe478f8cbaae566a86031b6fdf5f7d444354f35d1cb3cba9adf6d2935"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/jsdom/package.json": {
+      "bytes": 2962,
+      "gitBlobOid": "8d414c3a4418796a1a74de6961c4b43d5c3895e3",
+      "identity": [
+        16777220,
+        158491673,
+        420,
+        1,
+        2962,
+        1787926693498743850,
+        1789555163395148977
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/jsdom/package.json",
+      "sha256": "a6c20d5b30fe842827dcad2866ba234d5c98e9f901d84ea35939f14167e2ea27"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/phaser/package.json": {
+      "bytes": 5612,
+      "gitBlobOid": "351f97d19ee79186a856856eddbbb7b7222acce3",
+      "identity": [
+        16777220,
+        158494461,
+        420,
+        1,
+        5612,
+        1787926697396354935,
+        1789555169492675272
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/phaser/package.json",
+      "sha256": "2761e48ade77d19cbe2560cbec3cc2c52a4c666fdaae7fe39d6949f7e1738993"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/react-dom/package.json": {
+      "bytes": 3057,
+      "gitBlobOid": "1a01e6da700727b4ad9e09c7f62a029c6f8cd75c",
+      "identity": [
+        16777220,
+        158492202,
+        420,
+        1,
+        3057,
+        1787926691665645068,
+        1789555164487792878
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/react-dom/package.json",
+      "sha256": "7c82f0967114d4b5d38b1f07e543af87c9919e8d3243f9604004819319cb2200"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/react/package.json": {
+      "bytes": 1242,
+      "gitBlobOid": "dfeacb6e82bde3354512a248e2380d539ed25b08",
+      "identity": [
+        16777220,
+        158498663,
+        420,
+        1,
+        1242,
+        1787926686256242842,
+        1789555175858783861
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/react/package.json",
+      "sha256": "e40c3ed9b633c9ecf188e09a4be309780a1ea0a9c068278a30ff6a27e7b2dbb6"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/saxes/package.json": {
+      "bytes": 2845,
+      "gitBlobOid": "898072fe76f038e2cd7d83cd9dccd5294e943213",
+      "identity": [
+        16777220,
+        158492238,
+        420,
+        1,
+        2845,
+        1787926685591496144,
+        1789555164578812950
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/saxes/package.json",
+      "sha256": "32052572b41c2a890ed0854798c48454cc5991dcaafe5fb1718a4253046acfd3"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/three/package.json": {
+      "bytes": 3826,
+      "gitBlobOid": "390ce579ee520f4880ca26a41ca5f107244bcdd4",
+      "identity": [
+        16777220,
+        158490330,
+        420,
+        1,
+        3826,
+        1787926695819456605,
+        1789555160669062898
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/three/package.json",
+      "sha256": "1d5c438acdc1fe5a52fb8ede2e417afd91fec91d22275c40f7b739591b24e4df"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/package.json": {
+      "bytes": 3620,
+      "gitBlobOid": "cccb75de5b204bdd6f084eda262c2e3835a163a3",
+      "identity": [
+        16777220,
+        158489548,
+        420,
+        1,
+        3620,
+        1787926694422279929,
+        1789555159181382729
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/package.json",
+      "sha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/package.json": {
+      "bytes": 2357,
+      "gitBlobOid": "c5e59584621c294c689bcb74e41981a466c9137c",
+      "identity": [
+        16777220,
+        158493907,
+        420,
+        1,
+        2357,
+        1787926685520728179,
+        1789555167865593735
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/package.json",
+      "sha256": "7018dacaa212db8e05f454147ac95b817c96b5e45fe56379f8ed54e11617b138"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/vite/package.json": {
+      "bytes": 5251,
+      "gitBlobOid": "dc08b29c4b7bea8eee478b495e0071d843096cb2",
+      "identity": [
+        16777220,
+        158492337,
+        420,
+        1,
+        5251,
+        1787926688029813366,
+        1789555164770887052
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vite/package.json",
+      "sha256": "a1d0149fd986fd34b6d35503d2c0d8d9f743c4dbaaf94fbc11812bc84b05884d"
+    },
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/package.json": {
+      "bytes": 4995,
+      "gitBlobOid": "1fe489542c221526ac5d7f5d80d6d28ecd30395b",
+      "identity": [
+        16777220,
+        158489474,
+        420,
+        1,
+        4995,
+        1787926687254506301,
+        1789555159063260469
+      ],
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/package.json",
+      "sha256": "6ea35e567829660d9832744086c18526b9ddebd5358c4a0cadfb0a355925f917"
+    }
+  },
+  "entryCap": 1853,
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "freshSourceDependencyMetadataProof": null,
+  "historicalDataAuthorityHead": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "historicalHSourceCommit": "8708d6a98e6eb4ad53e3a54e431c4b40b974f79d",
+  "historicalM0SourceCommit": "292d6fd3b5293fe2a520b681ae4c1dde997dc113",
+  "laneLog": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-after-al-r3.lane.log",
+  "localMainRef": "refs/remotes/origin/main",
+  "mainOid": "c902a704eb948cc576083d0973c8c23e59937dc1",
+  "mainRef": "refs/heads/main",
+  "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+  "namedM0SourceRoles": {
+    "package-lock.json": {
+      "bytes": 149287,
+      "gitBlobOid": "d4151fcc2ca6fe54f38b307ee4d9ae4ea219a344",
+      "identity": [
+        16777220,
+        166751333,
+        420,
+        1,
+        149287,
+        1791567229044113154,
+        1791567229065787471
+      ],
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/package-lock.json",
+      "sha256": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+    },
+    "package.json": {
+      "bytes": 2726,
+      "gitBlobOid": "4f6123b0dfb634faaf1a64a7b6162e284320e0a4",
+      "identity": [
+        16777220,
+        166751334,
+        420,
+        1,
+        2726,
+        1791567229158429215,
+        1791567229202783717
+      ],
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/package.json",
+      "sha256": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f"
+    },
+    "src/core/tick.ts": {
+      "bytes": 64135,
+      "gitBlobOid": "0ec94abd5afefcadcc5ae8fcad1f29f63e287415",
+      "identity": [
+        16777220,
+        166751448,
+        420,
+        1,
+        64135,
+        1791567234394622850,
+        1791567234413567677
+      ],
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/core/tick.ts",
+      "sha256": "f923eb1694a030b3212e4f6f9881e83fd027f5ce5882a148623f58eca9cb0224"
+    },
+    "src/harness/p13a/fixtures.ts": {
+      "bytes": 2130,
+      "gitBlobOid": "9ab3eee75b0b2b2733f350bbc3964aa5ba176de8",
+      "identity": [
+        16777220,
+        166751489,
+        420,
+        1,
+        2130,
+        1791567235969431572,
+        1791567235988717606
+      ],
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/src/harness/p13a/fixtures.ts",
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5"
+    },
+    "tests/diagnostic.test.ts": {
+      "bytes": 12710,
+      "gitBlobOid": "e716f608cfeb6c6c64db1e8a63fd29ba75226d11",
+      "identity": [
+        16777220,
+        166753267,
+        420,
+        1,
+        12710,
+        1791567307168778798,
+        1791567307170045861
+      ],
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/tests/diagnostic.test.ts",
+      "sha256": "8a578e20807a34758f6ae3005caea94824f16aebe36eb92d360139dfa15685b7"
+    },
+    "tsconfig.json": {
+      "bytes": 706,
+      "gitBlobOid": "7521893ef93467ed05ef19a1768fc092edac2f2d",
+      "identity": [
+        16777220,
+        166752408,
+        420,
+        1,
+        706,
+        1791567273264477522,
+        1791567273292032823
+      ],
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/tsconfig.json",
+      "sha256": "f855dfc9191a0d63240d447bccac5e029530a74b83e12f467083f1393bbe6d4f"
+    },
+    "tsconfig.src.json": {
+      "bytes": 119,
+      "gitBlobOid": "95c6e861b815acd2409c0bd981d8f8af3fa95245",
+      "identity": [
+        16777220,
+        166752409,
+        420,
+        1,
+        119,
+        1791567273314012826,
+        1791567273332387407
+      ],
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/tsconfig.src.json",
+      "sha256": "8c3f09111bb20bd51e8611caf00775a9bb78ea20290b765cc82f0ae0663e1dae"
+    },
+    "ui/tsconfig.json": {
+      "bytes": 1074,
+      "gitBlobOid": "870b43b2f6db084fbd8ae6539657744b07e4fe68",
+      "identity": [
+        16777220,
+        166753258,
+        420,
+        1,
+        1074,
+        1791567306899612015,
+        1791567306918435337
+      ],
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/ui/tsconfig.json",
+      "sha256": "294e1c6b2bacc3fefb0aec00c5093c5372b7d3c6e1175279aa551b6023f42d9e"
+    },
+    "ui/vite.config.ts": {
+      "bytes": 1204,
+      "gitBlobOid": "0a590acd64b22cc5137ee8f6990ee43e6e9b6496",
+      "identity": [
+        16777220,
+        166753259,
+        420,
+        1,
+        1204,
+        1791567306940351190,
+        1791567306959178530
+      ],
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/ui/vite.config.ts",
+      "sha256": "13f335b521b233f8ea20f0079575f0645e8f4a4051de0151f2b79cb5f19e499b"
+    },
+    "vitest.config.ts": {
+      "bytes": 176,
+      "gitBlobOid": "3416b9e0bc1dbcbf901af6dd67e19a473127f190",
+      "identity": [
+        16777220,
+        166753260,
+        420,
+        1,
+        176,
+        1791567306979694396,
+        1791567306998603060
+      ],
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/vitest.config.ts",
+      "sha256": "2939ba611a5c025c2974043c98c06af10aadd3065925103d3f506bd1f1d07faa"
+    },
+    "vitest.workspace.ts": {
+      "bytes": 1489,
+      "gitBlobOid": "f7e6a817c71088865397657e378c40a83cb5ccad",
+      "identity": [
+        16777220,
+        166753261,
+        420,
+        1,
+        1489,
+        1791567307021069393,
+        1791567307040365658
+      ],
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2/vitest.workspace.ts",
+      "sha256": "423ba7332b1348114c751b71d1ed551c48aa57ecb4de75daf876b20d8ab34a82"
+    }
+  },
+  "nodeModulesLink": {
+    "identity": [
+      16777220,
+      166769275,
+      448,
+      1,
+      62,
+      1791577446298712967,
+      1791577446298712967
+    ],
+    "target": "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+  },
+  "operationalAuthorityVerifiedThisSlice": true,
+  "operationalProductionHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "operationalReadback": {
+    "bytes": 1250,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+    "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+  },
+  "outputRoot": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3",
+  "planningAuthorities": {
+    "BINDING-UNFILLED.json": {
+      "bytes": 27520,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-next-slice-after-ak-20261009-r1/BINDING-UNFILLED.json",
+      "sha256": "0759609aec4500e0e41f589c3097b8124521b64f1a93ec0c692ec1651f0bcf38"
+    },
+    "NEXT-STEPS.md": {
+      "bytes": 4866,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-next-slice-after-ak-20261009-r1/NEXT-STEPS.md",
+      "sha256": "15eb06beca37b6859a5cec58a8ea2a5ea2d0ec5c08686488ea128908b589047a"
+    },
+    "ROUTE-PROPOSAL.json": {
+      "bytes": 3012,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-next-slice-after-ak-20261009-r1/ROUTE-PROPOSAL.json",
+      "sha256": "e59f6edca43240e2ab0014642f5d8a5cc4180c786547e3e2b6f395f10f884a20"
+    },
+    "SOURCE-PINS.json": {
+      "bytes": 2484,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-next-slice-after-ak-20261009-r1/SOURCE-PINS.json",
+      "sha256": "4b38dbfad83af47d48f07470950693a3da95a46b71d9b9e96dfccd7fd29d30a8"
+    },
+    "SOURCE-REUSE-MAPPING.json": {
+      "bytes": 4609,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-next-slice-after-ak-20261009-r1/SOURCE-REUSE-MAPPING.json",
+      "sha256": "908e6b4fbffb10a7d8bd849fc469ee2ba2756d0800f96df9273871e4217d7817"
+    }
+  },
+  "productionRef": "refs/heads/wip/headless-program-20260916-ts",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "recordedRegularBytes": 119393120,
+  "recordedRegularFiles": 1740,
+  "recordedRootIdentity": [
+    16777220,
+    166751332,
+    16832,
+    13,
+    416,
+    1791577446298737027,
+    1791577446298737027
+  ],
+  "recordedRootRoster": [
+    "bridge",
+    "node_modules",
+    "package-lock.json",
+    "package.json",
+    "src",
+    "tests",
+    "tsconfig.json",
+    "tsconfig.src.json",
+    "ui",
+    "vitest.config.ts",
+    "vitest.workspace.ts"
+  ],
+  "recorderActiveSeconds": 320,
+  "recorderResult": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r3/20261009-m0-types-after-al-r3.RECORDER-RESULT.json",
+  "recorderWallSeconds": 330,
+  "runId": "20261009-m0-types-after-al-r3",
+  "runtimeFieldsUnfilled": {
+    "actualGrant": null,
+    "actualSourceReview": null,
+    "currentProtectedScopeAdoption": null,
+    "runtimeToolsAndPhysicalWrapperRoles": null
+  },
+  "runtimeToolsAndPhysicalWrapperRoles": null,
+  "schema": "1370-m0-types-collection-source-config/v1",
+  "sourceAuthorities": {
+    "depsChecker": {
+      "bytes": 1918,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-typecheck-collection-route-template-r1/check-deps.mjs",
+      "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+    },
+    "functionOnlyChecker": {
+      "bytes": 5120,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-focused-red-cap-type-gate-proposal-r2/focused-seam-check.mjs",
+      "sha256": "ec85fe511a06ddc3cc9f8d3d1cd880f95b98374ab30f14172f02908439b4d1d2"
+    },
+    "functionOnlyReceipt": {
+      "bytes": 723,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-focused-red-cap-type-gate-independent-review-r2/RECEIPT.json",
+      "sha256": "7b4f3b652d9d4f8c5594927826e756fc7ec792157e8192399c50f02f699848ed"
+    },
+    "h13ExactBinding": {
+      "bytes": 2065,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-filled-exact-r13-r5/EXACT-BINDING.json",
+      "sha256": "8d37d70e3aea0028eee6a5f9f47e67e713bf3722b4fea0c73f81a95f29fe9f5a"
+    },
+    "h13ExactBootstrap": {
+      "bytes": 3582,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-filled-exact-r13-r5/EXACT-BOOTSTRAP.py",
+      "sha256": "dc2ec7abe44d84e1bd15e1364472e6355da9c4e12792f95b26506b91dc882d62"
+    },
+    "h13ExactReview": {
+      "bytes": 1178,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-filled-exact-independent-review-r13-r5/RECEIPT.json",
+      "sha256": "c21107fadcdac99a632c20f9a3e5953a137f5091ff2d5e89c0c9d7187ebb5009"
+    },
+    "h13SourceBinding": {
+      "bytes": 6398,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-filled-exact-r13/BINDING.json",
+      "sha256": "d9bb8b6fd4227e43b191003e3a98182404024f269933cc8de277473b0fb61cf9"
+    },
+    "m0BridgeInputs": {
+      "bytes": 27220,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-recorded-route-proposal-20261009-r3/INPUTS.json",
+      "sha256": "a9f50c1d0cb6ae54084becf514ed7908c41572050e0df19a50007e3a804ff881"
+    },
+    "m0CompleteIndependentReview": {
+      "bytes": 8376,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-complete-chain-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "002d96ac76da741ffce0e960ffc20afa948574de63e09d79a8ed1e874e6ddb42"
+    },
+    "m0CompleteParentAdoption": {
+      "bytes": 6133,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-complete-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad"
+    },
+    "m0CopyParentAdoption": {
+      "bytes": 1860,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-exact-parent-adoption-20261009-r1/OBSERVED-COPY-ADOPTION.json",
+      "sha256": "ec17dc69df4c1b8c3e5af8ef88d43fc4bceea82b2278325ec14cf2398651a8dd"
+    },
+    "m0PhysicalFacts": {
+      "bytes": 1872789,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-facts-after-aj-20261009-r3.json",
+      "sha256": "e9f4829c501cc90475b9067c8ae32580fe5fca14fc40950ee083031f89081ba2"
+    },
+    "parentScope": {
+      "bytes": 1496,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-only-diagnostic-parent-adoption-20261009-r2/ADOPTION.json",
+      "sha256": "476c4bc1e33aa81ca9557e6942f9efe994a80f9378cf4abba1ae04ccce071017"
+    },
+    "r5SourceBootstrap": {
+      "bytes": 3433,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r5/BOOTSTRAP.py",
+      "sha256": "7a63a2d8028ae5c2abb5b2b1b5bdf79a83887b8c809de7d7866f2a9a7dd5f223"
+    },
+    "sourceManifest": {
+      "bytes": 7400,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-corrected-overlay-source-manifest-r2/M0-SOURCE-MANIFEST.json",
+      "sha256": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba"
+    },
+    "sourceReview": {
+      "bytes": 1201,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-corrected-overlay-source-manifest-independent-review-r2/M0-RECEIPT.json",
+      "sha256": "bcd090ec6e8ef391aa7578dd9719f0adda67e8f38610396355ea0c8238549fa8"
+    },
+    "syntheticCatchChecker": {
+      "bytes": 4567,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/r9-catch-propagation-red.mjs",
+      "sha256": "2586ce3c34fe62d3d9e44f98436383ed229992bd68664a04c0332784b724d8e3"
+    },
+    "typeObservedHStop": {
+      "bytes": 4461,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-r13-independent-observed-stop-review-r1/RECEIPT.json",
+      "sha256": "15e901e356b72d80fdebef469bf9e20b171c13a32f34e94bf26858bf2d883ad1"
+    },
+    "typeRecorderPattern": {
+      "bytes": 15261,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-recorder-proposal-r5/supervise.py",
+      "sha256": "3145a6b806e9071fb69aa7eb610025c2930515c210c74cf6f3349a7faebdbc50"
+    },
+    "typeRecorderPatternReview": {
+      "bytes": 1339,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-recorder-r5-independent-static-review-r1/RECEIPT.json",
+      "sha256": "0ffd32cf951984bb61e3e002dcbbbe2b580a7a4295acdbc3fba25c537368be45"
+    },
+    "typeRunnerPattern": {
+      "bytes": 59372,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-collection-runner-proposal-r13/runner.py",
+      "sha256": "946b3c88208db5128e30e668d0e322f11224235a71ff6994362acb124e0831b7"
+    },
+    "typeRunnerPatternReview": {
+      "bytes": 1852,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-typecheck-r13-source-independent-static-review-r1/RECEIPT.json",
+      "sha256": "17514022b90852f03fa215d6748875d45eef0ae17270517cc2f55e1c8ba1cf08"
+    }
+  },
+  "status": "HELD_SOURCE_ONLY_NO_RUNTIME_GRANT"
+}

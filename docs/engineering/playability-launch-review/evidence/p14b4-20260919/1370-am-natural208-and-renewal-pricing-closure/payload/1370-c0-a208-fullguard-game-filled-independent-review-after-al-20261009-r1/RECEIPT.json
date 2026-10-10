@@ -1,0 +1,140 @@
+{
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+    "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "before-fill",
+    "before-fill-after-al-r1"
+  ],
+  "config": {
+    "bytes": 3906,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
+    "sha256": "20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41"
+  },
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_A208_AL_FILLED_GUARD_AND_EXACT_FIRST_BASELINE_WRAPPER",
+  "exactArgv": {
+    "bytes": 5811,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/EXACT-ARGV.json",
+    "sha256": "27742321d65d6ded933956640fa64656662c1a87defb24f0706417dd4e27bcbe"
+  },
+  "executionAuthorization": false,
+  "findings": {
+    "acceptance": "Root must retain actual tool chunks/final exit and independently review complete stdout/stderr/snapshot/PINS and scoped scanner cleanup. Source receipt, grant or stale GUARDS_ACCEPTED bytes alone cannot admit actual baseline.",
+    "allDeclaredRoleBytesAndSha256Match": true,
+    "allSourceFiles0444Package0555": true,
+    "authenticatedManifestAndAuthorityAndToolRoleReads": 31,
+    "bounds": "Original180-second per-command guard limit retained; no whole-scan timer invented.",
+    "completedControls": "Bound root417adabc exactly; JS13 plus Python3+14 with all tool/helper/recorder/driver exits0. No control repeat is granted.",
+    "configOnlyChangedFields": [
+      "productionHead",
+      "parentScopeAdoption",
+      "operationalRemoteRefs",
+      "declaredWitnessScratchChildren",
+      "status"
+    ],
+    "exactLaunch": "Pinned physical Python -I -B; exact original observed-copy receipt/hash/decision and retained H direct leaf reused from successful historical argv; fresh before-fill label and current wrapper cwd/environment exact.",
+    "externalReviewGate": "Exact decision, execution false, sourcePinsSHA, wrapper role, argv and outputParentRole authenticated before launch.",
+    "gameExecutionAuthorized": false,
+    "guardByteInverse": "Replacing only filled CONFIG_SHA with held CONFIG_SHA restores accepted held guard byte-for-byte. AST equal after normalizing that one constant.",
+    "inventoriesAndPredicates": "Original complete private/prod dependency inventory, protected source/common/H bytes and metadata/inode/allocation, accepted private proof, FD/current/lock/power/disk and docs-only source predicates are unchanged. Large inventories were not reread or run by this source review.",
+    "mainBodyByteExactToAcceptedHeldSource": true,
+    "materialDefects": [],
+    "newM0ReadbackOrRematerializationGate": false,
+    "operationalAuthority": "Actual AL8cb704/source13880 and both exact remote refs match genuine published readback35e15f and truthful A208 scope5307. Historical original4812 private copy binding and M0 adoption4711 remain separate. H-first true, H8708Waived false, docsOnlyVerified true, execution false.",
+    "outputParent": "Precreated physical0700 evidence parent matches exact device16777220/inode166821887; output label and separate once-only parent runtime directory absent at this finite source review.",
+    "preflight": "Source/authority/tool hashes and physical metadata authenticate, followed by live branch/HEAD/src/clean+remote check, scoped prior PID/PGID signal-zero clearance, existing lock absence, free-space and AC checks. These preflights were reviewed but not executed.",
+    "rawPsFdPublication": "Raw PS/FD remain local only; later archive may export role hashes/sizes.",
+    "recordedScanner": "Direct exec preserves wrapper PID. Its own process group is established and verified, scanner PID/PGID/SID written into exclusive durable root grant before exec; stdout/stderr redirected into fresh exclusive local files. No heavy helper or unrecorded scanner launch.",
+    "tenNonMainHelperBodiesByteExact": true
+  },
+  "guard": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+    "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+  },
+  "outputParentRole": {
+    "device": 16777220,
+    "inode": 166821887,
+    "mode": 448,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence"
+  },
+  "reviewedAuthorityRoles": {
+    "controls": {
+      "bytes": 8775,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json",
+      "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+    },
+    "heldSourceAdoption": {
+      "bytes": 1554,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/HELD-SCOPE-SOURCE-ADOPTION.json",
+      "sha256": "fefd5bef762b4bce0b34c21e29d4a653afb42bae8756b29ba0eee02b42a357b8"
+    },
+    "heldSourceReview": {
+      "bytes": 4265,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "6ac882251048b242341019d35747a8428778aff5b8ea6ccfb196976feb4c1f0f"
+    },
+    "historicalBeforeArgv": {
+      "bytes": 1740,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/EXACT-ARGV-PROPOSAL.json",
+      "sha256": "bbfd52484cc6160a53ae219aa0d093d5f69f231a860427dc68866d097afb8a26"
+    },
+    "historicalBeforeOutcome": {
+      "bytes": 4206,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-full-guard-parent-recorded-after-aj-20261009-r2/BEFORE-FILL-TOOL-OUTCOME.json",
+      "sha256": "07646a7a1620318c3ded960d1b2a99a82af385d84d6a70d29e29c1aa4e830607"
+    },
+    "historicalM0Completion": {
+      "bytes": 6133,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-complete-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad"
+    },
+    "historicalPostOutcome": {
+      "bytes": 4733,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-postflight-grant-preparation-after-aj-20261009-r1/POSTFLIGHT-TOOL-OUTCOME.json",
+      "sha256": "524c130424946e9b042aaad06d10da5ac2de3df06361e116543f930d113ec05f"
+    },
+    "readback": {
+      "bytes": 1250,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+      "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+    },
+    "scope": {
+      "bytes": 2476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-OPERATIONAL-SCOPE-ADOPTION.json",
+      "sha256": "5307f365af644cefb94f6eca5bd8188b9e4a4c2198a9ccf6b72f0671dfd32998"
+    }
+  },
+  "reviewerRole": "Independent source-only guard/config/direct-wrapper reviewer; did not author this filled package or wrapper. Prior held authority amendment design was authored by this reviewer.",
+  "schema": "1370-a208-al-filled-fullguard-independent-source-review/v1",
+  "scope": {
+    "actualScanGrant": null,
+    "actualScanOutcome": null,
+    "gameGrant": null,
+    "guardExecuted": false,
+    "newGitCommands": false,
+    "newProcessOrFdScans": false,
+    "newSignalsOrProbes": false,
+    "nextRequiredStep": "Root separately grants exactly this once-only first baseline; actual measurement and scoped cleanup require observed review before downstream fill/game authorization.",
+    "productionOrMirrorMutation": false,
+    "sourceOnly": true,
+    "testsExecuted": false,
+    "wrapperExecuted": false
+  },
+  "sourcePins": {
+    "bytes": 4323,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "b8091a89177893e12d9ffd4fc414ae1d338bb9a11f9c441aae2f707a5ed05f42"
+  },
+  "sourcePinsSha256": "b8091a89177893e12d9ffd4fc414ae1d338bb9a11f9c441aae2f707a5ed05f42",
+  "wrapper": {
+    "bytes": 9691,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/grant_before_fill.py",
+    "sha256": "5100a89373a729fe7f80714fc740b76d6fc3e45f85c869c381246ac29a21678e"
+  }
+}

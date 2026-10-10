@@ -1,0 +1,10 @@
+--- candidate
++++ precheck
+@@ -12,7 +12,6 @@
+     pending.push(text);pendingBytes+=size
+   }
+   const stringToken = value => {
+-    const withinLimit=Buffer.byteLength(value)<=limit;if(!withinLimit)assert.ok(withinLimit,'STOP_STRING_CAP')
+     if (!/[\u0000-\u001f"\\\u0080-\uffff]/.test(value)) return ['"' + value + '"', value.length + 2]
+     const text=JSON.stringify(value); return [text,Buffer.byteLength(text)]
+   }

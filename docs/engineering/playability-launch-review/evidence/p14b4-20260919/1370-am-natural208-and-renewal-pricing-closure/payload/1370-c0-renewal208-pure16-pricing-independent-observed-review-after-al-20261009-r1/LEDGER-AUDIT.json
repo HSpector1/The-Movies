@@ -1,0 +1,1435 @@
+{
+  "schema": "1370-pure16-observed-ledger-audit/v1",
+  "checks": {
+    "all44ExactNonpay": true,
+    "exactReportFields": true,
+    "exactReportStatusCountsFlags": true,
+    "ledger16": true,
+    "ledgerFields0": true,
+    "identityOrder0": true,
+    "drawTierFloor0": true,
+    "completeBoth0": true,
+    "fullTermsEquality0": true,
+    "HActualFields0": true,
+    "HActualSafePayAndDates0": true,
+    "AActualFields0": true,
+    "AActualSafePayAndDates0": true,
+    "HPredictedFields0": true,
+    "HPredictedSafePayAndDates0": true,
+    "APredictedFields0": true,
+    "APredictedSafePayAndDates0": true,
+    "ledgerFields1": true,
+    "identityOrder1": true,
+    "drawTierFloor1": true,
+    "completeBoth1": true,
+    "fullTermsEquality1": true,
+    "HActualFields1": true,
+    "HActualSafePayAndDates1": true,
+    "AActualFields1": true,
+    "AActualSafePayAndDates1": true,
+    "HPredictedFields1": true,
+    "HPredictedSafePayAndDates1": true,
+    "APredictedFields1": true,
+    "APredictedSafePayAndDates1": true,
+    "ledgerFields2": true,
+    "identityOrder2": true,
+    "drawTierFloor2": true,
+    "completeBoth2": true,
+    "fullTermsEquality2": true,
+    "HActualFields2": true,
+    "HActualSafePayAndDates2": true,
+    "AActualFields2": true,
+    "AActualSafePayAndDates2": true,
+    "HPredictedFields2": true,
+    "HPredictedSafePayAndDates2": true,
+    "APredictedFields2": true,
+    "APredictedSafePayAndDates2": true,
+    "ledgerFields3": true,
+    "identityOrder3": true,
+    "drawTierFloor3": true,
+    "completeBoth3": true,
+    "fullTermsEquality3": true,
+    "HActualFields3": true,
+    "HActualSafePayAndDates3": true,
+    "AActualFields3": true,
+    "AActualSafePayAndDates3": true,
+    "HPredictedFields3": true,
+    "HPredictedSafePayAndDates3": true,
+    "APredictedFields3": true,
+    "APredictedSafePayAndDates3": true,
+    "ledgerFields4": true,
+    "identityOrder4": true,
+    "drawTierFloor4": true,
+    "completeBoth4": true,
+    "fullTermsEquality4": true,
+    "HActualFields4": true,
+    "HActualSafePayAndDates4": true,
+    "AActualFields4": true,
+    "AActualSafePayAndDates4": true,
+    "HPredictedFields4": true,
+    "HPredictedSafePayAndDates4": true,
+    "APredictedFields4": true,
+    "APredictedSafePayAndDates4": true,
+    "ledgerFields5": true,
+    "identityOrder5": true,
+    "drawTierFloor5": true,
+    "completeBoth5": true,
+    "fullTermsEquality5": true,
+    "HActualFields5": true,
+    "HActualSafePayAndDates5": true,
+    "AActualFields5": true,
+    "AActualSafePayAndDates5": true,
+    "HPredictedFields5": true,
+    "HPredictedSafePayAndDates5": true,
+    "APredictedFields5": true,
+    "APredictedSafePayAndDates5": true,
+    "ledgerFields6": true,
+    "identityOrder6": true,
+    "drawTierFloor6": true,
+    "completeBoth6": true,
+    "fullTermsEquality6": true,
+    "HActualFields6": true,
+    "HActualSafePayAndDates6": true,
+    "AActualFields6": true,
+    "AActualSafePayAndDates6": true,
+    "HPredictedFields6": true,
+    "HPredictedSafePayAndDates6": true,
+    "APredictedFields6": true,
+    "APredictedSafePayAndDates6": true,
+    "ledgerFields7": true,
+    "identityOrder7": true,
+    "drawTierFloor7": true,
+    "completeBoth7": true,
+    "fullTermsEquality7": true,
+    "HActualFields7": true,
+    "HActualSafePayAndDates7": true,
+    "AActualFields7": true,
+    "AActualSafePayAndDates7": true,
+    "HPredictedFields7": true,
+    "HPredictedSafePayAndDates7": true,
+    "APredictedFields7": true,
+    "APredictedSafePayAndDates7": true,
+    "ledgerFields8": true,
+    "identityOrder8": true,
+    "drawTierFloor8": true,
+    "completeBoth8": true,
+    "fullTermsEquality8": true,
+    "HActualFields8": true,
+    "HActualSafePayAndDates8": true,
+    "AActualFields8": true,
+    "AActualSafePayAndDates8": true,
+    "HPredictedFields8": true,
+    "HPredictedSafePayAndDates8": true,
+    "APredictedFields8": true,
+    "APredictedSafePayAndDates8": true,
+    "ledgerFields9": true,
+    "identityOrder9": true,
+    "drawTierFloor9": true,
+    "completeBoth9": true,
+    "fullTermsEquality9": true,
+    "HActualFields9": true,
+    "HActualSafePayAndDates9": true,
+    "AActualFields9": true,
+    "AActualSafePayAndDates9": true,
+    "HPredictedFields9": true,
+    "HPredictedSafePayAndDates9": true,
+    "APredictedFields9": true,
+    "APredictedSafePayAndDates9": true,
+    "ledgerFields10": true,
+    "identityOrder10": true,
+    "drawTierFloor10": true,
+    "completeBoth10": true,
+    "fullTermsEquality10": true,
+    "HActualFields10": true,
+    "HActualSafePayAndDates10": true,
+    "AActualFields10": true,
+    "AActualSafePayAndDates10": true,
+    "HPredictedFields10": true,
+    "HPredictedSafePayAndDates10": true,
+    "APredictedFields10": true,
+    "APredictedSafePayAndDates10": true,
+    "ledgerFields11": true,
+    "identityOrder11": true,
+    "drawTierFloor11": true,
+    "completeBoth11": true,
+    "fullTermsEquality11": true,
+    "HActualFields11": true,
+    "HActualSafePayAndDates11": true,
+    "AActualFields11": true,
+    "AActualSafePayAndDates11": true,
+    "HPredictedFields11": true,
+    "HPredictedSafePayAndDates11": true,
+    "APredictedFields11": true,
+    "APredictedSafePayAndDates11": true,
+    "ledgerFields12": true,
+    "identityOrder12": true,
+    "drawTierFloor12": true,
+    "completeBoth12": true,
+    "fullTermsEquality12": true,
+    "HActualFields12": true,
+    "HActualSafePayAndDates12": true,
+    "AActualFields12": true,
+    "AActualSafePayAndDates12": true,
+    "HPredictedFields12": true,
+    "HPredictedSafePayAndDates12": true,
+    "APredictedFields12": true,
+    "APredictedSafePayAndDates12": true,
+    "ledgerFields13": true,
+    "identityOrder13": true,
+    "drawTierFloor13": true,
+    "completeBoth13": true,
+    "fullTermsEquality13": true,
+    "HActualFields13": true,
+    "HActualSafePayAndDates13": true,
+    "AActualFields13": true,
+    "AActualSafePayAndDates13": true,
+    "HPredictedFields13": true,
+    "HPredictedSafePayAndDates13": true,
+    "APredictedFields13": true,
+    "APredictedSafePayAndDates13": true,
+    "ledgerFields14": true,
+    "identityOrder14": true,
+    "drawTierFloor14": true,
+    "completeBoth14": true,
+    "fullTermsEquality14": true,
+    "HActualFields14": true,
+    "HActualSafePayAndDates14": true,
+    "AActualFields14": true,
+    "AActualSafePayAndDates14": true,
+    "HPredictedFields14": true,
+    "HPredictedSafePayAndDates14": true,
+    "APredictedFields14": true,
+    "APredictedSafePayAndDates14": true,
+    "ledgerFields15": true,
+    "identityOrder15": true,
+    "drawTierFloor15": true,
+    "completeBoth15": true,
+    "fullTermsEquality15": true,
+    "HActualFields15": true,
+    "HActualSafePayAndDates15": true,
+    "AActualFields15": true,
+    "AActualSafePayAndDates15": true,
+    "HPredictedFields15": true,
+    "HPredictedSafePayAndDates15": true,
+    "APredictedFields15": true,
+    "APredictedSafePayAndDates15": true,
+    "controlsActualTerminalZero": true,
+    "pricingActualTerminalZero": true,
+    "allFourMeasuredPricingExitsIntegerZero": true,
+    "controlIdentityTypedActualOwnSession": true,
+    "pricingHelperIdentityTypedActualOwnSession": true,
+    "pricingChildIdentityTypedOwnedGroup": true,
+    "controlsRecordedPostAbsences": true,
+    "pricingRecordedPostAbsences": true,
+    "actualGrantExactPricingRecipe": true,
+    "actualGrantGenuineCurrentSourceReview": true,
+    "controlsObservedBeforePricingBoundIntoGrant": true,
+    "producerStreamsExactBoundToResult": true,
+    "producerActualBoundsAndOwnedFlags": true,
+    "warningExactMainOuterFinallyReturn239": true,
+    "warningRetainedAndProducerStderrDistinct": true,
+    "pricingMetadataExitZero": true,
+    "singleStrictJSONReport": true
+  },
+  "allChecksTrue": true,
+  "strictReportFraming": {
+    "duplicateKeys": false,
+    "nonfiniteTokens": false,
+    "singleCompleteValue": true,
+    "tokens": 665,
+    "singleLine": true,
+    "finalNewline": true
+  },
+  "ledger": [
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-0:208",
+        0
+      ],
+      "sourceOrder": 24,
+      "talentId": "person-studio-aca408ec-r01-0",
+      "firstDraw": 0.34857689985074103,
+      "jitter": 0.9757723039761186,
+      "premiumTierIndex": 2,
+      "releaseFloor": null,
+      "HActual": {
+        "talentId": "person-studio-aca408ec-r01-0",
+        "annualSalary": 514171,
+        "signingBonus": 92551,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "HPredicted": {
+        "talentId": "person-studio-aca408ec-r01-0",
+        "annualSalary": 514171,
+        "signingBonus": 92551,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "AActual": {
+        "talentId": "person-studio-aca408ec-r01-0",
+        "annualSalary": 499573,
+        "signingBonus": 89923,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "APredicted": {
+        "talentId": "person-studio-aca408ec-r01-0",
+        "annualSalary": 499573,
+        "signingBonus": 89923,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "completeH": true,
+      "completeA": true,
+      "conclusion": "PAIR_AGREES_VIA_ADMITTED_SOURCE_TRANSPORT"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-1:208",
+        0
+      ],
+      "sourceOrder": 25,
+      "talentId": "person-studio-aca408ec-r01-1",
+      "firstDraw": 0.8556038967799395,
+      "jitter": 1.0568966234847903,
+      "premiumTierIndex": 2,
+      "releaseFloor": null,
+      "HActual": {
+        "talentId": "person-studio-aca408ec-r01-1",
+        "annualSalary": 254011,
+        "signingBonus": 45722,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "HPredicted": {
+        "talentId": "person-studio-aca408ec-r01-1",
+        "annualSalary": 254011,
+        "signingBonus": 45722,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "AActual": {
+        "talentId": "person-studio-aca408ec-r01-1",
+        "annualSalary": 242680,
+        "signingBonus": 43682,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "APredicted": {
+        "talentId": "person-studio-aca408ec-r01-1",
+        "annualSalary": 242680,
+        "signingBonus": 43682,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "completeH": true,
+      "completeA": true,
+      "conclusion": "PAIR_AGREES_VIA_ADMITTED_SOURCE_TRANSPORT"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-2:208",
+        0
+      ],
+      "sourceOrder": 26,
+      "talentId": "person-studio-aca408ec-r01-2",
+      "firstDraw": 0.14396123448386788,
+      "jitter": 0.9430337975174189,
+      "premiumTierIndex": 2,
+      "releaseFloor": null,
+      "HActual": {
+        "talentId": "person-studio-aca408ec-r01-2",
+        "annualSalary": 345627,
+        "signingBonus": 62213,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "HPredicted": {
+        "talentId": "person-studio-aca408ec-r01-2",
+        "annualSalary": 345627,
+        "signingBonus": 62213,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "AActual": {
+        "talentId": "person-studio-aca408ec-r01-2",
+        "annualSalary": 346793,
+        "signingBonus": 62423,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "APredicted": {
+        "talentId": "person-studio-aca408ec-r01-2",
+        "annualSalary": 346793,
+        "signingBonus": 62423,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "completeH": true,
+      "completeA": true,
+      "conclusion": "PAIR_AGREES_VIA_ADMITTED_SOURCE_TRANSPORT"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-3:208",
+        0
+      ],
+      "sourceOrder": 27,
+      "talentId": "person-studio-aca408ec-r01-3",
+      "firstDraw": 0.2815200590994209,
+      "jitter": 0.9650432094559074,
+      "premiumTierIndex": 2,
+      "releaseFloor": null,
+      "HActual": {
+        "talentId": "person-studio-aca408ec-r01-3",
+        "annualSalary": 935256,
+        "signingBonus": 168346,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "HPredicted": {
+        "talentId": "person-studio-aca408ec-r01-3",
+        "annualSalary": 935256,
+        "signingBonus": 168346,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "AActual": {
+        "talentId": "person-studio-aca408ec-r01-3",
+        "annualSalary": 916663,
+        "signingBonus": 164999,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "APredicted": {
+        "talentId": "person-studio-aca408ec-r01-3",
+        "annualSalary": 916663,
+        "signingBonus": 164999,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "completeH": true,
+      "completeA": true,
+      "conclusion": "PAIR_AGREES_VIA_ADMITTED_SOURCE_TRANSPORT"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-4:208",
+        0
+      ],
+      "sourceOrder": 28,
+      "talentId": "person-studio-aca408ec-r01-4",
+      "firstDraw": 0.13948272936977446,
+      "jitter": 0.9423172366991639,
+      "premiumTierIndex": 2,
+      "releaseFloor": null,
+      "HActual": {
+        "talentId": "person-studio-aca408ec-r01-4",
+        "annualSalary": 1097654,
+        "signingBonus": 197578,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "HPredicted": {
+        "talentId": "person-studio-aca408ec-r01-4",
+        "annualSalary": 1097654,
+        "signingBonus": 197578,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "AActual": {
+        "talentId": "person-studio-aca408ec-r01-4",
+        "annualSalary": 1092446,
+        "signingBonus": 196640,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "APredicted": {
+        "talentId": "person-studio-aca408ec-r01-4",
+        "annualSalary": 1092446,
+        "signingBonus": 196640,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "completeH": true,
+      "completeA": true,
+      "conclusion": "PAIR_AGREES_VIA_ADMITTED_SOURCE_TRANSPORT"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-5:208",
+        0
+      ],
+      "sourceOrder": 29,
+      "talentId": "person-studio-aca408ec-r01-5",
+      "firstDraw": 0.051142517710104585,
+      "jitter": 0.9281828028336168,
+      "premiumTierIndex": 2,
+      "releaseFloor": null,
+      "HActual": {
+        "talentId": "person-studio-aca408ec-r01-5",
+        "annualSalary": 256389,
+        "signingBonus": 46150,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "HPredicted": {
+        "talentId": "person-studio-aca408ec-r01-5",
+        "annualSalary": 256389,
+        "signingBonus": 46150,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "AActual": {
+        "talentId": "person-studio-aca408ec-r01-5",
+        "annualSalary": 257634,
+        "signingBonus": 46374,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "APredicted": {
+        "talentId": "person-studio-aca408ec-r01-5",
+        "annualSalary": 257634,
+        "signingBonus": 46374,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "completeH": true,
+      "completeA": true,
+      "conclusion": "PAIR_AGREES_VIA_ADMITTED_SOURCE_TRANSPORT"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-0:208",
+        0
+      ],
+      "sourceOrder": 30,
+      "talentId": "person-studio-aca408ec-r02-0",
+      "firstDraw": 0.4843733462039381,
+      "jitter": 0.9974997353926301,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HActual": {
+        "talentId": "person-studio-aca408ec-r02-0",
+        "annualSalary": 304978,
+        "signingBonus": 54896,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "HPredicted": {
+        "talentId": "person-studio-aca408ec-r02-0",
+        "annualSalary": 304978,
+        "signingBonus": 54896,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "AActual": {
+        "talentId": "person-studio-aca408ec-r02-0",
+        "annualSalary": 292260,
+        "signingBonus": 52607,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "APredicted": {
+        "talentId": "person-studio-aca408ec-r02-0",
+        "annualSalary": 292260,
+        "signingBonus": 52607,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "completeH": true,
+      "completeA": true,
+      "conclusion": "PAIR_AGREES_VIA_ADMITTED_SOURCE_TRANSPORT"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-1:208",
+        0
+      ],
+      "sourceOrder": 31,
+      "talentId": "person-studio-aca408ec-r02-1",
+      "firstDraw": 0.6565972110256553,
+      "jitter": 1.0250555537641048,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HActual": {
+        "talentId": "person-studio-aca408ec-r02-1",
+        "annualSalary": 454396,
+        "signingBonus": 81791,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "HPredicted": {
+        "talentId": "person-studio-aca408ec-r02-1",
+        "annualSalary": 454396,
+        "signingBonus": 81791,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "AActual": {
+        "talentId": "person-studio-aca408ec-r02-1",
+        "annualSalary": 445718,
+        "signingBonus": 80229,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "APredicted": {
+        "talentId": "person-studio-aca408ec-r02-1",
+        "annualSalary": 445718,
+        "signingBonus": 80229,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "completeH": true,
+      "completeA": true,
+      "conclusion": "PAIR_AGREES_VIA_ADMITTED_SOURCE_TRANSPORT"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-2:208",
+        0
+      ],
+      "sourceOrder": 32,
+      "talentId": "person-studio-aca408ec-r02-2",
+      "firstDraw": 0.7270294514019042,
+      "jitter": 1.0363247122243047,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HActual": {
+        "talentId": "person-studio-aca408ec-r02-2",
+        "annualSalary": 198718,
+        "signingBonus": 35769,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "HPredicted": {
+        "talentId": "person-studio-aca408ec-r02-2",
+        "annualSalary": 198718,
+        "signingBonus": 35769,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "AActual": {
+        "talentId": "person-studio-aca408ec-r02-2",
+        "annualSalary": 191769,
+        "signingBonus": 34518,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "APredicted": {
+        "talentId": "person-studio-aca408ec-r02-2",
+        "annualSalary": 191769,
+        "signingBonus": 34518,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "completeH": true,
+      "completeA": true,
+      "conclusion": "PAIR_AGREES_VIA_ADMITTED_SOURCE_TRANSPORT"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-3:208",
+        0
+      ],
+      "sourceOrder": 33,
+      "talentId": "person-studio-aca408ec-r02-3",
+      "firstDraw": 0.4642153570894152,
+      "jitter": 0.9942744571343064,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HActual": {
+        "talentId": "person-studio-aca408ec-r02-3",
+        "annualSalary": 902597,
+        "signingBonus": 162467,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "HPredicted": {
+        "talentId": "person-studio-aca408ec-r02-3",
+        "annualSalary": 902597,
+        "signingBonus": 162467,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "AActual": {
+        "talentId": "person-studio-aca408ec-r02-3",
+        "annualSalary": 876801,
+        "signingBonus": 157824,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "APredicted": {
+        "talentId": "person-studio-aca408ec-r02-3",
+        "annualSalary": 876801,
+        "signingBonus": 157824,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "completeH": true,
+      "completeA": true,
+      "conclusion": "PAIR_AGREES_VIA_ADMITTED_SOURCE_TRANSPORT"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-4:208",
+        0
+      ],
+      "sourceOrder": 34,
+      "talentId": "person-studio-aca408ec-r02-4",
+      "firstDraw": 0.11387934512458742,
+      "jitter": 0.938220695219934,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HActual": {
+        "talentId": "person-studio-aca408ec-r02-4",
+        "annualSalary": 674886,
+        "signingBonus": 121479,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "HPredicted": {
+        "talentId": "person-studio-aca408ec-r02-4",
+        "annualSalary": 674886,
+        "signingBonus": 121479,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "AActual": {
+        "talentId": "person-studio-aca408ec-r02-4",
+        "annualSalary": 656727,
+        "signingBonus": 118211,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "APredicted": {
+        "talentId": "person-studio-aca408ec-r02-4",
+        "annualSalary": 656727,
+        "signingBonus": 118211,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "completeH": true,
+      "completeA": true,
+      "conclusion": "PAIR_AGREES_VIA_ADMITTED_SOURCE_TRANSPORT"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-5:208",
+        0
+      ],
+      "sourceOrder": 35,
+      "talentId": "person-studio-aca408ec-r02-5",
+      "firstDraw": 0.7007206561975181,
+      "jitter": 1.032115304991603,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HActual": {
+        "talentId": "person-studio-aca408ec-r02-5",
+        "annualSalary": 302264,
+        "signingBonus": 54408,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "HPredicted": {
+        "talentId": "person-studio-aca408ec-r02-5",
+        "annualSalary": 302264,
+        "signingBonus": 54408,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "AActual": {
+        "talentId": "person-studio-aca408ec-r02-5",
+        "annualSalary": 291337,
+        "signingBonus": 52441,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "APredicted": {
+        "talentId": "person-studio-aca408ec-r02-5",
+        "annualSalary": 291337,
+        "signingBonus": 52441,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "completeH": true,
+      "completeA": true,
+      "conclusion": "PAIR_AGREES_VIA_ADMITTED_SOURCE_TRANSPORT"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:208",
+        0
+      ],
+      "sourceOrder": 36,
+      "talentId": "person-studio-aca408ec-r03-0",
+      "firstDraw": 0.7172063635662198,
+      "jitter": 1.034753018170595,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HActual": {
+        "talentId": "person-studio-aca408ec-r03-0",
+        "annualSalary": 341615,
+        "signingBonus": 61491,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "HPredicted": {
+        "talentId": "person-studio-aca408ec-r03-0",
+        "annualSalary": 341615,
+        "signingBonus": 61491,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "AActual": {
+        "talentId": "person-studio-aca408ec-r03-0",
+        "annualSalary": 324580,
+        "signingBonus": 58424,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "APredicted": {
+        "talentId": "person-studio-aca408ec-r03-0",
+        "annualSalary": 324580,
+        "signingBonus": 58424,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "completeH": true,
+      "completeA": true,
+      "conclusion": "PAIR_AGREES_VIA_ADMITTED_SOURCE_TRANSPORT"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:208",
+        0
+      ],
+      "sourceOrder": 37,
+      "talentId": "person-studio-aca408ec-r03-1",
+      "firstDraw": 0.29803259251639247,
+      "jitter": 0.9676852148026228,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HActual": {
+        "talentId": "person-studio-aca408ec-r03-1",
+        "annualSalary": 291925,
+        "signingBonus": 52547,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "HPredicted": {
+        "talentId": "person-studio-aca408ec-r03-1",
+        "annualSalary": 291925,
+        "signingBonus": 52547,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "AActual": {
+        "talentId": "person-studio-aca408ec-r03-1",
+        "annualSalary": 282555,
+        "signingBonus": 50860,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "APredicted": {
+        "talentId": "person-studio-aca408ec-r03-1",
+        "annualSalary": 282555,
+        "signingBonus": 50860,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "completeH": true,
+      "completeA": true,
+      "conclusion": "PAIR_AGREES_VIA_ADMITTED_SOURCE_TRANSPORT"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:208",
+        0
+      ],
+      "sourceOrder": 38,
+      "talentId": "person-studio-aca408ec-r03-2",
+      "firstDraw": 0.6570006266701967,
+      "jitter": 1.0251201002672314,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HActual": {
+        "talentId": "person-studio-aca408ec-r03-2",
+        "annualSalary": 538698,
+        "signingBonus": 96966,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "HPredicted": {
+        "talentId": "person-studio-aca408ec-r03-2",
+        "annualSalary": 538698,
+        "signingBonus": 96966,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "AActual": {
+        "talentId": "person-studio-aca408ec-r03-2",
+        "annualSalary": 543983,
+        "signingBonus": 97917,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "APredicted": {
+        "talentId": "person-studio-aca408ec-r03-2",
+        "annualSalary": 543983,
+        "signingBonus": 97917,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "completeH": true,
+      "completeA": true,
+      "conclusion": "PAIR_AGREES_VIA_ADMITTED_SOURCE_TRANSPORT"
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:208",
+        0
+      ],
+      "sourceOrder": 39,
+      "talentId": "person-studio-aca408ec-r03-3",
+      "firstDraw": 0.6224897031206638,
+      "jitter": 1.0195983524993062,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HActual": {
+        "talentId": "person-studio-aca408ec-r03-3",
+        "annualSalary": 1058689,
+        "signingBonus": 190564,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "HPredicted": {
+        "talentId": "person-studio-aca408ec-r03-3",
+        "annualSalary": 1058689,
+        "signingBonus": 190564,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "AActual": {
+        "talentId": "person-studio-aca408ec-r03-3",
+        "annualSalary": 1059738,
+        "signingBonus": 190753,
+        "startWeek": 208,
+        "endWeekExclusive": 416,
+        "termWeeks": 208
+      },
+      "APredicted": {
+        "talentId": "person-studio-aca408ec-r03-3",
+        "annualSalary": 1059738,
+        "signingBonus": 190753,
+        "termWeeks": 208,
+        "startWeek": 208,
+        "endWeekExclusive": 416
+      },
+      "completeH": true,
+      "completeA": true,
+      "conclusion": "PAIR_AGREES_VIA_ADMITTED_SOURCE_TRANSPORT"
+    }
+  ],
+  "selectedInputFacts": [
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-0:208",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r01-0",
+      "sourceOrder": 24,
+      "HContextAge": 44.36540781416331,
+      "ACapturedAge": 48,
+      "personDifferingFields": [
+        "age"
+      ],
+      "ageIsOnlyPersonDifference": true,
+      "firstDraw": 0.34857689985074103,
+      "jitter": 0.9757723039761186,
+      "premiumTierIndex": 2,
+      "releaseFloor": null,
+      "HAnnual": 514171,
+      "AAnnual": 499573,
+      "HSigningBonus": 92551,
+      "ASigningBonus": 89923,
+      "annualDifference": -14598,
+      "signingBonusDifference": -2628,
+      "completeH": true,
+      "completeA": true
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-1:208",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r01-1",
+      "sourceOrder": 25,
+      "HContextAge": 48.70801517856732,
+      "ACapturedAge": 52,
+      "personDifferingFields": [
+        "age",
+        "skills"
+      ],
+      "ageIsOnlyPersonDifference": false,
+      "firstDraw": 0.8556038967799395,
+      "jitter": 1.0568966234847903,
+      "premiumTierIndex": 2,
+      "releaseFloor": null,
+      "HAnnual": 254011,
+      "AAnnual": 242680,
+      "HSigningBonus": 45722,
+      "ASigningBonus": 43682,
+      "annualDifference": -11331,
+      "signingBonusDifference": -2040,
+      "completeH": true,
+      "completeA": true
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-2:208",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r01-2",
+      "sourceOrder": 26,
+      "HContextAge": 30.706232958391467,
+      "ACapturedAge": 34,
+      "personDifferingFields": [
+        "age"
+      ],
+      "ageIsOnlyPersonDifference": true,
+      "firstDraw": 0.14396123448386788,
+      "jitter": 0.9430337975174189,
+      "premiumTierIndex": 2,
+      "releaseFloor": null,
+      "HAnnual": 345627,
+      "AAnnual": 346793,
+      "HSigningBonus": 62213,
+      "ASigningBonus": 62423,
+      "annualDifference": 1166,
+      "signingBonusDifference": 210,
+      "completeH": true,
+      "completeA": true
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-3:208",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r01-3",
+      "sourceOrder": 27,
+      "HContextAge": 40.04834772311771,
+      "ACapturedAge": 44,
+      "personDifferingFields": [
+        "age"
+      ],
+      "ageIsOnlyPersonDifference": true,
+      "firstDraw": 0.2815200590994209,
+      "jitter": 0.9650432094559074,
+      "premiumTierIndex": 2,
+      "releaseFloor": null,
+      "HAnnual": 935256,
+      "AAnnual": 916663,
+      "HSigningBonus": 168346,
+      "ASigningBonus": 164999,
+      "annualDifference": -18593,
+      "signingBonusDifference": -3347,
+      "completeH": true,
+      "completeA": true
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-4:208",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r01-4",
+      "sourceOrder": 28,
+      "HContextAge": 34.8353363537762,
+      "ACapturedAge": 38,
+      "personDifferingFields": [
+        "age"
+      ],
+      "ageIsOnlyPersonDifference": true,
+      "firstDraw": 0.13948272936977446,
+      "jitter": 0.9423172366991639,
+      "premiumTierIndex": 2,
+      "releaseFloor": null,
+      "HAnnual": 1097654,
+      "AAnnual": 1092446,
+      "HSigningBonus": 197578,
+      "ASigningBonus": 196640,
+      "annualDifference": -5208,
+      "signingBonusDifference": -938,
+      "completeH": true,
+      "completeA": true
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r02:contract:person-studio-aca408ec-r01-5:208",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r01-5",
+      "sourceOrder": 29,
+      "HContextAge": 29.927234713302248,
+      "ACapturedAge": 33,
+      "personDifferingFields": [
+        "age"
+      ],
+      "ageIsOnlyPersonDifference": true,
+      "firstDraw": 0.051142517710104585,
+      "jitter": 0.9281828028336168,
+      "premiumTierIndex": 2,
+      "releaseFloor": null,
+      "HAnnual": 256389,
+      "AAnnual": 257634,
+      "HSigningBonus": 46150,
+      "ASigningBonus": 46374,
+      "annualDifference": 1245,
+      "signingBonusDifference": 224,
+      "completeH": true,
+      "completeA": true
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-0:208",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r02-0",
+      "sourceOrder": 30,
+      "HContextAge": 53.09611512878311,
+      "ACapturedAge": 57,
+      "personDifferingFields": [
+        "age",
+        "fame"
+      ],
+      "ageIsOnlyPersonDifference": false,
+      "firstDraw": 0.4843733462039381,
+      "jitter": 0.9974997353926301,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HAnnual": 304978,
+      "AAnnual": 292260,
+      "HSigningBonus": 54896,
+      "ASigningBonus": 52607,
+      "annualDifference": -12718,
+      "signingBonusDifference": -2289,
+      "completeH": true,
+      "completeA": true
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-1:208",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r02-1",
+      "sourceOrder": 31,
+      "HContextAge": 40.255207774620324,
+      "ACapturedAge": 44,
+      "personDifferingFields": [
+        "age",
+        "fame"
+      ],
+      "ageIsOnlyPersonDifference": false,
+      "firstDraw": 0.6565972110256553,
+      "jitter": 1.0250555537641048,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HAnnual": 454396,
+      "AAnnual": 445718,
+      "HSigningBonus": 81791,
+      "ASigningBonus": 80229,
+      "annualDifference": -8678,
+      "signingBonusDifference": -1562,
+      "completeH": true,
+      "completeA": true
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-2:208",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r02-2",
+      "sourceOrder": 32,
+      "HContextAge": 40.093064922683496,
+      "ACapturedAge": 44,
+      "personDifferingFields": [
+        "age",
+        "fame",
+        "skills"
+      ],
+      "ageIsOnlyPersonDifference": false,
+      "firstDraw": 0.7270294514019042,
+      "jitter": 1.0363247122243047,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HAnnual": 198718,
+      "AAnnual": 191769,
+      "HSigningBonus": 35769,
+      "ASigningBonus": 34518,
+      "annualDifference": -6949,
+      "signingBonusDifference": -1251,
+      "completeH": true,
+      "completeA": true
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-3:208",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r02-3",
+      "sourceOrder": 33,
+      "HContextAge": 54.082681874932234,
+      "ACapturedAge": 58,
+      "personDifferingFields": [
+        "age",
+        "fame"
+      ],
+      "ageIsOnlyPersonDifference": false,
+      "firstDraw": 0.4642153570894152,
+      "jitter": 0.9942744571343064,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HAnnual": 902597,
+      "AAnnual": 876801,
+      "HSigningBonus": 162467,
+      "ASigningBonus": 157824,
+      "annualDifference": -25796,
+      "signingBonusDifference": -4643,
+      "completeH": true,
+      "completeA": true
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-4:208",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r02-4",
+      "sourceOrder": 34,
+      "HContextAge": 43.19009438114523,
+      "ACapturedAge": 47,
+      "personDifferingFields": [
+        "age",
+        "fame"
+      ],
+      "ageIsOnlyPersonDifference": false,
+      "firstDraw": 0.11387934512458742,
+      "jitter": 0.938220695219934,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HAnnual": 674886,
+      "AAnnual": 656727,
+      "HSigningBonus": 121479,
+      "ASigningBonus": 118211,
+      "annualDifference": -18159,
+      "signingBonusDifference": -3268,
+      "completeH": true,
+      "completeA": true
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r01:contract:person-studio-aca408ec-r02-5:208",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r02-5",
+      "sourceOrder": 35,
+      "HContextAge": 49.92240797196069,
+      "ACapturedAge": 53,
+      "personDifferingFields": [
+        "age",
+        "fame"
+      ],
+      "ageIsOnlyPersonDifference": false,
+      "firstDraw": 0.7007206561975181,
+      "jitter": 1.032115304991603,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HAnnual": 302264,
+      "AAnnual": 291337,
+      "HSigningBonus": 54408,
+      "ASigningBonus": 52441,
+      "annualDifference": -10927,
+      "signingBonusDifference": -1967,
+      "completeH": true,
+      "completeA": true
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-0:208",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r03-0",
+      "sourceOrder": 36,
+      "HContextAge": 51.182996256107096,
+      "ACapturedAge": 55,
+      "personDifferingFields": [
+        "age",
+        "fame"
+      ],
+      "ageIsOnlyPersonDifference": false,
+      "firstDraw": 0.7172063635662198,
+      "jitter": 1.034753018170595,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HAnnual": 341615,
+      "AAnnual": 324580,
+      "HSigningBonus": 61491,
+      "ASigningBonus": 58424,
+      "annualDifference": -17035,
+      "signingBonusDifference": -3067,
+      "completeH": true,
+      "completeA": true
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-1:208",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r03-1",
+      "sourceOrder": 37,
+      "HContextAge": 46.581942481860075,
+      "ACapturedAge": 50,
+      "personDifferingFields": [
+        "age",
+        "fame"
+      ],
+      "ageIsOnlyPersonDifference": false,
+      "firstDraw": 0.29803259251639247,
+      "jitter": 0.9676852148026228,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HAnnual": 291925,
+      "AAnnual": 282555,
+      "HSigningBonus": 52547,
+      "ASigningBonus": 50860,
+      "annualDifference": -9370,
+      "signingBonusDifference": -1687,
+      "completeH": true,
+      "completeA": true
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-2:208",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r03-2",
+      "sourceOrder": 38,
+      "HContextAge": 28,
+      "ACapturedAge": 32,
+      "personDifferingFields": [
+        "age",
+        "fame"
+      ],
+      "ageIsOnlyPersonDifference": false,
+      "firstDraw": 0.6570006266701967,
+      "jitter": 1.0251201002672314,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HAnnual": 538698,
+      "AAnnual": 543983,
+      "HSigningBonus": 96966,
+      "ASigningBonus": 97917,
+      "annualDifference": 5285,
+      "signingBonusDifference": 951,
+      "completeH": true,
+      "completeA": true
+    },
+    {
+      "identity": [
+        "studio-aca408ec-r03:contract:person-studio-aca408ec-r03-3:208",
+        0
+      ],
+      "talentId": "person-studio-aca408ec-r03-3",
+      "sourceOrder": 39,
+      "HContextAge": 31.872599486928138,
+      "ACapturedAge": 35,
+      "personDifferingFields": [
+        "age",
+        "fame"
+      ],
+      "ageIsOnlyPersonDifference": false,
+      "firstDraw": 0.6224897031206638,
+      "jitter": 1.0195983524993062,
+      "premiumTierIndex": 1,
+      "releaseFloor": null,
+      "HAnnual": 1058689,
+      "AAnnual": 1059738,
+      "HSigningBonus": 190564,
+      "ASigningBonus": 190753,
+      "annualDifference": 1049,
+      "signingBonusDifference": 189,
+      "completeH": true,
+      "completeA": true
+    }
+  ],
+  "causalScope": "Complete authenticated historical H-context versus naturally captured A208 pricing-input vectors under unchanged original arithmetic and admitted shared keyed draw, premium and release-floor facts.",
+  "ageOnlyPersonRows": 5,
+  "personRowsWithOtherDifferences": 11,
+  "all16AgeOnlyAttribution": false,
+  "isolatedPerFieldDecompositionPerformed": false,
+  "originalOfferLocalCapture": false,
+  "pricingReplayedByReviewer": false
+}
+

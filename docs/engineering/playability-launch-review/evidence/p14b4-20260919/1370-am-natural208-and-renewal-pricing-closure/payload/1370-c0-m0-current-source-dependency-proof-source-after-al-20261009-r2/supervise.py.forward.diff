@@ -1,0 +1,36 @@
+--- accepted-r4/supervise.py
++++ proof-only-r1/supervise.py
+@@ -4,11 +4,11 @@
+ import hashlib,json,math,os,pathlib,selectors,shutil,signal,stat,subprocess,sys,time
+ S=pathlib.Path('/Users/zacheryspector/studio-scratch')
+ REPO=pathlib.Path('/Users/zacheryspector/The-Movies-headless-program')
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4')
+-RESULT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r1/20261009-m0-types-after-al-r1.RECORDER-RESULT.json')
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r1')
++RESULT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-recorder-results-after-al-20261009-r1/20261009-m0-current-proof-after-al-r1.RECORDER-RESULT.json')
+ BOOTSTRAP=P/'BOOTSTRAP.py'
+-BOOTSTRAP_SHA='25696ed2167dafc16751ac00f96eb203d0c9ab7d700b6c382dce816af7b0056b'
+-RUNNER_SHA='03768e0be95c3dccf430598f7cab47a9b5d2672be6de7d456705cbf7ec2b68a7'
++BOOTSTRAP_SHA='25e2deba18177b88a569c4232ae1fa14284cf8e67fe19b16996c930982a45807'
++RUNNER_SHA='1d15705ed1f6ccbd74da3a3b9ec21720ff453d81fefa7daaced3e41c4bb73e25'
+ AUTHORITY=globals()['_AUTHORITY']
+ CONTEXT=pathlib.Path(globals()['_CONTEXT_PATH'])
+ CONTEXT_SHA=globals()['_CONTEXT_SHA']
+@@ -18,7 +18,7 @@
+ PRODUCTION_REF='refs/heads/wip/headless-program-20260916-ts'
+ MAIN_REF='refs/heads/main'
+ MAIN_OID='c902a704eb948cc576083d0973c8c23e59937dc1'
+-LANE_LOG='c0-m0-types-20261009-m0-types-after-al-r1.lane.log'
++LANE_LOG='c0-m0-current-proof-20261009-m0-current-proof-after-al-r1.lane.log'
+ ACTIVE=320
+ LIMIT=330
+ START=globals()['LAUNCH_START']
+@@ -251,7 +251,7 @@
+  failure=None
+  try:
+   preflight()
+-  need(AUTHORITY['configSha256']=='7166e022583531d924d67639a3d2a8a8f250bd8461f2a33cace8ce8f41c24f9c','exact M0 source config')
++  need(AUTHORITY['configSha256']=='01c5c22d4f7212dd2a835883908b373b0583480487256d2f85933ae42d82b7ed','exact M0 source config')
+   bootstrap_source=read_pin(BOOTSTRAP,100000,BOOTSTRAP_SHA).decode('utf-8')
+   need(shutil.disk_usage(S).free>=3*1024**3,'3 GiB floor')
+   clean={k:v for k,v in os.environ.items() if not k.startswith('GIT_')}

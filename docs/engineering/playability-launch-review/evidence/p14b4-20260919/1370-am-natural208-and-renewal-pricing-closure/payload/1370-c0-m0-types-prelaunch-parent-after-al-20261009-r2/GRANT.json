@@ -1,0 +1,53 @@
+{
+  "actualFullInventoryRun": false,
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2/original-current-root-prelaunch.py",
+    "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-TYPES-PRELAUNCH-CONFIG.json",
+    "a0647f6c5ab2c1a8c1eb49a221da53072b5b173611bf8a34b68a44e418969eb1"
+  ],
+  "automaticRetry": false,
+  "config": {
+    "bytes": 2630,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-TYPES-PRELAUNCH-CONFIG.json",
+    "sha256": "a0647f6c5ab2c1a8c1eb49a221da53072b5b173611bf8a34b68a44e418969eb1"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesPid": true,
+  "executionAuthorization": true,
+  "game": false,
+  "mode": "types",
+  "noHelperOriginalLockAbsentRequired": true,
+  "originalFullObservationsReusedUnderContinuousFreeze": true,
+  "ownedGroupAbsenceClaimInPreflight": false,
+  "ownedPgid": 48984,
+  "ownedPgidsPassedToOriginalCurrent": [],
+  "ownedPid": 48984,
+  "ownedSid": 48984,
+  "perCommandTimeoutSeconds": 180,
+  "priorOwnershipAdmittedSeparately": true,
+  "proofOrTypesAccepted": false,
+  "protectedFreezeContinues": true,
+  "rawPsFdLocalOnly": true,
+  "rootLauncher": {
+    "bytes": 3866,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_preflight_once.py",
+    "sha256": "b31d537077bbbf69eb6f2fb35be12651b9d33c62c54a2d0baf6f00409b7f264f"
+  },
+  "schema": "1370-root-direct-m0-original-prelaunch-observation-grant/v1",
+  "sourcePins": {
+    "bytes": 3310,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "05c10ea344c211e4a57e55229a2b7b9244a86e7cf76919efeb08f0a410877572"
+  },
+  "sourceReview": {
+    "bytes": 10222,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-proof-types-parent-launch-preparation-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "d60c40db318d682289988ad4c86fa27d964d2c555e85d18919def1a1dc794d7c"
+  },
+  "startMonotonic": 105381.013107628,
+  "status": "GRANTED_ONCE_ORIGINAL_CURRENT_ROOT_PREFLIGHT",
+  "utc": "2026-10-10T02:27:20.241814+00:00"
+}

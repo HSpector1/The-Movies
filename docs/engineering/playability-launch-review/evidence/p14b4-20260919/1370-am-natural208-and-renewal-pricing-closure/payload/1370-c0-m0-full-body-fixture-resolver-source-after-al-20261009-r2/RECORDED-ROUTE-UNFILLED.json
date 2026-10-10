@@ -1,0 +1,80 @@
+{
+  "actualM0Types": null,
+  "baselineMethods": {
+    "bytes": 9385,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/controls/full-body-controls.ts",
+    "sha256": "a74fd2342b7cc8b5cdb059acd187e68c49f9c6d9e35b46ceaf2166829d35e71c"
+  },
+  "blocker": "R2 source proposes separately reviewed qualified300/320/330; exact full-body recorder adaptation, tools, retained streams, group cleanup and full-state artifact bound remain unfilled. M0types clocks/outcome alone are not inherited.",
+  "childModes": [
+    "fixture-generation:baseline",
+    "controls:baseline",
+    "controls:typed-catch-mutant"
+  ],
+  "clockSourceDesignIntent": {
+    "bytes": 4700,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/NEXT-STEPS.md",
+    "sha256": "43e7adea2828a1cdb0d1ce2de74d2f44005c4d9eba0a7f3f1991d51f53a94f3b"
+  },
+  "config": {
+    "bytes": 1016,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/config.mjs",
+    "sha256": "39036ee18c368b5166f1dc8ea191cf8bdffca6d2b1316e29aa4ec84590c39a96"
+  },
+  "controlExecutionGrant": null,
+  "controlsReadyForRuntime": false,
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2",
+  "entrypoint": {
+    "bytes": 2528,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/core.test.ts",
+    "sha256": "b2af5a489d29cb285d89b37cedd3a87f5275f90cfdc46574a6b541fde51f25da"
+  },
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "existingHorizonAuthority": {
+    "naturalWeeks": 416,
+    "proposedPrefixThrough": 208,
+    "requestedBoundaryWeeks": [
+      196,
+      197,
+      208
+    ],
+    "source": "4c4cec361c803e2f6600f60bb410f996329a88bb716c7dba3bd79829322058ba"
+  },
+  "expectedMutantRed": "independently specified exact typed-propagation assertion after successful earlier controls",
+  "fixtureArtifactBytes": null,
+  "fixtureGenerationGrant": null,
+  "fixtureOutput": null,
+  "fixtureProducer": {
+    "bytes": 6863,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/fixtures.ts",
+    "sha256": "5ff38007b8126571e9fa84a9efe94f35866be409d3c35b22f9c90b5ce3e0315d"
+  },
+  "fixtureReceipt": null,
+  "fixtureRole": null,
+  "launchArgv": null,
+  "mutant": {
+    "bytes": 119464,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/mutants/typed-propagation-removed-talentMarket.ts",
+    "sha256": "074d0cfd58e245bb35883b79bf72dda428884fc2bb49ea918da6f2320c235ef3"
+  },
+  "operationalHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "operationalProtection": null,
+  "outerRecorder": null,
+  "ownedGroupCleanup": null,
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "proposedChildSeconds": 300,
+  "proposedRecorderSeconds": 320,
+  "proposedWholeSeconds": 330,
+  "qualifiedClockAuthority": null,
+  "resolution": {
+    "bytes": 77168,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/RESOLUTION-SOURCE-BINDING.json",
+    "sha256": "27bd252cb87ed8249baac1aac9b656aaa10d030d39fef576d2be2e8fb18a0db3"
+  },
+  "retainedStreamValidator": null,
+  "runtimeToolRoles": null,
+  "schema": "1370-m0-full-body-recorded-route-held/v1",
+  "supervisor": null,
+  "testTimeoutMs": null
+}

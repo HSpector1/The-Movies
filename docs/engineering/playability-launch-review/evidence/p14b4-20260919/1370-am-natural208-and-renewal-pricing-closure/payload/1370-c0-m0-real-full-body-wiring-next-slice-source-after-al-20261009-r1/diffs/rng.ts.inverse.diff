@@ -1,0 +1,22 @@
+--- src/core/rng.ts
++++ src/core/rng.ts
+@@ -1,4 +1,3 @@
+-import { m0WiringProbe as __m0WiringProbe } from './m0WiringProbe.js'
+ // ── Seeded RNG (rev. 4 item M9 architecture) ─────────────────────────────────
+ // Deterministic PRNG with serializable state as a string (for GameState.rngState).
+ //
+@@ -162,7 +161,6 @@
+ 
+   // Uniform [0,1).
+   next(): number {
+-  __m0WiringProbe.call('RngStream.next')
+     return sfc32Next(this.st)
+   }
+ 
+@@ -204,6 +202,5 @@
+ // Derived stateless stream. purpose and key are mixed into the hash so each
+ // (seed, purpose, key) yields an independent, reproducible stream.
+ export function stream(seed: string, purpose: RngPurpose, key: string | number): RngStream {
+-  __m0WiringProbe.call('stream', {seed,purpose,key})
+   return RngStream.fromSeed(`${seed}::${purpose}::${key}`)
+ }

@@ -1,0 +1,82 @@
+{
+  "actualOwnedGroupsFreshlyAbsent": [
+    12029,
+    12294
+  ],
+  "actualOwnedPidsFreshlyAbsent": [
+    12029,
+    12294
+  ],
+  "actualTool": {
+    "bytes": 918,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/ACTUAL-TOOL.json",
+    "sha256": "86309c6a40b2e26fd598b0cd53d78db855a01fdc253b84b308ca31c30d1c1b5e"
+  },
+  "actualToolExit": 0,
+  "actualToolSessionId": 82873,
+  "diagnosticMeaning": "Producer stderr must be empty. Inherited Python main outer-finally SyntaxWarning may remain in helper combinedlog under actual focused qualification; no suppression or all-streams-quiet claim.",
+  "game": false,
+  "grant": {
+    "bytes": 7059,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/GRANT.json",
+    "sha256": "8d32dd7abb8f8e0bf502242b19854169567e47d948e0fbe74378776a85ee61ba"
+  },
+  "heavyLaneLockAbsent": true,
+  "helperExit": 0,
+  "helperMetaExit": 0,
+  "helperPgid": 12029,
+  "helperPid": 12029,
+  "helperSid": 12029,
+  "laneLog": {
+    "bytes": 403,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-lane-after-al-20261009-r1/benchmark.lane.log",
+    "sha256": "2ce89ec2cb7faa2c04c3b584d45915350081bb3496ac07f9b9b5876013ddd731"
+  },
+  "laneMeta": {
+    "bytes": 351,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-lane-after-al-20261009-r1/benchmark.lane.log.meta",
+    "sha256": "52e939ce20c225e3136da4695d66c5e9649604d544175c64aa9d34679ed701c9"
+  },
+  "launchClaim": {
+    "bytes": 2446,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/LAUNCH-CLAIM.json",
+    "sha256": "6d039371ef79b17b4e858d4fa2a9c55cc2dd25d1acfa5fe82658f38da49c5e00"
+  },
+  "nodeExit": 0,
+  "performanceAccepted": false,
+  "recordedPostChecks": [
+    {
+      "id": 12029,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 12294,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 12029,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 12294,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    }
+  ],
+  "recorderExit": 0,
+  "result": {
+    "bytes": 922,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-output-after-al-20261009-r1/RESULT.json",
+    "sha256": "8dcacb784ebde9f990c2fcff92a5ab596a145df9f2001df3906a5d68c232ff16"
+  },
+  "schema": "1370-root-b109-ascii-paired308-benchmark-tool-outcome/v1",
+  "status": "ACTUAL_PAIRED308_BENCHMARK_COMPLETE_AWAIT_INDEPENDENT_REVIEW",
+  "utc": "2026-10-10T01:20:49.516377+00:00"
+}

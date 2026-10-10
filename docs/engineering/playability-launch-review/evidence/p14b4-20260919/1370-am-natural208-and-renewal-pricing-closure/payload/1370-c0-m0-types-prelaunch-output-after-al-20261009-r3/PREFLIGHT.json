@@ -1,0 +1,236 @@
+{
+  "baseline": {
+    "bytes": 8562268,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+    "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+  },
+  "configPath": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-TYPES-PRELAUNCH-CONFIG-R6.json",
+  "configSha256": "b0220454fc031183eb6904b153ef5c75559b9b52f528cc83c30d03131cd15c83",
+  "currentAfter": {
+    "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+    "fdOriginalAndEphemeralAndRetainedHPassed": true,
+    "fdOriginalM0ParentPassed": true,
+    "freeBytes": 4114096128,
+    "lsofRawBytes": 658157,
+    "lsofRawSha256": "a42564e94408dfc8d20a1accfb874c7323837f3e50fdf937d868f38f0e75025a",
+    "oldNumericPidsAbsent": true,
+    "ownedGroupClearanceClaim": false,
+    "ownedGroupIdsChecked": [],
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+    "psRawBytes": 96551,
+    "psRawSha256": "355ed2618bc97cde78b344f1a55a79c1fd36e57cacf22c9f5dd04f788e6a1448",
+    "relevantWorkersAbsent": true
+  },
+  "currentBefore": {
+    "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+    "fdOriginalAndEphemeralAndRetainedHPassed": true,
+    "fdOriginalM0ParentPassed": true,
+    "freeBytes": 4114112512,
+    "lsofRawBytes": 658157,
+    "lsofRawSha256": "1e85534d0077a3631f8ae82c935ea4199e47df566863bdb9ac129719253c90d3",
+    "oldNumericPidsAbsent": true,
+    "ownedGroupClearanceClaim": false,
+    "ownedGroupIdsChecked": [],
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true\n",
+    "psRawBytes": 96059,
+    "psRawSha256": "5a83c627a82158a6354c495ab8223e5c5f6eeb793cb402a7dd7f4cf729f5780c",
+    "relevantWorkersAbsent": true
+  },
+  "executionAuthorization": false,
+  "freshFullInventoryRun": false,
+  "game": false,
+  "m0ProofOrTypesAccepted": false,
+  "originalPrelaunchSource": {
+    "bytes": 23349,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r2/preflight.py",
+    "sha256": "fd2f806d140fbd74c34b130d299be20ff3382dd07e71ccf6da3f16d7c95e5fef"
+  },
+  "originalReusePlan": {
+    "bytes": 5164,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/PLAN.md",
+    "sha256": "acd0e3cb6ae3138f531cddba326bced7252c6f74fc13353b9ac728f68375413b"
+  },
+  "protectedFullMapReusedUnderContinuousFreeze": true,
+  "protectedSnapshot": {
+    "bytes": 8578642,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-types-r2/SNAPSHOT.json",
+    "sha256": "8b971dd446627f548e813b5c1ddf3141479d632602ff9aa7cd0cb4ef6ce478ed"
+  },
+  "rawLocalOnly": [
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 96059,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r3/BEFORE-PS.LOCAL",
+      "sha256": "5a83c627a82158a6354c495ab8223e5c5f6eeb793cb402a7dd7f4cf729f5780c"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 658157,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r3/BEFORE-LSOF.LOCAL",
+      "sha256": "1e85534d0077a3631f8ae82c935ea4199e47df566863bdb9ac129719253c90d3"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 96551,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r3/AFTER-PS.LOCAL",
+      "sha256": "355ed2618bc97cde78b344f1a55a79c1fd36e57cacf22c9f5dd04f788e6a1448"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 658157,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r3/AFTER-LSOF.LOCAL",
+      "sha256": "a42564e94408dfc8d20a1accfb874c7323837f3e50fdf937d868f38f0e75025a"
+    }
+  ],
+  "rootsAfter": {
+    "commonGitRoot": {
+      "ctimeNs": 1791475054920875233,
+      "device": 16777220,
+      "inode": 157454052,
+      "mode": 493,
+      "mtimeNs": 1791475054920875233,
+      "path": "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git"
+    },
+    "commonObjects": {
+      "ctimeNs": 1791493320461260435,
+      "device": 16777220,
+      "inode": 157454083,
+      "mode": 493,
+      "mtimeNs": 1791493320461260435,
+      "path": "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git/objects"
+    },
+    "copiedDependencies": {
+      "ctimeNs": 1791498512390967424,
+      "device": 16777220,
+      "inode": 166568569,
+      "mode": 493,
+      "mtimeNs": 1790738039503311431,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/node_modules"
+    },
+    "copiedGit": {
+      "ctimeNs": 1791498505730619861,
+      "device": 16777220,
+      "inode": 166568331,
+      "mode": 448,
+      "mtimeNs": 1791498505730619861,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git"
+    },
+    "copiedRoot": {
+      "ctimeNs": 1791498505800985629,
+      "device": 16777220,
+      "inode": 166568330,
+      "mode": 448,
+      "mtimeNs": 1791498505800985629,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1"
+    },
+    "productionDependencyRoot": {
+      "ctimeNs": 1790738039503311431,
+      "device": 16777220,
+      "inode": 158487026,
+      "mode": 493,
+      "mtimeNs": 1790738039503311431,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    },
+    "productionRoot": {
+      "ctimeNs": 1791471316296107826,
+      "device": 16777220,
+      "inode": 158484765,
+      "mode": 493,
+      "mtimeNs": 1791471316296107826,
+      "path": "/Users/zacheryspector/The-Movies-headless-program"
+    },
+    "retainedHLeaf": {
+      "ctimeNs": 1791462534662274730,
+      "device": 16777220,
+      "inode": 166418911,
+      "mode": 448,
+      "mtimeNs": 1791462534662274730,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1"
+    },
+    "retainedHParent": {
+      "ctimeNs": 1791451453565647134,
+      "device": 16777220,
+      "inode": 166418910,
+      "mode": 448,
+      "mtimeNs": 1791451453565647134,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2"
+    }
+  },
+  "rootsBefore": {
+    "commonGitRoot": {
+      "ctimeNs": 1791475054920875233,
+      "device": 16777220,
+      "inode": 157454052,
+      "mode": 493,
+      "mtimeNs": 1791475054920875233,
+      "path": "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git"
+    },
+    "commonObjects": {
+      "ctimeNs": 1791493320461260435,
+      "device": 16777220,
+      "inode": 157454083,
+      "mode": 493,
+      "mtimeNs": 1791493320461260435,
+      "path": "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git/objects"
+    },
+    "copiedDependencies": {
+      "ctimeNs": 1791498512390967424,
+      "device": 16777220,
+      "inode": 166568569,
+      "mode": 493,
+      "mtimeNs": 1790738039503311431,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/node_modules"
+    },
+    "copiedGit": {
+      "ctimeNs": 1791498505730619861,
+      "device": 16777220,
+      "inode": 166568331,
+      "mode": 448,
+      "mtimeNs": 1791498505730619861,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git"
+    },
+    "copiedRoot": {
+      "ctimeNs": 1791498505800985629,
+      "device": 16777220,
+      "inode": 166568330,
+      "mode": 448,
+      "mtimeNs": 1791498505800985629,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1"
+    },
+    "productionDependencyRoot": {
+      "ctimeNs": 1790738039503311431,
+      "device": 16777220,
+      "inode": 158487026,
+      "mode": 493,
+      "mtimeNs": 1790738039503311431,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    },
+    "productionRoot": {
+      "ctimeNs": 1791471316296107826,
+      "device": 16777220,
+      "inode": 158484765,
+      "mode": 493,
+      "mtimeNs": 1791471316296107826,
+      "path": "/Users/zacheryspector/The-Movies-headless-program"
+    },
+    "retainedHLeaf": {
+      "ctimeNs": 1791462534662274730,
+      "device": 16777220,
+      "inode": 166418911,
+      "mode": 448,
+      "mtimeNs": 1791462534662274730,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1"
+    },
+    "retainedHParent": {
+      "ctimeNs": 1791451453565647134,
+      "device": 16777220,
+      "inode": 166418910,
+      "mode": 448,
+      "mtimeNs": 1791451453565647134,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2"
+    }
+  },
+  "schema": "1370-root-m0-original-current-root-prelaunch-observation/v1",
+  "scope": "OriginalA208 nineprotectedroots/R9/shareddeps/currentAL only; current M0 fullsource/dependency proofs remain separate",
+  "status": "ORIGINAL_CURRENT_ROOT_PREFLIGHT_COMPLETED_UNREVIEWED"
+}

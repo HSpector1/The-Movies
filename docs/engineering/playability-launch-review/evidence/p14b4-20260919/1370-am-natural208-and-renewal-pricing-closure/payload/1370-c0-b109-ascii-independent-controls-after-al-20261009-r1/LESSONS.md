@@ -1,0 +1,4 @@
+- Pure module correctness can miss actual integration entry defects; where this narrow slice lives within unchanged encoder traversal, preserve original full28 controls and fresh source-read/cap checkpoint tests rather than testing classifier alone.
+- Specific malformed bytes/refusal code/trace establishes mutant RED. A generic nonzero outcome is an unexpected test failure, not accepted RED.
+- Do not infer timing or game feasibility from correctness. Selected reference2529, unfavorable historical cache, exact both-arm count accounting and unchanged bounds remain separate.
+- Original total token count is odd; report pending prefixes4095/4096/4097 traversed by2048 elements rather than inventing a4096-token complete array.

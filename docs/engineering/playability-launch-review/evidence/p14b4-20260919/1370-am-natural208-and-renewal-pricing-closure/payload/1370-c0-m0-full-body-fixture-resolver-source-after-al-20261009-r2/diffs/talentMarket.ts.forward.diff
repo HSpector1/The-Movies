@@ -1,0 +1,21 @@
+--- r2/talentMarket.ts
++++ r3/talentMarket.ts
+@@ -1551,10 +1551,17 @@
+ }
+ function m0Capture(state: GameState, kaseIdentity: M0CaseIdentity, proposal: TalentMarketProposal,
+   phase: 'authorCandidate' | 'freezeProposal' | 'chooserBand', ordinal: number): M0FeasibilityCapture | undefined {
+-  if (!__m0WiringProbe.captureEnabled()) return undefined
+   const proposalIdentity = m0ProposalIdentity(state, proposal)
+   const base = { era: 'M0' as const, week: state.market.tick, ...kaseIdentity,
+     subject: proposal.talentId, issuer: proposal.issuerStudioId, ...proposalIdentity }
++  const context = { ...base, phase, ...(phase === 'authorCandidate' ? {candidateOrdinal: ordinal}
++    : phase === 'freezeProposal' ? {submittedOrdinal: ordinal} : {survivorOrdinal: ordinal}) }
++  __m0WiringProbe.call('m0SourceArrays', {context,
++    cases: state.talentMarket.cases.map((row, sourceIndex) => ({sourceIndex,key:m0CaseKey(row)})),
++    proposals: state.talentMarket.proposals.map((row, sourceIndex) => ({sourceIndex,
++      talentId:row.talentId,issuer:row.issuerStudioId,digest:row.digest,
++      key:JSON.stringify([row.talentId,row.issuerStudioId,row.digest,row.submittedWeek])}))})
++  if (!__m0WiringProbe.captureEnabled()) return undefined
+   return phase === 'authorCandidate'
+     ? m0FeasibilitySink.capture({ ...base, phase, candidateOrdinal: ordinal })
+     : phase === 'freezeProposal'

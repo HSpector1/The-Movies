@@ -1,0 +1,42 @@
+{
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-lane-after-al-20261009-r1/pricing.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/record-pure-node.py",
+    "verification"
+  ],
+  "config": {
+    "bytes": 14970,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/CONFIG.json",
+    "sha256": "49508521d31a2d1f9a384ebcfa4f3b09306426d8868aa92900da93f2b8d872ef"
+  },
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "gameRootObservedAdoption": {
+    "bytes": 5419,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-GAME-OBSERVED-ADOPTION.json",
+    "sha256": "17fdc2082a68e1dbc9ca646e7a4467ad34c0a68d8eee70fca01e6970e22aaaa2"
+  },
+  "observedAcceptance": "Independent source and exact filled input-packet review, root operational grant, actual tool/helper/recorder/Node0 and fresh owned-group clearance;16 paypairs/44 nonpaypairs. Discrepancy retained STOP; no auto-retry or cause admission.",
+  "recorder": {
+    "bytes": 14539,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/record-pure-node.py",
+    "sha256": "dd76ceec50be94b50a4ff52c8a070ec9a691b9bbe781fabc1ac0914543bf0346"
+  },
+  "status": "SOURCE_ONLY_EXACT_FILLED_UNRUN_PENDING_INDEPENDENT_REVIEW_AND_PARENT_GRANT",
+  "tools": {
+    "helperSha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e",
+    "nodeSha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6",
+    "pythonSha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+  },
+  "unlaunchableUntil": "Existing independent exact source/fill/launch review, actual report controls and separate parent recorded pricing grant; no pricing authority is supplied by this source artifact."
+}

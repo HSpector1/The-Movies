@@ -1,0 +1,15 @@
+{
+  "actualGrant": null,
+  "additionalRefs": {},
+  "configSha256": "7166e022583531d924d67639a3d2a8a8f250bd8461f2a33cace8ce8f41c24f9c",
+  "currentProtection": null,
+  "executionAuthorization": false,
+  "freshDependencyProof": null,
+  "freshSourceProof": null,
+  "laneLock": null,
+  "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+  "runId": "20261009-m0-types-after-al-r1",
+  "runtimeTools": null,
+  "schema": "1370-m0-types-execution-context/v1",
+  "sourceReview": null
+}

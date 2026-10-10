@@ -1,0 +1,22 @@
+{
+  "schema": "1370-root-actual-tool-chunks/v1",
+  "toolSessionId": 79331,
+  "chunks": [
+    {
+      "chunk_id": "8781f9",
+      "wall_time_seconds": 1.001897436,
+      "session_id": 79331,
+      "original_token_count": 60,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r2/GRANT.json\", \"bytes\": 6356, \"sha256\": \"1a6d3421fb2411f1b38f40cba2998a464aa613d8544d7441c919b554ad1ab492\"}}\n"
+    },
+    {
+      "chunk_id": "1a1652",
+      "wall_time_seconds": 0.00001825,
+      "exit_code": 0,
+      "original_token_count": 68,
+      "output": "{\"launchClaim\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r2/LAUNCH-CLAIM.json\", \"bytes\": 1925, \"sha256\": \"32fb87a8ad34927531e92983987a51683fbd3f456c5a8665d96f37aa148440da\"}, \"helperPid\": 17003}\n"
+    }
+  ],
+  "finalExit": 0
+}
+

@@ -1,0 +1,96 @@
+{
+  "actualTool": {
+    "bytes": 707,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-fill-parent-after-al-20261009-r4/ACTUAL-TOOL.json",
+    "sha256": "02321a62dd455f64bda8a8b40728d2034b2f101c9783b5a93c3b5149e13e1b34"
+  },
+  "actualToolExit": 0,
+  "actualToolSessionId": 98919,
+  "candidateExactReview": null,
+  "files": {
+    "BINDING-DRAFT.json": {
+      "bytes": 6212,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json",
+      "sha256": "023187fa9eda57647abc7070f2e3c5aab42aa61d8020ae3b713f29a9367557ef"
+    },
+    "BINDING-SEMANTIC.json": {
+      "bytes": 6109,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-SEMANTIC.json",
+      "sha256": "db30abab9b0fa41d45c6d8c297f57e1c54a17fc42f3914bd3f20b0c5b714dbd6"
+    },
+    "CANDIDATE-PINS.json": {
+      "bytes": 1013,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/CANDIDATE-PINS.json",
+      "sha256": "8cc74c5b47a8cc4b6830917c9f4409063dc99ab3c1994b974c20a36252a735d1"
+    },
+    "DRAFT-IDENTITY.json": {
+      "bytes": 1296,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/DRAFT-IDENTITY.json",
+      "sha256": "4e182d6bc66b2ac1e6a6d13c1d99415264d762ea095e7ef72fedc751d433ea08"
+    },
+    "DRAFT-REPORT.json": {
+      "bytes": 16887,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/DRAFT-REPORT.json",
+      "sha256": "f13613f5098118e3ea84f27f810374a53411a8e86d0714dc60d55eff98f36b20"
+    },
+    "LAUNCH-SPEC-DRAFT.json": {
+      "bytes": 14175,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/LAUNCH-SPEC-DRAFT.json",
+      "sha256": "ee1ef0ca3270cfb82d6ef7eb72b358bf3dbe2c0ffd89084412e38d02cbdae4c0"
+    }
+  },
+  "fillerExit": 0,
+  "game": false,
+  "globalWorkerAbsenceClaim": false,
+  "grant": {
+    "bytes": 3458,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-fill-parent-after-al-20261009-r4/FILL-GRANT.json",
+    "sha256": "2c2e4ea9564f8e2e8d7531b8837f24a1f04e3caca41c7396a60a182a0209cf22"
+  },
+  "heavyLaneLockAbsent": true,
+  "identity": {
+    "bytes": 1296,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/DRAFT-IDENTITY.json",
+    "sha256": "4e182d6bc66b2ac1e6a6d13c1d99415264d762ea095e7ef72fedc751d433ea08"
+  },
+  "ownedFillerPgid": 54612,
+  "ownedFillerPid": 54612,
+  "samePidDirectExec": true,
+  "schema": "1370-root-a208-actual-fill-readback/v1",
+  "semanticSha256": "dc03453dfb291c85f009666c264af7287114dd3e4a4d5851e4da558af743a254",
+  "status": "ACTUAL_SIX_FILLED_UNREVIEWED_READY_FOR_AFTER_FILL_GUARD",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-fill-parent-after-al-20261009-r4/fill.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 540,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-fill-parent-after-al-20261009-r4/fill.stdout",
+    "sha256": "4187f46e2c3c29834a1d77b76390c0f75e03f42cafe891f81a5a9f5d2d0b2e01"
+  },
+  "summary": {
+    "bindingSemanticSha256": "dc03453dfb291c85f009666c264af7287114dd3e4a4d5851e4da558af743a254",
+    "bindingSha256": "023187fa9eda57647abc7070f2e3c5aab42aa61d8020ae3b713f29a9367557ef",
+    "candidatePath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4",
+    "candidatePinsSha256": "8cc74c5b47a8cc4b6830917c9f4409063dc99ab3c1994b974c20a36252a735d1",
+    "draftIdentitySha256": "4e182d6bc66b2ac1e6a6d13c1d99415264d762ea095e7ef72fedc751d433ea08",
+    "launchAuthorized": false,
+    "status": "DRAFT_FILLED_UNREVIEWED_UNRUN"
+  },
+  "utc": "2026-10-10T00:40:40.998127+00:00",
+  "zeroSignalChecks": [
+    {
+      "id": 54612,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 54612,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    }
+  ]
+}

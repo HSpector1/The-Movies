@@ -1,0 +1,78 @@
+{
+  "P17P18Accepted": false,
+  "actualConsumer": {
+    "bytes": 126,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/CONSUMER-TOOL.json",
+    "sha256": "db585d6618d192e6a13eda437e6b795c354b62314a4a0f3b624935f1180bcc64"
+  },
+  "actualOutcome": {
+    "bytes": 2798,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/TOOL-OUTCOME.json",
+    "sha256": "2323fba36f9445d6981852026e5a590f4303fed3ef4f85019bcb0e3784001f4f"
+  },
+  "actualTool": {
+    "bytes": 918,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/ACTUAL-TOOL.json",
+    "sha256": "86309c6a40b2e26fd598b0cd53d78db855a01fdc253b84b308ca31c30d1c1b5e"
+  },
+  "actualToolSessionId": 82873,
+  "allEightPairsAndOutlierPreserved": true,
+  "allFiveExitsAndConsumerZero": true,
+  "candidatePercentWorse": 3.0504027351709206,
+  "consumption": {
+    "bytes": 13919,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-parent-recorded-after-al-20261009-r1/CONSUMPTION.json",
+    "sha256": "e92b1dfb490bee6219e1f70ebf1c8326a4529bd71587eb75b109a58e52d0a69b"
+  },
+  "executionAuthorization": false,
+  "full109Accepted": false,
+  "gameAccepted": false,
+  "independentReview": {
+    "bytes": 16965,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-observed-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "3965c8bcbe196ca809844cecfbc380a29d8ea05a1b9f7de4dc0e60717357cb96"
+  },
+  "measuredMediansMs": {
+    "state": {
+      "candidate": 67.32958300000018,
+      "reference": 60.471897000000126
+    },
+    "wholeRow": {
+      "candidate": 115.94958499999984,
+      "reference": 121.16290900000013
+    }
+  },
+  "noAutomaticRerun": true,
+  "performanceScope": "One paired genuine indexed308 fixture; weighting is an illustration, not measured full109 runtime, lower bound or headroom. No generalized speed claim.",
+  "producerStderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-output-after-al-20261009-r1/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "producerStdout": {
+    "bytes": 11199,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-output-after-al-20261009-r1/stdout.bin",
+    "sha256": "8fe5b9ff89f78033c95be3f868f8a789b98eaff49bf89295ac0bb8fe9a6da412"
+  },
+  "result": {
+    "bytes": 922,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-output-after-al-20261009-r1/RESULT.json",
+    "sha256": "8dcacb784ebde9f990c2fcff92a5ab596a145df9f2001df3906a5d68c232ff16"
+  },
+  "schema": "1370-root-b109-ascii-benchmark-observed-measurement-adoption/v1",
+  "selectedEncoder": {
+    "selectionUnchanged": true,
+    "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+  },
+  "sourcePromotionAuthorized": false,
+  "status": "ROOT_ADOPTED_MEASUREMENT_DECLINED_ASCII_PERFORMANCE_PROMOTION",
+  "unpromotedCandidate": {
+    "focusedCorrectnessRemainsAccepted": true,
+    "performancePromotion": false,
+    "sha256": "f382fe6610a69a1c766134120e5382e86700ac6078a82d712547bf027f42810b"
+  },
+  "weightedBothArmConstantEarlyFixtureIllustrationSeconds": {
+    "candidate": 467.4480862980003,
+    "reference": 453.6111202780007
+  }
+}

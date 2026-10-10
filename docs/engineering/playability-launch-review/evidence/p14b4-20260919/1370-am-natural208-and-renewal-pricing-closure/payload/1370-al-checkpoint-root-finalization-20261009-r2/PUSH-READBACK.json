@@ -1,0 +1,21 @@
+{
+  "advertisedRefs": "c902a704eb948cc576083d0973c8c23e59937dc1\trefs/heads/main\n8cb704e2f18e6a635943893422c9cfdc206e106d\trefs/heads/wip/headless-program-20260916-ts\n",
+  "branch": "wip/headless-program-20260916-ts",
+  "checkpointPathsVerified": 393,
+  "docsOnlyTransitionVerified": true,
+  "fetchStderr": "From https://github.com/HSpector1/The-Movies\n   372d15e1..8cb704e2  wip/headless-program-20260916-ts -> origin/wip/headless-program-20260916-ts\n",
+  "fetchStdout": "",
+  "head": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+  "mainAncestor": true,
+  "mainMergedByThisCheckpoint": false,
+  "manifestSha256": "05d3cf619bdae521d02331cb76959f95a3bd62849355225f91c2f6676163c815",
+  "nextStep": "Bind actual AL operational A208 scope, independently review exact filled guard and run fresh protection before exact external game fill/grant.",
+  "parent": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+  "preservedAncestorAK": true,
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "stagedGitBlobObjectsPreviouslyReadBack": 375,
+  "status": "PUSHED_REMOTE_AND_COMMITTED_TREE_VERIFIED",
+  "trackingWorkingHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "workingTreeClean": true
+}

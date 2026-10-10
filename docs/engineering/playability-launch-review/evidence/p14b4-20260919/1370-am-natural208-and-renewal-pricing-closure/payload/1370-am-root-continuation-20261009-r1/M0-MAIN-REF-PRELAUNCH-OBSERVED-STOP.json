@@ -1,0 +1,24 @@
+{
+  "schema": "1370-root-m0-prelaunch-ref-role-stop/v1",
+  "status": "STOP_LOCAL_MAIN_REF_ROLE_MISMATCH_BEFORE_GRANT",
+  "actualTool": {
+    "chunk_id": "fc9094",
+    "wall_time_seconds": 0.383944052,
+    "exit_code": 128,
+    "original_token_count": 28,
+    "output": "c902a704eb948cc576083d0973c8c23e59937dc1 refs/remotes/origin/main\nfatal: 'refs/heads/main' - not a valid ref\n"
+  },
+  "scope": "Read-only local Git ref identity check; no M0 proof/type launch or grant.",
+  "presentLocalMain": "refs/remotes/origin/main",
+  "presentMainOid": "c902a704eb948cc576083d0973c8c23e59937dc1",
+  "missingLocalMain": "refs/heads/main",
+  "sourceConsumers": [
+    "M0 proof R1 runner.guard and supervise.preflight",
+    "M0 types R4 runner.guard and supervise.preflight"
+  ],
+  "requiredCorrection": "Separate the existing local remote-tracking ref from the GitHub advertised main branch ref; preserve both exact OID checks and avoid altering protected Git metadata.",
+  "productionMutation": false,
+  "proofRun": false,
+  "typesRun": false,
+  "executionAuthorization": false
+}

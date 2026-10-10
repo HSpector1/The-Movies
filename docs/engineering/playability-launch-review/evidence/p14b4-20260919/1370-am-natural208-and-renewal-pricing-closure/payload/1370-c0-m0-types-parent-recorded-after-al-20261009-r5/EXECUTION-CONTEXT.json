@@ -1,0 +1,234 @@
+{
+  "actualGrant": {
+    "bytes": 997,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r5/EXECUTION-GRANT.json",
+    "sha256": "2d018a052f3a75befab6339913d6dd934031606e177d6d4e24de1d8307f4a0f0"
+  },
+  "additionalRefs": {},
+  "configSha256": "e52b41bcb57b13e8255f9c5417aa29bdcf99e51850b0058119d4126c2c0d3172",
+  "currentProtection": {
+    "bytes": 2795,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-CURRENT-TYPES-PROTECTION.json",
+    "sha256": "865e9e0cd54a280831c5de7133a97d50f66c9ca0145f404c4a8e2a8d29bbef1a"
+  },
+  "executionAuthorization": false,
+  "freshDependencyProof": {
+    "contentAndMetadataSha256": "a06e929a60a5ede6ce0d72467d4d587e50d1c4fa3788bee3d07f1ea3388cd21d",
+    "contentBytes": 348223802,
+    "entries": 12484,
+    "rootDevice": 16777220,
+    "rootIdentity": [
+      16777220,
+      158487026,
+      16877,
+      154,
+      4928,
+      1790738039503311431,
+      1790738039503311431
+    ],
+    "rootInode": 158487026
+  },
+  "freshSourceProof": {
+    "dependencyLink": [
+      16777220,
+      166769275,
+      41408,
+      1,
+      62,
+      1791577446298712967,
+      1791577446298712967,
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    ],
+    "fileProofDigestSha256": "fbbfed3ec13da5618a0194204e2f6c8a87eebb5ee22102707d466340fbe6e1e0",
+    "mirrorBytes": 119393120,
+    "mirrorFiles": 1740,
+    "mirrorRootIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791577446298737027,
+      1791577446298737027
+    ],
+    "physicalMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "traversedEntries": 1853
+  },
+  "laneLock": {
+    "bytes": 140,
+    "path": "/Users/zacheryspector/studio-scratch/HEAVY-LANE-LOCK",
+    "sha256": "dcc4a792e57b29eb9a6eb4de6d9a2668ba325486523c6f60dc4b110dcbb12d39"
+  },
+  "mirrorPath": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+  "runId": "20261009-m0-types-after-al-r2",
+  "runtimeTools": {
+    "collectionWrapper": {
+      "bytes": 43,
+      "invokedPath": "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/vitest",
+      "links": [
+        {
+          "identity": [
+            16777220,
+            158488351,
+            493,
+            1,
+            20,
+            1787926699223021591,
+            1789555156658157238
+          ],
+          "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/vitest",
+          "target": "../vitest/vitest.mjs"
+        }
+      ],
+      "physicalIdentity": [
+        16777220,
+        158489480,
+        493,
+        1,
+        43,
+        1787926687525091514,
+        1789555159073684523
+      ],
+      "physicalPath": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs",
+      "sha256": "39db22f579acf5639bbb17a261408debbde03f4692c0c439e77e7f13aeba74d6"
+    },
+    "node": {
+      "bytes": 115440320,
+      "invokedPath": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+      "links": [],
+      "physicalIdentity": [
+        16777220,
+        158092549,
+        493,
+        1,
+        115440320,
+        1785277486000000000,
+        1788891257831136852
+      ],
+      "physicalPath": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+      "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+    },
+    "python": {
+      "bytes": 50472,
+      "invokedPath": "/usr/local/bin/python3",
+      "links": [
+        {
+          "identity": [
+            16777220,
+            72076034,
+            493,
+            1,
+            42,
+            1777768884886660235,
+            1777768884886660235
+          ],
+          "path": "/usr/local/bin/python3",
+          "target": "../Cellar/python@3.14/3.14.4_1/bin/python3"
+        },
+        {
+          "identity": [
+            16777220,
+            72076679,
+            493,
+            1,
+            56,
+            1777768888157430894,
+            1777768888157430894
+          ],
+          "path": "/usr/local/Cellar/python@3.14/3.14.4_1/bin/python3",
+          "target": "../Frameworks/Python.framework/Versions/3.14/bin/python3"
+        },
+        {
+          "identity": [
+            16777220,
+            72071284,
+            493,
+            1,
+            10,
+            1777768846164446870,
+            1777768846164446870
+          ],
+          "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3",
+          "target": "python3.14"
+        }
+      ],
+      "physicalIdentity": [
+        16777220,
+        72062271,
+        493,
+        1,
+        50472,
+        1777768792071538162,
+        1777768792073003377
+      ],
+      "physicalPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "rootCompilerWrapper": {
+      "bytes": 45,
+      "invokedPath": "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+      "links": [
+        {
+          "identity": [
+            16777220,
+            158488353,
+            493,
+            1,
+            21,
+            1787926699220298785,
+            1789555156659202360
+          ],
+          "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+          "target": "../typescript/bin/tsc"
+        }
+      ],
+      "physicalIdentity": [
+        16777220,
+        158489546,
+        493,
+        1,
+        45,
+        1787926685138142005,
+        1789555159177520893
+      ],
+      "physicalPath": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/bin/tsc",
+      "sha256": "8d5fa5bd883fec0979fc2004f1fe1d99aef40570155d550eadc0b03b55513bf0"
+    },
+    "uiCompilerWrapper": {
+      "bytes": 45,
+      "invokedPath": "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+      "links": [
+        {
+          "identity": [
+            16777220,
+            158488353,
+            493,
+            1,
+            21,
+            1787926699220298785,
+            1789555156659202360
+          ],
+          "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+          "target": "../typescript/bin/tsc"
+        }
+      ],
+      "physicalIdentity": [
+        16777220,
+        158489546,
+        493,
+        1,
+        45,
+        1787926685138142005,
+        1789555159177520893
+      ],
+      "physicalPath": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/bin/tsc",
+      "sha256": "8d5fa5bd883fec0979fc2004f1fe1d99aef40570155d550eadc0b03b55513bf0"
+    }
+  },
+  "schema": "1370-m0-types-execution-context/v1",
+  "sourceReview": {
+    "bytes": 28281,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r5/RECEIPT.json",
+    "sha256": "d857ef103c2a6214d69bf10a2695eda1fdbba7cbe80fa1ac0c0b39c4c0b21de0"
+  }
+}

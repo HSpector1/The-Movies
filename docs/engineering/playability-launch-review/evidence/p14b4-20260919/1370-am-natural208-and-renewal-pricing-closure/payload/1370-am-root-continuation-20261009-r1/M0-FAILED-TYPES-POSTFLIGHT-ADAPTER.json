@@ -1,0 +1,37 @@
+{
+  "actualFailureReadback": {
+    "bytes": 6507,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r5/READBACK.json",
+    "sha256": "940fe91bee93b9a78a4a4a138aa3397088f047434a43481f4a1ee00e417e895e"
+  },
+  "automaticRetry": false,
+  "derivative": {
+    "bytes": 4250,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_failed_types_postflight_once.py",
+    "sha256": "8cfc673c40e272de990b9e2135e29f066c762fe7f8215bc18e1b2816ad61e3f4"
+  },
+  "exactReplacements": [
+    {
+      "after": "mode=sys.argv[1];assert mode=='types';",
+      "before": "mode=sys.argv[1];assert mode in ('proof','types');"
+    },
+    {
+      "after": "assert rb['toolExit']==rb['helperExit']==rb['recorderExit']==rb['runnerExit']==1 and rb['laneReleased'] is True and rb['mode']==mode and rb['status']=='ACTUAL_M0_TYPES_STOP_PENDING_FULL_POSTFLIGHT_AND_INDEPENDENT_REVIEW' and rb['rootCompilerExit']==2 and rb['sourceProofsEqual'] is True and rb['dependencyProofsEqual'] is True",
+      "before": "assert rb['toolExit']==rb['helperExit']==rb['recorderExit']==rb['runnerExit']==0 and rb['laneReleased'] is True and rb['mode']==mode"
+    },
+    {
+      "after": "'status':'GRANTED_ONCE_ORIGINAL_SHARED_FULL_POSTFLIGHT_AFTER_TYPE_FAILURE','priorTypeFailurePreserved':True,'mode':mode",
+      "before": "'status':'GRANTED_ONCE_ORIGINAL_SHARED_FULL_POSTFLIGHT','mode':mode"
+    }
+  ],
+  "executionAuthorization": false,
+  "original": {
+    "bytes": 4016,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_m0_postflight_once.py",
+    "sha256": "7239e2f2050484393905fff1694fba7c445c7566a757e266d3e57817b9158310"
+  },
+  "schema": "1370-root-m0-failed-types-original-postflight-parent-adapter/v1",
+  "status": "SOURCE_ONLY_PENDING_INDEPENDENT_REVIEW",
+  "unchanged": "Original guard source/config/copy authority/baseline/argument-map/full inventory/predicates/per-command180/own scanner/directexec/lock absent/numeric ownership checks/output roles. Only select types, consume observed failure readback instead of success, and label failure-preservation truthfully.",
+  "wholeFileInverseEqualsOriginal": true
+}

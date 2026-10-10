@@ -1,0 +1,15 @@
+--- LAUNCH.py
++++ LAUNCH.py
+@@ -43,10 +43,10 @@
+   return raw
+  finally:
+   for item in reversed(held):os.close(item)
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4')
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r3')
+ config=json.loads(read_pin(P/'CONFIG.json','7166e022583531d924d67639a3d2a8a8f250bd8461f2a33cace8ce8f41c24f9c',100000))
+ authority=json.loads(read_pin(context,context_sha,128*1024))
+-expected={'runner.py':'03768e0be95c3dccf430598f7cab47a9b5d2672be6de7d456705cbf7ec2b68a7','BOOTSTRAP.py':'25696ed2167dafc16751ac00f96eb203d0c9ab7d700b6c382dce816af7b0056b','supervise.py':'7cac27f161cecc3bf683fef49a94a779180c1777dc08199595f08fa1242ca423','CONFIG.json':'7166e022583531d924d67639a3d2a8a8f250bd8461f2a33cace8ce8f41c24f9c','check-deps.mjs':'e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64'}
++expected={'runner.py':'4662896be328ed860c987629713fbb31d8a856854a5714fd6c1d7e07065450c6','BOOTSTRAP.py':'fa7480e7d421853c9e1d53eea14dff514caa2edab4562da5c975a8ab5ab58205','supervise.py':'0b4b7d49e26e4740183e62a657f5d0029ad92e1ed338cc56b540fbcc4498b578','CONFIG.json':'7166e022583531d924d67639a3d2a8a8f250bd8461f2a33cace8ce8f41c24f9c','check-deps.mjs':'e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64'}
+ assert authority['schema']=='1370-m0-types-execution-context/v1'
+ assert authority['configSha256']==expected['CONFIG.json'] and authority['runId']==config['runId'] and authority['mirrorPath']==config['mirrorPath']
+ def role(name,cap=100000):

@@ -1,0 +1,49 @@
+--- fresh-local-main-role/supervise.py
++++ preserved-predecessor/supervise.py
+@@ -4,11 +4,11 @@
+ import hashlib,json,math,os,pathlib,selectors,shutil,signal,stat,subprocess,sys,time
+ S=pathlib.Path('/Users/zacheryspector/studio-scratch')
+ REPO=pathlib.Path('/Users/zacheryspector/The-Movies-headless-program')
+-P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r2')
+-RESULT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-recorder-results-after-al-20261009-r2/20261009-m0-current-proof-after-al-r2.RECORDER-RESULT.json')
++P=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-source-after-al-20261009-r1')
++RESULT=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-m0-current-source-dependency-proof-recorder-results-after-al-20261009-r1/20261009-m0-current-proof-after-al-r1.RECORDER-RESULT.json')
+ BOOTSTRAP=P/'BOOTSTRAP.py'
+-BOOTSTRAP_SHA='53c9330d960da3dc8e562bd87ca89a8e1c2f5992010b9a35eb7ca3f3963e438c'
+-RUNNER_SHA='d32007ecb462d6a535432959317e1851d09d37cb0fa96897fa3dcc213c45b05c'
++BOOTSTRAP_SHA='25e2deba18177b88a569c4232ae1fa14284cf8e67fe19b16996c930982a45807'
++RUNNER_SHA='1d15705ed1f6ccbd74da3a3b9ec21720ff453d81fefa7daaced3e41c4bb73e25'
+ AUTHORITY=globals()['_AUTHORITY']
+ CONTEXT=pathlib.Path(globals()['_CONTEXT_PATH'])
+ CONTEXT_SHA=globals()['_CONTEXT_SHA']
+@@ -17,9 +17,8 @@
+ SRC='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554'
+ PRODUCTION_REF='refs/heads/wip/headless-program-20260916-ts'
+ MAIN_REF='refs/heads/main'
+-LOCAL_MAIN_REF='refs/remotes/origin/main'
+ MAIN_OID='c902a704eb948cc576083d0973c8c23e59937dc1'
+-LANE_LOG='c0-m0-current-proof-20261009-m0-current-proof-after-al-r2.lane.log'
++LANE_LOG='c0-m0-current-proof-20261009-m0-current-proof-after-al-r1.lane.log'
+ ACTIVE=320
+ LIMIT=330
+ START=globals()['LAUNCH_START']
+@@ -231,8 +230,8 @@
+  need(git('rev-parse','HEAD')==HEAD and git('rev-parse','HEAD:src')==SRC and git('status','--porcelain=v1')=='','production source identity')
+  need(git('remote','get-url','origin')=='https://github.com/HSpector1/The-Movies.git' and
+       git('config','--get','remote.origin.url')=='https://github.com/HSpector1/The-Movies.git','origin URL')
+- for local_ref,remote_ref,oid in ((PRODUCTION_REF,PRODUCTION_REF,HEAD),(LOCAL_MAIN_REF,MAIN_REF,MAIN_OID)):
+-  need(git('rev-parse',local_ref)==oid and git('ls-remote','origin',remote_ref)==oid+'\t'+remote_ref,'local/remote ref')
++ for ref,oid in ((PRODUCTION_REF,HEAD),(MAIN_REF,MAIN_OID)):
++  need(git('rev-parse',ref)==oid and git('ls-remote','origin',ref)==oid+'\t'+ref,'local/remote ref')
+  need(shutil.disk_usage(S).free>=3*1024**3,'3 GiB floor')
+ 
+ def main():
+@@ -252,7 +251,7 @@
+  failure=None
+  try:
+   preflight()
+-  need(AUTHORITY['configSha256']=='17ac5abcd1e26c83fcd8d3794bd0c6356cd9f141416e01974cdd34f510b72bb5','exact M0 source config')
++  need(AUTHORITY['configSha256']=='01c5c22d4f7212dd2a835883908b373b0583480487256d2f85933ae42d82b7ed','exact M0 source config')
+   bootstrap_source=read_pin(BOOTSTRAP,100000,BOOTSTRAP_SHA).decode('utf-8')
+   need(shutil.disk_usage(S).free>=3*1024**3,'3 GiB floor')
+   clean={k:v for k,v in os.environ.items() if not k.startswith('GIT_')}

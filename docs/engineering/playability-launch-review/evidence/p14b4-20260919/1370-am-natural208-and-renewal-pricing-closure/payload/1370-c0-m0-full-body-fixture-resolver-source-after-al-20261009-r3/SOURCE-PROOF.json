@@ -1,0 +1,141 @@
+{
+  "consumerRepair": {
+    "current": {
+      "bytes": 11339,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ordering.ts",
+      "sha256": "e40ea62523d13e1c74361766757b85faa14acdb889bc57f7ae452449a361bb1d"
+    },
+    "findings": [
+      "F1_MARKET_ISSUER_FIELD_MISMATCH",
+      "F2_FREEZE_PREDICATE_COMPLETENESS_OMITTED"
+    ],
+    "fixtureMethodsChanged": false,
+    "gameBodiesChanged": false,
+    "predecessor": {
+      "bytes": 8471,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/ordering.ts",
+      "sha256": "34ae1ca995188fc5b52fcdf203325ab508f3f11882ffb51f8165b5709a166c5e"
+    },
+    "resolverChanged": false,
+    "sourceCaseMethod": {
+      "bytes": 2237,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ordering-source-controls.ts",
+      "sha256": "e4109cd7a2560639c483ffbcc5fd4b65864c77148add2ad8e1289b096382241f"
+    },
+    "sourceCases": {
+      "bytes": 27476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json",
+      "sha256": "95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7"
+    },
+    "wholeFileInverseByteExact": true
+  },
+  "exactSingleTypedCatchMutant": true,
+  "modules": {
+    "employment.ts": {
+      "derivative": {
+        "bytes": 28353,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/derivative/src/core/employment.ts",
+        "sha256": "07262d62f6c6de0a849e5bfea124d01be2dbcbbb7edb7b3b6ead32025318b75a"
+      },
+      "inverseByteReconstructionVerifiedByBuilder": true,
+      "predecessor": {
+        "bytes": 28353,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/derivative/src/core/employment.ts",
+        "sha256": "07262d62f6c6de0a849e5bfea124d01be2dbcbbb7edb7b3b6ead32025318b75a"
+      },
+      "unchanged": true
+    },
+    "m0WiringProbe.ts": {
+      "derivative": {
+        "bytes": 2457,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/derivative/src/core/m0WiringProbe.ts",
+        "sha256": "3a3d75e5d849a94e14806239566bc72ca10af497bca71925a6f59d7db5714a85"
+      },
+      "inverseByteReconstructionVerifiedByBuilder": true,
+      "predecessor": {
+        "bytes": 2457,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/derivative/src/core/m0WiringProbe.ts",
+        "sha256": "3a3d75e5d849a94e14806239566bc72ca10af497bca71925a6f59d7db5714a85"
+      },
+      "unchanged": true
+    },
+    "opportunityPromises.ts": {
+      "derivative": {
+        "bytes": 25031,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/derivative/src/core/opportunityPromises.ts",
+        "sha256": "90d49b0c76553a06d9c0bbabe568b8624270fe939b8e502a26fac9adc99065ee"
+      },
+      "inverseByteReconstructionVerifiedByBuilder": true,
+      "predecessor": {
+        "bytes": 24915,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/derivative/src/core/opportunityPromises.ts",
+        "sha256": "de775fd48c39b88221775efad8eddba84a7b677c3076361534100c8a1e198656"
+      },
+      "unchanged": false
+    },
+    "promises.ts": {
+      "derivative": {
+        "bytes": 113287,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/derivative/src/core/promises.ts",
+        "sha256": "0e14a0056d8d70ed2b93d217bc0829c6284142fd9ed93033ce8880e56691b6cb"
+      },
+      "inverseByteReconstructionVerifiedByBuilder": true,
+      "predecessor": {
+        "bytes": 113287,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/derivative/src/core/promises.ts",
+        "sha256": "0e14a0056d8d70ed2b93d217bc0829c6284142fd9ed93033ce8880e56691b6cb"
+      },
+      "unchanged": true
+    },
+    "rng.ts": {
+      "derivative": {
+        "bytes": 8719,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/derivative/src/core/rng.ts",
+        "sha256": "04a835a5f63bf64994d01608423876b8d3a0e2862c8da095212848683becf9e5"
+      },
+      "inverseByteReconstructionVerifiedByBuilder": true,
+      "predecessor": {
+        "bytes": 8719,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/derivative/src/core/rng.ts",
+        "sha256": "04a835a5f63bf64994d01608423876b8d3a0e2862c8da095212848683becf9e5"
+      },
+      "unchanged": true
+    },
+    "talentMarket.ts": {
+      "derivative": {
+        "bytes": 119434,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/derivative/src/core/talentMarket.ts",
+        "sha256": "ce06afb3069c83dc1d9ee1fb8a03b7f1609c0db41fc3ea8078b455061455ed2d"
+      },
+      "inverseByteReconstructionVerifiedByBuilder": true,
+      "predecessor": {
+        "bytes": 118839,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-source-after-al-20261009-r2/derivative/src/core/talentMarket.ts",
+        "sha256": "6f64f133b649009773e7c03b3ef0069b9976cc25a670bf5405b54fd509661e9e"
+      },
+      "unchanged": false
+    }
+  },
+  "privateMirrorReadOrModified": false,
+  "r2ParentSourceAdoption": {
+    "bytes": 1726,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-FULLBODY-HELD-DESIGN-SOURCE-ADOPTION.json",
+    "sha256": "d61438e23ad54f42c50f31f0c81e14a54f36f6ed629d950884a8dbace7a9ecb8"
+  },
+  "r2PredecessorSourceProof": {
+    "bytes": 4969,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r2/SOURCE-PROOF.json",
+    "sha256": "67187f03a0233197d2c3a98822382d6775c10b4feb50c60a79658982d7d25076"
+  },
+  "r2Review": {
+    "bytes": 20666,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-real-full-body-wiring-next-slice-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "af4a51151b1c04e18b6b41d03feed32b97aba7c9d3f0d7cbdc69e815d025b881"
+  },
+  "r2SourceStop": {
+    "bytes": 20064,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "949ff2cfa022bbaeed177d7d8ba75ec4e388f58d33be9edb608b0ae63f451c12"
+  },
+  "sourceImportedOrCompiled": false
+}

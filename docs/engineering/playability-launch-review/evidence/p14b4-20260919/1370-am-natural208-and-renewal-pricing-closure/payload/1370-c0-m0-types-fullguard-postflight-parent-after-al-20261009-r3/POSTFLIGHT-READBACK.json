@@ -1,0 +1,62 @@
+{
+  "actualTool": {
+    "bytes": 1945,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-fullguard-postflight-parent-after-al-20261009-r3/ACTUAL-TOOL.json",
+    "sha256": "5f75fdf729c5e1ad18b58a386b76ed55afa1f218e3deeb3d7f634bdc4d7ec948"
+  },
+  "actualToolExit": 0,
+  "actualToolSessionId": 98815,
+  "gameAccepted": false,
+  "grant": {
+    "bytes": 4754,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-fullguard-postflight-parent-after-al-20261009-r3/GRANT.json",
+    "sha256": "15722b2157df09dbaedac76ad1ba906171d010ed6c37aa0a25130a399cc68118"
+  },
+  "immutableBaselineEquality": true,
+  "m0SourceDependencyProofSeparate": true,
+  "mode": "types",
+  "pins": {
+    "bytes": 507,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-types-r3/PINS.json",
+    "sha256": "ac7a04461d1ce137b1440784f1f13981917e511fb7da4633b315a23c7d1f2f17"
+  },
+  "postOwnership": {
+    "bytes": 1065,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-fullguard-postflight-parent-after-al-20261009-r3/POST-OWNERSHIP.json",
+    "sha256": "1e71e4721e76843d034414c9df994970515e8624bcca63e17f771aec4f277454"
+  },
+  "previousAcceptedPostflightEquality": true,
+  "proofOrTypesAccepted": false,
+  "protectedFreezeContinues": true,
+  "rawLocalOnlyClassification": {
+    "bytes": 1561,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-fullguard-postflight-parent-after-al-20261009-r3/RAW-LOCAL-ONLY-ROLES.json",
+    "sha256": "6ad39ee18be88983366d9d8bd4f8a8042671d133666503ecf9df3d3507b6399e"
+  },
+  "scannerExit": 0,
+  "schema": "1370-root-m0-original-shared-full-postflight-readback/v1",
+  "snapshot": {
+    "bytes": 8581990,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-types-r3/SNAPSHOT.json",
+    "sha256": "7bd5b6eed4e844eb872eb2b69d19d60d481e8f7d0c4abae844599d447b624ccc"
+  },
+  "status": "ACTUAL_ORIGINAL_FULL_POSTFLIGHT_MATCH_PENDING_INDEPENDENT_M0_ADMISSION",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-fullguard-postflight-parent-after-al-20261009-r3/postflight.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 458,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-fullguard-postflight-parent-after-al-20261009-r3/postflight.stdout",
+    "sha256": "5906f4108649b6885902ad128ede492c99622ce63e73fa79d40be4843f2299ab"
+  },
+  "summary": {
+    "elapsedSeconds": 502.31688760498946,
+    "inventoryElapsedSeconds": 393.4438696050056,
+    "pinsSha256": "ac7a04461d1ce137b1440784f1f13981917e511fb7da4633b315a23c7d1f2f17",
+    "snapshotPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-types-r3/SNAPSHOT.json",
+    "snapshotSha256": "7bd5b6eed4e844eb872eb2b69d19d60d481e8f7d0c4abae844599d447b624ccc",
+    "status": "GUARDS_ACCEPTED_READONLY"
+  }
+}

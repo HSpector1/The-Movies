@@ -1,0 +1,299 @@
+{
+  "actualAdoptionReadback": {
+    "bytes": 4600,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-adoption-parent-after-al-20261009-r4/ACTUAL-ADOPTION-READBACK.json",
+    "sha256": "dd8b9a64baacf0a57e1f9df1beab3e861bdd751db6f720cb1c7cc99c45e0f766"
+  },
+  "actualCaptureRequirements": [
+    "actual parent/tool and helper terminal exits0; original lane meta child0",
+    "exactly one candidate frame and immediate outerExit0/sinkExit0 pipeline marker",
+    "original internal stderr empty,512KiB frame,256KiB preimage,64KiB internalstderr,64KiB208/4096row caps",
+    "natural selected16 week208 snapshot/full44 source preimage/full416 digests and RNG unchanged",
+    "original recorded owned groups reconciled and cleared; absent/unknown identities remain STOP or unknown rather than inferred",
+    "complete original full protected postflight against genuine before-fill baseline and independent raw208/full416 review before any game/vector/pricing acceptance"
+  ],
+  "actualControlsAdoption": {
+    "bytes": 8775,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json",
+    "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+  },
+  "actualGame": null,
+  "actualGuardAfterFill": {
+    "bytes": 8565365,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/after-fill-after-al-game-r4/SNAPSHOT.json",
+    "sha256": "64da19fd4b46d8d0311360cbc08a90d57817175c781e2f73e4fd850925771719"
+  },
+  "actualGuardBaseline": {
+    "bytes": 8562268,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+    "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+  },
+  "admittedAdoptedPreflight": {
+    "bytes": 12735,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-output-after-al-20261009-r2/PREFLIGHT.json",
+    "sha256": "9f4566352756c361199ca994b55d066178d17556fef7cccaac0edf997504e7ee"
+  },
+  "adoptedBinding": {
+    "bytes": 6466,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json",
+    "sha256": "eb6e99e0021809d7ad165ee5c9eba2e2b0c36ab78e34826fc11d5d488036777e"
+  },
+  "adoptedLaunch": {
+    "bytes": 14438,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4/ADOPTED-LAUNCH-SPEC.json",
+    "sha256": "8b00d32003449bd4710f312c9e5afe1e13732de60a158542c5f546f56f11cde5"
+  },
+  "adoptedRawBindingSha256": "eb6e99e0021809d7ad165ee5c9eba2e2b0c36ab78e34826fc11d5d488036777e",
+  "adoptionResult": {
+    "bytes": 1651,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4/ADOPTION-RESULT.json",
+    "sha256": "d3e50b0410d6c42c6361c6b6cf675c60415a4358649e412719ef60e07ae06a8d"
+  },
+  "archiveManifest": {
+    "bytes": 1040,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4/ARCHIVE-MANIFEST.json",
+    "sha256": "e62c9abb2f7ceb1620bff4fec7f5fc3e656dd1888e8a86d701000fba3a602eea"
+  },
+  "bindingSemanticSha256": "dc03453dfb291c85f009666c264af7287114dd3e4a4d5851e4da558af743a254",
+  "bindingWitnessGrantMustRemainNull": true,
+  "bounds": {
+    "activeStopSeconds": 742,
+    "innerSeconds": 720,
+    "preimageBytes": 262144,
+    "settlement208Bytes": 65536,
+    "settlement208RowBytes": 4096,
+    "sinkForwardSeconds": 10,
+    "sinkReadSeconds": 760,
+    "stderrBytes": 65536,
+    "stdoutFrameBytes": 524288,
+    "wholeRecorderSeconds": 750
+  },
+  "causalOrderContractAdoption": {
+    "bytes": 1595,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/CAUSAL-ORDER-CONTRACT-ADOPTION.json",
+    "sha256": "4fd8459c191b6ff46b5c7a02677a4967914791c11ea4232c10818252351a9028"
+  },
+  "currentAlPublishedReadback": {
+    "bytes": 1250,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+    "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exactArgv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r4/controls.log",
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/launch-pipeline-a208-held.sh",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json",
+    "eb6e99e0021809d7ad165ee5c9eba2e2b0c36ab78e34826fc11d5d488036777e"
+  ],
+  "exactCandidateReview": {
+    "bytes": 16303,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-independent-review-after-al-20261009-r4/RECEIPT.json",
+    "sha256": "6949f4287cc25b139d1d8fa62d891a876e5e565b078f893b1f665bf3037646cd"
+  },
+  "executionAuthorization": true,
+  "externalFinalGrantContractAdoption": {
+    "bytes": 2592,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/EXTERNAL-FINAL-GRANT-DESIGN-ADOPTION.json",
+    "sha256": "2fd088a0ab757f926a451674ddfdaa48d79715479b65982d7fe68f7df918e847"
+  },
+  "fieldMap": {
+    "bytes": 18125,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-final-external-game-grant-fieldmap-after-al-20261009-r1/MAP.json",
+    "sha256": "65d00ce1f69622875b35290694424b7ce1a9329e54394b5d8008df0d14037bc3"
+  },
+  "finalGrantIdentity": "4f1f9521-f394-492b-b753-7221f697cc8f",
+  "gameAccepted": false,
+  "grantIsExternalToBinding": true,
+  "helperPrechildWaitIsNotAuthorized": true,
+  "independentActualPreflightReview": {
+    "bytes": 22784,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-observed-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "8465f006d60042f2ebb3a8e0f3f47fcf6ba425fa50a598881c9deaeb50075763"
+  },
+  "invariants": {
+    "employmentRows": 44,
+    "employmentSettlementReceiptTakesAndRng": {
+      "employment": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58",
+      "receipts": "af8c4d1325ecb350dbc07fbf2f762dd8257db04075b8030bf7bd975b4cb2a766",
+      "rng": "2598418427,508725886,1318803286,3129010527",
+      "settlement": "706e54c6ec9728df1664025982ebbafeb0fc36afb245b6bd0b983305f6a10a77",
+      "takes": "8af116b1687ed210c02953b5b506456e638a64482e8042b0e549b0d57e428694"
+    },
+    "naturalSelected16CaptureWeek": 208,
+    "selectedOrderAndOccurrence": "A source-order24..39, occurrence0; frozen SELECTION unchanged",
+    "weeks": 416
+  },
+  "issuedUtc": "2026-10-10T01:04:52.738466+00:00",
+  "knownBeforeFillAuthority": {
+    "bytes": 10578,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+    "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3"
+  },
+  "knownOriginalPreflightSource": {
+    "bytes": 23349,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-source-after-al-20261009-r2/preflight.py",
+    "sha256": "fd2f806d140fbd74c34b130d299be20ff3382dd07e71ccf6da3f16d7c95e5fef"
+  },
+  "knownOriginalPreflightSourceReview": {
+    "bytes": 10090,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "a8956c52486499a1bd4e752f9cc27d68c16c1ca1f33323ac5790e864cd3bbea0"
+  },
+  "onceOnlyLane": {
+    "logPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r4/controls.log",
+    "metaPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r4/controls.log.meta",
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r4",
+    "requiredUnusedUntilLaunch": true
+  },
+  "ownerIdsMeasuredAtIssue": {
+    "directExecHelperSamePid": true,
+    "pgid": 34390,
+    "pid": 34390,
+    "sid": 34390
+  },
+  "protectedFreezeContinues": true,
+  "requiredObservedAcceptance": [
+    "Exactly one bounded candidate frame and one pipeline exit marker with outerExit0/sinkExit0; actual helper exit0 and exactly one final meta child exit0",
+    "Authenticate full44-row4cff preimage bytes plus otherthree historic digests/RNG and three equal source flights",
+    "Node/sandbox-exec/supervisor owned groups cleared, no internal stderr, no unauthorized regular writes",
+    "Independent source/worktree/runtime/production/protected-root/FD/disk postflight; no C0/1363/H or109-week continuation admission"
+  ],
+  "roles": {
+    "acceptedLaneHelper": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "acceptedLaneSourcePins": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/SOURCE-PINS.json",
+      "sha256": "9e11563756fb516cfa92591492a1de6fe8d0d0ccfdb93c34bc9b9feffbb94003"
+    },
+    "acceptedLaneSourceReview": {
+      "mode": "0444",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-r8-lane-source-independent-review-r1-rwa7o4oe/RECEIPT.json",
+      "sha256": "e03a740c5d9fcc704a105adb977759e6393d279c929c166fd35812946c3c7475"
+    },
+    "actualControlsAdoption": {
+      "mode": "0444",
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json",
+      "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+    },
+    "adapterSourceControlsReceipt": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-witness-r7-adapter-source-tests-20261008-r1/RECEIPT.json",
+      "sha256": "0a3a1a8318a7eaf215ce73f45fec5c6a9c0c6cbd53f034047cb50057592c40c3"
+    },
+    "bash": {
+      "mode": "0555",
+      "path": "/bin/bash",
+      "sha256": "89ae3c42471a171967cc239564e95870f6da9e0952e74e27ccd28283b0ad0cfa"
+    },
+    "boundedSink": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/bounded-sink-a208-held.py",
+      "sha256": "9138c982912f53d8241721ec231555de3d8e9dae959e651c9b36dcf96a4f9700"
+    },
+    "boundsAmendment": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r6/AMENDMENT-BOUNDS-PROPOSED.md",
+      "sha256": "3e705b81cd4991b628eff0a084e8088f53005be49098ee449b025c1d8606f0d4"
+    },
+    "boundsIndependentReview": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-independent-design-review-r1/RECEIPT.json",
+      "sha256": "8dc9c50b2ba7edf3702b42fd3dbeefb2e26e4089891af32127fa816c1704df3d"
+    },
+    "externalAdapterPins": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/SOURCE-PINS.json",
+      "sha256": "470026455632aeac39bf57c3db45722fdd68b96f24689fdee70c3c1da8d40748"
+    },
+    "externalAdapterReview": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "b6c6d35760a50ad7814e7e75253a614c6756725795ea88870de562b36ddb2c6f"
+    },
+    "materializerBootIdentityAmendment": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-exact-preparation-20261008-r1/BOOT-IDENTITY-AMENDMENT.json",
+      "sha256": "b1d1697b8429425766156b4f8f04f129a3c8ca8666935af7e84fc49f68ce3936"
+    },
+    "materializerSourcePins": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/SOURCE-PINS.json",
+      "sha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d"
+    },
+    "materializerSourceReview": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-review-20261008-r6/RECEIPT.json",
+      "sha256": "065670e290e80eefae8593a18cdb6126a7188c35726cadaadf9acab8cc16e794"
+    },
+    "parentBoundsAdoption": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-parent-adoption-r1/ADOPTION.json",
+      "sha256": "6b4b83cd3470a9a882d8045ae6300bca0a39635c793c4a3b312c8d0fed94dc46"
+    },
+    "parentR6SourceAdoption": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AF-post-restart-materializer-repairs-and-diagnostics.md",
+      "sha256": "429a7d2d43580221f000879ca5c9dda07b011eb66dcc22dd8ccae3343f1ffc3c"
+    },
+    "pipeAdapter": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/launch-pipeline-a208-held.sh",
+      "sha256": "46640b541fb04c67fcd5f72602ab128ca056416cd37ad946f248a50da1d6886a"
+    },
+    "premiumFloorAdoption": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "ef30c2fd1be9e503e3b4cc45ffdefb940566f770614fbd2c072c77e1181c3a1d"
+    },
+    "premiumFloorReview": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r2/RECEIPT.json",
+      "sha256": "fd7c8a02893168478ff81fd557dc68f6010d49bd18bbe175d2ec48ed313352cb"
+    },
+    "premiumFloorSupplement": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r2/COMPLETE-TYPED-FUNCTION-SUPPLEMENT.txt",
+      "sha256": "9511e728c09e74421f438b7a3037c8d7ab312bef578923a126e57ab8c68215db"
+    },
+    "pythonResolved": {
+      "mode": "0755",
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "selected16SourceReview": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+    },
+    "witnessSourcePins": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+    },
+    "witnessSourceReview": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+    }
+  },
+  "rootActualPreflightAdoption": {
+    "bytes": 3078,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-ADOPTED-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "c9cb14cf47964d22eee1013a26458e3e861ffc37f56121a1e8c35b514a976941"
+  },
+  "schema": "1370-root-exclusive-external-a208-game-grant/v1",
+  "status": "GRANTED_ONCE_EXACT_ADOPTED_A208_GAME"
+}

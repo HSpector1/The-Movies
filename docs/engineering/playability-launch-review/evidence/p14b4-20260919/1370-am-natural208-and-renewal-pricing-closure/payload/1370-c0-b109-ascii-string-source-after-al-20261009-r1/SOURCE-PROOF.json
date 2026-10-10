@@ -1,0 +1,93 @@
+{
+  "authority": {
+    "actualBenchmark": null,
+    "actualBenchmarkGrant": null,
+    "actualFocusedControls": null,
+    "actualFocusedGrant": null,
+    "actualGame": null,
+    "independentImplementationReview": null,
+    "independentRedControlsReview": null,
+    "integrationOrFull109Grant": null,
+    "observedBenchmarkReview": null,
+    "observedCorrectnessReview": null,
+    "performanceWin": null,
+    "productionMutationGrant": null,
+    "sourcePreparationOnly": true
+  },
+  "candidate": {
+    "bytes": 2981,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-source-after-al-20261009-r1/bounded-json-candidate.mjs",
+    "sha256": "f382fe6610a69a1c766134120e5382e86700ac6078a82d712547bf027f42810b"
+  },
+  "delta": {
+    "insertedAsciiSource": "    if (!/[\\u0000-\\u001f\"\\\\\\u0080-\\uffff]/.test(value)) return ['\"' + value + '\"', value.length + 2]\n",
+    "insertedBytes": 101,
+    "insertedLines": 1,
+    "nativeFallbackVerbatim": "    const text=JSON.stringify(value); return [text,Buffer.byteLength(text)]\n",
+    "onlyChangedFunction": "stringToken",
+    "originalRawPrecheckVerbatim": "    const withinLimit=Buffer.byteLength(value)<=limit;if(!withinLimit)assert.ok(withinLimit,'STOP_STRING_CAP')\n",
+    "outsideFunctionByteIdentical": true,
+    "rawPrecheckBeforeClassifier": true,
+    "removedLines": 0,
+    "unchangedPrefixBytes": 838,
+    "unchangedSuffixBytes": 1818
+  },
+  "forwardDiff": {
+    "bytes": 461,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-source-after-al-20261009-r1/bounded-json-candidate.mjs.diff",
+    "sha256": "7a57f2ab48e411bef27e4c23164aa0d2395b65477321f9ed5365b117c7f250da"
+  },
+  "historicalDisposition": {
+    "benchmarkMayRegress": true,
+    "bothArmWeighting": "(3526*stateMedianMs+1984*wholeRowMedianMs)/1000",
+    "declinedCachePreserved": true,
+    "declinedCacheSha256": "25492575847a15a1d7b79daf84e722b6e32f2362ea2a2ad94f29228a09bfe067",
+    "earlyFixtureDoesNotEstablishFull109OrP17P18Acceptance": true,
+    "gameBoundsUnchanged": [
+      300,
+      375,
+      390
+    ],
+    "selectedEncoderRemains": {
+      "bytes": 2880,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+    }
+  },
+  "inverseDiff": {
+    "bytes": 461,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-string-source-after-al-20261009-r1/bounded-json-candidate.mjs.inverse.diff",
+    "sha256": "2c5c1f7abd66413d8086b8cc5818acfaf34f1bb9031b6e8d5a859520b745778c"
+  },
+  "predecessor": {
+    "bytes": 2880,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+    "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+  },
+  "schema": "1370-b109-ascii-string-source-proof/v1",
+  "semanticProof": {
+    "assumptions": "Standard native RegExp/String/JSON/Array/Buffer behavior; primitive builtin call-count parity is not claimed.",
+    "capsAndCoercion": "The original raw Buffer.byteLength(value)<=limit and STOP_STRING_CAP line executes first. No new limit comparison or coercion is inserted. Cumulative add and key-budget comparisons retain their original positions and rendered-token size.",
+    "classifier": "Non-global character class rejects U+0000..U+001F, U+0022, U+005C, U+0080..U+FFFF. Its negated test accepts exactly all-code-unit sequences from U+0020..U+007F except quote/backslash, including the empty sequence.",
+    "fallback": "C0, quote, backslash, all nonASCII, valid astral pairs and lone surrogates reach the byte-identical native JSON.stringify and rendered Buffer.byteLength fallback.",
+    "fastPath": "Eligible code units need no native JSON escaping and each is one UTF8 byte. Native token is two quotes surrounding unchanged value, with byte count value.length+2. Slash and DEL remain eligible.",
+    "preserved": "No cache, clone, source mutation, container serialization, new Proxy, global state, key-budget/cap/chunk/default-budget or traversal change. Existing4096-token/65536-byte thresholds and16MiB default are unchanged.",
+    "sourceReads": "stringToken receives an already-read primitive string/key. No original source traversal, getter/trap call, array length read or property read is edited."
+  },
+  "status": "SOURCE_ONLY_STATIC_PREPARATION_NOT_EXECUTED",
+  "verificationLimits": {
+    "candidateImportedOrExecuted": false,
+    "captureReadOrDecoded": false,
+    "controlsAuthoredByThisSourceRole": false,
+    "gitOrProtectedMutation": false,
+    "nodeTestsBenchmarkGame": false,
+    "processProbesOrFullInventories": false
+  },
+  "wholeByteRestoration": {
+    "forwardEqualsCandidate": true,
+    "inverseEqualsPredecessor": true,
+    "method": "Apply generated unified forward/inverse hunks to pinned bytes in memory using Python; assert exact source/context/count matches. No JavaScript evaluation.",
+    "restoredBytes": 2880,
+    "restoredSha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+  }
+}

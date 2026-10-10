@@ -1,0 +1,433 @@
+{
+  "actualTool": {
+    "bytes": 657,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r6/ACTUAL-TOOL.json",
+    "sha256": "bd8a07d9e9f9dd1c308d36b83139f104ab01c32446fd3c2732f762515beb1c7a"
+  },
+  "automaticRetry": false,
+  "children": [
+    {
+      "argv": [
+        "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6/check-deps.mjs",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+        "/Users/zacheryspector/The-Movies-headless-program",
+        "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+      ],
+      "exit": 0,
+      "name": "dependency-versions",
+      "seconds": 1.469,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 1038,
+      "stdoutSha256": "57ffd6f3cf26f598b7740e928201b00602b1f0fa44f458fb9957fa82aa715071"
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+        "--noEmit",
+        "--allowImportingTsExtensions"
+      ],
+      "exit": 0,
+      "name": "root-tsc",
+      "seconds": 50.663,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+        "-p",
+        "ui/tsconfig.json",
+        "--noEmit"
+      ],
+      "exit": 0,
+      "name": "ui-tsc",
+      "seconds": 45.133,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/vitest",
+        "list",
+        "tests/diagnostic.test.ts",
+        "--project",
+        "core",
+        "--json",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3/20261009-m0-types-after-al-r3/collection.json",
+        "--no-cache"
+      ],
+      "exit": 0,
+      "name": "diagnostic-collection",
+      "seconds": 7.832,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "collectionAccepted": false,
+  "commandsNotExecuted": [],
+  "context": {
+    "bytes": 7109,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r6/EXECUTION-CONTEXT.json",
+    "sha256": "bfa2c06044b8b4917e20255660621b115a4a95d3f2a435fc1633496ab08396df"
+  },
+  "dependencyAfterAvailable": false,
+  "dependencyPreservationAccepted": false,
+  "executionAuthorization": false,
+  "fill": {
+    "bytes": 6927,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r6/FILL-RESULT.json",
+    "sha256": "097115f1e0591eb2157ca2f128844aa74ba880e6b6f794878a6900cb4bee45b1"
+  },
+  "firstThreeChildRootBoundariesEqual": true,
+  "fourthChildBoundary": {
+    "after": {
+      "entries": [
+        [
+          "bridge",
+          16832,
+          16777220,
+          166769206,
+          40,
+          1280,
+          1791577446282474179,
+          1791577446282474179
+        ],
+        [
+          "node_modules",
+          41408,
+          16777220,
+          166769275,
+          1,
+          62,
+          1791577446298712967,
+          1791577446298712967
+        ],
+        [
+          "package-lock.json",
+          33188,
+          16777220,
+          166751333,
+          1,
+          149287,
+          1791567229044113154,
+          1791567229065787471
+        ],
+        [
+          "package.json",
+          33188,
+          16777220,
+          166751334,
+          1,
+          2726,
+          1791567229158429215,
+          1791567229202783717
+        ],
+        [
+          "src",
+          16832,
+          16777220,
+          166751335,
+          4,
+          128,
+          1791567234613893016,
+          1791567234613893016
+        ],
+        [
+          "tests",
+          16832,
+          16777220,
+          166751538,
+          471,
+          15072,
+          1791567307170045969,
+          1791567307170045969
+        ],
+        [
+          "tsconfig.json",
+          33188,
+          16777220,
+          166752408,
+          1,
+          706,
+          1791567273264477522,
+          1791567273292032823
+        ],
+        [
+          "tsconfig.src.json",
+          33188,
+          16777220,
+          166752409,
+          1,
+          119,
+          1791567273314012826,
+          1791567273332387407
+        ],
+        [
+          "ui",
+          16832,
+          16777220,
+          166752410,
+          11,
+          352,
+          1791567306940089544,
+          1791567306940089544
+        ],
+        [
+          "vitest.config.ts",
+          33188,
+          16777220,
+          166753260,
+          1,
+          176,
+          1791567306979694396,
+          1791567306998603060
+        ],
+        [
+          "vitest.workspace.ts",
+          33188,
+          16777220,
+          166753261,
+          1,
+          1489,
+          1791567307021069393,
+          1791567307040365658
+        ]
+      ],
+      "identity": [
+        16777220,
+        166751332,
+        16832,
+        13,
+        416,
+        1791600924862151724,
+        1791600924862151724
+      ],
+      "rosterSha256": "aa0270269ea341ec4d0029307c799518b5ff89e81b0044d165763408ea533f57"
+    },
+    "before": {
+      "entries": [
+        [
+          "bridge",
+          16832,
+          16777220,
+          166769206,
+          40,
+          1280,
+          1791577446282474179,
+          1791577446282474179
+        ],
+        [
+          "node_modules",
+          41408,
+          16777220,
+          166769275,
+          1,
+          62,
+          1791577446298712967,
+          1791577446298712967
+        ],
+        [
+          "package-lock.json",
+          33188,
+          16777220,
+          166751333,
+          1,
+          149287,
+          1791567229044113154,
+          1791567229065787471
+        ],
+        [
+          "package.json",
+          33188,
+          16777220,
+          166751334,
+          1,
+          2726,
+          1791567229158429215,
+          1791567229202783717
+        ],
+        [
+          "src",
+          16832,
+          16777220,
+          166751335,
+          4,
+          128,
+          1791567234613893016,
+          1791567234613893016
+        ],
+        [
+          "tests",
+          16832,
+          16777220,
+          166751538,
+          471,
+          15072,
+          1791567307170045969,
+          1791567307170045969
+        ],
+        [
+          "tsconfig.json",
+          33188,
+          16777220,
+          166752408,
+          1,
+          706,
+          1791567273264477522,
+          1791567273292032823
+        ],
+        [
+          "tsconfig.src.json",
+          33188,
+          16777220,
+          166752409,
+          1,
+          119,
+          1791567273314012826,
+          1791567273332387407
+        ],
+        [
+          "ui",
+          16832,
+          16777220,
+          166752410,
+          11,
+          352,
+          1791567306940089544,
+          1791567306940089544
+        ],
+        [
+          "vitest.config.ts",
+          33188,
+          16777220,
+          166753260,
+          1,
+          176,
+          1791567306979694396,
+          1791567306998603060
+        ],
+        [
+          "vitest.workspace.ts",
+          33188,
+          16777220,
+          166753261,
+          1,
+          1489,
+          1791567307021069393,
+          1791567307040365658
+        ]
+      ],
+      "identity": [
+        16777220,
+        166751332,
+        16832,
+        13,
+        416,
+        1791577446298737027,
+        1791577446298737027
+      ],
+      "rosterSha256": "aa0270269ea341ec4d0029307c799518b5ff89e81b0044d165763408ea533f57"
+    },
+    "name": "diagnostic-collection"
+  },
+  "fourthChildRootMetadataChanged": true,
+  "fourthChildRootRosterEqual": true,
+  "game": false,
+  "grant": {
+    "bytes": 997,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r6/EXECUTION-GRANT.json",
+    "sha256": "8a059a8a8961cef4a0d5c1eaf10f772a0cf5d49480be86f7d6401a7211a4a09c"
+  },
+  "h13HistoricalStopWaived": false,
+  "helperExit": 1,
+  "laneLog": {
+    "bytes": 1180,
+    "path": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-after-al-r3.lane.log",
+    "sha256": "e99b3b7d24276fba6ad814ba819b3ec99425589f719ac5ff070a55e6aca9e62c"
+  },
+  "laneMetadata": {
+    "bytes": 519,
+    "path": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-after-al-r3.lane.log.meta",
+    "sha256": "ee1215be440e7e03f457ac99a3659d639ecb962d031c5b352d0cc1cead29851b"
+  },
+  "laneReleased": true,
+  "mode": "types",
+  "preparationElapsedSeconds": 0.6141669589997036,
+  "proofOrTypesAccepted": false,
+  "recordedOwnedIds": [
+    27153,
+    27410,
+    27430
+  ],
+  "recorderElapsedSeconds": 146.971,
+  "recorderExit": 1,
+  "recorderResult": {
+    "bytes": 893,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r3/20261009-m0-types-after-al-r3.RECORDER-RESULT.json",
+    "sha256": "a7510f15a02a1cf17dd84aa9fb7dba8de56e7ffa07faa8dca36797ccdd6f8053"
+  },
+  "retainedCollectionArtifact": {
+    "bytes": 238,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3/20261009-m0-types-after-al-r3/collection.json",
+    "sha256": "5e6d1f48f5aa9721c571e0e3d6429a5e1041760e49efa3837346dd5a89050a3a"
+  },
+  "rootLaneGrant": {
+    "bytes": 4027,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r6/ROOT-LANE-GRANT.json",
+    "sha256": "2d382933f562a94a48e9105aa70094fa08f069fb98966c909651e58e04daba2f"
+  },
+  "runnerElapsedSeconds": 144.379,
+  "runnerExit": 1,
+  "schema": "1370-root-m0-types-actual-stop-readback/v1",
+  "scopedOwnershipChecks": [
+    {
+      "id": 27153,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 27153,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 27410,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 27410,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 27430,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 27430,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "sourceAfterAvailable": false,
+  "sourcePreservationAccepted": false,
+  "status": "ACTUAL_M0_TYPES_METADATA_STOP_PENDING_FULL_POSTFLIGHT_AND_INDEPENDENT_REVIEW",
+  "toolExit": 1,
+  "toolSessionId": 97276,
+  "typesResult": {
+    "bytes": 26635,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3/20261009-m0-types-after-al-r3/RESULT.json",
+    "sha256": "85e1f6763f40b8232b851ef2caf3611ed9e3b6d3962d748eeeda063da608d781"
+  },
+  "unexplainedMetadataMutationCausePending": true
+}

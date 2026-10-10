@@ -1,0 +1,42 @@
+{
+  "acPower": true,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-lane-after-al-20261009-r2/controls.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/record-pure-node.py",
+    "controls"
+  ],
+  "currentProtection": {
+    "bytes": 10578,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+    "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "freeBytes": 4271239168,
+  "grant": {
+    "bytes": 6356,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-parent-recorded-after-al-20261009-r2/GRANT.json",
+    "sha256": "1a6d3421fb2411f1b38f40cba2998a464aa613d8544d7441c919b554ad1ab492"
+  },
+  "helperGroupVerifiedBeforeExec": true,
+  "helperPgid": 17003,
+  "helperPid": 17003,
+  "helperSid": 17003,
+  "rootPidBecomesHelperPid": true,
+  "routeSourcePins": {
+    "bytes": 11676,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "b5f3103ed8ac1585ff63406be5c776824e0e678089ac0239cb287318ea42520a"
+  },
+  "routeSourceReview": {
+    "bytes": 9671,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-independent-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "fb4d1883ddd67c49698d6b9e4b4dde12a3ec6f672a40538a2b30eddb8ed1cc47"
+  },
+  "schema": "1370-b109-ascii-focused-controls-launch-claim/v1",
+  "unexpectedHelperWaitIsStop": true
+}

@@ -1,0 +1,29 @@
+{
+  "roles": [
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 95911,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-output-after-al-20261009-r2/BEFORE-PS.LOCAL",
+      "sha256": "c7b56901338844f63a8ad4bd8b820966ac51aadcf57701335adfef4ee0ed10a0"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 650421,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-output-after-al-20261009-r2/BEFORE-LSOF.LOCAL",
+      "sha256": "f3ef5b90633c2f585a4e7c4ece8bfbad7cb0528aa4dc3ac198370cfb95af0e6e"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 95491,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-output-after-al-20261009-r2/AFTER-PS.LOCAL",
+      "sha256": "e9287b36bada9bb5f735e141b5fd185a49bfb5008d03fb2839bd0c1dd849a9a3"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 652136,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-output-after-al-20261009-r2/AFTER-LSOF.LOCAL",
+      "sha256": "944376a7bccac7b5fb3373c408541b8b8b4609134aae8faccaa88e74b5ce00dc"
+    }
+  ],
+  "rule": "Publish hash/size/path metadata only; retain all four raw current PS/LSOF payloads locally."
+}

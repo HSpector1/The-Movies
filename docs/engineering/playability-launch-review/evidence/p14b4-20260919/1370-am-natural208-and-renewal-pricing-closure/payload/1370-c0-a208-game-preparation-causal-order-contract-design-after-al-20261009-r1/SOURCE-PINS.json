@@ -1,0 +1,17 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "DESIGN.json": {
+      "bytes": 18012,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-preparation-causal-order-contract-design-after-al-20261009-r1/DESIGN.json",
+      "sha256": "8f7b3ae122fb3cc14c3a094dc8cf94583165bbea04923eeaf0d1c7e661e5a73f"
+    },
+    "NOTE.md": {
+      "bytes": 827,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-preparation-causal-order-contract-design-after-al-20261009-r1/NOTE.md",
+      "sha256": "e3cfecc0e606546d22056fb69dfa1c6f6e3ec837d1ba6edb8a3e85b7fdccbaba"
+    }
+  },
+  "schema": "1370-source-only-design-pins/v1",
+  "status": "FROZEN_SOURCE_ONLY_UNRUN"
+}

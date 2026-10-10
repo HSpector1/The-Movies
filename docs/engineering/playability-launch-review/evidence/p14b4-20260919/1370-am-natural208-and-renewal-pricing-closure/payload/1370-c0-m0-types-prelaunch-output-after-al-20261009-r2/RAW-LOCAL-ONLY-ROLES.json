@@ -1,0 +1,28 @@
+{
+  "roles": [
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 95176,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r2/BEFORE-PS.LOCAL",
+      "sha256": "1c9c2fa7b78e1e927c5e9fab947ee6c53954ed46cc03f394896624877f21b58f"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 652778,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r2/BEFORE-LSOF.LOCAL",
+      "sha256": "541a74d7ba490ab79fdb328b0064d3f0fdce37ce31a02fc6220b5b5b4fea6206"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 95422,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r2/AFTER-PS.LOCAL",
+      "sha256": "55a788810ce4103251b1a61ff3bddbd33a703ac06a9744393fe712b37d99dd1b"
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "bytes": 652833,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-prelaunch-output-after-al-20261009-r2/AFTER-LSOF.LOCAL",
+      "sha256": "0bc521a1dabd12ae8f900ce67ac758fe876371765c2ee613a7f9dfa1dc675a6f"
+    }
+  ]
+}

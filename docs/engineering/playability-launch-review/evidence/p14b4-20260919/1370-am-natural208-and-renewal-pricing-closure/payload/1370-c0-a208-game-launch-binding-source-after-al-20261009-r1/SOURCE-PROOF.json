@@ -1,0 +1,258 @@
+{
+  "actualControlProducerFieldsRead": {
+    "actualControlsAccepted": true,
+    "actualJsReusedByExactSourceIdentity": true,
+    "actualJsReview": {
+      "bytes": 5975,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-js-controls-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "1abeefa371df36fa0bad2a9cf1c435bb9ea55abe6fa78daac2d92f3a9b3ee85a"
+    },
+    "actualPythonExits": {
+      "driver": 0,
+      "helper": 0,
+      "recorder": 0,
+      "tool": 0
+    },
+    "actualPythonReview": {
+      "bytes": 14393,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-independent-observed-review-after-ak-20261009-r3/RECEIPT.json",
+      "sha256": "30cbea421e047686752bc0f0b765fde3e9763fff82c4d9a8d6ca436fb7b2d507"
+    },
+    "independentMeasurementReview": {
+      "bytes": 8235,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-independent-measurement-review-after-ak-20261009-r3/RECEIPT.json",
+      "sha256": "8aad301ac87ada085929489571431d092cc7cb0f5cd60f8b4ecc81296ce414ac"
+    },
+    "jsGroups": 13,
+    "pythonObserverMethods": 14,
+    "pythonProtocolMethods": 3,
+    "pythonTotalMethods": 17,
+    "status": "ROOT_ADOPTED_OBSERVED_A208_JS13_PYTHON17_CONTROLS_COMPLETE"
+  },
+  "actualControlsAdoption": {
+    "bytes": 8775,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json",
+    "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+  },
+  "actualNodeRole": {
+    "bytes": 115440320,
+    "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+    "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+  },
+  "actualPythonRole": {
+    "bytes": 50472,
+    "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+  },
+  "completeInventoriesRequiredByFutureAcceptedGuard": true,
+  "copyAcceptance": {
+    "bytes": 3717,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "sha256": "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d"
+  },
+  "executionAuthorization": false,
+  "externalAdapterPins": {
+    "bytes": 2650,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/SOURCE-PINS.json",
+    "sha256": "470026455632aeac39bf57c3db45722fdd68b96f24689fdee70c3c1da8d40748"
+  },
+  "externalAdapterReview": {
+    "bytes": 2370,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "b6c6d35760a50ad7814e7e75253a614c6756725795ea88870de562b36ddb2c6f"
+  },
+  "historicalAJM0PreservedSeparately": true,
+  "historicalGameSource": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+  "historicalPrivateRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+  "historicalWorktreeAndRuntimeMapsUnchanged": true,
+  "immutableOriginalTemplate": {
+    "bytes": 587,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/BINDING-UNFILLED.json",
+    "sha256": "d2ba88acfbf78221d4795a5f8a4f7b0588f2ab43fc60e8b062cda03dcdf8391a"
+  },
+  "noCompilerImportTestGuardGameGitScanSignalsOrPrivateMutation": true,
+  "noObservedArchiveOrAdoptionFabricated": true,
+  "observer18": {
+    "allBytesAuthenticated": true,
+    "files": {
+      "BINDING-UNFILLED.json": {
+        "bytes": 587,
+        "sha256": "d2ba88acfbf78221d4795a5f8a4f7b0588f2ab43fc60e8b062cda03dcdf8391a"
+      },
+      "PHASE-INPUT-PROOF.json": {
+        "bytes": 35081,
+        "sha256": "36c521a883dca9a16a8e2c48da87ec779ef7fff4667372db165665e2a0447e06"
+      },
+      "PLAN.md": {
+        "bytes": 4086,
+        "sha256": "0a18eff4f23c83dab62eeff3ec83f555bc656c4bf5b2401a93e7bd0ca8cd161d"
+      },
+      "POLICY.sb": {
+        "bytes": 93,
+        "sha256": "8e5756225a70618c763bc888a62c7ba1e1f8382d10392f21be5766fbb96a24b5"
+      },
+      "SELECTION.json": {
+        "bytes": 20248,
+        "sha256": "a77f53a854df5112f2391f3bc3d01d64674ebd92f16ec6389a77ff7544a8bff7"
+      },
+      "bounds-guard.mjs": {
+        "bytes": 4153,
+        "sha256": "c5a548b45323f57a9e00f24daecbaca53ede29f0e8348ab2a74c72a5f3d1d36f"
+      },
+      "outer-recorder.py": {
+        "bytes": 11082,
+        "sha256": "bf7cb565ba6c378323393b0e4f7a89de16e278526e34f73295e54c74bc7e8ef8"
+      },
+      "settlement208-core.mjs": {
+        "bytes": 21888,
+        "sha256": "8d18864aa6943d1aec534a4f78746eb614c66b32862cac80528e9f2d9bee367e"
+      },
+      "supervise.py": {
+        "bytes": 22673,
+        "sha256": "45eda307943fb829a321624d7eca4ad5004a7d8e8bdef042a74c8344b61e153e"
+      },
+      "synthetic-employment.json": {
+        "bytes": 13113,
+        "sha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58"
+      },
+      "test-outer.py": {
+        "bytes": 3290,
+        "sha256": "09429dd9b6e38f4a24216782c1892f00c3d71e1402f9c21d3f2992bf4759c4ab"
+      },
+      "test-settlement208-frame.py": {
+        "bytes": 2027,
+        "sha256": "ed0218a3520cd01c8199f17426d59bf78e83ec85b2684b881d402405698a0b5f"
+      },
+      "test-settlement208.mjs": {
+        "bytes": 7008,
+        "sha256": "eed9e598428ed969b6ff1e044df7e20f563f5fbd7b4143f884de472edfddf609"
+      },
+      "test-supervisor.py": {
+        "bytes": 11204,
+        "sha256": "eeef1208a677e1f885151808bbe97a5357a23817b664a9b3cb41296c652e2ba0"
+      },
+      "test-synthetic.mjs": {
+        "bytes": 4873,
+        "sha256": "73b90c3cea42ed9f8888af26736437e527cd7ea3871c0d49884818cd3a2e3b60"
+      },
+      "witness-core.mjs": {
+        "bytes": 3520,
+        "sha256": "2c0120734ec7d46e59c953a000f195fddadb24ac7c5ab3e65e68ffb801b8d63d"
+      },
+      "witness.mts": {
+        "bytes": 5731,
+        "sha256": "f82c50aa830d672de685bbfc6f49951ef56fcc3f4714ffe7b6a31100fe50e704"
+      },
+      "worktree-guard.mjs": {
+        "bytes": 2211,
+        "sha256": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4"
+      }
+    },
+    "pins": {
+      "bytes": 9882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+    }
+  },
+  "operationalRebindMap": {
+    "bytes": 29352,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-operational-rebind-map-after-ak-20261009-r1/MAP.json",
+    "sha256": "bbed5ed18c09b013c5370cd79e514a4c40d0eed2a8f82d549411ad2d74c95c66"
+  },
+  "originalHeldBinding": {
+    "bytes": 5675,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/BINDING-DRAFT.json",
+    "sha256": "d08f216653fc9d72c17dbfd9b6e574d1f2d9c098a92ee022a39b6ee3f83ab06a"
+  },
+  "originalHeldPlan": {
+    "bytes": 12663,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/PLAN.json",
+    "sha256": "d21141d311529aca008bb6e8de22b2c3fc3cd4293cb15ab5cce4f50c7765771f"
+  },
+  "originalProcedureReusableButCurrentALFillAdoptionDerivativeNotYetAuthored": true,
+  "pendingRuntimeRolesRemainNull": [
+    "operationalRuntimeAuthority",
+    "productionHeadAtPreparation",
+    "witnessGrant"
+  ],
+  "premiumFloorRoles": {
+    "mandatoryTypedFunctionSupplement": {
+      "bytes": 14788,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r2/COMPLETE-TYPED-FUNCTION-SUPPLEMENT.txt",
+      "sha256": "9511e728c09e74421f438b7a3037c8d7ab312bef578923a126e57ab8c68215db"
+    },
+    "parentAdoption": {
+      "bytes": 2092,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "ef30c2fd1be9e503e3b4cc45ffdefb940566f770614fbd2c072c77e1181c3a1d"
+    },
+    "review": {
+      "bytes": 5922,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r2/RECEIPT.json",
+      "sha256": "fd7c8a02893168478ff81fd557dc68f6010d49bd18bbe175d2ec48ed313352cb"
+    }
+  },
+  "schema": "1370-a208-after-al-game-launch-binding-source-proof/v1",
+  "scopeGuardImplementationNotModifiedByThisPrep": true,
+  "selected16ReviewRoles": {
+    "gapAdoption": {
+      "bytes": 1702,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-design-parent-adoption-20261009-r1/ADOPTION.json",
+      "sha256": "8f29b3860b2992378fc3fe7408557cffbefe5b4da6685bc0c42951407d171268"
+    },
+    "gapReview": {
+      "bytes": 3022,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-independent-design-review-20261009-r1/RECEIPT.json",
+      "sha256": "12145d203cd76fd36e94b4b8a862505d9e4e150c0af8058fcc47cba881d8292e"
+    },
+    "sourceReceipt": {
+      "bytes": 5517,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+    }
+  },
+  "selected16Selection": {
+    "bytes": 20248,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SELECTION.json",
+    "sha256": "a77f53a854df5112f2391f3bc3d01d64674ebd92f16ec6389a77ff7544a8bff7"
+  },
+  "sourceInputs": {
+    "acceptedAdoptionProcedure": {
+      "bytes": 13112,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-20261008-r2/adopt_reviewed_candidate.py",
+      "sha256": "5361471a3eee369f2418e92353c731ca0b0120020652d678b8a846707d345eb9"
+    },
+    "acceptedFillProcedure": {
+      "bytes": 16046,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-20261008-r2/fill_actual_candidate.py",
+      "sha256": "e89850aeea8dbf8dfd57b7efbeea33977028d1fd4fe6f5497cc6bc3cb76a3516"
+    },
+    "acceptedPreparationPins": {
+      "bytes": 1203,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-20261008-r2/PREPARATION-PINS.json",
+      "sha256": "bd5ed8745b5ebcbdc33f4b90230cfe983456f09eaf8c8b03114c95507cf89bd0"
+    },
+    "acceptedPreparationProcedure": {
+      "bytes": 1634,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-independent-procedure-review-20261008-r1/RECEIPT.json",
+      "sha256": "0d0d0358356653a50d05b10fedfdeb2bee9c66939ec4ab03a83521fc42a9e693"
+    },
+    "scopeDesignAdoption": {
+      "bytes": 1308,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/SCOPE-AMENDMENT-DESIGN-ADOPTION.json",
+      "sha256": "bd4b15dca9e84e4d694dc129f386c83079f07693f0f84472ad6ff31e3d476217"
+    },
+    "scopeFinding": {
+      "bytes": 9623,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-operational-scope-authority-independent-design-after-ak-20261009-r1/FINDING-AND-DESIGN.json",
+      "sha256": "f43391aae243ccfe05a689c28f46dd76c005d67031d8f281b7c985c3a27bd6aa"
+    },
+    "scopeGuardHeldSourcePins": {
+      "bytes": 4886,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/SOURCE-PINS.json",
+      "sha256": "e7fe2bef4cc0e7ff1695c91b821860e4ec568d543c10dcd3f68205531d155c41"
+    }
+  },
+  "status": "SOURCE_ONLY_UNRUN_KNOWN_FIELDS_AUTHENTICATED",
+  "worktreeOrRuntimeLiveReadPerformed": false
+}

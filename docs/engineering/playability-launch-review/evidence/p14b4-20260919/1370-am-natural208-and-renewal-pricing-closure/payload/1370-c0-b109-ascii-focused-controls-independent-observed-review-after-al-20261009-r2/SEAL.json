@@ -1,0 +1,19 @@
+{
+  "schema": "1370-b109-ascii-focused-controls-independent-observed-review-seal/v1",
+  "decision": "ACCEPT_OBSERVED_B109_ASCII_FOCUSED_CONTROLS",
+  "executionAuthorization": false,
+  "game": false,
+  "performanceWin": false,
+  "files": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-independent-observed-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "45ed83313ed82b9ffa7646204574ef2c02bf42504633133b70b3692c85eb3b9d",
+      "bytes": 10800
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-independent-observed-review-after-al-20261009-r2/REPORT.md",
+      "sha256": "ba6c22318213bce177ae4235148c4f0ab3640dd48ca44c3883ae4b18eaa5267b",
+      "bytes": 2670
+    }
+  ]
+}

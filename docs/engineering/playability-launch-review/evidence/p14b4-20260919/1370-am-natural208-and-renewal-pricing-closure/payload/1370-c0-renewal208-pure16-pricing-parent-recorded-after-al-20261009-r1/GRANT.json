@@ -1,0 +1,63 @@
+{
+  "actualOutcome": null,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-lane-after-al-20261009-r1/pricing.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/record-pure-node.py",
+    "verification"
+  ],
+  "automaticRetry": false,
+  "boundsSeconds": {
+    "active": 75,
+    "node": 60,
+    "whole": 90
+  },
+  "controlsObservedAdoption": {
+    "bytes": 2107,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/PURE16-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "94b36eb3c1cc32a1894822997305be6a2897286ef7d7e6cfc227b3d7b148571f"
+  },
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1",
+  "directExecPreservesHelperIdentity": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": true,
+  "game": false,
+  "independentSourceReview": {
+    "bytes": 17964,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "2397b7427328670a34cbd6bfa5fd0b3672a0bccf524f73718dc7fbf0eed9fd6e"
+  },
+  "ledgerCapBytes": 65536,
+  "ownPgid": 46727,
+  "ownPid": 46727,
+  "ownSid": 46727,
+  "pricing": true,
+  "recipe": {
+    "bytes": 2405,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/RECIPE.json",
+    "sha256": "a38750b2ac7417a655f0052642d9d11a01eaa50105e46291cf33ab078c80ce9a"
+  },
+  "renewalCauseAdmission": false,
+  "rootLauncher": {
+    "bytes": 4530,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_pure16_pricing_once.py",
+    "sha256": "b3e96aa3fe0b920bd082a351adcc97c5a759c9d05f474c8ea6ae086aeeac9b73"
+  },
+  "schema": "1370-root-pure16-pricing-recorded-execution-grant/v1",
+  "sourcePins": {
+    "bytes": 26013,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "1d739f9a686de05dec167816af5784a95295ecc61f11f7df464018dfea6e1c92"
+  },
+  "status": "GRANTED_ONCE_EXACT_PURE16_PRICING",
+  "stdoutAndStderrCapBytes": 1048576,
+  "utc": "2026-10-10T01:39:21.732151+00:00"
+}

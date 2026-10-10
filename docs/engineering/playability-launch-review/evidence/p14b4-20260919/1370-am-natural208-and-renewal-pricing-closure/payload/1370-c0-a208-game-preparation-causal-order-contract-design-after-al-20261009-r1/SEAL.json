@@ -1,0 +1,18 @@
+{
+  "actualFill": null,
+  "actualOutcome": null,
+  "executionAuthorization": false,
+  "independentReview": {
+    "bytes": 12166,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-preparation-causal-order-independent-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "caf636462a6a3cbec6248910f691c519f46bab6e86ad50ed353a1cf91a3a454b"
+  },
+  "predecessorR3HeldRunnableStopPreserved": true,
+  "schema": "1370-source-only-reviewed-design-seal/v1",
+  "sourcePins": {
+    "bytes": 690,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-preparation-causal-order-contract-design-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "61408a5197bb5efc78aa4abf27eb2d477c6301fbaa7b0deab95a4e02422f0a03"
+  },
+  "status": "SEALED_SOURCE_ONLY_UNRUN"
+}

@@ -1,0 +1,14 @@
+{
+  "actualR6TypeRun": false,
+  "actualToolChunk": "92a396",
+  "actualToolExit": 1,
+  "failure": "Inverse assertion found two occurrences of the broad replacement mode==types because the original already has an if mode==types branch. The first derivative was not written.",
+  "firstDerivativeWritten": false,
+  "freshBuilderPath": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/prepare_root_r6_routes_r2.py",
+  "freshBuilderSha256": "0c38715c5328da2d76b772c2ba3a933e5b9c088db078e4639e10fff6b33a9998",
+  "originalBuilderSha256": "711e0da0cc2f1e8d3065aee4f5369270b790889abc31f026007a558a97a6a92f",
+  "repair": "Restrict replacement to the assert mode expression, preserving the preexisting conditional and exact inverse.",
+  "runtimeGrantIssued": false,
+  "schema": "1370-root-source-binding-builder-preparation-stop/v1",
+  "status": "PRESERVED_PARENT_SOURCE_PREPARATION_STOP_ONLY"
+}

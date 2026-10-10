@@ -1,0 +1,76 @@
+--- r3/ordering.ts
++++ r2/ordering.ts
+@@ -1,47 +1,8 @@
+ import assert from 'node:assert/strict'
+-type Row={sequence:number;week:number;phase:string;issuerStudioId:string|null;detail:any}
++type Row={sequence:number;week:number;phase:string;issuer:string|null;detail:any}
+ type Ref={digest:string;proposalSourceIndex:number;proposalOccurrence:number}
+ const key=(r:Ref)=>JSON.stringify(r)
+ function exactly(actual:unknown,expected:unknown,label:string){assert.deepEqual(actual,expected,label)}
+-
+-// Exact unchanged m0FreezeOrder from the complete talentMarket producer.
+-const FREEZE_ORDER=['issuerNotEntered','retirementCap','issuerDistrusted','nemesisOnRoster',
+-  'subjectCommittedElsewhere','startWeekMoved','noSeatForRole','belowAsk',
+-  'belowRetirementReservation','materialTermsChanged','promiseNotFeasible','bonusUnaffordable'] as const
+-export function assertFreezePredicateOrdering(marketValues:readonly unknown[],freezeValues:readonly unknown[],refs:readonly Ref[]):void{
+-  const market=marketValues as Row[],freezes=freezeValues as Row[]
+-  assert.equal(freezes.length,refs.length,'one freeze identity per submitted proposal')
+-  const predicates=market.filter(row=>row.phase==='freezePredicate')
+-  const project=(row:Row)=>({issuerStudioId:row.issuerStudioId,digest:row.detail.proposalDigest,
+-    proposalSourceIndex:row.detail.proposalSourceIndex,proposalOccurrence:row.detail.proposalOccurrence,
+-    predicateOrdinal:row.detail.predicateOrdinal,predicate:row.detail.predicate})
+-  exactly(predicates.map(project),refs.flatMap((ref,i)=>FREEZE_ORDER.map((predicate,predicateOrdinal)=>({
+-    issuerStudioId:freezes[i]!.issuerStudioId,...ref,predicateOrdinal,predicate}))),
+-    'complete identity-bound freeze predicate order')
+-  for(const [i,freeze] of freezes.entries()){
+-    const rows=predicates.slice(i*FREEZE_ORDER.length,(i+1)*FREEZE_ORDER.length)
+-    const drop=freeze.detail.drop as string|null
+-    const failedAt=drop===null?-1:(FREEZE_ORDER as readonly string[]).indexOf(drop)
+-    assert.ok(drop===null||failedAt>=0,'freeze drop names an existing predicate')
+-    exactly(rows.filter(row=>row.detail.result==='FAILED').map(row=>row.detail.predicateOrdinal),
+-      failedAt<0?[]:[failedAt],'freeze predicate FAILED slot agrees with drop')
+-    for(const [ordinal,row] of rows.entries()){
+-      assert.equal(row.week,freeze.week,'freeze predicate week binds its proposal')
+-      if(failedAt>=0&&ordinal>failedAt){
+-        assert.equal(row.detail.result,'NOT_REACHED','freeze predicate suffix is NOT_REACHED')
+-        assert.equal(row.detail.values,'NOT_EVALUATED','unreached predicate has no evaluated values')
+-      }else if(ordinal===failedAt){
+-        assert.equal(row.detail.result,'FAILED','freeze predicate first failure matches drop')
+-      }else{
+-        // Only noSeatForRole is conditionally NOT_EVALUATED in the real source:
+-        // player issuer or absent primary role. Every other prefix slot is PASSED.
+-        assert.ok(row.detail.result==='PASSED'||(FREEZE_ORDER[ordinal]==='noSeatForRole'&&row.detail.result==='NOT_EVALUATED'),
+-          'freeze predicate prefix status')
+-      }
+-    }
+-  }
+-}
+-
+ export function assertFullProjectionOrdering(probe:any,marketValues:readonly unknown[],feasibilityValues:readonly unknown[]):void{
+   const market=marketValues as Row[],sources=probe.calls.filter((c:any)=>c.name==='m0SourceArrays').map((c:any)=>c.detail)
+   const tupleRows=(feasibilityValues as any[]).filter(row=>row.kind==='inputTuple')
+@@ -60,13 +21,13 @@
+     if(c.phase==='freezeProposal')assert.equal(projected[c.submittedOrdinal]?.sourceIndex,c.proposalSourceIndex)
+   }
+   for(const order of market.filter(r=>r.phase==='candidateOrder')){
+-    const candidates=order.detail.candidates,rows=market.filter(r=>r.phase==='candidateFeasibility'&&r.issuerStudioId===order.issuerStudioId)
++    const candidates=order.detail.candidates,rows=market.filter(r=>r.phase==='candidateFeasibility'&&r.issuer===order.issuer)
+     exactly(candidates.map((c:any)=>c.ordinal),candidates.map((_:any,i:number)=>i),'complete candidate ordinals')
+     exactly(rows.map(r=>r.detail.candidateOrdinal),candidates.map((_:any,i:number)=>i),'evaluated and skipped candidates preserve full order')
+     exactly(rows.map(r=>r.detail.attachment),candidates.map((c:any)=>c.attachment),'candidate attachments preserve full order')
+     const reached=rows.filter(r=>r.detail.feasibility!=='NOT_EVALUATED')
+     exactly(reached.map(r=>r.detail.candidateOrdinal),reached.map((_,i)=>i),'only contiguous candidate prefix is evaluated')
+-    const refs=sources.filter((s:any)=>s.context.phase==='authorCandidate'&&s.context.issuer===order.issuerStudioId)
++    const refs=sources.filter((s:any)=>s.context.phase==='authorCandidate'&&s.context.issuer===order.issuer)
+     exactly(refs.map((s:any)=>s.context.candidateOrdinal),reached.map(r=>r.detail.candidateOrdinal),'actual author tuple ordinals')
+     if(rows.length>reached.length)assert.equal(reached.at(-1)!.detail.feasibility.classification,'REASONABLY_ACHIEVABLE')
+   }
+@@ -83,8 +44,6 @@
+   // still projected by m0Capture; actual evaluations below use only promise slots.
+   const freezeRefs:Ref[]=freezeSources.map((s:any)=>({digest:s.proposals[s.context.proposalSourceIndex].digest,
+     proposalSourceIndex:s.context.proposalSourceIndex,proposalOccurrence:s.context.proposalOccurrence}))
+-  exactly(freezes.map(row=>row.issuerStudioId),freezeSources.map((source:any)=>source.context.issuer),'freeze issuer binds actual source context')
+-  assertFreezePredicateOrdering(market,freezes,freezeRefs)
+   const dropped=freezes.map((r,i)=>({r,i})).filter(({r})=>r.detail.drop!==null)
+   const survivors=freezes.map((r,i)=>({r,i})).filter(({r})=>r.detail.drop===null)
+   exactly(summary[0]!.detail.submittedOrder,freezes.map((r,i)=>({submittedOrdinal:i,digest:r.detail.proposal.digest})),'all submitted order')

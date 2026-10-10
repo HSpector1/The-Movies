@@ -1,0 +1,140 @@
+{
+  "actualStopReadback": {
+    "bytes": 11504,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r6/READBACK.json",
+    "sha256": "1456317c3f33bdba89e30cef89a133a649c79517eed36dda43c6c5f67afe57f3"
+  },
+  "actualTypesPreflight": {
+    "bytes": 3224,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-TYPES-PREFLIGHT-OBSERVED-ADOPTION-R6.json",
+    "sha256": "a15400a7e31a132e4187a42ed31d040ab91522d2c7f437c285e4991b45a024ee"
+  },
+  "actualTypesResult": {
+    "bytes": 26635,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3/20261009-m0-types-after-al-r3/RESULT.json",
+    "sha256": "85e1f6763f40b8232b851ef2caf3611ed9e3b6d3962d748eeeda063da608d781"
+  },
+  "automaticRetry": false,
+  "children": [
+    {
+      "argv": [
+        "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r6/check-deps.mjs",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+        "/Users/zacheryspector/The-Movies-headless-program",
+        "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+      ],
+      "exit": 0,
+      "name": "dependency-versions",
+      "seconds": 1.469,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 1038,
+      "stdoutSha256": "57ffd6f3cf26f598b7740e928201b00602b1f0fa44f458fb9957fa82aa715071"
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+        "--noEmit",
+        "--allowImportingTsExtensions"
+      ],
+      "exit": 0,
+      "name": "root-tsc",
+      "seconds": 50.663,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+        "-p",
+        "ui/tsconfig.json",
+        "--noEmit"
+      ],
+      "exit": 0,
+      "name": "ui-tsc",
+      "seconds": 45.133,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/vitest",
+        "list",
+        "tests/diagnostic.test.ts",
+        "--project",
+        "core",
+        "--json",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r3/20261009-m0-types-after-al-r3/collection.json",
+        "--no-cache"
+      ],
+      "exit": 0,
+      "name": "diagnostic-collection",
+      "seconds": 7.832,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "collectionAccepted": false,
+  "controlsAccepted": false,
+  "executionAuthorization": false,
+  "firstThreeChildRootBoundariesEqual": true,
+  "fourthChildRootMetadataChanged": true,
+  "fourthChildRootRosterEqual": true,
+  "fullPostflightReadback": {
+    "bytes": 3095,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-fullguard-postflight-parent-after-al-20261009-r3/POSTFLIGHT-READBACK.json",
+    "sha256": "45d882920ab0619fdab8124ee68071500c6765c005779f250e1f52094703a926"
+  },
+  "fullPostflightSnapshot": {
+    "bytes": 8581990,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/postflight-after-al-m0-types-r3/SNAPSHOT.json",
+    "sha256": "7bd5b6eed4e844eb872eb2b69d19d60d481e8f7d0c4abae844599d447b624ccc"
+  },
+  "gameAccepted": false,
+  "h13HistoricalFailureWaived": false,
+  "historicalCurrentProofAdoption": {
+    "bytes": 2981,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-CURRENT-PROOF-OBSERVED-ADOPTION.json",
+    "sha256": "8ef61c8f4e2d614ea2c4312db6c884b6cee9dba71e828a485986504beb5ef9b3"
+  },
+  "independentObservedReview": {
+    "bytes": 31865,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-independent-observed-metadata-stop-review-after-al-20261009-r6/RECEIPT.json",
+    "sha256": "e47157a2d9b7aacfabb8a3bafa0473f18c0b798fea9d129c2e442fcf5c27081f"
+  },
+  "m0RouteDependencyAfterAvailable": false,
+  "m0SourceAfterAvailable": false,
+  "m0SourcePreservationAccepted": false,
+  "metadataFailurePreserved": true,
+  "postOwnership": {
+    "bytes": 1065,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-fullguard-postflight-parent-after-al-20261009-r3/POST-OWNERSHIP.json",
+    "sha256": "1e71e4721e76843d034414c9df994970515e8624bcca63e17f771aec4f277454"
+  },
+  "preRunTypesProtection": {
+    "bytes": 3684,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-CURRENT-TYPES-PROTECTION-R6.json",
+    "sha256": "4b6f35c19894d27a59b61a744a4c1367e6aa530ce04514264356c0b49cd5737e"
+  },
+  "productionHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "protectedFreezeContinues": true,
+  "recordedOwnedIds": [
+    27153,
+    27410,
+    27430
+  ],
+  "schema": "1370-root-m0-types-observed-metadata-stop-adoption/v1",
+  "scope": "Observed metadata STOP plus unchanged separately scoped shared/R9/dependency protections only. Four successful children do not establish accepted types/collection. Current M0 full source preservation is unresolved; no timestamp restoration, unexplained repin or automatic retry is authorized.",
+  "sharedR9DependencyFullPostflightAccepted": true,
+  "soleLaneReleased": true,
+  "status": "ROOT_ADOPTED_OBSERVED_STOP_M0_TYPES_ROOT_METADATA_DRIFT_WITH_SHARED_FULL_POSTFLIGHT",
+  "typesAccepted": false
+}

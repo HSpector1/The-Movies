@@ -1,0 +1,28 @@
+{
+  "actualFocusedCorrectness": {
+    "bytes": 8077,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-FOCUSED-OBSERVED-ADOPTION.json",
+    "sha256": "cabca84e104aaf7864ad0fa46c0c578b690e1f2b67fd42bca51890773d159a68"
+  },
+  "exactRecipe": {
+    "bytes": 8434,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/BENCHMARK-RECIPE.json",
+    "sha256": "b3028cc06a9ae7b5b36eb4353cef5c0deb90f9cfdf39607d67ff88d5d5b19b6e"
+  },
+  "executionAuthorization": false,
+  "independentReview": {
+    "bytes": 34035,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "9b8d4ca1d96e4675c6a589572a1930c31c6f25b722baff1da83f7ee568594502"
+  },
+  "performanceAccepted": false,
+  "routeSourcePins": {
+    "bytes": 9726,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "1800e05d6a9fbab6eae4f4e7a8bee65969da4785e5b47672d1bf06fc4fbba51b"
+  },
+  "schema": "1370-root-b109-paired308-benchmark-source-adoption/v1",
+  "scope": "One indexed308 paired measurement only; keep original fixture/reader/purity/FD/closures and60/75/90, no full109 or source promotion.",
+  "selectedEncoderUnchanged": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b",
+  "status": "ROOT_ADOPTED_SOURCE_ONLY_PAIRED308_BENCHMARK"
+}

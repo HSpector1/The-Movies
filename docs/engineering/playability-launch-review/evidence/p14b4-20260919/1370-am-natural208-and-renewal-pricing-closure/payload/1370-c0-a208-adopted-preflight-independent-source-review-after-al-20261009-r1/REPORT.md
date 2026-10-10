@@ -1,0 +1,7 @@
+R1 source-only STOP: external config read precedes original observed-copy admission without copied-root lexical exclusion. The concrete pending config is safe, but the universal CLI admission ordering is incomplete. Preserve R1 and separately repair only the early lexical/exact-known-config checks.
+
+Original parent guard PLAN explicitly permits reuse of admitted full after-fill immutable observations under continuous protected freeze, with fresh current FD/process/boot/refs/clean/AC/disk and physical roots immediately before lane. No new full-inventory gate is required. Ten original helper definitions independently match full source bytes; their AST definitions therefore match without executing an AST parser. Full forward/inverse diffs independently match after using the author's original/new labels. No source was executed or patch-applied.
+
+Six pending roles remain null: adoptedBinding, exactCandidateReview, afterFillSnapshot, adoptionResult, archiveManifest, adoptedLaunch. Bind only genuine separately approved actual roles after completed adoption; keep known fields and before-fill config immutable. No preflight or final game grant is inferred.
+
+Only named scratch source/evidence was read; fresh review artifacts were written. No tests, imports, runtime source execution, Git, scan, process probe, private read or protected mutation occurred. Supplied worker-detector literals were avoided in shell argv.

@@ -1,0 +1,51 @@
+{
+  "actualOutcome": null,
+  "alarmPersistsExec": true,
+  "alarmSeconds": 60,
+  "argv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/test-report-protocol.py"
+  ],
+  "automaticRetry": false,
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1",
+  "directExecPreservesPid": true,
+  "executionAuthorization": true,
+  "expectedPredicateAssertions": 10,
+  "expectedSubtests": 6,
+  "expectedUnittestMethods": 1,
+  "game": false,
+  "independentExactSourceReview": {
+    "bytes": 17964,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "2397b7427328670a34cbd6bfa5fd0b3672a0bccf524f73718dc7fbf0eed9fd6e"
+  },
+  "noChildProcessExpected": true,
+  "ownPgid": 44455,
+  "ownPid": 44455,
+  "ownSid": 44455,
+  "pricing": false,
+  "recipe": {
+    "bytes": 2429,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/PROTOCOL-CHECK-RECIPE.json",
+    "sha256": "7e550398bf0e8d0169d9bc919bde3b1607116c6ba97417df868c4443917e21a5"
+  },
+  "rootLauncher": {
+    "bytes": 2871,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/run_pure16_controls_once.py",
+    "sha256": "e414b1c71a4fb82ad66d9e852d20abc20ec7f6e3e23f25bf44cb62550555d87f"
+  },
+  "schema": "1370-root-pure16-direct-bounded-protocol-controls-grant/v1",
+  "singleLaneParentSerialization": true,
+  "sourcePins": {
+    "bytes": 26013,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "1d739f9a686de05dec167816af5784a95295ecc61f11f7df464018dfea6e1c92"
+  },
+  "startMonotonic": 102149.224800916,
+  "status": "GRANTED_ONCE_EXACT_REPORT_PROTOCOL_CONTROLS",
+  "stderrPath": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-controls-parent-recorded-after-al-20261009-r1/controls.stderr",
+  "stdoutPath": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-controls-parent-recorded-after-al-20261009-r1/controls.stdout",
+  "utc": "2026-10-10T01:33:28.299261+00:00"
+}

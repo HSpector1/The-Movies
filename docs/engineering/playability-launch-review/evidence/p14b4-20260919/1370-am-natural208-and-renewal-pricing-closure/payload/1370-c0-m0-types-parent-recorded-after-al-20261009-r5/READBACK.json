@@ -1,0 +1,214 @@
+{
+  "actualTool": {
+    "bytes": 977,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r5/ACTUAL-TOOL.json",
+    "sha256": "11c6692df87a845bf94b11c5026163ebf27a2365c88d9ed6fe482ecc90f55232"
+  },
+  "automaticRetry": false,
+  "children": [
+    {
+      "argv": [
+        "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r5/check-deps.mjs",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+        "/Users/zacheryspector/The-Movies-headless-program",
+        "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+      ],
+      "exit": 0,
+      "name": "dependency-versions",
+      "seconds": 1.453,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 1038,
+      "stdoutSha256": "57ffd6f3cf26f598b7740e928201b00602b1f0fa44f458fb9957fa82aa715071"
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+        "--noEmit"
+      ],
+      "exit": 2,
+      "name": "root-tsc",
+      "seconds": 45.607,
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 1606,
+      "stdoutSha256": "4955f55bd67c6b202a8294db1f10cf759b94553bcd5468aad8f5af3d47712a7e"
+    }
+  ],
+  "commandsNotExecuted": [
+    "ui-tsc",
+    "diagnostic-collection"
+  ],
+  "compilerErrors": [
+    {
+      "code": "TS5097",
+      "column": 8,
+      "file": "bridge/protocol.ts",
+      "line": 17
+    },
+    {
+      "code": "TS5097",
+      "column": 32,
+      "file": "bridge/protocol.ts",
+      "line": 18
+    },
+    {
+      "code": "TS5097",
+      "column": 51,
+      "file": "bridge/protocol.ts",
+      "line": 19
+    },
+    {
+      "code": "TS5097",
+      "column": 8,
+      "file": "bridge/schema/bridge-schema.ts",
+      "line": 16
+    },
+    {
+      "code": "TS5097",
+      "column": 40,
+      "file": "bridge/schema/bridge-schema.ts",
+      "line": 17
+    },
+    {
+      "code": "TS5097",
+      "column": 38,
+      "file": "bridge/schema/bridge-schema.ts",
+      "line": 18
+    },
+    {
+      "code": "TS5097",
+      "column": 60,
+      "file": "bridge/schema/bridge-schema.ts",
+      "line": 19
+    },
+    {
+      "code": "TS5097",
+      "column": 40,
+      "file": "bridge/schema/industry-schema.ts",
+      "line": 1
+    },
+    {
+      "code": "TS5097",
+      "column": 145,
+      "file": "bridge/schema/industry-schema.ts",
+      "line": 2
+    },
+    {
+      "code": "TS5097",
+      "column": 48,
+      "file": "bridge/schema/intent-schema.ts",
+      "line": 1
+    },
+    {
+      "code": "TS5097",
+      "column": 8,
+      "file": "bridge/schema/runtime.ts",
+      "line": 7
+    }
+  ],
+  "context": {
+    "bytes": 7106,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r5/EXECUTION-CONTEXT.json",
+    "sha256": "b94963679999c7f8d5909878b330089dda1dcaa56174e2beee0eecfd7134d2a9"
+  },
+  "dependencyProofsEqual": true,
+  "executionAuthorization": false,
+  "fill": {
+    "bytes": 6927,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r5/FILL-RESULT.json",
+    "sha256": "14b50c2613c9d6c8a6196e16e1ac09a4da08bb4b9544a2e48d2d2b6a0e6c4157"
+  },
+  "game": false,
+  "grant": {
+    "bytes": 997,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r5/EXECUTION-GRANT.json",
+    "sha256": "2d018a052f3a75befab6339913d6dd934031606e177d6d4e24de1d8307f4a0f0"
+  },
+  "h13HistoricalStopWaived": false,
+  "helperExit": 1,
+  "laneLog": {
+    "bytes": 1179,
+    "path": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-after-al-r2.lane.log",
+    "sha256": "4c7bb00440d14d180b7e07fb31dee7250ef9f1ee0f257f47c15eeffb80e8599c"
+  },
+  "laneMetadata": {
+    "bytes": 519,
+    "path": "/Users/zacheryspector/studio-scratch/c0-m0-types-20261009-m0-types-after-al-r2.lane.log.meta",
+    "sha256": "c6311a236db90e07575fccd45bf5fc28d8866ce88362de3d405a3f18c4f63009"
+  },
+  "laneReleased": true,
+  "mode": "types",
+  "preparationElapsedSeconds": 0.8319550519954646,
+  "proofOrTypesAccepted": false,
+  "recordedOwnedIds": [
+    49780,
+    50035,
+    50062
+  ],
+  "recorderElapsedSeconds": 109.379,
+  "recorderExit": 1,
+  "recorderResult": {
+    "bytes": 893,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-recorder-results-after-al-20261009-r2/20261009-m0-types-after-al-r2.RECORDER-RESULT.json",
+    "sha256": "1a6442b2d8fc009c62b077a4116e8eb02003d8b3d1739d1152090a6c769c581b"
+  },
+  "rootCompilerExit": 2,
+  "rootCompilerStdout": {
+    "bytes": 1606,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r2/20261009-m0-types-after-al-r2/root-tsc.stdout",
+    "sha256": "4955f55bd67c6b202a8294db1f10cf759b94553bcd5468aad8f5af3d47712a7e"
+  },
+  "rootLaneGrant": {
+    "bytes": 4021,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-parent-recorded-after-al-20261009-r5/ROOT-LANE-GRANT.json",
+    "sha256": "e7a52acec86bc3f1fbc10e26a23403e62ff217c188ce1822ff3a3705d8d7a493"
+  },
+  "runnerElapsedSeconds": 106.938,
+  "runnerExit": 1,
+  "schema": "1370-root-m0-types-actual-stop-readback/v1",
+  "scopedOwnershipChecks": [
+    {
+      "id": 49780,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 49780,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 50035,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 50035,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 50062,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 50062,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "sourceProofsEqual": true,
+  "status": "ACTUAL_M0_TYPES_STOP_PENDING_FULL_POSTFLIGHT_AND_INDEPENDENT_REVIEW",
+  "toolExit": 1,
+  "toolSessionId": 79362,
+  "twoChildRootBoundariesEqual": true,
+  "typesResult": {
+    "bytes": 15403,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-results-after-al-20261009-r2/20261009-m0-types-after-al-r2/RESULT.json",
+    "sha256": "85106763c640e105578d5b38b97c5af732611f34bf307688a8069de6ab241963"
+  },
+  "unexplainedUpstreamConfigurationCausePending": true
+}

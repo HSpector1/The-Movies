@@ -1,0 +1,391 @@
+{
+  "actualCollection": null,
+  "actualControls": null,
+  "actualGame": null,
+  "actualGrant": null,
+  "actualTypes": null,
+  "claimsLimits": "Source review only; no generated source imported or executed, no runtime controls/tests/Node/Git/mirror reads/scans/signals. No types,game,wiring,neutrality or salary acceptance.",
+  "consumerContract": {
+    "LAUNCH.py": "Consumes decision ACCEPT_STATIC_M0_TYPES_COLLECTION_SOURCE_ONLY and sourcePins[k].sha256 for runner.py,BOOTSTRAP.py,supervise.py,CONFIG.json,check-deps.mjs; also exact sourcePins.LAUNCH.py path/bytes/sha256. These fields are populated exactly. routeSourcePins is the identical explicit alias for root review consumers.",
+    "context": "Unfilled; sourceReview is supplied by this receipt but freshSourceProof,freshDependencyProof,currentProtection,runtimeTools,laneLock,actualGrant must come from genuine future parent-reviewed roles.",
+    "grant": "Parent-only; compact sorted JSON context digest excludes actualGrant only. Exact scope M0_FOUR_COMMAND_TYPES_AND_DIAGNOSTIC_COLLECTION_ONLY; gameAuthorization false."
+  },
+  "currentProtection": null,
+  "decision": "ACCEPT_STATIC_M0_TYPES_COLLECTION_SOURCE_ONLY",
+  "exactFourCommandRosterSha256": "ae58b73c0be257ad63345ea92f7c414e48ba340baa60a9b319aaa648f5a7a8a6",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "findings": [],
+  "lessons": [
+    "A metadata map name does not define its cardinality: inspect actual pinned producer rows before writing consumer checks.",
+    "Use exact admitted projections for specialized package checks; keep complete source authority separate.",
+    "Whole inverse proof and unchanged function hashes establish source provenance, but do not establish schema compatibility or runtime success."
+  ],
+  "limits": {
+    "childStreamBytes": 8388608,
+    "collectionBytes": 1048576,
+    "diskFloorGiB": 3,
+    "preflightGiB": 3.5,
+    "recorderActiveSeconds": 320,
+    "recorderWholeSeconds": 330,
+    "runnerResultBytes": 131072,
+    "runnerSeconds": 300
+  },
+  "priorRejectedSourceReview": {
+    "bytes": 9627,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-source-independent-review-after-al-20261009-r3/RECEIPT.json",
+    "sha256": "07aeb15fb7be8a03b583f99bfc113bc5da95fd726fbf97493b54921c9740c9c4"
+  },
+  "remainingActualFills": [
+    "root adoption of this accepted source review",
+    "current AL M0 full protection with freshly admitted complete source and dependency proofs",
+    "physical Node22/Python/compiler/collector roles and fresh lane pin",
+    "parent-only exact execution grant and recorded helper command",
+    "independent observed route and full protected postflight",
+    "full-body wiring controls before later neutral416 preparation"
+  ],
+  "repairVerified": {
+    "all21RowsEqualToAuthenticatedFacts": true,
+    "allFourOriginalForwardInverseDiffsExact": true,
+    "allFourR3ForwardInverseDiffsExact": true,
+    "allPhysicalRoles": 1802,
+    "configByteIdenticalToR3": true,
+    "dependencyPackageRoles": 21,
+    "onlyChangedFunction": "runner.py:exact_package_roles",
+    "traverseOnlyExact21Projection": true
+  },
+  "routeSourcePins": {
+    "BOOTSTRAP.py": {
+      "bytes": 2725,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/BOOTSTRAP.py",
+      "sha256": "25696ed2167dafc16751ac00f96eb203d0c9ab7d700b6c382dce816af7b0056b"
+    },
+    "BOOTSTRAP.py.forward.diff": {
+      "bytes": 2610,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/BOOTSTRAP.py.forward.diff",
+      "sha256": "07129e58b676ffe351a2309a86f5ab9474808d23c0c53124d5df7e7481f3d55b"
+    },
+    "BOOTSTRAP.py.inverse.diff": {
+      "bytes": 2610,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/BOOTSTRAP.py.inverse.diff",
+      "sha256": "f10891e495b7a4e2b1c4ead93746a1970be2835df9000a19f1935a7f9de0d021"
+    },
+    "BOOTSTRAP.py.r3-forward.diff": {
+      "bytes": 678,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/BOOTSTRAP.py.r3-forward.diff",
+      "sha256": "e523e88ec619c61fea8f4888d0b4bbbd8724a3d583abf5137ef51165a1ae1fd7"
+    },
+    "BOOTSTRAP.py.r3-inverse.diff": {
+      "bytes": 678,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/BOOTSTRAP.py.r3-inverse.diff",
+      "sha256": "ecd271737ca4aec56b63071c0fb276c57648c25f349a38881ffb85371fa4fcf9"
+    },
+    "BUILD-SOURCE.py": {
+      "bytes": 39658,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/BUILD-SOURCE.py",
+      "sha256": "5c053574b8a077050def589b911e31a890b85f8bc91443a4d7444559cbaae837"
+    },
+    "CONFIG.json": {
+      "bytes": 29811,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/CONFIG.json",
+      "sha256": "7166e022583531d924d67639a3d2a8a8f250bd8461f2a33cace8ce8f41c24f9c"
+    },
+    "EXECUTION-CONTEXT-UNFILLED.json": {
+      "bytes": 539,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/EXECUTION-CONTEXT-UNFILLED.json",
+      "sha256": "fe3d66a1a725e413996c4766df386a03097eff751f171b785832321d3c965bae"
+    },
+    "LAUNCH.py": {
+      "bytes": 7596,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/LAUNCH.py",
+      "sha256": "1dbf3454a029c66008173d03ed9f5d22669c7a755a5b92fa84ee88d456fba584"
+    },
+    "LAUNCH.py.forward.diff": {
+      "bytes": 8231,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/LAUNCH.py.forward.diff",
+      "sha256": "dd0f4f8fdda72d2e19468517a6946fbbc9bf229a1f13d00d447f70cb0c6f02bd"
+    },
+    "LAUNCH.py.inverse.diff": {
+      "bytes": 8231,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/LAUNCH.py.inverse.diff",
+      "sha256": "25c7798fed126d5e973ccc798a8877757bef3c4d1828c13f3b2a4294bd0510ff"
+    },
+    "LAUNCH.py.r3-forward.diff": {
+      "bytes": 1625,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/LAUNCH.py.r3-forward.diff",
+      "sha256": "04ed910d66176c44cb7495ae3440b1507c27d79b872295020a4b9ddcac033197"
+    },
+    "LAUNCH.py.r3-inverse.diff": {
+      "bytes": 1625,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/LAUNCH.py.r3-inverse.diff",
+      "sha256": "049246974dc06abefabbfd05a0bc5058ebf92699abfe550ea03730277203f79c"
+    },
+    "LESSONS.md": {
+      "bytes": 1773,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/LESSONS.md",
+      "sha256": "3aecbf9c3e7e48a16aa47d2ffe3851827d3e3b98c37744140e1fcfc4152f5aa6"
+    },
+    "PREDECESSOR-BOOTSTRAP.py": {
+      "bytes": 3433,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/PREDECESSOR-BOOTSTRAP.py",
+      "sha256": "7a63a2d8028ae5c2abb5b2b1b5bdf79a83887b8c809de7d7866f2a9a7dd5f223"
+    },
+    "PREDECESSOR-LAUNCH.py": {
+      "bytes": 3582,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/PREDECESSOR-LAUNCH.py",
+      "sha256": "dc2ec7abe44d84e1bd15e1364472e6355da9c4e12792f95b26506b91dc882d62"
+    },
+    "PREDECESSOR-runner.py": {
+      "bytes": 59372,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/PREDECESSOR-runner.py",
+      "sha256": "946b3c88208db5128e30e668d0e322f11224235a71ff6994362acb124e0831b7"
+    },
+    "PREDECESSOR-supervise.py": {
+      "bytes": 15261,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/PREDECESSOR-supervise.py",
+      "sha256": "3145a6b806e9071fb69aa7eb610025c2930515c210c74cf6f3349a7faebdbc50"
+    },
+    "RECIPE.md": {
+      "bytes": 3386,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/RECIPE.md",
+      "sha256": "69d276efc437781d783c408ed6836152a92b972e63f39e8d446402d630b8341c"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 10264,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/SOURCE-PROOF.json",
+      "sha256": "ae6f9f81e8fb7433e0ee85a08ad92df91d75a8f8f47f0bd6c6e1aa0cdc739290"
+    },
+    "check-deps.mjs": {
+      "bytes": 1918,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/check-deps.mjs",
+      "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+    },
+    "runner.py": {
+      "bytes": 37070,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/runner.py",
+      "sha256": "03768e0be95c3dccf430598f7cab47a9b5d2672be6de7d456705cbf7ec2b68a7"
+    },
+    "runner.py.forward.diff": {
+      "bytes": 55586,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/runner.py.forward.diff",
+      "sha256": "6a0c0494af8e3b3feb93efbe6339415eb5d1fb0e7ce540a0a098657dc41efb61"
+    },
+    "runner.py.inverse.diff": {
+      "bytes": 55641,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/runner.py.inverse.diff",
+      "sha256": "ee5125ac5d5cf186b3c804714b742ab9370bab15e33a10c2189182c1eb3bca11"
+    },
+    "runner.py.r3-forward.diff": {
+      "bytes": 1552,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/runner.py.r3-forward.diff",
+      "sha256": "b29c6f7c3ff86895a6c4b760935527d00857648de5bfc15f2fe410820e86ee40"
+    },
+    "runner.py.r3-inverse.diff": {
+      "bytes": 1552,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/runner.py.r3-inverse.diff",
+      "sha256": "ec37681143c28bdee75ccbe766bb9fd907b0d865113af45e1ce114ed111a2c09"
+    },
+    "supervise.py": {
+      "bytes": 13597,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/supervise.py",
+      "sha256": "7cac27f161cecc3bf683fef49a94a779180c1777dc08199595f08fa1242ca423"
+    },
+    "supervise.py.forward.diff": {
+      "bytes": 12139,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/supervise.py.forward.diff",
+      "sha256": "aa7083a25b9262e83852a5fc1a3f804336b733aab1c2ce211847b7bd68dbfc59"
+    },
+    "supervise.py.inverse.diff": {
+      "bytes": 12139,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/supervise.py.inverse.diff",
+      "sha256": "dbf4d7bd40ee6d75ac036929d3a42b08fe1764ac8fe0671399a5255e779be367"
+    },
+    "supervise.py.r3-forward.diff": {
+      "bytes": 1160,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/supervise.py.r3-forward.diff",
+      "sha256": "e8437fe857cb16e9dd549648257739aafe1fe1b3e35dce15d8b0a48f90c6aae8"
+    },
+    "supervise.py.r3-inverse.diff": {
+      "bytes": 1160,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/supervise.py.r3-inverse.diff",
+      "sha256": "a845b751778e664ca35721d86b9b03813e3f9bf4edbaf2ae82306c123dcb083e"
+    }
+  },
+  "schema": "1370-m0-types-source-independent-review/v1",
+  "sourceAcceptanceIsExecutionAuthorization": false,
+  "sourceManifestPin": {
+    "bytes": 14743,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/SOURCE-PINS.json",
+    "sha256": "10fc7a0a39cb78f092476a31a351912fc254eb39a2b827c28fe8ba459140fd0a"
+  },
+  "sourcePackage": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4",
+  "sourcePins": {
+    "BOOTSTRAP.py": {
+      "bytes": 2725,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/BOOTSTRAP.py",
+      "sha256": "25696ed2167dafc16751ac00f96eb203d0c9ab7d700b6c382dce816af7b0056b"
+    },
+    "BOOTSTRAP.py.forward.diff": {
+      "bytes": 2610,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/BOOTSTRAP.py.forward.diff",
+      "sha256": "07129e58b676ffe351a2309a86f5ab9474808d23c0c53124d5df7e7481f3d55b"
+    },
+    "BOOTSTRAP.py.inverse.diff": {
+      "bytes": 2610,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/BOOTSTRAP.py.inverse.diff",
+      "sha256": "f10891e495b7a4e2b1c4ead93746a1970be2835df9000a19f1935a7f9de0d021"
+    },
+    "BOOTSTRAP.py.r3-forward.diff": {
+      "bytes": 678,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/BOOTSTRAP.py.r3-forward.diff",
+      "sha256": "e523e88ec619c61fea8f4888d0b4bbbd8724a3d583abf5137ef51165a1ae1fd7"
+    },
+    "BOOTSTRAP.py.r3-inverse.diff": {
+      "bytes": 678,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/BOOTSTRAP.py.r3-inverse.diff",
+      "sha256": "ecd271737ca4aec56b63071c0fb276c57648c25f349a38881ffb85371fa4fcf9"
+    },
+    "BUILD-SOURCE.py": {
+      "bytes": 39658,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/BUILD-SOURCE.py",
+      "sha256": "5c053574b8a077050def589b911e31a890b85f8bc91443a4d7444559cbaae837"
+    },
+    "CONFIG.json": {
+      "bytes": 29811,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/CONFIG.json",
+      "sha256": "7166e022583531d924d67639a3d2a8a8f250bd8461f2a33cace8ce8f41c24f9c"
+    },
+    "EXECUTION-CONTEXT-UNFILLED.json": {
+      "bytes": 539,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/EXECUTION-CONTEXT-UNFILLED.json",
+      "sha256": "fe3d66a1a725e413996c4766df386a03097eff751f171b785832321d3c965bae"
+    },
+    "LAUNCH.py": {
+      "bytes": 7596,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/LAUNCH.py",
+      "sha256": "1dbf3454a029c66008173d03ed9f5d22669c7a755a5b92fa84ee88d456fba584"
+    },
+    "LAUNCH.py.forward.diff": {
+      "bytes": 8231,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/LAUNCH.py.forward.diff",
+      "sha256": "dd0f4f8fdda72d2e19468517a6946fbbc9bf229a1f13d00d447f70cb0c6f02bd"
+    },
+    "LAUNCH.py.inverse.diff": {
+      "bytes": 8231,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/LAUNCH.py.inverse.diff",
+      "sha256": "25c7798fed126d5e973ccc798a8877757bef3c4d1828c13f3b2a4294bd0510ff"
+    },
+    "LAUNCH.py.r3-forward.diff": {
+      "bytes": 1625,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/LAUNCH.py.r3-forward.diff",
+      "sha256": "04ed910d66176c44cb7495ae3440b1507c27d79b872295020a4b9ddcac033197"
+    },
+    "LAUNCH.py.r3-inverse.diff": {
+      "bytes": 1625,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/LAUNCH.py.r3-inverse.diff",
+      "sha256": "049246974dc06abefabbfd05a0bc5058ebf92699abfe550ea03730277203f79c"
+    },
+    "LESSONS.md": {
+      "bytes": 1773,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/LESSONS.md",
+      "sha256": "3aecbf9c3e7e48a16aa47d2ffe3851827d3e3b98c37744140e1fcfc4152f5aa6"
+    },
+    "PREDECESSOR-BOOTSTRAP.py": {
+      "bytes": 3433,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/PREDECESSOR-BOOTSTRAP.py",
+      "sha256": "7a63a2d8028ae5c2abb5b2b1b5bdf79a83887b8c809de7d7866f2a9a7dd5f223"
+    },
+    "PREDECESSOR-LAUNCH.py": {
+      "bytes": 3582,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/PREDECESSOR-LAUNCH.py",
+      "sha256": "dc2ec7abe44d84e1bd15e1364472e6355da9c4e12792f95b26506b91dc882d62"
+    },
+    "PREDECESSOR-runner.py": {
+      "bytes": 59372,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/PREDECESSOR-runner.py",
+      "sha256": "946b3c88208db5128e30e668d0e322f11224235a71ff6994362acb124e0831b7"
+    },
+    "PREDECESSOR-supervise.py": {
+      "bytes": 15261,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/PREDECESSOR-supervise.py",
+      "sha256": "3145a6b806e9071fb69aa7eb610025c2930515c210c74cf6f3349a7faebdbc50"
+    },
+    "RECIPE.md": {
+      "bytes": 3386,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/RECIPE.md",
+      "sha256": "69d276efc437781d783c408ed6836152a92b972e63f39e8d446402d630b8341c"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 10264,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/SOURCE-PROOF.json",
+      "sha256": "ae6f9f81e8fb7433e0ee85a08ad92df91d75a8f8f47f0bd6c6e1aa0cdc739290"
+    },
+    "check-deps.mjs": {
+      "bytes": 1918,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/check-deps.mjs",
+      "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+    },
+    "runner.py": {
+      "bytes": 37070,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/runner.py",
+      "sha256": "03768e0be95c3dccf430598f7cab47a9b5d2672be6de7d456705cbf7ec2b68a7"
+    },
+    "runner.py.forward.diff": {
+      "bytes": 55586,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/runner.py.forward.diff",
+      "sha256": "6a0c0494af8e3b3feb93efbe6339415eb5d1fb0e7ce540a0a098657dc41efb61"
+    },
+    "runner.py.inverse.diff": {
+      "bytes": 55641,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/runner.py.inverse.diff",
+      "sha256": "ee5125ac5d5cf186b3c804714b742ab9370bab15e33a10c2189182c1eb3bca11"
+    },
+    "runner.py.r3-forward.diff": {
+      "bytes": 1552,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/runner.py.r3-forward.diff",
+      "sha256": "b29c6f7c3ff86895a6c4b760935527d00857648de5bfc15f2fe410820e86ee40"
+    },
+    "runner.py.r3-inverse.diff": {
+      "bytes": 1552,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/runner.py.r3-inverse.diff",
+      "sha256": "ec37681143c28bdee75ccbe766bb9fd907b0d865113af45e1ce114ed111a2c09"
+    },
+    "supervise.py": {
+      "bytes": 13597,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/supervise.py",
+      "sha256": "7cac27f161cecc3bf683fef49a94a779180c1777dc08199595f08fa1242ca423"
+    },
+    "supervise.py.forward.diff": {
+      "bytes": 12139,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/supervise.py.forward.diff",
+      "sha256": "aa7083a25b9262e83852a5fc1a3f804336b733aab1c2ce211847b7bd68dbfc59"
+    },
+    "supervise.py.inverse.diff": {
+      "bytes": 12139,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/supervise.py.inverse.diff",
+      "sha256": "dbf4d7bd40ee6d75ac036929d3a42b08fe1764ac8fe0671399a5255e779be367"
+    },
+    "supervise.py.r3-forward.diff": {
+      "bytes": 1160,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/supervise.py.r3-forward.diff",
+      "sha256": "e8437fe857cb16e9dd549648257739aafe1fe1b3e35dce15d8b0a48f90c6aae8"
+    },
+    "supervise.py.r3-inverse.diff": {
+      "bytes": 1160,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-collection-executor-source-after-al-20261009-r4/supervise.py.r3-inverse.diff",
+      "sha256": "a845b751778e664ca35721d86b9b03813e3f9bf4edbaf2ae82306c123dcb083e"
+    }
+  },
+  "verified": [
+    "All23 SOURCE-PINS file entries match exact bytes and SHA256; all4 executable Python files parse through AST only.",
+    "All4 complete forward and inverse diffs independently reconstruct exact source and predecessors.",
+    "All27 runner,17 supervisor,4 bootstrap and3 launch retained function bodies and hashes equal original exactly.",
+    "Complete1740-file M0 source/physical metadata authority replaces H1402; five overlays,113 directories,one dependency link,1853 total entries maintained.",
+    "Historical M0/AJ source and current AL/main authority remain distinct; H13 metadata STOP retained.",
+    "External context grants bind canonical context with actualGrant omitted, without self-hash cycle.",
+    "R4 exact21 CONFIG.dependencyPackages projection authenticated against intact1802-role facts before reads.",
+    "All31 R4 SOURCE-PINS file entries verified by exact bytes and SHA256.",
+    "All4 R4-to-R3 complete forward/inverse proofs and original-source proofs exact; only exact_package_roles function body changes.",
+    "R4 LAUNCH expected hashes exactly match this sourcePins receipt; helper/bootstrap/supervisor internal source hashes rebased consistently."
+  ]
+}

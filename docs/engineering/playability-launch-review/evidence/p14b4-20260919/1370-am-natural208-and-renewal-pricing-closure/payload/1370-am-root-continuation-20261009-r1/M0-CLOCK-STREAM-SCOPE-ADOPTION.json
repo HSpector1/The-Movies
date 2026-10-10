@@ -1,0 +1,31 @@
+{
+  "actualProofRun": false,
+  "actualTypesRun": false,
+  "adoptedScope": {
+    "combinedFillPlusRuntime330Claim": false,
+    "helperCapture": "Original r8 merged log, authenticated afterrun; no existing separate live8MiB limiter is claimed",
+    "newFileSizeResourceLimitAdded": false,
+    "newOuterRecorderRequiredByOriginalContract": false,
+    "originalChildCommandStreamCapBytes": 8388608,
+    "originalRecorderActiveSeconds": 320,
+    "originalRecorderWholeSeconds": 330,
+    "originalRunnerSeconds": 300,
+    "parentPreparationSeconds": 60,
+    "runtimeClockStarts": "Unchanged accepted LAUNCH_START at original Python loader entry after preparation and lane dispatch"
+  },
+  "executionAuthorization": false,
+  "independentInterpretation": {
+    "bytes": 6719,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-parent-fill-clock-scope-independent-source-interpretation-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "958eca234d35ff40e2a97712051fc15f6a6f1dcbc73c9fbdd3896963dc111635"
+  },
+  "priorPregrantFinding": {
+    "bytes": 1940,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/M0-PARENT-LAUNCH-PREGRANT-FINDING.json",
+    "sha256": "7771615c2a884b84ad9ef30156eb029d45b38fc555af657322162c85b6043199"
+  },
+  "productionMutation": false,
+  "requiredImplementation": "Fresh filler arms a separate60-second preparation timer, records actual fill timing/argv, and cancels that timer only immediately before exec of untouched LAUNCH. Correct held MAP to original scopes. Fresh original prelaunch current/root/FD observations still required.",
+  "schema": "1370-root-m0-parent-fill-runtime-scope-adoption/v1",
+  "status": "ROOT_ADOPTED_SOURCE_DERIVED_ORIGINAL_CLOCK_AND_STREAM_SCOPE"
+}

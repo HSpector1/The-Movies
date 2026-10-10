@@ -1,0 +1,16 @@
+{
+  "schema": "1370-m0-metadata-stop-postflight-adapter-source-seal/v1",
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-metadata-stop-original-postflight-adapter-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "bytes": 1733,
+    "sha256": "29aeb8fa11216c0ebdbca5c423f80c7348713b7ad8bfc921b0bac4ae538e396e"
+  },
+  "sourceProof": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-metadata-stop-original-postflight-adapter-source-after-al-20261009-r1/SOURCE-PROOF.json",
+    "bytes": 6749,
+    "sha256": "3939448b14327d49bd60615b68fc0dcb1fb002b5af5110ad3ee16d4381a193df"
+  },
+  "status": "SOURCE_ONLY_AUTHOR_PACKAGE_NO_EXECUTION_OR_METADATA_WAIVER",
+  "executionAuthorization": false,
+  "executionPerformed": false
+}

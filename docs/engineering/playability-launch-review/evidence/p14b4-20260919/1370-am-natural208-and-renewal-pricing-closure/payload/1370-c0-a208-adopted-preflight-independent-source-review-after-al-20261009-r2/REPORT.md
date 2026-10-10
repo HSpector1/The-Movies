@@ -1,0 +1,13 @@
+R2 accepted: ACCEPT_SOURCE_ONLY_UNRUN_A208_ORIGINAL_PERMITTED_ADOPTED_PREFLIGHT. Actual adopted inputs, preflight, and final game grant remain null. R1's STOP is preserved.
+
+The narrow repair excludes the external config from the fixed known copied root before reading it, restricts the original fullguard config to its exact scratch path, and requires the copiedRoot match before receipt access. The original authenticated observed-copy receipt/root gate therefore precedes private access in the reviewed composition.
+
+The original parent guard PLAN explicitly allows full after-fill observation reuse while protected roots stay continuously frozen, with fresh current FD/process/boot/refs/clean/AC/disk and physical root metadata immediately before lane. The original procedure review requires complete before/after guards and the adopted preflight/final-grant sequence. No added inventory gate follows from this source review.
+
+All nine pinned file roles match byte counts/SHA. The ten original helper definitions are byte-identical, which preserves their AST definitions without executing a parser. Full independently generated forward/inverse diffs match against both original guard and r1. R1 pins and STOP receipt hashes remain unchanged.
+
+The new main authenticates original R4 paths, before-fill authority/baseline and complete after-fill producer links/immutable equality; adopted binding raw and semantic roles; exact existing review contracts; all six original archive bytes and exactly three authorization-field changes; actual adopter result/archive/launch links; and the exact unauthorized launch derivative. It then checks unchanged original source/tool/runtime files, frozen18 manifest, physical Node/runner, current state, strict roots/ancestry, and unchanged raw adopted binding/launch. It emits observation only with local hash/size metadata for raw PS/FD payloads.
+
+After genuine adoption, root may compose a fresh external config using only actual raw roles for adoptedBinding, exactCandidateReview, afterFillSnapshot, adoptionResult, archiveManifest and adoptedLaunch, preserving the bound known inputs and optionally supplying actual recorded sorted owned PGIDs. Literal fixed adopter paths and genuine dynamic review/snapshot provenance are recorded in RECEIPT.json. The frozen source/pending config and original before-fill config need no mutation, and there is no future-hash cycle.
+
+This acceptance is source only. It does not invent actual adopted role hashes or authorize preflight/game execution. No source execution/import, tests, Git, scans, process probes, private reads or protected changes occurred.

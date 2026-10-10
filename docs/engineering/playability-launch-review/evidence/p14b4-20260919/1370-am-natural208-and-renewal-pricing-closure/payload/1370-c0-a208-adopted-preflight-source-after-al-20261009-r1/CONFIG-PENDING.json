@@ -1,0 +1,84 @@
+{
+  "actualGuardBaseline": {
+    "bytes": 8562268,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+    "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+  },
+  "adoptedBinding": null,
+  "adoptedLaunch": null,
+  "adoptionOutputPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4",
+  "adoptionResult": null,
+  "afterFillSnapshot": null,
+  "archiveManifest": null,
+  "archivePath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-pre-adoption-archive-after-al-20261009-r4",
+  "exactCandidateReview": null,
+  "executionAuthorization": false,
+  "filledIdentity": {
+    "bytes": 1296,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/DRAFT-IDENTITY.json",
+    "sha256": "4e182d6bc66b2ac1e6a6d13c1d99415264d762ea095e7ef72fedc751d433ea08"
+  },
+  "filledReport": {
+    "bytes": 16887,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/DRAFT-REPORT.json",
+    "sha256": "f13613f5098118e3ea84f27f810374a53411a8e86d0714dc60d55eff98f36b20"
+  },
+  "fullGuardConfig": {
+    "bytes": 3906,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
+    "sha256": "20c3022895e55ad0f5e84a60014ee3416fe5b6c8f8545087e8b7d4e2b3c22b41"
+  },
+  "fullGuardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+    "sha256": "3cd55319db6c3d5ec25a3a1df16c327ea5b8bc03ee98afcb80a5e1b2f4866992"
+  },
+  "knownBeforeFillAuthority": {
+    "bytes": 10578,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+    "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3"
+  },
+  "materializerBinding": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-r6-exact-draft-20261008-r1/BINDING-DRAFT.json",
+    "sha256": "5f6de7413b9a28a9e30284062e99bf52a3ea83f9ba0074515b3257515c8b0c0f"
+  },
+  "observedCopyReceipt": {
+    "decision": "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "sha256": "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d"
+  },
+  "operationalRemoteRefs": {
+    "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "refs/heads/wip/headless-program-20260916-ts": "8cb704e2f18e6a635943893422c9cfdc206e106d"
+  },
+  "originalExactPreparationPlan": {
+    "bytes": 4273,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-20261008-r2/PLAN.md",
+    "sha256": "f4e270d3724755305d51d1c8b7681530d89f61531138f7a7959e51039be49f94"
+  },
+  "originalParentGuardPlan": {
+    "bytes": 5164,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/PLAN.md",
+    "sha256": "acd0e3cb6ae3138f531cddba326bced7252c6f74fc13353b9ac728f68375413b"
+  },
+  "originalProcedureReview": {
+    "bytes": 1634,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-independent-procedure-review-20261008-r1/RECEIPT.json",
+    "sha256": "0d0d0358356653a50d05b10fedfdeb2bee9c66939ec4ab03a83521fc42a9e693"
+  },
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-output-after-al-20261009-r1",
+  "ownedPgids": [],
+  "protectedFreezeMustRemainTrue": true,
+  "r4Config": {
+    "bytes": 11624,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-source-after-al-20261009-r4/CONFIG-PENDING.json",
+    "sha256": "f0ec5af36040f321410d37d7dc7d2767408e519e8537a55ceb0738e7708337d3"
+  },
+  "r4SourceReview": {
+    "bytes": 15320,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-preparation-independent-source-review-after-al-20261009-r4/RECEIPT.json",
+    "sha256": "105445b8625884887c7c2ebdd310665745781e8964a8953dcbb5a0281fd00661"
+  },
+  "schema": "1370-a208-adopted-preflight-external-role-config/v1",
+  "status": "SOURCE_ONLY_PENDING_ACTUAL_ADOPTED_ROLES"
+}

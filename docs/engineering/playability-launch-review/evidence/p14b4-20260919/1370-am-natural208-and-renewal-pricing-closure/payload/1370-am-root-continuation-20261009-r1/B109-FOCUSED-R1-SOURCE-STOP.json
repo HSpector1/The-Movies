@@ -1,0 +1,14 @@
+{
+  "executionAuthorization": false,
+  "finding": "Launch records actual helperPgid; consumer incorrectly checks helperPid as group ID without established equality.",
+  "game": false,
+  "repair": "Fresh derivative must bind typed actual helperPgid and its separately recorded fresh absence; PID and PGID are distinct identity roles. Own launched group explicitly before exec so cleanup never relies on caller group.",
+  "review": {
+    "bytes": 6238,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-independent-review-after-al-20261009-r1/RECEIPT.json",
+    "sha256": "9f77f7c68335132a3bde7a08703ccb1df7628dfd15c25f5382908e480f6fbd2f"
+  },
+  "runtimeExecuted": false,
+  "schema": "1370-root-b109-ascii-route-source-stop/v1",
+  "status": "ROOT_PRESERVES_UNRUN_R1_HELPER_PGID_BINDING_STOP"
+}

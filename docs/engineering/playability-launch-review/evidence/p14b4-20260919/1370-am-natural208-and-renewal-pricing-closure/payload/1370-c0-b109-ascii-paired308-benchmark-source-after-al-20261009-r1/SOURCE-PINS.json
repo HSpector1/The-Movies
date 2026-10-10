@@ -1,0 +1,180 @@
+{
+  "actualGrant": null,
+  "actualOutcome": null,
+  "executionAuthorization": false,
+  "externalKnownRoles": {
+    "benchmarkPredecessor": {
+      "bytes": 5649,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/benchmark-308.mjs",
+      "sha256": "dbbc202e6b473dd81aec427c8cd05ac09c4c6268c64daa52ac061ffc046ce53a"
+    },
+    "currentProtection": {
+      "bytes": 10578,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+      "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3"
+    },
+    "focusedObservedAdoption": {
+      "bytes": 8077,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/B109-ASCII-FOCUSED-OBSERVED-ADOPTION.json",
+      "sha256": "cabca84e104aaf7864ad0fa46c0c578b690e1f2b67fd42bca51890773d159a68"
+    },
+    "focusedObservedReview": {
+      "bytes": 10800,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-controls-independent-observed-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "45ed83313ed82b9ffa7646204574ef2c02bf42504633133b70b3692c85eb3b9d"
+    },
+    "focusedRoutePins": {
+      "bytes": 11676,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-source-after-al-20261009-r2/SOURCE-PINS.json",
+      "sha256": "b5f3103ed8ac1585ff63406be5c776824e0e678089ac0239cb287318ea42520a"
+    },
+    "focusedRouteReview": {
+      "bytes": 9671,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-focused-route-independent-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "fb4d1883ddd67c49698d6b9e4b4dde12a3ec6f672a40538a2b30eddb8ed1cc47"
+    },
+    "helper": {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "node": {
+      "bytes": 92324688,
+      "path": "/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node",
+      "sha256": "afea68f4c6280aa32707b2c037084931114a72b5c65412371244e060390c1fc6"
+    },
+    "publishedALReadback": {
+      "bytes": 1250,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r2/PUSH-READBACK.json",
+      "sha256": "35e15f42b2cb99bd3e035f2061eb0cabe62142b09808fcf1b8153852ad032e04"
+    },
+    "python": {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    }
+  },
+  "files": {
+    "BENCHMARK-RECIPE.json": {
+      "bytes": 8434,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/BENCHMARK-RECIPE.json",
+      "sha256": "b3028cc06a9ae7b5b36eb4353cef5c0deb90f9cfdf39607d67ff88d5d5b19b6e"
+    },
+    "BENCHMARK-RECIPE.json.diff": {
+      "bytes": 10766,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/BENCHMARK-RECIPE.json.diff",
+      "sha256": "25dd29c91fe22e56f54147a197cca48ae8fe79521fd5196a1dd012c253e45777"
+    },
+    "BENCHMARK-RECIPE.json.inverse.diff": {
+      "bytes": 10766,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/BENCHMARK-RECIPE.json.inverse.diff",
+      "sha256": "0ad3cd3660b3f4a6ebb1badf0654bfd3a7ffac0aaeefdd740bcabb3d5cbd979d"
+    },
+    "CONFIG.json": {
+      "bytes": 12498,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/CONFIG.json",
+      "sha256": "cde7f59c308c2cc115946244b97c33dab5dd7ce024eaae03926111684dde6dff"
+    },
+    "CONFIG.json.diff": {
+      "bytes": 18801,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/CONFIG.json.diff",
+      "sha256": "a9dd3d9410b19ebd765d64d129f814735bfbcc5c23c5cb39cba4fa3ff94d23d2"
+    },
+    "CONFIG.json.inverse.diff": {
+      "bytes": 18801,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/CONFIG.json.inverse.diff",
+      "sha256": "52a26ced12d05e9cedb5114a6b63ecc081ff0bc3d503ec9dec4639952e79706c"
+    },
+    "LESSONS.md": {
+      "bytes": 1210,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/LESSONS.md",
+      "sha256": "f149665a471e65126cba282125aa0306b5c9f017b322dfaaab3d4dcce34bbf3b"
+    },
+    "REPORT.md": {
+      "bytes": 3004,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/REPORT.md",
+      "sha256": "f520ad299726b42f18e060c4879e786c43989f666467479f027259cfbcae3b62"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 16182,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SOURCE-PROOF.json",
+      "sha256": "828ea173bf4f460817e1e9016a64677caa2697ca3cde69dc226b7cb2ea3715b8"
+    },
+    "benchmark-308.mjs": {
+      "bytes": 5703,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/benchmark-308.mjs",
+      "sha256": "91fbb09153d9d1b73779d85a36032a68296978fddcc5423d7eeedf9514a5d83a"
+    },
+    "benchmark-308.mjs.diff": {
+      "bytes": 7396,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/benchmark-308.mjs.diff",
+      "sha256": "e5735f7380a007ce72e9f24c4225f6328c97db2c73b678df5eed5c7c66b4dbc1"
+    },
+    "benchmark-308.mjs.inverse.diff": {
+      "bytes": 7396,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/benchmark-308.mjs.inverse.diff",
+      "sha256": "07f576795af95fce2d8d098d9df395ca704357442811efb376566cc51ba2e9e5"
+    },
+    "consume-benchmark.py": {
+      "bytes": 6874,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/consume-benchmark.py",
+      "sha256": "c27fb18b9664ecc3db5a84370a1ba73798937a97b637b718317390b3c00c5069"
+    },
+    "consume-benchmark.py.diff": {
+      "bytes": 7535,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/consume-benchmark.py.diff",
+      "sha256": "d6385074796d9897c7f5598cf7903d052150e1da9cafe9db083c08cc74d607ad"
+    },
+    "consume-benchmark.py.inverse.diff": {
+      "bytes": 7535,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/consume-benchmark.py.inverse.diff",
+      "sha256": "57e5580f14934987d0d87f65c17da56f59eb23f91d42a5a1512eac5537a5a03f"
+    },
+    "launch-benchmark.py": {
+      "bytes": 7488,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/launch-benchmark.py",
+      "sha256": "643eece7f8500f0f4e0fb94866bf457603d039afa78c7d086fdcad6b1fadd7e4"
+    },
+    "launch-benchmark.py.diff": {
+      "bytes": 6333,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/launch-benchmark.py.diff",
+      "sha256": "28dc582cb38cdd5cf4d6d0bb72ce332177d1239faa81423b1aa2c7f530919216"
+    },
+    "launch-benchmark.py.inverse.diff": {
+      "bytes": 6333,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/launch-benchmark.py.inverse.diff",
+      "sha256": "873b70042e9643ed0baffb6f228f103c5850333624f790a7ea6b95a8da7a0915"
+    },
+    "record-pure-node.py": {
+      "bytes": 14032,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py",
+      "sha256": "b23b1c43ca1c3b40c3519b19e301bb64a0f2b1debe8c66c2dc553a2456becbfd"
+    },
+    "record-pure-node.py.diff": {
+      "bytes": 3665,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py.diff",
+      "sha256": "11e9836c8e6e98085d6012ab42dfa163d404eb2a196ecd980a62135316117a7d"
+    },
+    "record-pure-node.py.inverse.diff": {
+      "bytes": 3665,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/record-pure-node.py.inverse.diff",
+      "sha256": "9d3cb92bf61a575f6270ed03b9e42cc9fab74fafde7b28d3a1fee80515687606"
+    },
+    "strict_contract.py": {
+      "bytes": 6709,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/strict_contract.py",
+      "sha256": "9dcb281c249b5bc5fa041bef102ed9efeb03a18b53f2ac59255567d4e732d090"
+    },
+    "strict_contract.py.diff": {
+      "bytes": 10639,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/strict_contract.py.diff",
+      "sha256": "f5a99ec5d395e5b47048769f02daadbd8b04a3a4649a21afb8a24606c1f044f3"
+    },
+    "strict_contract.py.inverse.diff": {
+      "bytes": 10639,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/strict_contract.py.inverse.diff",
+      "sha256": "5dfed0397593599cb5e14cc53e351c9351e74fb4cb6949fad17a9b0f3b24fabd"
+    }
+  },
+  "schema": "1370-b109-ascii-paired308-benchmark-source-pins/v1"
+}

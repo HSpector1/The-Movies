@@ -1,0 +1,28 @@
+{
+  "allFilesMode": "0444",
+  "config": {
+    "bytes": 14970,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/CONFIG.json",
+    "sha256": "49508521d31a2d1f9a384ebcfa4f3b09306426d8868aa92900da93f2b8d872ef"
+  },
+  "directoryMode": "0555",
+  "executionAuthorization": false,
+  "recorder": {
+    "bytes": 14539,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/record-pure-node.py",
+    "sha256": "dd76ceec50be94b50a4ff52c8a070ec9a691b9bbe781fabc1ac0914543bf0346"
+  },
+  "schema": "1370-source-only-seal/v1",
+  "sourceFileCountBeforeSeal": 25,
+  "sourcePins": {
+    "bytes": 26013,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "1d739f9a686de05dec167816af5784a95295ecc61f11f7df464018dfea6e1c92"
+  },
+  "status": "SEALED_SOURCE_ONLY_EXACT_FILLED_UNRUN",
+  "tester": {
+    "bytes": 2082,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-pure16-pricing-filled-source-after-al-20261009-r1/test-report-protocol.py",
+    "sha256": "d4385758b42abdc3d6c56b87949e93c9083da4b9bdc465ae092bfceee9ad6194"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "draftsUnreadyUntilActualR6Postflight": true,
+  "executionAuthorization": false,
+  "roles": [
+    {
+      "bytes": 24896,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-draft-builder-source-after-al-20261009-r3/prepare_drafts.py",
+      "sha256": "c859baad5bf9adef1ba725ff4492b2688801c193b92b79cb99b3e25856aedb0c"
+    },
+    {
+      "bytes": 693,
+      "path": "/Users/zacheryspector/studio-scratch/1370-am-checkpoint-draft-builder-source-after-al-20261009-r3/AUTHOR-STOP.json",
+      "sha256": "774721defded819045c6faf72e8d5ee234e72aa6d4d350f84f3e6e6c3d0c55e0"
+    }
+  ],
+  "schema": "1370-am-checkpoint-draft-builder-source-seal/v1",
+  "sourceOnly": true
+}

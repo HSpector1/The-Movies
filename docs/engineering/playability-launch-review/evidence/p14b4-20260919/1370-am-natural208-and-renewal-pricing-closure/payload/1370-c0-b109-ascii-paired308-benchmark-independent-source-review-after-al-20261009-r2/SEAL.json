@@ -1,0 +1,42 @@
+{
+  "schema": "1370-b109-ascii-paired308-independent-source-review-seal/v1",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_B109_ASCII_PAIRED308_BENCHMARK_ROUTE",
+  "executionAuthorization": false,
+  "actualGrant": null,
+  "actualOutcome": null,
+  "originalReceipt": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r1/RECEIPT.json",
+    "bytes": 33753,
+    "sha256": "af928bb6586a9140b42a94f1a5deeb56c36c8a452e109268e8283858d8d30cbf"
+  },
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-source-after-al-20261009-r1/SOURCE-PINS.json",
+    "sha256": "1800e05d6a9fbab6eae4f4e7a8bee65969da4785e5b47672d1bf06fc4fbba51b",
+    "bytes": 9726
+  },
+  "onlyReceiptAliasCorrection": true,
+  "allOriginalSemanticContentExact": true,
+  "persistedAliasesExact": true,
+  "files": {
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/INTERFACE-CORRECTION.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/INTERFACE-CORRECTION.json",
+      "sha256": "d1b97fa77ba5c961ded7afc0ef8eb8784a3ff02aa9323c8e88a56bba42378403",
+      "bytes": 2688
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/RECEIPT.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/RECEIPT.diff",
+      "sha256": "096659e120521353b5d6ef723acb945fddb0a63f5f6934aa2d60ac6b7310e9ba",
+      "bytes": 775
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/RECEIPT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "9b8d4ca1d96e4675c6a589572a1930c31c6f25b722baff1da83f7ee568594502",
+      "bytes": 34035
+    },
+    "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/REPORT.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-ascii-paired308-benchmark-independent-source-review-after-al-20261009-r2/REPORT.md",
+      "sha256": "94177aada943eb95c59b967f45085ba98ca478fe706a829f25f629d70f348db0",
+      "bytes": 1138
+    }
+  }
+}

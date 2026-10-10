@@ -1,0 +1,57 @@
+{
+  "actualAdoptedPreflight": {
+    "bytes": 12735,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-output-after-al-20261009-r2/PREFLIGHT.json",
+    "sha256": "9f4566352756c361199ca994b55d066178d17556fef7cccaac0edf997504e7ee"
+  },
+  "actualAdoptionReadback": {
+    "bytes": 4600,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-adoption-parent-after-al-20261009-r4/ACTUAL-ADOPTION-READBACK.json",
+    "sha256": "dd8b9a64baacf0a57e1f9df1beab3e861bdd751db6f720cb1c7cc99c45e0f766"
+  },
+  "actualControlsAdoption": {
+    "bytes": 8775,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json",
+    "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+  },
+  "actualGuardAfterFill": {
+    "bytes": 8565365,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/after-fill-after-al-game-r4/SNAPSHOT.json",
+    "sha256": "64da19fd4b46d8d0311360cbc08a90d57817175c781e2f73e4fd850925771719"
+  },
+  "actualGuardBaseline": {
+    "bytes": 8562268,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+    "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+  },
+  "adoptedBinding": {
+    "bytes": 6466,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-after-al-20261009-r4/BINDING-DRAFT.json",
+    "sha256": "eb6e99e0021809d7ad165ee5c9eba2e2b0c36ab78e34826fc11d5d488036777e"
+  },
+  "adoptedLaunch": {
+    "bytes": 14438,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-adoption-output-after-al-20261009-r4/ADOPTED-LAUNCH-SPEC.json",
+    "sha256": "8b00d32003449bd4710f312c9e5afe1e13732de60a158542c5f546f56f11cde5"
+  },
+  "archiveSixAndAuthorizationThreeAccepted": true,
+  "bindingSemanticSha256": "dc03453dfb291c85f009666c264af7287114dd3e4a4d5851e4da558af743a254",
+  "exactCandidateReview": {
+    "bytes": 16303,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-exact-filled-independent-review-after-al-20261009-r4/RECEIPT.json",
+    "sha256": "6949f4287cc25b139d1d8fa62d891a876e5e565b078f893b1f665bf3037646cd"
+  },
+  "executionAuthorization": false,
+  "finalGrant": null,
+  "gameAccepted": false,
+  "independentReview": {
+    "bytes": 22784,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-adopted-preflight-independent-observed-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "8465f006d60042f2ebb3a8e0f3f47fcf6ba425fa50a598881c9deaeb50075763"
+  },
+  "originalFullMapReuseUnderContinuousFreezeAccepted": true,
+  "protectedFreezeContinues": true,
+  "schema": "1370-root-a208-observed-adoption-and-preflight-adoption/v1",
+  "scopeLimit": "Observed preparation only; separate exclusive final grant, actual game, full postflight and independent raw208/full416 admission still required.",
+  "status": "ROOT_ADOPTED_OBSERVED_ADOPTION_AND_PREFLIGHT_UNRUN"
+}

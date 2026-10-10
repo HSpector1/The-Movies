@@ -1,0 +1,17 @@
+# Independent source review: focused ASCII controls route r2
+
+Decision: **ACCEPT_SOURCE_ONLY_UNRUN_B109_ASCII_FOCUSED_RECORDED_ROUTE**. No execution authorization is granted. Actual grant and actual outcome remain null.
+
+The r1 STOP remains preserved. R2 fixes its ownership finding with the exact accepted own-group pattern: the wrapper calls setsid on itself when its actual PGID differs from its PID, then requires actual PGID equals PID and records helperPid/helperPgid/helperSid plus the before-exec group-verification flag. The completed consumer requires strict positive integer identities, binds all three to the launch claim, and checks actual PID absence separately from actual scoped PGID absence. It consumes the recorded helperPgid rather than substituting a PID. No additional concrete STOP remains in the reviewed source.
+
+All 23 file roles in SOURCE-PINS and every SEAL entry match independently read bytes and SHA-256. Full independently generated forward/inverse diffs match for all five r1 operational sources and both qualified predecessors. The original r1 package and its STOP receipt retain their hashes. This verifies complete byte differences in both directions; no patch or application source was executed.
+
+The strict producer contract is byte-identical to r1: exactly 34 ordered PASS lines, three ordered EXPECTED_RED lines and one final JSON line, 38 newline-terminated lines total, at most 16384 producer stdout bytes, and empty stderr. Recursive exact types and field sets exclude boolean integer substitutions, altered counts/rosters, duplicate keys, nonfinite constants, extra JSON values and extra lines. Counts remain planned original 28/321 plus six/344, total 34/665.
+
+The recorder retains all 13 named functions and OwnedChild exactly from its qualified precursor, apart from the four admitted binding changes outside those mechanism definitions. Bounds stay 60/75/90 seconds and 1 MiB per recorder stream. Owned startup, READY/GO, cleanup, failure capture, timers, override handling and finalization are preserved. The helper stays unchanged.
+
+Config, recipe, recorder, wrapper and consumer use consistent fresh r2 paths. Recipe argv/cwd/environment/bounds/expected/operational bindings are coherent. The independent route source review and once-only root grant remain external, with no future-hash cycle. The completed consumer requires separate actual tool outcome, all five strict integer zero exits, exact stream/result roles, helper meta/summary, actual identities and absence records, and no override STOP. Its output remains unadopted pending independent observed review.
+
+Root source adoption still binds the reviewed ASCII implementation and controls source only. Node20.20.2 is pinned as a physical role; this review performed no native runtime qualification. Current AL refs remain HEAD 8cb704, source tree 13880d, main c902a7. Protection 93c860 remains actual observed before-fill authority only, with executionAuthorization false and the protected freeze continuing. Selected2529 remains selected. No performance, game, full109, integration or P17/P18 acceptance follows.
+
+Review used only named scratch source/evidence, hashes, byte counts, JSON data inspection and full diff comparisons, writing only the fresh review directory. No source imports/execution, runtime tests, scans, process probes, Git operations, protected/private reads or changes occurred. Shell argv avoided the supplied worker-detector literals.

@@ -1,0 +1,345 @@
+{
+  "actualFiles": {
+    "node_modules/vite-node/package.json": {
+      "bytes": 2357,
+      "device": 16777220,
+      "inode": 166575603,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/node_modules/vite-node/package.json",
+      "sha256": "7018dacaa212db8e05f454147ac95b817c96b5e45fe56379f8ed54e11617b138"
+    },
+    "node_modules/vite-node/vite-node.mjs": {
+      "bytes": 45,
+      "device": 16777220,
+      "inode": 166575604,
+      "links": 1,
+      "mode": "0755",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/node_modules/vite-node/vite-node.mjs",
+      "sha256": "187a031df1b2c5b9e2251d08c3ec51d0f8c790296da47eb7da8d4ab605c1a500"
+    },
+    "node_modules/vite/package.json": {
+      "bytes": 5251,
+      "device": 16777220,
+      "inode": 166574014,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/node_modules/vite/package.json",
+      "sha256": "a1d0149fd986fd34b6d35503d2c0d8d9f743c4dbaaf94fbc11812bc84b05884d"
+    },
+    "package-lock.json": {
+      "bytes": 149287,
+      "device": 16777220,
+      "inode": 166568368,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/package-lock.json",
+      "sha256": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+    },
+    "package.json": {
+      "bytes": 2726,
+      "device": 16777220,
+      "inode": 166568369,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/package.json",
+      "sha256": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f"
+    },
+    "src/core/aging.ts": {
+      "bytes": 13741,
+      "device": 16777220,
+      "inode": 166568374,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/aging.ts",
+      "sha256": "38fd1e6704213a5b6cca8af7ffe9fcd6562fc9c242792eb1410209a27fa6baec"
+    },
+    "src/core/employment.ts": {
+      "bytes": 26075,
+      "device": 16777220,
+      "inode": 166568390,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/employment.ts",
+      "sha256": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a"
+    },
+    "src/core/hollywood.ts": {
+      "bytes": 16824,
+      "device": 16777220,
+      "inode": 166568399,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/hollywood.ts",
+      "sha256": "0a955b20d534d8eb4433e70e134245f6193723173df93cee05d5aae214c697ea"
+    },
+    "src/core/talentMarket.ts": {
+      "bytes": 76993,
+      "device": 16777220,
+      "inode": 166568456,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentMarket.ts",
+      "sha256": "6c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70"
+    },
+    "src/core/talentSummary.ts": {
+      "bytes": 25220,
+      "device": 16777220,
+      "inode": 166568457,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/talentSummary.ts",
+      "sha256": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4"
+    },
+    "src/core/tick.ts": {
+      "bytes": 60753,
+      "device": 16777220,
+      "inode": 166568466,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tick.ts",
+      "sha256": "c1c0fca42dce79d6e3275650cb22f54f6363ae0cf2b63f1822ad386dfb44ca15"
+    },
+    "src/core/tuning.ts": {
+      "bytes": 134171,
+      "device": 16777220,
+      "inode": 166568467,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/tuning.ts",
+      "sha256": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4"
+    },
+    "src/core/worldgen.ts": {
+      "bytes": 34912,
+      "device": 16777220,
+      "inode": 166568471,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/core/worldgen.ts",
+      "sha256": "774b543a2f34fe4162dcf44609f211322a2cb65fc666a560b4151ffe030943d7"
+    },
+    "src/harness/p13a/fixtures.ts": {
+      "bytes": 2130,
+      "device": 16777220,
+      "inode": 166568508,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/src/harness/p13a/fixtures.ts",
+      "sha256": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5"
+    },
+    "tests/bridge-p14b5-relationships.test.ts": {
+      "bytes": 41878,
+      "device": 16777220,
+      "inode": 166568562,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/tests/bridge-p14b5-relationships.test.ts",
+      "sha256": "39c8523cb5ebeefc6f4b90d0f878d8374a37a375963341bcc3849ce7b8844c9e"
+    },
+    "tests/fixtures/p13a/accepted-v19.json.gz": {
+      "bytes": 48345,
+      "device": 16777220,
+      "inode": 166568565,
+      "links": 1,
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/tests/fixtures/p13a/accepted-v19.json.gz",
+      "sha256": "8c785eae9239d968b939c5de2434ac53819a2dd70edb8bd4f4b6d4a5c5e7101e"
+    }
+  },
+  "actualGuardBaseline": {
+    "bytes": 8562268,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/evidence/before-fill-after-al-r1/SNAPSHOT.json",
+    "sha256": "c8181ae6ec81529a04992c20b1d9eeaefd0c68e66403f4c4f122428dedc56609"
+  },
+  "actualNode": {
+    "device": 16777220,
+    "inode": 158092549,
+    "mode": "0755",
+    "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+    "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+  },
+  "adapterControlsReceipt": {
+    "mode": "0644",
+    "path": "/Users/zacheryspector/studio-scratch/1370-witness-r7-adapter-source-tests-20261008-r1/RECEIPT.json",
+    "sha256": "0a3a1a8318a7eaf215ce73f45fec5c6a9c0c6cbd53f034047cb50057592c40c3"
+  },
+  "bindingWitnessGrantExplicitNull": true,
+  "bootSessionUuid": "452DE205-E1D6-462E-8673-553462BB0166",
+  "causalOrderContractAdoption": {
+    "bytes": 1595,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/CAUSAL-ORDER-CONTRACT-ADOPTION.json",
+    "sha256": "4fd8459c191b6ff46b5c7a02677a4967914791c11ea4232c10818252351a9028"
+  },
+  "claimLimit": "Exact unlaunchable fill only. Parent must fresh-check full physical/dependency/protected roots/FDs/old workers/no-detach/disk/lane guards and independently review exact binding/adoption/argv. No fixture/witness/sandbox/game test ran.",
+  "externalFinalGrantContractAdoption": {
+    "bytes": 2592,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/EXTERNAL-FINAL-GRANT-DESIGN-ADOPTION.json",
+    "sha256": "2fd088a0ab757f926a451674ddfdaa48d79715479b65982d7fe68f7df918e847"
+  },
+  "freeBytesAtFill": 4282998784,
+  "historicalRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+  "launchAuthorized": false,
+  "launchEnvironment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PATH": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "materializationReceipt": {
+    "decision": "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+    "sha256": "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d"
+  },
+  "materializerActualResultSha256": "c4d3a403d2630f978d3d176662f5adda19fae00f321ecc168d1ec373eb47c091",
+  "materializerActualSupervisorSha256": "2e3f9e5c548ce9a1fc5573989d40f1e5a55123803de9365e469aa16f0a35fba5",
+  "materializerBindingSha256": "5f6de7413b9a28a9e30284062e99bf52a3ea83f9ba0074515b3257515c8b0c0f",
+  "operationalRuntimeAuthority": {
+    "bytes": 10578,
+    "path": "/Users/zacheryspector/studio-scratch/1370-am-root-continuation-20261009-r1/A208-BEFORE-FILL-OBSERVED-ADOPTION.json",
+    "sha256": "93c8603b4afb34069fce03e4ebbc031262f300c2ea6a5726a4cb8a75f69b86c3"
+  },
+  "productionHead": "8cb704e2f18e6a635943893422c9cfdc206e106d",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "roles": {
+    "acceptedLaneHelper": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "acceptedLaneSourcePins": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/SOURCE-PINS.json",
+      "sha256": "9e11563756fb516cfa92591492a1de6fe8d0d0ccfdb93c34bc9b9feffbb94003"
+    },
+    "acceptedLaneSourceReview": {
+      "mode": "0444",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-r8-lane-source-independent-review-r1-rwa7o4oe/RECEIPT.json",
+      "sha256": "e03a740c5d9fcc704a105adb977759e6393d279c929c166fd35812946c3c7475"
+    },
+    "actualControlsAdoption": {
+      "mode": "0444",
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/CONTROLS-COMPLETE-OBSERVED-ADOPTION.json",
+      "sha256": "417adabc2d4794a464233fce90ff903c148b83e48a533df4e211c82b64ed1795"
+    },
+    "adapterSourceControlsReceipt": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-witness-r7-adapter-source-tests-20261008-r1/RECEIPT.json",
+      "sha256": "0a3a1a8318a7eaf215ce73f45fec5c6a9c0c6cbd53f034047cb50057592c40c3"
+    },
+    "bash": {
+      "mode": "0555",
+      "path": "/bin/bash",
+      "sha256": "89ae3c42471a171967cc239564e95870f6da9e0952e74e27ccd28283b0ad0cfa"
+    },
+    "boundedSink": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/bounded-sink-a208-held.py",
+      "sha256": "9138c982912f53d8241721ec231555de3d8e9dae959e651c9b36dcf96a4f9700"
+    },
+    "boundsAmendment": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r6/AMENDMENT-BOUNDS-PROPOSED.md",
+      "sha256": "3e705b81cd4991b628eff0a084e8088f53005be49098ee449b025c1d8606f0d4"
+    },
+    "boundsIndependentReview": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-independent-design-review-r1/RECEIPT.json",
+      "sha256": "8dc9c50b2ba7edf3702b42fd3dbeefb2e26e4089891af32127fa816c1704df3d"
+    },
+    "externalAdapterPins": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/SOURCE-PINS.json",
+      "sha256": "470026455632aeac39bf57c3db45722fdd68b96f24689fdee70c3c1da8d40748"
+    },
+    "externalAdapterReview": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "b6c6d35760a50ad7814e7e75253a614c6756725795ea88870de562b36ddb2c6f"
+    },
+    "materializerBootIdentityAmendment": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-exact-preparation-20261008-r1/BOOT-IDENTITY-AMENDMENT.json",
+      "sha256": "b1d1697b8429425766156b4f8f04f129a3c8ca8666935af7e84fc49f68ce3936"
+    },
+    "materializerSourcePins": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-r6/SOURCE-PINS.json",
+      "sha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d"
+    },
+    "materializerSourceReview": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materializer-source-review-20261008-r6/RECEIPT.json",
+      "sha256": "065670e290e80eefae8593a18cdb6126a7188c35726cadaadf9acab8cc16e794"
+    },
+    "parentBoundsAdoption": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-parent-adoption-r1/ADOPTION.json",
+      "sha256": "6b4b83cd3470a9a882d8045ae6300bca0a39635c793c4a3b312c8d0fed94dc46"
+    },
+    "parentR6SourceAdoption": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AF-post-restart-materializer-repairs-and-diagnostics.md",
+      "sha256": "429a7d2d43580221f000879ca5c9dda07b011eb66dcc22dd8ccae3343f1ffc3c"
+    },
+    "pipeAdapter": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/launch-pipeline-a208-held.sh",
+      "sha256": "46640b541fb04c67fcd5f72602ab128ca056416cd37ad946f248a50da1d6886a"
+    },
+    "premiumFloorAdoption": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "ef30c2fd1be9e503e3b4cc45ffdefb940566f770614fbd2c072c77e1181c3a1d"
+    },
+    "premiumFloorReview": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r2/RECEIPT.json",
+      "sha256": "fd7c8a02893168478ff81fd557dc68f6010d49bd18bbe175d2ec48ed313352cb"
+    },
+    "premiumFloorSupplement": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r2/COMPLETE-TYPED-FUNCTION-SUPPLEMENT.txt",
+      "sha256": "9511e728c09e74421f438b7a3037c8d7ab312bef578923a126e57ab8c68215db"
+    },
+    "pythonResolved": {
+      "mode": "0755",
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "selected16SourceReview": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+    },
+    "witnessSourcePins": {
+      "mode": "0600",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+    },
+    "witnessSourceReview": {
+      "mode": "0644",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+    }
+  },
+  "rootIdentity": {
+    "ctimeNs": 1791498505800985629,
+    "device": 16777220,
+    "inode": 166568330,
+    "mode": "0700",
+    "mtimeNs": 1791498505800985629,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1"
+  },
+  "runner": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/node_modules/.bin/vite-node",
+    "resolved": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/node_modules/vite-node/vite-node.mjs",
+    "sha256": "187a031df1b2c5b9e2251d08c3ec51d0f8c790296da47eb7da8d4ab605c1a500",
+    "target": "../vite-node/vite-node.mjs"
+  },
+  "schema": "1370-r7-exact-draft-report-r1",
+  "sourcePinsSha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf",
+  "sourceReviewReceipt": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+  },
+  "status": "DRAFT_FILLED_UNREVIEWED_UNRUN",
+  "utc": "2026-10-10T00:40:18.008276+00:00"
+}
