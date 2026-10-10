@@ -1,0 +1,137 @@
+{
+  "actual17MethodRetryGranted": false,
+  "actualExits": {
+    "helper": 0,
+    "naturalChild": 0,
+    "probeParent": 0,
+    "recorder": 0,
+    "tool": 0
+  },
+  "checks": {
+    "actualNaturalChildAndExactWaitStatusZero": true,
+    "actualOuterExitsAndLaneMetaZero": true,
+    "allRecordedBoundsAndCapsSatisfied": true,
+    "boundedProtectedDirectoryMetadataEqual": true,
+    "durableRegistryBytes": 833,
+    "durableRegistryRecords": 3,
+    "exactNineOwnedZeroRows": true,
+    "exactSourceAndExternalRootGrantLinked": true,
+    "kqueueNotificationBeforeFirstUnreapedRows": true,
+    "ownedNaturalChildPidPgidSid": 27412,
+    "ownedProbeParentPid": 27411,
+    "producerElapsedSeconds": 0.008632504992419854,
+    "producerStderrBytes": 0,
+    "producerStdoutBytes": 2706,
+    "recordedPostflightSixScopedAbsencesAndLockAbsent": true,
+    "recorderElapsedSeconds": 0.5357647640048526,
+    "registryHashAndFinalSummaryAndRecorderParentLinkExact": true,
+    "strictV2RecordedProducerStatus": true
+  },
+  "decision": "ACCEPT_OBSERVED_RECORDED_OWNED_ZOMBIE_ZERO_PROBE_ONLY",
+  "evidence": {
+    "ACTUAL-TOOL.json": {
+      "bytes": 621,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/ACTUAL-TOOL.json",
+      "sha256": "e9ff10166068e0b73f69de1dbe76c697ef7ccdfcf458672935d81585d6c42d91"
+    },
+    "GRANT.json": {
+      "bytes": 3445,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/GRANT.json",
+      "sha256": "e33c74a2d892e8a2973faf01279cb71037e954b1640595716d3bfaf4229ea82f"
+    },
+    "OWNED-MICROCHILD.jsonl": {
+      "bytes": 833,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/OWNED-MICROCHILD.jsonl",
+      "sha256": "31fd766bf6c99ae15ec30ee3a9f363b86df1b8e9e03ee370fde9f23ad1788d43"
+    },
+    "POST-OWNERSHIP.json": {
+      "bytes": 641,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/POST-OWNERSHIP.json",
+      "sha256": "9dd1d0376cf7420d0bb4a5e70356e0dda934298722d8e09b0723736e92e6d6f7"
+    },
+    "PROTECTION-AFTER.json": {
+      "bytes": 3256,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/PROTECTION-AFTER.json",
+      "sha256": "7be950d3ab9fe836ea80ac3bcee2e551d1e017b2dd7fda87d257f43ef69e31e4"
+    },
+    "REGISTRY-CAPTURE.json": {
+      "bytes": 2124,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/REGISTRY-CAPTURE.json",
+      "sha256": "4e09fd2ca37851c0cfd61e4fa8881d0a519dab3ce2e99a616ae601cbf78854cb"
+    },
+    "RESULT.json": {
+      "bytes": 940,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r3/RESULT.json",
+      "sha256": "b1aa6cebc89163e0135ff65a09ac385f2b441092b9e3103a98893b7194f734a7"
+    },
+    "controls.log": {
+      "bytes": 405,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r3/controls.log",
+      "sha256": "ba8a17dab327597d83459175ad6bfa4d666f978c0964d558f687fd4c22f52831"
+    },
+    "controls.log.meta": {
+      "bytes": 344,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r3/controls.log.meta",
+      "sha256": "0594f5e870b1a86189488ee5be23725cceed14108b4aeefa7b99a1ee49d73a35"
+    },
+    "stderr.bin": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r3/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout.bin": {
+      "bytes": 2706,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r3/stdout.bin",
+      "sha256": "27d935bab0aff0afdd008db88743e9ffcd933282881173384646ef274eb7ff71"
+    }
+  },
+  "executionAuthorization": false,
+  "gameAcceptance": false,
+  "lessons": [
+    "Actual outer zero exits, empty producer stderr, strict report and durable ownership are required together; a successful inner summary alone is insufficient.",
+    "The same exact-owned group0 changed from EPERM before wait to ESRCH after reap, supporting the minimal bounded ordering design while retaining sticky errors and descendant-group checks."
+  ],
+  "limitations": [
+    "Accepts this exact bounded observational route only. It does not qualify a functional cleanup fix or grant a real seventeen-method retry.",
+    "NOTE_EXIT alone does not establish precise SZOMB timing or the exact running kernel implementation.",
+    "Original10832 target/cause and actual66101 complete SIGALRM causal chain remain unknown.",
+    "Post-reap numeric identities may be reused; preserved root scoped absence is not global absence or fresh authority to signal.",
+    "Inherited recorder return-in-finally SyntaxWarning remains in helper combined log, outside empty producer stderr; known and unchanged.",
+    "Bounded protected-directory equality is not a full content inventory.",
+    "Preserve failed25659 observation and exact warning attribution; corrected success does not retroactively make that route PASS."
+  ],
+  "newRuntimeOrProcessQueriesByReviewer": false,
+  "observations": {
+    "afterReap": [
+      "getpgid=ESRCH(3)",
+      "group0=ESRCH(3)",
+      "pid0=ESRCH(3)"
+    ],
+    "exitNotifiedUnreaped": [
+      "getpgid=ESRCH(3)",
+      "group0=EPERM(1)",
+      "pid0=success"
+    ],
+    "liveReady": [
+      "getpgid=27412",
+      "group0=success",
+      "pid0=success"
+    ],
+    "positiveSignalsInMicroprobe": false,
+    "supportsBoundedReapBeforeUnnecessaryGroupKillDesign": true
+  },
+  "recordedCompletionAccepted": true,
+  "reviewer": "cleanup_diagnostic_impl",
+  "schema": "1370-a208-owned-zombie-independent-observed-review/v1",
+  "sessionId": 89074,
+  "sourcePins": {
+    "bytes": 3337,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/SOURCE-PINS.json",
+    "sha256": "df479f2012028fa52cfc67e80e29e39eadcf2cf80dabcc0cd16ff42721d9edfe"
+  },
+  "sourceReview": {
+    "bytes": 5052,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-independent-review-after-ak-20261009-r2/RECEIPT.json",
+    "sha256": "945476bc2b06b1775ce63ee9ea1ce8665ecc77796a49994a67f2069697392100"
+  }
+}

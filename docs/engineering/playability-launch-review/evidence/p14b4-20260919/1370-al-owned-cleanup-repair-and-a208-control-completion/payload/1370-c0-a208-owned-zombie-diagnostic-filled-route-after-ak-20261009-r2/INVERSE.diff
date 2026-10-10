@@ -1,0 +1,132 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/probe.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/probe.py
+@@ -4,7 +4,7 @@
+ import hashlib,json,os,pathlib,select,signal,stat,sys,time
+ CHILD_SECONDS=2;PARENT_SECONDS=20;SUMMARY_CAP=16384
+ STATUS='OWNED_EXIT_REAP_PROBE_COMPLETE_UNADOPTED'
+-REGISTRY=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/OWNED-MICROCHILD.jsonl');REGISTRY_CAP=4096;RECORD_CAP=1024
++REGISTRY=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/OWNED-MICROCHILD.jsonl');REGISTRY_CAP=4096;RECORD_CAP=1024
+ def need(value,reason):
+  if not value:raise RuntimeError('STOP_'+reason)
+ def hard_deadline(signum,frame):os._exit(124)
+@@ -114,7 +114,7 @@
+   raw=(json.dumps(result,sort_keys=True,separators=(',',':'),allow_nan=False)+'\n').encode();need(len(raw)<=SUMMARY_CAP,'SUMMARY_CAP')
+   os.set_blocking(1,False);guard();need(os.write(1,raw)==len(raw),'COMPLETE_STDOUT_WRITE');guard()
+   signal.setitimer(signal.ITIMER_REAL,0)
+- return 0 if failure is None else 2
++  return 0 if failure is None else 2
+ if __name__=='__main__':
+  try:sys.exit(run())
+  except BaseException as exc:
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/report_guard.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/report_guard.py
+@@ -1,6 +1,6 @@
+ """Finite exact observational gate. Completion never requires a hypothesis match."""
+ import hashlib,json,math,os,pathlib,stat
+-REGISTRY=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/OWNED-MICROCHILD.jsonl')
++REGISTRY=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/OWNED-MICROCHILD.jsonl')
+ class ReportStop(ValueError):pass
+ def need(ok,reason):
+  if not ok:raise ReportStop('STOP_ZERO_PROBE_REPORT_'+reason)
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/record.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/record.py
+@@ -5,8 +5,8 @@
+ """
+ import datetime,hashlib,importlib.util,json,os,pathlib,selectors,select,signal,stat,sys,time
+ HERE=pathlib.Path(__file__).resolve().parent;SCRATCH=pathlib.Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='7c54b9ecca63c1c3ab4d38ccae0484c4d82c6c36e6426c9979f1971d1c5395d1';CAP=65536;CHILD=20;ACTIVE=25;WHOLE=30
+-OUTPUTS={'probe':SCRATCH/'1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r3'}
++CONFIG_SHA='ac008273dc6c4013eb9ccd211b19792190f26f66a17accbdb97aaeb54ae2b48c';CAP=65536;CHILD=20;ACTIVE=25;WHOLE=30
++OUTPUTS={'probe':SCRATCH/'1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r2'}
+ def require(v,m):
+  if not v:raise RuntimeError('STOP_'+m)
+ def sha(b):return hashlib.sha256(b).hexdigest()
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/launch.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/launch.py
+@@ -3,7 +3,7 @@
+ from pathlib import Path
+ S=Path('/Users/zacheryspector/studio-scratch');R=Path('/Users/zacheryspector/The-Movies-headless-program')
+ Q=Path(__file__).parent
+-P=S/'1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2'
++P=S/'1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1'
+ HEAD='372d15e1ae53b898be2cf633a6bb8bb0058cb01f'
+ def role(p):
+  p=Path(p);st=p.lstat();assert p.resolve(strict=True)==p and stat.S_ISREG(st.st_mode) and st.st_nlink==1 and st.st_size<128*1024**2
+@@ -27,7 +27,7 @@
+ assert not os.path.lexists(S/'HEAVY-LANE-LOCK') and shutil.disk_usage(S).free>=3758096384
+ assert 'AC Power' in subprocess.check_output(['/usr/bin/pmset','-g','batt'],text=True,timeout=10)
+ for path in [P,*map(Path,route['absentPathsAtFutureGrant'])]:assert not os.path.lexists(path)
+-expected=['/bin/bash',c['roles']['helper']['path'],'0',str(S/'1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r3/controls.log'),c['pythonPath'],'-I','-B',str(Q/'record.py'),'probe']
++expected=['/bin/bash',c['roles']['helper']['path'],'0',str(S/'1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r2/controls.log'),c['pythonPath'],'-I','-B',str(Q/'record.py'),'probe']
+ assert route['argv']==expected and route['cwd']==str(Q)
+ def protected_root_snapshot():
+  result={}
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/CONFIG.json
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/CONFIG.json
+@@ -17,13 +17,13 @@
+   },
+   "directRecorderInvocationGranted": false,
+   "executionAuthorization": false,
+-  "futureLaneBase": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r3",
+-  "futureOutput": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r3",
+-  "ownedRegistry": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/OWNED-MICROCHILD.jsonl",
++  "futureLaneBase": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r2",
++  "futureOutput": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r2",
++  "ownedRegistry": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/OWNED-MICROCHILD.jsonl",
+   "probe": {
+-    "bytes": 8484,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/probe.py",
+-    "sha256": "cd062ee7a9a846a25591cff23ad02b48cc2b40406cccbcb3b5155435829800cd"
++    "bytes": 8485,
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/probe.py",
++    "sha256": "2548779e985bcd42167a695edfadb1c16dc690287a4317d0ae745d8a4f22f8c5"
+   },
+   "protectedRoots": [
+     "/Users/zacheryspector/The-Movies-headless-program",
+@@ -56,8 +56,8 @@
+     },
+     "reportGuard": {
+       "bytes": 7760,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/report_guard.py",
+-      "sha256": "f0eab0e8453a3f27ec0049e3b18d2f149c45a15825c273de899daf9f74f4f388"
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/report_guard.py",
++      "sha256": "9e741177c3fbc39494348c6a409c6093683d3dc9a58022d2586ea0815227bc03"
+     }
+   },
+   "rootSourceOnlyReview": null,
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/ROUTE.json
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/ROUTE.json
+@@ -1,25 +1,25 @@
+ {
+   "absentPathsAtFutureGrant": [
+-    "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r3",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r3",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/OWNED-MICROCHILD.jsonl"
++    "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r2",
++    "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r2",
++    "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/OWNED-MICROCHILD.jsonl"
+   ],
+   "actualObservedReceipt": null,
+   "argv": [
+     "/bin/bash",
+     "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+     "0",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r3/controls.log",
++    "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r2/controls.log",
+     "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+     "-I",
+     "-B",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/record.py",
++    "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/record.py",
+     "probe"
+   ],
+-  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2",
++  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1",
+   "executionAuthorization": false,
+-  "parentRecordedPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2",
+-  "parentRegistryPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/OWNED-MICROCHILD.jsonl",
++  "parentRecordedPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1",
++  "parentRegistryPath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/OWNED-MICROCHILD.jsonl",
+   "runtimeGrant": null,
+   "schema": "1370-a208-owned-zombie-zero-probe-launch/v1",
+   "sourceReviewReceipt": null

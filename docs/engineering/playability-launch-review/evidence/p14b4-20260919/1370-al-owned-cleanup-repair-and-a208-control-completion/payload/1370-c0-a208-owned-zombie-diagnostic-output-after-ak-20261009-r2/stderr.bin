@@ -1,0 +1,2 @@
+/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/probe.py:117: SyntaxWarning: 'return' in a 'finally' block
+  return 0 if failure is None else 2

@@ -1,0 +1,87 @@
+{
+  "acceptanceContract": "Source only. Exact reviewed wrapper authenticates this receipt and pins, performs existing current-AK/tool/clean/lane/power/disk/protection checks, creates once-only external root grant, and launches only after root separately chooses to invoke it. Direct recorder invocation remains ungranted.",
+  "actualGrant": null,
+  "actualObservedReceipt": null,
+  "candidateExecutedByReviewer": false,
+  "compileProof": {
+    "bytes": 1580,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/COMPILE-PROOF.json",
+    "sha256": "749987b775564a7d670c7082a8cddaca86d550615b603f8b47d59a21ed8c7cd4"
+  },
+  "decision": "ACCEPT_SOURCE_ONLY_OWNED_ZOMBIE_FILLED_ROUTE_AND_WRAPPER",
+  "executionAuthorization": false,
+  "freshBindings": {
+    "lane": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r3",
+    "output": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r3",
+    "parent": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2",
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2"
+  },
+  "independentChecks": {
+    "all11SourcePinsAuthenticated": true,
+    "allSourceFilesFrozenMode444": true,
+    "compileExactProbeHashWithSyntaxWarningAsError": true,
+    "compileProofReportsNoCompiledCodeExecutionOrBytecodeWrite": true,
+    "configExactInverseExceptFreshPathsAndBoundProbeGuardHashes": true,
+    "fiveSourceAndRouteExactByteInversesVerified": true,
+    "fourPythonSourcesASTParsedWithoutImport": true,
+    "inheritedRecorderReturnAndKnownHelperLogWarningUnchanged": true,
+    "namedExternalRoleHashesAuthenticated": true,
+    "oldSourceAndActual25659FailurePreserved": true,
+    "oldWarningFiltersAndEmptyProducerStderrGateRetained": true,
+    "onlyFunctionalChange": "probe.py return 0 if failure is None else 2 dedented one space outside finally",
+    "pinnedPythonCompileProofExit": 0,
+    "producerNineRowsAndThreeRegistryRecordsRetained": true,
+    "recorderAll18DefinitionsIncludingMainASTIdenticalToReviewedPredecessor": true,
+    "reportGuardExactInverseExceptRegistryPath": true,
+    "wrapperExactInverseExceptParentAndLanePaths": true
+  },
+  "lesson": "Pinned Python3.14 compiler diagnostics are part of the producer stream contract; fix the source construct and check exact source compilation without relaxing strict stderr or executing top-level code.",
+  "limitations": [
+    "No actual completion acceptance or runtime grant is created by this source review.",
+    "The previous raw errno sequence supports a bounded hypothesis; fresh observed admission remains required.",
+    "Inherited recorder SyntaxWarning is known in helper combined log and is outside producer stderr; this fix neither suppresses it nor changes recorder failure finalization.",
+    "All predecessor ownership, fork-before-journal window, NOTE_EXIT precision, numeric reuse, stale success, clock, and bounded protection caveats remain."
+  ],
+  "predecessorSourceReview": {
+    "bytes": 5725,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-independent-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "f84c68980a30a3cf9d69c938a4ae1e100771fae59acd33c7650e83ea6dcc3a62"
+  },
+  "preservedBounds": {
+    "eachRecorderStreamBytes": 65536,
+    "eachRegistryRecordBytes": 1024,
+    "naturalChildSeconds": 2,
+    "probeParentSeconds": 20,
+    "producerSummaryBytes": 16384,
+    "recorderChildActiveWholeSeconds": [
+      20,
+      25,
+      30
+    ],
+    "registryBytes": 4096
+  },
+  "preservedFailedObservedReview": {
+    "bytes": 7477,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-failed-independent-observed-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "ef1a60ff9c6b3f852d6aacba85b8a8433ff22b64132e9bed087059a7400c7a04"
+  },
+  "probe": {
+    "bytes": 8484,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/probe.py",
+    "sha256": "cd062ee7a9a846a25591cff23ad02b48cc2b40406cccbcb3b5155435829800cd"
+  },
+  "processQueriesOrSignalsByReviewer": false,
+  "reviewer": "cleanup_diagnostic_impl",
+  "schema": "1370-a208-owned-zombie-r2-independent-source-review/v1",
+  "sourcePins": {
+    "bytes": 3337,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/SOURCE-PINS.json",
+    "sha256": "df479f2012028fa52cfc67e80e29e39eadcf2cf80dabcc0cd16ff42721d9edfe"
+  },
+  "sourcePinsSha256": "df479f2012028fa52cfc67e80e29e39eadcf2cf80dabcc0cd16ff42721d9edfe",
+  "wrapper": {
+    "bytes": 9092,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/launch.py",
+    "sha256": "ddbef4ea23cf91abede711d26c899701d2be2f4f2d87e0295d61fd2d9861df0e"
+  }
+}

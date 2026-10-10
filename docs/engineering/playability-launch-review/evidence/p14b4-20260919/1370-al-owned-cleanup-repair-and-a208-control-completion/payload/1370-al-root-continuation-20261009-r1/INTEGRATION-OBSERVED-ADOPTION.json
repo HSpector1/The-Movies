@@ -1,0 +1,27 @@
+{
+  "actual17MethodControlsAccepted": false,
+  "actual17MethodRetryAuthorized": false,
+  "actualToolSession": 81061,
+  "allActualExitsZero": true,
+  "boundedEightDirectoryMetadataEqual": true,
+  "candidateProductionSourceMutation": false,
+  "driverSha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07",
+  "elapsedSeconds": 0.8587752449966501,
+  "expectedRed": 2,
+  "fullInventoryPerformed": false,
+  "game": false,
+  "green": 10,
+  "independentReview": {
+    "bytes": 5539,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-independent-observed-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "f0733ca9f4355035febe34c42b45e9267f1658f4f0e4a70933f1733fa2d55f4b"
+  },
+  "ownedRecordedIdsAbsent": [
+    11825,
+    11840
+  ],
+  "pureModulePassPreserved": true,
+  "schema": "1370-root-integration-observed-adoption/v1",
+  "status": "ROOT_ADOPTED_OBSERVED_DRIVER_INTEGRATION_RED_GREEN",
+  "total": 12
+}

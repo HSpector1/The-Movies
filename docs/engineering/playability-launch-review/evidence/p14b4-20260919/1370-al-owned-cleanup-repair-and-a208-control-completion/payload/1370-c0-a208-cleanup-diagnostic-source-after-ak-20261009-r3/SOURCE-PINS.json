@@ -1,0 +1,134 @@
+{
+  "actualFocusedControlsReceipt": null,
+  "actualRealDiagnosticReceipt": null,
+  "driver": {
+    "bytes": 13089,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py",
+    "sha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678"
+  },
+  "driverSeconds": [
+    45,
+    55
+  ],
+  "executionAuthorization": false,
+  "files": {
+    "CONFIG.json": {
+      "bytes": 16232,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/CONFIG.json",
+      "sha256": "f3f64438238090573483f38ec9783a24263665cf9cb993bb35cd7fc07cf9d26c"
+    },
+    "CONFIG.json.diff": {
+      "bytes": 2729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/CONFIG.json.diff",
+      "sha256": "209516dafd17c576bee5cd963a374a9d29a7b2f698667851defee0d2cf3b2316"
+    },
+    "CONFIG.json.inverse.diff": {
+      "bytes": 2729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/CONFIG.json.inverse.diff",
+      "sha256": "0393d2558e9fae4498e8e1895eb48e8891a6defae88ae61a27d9c77a605d7be7"
+    },
+    "LESSONS.md": {
+      "bytes": 3390,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/LESSONS.md",
+      "sha256": "17b719168fea9f29cec90937524a5d2ec750afe1a9cc1df834659a578b19d5b8"
+    },
+    "ROUTE.json": {
+      "bytes": 4228,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/ROUTE.json",
+      "sha256": "f883332eccba3ae998aae47ef325fb59adca1b550ecf755a032358141f36d91f"
+    },
+    "ROUTE.json.diff": {
+      "bytes": 9249,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/ROUTE.json.diff",
+      "sha256": "9aa3fc944eacd859da46433e4985171c9204d97652c5e87f46914f3d59746187"
+    },
+    "ROUTE.json.inverse.diff": {
+      "bytes": 9231,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/ROUTE.json.inverse.diff",
+      "sha256": "4839ff80c6cbbdc9e7fdbe1f6d881d7080364b5a6e169d1dd7b546e89060fe1a"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 3271,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/SOURCE-PROOF.json",
+      "sha256": "4b69f2b7f1e2167c462352316192ac10870ad4fc17117d1f86d108ebe2ea00c4"
+    },
+    "drive.py": {
+      "bytes": 13089,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py",
+      "sha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678"
+    },
+    "drive.py.diff": {
+      "bytes": 2483,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py.diff",
+      "sha256": "d85996fe6a7452db7a4407add65eb84390d90d7a8b06c1517878ec6df2584b3a"
+    },
+    "drive.py.inverse.diff": {
+      "bytes": 2483,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py.inverse.diff",
+      "sha256": "c4bb68a55abfad3fbd95b4cdae1937c5c7a703066a03f38824b3463bfc408152"
+    },
+    "owned_cleanup.py": {
+      "bytes": 9553,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/owned_cleanup.py",
+      "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+    },
+    "record.py": {
+      "bytes": 14482,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/record.py",
+      "sha256": "d6741bb3192c5bcb47d76d0b0ea63fc6990012bf3a02d6a1ceec1c285075f795"
+    },
+    "record.py.diff": {
+      "bytes": 1131,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/record.py.diff",
+      "sha256": "a637316f0d3824b84dfd6c296eac0fb0a663dc3864979f86f56c3ee4cc032119"
+    },
+    "record.py.inverse.diff": {
+      "bytes": 1131,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/record.py.inverse.diff",
+      "sha256": "ab3565761180d11e653c143af9d661c0e250089bbf8569bcd36fbf9a40ba87eb"
+    },
+    "report_guard.py": {
+      "bytes": 3203,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/report_guard.py",
+      "sha256": "bc7b714c9335e159fe292e8cb121db47d7f9dae3265ba9309fe44437a864b031"
+    },
+    "schema.md": {
+      "bytes": 6065,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/schema.md",
+      "sha256": "afb6f0df133b7c4946cfcdae4b10f1bc8cf3d4d56d818ee2ef8782c73797e19b"
+    },
+    "test_reports.py": {
+      "bytes": 2924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/test_reports.py",
+      "sha256": "4c6379ee5d97b16700c9d4e8a205abc6f1580ac05f706296d8833fe2fd667ac8"
+    }
+  },
+  "fixtureBytes": 8388608,
+  "mainReportingTailByteExact": true,
+  "methodCounts": [
+    3,
+    14
+  ],
+  "observerRolesUnchanged": 18,
+  "ownedCounts": [
+    7,
+    4
+  ],
+  "parentSeconds": [
+    60,
+    75,
+    90
+  ],
+  "pureModule": {
+    "bytes": 9553,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/owned_cleanup.py",
+    "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+  },
+  "pureModuleUnchanged": true,
+  "runtimeGrant": null,
+  "schema": "1370-a208-pre-reap-driver-source-pins/v1",
+  "sourceReview": null,
+  "status": "SEALED_HELD_DRIVER_ONLY_PRE_REAP_UNRUN",
+  "streamBytes": 1048576,
+  "utc": "2026-10-09T23:33:10.632773+00:00"
+}

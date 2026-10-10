@@ -1,0 +1,135 @@
+{
+  "actual17MethodControlsAccepted": false,
+  "actualCurrentAKProtectionAccepted": false,
+  "candidateConfig": {
+    "bytes": 3482,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/CONFIG.json",
+    "sha256": "ab8fa1fd2b423054b07a3d2c9a98c196c0a8abe25782593514c04219e2ab7e0e"
+  },
+  "candidateGuard": {
+    "bytes": 21657,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/snapshot.py",
+    "sha256": "f193ab42546c3ddc91d7f22a48ff3234a57b2e7066d638b810e34893ba9d3516"
+  },
+  "decision": "ACCEPT_SOURCE_ONLY_HELD_CURRENT_AK_A208_FULLGUARD_GAME_PREPARATION",
+  "executionAuthorization": false,
+  "externalAdapterPins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/SOURCE-PINS.json",
+    "sha256": "470026455632aeac39bf57c3db45722fdd68b96f24689fdee70c3c1da8d40748"
+  },
+  "externalAdapterReview": {
+    "bytes": 2370,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "b6c6d35760a50ad7814e7e75253a614c6756725795ea88870de562b36ddb2c6f"
+  },
+  "findings": [],
+  "gameAccepted": false,
+  "guardOrGameExecuted": false,
+  "heldBinding": {
+    "bytes": 5675,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/BINDING-DRAFT.json",
+    "sha256": "d08f216653fc9d72c17dbfd9b6e574d1f2d9c098a92ee022a39b6ee3f83ab06a"
+  },
+  "heldPlan": {
+    "bytes": 12663,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/PLAN.json",
+    "sha256": "d21141d311529aca008bb6e8de22b2c3fc3cd4293cb15ab5cce4f50c7765771f"
+  },
+  "limits": [
+    "Held source-only acceptance; this is neither fresh current protection nor controls/game/vector acceptance.",
+    "No guard, inventory, runtime process/timer/signal, candidate import, Git operation, materialization or production mutation performed.",
+    "No giant inventories or M0 expanded readback facts reread. Exact inherited inventory code/config roles verified; historical fact pointers preserved, not recertified.",
+    "No reuse of historical AJ production/common metadata as current AK baseline.",
+    "No extra review hierarchy or new policy beyond selected existing guard/observer/preparation procedure.",
+    "Unknown actual roles stay null until reviewed evidence exists; historical failures and strict actual exits/cleanup precedence remain intact."
+  ],
+  "nextConcreteSteps": [
+    "Root first obtains and admits actual protocol3/Python14 controls including cleanup and qualifies the existing JS13 reuse. Focused1RED12GREEN does not fill controlsGrant.",
+    "Supply a genuine current-AK scope-adoption role satisfying unchanged inherited predicates; author a fresh filled config/procedure. Root reviews exact original copy receipt/H-leaf/argv and grants one recorded direct fullguard baseline scan.",
+    "After observed current-AK baseline admission, fill known external binding roles with actual controls/current authority, follow accepted0d0d exact review/archive/adoption and after-fill baseline comparison, adopt preflight and obtain separate once-only game grant.",
+    "After game, compare full protected postflight against that current baseline using only recorded owned PGIDs, then review raw208/frame/full416 before vector admission."
+  ],
+  "observerPins": {
+    "bytes": 9882,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+    "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+  },
+  "observerReview": {
+    "bytes": 5517,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+  },
+  "previousGuardConfig": {
+    "bytes": 3536,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/CONFIG.json",
+    "sha256": "a4b88b0181bf525f6144a71f05bb7d78a17fd46bbfbe88d0e2aea90a89874b4c"
+  },
+  "previousProvenGuard": {
+    "bytes": 21431,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/snapshot.py",
+    "sha256": "cc94f1e8db3c2407d7a337246ed4d5f193334985864e48878e2700524c69cbee"
+  },
+  "protectedRootsScanned": false,
+  "schema": "1370-a208-current-ak-held-fullguard-game-source-review/v1",
+  "sourcePins": {
+    "bytes": 3367,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "7ef212906fc448fe904afa1d5a487dda06cc06cbedeb99fa47f14d83571a9714"
+  },
+  "sourcePinsSha256": "7ef212906fc448fe904afa1d5a487dda06cc06cbedeb99fa47f14d83571a9714",
+  "verified": {
+    "M0Scope": "Inherited writable-FD protection only; accepted1677/expanded1740 facts remain separate historical4711/e9f482 evidence. No rematerialization or M0 scan prerequisite added.",
+    "actualPython17CombinedControlsCurrentAKBaselineScopePreflightGameAndArgvNull": true,
+    "allInventoriesPrivateDependencyEqualityInodesAllocationProtectionLocksFDsHeadRemotePowerDiskOwnedRulesPreserved": true,
+    "bindingStatus": "UNFILLED_UNRUN",
+    "configChangedFields": [
+      "declaredWitnessScratchChildren",
+      "parentScopeAdoption",
+      "productionHead",
+      "schema",
+      "status"
+    ],
+    "controlsGrantOperationalRuntimeAuthorityWitnessGrantNull": true,
+    "currentHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+    "currentSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "earlyUnfilledScopeSTOPBeforeModuleImportCopiedRootReadsAndScans": true,
+    "exactFullSourceByteAndASTInverse": true,
+    "externalAdapter2SourcesAuthenticated": 2,
+    "externalSourceRuntimeScientificInputPinsUnchanged": true,
+    "freshCompletePrivateInventoryRequired": true,
+    "game416Ticks44RowsDigestsRNGNatural208SelectionExact": true,
+    "gameBoundsExactOriginalMap": {
+      "activeStopSeconds": 742,
+      "innerSeconds": 720,
+      "settlement208Bytes": 65536,
+      "settlement208RowBytes": 4096,
+      "sinkForwardSeconds": 10,
+      "sinkReadSeconds": 760,
+      "stderrBytes": 65536,
+      "stdoutBytes": 524288,
+      "wholeRecorderSeconds": 750
+    },
+    "guardDraftParentScopeAdoptionNull": true,
+    "manifestNamedFileRolesAuthenticated": 11,
+    "mappedFifteenExternalBindingFieldsExact": true,
+    "newM0InventoryOrReadbackGate": false,
+    "newWholeScanTimer": false,
+    "observer18NamedFrozenSourceFilesAuthenticated": 18,
+    "original4812CopyAndPrivate555867ProofRolesUnchanged": true,
+    "originalAdmissionAndScopePredicatePreserved": true,
+    "perCommandTimeoutSeconds": 180,
+    "publishedReadbackBasis": {
+      "bytes": 1162,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+      "sha256": "2c2df2e06bc1223262c71ed8f5062d65e348c6965b7f87f9757411ca9b621eaa"
+    },
+    "sourceDelta": [
+      "CONFIG_SHA",
+      "explicit required-scope-null STOP before copied-root admission chain",
+      "snapshot schema",
+      "truthful current-AK/M0-FD-only claim text"
+    ],
+    "totalBindingFields": 18,
+    "unchangedNonMainFunctionBodies": 10
+  }
+}

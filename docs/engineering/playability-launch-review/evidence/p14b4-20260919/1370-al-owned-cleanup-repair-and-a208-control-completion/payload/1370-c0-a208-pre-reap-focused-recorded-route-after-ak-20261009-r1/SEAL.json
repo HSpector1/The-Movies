@@ -1,0 +1,24 @@
+{
+  "actualObservedReceipt": null,
+  "allSourceBytesUnchangedSinceReview": true,
+  "executionPerformed": false,
+  "filesExcludingSeal": 10,
+  "independentRouteReview": {
+    "bytes": 5343,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-independent-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "16ca4682f7d50360a850488af9e380472a48591668e35c584ecbdb92db26f65a"
+  },
+  "runtimeGrant": null,
+  "schema": "1370-a208-pre-reap-focused-source-seal/v1",
+  "sourcePins": {
+    "bytes": 2824,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "8eb02a720ae08466ea36ba6fb3b53d997588ab663c314f4d140cdc9bff4c541c"
+  },
+  "status": "SEALED_SOURCE_ONLY_UNRUN",
+  "wrapper": {
+    "bytes": 4719,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/launch.py",
+    "sha256": "3e14257fb9c6d363c80a4ae4c0f3020253c74d21897cbea17e7f71ec2c38defb"
+  }
+}

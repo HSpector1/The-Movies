@@ -1,0 +1,56 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py
+@@ -45,6 +45,44 @@
+ 
+ def cleanup_group_probe(pid):
+  os.killpg(pid,0);return True
++
++def reap_completed():
++ deadline_guard()
++ try:
++  CLEANUP.check_deadline()
++  if len(SLOTS)>7 or len(POPENS)>4:
++   CLEANUP.refuse('ownership-uncertain');return
++  for ordinal,slot in enumerate(SLOTS):
++   CLEANUP.check_deadline();slot['ordinal']=ordinal
++   pid=slot.get('pid')
++   if type(pid) is not int or pid<=1:
++    CLEANUP.refuse('ownership-uncertain');continue
++   if slot.get('reaped') and slot.get('groupClear'):continue
++   if not slot.get('reaped'):
++    def wait_completed():
++     wait=REAL_WAIT(pid,os.WNOHANG)
++     if type(wait) is not tuple or len(wait)!=2 or any(type(value) is not int for value in wait):
++      raise ValueError('malformed exact-owned wait result')
++     got,status=wait
++     if got==0:
++      if status!=0:raise ValueError('nonzero live wait status')
++      return 0,0,None
++     if got!=pid:raise ValueError('wait returned a different owned target')
++     # Capture the exact observed raw status before decode or state admission.
++     CLEANUP.event('wait-status',pid,slot,stage='result',outcome='observed',context=status)
++     CLEANUP.check_deadline()
++     exitcode=os.waitstatus_to_exitcode(status)
++     if type(exitcode) is not int:raise ValueError('invalid decoded wait status')
++     return got,status,exitcode
++    good,completed=CLEANUP.attempt('waitpid',pid,slot,wait_completed)
++    if good:
++     got,status,exitcode=completed
++     if got==pid:slot['waitStatus']=status;slot['exit']=exitcode;slot['reaped']=True
++   if slot.get('reaped'):
++    good,alive=CLEANUP.attempt('group-check',pid,slot,lambda:cleanup_group_probe(pid))
++    # True means this owned group is still present; exact ESRCH yields None.
++    slot['groupClear']=(alive is None) if good else None
++ except CleanupDeadline:os._exit(124)
+ 
+ def hard_kill():
+  deadline_guard()
+@@ -161,7 +199,7 @@
+   outcome=unittest.TextTestRunner(verbosity=2).run(suite);need(outcome.testsRun==14,'exact14 methods')
+  except BaseException as exc:reason=type(exc).__name__+':'+str(exc)
+  finally:
+-  PHASE='cleanup';hard_kill()
++  PHASE='cleanup';reap_completed();hard_kill()
+   try:
+    for slot in SLOTS:
+     while not slot['reaped'] and time.monotonic()-START<WHOLE-1:

@@ -1,0 +1,513 @@
+{
+  "a208GameRebind": {
+    "actualArgv": null,
+    "argvShape": [
+      "/bin/bash",
+      "<accepted-r8-helper>",
+      "0",
+      "<fresh-absent-A208-lane-log>",
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/launch-pipeline-a208-held.sh",
+      "<future-reviewed-external-adopted-A208-binding>",
+      "<actual-adopted-binding-sha256>"
+    ],
+    "bounds": {
+      "activeStopSeconds": 742,
+      "innerSeconds": 720,
+      "settlement208Bytes": 65536,
+      "settlement208RowBytes": 4096,
+      "sinkForwardSeconds": 10,
+      "sinkReadSeconds": 760,
+      "stderrBytes": 65536,
+      "stdoutBytes": 524288,
+      "wholeRecorderSeconds": 750
+    },
+    "codeRequirements": [
+      "supervise.py:197-234 enforces original18 frozen file hashes, d813 receipt exact schema/role and eight observer hashes before Popen.",
+      "witness.mts:36-67 enforces Node physical identity, private source HEAD/blob/worktree/runtime/observer/bounds and external REVIEWED_FILLED_UNRUN binding.",
+      "PLAN.md requires actual controls, reviewed current binding/adopted preflight, once-only game grant, full protected postflight and independent raw208/full416 review.",
+      "Game grant requires genuine JS13 plus protocol3/Python14 actual admitted outcomes including cleanup; source-only diagnostic tests cannot fill controlsGrant."
+    ],
+    "currentProtectionRule": "AK publication ends production/common baseline continuity. Root4711/full744095/c337/f005 remain accepted historical AJ evidence. Fresh current-AK scope/protection binding must be independently accepted before game; do not silently use AJ production/common metadata as AK. If the selected full-guard procedure is used, obey its freshCompletePrivateInventoryRequired=true rather than weakening it; this map does not run or grant that procedure.",
+    "externalAdapterChangesAlreadyAccepted": "Exactly2 pipeline and3 sink literals, inverse proof, pins470026/reviewb6c6; reuse accepted bytes. Bind fresh external BINDING-DRAFT/current authority and exact full argv, never modify BINDING-UNFILLED.",
+    "externalBindingValuesToUseAfterAdmission": {
+      "boundsAmendment": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-source-r6/AMENDMENT-BOUNDS-PROPOSED.md",
+        "reviewPath": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-independent-design-review-r1/RECEIPT.json",
+        "reviewSha256": "8dc9c50b2ba7edf3702b42fd3dbeefb2e26e4089891af32127fa816c1704df3d",
+        "sha256": "3e705b81cd4991b628eff0a084e8088f53005be49098ee449b025c1d8606f0d4"
+      },
+      "controlsGrant": null,
+      "independentSourceReviewReceipt": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+        "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+      },
+      "nodeExecPath": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+      "nodeVersion": "v22.23.2",
+      "observerSha256": {
+        "POLICY.sb": "8e5756225a70618c763bc888a62c7ba1e1f8382d10392f21be5766fbb96a24b5",
+        "bounds-guard.mjs": "c5a548b45323f57a9e00f24daecbaca53ede29f0e8348ab2a74c72a5f3d1d36f",
+        "outer-recorder.py": "bf7cb565ba6c378323393b0e4f7a89de16e278526e34f73295e54c74bc7e8ef8",
+        "settlement208-core.mjs": "8d18864aa6943d1aec534a4f78746eb614c66b32862cac80528e9f2d9bee367e",
+        "supervise.py": "45eda307943fb829a321624d7eca4ad5004a7d8e8bdef042a74c8344b61e153e",
+        "witness-core.mjs": "2c0120734ec7d46e59c953a000f195fddadb24ac7c5ab3e65e68ffb801b8d63d",
+        "witness.mts": "f82c50aa830d672de685bbfc6f49951ef56fcc3f4714ffe7b6a31100fe50e704",
+        "worktree-guard.mjs": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4"
+      },
+      "operationalRuntimeAuthority": null,
+      "parentBoundsAdoption": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-employment-witness-bounds-parent-adoption-r1/ADOPTION.json",
+        "sha256": "6b4b83cd3470a9a882d8045ae6300bca0a39635c793c4a3b312c8d0fed94dc46"
+      },
+      "premiumFloorReview": {
+        "mandatoryTypedFunctionSupplement": {
+          "bytes": 14788,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r2/COMPLETE-TYPED-FUNCTION-SUPPLEMENT.txt",
+          "sha256": "9511e728c09e74421f438b7a3037c8d7ab312bef578923a126e57ab8c68215db"
+        },
+        "parentAdoption": {
+          "bytes": 2092,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+          "sha256": "ef30c2fd1be9e503e3b4cc45ffdefb940566f770614fbd2c072c77e1181c3a1d"
+        },
+        "review": {
+          "bytes": 5922,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-premium-floor-independent-review-after-aj-20261009-r2/RECEIPT.json",
+          "sha256": "fd7c8a02893168478ff81fd557dc68f6010d49bd18bbe175d2ec48ed313352cb"
+        }
+      },
+      "productionHeadAtPreparation": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+      "repoRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+      "runtimeSha256": {
+        "node_modules/vite-node/package.json": "7018dacaa212db8e05f454147ac95b817c96b5e45fe56379f8ed54e11617b138",
+        "node_modules/vite-node/vite-node.mjs": "187a031df1b2c5b9e2251d08c3ec51d0f8c790296da47eb7da8d4ab605c1a500",
+        "node_modules/vite/package.json": "a1d0149fd986fd34b6d35503d2c0d8d9f743c4dbaaf94fbc11812bc84b05884d",
+        "package-lock.json": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de",
+        "package.json": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f"
+      },
+      "selected16InputReview": {
+        "gapAdoption": {
+          "bytes": 1702,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-design-parent-adoption-20261009-r1/ADOPTION.json",
+          "sha256": "8f29b3860b2992378fc3fe7408557cffbefe5b4da6685bc0c42951407d171268"
+        },
+        "gapReview": {
+          "bytes": 3022,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-renewal208-input-gap-independent-design-review-20261009-r1/RECEIPT.json",
+          "sha256": "12145d203cd76fd36e94b4b8a862505d9e4e150c0af8058fcc47cba881d8292e"
+        },
+        "sourceReceipt": {
+          "bytes": 5517,
+          "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+          "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+        }
+      },
+      "sourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+      "witnessGrant": null,
+      "worktreeSha256": {
+        "src/core/aging.ts": "38fd1e6704213a5b6cca8af7ffe9fcd6562fc9c242792eb1410209a27fa6baec",
+        "src/core/employment.ts": "79d78b802164ac2008dfe219e7d368be20b37b52af8a8512f5e3e010ac827d6a",
+        "src/core/hollywood.ts": "0a955b20d534d8eb4433e70e134245f6193723173df93cee05d5aae214c697ea",
+        "src/core/talentMarket.ts": "6c2bc22205f6c499babb256351e248f860568c8417d5e3f94332267e53516b70",
+        "src/core/talentSummary.ts": "3514b3e2ee4150c15dee25bf25795a7831f495f598e1179a4c132ff3e673e3f4",
+        "src/core/tick.ts": "c1c0fca42dce79d6e3275650cb22f54f6363ae0cf2b63f1822ad386dfb44ca15",
+        "src/core/tuning.ts": "573b33edda81f680f99840bf14e253f5ed4b1a840ea76e8fb19d32caa1aff0f4",
+        "src/core/worldgen.ts": "774b543a2f34fe4162dcf44609f211322a2cb65fc666a560b4151ffe030943d7",
+        "src/harness/p13a/fixtures.ts": "f9d07ff10728ef42aa4973e97880e2300b9f29c32db3cc3b4bd6e4cdbd01f6d5",
+        "tests/bridge-p14b5-relationships.test.ts": "39c8523cb5ebeefc6f4b90d0f878d8374a37a375963341bcc3849ce7b8844c9e",
+        "tests/fixtures/p13a/accepted-v19.json.gz": "8c785eae9239d968b939c5de2434ac53819a2dd70edb8bd4f4b6d4a5c5e7101e"
+      }
+    },
+    "fifteenTemplateFields": [
+      "boundsAmendment",
+      "controlsGrant",
+      "independentSourceReviewReceipt",
+      "nodeExecPath",
+      "nodeVersion",
+      "observerSha256",
+      "operationalRuntimeAuthority",
+      "parentBoundsAdoption",
+      "premiumFloorReview",
+      "productionHeadAtPreparation",
+      "repoRoot",
+      "runtimeSha256",
+      "selected16InputReview",
+      "witnessGrant",
+      "worktreeSha256"
+    ],
+    "invariants": {
+      "employmentRows": 44,
+      "employmentSettlementReceiptTakesAndRng": {
+        "employment": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58",
+        "receipts": "af8c4d1325ecb350dbc07fbf2f762dd8257db04075b8030bf7bd975b4cb2a766",
+        "rng": "2598418427,508725886,1318803286,3129010527",
+        "settlement": "706e54c6ec9728df1664025982ebbafeb0fc36afb245b6bd0b983305f6a10a77",
+        "takes": "8af116b1687ed210c02953b5b506456e638a64482e8042b0e549b0d57e428694"
+      },
+      "naturalSelected16CaptureWeek": 208,
+      "selectedOrderAndOccurrence": "A source-order24..39, occurrence0; frozen SELECTION unchanged",
+      "weeks": 416
+    },
+    "pending": {
+      "actualA208Receipt": null,
+      "adoptedPreflight": null,
+      "archiveAdoption": null,
+      "combinedActualControlsAdmission": null,
+      "currentOperationalProtectionAuthority": null,
+      "exactCandidateReview": null,
+      "fullProtectedPostflightReview": null,
+      "onceOnlyWitnessGrant": null
+    },
+    "requiredEnvironment": {
+      "GIT_OPTIONAL_LOCKS": "0",
+      "PATH": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "reuseRule": "Keep accepted R9/M0 roots and immutable source/scientific/private baseline roles. No rematerialization or source rewrite for documentation HEAD change. Preserve original M0 strict preservation separately from R9/dependency inventories.",
+    "runtimeSourceVsOperationalHead": {
+      "currentProductionHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+      "historicalGameSourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+      "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+      "unchangedPrivateRepoRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1"
+    },
+    "templateIsImmutable": true
+  },
+  "currentAuthority": {
+    "basis": "Root published PUSH-READBACK; no fresh Git command performed here.",
+    "branch": "wip/headless-program-20260916-ts",
+    "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "observedByThisPreparation": false,
+    "productionHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+    "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "publishedReadback": {
+      "bytes": 1162,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+      "sha256": "2c2df2e06bc1223262c71ed8f5062d65e348c6965b7f87f9757411ca9b621eaa"
+    },
+    "repoRoot": "/Users/zacheryspector/The-Movies-headless-program"
+  },
+  "diagnosticControlRebind": {
+    "bounds": {
+      "eachParentActiveSeconds": 75,
+      "eachParentChildSeconds": 60,
+      "eachParentWholeSeconds": 90,
+      "eachStreamBytes": 1048576,
+      "ownedFixtureBytes": 8388608,
+      "pythonDriverActiveSeconds": 45,
+      "pythonDriverWholeSeconds": 55
+    },
+    "counts": {
+      "jsGroups": 13,
+      "noChildReportValidationMethods": 3,
+      "nodeWorkers": "Native --test workers inherit the exact recorded Node PGID; no invented PID list.",
+      "outerGroupInheritedGrandchildren": 2,
+      "pythonDirectSetsidGroups": 7,
+      "pythonMethods": 14,
+      "sandboxProbesInOwnedDriverGroup": 4
+    },
+    "fieldsToReplace": [
+      {
+        "location": "parent wrapper HEAD, grant.productionHead and fresh current-scope/ref authentication",
+        "new": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+        "old": "f0fb818fe7534c3e3784206d16728b015c7f059a"
+      },
+      {
+        "location": "parent wrapper Q/P; ROUTE.cwd/commands; CONFIG.roles.driver/reportControls/reportGuard as changed; record.py CONFIG_SHA/OUTPUTS; CONFIG.pythonFixture",
+        "new": "Fresh exact diagnostic source, grant/output/lane/fixture paths; never consumed old paths."
+      },
+      {
+        "location": "SOURCE-PINS/CONFIG/ROUTE/PROVENANCE and wrapper source-review/hash checks",
+        "new": "Actual sealed diagnostic derivative hashes plus independent source/implementation/wrapper review hashes; all remain pending."
+      }
+    ],
+    "fullGuardDecisionEvidence": [
+      "Wrapper:8-19,25-41,48-65 only authenticates roles and finite operational conditions; no snapshot/inventory subprocess is invoked. Hashing named prior snapshot files is not a new inventory scan.",
+      "record.py main authenticates CONFIG roles and Node then starts owned control child; drive.py imports only tests from an owned fixture. Neither imports game source.",
+      "AK report Observer controls and limits and root10649 require reviewed focused diagnostic repair then separate grant; neither adds a complete inventory prerequisite.",
+      "M0 root4711 Next requires rebind current production/common scope after docs publication; historical receipt is not current AK protection proof."
+    ],
+    "historicalM0Requirement": {
+      "change": "Authenticate root4711 as completed historical AJ protection/lane release, separately authenticate AK published readback/current operational scope. Preserve historical accepted-role hashes.",
+      "code": "1370-ak-grant-a208-controls-node22.py:39-41",
+      "currentHeadMustNotOverwriteHistoricalReceipt": true,
+      "keepReceiptUnchanged": true,
+      "receiptProductionHead": "f0fb818fe7534c3e3784206d16728b015c7f059a"
+    },
+    "inheritedLaunchChecks": [
+      "Bounded strict physical role/hash checks including all CONFIG roles, Node/Python/helper",
+      "Current HEAD/HEAD:src/clean/advertised working ref",
+      "HEAVY-LANE-LOCK absent; owned numeric identities absent as PID and PGID",
+      "AC power and freeBytes>=3758096384",
+      "Fresh absent exact lane/output/fixture/grant paths; inherited argv/cwd/environment",
+      "Unexpected helper wait/override/nonzero/cleanup uncertainty => STOP; no auto retry"
+    ],
+    "jsReuseRequirement": {
+      "actualJsArgv": [
+        "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "--test",
+        "--test-reporter=tap",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-synthetic.mjs",
+        "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-settlement208.mjs"
+      ],
+      "code": "Wrapper:45-46 currently requires JS sourcePins equal route pins. Replace with independently reviewed exact reuse qualification when only Python driver changes; do not edit JS1abe or force unrelated JS rerun merely for changed bundle pins.",
+      "comparison": [
+        "All18 observer file hashes/bytes",
+        "Same physical Node22 path/bytes/hash",
+        "Exact actual JS argv above",
+        "Byte-identical JS report validator and relevant recorder execution/cleanup/bounds/environment behavior"
+      ],
+      "newComparisonReview": null,
+      "receiptPinsRemainHistorical": "8e3d9c290e07e9f4be06fac3c0b31aa1d371e4dc6fd9976455135c348582d1c5"
+    },
+    "minimalOperationalChange": "Fresh derivative of existing finite route, config/recorder/wrapper paths and current AK ref/provenance binding; no full protection inventory required merely for diagnostic controls.",
+    "pending": {
+      "actualDiagnosticControlReceipt": null,
+      "actualPythonPassAndIndependentReview": null,
+      "currentScopeAdoption": null,
+      "exactCurrentAkBindingReview": null,
+      "focusedRedGreenReceipt": null,
+      "implementationReview": null,
+      "onceOnlyDiagnosticGrant": null,
+      "sealedDiagnosticSourcePins": null,
+      "wrapperReview": null
+    },
+    "sourceRepairStillRequired": "Bounded exact-owned diagnostics/sticky refusal/remaining-owned cleanup, explicit event/field/aggregate caps, focused injected-EPERM/timer/cap RED/GREEN and independent implementation review."
+  },
+  "executionAuthorization": false,
+  "lessons": [
+    {
+      "action": "Make cleanup refusal sticky while continuing other retained owned targets under unchanged deadlines.",
+      "evidence": "STOP61b7: uncaught PermissionError at hard_kill escaped before later slots and driver RESULT; all17 method reports OK did not pass the route."
+    },
+    {
+      "action": "Record exact per-attempt target/state/syscall/error and bounded timer/handler evidence.",
+      "evidence": "STOP61b7 explicitly leaves failing EPERM target, host cause and -14 alarm relation unknown; later numeric absence resolves none of those causes."
+    },
+    {
+      "action": "Separate immutable historical completion provenance from the current operational HEAD.",
+      "evidence": "Wrapper:40 couples M0 AJ productionHead to HEAD; AK PUSH-READBACK is372d15e1/src13880 while root4711 intentionally remainsAJ."
+    },
+    {
+      "action": "Reuse controls by proved input/tool/argv/predicate equality, preserving their historical bundle pins.",
+      "evidence": "JS1abe actually qualified Node22/all13 groups; wrapper:46 bundle-pin equality would fail a fresh Python-only derivative despite unchanged JS inputs."
+    },
+    {
+      "action": "Apply the finite control route requirements without adding an unrelated rescan.",
+      "evidence": "Wrapper finite checks contain no inventory invocation; source-only diagnostic adoption10649 requests bounded repair/RED-GREEN/review. Game PLAN separately requires full protected postflight and current protection authority."
+    }
+  ],
+  "nextExactSourceTasks": [
+    "Seal narrowly repaired diagnostic driver/event schema and focused fault-injection source; retain old failure and all17 assertions/7groups/4probes/bounds. Capture actual RED/GREEN under separate reviewed finite control route, then independent implementation review.",
+    "Make fresh AK CONFIG/record.py/ROUTE/PROVENANCE/SOURCE-PINS and parent wrapper derived from accepted Node22 route. Replace exact paths/hashes, historical-completion/current-head coupling and JS bundle-pin coupling as documented; independently qualify exact JS reuse. No actual grant yet.",
+    "After sealed source/implementation/exact-wrapper reviews and current AK bounded preflight, obtain a separate once-only diagnostic control grant. Independently admit actual Python outcome or retain STOP; cause unknown unless actually captured.",
+    "Only after actual controls admitted, bind the15 external A208 fields, current protection scope, existing accepted adapters/Node22/source proofs; prepare exact candidate/pins/full argv, independent exact review, archive/adoption/adopted preflight and separate once-only game grant. Full protected postflight plus raw208/full416 review precede vector admission."
+  ],
+  "preparationLimits": {
+    "allOriginalTimeoutsAndFailuresPreserved": true,
+    "fullInventoryExecuted": false,
+    "gameTestsControlsPricingRngExecuted": false,
+    "gitExecuted": false,
+    "newArchitectureOrAuthorityHierarchy": false,
+    "processSignalsUsed": false,
+    "sourceProtectedRootsModified": false
+  },
+  "protectedRoots": {
+    "M0": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2",
+    "commonGit": "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git",
+    "commonObjects": "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git/objects",
+    "privateR9": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+    "privateR9Dependencies": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/node_modules",
+    "privateR9Git": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git",
+    "production": "/Users/zacheryspector/The-Movies-headless-program",
+    "productionDependencies": "/Users/zacheryspector/The-Movies-headless-program/node_modules",
+    "retainedHParent": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2"
+  },
+  "reusableRoles": {
+    "cleanupDesign": {
+      "bytes": 2050,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-cleanup-diagnostics-parent-design-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "10649c40f3ef4e6878f6ff72040a9a304231b8e60a5d96e57b6297c0dca789f1"
+    },
+    "controlsParentDisposition": {
+      "bytes": 1661,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-observed-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "9155410c75344c7933d97067ca28be28028842e8e08e4ba153807dd8f40f0fc5"
+    },
+    "externalAdapterReview": {
+      "bytes": 2370,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "b6c6d35760a50ad7814e7e75253a614c6756725795ea88870de562b36ddb2c6f"
+    },
+    "externalAdapters": {
+      "bounded-sink-a208-held.py": {
+        "bytes": 3682,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/bounded-sink-a208-held.py",
+        "sha256": "9138c982912f53d8241721ec231555de3d8e9dae959e651c9b36dcf96a4f9700"
+      },
+      "launch-pipeline-a208-held.sh": {
+        "bytes": 1244,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/launch-pipeline-a208-held.sh",
+        "sha256": "46640b541fb04c67fcd5f72602ab128ca056416cd37ad946f248a50da1d6886a"
+      }
+    },
+    "helper": {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "historicalM0Complete": {
+      "bytes": 6133,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-complete-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad"
+    },
+    "historicalM0EvidenceRoles": {
+      "afterFillSnapshot": {
+        "bytes": 8307874,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/after-fill-after-aj-r2/SNAPSHOT.json",
+        "sha256": "c337f7d827ddc3dbe9ef79669c64e00465a064a6e0c846407c75a23bb91ba260"
+      },
+      "beforeFillSnapshot": {
+        "bytes": 8303116,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/before-fill-after-aj-r3/SNAPSHOT.json",
+        "sha256": "744095d6ab68fd9134d48ea0c46efa868bdb729ec901207751ab41a36be3c912"
+      },
+      "completeIndependentReview": {
+        "bytes": 8376,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-complete-chain-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+        "sha256": "002d96ac76da741ffce0e960ffc20afa948574de63e09d79a8ed1e874e6ddb42"
+      },
+      "postflightSnapshot": {
+        "bytes": 8318692,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/evidence/postflight-after-aj-r2/SNAPSHOT.json",
+        "sha256": "f005363a8d7657ba7a78c0820b50a2cb2dffb798d469b7abdf69e5acf6ce6893"
+      },
+      "readbackReview": {
+        "bytes": 5127,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-independent-observed-review-after-aj-20261009-r3/RECEIPT.json",
+        "sha256": "d951b96b4c6327c89f17b5c07fd258d5f8467df99d8151ed9b1f3f1a56861db3"
+      }
+    },
+    "jsAccepted": {
+      "bytes": 5975,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-js-controls-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "1abeefa371df36fa0bad2a9cf1c435bb9ea55abe6fa78daac2d92f3a9b3ee85a"
+    },
+    "node": {
+      "bytes": 115440320,
+      "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+      "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6",
+      "version": "v22.23.2"
+    },
+    "observer18HashAndBytes": {
+      "BINDING-UNFILLED.json": {
+        "bytes": 587,
+        "sha256": "d2ba88acfbf78221d4795a5f8a4f7b0588f2ab43fc60e8b062cda03dcdf8391a"
+      },
+      "PHASE-INPUT-PROOF.json": {
+        "bytes": 35081,
+        "sha256": "36c521a883dca9a16a8e2c48da87ec779ef7fff4667372db165665e2a0447e06"
+      },
+      "PLAN.md": {
+        "bytes": 4086,
+        "sha256": "0a18eff4f23c83dab62eeff3ec83f555bc656c4bf5b2401a93e7bd0ca8cd161d"
+      },
+      "POLICY.sb": {
+        "bytes": 93,
+        "sha256": "8e5756225a70618c763bc888a62c7ba1e1f8382d10392f21be5766fbb96a24b5"
+      },
+      "SELECTION.json": {
+        "bytes": 20248,
+        "sha256": "a77f53a854df5112f2391f3bc3d01d64674ebd92f16ec6389a77ff7544a8bff7"
+      },
+      "bounds-guard.mjs": {
+        "bytes": 4153,
+        "sha256": "c5a548b45323f57a9e00f24daecbaca53ede29f0e8348ab2a74c72a5f3d1d36f"
+      },
+      "outer-recorder.py": {
+        "bytes": 11082,
+        "sha256": "bf7cb565ba6c378323393b0e4f7a89de16e278526e34f73295e54c74bc7e8ef8"
+      },
+      "settlement208-core.mjs": {
+        "bytes": 21888,
+        "sha256": "8d18864aa6943d1aec534a4f78746eb614c66b32862cac80528e9f2d9bee367e"
+      },
+      "supervise.py": {
+        "bytes": 22673,
+        "sha256": "45eda307943fb829a321624d7eca4ad5004a7d8e8bdef042a74c8344b61e153e"
+      },
+      "synthetic-employment.json": {
+        "bytes": 13113,
+        "sha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58"
+      },
+      "test-outer.py": {
+        "bytes": 3290,
+        "sha256": "09429dd9b6e38f4a24216782c1892f00c3d71e1402f9c21d3f2992bf4759c4ab"
+      },
+      "test-settlement208-frame.py": {
+        "bytes": 2027,
+        "sha256": "ed0218a3520cd01c8199f17426d59bf78e83ec85b2684b881d402405698a0b5f"
+      },
+      "test-settlement208.mjs": {
+        "bytes": 7008,
+        "sha256": "eed9e598428ed969b6ff1e044df7e20f563f5fbd7b4143f884de472edfddf609"
+      },
+      "test-supervisor.py": {
+        "bytes": 11204,
+        "sha256": "eeef1208a677e1f885151808bbe97a5357a23817b664a9b3cb41296c652e2ba0"
+      },
+      "test-synthetic.mjs": {
+        "bytes": 4873,
+        "sha256": "73b90c3cea42ed9f8888af26736437e527cd7ea3871c0d49884818cd3a2e3b60"
+      },
+      "witness-core.mjs": {
+        "bytes": 3520,
+        "sha256": "2c0120734ec7d46e59c953a000f195fddadb24ac7c5ab3e65e68ffb801b8d63d"
+      },
+      "witness.mts": {
+        "bytes": 5731,
+        "sha256": "f82c50aa830d672de685bbfc6f49951ef56fcc3f4714ffe7b6a31100fe50e704"
+      },
+      "worktree-guard.mjs": {
+        "bytes": 2211,
+        "sha256": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4"
+      }
+    },
+    "observerPins": {
+      "bytes": 9882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+    },
+    "observerReview": {
+      "bytes": 5517,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+    },
+    "originalLaunchMap": {
+      "bytes": 20151,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-minimal-exact-launch-input-map-after-aj-20261009-r1/FACTS.json",
+      "sha256": "cd2ccb79a2543419d21e1a4831bfef94943e9c7d3b5b48da17d669cc3ec03088"
+    },
+    "originalNode22ControlConfig": {
+      "bytes": 15164,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/CONFIG.json",
+      "sha256": "09a59741bdb24e8641ca82e2ac4ee1aa95bde7c82bf779603aface088c0f6afb"
+    },
+    "originalNode22ControlPins": {
+      "bytes": 5579,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/SOURCE-PINS.json",
+      "sha256": "8e3d9c290e07e9f4be06fac3c0b31aa1d371e4dc6fd9976455135c348582d1c5"
+    },
+    "python": {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "pythonStopOnly": {
+      "bytes": 8497,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-stop-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "61b7698513fbe12d0f2705da01e70762f41fd2544254cadc09e381f3459b0496"
+    }
+  },
+  "schema": "1370-a208-operational-rebind-map-after-ak-v1",
+  "status": "SOURCE_ONLY_FINITE_MAP_NO_EXECUTION_AUTHORITY"
+}

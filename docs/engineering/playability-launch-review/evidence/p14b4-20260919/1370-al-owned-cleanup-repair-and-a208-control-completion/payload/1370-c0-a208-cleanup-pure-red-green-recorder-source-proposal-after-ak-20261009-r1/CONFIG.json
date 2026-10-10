@@ -1,0 +1,91 @@
+{
+  "actualExecutionGranted": false,
+  "actualGrantAndReviewOutsideConfig": true,
+  "bounds": {
+    "activeSeconds": 25,
+    "childSeconds": 20,
+    "eachStreamBytes": 65536,
+    "wholeSeconds": 30
+  },
+  "candidateModule": {
+    "bytes": null,
+    "path": null,
+    "sha256": null
+  },
+  "currentOperationalRefs": {
+    "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "productionHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+  },
+  "executionAuthorization": false,
+  "expected": {
+    "exactRows": 21,
+    "expectedGreen": 18,
+    "expectedRed": 3,
+    "greenNames": [
+      "owned-seven-four-only",
+      "group-EPERM-sticky-continue",
+      "pid-EPERM-sticky-continue",
+      "probe-EPERM-sticky-continue",
+      "ESRCH-distinct",
+      "already-clear-reaped-skip",
+      "unknown-readiness-stop",
+      "poll-fault-continue",
+      "hard-deadline-before-syscall",
+      "deadline-plus-EPERM-retained",
+      "reentrant-cleanup-no-duplicate",
+      "event-cap-does-not-conceal-refusal",
+      "aggregate-cap-refusal",
+      "UTF8-event-field-caps",
+      "writer-EAGAIN-stop-continue",
+      "writer-ENOSPC-stop-continue",
+      "writer-clock-deadline-precedence",
+      "snapshot-fault-stop-continue"
+    ],
+    "redNames": [
+      "original-RED-group",
+      "original-RED-pid",
+      "original-RED-probe"
+    ],
+    "schema": "a208-independent-owned-cleanup-controls/v1",
+    "status": "SYNTHETIC_CONTROLS_PASS",
+    "testerSummaryBytes": 16384
+  },
+  "originalDriver": {
+    "bytes": 8874,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/drive.py",
+    "sha256": "7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c"
+  },
+  "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+  "pythonSha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835",
+  "roles": {
+    "helper": {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "originalDriver": {
+      "bytes": 8874,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/drive.py",
+      "sha256": "7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c"
+    },
+    "python": {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "reportGuard": {
+      "bytes": 3036,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-recorder-source-proposal-after-ak-20261009-r1/report_guard.py",
+      "sha256": "212d42e10cf1cd530733b5d34ee31e7dd643e7b24964704297a1ab62227f599f"
+    }
+  },
+  "runtimeGrant": null,
+  "schema": "1370-a208-cleanup-pure-red-green-config-v1",
+  "status": "HELD_SOURCE_ONLY_UNRUN",
+  "tester": {
+    "bytes": null,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-independent-red-design-after-ak-20261009-r1/controls.py",
+    "sha256": null
+  }
+}

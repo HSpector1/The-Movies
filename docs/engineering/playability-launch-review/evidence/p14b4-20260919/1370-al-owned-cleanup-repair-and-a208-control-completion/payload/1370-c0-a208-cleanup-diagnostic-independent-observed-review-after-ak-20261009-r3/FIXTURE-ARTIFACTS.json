@@ -1,0 +1,255 @@
+{
+  "capEvidence": "Successful unchanged driver cap_check plus bounded fixed named captures; no independent recursive inventory.",
+  "namedFileBytes": 729028,
+  "namedFileCount": 49,
+  "recursiveInventoryPerformed": false,
+  "roles": {
+    "50454.probe.stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50454.probe.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "50454.probe.stdout": {
+      "bytes": 8,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50454.probe.stdout",
+      "sha256": "a3f72cbf99b9511a3f4b4945221b615afa1cde4b1f8e5345938e10d521dbfe74"
+    },
+    "50456.probe.stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50456.probe.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "50456.probe.stdout": {
+      "bytes": 3,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50456.probe.stdout",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "50460.probe.stderr": {
+      "bytes": 185,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50460.probe.stderr",
+      "sha256": "3e410b40e26edfa5f6b693669d5126c906ef3f9328f70efbf0f7271b804703cb"
+    },
+    "50460.probe.stdout": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50460.probe.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "50462.probe.stderr": {
+      "bytes": 32,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50462.probe.stderr",
+      "sha256": "decde2502cff58794e21cec8a76431392951149b9079a2024e3416533e244adc"
+    },
+    "50462.probe.stdout": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50462.probe.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "50464.outer-refusal.json": {
+      "bytes": 470,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50464.outer-refusal.json",
+      "sha256": "29ebdd99687b56961721f1d6b88d442c9bc675df58cbc52160ca9275c37a0f5f"
+    },
+    "50464.outer.stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50464.outer.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "50464.outer.stdout": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50464.outer.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "50469.outer-refusal.json": {
+      "bytes": 470,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50469.outer-refusal.json",
+      "sha256": "38db049ad50cf3635b1d7ca11effa916564c42dc75f32cb83859c224cac0e5f9"
+    },
+    "50469.outer.stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50469.outer.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "50469.outer.stdout": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50469.outer.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "50470.outer-refusal.json": {
+      "bytes": 475,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50470.outer-refusal.json",
+      "sha256": "d633003cf0fda468dfe883d7d40e26de307a0b0c47832b9e57d63ad1f5b315f8"
+    },
+    "50470.outer.stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50470.outer.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "50470.outer.stdout": {
+      "bytes": 524288,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50470.outer.stdout",
+      "sha256": "ec8bb338811bbf800a8b5e507d06e08a1d9d05bde74294f6f7388f3bbfba82e5"
+    },
+    "50471.outer-refusal.json": {
+      "bytes": 472,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50471.outer-refusal.json",
+      "sha256": "67c58fd2d69a160ea9b6120d2632e7a36a80b950d656b0369b622f300840f39c"
+    },
+    "50471.outer.stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50471.outer.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "50471.outer.stdout": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50471.outer.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "50472.outer-refusal.json": {
+      "bytes": 468,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50472.outer-refusal.json",
+      "sha256": "1cd74f98c9ec0fe1d188dd93df174a42fb6ff9c833b8f97b901869e3daaf5fe5"
+    },
+    "50472.outer.stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50472.outer.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "50472.outer.stdout": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50472.outer.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "50474.outer-refusal.json": {
+      "bytes": 468,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50474.outer-refusal.json",
+      "sha256": "7578af2790f4a01c59d8e0af0167446e20751f30891cd4d8166d2b405287072b"
+    },
+    "50474.outer.stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50474.outer.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "50474.outer.stdout": {
+      "bytes": 3,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50474.outer.stdout",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    "50475.outer-refusal.json": {
+      "bytes": 468,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50475.outer-refusal.json",
+      "sha256": "1e5f21161d0a70296a88d5da77447c27d0b7e9fd0c8c037684f97c7dd90031cb"
+    },
+    "50475.outer.stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50475.outer.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "50475.outer.stdout": {
+      "bytes": 6,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50475.outer.stdout",
+      "sha256": "3b00ba5361676a0a8152642a6edaf54a222bd409b5774b5b461ac8d1cee09cb4"
+    },
+    "BINDING-UNFILLED.json": {
+      "bytes": 587,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/BINDING-UNFILLED.json",
+      "sha256": "d2ba88acfbf78221d4795a5f8a4f7b0588f2ab43fc60e8b062cda03dcdf8391a"
+    },
+    "OWNED.ndjson": {
+      "bytes": 1793,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/OWNED.ndjson",
+      "sha256": "5310f378d1f01d1069bbe9156003fa977368dc29b8584ed9ca1832f94e6c0412"
+    },
+    "PHASE-INPUT-PROOF.json": {
+      "bytes": 35081,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/PHASE-INPUT-PROOF.json",
+      "sha256": "36c521a883dca9a16a8e2c48da87ec779ef7fff4667372db165665e2a0447e06"
+    },
+    "PLAN.md": {
+      "bytes": 4086,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/PLAN.md",
+      "sha256": "0a18eff4f23c83dab62eeff3ec83f555bc656c4bf5b2401a93e7bd0ca8cd161d"
+    },
+    "POLICY.sb": {
+      "bytes": 93,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/POLICY.sb",
+      "sha256": "8e5756225a70618c763bc888a62c7ba1e1f8382d10392f21be5766fbb96a24b5"
+    },
+    "RESULT.json": {
+      "bytes": 26551,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/RESULT.json",
+      "sha256": "5aba75c9dab28652242e4fdb1811bf3fdd830535e0c8b0c83fdaefd5cbe32fb2"
+    },
+    "SELECTION.json": {
+      "bytes": 20248,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/SELECTION.json",
+      "sha256": "a77f53a854df5112f2391f3bc3d01d64674ebd92f16ec6389a77ff7544a8bff7"
+    },
+    "bounds-guard.mjs": {
+      "bytes": 4153,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/bounds-guard.mjs",
+      "sha256": "c5a548b45323f57a9e00f24daecbaca53ede29f0e8348ab2a74c72a5f3d1d36f"
+    },
+    "outer-recorder.py": {
+      "bytes": 11082,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/outer-recorder.py",
+      "sha256": "bf7cb565ba6c378323393b0e4f7a89de16e278526e34f73295e54c74bc7e8ef8"
+    },
+    "settlement208-core.mjs": {
+      "bytes": 21888,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/settlement208-core.mjs",
+      "sha256": "8d18864aa6943d1aec534a4f78746eb614c66b32862cac80528e9f2d9bee367e"
+    },
+    "supervise.py": {
+      "bytes": 22673,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/supervise.py",
+      "sha256": "45eda307943fb829a321624d7eca4ad5004a7d8e8bdef042a74c8344b61e153e"
+    },
+    "synthetic-employment.json": {
+      "bytes": 13113,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/synthetic-employment.json",
+      "sha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58"
+    },
+    "test-outer.py": {
+      "bytes": 3290,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/test-outer.py",
+      "sha256": "09429dd9b6e38f4a24216782c1892f00c3d71e1402f9c21d3f2992bf4759c4ab"
+    },
+    "test-settlement208-frame.py": {
+      "bytes": 2027,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/test-settlement208-frame.py",
+      "sha256": "ed0218a3520cd01c8199f17426d59bf78e83ec85b2684b881d402405698a0b5f"
+    },
+    "test-settlement208.mjs": {
+      "bytes": 7008,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/test-settlement208.mjs",
+      "sha256": "eed9e598428ed969b6ff1e044df7e20f563f5fbd7b4143f884de472edfddf609"
+    },
+    "test-supervisor.py": {
+      "bytes": 11204,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/test-supervisor.py",
+      "sha256": "eeef1208a677e1f885151808bbe97a5357a23817b664a9b3cb41296c652e2ba0"
+    },
+    "test-synthetic.mjs": {
+      "bytes": 4873,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/test-synthetic.mjs",
+      "sha256": "73b90c3cea42ed9f8888af26736437e527cd7ea3871c0d49884818cd3a2e3b60"
+    },
+    "witness-core.mjs": {
+      "bytes": 3520,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/witness-core.mjs",
+      "sha256": "2c0120734ec7d46e59c953a000f195fddadb24ac7c5ab3e65e68ffb801b8d63d"
+    },
+    "witness.mts": {
+      "bytes": 5731,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/witness.mts",
+      "sha256": "f82c50aa830d672de685bbfc6f49951ef56fcc3f4714ffe7b6a31100fe50e704"
+    },
+    "worktree-guard.mjs": {
+      "bytes": 2211,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/worktree-guard.mjs",
+      "sha256": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4"
+    }
+  },
+  "schema": "1370-a208-python17-fixed-named-fixture-authentication/v1",
+  "sourceCopiesByteExact": 18
+}

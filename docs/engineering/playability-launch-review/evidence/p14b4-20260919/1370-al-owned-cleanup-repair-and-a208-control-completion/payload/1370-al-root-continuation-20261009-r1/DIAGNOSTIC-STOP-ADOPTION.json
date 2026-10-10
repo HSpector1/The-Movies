@@ -1,0 +1,31 @@
+{
+  "a208GameGranted": false,
+  "actual66101EpermHostCauseAndSignalAlarmRelationUnknown": true,
+  "actualExits": {
+    "driver": -14,
+    "helper": 2,
+    "recorder": 2,
+    "tool": 2
+  },
+  "actualRetryAuthorized": false,
+  "continuedCleanupAndAll13RecordedIdsAbsent": true,
+  "independentReview": {
+    "bytes": 4463,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-failed-independent-observed-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "63f323d230d5d2a55f69f06a952184b93c24e3392c5c7c55ed7440c6f1eab86c"
+  },
+  "newSourceDefect": "main assigns STOP but omits global STOP, causing observed UnboundLocalError before RESULT; clean path is also susceptible.",
+  "next": "Verify one-line global STOP repair with actual driver-tail integration RED/GREEN. Separately investigate exact exit/reap ordering hypothesis before a further real17-method route.",
+  "observedTarget": {
+    "errno": 1,
+    "eventSeq": 7,
+    "pgid": 94482,
+    "pid": 94482,
+    "signal": 9,
+    "slot": 3,
+    "syscall": "killpg"
+  },
+  "original10832EpermTargetAndHostCauseUnknown": true,
+  "status": "ROOT_ADOPTED_ACTUAL_DIAGNOSTIC_STOP_AND_NEW_INTEGRATION_DEFECT",
+  "toolSession": 66101
+}

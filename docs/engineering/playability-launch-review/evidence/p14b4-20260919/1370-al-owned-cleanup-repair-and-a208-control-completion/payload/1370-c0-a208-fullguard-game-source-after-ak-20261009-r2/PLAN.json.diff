@@ -1,0 +1,195 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/PLAN.json
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/PLAN.json
+@@ -10,7 +10,7 @@
+     },
+     {
+       "authority": "MAP currentProtectionRule plus selected accepted snapshot freshCompletePrivateInventoryRequired and observer PLAN.md line13.",
+-      "step": "FreshcurrentAKproduction/commonbaselineandprotectedpostflightusingfullinventories"
++      "step": "FreshpublishedOperationalproduction/commonbaselineandprotectedpostflightusingfullinventories"
+     },
+     {
+       "authority": "Original accepted exact preparation procedure0d0d and MAP nextExactSourceTasks; not new hierarchy.",
+@@ -26,57 +26,57 @@
+     }
+   ],
+   "bindingDraft": {
+-    "bytes": 5675,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/BINDING-DRAFT.json",
+-    "sha256": "d08f216653fc9d72c17dbfd9b6e574d1f2d9c098a92ee022a39b6ee3f83ab06a"
++    "bytes": 5637,
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/BINDING-DRAFT.json",
++    "sha256": "62cbd6611a13c7ff9adf83c5a56526f46b142d903e7b98d4cfae7c39423dc966"
+   },
+   "candidateGuard": {
+-    "bytes": 21657,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/snapshot.py",
+-    "sha256": "f193ab42546c3ddc91d7f22a48ff3234a57b2e7066d638b810e34893ba9d3516"
++    "bytes": 21984,
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/snapshot.py",
++    "sha256": "0d1cf215596e9ae0d9027d3d464c7ce07b35383684f613fe1faa42cf08213a6e"
+   },
+   "candidateGuardConfig": {
+-    "bytes": 3482,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/CONFIG.json",
+-    "sha256": "ab8fa1fd2b423054b07a3d2c9a98c196c0a8abe25782593514c04219e2ab7e0e"
++    "bytes": 3579,
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/CONFIG.json",
++    "sha256": "2ef8d934883c458e43df93bb4f57dc4e425941f9730a66ea35375a081fdffb72"
+   },
+   "claimLimits": [
+-    "AKpublishedreadbackiscitedhistoricalrootobservation, no freshGitcheckhere.",
+-    "No freshcurrentprotection/control/gameacceptancewasobservedbythispreparation.",
+-    "The guardedparentScopeadoptionpredicate remains unchanged; futureexactfillmustbindarealcurrentAKrolewithallinheritedfields,neverreuseAJ13beasAK.",
+-    "All unknownruntime/control/adoption/grantroles remainnull untilactualreviewedroles exist."
++    "Known AK and historical AJ observations remain exact historical facts. Forthcoming AL HEAD, refs, scope adoption and docs-transition roles are unknown/null.",
++    "A208 status replaces inherited M0 status; all old protection/no-waiver/docs-only predicates retained, with two exact in-memory identity/ref comparisons. No M0 authority label is fabricated.",
++    "No guard, inventory, game, process probe or Git was run by source preparation. Actual Python17/combined controls admissions remain null pending real root adopted roles.",
++    "Future exact fill and existing independent review/scan/game grant procedures remain required; no M0 rematerialization or added M0 inventory/readback gate."
+   ],
+-  "currentAkBaseline": null,
+-  "currentAkBaselineIndependentReview": null,
+-  "currentAkScopeAdoption": null,
+   "currentAuthority": {
+-    "basis": "Root published PUSH-READBACK; no fresh Git command performed here.",
+     "branch": "wip/headless-program-20260916-ts",
+-    "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
++    "docsTransitionFactsRole": null,
++    "main": null,
+     "observedByThisPreparation": false,
+-    "productionHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
++    "operationalRemoteRefs": {
++      "refs/heads/main": null,
++      "refs/heads/wip/headless-program-20260916-ts": null
++    },
++    "operationalScopeAdoption": null,
++    "productionHead": null,
+     "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+-    "publishedReadback": {
+-      "bytes": 1162,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+-      "sha256": "2c2df2e06bc1223262c71ed8f5062d65e348c6965b7f87f9757411ca9b621eaa"
+-    },
+-    "repoRoot": "/Users/zacheryspector/The-Movies-headless-program"
+-  },
++    "publishedReadback": null
++  },
++  "currentOperationalBaseline": null,
++  "currentOperationalBaselineIndependentReview": null,
++  "currentOperationalScopeAdoption": null,
+   "executionAuthorization": false,
+   "freshFillRequired": true,
+   "fullPostflightIndependentReview": null,
+-  "futureFreshFilledDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-ak-20261009-r1",
++  "futureFreshFilledDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-ak-20261009-r2",
+   "gameRoute": {
+     "actualArgv": null,
+     "argvShape": [
+       "/bin/bash",
+       "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+       "0",
+-      "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-ak-20261009-r1/controls.log",
++      "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-ak-20261009-r2/controls.log",
+       "/bin/bash",
+       "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/launch-pipeline-a208-held.sh",
+-      "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-ak-20261009-r1/BINDING-DRAFT.json",
++      "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-ak-20261009-r2/BINDING-DRAFT.json",
+       "<EXACT_ADOPTED_BINDING_SHA256>"
+     ],
+     "bounds": {
+@@ -90,7 +90,7 @@
+       "stdoutBytes": 524288,
+       "wholeRecorderSeconds": 750
+     },
+-    "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-ak-20261009-r1",
++    "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-ak-20261009-r2",
+     "historicalGameSourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+     "invariants": {
+       "employmentRows": 44,
+@@ -118,41 +118,41 @@
+       "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+       "-I",
+       "-B",
+-      "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-ak-20261009-r1/snapshot.py",
++      "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-ak-20261009-r2/snapshot.py",
+       "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+       "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+       "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+       "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+       "after-fill",
+-      "after-external-fill-a208-after-ak-r1",
+-      "<ACTUAL_ACCEPTED_CURRENT_AK_BASELINE_PATH>",
+-      "<ACTUAL_ACCEPTED_CURRENT_AK_BASELINE_SHA256>"
++      "after-external-fill-a208-post-al-pending-r2",
++      "<ACTUAL_ACCEPTED_PUBLISHED_OPERATIONAL_BASELINE_PATH>",
++      "<ACTUAL_ACCEPTED_PUBLISHED_OPERATIONAL_BASELINE_SHA256>"
+     ],
+     "baseline": [
+       "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+       "-I",
+       "-B",
+-      "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-ak-20261009-r1/snapshot.py",
++      "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-ak-20261009-r2/snapshot.py",
+       "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+       "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+       "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+       "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+       "before-fill",
+-      "baseline-before-a208-after-ak-r1"
++      "baseline-before-a208-post-al-pending-r2"
+     ],
+     "postflight": [
+       "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+       "-I",
+       "-B",
+-      "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-ak-20261009-r1/snapshot.py",
++      "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-ak-20261009-r2/snapshot.py",
+       "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+       "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+       "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+       "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+       "postflight",
+-      "postflight-a208-after-ak-r1",
+-      "<ACTUAL_ACCEPTED_CURRENT_AK_BASELINE_PATH>",
+-      "<ACTUAL_ACCEPTED_CURRENT_AK_BASELINE_SHA256>",
++      "postflight-a208-post-al-pending-r2",
++      "<ACTUAL_ACCEPTED_PUBLISHED_OPERATIONAL_BASELINE_PATH>",
++      "<ACTUAL_ACCEPTED_PUBLISHED_OPERATIONAL_BASELINE_SHA256>",
+       "<ONLY_ACTUAL_RECORDED_OWNED_PGIDS_CSV>"
+     ]
+   },
+@@ -178,6 +178,20 @@
+     "sha256": "cc94f1e8db3c2407d7a337246ed4d5f193334985864e48878e2700524c69cbee"
+   },
+   "onceOnlyGameGrant": null,
++  "priorPublishedAuthority": {
++    "basis": "Historical known AK published readback; not forthcoming AL authority or a post-AL protection baseline.",
++    "branch": "wip/headless-program-20260916-ts",
++    "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
++    "observedByThisPreparation": false,
++    "productionHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
++    "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
++    "publishedReadback": {
++      "bytes": 1162,
++      "path": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
++      "sha256": "2c2df2e06bc1223262c71ed8f5062d65e348c6965b7f87f9757411ca9b621eaa"
++    },
++    "repoRoot": "/Users/zacheryspector/The-Movies-headless-program"
++  },
+   "protectedScopes": {
+     "freshCompletePrivateInventoryRequired": true,
+     "fullInheritedInventoryAndEquality": [
+@@ -239,7 +253,12 @@
+       "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+     }
+   },
+-  "schema": "1370-a208-current-ak-fullguard-game-held-plan/v1",
++  "schema": "1370-a208-current-operational-fullguard-game-held-plan/v2",
++  "scopeAmendmentDesign": {
++    "bytes": 9623,
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-operational-scope-authority-independent-design-after-ak-20261009-r1/FINDING-AND-DESIGN.json",
++    "sha256": "f43391aae243ccfe05a689c28f46dd76c005d67031d8f281b7c985c3a27bd6aa"
++  },
+   "sourceReview": null,
+-  "status": "SOURCE_ONLY_UNRUN_CURRENT_AK_REBIND_HELD"
++  "status": "SOURCE_ONLY_UNRUN_POST_AL_IDENTITY_AND_A208_SCOPE_HELD"
+ }

@@ -1,0 +1,26 @@
+{
+  "driver": {
+    "bytes": 11344,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/drive.py",
+    "sha256": "0a4934e66eb748d7f2912373bd6896b21e80a867fad4a1e72b9f2a7647345369"
+  },
+  "module": {
+    "bytes": 9553,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/owned_cleanup.py",
+    "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+  },
+  "review": {
+    "bytes": 4149,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-independent-source-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "c4379727a85453d6f73e002fa9270ae0e28bf41ad1b9de8ed23599839c741b99"
+  },
+  "rootReview": "Inspected complete puremodule anddriverdiff; remainingownedtargets andalloriginalsuite assertionsretained; no completeparentacceptancebypass. A staleartifact cannotoverridenonzero/lateSTOP.",
+  "runtimeRetryAuthorized": false,
+  "scope": "Bounded diagnostics/sticky refusal/continuation under unchanged actual45/55,60/75/90; pending actualfocusedadmission+exactactualroute review/grant. Original EPERMcauseunknown andoriginalfailurepreserved.",
+  "sourcePins": {
+    "bytes": 6144,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "ea143dc31e5e87bb0868f501a2c0655c04f670305fe3793713f0cf659c0cc904"
+  },
+  "status": "ROOT_ADOPTED_SOURCE_ONLY_CLEANUP_DIAGNOSTIC_IMPLEMENTATION"
+}

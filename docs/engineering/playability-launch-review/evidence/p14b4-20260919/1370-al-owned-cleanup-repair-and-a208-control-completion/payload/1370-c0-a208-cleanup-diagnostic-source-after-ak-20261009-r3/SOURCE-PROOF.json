@@ -1,0 +1,93 @@
+{
+  "18ObserverRolesAuthenticatedAndUnchanged": true,
+  "actualAddedCleanupEntryCalls": 1,
+  "actualCleanupEntryOrder": [
+    "PHASE=cleanup",
+    "reap_completed",
+    "hard_kill"
+  ],
+  "allRecorderDefinitionsASTUnchanged": true,
+  "candidateDriver": {
+    "bytes": 13089,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py",
+    "sha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678"
+  },
+  "candidateImportsOrExecutionPerformed": false,
+  "correctedMicroprobeObservedAdmission": {
+    "bytes": 6556,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-independent-observed-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "f0272fa01d30498fcaa612814d1dc30a0e00fe8760b9388aca59767ce5fcb991"
+  },
+  "diagnosticCapsUnchanged": {
+    "aggregateBytes": 65536,
+    "captureFaultIsStickyStop": true,
+    "eventBytes": 2048,
+    "events": 128,
+    "summaryBytes": 98304,
+    "textUtf8Bytes": 192
+  },
+  "driverSeconds": [
+    45,
+    55
+  ],
+  "exactByteInverseRestoresR2": true,
+  "exactFullASTInverseRestoresR2": true,
+  "executionAuthorization": false,
+  "fixtureBytes": 8388608,
+  "focusedControlsReceipt": null,
+  "freshHeldPathsOnly": true,
+  "functionalDelta": "One driver helper plus its actual cleanup-entry call immediately before unchanged hard_kill; strict WNOHANG owned wait/decode, raw-status receipt, exact ESRCH-only clearance.",
+  "hardKillDefinitionUnchanged": true,
+  "historicalSourceAndFailureOutcomesPreserved": true,
+  "mainGlobalStopDeclarationUnchanged": true,
+  "mainReportingTailByteExact": true,
+  "mainReportingTailSha256": "424c4f7a8d97ed280052865af080254aa875c18d4ddc45de97c8cc3fd4c06f1f",
+  "methodCounts": [
+    3,
+    14
+  ],
+  "ownedCounts": [
+    7,
+    4
+  ],
+  "parentSeconds": [
+    60,
+    75,
+    90
+  ],
+  "predecessorDriver": {
+    "bytes": 11349,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py",
+    "sha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07"
+  },
+  "predecessorSourcePins": {
+    "bytes": 6303,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/SOURCE-PINS.json",
+    "sha256": "49723b2fc9d77a1b87d6aba650f750dabae79d8c2506019139c803fe3f4e1f3f"
+  },
+  "pureModule": {
+    "bytes": 9553,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/owned_cleanup.py",
+    "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+  },
+  "pureModuleByteExact": true,
+  "reportModulesByteExact": true,
+  "rootDesignAdoption": {
+    "bytes": 3099,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PRE-REAP-DESIGN-ADOPTION.json",
+    "sha256": "3bbbd3967f0d9188dc60d3ad4a22941da460c08f923e9dc38b3f13027659887e"
+  },
+  "runtimeGrant": null,
+  "schema": "1370-a208-pre-reap-driver-source-proof/v1",
+  "sourceOnly": true,
+  "sourceReview": null,
+  "staticParsedPython": [
+    "drive.py",
+    "owned_cleanup.py",
+    "record.py",
+    "report_guard.py",
+    "test_reports.py"
+  ],
+  "streamBytes": 1048576,
+  "testsPerformed": false
+}

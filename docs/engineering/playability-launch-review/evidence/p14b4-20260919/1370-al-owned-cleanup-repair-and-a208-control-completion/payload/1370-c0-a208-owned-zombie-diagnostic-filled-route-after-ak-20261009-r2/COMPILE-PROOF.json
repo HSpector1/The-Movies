@@ -1,0 +1,31 @@
+{
+  "schema": "1370-source-only-pinned-compile-tool-preservation/v1",
+  "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+  "flags": [
+    "-I",
+    "-B",
+    "-Werror::SyntaxWarning"
+  ],
+  "operation": "read exact source bytes, compile(b,path,'exec',dont_inherit=True); never execute code object",
+  "toolResult": {
+    "chunk_id": "dba958",
+    "wall_time_seconds": 0.000048957,
+    "exit_code": 0,
+    "original_token_count": 111,
+    "output": "{\"SyntaxWarningTreatedAsError\": true, \"bytes\": 8484, \"executedCompiledCode\": false, \"isolated\": true, \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/probe.py\", \"schema\": \"1370-source-only-pinned-compile-proof/v1\", \"sha256\": \"cd062ee7a9a846a25591cff23ad02b48cc2b40406cccbcb3b5155435829800cd\", \"status\": \"PROBE_COMPILE_WITH_SYNTAXWARNING_ERROR_PASS\", \"wroteBytecode\": false}\n"
+  },
+  "summary": {
+    "SyntaxWarningTreatedAsError": true,
+    "bytes": 8484,
+    "executedCompiledCode": false,
+    "isolated": true,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/probe.py",
+    "schema": "1370-source-only-pinned-compile-proof/v1",
+    "sha256": "cd062ee7a9a846a25591cff23ad02b48cc2b40406cccbcb3b5155435829800cd",
+    "status": "PROBE_COMPILE_WITH_SYNTAXWARNING_ERROR_PASS",
+    "wroteBytecode": false
+  },
+  "recorderKnownWarningNotSuppressedOrChanged": true,
+  "actualExperimentExecuted": false
+}
+

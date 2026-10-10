@@ -1,0 +1,124 @@
+{
+  "actualProtectionAcceptance": false,
+  "afterForthcomingAL": [
+    "AL docs publication changes production/common metadata continuity. Preserve original AJ/AK observations as historical; do not repin them or use pre-AL production/common metadata as a new baseline.",
+    "Root preserves actual published AL HEAD/main/branch/src readback and genuine reviewed docs transition evidence; fill current operational role/config only from those facts.",
+    "The frozen private3aaf55 source/scientific roles, observer345/d813, adapter470026/b6c6 and old copy/inventory admission inputs remain unchanged.",
+    "Update external binding productionHeadAtPreparation/current operational authority to the actual published AL operational identity when filling. Leave actual controlsGrant and witnessGrant null until their separately reviewed evidence/grant exist.",
+    "Fresh AL baseline/full protected postflight must use the same exact fresh config/procedure and accepted full private/dependency inventory rules. No M0 rematerialization or new inventory/readback gate."
+  ],
+  "decision": "SOURCE_ONLY_AUTHORITY_MISMATCH_FOUND_MINIMAL_A208_AMENDMENT_PROPOSED",
+  "executionAuthorization": false,
+  "finding": {
+    "consequence": "The held config has parentScopeAdoption=null and fails early, so it presently asserts no false authority. Filling it with a new A208 role carrying the inherited M0 status would semantically mislabel the adopted scope. Reusing historical13be cannot satisfy current head equality and must not be repinned.",
+    "currentPurpose": "A208 current operational read-only protection baseline/postflight in preparation for a separately granted R9-derived observer/game.",
+    "historicalContract": "Genuine13be AJ adoption continues accepted isolated M0 design through additive63-file/dependency-link diagnostic work before later types/wiring/capture gates. It binds AJ docs-only protection identity and explicitly grants neither actual full scans nor execution.",
+    "inheritedRequiredStatus": "PARENT_ADOPTED_ISOLATED_M0_DIAGNOSTIC_DESIGN_ONLY",
+    "location": {
+      "line": 83,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/snapshot.py"
+    },
+    "priorReviewCorrection": "Prior b664 held review correctly accepted an unfilled source-only draft and exact predicate preservation, but did not flag that its proposed future A208 role would have to satisfy an M0-specific label. This independent follow-up identifies that semantic gap; it does not claim any guard/game execution or runtime acceptance bypass."
+  },
+  "gameAcceptance": false,
+  "historicalHostCauseEstablished": false,
+  "minimalAmendment": {
+    "actualScanCurrentFunction": "Unchanged. Existing fresh live production/private HEAD, src, branch remote, clean roots, docs-only transition, power/disk, process/FD/lock and supplied-owned-PGID predicates still run only under a separate actual scan grant.",
+    "allTenNonMainHelperASTs": "Must remain byte/AST identical to held f193 and predecessorcc94. No inventory or FD/lock/protection weakening.",
+    "authorLaterOnly": true,
+    "configChanges": "In a fresh sibling, update productionHead to the actual published operational HEAD, fill parentScopeAdoption with a genuine root-authored A208 scope role, add operationalRemoteRefs using that actual published readback, and repin CONFIG_SHA. Update schema/labels/declared output paths only as needed to describe the fresh operational package.",
+    "guardPredicateChanges": [
+      "Replace only the M0-specific status literal with PARENT_ADOPTED_A208_OPERATIONAL_GUARD_SCOPE_ONLY; do not accept either status through an OR/fallback.",
+      "Bind existing ad.operationalTransition.actualHead exactly to config.productionHead alongside existing docsOnlyVerified is True.",
+      "Bind existing ad.remoteRefsVerified exactly to a config.operationalRemoteRefs map containing the exact published main and wip/headless-program-20260916-ts refs. This is an in-memory authority comparison, not a new Git command or inventory gate."
+    ],
+    "mustRetainExactExistingConjuncts": [
+      "ad.productionGuardHead == config.productionHead",
+      "ad.productionSourceTree == config.productionSourceTree",
+      "ad.combinedHFirstRouteUnchanged is True",
+      "ad.H8708Waived is False",
+      "ad.executionAuthorization is False",
+      "ad.operationalTransition.docsOnlyVerified is True"
+    ],
+    "newExactConjuncts": [
+      "ad.operationalTransition.actualHead == config.productionHead",
+      "ad.remoteRefsVerified == config.operationalRemoteRefs"
+    ],
+    "newScopeStatus": "PARENT_ADOPTED_A208_OPERATIONAL_GUARD_SCOPE_ONLY",
+    "scopeMeaning": "Parent adopts A208 read-only current operational protection design only. Actual full scans and any observer/game execution still require the existing separate exact grants. Combined H-first route remains unchanged; no H8708 waiver, production source mutation, M0 rematerialization or new M0 readback prerequisite.",
+    "sourceInverseCriteria": "Remove only the A208 status/ref comparisons, revert CONFIG_SHA and operational schema/claim labels to recover the held source exactly; restore the original inherited status/conjuncts without changing helper functions."
+  },
+  "proposedRootContractNotAnAdoption": {
+    "H8708Waived": false,
+    "actualScanGrant": "Separate existing recorded grant, never implied by executionAuthorization=false scope adoption.",
+    "combinedHFirstRouteUnchanged": true,
+    "currentFullGuardsYetRun": false,
+    "executionAuthorization": false,
+    "gameGrant": "Separate once-only reviewed witness grant; no launch authority from this scope role.",
+    "operationalTransition": {
+      "actualHead": "Same exact published HEAD as productionGuardHead.",
+      "docsOnlyVerified": "True only after reviewed actual checkpoint/diff evidence; guard retains its own original4812-to-current docs-only Git proof.",
+      "docsTransitionFactsRole": "Real preserved finite path/hash role after checkpoint, not invented by reviewer.",
+      "predecessor": "Exact actual docs transition predecessor.",
+      "wholeProductionCommonGuardMustRefresh": true
+    },
+    "productionGuardHead": "Fill only from actual published operational readback after AL; unknown at this review.",
+    "productionSourceChangesAuthorized": false,
+    "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "remoteRefsVerified": {
+      "refs/heads/main": "Actual published main readback; currently known c902a704eb948cc576083d0973c8c23e59937dc1, refresh/verify at checkpoint.",
+      "refs/heads/wip/headless-program-20260916-ts": "Actual published AL checkpoint HEAD; do not guess."
+    },
+    "requiredStatus": "PARENT_ADOPTED_A208_OPERATIONAL_GUARD_SCOPE_ONLY",
+    "schema": "1370-a208-current-operational-guard-scope-adoption/v1",
+    "scope": "A208 current operational read-only guard design, distinct from original historical isolated M0 authority."
+  },
+  "requiredSourceReviewOfLaterAuthoredCandidate": [
+    "Authenticate actual root scope role and exact current published operational refs; verify honest A208 scope text rather than inherited M0 label.",
+    "Verify exact source/config delta, ten unchanged helper ASTs, early unfilled STOP and all inherited inventory/equality/inode/allocation/root/FD/lock predicates.",
+    "Verify scopes: full private R9 proof/dependencies remain mandatory; M0 writable-FD only; historical1677/expanded1740 evidence remains separate.",
+    "Verify all unknown actual admission/grant/outcome fields remain null and exact fresh argv/source review precedes root actual scan/game grants under existing procedure."
+  ],
+  "roles": {
+    "heldConfig": {
+      "bytes": 3482,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/CONFIG.json",
+      "sha256": "ab8fa1fd2b423054b07a3d2c9a98c196c0a8abe25782593514c04219e2ab7e0e"
+    },
+    "heldGuard": {
+      "bytes": 21657,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/snapshot.py",
+      "sha256": "f193ab42546c3ddc91d7f22a48ff3234a57b2e7066d638b810e34893ba9d3516"
+    },
+    "heldPlan": {
+      "bytes": 12663,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/PLAN.json",
+      "sha256": "d21141d311529aca008bb6e8de22b2c3fc3cd4293cb15ab5cce4f50c7765771f"
+    },
+    "heldSourcePins": {
+      "bytes": 3367,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/SOURCE-PINS.json",
+      "sha256": "7ef212906fc448fe904afa1d5a487dda06cc06cbedeb99fa47f14d83571a9714"
+    },
+    "historicalM0ScopeAdoption": {
+      "bytes": 2289,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-current-aj-scope-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "13be428dfe3bdba1bc4ce4f2348bd194d2473c4c812df2b5f0bfec936b76b8e8"
+    },
+    "priorHeldReview": {
+      "bytes": 7501,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-independent-source-review-after-ak-20261009-r1/RECEIPT.json",
+      "sha256": "b664519ddee865f5085d7ab792a310876ded51775218bb88af491275e3e0f4cc"
+    }
+  },
+  "schema": "1370-a208-operational-scope-authority-independent-finding-design/v1",
+  "workNotPerformed": {
+    "actual17MethodOutcomeAssumed": false,
+    "candidateFixAuthored": false,
+    "gameRun": false,
+    "guardsOrInventoriesRun": false,
+    "processOrSignalProbesRun": false,
+    "rootAdoptionManufactured": false,
+    "sourceOrGitEdited": false
+  }
+}

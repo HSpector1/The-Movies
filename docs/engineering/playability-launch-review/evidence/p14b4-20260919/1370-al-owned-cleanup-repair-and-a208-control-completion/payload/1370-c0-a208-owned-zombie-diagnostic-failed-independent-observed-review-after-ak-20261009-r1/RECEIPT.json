@@ -1,0 +1,159 @@
+{
+  "acceptedRecordedCompletion": false,
+  "actualExits": {
+    "helper": 2,
+    "naturalChild": 0,
+    "probeParent": 0,
+    "recorder": 2,
+    "tool": 2
+  },
+  "decision": "STOP_MICROPROBE_PRODUCER_STDERR_SYNTAXWARNING_NO_RECORDED_COMPLETION",
+  "diagnostic17MethodOrGameAcceptance": false,
+  "evidence": {
+    "ACTUAL-TOOL.json": {
+      "bytes": 621,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/ACTUAL-TOOL.json",
+      "sha256": "81ec409403d52f42b4077ae5e0467cb24ebd5c31fd9926af028852b66031f0fd"
+    },
+    "GRANT.json": {
+      "bytes": 3445,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/GRANT.json",
+      "sha256": "d44b1e983c219fd3a3568896c8583742c23f5c530543d10f923934e2fe09006b"
+    },
+    "OWNED-MICROCHILD.jsonl": {
+      "bytes": 831,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/OWNED-MICROCHILD.jsonl",
+      "sha256": "6e23579d1377a2cf9ec99328cd5d0de7c333aaa1e1842ea112cda6895414e576"
+    },
+    "POST-OWNERSHIP.json": {
+      "bytes": 641,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/POST-OWNERSHIP.json",
+      "sha256": "ce39ed201ce2e3f24c1d6ab2237773594c10dfdaf8bd32469e061f1e0f3264ac"
+    },
+    "PROTECTION-AFTER.json": {
+      "bytes": 3256,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/PROTECTION-AFTER.json",
+      "sha256": "7be950d3ab9fe836ea80ac3bcee2e551d1e017b2dd7fda87d257f43ef69e31e4"
+    },
+    "REGISTRY-CAPTURE.json": {
+      "bytes": 2122,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/REGISTRY-CAPTURE.json",
+      "sha256": "8d14266bd7fb35b7b518e15133208ddf675bdee736dfa438a070c94eaf05d25e"
+    },
+    "RESULT.json": {
+      "bytes": 933,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r2/RESULT.json",
+      "sha256": "4f6c93fa4b11325887eb8bb316762c36729d07a2018787bba86ca541270edb67"
+    },
+    "controls.log": {
+      "bytes": 397,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r2/controls.log",
+      "sha256": "65799f9e4ae714628ea023bbc9347e3d9e396426bd2ecfcb0942573aa681c229"
+    },
+    "controls.log.meta": {
+      "bytes": 344,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r2/controls.log.meta",
+      "sha256": "ad9e552f729380aa7074596659ae71943a708a8217ede86de6657904fc8ffe8f"
+    },
+    "stderr.bin": {
+      "bytes": 204,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r2/stderr.bin",
+      "sha256": "f714260584b094857207467c53c0164a65b2e8c3ffc4b48d7f58d083d8b97a59"
+    },
+    "stdout.bin": {
+      "bytes": 2701,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r2/stdout.bin",
+      "sha256": "e9407f0b2493b27a45bcada13745c11f056c282e5a51e946de1d7bd3e362aad2"
+    }
+  },
+  "executionAuthorization": false,
+  "lessons": [
+    "A producer can exit0 and print a success-looking summary while the recorder correctly STOPs on compiler stderr. Never promote the inner summary over actual outer exits and strict stream gates.",
+    "AST parsing on another Python version did not reveal the pinned Python3.14 return-in-finally SyntaxWarning. Use narrowly authorized pinned-source compile checks without executing candidate top-level code.",
+    "Record helper-log warnings separately from producer stderr so attribution does not broaden the fix.",
+    "The measured ESRCH/EPERM/success/reap/ESRCH sequence supports a bounded hypothesis; it does not retrospectively identify the original failure target or complete alarm cause."
+  ],
+  "narrowRawObservation": {
+    "acceptedAsCompleteRoute": false,
+    "actual66101FullAlarmCauseEstablished": false,
+    "afterReap": [
+      "getpgid=ESRCH(3)",
+      "group0=ESRCH(3)",
+      "pid0=ESRCH(3)"
+    ],
+    "boundsSeconds": {
+      "naturalChild": 2,
+      "probeParent": 20,
+      "recorderActive": 25,
+      "recorderChild": 20,
+      "recorderWhole": 30
+    },
+    "durableRegistryBytes": 831,
+    "durableRegistryRecords": 3,
+    "errnoSequenceSupportsProposedExitedUnreapedGroupHypothesis": true,
+    "exactExperimentalRows": 9,
+    "exitNotifiedUnreaped": [
+      "getpgid=ESRCH(3)",
+      "group0=EPERM(1)",
+      "pid0=success"
+    ],
+    "kqueueNotificationBeforeUnreapedRows": true,
+    "liveReady": [
+      "getpgid=20728",
+      "group0=success",
+      "pid0=success"
+    ],
+    "naturalExit": 0,
+    "original10832TargetOrCauseEstablished": false,
+    "ownedNaturalChildPidPgidSid": 20728,
+    "ownedProbeParentPid": 20727,
+    "positiveSignalsInMicroprobe": false,
+    "preciseSzombTransitionOrKernelCauseEstablished": false,
+    "rawElapsedSeconds": 0.007924495002953336,
+    "rawSummaryStatus": "OWNED_EXIT_REAP_PROBE_COMPLETE_UNADOPTED",
+    "reaped": true,
+    "recorderElapsedSeconds": 0.557982145997812,
+    "registryLinkedToRecorderParent": true,
+    "streamCapsSatisfied": true,
+    "summaryCapSatisfied": true,
+    "waitStatus": 0
+  },
+  "newRuntimeOrProcessQueriesByReviewer": false,
+  "postflightRecordedFacts": {
+    "helperProbeParentNaturalChildIds": [
+      20712,
+      20727,
+      20728
+    ],
+    "laneLockRecordedAbsent": true,
+    "numericReuseCaveat": true,
+    "protectedDirectoryMetadataRecordedEqual": true,
+    "rootScopedPidAndPgidZeroChecks": "all six recorded absent at root readback",
+    "scope": "Preserved exact root readback, no new process queries; no global absence or full inventory inference."
+  },
+  "requiredCorrectionBeforeAnotherGrant": "Fresh source derivative moves only probe return outside finally, preserves strict stderr guard/warnings/nine observations/ownership/bounds, and receives exact source review; inherited recorder warning remains unchanged per root scope.",
+  "reviewer": "cleanup_diagnostic_impl",
+  "schema": "1370-a208-owned-zombie-diagnostic-independent-observed-stop/v1",
+  "sessionId": 25659,
+  "sourcePins": {
+    "bytes": 3549,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "63509772d0e50b7849fb4d83cae0c23dc8aa49d0435c3a21b1c42a729dce6dee"
+  },
+  "stopAttribution": {
+    "emptyProducerStderrGuardRetained": true,
+    "inheritedRecorderWarningAlsoObserved": {
+      "attributedToThisStop": false,
+      "line": 242,
+      "message": "SyntaxWarning: 'return' in a 'finally' block",
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/record.py",
+      "stream": "helper combined lane log; outside producer stderr"
+    },
+    "noStaleSummaryAcceptance": true,
+    "probeSourceReturnLine": 117,
+    "producerStderrBytes": 204,
+    "producerStderrExact": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/probe.py:117: SyntaxWarning: 'return' in a 'finally' block\n  return 0 if failure is None else 2\n",
+    "recorderStatus": "STOP_ZERO_PROBE_REPORT_STREAM_CAP_OR_STDERR",
+    "timedOut": false
+  }
+}

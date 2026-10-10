@@ -1,0 +1,31 @@
+{
+  "actualChildExit": 0,
+  "boundsSeconds": {
+    "active": 25,
+    "child": 20,
+    "whole": 30
+  },
+  "childPid": 11840,
+  "configSha256": "f326221e0314c9ba3d881b5eb001f605495527243eb3c81f31fcf4b69640d099",
+  "elapsedSeconds": 0.8587752449966501,
+  "executionAuthorization": false,
+  "game": false,
+  "groupClear": true,
+  "mode": "integration",
+  "ownedPgid": 11840,
+  "pgidConfirmed": true,
+  "sanitizedEnvironment": [
+    "NODE_OPTIONS",
+    "NODE_PATH"
+  ],
+  "schema": "1370-a208-driver-integration-recorder/v1",
+  "sourceOrGameplayAdoption": false,
+  "startupOwnedBeforeExec": true,
+  "status": "PURE_A208_DRIVER_INTEGRATION_CONTROLS_COMPLETE_UNADOPTED",
+  "stderrBytes": 0,
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutBytes": 1179,
+  "stdoutSha256": "baba32695db35637711aa4f0f1e3d9e160f0ea6934c19e1daedc5ff867d18aac",
+  "timedOut": false,
+  "utc": "2026-10-09T23:17:01.581972+00:00"
+}

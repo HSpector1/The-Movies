@@ -1,0 +1,59 @@
+"""Finite exact observational gate. Completion never requires a hypothesis match."""
+import hashlib,json,math,os,pathlib,stat
+REGISTRY=pathlib.Path('/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/OWNED-MICROCHILD.jsonl')
+class ReportStop(ValueError):pass
+def need(ok,reason):
+ if not ok:raise ReportStop('STOP_ZERO_PROBE_REPORT_'+reason)
+def validate(mode,stdout,stderr,owned_pgid):
+ need(mode=='probe','MODE');need(len(stdout)<=16384 and len(stderr)<=65536 and not stderr,'STREAM_CAP_OR_STDERR')
+ need(stdout.endswith(b'\n') and len(stdout.splitlines())==1,'ONE_LINE')
+ def unique(pairs):
+  out={}
+  for key,value in pairs:need(key not in out,'DUPLICATE_KEY');out[key]=value
+  return out
+ def nonfinite(value):raise ReportStop('STOP_ZERO_PROBE_NONFINITE')
+ obj=json.loads(stdout,object_pairs_hook=unique,parse_constant=nonfinite)
+ expected={'schema','status','failure','parentPid','ownedChildPid','ownedPgid','registeredBeforeReady','pgidConfirmed','sessionConfirmed','goSent','exitNotification','ownedRegistry','waitStatus','actualChildExit','reaped','probes','boundsSeconds','elapsedSeconds','uname','positiveSignalsSent','game','causeEstablished','executionAuthorization'}
+ need(type(obj) is dict and set(obj)==expected,'FIELDS')
+ need(obj['schema']=='a208-owned-exit-reap-zero-probe/v2' and obj['status']=='OWNED_EXIT_REAP_PROBE_COMPLETE_UNADOPTED' and obj['failure'] is None,'STATUS')
+ need(type(obj['parentPid']) is int and obj['parentPid']==owned_pgid,'RECORDER_OWNED_PARENT')
+ child=obj['ownedChildPid'];need(type(child) is int and child>1 and child!=owned_pgid and type(obj['ownedPgid']) is int and obj['ownedPgid']==child,'OWNED_CHILD')
+ for key in ('registeredBeforeReady','pgidConfirmed','sessionConfirmed','goSent','reaped'):need(obj[key] is True,key)
+ for key in ('positiveSignalsSent','game','causeEstablished','executionAuthorization'):need(obj[key] is False,key)
+ need(type(obj['actualChildExit']) is int and obj['actualChildExit']==0 and type(obj['waitStatus']) is int and obj['waitStatus']==0,'NATURAL_EXIT_ZERO')
+ need(type(obj['boundsSeconds']) is dict and obj['boundsSeconds']=={'naturalChild':2,'parent':20,'recorderWhole':30} and all(type(v) is int for v in obj['boundsSeconds'].values()),'BOUNDS')
+ need(type(obj['elapsedSeconds']) in (int,float) and math.isfinite(obj['elapsedSeconds']) and 0<=obj['elapsedSeconds']<20,'ELAPSED')
+ ev=obj['exitNotification'];need(type(ev) is dict and set(ev)=={'ident','filter','flags','fflags','data','elapsedSeconds'} and type(ev['ident']) is int and ev['ident']==child and type(ev['data']) is int,'OWNED_EVENT')
+ # Darwin Python constants from the kqueue ABI: EVFILT_PROC=-5, NOTE_EXIT=0x80000000, EV_ERROR=0x4000.
+ need(type(ev['filter']) is int and ev['filter']==-5 and type(ev['fflags']) is int and ev['fflags'] & 0x80000000 and type(ev['flags']) is int and not ev['flags'] & 0x4000,'EXIT_EVENT')
+ rows=obj['probes'];need(type(rows) is list and len(rows)==9,'EXACT_NINE')
+ previous=-1
+ for row,(phase,operation) in zip(rows,[(phase,operation) for phase in ('live_ready','exit_notified_unreaped','after_reap') for operation in ('getpgid','killpg','kill')]):
+  need(type(row) is dict and set(row)=={'phase','operation','target','signal','outcome','value','errno','exception','elapsedSeconds'},'ROW_FIELDS')
+  need(row['phase']==phase and row['operation']==operation and type(row['target']) is int and row['target']==child and (row['signal'] is None if operation=='getpgid' else type(row['signal']) is int and row['signal']==0),'EXACT_TARGET_ROSTER_ZERO')
+  t=row['elapsedSeconds'];need(type(t) in (int,float) and math.isfinite(t) and 0<=t and previous<=t<=obj['elapsedSeconds'],'ROW_TIME');previous=t
+  need(row['outcome'] in ('ok','error'),'OUTCOME')
+  if row['outcome']=='ok':need(row['errno'] is None and row['exception'] is None and (type(row['value']) is int if operation=='getpgid' else row['value'] is None),'OK_RESULT')
+  else:need(type(row['errno']) is int and row['errno']>0 and type(row['exception']) is str and 0<len(row['exception'])<=64 and row['value'] is None,'ERROR_RESULT')
+  if phase=='live_ready':need(row['outcome']=='ok' and (row['value']==child if operation=='getpgid' else True),'LIVE_OWNERSHIP')
+ need(type(ev['elapsedSeconds']) in (int,float) and math.isfinite(ev['elapsedSeconds']) and 0<=ev['elapsedSeconds']<=rows[3]['elapsedSeconds'],'EVENT_PRECEDES_UNREAPED_PROBES')
+ need(type(obj['uname']) is dict and set(obj['uname'])=={'release','version','machine'} and all(type(v) is str and len(v.encode('utf-8'))<=1024 for v in obj['uname'].values()),'UNAME')
+ reg=obj['ownedRegistry'];need(type(reg) is dict and set(reg)=={'path','bytes','sha256','records','beforeGoDurable'} and reg['path']==str(REGISTRY) and type(reg['records']) is int and reg['records']==3 and type(reg['bytes']) is int and 0<reg['bytes']<=4096 and reg['beforeGoDurable'] is True,'REGISTRY_ROLE')
+ st=REGISTRY.lstat();need(REGISTRY.resolve(strict=True)==REGISTRY and stat.S_ISREG(st.st_mode) and st.st_nlink==1 and stat.S_IMODE(st.st_mode)==0o600 and st.st_uid==os.geteuid() and 0<st.st_size<=4096,'REGISTRY_PHYSICAL_CAP')
+ def metadata(st):return (st.st_dev,st.st_ino,st.st_size,st.st_mtime_ns,st.st_ctime_ns,st.st_mode,st.st_nlink,st.st_uid)
+ fd=os.open(REGISTRY,os.O_RDONLY|os.O_NOFOLLOW)
+ try:
+  need(metadata(os.fstat(fd))==metadata(st),'REGISTRY_OPEN_RACE');raw=os.read(fd,4097);need(metadata(os.fstat(fd))==metadata(st) and metadata(REGISTRY.lstat())==metadata(st),'REGISTRY_READ_RACE')
+ finally:os.close(fd)
+ need(len(raw)==reg['bytes']==st.st_size and hashlib.sha256(raw).hexdigest()==reg['sha256'] and raw.endswith(b'\n'),'REGISTRY_EXACT_BYTES')
+ lines=raw.splitlines();need(len(lines)==3 and all(len(line)+1<=1024 for line in lines),'REGISTRY_THREE_CAP')
+ entries=[json.loads(line,object_pairs_hook=unique,parse_constant=nonfinite) for line in lines]
+ previous_registry=-1
+ for entry,phase in zip(entries,('forked','ready','reaped')):
+  need(type(entry) is dict and set(entry)=={'schema','phase','parentPid','pid','pgid','sid','registeredBeforeReady','pgidConfirmed','sessionConfirmed','goSent','reaped','waitStatus','elapsedSeconds'},'REGISTRY_FIELDS')
+  need(entry['schema']=='a208-owned-microchild-registry/v1' and entry['phase']==phase and type(entry['parentPid']) is int and entry['parentPid']==owned_pgid and type(entry['pid']) is int and entry['pid']==child and entry['registeredBeforeReady'] is True,'REGISTRY_OWNED_ROSTER')
+  t=entry['elapsedSeconds'];need(type(t) in (int,float) and math.isfinite(t) and 0<=t and previous_registry<=t<=obj['elapsedSeconds'],'REGISTRY_CLOCK');previous_registry=t
+  if phase=='forked':need(entry['pgid'] is None and entry['sid'] is None and entry['pgidConfirmed'] is False and entry['sessionConfirmed'] is False and entry['goSent'] is False and entry['reaped'] is False and entry['waitStatus'] is None,'REGISTRY_FORKED')
+  if phase=='ready':need(type(entry['pgid']) is int and entry['pgid']==child and type(entry['sid']) is int and entry['sid']==child and entry['pgidConfirmed'] is True and entry['sessionConfirmed'] is True and entry['goSent'] is False and entry['reaped'] is False and entry['waitStatus'] is None and t<=rows[0]['elapsedSeconds'],'REGISTRY_PRE_GO_READY')
+  if phase=='reaped':need(type(entry['pgid']) is int and entry['pgid']==child and type(entry['sid']) is int and entry['sid']==child and entry['pgidConfirmed'] is True and entry['sessionConfirmed'] is True and entry['goSent'] is True and entry['reaped'] is True and type(entry['waitStatus']) is int and entry['waitStatus']==0 and t>=rows[-1]['elapsedSeconds'],'REGISTRY_REAPED')
+ return {'protocol':obj['schema'],'rows':9,'naturalChildExit':0,'observationalOnly':True,'positiveSignalsSent':False,'causeEstablished':False}

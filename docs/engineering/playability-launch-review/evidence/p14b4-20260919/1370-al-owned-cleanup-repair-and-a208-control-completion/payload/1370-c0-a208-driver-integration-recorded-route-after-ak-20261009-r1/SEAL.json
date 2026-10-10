@@ -1,0 +1,16 @@
+{
+  "executionPerformed": false,
+  "readOnlyDirectory": true,
+  "readOnlyFiles": true,
+  "schema": "1370-driver-integration-recorded-readonly-seal/v1",
+  "sourcePins": {
+    "bytes": 6510,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "826f3dfe20387d89467a08945b3928ec160f0124af9c3341a0b21bbaca92f6cf"
+  },
+  "wrapper": {
+    "bytes": 4476,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/launch.py",
+    "sha256": "9040885ebbdd408744a0b4788a857ec3f672e4a9911941ec30ae978814801dca"
+  }
+}

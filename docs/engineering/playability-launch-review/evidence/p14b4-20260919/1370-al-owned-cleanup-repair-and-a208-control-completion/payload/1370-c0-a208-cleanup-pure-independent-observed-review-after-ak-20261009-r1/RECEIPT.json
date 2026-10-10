@@ -1,0 +1,55 @@
+{
+  "schema": "1370-a208-cleanup-pure-independent-observed-review/v1",
+  "decision": "ACCEPT_OBSERVED_PURE_CLEANUP_RED_GREEN",
+  "toolSession": 63410,
+  "actualExits": {"tool": 0, "helper": 0, "recorder": 0, "child": 0},
+  "counts": {"expectedRed": 3, "green": 18, "total": 21},
+  "producerSchema": "a208-independent-owned-cleanup-controls/v1",
+  "producerStatus": "SYNTHETIC_CONTROLS_PASS",
+  "recorderStatus": "PURE_A208_CLEANUP_RED_GREEN_COMPLETE_UNADOPTED",
+  "elapsedSeconds": 0.5886549040005775,
+  "boundsSeconds": {"child": 20, "active": 25, "whole": 30},
+  "streamCapBytes": 65536,
+  "producerSummaryCapBytes": 16384,
+  "bindings": {
+    "sourcePinsSha256": "8099500ec4942bbf25a0fcbb49213a5420017e2c7c4e0c4726059019d7fca795",
+    "configSha256": "215fcae2c6222e9b88628116353f3edbb91219b59dad80b3e25c1eded5b9e181",
+    "filledSourceReviewSha256": "1c651780bf478ae90362067e31c93d212de98b3f581acdab790de848d906c630",
+    "candidateSha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15",
+    "testerSha256": "5acc6a49004a2021e35bc93164754accfce1f8180f40290579c78c60d3dbf328"
+  },
+  "roles": {
+    "actualTool": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-parent-after-ak-20261009-r1/ACTUAL-TOOL.json", "bytes": 533, "sha256": "afe4e43909f370cda837b1721635c1805b5542668103036a7d8e72b6e3fcac83"},
+    "toolOutcome": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-parent-after-ak-20261009-r1/TOOL-OUTCOME.json", "bytes": 1990, "sha256": "f2f6753be5ba339cb8701e14c964c708b14727ef4a6a4cade9084e3a70b57326"},
+    "grant": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-parent-after-ak-20261009-r1/GRANT.json", "bytes": 1446, "sha256": "fa444a53dad55a5a7e266f3bd95d8e71648781ba362fef1d1662c1e9b37a5b9e"},
+    "helperPid": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-parent-after-ak-20261009-r1/HELPER-PID.json", "bytes": 15, "sha256": "e8da5c99d0666902376bd5b6c462de5634d3824266718637718ed96915384d1b"},
+    "result": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-output-after-ak-20261009-r1/RESULT.json", "bytes": 933, "sha256": "9f901209d344c68c40087e5263cb89c57ddde6adbad93fe533a52321bef62fc6"},
+    "stdout": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-output-after-ak-20261009-r1/stdout.bin", "bytes": 1791, "sha256": "260f22be0cf7e5c5529f6d5feac131c62687aa6454448109588511909043a472"},
+    "stderr": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-output-after-ak-20261009-r1/stderr.bin", "bytes": 0, "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    "helperLog": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-lane-after-ak-20261009-r1/controls.log", "bytes": 392, "sha256": "f6530b9477e81a1f1ba3b6d48b7a3539d7141b899a68caa71314543ffc0d0333"},
+    "helperMeta": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-lane-after-ak-20261009-r1/controls.log.meta", "bytes": 336, "sha256": "0044fbc5e8e1332bdf07db30a450f75fa47cc9b2a845646ce485814847bd5ad7"}
+  },
+  "verified": [
+    "Once-only grant binds exact independent review/source pins and unchanged helper argv with waitPID0; meta records start/end exit0 without a wait interval.",
+    "Single1791B JSONline has exact sealed3RED+18GREEN21row order; failure=null and game/realSignals/originalImported=false. No missing GREEN, duplicate case or unexpected RED shape.",
+    "RED group target810001 killpg attempts1/omits17; PID target810001 kill attempts2/omits16; probe target820001 kill attempts15/omits3. All preserve PermissionError errno1.",
+    "Recorder result agrees with tool/helper records: child76842 exit0, ownedPgid76842 confirmed, ownership-before-exec true, groupClear true, timedOut false, elapsed within all bounds.",
+    "Rawstdout/stderr hashes and sizes agree with recorder RESULT and root TOOL-OUTCOME roles; all raw role hashes independently recomputed.",
+    "Recorder SyntaxWarning about return-in-finally is retained in helper log, outside captured producerstderr; no warning is hidden or relabeled as producer error.",
+    "Fresh reviewer kill0 PID and PGID probes for76827/76842 each returned No such process. HEAVY-LANE-LOCK and outputOVERRIDE-STOP.json absent. No whole-machine scan."
+  ],
+  "scopedCleanup": {
+    "helperPid": 76827,
+    "testerPidAndPgid": 76842,
+    "freshReviewerPidAndPgidAbsence": [76827, 76842],
+    "probeSignal": 0,
+    "probeOutcome": "No such process for all four exact PID/PGID probes",
+    "unrecordedProcessAbsenceClaimed": false
+  },
+  "actual17MethodControlsAccepted": false,
+  "game": false,
+  "realEpermTargetHostAndAlarmCauseRemainUnknown": true,
+  "originalPythonFailureRemainsStop": true,
+  "reviewActions": "Read/hash recorded source and finite artifacts, scoped zero-signal probes only; no rerun, import, candidate execution, positive signals, whole scans or Git.",
+  "next": "Root may adopt this qualified pure-control outcome; original seventeen-method diagnostic retry requires its own exact source/route review and separate actual grant."
+}

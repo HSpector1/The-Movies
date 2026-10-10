@@ -1,0 +1,68 @@
+{
+  "confirmedPgid": 27412,
+  "confirmedSid": 27412,
+  "liveProcessQueries": false,
+  "numericReuseCaveat": true,
+  "ownedPid": 27412,
+  "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/OWNED-MICROCHILD.jsonl",
+  "recorderParentLinkVerified": true,
+  "recorderResultRole": {
+    "bytes": 940,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r3/RESULT.json",
+    "sha256": "b1aa6cebc89163e0135ff65a09ac385f2b441092b9e3103a98893b7194f734a7"
+  },
+  "records": [
+    {
+      "elapsedSeconds": 0.0022613100009039044,
+      "goSent": false,
+      "parentPid": 27411,
+      "pgid": null,
+      "pgidConfirmed": false,
+      "phase": "forked",
+      "pid": 27412,
+      "reaped": false,
+      "registeredBeforeReady": true,
+      "schema": "a208-owned-microchild-registry/v1",
+      "sessionConfirmed": false,
+      "sid": null,
+      "waitStatus": null
+    },
+    {
+      "elapsedSeconds": 0.0041541870014043525,
+      "goSent": false,
+      "parentPid": 27411,
+      "pgid": 27412,
+      "pgidConfirmed": true,
+      "phase": "ready",
+      "pid": 27412,
+      "reaped": false,
+      "registeredBeforeReady": true,
+      "schema": "a208-owned-microchild-registry/v1",
+      "sessionConfirmed": true,
+      "sid": 27412,
+      "waitStatus": null
+    },
+    {
+      "elapsedSeconds": 0.007230030998471193,
+      "goSent": true,
+      "parentPid": 27411,
+      "pgid": 27412,
+      "pgidConfirmed": true,
+      "phase": "reaped",
+      "pid": 27412,
+      "reaped": true,
+      "registeredBeforeReady": true,
+      "schema": "a208-owned-microchild-registry/v1",
+      "sessionConfirmed": true,
+      "sid": 27412,
+      "waitStatus": 0
+    }
+  ],
+  "role": {
+    "bytes": 833,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/OWNED-MICROCHILD.jsonl",
+    "sha256": "31fd766bf6c99ae15ec30ee3a9f363b86df1b8e9e03ee370fde9f23ad1788d43"
+  },
+  "schema": "a208-owned-microchild-registry-capture/v1",
+  "status": "REGISTRY_CAPTURED_VALID_PREFIX"
+}

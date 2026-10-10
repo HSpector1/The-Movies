@@ -1,0 +1,82 @@
+{
+  "absentPathsAtFutureGrant": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-lane-after-ak-20261009-r2",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-output-after-ak-20261009-r2"
+  ],
+  "actual17MethodDiagnosticRetry": false,
+  "actualGrantAndReviewOutsideConfig": true,
+  "actualOutcome": null,
+  "addsDriverIntegrationQualificationOnly": true,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-lane-after-ak-20261009-r2/controls.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/record.py",
+    "integration"
+  ],
+  "bounds": {
+    "activeSeconds": 25,
+    "childSeconds": 20,
+    "eachStreamBytes": 65536,
+    "wholeSeconds": 30
+  },
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exactWrapperReview": null,
+  "executionAuthorization": false,
+  "expected": {
+    "exactRows": 12,
+    "expectedGreen": 10,
+    "expectedRed": 2,
+    "greenNames": [
+      "r2-clean-valid-pass",
+      "r2-EPERM-sticky-stop",
+      "r2-prior-STOP-plus-EPERM-preserved",
+      "r2-prior-STOP-alone-preserved",
+      "r2-invalid-method-count-stop",
+      "r2-unclear-owned-state-stop",
+      "r2-late-artifact-rejected",
+      "r2-late-emission-rejected",
+      "r2-hard-deadline-precedes-IO",
+      "r2-fixture-cap-before-IO-rejected"
+    ],
+    "redDetails": [
+      {
+        "branch": "refusal",
+        "exception": "UnboundLocalError",
+        "name": "STOP",
+        "resultWrites": 0,
+        "sourceLine": 185
+      },
+      {
+        "branch": "clean",
+        "exception": "UnboundLocalError",
+        "name": "STOP",
+        "resultWrites": 0,
+        "sourceLine": 187
+      }
+    ],
+    "redNames": [
+      "r1-refusal-unbound-STOP",
+      "r1-clean-unbound-STOP"
+    ],
+    "schema": "a208-independent-driver-integration-controls/v1",
+    "status": "DRIVER_INTEGRATION_CONTROLS_PASS",
+    "testerSummaryBytes": 12288
+  },
+  "game": false,
+  "parentOutput": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-parent-after-ak-20261009-r2",
+  "preservesOriginalPure3Red18GreenPass": true,
+  "rootGrant": null,
+  "rootSourceOnlyReview": null,
+  "schema": "1370-a208-driver-integration-route/v1",
+  "sourceReview": null,
+  "status": "FILLED_SOURCE_ONLY_UNRUN"
+}

@@ -1,0 +1,34 @@
+"""Pure exact JSON producer-report gate; source only until separately reviewed/granted."""
+import json
+CAP=65536
+SUMMARY_CAP=16384
+RED_NAMES=['original-RED-group', 'original-RED-pid', 'original-RED-probe']
+GREEN_NAMES=['owned-seven-four-only', 'group-EPERM-sticky-continue', 'pid-EPERM-sticky-continue', 'probe-EPERM-sticky-continue', 'ESRCH-distinct', 'already-clear-reaped-skip', 'unknown-readiness-stop', 'poll-fault-continue', 'hard-deadline-before-syscall', 'deadline-plus-EPERM-retained', 'reentrant-cleanup-no-duplicate', 'event-cap-does-not-conceal-refusal', 'aggregate-cap-refusal', 'UTF8-event-field-caps', 'writer-EAGAIN-stop-continue', 'writer-ENOSPC-stop-continue', 'writer-clock-deadline-precedence', 'snapshot-fault-stop-continue']
+class ReportStop(ValueError):pass
+def need(ok,why):
+ if not ok:raise ReportStop('STOP_PURE_REPORT_'+why)
+def validate(mode,stdout,stderr,owned_pgid):
+ need(mode=='pure','MODE')
+ need(len(stdout)<=CAP and len(stderr)<=CAP,'STREAM_CAP')
+ need(not stderr,'STDERR')
+ need(len(stdout)<=SUMMARY_CAP and stdout.endswith(b'\n') and len(stdout.splitlines())==1,'ONE_JSON_SUMMARY_CAP')
+ def unique_object(pairs):
+  result={}
+  for key,value in pairs:
+   need(key not in result,'DUPLICATE_JSON_KEY');result[key]=value
+  return result
+ def forbidden_number(value):raise ReportStop('STOP_PURE_REPORT_NONFINITE_JSON')
+ obj=json.loads(stdout,object_pairs_hook=unique_object,parse_constant=forbidden_number)
+ need(type(obj) is dict and set(obj)=={'schema','status','expectedRed','observedExpectedRed','expectedGreen','observedGreen','cases','failure','game','realSignals','originalImported'},'SUMMARY_FIELDS')
+ need(obj['schema']=='a208-independent-owned-cleanup-controls/v1' and obj['status']=='SYNTHETIC_CONTROLS_PASS','STATUS_SCHEMA')
+ for key,value in [('expectedRed',3),('observedExpectedRed',3),('expectedGreen',18),('observedGreen',18)]:
+  need(type(obj[key]) is int and obj[key]==value,'COUNT_'+key)
+ need(obj['failure'] is None and obj['game'] is False and obj['realSignals'] is False and obj['originalImported'] is False,'REFUSAL_OR_SCOPE')
+ rows=obj['cases'];need(type(rows) is list and len(rows)==21,'EXACT21')
+ for row,name in zip(rows[:3],RED_NAMES):
+  need(type(row) is dict and set(row)=={'case','status','detail'} and row['case']==name and row['status']=='EXPECTED_RED','EXACT_RED_ROSTER_STATUS')
+  detail=row['detail'];need(type(detail) is dict and detail.get('expectedEscapedType')=='PermissionError' and type(detail.get('errno')) is int and detail['errno']==1,'RED_REFUSAL_EVIDENCE')
+  need(type(detail.get('attempted')) is int and detail['attempted']>0 and type(detail.get('laterOwnedOmitted')) is int and detail['laterOwnedOmitted']>0,'RED_OMITTED_REMAINDER')
+ for row,name in zip(rows[3:],GREEN_NAMES):
+  need(type(row) is dict and set(row)=={'case','status'} and row['case']==name and row['status']=='GREEN','EXACT_GREEN_ROSTER_STATUS')
+ return {'protocol':'a208-independent-owned-cleanup-controls/v1','expectedRed':3,'expectedGreen':18,'rows':21,'game':False,'realSignals':False}

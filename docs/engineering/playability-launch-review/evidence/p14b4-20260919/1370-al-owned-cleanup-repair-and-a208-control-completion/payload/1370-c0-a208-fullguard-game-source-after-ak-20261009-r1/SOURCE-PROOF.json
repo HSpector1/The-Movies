@@ -1,0 +1,92 @@
+{
+  "acceptedFillAdoptionProcedureReview": {
+    "bytes": 1634,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-independent-procedure-review-20261008-r1/RECEIPT.json",
+    "sha256": "0d0d0358356653a50d05b10fedfdeb2bee9c66939ec4ab03a83521fc42a9e693"
+  },
+  "actualCombinedControlsAdoption": null,
+  "actualPython17ControlsAdoption": null,
+  "adoptedPreflight": null,
+  "allInventorySourceDependencyPrivateBaselineToolBootLockBoundsFieldsUnchanged": true,
+  "candidateBindingDraft": {
+    "bytes": 5675,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/BINDING-DRAFT.json",
+    "sha256": "d08f216653fc9d72c17dbfd9b6e574d1f2d9c098a92ee022a39b6ee3f83ab06a"
+  },
+  "candidateConfig": {
+    "bytes": 3482,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/CONFIG.json",
+    "sha256": "ab8fa1fd2b423054b07a3d2c9a98c196c0a8abe25782593514c04219e2ab7e0e"
+  },
+  "candidateGuard": {
+    "bytes": 21657,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/snapshot.py",
+    "sha256": "f193ab42546c3ddc91d7f22a48ff3234a57b2e7066d638b810e34893ba9d3516"
+  },
+  "candidateImportedOrExecuted": false,
+  "commandTimeoutSecondsUnchanged": 180,
+  "configOnlyChangedFields": [
+    "productionHead",
+    "parentScopeAdoption",
+    "schema",
+    "status",
+    "declaredWitnessScratchChildren"
+  ],
+  "currentAkBaseline": null,
+  "currentAkScopeAdoption": null,
+  "currentFullInventoryFdLockOwnershipPowerDiskHeadSourceRemoteChecksASTExact": true,
+  "currentSourceChanges": [
+    "CONFIG_SHA matches new held config",
+    "Explicit unfilled scope-role check before original admission chain; does not replace any predicate",
+    "Snapshot schema identifier",
+    "Truthful current-AK/M0-FD-only claim label"
+  ],
+  "exactFullSourceByteAndASTInverse": true,
+  "executionAuthorization": false,
+  "externalAdapterNamedSourceAndReviewHashesAuthenticated": true,
+  "externalBindingTemplateFieldSetExact": true,
+  "freshCompletePrivateInventoryRequired": true,
+  "historicalFullGuardAdoption": {
+    "bytes": 6133,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-complete-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad"
+  },
+  "historicalM04711AndE9f482HashesAuthenticatedUnchanged": true,
+  "interpretation": "Historical immutable input roles can be reused; historicalAJproduction/commonmetadata cannot certifyAK. M0 original1677/expanded1740 preservation remains separate accepted history, not an added game prerequisite.",
+  "map": {
+    "bytes": 29352,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-operational-rebind-map-after-ak-20261009-r1/MAP.json",
+    "sha256": "bbed5ed18c09b013c5370cd79e514a4c40d0eed2a8f82d549411ad2d74c95c66"
+  },
+  "newGuardWholeClockInvented": false,
+  "newM0InventoryReadbackGateAdded": false,
+  "observer18NamedSourcesAuthenticatedAndUnchanged": true,
+  "onceOnlyGameGrant": null,
+  "originalParentScopeAdoptionPredicateUnchanged": true,
+  "originalQualifiedGuardReview": {
+    "bytes": 2032,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-operational-full-guard-independent-source-review-20261009-r1/RECEIPT.json",
+    "sha256": "8012fc503c1b11b2c9e8b2fd27d57c2155c277dcd6d1aca4bdde324f44926cd1"
+  },
+  "previousGuardConfig": {
+    "bytes": 3536,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/CONFIG.json",
+    "sha256": "a4b88b0181bf525f6144a71f05bb7d78a17fd46bbfbe88d0e2aea90a89874b4c"
+  },
+  "previousProvenGuard": {
+    "bytes": 21431,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/snapshot.py",
+    "sha256": "cc94f1e8db3c2407d7a337246ed4d5f193334985864e48878e2700524c69cbee"
+  },
+  "protectedRootsScannedOrMutated": false,
+  "publishedAkReadback": {
+    "bytes": 1162,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+    "sha256": "2c2df2e06bc1223262c71ed8f5062d65e348c6965b7f87f9757411ca9b621eaa"
+  },
+  "raw208Or416Observation": null,
+  "runtimeGuardGameControlsGitRematerializationRun": false,
+  "schema": "1370-a208-current-ak-fullguard-game-source-proof/v1",
+  "sourceOnly": true,
+  "unchangedFunctionBodiesOutsideMain": 10
+}

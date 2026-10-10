@@ -1,0 +1,20 @@
+{
+  "schema": "1370-actual-tool-preservation/v1",
+  "sessionId": 86706,
+  "chunks": [
+    {
+      "chunk_id": "42ee3a",
+      "wall_time_seconds": 1.001495602,
+      "session_id": 86706,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "2a520e",
+      "wall_time_seconds": 0.000028055,
+      "exit_code": 0,
+      "original_token_count": 49,
+      "output": "{\"helperPid\": 39758, \"grant\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-parent-after-ak-20261009-r1/GRANT.json\"}\n{\"helperExit\": 0, \"boundedProtectedRootEquality\": true}\n"
+    }
+  ]
+}

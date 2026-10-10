@@ -1,0 +1,24 @@
+{
+  "candidateExecutionPerformed": false,
+  "frozenProductionSrc": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "originalEpermCauseNotRetrofitted": true,
+  "originalFailurePreserved": true,
+  "originalR1SourcePins": {
+    "bytes": 6144,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "ea143dc31e5e87bb0868f501a2c0655c04f670305fe3793713f0cf659c0cc904"
+  },
+  "publishedOperationalHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+  "r1ActualFailureRolesOwnedByParent": true,
+  "r1ReportedDiagnosticCause": "PermissionError during cleanup; exact observed-role adoption belongs to parent",
+  "r1ReportedDiagnosticSlot": 3,
+  "r1ReportedDiagnosticTarget": 94482,
+  "r1ReportedDriverError": "UnboundLocalError: STOP treated as main local variable after adding assignment without global declaration",
+  "r1ReportedFailureToolId": "66101",
+  "r1ReportedMethodsOK": 17,
+  "r1SourcePreserved": true,
+  "runtimeGrant": null,
+  "schema": "1370-owned-cleanup-r2-provenance/v1",
+  "sourcePreparationOnly": true,
+  "utc": "2026-10-09T23:07:26.429708+00:00"
+}

@@ -1,0 +1,28 @@
+{
+  "actualToolExit": 0,
+  "laneLockAbsent": true,
+  "noGlobalProcessDiscovery": true,
+  "schema": "1370-post-pre-reap-owned-readback/v1",
+  "scopedZeroProbes": [
+    {
+      "id": 39758,
+      "kind": "pid",
+      "result": "absent"
+    },
+    {
+      "id": 39758,
+      "kind": "pgid",
+      "result": "absent"
+    },
+    {
+      "id": 39773,
+      "kind": "pid",
+      "result": "absent"
+    },
+    {
+      "id": 39773,
+      "kind": "pgid",
+      "result": "absent"
+    }
+  ]
+}

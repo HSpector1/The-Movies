@@ -1,0 +1,13 @@
+{
+  "actualObservedReceipt": null,
+  "directory": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1",
+  "executionAuthorization": false,
+  "filesExcludingSeal": 7,
+  "schema": "1370-source-only-seal/v1",
+  "sourceOnly": true,
+  "sourcePins": {
+    "bytes": 1842,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "11f69b0e76a0d9b7f363900365c68121e534624c4cf6161431e8488e480c76a0"
+  }
+}

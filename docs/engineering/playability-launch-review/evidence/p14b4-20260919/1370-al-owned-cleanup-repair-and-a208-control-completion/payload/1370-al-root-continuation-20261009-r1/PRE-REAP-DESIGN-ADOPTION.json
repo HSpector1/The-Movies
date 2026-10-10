@@ -1,0 +1,46 @@
+{
+  "actual17MethodRetryAuthorized": false,
+  "basis": "Authenticated nine observations and natural exit0 from actual25659 support source preparation despite the separately attributed producer SyntaxWarning route STOP. This adopts diagnostic information, not successful recorded completion. Corrected microprobe is still separately reviewed/run/admitted before any real seventeen-method retry.",
+  "driverPredecessorSha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07",
+  "executionAuthorization": false,
+  "functionalScope": [
+    "Minimal driver-only reap_completed immediately before existing hard_kill in actual main cleanup entry",
+    "At most seven retained valid owned slots; nonblocking exact REAL_WAIT(pid,WNOHANG) only if unreaped",
+    "Validate exact tuple and int PID/status; live is (0,0); decode completed exact-owned status before state admission; bad results sticky and no substitute target",
+    "For reaped slots use existing cleanup_group_probe True-on-success adapter; only exact ESRCH sets groupClear; live descendants retain existing group kill",
+    "Preserve original owned_cleanup.py bytes, final main reporting-tail AST, observer methods, ownership tracking, alarms, caps and clocks; CleanupDeadline keeps existing124 path",
+    "Independent tests execute actual extracted cleanup-entry order, one expected old-order RED plus twelve meaningful GREEN; no real target signals"
+  ],
+  "futureRetryPrerequisites": [
+    "Corrected microprobe recorded completion independently admitted",
+    "Independent implementation and exact focused route review",
+    "Actual focused RED/GREEN admission",
+    "Exact fresh seventeen-method route and wrapper reviewed",
+    "Separate root once-only runtime grant"
+  ],
+  "game": false,
+  "historicalFailureRepinned": false,
+  "independentDraft": {
+    "bytes": 7351,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-independent-test-design-after-ak-20261009-r1/DRAFT-DESIGN.md",
+    "sha256": "1b7e8561fef70d8f53faba7e231b2fb7bf12615352502e5643edf3682785eb39"
+  },
+  "narrowObservationAdoption": {
+    "bytes": 1276,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/MICROPROBE-STOP-ADOPTION.json",
+    "sha256": "aa836ddbecf9e096e6df7704d3ca2c6a20c332d32cbbec4557af5965d9b78866"
+  },
+  "observedDiagnosticInput": {
+    "bytes": 7477,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-failed-independent-observed-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "ef1a60ff9c6b3f852d6aacba85b8a8433ff22b64132e9bed087059a7400c7a04"
+  },
+  "pureModuleSha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15",
+  "r2IntegrationAdoption": {
+    "bytes": 959,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/INTEGRATION-OBSERVED-ADOPTION.json",
+    "sha256": "2523abaeffe14b085cc29b32ef10bc2636b055caef201a7cbf2c153ef598ba4c"
+  },
+  "schema": "1370-root-pre-reap-design-adoption/v1",
+  "status": "ROOT_ADOPTED_PRE_REAP_SOURCE_AND_FOCUSED_TEST_DESIGN_ONLY"
+}

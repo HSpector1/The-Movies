@@ -1,0 +1,41 @@
+{
+  "allOriginalNonMainFunctionAndClassASTExact": true,
+  "boundsUnchanged": {
+    "activeSeconds": 25,
+    "childSeconds": 20,
+    "eachStreamBytes": 65536,
+    "wholeSeconds": 30
+  },
+  "candidateExecutionPerformed": false,
+  "derivativeRecorder": {
+    "bytes": 14808,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/record.py",
+    "sha256": "2f9466ff115ac526b81641555129ae024962ddd796f9f804e1c615a478822b56"
+  },
+  "mainProducerRoleAndArgvAdaptationOnly": true,
+  "originalRecorder": {
+    "bytes": 14814,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/record.py",
+    "sha256": "4d781e20e47a4e0555839a0aaa5c87984a8b87052051607d5b68eb1460d7f578"
+  },
+  "schema": "1370-driver-integration-recorder-reuse-proof/v1",
+  "unchangedFunctionsAndClasses": [
+    "require",
+    "sha",
+    "write",
+    "metadata",
+    "authenticate",
+    "process_alive",
+    "OwnedChild",
+    "start_owned",
+    "ready_go",
+    "close_startup_fds",
+    "clear",
+    "alarm",
+    "whole_guard",
+    "active_guard",
+    "observed_exit_guard",
+    "child_environment",
+    "finalize_result"
+  ]
+}

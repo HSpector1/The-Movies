@@ -1,0 +1,30 @@
+{
+  "actualPublishedAlHead": null,
+  "actualScopeAuthority": null,
+  "config": {
+    "bytes": 3579,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/CONFIG.json",
+    "sha256": "64628bfc7f2c330a0ec172f8988942ccbbf48033758504b4421dc9a06e4ee259"
+  },
+  "executionAuthorization": false,
+  "fullGuardExecuted": false,
+  "game": false,
+  "guard": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/snapshot.py",
+    "sha256": "d2e0e8707cd59945cf8766ff10d86386312beb3a1e3e2a209f204a6f043c85e8"
+  },
+  "independentReview": {
+    "bytes": 4265,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+    "sha256": "6ac882251048b242341019d35747a8428778aff5b8ea6ccfb196976feb4c1f0f"
+  },
+  "schema": "1370-root-a208-held-scope-source-adoption/v1",
+  "scope": "Truthful A208 status and two current identity/ref comparisons; every original protection helper/predicate remains. Fill actual published AL refs and docs-only transition only from real checkpoint readback, then exact filled review and separate scan grant.",
+  "sourcePins": {
+    "bytes": 4886,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "e7fe2bef4cc0e7ff1695c91b821860e4ec568d543c10dcd3f68205531d155c41"
+  },
+  "status": "ROOT_ADOPTED_SOURCE_ONLY_HELD_A208_OPERATIONAL_SCOPE_AMENDMENT"
+}

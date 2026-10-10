@@ -1,0 +1,128 @@
+{
+  "actual17MethodReceipt": null,
+  "actualFocusedReceipt": null,
+  "candidateConfig": {
+    "bytes": 16232,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/CONFIG.json",
+    "sha256": "f3f64438238090573483f38ec9783a24263665cf9cb993bb35cd7fc07cf9d26c"
+  },
+  "candidateDriver": {
+    "bytes": 13089,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py",
+    "sha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678"
+  },
+  "candidateModule": {
+    "bytes": 9553,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/owned_cleanup.py",
+    "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+  },
+  "candidateSeal": {
+    "bytes": 433,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/SEAL.json",
+    "sha256": "bd861634dfd000e7da6e4e6be5d7db123c7b37e8d32149075a16dc3e6a376fdc"
+  },
+  "candidateSourcePins": {
+    "bytes": 5937,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/SOURCE-PINS.json",
+    "sha256": "2d05274d9f284d424e13594b940612f84b199467d2494a652d0620692e6a8aa0"
+  },
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_A208_PRE_REAP_DRIVER_IMPLEMENTATION",
+  "executionAuthorization": false,
+  "game": false,
+  "historicalHostCauseEstablished": false,
+  "limits": [
+    "Source acceptance is not observed focused or17-method acceptance.",
+    "Malformed wait/probe input refuses; it does not grant substitute PID/group authority.",
+    "Diagnostic capture/cap/emission faults remain independently sticky; no event-growth pass is inferred.",
+    "Exact tool/helper/recorder/driver0 and valid actual summary remain required; a stale diskPASS cannot override failure.",
+    "Inherited registryfsync and existing nonblockingstdout behavior are unchanged."
+  ],
+  "materialDefects": [],
+  "predecessorDriver": {
+    "bytes": 11349,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py",
+    "sha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07"
+  },
+  "preservation": {
+    "all18ObserverRolesAndActualBytesUnchanged": true,
+    "allRecorderFunctionClassASTsExact": 18,
+    "diagnosticCaps": {
+      "aggregateBytes": 65536,
+      "captureFaultIsStickyStop": true,
+      "eventBytes": 2048,
+      "events": 128,
+      "summaryBytes": 98304,
+      "textUtf8Bytes": 192
+    },
+    "driverSeconds": [
+      45,
+      55
+    ],
+    "eachStreamBytes": 1048576,
+    "exactByteAndFullASTInverseRestoresR2": true,
+    "finalMainReportingTailByteExact": true,
+    "fixtureBytes": 8388608,
+    "methodCounts": [
+      3,
+      14
+    ],
+    "moduleAndReportModulesByteExact": true,
+    "node": {
+      "bytes": 115440320,
+      "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+      "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+    },
+    "ownedCounts": [
+      7,
+      4
+    ],
+    "parentSeconds": [
+      60,
+      75,
+      90
+    ],
+    "python": {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    }
+  },
+  "reviewedBehavior": {
+    "actualCleanupEntryOrder": [
+      "PHASE=cleanup",
+      "reap_completed",
+      "hard_kill"
+    ],
+    "boundedRawWaitStatusCapturedBeforeDecode": true,
+    "boundedSevenSlotsFourProbes": true,
+    "deadlineBeforeAndAfterAttemptAndExisting124Path": true,
+    "existingTrueGroupProbeAdapterPreserved": true,
+    "liveDescendantsRetainExistingGroupKill": true,
+    "mainGlobalStopAndFinalAdmissionUnchanged": true,
+    "noNewTimerMaskingBlockingWaitOrPositiveTargets": true,
+    "onlyExactESRCHAdmitsGroupClear": true,
+    "onlyExactZeroZeroRemainsLive": true,
+    "strictTupleTwoExactIntAndMatchingPid": true,
+    "successfulDecodeBeforeReapedStateAdmission": true,
+    "waitAndProbeErrorsStickyAndLaterOwnedSlotsContinue": true,
+    "waitOnlyUnreapedExactRetainedPidWNOHANG": true
+  },
+  "rootDesignAdoption": {
+    "bytes": 3099,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PRE-REAP-DESIGN-ADOPTION.json",
+    "sha256": "3bbbd3967f0d9188dc60d3ad4a22941da460c08f923e9dc38b3f13027659887e"
+  },
+  "schema": "1370-a208-pre-reap-driver-independent-source-review/v1",
+  "sourceRequirementsMet": true,
+  "verification": {
+    "ASTParseOnlyCandidateImports": false,
+    "GitOrProductionMutation": false,
+    "candidateCodeExecuted": false,
+    "configRoleCountAuthenticated": 34,
+    "distinctPhysicalNamedFilesAuthenticated": 52,
+    "fullInventoryPerformed": false,
+    "manifestFilesAuthenticated": 18,
+    "sourceRoleMetadataExcludesAccessTime": true,
+    "testsRun": false
+  }
+}

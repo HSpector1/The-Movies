@@ -1,0 +1,100 @@
+{
+  "actual17MethodRetry": false,
+  "baselineR2Driver": {
+    "bytes": 11349,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py",
+    "sha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07"
+  },
+  "candidateDriver": {
+    "bytes": 13089,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py",
+    "sha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678"
+  },
+  "candidateModule": {
+    "bytes": 9553,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/owned_cleanup.py",
+    "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+  },
+  "config": {
+    "bytes": 8737,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/CONFIG.json",
+    "sha256": "43dd1d9d33e3b29fc1879e3a5ea5251fb03207bf100add9f8b2240f0f06e744e"
+  },
+  "decision": "ACCEPT_SOURCE_ONLY_PRE_REAP_FOCUSED_FILLED_ROUTE_AND_WRAPPER",
+  "executionAuthorization": false,
+  "findings": [],
+  "game": false,
+  "guard": {
+    "bytes": 3075,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/report_guard.py",
+    "sha256": "7cd80acc71caca0acee009e15c2a0c90701d19be010627dcb20e2bfa94785b1c"
+  },
+  "limits": [
+    "No controls, driver/helper imports, process/timer/signal operations or route execution performed by this review.",
+    "This source receipt permits root to consider one focused pure-control grant; it is not observed acceptance.",
+    "Complete actual tool/helper/recorder/child0 and strict producer result remain required. Stale artifacts never override nonzero route.",
+    "Actual17method diagnostic retry and game are separate and ungranted by this receipt."
+  ],
+  "recorder": {
+    "bytes": 14963,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/record.py",
+    "sha256": "08d9656507bd9a9b15dbf8a79c3ec7dda515ccacdbbfc6eaba782484db2e6796"
+  },
+  "reviewScope": "Independent operational route/wrapper source review. This reviewer authored the tester; this is not a claim of independent test authorship. Root separately reviews tester source.",
+  "schema": "1370-a208-pre-reap-focused-route-review/v1",
+  "sourcePins": {
+    "bytes": 2824,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "8eb02a720ae08466ea36ba6fb3b53d997588ab663c314f4d140cdc9bff4c541c"
+  },
+  "sourcePinsSha256": "8eb02a720ae08466ea36ba6fb3b53d997588ab663c314f4d140cdc9bff4c541c",
+  "tester": {
+    "bytes": 20888,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-independent-controls-after-ak-20261009-r1/controls.py",
+    "sha256": "fc835a82b2071b64840711e3fb5a334e3dc25ba531ef2d67ce041aff40c4ea68"
+  },
+  "verified": {
+    "actualChildZeroAndValidSummaryRequired": true,
+    "actualTesterCLI": "Pinned Python -I -B tester candidateDrivePath candidateSHA modulePath moduleSHA baselineR2DrivePath baselineSHA",
+    "all17NonMainRecorderHelpersASTExactPriorIntegration": true,
+    "boundsSeconds": [
+      20,
+      25,
+      30
+    ],
+    "configAndRouteProtocolEqualTesterDesign": true,
+    "configSourceRolesAuthenticated": 13,
+    "currentOperationalRefs": {
+      "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+      "productionHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+      "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+    },
+    "eachStreamBytes": 65536,
+    "exactRows": 13,
+    "expectedGreen": 12,
+    "expectedRed": 1,
+    "freshPathsAbsentAtReview": [
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-parent-after-ak-20261009-r1",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-lane-after-ak-20261009-r1",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-output-after-ak-20261009-r1"
+    ],
+    "guardRequiredValuesAndRosterLiteralExact": true,
+    "knownInheritedRecorderHelperLogWarningUnchanged": true,
+    "manifestFileRolesAuthenticated": 9,
+    "ownedBeforeExecReadyGoAndScopedCleanupRetained": true,
+    "parentChecksPublishedCurrentAKAndOrdinaryRefsBeforeGrant": true,
+    "parentOnceOnlyFreshPaths": true,
+    "parentRequiresExactExternalReceiptWrapperRolePins": true,
+    "protectedRootCount": 8,
+    "protection": "Bounded directory metadata before/after, no inventory or continuity claim.",
+    "recorderDelta": "Only focused mode/config/output/status and authentication/argv include exact candidate module and baseline roles.",
+    "roleRaceMetadataExcludesAccessTime": true,
+    "strictGate": "One UTF8 JSON object/newline<=12289 bytes, stderr0, exact17 fields, duplicate/nonfinite rejection, typed counts/booleans, SHA roles/null failure and ordered13 exact name/status rows.",
+    "wrapperAndGuardCompiledOnlyWarningsAsErrors": true
+  },
+  "wrapper": {
+    "bytes": 4719,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/launch.py",
+    "sha256": "3e14257fb9c6d363c80a4ae4c0f3020253c74d21897cbea17e7f71ec2c38defb"
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "acceptedRoles": {
+    "actualTool": {
+      "bytes": 614,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-parent-after-ak-20261009-r1/ACTUAL-TOOL.json",
+      "sha256": "184cca34af83ed5dc41c2b3668890201702dda26f670457c1cf2b54ee1569fd9"
+    },
+    "boundedProtection": {
+      "bytes": 3256,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-parent-after-ak-20261009-r1/PROTECTION-AFTER.json",
+      "sha256": "7be950d3ab9fe836ea80ac3bcee2e551d1e017b2dd7fda87d257f43ef69e31e4"
+    },
+    "grant": {
+      "bytes": 3181,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-parent-after-ak-20261009-r1/GRANT.json",
+      "sha256": "f7d5e4dad5209188d261ebf997b10049ea11cb3e4157c8bce69b6b6a0740c64e"
+    },
+    "helperPid": {
+      "bytes": 15,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-parent-after-ak-20261009-r1/HELPER-PID.json",
+      "sha256": "dcf9f8a9aeeee99deda4588e1dee33e0a617cba4425c0b7cb778e324d190a1cf"
+    },
+    "lane": {
+      "bytes": 396,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-lane-after-ak-20261009-r1/controls.log",
+      "sha256": "703434cce30b24c9c62b4f643e5e344a8d96a238bee9227457de6aeab4e90353"
+    },
+    "laneMeta": {
+      "bytes": 342,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-lane-after-ak-20261009-r1/controls.log.meta",
+      "sha256": "b6f99b4278df372003d63fc990dfc040c020cfdd27a3b50a02513d6c7a9ff05b"
+    },
+    "postOwnership": {
+      "bytes": 482,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-parent-after-ak-20261009-r1/POST-OWNERSHIP.json",
+      "sha256": "49fbe1a7f1505cbf978f427049481388ccd87f9bd9824ca5e1377b9da5d4d9ba"
+    },
+    "result": {
+      "bytes": 939,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-output-after-ak-20261009-r1/RESULT.json",
+      "sha256": "312cfe670ead7b95187621b41e74f32e59c2af25b55728c073c95c384ddb3743"
+    },
+    "stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-output-after-ak-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 1408,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-output-after-ak-20261009-r1/stdout.bin",
+      "sha256": "74b6dbcc35857fd84d97127fda1b1ee55d02f9ab034b0896176047e2d01aa144"
+    }
+  },
+  "actual17MethodControlsAccepted": false,
+  "actualExits": {
+    "child": 0,
+    "helper": 0,
+    "recorder": 0,
+    "tool": 0
+  },
+  "actualToolSession": 86706,
+  "boundedEightDirectoryMetadataEqual": true,
+  "candidateDriver": {
+    "bytes": 13089,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py",
+    "sha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678"
+  },
+  "candidateModule": {
+    "bytes": 9553,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/owned_cleanup.py",
+    "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+  },
+  "counts": {
+    "expectedRed": 1,
+    "green": 12,
+    "total": 13
+  },
+  "elapsedSeconds": 0.6656049059965881,
+  "fullInventoryPerformed": false,
+  "game": false,
+  "implementationSourceAdoption": {
+    "bytes": 2933,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PRE-REAP-IMPLEMENTATION-ADOPTION.json",
+    "sha256": "779242c3965b1c1e949d0a87927412f6b475f849618abeb29f299eb5d35a3e71"
+  },
+  "independentReview": {
+    "bytes": 8334,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-independent-observed-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "720c63bcd8872c0a24e54ce3e732ed0b317d6b56d2f47a5461f6bd3ee07440fd"
+  },
+  "ownedIdsAbsent": [
+    39758,
+    39773
+  ],
+  "previousModuleAndReportingTailAdmissionsPreserved": true,
+  "productionSourceMutation": false,
+  "runtimeRetryAuthorized": false,
+  "schema": "1370-root-pre-reap-focused-observed-adoption/v1",
+  "status": "ROOT_ADOPTED_OBSERVED_PRE_REAP_FOCUSED_RED_GREEN",
+  "tester": {
+    "bytes": 20888,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-independent-controls-after-ak-20261009-r1/controls.py",
+    "sha256": "fc835a82b2071b64840711e3fb5a334e3dc25ba531ef2d67ce041aff40c4ea68"
+  }
+}

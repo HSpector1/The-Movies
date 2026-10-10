@@ -1,0 +1,80 @@
+{
+  "actualExecutionGranted": false,
+  "actualGrantAndReviewOutsideConfig": true,
+  "actualObservedReceipt": null,
+  "bounds": {
+    "activeSeconds": 25,
+    "childSeconds": 20,
+    "eachStreamBytes": 65536,
+    "naturalChildSeconds": 2,
+    "summaryBytes": 16384,
+    "wholeSeconds": 30
+  },
+  "currentOperationalRefs": {
+    "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "productionHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+  },
+  "directRecorderInvocationGranted": false,
+  "executionAuthorization": false,
+  "futureLaneBase": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r3",
+  "futureOutput": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r3",
+  "ownedRegistry": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/OWNED-MICROCHILD.jsonl",
+  "probe": {
+    "bytes": 8484,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/probe.py",
+    "sha256": "cd062ee7a9a846a25591cff23ad02b48cc2b40406cccbcb3b5155435829800cd"
+  },
+  "protectedRoots": [
+    "/Users/zacheryspector/The-Movies-headless-program",
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git",
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git/objects",
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2"
+  ],
+  "protectionScope": "Bounded physical directory identity/mode/mtime/ctime before and after; no inventory, content scan or continuity claim across docs publication",
+  "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+  "pythonSha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835",
+  "roles": {
+    "helper": {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "originalMicroproposalSourcePins": {
+      "bytes": 1842,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/SOURCE-PINS.json",
+      "sha256": "11f69b0e76a0d9b7f363900365c68121e534624c4cf6161431e8488e480c76a0"
+    },
+    "python": {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "reportGuard": {
+      "bytes": 7760,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/report_guard.py",
+      "sha256": "f0eab0e8453a3f27ec0049e3b18d2f149c45a15825c273de899daf9f74f4f388"
+    }
+  },
+  "rootSourceOnlyReview": null,
+  "runtimeGrant": null,
+  "schema": "1370-a208-owned-zombie-zero-probe-filled-config-v1",
+  "scope": {
+    "game": false,
+    "getpgidProbes": 3,
+    "historicalCauseEstablished": false,
+    "ownedNaturalChild": 1,
+    "positiveSignalsInMicroprobe": false,
+    "zeroSignalProbes": 6
+  },
+  "status": "FILLED_SOURCE_ONLY_UNRUN",
+  "unameFields": [
+    "release",
+    "version",
+    "machine"
+  ]
+}

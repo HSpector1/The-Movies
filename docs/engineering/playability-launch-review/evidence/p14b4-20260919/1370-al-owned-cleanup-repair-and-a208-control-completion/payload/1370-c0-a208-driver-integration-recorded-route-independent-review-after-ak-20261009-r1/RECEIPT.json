@@ -1,0 +1,29 @@
+{
+  "schema": "1370-driver-integration-recorded-route-independent-source-review/v1",
+  "decision": "ACCEPT_SOURCE_ONLY_DRIVER_INTEGRATION_FILLED_ROUTE_AND_WRAPPER",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "sourcePinsSha256": "826f3dfe20387d89467a08945b3928ec160f0124af9c3341a0b21bbaca92f6cf",
+  "sourcePins": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/SOURCE-PINS.json", "bytes": 6510, "sha256": "826f3dfe20387d89467a08945b3928ec160f0124af9c3341a0b21bbaca92f6cf"},
+  "wrapper": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/launch.py", "bytes": 4476, "sha256": "9040885ebbdd408744a0b4788a857ec3f672e4a9911941ec30ae978814801dca"},
+  "candidateDriverSha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07",
+  "testerSha256": "532259092bcad48c073282e22e55332d02c1de8f082d9173f4ed817a85c1af0f",
+  "configSha256": "f326221e0314c9ba3d881b5eb001f605495527243eb3c81f31fcf4b69640d099",
+  "guardSha256": "b32ece6f1765cf395ee0ea83c6f10c4df47480a7c0d4e919b05688b414333f0b",
+  "recorderSha256": "2f9466ff115ac526b81641555129ae024962ddd796f9f804e1c615a478822b56",
+  "expectedCounts": {"originalExpectedRed": 2, "candidateGreen": 10, "total": 12},
+  "checks": [
+    "All twenty pinned file roles and six CONFIG roles plus separate candidate/tester roles match physical singleton-file hashes/sizes; SOURCE-PINS and wrapper match announced seal.",
+    "R2 is exactly failed r1 plus STOP in main global declaration, with no other bytes changed. Tester authenticates both source roles and executes only actual-global/actual-tail AST with injected state/clock/I/O.",
+    "Strict guard and tester/config/route RED/GREEN names agree exactly; guard requires sourceLines185/187, zero writes, exact2RED10GREEN12rows and scopeflags, rejects duplicate/nonfinite/extra JSON, wrong counts/types/order and stderr.",
+    "All seventeen non-main recorder functions/classes retain exact original pure-recorder ASTs, including ownership-before-exec,READY/GO,cleanup and finalization. Changed main authenticates exact driver/tester and four-argument CLI; no driver top-level import or module-control rerun.",
+    "Recorder child20/active25/whole30,64KiBstreams,12KiBsummary retained. Actual child0 plus complete exact report, cleanup/clock/rawwrite/finalization gates required; stale artifact cannot override nonzero/override.",
+    "Wrapper requires exact external source receipt/self/pins; authenticates declared roles, current AK/src/clean/origin/advertisedrefs, AC/free space and sole-lane absence before exclusive fresh parent/lane/output and one waitPID0 helper.",
+    "RuntimeGrant/sourceReview remain null under explicit outside-config grant contract. Parent actual grant is created before helper; no direct recorder invocation or real17method retry is granted by source preparation.",
+    "All eight declared protection roots are physical directories; wrapper compares dev/inode/mode/mtime/ctime before/after helper, with drift refusing exit. This is bounded metadata only, not full inventory or publication-spanning continuity.",
+    "Fresh r2 parent/lane/output and HEAVY-LANE-LOCK absent during review; wrapper rechecks at actual grant. Earlier pure-module pass and both failed actual diagnostics remain preserved."
+  ],
+  "findings": [],
+  "scope": "Source-only integration qualification; separately granted finite actual execution and independent outcome review required. No original seventeen-method diagnostic retry, game/pricing/renewal authority or real EPERM/alarm attribution.",
+  "reviewMethod": "Complete relevant source/diff review plus declared finite hash/size/AST/JSON comparisons and eight fixed directory metadata reads; no candidate/control execution, driver import, Git, process probes or whole scans."
+}

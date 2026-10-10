@@ -1,0 +1,39 @@
+{
+  "actualGrant": null,
+  "candidateTestOrWrapperExecutionPerformed": false,
+  "exactProducerRows": 12,
+  "expectedGreen": 10,
+  "expectedRed": 2,
+  "freshR2NamedOutputs": true,
+  "independentTestDesignReceipt": {
+    "bytes": 2790,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-independent-red-design-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "d24b538b94cd8f755538bf05d36b2ed5c917372f8e82797724c8e2cdd60d3412"
+  },
+  "noFullInventoryPerformed": true,
+  "originalPureResultsPreserved": true,
+  "originalPureSourcePins": {
+    "bytes": 1933,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "8099500ec4942bbf25a0fcbb49213a5420017e2c7c4e0c4726059019d7fca795"
+  },
+  "r1Driver": {
+    "bytes": 11344,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/drive.py",
+    "sha256": "0a4934e66eb748d7f2912373bd6896b21e80a867fad4a1e72b9f2a7647345369"
+  },
+  "r2Driver": {
+    "bytes": 11349,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py",
+    "sha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07"
+  },
+  "rootSourceOnlyReview": null,
+  "schema": "1370-driver-integration-recorded-provenance/v1",
+  "sourcePreparationOnly": true,
+  "tester": {
+    "bytes": 13900,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-independent-red-design-after-ak-20261009-r1/controls.py",
+    "sha256": "532259092bcad48c073282e22e55332d02c1de8f082d9173f4ed817a85c1af0f"
+  },
+  "utc": "2026-10-09T23:12:09.993584+00:00"
+}

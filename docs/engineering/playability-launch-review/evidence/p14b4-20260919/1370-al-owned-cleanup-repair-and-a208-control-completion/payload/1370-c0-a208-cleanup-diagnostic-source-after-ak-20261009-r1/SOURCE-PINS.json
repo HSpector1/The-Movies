@@ -1,0 +1,141 @@
+{
+  "candidateImportsPerformed": false,
+  "diagnosticAggregateBytes": 65536,
+  "diagnosticEventBytes": 2048,
+  "diagnosticEventCap": 128,
+  "diagnosticTextUtf8Bytes": 192,
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "files": {
+    "CONFIG.json": {
+      "bytes": 15952,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/CONFIG.json",
+      "sha256": "a78a8d441009e2c6c9568257e7fe30b4914ef9b17136ae3e09c8cecba9613808"
+    },
+    "CONFIG.json.diff": {
+      "bytes": 5542,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/CONFIG.json.diff",
+      "sha256": "f9445ee20988e1c24edbbfe56d24967f4babecb51b38bbdd3305df78e61b4035"
+    },
+    "CONFIG.json.inverse.diff": {
+      "bytes": 5542,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/CONFIG.json.inverse.diff",
+      "sha256": "bb1967af52b3218a5d5e91d5e504552f32fc41b095206e3ce2ec92e10aa6034c"
+    },
+    "INVERSE-AND-ROLE-PROOF.json": {
+      "bytes": 22444,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/INVERSE-AND-ROLE-PROOF.json",
+      "sha256": "2458fddb8c22873f0b9fc7f87eb95b25bbc9653c76dab407c14126aefdfde837"
+    },
+    "LESSONS.md": {
+      "bytes": 1417,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/LESSONS.md",
+      "sha256": "489737078a613df5fbcba5461625fca192c6beeb71a1b27c132384db7e69443d"
+    },
+    "PROVENANCE.json": {
+      "bytes": 1156,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/PROVENANCE.json",
+      "sha256": "e92d16faa96f83bcf7c614e57c613bf415f24dfc298fac174c41461be20d8bc4"
+    },
+    "ROUTE.json": {
+      "bytes": 3787,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/ROUTE.json",
+      "sha256": "75a38c7de3d0253cc3bd4e76e47ca4d1dcf9286c56d119f118f54b13ec66d070"
+    },
+    "ROUTE.json.diff": {
+      "bytes": 5090,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/ROUTE.json.diff",
+      "sha256": "16722f3cc19344cbe24bb3f519543bc2c029b3907a6ad2b00839dfe650532e8a"
+    },
+    "ROUTE.json.inverse.diff": {
+      "bytes": 5090,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/ROUTE.json.inverse.diff",
+      "sha256": "90809626c361d3f231721c6a42a01feeeb242f463667ea153bf84f9f41dbb577"
+    },
+    "drive.py": {
+      "bytes": 11344,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/drive.py",
+      "sha256": "0a4934e66eb748d7f2912373bd6896b21e80a867fad4a1e72b9f2a7647345369"
+    },
+    "drive.py.diff": {
+      "bytes": 9838,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/drive.py.diff",
+      "sha256": "c14f2b3630ce1fb0dfba65a8a7ecfaa530f1e4cecb39461ebc9a25e4095a4ea8"
+    },
+    "drive.py.inverse.diff": {
+      "bytes": 9838,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/drive.py.inverse.diff",
+      "sha256": "6ee1ed911f0af8b5b234a159a016b806dbd9ca3427bf39c10bb99b2daded7340"
+    },
+    "owned_cleanup.py": {
+      "bytes": 9553,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/owned_cleanup.py",
+      "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+    },
+    "record.py": {
+      "bytes": 14482,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/record.py",
+      "sha256": "6a875fa9c04f2908eb0d7da25aafcc44e0e6e75c1a4a71306724bcfef64eb30b"
+    },
+    "record.py.diff": {
+      "bytes": 949,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/record.py.diff",
+      "sha256": "72be1041eefbfff4aeb6ca93752f6a96d77b0c2185dfc21686447c03ddc1eaeb"
+    },
+    "record.py.inverse.diff": {
+      "bytes": 949,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/record.py.inverse.diff",
+      "sha256": "0a27b87dab5d9fe48de7fadc5495c570896d0776cba13fe15fa6b26343f06a8e"
+    },
+    "report_guard.py": {
+      "bytes": 3203,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/report_guard.py",
+      "sha256": "bc7b714c9335e159fe292e8cb121db47d7f9dae3265ba9309fe44437a864b031"
+    },
+    "schema.md": {
+      "bytes": 4878,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/schema.md",
+      "sha256": "b07b2e883ce11cf23b688e9501d1a478558263205dfdcfecc7c7a688d17cf80c"
+    },
+    "test_reports.py": {
+      "bytes": 2924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/test_reports.py",
+      "sha256": "4c6379ee5d97b16700c9d4e8a205abc6f1580ac05f706296d8833fe2fd667ac8"
+    }
+  },
+  "game": false,
+  "originalEpermTargetHostCauseAlarmRelationRemainUnknown": true,
+  "originalObserverRolesCount": 18,
+  "runtimeGrant": null,
+  "schema": "1370-owned-cleanup-diagnostic-source-pins/v1",
+  "sourcePreparationAuthorized": true,
+  "staleArtifactRequiresActualExit0AndAllParentPredicates": true,
+  "staticParsedPython": [
+    "drive.py",
+    "owned_cleanup.py",
+    "record.py",
+    "report_guard.py",
+    "test_reports.py"
+  ],
+  "status": "SEALED_SOURCE_PREPARATION_ONLY_HELD_UNRUN",
+  "unchangedDriverSeconds": [
+    45,
+    55
+  ],
+  "unchangedFixtureBytes": 8388608,
+  "unchangedMethodCounts": [
+    3,
+    14
+  ],
+  "unchangedOwnedCounts": [
+    7,
+    4
+  ],
+  "unchangedParentSeconds": [
+    60,
+    75,
+    90
+  ],
+  "unchangedStreamBytes": 1048576,
+  "utc": "2026-10-09T22:54:58.951454+00:00"
+}

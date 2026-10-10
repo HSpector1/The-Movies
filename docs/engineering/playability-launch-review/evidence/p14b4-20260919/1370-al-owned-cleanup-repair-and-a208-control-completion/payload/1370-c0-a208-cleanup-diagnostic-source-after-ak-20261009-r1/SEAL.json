@@ -1,0 +1,13 @@
+{
+  "executionPerformed": false,
+  "readOnlyDirectory": true,
+  "readOnlyFiles": true,
+  "schema": "1370-owned-cleanup-source-seal/v1",
+  "sealIncludesSelf": false,
+  "sourceOnly": true,
+  "sourcePins": {
+    "bytes": 6144,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "ea143dc31e5e87bb0868f501a2c0655c04f670305fe3793713f0cf659c0cc904"
+  }
+}

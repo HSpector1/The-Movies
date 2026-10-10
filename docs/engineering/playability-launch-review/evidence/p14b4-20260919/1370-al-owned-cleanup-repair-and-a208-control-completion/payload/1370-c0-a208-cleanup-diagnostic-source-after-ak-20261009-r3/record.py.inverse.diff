@@ -1,0 +1,13 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/record.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/record.py
+@@ -2,8 +2,8 @@
+ late exit/active checks and sanitized Node environment; no game or Save imports."""
+ import datetime,hashlib,importlib.util,json,os,pathlib,selectors,select,signal,stat,sys,time
+ HERE=pathlib.Path(__file__).resolve().parent;SCRATCH=pathlib.Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='f3f64438238090573483f38ec9783a24263665cf9cb993bb35cd7fc07cf9d26c';CAP=1024**2;CHILD=60;ACTIVE=75;WHOLE=90
+-OUTPUTS={mode:SCRATCH/('1370-c0-a208-controls-'+mode+'-cleanup-diagnostic-output-after-ak-20261009-r3') for mode in ('python',)}
++CONFIG_SHA='25bb16221880ad6f2e85be0711cf9da980b03ca84d37f8dde82b4457c5495c62';CAP=1024**2;CHILD=60;ACTIVE=75;WHOLE=90
++OUTPUTS={mode:SCRATCH/('1370-c0-a208-controls-'+mode+'-cleanup-diagnostic-output-after-ak-20261009-r2') for mode in ('python',)}
+ def require(v,m):
+  if not v:raise RuntimeError('STOP_'+m)
+ def sha(b):return hashlib.sha256(b).hexdigest()

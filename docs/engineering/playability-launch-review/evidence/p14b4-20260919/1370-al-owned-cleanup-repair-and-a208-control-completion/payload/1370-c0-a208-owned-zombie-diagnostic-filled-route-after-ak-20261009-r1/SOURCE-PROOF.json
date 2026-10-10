@@ -1,0 +1,76 @@
+{
+  "actualObservedReceipt": null,
+  "executionPerformed": false,
+  "historicalTargetAndCauseUnknown": true,
+  "integrationWrapperTemplate": {
+    "bytes": 4476,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/launch.py",
+    "sha256": "9040885ebbdd408744a0b4788a857ec3f672e4a9911941ec30ae978814801dca"
+  },
+  "intentionalGuardChanges": [
+    "integer PID/PGID/kqueuefields andbounds",
+    "exact registrypath/hash/size/mode/nlink/uid andstable metadata excludingatime",
+    "exactthree registryphases andfields correlated withrecorderownedparentPID/finalsummary",
+    "still exactnine observationalrows; EPERMnotrequired"
+  ],
+  "intentionalProbeChanges": [
+    "exact registryargv path",
+    "O_EXCL0600 numeric fork identity fsynced before READY processing",
+    "verified PGID/SID record fsynced before GO",
+    "post-reap bounded third registryrecord",
+    "total registry4096B/record1024B cap",
+    "SIGALRMunmask before childsetsid so2s childselfdeadline stays armed",
+    "summaryschema v2 exact registry role",
+    "uname onlyrelease/version/machine"
+  ],
+  "intentionalWrapperChanges": [
+    "sameintegrationpattern onceonlyparentdir/grant+externalexactreview receipt",
+    "microprobe exactrole/config/sourcepins/argv andfreshpaths",
+    "boundedregistrycapture onhelperSTOP orsuccess; noaddedliveprocesssyscalls",
+    "noatime sourceauth comparison; physical metadata andhashchecks retained"
+  ],
+  "originalProposalPins": {
+    "bytes": 1842,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "11f69b0e76a0d9b7f363900365c68121e534624c4cf6161431e8488e480c76a0"
+  },
+  "recorderAST": {
+    "changedOnly": [
+      "main"
+    ],
+    "equalFunctionOrClassCountOutsideMain": 17,
+    "equalNames": [
+      "require",
+      "sha",
+      "write",
+      "metadata",
+      "authenticate",
+      "process_alive",
+      "OwnedChild",
+      "start_owned",
+      "ready_go",
+      "close_startup_fds",
+      "clear",
+      "alarm",
+      "whole_guard",
+      "active_guard",
+      "observed_exit_guard",
+      "child_environment",
+      "finalize_result"
+    ],
+    "sameDefinitions": true
+  },
+  "runtimeGrant": null,
+  "schema": "1370-a208-owned-zombie-filled-route-finite-source-proof/v1",
+  "sourceOnly": true,
+  "sourceReviewReceipt": null,
+  "unchangedBounds": {
+    "eachStreamBytes": 65536,
+    "naturalChild": 2,
+    "parent": 20,
+    "producerSummaryBytes": 16384,
+    "recorderActive": 25,
+    "recorderChild": 20,
+    "recorderWhole": 30
+  }
+}

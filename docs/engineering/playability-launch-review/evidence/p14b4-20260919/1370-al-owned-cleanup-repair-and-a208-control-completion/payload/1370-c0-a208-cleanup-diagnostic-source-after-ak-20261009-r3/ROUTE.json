@@ -1,0 +1,106 @@
+{
+  "actual17MethodReceipt": null,
+  "actualFocusedControlsReceipt": null,
+  "actualRuntimeGrant": null,
+  "candidateDriver": {
+    "bytes": 13089,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py",
+    "sha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678"
+  },
+  "correctedMicroprobeObservedAdmission": {
+    "bytes": 6556,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-independent-observed-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "f0272fa01d30498fcaa612814d1dc30a0e00fe8760b9388aca59767ce5fcb991"
+  },
+  "executionAuthorization": false,
+  "focusedControls": {
+    "argvShape": [
+      "PINNED_PYTHON",
+      "-I",
+      "-B",
+      "INDEPENDENT_CONTROLS_PATH",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py",
+      "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/owned_cleanup.py",
+      "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py",
+      "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07"
+    ],
+    "candidateTopLevelImported": false,
+    "eachStreamBytes": 65536,
+    "expectedGreen": 12,
+    "expectedRed": 1,
+    "expectedRows": 13,
+    "independentAuthor": "cleanup_independent_red",
+    "parentSeconds": [
+      20,
+      25,
+      30
+    ],
+    "path": null,
+    "realSignals": false,
+    "sha256": null
+  },
+  "game": false,
+  "heldRealPythonRoute": {
+    "argv": [
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-cleanup-diagnostic-lane-after-ak-20261009-r3/controls.log",
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/record.py",
+      "python"
+    ],
+    "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3",
+    "driverSeconds": [
+      45,
+      55
+    ],
+    "eachStreamBytes": 1048576,
+    "fixture": "/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-cleanup-diagnostic-fixture-after-ak-20261009-r3",
+    "fixtureBytes": 8388608,
+    "methodCounts": [
+      3,
+      14
+    ],
+    "output": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-cleanup-diagnostic-output-after-ak-20261009-r3",
+    "ownedCounts": [
+      7,
+      4
+    ],
+    "parentSeconds": [
+      60,
+      75,
+      90
+    ],
+    "runtimeFillRequired": true
+  },
+  "historicalFailuresPreserved": true,
+  "predecessorSourcePins": {
+    "bytes": 6303,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/SOURCE-PINS.json",
+    "sha256": "49723b2fc9d77a1b87d6aba650f750dabae79d8c2506019139c803fe3f4e1f3f"
+  },
+  "prerequisites": [
+    "Independent exact driver implementation and focused recorded route review",
+    "Actual independently admitted one RED plus twelve GREEN controls",
+    "Exact fresh runtime-filled seventeen-method route and wrapper review",
+    "Separate root once-only real diagnostic grant"
+  ],
+  "pureModule": {
+    "bytes": 9553,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/owned_cleanup.py",
+    "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+  },
+  "schema": "1370-a208-pre-reap-held-route/v1",
+  "sourcePreparationDesignAdoption": {
+    "bytes": 3099,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PRE-REAP-DESIGN-ADOPTION.json",
+    "sha256": "3bbbd3967f0d9188dc60d3ad4a22941da460c08f923e9dc38b3f13027659887e"
+  },
+  "sourceReview": null,
+  "status": "HELD_SOURCE_ONLY_PRE_REAP_UNRUN"
+}

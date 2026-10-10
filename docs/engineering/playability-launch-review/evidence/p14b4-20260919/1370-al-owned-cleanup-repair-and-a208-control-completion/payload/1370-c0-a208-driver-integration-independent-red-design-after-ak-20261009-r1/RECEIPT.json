@@ -1,0 +1,20 @@
+{
+  "schema": "1370-a208-driver-integration-independent-red-design/v1",
+  "status": "AUTHORED_SOURCE_ONLY_UNRUN",
+  "executionAuthorization": false,
+  "controlsExecuted": false,
+  "driverTopLevelImported": false,
+  "actualProcessesSignalsTimersFilesCreatedByControls": false,
+  "controls": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-independent-red-design-after-ak-20261009-r1/controls.py", "bytes": 13900, "sha256": "532259092bcad48c073282e22e55332d02c1de8f082d9173f4ed817a85c1af0f"},
+  "cli": ["r2DrivePath", "r2DriveSha256", "r1DrivePath", "r1DriveSha256"],
+  "failedR1DriverSha256": "0a4934e66eb748d7f2912373bd6896b21e80a867fad4a1e72b9f2a7647345369",
+  "announcedR2DriverSha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07",
+  "sourceInverseRequired": "Only add STOP to main's existing global declaration; all other source bytes exact",
+  "expectedCounts": {"originalExpectedRed": 2, "candidateGreen": 10, "total": 12},
+  "redNames": ["r1-refusal-unbound-STOP", "r1-clean-unbound-STOP"],
+  "greenNames": ["r2-clean-valid-pass", "r2-EPERM-sticky-stop", "r2-prior-STOP-plus-EPERM-preserved", "r2-prior-STOP-alone-preserved", "r2-invalid-method-count-stop", "r2-unclear-owned-state-stop", "r2-late-artifact-rejected", "r2-late-emission-rejected", "r2-hard-deadline-precedes-IO", "r2-fixture-cap-before-IO-rejected"],
+  "outputGate": {"schema": "a208-independent-driver-integration-controls/v1", "status": "DRIVER_INTEGRATION_CONTROLS_PASS", "expectedRed": 2, "observedExpectedRed": 2, "expectedGreen": 10, "observedGreen": 10, "rows": 12, "failure": null, "game": false, "realIO": false, "realSignals": false, "driverTopLevelImported": false, "stdoutMaxBytes": 12288, "stderrExpectedBytes": 0, "actualChildAndParentExitsRequired": 0},
+  "failedActualAttribution": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-failed-independent-observed-review-after-ak-20261009-r1/RECEIPT.json", "bytes": 4463, "sha256": "63f323d230d5d2a55f69f06a952184b93c24e3392c5c7c55ed7440c6f1eab86c"},
+  "scopeLimits": ["Pure actual-main tail integration only; no actual17method retry, game or pricing grant.", "Original failure stays failed; new EPERM target94482 is not an attribution of the old failed target.", "Host EPERM cause and driver-14 causal relationship remain unknown.", "Prior module-only eighteen GREEN cases did not validate this caller integration; my earlier source reviews missed the global/local defect.", "Any late candidate PASS artifact requires complete actual zero exits and all parent evidence gates; these controls only exercise the actual tail's rejection."],
+  "next": "Root independently reviews exact sealed controls/r2 repair and a separate held recorded pure route before any execution."
+}

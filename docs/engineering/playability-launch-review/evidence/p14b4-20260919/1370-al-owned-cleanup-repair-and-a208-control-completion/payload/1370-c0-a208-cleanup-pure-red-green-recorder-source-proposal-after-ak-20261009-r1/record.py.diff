@@ -1,0 +1,86 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/record.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-recorder-source-proposal-after-ak-20261009-r1/record.py
+@@ -1,9 +1,13 @@
+-"""UNRUN r4 recorder failure-capture repair only: exact owned fork/READY/GO, hard whole timer,
+-late exit/active checks and sanitized Node environment; no game or Save imports."""
++"""SOURCE ONLY HELD PURE RED/GREEN RECORDER DERIVATIVE.
++One pinned Python tester child under20/25/30,64KiB streams; does not run the
++original17method route. Retains owned-before-exec READY/GO, startup, cleanup,
++raw capture and finalization safeguards from accepted Node22 recorder3767643e.
++CONFIG has null pending roles and no runtime grant; real execution is ungranted.
++"""
+ import datetime,hashlib,importlib.util,json,os,pathlib,selectors,select,signal,stat,sys,time
+ HERE=pathlib.Path(__file__).resolve().parent;SCRATCH=pathlib.Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='09a59741bdb24e8641ca82e2ac4ee1aa95bde7c82bf779603aface088c0f6afb';CAP=1024**2;CHILD=60;ACTIVE=75;WHOLE=90
+-OUTPUTS={mode:SCRATCH/('1370-c0-a208-controls-'+mode+'-output-after-aj-node22-20261009-r1') for mode in ('js','python')}
++CONFIG_SHA='bbd49fdca241d8bd0c475436bc0e151202760f907742d4dd35c36e501f7dc6d8';CAP=65536;CHILD=20;ACTIVE=25;WHOLE=30
++OUTPUTS={'pure':SCRATCH/'1370-c0-a208-cleanup-pure-red-green-output-after-ak-20261009-r1'}
+ def require(v,m):
+  if not v:raise RuntimeError('STOP_'+m)
+ def sha(b):return hashlib.sha256(b).hexdigest()
+@@ -148,9 +152,9 @@
+     return process.returncode is not None and not process_alive(process.pid)
+ 
+ 
+-def alarm(*_):raise TimeoutError('STOP_WHOLE_90_SECONDS')
+-def whole_guard(end,clock=time.monotonic):require(clock()<end,'WHOLE_90_SECONDS')
+-def active_guard(started,clock=time.monotonic):require(clock()<started+ACTIVE,'ACTIVE_75_SECONDS')
++def alarm(*_):raise TimeoutError('STOP_WHOLE_30_SECONDS')
++def whole_guard(end,clock=time.monotonic):require(clock()<end,'WHOLE_30_SECONDS')
++def active_guard(started,clock=time.monotonic):require(clock()<started+ACTIVE,'ACTIVE_25_SECONDS')
+ def observed_exit_guard(started,child_started,stdout_bytes,stderr_bytes,clock=time.monotonic):
+  require(clock()<min(started+ACTIVE,child_started+CHILD),'OBSERVED_CHILD_OR_ACTIVE_DEADLINE')
+  require(max(stdout_bytes,stderr_bytes)<=CAP,'OBSERVED_STREAM_CAP')
+@@ -176,14 +180,14 @@
+  owned={};pipes=[];sel=None;output=None;buffers={'stdout':bytearray(),'stderr':bytearray()};child=None;child_started=None;failure=None;mode=None;groupclear=True;timedout=False
+  try:
+   require(sys.dont_write_bytecode and not sys.flags.optimize,'PYTHON_B_REQUIRED');require(len(sys.argv)==2 and sys.argv[1] in OUTPUTS,'EXACT_MODE');mode=sys.argv[1]
+-  configraw=(HERE/'CONFIG.json').read_bytes();require(sha(configraw)==CONFIG_SHA,'CONFIG_HASH');config=json.loads(configraw);require(isinstance(config.get('runtimeGrant'),dict),'CONTROLS_GRANT_UNFILLED')
+-  for role in config['roles'].values():authenticate(role['path'],role['sha256'],16*1024**2);whole_guard(end)
++  configraw=(HERE/'CONFIG.json').read_bytes();require(sha(configraw)==CONFIG_SHA,'CONFIG_HASH');config=json.loads(configraw);require(config.get('status')=='REVIEWED_FILLED_UNRUN' and isinstance(config.get('runtimeGrant'),dict),'PURE_SOURCE_BINDING_UNFILLED');require(isinstance(config.get('candidateModule'),dict) and isinstance(config.get('tester'),dict),'PURE_ROLES_UNFILLED')
++  for role in [*config['roles'].values(),config['candidateModule'],config['tester']]:authenticate(role['path'],role['sha256'],16*1024**2);whole_guard(end)
+   spec=importlib.util.spec_from_file_location('exact_a208_reports',config['roles']['reportGuard']['path']);report_guard=importlib.util.module_from_spec(spec);spec.loader.exec_module(report_guard);whole_guard(end)
+-  authenticate(config['nodePath'],config['nodeSha256']);require(os.access(config['nodePath'],os.X_OK),'NODE_EXECUTABLE');active_guard(started)
++  authenticate(config['pythonPath'],config['pythonSha256']);require(os.access(config['pythonPath'],os.X_OK),'PYTHON_EXECUTABLE');active_guard(started)
+   output=OUTPUTS[mode];require(output.parent==SCRATCH and SCRATCH.resolve(strict=True)==SCRATCH and not os.path.lexists(output),'ABSENT_OWNED_OUTPUT');output.mkdir(mode=0o700)
+-  argv=([config['nodePath'],'--test','--test-reporter=tap',config['roles']['observer:test-synthetic.mjs']['path'],config['roles']['observer:test-settlement208.mjs']['path']] if mode=='js' else [config['pythonPath'],'-I','-B',config['roles']['driver']['path'],CONFIG_SHA])
++  argv=[config['pythonPath'],'-I','-B',config['tester']['path'],config['candidateModule']['path'],config['candidateModule']['sha256'],config['originalDriver']['path'],config['originalDriver']['sha256']]
+   out_read,out_write=os.pipe();pipes.extend([out_read,out_write]);err_read,err_write=os.pipe();pipes.extend([err_read,err_write])
+-  child_started=time.monotonic() # 60 starts before fork or GO permits execution.
++  child_started=time.monotonic() # 20 starts before fork or GO permits execution.
+   start_owned(argv,str(HERE),child_environment(),out_write,err_write,owned)
+   child=owned['child'];os.close(out_write);pipes.remove(out_write);os.close(err_write);pipes.remove(err_write)
+   ready_go(owned,min(child_started+CHILD,started+ACTIVE));sel=selectors.DefaultSelector()
+@@ -209,7 +213,7 @@
+     except BaseException as exc:
+      groupclear=False;failure='STOP_OWNED_GROUP_CLEARANCE_UNKNOWN_'+repr(exc)
+      # Alarm during cleanup still receives an exact-owned emergency KILL.
+-     # No wait or blocking artifact write is introduced after whole90.
++     # No wait or blocking artifact write is introduced after whole30.
+      for target in ('group','pid'):
+       try:
+        if target=='group':os.killpg(child.pid,signal.SIGKILL)
+@@ -220,7 +224,7 @@
+    for fd in pipes:
+     try:os.close(fd)
+     except OSError:pass
+-   if time.monotonic()>=end:failure='STOP_WHOLE_90_SECONDS';timedout=True
++   if time.monotonic()>=end:failure='STOP_WHOLE_30_SECONDS';timedout=True
+    if not failure:
+     try:
+      require(child is not None and child.poll()==0,'CHILD_EXIT_'+str(None if child is None else child.returncode))
+@@ -228,12 +232,12 @@
+      report_guard.validate(mode,bytes(buffers['stdout']),bytes(buffers['stderr']),child.pid);active_guard(started)
+     except BaseException as exc:
+      failure=str(exc) or repr(exc);timedout=isinstance(exc,TimeoutError) or 'DEADLINE' in failure or '_SECONDS' in failure
+-   result={'schema':'1370-b109-pure-encoder-recorder-r4','status':failure or 'PURE_A208_CONTROLS_'+str(mode).upper()+'_COMPLETE_UNADOPTED','mode':mode,'configSha256':CONFIG_SHA,'actualChildExit':None if child is None else child.returncode,'childPid':None if child is None else child.pid,'ownedPgid':None if child is None else child.pid,'startupOwnedBeforeExec':child is not None,'pgidConfirmed':owned.get('pgidConfirmed',False),'groupClear':groupclear,'timedOut':timedout,'elapsedSeconds':time.monotonic()-started,'boundsSeconds':{'node':CHILD,'active':ACTIVE,'whole':WHOLE},'stdoutBytes':len(buffers['stdout']),'stdoutSha256':sha(bytes(buffers['stdout'])),'stderrBytes':len(buffers['stderr']),'stderrSha256':sha(bytes(buffers['stderr'])),'sanitizedEnvironment':['NODE_OPTIONS','NODE_PATH'],'game':False,'sourceOrGameplayAdoption':False,'executionAuthorization':False,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}
++   result={'schema':'1370-a208-cleanup-pure-red-green-recorder-v1','status':failure or 'PURE_A208_CLEANUP_RED_GREEN_COMPLETE_UNADOPTED','mode':mode,'configSha256':CONFIG_SHA,'actualChildExit':None if child is None else child.returncode,'childPid':None if child is None else child.pid,'ownedPgid':None if child is None else child.pid,'startupOwnedBeforeExec':child is not None,'pgidConfirmed':owned.get('pgidConfirmed',False),'groupClear':groupclear,'timedOut':timedout,'elapsedSeconds':time.monotonic()-started,'boundsSeconds':{'child':CHILD,'active':ACTIVE,'whole':WHOLE},'stdoutBytes':len(buffers['stdout']),'stdoutSha256':sha(bytes(buffers['stdout'])),'stderrBytes':len(buffers['stderr']),'stderrSha256':sha(bytes(buffers['stderr'])),'sanitizedEnvironment':['NODE_OPTIONS','NODE_PATH'],'game':False,'sourceOrGameplayAdoption':False,'executionAuthorization':False,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+    if output is not None and time.monotonic()<end:
+     for name,raw in buffers.items():whole_guard(end);write(output/(name+'.bin'),bytes(raw));whole_guard(end)
+     if not failure:active_guard(started)
+     result=finalize_result(output,result,end)
+-   code=0 if result['status'].endswith('_COMPLETE_UNADOPTED') and not failure else 2
++   code=0 if result['status']=='PURE_A208_CLEANUP_RED_GREEN_COMPLETE_UNADOPTED' and not failure else 2
+    print(json.dumps({'status':result['status'],'output':None if output is None else str(output),'actualChildExit':result['actualChildExit'],'groupClear':groupclear}))
+    whole_guard(end)
+    return code

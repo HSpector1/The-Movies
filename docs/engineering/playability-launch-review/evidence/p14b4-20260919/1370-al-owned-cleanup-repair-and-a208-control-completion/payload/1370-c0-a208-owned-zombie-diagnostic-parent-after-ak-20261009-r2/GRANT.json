@@ -1,0 +1,98 @@
+{
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r3/controls.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/record.py",
+    "probe"
+  ],
+  "bounds": {
+    "activeSeconds": 25,
+    "childSeconds": 20,
+    "eachStreamBytes": 65536,
+    "naturalChildSeconds": 2,
+    "summaryBytes": 16384,
+    "wholeSeconds": 30
+  },
+  "configSha256": "7c54b9ecca63c1c3ab4d38ccae0484c4d82c6c36e6426c9979f1971d1c5395d1",
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2",
+  "diagnosticActual17MethodRetry": false,
+  "game": false,
+  "independentReview": {
+    "bytes": 5052,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-independent-review-after-ak-20261009-r2/RECEIPT.json",
+    "sha256": "945476bc2b06b1775ce63ee9ea1ce8665ecc77796a49994a67f2069697392100"
+  },
+  "ownedRegistry": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r2/OWNED-MICROCHILD.jsonl",
+  "ownedZombieZeroProbeOnly": true,
+  "positiveSignalsInMicroprobe": false,
+  "protectedRootBefore": {
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git": [
+      16777220,
+      157454052,
+      16877,
+      1791475054920875233,
+      1791475054920875233
+    ],
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git/objects": [
+      16777220,
+      157454083,
+      16877,
+      1791493320461260435,
+      1791493320461260435
+    ],
+    "/Users/zacheryspector/The-Movies-headless-program": [
+      16777220,
+      158484765,
+      16877,
+      1791471316296107826,
+      1791471316296107826
+    ],
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules": [
+      16777220,
+      158487026,
+      16877,
+      1790738039503311431,
+      1790738039503311431
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1": [
+      16777220,
+      166568330,
+      16832,
+      1791498505800985629,
+      1791498505800985629
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git": [
+      16777220,
+      166568331,
+      16832,
+      1791498505730619861,
+      1791498505730619861
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1": [
+      16777220,
+      166418911,
+      16832,
+      1791462534662274730,
+      1791462534662274730
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2": [
+      16777220,
+      166751332,
+      16832,
+      1791577446298737027,
+      1791577446298737027
+    ]
+  },
+  "sourcePins": {
+    "bytes": 3337,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/SOURCE-PINS.json",
+    "sha256": "df479f2012028fa52cfc67e80e29e39eadcf2cf80dabcc0cd16ff42721d9edfe"
+  },
+  "status": "ROOT_ONCE_ONLY_OWNED_ZOMBIE_ZERO_PROBE_GRANTED",
+  "utc": "2026-10-09T23:28:12.653421+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "actualObservedReceipt": null,
+  "candidateCodeExecuted": false,
+  "executionAuthorization": false,
+  "files": {
+    "COMPILE-PROOF.json": {
+      "bytes": 1580,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/COMPILE-PROOF.json",
+      "sha256": "749987b775564a7d670c7082a8cddaca86d550615b603f8b47d59a21ed8c7cd4"
+    },
+    "CONFIG.json": {
+      "bytes": 3816,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/CONFIG.json",
+      "sha256": "7c54b9ecca63c1c3ab4d38ccae0484c4d82c6c36e6426c9979f1971d1c5395d1"
+    },
+    "FORWARD.diff": {
+      "bytes": 9812,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/FORWARD.diff",
+      "sha256": "6bc50b71fc19e584aef69eac0ee3467ee543509fac734d48b8a3055be7634718"
+    },
+    "INVERSE.diff": {
+      "bytes": 9812,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/INVERSE.diff",
+      "sha256": "90c1ee2423512279ab550f5f998d63eace58558a6e0bb634268093863386931e"
+    },
+    "NOTE.md": {
+      "bytes": 2213,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/NOTE.md",
+      "sha256": "d83e596bb0a878f4996d7e60df35e3c82a2c4305086dc82a24cc558770583e6f"
+    },
+    "ROUTE.json": {
+      "bytes": 1500,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/ROUTE.json",
+      "sha256": "f64b7be752ac0c1b33b28ad9c700e586fa44c5acfb3efb8cf57cfee85a2bbcd8"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 1978,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/SOURCE-PROOF.json",
+      "sha256": "80f8001bfb819c654f678099d36f104561dd99d415cd529f831dec063fee33d0"
+    },
+    "launch.py": {
+      "bytes": 9092,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/launch.py",
+      "sha256": "ddbef4ea23cf91abede711d26c899701d2be2f4f2d87e0295d61fd2d9861df0e"
+    },
+    "probe.py": {
+      "bytes": 8484,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/probe.py",
+      "sha256": "cd062ee7a9a846a25591cff23ad02b48cc2b40406cccbcb3b5155435829800cd"
+    },
+    "record.py": {
+      "bytes": 14597,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/record.py",
+      "sha256": "2f84eb244e9f792f64a4548bc523337ae2ffad90ff38ec65fa3703d8398ba0d2"
+    },
+    "report_guard.py": {
+      "bytes": 7760,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/report_guard.py",
+      "sha256": "f0eab0e8453a3f27ec0049e3b18d2f149c45a15825c273de899daf9f74f4f388"
+    }
+  },
+  "pinnedSourceCompilationOnly": true,
+  "runtimeGrant": null,
+  "schema": "1370-a208-owned-zombie-filled-route-source-pins/v1",
+  "sourceReviewReceipt": null,
+  "staticASTOnly": false,
+  "status": "FROZEN_SOURCE_ONLY_UNRUN_REVIEW_PENDING"
+}

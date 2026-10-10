@@ -1,0 +1,120 @@
+{
+  "GitPublicationObserved": false,
+  "audit": {
+    "bytecodeDependencyGitTreesExcluded": true,
+    "closedFamiliesIncludeFailuresSourcesControlsObservedAdoptionsLessonsHeldPreparations": true,
+    "finalHeldAfterALSourceIncluded": true,
+    "finiteCompleteClosureMatched": true,
+    "finiteRoleHashesAndMetadataMatched": 477,
+    "frozenInputInventoryHasNoSelfHash": true,
+    "inputListIncludedAsExplicitAppendedRole": true,
+    "localHashSizeOnlyBytes": 1048576,
+    "localHashSizeOnlyRoles": 2,
+    "localOnly": [
+      {
+        "bytes": 524288,
+        "preservationAction": "LOCAL_HASH_SIZE_ONLY",
+        "priorGitBlob": null,
+        "sha256": "ec8bb338811bbf800a8b5e507d06e08a1d9d05bde74294f6f7388f3bbfba82e5",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r1/94481.outer.stdout"
+      },
+      {
+        "bytes": 524288,
+        "preservationAction": "LOCAL_HASH_SIZE_ONLY",
+        "priorGitBlob": null,
+        "sha256": "ec8bb338811bbf800a8b5e507d06e08a1d9d05bde74294f6f7388f3bbfba82e5",
+        "sourcePath": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/50470.outer.stdout"
+      }
+    ],
+    "noLocalOnlyPayloadOrPriorGitReusePermitted": true,
+    "onlyNewFileInExplicitInputPackagesSinceInventory": {
+      "bytes": 1554,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/HELD-SCOPE-SOURCE-ADOPTION.json",
+      "sha256": "fefd5bef762b4bce0b34c21e29d4a653afb42bae8756b29ba0eee02b42a357b8"
+    },
+    "payloadEligibleBytes": 2474951,
+    "payloadEligibleRoles": 475,
+    "rawWholeMachinePsFdRoles": 0,
+    "sourceBytes": 3523527,
+    "sourceMetadataStableAcrossRead": true,
+    "sourcePathsPhysicalRegularSingleLink": true,
+    "withdrawnPreliminaryFinding": "Input-list omission was mistakenly inferred from its argv list before row membership was queried. The7620B c1f7e4 role is present in477inventory and authenticates. No omission remains."
+  },
+  "claimsVerified": {
+    "48DiagnosticEventsZeroFatalOutcomeErrorsAndRefusals": true,
+    "7Groups4ExpectedProbes13OwnedIdsAnd8BoundedRootMetadataQualified": true,
+    "JS13ReuseQualifiedByExactObserverNodeArgvValidationIdentity": true,
+    "autoBlockBytes": 796,
+    "autoBlockSha256": "39c20c726e9779c2f8ba73dd37ba55476302ac7b17040bf3d5e487f5c7268a4d",
+    "benignESRCHExceptionRecordsRemainCompatibleWithNoFatalCleanupError": true,
+    "currentRefsAndSourceTreeRemainExplicitHistoricalAKUntilActualALPublication": true,
+    "failed10832And66101And25659NotRelabeled": true,
+    "handoffAuto": "Existing historical AUTO block observed unchanged across this reviewer's document reads; reviewer made no edit.",
+    "heldAfterALSource6acAndRootFefdSourceOnlyALIdentityNull": true,
+    "noA208GameVectorPricingM0TypeWiringNeutrality1363PromotionOrP16P18CompletionClaim": true,
+    "noFreshFullGuardOrProductionCommonContinuityAcrossPublicationClaim": true,
+    "noNewM0RematerializationOrReadbackGate": true,
+    "old10832ExactTargetKernelAlarmCauseStillUnknown": true,
+    "real44123PythonProtocol3Observer14FinalDriverAndFullRoutePass": true,
+    "remainingMappedBindingRolesAccuratelyDescribed": true,
+    "slot3Raw9DecodedMinus9GroupESRCHSequenceExact": true
+  },
+  "decision": "ACCEPT_FINITE_AL_ARCHIVE_CLASSIFICATION_AND_CURRENT_REPORT_HANDOFF_CLAIMS",
+  "gameAcceptance": false,
+  "handoff": {
+    "bytes": 18015,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/HANDOFF.md",
+    "sha256": "d6fc0fd7d91b4c68a902e806111c849c1de85ab86878714ef1080f1aee909ced"
+  },
+  "handoffAutoEdited": false,
+  "inputList": {
+    "bytes": 7620,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r1/INPUT-PACKAGES.json",
+    "sha256": "c1f7e4f288e4862b1189e45efb5e256918f4ca33e38c0fc9bb572eb360c25aea"
+  },
+  "inventory": {
+    "bytes": 241623,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r1/INVENTORY-FINAL.json",
+    "sha256": "056c17db59cf0bdcb0de2d5b8f2adab16ed3302bb312539c41daa4166bb6e10b"
+  },
+  "inventoryBuilder": {
+    "bytes": 2704,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r1/prepare_inventory.py",
+    "sha256": "fd299156deb81f9df3f23c51f6f20ed28c87e386440b603b9b6c21fe7560331a"
+  },
+  "materialFindings": [],
+  "publicationLimits": [
+    "This accepts the finite source classification and exact current document claims, not staged/committed Git bytes or published AL refs. Root separately performs the already required finite source/prior-blob/staged/committed readbacks and push verification.",
+    "No Git operation, candidate/helper import, guard scan, test, game, process discovery or new signal probe performed by this reviewer.",
+    "Only explicit finite evidence packages were enumerated and authenticated; no production/private dependency inventories reread.",
+    "Future actual AL operational authority/protection/game grants remain separate. Full operational refs are not guessed from checkpoint title."
+  ],
+  "report": {
+    "bytes": 8429,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AL-owned-cleanup-repair-and-a208-control-completion.md",
+    "sha256": "6209cb7667f7b02d5b447619225b32c4c3c463af13205f806d8c0a0c88d69ac9"
+  },
+  "reviewerRepoEdits": false,
+  "rootAppendOnlyFinalInventoryPlan": {
+    "additionalAlreadyAuthenticatedScopeReview": {
+      "bytes": 4265,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-independent-source-review-after-al-20261009-r2/RECEIPT.json",
+      "sha256": "6ac882251048b242341019d35747a8428778aff5b8ea6ccfb196976feb4c1f0f"
+    },
+    "additionalAlreadyAuthenticatedScopeRootAdoption": {
+      "bytes": 1554,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/HELD-SCOPE-SOURCE-ADOPTION.json",
+      "sha256": "fefd5bef762b4bce0b34c21e29d4a653afb42bae8756b29ba0eee02b42a357b8"
+    },
+    "additionalPlannedRoles": "Original inventory, this audit receipt, root final claim and final inventory builder/input-list source, as root specified. Final inventory excludes its own self-hash; root authenticates added roles before preservation.",
+    "noExtraReviewHierarchyRequired": true,
+    "original477RowsImmutable": true
+  },
+  "rootFinalClaim": {
+    "bytes": 1621,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-checkpoint-root-finalization-20261009-r1/ROOT-FINAL-CLAIM.txt",
+    "sha256": "782a773b80a59897d41a0773698248c70a491c51ee761b63bb3a35ae19288219"
+  },
+  "runtimeAcceptanceExpanded": false,
+  "schema": "1370-al-finite-archive-and-claims-independent-audit/v1"
+}

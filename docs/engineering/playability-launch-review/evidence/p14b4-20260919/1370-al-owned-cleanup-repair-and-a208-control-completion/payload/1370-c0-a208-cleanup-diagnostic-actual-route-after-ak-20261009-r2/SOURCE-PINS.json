@@ -1,0 +1,124 @@
+{
+  "actual17MethodOutcome": null,
+  "actualFocusedAdoption": {
+    "bytes": 2787,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PURE-OBSERVED-ADOPTION.json",
+    "sha256": "30ba97ac7f300fdd1badad143f684b1642eb1ff1d2951d6eead722dda31f7af4"
+  },
+  "actualGrant": null,
+  "actualIntegrationAdoption": {
+    "bytes": 959,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/INTEGRATION-OBSERVED-ADOPTION.json",
+    "sha256": "2523abaeffe14b085cc29b32ef10bc2636b055caef201a7cbf2c153ef598ba4c"
+  },
+  "actualMicroprobeAdoption": {
+    "bytes": 4297,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/MICROPROBE-OBSERVED-ADOPTION.json",
+    "sha256": "cacde61e1209e4923535841c8e06533cfc6d8cfe3d1575b76eea7d6494a80605"
+  },
+  "actualPreReapControlReceipt": {
+    "bytes": 4560,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PRE-REAP-FOCUSED-OBSERVED-ADOPTION.json",
+    "sha256": "376e8a53713604843f4275d69ede9b9bce1d144011e51398f69957e05b6c26bb"
+  },
+  "currentAkReadback": {
+    "bytes": 1162,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+    "sha256": "2c2df2e06bc1223262c71ed8f5062d65e348c6965b7f87f9757411ca9b621eaa"
+  },
+  "executionAuthorization": false,
+  "files": {
+    "CONFIG.json": {
+      "bytes": 19934,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/CONFIG.json",
+      "sha256": "7a1b03be4b5b40a6da0a288bbfbf341fef30191263d203e4865a12f23f9a7351"
+    },
+    "FORWARD.diff": {
+      "bytes": 29161,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/FORWARD.diff",
+      "sha256": "313720714d69843673ae62c1e1c25d54fa076886d1981a98869d2d78c55098d3"
+    },
+    "INVERSE.diff": {
+      "bytes": 29161,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/INVERSE.diff",
+      "sha256": "899315264c02dd5bae3b61a5bf7f424e0aeb00c21085b871dcf0c552616a23fe"
+    },
+    "JS-REUSE-PROOF.json": {
+      "bytes": 1890,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/JS-REUSE-PROOF.json",
+      "sha256": "99f30623337c8e0e7512a4c4cceacdc5511bd23343b6c169db33ba4e0077e475"
+    },
+    "NOTE.md": {
+      "bytes": 2707,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/NOTE.md",
+      "sha256": "96621f5b394760ce3abe1bbde1ca495b8d437284f4512e5283397279b783f7bd"
+    },
+    "ROUTE.json": {
+      "bytes": 4260,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/ROUTE.json",
+      "sha256": "7ef1caee3c6a5c1598cf075349a8e3c10eec095fe2162931d9b2f13e28f92c00"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 3385,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/SOURCE-PROOF.json",
+      "sha256": "edd67ef7c52ffdae33129e46c65899a43f273ea184fb4aef30c8dfc895ccfe18"
+    },
+    "drive.py": {
+      "bytes": 13089,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/drive.py",
+      "sha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678"
+    },
+    "grant-parent.py": {
+      "bytes": 15812,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/grant-parent.py",
+      "sha256": "a48e99344b1efdebafbac052335ab7d291ef898ea0420994087215bc4ae19a0d"
+    },
+    "owned_cleanup.py": {
+      "bytes": 9553,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/owned_cleanup.py",
+      "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+    },
+    "record.py": {
+      "bytes": 14480,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/record.py",
+      "sha256": "93aab9ef9b4c55abc116f54b8ce5e509a11b45bea152d251c57da7d95a73694c"
+    },
+    "report_guard.py": {
+      "bytes": 3203,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/report_guard.py",
+      "sha256": "bc7b714c9335e159fe292e8cb121db47d7f9dae3265ba9309fe44437a864b031"
+    },
+    "test_reports.py": {
+      "bytes": 2924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/test_reports.py",
+      "sha256": "4c6379ee5d97b16700c9d4e8a205abc6f1580ac05f706296d8833fe2fd667ac8"
+    }
+  },
+  "historicalControlsParentDisposition": {
+    "bytes": 1661,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-observed-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "9155410c75344c7933d97067ca28be28028842e8e08e4ba153807dd8f40f0fc5"
+  },
+  "historicalM0Complete": {
+    "bytes": 6133,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-complete-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad"
+  },
+  "implementationReview": {
+    "bytes": 5018,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-driver-independent-source-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "dcb0f61baa80cd51406d4783e7806224d07c9ef52f1beb6c0a3e6f12a4334c28"
+  },
+  "implementationSourceAdoption": {
+    "bytes": 2933,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PRE-REAP-IMPLEMENTATION-ADOPTION.json",
+    "sha256": "779242c3965b1c1e949d0a87927412f6b475f849618abeb29f299eb5d35a3e71"
+  },
+  "schema": "1370-a208-cleanup-diagnostic-actual-route-source-pins-v1",
+  "sealedImplementationPins": {
+    "bytes": 5937,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/SOURCE-PINS.json",
+    "sha256": "2d05274d9f284d424e13594b940612f84b199467d2494a652d0620692e6a8aa0"
+  },
+  "status": "FROZEN_FILLED_SOURCE_ONLY_UNRUN_COMBINED_REVIEW_PENDING"
+}

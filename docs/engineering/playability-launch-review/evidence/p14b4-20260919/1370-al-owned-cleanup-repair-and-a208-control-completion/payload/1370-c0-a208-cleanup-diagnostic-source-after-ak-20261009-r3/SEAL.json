@@ -1,0 +1,12 @@
+{
+  "directoryMode": "0555",
+  "executionAuthorization": false,
+  "filesMode": "0444",
+  "schema": "1370-scratch-immutable-source-seal/v1",
+  "sourcePins": {
+    "bytes": 5937,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/SOURCE-PINS.json",
+    "sha256": "2d05274d9f284d424e13594b940612f84b199467d2494a652d0620692e6a8aa0"
+  },
+  "status": "SEALED_SOURCE_ONLY_UNRUN"
+}

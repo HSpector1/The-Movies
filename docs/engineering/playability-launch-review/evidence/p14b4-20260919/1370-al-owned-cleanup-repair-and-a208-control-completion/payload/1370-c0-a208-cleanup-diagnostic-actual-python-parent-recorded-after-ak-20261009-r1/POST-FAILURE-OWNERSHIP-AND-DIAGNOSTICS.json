@@ -1,0 +1,182 @@
+{
+  "actualExits": {
+    "child": -14,
+    "helper": 2,
+    "recorder": 2,
+    "tool": 2
+  },
+  "allAbsent": true,
+  "elapsedSeconds": 3.5028156069893157,
+  "events": 51,
+  "laneLockAbsent": true,
+  "newDriverFailure": "UnboundLocalError STOP in main line185; no final driverRESULT",
+  "nonEsrchErrors": [
+    {
+      "driver": {
+        "alarmBlocked": null,
+        "alarmHandler": "alarm",
+        "euid": 501,
+        "pgrp": 94466,
+        "phase": "cleanup",
+        "pid": 94466,
+        "session": 94466,
+        "timerInterval": 0.25,
+        "timerRemaining": 0.017116
+      },
+      "elapsedSeconds": 2.4830214789981255,
+      "error": {
+        "errno": 1,
+        "message": "[Errno 1] Operation not permitted",
+        "type": "PermissionError"
+      },
+      "groupClear": null,
+      "lastExit": null,
+      "lastWaitStatus": null,
+      "operation": "killpg",
+      "outcome": "error",
+      "pgid": 94482,
+      "phase": "cleanup",
+      "pid": 94482,
+      "ready": true,
+      "reaped": false,
+      "seq": 7,
+      "signal": 9,
+      "slot": 3,
+      "stage": "result",
+      "target": 94482
+    }
+  ],
+  "observations": [
+    {
+      "absent": true,
+      "kind": "pid",
+      "number": 94202
+    },
+    {
+      "absent": true,
+      "kind": "pgid",
+      "number": 94202
+    },
+    {
+      "absent": true,
+      "kind": "pid",
+      "number": 94466
+    },
+    {
+      "absent": true,
+      "kind": "pgid",
+      "number": 94466
+    },
+    {
+      "absent": true,
+      "kind": "pid",
+      "number": 94467
+    },
+    {
+      "absent": true,
+      "kind": "pgid",
+      "number": 94467
+    },
+    {
+      "absent": true,
+      "kind": "pid",
+      "number": 94468
+    },
+    {
+      "absent": true,
+      "kind": "pgid",
+      "number": 94468
+    },
+    {
+      "absent": true,
+      "kind": "pid",
+      "number": 94470
+    },
+    {
+      "absent": true,
+      "kind": "pgid",
+      "number": 94470
+    },
+    {
+      "absent": true,
+      "kind": "pid",
+      "number": 94475
+    },
+    {
+      "absent": true,
+      "kind": "pgid",
+      "number": 94475
+    },
+    {
+      "absent": true,
+      "kind": "pid",
+      "number": 94476
+    },
+    {
+      "absent": true,
+      "kind": "pgid",
+      "number": 94476
+    },
+    {
+      "absent": true,
+      "kind": "pid",
+      "number": 94480
+    },
+    {
+      "absent": true,
+      "kind": "pgid",
+      "number": 94480
+    },
+    {
+      "absent": true,
+      "kind": "pid",
+      "number": 94481
+    },
+    {
+      "absent": true,
+      "kind": "pgid",
+      "number": 94481
+    },
+    {
+      "absent": true,
+      "kind": "pid",
+      "number": 94482
+    },
+    {
+      "absent": true,
+      "kind": "pgid",
+      "number": 94482
+    },
+    {
+      "absent": true,
+      "kind": "pid",
+      "number": 94485
+    },
+    {
+      "absent": true,
+      "kind": "pgid",
+      "number": 94485
+    },
+    {
+      "absent": true,
+      "kind": "pid",
+      "number": 94487
+    },
+    {
+      "absent": true,
+      "kind": "pgid",
+      "number": 94487
+    },
+    {
+      "absent": true,
+      "kind": "pid",
+      "number": 94488
+    },
+    {
+      "absent": true,
+      "kind": "pgid",
+      "number": 94488
+    }
+  ],
+  "scope": "Only exact recorded helper/driver/registry numeric IDs; no global absence"
+}

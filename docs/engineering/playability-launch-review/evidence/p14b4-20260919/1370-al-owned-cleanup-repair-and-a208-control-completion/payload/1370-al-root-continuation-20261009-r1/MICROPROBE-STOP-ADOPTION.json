@@ -1,0 +1,35 @@
+{
+  "actualExits": {
+    "helper": 2,
+    "naturalChild": 0,
+    "probe": 0,
+    "recorder": 2,
+    "tool": 2
+  },
+  "game": false,
+  "historicalFailureCauseEstablished": false,
+  "independentReview": {
+    "bytes": 7477,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-failed-independent-observed-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "ef1a60ff9c6b3f852d6aacba85b8a8433ff22b64132e9bed087059a7400c7a04"
+  },
+  "observedAfterReap": "all three ESRCH",
+  "observedBeforeReap": {
+    "getpgid": "ESRCH",
+    "groupZero": "EPERM",
+    "pidZero": "success"
+  },
+  "observedOwnedChild": 20728,
+  "prospectiveSourceRepairAuthorized": "Move only probe return outside finally; preserve strict stderr rule and recorder behavior, require independently reviewed fresh route and separate root grant",
+  "real17MethodRetryAuthorized": false,
+  "recordedCompletionAccepted": false,
+  "recordedIdsAbsent": [
+    20712,
+    20727,
+    20728
+  ],
+  "schema": "1370-root-microprobe-stop-adoption/v1",
+  "status": "ROOT_ADOPTED_MICROPROBE_STOP_AND_NARROW_OBSERVATION",
+  "strictFailure": "204-byte producer SyntaxWarning for return inside finally; inherited recorder warning is separately retained in helper log",
+  "toolSession": 25659
+}

@@ -1,0 +1,72 @@
+{
+  "absentPathsAtFutureGrant": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-lane-after-ak-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-output-after-ak-20261009-r1"
+  ],
+  "actualOutcome": null,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-lane-after-ak-20261009-r1/controls.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/record.py",
+    "pure"
+  ],
+  "bounds": {
+    "activeSeconds": 25,
+    "childSeconds": 20,
+    "eachStreamBytes": 65536,
+    "wholeSeconds": 30
+  },
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "exactWrapperReview": null,
+  "executionAuthorization": false,
+  "expected": {
+    "exactRows": 21,
+    "expectedGreen": 18,
+    "expectedRed": 3,
+    "greenNames": [
+      "owned-seven-four-only",
+      "group-EPERM-sticky-continue",
+      "pid-EPERM-sticky-continue",
+      "probe-EPERM-sticky-continue",
+      "ESRCH-distinct",
+      "already-clear-reaped-skip",
+      "unknown-readiness-stop",
+      "poll-fault-continue",
+      "hard-deadline-before-syscall",
+      "deadline-plus-EPERM-retained",
+      "reentrant-cleanup-no-duplicate",
+      "event-cap-does-not-conceal-refusal",
+      "aggregate-cap-refusal",
+      "UTF8-event-field-caps",
+      "writer-EAGAIN-stop-continue",
+      "writer-ENOSPC-stop-continue",
+      "writer-clock-deadline-precedence",
+      "snapshot-fault-stop-continue"
+    ],
+    "redNames": [
+      "original-RED-group",
+      "original-RED-pid",
+      "original-RED-probe"
+    ],
+    "schema": "a208-independent-owned-cleanup-controls/v1",
+    "status": "SYNTHETIC_CONTROLS_PASS",
+    "testerSummaryBytes": 16384
+  },
+  "rootGrant": null,
+  "schema": "1370-a208-cleanup-pure-red-green-route-v1",
+  "sourceReview": {
+    "bytes": 1230,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/ROOT-SOURCE-ADOPTION.json",
+    "sha256": "82027a8c7fe0516d7ca30fdcbf925fb7f22e2d5da2bf09ffabc13ee13647a411"
+  },
+  "status": "FILLED_SOURCE_ONLY_UNRUN"
+}

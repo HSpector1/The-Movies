@@ -1,0 +1,52 @@
+{
+  "actualOutcome": null,
+  "exactWrapperReview": null,
+  "executionAuthorization": false,
+  "files": {
+    "CONFIG.json": {
+      "bytes": 3370,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-recorder-source-proposal-after-ak-20261009-r1/CONFIG.json",
+      "sha256": "bbd49fdca241d8bd0c475436bc0e151202760f907742d4dd35c36e501f7dc6d8"
+    },
+    "REPORT.md": {
+      "bytes": 2539,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-recorder-source-proposal-after-ak-20261009-r1/REPORT.md",
+      "sha256": "639d64bf25a21bb57498d6e0a3b1800334ba1dfeaead7826abfa698eda3b31d9"
+    },
+    "ROUTE.json": {
+      "bytes": 2354,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-recorder-source-proposal-after-ak-20261009-r1/ROUTE.json",
+      "sha256": "b0ddb536a7283c54ea1c22d35603bb91256e4d852bb8282f40d8b09e8784a5a3"
+    },
+    "record.py": {
+      "bytes": 14814,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-recorder-source-proposal-after-ak-20261009-r1/record.py",
+      "sha256": "46f7dfba363550004e09b3ca2756451dd9c00ccbb6b8ded1dc91a2c41eb9d073"
+    },
+    "record.py.diff": {
+      "bytes": 9067,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-recorder-source-proposal-after-ak-20261009-r1/record.py.diff",
+      "sha256": "50b0ab7c32b68b501213559a4b737d6d9695e03083c1c8465305488a99140bc2"
+    },
+    "report_guard.py": {
+      "bytes": 3036,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-recorder-source-proposal-after-ak-20261009-r1/report_guard.py",
+      "sha256": "212d42e10cf1cd530733b5d34ee31e7dd643e7b24964704297a1ab62227f599f"
+    }
+  },
+  "originalDriver": {
+    "bytes": 8874,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/drive.py",
+    "sha256": "7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c"
+  },
+  "originalRecorder": {
+    "bytes": 14474,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/record.py",
+    "sha256": "3767643eff8348e7bf132e6eee3be132747e96b581d7f916d48964bf8f9d8ddb"
+  },
+  "schema": "1370-a208-cleanup-pure-red-green-source-pins-v1",
+  "sealedCandidateRole": null,
+  "sealedTesterRole": null,
+  "sourceReview": null,
+  "status": "HELD_SOURCE_ONLY_UNRUN_PENDING_TESTER_AND_CANDIDATE"
+}

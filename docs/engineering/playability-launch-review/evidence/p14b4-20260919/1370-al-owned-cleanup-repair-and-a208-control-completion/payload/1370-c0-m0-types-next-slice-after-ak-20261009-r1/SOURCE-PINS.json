@@ -1,0 +1,60 @@
+{
+  "actualGrant": null,
+  "boundsSeconds": [
+    300,
+    320,
+    330
+  ],
+  "exactOriginalFourCommandOrderRetained": true,
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "files": {
+    "BINDING-UNFILLED.json": {
+      "bytes": 27520,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-next-slice-after-ak-20261009-r1/BINDING-UNFILLED.json",
+      "sha256": "0759609aec4500e0e41f589c3097b8124521b64f1a93ec0c692ec1651f0bcf38"
+    },
+    "LESSONS.md": {
+      "bytes": 1438,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-next-slice-after-ak-20261009-r1/LESSONS.md",
+      "sha256": "23f4f84eea63b503d9a78d5db1f182c6ff7c027796ea6d17056ef52ab74b8531"
+    },
+    "NEXT-STEPS.md": {
+      "bytes": 4866,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-next-slice-after-ak-20261009-r1/NEXT-STEPS.md",
+      "sha256": "15eb06beca37b6859a5cec58a8ea2a5ea2d0ec5c08686488ea128908b589047a"
+    },
+    "PROVENANCE.json": {
+      "bytes": 526,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-next-slice-after-ak-20261009-r1/PROVENANCE.json",
+      "sha256": "6d6ab3f9614b3e2f018661cd12e213de52d901abd78cd709de06e9f3704a30d4"
+    },
+    "ROUTE-PROPOSAL.json": {
+      "bytes": 3012,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-next-slice-after-ak-20261009-r1/ROUTE-PROPOSAL.json",
+      "sha256": "e59f6edca43240e2ab0014642f5d8a5cc4180c786547e3e2b6f395f10f884a20"
+    },
+    "SOURCE-REUSE-MAPPING.json": {
+      "bytes": 4609,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-next-slice-after-ak-20261009-r1/SOURCE-REUSE-MAPPING.json",
+      "sha256": "908e6b4fbffb10a7d8bd849fc469ee2ba2756d0800f96df9273871e4217d7817"
+    },
+    "check-deps.mjs": {
+      "bytes": 1918,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-next-slice-after-ak-20261009-r1/check-deps.mjs",
+      "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+    }
+  },
+  "h13ObservedStopPreserved": true,
+  "historicalAcceptedPhysicalCounts": [
+    1740,
+    119393120
+  ],
+  "mirrorByteOrMetadataInventoryPerformed": false,
+  "noM0TypesOrNeutralityAccepted": true,
+  "schema": "1370-m0-types-next-slice-source-pins/v1",
+  "sourceAuthorityCount": 22,
+  "sourceImportsTestsTypesCollectionGameOrGitMutation": false,
+  "status": "SEALED_HELD_MAPPING_AND_CHECKER_ONLY_EXECUTOR_UNIMPLEMENTED",
+  "utc": "2026-10-09T23:05:47.218853+00:00"
+}

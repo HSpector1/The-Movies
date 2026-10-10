@@ -1,0 +1,48 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/CONFIG.json
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/CONFIG.json
+@@ -123,7 +123,7 @@
+       "sha256": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4"
+     }
+   },
+-  "pythonFixture": "/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-cleanup-diagnostic-fixture-after-ak-20261009-r3",
++  "pythonFixture": "/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-cleanup-diagnostic-fixture-after-ak-20261009-r2",
+   "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+   "roles": {
+     "acceptedSourceReview": {
+@@ -137,9 +137,9 @@
+       "sha256": "10649c40f3ef4e6878f6ff72040a9a304231b8e60a5d96e57b6297c0dca789f1"
+     },
+     "driver": {
+-      "bytes": 13089,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py",
+-      "sha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678"
++      "bytes": 11349,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py",
++      "sha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07"
+     },
+     "helper": {
+       "bytes": 3361,
+@@ -268,7 +268,7 @@
+     },
+     "ownedCleanupDiagnostics": {
+       "bytes": 9553,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/owned_cleanup.py",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/owned_cleanup.py",
+       "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+     },
+     "previousDiagnosticSourcePins": {
+@@ -288,12 +288,12 @@
+     },
+     "reportControls": {
+       "bytes": 2924,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/test_reports.py",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/test_reports.py",
+       "sha256": "4c6379ee5d97b16700c9d4e8a205abc6f1580ac05f706296d8833fe2fd667ac8"
+     },
+     "reportGuard": {
+       "bytes": 3203,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/report_guard.py",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/report_guard.py",
+       "sha256": "bc7b714c9335e159fe292e8cb121db47d7f9dae3265ba9309fe44437a864b031"
+     }
+   },

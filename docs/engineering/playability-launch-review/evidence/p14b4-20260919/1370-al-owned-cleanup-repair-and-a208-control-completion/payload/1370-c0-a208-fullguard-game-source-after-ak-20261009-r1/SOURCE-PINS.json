@@ -1,0 +1,70 @@
+{
+  "actualCurrentAkScopeAndBaseline": null,
+  "actualPython17ControlsAdoption": null,
+  "candidateImportedOrExecuted": false,
+  "executionAuthorization": false,
+  "files": {
+    "BINDING-DRAFT.json": {
+      "bytes": 5675,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/BINDING-DRAFT.json",
+      "sha256": "d08f216653fc9d72c17dbfd9b6e574d1f2d9c098a92ee022a39b6ee3f83ab06a"
+    },
+    "CONFIG.json": {
+      "bytes": 3482,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/CONFIG.json",
+      "sha256": "ab8fa1fd2b423054b07a3d2c9a98c196c0a8abe25782593514c04219e2ab7e0e"
+    },
+    "CONFIG.json.diff": {
+      "bytes": 3028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/CONFIG.json.diff",
+      "sha256": "e722128bfeab4829d1571235a01299d0b6e457a61912818e1378626165b4b7d9"
+    },
+    "CONFIG.json.inverse.diff": {
+      "bytes": 3028,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/CONFIG.json.inverse.diff",
+      "sha256": "250ffa80acb2a118beb69a00035554865525abb26c48e3a9f05ea72eb4a24984"
+    },
+    "LESSONS.md": {
+      "bytes": 1006,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/LESSONS.md",
+      "sha256": "c52ec2fbea7b4178769c7be8b161e83e751d7991dc4b56139f91f33517cbc29a"
+    },
+    "NEXT-STEPS.md": {
+      "bytes": 3440,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/NEXT-STEPS.md",
+      "sha256": "be7bc5c05120feae96c1fe64e722d237d5bab1bc9568ac2220034c597a37a096"
+    },
+    "PLAN.json": {
+      "bytes": 12663,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/PLAN.json",
+      "sha256": "d21141d311529aca008bb6e8de22b2c3fc3cd4293cb15ab5cce4f50c7765771f"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 4522,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/SOURCE-PROOF.json",
+      "sha256": "0402f9661bb9d9aae889d4a06a0389e3ae90b1424ff4aafe82c4ab4f31bae4da"
+    },
+    "snapshot.py": {
+      "bytes": 21657,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/snapshot.py",
+      "sha256": "f193ab42546c3ddc91d7f22a48ff3234a57b2e7066d638b810e34893ba9d3516"
+    },
+    "snapshot.py.diff": {
+      "bytes": 6378,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/snapshot.py.diff",
+      "sha256": "6543c60478158a5575ef2caa163236c376aa7b1404edabaf09416dcd1cf3c40a"
+    },
+    "snapshot.py.inverse.diff": {
+      "bytes": 6378,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/snapshot.py.inverse.diff",
+      "sha256": "573082badfc95cc107b98de06e553bce1252d16dbba585f4bf444423ed2c958c"
+    }
+  },
+  "noRematerialization": true,
+  "onceOnlyGameGrant": null,
+  "runtimeGuardGameGitScansRun": false,
+  "schema": "1370-a208-current-ak-fullguard-game-source-pins/v1",
+  "sourceReview": null,
+  "status": "SEALED_HELD_SOURCE_ONLY_UNRUN_REVIEW_PENDING",
+  "utc": "2026-10-09T23:41:15.704389+00:00"
+}

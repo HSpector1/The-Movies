@@ -1,0 +1,24 @@
+{
+  "actualOperationalAuthority": null,
+  "design": {
+    "bytes": 9623,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-operational-scope-authority-independent-design-after-ak-20261009-r1/FINDING-AND-DESIGN.json",
+    "sha256": "f43391aae243ccfe05a689c28f46dd76c005d67031d8f281b7c985c3a27bd6aa"
+  },
+  "executionAuthorization": false,
+  "fullGuardRunAuthorized": false,
+  "game": false,
+  "m0RematerializationAuthorized": false,
+  "productionSourceMutationAuthorized": false,
+  "publishedAlHead": null,
+  "requiredScopeStatus": "PARENT_ADOPTED_A208_OPERATIONAL_GUARD_SCOPE_ONLY",
+  "reviewReceipt": {
+    "bytes": 1188,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-operational-scope-authority-independent-design-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "23b767216f248f4bbe74693e8bfa2584d749cc72a0e37000e5a38b9ddfe03270"
+  },
+  "schema": "1370-root-a208-scope-amendment-design-adoption/v1",
+  "scope": "Narrow truthful A208 scope predicate and current refs/transition comparisons; all inherited helper/inventory/FD/lock/H-first/no-waiver predicates retained. Fresh held candidate and exact actual filled source require independent review.",
+  "sourcePreparationAuthorized": true,
+  "status": "ROOT_ADOPTED_SOURCE_PREPARATION_ONLY_A208_OPERATIONAL_SCOPE_AMENDMENT"
+}

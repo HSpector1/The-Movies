@@ -1,0 +1,40 @@
+{
+  "files": {
+    "CONFIG.json": {
+      "bytes": 4109,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/CONFIG.json",
+      "sha256": "215fcae2c6222e9b88628116353f3edbb91219b59dad80b3e25c1eded5b9e181"
+    },
+    "FILL-RECEIPT.json": {
+      "bytes": 1193,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/FILL-RECEIPT.json",
+      "sha256": "902bba3205845cfb03247f3df35ee472007855388dc9d68ceba1e06cef48c360"
+    },
+    "ROOT-SOURCE-ADOPTION.json": {
+      "bytes": 1230,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/ROOT-SOURCE-ADOPTION.json",
+      "sha256": "82027a8c7fe0516d7ca30fdcbf925fb7f22e2d5da2bf09ffabc13ee13647a411"
+    },
+    "ROUTE.json": {
+      "bytes": 2563,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/ROUTE.json",
+      "sha256": "9f12c26febe8b9626e170c27d6c09ab1845f83fad4ea3907528853020fd2e9e9"
+    },
+    "launch.py": {
+      "bytes": 3302,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/launch.py",
+      "sha256": "5a97d231bc304388e7295f61ba027dfe55811fa5703c064b9a7f8007957d7dbd"
+    },
+    "record.py": {
+      "bytes": 14814,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/record.py",
+      "sha256": "4d781e20e47a4e0555839a0aaa5c87984a8b87052051607d5b68eb1460d7f578"
+    },
+    "report_guard.py": {
+      "bytes": 3036,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/report_guard.py",
+      "sha256": "212d42e10cf1cd530733b5d34ee31e7dd643e7b24964704297a1ab62227f599f"
+    }
+  },
+  "status": "FILLED_SOURCE_ONLY_UNRUN"
+}

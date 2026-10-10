@@ -1,0 +1,16 @@
+{
+  "design": {
+    "bytes": 10681,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-next-performance-design-after-ak-20261009-r1/DESIGN.json",
+    "sha256": "2dc9f9896d0d3f673ea7be9a2e67549cc49e48604cfdb42a918477d3c81bc53b"
+  },
+  "executionAuthorization": false,
+  "note": {
+    "bytes": 5196,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-next-performance-design-after-ak-20261009-r1/NOTE.md",
+    "sha256": "68172941d35a5d5955170955e4521871a4262f9646ac042fb6b8e2ad40cb7882"
+  },
+  "readOnly": true,
+  "schema": "1370-b109-next-performance-design-seal-v1",
+  "sourceDesignOnly": true
+}

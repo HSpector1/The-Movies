@@ -1,0 +1,20 @@
+{
+  "executionPerformedByReviewer": false,
+  "fixtureArtifacts": {
+    "bytes": 14373,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-independent-observed-review-after-ak-20261009-r3/FIXTURE-ARTIFACTS.json",
+    "sha256": "f15f941af84c5d750e36b984287464e29e1c023de9e5f0db12e79d9571e8722e"
+  },
+  "note": {
+    "bytes": 1758,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-independent-observed-review-after-ak-20261009-r3/NOTE.md",
+    "sha256": "83bad95460a1487cebcfb83c53fe3f429242ea17b10831996978013272315390"
+  },
+  "receipt": {
+    "bytes": 14393,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-independent-observed-review-after-ak-20261009-r3/RECEIPT.json",
+    "sha256": "30cbea421e047686752bc0f0b765fde3e9763fff82c4d9a8d6ca436fb7b2d507"
+  },
+  "schema": "1370-a208-python17-observed-review-seal/v1",
+  "status": "SEALED_OBSERVED_REVIEW"
+}

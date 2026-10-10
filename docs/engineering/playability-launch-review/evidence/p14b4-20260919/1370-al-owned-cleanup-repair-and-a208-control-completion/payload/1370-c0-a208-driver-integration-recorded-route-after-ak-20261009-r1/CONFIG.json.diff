@@ -1,0 +1,173 @@
+--- pure/CONFIG.json
++++ integration/CONFIG.json
+@@ -7,67 +7,96 @@
+     "eachStreamBytes": 65536,
+     "wholeSeconds": 30
+   },
+-  "candidateModule": {
+-    "bytes": 9553,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/owned_cleanup.py",
+-    "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
++  "candidateDriver": {
++    "bytes": 11349,
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py",
++    "sha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07"
+   },
+   "currentOperationalRefs": {
+     "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+     "productionHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+     "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+   },
++  "directRecorderInvocationGranted": false,
+   "executionAuthorization": false,
+   "expected": {
+-    "exactRows": 21,
+-    "expectedGreen": 18,
+-    "expectedRed": 3,
++    "exactRows": 12,
++    "expectedGreen": 10,
++    "expectedRed": 2,
+     "greenNames": [
+-      "owned-seven-four-only",
+-      "group-EPERM-sticky-continue",
+-      "pid-EPERM-sticky-continue",
+-      "probe-EPERM-sticky-continue",
+-      "ESRCH-distinct",
+-      "already-clear-reaped-skip",
+-      "unknown-readiness-stop",
+-      "poll-fault-continue",
+-      "hard-deadline-before-syscall",
+-      "deadline-plus-EPERM-retained",
+-      "reentrant-cleanup-no-duplicate",
+-      "event-cap-does-not-conceal-refusal",
+-      "aggregate-cap-refusal",
+-      "UTF8-event-field-caps",
+-      "writer-EAGAIN-stop-continue",
+-      "writer-ENOSPC-stop-continue",
+-      "writer-clock-deadline-precedence",
+-      "snapshot-fault-stop-continue"
++      "r2-clean-valid-pass",
++      "r2-EPERM-sticky-stop",
++      "r2-prior-STOP-plus-EPERM-preserved",
++      "r2-prior-STOP-alone-preserved",
++      "r2-invalid-method-count-stop",
++      "r2-unclear-owned-state-stop",
++      "r2-late-artifact-rejected",
++      "r2-late-emission-rejected",
++      "r2-hard-deadline-precedes-IO",
++      "r2-fixture-cap-before-IO-rejected"
++    ],
++    "redDetails": [
++      {
++        "branch": "refusal",
++        "exception": "UnboundLocalError",
++        "name": "STOP",
++        "resultWrites": 0,
++        "sourceLine": 185
++      },
++      {
++        "branch": "clean",
++        "exception": "UnboundLocalError",
++        "name": "STOP",
++        "resultWrites": 0,
++        "sourceLine": 187
++      }
+     ],
+     "redNames": [
+-      "original-RED-group",
+-      "original-RED-pid",
+-      "original-RED-probe"
++      "r1-refusal-unbound-STOP",
++      "r1-clean-unbound-STOP"
+     ],
+-    "schema": "a208-independent-owned-cleanup-controls/v1",
+-    "status": "SYNTHETIC_CONTROLS_PASS",
+-    "testerSummaryBytes": 16384
++    "schema": "a208-independent-driver-integration-controls/v1",
++    "status": "DRIVER_INTEGRATION_CONTROLS_PASS",
++    "testerSummaryBytes": 12288
+   },
+   "originalDriver": {
+-    "bytes": 8874,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/drive.py",
+-    "sha256": "7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c"
++    "bytes": 11344,
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/drive.py",
++    "sha256": "0a4934e66eb748d7f2912373bd6896b21e80a867fad4a1e72b9f2a7647345369"
+   },
++  "protectedRoots": [
++    "/Users/zacheryspector/The-Movies-headless-program",
++    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git",
++    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git/objects",
++    "/Users/zacheryspector/The-Movies-headless-program/node_modules",
++    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
++    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git",
++    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
++    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2"
++  ],
++  "protectionScope": "Bounded physical directory identity/mode/mtime/ctime before and after; no inventory, content scan or continuity claim across docs publication",
+   "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+   "pythonSha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835",
+   "roles": {
++    "candidateDiagnosticSourcePins": {
++      "bytes": 6303,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/SOURCE-PINS.json",
++      "sha256": "49723b2fc9d77a1b87d6aba650f750dabae79d8c2506019139c803fe3f4e1f3f"
++    },
+     "helper": {
+       "bytes": 3361,
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+       "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+     },
+     "originalDriver": {
+-      "bytes": 8874,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/drive.py",
+-      "sha256": "7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c"
++      "bytes": 11344,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/drive.py",
++      "sha256": "0a4934e66eb748d7f2912373bd6896b21e80a867fad4a1e72b9f2a7647345369"
++    },
++    "originalPureRecorderSourcePins": {
++      "bytes": 1933,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/SOURCE-PINS.json",
++      "sha256": "8099500ec4942bbf25a0fcbb49213a5420017e2c7c4e0c4726059019d7fca795"
+     },
+     "python": {
+       "bytes": 50472,
+@@ -75,26 +104,18 @@
+       "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+     },
+     "reportGuard": {
+-      "bytes": 3036,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/report_guard.py",
+-      "sha256": "212d42e10cf1cd530733b5d34ee31e7dd643e7b24964704297a1ab62227f599f"
+-    },
+-    "sourceAdoption": {
+-      "bytes": 1230,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/ROOT-SOURCE-ADOPTION.json",
+-      "sha256": "82027a8c7fe0516d7ca30fdcbf925fb7f22e2d5da2bf09ffabc13ee13647a411"
++      "bytes": 3500,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/report_guard.py",
++      "sha256": "b32ece6f1765cf395ee0ea83c6f10c4df47480a7c0d4e919b05688b414333f0b"
+     }
+   },
+-  "runtimeGrant": {
+-    "bytes": 1230,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/ROOT-SOURCE-ADOPTION.json",
+-    "sha256": "82027a8c7fe0516d7ca30fdcbf925fb7f22e2d5da2bf09ffabc13ee13647a411"
+-  },
+-  "schema": "1370-a208-cleanup-pure-red-green-config-v1",
+-  "status": "REVIEWED_FILLED_UNRUN",
++  "rootSourceOnlyReview": null,
++  "runtimeGrant": null,
++  "schema": "1370-a208-driver-integration-config/v1",
++  "status": "FILLED_SOURCE_ONLY_UNRUN",
+   "tester": {
+-    "bytes": 18788,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-independent-red-design-after-ak-20261009-r1/controls.py",
+-    "sha256": "5acc6a49004a2021e35bc93164754accfce1f8180f40290579c78c60d3dbf328"
++    "bytes": 13900,
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-independent-red-design-after-ak-20261009-r1/controls.py",
++    "sha256": "532259092bcad48c073282e22e55332d02c1de8f082d9173f4ed817a85c1af0f"
+   }
+ }

@@ -1,0 +1,11 @@
+{
+  "executionPerformed": false,
+  "readOnlyDirectory": true,
+  "readOnlyFiles": true,
+  "schema": "1370-m0-types-next-slice-readonly-seal/v1",
+  "sourcePins": {
+    "bytes": 2484,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-next-slice-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "4b38dbfad83af47d48f07470950693a3da95a46b71d9b9e96dfccd7fd29d30a8"
+  }
+}

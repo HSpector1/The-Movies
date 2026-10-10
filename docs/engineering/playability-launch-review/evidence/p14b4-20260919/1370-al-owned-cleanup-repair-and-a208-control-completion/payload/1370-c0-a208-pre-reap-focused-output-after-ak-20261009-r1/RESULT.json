@@ -1,0 +1,31 @@
+{
+  "actualChildExit": 0,
+  "boundsSeconds": {
+    "active": 25,
+    "child": 20,
+    "whole": 30
+  },
+  "childPid": 39773,
+  "configSha256": "43dd1d9d33e3b29fc1879e3a5ea5251fb03207bf100add9f8b2240f0f06e744e",
+  "elapsedSeconds": 0.6656049059965881,
+  "executionAuthorization": false,
+  "game": false,
+  "groupClear": true,
+  "mode": "pre-reap",
+  "ownedPgid": 39773,
+  "pgidConfirmed": true,
+  "sanitizedEnvironment": [
+    "NODE_OPTIONS",
+    "NODE_PATH"
+  ],
+  "schema": "1370-a208-pre-reap-focused-recorder/v1",
+  "sourceOrGameplayAdoption": false,
+  "startupOwnedBeforeExec": true,
+  "status": "PURE_A208_PRE_REAP_FOCUSED_CONTROLS_COMPLETE_UNADOPTED",
+  "stderrBytes": 0,
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutBytes": 1408,
+  "stdoutSha256": "74b6dbcc35857fd84d97127fda1b1ee55d02f9ab034b0896176047e2d01aa144",
+  "timedOut": false,
+  "utc": "2026-10-09T23:40:22.931512+00:00"
+}

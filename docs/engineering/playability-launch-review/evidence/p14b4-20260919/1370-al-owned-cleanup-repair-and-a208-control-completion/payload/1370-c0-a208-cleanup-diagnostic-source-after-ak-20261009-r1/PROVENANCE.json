@@ -1,0 +1,26 @@
+{
+  "actualRetryAuthorized": false,
+  "candidateExecutionPerformed": false,
+  "designAdoption": {
+    "bytes": 2050,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-cleanup-diagnostics-parent-design-adoption-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "10649c40f3ef4e6878f6ff72040a9a304231b8e60a5d96e57b6297c0dca789f1"
+  },
+  "frozenProductionSrc": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "gitMutated": false,
+  "originalDriverExit": -14,
+  "originalDriverResultProduced": false,
+  "originalFailureTargetHostCauseAlarmRelation": "unknown",
+  "originalMethodReports": 17,
+  "originalSourcePins": {
+    "bytes": 5579,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/SOURCE-PINS.json",
+    "sha256": "8e3d9c290e07e9f4be06fac3c0b31aa1d371e4dc6fd9976455135c348582d1c5"
+  },
+  "originalsMutated": false,
+  "productionMutated": false,
+  "publishedOperationalHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+  "schema": "1370-owned-cleanup-derivative-provenance/v1",
+  "sourcePreparationOnly": true,
+  "utc": "2026-10-09T22:53:27.373910+00:00"
+}

@@ -1,0 +1,3 @@
+/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/record.py:242: SyntaxWarning: 'return' in a 'finally' block
+  return code
+{"status": "PURE_A208_DRIVER_INTEGRATION_CONTROLS_COMPLETE_UNADOPTED", "output": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-output-after-ak-20261009-r2", "actualChildExit": 0, "groupClear": true}

@@ -1,0 +1,40 @@
+{
+  "actualExecutionPerformed": false,
+  "actualObservedReceipt": null,
+  "executionAuthorization": false,
+  "roles": {
+    "CONFIG.json": {
+      "bytes": 2330,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/CONFIG.json",
+      "sha256": "aaf4eb3a20e7f98ec8b3a3b555a7d1f3d98abdff9de2ebe4286659a1efaa3d99"
+    },
+    "NOTE.md": {
+      "bytes": 4795,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/NOTE.md",
+      "sha256": "35cd12bdadf23f16c0d701663e18cc814515483579a44a1cf00a8e4dab9cf524"
+    },
+    "PLAN.json": {
+      "bytes": 7130,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/PLAN.json",
+      "sha256": "269365370e287bc61da5eed7ac2b8f5a01991373e00efebd09f92e1818b4e1b7"
+    },
+    "probe.py": {
+      "bytes": 6206,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/probe.py",
+      "sha256": "6dd8f9f475ead831ef8c7fa6889343e9cb24fd2d515e57a390b5bcfa8871e70f"
+    },
+    "record.py": {
+      "bytes": 14558,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/record.py",
+      "sha256": "056d19d7d8ef0b783459bcab714bf8e3029ff03aed9b5ec22b6c92e42c065431"
+    },
+    "report_guard.py": {
+      "bytes": 4391,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/report_guard.py",
+      "sha256": "6a64c8052bc451fb96d96206f3a01892d8012c36b86ed47a41208f6a725f5fb2"
+    }
+  },
+  "schema": "1370-a208-owned-zombie-diagnostic-source-pins/v1",
+  "sourceReviewPending": true,
+  "status": "SEALED_HELD_SOURCE_ONLY_UNRUN"
+}

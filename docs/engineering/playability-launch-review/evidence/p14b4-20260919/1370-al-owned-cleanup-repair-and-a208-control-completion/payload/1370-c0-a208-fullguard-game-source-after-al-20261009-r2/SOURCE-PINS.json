@@ -1,0 +1,97 @@
+{
+  "actualControlsAdoption": null,
+  "actualGameGrant": null,
+  "actualGuardBaseline": null,
+  "actualPostAlHead": null,
+  "actualScopeAdoption": null,
+  "design": {
+    "bytes": 9623,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-operational-scope-authority-independent-design-after-ak-20261009-r1/FINDING-AND-DESIGN.json",
+    "sha256": "f43391aae243ccfe05a689c28f46dd76c005d67031d8f281b7c985c3a27bd6aa"
+  },
+  "executionAuthorization": false,
+  "files": {
+    "BINDING-DRAFT.json": {
+      "bytes": 5637,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/BINDING-DRAFT.json",
+      "sha256": "62cbd6611a13c7ff9adf83c5a56526f46b142d903e7b98d4cfae7c39423dc966"
+    },
+    "BINDING-DRAFT.json.diff": {
+      "bytes": 707,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/BINDING-DRAFT.json.diff",
+      "sha256": "c87a2cd1d86f63db4537695427e5e3c232bfa8f0d3aa5fa8d1899193337edfab"
+    },
+    "BINDING-DRAFT.json.inverse.diff": {
+      "bytes": 707,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/BINDING-DRAFT.json.inverse.diff",
+      "sha256": "ecdb061a4ce29ff4d9dd9cd9bd1d3ea6220d23db2752c4ec61e61d2044c614e4"
+    },
+    "CONFIG.json": {
+      "bytes": 3579,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/CONFIG.json",
+      "sha256": "64628bfc7f2c330a0ec172f8988942ccbbf48033758504b4421dc9a06e4ee259"
+    },
+    "CONFIG.json.diff": {
+      "bytes": 2753,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/CONFIG.json.diff",
+      "sha256": "c382efd1fba66c82e603cfaf617e23dae284465e7c412c01286c7709e7bb1175"
+    },
+    "CONFIG.json.inverse.diff": {
+      "bytes": 2753,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/CONFIG.json.inverse.diff",
+      "sha256": "58ca3befacf7adf289731c71c3d686110a756c64682bf396695bc1431afd77e2"
+    },
+    "LESSONS.md": {
+      "bytes": 690,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/LESSONS.md",
+      "sha256": "666262ac005db968c94006062f3f4ebe780ba863f6baab3ecbf1b5989efb1e48"
+    },
+    "NEXT-STEPS.md": {
+      "bytes": 1400,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/NEXT-STEPS.md",
+      "sha256": "6800214ab534c2386762a42ed5bc8ec2ee32b90bff2873222a7bcedd95fcf353"
+    },
+    "PLAN.json": {
+      "bytes": 14145,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/PLAN.json",
+      "sha256": "38f0ebcc537a4e930b53622f643584408f1acf44818f217f4ec1ff0b451452f9"
+    },
+    "PLAN.json.diff": {
+      "bytes": 11448,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/PLAN.json.diff",
+      "sha256": "4cb1f2a771781677726bb164a27c439e57f2faaf4a9dbbff5e3781120be63da8"
+    },
+    "PLAN.json.inverse.diff": {
+      "bytes": 11448,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/PLAN.json.inverse.diff",
+      "sha256": "5c65164c4a0d0446897c9137f6dde28dc9193001959f7db83667623ed86bac98"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 6044,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/SOURCE-PROOF.json",
+      "sha256": "785891fe56426cce9722fbe7e24f79ba1aedc9403b8b0e6e9d1e1c80355e2aa6"
+    },
+    "snapshot.py": {
+      "bytes": 21984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/snapshot.py",
+      "sha256": "d2e0e8707cd59945cf8766ff10d86386312beb3a1e3e2a209f204a6f043c85e8"
+    },
+    "snapshot.py.diff": {
+      "bytes": 7950,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/snapshot.py.diff",
+      "sha256": "f1d42d9d537f40814210d89ee63cee2371c61ceca8a606b26e3e49005e5b5612"
+    },
+    "snapshot.py.inverse.diff": {
+      "bytes": 7950,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/snapshot.py.inverse.diff",
+      "sha256": "21d0b8ea9fe7d5658869af509929f00105c2dce3f20789273be7a7774860d062"
+    }
+  },
+  "schema": "1370-a208-current-operational-fullguard-source-pins/v2",
+  "sourcePreparationDesignAdoption": {
+    "bytes": 1308,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/SCOPE-AMENDMENT-DESIGN-ADOPTION.json",
+    "sha256": "bd4b15dca9e84e4d694dc129f386c83079f07693f0f84472ad6ff31e3d476217"
+  },
+  "status": "SEALED_SOURCE_ONLY_UNRUN_HELD_POST_AL_A208_SCOPE"
+}

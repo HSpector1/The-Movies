@@ -1,0 +1,180 @@
+{
+  "actual17MethodRetryAccepted": false,
+  "actualRoles": {
+    "actualTool": {
+      "bytes": 614,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-parent-after-ak-20261009-r1/ACTUAL-TOOL.json",
+      "sha256": "184cca34af83ed5dc41c2b3668890201702dda26f670457c1cf2b54ee1569fd9"
+    },
+    "boundedProtectionAfter": {
+      "bytes": 3256,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-parent-after-ak-20261009-r1/PROTECTION-AFTER.json",
+      "sha256": "7be950d3ab9fe836ea80ac3bcee2e551d1e017b2dd7fda87d257f43ef69e31e4"
+    },
+    "grant": {
+      "bytes": 3181,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-parent-after-ak-20261009-r1/GRANT.json",
+      "sha256": "f7d5e4dad5209188d261ebf997b10049ea11cb3e4157c8bce69b6b6a0740c64e"
+    },
+    "helperLog": {
+      "bytes": 396,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-lane-after-ak-20261009-r1/controls.log",
+      "sha256": "703434cce30b24c9c62b4f643e5e344a8d96a238bee9227457de6aeab4e90353"
+    },
+    "helperMeta": {
+      "bytes": 342,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-lane-after-ak-20261009-r1/controls.log.meta",
+      "sha256": "b6f99b4278df372003d63fc990dfc040c020cfdd27a3b50a02513d6c7a9ff05b"
+    },
+    "helperPID": {
+      "bytes": 15,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-parent-after-ak-20261009-r1/HELPER-PID.json",
+      "sha256": "dcf9f8a9aeeee99deda4588e1dee33e0a617cba4425c0b7cb778e324d190a1cf"
+    },
+    "rawStderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-output-after-ak-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "rawStdout": {
+      "bytes": 1408,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-output-after-ak-20261009-r1/stdout.bin",
+      "sha256": "74b6dbcc35857fd84d97127fda1b1ee55d02f9ab034b0896176047e2d01aa144"
+    },
+    "recorderResult": {
+      "bytes": 939,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-output-after-ak-20261009-r1/RESULT.json",
+      "sha256": "312cfe670ead7b95187621b41e74f32e59c2af25b55728c073c95c384ddb3743"
+    },
+    "rootPostOwnership": {
+      "bytes": 482,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-parent-after-ak-20261009-r1/POST-OWNERSHIP.json",
+      "sha256": "49fbe1a7f1505cbf978f427049481388ccd87f9bd9824ca5e1377b9da5d4d9ba"
+    }
+  },
+  "baselineR2Driver": {
+    "bytes": 11349,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py",
+    "sha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07"
+  },
+  "candidateCodeImportedByReviewer": false,
+  "candidateDriver": {
+    "bytes": 13089,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py",
+    "sha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678"
+  },
+  "candidateModule": {
+    "bytes": 9553,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/owned_cleanup.py",
+    "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+  },
+  "controlsRerunByReviewer": false,
+  "decision": "ACCEPT_OBSERVED_PRE_REAP_FOCUSED_RED_GREEN",
+  "executionAuthorization": false,
+  "game": false,
+  "limits": [
+    "Focused AST-extracted actual cleanup-entry/helper controls use injected targets/OS/clock. No real driver top-level import, observer suite or game executed by those controls.",
+    "Injected old-order EPERM RED establishes that fixture behavior only; historical EPERM target/host/kernel cause remains unproved.",
+    "Before/after eight-directory metadata protects its recorded route interval only, without content inventory or continuity claims.",
+    "Acceptance requires complete actual tool/helper/recorder/tester0 and exact producer JSON; stale artifacts cannot override any failure.",
+    "This receipt is observed focused-control acceptance only; any actual17method diagnostic retry still needs its separate filled source review and parent grant."
+  ],
+  "materialFindings": [],
+  "observed": {
+    "OVERRIDE_STOPAbsent": true,
+    "actualToolSession": 86706,
+    "boundedProtectedRootCount": 8,
+    "boundsSeconds": {
+      "active": 25,
+      "child": 20,
+      "whole": 30
+    },
+    "eachStreamCapBytes": 65536,
+    "elapsedSeconds": 0.6656049059965881,
+    "exactOrderedRosterAndTypedFieldsVerified": true,
+    "exits": {
+      "helper": 0,
+      "recorder": 0,
+      "tester": 0,
+      "tool": 0
+    },
+    "expectedGreen": 12,
+    "expectedRed": 1,
+    "freshScopedZeroProbes": [
+      {
+        "errno": 3,
+        "id": 39758,
+        "kind": "pid",
+        "result": "absent"
+      },
+      {
+        "errno": 3,
+        "id": 39758,
+        "kind": "pgid",
+        "result": "absent"
+      },
+      {
+        "errno": 3,
+        "id": 39773,
+        "kind": "pid",
+        "result": "absent"
+      },
+      {
+        "errno": 3,
+        "id": 39773,
+        "kind": "pgid",
+        "result": "absent"
+      }
+    ],
+    "fullInventoryPerformed": false,
+    "grantConfigPinsRolesCurrentBytesVerified": true,
+    "helperMetaWaitingFor": 0,
+    "helperPid": 39758,
+    "knownRecorderSyntaxWarning": "Inherited return-in-finally SyntaxWarning appears once in helper log, is source-reviewed and unchanged; producer stderr is empty.",
+    "laneLockAbsent": true,
+    "observedGreen": 12,
+    "observedRed": 1,
+    "ownedGroupClear": true,
+    "pgidConfirmed": true,
+    "producerStatus": "PRE_REAP_CONTROLS_PASS",
+    "producerSummaryCapBytesIncludingNewline": 12289,
+    "protectedBeforeAfterEqual": true,
+    "recorderStatus": "PURE_A208_PRE_REAP_FOCUSED_CONTROLS_COMPLETE_UNADOPTED",
+    "rows": 13,
+    "startupOwnedBeforeExec": true,
+    "stderrBytes": 0,
+    "stdoutBytes": 1408,
+    "testerPid": 39773,
+    "timedOut": false
+  },
+  "preservedSeparateEvidence": {
+    "actualOriginal17MethodRoute": "Original3+14 reportedOK but recorded routeSTOP; prior r1 diagnostics captured EPERM and integration-global defect. No actual17method PASS inferred from this focused control run.",
+    "correctedMicroprobe": "Separately root-adopted exact nine observed rows; no host-cause claim inherited.",
+    "unchangedPureModule": "Prior3expectedRED+18GREEN/21 remains separately admitted at module811746 scope.",
+    "unchangedR2ReportingTail": "Prior2expectedRED+10GREEN/12 remains separately admitted at actual-tail integration scope."
+  },
+  "reviewScope": "Independent review of actual recorded artifacts, bindings and exact owned cleanup. Reviewer authored the tester; no independent test-authorship claim. Root reviewed full tester/wrapper/guard separately before grant.",
+  "reviewerRuntimeOperations": "Read/hash/JSON validation plus four exact recorded PID/PGID zero probes only; no positive signals or process discovery.",
+  "schema": "1370-a208-pre-reap-focused-observed-review/v1",
+  "sourcePins": {
+    "bytes": 2824,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "8eb02a720ae08466ea36ba6fb3b53d997588ab663c314f4d140cdc9bff4c541c"
+  },
+  "sourcePinsSha256": "8eb02a720ae08466ea36ba6fb3b53d997588ab663c314f4d140cdc9bff4c541c",
+  "sourceReview": {
+    "bytes": 5343,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-independent-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "16ca4682f7d50360a850488af9e380472a48591668e35c584ecbdb92db26f65a"
+  },
+  "tester": {
+    "bytes": 20888,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-independent-controls-after-ak-20261009-r1/controls.py",
+    "sha256": "fc835a82b2071b64840711e3fb5a334e3dc25ba531ef2d67ce041aff40c4ea68"
+  },
+  "wrapper": {
+    "bytes": 4719,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/launch.py",
+    "sha256": "3e14257fb9c6d363c80a4ae4c0f3020253c74d21897cbea17e7f71ec2c38defb"
+  }
+}

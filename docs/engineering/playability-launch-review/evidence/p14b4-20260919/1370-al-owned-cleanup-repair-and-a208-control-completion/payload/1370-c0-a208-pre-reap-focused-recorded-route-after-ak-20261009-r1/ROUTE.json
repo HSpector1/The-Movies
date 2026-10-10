@@ -1,0 +1,154 @@
+{
+  "absentPathsAtFutureGrant": [
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-lane-after-ak-20261009-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-output-after-ak-20261009-r1"
+  ],
+  "actual17MethodDiagnosticRetry": false,
+  "actualOutcome": null,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-lane-after-ak-20261009-r1/controls.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/record.py",
+    "pre-reap"
+  ],
+  "bounds": {
+    "activeSeconds": 25,
+    "childSeconds": 20,
+    "eachStreamBytes": 65536,
+    "wholeSeconds": 30
+  },
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1",
+  "executionAuthorization": false,
+  "expected": {
+    "cases": [
+      {
+        "name": "old-order-exited-unreaped-EPERM",
+        "status": "EXPECTED_RED"
+      },
+      {
+        "name": "pre-reap-completed-ESRCH-skip",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-live-child-existing-kills",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-leader-descendants-live",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-already-reaped-no-wait",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-wait-error-sticky-continue",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-group-EPERM-sticky-continue",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-mismatched-wait-refused",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-malformed-wait-refused",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-status-conversion-refused",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-deadline-precedence",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-owned-boundaries",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-diagnostic-cap-sticky",
+        "status": "GREEN_PASS"
+      }
+    ],
+    "cli": [
+      "candidateDrivePath",
+      "candidateSHA",
+      "modulePath",
+      "moduleSHA",
+      "baselineR2DrivePath",
+      "baselineSHA"
+    ],
+    "exactTopLevelKeys": [
+      "schema",
+      "status",
+      "expectedRed",
+      "observedRed",
+      "expectedGreen",
+      "observedGreen",
+      "caseCount",
+      "cases",
+      "candidateSha256",
+      "moduleSha256",
+      "baselineSha256",
+      "driverTopLevelImported",
+      "realSignals",
+      "game",
+      "moduleUnchanged",
+      "r2TailUnchanged",
+      "failure"
+    ],
+    "exitCode": 0,
+    "guardRequirements": [
+      "Reject duplicate JSON keys, non-object, extra or missing keys, extra/missing/reordered rows, wrong exact row keys/name/status.",
+      "Require exact type int for all five count fields (bool rejected); booleans are exact false/true as specified.",
+      "Require complete JSON plus child0, helper0 and recorder0; no successful artifact can override an actual route failure.",
+      "Retain existing 20s child,25s helper,30s recorder bounds,64KiB recorder stdout/stderr caps and owned READY/GO cleanup."
+    ],
+    "noOptimize": true,
+    "pythonFlags": [
+      "-I",
+      "-B"
+    ],
+    "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "required": {
+      "baselineSha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07",
+      "candidateSha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678",
+      "caseCount": 13,
+      "driverTopLevelImported": false,
+      "expectedGreen": 12,
+      "expectedRed": 1,
+      "failure": null,
+      "game": false,
+      "moduleSha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15",
+      "moduleUnchanged": true,
+      "observedGreen": 12,
+      "observedRed": 1,
+      "r2TailUnchanged": true,
+      "realSignals": false,
+      "schema": "a208-independent-pre-reap-controls/v1",
+      "status": "PRE_REAP_CONTROLS_PASS"
+    },
+    "rowExactKeys": [
+      "name",
+      "status"
+    ],
+    "stderrBytes": 0,
+    "stdout": "Exactly one UTF-8 JSON object followed by one newline; no other bytes.",
+    "stdoutMaximumBytesIncludingNewline": 12289
+  },
+  "game": false,
+  "parentOutput": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-parent-after-ak-20261009-r1",
+  "runtimeGrant": null,
+  "schema": "1370-a208-pre-reap-focused-route/v1",
+  "sourceReview": null,
+  "status": "FILLED_SOURCE_ONLY_UNRUN"
+}

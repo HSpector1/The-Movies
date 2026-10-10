@@ -1,0 +1,85 @@
+{
+  "schema": "a208-independent-owned-cleanup-red-design/v1",
+  "status": "AUTHORED_SOURCE_ONLY_UNRUN",
+  "date": "2026-10-09",
+  "executionAuthorization": false,
+  "testsExecuted": false,
+  "productionGitMirrorMutation": false,
+  "realProcessesTimersSignals": false,
+  "originalFailurePreserved": true,
+  "originalRealTargetHostAndAlarmCauseRemainUnknown": true,
+  "originalDriverSha256": "7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c",
+  "controls": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-independent-red-design-after-ak-20261009-r1/controls.py",
+    "bytes": 18788,
+    "sha256": "5acc6a49004a2021e35bc93164754accfce1f8180f40290579c78c60d3dbf328"
+  },
+  "design": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-independent-red-design-after-ak-20261009-r1/DESIGN.md",
+    "bytes": 7599,
+    "sha256": "7ec3bb7dc5797e0c2a2b10e2930287adb33379f0e18234f95025899478f0af43"
+  },
+  "candidateInterfaceReviewed": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/owned_cleanup.py",
+    "announcedSha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15",
+    "qualification": "Read-only source/API review, not execution or full driver/route independent acceptance"
+  },
+  "cli": ["candidateModulePath", "candidateModuleSha256", "originalDrivePath", "originalDriveSha256"],
+  "expectedCounts": {"originalExpectedRed": 3, "candidateGreen": 18, "total": 21},
+  "originalRedKinds": ["group", "pid", "probe"],
+  "candidateGreenRoster": [
+    "owned-seven-four-only",
+    "group-EPERM-sticky-continue",
+    "pid-EPERM-sticky-continue",
+    "probe-EPERM-sticky-continue",
+    "ESRCH-distinct",
+    "already-clear-reaped-skip",
+    "unknown-readiness-stop",
+    "poll-fault-continue",
+    "hard-deadline-before-syscall",
+    "deadline-plus-EPERM-retained",
+    "reentrant-cleanup-no-duplicate",
+    "event-cap-does-not-conceal-refusal",
+    "aggregate-cap-refusal",
+    "UTF8-event-field-caps",
+    "writer-EAGAIN-stop-continue",
+    "writer-ENOSPC-stop-continue",
+    "writer-clock-deadline-precedence",
+    "snapshot-fault-stop-continue"
+  ],
+  "outputGate": {
+    "schema": "a208-independent-owned-cleanup-controls/v1",
+    "status": "SYNTHETIC_CONTROLS_PASS",
+    "singleJsonLine": true,
+    "stdoutBytesMax": 16384,
+    "stderrExpectedBytes": 0,
+    "failure": null,
+    "game": false,
+    "realSignals": false,
+    "originalImported": false,
+    "childExitRequired": 0,
+    "recorderAndHelperExitRequired": 0
+  },
+  "heldParentPureBoundsSeconds": {"child": 20, "active": 25, "whole": 30},
+  "heldParentPureStreamCapBytes": 65536,
+  "unchangedOriginalControls": {
+    "reportMethods": 3,
+    "observerMethods": 14,
+    "ownedGroups": 7,
+    "inheritedProbes": 4,
+    "driverActiveWholeSeconds": [45, 55],
+    "parentChildActiveWholeSeconds": [60, 75, 90],
+    "streamCapBytes": 1048576,
+    "fixtureCapBytes": 8388608
+  },
+  "acceptanceLimits": [
+    "No original driver top-level import; only authenticated hard_kill AST runs against fake callbacks under a future grant.",
+    "Original RED demonstrates source control flow only, not actual EPERM target or host/alarm cause.",
+    "Writer exception and clock-advance fixtures do not prove a blocking writer is nonblocking; concrete emitter source must be reviewed.",
+    "Stale durable PASS bytes are invalid unless full actual driver/helper/recorder route exits zero and all evidence gates pass.",
+    "Source review found no bypass of original recorder child.poll()==0 plus report/active/whole/postwrite acceptance gates.",
+    "Preexisting alarm-unmasked registry fsync is unchanged; diagnostic brackets do not add another fsync.",
+    "Pure controls neither replace original seventeen method assertions nor authorize a real diagnostic rerun or A208 game."
+  ],
+  "next": "Parent independently reviews exact sealed controls and candidate module, then separately grants any recorded finite pure execution; preserve all outcomes."
+}

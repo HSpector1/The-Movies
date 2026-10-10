@@ -1,0 +1,29 @@
+{
+  "actualRetry": null,
+  "configRoles": 36,
+  "driverExactFrozenBytes": true,
+  "focusedAdoptionActualBound": {
+    "bytes": 2787,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PURE-OBSERVED-ADOPTION.json",
+    "sha256": "30ba97ac7f300fdd1badad143f684b1642eb1ff1d2951d6eead722dda31f7af4"
+  },
+  "moduleExactFrozenBytes": true,
+  "noExecutedCandidateOrGitOrProcessSignals": true,
+  "parsedWithoutImportOrExecution": {
+    "drive.py": true,
+    "grant-parent.py": true,
+    "owned_cleanup.py": true,
+    "record.py": true,
+    "report_guard.py": true,
+    "test_reports.py": true
+  },
+  "recorderConfigHashCorrect": true,
+  "reportModulesExactFrozenBytes": true,
+  "runtimeGrantIsSourceOnlyRootImplementationAdoption": {
+    "bytes": 1543,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/IMPLEMENTATION-SOURCE-ADOPTION.json",
+    "sha256": "4c018cd0d6c6614134c2dce685da518cde0371e12adba9abb2df975408522c99"
+  },
+  "schema": "1370-a208-actual-diagnostic-static-preparation-v1",
+  "wrapperConfigHashCorrect": true
+}

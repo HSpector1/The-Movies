@@ -1,0 +1,20 @@
+{
+  "schema": "1370-actual-tool-preservation/v1",
+  "sessionId": 25659,
+  "chunks": [
+    {
+      "chunk_id": "2e0585",
+      "wall_time_seconds": 1.001191063,
+      "session_id": 25659,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "313a80",
+      "wall_time_seconds": 0.000030496,
+      "exit_code": 2,
+      "original_token_count": 51,
+      "output": "{\"helperPid\": 20712, \"grant\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/GRANT.json\"}\n{\"helperExit\": 2, \"boundedProtectedRootEquality\": true}\n"
+    }
+  ]
+}

@@ -1,0 +1,542 @@
+{
+  "allObserverRolesUnchanged": true,
+  "byteIdenticalOrAstEquivalentUnchangedDriverFunctions": [
+    "cap_check",
+    "group_alive",
+    "refresh",
+    "tracked_fork",
+    "need",
+    "sha",
+    "exclusive",
+    "auth"
+  ],
+  "executionPerformed": false,
+  "identicalLocalModules": {
+    "report_guard.py": {
+      "bytes": 3203,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/report_guard.py",
+      "sha256": "bc7b714c9335e159fe292e8cb121db47d7f9dae3265ba9309fe44437a864b031"
+    },
+    "test_reports.py": {
+      "bytes": 2924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/test_reports.py",
+      "sha256": "4c6379ee5d97b16700c9d4e8a205abc6f1580ac05f706296d8833fe2fd667ac8"
+    }
+  },
+  "observerFiles": {
+    "BINDING-UNFILLED.json": {
+      "bytes": 587,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/BINDING-UNFILLED.json",
+      "sha256": "d2ba88acfbf78221d4795a5f8a4f7b0588f2ab43fc60e8b062cda03dcdf8391a"
+    },
+    "PHASE-INPUT-PROOF.json": {
+      "bytes": 35081,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/PHASE-INPUT-PROOF.json",
+      "sha256": "36c521a883dca9a16a8e2c48da87ec779ef7fff4667372db165665e2a0447e06"
+    },
+    "PLAN.md": {
+      "bytes": 4086,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/PLAN.md",
+      "sha256": "0a18eff4f23c83dab62eeff3ec83f555bc656c4bf5b2401a93e7bd0ca8cd161d"
+    },
+    "POLICY.sb": {
+      "bytes": 93,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/POLICY.sb",
+      "sha256": "8e5756225a70618c763bc888a62c7ba1e1f8382d10392f21be5766fbb96a24b5"
+    },
+    "SELECTION.json": {
+      "bytes": 20248,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SELECTION.json",
+      "sha256": "a77f53a854df5112f2391f3bc3d01d64674ebd92f16ec6389a77ff7544a8bff7"
+    },
+    "bounds-guard.mjs": {
+      "bytes": 4153,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/bounds-guard.mjs",
+      "sha256": "c5a548b45323f57a9e00f24daecbaca53ede29f0e8348ab2a74c72a5f3d1d36f"
+    },
+    "outer-recorder.py": {
+      "bytes": 11082,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/outer-recorder.py",
+      "sha256": "bf7cb565ba6c378323393b0e4f7a89de16e278526e34f73295e54c74bc7e8ef8"
+    },
+    "settlement208-core.mjs": {
+      "bytes": 21888,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/settlement208-core.mjs",
+      "sha256": "8d18864aa6943d1aec534a4f78746eb614c66b32862cac80528e9f2d9bee367e"
+    },
+    "supervise.py": {
+      "bytes": 22673,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/supervise.py",
+      "sha256": "45eda307943fb829a321624d7eca4ad5004a7d8e8bdef042a74c8344b61e153e"
+    },
+    "synthetic-employment.json": {
+      "bytes": 13113,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/synthetic-employment.json",
+      "sha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58"
+    },
+    "test-outer.py": {
+      "bytes": 3290,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-outer.py",
+      "sha256": "09429dd9b6e38f4a24216782c1892f00c3d71e1402f9c21d3f2992bf4759c4ab"
+    },
+    "test-settlement208-frame.py": {
+      "bytes": 2027,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-settlement208-frame.py",
+      "sha256": "ed0218a3520cd01c8199f17426d59bf78e83ec85b2684b881d402405698a0b5f"
+    },
+    "test-settlement208.mjs": {
+      "bytes": 7008,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-settlement208.mjs",
+      "sha256": "eed9e598428ed969b6ff1e044df7e20f563f5fbd7b4143f884de472edfddf609"
+    },
+    "test-supervisor.py": {
+      "bytes": 11204,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-supervisor.py",
+      "sha256": "eeef1208a677e1f885151808bbe97a5357a23817b664a9b3cb41296c652e2ba0"
+    },
+    "test-synthetic.mjs": {
+      "bytes": 4873,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-synthetic.mjs",
+      "sha256": "73b90c3cea42ed9f8888af26736437e527cd7ea3871c0d49884818cd3a2e3b60"
+    },
+    "witness-core.mjs": {
+      "bytes": 3520,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/witness-core.mjs",
+      "sha256": "2c0120734ec7d46e59c953a000f195fddadb24ac7c5ab3e65e68ffb801b8d63d"
+    },
+    "witness.mts": {
+      "bytes": 5731,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/witness.mts",
+      "sha256": "f82c50aa830d672de685bbfc6f49951ef56fcc3f4714ffe7b6a31100fe50e704"
+    },
+    "worktree-guard.mjs": {
+      "bytes": 2211,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/worktree-guard.mjs",
+      "sha256": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4"
+    }
+  },
+  "originalRecorderInverseASTExact": true,
+  "pairs": {
+    "CONFIG.json": {
+      "derivative": {
+        "bytes": 15952,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/CONFIG.json",
+        "sha256": "a78a8d441009e2c6c9568257e7fe30b4914ef9b17136ae3e09c8cecba9613808"
+      },
+      "diff": {
+        "bytes": 5542,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/CONFIG.json.diff",
+        "sha256": "f9445ee20988e1c24edbbfe56d24967f4babecb51b38bbdd3305df78e61b4035"
+      },
+      "inverseDiff": {
+        "bytes": 5542,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/CONFIG.json.inverse.diff",
+        "sha256": "bb1967af52b3218a5d5e91d5e504552f32fc41b095206e3ce2ec92e10aa6034c"
+      },
+      "inverseExactOriginalBytes": true,
+      "inverseOpcodes": [
+        {
+          "newEnd": 24,
+          "newStart": 16,
+          "oldEnd": 16,
+          "oldLines": [],
+          "oldStart": 16
+        },
+        {
+          "newEnd": 30,
+          "newStart": 25,
+          "oldEnd": 17,
+          "oldLines": [],
+          "oldStart": 17
+        },
+        {
+          "newEnd": 126,
+          "newStart": 125,
+          "oldEnd": 113,
+          "oldLines": [
+            "  \"pythonFixture\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-fixture-after-aj-node22-20261009-r1\",\n"
+          ],
+          "oldStart": 112
+        },
+        {
+          "newEnd": 138,
+          "newStart": 133,
+          "oldEnd": 120,
+          "oldLines": [],
+          "oldStart": 120
+        },
+        {
+          "newEnd": 142,
+          "newStart": 139,
+          "oldEnd": 124,
+          "oldLines": [
+            "      \"bytes\": 8874,\n",
+            "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/drive.py\",\n",
+            "      \"sha256\": \"7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c\"\n"
+          ],
+          "oldStart": 121
+        },
+        {
+          "newEnd": 152,
+          "newStart": 147,
+          "oldEnd": 129,
+          "oldLines": [],
+          "oldStart": 129
+        },
+        {
+          "newEnd": 273,
+          "newStart": 268,
+          "oldEnd": 245,
+          "oldLines": [],
+          "oldStart": 245
+        },
+        {
+          "newEnd": 286,
+          "newStart": 285,
+          "oldEnd": 258,
+          "oldLines": [
+            "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/test_reports.py\",\n"
+          ],
+          "oldStart": 257
+        },
+        {
+          "newEnd": 291,
+          "newStart": 290,
+          "oldEnd": 263,
+          "oldLines": [
+            "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/report_guard.py\",\n"
+          ],
+          "oldStart": 262
+        },
+        {
+          "newEnd": 295,
+          "newStart": 294,
+          "oldEnd": 271,
+          "oldLines": [
+            "  \"runtimeGrant\": {\n",
+            "    \"bytes\": 4638,\n",
+            "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-parent-adoption-after-aj-20261009-r1/ADOPTION.json\",\n",
+            "    \"sha256\": \"7da501eb54301aaf0a22c5dc29e4dff786ee4bd9bfff490153d951c54bd7b9eb\"\n",
+            "  },\n"
+          ],
+          "oldStart": 266
+        },
+        {
+          "newEnd": 297,
+          "newStart": 296,
+          "oldEnd": 277,
+          "oldLines": [
+            "  \"sourceReview\": {\n",
+            "    \"bytes\": 1573,\n",
+            "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-independent-source-review-after-aj-20261009-r2/RECEIPT.json\",\n",
+            "    \"sha256\": \"a4f568dc17dd37133a2ceb8f83a449622981ae6db9a48048a91028155543060c\"\n",
+            "  }\n"
+          ],
+          "oldStart": 272
+        }
+      ],
+      "original": {
+        "bytes": 15164,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/CONFIG.json",
+        "sha256": "09a59741bdb24e8641ca82e2ac4ee1aa95bde7c82bf779603aface088c0f6afb"
+      }
+    },
+    "ROUTE.json": {
+      "derivative": {
+        "bytes": 3787,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/ROUTE.json",
+        "sha256": "75a38c7de3d0253cc3bd4e76e47ca4d1dcf9286c56d119f118f54b13ec66d070"
+      },
+      "diff": {
+        "bytes": 5090,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/ROUTE.json.diff",
+        "sha256": "16722f3cc19344cbe24bb3f519543bc2c029b3907a6ad2b00839dfe650532e8a"
+      },
+      "inverseDiff": {
+        "bytes": 5090,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/ROUTE.json.inverse.diff",
+        "sha256": "90809626c361d3f231721c6a42a01feeeb242f463667ea153bf84f9f41dbb577"
+      },
+      "inverseExactOriginalBytes": true,
+      "inverseOpcodes": [
+        {
+          "newEnd": 11,
+          "newStart": 11,
+          "oldEnd": 22,
+          "oldLines": [
+            "    \"js\": [\n",
+            "      \"/bin/bash\",\n",
+            "      \"/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh\",\n",
+            "      \"0\",\n",
+            "      \"/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-js-lane-after-aj-node22-20261009-r1/controls.log\",\n",
+            "      \"/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14\",\n",
+            "      \"-I\",\n",
+            "      \"-B\",\n",
+            "      \"/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/record.py\",\n",
+            "      \"js\"\n",
+            "    ],\n"
+          ],
+          "oldStart": 11
+        },
+        {
+          "newEnd": 16,
+          "newStart": 15,
+          "oldEnd": 27,
+          "oldLines": [
+            "      \"/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-lane-after-aj-node22-20261009-r1/controls.log\",\n"
+          ],
+          "oldStart": 26
+        },
+        {
+          "newEnd": 20,
+          "newStart": 19,
+          "oldEnd": 31,
+          "oldLines": [
+            "      \"/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/record.py\",\n"
+          ],
+          "oldStart": 30
+        },
+        {
+          "newEnd": 24,
+          "newStart": 23,
+          "oldEnd": 35,
+          "oldLines": [
+            "  \"cwd\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1\",\n"
+          ],
+          "oldStart": 34
+        },
+        {
+          "newEnd": 30,
+          "newStart": 29,
+          "oldEnd": 40,
+          "oldLines": [],
+          "oldStart": 40
+        },
+        {
+          "newEnd": 41,
+          "newStart": 39,
+          "oldEnd": 50,
+          "oldLines": [
+            "  \"grant\": {\n"
+          ],
+          "oldStart": 49
+        },
+        {
+          "newEnd": 87,
+          "newStart": 45,
+          "oldEnd": 61,
+          "oldLines": [
+            "  \"schema\": \"1370-a208-finite-recorded-controls-route-r1\",\n",
+            "  \"sequence\": \"One JS arm then one Python arm; stop on any nonzero/mismatch/override/cleanup uncertainty. No auto retry. Separately record both raw tool outcomes/helper log/meta/stdout/stderr/RESULT and driver registry/fixtures.\",\n",
+            "  \"sourceReview\": {\n",
+            "    \"bytes\": 1573,\n",
+            "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-independent-source-review-after-aj-20261009-r2/RECEIPT.json\",\n",
+            "    \"sha256\": \"a4f568dc17dd37133a2ceb8f83a449622981ae6db9a48048a91028155543060c\"\n",
+            "  }\n"
+          ],
+          "oldStart": 54
+        }
+      ],
+      "original": {
+        "bytes": 2824,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/ROUTE.json",
+        "sha256": "6fdae62563b62fb22adaa289403cdfa3ed00daa11df21489e189b9dc03fb93d6"
+      }
+    },
+    "drive.py": {
+      "derivative": {
+        "bytes": 11344,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/drive.py",
+        "sha256": "0a4934e66eb748d7f2912373bd6896b21e80a867fad4a1e72b9f2a7647345369"
+      },
+      "diff": {
+        "bytes": 9838,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/drive.py.diff",
+        "sha256": "c14f2b3630ce1fb0dfba65a8a7ecfaa530f1e4cecb39461ebc9a25e4095a4ea8"
+      },
+      "inverseDiff": {
+        "bytes": 9838,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/drive.py.inverse.diff",
+        "sha256": "6ee1ed911f0af8b5b234a159a016b806dbd9ca3427bf39c10bb99b2daded7340"
+      },
+      "inverseExactOriginalBytes": true,
+      "inverseOpcodes": [
+        {
+          "newEnd": 6,
+          "newStart": 5,
+          "oldEnd": 6,
+          "oldLines": [
+            "MASK={signal.SIGALRM};PHASE='suite';STOP=None;ROOT=None\n"
+          ],
+          "oldStart": 5
+        },
+        {
+          "newEnd": 48,
+          "newStart": 29,
+          "oldEnd": 29,
+          "oldLines": [],
+          "oldStart": 29
+        },
+        {
+          "newEnd": 52,
+          "newStart": 49,
+          "oldEnd": 44,
+          "oldLines": [
+            " refresh()\n",
+            " for slot in SLOTS:\n",
+            "  if slot.get('groupClear'):continue\n",
+            "  if slot['ready']:\n",
+            "   try:os.killpg(slot['pid'],signal.SIGKILL)\n",
+            "   except ProcessLookupError:pass\n",
+            "  if not slot['reaped']:\n",
+            "   try:os.kill(slot['pid'],signal.SIGKILL)\n",
+            "   except ProcessLookupError:pass\n",
+            " # Popen probes explicitly inherit the externally owned runner group.\n",
+            " for child in POPENS:\n",
+            "  if child.poll() is None:\n",
+            "   try:os.kill(child.pid,signal.SIGKILL)\n",
+            "   except ProcessLookupError:pass\n"
+          ],
+          "oldStart": 30
+        },
+        {
+          "newEnd": 58,
+          "newStart": 56,
+          "oldEnd": 50,
+          "oldLines": [
+            " if elapsed>=WHOLE:hard_kill();os._exit(124)\n",
+            " refresh()\n"
+          ],
+          "oldStart": 48
+        },
+        {
+          "newEnd": 63,
+          "newStart": 59,
+          "oldEnd": 52,
+          "oldLines": [
+            " except ControlStop as exc:STOP=STOP or str(exc);raise\n"
+          ],
+          "oldStart": 51
+        },
+        {
+          "newEnd": 89,
+          "newStart": 88,
+          "oldEnd": 78,
+          "oldLines": [
+            "     if slot['pid']==got:slot['reaped']=True;slot['exit']=os.waitstatus_to_exitcode(status);slot['groupClear']=not group_alive(got)\n"
+          ],
+          "oldStart": 77
+        },
+        {
+          "newEnd": 100,
+          "newStart": 97,
+          "oldEnd": 86,
+          "oldLines": [],
+          "oldStart": 86
+        },
+        {
+          "newEnd": 115,
+          "newStart": 114,
+          "oldEnd": 101,
+          "oldLines": [
+            " global REG,PHASE,ROOT\n"
+          ],
+          "oldStart": 100
+        },
+        {
+          "newEnd": 119,
+          "newStart": 118,
+          "oldEnd": 104,
+          "oldLines": [],
+          "oldStart": 104
+        },
+        {
+          "newEnd": 145,
+          "newStart": 140,
+          "oldEnd": 125,
+          "oldLines": [],
+          "oldStart": 125
+        },
+        {
+          "newEnd": 166,
+          "newStart": 164,
+          "oldEnd": 146,
+          "oldLines": [
+            "  for slot in SLOTS:\n",
+            "   try:\n"
+          ],
+          "oldStart": 144
+        },
+        {
+          "newEnd": 171,
+          "newStart": 167,
+          "oldEnd": 149,
+          "oldLines": [
+            "     got,status=REAL_WAIT(slot['pid'],os.WNOHANG)\n",
+            "     if got:slot['reaped']=True;slot['exit']=os.waitstatus_to_exitcode(status)\n"
+          ],
+          "oldStart": 147
+        },
+        {
+          "newEnd": 194,
+          "newStart": 172,
+          "oldEnd": 160,
+          "oldLines": [
+            "    slot['groupClear']=not group_alive(slot['pid']);HISTORY.append(dict(slot))\n",
+            "   except BaseException as exc:cleanup.append(type(exc).__name__+':'+str(exc))\n",
+            "  for child in POPENS:\n",
+            "   try:child.wait(timeout=max(0,min(1,WHOLE-1-(time.monotonic()-START))))\n",
+            "   except BaseException as exc:cleanup.append(type(exc).__name__+':'+str(exc))\n",
+            "  os.fsync(REG);os.close(REG)\n",
+            " ok=outcome is not None and outcome.wasSuccessful() and outcome.testsRun==14 and not reason and not STOP and not cleanup and len(SLOTS)==7 and len(POPENS)==4 and all(x['reaped'] and x['groupClear'] for x in HISTORY) and all(x.returncode is not None for x in POPENS) and time.monotonic()-START<ACTIVE\n",
+            " result={'status':'A208_PYTHON_CONTROLS_PASS' if ok else 'A208_PYTHON_CONTROLS_STOP','methods':None if outcome is None else outcome.testsRun,'failures':None if outcome is None else len(outcome.failures),'errors':None if outcome is None else len(outcome.errors),'reason':reason,'stickyStop':STOP,'cleanupErrors':cleanup,'ownedGroups':HISTORY,'inheritedProbes':[{'pid':x.pid,'exit':x.returncode,'ownedPgid':os.getpgrp()} for x in POPENS],'elapsedSeconds':time.monotonic()-START,'game':False}\n",
+            " cap_check()\n",
+            " exclusive(root/'RESULT.json',(json.dumps(result,sort_keys=True)+'\\n').encode());print(json.dumps(result,sort_keys=True),flush=True);cap_check();need(time.monotonic()-START<WHOLE,'late finalization');signal.setitimer(signal.ITIMER_REAL,0)\n"
+          ],
+          "oldStart": 150
+        }
+      ],
+      "original": {
+        "bytes": 8874,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/drive.py",
+        "sha256": "7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c"
+      }
+    },
+    "record.py": {
+      "derivative": {
+        "bytes": 14482,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/record.py",
+        "sha256": "6a875fa9c04f2908eb0d7da25aafcc44e0e6e75c1a4a71306724bcfef64eb30b"
+      },
+      "diff": {
+        "bytes": 949,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/record.py.diff",
+        "sha256": "72be1041eefbfff4aeb6ca93752f6a96d77b0c2185dfc21686447c03ddc1eaeb"
+      },
+      "inverseDiff": {
+        "bytes": 949,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/record.py.inverse.diff",
+        "sha256": "0a27b87dab5d9fe48de7fadc5495c570896d0776cba13fe15fa6b26343f06a8e"
+      },
+      "inverseExactOriginalBytes": true,
+      "inverseOpcodes": [
+        {
+          "newEnd": 6,
+          "newStart": 4,
+          "oldEnd": 6,
+          "oldLines": [
+            "CONFIG_SHA='09a59741bdb24e8641ca82e2ac4ee1aa95bde7c82bf779603aface088c0f6afb';CAP=1024**2;CHILD=60;ACTIVE=75;WHOLE=90\n",
+            "OUTPUTS={mode:SCRATCH/('1370-c0-a208-controls-'+mode+'-output-after-aj-node22-20261009-r1') for mode in ('js','python')}\n"
+          ],
+          "oldStart": 4
+        }
+      ],
+      "original": {
+        "bytes": 14474,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/record.py",
+        "sha256": "3767643eff8348e7bf132e6eee3be132747e96b581d7f916d48964bf8f9d8ddb"
+      }
+    }
+  },
+  "schema": "1370-owned-cleanup-source-diff-proof/v1"
+}

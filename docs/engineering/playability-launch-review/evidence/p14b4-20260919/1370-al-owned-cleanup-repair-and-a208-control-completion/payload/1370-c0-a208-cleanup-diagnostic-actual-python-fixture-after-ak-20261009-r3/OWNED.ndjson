@@ -1,0 +1,11 @@
+{"event": "inheritedProbe", "pid": 50454, "ownedPgid": 50448, "argv": ["/usr/bin/sandbox-exec", "-f", "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/POLICY.sb", "/bin/echo", "PIPE_OK"]}
+{"event": "inheritedProbe", "pid": 50456, "ownedPgid": 50448, "argv": ["/usr/bin/sandbox-exec", "-f", "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/POLICY.sb", "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14", "-B", "-c", "import os,stat,fcntl; print([(fd,os.readlink(\"/dev/fd/\"+str(fd))) for fd in range(3,128) if os.path.exists(\"/dev/fd/\"+str(fd)) and stat.S_ISREG(os.fstat(fd).st_mode) and (fcntl.fcntl(fd,fcntl.F_GETFL)&os.O_ACCMODE)!=os.O_RDONLY])"]}
+{"event": "inheritedProbe", "pid": 50460, "ownedPgid": 50448, "argv": ["/usr/bin/sandbox-exec", "-f", "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/POLICY.sb", "/bin/sh", "-c", "printf forbidden > \"$1\"", "sh", "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/witness-r3-canary-_7879wmb/protected/denied"]}
+{"event": "inheritedProbe", "pid": 50462, "ownedPgid": 50448, "argv": ["/usr/bin/sandbox-exec", "-f", "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/POLICY.sb", "/bin/sh", "-c", "printf escaped >&3"]}
+{"event": "ownedFork", "pid": 50464}
+{"event": "ownedFork", "pid": 50469}
+{"event": "ownedFork", "pid": 50470}
+{"event": "ownedFork", "pid": 50471}
+{"event": "ownedFork", "pid": 50472}
+{"event": "ownedFork", "pid": 50474}
+{"event": "ownedFork", "pid": 50475}

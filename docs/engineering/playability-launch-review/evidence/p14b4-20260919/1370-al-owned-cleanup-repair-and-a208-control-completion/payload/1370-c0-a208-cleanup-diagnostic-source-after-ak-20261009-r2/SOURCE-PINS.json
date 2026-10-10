@@ -1,0 +1,144 @@
+{
+  "candidateImportsPerformed": false,
+  "driverSeconds": [
+    45,
+    55
+  ],
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "files": {
+    "CONFIG.json": {
+      "bytes": 16232,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/CONFIG.json",
+      "sha256": "25bb16221880ad6f2e85be0711cf9da980b03ca84d37f8dde82b4457c5495c62"
+    },
+    "CONFIG.json.diff": {
+      "bytes": 2844,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/CONFIG.json.diff",
+      "sha256": "da968ae6ad6a6d5ec63914e519a5979f404d95689b236c16301b4485813ddbd5"
+    },
+    "CONFIG.json.inverse.diff": {
+      "bytes": 2844,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/CONFIG.json.inverse.diff",
+      "sha256": "635c953ca75d5c011df4330c53445edd3afff74369f703767dc0afb3d201336b"
+    },
+    "INVERSE-AND-ROLE-PROOF.json": {
+      "bytes": 15355,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/INVERSE-AND-ROLE-PROOF.json",
+      "sha256": "d92f29f2f11e285ed09eaea0882efb72f47ec92153cd23703463b4689cac26c2"
+    },
+    "LESSONS.md": {
+      "bytes": 2219,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/LESSONS.md",
+      "sha256": "41de70eadeb46be3a45149a7e531d43bd3b16662215d11b78ae8ba855bce3f4c"
+    },
+    "PROVENANCE.json": {
+      "bytes": 1143,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/PROVENANCE.json",
+      "sha256": "ff9c501cd091b926024eb70cc576dee164bf969fdca0fb5cfab70df47a1d228d"
+    },
+    "ROUTE.json": {
+      "bytes": 4887,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/ROUTE.json",
+      "sha256": "4247a7530a1f0cfbbcf66a9b8f072c0231d8a885c2c345a4d1cf651efdfa7dd8"
+    },
+    "ROUTE.json.diff": {
+      "bytes": 4112,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/ROUTE.json.diff",
+      "sha256": "caf835708f9dc561a973338fe414673087c02e616465b89980cc8f932e709b61"
+    },
+    "ROUTE.json.inverse.diff": {
+      "bytes": 4112,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/ROUTE.json.inverse.diff",
+      "sha256": "e221c36dd0f0179364e51cb9217b0fc5621eefca3b296fce53a8a2350fbd6a2c"
+    },
+    "drive.py": {
+      "bytes": 11349,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py",
+      "sha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07"
+    },
+    "drive.py.diff": {
+      "bytes": 759,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py.diff",
+      "sha256": "6f224017823f32155f1b50ac4d45bebda682b312d759bc4b50e831a8cb71ec3e"
+    },
+    "drive.py.inverse.diff": {
+      "bytes": 759,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py.inverse.diff",
+      "sha256": "8c1c5f61aca0dcb640eaf17886f6d9bcb5679b98adf7866e9816acc10b0e0494"
+    },
+    "owned_cleanup.py": {
+      "bytes": 9553,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/owned_cleanup.py",
+      "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+    },
+    "record.py": {
+      "bytes": 14482,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/record.py",
+      "sha256": "0b0ae1a67957a3518cc4ba20013a274b40f668b20d8a537c308842f245249257"
+    },
+    "record.py.diff": {
+      "bytes": 943,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/record.py.diff",
+      "sha256": "6351039f4c8d007010fe45b297ad16920f18814b944c63ec1f276dae78d007b4"
+    },
+    "record.py.inverse.diff": {
+      "bytes": 943,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/record.py.inverse.diff",
+      "sha256": "9a3fcf2b1cd4f81d5e8925b26e90fc3bd688369c91b62a887e2137f543ff7a51"
+    },
+    "report_guard.py": {
+      "bytes": 3203,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/report_guard.py",
+      "sha256": "bc7b714c9335e159fe292e8cb121db47d7f9dae3265ba9309fe44437a864b031"
+    },
+    "schema.md": {
+      "bytes": 5403,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/schema.md",
+      "sha256": "07ed46c65056606486ac0c77b021d28da2ba83e05587ce748b2d17a3008270e1"
+    },
+    "test_reports.py": {
+      "bytes": 2924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/test_reports.py",
+      "sha256": "4c6379ee5d97b16700c9d4e8a205abc6f1580ac05f706296d8833fe2fd667ac8"
+    }
+  },
+  "fixtureBytes": 8388608,
+  "fullDriverASTInverseExact": true,
+  "integrationControlsRequired": true,
+  "methodCounts": [
+    3,
+    14
+  ],
+  "observerRolesUnchanged": 18,
+  "onlyDriverSourceChange": "STOP added to main existing global declaration",
+  "originalAndR1FailedOutcomesPreserved": true,
+  "originalR1SourcePins": {
+    "bytes": 6144,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "ea143dc31e5e87bb0868f501a2c0655c04f670305fe3793713f0cf659c0cc904"
+  },
+  "ownedCounts": [
+    7,
+    4
+  ],
+  "parentSeconds": [
+    60,
+    75,
+    90
+  ],
+  "pureModuleByteIdentical": true,
+  "reportModulesByteIdentical": true,
+  "runtimeGrant": null,
+  "schema": "1370-owned-cleanup-diagnostic-r2-source-pins/v1",
+  "staticParsedPython": [
+    "drive.py",
+    "owned_cleanup.py",
+    "record.py",
+    "report_guard.py",
+    "test_reports.py"
+  ],
+  "status": "SEALED_HELD_SINGLE_GLOBAL_STOP_FIX_UNRUN",
+  "streamBytes": 1048576,
+  "utc": "2026-10-09T23:07:51.875947+00:00"
+}

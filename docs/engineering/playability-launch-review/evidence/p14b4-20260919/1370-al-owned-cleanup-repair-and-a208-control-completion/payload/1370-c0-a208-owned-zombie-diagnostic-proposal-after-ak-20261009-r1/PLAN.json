@@ -1,0 +1,155 @@
+{
+  "actualObservedReceipt": null,
+  "evidence": {
+    "actual66101ObservedStop": {
+      "bytes": 4463,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-failed-independent-observed-review-after-ak-20261009-r1/RECEIPT.json",
+      "sha256": "63f323d230d5d2a55f69f06a952184b93c24e3392c5c7c55ed7440c6f1eab86c"
+    },
+    "original10832Stop": {
+      "bytes": 8497,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-stop-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "61b7698513fbe12d0f2705da01e70762f41fd2544254cadc09e381f3459b0496"
+    },
+    "recorderDerivativeBase": {
+      "bytes": 14814,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-recorder-source-proposal-after-ak-20261009-r1/record.py",
+      "sha256": "46f7dfba363550004e09b3ca2756451dd9c00ccbb6b8ded1dc91a2c41eb9d073"
+    },
+    "rootStopAdoption": {
+      "bytes": 1211,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/DIAGNOSTIC-STOP-ADOPTION.json",
+      "sha256": "a8dbd2b02127f4e42ee749561dcdfa2d7fda292f2d41d3744d064282211a145a"
+    }
+  },
+  "executionAuthorization": false,
+  "finiteRoute": {
+    "eachRecorderStreamBytes": 65536,
+    "exactRows": 9,
+    "laneBase": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r1",
+    "naturalChildSelfDeadlineSeconds": 2,
+    "operationsEachPhase": [
+      "getpgid",
+      "killpg(signal=0)",
+      "kill(signal=0)"
+    ],
+    "output": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r1",
+    "parentArgv": [
+      "PINNED_PYTHON",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/probe.py",
+      "probe"
+    ],
+    "parentHardDeadlineSeconds": 20,
+    "phases": [
+      "live_ready",
+      "exit_notified_unreaped",
+      "after_reap"
+    ],
+    "recorderActiveSeconds": 25,
+    "recorderArgv": [
+      "PINNED_PYTHON",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/record.py",
+      "probe"
+    ],
+    "recorderChildSeconds": 20,
+    "recorderWholeSeconds": 30,
+    "summaryBytes": 16384
+  },
+  "gate": {
+    "actualNaturalChildExit": 0,
+    "actualOuterAllZeroAndValidSummaryRequiredForRecordedCompletion": true,
+    "exactProbeRows": 9,
+    "exactSchema": "a208-owned-exit-reap-zero-probe/v1",
+    "exactStatus": "OWNED_EXIT_REAP_PROBE_COMPLETE_UNADOPTED",
+    "exitNotificationBeforeUnreapedRows": true,
+    "expectedEPERMRequiredForRecordingCompletion": false,
+    "liveRowsAllSuccessful": true,
+    "resultIsOnlyObservation": true,
+    "stderrEmpty": true
+  },
+  "hypothesis": "An exit-notified unreaped owned child may leave a Darwin group that yields EPERM despite direct PID zero-probe success; reaping may change group result to ESRCH. This is not yet established on the local host.",
+  "interpretation": {
+    "noMatch": "Record actual errno outcomes without claiming cause; do not infer cleanup order qualification or automatically rerun.",
+    "notEstablishedByThisProbe": [
+      "precise SZOMB transition time from NOTE_EXIT alone",
+      "exact kernel implementation from current main source",
+      "original10832 target/cause",
+      "actual66101 complete SIGALRM causal chain",
+      "other group descendants or all-host absence",
+      "real17-method acceptance",
+      "game acceptance or execution permission"
+    ],
+    "prospectiveCleanupOrdering": "Only after controlled observed evidence may parent design reap-before-unneeded-group-kill. Preserve retained owned groups/descendants, all remaining cleanup, sticky EPERM failure, fixed deadlines and output caps; do not ignore permission errors.",
+    "wouldSupportHypothesis": "READY/setsid proof, exit notification before first wait, unreaped group0 EPERM together with direct PID0 success/getpgid ESRCH, exact natural exit0 wait, then immediate group0 ESRCH. Separate observed review must assess errno sequence and timing."
+  },
+  "kernelSourceInference": {
+    "exactRunningKernelBinaryVerified": false,
+    "mainSourceOnly": true,
+    "observedHostRelease": "21.6.0",
+    "observedHostVersion": "xnu-8020.240.18.709.2~1",
+    "sameExplicitGroupFilterForSignals": [
+      0,
+      9
+    ],
+    "sections": {
+      "groupZombieFilterAndNoEligibleMemberResult": "1612-1621",
+      "positivePidZombieSuccess": "1317-1323",
+      "zeroVsPositiveDispatch": "1566-1569"
+    },
+    "url": "https://raw.githubusercontent.com/apple-oss-distributions/xnu/main/bsd/kern/kern_sig.c"
+  },
+  "lessons": [
+    "An EPERM message may depend on the exited/unreaped target state; it does not alone establish a UID/host denial cause. Keep that a hypothesis until measured.",
+    "Record state around exact reaping and retain errno sequences; successful direct PID signaling does not prove the target was live.",
+    "A pure module GREEN roster does not exercise the actual driver finalization call site; the separately observed STOP scoping bug requires independent integration controls.",
+    "Observation completion is distinct from hypothesis confirmation and runtime authorization. Preserve original unknowns and actual exit gates.",
+    "Use the smallest exact-owned zero-probe route justified by kernel source; do not discover processes, add arbitrary targets, or expand the existing real17-method bounds."
+  ],
+  "observed66101": {
+    "actualExits": {
+      "driver": -14,
+      "helper": 2,
+      "recorder": 2,
+      "tool": 2
+    },
+    "directSIGKILLSuccessSeq": 9,
+    "getpgidESRCHSeq": 5,
+    "groupSIGKILL_EPERMSeq": 7,
+    "hostCauseEstablished": false,
+    "integrationDefectSeparate": "STOP local/global bug now repaired separately; this probe changes no driver.",
+    "original10832TargetEstablished": false,
+    "reapedGroupZeroESRCHSeq": 33,
+    "targetPidPgid": 94482,
+    "waitpidStatus9Seq": 31
+  },
+  "plannedOwnership": {
+    "childSetsidBeforeReady": true,
+    "firstWaitAfterUnreapedSnapshot": true,
+    "globalProcessDiscovery": false,
+    "kqueueRegisterBeforeGo": "EVFILT_PROC/NOTE_EXIT on only that PID",
+    "liveProof": [
+      "READY contains exact fork PID",
+      "getpgid(child)==child",
+      "getsid(child)==child",
+      "child!=parent process group"
+    ],
+    "naturalChildren": 1,
+    "positiveSignalsInMicroprobe": false,
+    "postReapIdentityCaveat": "Only zero probes use the formerly owned numeric ID after wait; immediate observations may be affected by PID/PGID reuse and cannot authenticate a reused identity.",
+    "registerImmediatelyAfterForkBeforeUnmaskReadyGoOrWait": true
+  },
+  "runtimeGrant": null,
+  "schema": "1370-a208-owned-zombie-zero-probe-source-design/v1",
+  "sourceReviewReceipt": null,
+  "staticVerification": {
+    "ASTParsedOnly": true,
+    "noCandidateImportsOrExecution": true,
+    "onlyChangedRecorderDefinition": "main",
+    "recorderFunctionsAndClassesOutsideMainIdentical": 17
+  },
+  "status": "HELD_SOURCE_ONLY_UNRUN"
+}

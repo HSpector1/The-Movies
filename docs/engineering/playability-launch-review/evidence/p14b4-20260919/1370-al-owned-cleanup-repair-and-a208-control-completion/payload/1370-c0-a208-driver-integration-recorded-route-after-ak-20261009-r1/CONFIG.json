@@ -1,0 +1,121 @@
+{
+  "actualExecutionGranted": false,
+  "actualGrantAndReviewOutsideConfig": true,
+  "bounds": {
+    "activeSeconds": 25,
+    "childSeconds": 20,
+    "eachStreamBytes": 65536,
+    "wholeSeconds": 30
+  },
+  "candidateDriver": {
+    "bytes": 11349,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py",
+    "sha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07"
+  },
+  "currentOperationalRefs": {
+    "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "productionHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+  },
+  "directRecorderInvocationGranted": false,
+  "executionAuthorization": false,
+  "expected": {
+    "exactRows": 12,
+    "expectedGreen": 10,
+    "expectedRed": 2,
+    "greenNames": [
+      "r2-clean-valid-pass",
+      "r2-EPERM-sticky-stop",
+      "r2-prior-STOP-plus-EPERM-preserved",
+      "r2-prior-STOP-alone-preserved",
+      "r2-invalid-method-count-stop",
+      "r2-unclear-owned-state-stop",
+      "r2-late-artifact-rejected",
+      "r2-late-emission-rejected",
+      "r2-hard-deadline-precedes-IO",
+      "r2-fixture-cap-before-IO-rejected"
+    ],
+    "redDetails": [
+      {
+        "branch": "refusal",
+        "exception": "UnboundLocalError",
+        "name": "STOP",
+        "resultWrites": 0,
+        "sourceLine": 185
+      },
+      {
+        "branch": "clean",
+        "exception": "UnboundLocalError",
+        "name": "STOP",
+        "resultWrites": 0,
+        "sourceLine": 187
+      }
+    ],
+    "redNames": [
+      "r1-refusal-unbound-STOP",
+      "r1-clean-unbound-STOP"
+    ],
+    "schema": "a208-independent-driver-integration-controls/v1",
+    "status": "DRIVER_INTEGRATION_CONTROLS_PASS",
+    "testerSummaryBytes": 12288
+  },
+  "originalDriver": {
+    "bytes": 11344,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/drive.py",
+    "sha256": "0a4934e66eb748d7f2912373bd6896b21e80a867fad4a1e72b9f2a7647345369"
+  },
+  "protectedRoots": [
+    "/Users/zacheryspector/The-Movies-headless-program",
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git",
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git/objects",
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2"
+  ],
+  "protectionScope": "Bounded physical directory identity/mode/mtime/ctime before and after; no inventory, content scan or continuity claim across docs publication",
+  "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+  "pythonSha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835",
+  "roles": {
+    "candidateDiagnosticSourcePins": {
+      "bytes": 6303,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/SOURCE-PINS.json",
+      "sha256": "49723b2fc9d77a1b87d6aba650f750dabae79d8c2506019139c803fe3f4e1f3f"
+    },
+    "helper": {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "originalDriver": {
+      "bytes": 11344,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/drive.py",
+      "sha256": "0a4934e66eb748d7f2912373bd6896b21e80a867fad4a1e72b9f2a7647345369"
+    },
+    "originalPureRecorderSourcePins": {
+      "bytes": 1933,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/SOURCE-PINS.json",
+      "sha256": "8099500ec4942bbf25a0fcbb49213a5420017e2c7c4e0c4726059019d7fca795"
+    },
+    "python": {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "reportGuard": {
+      "bytes": 3500,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/report_guard.py",
+      "sha256": "b32ece6f1765cf395ee0ea83c6f10c4df47480a7c0d4e919b05688b414333f0b"
+    }
+  },
+  "rootSourceOnlyReview": null,
+  "runtimeGrant": null,
+  "schema": "1370-a208-driver-integration-config/v1",
+  "status": "FILLED_SOURCE_ONLY_UNRUN",
+  "tester": {
+    "bytes": 13900,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-independent-red-design-after-ak-20261009-r1/controls.py",
+    "sha256": "532259092bcad48c073282e22e55332d02c1de8f082d9173f4ed817a85c1af0f"
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "actual17MethodRetryAuthorizedByThis": false,
+  "executedControls": false,
+  "extraction": [
+    "Parse authenticated driver bytes; never import driver top-level timers, observers, or main.",
+    "Extract exact deadline_guard, cleanup_group_probe, hard_kill, ControlStop and candidate reap_completed functions.",
+    "Extract actual main globals and actual cleanup finally statements preceding later reap try into one callable; preserve actual sequence.",
+    "Instrument the hard_kill name only to snapshot state/events/calls immediately before delegating the exact extracted hard_kill body.",
+    "Execute unchanged authenticated pure module against injected clock, OS, retained slots and already-ended fake probes; no real process, timer, wait, signal, candidate filesystem write or diagnostic writer. Authenticated reads and one stdout summary are real tester I/O."
+  ],
+  "gameAuthorizedByThis": false,
+  "greenCriteria": [
+    "Exact completed owned wait then decoder and group0 ESRCH admit reaped/status/exit/groupClear and skip group/PID positive signals.",
+    "Live (0,0) remains unreaped and gets original group+PID kill.",
+    "Reaped leader with living descendants: successful group0 syscall adapter returns True, keeps groupClear false, group killed and no leader PID kill.",
+    "Already reaped slots never repeat wait; already clear skips group0.",
+    "EIO/ECHILD wait errors remain un-reaped; exact prefix operation/target/slot/type/errno evidence sticky before original kill, later owned wait attempted.",
+    "Group0 EPERM remains uncertain/sticky with exact evidence before original kill, later owned wait attempted.",
+    "Different or another owned returned PID is never admitted/substituted; second target has its own exact wait.",
+    "None, tuple length1/3, list pair, bool PID/status, and (0,nonzero) rejected before original kill; later target attempted.",
+    "Decoder exception retains exact raw wait-status event before error, without false reaped/exit; later owned target attempted.",
+    "Deadline at entry or during wait yields actual injected _exit124 before later owned callbacks/hard_kill/success.",
+    ">7 slots or >4 probes cause zero callbacks; invalid None/bool/0/1/negative/string PID skipped and valid remaining owned target attempted.",
+    "Reduced diagnostic cap over new prefix drops evidence while cleanup-error and diagnostic-cap stay sticky and later owned target remains attempted."
+  ],
+  "lessons": [
+    "Previous pure module18GREEN did not cover the caller STOP global assignment; the actual17method route caught that integration defect. Preserve actual caller code in integration controls.",
+    "AST parsing alone missed a return-in-finally SyntaxWarning in a prior producer; compile this producer with SyntaxWarning error under pinned Python before seal. This compile check does not execute tests.",
+    "Diagnostic observations from a failed route may inform a narrowly adopted design; actual route acceptance separately requires complete parent/helper/recorder/child success.",
+    "Do not turn injected ordering behavior or newly captured EPERM into a historical target/host cause claim."
+  ],
+  "originalRedProof": "Baseline R2 actual entry performs no WNOHANG wait before hard_kill. Injected retained completed/unreaped leader with ready=true and getpgid ESRCH yields owned group SIGKILL EPERM, exact PID/PGID/slot0/signal9/PermissionError/errno1 evidence, sticky STOP, direct owned PID kill and later owned target attempt. This proves the specified injected ordering flaw, not any host/kernel cause of historical EPERM.",
+  "preservedActualScope": {
+    "activeSeconds": 45,
+    "actualRouteBoundsSeconds": [
+      60,
+      75,
+      90
+    ],
+    "driverWholeSeconds": 55,
+    "existingSuiteMethods": "3+14",
+    "inheritedProbes": 4,
+    "jsControls": "existing eighteen reused separately",
+    "observerAssertions": 17,
+    "ownedFixtureCapBytes": 8388608,
+    "ownedGroups": 7,
+    "streamCapBytes": 1048576
+  },
+  "protocol": {
+    "cases": [
+      {
+        "name": "old-order-exited-unreaped-EPERM",
+        "status": "EXPECTED_RED"
+      },
+      {
+        "name": "pre-reap-completed-ESRCH-skip",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-live-child-existing-kills",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-leader-descendants-live",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-already-reaped-no-wait",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-wait-error-sticky-continue",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-group-EPERM-sticky-continue",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-mismatched-wait-refused",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-malformed-wait-refused",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-status-conversion-refused",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-deadline-precedence",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-owned-boundaries",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-diagnostic-cap-sticky",
+        "status": "GREEN_PASS"
+      }
+    ],
+    "cli": [
+      "candidateDrivePath",
+      "candidateSHA",
+      "modulePath",
+      "moduleSHA",
+      "baselineR2DrivePath",
+      "baselineSHA"
+    ],
+    "exactTopLevelKeys": [
+      "schema",
+      "status",
+      "expectedRed",
+      "observedRed",
+      "expectedGreen",
+      "observedGreen",
+      "caseCount",
+      "cases",
+      "candidateSha256",
+      "moduleSha256",
+      "baselineSha256",
+      "driverTopLevelImported",
+      "realSignals",
+      "game",
+      "moduleUnchanged",
+      "r2TailUnchanged",
+      "failure"
+    ],
+    "exitCode": 0,
+    "guardRequirements": [
+      "Reject duplicate JSON keys, non-object, extra or missing keys, extra/missing/reordered rows, wrong exact row keys/name/status.",
+      "Require exact type int for all five count fields (bool rejected); booleans are exact false/true as specified.",
+      "Require complete JSON plus child0, helper0 and recorder0; no successful artifact can override an actual route failure.",
+      "Retain existing 20s child,25s helper,30s recorder bounds,64KiB recorder stdout/stderr caps and owned READY/GO cleanup."
+    ],
+    "noOptimize": true,
+    "pythonFlags": [
+      "-I",
+      "-B"
+    ],
+    "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "required": {
+      "baselineSha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07",
+      "candidateSha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678",
+      "caseCount": 13,
+      "driverTopLevelImported": false,
+      "expectedGreen": 12,
+      "expectedRed": 1,
+      "failure": null,
+      "game": false,
+      "moduleSha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15",
+      "moduleUnchanged": true,
+      "observedGreen": 12,
+      "observedRed": 1,
+      "r2TailUnchanged": true,
+      "realSignals": false,
+      "schema": "a208-independent-pre-reap-controls/v1",
+      "status": "PRE_REAP_CONTROLS_PASS"
+    },
+    "rowExactKeys": [
+      "name",
+      "status"
+    ],
+    "stderrBytes": 0,
+    "stdout": "Exactly one UTF-8 JSON object followed by one newline; no other bytes.",
+    "stdoutMaximumBytesIncludingNewline": 12289
+  },
+  "roles": {
+    "baselineR2Drive": {
+      "bytes": 11349,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py",
+      "sha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07"
+    },
+    "candidateDrive": {
+      "bytes": 13089,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py",
+      "sha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678"
+    },
+    "correctedMicroObservedAdoption": {
+      "bytes": 4297,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/MICROPROBE-OBSERVED-ADOPTION.json",
+      "sha256": "cacde61e1209e4923535841c8e06533cfc6d8cfe3d1575b76eea7d6494a80605"
+    },
+    "designAdoption": {
+      "bytes": 3099,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PRE-REAP-DESIGN-ADOPTION.json",
+      "sha256": "3bbbd3967f0d9188dc60d3ad4a22941da460c08f923e9dc38b3f13027659887e"
+    },
+    "pureModule": {
+      "bytes": 9553,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/owned_cleanup.py",
+      "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+    },
+    "tester": {
+      "bytes": 20888,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-independent-controls-after-ak-20261009-r1/controls.py",
+      "sha256": "fc835a82b2071b64840711e3fb5a334e3dc25ba531ef2d67ce041aff40c4ea68"
+    }
+  },
+  "schema": "a208-independent-pre-reap-controls-design/v1",
+  "sourceReviewCriteria": [
+    "Candidate whole-module AST inverse after removing only reap_completed and actual prefix call equals authenticated R2 AST; this preserves main report tail, unchanged helper/hard_kill/alarms/observer methods/caps.",
+    "Module exact811746 source remains unchanged; no new architecture or discovered ownership.",
+    "Fake syscall target checks record before validation; verify no extra targets and only signals0/9, no positive prefix signal. All retained probe defaults already ended and poll-only.",
+    "Each synthetic fixture independently verifies bounded callbacks<300, at most128 events, at most2048 bytes/event and at most65536 aggregate, emit=None.",
+    "Strict producer/record route gate uses exact13 rows1RED12GREEN, no reuse of old21 module rows or12 integration rows."
+  ],
+  "status": "SOURCE_ONLY_UNRUN"
+}

@@ -1,0 +1,144 @@
+{
+  "actualDiagnosticOutcome": null,
+  "actualQualifications": {
+    "actualFocusedAdoption": {
+      "bytes": 2787,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PURE-OBSERVED-ADOPTION.json",
+      "sha256": "30ba97ac7f300fdd1badad143f684b1642eb1ff1d2951d6eead722dda31f7af4"
+    },
+    "actualIntegrationAdoption": {
+      "bytes": 959,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/INTEGRATION-OBSERVED-ADOPTION.json",
+      "sha256": "2523abaeffe14b085cc29b32ef10bc2636b055caef201a7cbf2c153ef598ba4c"
+    },
+    "actualMicroprobeAdoption": {
+      "bytes": 4297,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/MICROPROBE-OBSERVED-ADOPTION.json",
+      "sha256": "cacde61e1209e4923535841c8e06533cfc6d8cfe3d1575b76eea7d6494a80605"
+    },
+    "actualPreReapAdoption": {
+      "bytes": 4560,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PRE-REAP-FOCUSED-OBSERVED-ADOPTION.json",
+      "sha256": "376e8a53713604843f4275d69ede9b9bce1d144011e51398f69957e05b6c26bb"
+    }
+  },
+  "candidateDriver": {
+    "bytes": 13089,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/drive.py",
+    "sha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678"
+  },
+  "candidateModule": {
+    "bytes": 9553,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/owned_cleanup.py",
+    "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+  },
+  "config": {
+    "bytes": 19934,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/CONFIG.json",
+    "sha256": "09d2b7197c42e71594787b6061637d30f84710feef881c7757ea8897dfc24bec"
+  },
+  "currentAkReadback": {
+    "bytes": 1162,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+    "sha256": "2c2df2e06bc1223262c71ed8f5062d65e348c6965b7f87f9757411ca9b621eaa"
+  },
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_A208_CURRENT_AK_PRE_REAP_ACTUAL_ROUTE_AND_WRAPPER",
+  "executionAuthorization": false,
+  "game": false,
+  "historicalM0Complete": {
+    "bytes": 6133,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-complete-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad"
+  },
+  "implementationSourceAdoption": {
+    "bytes": 2933,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PRE-REAP-IMPLEMENTATION-ADOPTION.json",
+    "sha256": "779242c3965b1c1e949d0a87927412f6b475f849618abeb29f299eb5d35a3e71"
+  },
+  "lessons": [
+    "Compare every new JSON consumer's exact field names and types with authenticated actual producer/adoption data; a nearby route's exit schema cannot be assumed interchangeable.",
+    "Verify dynamically constructed runtime paths as well as literal paths. A wrapper checking a fresh directory cannot protect a recorder still constructing an older output directory.",
+    "Review actual caller integration along with narrow helpers. The original omitted global STOP escaped pure module review; its separate actual-tail RED/GREEN admission remains preserved."
+  ],
+  "limits": [
+    "Source-only review does not run wrapper, candidate, controls, process probes, fullguard or game and does not grant real execution.",
+    "All original STOP artifacts and unknown original EPERM host/kernel/alarm cause remain preserved. Later absence or focused tests do not retroactively accept them.",
+    "Candidate PASS artifacts are invalid without complete actual tool/helper/recorder/driver0, exact report/caps/timers/owned cleanup and root postflight acceptance. Nonzero/late STOP takes precedence.",
+    "Old JS/M0 observations remain historical; bounded eight-directory metadata checks certify only their actual recorded interval."
+  ],
+  "preservedUnrunDefectiveDraftPins": {
+    "bytes": 6389,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/SOURCE-PINS.json",
+    "sha256": "3dc15b73a33590300e47c3ef44a8201bc7cce268237c0db9488fb2374937722a"
+  },
+  "proposedWrapperCLI": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/grant-parent.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-independent-review-after-ak-20261009-r3/RECEIPT.json",
+    "<this exact receipt SHA256>",
+    "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PURE-OBSERVED-ADOPTION.json",
+    "30ba97ac7f300fdd1badad143f684b1642eb1ff1d2951d6eead722dda31f7af4"
+  ],
+  "recorder": {
+    "bytes": 14480,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/record.py",
+    "sha256": "a1c9c49831c4665c2acaa720e97c05adb43f32e7704aec4c120e220dd9a58834"
+  },
+  "route": {
+    "bytes": 4260,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/ROUTE.json",
+    "sha256": "f606e4debc0349f9ae751f1604cdf19e833946d616a4e1f1c1d16cc0b4c8a902"
+  },
+  "runtimePathBindings": {
+    "fixture": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3",
+    "lane": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-lane-after-ak-20261009-r3",
+    "output": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-output-after-ak-20261009-r3",
+    "parent": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-parent-recorded-after-ak-20261009-r3",
+    "recorderOutputEqualsWrapperOutput": true,
+    "source": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3"
+  },
+  "schema": "1370-a208-current-ak-pre-reap-actual-route-independent-source-review/v1",
+  "scope": "Independent operational filled-route and wrapper review. Reviewer authored the R3 driver; its separate independent dcb0 driver review and root779 source adoption remain required and authenticated.",
+  "separateDriverIndependentReview": {
+    "bytes": 5018,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-driver-independent-source-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "dcb0f61baa80cd51406d4783e7806224d07c9ef52f1beb6c0a3e6f12a4334c28"
+  },
+  "sourcePins": {
+    "bytes": 6661,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/SOURCE-PINS.json",
+    "sha256": "f4696f348c105e1252065f784ff76b5b930b1191ea3f78a3ba78f1eff357c877"
+  },
+  "sourcePinsSha256": "f4696f348c105e1252065f784ff76b5b930b1191ea3f78a3ba78f1eff357c877",
+  "verification": {
+    "GitByReviewer": false,
+    "candidateImportsByReviewer": false,
+    "controlsRunByReviewer": false,
+    "finalPinnedFilesAuthenticated": 13,
+    "finiteNamedRoleAuthenticationAudit": 117,
+    "fullInventoryByReviewer": false,
+    "materialDefectsInReviewedR3": [],
+    "newConsumerDataPredicatesReadAgainstActualJSON": true,
+    "newRuntimeConstructedOutputAndLiteralBindingsAgree": true,
+    "observerExactRoles": 18,
+    "processSignalsByReviewer": false,
+    "recorderASTDefinitionsUnchanged": 18,
+    "wrapperExecutedByReviewer": false
+  },
+  "verified": [
+    "Reviewed R3 driver5d038/module811746/report validators byte exact. All18 recorder function/class ASTs exact to reviewed implementation.",
+    "Eighteen observer roles and Node22 physical binary exact to admitted historical JS route; TAP13 argv/validators preserved. No new JS run claimed.",
+    "Actual module30ba3RED18GREEN, integration25232RED10GREEN, microcacde9rows, and pre-reap376e1RED12GREEN authenticated separately. Every new JSON consumer predicate checked against actual admission/receipt shape.",
+    "Actual3+14 suite,7setsid groups,4driver-group probes,45/55 driver clocks,60/75/90 recorder clocks,1MiBstreams/8MiBfixture caps unchanged. Whole90 covers recorder role authentication through cleanup/finalization.",
+    "CurrentAK published references and src frozen13880 distinguished from historicalAJ M04711 completion. Eight protected metadata roots retained; no fresh inventory or continuity claim.",
+    "Only external exact combined review and separate root invocation allow once-only O_EXCL grant then exact exec-to-helper arm. Config false authorization/source-only implementation dictionary cannot authorize actual17 acceptance. Currentref/clean/lane/known-owned absence/AC/disk/protection checks before grant; rootpostflight and complete recorded outer exits required.",
+    "Frozen unrun R2 preserved: integration receipt exit-shape mismatch and stale constructed output path corrected only in fresh R3; no failed actual inferred from those source defects."
+  ],
+  "wrapper": {
+    "bytes": 15823,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/grant-parent.py",
+    "sha256": "97a0279a394da50f2664ce39c570c855a82a61860dff393204bd8fee9574d53a"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "actualDiagnosticOutcome": null,
+  "actualFocusedAdoption": {
+    "bytes": 2787,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PURE-OBSERVED-ADOPTION.json",
+    "sha256": "30ba97ac7f300fdd1badad143f684b1642eb1ff1d2951d6eead722dda31f7af4"
+  },
+  "actualIntegrationAdoption": {
+    "bytes": 959,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/INTEGRATION-OBSERVED-ADOPTION.json",
+    "sha256": "2523abaeffe14b085cc29b32ef10bc2636b055caef201a7cbf2c153ef598ba4c"
+  },
+  "actualMicroprobeAdoption": {
+    "bytes": 4297,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/MICROPROBE-OBSERVED-ADOPTION.json",
+    "sha256": "cacde61e1209e4923535841c8e06533cfc6d8cfe3d1575b76eea7d6494a80605"
+  },
+  "actualPreReapControlReceipt": {
+    "bytes": 4560,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PRE-REAP-FOCUSED-OBSERVED-ADOPTION.json",
+    "sha256": "376e8a53713604843f4275d69ede9b9bce1d144011e51398f69957e05b6c26bb"
+  },
+  "bounds": {
+    "eachParentActiveSeconds": 75,
+    "eachParentChildSeconds": 60,
+    "eachParentWholeSeconds": 90,
+    "eachStreamBytes": 1048576,
+    "ownedFixtureBytes": 8388608,
+    "pythonDriverActiveSeconds": 45,
+    "pythonDriverWholeSeconds": 55
+  },
+  "commands": {
+    "python": [
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-lane-after-ak-20261009-r3/controls.log",
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/record.py",
+      "python"
+    ]
+  },
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "expected": {
+    "jsGroups": 13,
+    "noChildReportValidationMethods": 3,
+    "nodeWorkers": "Native --test workers inherit the exact recorded Node PGID; no invented PID list.",
+    "outerGroupInheritedGrandchildren": 2,
+    "pythonDirectSetsidGroups": 7,
+    "pythonMethods": 14,
+    "sandboxProbesInOwnedDriverGroup": 4
+  },
+  "grant": null,
+  "historicalGrant": {
+    "bytes": 4638,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "7da501eb54301aaf0a22c5dc29e4dff786ee4bd9bfff490153d951c54bd7b9eb"
+  },
+  "implementationSourceAdoption": {
+    "bytes": 2933,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PRE-REAP-IMPLEMENTATION-ADOPTION.json",
+    "sha256": "779242c3965b1c1e949d0a87927412f6b475f849618abeb29f299eb5d35a3e71"
+  },
+  "runtimeFillRequired": [
+    "external combined exactsource+wrapper review",
+    "separate root once-only runtime grant invocation",
+    "fresh absence/lane/AC/disk/currentAK checks",
+    "bounded eight-root postflight by root after exact exec-to-helper run"
+  ],
+  "schema": "1370-a208-cleanup-diagnostic-actual-held-route-v1",
+  "sequence": "FILLED SOURCE ONLY: actual module3RED18GREEN21, reporting-tail2RED10GREEN12, micro9, pre-reap1RED12GREEN13 bound; require exact combined source/wrapper review, currentAK preflight and separate root once-only Python17 grant. Actual Python17 outcome remains null.",
+  "sourcePreparationDesignAdoption": {
+    "bytes": 2050,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-cleanup-diagnostics-parent-design-adoption-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "10649c40f3ef4e6878f6ff72040a9a304231b8e60a5d96e57b6297c0dca789f1"
+  },
+  "sourceReview": {
+    "bytes": 5018,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-driver-independent-source-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "dcb0f61baa80cd51406d4783e7806224d07c9ef52f1beb6c0a3e6f12a4334c28"
+  }
+}

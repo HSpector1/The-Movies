@@ -1,0 +1,43 @@
+{
+  "actual25659Tool": {
+    "bytes": 621,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-parent-after-ak-20261009-r1/ACTUAL-TOOL.json",
+    "sha256": "81ec409403d52f42b4077ae5e0467cb24ebd5c31fd9926af028852b66031f0fd"
+  },
+  "actualExperimentExecuted": false,
+  "actualObservedReceipt": null,
+  "all17NonMainRecorderASTEqual": true,
+  "allFiveSourceAndRouteByteInversesVerified": true,
+  "bindingDelta": "FreshsourceafterAK-r2,parentafterAK-r2,output/laneafterAK-r3; exactprobe/guard/CONFIG hashes andwrapperargv rebind.",
+  "boundsUnchanged": {
+    "eachStreamBytes": 65536,
+    "naturalChild": 2,
+    "parent": 20,
+    "producerSummaryBytes": 16384,
+    "recorderActive": 25,
+    "recorderChild": 20,
+    "recorderWhole": 30,
+    "registryBytes": 4096,
+    "registryRecordBytes": 1024
+  },
+  "candidateCodeExecuted": false,
+  "exactProbeByteInverseVerified": true,
+  "functionalDelta": "One probe.py return statement dedented one space outside finally; same return expression, surrounding guards/timer emission order unchanged.",
+  "inheritedRecorderReturnAndHelperLogWarningRetained": true,
+  "pinnedInMemoryProbeCompilation": {
+    "bytes": 1580,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r2/COMPILE-PROOF.json",
+    "sha256": "749987b775564a7d670c7082a8cddaca86d550615b603f8b47d59a21ed8c7cd4"
+  },
+  "predecessorSourcePins": {
+    "bytes": 3549,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "63509772d0e50b7849fb4d83cae0c23dc8aa49d0435c3a21b1c42a729dce6dee"
+  },
+  "producerEmptyStderrGateUnchanged": true,
+  "producerStrictNineRowsAndThreeRegistryRecordsUnchanged": true,
+  "runtimeGrant": null,
+  "schema": "1370-a208-owned-zombie-r2-minimal-source-repair-proof/v1",
+  "sourceReviewReceipt": null,
+  "warningFiltersInExperimentUnchanged": true
+}

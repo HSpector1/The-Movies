@@ -1,0 +1,56 @@
+{
+  "actualExecutionGranted": false,
+  "actualGrantAndReviewOutsideConfig": true,
+  "actualObservedReceipt": null,
+  "bounds": {
+    "activeSeconds": 25,
+    "childSeconds": 20,
+    "eachStreamBytes": 65536,
+    "naturalChildSeconds": 2,
+    "summaryBytes": 16384,
+    "wholeSeconds": 30
+  },
+  "currentOperationalRefs": {
+    "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "productionHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+  },
+  "executionAuthorization": false,
+  "futureLaneBase": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-lane-after-ak-20261009-r1",
+  "futureOutput": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r1",
+  "probe": {
+    "bytes": 6206,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/probe.py",
+    "sha256": "6dd8f9f475ead831ef8c7fa6889343e9cb24fd2d515e57a390b5bcfa8871e70f"
+  },
+  "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+  "pythonSha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835",
+  "roles": {
+    "helper": {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "python": {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "reportGuard": {
+      "bytes": 4391,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/report_guard.py",
+      "sha256": "6a64c8052bc451fb96d96206f3a01892d8012c36b86ed47a41208f6a725f5fb2"
+    }
+  },
+  "runtimeGrant": null,
+  "schema": "1370-a208-owned-zombie-zero-probe-config-v1",
+  "scope": {
+    "game": false,
+    "getpgidProbes": 3,
+    "historicalCauseEstablished": false,
+    "ownedNaturalChild": 1,
+    "positiveSignalsInMicroprobe": false,
+    "zeroSignalProbes": 6
+  },
+  "status": "HELD_SOURCE_ONLY_UNRUN"
+}

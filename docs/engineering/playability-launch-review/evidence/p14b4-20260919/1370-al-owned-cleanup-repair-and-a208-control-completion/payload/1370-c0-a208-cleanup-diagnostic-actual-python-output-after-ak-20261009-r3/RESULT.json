@@ -1,0 +1,31 @@
+{
+  "actualChildExit": 0,
+  "boundsSeconds": {
+    "active": 75,
+    "node": 60,
+    "whole": 90
+  },
+  "childPid": 50448,
+  "configSha256": "09d2b7197c42e71594787b6061637d30f84710feef881c7757ea8897dfc24bec",
+  "elapsedSeconds": 3.649901316006435,
+  "executionAuthorization": false,
+  "game": false,
+  "groupClear": true,
+  "mode": "python",
+  "ownedPgid": 50448,
+  "pgidConfirmed": true,
+  "sanitizedEnvironment": [
+    "NODE_OPTIONS",
+    "NODE_PATH"
+  ],
+  "schema": "1370-b109-pure-encoder-recorder-r4",
+  "sourceOrGameplayAdoption": false,
+  "startupOwnedBeforeExec": true,
+  "status": "PURE_A208_CONTROLS_PYTHON_COMPLETE_UNADOPTED",
+  "stderrBytes": 2590,
+  "stderrSha256": "47b5b1bf7bc3bdfacb01bb219fa96fbcb5c4b2d4db90fb3aafff4b23b8a8db3a",
+  "stdoutBytes": 49073,
+  "stdoutSha256": "22f2f2cd69eda2ad68cc0a5dc8476c053344697a310ecfa7b3fa93d3a374a085",
+  "timedOut": false,
+  "utc": "2026-10-09T23:54:27.032568+00:00"
+}

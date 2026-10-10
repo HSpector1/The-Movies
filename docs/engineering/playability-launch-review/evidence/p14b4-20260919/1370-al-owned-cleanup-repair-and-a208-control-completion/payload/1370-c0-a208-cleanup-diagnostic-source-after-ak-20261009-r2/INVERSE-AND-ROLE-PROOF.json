@@ -1,0 +1,347 @@
+{
+  "executionPerformed": false,
+  "observerFiles": {
+    "BINDING-UNFILLED.json": {
+      "bytes": 587,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/BINDING-UNFILLED.json",
+      "sha256": "d2ba88acfbf78221d4795a5f8a4f7b0588f2ab43fc60e8b062cda03dcdf8391a"
+    },
+    "PHASE-INPUT-PROOF.json": {
+      "bytes": 35081,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/PHASE-INPUT-PROOF.json",
+      "sha256": "36c521a883dca9a16a8e2c48da87ec779ef7fff4667372db165665e2a0447e06"
+    },
+    "PLAN.md": {
+      "bytes": 4086,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/PLAN.md",
+      "sha256": "0a18eff4f23c83dab62eeff3ec83f555bc656c4bf5b2401a93e7bd0ca8cd161d"
+    },
+    "POLICY.sb": {
+      "bytes": 93,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/POLICY.sb",
+      "sha256": "8e5756225a70618c763bc888a62c7ba1e1f8382d10392f21be5766fbb96a24b5"
+    },
+    "SELECTION.json": {
+      "bytes": 20248,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SELECTION.json",
+      "sha256": "a77f53a854df5112f2391f3bc3d01d64674ebd92f16ec6389a77ff7544a8bff7"
+    },
+    "bounds-guard.mjs": {
+      "bytes": 4153,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/bounds-guard.mjs",
+      "sha256": "c5a548b45323f57a9e00f24daecbaca53ede29f0e8348ab2a74c72a5f3d1d36f"
+    },
+    "outer-recorder.py": {
+      "bytes": 11082,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/outer-recorder.py",
+      "sha256": "bf7cb565ba6c378323393b0e4f7a89de16e278526e34f73295e54c74bc7e8ef8"
+    },
+    "settlement208-core.mjs": {
+      "bytes": 21888,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/settlement208-core.mjs",
+      "sha256": "8d18864aa6943d1aec534a4f78746eb614c66b32862cac80528e9f2d9bee367e"
+    },
+    "supervise.py": {
+      "bytes": 22673,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/supervise.py",
+      "sha256": "45eda307943fb829a321624d7eca4ad5004a7d8e8bdef042a74c8344b61e153e"
+    },
+    "synthetic-employment.json": {
+      "bytes": 13113,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/synthetic-employment.json",
+      "sha256": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58"
+    },
+    "test-outer.py": {
+      "bytes": 3290,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-outer.py",
+      "sha256": "09429dd9b6e38f4a24216782c1892f00c3d71e1402f9c21d3f2992bf4759c4ab"
+    },
+    "test-settlement208-frame.py": {
+      "bytes": 2027,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-settlement208-frame.py",
+      "sha256": "ed0218a3520cd01c8199f17426d59bf78e83ec85b2684b881d402405698a0b5f"
+    },
+    "test-settlement208.mjs": {
+      "bytes": 7008,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-settlement208.mjs",
+      "sha256": "eed9e598428ed969b6ff1e044df7e20f563f5fbd7b4143f884de472edfddf609"
+    },
+    "test-supervisor.py": {
+      "bytes": 11204,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-supervisor.py",
+      "sha256": "eeef1208a677e1f885151808bbe97a5357a23817b664a9b3cb41296c652e2ba0"
+    },
+    "test-synthetic.mjs": {
+      "bytes": 4873,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-synthetic.mjs",
+      "sha256": "73b90c3cea42ed9f8888af26736437e527cd7ea3871c0d49884818cd3a2e3b60"
+    },
+    "witness-core.mjs": {
+      "bytes": 3520,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/witness-core.mjs",
+      "sha256": "2c0120734ec7d46e59c953a000f195fddadb24ac7c5ab3e65e68ffb801b8d63d"
+    },
+    "witness.mts": {
+      "bytes": 5731,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/witness.mts",
+      "sha256": "f82c50aa830d672de685bbfc6f49951ef56fcc3f4714ffe7b6a31100fe50e704"
+    },
+    "worktree-guard.mjs": {
+      "bytes": 2211,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/worktree-guard.mjs",
+      "sha256": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4"
+    }
+  },
+  "onlyDriverSourceDelta": "Add STOP to existing main() global declaration",
+  "originalSourcePins": {
+    "bytes": 6144,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "ea143dc31e5e87bb0868f501a2c0655c04f670305fe3793713f0cf659c0cc904"
+  },
+  "pairs": {
+    "CONFIG.json": {
+      "diff": {
+        "bytes": 2844,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/CONFIG.json.diff",
+        "sha256": "da968ae6ad6a6d5ec63914e519a5979f404d95689b236c16301b4485813ddbd5"
+      },
+      "inverseDiff": {
+        "bytes": 2844,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/CONFIG.json.inverse.diff",
+        "sha256": "635c953ca75d5c011df4330c53445edd3afff74369f703767dc0afb3d201336b"
+      },
+      "inverseExactR1Bytes": true,
+      "inverseOpcodes": [
+        {
+          "newEnd": 126,
+          "newStart": 125,
+          "oldEnd": 126,
+          "oldLines": [
+            "  \"pythonFixture\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-cleanup-diagnostic-fixture-after-ak-20261009-r1\",\n"
+          ],
+          "oldStart": 125
+        },
+        {
+          "newEnd": 142,
+          "newStart": 139,
+          "oldEnd": 142,
+          "oldLines": [
+            "      \"bytes\": 11344,\n",
+            "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/drive.py\",\n",
+            "      \"sha256\": \"0a4934e66eb748d7f2912373bd6896b21e80a867fad4a1e72b9f2a7647345369\"\n"
+          ],
+          "oldStart": 139
+        },
+        {
+          "newEnd": 271,
+          "newStart": 270,
+          "oldEnd": 271,
+          "oldLines": [
+            "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/owned_cleanup.py\",\n"
+          ],
+          "oldStart": 270
+        },
+        {
+          "newEnd": 277,
+          "newStart": 272,
+          "oldEnd": 272,
+          "oldLines": [],
+          "oldStart": 272
+        },
+        {
+          "newEnd": 291,
+          "newStart": 290,
+          "oldEnd": 286,
+          "oldLines": [
+            "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/test_reports.py\",\n"
+          ],
+          "oldStart": 285
+        },
+        {
+          "newEnd": 296,
+          "newStart": 295,
+          "oldEnd": 291,
+          "oldLines": [
+            "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/report_guard.py\",\n"
+          ],
+          "oldStart": 290
+        }
+      ],
+      "r1": {
+        "bytes": 15952,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/CONFIG.json",
+        "sha256": "a78a8d441009e2c6c9568257e7fe30b4914ef9b17136ae3e09c8cecba9613808"
+      },
+      "r2": {
+        "bytes": 16232,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/CONFIG.json",
+        "sha256": "25bb16221880ad6f2e85be0711cf9da980b03ca84d37f8dde82b4457c5495c62"
+      }
+    },
+    "ROUTE.json": {
+      "diff": {
+        "bytes": 4112,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/ROUTE.json.diff",
+        "sha256": "caf835708f9dc561a973338fe414673087c02e616465b89980cc8f932e709b61"
+      },
+      "inverseDiff": {
+        "bytes": 4112,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/ROUTE.json.inverse.diff",
+        "sha256": "e221c36dd0f0179364e51cb9217b0fc5621eefca3b296fce53a8a2350fbd6a2c"
+      },
+      "inverseExactR1Bytes": true,
+      "inverseOpcodes": [
+        {
+          "newEnd": 16,
+          "newStart": 15,
+          "oldEnd": 16,
+          "oldLines": [
+            "      \"/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-python-cleanup-diagnostic-lane-after-ak-20261009-r1/controls.log\",\n"
+          ],
+          "oldStart": 15
+        },
+        {
+          "newEnd": 20,
+          "newStart": 19,
+          "oldEnd": 20,
+          "oldLines": [
+            "      \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/record.py\",\n"
+          ],
+          "oldStart": 19
+        },
+        {
+          "newEnd": 41,
+          "newStart": 23,
+          "oldEnd": 24,
+          "oldLines": [
+            "  \"cwd\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1\",\n"
+          ],
+          "oldStart": 23
+        },
+        {
+          "newEnd": 67,
+          "newStart": 62,
+          "oldEnd": 45,
+          "oldLines": [],
+          "oldStart": 45
+        },
+        {
+          "newEnd": 72,
+          "newStart": 71,
+          "oldEnd": 50,
+          "oldLines": [
+            "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/owned_cleanup.py\",\n"
+          ],
+          "oldStart": 49
+        },
+        {
+          "newEnd": 103,
+          "newStart": 102,
+          "oldEnd": 81,
+          "oldLines": [
+            "  \"sequence\": \"HELD. Independently review exact derivative, separately grant and record pure focused RED/GREEN; then adopt results and independently review fresh runtime fill before any separately granted once-only Python diagnostic. No JS rerun; no automatic retry. Original failures remain immutable.\",\n"
+          ],
+          "oldStart": 80
+        }
+      ],
+      "r1": {
+        "bytes": 3787,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/ROUTE.json",
+        "sha256": "75a38c7de3d0253cc3bd4e76e47ca4d1dcf9286c56d119f118f54b13ec66d070"
+      },
+      "r2": {
+        "bytes": 4887,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/ROUTE.json",
+        "sha256": "4247a7530a1f0cfbbcf66a9b8f072c0231d8a885c2c345a4d1cf651efdfa7dd8"
+      }
+    },
+    "drive.py": {
+      "diff": {
+        "bytes": 759,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py.diff",
+        "sha256": "6f224017823f32155f1b50ac4d45bebda682b312d759bc4b50e831a8cb71ec3e"
+      },
+      "inverseDiff": {
+        "bytes": 759,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py.inverse.diff",
+        "sha256": "8c1c5f61aca0dcb640eaf17886f6d9bcb5679b98adf7866e9816acc10b0e0494"
+      },
+      "inverseExactR1Bytes": true,
+      "inverseOpcodes": [
+        {
+          "newEnd": 115,
+          "newStart": 114,
+          "oldEnd": 115,
+          "oldLines": [
+            " global REG,PHASE,ROOT,CLEANUP\n"
+          ],
+          "oldStart": 114
+        }
+      ],
+      "r1": {
+        "bytes": 11344,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/drive.py",
+        "sha256": "0a4934e66eb748d7f2912373bd6896b21e80a867fad4a1e72b9f2a7647345369"
+      },
+      "r2": {
+        "bytes": 11349,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py",
+        "sha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07"
+      }
+    },
+    "record.py": {
+      "diff": {
+        "bytes": 943,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/record.py.diff",
+        "sha256": "6351039f4c8d007010fe45b297ad16920f18814b944c63ec1f276dae78d007b4"
+      },
+      "inverseDiff": {
+        "bytes": 943,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/record.py.inverse.diff",
+        "sha256": "9a3fcf2b1cd4f81d5e8925b26e90fc3bd688369c91b62a887e2137f543ff7a51"
+      },
+      "inverseExactR1Bytes": true,
+      "inverseOpcodes": [
+        {
+          "newEnd": 6,
+          "newStart": 4,
+          "oldEnd": 6,
+          "oldLines": [
+            "CONFIG_SHA='a78a8d441009e2c6c9568257e7fe30b4914ef9b17136ae3e09c8cecba9613808';CAP=1024**2;CHILD=60;ACTIVE=75;WHOLE=90\n",
+            "OUTPUTS={mode:SCRATCH/('1370-c0-a208-controls-'+mode+'-cleanup-diagnostic-output-after-ak-20261009-r1') for mode in ('python',)}\n"
+          ],
+          "oldStart": 4
+        }
+      ],
+      "r1": {
+        "bytes": 14482,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/record.py",
+        "sha256": "6a875fa9c04f2908eb0d7da25aafcc44e0e6e75c1a4a71306724bcfef64eb30b"
+      },
+      "r2": {
+        "bytes": 14482,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/record.py",
+        "sha256": "0b0ae1a67957a3518cc4ba20013a274b40f668b20d8a537c308842f245249257"
+      }
+    }
+  },
+  "schema": "1370-owned-cleanup-r2-single-global-fix-proof/v1",
+  "unchangedFiles": {
+    "owned_cleanup.py": {
+      "bytes": 9553,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/owned_cleanup.py",
+      "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+    },
+    "report_guard.py": {
+      "bytes": 3203,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/report_guard.py",
+      "sha256": "bc7b714c9335e159fe292e8cb121db47d7f9dae3265ba9309fe44437a864b031"
+    },
+    "test_reports.py": {
+      "bytes": 2924,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/test_reports.py",
+      "sha256": "4c6379ee5d97b16700c9d4e8a205abc6f1580ac05f706296d8833fe2fd667ac8"
+    }
+  },
+  "wholeDriverASTInverseAfterRemovingGlobalSTOP": true
+}

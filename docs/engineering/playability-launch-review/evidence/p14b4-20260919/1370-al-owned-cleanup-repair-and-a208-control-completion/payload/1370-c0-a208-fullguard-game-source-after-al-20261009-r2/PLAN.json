@@ -1,0 +1,269 @@
+{
+  "actualCombinedJs13Protocol3Python14ControlsAdoption": null,
+  "actualGameReceipt": null,
+  "actualPython17ControlsAdoption": null,
+  "adoptedPreflight": null,
+  "authorityForSteps": [
+    {
+      "authority": "Accepted observer PLAN.md line13 and operational rebind MAP codeRequirements.",
+      "step": "ActualJS13+protocol3/Python14includingcleanupbeforecontrolsGrantfill"
+    },
+    {
+      "authority": "MAP currentProtectionRule plus selected accepted snapshot freshCompletePrivateInventoryRequired and observer PLAN.md line13.",
+      "step": "FreshpublishedOperationalproduction/commonbaselineandprotectedpostflightusingfullinventories"
+    },
+    {
+      "authority": "Original accepted exact preparation procedure0d0d and MAP nextExactSourceTasks; not new hierarchy.",
+      "step": "Exactexternalbindingreview/archiveadoption/adoptedpreflightthenrootonceonlygamegrant"
+    },
+    {
+      "authority": "Accepted observer PLAN.md line13; no pricing/game/vector conclusions from source preparation.",
+      "step": "Independentraw208/frame/full416reviewbeforevectoradmission"
+    },
+    {
+      "authority": "Selected snapshot explicitly excludesM0immutableinventory; root directs preservehistorical4711/e9f482 separately.",
+      "step": "No newM0inventory/readback/rematerializationrequirement"
+    }
+  ],
+  "bindingDraft": {
+    "bytes": 5637,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/BINDING-DRAFT.json",
+    "sha256": "62cbd6611a13c7ff9adf83c5a56526f46b142d903e7b98d4cfae7c39423dc966"
+  },
+  "candidateGuard": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/snapshot.py",
+    "sha256": "d2e0e8707cd59945cf8766ff10d86386312beb3a1e3e2a209f204a6f043c85e8"
+  },
+  "candidateGuardConfig": {
+    "bytes": 3579,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/CONFIG.json",
+    "sha256": "64628bfc7f2c330a0ec172f8988942ccbbf48033758504b4421dc9a06e4ee259"
+  },
+  "claimLimits": [
+    "Known AK and historical AJ observations remain exact historical facts. Forthcoming AL HEAD, refs, scope adoption and docs-transition roles are unknown/null.",
+    "A208 status replaces inherited M0 status; all old protection/no-waiver/docs-only predicates retained, with two exact in-memory identity/ref comparisons. No M0 authority label is fabricated.",
+    "No guard, inventory, game, process probe or Git was run by source preparation. Actual Python17/combined controls admissions remain null pending real root adopted roles.",
+    "Future exact fill and existing independent review/scan/game grant procedures remain required; no M0 rematerialization or added M0 inventory/readback gate."
+  ],
+  "currentAuthority": {
+    "branch": "wip/headless-program-20260916-ts",
+    "docsTransitionFactsRole": null,
+    "main": null,
+    "observedByThisPreparation": false,
+    "operationalRemoteRefs": {
+      "refs/heads/main": null,
+      "refs/heads/wip/headless-program-20260916-ts": null
+    },
+    "operationalScopeAdoption": null,
+    "productionHead": null,
+    "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "publishedReadback": null
+  },
+  "currentOperationalBaseline": null,
+  "currentOperationalBaselineIndependentReview": null,
+  "currentOperationalScopeAdoption": null,
+  "executionAuthorization": false,
+  "freshFillRequired": true,
+  "fullPostflightIndependentReview": null,
+  "futureFreshFilledDirectory": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r2",
+  "gameRoute": {
+    "actualArgv": null,
+    "argvShape": [
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "0",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-game-lane-after-al-20261009-r2/controls.log",
+      "/bin/bash",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/launch-pipeline-a208-held.sh",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r2/BINDING-DRAFT.json",
+      "<EXACT_ADOPTED_BINDING_SHA256>"
+    ],
+    "bounds": {
+      "activeStopSeconds": 742,
+      "innerSeconds": 720,
+      "settlement208Bytes": 65536,
+      "settlement208RowBytes": 4096,
+      "sinkForwardSeconds": 10,
+      "sinkReadSeconds": 760,
+      "stderrBytes": 65536,
+      "stdoutBytes": 524288,
+      "wholeRecorderSeconds": 750
+    },
+    "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r2",
+    "historicalGameSourceSha": "3aaf55e0c06c4b745b0b722cc56913050b1ee229",
+    "invariants": {
+      "employmentRows": 44,
+      "employmentSettlementReceiptTakesAndRng": {
+        "employment": "4cffcb410893395f8ee93da2d7d6146f35db2369962fe333e02de8d2fc7c0b58",
+        "receipts": "af8c4d1325ecb350dbc07fbf2f762dd8257db04075b8030bf7bd975b4cb2a766",
+        "rng": "2598418427,508725886,1318803286,3129010527",
+        "settlement": "706e54c6ec9728df1664025982ebbafeb0fc36afb245b6bd0b983305f6a10a77",
+        "takes": "8af116b1687ed210c02953b5b506456e638a64482e8042b0e549b0d57e428694"
+      },
+      "naturalSelected16CaptureWeek": 208,
+      "selectedOrderAndOccurrence": "A source-order24..39, occurrence0; frozen SELECTION unchanged",
+      "weeks": 416
+    },
+    "preparationNotGameOrControlAcceptance": true,
+    "privateRepoRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+    "requiredEnvironment": {
+      "GIT_OPTIONAL_LOCKS": "0",
+      "PATH": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    }
+  },
+  "guardArgvShapes": {
+    "afterExternalFill": [
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r2/snapshot.py",
+      "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+      "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+      "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+      "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+      "after-fill",
+      "after-external-fill-a208-post-al-pending-r2",
+      "<ACTUAL_ACCEPTED_PUBLISHED_OPERATIONAL_BASELINE_PATH>",
+      "<ACTUAL_ACCEPTED_PUBLISHED_OPERATIONAL_BASELINE_SHA256>"
+    ],
+    "baseline": [
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r2/snapshot.py",
+      "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+      "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+      "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+      "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+      "before-fill",
+      "baseline-before-a208-post-al-pending-r2"
+    ],
+    "postflight": [
+      "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-filled-after-al-20261009-r2/snapshot.py",
+      "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-r6-observed-independent-review-20261008-r1/RECEIPT.json",
+      "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d",
+      "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
+      "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+      "postflight",
+      "postflight-a208-post-al-pending-r2",
+      "<ACTUAL_ACCEPTED_PUBLISHED_OPERATIONAL_BASELINE_PATH>",
+      "<ACTUAL_ACCEPTED_PUBLISHED_OPERATIONAL_BASELINE_SHA256>",
+      "<ONLY_ACTUAL_RECORDED_OWNED_PGIDS_CSV>"
+    ]
+  },
+  "guardConfigPredecessor": {
+    "bytes": 3536,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/CONFIG.json",
+    "sha256": "a4b88b0181bf525f6144a71f05bb7d78a17fd46bbfbe88d0e2aea90a89874b4c"
+  },
+  "guardRecording": {
+    "createPrivateEvidenceParentInFreshFillBeforeGrant": true,
+    "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+    "directRecordedRootScanOnly": true,
+    "heavyHelperUsed": false,
+    "inventoriesRunByPreparation": false,
+    "newWholeScanDeadlineInvented": false,
+    "perCommandTimeoutSeconds": 180,
+    "rawMachinePsFdPublication": "local-only raw; hashes/sizes only",
+    "reason": "Inherited current() requires HEAVY-LANE-LOCK absent."
+  },
+  "guardSourcePredecessor": {
+    "bytes": 21431,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-operational-full-guard-after-aj-proposal-20261009-r2/snapshot.py",
+    "sha256": "cc94f1e8db3c2407d7a337246ed4d5f193334985864e48878e2700524c69cbee"
+  },
+  "onceOnlyGameGrant": null,
+  "priorPublishedAuthority": {
+    "basis": "Historical known AK published readback; not forthcoming AL authority or a post-AL protection baseline.",
+    "branch": "wip/headless-program-20260916-ts",
+    "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "observedByThisPreparation": false,
+    "productionHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+    "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "publishedReadback": {
+      "bytes": 1162,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+      "sha256": "2c2df2e06bc1223262c71ed8f5062d65e348c6965b7f87f9757411ca9b621eaa"
+    },
+    "repoRoot": "/Users/zacheryspector/The-Movies-headless-program"
+  },
+  "protectedScopes": {
+    "freshCompletePrivateInventoryRequired": true,
+    "fullInheritedInventoryAndEquality": [
+      "production/common protected digests and strict roots",
+      "complete privateR9 physical checkout/source/protected bytes",
+      "both complete12485-row dependency inventories and independent inodes/allocation",
+      "retainedH leaf/parent protection and ancestry"
+    ],
+    "m0": "Inherited writable-FD scope only; historical4711/e9f482 original1677+expanded1740 roles retained exactly, no new inventory/readback rerun gate.",
+    "noRematerialization": true,
+    "noSourceMutation": true,
+    "scratchParent": "Inherited device/inode/mode strict; informational mtime/ctime and sibling deltas only."
+  },
+  "reusableScientificAndSourceRoles": {
+    "externalAdapterPins": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/SOURCE-PINS.json",
+      "sha256": "470026455632aeac39bf57c3db45722fdd68b96f24689fdee70c3c1da8d40748"
+    },
+    "externalAdapterReview": {
+      "bytes": 2370,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "b6c6d35760a50ad7814e7e75253a614c6756725795ea88870de562b36ddb2c6f"
+    },
+    "externalAdapters": {
+      "bounded-sink-a208-held.py": {
+        "bytes": 3682,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/bounded-sink-a208-held.py",
+        "sha256": "9138c982912f53d8241721ec231555de3d8e9dae959e651c9b36dcf96a4f9700"
+      },
+      "launch-pipeline-a208-held.sh": {
+        "bytes": 1244,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-external-pipeline-sink-held-proposal-after-aj-20261009-r1/launch-pipeline-a208-held.sh",
+        "sha256": "46640b541fb04c67fcd5f72602ab128ca056416cd37ad946f248a50da1d6886a"
+      }
+    },
+    "historicalJs13ActualReceipt": {
+      "bytes": 5975,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-js-controls-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "1abeefa371df36fa0bad2a9cf1c435bb9ea55abe6fa78daac2d92f3a9b3ee85a"
+    },
+    "historicalM0Complete": {
+      "bytes": 6133,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-complete-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+      "sha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad"
+    },
+    "historicalM0Facts": {
+      "bytes": 1872789,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-facts-after-aj-20261009-r3.json",
+      "sha256": "e9f4829c501cc90475b9067c8ae32580fe5fca14fc40950ee083031f89081ba2"
+    },
+    "observerPins": {
+      "bytes": 9882,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/SOURCE-PINS.json",
+      "sha256": "3452218ceabf6bb63f690db2eff3f83edda56db71c5826982a92ae0c73085aaf"
+    },
+    "observerReview": {
+      "bytes": 5517,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-independent-source-review-after-aj-20261009-r1/RECEIPT.json",
+      "sha256": "d813c722afeefb1b7ce4be1bc7fade51db41d7ce1930964a7e67d6d884ebf1a8"
+    }
+  },
+  "schema": "1370-a208-current-operational-fullguard-game-held-plan/v2",
+  "scopeAmendmentDesign": {
+    "bytes": 9623,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-operational-scope-authority-independent-design-after-ak-20261009-r1/FINDING-AND-DESIGN.json",
+    "sha256": "f43391aae243ccfe05a689c28f46dd76c005d67031d8f281b7c985c3a27bd6aa"
+  },
+  "sourcePreparationDesignAdoption": {
+    "bytes": 1308,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/SCOPE-AMENDMENT-DESIGN-ADOPTION.json",
+    "sha256": "bd4b15dca9e84e4d694dc129f386c83079f07693f0f84472ad6ff31e3d476217"
+  },
+  "sourceReview": null,
+  "status": "SOURCE_ONLY_UNRUN_POST_AL_IDENTITY_AND_A208_SCOPE_HELD"
+}

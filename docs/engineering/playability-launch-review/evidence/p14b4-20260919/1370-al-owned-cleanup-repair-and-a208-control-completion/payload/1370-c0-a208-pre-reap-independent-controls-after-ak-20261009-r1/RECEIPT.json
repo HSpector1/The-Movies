@@ -1,0 +1,57 @@
+{
+  "compileOnly": {
+    "compileExecutedSource": false,
+    "compileMode": "exec",
+    "flags": [
+      "-I",
+      "-B",
+      "-W",
+      "error::SyntaxWarning"
+    ],
+    "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "result": "SUCCESS",
+    "testerSha256": "fc835a82b2071b64840711e3fb5a334e3dc25ba531ef2d67ce041aff40c4ea68"
+  },
+  "counts": {
+    "expectedGreen": 12,
+    "expectedRed": 1,
+    "producerRows": 13
+  },
+  "decision": "SEALED_SOURCE_ONLY_UNRUN_INDEPENDENT_PRE_REAP_RED_GREEN_CONTROLS",
+  "roles": {
+    "baselineR2Drive": {
+      "bytes": 11349,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py",
+      "sha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07"
+    },
+    "candidateDrive": {
+      "bytes": 13089,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py",
+      "sha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678"
+    },
+    "correctedMicroObservedAdoption": {
+      "bytes": 4297,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/MICROPROBE-OBSERVED-ADOPTION.json",
+      "sha256": "cacde61e1209e4923535841c8e06533cfc6d8cfe3d1575b76eea7d6494a80605"
+    },
+    "designAdoption": {
+      "bytes": 3099,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PRE-REAP-DESIGN-ADOPTION.json",
+      "sha256": "3bbbd3967f0d9188dc60d3ad4a22941da460c08f923e9dc38b3f13027659887e"
+    },
+    "pureModule": {
+      "bytes": 9553,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/owned_cleanup.py",
+      "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+    },
+    "tester": {
+      "bytes": 20888,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-independent-controls-after-ak-20261009-r1/controls.py",
+      "sha256": "fc835a82b2071b64840711e3fb5a334e3dc25ba531ef2d67ce041aff40c4ea68"
+    }
+  },
+  "runtime": "No tests, candidate code, timers, processes, signals or real main suite executed by this author.",
+  "schema": "a208-independent-pre-reap-controls-receipt/v1",
+  "scope": "Focused pure controls only. Source review/grant and recorded observed acceptance still required. No real17method retry or game authorization.",
+  "sourceReview": "Authenticated actual R2/R3 cleanup entry and helper extraction, full R2 AST preservation inverse; fake-only OS/clock; prefix errors checked before original hard_kill."
+}

@@ -1,0 +1,20 @@
+{
+  "schema": "1370-actual-tool-preservation/v1",
+  "sessionId": 81061,
+  "chunks": [
+    {
+      "chunk_id": "72b8af",
+      "wall_time_seconds": 1.001328675,
+      "session_id": 81061,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "aadafe",
+      "wall_time_seconds": 0.000015805,
+      "exit_code": 0,
+      "original_token_count": 50,
+      "output": "{\"helperPid\": 11825, \"grant\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-parent-after-ak-20261009-r2/GRANT.json\"}\n{\"helperExit\": 0, \"boundedProtectedRootEquality\": true}\n"
+    }
+  ]
+}

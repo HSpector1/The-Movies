@@ -1,0 +1,133 @@
+{
+  "actualGrant": null,
+  "actualGrantAndReviewOutsideConfig": true,
+  "all17OriginalNonMainRecorderFunctionsClassesASTExact": true,
+  "boundsSeconds": [
+    20,
+    25,
+    30
+  ],
+  "directRecorderInvocationGranted": false,
+  "eachStreamBytes": 65536,
+  "exactRows": 12,
+  "exactTesterAndGuardRostersEqual": true,
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "expectedGreen": 10,
+  "expectedRed": 2,
+  "files": {
+    "CONFIG.json": {
+      "bytes": 5169,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/CONFIG.json",
+      "sha256": "f326221e0314c9ba3d881b5eb001f605495527243eb3c81f31fcf4b69640d099"
+    },
+    "CONFIG.json.diff": {
+      "bytes": 7934,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/CONFIG.json.diff",
+      "sha256": "54e41a058be5a6f088a8b84854b252f247eb444186e1e9bb3af6b16a3ff5f568"
+    },
+    "CONFIG.json.inverse.diff": {
+      "bytes": 7934,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/CONFIG.json.inverse.diff",
+      "sha256": "e6bb52ae667c6f33ba2e577604ab169d31509d1605c2ba7352b121c5c1647945"
+    },
+    "INVERSE-AND-ROLE-PROOF.json": {
+      "bytes": 26729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/INVERSE-AND-ROLE-PROOF.json",
+      "sha256": "0e56065a8546dfbcea61c2285073264b39bc9b0bb84f84cab5576c663d6d4cbb"
+    },
+    "LESSONS.md": {
+      "bytes": 956,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/LESSONS.md",
+      "sha256": "d996b4f7cef702fe3425cce2e66b1fe04aa4a90095fd8d0e2b225c73581c37fc"
+    },
+    "PROVENANCE.json": {
+      "bytes": 1724,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/PROVENANCE.json",
+      "sha256": "81c9694514cfa26d450ba1ce8d8ec45e843fb2a05e38997afcb92083dd185f83"
+    },
+    "RECORDER-REUSE-PROOF.json": {
+      "bytes": 1211,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/RECORDER-REUSE-PROOF.json",
+      "sha256": "f4702793b0137766d2fc3cf88f4a40a11f33447392e1d8b0ac11472662d3a832"
+    },
+    "ROUTE.json": {
+      "bytes": 2753,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/ROUTE.json",
+      "sha256": "f7c7efad9b261fdfb2d5c01aa7c1ce4c5ee2cdbe3b1608f2203f9441871333fe"
+    },
+    "ROUTE.json.diff": {
+      "bytes": 4761,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/ROUTE.json.diff",
+      "sha256": "97f0e046784c8573669e84a4d70145c955a31aa00d32f3fc33f18bffdc96fba0"
+    },
+    "ROUTE.json.inverse.diff": {
+      "bytes": 4761,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/ROUTE.json.inverse.diff",
+      "sha256": "6a74bf26e63175fd7f76cb20943987099955323020c662accf19e5ea1e8f1cbb"
+    },
+    "launch.py": {
+      "bytes": 4476,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/launch.py",
+      "sha256": "9040885ebbdd408744a0b4788a857ec3f672e4a9911941ec30ae978814801dca"
+    },
+    "launch.py.diff": {
+      "bytes": 5629,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/launch.py.diff",
+      "sha256": "1ee9f621612603511ecb5c2a448c334da2b2c0d51321c9b4a5f0f98ecd918a02"
+    },
+    "launch.py.inverse.diff": {
+      "bytes": 5629,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/launch.py.inverse.diff",
+      "sha256": "b3eb00b38638f6a3f611905e34487018425461cea86dd852550ea965894fde62"
+    },
+    "record.py": {
+      "bytes": 14808,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/record.py",
+      "sha256": "2f9466ff115ac526b81641555129ae024962ddd796f9f804e1c615a478822b56"
+    },
+    "record.py.diff": {
+      "bytes": 7049,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/record.py.diff",
+      "sha256": "451d700969b8793a090089e29c4fd1ff824c299110e846f25736a29c7d9d1fd2"
+    },
+    "record.py.inverse.diff": {
+      "bytes": 7049,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/record.py.inverse.diff",
+      "sha256": "000371972488bf7c2a7bcf37ac4389a9b9152a6593525593c049bcc8df103dfb"
+    },
+    "report_guard.py": {
+      "bytes": 3500,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/report_guard.py",
+      "sha256": "b32ece6f1765cf395ee0ea83c6f10c4df47480a7c0d4e919b05688b414333f0b"
+    },
+    "report_guard.py.diff": {
+      "bytes": 6700,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/report_guard.py.diff",
+      "sha256": "d67f6c9fce65aa25666e856198c2eb7ac279c7e0c96f9e5d5ec1468778621018"
+    },
+    "report_guard.py.inverse.diff": {
+      "bytes": 6700,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/report_guard.py.inverse.diff",
+      "sha256": "b95db325a32244f9c7c7c51b5060447b9c400c27deffa038704d3b928259eb82"
+    },
+    "schema.md": {
+      "bytes": 3351,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/schema.md",
+      "sha256": "ac0b5a3bb2d61b3ff1ad4b2add2baaac3c5eba82bde82c78594e386e0c7de930"
+    }
+  },
+  "noDriverTopLevelImportOrModuleControlRerun": true,
+  "noFullInventoryPerformed": true,
+  "originalPureAcceptedResultPreserved": true,
+  "protectedScopeIsBoundedDirectoryMetadataOnly": true,
+  "rootSourceOnlyReview": null,
+  "schema": "1370-driver-integration-recorded-source-pins/v1",
+  "staticParsedPython": [
+    "launch.py",
+    "record.py",
+    "report_guard.py"
+  ],
+  "status": "SEALED_FILLED_SOURCE_ONLY_UNRUN_EXTERNAL_REVIEW_AND_ACTUAL_GRANT_REQUIRED",
+  "utc": "2026-10-09T23:14:22.149705+00:00"
+}

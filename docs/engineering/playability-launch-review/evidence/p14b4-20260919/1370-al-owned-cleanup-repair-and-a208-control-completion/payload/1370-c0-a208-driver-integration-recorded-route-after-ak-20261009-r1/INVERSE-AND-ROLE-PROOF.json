@@ -1,0 +1,613 @@
+{
+  "executionPerformed": false,
+  "originalPureSourcePins": {
+    "bytes": 1933,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "8099500ec4942bbf25a0fcbb49213a5420017e2c7c4e0c4726059019d7fca795"
+  },
+  "pairs": {
+    "CONFIG.json": {
+      "derivative": {
+        "bytes": 5169,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/CONFIG.json",
+        "sha256": "f326221e0314c9ba3d881b5eb001f605495527243eb3c81f31fcf4b69640d099"
+      },
+      "forward": {
+        "bytes": 7934,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/CONFIG.json.diff",
+        "sha256": "54e41a058be5a6f088a8b84854b252f247eb444186e1e9bb3af6b16a3ff5f568"
+      },
+      "inverse": {
+        "bytes": 7934,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/CONFIG.json.inverse.diff",
+        "sha256": "e6bb52ae667c6f33ba2e577604ab169d31509d1605c2ba7352b121c5c1647945"
+      },
+      "inverseExactOriginalBytes": true,
+      "inverseOpcodes": [
+        {
+          "newEnd": 13,
+          "newStart": 9,
+          "oldEnd": 13,
+          "oldLines": [
+            "  \"candidateModule\": {\n",
+            "    \"bytes\": 9553,\n",
+            "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/owned_cleanup.py\",\n",
+            "    \"sha256\": \"8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15\"\n"
+          ],
+          "oldStart": 9
+        },
+        {
+          "newEnd": 20,
+          "newStart": 19,
+          "oldEnd": 19,
+          "oldLines": [],
+          "oldStart": 19
+        },
+        {
+          "newEnd": 25,
+          "newStart": 22,
+          "oldEnd": 24,
+          "oldLines": [
+            "    \"exactRows\": 21,\n",
+            "    \"expectedGreen\": 18,\n",
+            "    \"expectedRed\": 3,\n"
+          ],
+          "oldStart": 21
+        },
+        {
+          "newEnd": 52,
+          "newStart": 26,
+          "oldEnd": 43,
+          "oldLines": [
+            "      \"owned-seven-four-only\",\n",
+            "      \"group-EPERM-sticky-continue\",\n",
+            "      \"pid-EPERM-sticky-continue\",\n",
+            "      \"probe-EPERM-sticky-continue\",\n",
+            "      \"ESRCH-distinct\",\n",
+            "      \"already-clear-reaped-skip\",\n",
+            "      \"unknown-readiness-stop\",\n",
+            "      \"poll-fault-continue\",\n",
+            "      \"hard-deadline-before-syscall\",\n",
+            "      \"deadline-plus-EPERM-retained\",\n",
+            "      \"reentrant-cleanup-no-duplicate\",\n",
+            "      \"event-cap-does-not-conceal-refusal\",\n",
+            "      \"aggregate-cap-refusal\",\n",
+            "      \"UTF8-event-field-caps\",\n",
+            "      \"writer-EAGAIN-stop-continue\",\n",
+            "      \"writer-ENOSPC-stop-continue\",\n",
+            "      \"writer-clock-deadline-precedence\",\n",
+            "      \"snapshot-fault-stop-continue\"\n"
+          ],
+          "oldStart": 25
+        },
+        {
+          "newEnd": 56,
+          "newStart": 54,
+          "oldEnd": 48,
+          "oldLines": [
+            "      \"original-RED-group\",\n",
+            "      \"original-RED-pid\",\n",
+            "      \"original-RED-probe\"\n"
+          ],
+          "oldStart": 45
+        },
+        {
+          "newEnd": 60,
+          "newStart": 57,
+          "oldEnd": 52,
+          "oldLines": [
+            "    \"schema\": \"a208-independent-owned-cleanup-controls/v1\",\n",
+            "    \"status\": \"SYNTHETIC_CONTROLS_PASS\",\n",
+            "    \"testerSummaryBytes\": 16384\n"
+          ],
+          "oldStart": 49
+        },
+        {
+          "newEnd": 65,
+          "newStart": 62,
+          "oldEnd": 57,
+          "oldLines": [
+            "    \"bytes\": 8874,\n",
+            "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/drive.py\",\n",
+            "    \"sha256\": \"7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c\"\n"
+          ],
+          "oldStart": 54
+        },
+        {
+          "newEnd": 77,
+          "newStart": 66,
+          "oldEnd": 58,
+          "oldLines": [],
+          "oldStart": 58
+        },
+        {
+          "newEnd": 85,
+          "newStart": 80,
+          "oldEnd": 61,
+          "oldLines": [],
+          "oldStart": 61
+        },
+        {
+          "newEnd": 99,
+          "newStart": 91,
+          "oldEnd": 70,
+          "oldLines": [
+            "      \"bytes\": 8874,\n",
+            "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/drive.py\",\n",
+            "      \"sha256\": \"7c29cf7c679971ad59fb2190b2fc6e78f10ab64e1857723dd8a09cc9ba05303c\"\n"
+          ],
+          "oldStart": 67
+        },
+        {
+          "newEnd": 109,
+          "newStart": 106,
+          "oldEnd": 85,
+          "oldLines": [
+            "      \"bytes\": 3036,\n",
+            "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/report_guard.py\",\n",
+            "      \"sha256\": \"212d42e10cf1cd530733b5d34ee31e7dd643e7b24964704297a1ab62227f599f\"\n",
+            "    },\n",
+            "    \"sourceAdoption\": {\n",
+            "      \"bytes\": 1230,\n",
+            "      \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/ROOT-SOURCE-ADOPTION.json\",\n",
+            "      \"sha256\": \"82027a8c7fe0516d7ca30fdcbf925fb7f22e2d5da2bf09ffabc13ee13647a411\"\n"
+          ],
+          "oldStart": 77
+        },
+        {
+          "newEnd": 115,
+          "newStart": 111,
+          "oldEnd": 94,
+          "oldLines": [
+            "  \"runtimeGrant\": {\n",
+            "    \"bytes\": 1230,\n",
+            "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/ROOT-SOURCE-ADOPTION.json\",\n",
+            "    \"sha256\": \"82027a8c7fe0516d7ca30fdcbf925fb7f22e2d5da2bf09ffabc13ee13647a411\"\n",
+            "  },\n",
+            "  \"schema\": \"1370-a208-cleanup-pure-red-green-config-v1\",\n",
+            "  \"status\": \"REVIEWED_FILLED_UNRUN\",\n"
+          ],
+          "oldStart": 87
+        },
+        {
+          "newEnd": 119,
+          "newStart": 116,
+          "oldEnd": 98,
+          "oldLines": [
+            "    \"bytes\": 18788,\n",
+            "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-independent-red-design-after-ak-20261009-r1/controls.py\",\n",
+            "    \"sha256\": \"5acc6a49004a2021e35bc93164754accfce1f8180f40290579c78c60d3dbf328\"\n"
+          ],
+          "oldStart": 95
+        }
+      ],
+      "original": {
+        "bytes": 4109,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/CONFIG.json",
+        "sha256": "215fcae2c6222e9b88628116353f3edbb91219b59dad80b3e25c1eded5b9e181"
+      }
+    },
+    "ROUTE.json": {
+      "derivative": {
+        "bytes": 2753,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/ROUTE.json",
+        "sha256": "f7c7efad9b261fdfb2d5c01aa7c1ce4c5ee2cdbe3b1608f2203f9441871333fe"
+      },
+      "forward": {
+        "bytes": 4761,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/ROUTE.json.diff",
+        "sha256": "97f0e046784c8573669e84a4d70145c955a31aa00d32f3fc33f18bffdc96fba0"
+      },
+      "inverse": {
+        "bytes": 4761,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/ROUTE.json.inverse.diff",
+        "sha256": "6a74bf26e63175fd7f76cb20943987099955323020c662accf19e5ea1e8f1cbb"
+      },
+      "inverseExactOriginalBytes": true,
+      "inverseOpcodes": [
+        {
+          "newEnd": 4,
+          "newStart": 2,
+          "oldEnd": 4,
+          "oldLines": [
+            "    \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-lane-after-ak-20261009-r1\",\n",
+            "    \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-output-after-ak-20261009-r1\"\n"
+          ],
+          "oldStart": 2
+        },
+        {
+          "newEnd": 7,
+          "newStart": 5,
+          "oldEnd": 5,
+          "oldLines": [],
+          "oldStart": 5
+        },
+        {
+          "newEnd": 9,
+          "newStart": 8,
+          "oldEnd": 6,
+          "oldLines": [],
+          "oldStart": 6
+        },
+        {
+          "newEnd": 14,
+          "newStart": 13,
+          "oldEnd": 11,
+          "oldLines": [
+            "    \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-lane-after-ak-20261009-r1/controls.log\",\n"
+          ],
+          "oldStart": 10
+        },
+        {
+          "newEnd": 19,
+          "newStart": 17,
+          "oldEnd": 16,
+          "oldLines": [
+            "    \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/record.py\",\n",
+            "    \"pure\"\n"
+          ],
+          "oldStart": 14
+        },
+        {
+          "newEnd": 27,
+          "newStart": 26,
+          "oldEnd": 24,
+          "oldLines": [
+            "  \"cwd\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1\",\n"
+          ],
+          "oldStart": 23
+        },
+        {
+          "newEnd": 37,
+          "newStart": 34,
+          "oldEnd": 34,
+          "oldLines": [
+            "    \"exactRows\": 21,\n",
+            "    \"expectedGreen\": 18,\n",
+            "    \"expectedRed\": 3,\n"
+          ],
+          "oldStart": 31
+        },
+        {
+          "newEnd": 64,
+          "newStart": 38,
+          "oldEnd": 53,
+          "oldLines": [
+            "      \"owned-seven-four-only\",\n",
+            "      \"group-EPERM-sticky-continue\",\n",
+            "      \"pid-EPERM-sticky-continue\",\n",
+            "      \"probe-EPERM-sticky-continue\",\n",
+            "      \"ESRCH-distinct\",\n",
+            "      \"already-clear-reaped-skip\",\n",
+            "      \"unknown-readiness-stop\",\n",
+            "      \"poll-fault-continue\",\n",
+            "      \"hard-deadline-before-syscall\",\n",
+            "      \"deadline-plus-EPERM-retained\",\n",
+            "      \"reentrant-cleanup-no-duplicate\",\n",
+            "      \"event-cap-does-not-conceal-refusal\",\n",
+            "      \"aggregate-cap-refusal\",\n",
+            "      \"UTF8-event-field-caps\",\n",
+            "      \"writer-EAGAIN-stop-continue\",\n",
+            "      \"writer-ENOSPC-stop-continue\",\n",
+            "      \"writer-clock-deadline-precedence\",\n",
+            "      \"snapshot-fault-stop-continue\"\n"
+          ],
+          "oldStart": 35
+        },
+        {
+          "newEnd": 68,
+          "newStart": 66,
+          "oldEnd": 58,
+          "oldLines": [
+            "      \"original-RED-group\",\n",
+            "      \"original-RED-pid\",\n",
+            "      \"original-RED-probe\"\n"
+          ],
+          "oldStart": 55
+        },
+        {
+          "newEnd": 72,
+          "newStart": 69,
+          "oldEnd": 62,
+          "oldLines": [
+            "    \"schema\": \"a208-independent-owned-cleanup-controls/v1\",\n",
+            "    \"status\": \"SYNTHETIC_CONTROLS_PASS\",\n",
+            "    \"testerSummaryBytes\": 16384\n"
+          ],
+          "oldStart": 59
+        },
+        {
+          "newEnd": 76,
+          "newStart": 73,
+          "oldEnd": 63,
+          "oldLines": [],
+          "oldStart": 63
+        },
+        {
+          "newEnd": 80,
+          "newStart": 77,
+          "oldEnd": 70,
+          "oldLines": [
+            "  \"schema\": \"1370-a208-cleanup-pure-red-green-route-v1\",\n",
+            "  \"sourceReview\": {\n",
+            "    \"bytes\": 1230,\n",
+            "    \"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/ROOT-SOURCE-ADOPTION.json\",\n",
+            "    \"sha256\": \"82027a8c7fe0516d7ca30fdcbf925fb7f22e2d5da2bf09ffabc13ee13647a411\"\n",
+            "  },\n"
+          ],
+          "oldStart": 64
+        }
+      ],
+      "original": {
+        "bytes": 2563,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/ROUTE.json",
+        "sha256": "9f12c26febe8b9626e170c27d6c09ab1845f83fad4ea3907528853020fd2e9e9"
+      }
+    },
+    "launch.py": {
+      "derivative": {
+        "bytes": 4476,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/launch.py",
+        "sha256": "9040885ebbdd408744a0b4788a857ec3f672e4a9911941ec30ae978814801dca"
+      },
+      "forward": {
+        "bytes": 5629,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/launch.py.diff",
+        "sha256": "1ee9f621612603511ecb5c2a448c334da2b2c0d51321c9b4a5f0f98ecd918a02"
+      },
+      "inverse": {
+        "bytes": 5629,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/launch.py.inverse.diff",
+        "sha256": "b3eb00b38638f6a3f611905e34487018425461cea86dd852550ea965894fde62"
+      },
+      "inverseExactOriginalBytes": true,
+      "inverseOpcodes": [
+        {
+          "newEnd": 1,
+          "newStart": 0,
+          "oldEnd": 1,
+          "oldLines": [
+            "\"\"\"Root one-shot pure-control grant; requires independent exact source receipt.\"\"\"\n"
+          ],
+          "oldStart": 0
+        },
+        {
+          "newEnd": 6,
+          "newStart": 5,
+          "oldEnd": 6,
+          "oldLines": [
+            "P=S/'1370-c0-a208-cleanup-pure-red-green-parent-after-ak-20261009-r1'\n"
+          ],
+          "oldStart": 5
+        },
+        {
+          "newEnd": 15,
+          "newStart": 14,
+          "oldEnd": 15,
+          "oldLines": [
+            "assert rv['decision']=='ACCEPT_SOURCE_ONLY_PURE_CLEANUP_FILLED_ROUTE_AND_WRAPPER' and rv['wrapper']==role(Path(__file__))\n"
+          ],
+          "oldStart": 14
+        },
+        {
+          "newEnd": 20,
+          "newStart": 18,
+          "oldEnd": 20,
+          "oldLines": [
+            "for item in [*c['roles'].values(),c['candidateModule'],c['tester']]:assert role(item['path'])==item\n",
+            "assert c['status']=='REVIEWED_FILLED_UNRUN' and c['executionAuthorization'] is False\n"
+          ],
+          "oldStart": 18
+        },
+        {
+          "newEnd": 25,
+          "newStart": 21,
+          "oldEnd": 22,
+          "oldLines": [
+            "assert git('ls-remote','origin','refs/heads/wip/headless-program-20260916-ts')==HEAD+'\\trefs/heads/wip/headless-program-20260916-ts'\n"
+          ],
+          "oldStart": 21
+        },
+        {
+          "newEnd": 29,
+          "newStart": 28,
+          "oldEnd": 26,
+          "oldLines": [
+            "expected=['/bin/bash',c['roles']['helper']['path'],'0',str(S/'1370-c0-a208-cleanup-pure-red-green-lane-after-ak-20261009-r1/controls.log'),c['pythonPath'],'-I','-B',str(Q/'record.py'),'pure']\n"
+          ],
+          "oldStart": 25
+        },
+        {
+          "newEnd": 38,
+          "newStart": 30,
+          "oldEnd": 27,
+          "oldLines": [],
+          "oldStart": 27
+        },
+        {
+          "newEnd": 40,
+          "newStart": 39,
+          "oldEnd": 29,
+          "oldLines": [
+            "grant={'status':'ROOT_ONCE_ONLY_PURE_CLEANUP_CONTROLS_GRANTED','sourcePins':pins,'independentReview':role(review),'argv':expected,'cwd':str(Q),'bounds':c['bounds'],'game':False,'diagnosticActual17MethodRetry':False,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}\n"
+          ],
+          "oldStart": 28
+        },
+        {
+          "newEnd": 49,
+          "newStart": 44,
+          "oldEnd": 34,
+          "oldLines": [
+            "code=child.wait();print(json.dumps({'helperExit':code}),flush=True)\n"
+          ],
+          "oldStart": 33
+        }
+      ],
+      "original": {
+        "bytes": 3302,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/launch.py",
+        "sha256": "5a97d231bc304388e7295f61ba027dfe55811fa5703c064b9a7f8007957d7dbd"
+      }
+    },
+    "record.py": {
+      "derivative": {
+        "bytes": 14808,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/record.py",
+        "sha256": "2f9466ff115ac526b81641555129ae024962ddd796f9f804e1c615a478822b56"
+      },
+      "forward": {
+        "bytes": 7049,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/record.py.diff",
+        "sha256": "451d700969b8793a090089e29c4fd1ff824c299110e846f25736a29c7d9d1fd2"
+      },
+      "inverse": {
+        "bytes": 7049,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/record.py.inverse.diff",
+        "sha256": "000371972488bf7c2a7bcf37ac4389a9b9152a6593525593c049bcc8df103dfb"
+      },
+      "inverseExactOriginalBytes": true,
+      "inverseOpcodes": [
+        {
+          "newEnd": 4,
+          "newStart": 0,
+          "oldEnd": 5,
+          "oldLines": [
+            "\"\"\"SOURCE ONLY HELD PURE RED/GREEN RECORDER DERIVATIVE.\n",
+            "One pinned Python tester child under20/25/30,64KiB streams; does not run the\n",
+            "original17method route. Retains owned-before-exec READY/GO, startup, cleanup,\n",
+            "raw capture and finalization safeguards from accepted Node22 recorder3767643e.\n",
+            "CONFIG has null pending roles and no runtime grant; real execution is ungranted.\n"
+          ],
+          "oldStart": 0
+        },
+        {
+          "newEnd": 9,
+          "newStart": 7,
+          "oldEnd": 10,
+          "oldLines": [
+            "CONFIG_SHA='215fcae2c6222e9b88628116353f3edbb91219b59dad80b3e25c1eded5b9e181';CAP=65536;CHILD=20;ACTIVE=25;WHOLE=30\n",
+            "OUTPUTS={'pure':SCRATCH/'1370-c0-a208-cleanup-pure-red-green-output-after-ak-20261009-r1'}\n"
+          ],
+          "oldStart": 8
+        },
+        {
+          "newEnd": 183,
+          "newStart": 181,
+          "oldEnd": 184,
+          "oldLines": [
+            "  configraw=(HERE/'CONFIG.json').read_bytes();require(sha(configraw)==CONFIG_SHA,'CONFIG_HASH');config=json.loads(configraw);require(config.get('status')=='REVIEWED_FILLED_UNRUN' and isinstance(config.get('runtimeGrant'),dict),'PURE_SOURCE_BINDING_UNFILLED');require(isinstance(config.get('candidateModule'),dict) and isinstance(config.get('tester'),dict),'PURE_ROLES_UNFILLED')\n",
+            "  for role in [*config['roles'].values(),config['candidateModule'],config['tester']]:authenticate(role['path'],role['sha256'],16*1024**2);whole_guard(end)\n"
+          ],
+          "oldStart": 182
+        },
+        {
+          "newEnd": 187,
+          "newStart": 186,
+          "oldEnd": 188,
+          "oldLines": [
+            "  argv=[config['pythonPath'],'-I','-B',config['tester']['path'],config['candidateModule']['path'],config['candidateModule']['sha256'],config['originalDriver']['path'],config['originalDriver']['sha256']]\n"
+          ],
+          "oldStart": 187
+        },
+        {
+          "newEnd": 234,
+          "newStart": 233,
+          "oldEnd": 235,
+          "oldLines": [
+            "   result={'schema':'1370-a208-cleanup-pure-red-green-recorder-v1','status':failure or 'PURE_A208_CLEANUP_RED_GREEN_COMPLETE_UNADOPTED','mode':mode,'configSha256':CONFIG_SHA,'actualChildExit':None if child is None else child.returncode,'childPid':None if child is None else child.pid,'ownedPgid':None if child is None else child.pid,'startupOwnedBeforeExec':child is not None,'pgidConfirmed':owned.get('pgidConfirmed',False),'groupClear':groupclear,'timedOut':timedout,'elapsedSeconds':time.monotonic()-started,'boundsSeconds':{'child':CHILD,'active':ACTIVE,'whole':WHOLE},'stdoutBytes':len(buffers['stdout']),'stdoutSha256':sha(bytes(buffers['stdout'])),'stderrBytes':len(buffers['stderr']),'stderrSha256':sha(bytes(buffers['stderr'])),'sanitizedEnvironment':['NODE_OPTIONS','NODE_PATH'],'game':False,'sourceOrGameplayAdoption':False,'executionAuthorization':False,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}\n"
+          ],
+          "oldStart": 234
+        },
+        {
+          "newEnd": 239,
+          "newStart": 238,
+          "oldEnd": 240,
+          "oldLines": [
+            "   code=0 if result['status']=='PURE_A208_CLEANUP_RED_GREEN_COMPLETE_UNADOPTED' and not failure else 2\n"
+          ],
+          "oldStart": 239
+        }
+      ],
+      "original": {
+        "bytes": 14814,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/record.py",
+        "sha256": "4d781e20e47a4e0555839a0aaa5c87984a8b87052051607d5b68eb1460d7f578"
+      }
+    },
+    "report_guard.py": {
+      "derivative": {
+        "bytes": 3500,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/report_guard.py",
+        "sha256": "b32ece6f1765cf395ee0ea83c6f10c4df47480a7c0d4e919b05688b414333f0b"
+      },
+      "forward": {
+        "bytes": 6700,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/report_guard.py.diff",
+        "sha256": "d67f6c9fce65aa25666e856198c2eb7ac279c7e0c96f9e5d5ec1468778621018"
+      },
+      "inverse": {
+        "bytes": 6700,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/report_guard.py.inverse.diff",
+        "sha256": "b95db325a32244f9c7c7c51b5060447b9c400c27deffa038704d3b928259eb82"
+      },
+      "inverseExactOriginalBytes": true,
+      "inverseOpcodes": [
+        {
+          "newEnd": 1,
+          "newStart": 0,
+          "oldEnd": 1,
+          "oldLines": [
+            "\"\"\"Pure exact JSON producer-report gate; source only until separately reviewed/granted.\"\"\"\n"
+          ],
+          "oldStart": 0
+        },
+        {
+          "newEnd": 68,
+          "newStart": 2,
+          "oldEnd": 34,
+          "oldLines": [
+            "CAP=65536\n",
+            "SUMMARY_CAP=16384\n",
+            "RED_NAMES=['original-RED-group', 'original-RED-pid', 'original-RED-probe']\n",
+            "GREEN_NAMES=['owned-seven-four-only', 'group-EPERM-sticky-continue', 'pid-EPERM-sticky-continue', 'probe-EPERM-sticky-continue', 'ESRCH-distinct', 'already-clear-reaped-skip', 'unknown-readiness-stop', 'poll-fault-continue', 'hard-deadline-before-syscall', 'deadline-plus-EPERM-retained', 'reentrant-cleanup-no-duplicate', 'event-cap-does-not-conceal-refusal', 'aggregate-cap-refusal', 'UTF8-event-field-caps', 'writer-EAGAIN-stop-continue', 'writer-ENOSPC-stop-continue', 'writer-clock-deadline-precedence', 'snapshot-fault-stop-continue']\n",
+            "class ReportStop(ValueError):pass\n",
+            "def need(ok,why):\n",
+            " if not ok:raise ReportStop('STOP_PURE_REPORT_'+why)\n",
+            "def validate(mode,stdout,stderr,owned_pgid):\n",
+            " need(mode=='pure','MODE')\n",
+            " need(len(stdout)<=CAP and len(stderr)<=CAP,'STREAM_CAP')\n",
+            " need(not stderr,'STDERR')\n",
+            " need(len(stdout)<=SUMMARY_CAP and stdout.endswith(b'\\n') and len(stdout.splitlines())==1,'ONE_JSON_SUMMARY_CAP')\n",
+            " def unique_object(pairs):\n",
+            "  result={}\n",
+            "  for key,value in pairs:\n",
+            "   need(key not in result,'DUPLICATE_JSON_KEY');result[key]=value\n",
+            "  return result\n",
+            " def forbidden_number(value):raise ReportStop('STOP_PURE_REPORT_NONFINITE_JSON')\n",
+            " obj=json.loads(stdout,object_pairs_hook=unique_object,parse_constant=forbidden_number)\n",
+            " need(type(obj) is dict and set(obj)=={'schema','status','expectedRed','observedExpectedRed','expectedGreen','observedGreen','cases','failure','game','realSignals','originalImported'},'SUMMARY_FIELDS')\n",
+            " need(obj['schema']=='a208-independent-owned-cleanup-controls/v1' and obj['status']=='SYNTHETIC_CONTROLS_PASS','STATUS_SCHEMA')\n",
+            " for key,value in [('expectedRed',3),('observedExpectedRed',3),('expectedGreen',18),('observedGreen',18)]:\n",
+            "  need(type(obj[key]) is int and obj[key]==value,'COUNT_'+key)\n",
+            " need(obj['failure'] is None and obj['game'] is False and obj['realSignals'] is False and obj['originalImported'] is False,'REFUSAL_OR_SCOPE')\n",
+            " rows=obj['cases'];need(type(rows) is list and len(rows)==21,'EXACT21')\n",
+            " for row,name in zip(rows[:3],RED_NAMES):\n",
+            "  need(type(row) is dict and set(row)=={'case','status','detail'} and row['case']==name and row['status']=='EXPECTED_RED','EXACT_RED_ROSTER_STATUS')\n",
+            "  detail=row['detail'];need(type(detail) is dict and detail.get('expectedEscapedType')=='PermissionError' and type(detail.get('errno')) is int and detail['errno']==1,'RED_REFUSAL_EVIDENCE')\n",
+            "  need(type(detail.get('attempted')) is int and detail['attempted']>0 and type(detail.get('laterOwnedOmitted')) is int and detail['laterOwnedOmitted']>0,'RED_OMITTED_REMAINDER')\n",
+            " for row,name in zip(rows[3:],GREEN_NAMES):\n",
+            "  need(type(row) is dict and set(row)=={'case','status'} and row['case']==name and row['status']=='GREEN','EXACT_GREEN_ROSTER_STATUS')\n",
+            " return {'protocol':'a208-independent-owned-cleanup-controls/v1','expectedRed':3,'expectedGreen':18,'rows':21,'game':False,'realSignals':False}\n"
+          ],
+          "oldStart": 2
+        }
+      ],
+      "original": {
+        "bytes": 3036,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/report_guard.py",
+        "sha256": "212d42e10cf1cd530733b5d34ee31e7dd643e7b24964704297a1ab62227f599f"
+      }
+    }
+  },
+  "schema": "1370-driver-integration-exact-inverse/v1"
+}

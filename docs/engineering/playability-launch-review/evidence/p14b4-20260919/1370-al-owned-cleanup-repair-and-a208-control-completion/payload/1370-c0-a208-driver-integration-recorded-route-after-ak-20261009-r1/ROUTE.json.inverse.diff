@@ -1,0 +1,124 @@
+--- integration/ROUTE.json
++++ pure/ROUTE.json
+@@ -1,22 +1,19 @@
+ {
+   "absentPathsAtFutureGrant": [
+-    "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-lane-after-ak-20261009-r2",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-output-after-ak-20261009-r2"
++    "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-lane-after-ak-20261009-r1",
++    "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-output-after-ak-20261009-r1"
+   ],
+-  "actual17MethodDiagnosticRetry": false,
+-  "actualGrantAndReviewOutsideConfig": true,
+   "actualOutcome": null,
+-  "addsDriverIntegrationQualificationOnly": true,
+   "argv": [
+     "/bin/bash",
+     "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+     "0",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-lane-after-ak-20261009-r2/controls.log",
++    "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-lane-after-ak-20261009-r1/controls.log",
+     "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+     "-I",
+     "-B",
+-    "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/record.py",
+-    "integration"
++    "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/record.py",
++    "pure"
+   ],
+   "bounds": {
+     "activeSeconds": 25,
+@@ -24,7 +21,7 @@
+     "eachStreamBytes": 65536,
+     "wholeSeconds": 30
+   },
+-  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1",
++  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1",
+   "environment": {
+     "GIT_OPTIONAL_LOCKS": "0",
+     "PYTHONDONTWRITEBYTECODE": "1"
+@@ -32,51 +29,44 @@
+   "exactWrapperReview": null,
+   "executionAuthorization": false,
+   "expected": {
+-    "exactRows": 12,
+-    "expectedGreen": 10,
+-    "expectedRed": 2,
++    "exactRows": 21,
++    "expectedGreen": 18,
++    "expectedRed": 3,
+     "greenNames": [
+-      "r2-clean-valid-pass",
+-      "r2-EPERM-sticky-stop",
+-      "r2-prior-STOP-plus-EPERM-preserved",
+-      "r2-prior-STOP-alone-preserved",
+-      "r2-invalid-method-count-stop",
+-      "r2-unclear-owned-state-stop",
+-      "r2-late-artifact-rejected",
+-      "r2-late-emission-rejected",
+-      "r2-hard-deadline-precedes-IO",
+-      "r2-fixture-cap-before-IO-rejected"
+-    ],
+-    "redDetails": [
+-      {
+-        "branch": "refusal",
+-        "exception": "UnboundLocalError",
+-        "name": "STOP",
+-        "resultWrites": 0,
+-        "sourceLine": 185
+-      },
+-      {
+-        "branch": "clean",
+-        "exception": "UnboundLocalError",
+-        "name": "STOP",
+-        "resultWrites": 0,
+-        "sourceLine": 187
+-      }
++      "owned-seven-four-only",
++      "group-EPERM-sticky-continue",
++      "pid-EPERM-sticky-continue",
++      "probe-EPERM-sticky-continue",
++      "ESRCH-distinct",
++      "already-clear-reaped-skip",
++      "unknown-readiness-stop",
++      "poll-fault-continue",
++      "hard-deadline-before-syscall",
++      "deadline-plus-EPERM-retained",
++      "reentrant-cleanup-no-duplicate",
++      "event-cap-does-not-conceal-refusal",
++      "aggregate-cap-refusal",
++      "UTF8-event-field-caps",
++      "writer-EAGAIN-stop-continue",
++      "writer-ENOSPC-stop-continue",
++      "writer-clock-deadline-precedence",
++      "snapshot-fault-stop-continue"
+     ],
+     "redNames": [
+-      "r1-refusal-unbound-STOP",
+-      "r1-clean-unbound-STOP"
++      "original-RED-group",
++      "original-RED-pid",
++      "original-RED-probe"
+     ],
+-    "schema": "a208-independent-driver-integration-controls/v1",
+-    "status": "DRIVER_INTEGRATION_CONTROLS_PASS",
+-    "testerSummaryBytes": 12288
++    "schema": "a208-independent-owned-cleanup-controls/v1",
++    "status": "SYNTHETIC_CONTROLS_PASS",
++    "testerSummaryBytes": 16384
+   },
+-  "game": false,
+-  "parentOutput": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-parent-after-ak-20261009-r2",
+-  "preservesOriginalPure3Red18GreenPass": true,
+   "rootGrant": null,
+-  "rootSourceOnlyReview": null,
+-  "schema": "1370-a208-driver-integration-route/v1",
+-  "sourceReview": null,
++  "schema": "1370-a208-cleanup-pure-red-green-route-v1",
++  "sourceReview": {
++    "bytes": 1230,
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/ROOT-SOURCE-ADOPTION.json",
++    "sha256": "82027a8c7fe0516d7ca30fdcbf925fb7f22e2d5da2bf09ffabc13ee13647a411"
++  },
+   "status": "FILLED_SOURCE_ONLY_UNRUN"
+ }

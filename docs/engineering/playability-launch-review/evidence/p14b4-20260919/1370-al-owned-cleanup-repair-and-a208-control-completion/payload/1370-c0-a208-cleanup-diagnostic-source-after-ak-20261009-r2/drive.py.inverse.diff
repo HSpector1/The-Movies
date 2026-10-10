@@ -1,0 +1,11 @@
+--- r2/drive.py
++++ r1/drive.py
+@@ -112,7 +112,7 @@
+   need(os.fstat(fd)==before,'open race');raw=os.read(fd,role['bytes']+1);need(len(raw)==role['bytes'] and sha(raw)==role['sha256'],'role bytes/hash');need(os.fstat(fd)==before==path.lstat(),'read race');return raw
+  finally:os.close(fd)
+ def main():
+- global REG,PHASE,ROOT,CLEANUP,STOP
++ global REG,PHASE,ROOT,CLEANUP
+  need(sys.flags.isolated and sys.dont_write_bytecode and not sys.flags.optimize,'-I -B no -O');need(len(sys.argv)==2,'exact configsha')
+  raw=(HERE/'CONFIG.json').read_bytes();need(sha(raw)==sys.argv[1],'config hash');c=json.loads(raw);need(isinstance(c.get('runtimeGrant'),dict),'grant unfilled')
+  need(Path(sys.executable).resolve(strict=True)==Path(c['pythonPath']),'exact Python')

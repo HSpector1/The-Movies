@@ -1,0 +1,101 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/CONFIG.json
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/CONFIG.json
+@@ -1,4 +1,10 @@
+ {
++  "actualFocusedControlReceipt": {
++    "bytes": 2787,
++    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PURE-OBSERVED-ADOPTION.json",
++    "sha256": "30ba97ac7f300fdd1badad143f684b1642eb1ff1d2951d6eead722dda31f7af4"
++  },
++  "actualRetryGrant": null,
+   "bounds": {
+     "activeSeconds": 75,
+     "ledgerBytes": 65536,
+@@ -123,7 +129,9 @@
+       "sha256": "56c56d56c0a5e3b25622923fcffadee54223beac169285278b58b66c9ee42df4"
+     }
+   },
+-  "pythonFixture": "/Users/zacheryspector/studio-scratch/1370-c0-a208-python-controls-cleanup-diagnostic-fixture-after-ak-20261009-r1",
++  "operationalProductionHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
++  "operationalSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
++  "pythonFixture": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r1",
+   "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+   "roles": {
+     "acceptedSourceReview": {
+@@ -131,14 +139,24 @@
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-route-independent-source-review-after-aj-20261009-r2/RECEIPT.json",
+       "sha256": "a4f568dc17dd37133a2ceb8f83a449622981ae6db9a48048a91028155543060c"
+     },
++    "actualFocusedAdoption": {
++      "bytes": 2787,
++      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PURE-OBSERVED-ADOPTION.json",
++      "sha256": "30ba97ac7f300fdd1badad143f684b1642eb1ff1d2951d6eead722dda31f7af4"
++    },
+     "cleanupDesignAdoption": {
+       "bytes": 2050,
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-cleanup-diagnostics-parent-design-adoption-after-aj-20261009-r1/ADOPTION.json",
+       "sha256": "10649c40f3ef4e6878f6ff72040a9a304231b8e60a5d96e57b6297c0dca789f1"
+     },
++    "diagnosticImplementationReview": {
++      "bytes": 4149,
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-independent-source-review-after-ak-20261009-r1/RECEIPT.json",
++      "sha256": "c4379727a85453d6f73e002fa9270ae0e28bf41ad1b9de8ed23599839c741b99"
++    },
+     "driver": {
+       "bytes": 11344,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/drive.py",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/drive.py",
+       "sha256": "0a4934e66eb748d7f2912373bd6896b21e80a867fad4a1e72b9f2a7647345369"
+     },
+     "helper": {
+@@ -151,6 +169,11 @@
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-controls-node22-operational-amendment-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+       "sha256": "7da501eb54301aaf0a22c5dc29e4dff786ee4bd9bfff490153d951c54bd7b9eb"
+     },
++    "implementationSourceAdoption": {
++      "bytes": 1543,
++      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/IMPLEMENTATION-SOURCE-ADOPTION.json",
++      "sha256": "4c018cd0d6c6614134c2dce685da518cde0371e12adba9abb2df975408522c99"
++    },
+     "observer:BINDING-UNFILLED.json": {
+       "bytes": 587,
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/BINDING-UNFILLED.json",
+@@ -268,7 +291,7 @@
+     },
+     "ownedCleanupDiagnostics": {
+       "bytes": 9553,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/owned_cleanup.py",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/owned_cleanup.py",
+       "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+     },
+     "prospectiveControlScope": {
+@@ -283,16 +306,25 @@
+     },
+     "reportControls": {
+       "bytes": 2924,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/test_reports.py",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/test_reports.py",
+       "sha256": "4c6379ee5d97b16700c9d4e8a205abc6f1580ac05f706296d8833fe2fd667ac8"
+     },
+     "reportGuard": {
+       "bytes": 3203,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/report_guard.py",
++      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/report_guard.py",
+       "sha256": "bc7b714c9335e159fe292e8cb121db47d7f9dae3265ba9309fe44437a864b031"
+     }
+   },
+-  "runtimeGrant": null,
++  "runtimeGrant": {
++    "bytes": 1543,
++    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/IMPLEMENTATION-SOURCE-ADOPTION.json",
++    "sha256": "4c018cd0d6c6614134c2dce685da518cde0371e12adba9abb2df975408522c99"
++  },
+   "schema": "1370-a208-finite-recorded-controls-config-r1",
+-  "sourceReview": null
++  "sourceOnlyBindingNotExecutionAuthority": true,
++  "sourceReview": {
++    "bytes": 4149,
++    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-independent-source-review-after-ak-20261009-r1/RECEIPT.json",
++    "sha256": "c4379727a85453d6f73e002fa9270ae0e28bf41ad1b9de8ed23599839c741b99"
++  }
+ }

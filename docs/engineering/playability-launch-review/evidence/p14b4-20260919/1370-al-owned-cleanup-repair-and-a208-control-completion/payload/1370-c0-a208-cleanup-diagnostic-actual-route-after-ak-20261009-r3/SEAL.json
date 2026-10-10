@@ -1,0 +1,24 @@
+{
+  "actual17MethodOutcome": null,
+  "allSourceBytesUnchangedSinceReview": true,
+  "executionPerformed": false,
+  "filesExcludingSeal": 14,
+  "independentCombinedReview": {
+    "bytes": 9487,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-independent-review-after-ak-20261009-r3/RECEIPT.json",
+    "sha256": "f0dd5a3f0784f07053e226ea96a2f4dfed9df577897f654ad7365b47e7f70641"
+  },
+  "runtimeGrant": null,
+  "schema": "1370-a208-current-ak-pre-reap-actual-route-source-seal/v1",
+  "sourcePins": {
+    "bytes": 6661,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/SOURCE-PINS.json",
+    "sha256": "f4696f348c105e1252065f784ff76b5b930b1191ea3f78a3ba78f1eff357c877"
+  },
+  "status": "SEALED_SOURCE_ONLY_UNRUN",
+  "wrapper": {
+    "bytes": 15823,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/grant-parent.py",
+    "sha256": "97a0279a394da50f2664ce39c570c855a82a61860dff393204bd8fee9574d53a"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "actualObservedReceipt": null,
+  "directory": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1",
+  "executionPerformed": false,
+  "filesExcludingSeal": 13,
+  "independentSourceReview": {
+    "bytes": 5725,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-independent-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "f84c68980a30a3cf9d69c938a4ae1e100771fae59acd33c7650e83ea6dcc3a62"
+  },
+  "runtimeGrant": null,
+  "schema": "1370-a208-owned-zombie-filled-route-reviewed-source-seal/v1",
+  "sourceFilesUnchangedSinceIndependentReview": true,
+  "sourcePins": {
+    "bytes": 3549,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "63509772d0e50b7849fb4d83cae0c23dc8aa49d0435c3a21b1c42a729dce6dee"
+  },
+  "status": "SEALED_SOURCE_ONLY_UNRUN",
+  "wrapper": {
+    "bytes": 9092,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/launch.py",
+    "sha256": "f6fde167bea64f3bbb2e3ee5014a10899e80ac389b9144957a89991b86c35399"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "ASTParsingOnly": true,
+  "actualChildArgv": [
+    "PINNED_PYTHON",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-independent-controls-after-ak-20261009-r1/controls.py",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py",
+    "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/owned_cleanup.py",
+    "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py",
+    "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07"
+  ],
+  "actualObservedReceipt": null,
+  "all17NonMainRecorderASTUnchanged": true,
+  "boundsSeconds": [
+    20,
+    25,
+    30
+  ],
+  "candidateCodeOrControlsExecuted": false,
+  "eachStreamBytes": 65536,
+  "expectedCaseCount": 13,
+  "expectedGreen": 12,
+  "expectedRed": 1,
+  "fullInventoryPerformed": false,
+  "knownInheritedRecorderHelperLogWarningUnchanged": true,
+  "metadataStampExcludesAccessTime": true,
+  "protectedRootCount": 8,
+  "recorderTemplate": {
+    "bytes": 14808,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/record.py",
+    "sha256": "2f9466ff115ac526b81641555129ae024962ddd796f9f804e1c615a478822b56"
+  },
+  "runtimeGrant": null,
+  "schema": "1370-a208-pre-reap-focused-compact-source-proof/v1",
+  "sourceReview": null,
+  "strictProtocolAndRosterLiteralEquality": true,
+  "summaryBytesIncludingNewline": 12289,
+  "tester": {
+    "bytes": 20888,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-independent-controls-after-ak-20261009-r1/controls.py",
+    "sha256": "fc835a82b2071b64840711e3fb5a334e3dc25ba531ef2d67ce041aff40c4ea68"
+  },
+  "testerDesign": {
+    "bytes": 10043,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-independent-controls-after-ak-20261009-r1/DESIGN.json",
+    "sha256": "93c52d7e4ebc1cca269e586bd3688ef16226d47e60fa1cdb402d7442bfd9e107"
+  },
+  "wrapperTemplate": {
+    "bytes": 4476,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/launch.py",
+    "sha256": "9040885ebbdd408744a0b4788a857ec3f672e4a9911941ec30ae978814801dca"
+  }
+}

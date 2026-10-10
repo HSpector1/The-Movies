@@ -1,0 +1,31 @@
+{
+  "actualChildExit": 0,
+  "boundsSeconds": {
+    "active": 25,
+    "child": 20,
+    "whole": 30
+  },
+  "childPid": 20727,
+  "configSha256": "ac008273dc6c4013eb9ccd211b19792190f26f66a17accbdb97aaeb54ae2b48c",
+  "elapsedSeconds": 0.557982145997812,
+  "executionAuthorization": false,
+  "game": false,
+  "groupClear": true,
+  "mode": "probe",
+  "ownedPgid": 20727,
+  "pgidConfirmed": true,
+  "sanitizedEnvironment": [
+    "NODE_OPTIONS",
+    "NODE_PATH"
+  ],
+  "schema": "1370-a208-owned-zombie-zero-probe-recorder-v1",
+  "sourceOrGameplayAdoption": false,
+  "startupOwnedBeforeExec": true,
+  "status": "STOP_ZERO_PROBE_REPORT_STREAM_CAP_OR_STDERR",
+  "stderrBytes": 204,
+  "stderrSha256": "f714260584b094857207467c53c0164a65b2e8c3ffc4b48d7f58d083d8b97a59",
+  "stdoutBytes": 2701,
+  "stdoutSha256": "e9407f0b2493b27a45bcada13745c11f056c282e5a51e946de1d7bd3e362aad2",
+  "timedOut": false,
+  "utc": "2026-10-09T23:22:36.162720+00:00"
+}

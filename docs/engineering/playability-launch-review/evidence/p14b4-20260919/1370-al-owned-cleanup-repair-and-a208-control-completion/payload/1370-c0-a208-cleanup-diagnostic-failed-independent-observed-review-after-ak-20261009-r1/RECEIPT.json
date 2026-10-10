@@ -1,0 +1,42 @@
+{
+  "schema": "1370-a208-cleanup-diagnostic-failed-independent-observed-review/v1",
+  "decision": "ACCEPT_OBSERVED_A208_DIAGNOSTIC_STOP_ONLY",
+  "toolSession": 66101,
+  "actualExits": {"tool": 2, "helper": 2, "recorder": 2, "driver": -14},
+  "elapsedSeconds": 3.5028156069893157,
+  "recorderStatus": "STOP_CHILD_EXIT_-14",
+  "timedOut": false,
+  "driverResultAbsent": true,
+  "reportedMethods": {"protocol": 3, "observer": 14, "individualMethodsOK": true, "routeAccepted": false},
+  "diagnosticEvents": 51,
+  "capturedNewRefusal": {"seq": 7, "operation": "killpg", "signal": 9, "slot": 3, "target": 94482, "pid": 94482, "pgid": 94482, "ready": true, "reaped": false, "exception": "PermissionError", "errno": 1, "elapsedSeconds": 2.4830214789981255, "driverPidPgrpSession": 94466, "driverEuid": 501, "timerRemaining": 0.017116, "timerInterval": 0.25},
+  "capturedContinuation": [
+    "seq5 getpgid94482 ESRCH occurs before retained-ready killpg refusal; this is recorded syscall evidence, not an inferred host cause.",
+    "seq9 direct kill94482 succeeds; seq31 waitpid returns(94482,9); seq33 group-check94482 ESRCH with reaped=true,lastExit=-9,lastWaitStatus9.",
+    "All seven final group-check result events are ESRCH; all four probe-wait result events are ok. Registry fsync/close reached; final driver report did not."
+  ],
+  "newIntegrationDefect": {
+    "sourceDriverSha256": "0a4934e66eb748d7f2912373bd6896b21e80a867fad4a1e72b9f2a7647345369",
+    "mainDeclaredGlobals": ["REG", "PHASE", "ROOT", "CLEANUP"],
+    "line": 185,
+    "statement": "STOP=STOP or 'owned-cleanup-diagnostic-refusal'",
+    "traceback": "UnboundLocalError: cannot access local variable 'STOP' where it is not associated with a value",
+    "attribution": "Assignment makes STOP local throughout main; this branch reads that uninitialized local. The subsequent clean ok expression also reads STOP. Missing global STOP is an integration defect, separate from captured syscall refusal."
+  },
+  "roles": {
+    "actualTool": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-parent-recorded-after-ak-20261009-r1/ACTUAL-TOOL.json", "bytes": 663, "sha256": "6257c40a4b5e939d6ad7c87f42bc39e545c18298b841113034e065cff5c1ee4b"},
+    "postFailure": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-parent-recorded-after-ak-20261009-r1/POST-FAILURE-OWNERSHIP-AND-DIAGNOSTICS.json", "bytes": 3278, "sha256": "91ae1cfa9e81380ab259bfa4033659baa538a067354f545e0364408108ece013"},
+    "grant": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-parent-recorded-after-ak-20261009-r1/PYTHON-GRANT.json", "bytes": 5628, "sha256": "3e71b8c6d1305869cb59880edfab0804eec2704e3944717773c3b262f1aa04d9"},
+    "result": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-output-after-ak-20261009-r1/RESULT.json", "bytes": 903, "sha256": "89ccc774ff3959c8e26899de532b1a6a1769850f4d432a264a388a6a10038342"},
+    "stdout": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-output-after-ak-20261009-r1/stdout.bin", "bytes": 23985, "sha256": "bb42438e277f9014ef23886087c92317efa62535a82db658a4d919c4e86ff9d5"},
+    "stderr": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-output-after-ak-20261009-r1/stderr.bin", "bytes": 3175, "sha256": "96852b7f2d3cc0f5c2b1a245cd62f681c4afffa08cf84707ec74decb9ca975f8"}
+  },
+  "recordedPostFailureScopedAbsence": {"ids": [94202,94466,94467,94468,94470,94475,94476,94480,94481,94482,94485,94487,94488], "pidAndPgidObservations": 26, "allAbsent": true, "source": "root post-failure role", "globalAbsenceClaimed": false},
+  "hostEpermCauseEstablished": false,
+  "oldFailedRunTargetEstablished": false,
+  "sigalrmCausalAttributionEstablished": false,
+  "gameOrPricingAccepted": false,
+  "retryAuthorized": false,
+  "lesson": "My source reviews missed main's global/local integration defect. The eighteen focused GREEN cases tested only the pure cleanup module; byte equality and per-method success did not validate the actual driver refusal/report tail. Add AST-extracted actual-main integration controls before any source repair can claim qualification.",
+  "reviewMethod": "Read-only finite artifact/hash/JSON/AST data audit; no candidate execution, test rerun, imports of driver, positive signals, Git or whole scans."
+}

@@ -1,0 +1,14 @@
+{
+  "actualRetryExecuted": false,
+  "executionAuthorization": false,
+  "fileCountIncludingSeal": 16,
+  "readOnlyDirectory": true,
+  "readOnlyFiles": true,
+  "schema": "1370-a208-actual-diagnostic-source-seal-v1",
+  "sourceOnly": true,
+  "sourcePins": {
+    "bytes": 5908,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "757b3e4c74154b2fbc6d3fb2c0a7b751d263daf6645e0f933d51478a295a2d2c"
+  }
+}

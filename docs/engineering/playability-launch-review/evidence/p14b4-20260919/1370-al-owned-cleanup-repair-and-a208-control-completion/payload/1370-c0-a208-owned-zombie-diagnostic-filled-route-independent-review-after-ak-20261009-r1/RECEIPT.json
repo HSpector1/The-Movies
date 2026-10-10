@@ -1,0 +1,111 @@
+{
+  "actualObservedReceipt": null,
+  "actualRuntimeGrant": null,
+  "candidateOrGameImportedOrExecuted": false,
+  "decision": "ACCEPT_SOURCE_ONLY_OWNED_ZOMBIE_FILLED_ROUTE_AND_WRAPPER",
+  "executionAuthorization": false,
+  "lessons": [
+    "Persist escaped-child numeric identity before GO; an in-memory registration flag and final-only summary leave early failures unauditable.",
+    "Do not include access time in an artifact read-race check; do not require a directory timestamp to remain fixed while creating its own journal.",
+    "Preserve the exact experimental roster and separate any root-authorized recorded-ID postflight checks."
+  ],
+  "limitations": [
+    "Source acceptance grants no execution; root separately decides and invokes the exact reviewed wrapper once.",
+    "Fork-to-first-journal-write interruption remains possible; no GO is issued in that window, child has its own 2s timer, and absent or partial registry remains unknown.",
+    "NOTE_EXIT does not prove the exact kernel SZOMB transition; outcomes are observations.",
+    "The post-reap numeric PID or PGID may be reused; zero observations do not authenticate a reused process.",
+    "Registry file fsync supports capture after process interruption; this review claims no host-power-loss durability.",
+    "Completion requires actual child/recorder/helper/tool zero exits, strict report, cleanup and clock gates, and observed review; a stale success artifact cannot override STOP.",
+    "No historical target, EPERM host cause, SIGALRM causal chain, cleanup-order repair or real17-method/game acceptance is established.",
+    "Wrapper bounded directory metadata checks are not a full inventory or all-host absence proof."
+  ],
+  "processQueriesOrSignalsPerformed": false,
+  "reviewFindings": {
+    "childSelfDeadlineSeconds": 2,
+    "directRecorderInvocationGranted": false,
+    "duplicateNonfiniteTypeRosterClockAndCapGatesReviewed": true,
+    "durableForkPhaseDoesNotClaimUnverifiedGroupOrSession": true,
+    "eachRecorderStreamCapBytes": 65536,
+    "eachRegistryRecordCapBytes": 1024,
+    "exactExperimentalRows": 9,
+    "exactNaturalExitZeroAndThreeRegistryRecordsRequired": true,
+    "firstWaitAfterUnreapedExperimentalRows": true,
+    "forkReceiptBeforeReadyProcessing": true,
+    "fsyncAlarmUnmasked": true,
+    "getpgidExperimentalRows": 3,
+    "hypothesisMatchingNotRequiredForCompletion": true,
+    "kqueueExactOwnedExitRegistrationBeforeGo": true,
+    "noPositiveSignalsInProbe": true,
+    "oneNaturalOwnedChild": true,
+    "parentDeadlineSeconds": 20,
+    "recorderBoundsSeconds": [
+      20,
+      25,
+      30
+    ],
+    "registryCapBytes": 4096,
+    "registryCreatedExclusiveNoFollowMode600": true,
+    "registryParentPrivatePhysicalMode700": true,
+    "strictV2SummaryLinksActualRegistryBytesAndRecorderOwnedParent": true,
+    "summaryCapBytes": 16384,
+    "unameFields": [
+      "release",
+      "version",
+      "machine"
+    ],
+    "verifiedPidPgidSidReceiptBeforeGo": true,
+    "wrapperAuthenticatesExternalExactReviewAndPinsBeforeFreshOneShotGrant": true,
+    "wrapperCapturesBoundedRegistryPrefixOnStopWithoutAddedLiveQueries": true,
+    "wrapperCurrentAkAndSrcRefsCleanToolsLaneAcDiskAndBoundedProtectedRoots": true,
+    "wrapperRequiresThreeRecordsAndRecorderParentLinkOnHelperZero": true,
+    "zeroSignalExperimentalRows": 6
+  },
+  "reviewer": "cleanup_diagnostic_impl",
+  "roles": {
+    "CONFIG.json": {
+      "bytes": 3816,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/CONFIG.json",
+      "sha256": "ac008273dc6c4013eb9ccd211b19792190f26f66a17accbdb97aaeb54ae2b48c"
+    },
+    "ROUTE.json": {
+      "bytes": 1500,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/ROUTE.json",
+      "sha256": "99e45ffc5df98d218579895f304f5ae1adfac17aa19aee509a3001de028244dc"
+    },
+    "probe.py": {
+      "bytes": 8485,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/probe.py",
+      "sha256": "2548779e985bcd42167a695edfadb1c16dc690287a4317d0ae745d8a4f22f8c5"
+    },
+    "record.py": {
+      "bytes": 14597,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/record.py",
+      "sha256": "bac79df9f6d87ac60c1d944761b52e997b644c4f337e15a59cde0332a6dd4726"
+    },
+    "report_guard.py": {
+      "bytes": 7760,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/report_guard.py",
+      "sha256": "9e741177c3fbc39494348c6a409c6093683d3dc9a58022d2586ea0815227bc03"
+    }
+  },
+  "schema": "1370-a208-owned-zombie-filled-route-independent-source-review/v1",
+  "sourcePins": {
+    "bytes": 3549,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "63509772d0e50b7849fb4d83cae0c23dc8aa49d0435c3a21b1c42a729dce6dee"
+  },
+  "sourcePinsSha256": "63509772d0e50b7849fb4d83cae0c23dc8aa49d0435c3a21b1c42a729dce6dee",
+  "verification": {
+    "externalNamedRolesAuthenticated": 5,
+    "fourPythonSourcesASTParsedWithoutImport": true,
+    "namedPinnedFilesAuthenticated": 12,
+    "recorderDefinitionsOutsideMainIdenticalToPureBase": 17,
+    "recorderOnlyChangedDefinition": "main",
+    "sourceFilesFrozenMode444": true
+  },
+  "wrapper": {
+    "bytes": 9092,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/launch.py",
+    "sha256": "f6fde167bea64f3bbb2e3ee5014a10899e80ac389b9144957a89991b86c35399"
+  }
+}

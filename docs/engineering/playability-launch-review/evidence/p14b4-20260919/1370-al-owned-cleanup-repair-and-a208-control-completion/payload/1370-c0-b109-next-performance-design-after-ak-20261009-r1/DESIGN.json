@@ -1,0 +1,266 @@
+{
+  "benchmark": {
+    "actualNewBenchmark": null,
+    "claimedMeasuredImprovement": null,
+    "coarseOneArmFormulaMustNotBeSharedHeadroom": true,
+    "inputs": [
+      "genuine indexed308 state",
+      "genuine indexed308 wholeRow"
+    ],
+    "lines": [
+      19,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40
+    ],
+    "node": "Pinned historicalNode20.20.2",
+    "parentBounds": [
+      60,
+      75,
+      90
+    ],
+    "readerRole": "Authenticated unchanged streaming12c37",
+    "referenceEncoder": {
+      "bytes": 2880,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+    },
+    "schedule": "One paired warmup then three alternating measured pairs per input; complete bytes/purity/FDmetadata/closure each pair.",
+    "sourceToAdapt": {
+      "bytes": 5649,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/benchmark-308.mjs",
+      "sha256": "dbbc202e6b473dd81aec427c8cd05ac09c4c6268c64daa52ac061ffc046ce53a"
+    },
+    "weightedBothArmFormula": "(3526*stateMedianMs+1984*wholeRowMedianMs)/1000"
+  },
+  "bothArmAccounting": {
+    "state": 3526,
+    "wholeRow": 1984
+  },
+  "classifierAllowedCodepoints": "U+0020..U+007F excludingU+0022 andU+005C; empty string included.",
+  "classifierRejectedCodepoints": [
+    "U+0022 quote",
+    "U+005C backslash",
+    "U+0000 throughU+001F",
+    "U+0080 throughU+FFFF"
+  ],
+  "executionAuthorization": false,
+  "finiteControls": {
+    "newActualResult": null,
+    "newExactAuthoredCounts": null,
+    "plannedAppendedGroups": 6,
+    "plannedExpectedRedMutants": 3,
+    "preserveMeasuredBaselineGroups": 28,
+    "preserveMeasuredBaselinePairs": 321,
+    "required": "Exact byte/refusal/log parity with2529, all original28 controls, specific RED mismatch and corrected GREEN; no genericexit0 admission."
+  },
+  "gameBounds": {
+    "activeSeconds": 375,
+    "completeBoundariesPerArm": 110,
+    "sharedNodeSeconds": 300,
+    "tickCountPerArm": 109,
+    "wholeSeconds": 390
+  },
+  "lessons": [
+    "Prove byte/refusal/source-read/coercion order before performance.",
+    "Count botharms/latergrowth/nonencoder work before feasibility.",
+    "Correctness can pass while weighted timing worsens; preserve that result.",
+    "Profile intervals do not establish allocation/GC causation or selectedvariant phase costs.",
+    "A finite earlyfixture win never grants integration/boundschange/blind109retry."
+  ],
+  "mandatoryRemainingFeasibilityWork": [
+    "Later-size growth through416 and true intervention contents",
+    "Both arms and complete readback",
+    "Small encodes/tick/save/clone/deepEqual/gzip/inflate/CRC/SHA/output/guards/startup costs",
+    "Fresh exact current-AK operational source/runtime binding and independent reviewed future route"
+  ],
+  "oneProposedOptimization": "Direct unescapedASCII quoted-string token and byte count after identical original raw UTF8 limit precheck; original native fallback otherwise. No cache or container serialization.",
+  "pending": {
+    "benchmarkGrant": null,
+    "candidateSource": null,
+    "focusedControlsGrant": null,
+    "independentSourceReview": null,
+    "integrationOrFull109Grant": null,
+    "observedBenchmarkReview": null,
+    "observedCorrectnessReview": null,
+    "parentDesignAdoption": null
+  },
+  "performanceBasis": "Actual2529 stringToken performs raw UTF8 check, native stringify and rendered UTF8 size. ASCII branch could remove native render/size work but adds classifier overhead. Prior fastpass profile descriptive only; selectedASCIIhitfrequency/performance unmeasured.",
+  "preparationLimits": {
+    "candidateImplemented": false,
+    "full109Executed": false,
+    "fullInventoryExecuted": false,
+    "gitExecuted": false,
+    "largeCaptureReadOrDecoded": false,
+    "productionOrPrivateCopiesModified": false,
+    "testsOrBenchmarkExecuted": false
+  },
+  "preservedSelectedEvidence": {
+    "benchmarkTool": 7232,
+    "bothArmIllustrationSeconds": 425.467498548,
+    "controlsGroups": 28,
+    "controlsPairs": 321,
+    "illustrationNotMeasuredOrLowerBound": true,
+    "mediansMs": {
+      "state": {
+        "baseline": 94.85502799999995,
+        "candidate": 62.98639800000001
+      },
+      "wholeRow": {
+        "baseline": 145.44549499999994,
+        "candidate": 102.50879999999961
+      }
+    },
+    "sameRunEarlyReductionPercent": 31.709468168005216
+  },
+  "preservedUnfavorableCache": {
+    "automaticRepeatAuthorized": false,
+    "candidate": {
+      "bytes": 3317,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "25492575847a15a1d7b79daf84e722b6e32f2362ea2a2ad94f29228a09bfe067"
+    },
+    "coarseWeightedCostIncreasePercent": 10.642868321918852,
+    "groups": 33,
+    "pairs": 353,
+    "promoted": false
+  },
+  "roles": {
+    "priorDescriptiveProfile": {
+      "bytes": 2518,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "13a8df2aaffa2e2129eadffdfeeedcc783108da6ec79e225542618b27f56503f"
+    },
+    "priorDescriptiveProfileReport": {
+      "bytes": 2909,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-token-phase-profile-independent-observed-review-20261009-r1/REPORT.md",
+      "sha256": "b23cb2904a932b6269546b58b051eb3f62ca3696d38b42a78586243667d054cc"
+    },
+    "priorNativeContainerBenchmark": {
+      "bytes": 1670,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-indexed308-benchmark-observed-independent-review-20261009-r5/RECEIPT.json",
+      "sha256": "b214d12a1f3ac51945924684c7ef005e1201a8fb50a08847dacdc28cda051c22"
+    },
+    "priorNativeContainerSource": {
+      "bytes": 2512,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-sanitized-native-encoder-proposal-20261009-r5/bounded-json-candidate.mjs",
+      "sha256": "ff6e47060a7a0ca2cc4502f06ed1aabca8fb71bd11fde245b4cc7194b1bf0697"
+    },
+    "selectedActual28Controls": {
+      "bytes": 1139,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk28-controls-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "4dc5ba780ed74245d508dc117d799b3eee263f3d22d26d3860730981f0bc6272"
+    },
+    "selectedActual7232Benchmark": {
+      "bytes": 1638,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "59ad5be0c2f356d83febad87c5375937212a0af935ba52cc7214add9d85da29f"
+    },
+    "selectedBenchmarkSource": {
+      "bytes": 5649,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/benchmark-308.mjs",
+      "sha256": "dbbc202e6b473dd81aec427c8cd05ac09c4c6268c64daa52ac061ffc046ce53a"
+    },
+    "selectedControlsSource": {
+      "bytes": 15839,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/test-encoder.mjs",
+      "sha256": "015326a19a12225b5fb736bbf85d637f8e925cf4c0f5bd00240061cf9cd880b4"
+    },
+    "selectedEncoder": {
+      "bytes": 2880,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+    },
+    "selectedRootAdoption": {
+      "bytes": 1453,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-parent-recorded-20261009-r1/BENCHMARK-ADOPTION.json",
+      "sha256": "d63af2ffdb817928ed0b6da7912decd857bb544d2c713b54f99c701e03c182d6"
+    },
+    "selectedSourceAcceptance": {
+      "bytes": 1066,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-independent-source-review-20261009-r1/RECEIPT.json",
+      "sha256": "b2d82e38b0f9ebf99681a77e58906f5348f4d7c1e95e822bcf76f6a686fd08c8"
+    },
+    "twoArmAccounting": {
+      "bytes": 3135,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-shared-workload-accounting-independent-review-20261009-r1/RECEIPT.json",
+      "sha256": "bad58469013de6f0d4884c0fd72496efca242cd4175d49af5dcb8c3bd79bf06b"
+    },
+    "twoArmCounts": {
+      "bytes": 3232,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-two-arm-workload-accounting-proposal-20261009-r1/COUNTS.json",
+      "sha256": "4d24885437baad00cf087b44704de5cb18ac51613504abc941bccbe08a3f8ca1"
+    },
+    "unfavorableCacheBenchmark": {
+      "bytes": 5221,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-benchmark-independent-observed-review-20261009-r1/RECEIPT.json",
+      "sha256": "fe9889d0f063e383803523c24e327ff1f404eba3951fa4a0a52e6a9127dfb69c"
+    },
+    "unfavorableCacheRootDisposition": {
+      "bytes": 1801,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-parent-recorded-20261009-r1/BENCHMARK-ADOPTION.json",
+      "sha256": "702fee19076ebfefd35c195a223d46f4f75599b819faede57e5c4e73281b15b5"
+    },
+    "unfavorableCacheSource": {
+      "bytes": 3317,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-string-token-cache-proposal-20261009-r1/bounded-json-candidate.mjs",
+      "sha256": "25492575847a15a1d7b79daf84e722b6e32f2362ea2a2ad94f29228a09bfe067"
+    }
+  },
+  "schema": "1370-b109-next-performance-design-after-ak-v1",
+  "selectedEncoder": {
+    "bytes": 2880,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+    "sha256": "2529dc0b14a41b99c4e533be5ee444d1b94401f30b7623a51b6122ff1c6f6e4b"
+  },
+  "sourceAssumptions": "Standard native RegExp/String/JSON/Array/Buffer; source getter/trap/coercive-limit semantics preserved.",
+  "sourceLocation": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-b109-bounded-token-chunk-proposal-20261009-r1/bounded-json-candidate.mjs",
+    "stringTokenLines": [
+      14,
+      15,
+      16
+    ],
+    "unchangedAccumulationLines": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      45
+    ],
+    "unchangedKeyAndTraversalLines": [
+      27,
+      28,
+      29,
+      30,
+      31,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43
+    ]
+  },
+  "status": "SOURCE_DESIGN_ONLY_NO_IMPLEMENTATION_OR_EXECUTION_AUTHORITY"
+}

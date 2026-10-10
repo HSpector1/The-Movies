@@ -1,0 +1,21 @@
+{
+  "schema": "1370-a208-pre-reap-independent-test-design/v1",
+  "status": "DRAFT_SOURCE_ONLY_PENDING_MICROPROBE_ADMISSION_AND_ROOT_DESIGN_ADOPTION",
+  "executionAuthorization": false,
+  "controlsAuthored": false,
+  "controlsExecuted": false,
+  "functionalFixAuthored": false,
+  "baselineDriverSha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07",
+  "unchangedModuleSha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15",
+  "admittedActualTailReviewSha256": "f0733ca9f4355035febe34c42b45e9267f1658f4f0e4a70933f1733fa2d55f4b",
+  "proposedCounts": {"oldOrderingExpectedRed": 1, "focusedGreen": 12, "total": 13},
+  "proposedBoundary": "Authenticated AST actual driver cleanup entry+helpers/hard_kill with fake OS/state/clock and exact existing pure module; never manually compose the desired order",
+  "coordinatedContract": "Owned <=7 slots; strict WNOHANG exactpair/status decode before reap admission; only reaped slots group0 via existing cleanup_group_probe True success vs module ESRCH None; sticky errors and later-owned continuation",
+  "sourceReviewRequired": ["Module byte identity", "Actual caller ordering", "Final main tail AST identity", "Wait shape/identity/status validation", "Group0 success/ESRCH distinction", "Deadline/sticky refusal/bounded owned and diagnostic caps"],
+  "preserved": {"driverBounds": [45,55], "parentBounds": [60,75,90], "ownedGroups": 7, "inheritedProbes": 4, "assertions": [3,14], "streamsBytes": 1048576, "fixtureBytes": 8388608, "priorModuleAndTailAdmissions": true, "bothRealDiagnosticsRemainStop": true},
+  "hostCauseAttributed": false,
+  "originalFailedTargetAttributed": false,
+  "newDiagnosticRetryGranted": false,
+  "gameGranted": false,
+  "next": "Root first independently admits the microprobe and adopts exact functional design; then separately author/review focused tests and source. No speculative runtime or functional mutation."
+}

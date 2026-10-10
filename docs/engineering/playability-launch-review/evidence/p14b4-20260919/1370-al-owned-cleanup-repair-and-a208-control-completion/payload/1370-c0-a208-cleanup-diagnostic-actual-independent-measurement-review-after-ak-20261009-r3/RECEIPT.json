@@ -1,0 +1,192 @@
+{
+  "GitScansSignalsPerformedByReviewer": false,
+  "actualRoles": {
+    "actualTool": {
+      "bytes": 731,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-parent-recorded-after-ak-20261009-r3/ACTUAL-TOOL.json",
+      "sha256": "f5afc9391dde84c5a20463fcfa42b106e82af807c01d358a6fc481f4693ba2e4"
+    },
+    "driverResult": {
+      "bytes": 26551,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/RESULT.json",
+      "sha256": "5aba75c9dab28652242e4fdb1811bf3fdd830535e0c8b0c83fdaefd5cbe32fb2"
+    },
+    "helperLog": {
+      "bytes": 402,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-lane-after-ak-20261009-r3/controls.log",
+      "sha256": "d1c802fbd460ac190a5ad12890b5f53619de3c2e6e1289818b3febcc9b1724c2"
+    },
+    "helperMeta": {
+      "bytes": 340,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-lane-after-ak-20261009-r3/controls.log.meta",
+      "sha256": "3c78ff5f484bd7cfb38957be5dd73ba8d58c3f307d0d8ef632d27b021efb40d5"
+    },
+    "ownedRegistry": {
+      "bytes": 1793,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-fixture-after-ak-20261009-r3/OWNED.ndjson",
+      "sha256": "5310f378d1f01d1069bbe9156003fa977368dc29b8584ed9ca1832f94e6c0412"
+    },
+    "recorderResult": {
+      "bytes": 925,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-output-after-ak-20261009-r3/RESULT.json",
+      "sha256": "33ae9f280fed6c0d1cd7a3233a2a17deb1ebe833dff82b70ba7a0b8ed5fe3ab9"
+    },
+    "rootGrant": {
+      "bytes": 8134,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-parent-recorded-after-ak-20261009-r3/PYTHON-GRANT.json",
+      "sha256": "9ce15d64525aeb67822284cb4750698bd152a4bc603e465d4e1a444c7d17a3b2"
+    },
+    "rootPostOwnership": {
+      "bytes": 4585,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-parent-recorded-after-ak-20261009-r3/POST-OWNERSHIP.json",
+      "sha256": "ce669000b28503da350da089f5279d40380fabc619f348e134c1e3c814825046"
+    },
+    "stderr": {
+      "bytes": 2590,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-output-after-ak-20261009-r3/stderr.bin",
+      "sha256": "47b5b1bf7bc3bdfacb01bb219fa96fbcb5c4b2d4db90fb3aafff4b23b8a8db3a"
+    },
+    "stdout": {
+      "bytes": 49073,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-output-after-ak-20261009-r3/stdout.bin",
+      "sha256": "22f2f2cd69eda2ad68cc0a5dc8476c053344697a310ecfa7b3fa93d3a374a085"
+    }
+  },
+  "actualRouteSourceReview": {
+    "bytes": 9487,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-independent-review-after-ak-20261009-r3/RECEIPT.json",
+    "sha256": "f0dd5a3f0784f07053e226ea96a2f4dfed9df577897f654ad7365b47e7f70641"
+  },
+  "candidateImportedOrExecuted": false,
+  "config": {
+    "bytes": 19934,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/CONFIG.json",
+    "sha256": "09d2b7197c42e71594787b6061637d30f84710feef881c7757ea8897dfc24bec"
+  },
+  "controlsRerun": false,
+  "decision": "ACCEPT_OBSERVED_A208_PYTHON17_R3_MEASUREMENT_CROSSCHECK_ONLY",
+  "driver": {
+    "bytes": 13089,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/drive.py",
+    "sha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678"
+  },
+  "executionAuthorization": false,
+  "gameAcceptance": false,
+  "limits": [
+    "Python protocol3+observer14 real finite controls only. Existing JS13 remains separately qualified reused evidence; no JS rerun claimed.",
+    "No gameplay, renewal/pricing attribution, vector acceptance or H8708 waiver inferred.",
+    "Eight-directory metadata equality is bounded route protection, not a full guard scan/content inventory or continuity claim across AL publication.",
+    "13recordedIDs absent is verified against root retained26zero-check evidence; reviewer made no new probes/process discovery.",
+    "New R3 slot50471 observation does not attribute any historical EPERM target or host/kernel cause.",
+    "Prior failed real routes and separate pure-module/tail/focused controls remain historical evidence with their original scope."
+  ],
+  "materialFindings": [],
+  "observed": {
+    "actualToolSession": 44123,
+    "allSevenReadyReapedClear": true,
+    "benignESRCHExceptionRecords": 9,
+    "cleanupErrors": [],
+    "cleanupPositiveSignalEvents": 0,
+    "deadlineObserved": false,
+    "diagnosticEventBytes": 22522,
+    "diagnosticEvents": 48,
+    "diagnosticOutcomeErrors": 0,
+    "driverBoundsSeconds": [
+      45,
+      55
+    ],
+    "driverElapsedSeconds": 2.70443628000794,
+    "driverErrors": 0,
+    "driverFailures": 0,
+    "driverPid": 50448,
+    "driverStatus": "A208_PYTHON_CONTROLS_PASS",
+    "droppedEvents": 0,
+    "eachStreamCapBytes": 1048576,
+    "eightProtectedRootBeforeAfterMetadataEqual": true,
+    "emitFailures": 0,
+    "exits": {
+      "driver": 0,
+      "helper": 0,
+      "recorder": 0,
+      "tool": 0
+    },
+    "expectedProbeRawOutputs": "PIPE_OK/empty; []/empty; empty/Operation not permitted; empty/Bad file descriptor",
+    "finalRawStdoutRowEqualsExclusiveDriverResultBytes": true,
+    "finalSevenGroupChecksExactESRCH": true,
+    "frozenObserverFixtureCopiesAuthenticated": 18,
+    "helperPid": 50183,
+    "helperWaitTarget": 0,
+    "inheritedProbes": 4,
+    "knownInheritedRecorderHelperLogWarning": "Unchanged return-in-finally SyntaxWarning in helper log; no new warning or fatal error in real method stderr.",
+    "methodCounts": {
+      "noChildReportValidation": 3,
+      "observerMethods": 14,
+      "total": 17
+    },
+    "methodsAllOK": true,
+    "newReviewerProbes": 0,
+    "overrideSTOPAbsent": true,
+    "ownedFixtureCapBytes": 8388608,
+    "ownedGroups": 7,
+    "parentBoundsSeconds": [
+      60,
+      75,
+      90
+    ],
+    "preReapSlot3": {
+      "exit": -9,
+      "groupClear": true,
+      "ordinal": 3,
+      "pid": 50471,
+      "rawWaitStatus": 9,
+      "ready": true,
+      "reaped": true,
+      "sequence": "1waitpid attempt;2raw status observed9;3validated wait(50471,9,-9);4group0 attempt after reap;5exactESRCH;11already-clear skips original positive cleanup"
+    },
+    "probeExits": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "raw48EventsMatchEmbeddedDiagnosticsExactly": true,
+    "rawHashBindingsMatchRecorder": true,
+    "recordedOwnedIds": [
+      50183,
+      50448,
+      50454,
+      50456,
+      50460,
+      50462,
+      50464,
+      50469,
+      50470,
+      50471,
+      50472,
+      50474,
+      50475
+    ],
+    "recorderElapsedSeconds": 3.649901316006435,
+    "recorderStatus": "PURE_A208_CONTROLS_PYTHON_COMPLETE_UNADOPTED",
+    "refusalCodes": [],
+    "registryFsyncAndCloseSucceeded": true,
+    "rootRecordedExactPidPgidZeroChecks": 26,
+    "rootRecordedLockAbsent": true,
+    "rootRecordedZeroChecksAllESRCH": true,
+    "stderrBytes": 2590,
+    "stdoutBytes": 49073,
+    "stickyStop": null
+  },
+  "reviewRole": "Independent measurement review separate from actual-route author and primary observed reviewer. Reviewer authored earlier focused pure controls; did not author or execute this real17method route. Conclusions independently reached without reading primary observed receipt.",
+  "schema": "1370-a208-python17-r3-independent-measurement-crossreview/v1",
+  "sourcePins": {
+    "bytes": 6661,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/SOURCE-PINS.json",
+    "sha256": "f4696f348c105e1252065f784ff76b5b930b1191ea3f78a3ba78f1eff357c877"
+  },
+  "unchangedPureModule": {
+    "bytes": 9553,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/owned_cleanup.py",
+    "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+  }
+}

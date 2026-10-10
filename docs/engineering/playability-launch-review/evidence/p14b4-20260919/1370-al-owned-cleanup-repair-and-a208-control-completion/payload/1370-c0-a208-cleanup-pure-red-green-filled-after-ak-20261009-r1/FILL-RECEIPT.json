@@ -1,0 +1,23 @@
+{
+  "filledConfig": {
+    "bytes": 4109,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/CONFIG.json",
+    "sha256": "215fcae2c6222e9b88628116353f3edbb91219b59dad80b3e25c1eded5b9e181"
+  },
+  "newRecorder": {
+    "bytes": 14814,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/record.py",
+    "sha256": "4d781e20e47a4e0555839a0aaa5c87984a8b87052051607d5b68eb1460d7f578"
+  },
+  "originalConfig": {
+    "bytes": 3370,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-recorder-source-proposal-after-ak-20261009-r1/CONFIG.json",
+    "sha256": "bbd49fdca241d8bd0c475436bc0e151202760f907742d4dd35c36e501f7dc6d8"
+  },
+  "scope": "Fill exact module/tester/adoption/report path; recorder onlyCONFIG_SHA replacement; route cwd/record path fresh. No runtime executed.",
+  "unchangedReportGuard": {
+    "bytes": 3036,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/report_guard.py",
+    "sha256": "212d42e10cf1cd530733b5d34ee31e7dd643e7b24964704297a1ab62227f599f"
+  }
+}

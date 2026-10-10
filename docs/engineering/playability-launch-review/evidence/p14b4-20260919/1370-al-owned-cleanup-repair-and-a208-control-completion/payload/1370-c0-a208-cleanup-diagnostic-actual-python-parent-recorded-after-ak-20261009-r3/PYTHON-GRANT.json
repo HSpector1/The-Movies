@@ -1,0 +1,223 @@
+{
+  "acPower": true,
+  "actualFocusedAdoption": {
+    "bytes": 2787,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PURE-OBSERVED-ADOPTION.json",
+    "sha256": "30ba97ac7f300fdd1badad143f684b1642eb1ff1d2951d6eead722dda31f7af4"
+  },
+  "actualIntegrationAdoption": {
+    "bytes": 959,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/INTEGRATION-OBSERVED-ADOPTION.json",
+    "sha256": "2523abaeffe14b085cc29b32ef10bc2636b055caef201a7cbf2c153ef598ba4c"
+  },
+  "actualMicroprobeAdoption": {
+    "bytes": 4297,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/MICROPROBE-OBSERVED-ADOPTION.json",
+    "sha256": "cacde61e1209e4923535841c8e06533cfc6d8cfe3d1575b76eea7d6494a80605"
+  },
+  "actualPreReapAdoption": {
+    "bytes": 4560,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PRE-REAP-FOCUSED-OBSERVED-ADOPTION.json",
+    "sha256": "376e8a53713604843f4275d69ede9b9bce1d144011e51398f69957e05b6c26bb"
+  },
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-lane-after-ak-20261009-r3/controls.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/record.py",
+    "python"
+  ],
+  "boundedProtectedRootPostflightRequired": true,
+  "bounds": {
+    "eachParentActiveSeconds": 75,
+    "eachParentChildSeconds": 60,
+    "eachParentWholeSeconds": 90,
+    "eachStreamBytes": 1048576,
+    "ownedFixtureBytes": 8388608,
+    "pythonDriverActiveSeconds": 45,
+    "pythonDriverWholeSeconds": 55
+  },
+  "combinedSourceReview": {
+    "bytes": 9487,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-independent-review-after-ak-20261009-r3/RECEIPT.json",
+    "sha256": "f0dd5a3f0784f07053e226ea96a2f4dfed9df577897f654ad7365b47e7f70641"
+  },
+  "config": {
+    "bytes": 19934,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/CONFIG.json",
+    "sha256": "09d2b7197c42e71594787b6061637d30f84710feef881c7757ea8897dfc24bec"
+  },
+  "currentAkReadback": {
+    "bytes": 1162,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+    "sha256": "2c2df2e06bc1223262c71ed8f5062d65e348c6965b7f87f9757411ca9b621eaa"
+  },
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "expected": {
+    "jsGroups": 13,
+    "noChildReportValidationMethods": 3,
+    "nodeWorkers": "Native --test workers inherit the exact recorded Node PGID; no invented PID list.",
+    "outerGroupInheritedGrandchildren": 2,
+    "pythonDirectSetsidGroups": 7,
+    "pythonMethods": 14,
+    "sandboxProbesInOwnedDriverGroup": 4
+  },
+  "focusedIndependentReview": {
+    "bytes": 5249,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-independent-observed-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "201da395b40717225e3f2c5d4e0fb8871f835b6b26a44e47d34eafc57b9bc716"
+  },
+  "freeBytes": 4372389888,
+  "gamePricingOrRenewalAttributionAuthorized": false,
+  "globalWorkerAbsenceClaim": false,
+  "historicalM0Completion": {
+    "bytes": 6133,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-complete-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad"
+  },
+  "jsReuseProof": {
+    "bytes": 1890,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/JS-REUSE-PROOF.json",
+    "sha256": "99f30623337c8e0e7512a4c4cceacdc5511bd23343b6c169db33ba4e0077e475"
+  },
+  "noAutomaticRetry": true,
+  "preReapIndependentObservedReview": {
+    "bytes": 8334,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-independent-observed-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "720c63bcd8872c0a24e54ce3e732ed0b317d6b56d2f47a5461f6bd3ee07440fd"
+  },
+  "priorOwnedPidsAndPgidsFreshlyAbsent": [
+    11825,
+    11840,
+    27396,
+    27411,
+    27412,
+    33099,
+    33363,
+    37572,
+    37835,
+    37840,
+    37842,
+    37844,
+    37847,
+    37849,
+    37856,
+    37857,
+    37858,
+    37860,
+    37862,
+    37863,
+    39758,
+    39773,
+    44676,
+    45166,
+    45180,
+    45181,
+    45183,
+    45200,
+    65494,
+    66258,
+    73148,
+    76827,
+    76842,
+    76882
+  ],
+  "productionHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+  "protectedRootBefore": {
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git": [
+      16777220,
+      157454052,
+      16877,
+      1791475054920875233,
+      1791475054920875233
+    ],
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git/objects": [
+      16777220,
+      157454083,
+      16877,
+      1791493320461260435,
+      1791493320461260435
+    ],
+    "/Users/zacheryspector/The-Movies-headless-program": [
+      16777220,
+      158484765,
+      16877,
+      1791471316296107826,
+      1791471316296107826
+    ],
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules": [
+      16777220,
+      158487026,
+      16877,
+      1790738039503311431,
+      1790738039503311431
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1": [
+      16777220,
+      166568330,
+      16832,
+      1791498505800985629,
+      1791498505800985629
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git": [
+      16777220,
+      166568331,
+      16832,
+      1791498505730619861,
+      1791498505730619861
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1": [
+      16777220,
+      166418911,
+      16832,
+      1791462534662274730,
+      1791462534662274730
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2": [
+      16777220,
+      166751332,
+      16832,
+      1791577446298737027,
+      1791577446298737027
+    ]
+  },
+  "recorder": {
+    "bytes": 14480,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/record.py",
+    "sha256": "a1c9c49831c4665c2acaa720e97c05adb43f32e7704aec4c120e220dd9a58834"
+  },
+  "reusedJsObservedReview": {
+    "bytes": 5975,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-js-controls-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "1abeefa371df36fa0bad2a9cf1c435bb9ea55abe6fa78daac2d92f3a9b3ee85a"
+  },
+  "rootPidBecomesHelperPid": 50183,
+  "route": {
+    "bytes": 4260,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/ROUTE.json",
+    "sha256": "f606e4debc0349f9ae751f1604cdf19e833946d616a4e1f1c1d16cc0b4c8a902"
+  },
+  "schema": "1370-a208-current-ak-diagnostic-root-grant-v1",
+  "sourcePins": {
+    "bytes": 6661,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/SOURCE-PINS.json",
+    "sha256": "f4696f348c105e1252065f784ff76b5b930b1191ea3f78a3ba78f1eff357c877"
+  },
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "GRANTED_ONE_EXACT_A208_PYTHON_CLEANUP_DIAGNOSTIC_ARM",
+  "unexpectedHelperWaitIsStop": true,
+  "utc": "2026-10-09T23:54:23.100628+00:00",
+  "wrapper": {
+    "bytes": 15823,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r3/grant-parent.py",
+    "sha256": "97a0279a394da50f2664ce39c570c855a82a61860dff393204bd8fee9574d53a"
+  }
+}

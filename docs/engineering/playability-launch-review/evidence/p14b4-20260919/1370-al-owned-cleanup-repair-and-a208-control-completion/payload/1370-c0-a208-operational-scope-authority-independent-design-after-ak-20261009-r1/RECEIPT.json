@@ -1,0 +1,18 @@
+{
+  "authoringDelegatedElsewhere": true,
+  "decision": "SOURCE_ONLY_AUTHORITY_MISMATCH_FOUND_MINIMAL_A208_AMENDMENT_PROPOSED",
+  "executionAuthorization": false,
+  "findingDesign": {
+    "bytes": 9623,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-operational-scope-authority-independent-design-after-ak-20261009-r1/FINDING-AND-DESIGN.json",
+    "sha256": "f43391aae243ccfe05a689c28f46dd76c005d67031d8f281b7c985c3a27bd6aa"
+  },
+  "guardsScansGitProcessesSignalsGameRun": false,
+  "heldSourcePinsSha256": "7ef212906fc448fe904afa1d5a487dda06cc06cbedeb99fa47f14d83571a9714",
+  "historicalM0ScopeSha256": "13be428dfe3bdba1bc4ce4f2348bd194d2473c4c812df2b5f0bfec936b76b8e8",
+  "priorHeldReviewSha256": "b664519ddee865f5085d7ab792a310876ded51775218bb88af491275e3e0f4cc",
+  "requiredTruthfulNewStatus": "PARENT_ADOPTED_A208_OPERATIONAL_GUARD_SCOPE_ONLY",
+  "schema": "1370-a208-operational-scope-authority-independent-receipt/v1",
+  "scope": "Identify future-fill authority mislabel and propose minimal A208 operational-scope amendment, preserving all inherited protection predicates and requiring truthful post-AL refs; no runtime grant or new M0 gate.",
+  "sourceOnly": true
+}

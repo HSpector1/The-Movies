@@ -1,0 +1,45 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/CONFIG.json
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/CONFIG.json
+@@ -9,9 +9,9 @@
+     "1370-c0-m0-recorded-materialization-output-20261009-r2",
+     "1370-c0-m0-operational-materialization-lane-20261009-r2",
+     "1370-c0-m0-additive-recorded-output-20261009-r2",
+-    "1370-c0-a208-fullguard-game-source-after-ak-20261009-r1",
+-    "1370-c0-a208-fullguard-game-filled-after-ak-20261009-r1",
+-    "1370-c0-a208-game-lane-after-ak-20261009-r1"
++    "1370-c0-a208-fullguard-game-source-after-al-20261009-r2",
++    "1370-c0-a208-fullguard-game-filled-after-al-20261009-r2",
++    "1370-c0-a208-game-lane-after-al-20261009-r2"
+   ],
+   "docsOnlyAllowedFiles": [
+     "HANDOFF.md"
+@@ -29,6 +29,10 @@
+     "sha256": "3a43f85ec4bd0557b6ea6ef0a46d59bfc14570324ba1297e555dee3ff4d0767d"
+   },
+   "observedDecision": "ACCEPT_OBSERVED_MATERIALIZATION_COPY",
++  "operationalRemoteRefs": {
++    "refs/heads/main": null,
++    "refs/heads/wip/headless-program-20260916-ts": null
++  },
+   "originalCopyProductionHead": "4812bb123781632dd39e44f918eb85a6a2c12623",
+   "parentScopeAdoption": null,
+   "privateBaseline": {
+@@ -39,15 +43,15 @@
+     "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-exact-preparation-independent-procedure-review-20261008-r1/RECEIPT.json",
+     "sha256": "0d0d0358356653a50d05b10fedfdeb2bee9c66939ec4ab03a83521fc42a9e693"
+   },
+-  "productionHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
++  "productionHead": null,
+   "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+   "requiredFreeBytes": 3758096384,
+   "requiredPythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+   "requiredPythonSha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835",
+   "retainedHParent": "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2",
+-  "schema": "1370-a208-current-ak-full-guard-config-r1",
++  "schema": "1370-a208-current-operational-full-guard-config-r2",
+   "scratchParentPolicy": "Device/inode/mode strict. Parent mtime/ctime and child deltas informational; parallel authorized scratch-only preparations/reviews may create siblings. This exception never applies to production/common/copied roots or copied .git/node_modules.",
+   "sourcePinsSha256": "fd420aa7ae75a542ce611426f2c4bacafd62c6a09103460d0c0f75d00ceff27d",
+   "sourceReviewSha256": "065670e290e80eefae8593a18cdb6126a7188c35726cadaadf9acab8cc16e794",
+-  "status": "HELD_CURRENT_AK_SCOPE_UNFILLED_SCAN_GRANT_REQUIRED"
++  "status": "HELD_POST_AL_OPERATIONAL_IDENTITY_AND_A208_SCOPE_UNFILLED"
+ }

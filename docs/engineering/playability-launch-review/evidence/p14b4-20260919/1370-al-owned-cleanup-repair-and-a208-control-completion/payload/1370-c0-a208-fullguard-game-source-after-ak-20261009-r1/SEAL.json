@@ -1,0 +1,12 @@
+{
+  "directoryMode": "0555",
+  "executionAuthorization": false,
+  "filesMode": "0444",
+  "schema": "1370-scratch-immutable-source-seal/v1",
+  "sourcePins": {
+    "bytes": 3367,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "7ef212906fc448fe904afa1d5a487dda06cc06cbedeb99fa47f14d83571a9714"
+  },
+  "status": "SEALED_SOURCE_ONLY_UNRUN"
+}

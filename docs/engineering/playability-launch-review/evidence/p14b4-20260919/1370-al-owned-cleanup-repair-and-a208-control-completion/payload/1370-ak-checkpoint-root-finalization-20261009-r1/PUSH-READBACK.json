@@ -1,0 +1,20 @@
+{
+  "advertisedRefs": "c902a704eb948cc576083d0973c8c23e59937dc1\trefs/heads/main\n372d15e1ae53b898be2cf633a6bb8bb0058cb01f\trefs/heads/wip/headless-program-20260916-ts\n",
+  "branch": "wip/headless-program-20260916-ts",
+  "checkpointPathsVerified": 606,
+  "fetchStderr": "From https://github.com/HSpector1/The-Movies\n   f0fb818f..372d15e1  wip/headless-program-20260916-ts -> origin/wip/headless-program-20260916-ts\n",
+  "fetchStdout": "",
+  "head": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+  "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+  "mainAncestor": true,
+  "mainMergedByThisCheckpoint": false,
+  "manifestSha256": "4dbdea9a456305b1e8b05e5d57930928b2de93e6c1c2b289ae773861a5fba295",
+  "nextStep": "Prepare adopted bounded owned-cleanup diagnostic source; no actual retry/game/pricing grant.",
+  "parent": "f0fb818fe7534c3e3784206d16728b015c7f059a",
+  "preservedAncestorAJ": true,
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "stagedGitBlobObjectsPreviouslyReadBack": 575,
+  "status": "PUSHED_REMOTE_AND_COMMITTED_TREE_VERIFIED",
+  "trackingWorkingHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+  "workingTreeClean": true
+}

@@ -1,0 +1,87 @@
+{
+  "actualA208Receipt": null,
+  "actualFocusedControlReceipt": null,
+  "actualPythonControlReceipt": null,
+  "candidateImported": false,
+  "checks": {
+    "all18ObserverActualRolesEqualOriginal": true,
+    "all19ListedSourceArtifactsHashAndSizePinned": true,
+    "all21FilesReadOnly": true,
+    "localReportModulesByteIdentical": true,
+    "methodCountRolesAndBoundsEqual": true,
+    "nodeIdentityEqual": true,
+    "pendingRuntimeAndSourceReviewNull": true,
+    "recorderOnlyConfigHashAndOutputModePathChanged": true,
+    "retainedDriverFunctionsAstEqual": true,
+    "sourceDirectoryReadOnly": true,
+    "sourcePinsMatchesExpected": true
+  },
+  "config": {
+    "bytes": 15952,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/CONFIG.json",
+    "sha256": "a78a8d441009e2c6c9568257e7fe30b4914ef9b17136ae3e09c8cecba9613808"
+  },
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_A208_OWNED_CLEANUP_DIAGNOSTIC_IMPLEMENTATION",
+  "driver": {
+    "bytes": 11344,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/drive.py",
+    "sha256": "0a4934e66eb748d7f2912373bd6896b21e80a867fad4a1e72b9f2a7647345369"
+  },
+  "executionAuthorization": false,
+  "findings": [],
+  "gameObserved": false,
+  "module": {
+    "bytes": 9553,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/owned_cleanup.py",
+    "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+  },
+  "nonblockingFinalPrintCanRefuseUnderPressure": true,
+  "originalEpermTargetHostCauseAlarmRelationEstablished": false,
+  "originalRegistryFsyncUnchangedAndAlarmUnmasked": true,
+  "recorder": {
+    "bytes": 14482,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/record.py",
+    "sha256": "6a875fa9c04f2908eb0d7da25aafcc44e0e6e75c1a4a71306724bcfef64eb30b"
+  },
+  "report": {
+    "bytes": 3603,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-independent-source-review-after-ak-20261009-r1/REPORT.md",
+    "sha256": "59447981d9184200262c776ea5409d1cc6a881713f6e83582b489b835e97d35a"
+  },
+  "reportControls": {
+    "bytes": 2924,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/test_reports.py",
+    "sha256": "4c6379ee5d97b16700c9d4e8a205abc6f1580ac05f706296d8833fe2fd667ac8"
+  },
+  "reportGuard": {
+    "bytes": 3203,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/report_guard.py",
+    "sha256": "bc7b714c9335e159fe292e8cb121db47d7f9dae3265ba9309fe44437a864b031"
+  },
+  "requiredNextGates": [
+    "Actual focused RED3/GREEN18 under separately reviewed root20/25/30+64KiB route",
+    "Parent adoption and fresh actual diagnostic fill/wrapper review",
+    "Separate once-only real Python grant and independently admitted actual17method/cleanup outcome"
+  ],
+  "reviewMethod": "Finite source/hash/size/AST comparison only; no candidate execution.",
+  "route": {
+    "bytes": 3787,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/ROUTE.json",
+    "sha256": "75a38c7de3d0253cc3bd4e76e47ca4d1dcf9286c56d119f118f54b13ec66d070"
+  },
+  "runtimeRetryAuthorized": false,
+  "schema": "1370-a208-owned-cleanup-diagnostic-independent-source-review-v1",
+  "sourcePins": {
+    "bytes": 6144,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "ea143dc31e5e87bb0868f501a2c0655c04f670305fe3793713f0cf659c0cc904"
+  },
+  "sourcePinsSha256": "ea143dc31e5e87bb0868f501a2c0655c04f670305fe3793713f0cf659c0cc904",
+  "sourceSeal": {
+    "bytes": 440,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/SEAL.json",
+    "sha256": "a6307a562a747e366fd1fd4a946363aa7cd2076900ba1ef302b371716d447eaa"
+  },
+  "staleDiskPassRequiresActualChildAndParentZeroAndValidSummary": true,
+  "testsExecuted": false
+}

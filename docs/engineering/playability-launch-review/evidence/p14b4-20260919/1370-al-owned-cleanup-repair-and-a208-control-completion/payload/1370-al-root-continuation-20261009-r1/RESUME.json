@@ -1,0 +1,10 @@
+{
+  "predecessor": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "branch": "wip/headless-program-20260916-ts",
+  "publishedReadbackSha256": "2c2df2e06bc1223262c71ed8f5062d65e348c6965b7f87f9757411ca9b621eaa",
+  "freshFetchAndRefsMatched": true,
+  "productionWriter": "root",
+  "heavyLane": "none active",
+  "scope": "Fix sequential verification blockers toward authorized P17/P18; first cleanup diagnostic with independent fault controls; frozen gameplay source until ledger admission."
+}

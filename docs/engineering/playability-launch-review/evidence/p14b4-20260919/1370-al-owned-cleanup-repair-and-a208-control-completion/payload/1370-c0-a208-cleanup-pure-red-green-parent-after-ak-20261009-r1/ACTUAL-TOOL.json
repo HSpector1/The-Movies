@@ -1,0 +1,19 @@
+{
+  "toolSession": 63410,
+  "chunks": [
+    {
+      "chunk_id": "1234ac",
+      "wall_time_seconds": 1.002993274,
+      "session_id": 63410,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "83d6f0",
+      "wall_time_seconds": 0.00001793,
+      "exit_code": 0,
+      "original_token_count": 41,
+      "output": "{\"helperPid\": 76827, \"grant\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-parent-after-ak-20261009-r1/GRANT.json\"}\n{\"helperExit\": 0}\n"
+    }
+  ]
+}

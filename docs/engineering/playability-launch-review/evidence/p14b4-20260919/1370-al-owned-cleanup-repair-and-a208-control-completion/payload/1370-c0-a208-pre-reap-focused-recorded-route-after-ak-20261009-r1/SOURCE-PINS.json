@@ -1,0 +1,61 @@
+{
+  "actual17MethodRetry": false,
+  "actualObservedReceipt": null,
+  "all17NonMainRecorderASTUnchanged": true,
+  "directRecorderInvocationGranted": false,
+  "exactRows": 13,
+  "executionAuthorization": false,
+  "expectedGreen": 12,
+  "expectedRed": 1,
+  "files": {
+    "CONFIG.json": {
+      "bytes": 8737,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/CONFIG.json",
+      "sha256": "43dd1d9d33e3b29fc1879e3a5ea5251fb03207bf100add9f8b2240f0f06e744e"
+    },
+    "FORWARD.diff": {
+      "bytes": 18934,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/FORWARD.diff",
+      "sha256": "88072cde56a704eb2806868461883c77f872670e2a0edfa2e3848685a06cefe6"
+    },
+    "INVERSE.diff": {
+      "bytes": 18934,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/INVERSE.diff",
+      "sha256": "2dd3f56af5ab568f9059c4b3a39a99f4235cb5e71b13ed00d8fb3e801e5c26c5"
+    },
+    "NOTE.md": {
+      "bytes": 2362,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/NOTE.md",
+      "sha256": "cd275c69ba1cee309fbebf634d8a810dba8b758f189077007c241c3bffc6d848"
+    },
+    "ROUTE.json": {
+      "bytes": 4925,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/ROUTE.json",
+      "sha256": "2b00a825e6d0c7bc2b6c1157dc35ac5a7ae6f55a3c00e6bf994ba402260f3f6a"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 2437,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/SOURCE-PROOF.json",
+      "sha256": "c476f46e9fbe99031ff3c152d29cf039e7fd09cc5e8be40d9d49fc43598c701b"
+    },
+    "launch.py": {
+      "bytes": 4719,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/launch.py",
+      "sha256": "3e14257fb9c6d363c80a4ae4c0f3020253c74d21897cbea17e7f71ec2c38defb"
+    },
+    "record.py": {
+      "bytes": 14963,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/record.py",
+      "sha256": "08d9656507bd9a9b15dbf8a79c3ec7dda515ccacdbbfc6eaba782484db2e6796"
+    },
+    "report_guard.py": {
+      "bytes": 3075,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/report_guard.py",
+      "sha256": "7cd80acc71caca0acee009e15c2a0c90701d19be010627dcb20e2bfa94785b1c"
+    }
+  },
+  "runtimeGrant": null,
+  "schema": "1370-a208-pre-reap-focused-recorded-source-pins/v1",
+  "sourceReview": null,
+  "status": "FROZEN_SOURCE_ONLY_UNRUN_REVIEW_PENDING"
+}

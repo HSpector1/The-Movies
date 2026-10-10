@@ -1,0 +1,11 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/BINDING-DRAFT.json
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/BINDING-DRAFT.json
+@@ -45,7 +45,7 @@
+       "sha256": "fd7c8a02893168478ff81fd557dc68f6010d49bd18bbe175d2ec48ed313352cb"
+     }
+   },
+-  "productionHeadAtPreparation": null,
++  "productionHeadAtPreparation": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+   "repoRoot": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+   "runtimeSha256": {
+     "node_modules/vite-node/package.json": "7018dacaa212db8e05f454147ac95b817c96b5e45fe56379f8ed54e11617b138",

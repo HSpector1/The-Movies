@@ -1,0 +1,197 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/record.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/record.py
+@@ -1,12 +1,12 @@
+-"""Source-only pre-reap focused recorder; exact AST-only 1 RED + 12 GREEN tester.
++"""HELD driver-tail integration recorder; exact AST-only 2 RED + 10 GREEN tester.
+ Retains owned-before-exec READY/GO, raw streams, cleanup and finalization from
+ sealed pure recorder4d781e20 under20/25/30 and64KiB. Direct invocation is not
+ granted; parent invokes only independently reviewed once-only launch wrapper.
+ """
+ import datetime,hashlib,importlib.util,json,os,pathlib,selectors,select,signal,stat,sys,time
+ HERE=pathlib.Path(__file__).resolve().parent;SCRATCH=pathlib.Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='43dd1d9d33e3b29fc1879e3a5ea5251fb03207bf100add9f8b2240f0f06e744e';CAP=65536;CHILD=20;ACTIVE=25;WHOLE=30
+-OUTPUTS={'pre-reap':SCRATCH/'1370-c0-a208-pre-reap-focused-output-after-ak-20261009-r1'}
++CONFIG_SHA='f326221e0314c9ba3d881b5eb001f605495527243eb3c81f31fcf4b69640d099';CAP=65536;CHILD=20;ACTIVE=25;WHOLE=30
++OUTPUTS={'integration':SCRATCH/'1370-c0-a208-driver-integration-output-after-ak-20261009-r2'}
+ def require(v,m):
+  if not v:raise RuntimeError('STOP_'+m)
+ def sha(b):return hashlib.sha256(b).hexdigest()
+@@ -179,12 +179,12 @@
+  owned={};pipes=[];sel=None;output=None;buffers={'stdout':bytearray(),'stderr':bytearray()};child=None;child_started=None;failure=None;mode=None;groupclear=True;timedout=False
+  try:
+   require(sys.dont_write_bytecode and not sys.flags.optimize,'PYTHON_B_REQUIRED');require(len(sys.argv)==2 and sys.argv[1] in OUTPUTS,'EXACT_MODE');mode=sys.argv[1]
+-  configraw=(HERE/'CONFIG.json').read_bytes();require(sha(configraw)==CONFIG_SHA,'CONFIG_HASH');config=json.loads(configraw);require(config.get('status')=='FILLED_SOURCE_ONLY_UNRUN' and config.get('actualGrantAndReviewOutsideConfig') is True,'PRE_REAP_SOURCE_BINDING_UNFILLED');require(isinstance(config.get('candidateDriver'),dict) and isinstance(config.get('candidateModule'),dict) and isinstance(config.get('tester'),dict),'PRE_REAP_ROLES_UNFILLED')
+-  for role in [*config['roles'].values(),config['candidateDriver'],config['candidateModule'],config['tester'],config['originalDriver']]:authenticate(role['path'],role['sha256'],16*1024**2);whole_guard(end)
++  configraw=(HERE/'CONFIG.json').read_bytes();require(sha(configraw)==CONFIG_SHA,'CONFIG_HASH');config=json.loads(configraw);require(config.get('status')=='FILLED_SOURCE_ONLY_UNRUN' and config.get('actualGrantAndReviewOutsideConfig') is True,'INTEGRATION_SOURCE_BINDING_UNFILLED');require(isinstance(config.get('candidateDriver'),dict) and isinstance(config.get('tester'),dict),'INTEGRATION_ROLES_UNFILLED')
++  for role in [*config['roles'].values(),config['candidateDriver'],config['tester']]:authenticate(role['path'],role['sha256'],16*1024**2);whole_guard(end)
+   spec=importlib.util.spec_from_file_location('exact_a208_reports',config['roles']['reportGuard']['path']);report_guard=importlib.util.module_from_spec(spec);spec.loader.exec_module(report_guard);whole_guard(end)
+   authenticate(config['pythonPath'],config['pythonSha256']);require(os.access(config['pythonPath'],os.X_OK),'PYTHON_EXECUTABLE');active_guard(started)
+   output=OUTPUTS[mode];require(output.parent==SCRATCH and SCRATCH.resolve(strict=True)==SCRATCH and not os.path.lexists(output),'ABSENT_OWNED_OUTPUT');output.mkdir(mode=0o700)
+-  argv=[config['pythonPath'],'-I','-B',config['tester']['path'],config['candidateDriver']['path'],config['candidateDriver']['sha256'],config['candidateModule']['path'],config['candidateModule']['sha256'],config['originalDriver']['path'],config['originalDriver']['sha256']]
++  argv=[config['pythonPath'],'-I','-B',config['tester']['path'],config['candidateDriver']['path'],config['candidateDriver']['sha256'],config['originalDriver']['path'],config['originalDriver']['sha256']]
+   out_read,out_write=os.pipe();pipes.extend([out_read,out_write]);err_read,err_write=os.pipe();pipes.extend([err_read,err_write])
+   child_started=time.monotonic() # 20 starts before fork or GO permits execution.
+   start_owned(argv,str(HERE),child_environment(),out_write,err_write,owned)
+@@ -231,12 +231,12 @@
+      report_guard.validate(mode,bytes(buffers['stdout']),bytes(buffers['stderr']),child.pid);active_guard(started)
+     except BaseException as exc:
+      failure=str(exc) or repr(exc);timedout=isinstance(exc,TimeoutError) or 'DEADLINE' in failure or '_SECONDS' in failure
+-   result={'schema':'1370-a208-pre-reap-focused-recorder/v1','status':failure or 'PURE_A208_PRE_REAP_FOCUSED_CONTROLS_COMPLETE_UNADOPTED','mode':mode,'configSha256':CONFIG_SHA,'actualChildExit':None if child is None else child.returncode,'childPid':None if child is None else child.pid,'ownedPgid':None if child is None else child.pid,'startupOwnedBeforeExec':child is not None,'pgidConfirmed':owned.get('pgidConfirmed',False),'groupClear':groupclear,'timedOut':timedout,'elapsedSeconds':time.monotonic()-started,'boundsSeconds':{'child':CHILD,'active':ACTIVE,'whole':WHOLE},'stdoutBytes':len(buffers['stdout']),'stdoutSha256':sha(bytes(buffers['stdout'])),'stderrBytes':len(buffers['stderr']),'stderrSha256':sha(bytes(buffers['stderr'])),'sanitizedEnvironment':['NODE_OPTIONS','NODE_PATH'],'game':False,'sourceOrGameplayAdoption':False,'executionAuthorization':False,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}
++   result={'schema':'1370-a208-driver-integration-recorder/v1','status':failure or 'PURE_A208_DRIVER_INTEGRATION_CONTROLS_COMPLETE_UNADOPTED','mode':mode,'configSha256':CONFIG_SHA,'actualChildExit':None if child is None else child.returncode,'childPid':None if child is None else child.pid,'ownedPgid':None if child is None else child.pid,'startupOwnedBeforeExec':child is not None,'pgidConfirmed':owned.get('pgidConfirmed',False),'groupClear':groupclear,'timedOut':timedout,'elapsedSeconds':time.monotonic()-started,'boundsSeconds':{'child':CHILD,'active':ACTIVE,'whole':WHOLE},'stdoutBytes':len(buffers['stdout']),'stdoutSha256':sha(bytes(buffers['stdout'])),'stderrBytes':len(buffers['stderr']),'stderrSha256':sha(bytes(buffers['stderr'])),'sanitizedEnvironment':['NODE_OPTIONS','NODE_PATH'],'game':False,'sourceOrGameplayAdoption':False,'executionAuthorization':False,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+    if output is not None and time.monotonic()<end:
+     for name,raw in buffers.items():whole_guard(end);write(output/(name+'.bin'),bytes(raw));whole_guard(end)
+     if not failure:active_guard(started)
+     result=finalize_result(output,result,end)
+-   code=0 if result['status']=='PURE_A208_PRE_REAP_FOCUSED_CONTROLS_COMPLETE_UNADOPTED' and not failure else 2
++   code=0 if result['status']=='PURE_A208_DRIVER_INTEGRATION_CONTROLS_COMPLETE_UNADOPTED' and not failure else 2
+    print(json.dumps({'status':result['status'],'output':None if output is None else str(output),'actualChildExit':result['actualChildExit'],'groupClear':groupclear}))
+    whole_guard(end)
+    return code
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/launch.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/launch.py
+@@ -1,22 +1,22 @@
+-"""Root one-shot pre-reap focused control grant; requires independent exact source receipt."""
++"""Root one-shot driver-integration control grant; requires independent exact source receipt."""
+ import datetime,hashlib,json,os,shutil,stat,subprocess,sys
+ from pathlib import Path
+ S=Path('/Users/zacheryspector/studio-scratch');R=Path('/Users/zacheryspector/The-Movies-headless-program')
+ Q=Path(__file__).parent
+-P=S/'1370-c0-a208-pre-reap-focused-parent-after-ak-20261009-r1'
++P=S/'1370-c0-a208-driver-integration-parent-after-ak-20261009-r2'
+ HEAD='372d15e1ae53b898be2cf633a6bb8bb0058cb01f'
+ def role(p):
+  p=Path(p);st=p.lstat();assert p.resolve(strict=True)==p and stat.S_ISREG(st.st_mode) and st.st_nlink==1 and st.st_size<128*1024**2
+- before=(st.st_dev,st.st_ino,st.st_mode,st.st_size,st.st_mtime_ns,st.st_ctime_ns,st.st_nlink);b=p.read_bytes();after=p.lstat();assert (after.st_dev,after.st_ino,after.st_mode,after.st_size,after.st_mtime_ns,after.st_ctime_ns,after.st_nlink)==before
++ b=p.read_bytes();assert p.lstat()==st
+  return {'path':str(p),'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}
+ def git(*a):return subprocess.check_output(['/usr/bin/git','-c','gc.auto=0','-c','maintenance.auto=0','--no-optional-locks',*a],cwd=R,text=True,timeout=30).strip()
+ assert sys.flags.isolated and sys.dont_write_bytecode and not sys.flags.optimize and len(sys.argv)==3
+ review=Path(sys.argv[1]);assert role(review)['sha256']==sys.argv[2];rv=json.loads(review.read_text())
+-assert rv['decision']=='ACCEPT_SOURCE_ONLY_PRE_REAP_FOCUSED_FILLED_ROUTE_AND_WRAPPER' and rv['wrapper']==role(Path(__file__))
++assert rv['decision']=='ACCEPT_SOURCE_ONLY_DRIVER_INTEGRATION_FILLED_ROUTE_AND_WRAPPER' and rv['wrapper']==role(Path(__file__))
+ pins=role(Q/'SOURCE-PINS.json');assert rv['sourcePinsSha256']==pins['sha256']
+ for name,item in json.loads((Q/'SOURCE-PINS.json').read_text())['files'].items():assert role(Q/name)==item
+ c=json.loads((Q/'CONFIG.json').read_text());route=json.loads((Q/'ROUTE.json').read_text())
+-for item in [*c['roles'].values(),c['candidateDriver'],c['candidateModule'],c['tester'],c['originalDriver']]:assert role(item['path'])==item
++for item in [*c['roles'].values(),c['candidateDriver'],c['tester']]:assert role(item['path'])==item
+ assert c['status']=='FILLED_SOURCE_ONLY_UNRUN' and c['executionAuthorization'] is False
+ assert git('rev-parse','HEAD')==HEAD and git('rev-parse','HEAD:src')=='13880d9b0ba72aff5d4c5bcf5d12fe682c5de554' and not git('status','--porcelain=v1','--untracked-files=all')
+ assert git('remote','get-url','origin')=='https://github.com/HSpector1/The-Movies.git'
+@@ -26,7 +26,7 @@
+ assert not os.path.lexists(S/'HEAVY-LANE-LOCK') and shutil.disk_usage(S).free>=3758096384
+ assert 'AC Power' in subprocess.check_output(['/usr/bin/pmset','-g','batt'],text=True,timeout=10)
+ for path in [P,*map(Path,route['absentPathsAtFutureGrant'])]:assert not os.path.lexists(path)
+-expected=['/bin/bash',c['roles']['helper']['path'],'0',str(S/'1370-c0-a208-pre-reap-focused-lane-after-ak-20261009-r1/controls.log'),c['pythonPath'],'-I','-B',str(Q/'record.py'),'pre-reap']
++expected=['/bin/bash',c['roles']['helper']['path'],'0',str(S/'1370-c0-a208-driver-integration-lane-after-ak-20261009-r2/controls.log'),c['pythonPath'],'-I','-B',str(Q/'record.py'),'integration']
+ assert route['argv']==expected and route['cwd']==str(Q)
+ def protected_root_snapshot():
+  result={}
+@@ -37,7 +37,7 @@
+  return result
+ protected_before=protected_root_snapshot()
+ P.mkdir(mode=0o700);Path(expected[3]).parent.mkdir(mode=0o700)
+-grant={'status':'ROOT_ONCE_ONLY_PRE_REAP_FOCUSED_CONTROLS_GRANTED','sourcePins':pins,'independentReview':role(review),'argv':expected,'cwd':str(Q),'bounds':c['bounds'],'game':False,'diagnosticActual17MethodRetry':False,'configSha256':role(Q/'CONFIG.json')['sha256'],'preReapFocusedControlsOnly':True,'protectedRootBefore':protected_before,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}
++grant={'status':'ROOT_ONCE_ONLY_DRIVER_INTEGRATION_CONTROLS_GRANTED','sourcePins':pins,'independentReview':role(review),'argv':expected,'cwd':str(Q),'bounds':c['bounds'],'game':False,'diagnosticActual17MethodRetry':False,'configSha256':role(Q/'CONFIG.json')['sha256'],'driverIntegrationOnly':True,'protectedRootBefore':protected_before,'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+ (P/'GRANT.json').write_text(json.dumps(grant,sort_keys=True,indent=2)+'\n')
+ env=dict(os.environ,GIT_OPTIONAL_LOCKS='0',PYTHONDONTWRITEBYTECODE='1');env.pop('NODE_OPTIONS',None);env.pop('NODE_PATH',None)
+ child=subprocess.Popen(expected,cwd=Q,env=env)
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/report_guard.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/report_guard.py
+@@ -1,30 +1,68 @@
+-"""Exact finite 1 RED+12 GREEN pre-reap producer gate; no source imports."""
++"""Exact 2 RED + 10 GREEN driver-tail producer gate; no driver imports."""
+ import json
+-CAP=65536
+-SUMMARY_CAP=12289
+-REQUIRED={'baselineSha256': '73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07', 'candidateSha256': '5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678', 'caseCount': 13, 'driverTopLevelImported': False, 'expectedGreen': 12, 'expectedRed': 1, 'failure': None, 'game': False, 'moduleSha256': '8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15', 'moduleUnchanged': True, 'observedGreen': 12, 'observedRed': 1, 'r2TailUnchanged': True, 'realSignals': False, 'schema': 'a208-independent-pre-reap-controls/v1', 'status': 'PRE_REAP_CONTROLS_PASS'}
+-CASES=[{'name': 'old-order-exited-unreaped-EPERM', 'status': 'EXPECTED_RED'}, {'name': 'pre-reap-completed-ESRCH-skip', 'status': 'GREEN_PASS'}, {'name': 'pre-reap-live-child-existing-kills', 'status': 'GREEN_PASS'}, {'name': 'pre-reap-leader-descendants-live', 'status': 'GREEN_PASS'}, {'name': 'pre-reap-already-reaped-no-wait', 'status': 'GREEN_PASS'}, {'name': 'pre-reap-wait-error-sticky-continue', 'status': 'GREEN_PASS'}, {'name': 'pre-reap-group-EPERM-sticky-continue', 'status': 'GREEN_PASS'}, {'name': 'pre-reap-mismatched-wait-refused', 'status': 'GREEN_PASS'}, {'name': 'pre-reap-malformed-wait-refused', 'status': 'GREEN_PASS'}, {'name': 'pre-reap-status-conversion-refused', 'status': 'GREEN_PASS'}, {'name': 'pre-reap-deadline-precedence', 'status': 'GREEN_PASS'}, {'name': 'pre-reap-owned-boundaries', 'status': 'GREEN_PASS'}, {'name': 'pre-reap-diagnostic-cap-sticky', 'status': 'GREEN_PASS'}]
+-class ReportStop(ValueError):pass
+-def need(ok,why):
+- if not ok:raise ReportStop('STOP_PRE_REAP_REPORT_'+why)
+-def validate(mode,stdout,stderr,owned_pgid):
+- need(mode=='pre-reap','MODE')
+- need(len(stdout)<=CAP and len(stderr)<=CAP and not stderr,'STREAM_CAP_OR_STDERR')
+- need(len(stdout)<=SUMMARY_CAP and stdout.startswith(b'{') and stdout.endswith(b'}\n') and len(stdout.splitlines())==1,'ONE_UTF8_JSON_SUMMARY_CAP')
+- def unique(pairs):
+-  obj={}
+-  for key,value in pairs:need(key not in obj,'DUPLICATE_KEY');obj[key]=value
+-  return obj
+- def nonfinite(value):raise ReportStop('STOP_PRE_REAP_REPORT_NONFINITE')
+- obj=json.loads(stdout.decode('utf-8'),object_pairs_hook=unique,parse_constant=nonfinite)
+- need(type(obj) is dict and set(obj)==set(REQUIRED)|{'cases'},'EXACT_FIELDS')
+- for key,expected in REQUIRED.items():
+-  value=obj[key]
+-  if type(expected) is bool:need(value is expected,'BOOL_'+key)
+-  elif type(expected) is int:need(type(value) is int and value==expected,'COUNT_'+key)
+-  elif expected is None:need(value is None,'NULL_'+key)
+-  else:need(type(value) is str and value==expected,'EXACT_'+key)
+- rows=obj['cases'];need(type(rows) is list and len(rows)==13,'EXACT13')
+- for row,expected in zip(rows,CASES):
+-  need(type(row) is dict and set(row)=={'name','status'} and row==expected,'EXACT_ROSTER_STATUS')
+- return {'protocol':REQUIRED['schema'],'expectedRed':1,'expectedGreen':12,'rows':13,'game':False,'realSignals':False,'driverTopLevelImported':False}
++CAP = 65536
++SUMMARY_CAP = 12288
++RED_NAMES = ['r1-refusal-unbound-STOP', 'r1-clean-unbound-STOP']
++GREEN_NAMES = ['r2-clean-valid-pass', 'r2-EPERM-sticky-stop',
++               'r2-prior-STOP-plus-EPERM-preserved', 'r2-prior-STOP-alone-preserved',
++               'r2-invalid-method-count-stop', 'r2-unclear-owned-state-stop',
++               'r2-late-artifact-rejected', 'r2-late-emission-rejected',
++               'r2-hard-deadline-precedes-IO', 'r2-fixture-cap-before-IO-rejected']
++
++
++class ReportStop(ValueError):
++    pass
++
++
++def need(ok, why):
++    if not ok:
++        raise ReportStop('STOP_DRIVER_INTEGRATION_REPORT_' + why)
++
++
++def validate(mode, stdout, stderr, owned_pgid):
++    need(mode == 'integration', 'MODE')
++    need(len(stdout) <= CAP and len(stderr) <= CAP, 'STREAM_CAP')
++    need(not stderr, 'STDERR')
++    need(len(stdout) <= SUMMARY_CAP and stdout.endswith(b'\n')
++         and len(stdout.splitlines()) == 1, 'ONE_JSON_SUMMARY_CAP')
++
++    def unique_object(pairs):
++        result = {}
++        for key, value in pairs:
++            need(key not in result, 'DUPLICATE_JSON_KEY')
++            result[key] = value
++        return result
++
++    def forbidden_number(value):
++        raise ReportStop('STOP_DRIVER_INTEGRATION_REPORT_NONFINITE_JSON')
++
++    obj = json.loads(stdout, object_pairs_hook=unique_object, parse_constant=forbidden_number)
++    need(type(obj) is dict and set(obj) == {
++        'schema', 'status', 'expectedRed', 'observedExpectedRed', 'expectedGreen',
++        'observedGreen', 'cases', 'failure', 'game', 'realIO', 'realSignals',
++        'driverTopLevelImported'}, 'SUMMARY_FIELDS')
++    need(obj['schema'] == 'a208-independent-driver-integration-controls/v1'
++         and obj['status'] == 'DRIVER_INTEGRATION_CONTROLS_PASS', 'STATUS_SCHEMA')
++    for key, value in [('expectedRed', 2), ('observedExpectedRed', 2),
++                       ('expectedGreen', 10), ('observedGreen', 10)]:
++        need(type(obj[key]) is int and obj[key] == value, 'COUNT_' + key)
++    need(obj['failure'] is None and all(obj[key] is False for key in
++         ['game', 'realIO', 'realSignals', 'driverTopLevelImported']), 'REFUSAL_OR_SCOPE')
++    rows = obj['cases']
++    need(type(rows) is list and len(rows) == 12, 'EXACT12')
++    for row, name, line, branch in zip(rows[:2], RED_NAMES, [185, 187], ['refusal', 'clean']):
++        need(type(row) is dict and set(row) == {'case', 'status', 'detail'}
++             and row['case'] == name and row['status'] == 'EXPECTED_RED', 'EXACT_RED_ROSTER_STATUS')
++        detail = row['detail']
++        need(type(detail) is dict and set(detail) == {
++            'exception', 'name', 'sourceLine', 'branch', 'resultWrites'}, 'RED_DETAIL_FIELDS')
++        need(detail['exception'] == 'UnboundLocalError' and detail['name'] == 'STOP'
++             and type(detail['sourceLine']) is int and detail['sourceLine'] == line
++             and detail['branch'] == branch and type(detail['resultWrites']) is int
++             and detail['resultWrites'] == 0, 'RED_EXACT_SCOPE_EVIDENCE')
++    for row, name in zip(rows[2:], GREEN_NAMES):
++        need(type(row) is dict and set(row) == {'case', 'status'}
++             and row['case'] == name and row['status'] == 'GREEN', 'EXACT_GREEN_ROSTER_STATUS')
++    return {'protocol': 'a208-independent-driver-integration-controls/v1',
++            'expectedRed': 2, 'expectedGreen': 10, 'rows': 12,
++            'game': False, 'realIO': False, 'realSignals': False}

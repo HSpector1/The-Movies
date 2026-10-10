@@ -1,0 +1,72 @@
+{
+  "actualPython17Outcome": null,
+  "actualQualifications": {
+    "actualFocusedAdoption": {
+      "bytes": 2787,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PURE-OBSERVED-ADOPTION.json",
+      "sha256": "30ba97ac7f300fdd1badad143f684b1642eb1ff1d2951d6eead722dda31f7af4"
+    },
+    "actualIntegrationAdoption": {
+      "bytes": 959,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/INTEGRATION-OBSERVED-ADOPTION.json",
+      "sha256": "2523abaeffe14b085cc29b32ef10bc2636b055caef201a7cbf2c153ef598ba4c"
+    },
+    "actualMicroprobeAdoption": {
+      "bytes": 4297,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/MICROPROBE-OBSERVED-ADOPTION.json",
+      "sha256": "cacde61e1209e4923535841c8e06533cfc6d8cfe3d1575b76eea7d6494a80605"
+    },
+    "actualPreReapAdoption": {
+      "bytes": 4560,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PRE-REAP-FOCUSED-OBSERVED-ADOPTION.json",
+      "sha256": "376e8a53713604843f4275d69ede9b9bce1d144011e51398f69957e05b6c26bb"
+    }
+  },
+  "actualRuntimeGrant": null,
+  "allRecorderFunctionClassASTsExact": 18,
+  "boundedProtectedRootCount": 8,
+  "boundsCountsToolsAndDiagnosticCapsUnchanged": true,
+  "candidateCodeExecuted": false,
+  "candidateDriver": {
+    "bytes": 13089,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/drive.py",
+    "sha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678"
+  },
+  "candidateModule": {
+    "bytes": 9553,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r2/owned_cleanup.py",
+    "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+  },
+  "combinedReviewDecision": "ACCEPT_SOURCE_ONLY_UNRUN_A208_CURRENT_AK_PRE_REAP_ACTUAL_ROUTE_AND_WRAPPER",
+  "driverModuleReportsByteExactReviewedR3": true,
+  "exactJSObservedReceiptPreserved": {
+    "bytes": 5975,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-js-controls-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "1abeefa371df36fa0bad2a9cf1c435bb9ea55abe6fa78daac2d92f3a9b3ee85a"
+  },
+  "executionAuthorization": false,
+  "fullInventoryPerformed": false,
+  "historicalAJM0SeparateCurrentAK": true,
+  "jsReuseProofByteExact": true,
+  "observer18RoleEquality": true,
+  "oneCombinedExternalReviewRequired": true,
+  "predecessorActualRoutePins": {
+    "bytes": 5908,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "757b3e4c74154b2fbc6d3fb2c0a7b751d263daf6645e0f933d51478a295a2d2c"
+  },
+  "reviewedImplementationPins": {
+    "bytes": 5937,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/SOURCE-PINS.json",
+    "sha256": "2d05274d9f284d424e13594b940612f84b199467d2494a652d0620692e6a8aa0"
+  },
+  "rootPostflightRequiredAfterExecHelper": true,
+  "schema": "1370-a208-current-ak-pre-reap-actual-route-source-proof/v1",
+  "status": "FILLED_SOURCE_ONLY_UNRUN",
+  "wrapperCLI": [
+    "combinedReviewPath",
+    "combinedReviewSHA",
+    "unchangedModuleActualAdoptionPath",
+    "unchangedModuleActualAdoptionSHA"
+  ]
+}

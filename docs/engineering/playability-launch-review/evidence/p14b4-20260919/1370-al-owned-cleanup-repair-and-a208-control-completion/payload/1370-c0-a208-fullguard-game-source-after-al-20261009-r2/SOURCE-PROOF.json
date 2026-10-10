@@ -1,0 +1,105 @@
+{
+  "GitOrProcessProbesPerformed": false,
+  "actualCombinedControlsAdoption": null,
+  "actualDocsTransitionFacts": null,
+  "actualGameGrant": null,
+  "actualGuardBaseline": null,
+  "actualPostAlReadback": null,
+  "actualPostAlScopeAdoption": null,
+  "actualPython17ControlsAdoption": null,
+  "actualScanGrant": null,
+  "allExistingScopeConjunctsRetained": true,
+  "allNonMainHelpersByteAndASTIdentical": true,
+  "candidateBinding": {
+    "bytes": 5637,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/BINDING-DRAFT.json",
+    "sha256": "62cbd6611a13c7ff9adf83c5a56526f46b142d903e7b98d4cfae7c39423dc966"
+  },
+  "candidateConfig": {
+    "bytes": 3579,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/CONFIG.json",
+    "sha256": "64628bfc7f2c330a0ec172f8988942ccbbf48033758504b4421dc9a06e4ee259"
+  },
+  "candidateGuard": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/snapshot.py",
+    "sha256": "d2e0e8707cd59945cf8766ff10d86386312beb3a1e3e2a209f204a6f043c85e8"
+  },
+  "candidatePlan": {
+    "bytes": 14145,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/PLAN.json",
+    "sha256": "38f0ebcc537a4e930b53622f643584408f1acf44818f217f4ec1ff0b451452f9"
+  },
+  "commandTimeoutSeconds": 180,
+  "design": {
+    "bytes": 9623,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-operational-scope-authority-independent-design-after-ak-20261009-r1/FINDING-AND-DESIGN.json",
+    "sha256": "f43391aae243ccfe05a689c28f46dd76c005d67031d8f281b7c985c3a27bd6aa"
+  },
+  "exactSourceByteAndASTInverse": true,
+  "executionAuthorization": false,
+  "freshCompletePrivateInventoryRequired": true,
+  "guardImportedOrExecuted": false,
+  "historicalM0Completion": {
+    "bytes": 6133,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-complete-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad"
+  },
+  "historicalM0FactsAndCompletion": {
+    "bytes": 1872789,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-expanded-readback-facts-after-aj-20261009-r3.json",
+    "sha256": "e9f4829c501cc90475b9067c8ae32580fe5fca14fc40950ee083031f89081ba2"
+  },
+  "inventoriesRun": false,
+  "namingTransitionOnly": "Parent requested after-al package immediately after prepared after-ak-r2 had sealed. Prepared package preserved immutable; this final held package is named after-al with AL identity still null.",
+  "newConjuncts": [
+    "ad.operationalTransition.actualHead == config.productionHead",
+    "ad.remoteRefsVerified == config.operationalRemoteRefs"
+  ],
+  "newM0InventoryReadbackGateAdded": false,
+  "operationalRemoteRefs": {
+    "refs/heads/main": null,
+    "refs/heads/wip/headless-program-20260916-ts": null
+  },
+  "predecessorConfig": {
+    "bytes": 3482,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/CONFIG.json",
+    "sha256": "ab8fa1fd2b423054b07a3d2c9a98c196c0a8abe25782593514c04219e2ab7e0e"
+  },
+  "predecessorGuard": {
+    "bytes": 21657,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/snapshot.py",
+    "sha256": "f193ab42546c3ddc91d7f22a48ff3234a57b2e7066d638b810e34893ba9d3516"
+  },
+  "predecessorPins": {
+    "bytes": 3367,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "7ef212906fc448fe904afa1d5a487dda06cc06cbedeb99fa47f14d83571a9714"
+  },
+  "priorSupersededNamingCandidatePins": {
+    "bytes": 4615,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-ak-20261009-r2/SOURCE-PINS.json",
+    "sha256": "7a93016a277e88e06ea2101a600ce780f13c2f31f5cd4274940a47ba4da4bda6"
+  },
+  "productionHead": null,
+  "protectedRootsReadOrMutated": false,
+  "schema": "1370-a208-current-operational-fullguard-source-proof/v2",
+  "sourceChanges": [
+    "UNRUN M0 full-guard adaptation => UNRUN A208 operational-scope full-guard adaptation",
+    "CONFIG_SHA='ab8fa1fd2b423054b07a3d2c9a98c196c0a8abe25782593514c04219e2ab7e0e' => CONFIG_SHA='64628bfc7f2c330a0ec172f8988942ccbbf48033758504b4421dc9a06e4ee259'",
+    "current-AK parent scope adoption unfilled => current operational A208 parent scope adoption unfilled",
+    "ad.get('status')=='PARENT_ADOPTED_ISOLATED_M0_DIAGNOSTIC_DESIGN_ONLY' => ad.get('status')=='PARENT_ADOPTED_A208_OPERATIONAL_GUARD_SCOPE_ONLY'",
+    "and ad.get('operationalTransition',{}).get('docsOnlyVerified') is True,'exact parent docs-only/no-H-waiver scope' => and ad.get('operationalTransition',{}).get('docsOnlyVerified') is True and ad.get('operationalTransition',{}).get('actualHead')==config['productionHead'] and ad.get('remoteRefsVerified')==config['operationalRemoteRefs'],'exact A208 parent docs-only/current-refs/no-H-waiver scope'",
+    "'schema':'1370-a208-current-ak-full-guard-snapshot-r1' => 'schema':'1370-a208-current-operational-full-guard-snapshot-r2'",
+    "Fresh full read-only M0 protection guards only; original4812 copy proof remains immutable, operational production/common baseline isAK372d15e. => Fresh full read-only A208 operational protection guards only; original4812 copy proof remains immutable, operational production/common baseline binds the authenticated published config.productionHead. Held post-AL identity is unfilled until actual publication."
+  ],
+  "sourceOnly": true,
+  "sourcePreparationDesignAdoption": {
+    "bytes": 1308,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/SCOPE-AMENDMENT-DESIGN-ADOPTION.json",
+    "sha256": "bd4b15dca9e84e4d694dc129f386c83079f07693f0f84472ad6ff31e3d476217"
+  },
+  "statusReplacementHasNoOrFallback": true,
+  "unchangedHelperCount": 10,
+  "unfilledRoleStopBeforeCopiedRootAccess": true
+}

@@ -1,0 +1,38 @@
+{
+  "actualToolExit": 2,
+  "laneLockAbsent": true,
+  "noGlobalProcessDiscovery": true,
+  "schema": "1370-post-microprobe-owned-readback/v1",
+  "scopedZeroProbes": [
+    {
+      "id": 20712,
+      "kind": "pid",
+      "result": "absent"
+    },
+    {
+      "id": 20712,
+      "kind": "pgid",
+      "result": "absent"
+    },
+    {
+      "id": 20727,
+      "kind": "pid",
+      "result": "absent"
+    },
+    {
+      "id": 20727,
+      "kind": "pgid",
+      "result": "absent"
+    },
+    {
+      "id": 20728,
+      "kind": "pid",
+      "result": "absent"
+    },
+    {
+      "id": 20728,
+      "kind": "pgid",
+      "result": "absent"
+    }
+  ]
+}

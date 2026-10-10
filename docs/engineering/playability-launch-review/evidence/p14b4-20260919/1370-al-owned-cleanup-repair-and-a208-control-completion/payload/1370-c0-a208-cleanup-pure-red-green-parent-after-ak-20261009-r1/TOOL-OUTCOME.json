@@ -1,0 +1,54 @@
+{
+  "acceptedRoles": {
+    "actualTool": {
+      "bytes": 533,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-parent-after-ak-20261009-r1/ACTUAL-TOOL.json",
+      "sha256": "afe4e43909f370cda837b1721635c1805b5542668103036a7d8e72b6e3fcac83"
+    },
+    "helperLog": {
+      "bytes": 392,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-lane-after-ak-20261009-r1/controls.log",
+      "sha256": "f6530b9477e81a1f1ba3b6d48b7a3539d7141b899a68caa71314543ffc0d0333"
+    },
+    "helperMeta": {
+      "bytes": 336,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-lane-after-ak-20261009-r1/controls.log.meta",
+      "sha256": "0044fbc5e8e1332bdf07db30a450f75fa47cc9b2a845646ce485814847bd5ad7"
+    },
+    "result": {
+      "bytes": 933,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-output-after-ak-20261009-r1/RESULT.json",
+      "sha256": "9f901209d344c68c40087e5263cb89c57ddde6adbad93fe533a52321bef62fc6"
+    },
+    "stderr": {
+      "bytes": 0,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-output-after-ak-20261009-r1/stderr.bin",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 1791,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-output-after-ak-20261009-r1/stdout.bin",
+      "sha256": "260f22be0cf7e5c5529f6d5feac131c62687aa6454448109588511909043a472"
+    }
+  },
+  "actual17MethodControlsAccepted": false,
+  "actualExits": {
+    "child": 0,
+    "helper": 0,
+    "recorder": 0,
+    "tool": 0
+  },
+  "counts": {
+    "expectedRed": 3,
+    "green": 18,
+    "total": 21
+  },
+  "elapsedSeconds": 0.5886549040005775,
+  "game": false,
+  "ownedIdsAbsent": [
+    76827,
+    76842
+  ],
+  "status": "OBSERVED_PURE_RED_GREEN_SUCCESS_PENDING_INDEPENDENT_REVIEW",
+  "toolSession": 63410
+}

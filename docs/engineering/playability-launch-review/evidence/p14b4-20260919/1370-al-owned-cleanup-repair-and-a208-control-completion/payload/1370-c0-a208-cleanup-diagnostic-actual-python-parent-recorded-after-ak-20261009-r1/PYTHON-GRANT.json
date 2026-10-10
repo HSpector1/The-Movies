@@ -1,0 +1,142 @@
+{
+  "acPower": true,
+  "actualFocusedAdoption": {
+    "bytes": 2787,
+    "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PURE-OBSERVED-ADOPTION.json",
+    "sha256": "30ba97ac7f300fdd1badad143f684b1642eb1ff1d2951d6eead722dda31f7af4"
+  },
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-lane-after-ak-20261009-r1/controls.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/record.py",
+    "python"
+  ],
+  "bounds": {
+    "eachParentActiveSeconds": 75,
+    "eachParentChildSeconds": 60,
+    "eachParentWholeSeconds": 90,
+    "eachStreamBytes": 1048576,
+    "ownedFixtureBytes": 8388608,
+    "pythonDriverActiveSeconds": 45,
+    "pythonDriverWholeSeconds": 55
+  },
+  "config": {
+    "bytes": 17764,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/CONFIG.json",
+    "sha256": "1670a6d9ae9f16c65bbf75c4f51b2a2151740c878efd03de16d6f89ec6fea6b6"
+  },
+  "currentAkReadback": {
+    "bytes": 1162,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ak-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+    "sha256": "2c2df2e06bc1223262c71ed8f5062d65e348c6965b7f87f9757411ca9b621eaa"
+  },
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "expected": {
+    "jsGroups": 13,
+    "noChildReportValidationMethods": 3,
+    "nodeWorkers": "Native --test workers inherit the exact recorded Node PGID; no invented PID list.",
+    "outerGroupInheritedGrandchildren": 2,
+    "pythonDirectSetsidGroups": 7,
+    "pythonMethods": 14,
+    "sandboxProbesInOwnedDriverGroup": 4
+  },
+  "filledRouteReview": {
+    "bytes": 2886,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-independent-review-after-ak-20261009-r1/FILLED-RECEIPT.json",
+    "sha256": "13a404e07460a5e891d84e689b46b4e1b93d91c68b173b845fd24f46f7c43498"
+  },
+  "focusedIndependentReview": {
+    "bytes": 5249,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-independent-observed-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "201da395b40717225e3f2c5d4e0fb8871f835b6b26a44e47d34eafc57b9bc716"
+  },
+  "freeBytes": 4358299648,
+  "gamePricingOrRenewalAttributionAuthorized": false,
+  "globalWorkerAbsenceClaim": false,
+  "historicalM0Completion": {
+    "bytes": 6133,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-additive-complete-parent-adoption-after-aj-20261009-r1/ADOPTION.json",
+    "sha256": "4711b938d126a0eea67d1c81c8bb47467690cb949c3e3ff731bf646608eb34ad"
+  },
+  "jsReuseProof": {
+    "bytes": 1890,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/JS-REUSE-PROOF.json",
+    "sha256": "99f30623337c8e0e7512a4c4cceacdc5511bd23343b6c169db33ba4e0077e475"
+  },
+  "noAutomaticRetry": true,
+  "priorOwnedPidsAndPgidsFreshlyAbsent": [
+    33099,
+    33363,
+    37572,
+    37835,
+    37840,
+    37842,
+    37844,
+    37847,
+    37849,
+    37856,
+    37857,
+    37858,
+    37860,
+    37862,
+    37863,
+    44676,
+    45166,
+    45180,
+    45181,
+    45183,
+    45200,
+    65494,
+    66258,
+    73148,
+    76827,
+    76842,
+    76882
+  ],
+  "productionHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+  "recorder": {
+    "bytes": 14480,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/record.py",
+    "sha256": "4e419898da8503b7b1cb1a61d742f9ab280e586cab571eb4a1be8f9eb169649d"
+  },
+  "reusedJsObservedReview": {
+    "bytes": 5975,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-js-controls-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "1abeefa371df36fa0bad2a9cf1c435bb9ea55abe6fa78daac2d92f3a9b3ee85a"
+  },
+  "rootPidBecomesHelperPid": 94202,
+  "route": {
+    "bytes": 3557,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/ROUTE.json",
+    "sha256": "b50c80b2c897382366b6171865120305610ecaae8b1517cd0863f51487c1d5a3"
+  },
+  "schema": "1370-a208-current-ak-diagnostic-root-grant-v1",
+  "sourcePins": {
+    "bytes": 5908,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "757b3e4c74154b2fbc6d3fb2c0a7b751d263daf6645e0f933d51478a295a2d2c"
+  },
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "GRANTED_ONE_EXACT_A208_PYTHON_CLEANUP_DIAGNOSTIC_ARM",
+  "unexpectedHelperWaitIsStop": true,
+  "utc": "2026-10-09T23:04:30.000888+00:00",
+  "wrapper": {
+    "bytes": 11562,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/grant-parent.py",
+    "sha256": "e0fbd7ab24ca5175afb83917046a27459c97b4968501bde783f093c2129106ef"
+  },
+  "wrapperReview": {
+    "bytes": 2771,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-independent-review-after-ak-20261009-r1/WRAPPER-RECEIPT.json",
+    "sha256": "4c9743792689d0628a0f99b7c056b7a844a63c4b1c18f75e0db528831984e04e"
+  }
+}

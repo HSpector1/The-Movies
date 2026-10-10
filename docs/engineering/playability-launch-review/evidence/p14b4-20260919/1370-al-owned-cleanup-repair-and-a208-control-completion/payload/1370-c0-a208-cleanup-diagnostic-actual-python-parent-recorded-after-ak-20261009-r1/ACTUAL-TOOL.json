@@ -1,0 +1,19 @@
+{
+  "toolSession": 66101,
+  "chunks": [
+    {
+      "chunk_id": "9be9fb",
+      "wall_time_seconds": 1.002312172,
+      "session_id": 66101,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "53e700",
+      "wall_time_seconds": 0.00002149,
+      "exit_code": 2,
+      "original_token_count": 72,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-python-parent-recorded-after-ak-20261009-r1/PYTHON-GRANT.json\", \"bytes\": 5628, \"sha256\": \"3e71b8c6d1305869cb59880edfab0804eec2704e3944717773c3b262f1aa04d9\"}, \"rootPidBecomesHelperPid\": 94202}\n"
+    }
+  ]
+}

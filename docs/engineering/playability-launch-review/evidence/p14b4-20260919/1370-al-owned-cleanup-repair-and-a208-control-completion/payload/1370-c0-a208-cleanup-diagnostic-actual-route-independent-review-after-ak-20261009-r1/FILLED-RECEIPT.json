@@ -1,0 +1,22 @@
+{
+  "schema": "1370-a208-cleanup-diagnostic-actual-filled-independent-review/v1",
+  "decision": "ACCEPT_SOURCE_ONLY_UNRUN_A208_CLEANUP_DIAGNOSTIC_ACTUAL_ROUTE",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "sourcePinsSha256": "757b3e4c74154b2fbc6d3fb2c0a7b751d263daf6645e0f933d51478a295a2d2c",
+  "sourcePins": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-actual-route-after-ak-20261009-r1/SOURCE-PINS.json", "bytes": 5908, "sha256": "757b3e4c74154b2fbc6d3fb2c0a7b751d263daf6645e0f933d51478a295a2d2c"},
+  "implementationReview": {"path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-independent-source-review-after-ak-20261009-r1/RECEIPT.json", "bytes": 4149, "sha256": "c4379727a85453d6f73e002fa9270ae0e28bf41ad1b9de8ed23599839c741b99"},
+  "actualFocusedAdoption": {"path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PURE-OBSERVED-ADOPTION.json", "bytes": 2787, "sha256": "30ba97ac7f300fdd1badad143f684b1642eb1ff1d2951d6eead722dda31f7af4"},
+  "checks": [
+    "All fourteen listed source-file hashes/sizes and all thirty-six CONFIG roles independently verified from declared finite files; held33 roles gain exactly actualFocusedAdoption,diagnosticImplementationReview,implementationSourceAdoption.",
+    "Module8117463b and driver0a4934e6 remain exact frozen implementation bytes. Report guardbc7b714c and three-method test_reports4c6379ee are byte-identical to originals.",
+    "All eighteen observer roles, exact Node22 executable role, report argv, controls/counts/bounds equal original accepted JS1abe; authentic accepted13-group JS receipt is reused narrowly without rerun.",
+    "Actual recorder4e419898 is exact held recorder with only CONFIG_SHA1670a6d9 and fresh output-path substitutions. No other startup/cleanup/report/clock mechanism changed.",
+    "Focused30ba97 adoption binds genuine observed3RED18GREEN21, all four actual exits0 and independent201da395 acceptance; it remains pure-only and does not already grant this retry.",
+    "Historical M0 completion4711 retains AJf0fb818f; current AK2c2df2e0 readback separately binds372d15e1 and unchanged src13880d9b. Historical completion is not rewritten as current protection.",
+    "Unchanged driver45/55,parent60/75/90,1MiBstreams,8MiBfixture,sevenownedgroups,fourinheritedprobes and three+fourteen assertions retained. Fresh parent/lane/output/fixture and heavy lock absent during review."
+  ],
+  "findings": [],
+  "scope": "Source-only exact Python diagnostic arm; separate root once-only grant and independent actual outcome required. No game/pricing/renewal/P17/P18 authority; original failure and unknown real EPERM/alarm cause preserved.",
+  "reviewMethod": "Read/hash/compare declared finite source and JSON authority roles only; no candidate import/execution, Git, process probes or whole scans."
+}

@@ -1,0 +1,22 @@
+{
+  "actualExecutionGranted": false,
+  "candidate": {
+    "bytes": 9553,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r1/owned_cleanup.py",
+    "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+  },
+  "heldRecorder": {
+    "bytes": 14814,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-recorder-source-proposal-after-ak-20261009-r1/record.py",
+    "sha256": "46f7dfba363550004e09b3ca2756451dd9c00ccbb6b8ded1dc91a2c41eb9d073"
+  },
+  "originalFailureStillFailed": true,
+  "realEpermCauseUnknown": true,
+  "review": "Root independently inspected complete module/tester/recorder diff/report protocol. Original RED uses AST hard_kill only; fake calls,3expectedRED+18GREEN; bounds20/25/30 and64KiB. Original driver+17method actualroute unchanged. No parent acceptance bypass identified.",
+  "status": "ROOT_ACCEPTED_SOURCE_ONLY_PURE_CLEANUP_FAULT_CONTROLS",
+  "tester": {
+    "bytes": 18788,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-independent-red-design-after-ak-20261009-r1/controls.py",
+    "sha256": "5acc6a49004a2021e35bc93164754accfce1f8180f40290579c78c60d3dbf328"
+  }
+}

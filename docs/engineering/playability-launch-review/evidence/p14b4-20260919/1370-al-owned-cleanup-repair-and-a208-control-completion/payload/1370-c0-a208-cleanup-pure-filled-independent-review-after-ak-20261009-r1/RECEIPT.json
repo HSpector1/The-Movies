@@ -1,0 +1,36 @@
+{
+  "schema": "1370-a208-cleanup-pure-filled-independent-source-review/v1",
+  "decision": "ACCEPT_SOURCE_ONLY_PURE_CLEANUP_FILLED_ROUTE_AND_WRAPPER",
+  "sourcePinsSha256": "8099500ec4942bbf25a0fcbb49213a5420017e2c7c4e0c4726059019d7fca795",
+  "wrapper": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/launch.py",
+    "bytes": 3302,
+    "sha256": "5a97d231bc304388e7295f61ba027dfe55811fa5703c064b9a7f8007957d7dbd"
+  },
+  "executionOccurred": false,
+  "executionGrantedByThisReview": false,
+  "currentRefsVerifiedReadOnly": {
+    "headAndAdvertisedWorkingBranch": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+    "headSrc": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+    "localOriginMain": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "productionWorkingTreeClean": true
+  },
+  "verified": [
+    "All seven filled file hashes match SOURCE-PINS; pins and3302B wrapper match root-supplied exact identities.",
+    "Candidate8117463b, tester5acc6a49, original7c29cf7c, physical Python7673432d and existing helperaff8e974 hashes match filled config.",
+    "Filled recorder differs from held recorder only by CONFIG_SHA replacement to215fcae2; report guard212d42e1 unchanged.",
+    "Original source is never imported: tester compiles only authenticated hard_kill AST against synthetic callbacks. Exact3expectedRED+18GREEN21case schema and bounded oneJSONline gate agree with sealed tester.",
+    "Wrapper authenticates exact receipt/self/pins/roles; requires current cleanHEAD/src and advertised working branch, absent heavy lock, AC/free-space checks and fresh parent/lane/output before one helper launch.",
+    "Parent/lane/output and HEAVY-LANE-LOCK were absent during source review; launcher rechecks at actual grant.",
+    "One recorder-owned tester child uses READY/GO ownership-before-exec and isolated pinned Python; child20/active25/whole30,64KiBstreams,16KiBreport preserved.",
+    "Recorder keeps timer through cleanup/artifact writes/finalization, requires actualchild0, exact producer schema and all clock/clearance gates; nonzero and override invalidate stale candidate artifacts.",
+    "Existing helper admission/lock safeguards remain unchanged; thirty-second bound is recorder lifetime, not an invented total helper-admission duration."
+  ],
+  "scopeLimits": [
+    "This receipt permits source adoption and a separately granted once-only pure control launch; it is not an execution outcome.",
+    "No original seventeen-method diagnostic retry, Node/game/scientific route, pricing, renewal cause or P17/P18 acceptance follows.",
+    "Original actual Python failure remains STOP; exact real EPERM target, host cause and alarm relation remain unknown.",
+    "No source/runtime tests, signals, process probes, production/Git/mirror mutation were performed by this review."
+  ],
+  "materialDefectsFound": []
+}

@@ -1,0 +1,240 @@
+{
+  "game": false,
+  "globalWorkerAbsenceClaim": false,
+  "heavyLaneLockAbsent": true,
+  "ownedIdsAbsent": [
+    50183,
+    50448,
+    50454,
+    50456,
+    50460,
+    50462,
+    50464,
+    50469,
+    50470,
+    50471,
+    50472,
+    50474,
+    50475
+  ],
+  "protectedRootAfter": {
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git": [
+      16777220,
+      157454052,
+      16877,
+      1791475054920875233,
+      1791475054920875233
+    ],
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git/objects": [
+      16777220,
+      157454083,
+      16877,
+      1791493320461260435,
+      1791493320461260435
+    ],
+    "/Users/zacheryspector/The-Movies-headless-program": [
+      16777220,
+      158484765,
+      16877,
+      1791471316296107826,
+      1791471316296107826
+    ],
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules": [
+      16777220,
+      158487026,
+      16877,
+      1790738039503311431,
+      1790738039503311431
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1": [
+      16777220,
+      166568330,
+      16832,
+      1791498505800985629,
+      1791498505800985629
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git": [
+      16777220,
+      166568331,
+      16832,
+      1791498505730619861,
+      1791498505730619861
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1": [
+      16777220,
+      166418911,
+      16832,
+      1791462534662274730,
+      1791462534662274730
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2": [
+      16777220,
+      166751332,
+      16832,
+      1791577446298737027,
+      1791577446298737027
+    ]
+  },
+  "protectedRootMetadataEqual": true,
+  "schema": "1370-root-bounded-postflight/v1",
+  "status": "RECORDED_OWNED_IDS_ABSENT_AND_EIGHT_ROOT_METADATA_EQUAL",
+  "utc": "2026-10-09T23:54:52.492570+00:00",
+  "zeroSignalChecks": [
+    {
+      "id": 50183,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50183,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50448,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50448,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50454,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50454,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50456,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50456,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50460,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50460,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50462,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50462,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50464,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50464,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50469,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50469,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50470,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50470,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50471,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50471,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50472,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50472,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50474,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50474,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50475,
+      "kind": "pid",
+      "result": "ESRCH",
+      "signal": 0
+    },
+    {
+      "id": 50475,
+      "kind": "pgid",
+      "result": "ESRCH",
+      "signal": 0
+    }
+  ]
+}

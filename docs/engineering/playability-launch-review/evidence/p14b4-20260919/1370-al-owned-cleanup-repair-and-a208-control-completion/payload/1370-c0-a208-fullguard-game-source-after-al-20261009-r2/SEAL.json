@@ -1,0 +1,13 @@
+{
+  "actualRuntimeGrant": null,
+  "allFilesMode": "0444",
+  "directoryMode": "0555",
+  "executionAuthorization": false,
+  "files": 16,
+  "schema": "1370-source-only-immutable-seal/v1",
+  "sourcePins": {
+    "bytes": 4886,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-fullguard-game-source-after-al-20261009-r2/SOURCE-PINS.json",
+    "sha256": "e7fe2bef4cc0e7ff1695c91b821860e4ec568d543c10dcd3f68205531d155c41"
+  }
+}

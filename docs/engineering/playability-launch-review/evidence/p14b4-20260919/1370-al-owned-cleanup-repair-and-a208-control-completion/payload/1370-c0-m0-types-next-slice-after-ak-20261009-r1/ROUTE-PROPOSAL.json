@@ -1,0 +1,84 @@
+{
+  "actualGrant": null,
+  "allCwd": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+  "boundsBytes": {
+    "collection": 1048576,
+    "eachChildStream": 8388608,
+    "guardStreams": 2097152,
+    "recorderResult": 100000,
+    "runnerResult": 131072
+  },
+  "boundsSeconds": {
+    "recorderActive": 320,
+    "recorderWhole": 330,
+    "wholeRunner": 300
+  },
+  "collectionRunsGame": false,
+  "commands": [
+    {
+      "argv": [
+        "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-next-slice-after-ak-20261009-r1/check-deps.mjs",
+        "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+        "/Users/zacheryspector/The-Movies-headless-program",
+        "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+      ],
+      "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+      "executionAuthorization": false,
+      "name": "dependency-versions",
+      "runtimeRole": "Existing H13 Node22 pattern only; future M0 launch must independently pin tool bytes/PATH and dependency-link target."
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+        "--noEmit"
+      ],
+      "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+      "executionAuthorization": false,
+      "name": "root-tsc"
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/tsc",
+        "-p",
+        "ui/tsconfig.json",
+        "--noEmit"
+      ],
+      "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+      "executionAuthorization": false,
+      "name": "ui-tsc"
+    },
+    {
+      "argv": [
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules/.bin/vitest",
+        "list",
+        "tests/diagnostic.test.ts",
+        "--project",
+        "core",
+        "--json",
+        null,
+        "--no-cache"
+      ],
+      "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2",
+      "executionAuthorization": false,
+      "extraEnvironment": {
+        "PREIMAGE_OUTPUT": null
+      },
+      "name": "diagnostic-collection"
+    }
+  ],
+  "diskFloorBytes": 3221225472,
+  "diskPreflightBytes": 3758096384,
+  "executionAuthorization": false,
+  "executorPath": null,
+  "noHReplay": true,
+  "noRematerialization": true,
+  "oneRecordedHeavyLane": true,
+  "requiresFreshRuntimeFill": true,
+  "schema": "1370-m0-types-four-command-held-route/v1",
+  "sourceReusableChecker": {
+    "bytes": 1918,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-types-next-slice-after-ak-20261009-r1/check-deps.mjs",
+    "sha256": "e61f6a88614eac49fcec3f326c162e4d44d75ea2999b6751581e30e7685b6a64"
+  }
+}

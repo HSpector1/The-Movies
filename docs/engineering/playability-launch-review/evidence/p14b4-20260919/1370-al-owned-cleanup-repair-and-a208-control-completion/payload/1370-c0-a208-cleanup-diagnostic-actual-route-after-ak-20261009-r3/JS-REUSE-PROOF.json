@@ -1,0 +1,33 @@
+{
+  "actualJsArgv": [
+    "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+    "--test",
+    "--test-reporter=tap",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-synthetic.mjs",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-settlement208-observer-after-aj-proposal-20261009-r1/test-settlement208.mjs"
+  ],
+  "actualJsReview": {
+    "bytes": 5975,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-js-controls-independent-observed-review-after-aj-20261009-r1/RECEIPT.json",
+    "sha256": "1abeefa371df36fa0bad2a9cf1c435bb9ea55abe6fa78daac2d92f3a9b3ee85a"
+  },
+  "executionAuthorization": false,
+  "historicalPinsSha256": "8e3d9c290e07e9f4be06fac3c0b31aa1d371e4dc6fd9976455135c348582d1c5",
+  "nodeExactEqual": true,
+  "observer18ExactRolesEqual": true,
+  "originalConfig": {
+    "bytes": 15164,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/CONFIG.json",
+    "sha256": "09a59741bdb24e8641ca82e2ac4ee1aa95bde7c82bf779603aface088c0f6afb"
+  },
+  "originalRecorder": {
+    "bytes": 14474,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-finite-recorded-controls-node22-filled-source-after-aj-20261009-r1/record.py",
+    "sha256": "3767643eff8348e7bf132e6eee3be132747e96b581d7f916d48964bf8f9d8ddb"
+  },
+  "relevantJsRecorderMechanisms": "Original owned startup/READY/GO, sanitized env, deadlines/caps/cleanup/strict JS validator remain byte-identical in historical accepted JS route. Fresh actual Python recorder changes only CONFIG_SHA/output-mode-path; new driver changes only Python arm.",
+  "reportGuardByteIdentity": true,
+  "reusedJsReceiptUnchanged": true,
+  "schema": "1370-a208-js-exact-reuse-comparison-v1",
+  "status": "SOURCE_COMPARISON_ONLY_REQUIRES_PARENT_EXACT_REVIEW"
+}

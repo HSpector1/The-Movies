@@ -1,0 +1,34 @@
+{
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-lane-after-ak-20261009-r1/controls.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/record.py",
+    "pure"
+  ],
+  "bounds": {
+    "activeSeconds": 25,
+    "childSeconds": 20,
+    "eachStreamBytes": 65536,
+    "wholeSeconds": 30
+  },
+  "cwd": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1",
+  "diagnosticActual17MethodRetry": false,
+  "game": false,
+  "independentReview": {
+    "bytes": 2885,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-filled-independent-review-after-ak-20261009-r1/RECEIPT.json",
+    "sha256": "1c651780bf478ae90362067e31c93d212de98b3f581acdab790de848d906c630"
+  },
+  "sourcePins": {
+    "bytes": 1933,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-pure-red-green-filled-after-ak-20261009-r1/SOURCE-PINS.json",
+    "sha256": "8099500ec4942bbf25a0fcbb49213a5420017e2c7c4e0c4726059019d7fca795"
+  },
+  "status": "ROOT_ONCE_ONLY_PURE_CLEANUP_CONTROLS_GRANTED",
+  "utc": "2026-10-09T22:57:21.662983+00:00"
+}

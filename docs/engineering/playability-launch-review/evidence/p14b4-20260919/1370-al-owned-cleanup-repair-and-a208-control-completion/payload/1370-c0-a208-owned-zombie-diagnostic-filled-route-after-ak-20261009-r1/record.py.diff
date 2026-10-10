@@ -1,0 +1,28 @@
+--- /Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-proposal-after-ak-20261009-r1/record.py
++++ /Users/zacheryspector/studio-scratch/1370-c0-a208-owned-zombie-diagnostic-filled-route-after-ak-20261009-r1/record.py
+@@ -5,8 +5,8 @@
+ """
+ import datetime,hashlib,importlib.util,json,os,pathlib,selectors,select,signal,stat,sys,time
+ HERE=pathlib.Path(__file__).resolve().parent;SCRATCH=pathlib.Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='aaf4eb3a20e7f98ec8b3a3b555a7d1f3d98abdff9de2ebe4286659a1efaa3d99';CAP=65536;CHILD=20;ACTIVE=25;WHOLE=30
+-OUTPUTS={'probe':SCRATCH/'1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r1'}
++CONFIG_SHA='ac008273dc6c4013eb9ccd211b19792190f26f66a17accbdb97aaeb54ae2b48c';CAP=65536;CHILD=20;ACTIVE=25;WHOLE=30
++OUTPUTS={'probe':SCRATCH/'1370-c0-a208-owned-zombie-diagnostic-output-after-ak-20261009-r2'}
+ def require(v,m):
+  if not v:raise RuntimeError('STOP_'+m)
+ def sha(b):return hashlib.sha256(b).hexdigest()
+@@ -179,12 +179,12 @@
+  owned={};pipes=[];sel=None;output=None;buffers={'stdout':bytearray(),'stderr':bytearray()};child=None;child_started=None;failure=None;mode=None;groupclear=True;timedout=False
+  try:
+   require(sys.dont_write_bytecode and not sys.flags.optimize,'PYTHON_B_REQUIRED');require(len(sys.argv)==2 and sys.argv[1] in OUTPUTS,'EXACT_MODE');mode=sys.argv[1]
+-  configraw=(HERE/'CONFIG.json').read_bytes();require(sha(configraw)==CONFIG_SHA,'CONFIG_HASH');config=json.loads(configraw);require(config.get('status')=='REVIEWED_FILLED_UNRUN' and isinstance(config.get('runtimeGrant'),dict),'ZERO_PROBE_SOURCE_BINDING_UNFILLED');require(isinstance(config.get('probe'),dict),'PROBE_ROLE_UNFILLED')
++  configraw=(HERE/'CONFIG.json').read_bytes();require(sha(configraw)==CONFIG_SHA,'CONFIG_HASH');config=json.loads(configraw);require(config.get('status')=='FILLED_SOURCE_ONLY_UNRUN' and config.get('actualGrantAndReviewOutsideConfig') is True,'ZERO_PROBE_SOURCE_BINDING_UNFILLED');require(isinstance(config.get('probe'),dict),'PROBE_ROLE_UNFILLED')
+   for role in [*config['roles'].values(),config['probe']]:authenticate(role['path'],role['sha256'],16*1024**2);whole_guard(end)
+   spec=importlib.util.spec_from_file_location('exact_a208_reports',config['roles']['reportGuard']['path']);report_guard=importlib.util.module_from_spec(spec);spec.loader.exec_module(report_guard);whole_guard(end)
+   authenticate(config['pythonPath'],config['pythonSha256']);require(os.access(config['pythonPath'],os.X_OK),'PYTHON_EXECUTABLE');active_guard(started)
+   output=OUTPUTS[mode];require(output.parent==SCRATCH and SCRATCH.resolve(strict=True)==SCRATCH and not os.path.lexists(output),'ABSENT_OWNED_OUTPUT');output.mkdir(mode=0o700)
+-  argv=[config['pythonPath'],'-I','-B',config['probe']['path'],'probe']
++  argv=[config['pythonPath'],'-I','-B',config['probe']['path'],'probe',config['ownedRegistry']]
+   out_read,out_write=os.pipe();pipes.extend([out_read,out_write]);err_read,err_write=os.pipe();pipes.extend([err_read,err_write])
+   child_started=time.monotonic() # 20 starts before fork or GO permits execution.
+   start_owned(argv,str(HERE),child_environment(),out_write,err_write,owned)

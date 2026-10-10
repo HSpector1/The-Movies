@@ -1,0 +1,222 @@
+{
+  "actualExecutionGranted": false,
+  "actualGrantAndReviewOutsideConfig": true,
+  "bounds": {
+    "activeSeconds": 25,
+    "childSeconds": 20,
+    "eachStreamBytes": 65536,
+    "wholeSeconds": 30
+  },
+  "candidateDriver": {
+    "bytes": 13089,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/drive.py",
+    "sha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678"
+  },
+  "candidateModule": {
+    "bytes": 9553,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/owned_cleanup.py",
+    "sha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15"
+  },
+  "currentOperationalRefs": {
+    "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "productionHead": "372d15e1ae53b898be2cf633a6bb8bb0058cb01f",
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+  },
+  "directRecorderInvocationGranted": false,
+  "executionAuthorization": false,
+  "expected": {
+    "cases": [
+      {
+        "name": "old-order-exited-unreaped-EPERM",
+        "status": "EXPECTED_RED"
+      },
+      {
+        "name": "pre-reap-completed-ESRCH-skip",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-live-child-existing-kills",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-leader-descendants-live",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-already-reaped-no-wait",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-wait-error-sticky-continue",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-group-EPERM-sticky-continue",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-mismatched-wait-refused",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-malformed-wait-refused",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-status-conversion-refused",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-deadline-precedence",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-owned-boundaries",
+        "status": "GREEN_PASS"
+      },
+      {
+        "name": "pre-reap-diagnostic-cap-sticky",
+        "status": "GREEN_PASS"
+      }
+    ],
+    "cli": [
+      "candidateDrivePath",
+      "candidateSHA",
+      "modulePath",
+      "moduleSHA",
+      "baselineR2DrivePath",
+      "baselineSHA"
+    ],
+    "exactTopLevelKeys": [
+      "schema",
+      "status",
+      "expectedRed",
+      "observedRed",
+      "expectedGreen",
+      "observedGreen",
+      "caseCount",
+      "cases",
+      "candidateSha256",
+      "moduleSha256",
+      "baselineSha256",
+      "driverTopLevelImported",
+      "realSignals",
+      "game",
+      "moduleUnchanged",
+      "r2TailUnchanged",
+      "failure"
+    ],
+    "exitCode": 0,
+    "guardRequirements": [
+      "Reject duplicate JSON keys, non-object, extra or missing keys, extra/missing/reordered rows, wrong exact row keys/name/status.",
+      "Require exact type int for all five count fields (bool rejected); booleans are exact false/true as specified.",
+      "Require complete JSON plus child0, helper0 and recorder0; no successful artifact can override an actual route failure.",
+      "Retain existing 20s child,25s helper,30s recorder bounds,64KiB recorder stdout/stderr caps and owned READY/GO cleanup."
+    ],
+    "noOptimize": true,
+    "pythonFlags": [
+      "-I",
+      "-B"
+    ],
+    "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "required": {
+      "baselineSha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07",
+      "candidateSha256": "5d03807a6a61694c87ebaa6a13094246cba880392ee76a41f38582d62ed5b678",
+      "caseCount": 13,
+      "driverTopLevelImported": false,
+      "expectedGreen": 12,
+      "expectedRed": 1,
+      "failure": null,
+      "game": false,
+      "moduleSha256": "8117463b6ecd6aa57dd5b34a6ad1ee50f8d9a82197b13659bed0f489a6ad2a15",
+      "moduleUnchanged": true,
+      "observedGreen": 12,
+      "observedRed": 1,
+      "r2TailUnchanged": true,
+      "realSignals": false,
+      "schema": "a208-independent-pre-reap-controls/v1",
+      "status": "PRE_REAP_CONTROLS_PASS"
+    },
+    "rowExactKeys": [
+      "name",
+      "status"
+    ],
+    "stderrBytes": 0,
+    "stdout": "Exactly one UTF-8 JSON object followed by one newline; no other bytes.",
+    "stdoutMaximumBytesIncludingNewline": 12289
+  },
+  "originalDriver": {
+    "bytes": 11349,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r2/drive.py",
+    "sha256": "73519d8146d44b7076dcd73188baaf57743e27076198f4d3cb6d31bcb04fae07"
+  },
+  "protectedRoots": [
+    "/Users/zacheryspector/The-Movies-headless-program",
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git",
+    "/Users/zacheryspector/The Movies - Unity Production Convergence 80H/.git/objects",
+    "/Users/zacheryspector/The-Movies-headless-program/node_modules",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-sparse-materialized-r6-20261008-r1/.git",
+    "/Users/zacheryspector/studio-scratch/1370-c0-h-m0-observer-mirrors-r2/20261008-h-types-r1",
+    "/Users/zacheryspector/studio-scratch/1370-c0-m0-observer-mirrors-20261009-r2/20261009-m0-types-r2"
+  ],
+  "protectionScope": "Bounded physical directory identity/mode/mtime/ctime before and after; no inventory, content scan or continuity claim across docs publication",
+  "pythonPath": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+  "pythonSha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835",
+  "roles": {
+    "candidateDiagnosticSourcePins": {
+      "bytes": 5937,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-cleanup-diagnostic-source-after-ak-20261009-r3/SOURCE-PINS.json",
+      "sha256": "2d05274d9f284d424e13594b940612f84b199467d2494a652d0620692e6a8aa0"
+    },
+    "candidateImplementationReview": {
+      "bytes": 5018,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-driver-independent-source-review-after-ak-20261009-r1/RECEIPT.json",
+      "sha256": "dcb0f61baa80cd51406d4783e7806224d07c9ef52f1beb6c0a3e6f12a4334c28"
+    },
+    "helper": {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "python": {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "recorderSourceTemplatePins": {
+      "bytes": 6510,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-driver-integration-recorded-route-after-ak-20261009-r1/SOURCE-PINS.json",
+      "sha256": "826f3dfe20387d89467a08945b3928ec160f0124af9c3341a0b21bbaca92f6cf"
+    },
+    "reportGuard": {
+      "bytes": 3075,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-focused-recorded-route-after-ak-20261009-r1/report_guard.py",
+      "sha256": "7cd80acc71caca0acee009e15c2a0c90701d19be010627dcb20e2bfa94785b1c"
+    },
+    "rootImplementationAdoption": {
+      "bytes": 2933,
+      "path": "/Users/zacheryspector/studio-scratch/1370-al-root-continuation-20261009-r1/PRE-REAP-IMPLEMENTATION-ADOPTION.json",
+      "sha256": "779242c3965b1c1e949d0a87927412f6b475f849618abeb29f299eb5d35a3e71"
+    },
+    "testerDesign": {
+      "bytes": 10043,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-independent-controls-after-ak-20261009-r1/DESIGN.json",
+      "sha256": "93c52d7e4ebc1cca269e586bd3688ef16226d47e60fa1cdb402d7442bfd9e107"
+    },
+    "testerSourceReceipt": {
+      "bytes": 2685,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-independent-controls-after-ak-20261009-r1/RECEIPT.json",
+      "sha256": "8476254711049bd4691aabd6a695941b4ad1607ca91691a69be3c143b8fc37c1"
+    }
+  },
+  "rootSourceOnlyReview": null,
+  "runtimeGrant": null,
+  "schema": "1370-a208-pre-reap-focused-config/v1",
+  "status": "FILLED_SOURCE_ONLY_UNRUN",
+  "tester": {
+    "bytes": 20888,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-a208-pre-reap-independent-controls-after-ak-20261009-r1/controls.py",
+    "sha256": "fc835a82b2071b64840711e3fb5a334e3dc25ba531ef2d67ce041aff40c4ea68"
+  }
+}
