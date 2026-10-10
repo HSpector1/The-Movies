@@ -1,0 +1,249 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/r8
+
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > publicPriorityOrder is the WIDENED companion order (opportunity and trust inserted; relationships restored by P14B.5) for both archetypes, byte-equal
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > publicPreferredTerm is unchanged by the widening: proven -> longest catalogue term, unproven -> shortest
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > trustDescriptor: all-positive facts read Reliable; a genuine negative driver (a real early termination) never reads Reliable — the exact Mixed/Distrusted boundary is OPEN and not pinned
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case 5266ms
+ × |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals 10550ms
+   → expected 'compensation' to be 'opportunity' // Object.is equality
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape 2064ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing) 2590ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > the FIRST natural rival proposal carries exactly one promise iff an ORIGINAL authoring read is REASONABLY_ACHIEVABLE — the flexible P2 read first for an unproven person, the P1 read alone for a proven one — with exact proposal/root/receipt joins 16486ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > genuine Save45 week195 import: current rival authoring preserves the first writer IFF, the first actor positive (P1 if proven, flexible P2 if unproven), and an actual non-achievable zero-attachment witness for a proven person (unproven branches: open coverage finding above) 18089ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > a rival first take satisfies a promise exactly as a player one does — found by direct search over the natural chain (never a magic week) 1382ms
+ ✓ |core| tests/p14b1-trust-chooser.test.ts > P14B.1 test 7: rival symmetry > a rival Distrusted issuer / Reliable-vs-Mixed comparison reads through the SAME trustDescriptor accessor for a rival studioId as for the player
+ ✓ |core| tests/p14r3-rival-release.test.ts > P14 1305-C R3: rival early release — decision and effects (happy path, all four strategy conditions hold) > releases the synthetic-surplus employee exactly at the tested week: charge, movement, end receipt, ordinal removal, freeAgents, signability 3750ms
+ ✓ |core| tests/p14r3-rival-release.test.ts > P14 1305-C R3: one leaf per failed strategy condition keeps the person > condition (b) fails — 26 or fewer weeks remain (still outside the 12-week renewal window): the person is kept 14249ms
+ ✓ |core| tests/p14r3-rival-release.test.ts > P14 1305-C R3: one leaf per failed strategy condition keeps the person > condition (a) fails — seated on the rival's own active production keeps the person (bounded natural search, weeks 1..150, NOT the synthetic rewrite) 974ms
+ ✓ |core| tests/p14r3-rival-release.test.ts > P14 1305-C R3: Scientists are never R3-surplus > a rival with employed Scientists and no surplus team-role employee releases nobody (natural world, no synthetic rewrite) 20612ms
+ ✓ |core| tests/p14r3-rival-release.test.ts > P14 R3 and recovery: natural role targets and accounted cutting releases > keeps role targets and accounts for every lawful cutting release across weeks 1..150 11387ms
+stdout | tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new replacement with an observed ordinary positive control
+1368_LOWMARKET_RESEARCH277 {"seed":"p15a1-w2-market-01","origin":"public-migration260","nullIndustryTicks":260,"paidLabWeek":260,"paidInstrumentWeek":272,"ordinaryIndustryTicks":17,"inputWeek":277,"controlWeek":278,"noQuoteOverride":true,"baseMarketValue":23554590.49809724,"genesisMarketAndEraPreserved":true,"facts":[{"studioId":"studio-ff9bdb2b-r01","since":null,"nextDecisionWeek":277,"productions":0,"runs":0,"proposals":0,"cash":22895819,"reserve":1240616,"wholeInputDemand":4,"replacementContracts":["studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-6:277","studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-7:277","studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-8:277","studio-ff9bdb2b-r01:contract:person-studio-ff9bdb2b-r01-supply-277-9:277"],"newProjects":1,"newSeats":4},{"studioId":"studio-ff9bdb2b-r02","since":null,"nextDecisionWeek":277,"productions":0,"runs":0,"proposals":0,"cash":19577645,"reserve":1935036,"wholeInputDemand":4,"replacementContracts":[],"newProjects":0,"newSeats":0},{"studioId":"studio-ff9bdb2b-r03","since":null,"nextDecisionWeek":277,"productions":0,"runs":0,"proposals":0,"cash":13715995,"reserve":2045080,"wholeInputDemand":4,"replacementContracts":[],"newProjects":0,"newSeats":0},{"studioId":"studio-ff9bdb2b-r04","since":null,"nextDecisionWeek":277,"productions":0,"runs":1,"proposals":0,"cash":10078550.22182101,"reserve":1585635,"wholeInputDemand":4,"replacementContracts":[],"newProjects":0,"newSeats":0}]}
+
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > below reserve
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > exact reserve alone
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > commission package entirely unaffordable
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > writer vacancy refused at staff cash gate
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > team vacancy refused at staff cash gate
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > failed renewal is not a vacancy
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > unrelated Scientist vacancy cash refusal
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > noncash staffing block
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > hold above reserve
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > busy writer above reserve
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > economic refusal alone
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full-index reason without evaluated screenplay evidence
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full index all genuinely cash-bound
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full index cash and cash-caused staffing
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full index one economic rejection
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > full index noncash staffing
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > no decision opportunity
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > a production
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > a run
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > drafting or rewriting work
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > greenlit this decision
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > commissioned this decision
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B1: all three entry conditions, independently supplied evidence > the separately retained legacy reserve-plus-one staffing setup enters cutting 3249ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > accepts equality but refuses a one-dollar payback shortfall even when reserve passes
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > retains the separate R3 reserve guard when payback itself passes
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects productionSeat independently
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects writingSeat independently
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects unreleasedResearchSeat independently
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects openPromise independently
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects a contract with 0 weeks remaining
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects a contract with 1 weeks remaining
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > protects a contract with 26 weeks remaining
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > the pure release guard has no profession exclusion; a research seat protects the same facts
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > retains a genuinely occupied writing seat while cutting 2172ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B3/B4: independent release arithmetic and binding exclusions > releases in employment order with recomputed cash/cost and exact receipts, payroll and free agency 1162ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2/B5: Part B restrictions and no inflow, separate from disposal > does not rehire next week, create positive money, remove plant or discard history 701ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B7/B8 and the direct live profession proof > a real ordinary greenlight clears cutting; the release policy is isolated as a refusal control 1315ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B7/B8 and the direct live profession proof > direct profession proof accepts a valid cutting state without relying on tick swallowing a refusal 438ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B7/B8 and the direct live profession proof > has no player cost-cutting field or player termination effect 309ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B7/B8 and the direct live profession proof > never invokes recovery policy in a genuine hollywood-null world
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > sets new Scientist staffing demand to zero with a real positive demand control 4231ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new renewal with an observed ordinary positive control 41436ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new replacement with an observed ordinary positive control 58755ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new laboratoryPlan with an observed ordinary positive control 660ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new adoption with an observed ordinary positive control 28517ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new project with an observed ordinary positive control 578ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > blocks a new seat with an observed ordinary positive control 524ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: positive controls for staffing, research and technology restrictions > continues an already active, already seated research project and pays its work 3684ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: every market case, including the extension bypass > expiryNew refuses new proposals and withdraws existing proposals before settlement 38914ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: every market case, including the extension bypass > extensionNew refuses new proposals and withdraws existing proposals before settlement 2012ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: every market case, including the extension bypass > expiryWithdraw refuses new proposals and withdraws existing proposals before settlement 467ms
+ ✓ |core| tests/p14d2-rival-cost-cutting.test.ts > 1363 B2: every market case, including the extension bypass > extensionWithdraw refuses new proposals and withdraws existing proposals before settlement 1780ms
+stdout | tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C5 disposal at the actual operational boundary owes zero laboratory operating weeks
+1368_C_OPERATIONAL_WITNESS {"week":208,"studioId":"studio-aca408ec-r01","facilityId":"studio-aca408ec-r01:laboratory:0","entryKind":"explicit-synthetic-since208","naturalSince":null}
+
+stdout | tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C bounded natural route observation > records actual autonomous refunds or explicitly reports zero through week 520
+1363-C-natural-observation {"seed":"p13a-core-causal-01","throughWeek":520,"actualDisposals":[{"kind":"facilityDisposed","week":91,"studioId":"studio-aca408ec-r04","facilityId":"studio-aca408ec-r04:laboratory:0","planId":"studio-aca408ec-r04:plan:1","blueprintId":"research-laboratory","refund":450000,"eventId":"industry-event-142"},{"kind":"facilityDisposed","week":195,"studioId":"studio-aca408ec-r03","facilityId":"studio-aca408ec-r03:laboratory:0","planId":"studio-aca408ec-r03:plan:1","blueprintId":"research-laboratory","refund":450000,"eventId":"industry-event-201"},{"kind":"facilityDisposed","week":278,"studioId":"studio-aca408ec-r01","facilityId":"studio-aca408ec-r01:laboratory:1","planId":"studio-aca408ec-r01:plan:3","blueprintId":"research-laboratory","refund":450000,"eventId":"industry-event-269"}],"disposition":"OBSERVED_REFUNDS: inspect actual history and full acceptance gates before claiming recovery"}
+
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C1 real paid bare body: exact shared refund, only backed movement and receipt, no input mutation 2322ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C2 four exact protected core IDs refuse on otherwise admitted cutting state 2551ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C2 player, unknown owner, foreign body, unknown body and non-cutting refusals are precise 4407ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C3 genuine admitted unfinished body refuses before it becomes operational 1166ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C3 real admitted instrument protects its target before completion (bounded week 261 premise) 26230ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C4 actual retained research reference protects its laboratory (accepted original45 idle witness) 3576ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C5 disposal at accepted ordinary boundary stops only this body opex before next booking 3224ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C5 disposal at accepted calendar boundary stops only this body opex before next booking 4336ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C5 disposal at the actual operational boundary owes zero laboratory operating weeks 20371ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C6 explicit retry refuses; policy and completion cannot rematerialize or repay the retained started plan 10494ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: wrong-refund 1731ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: wrong-blueprint 1986ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: future-disposal 2029ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: missing-body-plan 2517ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: wrong-owner 2046ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: wrong-body 2763ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: duplicate-disposal 2261ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: refund-movement-mismatch 1932ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 synthetic single-field authority mutant: negative-refund-movement 1841ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C7 standing-and-disposed and missing tombstone cannot hide behind valid prior history 1940ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > C9 refund alone preserves cutting and does not create a hire, commission or production 1736ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > S6 direct live profession proof retains the actual refund, missing body and disposal receipt 1801ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C: admitted synthetic policy-state controls over genuine plant > S5 empty live-46 down/up control is lossless; it is not the required genuine pre-amendment capture 764ms
+ ✓ |core| tests/p14d2-rival-facility-disposal.test.ts > 1363-A2 Part C bounded natural route observation > records actual autonomous refunds or explicitly reports zero through week 520 18665ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > adds only null/zero to p13a-week-0.save45.json.gz, preserving all old facts, detached and idempotent 2271ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > adds only null/zero to p13a-week-53.save45.json.gz, preserving all old facts, detached and idempotent 2785ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > validates the predecessor before up-migration and the full current save before any authority refusal 386ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV4 handles empty recovery through exactly the existing predecessor law 750ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV5 handles empty recovery through exactly the existing predecessor law 875ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV6 handles empty recovery through exactly the existing predecessor law 720ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV7 handles empty recovery through exactly the existing predecessor law 644ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV8 handles empty recovery through exactly the existing predecessor law 673ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV9 handles empty recovery through exactly the existing predecessor law 769ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV10 handles empty recovery through exactly the existing predecessor law 945ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV11 handles empty recovery through exactly the existing predecessor law 877ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV12 handles empty recovery through exactly the existing predecessor law 1082ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV13 handles empty recovery through exactly the existing predecessor law 762ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV14 handles empty recovery through exactly the existing predecessor law 858ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV15 handles empty recovery through exactly the existing predecessor law 906ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV16 handles empty recovery through exactly the existing predecessor law 889ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV17 handles empty recovery through exactly the existing predecessor law 936ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV18 handles empty recovery through exactly the existing predecessor law 910ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV19 handles empty recovery through exactly the existing predecessor law 853ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV20 handles empty recovery through exactly the existing predecessor law 828ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV21 handles empty recovery through exactly the existing predecessor law 837ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV22 handles empty recovery through exactly the existing predecessor law 780ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV23 handles empty recovery through exactly the existing predecessor law 787ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV24 handles empty recovery through exactly the existing predecessor law 828ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV25 handles empty recovery through exactly the existing predecessor law 717ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV26 handles empty recovery through exactly the existing predecessor law 648ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV27 handles empty recovery through exactly the existing predecessor law 1100ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV28 handles empty recovery through exactly the existing predecessor law 959ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV29 handles empty recovery through exactly the existing predecessor law 839ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV30 handles empty recovery through exactly the existing predecessor law 855ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV31 handles empty recovery through exactly the existing predecessor law 756ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV32 handles empty recovery through exactly the existing predecessor law 788ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV33 handles empty recovery through exactly the existing predecessor law 770ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV34 handles empty recovery through exactly the existing predecessor law 926ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV35 handles empty recovery through exactly the existing predecessor law 826ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV36 handles empty recovery through exactly the existing predecessor law 1029ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV37 handles empty recovery through exactly the existing predecessor law 873ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV38 handles empty recovery through exactly the existing predecessor law 1035ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV39 handles empty recovery through exactly the existing predecessor law 1093ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV40 handles empty recovery through exactly the existing predecessor law 1093ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV41 handles empty recovery through exactly the existing predecessor law 1029ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV42 handles empty recovery through exactly the existing predecessor law 725ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV43 handles empty recovery through exactly the existing predecessor law 865ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV44 handles empty recovery through exactly the existing predecessor law 807ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV45 handles empty recovery through exactly the existing predecessor law 1005ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV4 refuses real since before any older-era authority can mask it 339ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV5 refuses real since before any older-era authority can mask it 328ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV6 refuses real since before any older-era authority can mask it 303ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV7 refuses real since before any older-era authority can mask it 336ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV8 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV9 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV10 refuses real since before any older-era authority can mask it 389ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV11 refuses real since before any older-era authority can mask it 408ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV12 refuses real since before any older-era authority can mask it 396ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV13 refuses real since before any older-era authority can mask it 335ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV14 refuses real since before any older-era authority can mask it 388ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV15 refuses real since before any older-era authority can mask it 467ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV16 refuses real since before any older-era authority can mask it
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV17 refuses real since before any older-era authority can mask it 551ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV18 refuses real since before any older-era authority can mask it 384ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV19 refuses real since before any older-era authority can mask it 503ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV20 refuses real since before any older-era authority can mask it 385ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV21 refuses real since before any older-era authority can mask it 397ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV22 refuses real since before any older-era authority can mask it 496ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV23 refuses real since before any older-era authority can mask it 345ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV24 refuses real since before any older-era authority can mask it 345ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV25 refuses real since before any older-era authority can mask it 450ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV26 refuses real since before any older-era authority can mask it 498ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV27 refuses real since before any older-era authority can mask it 687ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV28 refuses real since before any older-era authority can mask it 411ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV29 refuses real since before any older-era authority can mask it 498ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV30 refuses real since before any older-era authority can mask it 597ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV31 refuses real since before any older-era authority can mask it 496ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV32 refuses real since before any older-era authority can mask it 410ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV33 refuses real since before any older-era authority can mask it 515ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV34 refuses real since before any older-era authority can mask it 481ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV35 refuses real since before any older-era authority can mask it 330ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV36 refuses real since before any older-era authority can mask it 815ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV37 refuses real since before any older-era authority can mask it 493ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV38 refuses real since before any older-era authority can mask it 472ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV39 refuses real since before any older-era authority can mask it 352ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV40 refuses real since before any older-era authority can mask it 485ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV41 refuses real since before any older-era authority can mask it 317ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV42 refuses real since before any older-era authority can mask it 364ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV43 refuses real since before any older-era authority can mask it 351ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV44 refuses real since before any older-era authority can mask it 307ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > migrateToV45 refuses real since before any older-era authority can mask it 444ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV1 preserves predecessor outcome when recovery is empty, names nonempty recovery 867ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV2 preserves predecessor outcome when recovery is empty, names nonempty recovery 1005ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV3 preserves predecessor outcome when recovery is empty, names nonempty recovery 1011ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV4 preserves predecessor outcome when recovery is empty, names nonempty recovery 940ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV5 preserves predecessor outcome when recovery is empty, names nonempty recovery 1248ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV6 preserves predecessor outcome when recovery is empty, names nonempty recovery 938ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV7 preserves predecessor outcome when recovery is empty, names nonempty recovery 1179ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV8 preserves predecessor outcome when recovery is empty, names nonempty recovery 1026ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV9 preserves predecessor outcome when recovery is empty, names nonempty recovery 1043ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV10 preserves predecessor outcome when recovery is empty, names nonempty recovery 949ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV11 preserves predecessor outcome when recovery is empty, names nonempty recovery 1014ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV12 preserves predecessor outcome when recovery is empty, names nonempty recovery 1016ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV13 preserves predecessor outcome when recovery is empty, names nonempty recovery 1168ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV14 preserves predecessor outcome when recovery is empty, names nonempty recovery 1456ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV15 preserves predecessor outcome when recovery is empty, names nonempty recovery 1328ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV16 preserves predecessor outcome when recovery is empty, names nonempty recovery 1339ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV17 preserves predecessor outcome when recovery is empty, names nonempty recovery 1200ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > makeSaveV18 preserves predecessor outcome when recovery is empty, names nonempty recovery 1225ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > public V45 keeps its own business and money key law 774ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > public V44 keeps its own business and money key law 967ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > public V43 keeps its own business and money key law 1042ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > public V42 keeps its own business and money key law 1403ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > public V41 keeps its own business and money key law 1540ms
+ ✓ |core| tests/p14d2-save46-migration.test.ts > 1363 Save46 genuine predecessor migration and boundary law > a real disposal names every inseparable authority rather than hiding refund/tombstone behind since 8988ms
+ ✓ |core| tests/p14d2-rival-cost-cutting-adapter.test.ts > 1363 B1 actual staff adapter: refusal causes remain distinct > renewal quote refusal does not become a film-team cash vacancy 25697ms
+ ✓ |core| tests/p14d2-rival-cost-cutting-adapter.test.ts > 1363 B1 actual staff adapter: refusal causes remain distinct > scientist quote refusal does not become a film-team cash vacancy 2319ms
+ ✓ |core| tests/p13b-s8-old-era-period.test.ts > 1363 explicit V27 staging keeps its finance era across a calendar boundary > control: actual week309 admission retains the current old period and public V27 validity 3525ms
+ ✓ |core| tests/p13b-s8-old-era-period.test.ts > 1363 explicit V27 staging keeps its finance era across a calendar boundary > real original26 week52 first charge opens exactly one old-era period without termination or disposal fields 2267ms
+ ✓ |core| tests/1368-writing-completion-boundary.test.ts > paid writing finishes at or before the exclusive employment end > public pool commission at 50 completes before expiry52 and preserves full admission 6247ms
+ ✓ |core| tests/1368-writing-completion-boundary.test.ts > paid writing finishes at or before the exclusive employment end > public pool commission at 51 completes before expiry52 and preserves full admission 6428ms
+ ✓ |core| tests/1368-rival-writing-term.test.ts > prospective rival writing stays within its existing paid term > does not commit the 414 draft due417 against the selected writer term ending416 4828ms
+ ✓ |core| tests/1368-rival-writing-term.test.ts > prospective rival writing stays within its existing paid term > preserves actual expiry416 and remains publicly admissible without unpaid active writing 8342ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14b1-trust-chooser.test.ts > P14B.1 test 6: trust, the widened chooser and the priority order > opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals
+AssertionError: expected 'compensation' to be 'opportunity' // Object.is equality
+
+Expected: "opportunity"
+Received: "compensation"
+
+ ❯ tests/p14b1-trust-chooser.test.ts:350:53
+    348|     expect(row.terms.endWeekExclusive).toBe(208)
+    349|     expect(state.hollywood!.businesses.find((b) => b.studioId === incu…
+    350|     expect(publicPriorityOrder(state, talentId)[0]).toBe('opportunity')
+       |                                                     ^
+    351|     expect(state.talentMarket.cases.some((c) => c.talentId === talentI…
+    352|     expect(state.promises.filter((p) => p.beneficiaryPersonId === tale…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 8 passed (9)
+      Tests  1 failed | 210 passed | 2 skipped | 2 todo (215)
+   Start at  15:56:54
+   Duration  620.52s (transform 5.12s, setup 0ms, collect 17.08s, tests 592.91s, environment 3ms, prepare 3.47s)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b2-recovery-own.vitest.json

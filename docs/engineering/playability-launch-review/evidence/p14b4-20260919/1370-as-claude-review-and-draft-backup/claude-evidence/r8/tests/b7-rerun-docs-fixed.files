@@ -1,0 +1,12 @@
+tests/bridge-p14c2rm-runtime.test.ts
+tests/bridge-p14c2s-scientist-runtime.test.ts
+tests/bridge-p14c3-promise-digest-continuity.test.ts
+tests/bridge-p14p3-directing-promises.test.ts
+tests/bridge-p14p4p5-opportunities.test.ts
+tests/bridge-p14r2r3-prior55.test.ts
+tests/p14c2s-scientist-retirement.test.ts
+tests/p14c3-transitions.test.ts
+tests/p14p4p5-cross-owner.test.ts
+tests/p15a2-power-ranking-archive.test.ts
+tests/p15c2-campaign-legacy-integration.test.ts
+tests/p15c2-campaign-legacy-sibling.test.ts

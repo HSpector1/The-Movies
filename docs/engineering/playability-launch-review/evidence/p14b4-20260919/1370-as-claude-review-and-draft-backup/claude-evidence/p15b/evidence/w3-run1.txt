@@ -1,0 +1,35 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p15b
+
+ ❯ |core| tests/p15b3-remedy-parity.test.ts (6 tests | 1 failed) 13667ms
+   ✓ p15b3 remedy parity: one legal release predicate (1352-A §4.3; 1357-A §3.4) > release-predicate-player 1798ms
+   × p15b3 remedy parity: one legal release predicate (1352-A §4.3; 1357-A §3.4) > release-predicate-rival-seats-and-writing 2723ms
+     → expected 'talent "person-studio-aca408ec-r04-0"…' to be 'talent "person-studio-aca408ec-r04-0"…' // Object.is equality
+   ✓ p15b3 remedy parity: one legal release predicate (1352-A §4.3; 1357-A §3.4) > rival-release-loop-uses-the-predicate 3332ms
+   ✓ p15b3 remedy parity: capability and the live remedy list (1352-A §4.3; 1357-A §3.4) > remedy-capability-both-studios 908ms
+   ✓ p15b3 remedy parity: capability and the live remedy list (1352-A §4.3; 1357-A §3.4) > remedies-live-both-studios 2917ms
+   ✓ p15b3 remedy parity: capability and the live remedy list (1352-A §4.3; 1357-A §3.4) > shared-cost-phase 1986ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p15b3-remedy-parity.test.ts > p15b3 remedy parity: one legal release predicate (1352-A §4.3; 1357-A §3.4) > release-predicate-rival-seats-and-writing
+AssertionError: expected 'talent "person-studio-aca408ec-r04-0"…' to be 'talent "person-studio-aca408ec-r04-0"…' // Object.is equality
+
+Expected: "talent "person-studio-aca408ec-r04-0" is Drafting "The Restless Smuggler" and must finish that screenplay task first"
+Received: "talent "person-studio-aca408ec-r04-0" is Drafting The Restless Smuggler and must finish that screenplay task first"
+
+ ❯ tests/p15b3-remedy-parity.test.ts:104:51
+    102|         ? { ...p, status: 'drafting' as const, writerId, dueWeek: BASE…
+    103|     const title = h.concepts.find((c) => c.id === project.conceptId)!.…
+    104|     expect(releaseRefusal(forged, R04, writerId)).toBe(`talent "${writ…
+       |                                                   ^
+    105|     expect(terminableContracts(forged, R04)).toBe(5)
+    106|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 5 passed (6)
+   Start at  16:28:09
+   Duration  22.06s (transform 5.05s, setup 0ms, collect 6.23s, tests 13.67s, environment 0ms, prepare 387ms)
+

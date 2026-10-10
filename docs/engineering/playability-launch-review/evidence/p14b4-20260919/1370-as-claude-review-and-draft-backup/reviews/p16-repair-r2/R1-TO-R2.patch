@@ -1,0 +1,20 @@
+--- r1/src/core/save.ts
++++ r2/src/core/save.ts
+@@ -7049,11 +7049,12 @@
+   // P13B-S6: a cancellation refund can only follow a capital commitment this
+   // studio made, so it proves engagement for exactly the reason the capex row does.
+   constructionRefund: true,
+-  // P16: rights transactions require an entered, operating studio. Player cash
+-  // rows therefore prove engagement; rival transactions use rival accounts.
+-  rightsConsideration: true,
+-  dueDiligenceFee: true,
+-  acquisitionOutlay: true,
++  // P16 kinds are present for current LedgerKind exhaustiveness only.
++  // This historical V5→V6 reconstruction retains their former falsy lookup
++  // behavior; modern rights transactions are not V5 engagement evidence.
++  rightsConsideration: false,
++  dueDiligenceFee: false,
++  acquisitionOutlay: false,
+ } as const satisfies Record<LedgerKind, boolean>;
+ 
+ function ledgerKindProvesEngagement(kind: LedgerKind): boolean {

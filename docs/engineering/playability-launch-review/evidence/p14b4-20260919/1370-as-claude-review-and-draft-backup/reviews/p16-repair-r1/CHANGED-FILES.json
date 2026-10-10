@@ -1,0 +1,127 @@
+{
+  "schema": "1370-p16-bounded-type-repair-changed-files/v1",
+  "clone": "/Users/zacheryspector/studio-specialists/p16",
+  "changedFileCount": 4,
+  "files": [
+    {
+      "name": "src/core/financeReport.ts",
+      "before": {
+        "path": "/Users/zacheryspector/studio-specialists/p16/src/core/financeReport.ts",
+        "bytes": 18156,
+        "sha256": "53667586cbeb4456a2b2f150b11bb1233c41ee7e9e36dcbe0952522eb3fc18ea"
+      },
+      "beforeBackup": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r1/before/src/core/financeReport.ts",
+        "bytes": 18156,
+        "sha256": "53667586cbeb4456a2b2f150b11bb1233c41ee7e9e36dcbe0952522eb3fc18ea"
+      },
+      "after": {
+        "path": "/Users/zacheryspector/studio-specialists/p16/src/core/financeReport.ts",
+        "bytes": 18348,
+        "sha256": "0b968869d10515b24959b7b531d7ecf33743fc04564e5c0a37134bea466c0ad6"
+      },
+      "afterBackup": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r1/after/src/core/financeReport.ts",
+        "bytes": 18348,
+        "sha256": "0b968869d10515b24959b7b531d7ecf33743fc04564e5c0a37134bea466c0ad6"
+      },
+      "wholeSourceExpectedLiteralProjectionEqual": true,
+      "forwardAndInverseWholeSourceRestorationEqual": true
+    },
+    {
+      "name": "src/core/save.ts",
+      "before": {
+        "path": "/Users/zacheryspector/studio-specialists/p16/src/core/save.ts",
+        "bytes": 527881,
+        "sha256": "2f43c7e638398ab8dcfea6923962b653674b55b4070ffae656c097dadc3238f7"
+      },
+      "beforeBackup": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r1/before/src/core/save.ts",
+        "bytes": 527881,
+        "sha256": "2f43c7e638398ab8dcfea6923962b653674b55b4070ffae656c097dadc3238f7"
+      },
+      "after": {
+        "path": "/Users/zacheryspector/studio-specialists/p16/src/core/save.ts",
+        "bytes": 528119,
+        "sha256": "496412f0a6eaa3c192e2a22d17a671199dc4d38f006d697088bd7e068ef3fbac"
+      },
+      "afterBackup": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r1/after/src/core/save.ts",
+        "bytes": 528119,
+        "sha256": "496412f0a6eaa3c192e2a22d17a671199dc4d38f006d697088bd7e068ef3fbac"
+      },
+      "wholeSourceExpectedLiteralProjectionEqual": true,
+      "forwardAndInverseWholeSourceRestorationEqual": true
+    },
+    {
+      "name": "tests/p16a-save-v46.test.ts",
+      "before": {
+        "path": "/Users/zacheryspector/studio-specialists/p16/tests/p16a-save-v46.test.ts",
+        "bytes": 13868,
+        "sha256": "363e74e47d26bd0ac5e21ee8054561af624ecb6b46cf8132d1e37b6e4dc9c12f"
+      },
+      "beforeBackup": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r1/before/tests/p16a-save-v46.test.ts",
+        "bytes": 13868,
+        "sha256": "363e74e47d26bd0ac5e21ee8054561af624ecb6b46cf8132d1e37b6e4dc9c12f"
+      },
+      "after": {
+        "path": "/Users/zacheryspector/studio-specialists/p16/tests/p16a-save-v46.test.ts",
+        "bytes": 13960,
+        "sha256": "fddd223732a049140a2c47e87a71a9f4d9183b84166e016b2c6bce3d56c12a15"
+      },
+      "afterBackup": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r1/after/tests/p16a-save-v46.test.ts",
+        "bytes": 13960,
+        "sha256": "fddd223732a049140a2c47e87a71a9f4d9183b84166e016b2c6bce3d56c12a15"
+      },
+      "wholeSourceExpectedLiteralProjectionEqual": true,
+      "forwardAndInverseWholeSourceRestorationEqual": true
+    },
+    {
+      "name": "tests/p16a-valuation.test.ts",
+      "before": {
+        "path": "/Users/zacheryspector/studio-specialists/p16/tests/p16a-valuation.test.ts",
+        "bytes": 20924,
+        "sha256": "afa081dc6a0c9cc9286996f54625685fec5a0a338845ab5d37d15a52a1f08d73"
+      },
+      "beforeBackup": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r1/before/tests/p16a-valuation.test.ts",
+        "bytes": 20924,
+        "sha256": "afa081dc6a0c9cc9286996f54625685fec5a0a338845ab5d37d15a52a1f08d73"
+      },
+      "after": {
+        "path": "/Users/zacheryspector/studio-specialists/p16/tests/p16a-valuation.test.ts",
+        "bytes": 20928,
+        "sha256": "8bd6c6f39d4bdf75ed282a586e2545a5b5aae13431c707bdc34a3c0a99bc4a23"
+      },
+      "afterBackup": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r1/after/tests/p16a-valuation.test.ts",
+        "bytes": 20928,
+        "sha256": "8bd6c6f39d4bdf75ed282a586e2545a5b5aae13431c707bdc34a3c0a99bc4a23"
+      },
+      "wholeSourceExpectedLiteralProjectionEqual": true,
+      "forwardAndInverseWholeSourceRestorationEqual": true
+    }
+  ],
+  "patch": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r1/REPAIR.patch",
+    "bytes": 5085,
+    "sha256": "a6e83db06b4611ab0cc8386a42bbba4b8bad4a587440c7e858248b42bd2b0e4b"
+  },
+  "inversePatch": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r1/REVERSE.patch",
+    "bytes": 5085,
+    "sha256": "d6e5ed648fe456ca804cc79db33f0e0560a5db0a4541632d4c969d8e94b7eefa"
+  },
+  "priorIndependentCompilerEvidence": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ar-p16-rights-estate-implementation-20261010-r1/evidence/tsc-run1.txt",
+    "bytes": 18315,
+    "sha256": "a049c1c4aa3f6aa08263eeeb11fca6a29737f0891d607432a0d324f6b5399239"
+  },
+  "testsExecuted": false,
+  "compilerExecuted": false,
+  "gitMutation": false,
+  "mainRepositoryTouched": false,
+  "fullTypecheckAccepted": false
+}

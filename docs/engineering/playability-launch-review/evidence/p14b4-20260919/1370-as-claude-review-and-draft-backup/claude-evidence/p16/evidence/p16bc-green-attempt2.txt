@@ -1,0 +1,65 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p16
+
+ ❯ |core| tests/p16b-asset-sale.test.ts (11 tests | 1 failed) 7373ms
+   ✓ P16B permitted bidder and cash law > a stable, operating, founded studio with no distress loan is a permitted bidder; every other stage, a loan, founding, or an un-entered identity refuses by name 819ms
+   ✓ P16B permitted bidder and cash law > the post-purchase reserve is RIGHTS_RESERVE_WEEKS of the buyer's resulting weekly fixed cost, and spendable cash is cash minus open reservations 392ms
+   ✓ P16B permitted bidder and cash law > CONTRACT GAP (P16B): without a persisted P15B condition/loan root, the default facts adapter reports the pure law's first evaluation (stable, no loan) and refuses loudly once a condition root exists 393ms
+   ✓ P16B bilateral title sale: player buys a rival film through a binding offer the rival answers at the next tick > reserves the price while the offer is open, closes atomically with exact receipts on both sides, moves the R2 title and its value, and saves/reloads 1736ms
+   × P16B bilateral title sale: player buys a rival film through a binding offer the rival answers at the next tick > an offer below the rival's willingness is rejected at the next tick, the reservation is released, and a re-offer inside the cooldown refuses 464ms
+     → expected 'offerCooldown' to be null
+   ✓ P16B bilateral title sale: player buys a rival film through a binding offer the rival answers at the next tick > refusals are pure and named: non-holder seller, unknown subject, active run (R2), active production (R1), ineligible buyer, unaffordable price, double-spent reservation, duplicate open offer, self-dealing 689ms
+   ✓ P16B symmetric law: rival <-> rival sale, withdrawal, expiry, holdback > a rival sells a film to a rival at acceptance with exact movements on both accounts; withdrawal releases; expiry releases 493ms
+   ✓ P16B symmetric law: rival <-> rival sale, withdrawal, expiry, holdback > a bought title cannot be resold inside the holdback; a sale is refused by the seller side when the buyer's facts changed at acceptance (revalidation) 365ms
+   ✓ P16B licences: R3 exclusive term grants, overlap, scope, survival through a title sale, reversion > grants an exclusive sequel licence with consideration; authority for that scope moves to the grantee while the title stays with the grantor 777ms
+   ✓ P16B licences: R3 exclusive term grants, overlap, scope, survival through a title sale, reversion > a whole-title sale of the property preserves the live licence and the grantee; an expired licence reverts authority to the holder 605ms
+   ✓ P16B actions: the player's verbs route through applyActions with refusal purity > makeRightsOffer / withdrawRightsOffer / acceptRightsOffer / rejectRightsOffer dispatch; a refused verb throws and changes nothing 638ms
+ ✓ |core| tests/p16c-estate.test.ts (6 tests) 7712ms
+   ✓ P16C estate handoff: the typed adapter point opens an estate; it never declares a studio terminal > opens from a valid handoff, materializes the lot titles, and from the closure week the studio's rights are estate-only 1185ms
+   ✓ P16C estate handoff: the typed adapter point opens an estate; it never declares a studio terminal > refuses a malformed handoff by name: overlapping lots, a subject the studio does not hold, a wrong window, an unknown studio, a duplicate estate 716ms
+   ✓ P16C sealed bids: admission only before D, reservations, refusals > admits one sealed bid per bidder per lot before D, reserves the amount, and refuses by name otherwise 554ms
+   ✓ P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > resolves exactly once at D with exact debits, proceeds to the estate once, title to the winners, archival of the unsold lot, and no person moved 634ms
+   ✓ P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > the natural route: ticks carry the estate to D, the ceremony runs inside the tick exactly once, a bid at D refuses, and replay is exact 4213ms
+   ✓ P16C close ceremony at D: sealed comparison, deterministic tie-break, failed-winner fallback, proceeds once, archival > a winner who can no longer afford a later lot after winning an earlier one falls back to the next valid bid 407ms
+ ✓ |core| tests/p16c-acquisition.test.ts (6 tests) 3585ms
+   ✓ P16C healthy absorption: eligibility matrix > a stable buyer may quote a willing stable rival; the operating player is NotForSale; stage, loan and identity refusals are named 991ms
+   ✓ P16C healthy absorption: eligibility matrix > the rival's willingness is a disclosed policy over its rights value; it may reject the offer 380ms
+   ✓ P16C healthy absorption: the quote separates consideration, at-par cash, exits and disclosed guarantees > default retention walks the target's contracts in order, retains what is lawful and affordable, charges each non-retained exit once to the target, and transfers post-exit cash at par 715ms
+   ✓ P16C healthy absorption: the quote separates consideration, at-par cash, exits and disclosed guarantees > negative post-exit cash transfers at par: the outlay exceeds the consideration by exactly the shortfall 374ms
+   ✓ P16C healthy absorption: the quote separates consideration, at-par cash, exits and disclosed guarantees > explicit retention retains exactly the chosen contracts; retained work cannot outlive its participants, so a production with a dropped participant is marked for explicit cancellation 433ms
+   ✓ P16C healthy absorption: the quote separates consideration, at-par cash, exits and disclosed guarantees > an ineligible pair returns a refusal, and executable closing is explicitly deferred with its named prerequisites, changing nothing 690ms
+ ✓ |core| tests/p16b-due-diligence.test.ts (6 tests) 4756ms
+   ✓ P16B due diligence: one costed, dated, scoped disclosure event > charges the fee exactly once, records recipient/target/week/scope/stale policy, and discloses only the target's relevant facts 2462ms
+   ✓ P16B due diligence: one costed, dated, scoped disclosure event > a narrower scope discloses only that scope; the fee is the same real fee 337ms
+   ✓ P16B due diligence: one costed, dated, scoped disclosure event > only the recipient can read the private body; everyone else gets null; public reads see no body 362ms
+   ✓ P16B due diligence: one costed, dated, scoped disclosure event > refuses by name: an ineligible recipient, an unknown or self target, an empty scope, or a fee that would break the current reserve; a refusal changes nothing 473ms
+   ✓ P16B due diligence: one costed, dated, scoped disclosure event > a rival receives the same lawful event with the fee moved on its own account; a stale disclosure cannot back a binding offer 588ms
+   ✓ P16B due diligence: one costed, dated, scoped disclosure event > the player's requestDueDiligence verb dispatches through applyActions 532ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p16b-asset-sale.test.ts > P16B bilateral title sale: player buys a rival film through a binding offer the rival answers at the next tick > an offer below the rival's willingness is rejected at the next tick, the reservation is released, and a re-offer inside the cooldown refuses
+AssertionError: expected 'offerCooldown' to be null
+
+- Expected: 
+null
+
++ Received: 
+"offerCooldown"
+
+ ❯ tests/p16b-asset-sale.test.ts:146:179
+    144|     const again = { offerorId: player, counterpartyId: r01, direction:…
+    145|     expect(sale.offerRefusal(answered, again, answered.market.tick)).t…
+    146|     expect(sale.offerRefusal({ ...answered, market: { ...answered.mark…
+       |                                                                                                                                                                                   ^
+    147|   })
+    148| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  1 failed | 28 passed (29)
+   Start at  16:28:54
+   Duration  39.15s (transform 4.39s, setup 0ms, collect 9.29s, tests 23.43s, environment 3ms, prepare 1.84s)
+
+exit 1

@@ -1,0 +1,141 @@
+bridge/protocol.ts(17,8): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+bridge/protocol.ts(18,32): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+bridge/protocol.ts(19,51): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+bridge/schema/bridge-schema.ts(16,8): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+bridge/schema/bridge-schema.ts(17,40): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+bridge/schema/bridge-schema.ts(18,38): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+bridge/schema/bridge-schema.ts(19,60): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+bridge/schema/industry-schema.ts(1,40): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+bridge/schema/industry-schema.ts(2,145): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+bridge/schema/intent-schema.ts(1,48): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+bridge/schema/runtime.ts(7,8): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+src/core/financeReport.ts(6,14): error TS2739: Type '{ researchPayroll: string; researchSpend: string; technologyAdoption: string; studioRevenue: string; boxOffice: string; payroll: string; overhead: string; facilityOpex: string; production: string; ... 9 more ...; publicity: string; }' is missing the following properties from type 'Record<LedgerKind, string>': rightsConsideration, dueDiligenceFee, acquisitionOutlay
+src/core/rights.ts(493,138): error TS2322: Type '{ kind: "unavailable"; reason: "archived" | HolderReason | "r3RequiresProperty"; }' is not assignable to type 'BranchAuthority'.
+  Type '{ kind: "unavailable"; reason: "archived" | HolderReason | "r3RequiresProperty"; }' is not assignable to type '{ kind: "unavailable"; reason: "archived" | HolderReason; }'.
+    Types of property 'reason' are incompatible.
+      Type '"archived" | HolderReason | "r3RequiresProperty"' is not assignable to type '"archived" | HolderReason'.
+        Type '"r3RequiresProperty"' is not assignable to type '"archived" | HolderReason'.
+src/core/rights.ts(698,36): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'number'.
+src/core/rights.ts(701,37): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'number'.
+src/core/rights.ts(709,14): error TS18046: 'nextId' is of type 'unknown'.
+src/core/rights.ts(724,93): error TS18046: 'nextId' is of type 'unknown'.
+src/core/rights.ts(753,49): error TS2339: Property 'transactionId' does not exist on type 'TitleSource'.
+  Property 'transactionId' does not exist on type '{ kind: "greenlight"; productionId: string; }'.
+src/core/rights.ts(756,44): error TS18048: 't' is possibly 'undefined'.
+src/core/rights.ts(756,86): error TS18048: 't' is possibly 'undefined'.
+src/core/rights.ts(799,68): error TS18046: 'from' is of type 'unknown'.
+src/core/save.ts(7052,12): error TS1360: Type '{ readonly production: false; readonly boxOffice: false; readonly payroll: true; readonly signingBonus: true; readonly termination: true; readonly freelancerFee: true; readonly studioRevenue: true; ... 11 more ...; readonly constructionRefund: true; }' does not satisfy the expected type 'Record<LedgerKind, boolean>'.
+  Type '{ readonly production: false; readonly boxOffice: false; readonly payroll: true; readonly signingBonus: true; readonly termination: true; readonly freelancerFee: true; readonly studioRevenue: true; ... 11 more ...; readonly constructionRefund: true; }' is missing the following properties from type 'Record<LedgerKind, boolean>': rightsConsideration, dueDiligenceFee, acquisitionOutlay
+src/core/save.ts(7055,10): error TS7053: Element implicitly has an 'any' type because expression of type 'LedgerKind' can't be used to index type '{ readonly production: false; readonly boxOffice: false; readonly payroll: true; readonly signingBonus: true; readonly termination: true; readonly freelancerFee: true; readonly studioRevenue: true; ... 11 more ...; readonly constructionRefund: true; }'.
+  Property 'rightsConsideration' does not exist on type '{ readonly production: false; readonly boxOffice: false; readonly payroll: true; readonly signingBonus: true; readonly termination: true; readonly freelancerFee: true; readonly studioRevenue: true; ... 11 more ...; readonly constructionRefund: true; }'.
+src/harness/roster-wall/historical-control.ts(33,3): error TS2375: Type '{ powerRanking: PowerRankingArchive; p15Sequence: import("/Users/zacheryspector/studio-specialists/p16/src/core/p15Phases").P15Sequence; sharedMarket: SharedMarketRoot; ... 42 more ...; foundingRegime: FoundingRegime; }' is not assignable to type 'GameStateV46' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'rights' is missing in type '{ powerRanking: PowerRankingArchive; p15Sequence: import("/Users/zacheryspector/studio-specialists/p16/src/core/p15Phases").P15Sequence; sharedMarket: SharedMarketRoot; ... 42 more ...; foundingRegime: FoundingRegime; }' but required in type '{ rights: RightsRoot; }'.
+tests/contracts/v14-boundary-guards.contract.test.ts(67,148): error TS2345: Argument of type 'SaveFileV46' is not assignable to parameter of type 'SaveFileV45'.
+  Type 'SaveFileV46' is not assignable to type '{ saveVersion: 45; state: GameStateV45; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '46' is not assignable to type '45'.
+tests/helpers/p14c2b-fixtures.ts(69,154): error TS2345: Argument of type 'SaveFileV46' is not assignable to parameter of type 'SaveFileV45'.
+  Type 'SaveFileV46' is not assignable to type '{ saveVersion: 45; state: GameStateV45; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '46' is not assignable to type '45'.
+tests/helpers/p14c2c-fixtures.ts(29,3): error TS2375: Type 'GameStateV45' is not assignable to type 'GameStateV46' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'rights' is missing in type 'GameStateV45' but required in type '{ rights: RightsRoot; }'.
+tests/helpers/p14c2rm-fixtures.ts(24,3): error TS2375: Type 'GameStateV45' is not assignable to type 'GameStateV46' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'rights' is missing in type 'GameStateV45' but required in type '{ rights: RightsRoot; }'.
+tests/helpers/p14c3-canonical-rival-fixtures.ts(198,129): error TS2345: Argument of type 'SaveFileV46' is not assignable to parameter of type 'SaveFileV45'.
+  Type 'SaveFileV46' is not assignable to type '{ saveVersion: 45; state: GameStateV45; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '46' is not assignable to type '45'.
+tests/helpers/p14c4-fixtures.ts(71,136): error TS2345: Argument of type 'SaveFileV46' is not assignable to parameter of type 'SaveFileV45'.
+  Type 'SaveFileV46' is not assignable to type '{ saveVersion: 45; state: GameStateV45; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '46' is not assignable to type '45'.
+tests/helpers/p15c2-frozen-v2-mint.ts(30,5): error TS2367: This comparison appears to be unintentional because the types '46' and '45' have no overlap.
+tests/p06a-w1-release-authority.test.ts(410,152): error TS2345: Argument of type 'SaveFileV46' is not assignable to parameter of type 'SaveFileV45'.
+  Type 'SaveFileV46' is not assignable to type '{ saveVersion: 45; state: GameStateV45; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '46' is not assignable to type '45'.
+tests/p12-starting-world.test.ts(58,108): error TS2345: Argument of type 'SaveFileV46' is not assignable to parameter of type 'SaveFileV45'.
+  Type 'SaveFileV46' is not assignable to type '{ saveVersion: 45; state: GameStateV45; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '46' is not assignable to type '45'.
+tests/p14b1-first-take.test.ts(301,36): error TS2379: Argument of type 'GameStateV45' is not assignable to parameter of type 'GameStateV46' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'rights' is missing in type 'GameStateV45' but required in type '{ rights: RightsRoot; }'.
+tests/p14b1-t4-regressions.test.ts(168,33): error TS2379: Argument of type 'GameStateV45' is not assignable to parameter of type 'GameStateV46' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'rights' is missing in type 'GameStateV45' but required in type '{ rights: RightsRoot; }'.
+tests/p14b3-reservations.test.ts(96,17): error TS2379: Argument of type 'GameStateV45' is not assignable to parameter of type 'GameStateV46' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'rights' is missing in type 'GameStateV45' but required in type '{ rights: RightsRoot; }'.
+tests/p14b4-material-evidence-core.test.ts(147,44): error TS2379: Argument of type '{ promises: ProfessionalPromiseV40[]; technology: import("/Users/zacheryspector/studio-specialists/p16/src/core/technologyTypes").StudioTechnology; market: MarketState; careerEvents: TalentCareerEvent[]; ... 41 more ...; campaignLegacy: import("/Users/zacheryspector/studio-specialists/p16/src/core/campaignLegacy").C...' is not assignable to parameter of type 'GameStateV46' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'rights' is missing in type '{ promises: ProfessionalPromiseV40[]; technology: import("/Users/zacheryspector/studio-specialists/p16/src/core/technologyTypes").StudioTechnology; market: MarketState; careerEvents: TalentCareerEvent[]; ... 41 more ...; campaignLegacy: import("/Users/zacheryspector/studio-specialists/p16/src/core/campaignLegacy").C...' but required in type '{ rights: RightsRoot; }'.
+tests/p14b4-material-evidence-core.test.ts(293,9): error TS2322: Type 'SaveFileV46' is not assignable to type 'SaveFileV45'.
+  Type 'SaveFileV46' is not assignable to type '{ saveVersion: 45; state: GameStateV45; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '46' is not assignable to type '45'.
+tests/p14b4-material-evidence-core.test.ts(294,7): error TS2375: Type 'GameStateV45' is not assignable to type 'GameStateV46' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'rights' is missing in type 'GameStateV45' but required in type '{ rights: RightsRoot; }'.
+tests/p14b4-material-evidence-core.test.ts(364,37): error TS2379: Argument of type 'GameStateV45' is not assignable to parameter of type 'GameStateV46' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'rights' is missing in type 'GameStateV45' but required in type '{ rights: RightsRoot; }'.
+tests/p14b4-material-evidence-core.test.ts(409,27): error TS2379: Argument of type 'GameStateV45' is not assignable to parameter of type 'GameStateV46' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'rights' is missing in type 'GameStateV45' but required in type '{ rights: RightsRoot; }'.
+tests/p14b4-material-evidence-core.test.ts(439,65): error TS2379: Argument of type 'GameStateV45' is not assignable to parameter of type 'GameStateV46' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'rights' is missing in type 'GameStateV45' but required in type '{ rights: RightsRoot; }'.
+tests/p14c2a-save-and-settlement.test.ts(347,35): error TS2379: Argument of type 'GameStateV45' is not assignable to parameter of type 'GameStateV46' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'rights' is missing in type 'GameStateV45' but required in type '{ rights: RightsRoot; }'.
+tests/p14c2rm-writer-continuation.test.ts(288,162): error TS2345: Argument of type 'SaveFileV46' is not assignable to parameter of type 'SaveFileV45'.
+  Type 'SaveFileV46' is not assignable to type '{ saveVersion: 45; state: GameStateV45; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '46' is not assignable to type '45'.
+tests/p14c3-cohort-transition.test.ts(287,146): error TS2345: Argument of type 'SaveFileV46' is not assignable to parameter of type 'SaveFileV45'.
+  Type 'SaveFileV46' is not assignable to type '{ saveVersion: 45; state: GameStateV45; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '46' is not assignable to type '45'.
+tests/p14c3-dual-extensions.test.ts(178,146): error TS2345: Argument of type 'SaveFileV46' is not assignable to parameter of type 'SaveFileV45'.
+  Type 'SaveFileV46' is not assignable to type '{ saveVersion: 45; state: GameStateV45; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '46' is not assignable to type '45'.
+tests/p14c3-offmenu-extensions.test.ts(235,146): error TS2345: Argument of type 'SaveFileV46' is not assignable to parameter of type 'SaveFileV45'.
+  Type 'SaveFileV46' is not assignable to type '{ saveVersion: 45; state: GameStateV45; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '46' is not assignable to type '45'.
+tests/p14c3-profession-history.test.ts(118,186): error TS2345: Argument of type 'SaveFileV46' is not assignable to parameter of type 'SaveFileV45'.
+  Type 'SaveFileV46' is not assignable to type '{ saveVersion: 45; state: GameStateV45; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '46' is not assignable to type '45'.
+tests/p14c3-promise-digest-continuity.test.ts(279,151): error TS2345: Argument of type 'SaveFileV46' is not assignable to parameter of type 'SaveFileV45'.
+  Type 'SaveFileV46' is not assignable to type '{ saveVersion: 45; state: GameStateV45; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '46' is not assignable to type '45'.
+tests/p14c4-save-v35.test.ts(279,35): error TS2379: Argument of type 'GameStateV45' is not assignable to parameter of type 'GameStateV46' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'rights' is missing in type 'GameStateV45' but required in type '{ rights: RightsRoot; }'.
+tests/p14p3-directing-promises.test.ts(421,128): error TS2345: Argument of type 'SaveFileV46' is not assignable to parameter of type 'SaveFileV45'.
+  Type 'SaveFileV46' is not assignable to type '{ saveVersion: 45; state: GameStateV45; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '46' is not assignable to type '45'.
+tests/p14p3-directing-promises.test.ts(753,130): error TS2345: Argument of type 'SaveFileV46' is not assignable to parameter of type 'SaveFileV45'.
+  Type 'SaveFileV46' is not assignable to type '{ saveVersion: 45; state: GameStateV45; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '46' is not assignable to type '45'.
+tests/p14p4p5-opportunities.test.ts(843,150): error TS2345: Argument of type 'SaveFileV46' is not assignable to parameter of type 'SaveFileV45'.
+  Type 'SaveFileV46' is not assignable to type '{ saveVersion: 45; state: GameStateV45; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '46' is not assignable to type '45'.
+tests/p14p4p5-receipt-freeze.test.ts(363,17): error TS2379: Argument of type 'GameStateV45' is not assignable to parameter of type 'GameStateV46' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Property 'rights' is missing in type 'GameStateV45' but required in type '{ rights: RightsRoot; }'.
+tests/p14p4p5-screenplay-status.test.ts(323,141): error TS2345: Argument of type 'SaveFileV46' is not assignable to parameter of type 'SaveFileV45'.
+  Type 'SaveFileV46' is not assignable to type '{ saveVersion: 45; state: GameStateV45; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '46' is not assignable to type '45'.
+tests/p16a-save-v46.test.ts(154,96): error TS2322: Type '"test"' is not assignable to type '"legacy" | "greenlight" | "release" | "transaction" | "estate" | "manual"'.
+tests/p16a-save-v46.test.ts(159,100): error TS2322: Type '"test"' is not assignable to type '"legacy" | "greenlight" | "release" | "transaction" | "estate" | "manual"'.
+tests/p16a-save-v46.test.ts(187,133): error TS2322: Type '"test"' is not assignable to type '"legacy" | "greenlight" | "release" | "transaction" | "estate" | "manual"'.
+tests/p16a-valuation.test.ts(201,97): error TS2322: Type '"test"' is not assignable to type '"legacy" | "greenlight" | "release" | "transaction" | "estate" | "manual"'.
+tests/p16a-valuation.test.ts(273,63): error TS2322: Type '"test"' is not assignable to type '"legacy" | "greenlight" | "release" | "transaction" | "estate" | "manual"'.
+tests/save.test.ts(370,152): error TS2345: Argument of type 'SaveFileV46' is not assignable to parameter of type 'SaveFileV45'.
+  Type 'SaveFileV46' is not assignable to type '{ saveVersion: 45; state: GameStateV45; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '46' is not assignable to type '45'.
+tests/save.test.ts(419,152): error TS2345: Argument of type 'SaveFileV46' is not assignable to parameter of type 'SaveFileV45'.
+  Type 'SaveFileV46' is not assignable to type '{ saveVersion: 45; state: GameStateV45; }'.
+    Types of property 'saveVersion' are incompatible.
+      Type '46' is not assignable to type '45'.
+tsc exit 2

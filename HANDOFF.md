@@ -1,6 +1,21 @@
 # HANDOFF
 
-Last writer: Claude (Fable 5.1), 2026-10-10 (America/Chicago), resuming cold from the Codex/GPT-6.1 Sol handoff below. The detailed account that follows is preserved; Claude's takeover reconciliation and the Owner's recorded answer are inserted where they apply.
+Last writer: Codex, 2026-10-10 (America/Chicago), reviewing Claude's continuation with three GPT-6.1 Sol specialists. Historical evidence and the hook-owned AUTO block are preserved.
+
+## Current review checkpoint: read before the historical account
+
+- User request: check Claude's updates, judge their quality and fix concrete blockers. **Useful unfinished gameplay drafts exist; none have landed in the production source. P16/P17/P18 are not complete or ready for main.** The latest review is `E/1370-as-claude-review-and-draft-backup/REVIEW.md`; its README explains restoration and the manifest.
+- Git reconciliation: fetched branch and local HEAD were `f7d0dc0fd4f31ff1a3bff47abb4db07bd3ce298c`, following Claude's `6510c971` and the prior Codex handoff `9b67d768`. All are docs-only successors of AQ; `HEAD:src` remains `13880d9b0ba72aff5d4c5bcf5d12fe682c5de554`; remote main remains `c902a704eb948cc576083d0973c8c23e59937dc1`. This review/backup is another nonproduction-source checkpoint; resolve its containing commit with Git and the publication readback.
+- **Owner authority is resolved.** Claude recorded "Approve fresh baseline" and later "Owner approval not needed for anything, just go make it happen." Do not re-ask the old baseline question. Fresh source binding, independent review, disk headroom, real implementation and verification remain necessary. Historical failures stay failed.
+- At 18:37 CDT, no matching project Python/Node/test workers were observed and `S/HEAVY-LANE-LOCK` was absent. Free disk was 2,764,251,136 bytes (about 2.57 GiB). No cache deletion, restart, heavy test, compiler or new historical qualification was performed in this review. Recheck current conditions before executing anything; the earlier 4 GiB observation is stale.
+- Six isolated drafts are now backed up as source patches with exact bases and manifests, including untracked source/test modules (338 source paths across six snapshots). Exact fixture payload/metadata paths marked LOCAL remain in the clones. Original reports, compiler failures, recovered temporary results and independent reviews are preserved in the archive. These are unlanded drafts, not a production adoption.
+- Concrete repair: four files in the isolated P16 clone now complete two exhaustive ledger consumer tables and replace five unsupported test provenance discriminants with existing types. The original compiler's eight target diagnostic headings are recorded. Independent review **rejected r1's three `true` historical engagement entries**; r2 uses `false` to preserve prior falsy behavior on additive-tolerant V5 envelopes. Both revisions and the STOP review are retained; independent r2 source review accepted the correction with no repair findings. Use the final full draft in `…/1370-as-claude-review-and-draft-backup/drafts/p16-r2/`, selected by `CURRENT-DRAFTS.json`; the older `drafts/p16/` contains rejected r1. Do not claim whole compilation passes; other diagnostics remain.
+- Results reconciliation: R8 broad b4/b5/b6 contain 68 SAME and four CHANGED primary diagnostics, zero NEW/UNPAIRED in those selections. The changed seating control, 40→18/48→42 ledger diagnostics and Save38-era comparison remain unresolved. The docs-fixed b7 rerun is 189/189, resolving 28 previous ENOENT failures. Latest per-file union: 167 files, 2,450 PASS / 113 FAIL / 3 SKIP / 8 TODO. Preserved result attribution is not causal admission.
+- Recovered founding logs show 59/59 held activation, 101/101 retune and 171/171 later founding/affected tests. The latter selection omits seven separately green retune tests; all eight paired r1 failures pass r2. Source identity across those old runs is not a fresh acceptance claim.
+- Integration blockers: colliding Save46 schemas; P16's bidder adapter throws on P15B's mandatory root; actual closure/P12 operating authority and P16 licences/healthy absorption are unfinished; acquisition preview lacks usable capacity; P17/P18 lack required live grant checks; cameo bookings overblock nonoverlapping weeks and delay completed-work credit until release; P18 incorrectly makes TV last in capacity allocation. Exact source/contract references and repair order are in the review.
+- Next: preserve these drafts, restore sufficient headroom for the selected recorded route, finish the missing current-HEAD recovery route using the approved fresh baseline, then follow the existing dependency order. A single integrator must reconcile save eras and genuine migrations. Do not launch the missing AR build-plan path or apply all six patches wholesale. Bounded draft fixes can continue under existing authority without further Owner questions.
+
+Review workspace: `S/1370-as-claude-review-20261010-r1`. Its `BEFORE.json`, `FOUNDING-RESULTS-RECOVERY.json`, backup script and later publication readback identify this session. Raw process output is LOCAL and is not exported. Specialist reviews/repairs are under sibling `1370-as-r8-results-review-…`, `1370-as-p17-p18-review-…`, and `1370-as-p16-type-repair-…` packages; the archive's `reviews/` copies are the portable reading path.
 
 ## Claude takeover reconciliation, 2026-10-10
 
@@ -11,28 +26,28 @@ Last writer: Claude (Fable 5.1), 2026-10-10 (America/Chicago), resuming cold fro
 - A `HANDOFF TRIGGER` (Claude weekly usage 97%) fired at session start; this checkpoint records the approval before any runtime work so Codex can resume cold.
 - No lean-ctx MCP tools exist in this Claude session; native Read/Bash were used.
 
-### Claude in-flight lanes (started 2026-10-10 ~15:25 CDT; verify actual state before relying on it)
+### Claude lanes: reconciled after the session, 2026-10-10
 
-Specialists work in isolated shared sparse clones under `/Users/zacheryspector/studio-specialists/<name>` (`git clone --shared --no-checkout` + cone sparse-checkout of src/tests/generated/scripts/bridge/tools/ui/src/art/evidence/out + symlinked node_modules; ~55 MB each; the shared common Git dir is only read via alternates, never written, so `git worktree add` was deliberately avoided). Each delivers `PATCH.diff`, `MANIFEST.json`, `REPORT.md` (clause coverage, exact test results, shared-file hunks, contract gaps, lessons), `RED-FIRST-EVIDENCE.md` and a dated `PROGRESS.md` into `S/1370-ar-<slice>-…-20261010-r1/`. The parent (Claude) is the only production writer: it lands patches in dependency order R8 → 1364/1365 → P15B → P16 → P15C → P17 → P18, renumbering save versions at landing because lanes independently chose v46.
+Specialists worked in isolated shared sparse clones under `/Users/zacheryspector/studio-specialists/<name>` (`git clone --shared --no-checkout` + cone sparse-checkout of src/tests/generated/scripts/bridge/tools/ui/src/art/evidence/out + symlinked node_modules; ~55 MB each; the original repository object store is read through alternates, with separate clone indexes). Planned deliveries were patches, manifests, reports, RED evidence and progress notes under `S/1370-ar-<slice>-…-20261010-r1/`; most were not completed. AS supplies source backups and review, not retrospective specialist completion. The parent remains the only production integrator. Preserve the governing dependency order below, including P15B/P15C producers before dependent P16 consumers, and implement real sequential migrations because lanes independently chose v46.
 
 | Lane | Clone | Package | State at this checkpoint |
 | --- | --- | --- | --- |
-| 1363 R8 recovery kit rebase | `r8` | `S/1370-ar-1363-r8-rebase-20261010-r1` | 14 kit files + 153 whole-file replacements + 21 new files applied with zero adaptations against 6510c971 (src/tests unchanged since 38ad3c41); 1,589 pinned paths verified; gate chain running (tsc-root exit 0) |
-| 1364/1365 founding + market retune | `founding` | `S/1370-ar-1364-1365-founding-market-implementation-20261010-r1` | reading |
-| P15B waves 2–5 | `p15b` | `S/1370-ar-p15b-waves2-5-implementation-20261010-r1` | reading |
-| P16 rights/estate A/B/C | `p16` | `S/1370-ar-p16-rights-estate-implementation-20261010-r1` | seams mapped; new modules rights/propertyValuation/rightsFinance/licence/assetSale/dueDiligence/acquisition/estate/rightsTick; healthy-absorption executable closing deferred (needs P12 operating-state discriminator) |
-| P17 continuation + cameo | `p17` | `S/1370-ar-p17-continuation-cameo-implementation-20261010-r1` | launched after this checkpoint |
-| P18 first season | `p18` | `S/1370-ar-p18-first-season-implementation-20261010-r1` | launched after this checkpoint |
-| AR recovery-route mapping | workflow | `S/1370-ar-recovery-route-build-plan-20261010-r1/AR-BUILD-PLAN.md` | 8 package readers → synthesis, running |
-| Core test baseline on 6510c971 | parent | session scratchpad `baseline/core-6510c971.json` (copy into the next evidence package) | running since 20:20:32Z |
+| 1363 R8 recovery kit rebase | `r8` | `S/1370-ar-1363-r8-rebase-20261010-r1` | Transplant authenticated; types/generators pass after environment repair; focused rerun 189/189; broad results retain 113 failures in latest per-file union; unfinished report corrected by AS review, not silently rewritten |
+| 1364/1365 founding + market retune | `founding` | `S/1370-ar-1364-1365-founding-market-implementation-20261010-r1` | Implemented draft; 59/59 activation, 101/101 retune, 171/171 later founding selection recovered; scope/storage gaps and save-era integration remain |
+| P15B waves 2–5 | `p15b` | `S/1370-ar-p15b-waves2-5-implementation-20261010-r1` | Wave 2 20/20; Wave 3 6/6; actual closure/claims/notice work unfinished; closure hook remains no-op |
+| P16 rights/estate A/B/C | `p16` | `S/1370-ar-p16-rights-estate-implementation-20261010-r1` | 85/85 focused retained; compiler failed; `licence.ts` absent, healthy closing throws; adapter/capacity defects; bounded AS type repair is separate |
+| P17 continuation + cameo | `p17` | `S/1370-ar-p17-continuation-cameo-implementation-20261010-r1` | Uncommitted implementation and tests; live-rights, booking interval and completed-work-credit contract findings; integrated qualification missing |
+| P18 first season | `p18` | `S/1370-ar-p18-first-season-implementation-20261010-r1` | Ten new source/test files; shared save/actions/tick integration missing; live-rights and allocation-order findings |
+| AR recovery-route mapping | workflow | `S/1370-ar-recovery-route-build-plan-20261010-r1/AR-BUILD-PLAN.md` | Named file/directory absent at review; deliverable unfinished, not running or adopted |
+| Core test baseline on 6510c971 | parent | `…/1370-as-claude-review-and-draft-backup/reviews/r8-results/predecessor/core-6510c971.json` | Completed exit 1, 20:20:32Z–22:34:15Z; exact result and HEAD/start/end/exit records recovered and used for bounded attribution |
 
-Sequencing decision: no further production commits between the AR build and the end of its recorded run; the heavy lane runs alone after specialists go idle; patches land afterwards with focused plus affected broad tests, one commit per slice.
+Sequencing decision remains: do not publish/fetch during a frozen qualification interval; run one heavy lane. No AR run is active at this review checkpoint. Retained Claude logs show overlapping heavy test processes, so those timings cannot be treated as isolated performance evidence. Patches land only in the authorized dependency order, with focused and affected broad checks on each actual predecessor.
 
 ## Read this first
 
-The game is **not finished through P18**. P16 is incomplete; P17 and P18 runtime implementation remains downstream. The recent work repaired and tested verification infrastructure needed to resolve the older 1363 evidence ledger. It did not advance the production gameplay source. Do not mistake the large number of archived reviews, controls, or documentation commits for completion of game systems.
+The game is **not finished through P18**. P16 is incomplete; P17 and P18 production integration remains downstream. Verification infrastructure was repaired before Claude prepared the new isolated gameplay drafts. Neither effort has advanced the published production gameplay source yet. Do not mistake archived reviews, isolated tests or documentation commits for completion of the integrated systems.
 
-The concrete win is a reproduced Git verification defect and a tested narrow fix: an inherited Python helper removed `GIT_OPTIONAL_LOCKS=0` from child environments, allowing an intended read-only `git status` to rewrite its index. Eight focused controls demonstrate the original defect and corrected behavior. However, the old full Git-metadata checksum cannot be reconstructed from the evidence originally retained. That historical interval remains unqualified, and the Owner has not yet answered the explicit request to start a new verification baseline with that gap preserved.
+The previous verification win is a reproduced Git-helper defect: sanitization removed `GIT_OPTIONAL_LOCKS=0`, allowing intended read-only `git status` to rewrite its index. Eight focused controls demonstrate the defect and narrow fix. The old Git-metadata checksum cannot be reconstructed; its historical interval remains unqualified. **The Owner has now approved a fresh baseline with that gap preserved.** Claude subsequently prepared the gameplay drafts described above; these are additional source progress, not ledger acceptance or production landing.
 
 **The Owner's recovery decision has been received (approved; see the Claude takeover reconciliation above). The next blocking actions are current-HEAD source binding, independent review, fresh full protection, and one properly recorded qualification attempt.** Do not rerun a stale launcher, replay closed diagnostics, reset the old checksum, or merge this branch to main.
 
@@ -45,6 +60,7 @@ The concrete win is a reproduced Git verification defect and a tested narrow fix
 | Live repository | `/Users/zacheryspector/The-Movies-headless-program` |
 | Branch | `wip/headless-program-20260916-ts` |
 | Remote | `https://github.com/HSpector1/The-Movies` |
+| Claude published checkpoint reviewed here | `f7d0dc0fd4f31ff1a3bff47abb4db07bd3ce298c`, following `6510c971bed8079f7ca02e528b224988de092c87` |
 | Codex detailed-handoff commit (docs-only; Claude took over here) | `9b67d768cb38245ac2dcc72ae17bba261005ce59` |
 | Published AQ implementation/evidence checkpoint | `d30720052633dbdf092c27f2f12415c5cb1a06cc` |
 | Its AP parent | `d20347b83ea7497ed17c48ec14d8f64a3ce69cc8` |
@@ -80,7 +96,7 @@ These are abbreviations for reading, not shell environment variables. Expand the
 
 ### Required reading, in order
 
-1. This `HANDOFF.md`, then the actual latest Owner messages, especially the unanswered recovery question.
+1. This `HANDOFF.md`, the resolved Owner directions above, then `E/1370-as-claude-review-and-draft-backup/{README.md,REVIEW.md,ARCHIVE-MANIFEST.json}` and the named independent reviews/repair revisions.
 2. `E/1370-AQ-git-guard-repair-and-preservation-diagnostic.md` and `A/ARCHIVE-MANIFEST.json`.
 3. `A/payload/1370-aq-root-continuation-20261010-r1/OPERATIONAL-RECOVERY-PROPOSAL.md`, `OPERATIONAL-RECOVERY-PROPOSAL-ADOPTION.json`, and `PROOF-SANITIZER-INTEGRATION-PLAN.md`.
 4. `A/payload/1370-aq-root-continuation-20261010-r1/LESSONS-r9.md` and `L/payload/LESSONS-LATE.md` (17 lessons total, not 17 revisions).
@@ -88,7 +104,7 @@ These are abbreviations for reading, not shell environment variables. Expand the
 6. `E/1370-AP-native-observer-controls-and-protected-stop.md` and `E/1370-AO-observer-row-diagnostic-closure.md` for the inherited failure and source-role chain.
 7. `R/docs/engineering/playability-launch-review/plans/HEADLESS-REMAINDER-IMPLEMENTATION-PLAN.md`, then the exact phase authorities listed below when their gates become reachable.
 
-The recovery proposal retains its original early status line saying it awaits independent review. A later independent design review and root adoption exist. **Design review is complete; Owner approval and runtime recovery admission are not.** Read the adoption rather than silently editing historical proposal text.
+The recovery proposal retains its original early status line saying it awaits independent review. A later independent design review and root adoption exist. **Design review and Owner approval are complete; runtime recovery admission is not.** Read the later approval record and preserve the original proposal/adoption as historical evidence.
 
 ## Active order and Owner authority
 
@@ -98,7 +114,7 @@ The approved dependency order is:
 
 `1363 ledger and closure → 1367-O2 conditional main promotion → 1364 → 1365 → P15B/P15C completion → P16 → canonical P17 → bounded P18`.
 
-Use one production writer and one recorded heavy lane. Specialists may prepare bounded sources, RED cases, contracts, and independent reviews in assigned scratch packages. The parent reconciles actual results, adopts reviewed work, and owns production edits/publication. No production source change before genuine ledger admission. Existing authorization covers ordinary implementation and backups; do not invent new Owner approval gates for routine work. The specific unexplained-baseline exception described here is an actual outstanding decision because the approved plan explicitly says **“Preserve failures and do not repin unexplained results.”**
+Use one production writer and one recorded heavy lane. Specialists may prepare bounded sources, RED cases, contracts, and independent reviews in assigned scratch packages. The parent reconciles actual results, adopts reviewed work, and owns production edits/publication. No production source change before genuine ledger admission. Existing authorization covers ordinary implementation and backups; do not invent new Owner approval gates. The specific baseline exception was explicitly approved in Claude's session. **“Preserve failures and do not repin unexplained results” still governs old observations; the approval creates a separately identified new attempt.**
 
 P19, optional expanded P17 shapes/crossovers, and native/Unity acceptance are outside this endpoint. The main merge was conditionally authorized after genuine 1363 closure and all 1367-O2 conditions, not before. Use a normal history-preserving merge when those conditions truly pass. No force push, reset, squash of published history, or early promotion.
 
@@ -270,9 +286,9 @@ The recommendation is the narrow recovery described in `Q/OPERATIONAL-RECOVERY-P
 Independent design review: `S/1370-aq-operational-recovery-proposal-independent-review-20261010-r1/RECEIPT.json`, SHA256 `b8df3ed14ca9860c309128fe8eb0e06265faf0b638620a56886e7c6b8db42809`.
 Root design adoption: `Q/OPERATIONAL-RECOVERY-PROPOSAL-ADOPTION.json`, SHA256 `32f9fb569b9cf9ff0968e3d77ca40e9ead9109a2d90d590db4bf61414e7697f2`.
 
-The adoption records `ownerQuestionAsked=true`, `ownerApprovalReceived=false`, `baselineReplacementAuthorized=false`, and `executionAuthorization=false`. This is permission needed for a **new attempt with a documented gap**, never permission to claim the old attempt passed. Do not restore timestamps/index bytes, omit the index from protection, weaken the historical equality predicate, or repeat scans until one happens to match.
+The historical adoption records `ownerQuestionAsked=true`, `ownerApprovalReceived=false`, `baselineReplacementAuthorized=false`, and `executionAuthorization=false`. Those fields describe its earlier date; Claude's later recorded Owner answer supersedes the pending permission status, not its failed observations. Create a current execution record bound to that answer and the actual source. Do not restore timestamps/index bytes, omit the index from protection, weaken historical equality, or repeat scans until one happens to match.
 
-If the Owner declines, retain the repair and its focused results, hold dependent gameplay, and investigate only authentic old evidence. If the Owner has answered by Claude's resume, record that actual answer and proceed within it; do not ask again. Read-only review and the requested documentation/backup work do not need that exception.
+Proceed within the recorded approval without re-asking. Complete operational/source prerequisites before the new attempt; review and documentation/backup work may continue independently.
 
 ## Exact next steps for Claude
 
@@ -291,9 +307,9 @@ git -c gc.auto=0 -c maintenance.auto=0 --no-optional-locks rev-parse HEAD HEAD:s
   refs/remotes/origin/wip/headless-program-20260916-ts refs/remotes/origin/main
 ```
 
-Preserve any newer commits or user edits. Confirm this handoff's containing commit and publication readback. The src tree must still be `13880d9b…`; investigate any difference before making claims. Read the latest Owner reply; ask only the still-unanswered recovery question if needed, explaining the explicit no-unexplained-repin instruction.
+Preserve any newer commits, uncommitted specialist work and user edits. Confirm this handoff's containing commit, backup manifests and publication readback. The src tree was `13880d9b…` at this checkpoint; investigate any later difference before making claims. The baseline question was answered. Recheck disk/processes, inspect the corrected P16 repair and finish the missing route plan without re-opening settled Owner decisions.
 
-### 2. If recovery is approved, prepare a fresh exact route
+### 2. Prepare the approved fresh exact route
 
 Use `Q/PROOF-SANITIZER-INTEGRATION-PLAN.md` as the immediate source map, not as a filled execution grant. The existing `CONFIG.proofMethods` already names the current execution library. The Python entry authenticates/imports it and records its actual role in FIRST-PROOF; the Node gate compares that role to CONFIG.
 
@@ -371,7 +387,7 @@ At each reachable slice: pin its actual predecessor, use independent RED and imp
 - R8 preserved kit locations: `E/1368-N-r8-corrected-whole-file-verification.md` identifies frozen `S/1368-save46-swept-proposal-r8/tree` (scratch HEAD `a59301c631531d9189aef5ee1827d6886db78f45`), runner kit `S/1368-r8-integration-prep-r1`, and `E/1368-stage/fourteenth-verification/evidence.tar.gz` with the ten test postimages and four genuine fixture files. Use the archive manifest and subsequent scoped receipts before landing; this historical report's open-check list is not a fresh rerun instruction. Do not traverse or extract fixture bodies merely to resume the handoff.
 - 1363-V versus causal diagnostics: `E/1369-C-c0-preimage-and-next-routes.md` and `E/1369-stage/next-route-plans/CAUSAL-ARMS-PREFLIGHT.md` distinguish the **105-process / 520-week measurement matrix** from **416-week causal diagnostics** and separate long routes. The exact final reviewed matrix artifact filename was **not located during this handoff audit**. Resolve its genuine source/review manifest when that gate is reached; do not invent a path or claim it has already been adopted/run.
 
-Apart from the immediate recovery exception, Owner escalation is conditional on measured 1363 findings: O2–O5 changes to rival income, greenlight/awareness law, market/templates/arrivals or retry/pruning policy are not preapproved remedies. Follow the charter's Proceed/Flag rules. Qualified P16 choices, reboot/floor/dormant-sequel choices, and the delegated cameo/P18 contract defaults are settled; do not repeatedly ask the Owner to approve them.
+The recovery exception is approved, and the later Owner full-autonomy order removes routine permission gates. It does not make an unmeasured O2–O5 policy change an explanation of an old failed result. Preserve charter Proceed/Flag classifications, independently review material contract amendments and record the decisions under that authority. Qualified P16 choices, reboot/floor/dormant-sequel choices and delegated cameo/P18 defaults are settled; do not ask for them again.
 
 ## Closed work: do not reopen or replay without a concrete affected-code reason
 
@@ -381,8 +397,8 @@ Current AQ index semantic equality and publication are also complete at their re
 
 ## Operational details that will otherwise waste a session
 
-- **No active game worker at takeover preparation:** at 10:22 CDT on 2026-10-10, a bounded process read found zero matching project Python/Node/test/lane workers and `S/HEAVY-LANE-LOCK` absent. Raw process evidence is `H/PROCESS-CHECK-LOCAL.json`, not for export. Earlier requests to restart the Mac concerned historical stuck workers; this handoff does not require a restart. Recheck current state before any new launch rather than acting on old PIDs.
-- **Disk:** handoff preparation measured 4,288,056 KiB available (about 4.09 GiB). This is a dated observation, not a promise for the next run. Preserve shared 3.5 GiB reserve/live 3 GiB runtime floors and the actual selected route's stricter requirements. No cleanup was performed during this handoff. Prior cache approvals do not authorize deleting source, saves, evidence or arbitrary user files.
+- **No active game worker at latest review:** at 18:37 CDT on 2026-10-10, no matching project Python/Node/test/lane workers were observed and `S/HEAVY-LANE-LOCK` was absent. Raw process evidence in `S/1370-as-claude-review-20261010-r1/processes-before.LOCAL.txt` is not exported. Earlier restart requests concerned historical stuck workers; this review does not require a restart. Recheck current state rather than acting on old PIDs.
+- **Disk:** latest pre-review snapshot was 2,764,251,136 bytes (about 2.57 GiB), replacing the older 4.09 GiB observation. Preserve shared 3.5 GiB reserve/live 3 GiB runtime floors and any stricter selected-route requirements. No cleanup was performed. A read-only cache inventory found only small previously approved candidates; do not claim they restore the full reserve. Cache approval never authorizes deleting source, saves, evidence or arbitrary user files.
 - **Python:** use the exact reviewed interpreter `/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14` with `-I -B`, never `-O` (many gates use assertions). Its measured 50,472-byte SHA256 is `7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835`. Revalidate current executable identity when required by a new contract.
 - **Git:** use `--no-optional-locks`, `-c gc.auto=0`, `-c maintenance.auto=0`; a sanitizer that removes all inherited `GIT_*` must then restore `GIT_OPTIONAL_LOCKS=0`. `/usr/bin/git` was SHA256 `fe38fea56d944c3b7e9df10617b1fa5432d7b75cc346d7eacb607d083ea11711`, with 76 hard links. Do not copy a regular evidence-file single-link rule onto that system binary.
 - **Heavy lane:** original launcher is `S/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh`, SHA256 `aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e`. Its first operand is the PID to wait for, or `0`; `0` does not impose a watchdog. The launcher itself has no overall runtime deadline. Never remove a foreign lock or signal a reused PID without ownership checks. Parent readers require actual owned PID/group cleanup, not an assumed end time.
@@ -430,23 +446,30 @@ The full accounts are in `A/payload/1370-aq-root-continuation-20261010-r1/LESSON
 15. Reproduce a write defect in disposable fixtures; a good fix and current semantic equality do not reconstruct lost historical bytes.
 16. Bind publication approval to the exact staged index, documents and archive it reviews.
 17. Preserve meaningful evidence whitespace and old verification failures; use exact authenticated exceptions, never broad waivers or normalization.
+18. Allocate integration ownership for shared save versions, money kinds and phase roots before parallel implementation. Six isolated green selections cannot establish one compatible game.
+19. Resolve real producers at consumer boundaries: persisted grant terms do not enforce current permission, and a throwing adapter is not completed P15/P16 integration.
+20. Contract-distinguishing cases matter: revoked grants, different-week cameos, completed work followed by cancellation, and competing film/TV capacity exposed concrete draft defects.
+21. Back up untracked source and temporary result files. Docs-only pushes and progress reports do not preserve the implementation; exact manifests and source patches now do.
+22. Compare reruns by stable identity and occurrence and preserve changed diagnostics. The recovered R8 comparison attributes 68 existing failures without pretending the four changed failures are explained.
+23. Completing an exhaustive type table can change old-save behavior. Independent review rejected new `true` entries and disproved an assumed strict V5 boundary; use `false` to preserve the original missing-key/falsy behavior. Retain rejected revisions and the review that caught them.
 
 ## Handoff completion and claim limits
 
-This document, the late AQ carry, and its Git publication are documentation/backup work. No new game test, new operational baseline, source adoption, ledger closure or main merge was performed while preparing it. The requested extremely detailed handoff replaces the earlier compact HANDOFF; the AUTO block below is preserved byte-for-byte and is explicitly stale historical hook output.
+This checkpoint updates the detailed handoff, backs up Claude's unlanded source/evidence and records independent review plus a bounded P16 draft repair. No new game test/compiler, new operational baseline, production gameplay landing, ledger closure or main merge was performed. Retained Claude test results are distinguished from new source review and backup checks. The AUTO block below is preserved byte-for-byte and remains historical hook output.
 
-On resume, first reconcile actual Git and the Owner's response. Once a specifically authorized next slice is truly ready, keep building within the approved dependency order and record major lessons as they are learned. Update this handoff at each checkpoint and preserve all original failures. Do not report P16, P17 or P18 complete until their actual implementation and required gates are complete.
+On resume, reconcile Git, current process/disk state and the exact draft manifests. The Owner response is already recorded; continue within the approved dependency order without re-asking it. Update this handoff at each checkpoint and preserve original failures. Do not report P16, P17 or P18 complete until actual integration and required gates pass.
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-04 15:31 CDT by **claude** on SessionEnd (session 60db833c-4cf7-4685-b2ec-8aac42c6dac1)
-- Branch: `wip/headless-program-20260916-ts` @ `266c172c0e54f0277fd05392ccd2bc19b4ce65fb`
+- Stamped: 2026-10-10 16:30 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
+- Branch: `wip/headless-program-20260916-ts` @ `f7d0dc0fd4f31ff1a3bff47abb4db07bd3ce298c`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 0
+- Uncommitted files: 1
+  - `M HANDOFF.md`
 - Last commits:
-  - 266c172c docs(p15): confirm final Save45 sweep and independent approval; preserve landing handoff
-  - d645e700 docs(handoff): preserve x3 attribution and completed scratch cleanup
-  - 7692b1e1 docs(p15): preserve guard observations and final sweep candidate; x3 running
-  - 8719cde1 docs(p15): record x2 sweep results and stage reviewed S9 follow-ups
-  - 7cc28747 docs(handoff): Codex resumes Save45 sweep; preserve review and guard probes
+  - f7d0dc0f docs(handoff): record Claude in-flight specialist lanes and sequencing decision
+  - 6510c971 docs(handoff): Claude takeover; record Owner approval of fresh baseline and full-autonomy order
+  - 9b67d768 docs: prepare detailed Claude handoff and preserve late AQ evidence
+  - d3072005 docs: preserve Git guard repair and preservation diagnostic
+  - d20347b8 docs: preserve native observer controls, protected failure, and lessons
 <!-- AUTO:END -->

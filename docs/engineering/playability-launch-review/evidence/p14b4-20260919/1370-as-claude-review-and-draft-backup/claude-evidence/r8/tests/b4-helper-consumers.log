@@ -1,0 +1,1219 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/r8
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable
+seed-b: 544 real film decisions (102 pictures), 360 without members; chain digest over 115 rows = d32e68f685f658666d620bd3faee2841a3af4ac20373e9449ea0851fbb18a100
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > RED: every real film decision on seed-b with members seats the law pick (benefit, then ordinary score, then BILLINGS); the violation table names each miss
+SEED-B MEMBER DECISIONS 184 (10 pictures); MISSES 0
+
+
+stdout | tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the initial cast seam (plan :225-232) > capacity constraint: a rival with a ready screenplay and no lawful complementary staffing decides nothing (natural weeks logged; zero is a fixture finding)
+NO-STAFFING WEEKS 137
+p13a-core-causal-01 w273 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w274 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w275 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w276 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w277 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w278 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w279 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w280 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w281 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w282 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w283 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w284 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w285 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w286 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w287 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w288 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w289 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w290 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w290 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w291 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w291 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w292 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w292 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w293 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w293 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w294 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w294 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w295 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w295 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w296 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w296 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w297 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w297 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w298 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w298 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w299 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w299 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w300 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w300 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w301 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w301 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w302 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w302 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w303 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w303 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w304 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w304 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w305 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w305 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w306 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w306 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w307 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w307 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w308 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w308 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w309 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w309 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w310 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w310 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w311 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w311 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w312 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w312 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w313 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w313 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w314 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w314 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w315 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w315 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w316 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w316 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w317 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w317 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w318 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w318 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w319 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w319 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w320 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w320 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w321 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w321 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w322 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w322 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w323 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w323 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w324 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w324 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w325 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w325 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w326 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w326 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w327 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w327 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w328 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w328 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w329 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w329 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w330 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w330 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w331 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w331 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w332 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w332 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w333 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w333 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w334 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w334 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w335 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w335 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w336 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w336 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w337 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w337 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w338 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w338 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w339 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w339 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w340 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w340 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w341 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w341 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w342 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w342 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w343 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w343 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w344 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w344 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w345 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w345 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w346 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w346 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w347 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w347 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w348 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w348 studio-aca408ec-r02 deficit=true
+p13a-core-causal-01 w349 studio-aca408ec-r01 deficit=true
+p13a-core-causal-01 w349 studio-aca408ec-r02 deficit=true
+
+ ✓ |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > default seed: the first screenplay-planning call and first film decision are byte-identical to the accepted values; the transcribed ordinary score reproduces the real no-preference choice 34249ms
+ × |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > p13a-core-causal-01: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable 372ms
+   → expected [] to deeply equal [ { week: 208, …(4) }, …(1) ]
+ × |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable 50740ms
+   → expected 'd32e68f685f658666d620bd3faee2841a3af4…' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2…' // Object.is equality
+ × |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > search table: the first seed-b decision whose seating matters holds two tagged leadOrAntagonist beneficiaries and one P1 beneficiary in a three-actor pool
+   → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ × |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > RED: the real seating serves the maximal DISTINCT-beneficiary count (plan :215-218), the picture is viable and affordable (:223-225), and the real first take then satisfies all three through advancePromisesWeek/qualifyingTakes
+   → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ✓ |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > RED: every real film decision on seed-b with members seats the law pick (benefit, then ordinary score, then BILLINGS); the violation table names each miss
+ × |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > CONFLICT: the ordinary economic score prefers a two-beneficiary permutation; benefit count wins over score (:216-217) and the real take proves it
+   → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ✓ |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > EQUAL BENEFIT: with every member generic (seed-b w211 studio-bc14baf6-r02, all P1) the ordinary score orders the permutations exactly as before
+ × |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated — inherited tie behaviour, not fairness (:218-221)
+   → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ × |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating
+   → expected { week: 202, …(1) } to deeply equal { week: 202, …(1) }
+ × |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > another issuer's promise never counts: r02's offers to r01's three actors are present at w202 and at the witness and never enter r01's member set; re-authored r02 offers make the negative discriminating
+   → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ × |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (control, r02 chain): after r02's w211 picture satisfies its three P1 roots at w216, its next real decision has no member and takes the ordinary pick
+   → The expression evaluated to a falsy value:
+
+  expect(first.cast).toEqual({ lead: WITNESS.a2, antagonist: WITNESS.a4, support: WITNESS.a3 })
+
+ × |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision
+   → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ × |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts — 'window starts after every plausible t…'
+   → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ × |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts — 'window ends before any take can land …'
+   → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ × |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'tagged lead stays exact: r01-2 counts…'
+   → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ × |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'legacy count-only LEAD_OR_SIGNIFICANT…'
+   → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ × |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'APPEARANCE_COUNT is generic cast'
+   → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ × |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the initial cast seam (plan :225-232) > promised non-primary-actor beneficiaries (the witness rival's writer, director and craft, each bound OPEN P1) are never seated: one person cannot double, and the sole holder of a role is a capacity constraint, not a forged package
+   → UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ✓ |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the initial cast seam (plan :225-232) > capacity constraint: a rival with a ready screenplay and no lawful complementary staffing decides nothing (natural weeks logged; zero is a fixture finding)
+ × |core| tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the initial cast seam (plan :225-232) > the positive seam witness (plan :225-227, :233; record 621 R2 / G10-b): the first default-seed picture whose pool seats a promised person outside the historical first three admits r01's sole WRITER — a non-primary-actor beneficiary — and the real package and first take serve his promise
+   → UNEXECUTED natural premise: no picture on 'p13a-core-causal-01' within 350 ticks seats a promised person outside the historical first three
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T surface (RED law: a missing module or export is named, never a spurious pass) > surface (E10): every adopted export of promiseCapacityEnumerator.js exists with its runtime type; the adapter honours a 5th argument; NO_ENUMERATION is not exported; RED 11 key list unchanged 6642ms
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T floor: FRESH_TAKE_OFFSET and earliestStartedTakeWeek > E1 (555-B Q7): FRESH_TAKE_OFFSET === 5 is tied to the phase owner and the countdown; the started floor formula on plain Pick inputs
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T floor: FRESH_TAKE_OFFSET and earliestStartedTakeWeek > addition (iv) (555-B Q2): the remainingTicks < 5 arm of (a′) on plain Pick inputs — past the first Shooting week no NEW first take can ever be recorded (operations :1680 sole take branch; replay :690), so the floor is +Infinity
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T floor: FRESH_TAKE_OFFSET and earliestStartedTakeWeek > E1 (555-B Q7) natural chain LAW: a real greenlight on w.opened at now, assign/schedule at the earliest lawful boundaries, records its first take no earlier than now + FRESH_TAKE_OFFSET 847ms
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T floor: FRESH_TAKE_OFFSET and earliestStartedTakeWeek > E1 (555-B Q7) natural chain OBSERVATION (fixture tightness, not law; 538 :60 predicts now+5, not shown native): the take lands exactly at now + 5
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T certificate: enumerateOwnerTraces on the started domain > E2: 2-week cell 'matrix lead target fixed in lead, oth…' — ONE Started run seeded with w_e, byte-equal trace and holds, both flags complete, no omission, floors now+5 368ms
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T certificate: enumerateOwnerTraces on the started domain > E2: 2-week cell 'matrix leadOrAntagonist target fixed …' — ONE Started run seeded with w_e, byte-equal trace and holds, both flags complete, no omission, floors now+5
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T certificate: enumerateOwnerTraces on the started domain > E2: 2-week cell 'matrix any target fixed in lead, othe…' — ONE Started run seeded with w_e, byte-equal trace and holds, both flags complete, no omission, floors now+5
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T certificate: enumerateOwnerTraces on the started domain > E2: 2-week cell 'matrix lead target fixed in antagonis…' — ONE Started run seeded with w_e, byte-equal trace and holds, both flags complete, no omission, floors now+5
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T certificate: enumerateOwnerTraces on the started domain > E2: 2-week cell 'matrix leadOrAntagonist target fixed …' — ONE Started run seeded with w_e, byte-equal trace and holds, both flags complete, no omission, floors now+5
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T certificate: enumerateOwnerTraces on the started domain > E2: 2-week cell 'matrix any target fixed in antagonist…' — ONE Started run seeded with w_e, byte-equal trace and holds, both flags complete, no omission, floors now+5 364ms
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T certificate: enumerateOwnerTraces on the started domain > E2: 2-week cell 'matrix lead target fixed in support, …' — ONE Started run seeded with w_e, byte-equal trace and holds, both flags complete, no omission, floors now+5
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T certificate: enumerateOwnerTraces on the started domain > E2: 2-week cell 'matrix leadOrAntagonist target fixed …' — ONE Started run seeded with w_e, byte-equal trace and holds, both flags complete, no omission, floors now+5
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T certificate: enumerateOwnerTraces on the started domain > E2: 2-week cell 'matrix any target fixed in support, o…' — ONE Started run seeded with w_e, byte-equal trace and holds, both flags complete, no omission, floors now+5
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T certificate: enumerateOwnerTraces on the started domain > E2: 2-week cell 'joint lead+flexible+P1, target lead' — ONE Started run seeded with w_e, byte-equal trace and holds, both flags complete, no omission, floors now+5
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T certificate: enumerateOwnerTraces on the started domain > E2: 2-week cell 'joint lead+flexible+P1, target antago…' — ONE Started run seeded with w_e, byte-equal trace and holds, both flags complete, no omission, floors now+5
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T certificate: enumerateOwnerTraces on the started domain > E2: 2-week cell 'joint lead+flexible+P1, target support' — ONE Started run seeded with w_e, byte-equal trace and holds, both flags complete, no omission, floors now+5
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T certificate: enumerateOwnerTraces on the started domain > E2: 2-week cell 'conflicting fixed lead claims (RED 4)…' — ONE Started run seeded with w_e, byte-equal trace and holds, both flags complete, no omission, floors now+5 301ms
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T certificate: enumerateOwnerTraces on the started domain > E6 (555-B Q7): a later prior due sets the horizon — antagonist due now+4, target lead now+2 → run to now+4, certificate complete, class per E3
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T certificate: enumerateOwnerTraces on the started domain > addition (i) (555-B Q7): a picture admitted THIS week on w.opened (startTick === now, remainingTicks 8) is bounded by condition (c) — floor now+5 ≥ a 2-week horizon → complete → PROVEN_IMPOSSIBLE
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T certificate: enumerateOwnerTraces on the started domain > addition (ii) (555-B Q7): (a′) via the real tick(w.ready) — remainingTicks 4 with its issuer-matched receipt adds no NEW event; a fresh unbound 2-week draft is complete and IMPOSSIBLE
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T classification: classifyEnumeratedOffer through the adapter > E3: 2-week cell 'matrix lead target fixed in lead, oth…' → 'FRAGILE' under the certificate (538 :33 observed classes); workUsed bounded; digest composed, preparationWork-independent, ≠ the first-slice digest 473ms
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T classification: classifyEnumeratedOffer through the adapter > E3: 2-week cell 'matrix leadOrAntagonist target fixed …' → 'FRAGILE' under the certificate (538 :33 observed classes); workUsed bounded; digest composed, preparationWork-independent, ≠ the first-slice digest 318ms
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T classification: classifyEnumeratedOffer through the adapter > E3: 2-week cell 'matrix any target fixed in lead, othe…' → 'FRAGILE' under the certificate (538 :33 observed classes); workUsed bounded; digest composed, preparationWork-independent, ≠ the first-slice digest 547ms
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T classification: classifyEnumeratedOffer through the adapter > E3: 2-week cell 'matrix lead target fixed in antagonis…' → 'IMPOSSIBLE' under the certificate (538 :33 observed classes); workUsed bounded; digest composed, preparationWork-independent, ≠ the first-slice digest 321ms
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T classification: classifyEnumeratedOffer through the adapter > E3: 2-week cell 'matrix leadOrAntagonist target fixed …' → 'FRAGILE' under the certificate (538 :33 observed classes); workUsed bounded; digest composed, preparationWork-independent, ≠ the first-slice digest 472ms
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T classification: classifyEnumeratedOffer through the adapter > E3: 2-week cell 'matrix any target fixed in antagonist…' → 'FRAGILE' under the certificate (538 :33 observed classes); workUsed bounded; digest composed, preparationWork-independent, ≠ the first-slice digest 309ms
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T classification: classifyEnumeratedOffer through the adapter > E3: 2-week cell 'matrix lead target fixed in support, …' → 'IMPOSSIBLE' under the certificate (538 :33 observed classes); workUsed bounded; digest composed, preparationWork-independent, ≠ the first-slice digest
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T classification: classifyEnumeratedOffer through the adapter > E3: 2-week cell 'matrix leadOrAntagonist target fixed …' → 'IMPOSSIBLE' under the certificate (538 :33 observed classes); workUsed bounded; digest composed, preparationWork-independent, ≠ the first-slice digest
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T classification: classifyEnumeratedOffer through the adapter > E3: 2-week cell 'matrix any target fixed in support, o…' → 'FRAGILE' under the certificate (538 :33 observed classes); workUsed bounded; digest composed, preparationWork-independent, ≠ the first-slice digest
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T classification: classifyEnumeratedOffer through the adapter > E3: 2-week cell 'joint lead+flexible+P1, target lead' → 'FRAGILE' under the certificate (538 :33 observed classes); workUsed bounded; digest composed, preparationWork-independent, ≠ the first-slice digest 349ms
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T classification: classifyEnumeratedOffer through the adapter > E3: 2-week cell 'joint lead+flexible+P1, target antago…' → 'FRAGILE' under the certificate (538 :33 observed classes); workUsed bounded; digest composed, preparationWork-independent, ≠ the first-slice digest 328ms
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T classification: classifyEnumeratedOffer through the adapter > E3: 2-week cell 'joint lead+flexible+P1, target support' → 'FRAGILE' under the certificate (538 :33 observed classes); workUsed bounded; digest composed, preparationWork-independent, ≠ the first-slice digest
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T classification: classifyEnumeratedOffer through the adapter > E3: 2-week cell 'conflicting fixed lead claims (RED 4)…' → 'IMPOSSIBLE' under the certificate (538 :33 observed classes); workUsed bounded; digest composed, preparationWork-independent, ≠ the first-slice digest 320ms
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T classification: classifyEnumeratedOffer through the adapter > E3 (PAPER, plan :106; 538 unmeasured): unbound(support) on the joint variant is IMPOSSIBLE — the person's own bound root becomes a prior with remaining 1 while the unbound target asks one more from the same single seat
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T honesty: the floor edge, the unforced started picture, the queue > E4 (555-B Q4): target due exactly now + FRESH_TAKE_OFFSET is still complete (half-open: a fresh take at now+5 lies outside) and classifies PROVEN_FRAGILE
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T honesty: the floor edge, the unforced started picture, the queue > E4 (555-B Q4): beyond the floor BOTH flags are incomplete with exactly the fresh-admission omission; the Started run to now+6 is complete (loud precondition); UNCERTIFIED/domainIncomplete, no horizon-guard throw
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T honesty: the floor edge, the unforced started picture, the queue > E5 (555-B Q7): the real state before scheduleShootingTake (status ready, blocker null, remainingTicks 5) fails (b) → the started-picture omission names w.productionId, both flags incomplete, UNCERTIFIED/domainIncomplete, no throw
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T honesty: the floor edge, the unforced started picture, the queue > addition (iii) (555-B Q7): a non-empty production queue is the producer's context cut (replay :624) → both flags incomplete → UNCERTIFIED/domainIncomplete; built by three real commands at now on the admitted-this-week state — the fixture writer's commission fills the last Development & Casting slot, a market writer is signed, and that writer's commission is the one queueable refusal (scriptDevelopment :311) the front door admits to the queue (actions :1634-1645)
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T guards: rival issuer, absent industry, raised cap, short span, tariff saturation > E7: a rival issuer or an absent industry runs no producer (attempts [], work 1), both flags incomplete, the rival omission carried, FRAGILE/UNCERTIFIED, never a throw
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T guards: rival issuer, absent industry, raised cap, short span, tariff saturation > E9 (555-B Q7): limits.work 200001 surfaces the Started producer's own refusal (replay :2679) unrelabelled — not the kernel's message, not a cut
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T guards: rival issuer, absent industry, raised cap, short span, tariff saturation > E9 (555-B Q7): a span below the horizon distance is the producer's sizeLimit cut before any plan (replay :549); the certificate stays incomplete and the kernel answers UNCERTIFIED/sizeLimit (:1013), never PROVEN_*
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T guards: rival issuer, absent industry, raised cap, short span, tariff saturation > addition (v) (555-B Q5): w_e is charged and saturated against limits.work BEFORE any run — the replay's cut shape (:2686-2687) with the enumerator label, both flags incomplete, kernel UNCERTIFIED/workLimit at workUsed = limit
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T purity: no mutation, determinism, permutation invariance, the tariff formula > E8: structuredClone equality before/after, repeated calls equal, reversed promises/firstTakes/proposals identical, w_e === 1 + N + W + N×T 457ms
+ ✓ |core| tests/p14b4-owner-enumerator-slice.test.ts > 558-T limits: assembleCapacityInput 5th parameter, default byte-identity, canonical limits > E10 (555-B Q6/Q7): with the 5th argument assembly carries the supplied flags and omissions and drops NO_ENUMERATOR_OMISSION; without it the default reproduces RED 7's hand assembly; `limits` is re-literalled in canonical order and the digest ignores the caller's key order 313ms
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T module surface (RED law: a missing module or export is named, never a spurious pass) > surface: every adopted export of promiseCapacityOwners.js and the two promises.js helpers exists with its runtime type
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T claims: collectPromiseClaims membership, mask, remaining, target, guards > RED 1: collects bound-open P1 roots on world().ready as generic-mask prior claims 6277ms
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T claims: collectPromiseClaims membership, mask, remaining, target, guards > RED 2: self-exclusion drops only the named root; abandoned (withdrawn) and terminal roots never appear
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T claims: collectPromiseClaims membership, mask, remaining, target, guards > RED 3 (539-B refined): a CURRENT P1 attachment on another beneficiary is a current claim; foreign debits come from a detached ClaimSource fixture, other-person rival roots are dropped, current and foreign remaining read count
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T claims: collectPromiseClaims membership, mask, remaining, target, guards > RED 4 (539-B refined, mirrors capacity test :279-288): conflicting tagged lead claims on BOTH lead and antagonist are ['lead'] prior claims for the support target
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T claims: collectPromiseClaims membership, mask, remaining, target, guards > addition (i): a count-only LEAD_OR_SIGNIFICANT_ROLE_COUNT root masks all three seats as prior and as target
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T claims: collectPromiseClaims membership, mask, remaining, target, guards > RED 5: remaining reads actual class-qualified distinct takes and clips at zero (second half is a non-live arithmetic pin) 348ms
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T claims: collectPromiseClaims membership, mask, remaining, target, guards > RED 6: empty-window and zero-count attached drafts demand nothing: excluded exactly, no omission, coverage complete
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T claims: collectPromiseClaims membership, mask, remaining, target, guards > addition (iv): exact half-open edges are excluded (start === target due; due === max(now, target start)); one week inside is included
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T assembly: assembleCapacityInput derives coverage and carries cuts > RED 7 (539-B Q8.7 Started alternative): assembly is byte-identical to the first-take hand assembly (:314-321) with coverage derived
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T assembly: assembleCapacityInput derives coverage and carries cuts > RED 8: cut attempts and producer omissions make claimsAndHolds incomplete and are carried; a Ready plan on world().opened cuts workLimit (538 fact 2) and maps UNCERTIFIED/workLimit at workUsed 200000
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T digest: capacityInputsDigest identity > RED 12 (539-B refined): the digest changes with class and claims, is independent of preparationWork, keeps limits, and is unchanged by cash or RNG through the STARTED producer on w.ready 584ms
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T digest: capacityInputsDigest identity > RED 14: no state mutation, determinism and permutation invariance; work === 1 + P + A + M×T 349ms
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T mapping: mapCapacityResult and classifyDetachedOffer > RED 9: 2-week cell 'matrix lead target fixed in lead, oth…' reaches the kernel within budget and maps UNCERTIFIED/domainIncomplete to FRAGILE with the exact bottleneck
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T mapping: mapCapacityResult and classifyDetachedOffer > RED 9: 2-week cell 'matrix leadOrAntagonist target fixed …' reaches the kernel within budget and maps UNCERTIFIED/domainIncomplete to FRAGILE with the exact bottleneck
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T mapping: mapCapacityResult and classifyDetachedOffer > RED 9: 2-week cell 'matrix any target fixed in lead, othe…' reaches the kernel within budget and maps UNCERTIFIED/domainIncomplete to FRAGILE with the exact bottleneck 356ms
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T mapping: mapCapacityResult and classifyDetachedOffer > RED 9: 2-week cell 'matrix lead target fixed in antagonis…' reaches the kernel within budget and maps UNCERTIFIED/domainIncomplete to FRAGILE with the exact bottleneck
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T mapping: mapCapacityResult and classifyDetachedOffer > RED 9: 2-week cell 'matrix leadOrAntagonist target fixed …' reaches the kernel within budget and maps UNCERTIFIED/domainIncomplete to FRAGILE with the exact bottleneck
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T mapping: mapCapacityResult and classifyDetachedOffer > RED 9: 2-week cell 'matrix any target fixed in antagonist…' reaches the kernel within budget and maps UNCERTIFIED/domainIncomplete to FRAGILE with the exact bottleneck
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T mapping: mapCapacityResult and classifyDetachedOffer > RED 9: 2-week cell 'matrix lead target fixed in support, …' reaches the kernel within budget and maps UNCERTIFIED/domainIncomplete to FRAGILE with the exact bottleneck
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T mapping: mapCapacityResult and classifyDetachedOffer > RED 9: 2-week cell 'matrix leadOrAntagonist target fixed …' reaches the kernel within budget and maps UNCERTIFIED/domainIncomplete to FRAGILE with the exact bottleneck
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T mapping: mapCapacityResult and classifyDetachedOffer > RED 9: 2-week cell 'matrix any target fixed in support, o…' reaches the kernel within budget and maps UNCERTIFIED/domainIncomplete to FRAGILE with the exact bottleneck
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T mapping: mapCapacityResult and classifyDetachedOffer > RED 9: 2-week cell 'joint lead+flexible+P1, target lead' reaches the kernel within budget and maps UNCERTIFIED/domainIncomplete to FRAGILE with the exact bottleneck
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T mapping: mapCapacityResult and classifyDetachedOffer > RED 9: 2-week cell 'joint lead+flexible+P1, target antago…' reaches the kernel within budget and maps UNCERTIFIED/domainIncomplete to FRAGILE with the exact bottleneck
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T mapping: mapCapacityResult and classifyDetachedOffer > RED 9: 2-week cell 'joint lead+flexible+P1, target support' reaches the kernel within budget and maps UNCERTIFIED/domainIncomplete to FRAGILE with the exact bottleneck
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T mapping: mapCapacityResult and classifyDetachedOffer > RED 9: 2-week cell 'conflicting fixed lead claims (RED 4)…' reaches the kernel within budget and maps UNCERTIFIED/domainIncomplete to FRAGILE with the exact bottleneck
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T mapping: mapCapacityResult and classifyDetachedOffer > RED 10: mapCapacityResult covers all five kernel statuses from the kernel test's detached finite fixtures
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T mapping: mapCapacityResult and classifyDetachedOffer > RED 11: IMPOSSIBLE is offer-scoped (kernel.status and scope retained); the module exports exactly the adopted surface, nothing taking a Production or cancel context
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T mapping: mapCapacityResult and classifyDetachedOffer > addition (ii): a bound target with a real take is ALREADY_MET through the trace route and maps REASONABLY_ACHIEVABLE with a null bottleneck
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T guards: rival issuer, horizon, governed limits, malformed target > RED 13: a rival issuer or an absent industry is nonofferable, never thrown: empty claims, incomplete with the named omission; a rival producer result maps FRAGILE with the exact string
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T guards: rival issuer, horizon, governed limits, malformed target > RED 15: horizon guard — a complete unknown-release trace below claims.horizonEndWeek is a named throw; a due of now+221 with no complete trace is UNCERTIFIED/sizeLimit, never a throw
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T guards: rival issuer, horizon, governed limits, malformed target > addition (iii): limits.work 200001 is refused by the kernel through the adapter (work limit exceeds the governed maximum), never relabelled
+ ✓ |core| tests/p14b4-owner-adapter-first-slice.test.ts > 540-T guards: rival issuer, horizon, governed limits, malformed target > addition (v): a malformed target (empty window, count < 1, non-integer count) is a named precondition throw, never relabelled as cap uncertainty
+ ✓ |core| tests/p14b10-romance.test.ts > P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass) > every romance constant is the Owner/charter-named value (1347-A §3), and both functions exist
+ ✓ |core| tests/p14b10-romance.test.ts > P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass) > the named relation holds: EXIT_THRESHOLD is strictly below FORMATION_THRESHOLD (1347-A §3: "the wide gap stops bonds flickering")
+ ✓ |core| tests/p14b10-romance.test.ts > currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > holds the stored value inside the grace window (dormant = 0, and dormant = GRACE exactly)
+ ✓ |core| tests/p14b10-romance.test.ts > currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > decays linearly toward 0 partway through the decay window (independent hand-derived oracle)
+ ✓ |core| tests/p14b10-romance.test.ts > currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > reaches exactly 0 at GRACE + DECAY weeks, and never goes negative or rises past that floor afterward
+ ✓ |core| tests/p14b10-romance.test.ts > currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > a value of 0 stays 0 through the whole window (no negative drift)
+ ✓ |core| tests/p14b10-romance.test.ts > currentRomanceValue — pure decay arithmetic (the currentCloseness shape, target 0 instead of the baseline) > a value of exactly ROMANCE_FORMATION_THRESHOLD decays below ROMANCE_EXIT_THRESHOLD before reaching 0 (the named 229-week note, 1347-A §3)
+ ✓ |core| tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > null romance reads null
+ ✓ |core| tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > a track with no bond ever formed (still accumulating) reads null, not "partners"
+ ✓ |core| tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > an OPEN bond whose derived value is still at/above EXIT_THRESHOLD reads "partners"
+ ✓ |core| tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > an OPEN bond whose derived value has now decayed below EXIT_THRESHOLD reads "ended" — COMPUTED ON READ, before any write has persisted endedWeek
+ ✓ |core| tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > an already-recorded closed bond reads "ended" at every later week too, unconditionally
+ ✓ |core| tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > romanceStatus is independent of tier/closeness: a Partners pair at Strained closeness still reads "partners" (D-1312-2: a friendship-tier drop alone does not end the romance)
+ ✓ |core| tests/p14b10-romance.test.ts > romanceStatus — pure reads (no route needed; independent of tier, closeness, studio or employment) > romanceStatus takes no argument beyond (edge, week) — by construction it cannot consult studio, retirement or employment (D-1312-2 non-triggers)
+ ✓ |core| tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): eligibility is Friends+ and no open bond with anyone but the pair's own partner (1347-F note; 1358-F §1) > below Friends, a qualifying high-proximity 2nd+ shared production grants NO romance growth 22773ms
+ ✓ |core| tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): eligibility is Friends+ and no open bond with anyone but the pair's own partner (1347-F note; 1358-F §1) > growth is blocked by a THIRD PARTY's open bond (1358-F §1: Reading B excludes only the pair's own partner)
+ ✓ |core| tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): eligibility is Friends+ and no open bond with anyone but the pair's own partner (1347-F note; 1358-F §1) > romance-partnered-pair-keeps-growing: after formation, a shared success raises the pair's own value, capped at 100 (1358-F §1, Reading B: "anyone" excludes the pair's own partner)
+ ✓ |core| tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > a high-proximity (director-lead) 2nd+ shared production, Friends+, no open bond anywhere, adds ROMANCE_PROXIMITY_GAIN and resets anchorWeek
+ ✓ |core| tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > lead-antagonist is ALSO high proximity (1347-A §2.3 names both seat pairs) and grants the same gain
+ ✓ |core| tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > director-support is LOW proximity and grants NO romance gain (but still resets anchorWeek if a track already exists — "any shared take resets separation")
+ ✓ |core| tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > a write materializes first: a high-proximity touch outside the grace window reads currentRomanceValue at the write week, then adds ROMANCE_PROXIMITY_GAIN (1358-F2 item 1)
+ ✓ |core| tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > a shared SUCCESS (release) adds ROMANCE_SUCCESS_GAIN, Friends+ and no open bond
+ ✓ |core| tests/p14b10-romance.test.ts > growth in advanceRelationshipsWeek (1358-F §2): the eligible case, written in the ruled order (1358-F2 item 1) > a rival pair (a rival studioId on the take) forms a bond under the SAME law (1347-A §5: "A rival pair forms under the same law")
+ ✓ |core| tests/p14b10-romance.test.ts > formation — dated once, at the crossing write > crossing ROMANCE_FORMATION_THRESHOLD appends a bond with formedWeek = the crossing week and endedWeek null
+ ✓ |core| tests/p14b10-romance.test.ts > formation — dated once, at the crossing write > a re-formation (after an ended bond) appends a SECOND bond row, never overwriting the first
+ ✓ |core| tests/p14b10-romance.test.ts > formation — dated once, at the crossing write > a THIRD PARTY's open bond that has already ended on read does not block formation, and that formation check records its ending (1347-A:56)
+ ✓ |core| tests/p14b10-romance.test.ts > ending — computed on read, persisted once at the next touching write, never moved again > the next write that touches the edge persists the READ-derived ending week into endedWeek
+ ✓ |core| tests/p14b10-romance.test.ts > ending — computed on read, persisted once at the next touching write, never moved again > once persisted, endedWeek is never moved by a LATER write touching the same edge again
+ ✓ |core| tests/p14b10-romance.test.ts > ending — computed on read, persisted once at the next touching write, never moved again > the ending write moves no closeness, counter, peak or recent: everything but romance equals a twin edge with romance null under the same touch (1347-A:57, :127) [control: passes at RED]
+ ✓ |core| tests/p14b10-romance.test.ts > non-triggers at the write seam: retirement, a studio change and a drop to Strained end nothing (1347-A:59, :129) > a write at a staged retirement week, with a studio change and a drop to Strained, leaves the bond open and the pair partners (1358-F4 item 2(b))
+ ✓ |core| tests/p14b10-romance.test.ts > consequences already selected (1347-A:60, §6 item 3): Partners in pairChemistry > pairChemistry reads sign +1 with one added Partners reason at Strained, and -1 at Enemies (1358-F4 item 2(a))
+ ✓ |core| tests/p14b10-romance.test.ts > drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > while romanceStatus reads "partners", currentCloseness holds the stored closeness past the drift grace (1358-F §3)
+ ✓ |core| tests/p14b10-romance.test.ts > drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > after the bond ends, drift resumes from max(lastEventWeek, endedWeek) — not from the stale lastEventWeek
+ ✓ |core| tests/p14b10-romance.test.ts > drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > after a recorded ending, a LATER ordinary driver anchors the dormancy: max(lastEventWeek, endedWeek) picks lastEventWeek (1358-F §3) [control: passes at RED]
+ ✓ |core| tests/p14b10-romance.test.ts > drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > an ending computed on read (endedWeek still null) ends the hold at that week and anchors the dormancy there, so recording it later changes no closeness (1358-F §3; 1347-A §2.3)
+ ✓ |core| tests/p14b10-romance.test.ts > drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > currentTier widens its Pick the same way: a Partners pair past the drift grace keeps its held tier (1358-F §3)
+ ✓ |core| tests/p14b10-romance.test.ts > drift exemption and resumption: currentCloseness and currentTier read romance through their strict Picks (1358-F §3) > the Picks are strict (1358-F §3): a partial edge without romance does not compile for currentCloseness or currentTier [RED at the type gate only]
+ ✓ |core| tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > the named law constants bind to real numbers (RED gate: a missing named export binds to undefined under vite)
+ ✓ |core| tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P1: lead and antagonist each mint one castingCompetitionLost driver on the right pair, ref = the production id, delta = -RELATIONSHIP_COMPETITION_DELTA through driverGain (identity today) 3668ms
+ ✓ |core| tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P1: the off-slate support slot (seated c, candidates [a,b]) mints nothing for that slot
+ ✓ |core| tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P1: a competition-only edge is created with sharedProductions 0, sharedCompetitions 1, firstSharedWeek = the greenlight week
+ ✓ |core| tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P2: pair (a,d) competes a second time on a different production — repeatedCompetition, delta = -min(n-1, RELATIONSHIP_COMPETITION_REPEAT_CAP); the pair never shares a production and reaches Strained (1313-A: "50 - 3 = 47, then 47 - 3 - 1 = 43")
+ ✓ |core| tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P2: (b,c) and (a,c) are each fresh competition-only edges
+ ✓ |core| tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P-dedup: a slate naming the same pair in two slots (each winning one from the other) records ONE competition for that production, not two (1313-F Amendment 2)
+ ✓ |core| tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P3: a re-greenlight after a cancel mints again under the new production id (1313-F Amendment 3) — no first take exists at the cancel, so recordCancelledAfterFirstTake mints nothing extra there
+ ✓ |core| tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > P-no-session: a greenlight for a project with no casting session mints nothing for any of its seated pairs
+ ✓ |core| tests/p14b9-casting-competition.test.ts > 1313-A/F casting-competition drivers — a generated world through a real casting session and greenlight > rngState is unchanged by the greenlight's minting (regression pin — driverGain is identity and no RNG stream exists today, so this is ALREADY true before the law lands; 1313-A: "No RNG, no reservation, no charge")
+ ✓ |core| tests/p14b9-casting-competition.test.ts > 1313-F Amendment 1 — a queue-admitted greenlight mints the same as a direct one > a synthetic queue entry, granted by the real tick-driven admission step, mints the same castingCompetitionLost drivers as a direct greenlight 1481ms
+ ✓ |core| tests/p14b9-casting-competition.test.ts > 1313-A §4 item 2 — no rival edge carries either new kind across a bounded natural run (1312-F Amendment 1: rivals hold no casting session) > 60 further weeks, zero player actions: every castingCompetitionLost/repeatedCompetition driver anywhere in state.relationships has ref in the set of productions this file greenlit as the player 5945ms
+ ✓ |core| tests/p14c2a-consumers.test.ts > P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > B1: renewContract on an announced person — refused past E with retirementAnnounced, byte-identical state; allowed ending exactly at E 598ms
+ ✓ |core| tests/p14c2a-consumers.test.ts > P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > B2: signContract on an announced free agent — refused past E with retirementAnnounced, byte-identical state; allowed ending exactly at E 4981ms
+ ✓ |core| tests/p14c2a-consumers.test.ts > P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > B3: an announced person under an open case reads retirement_announced with no proposers, and submitProposal is refused without mutation 2569ms
+ ✓ |core| tests/p14c2a-consumers.test.ts > P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > C1: announcing retirement invalidates the open case the same week, with a receipt naming "announced retirement", and drops its proposals 1591ms
+ ✓ |core| tests/p14c2a-consumers.test.ts > P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > C2: no EXPIRY case ever opens for an announced person under an active contract, through its own real renewal window; exactly one retirementExtension case opens at E-12 and expires at E with no proposal (natural route via tick) 9671ms
+ ✓ |core| tests/p14c2a-consumers.test.ts > P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > C3: finishing_commitments and retired read their own eligibility rows, both with proposers: []
+ ✓ |core| tests/p14c2a-consumers.test.ts > P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > D1: greenlight refuses an announced director when week + PRODUCTION_TICKS + 1 > E; allows it at exact equality; no mutation on refusal 1987ms
+ ✓ |core| tests/p14c2a-consumers.test.ts > P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > B4a (restated, 817 §4/806 §4/§5/§8.1, C.2b — never re-hired by staff()'s fresh hire): r01's only director, announced with E = its own (shortened) contract end, has its live row be exactly the settled retirementExtension, never a fresh staff() re-hire 1136ms
+ ✓ |core| tests/p14c2a-consumers.test.ts > P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > B4b (staff() fresh hire): an announced free candidate, made the ONLY non-busy craft in the world, is never hired to fill r01's (synthetically vacated) craft seat 953ms
+ ✓ |core| tests/p14c2a-consumers.test.ts > P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > B5: a retired free candidate, made the FIRST match for r05's scheduled entry (week 520), is skipped — r05 mints a fresh person instead, exactly as it does with no candidate at all 19706ms
+ ✓ |core| tests/p14c2a-consumers.test.ts > P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, real consumer) > D2: r01's only director, announced with E=4, is never cast into r01's first production (an established accepted fact: r01 forms film:0 by tick 3 on this seed unmodified) 714ms
+ ✓ |core| tests/p14c2a-consumers.test.ts > P14C.2a Amendment A1 (777 §7, parent mid-flight): hiringMarketIds post-filter > omits an announced person once no catalogue term can end by E; every OTHER id keeps its place (the sampling pool is unchanged)
+ ✓ |core| tests/p14c2a-consumers.test.ts > P14C.2a Amendment A1 (777 §7, parent mid-flight): hiringMarketIds post-filter > boundary: a catalogue term ending EXACTLY at week + CONTRACT_MIN_WEEKS keeps the listing; one week later (fewer than CONTRACT_MIN_WEEKS remain) it is omitted
+ ✓ |core| tests/p14c2a-consumers.test.ts > P14C.2a W1: the writing-verb gate already refuses finishing/retired (amendment log item 1) > a writer holding no current contract (the D7/D10 consequence of finishing/retired) is refused commissionScript, commissionOriginalScreenplay and assignScreenplayWriter by the EXISTING gate
+ ✓ |core| tests/p14c2a-consumers.test.ts > P14C.2a W1: the writing-verb gate already refuses finishing/retired (amendment log item 1) > an ANNOUNCED but still-contracted writer may be commissioned (announced alone is not a writing refusal) 1495ms
+ ✓ |core| tests/p14c2a-consumers.test.ts > P14C.2a P1: every open promise to an announced person has dueWeekExclusive <= E > genuine-v33-c2-contract-and-case: promise-0 (open, on the director authored-0001) sits inside E derived from the save week's own fixed facts 1539ms
+ ✓ |core| tests/p14c2a-consumers.test.ts > P14C.2a P1: every open promise to an announced person has dueWeekExclusive <= E > genuine-v33-c2-hard-boundary-and-idle-window: promise-71 (RIVAL-authored, on the rival-employed director t-dir-00) sits inside E derived from the save week's own fixed facts 4891ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W1: the extension case opens at exactly E-12 iff an employer is in force then > W1a: extensionIssuer resolves the incumbent employer at E-12, given a contract in force there (axis a, gap case) 8146ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W1: the extension case opens at exactly E-12 iff an employer is in force then > W1b: extensionIssuer resolves the incumbent at E-12, given a contract that ends exactly at E (axis b, literal "no gap" case) 7429ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W1: the extension case opens at exactly E-12 iff an employer is in force then > W1c: through the NATURAL tick route alone (F1: migrated live first), a retirementExtension case exists at E-12 for the rival incumbent (axis c) 21735ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W1: the extension case opens at exactly E-12 iff an employer is in force then > W1d: extensionIssuer returns null for the free agent (axis d) — no employer was ever in force at their own E-12, so no case can exist to read 3941ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W1: the extension case opens at exactly E-12 iff an employer is in force then > W1e: once a case has EXPIRED with no offer, extensionIssuer no longer reads it as open (read-side half of "never twice"; the discovery-side half is W7a, now genuinely accept-side) 3671ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W2: extensionIssuer is the incumbent; every other studio is refused with the retirementAnnounced token > W2a: the incumbent studio's lawful proposal (correct term, tier 1.10) on the open case is ACCEPTED at submission, not refused 3335ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W2: extensionIssuer is the incumbent; every other studio is refused with the retirementAnnounced token > W2b: a DIFFERENT entered studio's proposal on the SAME open case is refused, carrying the retirementAnnounced token 3889ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W2: extensionIssuer is the incumbent; every other studio is refused with the retirementAnnounced token > W2c: the incumbent's proposal BEFORE the window opens (no case exists yet) is refused 1800ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W2: extensionIssuer is the incumbent; every other studio is refused with the retirementAnnounced token > W2d: the incumbent's proposal AFTER the case has closed (expired, nobody proposed) is refused 3908ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W2: extensionIssuer is the incumbent; every other studio is refused with the retirementAnnounced token > W2e: marketEligibility for an announced person with an open extension case names the issuer as its sole proposer (806 §4) 5211ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W3: the proposal term must end at exactly E+52, else a typed refusal > W3a: a term one week SHORT of E+52 (57) is refused, carrying the retirementExtension token 4956ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W3: the proposal term must end at exactly E+52, else a typed refusal > W3b: a term one week LONG of E+52 (59) is refused, carrying the retirementExtension token 5570ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W4: the offer must clear ask x 1.10, equality accepted; below it, belowRetirementReservation applies > W4a: an offer at exactly the 1.10 tier SETTLES the case (equality accepted) — axis b, end-to-end natural tick to the decision week 9649ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W4: the offer must clear ask x 1.10, equality accepted; below it, belowRetirementReservation applies > W4b: an offer at 1.05 (below the 1.10 reservation) is dropped for the RESERVATION-specific reason, belowRetirementReservation 10558ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W5: on acceptance, effectiveWeek moves by exactly 52, the record moves before the commit, no gap/no overlap > W5a: commitRetirementExtension (direct call, axis a) sets extendedFromWeek = old E, effectiveWeek += 52, extensionUsed = true 3469ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W5: on acceptance, effectiveWeek moves by exactly 52, the record moves before the commit, no gap/no overlap > W5b: end-to-end at the decision week (axis b, the literal "no gap, no overlap" case): the case settles, a new contract runs decisionWeek -> newE, and the signing bonus is charged exactly once (F2: measured through the LEDGER, never the submission-week draft quote) 10260ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W5: on acceptance, effectiveWeek moves by exactly 52, the record moves before the commit, no gap/no overlap > W5c: advanceLifecycleSettlement, given a record whose effectiveWeek was already moved past the current week (as the market write-back must have just done), does not retire the person at the OLD E 2638ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W6: decline or no offer leaves E unchanged — the person retires at E exactly as the 807/808 decline baseline (justified passes, disclosed: nothing about decline needs new C.2b behaviour) > W6a: with NO case and NO offer, axis a's subject retires at the old E — replays 807/808's own measured decline baseline 5866ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W6: decline or no offer leaves E unchanged — the person retires at E exactly as the 807/808 decline baseline (justified passes, disclosed: nothing about decline needs new C.2b behaviour) > W6b: with an OPEN extension case that nobody ever proposes on, the case expires and the person still retires at the old E 5691ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W7: no chain — a second extension is never possible > W7a: once genuinely accepted (axis b, natural route), the case is closed and extensionIssuer no longer reports an issuer for it 11931ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W7: no chain — a second extension is never possible > W7b: the former incumbent's proposal, after a genuine extension already used, is still refused 8840ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W8: no promise can ride an extension (806 §7.1 / §8.4) > W8a: attachPromise refuses to attach onto a retirementExtension case's proposal, naming the cause 4541ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W8: no promise can ride an extension (806 §7.1 / §8.4) > W8b: openMarketCaseFor resolves the beneficiary's own open case (the helper 806 §8.4 names) 4372ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W8: no promise can ride an extension (806 §7.1 / §8.4) > W8c: the rival incumbent (axis c), through the natural tick route, never has a promise attached to its own extension proposal 24045ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W9: the rival incumbent, at tier 1.1 with the exact term, or not at all when its reserve fails (806 §8.1, axis c) > W9a: through the natural tick route alone (F1: migrated live first), a case exists at E-12 for the rival to evaluate at its own decision cadence 20904ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W9: the rival incumbent, at tier 1.1 with the exact term, or not at all when its reserve fails (806 §8.1, axis c) > W9b: a rival whose reserve cannot clear the bonus is refused for RESERVE reasons at submission, not the retirement guard 24722ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b W11: advanceCareerLifecycleWeek stays the intent -> settlement composition (806 §3) > W11a: advanceLifecycleIntent then advanceLifecycleSettlement composes to the SAME result as the existing combined advanceCareerLifecycleWeek, over the same birthdays 2169ms
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b P1: a 52-63 week extension term prices with the 52-week length factor; no catalogue term's price moves > P1a: a 58-week extension offer prices IDENTICALLY to a 52-week offer for the same person/week (806 §8.5: a 52-63 week extension prices as a one-year contract)
+ ✓ |core| tests/p14c2b-extension.test.ts > P14C.2b P1: a 52-63 week extension term prices with the 52-week length factor; no catalogue term's price moves > P1b: golden pin — every EXISTING catalogue term (52/104/156/208) prices unchanged by the fix, captured now at this implementation
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > P14B10 T1 — the projection version moves once for slice B (1347-F Addendum) > PROJECTION_VERSION is 57
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Professional Rivals — disclosure (row presence is roster-gated, unchanged; the label rides the disclosed row) > a Rivals-qualifying edge on a DISCLOSED counterpart shows the label, naming evidence text 11436ms
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Professional Rivals — disclosure (row presence is roster-gated, unchanged; the label rides the disclosed row) > the IDENTICAL Rivals-qualifying edge on an UNDISCLOSED counterpart produces NO row at all (existing disclosure law, unaffected by labels)
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Professional Rivals — disclosure (row presence is roster-gated, unchanged; the label rides the disclosed row) > a disclosed non-Rivals edge (lead then support, no shared slot) shows no Professional Rivals label
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Romance — disclosure and shape (status/sinceLabel/endedLabel via the existing campaignDate device) > a disclosed OPEN bond reads status "partners", sinceLabel = campaignDate(formedWeek).label, endedLabel null
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Romance — disclosure and shape (status/sinceLabel/endedLabel via the existing campaignDate device) > a disclosed CLOSED bond reads status "ended", with both sinceLabel and endedLabel set
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Romance — disclosure and shape (status/sinceLabel/endedLabel via the existing campaignDate device) > no romance (null track) reads romance: null on the row
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Romance — disclosure and shape (status/sinceLabel/endedLabel via the existing campaignDate device) > a bond on an UNDISCLOSED counterpart produces no row (and so no romance leak) at all
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > No magnitudes, no key named "relationships": (1347-A §4; the landed leak law extended over the two new fields) > a label row is EXACTLY {label, evidence} — no numeric field slips in
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > No magnitudes, no key named "relationships": (1347-A §4; the landed leak law extended over the two new fields) > the serialized block never contains the leak key form "relationships": (the landed law, tests/bridge-p14b5-relationships.test.ts:404-408, extended to the labels/romance fields)
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Mentor — the Bridge-level "public" gate (1347-A §6 item 8: "withhold the label until all three pictures are public") > a genuine cohort entrant with three genuine RELEASED same-director pictures shows the Mentor label on the disclosed pair 79826ms
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Mentor — the Bridge-level "public" gate (1347-A §6 item 8: "withhold the label until all three pictures are public") > the SAME cohort entrant, with ONE of the three pictures a RIVAL picture that is not yet public (first take re-attributed to a rival business, no release fact), withholds Mentor at the Bridge level even though the core derivation is unaffected 554ms
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Mentor — the Bridge-level "public" gate (1347-A §6 item 8: "withhold the label until all three pictures are public") > the SAME cohort entrant, read in the route's own week before its third picture is released (that picture in production, its first take recorded), shows Mentor, and the evidence cites the picture by its production's title (1347-A:105) 940ms
+ ✓ |core| tests/bridge-p14b10-relationship-labels.test.ts > Romance — the contract-expiry note names a Partners counterpart (1347-A:18, :60; 1358-F4 item 2(a)) > financeUpcoming: the expiry row of a person whose partner stays on the roster names that partner, at a friendship tier below Inseparable 375ms
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass) > hasConflictEvidence is a function and RELATIONSHIP_CONFLICT_COMPETITIONS is the Owner's named 3
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > P14B10 T1 — the new bindings exist (RED at behavior, never a vacuous undefined pass) > RELATIONSHIP_RULES_VERSION moves to 2 (1347-A §3:86, "RELATIONSHIP_RULES_VERSION moves to 2")
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > hasConflictEvidence is exactly sharedCompetitions >= RELATIONSHIP_CONFLICT_COMPETITIONS (boundary at 2 vs 3)
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > one competition in the Enemies band reads Strained [control: already true at V1 — every Enemies/Nemeses value redirects unconditionally]
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > two competitions in the Enemies band reads Strained [control: already true at V1]
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > three competitions (the Owner's named threshold) in the Enemies band reads Enemies [RED: V1 always reads Strained here]
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > three competitions with closeness at or below 10 reads Nemeses [RED: V1 always reads Strained here]
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > a pair with only flops/cancellations (no competitions) never reads Enemies, whatever the closeness [control: already true at V1]
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > a pair with only flops/cancellations reports no conflict evidence [RED: hasConflictEvidence does not exist at BASE]
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > evidence never moves closeness: two edges differing ONLY in sharedCompetitions read the identical currentCloseness at every week [control: currentCloseness's own Pick type never reads sharedCompetitions]
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > recovery through positive drivers still works: closeness at a positive band reads its true tier regardless of evidence [control: already true at V1]
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > recovery keeps the evidence counter itself [RED: hasConflictEvidence does not exist at BASE]
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > drift to Acquaintances at baseline still works with evidence kept [RED: at week 10 this pair reads Enemies under v2, never under v1]
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > tier law v2 — conflict evidence gates Enemies/Nemeses (1347-A §2.2, 1347-F unchanged) > tiers read current closeness, never peakTier: a pair that peaked Inseparable and is now Enemies (with evidence) reads Enemies [RED under v1]
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > the real casting-competition route reaches genuine evidence with no double-application [control] > pair (a,b) reaches sharedCompetitions = 3 with exactly the existing drivers (-3, -3+-1, -3+-2) and no extra kind or row 2379ms
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > the real casting-competition route reaches genuine evidence with no double-application [control] > the real 3-competition pair reports conflict evidence [RED: hasConflictEvidence does not exist at BASE]
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > D5 — the shipped order is unchanged; evidence merely makes `enemies here` reachable (1347-F Amendment 2) > a player issuer: both a close tie and an enemy on the roster reads `close ties here` (2) [control: unchanged combinator order] 1065ms
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > D5 — the shipped order is unchanged; evidence merely makes `enemies here` reachable (1347-F Amendment 2) > a player issuer: only an enemy on the roster reads `enemies here` (0) [RED under v1: no evidence-gated Enemies tier exists yet]
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > D5 — the shipped order is unchanged; evidence merely makes `enemies here` reachable (1347-F Amendment 2) > a rival issuer: both a close tie and an enemy on the roster reads `close ties here` (2) [control: unchanged combinator order]
+ ✓ |core| tests/p14b10-conflict-evidence.test.ts > D5 — the shipped order is unchanged; evidence merely makes `enemies here` reachable (1347-F Amendment 2) > a rival issuer: only an enemy on the roster reads `enemies here` (0) [RED under v1]
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM planning and actual retirement announcements > actor profile states literal eligibility 60/hard70 without inventing intent 2422ms
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM planning and actual retirement announcements > director profile states literal eligibility 65/hard75 without inventing intent 1740ms
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM planning and actual retirement announcements > writer profile states literal eligibility 65/hard75 without inventing intent 1371ms
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM planning and actual retirement announcements > craft profile states literal eligibility 62/hard72 without inventing intent 1294ms
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM planning and actual retirement announcements > scientist profile states literal eligibility 62/hard72 without inventing intent 13555ms
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM planning and actual retirement announcements > a genuine old save lifted past hard age stays active until an actual recorded announcement 6817ms
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM planning and actual retirement announcements > natural Scientist announcement is immediate on real Calendar, with honest finite Finance exclusion 12099ms
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM planning and actual retirement announcements > announcement news lasts exactly13 weeks even without a case; profiles and Calendar persist afterward 18792ms
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM obligations, retired discovery and public boundaries > actual held Scientist work stays finishing through overdue E, then real cancel/tick retires without deleting identity 13971ms
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM obligations, retired discovery and public boundaries > a naturally announced contracted writer can start genuine writing at E−1 and finishes it after E 24964ms
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM obligations, retired discovery and public boundaries > a lawful original screenplay crossing E remains a saveable whole live campaign while its writer finishes 1376ms
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM obligations, retired discovery and public boundaries > unavailable ordinary windows disappear before/open/after the final extension while actual expiry stays 10371ms
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM obligations, retired discovery and public boundaries > a naturally announced actor retains an exactly capped lawful ordinary renewal, then loses it one week later 8134ms
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM obligations, retired discovery and public boundaries > 65 actual retirement boundaries remain in Calendar, bounded Finance rows count exact overflow, and alumni paginate deterministically 13506ms
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > an actual release and real retirement preserve credit/promise/employer routes and invent no honors 18797ms
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > SYNTHETIC validated imported role-credit variant counts two roles on one actual film, not one distinct film 3091ms
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > a genuine long-career alumnus counts the complete >24 credit record, not the bounded profile rows 18319ms
+ × |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > natural retired tiers stay fixed across real drift while lawful current employment changes disclosure 8187ms
+   → freeze premise: counterpart stays lawfully disclosed: expected undefined to match object { endWeekExclusive: 416 }
+ × |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > SYNTHETIC imported newer edge withholds unreconstructible retirement tier, with no hidden-counterpart notice leak 7218ms
+   → freeze premise: counterpart stays lawfully disclosed: expected undefined to match object { endWeekExclusive: 416 }
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > active/no-root/no-edge collaborator reads retain honest gaps and current as-of nulls 314ms
+ ✓ |core| tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > whole snapshots validate and campaign-local people with identical ids never share lifecycle data 55512ms
+stdout | tests/p14b4-replay-bill-reductions.test.ts > 580 case 1 — C7 witness: facility array order moves the prepare bill (RED on unchanged source) > a [0]<->[1] facility swap keeps every result field (facilities normalised) and, after C7, costs strictly more
+B4_BILL_580 {"fixture":"enumerator world().unscheduled (558/576 copy)","now":60,"horizon":61,"plan":"one plan, no commands","swap":["facility-development-casting","facility-post-building"],"original":56826,"swapped":59246,"delta":2420,"equalToday":false}
+
+stdout | tests/p14b4-replay-bill-reductions.test.ts > 580 case 3 — C6 protection: fixed-schema key sets on routes with fixed and non-fixed closes (GREEN both sides) > world().ready at now+2 (the 538 two-week wrap): every schema exact; the route closes >= 1 FIXED hold
+B4_CLOSES_580 {"route":"world().ready now+2 (538 wrap)","now":60,"horizon":62,"fixedCloses":3,"nonFixedCloses":0,"preparationWork":104975}
+
+stdout | tests/p14b4-replay-bill-reductions.test.ts > 580 case 3 — C6 protection: fixed-schema key sets on routes with fixed and non-fixed closes (GREEN both sides) > world().ready at now+5 (wrap, Post grant and Post exit inside the window): every schema exact; >= 1 NON-FIXED close
+B4_CLOSES_580 {"route":"world().ready now+5 (Post exit)","now":60,"horizon":65,"fixedCloses":3,"nonFixedCloses":1,"preparationWork":169361}
+
+ ✓ |core| tests/p14b4-replay-bill-reductions.test.ts > 580 case 1 — C7 witness: facility array order moves the prepare bill (RED on unchanged source) > a [0]<->[1] facility swap keeps every result field (facilities normalised) and, after C7, costs strictly more 6589ms
+ ✓ |core| tests/p14b4-replay-bill-reductions.test.ts > 580 case 2 — C7 protection: duplicate consumed identity refused in-order and out-of-order (GREEN both sides) > operations.facilities: an appended (in-order) and a prepended (out-of-order) duplicate both throw
+ ✓ |core| tests/p14b4-replay-bill-reductions.test.ts > 580 case 2 — C7 protection: duplicate consumed identity refused in-order and out-of-order (GREEN both sides) > studio.activeProductions and operations.workflows: in-order and out-of-order duplicates each throw 814ms
+ ✓ |core| tests/p14b4-replay-bill-reductions.test.ts > 580 case 3 — C6 protection: fixed-schema key sets on routes with fixed and non-fixed closes (GREEN both sides) > world().ready at now+2 (the 538 two-week wrap): every schema exact; the route closes >= 1 FIXED hold
+ ✓ |core| tests/p14b4-replay-bill-reductions.test.ts > 580 case 3 — C6 protection: fixed-schema key sets on routes with fixed and non-fixed closes (GREEN both sides) > world().ready at now+5 (wrap, Post grant and Post exit inside the window): every schema exact; >= 1 NON-FIXED close
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 A1-A3: cadence > A1: a fresh world gets a cohort receipt at exactly week 52 and week 104, never at 51/103, through the natural tick() route 8517ms
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 A1-A3: cadence > A2: a null-hollywood world (corpus null-hollywood) never gets a cohort, through two of its own cohort weeks (260, 312) 1595ms
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 A1-A3: cadence > A3: calling advanceCareerLifecycleWeek twice at a cohort week adds nothing the second time (idempotence, 793 §4) 4245ms
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 B1-B6: the request formula (782 §7.1 REPLACED by §7 item 1) > B1: request_p = max(accepted_p - active_p, young_p ? 0 : 1) with accepted 40/14/16/14 (corpus migrated-chain, week 1040, pure deficit — no clip, no youth-floor ambiguity: every profession's deficit exceeds 1) 9000ms
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 B1-B6: the request formula (782 §7.1 REPLACED by §7 item 1) > B2: the youth floor fires iff the profession has no active person under 30 (corpus all-statuses, week 260: director has one under-30 active and gets 0 despite a -1 "deficit"; craft has none and gets 1 despite the same -1) — unaffected by §9's look-ahead (confirmed directly below) 9648ms
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 B1-B6: the request formula (782 §7.1 REPLACED by §7 item 1) > B3: announced and finishing people count as active (a person with a live careerLifecycle record who is not yet retired still counts toward active_p)
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 B1-B6: the request formula (782 §7.1 REPLACED by §7 item 1) > B4: retired people do NOT count as active (the fixture's one retired actor at week 104 must be excluded from active_p)
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 B1-B6: the request formula (782 §7.1 REPLACED by §7 item 1) > B5: the clip at 32, allotted in profession order actor/director/writer/craft, with `clipped` on the receipt and no carry-forward (corpus deep-deficit: 6 active at week 2600, 78 requested before the clip at the world's next cohort week 2652) 6774ms
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 B1-B6: the request formula (782 §7.1 REPLACED by §7 item 1) > §9 discriminator (formerly labeled B6 during the pre-§9 repair — 795 §8; 782/793 §9 is now landed at ccb8ab17): a profession whose youngest active person is under 30 today but turns 30 by the NEXT request week must get a floor entrant under §9 — even though it would NOT under the OLD (at-w) §7.1 rule (corpus cohort-week, week 156: writer). 8027ms
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 B1-B6: the request formula (782 §7.1 REPLACED by §7 item 1) > B6: an empty request still appends a receipt, on a world REQUIRED by 782 §7.1/§9 to have one — every profession already at or above its accepted population, with a look-ahead-young person in each (801 G1; a fresh genesis seed at its own first cohort week, week 52 — genesis composition is exactly the accepted sizes, 782 §8 item 4) 4950ms
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 C1-C6: entrant identity, provenance, market membership > C1: entrant ids are minted person-cohort-<w>-<role>-<n> through uniqueIdentity, at a world guaranteed a non-empty receipt 6589ms
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 C1-C6: entrant identity, provenance, market membership > C2: entrants are appended contiguously at talentCountBefore, in profession order, equal to the receipt's personIds 5689ms
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 C1-C6: entrant identity, provenance, market membership > C3: each entrant carries an authored_exact_week provenance row at w whose anchor age is cohortEntrantAge(seed, id); stored Talent.age === floor(that); age in [20, 29] per 782/793 §9 (narrowed from [20,32], landed at ccb8ab17). 7419ms
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 C1-C6: entrant identity, provenance, market membership > C4: each entrant is in state.freeAgents and hiringMarketIds, and the player can sign one the same week 6401ms
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 C1-C6: entrant identity, provenance, market membership > C5: generateIndustryTalent(seed, id, role) with NO age is byte-identical to a golden captured NOW at this scaffold (bd27de93) — a compatibility pin, not a RED failure (782-A amendment 1's byte-identity promise for every existing caller)
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 C1-C6: entrant identity, provenance, market membership > C6: cohortEntrantAge is deterministic and independent of call order
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 E1: per-corpus-world cohort request at the first cohort week matches the 782/793 §9-amended oracle > genuine-v34-c4-mid-year: the receipt at its own first cohort week W1 equals 782/793 §9: max(accepted-active, lookaheadYoung?0:1) per profession, clipped at 32 6234ms
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 E1: per-corpus-world cohort request at the first cohort week matches the 782/793 §9-amended oracle > genuine-v34-c4-cohort-week: the receipt at its own first cohort week W1 equals 782/793 §9: max(accepted-active, lookaheadYoung?0:1) per profession, clipped at 32 6166ms
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 E1: per-corpus-world cohort request at the first cohort week matches the 782/793 §9-amended oracle > genuine-v34-c4-all-statuses: the receipt at its own first cohort week W1 equals 782/793 §9: max(accepted-active, lookaheadYoung?0:1) per profession, clipped at 32 8444ms
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 E1: per-corpus-world cohort request at the first cohort week matches the 782/793 §9-amended oracle > genuine-v34-c4-migrated-chain: the receipt at its own first cohort week W1 equals 782/793 §9: max(accepted-active, lookaheadYoung?0:1) per profession, clipped at 32 6903ms
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 E1: per-corpus-world cohort request at the first cohort week matches the 782/793 §9-amended oracle > genuine-v34-c4-deep-deficit: the receipt at its own first cohort week W1 equals 782/793 §9: max(accepted-active, lookaheadYoung?0:1) per profession, clipped at 32 6522ms
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 isCohortWeek > isCohortWeek(0) === false
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 isCohortWeek > isCohortWeek(1) === false
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 isCohortWeek > isCohortWeek(51) === false
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 isCohortWeek > isCohortWeek(52) === true
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 isCohortWeek > isCohortWeek(53) === false
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 isCohortWeek > isCohortWeek(104) === true
+ ✓ |core| tests/p14c4-cohorts.test.ts > P14C.4 isCohortWeek > isCohortWeek(156) === true
+stdout | tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M6 classifies labelled strict34 dormant-retired compatibility before actual activation and due210
+{"phase":"1065-bridge-read-models","classification":"1048-synthetic-old34-compatibility","originalSha":"5028930968193ac6cfe7e0d67ae5239139c6a843b54f44432dd814039406d2be","arrangedSha":"71d74ebed72b102e5acf10427a3858b843876f899bf28b3103e0fc64feeb4cd3","changedPath":"state.careerLifecycle.records","personId":"t-act-18","noticeIsNotNaturalBirthdayEvidence":true}
+
+ ✓ |core| tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M1 requires additive exact public career DTOs while preserving existing credited development history 13282ms
+ ✓ |core| tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M2 distinguishes working Director/Writer from completed acting retirement even when newly employed 2652ms
+ ✓ |core| tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M3 uses current disclosed relationships after genuine new-role work instead of freezing at old Actor retirement 8690ms
+ ✓ |core| tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M4 distinguishes retired670 profession from pending670 and actual final671 career without moving relationship asOf 6932ms
+ ✓ |core| tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M5 distinguishes prospective old208 acting retirement and real zero-take deferred2601 from work or finality 31630ms
+ ✓ |core| tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M6 classifies labelled strict34 dormant-retired compatibility before actual activation and due210 5069ms
+ ✓ |core| tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M7 pages all genuine alumni by latest completed profession and counts complete role credits, including working former actors 25922ms
+ ✓ |core| tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M8 retains actual change/finality attention for0/12 weeks only, with safe payloads and no Finance charge 49303ms
+ ✓ |core| tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M9 expires null-studio career news and separately retains actual old technology in genuine2600 20819ms
+ ✓ |core| tests/bridge-p14c3-read-models.test.ts > C.3 exact public career read models and retained history > M10 refuses private/unknown DTO members and invalid dates while repeated public reads preserve whole state 3939ms
+stdout | tests/bridge-p14c3-read-models.test.ts
+{"phase":"1065-bridge-read-models","calls":{"changed":14,"scientist":14,"deferred":1,"dormant":2,"film":9},"total":40,"cap":71,"failedSetups":[]}
+
+ ✓ |core| tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'lead': eligible=true 7915ms
+ ✓ |core| tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'antagonist': eligible=false 794ms
+ ✓ |core| tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'lead' target actually fixed in 'support': eligible=false 647ms
+ ✓ |core| tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'lead': eligible=true 646ms
+ ✓ |core| tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'antagonist': eligible=true 573ms
+ ✓ |core| tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > 'leadOrAntagonist' target actually fixed in 'support': eligible=false 481ms
+ ✓ |core| tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > one real picture jointly serves lead+flexible+P1, but never splices a later Ready script into its spare witness 1411ms
+ ✓ |core| tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > revise removes a real CURRENT reservation but preserves root/receipt history and digest neutrality 1281ms
+ ✓ |core| tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > withdraw removes a real CURRENT reservation but preserves root/receipt history and digest neutrality 1162ms
+ ✓ |core| tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > a lawful CURRENT nonoverlapping attachment does not alter the class-aware read or its digest 715ms
+ ✓ |core| tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > class changes material and feasibility digests; unrelated cash and valid RNG words change neither read nor history 1288ms
+ ✓ |core| tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=1 preserves history; a real outside-contract refusal is not relabeled cap uncertainty 418ms
+ ✓ |core| tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=65 preserves history; a real outside-contract refusal is not relabeled cap uncertainty 459ms
+ ✓ |core| tests/p14b4-cast-class-capacity.test.ts > P14B4 bounded fixed-cast capacity, requirement-based owner probes > huge admitted staged window/count=9007199254740991 preserves history; a real outside-contract refusal is not relabeled cap uncertainty 473ms
+ ✓ |core| tests/p14c2a-core-lifecycle.test.ts > P14C.2a A1-A7: the retirement intent/settlement law > A1: authored-0000 (actor, hard-boundary world) announces exactly at week 832, never at 831 7314ms
+ ✓ |core| tests/p14c2a-core-lifecycle.test.ts > P14C.2a A1-A7: the retirement intent/settlement law > A2a: t-act-07 (idle in-window, natural genesis actor) announces at its predicted week 798 6803ms
+ ✓ |core| tests/p14c2a-core-lifecycle.test.ts > P14C.2a A1-A7: the retirement intent/settlement law > A2b: authored-0000 (actor, contract-and-case world) stays silent at every in-window birthday while CONTRACTED (52,104,156,208), then announces hardBoundary once free (week 260) 13769ms
+ ✓ |core| tests/p14c2a-core-lifecycle.test.ts > P14C.2a A1-A7: the retirement intent/settlement law > A2c SYNTHETIC (isolated boundary): a candidate whose provenance anchor is exactly w-104 is eligible; one week later (anchor at w-103) is not 5617ms
+ ✓ |core| tests/p14c2a-core-lifecycle.test.ts > P14C.2a A1-A7: the retirement intent/settlement law > A3a SYNTHETIC (isolated boundary, rival interval): a hard-boundary director under an ACTIVE RIVAL employment interval ending AFTER A+52 announces with E = the interval's own end 5093ms
+ ✓ |core| tests/p14c2a-core-lifecycle.test.ts > P14C.2a A1-A7: the retirement intent/settlement law > A3b SYNTHETIC (isolated boundary): a hard-boundary actor under an active player contract ending BEFORE A+52 announces with E = A + 52 (the contract does not shorten it) 6215ms
+ ✓ |core| tests/p14c2a-core-lifecycle.test.ts > P14C.2a A1-A7: the retirement intent/settlement law > A4: Scientists use62/72; recent work prevents announcement at62, then idle63 announces618 8807ms
+ ✓ |core| tests/p14c2a-core-lifecycle.test.ts > P14C.2a A1-A7: the retirement intent/settlement law > A5: authored-0000 gets exactly one record; re-evaluating a LATER birthday never mints a second one or alters the announcement facts (only settlement, a separate step, may advance status) 7194ms
+ ✓ |core| tests/p14c2a-core-lifecycle.test.ts > P14C.2a A1-A7: the retirement intent/settlement law > A6a: advanceCareerLifecycleWeek does not move rngState 4363ms
+ ✓ |core| tests/p14c2a-core-lifecycle.test.ts > P14C.2a A1-A7: the retirement intent/settlement law > A6b: calling advanceCareerLifecycleWeek twice with the same birthdays produces byte-equal output (idempotent, deterministic) 4798ms
+ ✓ |core| tests/p14c2a-core-lifecycle.test.ts > P14C.2a A1-A7: the retirement intent/settlement law > A7: a null-hollywood world (bare-world) returns state UNCHANGED from advanceCareerLifecycleWeek, even with real due birthdays supplied 789ms
+ ✓ |core| tests/p14c2a-core-lifecycle.test.ts > P14C.2a A1-A7: the retirement intent/settlement law > A7b: the SAME rule holds after real ticks (bare-ticked, week 1, still null hollywood) 744ms
+ ✓ |core| tests/p14c2a-core-lifecycle.test.ts > P14C.2a tick-wiring (783 gap 1): tick() alone must run the lifecycle step, and run it BEFORE the market > a bare tick() (no stepWeekWithLifecycle, no manual advanceCareerLifecycleWeek/birthdaysDueAt call) both announces r01's own director at their real due week AND invalidates the REAL market case naturally discovered on their REAL contract, in that SAME tick 2716ms
+ ✓ |core| tests/p14b10-mentor-label.test.ts > P14B10 T1 — the new module and its exports exist (RED per leaf: dynamic import) > MENTOR_FIRST_PICTURES is the Owner's named 3 and mentorEvidence is a function
+ ✓ |core| tests/p14b10-mentor-label.test.ts > Mentor — the positive case (a genuine cohort entrant, three genuine same-director pictures) > mentorEvidence names the real director, the three real productionIds in week order, and the real cohort receipt week 97777ms
+ ✓ |core| tests/p14b10-mentor-label.test.ts > Mentor — negative and boundary cases (1347-F Amendment 1 and the qualifying-pictures note) > two of three sharing the director gives no label [RED: relationshipLabels.ts does not exist at BASE] 551ms
+ ✓ |core| tests/p14b10-mentor-label.test.ts > Mentor — negative and boundary cases (1347-F Amendment 1 and the qualifying-pictures note) > a duplicate first take of one production counts once — the label still names the same three original productions [RED] 760ms
+ ✓ |core| tests/p14b10-mentor-label.test.ts > Mentor — negative and boundary cases (1347-F Amendment 1 and the qualifying-pictures note) > fewer than three qualifying pictures gives no label [RED] 608ms
+ ✓ |core| tests/p14b10-mentor-label.test.ts > Mentor — genesis and authored-start people are structurally excluded (not named in ANY CohortReceipt) > a genesis person with three staged same-director pictures still gets no label [RED]
+ ✓ |core| tests/p14b10-mentor-label.test.ts > Mentor — genesis and authored-start people are structurally excluded (not named in ANY CohortReceipt) > an authored-start person (createCustomTalent) with three staged same-director pictures still gets no label [RED]
+ ✓ |core| tests/p14b10-mentor-label.test.ts > Mentor — reading the label is inert (HIS-014: "labels create no additional ... effect by themselves") > reading mentorEvidence leaves state deep-equal before/after [RED] 2554ms
+ ✓ |core| tests/p14b10-mentor-label.test.ts > Mentor — reading the label is inert (HIS-014: "labels create no additional ... effect by themselves") > reading mentorEvidence changes no chemistry/tier/trust reading for the Mentor pair [RED] 623ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts > P14C.2c retirement causation and normal tick ownership > C1: a real birthday announcement leaves a bound, still-fulfillable promise open 15122ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts > P14C.2c retirement causation and normal tick ownership > C2: the first lost fresh-admission week VOIDs once, before the legal promise deadline 1010ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts > P14C.2c retirement causation and normal tick ownership > C2 control: remove only retirement and real greenlight/schedule/tick still fulfills before due 1027ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts > P14C.2c retirement causation and normal tick ownership > C3: a real committed lead seat at admission equality survives the cutoff and satisfies 767ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts > P14C.2c retirement causation and normal tick ownership > C3 boundary: the actual greenlight command refuses the next week without changing any state 806ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts > P14C.2c retirement causation and normal tick ownership > C3 held work: an unscheduled real first take survives the cutoff and counts when its future window opens 3426ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts > P14C.2c retirement causation and normal tick ownership > C6 grandfathered work: a post-first-take countdown with no historical receipt is never a future take 5839ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts > P14C.2c retirement causation and normal tick ownership > C5: a committed support seat cannot protect a lead-only promise from retirement 550ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts > P14C.2c retirement causation and normal tick ownership > C5 generic P1 control: the same real support seat does protect an appearance promise 1542ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts > P14C.2c retirement causation and normal tick ownership > C6: a promise already beyond the uncapped physical count remains ordinary law, not VOIDED 2087ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts > P14C.2c retirement causation and normal tick ownership > C1: reduced future capacity does not VOID a promise while new admission remains open 3332ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts > P14C.2c retirement causation and normal tick ownership > C6: actual early termination keeps its BROKEN cause and never gains a retirement outcome 463ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts > P14C.2c retirement causation and normal tick ownership > C7: a genuinely withdrawn proposal never receives an automatic retirement outcome 8678ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts > P14C.2c retirement causation and normal tick ownership > C7: a real accepted waiver is terminal while its still-open substitute follows retirement law 2986ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts > P14C.2c feasibility, persistence, partial work and extension > C11: new feasibility includes the actual cap, changes the digest, and consumes no RNG 759ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts > P14C.2c feasibility, persistence, partial work and extension > C11: a committed qualifying seat remains possible despite refusing every new greenlight 420ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts > P14C.2c feasibility, persistence, partial work and extension > C4: real partial first-take progress and its receipt survive VOIDED without extra trust damage 4412ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts > P14C.2c feasibility, persistence, partial work and extension > C9: live save/reload across the exact trigger matches continuous tick bytes and preserves identity 2594ms
+ ✓ |core| tests/p14c2c-retirement-promises.test.ts > P14C.2c feasibility, persistence, partial work and extension > C8: a genuine final extension uses the moved E for future feasibility and cannot revive VOIDED 8205ms
+ ✓ |core| tests/p14b10-competitions-log.test.ts > the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > P1: two different pairs each get their OWN row for the same production, slots = the one slot each contested 4174ms
+ ✓ |core| tests/p14b10-competitions-log.test.ts > the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > P2: the SAME pair (a,b) contesting two slots of ONE production is ONE row, slots in slot order [lead, antagonist]
+ ✓ |core| tests/p14b10-competitions-log.test.ts > the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > P3a/P3b: a re-greenlight after a cancel counts once per production — pair (a,b) gets TWO rows, one per production id, each slots=['lead']
+ ✓ |core| tests/p14b10-competitions-log.test.ts > the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > the row count never exceeds sharedCompetitions for ANY edge in the final world (in this route, always exactly equal)
+ ✓ |core| tests/p14b10-competitions-log.test.ts > the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > no RNG draw: rngState is unchanged by the P3a greenlight's minting (the existing recordCastingCompetition contract, unaffected by the new log field)
+ ✓ |core| tests/p14b10-competitions-log.test.ts > the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > cross-check: pair (a,b) with sharedCompetitions=3 (P2 dedup + P3a + P3b) reports conflict evidence, independent of the log field [control: existing D-1312-1 arithmetic, unaffected by the log]
+ ✓ |core| tests/p14b10-competitions-log.test.ts > the competitions log exists on the engine-minted edge (RED: RelationshipEdge.competitions is undefined at BASE) > a log row survives after its driver folds out of recent: each row keeps its week, production and slots (1347-A:13, :33)
+ ✓ |core| tests/bridge-p14c2rm-proposals.test.ts > C.2-RM discovered one-issuer extension through every existing reader > gap real case publishes one exact opportunity, shared across profile, list, detail and world route 11969ms
+ ✓ |core| tests/bridge-p14c2rm-proposals.test.ts > C.2-RM discovered one-issuer extension through every existing reader > exact real case publishes one exact opportunity, shared across profile, list, detail and world route 10874ms
+ ✓ |core| tests/bridge-p14c2rm-proposals.test.ts > C.2-RM discovered one-issuer extension through every existing reader > rival extension is readable but read-only, with exact UNKNOWN figures and no own extension alert 49268ms
+ ✓ |core| tests/bridge-p14c2rm-proposals.test.ts > C.2-RM exact public proposal commands > a new extension never inherits a genuine earlier ordinary settlement explanation 23955ms
+ ✓ |core| tests/bridge-p14c2rm-proposals.test.ts > C.2-RM exact public proposal commands > gap quote -> submit -> revise -> withdraw uses exact term and never charges before settlement 32030ms
+ ✓ |core| tests/bridge-p14c2rm-proposals.test.ts > C.2-RM exact public proposal commands > exact quote -> submit -> revise -> withdraw uses exact term and never charges before settlement 31998ms
+ ✓ |core| tests/bridge-p14c2rm-proposals.test.ts > C.2-RM exact public proposal commands > wrong terms, no case, promises, ordinary off-catalogue terms and forged issuer are refused without state changes 7154ms
+ ✓ |core| tests/bridge-p14c2rm-proposals.test.ts > C.2-RM exact public proposal commands > a real58-week proposal settles once at98, survives save/runtime replay, and never opens a second opportunity 69761ms
+ ✓ |core| tests/bridge-p14c2rm-proposals.test.ts > C.2-RM exact public proposal commands > commit revalidation refuses a formerly valid quote after a lawful employer release 656ms
+ ✓ |core| tests/bridge-p14c2rm-proposals.test.ts > C.2-RM exact public proposal commands > SYNTHETIC cash-only whole-save variant has a fixed-term affordability remedy, not shortening 671ms
+ ✓ |core| tests/bridge-p14c2rm-proposals.test.ts > C.2-RM exact public proposal commands > real expired history retains variant and issuer without a fresh offer block 691ms
+ ✓ |core| tests/bridge-p14c2rm-proposals.test.ts > C.2-RM exact public proposal commands > real declined history retains variant and issuer without a fresh offer block 707ms
+ ✓ |core| tests/bridge-p14c2rm-proposals.test.ts > C.2-RM exact public proposal commands > real invalidated history retains variant and issuer without a fresh offer block 637ms
+stdout | tests/p14c3-equal-tuple-evidence.test.ts
+C3_G4_ACTUAL_ROUTES {"tickCalls":{"main":260,"repeat":9},"totalTickCalls":269,"mainPictures":[{"pair":"A","takeWeek":13,"releaseWeek":16,"stateWeek":17},{"pair":"B","takeWeek":22,"releaseWeek":25,"stateWeek":26},{"pair":"A","takeWeek":31,"releaseWeek":34,"stateWeek":35},{"pair":"B","takeWeek":40,"releaseWeek":43,"stateWeek":44}],"repeatPictures":[{"pair":"A","takeWeek":22,"releaseWeek":25,"stateWeek":26}]}
+
+ ✓ |core| tests/p14c3-equal-tuple-evidence.test.ts > C.3 genuine equal public tuples and canonical counterpart evidence > T1 distinguishes A/B from A/A contexts at the same two actual acting pictures 10910ms
+ ✓ |core| tests/p14c3-equal-tuple-evidence.test.ts > C.3 genuine equal public tuples and canonical counterpart evidence > T2 chooses later encountered smaller B witnesses from actual A/B/A/B tied pairs 3643ms
+ ✓ |core| tests/p14c3-equal-tuple-evidence.test.ts > C.3 genuine equal public tuples and canonical counterpart evidence > T3 genuinely declines both eligible equal careers at natural retirement208 10914ms
+ ✓ |core| tests/p14c3-equal-tuple-evidence.test.ts > C.3 genuine equal public tuples and canonical counterpart evidence > T4 reloads actual208 and preserves terminal finality through every week to260 9743ms
+ × |core| tests/p14b4-cast-class-capacity-evaluator5.test.ts > P14B4 evaluator-5 kernel vocabulary (record 600 §3 2(b)): the joint certificate the scalar cannot issue > a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice 6504ms
+   → expected 'FRAGILE' to be 'IMPOSSIBLE' // Object.is equality
+stdout | tests/p14c3-held-actor-evidence.test.ts
+{"phase":"1020-genuine-route-observation","group":"G3","tickCalls":268,"releaseWeek":212,"clearanceWeek":213,"ageFinalityWeek":364}
+
+ ✓ |core| tests/p14c3-held-actor-evidence.test.ts > C.3 genuine held actor evidence and retirement clearance > H1 holds a real unscheduled company across E without a take, release or transition 13486ms
+ ✓ |core| tests/p14c3-held-actor-evidence.test.ts > C.3 genuine held actor evidence and retirement clearance > H2 cancels before a take and makes one genuine decision at clearance209 without new evidence 2273ms
+ ✓ |core| tests/p14c3-held-actor-evidence.test.ts > C.3 genuine held actor evidence and retirement clearance > H3 captures an actual post-E take while the active company still postpones both decisions 2596ms
+ ✓ |core| tests/p14c3-held-actor-evidence.test.ts > C.3 genuine held actor evidence and retirement clearance > H4 cancels after the take and retains acting/directing facts but no released Writer picture at210 2199ms
+ ✓ |core| tests/p14c3-held-actor-evidence.test.ts > C.3 genuine held actor evidence and retirement clearance > H5 actual release adds the fourth shared Writer credit before one observed clearance decision each 2511ms
+ ✓ |core| tests/p14c3-held-actor-evidence.test.ts > C.3 genuine held actor evidence and retirement clearance > H6 holds genuine work to75 and takes age precedence over qualifying evidence, preserving finality after reopening 20336ms
+ ✓ |core| tests/bridge-p14b9-casting-readers.test.ts > 1313-F note 9 — the grep result (filenames and lines, no fixture reads) > src/core/relationships.ts still holds every occurrence of RELATIONSHIP_DRIVER_KINDS / RelationshipDriverKind this file names above
+ ✓ |core| tests/bridge-p14b9-casting-readers.test.ts > 1313-F note 9 — the grep result (filenames and lines, no fixture reads) > bridge/relationships.ts (the reader with an OBSERVABLE, indirect dependency, via pairChemistry) does not import the raw kind catalogue or type directly
+ ✓ |core| tests/bridge-p14b9-casting-readers.test.ts > 1313-F note 9 — bridge/relationships.ts relationshipBlockFor observes the new kinds through pairChemistry, never through the raw catalogue > the row for a competition-only counterpart carries the DRIVER_COPY sentences and reads 0 shared pictures (sharedPictureCount is derived from firstTakes/releasedFilms, never from state.relationships) 1954ms
+ ✓ |core| tests/bridge-p14b9-casting-readers.test.ts > 1313-F note 9 — bridge/relationships.ts castingChemistryRows / castingChemistryWarning observe the new kinds the same way > a proposed seating pairing (a,d) as lead/antagonist shows the competition copy and (if the tier reads -1) the one-sentence warning
+stdout | tests/p14c3-transition-owner-and-snapshots.test.ts
+{"phase":"1020-genuine-route-observation","group":"G1/G5","tickCalls":10,"releaseWeek":216,"releasedStateWeek":217}
+
+ ✓ |core| tests/p14c3-transition-owner-and-snapshots.test.ts > C.3 genuine transition owner and later public snapshots > O1 observes the actual retirement-owner call and preserves all state outside its exact write set 6356ms
+ ✓ |core| tests/p14c3-transition-owner-and-snapshots.test.ts > C.3 genuine transition owner and later public snapshots > S1 real later director credit changes public proof but preserves the old stored question 6199ms
+ ✓ |core| tests/p14c3-transition-owner-and-snapshots.test.ts > C.3 genuine transition owner and later public snapshots > S2 real later writer credit changes public proof but preserves the old stored question 1973ms
+ ✓ |core| tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→director second retirement and retained writing > W1 permits and pays the genuine ordinary208-week new-profession renewal 10705ms
+ ✓ |core| tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→director second retirement and retained writing > W2 records the real hard75 destination notice beside the unchanged completed actor episode 9017ms
+ ✓ |core| tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→director second retirement and retained writing > W3 accepts genuine retained writing at E through Save38, Calendar, construction and an unrelated screenplay command 14647ms
+ ✓ |core| tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→director second retirement and retained writing > W4 loaded and continuous E states finish the same original screenplay on its real clock 8248ms
+ ✓ |core| tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→director second retirement and retained writing > W5 retires the destination after actual clearance and records exactly one noCatalogue finality 5193ms
+ ✓ |core| tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→director second retirement and retained writing > W6 refuses both missing-current and missing-old-actor authority without borrowing or legacy fallback 4270ms
+ ✓ |core| tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→writer second retirement and retained writing > W1 permits and pays the genuine ordinary208-week new-profession renewal 5587ms
+ ✓ |core| tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→writer second retirement and retained writing > W2 records the real hard75 destination notice beside the unchanged completed actor episode 7703ms
+ ✓ |core| tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→writer second retirement and retained writing > W3 accepts genuine retained writing at E through Save38, Calendar, construction and an unrelated screenplay command 15703ms
+ ✓ |core| tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→writer second retirement and retained writing > W4 loaded and continuous E states finish the same original screenplay on its real clock 7170ms
+ ✓ |core| tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→writer second retirement and retained writing > W5 retires the destination after actual clearance and records exactly one noCatalogue finality 5876ms
+ ✓ |core| tests/p14c3-second-episode-writing.test.ts > C.3 B4a actual actor→writer second retirement and retained writing > W6 refuses both missing-current and missing-old-actor authority without borrowing or legacy fallback 4353ms
+ ✓ |core| tests/p14b9-casting-copy.test.ts > 1313-F note 6 — pairChemistry dormancy copy for a competition-only edge > an edge with sharedProductions 0, queried well past the drift grace window, reads "they have never worked together" (not "...lately") 1680ms
+ ✓ |core| tests/p14b9-casting-copy.test.ts > 1313-A §1 "Copy" — DRIVER_COPY for castingCompetitionLost and repeatedCompetition > pairChemistry surfaces "competed for the same role" and "competed again" for a pair that lost twice
+stdout | tests/bridge-p14c3-dual-career-surfaces.test.ts
+{"phase":"1065-dual-surface","actualTickCalls":378,"cap":378,"prefix":{"prefixRouteWeeks":157,"completedPrefixes":["director"],"directTickCalls":{"director":209,"writer":0},"completedPrefixWeeksPlusDirectCalls":366},"failed":false}
+
+ ✓ |core| tests/bridge-p14c3-dual-career-surfaces.test.ts > C.3 both genuinely completed profession episodes remain public > B1 retains actual Actor260 and Director468 history with both extensions and one latest alumnus identity 63778ms
+ ✓ |core| tests/bridge-p14c3-dual-career-surfaces.test.ts > C.3 both genuinely completed profession episodes remain public > B2 retains actual finality at468/480 and expires it at481 in all three news surfaces 4893ms
+ ✓ |core| tests/bridge-p14c3-dual-career-surfaces.test.ts > C.3 both genuinely completed profession episodes remain public > B3 freezes final relationships at actual468, preserves both meanings and keeps reopened reads pure 10749ms
+ ✓ |core| tests/save-masked-downgrade-own-era.test.ts > 1362-O item 9: valid own-era downgrade inputs > V36 open retirementExtension case alone refuses V35 after both own-era controls validate 3371ms
+ ✓ |core| tests/save-masked-downgrade-own-era.test.ts > 1362-O item 9: valid own-era downgrade inputs > V37 Scientist refusal is first on both V36 and V35 routes from a valid historical envelope 2363ms
+ ✓ |core| tests/save-masked-downgrade-own-era.test.ts > 1362-O item 9: valid own-era downgrade inputs > valid V37 retained writer reaches the frozen V36 not-contracted rule without a later-era wrapper 3296ms
+ ✓ |core| tests/save-masked-downgrade-own-era.test.ts > 1362-O item 9: valid own-era downgrade inputs > valid staged V27 research reaches the receipt arm; this does not claim finance-only coverage 1656ms
+stdout | tests/p14c3-deferred-transition-chain.test.ts
+{"phase":"1020-genuine-route-observation","group":"G2","tickCalls":562,"finalityWeek":3161}
+
+ ✓ |core| tests/p14c3-deferred-transition-chain.test.ts > C.3 genuine fractional-provenance deferred chain > D1 records eleven exact annual deferrals and no intervening weekly retries 83334ms
+ ✓ |core| tests/p14c3-deferred-transition-chain.test.ts > C.3 genuine fractional-provenance deferred chain > D2 clips the annual due at the actual fractional75 crossing and writes one linked finality 5613ms
+ ✓ |core| tests/p14c3-deferred-transition-chain.test.ts > C.3 genuine fractional-provenance deferred chain > D3 reopens the actual final save and advances once without replacing old questions or reopening due work 6686ms
+ ✓ |core| tests/bridge-p14c2b-extension.test.ts > P14C.2b W10: extensions are discoverable through existing bridge consumers (875 §3–4) > bridge/market.ts: marketPage lists the exact open extension once with its sole issuer and fixed term 4247ms
+ ✓ |core| tests/bridge-p14c2b-extension.test.ts > P14C.2b W10: extensions are discoverable through existing bridge consumers (875 §3–4) > bridge/people.ts: marketAttentionRows raises the exact sole issuer’s extension decision without a competing-proposal alert 3009ms
+ ✓ |core| tests/bridge-p14c2b-extension.test.ts > P14C.2b W10: extensions are discoverable through existing bridge consumers (875 §3–4) > bridge/people.ts: marketCaseProjection exposes the exact person’s open extension and agrees with selected Market detail 2973ms
+ ✓ |core| tests/bridge-p14c2b-extension.test.ts > P14C.2b W10: extensions are discoverable through existing bridge consumers (875 §3–4) > bridge/world.ts: personWorldRoute links the exact open extension and names the final extension 3109ms
+ ✓ |core| tests/bridge-p14c2b-extension.test.ts > P14C.2b W10: extensions are discoverable through existing bridge consumers (875 §3–4) > bridge/promises.ts: promiseRowsFor publishes nothing for a retirementExtension case 2968ms
+ ✓ |core| tests/bridge-p14c2b-extension.test.ts > P14C.2b W10: extensions are discoverable through existing bridge consumers (875 §3–4) > bridge/contract.ts: renewalRefusal names the "one final extension", never presenting it as an ordinary contest 2872ms
+ × |core| tests/p14c2c-rival-promises.test.ts > P14C.2c rival retirement promises > R1: a genuine bound rival promise follows the same exact cutoff, with no new trust penalty 16227ms
+   → expected { …(17) } to match object { outcome: null, progress: +0 }
+(21 matching properties omitted from actual)
+ × |core| tests/p14c2c-rival-promises.test.ts > P14C.2c rival retirement promises > R2: a rival count already impossible without retirement remains OPEN until ordinary due settlement 15060ms
+   → expected { …(17) } to match object { outcome: null, progress: +0 }
+(21 matching properties omitted from actual)
+ × |core| tests/p14c2c-rival-promises.test.ts > P14C.2c rival retirement promises > R3: real rival VOIDED replay across save/load preserves the source campaign and its outcome identity 13785ms
+   → expected { …(17) } to match object { outcome: null, progress: +0 }
+(21 matching properties omitted from actual)
+stdout | tests/p14c3-calendar-career.test.ts
+{"phase":"1065-core-calendar","calls":{"changed":14,"scientist":1,"deferred":0,"dormant":0,"film":0},"total":15,"cap":15,"failedSetups":[]}
+
+ ✓ |core| tests/p14c3-calendar-career.test.ts > C.3 Calendar career facts remain separate from committed operating work > C1 publishes exact actual changes and finality with public identities, dates and ordered event keys 9142ms
+ ✓ |core| tests/p14c3-calendar-career.test.ts > C.3 Calendar career facts remain separate from committed operating work > C2 adds no commitment, reservation, cost, next boundary or decision and remains read-only 2108ms
+ ✓ |core| tests/p14c3-calendar-career.test.ts > C.3 Calendar career facts remain separate from committed operating work > C3 retains actual age0/12 news, drops age13, and filters a labelled future-event negative 12167ms
+ ✓ |core| tests/bridge-p14c2c-retirement-promises.test.ts > P14C.2c VOIDED disclosure > C10: issuer sees VOIDED history and a retirement explanation without a breach or trust penalty 7449ms
+ ✓ |core| tests/bridge-p14c2c-retirement-promises.test.ts > P14C.2c VOIDED disclosure > C10: another studio gets no private promise history/attention and public activity invents no breach 655ms
+ ✓ |core| tests/bridge-p14c2s-scientist.test.ts > C.2 Scientist private Laboratory disclosure > S9c announced candidate remains inspectable with actual208-week cap refusal, then retired candidate drops without identity deletion 9015ms
+ ✓ |core| tests/bridge-p14c2s-scientist.test.ts > C.2 Scientist private Laboratory disclosure > S9d real held film seat: finishing Scientist drops from recruit candidates without disturbing retained work 5943ms
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > retains two real winners, films one promise and breaks the other by real early termination
+retention {
+  kept: {
+    promiseId: 'promise-0',
+    version: 4,
+    issuerStudioId: 'studio-aca408ec-player',
+    beneficiaryPersonId: 't-act-09',
+    windowStartWeek: 52,
+    dueWeekExclusive: 92,
+    feasibilityReceipt: {
+      classification: 'REASONABLY_ACHIEVABLE',
+      bottleneck: null,
+      inputsDigest: 'dffb435ac41a7bf8',
+      rulesVersion: 4,
+      week: 52
+    },
+    progress: 1,
+    evidenceRefs: [ 'first-take-event-24' ],
+    outcome: 'SATISFIED',
+    outcomeWeek: 61,
+    outcomeCause: 'the promised pictures began filming inside the window',
+    outcomeEventId: 'talent-market-event-6',
+    contractId: 'studio-aca408ec-player:contract:t-act-09:52:player-31',
+    supersededByPromiseId: null,
+    family: 'APPEARANCE_COUNT',
+    predicate: { count: 1 }
+  },
+  broken: {
+    promiseId: 'promise-1',
+    version: 4,
+    issuerStudioId: 'studio-aca408ec-player',
+    beneficiaryPersonId: 't-act-08',
+    windowStartWeek: 52,
+    dueWeekExclusive: 92,
+    feasibilityReceipt: {
+      classification: 'REASONABLY_ACHIEVABLE',
+      bottleneck: null,
+      inputsDigest: '57ac45bb5049984b',
+      rulesVersion: 4,
+      week: 52
+    },
+    progress: 0,
+    evidenceRefs: [],
+    outcome: 'BROKEN',
+    outcomeWeek: 61,
+    outcomeCause: 'the studio terminated this contract early, ending the window',
+    outcomeEventId: 'talent-market-event-7',
+    contractId: 'studio-aca408ec-player:contract:t-act-08:52:player-32',
+    supersededByPromiseId: null,
+    family: 'APPEARANCE_COUNT',
+    predicate: { count: 1 }
+  },
+  drivers: [
+    {
+      kind: 'promiseBroken',
+      week: 61,
+      positive: false,
+      reason: 'broke a promise'
+    },
+    {
+      kind: 'promiseKept',
+      week: 61,
+      positive: true,
+      reason: 'kept a promise'
+    },
+    {
+      kind: 'terminatedEarly',
+      week: 61,
+      positive: false,
+      reason: 'ended a contract early'
+    },
+    {
+      kind: 'ranToEnd',
+      week: 52,
+      positive: true,
+      reason: 'ran a contract to its end'
+    },
+    {
+      kind: 'ranToEnd',
+      week: 52,
+      positive: true,
+      reason: 'ran a contract to its end'
+    }
+  ]
+}
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > keeps real prior history in the next open case, excludes an actual withdrawal, and binds a second promise
+history { week: 96, talentId: 't-act-09', withdrawnId: 'promise-2' }
+
+stdout | tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > diagnostic: the next real production tick must remain save-valid (inherited source finding, not B2 bridge code)
+setup diagnostic {
+  sourceWeek: 61,
+  nextWeek: 62,
+  before: {
+    productionId: 'prod-0052',
+    phase: 'shooting',
+    reservations: [ [Object], [Object] ],
+    shootingTask: {
+      id: 'shooting:prod-0052',
+      productionId: 'prod-0052',
+      directorId: 't-dir-01',
+      soundstageFacilityId: 'facility-soundstage-07',
+      status: 'completed'
+    },
+    blocker: null,
+    bindings: {
+      requiresSetBinding: true,
+      stageFacilityId: 'facility-soundstage-07',
+      setId: 'set-2',
+      lockedNovelty: 1,
+      lockedUplift: 7.8999999999999995,
+      heldSinceWeek: 54
+    },
+    setup: {
+      recipeId: 'ballroom-reveal-lighting-01',
+      planRevision: 0,
+      admittedWeek: 56,
+      route: 'conventional',
+      adoptionId: null,
+      equipmentAssetId: null,
+      stageFacilityId: 'facility-soundstage-07',
+      setId: 'set-2',
+      requiredUnits: 4,
+      creditedUnits: 4,
+      lastCreditedWeek: 60,
+      completedWeek: 60,
+      priorWork: []
+    },
+    planRevision: 0
+  },
+  after: {
+    productionId: 'prod-0052',
+    phase: 'postProduction',
+    reservations: [ [Object] ],
+    shootingTask: null,
+    blocker: null,
+    bindings: {
+      requiresSetBinding: true,
+      stageFacilityId: null,
+      setId: 'set-2',
+      lockedNovelty: 1,
+      lockedUplift: 7.8999999999999995,
+      heldSinceWeek: null
+    },
+    setup: {
+      recipeId: 'ballroom-reveal-lighting-01',
+      planRevision: 0,
+      admittedWeek: 56,
+      route: 'conventional',
+      adoptionId: null,
+      equipmentAssetId: null,
+      stageFacilityId: 'facility-soundstage-07',
+      setId: 'set-2',
+      requiredUnits: 4,
+      creditedUnits: 4,
+      lastCreditedWeek: 60,
+      completedWeek: 60,
+      priorWork: []
+    },
+    planRevision: 0
+  }
+}
+
+ ✓ |core| tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > retains two real winners, films one promise and breaks the other by real early termination 4885ms
+ ✓ |core| tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > keeps real prior history in the next open case, excludes an actual withdrawal, and binds a second promise 1374ms
+ × |core| tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone 9497ms
+   → expected 208 to be 52 // Object.is equality
+ × |core| tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > produces a rival-only open promise and public kept outcome from the unmodified natural rival chain 9869ms
+   → P14B.2 fixture: no natural rival-only promise outcome by 240
+ ✓ |core| tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > diagnostic: the next real production tick must remain save-valid (inherited source finding, not B2 bridge code)
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 25 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > natural retired tiers stay fixed across real drift while lawful current employment changes disclosure
+AssertionError: freeze premise: counterpart stays lawfully disclosed: expected undefined to match object { endWeekExclusive: 416 }
+
+- Expected: 
+Object {
+  "endWeekExclusive": 416,
+}
+
++ Received: 
+undefined
+
+ ❯ Module.frozenTies tests/helpers/p14c2rm-fixtures.ts:302:105
+    300|     state = submitProposal(state, { talentId: f.directorId, issuerStud…
+    301|     state = advanceTo(state, 208)
+    302|     expect(activeContract(state, f.directorId), 'freeze premise: count…
+       |                                                                                                         ^
+    303|     const later = admitted(advanceTo(state, 400))
+    304|     expect(later.relationships.filter(row => row.a === f.actorId || ro…
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:334:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/25]⎯
+
+ FAIL |core|  tests/bridge-p14c2rm-retirement.test.ts > C.2-RM alumni evidence and disclosure > SYNTHETIC imported newer edge withholds unreconstructible retirement tier, with no hidden-counterpart notice leak
+AssertionError: freeze premise: counterpart stays lawfully disclosed: expected undefined to match object { endWeekExclusive: 416 }
+
+- Expected: 
+Object {
+  "endWeekExclusive": 416,
+}
+
++ Received: 
+undefined
+
+ ❯ Module.frozenTies tests/helpers/p14c2rm-fixtures.ts:302:105
+    300|     state = submitProposal(state, { talentId: f.directorId, issuerStud…
+    301|     state = advanceTo(state, 208)
+    302|     expect(activeContract(state, f.directorId), 'freeze premise: count…
+       |                                                                                                         ^
+    303|     const later = admitted(advanceTo(state, 400))
+    304|     expect(later.relationships.filter(row => row.a === f.actorId || ro…
+ ❯ tests/bridge-p14c2rm-retirement.test.ts:347:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/25]⎯
+
+ FAIL |core|  tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone
+AssertionError: expected 208 to be 52 // Object.is equality
+
+- Expected
++ Received
+
+- 52
++ 208
+
+ ❯ Module.poachingFixture tests/helpers/p14b2-fixtures.ts:198:48
+    196|   expect(trustDescriptor(state, talentId, player(state), state.market.…
+    197|   expect(state.hollywood!.businesses.find((b) => b.studioId === incumb…
+    198|   expect(publicPreferredTerm(state, talentId)).toBe(52)
+       |                                                ^
+    199|   expect(trustDrivers(state, talentId, player(state), state.market.tic…
+    200|   expect(caseForTalent(state, talentId)!.subjectStudioId).toBe(incumbe…
+ ❯ tests/p14b2-fixture-preconditions.test.ts:22:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/25]⎯
+
+ FAIL |core|  tests/p14b2-fixture-preconditions.test.ts > P14B.2 lawful engine fixture preconditions (not bridge verification) > produces a rival-only open promise and public kept outcome from the unmodified natural rival chain
+Error: P14B.2 fixture: no natural rival-only promise outcome by 240
+ ❯ Module.rivalFixture tests/helpers/p14b2-fixtures.ts:264:9
+    262|     state = tick(state)
+    263|   }
+    264|   throw new Error('P14B.2 fixture: no natural rival-only promise outco…
+       |         ^
+    265| }
+    266| 
+ ❯ tests/p14b2-fixture-preconditions.test.ts:27:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/25]⎯
+
+ FAIL |core|  tests/p14b4-cast-class-capacity-evaluator5.test.ts > P14B4 evaluator-5 kernel vocabulary (record 600 §3 2(b)): the joint certificate the scalar cannot issue > a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice
+AssertionError: expected 'FRAGILE' to be 'IMPOSSIBLE' // Object.is equality
+
+Expected: "IMPOSSIBLE"
+Received: "FRAGILE"
+
+ ❯ tests/p14b4-cast-class-capacity-evaluator5.test.ts:239:77
+    237|     const w = world()
+    238|     const state = shortVariants(w, { lead: p2('lead'), antagonist: p2(…
+    239|     expect(pureRead(state, shortDraft(w, state, 'support')).classifica…
+       |                                                                             ^
+    240|     // The support person's own physical predicate still has the actua…
+    241|     // Never resolve that joint conflict by marking some bound benefic…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/25]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > p13a-core-causal-01: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable
+AssertionError: expected [] to deeply equal [ { week: 208, …(4) }, …(1) ]
+
+- Expected
++ Received
+
+- Array [
+-   Object {
+-     "admitted": Array [
+-       Object {
+-         "id": "person-studio-aca408ec-r02-0",
+-         "mask": Array [
+-           "lead",
+-           "antagonist",
+-           "support",
+-         ],
+-         "promiseIds": Array [
+-           "promise-12",
+-         ],
+-         "role": "writer",
+-       },
+-     ],
+-     "chosen": null,
+-     "key": "studio-aca408ec-r01:package:script-0006",
+-     "studioId": "studio-aca408ec-r01",
+-     "week": 208,
+-   },
+-   Object {
+-     "admitted": Array [
+-       Object {
+-         "id": "person-studio-aca408ec-r02-0",
+-         "mask": Array [
+-           "lead",
+-           "antagonist",
+-           "support",
+-         ],
+-         "promiseIds": Array [
+-           "promise-12",
+-         ],
+-         "role": "writer",
+-       },
+-     ],
+-     "chosen": "aca408ec-r02-3/aca408ec-r02-2/aca408ec-r02-0",
+-     "key": "studio-aca408ec-r01:package:script-0011",
+-     "studioId": "studio-aca408ec-r01",
+-     "week": 208,
+-   },
+- ]
++ Array []
+
+ ❯ tests/p14b4-rival-seating-preference.test.ts:483:78
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/25]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — no-preference path and viability gates (plan :223-225) > seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable
+AssertionError: expected 'd32e68f685f658666d620bd3faee2841a3af4…' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2…' // Object.is equality
+
+Expected: "f9cd2a86368b222882e84776b30f8a8d3f5b26cf38b25d5881480a910d112cc4"
+Received: "d32e68f685f658666d620bd3faee2841a3af4ac20373e9449ea0851fbb18a100"
+
+ ❯ tests/p14b4-rival-seating-preference.test.ts:498:20
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/25]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > search table: the first seed-b decision whose seating matters holds two tagged leadOrAntagonist beneficiaries and one P1 beneficiary in a three-actor pool
+AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ❯ witness tests/p14b4-rival-seating-preference.test.ts:343:10
+    341| function witness(): { before: GameState; decision: Decision } {
+    342|   const found = scan(WITNESS.seed).witness
+    343|   assert.ok(found, `UNEXECUTED natural premise: no rival film decision…
+       |          ^
+    344|   expect({ week: found.decision.week, studioId: found.decision.studioI…
+    345|     .toEqual({ week: WITNESS.week, studioId: WITNESS.studioId, key: WI…
+ ❯ tests/p14b4-rival-seating-preference.test.ts:504:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/25]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > RED: the real seating serves the maximal DISTINCT-beneficiary count (plan :215-218), the picture is viable and affordable (:223-225), and the real first take then satisfies all three through advancePromisesWeek/qualifyingTakes
+AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ❯ witness tests/p14b4-rival-seating-preference.test.ts:343:10
+    341| function witness(): { before: GameState; decision: Decision } {
+    342|   const found = scan(WITNESS.seed).witness
+    343|   assert.ok(found, `UNEXECUTED natural premise: no rival film decision…
+       |          ^
+    344|   expect({ week: found.decision.week, studioId: found.decision.studioI…
+    345|     .toEqual({ week: WITNESS.week, studioId: WITNESS.studioId, key: WI…
+ ❯ tests/p14b4-rival-seating-preference.test.ts:528:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/25]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > CONFLICT: the ordinary economic score prefers a two-beneficiary permutation; benefit count wins over score (:216-217) and the real take proves it
+AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ❯ witness tests/p14b4-rival-seating-preference.test.ts:343:10
+    341| function witness(): { before: GameState; decision: Decision } {
+    342|   const found = scan(WITNESS.seed).witness
+    343|   assert.ok(found, `UNEXECUTED natural premise: no rival film decision…
+       |          ^
+    344|   expect({ week: found.decision.week, studioId: found.decision.studioI…
+    345|     .toEqual({ week: WITNESS.week, studioId: WITNESS.studioId, key: WI…
+ ❯ tests/p14b4-rival-seating-preference.test.ts:554:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/25]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) > TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated — inherited tie behaviour, not fairness (:218-221)
+AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ❯ witness tests/p14b4-rival-seating-preference.test.ts:343:10
+    341| function witness(): { before: GameState; decision: Decision } {
+    342|   const found = scan(WITNESS.seed).witness
+    343|   assert.ok(found, `UNEXECUTED natural premise: no rival film decision…
+       |          ^
+    344|   expect({ week: found.decision.week, studioId: found.decision.studioI…
+    345|     .toEqual({ week: WITNESS.week, studioId: WITNESS.studioId, key: WI…
+ ❯ tests/p14b4-rival-seating-preference.test.ts:587:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/25]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating
+AssertionError: expected { week: 202, …(1) } to deeply equal { week: 202, …(1) }
+
+- Expected
++ Received
+
+  Object {
+-   "studioId": "studio-bc14baf6-r01",
++   "studioId": "studio-bc14baf6-r02",
+    "week": 202,
+  }
+
+ ❯ tests/p14b4-rival-seating-preference.test.ts:622:66
+    620|     assert.ok(s.pending, 'UNEXECUTED natural premise: no seed-b film d…
+    621|     const { before, decision } = s.pending
+    622|     expect({ week: decision.week, studioId: decision.studioId }).toEqu…
+       |                                                                  ^
+    623|     const offers = before.promises.filter((p) => p.issuerStudioId === …
+    624|     expect(offers.map((p) => p.promiseId).sort()).toEqual(['promise-4'…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/25]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > another issuer's promise never counts: r02's offers to r01's three actors are present at w202 and at the witness and never enter r01's member set; re-authored r02 offers make the negative discriminating
+AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ❯ witness tests/p14b4-rival-seating-preference.test.ts:343:10
+    341| function witness(): { before: GameState; decision: Decision } {
+    342|   const found = scan(WITNESS.seed).witness
+    343|   assert.ok(found, `UNEXECUTED natural premise: no rival film decision…
+       |          ^
+    344|   expect({ week: found.decision.week, studioId: found.decision.studioI…
+    345|     .toEqual({ week: WITNESS.week, studioId: WITNESS.studioId, key: WI…
+ ❯ tests/p14b4-rival-seating-preference.test.ts:668:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/25]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (control, r02 chain): after r02's w211 picture satisfies its three P1 roots at w216, its next real decision has no member and takes the ordinary pick
+AssertionError: The expression evaluated to a falsy value:
+
+  expect(first.cast).toEqual({ lead: WITNESS.a2, antagonist: WITNESS.a4, support: WITNESS.a3 })
+
+ ❯ tests/p14b4-rival-seating-preference.test.ts:690:12
+    688|   it('a met promise never counts (control, r02 chain): after r02\'s w2…
+    689|     const s = scan('seed-b')
+    690|     assert.ok(s.witness)
+       |            ^
+    691|     const studioId = 'studio-bc14baf6-r02'
+    692|     const { taken, take } = produce(clone(s.witness.before), studioId)…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/25]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision
+AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ❯ witness tests/p14b4-rival-seating-preference.test.ts:343:10
+    341| function witness(): { before: GameState; decision: Decision } {
+    342|   const found = scan(WITNESS.seed).witness
+    343|   assert.ok(found, `UNEXECUTED natural premise: no rival film decision…
+       |          ^
+    344|   expect({ week: found.decision.week, studioId: found.decision.studioI…
+    345|     .toEqual({ week: WITNESS.week, studioId: WITNESS.studioId, key: WI…
+ ❯ tests/p14b4-rival-seating-preference.test.ts:708:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/25]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts — 'window starts after every plausible t…'
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > a promise whose window excludes the prospective take never counts — 'window ends before any take can land …'
+AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ❯ witness tests/p14b4-rival-seating-preference.test.ts:343:10
+    341| function witness(): { before: GameState; decision: Decision } {
+    342|   const found = scan(WITNESS.seed).witness
+    343|   assert.ok(found, `UNEXECUTED natural premise: no rival film decision…
+       |          ^
+    344|   expect({ week: found.decision.week, studioId: found.decision.studioI…
+    345|     .toEqual({ week: WITNESS.week, studioId: WITNESS.studioId, key: WI…
+ ❯ tests/p14b4-rival-seating-preference.test.ts:730:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/25]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'tagged lead stays exact: r01-2 counts…'
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'legacy count-only LEAD_OR_SIGNIFICANT…'
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — membership (plan :210-213) and masks (:213-215) > mask derivation through the shared reader — 'APPEARANCE_COUNT is generic cast'
+AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ❯ witness tests/p14b4-rival-seating-preference.test.ts:343:10
+    341| function witness(): { before: GameState; decision: Decision } {
+    342|   const found = scan(WITNESS.seed).witness
+    343|   assert.ok(found, `UNEXECUTED natural premise: no rival film decision…
+       |          ^
+    344|   expect({ week: found.decision.week, studioId: found.decision.studioI…
+    345|     .toEqual({ week: WITNESS.week, studioId: WITNESS.studioId, key: WI…
+ ❯ tests/p14b4-rival-seating-preference.test.ts:754:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/25]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the initial cast seam (plan :225-232) > promised non-primary-actor beneficiaries (the witness rival's writer, director and craft, each bound OPEN P1) are never seated: one person cannot double, and the sole holder of a role is a capacity constraint, not a forged package
+AssertionError: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state
+ ❯ witness tests/p14b4-rival-seating-preference.test.ts:343:10
+    341| function witness(): { before: GameState; decision: Decision } {
+    342|   const found = scan(WITNESS.seed).witness
+    343|   assert.ok(found, `UNEXECUTED natural premise: no rival film decision…
+       |          ^
+    344|   expect({ week: found.decision.week, studioId: found.decision.studioI…
+    345|     .toEqual({ week: WITNESS.week, studioId: WITNESS.studioId, key: WI…
+ ❯ tests/p14b4-rival-seating-preference.test.ts:775:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/25]⎯
+
+ FAIL |core|  tests/p14b4-rival-seating-preference.test.ts > P14B4 final seating preference — the initial cast seam (plan :225-232) > the positive seam witness (plan :225-227, :233; record 621 R2 / G10-b): the first default-seed picture whose pool seats a promised person outside the historical first three admits r01's sole WRITER — a non-primary-actor beneficiary — and the real package and first take serve his promise
+AssertionError: UNEXECUTED natural premise: no picture on 'p13a-core-causal-01' within 350 ticks seats a promised person outside the historical first three
+ ❯ tests/p14b4-rival-seating-preference.test.ts:807:12
+    805|     // w208 settlement swaps r01's and r02's teams on bound P1 roots (…
+    806|     const s = scan(DEFAULT_SEED)
+    807|     assert.ok(s.seam, `UNEXECUTED natural premise: no picture on '${DE…
+       |            ^
+    808|     const { before, decision } = s.seam
+    809|     const studioId = 'studio-aca408ec-r01', departed = 'person-studio-…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/25]⎯
+
+ FAIL |core|  tests/p14c2c-rival-promises.test.ts > P14C.2c rival retirement promises > R1: a genuine bound rival promise follows the same exact cutoff, with no new trust penalty
+AssertionError: expected { …(17) } to match object { outcome: null, progress: +0 }
+(21 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "outcome": null,
+-   "progress": 0,
++   "outcome": "SATISFIED",
++   "progress": 1,
+  }
+
+ ❯ beforeRivalCutoff tests/p14c2c-rival-promises.test.ts:25:42
+     23|     const at2695 = advanceTo(migrated, 2695)
+     24|     expect(retirementRecordFor(at2695, PERSON)).toMatchObject({ announ…
+     25|     expect(promiseById(at2695, PROMISE)).toMatchObject({ outcome: null…
+       |                                          ^
+     26|     const business = at2695.hollywood!.businesses.find((b) => b.studio…
+     27|     expect(business.productions, 'fixture premise: this genuine late-n…
+ ❯ tests/p14c2c-rival-promises.test.ts:35:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/25]⎯
+
+ FAIL |core|  tests/p14c2c-rival-promises.test.ts > P14C.2c rival retirement promises > R2: a rival count already impossible without retirement remains OPEN until ordinary due settlement
+AssertionError: expected { …(17) } to match object { outcome: null, progress: +0 }
+(21 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "outcome": null,
+-   "progress": 0,
++   "outcome": "SATISFIED",
++   "progress": 1,
+  }
+
+ ❯ beforeRivalCutoff tests/p14c2c-rival-promises.test.ts:25:42
+     23|     const at2695 = advanceTo(migrated, 2695)
+     24|     expect(retirementRecordFor(at2695, PERSON)).toMatchObject({ announ…
+     25|     expect(promiseById(at2695, PROMISE)).toMatchObject({ outcome: null…
+       |                                          ^
+     26|     const business = at2695.hollywood!.businesses.find((b) => b.studio…
+     27|     expect(business.productions, 'fixture premise: this genuine late-n…
+ ❯ tests/p14c2c-rival-promises.test.ts:50:40
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/25]⎯
+
+ FAIL |core|  tests/p14c2c-rival-promises.test.ts > P14C.2c rival retirement promises > R3: real rival VOIDED replay across save/load preserves the source campaign and its outcome identity
+AssertionError: expected { …(17) } to match object { outcome: null, progress: +0 }
+(21 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "outcome": null,
+-   "progress": 0,
++   "outcome": "SATISFIED",
++   "progress": 1,
+  }
+
+ ❯ beforeRivalCutoff tests/p14c2c-rival-promises.test.ts:25:42
+     23|     const at2695 = advanceTo(migrated, 2695)
+     24|     expect(retirementRecordFor(at2695, PERSON)).toMatchObject({ announ…
+     25|     expect(promiseById(at2695, PROMISE)).toMatchObject({ outcome: null…
+       |                                          ^
+     26|     const business = at2695.hollywood!.businesses.find((b) => b.studio…
+     27|     expect(business.productions, 'fixture premise: this genuine late-n…
+ ❯ tests/p14c2c-rival-promises.test.ts:61:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/25]⎯
+
+ Test Files  5 failed | 30 passed (35)
+      Tests  25 failed | 405 passed | 1 skipped | 5 todo (436)
+   Start at  16:09:51
+   Duration  2177.41s (transform 9.50s, setup 0ms, collect 57.89s, tests 2085.04s, environment 16ms, prepare 11.24s)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b4-helper-consumers.vitest.json

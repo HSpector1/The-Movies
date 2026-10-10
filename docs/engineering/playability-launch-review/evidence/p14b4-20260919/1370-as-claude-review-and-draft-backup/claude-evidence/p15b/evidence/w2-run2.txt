@@ -1,0 +1,49 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p15b
+
+ ✓ |core| tests/p15b2-corporate-condition-live.test.ts (13 tests) 20616ms
+   ✓ p15b2 live condition: root, facts and the evaluated set (1357-A §3-§4) > condition-root-fresh-and-live-version 2528ms
+   ✓ p15b2 live condition: root, facts and the evaluated set (1357-A §3-§4) > condition-evaluated-set 423ms
+   ✓ p15b2 live condition: root, facts and the evaluated set (1357-A §3-§4) > condition-step-final-cash 327ms
+   ✓ p15b2 live condition: root, facts and the evaluated set (1357-A §3-§4) > condition-step-rng-neutral 340ms
+   ✓ p15b2 live condition: events, order, ids and the integer threshold (1357-A §4-§5) > condition-step-order-ids-and-phase 549ms
+   ✓ p15b2 live condition: events, order, ids and the integer threshold (1357-A §4-§5) > condition-integer-cash-threshold 1639ms
+   ✓ p15b2 live condition: events, order, ids and the integer threshold (1357-A §4-§5) > condition-lemma-b-live 3273ms
+   ✓ p15b2 live condition: events, order, ids and the integer threshold (1357-A §4-§5) > closure-due-event-and-absorbing-record 4135ms
+   ✓ p15b2 loans: takeLoan, installments, the rival policy and cover (1357-A §6) > take-loan-eligibility-first 1657ms
+   ✓ p15b2 loans: takeLoan, installments, the rival policy and cover (1357-A §6) > take-loan-principal-and-writes 678ms
+   ✓ p15b2 loans: takeLoan, installments, the rival policy and cover (1357-A §6) > loan-installments-charged 3911ms
+   ✓ p15b2 loans: takeLoan, installments, the rival policy and cover (1357-A §6) > rival-loan-policy 1088ms
+ ❯ |core| tests/p15b2-corporate-condition-save.test.ts (7 tests | 1 failed) 23696ms
+   ✓ p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2) > condition-root-migration-empty-genuine-v42 3517ms
+   ✓ p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2) > condition-root-downgrade 4829ms
+   ✓ p15b2 save step: the root validator (1357-A §4.1; S3-S6) > condition-validate-records-and-ids 4656ms
+   ✓ p15b2 save step: the root validator (1357-A §4.1; S3-S6) > condition-validate-events 1514ms
+   × p15b2 save step: the root validator (1357-A §4.1; S3-S6) > loan-validate-reconcile 2687ms
+     → expected 'validateSaveV37: state is invalid — v…' to contain 'loanPrincipal'
+   ✓ p15b2 save step: the round trip (S7) > condition-round-trip 6485ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p15b2-corporate-condition-save.test.ts > p15b2 save step: the root validator (1357-A §4.1; S3-S6) > loan-validate-reconcile
+AssertionError: expected 'validateSaveV37: state is invalid — v…' to contain 'loanPrincipal'
+
+Expected: "loanPrincipal"
+Received: "validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV15: frozen V14 state is invalid — validateSaveV14: frozen V13 state is invalid — validateSaveV13: frozen V12 state is invalid — validateSaveV12: frozen V11 state is invalid — validateSaveV11: frozen V10 state is invalid — validateSaveV10: frozen V9 state is invalid — validateSaveV9: frozen V8 state is invalid — validateSaveV8: state.ledger[135].amount must be a positive whole-dollar receipt"
+
+ ❯ Module.refuses tests/helpers/p15b-live.ts:149:19
+    147|   try { fn() } catch (error) { message = (error as Error).message }
+    148|   expect(message, `expected a refusal naming "${text}"`).not.toBeNull()
+    149|   expect(message).toContain(text)
+       |                   ^
+    150| }
+    151| 
+ ❯ tests/p15b2-corporate-condition-save.test.ts:157:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 19 passed (20)
+   Start at  16:09:00
+   Duration  55.67s (transform 5.45s, setup 0ms, collect 8.21s, tests 44.31s, environment 1ms, prepare 861ms)
+

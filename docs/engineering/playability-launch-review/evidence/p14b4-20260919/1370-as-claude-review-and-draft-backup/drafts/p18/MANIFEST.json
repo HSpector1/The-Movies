@@ -1,0 +1,101 @@
+{
+  "clone": "/Users/zacheryspector/studio-specialists/p18",
+  "baseHead": "f7d0dc0fd4f31ff1a3bff47abb4db07bd3ce298c",
+  "patch": "drafts/p18/SOURCE.patch",
+  "patchBytes": 131606,
+  "patchSha256": "f2f905cb43513557bc336fc8c690d1efc4861f1e82f8399d9312455e1925ee20",
+  "reverseApplyCheck": "PASS (read-only)",
+  "files": [
+    {
+      "path": "src/core/tvDistribution.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 3829,
+        "sha256": "647f27cc3bbd3dec2909dd717449e4bdfcb4674d9539da0f8887d490cc8de814",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/tvReaders.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 2751,
+        "sha256": "148ee30ce3d02f4d5fccec622faa36d4af1174273bddb26f362d4cccffd1c5b6",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/tvSeason.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 23875,
+        "sha256": "1533dd350e7b8b520c0b948a0e3d5f2720ee30780a45c695eac7f63a2f364301",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/tvSettlement.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 12633,
+        "sha256": "16da11b1133efc87b89f8b817293aa7ca114640d05dfcd1414372410ac87b24d",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/tvTypes.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 8668,
+        "sha256": "5bc065859270b39880810a4c4a09cea63deb5aaa23b5312467ded3109dd7cd37",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/p18-fixtures.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 8038,
+        "sha256": "6991778b44ec0be9935f35e02c6255920d0b9832d3edfe8dd179cb284b471642",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p18-first-season-route.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 47044,
+        "sha256": "0fd175d2cf8aad518395ced707e67ef04574dc2b1d5c21613be3ddc2e02e94ac",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p18-first-season-save-v46.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 7551,
+        "sha256": "f3e9a46a87e1f91095e4ac9a92eb265a6af6c8c7fbb543ebc8c70a2ef75f7438",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p18-first-season-settlement.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 8215,
+        "sha256": "98a2b5dc7612f4a3e846af7d310d0280fea8c9497fc0ef15eb11bf084a7e5dbd",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p18-first-season-tuning.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 4854,
+        "sha256": "41cd13f2fa6672546fc21abc7dcd738a8845f9a2b6b98f217c1edaf99a1d268f",
+        "mode": "0o644"
+      }
+    }
+  ],
+  "localOnly": []
+}

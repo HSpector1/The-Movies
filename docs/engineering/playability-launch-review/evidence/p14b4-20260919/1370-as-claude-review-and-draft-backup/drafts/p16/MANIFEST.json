@@ -1,0 +1,281 @@
+{
+  "clone": "/Users/zacheryspector/studio-specialists/p16",
+  "baseHead": "6510c971bed8079f7ca02e528b224988de092c87",
+  "patch": "drafts/p16/SOURCE.patch",
+  "patchBytes": 374644,
+  "patchSha256": "314fe20b90359b37e4f2b01fc4354707628a917fb1c031cd66b4630b0c245037",
+  "reverseApplyCheck": "PASS (read-only)",
+  "files": [
+    {
+      "path": "src/core/acquisition.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 11668,
+        "sha256": "771b1edf19aa19e5a5a6d1099e984beedf187a1dd192e1316d44e62668b74919",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/actions.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 132570,
+        "sha256": "cafba84230438cda93bacc224aa06671cff639c4b48dc051fe877231b54aa4dc",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/assetSale.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 17453,
+        "sha256": "af56af1c8cf259c123ff7d5c442bfd82b2790036ea046e84cde3e19ee11848a5",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/dueDiligence.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 7733,
+        "sha256": "614bb4a0b5989114731db049a773bee572ebd23bc0e73d16cace1ee0b9ec1d37",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/economyView.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 33138,
+        "sha256": "8a8ea9c7ad742dc620e885943a9689c3ea672b31bac5280cdc75a43337cc4d38",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/estate.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 13723,
+        "sha256": "3528715d36f57d3f303c57625d15ec0192fcd72ca85078479c090cd88d97cf19",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/financeReport.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 18348,
+        "sha256": "0b968869d10515b24959b7b531d7ecf33743fc04564e5c0a37134bea466c0ad6",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/hollywood.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 17412,
+        "sha256": "e6c42af67301f46e9fac1ed8110b0f9131612ec059c872a91e5629058c977598",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/hollywoodTypes.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 7793,
+        "sha256": "c886c5ae58319b6f243e1bf8a33262b0848d05f5a06d0c87723aa40370b1e09c",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/hollywoodValidation.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 57244,
+        "sha256": "1134db559c31925b4c15191762fe757165b18597f93ba8dc6f7500c1ec199d34",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/index.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 53739,
+        "sha256": "ff854cfd4ac21e44f75f4b520be1b545c411fa4ef056ac11552f861113d495d9",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/propertyValuation.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 7004,
+        "sha256": "f48b45fc4c2bf8877888dd476f0b2e3fab67fe1f42befb37fc4569ea7d8e426e",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/rights.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 58978,
+        "sha256": "0eb0792b9c89d37d12c5d2ff33f8afbad066419839d29842c9f26f792c6a9298",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/rightsFinance.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 6430,
+        "sha256": "8ccd0868172679db203093bfac3501a9dd4113bf960c8e8c5b048a8ea72abfa8",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/rightsTick.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 2927,
+        "sha256": "32fbbdbd7342d42acbb0cfa73767eeb5c832307d33fd327a2cb7bef39ce3070f",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/save.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 528119,
+        "sha256": "496412f0a6eaa3c192e2a22d17a671199dc4d38f006d697088bd7e068ef3fbac",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/tick.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 64515,
+        "sha256": "a75e983f389f613c2b8b823799edb3d93da888f7648ab3e67003bf79a7b5ea5e",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/tuning.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 145450,
+        "sha256": "eb7069dbe38645df51f1612988d7691645d4a3dd0a2075f57ffb912bae13a601",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/types.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 129274,
+        "sha256": "823ffbf70e4ac7c86f054db8e2a90fa367206364206c8502fd9d1f1289b645f0",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/worldgen.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 36450,
+        "sha256": "88021ffdba6fade43e0845c953f310a30c2aa2e4fa3cd7293344b89ea86290f6",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/p16-fixtures.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 6489,
+        "sha256": "652d4b6ed5c35ea82e5ed53e040274bd3e1c9200384c48bfc3671603482de6ef",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p16-tuning.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 3013,
+        "sha256": "08ec415950f3f6d15a7ffe54f710306b3aa588a8eada90a496bc0b17102b8ef9",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p16a-mint-hooks.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 10960,
+        "sha256": "54d77c9fe0f4cf6ea607d19cb6c37eadd56fe50e78e58e1199bb6dd02ff364be",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p16a-rights-identity.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 13918,
+        "sha256": "672ffdeecd040793c94058be4f35c0a3758d25cdeab17d924f26f7d6641c3bf1",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p16a-save-v46.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 13960,
+        "sha256": "fddd223732a049140a2c47e87a71a9f4d9183b84166e016b2c6bce3d56c12a15",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p16a-valuation.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 20928,
+        "sha256": "8bd6c6f39d4bdf75ed282a586e2545a5b5aae13431c707bdc34a3c0a99bc4a23",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p16b-asset-sale.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 26914,
+        "sha256": "42c5850f8e0dc98a3f49c31cca5d9c98aeb48836f9f4c88de18f658a3f101f11",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p16b-due-diligence.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 9796,
+        "sha256": "c11ef40d59714cc083442553854bbbf98fb7007c0247ba5a67a3608cee4648f1",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p16c-acquisition.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 12197,
+        "sha256": "66d522bbf1189690642d2a29b8d67941c864c584f7c1fad1367bfbc894da1011",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p16c-estate.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 20182,
+        "sha256": "29650d5721319758fafd2f8da2ec21a6e952b66511fb8b956df3be7e7a98d3db",
+        "mode": "0o644"
+      }
+    }
+  ],
+  "localOnly": []
+}

@@ -1,0 +1,2429 @@
+{
+  "schema": "1370-as-r8-retained-results-review/v1",
+  "status": "RECONCILED_RETAINED_RESULTS_ONLY_NOT_SOURCE_LANDING_OR_GAMEPLAY_ADMISSION",
+  "executionPerformed": false,
+  "sourceOrGitModified": false,
+  "predecessorHead": "6510c971bed8079f7ca02e528b224988de092c87",
+  "predecessorStart": "2026-10-10T20:20:32Z",
+  "predecessorEnd": "2026-10-10T22:34:15Z",
+  "predecessorExit": "exit=1",
+  "pairingMethod": "Exact repository-relative tests path + exact Vitest fullName + 1-based occurrence in retained assertion order. SAME requires predecessor failed plus exact equality of all primary failureMessages before their first newline-and-four-spaces-at stack frame; stack locations/timing are deliberately excluded. NEW requires an explicitly paired predecessor non-failure. GONE requires paired predecessor failure now passed. Missing identity never SAME/GONE. No gameplay causation inferred.",
+  "inputRoles": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b1-modified10.vitest.json",
+      "bytes": 64116,
+      "sha256": "23d9e5bb3c7493361ffd91eb0a7c12f1d3267cb56f0f0cec089b944743257839"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b1-modified10.log",
+      "bytes": 41046,
+      "sha256": "d0e6944a35a31be746a4815b9f3ec747605223cb5c103ceb898b38a3b92cea0a"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b1-modified10.files",
+      "bytes": 412,
+      "sha256": "055ca926af441f8e2513e08e4a637935f43e9d93ff95a87295c3d0c74004f8fd"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b2-recovery-own.vitest.json",
+      "bytes": 94912,
+      "sha256": "4a3f94d59ab7e27ab7add53747f543de4e275f077619917de725d6bd14aaf844"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b2-recovery-own.log",
+      "bytes": 46959,
+      "sha256": "64dbea2c41339d9bc151a0c9618f9b02430f38672c3f6fadb91cdf37aecce888"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b2-recovery-own.files",
+      "bytes": 357,
+      "sha256": "f6248d461cd5fa785869b9c122815c2dea45e9bd6d62713bc0e27d7763f20483"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b3-p15.vitest.json",
+      "bytes": 111919,
+      "sha256": "c1c9cc3f4e344b5f7924e72899061a3b440da855274088464417853c7a3746f3"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b3-p15.log",
+      "bytes": 67194,
+      "sha256": "070b6784ad707f2f468bfd2f7fa533de355deabdb8478f085d7b2664adcf48d0"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b3-p15.files",
+      "bytes": 131,
+      "sha256": "944b67c6769e93e6ef6f520821e6cab9753acec280d88f2f40c2c7c822b664b8"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b4-helper-consumers.vitest.json",
+      "bytes": 275687,
+      "sha256": "9746f58422b819cbf82c6bfec55ffd301e164f82203c957d9d414a97af6d9c5e"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b4-helper-consumers.log",
+      "bytes": 159297,
+      "sha256": "5e807f41533a28c0fb448cc866cc0d3b55e1673cf901056819ae4190b847ed20"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b4-helper-consumers.files",
+      "bytes": 1408,
+      "sha256": "e5bbd7a2ab4f3ec8e0fb889b5ae5ac1f6117e2d6dfdb2d3a5d55b61acde4526e"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b5-backward.vitest.json",
+      "bytes": 129475,
+      "sha256": "551a74233a3785c78352862803f963a043a0806225957175cf1a67515762116f"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b5-backward.log",
+      "bytes": 392576,
+      "sha256": "17a07869612d884cc0f717522d7a557dd073145b67bc057dd8f3c2eec45a9e91"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b5-backward.files",
+      "bytes": 597,
+      "sha256": "e8f1e9d7528b5ebdb97f339d58568ecae8c4066edc13e584793486bd07290757"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b6-current.vitest.json",
+      "bytes": 711449,
+      "sha256": "99b1c490d97a4bc487ea824300432720420bf0dd98c78ad829e4839768aa603a"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b6-current.log",
+      "bytes": 14094830,
+      "sha256": "7ad9181e587e0b183fde96d79d4590f03cbd9ee4889063a73d429220613f159d"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b6-current.files",
+      "bytes": 3531,
+      "sha256": "790f324c9f5de6fc7fd877f2b5a9d66f1bb4469ed671f4ec35af175c64eaeb04"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b7-rerun-docs-fixed.vitest.json",
+      "bytes": 70895,
+      "sha256": "fc10f2abb72d0cb813646b495c6e7fd6ba50f020f37e458477271d852cb2ce91"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b7-rerun-docs-fixed.log",
+      "bytes": 205147,
+      "sha256": "1e1ec6cecff9569f11af5420ca11cc65f04caea560707db1b91d3c6c861a5210"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b7-rerun-docs-fixed.files",
+      "bytes": 504,
+      "sha256": "ecff84a67e5e9480d061fe78e24d91fa853dc5fa7f392bd6e3e01d51aaecb450"
+    },
+    {
+      "path": "/tmp/claude-501/-Users-zacheryspector/21e515ff-0aed-48b0-9b7f-11c9d5239850/scratchpad/baseline/core-6510c971.json",
+      "bytes": 2621214,
+      "sha256": "e649068befaccd7910520790810e408a6ec0ac902b07d72a35f1fdf85a820f06"
+    },
+    {
+      "path": "/tmp/claude-501/-Users-zacheryspector/21e515ff-0aed-48b0-9b7f-11c9d5239850/scratchpad/baseline/core-6510c971.stdout",
+      "bytes": 1062,
+      "sha256": "46b611087f1fa0c719e26ae03923843121c8a219685f8834d97a9a1cd03d59ed"
+    },
+    {
+      "path": "/tmp/claude-501/-Users-zacheryspector/21e515ff-0aed-48b0-9b7f-11c9d5239850/scratchpad/baseline/core-6510c971.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/tmp/claude-501/-Users-zacheryspector/21e515ff-0aed-48b0-9b7f-11c9d5239850/scratchpad/baseline/START",
+      "bytes": 21,
+      "sha256": "3974ac5a446a92651d42656898070352e8b55c90267dcb260508669716c2dd2c"
+    },
+    {
+      "path": "/tmp/claude-501/-Users-zacheryspector/21e515ff-0aed-48b0-9b7f-11c9d5239850/scratchpad/baseline/HEAD",
+      "bytes": 41,
+      "sha256": "2c79a03f633acbafdb0c3d7173542afd493865c5f5561d6a418aa4ef1925a99f"
+    },
+    {
+      "path": "/tmp/claude-501/-Users-zacheryspector/21e515ff-0aed-48b0-9b7f-11c9d5239850/scratchpad/baseline/END",
+      "bytes": 21,
+      "sha256": "bcd70eaf570a19a990b8cd5d7579a8a80aa32f8bc38807aad415a3e897090388"
+    },
+    {
+      "path": "/tmp/claude-501/-Users-zacheryspector/21e515ff-0aed-48b0-9b7f-11c9d5239850/scratchpad/baseline/EXIT",
+      "bytes": 7,
+      "sha256": "cf205dbb8cea84897b488abcc281bf96698d5e94b1096b16657b4caba9082a22"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/REPORT.md",
+      "bytes": 10547,
+      "sha256": "e2f006ae2e37cd529968a3eb6a268933703e958d6dba4f28b437cb8290eda610"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/PROGRESS.md",
+      "bytes": 4541,
+      "sha256": "b7c00e4f7ef8e46d910df1c2556400061999336acf306b71b752dce08235b212"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/KIT-INVENTORY.json",
+      "bytes": 90894,
+      "sha256": "a4d6dde9c1329a8a181b97654baa185657a0dc661bfb2546cce549fe4711c88f"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/gates/results.jsonl",
+      "bytes": 12281,
+      "sha256": "a25f1a749234c85dc6bbd5f893df185ac1aebaa61591b238027a6d34f6351632"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/gates/run-gates.sh",
+      "bytes": 2630,
+      "sha256": "71d777599a3efa7a3751ef7c4b2a1d5817e090e17c0e8d71b09404953b0bf683"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/gates/run-rerun.sh",
+      "bytes": 3103,
+      "sha256": "369e3caef8ddb37d84e66b30ca5deb0238fe3bab50dacfcd3403354b8683942e"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/comparison.json",
+      "bytes": 140031,
+      "sha256": "a50dcf9cc15c2356a1285b91b8505a474863e6d5be1ef60975dbe692445de514"
+    }
+  ],
+  "batches": {
+    "b1-modified10": {
+      "report": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b1-modified10.vitest.json",
+        "bytes": 64116,
+        "sha256": "23d9e5bb3c7493361ffd91eb0a7c12f1d3267cb56f0f0cec089b944743257839"
+      },
+      "logPath": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b1-modified10.log",
+      "statuses": {
+        "passed": 140,
+        "failed": 7
+      },
+      "comparisonCounts": {
+        "SAME": 0,
+        "NEW": 7,
+        "CHANGED": 0,
+        "GONE": 0,
+        "UNPAIRED": 0
+      },
+      "predecessorFailedOccurrencesMissingFromCurrentRoster": 0,
+      "failedRows": [
+        {
+          "file": "tests/bridge-p14p3-directing-promises.test.ts",
+          "fullName": "P3 public Bridge authority, truthful terms and durable runtime D15 commits genuine public directing commands with closed private authority",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/bridge-p14p3-directing-promises.test.ts",
+          "fullName": "P3 public Bridge authority, truthful terms and durable runtime D16 discloses Director and legacy cast terms truthfully without private inputs",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/bridge-p14p3-directing-promises.test.ts",
+          "fullName": "P3 public Bridge authority, truthful terms and durable runtime D17 migrates outgoing53 independently and isolates current55 campaigns",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+          "fullName": "P4/P5 closed Bridge material and outgoing runtime authority B55-1 validates closed singular drafts and discloses only actual own material",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+          "fullName": "P4/P5 closed Bridge material and outgoing runtime authority B55-2 binds actual genre work and preserves material through an own waiver chain",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/MANIFEST.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+          "fullName": "P4/P5 closed Bridge material and outgoing runtime authority B55-3 independently migrates genuine54 slots and resets only prior runtime authority",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/MANIFEST.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p14p4p5-cross-owner.test.ts",
+          "fullName": "P4/P5 cross-owner production and writing availability Q17 distinguishes an occupied rival Actor from a credited Writer with an earlier active-draft boundary",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        }
+      ]
+    },
+    "b2-recovery-own": {
+      "report": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b2-recovery-own.vitest.json",
+        "bytes": 94912,
+        "sha256": "4a3f94d59ab7e27ab7add53747f543de4e275f077619917de725d6bd14aaf844"
+      },
+      "logPath": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b2-recovery-own.log",
+      "statuses": {
+        "passed": 210,
+        "failed": 1,
+        "todo": 2,
+        "skipped": 2
+      },
+      "comparisonCounts": {
+        "SAME": 1,
+        "NEW": 0,
+        "CHANGED": 0,
+        "GONE": 0,
+        "UNPAIRED": 0
+      },
+      "predecessorFailedOccurrencesMissingFromCurrentRoster": 0,
+      "failedRows": [
+        {
+          "file": "tests/p14b1-trust-chooser.test.ts",
+          "fullName": "P14B.1 test 6: trust, the widened chooser and the priority order opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected 'compensation' to be 'opportunity' // Object.is equality"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected 'compensation' to be 'opportunity' // Object.is equality"
+          ]
+        }
+      ]
+    },
+    "b3-p15": {
+      "report": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b3-p15.vitest.json",
+        "bytes": 111919,
+        "sha256": "c1c9cc3f4e344b5f7924e72899061a3b440da855274088464417853c7a3746f3"
+      },
+      "logPath": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b3-p15.log",
+      "statuses": {
+        "passed": 35,
+        "failed": 61
+      },
+      "comparisonCounts": {
+        "SAME": 40,
+        "NEW": 21,
+        "CHANGED": 0,
+        "GONE": 0,
+        "UNPAIRED": 0
+      },
+      "predecessorFailedOccurrencesMissingFromCurrentRoster": 0,
+      "failedRows": [
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market forecast paths (RED 3, 1355-A \u00a73.2 \"never carry it\") market-forecast-paths-unchanged: a week of rival decisions with no release ignores the root [control]",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: tick: the sharedMarket root already holds market assessments (12 recorded); the save was written by a build with the market batch, and this build cannot move recordedFromWeek past those rows"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: tick: the sharedMarket root already holds market assessments (12 recorded); the save was written by a build with the market batch, and this build cannot move recordedFromWeek past those rows"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market due set (RED 4-5, 1355-A \u00a73.1) market-due-set-equals-releases: frozen members are the committed player release plus every rival picture at 1",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected '[]' to be '[{\"genre\":\"horror\",\"releaseId\":\"prod-\u2026' // Object.is equality"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected '[]' to be '[{\"genre\":\"horror\",\"releaseId\":\"prod-\u2026' // Object.is equality"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market due set (RED 4-5, 1355-A \u00a73.1) market-due-set-mismatch-fails-closed: a frozen batch missing a due rival picture throws, input unchanged",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected [Function] to throw an error"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected [Function] to throw an error"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market due set (RED 4-5, 1355-A \u00a73.1) market-due-set-mismatch-fails-closed: a frozen batch naming a picture nobody releases throws, input unchanged",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected [Function] to throw an error"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected [Function] to throw an error"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market live batches (RED 6-9) market-live-one-player-one-rival: same genre, same week, both pressureFactor(1), each names the other",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: the player release is assessed: expected undefined to be defined"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: the player release is assessed: expected undefined to be defined"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market live batches (RED 6-9) market-live-window-stock-retire: releases at W\u22122, W\u221210 and W\u221226 act through WINDOW_RELEASES, GENRE_SATURATION and nothing",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: tick: the sharedMarket root already holds market assessments (3 recorded); the save was written by a build with the market batch, and this build cannot move recordedFromWeek past those rows"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: tick: the sharedMarket root already holds market assessments (3 recorded); the save was written by a build with the market batch, and this build cannot move recordedFromWeek past those rows"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market live batches (RED 6-9) market-live-self-exclusion-clamp: one studio's two same-genre same-week releases see each other at 1.00, never themselves",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected [] to have a length of 2 but got +0"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected [] to have a length of 2 but got +0"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market live batches (RED 6-9) market-live-no-player-flag: a persisted row carries exactly the law fields and the 1355-F2 fields, no owner",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected 0 to be greater than 0"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected 0 to be greater than 0"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market live batches (RED 6-9) market-live-no-player-flag: mirror fixtures that swap the player studio give equal assessments after id normalization",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected 0 to be greater than or equal to 2"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected 0 to be greater than or equal to 2"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market chronology controls (RED 10-11, 1355-A \u00a74 K1/K2) market-week-diff-confined (K1): the K1 week is pressured exactly where the law says",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected '[]' to be '[{\"genre\":\"comedy\",\"releaseId\":\"studi\u2026' // Object.is equality"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected '[]' to be '[{\"genre\":\"comedy\",\"releaseId\":\"studi\u2026' // Object.is equality"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market chronology controls (RED 10-11, 1355-A \u00a74 K1/K2) market-no-pressure-week-identity (K2): every release of the K2 week is assessed at P = 0 and f = 1",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected '[]' to be '[{\"genre\":\"drama\",\"releaseId\":\"studio\u2026' // Object.is equality"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected '[]' to be '[{\"genre\":\"drama\",\"releaseId\":\"studio\u2026' // Object.is equality"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market root (RED 12-13, 1355-A \u00a73.3; 1355-F2 item 2; 1355-F3) market-root-append-canonical: one ordered append per week; derived exposures equal reduceExposures",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected 1 to be +0 // Object.is equality"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected 1 to be +0 // Object.is equality"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market root (RED 12-13, 1355-A \u00a73.3; 1355-F2 item 2; 1355-F3) market-root-append-canonical: rows ascend in (week, releaseId) and in p15DomainSequence, each with its v1 phase triple",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected 0 to be greater than 0"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected 0 to be greater than 0"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market root (RED 12-13, 1355-A \u00a73.3; 1355-F2 item 2; 1355-F3) market-inflight-save-replay: save during an active exposure, reload, run 30 weeks: assessments and terminal save equal an unsaved run",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: an active exposure at the save: expected false to be true // Object.is equality"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: an active exposure at the save: expected false to be true // Object.is equality"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: the unforged route state validates (premise of every refusal below)",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: premise: rows in at least two weeks: expected 0 to be greater than or equal to 3"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: premise: rows in at least two weeks: expected 0 to be greater than or equal to 3"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged pressure by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'pressure')"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'pressure')"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged factor by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'factor')"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'factor')"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged windowTerm by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'windowTerm')"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'windowTerm')"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged stockTerm by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'stockTerm')"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'stockTerm')"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged reason by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'pressure')"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'pressure')"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged inputDigest by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "TypeError: Cannot set properties of undefined (setting 'inputDigest')"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "TypeError: Cannot set properties of undefined (setting 'inputDigest')"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses rows out of (week, releaseId) order by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected [Function] to throw an error"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected [Function] to throw an error"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a duplicate assessment by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected [Function] to throw error matching /duplicate|twice|order|ascend/i but got 'validateSaveV45: sharedMarket assessm\u2026'"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected [Function] to throw error matching /duplicate|twice|order|ascend/i but got 'validateSaveV45: sharedMarket assessm\u2026'"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an orphan assessment with no film by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'week')"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'week')"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a missing assessment by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: fixture premise: no removable row"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: fixture premise: no removable row"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an assessment before recordedFromWeek by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'week')"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'week')"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an assessment at the tick by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'phaseId')"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'phaseId')"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an unknown definitionVersion by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "TypeError: Cannot set properties of undefined (setting 'definitionVersion')"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "TypeError: Cannot set properties of undefined (setting 'definitionVersion')"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an owner field on a row (exact keys) by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "TypeError: Cannot set properties of undefined (setting 'owner')"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "TypeError: Cannot set properties of undefined (setting 'owner')"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a duplicate p15DomainSequence by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'p15DomainSequence')"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'p15DomainSequence')"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a p15DomainSequence at p15Sequence.next by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "TypeError: Cannot set properties of undefined (setting 'p15DomainSequence')"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "TypeError: Cannot set properties of undefined (setting 'p15DomainSequence')"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a p15DomainSequence below 1 by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "TypeError: Cannot set properties of undefined (setting 'p15DomainSequence')"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "TypeError: Cannot set properties of undefined (setting 'p15DomainSequence')"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a phase ordinal off its version's table entry by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'phaseOrdinal')"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "TypeError: Cannot read properties of undefined (reading 'phaseOrdinal')"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses another phase's phaseId by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "TypeError: Cannot set properties of undefined (setting 'phaseId')"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "TypeError: Cannot set properties of undefined (setting 'phaseId')"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an unknown phaseOrderVersion by name",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "TypeError: Cannot set properties of undefined (setting 'phaseOrderVersion')"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "TypeError: Cannot set properties of undefined (setting 'phaseOrderVersion')"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: across P15 roots, a sibling row may hold the largest sequence and a market row may not reuse a sibling's",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: premise: a sibling sequence below some market row: expected undefined to be defined"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: premise: a sibling sequence below some market row: expected undefined to be defined"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market old saves (RED 16) market-old-save: the first batches after migration see no pre-migration release [fixture-pending]",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: studio-315405e1-r03:film:2 is assessed within 26 weeks of the migration: expected undefined to be defined"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: studio-315405e1-r03:film:2 is assessed within 26 weeks of the migration: expected undefined to be defined"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market old saves (RED 16) market-old-save: a non-empty root refuses the downgrade by name, at the step and through every older migrator",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: premise: a recorded assessment: expected 0 to be greater than 0"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: premise: a recorded assessment: expected 0 to be greater than 0"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market persisted storage (RED 18) market-large-batch-persisted-linear: every live row is bounded: exact keys, at most five reasons of at most five ids",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected 0 to be greater than 0"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected 0 to be greater than 0"
+          ]
+        },
+        {
+          "file": "tests/p15a1-market-integration.test.ts",
+          "fullName": "p15a1 market persisted storage (RED 18) market-large-batch-persisted-linear: 32- and 512-member batches persist equal-bounded rows and linear root bytes",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: premise: a live row supplies the persisted shape: expected undefined to be defined"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: premise: a live row supplies the persisted shape: expected undefined to be defined"
+          ]
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 controls: the fixtures are lawful at RED and at GREEN legacy-control-genuine-save38-6240-lawful",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-film-facts",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-run-status",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-private-money-never-read",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-career-events",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-studios",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-domain-facts",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-missing-concept-refuses",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 boundary: the freeze as the tick's last step (1359-A \u00a74, RED B1-B9) legacy-condition-at-6240-outside",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 root: seed, migration and downgrade (1359-A \u00a75.2, RED C1-C5) legacy-migration-empty-root-genuine-save38",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 root: seed, migration and downgrade (1359-A \u00a75.2, RED C1-C5) legacy-migration-past-boundary-genuine-save38",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 root: seed, migration and downgrade (1359-A \u00a75.2, RED C1-C5) legacy-root-downgrade",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-marker",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-manifest-identity",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-stamp",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-bounds",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-refs",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-definition-era-guard",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) legacy-validate-replay",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+          "fullName": "p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) legacy-old-law-fixture-v1-validates-after-retune",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        },
+        {
+          "file": "tests/p15c2-campaign-legacy-sibling.test.ts",
+          "fullName": "p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A \u00a78 B2, B4, C3, C8, C10) legacy-validate-refs-sibling-added-after-freeze",
+          "occurrence": 1,
+          "classification": "NEW",
+          "currentDiagnostic": [
+            "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+          ],
+          "predecessorStatus": "passed",
+          "predecessorDiagnostic": []
+        }
+      ]
+    },
+    "b4-helper-consumers": {
+      "report": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b4-helper-consumers.vitest.json",
+        "bytes": 275687,
+        "sha256": "9746f58422b819cbf82c6bfec55ffd301e164f82203c957d9d414a97af6d9c5e"
+      },
+      "logPath": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b4-helper-consumers.log",
+      "statuses": {
+        "passed": 405,
+        "failed": 25,
+        "todo": 5,
+        "skipped": 1
+      },
+      "comparisonCounts": {
+        "SAME": 24,
+        "NEW": 0,
+        "CHANGED": 1,
+        "GONE": 0,
+        "UNPAIRED": 0
+      },
+      "predecessorFailedOccurrencesMissingFromCurrentRoster": 0,
+      "failedRows": [
+        {
+          "file": "tests/bridge-p14c2rm-retirement.test.ts",
+          "fullName": "C.2-RM alumni evidence and disclosure natural retired tiers stay fixed across real drift while lawful current employment changes disclosure",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: freeze premise: counterpart stays lawfully disclosed: expected undefined to match object { endWeekExclusive: 416 }"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: freeze premise: counterpart stays lawfully disclosed: expected undefined to match object { endWeekExclusive: 416 }"
+          ]
+        },
+        {
+          "file": "tests/bridge-p14c2rm-retirement.test.ts",
+          "fullName": "C.2-RM alumni evidence and disclosure SYNTHETIC imported newer edge withholds unreconstructible retirement tier, with no hidden-counterpart notice leak",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: freeze premise: counterpart stays lawfully disclosed: expected undefined to match object { endWeekExclusive: 416 }"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: freeze premise: counterpart stays lawfully disclosed: expected undefined to match object { endWeekExclusive: 416 }"
+          ]
+        },
+        {
+          "file": "tests/p14b2-fixture-preconditions.test.ts",
+          "fullName": "P14B.2 lawful engine fixture preconditions (not bridge verification) wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected 208 to be 52 // Object.is equality"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected 208 to be 52 // Object.is equality"
+          ]
+        },
+        {
+          "file": "tests/p14b2-fixture-preconditions.test.ts",
+          "fullName": "P14B.2 lawful engine fixture preconditions (not bridge verification) produces a rival-only open promise and public kept outcome from the unmodified natural rival chain",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: P14B.2 fixture: no natural rival-only promise outcome by 240"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: P14B.2 fixture: no natural rival-only promise outcome by 240"
+          ]
+        },
+        {
+          "file": "tests/p14b4-cast-class-capacity-evaluator5.test.ts",
+          "fullName": "P14B4 evaluator-5 kernel vocabulary (record 600 \u00a73 2(b)): the joint certificate the scalar cannot issue a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected 'FRAGILE' to be 'IMPOSSIBLE' // Object.is equality"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected 'FRAGILE' to be 'IMPOSSIBLE' // Object.is equality"
+          ]
+        },
+        {
+          "file": "tests/p14b4-rival-seating-preference.test.ts",
+          "fullName": "P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225) p13a-core-causal-01: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected [] to deeply equal [ { week: 208, \u2026(4) }, \u2026(1) ]"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected [] to deeply equal [ { week: 208, \u2026(4) }, \u2026(1) ]"
+          ]
+        },
+        {
+          "file": "tests/p14b4-rival-seating-preference.test.ts",
+          "fullName": "P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225) seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected 'd32e68f685f658666d620bd3faee2841a3af4\u2026' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2\u2026' // Object.is equality"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected 'd32e68f685f658666d620bd3faee2841a3af4\u2026' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2\u2026' // Object.is equality"
+          ]
+        },
+        {
+          "file": "tests/p14b4-rival-seating-preference.test.ts",
+          "fullName": "P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) search table: the first seed-b decision whose seating matters holds two tagged leadOrAntagonist beneficiaries and one P1 beneficiary in a three-actor pool",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ]
+        },
+        {
+          "file": "tests/p14b4-rival-seating-preference.test.ts",
+          "fullName": "P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) RED: the real seating serves the maximal DISTINCT-beneficiary count (plan :215-218), the picture is viable and affordable (:223-225), and the real first take then satisfies all three through advancePromisesWeek/qualifyingTakes",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ]
+        },
+        {
+          "file": "tests/p14b4-rival-seating-preference.test.ts",
+          "fullName": "P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) CONFLICT: the ordinary economic score prefers a two-beneficiary permutation; benefit count wins over score (:216-217) and the real take proves it",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ]
+        },
+        {
+          "file": "tests/p14b4-rival-seating-preference.test.ts",
+          "fullName": "P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated \u2014 inherited tie behaviour, not fairness (:218-221)",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ]
+        },
+        {
+          "file": "tests/p14b4-rival-seating-preference.test.ts",
+          "fullName": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected { week: 202, \u2026(1) } to deeply equal { week: 202, \u2026(1) }"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected { week: 202, \u2026(1) } to deeply equal { week: 202, \u2026(1) }"
+          ]
+        },
+        {
+          "file": "tests/p14b4-rival-seating-preference.test.ts",
+          "fullName": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) another issuer's promise never counts: r02's offers to r01's three actors are present at w202 and at the witness and never enter r01's member set; re-authored r02 offers make the negative discriminating",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ]
+        },
+        {
+          "file": "tests/p14b4-rival-seating-preference.test.ts",
+          "fullName": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) a met promise never counts (control, r02 chain): after r02's w211 picture satisfies its three P1 roots at w216, its next real decision has no member and takes the ordinary pick",
+          "occurrence": 1,
+          "classification": "CHANGED",
+          "currentDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  expect(first.cast).toEqual({ lead: WITNESS.a2, antagonist: WITNESS.a4, support: WITNESS.a3 })"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  ok(s.witness)"
+          ]
+        },
+        {
+          "file": "tests/p14b4-rival-seating-preference.test.ts",
+          "fullName": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ]
+        },
+        {
+          "file": "tests/p14b4-rival-seating-preference.test.ts",
+          "fullName": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) a promise whose window excludes the prospective take never counts \u2014 'window starts after every plausible t\u2026'",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ]
+        },
+        {
+          "file": "tests/p14b4-rival-seating-preference.test.ts",
+          "fullName": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) a promise whose window excludes the prospective take never counts \u2014 'window ends before any take can land \u2026'",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ]
+        },
+        {
+          "file": "tests/p14b4-rival-seating-preference.test.ts",
+          "fullName": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) mask derivation through the shared reader \u2014 'tagged lead stays exact: r01-2 counts\u2026'",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ]
+        },
+        {
+          "file": "tests/p14b4-rival-seating-preference.test.ts",
+          "fullName": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) mask derivation through the shared reader \u2014 'legacy count-only LEAD_OR_SIGNIFICANT\u2026'",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ]
+        },
+        {
+          "file": "tests/p14b4-rival-seating-preference.test.ts",
+          "fullName": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) mask derivation through the shared reader \u2014 'APPEARANCE_COUNT is generic cast'",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ]
+        },
+        {
+          "file": "tests/p14b4-rival-seating-preference.test.ts",
+          "fullName": "P14B4 final seating preference \u2014 the initial cast seam (plan :225-232) promised non-primary-actor beneficiaries (the witness rival's writer, director and craft, each bound OPEN P1) are never seated: one person cannot double, and the sole holder of a role is a capacity constraint, not a forged package",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+          ]
+        },
+        {
+          "file": "tests/p14b4-rival-seating-preference.test.ts",
+          "fullName": "P14B4 final seating preference \u2014 the initial cast seam (plan :225-232) the positive seam witness (plan :225-227, :233; record 621 R2 / G10-b): the first default-seed picture whose pool seats a promised person outside the historical first three admits r01's sole WRITER \u2014 a non-primary-actor beneficiary \u2014 and the real package and first take serve his promise",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no picture on 'p13a-core-causal-01' within 350 ticks seats a promised person outside the historical first three"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no picture on 'p13a-core-causal-01' within 350 ticks seats a promised person outside the historical first three"
+          ]
+        },
+        {
+          "file": "tests/p14c2c-rival-promises.test.ts",
+          "fullName": "P14C.2c rival retirement promises R1: a genuine bound rival promise follows the same exact cutoff, with no new trust penalty",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0 }\n(21 matching properties omitted from actual)"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0 }\n(21 matching properties omitted from actual)"
+          ]
+        },
+        {
+          "file": "tests/p14c2c-rival-promises.test.ts",
+          "fullName": "P14C.2c rival retirement promises R2: a rival count already impossible without retirement remains OPEN until ordinary due settlement",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0 }\n(21 matching properties omitted from actual)"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0 }\n(21 matching properties omitted from actual)"
+          ]
+        },
+        {
+          "file": "tests/p14c2c-rival-promises.test.ts",
+          "fullName": "P14C.2c rival retirement promises R3: real rival VOIDED replay across save/load preserves the source campaign and its outcome identity",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0 }\n(21 matching properties omitted from actual)"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0 }\n(21 matching properties omitted from actual)"
+          ]
+        }
+      ]
+    },
+    "b5-backward": {
+      "report": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b5-backward.vitest.json",
+        "bytes": 129475,
+        "sha256": "551a74233a3785c78352862803f963a043a0806225957175cf1a67515762116f"
+      },
+      "logPath": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b5-backward.log",
+      "statuses": {
+        "passed": 283,
+        "failed": 2
+      },
+      "comparisonCounts": {
+        "SAME": 2,
+        "NEW": 0,
+        "CHANGED": 0,
+        "GONE": 0,
+        "UNPAIRED": 0
+      },
+      "predecessorFailedOccurrencesMissingFromCurrentRoster": 0,
+      "failedRows": [
+        {
+          "file": "tests/p14p3-directing-promises.test.ts",
+          "fullName": "P3 fixed rival: public credit, ordinary contest and distinct staffing D07 authors and fulfills a real rival promise to a credited primary Actor",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]"
+          ]
+        },
+        {
+          "file": "tests/p14p3-directing-promises.test.ts",
+          "fullName": "P3 fixed rival: public credit, ordinary contest and distinct staffing D18 uses the declared rival strategy and legal distinct staffing",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]"
+          ]
+        }
+      ]
+    },
+    "b6-current": {
+      "report": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b6-current.vitest.json",
+        "bytes": 711449,
+        "sha256": "99b1c490d97a4bc487ea824300432720420bf0dd98c78ad829e4839768aa603a"
+      },
+      "logPath": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b6-current.log",
+      "statuses": {
+        "passed": 1349,
+        "todo": 1,
+        "failed": 45
+      },
+      "comparisonCounts": {
+        "SAME": 42,
+        "NEW": 0,
+        "CHANGED": 3,
+        "GONE": 0,
+        "UNPAIRED": 0
+      },
+      "predecessorFailedOccurrencesMissingFromCurrentRoster": 0,
+      "failedRows": [
+        {
+          "file": "tests/bridge-p14b2-trust.test.ts",
+          "fullName": "P14B.2 group3 \u2014 one bound-only newest-first history DTO on both carriers does not publish another studio\u2019s real bound history as the player\u2019s own terms",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: P14B.2 fixture: no natural rival-only promise outcome by 240"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: P14B.2 fixture: no natural rival-only promise outcome by 240"
+          ]
+        },
+        {
+          "file": "tests/bridge-p14b2-trust.test.ts",
+          "fullName": "P14B.2 group5 \u2014 independent promise attention after cases close raises due at minus8 but not minus9 for an actual player poaching winner with no proposals",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected 208 to be 52 // Object.is equality"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected 208 to be 52 // Object.is equality"
+          ]
+        },
+        {
+          "file": "tests/bridge-p14b2-trust.test.ts",
+          "fullName": "P14B.2 group5 \u2014 independent promise attention after cases close raises the poaching winner\u2019s actual outcome only in its recorded week, once per cause/person",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected 208 to be 52 // Object.is equality"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected 208 to be 52 // Object.is equality"
+          ]
+        },
+        {
+          "file": "tests/bridge-p14b2-trust.test.ts",
+          "fullName": "P14B.2 group5 \u2014 independent promise attention after cases close does not require any case entry to retain a real promise reminder (explicit read-only case-carrier probe)",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected 208 to be 52 // Object.is equality"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected 208 to be 52 // Object.is equality"
+          ]
+        },
+        {
+          "file": "tests/bridge-p14b2-trust.test.ts",
+          "fullName": "P14B.2 group5 \u2014 independent promise attention after cases close ignores real withdrawn unbound drafts near due and never interrupts for rival-issued promises",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: P14B.2 fixture: no natural rival-only promise outcome by 240"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: P14B.2 fixture: no natural rival-only promise outcome by 240"
+          ]
+        },
+        {
+          "file": "tests/bridge-p14b2-trust.test.ts",
+          "fullName": "P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public keeps open rival proposal terms literal UNKNOWN across Profile and Market",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: P14B.2 fixture: no natural rival-only promise outcome by 240"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: P14B.2 fixture: no natural rival-only promise outcome by 240"
+          ]
+        },
+        {
+          "file": "tests/bridge-p14b2-trust.test.ts",
+          "fullName": "P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public publishes the real rival kept outcome and aggregate label while withholding bound history terms",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: P14B.2 fixture: no natural rival-only promise outcome by 240"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: P14B.2 fixture: no natural rival-only promise outcome by 240"
+          ]
+        },
+        {
+          "file": "tests/bridge-p14b2-trust.test.ts",
+          "fullName": "P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public is semantically unchanged when only hidden terminal terms vary, retaining real outcome/event identities",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: P14B.2 fixture: no natural rival-only promise outcome by 240"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: P14B.2 fixture: no natural rival-only promise outcome by 240"
+          ]
+        },
+        {
+          "file": "tests/bridge-p14b5-relationships.test.ts",
+          "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) p13a-core-causal-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+          "occurrence": 1,
+          "classification": "CHANGED",
+          "currentDiagnostic": [
+            "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(17) ] to have a length of 40 but got 18"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected '8a4df62fdd64ba26fc6e00e438c47c2574992\u2026' to be '706e54c6ec9728df1664025982ebbafeb0fc3\u2026' // Object.is equality"
+          ]
+        },
+        {
+          "file": "tests/bridge-p14b5-relationships.test.ts",
+          "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(40) ] to have a length of 48 but got 41"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(40) ] to have a length of 48 but got 41"
+          ]
+        },
+        {
+          "file": "tests/bridge-p14b5-relationships.test.ts",
+          "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) p13b-s8-bridge-probe-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(42) ] to have a length of 48 but got 43"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(42) ] to have a length of 48 but got 43"
+          ]
+        },
+        {
+          "file": "tests/bridge-p14b5-relationships.test.ts",
+          "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+          "occurrence": 1,
+          "classification": "CHANGED",
+          "currentDiagnostic": [
+            "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(41) ] to have a length of 48 but got 42"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected '62c9fd5d2d7887b1b6263a38f9545f2ad77cd\u2026' to be 'c034f2fb5a8e5f454a475020cec9de1ac764d\u2026' // Object.is equality"
+          ]
+        },
+        {
+          "file": "tests/bridge-p14b5-relationships.test.ts",
+          "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) the MOST EXPOSED shared fixture, poachingFixture (p14b2-fixtures.ts :145-211; consumers bridge-p14b2-trust, p14b2-fixture-preconditions): the week-208 reasons pin and endedWeek 208 hold, and under D1 no survivor holds a shared-take counterpart",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected 208 to be 52 // Object.is equality"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected 208 to be 52 // Object.is equality"
+          ]
+        },
+        {
+          "file": "tests/bridge-p14c3-runtime.test.ts",
+          "fullName": "C.3 projection53 current/save/journal and durable campaign authority R8 durable coordinator Save As branches208, saves B209, then clean-loads A207 and restarts with isolated records/journals",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\"."
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\"."
+          ]
+        },
+        {
+          "file": "tests/p14b1-t4-regressions.test.ts",
+          "fullName": "P14B.1 T4: terminal V29 promise reference integrity round-trips several beneficiaries sharing one real take and distinct own outcome receipts",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ]
+        },
+        {
+          "file": "tests/p14b1-t4-regressions.test.ts",
+          "fullName": "P14B.1 T4: terminal V29 promise reference integrity rejects missing outcome receipt references",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ]
+        },
+        {
+          "file": "tests/p14b1-t4-regressions.test.ts",
+          "fullName": "P14B.1 T4: terminal V29 promise reference integrity rejects null outcome receipt references",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ]
+        },
+        {
+          "file": "tests/p14b1-t4-regressions.test.ts",
+          "fullName": "P14B.1 T4: terminal V29 promise reference integrity rejects unknown outcome receipt references",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ]
+        },
+        {
+          "file": "tests/p14b1-t4-regressions.test.ts",
+          "fullName": "P14B.1 T4: terminal V29 promise reference integrity rejects wrong receipt kind outcome receipt references",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ]
+        },
+        {
+          "file": "tests/p14b1-t4-regressions.test.ts",
+          "fullName": "P14B.1 T4: terminal V29 promise reference integrity rejects another beneficiary outcome receipt references",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ]
+        },
+        {
+          "file": "tests/p14b1-t4-regressions.test.ts",
+          "fullName": "P14B.1 T4: terminal V29 promise reference integrity rejects wrong outcome week outcome receipt references",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ]
+        },
+        {
+          "file": "tests/p14b1-t4-regressions.test.ts",
+          "fullName": "P14B.1 T4: terminal V29 promise reference integrity rejects missing take qualifying evidence",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ]
+        },
+        {
+          "file": "tests/p14b1-t4-regressions.test.ts",
+          "fullName": "P14B.1 T4: terminal V29 promise reference integrity rejects non-take receipt qualifying evidence",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ]
+        },
+        {
+          "file": "tests/p14b1-t4-regressions.test.ts",
+          "fullName": "P14B.1 T4: terminal V29 promise reference integrity rejects wrong studio or cast qualifying evidence",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ]
+        },
+        {
+          "file": "tests/p14b1-t4-regressions.test.ts",
+          "fullName": "P14B.1 T4: terminal V29 promise reference integrity rejects empty qualifying evidence",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ]
+        },
+        {
+          "file": "tests/p14b1-t4-regressions.test.ts",
+          "fullName": "P14B.1 T4: terminal V29 promise reference integrity rejects duplicate qualifying evidence",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ]
+        },
+        {
+          "file": "tests/p14b1-t4-regressions.test.ts",
+          "fullName": "P14B.1 T4: terminal V29 promise reference integrity rejects outside window qualifying evidence",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ]
+        },
+        {
+          "file": "tests/p14b1-t4-regressions.test.ts",
+          "fullName": "P14B.1 T4: terminal V29 promise reference integrity rejects wrong progress qualifying evidence",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ]
+        },
+        {
+          "file": "tests/p14b1-t4-regressions.test.ts",
+          "fullName": "P14B.1 T4: terminal V29 promise reference integrity rejects unbound outcome qualifying evidence",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+          ]
+        },
+        {
+          "file": "tests/p14b4-cast-class-outcomes.test.ts",
+          "fullName": "P14B4 genuine submit/settle/take routes, no synthetic commitments RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+          ]
+        },
+        {
+          "file": "tests/p14b4-cast-class-outcomes.test.ts",
+          "fullName": "P14B4 labeled outcome-owner probes on real bound roots and actual casts 'rival' 'lead' with actual 'lead' seat: qualification=true",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+          ]
+        },
+        {
+          "file": "tests/p14b4-cast-class-outcomes.test.ts",
+          "fullName": "P14B4 labeled outcome-owner probes on real bound roots and actual casts 'rival' 'lead' with actual 'antagonist' seat: qualification=false",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+          ]
+        },
+        {
+          "file": "tests/p14b4-cast-class-outcomes.test.ts",
+          "fullName": "P14B4 labeled outcome-owner probes on real bound roots and actual casts 'rival' 'lead' with actual 'support' seat: qualification=false",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+          ]
+        },
+        {
+          "file": "tests/p14b4-cast-class-outcomes.test.ts",
+          "fullName": "P14B4 labeled outcome-owner probes on real bound roots and actual casts 'rival' 'leadOrAntagonist' with actual 'lead' seat: qualification=true",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+          ]
+        },
+        {
+          "file": "tests/p14b4-cast-class-outcomes.test.ts",
+          "fullName": "P14B4 labeled outcome-owner probes on real bound roots and actual casts 'rival' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+          ]
+        },
+        {
+          "file": "tests/p14b4-cast-class-outcomes.test.ts",
+          "fullName": "P14B4 labeled outcome-owner probes on real bound roots and actual casts 'rival' 'leadOrAntagonist' with actual 'support' seat: qualification=false",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+          ]
+        },
+        {
+          "file": "tests/p14b4-cast-class-outcomes.test.ts",
+          "fullName": "P14B4 labeled outcome-owner probes on real bound roots and actual casts rival support qualifies for P1 and shape-legacy count-only P2, not tagged P2",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+          ]
+        },
+        {
+          "file": "tests/p14b4-cast-class-outcomes.test.ts",
+          "fullName": "P14B4 labeled outcome-owner probes on real bound roots and actual casts rival half-open window counts start, excludes before-start and excludes due",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+          ]
+        },
+        {
+          "file": "tests/p14b5-relationships.test.ts",
+          "fullName": "family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3)",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]"
+          ]
+        },
+        {
+          "file": "tests/p14b5-relationships.test.ts",
+          "fullName": "family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) the same pair on a second production is ONE edge with sharedProductions 2 and a repeatedCollaboration driver of the capped accelerator; a < b regardless of seat order",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]"
+          ]
+        },
+        {
+          "file": "tests/p14b5-relationships.test.ts",
+          "fullName": "family 5 \u2014 RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2)",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]"
+          ]
+        },
+        {
+          "file": "tests/p14c3-admission-boundaries.test.ts",
+          "fullName": "C.3 N01\u2013N10 current global and requested actor boundaries N10 actual open rival promise disposition explicitly requests actor before its genuine cutoff",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0, \u2026(1) }\n(20 matching properties omitted from actual)"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0, \u2026(1) }\n(20 matching properties omitted from actual)"
+          ]
+        },
+        {
+          "file": "tests/p14c3-canonical-rival-history.test.ts",
+          "fullName": "C.3 canonical Actor history survives actual passive rival Writer transition and work L1 observes an actual passive non-player Writer hire with one employer and paid signing authority",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: L passive work premise ended without an obligation: {\"personId\":\"person-studio-8c9ee794-r01-4\",\"week\":607,\"profession\":\"writer\",\"source\":{\"personId\":\"person-studio-8c9ee794-r01-4\",\"profession\":\"writer\"},\"cause\":\"noCatalogue\",\"evaluationId\":null}"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: L passive work premise ended without an obligation: {\"personId\":\"person-studio-8c9ee794-r01-4\",\"week\":607,\"profession\":\"writer\",\"source\":{\"personId\":\"person-studio-8c9ee794-r01-4\",\"profession\":\"writer\"},\"cause\":\"noCatalogue\",\"evaluationId\":null}"
+          ]
+        },
+        {
+          "file": "tests/p14c3-canonical-rival-history.test.ts",
+          "fullName": "C.3 canonical Actor history survives actual passive rival Writer transition and work L2 completes real rival screenplay review, production and released Writer credit after the change",
+          "occurrence": 1,
+          "classification": "SAME",
+          "currentDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: L passive work premise ended without an obligation: {\"personId\":\"person-studio-8c9ee794-r01-4\",\"week\":607,\"profession\":\"writer\",\"source\":{\"personId\":\"person-studio-8c9ee794-r01-4\",\"profession\":\"writer\"},\"cause\":\"noCatalogue\",\"evaluationId\":null}"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError [ERR_ASSERTION]: L passive work premise ended without an obligation: {\"personId\":\"person-studio-8c9ee794-r01-4\",\"week\":607,\"profession\":\"writer\",\"source\":{\"personId\":\"person-studio-8c9ee794-r01-4\",\"profession\":\"writer\"},\"cause\":\"noCatalogue\",\"evaluationId\":null}"
+          ]
+        },
+        {
+          "file": "tests/p14c3-save-v38.test.ts",
+          "fullName": "C.3 A01/A02 exact Save38 opening exposes matching strict38 conversion, validation and current migration over a genuine37 save",
+          "occurrence": 1,
+          "classification": "CHANGED",
+          "currentDiagnostic": [
+            "AssertionError: expected '{\"broadcastCache\":[],\"saveVersion\":46\u2026' to be '{\"broadcastCache\":[],\"saveVersion\":38\u2026' // Object.is equality"
+          ],
+          "predecessorStatus": "failed",
+          "predecessorDiagnostic": [
+            "AssertionError: expected '{\"broadcastCache\":[],\"saveVersion\":45\u2026' to be '{\"broadcastCache\":[],\"saveVersion\":38\u2026' // Object.is equality"
+          ]
+        }
+      ]
+    },
+    "b7-rerun-docs-fixed": {
+      "report": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b7-rerun-docs-fixed.vitest.json",
+        "bytes": 70895,
+        "sha256": "fc10f2abb72d0cb813646b495c6e7fd6ba50f020f37e458477271d852cb2ce91"
+      },
+      "logPath": "/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b7-rerun-docs-fixed.log",
+      "statuses": {
+        "passed": 189
+      },
+      "comparisonCounts": {
+        "SAME": 0,
+        "NEW": 0,
+        "CHANGED": 0,
+        "GONE": 0,
+        "UNPAIRED": 0
+      },
+      "predecessorFailedOccurrencesMissingFromCurrentRoster": 0,
+      "failedRows": []
+    }
+  },
+  "latestPerFileUnion": {
+    "files": 167,
+    "statuses": {
+      "passed": 2450,
+      "failed": 113,
+      "todo": 8,
+      "skipped": 3
+    },
+    "method": "b1..b7 order; b7 replaces earlier observations of its twelve file paths. No addition of superseded cases."
+  },
+  "docsEnvironmentFailuresResolvedByB7": [
+    {
+      "originalBatch": "b1-modified10",
+      "file": "tests/bridge-p14p3-directing-promises.test.ts",
+      "fullName": "P3 public Bridge authority, truthful terms and durable runtime D15 commits genuine public directing commands with closed private authority",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b1-modified10",
+      "file": "tests/bridge-p14p3-directing-promises.test.ts",
+      "fullName": "P3 public Bridge authority, truthful terms and durable runtime D16 discloses Director and legacy cast terms truthfully without private inputs",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b1-modified10",
+      "file": "tests/bridge-p14p3-directing-promises.test.ts",
+      "fullName": "P3 public Bridge authority, truthful terms and durable runtime D17 migrates outgoing53 independently and isolates current55 campaigns",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b1-modified10",
+      "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+      "fullName": "P4/P5 closed Bridge material and outgoing runtime authority B55-1 validates closed singular drafts and discloses only actual own material",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b1-modified10",
+      "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+      "fullName": "P4/P5 closed Bridge material and outgoing runtime authority B55-2 binds actual genre work and preserves material through an own waiver chain",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/MANIFEST.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b1-modified10",
+      "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+      "fullName": "P4/P5 closed Bridge material and outgoing runtime authority B55-3 independently migrates genuine54 slots and resets only prior runtime authority",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/MANIFEST.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b1-modified10",
+      "file": "tests/p14p4p5-cross-owner.test.ts",
+      "fullName": "P4/P5 cross-owner production and writing availability Q17 distinguishes an occupied rival Actor from a credited Writer with an earlier active-draft boundary",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 controls: the fixtures are lawful at RED and at GREEN legacy-control-genuine-save38-6240-lawful",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-film-facts",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-run-status",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-private-money-never-read",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-career-events",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-studios",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-domain-facts",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-missing-concept-refuses",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 boundary: the freeze as the tick's last step (1359-A \u00a74, RED B1-B9) legacy-condition-at-6240-outside",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 root: seed, migration and downgrade (1359-A \u00a75.2, RED C1-C5) legacy-migration-empty-root-genuine-save38",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 root: seed, migration and downgrade (1359-A \u00a75.2, RED C1-C5) legacy-migration-past-boundary-genuine-save38",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 root: seed, migration and downgrade (1359-A \u00a75.2, RED C1-C5) legacy-root-downgrade",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-marker",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-manifest-identity",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-stamp",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-bounds",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-refs",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-definition-era-guard",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) legacy-validate-replay",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "fullName": "p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) legacy-old-law-fixture-v1-validates-after-retune",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    },
+    {
+      "originalBatch": "b3-p15",
+      "file": "tests/p15c2-campaign-legacy-sibling.test.ts",
+      "fullName": "p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A \u00a78 B2, B4, C3, C8, C10) legacy-validate-refs-sibling-added-after-freeze",
+      "occurrence": 1,
+      "originalDiagnostic": [
+        "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'"
+      ],
+      "rerunStatus": "passed"
+    }
+  ],
+  "broadComparisonSummary": {
+    "SAME": 68,
+    "NEW": 0,
+    "CHANGED": 4,
+    "GONE": 0,
+    "UNPAIRED": 0
+  },
+  "claimLimits": [
+    "Baseline HEAD marker and retained JSON authenticate the recorded predecessor; no fresh source/Git verification was run.",
+    "Repeated identical diagnostic is result attribution only, not causal neutrality proof or permission to waive a failure.",
+    "Four changed diagnostics require source/premise attribution; no expected snapshot was changed.",
+    "Broad UI/d16, full ledger, protection, replay and landing obligations remain separate."
+  ]
+}

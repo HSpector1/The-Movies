@@ -1,0 +1,245 @@
+{
+  "clone": "/Users/zacheryspector/studio-specialists/p15b",
+  "baseHead": "6510c971bed8079f7ca02e528b224988de092c87",
+  "patch": "drafts/p15b/SOURCE.patch",
+  "patchBytes": 268963,
+  "patchSha256": "da408116fad49acbbc17a6c5219071d5d059406250d0bb9ccd4b0aae8830a293",
+  "reverseApplyCheck": "PASS (read-only)",
+  "files": [
+    {
+      "path": "src/core/actions.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 130307,
+        "sha256": "f805973a9dd81446eb4a84e3ffafd3226e5c816829863825e3394a7425f7c978",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/corporateConditionLive.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 39656,
+        "sha256": "cd4c3473b357b737ee5315a6dc1b7ec9cc24d86b5a126e9a99e0ffb94e814c5a",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/economyView.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 33091,
+        "sha256": "a31a3868a937caf2d27f8eee89a71ed4165a3ccc9679f553753de8603804701c",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/financeReport.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 18379,
+        "sha256": "1412076511eaec783354eb8d7da0d609743a5e4d352fa513d4b6f22c47029187",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/hollywood.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 17605,
+        "sha256": "c07833111960a31df79ef3844e1daa7bf56f30c3852b64c56133054e97fa8a98",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 38457,
+        "sha256": "fc48f48cb59a62f045b1ee6e3584a28b27029f051d7f3f5d712e72c9f4e61ee5",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/hollywoodTypes.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 7620,
+        "sha256": "b4c7c645f7bb006bbf4e6f20751600c94287afeceb36ae9459f0701e1bf40a41",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/hollywoodValidation.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 57734,
+        "sha256": "fe3899fa90485e314463984d2e824fe22bd4536002e3cc639604bd5bccef7e9f",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/index.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 51479,
+        "sha256": "a757c4c79ab8d53864e566a3d93fdff8bb1d055f304a0d6452b31057fc8ac7c2",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/p15Phases.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 2464,
+        "sha256": "e28cf6be1bddcae34c680bc661ab1c34c0543f501fd4de2e5c7d43781703cf17",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/powerRankingArchive.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 13565,
+        "sha256": "51836472794e484295f473784df915e5f8dbbc06ed5f5cd373bb98420ccb96ee",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/save.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 528860,
+        "sha256": "2520b4b1fa032e4ca49d9437785de1eed2a879dc654a9caabd49f9fed2e1a415",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/studioClosure.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 6783,
+        "sha256": "445294186fa3fc12804e677564ada7a94edbb625293208a684f67e8b20edb456",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/tick.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 65773,
+        "sha256": "6d18357aa843cfd3ea4edb27a21977fc7a200f8c4f314e6fed3ec6ec1b600cdc",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/tuning.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 144667,
+        "sha256": "25e54cb7916f134c175db7bc1cc6039e0505a20eafbf667168d0e9cfce38daa3",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/types.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 133170,
+        "sha256": "36b0c5c01b7028363f942e46f22775f8b15506eed847f8ce549af0c236ac1da5",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/worldgen.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 36346,
+        "sha256": "6e8a47799aa57514c881a6cfba2e4cc58ab2b725e3d4f98f73ece405226ca584",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/p15-roots.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 1881,
+        "sha256": "d6a5333d671b0f85e683cff062023ac455a40b31cd2f00b9f92cacc553986aac",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/p15b-live.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 11792,
+        "sha256": "1dc7bba83aded047440ff8b48002b6b3f151d6a8966abe9a6192c279930058ed",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p15a2-power-ranking-archive.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 80350,
+        "sha256": "e0569b8185f93c61428446d39831fd16875e7aff099b71f8d06aae423e858002",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p15b2-corporate-condition-live.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 19693,
+        "sha256": "9453d8027c0471234d6ec9768ab823f059ada2b7468e7d6c260f2598429e7d68",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p15b2-corporate-condition-save.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 13501,
+        "sha256": "6ea06e534b6f8d0bfcf22bc9e140404046392154e5d88c4f36e0a62242295777",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p15b3-remedy-parity.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 12290,
+        "sha256": "12bb0f8864b7f4c54b1f5ed9224c92a06852d9761714c265cfcdea1d946bc449",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p15b4-studio-closure-save.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 13130,
+        "sha256": "0691b34a73d743ceae2c7f3405e87f5a98843d92f0027719d0b50f564f94dd21",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p15b4-studio-closure.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 26204,
+        "sha256": "d9517ecf2283c520d02ff54665a6534e33490a1e271fabd6d59d923a0e21b322",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 84007,
+        "sha256": "cc6c7dccc18527c0612ad25fecdd56ab567371e733e2dff76c418c3745e666d0",
+        "mode": "0o644"
+      }
+    }
+  ],
+  "localOnly": []
+}

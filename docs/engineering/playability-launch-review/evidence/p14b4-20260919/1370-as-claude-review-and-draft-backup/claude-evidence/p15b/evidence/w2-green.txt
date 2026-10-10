@@ -1,0 +1,27 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p15b
+
+ ✓ |core| tests/p15b2-corporate-condition-live.test.ts (13 tests) 18001ms
+   ✓ p15b2 live condition: root, facts and the evaluated set (1357-A §3-§4) > condition-root-fresh-and-live-version 1912ms
+   ✓ p15b2 live condition: root, facts and the evaluated set (1357-A §3-§4) > condition-evaluated-set 367ms
+   ✓ p15b2 live condition: events, order, ids and the integer threshold (1357-A §4-§5) > condition-step-order-ids-and-phase 445ms
+   ✓ p15b2 live condition: events, order, ids and the integer threshold (1357-A §4-§5) > condition-integer-cash-threshold 901ms
+   ✓ p15b2 live condition: events, order, ids and the integer threshold (1357-A §4-§5) > condition-lemma-b-live 2372ms
+   ✓ p15b2 live condition: events, order, ids and the integer threshold (1357-A §4-§5) > closure-due-event-and-absorbing-record 3097ms
+   ✓ p15b2 loans: takeLoan, installments, the rival policy and cover (1357-A §6) > take-loan-eligibility-first 1083ms
+   ✓ p15b2 loans: takeLoan, installments, the rival policy and cover (1357-A §6) > take-loan-principal-and-writes 675ms
+   ✓ p15b2 loans: takeLoan, installments, the rival policy and cover (1357-A §6) > loan-installments-charged 5192ms
+   ✓ p15b2 loans: takeLoan, installments, the rival policy and cover (1357-A §6) > rival-loan-policy 1426ms
+ ✓ |core| tests/p15b2-corporate-condition-save.test.ts (7 tests) 22681ms
+   ✓ p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2) > condition-root-migration-empty-genuine-v42 4026ms
+   ✓ p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2) > condition-root-downgrade 4748ms
+   ✓ p15b2 save step: the root validator (1357-A §4.1; S3-S6) > condition-validate-records-and-ids 2936ms
+   ✓ p15b2 save step: the root validator (1357-A §4.1; S3-S6) > condition-validate-events 1520ms
+   ✓ p15b2 save step: the root validator (1357-A §4.1; S3-S6) > loan-validate-reconcile 3245ms
+   ✓ p15b2 save step: the round trip (S7) > condition-round-trip 6204ms
+
+ Test Files  2 passed (2)
+      Tests  20 passed (20)
+   Start at  16:10:20
+   Duration  51.16s (transform 4.50s, setup 0ms, collect 7.00s, tests 40.68s, environment 1ms, prepare 1.12s)
+

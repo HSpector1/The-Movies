@@ -1,0 +1,92 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/founding
+
+ ❯ |core| tests/p15a1-market-retune.test.ts (7 tests | 5 failed) 10341ms
+   × 1365 retune: the definition and the frozen eras (1355-A §3.4 item 5) > market-retune-definition-v2: the live definition is p15a1-market-v2 and TUNING holds v2's seven numbers 19ms
+     → expected 'p15a1-market-v1' to be 'p15a1-market-v2' // Object.is equality
+   × 1365 retune: the definition and the frozen eras (1355-A §3.4 item 5) > market-retune-v1-frozen: v1's seven numbers are a frozen, reachable law, and the era table holds exactly v1 and v2 2ms
+     → RED: src/core/sharedMarket.ts does not export 'SHARED_MARKET_LAW_V1' (1355-A §3.4 item 5; 1365)
+   × 1365 retune: the definition and the frozen eras (1355-A §3.4 item 5) > market-retune-factor-range: the live factor is 1 − 0.15·(1 − e^(−P/2)) in [0.85, 1]; the v1 law still prices 0.25 1ms
+     → RED: src/core/sharedMarket.ts does not export 'SHARED_MARKET_LAW_V1' (1355-A §3.4 item 5; 1365)
+   × 1365 retune: the old-law fixture and the version boundary > market-retune-old-law-fixture: v1 rows reconcile under v1 only; v2 rows under v2 only 1ms
+     → RED: src/core/sharedMarket.ts does not export 'SHARED_MARKET_LAW_V1' (1355-A §3.4 item 5; 1365)
+   × 1365 retune: the old-law fixture and the version boundary > market-retune-mixed-eras: v1 rows are exposures to a live v2 batch; the mixed root validates and ticks on 1ms
+     → RED: src/core/sharedMarket.ts does not export 'SHARED_MARKET_LAW_V1' (1355-A §3.4 item 5; 1365)
+   ✓ 1365 activation: the held-batch guard is gone and rows persist within their bound > market-retune-guard-removed: a root that already holds rows ticks and appends; recordedFromWeek stays 2535ms
+   ✓ 1365 activation: the held-batch guard is gone and rows persist within their bound > market-retune-storage-row-bound: every persisted row is at most 700 bytes as stableStringify writes it (measured 476-529 B/row at the ruled shape) 7778ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p15a1-market-retune.test.ts > 1365 retune: the definition and the frozen eras (1355-A §3.4 item 5) > market-retune-definition-v2: the live definition is p15a1-market-v2 and TUNING holds v2's seven numbers
+AssertionError: expected 'p15a1-market-v1' to be 'p15a1-market-v2' // Object.is equality
+
+Expected: "p15a1-market-v2"
+Received: "p15a1-market-v1"
+
+ ❯ tests/p15a1-market-retune.test.ts:80:71
+     78|   it('market-retune-definition-v2: the live definition is p15a1-market…
+     79|     const market = await loadMarket()
+     80|     expect(requireExport<string>(market, 'SHARED_MARKET_DEFINITION')).…
+       |                                                                       ^
+     81|     const seven = {
+     82|       windowWeights: TUNING.SHARED_MARKET_WINDOW_WEIGHTS, stockStart: …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL |core|  tests/p15a1-market-retune.test.ts > 1365 retune: the definition and the frozen eras (1355-A §3.4 item 5) > market-retune-v1-frozen: v1's seven numbers are a frozen, reachable law, and the era table holds exactly v1 and v2
+Error: RED: src/core/sharedMarket.ts does not export 'SHARED_MARKET_LAW_V1' (1355-A §3.4 item 5; 1365)
+ ❯ requireExport tests/p15a1-market-retune.test.ts:37:56
+     35| }
+     36| function requireExport<T>(mod: Record<string, unknown>, name: string):…
+     37|   if (!(name in mod) || mod[name] === undefined) throw new Error(`RED:…
+       |                                                        ^
+     38|   return mod[name] as T
+     39| }
+ ❯ tests/p15a1-market-retune.test.ts:96:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL |core|  tests/p15a1-market-retune.test.ts > 1365 retune: the definition and the frozen eras (1355-A §3.4 item 5) > market-retune-factor-range: the live factor is 1 − 0.15·(1 − e^(−P/2)) in [0.85, 1]; the v1 law still prices 0.25
+Error: RED: src/core/sharedMarket.ts does not export 'SHARED_MARKET_LAW_V1' (1355-A §3.4 item 5; 1365)
+ ❯ requireExport tests/p15a1-market-retune.test.ts:37:56
+     35| }
+     36| function requireExport<T>(mod: Record<string, unknown>, name: string):…
+     37|   if (!(name in mod) || mod[name] === undefined) throw new Error(`RED:…
+       |                                                        ^
+     38|   return mod[name] as T
+     39| }
+ ❯ tests/p15a1-market-retune.test.ts:108:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL |core|  tests/p15a1-market-retune.test.ts > 1365 retune: the old-law fixture and the version boundary > market-retune-old-law-fixture: v1 rows reconcile under v1 only; v2 rows under v2 only
+Error: RED: src/core/sharedMarket.ts does not export 'SHARED_MARKET_LAW_V1' (1355-A §3.4 item 5; 1365)
+ ❯ requireExport tests/p15a1-market-retune.test.ts:37:56
+     35| }
+     36| function requireExport<T>(mod: Record<string, unknown>, name: string):…
+     37|   if (!(name in mod) || mod[name] === undefined) throw new Error(`RED:…
+       |                                                        ^
+     38|   return mod[name] as T
+     39| }
+ ❯ tests/p15a1-market-retune.test.ts:131:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL |core|  tests/p15a1-market-retune.test.ts > 1365 retune: the old-law fixture and the version boundary > market-retune-mixed-eras: v1 rows are exposures to a live v2 batch; the mixed root validates and ticks on
+Error: RED: src/core/sharedMarket.ts does not export 'SHARED_MARKET_LAW_V1' (1355-A §3.4 item 5; 1365)
+ ❯ requireExport tests/p15a1-market-retune.test.ts:37:56
+     35| }
+     36| function requireExport<T>(mod: Record<string, unknown>, name: string):…
+     37|   if (!(name in mod) || mod[name] === undefined) throw new Error(`RED:…
+       |                                                        ^
+     38|   return mod[name] as T
+     39| }
+ ❯ tests/p15a1-market-retune.test.ts:157:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+ Test Files  1 failed (1)
+      Tests  5 failed | 2 passed (7)
+   Start at  15:52:01
+   Duration  18.68s (transform 5.65s, setup 0ms, collect 6.99s, tests 10.34s, environment 0ms, prepare 358ms)
+

@@ -1,0 +1,281 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p16
+
+ ❯ |core| tests/p16a-valuation.test.ts (11 tests | 1 failed) 8788ms
+   ✓ P16A valuation: the charter fold over genuine predecessor films > values every rival library at the save week exactly as the per-item rounded formula sums 1674ms
+   ✓ P16A valuation: the charter fold over genuine predecessor films > an as-of read at week 0 sees only authored-start (beforeCampaign) titles; later weeks fold only films released through that week 685ms
+   ✓ P16A valuation: the charter fold over genuine predecessor films > a property whose film is announced but not yet released contributes a zero R1 item and no R2 item 636ms
+   ✓ P16A valuation: the charter fold over genuine predecessor films > refuses a future, negative or fractional asOfWeek, an unknown holder and a world without an industry, each with its typed reason 549ms
+   ✓ P16A valuation: the charter fold over genuine predecessor films > values a migration-origin player library (routeL6240: twelve pre-origin films) from its released results 566ms
+   ✓ P16A valuation: rounding and the consumer-only score boundary > rounds each item once: scores 0, 100, 12.3456 and 0.0005 value exactly 0, 100000, 12346 and 1 814ms
+   ✓ P16A valuation: rounding and the consumer-only score boundary > a finite score outside [0,100] returns typed unavailable naming the FilmId, with no clamp, skip, partial total, or state mutation, and title resolution still works 1677ms
+   ✓ P16A valuation: rounding and the consumer-only score boundary > the same refusal applies when the film would enter an R1 maxQualityThroughDate for a property whose R2 holder differs 468ms
+   × P16A valuation: rounding and the consumer-only score boundary > a genuine predecessor-valid Save45 carrying a finite out-of-range score loads and migrates losslessly first; only valuation refuses 308ms
+     → expected [Function] to not throw an error but 'Error: power ranking: film studio-aca…' was thrown
+   ✓ P16A valuation: pure, cashless, and identical before/after materialization and reload > valuation changes no cash, ledger, RNG or root, and an exact materialization of virtual titles changes no result 960ms
+   ✓ P16A valuation: pure, cashless, and identical before/after materialization and reload > a later structurally valid title-sale event moves the R2 value to the new holder from its date, while R1 stays with the creator 357ms
+ ❯ |core| tests/p16a-rights-identity.test.ts (12 tests | 2 failed) 6043ms
+   ✓ P16A legacy resolver: authored-start films resolve from the manifest, not a FilmConcept > each authored film yields a virtual R2 title and R1 property dated beforeCampaign(year) with manifest title and creator 1010ms
+   ✓ P16A legacy resolver: authored-start films resolve from the manifest, not a FilmConcept > simulated rival films resolve R2 at the release week and R1 at the earliest attested event (the announcement), creator permanent 439ms
+   × P16A legacy resolver: authored-start films resolve from the manifest, not a FilmConcept > a migration-origin player library resolves from released FilmResults with the player identity as creator; a film with no release-frozen title row has title null, never a fabricated one 547ms
+     → expected { kind: 'campaign', week: 18 } to deeply equal { kind: 'campaign', week: 28 }
+   ✓ P16A legacy resolver: authored-start films resolve from the manifest, not a FilmConcept > resolution is a pure read: the state bytes are unchanged and two reads agree 630ms
+   ✓ P16A holders and as-of reads > currentHolder resolves the creator for every legacy subject, tradeable, with no estate authority involved 565ms
+   ✓ P16A holders and as-of reads > an as-of read before a simulated film existed sees no holder for it, while authored (beforeCampaign) titles are held at week 0 438ms
+   ✓ P16A holders and as-of reads > asOfWeek must be a whole week in [0, market.tick] 577ms
+   ✓ P16A holders and as-of reads > a world without an industry has no rights: every read is unavailable (noIndustry) and nothing is minted 593ms
+   ✓ P16A default R3/R4 authority (A4) and parent-bound branches > with an empty licence set, R3 continuation authority is the current R1 holder and R4 derives from the relevant R1/R2 holder 511ms
+   ✓ P16A default R3/R4 authority (A4) and parent-bound branches > a spin-off character or branch has no rights of its own: branch authority resolves to the parent property until an explicit promotion exists 473ms
+   × P16A live route: identities of a real player greenlight and release > the released player film resolves with the player identity as creator, the greenlight week as property creation and the release week as the title date 249ms
+     → Cannot read properties of undefined (reading 'titleEvents')
+ ❯ |core| tests/p16a-save-v46.test.ts (13 tests | 2 failed) 12054ms
+   ✓ Save46 era surface > validateSave dispatches 46 and names the handled range "1 through 46" 1618ms
+   ✓ Save46 migration from a genuine Save45 predecessor > convertV45ToV46 adds exactly the empty rights root at the save week and zero P16 movements on every rival period; nothing else moves 1050ms
+   ✓ Save46 migration from a genuine Save45 predecessor > migrateToLive lifts the genuine raw capture to 46 through importSave, and a second migration is a no-op 1290ms
+   × Save46 migration from a genuine Save45 predecessor > convertV46ToV45 is lossless while the root is empty and every P16 movement is zero, round-tripping to the genuine bytes 3227ms
+     → migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter
+   × Save46 migration from a genuine Save45 predecessor > the downgrade refuses by name once any rights record, P16 movement or P16 ledger row exists 599ms
+     → expected [Function] to throw error matching /migrateToV45: cannot downgrade or dis…/ but got 'validateSaveV46: rights.transactions …'
+   ✓ Save46 migration from a genuine Save45 predecessor > a Save45 envelope is refused the P16 kinds below their era: a rightsConsideration movement or ledger row cannot be written under version 45 534ms
+   ✓ Save46 rights root validator: shape, title events, holders, estates > the control: a materialized genesis pair validates 460ms
+   ✓ Save46 rights root validator: shape, title events, holders, estates > refuses a missing root, a wrong version, a recordedFromWeek outside [0, tick], or unknown keys 943ms
+   ✓ Save46 rights root validator: shape, title events, holders, estates > refuses a duplicate genesis, a broken priorHolder chain, a future-dated event, bad ordinals, duplicate ids, a mismatched subject and an unknown holder 979ms
+   ✓ Save46 rights root validator: shape, title events, holders, estates > refuses a persisted record that contradicts the authentic source (creator, date or title) as ambiguous provenance 630ms
+   ✓ Save46 rights root validator: shape, title events, holders, estates > an archive event needs its estate record, and an estate record must name a reserved identity 488ms
+ ❯ |core| tests/p16a-mint-hooks.test.ts (7 tests | 7 failed) 845ms
+   × P16A mint: player greenlight > an accepted greenlight mints exactly one property with one R1 genesis, titled from the greenlight concept, linked to the production 360ms
+     → Cannot read properties of undefined (reading 'titleEvents')
+   × P16A mint: player greenlight > a refused greenlight leaves the root, the slate, the wallet, the RNG and the queue unchanged 208ms
+     → expected [Function] to throw error matching /rejected/ but got 'Cannot read properties of undefined (…'
+   × P16A mint: player greenlight > a second greenlight of the same concept by its R1 holder links the new production to the one property; a non-holder is refused and changes nothing 82ms
+     → Cannot read properties of undefined (reading 'titleEvents')
+   × P16A mint: player release > the releasing tick appends exactly one R2 FilmTitle with the release week, release title, creator and work link; the committed state has none 60ms
+     → Cannot read properties of undefined (reading 'titleEvents')
+   × P16A mint: player release > cancellation preserves the genuine R1 history and never invents an R2 title 32ms
+     → Cannot read properties of undefined (reading 'titleEvents')
+   × P16A mint: player release > tick is deterministic and reload/replay never duplicates a mint 74ms
+     → Cannot read properties of undefined (reading 'titleEvents')
+   × P16A mint: rival greenlight and release > each rival greenlight mints one property with the rival as creator at its decision week, and each rival release mints one R2 title 17ms
+     → Cannot read properties of undefined (reading 'titleEvents')
+ ✓ |core| tests/p16-tuning.test.ts (13 tests) 19ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p16a-mint-hooks.test.ts > P16A mint: player greenlight > an accepted greenlight mints exactly one property with one R1 genesis, titled from the greenlight concept, linked to the production
+TypeError: Cannot read properties of undefined (reading 'titleEvents')
+ ❯ resolveTitles src/core/rights.ts:356:24
+    354|   const unavailable: UnavailableSubject[] = []
+    355|   const eventsBySubject = new Map<string, TitleEvent[]>()
+    356|   for (const e of root.titleEvents) {
+       |                        ^
+    357|     const key = subjectKey(e.subject)
+    358|     eventsBySubject.set(key, [...(eventsBySubject.get(key) ?? []), e])
+ ❯ Module.mintStoryPropertyAtGreenlight src/core/rights.ts:547:20
+ ❯ applyGreenlight src/core/actions.ts:597:7
+ ❯ Module.applyActions src/core/actions.ts:2959:16
+ ❯ Module.mintRoute tests/helpers/p16-fixtures.ts:116:20
+ ❯ tests/p16a-mint-hooks.test.ts:22:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+ FAIL |core|  tests/p16a-mint-hooks.test.ts > P16A mint: player greenlight > a refused greenlight leaves the root, the slate, the wallet, the RNG and the queue unchanged
+AssertionError: expected [Function] to throw error matching /rejected/ but got 'Cannot read properties of undefined (…'
+
+- Expected: 
+/rejected/
+
++ Received: 
+"Cannot read properties of undefined (reading 'titleEvents')"
+
+ ❯ tests/p16a-mint-hooks.test.ts:52:153
+     50|     const payload = greenlightPayload(start, concept)
+     51|     // The D-12 solvency gate refuses an unaffordable picture before a…
+     52|     expect(() => applyActions(start, [{ kind: 'greenlight', production…
+       |                                                                                                                                                         ^
+     53|     expect(stableStringify(start)).toBe(before)
+     54|     expect(start.rights.properties).toEqual([])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+ FAIL |core|  tests/p16a-mint-hooks.test.ts > P16A mint: player greenlight > a second greenlight of the same concept by its R1 holder links the new production to the one property; a non-holder is refused and changes nothing
+TypeError: Cannot read properties of undefined (reading 'titleEvents')
+ ❯ resolveTitles src/core/rights.ts:356:24
+    354|   const unavailable: UnavailableSubject[] = []
+    355|   const eventsBySubject = new Map<string, TitleEvent[]>()
+    356|   for (const e of root.titleEvents) {
+       |                        ^
+    357|     const key = subjectKey(e.subject)
+    358|     eventsBySubject.set(key, [...(eventsBySubject.get(key) ?? []), e])
+ ❯ Module.mintStoryPropertyAtGreenlight src/core/rights.ts:547:20
+ ❯ applyGreenlight src/core/actions.ts:597:7
+ ❯ Module.applyActions src/core/actions.ts:2959:16
+ ❯ Module.mintRoute tests/helpers/p16-fixtures.ts:116:20
+ ❯ tests/p16a-mint-hooks.test.ts:58:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
+
+ FAIL |core|  tests/p16a-mint-hooks.test.ts > P16A mint: player release > the releasing tick appends exactly one R2 FilmTitle with the release week, release title, creator and work link; the committed state has none
+TypeError: Cannot read properties of undefined (reading 'titleEvents')
+ ❯ resolveTitles src/core/rights.ts:356:24
+    354|   const unavailable: UnavailableSubject[] = []
+    355|   const eventsBySubject = new Map<string, TitleEvent[]>()
+    356|   for (const e of root.titleEvents) {
+       |                        ^
+    357|     const key = subjectKey(e.subject)
+    358|     eventsBySubject.set(key, [...(eventsBySubject.get(key) ?? []), e])
+ ❯ Module.mintStoryPropertyAtGreenlight src/core/rights.ts:547:20
+ ❯ applyGreenlight src/core/actions.ts:597:7
+ ❯ Module.applyActions src/core/actions.ts:2959:16
+ ❯ Module.mintRoute tests/helpers/p16-fixtures.ts:116:20
+ ❯ tests/p16a-mint-hooks.test.ts:75:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/12]⎯
+
+ FAIL |core|  tests/p16a-mint-hooks.test.ts > P16A mint: player release > cancellation preserves the genuine R1 history and never invents an R2 title
+TypeError: Cannot read properties of undefined (reading 'titleEvents')
+ ❯ resolveTitles src/core/rights.ts:356:24
+    354|   const unavailable: UnavailableSubject[] = []
+    355|   const eventsBySubject = new Map<string, TitleEvent[]>()
+    356|   for (const e of root.titleEvents) {
+       |                        ^
+    357|     const key = subjectKey(e.subject)
+    358|     eventsBySubject.set(key, [...(eventsBySubject.get(key) ?? []), e])
+ ❯ Module.mintStoryPropertyAtGreenlight src/core/rights.ts:547:20
+ ❯ applyGreenlight src/core/actions.ts:597:7
+ ❯ Module.applyActions src/core/actions.ts:2959:16
+ ❯ Module.mintRoute tests/helpers/p16-fixtures.ts:116:20
+ ❯ tests/p16a-mint-hooks.test.ts:97:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/12]⎯
+
+ FAIL |core|  tests/p16a-mint-hooks.test.ts > P16A mint: player release > tick is deterministic and reload/replay never duplicates a mint
+TypeError: Cannot read properties of undefined (reading 'titleEvents')
+ ❯ resolveTitles src/core/rights.ts:356:24
+    354|   const unavailable: UnavailableSubject[] = []
+    355|   const eventsBySubject = new Map<string, TitleEvent[]>()
+    356|   for (const e of root.titleEvents) {
+       |                        ^
+    357|     const key = subjectKey(e.subject)
+    358|     eventsBySubject.set(key, [...(eventsBySubject.get(key) ?? []), e])
+ ❯ Module.mintStoryPropertyAtGreenlight src/core/rights.ts:547:20
+ ❯ applyGreenlight src/core/actions.ts:597:7
+ ❯ Module.applyActions src/core/actions.ts:2959:16
+ ❯ Module.mintRoute tests/helpers/p16-fixtures.ts:116:20
+ ❯ tests/p16a-mint-hooks.test.ts:108:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/12]⎯
+
+ FAIL |core|  tests/p16a-mint-hooks.test.ts > P16A mint: rival greenlight and release > each rival greenlight mints one property with the rival as creator at its decision week, and each rival release mints one R2 title
+TypeError: Cannot read properties of undefined (reading 'titleEvents')
+ ❯ resolveTitles src/core/rights.ts:356:24
+    354|   const unavailable: UnavailableSubject[] = []
+    355|   const eventsBySubject = new Map<string, TitleEvent[]>()
+    356|   for (const e of root.titleEvents) {
+       |                        ^
+    357|     const key = subjectKey(e.subject)
+    358|     eventsBySubject.set(key, [...(eventsBySubject.get(key) ?? []), e])
+ ❯ Module.mintStoryPropertyAtGreenlight src/core/rights.ts:547:20
+ ❯ applyGreenlight src/core/actions.ts:597:7
+ ❯ Module.applyActions src/core/actions.ts:2959:16
+ ❯ Module.mintRoute tests/helpers/p16-fixtures.ts:116:20
+ ❯ tests/p16a-mint-hooks.test.ts:121:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/12]⎯
+
+ FAIL |core|  tests/p16a-rights-identity.test.ts > P16A legacy resolver: authored-start films resolve from the manifest, not a FilmConcept > a migration-origin player library resolves from released FilmResults with the player identity as creator; a film with no release-frozen title row has title null, never a fabricated one
+AssertionError: expected { kind: 'campaign', week: 18 } to deeply equal { kind: 'campaign', week: 28 }
+
+- Expected
++ Received
+
+  Object {
+    "kind": "campaign",
+-   "week": 28,
++   "week": 18,
+  }
+
+ ❯ tests/p16a-rights-identity.test.ts:114:34
+    112|       expect(property.creatorStudioId).toBe(h.playerStudioId)
+    113|       const greenlightRow = state.ledger.find((e) => e.kind === 'produ…
+    114|       expect(property.createdAt).toEqual({ kind: 'campaign', week: gre…
+       |                                  ^
+    115|       expect(property.createdAt.kind === 'campaign' && property.create…
+    116|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/12]⎯
+
+ FAIL |core|  tests/p16a-rights-identity.test.ts > P16A live route: identities of a real player greenlight and release > the released player film resolves with the player identity as creator, the greenlight week as property creation and the release week as the title date
+TypeError: Cannot read properties of undefined (reading 'titleEvents')
+ ❯ resolveTitles src/core/rights.ts:356:24
+    354|   const unavailable: UnavailableSubject[] = []
+    355|   const eventsBySubject = new Map<string, TitleEvent[]>()
+    356|   for (const e of root.titleEvents) {
+       |                        ^
+    357|     const key = subjectKey(e.subject)
+    358|     eventsBySubject.set(key, [...(eventsBySubject.get(key) ?? []), e])
+ ❯ Module.mintStoryPropertyAtGreenlight src/core/rights.ts:547:20
+ ❯ applyGreenlight src/core/actions.ts:597:7
+ ❯ Module.applyActions src/core/actions.ts:2959:16
+ ❯ Module.mintRoute tests/helpers/p16-fixtures.ts:116:20
+ ❯ tests/p16a-rights-identity.test.ts:196:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/12]⎯
+
+ FAIL |core|  tests/p16a-save-v46.test.ts > Save46 migration from a genuine Save45 predecessor > convertV46ToV45 is lossless while the root is empty and every P16 movement is zero, round-tripping to the genuine bytes
+Error: migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter
+ ❯ convertV45ToV44 src/core/save.ts:11083:31
+    11081|   const validated = validateSaveV45(save);
+    11082|   const refusal = p15DowngradeRefusal(validated.state);
+    11083|   if (refusal !== null) throw new Error(`migrateToV44: ${refusal}`);
+       |                               ^
+    11084|   const detached = JSON.parse(JSON.stringify(validated)) as SaveFileV4…
+    11085|   return validateSaveV44({ ...detached, saveVersion: 44, state: stripP…
+ ❯ Module.migrateToV44 src/core/save.ts:10939:39
+ ❯ tests/p16a-save-v46.test.ts:83:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/12]⎯
+
+ FAIL |core|  tests/p16a-save-v46.test.ts > Save46 migration from a genuine Save45 predecessor > the downgrade refuses by name once any rights record, P16 movement or P16 ledger row exists
+AssertionError: expected [Function] to throw error matching /migrateToV45: cannot downgrade or dis…/ but got 'validateSaveV46: rights.transactions …'
+
+- Expected: 
+/migrateToV45: cannot downgrade or discard .*rights/
+
++ Received: 
+"validateSaveV46: rights.transactions studio-aca408ec-r01 rightsConsideration 1 does not reconcile with its rights transactions (0)"
+
+ ❯ tests/p16a-save-v46.test.ts:95:62
+     93|     moved.state.hollywood!.businesses[0]!.account.periods[0]!.closing …
+     94|     moved.state.hollywood!.businesses[0]!.account.cash += 1
+     95|     expect(() => saveModule.convertV46ToV45(moved as never)).toThrow(/…
+       |                                                              ^
+     96|     const ledgered = detached(base)
+     97|     ledgered.state.ledger = [...ledgered.state.ledger, { week: ledgere…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/12]⎯
+
+ FAIL |core|  tests/p16a-valuation.test.ts > P16A valuation: rounding and the consumer-only score boundary > a genuine predecessor-valid Save45 carrying a finite out-of-range score loads and migrates losslessly first; only valuation refuses
+AssertionError: expected [Function] to not throw an error but 'Error: power ranking: film studio-aca…' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"Error: power ranking: film studio-aca408ec-r01:film:0 critic score is outside 0..100"
+
+ ❯ tests/p16a-valuation.test.ts:218:47
+    216|     const raw = stableStringify(envelope)
+    217|     const parsed = JSON.parse(raw) as unknown
+    218|     expect(() => validateSaveV45(parsed)).not.toThrow() // predecessor…
+       |                                               ^
+    219|     const live = migrateToLive(importSave(raw))
+    220|     expect(live.saveVersion).toBe(46)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/12]⎯
+
+ Test Files  4 failed | 1 passed (5)
+      Tests  12 failed | 44 passed (56)
+   Start at  16:02:19
+   Duration  46.34s (transform 6.34s, setup 0ms, collect 11.76s, tests 27.75s, environment 2ms, prepare 2.15s)
+
+exit 1

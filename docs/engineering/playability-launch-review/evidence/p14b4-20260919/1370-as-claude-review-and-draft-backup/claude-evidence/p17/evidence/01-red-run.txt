@@ -1,0 +1,100 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p17
+
+ ❯ |core| tests/p17-continuation-law.test.ts (0 test)
+ ❯ |core| tests/p17-continuation-signals.test.ts (0 test)
+ ❯ |core| tests/p17-integration.test.ts (0 test)
+ ❯ |core| tests/p17-cameo.test.ts (0 test)
+ ❯ |core| tests/p17-save-v46.test.ts (0 test)
+ ❯ |core| tests/p17-continuation-seam.test.ts (7 tests | 4 failed) 133ms
+   × P17 seam — the field enters exactly once, through awareness, at opening > a known property opens higher and grosses more; legs, critic, craft, cohesion and audience score are untouched 15ms
+     → expected 6988765.691315604 to be greater than 6988765.691315604
+   × P17 seam — the field enters exactly once, through awareness, at opening > computeBoxOffice applies the input once: zero is a no-op in value, absent is a no-op in bytes 2ms
+     → expected 0.39582340222007123 to be greater than 0.39582340222007123
+   × P17 seam — the field enters exactly once, through awareness, at opening > the forecast reads the same field with the same formula: a continuation's locked bar is higher, its band width unchanged 3ms
+     → expected 13972202.353996102 to be greater than 13972202.353996102
+   × P17 seam — the field enters exactly once, through awareness, at opening > lock then live: an intervening change moves the live read, never the locked forecast; Standing reacts to realized reach only 3ms
+     → expected 20708995.477265384 to be less than 20708995.477265384
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p17-cameo.test.ts [ tests/p17-cameo.test.ts ]
+Error: Failed to load url ../src/core/cameo.js (resolved id: ../src/core/cameo.js) in /Users/zacheryspector/studio-specialists/p17/tests/p17-cameo.test.ts. Does the file exist?
+ ❯ loadAndTransform ../../The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL |core|  tests/p17-continuation-law.test.ts [ tests/p17-continuation-law.test.ts ]
+ FAIL |core|  tests/p17-integration.test.ts [ tests/p17-integration.test.ts ]
+Error: Failed to load url ../src/core/continuation.js (resolved id: ../src/core/continuation.js) in /Users/zacheryspector/studio-specialists/p17/tests/p17-continuation-law.test.ts. Does the file exist?
+ ❯ loadAndTransform ../../The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL |core|  tests/p17-continuation-signals.test.ts [ tests/p17-continuation-signals.test.ts ]
+Error: Failed to load url ../src/core/continuationSignals.js (resolved id: ../src/core/continuationSignals.js) in /Users/zacheryspector/studio-specialists/p17/tests/p17-continuation-law.test.ts. Does the file exist?
+ ❯ loadAndTransform ../../The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL |core|  tests/p17-save-v46.test.ts [ tests/p17-save-v46.test.ts ]
+Error: Failed to load url ../src/core/continuationSave.js (resolved id: ../src/core/continuationSave.js) in /Users/zacheryspector/studio-specialists/p17/tests/p17-save-v46.test.ts. Does the file exist?
+ ❯ loadAndTransform ../../The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p17-continuation-seam.test.ts > P17 seam — the field enters exactly once, through awareness, at opening > a known property opens higher and grosses more; legs, critic, craft, cohesion and audience score are untouched
+AssertionError: expected 6988765.691315604 to be greater than 6988765.691315604
+ ❯ tests/p17-continuation-seam.test.ts:77:27
+     75|     const plain = resolveReception(fixture(), stream('x', 'hollywood-v…
+     76|     const known = resolveReception({ ...fixture(), inheritedAwareness0…
+     77|     expect(known.opening).toBeGreaterThan(plain.opening)
+       |                           ^
+     78|     expect(known.total).toBeGreaterThan(plain.total)
+     79|     expect(known.awarenessFactor).toBeGreaterThan(plain.awarenessFacto…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ FAIL |core|  tests/p17-continuation-seam.test.ts > P17 seam — the field enters exactly once, through awareness, at opening > computeBoxOffice applies the input once: zero is a no-op in value, absent is a no-op in bytes
+AssertionError: expected 0.39582340222007123 to be greater than 0.39582340222007123
+ ❯ tests/p17-continuation-seam.test.ts:103:40
+    101|     expect(absent.opening).toBe(base.opening)
+    102|     const full = computeBoxOffice(appeal, inp.market.segments, inp.mar…
+    103|     expect(full.preMarketingAwareness).toBeGreaterThan(base.preMarketi…
+       |                                        ^
+    104|     expect(full.baseAwareness).toBeGreaterThan(base.baseAwareness)
+    105|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯
+
+ FAIL |core|  tests/p17-continuation-seam.test.ts > P17 seam — the field enters exactly once, through awareness, at opening > the forecast reads the same field with the same formula: a continuation's locked bar is higher, its band width unchanged
+AssertionError: expected 13972202.353996102 to be greater than 13972202.353996102
+ ❯ tests/p17-continuation-seam.test.ts:110:35
+    108|     const plain = computeForecast(fixture(), ctx)
+    109|     const known = computeForecast({ ...fixture(), inheritedAwareness01…
+    110|     expect(known.expectedOpening).toBeGreaterThan(plain.expectedOpenin…
+       |                                   ^
+    111|     expect(known.expectedTotal).toBeGreaterThan(plain.expectedTotal)
+    112|     expect(known.expectedCriticScore).toBe(plain.expectedCriticScore) …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/9]⎯
+
+ FAIL |core|  tests/p17-continuation-seam.test.ts > P17 seam — the field enters exactly once, through awareness, at opening > lock then live: an intervening change moves the live read, never the locked forecast; Standing reacts to realized reach only
+AssertionError: expected 20708995.477265384 to be less than 20708995.477265384
+ ❯ tests/p17-continuation-seam.test.ts:127:24
+    125|     const live = resolveReception({ ...fixture(), inheritedAwareness01…
+    126|     const liveHigh = resolveReception({ ...fixture(), inheritedAwarene…
+    127|     expect(live.total).toBeLessThan(liveHigh.total)
+       |                        ^
+    128|     expect(JSON.stringify(locked)).toBe(lockedBytes)
+    129|     // the comparator against the frozen bar is the only "higher expec…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/9]⎯
+
+ Test Files  6 failed (6)
+      Tests  4 failed | 3 passed (7)
+   Start at  16:14:59
+   Duration  20.34s (transform 6.16s, setup 0ms, collect 2.80s, tests 133ms, environment 2ms, prepare 2.89s)
+

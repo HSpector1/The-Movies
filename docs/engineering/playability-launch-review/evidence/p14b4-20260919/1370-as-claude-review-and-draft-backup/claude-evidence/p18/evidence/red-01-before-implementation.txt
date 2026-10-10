@@ -1,0 +1,43 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p18
+
+ ❯ |core| tests/p18-first-season-route.test.ts (0 test)
+ ❯ |core| tests/p18-first-season-settlement.test.ts (0 test)
+ ❯ |core| tests/p18-first-season-save-v46.test.ts (0 test)
+ ❯ |core| tests/p18-first-season-tuning.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p18-first-season-route.test.ts [ tests/p18-first-season-route.test.ts ]
+Error: Failed to load url ../src/core/tvCommission.js (resolved id: ../src/core/tvCommission.js) in /Users/zacheryspector/studio-specialists/p18/tests/p18-first-season-route.test.ts. Does the file exist?
+ ❯ loadAndTransform ../../The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL |core|  tests/p18-first-season-save-v46.test.ts [ tests/p18-first-season-save-v46.test.ts ]
+Error: Failed to load url ../src/core/tvSeason.js (resolved id: ../src/core/tvSeason.js) in /Users/zacheryspector/studio-specialists/p18/tests/p18-first-season-route.test.ts. Does the file exist?
+ ❯ loadAndTransform ../../The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL |core|  tests/p18-first-season-settlement.test.ts [ tests/p18-first-season-settlement.test.ts ]
+Error: Failed to load url ../src/core/tvSettlement.js (resolved id: ../src/core/tvSettlement.js) in /Users/zacheryspector/studio-specialists/p18/tests/p18-first-season-route.test.ts. Does the file exist?
+ ❯ loadAndTransform ../../The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL |core|  tests/p18-first-season-tuning.test.ts [ tests/p18-first-season-tuning.test.ts ]
+Error: Failed to load url ../src/core/tvTypes.js (resolved id: ../src/core/tvTypes.js) in /Users/zacheryspector/studio-specialists/p18/tests/p18-first-season-route.test.ts. Does the file exist?
+ ❯ loadAndTransform ../../The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+ Test Files  4 failed (4)
+      Tests  no tests
+   Start at  16:12:18
+   Duration  13.58s (transform 5.19s, setup 0ms, collect 0ms, tests 0ms, environment 4ms, prepare 1.95s)
+
+
+real	0m18.904s
+user	0m6.966s
+sys	0m1.312s

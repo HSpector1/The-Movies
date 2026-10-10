@@ -1,0 +1,21 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p16
+
+ ❯ |core| tests/p16b-asset-sale.test.ts (0 test)
+ ❯ |core| tests/p16b-due-diligence.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p16b-asset-sale.test.ts [ tests/p16b-asset-sale.test.ts ]
+ FAIL |core|  tests/p16b-due-diligence.test.ts [ tests/p16b-due-diligence.test.ts ]
+Error: Failed to load url ../src/core/assetSale.js (resolved id: ../src/core/assetSale.js) in /Users/zacheryspector/studio-specialists/p16/tests/p16b-asset-sale.test.ts. Does the file exist?
+ ❯ loadAndTransform ../../The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ Test Files  2 failed (2)
+      Tests  no tests
+   Start at  16:14:44
+   Duration  10.81s (transform 4.99s, setup 0ms, collect 0ms, tests 0ms, environment 1ms, prepare 913ms)
+
+exit 1

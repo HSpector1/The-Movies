@@ -1,0 +1,10 @@
+{
+  "time": "2026-10-10T18:37:45.255946-05:00",
+  "head": "f7d0dc0fd4f31ff1a3bff47abb4db07bd3ce298c",
+  "branch": "wip/headless-program-20260916-ts",
+  "remote": "f7d0dc0fd4f31ff1a3bff47abb4db07bd3ce298c",
+  "src": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": " M HANDOFF.md\n",
+  "lane_lock_exists": false,
+  "free_bytes": 2764251136
+}

@@ -1,0 +1,3 @@
+tests/p15a1-market-integration.test.ts
+tests/p15c2-campaign-legacy-integration.test.ts
+tests/p15c2-campaign-legacy-sibling.test.ts

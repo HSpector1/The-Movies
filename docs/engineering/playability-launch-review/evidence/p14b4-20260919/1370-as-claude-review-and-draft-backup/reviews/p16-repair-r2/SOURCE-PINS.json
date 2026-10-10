@@ -1,0 +1,96 @@
+{
+  "schema": "1370-p16-type-repair-r2-source-pins/v1",
+  "executionAuthorization": false,
+  "files": {
+    "BEFORE.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r2/BEFORE.json",
+      "bytes": 797,
+      "sha256": "0e95122df398e8c57cafb18e392e74c418e7934cda0a82b9e4e531d8c61bd5cf"
+    },
+    "CHANGED-FILES.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r2/CHANGED-FILES.json",
+      "bytes": 6902,
+      "sha256": "8f13fe856c83409809987c723b8a89a9cd0b1de0a3a9225dc88358e1ade4c543"
+    },
+    "FINAL-FOUR-FILE-REPAIR.patch": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r2/FINAL-FOUR-FILE-REPAIR.patch",
+      "bytes": 5191,
+      "sha256": "cac7b8424c9de278e6139115429c74d18f539b55f8388adfc35558de33fe780c"
+    },
+    "FINAL-FOUR-FILE-REVERSE.patch": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r2/FINAL-FOUR-FILE-REVERSE.patch",
+      "bytes": 5191,
+      "sha256": "7e7c64fe9a4e30172a5b22e00eed391f4fa2a25e55da68c3975ddc59c2b1d400"
+    },
+    "R1-TO-R2.patch": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r2/R1-TO-R2.patch",
+      "bytes": 941,
+      "sha256": "1ae3090d668d0c0196ec06a21928ab110b21e6bb7d8b05539ddff330a2ec71db"
+    },
+    "R2-TO-R1.patch": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r2/R2-TO-R1.patch",
+      "bytes": 941,
+      "sha256": "1d9d12bff487a7f381dc634d6c1a22b2e6292e9eb68ce3feeffddbe89c97b762"
+    },
+    "REPORT.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r2/REPORT.md",
+      "bytes": 3539,
+      "sha256": "9cc7c100382f76d76136a5130634044534bc070c066dcc5bcfa2f70e6352a7a5"
+    },
+    "after/src/core/financeReport.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r2/after/src/core/financeReport.ts",
+      "bytes": 18348,
+      "sha256": "0b968869d10515b24959b7b531d7ecf33743fc04564e5c0a37134bea466c0ad6"
+    },
+    "after/src/core/save.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r2/after/src/core/save.ts",
+      "bytes": 528188,
+      "sha256": "980f5cc6e400de29f7a07f453dffb632a0e967780ab3ac288e49d951994fe060"
+    },
+    "after/tests/p16a-save-v46.test.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r2/after/tests/p16a-save-v46.test.ts",
+      "bytes": 13960,
+      "sha256": "fddd223732a049140a2c47e87a71a9f4d9183b84166e016b2c6bce3d56c12a15"
+    },
+    "after/tests/p16a-valuation.test.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r2/after/tests/p16a-valuation.test.ts",
+      "bytes": 20928,
+      "sha256": "8bd6c6f39d4bdf75ed282a586e2545a5b5aae13431c707bdc34a3c0a99bc4a23"
+    },
+    "before/src/core/save.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r2/before/src/core/save.ts",
+      "bytes": 528119,
+      "sha256": "496412f0a6eaa3c192e2a22d17a671199dc4d38f006d697088bd7e068ef3fbac"
+    },
+    "claude-original/src/core/financeReport.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r2/claude-original/src/core/financeReport.ts",
+      "bytes": 18156,
+      "sha256": "53667586cbeb4456a2b2f150b11bb1233c41ee7e9e36dcbe0952522eb3fc18ea"
+    },
+    "claude-original/src/core/save.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r2/claude-original/src/core/save.ts",
+      "bytes": 527881,
+      "sha256": "2f43c7e638398ab8dcfea6923962b653674b55b4070ffae656c097dadc3238f7"
+    },
+    "claude-original/tests/p16a-save-v46.test.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r2/claude-original/tests/p16a-save-v46.test.ts",
+      "bytes": 13868,
+      "sha256": "363e74e47d26bd0ac5e21ee8054561af624ecb6b46cf8132d1e37b6e4dc9c12f"
+    },
+    "claude-original/tests/p16a-valuation.test.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r2/claude-original/tests/p16a-valuation.test.ts",
+      "bytes": 20924,
+      "sha256": "afa081dc6a0c9cc9286996f54625685fec5a0a338845ab5d37d15a52a1f08d73"
+    },
+    "finalize_source.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r2/finalize_source.py",
+      "bytes": 8937,
+      "sha256": "4dcf44aaed99e0b42571796e783d3ebc8e75061ee6f5d6798bb929a89df37d3f"
+    },
+    "prepare_snapshot.py": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r2/prepare_snapshot.py",
+      "bytes": 1716,
+      "sha256": "8829baaa50452f48d7839c8b2148c6aa312aa512dc458856296ca43781558545"
+    }
+  }
+}

@@ -1,0 +1,1688 @@
+{
+  "clone": "/Users/zacheryspector/studio-specialists/r8",
+  "baseHead": "6510c971bed8079f7ca02e528b224988de092c87",
+  "patch": "drafts/r8/SOURCE.patch",
+  "patchBytes": 721488,
+  "patchSha256": "46cd48b9c5c3a2e70a4c5de8f8d0bb46309cc44cdd6b98431bc9444042e6d9e6",
+  "reverseApplyCheck": "PASS (read-only)",
+  "files": [
+    {
+      "path": "src/core/employment.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 28250,
+        "sha256": "ad7f32db9f5a5ed6b5d11a26a25604ab71df07daba0e273214336e92d8c0f1bf",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/hollywood.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 17927,
+        "sha256": "7e9e26ac92689a2db5ad9e239c90b6203b4f1084b1aca8f68064c9908569a441",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/hollywoodPolicy.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 10166,
+        "sha256": "ea2994dbb980aa60ce70d1e53ecc6c2a0acf1365145f0e6aad148e5cd0a9bce1",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 41246,
+        "sha256": "c540c6830537aaaca6cb448993e4c9648f7141bcf498ca92e239b9ebd1cee5b8",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/hollywoodTypes.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 7442,
+        "sha256": "65a54dc851cd1f61f8b97674ed825b343a8ec94ab7b8328ad113f12343a41a84",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/hollywoodValidation.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 58650,
+        "sha256": "ec8cf7290a63389087750967fcbe456159eaf2840770341ce3c9cf7d9f75c214",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/index.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 50606,
+        "sha256": "25b07f15ee0fe71484faab449b5c50aa407832cae1b4f4196b70c4944244de4b",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/productionIdentity.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 10755,
+        "sha256": "2093668d7b1fb878d45a19923a6d3196fbf50a91c1ce5cc38e80598c27741d84",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/rivalResearch.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 36472,
+        "sha256": "e24566c984414a66fbfb896481dbc6d8f742bf7fa36702aec0a211b15d513d18",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/save.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 526723,
+        "sha256": "cd4a1d42d02fee6280e2a658ba304448c0ab93c0e57fd8866ef5a65e0072c035",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/talentMarket.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 92904,
+        "sha256": "feaf3ef75051583820addb8b3b00065925464e5a2ca265c3d328102c22aa5957",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/technologyRival.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 6877,
+        "sha256": "fd9764c20f5a649be3b51e23533cd4208fd59c049b1b2a166d89a9bbb35c0336",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/types.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 127502,
+        "sha256": "114efba3aece83977c63fc8c5f5f77e9ce966807fcaed9b89625e608d715f9ee",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/1368-rival-writing-term.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 2910,
+        "sha256": "29d28006360df549335a729c5931001e1da8ef76ace4c8b481b4156a01e1647a",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/1368-writing-completion-boundary.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 4882,
+        "sha256": "8f283430824ae8d82bd080e3f804d94093a8e1cfd46218e0f2e996dae10fa743",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p13b-r07-setup.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 35925,
+        "sha256": "4751c42f394a0defc7d702fc44824ca46b90590f4b551a1a0fb580e45188c51c",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p13b-s8-rivals.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 35212,
+        "sha256": "0b6089f3597688afc996bbb18f4aefa5a4638098b4a004f7f284238b2e11956b",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14a1-market.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 37520,
+        "sha256": "7fab0aa30db90f556381b531c412ccdafe912ee5a4d931eba0649cc2df133de7",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14a2-market.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 56043,
+        "sha256": "ace3ee776d481d0e9449478c91b14fdb54f2b48bc6d30b4041ff030147f6007c",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14a3-world.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 41214,
+        "sha256": "35635a3141335da0b7dbd03cf12adf87d31b69a6a39bd800ccbeb084a59e331e",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14b1-promises.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 38509,
+        "sha256": "0015a5572d557ed68e34c4aa29e251694ce20cfaa43dad7ce6ff54689de7d714",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14b2-checkpoint.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 9560,
+        "sha256": "103fc47309183818a497263363dfe172c80feca960c3a887dfaf4055cd38943f",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14b2-trust.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 32292,
+        "sha256": "8b7b71df10a51549ad166fee0f953d3dcc7a909b58771477e6dbcd06d3bdb621",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14b3-promise-command.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 35569,
+        "sha256": "3066e31fdc12d8cb9db68cf8d8b849349f6a1f47af8ed4b8a508329c4910b87c",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14b4-cast-class.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 34958,
+        "sha256": "430e45912316a547e344801555f4245c14bfa0d6b4676daec9dcf0021e4d5120",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 19655,
+        "sha256": "85eeee6d14f568967a6b7051cdd40f5c3d3c239f5976459297f15c57df840241",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14b5-relationships.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 49288,
+        "sha256": "4ccecb4f163e9376afe004b02ca70ab675165b58073600c0cce4bf7d01b4a6d1",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14b6-d2-withheld-employment-claim.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 12903,
+        "sha256": "c6d242d8c64018f98f8be2cb75f52d4b2a2ce6d3f0836aea3a10d1720439169f",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 22013,
+        "sha256": "eca9c9f3f9c461304415c97dc26eaa86931163643906ff7fd230a310b4fdc168",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14b6-relationship-read-models.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 64006,
+        "sha256": "0a6bb2bb7cb748e1ae7804caa9054f8ec6cab920d4d52dd44c1b5ba034b8c6fe",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14b8-waiver-surface.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 62598,
+        "sha256": "628d4c92501b680ced0a6ddb8f010e52fea80875655f3436980f3f5a2db4038c",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14c2rm-runtime.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 14211,
+        "sha256": "56ed6545d0f5f496cd77970df5a4457f1702262e4fb429b2619369120d7fc190",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 16822,
+        "sha256": "504cd1d7c52d5f98d96264c562fd5c21db83687a37ca90c6f439782ad0503ab0",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 13313,
+        "sha256": "114146cbcb5852db182956c932fee4823f424b3e54b1d840b2983f80d59abaed",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14c3-runtime.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 21819,
+        "sha256": "bed5dc77db037cce8b2c74ab6218d50b10ac248be8326ca6d07fc216e5348de3",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14p3-directing-promises.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 50693,
+        "sha256": "77e79156ff2a341d0f7f8a1f8ff9b38f404fd44c06835330b3b614e3eea7334f",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14p4p5-opportunities.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 43525,
+        "sha256": "1e6535c76a391133ce8bcc9b6170b4e09d4ea835263f6b55478aa8df3502a27e",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-p14r2r3-prior55.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 15777,
+        "sha256": "0cacf0fb0b8d7a64f0e9a00a4e5ac37be792bbb6627e1133d38ae44851de4d25",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-process-restart.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 43186,
+        "sha256": "f38047f9db7e87d68524fffdba49c55cf3d56c1dfa6d4e5f942e902e37e1aa9d",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/bridge-runtime-checkpoint.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 49975,
+        "sha256": "d587a19f1bb0166eababdbe3d097d3c6d3ba0bc4ff0d92ecfac4759629d9959b",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/c2a-m2-sets-save.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 13538,
+        "sha256": "d2343db1fb9319917e658d7e0c309b9529f682e266fa9efa3c3f6f880d4add0b",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/c2a-m3-rename-and-pooling.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 14808,
+        "sha256": "dd173af9f0d255c9bcf2a12f786f8dd25edda0c24d93f1b08959bcb47f10e3a4",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/c2a-m3-screenplay-mint.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 14992,
+        "sha256": "ceff92cabf900ff01e001402e68d3bdc9f35e5b125d398d65fafa50647089046",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/cash-ledger-checkpoint-v11.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 21272,
+        "sha256": "32c12b6ed08b6472e94f31448d3c8bd33013a04be563cf0ebe6d7b572030cd0d",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/construction-core.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 30316,
+        "sha256": "7157e44bac44ebdc5133d4abfa15bbadae74c73af7be2b322999964834eb1ae6",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/construction-save-v11.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 19084,
+        "sha256": "0d2600adc14a67593d370be6dd4579d58c3b4890dc6088379ad79802a47e8c7d",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/contracts/cross-owner-refusal.contract.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 7952,
+        "sha256": "64831aef4fe59c6f766abe6090f18f9580fb74d652ab746cc4c314b7554796ac",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/contracts/phase-table-agreement.contract.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 11575,
+        "sha256": "b5c6994febf9b763a2aef3ef29837bc0c1b987fd1c0cff7c6a8e4fdfe2f0a50e",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/contracts/studio-events.contract.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 18350,
+        "sha256": "845b60fe214285547307ed5d904bbe6b732d9f41264d764705b8c0bcd74a7b82",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/contracts/v14-boundary-guards.contract.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 22378,
+        "sha256": "facd5c31b367aef278afd593ade593b5f8806299a36b094a17f57b32cf512577",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/contracts/v14-byte-parity.contract.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 8772,
+        "sha256": "9be30a743bea0fc2ab1ff60d2815fb826b197d8f448aa2d5b5647a8df58feb3e",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/d11-employment.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 30183,
+        "sha256": "78dccf22243ef7195644645c312cc7800100198f603b06d637e8732cfdc0b840",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/d17-engagement-persistence.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 26985,
+        "sha256": "dfc8821582f1244d2dab66dc7ca43badac29b66685e06e75072bbae122e245a1",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/d17a-adv-migration.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 11686,
+        "sha256": "4302e847f532c98ddb63d9c6d1cbf2d9773e12e5a46e568e4b47bd49b0fa09dc",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/d17a-adv-reconciliation.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 15958,
+        "sha256": "333282022020fc291416d4b162d9c08c5bcd751aacc33ffe4a1836d289756682",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/d17b-save-v7.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 15527,
+        "sha256": "3c4c8116927b2962357623b8a3accc1aeb9737e30eaf23a40e0cd7d82cdcbeb1",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/facility-move-demolish.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 42028,
+        "sha256": "07d9ab21d07204def4ecdafe2520d0b90d0104b69be6369c4ce124634d8c7f51",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/film-chronicle.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 33266,
+        "sha256": "27ad3b6479fe740a3b83c533c04d0bd304c594b889499b759948668cd0dcda25",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/1367-recovery-predecessors.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 5969,
+        "sha256": "6f397222010d03b94f86607f27d83038413749bcf2b2d87b6e375d468ae455dd",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/1368-adoption-boundary.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 5590,
+        "sha256": "6d3cbaed18ff9f21f73780dc15050649adee7f29af61e88c8f443a98bbda2818",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/1368-archived-route.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 4125,
+        "sha256": "9cf6a963a2ef4580b0f167f7083ec2dd0749f74f3b3898ce455e5c1fa0961aff",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/1368-lowmarket-research-boundary.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 9758,
+        "sha256": "74757c5183031557778fe9f5ffcacb4b074b6f8bc9d2b66f8acc1f92f531465f",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/1368-lowmarket-research-control.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 1402,
+        "sha256": "cd68c20371a2073ca459f432eba012aea692068c9053b426e0daaa3634bad5bd",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/1368-operational-boundary.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 4539,
+        "sha256": "f7debea7fb182403a492ef4007eb408158481c11afe08d66a6bebe562b0d8dbf",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/1368-recovery-witnesses.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 4335,
+        "sha256": "fb1cf55b3417701b14bb7bea8a692282c44881ed57afc0ef0ba3259ee930c5bf",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/1368-renewal-fixture.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 2427,
+        "sha256": "b2d808a51a2f37bdf22c77323bed31a6c3f4e9f37cf64e50f7fa20b43f7e3582",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/1368-research-controls.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 2372,
+        "sha256": "895714e9b425bc108c0920edc4d4fc7846e8cdbb498cc1e848002f53f79ceeb9",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/1368-rival-writing.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 7366,
+        "sha256": "56510335b3c654f023bd4a5d4fd9147f0eed1525401ff01781b7655f4b2380ea",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/1368-trust-import.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 5990,
+        "sha256": "904e5fad33423d357346a09999a011d0c63589a9d15669dfc58d97aa89526c26",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/historical-save45-comparison.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 1324,
+        "sha256": "8e21facf5c6099c673cb6a56d18dc3f992adbaf801dd71ca64b4c25a501bdaaf",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/p14b2-fixtures.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 18074,
+        "sha256": "a86330aa8017450d51ecf8ab885aaf625bea35f85b11a3d3e3352ff325544467",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/p14c2b-fixtures.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 5551,
+        "sha256": "a91a8252664eca4b2af6f702cc0b34f183cede4e98fdeebbae39b7241d5de522",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/p14c2c-fixtures.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 9259,
+        "sha256": "e53b009f5462b3873a5fe40f714050098a8bf93b117196825b5f54a7fbf182ae",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/p14c2rm-fixtures.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 19149,
+        "sha256": "d7d11a9c74b94864b923eed9ce16c6e4111947f385ec3d2435408aa0f88f29e2",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/p14c3-canonical-rival-fixtures.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 21974,
+        "sha256": "0bdba06946530d71155e45f693913ca642c43f574c8d76fd249dd38e61ac6925",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/p14c3-fixtures.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 23504,
+        "sha256": "786062c921a3d8a32728b90aeee0d037fca7f28555dcd7eeec32f84f6f3b3708",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/p14c3-genuine-evidence-fixtures.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 15424,
+        "sha256": "cce2bdb4224fa32fbf459c7ddabe4848a0535d224d965caa9386d625ffb918dc",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/p14c3-history-boundary-fixtures.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 7729,
+        "sha256": "7804e2f53ef0af9df2203b3f8c46325aba02fe888a4852ecb7484f13134b90ea",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/p14c3-second-episode-fixtures.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 12303,
+        "sha256": "3c07d222cb5d3148aa1e4a1b062ef288667326450b740951c03b7eb95b932c49",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/p14c4-fixtures.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 15973,
+        "sha256": "a7af5ab4f925015ec85c82d8f08178b6598e09cfd2404dc6f11b71a5e693262c",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/p14p3-fixtures.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 81621,
+        "sha256": "74d1f2b5e61b078d2b858781b84631bb1e1c01ea5473df1fc12b692d977446e5",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/p15c2-frozen-v2-mint.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 4822,
+        "sha256": "d577154f588a498360c72848264d2b809a25fbfb766fb719cbb1064867cba562",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/p15c2-legacy.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 16703,
+        "sha256": "6b96d31439a47bfdac5e84953e044e9618471f6ddbb48770329af0585ddd8cdc",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/helpers/recovery-migration-expectation.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 1270,
+        "sha256": "4f2d8ebdec18d854a0db8e2101ebc28654ba495e8f9e6e0f951471a7165effa1",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/legacy-parcel-ground.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 19704,
+        "sha256": "bae9124cddc3b839549140e891b1ca0d9ad1beb185e88ef670979949be99168a",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p04a2-writer-credit-law.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 42390,
+        "sha256": "f8fdfae026f3f184facc90e4fb720594c99164e14d7dcdb7504eda2214bbf868",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p06a-w1-release-authority.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 21545,
+        "sha256": "5bb16bdafb33c4decdaffe61e96180482a6751cdc1d43e5261c0b438d8ed2d5d",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p08a-w0-studio-history.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 24503,
+        "sha256": "659423777d858278bc3b638cd43ddd214165b5885fe1d1b8bb661fb8501832a8",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p09a-w0-founding-regime.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 29658,
+        "sha256": "2f79a57767d5edd7009286f667c33e3495923c00e8ea1c6282bcd63a8b922fdd",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p12-starting-world.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 4648,
+        "sha256": "7a9a16c1d88e57c568360929bbef5b87c5eab2f801f47c21abc226dcea2c7790",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p13a-causal-core.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 6466,
+        "sha256": "e76c65b0f6e8b24e91a2b4e04139c2385761795e4d32f0f9a41f783a4663d231",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p13a-technology-milestones.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 5022,
+        "sha256": "c1e551bb122f1bc4c85e6cf356ae9f5bf9f3f8b3ac0553860f7776831f161ee9",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p13b-r07-save-v25.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 21560,
+        "sha256": "f349fcd701e35c342c22a96601d041744ce27ae4d856087b2aff2ac42a6c2323",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p13b-s2-access-identity.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 23554,
+        "sha256": "b047d9c723b620b71901367736aa9fba944d52412247b9a14c57d33b07a3ac8a",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p13b-s2-save-v22.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 13998,
+        "sha256": "fcb4a28f8aefc7b15918b4be8331e60bf15e65b2a3eb2659ab4a700c32954505",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p13b-s3-save-v23.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 8314,
+        "sha256": "1f1ef2282c33391415a1a3a1a1a4c3347ba23b9e31d0ecdb8c8b49eb9b7a9f8d",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p13b-s3-validation.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 13622,
+        "sha256": "1c3f749bbd05f1dc0407a4130c82145c83df83880943fe0a1d4c0b191338db05",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p13b-s5-save-v24.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 16042,
+        "sha256": "e8659464159f7a03dc0d51efe7f6faca0bf2eba2d66a39bb2f91aaf31927ecd3",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p13b-s6-save-v26.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 24057,
+        "sha256": "c75b4838c0d0d8065e3405e417fb707798775e80a893e41be19e53285904e50a",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p13b-s7-announcements.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 8237,
+        "sha256": "895104b7997606a2e60b71f5c37bbfebde6462c0b49f651b7643294da5767aba",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p13b-s8-old-era-period.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 6326,
+        "sha256": "30306f038533a0ea60767e6ae89164729afee5092311a448e865beba56fbc81c",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p13b-s8-save-v27.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 18136,
+        "sha256": "844fe37d3c11a1e30accb8dfd93aa91108a4b84f3eb9be65b642b060f6fd6234",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14a1-save-v28.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 21551,
+        "sha256": "1984a74145803886653d31932f94f56db5c03d9cfabb66579e34bdecb8c47e5a",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14b1-first-take.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 19720,
+        "sha256": "e78dc9f658823b70b4ba6ed65f2c26c5b7c34dd8655b220b2a0cd8ab0d4f4307",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14b1-promises.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 51015,
+        "sha256": "d53c201445bb0bbab921895c500fd8f0112a4bf514441d47e1b9ddfae1c282d5",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14b1-save-v29.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 11807,
+        "sha256": "c9da2c30b6551073999f8e6e1b68ff271a6ad4c7df063f58afc3c6909246b54c",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14b1-t4-regressions.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 19279,
+        "sha256": "542b079d3dd6e2e8b39f6e933199f3279a3e7c98c1a16de0b852ce9a24aa3879",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14b1-trust-chooser.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 60900,
+        "sha256": "453bfa8ce1c02c6e55b5979168d5e7d296126da442270bc118dd71dfb15fcc7f",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14b10-save-v44.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 22457,
+        "sha256": "0ab4649e9a6e2a2c07e19b08609c59a513b1c6b59250212fc6993a41b873bbf9",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14b2-setup-wrap-regressions.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 6790,
+        "sha256": "65ea13de60bfda5aa8d4c74e07a9d10b13e351f67060b98e8166bb686a5c4d57",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14b3-reservations.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 12745,
+        "sha256": "ff3575bd5b540c866a6e9ed7e596bbc58390fcc86f0501c6049b757d4ca8be95",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14b3-rule-revision.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 20293,
+        "sha256": "e21008d4ec736291ee8b39c1c791b0e141f4c58c278915e5be64e951cf2f2e77",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14b4-cancel-causal-proof.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 53720,
+        "sha256": "9e825ae0b8d6eb1513d7a0197fa0bb1997ca59b7f670b599a71f6dee36ddb9a3",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14b4-cast-class-outcomes.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 32559,
+        "sha256": "15db6788d111bdde71ef2f8d823a8e912dd91469098fc58fbea4c62e3cff5288",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14b4-material-evidence-core.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 28833,
+        "sha256": "44ede796a0b4c6b446890c5f48e2970a5d771891e35f6269e38ed65ceb9f21cf",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14b4-save-v30-compatibility.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 27712,
+        "sha256": "b954557f8dc249317ad20fd50e9b3e605867366088debf6079046101fc0390a6",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14b5-relationships.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 115284,
+        "sha256": "4f310a192100e337f8b5459f10abc798790ed74c38621930dfde2983e0d3c035",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14b5-save-v31.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 23034,
+        "sha256": "940412f66645c64636fcf951fc2082cd171197f985679b4ea4878b4909c9e3fe",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14b5-t-failure-tuning.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 35839,
+        "sha256": "3e2b92d0c0710777b64cce4b28bd96bfce35efba18566972a3480f1e5bccea4b",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14b7-promise-waiver.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 65957,
+        "sha256": "ea17e51455e65ba5c70e50cadc288bc75c8e5976c5e2a94e7912081490e0a5f0",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14b9-save-v42.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 20577,
+        "sha256": "54d0de746775f1d321652898d4ee7ccf811e8274791ba0b11c87e78e294f5f64",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14bf2-acting-discipline.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 30026,
+        "sha256": "f829ad8772b5654a694eb33c2dec2c45da9693bb1b9eca71033f03bfa2a394ff",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14c1-materialized-aging.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 67012,
+        "sha256": "b6f2ee85720ebc3ceafb58ec9442306210682d6ed61a4419fa838ae581a7e35b",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14c2a-save-and-settlement.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 25978,
+        "sha256": "fa2797c02f895385f881d4b2b20a434bf5d7047abf37e4940a56b9bf621225ea",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14c2b-save-v36.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 12207,
+        "sha256": "1abdca25b416a40ecbcdf07348dc36505f205449753b10f9d6e4f5e799779ad7",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14c2rm-writer-continuation.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 30858,
+        "sha256": "7c4284ce155daaf9e6eb6e1ba00362f7472ea6413523916dcca0c95a9d5fa9c9",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14c2s-scientist-retirement.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 25036,
+        "sha256": "0be00fd164af9fcf030bd3f4151afc1e67431ed4664c424c186dbc7b8e25ccb4",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14c3-admission-boundaries.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 15092,
+        "sha256": "5885dcadebbdc7cf85c9ccca8830672661e29afbbfb2079772fa063e761c2e8a",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14c3-canonical-rival-history.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 25518,
+        "sha256": "6752c8136be18e297ec8ccd91402e9f756f8f904a427236a08a38da15805e793",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14c3-cohort-transition.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 28536,
+        "sha256": "f1fdba45a42fb9a85ba010f55c638528bd9f8dc8aba1d3bb60a8d4470af4afd8",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14c3-dual-extensions.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 16554,
+        "sha256": "a4be3303777258d9f793040f4dcce817400057f469f44c65c5a6191a7f6b976f",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14c3-offmenu-extensions.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 21331,
+        "sha256": "67e43ce3212a245b6ab961a6c7bd22c3bb6760135e852d530430ad8667d67b15",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14c3-profession-episodes.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 9404,
+        "sha256": "54436db51108429087844c22974f824d5b4e81e89ff56cbac295ab2ee1b9a4bb",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14c3-profession-history.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 30915,
+        "sha256": "1ce6a7f6d223a759204faf79bb8c83ec9d713b7bc370e87346026f6d1e5bca2b",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14c3-promise-digest-continuity.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 17655,
+        "sha256": "84d51925baf42ad447c8d6952b6fb1af14949a8e60548cf77d98c407a795b129",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14c3-queued-writing-proof.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 12419,
+        "sha256": "76526c5de87f5be0f6180d507b5971dfda0558eb1e007cde56f391c3e869fb02",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14c3-save-v38.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 37697,
+        "sha256": "e421fca2d31e79ba3913ee052d89d1774012a7f20eddb835aeed993d57d97cd3",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14c3-transition-evidence.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 9742,
+        "sha256": "96bfcce73ea31b13f65906abf9d114402187c317fb5ba59ce166b0a71a3e7fb1",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14c3-transitions.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 20478,
+        "sha256": "fa080a9d341b83cb5dd38fcb670b44049a15c80b6e44b97cbbedd66c8c4ee58e",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14c4-save-v35.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 18793,
+        "sha256": "066be4d0438419c194e1b602e55a1a7f1388e2c0faba3101dd52e1ba994ae383",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14d1-rival-shelving-save-v43.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 16841,
+        "sha256": "1a1159b5506954386831831427dc721563aeb836d03bfcc7f5b173dd0480a2cd",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14d1-rival-shelving.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 62378,
+        "sha256": "33d2af02abe56b7dcb470472dfa975b997caf234ecedf0240eeea1157eb218c0",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14d1-week77-fixture.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 4335,
+        "sha256": "8f201e9f42062b77dd18ff197cf399dff6d4d44e76e5e2cc50de7fc81bec1f84",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14d2-a8-binding-cash.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 9134,
+        "sha256": "7d4fc3e65a4f9b20e5f9840a1a6dcd7f24ce9153e45205d8c0c1cffab271948d",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14d2-a8-fixture.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 5969,
+        "sha256": "2a5799a61f46041eea43b72cd89fa6ca7127d32ce98bb15a9be248fed59f4740",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14d2-binding-cash.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 13233,
+        "sha256": "aca55d39be1f069604530e367b5a5092619c8fa3791114339efdfa067fabd871",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14d2-rival-cost-cutting-adapter.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 14528,
+        "sha256": "f1d5c5f55012aa93174b180ef4d8b9763ea1a0c66974504e013d4b7fc8f53c28",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14d2-rival-cost-cutting.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 32294,
+        "sha256": "ccbaa75f9418483b7485edc321bad18399e2e797bf9303d9a4fbaa087eac2499",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14d2-rival-facility-disposal.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 25182,
+        "sha256": "7995cf8dbda02c65daf8ea9058531385397ed77701a852810138077cd6e04141",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14d2-save46-migration.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 14585,
+        "sha256": "94a688d7f2df36cc37e3ecc0afc6faaf5f5a3f887f1c0e11eb4d7ae519572efc",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14p3-directing-promises.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 109359,
+        "sha256": "c73c7365761feb23e8d5e3b6181e9a4ac42552f77dd9314deefb7a1a2869b431",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14p4p5-casting-reservation.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 27871,
+        "sha256": "821f555410945ac4dc9082fcb583cb548e62a5edd91291160d932eac60444df6",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14p4p5-cross-owner.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 22102,
+        "sha256": "c4d52b190504ed317726990600fe0a67e4fcb89e8b6b59a711e20060c4e120d5",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14p4p5-delayed-retirement.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 46586,
+        "sha256": "0136f6e31a9db511a170681f2e964ba006699288ffd20647c10642909b617f89",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14p4p5-finishing-material.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 30044,
+        "sha256": "6638e6bd1749f7b9d2653b46d28e826b43711d34e67695f02ce1b98c6ec5302f",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14p4p5-grouped-witness.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 46119,
+        "sha256": "928217ad6faa1951223513038de4cfce4dd7aad85d069581518267fc4a5470e2",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14p4p5-opportunities.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 85687,
+        "sha256": "92f2d68ed95b34a37a704ac767f2d994666151a8c5f2e122a883e9095292721c",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14p4p5-post-capacity.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 50144,
+        "sha256": "7ff942ffb2506c7649acdb06e363c37b13464e392749c5ceadeed8d50015db02",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14p4p5-queued-project-outcome.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 50237,
+        "sha256": "5bf3db1bc788cd5cbda5eb1615c77bbf567b0e00be5043d02d2c752ea346c8d5",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14p4p5-receipt-freeze.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 25498,
+        "sha256": "53aa9dbc41759ee455f1b2ca29a728cf9cb10a7eb5fbfbab32c3b999fdfda72a",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14p4p5-retired-acting.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 15682,
+        "sha256": "95947a8b9202976ca8f4da6d4d5ccbb7b2e9da5d9ba103f653d891c5b82812bd",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14p4p5-scenery-capacity.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 29074,
+        "sha256": "4058af9c1701e81ce94d49affcd13cb4b2ce81aa031723fd0e7a00080c4f945f",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14p4p5-screenplay-status.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 28522,
+        "sha256": "31d22a6a72da108bf17112e8119bf0b6538b9e1943bff04799a976be01555b97",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14p4p5-soundstage-capacity.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 27651,
+        "sha256": "cedfb3adb0bd472bb21ea92040c9549ad3408ecd371507afe270d1345dab8b52",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14p4p5-stock-subject.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 25170,
+        "sha256": "61b0603d213cb9343fae2140277e20da5db1dfe9f9fee33057ec6586bddd3867",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14p4p5-writer-resources.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 23883,
+        "sha256": "5f2a2c1f1944a78a0d7900fc2945cc336606c98a7fb0e93bd84878d521cc2568",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14r3-rival-release.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 33954,
+        "sha256": "8e584d2fefb3406e312e1295853153497839abb5cd73bb86ad9573dfd732941b",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p14r3-save-v41.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 33143,
+        "sha256": "80e2a648ddc65bdeea15f8bba3d172ffed5f92e784798a59b161e24f43614076",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p15a1-market-integration.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 60123,
+        "sha256": "b52bd9a32911a809d9ac353705f72c20ee6e933918e7158306bf0550dda88610",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p15a2-power-ranking-archive.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 82920,
+        "sha256": "3bc6c390cb5d04e0bafca90bc4b658f098a21ac027fa37e839f47f19922bc4a9",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 84226,
+        "sha256": "d9ddf7cb23bac693deb22aa2c76481d883d9bf52b6ddc786287d9d04b8619450",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p15c2-campaign-legacy-sibling.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 7258,
+        "sha256": "692efa2c2f5643449322358eda080e62548aadaea7c2f4dc4b1be37c428e1890",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p15c2-legacy-lens-shape.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 1230,
+        "sha256": "059bb3acd2b536bea0a77ce653bd9001f6c9a17063d6f25ca84fe49fadc06ccb",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/placement-save-v12.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 26541,
+        "sha256": "7e29a5249bff70cef045af312552986af78a30f2fdd5ff268cf62ba1a0d2167b",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/probes/1363-a8-capture.probe.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 16884,
+        "sha256": "a23ea46825300ad8cdc8b1ae376c9a91de95278160d04374b391dd7f3c7b41b0",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/property-state-v13.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 42083,
+        "sha256": "937cf52931cbc0ca1ccaf7656d1482c13af03c79351848eca8633e27e32870f6",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/save-masked-downgrade-own-era.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 6973,
+        "sha256": "70ac5b8752470ed36bb570a562a610f630322b326e3f85b7081d053fcb8a4c57",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/save.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 19475,
+        "sha256": "74402dc30bf57549ba2d5e9150f6ff70ab51dde15d30f9aa2555fd18c5e1253f",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/script-projects-save-v9.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 21892,
+        "sha256": "ae6384577b2313d9c545940db1e0a45f322c1cf262d7a562a042b027157840a0",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "ui/src/engine/d17-save-migration.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 7025,
+        "sha256": "952be8042e32d6bccd796d4185e15d367122b991db6447727a6b65f212eb2f60",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "ui/src/engine/film-chronicle-adapter.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 11752,
+        "sha256": "0d0004e6899e20b670c2e0d48815e131392b435e44f851016e3b7aecc566bd28",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "ui/src/lot/snapshot/v14SetHolderBoundary.test.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 5289,
+        "sha256": "4553cc08ea0d42ba19c5f048d82b338a0370943f77168f111c1b072545a24ac7",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "ui/src/saves.test.tsx",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 16216,
+        "sha256": "df9934d7f19d7f0fba152be577d2304d48f12c38ba9b3ceb237e07d95b80eb43",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "ui/src/session.test.tsx",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 18321,
+        "sha256": "e99638442697cab99162cdbd1632b21fa41c6bdf52f37b3e286437f7ca2f9b77",
+        "mode": "0o644"
+      }
+    }
+  ],
+  "localOnly": [
+    {
+      "path": "/Users/zacheryspector/studio-specialists/r8/tests/fixtures/p14/genuine-original-v38-scientist-1368/MANIFEST.json",
+      "bytes": 1002,
+      "reason": "Fixture payload/metadata retained locally; not exported by this code-only backup."
+    },
+    {
+      "path": "/Users/zacheryspector/studio-specialists/r8/tests/fixtures/p14/genuine-original-v38-scientist-1368/original-v38-scientist-week671.json.gz",
+      "bytes": 166147,
+      "reason": "Fixture payload/metadata retained locally; not exported by this code-only backup."
+    },
+    {
+      "path": "/Users/zacheryspector/studio-specialists/r8/tests/fixtures/p15/genuine-original45-rank130-135-1368/MANIFEST.json",
+      "bytes": 2696,
+      "reason": "Fixture payload/metadata retained locally; not exported by this code-only backup."
+    },
+    {
+      "path": "/Users/zacheryspector/studio-specialists/r8/tests/fixtures/p15/genuine-original45-rank130-135-1368/original42-week130-to-original45-week135.json.gz",
+      "bytes": 126333,
+      "reason": "Fixture payload/metadata retained locally; not exported by this code-only backup."
+    }
+  ]
+}

@@ -1,0 +1,268 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/r8
+
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: module surface (1356-A §3; 1355-F2 item 3) > rank-archive-module-exports
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: module surface (1356-A §3; 1355-F2 item 3) > p15-phase-table-v1
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: the state-to-facts adapter (1356-A §3; RED 1-4, 6-7) > rank-adapter-player-films 2896ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: the state-to-facts adapter (1356-A §3; RED 1-4, 6-7) > rank-adapter-field-mapping-rivals-and-cohort
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: the state-to-facts adapter (1356-A §3; RED 1-4, 6-7) > rank-adapter-run-end-parity 5402ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: the state-to-facts adapter (1356-A §3; RED 1-4, 6-7) > rank-adapter-authored
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: the state-to-facts adapter (1356-A §3; RED 1-4, 6-7) > rank-adapter-pre-origin 2312ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: the state-to-facts adapter (1356-A §3; RED 1-4, 6-7) > rank-adapter-owner-swap
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: the state-to-facts adapter (1356-A §3; RED 1-4, 6-7) > rank-adapter-no-leak 4855ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: the one weekly fixed cost (1356-A §3; RED 5) > rank-fixed-cost-player-after-founding-excludes-research 27731ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: the one weekly fixed cost (1356-A §3; RED 5) > rank-fixed-cost-player-zero-while-founding
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: the one weekly fixed cost (1356-A §3; RED 5) > rank-fixed-cost-rival-research-window-premise 26174ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: the one weekly fixed cost (1356-A §3; RED 5) > rank-fixed-cost-rival-operating-cost
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: the tick step (1356-A §4; RED 8, 11) > rank-step-cadence 13004ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: the tick step (1356-A §4; RED 8, 11) > rank-step-cadence-no-industry
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: the tick step (1356-A §4; RED 8, 11) > rank-step-cadence-founded-midgame-none-at-origin-plus-one 3802ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: the tick step (1356-A §4; RED 8, 11) > rank-step-record-is-law-snapshot
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: the tick step (1356-A §4; RED 8, 11) > rank-step-record-shape
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: the tick step (1356-A §4; RED 8, 11) > rank-record-sequence-allocation
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: the tick step (1356-A §4; RED 8, 11) > rank-record-phase-triple
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: the tick step (1356-A §4; RED 8, 11) > rank-step-entrant 13145ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16) > rank-root-fresh 571ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16) > rank-root-migration-empty 3886ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16) > rank-root-migration-genuine-below-step-capture 1176ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16) > rank-root-downgrade-empty-strips 4223ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16) > rank-root-downgrade-round-trip-claims-less 5594ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16) > rank-root-downgrade-recorded-quarter-refuses 12060ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16) > rank-root-downgrade-frozen-builders-refuse 1941ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16) > rank-root-frozen-builder-headless-control
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16) > rank-append-only 1288ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16) > rank-round-trip 3314ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-genuine-archive-validates 506ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-keys-root
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-keys-record-extra 320ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-keys-record-missing
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-keys-row-points
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-keys-row-honors-and-stage
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-version
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-recorded-from-week-range 362ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-cadence-gap
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-cadence-duplicate
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-cadence-off-cadence
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-cadence-future
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-cadence-order
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-cadence-no-industry
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-cadence-boundary 9151ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-definition
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-cohort-missing-row
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-cohort-extra-row
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-cohort-duplicate-row
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-id-week-only
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-sequence-duplicate
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-sequence-at-or-above-next
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-next-stale
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-sequence-ascends-with-weeks
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > rank-validate-phase-triple 419ms
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2) > p15-validate-sequence-root
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 item 5 recompute by era (RED 15) > rank-validate-recompute-films-lane
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 item 5 recompute by era (RED 15) > rank-validate-recompute-releases-lane
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 item 5 recompute by era (RED 15) > rank-validate-recompute-rank
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 item 5 recompute by era (RED 15) > rank-validate-recompute-ranked
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 item 5 recompute by era (RED 15) > rank-validate-recompute-releases
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 item 5 recompute by era (RED 15) > rank-validate-recompute-film-outside-window
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 item 5 recompute by era (RED 15) > rank-validate-recompute-swapped-film
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 item 5 recompute by era (RED 15) > rank-validate-recompute-available
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 item 5 recompute by era (RED 15) > rank-validate-recompute-window-start
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 item 5 recompute by era (RED 15) > rank-validate-recompute-row-order
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 item 5 recompute by era (RED 15) > rank-validate-band-another-valid-band-passes
+ ✓ |core| tests/p15a2-power-ranking-archive.test.ts > p15a2 archive: validation, §5 item 5 recompute by era (RED 15) > rank-validate-band-unknown-refuses
+stdout | tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D17 migrates outgoing53 independently and isolates current55 campaigns
+1174-P3-PRIOR53 {"slots":["208/207","104-after/104-before"],"ticks":0,"qualified":true}
+
+stdout | tests/bridge-p14p3-directing-promises.test.ts
+1174-P3-BRIDGE-COUNTERS {"reservedAdvanceCommands":0,"verifiedOneWeekAdvances":0,"actualAdvanceDispatchInvocations":0,"sessionAdvanceAttempts":0,"coordinatorAdvanceAttempts":0,"duplicateInvocations":0,"cap":12,"phases":[{"name":"captured45","complete":false},{"name":"actualAttached45","complete":false},{"name":"actualBound52","complete":false}]}
+
+ × |core| tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D15 commits genuine public directing commands with closed private authority
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'
+ × |core| tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D16 discloses Director and legacy cast terms truthfully without private inputs
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'
+ × |core| tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D17 migrates outgoing53 independently and isolates current55 campaigns 50392ms
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'
+stdout | tests/bridge-p14p4p5-opportunities.test.ts
+1236-P4P5-BRIDGE-COUNTERS {"attempted":0,"reserved":0,"invoked":0,"completed":0,"quoteInvocations":0,"duplicateInvocations":0,"mutationInvocations":0,"priorCommandInvocations":0,"hardAdvanceCap":7,"phases":[{"name":"genuine45","complete":false}]}
+
+ × |core| tests/bridge-p14p4p5-opportunities.test.ts > P4/P5 closed Bridge material and outgoing runtime authority > B55-1 validates closed singular drafts and discloses only actual own material
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'
+ × |core| tests/bridge-p14p4p5-opportunities.test.ts > P4/P5 closed Bridge material and outgoing runtime authority > B55-2 binds actual genre work and preserves material through an own waiver chain
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/MANIFEST.json'
+ × |core| tests/bridge-p14p4p5-opportunities.test.ts > P4/P5 closed Bridge material and outgoing runtime authority > B55-3 independently migrates genuine54 slots and resets only prior runtime authority
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/MANIFEST.json'
+stdout | tests/p14c2s-scientist-retirement.test.ts > Scientist supply is measured; no replacement policy is invented > S9 retired identity is retained/refused; default recruit skips it to next legal fixed-pool identity
+C2s bounded Scientist supply (latent ids have no historical age) [{"week":520,"rawIds":["t-sci-00","t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"materializedIds":["t-sci-00"],"latentIds":["t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"statuses":[{"personId":"t-sci-00","status":"active"}],"lifecycleTermHireableIds":["t-sci-00","t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"recruitableIds":["t-sci-00","t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"playerEmployedIds":[],"rivalEmployedIds":[],"occupiedSeatIds":["t-sci-00"],"eligibleSeatIds":[],"verifiedWork":0,"scientistIds":["t-sci-00"]},{"week":566,"rawIds":["t-sci-00","t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"materializedIds":["t-sci-00"],"latentIds":["t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"statuses":[{"personId":"t-sci-00","status":"announced"}],"lifecycleTermHireableIds":["t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"recruitableIds":["t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"playerEmployedIds":[],"rivalEmployedIds":[],"occupiedSeatIds":["t-sci-00"],"eligibleSeatIds":[],"verifiedWork":0,"scientistIds":["t-sci-00"]},{"week":618,"rawIds":["t-sci-00","t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"materializedIds":["t-sci-00"],"latentIds":["t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"statuses":[{"personId":"t-sci-00","status":"retired"}],"lifecycleTermHireableIds":["t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"recruitableIds":["t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"playerEmployedIds":[],"rivalEmployedIds":[],"occupiedSeatIds":["t-sci-00"],"eligibleSeatIds":[],"verifiedWork":0,"scientistIds":["t-sci-00"]},{"week":618,"rawIds":["t-sci-00","t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"materializedIds":["t-sci-00","t-sci-01"],"latentIds":["t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"statuses":[{"personId":"t-sci-00","status":"retired"},{"personId":"t-sci-01","status":"active"}],"lifecycleTermHireableIds":["t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"recruitableIds":["t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"playerEmployedIds":["t-sci-01"],"rivalEmployedIds":[],"occupiedSeatIds":["t-sci-00"],"eligibleSeatIds":[],"verifiedWork":0,"scientistIds":["t-sci-00","t-sci-01"]}]
+C2s new Scientist identities, fixed-pool versus pre-existing rival deficit path [{"personId":"t-sci-01","fixedPlayerPool":true,"provenance":{"personId":"t-sci-01","kind":"authored_exact_week","ageAtEntry":34.151846673476086,"entryWeek":618},"employmentStudios":["studio-aca408ec-player"]}]
+
+stdout | tests/p14c2s-scientist-retirement.test.ts > Scientist supply is measured; no replacement policy is invented > S9b SYNTHETIC materialized age71 pool, real8 contracts: all retired at728 means zero supply, not eight employed or a ninth person
+C2s bounded exhausted materialized pool; no replacement decision {"week":728,"rawIds":["t-sci-00","t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"materializedIds":["t-sci-00","t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"],"latentIds":[],"statuses":[{"personId":"t-sci-00","status":"retired"},{"personId":"t-sci-01","status":"retired"},{"personId":"t-sci-02","status":"retired"},{"personId":"t-sci-03","status":"retired"},{"personId":"t-sci-04","status":"retired"},{"personId":"t-sci-05","status":"retired"},{"personId":"t-sci-06","status":"retired"},{"personId":"t-sci-07","status":"retired"}],"lifecycleTermHireableIds":[],"recruitableIds":[],"playerEmployedIds":[],"rivalEmployedIds":[],"occupiedSeatIds":["t-sci-00"],"eligibleSeatIds":[],"verifiedWork":0,"scientistIds":["t-sci-00","t-sci-01","t-sci-02","t-sci-03","t-sci-04","t-sci-05","t-sci-06","t-sci-07"]}
+
+ ✓ |core| tests/p14c2s-scientist-retirement.test.ts > C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S0 the configured Scientist window is eligible62/hard72
+ ✓ |core| tests/p14c2s-scientist-retirement.test.ts > C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S1 genuine V33 continuation: recent employment prevents age62 announcement566, idle age63 announces618 7884ms
+ ✓ |core| tests/p14c2s-scientist-retirement.test.ts > C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S2 SYNTHETIC age/provenance -1 year only: 61 is ineligible; literal62 announces with full notice 3797ms
+ ✓ |core| tests/p14c2s-scientist-retirement.test.ts > C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S3 SYNTHETIC +10 years, real rehire/research: busy72 forces announcement, not removal; current binding determines E 2387ms
+ ✓ |core| tests/p14c2s-scientist-retirement.test.ts > C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S4 SYNTHETIC +10 years, no rehire: hard announcement566 gives full52-week notice to618 and retains identity 2122ms
+ ✓ |core| tests/p14c2s-scientist-retirement.test.ts > C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S5 real pause567/resume716 leaves unfinished work at728: expiry retires and pauses without deleting or charging retained work 3020ms
+ ✓ |core| tests/p14c2s-scientist-retirement.test.ts > C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S6 incumbent-only final extension settles728 to780 once; retained research stays paused until explicit resume 2588ms
+ ✓ |core| tests/p14c2s-scientist-retirement.test.ts > C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S7 real Scientist craft seat admitted at E-9 remains finishing across held take; actual cancel frees obligations then retirement 6868ms
+ ✓ |core| tests/p14c2s-scientist-retirement.test.ts > C.2 Scientist retirement: literal eligibility, hard announcement and obligations > S8 real save/import/replay is identical across announcement and expiry, without mutating the source 5115ms
+ ✓ |core| tests/p14c2s-scientist-retirement.test.ts > Scientist supply is measured; no replacement policy is invented > S9 retired identity is retained/refused; default recruit skips it to next legal fixed-pool identity 2496ms
+ ✓ |core| tests/p14c2s-scientist-retirement.test.ts > Scientist supply is measured; no replacement policy is invented > S9b SYNTHETIC materialized age71 pool, real8 contracts: all retired at728 means zero supply, not eight employed or a ninth person 5233ms
+ ✓ |core| tests/p14c2s-scientist-retirement.test.ts > Scientist retirement persistence has an explicit semantic version boundary > S10 no Scientist record: live37 writes and V36 downgrade preserves exact state bytes without time, RNG or history changes 8041ms
+ ✓ |core| tests/p14c2s-scientist-retirement.test.ts > Scientist retirement persistence has an explicit semantic version boundary > S10 actual Scientist record: live37 accepts, V36 and prior downgrade refuse without stripping obligations/history 1505ms
+ ✓ |core| tests/p14c2s-scientist-retirement.test.ts > Scientist retirement persistence has an explicit semantic version boundary > S10 frozen public34/35/36 readers still refuse the Scientist law, independently of the live tuning table 2101ms
+ ✓ |core| tests/p14c2s-scientist-retirement.test.ts > Scientist retirement persistence has an explicit semantic version boundary > S10 amended live validator still refuses age, provenance, notice, cap, extension and exact-key corruption independently 1452ms
+stdout | tests/p14p4p5-cross-owner.test.ts
+1269-P4P5-COUNTERS {"advanceAttempts":0,"advanceInvoked":0,"advanceCompleted":0,"quotes":0,"hardAdvanceAttempts":0,"hardQuotes":6,"publicMutationAttempts":0,"historicalPrefixAdvances":0,"captureReplay":false,"simulationHelperImported":false,"quoteOrder":[],"inputCache":"failed","firstFailure":"Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'"}
+
+ × |core| tests/p14p4p5-cross-owner.test.ts > P4/P5 cross-owner production and writing availability > Q17 distinguishes an occupied rival Actor from a credited Writer with an earlier active-draft boundary
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > publishes transition rule1 and its four delegated constants without changing existing rule versions
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'capability59 on both is insufficient'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'capability60 first makes director eli…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'capability60 first makes writer eligi…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'two actual acting takes are insuffici…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'three actual acting takes suffice wit…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'one shared picture does not prove rep…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'two shared pictures prove repeated co…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'a proven target needs no repeat conte…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'capable but unproven without context …'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'exact eligible tuples decline both wi…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'proven director beats a higher-tier u…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'proven writer beats a higher-tier unp…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'director role tier precedes later tup…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'writer role tier precedes later tuple…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'director context band precedes public…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'writer context band precedes public p…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'director public potential resolves an…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'writer public potential resolves an o…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'raw OVR does not break a tie inside t…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'raw context above two does not break …'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'raw work history does not rank two al…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'two Limited-upside targets are eligib…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'Limited upside does not veto the sole…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'age74 still allows a choice'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'age75 overrides an otherwise eligible…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'age75 overrides no-eligible deferral'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A07/A08 pure public choice law > 'older actors cannot reopen target cho…'
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A03/A04 genuine retirement choices through existing tick > retires the two genuine207 actors into director and writer at208 with real bounded evidence 6608ms
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-retired-week208.json.gz prospectively at209 without backdating or rewriting old receipts 8554ms
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A03/A04 genuine retirement choices through existing tick > reconciles actual retired genuine-v37-c3-runtime-current208.json.gz prospectively at209 without backdating or rewriting old receipts 7276ms
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A05/A06 public profession history, current evidence and repeat safety > derives the exact current public input without mutation and refuses past-week reconstruction 3177ms
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A05/A06 public profession history, current evidence and repeat safety > uses inclusive change weeks and current-versus-explicit retirement lookup after save and reload 3517ms
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A09/A10 genuine prospective finality and deferred reconciliation > records Scientist noCatalogue finality at671 once, preserving the actual670 profession retirement 4738ms
+ ✓ |core| tests/p14c3-transitions.test.ts > C.3 A09/A10 genuine prospective finality and deferred reconciliation > defers the real retired cohort actor at2601 and schedules the exact annual-or-age deadline, never the next week 19185ms
+ ✓ |core| tests/bridge-p14c2s-scientist-runtime.test.ts > C.2 Scientist S11: genuine outgoing50 runtime compatibility > '842 Scientist' original artifact, canonical independent slots and producer authority remain exact 1812ms
+ ✓ |core| tests/bridge-p14c2s-scientist-runtime.test.ts > C.2 Scientist S11: genuine outgoing50 runtime compatibility > '824 retained retirement' original artifact, canonical independent slots and producer authority remain exact 763ms
+ ✓ |core| tests/bridge-p14c2s-scientist-runtime.test.ts > C.2 Scientist S11: genuine outgoing50 runtime compatibility > requires literal projection52/Save37, registers actual outgoing50, and excludes the running identity from prior schemas
+ ✓ |core| tests/bridge-p14c2s-scientist-runtime.test.ts > C.2 Scientist S11: genuine outgoing50 runtime compatibility > '842 Scientist' migrates each authoritative slot at its OWN week with exact canonical state, identity and history 17474ms
+ ✓ |core| tests/bridge-p14c2s-scientist-runtime.test.ts > C.2 Scientist S11: genuine outgoing50 runtime compatibility > '824 retained retirement' migrates each authoritative slot at its OWN week with exact canonical state, identity and history 9745ms
+ ✓ |core| tests/bridge-p14c2s-scientist-runtime.test.ts > C.2 Scientist S11: genuine outgoing50 runtime compatibility > 842 starts a fresh logical session and reopens current51 without another migration; genuine journal was empty, not fabricated 22817ms
+ ✓ |core| tests/bridge-p14c2s-scientist-runtime.test.ts > C.2 Scientist S11: genuine outgoing50 runtime compatibility > 842 real saved-slot LOAD restores520 from current521 and replays only its NEW-schema receipt, never prior runtime authority 26387ms
+ ✓ |core| tests/bridge-p14c2s-scientist-runtime.test.ts > C.2 Scientist S11: genuine outgoing50 runtime compatibility > 842 invalid currentSaveJson refuses before creating a replacement session and leaves original bytes recoverable 849ms
+ ✓ |core| tests/bridge-p14c2s-scientist-runtime.test.ts > C.2 Scientist S11: genuine outgoing50 runtime compatibility > 842 invalid savedSaveJson refuses before creating a replacement session and leaves original bytes recoverable 4016ms
+ ✓ |core| tests/bridge-p14c2s-scientist-runtime.test.ts > C.2 Scientist S11: genuine outgoing50 runtime compatibility > 842 refuses unknown outer schema, damaged slot digest, and reused logical session without altering preserved source 8268ms
+ ✓ |core| tests/bridge-p14r2r3-prior55.test.ts > P14 1308-C: the outgoing projection55 runtime checkpoint migrates to current56, and each Save40 slot migrates to Save41 independently > loadBridgeRuntimeCheckpoint migrates the prior-schema checkpoint, resets runtime authority, and migrates both save slots to V41 with only the new key added 12016ms
+ ✓ |core| tests/bridge-p14c2rm-runtime.test.ts > C.2-RM genuine projection51 recovery > preserves the real producer, actual nonempty journal and independent announced669/retired670 slots 1477ms
+ ✓ |core| tests/bridge-p14c2rm-runtime.test.ts > C.2-RM genuine projection51 recovery > steps projection once to52 while retaining Save37/protocol4 and enumerating actual outgoing51 exactly once
+ ✓ |core| tests/bridge-p14c2rm-runtime.test.ts > C.2-RM genuine projection51 recovery > lifts both slots byte-exactly but resets old journal/revision/session authority, then reopens52 without migration 28956ms
+ ✓ |core| tests/bridge-p14c2rm-runtime.test.ts > C.2-RM genuine projection51 recovery > rejects the old command identity and replays only a new52 saved-slot LOAD receipt after restart 28952ms
+ ✓ |core| tests/bridge-p14c2rm-runtime.test.ts > C.2-RM genuine projection51 recovery > rejects invalid currentSaveJson through whole-save validation before creating a new session 1236ms
+ ✓ |core| tests/bridge-p14c2rm-runtime.test.ts > C.2-RM genuine projection51 recovery > rejects invalid savedSaveJson through whole-save validation before creating a new session 4682ms
+ ✓ |core| tests/bridge-p14c2rm-runtime.test.ts > C.2-RM genuine projection51 recovery > refuses unknown schema, corrupted digest and a reused prior session id without touching the artifact 8119ms
+ ✓ |core| tests/bridge-p14c2rm-runtime.test.ts > C.2-RM genuine projection51 recovery > keeps independently recovered Save As branches isolated despite identical PersonIds and source bytes 30498ms
+ ✓ |core| tests/bridge-p14c3-promise-digest-continuity.test.ts > 955 genuine207 normal-development continuation > matches actual BridgeSession advance from saved207 with uninterrupted develop:true on the reordered raw world 23701ms
+ ✓ |core| tests/bridge-p14c3-promise-digest-continuity.test.ts > 955 historical preservation and interim projection52 journal authority > preserves the current52 historical command journal and exact duplicate response without replaying gameplay 34611ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D15 commits genuine public directing commands with closed private authority
+ FAIL |core|  tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D16 discloses Director and legacy cast terms truthfully without private inputs
+ FAIL |core|  tests/bridge-p14p3-directing-promises.test.ts > P3 public Bridge authority, truthful terms and durable runtime > D17 migrates outgoing53 independently and isolates current55 campaigns
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'
+ ❯ tests/bridge-p14p3-directing-promises.test.ts:132:22
+    130| function current45(): GameState {
+    131|   return memo('captured45', () => {
+    132|     const manifest = readFileSync(new URL(CAPTURE + 'MANIFEST.json', i…
+       |                      ^
+    133|     expect(manifest.byteLength).toBe(11550)
+    134|     expect(sha(manifest)).toBe('a261fc3177527d05d5a8daf624de7af015df8c…
+ ❯ memo tests/bridge-p14p3-directing-promises.test.ts:127:23
+ ❯ current45 tests/bridge-p14p3-directing-promises.test.ts:131:10
+ ❯ tests/bridge-p14p3-directing-promises.test.ts:480:39
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errno: -2, code: 'ENOENT', syscall: 'open', path: '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL |core|  tests/bridge-p14p4p5-opportunities.test.ts > P4/P5 closed Bridge material and outgoing runtime authority > B55-1 validates closed singular drafts and discloses only actual own material
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'
+ ❯ tests/bridge-p14p4p5-opportunities.test.ts:101:22
+     99| function input45(): GameState {
+    100|   return memo('genuine45', () => {
+    101|     const manifest = readFileSync(new URL('1171-p3-current45-capture/M…
+       |                      ^
+    102|     expect(manifest.byteLength).toBe(11550)
+    103|     expect(sha(manifest)).toBe('a261fc3177527d05d5a8daf624de7af015df8c…
+ ❯ memo tests/bridge-p14p4p5-opportunities.test.ts:96:23
+ ❯ input45 tests/bridge-p14p4p5-opportunities.test.ts:100:10
+ ❯ tests/bridge-p14p4p5-opportunities.test.ts:394:39
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errno: -2, code: 'ENOENT', syscall: 'open', path: '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL |core|  tests/bridge-p14p4p5-opportunities.test.ts > P4/P5 closed Bridge material and outgoing runtime authority > B55-2 binds actual genre work and preserves material through an own waiver chain
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/MANIFEST.json'
+ ❯ outgoingManifest tests/bridge-p14p4p5-opportunities.test.ts:323:20
+    321| const OUTGOING = '1221-p4p5-outgoing-capture/'
+    322| function outgoingManifest(): void {
+    323|   const manifest = readFileSync(new URL(OUTGOING + 'MANIFEST.json', E))
+       |                    ^
+    324|   expect(manifest.byteLength).toBe(21306)
+    325|   expect(sha(manifest)).toBe('02115df5d6e7d4c33284b9a439a7c79601e1b2e8…
+ ❯ oldMeaningControls tests/bridge-p14p4p5-opportunities.test.ts:328:3
+ ❯ tests/bridge-p14p4p5-opportunities.test.ts:455:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errno: -2, code: 'ENOENT', syscall: 'open', path: '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/MANIFEST.json' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL |core|  tests/bridge-p14p4p5-opportunities.test.ts > P4/P5 closed Bridge material and outgoing runtime authority > B55-3 independently migrates genuine54 slots and resets only prior runtime authority
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/MANIFEST.json'
+ ❯ outgoingManifest tests/bridge-p14p4p5-opportunities.test.ts:323:20
+    321| const OUTGOING = '1221-p4p5-outgoing-capture/'
+    322| function outgoingManifest(): void {
+    323|   const manifest = readFileSync(new URL(OUTGOING + 'MANIFEST.json', E))
+       |                    ^
+    324|   expect(manifest.byteLength).toBe(21306)
+    325|   expect(sha(manifest)).toBe('02115df5d6e7d4c33284b9a439a7c79601e1b2e8…
+ ❯ prior54 tests/bridge-p14p4p5-opportunities.test.ts:360:3
+ ❯ tests/bridge-p14p4p5-opportunities.test.ts:501:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errno: -2, code: 'ENOENT', syscall: 'open', path: '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/MANIFEST.json' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL |core|  tests/p14p4p5-cross-owner.test.ts > P4/P5 cross-owner production and writing availability > Q17 distinguishes an occupied rival Actor from a credited Writer with an earlier active-draft boundary
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'
+ ❯ input45 tests/p14p4p5-cross-owner.test.ts:99:27
+     97|   if (cache) { if (!cache.ok) throw cache.error; return clone(cache.st…
+     98|   try {
+     99|     const manifestBytes = readFileSync(new URL('1171-p3-current45-capt…
+       |                           ^
+    100|     expect(manifestBytes.length).toBe(11550)
+    101|     expect(sha(manifestBytes)).toBe('a261fc3177527d05d5a8daf624de7af01…
+ ❯ tests/p14p4p5-cross-owner.test.ts:242:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errno: -2, code: 'ENOENT', syscall: 'open', path: '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ Test Files  3 failed | 7 passed (10)
+      Tests  7 failed | 140 passed (147)
+   Start at  15:46:38
+   Duration  609.24s (transform 10.66s, setup 0ms, collect 25.25s, tests 573.92s, environment 3ms, prepare 3.12s)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b1-modified10.vitest.json

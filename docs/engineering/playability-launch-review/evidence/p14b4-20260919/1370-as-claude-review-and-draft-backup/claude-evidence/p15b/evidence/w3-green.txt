@@ -1,0 +1,16 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p15b
+
+ ✓ |core| tests/p15b3-remedy-parity.test.ts (6 tests) 22221ms
+   ✓ p15b3 remedy parity: one legal release predicate (1352-A §4.3; 1357-A §3.4) > release-predicate-player 3153ms
+   ✓ p15b3 remedy parity: one legal release predicate (1352-A §4.3; 1357-A §3.4) > release-predicate-rival-seats-and-writing 4416ms
+   ✓ p15b3 remedy parity: one legal release predicate (1352-A §4.3; 1357-A §3.4) > rival-release-loop-uses-the-predicate 6185ms
+   ✓ p15b3 remedy parity: capability and the live remedy list (1352-A §4.3; 1357-A §3.4) > remedy-capability-both-studios 1168ms
+   ✓ p15b3 remedy parity: capability and the live remedy list (1352-A §4.3; 1357-A §3.4) > remedies-live-both-studios 4620ms
+   ✓ p15b3 remedy parity: capability and the live remedy list (1352-A §4.3; 1357-A §3.4) > shared-cost-phase 2670ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  16:30:33
+   Duration  35.80s (transform 8.94s, setup 0ms, collect 10.59s, tests 22.22s, environment 0ms, prepare 708ms)
+

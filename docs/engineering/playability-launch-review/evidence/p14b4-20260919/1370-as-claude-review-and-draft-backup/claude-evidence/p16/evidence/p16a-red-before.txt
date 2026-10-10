@@ -1,0 +1,270 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p16
+
+ ❯ |core| tests/p16a-valuation.test.ts (0 test)
+ ❯ |core| tests/p16a-rights-identity.test.ts (0 test)
+ ❯ |core| tests/p16a-save-v46.test.ts (0 test)
+ ❯ |core| tests/p16a-mint-hooks.test.ts (0 test)
+ ❯ |core| tests/p16-tuning.test.ts (13 tests | 13 failed) 80ms
+   × P16 TUNING: exact provisional values > RIGHTS_R2_CATALOGUE_VALUE_AT_100 === 100000 12ms
+     → expected undefined to be 100000 // Object.is equality
+   × P16 TUNING: exact provisional values > RIGHTS_R1_OPTION_VALUE_AT_100 === 25000 2ms
+     → expected undefined to be 25000 // Object.is equality
+   × P16 TUNING: exact provisional values > RIGHTS_RESERVE_WEEKS === 26 1ms
+     → expected undefined to be 26 // Object.is equality
+   × P16 TUNING: exact provisional values > RIGHTS_DUE_DILIGENCE_FEE === 50000 1ms
+     → expected undefined to be 50000 // Object.is equality
+   × P16 TUNING: exact provisional values > RIGHTS_DISCLOSURE_STALE_WEEKS === 13 1ms
+     → expected undefined to be 13 // Object.is equality
+   × P16 TUNING: exact provisional values > RIGHTS_OFFER_DURATION_WEEKS === 4 1ms
+     → expected undefined to be 4 // Object.is equality
+   × P16 TUNING: exact provisional values > RIGHTS_OFFER_COOLDOWN_WEEKS === 4 24ms
+     → expected undefined to be 4 // Object.is equality
+   × P16 TUNING: exact provisional values > RIGHTS_WILLINGNESS_PREMIUM_PERCENT === 20 28ms
+     → expected undefined to be 20 // Object.is equality
+   × P16 TUNING: exact provisional values > RIGHTS_RESALE_HOLDBACK_WEEKS === 52 1ms
+     → expected undefined to be 52 // Object.is equality
+   × P16 TUNING: exact provisional values > ESTATE_WINDOW_WEEKS === 13 1ms
+     → expected undefined to be 13 // Object.is equality
+   × P16 TUNING: stated ranges > coefficients are positive whole dollars and the option premium is below the catalogue coefficient 3ms
+     → expected false to be true // Object.is equality
+   × P16 TUNING: stated ranges > durations are whole weeks in [1, 104]; the estate window is 13 by adoption; the holdback exceeds the offer duration 1ms
+     → RIGHTS_RESERVE_WEEKS: expected false to be true // Object.is equality
+   × P16 TUNING: stated ranges > the diligence fee is a positive whole-dollar amount and the willingness premium is a whole percent in (0, 100) 1ms
+     → expected false to be true // Object.is equality
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p16a-mint-hooks.test.ts [ tests/p16a-mint-hooks.test.ts ]
+ FAIL |core|  tests/p16a-rights-identity.test.ts [ tests/p16a-rights-identity.test.ts ]
+ FAIL |core|  tests/p16a-save-v46.test.ts [ tests/p16a-save-v46.test.ts ]
+Error: Failed to load url ../src/core/rights.js (resolved id: ../src/core/rights.js) in /Users/zacheryspector/studio-specialists/p16/tests/p16a-valuation.test.ts. Does the file exist?
+ ❯ loadAndTransform ../../The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/17]⎯
+
+ FAIL |core|  tests/p16a-valuation.test.ts [ tests/p16a-valuation.test.ts ]
+Error: Failed to load url ../src/core/propertyValuation.js (resolved id: ../src/core/propertyValuation.js) in /Users/zacheryspector/studio-specialists/p16/tests/p16a-valuation.test.ts. Does the file exist?
+ ❯ loadAndTransform ../../The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/17]⎯
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 13 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p16-tuning.test.ts > P16 TUNING: exact provisional values > RIGHTS_R2_CATALOGUE_VALUE_AT_100 === 100000
+AssertionError: expected undefined to be 100000 // Object.is equality
+
+- Expected: 
+100000
+
++ Received: 
+undefined
+
+ ❯ tests/p16-tuning.test.ts:28:56
+     26|   for (const [key, value] of Object.entries(expected)) {
+     27|     it(`${key} === ${value}`, () => {
+     28|       expect((TUNING as Record<string, unknown>)[key]).toBe(value)
+       |                                                        ^
+     29|     })
+     30|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/17]⎯
+
+ FAIL |core|  tests/p16-tuning.test.ts > P16 TUNING: exact provisional values > RIGHTS_R1_OPTION_VALUE_AT_100 === 25000
+AssertionError: expected undefined to be 25000 // Object.is equality
+
+- Expected: 
+25000
+
++ Received: 
+undefined
+
+ ❯ tests/p16-tuning.test.ts:28:56
+     26|   for (const [key, value] of Object.entries(expected)) {
+     27|     it(`${key} === ${value}`, () => {
+     28|       expect((TUNING as Record<string, unknown>)[key]).toBe(value)
+       |                                                        ^
+     29|     })
+     30|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/17]⎯
+
+ FAIL |core|  tests/p16-tuning.test.ts > P16 TUNING: exact provisional values > RIGHTS_RESERVE_WEEKS === 26
+AssertionError: expected undefined to be 26 // Object.is equality
+
+- Expected: 
+26
+
++ Received: 
+undefined
+
+ ❯ tests/p16-tuning.test.ts:28:56
+     26|   for (const [key, value] of Object.entries(expected)) {
+     27|     it(`${key} === ${value}`, () => {
+     28|       expect((TUNING as Record<string, unknown>)[key]).toBe(value)
+       |                                                        ^
+     29|     })
+     30|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/17]⎯
+
+ FAIL |core|  tests/p16-tuning.test.ts > P16 TUNING: exact provisional values > RIGHTS_DUE_DILIGENCE_FEE === 50000
+AssertionError: expected undefined to be 50000 // Object.is equality
+
+- Expected: 
+50000
+
++ Received: 
+undefined
+
+ ❯ tests/p16-tuning.test.ts:28:56
+     26|   for (const [key, value] of Object.entries(expected)) {
+     27|     it(`${key} === ${value}`, () => {
+     28|       expect((TUNING as Record<string, unknown>)[key]).toBe(value)
+       |                                                        ^
+     29|     })
+     30|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/17]⎯
+
+ FAIL |core|  tests/p16-tuning.test.ts > P16 TUNING: exact provisional values > RIGHTS_DISCLOSURE_STALE_WEEKS === 13
+ FAIL |core|  tests/p16-tuning.test.ts > P16 TUNING: exact provisional values > ESTATE_WINDOW_WEEKS === 13
+AssertionError: expected undefined to be 13 // Object.is equality
+
+- Expected: 
+13
+
++ Received: 
+undefined
+
+ ❯ tests/p16-tuning.test.ts:28:56
+     26|   for (const [key, value] of Object.entries(expected)) {
+     27|     it(`${key} === ${value}`, () => {
+     28|       expect((TUNING as Record<string, unknown>)[key]).toBe(value)
+       |                                                        ^
+     29|     })
+     30|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/17]⎯
+
+ FAIL |core|  tests/p16-tuning.test.ts > P16 TUNING: exact provisional values > RIGHTS_OFFER_DURATION_WEEKS === 4
+ FAIL |core|  tests/p16-tuning.test.ts > P16 TUNING: exact provisional values > RIGHTS_OFFER_COOLDOWN_WEEKS === 4
+AssertionError: expected undefined to be 4 // Object.is equality
+
+- Expected: 
+4
+
++ Received: 
+undefined
+
+ ❯ tests/p16-tuning.test.ts:28:56
+     26|   for (const [key, value] of Object.entries(expected)) {
+     27|     it(`${key} === ${value}`, () => {
+     28|       expect((TUNING as Record<string, unknown>)[key]).toBe(value)
+       |                                                        ^
+     29|     })
+     30|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/17]⎯
+
+ FAIL |core|  tests/p16-tuning.test.ts > P16 TUNING: exact provisional values > RIGHTS_WILLINGNESS_PREMIUM_PERCENT === 20
+AssertionError: expected undefined to be 20 // Object.is equality
+
+- Expected: 
+20
+
++ Received: 
+undefined
+
+ ❯ tests/p16-tuning.test.ts:28:56
+     26|   for (const [key, value] of Object.entries(expected)) {
+     27|     it(`${key} === ${value}`, () => {
+     28|       expect((TUNING as Record<string, unknown>)[key]).toBe(value)
+       |                                                        ^
+     29|     })
+     30|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/17]⎯
+
+ FAIL |core|  tests/p16-tuning.test.ts > P16 TUNING: exact provisional values > RIGHTS_RESALE_HOLDBACK_WEEKS === 52
+AssertionError: expected undefined to be 52 // Object.is equality
+
+- Expected: 
+52
+
++ Received: 
+undefined
+
+ ❯ tests/p16-tuning.test.ts:28:56
+     26|   for (const [key, value] of Object.entries(expected)) {
+     27|     it(`${key} === ${value}`, () => {
+     28|       expect((TUNING as Record<string, unknown>)[key]).toBe(value)
+       |                                                        ^
+     29|     })
+     30|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/17]⎯
+
+ FAIL |core|  tests/p16-tuning.test.ts > P16 TUNING: stated ranges > coefficients are positive whole dollars and the option premium is below the catalogue coefficient
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/p16-tuning.test.ts:35:118
+     33| describe('P16 TUNING: stated ranges', () => {
+     34|   it('coefficients are positive whole dollars and the option premium i…
+     35|     expect(Number.isInteger(TUNING.RIGHTS_R2_CATALOGUE_VALUE_AT_100) &…
+       |                                                                                                                      ^
+     36|     expect(Number.isInteger(TUNING.RIGHTS_R1_OPTION_VALUE_AT_100) && T…
+     37|     expect(TUNING.RIGHTS_R1_OPTION_VALUE_AT_100).toBeLessThan(TUNING.R…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/17]⎯
+
+ FAIL |core|  tests/p16-tuning.test.ts > P16 TUNING: stated ranges > durations are whole weeks in [1, 104]; the estate window is 13 by adoption; the holdback exceeds the offer duration
+AssertionError: RIGHTS_RESERVE_WEEKS: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/p16-tuning.test.ts:43:62
+     41|       'RIGHTS_RESALE_HOLDBACK_WEEKS', 'ESTATE_WINDOW_WEEKS'] as const)…
+     42|       const v = TUNING[key]
+     43|       expect(Number.isInteger(v) && v >= 1 && v <= 104, key).toBe(true)
+       |                                                              ^
+     44|     }
+     45|     expect(TUNING.ESTATE_WINDOW_WEEKS).toBe(13)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/17]⎯
+
+ FAIL |core|  tests/p16-tuning.test.ts > P16 TUNING: stated ranges > the diligence fee is a positive whole-dollar amount and the willingness premium is a whole percent in (0, 100)
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/p16-tuning.test.ts:49:102
+     47|   })
+     48|   it('the diligence fee is a positive whole-dollar amount and the will…
+     49|     expect(Number.isInteger(TUNING.RIGHTS_DUE_DILIGENCE_FEE) && TUNING…
+       |                                                                                                      ^
+     50|     expect(Number.isInteger(TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT)…
+     51|     expect(TUNING.RIGHTS_WILLINGNESS_PREMIUM_PERCENT).toBeGreaterThan(…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/17]⎯
+
+ Test Files  5 failed (5)
+      Tests  13 failed (13)
+   Start at  15:47:58
+   Duration  18.02s (transform 6.69s, setup 0ms, collect 201ms, tests 80ms, environment 2ms, prepare 2.98s)
+
+exit 1

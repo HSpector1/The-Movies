@@ -1,0 +1,2436 @@
+{
+ "batches": {
+  "b1-modified10": {
+   "numTotalTests": 147,
+   "passed": 140,
+   "failed": 7,
+   "pending": 0,
+   "todo": 0,
+   "files": 10,
+   "success": false,
+   "same": 0,
+   "new": 7,
+   "gone": 0,
+   "unbaselined": 0,
+   "failures": [
+    {
+     "file": "tests/bridge-p14p3-directing-promises.test.ts",
+     "test": "P3 public Bridge authority, truthful terms and durable runtime D15 commits genuine public directing commands with closed private authority",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/bridge-p14p3-directing-promises.test.ts:132:22\n    at memo ("
+    },
+    {
+     "file": "tests/bridge-p14p3-directing-promises.test.ts",
+     "test": "P3 public Bridge authority, truthful terms and durable runtime D16 discloses Director and legacy cast terms truthfully without private inputs",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/bridge-p14p3-directing-promises.test.ts:132:22\n    at memo ("
+    },
+    {
+     "file": "tests/bridge-p14p3-directing-promises.test.ts",
+     "test": "P3 public Bridge authority, truthful terms and durable runtime D17 migrates outgoing53 independently and isolates current55 campaigns",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/bridge-p14p3-directing-promises.test.ts:132:22\n    at memo ("
+    },
+    {
+     "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+     "test": "P4/P5 closed Bridge material and outgoing runtime authority B55-1 validates closed singular drafts and discloses only actual own material",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/bridge-p14p4p5-opportunities.test.ts:101:22\n    at memo (/Us"
+    },
+    {
+     "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+     "test": "P4/P5 closed Bridge material and outgoing runtime authority B55-2 binds actual genre work and preserves material through an own waiver chain",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/MANIFEST.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at outgoingManifest (/Users/zacheryspector/studio-specialists/r8/tests/bridge-p14p4p5-opportunities.test.ts:323:"
+    },
+    {
+     "file": "tests/bridge-p14p4p5-opportunities.test.ts",
+     "test": "P4/P5 closed Bridge material and outgoing runtime authority B55-3 independently migrates genuine54 slots and resets only prior runtime authority",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture/MANIFEST.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at outgoingManifest (/Users/zacheryspector/studio-specialists/r8/tests/bridge-p14p4p5-opportunities.test.ts:323:"
+    },
+    {
+     "file": "tests/p14p4p5-cross-owner.test.ts",
+     "test": "P4/P5 cross-owner production and writing availability Q17 distinguishes an occupied rival Actor from a credited Writer with an earlier active-draft boundary",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture/MANIFEST.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at input45 (/Users/zacheryspector/studio-specialists/r8/tests/p14p4p5-cross-owner.test.ts:99:27)\n    at /Users/za"
+    }
+   ]
+  },
+  "b2-recovery-own": {
+   "numTotalTests": 215,
+   "passed": 210,
+   "failed": 1,
+   "pending": 2,
+   "todo": 2,
+   "files": 9,
+   "success": false,
+   "same": 1,
+   "new": 0,
+   "gone": 0,
+   "unbaselined": 0,
+   "failures": [
+    {
+     "file": "tests/p14b1-trust-chooser.test.ts",
+     "test": "P14B.1 test 6: trust, the widened chooser and the priority order opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals",
+     "class": "SAME",
+     "message": "AssertionError: expected 'compensation' to be 'opportunity' // Object.is equality\n    at /Users/zacheryspector/studio-specialists/r8/tests/p14b1-trust-chooser.test.ts:350:53\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n"
+    }
+   ]
+  },
+  "b3-p15": {
+   "numTotalTests": 96,
+   "passed": 35,
+   "failed": 61,
+   "pending": 0,
+   "todo": 0,
+   "files": 3,
+   "success": false,
+   "same": 40,
+   "new": 21,
+   "gone": 0,
+   "unbaselined": 0,
+   "failures": [
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market forecast paths (RED 3, 1355-A \u00a73.2 \"never carry it\") market-forecast-paths-unchanged: a week of rival decisions with no release ignores the root [control]",
+     "class": "SAME",
+     "message": "Error: tick: the sharedMarket root already holds market assessments (12 recorded); the save was written by a build with the market batch, and this build cannot move recordedFromWeek past those rows\n    at Module.tick (/Users/zacheryspector/studio-specialists/r8/src/core/tick.ts:1073:11)\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:274:36\n    at processT"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market due set (RED 4-5, 1355-A \u00a73.1) market-due-set-equals-releases: frozen members are the committed player release plus every rival picture at 1",
+     "class": "SAME",
+     "message": "AssertionError: expected '[]' to be '[{\"genre\":\"horror\",\"releaseId\":\"prod-\u2026' // Object.is equality\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:294:67\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market due set (RED 4-5, 1355-A \u00a73.1) market-due-set-mismatch-fails-closed: a frozen batch missing a due rival picture throws, input unchanged",
+     "class": "SAME",
+     "message": "AssertionError: expected [Function] to throw an error\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1509:21)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-headless-pr"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market due set (RED 4-5, 1355-A \u00a73.1) market-due-set-mismatch-fails-closed: a frozen batch naming a picture nobody releases throws, input unchanged",
+     "class": "SAME",
+     "message": "AssertionError: expected [Function] to throw an error\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1509:21)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-headless-pr"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market live batches (RED 6-9) market-live-one-player-one-rival: same genre, same week, both pressureFactor(1), each names the other",
+     "class": "SAME",
+     "message": "AssertionError: the player release is assessed: expected undefined to be defined\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:334:52\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market live batches (RED 6-9) market-live-window-stock-retire: releases at W\u22122, W\u221210 and W\u221226 act through WINDOW_RELEASES, GENRE_SATURATION and nothing",
+     "class": "SAME",
+     "message": "Error: tick: the sharedMarket root already holds market assessments (3 recorded); the save was written by a build with the market batch, and this build cannot move recordedFromWeek past those rows\n    at Module.tick (/Users/zacheryspector/studio-specialists/r8/src/core/tick.ts:1073:11)\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:361:18\n    at processTi"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market live batches (RED 6-9) market-live-self-exclusion-clamp: one studio's two same-genre same-week releases see each other at 1.00, never themselves",
+     "class": "SAME",
+     "message": "AssertionError: expected [] to have a length of 2 but got +0\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1339:22)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-head"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market live batches (RED 6-9) market-live-no-player-flag: a persisted row carries exactly the law fields and the 1355-F2 fields, no owner",
+     "class": "SAME",
+     "message": "AssertionError: expected 0 to be greater than 0\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:402:25\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:/"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market live batches (RED 6-9) market-live-no-player-flag: mirror fixtures that swap the player studio give equal assessments after id normalization",
+     "class": "SAME",
+     "message": "AssertionError: expected 0 to be greater than or equal to 2\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:422:25\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTim"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market chronology controls (RED 10-11, 1355-A \u00a74 K1/K2) market-week-diff-confined (K1): the K1 week is pressured exactly where the law says",
+     "class": "SAME",
+     "message": "AssertionError: expected '[]' to be '[{\"genre\":\"comedy\",\"releaseId\":\"studi\u2026' // Object.is equality\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:439:48\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market chronology controls (RED 10-11, 1355-A \u00a74 K1/K2) market-no-pressure-week-identity (K2): every release of the K2 week is assessed at P = 0 and f = 1",
+     "class": "SAME",
+     "message": "AssertionError: expected '[]' to be '[{\"genre\":\"drama\",\"releaseId\":\"studio\u2026' // Object.is equality\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:473:48\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market root (RED 12-13, 1355-A \u00a73.3; 1355-F2 item 2; 1355-F3) market-root-append-canonical: one ordered append per week; derived exposures equal reduceExposures",
+     "class": "SAME",
+     "message": "AssertionError: expected 1 to be +0 // Object.is equality\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:505:38\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeo"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market root (RED 12-13, 1355-A \u00a73.3; 1355-F2 item 2; 1355-F3) market-root-append-canonical: rows ascend in (week, releaseId) and in p15DomainSequence, each with its v1 phase triple",
+     "class": "SAME",
+     "message": "AssertionError: expected 0 to be greater than 0\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:527:25\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:5\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-prog"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market root (RED 12-13, 1355-A \u00a73.3; 1355-F2 item 2; 1355-F3) market-inflight-save-replay: save during an active exposure, reload, run 30 weeks: assessments and terminal save equal an unsaved run",
+     "class": "SAME",
+     "message": "AssertionError: an active exposure at the save: expected false to be true // Object.is equality\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:548:41\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/di"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: the unforged route state validates (premise of every refusal below)",
+     "class": "SAME",
+     "message": "AssertionError: premise: rows in at least two weeks: expected 0 to be greater than or equal to 3\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:655:73\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/d"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged pressure by name",
+     "class": "SAME",
+     "message": "TypeError: Cannot read properties of undefined (reading 'pressure')\n    at Object.forge (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:591:79)\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:663:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at fil"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged factor by name",
+     "class": "SAME",
+     "message": "TypeError: Cannot read properties of undefined (reading 'factor')\n    at Object.forge (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:592:105)\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:663:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged windowTerm by name",
+     "class": "SAME",
+     "message": "TypeError: Cannot read properties of undefined (reading 'windowTerm')\n    at Object.forge (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:593:88)\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:663:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at f"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged stockTerm by name",
+     "class": "SAME",
+     "message": "TypeError: Cannot read properties of undefined (reading 'stockTerm')\n    at Object.forge (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:594:86)\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:663:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at fi"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged reason by name",
+     "class": "SAME",
+     "message": "TypeError: Cannot read properties of undefined (reading 'pressure')\n    at Object.forge (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:597:19)\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:663:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at fil"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged inputDigest by name",
+     "class": "SAME",
+     "message": "TypeError: Cannot set properties of undefined (setting 'inputDigest')\n    at Object.forge (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:599:98)\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:663:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at f"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses rows out of (week, releaseId) order by name",
+     "class": "SAME",
+     "message": "AssertionError: expected [Function] to throw an error\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1509:21)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-headless-pr"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a duplicate assessment by name",
+     "class": "SAME",
+     "message": "AssertionError: expected [Function] to throw error matching /duplicate|twice|order|ascend/i but got 'validateSaveV45: sharedMarket assessm\u2026'\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1509:21)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an orphan assessment with no film by name",
+     "class": "SAME",
+     "message": "TypeError: Cannot read properties of undefined (reading 'week')\n    at Object.forge (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:610:55)\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:663:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file://"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a missing assessment by name",
+     "class": "SAME",
+     "message": "Error: fixture premise: no removable row\n    at Object.forge (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:617:32)\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:663:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/T"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an assessment before recordedFromWeek by name",
+     "class": "SAME",
+     "message": "TypeError: Cannot read properties of undefined (reading 'week')\n    at Object.forge (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:622:49)\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:663:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file://"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an assessment at the tick by name",
+     "class": "SAME",
+     "message": "TypeError: Cannot read properties of undefined (reading 'phaseId')\n    at tripleOf (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:567:64)\n    at appendLawRow (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:585:64)\n    at Object.forge (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:627:5)\n  "
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an unknown definitionVersion by name",
+     "class": "SAME",
+     "message": "TypeError: Cannot set properties of undefined (setting 'definitionVersion')\n    at Object.forge (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:630:64)\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:663:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n  "
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an owner field on a row (exact keys) by name",
+     "class": "SAME",
+     "message": "TypeError: Cannot set properties of undefined (setting 'owner')\n    at Object.forge (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:634:58)\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:663:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file://"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a duplicate p15DomainSequence by name",
+     "class": "SAME",
+     "message": "TypeError: Cannot read properties of undefined (reading 'p15DomainSequence')\n    at Object.forge (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:638:71)\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:663:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n "
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a p15DomainSequence at p15Sequence.next by name",
+     "class": "SAME",
+     "message": "TypeError: Cannot set properties of undefined (setting 'p15DomainSequence')\n    at Object.forge (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:641:16)\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:663:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n  "
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a p15DomainSequence below 1 by name",
+     "class": "SAME",
+     "message": "TypeError: Cannot set properties of undefined (setting 'p15DomainSequence')\n    at Object.forge (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:643:113)\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:663:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n "
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a phase ordinal off its version's table entry by name",
+     "class": "SAME",
+     "message": "TypeError: Cannot read properties of undefined (reading 'phaseOrdinal')\n    at Object.forge (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:647:105)\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:663:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    a"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses another phase's phaseId by name",
+     "class": "SAME",
+     "message": "TypeError: Cannot set properties of undefined (setting 'phaseId')\n    at Object.forge (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:648:89)\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:663:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an unknown phaseOrderVersion by name",
+     "class": "SAME",
+     "message": "TypeError: Cannot set properties of undefined (setting 'phaseOrderVersion')\n    at Object.forge (/Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:649:101)\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:663:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n "
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: across P15 roots, a sibling row may hold the largest sequence and a market row may not reuse a sibling's",
+     "class": "SAME",
+     "message": "AssertionError: premise: a sibling sequence below some market row: expected undefined to be defined\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:691:73\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runne"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market old saves (RED 16) market-old-save: the first batches after migration see no pre-migration release [fixture-pending]",
+     "class": "SAME",
+     "message": "AssertionError: studio-315405e1-r03:film:2 is assessed within 26 weeks of the migration: expected undefined to be defined\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:778:102\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/nod"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market old saves (RED 16) market-old-save: a non-empty root refuses the downgrade by name, at the step and through every older migrator",
+     "class": "SAME",
+     "message": "AssertionError: premise: a recorded assessment: expected 0 to be greater than 0\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:806:68\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market persisted storage (RED 18) market-large-batch-persisted-linear: every live row is bounded: exact keys, at most five reasons of at most five ids",
+     "class": "SAME",
+     "message": "AssertionError: expected 0 to be greater than 0\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:849:25\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:/"
+    },
+    {
+     "file": "tests/p15a1-market-integration.test.ts",
+     "test": "p15a1 market persisted storage (RED 18) market-large-batch-persisted-linear: 32- and 512-member batches persist equal-bounded rows and linear root bytes",
+     "class": "SAME",
+     "message": "AssertionError: premise: a live row supplies the persisted shape: expected undefined to be defined\n    at /Users/zacheryspector/studio-specialists/r8/tests/p15a1-market-integration.test.ts:860:74\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner"
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 controls: the fixtures are lawful at RED and at GREEN legacy-control-genuine-save38-6240-lawful",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-film-facts",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-run-status",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-private-money-never-read",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-career-events",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-studios",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-domain-facts",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-missing-concept-refuses",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 boundary: the freeze as the tick's last step (1359-A \u00a74, RED B1-B9) legacy-condition-at-6240-outside",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 root: seed, migration and downgrade (1359-A \u00a75.2, RED C1-C5) legacy-migration-empty-root-genuine-save38",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 root: seed, migration and downgrade (1359-A \u00a75.2, RED C1-C5) legacy-migration-past-boundary-genuine-save38",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 root: seed, migration and downgrade (1359-A \u00a75.2, RED C1-C5) legacy-root-downgrade",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-marker",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-manifest-identity",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-stamp",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-bounds",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-refs",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-definition-era-guard",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) legacy-validate-replay",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-integration.test.ts",
+     "test": "p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) legacy-old-law-fixture-v1-validates-after-retune",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at Module."
+    },
+    {
+     "file": "tests/p15c2-campaign-legacy-sibling.test.ts",
+     "test": "p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A \u00a78 B2, B4, C3, C8, C10) legacy-validate-refs-sibling-added-after-freeze",
+     "class": "NEW",
+     "message": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'\n    at Object.openSync (node:fs:573:18)\n    at Proxy.readFileSync (node:fs:452:35)\n    at /Users/zacheryspector/studio-specialists/r8/tests/helpers/p15c2-legacy.ts:211:15\n    at /Users/"
+    }
+   ]
+  }
+ },
+ "perFile": {
+  "tests/bridge-p14c2rm-runtime.test.ts": {
+   "status": "passed",
+   "message": "",
+   "tests": {
+    "C.2-RM genuine projection51 recovery preserves the real producer, actual nonempty journal and independent announced669/retired670 slots": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2-RM genuine projection51 recovery steps projection once to52 while retaining Save37/protocol4 and enumerating actual outgoing51 exactly once": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2-RM genuine projection51 recovery lifts both slots byte-exactly but resets old journal/revision/session authority, then reopens52 without migration": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2-RM genuine projection51 recovery rejects the old command identity and replays only a new52 saved-slot LOAD receipt after restart": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2-RM genuine projection51 recovery rejects invalid currentSaveJson through whole-save validation before creating a new session": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2-RM genuine projection51 recovery rejects invalid savedSaveJson through whole-save validation before creating a new session": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2-RM genuine projection51 recovery refuses unknown schema, corrupted digest and a reused prior session id without touching the artifact": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2-RM genuine projection51 recovery keeps independently recovered Save As branches isolated despite identical PersonIds and source bytes": {
+     "status": "passed",
+     "class": null
+    }
+   }
+  },
+  "tests/bridge-p14c2s-scientist-runtime.test.ts": {
+   "status": "passed",
+   "message": "",
+   "tests": {
+    "C.2 Scientist S11: genuine outgoing50 runtime compatibility '842 Scientist' original artifact, canonical independent slots and producer authority remain exact": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2 Scientist S11: genuine outgoing50 runtime compatibility '824 retained retirement' original artifact, canonical independent slots and producer authority remain exact": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2 Scientist S11: genuine outgoing50 runtime compatibility requires literal projection52/Save37, registers actual outgoing50, and excludes the running identity from prior schemas": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2 Scientist S11: genuine outgoing50 runtime compatibility '842 Scientist' migrates each authoritative slot at its OWN week with exact canonical state, identity and history": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2 Scientist S11: genuine outgoing50 runtime compatibility '824 retained retirement' migrates each authoritative slot at its OWN week with exact canonical state, identity and history": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2 Scientist S11: genuine outgoing50 runtime compatibility 842 starts a fresh logical session and reopens current51 without another migration; genuine journal was empty, not fabricated": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2 Scientist S11: genuine outgoing50 runtime compatibility 842 real saved-slot LOAD restores520 from current521 and replays only its NEW-schema receipt, never prior runtime authority": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2 Scientist S11: genuine outgoing50 runtime compatibility 842 invalid currentSaveJson refuses before creating a replacement session and leaves original bytes recoverable": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2 Scientist S11: genuine outgoing50 runtime compatibility 842 invalid savedSaveJson refuses before creating a replacement session and leaves original bytes recoverable": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2 Scientist S11: genuine outgoing50 runtime compatibility 842 refuses unknown outer schema, damaged slot digest, and reused logical session without altering preserved source": {
+     "status": "passed",
+     "class": null
+    }
+   }
+  },
+  "tests/bridge-p14c3-promise-digest-continuity.test.ts": {
+   "status": "passed",
+   "message": "",
+   "tests": {
+    "955 genuine207 normal-development continuation matches actual BridgeSession advance from saved207 with uninterrupted develop:true on the reordered raw world": {
+     "status": "passed",
+     "class": null
+    },
+    "955 historical preservation and interim projection52 journal authority preserves the current52 historical command journal and exact duplicate response without replaying gameplay": {
+     "status": "passed",
+     "class": null
+    }
+   }
+  },
+  "tests/bridge-p14p3-directing-promises.test.ts": {
+   "status": "failed",
+   "message": "",
+   "tests": {
+    "P3 public Bridge authority, truthful terms and durable runtime D15 commits genuine public directing commands with closed private authority": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "P3 public Bridge authority, truthful terms and durable runtime D16 discloses Director and legacy cast terms truthfully without private inputs": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "P3 public Bridge authority, truthful terms and durable runtime D17 migrates outgoing53 independently and isolates current55 campaigns": {
+     "status": "failed",
+     "class": "NEW"
+    }
+   }
+  },
+  "tests/bridge-p14p4p5-opportunities.test.ts": {
+   "status": "failed",
+   "message": "",
+   "tests": {
+    "P4/P5 closed Bridge material and outgoing runtime authority B55-1 validates closed singular drafts and discloses only actual own material": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "P4/P5 closed Bridge material and outgoing runtime authority B55-2 binds actual genre work and preserves material through an own waiver chain": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "P4/P5 closed Bridge material and outgoing runtime authority B55-3 independently migrates genuine54 slots and resets only prior runtime authority": {
+     "status": "failed",
+     "class": "NEW"
+    }
+   }
+  },
+  "tests/bridge-p14r2r3-prior55.test.ts": {
+   "status": "passed",
+   "message": "",
+   "tests": {
+    "P14 1308-C: the outgoing projection55 runtime checkpoint migrates to current56, and each Save40 slot migrates to Save41 independently loadBridgeRuntimeCheckpoint migrates the prior-schema checkpoint, resets runtime authority, and migrates both save slots to V41 with only the new key added": {
+     "status": "passed",
+     "class": null
+    }
+   }
+  },
+  "tests/p14c2s-scientist-retirement.test.ts": {
+   "status": "passed",
+   "message": "",
+   "tests": {
+    "C.2 Scientist retirement: literal eligibility, hard announcement and obligations S0 the configured Scientist window is eligible62/hard72": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2 Scientist retirement: literal eligibility, hard announcement and obligations S1 genuine V33 continuation: recent employment prevents age62 announcement566, idle age63 announces618": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2 Scientist retirement: literal eligibility, hard announcement and obligations S2 SYNTHETIC age/provenance -1 year only: 61 is ineligible; literal62 announces with full notice": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2 Scientist retirement: literal eligibility, hard announcement and obligations S3 SYNTHETIC +10 years, real rehire/research: busy72 forces announcement, not removal; current binding determines E": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2 Scientist retirement: literal eligibility, hard announcement and obligations S4 SYNTHETIC +10 years, no rehire: hard announcement566 gives full52-week notice to618 and retains identity": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2 Scientist retirement: literal eligibility, hard announcement and obligations S5 real pause567/resume716 leaves unfinished work at728: expiry retires and pauses without deleting or charging retained work": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2 Scientist retirement: literal eligibility, hard announcement and obligations S6 incumbent-only final extension settles728 to780 once; retained research stays paused until explicit resume": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2 Scientist retirement: literal eligibility, hard announcement and obligations S7 real Scientist craft seat admitted at E-9 remains finishing across held take; actual cancel frees obligations then retirement": {
+     "status": "passed",
+     "class": null
+    },
+    "C.2 Scientist retirement: literal eligibility, hard announcement and obligations S8 real save/import/replay is identical across announcement and expiry, without mutating the source": {
+     "status": "passed",
+     "class": null
+    },
+    "Scientist supply is measured; no replacement policy is invented S9 retired identity is retained/refused; default recruit skips it to next legal fixed-pool identity": {
+     "status": "passed",
+     "class": null
+    },
+    "Scientist supply is measured; no replacement policy is invented S9b SYNTHETIC materialized age71 pool, real8 contracts: all retired at728 means zero supply, not eight employed or a ninth person": {
+     "status": "passed",
+     "class": null
+    },
+    "Scientist retirement persistence has an explicit semantic version boundary S10 no Scientist record: live37 writes and V36 downgrade preserves exact state bytes without time, RNG or history changes": {
+     "status": "passed",
+     "class": null
+    },
+    "Scientist retirement persistence has an explicit semantic version boundary S10 actual Scientist record: live37 accepts, V36 and prior downgrade refuse without stripping obligations/history": {
+     "status": "passed",
+     "class": null
+    },
+    "Scientist retirement persistence has an explicit semantic version boundary S10 frozen public34/35/36 readers still refuse the Scientist law, independently of the live tuning table": {
+     "status": "passed",
+     "class": null
+    },
+    "Scientist retirement persistence has an explicit semantic version boundary S10 amended live validator still refuses age, provenance, notice, cap, extension and exact-key corruption independently": {
+     "status": "passed",
+     "class": null
+    }
+   }
+  },
+  "tests/p14c3-transitions.test.ts": {
+   "status": "passed",
+   "message": "",
+   "tests": {
+    "C.3 A07/A08 pure public choice law publishes transition rule1 and its four delegated constants without changing existing rule versions": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'capability59 on both is insufficient'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'capability60 first makes director eli\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'capability60 first makes writer eligi\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'two actual acting takes are insuffici\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'three actual acting takes suffice wit\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'one shared picture does not prove rep\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'two shared pictures prove repeated co\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'a proven target needs no repeat conte\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'capable but unproven without context \u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'exact eligible tuples decline both wi\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'proven director beats a higher-tier u\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'proven writer beats a higher-tier unp\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'director role tier precedes later tup\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'writer role tier precedes later tuple\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'director context band precedes public\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'writer context band precedes public p\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'director public potential resolves an\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'writer public potential resolves an o\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'raw OVR does not break a tie inside t\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'raw context above two does not break \u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'raw work history does not rank two al\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'two Limited-upside targets are eligib\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'Limited upside does not veto the sole\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'age74 still allows a choice'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'age75 overrides an otherwise eligible\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'age75 overrides no-eligible deferral'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A07/A08 pure public choice law 'older actors cannot reopen target cho\u2026'": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A03/A04 genuine retirement choices through existing tick retires the two genuine207 actors into director and writer at208 with real bounded evidence": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A03/A04 genuine retirement choices through existing tick reconciles actual retired genuine-v37-c3-retired-week208.json.gz prospectively at209 without backdating or rewriting old receipts": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A03/A04 genuine retirement choices through existing tick reconciles actual retired genuine-v37-c3-runtime-current208.json.gz prospectively at209 without backdating or rewriting old receipts": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A05/A06 public profession history, current evidence and repeat safety derives the exact current public input without mutation and refuses past-week reconstruction": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A05/A06 public profession history, current evidence and repeat safety uses inclusive change weeks and current-versus-explicit retirement lookup after save and reload": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A09/A10 genuine prospective finality and deferred reconciliation records Scientist noCatalogue finality at671 once, preserving the actual670 profession retirement": {
+     "status": "passed",
+     "class": null
+    },
+    "C.3 A09/A10 genuine prospective finality and deferred reconciliation defers the real retired cohort actor at2601 and schedules the exact annual-or-age deadline, never the next week": {
+     "status": "passed",
+     "class": null
+    }
+   }
+  },
+  "tests/p14p4p5-cross-owner.test.ts": {
+   "status": "failed",
+   "message": "",
+   "tests": {
+    "P4/P5 cross-owner production and writing availability Q17 distinguishes an occupied rival Actor from a credited Writer with an earlier active-draft boundary": {
+     "status": "failed",
+     "class": "NEW"
+    }
+   }
+  },
+  "tests/p15a2-power-ranking-archive.test.ts": {
+   "status": "passed",
+   "message": "",
+   "tests": {
+    "p15a2 archive: module surface (1356-A \u00a73; 1355-F2 item 3) rank-archive-module-exports": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: module surface (1356-A \u00a73; 1355-F2 item 3) p15-phase-table-v1": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: the state-to-facts adapter (1356-A \u00a73; RED 1-4, 6-7) rank-adapter-player-films": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: the state-to-facts adapter (1356-A \u00a73; RED 1-4, 6-7) rank-adapter-field-mapping-rivals-and-cohort": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: the state-to-facts adapter (1356-A \u00a73; RED 1-4, 6-7) rank-adapter-run-end-parity": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: the state-to-facts adapter (1356-A \u00a73; RED 1-4, 6-7) rank-adapter-authored": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: the state-to-facts adapter (1356-A \u00a73; RED 1-4, 6-7) rank-adapter-pre-origin": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: the state-to-facts adapter (1356-A \u00a73; RED 1-4, 6-7) rank-adapter-owner-swap": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: the state-to-facts adapter (1356-A \u00a73; RED 1-4, 6-7) rank-adapter-no-leak": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: the one weekly fixed cost (1356-A \u00a73; RED 5) rank-fixed-cost-player-after-founding-excludes-research": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: the one weekly fixed cost (1356-A \u00a73; RED 5) rank-fixed-cost-player-zero-while-founding": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: the one weekly fixed cost (1356-A \u00a73; RED 5) rank-fixed-cost-rival-research-window-premise": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: the one weekly fixed cost (1356-A \u00a73; RED 5) rank-fixed-cost-rival-operating-cost": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: the tick step (1356-A \u00a74; RED 8, 11) rank-step-cadence": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: the tick step (1356-A \u00a74; RED 8, 11) rank-step-cadence-no-industry": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: the tick step (1356-A \u00a74; RED 8, 11) rank-step-cadence-founded-midgame-none-at-origin-plus-one": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: the tick step (1356-A \u00a74; RED 8, 11) rank-step-record-is-law-snapshot": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: the tick step (1356-A \u00a74; RED 8, 11) rank-step-record-shape": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: the tick step (1356-A \u00a74; RED 8, 11) rank-record-sequence-allocation": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: the tick step (1356-A \u00a74; RED 8, 11) rank-record-phase-triple": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: the tick step (1356-A \u00a74; RED 8, 11) rank-step-entrant": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: root and persistence (1356-A \u00a75; RED 12, 13, 16) rank-root-fresh": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: root and persistence (1356-A \u00a75; RED 12, 13, 16) rank-root-migration-empty": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: root and persistence (1356-A \u00a75; RED 12, 13, 16) rank-root-migration-genuine-below-step-capture": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: root and persistence (1356-A \u00a75; RED 12, 13, 16) rank-root-downgrade-empty-strips": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: root and persistence (1356-A \u00a75; RED 12, 13, 16) rank-root-downgrade-round-trip-claims-less": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: root and persistence (1356-A \u00a75; RED 12, 13, 16) rank-root-downgrade-recorded-quarter-refuses": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: root and persistence (1356-A \u00a75; RED 12, 13, 16) rank-root-downgrade-frozen-builders-refuse": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: root and persistence (1356-A \u00a75; RED 12, 13, 16) rank-root-frozen-builder-headless-control": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: root and persistence (1356-A \u00a75; RED 12, 13, 16) rank-append-only": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: root and persistence (1356-A \u00a75; RED 12, 13, 16) rank-round-trip": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-genuine-archive-validates": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-keys-root": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-keys-record-extra": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-keys-record-missing": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-keys-row-points": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-keys-row-honors-and-stage": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-version": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-recorded-from-week-range": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-cadence-gap": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-cadence-duplicate": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-cadence-off-cadence": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-cadence-future": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-cadence-order": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-cadence-no-industry": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-cadence-boundary": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-definition": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-cohort-missing-row": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-cohort-extra-row": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-cohort-duplicate-row": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-id-week-only": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-sequence-duplicate": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-sequence-at-or-above-next": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-next-stale": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-sequence-ascends-with-weeks": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) rank-validate-phase-triple": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 items 1-4 (RED 14; 1356-F Amendments 1-2) p15-validate-sequence-root": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 item 5 recompute by era (RED 15) rank-validate-recompute-films-lane": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 item 5 recompute by era (RED 15) rank-validate-recompute-releases-lane": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 item 5 recompute by era (RED 15) rank-validate-recompute-rank": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 item 5 recompute by era (RED 15) rank-validate-recompute-ranked": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 item 5 recompute by era (RED 15) rank-validate-recompute-releases": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 item 5 recompute by era (RED 15) rank-validate-recompute-film-outside-window": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 item 5 recompute by era (RED 15) rank-validate-recompute-swapped-film": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 item 5 recompute by era (RED 15) rank-validate-recompute-available": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 item 5 recompute by era (RED 15) rank-validate-recompute-window-start": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 item 5 recompute by era (RED 15) rank-validate-recompute-row-order": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 item 5 recompute by era (RED 15) rank-validate-band-another-valid-band-passes": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a2 archive: validation, \u00a75 item 5 recompute by era (RED 15) rank-validate-band-unknown-refuses": {
+     "status": "passed",
+     "class": null
+    }
+   }
+  },
+  "tests/1368-rival-writing-term.test.ts": {
+   "status": "passed",
+   "message": "",
+   "tests": {
+    "prospective rival writing stays within its existing paid term does not commit the 414 draft due417 against the selected writer term ending416": {
+     "status": "passed",
+     "class": null
+    },
+    "prospective rival writing stays within its existing paid term preserves actual expiry416 and remains publicly admissible without unpaid active writing": {
+     "status": "passed",
+     "class": null
+    }
+   }
+  },
+  "tests/1368-writing-completion-boundary.test.ts": {
+   "status": "passed",
+   "message": "",
+   "tests": {
+    "paid writing finishes at or before the exclusive employment end public pool commission at 50 completes before expiry52 and preserves full admission": {
+     "status": "passed",
+     "class": null
+    },
+    "paid writing finishes at or before the exclusive employment end public pool commission at 51 completes before expiry52 and preserves full admission": {
+     "status": "passed",
+     "class": null
+    }
+   }
+  },
+  "tests/p13b-s8-old-era-period.test.ts": {
+   "status": "passed",
+   "message": "",
+   "tests": {
+    "1363 explicit V27 staging keeps its finance era across a calendar boundary control: actual week309 admission retains the current old period and public V27 validity": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 explicit V27 staging keeps its finance era across a calendar boundary real original26 week52 first charge opens exactly one old-era period without termination or disposal fields": {
+     "status": "passed",
+     "class": null
+    }
+   }
+  },
+  "tests/p14b1-trust-chooser.test.ts": {
+   "status": "failed",
+   "message": "",
+   "tests": {
+    "P14B.1 test 6: trust, the widened chooser and the priority order publicPriorityOrder is the WIDENED companion order (opportunity and trust inserted; relationships restored by P14B.5) for both archetypes, byte-equal": {
+     "status": "passed",
+     "class": null
+    },
+    "P14B.1 test 6: trust, the widened chooser and the priority order publicPreferredTerm is unchanged by the widening: proven -> longest catalogue term, unproven -> shortest": {
+     "status": "passed",
+     "class": null
+    },
+    "P14B.1 test 6: trust, the widened chooser and the priority order trustDescriptor: all-positive facts read Reliable; a genuine negative driver (a real early termination) never reads Reliable \u2014 the exact Mixed/Distrusted boundary is OPEN and not pinned": {
+     "status": "passed",
+     "class": null
+    },
+    "P14B.1 test 6: trust, the widened chooser and the priority order a Distrusted issuer is dropped issuerDistrusted at reservation, and the other (healthy) proposal settles the case": {
+     "status": "passed",
+     "class": null
+    },
+    "P14B.1 test 6: trust, the widened chooser and the priority order opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "P14B.1 test 6: trust, the widened chooser and the priority order a Reliable issuer beats a Mixed-record issuer on the trust band, in the same otherwise-1-1-tie shape": {
+     "status": "passed",
+     "class": null
+    },
+    "P14B.1 test 6: trust, the widened chooser and the priority order on a constructed pair equal on compensation, term, standing AND incumbency (both non-incumbent), the proposal with a feasible promise wins with the opportunity reason \u2014 OBSTACLE: incumbency is a binary per-proposal fact unique to the one true subjectStudioId, so two DIFFERENT issuers can tie on it only by both being non-incumbent; P14A.1-F1 already measured no such pair survives freeze pre-week-208, and a direct search here (p13-public-commercial-adoption, weeks 209-430) found the SAME true at the next synchronized churn (week 404): every surviving contest keeps the case incumbent as one of its two survivors; every non-incumbent-vs-non-incumbent pairing is dropped 0-for-2 at the seat budget before ranking.": {
+     "status": "todo",
+     "class": null
+    },
+    "P14B.1 test 7: rival symmetry attachPromise and its feasibility classification work identically when the issuer is a RIVAL (no player-only special-casing)": {
+     "status": "passed",
+     "class": null
+    },
+    "P14B.1 test 7: rival symmetry the FIRST natural rival proposal carries exactly one promise iff an ORIGINAL authoring read is REASONABLY_ACHIEVABLE \u2014 the flexible P2 read first for an unproven person, the P1 read alone for a proven one \u2014 with exact proposal/root/receipt joins": {
+     "status": "passed",
+     "class": null
+    },
+    "P14B.1 test 7: rival symmetry genuine Save45 week195 import: current rival authoring preserves the first writer IFF, the first actor positive (P1 if proven, flexible P2 if unproven), and an actual non-achievable zero-attachment witness for a proven person (unproven branches: open coverage finding above)": {
+     "status": "passed",
+     "class": null
+    },
+    "P14B.1 test 7: rival symmetry a rival first take satisfies a promise exactly as a player one does \u2014 found by direct search over the natural chain (never a magic week)": {
+     "status": "passed",
+     "class": null
+    },
+    "P14B.1 test 7: rival symmetry a rival Distrusted issuer / Reliable-vs-Mixed comparison reads through the SAME trustDescriptor accessor for a rival studioId as for the player": {
+     "status": "passed",
+     "class": null
+    },
+    "P14B.1 test 7: rival symmetry a rival early termination of the beneficiary breaks the promise immediately, exactly as a player termination does \u2014 OBSTACLE: no rival-initiated early-termination action is landed; companion \u00a72.1.9 names this explicitly as Ready (post-Core) work, not something Core B.1 offers a verb for.": {
+     "status": "todo",
+     "class": null
+    }
+   }
+  },
+  "tests/p14d2-rival-cost-cutting-adapter.test.ts": {
+   "status": "passed",
+   "message": "",
+   "tests": {
+    "1363 B1 actual staff adapter: refusal causes remain distinct renewal quote refusal does not become a film-team cash vacancy": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1 actual staff adapter: refusal causes remain distinct scientist quote refusal does not become a film-team cash vacancy": {
+     "status": "passed",
+     "class": null
+    }
+   }
+  },
+  "tests/p14d2-rival-cost-cutting.test.ts": {
+   "status": "passed",
+   "message": "",
+   "tests": {
+    "1363 B1: all three entry conditions, independently supplied evidence below reserve": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence exact reserve alone": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence commission package entirely unaffordable": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence writer vacancy refused at staff cash gate": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence team vacancy refused at staff cash gate": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence failed renewal is not a vacancy": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence unrelated Scientist vacancy cash refusal": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence noncash staffing block": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence hold above reserve": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence busy writer above reserve": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence economic refusal alone": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence full-index reason without evaluated screenplay evidence": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence full index all genuinely cash-bound": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence full index cash and cash-caused staffing": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence full index one economic rejection": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence full index noncash staffing": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence no decision opportunity": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence a production": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence a run": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence drafting or rewriting work": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence greenlit this decision": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence commissioned this decision": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B1: all three entry conditions, independently supplied evidence the separately retained legacy reserve-plus-one staffing setup enters cutting": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B3/B4: independent release arithmetic and binding exclusions accepts equality but refuses a one-dollar payback shortfall even when reserve passes": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B3/B4: independent release arithmetic and binding exclusions retains the separate R3 reserve guard when payback itself passes": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B3/B4: independent release arithmetic and binding exclusions protects productionSeat independently": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B3/B4: independent release arithmetic and binding exclusions protects writingSeat independently": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B3/B4: independent release arithmetic and binding exclusions protects unreleasedResearchSeat independently": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B3/B4: independent release arithmetic and binding exclusions protects openPromise independently": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B3/B4: independent release arithmetic and binding exclusions protects a contract with 0 weeks remaining": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B3/B4: independent release arithmetic and binding exclusions protects a contract with 1 weeks remaining": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B3/B4: independent release arithmetic and binding exclusions protects a contract with 26 weeks remaining": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B3/B4: independent release arithmetic and binding exclusions the pure release guard has no profession exclusion; a research seat protects the same facts": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B3/B4: independent release arithmetic and binding exclusions retains a genuinely occupied writing seat while cutting": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B3/B4: independent release arithmetic and binding exclusions releases in employment order with recomputed cash/cost and exact receipts, payroll and free agency": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B2/B5: Part B restrictions and no inflow, separate from disposal does not rehire next week, create positive money, remove plant or discard history": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B7/B8 and the direct live profession proof a real ordinary greenlight clears cutting; the release policy is isolated as a refusal control": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B7/B8 and the direct live profession proof direct profession proof accepts a valid cutting state without relying on tick swallowing a refusal": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B7/B8 and the direct live profession proof has no player cost-cutting field or player termination effect": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B7/B8 and the direct live profession proof never invokes recovery policy in a genuine hollywood-null world": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B2: positive controls for staffing, research and technology restrictions sets new Scientist staffing demand to zero with a real positive demand control": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B2: positive controls for staffing, research and technology restrictions blocks a new renewal with an observed ordinary positive control": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B2: positive controls for staffing, research and technology restrictions blocks a new replacement with an observed ordinary positive control": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B2: positive controls for staffing, research and technology restrictions blocks a new laboratoryPlan with an observed ordinary positive control": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B2: positive controls for staffing, research and technology restrictions blocks a new adoption with an observed ordinary positive control": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B2: positive controls for staffing, research and technology restrictions blocks a new project with an observed ordinary positive control": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B2: positive controls for staffing, research and technology restrictions blocks a new seat with an observed ordinary positive control": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B2: positive controls for staffing, research and technology restrictions continues an already active, already seated research project and pays its work": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B2: every market case, including the extension bypass expiryNew refuses new proposals and withdraws existing proposals before settlement": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B2: every market case, including the extension bypass extensionNew refuses new proposals and withdraws existing proposals before settlement": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B2: every market case, including the extension bypass expiryWithdraw refuses new proposals and withdraws existing proposals before settlement": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 B2: every market case, including the extension bypass extensionWithdraw refuses new proposals and withdraws existing proposals before settlement": {
+     "status": "passed",
+     "class": null
+    }
+   }
+  },
+  "tests/p14d2-rival-facility-disposal.test.ts": {
+   "status": "passed",
+   "message": "",
+   "tests": {
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C1 real paid bare body: exact shared refund, only backed movement and receipt, no input mutation": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C2 four exact protected core IDs refuse on otherwise admitted cutting state": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C2 player, unknown owner, foreign body, unknown body and non-cutting refusals are precise": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C3 genuine admitted unfinished body refuses before it becomes operational": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C3 real admitted instrument protects its target before completion (bounded week 261 premise)": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C4 actual retained research reference protects its laboratory (accepted original45 idle witness)": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C5 disposal at accepted ordinary boundary stops only this body opex before next booking": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C5 disposal at accepted calendar boundary stops only this body opex before next booking": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C5 disposal at the actual operational boundary owes zero laboratory operating weeks": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C6 explicit retry refuses; policy and completion cannot rematerialize or repay the retained started plan": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C7 synthetic single-field authority mutant: wrong-refund": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C7 synthetic single-field authority mutant: wrong-blueprint": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C7 synthetic single-field authority mutant: future-disposal": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C7 synthetic single-field authority mutant: missing-body-plan": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C7 synthetic single-field authority mutant: wrong-owner": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C7 synthetic single-field authority mutant: wrong-body": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C7 synthetic single-field authority mutant: duplicate-disposal": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C7 synthetic single-field authority mutant: refund-movement-mismatch": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C7 synthetic single-field authority mutant: negative-refund-movement": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C7 standing-and-disposed and missing tombstone cannot hide behind valid prior history": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant C9 refund alone preserves cutting and does not create a hire, commission or production": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant S6 direct live profession proof retains the actual refund, missing body and disposal receipt": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C: admitted synthetic policy-state controls over genuine plant S5 empty live-46 down/up control is lossless; it is not the required genuine pre-amendment capture": {
+     "status": "passed",
+     "class": null
+    },
+    "1363-A2 Part C bounded natural route observation records actual autonomous refunds or explicitly reports zero through week 520": {
+     "status": "passed",
+     "class": null
+    }
+   }
+  },
+  "tests/p14d2-save46-migration.test.ts": {
+   "status": "passed",
+   "message": "",
+   "tests": {
+    "1363 Save46 genuine predecessor migration and boundary law adds only null/zero to p13a-week-0.save45.json.gz, preserving all old facts, detached and idempotent": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law adds only null/zero to p13a-week-53.save45.json.gz, preserving all old facts, detached and idempotent": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law validates the predecessor before up-migration and the full current save before any authority refusal": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV4 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV5 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV6 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV7 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV8 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV9 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV10 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV11 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV12 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV13 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV14 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV15 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV16 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV17 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV18 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV19 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV20 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV21 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV22 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV23 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV24 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV25 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV26 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV27 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV28 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV29 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV30 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV31 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV32 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV33 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV34 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV35 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV36 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV37 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV38 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV39 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV40 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV41 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV42 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV43 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV44 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV45 handles empty recovery through exactly the existing predecessor law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV4 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV5 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV6 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV7 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV8 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV9 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV10 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV11 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV12 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV13 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV14 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV15 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV16 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV17 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV18 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV19 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV20 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV21 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV22 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV23 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV24 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV25 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV26 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV27 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV28 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV29 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV30 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV31 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV32 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV33 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV34 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV35 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV36 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV37 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV38 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV39 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV40 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV41 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV42 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV43 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV44 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law migrateToV45 refuses real since before any older-era authority can mask it": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law makeSaveV1 preserves predecessor outcome when recovery is empty, names nonempty recovery": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law makeSaveV2 preserves predecessor outcome when recovery is empty, names nonempty recovery": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law makeSaveV3 preserves predecessor outcome when recovery is empty, names nonempty recovery": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law makeSaveV4 preserves predecessor outcome when recovery is empty, names nonempty recovery": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law makeSaveV5 preserves predecessor outcome when recovery is empty, names nonempty recovery": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law makeSaveV6 preserves predecessor outcome when recovery is empty, names nonempty recovery": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law makeSaveV7 preserves predecessor outcome when recovery is empty, names nonempty recovery": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law makeSaveV8 preserves predecessor outcome when recovery is empty, names nonempty recovery": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law makeSaveV9 preserves predecessor outcome when recovery is empty, names nonempty recovery": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law makeSaveV10 preserves predecessor outcome when recovery is empty, names nonempty recovery": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law makeSaveV11 preserves predecessor outcome when recovery is empty, names nonempty recovery": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law makeSaveV12 preserves predecessor outcome when recovery is empty, names nonempty recovery": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law makeSaveV13 preserves predecessor outcome when recovery is empty, names nonempty recovery": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law makeSaveV14 preserves predecessor outcome when recovery is empty, names nonempty recovery": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law makeSaveV15 preserves predecessor outcome when recovery is empty, names nonempty recovery": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law makeSaveV16 preserves predecessor outcome when recovery is empty, names nonempty recovery": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law makeSaveV17 preserves predecessor outcome when recovery is empty, names nonempty recovery": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law makeSaveV18 preserves predecessor outcome when recovery is empty, names nonempty recovery": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law public V45 keeps its own business and money key law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law public V44 keeps its own business and money key law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law public V43 keeps its own business and money key law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law public V42 keeps its own business and money key law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law public V41 keeps its own business and money key law": {
+     "status": "passed",
+     "class": null
+    },
+    "1363 Save46 genuine predecessor migration and boundary law a real disposal names every inseparable authority rather than hiding refund/tombstone behind since": {
+     "status": "passed",
+     "class": null
+    }
+   }
+  },
+  "tests/p14r3-rival-release.test.ts": {
+   "status": "passed",
+   "message": "",
+   "tests": {
+    "P14 1305-C R3: rival early release \u2014 decision and effects (happy path, all four strategy conditions hold) releases the synthetic-surplus employee exactly at the tested week: charge, movement, end receipt, ordinal removal, freeAgents, signability": {
+     "status": "passed",
+     "class": null
+    },
+    "P14 1305-C R3: one leaf per failed strategy condition keeps the person condition (b) fails \u2014 26 or fewer weeks remain (still outside the 12-week renewal window): the person is kept": {
+     "status": "passed",
+     "class": null
+    },
+    "P14 1305-C R3: one leaf per failed strategy condition keeps the person condition (a) fails \u2014 seated on the rival's own active production keeps the person (bounded natural search, weeks 1..150, NOT the synthetic rewrite)": {
+     "status": "passed",
+     "class": null
+    },
+    "P14 1305-C R3: one leaf per failed strategy condition keeps the person condition (c) fails \u2014 an open/current promise from this rival to the person keeps them: STOPPED, not written. attachPromise (promises.ts:690) requires an EXISTING proposal from this issuer to this person (state.talentMarket.proposals.find(...), promises.ts:702-705), which under P14A only exists for a person inside an OPEN CASE \u2014 i.e. inside the 12-week renewal window (remaining<=12), which is INCOMPATIBLE with condition (b) (more than 26 weeks remain) at the SAME contract. A promise attached during an EARLIER case (a prior contract's renewal) could still be open on a later, longer contract, but constructing that requires driving an entire proposal/settlement cycle via public actions not verified to exist for rival-authored promises in this pass, or fabricating a promise/proposal pair directly (state beyond the one labeled role rewrite). Per the stop rule this leaf is not written; see 1305-C handback for the parent-prerequisite note.": {
+     "status": "skipped",
+     "class": null
+    },
+    "P14 1305-C R3: one leaf per failed strategy condition keeps the person condition (d) fails \u2014 cash after the charge is below reserve computed without the person: STOPPED, not written. Founding rival capital is $20M-$38M (hollywoodStartingData.ts) against a ~$1e5/week operating cost (companion \u00a73.5 E4's worked MID-team figure); depleting cash to within one termination charge of reserve via ONLY public ticks (no fabricated account.cash) was not judged reachable within a bounded, statable tick count without executing the simulation to check. Per the stop rule this leaf is not written; see 1305-C handback.": {
+     "status": "skipped",
+     "class": null
+    },
+    "P14 1305-C R3: Scientists are never R3-surplus a rival with employed Scientists and no surplus team-role employee releases nobody (natural world, no synthetic rewrite)": {
+     "status": "passed",
+     "class": null
+    },
+    "P14 R3 and recovery: natural role targets and accounted cutting releases keeps role targets and accounts for every lawful cutting release across weeks 1..150": {
+     "status": "passed",
+     "class": null
+    }
+   }
+  },
+  "tests/p15a1-market-integration.test.ts": {
+   "status": "failed",
+   "message": "",
+   "tests": {
+    "p15a1 market seam (RED 1-2, 1355-A \u00a73.2) market-seam-default-exact: no factor and a factor of exactly 1 give bit-equal results [control]": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a1 market seam (RED 1-2, 1355-A \u00a73.2) market-seam-default-exact: the default path is bit-equal to the RED-commit pin [control, fixture-pending]": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a1 market seam (RED 1-2, 1355-A \u00a73.2) market-seam-scales-opening-only: f < 1 scales the opening and total only; ReceptionResult reports f": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a1 market seam (RED 1-2, 1355-A \u00a73.2) market-seam-scales-opening-only: a factor outside [1 \u2212 SHARED_MARKET_FACTOR_MAX_PENALTY, 1] throws": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a1 market forecast paths (RED 3, 1355-A \u00a73.2 \"never carry it\") market-forecast-paths-unchanged: agent choices and forecast history ignore the root [control]": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a1 market forecast paths (RED 3, 1355-A \u00a73.2 \"never carry it\") market-forecast-paths-unchanged: a week of rival decisions with no release ignores the root [control]": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market due set (RED 4-5, 1355-A \u00a73.1) market-due-set-equals-releases: frozen members are the committed player release plus every rival picture at 1": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market due set (RED 4-5, 1355-A \u00a73.1) market-due-set-mismatch-fails-closed: a frozen batch missing a due rival picture throws, input unchanged": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market due set (RED 4-5, 1355-A \u00a73.1) market-due-set-mismatch-fails-closed: a frozen batch naming a picture nobody releases throws, input unchanged": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market live batches (RED 6-9) market-live-one-player-one-rival: same genre, same week, both pressureFactor(1), each names the other": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market live batches (RED 6-9) market-live-window-stock-retire: releases at W\u22122, W\u221210 and W\u221226 act through WINDOW_RELEASES, GENRE_SATURATION and nothing": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market live batches (RED 6-9) market-live-self-exclusion-clamp: one studio's two same-genre same-week releases see each other at 1.00, never themselves": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market live batches (RED 6-9) market-live-no-player-flag: a persisted row carries exactly the law fields and the 1355-F2 fields, no owner": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market live batches (RED 6-9) market-live-no-player-flag: mirror fixtures that swap the player studio give equal assessments after id normalization": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market chronology controls (RED 10-11, 1355-A \u00a74 K1/K2) market-week-diff-confined (K1): the K1 week is pressured exactly where the law says": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market chronology controls (RED 10-11, 1355-A \u00a74 K1/K2) market-week-diff-confined (K1): one pressured tick differs from the RED-commit pin only inside the pressured chain [control, fixture-pending]": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a1 market chronology controls (RED 10-11, 1355-A \u00a74 K1/K2) market-no-pressure-week-identity (K2): every release of the K2 week is assessed at P = 0 and f = 1": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market chronology controls (RED 10-11, 1355-A \u00a74 K1/K2) market-no-pressure-week-identity (K2): the post-tick state minus the new roots is byte-equal to the RED-commit pin [control, fixture-pending]": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a1 market root (RED 12-13, 1355-A \u00a73.3; 1355-F2 item 2; 1355-F3) market-root-append-canonical: one ordered append per week; derived exposures equal reduceExposures": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market root (RED 12-13, 1355-A \u00a73.3; 1355-F2 item 2; 1355-F3) market-root-append-canonical: rows ascend in (week, releaseId) and in p15DomainSequence, each with its v1 phase triple": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market root (RED 12-13, 1355-A \u00a73.3; 1355-F2 item 2; 1355-F3) market-inflight-save-replay: save during an active exposure, reload, run 30 weeks: assessments and terminal save equal an unsaved run": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: the unforged route state validates (premise of every refusal below)": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged pressure by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged factor by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged windowTerm by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged stockTerm by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged reason by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged inputDigest by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses rows out of (week, releaseId) order by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a duplicate assessment by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an orphan assessment with no film by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a missing assessment by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an assessment before recordedFromWeek by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an assessment at the tick by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an unknown definitionVersion by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an unknown root version by name": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an owner field on a row (exact keys) by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a duplicate p15DomainSequence by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a p15DomainSequence at p15Sequence.next by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a p15DomainSequence below 1 by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a stale p15Sequence.next by name": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a phase ordinal off its version's table entry by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses another phase's phaseId by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an unknown phaseOrderVersion by name": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: across P15 roots, a sibling row may hold the largest sequence and a market row may not reuse a sibling's": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market era guard (RED 15) market-definition-era-guard: while the definition is p15a1-market-v1 its seven TUNING values are v1's [control]": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a1 market old saves (RED 16) market-old-save: the genuine capture below the step loads to the empty root at its tick; a second migration is a no-op; it round-trips while empty [fixture-pending]": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a1 market old saves (RED 16) market-old-save: the first batches after migration see no pre-migration release [fixture-pending]": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market old saves (RED 16) market-old-save: the genuine Save42 week-130 capture lifts to an empty root at its own week and steps down losslessly while empty": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a1 market old saves (RED 16) market-old-save: a non-empty root refuses the downgrade by name, at the step and through every older migrator": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market disengaged world (RED 17) market-disengaged-world: with no industry there is no batch: the root stays empty at week 0 and no market row exists anywhere": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a1 market disengaged world (RED 17) market-disengaged-world: the M0A outputs equal the RED-commit pin [control, fixture-pending]": {
+     "status": "passed",
+     "class": null
+    },
+    "p15a1 market persisted storage (RED 18) market-large-batch-persisted-linear: every live row is bounded: exact keys, at most five reasons of at most five ids": {
+     "status": "failed",
+     "class": "SAME"
+    },
+    "p15a1 market persisted storage (RED 18) market-large-batch-persisted-linear: 32- and 512-member batches persist equal-bounded rows and linear root bytes": {
+     "status": "failed",
+     "class": "SAME"
+    }
+   }
+  },
+  "tests/p15c2-campaign-legacy-integration.test.ts": {
+   "status": "failed",
+   "message": "",
+   "tests": {
+    "p15c2 controls: the fixtures are lawful at RED and at GREEN legacy-control-late-founding-route-lawful": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 controls: the fixtures are lawful at RED and at GREEN legacy-control-genuine-save38-6240-lawful": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-film-facts": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-run-status": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-run-status-natural-no-run": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-private-money-never-read": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-career-events": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-studios": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-domain-facts": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-sibling-roots": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-p15-watermarks": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 adapter: legacyFactsFromState (1359-A \u00a73.1-\u00a73.2, RED A1-A9) legacy-adapter-missing-concept-refuses": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 boundary: the freeze as the tick's last step (1359-A \u00a74, RED B1-B9) legacy-tick-freezes-once-at-6240": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 boundary: the freeze as the tick's last step (1359-A \u00a74, RED B1-B9) legacy-freeze-writes-only-its-root": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 boundary: the freeze as the tick's last step (1359-A \u00a74, RED B1-B9) legacy-condition-at-6240-outside": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 boundary: the freeze as the tick's last step (1359-A \u00a74, RED B1-B9) legacy-adapter-only-at-boundary": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 boundary: the freeze as the tick's last step (1359-A \u00a74, RED B1-B9) legacy-ticks-after-freeze": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 boundary: the freeze as the tick's last step (1359-A \u00a74, RED B1-B9) legacy-hollywood-null-no-freeze": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 boundary: the freeze as the tick's last step (1359-A \u00a74, RED B1-B9) legacy-determinism": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 root: seed, migration and downgrade (1359-A \u00a75.2, RED C1-C5) legacy-root-fresh": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 root: seed, migration and downgrade (1359-A \u00a75.2, RED C1-C5) legacy-migration-empty-root": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 root: seed, migration and downgrade (1359-A \u00a75.2, RED C1-C5) legacy-migration-empty-root-genuine-save38": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 root: seed, migration and downgrade (1359-A \u00a75.2, RED C1-C5) legacy-migration-before-boundary": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 root: seed, migration and downgrade (1359-A \u00a75.2, RED C1-C5) legacy-migration-past-boundary": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 root: seed, migration and downgrade (1359-A \u00a75.2, RED C1-C5) legacy-migration-past-boundary-genuine-save38": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 root: seed, migration and downgrade (1359-A \u00a75.2, RED C1-C5) legacy-root-downgrade": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-marker": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-manifest-identity": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-stamp": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-bounds": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-refs": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-validate-refs-post-boundary-row": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-definition-era-guard": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 validation: validateSaveVN over the root (1359-A \u00a75.1 with 1359-F Amendment 1, RED C6-C12) legacy-round-trip": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) legacy-validate-replay": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) legacy-old-law-fixture-v1-validates-after-retune": {
+     "status": "failed",
+     "class": "NEW"
+    },
+    "p15c2 law: an authored film may settle with no week (1359-F2 F1; 1359-D item 7) legacy-law-settled-week-null-authored-only": {
+     "status": "passed",
+     "class": null
+    }
+   }
+  },
+  "tests/p15c2-campaign-legacy-sibling.test.ts": {
+   "status": "failed",
+   "message": "",
+   "tests": {
+    "p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A \u00a78 B2, B4, C3, C8, C10) legacy-freeze-is-last-allocation": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A \u00a78 B2, B4, C3, C8, C10) legacy-ranking-at-6240-inside-live-tick": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A \u00a78 B2, B4, C3, C8, C10) legacy-migration-before-boundary-siblings-limited": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A \u00a78 B2, B4, C3, C8, C10) legacy-validate-stamp-duplicate-across-roots": {
+     "status": "passed",
+     "class": null
+    },
+    "p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A \u00a78 B2, B4, C3, C8, C10) legacy-validate-refs-sibling-added-after-freeze": {
+     "status": "failed",
+     "class": "NEW"
+    }
+   }
+  }
+ },
+ "totals": {
+  "passed": 385,
+  "failed": 69,
+  "pending": 2,
+  "todo": 2,
+  "files": 22
+ }
+}

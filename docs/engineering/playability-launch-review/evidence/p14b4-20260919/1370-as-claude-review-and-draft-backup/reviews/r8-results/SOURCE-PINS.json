@@ -1,0 +1,50 @@
+{
+  "schema": "1370-as-r8-results-review-source-pins/v1",
+  "roles": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-r8-results-review-20261010-r1/REPORT.md",
+      "bytes": 5944,
+      "sha256": "321d1d083a6b4e74fbcea47e5ba3c75d63e6d135e23f791ea7ffd3e76cb41e46"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-r8-results-review-20261010-r1/RESULTS-REVIEW.json",
+      "bytes": 131343,
+      "sha256": "192b0979cd5365b5e047b961dda9d99da8485d3cd14667090bdc8f320efebb32"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-r8-results-review-20261010-r1/predecessor/END",
+      "bytes": 21,
+      "sha256": "bcd70eaf570a19a990b8cd5d7579a8a80aa32f8bc38807aad415a3e897090388"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-r8-results-review-20261010-r1/predecessor/EXIT",
+      "bytes": 7,
+      "sha256": "cf205dbb8cea84897b488abcc281bf96698d5e94b1096b16657b4caba9082a22"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-r8-results-review-20261010-r1/predecessor/HEAD",
+      "bytes": 41,
+      "sha256": "2c79a03f633acbafdb0c3d7173542afd493865c5f5561d6a418aa4ef1925a99f"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-r8-results-review-20261010-r1/predecessor/START",
+      "bytes": 21,
+      "sha256": "3974ac5a446a92651d42656898070352e8b55c90267dcb260508669716c2dd2c"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-r8-results-review-20261010-r1/predecessor/core-6510c971.json",
+      "bytes": 2621214,
+      "sha256": "e649068befaccd7910520790810e408a6ec0ac902b07d72a35f1fdf85a820f06"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-r8-results-review-20261010-r1/predecessor/core-6510c971.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-as-r8-results-review-20261010-r1/predecessor/core-6510c971.stdout",
+      "bytes": 1062,
+      "sha256": "46b611087f1fa0c719e26ae03923843121c8a219685f8834d97a9a1cd03d59ed"
+    }
+  ]
+}

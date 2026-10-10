@@ -1,0 +1,73 @@
+--- after/src/core/financeReport.ts
++++ claude-original/src/core/financeReport.ts
+@@ -16,9 +16,6 @@
+   setCapex: 'Set capital spending', setDemolitionRefund: 'Set capital recovered',
+   setMaintenance: 'One-time Set repairs', signingBonus: 'Signing and renewal bonuses',
+   termination: 'Termination payments', publicity: 'Publicity',
+-  rightsConsideration: 'Rights sale proceeds, purchases and licence fees',
+-  dueDiligenceFee: 'Rights due diligence fees',
+-  acquisitionOutlay: 'Acquisition consideration net of target cash',
+ }
+ export type FinanceCategory = { kind: LedgerKind; label: string; amount: number; entryCount: number }
+ export const FINANCE_TIME_CLASSES = {
+--- after/src/core/save.ts
++++ claude-original/src/core/save.ts
+@@ -7049,12 +7049,6 @@
+   // P13B-S6: a cancellation refund can only follow a capital commitment this
+   // studio made, so it proves engagement for exactly the reason the capex row does.
+   constructionRefund: true,
+-  // P16 kinds are present for current LedgerKind exhaustiveness only.
+-  // This historical V5→V6 reconstruction retains their former falsy lookup
+-  // behavior; modern rights transactions are not V5 engagement evidence.
+-  rightsConsideration: false,
+-  dueDiligenceFee: false,
+-  acquisitionOutlay: false,
+ } as const satisfies Record<LedgerKind, boolean>;
+ 
+ function ledgerKindProvesEngagement(kind: LedgerKind): boolean {
+--- after/tests/p16a-save-v46.test.ts
++++ claude-original/tests/p16a-save-v46.test.ts
+@@ -151,12 +151,12 @@
+     expectRefusal(dupe, /genesis/)
+     const broken = detached(base)
+     broken.state.rights.titleEvents.push({ ...genesis, id: 'rights-event-99', ordinal: 2, cause: 'sale', priorHolder: 'studio-someone-else', newHolder: f.studioId,
+-      date: { kind: 'campaign', week: broken.state.market.tick }, boundaryOrder: 99, source: { kind: 'transaction', transactionId: 'rights-tx-missing' } })
++      date: { kind: 'campaign', week: broken.state.market.tick }, boundaryOrder: 99, source: { kind: 'test', ref: 'x' } })
+     broken.state.rights.nextId = 100
+     expectRefusal(broken, /priorHolder/)
+     const future = detached(base)
+     future.state.rights.titleEvents.push({ ...genesis, id: 'rights-event-99', ordinal: 2, cause: 'sale', priorHolder: f.studioId, newHolder: future.state.hollywood!.identities[2]!.studioId,
+-      date: { kind: 'campaign', week: future.state.market.tick + 1 }, boundaryOrder: 99, source: { kind: 'transaction', transactionId: 'rights-tx-missing' } })
++      date: { kind: 'campaign', week: future.state.market.tick + 1 }, boundaryOrder: 99, source: { kind: 'test', ref: 'x' } })
+     future.state.rights.nextId = 100
+     expectRefusal(future, /future/)
+     const ordinal = detached(base); ordinal.state.rights.titleEvents[0]!.ordinal = 5
+@@ -184,7 +184,7 @@
+     const f = film(base)
+     const archived = detached(base)
+     archived.state.rights.titleEvents.push({ id: 'rights-event-99', subject: { right: 'R2', filmId: f.filmId }, ordinal: 2, cause: 'archive', priorHolder: f.studioId,
+-      newHolder: `estate:${f.studioId}`, date: { kind: 'campaign', week: archived.state.market.tick }, boundaryOrder: 99, source: { kind: 'estate', estateId: `estate:${f.studioId}` } })
++      newHolder: `estate:${f.studioId}`, date: { kind: 'campaign', week: archived.state.market.tick }, boundaryOrder: 99, source: { kind: 'test', ref: 'x' } })
+     archived.state.rights.nextId = 100
+     expectRefusal(archived, /estate/)
+     const orphan = detached(base)
+--- after/tests/p16a-valuation.test.ts
++++ claude-original/tests/p16a-valuation.test.ts
+@@ -198,7 +198,7 @@
+     const sold = rights.recordTitleEventForTest(
+       rights.materializeLegacyTitles(withScore(base, film.filmId, 101), { right: 'R2', filmId: film.filmId }),
+       { subject: { right: 'R2', filmId: film.filmId }, priorHolder: r01, newHolder: r02, cause: 'sale',
+-        date: { kind: 'campaign', week: (film.releasedAt as { week: number }).week }, source: { kind: 'manual', ref: 'p16a-valuation' } })
++        date: { kind: 'campaign', week: (film.releasedAt as { week: number }).week }, source: { kind: 'test', ref: 'p16a-valuation' } })
+     // r02 now holds the film: pricing it refuses on the score.
+     expect(valuation.libraryValuationV1(sold, r02, sold.market.tick)).toEqual({ kind: 'unavailable', reason: 'criticScoreOutsideValuationRange', filmId: film.filmId })
+     // r01 still holds the PROPERTY, whose option premium would read that score: refused too, with the same FilmId.
+@@ -270,7 +270,7 @@
+     expect(saleWeek).toBeLessThanOrEqual(base.market.tick)
+     const sold = rights.recordTitleEventForTest(rights.materializeLegacyTitles(base, { right: 'R2', filmId: film.filmId }),
+       { subject: { right: 'R2', filmId: film.filmId }, priorHolder: r01, newHolder: r02, cause: 'sale',
+-        date: { kind: 'campaign', week: saleWeek }, source: { kind: 'manual', ref: 'p16a-valuation' } })
++        date: { kind: 'campaign', week: saleWeek }, source: { kind: 'test', ref: 'p16a-valuation' } })
+     const value = r2Value(film.score)
+     const r01Before = valuation.libraryValuationV1(sold, r01, saleWeek - 1)
+     const r01At = valuation.libraryValuationV1(sold, r01, saleWeek)

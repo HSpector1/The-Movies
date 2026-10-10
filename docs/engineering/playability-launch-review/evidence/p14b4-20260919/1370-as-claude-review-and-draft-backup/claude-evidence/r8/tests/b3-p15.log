@@ -1,0 +1,785 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/r8
+
+stdout | tests/p15c2-campaign-legacy-integration.test.ts > p15c2 controls: the fixtures are lawful at RED and at GREEN > legacy-control-late-founding-route-lawful
+{"kind":"1359-legacy-route-timing","seed":"1359-legacy-late-founding-01","headlessTo6188":6230.736124999999,"industry6188To6241":12623.693652000002}
+
+stdout | tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-ticks-after-freeze
+{"kind":"1359-legacy-extension-timing","headlessTo6188":6230.736124999999,"industry6188To6241":12623.693652000002,"extension520Ms":24880.569387000003}
+
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 controls: the fixtures are lawful at RED and at GREEN > legacy-control-late-founding-route-lawful 19827ms
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 controls: the fixtures are lawful at RED and at GREEN > legacy-control-genuine-save38-6240-lawful
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-film-facts
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-run-status
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-run-status-natural-no-run
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-private-money-never-read
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-career-events
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-studios
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-domain-facts
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-sibling-roots 983ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-p15-watermarks
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-missing-concept-refuses
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-tick-freezes-once-at-6240
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-freeze-writes-only-its-root 504ms
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-condition-at-6240-outside
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-adapter-only-at-boundary 25445ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-ticks-after-freeze 331ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-hollywood-null-no-freeze
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-determinism 11114ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-root-fresh
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-empty-root 2418ms
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-empty-root-genuine-save38
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-before-boundary 1578ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-past-boundary 1837ms
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-past-boundary-genuine-save38
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-root-downgrade
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-marker
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-manifest-identity
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-stamp
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-bounds
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-refs
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-refs-post-boundary-row 302ms
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-definition-era-guard
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-round-trip 1204ms
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) > legacy-validate-replay
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ × |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) > legacy-old-law-fixture-v1-validates-after-retune
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 law: an authored film may settle with no week (1359-F2 F1; 1359-D item 7) > legacy-law-settled-week-null-authored-only
+ ✓ |core| tests/p15a1-market-integration.test.ts > p15a1 market seam (RED 1-2, 1355-A §3.2) > market-seam-default-exact: no factor and a factor of exactly 1 give bit-equal results [control]
+ ✓ |core| tests/p15a1-market-integration.test.ts > p15a1 market seam (RED 1-2, 1355-A §3.2) > market-seam-default-exact: the default path is bit-equal to the RED-commit pin [control, fixture-pending]
+ ✓ |core| tests/p15a1-market-integration.test.ts > p15a1 market seam (RED 1-2, 1355-A §3.2) > market-seam-scales-opening-only: f < 1 scales the opening and total only; ReceptionResult reports f
+ ✓ |core| tests/p15a1-market-integration.test.ts > p15a1 market seam (RED 1-2, 1355-A §3.2) > market-seam-scales-opening-only: a factor outside [1 − SHARED_MARKET_FACTOR_MAX_PENALTY, 1] throws
+ ✓ |core| tests/p15a1-market-integration.test.ts > p15a1 market forecast paths (RED 3, 1355-A §3.2 "never carry it") > market-forecast-paths-unchanged: agent choices and forecast history ignore the root [control] 3182ms
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market forecast paths (RED 3, 1355-A §3.2 "never carry it") > market-forecast-paths-unchanged: a week of rival decisions with no release ignores the root [control] 1312ms
+   → tick: the sharedMarket root already holds market assessments (12 recorded); the save was written by a build with the market batch, and this build cannot move recordedFromWeek past those rows
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market due set (RED 4-5, 1355-A §3.1) > market-due-set-equals-releases: frozen members are the committed player release plus every rival picture at 1
+   → expected '[]' to be '[{"genre":"horror","releaseId":"prod-…' // Object.is equality
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market due set (RED 4-5, 1355-A §3.1) > market-due-set-mismatch-fails-closed: a frozen batch missing a due rival picture throws, input unchanged
+   → expected [Function] to throw an error
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market due set (RED 4-5, 1355-A §3.1) > market-due-set-mismatch-fails-closed: a frozen batch naming a picture nobody releases throws, input unchanged
+   → expected [Function] to throw an error
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-one-player-one-rival: same genre, same week, both pressureFactor(1), each names the other
+   → the player release is assessed: expected undefined to be defined
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-window-stock-retire: releases at W−2, W−10 and W−26 act through WINDOW_RELEASES, GENRE_SATURATION and nothing
+   → tick: the sharedMarket root already holds market assessments (3 recorded); the save was written by a build with the market batch, and this build cannot move recordedFromWeek past those rows
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-self-exclusion-clamp: one studio's two same-genre same-week releases see each other at 1.00, never themselves
+   → expected [] to have a length of 2 but got +0
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-no-player-flag: a persisted row carries exactly the law fields and the 1355-F2 fields, no owner
+   → expected 0 to be greater than 0
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-no-player-flag: mirror fixtures that swap the player studio give equal assessments after id normalization
+   → expected 0 to be greater than or equal to 2
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2) > market-week-diff-confined (K1): the K1 week is pressured exactly where the law says
+   → expected '[]' to be '[{"genre":"comedy","releaseId":"studi…' // Object.is equality
+ ✓ |core| tests/p15a1-market-integration.test.ts > p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2) > market-week-diff-confined (K1): one pressured tick differs from the RED-commit pin only inside the pressured chain [control, fixture-pending] 1674ms
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2) > market-no-pressure-week-identity (K2): every release of the K2 week is assessed at P = 0 and f = 1
+   → expected '[]' to be '[{"genre":"drama","releaseId":"studio…' // Object.is equality
+ ✓ |core| tests/p15a1-market-integration.test.ts > p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2) > market-no-pressure-week-identity (K2): the post-tick state minus the new roots is byte-equal to the RED-commit pin [control, fixture-pending] 1443ms
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market root (RED 12-13, 1355-A §3.3; 1355-F2 item 2; 1355-F3) > market-root-append-canonical: one ordered append per week; derived exposures equal reduceExposures
+   → expected 1 to be +0 // Object.is equality
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market root (RED 12-13, 1355-A §3.3; 1355-F2 item 2; 1355-F3) > market-root-append-canonical: rows ascend in (week, releaseId) and in p15DomainSequence, each with its v1 phase triple 5880ms
+   → expected 0 to be greater than 0
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market root (RED 12-13, 1355-A §3.3; 1355-F2 item 2; 1355-F3) > market-inflight-save-replay: save during an active exposure, reload, run 30 weeks: assessments and terminal save equal an unsaved run
+   → an active exposure at the save: expected false to be true // Object.is equality
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: the unforged route state validates (premise of every refusal below)
+   → premise: rows in at least two weeks: expected 0 to be greater than or equal to 3
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged pressure by name
+   → Cannot read properties of undefined (reading 'pressure')
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged factor by name
+   → Cannot read properties of undefined (reading 'factor')
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged windowTerm by name
+   → Cannot read properties of undefined (reading 'windowTerm')
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged stockTerm by name
+   → Cannot read properties of undefined (reading 'stockTerm')
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged reason by name
+   → Cannot read properties of undefined (reading 'pressure')
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged inputDigest by name
+   → Cannot set properties of undefined (setting 'inputDigest')
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses rows out of (week, releaseId) order by name 460ms
+   → expected [Function] to throw an error
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a duplicate assessment by name 357ms
+   → expected [Function] to throw error matching /duplicate|twice|order|ascend/i but got 'validateSaveV45: sharedMarket assessm…'
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an orphan assessment with no film by name
+   → Cannot read properties of undefined (reading 'week')
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a missing assessment by name
+   → fixture premise: no removable row
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an assessment before recordedFromWeek by name
+   → Cannot read properties of undefined (reading 'week')
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an assessment at the tick by name
+   → Cannot read properties of undefined (reading 'phaseId')
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an unknown definitionVersion by name
+   → Cannot set properties of undefined (setting 'definitionVersion')
+ ✓ |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an unknown root version by name
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an owner field on a row (exact keys) by name
+   → Cannot set properties of undefined (setting 'owner')
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a duplicate p15DomainSequence by name
+   → Cannot read properties of undefined (reading 'p15DomainSequence')
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a p15DomainSequence at p15Sequence.next by name
+   → Cannot set properties of undefined (setting 'p15DomainSequence')
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a p15DomainSequence below 1 by name
+   → Cannot set properties of undefined (setting 'p15DomainSequence')
+ ✓ |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a stale p15Sequence.next by name
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a phase ordinal off its version's table entry by name
+   → Cannot read properties of undefined (reading 'phaseOrdinal')
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses another phase's phaseId by name
+   → Cannot set properties of undefined (setting 'phaseId')
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an unknown phaseOrderVersion by name
+   → Cannot set properties of undefined (setting 'phaseOrderVersion')
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: across P15 roots, a sibling row may hold the largest sequence and a market row may not reuse a sibling's
+   → premise: a sibling sequence below some market row: expected undefined to be defined
+ ✓ |core| tests/p15a1-market-integration.test.ts > p15a1 market era guard (RED 15) > market-definition-era-guard: while the definition is p15a1-market-v1 its seven TUNING values are v1's [control]
+ ✓ |core| tests/p15a1-market-integration.test.ts > p15a1 market old saves (RED 16) > market-old-save: the genuine capture below the step loads to the empty root at its tick; a second migration is a no-op; it round-trips while empty [fixture-pending] 3037ms
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market old saves (RED 16) > market-old-save: the first batches after migration see no pre-migration release [fixture-pending] 3671ms
+   → studio-315405e1-r03:film:2 is assessed within 26 weeks of the migration: expected undefined to be defined
+ ✓ |core| tests/p15a1-market-integration.test.ts > p15a1 market old saves (RED 16) > market-old-save: the genuine Save42 week-130 capture lifts to an empty root at its own week and steps down losslessly while empty 5485ms
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market old saves (RED 16) > market-old-save: a non-empty root refuses the downgrade by name, at the step and through every older migrator
+   → premise: a recorded assessment: expected 0 to be greater than 0
+ ✓ |core| tests/p15a1-market-integration.test.ts > p15a1 market disengaged world (RED 17) > market-disengaged-world: with no industry there is no batch: the root stays empty at week 0 and no market row exists anywhere 3404ms
+ ✓ |core| tests/p15a1-market-integration.test.ts > p15a1 market disengaged world (RED 17) > market-disengaged-world: the M0A outputs equal the RED-commit pin [control, fixture-pending]
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market persisted storage (RED 18) > market-large-batch-persisted-linear: every live row is bounded: exact keys, at most five reasons of at most five ids
+   → expected 0 to be greater than 0
+ × |core| tests/p15a1-market-integration.test.ts > p15a1 market persisted storage (RED 18) > market-large-batch-persisted-linear: 32- and 512-member batches persist equal-bounded rows and linear root bytes
+   → premise: a live row supplies the persisted shape: expected undefined to be defined
+ ✓ |core| tests/p15c2-campaign-legacy-sibling.test.ts > p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-freeze-is-last-allocation 29165ms
+ ✓ |core| tests/p15c2-campaign-legacy-sibling.test.ts > p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-ranking-at-6240-inside-live-tick
+ ✓ |core| tests/p15c2-campaign-legacy-sibling.test.ts > p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-migration-before-boundary-siblings-limited 2369ms
+ ✓ |core| tests/p15c2-campaign-legacy-sibling.test.ts > p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-validate-stamp-duplicate-across-roots 315ms
+ × |core| tests/p15c2-campaign-legacy-sibling.test.ts > p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-validate-refs-sibling-added-after-freeze
+   → ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 61 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market forecast paths (RED 3, 1355-A §3.2 "never carry it") > market-forecast-paths-unchanged: a week of rival decisions with no release ignores the root [control]
+Error: tick: the sharedMarket root already holds market assessments (12 recorded); the save was written by a build with the market batch, and this build cannot move recordedFromWeek past those rows
+ ❯ Module.tick src/core/tick.ts:1073:11
+
+ ❯ tests/p15a1-market-integration.test.ts:274:36
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market due set (RED 4-5, 1355-A §3.1) > market-due-set-equals-releases: frozen members are the committed player release plus every rival picture at 1
+AssertionError: expected '[]' to be '[{"genre":"horror","releaseId":"prod-…' // Object.is equality
+
+Expected: "[{"genre":"horror","releaseId":"prod-0005","studioId":"studio-be7356c7-player"},{"genre":"comedy","releaseId":"studio-be7356c7-r01:film:1","studioId":"studio-be7356c7-r01"},{"genre":"comedy","releaseId":"studio-be7356c7-r02:film:1","studioId":"studio-be7356c7-r02"},{"genre":"horror","releaseId":"studio-be7356c7-r03:film:1","studioId":"studio-be7356c7-r03"},{"genre":"romance","releaseId":"studio-be7356c7-r04:film:1","studioId":"studio-be7356c7-r04"}]"
+Received: "[]"
+
+ ❯ tests/p15a1-market-integration.test.ts:294:67
+    292|       ...rivalDue(pair.pre),
+    293|     ])
+    294|     expect(canon(byRelease(rowsAt(post, pair.week).map(member)))).toBe…
+       |                                                                   ^
+    295|     const assessed = new Set(marketRoot(post).assessments.map((row) =>…
+    296|     expect(assessed.has(held.id), 'a held, uncommitted picture is not …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market due set (RED 4-5, 1355-A §3.1) > market-due-set-mismatch-fails-closed: a frozen batch missing a due rival picture throws, input unchanged
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/p15a1-market-integration.test.ts:310:53
+    308|     const missing = due[0]!
+    309|     const forged = new Map(due.slice(1).map((m) => [m.releaseId, 1]))
+    310|     expect(() => advanceWithFactors(state, forged)).toThrow(missing.re…
+       |                                                     ^
+    311|     expect(canon(state)).toBe(before)
+    312|   }, MEDIUM)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market due set (RED 4-5, 1355-A §3.1) > market-due-set-mismatch-fails-closed: a frozen batch naming a picture nobody releases throws, input unchanged
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/p15a1-market-integration.test.ts:318:54
+    316|     const before = canon(state)
+    317|     const phantom = new Map([...rivalDue(state).map((m) => [m.releaseI…
+    318|     expect(() => advanceWithFactors(state, phantom)).toThrow('p15a1-re…
+       |                                                      ^
+    319|     expect(canon(state)).toBe(before)
+    320|   }, MEDIUM)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-one-player-one-rival: same genre, same week, both pressureFactor(1), each names the other
+AssertionError: the player release is assessed: expected undefined to be defined
+ ❯ tests/p15a1-market-integration.test.ts:334:52
+    332|     const mine = rows.find((row) => row.releaseId === pair.picture.pro…
+    333|     const theirs = rows.find((row) => row.releaseId === pair.rival.rel…
+    334|     expect(mine, 'the player release is assessed').toBeDefined()
+       |                                                    ^
+    335|     expect(theirs, 'the rival release is assessed').toBeDefined()
+    336|     const sameWeek = TUNING.SHARED_MARKET_WINDOW_WEIGHTS[0]!
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-window-stock-retire: releases at W−2, W−10 and W−26 act through WINDOW_RELEASES, GENRE_SATURATION and nothing
+Error: tick: the sharedMarket root already holds market assessments (3 recorded); the save was written by a build with the market batch, and this build cannot move recordedFromWeek past those rows
+ ❯ Module.tick src/core/tick.ts:1073:11
+
+ ❯ tests/p15a1-market-integration.test.ts:361:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-self-exclusion-clamp: one studio's two same-genre same-week releases see each other at 1.00, never themselves
+AssertionError: expected [] to have a length of 2 but got +0
+
+- Expected
++ Received
+
+- 2
++ 0
+
+ ❯ tests/p15a1-market-integration.test.ts:384:18
+    382|     const post = tick(commitPictures(withEmptyMarketRoot(twin.pre, twi…
+    383|     const rows = rowsAt(post, twin.week).filter((row) => ids.includes(…
+    384|     expect(rows).toHaveLength(2)
+       |                  ^
+    385|     const sameWeek = TUNING.SHARED_MARKET_WINDOW_WEIGHTS[0]!
+    386|     const clamped = Math.min(sameWeek, TUNING.SHARED_MARKET_STUDIO_WIN…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-no-player-flag: a persisted row carries exactly the law fields and the 1355-F2 fields, no owner
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/p15a1-market-integration.test.ts:402:25
+    400|     const post = tick(commitPictures(withEmptyMarketRoot(pair.pre, pai…
+    401|     const rows = marketRoot(post).assessments
+    402|     expect(rows.length).toBeGreaterThan(0)
+       |                         ^
+    403|     for (const row of rows) expect(Object.keys(row).sort()).toEqual([.…
+    404|   }, MEDIUM)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market live batches (RED 6-9) > market-live-no-player-flag: mirror fixtures that swap the player studio give equal assessments after id normalization
+AssertionError: expected 0 to be greater than or equal to 2
+ ❯ tests/p15a1-market-integration.test.ts:422:25
+    420|     const mine = rowsAt(tick(base), pair.week)
+    421|     const theirs = rowsAt(tick(twin), pair.week)
+    422|     expect(mine.length).toBeGreaterThanOrEqual(2)
+       |                         ^
+    423|     expect(normalized(theirs, true)).toBe(normalized(mine, false))
+    424|   }, MEDIUM)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2) > market-week-diff-confined (K1): the K1 week is pressured exactly where the law says
+AssertionError: expected '[]' to be '[{"genre":"comedy","releaseId":"studi…' // Object.is equality
+
+Expected: "[{"genre":"comedy","releaseId":"studio-be7356c7-r01:film:1","studioId":"studio-be7356c7-r01"},{"genre":"comedy","releaseId":"studio-be7356c7-r02:film:1","studioId":"studio-be7356c7-r02"},{"genre":"horror","releaseId":"studio-be7356c7-r03:film:1","studioId":"studio-be7356c7-r03"},{"genre":"romance","releaseId":"studio-be7356c7-r04:film:1","studioId":"studio-be7356c7-r04"}]"
+Received: "[]"
+
+ ❯ tests/p15a1-market-integration.test.ts:439:48
+    437|     const history = releaseHistory(k1.pre)
+    438|     const rows = rowsAt(post, k1.week)
+    439|     expect(canon(byRelease(rows.map(member)))).toBe(canon(byRelease(du…
+       |                                                ^
+    440|     for (const row of rows) expect(row.factor < 1, row.releaseId).toBe…
+    441|     expect(rows.some((row) => row.factor < 1)).toBe(true)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2) > market-no-pressure-week-identity (K2): every release of the K2 week is assessed at P = 0 and f = 1
+AssertionError: expected '[]' to be '[{"genre":"drama","releaseId":"studio…' // Object.is equality
+
+Expected: "[{"genre":"drama","releaseId":"studio-be7356c7-r01:film:0","studioId":"studio-be7356c7-r01"},{"genre":"horror","releaseId":"studio-be7356c7-r02:film:0","studioId":"studio-be7356c7-r02"},{"genre":"adventure","releaseId":"studio-be7356c7-r03:film:0","studioId":"studio-be7356c7-r03"},{"genre":"romance","releaseId":"studio-be7356c7-r04:film:0","studioId":"studio-be7356c7-r04"}]"
+Received: "[]"
+
+ ❯ tests/p15a1-market-integration.test.ts:473:48
+    471|     const post = tick(k2.pre)
+    472|     const rows = rowsAt(post, k2.week)
+    473|     expect(canon(byRelease(rows.map(member)))).toBe(canon(byRelease(ri…
+       |                                                ^
+    474|     for (const row of rows) {
+    475|       expect(row.pressure).toBe(0)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market root (RED 12-13, 1355-A §3.3; 1355-F2 item 2; 1355-F3) > market-root-append-canonical: one ordered append per week; derived exposures equal reduceExposures
+AssertionError: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ tests/p15a1-market-integration.test.ts:505:38
+    503|       const after = marketRoot(post)
+    504|       expect(after.version).toBe(before.version)
+    505|       expect(after.recordedFromWeek).toBe(before.recordedFromWeek)
+       |                                      ^
+    506|       expect(canon(after.assessments.slice(0, before.assessments.lengt…
+    507|       const appended = after.assessments.slice(before.assessments.leng…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market root (RED 12-13, 1355-A §3.3; 1355-F2 item 2; 1355-F3) > market-root-append-canonical: rows ascend in (week, releaseId) and in p15DomainSequence, each with its v1 phase triple
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/p15a1-market-integration.test.ts:527:25
+    525|     const triple = await marketTriple()
+    526|     const rows = marketRoot(rivalRouteAt(APPEND_WEEKS)).assessments
+    527|     expect(rows.length).toBeGreaterThan(0)
+       |                         ^
+    528|     for (let i = 1; i < rows.length; i++) {
+    529|       const [a, b] = [rows[i - 1]!, rows[i]!]
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market root (RED 12-13, 1355-A §3.3; 1355-F2 item 2; 1355-F3) > market-inflight-save-replay: save during an active exposure, reload, run 30 weeks: assessments and terminal save equal an unsaved run
+AssertionError: an active exposure at the save: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/p15a1-market-integration.test.ts:548:41
+    546|     const state = rivalRouteAt(week)
+    547|     expect(marketRoot(state).assessments.some((row) => row.week > week…
+    548|       'an active exposure at the save').toBe(true)
+       |                                         ^
+    549|     let reloaded = migrateToLive(importSave(exportSave(makeSave(state)…
+    550|     for (let i = 0; i < 30; i++) reloaded = tick(reloaded)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: the unforged route state validates (premise of every refusal below)
+AssertionError: premise: rows in at least two weeks: expected 0 to be greater than or equal to 3
+ ❯ tests/p15a1-market-integration.test.ts:655:73
+    653|   it('market-validator-reconciles: the unforged route state validates …
+    654|     const state = validatorBase()
+    655|     expect(rowsOf(state).length, 'premise: rows in at least two weeks'…
+       |                                                                         ^
+    656|     expect(new Set(rowsOf(state).map((row) => row.week)).size).toBeGre…
+    657|     expect(() => makeSave(state)).not.toThrow()
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged pressure by name
+TypeError: Cannot read properties of undefined (reading 'pressure')
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:591:79
+    589| 
+    590| const FORGERIES: { title: string; refusal: RegExp; forge: Forge }[] = [
+    591|   { title: 'a forged pressure', refusal: /pressure/i, forge: (s) => { …
+       |                                                                               ^
+    592|   { title: 'a forged factor', refusal: /factor/i, forge: (s) => { cons…
+    593|   { title: 'a forged windowTerm', refusal: /windowTerm|term/i, forge: …
+ ❯ tests/p15a1-market-integration.test.ts:663:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged factor by name
+TypeError: Cannot read properties of undefined (reading 'factor')
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:592:105
+    590| const FORGERIES: { title: string; refusal: RegExp; forge: Forge }[] = [
+    591|   { title: 'a forged pressure', refusal: /pressure/i, forge: (s) => { …
+    592|   { title: 'a forged factor', refusal: /factor/i, forge: (s) => { cons…
+       |                                                                                                         ^
+    593|   { title: 'a forged windowTerm', refusal: /windowTerm|term/i, forge: …
+    594|   { title: 'a forged stockTerm', refusal: /stockTerm|term/i, forge: (s…
+ ❯ tests/p15a1-market-integration.test.ts:663:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged windowTerm by name
+TypeError: Cannot read properties of undefined (reading 'windowTerm')
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:593:88
+    591|   { title: 'a forged pressure', refusal: /pressure/i, forge: (s) => { …
+    592|   { title: 'a forged factor', refusal: /factor/i, forge: (s) => { cons…
+    593|   { title: 'a forged windowTerm', refusal: /windowTerm|term/i, forge: …
+       |                                                                                        ^
+    594|   { title: 'a forged stockTerm', refusal: /stockTerm|term/i, forge: (s…
+    595|   { title: 'a forged reason', refusal: /reason/i, forge: (s) => {
+ ❯ tests/p15a1-market-integration.test.ts:663:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged stockTerm by name
+TypeError: Cannot read properties of undefined (reading 'stockTerm')
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:594:86
+    592|   { title: 'a forged factor', refusal: /factor/i, forge: (s) => { cons…
+    593|   { title: 'a forged windowTerm', refusal: /windowTerm|term/i, forge: …
+    594|   { title: 'a forged stockTerm', refusal: /stockTerm|term/i, forge: (s…
+       |                                                                                      ^
+    595|   { title: 'a forged reason', refusal: /reason/i, forge: (s) => {
+    596|     const r = rowsOf(s)[0]!
+ ❯ tests/p15a1-market-integration.test.ts:663:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged reason by name
+TypeError: Cannot read properties of undefined (reading 'pressure')
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:597:19
+    595|   { title: 'a forged reason', refusal: /reason/i, forge: (s) => {
+    596|     const r = rowsOf(s)[0]!
+    597|     r.reasons = r.pressure > 0 ? [reason('NO_PRESSURE', [], 0)] : [rea…
+       |                   ^
+    598|   } },
+    599|   { title: 'a forged inputDigest', refusal: /inputDigest|digest/i, for…
+ ❯ tests/p15a1-market-integration.test.ts:663:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a forged inputDigest by name
+TypeError: Cannot set properties of undefined (setting 'inputDigest')
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:599:98
+    597|     r.reasons = r.pressure > 0 ? [reason('NO_PRESSURE', [], 0)] : [rea…
+    598|   } },
+    599|   { title: 'a forged inputDigest', refusal: /inputDigest|digest/i, for…
+       |                                                                                                  ^
+    600|   { title: 'rows out of (week, releaseId) order', refusal: /order|asce…
+    601|     const rows = rowsOf(s)
+ ❯ tests/p15a1-market-integration.test.ts:663:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses rows out of (week, releaseId) order by name
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/p15a1-market-integration.test.ts:664:38
+    662|       const forged = structuredClone(validatorBase())
+    663|       forgery.forge(forged)
+    664|       expect(() => makeSave(forged)).toThrow(/sharedMarket|p15Sequence…
+       |                                      ^
+    665|       expect(() => makeSave(forged)).toThrow(forgery.refusal)
+    666|     }, MEDIUM)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a duplicate assessment by name
+AssertionError: expected [Function] to throw error matching /duplicate|twice|order|ascend/i but got 'validateSaveV45: sharedMarket assessm…'
+
+- Expected: 
+/duplicate|twice|order|ascend/i
+
++ Received: 
+"validateSaveV45: sharedMarket assessment 0 is not an object"
+
+ ❯ tests/p15a1-market-integration.test.ts:665:38
+    663|       forgery.forge(forged)
+    664|       expect(() => makeSave(forged)).toThrow(/sharedMarket|p15Sequence…
+    665|       expect(() => makeSave(forged)).toThrow(forgery.refusal)
+       |                                      ^
+    666|     }, MEDIUM)
+    667|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an orphan assessment with no film by name
+TypeError: Cannot read properties of undefined (reading 'week')
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:610:55
+    608|   } },
+    609|   { title: 'an orphan assessment with no film', refusal: /zzzz-p15a1-r…
+    610|     appendLawRow(s, 'zzzz-p15a1-red-orphan', lastRow(s).week)
+       |                                                       ^
+    611|   } },
+    612|   { title: 'a missing assessment', refusal: /missing|no assessment|lac…
+ ❯ tests/p15a1-market-integration.test.ts:663:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a missing assessment by name
+Error: fixture premise: no removable row
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:617:32
+    615|     const k = [...rows.keys()].reverse().find((i) => !rows.some((other…
+    616|       other.week >= rows[i]!.week && other.week - rows[i]!.week < TUNI…
+    617|     if (k === undefined) throw new Error('fixture premise: no removabl…
+       |                                ^
+    618|     rows.splice(k, 1)
+    619|     sequenceRoot(s).next = Math.max(0, ...p15Rows(s).map((row) => row.…
+ ❯ tests/p15a1-market-integration.test.ts:663:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an assessment before recordedFromWeek by name
+TypeError: Cannot read properties of undefined (reading 'week')
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:622:49
+    620|   } },
+    621|   { title: 'an assessment before recordedFromWeek', refusal: /recorded…
+    622|     marketRoot(s).recordedFromWeek = rowsOf(s)[0]!.week + 1
+       |                                                 ^
+    623|   } },
+    624|   // A row at the tick has no film either, so the refusal may come fro…
+ ❯ tests/p15a1-market-integration.test.ts:663:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an assessment at the tick by name
+TypeError: Cannot read properties of undefined (reading 'phaseId')
+ ❯ tripleOf tests/p15a1-market-integration.test.ts:567:64
+    565| type Forge = (state: GameState) => void
+    566| const rowsOf = (state: GameState): PersistedAssessment[] => marketRoot…
+    567| const tripleOf = (row: PersistedAssessment) => ({ phaseId: row.phaseId…
+       |                                                                ^
+    568| /** Appends a row for `releaseId` at `week` (no earlier than the last …
+    569|  * `next`, and re-assesses that week's batch with it, so every stored …
+ ❯ appendLawRow tests/p15a1-market-integration.test.ts:585:64
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:627:5
+ ❯ tests/p15a1-market-integration.test.ts:663:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an unknown definitionVersion by name
+TypeError: Cannot set properties of undefined (setting 'definitionVersion')
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:630:64
+    628|   } },
+    629|   { title: 'an unknown definitionVersion', refusal: /definitionVersion…
+    630|     (rowsOf(s)[0] as unknown as { definitionVersion: string }).definit…
+       |                                                                ^
+    631|   } },
+    632|   { title: 'an unknown root version', refusal: /version/i, forge: (s) …
+ ❯ tests/p15a1-market-integration.test.ts:663:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an owner field on a row (exact keys) by name
+TypeError: Cannot set properties of undefined (setting 'owner')
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:634:58
+    632|   { title: 'an unknown root version', refusal: /version/i, forge: (s) …
+    633|   { title: 'an owner field on a row (exact keys)', refusal: /key|owner…
+    634|     (rowsOf(s)[0] as unknown as Record<string, unknown>).owner = 'play…
+       |                                                          ^
+    635|   } },
+    636|   { title: 'a duplicate p15DomainSequence', refusal: /p15DomainSequenc…
+ ❯ tests/p15a1-market-integration.test.ts:663:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a duplicate p15DomainSequence by name
+TypeError: Cannot read properties of undefined (reading 'p15DomainSequence')
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:638:71
+    636|   { title: 'a duplicate p15DomainSequence', refusal: /p15DomainSequenc…
+    637|     const rows = rowsOf(s)
+    638|     rows[rows.length - 1]!.p15DomainSequence = rows[rows.length - 2]!.…
+       |                                                                       ^
+    639|   } },
+    640|   { title: 'a p15DomainSequence at p15Sequence.next', refusal: /p15Dom…
+ ❯ tests/p15a1-market-integration.test.ts:663:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a p15DomainSequence at p15Sequence.next by name
+TypeError: Cannot set properties of undefined (setting 'p15DomainSequence')
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:641:16
+    639|   } },
+    640|   { title: 'a p15DomainSequence at p15Sequence.next', refusal: /p15Dom…
+    641|     lastRow(s).p15DomainSequence = sequenceRoot(s).next
+       |                ^
+    642|   } },
+    643|   { title: 'a p15DomainSequence below 1', refusal: /p15DomainSequence|…
+ ❯ tests/p15a1-market-integration.test.ts:663:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a p15DomainSequence below 1 by name
+TypeError: Cannot set properties of undefined (setting 'p15DomainSequence')
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:643:113
+    641|     lastRow(s).p15DomainSequence = sequenceRoot(s).next
+    642|   } },
+    643|   { title: 'a p15DomainSequence below 1', refusal: /p15DomainSequence|…
+       |                                                                                                                 ^
+    644|   { title: 'a stale p15Sequence.next', refusal: /p15Sequence|next/i, f…
+    645|     sequenceRoot(s).next = Math.max(...p15Rows(s).map((row) => row.p15…
+ ❯ tests/p15a1-market-integration.test.ts:663:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses a phase ordinal off its version's table entry by name
+TypeError: Cannot read properties of undefined (reading 'phaseOrdinal')
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:647:105
+    645|     sequenceRoot(s).next = Math.max(...p15Rows(s).map((row) => row.p15…
+    646|   } },
+    647|   { title: 'a phase ordinal off its version\'s table entry', refusal: …
+       |                                                                                                         ^
+    648|   { title: 'another phase\'s phaseId', refusal: /phase/i, forge: (s) =…
+    649|   { title: 'an unknown phaseOrderVersion', refusal: /phase|version/i, …
+ ❯ tests/p15a1-market-integration.test.ts:663:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[33/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses another phase's phaseId by name
+TypeError: Cannot set properties of undefined (setting 'phaseId')
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:648:89
+    646|   } },
+    647|   { title: 'a phase ordinal off its version\'s table entry', refusal: …
+    648|   { title: 'another phase\'s phaseId', refusal: /phase/i, forge: (s) =…
+       |                                                                                         ^
+    649|   { title: 'an unknown phaseOrderVersion', refusal: /phase|version/i, …
+    650| ]
+ ❯ tests/p15a1-market-integration.test.ts:663:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[34/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: refuses an unknown phaseOrderVersion by name
+TypeError: Cannot set properties of undefined (setting 'phaseOrderVersion')
+ ❯ Object.forge tests/p15a1-market-integration.test.ts:649:101
+    647|   { title: 'a phase ordinal off its version\'s table entry', refusal: …
+    648|   { title: 'another phase\'s phaseId', refusal: /phase/i, forge: (s) =…
+    649|   { title: 'an unknown phaseOrderVersion', refusal: /phase|version/i, …
+       |                                                                                                     ^
+    650| ]
+    651| 
+ ❯ tests/p15a1-market-integration.test.ts:663:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[35/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market validator (RED 14, 1355-A §3.4) > market-validator-reconciles: across P15 roots, a sibling row may hold the largest sequence and a market row may not reuse a sibling's
+AssertionError: premise: a sibling sequence below some market row: expected undefined to be defined
+ ❯ tests/p15a1-market-integration.test.ts:691:73
+    689|     const reused = p15Rows(forged, siblings).map((row) => row.p15Domai…
+    690|       .find((n) => market.some((row) => row.p15DomainSequence > n))
+    691|     expect(reused, 'premise: a sibling sequence below some market row'…
+       |                                                                         ^
+    692|     market.find((row) => row.p15DomainSequence > reused!)!.p15DomainSe…
+    693|     expect(() => makeSave(forged)).toThrow(/p15DomainSequence/)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[36/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market old saves (RED 16) > market-old-save: the first batches after migration see no pre-migration release [fixture-pending]
+AssertionError: studio-315405e1-r03:film:2 is assessed within 26 weeks of the migration: expected undefined to be defined
+ ❯ tests/p15a1-market-integration.test.ts:778:102
+    776|       const rows = marketRoot(state).assessments
+    777|       const paired = rows.find((row) => row.releaseId === premise.inFl…
+    778|       expect(paired, `${premise.inFlightProductionId} is assessed with…
+       |                                                                                                      ^
+    779|       expect(JSON.stringify(paired!.reasons)).not.toContain(premise.re…
+    780|       const firstWeek = rows[0]!.week
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[37/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market old saves (RED 16) > market-old-save: a non-empty root refuses the downgrade by name, at the step and through every older migrator
+AssertionError: premise: a recorded assessment: expected 0 to be greater than 0
+ ❯ tests/p15a1-market-integration.test.ts:806:68
+    804|   it('market-old-save: a non-empty root refuses the downgrade by name,…
+    805|     const state = validatorBase()
+    806|     expect(rowsOf(state).length, 'premise: a recorded assessment').toB…
+       |                                                                    ^
+    807|     const save = liveSave(state)
+    808|     expect(() => convertOutOfStep(save)).toThrow(DOWNGRADE_REFUSAL)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[38/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market persisted storage (RED 18) > market-large-batch-persisted-linear: every live row is bounded: exact keys, at most five reasons of at most five ids
+AssertionError: expected 0 to be greater than 0
+ ❯ tests/p15a1-market-integration.test.ts:849:25
+    847|   it('market-large-batch-persisted-linear: every live row is bounded: …
+    848|     const rows = marketRoot(rivalRouteAt(APPEND_WEEKS)).assessments
+    849|     expect(rows.length).toBeGreaterThan(0)
+       |                         ^
+    850|     for (const row of rows) {
+    851|       expect(Object.keys(row).sort()).toEqual([...PERSISTED_ROW_KEYS])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[39/61]⎯
+
+ FAIL |core|  tests/p15a1-market-integration.test.ts > p15a1 market persisted storage (RED 18) > market-large-batch-persisted-linear: 32- and 512-member batches persist equal-bounded rows and linear root bytes
+AssertionError: premise: a live row supplies the persisted shape: expected undefined to be defined
+ ❯ tests/p15a1-market-integration.test.ts:860:74
+    858|   it('market-large-batch-persisted-linear: 32- and 512-member batches …
+    859|     const template = marketRoot(rivalRouteAt(APPEND_WEEKS)).assessment…
+    860|     expect(template, 'premise: a live row supplies the persisted shape…
+       |                                                                          ^
+    861|     const persisted = (size: number, tag: string): string[] => {
+    862|       const members = Array.from({ length: size }, (_, i) => ({
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[40/61]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 controls: the fixtures are lawful at RED and at GREEN > legacy-control-genuine-save38-6240-lawful
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-film-facts
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-run-status
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-private-money-never-read
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-career-events
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-studios
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-domain-facts
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-missing-concept-refuses
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-condition-at-6240-outside
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-empty-root-genuine-save38
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-past-boundary-genuine-save38
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-root-downgrade
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-marker
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-manifest-identity
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-stamp
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-bounds
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-refs
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-definition-era-guard
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) > legacy-validate-replay
+ FAIL |core|  tests/p15c2-campaign-legacy-integration.test.ts > p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) > legacy-old-law-fixture-v1-validates-after-retune
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ ❯ tests/helpers/p15c2-legacy.ts:211:15
+    209| /** G6240: the genuine Save38 at week 6240 of the 1052 active enduranc…
+    210| export const genuineSave38 = memo((): Envelope => {
+    211|   const raw = readFileSync(new URL(EVIDENCE + GENUINE_6240.path, impor…
+       |               ^
+    212|   expect(raw.byteLength).toBe(GENUINE_6240.bytes)
+    213|   expect(sha256(raw)).toBe(GENUINE_6240.sha256)
+ ❯ Module.<anonymous> tests/helpers/p15c2-legacy.ts:92:22
+ ❯ tests/p15c2-campaign-legacy-integration.test.ts:373:12
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errno: -2, code: 'ENOENT', syscall: 'open', path: '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[41/61]⎯
+
+ FAIL |core|  tests/p15c2-campaign-legacy-sibling.test.ts > p15c2 sibling leaves: the Legacy with a sibling P15 root in the live state (1359-A §8 B2, B4, C3, C8, C10) > legacy-validate-refs-sibling-added-after-freeze
+Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json'
+ ❯ tests/helpers/p15c2-legacy.ts:211:15
+    209| /** G6240: the genuine Save38 at week 6240 of the 1052 active enduranc…
+    210| export const genuineSave38 = memo((): Envelope => {
+    211|   const raw = readFileSync(new URL(EVIDENCE + GENUINE_6240.path, impor…
+       |               ^
+    212|   expect(raw.byteLength).toBe(GENUINE_6240.bytes)
+    213|   expect(sha256(raw)).toBe(GENUINE_6240.sha256)
+ ❯ tests/helpers/p15c2-legacy.ts:92:22
+ ❯ tests/helpers/p15c2-legacy.ts:219:64
+ ❯ tests/helpers/p15c2-legacy.ts:92:22
+ ❯ tests/helpers/p15c2-legacy.ts:224:16
+ ❯ Module.<anonymous> tests/helpers/p15c2-legacy.ts:92:22
+ ❯ tests/p15c2-campaign-legacy-sibling.test.ts:113:20
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errno: -2, code: 'ENOENT', syscall: 'open', path: '/Users/zacheryspector/studio-specialists/r8/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[42/61]⎯
+
+ Test Files  3 failed (3)
+      Tests  61 failed | 35 passed (96)
+   Start at  16:07:20
+   Duration  144.32s (transform 4.91s, setup 0ms, collect 8.85s, tests 131.54s, environment 2ms, prepare 1.28s)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/tests/b3-p15.vitest.json

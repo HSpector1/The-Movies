@@ -1,0 +1,102 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p15b-red
+
+ ❯ |core| tests/p15b3-remedy-parity.test.ts (6 tests | 6 failed) 104ms
+   × p15b3 remedy parity: one legal release predicate (1352-A §4.3; 1357-A §3.4) > release-predicate-player 18ms
+     → RED: src/core/corporateConditionLive.ts does not exist (Failed to load url ../src/core/corporateConditionLive.js (resolved id: ../src/core/corporateConditionLive.js) in /Users/zacheryspector/studio-specialists/p15b-red/tests/p15b3-remedy-parity.test.ts. Does the file exist?)
+   × p15b3 remedy parity: one legal release predicate (1352-A §4.3; 1357-A §3.4) > release-predicate-rival-seats-and-writing 59ms
+     → RED: src/core/corporateConditionLive.ts does not exist (Failed to load url ../src/core/corporateConditionLive.js (resolved id: ../src/core/corporateConditionLive.js) in /Users/zacheryspector/studio-specialists/p15b-red/tests/p15b3-remedy-parity.test.ts. Does the file exist?)
+   × p15b3 remedy parity: one legal release predicate (1352-A §4.3; 1357-A §3.4) > rival-release-loop-uses-the-predicate 6ms
+     → RED: src/core/corporateConditionLive.ts does not exist (Failed to load url ../src/core/corporateConditionLive.js (resolved id: ../src/core/corporateConditionLive.js) in /Users/zacheryspector/studio-specialists/p15b-red/tests/p15b3-remedy-parity.test.ts. Does the file exist?)
+   × p15b3 remedy parity: capability and the live remedy list (1352-A §4.3; 1357-A §3.4) > remedy-capability-both-studios 14ms
+     → RED: src/core/corporateConditionLive.ts does not exist (Failed to load url ../src/core/corporateConditionLive.js (resolved id: ../src/core/corporateConditionLive.js) in /Users/zacheryspector/studio-specialists/p15b-red/tests/p15b3-remedy-parity.test.ts. Does the file exist?)
+   × p15b3 remedy parity: capability and the live remedy list (1352-A §4.3; 1357-A §3.4) > remedies-live-both-studios 2ms
+     → RED: src/core/corporateConditionLive.ts does not exist (Failed to load url ../src/core/corporateConditionLive.js (resolved id: ../src/core/corporateConditionLive.js) in /Users/zacheryspector/studio-specialists/p15b-red/tests/p15b3-remedy-parity.test.ts. Does the file exist?)
+   × p15b3 remedy parity: capability and the live remedy list (1352-A §4.3; 1357-A §3.4) > shared-cost-phase 2ms
+     → RED: src/core/corporateConditionLive.ts does not exist (Failed to load url ../src/core/corporateConditionLive.js (resolved id: ../src/core/corporateConditionLive.js) in /Users/zacheryspector/studio-specialists/p15b-red/tests/p15b3-remedy-parity.test.ts. Does the file exist?)
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p15b3-remedy-parity.test.ts > p15b3 remedy parity: one legal release predicate (1352-A §4.3; 1357-A §3.4) > release-predicate-player
+Error: RED: src/core/corporateConditionLive.ts does not exist (Failed to load url ../src/core/corporateConditionLive.js (resolved id: ../src/core/corporateConditionLive.js) in /Users/zacheryspector/studio-specialists/p15b-red/tests/p15b3-remedy-parity.test.ts. Does the file exist?)
+ ❯ live tests/p15b3-remedy-parity.test.ts:19:25
+     17| async function live(): Promise<Live> {
+     18|   try { return (await import('../src/core/corporateConditionLive.js'))…
+     19|   catch (error) { throw new Error(`RED: src/core/corporateConditionLiv…
+       |                         ^
+     20| }
+     21| function fn<T>(mod: Live, name: string): T {
+ ❯ tests/p15b3-remedy-parity.test.ts:50:40
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL |core|  tests/p15b3-remedy-parity.test.ts > p15b3 remedy parity: one legal release predicate (1352-A §4.3; 1357-A §3.4) > release-predicate-rival-seats-and-writing
+Error: RED: src/core/corporateConditionLive.ts does not exist (Failed to load url ../src/core/corporateConditionLive.js (resolved id: ../src/core/corporateConditionLive.js) in /Users/zacheryspector/studio-specialists/p15b-red/tests/p15b3-remedy-parity.test.ts. Does the file exist?)
+ ❯ live tests/p15b3-remedy-parity.test.ts:19:25
+     17| async function live(): Promise<Live> {
+     18|   try { return (await import('../src/core/corporateConditionLive.js'))…
+     19|   catch (error) { throw new Error(`RED: src/core/corporateConditionLiv…
+       |                         ^
+     20| }
+     21| function fn<T>(mod: Live, name: string): T {
+ ❯ tests/p15b3-remedy-parity.test.ts:65:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL |core|  tests/p15b3-remedy-parity.test.ts > p15b3 remedy parity: one legal release predicate (1352-A §4.3; 1357-A §3.4) > rival-release-loop-uses-the-predicate
+Error: RED: src/core/corporateConditionLive.ts does not exist (Failed to load url ../src/core/corporateConditionLive.js (resolved id: ../src/core/corporateConditionLive.js) in /Users/zacheryspector/studio-specialists/p15b-red/tests/p15b3-remedy-parity.test.ts. Does the file exist?)
+ ❯ live tests/p15b3-remedy-parity.test.ts:19:25
+     17| async function live(): Promise<Live> {
+     18|   try { return (await import('../src/core/corporateConditionLive.js'))…
+     19|   catch (error) { throw new Error(`RED: src/core/corporateConditionLiv…
+       |                         ^
+     20| }
+     21| function fn<T>(mod: Live, name: string): T {
+ ❯ tests/p15b3-remedy-parity.test.ts:109:40
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL |core|  tests/p15b3-remedy-parity.test.ts > p15b3 remedy parity: capability and the live remedy list (1352-A §4.3; 1357-A §3.4) > remedy-capability-both-studios
+Error: RED: src/core/corporateConditionLive.ts does not exist (Failed to load url ../src/core/corporateConditionLive.js (resolved id: ../src/core/corporateConditionLive.js) in /Users/zacheryspector/studio-specialists/p15b-red/tests/p15b3-remedy-parity.test.ts. Does the file exist?)
+ ❯ live tests/p15b3-remedy-parity.test.ts:19:25
+     17| async function live(): Promise<Live> {
+     18|   try { return (await import('../src/core/corporateConditionLive.js'))…
+     19|   catch (error) { throw new Error(`RED: src/core/corporateConditionLiv…
+       |                         ^
+     20| }
+     21| function fn<T>(mod: Live, name: string): T {
+ ❯ tests/p15b3-remedy-parity.test.ts:126:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL |core|  tests/p15b3-remedy-parity.test.ts > p15b3 remedy parity: capability and the live remedy list (1352-A §4.3; 1357-A §3.4) > remedies-live-both-studios
+Error: RED: src/core/corporateConditionLive.ts does not exist (Failed to load url ../src/core/corporateConditionLive.js (resolved id: ../src/core/corporateConditionLive.js) in /Users/zacheryspector/studio-specialists/p15b-red/tests/p15b3-remedy-parity.test.ts. Does the file exist?)
+ ❯ live tests/p15b3-remedy-parity.test.ts:19:25
+     17| async function live(): Promise<Live> {
+     18|   try { return (await import('../src/core/corporateConditionLive.js'))…
+     19|   catch (error) { throw new Error(`RED: src/core/corporateConditionLiv…
+       |                         ^
+     20| }
+     21| function fn<T>(mod: Live, name: string): T {
+ ❯ tests/p15b3-remedy-parity.test.ts:142:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL |core|  tests/p15b3-remedy-parity.test.ts > p15b3 remedy parity: capability and the live remedy list (1352-A §4.3; 1357-A §3.4) > shared-cost-phase
+Error: RED: src/core/corporateConditionLive.ts does not exist (Failed to load url ../src/core/corporateConditionLive.js (resolved id: ../src/core/corporateConditionLive.js) in /Users/zacheryspector/studio-specialists/p15b-red/tests/p15b3-remedy-parity.test.ts. Does the file exist?)
+ ❯ live tests/p15b3-remedy-parity.test.ts:19:25
+     17| async function live(): Promise<Live> {
+     18|   try { return (await import('../src/core/corporateConditionLive.js'))…
+     19|   catch (error) { throw new Error(`RED: src/core/corporateConditionLiv…
+       |                         ^
+     20| }
+     21| function fn<T>(mod: Live, name: string): T {
+ ❯ tests/p15b3-remedy-parity.test.ts:170:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+ Test Files  1 failed (1)
+      Tests  6 failed (6)
+   Start at  16:27:56
+   Duration  7.42s (transform 4.82s, setup 0ms, collect 5.91s, tests 104ms, environment 0ms, prepare 505ms)
+

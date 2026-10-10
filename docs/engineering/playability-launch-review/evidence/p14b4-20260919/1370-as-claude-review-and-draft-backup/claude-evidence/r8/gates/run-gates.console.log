@@ -1,0 +1,15 @@
+2026-10-10 15:39:17 gates start; HEAD=6510c971bed8079f7ca02e528b224988de092c87; node=v20.20.2
+2026-10-10 15:41:22 tsc-root exit=0 seconds=125
+2026-10-10 15:43:53 tsc-ui exit=2 seconds=151
+2026-10-10 15:46:25 tsc-bridge exit=0 seconds=151
+2026-10-10 15:46:29 gen-contract exit=0 seconds=4
+2026-10-10 15:46:33 gen-contract-fixtures exit=0 seconds=4
+2026-10-10 15:56:49 vitest-b1-modified10 exit=1 seconds=616
+2026-10-10 16:07:16 vitest-b2-recovery-own exit=1 seconds=627
+2026-10-10 16:09:47 vitest-b3-p15 exit=1 seconds=150
+2026-10-10 16:46:11 vitest-b4-helper-consumers exit=1 seconds=2184
+2026-10-10 17:09:12 vitest-b5-backward exit=1 seconds=1380
+2026-10-10 17:50:25 vitest-b6-current exit=1 seconds=2473
+2026-10-10 17:50:25 gates done
+2026-10-10 18:02:33 vitest-b7-rerun-docs-fixed exit=0 seconds=722 files=12
+2026-10-10 18:02:33 rerun done

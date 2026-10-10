@@ -1,0 +1,26 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p16
+
+ ❯ |core| tests/p16c-estate.test.ts (0 test)
+ ❯ |core| tests/p16c-acquisition.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p16c-acquisition.test.ts [ tests/p16c-acquisition.test.ts ]
+Error: Failed to load url ../src/core/acquisition.js (resolved id: ../src/core/acquisition.js) in /Users/zacheryspector/studio-specialists/p16/tests/p16c-acquisition.test.ts. Does the file exist?
+ ❯ loadAndTransform ../../The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/p16c-estate.test.ts [ tests/p16c-estate.test.ts ]
+Error: Failed to load url ./estate.js (resolved id: ./estate.js) in /Users/zacheryspector/studio-specialists/p16/src/core/actions.ts. Does the file exist?
+ ❯ loadAndTransform ../../The-Movies-headless-program/node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  2 failed (2)
+      Tests  no tests
+   Start at  16:23:35
+   Duration  9.33s (transform 5.04s, setup 0ms, collect 0ms, tests 0ms, environment 1ms, prepare 899ms)
+
+exit 1

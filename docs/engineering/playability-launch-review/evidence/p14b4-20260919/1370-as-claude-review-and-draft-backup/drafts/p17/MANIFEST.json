@@ -1,0 +1,251 @@
+{
+  "clone": "/Users/zacheryspector/studio-specialists/p17",
+  "baseHead": "6510c971bed8079f7ca02e528b224988de092c87",
+  "patch": "drafts/p17/SOURCE.patch",
+  "patchBytes": 257281,
+  "patchSha256": "057da388b9dc4dcc0feb928bb3605aca3bdf097d6272559b597851cbf7b7bad1",
+  "reverseApplyCheck": "PASS (read-only)",
+  "files": [
+    {
+      "path": "src/core/cameo.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 11043,
+        "sha256": "59a5327a2f114d6148a37b21fc5146fa3cef1528f659f0d2101f276da5dfb740",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/continuation.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 31173,
+        "sha256": "42f28a48e1b967840b739b226373261edc3e810dee00b246d331b2bdd0fce39f",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/continuationGreenlight.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 11992,
+        "sha256": "95caf17ba90ae35a98997ac0663ea10c65b7233c05280982eaaf2896566a3583",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/continuationSave.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 3307,
+        "sha256": "bb9273b6c377d6cca95f0bad76af433513205cc8225b094b57f4e5e3e0d1a40e",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/continuationSignals.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 12546,
+        "sha256": "08b6cacfa22ed345accf547662c107133b4535853708026af0cca8e7466a0b82",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/continuationValidate.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 13440,
+        "sha256": "37afdd7edcfb1be4ef09db0dc0c7133725fcdfe6ce5c4ccd1adedf69f3574920",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/employment.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 28543,
+        "sha256": "3ea90788eb9a68f7274a8b48e7653cee26ecb926068833c87165e3b7a7e6b903",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/forecast.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 21350,
+        "sha256": "3a852fd1b444ac5073e420bc169cc50ba512a2921d96dc188dff91ad7c3fc8ab",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/index.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 53196,
+        "sha256": "2a19654cfa537bdb91316f83de4bc5c8d8c8771101b6577e6102ea653a32e0d6",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/productionIdentity.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 11248,
+        "sha256": "037e47fa671d6c78dd5916b1eaabf684d8d65d4e5e15a58a4769528ecf069a58",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/reception.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 40491,
+        "sha256": "282f50e7ac8be631bd1e42fe160aaf4c6d51d4d46028894f142fe361424e3e66",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/releaseCareers.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 5859,
+        "sha256": "b11cd71411c6b8a06fcd0b9302a551049da3bb9d3945db57d4237c45f06cef2d",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/save.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 519456,
+        "sha256": "f55aea5f5adb7263ed4348456138e8a16e45e0fb8197bb0f7655b1d6d8268ae1",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/standing.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 11550,
+        "sha256": "b7e02b167617db21c5036314e20894c8e07ad52ebbdfe0db217212a5ca66844e",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/starPower.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 9341,
+        "sha256": "e6aa73b2c1a9e143cf98324e0fc2cab34191356d67543fb69a9b10437d369893",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/tuning.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 147682,
+        "sha256": "8c2cf538875539dc0893bd15abe17abbfebc1660cb3c150ce240b04e724f3fd3",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/types.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 131886,
+        "sha256": "6aa3c246eb217eb801fc9aa7540e59f426ba77b15deb9521a2aaa5ecf49948b2",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/core/worldgen.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 36355,
+        "sha256": "1b13d0d6e4675b2a8040264500f229f1a1f90c8a14a3f640009259865077517b",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "src/harness/roster-wall/historical-control.ts",
+      "status": "tracked-delta",
+      "postimage": {
+        "bytes": 12902,
+        "sha256": "b454b17b6834731b9c08bd6df6feb73c23d4250896555026ba24a23c19dc74e8",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/fixtures/p17/seam-predecessor-pins.producer.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 2364,
+        "sha256": "4a1da2a7459620a8e2fae8b2a235d79f6387c8ee5c19761c32c899b39e9122fa",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p17-cameo.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 16482,
+        "sha256": "71597d2ba437c82fa68ac38cf762dc616da70c1cdb852d34233f05d4db95acbe",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p17-continuation-law.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 29149,
+        "sha256": "8833cfa2000e958a463e3e2895c106e2c586f0dbd80f9426fcddacac55d5f1c9",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p17-continuation-seam.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 9578,
+        "sha256": "b1d19248a923164ba7823b7d3ad4c06407e62894bbcf7bd711612aaac7192cf9",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p17-continuation-signals.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 21469,
+        "sha256": "24f78b9b3a95f48b2b1d2ccc61d5c8fe4f5a768f3de3eb1eeb57f52bd6401f09",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p17-integration.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 17592,
+        "sha256": "18ccd895a6d7e884be246d8b03440d2cf87f41440e5b66d602e9f2e23ed301a3",
+        "mode": "0o644"
+      }
+    },
+    {
+      "path": "tests/p17-save-v46.test.ts",
+      "status": "untracked",
+      "postimage": {
+        "bytes": 11339,
+        "sha256": "beabd72dfb1b39c22c885bb58537c6f3d9ce43740ec3ac76803bd826e669b108",
+        "mode": "0o644"
+      }
+    }
+  ],
+  "localOnly": [
+    {
+      "path": "/Users/zacheryspector/studio-specialists/p17/tests/fixtures/p17/seam-predecessor-pins.json",
+      "bytes": 546,
+      "reason": "Fixture payload/metadata retained locally; not exported by this code-only backup."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "schema": "1370-p16-type-repair-correction-before/v1",
+  "source": {
+    "path": "/Users/zacheryspector/studio-specialists/p16/src/core/save.ts",
+    "bytes": 528119,
+    "sha256": "496412f0a6eaa3c192e2a22d17a671199dc4d38f006d697088bd7e068ef3fbac"
+  },
+  "backup": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r2/before/src/core/save.ts",
+    "bytes": 528119,
+    "sha256": "496412f0a6eaa3c192e2a22d17a671199dc4d38f006d697088bd7e068ef3fbac"
+  },
+  "preservedR1SourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-as-p16-type-repair-20261010-r1/SOURCE-PINS.json",
+    "bytes": 4777,
+    "sha256": "a2d6ca6074a584df55d6c9e401da29a13fe24c30decd6e3efa5c413be9308b33"
+  },
+  "targetCloneArgvMatches": [],
+  "executionAuthorization": false
+}

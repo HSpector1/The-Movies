@@ -1,0 +1,1 @@
+ui/src/lot/hollywood/roleAtlas.test.ts(2,29): error TS2307: Cannot find module '../../../public/lot/hollywood/role-atlas-v1.json' or its corresponding type declarations.

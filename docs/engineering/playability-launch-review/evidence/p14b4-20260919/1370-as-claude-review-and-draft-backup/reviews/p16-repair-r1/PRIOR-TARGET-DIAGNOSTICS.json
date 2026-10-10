@@ -1,0 +1,42 @@
+{
+  "evidence": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ar-p16-rights-estate-implementation-20261010-r1/evidence/tsc-run1.txt",
+    "bytes": 18315,
+    "sha256": "a049c1c4aa3f6aa08263eeeb11fca6a29737f0891d607432a0d324f6b5399239"
+  },
+  "diagnostics": [
+    {
+      "retainedLogLine": 12,
+      "text": "src/core/financeReport.ts(6,14): error TS2739: Type '{ researchPayroll: string; researchSpend: string; technologyAdoption: string; studioRevenue: string; boxOffice: string; payroll: string; overhead: string; facilityOpex: string; production: string; ... 9 more ...; publicity: string; }' is missing the following properties from type 'Record<LedgerKind, string>': rightsConsideration, dueDiligenceFee, acquisitionOutlay"
+    },
+    {
+      "retainedLogLine": 27,
+      "text": "src/core/save.ts(7052,12): error TS1360: Type '{ readonly production: false; readonly boxOffice: false; readonly payroll: true; readonly signingBonus: true; readonly termination: true; readonly freelancerFee: true; readonly studioRevenue: true; ... 11 more ...; readonly constructionRefund: true; }' does not satisfy the expected type 'Record<LedgerKind, boolean>'."
+    },
+    {
+      "retainedLogLine": 29,
+      "text": "src/core/save.ts(7055,10): error TS7053: Element implicitly has an 'any' type because expression of type 'LedgerKind' can't be used to index type '{ readonly production: false; readonly boxOffice: false; readonly payroll: true; readonly signingBonus: true; readonly termination: true; readonly freelancerFee: true; readonly studioRevenue: true; ... 11 more ...; readonly constructionRefund: true; }'."
+    },
+    {
+      "retainedLogLine": 128,
+      "text": "tests/p16a-save-v46.test.ts(154,96): error TS2322: Type '\"test\"' is not assignable to type '\"legacy\" | \"greenlight\" | \"release\" | \"transaction\" | \"estate\" | \"manual\"'."
+    },
+    {
+      "retainedLogLine": 129,
+      "text": "tests/p16a-save-v46.test.ts(159,100): error TS2322: Type '\"test\"' is not assignable to type '\"legacy\" | \"greenlight\" | \"release\" | \"transaction\" | \"estate\" | \"manual\"'."
+    },
+    {
+      "retainedLogLine": 130,
+      "text": "tests/p16a-save-v46.test.ts(187,133): error TS2322: Type '\"test\"' is not assignable to type '\"legacy\" | \"greenlight\" | \"release\" | \"transaction\" | \"estate\" | \"manual\"'."
+    },
+    {
+      "retainedLogLine": 131,
+      "text": "tests/p16a-valuation.test.ts(201,97): error TS2322: Type '\"test\"' is not assignable to type '\"legacy\" | \"greenlight\" | \"release\" | \"transaction\" | \"estate\" | \"manual\"'."
+    },
+    {
+      "retainedLogLine": 132,
+      "text": "tests/p16a-valuation.test.ts(273,63): error TS2322: Type '\"test\"' is not assignable to type '\"legacy\" | \"greenlight\" | \"release\" | \"transaction\" | \"estate\" | \"manual\"'."
+    }
+  ],
+  "scope": "Existing Claude-produced tsc-run1 retained independently of this repair. No compiler executed by repair author."
+}

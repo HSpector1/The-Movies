@@ -1,0 +1,116 @@
+{
+  "claim": "Recovered retained results, not fresh execution or same-candidate qualification",
+  "inputs": [
+    {
+      "path": "/tmp/claude-501/-Users-zacheryspector/21e515ff-0aed-48b0-9b7f-11c9d5239850/scratchpad/red-base-p15a1.json",
+      "sha256": "e92e0e718c1aafb2257aba76e8e5e759f67edacac32bd3afcceb17bcdf536944",
+      "bytes": 81873,
+      "counts": {
+        "failed": 45,
+        "passed": 14
+      },
+      "reportedTotal": 59,
+      "success": false
+    },
+    {
+      "path": "/tmp/claude-501/-Users-zacheryspector/21e515ff-0aed-48b0-9b7f-11c9d5239850/scratchpad/after-c-p15a1.json",
+      "sha256": "639572f60672f77089138c619c54c95f2e06939a36bc531aaf961313f7c7b6c4",
+      "bytes": 25762,
+      "counts": {
+        "passed": 59
+      },
+      "reportedTotal": 59,
+      "success": true
+    },
+    {
+      "path": "/tmp/claude-501/-Users-zacheryspector/21e515ff-0aed-48b0-9b7f-11c9d5239850/scratchpad/green-retune-r2.json",
+      "sha256": "7728cd5fff077974de40b1fc5629c9afecfba4f305f7a9d512fde17fc5d69955",
+      "bytes": 40657,
+      "counts": {
+        "passed": 101
+      },
+      "reportedTotal": 101,
+      "success": true
+    },
+    {
+      "path": "/tmp/claude-501/-Users-zacheryspector/21e515ff-0aed-48b0-9b7f-11c9d5239850/scratchpad/red-1364.json",
+      "sha256": "5c79e293076ecc32bdac271a98b5235e13eb8d53bf80cd9a706444af0c4799e4",
+      "bytes": 69801,
+      "counts": {
+        "failed": 40,
+        "passed": 2
+      },
+      "reportedTotal": 42,
+      "success": false
+    },
+    {
+      "path": "/tmp/claude-501/-Users-zacheryspector/21e515ff-0aed-48b0-9b7f-11c9d5239850/scratchpad/run-1364-r1.json",
+      "sha256": "272e8cd025ea90d04d285cca3554a357f36438ab35ca329334482b857e032862",
+      "bytes": 83462,
+      "counts": {
+        "passed": 170,
+        "failed": 8
+      },
+      "reportedTotal": 178,
+      "success": false
+    },
+    {
+      "path": "/tmp/claude-501/-Users-zacheryspector/21e515ff-0aed-48b0-9b7f-11c9d5239850/scratchpad/run-1364-r2.json",
+      "sha256": "781126e2d415228ef6c20bb7b18e0ce7da10058c77fda7152a0fcc34b0adf873",
+      "bytes": 69935,
+      "counts": {
+        "passed": 171
+      },
+      "reportedTotal": 171,
+      "success": true
+    }
+  ],
+  "r2ComparedToR1": {
+    "removed": [
+      {
+        "file": "p15a1-market-retune.test.ts",
+        "name": "1365 activation: the held-batch guard is gone and rows persist within their bound market-retune-guard-removed: a root that already holds rows ticks and appends; recordedFromWeek stays",
+        "occurrence": 1,
+        "status": "passed"
+      },
+      {
+        "file": "p15a1-market-retune.test.ts",
+        "name": "1365 activation: the held-batch guard is gone and rows persist within their bound market-retune-storage-row-bound: every persisted row is at most 700 bytes as stableStringify writes it (measured 476-529 B/row at the ruled shape)",
+        "occurrence": 1,
+        "status": "passed"
+      },
+      {
+        "file": "p15a1-market-retune.test.ts",
+        "name": "1365 retune: the definition and the frozen eras (1355-A \u00a73.4 item 5) market-retune-definition-v2: the live definition is p15a1-market-v2 and TUNING holds v2's seven numbers",
+        "occurrence": 1,
+        "status": "passed"
+      },
+      {
+        "file": "p15a1-market-retune.test.ts",
+        "name": "1365 retune: the definition and the frozen eras (1355-A \u00a73.4 item 5) market-retune-factor-range: the live factor is 1 \u2212 0.15\u00b7(1 \u2212 e^(\u2212P/2)) in [0.85, 1]; the v1 law still prices 0.25",
+        "occurrence": 1,
+        "status": "passed"
+      },
+      {
+        "file": "p15a1-market-retune.test.ts",
+        "name": "1365 retune: the definition and the frozen eras (1355-A \u00a73.4 item 5) market-retune-v1-frozen: v1's seven numbers are a frozen, reachable law, and the era table holds exactly v1 and v2",
+        "occurrence": 1,
+        "status": "passed"
+      },
+      {
+        "file": "p15a1-market-retune.test.ts",
+        "name": "1365 retune: the old-law fixture and the version boundary market-retune-mixed-eras: v1 rows are exposures to a live v2 batch; the mixed root validates and ticks on",
+        "occurrence": 1,
+        "status": "passed"
+      },
+      {
+        "file": "p15a1-market-retune.test.ts",
+        "name": "1365 retune: the old-law fixture and the version boundary market-retune-old-law-fixture: v1 rows reconcile under v1 only; v2 rows under v2 only",
+        "occurrence": 1,
+        "status": "passed"
+      }
+    ],
+    "added": 0,
+    "pairedFailuresNowPassing": 8
+  }
+}

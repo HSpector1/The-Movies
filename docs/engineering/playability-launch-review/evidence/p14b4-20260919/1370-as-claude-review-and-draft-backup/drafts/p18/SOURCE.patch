@@ -1,0 +1,2315 @@
+diff --git a/src/core/tvDistribution.ts b/src/core/tvDistribution.ts
+new file mode 100644
+index 00000000..5353489b
+--- /dev/null
++++ b/src/core/tvDistribution.ts
+@@ -0,0 +1,85 @@
++// ── P18 — the one distribution model (contract §6) and the public projection (§8) ─────────
++//
++// An exclusive fixed-fee licence window: the whole season is available to its named commissioner
++// during [deliveryWeek, deliveryWeek + 52), covered by the distribution authority. No weekly
++// royalties, viewers, advertising yields, platform balances, theatrical runs or synthetic
++// FilmResults. Expiry stops availability; it neither reverses earned fees nor remints the work.
++
++import { appendTvReceipt } from './tvSettlement.js'
++import type { GameState } from './types.js'
++import type { TelevisionRoot, TvRole, TvSeason, TvSeasonStatus } from './tvTypes.js'
++
++export function tvSeasonAvailableAt(season: TvSeason, week: number): boolean {
++  const window = season.distribution
++  if (season.status !== 'delivered' || window === null) return false
++  // the grant's own distribution term bounds availability too: a lawful early end stops it
++  if (week >= season.grant.distributionEndExclusive) return false
++  return week >= window.availableFromWeek && week < window.availableUntilExclusive
++}
++
++/** At boundary T, record the expiry of every delivered window that ends at or before T — once. */
++export function recordTvDistributionExpiry(root: TelevisionRoot, boundary: number): TelevisionRoot {
++  let next = root
++  for (const season of root.seasons) {
++    const window = season.distribution
++    if (season.status !== 'delivered' || window === null || window.expiredRecordedWeek !== null) continue
++    const ends = Math.min(window.availableUntilExclusive, season.grant.distributionEndExclusive)
++    if (boundary < ends) continue
++    next = {
++      ...next,
++      seasons: next.seasons.map((row) => row.seasonId === season.seasonId
++        ? { ...row, distribution: { ...window, expiredRecordedWeek: boundary } }
++        : row),
++    }
++    next = appendTvReceipt(next, { kind: 'distributionExpired', week: boundary, seasonId: season.seasonId,
++      agreementId: season.agreementId, availableUntilExclusive: window.availableUntilExclusive })
++  }
++  return next
++}
++
++/** Public facts only (contract §8): no fee, advance, cash, grant price or private terms. */
++export type TvPublicSeasonView = {
++  seasonId: string
++  seasonNumber: number
++  episodes: number
++  status: TvSeasonStatus
++  commitWeek: number
++  deliveredWeek: number | null
++  cancelledWeek: number | null
++  availableFromWeek: number | null
++  availableUntilExclusive: number | null
++  credits: readonly { talentId: string; name: string; role: TvRole }[]
++}
++export type TvPublicSeriesView = {
++  seriesId: string
++  title: string
++  producerStudioId: string
++  propertyId: string
++  originProductionId: string | null
++  seasons: TvPublicSeasonView[]
++}
++export type TvPublicView = { series: TvPublicSeriesView[] }
++
++export function televisionPublicView(state: Pick<GameState, 'television'>): TvPublicView {
++  return {
++    series: state.television.series.map((series) => ({
++      seriesId: series.seriesId,
++      title: series.title,
++      producerStudioId: series.producerStudioId,
++      propertyId: series.propertyId,
++      originProductionId: series.originProductionId,
++      seasons: state.television.seasons.filter((season) => season.seriesId === series.seriesId).map((season) => ({
++        seasonId: season.seasonId,
++        seasonNumber: season.seasonNumber,
++        episodes: season.episodes,
++        status: season.status,
++        commitWeek: season.commitWeek,
++        deliveredWeek: season.deliveredWeek,
++        cancelledWeek: season.cancelledWeek,
++        availableFromWeek: season.distribution?.availableFromWeek ?? null,
++        availableUntilExclusive: season.distribution?.availableUntilExclusive ?? null,
++        credits: season.credits.map((credit) => ({ talentId: credit.talentId, name: credit.name, role: credit.role })),
++      })),
++    })),
++  }
++}
+diff --git a/src/core/tvReaders.ts b/src/core/tvReaders.ts
+new file mode 100644
+index 00000000..56b13088
+--- /dev/null
++++ b/src/core/tvReaders.ts
+@@ -0,0 +1,62 @@
++// ── P18 — leaf readers over the television root (no runtime imports beyond types) ────────
++//
++// Kept import-free so `employment.ts`, `occupancy.ts`, `sets.ts` and `worldgen.ts` can read
++// the root without a cycle through `tvSeason.ts`.
++
++import type { TelevisionRoot, TvSeason } from './tvTypes.js'
++
++export function initialTelevisionRoot(week: number): TelevisionRoot {
++  return { version: 1, recordedFromWeek: week, nextSeries: 1, nextSeason: 1, nextAgreement: 1, nextReceipt: 1,
++    series: [], seasons: [], agreements: [], receipts: [] }
++}
++
++export function liveTvSeason(root: TelevisionRoot | undefined): TvSeason | null {
++  return root?.seasons.find((season) => season.status === 'live') ?? null
++}
++
++/**
++ * The people a live season RESERVES (contract §4): the director, the three cast seats and the
++ * craft lead from commitment through delivery or cancellation, and the writer while the
++ * scripts block is incomplete. A released writer keeps a permanent credit and no seat.
++ */
++export function tvEngagedTalentIds(root: TelevisionRoot | undefined): Set<string> {
++  const ids = new Set<string>()
++  for (const season of root?.seasons ?? []) {
++    if (season.status !== 'live') continue
++    ids.add(season.roster.directorId)
++    ids.add(season.roster.cast.lead)
++    ids.add(season.roster.cast.antagonist)
++    ids.add(season.roster.cast.support)
++    ids.add(season.roster.craftId)
++    if (season.writerReleasedWeek === null) ids.add(season.roster.writerId)
++  }
++  return ids
++}
++
++/** The bare `facilityId:slot` keys a live season holds — the allocator's vocabulary. */
++export function televisionOccupiedFacilitySlots(root: TelevisionRoot | undefined): Set<string> {
++  const held = new Set<string>()
++  for (const season of root?.seasons ?? []) {
++    if (season.status !== 'live') continue
++    for (const reservation of season.reservations) held.add(`${reservation.facilityId}:${String(reservation.slot)}`)
++  }
++  return held
++}
++
++/** A set is held by a season exactly while the season holds the stage it stands on. */
++export function tvHeldSetIds(root: TelevisionRoot | undefined): Set<string> {
++  const held = new Set<string>()
++  for (const season of root?.seasons ?? []) {
++    if (season.status !== 'live' || season.setId === null) continue
++    if (season.reservations.some((reservation) => reservation.capability === 'soundstage')) held.add(season.setId)
++  }
++  return held
++}
++
++export function tvSeasonHoldingSet(root: TelevisionRoot | undefined, setId: string): string | null {
++  for (const season of root?.seasons ?? []) {
++    if (season.status !== 'live' || season.setId !== setId) continue
++    if (season.reservations.some((reservation) => reservation.capability === 'soundstage')) return season.seasonId
++  }
++  return null
++}
+diff --git a/src/core/tvSeason.ts b/src/core/tvSeason.ts
+new file mode 100644
+index 00000000..4246c04a
+--- /dev/null
++++ b/src/core/tvSeason.ts
+@@ -0,0 +1,436 @@
++// ── P18 — one season workload: weekly work, money, delivery and cancellation (contract §4–§7) ──
++//
++// Twelve counted work units in five blocks (3/1/1/4/3), at most one unit per weekly advance.
++// A unit is credited only when the required valid people, the occupied capacity and the paid
++// weekly production cost all exist for that week. Block resources follow the production
++// resource-release law (`productionPhases.ts`): what the next block genuinely requires is
++// retained (rehearsal → shooting keeps the stage and its set); everything else releases the
++// week the block completes. The scenery load-in reuses the engine's own geometry.
++//
++// Pure: no RNG, no clock, no I/O. The caller (tick step 7.7, actions) owns the cash it hands
++// in and the ledger rows it gets back; this module never writes `operations.workflows`.
++
++import { boundedStableSort } from './boundedStableSort.js'
++import { lifecycleStatus } from './careerLifecycle.js'
++import { activeContract } from './employment.js'
++import { facilitySlotKey } from './occupancy.js'
++import { facilityBodyCentre, gridDistance, sceneryLoadInWeeksForDistance } from './sceneryLoadIn.js'
++import { bindableSetsOn, wearSetAtWrap } from './sets.js'
++import { TUNING } from './tuning.js'
++import { recordTvDistributionExpiry } from './tvDistribution.js'
++import {
++  initialTelevisionRoot, liveTvSeason, televisionOccupiedFacilitySlots, tvEngagedTalentIds, tvHeldSetIds, tvSeasonHoldingSet,
++} from './tvReaders.js'
++import {
++  appendTvReceipt, applyTvObligationPayment, assertTvMoneyInvariant, freezeTvCancellation, tvLateDeduction, tvLedgerRow,
++  tvMilestonePayment, tvOutstanding,
++} from './tvSettlement.js'
++import { TV_WORK_BLOCK_ORDER } from './tvTypes.js'
++import type {
++  TelevisionRoot, TvAgreement, TvCancellationCause, TvGrantFacts, TvMilestoneKind, TvReservation, TvSeason, TvStall, TvWorkBlock,
++} from './tvTypes.js'
++import type { FacilityCapability, GameState, LedgerEntry, StudioOperations, StudioSet } from './types.js'
++
++export { initialTelevisionRoot, liveTvSeason, televisionOccupiedFacilitySlots, tvEngagedTalentIds, tvHeldSetIds, tvSeasonHoldingSet }
++
++export type TvWorkBlockDefinition = { block: TvWorkBlock; units: number; capabilities: readonly FacilityCapability[] }
++
++/** Contract §4 table: counted units and the occupied capability of each block, in order. */
++export const TV_WORK_BLOCKS: readonly TvWorkBlockDefinition[] = Object.freeze([
++  Object.freeze({ block: 'scripts', units: TUNING.TV_SCRIPT_UNITS, capabilities: Object.freeze(['development-casting']) as readonly FacilityCapability[] }),
++  Object.freeze({ block: 'preparation', units: TUNING.TV_PREPARATION_UNITS, capabilities: Object.freeze(['development-casting']) as readonly FacilityCapability[] }),
++  Object.freeze({ block: 'rehearsal', units: TUNING.TV_REHEARSAL_UNITS, capabilities: Object.freeze(['soundstage']) as readonly FacilityCapability[] }),
++  Object.freeze({ block: 'shooting', units: TUNING.TV_SHOOTING_UNITS, capabilities: Object.freeze(['soundstage', 'set-scenery']) as readonly FacilityCapability[] }),
++  Object.freeze({ block: 'post', units: TUNING.TV_POST_UNITS, capabilities: Object.freeze(['post']) as readonly FacilityCapability[] }),
++]) as readonly TvWorkBlockDefinition[]
++
++export function tvWorkUnitsTotal(): number {
++  return TV_WORK_BLOCKS.reduce((sum, block) => sum + block.units, 0)
++}
++
++export function tvBlockDefinition(block: TvWorkBlock): TvWorkBlockDefinition {
++  const found = TV_WORK_BLOCKS.find((row) => row.block === block)
++  if (found === undefined) throw new Error(`tv season: unknown work block ${String(block)}`)
++  return found
++}
++
++export function nextTvBlock(block: TvWorkBlock): TvWorkBlock | null {
++  const index = TV_WORK_BLOCK_ORDER.indexOf(block)
++  return index >= 0 && index + 1 < TV_WORK_BLOCK_ORDER.length ? TV_WORK_BLOCK_ORDER[index + 1]! : null
++}
++
++/** Units credited by every block before `block`, plus `blockCredited` — the one derivation of `creditedUnits`. */
++export function tvUnitsThrough(block: TvWorkBlock, blockCredited: number): number {
++  let total = 0
++  for (const row of TV_WORK_BLOCKS) {
++    if (row.block === block) return total + blockCredited
++    total += row.units
++  }
++  return total + blockCredited
++}
++
++/** Half-open upstream terms: the authority covers `week` while week < its end. */
++export function tvGrantCovers(grant: TvGrantFacts, week: number, scope: 'production' | 'distribution'): boolean {
++  return week < (scope === 'production' ? grant.productionEndExclusive : grant.distributionEndExclusive)
++}
++
++/** The people a live season needs this week: the five company members and, until scripts complete, the writer. */
++export function tvRequiredParticipants(season: TvSeason): string[] {
++  const ids = [season.roster.directorId, season.roster.cast.lead, season.roster.cast.antagonist, season.roster.cast.support, season.roster.craftId]
++  if (season.writerReleasedWeek === null) ids.unshift(season.roster.writerId)
++  return ids
++}
++
++function compareId<T extends { id: string }>(a: T, b: T): number {
++  return a.id < b.id ? -1 : a.id > b.id ? 1 : 0
++}
++
++function reservationKey(reservation: TvReservation): string {
++  return facilitySlotKey(reservation.facilityId, reservation.slot)
++}
++
++export type TvAllocationContext = {
++  operations: StudioOperations
++  /** Candidate sets for the stage+set composite (the state as the advance found it). */
++  sets: readonly StudioSet[]
++  /** Every other owner's slot keys, bare `facilityId:slot`. The season's own slots are excluded. */
++  occupied: ReadonlySet<string>
++  /** Sets other holders stand on right now. */
++  heldSets: ReadonlySet<string>
++  stageFacilityId: string
++  postFacilityId: string
++}
++
++type TvAllocation = { ok: true; reservations: TvReservation[]; setId: string | null } | { ok: false; stall: TvStall }
++
++/**
++ * Acquire what `block` requires, retaining what the season already holds. The sound chain is
++ * exact: the soundstage must be the adoption's stage and Post its Post. Rehearsal acquires the
++ * stage+set composite atomically (`productionPhases.ts` §3.2); shooting retains both.
++ */
++export function allocateTvBlock(season: TvSeason, block: TvWorkBlockDefinition, context: TvAllocationContext): TvAllocation {
++  const occupied = new Set(context.occupied)
++  const facilities = boundedStableSort([...context.operations.facilities], compareId).filter((facility) =>
++    facility.capability === 'soundstage' ? facility.id === context.stageFacilityId
++      : facility.capability === 'post' ? facility.id === context.postFacilityId
++        : true)
++  const reservations: TvReservation[] = []
++  let setId = season.setId
++  const needsStage = block.capabilities.includes('soundstage')
++  const retainingStage = needsStage && season.reservations.some((reservation) => reservation.capability === 'soundstage')
++  if (needsStage && !retainingStage) {
++    const stage = facilities.find((facility) => facility.capability === 'soundstage')
++    if (stage === undefined) return { ok: false, stall: { kind: 'facility-capacity', capability: 'soundstage' } }
++    let free = -1
++    for (let slot = 0; slot < stage.capacity; slot++) {
++      if (!occupied.has(facilitySlotKey(stage.id, slot))) { free = slot; break }
++    }
++    if (free < 0) return { ok: false, stall: { kind: 'facility-capacity', capability: 'soundstage' } }
++    const candidates = bindableSetsOn(context.sets, stage.id, context.heldSets)
++    if (candidates.length === 0) return { ok: false, stall: { kind: 'set-unavailable' } }
++    setId = candidates[0]!.id
++  }
++  for (const capability of block.capabilities) {
++    const retained = season.reservations.find((reservation) => reservation.capability === capability)
++    if (retained !== undefined) {
++      reservations.push(retained)
++      occupied.add(reservationKey(retained))
++      continue
++    }
++    let allocated: TvReservation | null = null
++    for (const facility of facilities) {
++      if (facility.capability !== capability) continue
++      for (let slot = 0; slot < facility.capacity; slot++) {
++        const key = facilitySlotKey(facility.id, slot)
++        if (occupied.has(key)) continue
++        allocated = { facilityId: facility.id, capability, slot }
++        occupied.add(key)
++        break
++      }
++      if (allocated !== null) break
++    }
++    if (allocated === null) return { ok: false, stall: { kind: 'facility-capacity', capability } }
++    reservations.push(allocated)
++  }
++  return { ok: true, reservations, setId }
++}
++
++/** Weeks the scenery still has to travel from the shop to the stage; 0 when it is on the stage. */
++export function tvSceneryLoadInRemaining(state: Pick<GameState, 'placement' | 'property'>, season: TvSeason, week: number): number {
++  const stage = season.reservations.find((reservation) => reservation.capability === 'soundstage')
++  const scenery = season.reservations.find((reservation) => reservation.capability === 'set-scenery')
++  const called = season.work.stageHeldSinceWeek
++  if (stage === undefined || scenery === undefined || called === null) return 0
++  const to = facilityBodyCentre(state, stage.facilityId)
++  const from = facilityBodyCentre(state, scenery.facilityId)
++  // A body the property cannot place has no derivable trip. The film law withholds the whole
++  // derivation and leaves the legacy click; a season has no click, so an underivable trip costs
++  // no week rather than a guessed one (REPORT known limitations).
++  if (to === null || from === null) return 0
++  return Math.max(0, sceneryLoadInWeeksForDistance(gridDistance(from, to)) - (week - called))
++}
++
++function replaceSeason(root: TelevisionRoot, season: TvSeason): TelevisionRoot {
++  return { ...root, seasons: root.seasons.map((row) => row.seasonId === season.seasonId ? season : row) }
++}
++
++function replaceAgreement(root: TelevisionRoot, agreement: TvAgreement): TelevisionRoot {
++  return { ...root, agreements: root.agreements.map((row) => row.agreementId === agreement.agreementId ? agreement : row) }
++}
++
++function agreementFor(root: TelevisionRoot, season: TvSeason): TvAgreement {
++  const agreement = root.agreements.find((row) => row.agreementId === season.agreementId)
++  if (agreement === undefined) throw new Error(`tv season: season ${season.seasonId} names no agreement ${season.agreementId}`)
++  return agreement
++}
++
++type MoneyStep = { root: TelevisionRoot; cash: number; ledger: LedgerEntry[] }
++
++/** Earn a milestone at boundary T and pay max(0, E_new − P) at the advance week W. */
++function earnMilestone(step: MoneyStep, season: TvSeason, kind: TvMilestoneKind, amount: number, boundary: number, ledgerWeek: number): MoneyStep {
++  const agreement = agreementFor(step.root, season)
++  const earned = agreement.earned + amount
++  const pay = tvMilestonePayment(earned, agreement.received)
++  const next: TvAgreement = {
++    ...agreement,
++    earned,
++    received: agreement.received + pay,
++    milestones: [...agreement.milestones, { kind, week: boundary, earned: amount, paid: pay }],
++  }
++  let root = replaceAgreement(step.root, next)
++  root = appendTvReceipt(root, { kind: 'milestoneEarned', week: boundary, seasonId: season.seasonId, agreementId: agreement.agreementId, milestone: kind, amount })
++  const ledger = [...step.ledger]
++  let cash = step.cash
++  if (pay > 0) {
++    root = appendTvReceipt(root, { kind: 'milestonePaid', week: boundary, seasonId: season.seasonId, agreementId: agreement.agreementId, milestone: kind, amount: pay })
++    ledger.push(tvLedgerRow(ledgerWeek, 'tvMilestonePayment', pay, agreement.agreementId, `tv ${kind} milestone ${agreement.agreementId}`))
++    cash += pay
++  }
++  return { root, cash, ledger }
++}
++
++export type TvCancellationWeeks = { boundary: number; ledger: number }
++
++/**
++ * The one cancellation settlement (contract §7): freeze U0, assess K once, release capacity and
++ * people once, and — when `pay` — settle from available nonnegative cash, refund first. The
++ * closure/absorption path passes `pay: false`: P15's estate owns those payments and this
++ * module never debits an obligation inside a closure handler.
++ */
++export function cancelTvSeasonCore(root: TelevisionRoot, seasonId: string, weeks: TvCancellationWeeks, cause: TvCancellationCause,
++  cash: number, pay: boolean): MoneyStep {
++  const season = root.seasons.find((row) => row.seasonId === seasonId)
++  if (season === undefined) throw new Error(`tv season: no TV season "${seasonId}"`)
++  if (season.status !== 'live') throw new Error(`tv season: season "${seasonId}" is not live (status ${season.status})`)
++  let agreement = freezeTvCancellation(agreementFor(root, season), weeks.boundary)
++  const ledger: LedgerEntry[] = []
++  let refundPaid = 0
++  let chargePaid = 0
++  if (pay) {
++    const outstanding = tvOutstanding(agreement)
++    let available = Math.max(0, cash)
++    refundPaid = Math.min(outstanding.advanceRefund, available)
++    available -= refundPaid
++    chargePaid = Math.min(outstanding.cancellationCharge, available)
++    const total = refundPaid + chargePaid
++    if (total > 0) {
++      agreement = applyTvObligationPayment(agreement, total).agreement
++      cash -= total
++    }
++    if (refundPaid > 0) ledger.push(tvLedgerRow(weeks.ledger, 'tvAdvanceRefund', -refundPaid, agreement.agreementId, `tv advance refund ${agreement.agreementId}`))
++    if (chargePaid > 0) ledger.push(tvLedgerRow(weeks.ledger, 'tvCancellationCharge', -chargePaid, agreement.agreementId, `tv cancellation charge ${agreement.agreementId}`))
++  }
++  assertTvMoneyInvariant(agreement)
++  const cancelled: TvSeason = {
++    ...season,
++    status: 'cancelled',
++    cancelledWeek: weeks.boundary,
++    cancellationCause: cause,
++    reservations: [],
++    work: { ...season.work, stall: null },
++  }
++  let next = replaceAgreement(replaceSeason(root, cancelled), agreement)
++  const outstanding = tvOutstanding(agreement)
++  next = appendTvReceipt(next, { kind: 'cancelled', week: weeks.boundary, seasonId, agreementId: agreement.agreementId, cause,
++    refundFrozen: agreement.advanceRefundFrozen ?? 0, chargeAssessed: agreement.cancellationChargeAssessed, refundPaid, chargePaid })
++  if (refundPaid > 0) {
++    next = appendTvReceipt(next, { kind: 'advanceRefundPaid', week: weeks.boundary, seasonId, agreementId: agreement.agreementId, amount: refundPaid, remaining: outstanding.advanceRefund })
++  }
++  if (chargePaid > 0) {
++    next = appendTvReceipt(next, { kind: 'cancellationChargePaid', week: weeks.boundary, seasonId, agreementId: agreement.agreementId, amount: chargePaid, remaining: outstanding.cancellationCharge })
++  }
++  return { root: next, cash, ledger }
++}
++
++/** The public `cancelTvSeason` verb: the producer cancels explicitly before accepted delivery. */
++export function cancelTvSeason(state: GameState, seasonId: string): GameState {
++  const season = state.television.seasons.find((row) => row.seasonId === seasonId)
++  if (season === undefined) throw new Error(`applyActions: cancelTvSeason rejected — no TV season "${seasonId}"`)
++  if (season.status !== 'live') throw new Error(`applyActions: cancelTvSeason rejected — season "${seasonId}" is not live (status ${season.status})`)
++  const week = state.market.tick
++  const result = cancelTvSeasonCore(state.television, seasonId, { boundary: week, ledger: week }, 'voluntary', state.studio.cash, true)
++  return { ...state, television: result.root, studio: { ...state.studio, cash: result.cash }, ledger: [...state.ledger, ...result.ledger] }
++}
++
++/**
++ * Cancellation that moves no cash: the P15B closure handler and healthy-absorption nonassignment
++ * path (contract §7). Obligations are frozen for the estate's claim union (`tvObligations`).
++ */
++export function cancelTvSeasonWithoutPayment(state: GameState, seasonId: string, week: number, cause: TvCancellationCause): GameState {
++  const result = cancelTvSeasonCore(state.television, seasonId, { boundary: week, ledger: week }, cause, state.studio.cash, false)
++  return { ...state, television: result.root }
++}
++
++export type TelevisionAdvanceFacts = {
++  /** Cash after this week's mandatory studio charges. */
++  cash: number
++  /** The production root after this week's film sweep, with the facilities the week began with. */
++  operations: StudioOperations
++  /** The sets root this advance will finalize (wear applies here). */
++  sets: readonly StudioSet[]
++  /** The sets as the advance found them: a set finishing this week is not bindable yet. */
++  setsAtStart: readonly StudioSet[]
++  /** Every other owner's bare slot keys after this week's allocations. */
++  occupiedByOthers: ReadonlySet<string>
++  heldSetsByOthers: ReadonlySet<string>
++}
++
++export type TelevisionAdvance = { television: TelevisionRoot; cash: number; ledger: LedgerEntry[]; sets: readonly StudioSet[] }
++
++/**
++ * Tick step 7.7: at most one valid paid work unit for the live season at advance W → W+1, with
++ * milestones, delivery and the final-boundary cancellation resolved at T = W + 1. Runs after the
++ * film sweep and after the week's mandatory charges (contract §5), so "available cash" is literal
++ * and the season is the last requester of the week's capacity (REPORT contract gaps).
++ */
++export function advanceTelevisionWeek(state: GameState, facts: TelevisionAdvanceFacts, week: number): TelevisionAdvance {
++  const boundary = week + 1
++  let root = recordTvDistributionExpiry(state.television, boundary)
++  let cash = facts.cash
++  const ledger: LedgerEntry[] = []
++  let sets = facts.sets
++  const season = liveTvSeason(root)
++  if (season === null || state.founding !== null || state.operations.mode !== 'managed') return { television: root, cash, ledger, sets }
++  const done = (): TelevisionAdvance => ({ television: root, cash, ledger, sets })
++  const cancel = (cause: TvCancellationCause): TelevisionAdvance => {
++    const result = cancelTvSeasonCore(root, season.seasonId, { boundary, ledger: week }, cause, cash, true)
++    root = result.root
++    cash = result.cash
++    ledger.push(...result.ledger)
++    return done()
++  }
++  // No advance beginning at the final boundary performs work on this agreement.
++  if (week >= season.finalWeek) return cancel('deadline')
++  // Actual permission before each work unit: the production authority must cover the boundary.
++  if (!tvGrantCovers(season.grant, boundary, 'production')) return cancel('rightsLost')
++  for (const talentId of tvRequiredParticipants(season)) {
++    if (activeContract(state, talentId, week) === undefined || lifecycleStatus(state, talentId) === 'retired') return cancel('participantLost')
++  }
++  const adoption = state.technology.adoptions.find((row) => row.id === season.adoptionId)
++  if (adoption === undefined || adoption.postFacilityId === null) return cancel('rightsLost')
++
++  const block = tvBlockDefinition(season.work.block)
++  let working = season
++  const holdsAll = block.capabilities.every((capability) => working.reservations.some((reservation) => reservation.capability === capability))
++  if (!holdsAll) {
++    const allocation = allocateTvBlock(working, block, {
++      operations: facts.operations,
++      sets: facts.setsAtStart,
++      occupied: facts.occupiedByOthers,
++      heldSets: facts.heldSetsByOthers,
++      stageFacilityId: adoption.stageFacilityId,
++      postFacilityId: adoption.postFacilityId,
++    })
++    if (!allocation.ok) {
++      root = replaceSeason(root, { ...working, work: { ...working.work, stall: allocation.stall } })
++      return finishBoundary()
++    }
++    const acquiredStage = allocation.reservations.some((r) => r.capability === 'soundstage')
++      && !working.reservations.some((r) => r.capability === 'soundstage')
++    working = {
++      ...working,
++      reservations: allocation.reservations,
++      setId: allocation.setId,
++      work: { ...working.work, stageHeldSinceWeek: acquiredStage ? week : working.work.stageHeldSinceWeek },
++    }
++  }
++  if (working.work.block === 'shooting') {
++    const remaining = tvSceneryLoadInRemaining(state, working, week)
++    if (remaining > 0) {
++      root = replaceSeason(root, { ...working, work: { ...working.work, stall: { kind: 'scenery-load-in', weeksRemaining: remaining } } })
++      return finishBoundary()
++    }
++  }
++  const agreement = agreementFor(root, working)
++  if (cash < agreement.terms.unitSpend) {
++    root = replaceSeason(root, { ...working, work: { ...working.work, stall: { kind: 'cash', required: agreement.terms.unitSpend, available: cash } } })
++    return finishBoundary()
++  }
++  // The real expense and the unit, atomically.
++  cash -= agreement.terms.unitSpend
++  const creditedUnits = working.work.creditedUnits + 1
++  const blockCredited = working.work.blockCredited + 1
++  ledger.push(tvLedgerRow(week, 'tvProductionSpend', -agreement.terms.unitSpend, agreement.agreementId,
++    `tv unit ${creditedUnits}/${tvWorkUnitsTotal()} ${working.work.block} ${working.seasonId}`))
++  working = { ...working, work: { ...working.work, creditedUnits, blockCredited, lastCreditedWeek: boundary, stall: null } }
++  root = appendTvReceipt(root, { kind: 'unitCredited', week: boundary, seasonId: working.seasonId, agreementId: agreement.agreementId, block: working.work.block, creditedUnits })
++  if (blockCredited === block.units) {
++    root = appendTvReceipt(root, { kind: 'blockCompleted', week: boundary, seasonId: working.seasonId, agreementId: agreement.agreementId, block: working.work.block })
++    let money: MoneyStep = { root, cash, ledger: [] }
++    switch (working.work.block) {
++      case 'scripts': {
++        money = earnMilestone(money, working, 'scripts', agreement.terms.milestones.scripts, boundary, week)
++        working = { ...working, writerReleasedWeek: boundary }
++        money.root = appendTvReceipt(money.root, { kind: 'writerReleased', week: boundary, seasonId: working.seasonId, agreementId: agreement.agreementId, talentId: working.roster.writerId })
++        break
++      }
++      case 'shooting': {
++        money = earnMilestone(money, working, 'pictureLock', agreement.terms.milestones.pictureLock, boundary, week)
++        sets = wearSetAtWrap(sets, working.setId)
++        break
++      }
++      case 'post': {
++        const deduction = tvLateDeduction(agreement.terms, boundary)
++        money = earnMilestone(money, working, 'delivery', agreement.terms.milestones.delivery - deduction, boundary, week)
++        const settled = agreementFor(money.root, working)
++        money.root = replaceAgreement(money.root, { ...settled, status: 'settled' })
++        working = {
++          ...working,
++          status: 'delivered',
++          deliveredWeek: boundary,
++          reservations: [],
++          distribution: { availableFromWeek: boundary, availableUntilExclusive: boundary + agreement.terms.distributionWeeks, expiredRecordedWeek: null },
++        }
++        money.root = appendTvReceipt(money.root, { kind: 'delivered', week: boundary, seasonId: working.seasonId, agreementId: agreement.agreementId,
++          deliveryWeek: boundary, lateWeeks: Math.max(0, boundary - agreement.terms.dueWeek), deduction })
++        break
++      }
++      case 'preparation':
++      case 'rehearsal':
++        break
++    }
++    root = money.root
++    cash = money.cash
++    ledger.push(...money.ledger)
++    if (working.status === 'live') {
++      const next = nextTvBlock(working.work.block)
++      if (next === null) throw new Error(`tv season: block ${working.work.block} completed with no successor and no delivery`)
++      const retained = tvBlockDefinition(next).capabilities
++      working = {
++        ...working,
++        reservations: working.reservations.filter((reservation) => retained.includes(reservation.capability)),
++        work: { ...working.work, block: next, blockCredited: 0 },
++      }
++    }
++  }
++  root = replaceSeason(root, working)
++  assertTvMoneyInvariant(agreementFor(root, working))
++  return finishBoundary()
++
++  function finishBoundary(): TelevisionAdvance {
++    const current = root.seasons.find((row) => row.seasonId === season!.seasonId)!
++    // Resolve lawful delivery first; an incomplete season at T = C + 20 cancels for deadline failure.
++    if (current.status === 'live' && boundary >= current.finalWeek) return cancel('deadline')
++    return done()
++  }
++}
+diff --git a/src/core/tvSettlement.ts b/src/core/tvSettlement.ts
+new file mode 100644
+index 00000000..afe52f71
+--- /dev/null
++++ b/src/core/tvSettlement.ts
+@@ -0,0 +1,191 @@
++// ── P18 — the pure money law of `tv-limited-season/v1` (contract §5, §7) ────────────────
++//
++// E = cumulative earned fee (noncash). P = gross commissioning cash received, advance
++// included. R = advance principal returned. Live: R = 0 and a milestone pays
++// max(0, E_new − P). Cancellation freezes U0 = max(0, A − E) and assesses K once; the
++// outstanding refund is max(0, U0 − R), never U0 again after a partial return. Invariant after
++// any settlement attempt: P − R = E + advanceRefundUnpaid and K = paid + unpaid.
++//
++// Pure: no RNG, no clock, no studio id read anywhere in the law (contract §1: the same law
++// and quote for player and rival producers). Errors carry no rival figure.
++
++import { TUNING } from './tuning.js'
++import { TV_COMMISSIONER_ID, TV_RULESET_VERSION } from './tvTypes.js'
++import type { TelevisionRoot, TvAgreement, TvAgreementTerms, TvObligation, TvReceipt } from './tvTypes.js'
++import type { GameState, LedgerEntry } from './types.js'
++
++export function tvTermsFor(commitWeek: number): TvAgreementTerms {
++  if (!Number.isSafeInteger(commitWeek) || commitWeek < 0) throw new Error(`tv settlement: commit week must be a whole week (got ${String(commitWeek)})`)
++  return {
++    fee: TUNING.TV_SEASON_FEE,
++    advance: TUNING.TV_SEASON_ADVANCE,
++    milestones: { scripts: TUNING.TV_MILESTONE_SCRIPTS, pictureLock: TUNING.TV_MILESTONE_PICTURE_LOCK, delivery: TUNING.TV_MILESTONE_DELIVERY },
++    unitSpend: TUNING.TV_UNIT_SPEND,
++    dueWeek: commitWeek + TUNING.TV_DUE_WEEKS,
++    finalWeek: commitWeek + TUNING.TV_FINAL_WEEKS,
++    lateDeductionPerWeek: TUNING.TV_LATE_DEDUCTION_PER_WEEK,
++    lateDeductionMax: TUNING.TV_LATE_DEDUCTION_MAX,
++    cancellationCharge: TUNING.TV_CANCELLATION_CHARGE,
++    distributionWeeks: TUNING.TV_DISTRIBUTION_WEEKS,
++  }
++}
++
++/** Live milestone payment: max(0, E_new − P). Ordinarily scripts pays $0 (the advance recoups). */
++export function tvMilestonePayment(earnedAfter: number, received: number): number {
++  return Math.max(0, earnedAfter - received)
++}
++
++/** 12,000 × max(0, T − (C+16)), at most 48,000. A delivery past C+20 is not priced: it is forbidden. */
++export function tvLateDeduction(terms: TvAgreementTerms, deliveryWeek: number): number {
++  if (!Number.isSafeInteger(deliveryWeek)) throw new Error(`tv settlement: delivery week must be a whole week (got ${String(deliveryWeek)})`)
++  if (deliveryWeek > terms.finalWeek) {
++    throw new Error(`tv settlement: delivery at week ${deliveryWeek} is past the final permitted boundary ${terms.finalWeek}`)
++  }
++  return Math.min(terms.lateDeductionMax, terms.lateDeductionPerWeek * Math.max(0, deliveryWeek - terms.dueWeek))
++}
++
++export function tvDeliveryMilestoneEarned(terms: TvAgreementTerms, deliveryWeek: number): number {
++  return terms.milestones.delivery - tvLateDeduction(terms, deliveryWeek)
++}
++
++export function tvOutstanding(agreement: TvAgreement): { advanceRefund: number; cancellationCharge: number; total: number } {
++  const frozen = agreement.advanceRefundFrozen ?? 0
++  const advanceRefund = Math.max(0, frozen - agreement.advanceReturned)
++  const cancellationCharge = Math.max(0, agreement.cancellationChargeAssessed - agreement.cancellationChargePaid)
++  return { advanceRefund, cancellationCharge, total: advanceRefund + cancellationCharge }
++}
++
++/** Freeze U0 and assess K once. A no-op on anything but a live agreement. */
++export function freezeTvCancellation(agreement: TvAgreement, week: number): TvAgreement {
++  if (agreement.status !== 'live') return agreement
++  return {
++    ...agreement,
++    status: 'cancelled',
++    cancelledWeek: week,
++    advanceRefundFrozen: Math.max(0, agreement.terms.advance - agreement.earned),
++    cancellationChargeAssessed: agreement.terms.cancellationCharge,
++  }
++}
++
++/** Apply a payment to the remaining refund first, then the remaining charge. */
++export function applyTvObligationPayment(agreement: TvAgreement, amount: number): { agreement: TvAgreement; refund: number; charge: number } {
++  if (agreement.status !== 'cancelled') throw new Error('tv settlement: only a cancelled agreement with outstanding obligations accepts a payment')
++  if (!Number.isSafeInteger(amount) || amount <= 0) throw new Error('tv settlement: amount must be a positive whole-dollar integer')
++  const outstanding = tvOutstanding(agreement)
++  if (amount > outstanding.total) throw new Error('tv settlement: amount exceeds the outstanding balance')
++  const refund = Math.min(amount, outstanding.advanceRefund)
++  const charge = amount - refund
++  const next: TvAgreement = {
++    ...agreement,
++    advanceReturned: agreement.advanceReturned + refund,
++    cancellationChargePaid: agreement.cancellationChargePaid + charge,
++  }
++  const settled = tvOutstanding(next).total === 0
++  return { agreement: settled ? { ...next, status: 'settled' } : next, refund, charge }
++}
++
++export function assertTvMoneyInvariant(agreement: TvAgreement): void {
++  const fail = (detail: string): never => { throw new Error(`tv money invariant (${agreement.agreementId}): ${detail}`) }
++  for (const [key, n] of Object.entries({ earned: agreement.earned, received: agreement.received, advanceReturned: agreement.advanceReturned,
++    cancellationChargeAssessed: agreement.cancellationChargeAssessed, cancellationChargePaid: agreement.cancellationChargePaid })) {
++    if (!Number.isSafeInteger(n) || n < 0) fail(`${key} must be a non-negative integer`)
++  }
++  if (agreement.advanceRefundFrozen !== null && (!Number.isSafeInteger(agreement.advanceRefundFrozen) || agreement.advanceRefundFrozen < 0)) {
++    fail('advanceRefundFrozen must be null or a non-negative integer')
++  }
++  if (agreement.earned > agreement.terms.fee) fail('earned exceeds the contracted fee')
++  if (agreement.cancellationChargePaid > agreement.cancellationChargeAssessed) fail('charge paid exceeds the charge assessed')
++  if (agreement.advanceReturned > (agreement.advanceRefundFrozen ?? 0)) fail('advance returned exceeds the frozen refund principal')
++  const outstanding = tvOutstanding(agreement)
++  const unearned = agreement.status === 'live' || agreement.advanceRefundFrozen === null
++    ? Math.max(0, agreement.terms.advance - agreement.earned)
++    : outstanding.advanceRefund
++  if (agreement.received - agreement.advanceReturned !== agreement.earned + unearned) fail('P − R must equal E + the unearned advance')
++  if (agreement.cancellationChargeAssessed !== agreement.cancellationChargePaid + outstanding.cancellationCharge) fail('K must equal paid + unpaid')
++  if (agreement.status === 'live' && (agreement.advanceReturned !== 0 || agreement.cancellationChargeAssessed !== 0 || agreement.advanceRefundFrozen !== null)) {
++    fail('a live agreement has no return, charge or frozen principal')
++  }
++  if (agreement.status === 'settled' && outstanding.total !== 0) fail('a settled agreement has nothing outstanding')
++  if (agreement.status === 'cancelled' && outstanding.total === 0) fail('a cancelled agreement with nothing outstanding is settled')
++  if (agreement.status !== 'live' && agreement.status !== 'settled' && agreement.status !== 'cancelled') fail('unknown status')
++}
++
++/** Every outstanding claim, oldest cancellation first then agreement id — the P15 closed-claims record. */
++export function tvObligations(state: Pick<GameState, 'television'>): TvObligation[] {
++  const rows: TvObligation[] = []
++  const cancelled = state.television.agreements
++    .filter((agreement) => agreement.status === 'cancelled' && agreement.cancelledWeek !== null)
++    .sort((a, b) => (a.cancelledWeek! - b.cancelledWeek!) || (a.agreementId < b.agreementId ? -1 : a.agreementId > b.agreementId ? 1 : 0))
++  for (const agreement of cancelled) {
++    const outstanding = tvOutstanding(agreement)
++    const base = { agreementId: agreement.agreementId, studioId: agreement.studioId, counterpartyId: agreement.commissionerId, cancelledWeek: agreement.cancelledWeek! }
++    if (outstanding.advanceRefund > 0) {
++      rows.push({ ...base, kind: 'advanceRefund', total: agreement.advanceRefundFrozen ?? 0, paid: agreement.advanceReturned, outstanding: outstanding.advanceRefund })
++    }
++    if (outstanding.cancellationCharge > 0) {
++      rows.push({ ...base, kind: 'cancellationCharge', total: agreement.cancellationChargeAssessed, paid: agreement.cancellationChargePaid, outstanding: outstanding.cancellationCharge })
++    }
++  }
++  return rows
++}
++
++/** True while any unpaid refund or cancellation charge stands: no new season may be admitted. */
++export function tvArrearsOutstanding(state: Pick<GameState, 'television'>): number {
++  return tvObligations(state).reduce((sum, row) => sum + row.outstanding, 0)
++}
++
++// ── receipts and ledger rows: the two correlated records every payment writes ──────────
++
++export type TvReceiptDraft = Omit<TvReceipt, 'receiptId'>
++
++export function appendTvReceipt(root: TelevisionRoot, draft: TvReceiptDraft): TelevisionRoot {
++  const receiptId = `tv-receipt-${String(root.nextReceipt).padStart(4, '0')}`
++  return { ...root, nextReceipt: root.nextReceipt + 1, receipts: [...root.receipts, { ...draft, receiptId } as TvReceipt] }
++}
++
++export function tvLedgerRow(week: number, kind: LedgerEntry['kind'] & `tv${string}`, amount: number, agreementId: string, note: string): LedgerEntry {
++  if (!Number.isSafeInteger(amount) || amount === 0) throw new Error(`tv ledger: ${kind} amount must be a non-zero whole-dollar integer`)
++  return { week, kind, amount, note, tvAgreementId: agreementId } as LedgerEntry
++}
++
++export type SettleTvObligationsRequest = { agreementId: string; expectedRemaining: number; amount: number }
++
++/** The public `settleTvObligations` refusal, or null. Reads no closure root: the parent gates actual closure. */
++export function settleTvObligationsRefusal(state: GameState, request: SettleTvObligationsRequest): string | null {
++  const agreement = state.television.agreements.find((row) => row.agreementId === request.agreementId)
++  if (agreement === undefined) return `no TV agreement "${request.agreementId}"`
++  if (agreement.status !== 'cancelled') return `agreement "${request.agreementId}" has no outstanding obligation (status ${agreement.status})`
++  const remaining = tvOutstanding(agreement).total
++  if (!Number.isSafeInteger(request.expectedRemaining) || request.expectedRemaining !== remaining) {
++    return `expectedRemaining ${String(request.expectedRemaining)} is stale; the outstanding balance of "${request.agreementId}" differs`
++  }
++  if (!Number.isSafeInteger(request.amount) || request.amount <= 0) return 'amount must be a positive whole-dollar integer'
++  if (request.amount > remaining) return `amount ${request.amount} exceeds the outstanding balance`
++  const available = Math.max(0, state.studio.cash)
++  if (request.amount > available) return `amount ${request.amount} exceeds available nonnegative cash`
++  return null
++}
++
++/** Pay a lawful portion: refund first, then the charge; exact receipts; no interest, refinancing or forgiveness. */
++export function settleTvObligations(state: GameState, request: SettleTvObligationsRequest): GameState {
++  const refusal = settleTvObligationsRefusal(state, request)
++  if (refusal !== null) throw new Error(`applyActions: settleTvObligations rejected — ${refusal}`)
++  const week = state.market.tick
++  const agreement = state.television.agreements.find((row) => row.agreementId === request.agreementId)!
++  const paid = applyTvObligationPayment(agreement, request.amount)
++  assertTvMoneyInvariant(paid.agreement)
++  let root: TelevisionRoot = { ...state.television, agreements: state.television.agreements.map((row) => row === agreement ? paid.agreement : row) }
++  const ledger: LedgerEntry[] = []
++  const outstanding = tvOutstanding(paid.agreement)
++  if (paid.refund > 0) {
++    ledger.push(tvLedgerRow(week, 'tvAdvanceRefund', -paid.refund, agreement.agreementId, `tv advance refund ${agreement.agreementId}`))
++    root = appendTvReceipt(root, { kind: 'advanceRefundPaid', week, seasonId: agreement.seasonId, agreementId: agreement.agreementId, amount: paid.refund, remaining: outstanding.advanceRefund })
++  }
++  if (paid.charge > 0) {
++    ledger.push(tvLedgerRow(week, 'tvCancellationCharge', -paid.charge, agreement.agreementId, `tv cancellation charge ${agreement.agreementId}`))
++    root = appendTvReceipt(root, { kind: 'cancellationChargePaid', week, seasonId: agreement.seasonId, agreementId: agreement.agreementId, amount: paid.charge, remaining: outstanding.cancellationCharge })
++  }
++  return { ...state, television: root, studio: { ...state.studio, cash: state.studio.cash - request.amount }, ledger: [...state.ledger, ...ledger] }
++}
++
++export { TV_COMMISSIONER_ID, TV_RULESET_VERSION }
+diff --git a/src/core/tvTypes.ts b/src/core/tvTypes.ts
+new file mode 100644
+index 00000000..5145c969
+--- /dev/null
++++ b/src/core/tvTypes.ts
+@@ -0,0 +1,225 @@
++// ── P18 bounded first season — the typed television records (`tv-limited-season/v1`) ─────
++//
++// Authority: 1367-stage/p18-prep/P18-FIRST-SEASON-CONTRACT.md (adopted 1367-G under 1342-O
++// ruling 10). One limited series, one commissioned six-episode season produced as ONE
++// twelve-unit workload, one typed external commissioner, one fixed-fee exclusive
++// distribution window. Six is delivery metadata, not six production clocks.
++//
++// Types only, plus the three identity constants the contract names verbatim. No behaviour.
++
++import type { CastSlot, FacilityCapability } from './types.js'
++
++/** Contract §4: the provisional ruleset every season of this checkpoint is written under. */
++export const TV_RULESET_VERSION = 'tv-limited-season/v1' as const
++/** Contract §3: the versioned external party. It has no employees, facilities or rank. */
++export const TV_COMMISSIONER_ID = 'p18-limited-season-commissioner-v1' as const
++/** Contract §4: the five work blocks, in the only order they may run. */
++export const TV_WORK_BLOCK_ORDER = ['scripts', 'preparation', 'rehearsal', 'shooting', 'post'] as const
++export type TvWorkBlock = (typeof TV_WORK_BLOCK_ORDER)[number]
++
++/** The five player ledger kinds (contract §5), positive receipts first. */
++export const TV_LEDGER_KINDS = ['tvAdvance', 'tvMilestonePayment', 'tvProductionSpend', 'tvAdvanceRefund', 'tvCancellationCharge'] as const
++export type TvLedgerKind = (typeof TV_LEDGER_KINDS)[number]
++
++export type TvRole = 'writer' | 'director' | 'lead' | 'antagonist' | 'support' | 'craft'
++
++/**
++ * The grant-set READ PROJECTION (contract §3): two separately identified single-grantee P16
++ * authorities, never one multi-grantee licence. `productionAuthorityId` proves the producer's
++ * development, production and delivery permission; `distributionAuthorityId` proves the named
++ * commissioner's exclusive television distribution permission. Half-open upstream terms.
++ *
++ * CONTRACT GAP (P18): P16 is not landed at this base, so these facts arrive on the commission
++ * payload as an injected adapter input and are persisted on the season. The engine validates
++ * identity, party, scope and window cover; P16 wiring replaces the payload facts with a live
++ * projection over its persisted licence/title events (REPORT "adapter").
++ */
++export type TvGrantFacts = {
++  propertyId: string
++  producerStudioId: string
++  productionAuthorityId: string
++  /** Must exceed C + 20: the production authority covers permitted delivery. */
++  productionEndExclusive: number
++  commissionerId: string
++  distributionAuthorityId: string
++  /** Must be at least C + 72: the whole possible availability interval. */
++  distributionEndExclusive: number
++}
++
++export type TvRoster = {
++  writerId: string
++  directorId: string
++  cast: Record<CastSlot, string>
++  craftId: string
++}
++
++/** A new series mints an identity; an existing one names its exact id (never its title). */
++export type TvSeriesRef = { kind: 'new'; title: string } | { kind: 'existing'; seriesId: string }
++
++export type CommissionTvSeasonPayload = {
++  series: TvSeriesRef
++  propertyId: string
++  /** An exact released film of this studio the series descends from, or null. Never a title. */
++  originProductionId: string | null
++  grant: TvGrantFacts
++  roster: TvRoster
++  /** The player's operational synchronized-dialogue adoption: its stage and Post are the chain. */
++  adoptionId: string
++}
++
++/** Immutable attribution frozen at commitment, each on the exact P12 employment record. */
++export type TvCredit = { talentId: string; name: string; role: TvRole; contractId: string }
++
++export type TvReservation = { facilityId: string; capability: FacilityCapability; slot: number }
++
++export type TvStall =
++  | { kind: 'facility-capacity'; capability: FacilityCapability }
++  | { kind: 'set-unavailable' }
++  | { kind: 'scenery-load-in'; weeksRemaining: number }
++  | { kind: 'cash'; required: number; available: number }
++
++export type TvSeasonWork = {
++  block: TvWorkBlock
++  /** 0..12, the counted units credited so far. */
++  creditedUnits: number
++  /** Units credited inside the current block. */
++  blockCredited: number
++  /** The boundary week the last unit was credited at; the same-week guard. */
++  lastCreditedWeek: number | null
++  stall: TvStall | null
++  /** The week the sound stage was acquired; the scenery load-in's called week. */
++  stageHeldSinceWeek: number | null
++}
++
++export type TvSeasonStatus = 'live' | 'delivered' | 'cancelled'
++export type TvCancellationCause = 'voluntary' | 'deadline' | 'rightsLost' | 'participantLost' | 'closure' | 'absorption'
++
++export type TvDistributionWindow = {
++  availableFromWeek: number
++  availableUntilExclusive: number
++  expiredRecordedWeek: number | null
++}
++
++export type TvSeries = {
++  seriesId: string
++  title: string
++  propertyId: string
++  originProductionId: string | null
++  producerStudioId: string
++  createdWeek: number
++  seasonIds: string[]
++}
++
++export type TvSeason = {
++  seasonId: string
++  seriesId: string
++  workId: string
++  agreementId: string
++  producerStudioId: string
++  propertyId: string
++  commissionerId: string
++  seasonNumber: number
++  episodes: number
++  rulesetVersion: string
++  grant: TvGrantFacts
++  roster: TvRoster
++  credits: TvCredit[]
++  adoptionId: string
++  commitWeek: number
++  dueWeek: number
++  finalWeek: number
++  status: TvSeasonStatus
++  work: TvSeasonWork
++  reservations: TvReservation[]
++  /** The set bound with the stage; survives as the record of what was shot on. */
++  setId: string | null
++  writerReleasedWeek: number | null
++  deliveredWeek: number | null
++  cancelledWeek: number | null
++  cancellationCause: TvCancellationCause | null
++  distribution: TvDistributionWindow | null
++}
++
++export type TvMilestoneKind = 'scripts' | 'pictureLock' | 'delivery'
++
++/** Contract §5, frozen at acceptance so a later tuning change never rewrites an agreement. */
++export type TvAgreementTerms = {
++  fee: number
++  advance: number
++  milestones: Record<TvMilestoneKind, number>
++  unitSpend: number
++  dueWeek: number
++  finalWeek: number
++  lateDeductionPerWeek: number
++  lateDeductionMax: number
++  cancellationCharge: number
++  distributionWeeks: number
++}
++
++export type TvMilestoneRecord = { kind: TvMilestoneKind; week: number; earned: number; paid: number }
++export type TvAgreementStatus = 'live' | 'settled' | 'cancelled'
++
++export type TvAgreement = {
++  agreementId: string
++  seasonId: string
++  studioId: string
++  commissionerId: string
++  rulesetVersion: string
++  terms: TvAgreementTerms
++  /** E — cumulative earned fee, a noncash fact. */
++  earned: number
++  /** P — gross commissioning cash actually received, the advance included. */
++  received: number
++  /** R — advance principal actually returned. */
++  advanceReturned: number
++  /** U0 — the refund principal frozen at cancellation; null while live or after delivery. */
++  advanceRefundFrozen: number | null
++  /** K — assessed once at cancellation, else 0. */
++  cancellationChargeAssessed: number
++  cancellationChargePaid: number
++  milestones: TvMilestoneRecord[]
++  status: TvAgreementStatus
++  cancelledWeek: number | null
++}
++
++type TvReceiptBase = { receiptId: string; week: number; seasonId: string; agreementId: string }
++export type TvReceipt = TvReceiptBase & (
++  | { kind: 'commissioned'; seriesId: string; commitWeek: number }
++  | { kind: 'advancePaid'; amount: number }
++  | { kind: 'unitCredited'; block: TvWorkBlock; creditedUnits: number }
++  | { kind: 'blockCompleted'; block: TvWorkBlock }
++  | { kind: 'writerReleased'; talentId: string }
++  | { kind: 'milestoneEarned'; milestone: TvMilestoneKind; amount: number }
++  | { kind: 'milestonePaid'; milestone: TvMilestoneKind; amount: number }
++  | { kind: 'delivered'; deliveryWeek: number; lateWeeks: number; deduction: number }
++  | { kind: 'cancelled'; cause: TvCancellationCause; refundFrozen: number; chargeAssessed: number; refundPaid: number; chargePaid: number }
++  | { kind: 'advanceRefundPaid'; amount: number; remaining: number }
++  | { kind: 'cancellationChargePaid'; amount: number; remaining: number }
++  | { kind: 'distributionExpired'; availableUntilExclusive: number }
++)
++export type TvReceiptKind = TvReceipt['kind']
++
++export type TelevisionRoot = {
++  version: 1
++  recordedFromWeek: number
++  nextSeries: number
++  nextSeason: number
++  nextAgreement: number
++  nextReceipt: number
++  series: TvSeries[]
++  seasons: TvSeason[]
++  agreements: TvAgreement[]
++  receipts: TvReceipt[]
++}
++
++/** One outstanding existing-contract claim (contract §7), the P15 closed-claims integration record. */
++export type TvObligation = {
++  agreementId: string
++  studioId: string
++  counterpartyId: string
++  kind: 'advanceRefund' | 'cancellationCharge'
++  total: number
++  paid: number
++  outstanding: number
++  cancelledWeek: number
++}
+diff --git a/tests/helpers/p18-fixtures.ts b/tests/helpers/p18-fixtures.ts
+new file mode 100644
+index 00000000..c9561daf
+--- /dev/null
++++ b/tests/helpers/p18-fixtures.ts
+@@ -0,0 +1,178 @@
++// ── P18 bounded first season — shared RED fixtures (1370-ar-p18, 2026-10-10) ──
++//
++// Authority: `1367-stage/p18-prep/P18-FIRST-SEASON-CONTRACT.md` (adopted 1367-G under
++// 1342-O ruling 10). Every state below is driven through real engine actions and `tick`:
++// nothing is hand-shaped. The natural route to an admissible setup is
++//   p13aGeneratedStudio -> advance to the synchronized-sound commercial week ->
++//   purchaseTechnology -> adoptSynchronizedSound (stage 12 + Post) -> tick until the
++//   chain is operational -> sign six distinct idle people on 208-week contracts.
++// The TV grant is the injected `TvGrantFacts` adapter (P16 is not landed at this base);
++// the ids are opaque strings the engine validates for exact identity and window cover.
++
++import { expect } from 'vitest'
++import { applyActions } from '../../src/core/actions.js'
++import { hiringMarketIds } from '../../src/core/employment.js'
++import { stableStringify } from '../../src/core/save.js'
++import { adoptionChainOperational } from '../../src/core/technologyAdoption.js'
++import { technologyEntry } from '../../src/core/technologyCatalogue.js'
++import { tick } from '../../src/core/tick.js'
++import { TV_COMMISSIONER_ID } from '../../src/core/tvTypes.js'
++import type {
++  CommissionTvSeasonPayload,
++  TelevisionRoot,
++  TvAgreement,
++  TvGrantFacts,
++  TvRoster,
++  TvSeason,
++} from '../../src/core/tvTypes.js'
++import type { CreativeRole, GameState, LedgerEntry } from '../../src/core/types.js'
++import { advanceTo, p13aGeneratedStudio } from '../../src/harness/p13a/fixtures.js'
++
++export const SEED = 'p18-first-season-01'
++export const SOUND_STAGE = 'facility-soundstage-12'
++export const POST = 'facility-post-building'
++export const PROPERTY_ID = 'property-p16-adapter-0001'
++export const PRODUCTION_AUTHORITY_ID = 'p16-authority-production-0001'
++export const DISTRIBUTION_AUTHORITY_ID = 'p16-authority-distribution-0001'
++
++export const clone = <T>(value: T): T => structuredClone(value)
++export const player = (state: GameState): string => state.hollywood!.playerStudioId
++export const sig = (value: unknown): string => stableStringify(value)
++
++export type TvRouteFixture = {
++  state: GameState
++  roster: TvRoster
++  adoptionId: string
++}
++
++function signRole(state: GameState, role: CreativeRole, taken: ReadonlySet<string>, termWeeks = 208): { state: GameState; id: string } {
++  for (let i = 0; i < 80; i++) {
++    const id = hiringMarketIds(state, state.market.tick)
++      .find((candidate) => !taken.has(candidate) && state.talent.find((p) => p.id === candidate)?.role === role)
++    if (id !== undefined) {
++      return { state: applyActions(state, [{ kind: 'signContract', talentId: id, termWeeks }]), id }
++    }
++    state = tick(state)
++  }
++  throw new Error(`p18 fixture: no signable ${role} within 80 weeks`)
++}
++
++export function adoptionOperational(state: GameState, adoptionId: string): boolean {
++  const adoption = state.technology.adoptions.find((a) => a.id === adoptionId)
++  return adoption !== undefined && adoptionChainOperational(state, adoption)
++}
++
++let cache: TvRouteFixture | undefined
++
++/** The natural route, built once per test file and cloned on every read. */
++export function tvNaturalStudio(): TvRouteFixture {
++  if (cache === undefined) {
++    let state = p13aGeneratedStudio(SEED)
++    state = applyActions(state, [{ kind: 'activateScriptDevelopment' }, { kind: 'activateCastingSessions' }])
++    state = advanceTo(state, technologyEntry('synchronized-sound').commercialWeek)
++    state = applyActions(state, [{ kind: 'purchaseTechnology', technologyId: 'synchronized-sound' }])
++    state = applyActions(state, [{ kind: 'adoptSynchronizedSound', stageFacilityId: SOUND_STAGE, postFacilityId: POST }])
++    const adoption = state.technology.adoptions.find((a) => a.studioId === player(state) && a.stageFacilityId === SOUND_STAGE)
++    if (adoption === undefined) throw new Error('p18 fixture: the sound adoption was not recorded')
++    for (let guard = 0; !adoptionOperational(state, adoption.id); guard++) {
++      if (guard > 60) throw new Error('p18 fixture: the sound chain did not become operational within 60 weeks')
++      state = tick(state)
++    }
++    const taken = new Set<string>()
++    const pick = (role: CreativeRole): string => {
++      const signed = signRole(state, role, taken)
++      state = signed.state
++      taken.add(signed.id)
++      return signed.id
++    }
++    const writerId = pick('writer')
++    const directorId = pick('director')
++    const lead = pick('actor')
++    const antagonist = pick('actor')
++    const support = pick('actor')
++    const craftId = pick('craft')
++    cache = { state, roster: { writerId, directorId, cast: { lead, antagonist, support }, craftId }, adoptionId: adoption.id }
++  }
++  return { state: clone(cache.state), roster: clone(cache.roster), adoptionId: cache.adoptionId }
++}
++
++export function grantFor(state: GameState, commitWeek: number, overrides: Partial<TvGrantFacts> = {}): TvGrantFacts {
++  return {
++    propertyId: PROPERTY_ID,
++    producerStudioId: player(state),
++    productionAuthorityId: PRODUCTION_AUTHORITY_ID,
++    productionEndExclusive: commitWeek + 21,
++    commissionerId: TV_COMMISSIONER_ID,
++    distributionAuthorityId: DISTRIBUTION_AUTHORITY_ID,
++    distributionEndExclusive: commitWeek + 72,
++    ...overrides,
++  }
++}
++
++export function payloadFor(fixture: TvRouteFixture, overrides: Partial<CommissionTvSeasonPayload> = {}): CommissionTvSeasonPayload {
++  return {
++    series: { kind: 'new', title: 'The Long Night' },
++    propertyId: PROPERTY_ID,
++    originProductionId: null,
++    grant: grantFor(fixture.state, fixture.state.market.tick),
++    roster: fixture.roster,
++    adoptionId: fixture.adoptionId,
++    ...overrides,
++  }
++}
++
++export function commission(fixture: TvRouteFixture, overrides: Partial<CommissionTvSeasonPayload> = {}): GameState {
++  return applyActions(fixture.state, [{ kind: 'commissionTvSeason', commission: payloadFor(fixture, overrides) }])
++}
++
++export function tv(state: GameState): TelevisionRoot {
++  const root = (state as GameState & { television?: TelevisionRoot }).television
++  if (root === undefined) throw new Error('RED (P18): state.television root is absent')
++  return root
++}
++
++export function liveSeason(state: GameState): TvSeason {
++  const season = tv(state).seasons.find((s) => s.status === 'live')
++  if (season === undefined) throw new Error('p18 fixture: no live season')
++  return season
++}
++
++export function seasonById(state: GameState, seasonId: string): TvSeason {
++  const season = tv(state).seasons.find((s) => s.seasonId === seasonId)
++  if (season === undefined) throw new Error(`p18 fixture: no season ${seasonId}`)
++  return season
++}
++
++export function agreementOf(state: GameState, season: TvSeason): TvAgreement {
++  const agreement = tv(state).agreements.find((a) => a.agreementId === season.agreementId)
++  if (agreement === undefined) throw new Error(`p18 fixture: no agreement ${season.agreementId}`)
++  return agreement
++}
++
++export function tvRows(state: GameState, kind?: LedgerEntry['kind']): LedgerEntry[] {
++  return state.ledger.filter((row) => row.kind.startsWith('tv') && (kind === undefined || row.kind === kind))
++}
++
++export function receipts(state: GameState, kind?: string) {
++  return tv(state).receipts.filter((r) => kind === undefined || r.kind === kind)
++}
++
++export function ticks(state: GameState, n: number): GameState {
++  for (let i = 0; i < n; i++) state = tick(state)
++  return state
++}
++
++export function tickUntil(state: GameState, done: (s: GameState) => boolean, maxTicks: number, label: string): GameState {
++  for (let i = 0; i < maxTicks; i++) {
++    if (done(state)) return state
++    state = tick(state)
++  }
++  if (done(state)) return state
++  throw new Error(`p18 fixture: ${label} not reached within ${maxTicks} ticks`)
++}
++
++/** The six people are a studio's contracted roster and each other's only colleagues. */
++export function expectRosterDistinct(roster: TvRoster): void {
++  const ids = [roster.writerId, roster.directorId, roster.cast.lead, roster.cast.antagonist, roster.cast.support, roster.craftId]
++  expect(new Set(ids).size).toBe(6)
++}
+diff --git a/tests/p18-first-season-route.test.ts b/tests/p18-first-season-route.test.ts
+new file mode 100644
+index 00000000..1654ff3b
+--- /dev/null
++++ b/tests/p18-first-season-route.test.ts
+@@ -0,0 +1,709 @@
++// ── P18 bounded first season — the measured route (contract §3–§9; 1367-G boundaries; ruling 10) ──
++//
++// One natural fixture (tests/helpers/p18-fixtures.ts) built once per file and cloned per leaf:
++// commercial synchronized-sound purchase at its own commercial week, a real adoption on
++// Soundstage 12 + Post, six studio-contracted idle people. The TV grant is the injected
++// `TvGrantFacts` adapter (P16 absent at this base; see REPORT "adapter"). Every leaf drives the
++// live engine through `applyActions` and `tick`; nothing is hand-shaped except the one disclosed
++// cash bootstrap row the affordability-refusal leaf uses (the p14b2 house pattern) and the
++// explicit no-payment cancellation (the exported P15B closure path) the arrears leaves use.
++//
++// RED MECHANISM: `src/core/tvTypes.ts`, `tvSeason.ts`, `tvCommission.ts`, `tvSettlement.ts`,
++// `tvDistribution.ts` and the three actions do not exist at the base; the helper import fails
++// this whole file by name.
++import { describe, expect, it } from 'vitest'
++import { applyActions } from '../src/core/actions.js'
++import { busyTalentIds, freelancerMarketIds } from '../src/core/employment.js'
++import { assertNoDoubleBookedResourceSlots, occupiedResourceSlots, resourceClaimsOf } from '../src/core/occupancy.js'
++import { persistedProductionIds } from '../src/core/productionIdentity.js'
++import { exportCurrentState, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
++import { facilityBodyCentre, gridDistance, sceneryLoadInWeeksForDistance } from '../src/core/sceneryLoadIn.js'
++import { setById } from '../src/core/sets.js'
++import { tick } from '../src/core/tick.js'
++import { SET_BLUEPRINTS, TUNING } from '../src/core/tuning.js'
++import { tvAdmissionQuote, tvCommissionPreview } from '../src/core/tvCommission.js'
++import { televisionPublicView, tvSeasonAvailableAt } from '../src/core/tvDistribution.js'
++import { cancelTvSeasonWithoutPayment, televisionOccupiedFacilitySlots } from '../src/core/tvSeason.js'
++import { tvObligations, tvOutstanding } from '../src/core/tvSettlement.js'
++import { TV_COMMISSIONER_ID, TV_RULESET_VERSION } from '../src/core/tvTypes.js'
++import type { CastSlot, GameState, SegmentId } from '../src/core/types.js'
++import {
++  agreementOf, clone, commission, expectRosterDistinct, grantFor, liveSeason, payloadFor, player, POST, PRODUCTION_AUTHORITY_ID,
++  receipts, seasonById, sig, SOUND_STAGE, tickUntil, ticks, tv, tvNaturalStudio, tvRows, type TvRouteFixture,
++} from './helpers/p18-fixtures.js'
++
++/** The fixture's six people, the commit week and the scenery load-in the engine's own geometry implies. */
++function base(): TvRouteFixture & { C: number; loadInWeeks: number } {
++  const fixture = tvNaturalStudio()
++  const centre = (facilityId: string) => {
++    const cell = facilityBodyCentre(fixture.state, facilityId)
++    if (cell === null) throw new Error(`fixture: no body for ${facilityId}`)
++    return cell
++  }
++  const loadInWeeks = sceneryLoadInWeeksForDistance(gridDistance(centre('facility-scenery-shop'), centre(SOUND_STAGE)))
++  return { ...fixture, C: fixture.state.market.tick, loadInWeeks }
++}
++
++function committed(): ReturnType<typeof base> & { committedState: GameState } {
++  const b = base()
++  return { ...b, committedState: commission(b) }
++}
++
++/** Run the natural route to accepted delivery. */
++function deliver(start: GameState, C: number): GameState {
++  return tickUntil(start, (s) => tv(s).seasons[0]?.status === 'delivered', TUNING.TV_FINAL_WEEKS + 1,
++    `delivery after week ${C}`)
++}
++
++function roundTrips(state: GameState): void {
++  const envelope = makeSave(state)
++  expect(envelope.saveVersion).toBe(LIVE_SAVE_VERSION)
++  const back = migrateToLive(importSave(exportCurrentState(state))).state as GameState
++  expect(sig(back)).toBe(sig(state))
++  expect(sig(envelope.state)).toBe(sig(state))
++}
++
++function pickFreelancer(state: GameState, role: 'actor' | 'director' | 'craft', exclude: ReadonlySet<string>): string {
++  const id = freelancerMarketIds(state).find((candidate) => !exclude.has(candidate) && state.talent.find((t) => t.id === candidate)?.role === role)
++  if (id === undefined) throw new Error(`fixture: no ${role} in the freelancer market this week`)
++  return id
++}
++
++/** A film greenlit through the legacy door on freelancers, selecting the TV adoption's sound chain. */
++function greenlightSoundFilm(state: GameState, adoptionId: string, exclude: ReadonlySet<string>): { state: GameState; productionId: string } {
++  const taken = new Set(exclude)
++  const take = (role: 'actor' | 'director' | 'craft'): string => { const id = pickFreelancer(state, role, taken); taken.add(id); return id }
++  const directorId = take('director')
++  const cast: Record<CastSlot, string> = { lead: take('actor'), antagonist: take('actor'), support: take('actor') }
++  const craftId = take('craft')
++  const writer = state.talent.find((t) => t.role === 'writer' && !taken.has(t.id))
++  if (writer === undefined) throw new Error('fixture: no writer for the film credit')
++  const concept = state.concepts[0]!
++  const next = applyActions(state, [{ kind: 'greenlight', production: {
++    conceptId: concept.id, shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
++    promise: { genre: concept.genre, intendedSegments: ['adult'] as SegmentId[],
++      ranges: { intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } },
++    writerId: writer.id, directorId, cast, craftIds: [craftId], budget: { negative: concept.baseNegativeCost, marketing: 0 },
++  } }])
++  const productionId = next.studio.activeProductions.at(-1)!.id
++  return { state: applyActions(next, [{ kind: 'setProductionTechnology', productionId, method: 'synchronized-dialogue', adoptionId }]), productionId }
++}
++
++describe('P18 admission — every guard refuses without mutation, RNG or allocator movement', () => {
++  it('the natural fixture is admissible: an engaged, founded studio with an operational sound chain and six idle contracted people', () => {
++    const b = base()
++    expectRosterDistinct(b.roster)
++    expect(b.state.founding).toBeNull()
++    expect(b.state.economyEngagedEver).toBe(true)
++    const preview = tvCommissionPreview(b.state, payloadFor(b))
++    expect(preview.refusal).toBeNull()
++    expect(preview.quote.ok).toBe(true)
++    expect(preview.terms.fee).toBe(TUNING.TV_SEASON_FEE)
++    expect(preview.commitWeek).toBe(b.C)
++    expect(preview.dueWeek).toBe(b.C + TUNING.TV_DUE_WEEKS)
++    expect(preview.finalWeek).toBe(b.C + TUNING.TV_FINAL_WEEKS)
++  })
++
++  it('the admission quote is cash ≥ 300,000 + twenty advances of mandatory fixed obligations + the 120,000 provision, before the advance', () => {
++    const b = base()
++    const quote = tvAdmissionQuote(b.state, b.C)
++    expect(quote.weeks).toBe(TUNING.TV_ADMISSION_QUOTE_WEEKS)
++    expect(quote.payroll).toBeGreaterThan(0)
++    expect(quote.overhead).toBeGreaterThan(0)
++    expect(quote.required).toBe(TUNING.TV_ADMISSION_CASH_FLOOR + quote.payroll + quote.overhead + quote.facilityOpex
++      + quote.research + quote.loanInstallments + quote.committedWork + TUNING.TV_ADMISSION_CANCELLATION_PROVISION)
++    expect(quote.cash).toBe(b.state.studio.cash)
++    expect(quote.ok).toBe(quote.cash >= quote.required)
++    // the advance is not counted: the same quote with the advance credited would not be more affordable here
++    expect(quote.required).toBeGreaterThan(TUNING.TV_SEASON_ADVANCE)
++  })
++
++  const refusals: [string, (b: ReturnType<typeof base>) => Parameters<typeof payloadFor>[1], RegExp][] = [
++    ['wrong party', () => ({ grant: undefined }), /commissioner/],
++    ['one authority named twice', (b) => ({ grant: grantFor(b.state, b.C, { distributionAuthorityId: PRODUCTION_AUTHORITY_ID }) }), /separately identified/],
++    ['production authority ending at C+20', (b) => ({ grant: grantFor(b.state, b.C, { productionEndExclusive: b.C + TUNING.TV_FINAL_WEEKS }) }), /production authority/],
++    ['distribution authority ending before C+72', (b) => ({ grant: grantFor(b.state, b.C, { distributionEndExclusive: b.C + 71 }) }), /distribution authority/],
++    ['grant for another producer', (b) => ({ grant: grantFor(b.state, b.C, { producerStudioId: 'studio-somebody-else' }) }), /producer/],
++    ['grant for another property', (b) => ({ grant: grantFor(b.state, b.C, { propertyId: 'property-same-name-other-id' }) }), /property/],
++    ['missing sound chain', () => ({ adoptionId: 'no-such-adoption' }), /operational synchronized-dialogue chain/],
++    ['writer without a writing profile', (b) => ({ roster: { ...b.roster, writerId: b.roster.cast.lead, cast: { ...b.roster.cast, lead: b.roster.writerId } } }), /writing skill profile/],
++    ['one person in two roles', (b) => ({ roster: { ...b.roster, craftId: b.roster.directorId } }), /distinct/],
++  ]
++  for (const [label, overrides, pattern] of refusals) {
++    it(`refuses ${label} by its own guard and leaves the state byte-identical`, () => {
++      const b = base()
++      const before = sig(b.state)
++      const payload = label === 'wrong party'
++        ? { grant: grantFor(b.state, b.C, { commissionerId: 'studio-rival-pretending-to-commission' }) }
++        : overrides(b)
++      const preview = tvCommissionPreview(b.state, payloadFor(b, payload))
++      expect(preview.refusal).toMatch(pattern)
++      expect(() => commission(b, payload)).toThrow(pattern)
++      expect(sig(b.state)).toBe(before)
++      expect(tv(b.state).seasons).toHaveLength(0)
++      expect(tv(b.state).nextSeason).toBe(1)
++    })
++  }
++
++  it('refuses a person who is not studio-contracted and a contract that does not cover [C, C+20)', () => {
++    const b = base()
++    const outsider = freelancerMarketIds(b.state).find((id) => b.state.talent.find((t) => t.id === id)?.role === 'craft')
++    if (outsider !== undefined) {
++      expect(() => commission(b, { roster: { ...b.roster, craftId: outsider } })).toThrow(/not studio-contracted/)
++    }
++    // shorten the craft lead's cover: a one-year contract signed now runs to C+52; advance so fewer than 20 weeks remain
++    const short = applyActions(b.state, [{ kind: 'releaseTalent', talentId: b.roster.craftId }])
++    const resigned = applyActions(short, [{ kind: 'signContract', talentId: b.roster.craftId, termWeeks: TUNING.CONTRACT_MIN_WEEKS }])
++    const late = ticks(resigned, TUNING.CONTRACT_MIN_WEEKS - TUNING.TV_FINAL_WEEKS + 1)
++    const fixture: TvRouteFixture = { ...b, state: late }
++    expect(() => commission(fixture, { grant: grantFor(late, late.market.tick) })).toThrow(/does not cover/)
++  })
++
++  it('refuses a busy person: a seat on an active film is an engagement the TV roster cannot double', () => {
++    const b = base()
++    const film = greenlightSoundFilm(b.state, b.adoptionId, new Set())
++    const seated = film.state.studio.activeProductions.at(-1)!
++    const roster = { ...b.roster, directorId: seated.directorId }
++    expect(() => commission({ ...b, state: film.state }, { roster, grant: grantFor(film.state, film.state.market.tick) })).toThrow(/already engaged/)
++  })
++
++  it('refuses an occupied initial Development & Casting slot without queueing or moving any claim', () => {
++    const b = base()
++    let state = b.state
++    const exclude = new Set<string>([b.roster.writerId, b.roster.directorId, b.roster.craftId, ...Object.values(b.roster.cast)])
++    const first = greenlightSoundFilm(state, b.adoptionId, exclude)
++    state = first.state
++    for (const id of state.studio.activeProductions.at(-1)!.craftIds) exclude.add(id)
++    exclude.add(state.studio.activeProductions.at(-1)!.directorId)
++    for (const id of Object.values(state.studio.activeProductions.at(-1)!.cast)) exclude.add(id)
++    const second = greenlightSoundFilm(state, b.adoptionId, exclude)
++    state = second.state
++    expect(occupiedResourceSlots(state, { capability: 'development-casting' }).size).toBe(TUNING.FOUNDING_DEVELOPMENT_CASTING_CAPACITY)
++    const before = sig(state)
++    expect(() => commission({ ...b, state }, { grant: grantFor(state, state.market.tick) })).toThrow(/development-casting/)
++    expect(sig(state)).toBe(before)
++    expect(state.productionQueue).toHaveLength(0)
++  })
++
++  it('refuses a studio still in its founding draft', () => {
++    const b = base()
++    const founding = { ...b.state, founding: { applicantIds: [], budget: 0, spentBonus: 0 } }
++    expect(tvCommissionPreview(founding, payloadFor(b)).refusal).toMatch(/founding/)
++  })
++
++  it('refuses when cash is below the quote (disclosed bootstrap row, the p14b2 house pattern), naming cash', () => {
++    const b = base()
++    const quote = tvAdmissionQuote(b.state, b.C)
++    const target = quote.required - 1
++    const delta = target - b.state.studio.cash
++    const poor: GameState = { ...b.state, studio: { ...b.state.studio, cash: target },
++      ledger: [...b.state.ledger, { week: b.C, kind: 'overhead', amount: delta, note: 'P18 RED disclosed cash bootstrap (refusal purity only)' }] }
++    const before = sig(poor)
++    expect(() => commission({ ...b, state: poor })).toThrow(/cash/)
++    expect(sig(poor)).toBe(before)
++  })
++})
++
++describe('P18 acceptance — one atomic commitment', () => {
++  it('mints exact TV identities, pays the recoupable advance once, holds one writing slot and reserves the six people', () => {
++    const { committedState: next, state: before, roster, C } = committed()
++    expect(next.rngState).toBe(before.rngState)
++    const root = tv(next)
++    expect(root.series).toHaveLength(1)
++    expect(root.seasons).toHaveLength(1)
++    expect(root.agreements).toHaveLength(1)
++    const season = root.seasons[0]!
++    const agreement = root.agreements[0]!
++    expect(season.seasonId).toBe('tv-season-0001')
++    expect(season.seriesId).toBe('tv-series-0001')
++    expect(season.workId).toBe('tv-work-0001')
++    expect(season.agreementId).toBe('tv-agreement-0001')
++    expect(root.series[0]!.title).toBe('The Long Night')
++    expect(root.series[0]!.seasonIds).toEqual(['tv-season-0001'])
++    expect(season.commissionerId).toBe(TV_COMMISSIONER_ID)
++    expect(season.rulesetVersion).toBe(TV_RULESET_VERSION)
++    expect(season.producerStudioId).toBe(player(next))
++    expect(season.episodes).toBe(TUNING.TV_SEASON_EPISODES)
++    expect(season.seasonNumber).toBe(1)
++    expect(season.status).toBe('live')
++    expect(season.commitWeek).toBe(C)
++    expect(season.dueWeek).toBe(C + 16)
++    expect(season.finalWeek).toBe(C + 20)
++    expect(season.adoptionId).toBe(committed().adoptionId)
++    expect(season.grant.productionAuthorityId).toBe(PRODUCTION_AUTHORITY_ID)
++    expect(season.work).toMatchObject({ block: 'scripts', creditedUnits: 0, blockCredited: 0, lastCreditedWeek: null, stall: null })
++    expect(season.reservations).toHaveLength(1)
++    expect(season.reservations[0]!.capability).toBe('development-casting')
++    // credits are frozen attribution at commitment, writer included, each on an exact P12 contract id
++    expect(season.credits.map((c) => c.role)).toEqual(['writer', 'director', 'lead', 'antagonist', 'support', 'craft'])
++    for (const credit of season.credits) {
++      expect(next.hollywood!.employment.some((e) => e.contractId === credit.contractId && e.terms.talentId === credit.talentId)).toBe(true)
++    }
++    // the advance: cash received with an unearned obligation, not earned fee
++    expect(next.studio.cash).toBe(before.studio.cash + TUNING.TV_SEASON_ADVANCE)
++    expect(agreement).toMatchObject({ earned: 0, received: TUNING.TV_SEASON_ADVANCE, advanceReturned: 0, advanceRefundFrozen: null,
++      cancellationChargeAssessed: 0, cancellationChargePaid: 0, status: 'live', studioId: player(next) })
++    const rows = tvRows(next)
++    expect(rows).toHaveLength(1)
++    expect(rows[0]).toMatchObject({ kind: 'tvAdvance', amount: TUNING.TV_SEASON_ADVANCE, week: C })
++    expect((rows[0] as { tvAgreementId?: string }).tvAgreementId).toBe(agreement.agreementId)
++    expect(receipts(next, 'commissioned')).toHaveLength(1)
++    expect(receipts(next, 'advancePaid')).toHaveLength(1)
++    // people: the five are reserved and the writer is writing
++    const busy = busyTalentIds(next)
++    for (const id of [roster.writerId, roster.directorId, roster.craftId, ...Object.values(roster.cast)]) expect(busy.has(id)).toBe(true)
++    // capacity: one claim in the union producer, owned by the season, and no double booking
++    const claims = resourceClaimsOf(occupiedResourceSlots(next)).filter((c) => c.owner === 'tvSeason')
++    expect(claims).toHaveLength(1)
++    expect(claims[0]!.ownerId).toBe(season.seasonId)
++    expect(televisionOccupiedFacilitySlots(root).size).toBe(1)
++    expect(() => assertNoDoubleBookedResourceSlots(next)).not.toThrow()
++    // the preview was the whole truth
++    const preview = tvCommissionPreview(before, payloadFor(committed()))
++    expect(preview.terms).toEqual(agreement.terms)
++    roundTrips(next)
++  })
++
++  it('refuses a second live season for the same studio', () => {
++    const { committedState, ...b } = committed()
++    expect(() => commission({ ...b, state: committedState }, { series: { kind: 'new', title: 'Another' } })).toThrow(/one active season/)
++  })
++
++  it('the TV writer cannot be commissioned for a screenplay while writing scripts; a film cannot seat the director', () => {
++    const { committedState, roster } = committed()
++    const concept = committedState.concepts[1]!
++    expect(() => applyActions(committedState, [{ kind: 'commissionScript', project: { conceptId: concept.id, writerId: roster.writerId,
++      shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
++      promise: { genre: concept.genre, intendedSegments: ['adult'], ranges: { intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } } } }]))
++      .toThrow(/active assignment/)
++  })
++})
++
++describe('P18 work, money and delivery — the twelve-unit natural route', () => {
++  it('credits exactly one paid unit per advance in the 3/1/1/4/3 order and reaches on-time delivery with E = P = 600,000', () => {
++    const { committedState, roster, C, loadInWeeks } = committed()
++    let state = committedState
++    const seasonId = liveSeason(state).seasonId
++    const cashAtCommit = state.studio.cash
++    // scripts: units 1..3 at T = C+1..C+3; the advance is recouped by the scripts milestone with $0 new cash
++    for (let unit = 1; unit <= 3; unit++) {
++      state = tick(state)
++      const season = seasonById(state, seasonId)
++      expect(season.work.creditedUnits).toBe(unit)
++      expect(season.work.lastCreditedWeek).toBe(C + unit)
++      expect(tvRows(state, 'tvProductionSpend')).toHaveLength(unit)
++      expect(tvRows(state, 'tvProductionSpend').at(-1)).toMatchObject({ amount: -TUNING.TV_UNIT_SPEND, week: C + unit - 1 })
++      expect(busyTalentIds(state).has(roster.writerId)).toBe(unit < 3)
++    }
++    let season = seasonById(state, seasonId)
++    expect(season.work.block).toBe('preparation')
++    expect(season.writerReleasedWeek).toBe(C + 3)
++    let agreement = agreementOf(state, season)
++    expect(agreement.earned).toBe(TUNING.TV_MILESTONE_SCRIPTS)
++    expect(agreement.received).toBe(TUNING.TV_SEASON_ADVANCE)
++    expect(agreement.milestones).toEqual([{ kind: 'scripts', week: C + 3, earned: 120_000, paid: 0 }])
++    expect(receipts(state, 'milestoneEarned')).toHaveLength(1)
++    expect(tvRows(state, 'tvMilestonePayment')).toHaveLength(0)
++    // the released writer may now take a screenplay commission; the company stays reserved
++    const concept = state.concepts[1]!
++    expect(() => applyActions(state, [{ kind: 'commissionScript', project: { conceptId: concept.id, writerId: roster.writerId,
++      shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' },
++      promise: { genre: concept.genre, intendedSegments: ['adult'], ranges: { intimacy: [-0.5, 0.5], tonalWeight: [-0.5, 0.5], kineticEnergy: [-0.5, 0.5] } } } }]))
++      .not.toThrow()
++    expect(busyTalentIds(state).has(roster.directorId)).toBe(true)
++    // preparation keeps the writing slot (sticky retention), rehearsal takes the sound stage and its standing set
++    state = tick(state)
++    season = seasonById(state, seasonId)
++    expect(season.work).toMatchObject({ block: 'rehearsal', creditedUnits: 4 })
++    state = tick(state)
++    season = seasonById(state, seasonId)
++    expect(season.work).toMatchObject({ block: 'shooting', creditedUnits: 5 })
++    expect(season.reservations.map((r) => r.capability)).toEqual(['soundstage'])
++    expect(season.reservations[0]!.facilityId).toBe(SOUND_STAGE)
++    expect(season.setId).not.toBeNull()
++    expect(setById(state.sets, season.setId!)!.mountedOn).toBe(SOUND_STAGE)
++    expect(season.work.stageHeldSinceWeek).toBe(C + 4)
++    roundTrips(state)
++    // shooting: the scenery load-in costs calendar weeks, never a unit, and the first take waits for it
++    const firstShootingWeek = C + 4 + loadInWeeks
++    state = tickUntil(state, (s) => seasonById(s, seasonId).work.creditedUnits >= 6, loadInWeeks + 1, 'first shooting unit')
++    season = seasonById(state, seasonId)
++    expect(season.work.lastCreditedWeek).toBe(firstShootingWeek + 1)
++    expect(season.reservations.map((r) => r.capability).sort()).toEqual(['set-scenery', 'soundstage'])
++    expect(tvRows(state, 'tvProductionSpend')).toHaveLength(6)
++    const conditionBefore = setById(state.sets, season.setId!)!.condition
++    state = ticks(state, 3)
++    season = seasonById(state, seasonId)
++    expect(season.work).toMatchObject({ block: 'post', creditedUnits: 9 })
++    expect(season.reservations.map((r) => r.capability)).toEqual(['post'])
++    expect(season.reservations[0]!.facilityId).toBe(POST)
++    // the stage and the set are released the week shooting completed; the set wore once
++    expect(setById(state.sets, season.setId!)!.condition).toBe(conditionBefore - TUNING.SET_CONDITION_WEAR_PER_PRODUCTION)
++    agreement = agreementOf(state, season)
++    expect(agreement.earned).toBe(360_000)
++    expect(agreement.received).toBe(360_000)
++    expect(agreement.milestones.at(-1)).toEqual({ kind: 'pictureLock', week: firstShootingWeek + 4, earned: 240_000, paid: 240_000 })
++    expect(tvRows(state, 'tvMilestonePayment')).toHaveLength(1)
++    expect(tvRows(state, 'tvMilestonePayment')[0]).toMatchObject({ amount: 240_000 })
++    // post: three units, then the season master is accepted at the boundary
++    state = ticks(state, 3)
++    season = seasonById(state, seasonId)
++    const deliveryWeek = C + 11 + loadInWeeks
++    expect(season.status).toBe('delivered')
++    expect(season.deliveredWeek).toBe(deliveryWeek)
++    expect(deliveryWeek).toBeLessThanOrEqual(season.dueWeek)
++    expect(season.work.creditedUnits).toBe(12)
++    expect(season.reservations).toEqual([])
++    expect(receipts(state, 'unitCredited')).toHaveLength(12)
++    expect(receipts(state, 'delivered')).toHaveLength(1)
++    expect(receipts(state, 'delivered')[0]).toMatchObject({ deliveryWeek, lateWeeks: 0, deduction: 0 })
++    agreement = agreementOf(state, season)
++    expect(agreement).toMatchObject({ earned: 600_000, received: 600_000, advanceReturned: 0, status: 'settled' })
++    expect(tvRows(state, 'tvMilestonePayment').map((r) => r.amount)).toEqual([240_000, 240_000])
++    expect(tvRows(state, 'tvProductionSpend').reduce((sum, r) => sum + r.amount, 0)).toBe(-300_000)
++    expect(tvRows(state, 'tvAdvance').reduce((sum, r) => sum + r.amount, 0)).toBe(120_000)
++    // payroll was charged exactly once per week throughout, blocked weeks included
++    expect(state.ledger.filter((r) => r.kind === 'payroll' && r.week >= C && r.week < deliveryWeek)).toHaveLength(deliveryWeek - C)
++    expect(state.ledger.filter((r) => r.kind === 'freelancerFee' && r.week >= C)).toHaveLength(0)
++    // net commissioning cash over the route: +600,000 fee − 300,000 spend, beside the ordinary weekly charges
++    const ordinary = state.ledger.filter((r) => r.week >= C && !r.kind.startsWith('tv')).reduce((sum, r) => sum + r.amount, 0)
++    expect(state.studio.cash).toBe(cashAtCommit - TUNING.TV_SEASON_ADVANCE + 600_000 - 300_000 + ordinary)
++    // people released once; distribution open for 52 half-open weeks
++    const busy = busyTalentIds(state)
++    for (const id of [roster.directorId, roster.craftId, ...Object.values(roster.cast)]) expect(busy.has(id)).toBe(false)
++    expect(season.distribution).toEqual({ availableFromWeek: deliveryWeek, availableUntilExclusive: deliveryWeek + 52, expiredRecordedWeek: null })
++    expect(tvSeasonAvailableAt(season, deliveryWeek)).toBe(true)
++    expect(tvSeasonAvailableAt(season, deliveryWeek + 51)).toBe(true)
++    expect(tvSeasonAvailableAt(season, deliveryWeek + 52)).toBe(false)
++    roundTrips(state)
++    // a later advance pays nothing twice and performs no work on the settled agreement
++    const after = tick(state)
++    expect(tvRows(after)).toHaveLength(tvRows(state).length)
++    expect(receipts(after)).toHaveLength(receipts(state).length)
++  })
++
++  it('distribution expiry stops availability at exactly deliveryWeek + 52, once, and reverses no earned fee', () => {
++    const { committedState, C } = committed()
++    let state = deliver(committedState, C)
++    const season = tv(state).seasons[0]!
++    const expiry = season.deliveredWeek! + TUNING.TV_DISTRIBUTION_WEEKS
++    state = tickUntil(state, (s) => s.market.tick === expiry - 1, 60, 'week before expiry')
++    expect(tvSeasonAvailableAt(tv(state).seasons[0]!, state.market.tick)).toBe(true)
++    expect(receipts(state, 'distributionExpired')).toHaveLength(0)
++    state = tick(state)
++    expect(state.market.tick).toBe(expiry)
++    expect(receipts(state, 'distributionExpired')).toHaveLength(1)
++    expect(receipts(state, 'distributionExpired')[0]).toMatchObject({ week: expiry, seasonId: season.seasonId })
++    expect(tv(state).seasons[0]!.distribution!.expiredRecordedWeek).toBe(expiry)
++    expect(tvSeasonAvailableAt(tv(state).seasons[0]!, expiry)).toBe(false)
++    expect(agreementOf(state, tv(state).seasons[0]!).earned).toBe(600_000)
++    const later = ticks(state, 2)
++    expect(receipts(later, 'distributionExpired')).toHaveLength(1)
++    roundTrips(later)
++  })
++
++  it('the public view carries delivery, credits and the window and reveals no money, grant price or cash', () => {
++    const { committedState, C } = committed()
++    const state = deliver(committedState, C)
++    const view = televisionPublicView(state)
++    const text = JSON.stringify(view)
++    expect(view.series).toHaveLength(1)
++    expect(view.series[0]!.seasons[0]).toMatchObject({ status: 'delivered', episodes: 6 })
++    expect(view.series[0]!.seasons[0]!.credits.length).toBe(6)
++    for (const forbidden of ['600000', '240000', '120000', '25000', 'earned', 'received', 'cash', 'terms', 'advance']) {
++      expect(text).not.toContain(forbidden)
++    }
++  })
++
++  it('lineage without transfer: no film result, release row, theatrical run, first take, promise, award-bearing credit or R/M/F movement', () => {
++    const { committedState, roster, C } = committed()
++    const before = committedState
++    const after = deliver(before, C)
++    expect(after.studio.releasedFilms).toEqual(before.studio.releasedFilms)
++    expect(sig(after.theatricalRuns)).toBe(sig(before.theatricalRuns))
++    expect(sig(after.firstTakes)).toBe(sig(before.firstTakes))
++    expect(sig(after.firstTakeSubjects)).toBe(sig(before.firstTakeSubjects))
++    expect(sig(after.promises)).toBe(sig(before.promises))
++    expect(sig(after.careerEvents)).toBe(sig(before.careerEvents))
++    expect(sig(after.relationships)).toBe(sig(before.relationships))
++    expect(after.studioHistory.rows.filter((r) => r.kind === 'filmReleased' || r.kind === 'theatricalRunCompleted'
++      || (r.kind === 'standingChanged' && r.source.kind === 'releaseResult')).length)
++      .toBe(before.studioHistory.rows.filter((r) => r.kind === 'filmReleased' || r.kind === 'theatricalRunCompleted'
++        || (r.kind === 'standingChanged' && r.source.kind === 'releaseResult')).length)
++    expect(after.studioEvents.rows.filter((r) => r.kind === 'premiere' || r.kind === 'wrapped').length)
++      .toBe(before.studioEvents.rows.filter((r) => r.kind === 'premiere' || r.kind === 'wrapped').length)
++    expect(after.broadcastItems).toEqual(before.broadcastItems)
++    for (const id of [roster.writerId, roster.directorId, roster.craftId, ...Object.values(roster.cast)]) {
++      const was = before.talent.find((t) => t.id === id)!
++      const is = after.talent.find((t) => t.id === id)!
++      expect(is.fame).toBe(was.fame)
++      expect(sig(is.skills)).toBe(sig(was.skills))
++      expect(sig(is.workHistory)).toBe(sig(was.workHistory))
++    }
++    // TV identities never enter the film identity space, and the series keeps its exact lineage handle
++    const ids = persistedProductionIds(after)
++    for (const season of tv(after).seasons) expect(ids.has(season.seasonId)).toBe(false)
++    expect(tv(after).series[0]!.propertyId).toBe(tv(before).series[0]!.propertyId)
++    expect(tv(after).series[0]!.originProductionId).toBeNull()
++  })
++
++  it('a lineage handle must name an exact released film of this studio; a title or an unknown id refuses', () => {
++    const b = base()
++    expect(() => commission(b, { originProductionId: 'prod-9999' })).toThrow(/originProductionId/)
++    expect(() => commission(b, { originProductionId: 'The Long Night' })).toThrow(/originProductionId/)
++  })
++
++  it('deterministic replay: the same route twice is byte-identical', () => {
++    const a = committed()
++    const b = committed()
++    expect(sig(deliver(a.committedState, a.C))).toBe(sig(deliver(b.committedState, b.C)))
++  })
++})
++
++describe('P18 stalls, lateness and the final boundary', () => {
++  function stallOnStruckSet(buildWeeks: number): { state: GameState; C: number; seasonId: string } {
++    const { committedState, C } = committed()
++    let state = ticks(committedState, 4) // T = C+4: preparation done; rehearsal needs the sound stage and a standing set
++    const seasonId = liveSeason(state).seasonId
++    const house = state.sets.find((s) => s.mountedOn === SOUND_STAGE && s.status !== 'retired')!
++    state = applyActions(state, [{ kind: 'strikeSet', setId: house.id }])
++    state = tick(state) // T = C+5: no set to bind
++    expect(seasonById(state, seasonId).work).toMatchObject({ block: 'rehearsal', creditedUnits: 4, stall: { kind: 'set-unavailable' } })
++    expect(tvRows(state, 'tvProductionSpend')).toHaveLength(4)
++    expect(state.ledger.filter((r) => r.kind === 'payroll' && r.week === C + 4)).toHaveLength(1)
++    const blueprint = SET_BLUEPRINTS.find((bp) => bp.buildWeeks === buildWeeks)
++    if (blueprint === undefined) throw new Error(`fixture: no set blueprint with buildWeeks ${buildWeeks}`)
++    state = applyActions(state, [{ kind: 'commissionSet', commission: { blueprintId: blueprint.id, stageFacilityId: SOUND_STAGE } }])
++    return { state, C, seasonId }
++  }
++
++  it('a temporary capacity stall holds the work and the people, then recovers lawfully; a late delivery deducts exactly 12,000 per week', () => {
++    const { state: stalled, C, seasonId } = stallOnStruckSet(TUNING.SET_BUILD_WEEKS_BAND_MID)
++    const state = tickUntil(stalled, (s) => seasonById(s, seasonId).status !== 'live', TUNING.TV_FINAL_WEEKS, 'terminal state')
++    const season = seasonById(state, seasonId)
++    expect(season.status).toBe('delivered')
++    expect(season.deliveredWeek!).toBeGreaterThan(C + TUNING.TV_DUE_WEEKS)
++    expect(season.deliveredWeek!).toBeLessThanOrEqual(C + TUNING.TV_FINAL_WEEKS)
++    const lateWeeks = season.deliveredWeek! - (C + TUNING.TV_DUE_WEEKS)
++    const deduction = TUNING.TV_LATE_DEDUCTION_PER_WEEK * lateWeeks
++    expect(receipts(state, 'delivered')[0]).toMatchObject({ lateWeeks, deduction })
++    const agreement = agreementOf(state, season)
++    expect(agreement.earned).toBe(600_000 - deduction)
++    expect(agreement.received).toBe(600_000 - deduction)
++    expect(agreement.milestones.at(-1)).toMatchObject({ kind: 'delivery', earned: 240_000 - deduction, paid: 240_000 - deduction })
++    expect(agreement.milestones[0]).toMatchObject({ kind: 'scripts', earned: 120_000 })
++    expect(agreement.milestones[1]).toMatchObject({ kind: 'pictureLock', earned: 240_000, paid: 240_000 })
++    expect(season.work.creditedUnits).toBe(12)
++    expect(tvRows(state, 'tvProductionSpend')).toHaveLength(12)
++    roundTrips(state)
++  })
++
++  it('incomplete at T = C+20 cancels once for deadline failure, retains work, costs and earned fee, pays K and never works again', () => {
++    const { state: stalled, C, seasonId } = stallOnStruckSet(TUNING.SET_BUILD_WEEKS_BAND_HIGH)
++    const state = tickUntil(stalled, (s) => s.market.tick === C + TUNING.TV_FINAL_WEEKS, TUNING.TV_FINAL_WEEKS, 'final boundary')
++    const season = seasonById(state, seasonId)
++    expect(season.status).toBe('cancelled')
++    expect(season.cancelledWeek).toBe(C + 20)
++    expect(season.cancellationCause).toBe('deadline')
++    expect(season.work.creditedUnits).toBeLessThan(12)
++    expect(season.work.creditedUnits).toBeGreaterThanOrEqual(4)
++    expect(season.reservations).toEqual([])
++    expect(tvRows(state, 'tvProductionSpend')).toHaveLength(season.work.creditedUnits)
++    const agreement = agreementOf(state, season)
++    const earnedByMilestones = agreement.milestones.reduce((sum, m) => sum + m.earned, 0)
++    expect(agreement.earned).toBe(earnedByMilestones)
++    expect(agreement.earned).toBeGreaterThanOrEqual(120_000)
++    expect(agreement.received).toBe(agreement.earned)
++    expect(agreement.advanceRefundFrozen).toBe(0)
++    expect(agreement.cancellationChargeAssessed).toBe(120_000)
++    expect(agreement.cancellationChargePaid).toBe(120_000)
++    expect(agreement.status).toBe('settled')
++    expect(tvOutstanding(agreement).total).toBe(0)
++    expect(tvRows(state, 'tvCancellationCharge')).toEqual([expect.objectContaining({ amount: -120_000, week: C + 19 })])
++    expect(tvRows(state, 'tvAdvanceRefund')).toHaveLength(0)
++    expect(receipts(state, 'cancelled')).toHaveLength(1)
++    const busy = busyTalentIds(state)
++    expect(busy.has(tv(state).seasons[0]!.roster.directorId)).toBe(false)
++    const after = tick(state)
++    expect(seasonById(after, seasonId).work.creditedUnits).toBe(season.work.creditedUnits)
++    expect(tvRows(after)).toHaveLength(tvRows(state).length)
++    expect(() => applyActions(after, [{ kind: 'cancelTvSeason', seasonId }])).toThrow(/not live/)
++    roundTrips(after)
++  })
++})
++
++describe('P18 cancellation and settlement', () => {
++  it('voluntary cancellation before the first milestone: E=0, P=120,000, the advance refunds and K is charged once, from cash', () => {
++    const { committedState, roster, C } = committed()
++    const before = tick(committedState)
++    const cashBefore = before.studio.cash
++    const seasonId = liveSeason(before).seasonId
++    const state = applyActions(before, [{ kind: 'cancelTvSeason', seasonId }])
++    const season = seasonById(state, seasonId)
++    expect(season.status).toBe('cancelled')
++    expect(season.cancelledWeek).toBe(C + 1)
++    expect(season.cancellationCause).toBe('voluntary')
++    expect(season.work.creditedUnits).toBe(1)
++    expect(season.reservations).toEqual([])
++    const agreement = agreementOf(state, season)
++    expect(agreement).toMatchObject({ earned: 0, received: 120_000, advanceReturned: 120_000, advanceRefundFrozen: 120_000,
++      cancellationChargeAssessed: 120_000, cancellationChargePaid: 120_000, status: 'settled' })
++    expect(state.studio.cash).toBe(cashBefore - 240_000)
++    expect(tvRows(state, 'tvAdvanceRefund')).toEqual([expect.objectContaining({ amount: -120_000, week: C + 1 })])
++    expect(tvRows(state, 'tvCancellationCharge')).toEqual([expect.objectContaining({ amount: -120_000, week: C + 1 })])
++    expect(receipts(state, 'cancelled')).toHaveLength(1)
++    expect(receipts(state, 'cancelled')[0]).toMatchObject({ cause: 'voluntary', refundFrozen: 120_000, chargeAssessed: 120_000, refundPaid: 120_000, chargePaid: 120_000 })
++    expect(tvObligations(state)).toEqual([])
++    for (const id of [roster.writerId, roster.directorId, roster.craftId, ...Object.values(roster.cast)]) expect(busyTalentIds(state).has(id)).toBe(false)
++    expect(() => applyActions(state, [{ kind: 'cancelTvSeason', seasonId }])).toThrow(/not live/)
++    // the cancelled identities stay reserved; a fresh commitment mints the next ids and may continue the series
++    const fixture = tvNaturalStudio()
++    const again = applyActions(state, [{ kind: 'commissionTvSeason', commission: payloadFor({ ...fixture, state }, {
++      series: { kind: 'existing', seriesId: season.seriesId }, grant: grantFor(state, state.market.tick) }) }])
++    const next = liveSeason(again)
++    expect(next.seasonId).toBe('tv-season-0002')
++    expect(next.agreementId).toBe('tv-agreement-0002')
++    expect(next.seriesId).toBe(season.seriesId)
++    expect(next.seasonNumber).toBe(2)
++    expect(tv(again).series[0]!.seasonIds).toEqual(['tv-season-0001', 'tv-season-0002'])
++    expect(tv(again).seasons).toHaveLength(2)
++    roundTrips(again)
++  })
++
++  it('two series with the same title are two identities', () => {
++    const { committedState } = committed()
++    const cancelled = applyActions(committedState, [{ kind: 'cancelTvSeason', seasonId: 'tv-season-0001' }])
++    const fixture = tvNaturalStudio()
++    const again = applyActions(cancelled, [{ kind: 'commissionTvSeason', commission: payloadFor({ ...fixture, state: cancelled }, {
++      series: { kind: 'new', title: 'The Long Night' }, grant: grantFor(cancelled, cancelled.market.tick) }) }])
++    expect(tv(again).series.map((s) => s.seriesId)).toEqual(['tv-series-0001', 'tv-series-0002'])
++    expect(tv(again).series.map((s) => s.title)).toEqual(['The Long Night', 'The Long Night'])
++  })
++
++  it('an unrecoverable participant loss cancels on the next advance with everything incurred retained', () => {
++    const { committedState, roster, C } = committed()
++    const working = ticks(committedState, 2)
++    const seasonId = liveSeason(working).seasonId
++    const released = applyActions(working, [{ kind: 'releaseTalent', talentId: roster.directorId }])
++    const state = tick(released)
++    const season = seasonById(state, seasonId)
++    expect(season.status).toBe('cancelled')
++    expect(season.cancellationCause).toBe('participantLost')
++    expect(season.cancelledWeek).toBe(C + 3)
++    expect(season.work.creditedUnits).toBe(2)
++    expect(tvRows(state, 'tvProductionSpend')).toHaveLength(2)
++    const agreement = agreementOf(state, season)
++    expect(agreement).toMatchObject({ earned: 0, advanceRefundFrozen: 120_000, cancellationChargeAssessed: 120_000 })
++    expect(agreement.milestones).toEqual([])
++    expect(season.credits.map((c) => c.talentId)).toContain(roster.directorId)
++  })
++
++  it('arrears: the closure path records exact unpaid obligations, admission refuses, and settlement pays refund first with stale and over-cash requests refused', () => {
++    const { committedState } = committed()
++    const working = tick(committedState)
++    const seasonId = liveSeason(working).seasonId
++    const week = working.market.tick
++    const state = cancelTvSeasonWithoutPayment(working, seasonId, week, 'closure')
++    const season = seasonById(state, seasonId)
++    expect(season.status).toBe('cancelled')
++    expect(season.cancellationCause).toBe('closure')
++    const agreement = agreementOf(state, season)
++    expect(agreement).toMatchObject({ advanceReturned: 0, cancellationChargePaid: 0, advanceRefundFrozen: 120_000, cancellationChargeAssessed: 120_000 })
++    expect(state.studio.cash).toBe(working.studio.cash)
++    expect(tvRows(state)).toHaveLength(tvRows(working).length)
++    expect(tvObligations(state)).toEqual([
++      { agreementId: agreement.agreementId, studioId: player(state), counterpartyId: TV_COMMISSIONER_ID, kind: 'advanceRefund', total: 120_000, paid: 0, outstanding: 120_000, cancelledWeek: week },
++      { agreementId: agreement.agreementId, studioId: player(state), counterpartyId: TV_COMMISSIONER_ID, kind: 'cancellationCharge', total: 120_000, paid: 0, outstanding: 120_000, cancelledWeek: week },
++    ])
++    const fixture = tvNaturalStudio()
++    expect(() => applyActions(state, [{ kind: 'commissionTvSeason', commission: payloadFor({ ...fixture, state }, { grant: grantFor(state, week) }) }]))
++      .toThrow(/outstanding/)
++    const settle = (s: GameState, expectedRemaining: number, amount: number) =>
++      applyActions(s, [{ kind: 'settleTvObligations', agreementId: agreement.agreementId, expectedRemaining, amount }])
++    expect(() => settle(state, 240_001, 1)).toThrow(/expectedRemaining/)
++    expect(() => settle(state, 240_000, 0)).toThrow(/amount/)
++    expect(() => settle(state, 240_000, 240_001)).toThrow(/amount/)
++    expect(() => settle(state, 240_000, 1.5)).toThrow(/amount/)
++    const first = settle(state, 240_000, 50_000)
++    expect(agreementOf(first, season)).toMatchObject({ advanceReturned: 50_000, cancellationChargePaid: 0 })
++    expect(tvRows(first, 'tvAdvanceRefund')).toEqual([expect.objectContaining({ amount: -50_000 })])
++    expect(first.studio.cash).toBe(state.studio.cash - 50_000)
++    // the same request again is stale: the balance moved, nothing mutates
++    expect(() => settle(first, 240_000, 50_000)).toThrow(/expectedRemaining/)
++    const second = settle(first, 190_000, 100_000)
++    expect(agreementOf(second, season)).toMatchObject({ advanceReturned: 120_000, cancellationChargePaid: 30_000 })
++    expect(tvRows(second, 'tvAdvanceRefund').reduce((sum, r) => sum + r.amount, 0)).toBe(-120_000)
++    expect(tvRows(second, 'tvCancellationCharge')).toEqual([expect.objectContaining({ amount: -30_000 })])
++    expect(tvObligations(second).map((o) => o.outstanding)).toEqual([0, 90_000].filter((n) => n > 0))
++    expect(() => applyActions(second, [{ kind: 'commissionTvSeason', commission: payloadFor({ ...fixture, state: second }, { grant: grantFor(second, second.market.tick) }) }]))
++      .toThrow(/outstanding/)
++    const third = settle(second, 90_000, 90_000)
++    expect(agreementOf(third, season).status).toBe('settled')
++    expect(tvObligations(third)).toEqual([])
++    expect(() => settle(third, 0, 1)).toThrow()
++    const renewed = applyActions(third, [{ kind: 'commissionTvSeason', commission: payloadFor({ ...fixture, state: third }, { grant: grantFor(third, third.market.tick) }) }])
++    expect(liveSeason(renewed).seasonId).toBe('tv-season-0002')
++    roundTrips(second)
++    roundTrips(renewed)
++  })
++
++  it('a settled or live agreement refuses settlement; a cash-bounded request can never drive cash negative', () => {
++    const { committedState, C } = committed()
++    const delivered = deliver(committedState, C)
++    const agreementId = tv(delivered).agreements[0]!.agreementId
++    expect(() => applyActions(delivered, [{ kind: 'settleTvObligations', agreementId, expectedRemaining: 0, amount: 1 }])).toThrow()
++    expect(() => applyActions(committedState, [{ kind: 'settleTvObligations', agreementId, expectedRemaining: 0, amount: 1 }])).toThrow()
++    expect(() => applyActions(committedState, [{ kind: 'settleTvObligations', agreementId: 'tv-agreement-9999', expectedRemaining: 0, amount: 1 }])).toThrow(/agreement/)
++  })
++})
++
++describe('P18 shared capacity — films and the season see each other', () => {
++  it('a film whose sound chain is the stage the season holds waits on soundstage capacity until the season wraps', () => {
++    const { committedState, roster, adoptionId, C } = committed()
++    let state = ticks(committedState, 5) // T = C+5: the season holds Soundstage 12 and its set (rehearsal done, shooting begins)
++    const seasonId = liveSeason(state).seasonId
++    expect(seasonById(state, seasonId).reservations.some((r) => r.facilityId === SOUND_STAGE)).toBe(true)
++    const exclude = new Set([roster.writerId, roster.directorId, roster.craftId, ...Object.values(roster.cast)])
++    const film = greenlightSoundFilm(state, adoptionId, exclude)
++    state = film.state
++    // development (8), pre-production (7), then the rehearsal entry needs Soundstage 12: blocked while the season holds it
++    state = ticks(state, 3)
++    const workflow = () => state.operations.workflows.find((w) => w.productionId === film.productionId)!
++    expect(workflow().blocker).toEqual({ kind: 'facility-capacity', capability: 'soundstage', targetPhase: 'rehearsal' })
++    expect(() => assertNoDoubleBookedResourceSlots(state)).not.toThrow()
++    // once shooting completes the season releases the stage; the film takes it in the same visible week's sweep
++    state = tickUntil(state, (s) => seasonById(s, seasonId).work.block === 'post', 12, 'season post block')
++    expect(seasonById(state, seasonId).reservations.some((r) => r.facilityId === SOUND_STAGE)).toBe(false)
++    state = tick(state)
++    expect(workflow().phase).toBe('rehearsal')
++    expect(workflow().reservations.some((r) => r.facilityId === SOUND_STAGE)).toBe(true)
++    expect(() => assertNoDoubleBookedResourceSlots(state)).not.toThrow()
++    expect(C).toBeLessThan(state.market.tick)
++  })
++
++  it('a film holding the sound stage first makes the season stall on soundstage capacity, then the season recovers when the film wraps', () => {
++    const { committedState, roster, adoptionId } = committed()
++    const exclude = new Set([roster.writerId, roster.directorId, roster.craftId, ...Object.values(roster.cast)])
++    const film = greenlightSoundFilm(committedState, adoptionId, exclude)
++    let state = film.state
++    const seasonId = liveSeason(state).seasonId
++    // the film reaches rehearsal at the C+2→C+3 advance and keeps the stage through shooting; the season needs it at C+4→C+5
++    state = ticks(state, 5)
++    const season = seasonById(state, seasonId)
++    expect(season.work).toMatchObject({ block: 'rehearsal', creditedUnits: 4 })
++    expect(season.work.stall).toEqual({ kind: 'facility-capacity', capability: 'soundstage' })
++    expect(state.operations.workflows.find((w) => w.productionId === film.productionId)!.reservations.some((r) => r.facilityId === SOUND_STAGE)).toBe(true)
++    expect(() => assertNoDoubleBookedResourceSlots(state)).not.toThrow()
++    // the film needs its Director's take to shoot; schedule it so the picture wraps and the stage comes back
++    const production = state.studio.activeProductions.find((p) => p.id === film.productionId)!
++    state = tickUntil(state, (s) => s.studio.activeProductions.find((p) => p.id === film.productionId)!.remainingTicks === 5, 10, 'film shooting entry')
++    state = tickUntil(state, (s) => s.operations.workflows.find((w) => w.productionId === film.productionId)!.blocker === null
++      && s.operations.workflows.find((w) => w.productionId === film.productionId)!.shootingTask?.status === 'unassigned', 10, 'film take ready to assign')
++    state = applyActions(state, [{ kind: 'assignShootingDirector', productionId: film.productionId, directorId: production.directorId }])
++    state = tickUntil(state, (s) => s.operations.workflows.find((w) => w.productionId === film.productionId)!.shootingTask?.status === 'ready', 10, 'scenery arrived')
++    state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId: film.productionId }])
++    state = tickUntil(state, (s) => seasonById(s, seasonId).work.creditedUnits >= 5, 12, 'season rehearsal unit after the film wraps')
++    expect(seasonById(state, seasonId).reservations.some((r) => r.facilityId === SOUND_STAGE)).toBe(true)
++    expect(() => assertNoDoubleBookedResourceSlots(state)).not.toThrow()
++  })
++})
+diff --git a/tests/p18-first-season-save-v46.test.ts b/tests/p18-first-season-save-v46.test.ts
+new file mode 100644
+index 00000000..6995ecf4
+--- /dev/null
++++ b/tests/p18-first-season-save-v46.test.ts
+@@ -0,0 +1,122 @@
++// ── P18 bounded first season — the Save46 step (contract §8 "Old saves migrate with an empty TV root") ──
++//
++// RED MECHANISM: `validateSaveV46`, `convertV45ToV46`, `convertV46ToV45`, `migrateToV46` and the
++// `P18_SAVE_VERSION` / `P18_PREDECESSOR_SAVE_VERSION` constants do not exist at the base; each is
++// named through the module namespace so a missing export fails its own leaf with its own message.
++// SAVE VERSION: other lanes also mint 46 at this base; `P18_SAVE_VERSION` is the one constant the
++// parent renumbers (REPORT "save-version renumbering procedure").
++import { createHash } from 'node:crypto'
++import { readFileSync } from 'node:fs'
++import { gunzipSync } from 'node:zlib'
++import { describe, expect, it } from 'vitest'
++import * as saveModule from '../src/core/save.js'
++import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, makeSaveV18, migrateToLive, stableStringify, validateSave, validateSaveV45 } from '../src/core/save.js'
++import { generateWorld } from '../src/core/worldgen.js'
++import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
++import { initialTelevisionRoot } from '../src/core/tvSeason.js'
++import type { GameState } from '../src/core/types.js'
++
++type SaveModule = typeof saveModule & {
++  P18_SAVE_VERSION: number
++  P18_PREDECESSOR_SAVE_VERSION: number
++  validateSaveV46: (save: unknown) => { saveVersion: number; state: GameState }
++  convertV45ToV46: (save: unknown) => { saveVersion: number; state: GameState }
++  convertV46ToV45: (save: unknown) => { saveVersion: number; state: GameState }
++  migrateToV46: (save: unknown) => { saveVersion: number; state: GameState }
++}
++const save = saveModule as SaveModule
++const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
++
++// Genuine Save45 predecessor (1363-save45-predecessor/v1, generatingHead 689a69f3, seed
++// p13a-core-causal-01, week 53). Pinned by gzip sha256 of the checked-in file, recomputed by this
++// author against the bytes rather than copied from the manifest prose.
++const PREDECESSOR = new URL('./fixtures/p14/genuine-v45-recovery-predecessors-1363/p13a-week-53.save45.json.gz', import.meta.url)
++function genuineV45(): { raw: string; parsed: { saveVersion: number; state: GameState } } {
++  const gz = readFileSync(PREDECESSOR)
++  expect(gz.byteLength).toBe(90405)
++  expect(sha(gz)).toBe('fd4b8f0986453d1b735dda8410ffd05c841289d0fd51d9fe1a6707128947dc68')
++  const raw = gunzipSync(gz).toString('utf8')
++  expect(Buffer.byteLength(raw, 'utf8')).toBe(774318)
++  expect(sha(raw)).toBe('d66a6809c3fc3dacf6a83386cad320d94c70264384f47e5f83a0bd0320768d07')
++  const parsed = importSave(raw) as { saveVersion: number; state: GameState }
++  expect(parsed.saveVersion).toBe(45)
++  return { raw, parsed }
++}
++
++describe('P18 Save46 — constants and dispatch', () => {
++  it('P18_SAVE_VERSION is the live version and its predecessor is the Save45 P15 step', () => {
++    expect(save.P18_PREDECESSOR_SAVE_VERSION).toBe(45)
++    expect(save.P18_SAVE_VERSION).toBe(save.P18_PREDECESSOR_SAVE_VERSION + 1)
++    expect(LIVE_SAVE_VERSION).toBe(save.P18_SAVE_VERSION)
++  })
++
++  it('makeSave stamps the live version, carries the television root, and migrateToLive is the identity on it', () => {
++    const state = p13aGeneratedStudio('p18-save46-fresh')
++    const envelope = makeSave(state)
++    expect(envelope.saveVersion).toBe(save.P18_SAVE_VERSION)
++    expect(Object.hasOwn(envelope.state, 'television')).toBe(true)
++    expect(stableStringify(migrateToLive(envelope))).toBe(stableStringify(envelope))
++    expect(stableStringify(validateSave(JSON.parse(exportSave(envelope))))).toBe(stableStringify(envelope))
++  })
++
++  it('a fresh world carries an empty television root recorded from week 0 with every allocator at 1', () => {
++    const world = generateWorld('p18-save46-world') as GameState & { television?: unknown }
++    expect(world.television).toEqual(initialTelevisionRoot(0))
++    expect(initialTelevisionRoot(0)).toEqual({
++      version: 1, recordedFromWeek: 0, nextSeries: 1, nextSeason: 1, nextAgreement: 1, nextReceipt: 1,
++      series: [], seasons: [], agreements: [], receipts: [],
++    })
++  })
++
++  it('validateSave refuses the version after the live one by name', () => {
++    expect(() => validateSave({ saveVersion: save.P18_SAVE_VERSION + 1, seed: 's', state: {}, broadcastCache: [] }))
++      .toThrow(new RegExp(`unknown saveVersion ${save.P18_SAVE_VERSION + 1}`))
++  })
++})
++
++describe('P18 Save46 — genuine predecessor migration and lossless downgrade', () => {
++  it('migrates the genuine Save45 week-53 capture with an empty root at the save\'s own week and nothing else moved', () => {
++    const { parsed } = genuineV45()
++    const migrated = migrateToLive(parsed) as unknown as { saveVersion: number; state: GameState & { television: unknown } }
++    expect(migrated.saveVersion).toBe(save.P18_SAVE_VERSION)
++    expect(migrated.state.television).toEqual(initialTelevisionRoot(53))
++    const { television: _television, ...rest } = migrated.state
++    expect(stableStringify(rest)).toBe(stableStringify(parsed.state))
++    // a second migration is a no-op
++    expect(stableStringify(save.migrateToV46(migrated))).toBe(stableStringify(migrated))
++  })
++
++  it('downgrades losslessly while the root is empty: the Save45 bytes come back exactly', () => {
++    const { parsed } = genuineV45()
++    const migrated = save.migrateToV46(parsed)
++    const back = save.convertV46ToV45(migrated)
++    expect(back.saveVersion).toBe(45)
++    expect(stableStringify(back)).toBe(stableStringify(parsed))
++    expect(stableStringify(validateSaveV45(back))).toBe(stableStringify(parsed))
++  })
++
++  it('validateSaveV46 requires the root and refuses a malformed one by name', () => {
++    const fresh = makeSave(p13aGeneratedStudio('p18-save46-shape'))
++    const { television: _television, ...withoutRoot } = fresh.state as GameState & { television: unknown }
++    expect(() => save.validateSaveV46({ ...fresh, state: withoutRoot })).toThrow(/television/)
++    expect(() => save.validateSaveV46({ ...fresh, state: { ...fresh.state, television: { version: 2 } } })).toThrow(/television/)
++    expect(() => save.validateSaveV46({ ...fresh, saveVersion: 45 })).toThrow(/expected version 46/)
++  })
++
++  it('the frozen Save45 reader refuses the live shape (the television key) and every TV ledger kind', () => {
++    const fresh = makeSave(p13aGeneratedStudio('p18-save46-era'))
++    expect(() => validateSaveV45({ ...fresh, saveVersion: 45 })).toThrow()
++    const { television: _television, ...stripped } = fresh.state as GameState & { television: unknown }
++    const row = { week: stripped.market.tick, kind: 'tvAdvance', amount: 120_000, note: 'forged', tvAgreementId: 'tv-agreement-0001' }
++    const forged = { ...stripped, studio: { ...stripped.studio, cash: stripped.studio.cash + 120_000 }, ledger: [...stripped.ledger, row] }
++    expect(() => validateSaveV45({ ...fresh, saveVersion: 45, state: forged })).toThrow(/kind/)
++  })
++
++  it('a frozen builder refuses a non-empty television root before any older refusal', () => {
++    const state = p13aGeneratedStudio('p18-save46-frozen')
++    const root = initialTelevisionRoot(state.market.tick)
++    const forgedSeries = { ...root, nextSeries: 2, series: [{ seriesId: 'tv-series-0001', title: 'x', propertyId: 'p', originProductionId: null,
++      producerStudioId: state.hollywood!.playerStudioId, createdWeek: state.market.tick, seasonIds: [] }] }
++    expect(() => makeSaveV18({ ...state, television: forgedSeries } as unknown as Parameters<typeof makeSaveV18>[0])).toThrow(/television/)
++  })
++})
+diff --git a/tests/p18-first-season-settlement.test.ts b/tests/p18-first-season-settlement.test.ts
+new file mode 100644
+index 00000000..1e81b177
+--- /dev/null
++++ b/tests/p18-first-season-settlement.test.ts
+@@ -0,0 +1,167 @@
++// ── P18 bounded first season — the pure money law (contract §5, §7) ─────────────────────
++//
++// Earned fee E is a noncash fact; P is gross commissioning cash received (advance included);
++// R is advance principal returned. Live milestone payment is max(0, E_new − P). Cancellation
++// freezes U0 = max(0, A − E); outstanding refund is max(0, U0 − R); K is assessed once.
++// Invariant after any settlement attempt: P − R = E + advanceRefundUnpaid and
++// K = cancellationChargePaid + cancellationChargeUnpaid. The law reads no studio id: the same
++// functions settle a rival-shaped agreement (contract §1 "same law and quote").
++import { describe, expect, it } from 'vitest'
++import { TUNING } from '../src/core/tuning.js'
++import {
++  applyTvObligationPayment,
++  assertTvMoneyInvariant,
++  freezeTvCancellation,
++  tvDeliveryMilestoneEarned,
++  tvLateDeduction,
++  tvMilestonePayment,
++  tvOutstanding,
++  tvTermsFor,
++} from '../src/core/tvSettlement.js'
++import type { TvAgreement } from '../src/core/tvTypes.js'
++
++const C = 1000
++
++function liveAgreement(studioId = 'studio-x-player', earned = 0, received = TUNING.TV_SEASON_ADVANCE): TvAgreement {
++  return {
++    agreementId: 'tv-agreement-0001',
++    seasonId: 'tv-season-0001',
++    studioId,
++    commissionerId: 'p18-limited-season-commissioner-v1',
++    rulesetVersion: 'tv-limited-season/v1',
++    terms: tvTermsFor(C),
++    earned,
++    received,
++    advanceReturned: 0,
++    advanceRefundFrozen: null,
++    cancellationChargeAssessed: 0,
++    cancellationChargePaid: 0,
++    milestones: [],
++    status: 'live',
++    cancelledWeek: null,
++  }
++}
++
++describe('P18 terms and milestone arithmetic', () => {
++  it('terms for a commitment week are the contract table with integer boundaries', () => {
++    const terms = tvTermsFor(C)
++    expect(terms).toEqual({
++      fee: 600_000,
++      advance: 120_000,
++      milestones: { scripts: 120_000, pictureLock: 240_000, delivery: 240_000 },
++      unitSpend: 25_000,
++      dueWeek: C + 16,
++      finalWeek: C + 20,
++      lateDeductionPerWeek: 12_000,
++      lateDeductionMax: 48_000,
++      cancellationCharge: 120_000,
++      distributionWeeks: 52,
++    })
++  })
++
++  it('live milestone payment is max(0, E_new − P): scripts consumes the advance, picture lock and delivery pay their increments', () => {
++    expect(tvMilestonePayment(120_000, 120_000)).toBe(0)
++    expect(tvMilestonePayment(360_000, 120_000)).toBe(240_000)
++    expect(tvMilestonePayment(600_000, 360_000)).toBe(240_000)
++    expect(tvMilestonePayment(576_000, 360_000)).toBe(216_000)
++    expect(tvMilestonePayment(100_000, 120_000)).toBe(0)
++  })
++
++  it('late deduction is 12,000 × max(0, T − (C+16)), capped at 48,000; delivery at C+16 is on time', () => {
++    const terms = tvTermsFor(C)
++    expect(tvLateDeduction(terms, C + 12)).toBe(0)
++    expect(tvLateDeduction(terms, C + 16)).toBe(0)
++    expect(tvLateDeduction(terms, C + 17)).toBe(12_000)
++    expect(tvLateDeduction(terms, C + 18)).toBe(24_000)
++    expect(tvLateDeduction(terms, C + 20)).toBe(48_000)
++    expect(tvDeliveryMilestoneEarned(terms, C + 16)).toBe(240_000)
++    expect(tvDeliveryMilestoneEarned(terms, C + 18)).toBe(216_000)
++    expect(tvDeliveryMilestoneEarned(terms, C + 20)).toBe(192_000)
++    // C+21 is forbidden: the law refuses to price a delivery past the final boundary
++    expect(() => tvLateDeduction(terms, C + 21)).toThrow(/final/)
++  })
++
++  it('the worked contract examples reconcile: on-time E=P=600,000; C+18 E=P=576,000 with the 24,000 reduction', () => {
++    const terms = tvTermsFor(C)
++    const onTime = terms.milestones.scripts + terms.milestones.pictureLock + tvDeliveryMilestoneEarned(terms, C + 16)
++    expect(onTime).toBe(600_000)
++    const late = terms.milestones.scripts + terms.milestones.pictureLock + tvDeliveryMilestoneEarned(terms, C + 18)
++    expect(late).toBe(576_000)
++    expect(600_000 - late).toBe(24_000)
++  })
++})
++
++describe('P18 cancellation freeze and settlement ordering', () => {
++  it('before the first milestone: E=0, P=120,000, refund obligation 120,000 and K=120,000', () => {
++    const frozen = freezeTvCancellation(liveAgreement(), C + 1)
++    expect(frozen.status).toBe('cancelled')
++    expect(frozen.cancelledWeek).toBe(C + 1)
++    expect(frozen.advanceRefundFrozen).toBe(120_000)
++    expect(frozen.cancellationChargeAssessed).toBe(120_000)
++    expect(tvOutstanding(frozen)).toEqual({ advanceRefund: 120_000, cancellationCharge: 120_000, total: 240_000 })
++    assertTvMoneyInvariant(frozen)
++  })
++
++  it('after scripts: U0 = 0 (the advance is earned), K = 120,000; after picture lock E=P=360,000, U=0, K=120,000', () => {
++    const afterScripts = freezeTvCancellation(liveAgreement('studio-x-player', 120_000, 120_000), C + 4)
++    expect(afterScripts.advanceRefundFrozen).toBe(0)
++    expect(tvOutstanding(afterScripts)).toEqual({ advanceRefund: 0, cancellationCharge: 120_000, total: 120_000 })
++    const afterLock = freezeTvCancellation(liveAgreement('studio-x-player', 360_000, 360_000), C + 10)
++    expect(afterLock.earned).toBe(360_000)
++    expect(afterLock.received).toBe(360_000)
++    expect(afterLock.advanceRefundFrozen).toBe(0)
++    expect(afterLock.cancellationChargeAssessed).toBe(120_000)
++    assertTvMoneyInvariant(afterLock)
++  })
++
++  it('freezing twice is a no-op: K is assessed once and U0 never moves', () => {
++    const once = freezeTvCancellation(liveAgreement(), C + 1)
++    const twice = freezeTvCancellation(once, C + 2)
++    expect(twice).toEqual(once)
++  })
++
++  it('a payment applies to the remaining refund first, then the charge; a partial return never restores U0', () => {
++    const frozen = freezeTvCancellation(liveAgreement(), C + 1)
++    const first = applyTvObligationPayment(frozen, 50_000)
++    expect(first).toMatchObject({ refund: 50_000, charge: 0 })
++    expect(first.agreement.advanceReturned).toBe(50_000)
++    expect(tvOutstanding(first.agreement)).toEqual({ advanceRefund: 70_000, cancellationCharge: 120_000, total: 190_000 })
++    assertTvMoneyInvariant(first.agreement)
++    const second = applyTvObligationPayment(first.agreement, 100_000)
++    expect(second).toMatchObject({ refund: 70_000, charge: 30_000 })
++    expect(second.agreement.advanceReturned).toBe(120_000)
++    expect(second.agreement.cancellationChargePaid).toBe(30_000)
++    expect(tvOutstanding(second.agreement)).toEqual({ advanceRefund: 0, cancellationCharge: 90_000, total: 90_000 })
++    assertTvMoneyInvariant(second.agreement)
++    const third = applyTvObligationPayment(second.agreement, 90_000)
++    expect(third.agreement.status).toBe('settled')
++    expect(tvOutstanding(third.agreement).total).toBe(0)
++    assertTvMoneyInvariant(third.agreement)
++    // P − R = E + advanceRefundUnpaid at every step
++    for (const a of [frozen, first.agreement, second.agreement, third.agreement]) {
++      expect(a.received - a.advanceReturned).toBe(a.earned + tvOutstanding(a).advanceRefund)
++      expect(a.cancellationChargeAssessed).toBe(a.cancellationChargePaid + tvOutstanding(a).cancellationCharge)
++    }
++  })
++
++  it('refuses a non-positive, non-integer or over-balance amount, and a payment against a live agreement', () => {
++    const frozen = freezeTvCancellation(liveAgreement(), C + 1)
++    expect(() => applyTvObligationPayment(frozen, 0)).toThrow()
++    expect(() => applyTvObligationPayment(frozen, -1)).toThrow()
++    expect(() => applyTvObligationPayment(frozen, 10.5)).toThrow()
++    expect(() => applyTvObligationPayment(frozen, 240_001)).toThrow()
++    expect(() => applyTvObligationPayment(liveAgreement(), 1)).toThrow()
++  })
++
++  it('the same economics for a rival-shaped agreement: the law reads no studio id', () => {
++    const rival = freezeTvCancellation(liveAgreement('studio-x-r03', 120_000, 120_000), C + 5)
++    const playerSide = freezeTvCancellation(liveAgreement('studio-x-player', 120_000, 120_000), C + 5)
++    expect({ ...rival, studioId: 'same' }).toEqual({ ...playerSide, studioId: 'same' })
++    expect(applyTvObligationPayment(rival, 40_000).charge).toBe(40_000)
++  })
++
++  it('the invariant assertion refuses a forged agreement', () => {
++    const forged = { ...freezeTvCancellation(liveAgreement(), C + 1), advanceReturned: 130_000 }
++    expect(() => assertTvMoneyInvariant(forged)).toThrow()
++  })
++})
+diff --git a/tests/p18-first-season-tuning.test.ts b/tests/p18-first-season-tuning.test.ts
+new file mode 100644
+index 00000000..ad3190b2
+--- /dev/null
++++ b/tests/p18-first-season-tuning.test.ts
+@@ -0,0 +1,80 @@
++// ── P18 bounded first season — bounded terms of `tv-limited-season/v1` (contract §4, §5) ──
++//
++// Every provisional figure the compact contract authored is a named TUNING constant with the
++// range the contract states. These are tuning hypotheses under 1342-O ruling 10, not measured
++// balance; a change is a versioned contract amendment and bumps TV_RULESET_VERSION.
++import { describe, expect, it } from 'vitest'
++import { TUNING } from '../src/core/tuning.js'
++import { TV_COMMISSIONER_ID, TV_RULESET_VERSION, TV_WORK_BLOCK_ORDER } from '../src/core/tvTypes.js'
++import { TV_WORK_BLOCKS, tvWorkUnitsTotal } from '../src/core/tvSeason.js'
++
++const positiveInteger = (n: number): boolean => Number.isSafeInteger(n) && n > 0
++
++describe('P18 tv-limited-season/v1 bounded terms', () => {
++  it('names the ruleset and the versioned external commissioner exactly as the contract does', () => {
++    expect(TV_RULESET_VERSION).toBe('tv-limited-season/v1')
++    expect(TV_COMMISSIONER_ID).toBe('p18-limited-season-commissioner-v1')
++  })
++
++  it('six episodes are delivery metadata; the workload is twelve counted units in the 3/1/1/4/3 order', () => {
++    expect(TUNING.TV_SEASON_EPISODES).toBe(6)
++    expect(TV_WORK_BLOCK_ORDER).toEqual(['scripts', 'preparation', 'rehearsal', 'shooting', 'post'])
++    expect(TV_WORK_BLOCKS.map((b) => b.block)).toEqual(TV_WORK_BLOCK_ORDER)
++    expect(TV_WORK_BLOCKS.map((b) => b.units)).toEqual([3, 1, 1, 4, 3])
++    expect([TUNING.TV_SCRIPT_UNITS, TUNING.TV_PREPARATION_UNITS, TUNING.TV_REHEARSAL_UNITS, TUNING.TV_SHOOTING_UNITS, TUNING.TV_POST_UNITS])
++      .toEqual([3, 1, 1, 4, 3])
++    expect(tvWorkUnitsTotal()).toBe(12)
++    for (const block of TV_WORK_BLOCKS) expect(positiveInteger(block.units)).toBe(true)
++  })
++
++  it('each block names the capabilities the contract table requires', () => {
++    const byBlock = Object.fromEntries(TV_WORK_BLOCKS.map((b) => [b.block, [...b.capabilities]]))
++    expect(byBlock).toEqual({
++      scripts: ['development-casting'],
++      preparation: ['development-casting'],
++      rehearsal: ['soundstage'],
++      shooting: ['soundstage', 'set-scenery'],
++      post: ['post'],
++    })
++  })
++
++  it('money terms are integer dollars in the contract §5 table and reconcile with each other', () => {
++    expect(TUNING.TV_SEASON_FEE).toBe(600_000)
++    expect(TUNING.TV_SEASON_ADVANCE).toBe(120_000)
++    expect(TUNING.TV_MILESTONE_SCRIPTS).toBe(120_000)
++    expect(TUNING.TV_MILESTONE_PICTURE_LOCK).toBe(240_000)
++    expect(TUNING.TV_MILESTONE_DELIVERY).toBe(240_000)
++    expect(TUNING.TV_UNIT_SPEND).toBe(25_000)
++    expect(TUNING.TV_CANCELLATION_CHARGE).toBe(120_000)
++    expect(TUNING.TV_LATE_DEDUCTION_PER_WEEK).toBe(12_000)
++    expect(TUNING.TV_LATE_DEDUCTION_MAX).toBe(48_000)
++    for (const n of [TUNING.TV_SEASON_FEE, TUNING.TV_SEASON_ADVANCE, TUNING.TV_MILESTONE_SCRIPTS, TUNING.TV_MILESTONE_PICTURE_LOCK,
++      TUNING.TV_MILESTONE_DELIVERY, TUNING.TV_UNIT_SPEND, TUNING.TV_CANCELLATION_CHARGE, TUNING.TV_LATE_DEDUCTION_PER_WEEK,
++      TUNING.TV_LATE_DEDUCTION_MAX]) expect(positiveInteger(n)).toBe(true)
++    // the three milestones are the whole fee; the advance is fully recoupable from the first one
++    expect(TUNING.TV_MILESTONE_SCRIPTS + TUNING.TV_MILESTONE_PICTURE_LOCK + TUNING.TV_MILESTONE_DELIVERY).toBe(TUNING.TV_SEASON_FEE)
++    expect(TUNING.TV_SEASON_ADVANCE).toBeLessThanOrEqual(TUNING.TV_MILESTONE_SCRIPTS)
++    // twelve credited units are the $300,000 the contract states
++    expect(TUNING.TV_UNIT_SPEND * tvWorkUnitsTotal()).toBe(300_000)
++  })
++
++  it('schedule terms: due C+16, final C+20, four late weeks cap the deduction at the stated maximum', () => {
++    expect(TUNING.TV_DUE_WEEKS).toBe(16)
++    expect(TUNING.TV_FINAL_WEEKS).toBe(20)
++    expect(TUNING.TV_FINAL_WEEKS).toBeGreaterThan(TUNING.TV_DUE_WEEKS)
++    expect(TUNING.TV_LATE_DEDUCTION_PER_WEEK * (TUNING.TV_FINAL_WEEKS - TUNING.TV_DUE_WEEKS)).toBe(TUNING.TV_LATE_DEDUCTION_MAX)
++    expect(TUNING.TV_LATE_DEDUCTION_MAX).toBeLessThan(TUNING.TV_MILESTONE_DELIVERY)
++    // the twelve-unit minimum route fits inside the due boundary
++    expect(tvWorkUnitsTotal()).toBeLessThanOrEqual(TUNING.TV_DUE_WEEKS)
++  })
++
++  it('distribution is 52 half-open weeks from accepted delivery; the admission quote covers the full production window', () => {
++    expect(TUNING.TV_DISTRIBUTION_WEEKS).toBe(52)
++    expect(TUNING.TV_ADMISSION_QUOTE_WEEKS).toBe(TUNING.TV_FINAL_WEEKS)
++    expect(TUNING.TV_ADMISSION_CASH_FLOOR).toBe(300_000)
++    expect(TUNING.TV_ADMISSION_CASH_FLOOR).toBe(TUNING.TV_UNIT_SPEND * tvWorkUnitsTotal())
++    expect(TUNING.TV_ADMISSION_CANCELLATION_PROVISION).toBe(TUNING.TV_CANCELLATION_CHARGE)
++    for (const n of [TUNING.TV_DISTRIBUTION_WEEKS, TUNING.TV_ADMISSION_QUOTE_WEEKS, TUNING.TV_ADMISSION_CASH_FLOOR,
++      TUNING.TV_ADMISSION_CANCELLATION_PROVISION]) expect(positiveInteger(n)).toBe(true)
++  })
++})
