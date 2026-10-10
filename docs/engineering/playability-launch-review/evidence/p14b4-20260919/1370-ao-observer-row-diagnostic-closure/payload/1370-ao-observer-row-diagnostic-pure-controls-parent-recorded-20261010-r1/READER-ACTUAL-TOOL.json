@@ -1,0 +1,14 @@
+{
+  "schema": "1370-ao-observer-diagnostic-controls-reader-actual-tool/v1",
+  "sessionId": null,
+  "allToolChunks": [
+    {
+      "chunk_id": "2a2543",
+      "wall_time_seconds": 0.780514328,
+      "exit_code": 0,
+      "original_token_count": 84,
+      "output": "{\"readback\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/READBACK.json\", \"bytes\": 8631, \"sha256\": \"e82d8783ee95ee8dc7cdfdaee1979380c809d8d3eaa108eee8e994cb53d2fb64\"}, \"recorderSeconds\": 3.914878809999209, \"actualOwnedIds\": [82947, 83213], \"caseCount\": 48}\n"
+    }
+  ],
+  "finalExit": 0
+}

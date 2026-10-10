@@ -1,0 +1,32 @@
+{
+  "actualControls": null,
+  "actualGame": null,
+  "concreteFindings": [
+    {
+      "code": "UNBOUNDED_FAILED_KIND_IDENTITY_SERIALIZATION",
+      "impact": "Original public witness runtime accepts arbitrary kind:string; a huge kind can cause the genuine row-byte Error then unbounded diagnostic identity serialization before row preflight.",
+      "minimalRepair": "Check exact supported failed kinds inputTuple/assessment before identity; unsupported gives FAILED_ROW_UNSUPPORTED, ordinary successful original records unchanged.",
+      "reviewedRepair": {
+        "bytes": 6892,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/SOURCE-PINS.json",
+        "sha256": "ecfa500f2a60f1280c6fcf06d60817bbb017bbf2524b74ab42bfd9c5aa5ce3b3"
+      },
+      "source": "R2 retain typeof-only kind guard before identity(context,kind)"
+    }
+  ],
+  "decision": "STOP_STATIC_OBSERVER_ROW_DIAGNOSTIC_FAILED_KIND_PREFLIGHT",
+  "executionAuthorization": false,
+  "priorSourceStop": {
+    "bytes": 8856,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "0feeda796cf3202753f58e544d3ca41955bffbd3ab35d9dd2e5c83e3eb1b5c61"
+  },
+  "remainingReview": "R1 pre-serialization bounds/context-extra/accounting findings repaired; all integration/witness roles and E/helper semantics unchanged. R2 is unaccepted/unrun source STOP, preserved; no actual cause/runtime claims.",
+  "schema": "1370-observer-row-diagnostic-independent-source-review/v1",
+  "sourceManifest": {
+    "bytes": 5977,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "b702718d76f9fba8d4f81b077d8d1f5d925de1e17c9eb61a21639fcb8c95357e"
+  },
+  "sourceOnly": true
+}

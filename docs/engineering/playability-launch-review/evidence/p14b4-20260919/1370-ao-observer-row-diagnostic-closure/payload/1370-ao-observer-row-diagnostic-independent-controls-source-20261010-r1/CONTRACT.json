@@ -1,0 +1,91 @@
+{
+  "schema": "1370-observer-row-independent-controls-contract/v1",
+  "executionAuthorization": false,
+  "sourceStatus": "UNRUN_SOURCE_ONLY",
+  "api": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2/API.md",
+    "bytes": 8460,
+    "sha256": "8b23588f28233794a7d0317b76d0770912015bc3ffd20dd823aae74b21225eb8"
+  },
+  "implementationSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 5977,
+    "sha256": "b702718d76f9fba8d4f81b077d8d1f5d925de1e17c9eb61a21639fcb8c95357e"
+  },
+  "dependencyRoles": {
+    "m0ObserverRowDiagnostic.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/m0ObserverRowDiagnostic.mjs",
+      "bytes": 10624,
+      "sha256": "351af4f2aa46cd0659cbf7c772f617823cd69b6dc554cbc5d954f47ead017ff9"
+    },
+    "m0FeasibilityWitness.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/m0FeasibilityWitness.ts",
+      "bytes": 4729,
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "CONTRACT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/CONTRACT.json",
+      "bytes": 1389,
+      "sha256": "60b948fa066a9052a1f87bae838aa753ca683d4e670bbed4a2e6163b82e9de3c"
+    }
+  },
+  "entry": {
+    "file": "run-observer-row-controls.mjs",
+    "export": "runObserverRowDiagnosticControls",
+    "arguments": [
+      "createObserverRowDiagnostic",
+      "createM0FeasibilitySink",
+      "runObserverArm"
+    ],
+    "sharedActualArmHelperRequired": true
+  },
+  "matrix": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r1/MATRIX.json",
+    "bytes": 7300,
+    "sha256": "561b4fbee1e5df98b1833653ac6f2e1d42316efe161621c1655dc8bbb8fbdd4e"
+  },
+  "caseCount": 47,
+  "positiveCount": 6,
+  "specificNegativeCount": 41,
+  "output": {
+    "schema": "1370-observer-row-independent-controls-result/v1",
+    "status": "PURE_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_COMPLETED_UNADOPTED",
+    "resultRows": "exact MATRIX cases plus expected-specific verdict; all ordered rows required",
+    "greenVerdict": "ACCEPT_POSITIVE",
+    "redVerdict": "ACCEPT_SPECIFIC_REFUSAL",
+    "arbitraryExceptionsCountAsRed": false
+  },
+  "originalObserverCaps": {
+    "rows": 512,
+    "rowUtf8IncludingNewline": 16384,
+    "totalUtf8RowsIncludingNewlines": 2097152
+  },
+  "diagnosticOnlyBounds": {
+    "canonicalUtf8Bytes": 65536,
+    "contextEncodedJsonBytes": 65536,
+    "failedRowEncodedJsonIncludingNewlineBytes": 524288,
+    "visitedNodesAndProperties": 16384,
+    "maxDepth": 64,
+    "emittedJsonLineIncludingNewlineBytes": 4096
+  },
+  "scope": {
+    "actualControls": null,
+    "actualGame": null,
+    "gameAcceptance": false,
+    "privateM0ReadOrWritten": false,
+    "fullQualificationAccepted": false,
+    "historicalStopsPreserved": true
+  },
+  "staticVerification": {
+    "literalRosterMatchesEveryAuthoredTestCall": true,
+    "uniqueCaseIds": true,
+    "javascriptParsedOrExecuted": false,
+    "candidateImportedOrExecuted": false
+  },
+  "reviewRequirements": [
+    "authenticate unchanged witness and implementation exports before import",
+    "review actual template uses same helper and immediate post-advance sticky check",
+    "exact expected Error identity and unavailable codes; setup failures remain fatal",
+    "recorded execution only after separate root grant; physical tools and actual owned cleanup required"
+  ]
+}

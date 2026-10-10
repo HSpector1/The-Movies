@@ -1,0 +1,104 @@
+{
+  "aliases18": [
+    "CONFIG.json",
+    "run-fullfunction.py",
+    "run-fullfunction.mjs",
+    "record-fullfunction.py",
+    "CORE-TEST-TEMPLATE.ts",
+    "CONFIG-TEMPLATE.mts",
+    "FULL-BODY-CONTROLS-TEMPLATE.ts",
+    "exact-json.mjs",
+    "run-parser-controls.mjs",
+    "canonical-typescript-transform.mjs",
+    "m0WiringProbe.ts",
+    "RESOLUTION-SOURCE-BINDING.json",
+    "m0TraceCodec.mjs",
+    "traceSequences.mjs",
+    "ordering.ts",
+    "talentMarket.ts",
+    "typed-propagation-removed-talentMarket.ts",
+    "m0ObserverRowDiagnostic.mjs"
+  ],
+  "controllerScriptPath": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r1/run-fullfunction.py",
+  "currentProtection": null,
+  "executionAuthorization": false,
+  "finalRouteConfig": null,
+  "finalRouteManifest": null,
+  "innerArgv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-observer-row-diagnostic-20261010-r1.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-source-20261010-r1/launch-fullfunction.py",
+    "inner",
+    null,
+    null
+  ],
+  "innerScript": {
+    "bytes": 18392,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-source-20261010-r1/launch-fullfunction.py",
+    "sha256": "8d16d458499a6753fba86f041f2dfcd287e3250065bf5b4c0e7ca81bee1df831"
+  },
+  "nodeScriptPath": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r1/run-fullfunction.mjs",
+  "nonoperativeDocumentaryDraft": true,
+  "outerArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-source-20261010-r1/launch-fullfunction.py",
+    "outer",
+    null,
+    null
+  ],
+  "outerScript": {
+    "bytes": 18392,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-source-20261010-r1/launch-fullfunction.py",
+    "sha256": "8d16d458499a6753fba86f041f2dfcd287e3250065bf5b4c0e7ca81bee1df831"
+  },
+  "prepSecondsEach": 60,
+  "prepTimersCancelledBeforeExec": true,
+  "readerArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-source-20261010-r1/read-fullfunction.py",
+    null,
+    null,
+    null,
+    null
+  ],
+  "readerFutureOperands": [
+    "actualSession",
+    "actualFinalExit",
+    "executionGrantSha256",
+    "actualToolSha256"
+  ],
+  "readerScript": {
+    "bytes": 14336,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-source-20261010-r1/read-fullfunction.py",
+    "sha256": "d53bc18ba0f6bba7111d0fa9a4c8a1eec1dcd38b7d87d45a202fb8756ec33c86"
+  },
+  "recorderArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r1/record-fullfunction.py",
+    "verification",
+    null,
+    null
+  ],
+  "recorderScriptPath": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r1/record-fullfunction.py",
+  "rootBinding": null,
+  "rootParentPath": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-recorded-20261010-r1",
+  "runtimeReady": false,
+  "runtimeRecorderOnly": [
+    300,
+    320,
+    330
+  ],
+  "schema": "1370-ao-fullfunction-parent-script-role-matrix/v1",
+  "streamsBytes": 8388608
+}

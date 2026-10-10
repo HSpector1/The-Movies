@@ -1,0 +1,24 @@
+{
+  "concreteFindings": [],
+  "executionAuthorization": false,
+  "externalReviewOperandsPreventHashCycle": true,
+  "requiredDecision": "ACCEPT_STATIC_FULLFUNCTION_ONCE_PARENT_SOURCE_ONLY",
+  "requiredReceiptSchema": "1370-ao-fullfunction-parent-readback-wrappers-independent-source-review/v1",
+  "requiredRootReadbackDecision": "ACCEPT_STATIC_FULLFUNCTION_ROOT_READBACK_SOURCE_ONLY",
+  "routeSourcePinsAliases": [
+    "launch-fullfunction.py",
+    "read-fullfunction.py"
+  ],
+  "schema": "1370-ao-combined-fullfunction-adapters-review-contract/v1",
+  "sourceManifestKind": "exact physical role of this parent SOURCE-PINS.json",
+  "sourcePinsAliases": [
+    "launch-fullfunction.py",
+    "read-fullfunction.py"
+  ],
+  "sourceReviewsAreFutureUntilActuallyIssued": true,
+  "wrapperSourceManifestKind": "exact physical role of separate wrappers SOURCE-PINS.json",
+  "wrapperSourcePinsAliases": [
+    "run_observer_fullfunction_once.py",
+    "run_observer_reader_once.py"
+  ]
+}

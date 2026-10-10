@@ -1,0 +1,16 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "RECEIPT.json": {
+      "bytes": 4815,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-fullguard-root-launcher-independent-source-review-20261010-r1/RECEIPT.json",
+      "sha256": "826dadaed2be3421af1cec63e56dcf7a382c19c5f552d877b35262ec1e786474"
+    },
+    "prepare-review.py": {
+      "bytes": 3929,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-fullguard-root-launcher-independent-source-review-20261010-r1/prepare-review.py",
+      "sha256": "f2410ac56474afc4318e11285e4a8bfc7b822ac68c92544de1a8a60004586cc1"
+    }
+  },
+  "schema": "1370-independent-source-review-seal/v1"
+}

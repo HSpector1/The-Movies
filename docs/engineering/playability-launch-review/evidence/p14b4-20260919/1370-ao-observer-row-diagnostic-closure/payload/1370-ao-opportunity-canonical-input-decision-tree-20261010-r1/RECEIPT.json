@@ -1,0 +1,67 @@
+{
+  "actualFailedRowMetrics": null,
+  "actualIteration": null,
+  "candidateExecution": false,
+  "decisionTree": {
+    "bytes": 4465,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-opportunity-canonical-input-decision-tree-20261010-r1/DECISION-TREE.md",
+    "sha256": "31956caf5351d61594dec393b751e3ae1be98756e980fb98ffa06a6d7a4d18aa"
+  },
+  "executionAuthorization": false,
+  "inspectedPublicRoles": {
+    "fixtures.ts": {
+      "bytes": 6863,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/fixtures.ts",
+      "sha256": "5ff38007b8126571e9fa84a9efe94f35866be409d3c35b22f9c90b5ce3e0315d"
+    },
+    "m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "opportunityPromises.ts": {
+      "bytes": 25031,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/opportunityPromises.ts",
+      "sha256": "90d49b0c76553a06d9c0bbabe568b8624270fe939b8e502a26fac9adc99065ee"
+    },
+    "promises.ts": {
+      "bytes": 113287,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/promises.ts",
+      "sha256": "0e14a0056d8d70ed2b93d217bc0829c6284142fd9ed93033ce8880e56691b6cb"
+    },
+    "talentMarket.ts": {
+      "bytes": 119700,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/talentMarket.ts",
+      "sha256": "fe9bea844bf41c3ad7e57924a6822f3a48b695b75880477281889a250a7c500a"
+    }
+  },
+  "lineBasis": {
+    "fixtures.ts": [
+      "43-79"
+    ],
+    "m0FeasibilityWitness.ts": [
+      "29-34",
+      "66-92"
+    ],
+    "opportunityPromises.ts": [
+      "48-58",
+      "70-91",
+      "99-110",
+      "272-331"
+    ],
+    "promises.ts": [
+      "245-274",
+      "407-455",
+      "557-571"
+    ]
+  },
+  "originalCapsUnchanged": {
+    "expandedRowBytesIncludingNewline": 16384,
+    "rows": 512,
+    "totalBytesIncludingNewlines": 2097152
+  },
+  "privateMirrorReads": false,
+  "repairChosen": false,
+  "schema": "1370-ao-public-canonical-input-source-decision-tree/v1",
+  "sourceOnly": true
+}

@@ -1,0 +1,27 @@
+--- FULL-BODY-CONTROLS-TEMPLATE.ts
++++ FULL-BODY-CONTROLS-TEMPLATE.ts
+@@ -1,3 +1,4 @@
++import {runObserverArm} from 'm0:src/core/m0ObserverRowDiagnostic.mjs'
+ // HELD source-only controls API. Every tested implementation is a full imported
+ // derivative module. Fixtures must come from actual recorded caller boundaries.
+ import assert from 'node:assert/strict'
+@@ -25,8 +26,9 @@
+  assert.ok(['tick.before.advanceTalentMarketWeek','synthetic.valid-market-state'].includes(boundary.sourcePhase))
+  const state=clone(boundary.state),before=encode(state)
+  m0WiringTestApi.reset();m0WiringProbe.begin(capture)
+- try{
++ return runObserverArm(m0WiringTestApi.observerRowDiagnostic,()=>{
+   const after=advanceTalentMarketWeek(state)
++  m0WiringTestApi.observerRowDiagnostic.throwIfFailed()
+   const probe=m0WiringProbe.end(),market=drainM0MarketDecisionRows(),feasibility=drainM0FeasibilityRows()
+   assert.equal(probe.overflow,false,'complete bounded helper/RNG trace, never dropped evidence; firstOverflow='+JSON.stringify(probe.firstOverflow))
+   assert.equal(encode(state),before,'full caller input is unchanged')
+@@ -40,7 +42,7 @@
+   }
+   if(capture)assertFullProjectionOrdering(probe,market,feasibility)
+   return{after,probe,market,feasibility}
+- }finally{try{m0WiringProbe.end()}finally{m0WiringTestApi.reset()}}
++ },()=>m0WiringProbe.end(),()=>m0WiringTestApi.reset(),(line:string)=>process.stdout.write(line))
+ }
+ function pair(boundary:Boundary){
+  const off=arm(boundary,false),on=arm(boundary,true)

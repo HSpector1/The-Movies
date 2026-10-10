@@ -1,0 +1,56 @@
+{
+  "actualGrant": null,
+  "actualTool": null,
+  "currentProtection": {
+    "bytes": 3761,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/M0-FULLFUNCTION-CURRENT-PROTECTION.json",
+    "sha256": "9d62c00117818cb92565706dc52545562addfcab6cbbe987a9083f2e8cceffd2"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "executionAuthorization": false,
+  "finalRouteConfig": {
+    "bytes": 20709,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r2/CONFIG.json",
+    "sha256": "596a893e476e77b8d87c1704b90ac5048b1f66611f61cdf3154ab6072ff27f5b"
+  },
+  "finalRouteManifest": {
+    "bytes": 23375,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "9a2d56c0b7263792b3e67f29d1cb40349ddc52593fe2ec9a80ff5463b0e99aef"
+  },
+  "launchArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_fullfunction_once.py",
+    null,
+    null,
+    null,
+    null
+  ],
+  "launchFutureOperands": [
+    "genuineRouteSourceReviewPath",
+    "genuineRouteSourceReviewSha256",
+    "combinedParentReadbackWrapperSourceReviewPath",
+    "combinedParentReadbackWrapperSourceReviewSha256"
+  ],
+  "nonoperativeDocumentaryDraft": false,
+  "parentReview": null,
+  "readerArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_reader_once.py",
+    null,
+    null
+  ],
+  "readerFutureOperands": [
+    "combinedParentReadbackWrapperSourceReviewPath",
+    "combinedParentReadbackWrapperSourceReviewSha256"
+  ],
+  "readerReview": null,
+  "runtimeReady": false,
+  "schema": "1370-ao-fullfunction-root-wrappers-argv-draft/v1",
+  "sourceReview": null,
+  "status": "SOURCE_ONLY_UNRUN"
+}

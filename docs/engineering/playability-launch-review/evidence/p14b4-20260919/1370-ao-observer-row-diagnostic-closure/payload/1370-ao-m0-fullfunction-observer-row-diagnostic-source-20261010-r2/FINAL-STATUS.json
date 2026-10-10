@@ -1,0 +1,19 @@
+{
+  "config": {
+    "bytes": 20709,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r2/CONFIG.json",
+    "sha256": "596a893e476e77b8d87c1704b90ac5048b1f66611f61cdf3154ab6072ff27f5b"
+  },
+  "executionAuthorization": false,
+  "historicalDraftsDocumentaryOnly": true,
+  "independentSourceReview": null,
+  "predecessorR1Preserved": true,
+  "rootOnceGrant": null,
+  "schema": "1370-ao-fullfunction-observer-row-diagnostic-source-final-status/v1",
+  "sourceProof": {
+    "bytes": 19272,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r2/SOURCE-PROOF.json",
+    "sha256": "e74c630da2b02c983cd01c992c4aefc12243f3f73de32e30469a66fa86d6b736"
+  },
+  "sourceSealed": true
+}

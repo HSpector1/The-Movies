@@ -1,0 +1,299 @@
+{
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_OBSERVER_ROW_DIAGNOSTIC_PURE_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY",
+  "executionAuthorization": false,
+  "findings": [],
+  "independence": {
+    "reviewer": "/root/b109_focused_route_review",
+    "routeAuthor": "/root/m0_types_source_review",
+    "runtimePerformedByReviewer": false
+  },
+  "reviewedAuthorityRoles": {
+    "api": {
+      "bytes": 8460,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2/API.md",
+      "sha256": "8b23588f28233794a7d0317b76d0770912015bc3ffd20dd823aae74b21225eb8"
+    },
+    "controlsSourcePins": {
+      "bytes": 3328,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+      "sha256": "a427acb4c7e1c0b5d31695141600c828c9e8f64543d5b828b9c40ac678b34411"
+    },
+    "controlsSourceReview": {
+      "bytes": 6203,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-root-source-review-20261010-r2/RECEIPT.json",
+      "sha256": "541f976ca5e1e550dd86b0fc56ac416b0a881c6d421ae14bb2809e2eeab5cfa8"
+    },
+    "implementationControlsSourceAdoption": {
+      "bytes": 3582,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-IMPLEMENTATION-CONTROLS-SOURCE-ADOPTION.json",
+      "sha256": "1112ed2166d623284be4a1c1bd40ae455212921d16ec32da0e727f9bcca566c7"
+    },
+    "implementationSourcePins": {
+      "bytes": 6892,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/SOURCE-PINS.json",
+      "sha256": "ecfa500f2a60f1280c6fcf06d60817bbb017bbf2524b74ab42bfd9c5aa5ce3b3"
+    },
+    "implementationSourceReview": {
+      "bytes": 9463,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-source-review-20261010-r3/RECEIPT.json",
+      "sha256": "ba5fe631915582f42d0b3071e545a519e69ac00f5ab51027783af79452613064"
+    },
+    "rootDesignAdoption": {
+      "bytes": 3797,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/OBSERVER-ROW-DIAGNOSTIC-DESIGN-ADOPTION.json",
+      "sha256": "8b45e59bfbcf67e115f28065c475fc64ba353a96ee4c07e616472bf58b1eda90"
+    },
+    "runtimeToolsObservation": {
+      "bytes": 1691,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-RUNTIME-TOOLS.json",
+      "sha256": "12d11061dd21827447ef0563d9ab4c5bec0c636986e8690ed067eb0be37dfa0c"
+    }
+  },
+  "reviewedContract": {
+    "actualOwnedHelperPidPgidSidRecorded": true,
+    "authorPreparationStopPreserved": [
+      {
+        "correction": "assert unique marker only after authenticated target block start",
+        "exitCode": 1,
+        "filesWrittenBeforeFailure": false,
+        "predicate": "end-marker uniqueness before target block scope",
+        "toolChunk": "c31836"
+      }
+    ],
+    "automaticRetry": false,
+    "caseCount": 48,
+    "combinedPreparationRuntimeDeadline": null,
+    "eachChildStreamCapBytes": 8388608,
+    "exactOrderedMatrixRowsRequired": true,
+    "externalContractAlias": "CONTROLS-CONTRACT.json maps explicitly to genuine controls CONTRACT.json",
+    "homeInherited": true,
+    "javascriptCopies": "exact diagnostic and independent control library; only local emitted public imports",
+    "knownDiagnostic": "Original qualified recorder return inside finally may emit Python3.14 SyntaxWarning into helper combined log; Node producer stderr is separately required empty. No all-streams-quiet claim.",
+    "loaderCompilerSetupUnknownErrorsFatal": true,
+    "originalReadinessGoGroupReapingPipeClosureDurableFinalizationRetained": true,
+    "outputDirectoriesDistinctAndFresh": true,
+    "positiveCount": 6,
+    "preparationCancelledBeforeDirectExec": true,
+    "publicInputsToolsAndEmittedModulesRehashedAfterControls": true,
+    "resultAndEachEmittedModuleCapBytes": 131072,
+    "reviewAliasesExact": 10,
+    "rootDesignAndImplementationControlsAdoptionStatusesValidated": true,
+    "rootGrantExternalOnceOnly": true,
+    "runtimeRunnerActiveWholeSeconds": [
+      300,
+      320,
+      330
+    ],
+    "separatePreparationSeconds": 60,
+    "soleTypescriptTranspile": "unchanged m0FeasibilityWitness.ts, pinned TypeScript5.9.3 to ES2022",
+    "sourceParentManifestAndReviewAreSameGenuineRoles": true,
+    "specificExceptionsOnly": true,
+    "specificNegativeCount": 42
+  },
+  "rootOnceLauncherReview": {
+    "apiAndActualSourceAdoptionAndToolsRolesPropagated": true,
+    "base": {
+      "bytes": 4894,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/run_lossless_controls_once.py",
+      "sha256": "2f62f8956d79f950c122e8dcd345ac21db2e115d54c171733e15c573d4447f61"
+    },
+    "completeForwardAndInverseEqual": true,
+    "concreteFindings": [],
+    "decision": "ACCEPT_STATIC_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_ROOT_ONCE_LAUNCHER_ONLY",
+    "executionAuthorization": false,
+    "helperBodiesByteExact": true,
+    "literalBindings": 13,
+    "logicOwnershipAndClockBoundariesUnchanged": true,
+    "priorProtectedStopAdoption": {
+      "bytes": 4698,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R5-STOP-OBSERVED-ADOPTION.json",
+      "sha256": "ab5b801da2ec6408281115aa424bfafad8a8e458b96e3f068d5fecfb2346669f"
+    },
+    "proof": {
+      "bytes": 3323,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/CONTROLS-ROOT-LAUNCHER-PROOF.json",
+      "sha256": "8aab8e59e69fb6a486be4fdfaca5d783911094034a40580266d2af422947edca"
+    },
+    "source": {
+      "bytes": 4980,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/run_observer_controls_once.py",
+      "sha256": "02ea48f37155065714252a3330191673147ef3897874def1fe856b374f6ec90d"
+    },
+    "sourceReviewAndTenAliasesConsumedExactly": true
+  },
+  "routeSourcePins": {
+    "CONFIG.json": {
+      "bytes": 7018,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONFIG.json",
+      "sha256": "ecd1164da81a1e8f1c03456762cdfc56803cde908908e9e233a33491185fddaa"
+    },
+    "CONTRACT.json": {
+      "bytes": 4589,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONTRACT.json",
+      "sha256": "ede7dd2698764a78607f9c18ec55f86ec694d4543e5a93a9acd1d2584c0d63b7"
+    },
+    "CONTROLS-CONTRACT.json": {
+      "bytes": 4066,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "e3f811116a1e62a37b87c9c738b052ba71cbdfebe4954344506ae46b8a074fbf"
+    },
+    "MATRIX.json": {
+      "bytes": 7474,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "0f2a5ed2c64d632aa269fb1c1b4cc954f2e3b33acbe9281246453f7baa80f0d0"
+    },
+    "launch-observer-row-controls.py": {
+      "bytes": 11670,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/launch-observer-row-controls.py",
+      "sha256": "7f96ddeb7dbfbb11a5103f6e999f6d33c087a85f3d34bc726a686b63350605ac"
+    },
+    "m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 10646,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0ObserverRowDiagnostic.mjs",
+      "sha256": "facc279ea400667a5bfdb029dbbf7defd62c7ae950e181d763bac27d4aa49124"
+    },
+    "record-observer-row-controls.py": {
+      "bytes": 17408,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/record-observer-row-controls.py",
+      "sha256": "0eaf949c201047e861483cdc175375be8a0e2049d726427d041bf15872ebdf26"
+    },
+    "run-observer-row-controls.mjs": {
+      "bytes": 29201,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/run-observer-row-controls.mjs",
+      "sha256": "227e306fa5ba41208e72a9e0148d3e6cf3d49cf5070a694f6888908c2fabf6e0"
+    },
+    "run-observer-row-recorded-controls.mjs": {
+      "bytes": 13541,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/run-observer-row-recorded-controls.mjs",
+      "sha256": "c819ea3777bfbc073a9b6795794e00dad8b2942106e13b2295b55e860cf492f6"
+    }
+  },
+  "schema": "1370-observer-row-diagnostic-pure-controls-recorded-route-independent-source-review/v1",
+  "scope": {
+    "actualControls": null,
+    "actualGrant": null,
+    "fullFunctionQualificationAccepted": false,
+    "game": false,
+    "noNewGate": true,
+    "originalParser32AndTrace49Replayed": false,
+    "privateM0ReadOrWritten": false,
+    "productionChanged": false,
+    "realOffendingRowMeasured": false,
+    "sourceOnlyUnrun": true
+  },
+  "sourceManifest": {
+    "bytes": 7675,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "a27f8bf8756ab5804411ff1592aef49f8012c3dc65e14cbf073dcec2995a97ec"
+  },
+  "sourcePins": {
+    "CONFIG.json": {
+      "bytes": 7018,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONFIG.json",
+      "sha256": "ecd1164da81a1e8f1c03456762cdfc56803cde908908e9e233a33491185fddaa"
+    },
+    "CONTRACT.json": {
+      "bytes": 4589,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONTRACT.json",
+      "sha256": "ede7dd2698764a78607f9c18ec55f86ec694d4543e5a93a9acd1d2584c0d63b7"
+    },
+    "CONTROLS-CONTRACT.json": {
+      "bytes": 4066,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "e3f811116a1e62a37b87c9c738b052ba71cbdfebe4954344506ae46b8a074fbf"
+    },
+    "MATRIX.json": {
+      "bytes": 7474,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "0f2a5ed2c64d632aa269fb1c1b4cc954f2e3b33acbe9281246453f7baa80f0d0"
+    },
+    "launch-observer-row-controls.py": {
+      "bytes": 11670,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/launch-observer-row-controls.py",
+      "sha256": "7f96ddeb7dbfbb11a5103f6e999f6d33c087a85f3d34bc726a686b63350605ac"
+    },
+    "m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 10646,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0ObserverRowDiagnostic.mjs",
+      "sha256": "facc279ea400667a5bfdb029dbbf7defd62c7ae950e181d763bac27d4aa49124"
+    },
+    "record-observer-row-controls.py": {
+      "bytes": 17408,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/record-observer-row-controls.py",
+      "sha256": "0eaf949c201047e861483cdc175375be8a0e2049d726427d041bf15872ebdf26"
+    },
+    "run-observer-row-controls.mjs": {
+      "bytes": 29201,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/run-observer-row-controls.mjs",
+      "sha256": "227e306fa5ba41208e72a9e0148d3e6cf3d49cf5070a694f6888908c2fabf6e0"
+    },
+    "run-observer-row-recorded-controls.mjs": {
+      "bytes": 13541,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/run-observer-row-recorded-controls.mjs",
+      "sha256": "c819ea3777bfbc073a9b6795794e00dad8b2942106e13b2295b55e860cf492f6"
+    }
+  },
+  "wholeSourceChecks": {
+    "allExternalRolesAuthenticated": 5,
+    "allLocalRolesAuthenticated": 19,
+    "baselineCopiesEqualGenuineQualifiedPredecessor": true,
+    "completeForwardInverseApplications": 6,
+    "predecessorSourcePins": {
+      "bytes": 7306,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+      "sha256": "2b035412243347f60e8a1148a290899158ce975f755a1b8837324b1e07bd644f"
+    },
+    "unchangedHelpers": [
+      {
+        "count": 10,
+        "file": "launch-observer-row-controls.py",
+        "unchangedHelpers": [
+          "require",
+          "prep_timeout",
+          "remaining",
+          "metadata",
+          "role",
+          "authenticate",
+          "pairs",
+          "load",
+          "exact",
+          "write"
+        ]
+      },
+      {
+        "count": 17,
+        "file": "record-observer-row-controls.py",
+        "unchangedHelpers": [
+          "require",
+          "sha",
+          "write",
+          "metadata",
+          "authenticate",
+          "process_alive",
+          "OwnedChild",
+          "start_owned",
+          "ready_go",
+          "close_startup_fds",
+          "clear",
+          "alarm",
+          "whole_guard",
+          "active_guard",
+          "observed_exit_guard",
+          "child_environment",
+          "finalize_result"
+        ]
+      }
+    ]
+  }
+}

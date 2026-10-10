@@ -1,0 +1,80 @@
+{
+  "actualOwnGroupConfirmed": true,
+  "argv": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/controls.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/record-observer-row-controls.py",
+    "verification",
+    "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+    "0c06fc7061211ff19b6a178a07bfcd9c230659c2d84caf0f65392a3d8027df03"
+  ],
+  "combinedPreparationRuntimeDeadline": null,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "directExecPreservesOuterIdentity": true,
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": false,
+  "fixtureQualification": false,
+  "game": false,
+  "grant": {
+    "bytes": 7614,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "0c06fc7061211ff19b6a178a07bfcd9c230659c2d84caf0f65392a3d8027df03"
+  },
+  "helperPgid": 82947,
+  "helperPid": 82947,
+  "helperSid": 82947,
+  "meaningfulCatchMutantRed": false,
+  "originalM0ReadOrWritten": false,
+  "parentAdapterSourcePins": {
+    "bytes": 7675,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "a27f8bf8756ab5804411ff1592aef49f8012c3dc65e14cbf073dcec2995a97ec"
+  },
+  "parentAdapterSourceReview": {
+    "bytes": 14092,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "d11e4b0fa2ba987b8eabcdd359cc96283beb2d848d118befe796becd39be2741"
+  },
+  "preparationDeadlineSeconds": 60,
+  "preparationElapsedSeconds": 0.44873556301172357,
+  "runtimeBounds": {
+    "active": 320,
+    "childStreamBytes": 8388608,
+    "compiledModuleBytes": 131072,
+    "resultBytes": 131072,
+    "runner": 300,
+    "whole": 330
+  },
+  "runtimeClockOwnedByRecorder": true,
+  "runtimeToolsObservation": {
+    "bytes": 1691,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-RUNTIME-TOOLS.json",
+    "sha256": "12d11061dd21827447ef0563d9ab4c5bec0c636986e8690ed067eb0be37dfa0c"
+  },
+  "schema": "1370-observer-row-diagnostic-pure-controls-parent-launch-claim/v1",
+  "sourceAdoption": {
+    "bytes": 1390,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-SOURCE-ADOPTION.json",
+    "sha256": "38f66aab9ac6dd03179dc9c5d2ca5952220129d509674ca60bad144cad8b880e"
+  },
+  "sourcePins": {
+    "bytes": 7675,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "a27f8bf8756ab5804411ff1592aef49f8012c3dc65e14cbf073dcec2995a97ec"
+  },
+  "sourceReview": {
+    "bytes": 14092,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "d11e4b0fa2ba987b8eabcdd359cc96283beb2d848d118befe796becd39be2741"
+  },
+  "syntheticOnly": true,
+  "unexpectedHelperWaitIsStop": true
+}

@@ -1,0 +1,14 @@
+{
+  "executionAuthorization": false,
+  "receipt": {
+    "bytes": 14707,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "00f0b0432656557fa722f674f04a2ab6dc4040292e9e90aed7f50f5a988ea595"
+  },
+  "schema": "1370-independent-source-review-seal/v1",
+  "sourceManifest": {
+    "bytes": 23375,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "9a2d56c0b7263792b3e67f29d1cb40349ddc52593fe2ec9a80ff5463b0e99aef"
+  }
+}

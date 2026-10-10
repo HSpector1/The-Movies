@@ -1,0 +1,74 @@
+{
+  "actualControls": null,
+  "actualFullfunctionDiagnostic": null,
+  "actualOffendingRowMetrics": null,
+  "api": {
+    "bytes": 8460,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2/API.md",
+    "sha256": "8b23588f28233794a7d0317b76d0770912015bc3ffd20dd823aae74b21225eb8"
+  },
+  "apiAdoption": {
+    "bytes": 1609,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/API-R2-ADOPTION.json",
+    "sha256": "d6f892fb9829b54af43091c494ef1c2362573273f6ae2e8afea093015ddf569d"
+  },
+  "caseCount": 48,
+  "controlsReview": {
+    "bytes": 6203,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-root-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "541f976ca5e1e550dd86b0fc56ac416b0a881c6d421ae14bb2809e2eeab5cfa8"
+  },
+  "controlsSourceAccepted": true,
+  "controlsSourcePins": {
+    "bytes": 3328,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "a427acb4c7e1c0b5d31695141600c828c9e8f64543d5b828b9c40ac678b34411"
+  },
+  "diagnosticOnlyBounds": {
+    "canonicalUtf8Bytes": 65536,
+    "contextEncodedJsonBytes": 65536,
+    "emittedJsonLineIncludingNewlineBytes": 4096,
+    "failedRowEncodedJsonIncludingNewlineBytes": 524288,
+    "maxDepth": 64,
+    "visitedNodesAndProperties": 16384
+  },
+  "executionAuthorization": false,
+  "gameAcceptance": false,
+  "implementationReview": {
+    "bytes": 9463,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-source-review-20261010-r3/RECEIPT.json",
+    "sha256": "ba5fe631915582f42d0b3071e545a519e69ac00f5ab51027783af79452613064"
+  },
+  "implementationSourceAccepted": true,
+  "implementationSourcePins": {
+    "bytes": 6892,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "ecfa500f2a60f1280c6fcf06d60817bbb017bbf2524b74ab42bfd9c5aa5ce3b3"
+  },
+  "ordinarySuccessfulRecordsUnchanged": true,
+  "originalObserverCaps": {
+    "rowUtf8IncludingNewline": 16384,
+    "rows": 512,
+    "totalUtf8RowsIncludingNewlines": 2097152
+  },
+  "positiveCount": 6,
+  "priorSourceStopsPreserved": true,
+  "productionSourceChangesAuthorized": false,
+  "rootDesignAdoption": {
+    "bytes": 3797,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/OBSERVER-ROW-DIAGNOSTIC-DESIGN-ADOPTION.json",
+    "sha256": "8b45e59bfbcf67e115f28065c475fc64ba353a96ee4c07e616472bf58b1eda90"
+  },
+  "sameOriginalErrorStickyThroughBodyAndCleanup": true,
+  "schema": "1370-root-observer-row-diagnostic-implementation-controls-source-adoption/v1",
+  "scope": "Reviewed public scratch diagnostic and independent controls source only. The diagnostic-only ceilings return unavailable and never change original observer admission. A separately reviewed recorded route and one-time root grant are still required. No private source, fixture, observer cap or gameplay policy changes.",
+  "specificNegativeCount": 42,
+  "status": "ROOT_ADOPTED_OBSERVER_ROW_DIAGNOSTIC_IMPLEMENTATION_AND_CONTROLS_SOURCE_ONLY",
+  "unchangedOriginalWitness": {
+    "bytes": 4729,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0FeasibilityWitness.ts",
+    "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+  },
+  "unsupportedFailedKindUnavailableBeforeIdentity": true,
+  "utc": "2026-10-10T08:32:56.676994+00:00"
+}

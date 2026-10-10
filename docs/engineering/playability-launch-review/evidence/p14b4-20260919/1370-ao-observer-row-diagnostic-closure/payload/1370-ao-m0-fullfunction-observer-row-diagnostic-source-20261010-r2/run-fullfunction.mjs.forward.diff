@@ -1,0 +1,96 @@
+--- Q13/run-fullfunction.mjs
++++ AO/run-fullfunction.mjs
+@@ -5,7 +5,7 @@
+ import {spawn} from 'node:child_process';
+ import {fileURLToPath} from 'node:url';
+ const HERE=path.dirname(fileURLToPath(import.meta.url));
+-const CONFIG_SHA='3a9e349f746c57a2aadb33d344eb5102abfca2e6cf4d5d017871b466c5ed3604';
++const CONFIG_SHA='c5ceb654d1f08d90ab1e6abefbdb05e0bb9a0d89b6f752169b05fc61ad8e16e3';
+ const need=(v,m)=>{if(!v)throw Error('STOP_'+m)};
+ const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+ import {equal,parseExact} from 'file:///Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs';
+@@ -25,6 +25,40 @@
+ const json=(r,cap=1024*1024)=>parseExact(readRole(r,cap),clockGuard);
+ const write=(p,b,cap)=>{need(b.length<=cap,'OUTPUT_CAP');const fd=fs.openSync(p,fs.constants.O_WRONLY|fs.constants.O_CREAT|fs.constants.O_EXCL|fs.constants.O_NOFOLLOW,0o600);try{fs.writeFileSync(fd,b);fs.fsyncSync(fd)}finally{fs.closeSync(fd)};return role(p,cap)};
+ const writeJson=(p,v,cap=131072)=>write(p,Buffer.from(JSON.stringify(v)+'\n'),cap);
++function authenticateObserverDiagnostic(grant,c,manifest){
++ const a=c.observerDiagnosticControlsAuthorities,im=json(a.implementationSourcePins),ir=json(a.implementationSourceReview),cm=json(a.controlsSourcePins),cr=json(a.controlsSourceReview);
++ need(ir.decision==='ACCEPT_STATIC_BOUNDED_OBSERVER_ROW_DIAGNOSTIC_IMPLEMENTATION_SOURCE_ONLY'&&equal(ir.sourceManifest,a.implementationSourcePins)&&equal(ir.concreteFindings,[])&&ir.executionAuthorization===false,'DIAGNOSTIC_IMPLEMENTATION_REVIEW');
++ for(const [n,r] of Object.entries(c.diagnosticInputs)){need(equal(r,im.files[n])&&equal(r,ir.sourcePins[n])&&equal(r,ir.routeSourcePins[n])&&equal(r,manifest.files[n]),'DIAGNOSTIC_SOURCE_BINDINGS');readRole(r)}
++ need(cr.decision==='ACCEPT_STATIC_PURE_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_SOURCE_ONLY'&&equal(cr.sourceManifest,a.controlsSourcePins)&&equal(cr.concreteFindings,[])&&cr.executionAuthorization===false,'DIAGNOSTIC_CONTROLS_REVIEW');
++ for(const k of ['implementationControlsSourceAdoption','rootDesignAdoption','api'])readRole(a[k]);
++ const sa=json(a.implementationControlsSourceAdoption);need(sa.status==='ROOT_ADOPTED_OBSERVER_ROW_DIAGNOSTIC_IMPLEMENTATION_AND_CONTROLS_SOURCE_ONLY'&&sa.executionAuthorization===false,'DIAGNOSTIC_SOURCE_ADOPTION');
++ for(const [x,y] of [['implementationSourcePins','implementationSourcePins'],['implementationReview','implementationSourceReview'],['controlsSourcePins','controlsSourcePins'],['controlsReview','controlsSourceReview'],['rootDesignAdoption','rootDesignAdoption'],['api','api']])need(equal(sa[x],a[y]),'DIAGNOSTIC_SOURCE_ADOPTION_ROLES');
++ need(equal(grant.observerDiagnosticControlsObservedAdoption,c.actualObserverDiagnosticControlsObservedAdoption),'EXACT_DIAGNOSTIC_OBSERVED_ROLE');const o=json(grant.observerDiagnosticControlsObservedAdoption),ct=c.observerDiagnosticControlsObservedAdoptionContract;
++ need(o.schema===ct.schema&&o.status===ct.status,'DIAGNOSTIC_OBSERVED_CONTRACT');
++ for(const k of ['caseCount','positiveCount','specificNegativeCount'])need(Number.isSafeInteger(o[k])&&o[k]===ct[k],'DIAGNOSTIC_CONTROL_COUNT');
++ need(Number.isSafeInteger(o.actualExit)&&o.actualExit===0&&o.soleLaneReleased===true,'DIAGNOSTIC_ACTUAL_EXIT_RELEASE');
++ for(const k of ['executionAuthorization','game','privateM0ReadOrWritten','fullQualificationAccepted','fullBodyGameAssertionsExecuted'])need(o[k]===false,'DIAGNOSTIC_PURE_SCOPE');
++ for(const [k,r] of Object.entries(a))need(equal(o[k],r),'DIAGNOSTIC_OBSERVED_AUTHORITIES');
++ need(equal(o.sourceReviewedFullBodyTemplate,c.diagnosticInputs['FULL-BODY-CONTROLS-TEMPLATE.ts'])&&equal(o.inputRoles['m0ObserverRowDiagnostic.mjs'],c.diagnosticInputs['m0ObserverRowDiagnostic.mjs'])&&equal(o.inputRoles['m0FeasibilityWitness.ts'],im.files['m0FeasibilityWitness.ts']),'DIAGNOSTIC_ACTUAL_TESTED_INPUTS');
++ const review=json(o.independentObservedReview);need(review.decision===ct.reviewDecision&&equal(review.concreteFindings,[])&&review.executionAuthorization===false,'DIAGNOSTIC_OBSERVED_REVIEW');
++ const r=json(o.result),m=json(cm.files['MATRIX.json']);need(r.schema==='1370-observer-row-independent-controls-result/v1'&&r.status==='PURE_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_COMPLETED_UNADOPTED'&&r.caseCount===48&&r.positiveCount===6&&r.specificNegativeCount===42&&equal(r.results,m.cases.map(row=>({...row,verdict:row.expected==='GREEN'?'ACCEPT_POSITIVE':'ACCEPT_SPECIFIC_REFUSAL'}))),'DIAGNOSTIC_EXACT_ACTUAL_ROSTER');
++ need(equal(r.inputRoles,o.inputRoles)&&r.executionAuthorization===false&&r.game===false&&r.privateM0ReadOrWritten===false&&r.fullQualificationAccepted===false,'DIAGNOSTIC_RESULT_SCOPE');
++ for(const k of ['implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption'])need(equal(r[k],a[k]),'DIAGNOSTIC_RESULT_AUTHORITIES');
++ for(const k of ['readback','actualTool','sourceAdoption','sourcePins','sourceReview','workerResult'])readRole(o[k],16*1024*1024);
++ return o;
++}
++
++function authenticateCurrentProtection(grant,c){
++ const p=json(grant.currentProtection);need(equal(grant.currentProtection,c.currentProtection),'EXACT_CURRENT_PROTECTION_ROLE');
++ need(p.schema==='1370-root-fullfunction-current-protection/v2'&&p.status==='ROOT_ADOPTED_CURRENT_FULLFUNCTION_PREFLIGHT_UNDER_CONTINUOUS_FREEZE'&&p.productionHead===c.operationalHead&&p.productionSourceTree===c.productionSourceTree&&equal(p.historicalTypesAdoption,grant.typesAdoption)&&equal(grant.typesAdoption,c.historicalTypesAdoption)&&p.historicalTypesHead===c.historicalTypesHead&&p.protectedFreezeContinues===true&&p.executionAuthorization===false&&p.game===false,'CURRENT_FULLFUNCTION_PROTECTION_V2');
++ need(equal(p.currentANFullPreflightAdoption,c.actualCurrentANFullPreflightAdoption)&&equal(p.currentOperationalTransition,c.actualCurrentOperationalTransition)&&equal(p.reviewedPriorStopAdoption,c.reviewedPriorStopAdoption),'CURRENT_AN_AUTHORITY_ROLES');
++ const a=json(p.currentANFullPreflightAdoption);need(a.schema==='1370-ao-root-current-an-fullpreflight-adoption/v1'&&a.status==='ROOT_ADOPTED_CURRENT_AN_FULL_PREFLIGHT'&&a.productionHead===c.operationalHead&&a.productionSourceTree===c.productionSourceTree&&a.protectedFreezeContinues===true&&a.executionAuthorization===false&&equal(p.currentANFullPreflightSnapshot,a.snapshot),'CURRENT_AN_FULL_PREFLIGHT');
++ for(const k of ['actualReadback','independentObservedReview','snapshot','snapshotPins','guardSource','config','sourcePins','actualTool','postOwnership','rawLocalOnlyClassification'])readRole(a[k],16*1024*1024);
++ const t=json(p.currentOperationalTransition);need(t.schema==='1370-ao-current-an-operational-transition/v1'&&t.actualHead===c.operationalHead&&t.predecessor===c.historicalTypesHead&&t.sourceTree===c.productionSourceTree&&t.docsOnlyVerified===true&&t.workingTreeClean===true&&t.executionAuthorization===false,'HISTORICAL_TYPES_CURRENT_AN_CONTINUITY');readRole(t.publishedReadback);
++ for(const k of ['actualPreflight','actualPreflightReadback','independentPreflightReview','reviewedPriorStopAdoption'])readRole(p[k],16*1024*1024);
++ return p;
++}
++
+ need(process.argv.length===4,'BINDING_ARGS');
+ const bindingRole=role(process.argv[2],131072);need(bindingRole.sha256===process.argv[3],'BINDING_HASH');const binding=json(bindingRole);
+ const configRole=role(path.join(HERE,'CONFIG.json'),131072);need(configRole.sha256===CONFIG_SHA,'CONFIG_HASH');const c=json(configRole);
+@@ -40,12 +74,12 @@
+ need(grant.schema==='1370-root-fullfunction-qualification-once-grant/v1'&&grant.scope==='REAL_FULL_FUNCTION_BOUNDARIES_BASELINE_AND_TYPED_CATCH_MUTANT_ONLY'&&grant.executionAuthorization===true&&grant.oneAggregateRun===true&&grant.automaticRetry===false&&grant.clockEnforcedByOriginalRecordedRoute===true&&equal(grant.config,configRole)&&equal(grant.bounds,c.bounds),'EXTERNAL_ROOT_ONCE_GRANT');
+ need(equal(grant.runtimeTools,binding.runtimeTools)&&equal(grant.typesAdoption,binding.typesAdoption)&&equal(grant.artifactBoundAdoption,binding.artifactBoundAdoption)&&equal(grant.currentProtection,binding.currentProtection),'GRANT_PREREQUISITE_ROLES');
+ need(grant.sourcePins.path===path.join(HERE,'SOURCE-PINS.json'),'MANIFEST_PATH');const manifest=json(grant.sourcePins,131072);need(manifest.schema==='1370-fullfunction-qualification-source-pins/v1'&&manifest.executionAuthorization===false,'MANIFEST_PROTOCOL');
+-for(const [name,r] of Object.entries(manifest.files)){if(Object.hasOwn(c.parserInputs,name))need(equal(r,c.parserInputs[name]),'EXACT_EXTERNAL_TESTED_PARSER_ROLE');else if(Object.hasOwn(c.representationInputs,name))need(equal(r,c.representationInputs[name]),'EXACT_FIXED_REPRESENTATION_ROLE');else need(r.path===path.join(HERE,name),'MANIFEST_ROLE_PATH');readRole(r)}
++for(const [name,r] of Object.entries(manifest.files)){if(Object.hasOwn(c.parserInputs,name))need(equal(r,c.parserInputs[name]),'EXACT_EXTERNAL_TESTED_PARSER_ROLE');else if(Object.hasOwn(c.representationInputs,name))need(equal(r,c.representationInputs[name]),'EXACT_FIXED_REPRESENTATION_ROLE');else if(Object.hasOwn(c.diagnosticInputs,name))need(equal(r,c.diagnosticInputs[name]),'EXACT_FIXED_DIAGNOSTIC_ROLE');else need(r.path===path.join(HERE,name),'MANIFEST_ROLE_PATH');readRole(r)}
+ const sourceReview=json(grant.sourceReview,131072);need(sourceReview.decision==='ACCEPT_STATIC_REAL_FULL_FUNCTION_QUALIFICATION_ROUTE_SOURCE_ONLY'&&sourceReview.executionAuthorization===false&&equal(sourceReview.concreteFindings,[])&&equal(sourceReview.sourceManifest,grant.sourcePins),'INDEPENDENT_SOURCE_REVIEW');
+-for(const name of ['CONFIG.json','run-fullfunction.py','run-fullfunction.mjs','record-fullfunction.py','CORE-TEST-TEMPLATE.ts','CONFIG-TEMPLATE.mts','FULL-BODY-CONTROLS-TEMPLATE.ts','exact-json.mjs','run-parser-controls.mjs','canonical-typescript-transform.mjs','m0WiringProbe.ts','RESOLUTION-SOURCE-BINDING.json','m0TraceCodec.mjs','traceSequences.mjs','ordering.ts'])need(equal(sourceReview.sourcePins[name],manifest.files[name])&&equal(sourceReview.routeSourcePins[name],manifest.files[name]),'SOURCE_REVIEW_ALIASES');
++for(const name of c.reviewAliases)need(equal(sourceReview.sourcePins[name],manifest.files[name])&&equal(sourceReview.routeSourcePins[name],manifest.files[name]),'SOURCE_REVIEW_ALIASES');
+ need(manifest.files['run-fullfunction.mjs'].path===fileURLToPath(import.meta.url),'WORKER_SELF');
+ const types=json(grant.typesAdoption),contract=c.typesAdoptionContract;
+-need(types.schema===contract.schema&&types.status===contract.status&&types.productionHead===c.operationalHead&&types.productionSourceTree===c.productionSourceTree,'ACTUAL_CURRENT_TYPES_ADOPTION');
++need(types.schema===contract.schema&&types.status===contract.status&&equal(grant.typesAdoption,c.historicalTypesAdoption)&&types.productionHead===c.historicalTypesHead&&types.productionSourceTree===c.productionSourceTree,'ACTUAL_CURRENT_TYPES_ADOPTION');
+ for(const key of ['typesAccepted','collectionAccepted','fullProtectedPostflightAccepted','soleLaneReleased','originalR6StopPreserved'])need(types[key]===true,'TYPES_'+key);
+ for(const key of ['historicalRootUnchanged','game','executionAuthorization'])need(types[key]===false,'TYPES_SCOPE_'+key);
+ for(const key of ['independentObservedReview','result','readback','fullPostflightSnapshot','currentProtection','postR6RootAdoption'])readRole(types[key],16*1024*1024);
+@@ -69,7 +103,7 @@
+ need(losslessObserved.actualExit===0&&losslessObserved.soleLaneReleased===true,'ACTUAL_CONTROLS_EXIT_OWNERSHIP');
+ for(const k of ['executionAuthorization','game','privateM0ReadOrWritten','fullQualificationAccepted','fullBodyGameAssertionsExecuted'])need(losslessObserved[k]===false,'CONTROLS_ONLY_SCOPE');
+ for(const k of ['implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption','implementationControlsSourceAdoption'])need(equal(losslessObserved[k],la[k]),'OBSERVED_CONTROLS_SOURCE_BINDINGS');
+-need(equal(losslessObserved.sourceReviewedFullBodyTemplate,c.representationInputs['FULL-BODY-CONTROLS-TEMPLATE.ts']),'SOURCE_REVIEWED_UNRUN_FULLBODY_TEMPLATE');
++need(equal(losslessObserved.sourceReviewedFullBodyTemplate,c.historicalPure49Template),'SOURCE_REVIEWED_UNRUN_FULLBODY_TEMPLATE');
+ const losslessReview=json(losslessObserved.independentObservedReview);need(losslessReview.decision==='ACCEPT_ACTUAL_PURE_LOSSLESS_CODEC_AND_AFFECTED_ORDERING_CONTROLS_ONLY'&&losslessReview.executionAuthorization===false&&equal(losslessReview.concreteFindings,[]),'ACTUAL_CONTROLS_INDEPENDENT_REVIEW');
+ const losslessResult=json(losslessObserved.result),losslessMatrix=json(cm.files['MATRIX.json']);
+ need(losslessResult.schema==='1370-lossless-trace-independent-controls-result/v1'&&losslessResult.status==='PURE_LOSSLESS_CODEC_AND_AFFECTED_ORDERING_COMPLETED_UNADOPTED'&&losslessResult.positiveCount===9&&losslessResult.specificNegativeCount===40&&losslessResult.originalOrderingCases===18&&losslessResult.originalParserCasesReplayed===0,'ACTUAL_CONTROLS_RESULT');
+@@ -79,6 +113,8 @@
+ for(const name of ['m0TraceCodec.mjs','traceSequences.mjs','m0WiringProbe.ts','ordering.ts'])need(equal(losslessObserved.inputRoles[name],c.representationInputs[name]),'ACTUAL_TESTED_FIXED_INPUT_ROLE');
+ for(const k of ['implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption'])need(equal(losslessResult[k],la[k]),'CONTROL_RESULT_AUTHORITY_BINDINGS');
+ for(const k of ['readback','actualTool','sourceAdoption'])readRole(losslessObserved[k],16*1024*1024);
++const historicalTemplate=c.historicalPure49Template;need(equal(historicalTemplate,lm.files['FULL-BODY-CONTROLS-TEMPLATE.ts'])&&equal(historicalTemplate,lr.sourcePins['FULL-BODY-CONTROLS-TEMPLATE.ts'])&&equal(historicalTemplate,lr.routeSourcePins['FULL-BODY-CONTROLS-TEMPLATE.ts']),'HISTORICAL_49_TEMPLATE_PROVENANCE');readRole(historicalTemplate);
++authenticateObserverDiagnostic(grant,c,manifest);
+ for(const r of Object.values(c.transformTools))readRole(r,2*1024*1024);
+ const proofConfig=json(c.proofConfig),root=json(types.postR6RootAdoption);
+ need(root.schema==='1370-root-post-r6-m0-current-root-diagnostic-adoption/v1'&&root.status==='ROOT_ADOPTED_POST_R6_M0_PRESERVATION_DIAGNOSTIC_KNOWN_ROOT_DRIFT'&&root.currentRootBaselineQualified===true&&root.historicalRootUnchanged===false&&root.originalR6StopPreserved===true&&root.typesAccepted===false&&root.collectionAccepted===false&&equal(root.knownRootDrift,proofConfig.knownRootDrift)&&equal(root.freshSourceProof,types.freshSourceProof)&&equal(root.freshDependencyProof,types.freshDependencyProof),'AUTHENTIC_POST_R6_ROOT');
+@@ -86,8 +122,7 @@
+ const authority=proofConfig.sourceAuthorities,copied=json(authority.m0CopyParentAdoption),complete=json(authority.m0CompleteParentAdoption),completeReview=json(authority.m0CompleteIndependentReview),facts=json(authority.m0PhysicalFacts,2*1024*1024);
+ need(copied.decision==='ADOPT_OBSERVED_M0_SOURCE_ONLY_COPY_AND_FULL_POSTFLIGHT'&&complete.status==='ROOT_ADOPTED_OBSERVED_M0_ADDITIVE_WITH_FULL_PROTECTION'&&completeReview.decision==='ACCEPT_OBSERVED_M0_ADDITIVE_COMPLETE_WITH_FULL_PROTECTED_POSTFLIGHT'&&equal(complete.acceptedRoles.facts,authority.m0PhysicalFacts)&&equal(complete.acceptedRoles.completeIndependentReview,authority.m0CompleteIndependentReview)&&complete.regularFiles===1740&&complete.regularBytes===119393120&&complete.bridgeFiles===63&&complete.bridgeBytes===1517743&&complete.dependencyLinks===1&&complete.dependencyPackageRoles===21&&complete.protectedPostflightAccepted===true&&complete.fullImmutableEqualityAccepted===true&&complete.original1677StrictPreservationAccepted===true&&facts.original1677StrictFileMetadataPreserved===true&&facts.actualRegularFiles===1740&&facts.actualRegularBytes===119393120,'ORIGINAL_COPIED_SOURCE_AUTHORITY');
+ const artifact=json(grant.artifactBoundAdoption);need(artifact.schema==='1370-root-full-state-fixture-artifact-bound/v1'&&artifact.status==='ROOT_AUTHORIZED_FULL_STATE_FIXTURE_ARTIFACT_BYTE_BOUND'&&Number.isSafeInteger(artifact.bytes)&&artifact.bytes===c.bounds.fixturePacketBytes&&artifact.bytes===67108864&&artifact.serializedPacketFiles===1&&artifact.fullStateSerializationsInPacket===10&&artifact.operationalStopBoundNotFitPrediction===true,'GENUINE_ARTIFACT_BOUND');
+-const protection=json(grant.currentProtection);need(protection.schema==='1370-root-fullfunction-current-protection/v1'&&protection.status==='ROOT_ADOPTED_CURRENT_FULLFUNCTION_PREFLIGHT_UNDER_CONTINUOUS_FREEZE'&&protection.productionHead===c.operationalHead&&protection.productionSourceTree===c.productionSourceTree&&equal(protection.typesAdoption,grant.typesAdoption)&&equal(protection.fullPostflightSnapshot,types.fullPostflightSnapshot)&&protection.protectedFreezeContinues===true&&protection.executionAuthorization===false,'CURRENT_PROTECTION');
+-for(const r of [protection.actualPreflight,protection.independentPreflightReview])readRole(r,16*1024*1024);
++const protection=authenticateCurrentProtection(grant,c);
+ const parserAdoption=json(grant.parserControlsAdoption);need(parserAdoption.schema==='1370-root-exact-identity-json-controls-observed-adoption/v1'&&parserAdoption.status==='ROOT_ADOPTED_ACTUAL_EXACT_IDENTITY_JSON_CONTROLS_ONLY'&&parserAdoption.executionAuthorization===false&&parserAdoption.actualExit===0&&equal(parserAdoption.parserSource,manifest.files['exact-json.mjs'])&&equal(parserAdoption.controlsSource,manifest.files['run-parser-controls.mjs']),'GENUINE_PARSER_CONTROLS_ADOPTION');
+ const parserReview=json(parserAdoption.independentObservedReview);need(parserReview.decision==='ACCEPT_ACTUAL_EXACT_IDENTITY_JSON_PURE_CONTROLS_ONLY'&&parserReview.executionAuthorization===false&&equal(parserReview.concreteFindings,[]),'OBSERVED_PARSER_CONTROLS_REVIEW');
+ const parserResult=json(parserAdoption.result);need(parserResult.status==='PASS_EXACT_IDENTITY_JSON_PURE_CONTROLS_ALL_CASES_ONLY'&&parserResult.caseCount===32&&parserResult.privateM0ReadOrWritten===false&&parserResult.game===false&&equal(parserResult.parserSource,manifest.files['exact-json.mjs'])&&equal(parserResult.controlsSource,manifest.files['run-parser-controls.mjs']),'ACTUAL_PARSER_CONTROLS_RESULT');readRole(parserAdoption.actualTool,16*1024*1024);

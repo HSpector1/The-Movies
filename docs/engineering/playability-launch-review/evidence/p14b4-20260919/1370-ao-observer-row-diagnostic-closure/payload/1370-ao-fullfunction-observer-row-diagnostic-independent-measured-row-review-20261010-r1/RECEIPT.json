@@ -1,0 +1,207 @@
+{
+  "actualQualification": {
+    "actualGameplayPrefixExecuted": null,
+    "actualNodeExit": 1,
+    "baselineAccepted": false,
+    "dependencyAfter": null,
+    "dependencyBefore": {
+      "contentAndMetadataSha256": "a06e929a60a5ede6ce0d72467d4d587e50d1c4fa3788bee3d07f1ea3388cd21d",
+      "contentBytes": 348223802,
+      "entries": 12484,
+      "rootDevice": 16777220,
+      "rootIdentity": [
+        16777220,
+        158487026,
+        16877,
+        154,
+        4928,
+        1790738039503311431,
+        1790738039503311431
+      ],
+      "rootInode": 158487026
+    },
+    "fullPostflightPending": true,
+    "fullProtectedPostflightAccepted": false,
+    "fullQualificationAccepted": false,
+    "groupClearReportedByAuthenticatedRecorder": true,
+    "mutantAccepted": false,
+    "nodeResult": null,
+    "recorderSeconds": 65.98286025400739,
+    "recorderStatus": "STOP_CHILD_EXIT_1",
+    "runnerExit": 1,
+    "sourceAfter": null,
+    "sourceBefore": {
+      "dependencyLink": [
+        16777220,
+        166769275,
+        41408,
+        1,
+        62,
+        1791577446298712967,
+        1791577446298712967,
+        "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+      ],
+      "fileProofDigestSha256": "fbbfed3ec13da5618a0194204e2f6c8a87eebb5ee22102707d466340fbe6e1e0",
+      "historicalRootSubstitutedMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+      "mirrorBytes": 119393120,
+      "mirrorFiles": 1740,
+      "mirrorRootIdentity": [
+        16777220,
+        166751332,
+        16832,
+        13,
+        416,
+        1791600924862151724,
+        1791600924862151724
+      ],
+      "nonrootMetadataSha256": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
+      "physicalMetadataSha256": "12c3dd50b99860c1c4e56ee98488d5f04613b37c93496d0257cc560a4fb83038",
+      "traversedEntries": 1853
+    },
+    "timedOut": false,
+    "toolExit": 2
+  },
+  "actualTool": {
+    "bytes": 1640,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "1d6844446d4986a40cf97d047101169db7370f5499fdd7dc18ef1e228aaa9f6c"
+  },
+  "baselineDerivative": {
+    "bytes": 119700,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/talentMarket.ts",
+    "sha256": "fe9bea844bf41c3ad7e57924a6822f3a48b695b75880477281889a250a7c500a"
+  },
+  "baselineReport": {
+    "bytes": 2879,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-results-20261010-r1/baseline.report.json",
+    "sha256": "8a186b51241ac6cdbf94a34e4602df4cb2fdd0a2b5810c7c929901a68cb54acd"
+  },
+  "baselineStdout": {
+    "bytes": 1084,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-results-20261010-r1/baseline.stdout",
+    "sha256": "723655adc0a0f76175fff9fc51d8ce991c7c2499bbc549502de4e72c33bc1ffe"
+  },
+  "byteOffset": 0,
+  "concreteFindings": [],
+  "config": {
+    "bytes": 20709,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r2/CONFIG.json",
+    "sha256": "596a893e476e77b8d87c1704b90ac5048b1f66611f61cdf3154ab6072ff27f5b"
+  },
+  "contextBytesIndependentlyRecomputed": 468,
+  "decision": "ACCEPT_RETAINED_MEASURED_ROW_METADATA_ONLY",
+  "diagnosticCount": 1,
+  "diagnosticLine": {
+    "bytes": 935,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-independent-measured-row-review-20261010-r1/DIAGNOSTIC-LINE.jsonl",
+    "sha256": "4af9cb07ee0be2dbb8aff1cba5ccd7a9add4e3702a963535a6d7712c785fd0eb"
+  },
+  "diagnosticModule": {
+    "bytes": 10646,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0ObserverRowDiagnostic.mjs",
+    "sha256": "facc279ea400667a5bfdb029dbbf7defd62c7ae950e181d763bac27d4aa49124"
+  },
+  "executionAuthorization": false,
+  "fullbodyTemplate": {
+    "bytes": 9962,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/FULL-BODY-CONTROLS-TEMPLATE.ts",
+    "sha256": "6057cdc52bc7db089bd701ff5578bbd4d4c574ed72b4abaa39d20a4e2c87a783"
+  },
+  "grant": {
+    "bytes": 4748,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-recorded-20261010-r1/EXECUTION-GRANT.json",
+    "sha256": "6fb3353711e2fb5f1f06f1f41f698982f06a37b7b1cd8ad54f905a114d5a6c91"
+  },
+  "lessons": [
+    "A bounded scalar diagnostic can establish the exact first refusal while overall qualification remains STOP.",
+    "Distinguish measured row/detail/canonical sizes from an unmeasured payload-element cause; context trimming cannot overcome a detail already larger than the whole-row ceiling.",
+    "JSON artifacts cannot directly prove thrown-object identity; authenticate actual source plus strict same-error pure controls and retain the original native Error stack without overstating measurement."
+  ],
+  "measuredArithmetic": {
+    "detailAloneExceedsWholeRowLimitBytes": 349,
+    "detailMinusCanonicalInputBytes": 1373,
+    "rowExcessBytes": 921,
+    "rowFramingAndOtherFieldsBytes": 104
+  },
+  "metadata": {
+    "availability": "available",
+    "canonicalInputBytes": 15360,
+    "canonicalInputUnavailableReason": null,
+    "context": {
+      "candidateOrdinal": 2,
+      "caseKey": "[\"person-studio-aca408ec-r01-0\",\"studio-aca408ec-r01\",\"studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0\",196]",
+      "caseOccurrence": 0,
+      "caseSourceIndex": 0,
+      "era": "M0",
+      "issuer": "studio-aca408ec-r02",
+      "phase": "authorCandidate",
+      "proposalKey": "[\"person-studio-aca408ec-r01-0\",\"studio-aca408ec-r02\",\"b379d43d0b34d71b\",196]",
+      "proposalOccurrence": 0,
+      "proposalSourceIndex": 70,
+      "subject": "person-studio-aca408ec-r01-0",
+      "week": 196
+    },
+    "contextBytes": 468,
+    "detailBytes": 16733,
+    "error": {
+      "message": "M0 feasibility row byte bound exceeded",
+      "name": "Error"
+    },
+    "family": "PREFERRED_GENRE_OPPORTUNITY",
+    "familyUnavailableReason": null,
+    "kind": "inputTuple",
+    "occurrence": 0,
+    "predicate": "ROW_BYTE_CAP",
+    "priorRowCount": 21,
+    "rowBytes": 17305,
+    "rowLimit": 16384,
+    "schema": "1370-m0-observer-row-diagnostic/v1",
+    "sequence": 21
+  },
+  "observerControlsAdoption": {
+    "bytes": 8912,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "6de3da4778f3fa6a8901e44e473f33dd5eaea5ec174abdd54ddd1398f5f99d47"
+  },
+  "originalErrorReport": {
+    "actualObjectIdentityInstrumented": false,
+    "message": "M0 feasibility row byte bound exceeded",
+    "name": "Error",
+    "sameErrorImplementationAndPureControlsAuthenticated": true,
+    "sourceStackContainsOriginalWitness": true,
+    "sourceStackContainsSharedDiagnosticArm": true
+  },
+  "rawLinePreservedIncludingNewline": true,
+  "readback": {
+    "bytes": 7639,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "cd974aecb5d3580eb223cfde74dda04542362762c52fbd6e58ef3a965926266e"
+  },
+  "repairAssessment": [
+    "The measured original row is 17305 bytes including newline against16384. Its detail alone is16733 bytes, so shortening context alone cannot admit it.",
+    "This names the first refused inputTuple family/context, not the raw canonical tuple elements. No canonical payload or full refused row was emitted.",
+    "The1001 count expansion hypothesis is not supported; public source records promise count as a scalar. This diagnostic does not measure which canonical elements dominate or establish a lawful fixture reduction.",
+    "Retain natural states, real APIs and all observer predicates/caps. Require a concrete source-bound repair decision and specific RED/positive controls before any source change or new actual route. No row filtering/truncation/hash-only replacement or caps increase is authorized."
+  ],
+  "schema": "1370-ao-observer-row-diagnostic-independent-measurement/v1",
+  "scope": {
+    "candidateExecutedByReviewer": false,
+    "gameAccepted": false,
+    "historicalStopsRemainStops": true,
+    "newProcessProbesOrScan": false,
+    "privateMirrorOrDependencyTraversal": false,
+    "rawMachinePsFdRead": false,
+    "retainedPublicLogsAndSourceOnly": true
+  },
+  "sourcePins": {
+    "bytes": 23375,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "9a2d56c0b7263792b3e67f29d1cb40349ddc52593fe2ec9a80ff5463b0e99aef"
+  },
+  "sourceReview": {
+    "bytes": 14707,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "00f0b0432656557fa722f674f04a2ab6dc4040292e9e90aed7f50f5a988ea595"
+  },
+  "zeroBasedLineIndex": 0
+}

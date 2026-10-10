@@ -1,0 +1,11 @@
+--- m0ObserverRowDiagnostic.mjs
++++ m0ObserverRowDiagnostic.mjs
+@@ -148,7 +148,7 @@
+       }
+       const context = capture.context
+       const contextBytes = preflightContext(context)
+-      if (typeof kind !== 'string') fail('FAILED_ROW_UNSUPPORTED')
++      if (kind !== 'inputTuple' && kind !== 'assessment') fail('FAILED_ROW_UNSUPPORTED')
+       preflightCanonical(detail)
+       const detailBytes = safeJSONBytes(detail, 524288)
+       const key = identity(context, kind)

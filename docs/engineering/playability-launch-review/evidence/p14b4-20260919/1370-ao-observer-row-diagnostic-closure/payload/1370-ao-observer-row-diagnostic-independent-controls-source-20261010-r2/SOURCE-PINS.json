@@ -1,0 +1,64 @@
+{
+  "schema": "1370-observer-row-independent-controls-source-pins/v1",
+  "executionAuthorization": false,
+  "files": {
+    "run-observer-row-controls.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/run-observer-row-controls.mjs",
+      "bytes": 29201,
+      "sha256": "227e306fa5ba41208e72a9e0148d3e6cf3d49cf5070a694f6888908c2fabf6e0"
+    },
+    "MATRIX.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/MATRIX.json",
+      "bytes": 7474,
+      "sha256": "0f2a5ed2c64d632aa269fb1c1b4cc954f2e3b33acbe9281246453f7baa80f0d0"
+    },
+    "CONTRACT.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/CONTRACT.md",
+      "bytes": 3837,
+      "sha256": "240e43ee5905bd88a94ad2083ca6e05452c86afa7a41c57f850560802f20b7da"
+    },
+    "CONTRACT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json",
+      "bytes": 4066,
+      "sha256": "e3f811116a1e62a37b87c9c738b052ba71cbdfebe4954344506ae46b8a074fbf"
+    },
+    "LESSONS.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/LESSONS.md",
+      "bytes": 2348,
+      "sha256": "2bc1a0f6df08fb7109ee35edce0ed0a2577a44a17ec9b94474f929fed8c6df4e"
+    },
+    "BASELINE-run-observer-row-controls.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/BASELINE-run-observer-row-controls.mjs",
+      "bytes": 28566,
+      "sha256": "0d8b787dc12f02b678dae42e74704f04c0bc1f6428146e9df93a94e788086248"
+    },
+    "run-observer-row-controls.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/run-observer-row-controls.forward.diff",
+      "bytes": 1857,
+      "sha256": "7594efb950c7b2ea539d182350076e863f1bc32692232f8c5c43d049cf7aecf6"
+    },
+    "run-observer-row-controls.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/run-observer-row-controls.inverse.diff",
+      "bytes": 1857,
+      "sha256": "3d76193c82d22ce4a874fe66c4b5825a73af3ced87fd7f8913ddffc19b6d6770"
+    },
+    "SOURCE-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/SOURCE-PROOF.json",
+      "bytes": 1984,
+      "sha256": "b700a538e10d47b232ee8b60600050445b081a27335c90601cf994ef707e75d8"
+    }
+  },
+  "externalImplementationSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/SOURCE-PINS.json",
+    "bytes": 6892,
+    "sha256": "ecfa500f2a60f1280c6fcf06d60817bbb017bbf2524b74ab42bfd9c5aa5ce3b3"
+  },
+  "api": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2/API.md",
+    "bytes": 8460,
+    "sha256": "8b23588f28233794a7d0317b76d0770912015bc3ffd20dd823aae74b21225eb8"
+  },
+  "caseCount": 48,
+  "positiveCount": 6,
+  "specificNegativeCount": 42
+}

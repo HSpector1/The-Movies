@@ -1,0 +1,11 @@
+--- AN/snapshot.py
++++ AM/snapshot.py
+@@ -11,7 +11,7 @@
+ HERE=Path(__file__).resolve().parent
+ REPO=Path('/Users/zacheryspector/The-Movies-headless-program')
+ SCRATCH=Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='f9d2d7fda1b5df5c01176c142bd6b16c9be9cc78963fe73e7fc62640b82a9cdd'
++CONFIG_SHA='e0c7a2b839eaa1e0940665711c8e9b57af4f09738290ca5d15d828f01200b42e'
+ EXCLUDED={'status','executionAuthorization','exactBindingReviewPath','exactBindingReviewSha256','exactBindingReviewDecision'}
+ def require(ok,msg):
+  if not ok:raise RuntimeError('STOP: '+msg)

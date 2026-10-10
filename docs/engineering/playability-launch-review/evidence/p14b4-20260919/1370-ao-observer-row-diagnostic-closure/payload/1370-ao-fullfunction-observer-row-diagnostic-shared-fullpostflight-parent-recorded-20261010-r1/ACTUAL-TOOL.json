@@ -1,0 +1,56 @@
+{
+  "schema": "1370-root-actual-tool-envelope/v1",
+  "sessionId": 22313,
+  "finalExit": 0,
+  "allToolChunks": [
+    {
+      "chunk_id": "703acf",
+      "wall_time_seconds": 1.002170477,
+      "session_id": 22313,
+      "original_token_count": 76,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-parent-recorded-20261010-r1/GRANT.json\", \"bytes\": 5351, \"sha256\": \"547062becf81daad6b43b56e2440e423efbe4577022b8d1f495a87cde157dd5d\"}, \"scannerPid\": 22355, \"scannerPgid\": 22355}\n"
+    },
+    {
+      "chunk_id": "66cf8c",
+      "wall_time_seconds": 5.00267207,
+      "session_id": 22313,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "9ab17b",
+      "wall_time_seconds": 5.001015391,
+      "session_id": 22313,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "e4daa0",
+      "wall_time_seconds": 5.002941564,
+      "session_id": 22313,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "be6a03",
+      "wall_time_seconds": 5.002499239,
+      "session_id": 22313,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "c3267e",
+      "wall_time_seconds": 5.002172018,
+      "session_id": 22313,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "6c0dfc",
+      "wall_time_seconds": 0.000027173,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "assessment": [
+    "Accepted current type/collection and public controls are distinct from protected fullfunction STOPs and unexecuted game assertions.",
+    "Latest observer row-byte failure preserves unknown iteration, row kind, family and exact failed bytes; missing M0 AFTER proofs and terminal prefix remain null.",
+    "Successful shared protected postflight is not presented as the unavailable M0 AFTER proof or full qualification.",
+    "Count1001 expansion hypothesis remains rejected; bounded diagnostic design authorizes source preparation only with original error, witness data and observer caps preserved.",
+    "Next diagnostic implementation and specific controls are actionable; neutral416, 1363 closure, P16, canonical P17 and bounded P18 remain pending.",
+    "Publication ends the previous operational freeze; future runtime requires actual published authority and fresh guards. No future commit or push result is invented."
+  ],
+  "checks": {
+    "activeOrderPreserved": true,
+    "archiveSummary": {
+      "copiedPayloadBytes": 137803876,
+      "localHashSizeOnlyRoles": 65,
+      "priorGitBlobRoles": 163,
+      "roles": 2877
+    },
+    "autoBlockByteExactToCurrentHandoff": true,
+    "autoBlockSha256": "39c20c726e9779c2f8ba73dd37ba55476302ac7b17040bf3d5e487f5c7268a4d",
+    "lessons18": {
+      "bytes": 52596,
+      "sha256": "0a691f790e2d9eb32e192ea9b101ee7357a379bb6433056be995484e3063c387"
+    },
+    "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "preflightReviewPrefixAuthenticated": "b0303533",
+    "productionHead": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+    "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+  },
+  "concreteFindings": [],
+  "decision": "ACCEPT_TRUTHFUL_FINAL_AN_HANDOFF_AND_REPORT_ONLY",
+  "executionAuthorization": false,
+  "inputs": {
+    "archiveManifest": {
+      "bytes": 9422914,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-an-m0-preservation-and-types-closure/ARCHIVE-MANIFEST.json",
+      "sha256": "2b2247acd980dda8109fdad09a6a83bc3219cd053433e80684301b8a44dd665a"
+    },
+    "handoff": {
+      "bytes": 13579,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/HANDOFF-FINAL.md",
+      "sha256": "4f3f6435ba8fecd3645512f2e4a225740d91ceb9733f6668ef5507953ad0b102"
+    },
+    "priorInputClaimReview": {
+      "bytes": 3969,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/reviews/input-claim-r1/RECEIPT.json",
+      "sha256": "26da738d68db75facd3bf0065fcc8d27ce596e419556b0981f61ef8d7962ea29"
+    },
+    "report": {
+      "bytes": 16041,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/REPORT-FINAL.md",
+      "sha256": "9a042c95acac18c1860152f6a5eec8a386229726dc42e7971ebddb65fb3b9980"
+    }
+  },
+  "limits": [
+    "Finite document, manifest metadata and named authority-role review only; no runtime, imports, private inventory, probes or repository changes.",
+    "This receipt does not independently verify copied payload bytes or prior Git blobs; archive authenticity is a separate review.",
+    "No new implementation or runtime authorization is issued."
+  ],
+  "schema": "1370-an-final-documents-independent-review/v1"
+}

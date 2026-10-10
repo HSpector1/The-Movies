@@ -1,0 +1,249 @@
+{
+  "schema": "1370-observer-row-independent-controls-matrix/v1",
+  "executionAuthorization": false,
+  "caseCount": 48,
+  "positiveCount": 6,
+  "specificNegativeCount": 42,
+  "cases": [
+    {
+      "id": "ordinary_exact_row_parity",
+      "expected": "GREEN",
+      "predicate": "same authoritative rows; no diagnostic"
+    },
+    {
+      "id": "immutable_exact_frozen_context",
+      "expected": "GREEN",
+      "predicate": "capture immutable; exact underlying context"
+    },
+    {
+      "id": "authoritative_row_16384",
+      "expected": "GREEN",
+      "predicate": "original inclusive expanded-row boundary"
+    },
+    {
+      "id": "native_identity_source_indices_and_ordinals",
+      "expected": "GREEN",
+      "predicate": "original ten-field occurrence identity"
+    },
+    {
+      "id": "reset_preserves_prior_line_and_new_sink_binding",
+      "expected": "GREEN",
+      "predicate": "scratch reset; prior evidence immutable"
+    },
+    {
+      "id": "shared_arm_success_and_cleanup_order",
+      "expected": "GREEN",
+      "predicate": "actual helper preserves body value; end then reset"
+    },
+    {
+      "id": "row_16385_input_tuple",
+      "expected": "RED",
+      "predicate": "same original row-byte Error; exact diagnostic"
+    },
+    {
+      "id": "unicode_nonzero_sequence_occurrence",
+      "expected": "RED",
+      "predicate": "native escaped UTF8 bytes; actual prior rows"
+    },
+    {
+      "id": "different_ordinal_refused_occurrence_zero",
+      "expected": "RED",
+      "predicate": "native identity partitions ordinal"
+    },
+    {
+      "id": "assessment_exact_context_family",
+      "expected": "RED",
+      "predicate": "actual preceding same-context inputTuple"
+    },
+    {
+      "id": "assessment_missing_predecessor",
+      "expected": "RED",
+      "predicate": "CANONICAL_INPUT_MISSING"
+    },
+    {
+      "id": "assessment_wrong_context_predecessor",
+      "expected": "RED",
+      "predicate": "CANONICAL_INPUT_MISSING"
+    },
+    {
+      "id": "input_tuple_missing_canonical",
+      "expected": "RED",
+      "predicate": "CANONICAL_INPUT_MISSING"
+    },
+    {
+      "id": "canonical_malformed",
+      "expected": "RED",
+      "predicate": "CANONICAL_INPUT_MALFORMED"
+    },
+    {
+      "id": "canonical_invalid_family",
+      "expected": "RED",
+      "predicate": "FAMILY_UNAVAILABLE"
+    },
+    {
+      "id": "canonical_65536_inclusive",
+      "expected": "RED",
+      "predicate": "bounded canonical parsing remains available"
+    },
+    {
+      "id": "canonical_65537_refused",
+      "expected": "RED",
+      "predicate": "CANONICAL_INPUT_OVER_BOUND; no unbounded reconstruction"
+    },
+    {
+      "id": "canonical_declared_byte_mismatch",
+      "expected": "RED",
+      "predicate": "CANONICAL_INPUT_BYTE_MISMATCH"
+    },
+    {
+      "id": "reconstruction_serialization_failure",
+      "expected": "RED",
+      "predicate": "FAILED_ROW_UNSUPPORTED; stateful toJSON never reentered"
+    },
+    {
+      "id": "detail_getter_not_reentered",
+      "expected": "RED",
+      "predicate": "FAILED_ROW_UNSUPPORTED; accessor invoked only by original witness"
+    },
+    {
+      "id": "context_extra_payload_not_emitted",
+      "expected": "RED",
+      "predicate": "CONTEXT_UNSUPPORTED; no raw extra context payload"
+    },
+    {
+      "id": "context_65536_inclusive",
+      "expected": "RED",
+      "predicate": "inclusive context preflight then bounded emission refusal"
+    },
+    {
+      "id": "context_65537_refused",
+      "expected": "RED",
+      "predicate": "CONTEXT_OVER_BOUND before row reconstruction"
+    },
+    {
+      "id": "huge_context_no_raw_payload",
+      "expected": "RED",
+      "predicate": "CONTEXT_OVER_BOUND; bounded scalar unavailable metadata"
+    },
+    {
+      "id": "huge_kind_original_refusal_no_raw_kind",
+      "expected": "RED",
+      "predicate": "FAILED_ROW_UNSUPPORTED; same original row Error; no raw kind"
+    },
+    {
+      "id": "huge_failed_detail_no_raw_payload",
+      "expected": "RED",
+      "predicate": "FAILED_ROW_OVER_BOUND; no unbounded diagnostic reconstruction"
+    },
+    {
+      "id": "reconstruction_524288_inclusive",
+      "expected": "RED",
+      "predicate": "exact bounded native row reconstruction; original row refusal unchanged"
+    },
+    {
+      "id": "reconstruction_524289_refused",
+      "expected": "RED",
+      "predicate": "FAILED_ROW_OVER_BOUND at complete row including newline"
+    },
+    {
+      "id": "structural_node_and_depth_bounds",
+      "expected": "RED",
+      "predicate": "FAILED_ROW_OVER_BOUND for bounded over-limit node and depth fixtures"
+    },
+    {
+      "id": "provider_exception",
+      "expected": "RED",
+      "predicate": "DIAGNOSTIC_UNAVAILABLE; original Error wins"
+    },
+    {
+      "id": "provider_nonarray",
+      "expected": "RED",
+      "predicate": "PRIOR_ROWS_UNAVAILABLE"
+    },
+    {
+      "id": "provider_prior_rows_count_513",
+      "expected": "RED",
+      "predicate": "PRIOR_ROWS_UNAVAILABLE; bounded provider cardinality"
+    },
+    {
+      "id": "provider_prior_rows_over_total_bound",
+      "expected": "RED",
+      "predicate": "PRIOR_ROWS_UNAVAILABLE"
+    },
+    {
+      "id": "prior_rows_exact_original_total_bound",
+      "expected": "RED",
+      "predicate": "original stream accounting accepts exact 2MiB prior rows"
+    },
+    {
+      "id": "diagnostic_output_over_4096",
+      "expected": "RED",
+      "predicate": "DIAGNOSTIC_OUTPUT_OVER_BOUND"
+    },
+    {
+      "id": "swallowed_row_failure_then_return",
+      "expected": "RED",
+      "predicate": "throwIfFailed rethrows exact original Error"
+    },
+    {
+      "id": "swallowed_row_failure_then_unrelated_F",
+      "expected": "RED",
+      "predicate": "sticky original E wins over later F"
+    },
+    {
+      "id": "row_error_survives_end_failure",
+      "expected": "RED",
+      "predicate": "actual helper preserves E; reset still attempted"
+    },
+    {
+      "id": "row_error_survives_reset_failure",
+      "expected": "RED",
+      "predicate": "actual helper preserves E after factory reset"
+    },
+    {
+      "id": "row_error_survives_both_cleanup_failures",
+      "expected": "RED",
+      "predicate": "actual helper preserves E; end then reset attempted"
+    },
+    {
+      "id": "row_error_survives_writer_failure",
+      "expected": "RED",
+      "predicate": "actual helper preserves E and performs both cleanup calls"
+    },
+    {
+      "id": "ordinary_body_error_and_cleanup_precedence",
+      "expected": "RED",
+      "predicate": "actual helper keeps original nested fatal cleanup precedence"
+    },
+    {
+      "id": "subsequent_record_cannot_resume",
+      "expected": "RED",
+      "predicate": "same first Error; no additional authoritative call"
+    },
+    {
+      "id": "emitter_failure_consumes_first_emission",
+      "expected": "RED",
+      "predicate": "same original Error; one invocation only"
+    },
+    {
+      "id": "original_count_513",
+      "expected": "RED",
+      "predicate": "original row-count Error; no row-byte diagnostic"
+    },
+    {
+      "id": "original_total_2097152_then_more",
+      "expected": "RED",
+      "predicate": "original total-byte Error; no row-byte diagnostic"
+    },
+    {
+      "id": "unrelated_error_unchanged",
+      "expected": "RED",
+      "predicate": "unrelated original Error; no diagnostic reinterpretation"
+    },
+    {
+      "id": "original_reentrant_error_unchanged",
+      "expected": "RED",
+      "predicate": "original reentrant Error; no diagnostic reinterpretation"
+    }
+  ]
+}

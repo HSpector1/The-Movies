@@ -1,0 +1,1 @@
+Sticky observer refusal must precede diagnostic work and win even when gameplay swallows it then throws another error. Bind rowsProvider to the producing sink, not a mutable global. Original source field order and occurrence identity determine diagnostic bytes. Diagnostics never change acceptance, retain raw payloads, or admit failed qualification. No runtime performed.

@@ -1,0 +1,44 @@
+{
+  "schema": "1370-observer-row-independent-controls-source-pins/v1",
+  "executionAuthorization": false,
+  "files": {
+    "run-observer-row-controls.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r1/run-observer-row-controls.mjs",
+      "bytes": 28566,
+      "sha256": "0d8b787dc12f02b678dae42e74704f04c0bc1f6428146e9df93a94e788086248"
+    },
+    "MATRIX.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r1/MATRIX.json",
+      "bytes": 7300,
+      "sha256": "561b4fbee1e5df98b1833653ac6f2e1d42316efe161621c1655dc8bbb8fbdd4e"
+    },
+    "CONTRACT.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r1/CONTRACT.md",
+      "bytes": 3837,
+      "sha256": "240e43ee5905bd88a94ad2083ca6e05452c86afa7a41c57f850560802f20b7da"
+    },
+    "CONTRACT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r1/CONTRACT.json",
+      "bytes": 3647,
+      "sha256": "0998018da60b7d202e657ccb350e48b3862c647e7157fd5660d9f7fcbf0498cb"
+    },
+    "LESSONS.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r1/LESSONS.md",
+      "bytes": 1867,
+      "sha256": "80b5122be92a23a2940927a2a7193be0a5336d799356d7cba125c441fbc5d26a"
+    }
+  },
+  "externalImplementationSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 5977,
+    "sha256": "b702718d76f9fba8d4f81b077d8d1f5d925de1e17c9eb61a21639fcb8c95357e"
+  },
+  "api": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2/API.md",
+    "bytes": 8460,
+    "sha256": "8b23588f28233794a7d0317b76d0770912015bc3ffd20dd823aae74b21225eb8"
+  },
+  "caseCount": 47,
+  "positiveCount": 6,
+  "specificNegativeCount": 41
+}

@@ -1,0 +1,16 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "RECEIPT.json": {
+      "bytes": 4737,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-independent-source-review-20261010-r1/RECEIPT.json",
+      "sha256": "7ec24d7aff9665c577a5341425429942a8b12c6c1ded219a82913685e0a9badf"
+    },
+    "prepare-review.py": {
+      "bytes": 6904,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-independent-source-review-20261010-r1/prepare-review.py",
+      "sha256": "aaa94cd22cf4b6753c35add8752a980f8a1d8b1372b35c9407a2e6d735af6423"
+    }
+  },
+  "schema": "1370-independent-source-review-seal/v1"
+}

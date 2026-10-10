@@ -1,0 +1,16 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "RECEIPT.json": {
+      "bytes": 14092,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-independent-source-review-20261010-r1/RECEIPT.json",
+      "sha256": "d11e4b0fa2ba987b8eabcdd359cc96283beb2d848d118befe796becd39be2741"
+    },
+    "REPORT.md": {
+      "bytes": 801,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-independent-source-review-20261010-r1/REPORT.md",
+      "sha256": "20d52f04603efdcf272b354f7face772b29ec0e1d295d588d881eeb5e7a3e61d"
+    }
+  },
+  "schema": "1370-independent-source-review-seal/v1"
+}

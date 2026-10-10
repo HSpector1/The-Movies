@@ -1,0 +1,65 @@
+{
+  "api": {
+    "bytes": 8460,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2/API.md",
+    "sha256": "8b23588f28233794a7d0317b76d0770912015bc3ffd20dd823aae74b21225eb8"
+  },
+  "baseline": {
+    "bytes": 5485,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2/BASELINE-API.md",
+    "sha256": "40154375d4e9cc86c9a64a8c6b40dd8bdf6cf87a673bb519ac39d7f5f3cc13ea"
+  },
+  "checks": {
+    "F1Resolved": "Same-module synchronous runObserverArm catches both swallowed-return and swallowed-then-F paths, snapshots exact sticky E and presence boolean before emit/reset, propagates E instead of F. Immediate post-advance check prevents subsequent assertions after swallowed failure.",
+    "F2Resolved": "Always end then reset. Local E survives both cleanup failures even when factory.reset clears state; absent E retains original nestedfinally fatal end/reset behavior and reset precedence.",
+    "boundsUnchanged": {
+      "canonicalParseInputBytes": 65536,
+      "diagnosticLineBytesIncludingNewline": 4096,
+      "observerRowBytes": 16384,
+      "observerRows": 512,
+      "observerTotalBytes": 2097152
+    },
+    "completeInverseRestoresR1": true,
+    "exactTwoSingleSubstitutionsAndOneAppend": true,
+    "factoryFourMethodsUnchanged": true,
+    "noRawPayloadCacheTruncationOrEmitterFallback": true,
+    "normalBodyCallOrderAssertionsAndReturnUnchanged": true,
+    "originalWitnessAndOccurrenceReconstructionUnchanged": "Pinned public witness/native field order/exact10-field identity/producing sink closure; original record remains authority.",
+    "pureControlRequirements": "Exact original row/count/total refusals, sameE vs distinctF, end/reset/both failure cases, cleanup order, reset clearing state, immutable prior line and original ordinary cleanup semantics. Unknown setup/import errors never intended RED.",
+    "sameImplementationUsedByControlsAndActualArm": true
+  },
+  "concreteFindings": [],
+  "controlsExecuted": false,
+  "decision": "ACCEPT_STATIC_BOUNDED_OBSERVER_ROW_DIAGNOSTIC_API_ONLY",
+  "executionAuthorization": false,
+  "findings": [],
+  "fullQualificationAccepted": false,
+  "futureAuthority": {
+    "actualControlsObservedReview": null,
+    "controlsSource": null,
+    "freshOperationalAuthority": null,
+    "gameGrant": null,
+    "implementationSource": null,
+    "independentImplementationReview": null
+  },
+  "implementationAccepted": false,
+  "predecessor": {
+    "bytes": 5485,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r1/API.md",
+    "sha256": "40154375d4e9cc86c9a64a8c6b40dd8bdf6cf87a673bb519ac39d7f5f3cc13ea"
+  },
+  "preservation": "R1 API and two-finding STOP remain unchanged. No claim either error combination occurred in actual56544.",
+  "preservedPredecessorStop": {
+    "bytes": 6789,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-independent-review-20261010-r1/RECEIPT.json",
+    "sha256": "fe12c55a1f93f73b9a2e2875f2ebf78959415a2f894c613264f7f1a498bdc341"
+  },
+  "reviewer": "b109_focused_route_review, independent of root API and implementation/control authors",
+  "schema": "1370-observer-row-diagnostic-api-independent-source-review/v1",
+  "scope": "Narrow interface repair source only; author must now implement and independently review exact same-module helper/witness integration and controls. No runtime, private reads, gameplay import, source mutation, cap amendment or implementation acceptance performed by reviewer.",
+  "sourceProof": {
+    "bytes": 2215,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2/SOURCE-PROOF.json",
+    "sha256": "1e4da10d231f0768416820fe50a5e109c7ae938015d1656feacdeec96eac4fea"
+  }
+}

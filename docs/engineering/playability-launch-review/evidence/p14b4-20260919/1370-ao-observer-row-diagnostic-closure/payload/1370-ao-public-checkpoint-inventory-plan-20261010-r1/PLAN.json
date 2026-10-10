@@ -1,0 +1,305 @@
+{
+  "actualEvidenceLimits": "Current pure48 and short-prelaunch are actual; no fresh fullfunction diagnostic result or offending-row metric exists yet.",
+  "archiveCreated": false,
+  "executionAuthorization": false,
+  "futureRequiredNamedRoles": [
+    "Final corrected fullfunction independent source review",
+    "Final parent/readback/wrapper sealed source and independent review",
+    "Actual fullfunction parent/runtime/recorder outputs and retained STOP or success readback",
+    "Mandatory original shared full-postflight source/actual/readback/independent review/root adoption",
+    "Latest AO root lessons and checkpoint claim/docs",
+    "Final cutoff/inventory/manifest root decisions"
+  ],
+  "preparatoryOnly": true,
+  "privateInventoryTraversal": false,
+  "productionOrGitMutation": false,
+  "rules": [
+    "PS/FD/process-command raw files are LOCAL_HASH_SIZE_ONLY by actual producing guard/prelaunch classification, irrespective of suffix; copy hash/size/path receipt only, never raw bytes.",
+    "Future shared postflight must supply its actual producer classification; no raw role roster is invented now.",
+    "Original M0 mirrors, original dependencies, private source trees, installed runtime package trees and whole scratch root are excluded. Tool/module public identities are retained through authenticated role receipts or previously archived qualified source, not directory selection.",
+    "Carry the whole named late AN finalization package explicitly. Its LOCAL producer roles remain hash/size-only; directory selection is never a waiver to copy raw bytes.",
+    "Use explicit package paths, reject ancestor duplicates, reconcile semantic LOCAL coverage against final selected roles, then root chooses genuine snapshot cutoff.",
+    "Future fullfunction outputs, mandatory postflight source/actual/readback/reviews/adoptions and final lessons need exact root-provided paths after completion; current plan is not final exhaustive selection.",
+    "Preserve STOP source packages and independent receipts alongside corrected successors. No held source is a gameplay acceptance."
+  ],
+  "schema": "1370-ao-public-checkpoint-inventory-plan/v1",
+  "semanticRawLocalProducerEvidence": [
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "document": {
+        "classification": "LOCAL_HASH_SIZE_ONLY",
+        "rawBytesIncluded": false,
+        "roles": [
+          {
+            "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+            "bytes": 76167,
+            "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-an-r1/BEFORE-PS.txt",
+            "sha256": "6ce684bb5f2acf4866cb3ac64c3685d5877b5da57ac3edc897722677b1a6a294"
+          },
+          {
+            "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+            "bytes": 581592,
+            "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-an-r1/BEFORE-LSOF.bin",
+            "sha256": "4cd3393aaebc6d7be0099654adbb2336de171c9cbb19c663ff75de20bde34a59"
+          },
+          {
+            "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+            "bytes": 76351,
+            "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-an-r1/AFTER-PS.txt",
+            "sha256": "3b81a298046ec37e9c0fde6db4639c4a460d5298eead9cbfaa204052cdec87d5"
+          },
+          {
+            "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+            "bytes": 581481,
+            "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-an-r1/AFTER-LSOF.bin",
+            "sha256": "6d60c422d3ae9e796d2c33c9e597d07723c0a82b66ff63547d5dec20714fa9d6"
+          }
+        ],
+        "schema": "1370-ao-fullpreflight-raw-local-only/v1"
+      },
+      "producerClassification": {
+        "bytes": 1472,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-an-fullpreflight-parent-recorded-20261010-r1/RAW-LOCAL-ONLY-CLASSIFICATION.json",
+        "sha256": "2baee613cdd6bffd0cee653d33b232ce5df7c90e396eebd28bfbfde9f782c2f2"
+      },
+      "rawContentRead": false
+    },
+    {
+      "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+      "document": {
+        "roles": [
+          {
+            "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+            "bytes": 76140,
+            "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-current-prelaunch-output-20261010-r1/BEFORE-PS.LOCAL",
+            "sha256": "6719dc5d71dd92312d878154dd760f2529390a487f70ee828e4170ce296b9fff"
+          },
+          {
+            "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+            "bytes": 582802,
+            "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-current-prelaunch-output-20261010-r1/BEFORE-LSOF.LOCAL",
+            "sha256": "83dc69b997b977bbd2842cde1eb69e0395274b03215c202fc1bca4b7967cbee0"
+          },
+          {
+            "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+            "bytes": 76140,
+            "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-current-prelaunch-output-20261010-r1/AFTER-PS.LOCAL",
+            "sha256": "a47c69f45f8ee32e24103ecb1255f508c73e9dd16731aec39173d1de4da70d7d"
+          },
+          {
+            "archiveDisposition": "LOCAL_HASH_SIZE_ONLY",
+            "bytes": 583752,
+            "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-current-prelaunch-output-20261010-r1/AFTER-LSOF.LOCAL",
+            "sha256": "1189ad59d5207827790e9d0c95b1dd8d317beeef56224cddd4c05dd6ceba7d25"
+          }
+        ]
+      },
+      "producerClassification": {
+        "bytes": 1228,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-current-prelaunch-output-20261010-r1/RAW-LOCAL-ONLY-ROLES.json",
+        "sha256": "bdc4fd6be3a886b1e3dc2b502753502466161e5bd2e2647481af4011e1499ef1"
+      },
+      "rawContentRead": false
+    }
+  ],
+  "sourcePackageSelection": [
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-source-review-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-source-review-20261010-r2",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-source-review-20261010-r3",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-root-source-review-20261010-r2",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-independent-source-review-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-results-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorder-results-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-independent-observed-review-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-role-map-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-independent-source-review-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-an-fullpreflight-parent-recorded-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-an-fullpreflight-independent-observed-review-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-current-prelaunch-preparation-source-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-current-prelaunch-preparation-independent-source-review-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-current-prelaunch-parent-recorded-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-current-prelaunch-output-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-current-prelaunch-independent-observed-review-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r2",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-independent-source-stop-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-source-20261010-r1",
+      "scope": "EXPLICIT_PUBLIC_SOURCE_OR_RECORDED_EVIDENCE_PACKAGE"
+    },
+    {
+      "cutoffNotYetChosen": true,
+      "namedPathExistsNow": true,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1",
+      "scope": "WHOLE_LATE_AN_FINALIZATION_CARRY_FORWARD"
+    }
+  ]
+}

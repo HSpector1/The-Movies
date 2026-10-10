@@ -1,0 +1,13 @@
+--- AO/record-fullfunction.py
++++ Q13/record-fullfunction.py
+@@ -2,8 +2,8 @@
+ Future runtime only; no source-authored execution authority."""
+ import datetime,hashlib,json,os,pathlib,selectors,select,signal,stat,sys,time
+ HERE=pathlib.Path(__file__).resolve().parent;SCRATCH=pathlib.Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='c5ceb654d1f08d90ab1e6abefbdb05e0bb9a0d89b6f752169b05fc61ad8e16e3';WORKER_SHA='057b9dd66ed367c5e0ed328f4630be3a75360c8504acf489c094c967d2f79401';CAP=8*1024**2;CHILD=300;ACTIVE=320;WHOLE=330
+-OUTPUTS={'verification':SCRATCH/'1370-ao-m0-fullfunction-observer-row-diagnostic-recorder-results-20261010-r1'}
++CONFIG_SHA='3a9e349f746c57a2aadb33d344eb5102abfca2e6cf4d5d017871b466c5ed3604';WORKER_SHA='532892dfc3050084d245df569fb68114bf82f64a5f534b3319c709f72a983245';CAP=8*1024**2;CHILD=300;ACTIVE=320;WHOLE=330
++OUTPUTS={'verification':SCRATCH/'1370-an-m0-fullfunction-qualification-recorder-results-20261010-r5'}
+ def require(v,m):
+  if not v:raise RuntimeError('STOP_'+m)
+ def sha(b):return hashlib.sha256(b).hexdigest()

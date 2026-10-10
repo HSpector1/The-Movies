@@ -1,0 +1,4 @@
+{"launchClaim": {"path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-recorded-20261010-r1/RECORDER-LAUNCH-CLAIM.json", "bytes": 1730, "sha256": "67a74c862b5523156086f124b917ccca1db1b087a867b398e083a5ee7441717d"}, "mode": "inner", "actualOwned": {"pid": 21479, "pgid": 21479, "sid": 21479}}
+/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r2/record-fullfunction.py:249: SyntaxWarning: 'return' in a 'finally' block
+  return code
+{"status": "STOP_CHILD_EXIT_1", "output": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-recorder-results-20261010-r1", "actualChildExit": 1, "groupClear": true}

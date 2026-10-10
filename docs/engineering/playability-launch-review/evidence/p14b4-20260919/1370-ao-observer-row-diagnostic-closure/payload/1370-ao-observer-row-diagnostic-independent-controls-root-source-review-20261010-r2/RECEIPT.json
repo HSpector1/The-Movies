@@ -1,0 +1,111 @@
+{
+  "actualControls": null,
+  "api": {
+    "bytes": 8460,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2/API.md",
+    "sha256": "8b23588f28233794a7d0317b76d0770912015bc3ffd20dd823aae74b21225eb8"
+  },
+  "caseCount": 48,
+  "checks": {
+    "actualSharedArmHelperUsed": true,
+    "actualUnchangedPublicWitnessUsed": true,
+    "allNamedPayloadsFullByteHashSizeAuthenticated": true,
+    "arbitraryAssertionOrSetupErrorsCannotCountAsRed": true,
+    "boundedCanonicalContextReconstructionAndOutputSpecificOutcomes": true,
+    "exactUniqueOrderedRosterMatchesEveryAuthoredTestCall": true,
+    "familyAssessmentSameContextAndMissingMalformedMismatchUnavailable": true,
+    "firstOnlyEmissionAndResetPriorEvidenceImmutability": true,
+    "nativeUtf8EscapesSequenceAndTenFieldOccurrenceIdentity": true,
+    "noGameOrPrivateImports": true,
+    "ordinaryNonObserverCleanupPrecedencePreserved": true,
+    "originalInclusive16384AndRefused16385AndCount512AndTotal2MiBBoundaries": true,
+    "priorRowsExactOriginalStreamAccounting": true,
+    "sameStickyErrorSurvivesSwallowLaterErrorEndResetWriterFailures": true,
+    "specificOriginalErrorObjectAndMessageRequired": true,
+    "successfulRowsAndFrozenContextParity": true,
+    "unsupportedGettersToJsonContextExtrasAndHugeKindDoNotReenterOrLeak": true
+  },
+  "concreteFindings": [],
+  "decision": "ACCEPT_STATIC_PURE_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_SOURCE_ONLY",
+  "dependencyRoles": {
+    "CONTRACT.json": {
+      "bytes": 1599,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/CONTRACT.json",
+      "sha256": "28f58e2bd02fe8bf59083b35177e78de0db8f0d8b94492d5ca997c2100050f0a"
+    },
+    "m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 10646,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0ObserverRowDiagnostic.mjs",
+      "sha256": "facc279ea400667a5bfdb029dbbf7defd62c7ae950e181d763bac27d4aa49124"
+    }
+  },
+  "executionAuthorization": false,
+  "implementationSourcePins": {
+    "bytes": 6892,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "ecfa500f2a60f1280c6fcf06d60817bbb017bbf2524b74ab42bfd9c5aa5ce3b3"
+  },
+  "limits": "This review accepts test source only. Implementation review and parent adoption must independently pass, then a genuine recorded route must run every exact control. Original observer bounds and failed prior sources remain unchanged.",
+  "positiveCount": 6,
+  "reviewer": "root, independent of cleanup_independent_red control author and m0 implementation author",
+  "schema": "1370-observer-row-diagnostic-independent-controls-source-review/v1",
+  "scope": "Static independent review of complete pure control library and exact source/dependency contracts. No source imports, JavaScript parsing, runtime controls, private reads or game acceptance.",
+  "sourceManifest": {
+    "bytes": 3328,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "a427acb4c7e1c0b5d31695141600c828c9e8f64543d5b828b9c40ac678b34411"
+  },
+  "sourcePins": {
+    "BASELINE-run-observer-row-controls.mjs": {
+      "bytes": 28566,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/BASELINE-run-observer-row-controls.mjs",
+      "sha256": "0d8b787dc12f02b678dae42e74704f04c0bc1f6428146e9df93a94e788086248"
+    },
+    "CONTRACT.json": {
+      "bytes": 4066,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "e3f811116a1e62a37b87c9c738b052ba71cbdfebe4954344506ae46b8a074fbf"
+    },
+    "CONTRACT.md": {
+      "bytes": 3837,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/CONTRACT.md",
+      "sha256": "240e43ee5905bd88a94ad2083ca6e05452c86afa7a41c57f850560802f20b7da"
+    },
+    "LESSONS.md": {
+      "bytes": 2348,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/LESSONS.md",
+      "sha256": "2bc1a0f6df08fb7109ee35edce0ed0a2577a44a17ec9b94474f929fed8c6df4e"
+    },
+    "MATRIX.json": {
+      "bytes": 7474,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "0f2a5ed2c64d632aa269fb1c1b4cc954f2e3b33acbe9281246453f7baa80f0d0"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 1984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/SOURCE-PROOF.json",
+      "sha256": "b700a538e10d47b232ee8b60600050445b081a27335c90601cf994ef707e75d8"
+    },
+    "run-observer-row-controls.forward.diff": {
+      "bytes": 1857,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/run-observer-row-controls.forward.diff",
+      "sha256": "7594efb950c7b2ea539d182350076e863f1bc32692232f8c5c43d049cf7aecf6"
+    },
+    "run-observer-row-controls.inverse.diff": {
+      "bytes": 1857,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/run-observer-row-controls.inverse.diff",
+      "sha256": "3d76193c82d22ce4a874fe66c4b5825a73af3ced87fd7f8913ddffc19b6d6770"
+    },
+    "run-observer-row-controls.mjs": {
+      "bytes": 29201,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/run-observer-row-controls.mjs",
+      "sha256": "227e306fa5ba41208e72a9e0148d3e6cf3d49cf5070a694f6888908c2fabf6e0"
+    }
+  },
+  "specificNegativeCount": 42
+}

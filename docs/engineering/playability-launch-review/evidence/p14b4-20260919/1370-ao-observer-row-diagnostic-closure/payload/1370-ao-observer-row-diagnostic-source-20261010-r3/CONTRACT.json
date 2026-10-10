@@ -1,0 +1,52 @@
+{
+  "schema": "1370-ao-observer-row-diagnostic-contract/v1",
+  "exports": [
+    "createObserverRowDiagnostic",
+    "runObserverArm"
+  ],
+  "factoryMethods": [
+    "wrap",
+    "throwIfFailed",
+    "emitFirst",
+    "reset"
+  ],
+  "diagnosticSchema": "1370-m0-observer-row-diagnostic/v1",
+  "diagnosticOnlyBounds": {
+    "canonicalUtf8Bytes": 65536,
+    "contextEncodedJsonBytes": 65536,
+    "failedRowEncodedJsonIncludingNewlineBytes": 524288,
+    "visitedNodesAndProperties": 16384,
+    "maxDepth": 64,
+    "emittedJsonLineIncludingNewlineBytes": 4096
+  },
+  "outerUnavailableReasons": [
+    "PRIOR_ROWS_UNAVAILABLE",
+    "CONTEXT_UNSUPPORTED",
+    "CONTEXT_OVER_BOUND",
+    "FAILED_ROW_UNSUPPORTED",
+    "FAILED_ROW_OVER_BOUND",
+    "CANONICAL_INPUT_OVER_BOUND",
+    "DIAGNOSTIC_UNAVAILABLE",
+    "DIAGNOSTIC_OUTPUT_OVER_BOUND"
+  ],
+  "familyUnavailableReasons": [
+    "CANONICAL_INPUT_MISSING",
+    "CANONICAL_INPUT_OVER_BOUND",
+    "CANONICAL_INPUT_BYTE_MISMATCH",
+    "CANONICAL_INPUT_MALFORMED",
+    "FAMILY_UNAVAILABLE"
+  ],
+  "malformedBoundedCanonical": "measured canonicalInputBytes, canonicalInputUnavailableReason null, familyUnavailableReason CANONICAL_INPUT_MALFORMED",
+  "originalErrorIdentityPreserved": true,
+  "originalWitnessByteIdentical": true,
+  "originalObserverCapsUnchanged": true,
+  "executionAuthorization": false,
+  "actualControls": null,
+  "actualGame": null,
+  "supportedFailedRowKinds": [
+    "inputTuple",
+    "assessment"
+  ],
+  "unsupportedFailedKindReason": "FAILED_ROW_UNSUPPORTED",
+  "nonfailureArbitraryKinds": "original sink record unchanged; no diagnostics"
+}

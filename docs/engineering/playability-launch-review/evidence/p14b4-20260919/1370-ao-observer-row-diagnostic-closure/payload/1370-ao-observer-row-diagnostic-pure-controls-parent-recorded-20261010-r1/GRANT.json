@@ -1,0 +1,152 @@
+{
+  "api": {
+    "bytes": 8460,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2/API.md",
+    "sha256": "8b23588f28233794a7d0317b76d0770912015bc3ffd20dd823aae74b21225eb8"
+  },
+  "argvTemplate": [
+    "/bin/bash",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+    "0",
+    "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/controls.lane.log",
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/record-observer-row-controls.py",
+    "verification",
+    "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+    "EXTERNAL_GRANT_SHA256"
+  ],
+  "automaticRetry": false,
+  "bounds": {
+    "active": 320,
+    "childStreamBytes": 8388608,
+    "compiledModuleBytes": 131072,
+    "resultBytes": 131072,
+    "runner": 300,
+    "whole": 330
+  },
+  "clockEnforcedByOriginalRecordedRoute": true,
+  "config": {
+    "bytes": 7018,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONFIG.json",
+    "sha256": "ecd1164da81a1e8f1c03456762cdfc56803cde908908e9e233a33491185fddaa"
+  },
+  "configSha256": "ecd1164da81a1e8f1c03456762cdfc56803cde908908e9e233a33491185fddaa",
+  "controlsSourcePins": {
+    "bytes": 3328,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "a427acb4c7e1c0b5d31695141600c828c9e8f64543d5b828b9c40ac678b34411"
+  },
+  "controlsSourceReview": {
+    "bytes": 6203,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-root-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "541f976ca5e1e550dd86b0fc56ac416b0a881c6d421ae14bb2809e2eeab5cfa8"
+  },
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "environment": {
+    "GIT_OPTIONAL_LOCKS": "0",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executionAuthorization": true,
+  "game": false,
+  "implementationControlsSourceAdoption": {
+    "bytes": 3582,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-IMPLEMENTATION-CONTROLS-SOURCE-ADOPTION.json",
+    "sha256": "1112ed2166d623284be4a1c1bd40ae455212921d16ec32da0e727f9bcca566c7"
+  },
+  "implementationSourcePins": {
+    "bytes": 6892,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "ecfa500f2a60f1280c6fcf06d60817bbb017bbf2524b74ab42bfd9c5aa5ce3b3"
+  },
+  "implementationSourceReview": {
+    "bytes": 9463,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-source-review-20261010-r3/RECEIPT.json",
+    "sha256": "ba5fe631915582f42d0b3071e545a519e69ac00f5ab51027783af79452613064"
+  },
+  "laneLog": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/controls.lane.log",
+  "oneAggregateRun": true,
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-results-20261010-r1",
+  "parentAdapterSourcePins": {
+    "bytes": 7675,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "a27f8bf8756ab5804411ff1592aef49f8012c3dc65e14cbf073dcec2995a97ec"
+  },
+  "parentAdapterSourceReview": {
+    "bytes": 14092,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "d11e4b0fa2ba987b8eabcdd359cc96283beb2d848d118befe796becd39be2741"
+  },
+  "priorProtectedStopAdoption": {
+    "bytes": 4698,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R5-STOP-OBSERVED-ADOPTION.json",
+    "sha256": "ab5b801da2ec6408281115aa424bfafad8a8e458b96e3f068d5fecfb2346669f"
+  },
+  "privateM0ReadOrWritten": false,
+  "recipe": {
+    "bytes": 9905,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/RECIPE.json",
+    "sha256": "33cf30a62abf4c4c19e146e1331b80cd549c93e36412fc8d8861dd308c592e91"
+  },
+  "rootDesignAdoption": {
+    "bytes": 3797,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/OBSERVER-ROW-DIAGNOSTIC-DESIGN-ADOPTION.json",
+    "sha256": "8b45e59bfbcf67e115f28065c475fc64ba353a96ee4c07e616472bf58b1eda90"
+  },
+  "rootLauncher": {
+    "bytes": 4980,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/run_observer_controls_once.py",
+    "sha256": "02ea48f37155065714252a3330191673147ef3897874def1fe856b374f6ec90d"
+  },
+  "runtimeTools": {
+    "helper": {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "node": {
+      "bytes": 115440320,
+      "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+      "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+    },
+    "python": {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "typescript": {
+      "bytes": 9112572,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/lib/typescript.js",
+      "sha256": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675"
+    },
+    "typescriptPackage": {
+      "bytes": 3620,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/package.json",
+      "sha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+    }
+  },
+  "runtimeToolsObservation": {
+    "bytes": 1691,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-RUNTIME-TOOLS.json",
+    "sha256": "12d11061dd21827447ef0563d9ab4c5bec0c636986e8690ed067eb0be37dfa0c"
+  },
+  "schema": "1370-root-observer-row-diagnostic-pure-controls-once-grant/v1",
+  "scope": "PURE_PUBLIC_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_ONLY",
+  "sourceAdoption": {
+    "bytes": 1390,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-SOURCE-ADOPTION.json",
+    "sha256": "38f66aab9ac6dd03179dc9c5d2ca5952220129d509674ca60bad144cad8b880e"
+  },
+  "sourcePins": {
+    "bytes": 7675,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "a27f8bf8756ab5804411ff1592aef49f8012c3dc65e14cbf073dcec2995a97ec"
+  },
+  "sourceReview": {
+    "bytes": 14092,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "d11e4b0fa2ba987b8eabcdd359cc96283beb2d848d118befe796becd39be2741"
+  },
+  "utc": "2026-10-10T08:42:16.763007+00:00"
+}

@@ -1,0 +1,13 @@
+{
+  "executionAuthorization": false,
+  "receipt": {
+    "bytes": 6203,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-root-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "541f976ca5e1e550dd86b0fc56ac416b0a881c6d421ae14bb2809e2eeab5cfa8"
+  },
+  "reviewScript": {
+    "bytes": 4506,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/review_controls_source.py",
+    "sha256": "fbbd21b3381b3b5426edb0be2b2e30aecce0db3f97e1de45b3d36796ba198230"
+  }
+}

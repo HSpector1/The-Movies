@@ -1,0 +1,3 @@
+docs(1370): preserve M0 type closure and bounded trace repair
+
+Archive admitted types, lossless trace controls, real fixture generation and the protected observer-row STOP. Record major lessons and the reviewed next diagnostic in HANDOFF without claiming P16/P17/P18 completion.

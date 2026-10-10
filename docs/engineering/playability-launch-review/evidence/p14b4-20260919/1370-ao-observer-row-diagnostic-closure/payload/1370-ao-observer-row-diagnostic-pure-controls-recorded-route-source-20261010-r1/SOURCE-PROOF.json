@@ -1,0 +1,51 @@
+{
+  "schema": "1370-observer-row-diagnostic-pure-controls-recorded-route-source-proof/v1",
+  "predecessorSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 7306,
+    "sha256": "2b035412243347f60e8a1148a290899158ce975f755a1b8837324b1e07bd644f"
+  },
+  "wholeForwardInverseApplications": 6,
+  "parentHelpersByteExact": 10,
+  "recorderHelpersAndOwnedChildByteExact": 17,
+  "implementationSourcePins": {
+    "bytes": 6892,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "ecfa500f2a60f1280c6fcf06d60817bbb017bbf2524b74ab42bfd9c5aa5ce3b3"
+  },
+  "controlsSourcePins": {
+    "bytes": 3328,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "a427acb4c7e1c0b5d31695141600c828c9e8f64543d5b828b9c40ac678b34411"
+  },
+  "rootImplementationControlsSourceAdoption": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-IMPLEMENTATION-CONTROLS-SOURCE-ADOPTION.json",
+    "bytes": 3582,
+    "sha256": "1112ed2166d623284be4a1c1bd40ae455212921d16ec32da0e727f9bcca566c7"
+  },
+  "caseCount": 48,
+  "positiveCount": 6,
+  "specificNegativeCount": 42,
+  "soleTypescriptSource": "m0FeasibilityWitness.ts",
+  "compiledModuleCap": 131072,
+  "prepSeconds": 60,
+  "prepCanceledBeforeExec": true,
+  "runnerActiveWholeSeconds": [
+    300,
+    320,
+    330
+  ],
+  "combinedPreparationRuntimeDeadline": null,
+  "actualControls": null,
+  "executionAuthorization": false,
+  "sourceExecutionPerformed": false,
+  "authorPreparationStops": [
+    {
+      "toolChunk": "c31836",
+      "exitCode": 1,
+      "predicate": "end-marker uniqueness before target block scope",
+      "filesWrittenBeforeFailure": false,
+      "correction": "assert unique marker only after authenticated target block start"
+    }
+  ]
+}

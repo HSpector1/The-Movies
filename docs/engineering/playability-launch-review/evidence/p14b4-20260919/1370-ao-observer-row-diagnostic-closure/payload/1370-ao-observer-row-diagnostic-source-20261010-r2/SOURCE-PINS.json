@@ -1,0 +1,106 @@
+{
+  "schema": "1370-ao-observer-row-diagnostic-source-pins/v1",
+  "executionAuthorization": false,
+  "files": {
+    "BASELINE-FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/BASELINE-FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "bytes": 9744,
+      "sha256": "324c7cc754497e43cc5a9d46865f4cbf7e1a635b5e2ce5ac0857defab8661a02"
+    },
+    "BASELINE-R1-m0ObserverRowDiagnostic.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/BASELINE-R1-m0ObserverRowDiagnostic.mjs",
+      "bytes": 5248,
+      "sha256": "5c49b207d98150ea987cb6fd013003ee6a22b933b717be3a982dd5c1d3506e9c"
+    },
+    "BASELINE-talentMarket.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/BASELINE-talentMarket.ts",
+      "bytes": 119434,
+      "sha256": "ce06afb3069c83dc1d9ee1fb8a03b7f1609c0db41fc3ea8078b455061455ed2d"
+    },
+    "BASELINE-typed-propagation-removed-talentMarket.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/BASELINE-typed-propagation-removed-talentMarket.ts",
+      "bytes": 119464,
+      "sha256": "074d0cfd58e245bb35883b79bf72dda428884fc2bb49ea918da6f2320c235ef3"
+    },
+    "CONTRACT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/CONTRACT.json",
+      "bytes": 1389,
+      "sha256": "60b948fa066a9052a1f87bae838aa753ca683d4e670bbed4a2e6163b82e9de3c"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "bytes": 9962,
+      "sha256": "6057cdc52bc7db089bd701ff5578bbd4d4c574ed72b4abaa39d20a4e2c87a783"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/FULL-BODY-CONTROLS-TEMPLATE.ts.forward.diff",
+      "bytes": 1508,
+      "sha256": "ab3a4ccf01f4d55ca6521a9d9547c1e187d3d645edcffbd08af47d4d045f6814"
+    },
+    "FULL-BODY-CONTROLS-TEMPLATE.ts.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/FULL-BODY-CONTROLS-TEMPLATE.ts.inverse.diff",
+      "bytes": 1508,
+      "sha256": "e3a9e254750f5025714a0dddd6cb5d27ddb077d60a9ebd3bf8a2a1151ad2f757"
+    },
+    "LESSONS.md": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/LESSONS.md",
+      "bytes": 859,
+      "sha256": "b64d4060d39d25fcfce97aa4a055d242ac3e48e54cc457412b560361211c8120"
+    },
+    "SOURCE-PROOF.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/SOURCE-PROOF.json",
+      "bytes": 3278,
+      "sha256": "17408985bf2c1c8b8005e88e4e0401b1be865aee90d312f64a7b25b900b35fa9"
+    },
+    "m0FeasibilityWitness.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/m0FeasibilityWitness.ts",
+      "bytes": 4729,
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "m0ObserverRowDiagnostic.R1.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/m0ObserverRowDiagnostic.R1.forward.diff",
+      "bytes": 8518,
+      "sha256": "6ebf7a1b57b4de506ff15b6b7600297a897d4bff62830a04f49a787e7860a07a"
+    },
+    "m0ObserverRowDiagnostic.R1.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/m0ObserverRowDiagnostic.R1.inverse.diff",
+      "bytes": 8518,
+      "sha256": "75208c86e8996824649730a7c8626350c0f224275c4f7c9c9e3147d178dfd4b8"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/m0ObserverRowDiagnostic.mjs",
+      "bytes": 10624,
+      "sha256": "351af4f2aa46cd0659cbf7c772f617823cd69b6dc554cbc5d954f47ead017ff9"
+    },
+    "talentMarket.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/talentMarket.ts",
+      "bytes": 119700,
+      "sha256": "fe9bea844bf41c3ad7e57924a6822f3a48b695b75880477281889a250a7c500a"
+    },
+    "talentMarket.ts.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/talentMarket.ts.forward.diff",
+      "bytes": 2332,
+      "sha256": "89236d6232b5480658ee03541667a1be1276296591224f76c4a49147ece1ce73"
+    },
+    "talentMarket.ts.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/talentMarket.ts.inverse.diff",
+      "bytes": 2332,
+      "sha256": "ddad41f96c5a9b0dc7b27c0b48a179522ca405a1f3c3109b912f687f08d7d04a"
+    },
+    "typed-propagation-removed-talentMarket.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/typed-propagation-removed-talentMarket.ts",
+      "bytes": 119730,
+      "sha256": "425922b5f9b3c1c9c27d91b45214b76b217345b63890887ba870494b9ac91479"
+    },
+    "typed-propagation-removed-talentMarket.ts.forward.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/typed-propagation-removed-talentMarket.ts.forward.diff",
+      "bytes": 2384,
+      "sha256": "f9a2c0b7cb976674b02fb02f1e332905eb8d11a3aa2e38118b542d758b7e139f"
+    },
+    "typed-propagation-removed-talentMarket.ts.inverse.diff": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/typed-propagation-removed-talentMarket.ts.inverse.diff",
+      "bytes": 2384,
+      "sha256": "64d7ce64e841a190435dafd383aa968baa829289a33c72045d1cb49d03f93964"
+    }
+  }
+}

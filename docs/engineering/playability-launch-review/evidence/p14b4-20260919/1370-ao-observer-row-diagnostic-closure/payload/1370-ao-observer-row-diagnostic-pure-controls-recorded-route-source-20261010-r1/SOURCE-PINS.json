@@ -1,0 +1,128 @@
+{
+  "executionAuthorization": false,
+  "externalInputs": {
+    "CONTROLS-CONTRACT.json": {
+      "bytes": 4066,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "e3f811116a1e62a37b87c9c738b052ba71cbdfebe4954344506ae46b8a074fbf"
+    },
+    "MATRIX.json": {
+      "bytes": 7474,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "0f2a5ed2c64d632aa269fb1c1b4cc954f2e3b33acbe9281246453f7baa80f0d0"
+    },
+    "m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 10646,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0ObserverRowDiagnostic.mjs",
+      "sha256": "facc279ea400667a5bfdb029dbbf7defd62c7ae950e181d763bac27d4aa49124"
+    },
+    "run-observer-row-controls.mjs": {
+      "bytes": 29201,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/run-observer-row-controls.mjs",
+      "sha256": "227e306fa5ba41208e72a9e0148d3e6cf3d49cf5070a694f6888908c2fabf6e0"
+    }
+  },
+  "files": {
+    "BASELINE-launch-observer-row-controls.py": {
+      "bytes": 11510,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/BASELINE-launch-observer-row-controls.py",
+      "sha256": "3ea515ac04ae75c617daaef7d865811b3c00f841a3a6d297821c6f10b2c1c697"
+    },
+    "BASELINE-record-observer-row-controls.py": {
+      "bytes": 17454,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/BASELINE-record-observer-row-controls.py",
+      "sha256": "92c593f8e130dafbdf57373be956014c68d3ba3b0b1b58929a5f965b86049337"
+    },
+    "BASELINE-run-observer-row-recorded-controls.mjs": {
+      "bytes": 13369,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/BASELINE-run-observer-row-recorded-controls.mjs",
+      "sha256": "6473d8ba2631da787c9d1b66df3eefcb09959974c4ce34ed94f4e5f3cd4f9024"
+    },
+    "CONFIG-UNFILLED.json": {
+      "bytes": 4385,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONFIG-UNFILLED.json",
+      "sha256": "daa29ba9368e12b8621756f912cb45e39d1b9e120e0817d31001faca0feb12c6"
+    },
+    "CONFIG.json": {
+      "bytes": 7018,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONFIG.json",
+      "sha256": "ecd1164da81a1e8f1c03456762cdfc56803cde908908e9e233a33491185fddaa"
+    },
+    "CONTRACT-UNFILLED.json": {
+      "bytes": 2918,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONTRACT-UNFILLED.json",
+      "sha256": "fced6130b203c254f623bb3969a5c9156d3fe93390502d178fc771cfa0e4a047"
+    },
+    "CONTRACT.json": {
+      "bytes": 4589,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONTRACT.json",
+      "sha256": "ede7dd2698764a78607f9c18ec55f86ec694d4543e5a93a9acd1d2584c0d63b7"
+    },
+    "LESSONS.md": {
+      "bytes": 640,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/LESSONS.md",
+      "sha256": "d9f990dfc16158b6541bb04411f592b3fcda500c78c1ede3593bf6171dcccd3d"
+    },
+    "RECIPE.json": {
+      "bytes": 9905,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/RECIPE.json",
+      "sha256": "33cf30a62abf4c4c19e146e1331b80cd549c93e36412fc8d8861dd308c592e91"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 2036,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/SOURCE-PROOF.json",
+      "sha256": "c84b23952196d75f0124d8e0ab735447e1cc4d280cd038157dd2af493ada270b"
+    },
+    "launch-observer-row-controls.py": {
+      "bytes": 11670,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/launch-observer-row-controls.py",
+      "sha256": "7f96ddeb7dbfbb11a5103f6e999f6d33c087a85f3d34bc726a686b63350605ac"
+    },
+    "launch-observer-row-controls.py.forward.diff": {
+      "bytes": 13102,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/launch-observer-row-controls.py.forward.diff",
+      "sha256": "cba59257280fe06ec2460565302e60f6f34cba4ecd8f03f5a9209278886a5672"
+    },
+    "launch-observer-row-controls.py.inverse.diff": {
+      "bytes": 13102,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/launch-observer-row-controls.py.inverse.diff",
+      "sha256": "6cb566bcdc9def95bce46aa09a00b0c666919b43ced6987e35a307668cb372c2"
+    },
+    "record-observer-row-controls.py": {
+      "bytes": 17408,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/record-observer-row-controls.py",
+      "sha256": "0eaf949c201047e861483cdc175375be8a0e2049d726427d041bf15872ebdf26"
+    },
+    "record-observer-row-controls.py.forward.diff": {
+      "bytes": 8886,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/record-observer-row-controls.py.forward.diff",
+      "sha256": "f14784465bc30835fea9eb624cba2e99cba70cc86f0f8ad3a0ea76f5777eae9b"
+    },
+    "record-observer-row-controls.py.inverse.diff": {
+      "bytes": 8886,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/record-observer-row-controls.py.inverse.diff",
+      "sha256": "f39ae20ffe898ef337da9dea5822e6eb2267c8917a750cfd02f663248c9c745f"
+    },
+    "run-observer-row-recorded-controls.mjs": {
+      "bytes": 13541,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/run-observer-row-recorded-controls.mjs",
+      "sha256": "c819ea3777bfbc073a9b6795794e00dad8b2942106e13b2295b55e860cf492f6"
+    },
+    "run-observer-row-recorded-controls.mjs.forward.diff": {
+      "bytes": 14944,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/run-observer-row-recorded-controls.mjs.forward.diff",
+      "sha256": "e8429e9d3c2182c685fcb6a526b66426669e1b145e6ca963c021dc4d1a80c2d6"
+    },
+    "run-observer-row-recorded-controls.mjs.inverse.diff": {
+      "bytes": 14944,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/run-observer-row-recorded-controls.mjs.inverse.diff",
+      "sha256": "f87906df825229db8f4060d4029372cc8cac976fb2f6713e28058b4c7316177a"
+    }
+  },
+  "schema": "1370-observer-row-diagnostic-pure-controls-recorded-route-source-pins/v1"
+}

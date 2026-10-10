@@ -1,0 +1,31 @@
+{
+  "appendedSection": "R2 correction: actual shared arm/error/cleanup implementation",
+  "executionAuthorization": false,
+  "implementationAccepted": false,
+  "predecessor": {
+    "bytes": 5485,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r1/API.md",
+    "sha256": "40154375d4e9cc86c9a64a8c6b40dd8bdf6cf87a673bb519ac39d7f5f3cc13ea"
+  },
+  "predecessorReview": {
+    "bytes": 6789,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-independent-review-20261010-r1/RECEIPT.json",
+    "sha256": "fe12c55a1f93f73b9a2e2875f2ebf78959415a2f894c613264f7f1a498bdc341"
+  },
+  "schema": "1370-ao-api-r2-source-proof/v1",
+  "source": {
+    "bytes": 8460,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2/API.md",
+    "sha256": "8b23588f28233794a7d0317b76d0770912015bc3ffd20dd823aae74b21225eb8"
+  },
+  "twoSingleSubstitutions": [
+    [
+      "Fullbody arm checks throwIfFailed immediately after advance returns. Its catch emits before the existing nested end/reset finally, then rethrows the caught original Error; emit must not replace the original. Keep all normal assertions, gameplay call order and fault controls unchanged. Diagnostic failure remains STOP, never a qualified baseline or meaningful mutant RED.",
+      "Fullbody arm keeps throwIfFailed immediately after advance returns and delegates its original body plus end/reset callbacks to the shared synchronous runObserverArm helper below. Sticky original row Error wins even if advance swallowed it and later threw another Error, and survives secondary end/reset errors. Keep all normal assertions, gameplay call order and fault controls unchanged. Diagnostic failure remains STOP, never a qualified baseline or meaningful mutant RED."
+    ],
+    [
+      "exact same Error propagation and retained first failure; simulated swallowing followed by throwIfFailed;",
+      "exact same Error propagation and retained first failure; simulated swallowing followed by throwIfFailed; actual shared runObserverArm controls for swallowed-then-unrelated throw and secondary end/reset errors, with both cleanup calls attempted;"
+    ]
+  ]
+}

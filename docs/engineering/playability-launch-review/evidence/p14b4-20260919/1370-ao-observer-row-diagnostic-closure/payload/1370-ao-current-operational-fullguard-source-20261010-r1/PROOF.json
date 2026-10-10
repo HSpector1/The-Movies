@@ -1,0 +1,42 @@
+{
+  "configChangedKeys": [
+    "operationalRemoteRefs",
+    "parentScopeAdoption",
+    "productionHead",
+    "status"
+  ],
+  "currentOperationalFacts": {
+    "bytes": 1030,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/CURRENT-AN-OPERATIONAL-TRANSITION.json",
+    "sha256": "d92458f0d1af8249280ae2298c3d2eff4e62d53b271814dd8d745c3d9f073ccd"
+  },
+  "currentOperationalScope": {
+    "bytes": 2923,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/CURRENT-AN-FULLGUARD-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "74855dea68b2e9a9c8ac4c40c949042cb5f097eff5ed7ff80d37b922e76d743a"
+  },
+  "executionAuthorization": false,
+  "newConfig": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+    "sha256": "f9d2d7fda1b5df5c01176c142bd6b16c9be9cc78963fe73e7fc62640b82a9cdd"
+  },
+  "newSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/snapshot.py",
+    "sha256": "2915fd60e26b894fd431e4483e23d9beed79b3332dc3c7173b0a37fd3130ef1d"
+  },
+  "originalConfig": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/CONFIG.json",
+    "sha256": "e0c7a2b839eaa1e0940665711c8e9b57af4f09738290ca5d15d828f01200b42e"
+  },
+  "originalSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-current-operational-fullguard-source-20261009-r1/snapshot.py",
+    "sha256": "9e2618b58849ccf0bc36512b20de16c23e49b2f08cdc6982ca9fe2fc20143047"
+  },
+  "runtimeOccurred": false,
+  "schema": "1370-ao-fullguard-an-binding-source-proof/v1",
+  "sourceDelta": "Only CONFIG_SHA literal; complete inverse byte-equal. All procedure logic/180s per command/no overall deadline/guards/private inventory/cleanup/claim limit unchanged. Original docstrings retain historical wording; current config and explicit root scope determine actual AN role."
+}

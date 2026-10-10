@@ -1,0 +1,45 @@
+{
+  "actualArchive": null,
+  "actualCutoff": null,
+  "actualFinalInventory": null,
+  "candidateCatalog": {
+    "bytes": 10761,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/CANDIDATE-PACKAGES-PREPARATORY.json",
+    "sha256": "aab9823d23456b8d2ac53d0e38266469a399f02a1f820a5a1a14491017e6b0eb"
+  },
+  "executionAuthorization": false,
+  "inventoryBuilder": {
+    "bytes": 3147,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_inventory.py",
+    "sha256": "41f65de76277cd521556ed4656a4f76ef92cb35ac5f8e56787b5b73120a2a30b"
+  },
+  "originalANDirectory": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1",
+  "originalArchiveFinalizer": {
+    "bytes": 6520,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ai-archive-finalization-source-20261009-r1/finalize_archive.py",
+    "sha256": "409888804ce7e6e818564385d389ff552df354bed5d7050e48c9bc933a2a639b"
+  },
+  "originalInventoryBuilder": {
+    "bytes": 3147,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/prepare_inventory.py",
+    "sha256": "dfdf6dcfb30c7f17b840abda82a5e36f86b1749056c52d8be8a7521ed82a0b92"
+  },
+  "originalSelectionBuilder": {
+    "bytes": 4655,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/prepare_final_packages.py",
+    "sha256": "dcb78889ae79346d1e11c7debe89c007a2dd2346cdb1bf8fd31939ab8519328f"
+  },
+  "retainedByteExactArchiveFinalizer": {
+    "bytes": 6520,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/finalize_archive.py",
+    "sha256": "409888804ce7e6e818564385d389ff552df354bed5d7050e48c9bc933a2a639b"
+  },
+  "rootOwnsFutureExecution": true,
+  "schema": "1370-ao-inventory-source-binding/v1",
+  "selectionBuilder": {
+    "bytes": 3636,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-checkpoint-root-finalization-20261010-r1/prepare_final_packages.py",
+    "sha256": "73fe10265249491b1bde71dc3976bb13ff743bc1a996e01b0d4650c76699e7e1"
+  },
+  "sourceOnly": true
+}

@@ -1,0 +1,102 @@
+{
+  "artifactBoundAdoption": {
+    "bytes": 2172,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULL-STATE-FIXTURE-ARTIFACT-BOUND.json",
+    "sha256": "186c55ff7381787d3abe401e175d8c1c468be5bfb5e8ef169f89d7c94a0bc546"
+  },
+  "automaticRetry": false,
+  "bounds": {
+    "activeRecorder": 320,
+    "aggregateChild": 300,
+    "aggregateOutputTreeBytes": 268435456,
+    "fixturePacketBytes": 67108864,
+    "outputTreeEntryCap": 10000,
+    "resultBytes": 131072,
+    "streamBytes": 8388608,
+    "vitestReportBytes": 1048576,
+    "wholeRecorder": 330
+  },
+  "clockEnforcedByOriginalRecordedRoute": true,
+  "config": {
+    "bytes": 20709,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r2/CONFIG.json",
+    "sha256": "596a893e476e77b8d87c1704b90ac5048b1f66611f61cdf3154ab6072ff27f5b"
+  },
+  "configSha256": "596a893e476e77b8d87c1704b90ac5048b1f66611f61cdf3154ab6072ff27f5b",
+  "currentProtection": {
+    "bytes": 3761,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/M0-FULLFUNCTION-CURRENT-PROTECTION.json",
+    "sha256": "9d62c00117818cb92565706dc52545562addfcab6cbbe987a9083f2e8cceffd2"
+  },
+  "executionAuthorization": true,
+  "laneLock": {
+    "bytes": 153,
+    "path": "/Users/zacheryspector/studio-scratch/HEAVY-LANE-LOCK",
+    "sha256": "8afa6b46c99948f9a8da6a4ba2d85800c263cc77f1ce5a22959fc039f9e2da51"
+  },
+  "losslessControlsObservedAdoption": {
+    "bytes": 6868,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LOSSLESS-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "fa668549c4526317f1c5f7f17494ae3bdaec2f6713e6b72351f30d384cfa096a"
+  },
+  "observerDiagnosticControlsObservedAdoption": {
+    "bytes": 8912,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "6de3da4778f3fa6a8901e44e473f33dd5eaea5ec174abdd54ddd1398f5f99d47"
+  },
+  "oneAggregateRun": true,
+  "parserControlsAdoption": {
+    "bytes": 1983,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/PARSER-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "2684b2b4a2c0e90b1d9fec5ee079ede8eb945eb3378ff88619f3cd04b943735d"
+  },
+  "rootBinding": {
+    "bytes": 5180,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/FULLFUNCTION-OBSERVER-DIAGNOSTIC-ROOT-BINDING.json",
+    "sha256": "f6642fb3c75e7bb672962a1de943aa4ecf78b6bdc2f57b3911d8d195dfd572cd"
+  },
+  "rootLaunchClaim": {
+    "bytes": 1887,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-recorded-20261010-r1/ROOT-LAUNCH-CLAIM.json",
+    "sha256": "6953fe125f228c06369e7cfec62cf7e90caad920efbf7ddacbc632d52faf6abf"
+  },
+  "runtimeTools": {
+    "node": {
+      "bytes": 115440320,
+      "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+      "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+    },
+    "python": {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "vitestEntry": {
+      "bytes": 43,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/vitest.mjs",
+      "sha256": "39db22f579acf5639bbb17a261408debbde03f4692c0c439e77e7f13aeba74d6"
+    },
+    "vitestPackage": {
+      "bytes": 4995,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/package.json",
+      "sha256": "6ea35e567829660d9832744086c18526b9ddebd5358c4a0cadfb0a355925f917"
+    }
+  },
+  "schema": "1370-root-fullfunction-qualification-once-grant/v1",
+  "scope": "REAL_FULL_FUNCTION_BOUNDARIES_BASELINE_AND_TYPED_CATCH_MUTANT_ONLY",
+  "sourcePins": {
+    "bytes": 23375,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "9a2d56c0b7263792b3e67f29d1cb40349ddc52593fe2ec9a80ff5463b0e99aef"
+  },
+  "sourceReview": {
+    "bytes": 14707,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "00f0b0432656557fa722f674f04a2ab6dc4040292e9e90aed7f50f5a988ea595"
+  },
+  "typesAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  }
+}

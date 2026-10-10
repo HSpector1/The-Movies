@@ -1,0 +1,16 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "RECEIPT.json": {
+      "bytes": 8856,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-source-review-20261010-r1/RECEIPT.json",
+      "sha256": "0feeda796cf3202753f58e544d3ca41955bffbd3ab35d9dd2e5c83e3eb1b5c61"
+    },
+    "prepare-review.py": {
+      "bytes": 8654,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-source-review-20261010-r1/prepare-review.py",
+      "sha256": "bb7c71924cba15a06095b837516d38d1de5bd74affd872e591ba1265e93c7bd8"
+    }
+  },
+  "schema": "1370-independent-source-review-seal/v1"
+}

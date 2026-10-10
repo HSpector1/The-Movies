@@ -1,0 +1,11 @@
+--- AO/CORE-TEST-TEMPLATE.ts
++++ Q13/CORE-TEST-TEMPLATE.ts
+@@ -8,7 +8,7 @@
+ const sha=(b:Buffer)=>createHash('sha256').update(b).digest('hex')
+ it('recorded M0 whole-body fixture generation or controls',()=>{
+  const binding=JSON.parse(readFileSync(process.env.M0_WIRING_ROUTE!,'utf8'))
+- assert.equal(binding.operationalHead,'0cf8b1d0bbf7d1977413d0c3074407cc8f7b80a4')
++ assert.equal(binding.operationalHead,'7087f116cf998fd86e33fb8e004df628e0686dbd')
+  assert.equal(binding.productionSourceTree,'13880d9b0ba72aff5d4c5bcf5d12fe682c5de554')
+  assert.equal(binding.genuineTypesAdoptionAuthenticated,true)
+  const write=(value:unknown)=>{const raw=Buffer.from(JSON.stringify(value));assert.ok(raw.length<=131072);writeFileSync(binding.controlResult,raw,{flag:'wx'})}

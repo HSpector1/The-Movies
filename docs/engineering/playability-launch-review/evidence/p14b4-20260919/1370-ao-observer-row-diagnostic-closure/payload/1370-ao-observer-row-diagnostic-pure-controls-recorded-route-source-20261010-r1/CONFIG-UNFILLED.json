@@ -1,0 +1,106 @@
+{
+  "actualFixtureQualification": false,
+  "actualGrant": null,
+  "actualObservedReview": null,
+  "actualResult": null,
+  "api": {
+    "bytes": 8460,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2/API.md",
+    "sha256": "8b23588f28233794a7d0317b76d0770912015bc3ffd20dd823aae74b21225eb8"
+  },
+  "bounds": {
+    "active": 320,
+    "childStreamBytes": 8388608,
+    "compiledModuleBytes": 131072,
+    "resultBytes": 131072,
+    "runner": 300,
+    "whole": 330
+  },
+  "candidateChanged": false,
+  "caseCount": 48,
+  "controlsInputNames": [
+    "run-observer-row-controls.mjs",
+    "MATRIX.json",
+    "CONTROLS-CONTRACT.json"
+  ],
+  "controlsReviewDecision": "ACCEPT_STATIC_PURE_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_SOURCE_ONLY",
+  "controlsSourcePins": null,
+  "controlsSourceReview": null,
+  "executionAuthorization": false,
+  "implementationControlsSourceAdoption": null,
+  "implementationInputNames": [
+    "m0ObserverRowDiagnostic.mjs",
+    "m0FeasibilityWitness.ts"
+  ],
+  "implementationReviewDecision": "ACCEPT_STATIC_BOUNDED_OBSERVER_ROW_DIAGNOSTIC_IMPLEMENTATION_SOURCE_ONLY",
+  "implementationSourcePins": null,
+  "implementationSourceReview": null,
+  "inputs": {},
+  "outputPath": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-results-20261010-r1",
+  "positiveCount": 6,
+  "recorderOutputPath": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorder-results-20261010-r1",
+  "reviewAliases": [
+    "CONFIG.json",
+    "CONTRACT.json",
+    "record-observer-row-controls.py",
+    "launch-observer-row-controls.py",
+    "run-observer-row-recorded-controls.mjs",
+    "m0ObserverRowDiagnostic.mjs",
+    "m0FeasibilityWitness.ts",
+    "run-observer-row-controls.mjs",
+    "MATRIX.json",
+    "CONTROLS-CONTRACT.json"
+  ],
+  "rootDesignAdoption": {
+    "bytes": 3797,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/OBSERVER-ROW-DIAGNOSTIC-DESIGN-ADOPTION.json",
+    "sha256": "8b45e59bfbcf67e115f28065c475fc64ba353a96ee4c07e616472bf58b1eda90"
+  },
+  "runtimeTools": {
+    "helper": {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "node": {
+      "bytes": 115440320,
+      "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+      "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+    },
+    "python": {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "typescript": {
+      "bytes": 9112572,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/lib/typescript.js",
+      "sha256": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675"
+    },
+    "typescriptPackage": {
+      "bytes": 3620,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/package.json",
+      "sha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+    }
+  },
+  "runtimeToolsObservation": {
+    "bytes": 1366,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LOSSLESS-CONTROLS-RUNTIME-TOOLS.json",
+    "sha256": "19327bf21bd5379586ffa98ad853ac3b6c91b22dd18eb2637c4137f74fae306a"
+  },
+  "schema": "1370-observer-row-diagnostic-pure-controls-recorded-config/v1",
+  "specificNegativeCount": 42,
+  "syntheticOnly": true,
+  "typescriptCompiler": {
+    "bytes": 9112572,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/lib/typescript.js",
+    "sha256": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675"
+  },
+  "typescriptPackage": {
+    "bytes": 3620,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/package.json",
+    "sha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+  },
+  "typescriptVersion": "5.9.3",
+  "workerPath": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/run-observer-row-recorded-controls.mjs"
+}

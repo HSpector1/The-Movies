@@ -1,0 +1,24 @@
+--- R1/run-observer-row-controls.mjs
++++ R2/run-observer-row-controls.mjs
+@@ -56,6 +56,7 @@
+   ['context_65536_inclusive','RED','inclusive context preflight then bounded emission refusal'],
+   ['context_65537_refused','RED','CONTEXT_OVER_BOUND before row reconstruction'],
+   ['huge_context_no_raw_payload','RED','CONTEXT_OVER_BOUND; bounded scalar unavailable metadata'],
++  ['huge_kind_original_refusal_no_raw_kind','RED','FAILED_ROW_UNSUPPORTED; same original row Error; no raw kind'],
+   ['huge_failed_detail_no_raw_payload','RED','FAILED_ROW_OVER_BOUND; no unbounded diagnostic reconstruction'],
+   ['reconstruction_524288_inclusive','RED','exact bounded native row reconstruction; original row refusal unchanged'],
+   ['reconstruction_524289_refused','RED','FAILED_ROW_OVER_BOUND at complete row including newline'],
+@@ -268,6 +269,13 @@
+     const {value,text}=line(r);assert.deepEqual(Object.keys(value).sort(),unavailableKeys)
+     assert.equal(value.reason,'CONTEXT_OVER_BOUND');assert.equal(text.includes('PAYLOAD_MUST_NOT_APPEAR'),false);sticky(r,e)
+   })
++  test('huge_kind_original_refusal_no_raw_kind',()=>{
++    const r=rig(),kind='PAYLOAD_MUST_NOT_APPEAR'+'x'.repeat(1048576),e=refused(r,kind,ordinaryTuple())
++    const {value,text}=line(r);assert.deepEqual(Object.keys(value).sort(),unavailableKeys)
++    assert.equal(value.availability,'unavailable');assert.equal(value.reason,'FAILED_ROW_UNSUPPORTED')
++    assert.equal(text.includes('PAYLOAD_MUST_NOT_APPEAR'),false);assert.equal(Object.hasOwn(value,'kind'),false)
++    assert.deepEqual(r.sink.rows(),[]);sticky(r,e)
++  })
+   test('huge_failed_detail_no_raw_payload',()=>{
+     const r=rig(),e=refused(r,'inputTuple',{...ordinaryTuple(),padding:'PAYLOAD_MUST_NOT_APPEAR'+'x'.repeat(1048576)})
+     const {value,text}=line(r);assert.deepEqual(Object.keys(value).sort(),unavailableKeys)

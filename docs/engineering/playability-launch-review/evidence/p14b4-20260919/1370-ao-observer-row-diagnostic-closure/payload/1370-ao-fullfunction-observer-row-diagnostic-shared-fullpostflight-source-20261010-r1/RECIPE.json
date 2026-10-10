@@ -1,0 +1,27 @@
+{
+  "actualGrant": null,
+  "actualOwnedIdsRequired": true,
+  "actualPostflight": null,
+  "actualRouteReadback": null,
+  "executionAuthorization": false,
+  "launcherArguments": [
+    "actual fullfunction root READBACK absolute path",
+    "actual READBACK sha256"
+  ],
+  "noGameAcceptance": true,
+  "originalPerCommandTimeoutSeconds": 180,
+  "preflightAdoption": {
+    "bytes": 4727,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/CURRENT-AN-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "753a7597c20032c70b2a07c9001de15ba1f72b5a0a5ac7706e340228da5fef5a"
+  },
+  "rawWholeMachineEvidence": "LOCAL_HASH_SIZE_ONLY",
+  "readerArguments": [
+    "actual postflight tool session id",
+    "actual postflight GRANT sha256"
+  ],
+  "schema": "1370-ao-fullfunction-diagnostic-shared-postflight-recipe/v1",
+  "scope": "Fresh current AN original full postflight against the actual accepted current AN full baseline after diagnostic route completion, including STOP. No predicate or ownership change.",
+  "wholeImmutableMapAndNineStrictRootsEqualityRequired": true,
+  "wholeScanDeadline": null
+}

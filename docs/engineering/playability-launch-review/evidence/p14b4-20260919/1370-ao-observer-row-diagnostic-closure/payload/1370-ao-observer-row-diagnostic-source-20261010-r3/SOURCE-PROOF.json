@@ -1,0 +1,78 @@
+{
+  "actualControls": null,
+  "actualGameplay": null,
+  "api": {
+    "bytes": 8460,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2/API.md",
+    "sha256": "8b23588f28233794a7d0317b76d0770912015bc3ffd20dd823aae74b21225eb8"
+  },
+  "authorPreparationFailure": {
+    "correction": "authentic mutant is30 bytes longer; preserve sole original catch-removal diff",
+    "exitCode": 1,
+    "predicate": "signed mutant length assertion",
+    "runtimeOrGameExecuted": false,
+    "toolChunk": "ea453e",
+    "writesBeforeFailure": "draft pure module only; no derivative files"
+  },
+  "baselines": [
+    {
+      "bytes": 119434,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/talentMarket.ts",
+      "sha256": "ce06afb3069c83dc1d9ee1fb8a03b7f1609c0db41fc3ea8078b455061455ed2d"
+    },
+    {
+      "bytes": 119464,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/mutants/typed-propagation-removed-talentMarket.ts",
+      "sha256": "074d0cfd58e245bb35883b79bf72dda428884fc2bb49ea918da6f2320c235ef3"
+    },
+    {
+      "bytes": 9744,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "324c7cc754497e43cc5a9d46865f4cbf7e1a635b5e2ce5ac0857defab8661a02"
+    },
+    {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    }
+  ],
+  "designAdoption": {
+    "bytes": 3797,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/OBSERVER-ROW-DIAGNOSTIC-DESIGN-ADOPTION.json",
+    "sha256": "8b45e59bfbcf67e115f28065c475fc64ba353a96ee4c07e616472bf58b1eda90"
+  },
+  "diagnosticOnlyBounds": {
+    "canonicalUtf8Bytes": 65536,
+    "contextEncodedJsonBytes": 65536,
+    "emittedJsonLineIncludingNewlineBytes": 4096,
+    "failedRowEncodedJsonIncludingNewlineBytes": 524288,
+    "maxDepth": 64,
+    "visitedNodesAndProperties": 16384
+  },
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "independentControls": null,
+  "independentSourceReview": null,
+  "originalCapsUnchanged": true,
+  "originalWitnessByteIdentical": true,
+  "predecessorConcreteFinding": "R2 unsupported hugekind reached native identity serialization before failed-row preflight; root accepts exact two-kind diagnostic check",
+  "predecessorSourcePins": {
+    "bytes": 5977,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "b702718d76f9fba8d4f81b077d8d1f5d925de1e17c9eb61a21639fcb8c95357e"
+  },
+  "predecessorStop": {
+    "bytes": 8856,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "0feeda796cf3202753f58e544d3ca41955bffbd3ab35d9dd2e5c83e3eb1b5c61"
+  },
+  "schema": "1370-ao-observer-row-diagnostic-source-proof/v1",
+  "typedCatchDifferenceBytes": 30,
+  "unchangedFromR1": [
+    "talentMarket.ts",
+    "typed-propagation-removed-talentMarket.ts",
+    "FULL-BODY-CONTROLS-TEMPLATE.ts",
+    "m0FeasibilityWitness.ts"
+  ],
+  "wholeForwardInverseApplications": 10
+}

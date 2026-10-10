@@ -1,0 +1,14 @@
+{
+  "schema": "1370-ao-current-an-fullpreflight-reader-actual-tool/v1",
+  "actualSessionId": null,
+  "allToolChunks": [
+    {
+      "chunk_id": "4e1764",
+      "wall_time_seconds": 0.598615628,
+      "exit_code": 0,
+      "original_token_count": 77,
+      "output": "{\"readback\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-current-an-fullpreflight-parent-recorded-20261010-r1/READBACK.json\", \"bytes\": 3900, \"sha256\": \"30c12b895a4308311b7594a2a2b11cb53f421a3a1ac41f9a762a50ca5f9c3297\"}, \"elapsedSeconds\": 445.37121919599304, \"inventorySeconds\": 335.4146929439885}\n"
+    }
+  ],
+  "finalExit": 0
+}

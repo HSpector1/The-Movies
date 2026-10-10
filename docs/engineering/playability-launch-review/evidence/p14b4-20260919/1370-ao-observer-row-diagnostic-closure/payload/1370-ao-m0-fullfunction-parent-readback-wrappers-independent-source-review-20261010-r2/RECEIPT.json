@@ -1,0 +1,148 @@
+{
+  "additionalIndependentParentReaderAssessment": {
+    "deliveredAssessment": "Finite full parent/reader source read: no concrete findings. Both complete pairs independently applied,10/8 helper bodies exact; actual18 aliases/fixed external roles/protection/historical provenance/diagnostic48 key/strict PASS STOP null proofs/recorded PID versus group cleanup match existing contracts.",
+    "evidenceScope": "Assessment delivered directly by independent reviewer; no separately retained tool envelope claimed.",
+    "executionAuthorization": false,
+    "reportedAuditExit": 0,
+    "reportedDataOnlyAuditToolChunk": "d560c1",
+    "reviewer": "/root/m0_types_source_review",
+    "sourceAuthor": "/root/cleanup_independent_red"
+  },
+  "claimLimits": {
+    "actualFutureGrant": null,
+    "candidateImported": false,
+    "fullFunctionQualificationAccepted": false,
+    "mandatoryOriginalFullPostflightStillRequired": true,
+    "privateRootsRead": false,
+    "runtimeExecuted": false
+  },
+  "concreteFindings": [],
+  "currentProtection": {
+    "bytes": 3761,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/M0-FULLFUNCTION-CURRENT-PROTECTION.json",
+    "sha256": "9d62c00117818cb92565706dc52545562addfcab6cbbe987a9083f2e8cceffd2"
+  },
+  "decision": "ACCEPT_STATIC_FULLFUNCTION_ONCE_PARENT_SOURCE_ONLY",
+  "exactArgv": {
+    "bytes": 2185,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/EXACT-ARGV.json",
+    "sha256": "219b1ecade5cb70ef753cba8faff8d62e06570d3c08e598b69e58276a4c0d293"
+  },
+  "executionAuthorization": false,
+  "findings": [],
+  "independentReviewer": "/root/b109_focused_route_review",
+  "parentSourceProof": {
+    "bytes": 8606,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-source-20261010-r1/SOURCE-PROOF.json",
+    "sha256": "13b010feaf38759fe1ae2908a9702f94d86b65021a5c71b3d93a9ecbc4fe576c"
+  },
+  "preservedInitialCombinedReceipt": {
+    "bytes": 6715,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-parent-readback-wrappers-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "945a328b76dac92f3f3eb517e22191577be92c19b0c4f23289b9cb11ce2d45ea"
+  },
+  "review": {
+    "actualPIDPGIDSIDAndDirectExecIdentityPreserved": true,
+    "allEighteenRouteAliasesExact": true,
+    "allManifestPayloadRolesAuthenticated": {
+      "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-source-20261010-r1": 15,
+      "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1": 16
+    },
+    "combinedReviewContractAndActualConsumersExact": true,
+    "completeForwardInverseApplications": 8,
+    "currentProtectionV2AndActual48PrerequisiteBound": true,
+    "durableExclusiveOnceClaimAndLaneLockBoundGrantPreserved": true,
+    "environmentInheritsHOME": true,
+    "externalExceptionsExactlyTwoF7FourC3FourR3": true,
+    "helperBodiesByteExact": {
+      "launch-fullfunction.py": 10,
+      "read-fullfunction.py": 8,
+      "run_observer_fullfunction_once.py": 4,
+      "run_observer_reader_once.py": 1
+    },
+    "historicalAMTypesAndPure49TemplateSeparateFromCurrentANAndRuntimeTemplate": true,
+    "noInventedCombinedPreparationRuntimeClock": true,
+    "originalPrep60CancelledBeforeEachExec": true,
+    "originalRuntime300320330AndCapsUnchanged": true,
+    "readerActualToolGrantClaimStreamsOwnershipRolesAuthenticated": true,
+    "readerScopeFullPostflightAndQualificationRemainUnaccepted": true,
+    "routeAndCombinedReviewOperandsExternalNoHashCycle": true,
+    "typedPASSSTOPNullableAfterProofAndPrefixPreserved": true,
+    "wholePairsIndependentlyApplied": [
+      "launch-fullfunction.py",
+      "read-fullfunction.py",
+      "run_observer_fullfunction_once.py",
+      "run_observer_reader_once.py"
+    ]
+  },
+  "rootReadbackDecision": "ACCEPT_STATIC_FULLFUNCTION_ROOT_READBACK_SOURCE_ONLY",
+  "routeSourceManifest": {
+    "bytes": 23375,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "9a2d56c0b7263792b3e67f29d1cb40349ddc52593fe2ec9a80ff5463b0e99aef"
+  },
+  "routeSourcePins": {
+    "launch-fullfunction.py": {
+      "bytes": 18392,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-source-20261010-r1/launch-fullfunction.py",
+      "sha256": "8d16d458499a6753fba86f041f2dfcd287e3250065bf5b4c0e7ca81bee1df831"
+    },
+    "read-fullfunction.py": {
+      "bytes": 14392,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-source-20261010-r1/read-fullfunction.py",
+      "sha256": "f933f5136f9014751b1b3b7af20fc37bddf0e32be5ad178647b37fd816ebed8d"
+    }
+  },
+  "routeSourceReview": {
+    "bytes": 14707,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "00f0b0432656557fa722f674f04a2ab6dc4040292e9e90aed7f50f5a988ea595"
+  },
+  "schema": "1370-ao-fullfunction-parent-readback-wrappers-independent-source-review/v1",
+  "scriptRoleMatrix": {
+    "bytes": 9849,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-source-20261010-r1/SCRIPT-ROLE-MATRIX.json",
+    "sha256": "ee3807bbbcc460c233b57bf30dce3b49830e1d6841a53cae065670c98b715d36"
+  },
+  "sourceAuthor": "/root/cleanup_independent_red",
+  "sourceManifest": {
+    "bytes": 4852,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "0742ed9f3e4d89b285c31bec1a8210b43942fa88de70b22d9d5150c72e5715db"
+  },
+  "sourceOnly": true,
+  "sourcePins": {
+    "launch-fullfunction.py": {
+      "bytes": 18392,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-source-20261010-r1/launch-fullfunction.py",
+      "sha256": "8d16d458499a6753fba86f041f2dfcd287e3250065bf5b4c0e7ca81bee1df831"
+    },
+    "read-fullfunction.py": {
+      "bytes": 14392,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-source-20261010-r1/read-fullfunction.py",
+      "sha256": "f933f5136f9014751b1b3b7af20fc37bddf0e32be5ad178647b37fd816ebed8d"
+    }
+  },
+  "wrapperSourceManifest": {
+    "bytes": 5407,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "83adcaf98af650e96e5644081877ab14b2d83bd6842dd62c4c8ddfbc9c85a288"
+  },
+  "wrapperSourcePins": {
+    "run_observer_fullfunction_once.py": {
+      "bytes": 9863,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_fullfunction_once.py",
+      "sha256": "aa731bd4edf1a8509af559cb8ca0261cda655e87e4e86a013ad9f5be2dddff1b"
+    },
+    "run_observer_reader_once.py": {
+      "bytes": 2604,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_reader_once.py",
+      "sha256": "80e0ae126fdbf54f95d709552c9e9263223dd89b19e85c551a840a2027bffb68"
+    }
+  },
+  "wrapperSourceProof": {
+    "bytes": 6347,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/SOURCE-PROOF.json",
+    "sha256": "0563a2a93cf11d866e7f262c833e0fae23a6e14bca03a599d6599fb7774ca586"
+  }
+}

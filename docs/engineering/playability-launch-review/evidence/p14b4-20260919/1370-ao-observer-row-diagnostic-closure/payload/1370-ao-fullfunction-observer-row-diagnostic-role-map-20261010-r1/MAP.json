@@ -1,0 +1,217 @@
+{
+  "schema": "1370-ao-fullfunction-observer-row-diagnostic-role-map/v1",
+  "status": "READ_ONLY_SOURCE_ROLE_MAP_NO_ROUTE_IMPLEMENTATION_OR_EXECUTION",
+  "executionAuthorization": false,
+  "baselineManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r13/SOURCE-PINS.json",
+    "bytes": 20567,
+    "sha256": "5eb4371205271d8ae2b88d6c4dd2f7f20057b8ae30430fd8905e1ed3816d98d3"
+  },
+  "diagnosticManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/SOURCE-PINS.json",
+    "bytes": 6892,
+    "sha256": "ecfa500f2a60f1280c6fcf06d60817bbb017bbf2524b74ab42bfd9c5aa5ce3b3"
+  },
+  "independentControlsManifest": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "bytes": 3328,
+    "sha256": "a427acb4c7e1c0b5d31695141600c828c9e8f64543d5b828b9c40ac678b34411"
+  },
+  "sourceSubstitutions": [
+    {
+      "source": "RESOLUTION-SOURCE-BINDING.json",
+      "field": "derivatives['src/core/talentMarket.ts']",
+      "originalRole": {
+        "bytes": 119434,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/talentMarket.ts",
+        "sha256": "ce06afb3069c83dc1d9ee1fb8a03b7f1609c0db41fc3ea8078b455061455ed2d"
+      },
+      "replacement": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/talentMarket.ts",
+        "bytes": 119700,
+        "sha256": "fe9bea844bf41c3ad7e57924a6822f3a48b695b75880477281889a250a7c500a"
+      },
+      "scope": "Same canonical logical identity; only reviewed diagnostic wrapper integration."
+    },
+    {
+      "source": "CONFIG.json and RESOLUTION-SOURCE-BINDING.json",
+      "field": "inputs['mutants/typed-propagation-removed-talentMarket.ts'] and typedCatchMutant",
+      "originalRole": {
+        "bytes": 119464,
+        "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/mutants/typed-propagation-removed-talentMarket.ts",
+        "sha256": "074d0cfd58e245bb35883b79bf72dda428884fc2bb49ea918da6f2320c235ef3"
+      },
+      "replacement": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/typed-propagation-removed-talentMarket.ts",
+        "bytes": 119730,
+        "sha256": "425922b5f9b3c1c9c27d91b45214b76b217345b63890887ba870494b9ac91479"
+      },
+      "scope": "Same diagnostic integration as baseline; preserve sole original30-byte typed-catch difference."
+    },
+    {
+      "source": "CONFIG.json",
+      "field": "templates['FULL-BODY-CONTROLS-TEMPLATE.ts']",
+      "originalRole": {
+        "bytes": 9744,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/FULL-BODY-CONTROLS-TEMPLATE.ts",
+        "sha256": "324c7cc754497e43cc5a9d46865f4cbf7e1a635b5e2ce5ac0857defab8661a02"
+      },
+      "replacement": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/FULL-BODY-CONTROLS-TEMPLATE.ts",
+        "bytes": 9962,
+        "sha256": "6057cdc52bc7db089bd701ff5578bbd4d4c574ed72b4abaa39d20a4e2c87a783"
+      },
+      "scope": "Actual arm uses same exported runObserverArm; immediate post-advance throwIfFailed remains before trace/assertion work."
+    },
+    {
+      "source": "CONFIG.json and RESOLUTION-SOURCE-BINDING.json",
+      "field": "new exact input role and derivatives['src/core/m0ObserverRowDiagnostic.mjs']",
+      "replacement": {
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0ObserverRowDiagnostic.mjs",
+        "bytes": 10646,
+        "sha256": "facc279ea400667a5bfdb029dbbf7defd62c7ae950e181d763bac27d4aa49124"
+      },
+      "scope": "Pure module only; original private/public witness unchanged67ff."
+    }
+  ],
+  "canonicalResolution": {
+    "resolver": {
+      "bytes": 2363,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/canonical-resolver.mjs",
+      "sha256": "429cc7b8ad0f6be2f851a2f10ef431d63192b912e0864c7602fd6072c4ae14fd"
+    },
+    "transform": {
+      "bytes": 1906,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r13/canonical-typescript-transform.mjs",
+      "sha256": "71c3f791da660a280b04fcfb9038e037ff3c3ac2a080fec38f2164f85176751a"
+    },
+    "canonicalPrefix": "\\0m0-full-body/",
+    "baselineRelativeImport": "./m0ObserverRowDiagnostic.mjs",
+    "fullbodyImport": "m0:src/core/m0ObserverRowDiagnostic.mjs",
+    "requiredLogicalRole": "src/core/m0ObserverRowDiagnostic.mjs",
+    "implementation": "Existing resolver accepts exact .mjs derivative; existing transform hashes exact raw role before using pinned public transform. Add derivative entry, no private source installation or resolver rewrite. Runtime binding copy carries it; retained local traceSequences/ordering copies unchanged."
+  },
+  "requiredConsumerUpdates": [
+    {
+      "sources": [
+        "CONFIG.json",
+        "RECIPE.json",
+        "SOURCE-PINS.json",
+        "run-fullfunction.py",
+        "run-fullfunction.mjs"
+      ],
+      "change": "Bind new baseline/mutant/template/module roles and actual diagnostic implementation+independent review/source adoption+control source/review/actual48 observed adoption consistently before private gates. Extend existing review aliases and physical-role whitelist with those exact additions; rebuild complete map from final manifest, no guessed map."
+    },
+    {
+      "sources": [
+        "CONFIG.json",
+        "run-fullfunction.py",
+        "run-fullfunction.mjs"
+      ],
+      "change": "Historical be632 successful types productionHead remains AM7087. Authenticate that exact historical head separately from current operationalHead AN0cf8; current AN protection/publication docs-only source13880 continuity must be authentic. Do not repin/relabel historical type result/adoption."
+    },
+    {
+      "sources": [
+        "run-fullfunction.py",
+        "CORE-TEST-TEMPLATE.ts",
+        "CONFIG.json"
+      ],
+      "change": "Borrowed proof-library CURRENT_HEAD global is AM7087 (runner11;guard539/542). Explicitly bind it to authenticated current AN head in imported namespace, or exact pinned literal derivative, retaining guard funcs and source13880. CORE template operational head literal likewise changes to current AN."
+    },
+    {
+      "sources": [
+        "CONFIG.json",
+        "RECIPE.json",
+        "run-fullfunction.py",
+        "run-fullfunction.mjs"
+      ],
+      "change": "Separate new runtime fullbody6057 from historical pure49 template324c. Preserve four tested C3 codec/probe/sequences/ordering roles and actual49/template324c provenance. Existing representationInputs iteration/manifests and observed49 sourceReviewedFullBodyTemplate comparison must explicitly use historical provenance while current runtime template is authenticated by diagnostic source/helper controls."
+    },
+    {
+      "sources": [
+        "record-fullfunction.py",
+        "CONFIG.json",
+        "RECIPE.json",
+        "run-fullfunction.py",
+        "run-fullfunction.mjs",
+        "CONFIG-TEMPLATE.mts"
+      ],
+      "change": "Rebase fresh output/runId/lane/config/SHA bindings and exact source paths; preserve recorder mechanisms, generation/fixture sources, aggregate300/active320/whole330, 8MiB streams,64MiB fixture,128KiB result and existing phase/output caps. Full forwards/inverses must account for all changes."
+    }
+  ],
+  "preservedInputs": {
+    "originalFixture": {
+      "bytes": 6863,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/fixtures.ts",
+      "sha256": "5ff38007b8126571e9fa84a9efe94f35866be409d3c35b22f9c90b5ce3e0315d"
+    },
+    "fourTestedLosslessModules": {
+      "m0TraceCodec.mjs": {
+        "bytes": 7882,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+        "sha256": "5276c5dcf6502d21afd5f3bdc1669911ef4aebbbfe811c36e34689691eb64768"
+      },
+      "m0WiringProbe.ts": {
+        "bytes": 1800,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0WiringProbe.ts",
+        "sha256": "c3da292f943a37ae5c3c30005dfec71eb485bf17a211ecfddaa03efe0460c5a9"
+      },
+      "traceSequences.mjs": {
+        "bytes": 1286,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/traceSequences.mjs",
+        "sha256": "0880717f82b4c18734dcdaaa10037a5ec8c7c32930fb14c58a54f1c1005ffede"
+      },
+      "ordering.ts": {
+        "bytes": 11927,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/ordering.ts",
+        "sha256": "8599945b1c3057ebb777ffcf56c55ddc30121b505f6ec29dacbc87aef216a803"
+      }
+    },
+    "historicalPure49Template": {
+      "bytes": 9744,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "324c7cc754497e43cc5a9d46865f4cbf7e1a635b5e2ce5ac0857defab8661a02"
+    },
+    "parserInputs": {
+      "exact-json.mjs": {
+        "bytes": 2202,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/exact-json.mjs",
+        "sha256": "90b495640d536e9a4386765d255c973aa58bf5f3111f36210ef8e7e4dd9023e1"
+      },
+      "run-parser-controls.mjs": {
+        "bytes": 7028,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r7/run-parser-controls.mjs",
+        "sha256": "612178f22ab0b9cd80e2b43a45b93a12582e6bdcc42fa38572ca37c2269c6ef7"
+      }
+    },
+    "bounds": {
+      "activeRecorder": 320,
+      "aggregateChild": 300,
+      "aggregateOutputTreeBytes": 268435456,
+      "fixturePacketBytes": 67108864,
+      "outputTreeEntryCap": 10000,
+      "resultBytes": 131072,
+      "streamBytes": 8388608,
+      "vitestReportBytes": 1048576,
+      "wholeRecorder": 330
+    },
+    "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554"
+  },
+  "genuineFutureRoles": {
+    "diagnosticImplementationIndependentReview": null,
+    "diagnosticControlsIndependentReview": null,
+    "rootDiagnosticSourceAdoption": null,
+    "actual48ControlsObservedAdoption": null,
+    "currentANFullpreflightObservedAdoption": null,
+    "currentANFullfunctionProtection": null,
+    "actualOnceGrant": null,
+    "actualGameResult": null
+  },
+  "claimLimits": [
+    "No route source authored here.",
+    "No runtime/imports/probes/private tree or dependency traversal/Git writes.",
+    "No new fixture/cap/policy choice; no invented actual control or generation outcome.",
+    "Prior failures remain STOP, including R5 unknown failed-row metadata.",
+    "Types historical fullpost remains distinct from fresh current shared protection."
+  ]
+}

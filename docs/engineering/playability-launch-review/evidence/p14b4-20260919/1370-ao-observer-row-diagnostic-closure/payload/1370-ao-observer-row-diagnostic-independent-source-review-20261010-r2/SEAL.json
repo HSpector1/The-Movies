@@ -1,0 +1,11 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "RECEIPT.json": {
+      "bytes": 1848,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-source-review-20261010-r2/RECEIPT.json",
+      "sha256": "f7b00b357518844bc65a9c07b722a055a6d00b9041ec56b198ab30e8b5bae776"
+    }
+  },
+  "schema": "1370-independent-source-review-seal/v1"
+}

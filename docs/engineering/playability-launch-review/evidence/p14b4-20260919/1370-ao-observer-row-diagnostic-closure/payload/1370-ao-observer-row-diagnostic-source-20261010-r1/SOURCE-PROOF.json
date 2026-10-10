@@ -1,0 +1,45 @@
+{
+  "schema": "1370-ao-observer-row-diagnostic-source-proof/v1",
+  "executionAuthorization": false,
+  "executionPerformed": false,
+  "api": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2/API.md",
+    "bytes": 8460,
+    "sha256": "8b23588f28233794a7d0317b76d0770912015bc3ffd20dd823aae74b21225eb8"
+  },
+  "designAdoption": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/OBSERVER-ROW-DIAGNOSTIC-DESIGN-ADOPTION.json",
+    "bytes": 3797,
+    "sha256": "8b45e59bfbcf67e115f28065c475fc64ba353a96ee4c07e616472bf58b1eda90"
+  },
+  "baselines": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/talentMarket.ts",
+      "bytes": 119434,
+      "sha256": "ce06afb3069c83dc1d9ee1fb8a03b7f1609c0db41fc3ea8078b455061455ed2d"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/mutants/typed-propagation-removed-talentMarket.ts",
+      "bytes": 119464,
+      "sha256": "074d0cfd58e245bb35883b79bf72dda428884fc2bb49ea918da6f2320c235ef3"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "bytes": 9744,
+      "sha256": "324c7cc754497e43cc5a9d46865f4cbf7e1a635b5e2ce5ac0857defab8661a02"
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-feasibility-hook-overlay-r10-schema-correction/m0FeasibilityWitness.ts",
+      "bytes": 4729,
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    }
+  ],
+  "wholeForwardInverseApplications": 6,
+  "typedCatchDifferenceBytes": 30,
+  "originalWitnessByteIdentical": true,
+  "originalCapsUnchanged": true,
+  "independentControls": null,
+  "independentSourceReview": null,
+  "actualControls": null,
+  "actualGameplay": null
+}

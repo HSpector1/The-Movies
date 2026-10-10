@@ -1,0 +1,389 @@
+{
+  "actualCombinedSourceReview": {
+    "bytes": 6715,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-parent-readback-wrappers-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "945a328b76dac92f3f3eb517e22191577be92c19b0c4f23289b9cb11ce2d45ea"
+  },
+  "actualGenerationPhaseSucceeded": true,
+  "actualTool": {
+    "bytes": 1640,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "1d6844446d4986a40cf97d047101169db7370f5499fdd7dc18ef1e228aaa9f6c"
+  },
+  "baselineAccepted": false,
+  "baselineReport": {
+    "bytes": 2879,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-results-20261010-r1/baseline.report.json",
+    "sha256": "8a186b51241ac6cdbf94a34e4602df4cb2fdd0a2b5810c7c929901a68cb54acd"
+  },
+  "baselineStderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-results-20261010-r1/baseline.stderr",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "baselineStdout": {
+    "bytes": 1084,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-results-20261010-r1/baseline.stdout",
+    "sha256": "723655adc0a0f76175fff9fc51d8ce991c7c2499bbc549502de4e72c33bc1ffe"
+  },
+  "captureEnabledAtDiagnostic": true,
+  "cleanupMeasuredRowReview": {
+    "bytes": 9093,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-independent-measured-row-review-20261010-r1/RECEIPT.json",
+    "sha256": "f80ac6764ca924afe1b2a33152280db573a4235f0fa0d0cb7037083977fdb156"
+  },
+  "concreteFindings": [],
+  "controllerResult": {
+    "bytes": 2219,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-results-20261010-r1/RESULT.json",
+    "sha256": "e5504676a7a23e3ab3411a34ef1404bf50bc4b309b891a3d9c4eb65ab97e9bfa"
+  },
+  "correctedPartialObservedReview": {
+    "bytes": 11498,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-independent-partial-observed-review-20261010-r2/RECEIPT.json",
+    "sha256": "a9bc4f11fcae9e579811756c7fd5d942db9a608c4755d0856efd717469b2d7dc"
+  },
+  "correction": {
+    "actualRetainedErrorStack": {
+      "bytes": 2879,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-results-20261010-r1/baseline.report.json",
+      "sha256": "8a186b51241ac6cdbf94a34e4602df4cb2fdd0a2b5810c7c929901a68cb54acd"
+    },
+    "boundedCorrectedClaim": "capture-enabled target week196 authorCandidate2; fixture iteration unknown",
+    "exactSourceRefutation": "begin(false) sets enabled=false; actual talentMarket m0Capture line1566 returns undefined before sink.capture/wrap while captureEnabled is false.",
+    "incorrectPriorClaim": "off arm of first natural author196 pair",
+    "newRuntimeOrProbes": false,
+    "probeSource": {
+      "bytes": 1800,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0WiringProbe.ts",
+      "sha256": "c3da292f943a37ae5c3c30005dfec71eb485bf17a211ecfddaa03efe0460c5a9"
+    },
+    "reviewAttributionErrorPreserved": true,
+    "sourceOrRuntimeChanged": false,
+    "talentMarketSource": {
+      "bytes": 119700,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/talentMarket.ts",
+      "sha256": "fe9bea844bf41c3ad7e57924a6822f3a48b695b75880477281889a250a7c500a"
+    }
+  },
+  "currentProtection": {
+    "bytes": 3761,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/M0-FULLFUNCTION-CURRENT-PROTECTION.json",
+    "sha256": "9d62c00117818cb92565706dc52545562addfcab6cbbe987a9083f2e8cceffd2"
+  },
+  "currentTypesAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  },
+  "decision": "ACCEPT_OBSERVED_FULLFUNCTION_ORIGINAL_OBSERVER_ROW_CAP_STOP_WITH_AVAILABLE_DIAGNOSTIC_AND_FULL_SHARED_POSTFLIGHT",
+  "dependencyAfter": null,
+  "diagnosis": {
+    "availability": "available",
+    "canonicalInputBytes": 15360,
+    "canonicalInputUnavailableReason": null,
+    "context": {
+      "candidateOrdinal": 2,
+      "caseKey": "[\"person-studio-aca408ec-r01-0\",\"studio-aca408ec-r01\",\"studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0\",196]",
+      "caseOccurrence": 0,
+      "caseSourceIndex": 0,
+      "era": "M0",
+      "issuer": "studio-aca408ec-r02",
+      "phase": "authorCandidate",
+      "proposalKey": "[\"person-studio-aca408ec-r01-0\",\"studio-aca408ec-r02\",\"b379d43d0b34d71b\",196]",
+      "proposalOccurrence": 0,
+      "proposalSourceIndex": 70,
+      "subject": "person-studio-aca408ec-r01-0",
+      "week": 196
+    },
+    "contextBytes": 468,
+    "detailBytes": 16733,
+    "error": {
+      "message": "M0 feasibility row byte bound exceeded",
+      "name": "Error"
+    },
+    "family": "PREFERRED_GENRE_OPPORTUNITY",
+    "familyUnavailableReason": null,
+    "kind": "inputTuple",
+    "occurrence": 0,
+    "predicate": "ROW_BYTE_CAP",
+    "priorRowCount": 21,
+    "rowBytes": 17305,
+    "rowLimit": 16384,
+    "schema": "1370-m0-observer-row-diagnostic/v1",
+    "sequence": 21
+  },
+  "diagnosticLimits": "Observed bounded scalar diagnostic authenticates available metrics and original Error. No captured raw row, independent replay, cap waiver, truncation, or full acceptance is claimed.",
+  "executionAuthorization": false,
+  "findings": [],
+  "fixture": {
+    "bytes": 12428510,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-results-20261010-r1/fixtures.json",
+    "sha256": "0ae4a9a261600c23b1bfd05eb860d65ef0f6769c9918670eb97bf7120b74ec62"
+  },
+  "fixtureIteration": null,
+  "fixtureQualificationAccepted": false,
+  "fullFunctionQualificationAccepted": false,
+  "fullPostflightActualTool": {
+    "bytes": 1551,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "b13c3312d73156bb6f2bffffe93123285e341f3c31e93f89a9e52798a04e1b91"
+  },
+  "fullPostflightBaseline": {
+    "bytes": 9440774,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-an-r1/SNAPSHOT.json",
+    "sha256": "63fe53279f1703e9f67d587481ee741e15502fa4a167b1f33e9c7741d13389e9"
+  },
+  "fullPostflightGrant": {
+    "bytes": 5351,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "547062becf81daad6b43b56e2440e423efbe4577022b8d1f495a87cde157dd5d"
+  },
+  "fullPostflightReadback": {
+    "bytes": 5352,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "fe8ddca7ccf46e38bcf4609313e05a031f4f6f7b87270cdccf259763ea8f3312"
+  },
+  "fullPostflightReaderActualTool": {
+    "bytes": 1136,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-parent-recorded-20261010-r1/READER-ACTUAL-TOOL.json",
+    "sha256": "b648eff3229baf026c804534771d5abf5caa12186cbc63e2e64e54a5664b5592"
+  },
+  "fullPostflightSnapshot": {
+    "bytes": 9449391,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/evidence/postflight-fullfunction-observer-row-diagnostic-r1/SNAPSHOT.json",
+    "sha256": "2e8e89e5b648fe873ec15acd8d2b3ea6633220863acc6c33f77b3f11db8091cc"
+  },
+  "fullPostflightSourceReview": {
+    "bytes": 7278,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "c60c12ddc9100a12917a566ae40b01744c07b89f7c9706a246518e0c47e817f8"
+  },
+  "fullProtectedPostflightAccepted": true,
+  "fullSharedPostflightAccepted": true,
+  "generatedNaturalBoundaryWeeks": [
+    196,
+    197,
+    208
+  ],
+  "generationControl": {
+    "bytes": 302,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-results-20261010-r1/generate.control.json",
+    "sha256": "81e408f75c7bd80398cc8640bc9319f03598ab4a46274ec2410580489ec2c118"
+  },
+  "generationReceipt": {
+    "bytes": 3713,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-results-20261010-r1/fixtures.receipt.json",
+    "sha256": "7067863ede1cf5d9c47bab1b341b09c9e5364dde97e01aa3171c48833c80eaa4"
+  },
+  "generationReport": {
+    "bytes": 950,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-results-20261010-r1/generate.report.json",
+    "sha256": "b1dae4e7b3c9e3ca1d99282e861b48e070bc82cfcde5d357856a681195392004"
+  },
+  "generationTestSeconds": 4.854579541,
+  "grant": {
+    "bytes": 4748,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-recorded-20261010-r1/EXECUTION-GRANT.json",
+    "sha256": "6fb3353711e2fb5f1f06f1f41f698982f06a37b7b1cd8ad54f905a114d5a6c91"
+  },
+  "independentReviewer": "/root/b109_focused_route_review",
+  "learning": "Original observer row cap remains a fatal boundary; diagnostic availability does not authorize acceptance, truncation, an emitter fallback or cap expansion. The exact capture guard disproved the initial off-arm attribution, which is preserved and corrected. Shared full protection passed without manufacturing missing M0 AFTER proofs or meaningful mutant RED.",
+  "mandatoryOriginalFullPostflightPending": false,
+  "measuredRowScope": "Independent retained-line review confirms 921-byte row excess, detail alone 349 bytes above cap,104 other framing bytes and1373 detail-minus-canonical bytes. No attribution of all1373 to escaping, no raw tuple/payload-element or fixture-iteration cause claim.",
+  "observerDiagnosticControlsObservedAdoption": {
+    "bytes": 8912,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "6de3da4778f3fa6a8901e44e473f33dd5eaea5ec174abdd54ddd1398f5f99d47"
+  },
+  "originalAttemptRemainsStop": true,
+  "ownership": {
+    "laneReleased": true,
+    "recordedOwnedGroupIds": [
+      20977,
+      21479,
+      21480
+    ],
+    "recordedOwnedPids": [
+      20977,
+      21479,
+      21480,
+      21747
+    ],
+    "scopedOwnershipChecks": [
+      {
+        "id": 20977,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 21479,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 21480,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 21747,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 20977,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 21479,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 21480,
+        "kind": "pgid",
+        "result": "ESRCH"
+      }
+    ]
+  },
+  "phaseScope": "Available diagnostic establishes capture-enabled week196 authorCandidate2 PREFERRED_GENRE_OPPORTUNITY. The retained original Error creation stack truncates at arm and contains no fixture label; natural-versus-synthetic fixture iteration is unknown. No returned earlier arm/pair, complete natural pair, baseline pass or meaningful mutant RED is claimed.",
+  "postflightReview": {
+    "actualScannerAndReaderExitsZero": true,
+    "afterFreeBytes": 4766314496,
+    "beforeFreeBytes": 4805066752,
+    "completeImmutableTypedEqualityToCurrentANBeforeFill63fe": true,
+    "guardSeconds": 463.71242587600136,
+    "inventorySeconds": 345.35928219200287,
+    "laneReleased": true,
+    "nineFreshESRCH": [
+      {
+        "id": 20977,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 21479,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 21480,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 21747,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 22355,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 20977,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 21479,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 21480,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 22355,
+        "kind": "pgid",
+        "result": "ESRCH"
+      }
+    ],
+    "nineStrictRootsExactBeforeAfter": true,
+    "originalCurrentFDProcessBootACDiskRefsAncestrySourceChecksAccepted": true,
+    "ownedGroups": [
+      20977,
+      21479,
+      21480,
+      22355
+    ],
+    "ownedPids": [
+      20977,
+      21479,
+      21480,
+      21747,
+      22355
+    ],
+    "rawBytesNotCopiedIntoReview": true,
+    "rawLocalBytes": 1333995,
+    "rawLocalClassification": {
+      "bytes": 1573,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-parent-recorded-20261010-r1/RAW-LOCAL-ONLY-CLASSIFICATION.json",
+      "sha256": "3e9b6d164388b49f7bec1620e5764ebdeba3ad35f314183b53eb5db93ba5dae7"
+    },
+    "scratchParentOriginalIdentityOnlyPolicy": true
+  },
+  "preservedIncorrectPartialReceipt": {
+    "bytes": 9649,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-independent-partial-observed-review-20261010-r1/RECEIPT.json",
+    "sha256": "cae738b4ffea6fc4a85f54480b883dfe9600c9680f6e013027a292fba486057a"
+  },
+  "readback": {
+    "bytes": 7639,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "cd974aecb5d3580eb223cfde74dda04542362762c52fbd6e58ef3a965926266e"
+  },
+  "readerActualTool": {
+    "bytes": 784,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-recorded-20261010-r1/READER-ACTUAL-TOOL.json",
+    "sha256": "3bee9ce55d4a4ffde01889d5f8603cc2ca4d693635dcc2a4de05f7d3dd6f0767"
+  },
+  "recorderElapsedSeconds": 65.98286025400739,
+  "recorderResult": {
+    "bytes": 975,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-recorder-results-20261010-r1/RESULT.json",
+    "sha256": "69639dee0d54d1ed87bff1a6d0eabca50843bcb218e1284a844cf903de3b2fe6"
+  },
+  "recorderTimedOut": false,
+  "rootBinding": {
+    "bytes": 5180,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/FULLFUNCTION-OBSERVER-DIAGNOSTIC-ROOT-BINDING.json",
+    "sha256": "f6642fb3c75e7bb672962a1de943aa4ecf78b6bdc2f57b3911d8d195dfd572cd"
+  },
+  "runtimeOwner": "/root",
+  "schema": "1370-ao-fullfunction-observer-row-diagnostic-independent-observed-review/v1",
+  "sourceAfter": null,
+  "sourceAuthor": "/root/m0_types_source_review",
+  "sourcePins": {
+    "bytes": 23375,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "9a2d56c0b7263792b3e67f29d1cb40349ddc52593fe2ec9a80ff5463b0e99aef"
+  },
+  "sourceReview": {
+    "bytes": 14707,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "00f0b0432656557fa722f674f04a2ab6dc4040292e9e90aed7f50f5a988ea595"
+  },
+  "streams": {
+    "combinedHelperLog": {
+      "bytes": 731,
+      "path": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-observer-row-diagnostic-20261010-r1.lane.log",
+      "sha256": "6abb4e178af1c2de8be138020fc35e7be25c55569db943ff88adae85b47b2d03"
+    },
+    "combinedHelperLogNonempty": true,
+    "producerStderrBytes": 0,
+    "warning": "Qualified original recorder main() finally return at line249 SyntaxWarning retained; producer stderr is separately empty."
+  },
+  "supplementalCombinedReviewNotActualAuthority": {
+    "bytes": 7741,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-parent-readback-wrappers-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "e9579bf7863d4e68821016ebb26716236edd14007a5ee3765220ea8c5f349cdf"
+  },
+  "terminalActualGameplayPrefixExecuted": null,
+  "typedCatchMutantExecuted": false
+}

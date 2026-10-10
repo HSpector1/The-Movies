@@ -1,0 +1,21 @@
+{
+  "schema": "1370-root-actual-readback-tool-envelope/v1",
+  "sessionId": 10661,
+  "finalExit": 0,
+  "allToolChunks": [
+    {
+      "chunk_id": "e5dd5b",
+      "wall_time_seconds": 1.001519103,
+      "session_id": 10661,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "24cf8d",
+      "wall_time_seconds": 0.000025785,
+      "exit_code": 0,
+      "original_token_count": 82,
+      "output": "{\"readback\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-recorded-20261010-r1/READBACK.json\", \"bytes\": 7639, \"sha256\": \"cd974aecb5d3580eb223cfde74dda04542362762c52fbd6e58ef3a965926266e\"}, \"status\": \"ACTUAL_FULLFUNCTION_STOP_PRESERVED_PENDING_SHARED_FULL_POSTFLIGHT\"}\n"
+    }
+  ]
+}

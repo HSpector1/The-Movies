@@ -1,0 +1,70 @@
+--- launch-observer-row-controls.py
++++ launch-observer-row-controls.py
+@@ -48,43 +48,43 @@
+  return role(path)
+ def main():
+  require(sys.flags.isolated and sys.dont_write_bytecode and not sys.flags.optimize and len(sys.argv)==3,'EXACT_PYTHON_I_B_GRANT_ARGS')
+- gp=Path(sys.argv[1]);require(gp.is_absolute() and gp.name=='GRANT.json' and gp.parent==S/'1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1' and gp.parent.resolve(strict=True)==gp.parent,'ROOT_GRANT_LOCATION')
++ gp=Path(sys.argv[1]);require(gp.is_absolute() and gp.name=='GRANT.json' and gp.parent==S/'1370-an-lossless-trace-pure-controls-parent-recorded-20261010-r1' and gp.parent.resolve(strict=True)==gp.parent,'ROOT_GRANT_LOCATION')
+  gr=role(gp);require(gr['sha256']==sys.argv[2],'ROOT_GRANT_HASH');g=load(gp)
+- require(g['schema']=='1370-root-observer-row-diagnostic-pure-controls-once-grant/v1' and g['executionAuthorization'] is True and g['scope']=='PURE_PUBLIC_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_ONLY' and g['oneAggregateRun'] is True and g['automaticRetry'] is False,'EXTERNAL_ROOT_ONCE_GRANT')
++ require(g['schema']=='1370-root-lossless-trace-pure-controls-once-grant/v1' and g['executionAuthorization'] is True and g['scope']=='PURE_PUBLIC_LOSSLESS_CODEC_AND_AFFECTED_ORDERING_CONTROLS_ONLY' and g['oneAggregateRun'] is True and g['automaticRetry'] is False,'EXTERNAL_ROOT_ONCE_GRANT')
+  ap=authenticate(g['parentAdapterSourcePins']);require(ap==P/'SOURCE-PINS.json','PARENT_PINS_PATH');pins=load(ap)
+- require(pins['schema']=='1370-observer-row-diagnostic-pure-controls-recorded-route-source-pins/v1' and pins['executionAuthorization'] is False,'PARENT_PINS_PROTOCOL')
++ require(pins['schema']=='1370-lossless-trace-pure-controls-recorded-route-source-pins/v1' and pins['executionAuthorization'] is False,'PARENT_PINS_PROTOCOL')
+  for name,r in pins['files'].items():require(Path(r['path'])==P/name,'PARENT_FILE_PATH');authenticate(r)
+- require(exact(pins['files']['launch-observer-row-controls.py'],role(Path(__file__).resolve())),'PARENT_SELF')
++ require(exact(pins['files']['launch-lossless-controls.py'],role(Path(__file__).resolve())),'PARENT_SELF')
+  ar=load(authenticate(g['parentAdapterSourceReview']))
+- require(ar['decision']=='ACCEPT_STATIC_OBSERVER_ROW_DIAGNOSTIC_PURE_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY' and ar['executionAuthorization'] is False and ar['concreteFindings']==[] and exact(ar['sourceManifest'],g['parentAdapterSourcePins']),'PARENT_REVIEW')
++ require(ar['decision']=='ACCEPT_STATIC_LOSSLESS_TRACE_PURE_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY' and ar['executionAuthorization'] is False and ar['concreteFindings']==[] and exact(ar['sourceManifest'],g['parentAdapterSourcePins']),'PARENT_REVIEW')
+  contract=load(authenticate(pins['files']['CONTRACT.json']))
+  sp=authenticate(g['sourcePins']);require(sp==Q/'SOURCE-PINS.json' and exact(g['sourcePins'],g['parentAdapterSourcePins']),'CONTROLS_PINS')
+- sourcepins=load(sp);require(sourcepins['schema']=='1370-observer-row-diagnostic-pure-controls-recorded-route-source-pins/v1' and sourcepins['executionAuthorization'] is False,'CONTROLS_PINS_PROTOCOL')
++ sourcepins=load(sp);require(sourcepins['schema']=='1370-lossless-trace-pure-controls-recorded-route-source-pins/v1' and sourcepins['executionAuthorization'] is False,'CONTROLS_PINS_PROTOCOL')
+  for name,r in sourcepins['files'].items():require(Path(r['path'])==Q/name,'CONTROLS_FILE_PATH');authenticate(r)
+  require(exact(g['config'],contract['config']) and Path(g['recipe']['path'])==Path(contract['recipePath']) and exact(g['sourceReview'],g['parentAdapterSourceReview']),'QUALIFIED_SOURCE_ROLES')
+  require(exact(sourcepins['files']['CONFIG.json'],g['config']) and exact(sourcepins['files']['RECIPE.json'],g['recipe']),'MANIFEST_CONFIG_RECIPE')
+  config=load(authenticate(g['config']));recipe=load(authenticate(g['recipe']));rv=load(authenticate(g['sourceReview']))
+- require(rv['schema']=='1370-observer-row-diagnostic-pure-controls-recorded-route-independent-source-review/v1' and rv['decision']=='ACCEPT_STATIC_OBSERVER_ROW_DIAGNOSTIC_PURE_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY' and rv['executionAuthorization'] is False and rv['concreteFindings']==[] and exact(rv['sourceManifest'],g['sourcePins']),'CONTROLS_REVIEW')
++ require(rv['schema']=='1370-lossless-trace-pure-controls-recorded-route-independent-source-review/v1' and rv['decision']=='ACCEPT_STATIC_LOSSLESS_TRACE_PURE_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY' and rv['executionAuthorization'] is False and rv['concreteFindings']==[] and exact(rv['sourceManifest'],g['sourcePins']),'CONTROLS_REVIEW')
+  for name in config['reviewAliases']:
+   wanted=sourcepins['files'].get(name,sourcepins['externalInputs'].get(name));require(exact(rv['sourcePins'][name],wanted) and exact(rv['routeSourcePins'][name],wanted),'REVIEW_ROLE_ALIAS')
+  require(config['syntheticOnly'] is True and config['actualFixtureQualification'] is False and config['candidateChanged'] is False and exact(g['bounds'],contract['bounds']) and exact(config['bounds'],contract['bounds']) and exact(recipe['bounds'],contract['bounds']),'PURE_SCOPE_BOUNDS')
+  require(g['clockEnforcedByOriginalRecordedRoute'] is True and g['configSha256']==g['config']['sha256'] and g['outputPath']==config['outputPath']==contract['outputPath'],'RECORDED_ROUTE_BINDINGS')
+- require(exact(config['inputs'],contract['inputs']) and type(config['caseCount']) is int and config['caseCount']==48 and config['positiveCount']==6 and config['specificNegativeCount']==42,'PURE_PUBLIC_SOURCE_BINDINGS')
+- for key in ('implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption','implementationControlsSourceAdoption','api'):require(exact(g[key],config[key]),'ACTUAL_'+key.upper());authenticate(config[key])
+- design=load(authenticate(config['rootDesignAdoption']));require(design['schema']=='1370-root-observer-row-diagnostic-design-adoption/v1' and design['status']=='ROOT_ADOPTED_BOUNDED_FIRST_REFUSED_OBSERVER_ROW_DIAGNOSTIC_DESIGN_ONLY' and design['executionAuthorization'] is False and design['sourcePreparationAuthorized'] is True,'GENUINE_DESIGN_ADOPTION')
++ require(exact(config['inputs'],contract['inputs']) and type(config['caseCount']) is int and config['caseCount']==49 and config['positiveCount']==9 and config['specificNegativeCount']==40,'PURE_PUBLIC_SOURCE_BINDINGS')
++ for key in ('implementationSourcePins','implementationSourceReview','controlsSourcePins','controlsSourceReview','rootDesignAdoption','implementationControlsSourceAdoption'):require(exact(g[key],config[key]),'ACTUAL_'+key.upper());authenticate(config[key])
++ design=load(authenticate(config['rootDesignAdoption']));require(design['schema']=='1370-root-lossless-helper-trace-representation-amendment/v1' and design['status']=='ROOT_ADOPTED_EXACT_LOSSLESS_COMPRESSED_TRACE_DESIGN_FOR_IMPLEMENTATION_ONLY' and design['executionAuthorization'] is False and design['implementationAuthorized'] is True,'GENUINE_DESIGN_ADOPTION')
+  adoption=load(authenticate(g['sourceAdoption']))
+- require(adoption['schema']=='1370-root-observer-row-diagnostic-pure-controls-source-adoption/v1' and adoption['status']=='ROOT_ADOPTED_PURE_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_SOURCE_ONLY' and adoption['executionAuthorization'] is False and exact(adoption['sourcePins'],g['sourcePins']) and exact(adoption['sourceReview'],g['sourceReview']) and exact(adoption['parentAdapterSourcePins'],g['parentAdapterSourcePins']) and exact(adoption['parentAdapterSourceReview'],g['parentAdapterSourceReview']),'ROOT_SOURCE_ADOPTION')
++ require(adoption['schema']=='1370-root-lossless-trace-pure-controls-source-adoption/v1' and adoption['status']=='ROOT_ADOPTED_PURE_LOSSLESS_TRACE_CONTROLS_SOURCE_ONLY' and adoption['executionAuthorization'] is False and exact(adoption['sourcePins'],g['sourcePins']) and exact(adoption['sourceReview'],g['sourceReview']) and exact(adoption['parentAdapterSourcePins'],g['parentAdapterSourcePins']) and exact(adoption['parentAdapterSourceReview'],g['parentAdapterSourceReview']),'ROOT_SOURCE_ADOPTION')
+  require(exact(g['runtimeToolsObservation'],contract['runtimeToolsObservation']),'PINNED_TOOLS_OBSERVATION')
+- observation=load(authenticate(g['runtimeToolsObservation']));require(observation['schema']=='1370-ao-observer-diagnostic-controls-runtime-tools/v1' and observation['executionAuthorization'] is False and observation['allFivePhysicalFilesRehashedNow'] is True and observation['sourceImportsOrExecution'] is False,'GENUINE_TOOLS_OBSERVATION')
++ observation=load(authenticate(g['runtimeToolsObservation']));require(observation['schema']=='1370-root-pure-lossless-runtime-tools/v1' and observation['executionAuthorization'] is False and observation['game'] is False and observation['typescriptVersion']=='5.9.3','GENUINE_TOOLS_OBSERVATION')
+  for key in ('python','node'):
+-  row=observation['runtimeTools'][key];wanted=contract['tools'][key]
++  row=observation[key];wanted=contract['tools'][key]
+   require(exact(row,wanted),'OBSERVED_'+key.upper());authenticate(wanted);require(os.access(wanted['path'],os.X_OK),'EXECUTABLE_'+key.upper())
+- for key in ('typescript','typescriptPackage'):require(exact(observation['runtimeTools'][key],contract['tools'][key]),'OBSERVED_'+key.upper());authenticate(contract['tools'][key])
++ for key in ('typescript','typescriptPackage'):require(exact(observation[key],contract['tools'][key]),'OBSERVED_'+key.upper());authenticate(contract['tools'][key])
+  require(exact(g['runtimeTools'],{key:contract['tools'][key] for key in ('node','python','helper','typescript','typescriptPackage')}),'ACTUAL_NODE_COMPILER_BINDING')
+  for wanted in contract['inputs'].values():authenticate(wanted)
+  authenticate(contract['tools']['helper'])
+  require(Path(sys.executable).resolve(strict=True)==Path(contract['tools']['python']['path']),'ACTUAL_PHYSICAL_PYTHON')
+- argv=['/bin/bash',contract['tools']['helper']['path'],'0',contract['laneLog'],contract['tools']['python']['path'],'-I','-B',str(Q/'record-observer-row-controls.py'),'verification',str(gp),gr['sha256']]
++ argv=['/bin/bash',contract['tools']['helper']['path'],'0',contract['laneLog'],contract['tools']['python']['path'],'-I','-B',str(Q/'record-lossless-controls.py'),'verification',str(gp),gr['sha256']]
+  require(exact(g['argvTemplate'],argv[:-1]+['EXTERNAL_GRANT_SHA256']) and g['cwd']==contract['cwd'] and exact(g['environment'],contract['environment']) and g['laneLog']==contract['laneLog'],'EXACT_DIRECT_EXEC_INTERFACE')
+  require('HOME' not in contract['environment'] and 'CODEX_HOME' not in contract['environment'],'HOME_INHERITED')
+  require(S.resolve(strict=True)==S and gp.parent==Path(contract['parentPath']),'PHYSICAL_SCRATCH_PARENT')
+@@ -93,7 +93,7 @@
+  require(not os.path.lexists(S/'HEAVY-LANE-LOCK'),'FREE_LANE')
+  if os.getpgid(0)!=os.getpid():os.setsid()
+  pid=os.getpid();pgid=os.getpgid(0);sid=os.getsid(0);require(pid>1 and pgid==pid and sid>1,'ACTUAL_OWN_HELPER_GROUP')
+- claim={'schema':'1370-observer-row-diagnostic-pure-controls-parent-launch-claim/v1','grant':gr,'argv':argv,'cwd':contract['cwd'],'environment':contract['environment'],'helperPid':pid,'helperPgid':pgid,'helperSid':sid,'actualOwnGroupConfirmed':True,'directExecPreservesOuterIdentity':True,'unexpectedHelperWaitIsStop':True,'sourcePins':g['sourcePins'],'sourceReview':g['sourceReview'],'parentAdapterSourcePins':g['parentAdapterSourcePins'],'parentAdapterSourceReview':g['parentAdapterSourceReview'],'runtimeToolsObservation':g['runtimeToolsObservation'],'sourceAdoption':g['sourceAdoption'],'preparationElapsedSeconds':time.monotonic()-START,'preparationDeadlineSeconds':60,'combinedPreparationRuntimeDeadline':None,'runtimeBounds':contract['bounds'],'runtimeClockOwnedByRecorder':True,'syntheticOnly':True,'game':False,'fixtureQualification':False,'meaningfulCatchMutantRed':False,'originalM0ReadOrWritten':False,'executionAuthorization':False}
++ claim={'schema':'1370-lossless-trace-pure-controls-parent-launch-claim/v1','grant':gr,'argv':argv,'cwd':contract['cwd'],'environment':contract['environment'],'helperPid':pid,'helperPgid':pgid,'helperSid':sid,'actualOwnGroupConfirmed':True,'directExecPreservesOuterIdentity':True,'unexpectedHelperWaitIsStop':True,'sourcePins':g['sourcePins'],'sourceReview':g['sourceReview'],'parentAdapterSourcePins':g['parentAdapterSourcePins'],'parentAdapterSourceReview':g['parentAdapterSourceReview'],'runtimeToolsObservation':g['runtimeToolsObservation'],'sourceAdoption':g['sourceAdoption'],'preparationElapsedSeconds':time.monotonic()-START,'preparationDeadlineSeconds':60,'combinedPreparationRuntimeDeadline':None,'runtimeBounds':contract['bounds'],'runtimeClockOwnedByRecorder':True,'syntheticOnly':True,'game':False,'fixtureQualification':False,'meaningfulCatchMutantRed':False,'originalM0ReadOrWritten':False,'executionAuthorization':False}
+  cr=write(gp.parent/'LAUNCH-CLAIM.json',claim);remaining();require(not os.path.lexists(S/'HEAVY-LANE-LOCK'),'FREE_LANE_IMMEDIATELY_BEFORE_EXEC')
+  print(json.dumps({'launchClaim':cr,'helperPid':pid,'helperPgid':pgid,'helperSid':sid}),flush=True)
+  os.chdir(contract['cwd'])

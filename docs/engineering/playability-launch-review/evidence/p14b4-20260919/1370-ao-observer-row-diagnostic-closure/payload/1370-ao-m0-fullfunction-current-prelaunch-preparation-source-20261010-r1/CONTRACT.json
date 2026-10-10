@@ -1,0 +1,26 @@
+{
+  "executionAuthorization": false,
+  "freshFullInventory": false,
+  "game": false,
+  "historicalTypesRemainHistorical": true,
+  "originalScannerHelpersUnchanged": true,
+  "overallTimeoutAdded": false,
+  "perCommandTimeoutSeconds": 180,
+  "rawPsFdLocalHashSizeOnly": true,
+  "requiredSourceReviewDecision": "ACCEPT_STATIC_CURRENT_AN_FULLFUNCTION_PRELAUNCH_SOURCE_ONLY",
+  "requiredSourceReviewFields": [
+    "sourceManifest",
+    "sourcePins",
+    "routeSourcePins",
+    "concreteFindings",
+    "executionAuthorization"
+  ],
+  "reviewAliasNames": [
+    "current-an-root-prelaunch.py",
+    "PRELAUNCH-CONFIG-UNFILLED.json",
+    "run_current_an_prelaunch_once.py",
+    "read_current_an_prelaunch.py"
+  ],
+  "schema": "1370-ao-current-an-prelaunch-source-contract/v2",
+  "scopeAmendmentNeedsExternalParentReview": true
+}

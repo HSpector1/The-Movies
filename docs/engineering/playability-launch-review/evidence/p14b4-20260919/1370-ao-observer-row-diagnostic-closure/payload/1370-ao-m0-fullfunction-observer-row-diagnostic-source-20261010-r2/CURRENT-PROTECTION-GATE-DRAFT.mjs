@@ -1,0 +1,10 @@
+function authenticateCurrentProtection(grant,c){
+ const p=json(grant.currentProtection);need(equal(grant.currentProtection,c.currentProtection),'EXACT_CURRENT_PROTECTION_ROLE');
+ need(p.schema==='1370-root-fullfunction-current-protection/v2'&&p.status==='ROOT_ADOPTED_CURRENT_FULLFUNCTION_PREFLIGHT_UNDER_CONTINUOUS_FREEZE'&&p.productionHead===c.operationalHead&&p.productionSourceTree===c.productionSourceTree&&equal(p.historicalTypesAdoption,grant.typesAdoption)&&equal(grant.typesAdoption,c.historicalTypesAdoption)&&p.historicalTypesHead===c.historicalTypesHead&&p.protectedFreezeContinues===true&&p.executionAuthorization===false,'CURRENT_FULLFUNCTION_PROTECTION_V2');
+ need(equal(p.currentANFullPreflightAdoption,c.actualCurrentANFullPreflightAdoption)&&equal(p.currentOperationalTransition,c.actualCurrentOperationalTransition)&&equal(p.reviewedPriorStopAdoption,c.reviewedPriorStopAdoption),'CURRENT_AN_AUTHORITY_ROLES');
+ const a=json(p.currentANFullPreflightAdoption);need(a.schema==='1370-ao-root-current-an-fullpreflight-adoption/v1'&&a.status==='ROOT_ADOPTED_CURRENT_AN_FULL_PREFLIGHT'&&a.productionHead===c.operationalHead&&a.productionSourceTree===c.productionSourceTree&&a.protectedFreezeContinues===true&&a.executionAuthorization===false&&equal(p.currentANFullPreflightSnapshot,a.snapshot),'CURRENT_AN_FULL_PREFLIGHT');
+ for(const k of ['actualReadback','independentObservedReview','snapshot','snapshotPins','guardSource','config','sourcePins','actualTool','postOwnership','rawLocalOnlyClassification'])readRole(a[k],16*1024*1024);
+ const t=json(p.currentOperationalTransition);need(t.schema==='1370-ao-current-an-operational-transition/v1'&&t.actualHead===c.operationalHead&&t.predecessor===c.historicalTypesHead&&t.sourceTree===c.productionSourceTree&&t.docsOnlyVerified===true&&t.workingTreeClean===true&&t.executionAuthorization===false,'HISTORICAL_TYPES_CURRENT_AN_CONTINUITY');readRole(t.publishedReadback);
+ for(const k of ['actualPreflight','actualPreflightReadback','independentPreflightReview','reviewedPriorStopAdoption'])readRole(p[k],16*1024*1024);
+ return p;
+}

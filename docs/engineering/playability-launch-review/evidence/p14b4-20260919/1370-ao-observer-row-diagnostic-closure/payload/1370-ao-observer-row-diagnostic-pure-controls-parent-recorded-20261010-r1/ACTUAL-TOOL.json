@@ -1,0 +1,22 @@
+{
+  "schema": "1370-ao-observer-diagnostic-controls-actual-tool/v1",
+  "sessionId": 75448,
+  "allToolChunks": [
+    {
+      "chunk_id": "77a704",
+      "wall_time_seconds": 1.002158589,
+      "session_id": 75448,
+      "original_token_count": 122,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/GRANT.json\", \"bytes\": 7614, \"sha256\": \"0c06fc7061211ff19b6a178a07bfcd9c230659c2d84caf0f65392a3d8027df03\"}, \"sourceAdoption\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-SOURCE-ADOPTION.json\", \"bytes\": 1390, \"sha256\": \"38f66aab9ac6dd03179dc9c5d2ca5952220129d509674ca60bad144cad8b880e\"}}\n"
+    },
+    {
+      "chunk_id": "0ca2bb",
+      "wall_time_seconds": 0.000016225,
+      "exit_code": 0,
+      "original_token_count": 78,
+      "output": "{\"launchClaim\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/LAUNCH-CLAIM.json\", \"bytes\": 3683, \"sha256\": \"1472fbab38e0bc8cd33e7289377ea68a197362216dad5ecfc69450fd568738a5\"}, \"helperPid\": 82947, \"helperPgid\": 82947, \"helperSid\": 82947}\n"
+    }
+  ],
+  "finalExit": 0,
+  "automaticRetry": false
+}

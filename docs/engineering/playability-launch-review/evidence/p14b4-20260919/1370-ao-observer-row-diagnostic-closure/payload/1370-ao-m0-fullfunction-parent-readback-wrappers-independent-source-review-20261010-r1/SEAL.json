@@ -1,0 +1,19 @@
+{
+  "executionAuthorization": false,
+  "receipt": {
+    "bytes": 6715,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-parent-readback-wrappers-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "945a328b76dac92f3f3eb517e22191577be92c19b0c4f23289b9cb11ce2d45ea"
+  },
+  "schema": "1370-independent-source-review-seal/v1",
+  "sourceManifest": {
+    "bytes": 4852,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "0742ed9f3e4d89b285c31bec1a8210b43942fa88de70b22d9d5150c72e5715db"
+  },
+  "wrapperSourceManifest": {
+    "bytes": 5407,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "83adcaf98af650e96e5644081877ab14b2d83bd6842dd62c4c8ddfbc9c85a288"
+  }
+}

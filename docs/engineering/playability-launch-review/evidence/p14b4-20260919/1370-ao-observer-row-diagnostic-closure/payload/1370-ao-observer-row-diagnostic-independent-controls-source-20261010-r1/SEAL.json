@@ -1,0 +1,12 @@
+{
+  "schema": "1370-observer-row-independent-controls-source-seal/v1",
+  "executionAuthorization": false,
+  "sourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r1/SOURCE-PINS.json",
+    "bytes": 2073,
+    "sha256": "33908d3d8c327b6a0eccd72322b070334c9e9867275693120f40ab21af3cbf87"
+  },
+  "payloadFiles": 5,
+  "packageFiles": 7,
+  "sourceOnly": true
+}

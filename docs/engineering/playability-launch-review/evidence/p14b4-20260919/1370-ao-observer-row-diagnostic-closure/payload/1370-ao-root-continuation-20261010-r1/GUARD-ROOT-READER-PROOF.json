@@ -1,0 +1,59 @@
+{
+  "actualReadbackExecuted": false,
+  "base": {
+    "bytes": 5360,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/read_current_fullpreflight.py",
+    "sha256": "b178b4344513f0735781a74ba83b9a2321e31eae562e2e47919eae99e263b5d5"
+  },
+  "changes": [
+    {
+      "after": "1370-ao-current-an-fullpreflight-parent-recorded-20261010-r1",
+      "before": "1370-an-current-am-fullpreflight-parent-recorded-20261009-r1",
+      "occurrences": 1
+    },
+    {
+      "after": "1370-ao-current-operational-fullguard-source-20261010-r1",
+      "before": "1370-an-current-operational-fullguard-source-20261009-r1",
+      "occurrences": 1
+    },
+    {
+      "after": "before-fill-current-an-r1",
+      "before": "before-fill-current-am-r1",
+      "occurrences": 1
+    },
+    {
+      "after": "0cf8b1d0bbf7d1977413d0c3074407cc8f7b80a4",
+      "before": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+      "occurrences": 1
+    },
+    {
+      "after": "1370-ao-fullpreflight-owned-absence/v1",
+      "before": "1370-an-fullpreflight-owned-absence/v1",
+      "occurrences": 1
+    },
+    {
+      "after": "1370-ao-fullpreflight-raw-local-only/v1",
+      "before": "1370-an-fullpreflight-raw-local-only/v1",
+      "occurrences": 1
+    },
+    {
+      "after": "1370-ao-current-an-fullpreflight-readback/v1",
+      "before": "1370-an-current-am-fullpreflight-readback/v1",
+      "occurrences": 1
+    },
+    {
+      "after": "ACTUAL_CURRENT_AN_FULL_PREFLIGHT_COMPLETE_UNADOPTED",
+      "before": "ACTUAL_CURRENT_AM_FULL_PREFLIGHT_COMPLETE_UNADOPTED",
+      "occurrences": 1
+    }
+  ],
+  "executionAuthorization": false,
+  "fullInverseEqualsBase": true,
+  "logicChanged": false,
+  "new": {
+    "bytes": 5360,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/read_current_fullpreflight.py",
+    "sha256": "cffa01099f6d1deabe7adcc99604dad93dd94e3873bba31e566ace51176bb3f6"
+  },
+  "schema": "1370-ao-current-fullguard-root-reader-binding-proof/v1"
+}

@@ -1,0 +1,27 @@
+{
+  "actualOutcome": null,
+  "executionAuthorization": false,
+  "game": false,
+  "parentAdapterSourcePins": {
+    "bytes": 7675,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "a27f8bf8756ab5804411ff1592aef49f8012c3dc65e14cbf073dcec2995a97ec"
+  },
+  "parentAdapterSourceReview": {
+    "bytes": 14092,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "d11e4b0fa2ba987b8eabcdd359cc96283beb2d848d118befe796becd39be2741"
+  },
+  "schema": "1370-root-observer-row-diagnostic-pure-controls-source-adoption/v1",
+  "sourcePins": {
+    "bytes": 7675,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "a27f8bf8756ab5804411ff1592aef49f8012c3dc65e14cbf073dcec2995a97ec"
+  },
+  "sourceReview": {
+    "bytes": 14092,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "d11e4b0fa2ba987b8eabcdd359cc96283beb2d848d118befe796becd39be2741"
+  },
+  "status": "ROOT_ADOPTED_PURE_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_SOURCE_ONLY"
+}

@@ -1,0 +1,12 @@
+{
+  "actualRuntime": false,
+  "executionAuthorization": false,
+  "payloadCount": 76,
+  "schema": "1370-source-only-seal/v1",
+  "sourcePins": {
+    "bytes": 23375,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "9a2d56c0b7263792b3e67f29d1cb40349ddc52593fe2ec9a80ff5463b0e99aef"
+  },
+  "sourceReviewRequired": true
+}

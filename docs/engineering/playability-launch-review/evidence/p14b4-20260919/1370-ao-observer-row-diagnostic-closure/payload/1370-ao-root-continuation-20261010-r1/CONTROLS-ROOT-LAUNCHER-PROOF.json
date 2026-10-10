@@ -1,0 +1,83 @@
+{
+  "base": {
+    "bytes": 4894,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/run_lossless_controls_once.py",
+    "sha256": "2f62f8956d79f950c122e8dcd345ac21db2e115d54c171733e15c573d4447f61"
+  },
+  "changes": [
+    {
+      "after": "1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1",
+      "before": "1370-an-lossless-trace-pure-controls-recorded-route-source-20261010-r2",
+      "occurrences": 1
+    },
+    {
+      "after": "a27f8bf8756ab5804411ff1592aef49f8012c3dc65e14cbf073dcec2995a97ec",
+      "before": "2b035412243347f60e8a1148a290899158ce975f755a1b8837324b1e07bd644f",
+      "occurrences": 1
+    },
+    {
+      "after": "1370-observer-row-diagnostic-pure-controls-recorded-route-independent-source-review/v1",
+      "before": "1370-lossless-trace-pure-controls-recorded-route-independent-source-review/v1",
+      "occurrences": 1
+    },
+    {
+      "after": "ACCEPT_STATIC_OBSERVER_ROW_DIAGNOSTIC_PURE_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY",
+      "before": "ACCEPT_STATIC_LOSSLESS_TRACE_PURE_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY",
+      "occurrences": 1
+    },
+    {
+      "after": "config['caseCount']==48 and config['positiveCount']==6 and config['specificNegativeCount']==42",
+      "before": "config['caseCount']==49 and config['positiveCount']==9 and config['specificNegativeCount']==40",
+      "occurrences": 1
+    },
+    {
+      "after": "S/'1370-an-root-continuation-20261009-r1/FULLFUNCTION-R5-STOP-OBSERVED-ADOPTION.json'",
+      "before": "A/'FULLFUNCTION-R4-STOP-OBSERVED-ADOPTION.json'",
+      "occurrences": 1
+    },
+    {
+      "after": "ab5b801da2ec6408281115aa424bfafad8a8e458b96e3f068d5fecfb2346669f",
+      "before": "d684408bdfcc6eb43f59c56594b4b30018904bec3b142cd0d7c1f14a335332ee",
+      "occurrences": 1
+    },
+    {
+      "after": "priorValue['freshPassingSharedPostSession']==92358",
+      "before": "priorValue['freshPassingSharedPostSession']==17336",
+      "occurrences": 1
+    },
+    {
+      "after": "OBSERVER-DIAGNOSTIC-CONTROLS-SOURCE-ADOPTION.json",
+      "before": "LOSSLESS-CONTROLS-SOURCE-ADOPTION.json",
+      "occurrences": 1
+    },
+    {
+      "after": "'rootDesignAdoption','implementationControlsSourceAdoption','api')",
+      "before": "'rootDesignAdoption','implementationControlsSourceAdoption')",
+      "occurrences": 1
+    },
+    {
+      "after": "1112ed2166d623284be4a1c1bd40ae455212921d16ec32da0e727f9bcca566c7",
+      "before": "d508ed71a4607104aeab0541887dd456687378467bc79915c8425b339e4e47b7",
+      "occurrences": 1
+    },
+    {
+      "after": "12d11061dd21827447ef0563d9ab4c5bec0c636986e8690ed067eb0be37dfa0c",
+      "before": "19327bf21bd5379586ffa98ad853ac3b6c91b22dd18eb2637c4137f74fae306a",
+      "occurrences": 1
+    },
+    {
+      "after": "launch-observer-row-controls.py",
+      "before": "launch-lossless-controls.py",
+      "occurrences": 1
+    }
+  ],
+  "executionAuthorization": false,
+  "new": {
+    "bytes": 4980,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/run_observer_controls_once.py",
+    "sha256": "02ea48f37155065714252a3330191673147ef3897874def1fe856b374f6ec90d"
+  },
+  "originalOwnershipAndBoundsUnchanged": true,
+  "schema": "1370-ao-observer-diagnostic-controls-root-launcher-proof/v1",
+  "wholeInverseEqualsBase": true
+}

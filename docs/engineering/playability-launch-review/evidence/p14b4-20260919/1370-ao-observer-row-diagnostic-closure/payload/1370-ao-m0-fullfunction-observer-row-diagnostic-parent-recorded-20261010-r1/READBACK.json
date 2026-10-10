@@ -1,0 +1,209 @@
+{
+  "actualGameplayPrefixExecuted": null,
+  "actualTool": {
+    "bytes": 1640,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "1d6844446d4986a40cf97d047101169db7370f5499fdd7dc18ef1e228aaa9f6c"
+  },
+  "completed": true,
+  "controllerResult": {
+    "bytes": 2219,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-results-20261010-r1/RESULT.json",
+    "sha256": "e5504676a7a23e3ab3411a34ef1404bf50bc4b309b891a3d9c4eb65ab97e9bfa"
+  },
+  "controllerStatus": "STOP_NODE_EXIT",
+  "currentANFullPreflightSnapshot": {
+    "bytes": 9440774,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-an-r1/SNAPSHOT.json",
+    "sha256": "63fe53279f1703e9f67d587481ee741e15502fa4a167b1f33e9c7741d13389e9"
+  },
+  "currentProtection": {
+    "bytes": 3761,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/M0-FULLFUNCTION-CURRENT-PROTECTION.json",
+    "sha256": "9d62c00117818cb92565706dc52545562addfcab6cbbe987a9083f2e8cceffd2"
+  },
+  "dependencyAfter": null,
+  "dependencyBefore": {
+    "contentAndMetadataSha256": "a06e929a60a5ede6ce0d72467d4d587e50d1c4fa3788bee3d07f1ea3388cd21d",
+    "contentBytes": 348223802,
+    "entries": 12484,
+    "rootDevice": 16777220,
+    "rootIdentity": [
+      16777220,
+      158487026,
+      16877,
+      154,
+      4928,
+      1790738039503311431,
+      1790738039503311431
+    ],
+    "rootInode": 158487026
+  },
+  "executionAuthorization": false,
+  "fixtureQualificationAccepted": false,
+  "fullProtectedPostflightAccepted": false,
+  "grant": {
+    "bytes": 4748,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-recorded-20261010-r1/EXECUTION-GRANT.json",
+    "sha256": "6fb3353711e2fb5f1f06f1f41f698982f06a37b7b1cd8ad54f905a114d5a6c91"
+  },
+  "helperExit": 2,
+  "historicalTypesRemainHistorical": true,
+  "laneLog": {
+    "bytes": 731,
+    "path": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-observer-row-diagnostic-20261010-r1.lane.log",
+    "sha256": "6abb4e178af1c2de8be138020fc35e7be25c55569db943ff88adae85b47b2d03"
+  },
+  "laneMetadata": {
+    "bytes": 551,
+    "path": "/Users/zacheryspector/studio-scratch/c0-m0-fullfunction-observer-row-diagnostic-20261010-r1.lane.log.meta",
+    "sha256": "a722b88d9dfcc4d839ec9fe56bb689399452cd13509e9f9e2237a04c0a5feb91"
+  },
+  "laneReleased": true,
+  "naturalBoundaryWeeks": null,
+  "neutralityAccepted": false,
+  "nodePid": 21747,
+  "nodeResult": null,
+  "observerDiagnosticControlsObservedAdoption": {
+    "bytes": 8912,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "6de3da4778f3fa6a8901e44e473f33dd5eaea5ec174abdd54ddd1398f5f99d47"
+  },
+  "parserControlsAdoption": {
+    "bytes": 1983,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/PARSER-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "2684b2b4a2c0e90b1d9fec5ee079ede8eb945eb3378ff88619f3cd04b943735d"
+  },
+  "preflightObservedAdoption": {
+    "bytes": 5394,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/M0-FULLFUNCTION-CURRENT-PREFLIGHT-READBACK.json",
+    "sha256": "be051cf9352269a852106bbdc7df4e67c4debae174f1d2a7dbbfa43680ca6e85"
+  },
+  "recordedOwnedGroupIds": [
+    20977,
+    21479,
+    21480
+  ],
+  "recordedOwnedPids": [
+    20977,
+    21479,
+    21480,
+    21747
+  ],
+  "recorderExit": 2,
+  "recorderLaunchClaim": {
+    "bytes": 1730,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-recorded-20261010-r1/RECORDER-LAUNCH-CLAIM.json",
+    "sha256": "67a74c862b5523156086f124b917ccca1db1b087a867b398e083a5ee7441717d"
+  },
+  "recorderResult": {
+    "bytes": 975,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-recorder-results-20261010-r1/RESULT.json",
+    "sha256": "69639dee0d54d1ed87bff1a6d0eabca50843bcb218e1284a844cf903de3b2fe6"
+  },
+  "recorderStatus": "STOP_CHILD_EXIT_1",
+  "retainedInconsistencies": [],
+  "rootLaunchClaim": {
+    "bytes": 1887,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-recorded-20261010-r1/ROOT-LAUNCH-CLAIM.json",
+    "sha256": "6953fe125f228c06369e7cfec62cf7e90caad920efbf7ddacbc632d52faf6abf"
+  },
+  "runnerExit": 1,
+  "runnerStatus": "EXITED",
+  "runtimeOutputAbsent": false,
+  "schema": "1370-root-fullfunction-actual-readback/v1",
+  "scopedOwnershipChecks": [
+    {
+      "id": 20977,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 21479,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 21480,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 21747,
+      "kind": "pid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 20977,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 21479,
+      "kind": "pgid",
+      "result": "ESRCH"
+    },
+    {
+      "id": 21480,
+      "kind": "pgid",
+      "result": "ESRCH"
+    }
+  ],
+  "sourceAfter": null,
+  "sourceBefore": {
+    "dependencyLink": [
+      16777220,
+      166769275,
+      41408,
+      1,
+      62,
+      1791577446298712967,
+      1791577446298712967,
+      "/Users/zacheryspector/The-Movies-headless-program/node_modules"
+    ],
+    "fileProofDigestSha256": "fbbfed3ec13da5618a0194204e2f6c8a87eebb5ee22102707d466340fbe6e1e0",
+    "historicalRootSubstitutedMetadataSha256": "5ce9160187b95711687ccdb7c0534cdc5a470c7a764265b68b64fbd72983ae6c",
+    "mirrorBytes": 119393120,
+    "mirrorFiles": 1740,
+    "mirrorRootIdentity": [
+      16777220,
+      166751332,
+      16832,
+      13,
+      416,
+      1791600924862151724,
+      1791600924862151724
+    ],
+    "nonrootMetadataSha256": "0c9cfd7e1647b08f6ffb7835500044efeecfb2c13e58d4d8e8998e4837e75417",
+    "physicalMetadataSha256": "12c3dd50b99860c1c4e56ee98488d5f04613b37c93496d0257cc560a4fb83038",
+    "traversedEntries": 1853
+  },
+  "sourcePins": {
+    "bytes": 23375,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "9a2d56c0b7263792b3e67f29d1cb40349ddc52593fe2ec9a80ff5463b0e99aef"
+  },
+  "sourceReview": {
+    "bytes": 14707,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-independent-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "00f0b0432656557fa722f674f04a2ab6dc4040292e9e90aed7f50f5a988ea595"
+  },
+  "status": "ACTUAL_FULLFUNCTION_STOP_PRESERVED_PENDING_SHARED_FULL_POSTFLIGHT",
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-recorder-results-20261010-r1/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 262,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-recorder-results-20261010-r1/stdout.bin",
+    "sha256": "ddeebce61a0097ffae0a00f2d3aae0638a668a2e4b409706c630f089645856dd"
+  },
+  "toolExit": 2,
+  "toolSessionId": 57182,
+  "typesAdoption": {
+    "bytes": 5170,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+    "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+  }
+}

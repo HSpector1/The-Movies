@@ -1,0 +1,55 @@
+{
+  "changes": {
+    "run-fullfunction.mjs": [
+      {
+        "after": "equal(grant.typesAdoption,c.historicalTypesAdoption)&&types.productionHead===c.historicalTypesHead",
+        "before": "types.productionHead===c.operationalHead"
+      },
+      {
+        "after": "else if(Object.hasOwn(c.representationInputs,name))need(equal(r,c.representationInputs[name]),'EXACT_FIXED_REPRESENTATION_ROLE');else if(Object.hasOwn(c.diagnosticInputs,name))need(equal(r,c.diagnosticInputs[name]),'EXACT_FIXED_DIAGNOSTIC_ROLE');",
+        "before": "else if(Object.hasOwn(c.representationInputs,name))need(equal(r,c.representationInputs[name]),'EXACT_FIXED_REPRESENTATION_ROLE');"
+      },
+      {
+        "after": "for(const name of c.reviewAliases)",
+        "before": "for(const name of ['CONFIG.json','run-fullfunction.py','run-fullfunction.mjs','record-fullfunction.py','CORE-TEST-TEMPLATE.ts','CONFIG-TEMPLATE.mts','FULL-BODY-CONTROLS-TEMPLATE.ts','exact-json.mjs','run-parser-controls.mjs','canonical-typescript-transform.mjs','m0WiringProbe.ts','RESOLUTION-SOURCE-BINDING.json','m0TraceCodec.mjs','traceSequences.mjs','ordering.ts'])"
+      },
+      {
+        "after": "c.historicalPure49Template",
+        "before": "c.representationInputs['FULL-BODY-CONTROLS-TEMPLATE.ts']"
+      },
+      {
+        "after": "need(false,'UNSEALED_DIAGNOSTIC_SOURCE_DRAFT');\nneed(process.argv.length===4,'BINDING_ARGS');",
+        "before": "need(process.argv.length===4,'BINDING_ARGS');"
+      }
+    ],
+    "run-fullfunction.py": [
+      {
+        "after": "g['typesAdoption']==c['historicalTypesAdoption'] and t['productionHead']==c['historicalTypesHead']",
+        "before": "t['productionHead']==c['operationalHead']"
+      },
+      {
+        "after": "elif name in c['representationInputs']:need(r==c['representationInputs'][name],'EXACT_FIXED_REPRESENTATION_ROLE')\n  elif name in c['diagnosticInputs']:need(r==c['diagnosticInputs'][name],'EXACT_FIXED_DIAGNOSTIC_ROLE')",
+        "before": "elif name in c['representationInputs']:need(r==c['representationInputs'][name],'EXACT_FIXED_REPRESENTATION_ROLE')"
+      },
+      {
+        "after": "for name in c['reviewAliases']:",
+        "before": "for name in ['CONFIG.json','run-fullfunction.py','run-fullfunction.mjs','record-fullfunction.py','CORE-TEST-TEMPLATE.ts','CONFIG-TEMPLATE.mts','FULL-BODY-CONTROLS-TEMPLATE.ts','exact-json.mjs','run-parser-controls.mjs','canonical-typescript-transform.mjs','m0WiringProbe.ts','RESOLUTION-SOURCE-BINDING.json','m0TraceCodec.mjs','traceSequences.mjs','ordering.ts']:"
+      },
+      {
+        "after": "observed['sourceReviewedFullBodyTemplate']==c['historicalPure49Template']",
+        "before": "observed['sourceReviewedFullBodyTemplate']==c['representationInputs']['FULL-BODY-CONTROLS-TEMPLATE.ts']"
+      },
+      {
+        "after": "proof_config=dict(proof_config,runId=c['runId'],laneLog=c['laneLog']);ns['CONFIG']=proof_config;ns['CURRENT_HEAD']=c['operationalHead'];run=c['runId'];manifest5=ns['load_m0_authorities']();ns['guard'](run)",
+        "before": "proof_config=dict(proof_config,runId=c['runId'],laneLog=c['laneLog']);ns['CONFIG']=proof_config;run=c['runId'];manifest5=ns['load_m0_authorities']();ns['guard'](run)"
+      },
+      {
+        "after": "def main():\n need(False,'UNSEALED_DIAGNOSTIC_SOURCE_DRAFT')",
+        "before": "def main():"
+      }
+    ]
+  },
+  "runtimeReady": false,
+  "sourceOnly": true,
+  "wholeInverseVerified": true
+}

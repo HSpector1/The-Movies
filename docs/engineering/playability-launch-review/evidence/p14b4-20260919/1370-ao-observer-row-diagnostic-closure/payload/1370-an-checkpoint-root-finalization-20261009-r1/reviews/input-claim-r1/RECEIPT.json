@@ -1,0 +1,76 @@
+{
+  "claimReview": "Accepted types/collection and49public controls remain separate from fullbody STOP. Unknown failed row/iteration, unrun mutant/null AFTER proofs, separate successful shared postflight, design-only diagnostic, neutral416 and downstream1363/P17/P18 pending are stated truthfully.",
+  "concreteFindings": [],
+  "decision": "ACCEPT_FINITE_AN_INPUT_INVENTORY_AND_TRUTHFUL_FINAL_CLAIM_ONLY",
+  "executionAuthorization": false,
+  "inputs": {
+    "claim": {
+      "bytes": 4376,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/ROOT-FINAL-CLAIM.txt",
+      "sha256": "001a82db185094545dbdd4605340cdb83ec6a322f41d335ea56c18d648bf5695"
+    },
+    "inputPackages": {
+      "bytes": 60686,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/INPUT-PACKAGES-FINAL.json",
+      "sha256": "364fcdb2acb3e42ee909e1c58292f682cebbfc100fd13ca9d77596a1bb104d68"
+    },
+    "inventory": {
+      "bytes": 1478168,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/INVENTORY-FINAL.json",
+      "sha256": "5f081c10a8fdd6cd2b888c6324e2cfbe080dceaf040b7e30da4a6143871bdd9b"
+    }
+  },
+  "lateActualRolePins": {
+    "FULLFUNCTION-R5-STOP-OBSERVED-ADOPTION.json": {
+      "bytes": 4698,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/FULLFUNCTION-R5-STOP-OBSERVED-ADOPTION.json",
+      "sha256": "ab5b801da2ec6408281115aa424bfafad8a8e458b96e3f068d5fecfb2346669f"
+    },
+    "LESSONS-r18.md": {
+      "bytes": 52596,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LESSONS-r18.md",
+      "sha256": "0a691f790e2d9eb32e192ea9b101ee7357a379bb6433056be995484e3063c387"
+    },
+    "LOSSLESS-CONTROLS-OBSERVED-ADOPTION.json": {
+      "bytes": 6868,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/LOSSLESS-CONTROLS-OBSERVED-ADOPTION.json",
+      "sha256": "fa668549c4526317f1c5f7f17494ae3bdaec2f6713e6b72351f30d384cfa096a"
+    },
+    "M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json": {
+      "bytes": 5170,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/M0-EXTERNAL-CONFIG-TYPES-OBSERVED-ADOPTION.json",
+      "sha256": "be632d535f6b037e705c4ead116887c6e0ca3aa66dfe9c72ee0a25c0a3dbee83"
+    },
+    "OBSERVER-ROW-DIAGNOSTIC-DESIGN-ADOPTION.json": {
+      "bytes": 3797,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/OBSERVER-ROW-DIAGNOSTIC-DESIGN-ADOPTION.json",
+      "sha256": "8b45e59bfbcf67e115f28065c475fc64ba353a96ee4c07e616472bf58b1eda90"
+    }
+  },
+  "limits": [
+    "Reviewed finite explicit metadata/classification and named authority payloads only; no raw PS/FD/cache contents or private inventories read.",
+    "No archive payload copy hash verification or priorGitBlob verification in this receipt; those remain finalizer/archive review scope.",
+    "This is not observed fullfunction, neutral416, game release or downstream acceptance."
+  ],
+  "majorLessons": [
+    "Semantic raw classifications must cover every producer raw role independently of suffix.",
+    "Published role maps must match actual recipes and manifests; source-only acceptance never supplies runtime authority.",
+    "A protected STOP may coexist with successful shared postflight without AFTER M0 proofs."
+  ],
+  "schema": "1370-an-final-input-inventory-claim-independent-review/v1",
+  "verification": {
+    "ancestorOverlaps": 0,
+    "bytes": 164679949,
+    "currentReviewExcludedFromInventory": true,
+    "duplicatePaths": 0,
+    "explicitPaths": 285,
+    "lateAMFinalizationSelected": true,
+    "localExportOrGitReuseRoles": 0,
+    "localOnlyRoles": 65,
+    "pendingAdditions": 0,
+    "privateMirrorOrDependencyPayloadPaths": 0,
+    "rebuildableCacheLocalRoles": 1,
+    "roles": 2877,
+    "semanticWholeMachineLocalRoles": 64
+  }
+}

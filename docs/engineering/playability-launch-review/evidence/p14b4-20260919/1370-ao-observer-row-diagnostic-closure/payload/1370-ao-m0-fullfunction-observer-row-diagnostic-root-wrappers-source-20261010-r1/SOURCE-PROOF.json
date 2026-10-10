@@ -1,0 +1,137 @@
+{
+  "combinedReviewContract": {
+    "concreteFindings": [],
+    "decision": "ACCEPT_STATIC_FULLFUNCTION_ONCE_PARENT_SOURCE_ONLY",
+    "executionAuthorization": false,
+    "rootReadbackDecision": "ACCEPT_STATIC_FULLFUNCTION_ROOT_READBACK_SOURCE_ONLY",
+    "routeSourcePinsRequiredAliases": [
+      "launch-fullfunction.py",
+      "read-fullfunction.py"
+    ],
+    "schema": "1370-ao-fullfunction-parent-readback-wrappers-independent-source-review/v1",
+    "sourceManifest": null,
+    "sourcePinsRequiredAliases": [
+      "launch-fullfunction.py",
+      "read-fullfunction.py"
+    ],
+    "wrapperSourceManifest": null,
+    "wrapperSourcePinsRequiredAliases": [
+      "run_observer_fullfunction_once.py",
+      "run_observer_reader_once.py"
+    ]
+  },
+  "completeInversePairs": [
+    {
+      "astParsedOnly": true,
+      "baseline": {
+        "bytes": 6400,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_fullfunction_once.py.baseline.txt",
+        "sha256": "3f77b9d4887cdbebf9e0de4c1aa2a2c8d09b6578ebe2649644c61c124f13a533"
+      },
+      "candidate": {
+        "bytes": 9863,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_fullfunction_once.py",
+        "sha256": "aa731bd4edf1a8509af559cb8ca0261cda655e87e4e86a013ad9f5be2dddff1b"
+      },
+      "forward": {
+        "bytes": 13401,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_fullfunction_once.py.forward.diff",
+        "sha256": "d7ddb28a0d26b4d0bcc784510105638dc7ebc4ada76fdfab1b2e113666f4ba7c"
+      },
+      "forwardAppliedByteExact": true,
+      "helperNamesByteExact": [
+        "role",
+        "read",
+        "checked",
+        "put"
+      ],
+      "inverse": {
+        "bytes": 13401,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_fullfunction_once.py.inverse.diff",
+        "sha256": "f635edef08d4c66b22ddb2d9d3bf562f7635e05fdc845113f368a6321acb28db"
+      },
+      "inverseAppliedByteExact": true,
+      "original": {
+        "bytes": 6400,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/run_fullfunction_fifth_once_r2.py",
+        "sha256": "3f77b9d4887cdbebf9e0de4c1aa2a2c8d09b6578ebe2649644c61c124f13a533"
+      }
+    },
+    {
+      "astParsedOnly": true,
+      "baseline": {
+        "bytes": 1396,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_reader_once.py.baseline.txt",
+        "sha256": "a039e260895618c2d55d320c78ca5bd41cb7ab81ac08c8ad078692cb087adbdb"
+      },
+      "candidate": {
+        "bytes": 2604,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_reader_once.py",
+        "sha256": "80e0ae126fdbf54f95d709552c9e9263223dd89b19e85c551a840a2027bffb68"
+      },
+      "forward": {
+        "bytes": 3885,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_reader_once.py.forward.diff",
+        "sha256": "af872b61fde261645065dd5b2b364345b1763553aca71c53c5310c9ae9bcc633"
+      },
+      "forwardAppliedByteExact": true,
+      "helperNamesByteExact": [
+        "role"
+      ],
+      "inverse": {
+        "bytes": 3885,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_reader_once.py.inverse.diff",
+        "sha256": "ddc9a77455bf491e20738970486fdadb4d35d232c0df47d8634f43bbb321299e"
+      },
+      "inverseAppliedByteExact": true,
+      "original": {
+        "bytes": 1396,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/run_fifth_reader_once.py",
+        "sha256": "a039e260895618c2d55d320c78ca5bd41cb7ab81ac08c8ad078692cb087adbdb"
+      }
+    }
+  ],
+  "currentArtifactsRoot": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1",
+  "currentProtection": {
+    "bytes": 3761,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/M0-FULLFUNCTION-CURRENT-PROTECTION.json",
+    "sha256": "9d62c00117818cb92565706dc52545562addfcab6cbbe987a9083f2e8cceffd2"
+  },
+  "executionAuthorization": false,
+  "finalRouteConfig": {
+    "bytes": 20709,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r2/CONFIG.json",
+    "sha256": "596a893e476e77b8d87c1704b90ac5048b1f66611f61cdf3154ab6072ff27f5b"
+  },
+  "finalRouteManifest": {
+    "bytes": 23375,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "9a2d56c0b7263792b3e67f29d1cb40349ddc52593fe2ec9a80ff5463b0e99aef"
+  },
+  "historicalAuthorityRoot": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1",
+  "nonoperativeDocumentaryDraft": false,
+  "old49TemplateSeparateFromCurrent6057": true,
+  "originalBoundsPreserved": true,
+  "originalHelperEquality": {
+    "run_observer_fullfunction_once.py": [
+      "role",
+      "read",
+      "checked",
+      "put"
+    ],
+    "run_observer_reader_once.py": [
+      "role"
+    ]
+  },
+  "parentSourceManifest": null,
+  "parentSourceReview": null,
+  "parentSourceRoot": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-source-20261010-r1",
+  "readerSourceReview": null,
+  "reviewedDraftDelta": "Only final local route R1\u2192R2 path and genuine route hash literals; original helpers and runtime/cleanup semantics unchanged from root-reviewed drafts.",
+  "routeSourceRoot": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r1",
+  "runtimeExecuted": false,
+  "runtimeToolsRehashedBeforeUse": true,
+  "schema": "1370-ao-fullfunction-root-wrappers-source-draft/v1",
+  "sourceManifest": null,
+  "status": "SOURCE_ONLY_UNRUN_PENDING_COMBINED_INDEPENDENT_REVIEW"
+}

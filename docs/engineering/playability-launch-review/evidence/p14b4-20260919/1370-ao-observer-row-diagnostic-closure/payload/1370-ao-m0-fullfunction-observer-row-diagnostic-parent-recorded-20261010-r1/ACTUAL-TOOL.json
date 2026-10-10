@@ -1,0 +1,35 @@
+{
+  "schema": "1370-root-actual-tool-envelope/v1",
+  "sessionId": 57182,
+  "finalExit": 2,
+  "allToolChunks": [
+    {
+      "chunk_id": "ade0b4",
+      "wall_time_seconds": 1.001291292,
+      "session_id": 57182,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "875aa0",
+      "wall_time_seconds": 5.001215342,
+      "session_id": 57182,
+      "original_token_count": 209,
+      "output": "{\"rootBinding\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/FULLFUNCTION-OBSERVER-DIAGNOSTIC-ROOT-BINDING.json\", \"bytes\": 5180, \"sha256\": \"f6642fb3c75e7bb672962a1de943aa4ecf78b6bdc2f57b3911d8d195dfd572cd\"}, \"sourceAdoption\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/FULLFUNCTION-OBSERVER-DIAGNOSTIC-SOURCE-ADOPTION.json\", \"bytes\": 3351, \"sha256\": \"ba88f253f6f84a9f49346aa4d734fe1191eacb257b9a8b982f09bfe0ffdfa622\"}}\n{\"launchClaim\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-parent-recorded-20261010-r1/ROOT-LAUNCH-CLAIM.json\", \"bytes\": 1887, \"sha256\": \"6953fe125f228c06369e7cfec62cf7e90caad920efbf7ddacbc632d52faf6abf\"}, \"mode\": \"outer\", \"actualOwned\": {\"pid\": 20977, \"pgid\": 20977, \"sid\": 20977}}\n"
+    },
+    {
+      "chunk_id": "1432b8",
+      "wall_time_seconds": 5.001512418,
+      "session_id": 57182,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "0a7ca9",
+      "wall_time_seconds": 0.000016307,
+      "exit_code": 2,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "base": {
+    "bytes": 6003,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/read_lossless_controls.py",
+    "sha256": "5aa670e2d1a96821009e1adbdc6b0f539fd1f19e0bcc980109245a6f683c25f4"
+  },
+  "changes": [
+    {
+      "after": "1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1",
+      "before": "1370-an-lossless-trace-pure-controls-parent-recorded-20261010-r1",
+      "occurrences": 1
+    },
+    {
+      "after": "'rootDesignAdoption','implementationControlsSourceAdoption','api')",
+      "before": "'rootDesignAdoption','implementationControlsSourceAdoption')",
+      "occurrences": 2
+    },
+    {
+      "after": "OBSERVER_ROW_DIAGNOSTIC_PURE_CONTROLS_COMPLETE_UNADOPTED",
+      "before": "LOSSLESS_TRACE_PURE_CONTROLS_COMPLETE_UNADOPTED",
+      "occurrences": 1
+    },
+    {
+      "after": "1370-observer-row-independent-controls-result/v1",
+      "before": "1370-lossless-trace-independent-controls-result/v1",
+      "occurrences": 1
+    },
+    {
+      "after": "PURE_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_COMPLETED_UNADOPTED",
+      "before": "PURE_LOSSLESS_CODEC_AND_AFFECTED_ORDERING_COMPLETED_UNADOPTED",
+      "occurrences": 1
+    },
+    {
+      "after": "v['positiveCount']==c['positiveCount']==6 and v['specificNegativeCount']==c['specificNegativeCount']==42",
+      "before": "v['positiveCount']==c['positiveCount']==9 and v['specificNegativeCount']==c['specificNegativeCount']==40",
+      "occurrences": 1
+    },
+    {
+      "after": "assert v['caseCount']==len(v['results'])==c['caseCount']==48",
+      "before": "assert v['originalOrderingCases']==18 and v['originalParserCasesReplayed']==0 and len(v['results'])==c['caseCount']==49",
+      "occurrences": 1
+    },
+    {
+      "after": "len(set(x['id'] for x in v['results']))==48",
+      "before": "len(set(x['id'] for x in v['results']))==49",
+      "occurrences": 1
+    },
+    {
+      "after": "emitted={'m0ObserverRowDiagnostic.mjs':'m0ObserverRowDiagnostic.mjs','run-observer-row-controls.mjs':'run-observer-row-controls.mjs','m0FeasibilityWitness.ts':'m0FeasibilityWitness.mjs'}",
+      "before": "emitted={'m0TraceCodec.mjs':'m0TraceCodec.mjs','traceSequences.mjs':'traceSequences.mjs','run-lossless-controls.mjs':'run-lossless-controls.mjs','m0WiringProbe.ts':'m0WiringProbe.mjs','ordering.ts':'ordering.mjs','ordering-source-controls.ts':'ordering-source-controls.mjs'}",
+      "occurrences": 1
+    },
+    {
+      "after": "('privateM0ReadOrWritten','game','fullQualificationAccepted','executionAuthorization')",
+      "before": "('originalM0ReadOrWritten','game','executionAuthorization')",
+      "occurrences": 1
+    },
+    {
+      "after": "1370-root-observer-row-diagnostic-controls-actual-readback/v1",
+      "before": "1370-root-lossless-trace-controls-actual-readback/v1",
+      "occurrences": 1
+    },
+    {
+      "after": "ACTUAL_PURE_48_CONTROLS_COMPLETE_PENDING_INDEPENDENT_REVIEW",
+      "before": "ACTUAL_PURE_49_CONTROLS_COMPLETE_PENDING_INDEPENDENT_REVIEW",
+      "occurrences": 1
+    },
+    {
+      "after": "'caseCount':48",
+      "before": "'caseCount':49",
+      "occurrences": 2
+    },
+    {
+      "after": "'positiveCount':6,'specificNegativeCount':42,'historicalControlSetsReplayed':False,",
+      "before": "'positiveCount':9,'specificNegativeCount':40,'originalOrderingCases':18,'originalParserCasesReplayed':0,",
+      "occurrences": 1
+    }
+  ],
+  "executionAuthorization": false,
+  "new": {
+    "bytes": 5895,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/read_observer_controls.py",
+    "sha256": "a4fd0a7351ada45383f6b8801a109781aa38235c98f1231cc0dad1d3e05f9494"
+  },
+  "originalOwnershipStreamsBoundsAndExactRowChecksUnchanged": true,
+  "schema": "1370-ao-observer-diagnostic-controls-root-reader-proof/v1",
+  "wholeInverseEqualsBase": true
+}

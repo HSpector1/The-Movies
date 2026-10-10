@@ -1,0 +1,56 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "BASELINE-launch-fullpostflight.py": {
+      "bytes": 5274,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/BASELINE-launch-fullpostflight.py",
+      "sha256": "75603678180a3f2f4c2bb53de55ea4024ea91a801a0c238da86f0d99ec914885"
+    },
+    "BASELINE-read-fullpostflight.py": {
+      "bytes": 5405,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/BASELINE-read-fullpostflight.py",
+      "sha256": "1f08bf32ef32e27e053de758bece9bb57d82ea572f3ed9cd70813b9bc26f0da2"
+    },
+    "RECIPE.json": {
+      "bytes": 1128,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/RECIPE.json",
+      "sha256": "a92f4dbbbede8389b163358136800b4accc6d1c1dea2cc0d16b8df79a6462bf0"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 6172,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/SOURCE-PROOF.json",
+      "sha256": "f8f9a2099652fd2ad738b8b4e907b1672f7dca056098e114457f660d51bb8708"
+    },
+    "launch-fullpostflight.py": {
+      "bytes": 5308,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py",
+      "sha256": "448b2f60846d4d28eb972ea07ef3cb89c7e3f3d540332809271f987117266d6f"
+    },
+    "launch-fullpostflight.py.forward.diff": {
+      "bytes": 7343,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py.forward.diff",
+      "sha256": "0154ca9e21ccc4bead4e8f3fba3747871a9189e55e0a5137e938ba3bbc3ce247"
+    },
+    "launch-fullpostflight.py.inverse.diff": {
+      "bytes": 7343,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py.inverse.diff",
+      "sha256": "9d393b7102f453046e1c909e8b4077bee3546a8dfb1be910f0190880abc5adb6"
+    },
+    "read-fullpostflight.py": {
+      "bytes": 5439,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py",
+      "sha256": "484acc12c4ef79ccdcc0aa928e495fce793f27f4c76373d5c0ea88058711a84f"
+    },
+    "read-fullpostflight.py.forward.diff": {
+      "bytes": 5500,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py.forward.diff",
+      "sha256": "5cb5959b34b9d31290ce94a0ee18627daa58ca466d2789ca76a276d7cc1befce"
+    },
+    "read-fullpostflight.py.inverse.diff": {
+      "bytes": 5500,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py.inverse.diff",
+      "sha256": "4d40da6558f43386add58cd09a42fb09809cf73b967bd61dbf9e1dc6361729a3"
+    }
+  },
+  "schema": "1370-fullfunction-shared-fullpostflight-source-pins/v1"
+}

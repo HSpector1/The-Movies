@@ -1,0 +1,85 @@
+{
+  "schema": "1370-ao-current-an-fullpreflight-root-reader-independent-source-review/v1",
+  "decision": "ACCEPT_SOURCE_ONLY_CURRENT_AN_FULLPREFLIGHT_ROOT_READER_BINDINGS",
+  "executionAuthorization": false,
+  "concreteFindings": [],
+  "reader": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/read_current_fullpreflight.py",
+    "bytes": 5360,
+    "sha256": "cffa01099f6d1deabe7adcc99604dad93dd94e3873bba31e566ace51176bb3f6"
+  },
+  "proof": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/GUARD-ROOT-READER-PROOF.json",
+    "bytes": 1999,
+    "sha256": "e7b605f629e01ee322b01a2ae7224e7066ea6ac4ca9b42df79ba3d8c6cfccb44"
+  },
+  "baseline": {
+    "bytes": 5360,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/read_current_fullpreflight.py",
+    "sha256": "b178b4344513f0735781a74ba83b9a2321e31eae562e2e47919eae99e263b5d5"
+  },
+  "currentGuardConfig": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+    "bytes": 3928,
+    "sha256": "f9d2d7fda1b5df5c01176c142bd6b16c9be9cc78963fe73e7fc62640b82a9cdd"
+  },
+  "verification": {
+    "exactOneOccurrenceLiteralChanges": 8,
+    "wholeForwardEqualsNew": true,
+    "wholeInverseEqualsBaseline": true,
+    "allThreeFunctionsByteIdentical": true,
+    "originalPredicatesAndOwnershipChecksUnchanged": true,
+    "currentHeadMatchesActualANConfig": true,
+    "originalNineStrictRootsAndScratchIdentityPolicyPreserved": true,
+    "original12485DependencyEntriesPerCopyAnd176SourceEntriesChecksPreserved": true,
+    "originalOneLineStdoutAndEmptyStderrProtocolPreserved": true,
+    "fourRawRolesRemainHashSizeOnly": true,
+    "sourceParsedOnly": true,
+    "sourceExecutedOrImported": false,
+    "processSignalsOrPrivateInventoryPerformedByReviewer": false
+  },
+  "scope": "Only reader binding changes are admitted. Existing source authenticates original guarded full maps, one actual scanner PID/PGID and lane absence after a successful measured producer. No actual fullpreflight outcome, M0 content, types, game or new execution authority is admitted here.",
+  "actualFullPreflight": null,
+  "changes": [
+    {
+      "after": "1370-ao-current-an-fullpreflight-parent-recorded-20261010-r1",
+      "before": "1370-an-current-am-fullpreflight-parent-recorded-20261009-r1",
+      "occurrences": 1
+    },
+    {
+      "after": "1370-ao-current-operational-fullguard-source-20261010-r1",
+      "before": "1370-an-current-operational-fullguard-source-20261009-r1",
+      "occurrences": 1
+    },
+    {
+      "after": "before-fill-current-an-r1",
+      "before": "before-fill-current-am-r1",
+      "occurrences": 1
+    },
+    {
+      "after": "0cf8b1d0bbf7d1977413d0c3074407cc8f7b80a4",
+      "before": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+      "occurrences": 1
+    },
+    {
+      "after": "1370-ao-fullpreflight-owned-absence/v1",
+      "before": "1370-an-fullpreflight-owned-absence/v1",
+      "occurrences": 1
+    },
+    {
+      "after": "1370-ao-fullpreflight-raw-local-only/v1",
+      "before": "1370-an-fullpreflight-raw-local-only/v1",
+      "occurrences": 1
+    },
+    {
+      "after": "1370-ao-current-an-fullpreflight-readback/v1",
+      "before": "1370-an-current-am-fullpreflight-readback/v1",
+      "occurrences": 1
+    },
+    {
+      "after": "ACTUAL_CURRENT_AN_FULL_PREFLIGHT_COMPLETE_UNADOPTED",
+      "before": "ACTUAL_CURRENT_AM_FULL_PREFLIGHT_COMPLETE_UNADOPTED",
+      "occurrences": 1
+    }
+  ]
+}

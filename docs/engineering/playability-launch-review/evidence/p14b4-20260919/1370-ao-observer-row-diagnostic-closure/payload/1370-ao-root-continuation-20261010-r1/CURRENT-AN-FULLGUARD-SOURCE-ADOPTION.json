@@ -1,0 +1,22 @@
+{
+  "actualGuardsAccepted": false,
+  "executionAuthorization": false,
+  "operationalScope": {
+    "bytes": 2923,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/CURRENT-AN-FULLGUARD-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "74855dea68b2e9a9c8ac4c40c949042cb5f097eff5ed7ff80d37b922e76d743a"
+  },
+  "originalProcedureLogicUnchanged": true,
+  "schema": "1370-ao-root-current-an-fullguard-source-adoption/v1",
+  "sourcePins": {
+    "bytes": 2286,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "9df63e39d302e3b8481198999e129233ab4eb5709848d91cb1d45af0dfee0e88"
+  },
+  "sourceReview": {
+    "bytes": 4737,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "7ec24d7aff9665c577a5341425429942a8b12c6c1ded219a82913685e0a9badf"
+  },
+  "status": "ROOT_ADOPTED_CURRENT_AN_FULLGUARD_BINDINGS_SOURCE_ONLY"
+}

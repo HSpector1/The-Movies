@@ -1,0 +1,14 @@
+{
+  "schema": "1370-root-actual-readback-tool-envelope/v1",
+  "sessionId": null,
+  "finalExit": 0,
+  "chunks": [
+    {
+      "chunk_id": "5753e1",
+      "wall_time_seconds": 0.575896204,
+      "exit_code": 0,
+      "original_token_count": 57,
+      "output": "{\"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/M0-FULLFUNCTION-CURRENT-PREFLIGHT-READBACK.json\", \"bytes\": 5394, \"sha256\": \"be051cf9352269a852106bbdc7df4e67c4debae174f1d2a7dbbfa43680ca6e85\"}\n"
+    }
+  ]
+}

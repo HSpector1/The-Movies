@@ -1,0 +1,23 @@
+{
+  "actualPostflight": null,
+  "baselineSha256": "63fe53279f1703e9f67d587481ee741e15502fa4a167b1f33e9c7741d13389e9",
+  "executionAuthorization": false,
+  "game": false,
+  "independentSourceReview": {
+    "bytes": 7278,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "c60c12ddc9100a12917a566ae40b01744c07b89f7c9706a246518e0c47e817f8"
+  },
+  "m0AfterProofRemainsSeparate": true,
+  "mandatoryAfterActualRunEvenStop": true,
+  "originalFullInventoryAndNineRootsRequired": true,
+  "protectedFreezeContinues": true,
+  "requiresActualTerminalRouteReadbackAndReleasedLane": true,
+  "schema": "1370-root-observer-diagnostic-shared-postflight-source-adoption/v1",
+  "sourceManifest": {
+    "bytes": 3309,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "a99444f72815ce9db487885c0a9949cb0dcbc1d6bb4b03df449ec08c6fa471c0"
+  },
+  "status": "ROOT_ADOPTED_ORIGINAL_SHARED_FULL_POSTFLIGHT_SOURCE_AFTER_FULLFUNCTION_PASS_OR_STOP"
+}

@@ -1,0 +1,41 @@
+{
+  "actualGrant": null,
+  "actualTool": null,
+  "currentProtection": null,
+  "cwd": "/Users/zacheryspector/The-Movies-headless-program",
+  "executionAuthorization": false,
+  "launchArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_fullfunction_once.py",
+    null,
+    null,
+    null,
+    null
+  ],
+  "launchFutureOperands": [
+    "genuineRouteSourceReviewPath",
+    "genuineRouteSourceReviewSha256",
+    "combinedParentReadbackWrapperSourceReviewPath",
+    "combinedParentReadbackWrapperSourceReviewSha256"
+  ],
+  "nonoperativeDocumentaryDraft": true,
+  "parentReview": null,
+  "readerArgv": [
+    "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_reader_once.py",
+    null,
+    null
+  ],
+  "readerFutureOperands": [
+    "combinedParentReadbackWrapperSourceReviewPath",
+    "combinedParentReadbackWrapperSourceReviewSha256"
+  ],
+  "readerReview": null,
+  "runtimeReady": false,
+  "schema": "1370-ao-fullfunction-root-wrappers-argv-draft/v1",
+  "sourceReview": null
+}

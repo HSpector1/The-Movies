@@ -1,0 +1,139 @@
+{
+  "comparisons": [
+    {
+      "allFunctionsAstEqual": true,
+      "baseline": {
+        "bytes": 5274,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r8/launch-fullpostflight.py",
+        "sha256": "75603678180a3f2f4c2bb53de55ea4024ea91a801a0c238da86f0d99ec914885"
+      },
+      "forwardAndInverseComplete": true,
+      "literalBindings": 9,
+      "source": {
+        "bytes": 5308,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py",
+        "sha256": "448b2f60846d4d28eb972ea07ef3cb89c7e3f3d540332809271f987117266d6f"
+      }
+    },
+    {
+      "allFunctionsAstEqual": true,
+      "baseline": {
+        "bytes": 5405,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r8/read-fullpostflight.py",
+        "sha256": "1f08bf32ef32e27e053de758bece9bb57d82ea572f3ed9cd70813b9bc26f0da2"
+      },
+      "forwardAndInverseComplete": true,
+      "literalBindings": 5,
+      "source": {
+        "bytes": 5439,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py",
+        "sha256": "484acc12c4ef79ccdcc0aa928e495fce793f27f4c76373d5c0ea88058711a84f"
+      }
+    }
+  ],
+  "completeForwardInverseApplications": 4,
+  "concreteFindings": [],
+  "currentANFullPreflightAdoption": {
+    "bytes": 4727,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/CURRENT-AN-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "753a7597c20032c70b2a07c9001de15ba1f72b5a0a5ac7706e340228da5fef5a"
+  },
+  "currentANFullPreflightSnapshot": {
+    "bytes": 9440774,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-an-r1/SNAPSHOT.json",
+    "sha256": "63fe53279f1703e9f67d587481ee741e15502fa4a167b1f33e9c7741d13389e9"
+  },
+  "decision": "ACCEPT_STATIC_ORIGINAL_SHARED_FULL_POSTFLIGHT_ADAPTER_AFTER_FULLFUNCTION_PASS_OR_STOP",
+  "executionAuthorization": false,
+  "findings": [],
+  "futureActualRouteReadback": null,
+  "futureGrant": null,
+  "futurePostflightResult": null,
+  "guardConfig": {
+    "bytes": 3928,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+    "sha256": "f9d2d7fda1b5df5c01176c142bd6b16c9be9cc78963fe73e7fc62640b82a9cdd"
+  },
+  "guardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/snapshot.py",
+    "sha256": "2915fd60e26b894fd431e4483e23d9beed79b3332dc3c7173b0a37fd3130ef1d"
+  },
+  "guardSourcePins": {
+    "bytes": 2286,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "9df63e39d302e3b8481198999e129233ab4eb5709848d91cb1d45af0dfee0e88"
+  },
+  "guardSourceReview": {
+    "bytes": 4737,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "7ec24d7aff9665c577a5341425429942a8b12c6c1ded219a82913685e0a9badf"
+  },
+  "independence": {
+    "reviewer": "/root/b109_focused_route_review",
+    "sourceAuthor": "/root"
+  },
+  "reviewedBehavior": [
+    "Current AN source/config and accepted before-fill baseline are honestly bound; future run is phase postflight, no baseline relabeling.",
+    "Caller supplies authentic completed fullfunction READBACK path and SHA; PASS or STOP typed exits, actual owned PID/group roster and lane release are consumed.",
+    "Prior route identities are freshly checked absent before direct scanner exec, then route and scanner IDs checked absent by retained reader.",
+    "Original full immutable physical/dependency maps and nine strict roots are compared to the full baseline; scratch identity fields only retain original predicate.",
+    "Original raw four process/FD files remain LOCAL_HASH_SIZE_ONLY.",
+    "Original per-command180 seconds, direct own session/group and no helper or overall scan deadline remain.",
+    "Postflight success requires retained actual tool0, exact snapshot/pins, empty scanner stderr, before/after current facts and immutable map equality.",
+    "Missing M0 AFTER proofs are never invented by shared postflight; types, collection and gameplay acceptance remain false."
+  ],
+  "routeSourcePins": {
+    "RECIPE.json": {
+      "bytes": 1128,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/RECIPE.json",
+      "sha256": "a92f4dbbbede8389b163358136800b4accc6d1c1dea2cc0d16b8df79a6462bf0"
+    },
+    "launch-fullpostflight.py": {
+      "bytes": 5308,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py",
+      "sha256": "448b2f60846d4d28eb972ea07ef3cb89c7e3f3d540332809271f987117266d6f"
+    },
+    "read-fullpostflight.py": {
+      "bytes": 5439,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py",
+      "sha256": "484acc12c4ef79ccdcc0aa928e495fce793f27f4c76373d5c0ea88058711a84f"
+    }
+  },
+  "schema": "1370-original-shared-full-postflight-adapter-independent-source-review/v1",
+  "scope": {
+    "gameAccepted": false,
+    "historicalFailuresPreserved": true,
+    "newPredicateOrCap": false,
+    "privateInventoryByReviewer": false,
+    "runtimeByReviewer": false,
+    "sourceOnly": true
+  },
+  "sourceManifest": {
+    "bytes": 3309,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "a99444f72815ce9db487885c0a9949cb0dcbc1d6bb4b03df449ec08c6fa471c0"
+  },
+  "sourcePins": {
+    "RECIPE.json": {
+      "bytes": 1128,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/RECIPE.json",
+      "sha256": "a92f4dbbbede8389b163358136800b4accc6d1c1dea2cc0d16b8df79a6462bf0"
+    },
+    "launch-fullpostflight.py": {
+      "bytes": 5308,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py",
+      "sha256": "448b2f60846d4d28eb972ea07ef3cb89c7e3f3d540332809271f987117266d6f"
+    },
+    "read-fullpostflight.py": {
+      "bytes": 5439,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py",
+      "sha256": "484acc12c4ef79ccdcc0aa928e495fce793f27f4c76373d5c0ea88058711a84f"
+    }
+  },
+  "sourceProof": {
+    "bytes": 6172,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/SOURCE-PROOF.json",
+    "sha256": "f8f9a2099652fd2ad738b8b4e907b1672f7dca056098e114457f660d51bb8708"
+  }
+}

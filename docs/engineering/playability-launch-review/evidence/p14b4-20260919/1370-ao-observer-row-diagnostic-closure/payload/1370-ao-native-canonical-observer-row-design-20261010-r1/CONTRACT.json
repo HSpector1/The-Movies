@@ -1,0 +1,85 @@
+{
+  "authorityRecommendation": "Separate explicit root technical representation adoption after independent review; if legacy expanded cap is independently immutable, Owner contract choice is required instead of silent waiver.",
+  "design": {
+    "bytes": 7954,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-native-canonical-observer-row-design-20261010-r1/DESIGN.md",
+    "sha256": "ac8428a0d56519143a652a6853f205172ddd89374d30d9b7342f4d9b30ce820c"
+  },
+  "detailEncoding": "native-json-tuple/v1",
+  "executionAuthorization": false,
+  "firstMetadataLine": {
+    "bytes": 935,
+    "sha256": "4af9cb07ee0be2dbb8aff1cba5ccd7a9add4e3702a963535a6d7712c785fd0eb"
+  },
+  "fixtureArm": "UNKNOWN",
+  "fixtureOrPolicyChanges": false,
+  "implementationAuthorized": false,
+  "legacyExpandedAccountingChanges": true,
+  "logicalPayloadSemanticChanges": false,
+  "measuredLegacyRow": {
+    "availability": "available",
+    "canonicalInputBytes": 15360,
+    "canonicalInputUnavailableReason": null,
+    "context": {
+      "candidateOrdinal": 2,
+      "caseKey": "[\"person-studio-aca408ec-r01-0\",\"studio-aca408ec-r01\",\"studio-aca408ec-r01:contract:person-studio-aca408ec-r01-0:0\",196]",
+      "caseOccurrence": 0,
+      "caseSourceIndex": 0,
+      "era": "M0",
+      "issuer": "studio-aca408ec-r02",
+      "phase": "authorCandidate",
+      "proposalKey": "[\"person-studio-aca408ec-r01-0\",\"studio-aca408ec-r02\",\"b379d43d0b34d71b\",196]",
+      "proposalOccurrence": 0,
+      "proposalSourceIndex": 70,
+      "subject": "person-studio-aca408ec-r01-0",
+      "week": 196
+    },
+    "contextBytes": 468,
+    "detailBytes": 16733,
+    "error": {
+      "message": "M0 feasibility row byte bound exceeded",
+      "name": "Error"
+    },
+    "family": "PREFERRED_GENRE_OPPORTUNITY",
+    "familyUnavailableReason": null,
+    "kind": "inputTuple",
+    "occurrence": 0,
+    "predicate": "ROW_BYTE_CAP",
+    "priorRowCount": 21,
+    "rowBytes": 17305,
+    "rowLimit": 16384,
+    "schema": "1370-m0-observer-row-diagnostic/v1",
+    "sequence": 21
+  },
+  "metadataProducer": {
+    "bytes": 1084,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-results-20261010-r1/baseline.stdout",
+    "sha256": "723655adc0a0f76175fff9fc51d8ce991c7c2499bbc549502de4e72c33bc1ffe"
+  },
+  "newSchemaFitMeasured": false,
+  "originalWitness": {
+    "bytes": 4729,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0FeasibilityWitness.ts",
+    "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+  },
+  "physicalCaps": {
+    "rowBytesIncludingNewline": 16384,
+    "rows": 512,
+    "totalBytesIncludingNewlines": 2097152
+  },
+  "publicSourceDecisionTree": {
+    "bytes": 2407,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-opportunity-canonical-input-decision-tree-20261010-r1/RECEIPT.json",
+    "sha256": "03db8ea6bf70668fce8a29a2949b6e07fa807e89c495276cfa699e2c34f227f2"
+  },
+  "retainedFailureReport": {
+    "bytes": 2879,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-results-20261010-r1/baseline.report.json",
+    "sha256": "8a186b51241ac6cdbf94a34e4602df4cb2fdd0a2b5810c7c929901a68cb54acd"
+  },
+  "roundtrip": "JSON.stringify(JSON.parse(originalCanonicalInputs))===originalCanonicalInputs exactly",
+  "schema": "1370-ao-native-canonical-observer-row-design/v1",
+  "sourceComponentAttributionMeasured": false,
+  "status": "HELD_SOURCE_ONLY_REPRESENTATION_AMENDMENT_PROPOSAL",
+  "storageSchema": "c0-m0-promise-feasibility/v3-native-canonical"
+}

@@ -1,0 +1,39 @@
+--- Q13/RESOLUTION-SOURCE-BINDING.json
++++ AO/RESOLUTION-SOURCE-BINDING.json
+@@ -9,6 +9,11 @@
+       "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/employment.ts",
+       "sha256": "07262d62f6c6de0a849e5bfea124d01be2dbcbbb7edb7b3b6ead32025318b75a"
+     },
++    "src/core/m0ObserverRowDiagnostic.mjs": {
++      "bytes": 10646,
++      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0ObserverRowDiagnostic.mjs",
++      "sha256": "facc279ea400667a5bfdb029dbbf7defd62c7ae950e181d763bac27d4aa49124"
++    },
+     "src/core/m0TraceCodec.mjs": {
+       "bytes": 7882,
+       "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/m0TraceCodec.mjs",
+@@ -35,9 +40,9 @@
+       "sha256": "04a835a5f63bf64994d01608423876b8d3a0e2862c8da095212848683becf9e5"
+     },
+     "src/core/talentMarket.ts": {
+-      "bytes": 119434,
+-      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/talentMarket.ts",
+-      "sha256": "ce06afb3069c83dc1d9ee1fb8a03b7f1609c0db41fc3ea8078b455061455ed2d"
++      "bytes": 119700,
++      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/talentMarket.ts",
++      "sha256": "fe9bea844bf41c3ad7e57924a6822f3a48b695b75880477281889a250a7c500a"
+     }
+   },
+   "executionAuthorization": false,
+@@ -1315,8 +1320,8 @@
+     }
+   },
+   "typedCatchMutant": {
+-    "bytes": 119464,
+-    "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/mutants/typed-propagation-removed-talentMarket.ts",
+-    "sha256": "074d0cfd58e245bb35883b79bf72dda428884fc2bb49ea918da6f2320c235ef3"
++    "bytes": 119730,
++    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/typed-propagation-removed-talentMarket.ts",
++    "sha256": "425922b5f9b3c1c9c27d91b45214b76b217345b63890887ba870494b9ac91479"
+   }
+ }

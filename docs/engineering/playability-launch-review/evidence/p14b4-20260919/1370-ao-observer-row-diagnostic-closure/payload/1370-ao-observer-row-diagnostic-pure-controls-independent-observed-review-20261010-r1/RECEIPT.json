@@ -1,0 +1,689 @@
+{
+  "actualExit": 0,
+  "actualTool": {
+    "bytes": 1323,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/ACTUAL-TOOL.json",
+    "sha256": "606f0fdd7bd90711304e087fc8abac66aafc979b6fba589fd00506eae7813218"
+  },
+  "actualToolChunks": [
+    "77a704",
+    "0ca2bb"
+  ],
+  "actualToolSessionId": 75448,
+  "allSpecificControlsPassed": true,
+  "api": {
+    "bytes": 8460,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2/API.md",
+    "sha256": "8b23588f28233794a7d0317b76d0770912015bc3ffd20dd823aae74b21225eb8"
+  },
+  "caseCount": 48,
+  "concreteFindings": [],
+  "controlsSourcePins": {
+    "bytes": 3328,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/SOURCE-PINS.json",
+    "sha256": "a427acb4c7e1c0b5d31695141600c828c9e8f64543d5b828b9c40ac678b34411"
+  },
+  "controlsSourceReview": {
+    "bytes": 6203,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-root-source-review-20261010-r2/RECEIPT.json",
+    "sha256": "541f976ca5e1e550dd86b0fc56ac416b0a881c6d421ae14bb2809e2eeab5cfa8"
+  },
+  "decision": "ACCEPT_ACTUAL_PURE_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_ONLY",
+  "exactOrderedResults": [
+    {
+      "expected": "GREEN",
+      "id": "ordinary_exact_row_parity",
+      "predicate": "same authoritative rows; no diagnostic",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "expected": "GREEN",
+      "id": "immutable_exact_frozen_context",
+      "predicate": "capture immutable; exact underlying context",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "expected": "GREEN",
+      "id": "authoritative_row_16384",
+      "predicate": "original inclusive expanded-row boundary",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "expected": "GREEN",
+      "id": "native_identity_source_indices_and_ordinals",
+      "predicate": "original ten-field occurrence identity",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "expected": "GREEN",
+      "id": "reset_preserves_prior_line_and_new_sink_binding",
+      "predicate": "scratch reset; prior evidence immutable",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "expected": "GREEN",
+      "id": "shared_arm_success_and_cleanup_order",
+      "predicate": "actual helper preserves body value; end then reset",
+      "verdict": "ACCEPT_POSITIVE"
+    },
+    {
+      "expected": "RED",
+      "id": "row_16385_input_tuple",
+      "predicate": "same original row-byte Error; exact diagnostic",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "unicode_nonzero_sequence_occurrence",
+      "predicate": "native escaped UTF8 bytes; actual prior rows",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "different_ordinal_refused_occurrence_zero",
+      "predicate": "native identity partitions ordinal",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "assessment_exact_context_family",
+      "predicate": "actual preceding same-context inputTuple",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "assessment_missing_predecessor",
+      "predicate": "CANONICAL_INPUT_MISSING",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "assessment_wrong_context_predecessor",
+      "predicate": "CANONICAL_INPUT_MISSING",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "input_tuple_missing_canonical",
+      "predicate": "CANONICAL_INPUT_MISSING",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "canonical_malformed",
+      "predicate": "CANONICAL_INPUT_MALFORMED",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "canonical_invalid_family",
+      "predicate": "FAMILY_UNAVAILABLE",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "canonical_65536_inclusive",
+      "predicate": "bounded canonical parsing remains available",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "canonical_65537_refused",
+      "predicate": "CANONICAL_INPUT_OVER_BOUND; no unbounded reconstruction",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "canonical_declared_byte_mismatch",
+      "predicate": "CANONICAL_INPUT_BYTE_MISMATCH",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "reconstruction_serialization_failure",
+      "predicate": "FAILED_ROW_UNSUPPORTED; stateful toJSON never reentered",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "detail_getter_not_reentered",
+      "predicate": "FAILED_ROW_UNSUPPORTED; accessor invoked only by original witness",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "context_extra_payload_not_emitted",
+      "predicate": "CONTEXT_UNSUPPORTED; no raw extra context payload",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "context_65536_inclusive",
+      "predicate": "inclusive context preflight then bounded emission refusal",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "context_65537_refused",
+      "predicate": "CONTEXT_OVER_BOUND before row reconstruction",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "huge_context_no_raw_payload",
+      "predicate": "CONTEXT_OVER_BOUND; bounded scalar unavailable metadata",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "huge_kind_original_refusal_no_raw_kind",
+      "predicate": "FAILED_ROW_UNSUPPORTED; same original row Error; no raw kind",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "huge_failed_detail_no_raw_payload",
+      "predicate": "FAILED_ROW_OVER_BOUND; no unbounded diagnostic reconstruction",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "reconstruction_524288_inclusive",
+      "predicate": "exact bounded native row reconstruction; original row refusal unchanged",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "reconstruction_524289_refused",
+      "predicate": "FAILED_ROW_OVER_BOUND at complete row including newline",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "structural_node_and_depth_bounds",
+      "predicate": "FAILED_ROW_OVER_BOUND for bounded over-limit node and depth fixtures",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "provider_exception",
+      "predicate": "DIAGNOSTIC_UNAVAILABLE; original Error wins",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "provider_nonarray",
+      "predicate": "PRIOR_ROWS_UNAVAILABLE",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "provider_prior_rows_count_513",
+      "predicate": "PRIOR_ROWS_UNAVAILABLE; bounded provider cardinality",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "provider_prior_rows_over_total_bound",
+      "predicate": "PRIOR_ROWS_UNAVAILABLE",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "prior_rows_exact_original_total_bound",
+      "predicate": "original stream accounting accepts exact 2MiB prior rows",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "diagnostic_output_over_4096",
+      "predicate": "DIAGNOSTIC_OUTPUT_OVER_BOUND",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "swallowed_row_failure_then_return",
+      "predicate": "throwIfFailed rethrows exact original Error",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "swallowed_row_failure_then_unrelated_F",
+      "predicate": "sticky original E wins over later F",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "row_error_survives_end_failure",
+      "predicate": "actual helper preserves E; reset still attempted",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "row_error_survives_reset_failure",
+      "predicate": "actual helper preserves E after factory reset",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "row_error_survives_both_cleanup_failures",
+      "predicate": "actual helper preserves E; end then reset attempted",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "row_error_survives_writer_failure",
+      "predicate": "actual helper preserves E and performs both cleanup calls",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "ordinary_body_error_and_cleanup_precedence",
+      "predicate": "actual helper keeps original nested fatal cleanup precedence",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "subsequent_record_cannot_resume",
+      "predicate": "same first Error; no additional authoritative call",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "emitter_failure_consumes_first_emission",
+      "predicate": "same original Error; one invocation only",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "original_count_513",
+      "predicate": "original row-count Error; no row-byte diagnostic",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "original_total_2097152_then_more",
+      "predicate": "original total-byte Error; no row-byte diagnostic",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "unrelated_error_unchanged",
+      "predicate": "unrelated original Error; no diagnostic reinterpretation",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    },
+    {
+      "expected": "RED",
+      "id": "original_reentrant_error_unchanged",
+      "predicate": "original reentrant Error; no diagnostic reinterpretation",
+      "verdict": "ACCEPT_SPECIFIC_REFUSAL"
+    }
+  ],
+  "executionAuthorization": false,
+  "findings": [],
+  "generatedModules": {
+    "m0FeasibilityWitness.ts": {
+      "bytes": 4135,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-results-20261010-r1/m0FeasibilityWitness.mjs",
+      "sha256": "c4f4e26ff5f17be2deadbe70032bf0abeaa55893a6684260501e41cbc91fef5c"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 10646,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-results-20261010-r1/m0ObserverRowDiagnostic.mjs",
+      "sha256": "facc279ea400667a5bfdb029dbbf7defd62c7ae950e181d763bac27d4aa49124"
+    },
+    "run-observer-row-controls.mjs": {
+      "bytes": 29201,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-results-20261010-r1/run-observer-row-controls.mjs",
+      "sha256": "227e306fa5ba41208e72a9e0148d3e6cf3d49cf5070a694f6888908c2fabf6e0"
+    }
+  },
+  "grant": {
+    "bytes": 7614,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/GRANT.json",
+    "sha256": "0c06fc7061211ff19b6a178a07bfcd9c230659c2d84caf0f65392a3d8027df03"
+  },
+  "implementationControlsSourceAdoption": {
+    "bytes": 3582,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-IMPLEMENTATION-CONTROLS-SOURCE-ADOPTION.json",
+    "sha256": "1112ed2166d623284be4a1c1bd40ae455212921d16ec32da0e727f9bcca566c7"
+  },
+  "implementationSourcePins": {
+    "bytes": 6892,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/SOURCE-PINS.json",
+    "sha256": "ecfa500f2a60f1280c6fcf06d60817bbb017bbf2524b74ab42bfd9c5aa5ce3b3"
+  },
+  "implementationSourceReview": {
+    "bytes": 9463,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-source-review-20261010-r3/RECEIPT.json",
+    "sha256": "ba5fe631915582f42d0b3071e545a519e69ac00f5ab51027783af79452613064"
+  },
+  "independence": {
+    "noCandidateOrTestRuntimePerformedByReviewer": true,
+    "observedReviewer": "/root/b109_focused_route_review",
+    "runtimeOwner": "/root",
+    "sameReviewerPreviouslyReviewedSource": true,
+    "sourceAuthor": "/root/m0_types_source_review"
+  },
+  "inputRoles": {
+    "CONTROLS-CONTRACT.json": {
+      "bytes": 4066,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "e3f811116a1e62a37b87c9c738b052ba71cbdfebe4954344506ae46b8a074fbf"
+    },
+    "MATRIX.json": {
+      "bytes": 7474,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "0f2a5ed2c64d632aa269fb1c1b4cc954f2e3b33acbe9281246453f7baa80f0d0"
+    },
+    "m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 10646,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0ObserverRowDiagnostic.mjs",
+      "sha256": "facc279ea400667a5bfdb029dbbf7defd62c7ae950e181d763bac27d4aa49124"
+    },
+    "run-observer-row-controls.mjs": {
+      "bytes": 29201,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/run-observer-row-controls.mjs",
+      "sha256": "227e306fa5ba41208e72a9e0148d3e6cf3d49cf5070a694f6888908c2fabf6e0"
+    }
+  },
+  "laneLog": {
+    "bytes": 451,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/controls.lane.log",
+    "sha256": "265c223bf093028757dd2e86bfc987b1f128f1d9d1c17e9040d665a2540057d7"
+  },
+  "laneMetadata": {
+    "bytes": 569,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/controls.lane.log.meta",
+    "sha256": "f194ff3fb6787ab7d826f51c3fb3d1fd40464bad4f5528cbc7361b5cf0959b49"
+  },
+  "measured": {
+    "combinedPreparationRuntimeDeadline": null,
+    "preparationDeadlineSeconds": 60,
+    "preparationSeconds": 0.44873556301172357,
+    "producerStderrBytes": 0,
+    "recorderResultBytes": 12542,
+    "recorderSeconds": 3.914878809999209,
+    "runtimeRunnerActiveWholeSeconds": [
+      300,
+      320,
+      330
+    ],
+    "stdoutBytes": 12542,
+    "workerResultBytes": 15257
+  },
+  "ownership": {
+    "actualOwnGroupConfirmed": true,
+    "childPid": 83213,
+    "groupClear": true,
+    "helperPgid": 82947,
+    "helperPid": 82947,
+    "helperSid": 82947,
+    "laneReleased": true,
+    "ownedPgid": 83213,
+    "pgidConfirmed": true,
+    "scopedOwnershipChecks": [
+      {
+        "id": 82947,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 82947,
+        "kind": "pgid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 83213,
+        "kind": "pid",
+        "result": "ESRCH"
+      },
+      {
+        "id": 83213,
+        "kind": "pgid",
+        "result": "ESRCH"
+      }
+    ],
+    "startupOwnedBeforeExec": true
+  },
+  "parentClaim": {
+    "bytes": 3683,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/LAUNCH-CLAIM.json",
+    "sha256": "1472fbab38e0bc8cd33e7289377ea68a197362216dad5ecfc69450fd568738a5"
+  },
+  "positiveCount": 6,
+  "qualifiedDiagnostics": {
+    "allStreamsQuietClaim": false,
+    "attribution": "Authenticated unchanged qualified recorder main() outer finally return code, current source line259. It is separate from empty Node producer stderr.",
+    "helperCombinedLogNonempty": true,
+    "syntaxWarningPreserved": true
+  },
+  "readback": {
+    "bytes": 8631,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/READBACK.json",
+    "sha256": "e82d8783ee95ee8dc7cdfdaee1979380c809d8d3eaa108eee8e994cb53d2fb64"
+  },
+  "readerActualObservation": {
+    "chunkId": "2a2543",
+    "exitCode": 0,
+    "retainedActualTool": {
+      "bytes": 649,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-parent-recorded-20261010-r1/READER-ACTUAL-TOOL.json",
+      "sha256": "52ed174819817520e2c60d9806f2ef7ff514cc0faf2d64352785d968f3171587"
+    },
+    "sessionId": null
+  },
+  "recorderResult": {
+    "bytes": 1123,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorder-results-20261010-r1/RESULT.json",
+    "sha256": "67bd8bc5c3306e7f3955c004cde5c6a0ae167494510a04749488768eb28a70c6"
+  },
+  "result": {
+    "bytes": 12542,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorder-results-20261010-r1/CONTROLS-RESULT.json",
+    "sha256": "d453dbe3d63dfc7b63622a779783a4bcc377e7d863ba5900febe00ff2bfd746c"
+  },
+  "rootDesignAdoption": {
+    "bytes": 3797,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/OBSERVER-ROW-DIAGNOSTIC-DESIGN-ADOPTION.json",
+    "sha256": "8b45e59bfbcf67e115f28065c475fc64ba353a96ee4c07e616472bf58b1eda90"
+  },
+  "routeSourcePins": {
+    "CONFIG.json": {
+      "bytes": 7018,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONFIG.json",
+      "sha256": "ecd1164da81a1e8f1c03456762cdfc56803cde908908e9e233a33491185fddaa"
+    },
+    "CONTRACT.json": {
+      "bytes": 4589,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONTRACT.json",
+      "sha256": "ede7dd2698764a78607f9c18ec55f86ec694d4543e5a93a9acd1d2584c0d63b7"
+    },
+    "CONTROLS-CONTRACT.json": {
+      "bytes": 4066,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "e3f811116a1e62a37b87c9c738b052ba71cbdfebe4954344506ae46b8a074fbf"
+    },
+    "MATRIX.json": {
+      "bytes": 7474,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "0f2a5ed2c64d632aa269fb1c1b4cc954f2e3b33acbe9281246453f7baa80f0d0"
+    },
+    "launch-observer-row-controls.py": {
+      "bytes": 11670,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/launch-observer-row-controls.py",
+      "sha256": "7f96ddeb7dbfbb11a5103f6e999f6d33c087a85f3d34bc726a686b63350605ac"
+    },
+    "m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 10646,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0ObserverRowDiagnostic.mjs",
+      "sha256": "facc279ea400667a5bfdb029dbbf7defd62c7ae950e181d763bac27d4aa49124"
+    },
+    "record-observer-row-controls.py": {
+      "bytes": 17408,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/record-observer-row-controls.py",
+      "sha256": "0eaf949c201047e861483cdc175375be8a0e2049d726427d041bf15872ebdf26"
+    },
+    "run-observer-row-controls.mjs": {
+      "bytes": 29201,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/run-observer-row-controls.mjs",
+      "sha256": "227e306fa5ba41208e72a9e0148d3e6cf3d49cf5070a694f6888908c2fabf6e0"
+    },
+    "run-observer-row-recorded-controls.mjs": {
+      "bytes": 13541,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/run-observer-row-recorded-controls.mjs",
+      "sha256": "c819ea3777bfbc073a9b6795794e00dad8b2942106e13b2295b55e860cf492f6"
+    }
+  },
+  "runtimeTools": {
+    "helper": {
+      "bytes": 3361,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh",
+      "sha256": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "node": {
+      "bytes": 115440320,
+      "path": "/Users/zacheryspector/.nvm/versions/node/v22.23.2/bin/node",
+      "sha256": "0b4f059915f3bf3c6cbb02422f4a529bfb21cbbec2d29851c9a5d833f78a04f6"
+    },
+    "python": {
+      "bytes": 50472,
+      "path": "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+      "sha256": "7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835"
+    },
+    "typescript": {
+      "bytes": 9112572,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/lib/typescript.js",
+      "sha256": "3ae902c92cc44dace175c0e69e13a4b0899f6983c6121d76b9ab8dd5795e7675"
+    },
+    "typescriptPackage": {
+      "bytes": 3620,
+      "path": "/Users/zacheryspector/The-Movies-headless-program/node_modules/typescript/package.json",
+      "sha256": "822ef7ca6452205657b6288b066481ecf508bfbf43455d715cf7d3ec457561e6"
+    }
+  },
+  "runtimeToolsObservation": {
+    "bytes": 1691,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-RUNTIME-TOOLS.json",
+    "sha256": "12d11061dd21827447ef0563d9ab4c5bec0c636986e8690ed067eb0be37dfa0c"
+  },
+  "schema": "1370-observer-row-diagnostic-pure-controls-independent-observed-review/v1",
+  "scope": {
+    "diagnosticImplementationAndOriginalWitnessPureControlsOnly": true,
+    "fullBodyGameAssertionsExecuted": false,
+    "fullQualificationAccepted": false,
+    "futureExecutionAuthorization": false,
+    "game": false,
+    "historicalControlSetsReplayed": false,
+    "measuredActualOffendingRow": false,
+    "originalObserverCapsUnchanged": true,
+    "privateM0ReadOrWritten": false
+  },
+  "sourceAdoption": {
+    "bytes": 1390,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-SOURCE-ADOPTION.json",
+    "sha256": "38f66aab9ac6dd03179dc9c5d2ca5952220129d509674ca60bad144cad8b880e"
+  },
+  "sourceManifest": {
+    "bytes": 7675,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "a27f8bf8756ab5804411ff1592aef49f8012c3dc65e14cbf073dcec2995a97ec"
+  },
+  "sourcePins": {
+    "CONFIG.json": {
+      "bytes": 7018,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONFIG.json",
+      "sha256": "ecd1164da81a1e8f1c03456762cdfc56803cde908908e9e233a33491185fddaa"
+    },
+    "CONTRACT.json": {
+      "bytes": 4589,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/CONTRACT.json",
+      "sha256": "ede7dd2698764a78607f9c18ec55f86ec694d4543e5a93a9acd1d2584c0d63b7"
+    },
+    "CONTROLS-CONTRACT.json": {
+      "bytes": 4066,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/CONTRACT.json",
+      "sha256": "e3f811116a1e62a37b87c9c738b052ba71cbdfebe4954344506ae46b8a074fbf"
+    },
+    "MATRIX.json": {
+      "bytes": 7474,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/MATRIX.json",
+      "sha256": "0f2a5ed2c64d632aa269fb1c1b4cc954f2e3b33acbe9281246453f7baa80f0d0"
+    },
+    "launch-observer-row-controls.py": {
+      "bytes": 11670,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/launch-observer-row-controls.py",
+      "sha256": "7f96ddeb7dbfbb11a5103f6e999f6d33c087a85f3d34bc726a686b63350605ac"
+    },
+    "m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 10646,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0ObserverRowDiagnostic.mjs",
+      "sha256": "facc279ea400667a5bfdb029dbbf7defd62c7ae950e181d763bac27d4aa49124"
+    },
+    "record-observer-row-controls.py": {
+      "bytes": 17408,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/record-observer-row-controls.py",
+      "sha256": "0eaf949c201047e861483cdc175375be8a0e2049d726427d041bf15872ebdf26"
+    },
+    "run-observer-row-controls.mjs": {
+      "bytes": 29201,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/run-observer-row-controls.mjs",
+      "sha256": "227e306fa5ba41208e72a9e0148d3e6cf3d49cf5070a694f6888908c2fabf6e0"
+    },
+    "run-observer-row-recorded-controls.mjs": {
+      "bytes": 13541,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-source-20261010-r1/run-observer-row-recorded-controls.mjs",
+      "sha256": "c819ea3777bfbc073a9b6795794e00dad8b2942106e13b2295b55e860cf492f6"
+    }
+  },
+  "sourceReview": {
+    "bytes": 14092,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorded-route-independent-source-review-20261010-r1/RECEIPT.json",
+    "sha256": "d11e4b0fa2ba987b8eabcdd359cc96283beb2d848d118befe796becd39be2741"
+  },
+  "specificNegativeCount": 42,
+  "stderr": {
+    "bytes": 0,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorder-results-20261010-r1/stderr.bin",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 12542,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorder-results-20261010-r1/stdout.bin",
+    "sha256": "e8c9c852a11faa3f831752b9a0c7ab99a5be2f6fb034eb6a808c811d2bbcd7c6"
+  },
+  "verification": {
+    "allOutputCapsAndOriginalClocksSatisfied": true,
+    "genuineSourceAdoptionAndReviewAliasesExact": true,
+    "homeInherited": true,
+    "noReviewerRuntimeOrProbe": true,
+    "retainedToolFinalExitAndGrantClaimBound": true,
+    "sameAcceptedSourceRolesRehashed": true,
+    "soleOriginalWitnessTypeScriptTransform": true,
+    "sourceEnforcedInputAndPhysicalToolRehashBeforeAndAfterControls": true,
+    "strictDuplicateRejectingFramingAndTypedFullMatrixEquality": true,
+    "threeGeneratedModulesAuthenticated": true,
+    "twoJavascriptCopiesByteExact": true,
+    "workerRecorderAndStdoutObjectsEqual": true
+  },
+  "workerResult": {
+    "bytes": 15257,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-results-20261010-r1/CONTROLS-RESULT.json",
+    "sha256": "b195410fdb3f9fc69579ea0c44bbd5f936c5f86fe21c8f6b1af0283c59321ff3"
+  }
+}

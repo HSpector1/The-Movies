@@ -1,0 +1,151 @@
+{
+  "actualControls": null,
+  "actualGameplay": null,
+  "api": {
+    "bytes": 8460,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2/API.md",
+    "sha256": "8b23588f28233794a7d0317b76d0770912015bc3ffd20dd823aae74b21225eb8"
+  },
+  "concreteFindings": [
+    {
+      "code": "FAILED_INPUT_SERIALIZED_BEFORE_DIAGNOSTIC_BOUND",
+      "evidence": "retain builds rowBytes via JSON.stringify(row) and TextEncoder before familyEvidence checks canonicalInputs<=65536. It then separately serializes detail/context. Candidate line length is checked only after the full object/string allocation. A huge failed canonical string, extra detail graph or context is therefore reserialized before unavailable; stateful toJSON/getter work can run again.",
+      "id": "F1",
+      "impact": "Original refusal stays fatal, but required bounded diagnostic transient/access work is not implemented and reconstructed bytes can refer to a changed second serialization.",
+      "minimalRepair": "Set sticky E first, then bounded safe plain-data/schema preflight before any full native reconstruction. Inspect supported context/detail shapes, scalar lengths, canonical string and finite structural work. Overbound/unsupported evidence yields bounded scalar unavailable; do not reserialize failed raw data, truncate, cache it, or guess rowBytes.",
+      "source": "m0ObserverRowDiagnostic.mjs retain/familyEvidence"
+    },
+    {
+      "code": "UNFILTERED_CONTEXT_CAN_EMIT_RAW_EXTRA_FIELDS",
+      "evidence": "Original witness validateContext checks required fields but JSON-clones all context extras. Diagnostic emits capture.context wholesale. A valid required context plus small raw payload/tuple extra is therefore emitted under4096.",
+      "id": "F2",
+      "impact": "Violates adopted scalar-metadata-only/no-raw contract even though current gameplay integration constructs known context fields.",
+      "minimalRepair": "Require exact adopted scalar context shape before emission/reconstruction. Unknown/nested extras produce bounded unavailable. Never omit extras and claim the resulting rowBytes equals authoritative original row.",
+      "source": "m0ObserverRowDiagnostic.mjs candidate.context"
+    },
+    {
+      "code": "PRIOR_ARRAY_FRAME_BYTE_GUARD_DIFFERS_FROM_ORIGINAL_STREAM",
+      "evidence": "bytes(JSON.stringify(rows)) exceeds sum(bytes(JSON.stringify(row)+newline)) by one byte for nonempty rows. Exact legitimate2MiB prior stream is classified unavailable by this array guard.",
+      "id": "F3",
+      "impact": "No cap waiver or false success; nevertheless this is avoidable false unavailability under the exact reconstruction contract.",
+      "minimalRepair": "Sum original per-row JSON+newline bytes with early cap using bounded source data. Preserve original512/16384/2097152 acceptance predicates. Author independently identified this same issue.",
+      "source": "m0ObserverRowDiagnostic.mjs retain prior rows guard"
+    }
+  ],
+  "decision": "STOP_STATIC_OBSERVER_ROW_DIAGNOSTIC_UNBOUNDED_SERIALIZATION_AND_RAW_CONTEXT",
+  "designAdoption": {
+    "bytes": 3797,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/OBSERVER-ROW-DIAGNOSTIC-DESIGN-ADOPTION.json",
+    "sha256": "8b45e59bfbcf67e115f28065c475fc64ba353a96ee4c07e616472bf58b1eda90"
+  },
+  "executionAuthorization": false,
+  "futureControlsCriteria": [
+    "Overbound canonical/context/detail must be unavailable without repeated failed-input serializers.",
+    "Extra raw context tuple must not appear in emitted line.",
+    "Exact original stream accounting at2MiB; array-frame byte must not alter availability.",
+    "Existing native boundary/occurrence/parity/firstE/emission/cleanup/reset cases remain exact; unknown errors never intended RED."
+  ],
+  "implementationAccepted": false,
+  "passedStaticChecks": {
+    "all16ManifestRolesAuthenticated": true,
+    "completeDiffApplications": 6,
+    "diagnosticStateClearedAtExistingReset": true,
+    "emissionAttemptAtMostOnceAndCallbackErrorsCannotReplaceE": true,
+    "firstRefusalBeforeRowsAndOccurrenceIncrement": true,
+    "immediatePostAdvanceStickyCheck": true,
+    "mutantOnlyOriginal30ByteCatchDeltaExact": true,
+    "nativeRowFieldOrderAndFull10FieldOccurrenceIdentity": true,
+    "noRowErrorOriginalNestedCleanupSemantics": true,
+    "ordinarySuccessfulRowsAndGameplayBodyFaultControlsUnchanged": true,
+    "originalWitnessBytesExact": true,
+    "producingSinkClosure": true,
+    "sameErrorSurvivesLaterFAndEndResetErrors": true,
+    "sharedArmUsesActualHelper": true,
+    "stickySameErrorBeforeDiagnosticWork": true,
+    "wholeInversePairs": [
+      {
+        "forwardExact": true,
+        "target": "talentMarket.ts",
+        "wholeInverseExact": true
+      },
+      {
+        "forwardExact": true,
+        "target": "typed-propagation-removed-talentMarket.ts",
+        "wholeInverseExact": true
+      },
+      {
+        "forwardExact": true,
+        "target": "FULL-BODY-CONTROLS-TEMPLATE.ts",
+        "wholeInverseExact": true
+      }
+    ]
+  },
+  "reviewer": "b109_focused_route_review, independent of implementation/control authors",
+  "routeSourcePins": {
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "bytes": 9962,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r1/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "6057cdc52bc7db089bd701ff5578bbd4d4c574ed72b4abaa39d20a4e2c87a783"
+    },
+    "m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r1/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 5248,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r1/m0ObserverRowDiagnostic.mjs",
+      "sha256": "5c49b207d98150ea987cb6fd013003ee6a22b933b717be3a982dd5c1d3506e9c"
+    },
+    "talentMarket.ts": {
+      "bytes": 119700,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r1/talentMarket.ts",
+      "sha256": "fe9bea844bf41c3ad7e57924a6822f3a48b695b75880477281889a250a7c500a"
+    },
+    "typed-propagation-removed-talentMarket.ts": {
+      "bytes": 119730,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r1/typed-propagation-removed-talentMarket.ts",
+      "sha256": "425922b5f9b3c1c9c27d91b45214b76b217345b63890887ba870494b9ac91479"
+    }
+  },
+  "schema": "1370-observer-row-diagnostic-independent-source-review/v1",
+  "scope": "Implementation R1 source-only STOP, preserved. No candidate imports/tests/runtime/private inventory or gameplay outcome by reviewer. Consolidated bounded preflight/accounting derivative is appropriate; no new gate or cap amendment.",
+  "sourceManifest": {
+    "bytes": 4808,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r1/SOURCE-PINS.json",
+    "sha256": "281b84af5b4ceeaf80850766457e15eac88be274930840325a9e35bbdb69fe1a"
+  },
+  "sourceOnly": true,
+  "sourcePins": {
+    "FULL-BODY-CONTROLS-TEMPLATE.ts": {
+      "bytes": 9962,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r1/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "6057cdc52bc7db089bd701ff5578bbd4d4c574ed72b4abaa39d20a4e2c87a783"
+    },
+    "m0FeasibilityWitness.ts": {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r1/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "m0ObserverRowDiagnostic.mjs": {
+      "bytes": 5248,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r1/m0ObserverRowDiagnostic.mjs",
+      "sha256": "5c49b207d98150ea987cb6fd013003ee6a22b933b717be3a982dd5c1d3506e9c"
+    },
+    "talentMarket.ts": {
+      "bytes": 119700,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r1/talentMarket.ts",
+      "sha256": "fe9bea844bf41c3ad7e57924a6822f3a48b695b75880477281889a250a7c500a"
+    },
+    "typed-propagation-removed-talentMarket.ts": {
+      "bytes": 119730,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r1/typed-propagation-removed-talentMarket.ts",
+      "sha256": "425922b5f9b3c1c9c27d91b45214b76b217345b63890887ba870494b9ac91479"
+    }
+  },
+  "sourceProof": {
+    "bytes": 1981,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r1/SOURCE-PROOF.json",
+    "sha256": "b335ba642c9458102ef9b0f03b3bf81a420ce5f259d26991e63987a551e44c45"
+  }
+}

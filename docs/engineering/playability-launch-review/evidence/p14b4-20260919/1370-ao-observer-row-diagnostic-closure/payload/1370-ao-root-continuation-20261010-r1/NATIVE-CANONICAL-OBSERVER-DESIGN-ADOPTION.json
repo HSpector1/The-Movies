@@ -1,0 +1,62 @@
+{
+  "actualNewSchemaFitMeasured": false,
+  "authority": "Existing Owner authorization to resolve verification blockers, independently reviewed delegated technical rules and parent adoption; published AN explicitly requires separately adopted observer transport amendments. No new Owner approval is required for this technical representation choice.",
+  "boundedWork": {
+    "concurrentDecodedRows": 2,
+    "depth": 64,
+    "expandedTraceCacheAllowed": false,
+    "legacyViewBound": "L <= 2P + 2 <= 32770",
+    "nodesPlusProperties": 16384,
+    "preparseUtf8": 16384
+  },
+  "contract": {
+    "bytes": 4562,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-native-canonical-observer-row-design-20261010-r3/CONTRACT.json",
+    "sha256": "5f77e8b607e6636701af88e042725f79a3e194e1aaae5f417fd6bd450b6579e6"
+  },
+  "dependentImplementationRequiresFinalAPIReviewAndRootAdoption": true,
+  "design": {
+    "bytes": 11917,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-native-canonical-observer-row-design-20261010-r3/DESIGN.md",
+    "sha256": "df74b69024f1a1a266ab08cf2d9f2cae9e78264370aa60ff3c1743bdf91d84a1"
+  },
+  "executionAuthorization": false,
+  "fullQualificationAccepted": false,
+  "game": false,
+  "historicalFailuresPreserved": true,
+  "independentReview": {
+    "bytes": 11508,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-native-canonical-observer-row-design-independent-review-20261010-r1/RECEIPT.json",
+    "sha256": "005dde7ebc073ffa8141721007aca377524940f1c8a3103df43bd093a827c696"
+  },
+  "legacyExpandedAccountingExplicitlyAmended": true,
+  "legacyExpandedRowMayExceed16384": true,
+  "legacyExpandedTotalMayExceed2097152": true,
+  "nextStep": "Complete exact AP API and independent review; root adopt before one public implementation writer and independent specific controls. Fresh actual controls and fullfunction qualification determine fit, never this design receipt.",
+  "operationalFailureContract": "Shared chronological first operational error is sticky before throw, fatal after swallowed catches, and preserved by identity through later body, end, reset and writer failures; ordinary no-error cleanup semantics remain.",
+  "payloadContract": "One complete native tuple per original inputTuple row; exact original canonical text roundtrip, inputBytes and digest; unchanged source slots, ordering, multiplicity, context and all other detail payloads. No truncation, filtering, payload substitution, extra rows or fixture changes.",
+  "physicalCapsIncludingFramingAndNewlines": {
+    "rowBytes": 16384,
+    "rows": 512,
+    "totalBytes": 2097152
+  },
+  "productionHeadAtAdoption": "0cf8b1d0bbf7d1977413d0c3074407cc8f7b80a4",
+  "productionSourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "publicSourcePreparationAuthorized": true,
+  "resourceOrder": [
+    "COUNT",
+    "ROW",
+    "TOTAL"
+  ],
+  "schema": "1370-root-native-canonical-observer-design-adoption/v1",
+  "status": "ROOT_ADOPTED_EXPLICIT_NATIVE_CANONICAL_REPRESENTATION_AND_ACCOUNTING_AMENDMENT_SOURCE_ONLY",
+  "storageSchema": "c0-m0-promise-feasibility/v3-native-canonical",
+  "unchangedPremises": [
+    "Original gameplay and evaluator",
+    "Canonical producer and digest",
+    "Natural and synthetic fixtures",
+    "Game horizon",
+    "Original fullfunction 300/320/330 limits",
+    "Original mandatory protection and meaningful typed-catch mutant"
+  ]
+}

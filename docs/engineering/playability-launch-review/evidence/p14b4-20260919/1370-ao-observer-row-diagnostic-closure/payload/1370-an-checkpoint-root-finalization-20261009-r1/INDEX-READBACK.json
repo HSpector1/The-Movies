@@ -1,0 +1,11 @@
+{
+  "files": 2654,
+  "head": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+  "noCommitOrPushClaim": true,
+  "onlyExpectedPaths": true,
+  "schema": "1370-an-final-index-verification/v1",
+  "srcTreeUnchanged": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "EXACT_REVIEWED_ARCHIVE_AND_DOCUMENTS_STAGED",
+  "unstagedTrackedChanges": false,
+  "wholeStagedBlobBytesEqualFilesystem": true
+}

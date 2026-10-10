@@ -1,0 +1,204 @@
+{
+  "actualMeasurementLimits": {
+    "canonicalInputBytes": 15360,
+    "contextBytes": 468,
+    "count1001ExpansionClaimed": false,
+    "detailBytes": 16733,
+    "fixtureIteration": "UNKNOWN",
+    "legacyRowBytes": 17305,
+    "newSchemaFitMeasured": false,
+    "tupleComponentCauseMeasured": false
+  },
+  "authenticatedContractRoles": [
+    {
+      "bytes": 11917,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-native-canonical-observer-row-design-20261010-r3/DESIGN.md",
+      "sha256": "df74b69024f1a1a266ab08cf2d9f2cae9e78264370aa60ff3c1743bdf91d84a1"
+    },
+    {
+      "bytes": 1084,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-results-20261010-r1/baseline.stdout",
+      "sha256": "723655adc0a0f76175fff9fc51d8ce991c7c2499bbc549502de4e72c33bc1ffe"
+    },
+    {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    {
+      "bytes": 2407,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-opportunity-canonical-input-decision-tree-20261010-r1/RECEIPT.json",
+      "sha256": "03db8ea6bf70668fce8a29a2949b6e07fa807e89c495276cfa699e2c34f227f2"
+    },
+    {
+      "bytes": 2879,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-results-20261010-r1/baseline.report.json",
+      "sha256": "8a186b51241ac6cdbf94a34e4602df4cb2fdd0a2b5810c7c929901a68cb54acd"
+    },
+    {
+      "bytes": 4311,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-native-canonical-observer-row-design-20261010-r2/CONTRACT.json",
+      "sha256": "31c499c589fbc6ede64acacb32356929d85bcfa2c499d676e52a5a8a2efbb7ef"
+    },
+    {
+      "bytes": 7954,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-native-canonical-observer-row-design-20261010-r1/DESIGN.md",
+      "sha256": "ac8428a0d56519143a652a6853f205172ddd89374d30d9b7342f4d9b30ce820c"
+    }
+  ],
+  "authorityAssessment": {
+    "additionalOwnerApprovalInferred": false,
+    "classification": "EXPLICIT_TECHNICAL_REPRESENTATION_AND_ACCOUNTING_AMENDMENT",
+    "gameplayPolicyFixtureHorizonOrSourcePremisesChanged": false,
+    "historicalWitnessRelabeled": false,
+    "legacyExpandedAccountingChanged": true,
+    "originalPhysicalCapsPreserved": true,
+    "rootAdoptionRequiredBeforeImplementation": true
+  },
+  "boundedWorkAssessment": {
+    "counting": "Bounded incremental UTF8 counting before parse; never unbounded TextEncoder allocation first.",
+    "maxConcurrentDecodedRows": 2,
+    "maxDepth": 64,
+    "maxVisitedNodesPlusProperties": 16384,
+    "noEagerExpandedArraysOrCanonicalCache": true,
+    "physicalAggregateIncludingNewlines": 2097152,
+    "physicalRowIncludingNewline": 16384,
+    "physicalRows": 512,
+    "preparseCanonicalUtf8": 16384,
+    "producerAndDecoderStickyFirstOperationalFailure": true,
+    "resourceAndOperationalFailuresRemainDistinct": true,
+    "resourcePrecedence": [
+      "COUNT",
+      "ROW",
+      "TOTAL"
+    ],
+    "validation": "Iterative before stringify; unsupported formats fail operationally, without normalization or payload exclusion."
+  },
+  "candidateExecutionPerformed": false,
+  "concreteFindings": [],
+  "consumerAssessment": [
+    "The canonical serializer/evaluator/digest remains authoritative and unchanged. Exact native parse/stringify canonical equality is mandatory; inputBytes and digest retain original values and actual evaluation matching.",
+    "The shared codec must authenticate version, envelope/detail keys and types, actual physical caps and exact canonical projection before admitting any new-format authority. Historical rows remain explicitly historical.",
+    "Fullbody canonical matching and diagnostic predecessor/reconstruction migrate to the same decoder. Ordering may retain native physical rows when it reads only unchanged contexts; it must not create a full expanded row array.",
+    "Original source-slot/occurrence/order/multiplicity and intentional off/on comparison scope remain unchanged. Assessment.locals and non-inputTuple detail payloads remain complete.",
+    "Operational conversion or decode failure is recorded before throw and fatal on completion/access despite broad gameplay catches. First error identity survives subsequent body/end/reset/emission failures, with both cleanup attempts retained."
+  ],
+  "contract": {
+    "bytes": 4562,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-native-canonical-observer-row-design-20261010-r3/CONTRACT.json",
+    "sha256": "5f77e8b607e6636701af88e042725f79a3e194e1aaae5f417fd6bd450b6579e6"
+  },
+  "decision": "ACCEPT_SOURCE_ONLY_NATIVE_CANONICAL_OBSERVER_ROW_REPRESENTATION_DESIGN",
+  "design": {
+    "bytes": 11917,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-native-canonical-observer-row-design-20261010-r3/DESIGN.md",
+    "sha256": "df74b69024f1a1a266ab08cf2d9f2cae9e78264370aa60ff3c1743bdf91d84a1"
+  },
+  "executionAuthorization": false,
+  "framingProof": {
+    "definitions": "P=Fnew+C and L=Fold+Q(C), all UTF8 serialized bytes including the same newline; C is exact canonical JSON token, Q its JSON string representation.",
+    "detailFramingIncrease": 54,
+    "expandedStreamMustNotBeMaterializedOrCached": true,
+    "fixedJsHeapGuaranteeClaimed": false,
+    "inequality": "Q(C)<=2C+2; therefore L<=Fold+2C+2<=2P+2.",
+    "maxExpandedLegacyRowUtf8": 32770,
+    "maxPhysicalRowBytes": 16384,
+    "maxTwoConcurrentExpandedRowUtf8": 65540,
+    "newSchemaUtf8": 45,
+    "oldSchemaUtf8": 20,
+    "premises": [
+      "Exact common values, field order and original legacy detail keys retained in projection.",
+      "Canonical JSON text has no literal control characters. Outer quotes/backslashes escape at most two bytes per original byte; other canonical UTF8 stays unchanged.",
+      "Fnew=Fold+79 for inputTuple, so Fold<=Fnew. Assessment and other details are unchanged; their legacy schema framing is shorter."
+    ],
+    "schemaFramingIncrease": 25,
+    "theoreticalExpandedStreamBoundUtf8": 4195328,
+    "totalFixedFramingIncrease": 79
+  },
+  "fullQualificationAccepted": false,
+  "game": false,
+  "implementationAuthorized": false,
+  "majorLessons": [
+    "Representation/storage accounting changes must be explicit even when numeric physical caps are retained.",
+    "Authenticate the definitive contract target as well as summary roles; R2 preserved a stale operative design link.",
+    "Bound input work before parsing/stringifying, and preserve first operational failure across swallowed gameplay errors and cleanup.",
+    "Measured available metadata supports one exact refused row; it does not locate the fixture iteration, identify a tuple component cause or prove new-format fit."
+  ],
+  "nextStep": "Root may explicitly adopt this bounded design before public implementation and independent controls; any actual qualification remains a fresh recorded route with unchanged gameplay predicates, before/after proofs and mandatory fullpostflight.",
+  "privateSourceOrDependencyTraversalPerformed": false,
+  "publicSourceRoles": {
+    "canonicalReceiptProducer": {
+      "bytes": 113287,
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/derivative/src/core/promises.ts",
+      "sha256": "0e14a0056d8d70ed2b93d217bc0829c6284142fd9ed93033ce8880e56691b6cb"
+    },
+    "currentFullBodyTemplate": {
+      "bytes": 9962,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/FULL-BODY-CONTROLS-TEMPLATE.ts",
+      "sha256": "6057cdc52bc7db089bd701ff5578bbd4d4c574ed72b4abaa39d20a4e2c87a783"
+    },
+    "currentOrderingConsumer": {
+      "bytes": 11927,
+      "path": "/Users/zacheryspector/studio-scratch/1370-an-lossless-trace-codec-consumers-source-20261010-r3/ordering.ts",
+      "sha256": "8599945b1c3057ebb777ffcf56c55ddc30121b505f6ec29dacbc87aef216a803"
+    },
+    "measuredRowReview": {
+      "bytes": 9093,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-independent-measured-row-review-20261010-r1/RECEIPT.json",
+      "sha256": "f80ac6764ca924afe1b2a33152280db573a4235f0fa0d0cb7037083977fdb156"
+    },
+    "originalWitness": {
+      "bytes": 4729,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0FeasibilityWitness.ts",
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    }
+  },
+  "requiredIndependentControlCriteria": [
+    {
+      "criteria": "Rich nested native arrays/objects, Unicode, escaping, omission and native numeric forms reconstruct identical canonical UTF8, inputBytes and digest, with every element/order/multiplicity/context/source slot intact.",
+      "group": "complete-positive-projection"
+    },
+    {
+      "criteria": "One meaningful GREEN with legacy logical row>16384 and native physical row<=16384; exact full projection and L<=2P+2, without predicting actual failed-row fit.",
+      "group": "explicit-accounting-amendment"
+    },
+    {
+      "criteria": "Exact native row16384/16385, count512/513 and aggregate2097152 boundaries include new tags/framing/newlines; exhausted count preempts malformed/overbound conversion and no failed record advances sequence/occurrence.",
+      "group": "physical-resource-boundaries"
+    },
+    {
+      "criteria": "Changed tuple/order/duplicate/omission/inputBytes/digest/context/occurrence/source index and unknown schema/marker/keys produce exact affected consumer or operational refusals. Arbitrary exceptions never count as expected RED.",
+      "group": "specific-semantic-corruption"
+    },
+    {
+      "criteria": "Preparse byte/depth/node limits, malformed or lexical nonroundtrip canonical forms and decoder errors fail specifically; swallowed E plus later F/end/reset/writer retains exact first E and attempts cleanup, without missing rows silently passing.",
+      "group": "bounded-structural-and-sticky-failure"
+    },
+    {
+      "criteria": "Run all original18 ordering source cases on migrated actual consumers plus affected diagnostic/shared-arm boundary controls using actual producer/helper. Keep physical measured-row accounting distinct from legacy projection. Reuse unchanged parser32/helpercodec authority only for byte-identical roles.",
+      "group": "affected-regression-and-diagnostic"
+    }
+  ],
+  "schema": "1370-ao-native-canonical-observer-row-independent-design-review/v1",
+  "supersededFindings": [
+    {
+      "contract": {
+        "bytes": 3609,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-native-canonical-observer-row-design-20261010-r1/CONTRACT.json",
+        "sha256": "794270864a7903ff25534ce53531eb46755995d853aa6edda2901ece7fab5796"
+      },
+      "finding": "Missing definitive preparse/structural limits and derived expanded-view bound. Preserved unimplemented; corrected R2.",
+      "revision": "r1"
+    },
+    {
+      "contract": {
+        "bytes": 4311,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-native-canonical-observer-row-design-20261010-r2/CONTRACT.json",
+        "sha256": "31c499c589fbc6ede64acacb32356929d85bcfa2c499d676e52a5a8a2efbb7ef"
+      },
+      "finding": "Operative design role still authenticated R1 text rather than definitive R2 bounds. Preserved unimplemented; corrected R3.",
+      "revision": "r2"
+    }
+  ],
+  "types": false
+}

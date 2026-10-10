@@ -1,0 +1,49 @@
+{
+  "actualGrant": null,
+  "executionAuthorization": false,
+  "files": {
+    "BASE-CONFIG.json": {
+      "bytes": 3928,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/BASE-CONFIG.json",
+      "sha256": "e0c7a2b839eaa1e0940665711c8e9b57af4f09738290ca5d15d828f01200b42e"
+    },
+    "BASE-snapshot.py.txt": {
+      "bytes": 21984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/BASE-snapshot.py.txt",
+      "sha256": "9e2618b58849ccf0bc36512b20de16c23e49b2f08cdc6982ca9fe2fc20143047"
+    },
+    "CONFIG.json": {
+      "bytes": 3928,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/CONFIG.json",
+      "sha256": "f9d2d7fda1b5df5c01176c142bd6b16c9be9cc78963fe73e7fc62640b82a9cdd"
+    },
+    "PROOF.json": {
+      "bytes": 2074,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/PROOF.json",
+      "sha256": "4adf2a251787477aa4e742d2811c980e1d5b038ec90a0dfb4e92f9aba4cd1e76"
+    },
+    "forward.diff": {
+      "bytes": 564,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/forward.diff",
+      "sha256": "ad1ebd249be701cb105bddff3a7b5452056f12d6a0440dd1890bbbf9d11f2c82"
+    },
+    "inverse.diff": {
+      "bytes": 564,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/inverse.diff",
+      "sha256": "d0a8ad5083079df24d49c857f41f90b2146607ae1d149b7d21e651dd9a19f60d"
+    },
+    "snapshot.py": {
+      "bytes": 21984,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/snapshot.py",
+      "sha256": "2915fd60e26b894fd431e4483e23d9beed79b3332dc3c7173b0a37fd3130ef1d"
+    }
+  },
+  "independentReview": null,
+  "operationalScope": {
+    "bytes": 2923,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/CURRENT-AN-FULLGUARD-OPERATIONAL-SCOPE-ADOPTION.json",
+    "sha256": "74855dea68b2e9a9c8ac4c40c949042cb5f097eff5ed7ff80d37b922e76d743a"
+  },
+  "schema": "1370-ao-fullguard-an-binding-source-pins/v1",
+  "status": "SOURCE_ONLY_UNRUN"
+}

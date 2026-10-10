@@ -1,0 +1,140 @@
+{
+  "completeInversePairs": 2,
+  "executionAuthorization": false,
+  "newFullPreflightAdoption": {
+    "bytes": 4727,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/CURRENT-AN-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "753a7597c20032c70b2a07c9001de15ba1f72b5a0a5ac7706e340228da5fef5a"
+  },
+  "newOriginalGuardSource": {
+    "bytes": 21984,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/snapshot.py",
+    "sha256": "2915fd60e26b894fd431e4483e23d9beed79b3332dc3c7173b0a37fd3130ef1d"
+  },
+  "originalMethodsAndPredicatesUnchanged": true,
+  "pairs": [
+    {
+      "allFunctionAstsEqual": true,
+      "base": {
+        "bytes": 5274,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r8/launch-fullpostflight.py",
+        "sha256": "75603678180a3f2f4c2bb53de55ea4024ea91a801a0c238da86f0d99ec914885"
+      },
+      "changes": [
+        {
+          "after": "1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-parent-recorded-20261010-r1",
+          "before": "1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r5",
+          "occurrences": 1
+        },
+        {
+          "after": "1370-ao-current-operational-fullguard-source-20261010-r1",
+          "before": "1370-an-current-operational-fullguard-source-20261009-r1",
+          "occurrences": 1
+        },
+        {
+          "after": "postflight-fullfunction-observer-row-diagnostic-r1",
+          "before": "postflight-fullfunction-qualification-r5",
+          "occurrences": 1
+        },
+        {
+          "after": "1370-ao-root-continuation-20261010-r1",
+          "before": "1370-an-root-continuation-20261009-r1",
+          "occurrences": 1
+        },
+        {
+          "after": "CURRENT-AN-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+          "before": "CURRENT-AM-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+          "occurrences": 1
+        },
+        {
+          "after": "753a7597c20032c70b2a07c9001de15ba1f72b5a0a5ac7706e340228da5fef5a",
+          "before": "ac3c336fcf4c57b4de25a2d03fe4642719e7137d34ffe24d2106a8210ecc1612",
+          "occurrences": 1
+        },
+        {
+          "after": "ROOT_ADOPTED_CURRENT_AN_FULL_PREFLIGHT",
+          "before": "ROOT_ADOPTED_CURRENT_AM_FULL_PREFLIGHT",
+          "occurrences": 1
+        },
+        {
+          "after": "9df63e39d302e3b8481198999e129233ab4eb5709848d91cb1d45af0dfee0e88",
+          "before": "e638252b8082aa756f56471552327706a17dcf0e2d6bd01628710624ce7ec435",
+          "occurrences": 1
+        },
+        {
+          "after": "under current AN.",
+          "before": "under current AM.",
+          "occurrences": 1
+        }
+      ],
+      "forward": {
+        "bytes": 7343,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py.forward.diff",
+        "sha256": "0154ca9e21ccc4bead4e8f3fba3747871a9189e55e0a5137e938ba3bbc3ce247"
+      },
+      "fullInverseEqualsOriginal": true,
+      "inverse": {
+        "bytes": 7343,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py.inverse.diff",
+        "sha256": "9d393b7102f453046e1c909e8b4077bee3546a8dfb1be910f0190880abc5adb6"
+      },
+      "new": {
+        "bytes": 5308,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/launch-fullpostflight.py",
+        "sha256": "448b2f60846d4d28eb972ea07ef3cb89c7e3f3d540332809271f987117266d6f"
+      }
+    },
+    {
+      "allFunctionAstsEqual": true,
+      "base": {
+        "bytes": 5405,
+        "path": "/Users/zacheryspector/studio-scratch/1370-an-fullfunction-shared-fullpostflight-source-20261010-r8/read-fullpostflight.py",
+        "sha256": "1f08bf32ef32e27e053de758bece9bb57d82ea572f3ed9cd70813b9bc26f0da2"
+      },
+      "changes": [
+        {
+          "after": "1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-parent-recorded-20261010-r1",
+          "before": "1370-an-fullfunction-shared-fullpostflight-parent-recorded-20261010-r5",
+          "occurrences": 1
+        },
+        {
+          "after": "1370-ao-current-operational-fullguard-source-20261010-r1",
+          "before": "1370-an-current-operational-fullguard-source-20261009-r1",
+          "occurrences": 1
+        },
+        {
+          "after": "postflight-fullfunction-observer-row-diagnostic-r1",
+          "before": "postflight-fullfunction-qualification-r5",
+          "occurrences": 1
+        },
+        {
+          "after": "1370-ao-fullpostflight-raw-local-only/v1",
+          "before": "1370-an-fullpostflight-raw-local-only/v1",
+          "occurrences": 1
+        },
+        {
+          "after": "1370-ao-fullfunction-shared-fullpostflight-readback/v1",
+          "before": "1370-an-fullfunction-shared-fullpostflight-readback/v1",
+          "occurrences": 1
+        }
+      ],
+      "forward": {
+        "bytes": 5500,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py.forward.diff",
+        "sha256": "5cb5959b34b9d31290ce94a0ee18627daa58ca466d2789ca76a276d7cc1befce"
+      },
+      "fullInverseEqualsOriginal": true,
+      "inverse": {
+        "bytes": 5500,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py.inverse.diff",
+        "sha256": "4d40da6558f43386add58cd09a42fb09809cf73b967bd61dbf9e1dc6361729a3"
+      },
+      "new": {
+        "bytes": 5439,
+        "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-shared-fullpostflight-source-20261010-r1/read-fullpostflight.py",
+        "sha256": "484acc12c4ef79ccdcc0aa928e495fce793f27f4c76373d5c0ea88058711a84f"
+      }
+    }
+  ],
+  "schema": "1370-ao-fullfunction-diagnostic-shared-postflight-binding-proof/v1"
+}

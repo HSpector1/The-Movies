@@ -1,0 +1,97 @@
+{
+  "schema": "1370-observer-row-independent-controls-contract/v1",
+  "executionAuthorization": false,
+  "sourceStatus": "UNRUN_SOURCE_ONLY",
+  "api": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2/API.md",
+    "bytes": 8460,
+    "sha256": "8b23588f28233794a7d0317b76d0770912015bc3ffd20dd823aae74b21225eb8"
+  },
+  "implementationSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/SOURCE-PINS.json",
+    "bytes": 6892,
+    "sha256": "ecfa500f2a60f1280c6fcf06d60817bbb017bbf2524b74ab42bfd9c5aa5ce3b3"
+  },
+  "dependencyRoles": {
+    "m0ObserverRowDiagnostic.mjs": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0ObserverRowDiagnostic.mjs",
+      "bytes": 10646,
+      "sha256": "facc279ea400667a5bfdb029dbbf7defd62c7ae950e181d763bac27d4aa49124"
+    },
+    "m0FeasibilityWitness.ts": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/m0FeasibilityWitness.ts",
+      "bytes": 4729,
+      "sha256": "67ff5eb1005b5cfbc85ebdbd14e8e8dbb36fb0f2bed7ff484c617a9355512bf3"
+    },
+    "CONTRACT.json": {
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-source-20261010-r3/CONTRACT.json",
+      "bytes": 1599,
+      "sha256": "28f58e2bd02fe8bf59083b35177e78de0db8f0d8b94492d5ca997c2100050f0a"
+    }
+  },
+  "entry": {
+    "file": "run-observer-row-controls.mjs",
+    "export": "runObserverRowDiagnosticControls",
+    "arguments": [
+      "createObserverRowDiagnostic",
+      "createM0FeasibilitySink",
+      "runObserverArm"
+    ],
+    "sharedActualArmHelperRequired": true
+  },
+  "matrix": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/MATRIX.json",
+    "bytes": 7474,
+    "sha256": "0f2a5ed2c64d632aa269fb1c1b4cc954f2e3b33acbe9281246453f7baa80f0d0"
+  },
+  "caseCount": 48,
+  "positiveCount": 6,
+  "specificNegativeCount": 42,
+  "output": {
+    "schema": "1370-observer-row-independent-controls-result/v1",
+    "status": "PURE_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_COMPLETED_UNADOPTED",
+    "resultRows": "exact MATRIX cases plus expected-specific verdict; all ordered rows required",
+    "greenVerdict": "ACCEPT_POSITIVE",
+    "redVerdict": "ACCEPT_SPECIFIC_REFUSAL",
+    "arbitraryExceptionsCountAsRed": false
+  },
+  "originalObserverCaps": {
+    "rows": 512,
+    "rowUtf8IncludingNewline": 16384,
+    "totalUtf8RowsIncludingNewlines": 2097152
+  },
+  "diagnosticOnlyBounds": {
+    "canonicalUtf8Bytes": 65536,
+    "contextEncodedJsonBytes": 65536,
+    "failedRowEncodedJsonIncludingNewlineBytes": 524288,
+    "visitedNodesAndProperties": 16384,
+    "maxDepth": 64,
+    "emittedJsonLineIncludingNewlineBytes": 4096
+  },
+  "scope": {
+    "actualControls": null,
+    "actualGame": null,
+    "gameAcceptance": false,
+    "privateM0ReadOrWritten": false,
+    "fullQualificationAccepted": false,
+    "historicalStopsPreserved": true
+  },
+  "staticVerification": {
+    "literalRosterMatchesEveryAuthoredTestCall": true,
+    "uniqueCaseIds": true,
+    "javascriptParsedOrExecuted": false,
+    "candidateImportedOrExecuted": false
+  },
+  "reviewRequirements": [
+    "authenticate unchanged witness and implementation exports before import",
+    "review actual template uses same helper and immediate post-advance sticky check",
+    "exact expected Error identity and unavailable codes; setup failures remain fatal",
+    "recorded execution only after separate root grant; physical tools and actual owned cleanup required"
+  ],
+  "preservedPreviousControlsSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r1/SOURCE-PINS.json",
+    "bytes": 2073,
+    "sha256": "33908d3d8c327b6a0eccd72322b070334c9e9867275693120f40ab21af3cbf87"
+  },
+  "freshSourceDelta": "One specific huge-kind RED after real unchanged witness refusal; exact earlier47 cases remain unchanged."
+}

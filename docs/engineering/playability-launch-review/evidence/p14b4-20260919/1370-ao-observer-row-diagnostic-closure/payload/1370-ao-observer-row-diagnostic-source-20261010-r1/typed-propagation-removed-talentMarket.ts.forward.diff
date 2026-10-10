@@ -1,0 +1,42 @@
+--- typed-propagation-removed-talentMarket.ts
++++ typed-propagation-removed-talentMarket.ts
+@@ -1,3 +1,4 @@
++import {createObserverRowDiagnostic} from './m0ObserverRowDiagnostic.mjs'
+ import { m0WiringProbe as __m0WiringProbe } from './m0WiringProbe.js'
+ // ── P14A.1 — One Contested Expiry Core ───────────────────────────────────────
+ //
+@@ -1543,6 +1544,7 @@
+   const proposalOccurrence = source.slice(0, proposalSourceIndex).filter(row => key(row) === proposalKey).length
+   return { proposalKey, proposalOccurrence, proposalSourceIndex }
+ }
++const observerRowDiagnostic = createObserverRowDiagnostic()
+ let m0FeasibilitySink = createM0FeasibilitySink()
+ export function drainM0FeasibilityRows(): readonly unknown[] {
+   const rows = m0FeasibilitySink.rows()
+@@ -1562,11 +1564,13 @@
+       talentId:row.talentId,issuer:row.issuerStudioId,digest:row.digest,
+       key:JSON.stringify([row.talentId,row.issuerStudioId,row.digest,row.submittedWeek])}))})
+   if (!__m0WiringProbe.captureEnabled()) return undefined
+-  return phase === 'authorCandidate'
+-    ? m0FeasibilitySink.capture({ ...base, phase, candidateOrdinal: ordinal })
++  const sink = m0FeasibilitySink
++  const capture = phase === 'authorCandidate'
++    ? sink.capture({ ...base, phase, candidateOrdinal: ordinal })
+     : phase === 'freezeProposal'
+-      ? m0FeasibilitySink.capture({ ...base, phase, submittedOrdinal: ordinal })
+-      : m0FeasibilitySink.capture({ ...base, phase, survivorOrdinal: ordinal })
++      ? sink.capture({ ...base, phase, submittedOrdinal: ordinal })
++      : sink.capture({ ...base, phase, survivorOrdinal: ordinal })
++  return observerRowDiagnostic.wrap(capture, () => sink.rows())
+ }
+ 
+ const M0_ISSUERS = ['studio-aca408ec-r01', 'studio-aca408ec-r02', 'studio-aca408ec-r03'] as const
+@@ -2166,6 +2170,6 @@
+ }
+ 
+ // Test-only access to existing complete implementations; no replacements.
+-export const m0WiringTestApi = Object.freeze({M0ObserverError,authorRivalPromise,settleCase,
+-  reset: (): void => {drainM0MarketDecisionRows();drainM0FeasibilityRows()},
++export const m0WiringTestApi = Object.freeze({M0ObserverError,authorRivalPromise,settleCase,observerRowDiagnostic,
++  reset: (): void => {try{drainM0MarketDecisionRows();drainM0FeasibilityRows()}finally{observerRowDiagnostic.reset()}},
+ })

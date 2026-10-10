@@ -1,0 +1,87 @@
+{
+  "executionAuthorization": false,
+  "files": {
+    "COMBINED-REVIEW-CONTRACT.json": {
+      "bytes": 973,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/COMBINED-REVIEW-CONTRACT.json",
+      "sha256": "f6dedbaf67d7503aa0c8297e66c76e06fe0b2343acf4f9a54a5308a1d780591e"
+    },
+    "EXACT-ARGV-DRAFT.json": {
+      "bytes": 1391,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/EXACT-ARGV-DRAFT.json",
+      "sha256": "e145158c84fe0ae320769db931d77c4fd95ca80b1fa680bc51a16e4331b75a6d"
+    },
+    "EXACT-ARGV.json": {
+      "bytes": 2185,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/EXACT-ARGV.json",
+      "sha256": "219b1ecade5cb70ef753cba8faff8d62e06570d3c08e598b69e58276a4c0d293"
+    },
+    "PREPARATION-NOTES.json": {
+      "bytes": 888,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/PREPARATION-NOTES.json",
+      "sha256": "6425ba2072276808f6c9a24b4f7eb39af12a9af70dd6c062a08b29f72941a5f6"
+    },
+    "SOURCE-PROOF-DRAFT.json": {
+      "bytes": 5069,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/SOURCE-PROOF-DRAFT.json",
+      "sha256": "78a9b00d295d98f702dbaa8da89e4d286238956ebe79a47119ac384303ce8ab6"
+    },
+    "SOURCE-PROOF.json": {
+      "bytes": 6347,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/SOURCE-PROOF.json",
+      "sha256": "0563a2a93cf11d866e7f262c833e0fae23a6e14bca03a599d6599fb7774ca586"
+    },
+    "run_observer_fullfunction_once.py": {
+      "bytes": 9863,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_fullfunction_once.py",
+      "sha256": "aa731bd4edf1a8509af559cb8ca0261cda655e87e4e86a013ad9f5be2dddff1b"
+    },
+    "run_observer_fullfunction_once.py.baseline.txt": {
+      "bytes": 6400,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_fullfunction_once.py.baseline.txt",
+      "sha256": "3f77b9d4887cdbebf9e0de4c1aa2a2c8d09b6578ebe2649644c61c124f13a533"
+    },
+    "run_observer_fullfunction_once.py.forward.diff": {
+      "bytes": 13401,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_fullfunction_once.py.forward.diff",
+      "sha256": "d7ddb28a0d26b4d0bcc784510105638dc7ebc4ada76fdfab1b2e113666f4ba7c"
+    },
+    "run_observer_fullfunction_once.py.inverse.diff": {
+      "bytes": 13401,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_fullfunction_once.py.inverse.diff",
+      "sha256": "f635edef08d4c66b22ddb2d9d3bf562f7635e05fdc845113f368a6321acb28db"
+    },
+    "run_observer_fullfunction_once.py.root-reviewed-draft.txt": {
+      "bytes": 9836,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_fullfunction_once.py.root-reviewed-draft.txt",
+      "sha256": "6c6d9573c59e4c20ce53eafaada2a77e6a917b9b5823e4b4b21c368ada6d66a9"
+    },
+    "run_observer_reader_once.py": {
+      "bytes": 2604,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_reader_once.py",
+      "sha256": "80e0ae126fdbf54f95d709552c9e9263223dd89b19e85c551a840a2027bffb68"
+    },
+    "run_observer_reader_once.py.baseline.txt": {
+      "bytes": 1396,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_reader_once.py.baseline.txt",
+      "sha256": "a039e260895618c2d55d320c78ca5bd41cb7ab81ac08c8ad078692cb087adbdb"
+    },
+    "run_observer_reader_once.py.forward.diff": {
+      "bytes": 3885,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_reader_once.py.forward.diff",
+      "sha256": "af872b61fde261645065dd5b2b364345b1763553aca71c53c5310c9ae9bcc633"
+    },
+    "run_observer_reader_once.py.inverse.diff": {
+      "bytes": 3885,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_reader_once.py.inverse.diff",
+      "sha256": "ddc9a77455bf491e20738970486fdadb4d35d232c0df47d8634f43bbb321299e"
+    },
+    "run_observer_reader_once.py.root-reviewed-draft.txt": {
+      "bytes": 2604,
+      "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-root-wrappers-source-20261010-r1/run_observer_reader_once.py.root-reviewed-draft.txt",
+      "sha256": "80e0ae126fdbf54f95d709552c9e9263223dd89b19e85c551a840a2027bffb68"
+    }
+  },
+  "schema": "1370-ao-fullfunction-root-wrappers-source-pins/v1",
+  "status": "SOURCE_ONLY_UNRUN_PENDING_COMBINED_INDEPENDENT_REVIEW"
+}

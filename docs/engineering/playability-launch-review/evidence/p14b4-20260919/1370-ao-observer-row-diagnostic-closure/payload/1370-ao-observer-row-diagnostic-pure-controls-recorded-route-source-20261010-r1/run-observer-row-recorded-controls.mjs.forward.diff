@@ -1,0 +1,149 @@
+--- run-observer-row-recorded-controls.mjs
++++ run-observer-row-recorded-controls.mjs
+@@ -8,7 +8,7 @@
+ import {fileURLToPath,pathToFileURL} from 'node:url'
+ import {TextDecoder} from 'node:util'
+ const HERE=path.dirname(fileURLToPath(import.meta.url)),S='/Users/zacheryspector/studio-scratch'
+-const CONFIG_SHA='24fb559ed249ce928fbc5f476ec431d92c4b8bd9398d093fa70156a7ec6745c3'
++const CONFIG_SHA='ecd1164da81a1e8f1c03456762cdfc56803cde908908e9e233a33491185fddaa'
+ const sha=b=>createHash('sha256').update(b).digest('hex')
+ const utf8=b=>new TextDecoder('utf-8',{fatal:true}).decode(b)
+ const attrs=s=>[s.dev,s.ino,s.mode,s.nlink,s.size,s.mtimeNs,s.ctimeNs]
+@@ -37,22 +37,22 @@
+ assert.equal(process.argv.length,4,'external grant path and SHA only')
+ assert.ok(path.isAbsolute(process.argv[2])&&process.argv[2].startsWith(S+'/'),'external grant scratch path')
+ const gb=stable(process.argv[2],131072);assert.equal(sha(gb),process.argv[3]);const grant=JSON.parse(utf8(gb))
+-assert.equal(grant.schema,'1370-root-lossless-trace-pure-controls-once-grant/v1')
++assert.equal(grant.schema,'1370-root-observer-row-diagnostic-pure-controls-once-grant/v1')
+ assert.equal(grant.executionAuthorization,true);assert.equal(grant.oneAggregateRun,true);assert.equal(grant.automaticRetry,false)
+-assert.equal(grant.scope,'PURE_PUBLIC_LOSSLESS_CODEC_AND_AFFECTED_ORDERING_CONTROLS_ONLY')
++assert.equal(grant.scope,'PURE_PUBLIC_OBSERVER_ROW_DIAGNOSTIC_CONTROLS_ONLY')
+ const cb=stable(path.join(HERE,'CONFIG.json'),131072);assert.equal(sha(cb),CONFIG_SHA);const config=JSON.parse(utf8(cb))
+-assert.equal(config.schema,'1370-lossless-trace-pure-controls-recorded-config/v1');assert.equal(config.executionAuthorization,false)
++assert.equal(config.schema,'1370-observer-row-diagnostic-pure-controls-recorded-config/v1');assert.equal(config.executionAuthorization,false)
+ assert.equal(grant.configSha256,CONFIG_SHA);assert.deepEqual(grant.bounds,config.bounds)
+ assert.equal(grant.clockEnforcedByOriginalRecordedRoute,true);assert.equal(grant.outputPath,config.outputPath)
+ const review=json(grant.sourceReview)
+-assert.equal(review.schema,'1370-lossless-trace-pure-controls-recorded-route-independent-source-review/v1')
+-assert.equal(review.decision,'ACCEPT_STATIC_LOSSLESS_TRACE_PURE_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY')
++assert.equal(review.schema,'1370-observer-row-diagnostic-pure-controls-recorded-route-independent-source-review/v1')
++assert.equal(review.decision,'ACCEPT_STATIC_OBSERVER_ROW_DIAGNOSTIC_PURE_CONTROLS_RECORDED_ROUTE_SOURCE_ONLY')
+ assert.equal(review.executionAuthorization,false);assert.deepEqual(review.concreteFindings,[])
+ assert.deepEqual(review.sourceManifest,grant.sourcePins)
+ const manifest=json(grant.sourcePins)
+-assert.equal(manifest.schema,'1370-lossless-trace-pure-controls-recorded-route-source-pins/v1');assert.equal(manifest.executionAuthorization,false)
++assert.equal(manifest.schema,'1370-observer-row-diagnostic-pure-controls-recorded-route-source-pins/v1');assert.equal(manifest.executionAuthorization,false)
+ assert.deepEqual(manifest.files['CONFIG.json'],grant.config);assert.deepEqual(manifest.files['CONFIG.json'],review.sourcePins['CONFIG.json'])
+-const selfrole=manifest.files['run-lossless-recorded-controls.mjs'];assert.equal(selfrole.path,fileURLToPath(import.meta.url))
++const selfrole=manifest.files['run-observer-row-recorded-controls.mjs'];assert.equal(selfrole.path,fileURLToPath(import.meta.url))
+ const self=pinned(selfrole)
+ for(const name of config.reviewAliases){
+  const wanted=manifest.files[name]??manifest.externalInputs[name]
+@@ -61,9 +61,11 @@
+ for(const [name,r] of Object.entries(config.inputs))assert.deepEqual(manifest.externalInputs[name],r)
+ const implementationManifest=json(config.implementationSourcePins)
+ const implementationReview=json(config.implementationSourceReview)
++assert.equal(implementationReview.schema,'1370-observer-row-diagnostic-independent-source-review/v1')
+ assert.equal(implementationReview.executionAuthorization,false);assert.deepEqual(implementationReview.concreteFindings,[]);assert.equal(implementationReview.decision,config.implementationReviewDecision)
+ assert.deepEqual(implementationReview.sourceManifest,config.implementationSourcePins)
+ const controlsManifest=json(config.controlsSourcePins),controlsReview=json(config.controlsSourceReview)
++assert.equal(controlsReview.schema,'1370-observer-row-diagnostic-independent-controls-source-review/v1')
+ assert.equal(controlsReview.executionAuthorization,false);assert.deepEqual(controlsReview.concreteFindings,[]);assert.equal(controlsReview.decision,config.controlsReviewDecision)
+ assert.deepEqual(controlsReview.sourceManifest,config.controlsSourcePins)
+ for(const name of config.implementationInputNames){
+@@ -74,26 +76,31 @@
+  assert.deepEqual(config.inputs[name],controlsManifest.files[originalName]);assert.deepEqual(controlsReview.sourcePins[originalName],config.inputs[name])
+ }
+ const design=json(config.rootDesignAdoption);assert.deepEqual(config.rootDesignAdoption,grant.rootDesignAdoption)
++assert.equal(design.schema,'1370-root-observer-row-diagnostic-design-adoption/v1')
++assert.equal(design.status,'ROOT_ADOPTED_BOUNDED_FIRST_REFUSED_OBSERVER_ROW_DIAGNOSTIC_DESIGN_ONLY')
++assert.equal(design.executionAuthorization,false);assert.equal(design.sourcePreparationAuthorized,true)
++assert.deepEqual(config.api,grant.api);pinned(config.api)
+ const adoption=json(config.implementationControlsSourceAdoption);assert.deepEqual(config.implementationControlsSourceAdoption,grant.implementationControlsSourceAdoption)
+-assert.equal(adoption.schema,'1370-root-lossless-implementation-controls-source-adoption/v1');assert.equal(adoption.status,'ROOT_ADOPTED_LOSSLESS_IMPLEMENTATION_R3_AND_INDEPENDENT_CONTROLS_R2_SOURCE_ONLY');assert.equal(adoption.executionAuthorization,false)
++assert.equal(adoption.schema,'1370-root-observer-row-diagnostic-implementation-controls-source-adoption/v1')
++assert.equal(adoption.status,'ROOT_ADOPTED_OBSERVER_ROW_DIAGNOSTIC_IMPLEMENTATION_AND_CONTROLS_SOURCE_ONLY')
++assert.equal(adoption.executionAuthorization,false)
+ assert.deepEqual(adoption.implementationSourcePins,config.implementationSourcePins);assert.deepEqual(adoption.implementationReview,config.implementationSourceReview)
+ assert.deepEqual(adoption.controlsSourcePins,config.controlsSourcePins);assert.deepEqual(adoption.controlsReview,config.controlsSourceReview)
+-assert.equal(adoption.caseCount,49);assert.equal(adoption.positiveCount,9);assert.equal(adoption.specificNegativeCount,40)
+-assert.equal(design.executionAuthorization,false)
+-assert.equal(design.schema,'1370-root-lossless-helper-trace-representation-amendment/v1')
+-assert.equal(design.status,'ROOT_ADOPTED_EXACT_LOSSLESS_COMPRESSED_TRACE_DESIGN_FOR_IMPLEMENTATION_ONLY')
+-assert.equal(design.implementationAuthorized,true);assert.equal(design.stickyOperationalFailureRequired,true)
++assert.deepEqual(adoption.rootDesignAdoption,config.rootDesignAdoption);assert.deepEqual(adoption.api,config.api)
++assert.equal(adoption.caseCount,config.caseCount);assert.equal(adoption.positiveCount,config.positiveCount);assert.equal(adoption.specificNegativeCount,config.specificNegativeCount)
+ const inputs={};for(const [name,r] of Object.entries(config.inputs))inputs[name]=pinned(r)
+ const matrix=JSON.parse(utf8(inputs['MATRIX.json'])),contract=JSON.parse(utf8(inputs['CONTROLS-CONTRACT.json']))
+ assert.equal(matrix.cases.length,config.caseCount)
+ assert.equal(matrix.cases.filter(x=>x.expected==='GREEN').length,config.positiveCount)
+ assert.equal(matrix.cases.filter(x=>x.expected==='RED').length,config.specificNegativeCount)
+ assert.equal(new Set(matrix.cases.map(x=>x.id)).size,matrix.cases.length)
+-const orderingPacket=JSON.parse(utf8(inputs['ORDERING-SOURCE-CASES.json']))
+-assert.deepEqual(config.inputs['ORDERING-SOURCE-CASES.json'],{path:S+'/1370-c0-m0-full-body-fixture-resolver-source-after-al-20261009-r3/ORDERING-SOURCE-CASES.json',bytes:27476,sha256:'95744791fed18f258df0a31dfaa84aa20b429ed1e6d89032993500c6049f39d7'})
+-assert.equal(orderingPacket.schema,'1370-m0-ordering-synthetic-source-inputs/v1');assert.equal(orderingPacket.cases.length,18)
+-assert.deepEqual(contract.originalOrderingPacket,config.inputs['ORDERING-SOURCE-CASES.json'])
+-assert.deepEqual(contract.rootDesignAdoption,config.rootDesignAdoption)
++assert.deepEqual(contract.api,config.api);assert.deepEqual(contract.implementationSourcePins,config.implementationSourcePins)
++assert.deepEqual(contract.dependencyRoles['m0ObserverRowDiagnostic.mjs'],config.inputs['m0ObserverRowDiagnostic.mjs'])
++assert.deepEqual(contract.dependencyRoles['m0FeasibilityWitness.ts'],config.inputs['m0FeasibilityWitness.ts'])
++assert.deepEqual(contract.dependencyRoles['CONTRACT.json'],implementationManifest.files['CONTRACT.json'])
++const implementationContract=json(contract.dependencyRoles['CONTRACT.json'])
++assert.deepEqual(contract.diagnosticOnlyBounds,implementationContract.diagnosticOnlyBounds)
++assert.equal(contract.caseCount,config.caseCount);assert.equal(contract.positiveCount,config.positiveCount);assert.equal(contract.specificNegativeCount,config.specificNegativeCount)
+ assert.equal(process.version,'v22.23.2');assert.equal(fs.realpathSync(process.execPath),grant.runtimeTools.node.path)
+ assert.deepEqual(grant.runtimeTools,config.runtimeTools)
+ pinned(grant.runtimeTools.node,134217728)
+@@ -110,34 +117,26 @@
+ assert.ok(!fs.existsSync(config.outputPath)&&path.dirname(config.outputPath)===S,'fresh direct owned output')
+ fs.mkdirSync(config.outputPath,{mode:0o700})
+ const generated={}
+-for(const name of ['m0TraceCodec.mjs','traceSequences.mjs','run-lossless-controls.mjs']){
++for(const name of ['m0ObserverRowDiagnostic.mjs','run-observer-row-controls.mjs']){
++ const code=utf8(inputs[name])
++ const specs=[...code.matchAll(/(?:\bfrom\s*|\bimport\s*)(['"])([^'"]+)\1/g)].map(m=>m[2])
++ assert.deepEqual(specs,name==='m0ObserverRowDiagnostic.mjs'?[]:['node:assert/strict'],'exact copied pure graph')
++ assert.ok(!/\bimport\s*\(/.test(code),'no dynamic copied dependency')
+  generated[name]=write(path.join(config.outputPath,name),inputs[name],config.bounds.compiledModuleBytes)
+ }
+-for(const [name,target] of [['m0WiringProbe.ts','m0WiringProbe.mjs'],['ordering.ts','ordering.mjs'],['ordering-source-controls.ts','ordering-source-controls.mjs']]){
+- const transformed=ts.transpileModule(utf8(inputs[name]),{fileName:name,reportDiagnostics:true,compilerOptions:{module:ts.ModuleKind.ES2022,target:ts.ScriptTarget.ES2022,sourceMap:false,inlineSourceMap:false}})
+- assert.deepEqual((transformed.diagnostics??[]).filter(d=>d.category===ts.DiagnosticCategory.Error),[],'compiler transform errors never expected RED')
+- let code=transformed.outputText
+- if(name==='ordering-source-controls.ts'){
+-  assert.equal(code.split("'./ordering.js'").length-1,1,'one exact emitted logical ordering dependency')
+-  code=code.replace("'./ordering.js'","'./ordering.mjs'")
+- }
+- // The authenticated source graph permits only named pure local dependencies.
+- // A retained type-only GameState import must be fully erased before execution.
+- const specs=[...code.matchAll(/(?:\bfrom\s*|\bimport\s*)(['"])([^'"]+)\1/g)].map(m=>m[2])
+- const expected=name==='m0WiringProbe.ts'?['./m0TraceCodec.mjs']:name==='ordering.ts'?['node:assert/strict','./traceSequences.mjs']:['node:assert/strict','./m0TraceCodec.mjs','./ordering.mjs']
+- assert.deepEqual(specs,expected,'exact emitted pure import graph; no private/game resolution')
+- assert.ok(!/\bimport\s*\(/.test(code),'no dynamic emitted dependency')
+- generated[name]=write(path.join(config.outputPath,target),Buffer.from(code,'utf8'),config.bounds.compiledModuleBytes)
+-}
+-const codecApi=await import(pathToFileURL(path.join(config.outputPath,'m0TraceCodec.mjs')).href)
+-const probe=await import(pathToFileURL(path.join(config.outputPath,'m0WiringProbe.mjs')).href)
+-const ordering=await import(pathToFileURL(path.join(config.outputPath,'ordering-source-controls.mjs')).href)
+-const controls=await import(pathToFileURL(path.join(config.outputPath,'run-lossless-controls.mjs')).href)
+-const report=controls.runLosslessTraceControls({codecApi,probeApi:probe.m0WiringProbe,runOrderingSourceControls:ordering.runOrderingSourceControls,orderingPacket})
+-assert.equal(report.schema,contract.expectedReport.schema);assert.equal(report.status,contract.expectedReport.status)
+-assert.equal(report.executionAuthorization,false);assert.equal(report.game,false);assert.equal(report.originalM0ReadOrWritten,false)
+-assert.equal(report.positiveCount,config.positiveCount);assert.equal(report.specificNegativeCount,config.specificNegativeCount)
+-assert.equal(report.originalOrderingCases,18);assert.equal(report.originalParserCasesReplayed,0)
++const transformed=ts.transpileModule(utf8(inputs['m0FeasibilityWitness.ts']),{fileName:'m0FeasibilityWitness.ts',reportDiagnostics:true,compilerOptions:{module:ts.ModuleKind.ES2022,target:ts.ScriptTarget.ES2022,sourceMap:false,inlineSourceMap:false}})
++assert.deepEqual((transformed.diagnostics??[]).filter(d=>d.category===ts.DiagnosticCategory.Error),[],'compiler transform errors never expected RED')
++const code=transformed.outputText
++assert.deepEqual([...code.matchAll(/(?:\bfrom\s*|\bimport\s*)(['"])([^'"]+)\1/g)].map(m=>m[2]),[],'witness has no runtime dependencies')
++assert.ok(!/\bimport\s*\(/.test(code),'no dynamic emitted dependency')
++generated['m0FeasibilityWitness.ts']=write(path.join(config.outputPath,'m0FeasibilityWitness.mjs'),Buffer.from(code,'utf8'),config.bounds.compiledModuleBytes)
++const diagnostic=await import(pathToFileURL(path.join(config.outputPath,'m0ObserverRowDiagnostic.mjs')).href)
++const witness=await import(pathToFileURL(path.join(config.outputPath,'m0FeasibilityWitness.mjs')).href)
++const controls=await import(pathToFileURL(path.join(config.outputPath,'run-observer-row-controls.mjs')).href)
++const report=controls.runObserverRowDiagnosticControls({createObserverRowDiagnostic:diagnostic.createObserverRowDiagnostic,createM0FeasibilitySink:witness.createM0FeasibilitySink,runObserverArm:diagnostic.runObserverArm})
++assert.equal(report.schema,contract.output.schema);assert.equal(report.status,contract.output.status)
++assert.equal(report.executionAuthorization,false);assert.equal(report.game,false);assert.equal(report.privateM0ReadOrWritten,false);assert.equal(report.fullQualificationAccepted,false)
++assert.equal(report.caseCount,config.caseCount);assert.equal(report.positiveCount,config.positiveCount);assert.equal(report.specificNegativeCount,config.specificNegativeCount)
+ assert.deepEqual(report.results,matrix.cases.map(c=>({...c,verdict:c.expected==='GREEN'?'ACCEPT_POSITIVE':'ACCEPT_SPECIFIC_REFUSAL'})),'every exact ordered intended control row; no generic success')
+ for(const [name,r] of Object.entries(config.inputs))assert.deepEqual(pinned(r),inputs[name],'candidate/control/input bytes unchanged')
+ for(const r of Object.values(generated))pinned(r)

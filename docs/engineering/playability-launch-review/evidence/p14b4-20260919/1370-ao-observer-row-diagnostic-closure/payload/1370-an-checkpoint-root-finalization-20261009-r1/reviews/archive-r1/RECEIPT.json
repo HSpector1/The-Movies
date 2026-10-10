@@ -1,0 +1,72 @@
+{
+  "concreteFindings": [],
+  "decision": "ACCEPT_FINALIZED_FINITE_AN_ARCHIVE_PAYLOADS_AND_AUTHENTICATED_PRIOR_HEAD_BLOBS",
+  "executionAuthorization": false,
+  "finalizerActualTool": {
+    "bytes": 498,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/FINALIZER-ACTUAL-TOOL.json",
+    "sha256": "8b98322c0dbf570155e476043c3b7eaa4aa41bf8f96de4be9c0195447ae11908"
+  },
+  "headAuthenticated": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+  "inputClaimIndependentReview": {
+    "bytes": 3969,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/reviews/input-claim-r1/RECEIPT.json",
+    "sha256": "26da738d68db75facd3bf0065fcc8d27ce596e419556b0981f61ef8d7962ea29"
+  },
+  "inputPackages": {
+    "bytes": 60686,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/INPUT-PACKAGES-FINAL.json",
+    "sha256": "364fcdb2acb3e42ee909e1c58292f682cebbfc100fd13ca9d77596a1bb104d68"
+  },
+  "inventory": {
+    "bytes": 1478168,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/INVENTORY-FINAL.json",
+    "sha256": "5f081c10a8fdd6cd2b888c6324e2cfbe080dceaf040b7e30da4a6143871bdd9b"
+  },
+  "limits": [
+    "Finite finalizedarchive/sourceevidence only; no private mirror/dependency inventories, runtime, imports or fresh probes.",
+    "65localroles retain hash/size metadata only; no local rawPS/FD/cache content inspection or payload/export/reuse.",
+    "Prior163roles authenticated via exactnamedHEAD7087 Gitobjects/source mappings and completebytes, not inferred from filenames or SHA1 alone.",
+    "Archive admission preserves truthful rootclaim and earlier STOPs; it does not admit fullfunction baseline/mutant/afterproofs, game, neutral416 or downstream work.",
+    "This review and current finalizer transcript live only in excluded finalization directory; no inventory selfhash/circularity or selected ANpackage mutation."
+  ],
+  "majorLessons": [
+    "Archive classification follows producersemanticroles, including plain .txt/.bin process/FD files, rather than suffix assumptions.",
+    "Source-role maps and retainedactual authority must match completebytes; priorGitreuse is valid only after fullHEAD/object/path/mode/hash/size authentication.",
+    "ProtectedSTOP can include earned generation progress and successfulsharedpost without changing missingM0afterproofs or qualificationstatus."
+  ],
+  "manifest": {
+    "bytes": 9422914,
+    "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-an-m0-preservation-and-types-closure/ARCHIVE-MANIFEST.json",
+    "sha256": "2b2247acd980dda8109fdad09a6a83bc3219cd053433e80684301b8a44dd665a"
+  },
+  "rootClaim": {
+    "bytes": 4376,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/ROOT-FINAL-CLAIM.txt",
+    "sha256": "001a82db185094545dbdd4605340cdb83ec6a322f41d335ea56c18d648bf5695"
+  },
+  "schema": "1370-an-finalized-archive-independent-review/v1",
+  "verification": {
+    "allCopiedSourceAndArchiveHashesAndSizesEqual": true,
+    "allLocalOnlyPathsUnexportedAndNotGitReused": true,
+    "allPriorBlobBytesFullSha256AndSizeEqual": true,
+    "allPriorHeadSourceMappingModesAndObjectIdsEqual": true,
+    "archiveRegularFiles": 2652,
+    "copiedPayloadBytes": 137803876,
+    "copiedPayloadRoles": 2649,
+    "duplicateSourcePaths": 0,
+    "gitMutation": false,
+    "localHashSizeOnlyBytes": 25231124,
+    "localHashSizeOnlyRoles": 65,
+    "missingPayloads": 0,
+    "priorGitBlobRoles": 163,
+    "priorGitBlobSourceMappings": 28770,
+    "privateTreeTraversal": false,
+    "rawWholeMachineContentsRead": false,
+    "rebuildableNodeCacheLocalRoles": 1,
+    "roles": 2877,
+    "semanticProducerRawRoles": 64,
+    "unexpectedFiles": 0,
+    "wholeMachineRawRoles": 64
+  }
+}

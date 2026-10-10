@@ -1,0 +1,30 @@
+{
+  "adoptedDiagnosticDesign": {
+    "bytes": 3797,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/OBSERVER-ROW-DIAGNOSTIC-DESIGN-ADOPTION.json",
+    "sha256": "8b45e59bfbcf67e115f28065c475fc64ba353a96ee4c07e616472bf58b1eda90"
+  },
+  "carryForwardWholeDirectory": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1",
+  "executionAuthorization": false,
+  "freshOperationalProtection": null,
+  "head": "0cf8b1d0bbf7d1977413d0c3074407cc8f7b80a4",
+  "laneAbsent": true,
+  "main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+  "priorAMPrelaunchReusableAsCurrent": false,
+  "productionClean": true,
+  "publicationReadback": {
+    "bytes": 1839,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-checkpoint-root-finalization-20261009-r1/PUSH-READBACK.json",
+    "sha256": "0b4d8556b0aaed92da3c6ce3b77886dec89718406f643cb5768b4b1040d9c921"
+  },
+  "rootApiPlan": {
+    "bytes": 5485,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r1/API.md",
+    "sha256": "40154375d4e9cc86c9a64a8c6b40dd8bdf6cf87a673bb519ac39d7f5f3cc13ea"
+  },
+  "schema": "1370-ao-root-starting-authority/v1",
+  "scope": "Fresh public diagnostic implementation and independent controls after publishedAN. FrozenAN packages immutable. Fresh current operational protection required before private fullfunction route.",
+  "sourcePreparationOnly": true,
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "utc": "2026-10-10T08:11:17.816020+00:00"
+}

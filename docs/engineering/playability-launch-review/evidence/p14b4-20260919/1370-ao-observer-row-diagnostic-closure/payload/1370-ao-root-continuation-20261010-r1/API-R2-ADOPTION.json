@@ -1,0 +1,31 @@
+{
+  "actual56544ErrorReplacementClaim": false,
+  "api": {
+    "bytes": 8460,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-20261010-r2/API.md",
+    "sha256": "8b23588f28233794a7d0317b76d0770912015bc3ffd20dd823aae74b21225eb8"
+  },
+  "controlsAccepted": false,
+  "executionAuthorization": false,
+  "governingDesign": {
+    "bytes": 3797,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/OBSERVER-ROW-DIAGNOSTIC-DESIGN-ADOPTION.json",
+    "sha256": "8b45e59bfbcf67e115f28065c475fc64ba353a96ee4c07e616472bf58b1eda90"
+  },
+  "implementationAccepted": false,
+  "independentReview": {
+    "bytes": 3798,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-api-independent-review-20261010-r2/RECEIPT.json",
+    "sha256": "3e976ae75addcefe331784183bb8ebbb6cbf619d1ba2f6782c3a1a2c003678be"
+  },
+  "priorApiStopPreserved": true,
+  "schema": "1370-ao-root-observer-diagnostic-api-adoption/v1",
+  "scope": "Actual shared runObserverArm helper preserves sticky original row Error through later thrown Error and end/reset failures, with ordinary cleanup semantics unchanged absent row Error. Independent implementation/tests and recorded controls still required.",
+  "sourcePreparationAuthorized": true,
+  "startingAuthority": {
+    "bytes": 1549,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/STARTING-AUTHORITY.json",
+    "sha256": "7316f5f18ac008ab28f10c0792c7348ab20e61c43efa982aa0354b24b43226f4"
+  },
+  "status": "ROOT_ADOPTED_R2_BOUNDED_DIAGNOSTIC_API_SOURCE_ONLY"
+}

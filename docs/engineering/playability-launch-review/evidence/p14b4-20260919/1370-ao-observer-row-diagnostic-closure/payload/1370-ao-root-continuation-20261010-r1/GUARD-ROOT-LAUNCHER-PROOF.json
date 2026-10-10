@@ -1,0 +1,74 @@
+{
+  "actualGuardExecuted": false,
+  "base": {
+    "bytes": 3803,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-root-continuation-20261009-r1/run_current_fullguard_once.py",
+    "sha256": "90e771d7e6ad494849a953a773d6f534cb929291f7db02602731091e255f8c39"
+  },
+  "executionAuthorization": false,
+  "fullInverseEqualsBase": true,
+  "logicChanged": false,
+  "new": {
+    "bytes": 3803,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/run_current_fullguard_once.py",
+    "sha256": "95dd2d29036a9387e4ab5d15e15fdc2665074ac46c00bc17c9a2550a48e44450"
+  },
+  "replacements": [
+    {
+      "after": "1370-ao-current-operational-fullguard-source-20261010-r1",
+      "before": "1370-an-current-operational-fullguard-source-20261009-r1",
+      "occurrences": 1
+    },
+    {
+      "after": "1370-ao-current-an-fullpreflight-parent-recorded-20261010-r1",
+      "before": "1370-an-current-am-fullpreflight-parent-recorded-20261009-r1",
+      "occurrences": 1
+    },
+    {
+      "after": "9df63e39d302e3b8481198999e129233ab4eb5709848d91cb1d45af0dfee0e88",
+      "before": "e638252b8082aa756f56471552327706a17dcf0e2d6bd01628710624ce7ec435",
+      "occurrences": 1
+    },
+    {
+      "after": "ACCEPT_CURRENT_AN_FULLGUARD_BINDINGS_SOURCE_ONLY",
+      "before": "ACCEPT_CURRENT_AM_FULLGUARD_BINDINGS_SOURCE_ONLY",
+      "occurrences": 1
+    },
+    {
+      "after": "0cf8b1d0bbf7d1977413d0c3074407cc8f7b80a4",
+      "before": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+      "occurrences": 1
+    },
+    {
+      "after": "before-fill-current-an-r1",
+      "before": "before-fill-current-am-r1",
+      "occurrences": 2
+    },
+    {
+      "after": "CURRENT-AN-FULLGUARD-SOURCE-ADOPTION.json",
+      "before": "CURRENT-AM-FULLGUARD-SOURCE-ADOPTION.json",
+      "occurrences": 1
+    },
+    {
+      "after": "1370-ao-root-current-an-fullguard-source-adoption/v1",
+      "before": "1370-an-root-current-am-fullguard-source-adoption/v1",
+      "occurrences": 1
+    },
+    {
+      "after": "ROOT_ADOPTED_CURRENT_AN_FULLGUARD_BINDINGS_SOURCE_ONLY",
+      "before": "ROOT_ADOPTED_CURRENT_AM_FULLGUARD_BINDINGS_SOURCE_ONLY",
+      "occurrences": 1
+    },
+    {
+      "after": "1370-ao-root-direct-current-an-fullpreflight-grant/v1",
+      "before": "1370-an-root-direct-current-am-fullpreflight-grant/v1",
+      "occurrences": 1
+    },
+    {
+      "after": "GRANTED_ONCE_ORIGINAL_COMPLETE_CURRENT_AN_FULL_PREFLIGHT",
+      "before": "GRANTED_ONCE_ORIGINAL_COMPLETE_CURRENT_AM_FULL_PREFLIGHT",
+      "occurrences": 1
+    }
+  ],
+  "schema": "1370-ao-current-fullguard-root-launcher-binding-proof/v1"
+}

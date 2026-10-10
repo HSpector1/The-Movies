@@ -1,0 +1,18 @@
+{
+  "config": {
+    "bytes": 20709,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r1/CONFIG.json",
+    "sha256": "c5ceb654d1f08d90ab1e6abefbdb05e0bb9a0d89b6f752169b05fc61ad8e16e3"
+  },
+  "executionAuthorization": false,
+  "historicalUnfilledDrafts": "Retained documentary author preparation; final executed files are named by RECIPE/source role aliases. No draft is actual runtime evidence.",
+  "independentSourceReview": null,
+  "rootOnceGrant": null,
+  "schema": "1370-ao-fullfunction-observer-row-diagnostic-source-final-status/v1",
+  "sourceProof": {
+    "bytes": 18603,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-m0-fullfunction-observer-row-diagnostic-source-20261010-r1/SOURCE-PROOF.json",
+    "sha256": "5e16ad81cdc7357aa4c6ae01ad99db837d233e93da5c2ebc28ac75e28b0f7482"
+  },
+  "sourceSealed": true
+}

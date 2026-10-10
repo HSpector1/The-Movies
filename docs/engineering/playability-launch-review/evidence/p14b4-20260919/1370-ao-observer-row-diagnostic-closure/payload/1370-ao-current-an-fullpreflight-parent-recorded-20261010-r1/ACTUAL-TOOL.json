@@ -1,0 +1,52 @@
+{
+  "schema": "1370-ao-current-an-fullpreflight-actual-tool/v1",
+  "actualSessionId": 61858,
+  "allToolChunks": [
+    {
+      "chunk_id": "186ec1",
+      "wall_time_seconds": 1.002805482,
+      "session_id": 61858,
+      "original_token_count": 66,
+      "output": "{\"grant\": {\"path\": \"/Users/zacheryspector/studio-scratch/1370-ao-current-an-fullpreflight-parent-recorded-20261010-r1/GRANT.json\", \"bytes\": 2332, \"sha256\": \"06790893a62bf1b308d66d719c4eb8518a688e11f9104f139565a2eff26c8e54\"}, \"ownedPid\": 14070, \"ownedPgid\": 14070}\n"
+    },
+    {
+      "chunk_id": "1db834",
+      "wall_time_seconds": 5.001908987,
+      "session_id": 61858,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "a89350",
+      "wall_time_seconds": 5.001033809,
+      "session_id": 61858,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "45ac48",
+      "wall_time_seconds": 5.001943744,
+      "session_id": 61858,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "011af9",
+      "wall_time_seconds": 5.001757683,
+      "session_id": 61858,
+      "original_token_count": 0,
+      "output": ""
+    },
+    {
+      "chunk_id": "99d589",
+      "wall_time_seconds": 0.00001716,
+      "exit_code": 0,
+      "original_token_count": 0,
+      "output": ""
+    }
+  ],
+  "finalExit": 0,
+  "actualOriginalFullguardExecuted": true,
+  "game": false,
+  "automaticRetry": false
+}

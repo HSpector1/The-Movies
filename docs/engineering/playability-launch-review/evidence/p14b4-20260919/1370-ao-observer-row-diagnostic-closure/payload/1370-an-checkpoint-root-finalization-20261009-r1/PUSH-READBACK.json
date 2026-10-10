@@ -1,0 +1,39 @@
+{
+  "branch": "wip/headless-program-20260916-ts",
+  "files": {
+    "HANDOFF.md": {
+      "bytes": 13579,
+      "sha256": "4f3f6435ba8fecd3645512f2e4a225740d91ceb9733f6668ef5507953ad0b102"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-AN-m0-preservation-and-types-closure.md": {
+      "bytes": 16041,
+      "sha256": "9a042c95acac18c1860152f6a5eec8a386229726dc42e7971ebddb65fb3b9980"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-an-m0-preservation-and-types-closure/ARCHIVE-MANIFEST.json": {
+      "bytes": 9422914,
+      "sha256": "2b2247acd980dda8109fdad09a6a83bc3219cd053433e80684301b8a44dd665a"
+    },
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-an-m0-preservation-and-types-closure/payload/1370-an-root-continuation-20261009-r1/LESSONS-r18.md": {
+      "bytes": 52596,
+      "sha256": "0a691f790e2d9eb32e192ea9b101ee7357a379bb6433056be995484e3063c387"
+    }
+  },
+  "fullfunctionQualificationAccepted": false,
+  "futureOperationalAuthorityMustUseActualAN": true,
+  "head": "0cf8b1d0bbf7d1977413d0c3074407cc8f7b80a4",
+  "heavyLaneLockAbsent": true,
+  "mainMerged": false,
+  "p17p18RuntimeImplemented": false,
+  "parent": "7087f116cf998fd86e33fb8e004df628e0686dbd",
+  "previousOperationalFreezeEnded": true,
+  "remoteAdvertised": {
+    "refs/heads/main": "c902a704eb948cc576083d0973c8c23e59937dc1",
+    "refs/heads/wip/headless-program-20260916-ts": "0cf8b1d0bbf7d1977413d0c3074407cc8f7b80a4"
+  },
+  "schema": "1370-an-published-checkpoint-readback/v1",
+  "sourceTree": "13880d9b0ba72aff5d4c5bcf5d12fe682c5de554",
+  "status": "PUBLISHED_REMOTE_AND_ANCESTRY_AND_SOURCE_AND_DOCUMENTS_VERIFIED",
+  "trackedMain": "c902a704eb948cc576083d0973c8c23e59937dc1",
+  "utc": "2026-10-10T08:07:37.586505+00:00",
+  "workingTreeClean": true
+}

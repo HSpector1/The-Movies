@@ -1,0 +1,32 @@
+{
+  "actualChildExit": 0,
+  "boundsSeconds": {
+    "active": 320,
+    "node": 300,
+    "whole": 330
+  },
+  "childPid": 83213,
+  "configSha256": "ecd1164da81a1e8f1c03456762cdfc56803cde908908e9e233a33491185fddaa",
+  "controlsResultPath": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-pure-controls-recorder-results-20261010-r1/CONTROLS-RESULT.json",
+  "elapsedSeconds": 3.914878809999209,
+  "executionAuthorization": false,
+  "game": false,
+  "groupClear": true,
+  "mode": "verification",
+  "ownedPgid": 83213,
+  "pgidConfirmed": true,
+  "sanitizedEnvironment": [
+    "NODE_OPTIONS",
+    "NODE_PATH"
+  ],
+  "schema": "1370-observer-row-diagnostic-pure-controls-recorder/v1",
+  "sourceOrGameplayAdoption": false,
+  "startupOwnedBeforeExec": true,
+  "status": "OBSERVER_ROW_DIAGNOSTIC_PURE_CONTROLS_COMPLETE_UNADOPTED",
+  "stderrBytes": 0,
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdoutBytes": 12542,
+  "stdoutSha256": "e8c9c852a11faa3f831752b9a0c7ab99a5be2f6fb034eb6a808c811d2bbcd7c6",
+  "timedOut": false,
+  "utc": "2026-10-10T08:42:21.918114+00:00"
+}

@@ -1,0 +1,11 @@
+--- R1/record-fullfunction.py
++++ R2/record-fullfunction.py
+@@ -2,7 +2,7 @@
+ Future runtime only; no source-authored execution authority."""
+ import datetime,hashlib,json,os,pathlib,selectors,select,signal,stat,sys,time
+ HERE=pathlib.Path(__file__).resolve().parent;SCRATCH=pathlib.Path('/Users/zacheryspector/studio-scratch')
+-CONFIG_SHA='c5ceb654d1f08d90ab1e6abefbdb05e0bb9a0d89b6f752169b05fc61ad8e16e3';WORKER_SHA='057b9dd66ed367c5e0ed328f4630be3a75360c8504acf489c094c967d2f79401';CAP=8*1024**2;CHILD=300;ACTIVE=320;WHOLE=330
++CONFIG_SHA='596a893e476e77b8d87c1704b90ac5048b1f66611f61cdf3154ab6072ff27f5b';WORKER_SHA='72b3e941c9f941785233367565badc0a2dc674e056878e8d1b008c80ac54e346';CAP=8*1024**2;CHILD=300;ACTIVE=320;WHOLE=330
+ OUTPUTS={'verification':SCRATCH/'1370-ao-m0-fullfunction-observer-row-diagnostic-recorder-results-20261010-r1'}
+ def require(v,m):
+  if not v:raise RuntimeError('STOP_'+m)

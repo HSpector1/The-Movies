@@ -1,0 +1,43 @@
+{
+  "actualLaunch": null,
+  "actualPostflight": null,
+  "amendment": "Reuse the genuinely accepted fresh currentAN before-fill complete fullguard snapshot as the protected baseline for the same immediately refreshed original current/root/ancestry/FD/process/disk predicates. This is an explicit operational scope amendment, not a claim that the original after-fill wording directly covers before-fill.",
+  "capsHorizonsSourceIdentityProtectedRootsAcceptanceUnchanged": true,
+  "currentFullPreflightAdoption": {
+    "bytes": 4727,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/CURRENT-AN-FULL-PREFLIGHT-OBSERVED-ADOPTION.json",
+    "sha256": "753a7597c20032c70b2a07c9001de15ba1f72b5a0a5ac7706e340228da5fef5a"
+  },
+  "executionAuthorization": false,
+  "freshFullInventoryAdded": false,
+  "historicalTypesPostflightDoesNotEqualCurrentANBaselineByAssumption": true,
+  "historicalTypesRemainHistorical": true,
+  "lessons": [
+    "Authenticate actual producer keys before sealing consumers: pure48 root adoption uses readback, not actualReadback.",
+    "Do not relabel a genuine before-fill snapshot as postflight or compare a newly published documentation HEAD to an obsolete Git freeze.",
+    "Preserve historical types authority as historical while requiring current operational protection independently."
+  ],
+  "mandatoryFullPostflightAfterGameAgainstThisBaseline": true,
+  "observerControlsAdoption": {
+    "bytes": 8912,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-root-continuation-20261010-r1/OBSERVER-DIAGNOSTIC-CONTROLS-OBSERVED-ADOPTION.json",
+    "sha256": "6de3da4778f3fa6a8901e44e473f33dd5eaea5ec174abdd54ddd1398f5f99d47"
+  },
+  "originalExactClause": "Between after-fill and actual launch, reuse the immutable full observations only while those protected roots remain frozen; parent repeats fresh current FD/process/UUID/refs/clean/AC/disk and physical root metadata immediately before lane and pins that actual observation in adopted preflight.",
+  "originalM0BeforeAfterProofsRemainSeparate": true,
+  "originalReusePlan": {
+    "bytes": 5164,
+    "path": "/Users/zacheryspector/studio-scratch/1370-c0-aging-era-witness-r7-parent-guard-preparation-20261008-r2/PLAN.md",
+    "sha256": "acd0e3cb6ae3138f531cddba326bced7252c6f74fc13353b9ac728f68375413b"
+  },
+  "originalScannerHelpersUnchanged": true,
+  "rationale": "Published AN documentation transition ended the historical AM Git freeze. Fresh original fullguard61858 accepted historical R9 physical/dependency inventories and all currentAN strict roots/current-before-after checks. No new candidate fill or protected writes occurred; only pure public48 controls and scratch source preparation followed under continuous freeze.",
+  "schema": "1370-ao-current-an-prelaunch-reuse-scope-amendment/v2",
+  "snapshot": {
+    "bytes": 9440774,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-current-operational-fullguard-source-20261010-r1/evidence/before-fill-current-an-r1/SNAPSHOT.json",
+    "sha256": "63fe53279f1703e9f67d587481ee741e15502fa4a167b1f33e9c7741d13389e9"
+  },
+  "snapshotPhase": "before-fill",
+  "status": "SOURCE_ONLY_PENDING_INDEPENDENT_REVIEW_AND_PARENT_ADOPTION"
+}

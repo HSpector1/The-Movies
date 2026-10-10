@@ -1,0 +1,24 @@
+{
+  "baseline": {
+    "bytes": 20567,
+    "path": "/Users/zacheryspector/studio-scratch/1370-an-m0-fullfunction-qualification-source-20261010-r13/SOURCE-PINS.json",
+    "sha256": "5eb4371205271d8ae2b88d6c4dd2f7f20057b8ae30430fd8905e1ed3816d98d3"
+  },
+  "executionAuthorization": false,
+  "remaining": [
+    "Implement identical Python/Node diagnostic observed authority gate before private reads",
+    "Separate historical types authority from current AN protection v2",
+    "Rebind borrowed proof CURRENT_HEAD without changing guards",
+    "Rebuild exact source aliases and recipe after all executable bindings",
+    "Authenticate genuine current transition/current preflight/actual48 roles when supplied",
+    "Independent source review and root once grant required"
+  ],
+  "roleMap": {
+    "bytes": 11197,
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-fullfunction-observer-row-diagnostic-role-map-20261010-r1/MAP.json",
+    "sha256": "2ca3b988c1652cb5cdd317990db2fba1b31188d5bba27d1e42968c80e65a980f"
+  },
+  "runtimeReady": false,
+  "schema": "1370-ao-fullfunction-diagnostic-draft/v1",
+  "sourceSealed": false
+}

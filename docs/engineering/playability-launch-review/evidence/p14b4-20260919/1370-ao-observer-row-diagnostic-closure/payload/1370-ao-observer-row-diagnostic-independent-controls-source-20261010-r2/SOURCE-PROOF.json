@@ -1,0 +1,35 @@
+{
+  "schema": "1370-observer-row-independent-controls-r2-source-proof/v1",
+  "executionAuthorization": false,
+  "previousSourcePins": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r1/SOURCE-PINS.json",
+    "bytes": 2073,
+    "sha256": "33908d3d8c327b6a0eccd72322b070334c9e9867275693120f40ab21af3cbf87"
+  },
+  "baselineLibrary": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/BASELINE-run-observer-row-controls.mjs",
+    "bytes": 28566,
+    "sha256": "0d8b787dc12f02b678dae42e74704f04c0bc1f6428146e9df93a94e788086248"
+  },
+  "library": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/run-observer-row-controls.mjs",
+    "bytes": 29201,
+    "sha256": "227e306fa5ba41208e72a9e0148d3e6cf3d49cf5070a694f6888908c2fabf6e0"
+  },
+  "forwardDiff": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/run-observer-row-controls.forward.diff",
+    "bytes": 1857,
+    "sha256": "7594efb950c7b2ea539d182350076e863f1bc32692232f8c5c43d049cf7aecf6"
+  },
+  "inverseDiff": {
+    "path": "/Users/zacheryspector/studio-scratch/1370-ao-observer-row-diagnostic-independent-controls-source-20261010-r2/run-observer-row-controls.inverse.diff",
+    "bytes": 1857,
+    "sha256": "3d76193c82d22ce4a874fe66c4b5825a73af3ced87fd7f8913ddffc19b6d6770"
+  },
+  "wholeInverseEqualsBaseline": true,
+  "original47CasesAndBodiesPreserved": true,
+  "newCaseId": "huge_kind_original_refusal_no_raw_kind",
+  "newPredicate": "same real original row-byte Error; outer FAILED_ROW_UNSUPPORTED; no raw kind; sticky and no admitted row",
+  "bindings": "Only new matrix counts/roles and actualR3 diagnostic-module/witness/contract paths and hashes are rebased. API R2 unchanged; R1 retained.",
+  "javascriptParsedOrExecuted": false
+}
