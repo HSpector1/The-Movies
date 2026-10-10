@@ -11,6 +11,23 @@ Last writer: Claude (Fable 5.1), 2026-10-10 (America/Chicago), resuming cold fro
 - A `HANDOFF TRIGGER` (Claude weekly usage 97%) fired at session start; this checkpoint records the approval before any runtime work so Codex can resume cold.
 - No lean-ctx MCP tools exist in this Claude session; native Read/Bash were used.
 
+### Claude in-flight lanes (started 2026-10-10 ~15:25 CDT; verify actual state before relying on it)
+
+Specialists work in isolated shared sparse clones under `/Users/zacheryspector/studio-specialists/<name>` (`git clone --shared --no-checkout` + cone sparse-checkout of src/tests/generated/scripts/bridge/tools/ui/src/art/evidence/out + symlinked node_modules; ~55 MB each; the shared common Git dir is only read via alternates, never written, so `git worktree add` was deliberately avoided). Each delivers `PATCH.diff`, `MANIFEST.json`, `REPORT.md` (clause coverage, exact test results, shared-file hunks, contract gaps, lessons), `RED-FIRST-EVIDENCE.md` and a dated `PROGRESS.md` into `S/1370-ar-<slice>-…-20261010-r1/`. The parent (Claude) is the only production writer: it lands patches in dependency order R8 → 1364/1365 → P15B → P16 → P15C → P17 → P18, renumbering save versions at landing because lanes independently chose v46.
+
+| Lane | Clone | Package | State at this checkpoint |
+| --- | --- | --- | --- |
+| 1363 R8 recovery kit rebase | `r8` | `S/1370-ar-1363-r8-rebase-20261010-r1` | 14 kit files + 153 whole-file replacements + 21 new files applied with zero adaptations against 6510c971 (src/tests unchanged since 38ad3c41); 1,589 pinned paths verified; gate chain running (tsc-root exit 0) |
+| 1364/1365 founding + market retune | `founding` | `S/1370-ar-1364-1365-founding-market-implementation-20261010-r1` | reading |
+| P15B waves 2–5 | `p15b` | `S/1370-ar-p15b-waves2-5-implementation-20261010-r1` | reading |
+| P16 rights/estate A/B/C | `p16` | `S/1370-ar-p16-rights-estate-implementation-20261010-r1` | seams mapped; new modules rights/propertyValuation/rightsFinance/licence/assetSale/dueDiligence/acquisition/estate/rightsTick; healthy-absorption executable closing deferred (needs P12 operating-state discriminator) |
+| P17 continuation + cameo | `p17` | `S/1370-ar-p17-continuation-cameo-implementation-20261010-r1` | launched after this checkpoint |
+| P18 first season | `p18` | `S/1370-ar-p18-first-season-implementation-20261010-r1` | launched after this checkpoint |
+| AR recovery-route mapping | workflow | `S/1370-ar-recovery-route-build-plan-20261010-r1/AR-BUILD-PLAN.md` | 8 package readers → synthesis, running |
+| Core test baseline on 6510c971 | parent | session scratchpad `baseline/core-6510c971.json` (copy into the next evidence package) | running since 20:20:32Z |
+
+Sequencing decision: no further production commits between the AR build and the end of its recorded run; the heavy lane runs alone after specialists go idle; patches land afterwards with focused plus affected broad tests, one commit per slice.
+
 ## Read this first
 
 The game is **not finished through P18**. P16 is incomplete; P17 and P18 runtime implementation remains downstream. The recent work repaired and tested verification infrastructure needed to resolve the older 1363 evidence ledger. It did not advance the production gameplay source. Do not mistake the large number of archived reviews, controls, or documentation commits for completion of game systems.
