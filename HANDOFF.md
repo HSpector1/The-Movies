@@ -2,13 +2,14 @@
 
 Last writer: Claude (Opus 5.5; Fable 5.1 until its usage limit was exhausted), 2026-10-11 08:50 CDT, single integrator. Codex's 18:37 CDT review checkpoint is preserved in full below. Historical evidence and the hook-owned AUTO block are preserved.
 
-## Current state, 2026-10-11 09:15 CDT (read first; the Claude sections further down hold the detail)
+## Current state, 2026-10-11 10:00 CDT (read first; the Claude sections further down hold the detail)
 
 - **Branch** `wip/headless-program-20260916-ts`; resolve the tip with Git. **Production source changed once in this continuation:** R8 landed at `db3fc572` (Save46, src tree `cf7d20cd…`). Everything after it on the branch is docs/evidence. Remote `main` is still `c902a704…`, unmerged by design.
-- **Landing order (integrator-assigned save eras):** R8 = 46 (landed) → founding 1364/1365 = 47 → P15B = 48 → P16 = 49 → P17 = 50 → P18 = 51. Each landing: three-lens adversarial review with refuters, landing gate under Node 20.20.2 (root/UI/bridge tsc, generators, MANIFEST test commands), then a full core baseline with identity attribution (SAME / NEW / GONE / CHANGED) before the next slice.
-- **In flight:** founding **r4** fix round in `/Users/zacheryspector/studio-specialists/founding` (r3 failed review on a second-grant money-creation blocker plus majors; rulings R-A/R-B/R-C below; commit (d) added). Adversarial reviews of **P15B** (stacked on founding r3; protective patch `PATCH-r2-stacked-on-founding-r3.diff`) and **P16** (on 6510c971) are running. P17 and P18 packages are complete and unreviewed; their clones were deleted, so their patches are the source of truth.
-- **Held:** the AR fullfunction route (Gate 0 BLOCKED: the M0 lineage pins src `13880d9b`; a new route generation must be qualified on the settled tree) and every heavy lane (2.2 GiB free against a 3.5 GiB floor; a restart would reclaim about 4 GiB of swap and sleep image).
-- **Next step if you resume cold:** read `S/1370-ar-1364-1365-founding-market-implementation-20261010-r1/REPORT.md` r4 section and `REVIEW-R3-FINDINGS.json`; if r4 is complete, run the review workflow (`/private/tmp/claude-501/-Users-zacheryspector/21e515ff-0aed-48b0-9b7f-11c9d5239850/scratchpad/review-packages.js` if it still exists, else the same three lenses by hand) on it, then land it with the landing gate and take the post-founding baseline. Then re-stack P15B on the landed founding.
+- **Landing order (integrator-assigned save eras):** R8 = 46 (landed) → founding 1364/1365 = 47 → P15B = 48 → P16 = 49 → P17 = 50 → P18 = 51. Each landing: adversarial review with refuters, then a landing gate under Node 20.20.2 that applies the patch to the production index uncommitted and runs root/UI/bridge tsc, both generators, d16, and the FULL core and UI suites with identity attribution; that run doubles as the next predecessor baseline. Commit only when gate and review both pass.
+- **In flight:** founding **r4** (185 files, sha256 `f61486d4…`; all 13 items fixed or declared; tsc root/UI/bridge 0; generators 0; d16 = 1361-M3 baseline exactly) is under a focused verification review, and its **landing gate is running in the production worktree** — if you find the production tree dirty with founding files staged, that is this gate: let it finish, or restore with `git restore --staged --worktree -- .` plus removal of the eight added files listed in the package MANIFEST. Adversarial reviews of **P15B** (stacked on founding r3) and **P16** are running. P17 and P18 packages are complete and unreviewed.
+- **Held:** the AR fullfunction route (Gate 0 BLOCKED: the M0 lineage pins src `13880d9b`; a new route generation must be qualified on the settled tree) and every heavy lane (2.2 GiB free against a 3.5 GiB floor).
+- **Integrator tools** (durable copies): `/Users/zacheryspector/studio-scratch/1370-ar-integrator-tools-20261011/{review-packages.js,land-patch.sh}`.
+- **Next step if you resume cold:** read the founding package's REPORT r4 section and its landing gate output (`…/landing-r4/`); if the gate shows zero undeclared NEW identities and the r4 verification passed, commit the staged patch as the founding landing; then re-stack P15B on it as Save48.
 
 ## Current review checkpoint: read before the historical account
 
@@ -109,6 +110,7 @@ Sequencing decision remains: do not publish/fetch during a frozen qualification 
 - **P15B protective cut:** its stacked Save48 work (on founding r3; 150 conflicts resolved, tsc 0, a 14-batch gate run finished at 07:37) existed only as uncommitted clone state when Fable died; the parent cut `PATCH-r2-stacked-on-founding-r3.diff` (123 files, sha256 `21893e65…`). It will be re-stacked on founding r4.
 - **P15B and P16 adversarial reviews launched now** (same three lenses + refuters) so their fix rounds happen before their rebase turns; P15B is reviewed on its stacked tree, P16 on its 6510c971 tree with its integration items (era renumbering, unbound condition readers) treated as expected.
 - Lessons 30–32 added below.
+- **Stray symlink removed (09:55):** a self-referencing `node_modules/node_modules -> …/node_modules` appeared in the production worktree at 09:45 (an agent's second `ln -s` into an already-linked `node_modules`). Untracked and gitignored, but a self-loop inside the dependency tree the protection scans traverse; the parent removed the link only (target untouched, 148 entries intact). Specialists must test `[ -e node_modules ]` before linking.
 - **Commit (d) added to the founding r4 round** (1361-F4 ruling 2 / 1361-D2 F2: d16's `reconstructDiscovery` must receive the stored market factor by `releaseId` as `competitionFactor`; it was never made although 1361-F5 ruling 3 says it rides with 1365).
 - **1365 closure runbook** preserved at `E/1370-ar-1365-closure-runbook-20261011/RUNBOOK.md`: after founding lands, G2 (41 min), G1 (7 min), d16 at (c)/(d), the G2 root/save storage read-out, and G-P/G-L must run; every historical probe needs a reviewed revision first (hard-coded 0.25, Save44/45 literals, refusal of post-Save45 roots), and the G2 control commit must be named by the integrator.
 - **Disk:** user caches cleared under the Owner's cache authorization (Library/Caches except the running Claude CLI and VS Code caches, plus the nvm download cache: +376 MiB) and the stale P15B RED worktree removed after preserving its two files; 2.2 GiB free. The heavy G2/G1/G-P/G-L lane needs the 3.5 GiB floor: swap files (3 GiB) and the 1 GiB sleep image are the remaining reclaimable space and only a restart frees them, which the parent will not do on the Owner's machine.
@@ -539,14 +541,15 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-11 06:12 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
-- Branch: `wip/headless-program-20260916-ts` @ `2e62c704a3e73a870d15db99b3dde84f87275605`
+- Stamped: 2026-10-11 09:45 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
+- Branch: `wip/headless-program-20260916-ts` @ `e55ade98c13a79bdeae71b7b261d822cd727808f`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 0
+- Uncommitted files: 1
+  - `M HANDOFF.md`
 - Last commits:
+  - e55ade98 docs(handoff): add a current-state block at the top for cold resumption
+  - a15f4c02 docs(1370-ar): 1365 closure runbook; commit (d) joins founding r4; disk state after cache clear
+  - c5a9f692 docs(handoff): founding r3 failed review (second-grant blocker); integrator rulings R-A/R-B/R-C; r4 fix round; P15B/P16 reviews; model switch to Opus 5.5
   - 2e62c704 docs(handoff): founding r3 and P15B complete; founding under three-lens review; P15B pre-stacking as Save48
   - cf66decd docs(handoff): founding r2 and P16 packages complete; founding r3 live-alias sweep dispatched
-  - 4c588a86 docs(1370-ar): preserve the fullfunction recovery-route build plan; record Gate 0 BLOCKED and the hold decision
-  - 355a2126 docs(handoff): hook AUTO-block stamp (PreCompact) before Gate 0 observation
-  - 205323ac docs(1370-ar): post-R8 core baseline on db3fc572 with identity attribution; checkpoint after second usage-limit kill
 <!-- AUTO:END -->
