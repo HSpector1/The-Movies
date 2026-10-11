@@ -111,6 +111,7 @@ Sequencing decision remains: do not publish/fetch during a frozen qualification 
 - **P15B and P16 adversarial reviews launched now** (same three lenses + refuters) so their fix rounds happen before their rebase turns; P15B is reviewed on its stacked tree, P16 on its 6510c971 tree with its integration items (era renumbering, unbound condition readers) treated as expected.
 - Lessons 30–32 added below.
 - **Stray symlink removed (09:55):** a self-referencing `node_modules/node_modules -> …/node_modules` appeared in the production worktree at 09:45 (an agent's second `ln -s` into an already-linked `node_modules`). Untracked and gitignored, but a self-loop inside the dependency tree the protection scans traverse; the parent removed the link only (target untouched, 148 entries intact). Specialists must test `[ -e node_modules ]` before linking.
+- **Founding r4 verification (10:55):** `S/…founding…/REVIEW-R4-VERIFICATION.json`. Of the r3 findings plus the 13 r4 items: 28 fixed, 15 declared acceptably, 2 not fixed, 0 refuted; **4 majors upheld**: (1) the save validator keys only on `studioFounded` landmarks, so a forged second grant passes when the forger also deletes or re-dates the week-0 landmark (five forms reproduced); (2) the UI owner route (import → founding screen → late signing, no Advance/Sim; 1364-A §5 cases 1 and 9, §4) is still untested — the parent omitted this upheld r3 major from the r4 brief; (3) three UI leaves that tick an open draft from `newGame` fail at the Invariant B refusal, undeclared; (4) duplicate of (1). Minors with real effect: `campaignHasFounded` reads `economyEngagedEver`, which a contract signing also sets (a never-founded campaign is refused its first founding) and does not read a closed fund; a census repair in `d17a-fixed-cost-allocation` made an assertion unfalsifiable. **Founding r5** dispatched to the same specialist (items A–H). The production landing gate on r4 keeps running for its full-suite data; r4 will not be committed, and the production tree will be restored to clean when the gate ends.
 - **Commit (d) added to the founding r4 round** (1361-F4 ruling 2 / 1361-D2 F2: d16's `reconstructDiscovery` must receive the stored market factor by `releaseId` as `competitionFactor`; it was never made although 1361-F5 ruling 3 says it rides with 1365).
 - **1365 closure runbook** preserved at `E/1370-ar-1365-closure-runbook-20261011/RUNBOOK.md`: after founding lands, G2 (41 min), G1 (7 min), d16 at (c)/(d), the G2 root/save storage read-out, and G-P/G-L must run; every historical probe needs a reviewed revision first (hard-coded 0.25, Save44/45 literals, refusal of post-Save45 roots), and the G2 control commit must be named by the integrator.
 - **Disk:** user caches cleared under the Owner's cache authorization (Library/Caches except the running Claude CLI and VS Code caches, plus the nvm download cache: +376 MiB) and the stale P15B RED worktree removed after preserving its two files; 2.2 GiB free. The heavy G2/G1/G-P/G-L lane needs the 3.5 GiB floor: swap files (3 GiB) and the 1 GiB sleep image are the remaining reclaimable space and only a restart frees them, which the parent will not do on the Owner's machine.
@@ -532,6 +533,8 @@ The full accounts are in `A/payload/1370-aq-root-continuation-20261010-r1/LESSON
 30. A green focused union (215/215, all 45 REDs closed) and an honest report did not catch a money-creation path. Adversarial reviewers with an explicit conservation lens and runnable probes found the second-grant blocker in one pass; run that review before every landing, not after.
 31. A refusal keyed on an optional record protects only the cases that create the record. Key "must never happen twice" rules on the authoritative fact (here: the campaign has founded), and enforce them in both the action and the save validator.
 32. Sweep regexes must be derived from the semantic (every live-writer stamp) rather than from one spelling: a case-sensitive `saveVersion).toBe(46)` missed `parsedSaveVersion).toBe(46)`, and the UI project was never run. After a version bump, grep every left operand compared to a literal version in `tests/` and `ui/`, and run both vitest projects on touched files.
+33. Generate each fix brief mechanically from the upheld-findings list, not from the integrator's summary. The r4 brief dropped one upheld major (the UI owner route) that HANDOFF itself listed, and it cost a full verification round.
+34. A validator rule that recognizes a forgery by one record (a landmark) is defeated by editing that record. Cross-check every independent fact the history carries (landmarks, provenance versus industry origin, ledger dates) so a forger must falsify all of them consistently, and test each single-edit forgery.
 
 ## Handoff completion and claim limits
 
@@ -541,15 +544,30 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-11 09:45 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
-- Branch: `wip/headless-program-20260916-ts` @ `e55ade98c13a79bdeae71b7b261d822cd727808f`
+- Stamped: 2026-10-11 11:51 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
+- Branch: `wip/headless-program-20260916-ts` @ `4add12ee6a89bcad2092f81a192c079286329dd3`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 1
+- Uncommitted files: 186
   - `M HANDOFF.md`
+  - `M  src/core/actions.ts`
+  - `M  src/core/employment.ts`
+  - `A  src/core/foundingFunding.ts`
+  - `M  src/core/hollywoodTick.ts`
+  - `M  src/core/hollywoodValidation.ts`
+  - `M  src/core/index.ts`
+  - `M  src/core/marketIntegration.ts`
+  - `M  src/core/save.ts`
+  - `M  src/core/sharedMarket.ts`
+  - `M  src/core/tick.ts`
+  - `M  src/core/tuning.ts`
+  - `M  src/core/types.ts`
+  - `M  src/core/worldgen.ts`
+  - `M  src/harness/d16/driver.ts`
+  - ...
 - Last commits:
+  - 4add12ee docs(handoff): founding r4 complete; landing gate and verification review starting; stray symlink removed
   - e55ade98 docs(handoff): add a current-state block at the top for cold resumption
   - a15f4c02 docs(1370-ar): 1365 closure runbook; commit (d) joins founding r4; disk state after cache clear
   - c5a9f692 docs(handoff): founding r3 failed review (second-grant blocker); integrator rulings R-A/R-B/R-C; r4 fix round; P15B/P16 reviews; model switch to Opus 5.5
   - 2e62c704 docs(handoff): founding r3 and P15B complete; founding under three-lens review; P15B pre-stacking as Save48
-  - cf66decd docs(handoff): founding r2 and P16 packages complete; founding r3 live-alias sweep dispatched
 <!-- AUTO:END -->
