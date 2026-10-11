@@ -82,6 +82,13 @@ Sequencing decision remains: do not publish/fetch during a frozen qualification 
 - **P16 complete** on base 6510c971: 152 files; P16A/B/C with absorption closing deferred by name; `licence.ts` four-right producer; Codex findings 2/3/7 addressed (`CorporateConditionReaders` fail-closed until P15B's real readers bind; capacity via the real `addManagedProductionWorkflow` dry run); tsc 0; generators 0; P16 selection 97/97; 128 affected files classified against a same-list base control with zero P16-attributable failures remaining; real source defects fixed (rights root recorded from the industry's opening week, boundary-week greenlight, rights step ordered before lifecycle intent in `tick.ts`, V18→V19 strip of the three P16 money kinds). Waits behind P15B for its Save49 rebase.
 - P15B final gates (146-file union, tsc, generators) still running; P17 and P18 packages complete and waiting their turn. Order unchanged: founding r3 → review → land (Save47) → post-founding baseline → P15B (48) → P16 (49) → P17 (50) → P18 (51).
 
+### Checkpoint 2026-10-11 05:05 CDT: founding r3 and P15B complete; founding under adversarial review; P15B pre-stacking
+
+- **Founding r3 complete** (base db3fc572, 174 files, MANIFEST with 15 exact test commands): 83 of the 88 remaining files swept to `tests/helpers/live-era.ts` aliases (`EXPECTED_LIVE_SAVE_VERSION`, `validateLiveSave`, `downgradeLiveTo45`; 324 hunks by rules A–E, inventory in `evidence/r3/`), five era-by-design files untouched; witnesses re-pinned with measured cause (p14b5 family-1 digest byte-identical on both trees, only the 1361-N S10 "no row" guard moved because the activated law writes one zero-pressure factor-1 market row at week 60; bridge-p13b-s7 and its engine sibling: rival sound purchase 416→417, same studio, a penalty-forced-to-0 counterfactual reproduces R8 HEAD byte-for-byte); twelve verification-found repairs recorded in `edits-beyond-sweep.txt`; tsc 0 (three runs), generators 0/0; gate union 215/215; R8 kit 251/258 (7 docs-ENOENT); latest 175-file run NEW 1 (declared: `p14d1-rival-shelving` week-77 control diverges from the pre-law genuine capture and needs an Owner re-capture under the new law), INHERITED 73, docs-ENOENT 34. 149 literal live-era sites in 55 files of r2's own scope still re-pin by literal at the next bump (one helper edit covers the alias sites).
+- **Three-lens adversarial review of founding r3 launched** (contract fidelity; determinism/conservation/migration; test quality and evidence, each re-running selections under Node 20), with two refuters per major/blocker finding. Landing waits for it.
+- **P15B complete** (base 6510c971, 178 files): Waves 2–5 RED-first (condition root/events, real loans with rival policy and installments, shared cost phase, remedy parity, closure/v1 with atomic typed dispositions, claims, 13-week estate, power-ranking/v2 cohort, read-only player, notices, Bridge `takeLoan` intent, Industry `conditionLabel`); P15B suites 54/54; 146-file union with every new failure repaired except five documented era-moved leaves; generators regenerated, exit 0; `conditionRecord`/`outstandingLoan` exported and tested. Its tsc claim (Node 22 shell: 169 `TS5097` plus five of its own fixed by inspection without a rerun) is unverified until the Node 20 landing gate. Balance observation to carry, unmeasured: under the "studios can fail" ruling an unmanaged studio closes in about 26 years and all four rivals of the aca408ec world close by week 553. P15B is now pre-stacking its rebase on founding r3's exact bytes as Save48 (`P15B_SAVE_VERSION`, V47→V48 migration through `validateSaveV47`), so it lands right after founding.
+- Order unchanged: founding (47) → P15B (48) → P16 (49) → P17 (50) → P18 (51); each landing takes a full core baseline and identity attribution.
+
 ## Read this first
 
 The game is **not finished through P18**. P16 is incomplete; P17 and P18 production integration remains downstream. Verification infrastructure was repaired before Claude prepared the new isolated gameplay drafts. Neither effort has advanced the published production gameplay source yet. Do not mistake archived reviews, isolated tests or documentation commits for completion of the integrated systems.
@@ -506,15 +513,15 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-11 03:18 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
-- Branch: `wip/headless-program-20260916-ts` @ `4c588a8641d80f1ef7223abc33394069ec87fa9c`
+- Stamped: 2026-10-11 04:55 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
+- Branch: `wip/headless-program-20260916-ts` @ `cf66decd8f47314efc718e334526a95ce7696817`
 - Upstream: `none`, unpushed commits: ?
 - Uncommitted files: 1
   - `M HANDOFF.md`
 - Last commits:
+  - cf66decd docs(handoff): founding r2 and P16 packages complete; founding r3 live-alias sweep dispatched
   - 4c588a86 docs(1370-ar): preserve the fullfunction recovery-route build plan; record Gate 0 BLOCKED and the hold decision
   - 355a2126 docs(handoff): hook AUTO-block stamp (PreCompact) before Gate 0 observation
   - 205323ac docs(1370-ar): post-R8 core baseline on db3fc572 with identity attribution; checkpoint after second usage-limit kill
   - db3fc572 feat(1363): land R8 rival-recovery source and 14-file kit; Save46 live
-  - 1bc39fab docs(handoff): Claude resumes as integrator after Codex review; preserve core baseline identity and failure list
 <!-- AUTO:END -->
