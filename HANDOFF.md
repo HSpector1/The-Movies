@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last writer: Codex, 2026-10-10 (America/Chicago), reviewing Claude's continuation with three GPT-6.1 Sol specialists. Historical evidence and the hook-owned AUTO block are preserved.
+Last writer: Claude (Fable 5.1), 2026-10-10 20:20 CDT, resuming as the single integrator after Codex's 18:37 CDT review checkpoint, which is preserved in full below. Historical evidence and the hook-owned AUTO block are preserved.
 
 ## Current review checkpoint: read before the historical account
 
@@ -42,6 +42,15 @@ Specialists worked in isolated shared sparse clones under `/Users/zacheryspector
 | Core test baseline on 6510c971 | parent | `…/1370-as-claude-review-and-draft-backup/reviews/r8-results/predecessor/core-6510c971.json` | Completed exit 1, 20:20:32Z–22:34:15Z; exact result and HEAD/start/end/exit records recovered and used for bounded attribution |
 
 Sequencing decision remains: do not publish/fetch during a frozen qualification interval; run one heavy lane. No AR run is active at this review checkpoint. Retained Claude logs show overlapping heavy test processes, so those timings cannot be treated as isolated performance evidence. Patches land only in the authorized dependency order, with focused and affected broad checks on each actual predecessor.
+
+### Claude resumes as the single integrator, 2026-10-10 20:15 CDT
+
+- Reconciled: local and remote branch both at Codex's `6a4d5ca176ca6da70824d4faea0da0e1fb3393ba`; `HEAD:src` still `13880d9b…`; remote main `c902a704…`. Codex's review (`E/1370-as-claude-review-and-draft-backup/REVIEW.md`) and draft backups are accepted as the authoritative account of the specialists' state at 18:37 CDT. No Codex agent appears active (only the VS Code app-server is resident); Claude is the production writer from this point. If a Codex session resumes concurrently, it must stop at this handoff: one writer.
+- Cause of the interruption: a Claude session-limit 429 at ~18:10 CDT killed five specialists mid-GREEN; the limit reset at 20:10 CDT. Their clones kept every uncommitted change (188/63/26/30/26/10 files) and dated `PROGRESS.md` lines recorded the exact stopping step, so all six were resumed with context intact via follow-up messages at 20:11 CDT. Each was then briefed with the exact Codex findings for its slice (REVIEW.md items 1–7, `reviews/p17-p18/REVIEW.md`, `reviews/p16-review-r2/REVIEW.md`, `reviews/r8-results/REPORT.md`) and told to keep Codex's four-file P16 repair r2 in the p16 clone, export `conditionRecord`/`outstandingLoan` readers from P15B for P16's bidder adapter, and record which findings they addressed.
+- Save-era ownership (Codex finding 1, lesson 18) is now assigned: the integrator lands in order **R8 = Save46, founding = 47, P15B = 48, P16 = 49, P17 = 50, P18 = 51**, each with a genuine ordered migration from its actual landed predecessor and a downgrade-refusal test. Specialists keep one named version constant and one delimited migration block so the rebase is mechanical; after each landing the next lane rebases its clone onto the new HEAD before its patch is applied. No whole-`save.ts` replacement.
+- Baseline evidence: the parent's core baseline on 6510c971 (5,412 tests: 5,239 pass / 159 fail / 3 skip / 11 todo, 2 h 14 min under load, Node v22.23.2 not the pinned v20.20.2) is preserved once at `…/1370-as-claude-review-and-draft-backup/reviews/r8-results/predecessor/core-6510c971.json`; `E/1370-ar-claude-takeover-baseline-20261010/` adds the README with identity, claim limits and the itemized 159-failure list.
+- R8 lane delivered `MANIFEST.json` at 20:14 CDT and is finalizing its REPORT against Codex's pairing. The AR mapping workflow is still running (6 of 8 maps complete at the interruption); `AR-BUILD-PLAN.md` remains absent until it finishes and is reviewed.
+- Disk at this checkpoint: ~2.67 GiB free; `npm cache clean --force` reduced `~/.npm/_cacache` from 215 MB to 65 MB (remaining entries are root-owned and were left alone). Headroom for the heavy lane comes from deleting the six clones after their patches are captured and from swap shrinking now that load is ~2.
 
 ## Read this first
 
@@ -461,15 +470,15 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-10 16:30 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
-- Branch: `wip/headless-program-20260916-ts` @ `f7d0dc0fd4f31ff1a3bff47abb4db07bd3ce298c`
+- Stamped: 2026-10-10 20:13 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
+- Branch: `wip/headless-program-20260916-ts` @ `6a4d5ca176ca6da70824d4faea0da0e1fb3393ba`
 - Upstream: `none`, unpushed commits: ?
 - Uncommitted files: 1
   - `M HANDOFF.md`
 - Last commits:
+  - 6a4d5ca1 docs: review Claude drafts, preserve source backups and P16 repair
   - f7d0dc0f docs(handoff): record Claude in-flight specialist lanes and sequencing decision
   - 6510c971 docs(handoff): Claude takeover; record Owner approval of fresh baseline and full-autonomy order
   - 9b67d768 docs: prepare detailed Claude handoff and preserve late AQ evidence
   - d3072005 docs: preserve Git guard repair and preservation diagnostic
-  - d20347b8 docs: preserve native observer controls, protected failure, and lessons
 <!-- AUTO:END -->
