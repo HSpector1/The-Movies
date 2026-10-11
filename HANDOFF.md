@@ -75,6 +75,13 @@ Sequencing decision remains: do not publish/fetch during a frozen qualification 
 - **Integrator decision (Claude, under the Owner's orders, not an Owner question):** hold the AR run; continue gameplay landings with per-slice full-suite baselines; after the slices settle on one tree, qualify a **new route generation** against that tree (new types adoption, proof-library derivative with the new `TREE`/`CURRENT_HEAD`, new A208 copy/materializer binding, new core test template, new transitions). Plan sections 1–9 apply unchanged to that generation. Historical failures and the unexplained interval stay as they are. The disk floor (3.5 GiB) is also unmet (2.07 GiB free), so even an unblocked route could not launch today.
 - Consequence to carry: landing R8 first made the M0 verification arm historical for this tree. The gain was the first production gameplay source change in weeks and the 1363 Part A tests now passing; the cost is that fullfunction qualification must be re-derived once, later, on a stable tree. Recorded here so no one treats the AR plan as a ready launcher.
 
+### Checkpoint 2026-10-11 03:20 CDT: founding r2 and P16 complete; founding r3 sweep dispatched
+
+- **Founding r2 (Save47) complete** on base db3fc572: 95 files; genuine V46→V47 migration that admits through R8's `validateSaveV46` first and refuses to discard a recorded fund or R8's recovery authority; new `founding-step-preserves-save46-gates` leaf; tsc 0 under Node 20 (the r1 TS5097 claim was a Node 22 artifact); generators 0/0; final union **215/215** (final-gate 130, retune 102, founding 172, the 45 declared leaves 45/45). Residual NEW against the db3fc572 baseline = two natural premises moved by the Owner-approved retune (`p14b5` family-1 digest guard; `bridge-p13b-s7` week-416 fixture) + 29 inherited + docs-ENOENT (environment). 88 test files remain pinned at 46 (`evidence/r2/parent-sweep-remaining.txt`).
+- **Founding r3 dispatched** (fresh specialist in the idle founding clone): the 88-file sweep re-pins live selections to live aliases (`validateSave`, `LIVE_SAVE_VERSION`, a `tests/helpers/live-era.ts` with `downgradeLiveTo45` and `EXPECTED_LIVE_SAVE_VERSION`) so the P15B→P18 bumps edit one helper instead of repeating a 100-file sweep; intentional era reads stay; the two moved premises get bounded, measured replacement witnesses with the old value, new value, search procedure and causal attribution recorded (1361-N S9 precedent), never an unexplained golden swap.
+- **P16 complete** on base 6510c971: 152 files; P16A/B/C with absorption closing deferred by name; `licence.ts` four-right producer; Codex findings 2/3/7 addressed (`CorporateConditionReaders` fail-closed until P15B's real readers bind; capacity via the real `addManagedProductionWorkflow` dry run); tsc 0; generators 0; P16 selection 97/97; 128 affected files classified against a same-list base control with zero P16-attributable failures remaining; real source defects fixed (rights root recorded from the industry's opening week, boundary-week greenlight, rights step ordered before lifecycle intent in `tick.ts`, V18→V19 strip of the three P16 money kinds). Waits behind P15B for its Save49 rebase.
+- P15B final gates (146-file union, tsc, generators) still running; P17 and P18 packages complete and waiting their turn. Order unchanged: founding r3 → review → land (Save47) → post-founding baseline → P15B (48) → P16 (49) → P17 (50) → P18 (51).
+
 ## Read this first
 
 The game is **not finished through P18**. P16 is incomplete; P17 and P18 production integration remains downstream. Verification infrastructure was repaired before Claude prepared the new isolated gameplay drafts. Neither effort has advanced the published production gameplay source yet. Do not mistake archived reviews, isolated tests or documentation commits for completion of the integrated systems.
@@ -499,14 +506,15 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-11 01:22 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
-- Branch: `wip/headless-program-20260916-ts` @ `205323ac53b20156f21b450f3e9c26a8a3e7b756`
+- Stamped: 2026-10-11 03:18 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
+- Branch: `wip/headless-program-20260916-ts` @ `4c588a8641d80f1ef7223abc33394069ec87fa9c`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 0
+- Uncommitted files: 1
+  - `M HANDOFF.md`
 - Last commits:
+  - 4c588a86 docs(1370-ar): preserve the fullfunction recovery-route build plan; record Gate 0 BLOCKED and the hold decision
+  - 355a2126 docs(handoff): hook AUTO-block stamp (PreCompact) before Gate 0 observation
   - 205323ac docs(1370-ar): post-R8 core baseline on db3fc572 with identity attribution; checkpoint after second usage-limit kill
   - db3fc572 feat(1363): land R8 rival-recovery source and 14-file kit; Save46 live
   - 1bc39fab docs(handoff): Claude resumes as integrator after Codex review; preserve core baseline identity and failure list
-  - 6a4d5ca1 docs: review Claude drafts, preserve source backups and P16 repair
-  - f7d0dc0f docs(handoff): record Claude in-flight specialist lanes and sequencing decision
 <!-- AUTO:END -->
