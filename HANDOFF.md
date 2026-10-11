@@ -8,7 +8,7 @@ Last writer: Claude (Opus 5.5; Fable 5.1 until its usage limit was exhausted), 2
 - **Owner order (2026-10-11): do not stop until P18 is complete; update HANDOFF.md and GitHub continuously.**
 - **Landing order (integrator-assigned save eras):** R8 = 46 (landed) → founding 1364/1365 = 47 → P15B = 48 → P16 = 49 → P17 = 50 → P18 = 51. Per slice: adversarial review with refuters → fix round → verification → landing gate on production (patch staged uncommitted; root/UI/bridge tsc, generators, d16, FULL core and UI with identity attribution against the predecessor baseline) → commit + push. The full-core run doubles as the next predecessor baseline.
 - **In flight (three specialists, each in its own clone under `/Users/zacheryspector/studio-specialists/`):**
-  - **founding r5** (`founding`): four upheld r4-verification majors + the r4 full-core NEW list (18 roster-wall replay failures, Q07 message, p14r3 count, timing class).
+  - **founding r6** (`founding`): r5 complete (all A–H fixed); r6 implements ruling R-D (no second founding grant for pre-history V15 founded saves). Then verification → landing gate → commit.
   - **P15B r3** (`p15b`, stacked on founding r3; re-stack on final founding afterwards): review found 5 blockers (O6 loan-ends-cost-cutting missing, so every borrowing rival closes; a loan validator that makes lawful saves unwritable; closure live in the browser lot without Wave 5 notices; a rival label leaking a closure countdown; rival-closure staff never reaching free agency) and 25 majors.
   - **P16 r2** (`p16`, on 6510c971): review found 7 blockers (licences die at the grantor's archival; acquisition capacity not proven; a screenplay rename makes saves unwritable; estates sell encumbered titles; exclusive licences ignored by continuation/branch authority; a refused greenlight leaves a phantom event) and 27 majors.
 - **Queued:** P17 and P18 are rebased onto P16 r2's real rights producer after P16 r2 finishes (their r1 used injected adapters), then reviewed.
@@ -120,6 +120,8 @@ Sequencing decision remains: do not publish/fetch during a frozen qualification 
 - **r4 full-core gate result (13:04):** 5,656 tests, 5,511 pass / 131 fail. Against the db3fc572 baseline: **GONE 45** (exactly the 45 declared P15A.1(c) REDs now pass), SAME 105, **NEW 26**: 18 `roster-wall-*` leaves ("SaveFileV18 replay changed entry state" at `src/harness/roster-wall/campaign.ts:1444`), `p14p4p5-opportunities` Q07 (composed downgrade message), `p14r3-rival-release` (87 vs 92 cutting releases over weeks 1–150), the declared p14d1 residual, and five timeout-class bridge/supervisor leaves under load ~20. The specialist's 63-file union had reported zero undeclared NEW; the full suite found 20 founding-caused ones. Forwarded to r5 as item H. Data: `S/…founding…/landing-r4/core-r4-attribution-early.json`.
 - **P15B and P16 adversarial reviews complete (13:30):** P15B 52 findings (5 blocker, 25 major); P16 65 findings (7 blocker, 27 major); 2 of the first 20 refutations refuted. Findings files: `S/1370-ar-p15b-waves2-5-implementation-20261010-r1/REVIEW-R2-FINDINGS.json`, `S/1370-ar-p16-rights-estate-implementation-20261010-r1/REVIEW-R1-FINDINGS.json`. The P15B review also showed its "all four rivals close by week 553" balance note was caused by the missing O6 rule, not by the contract. Fix rounds dispatched to fresh Opus specialists: **P15B r3** and **P16 r2**, each told to verify every blocker/major itself before fixing (acting as its own refuter), fix RED-first, restructure its save block for a mechanical re-stack (named option objects, additive ledger kinds), and run its docs-dependent suites with the needed fixture directories copied in.
 - **r4 landing gate stopped at 13:22** after the full core run (its useful output); the redundant production UI run was killed because r5 runs the whole UI project itself. The production tree was restored (185 staged files unstaged, 177 restored from HEAD, 8 added files removed; `src/tests/ui/bridge` identical to HEAD). Two stray probe-output files a reviewer wrote at the production root were moved into the P15B package.
+- **Founding r5 complete (14:10):** PATCH sha256 `83938b4b…`, 189 files. A: the Save47 reader adds four cross-checks (closed fund ⇒ landmark exactly at its closure week; open fund ⇒ campaign not founded; `opened` ⇒ migration-origin industry; no pre-recording payroll/overhead over a fresh industry), ten forgery forms refused by exact message (each failed on r4 first); the one remaining accepted form is byte-equivalent to a lawful history (probe-proven). B: `campaignHasFounded` uses only genuine founding facts, shared by action and reader. C: `ui/src/p1364-late-founding-route.test.tsx` imports the late draft through StartScreen and Saves, signs and founds through the screen, asserts no Advance/Sim while the draft is open, saves/reloads, refuses malformed funding (4/4). D: three UI leaves moved to a never-founded `generateWorld`; whole UI project 2,701 tests, 2,684 pass, 12 fail (10 environment: no Pillow; 2 timing, pass alone). H: the 18 roster-wall failures came from one field (the harness hash kept an empty fund root the V18 save drops) — fixed with a RED-first leaf; Q07 and p14r3 shifts are market effects (with the penalty forced to 0 they return to the old values), re-pinned with cause; the timeout files pass alone. tsc root/UI/bridge 0, generators 0/0, all 45 declared leaves pass.
+- **Ruling R-D (integrator, 14:15):** r5 left one conservation residual — a genuine V15 save founded before studio history carries none of the founding facts, so the API could open a second $6M draft. Conservation wins: no path may give a second founding grant to a studio that has operated as founded; first founding of a never-founded campaign stays available wherever a supported surface (browser or Bridge) reaches it; if no genuine fact separates the two populations and the never-founded-with-signing campaign is unreachable through supported surfaces, refuse it and declare the over-refusal. Dispatched as founding **r6**.
 - **Commit (d) added to the founding r4 round** (1361-F4 ruling 2 / 1361-D2 F2: d16's `reconstructDiscovery` must receive the stored market factor by `releaseId` as `competitionFactor`; it was never made although 1361-F5 ruling 3 says it rides with 1365).
 - **1365 closure runbook** preserved at `E/1370-ar-1365-closure-runbook-20261011/RUNBOOK.md`: after founding lands, G2 (41 min), G1 (7 min), d16 at (c)/(d), the G2 root/save storage read-out, and G-P/G-L must run; every historical probe needs a reviewed revision first (hard-coded 0.25, Save44/45 literals, refusal of post-Save45 roots), and the G2 control commit must be named by the integrator.
 - **Disk:** user caches cleared under the Owner's cache authorization (Library/Caches except the running Claude CLI and VS Code caches, plus the nvm download cache: +376 MiB) and the stale P15B RED worktree removed after preserving its two files; 2.2 GiB free. The heavy G2/G1/G-P/G-L lane needs the 3.5 GiB floor: swap files (3 GiB) and the 1 GiB sleep image are the remaining reclaimable space and only a restart frees them, which the parent will not do on the Owner's machine.
@@ -553,30 +555,15 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-11 11:51 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
-- Branch: `wip/headless-program-20260916-ts` @ `4add12ee6a89bcad2092f81a192c079286329dd3`
+- Stamped: 2026-10-11 13:50 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
+- Branch: `wip/headless-program-20260916-ts` @ `c5ebd1cce713f286831f62b426dd32ca44b829ce`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 186
+- Uncommitted files: 1
   - `M HANDOFF.md`
-  - `M  src/core/actions.ts`
-  - `M  src/core/employment.ts`
-  - `A  src/core/foundingFunding.ts`
-  - `M  src/core/hollywoodTick.ts`
-  - `M  src/core/hollywoodValidation.ts`
-  - `M  src/core/index.ts`
-  - `M  src/core/marketIntegration.ts`
-  - `M  src/core/save.ts`
-  - `M  src/core/sharedMarket.ts`
-  - `M  src/core/tick.ts`
-  - `M  src/core/tuning.ts`
-  - `M  src/core/types.ts`
-  - `M  src/core/worldgen.ts`
-  - `M  src/harness/d16/driver.ts`
-  - ...
 - Last commits:
+  - c5ebd1cc docs(handoff): P15B/P16 reviews complete (12 blockers); fix rounds dispatched; production restored; current-state block refreshed
+  - eb7c4421 docs(handoff): founding r4 full-core gate (GONE 45, NEW 26) forwarded to r5; lesson 35
+  - 2a3aab51 docs(handoff): founding r4 verification (4 upheld majors); r5 dispatched; lessons 33-34
   - 4add12ee docs(handoff): founding r4 complete; landing gate and verification review starting; stray symlink removed
   - e55ade98 docs(handoff): add a current-state block at the top for cold resumption
-  - a15f4c02 docs(1370-ar): 1365 closure runbook; commit (d) joins founding r4; disk state after cache clear
-  - c5a9f692 docs(handoff): founding r3 failed review (second-grant blocker); integrator rulings R-A/R-B/R-C; r4 fix round; P15B/P16 reviews; model switch to Opus 5.5
-  - 2e62c704 docs(handoff): founding r3 and P15B complete; founding under three-lens review; P15B pre-stacking as Save48
 <!-- AUTO:END -->
