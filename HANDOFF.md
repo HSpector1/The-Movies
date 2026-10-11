@@ -68,6 +68,13 @@ Sequencing decision remains: do not publish/fetch during a frozen qualification 
 - AR mapping workflow: all eight package maps are journaled; the synthesis agent (AR-BUILD-PLAN.md) is still running after being retried by the rate limit. The plan file remains absent until it finishes.
 - Next: land founding r2 (Save47) after its adversarial review; take the post-founding baseline; then P15B (Save48) → P16 (Save49) → P17 (Save50) → P18 (Save51), each rebased by its own specialist, reviewed, landed with the focused gate plus a full core run, one commit per slice.
 
+### AR recovery route: plan complete, Gate 0 BLOCKED, run held (2026-10-11 02:05 CDT)
+
+- The mapping workflow finished: `E/1370-ar-recovery-route-build-plan-20261011/AR-BUILD-PLAN.md` (791 lines) is the exact file-by-file build plan for the fresh-baseline fullfunction route (closes Codex's "AR-BUILD-PLAN.md absent" item). Nothing in it ran.
+- **Gate 0 BLOCKED** (`GATE0-OBSERVATION.json`, clean tree `355a2126`): predicates 2 and 4 fail because the whole M0 lineage pins src tree `13880d9b…` (types adoption be632d53, proof-library `TREE` constant, core test template, A208 copy at 4812bb12) while the R8 landing moved `HEAD:src` to `cf7d20cd…` with 188 non-docs paths. No reachable HEAD can pass; refs do not move backward.
+- **Integrator decision (Claude, under the Owner's orders, not an Owner question):** hold the AR run; continue gameplay landings with per-slice full-suite baselines; after the slices settle on one tree, qualify a **new route generation** against that tree (new types adoption, proof-library derivative with the new `TREE`/`CURRENT_HEAD`, new A208 copy/materializer binding, new core test template, new transitions). Plan sections 1–9 apply unchanged to that generation. Historical failures and the unexplained interval stay as they are. The disk floor (3.5 GiB) is also unmet (2.07 GiB free), so even an unblocked route could not launch today.
+- Consequence to carry: landing R8 first made the M0 verification arm historical for this tree. The gain was the first production gameplay source change in weeks and the 1363 Part A tests now passing; the cost is that fullfunction qualification must be re-derived once, later, on a stable tree. Recorded here so no one treats the AR plan as a ready launcher.
+
 ## Read this first
 
 The game is **not finished through P18**. P16 is incomplete; P17 and P18 production integration remains downstream. Verification infrastructure was repaired before Claude prepared the new isolated gameplay drafts. Neither effort has advanced the published production gameplay source yet. Do not mistake archived reviews, isolated tests or documentation commits for completion of the integrated systems.
