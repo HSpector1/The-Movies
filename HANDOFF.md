@@ -2,6 +2,14 @@
 
 Last writer: Claude (Opus 5.5; Fable 5.1 until its usage limit was exhausted), 2026-10-11 08:50 CDT, single integrator. Codex's 18:37 CDT review checkpoint is preserved in full below. Historical evidence and the hook-owned AUTO block are preserved.
 
+## Current state, 2026-10-11 09:15 CDT (read first; the Claude sections further down hold the detail)
+
+- **Branch** `wip/headless-program-20260916-ts`; resolve the tip with Git. **Production source changed once in this continuation:** R8 landed at `db3fc572` (Save46, src tree `cf7d20cd…`). Everything after it on the branch is docs/evidence. Remote `main` is still `c902a704…`, unmerged by design.
+- **Landing order (integrator-assigned save eras):** R8 = 46 (landed) → founding 1364/1365 = 47 → P15B = 48 → P16 = 49 → P17 = 50 → P18 = 51. Each landing: three-lens adversarial review with refuters, landing gate under Node 20.20.2 (root/UI/bridge tsc, generators, MANIFEST test commands), then a full core baseline with identity attribution (SAME / NEW / GONE / CHANGED) before the next slice.
+- **In flight:** founding **r4** fix round in `/Users/zacheryspector/studio-specialists/founding` (r3 failed review on a second-grant money-creation blocker plus majors; rulings R-A/R-B/R-C below; commit (d) added). Adversarial reviews of **P15B** (stacked on founding r3; protective patch `PATCH-r2-stacked-on-founding-r3.diff`) and **P16** (on 6510c971) are running. P17 and P18 packages are complete and unreviewed; their clones were deleted, so their patches are the source of truth.
+- **Held:** the AR fullfunction route (Gate 0 BLOCKED: the M0 lineage pins src `13880d9b`; a new route generation must be qualified on the settled tree) and every heavy lane (2.2 GiB free against a 3.5 GiB floor; a restart would reclaim about 4 GiB of swap and sleep image).
+- **Next step if you resume cold:** read `S/1370-ar-1364-1365-founding-market-implementation-20261010-r1/REPORT.md` r4 section and `REVIEW-R3-FINDINGS.json`; if r4 is complete, run the review workflow (`/private/tmp/claude-501/-Users-zacheryspector/21e515ff-0aed-48b0-9b7f-11c9d5239850/scratchpad/review-packages.js` if it still exists, else the same three lenses by hand) on it, then land it with the landing gate and take the post-founding baseline. Then re-stack P15B on the landed founding.
+
 ## Current review checkpoint: read before the historical account
 
 - User request: check Claude's updates, judge their quality and fix concrete blockers. **Useful unfinished gameplay drafts exist; none have landed in the production source. P16/P17/P18 are not complete or ready for main.** The latest review is `E/1370-as-claude-review-and-draft-backup/REVIEW.md`; its README explains restoration and the manifest.
