@@ -124,7 +124,8 @@ Sequencing decision remains: do not publish/fetch during a frozen qualification 
 - **Ruling R-D (integrator, 14:15):** r5 left one conservation residual — a genuine V15 save founded before studio history carries none of the founding facts, so the API could open a second $6M draft. Conservation wins: no path may give a second founding grant to a studio that has operated as founded; first founding of a never-founded campaign stays available wherever a supported surface (browser or Bridge) reaches it; if no genuine fact separates the two populations and the never-founded-with-signing campaign is unreachable through supported surfaces, refuse it and declare the over-refusal. Dispatched as founding **r6**.
 - **Founding r6 complete (15:05):** PATCH sha256 `107b16da…` (189 files). R-D implemented: with no draft open, `campaignHasFounded` counts `economyEngagedEver` (both genuine V15 pre-history saves now refuse a second grant at the action and the reader); the reader refuses an open draft or fund when the save shows engagement before the draft (pre-draft payroll/overhead rows for any origin, or player bonuses above the draft's spend). Declared over-refusal: a never-founded campaign that signed outside a draft cannot found through the core API; neither the browser adapter (`ui/src/engine/adapter.ts:609` only founds over a fresh `newGame`) nor the Bridge (`bridge/session.ts:311`, `:1389`) can reach that state, pinned by leaf `founding-first-founding-supported-surfaces`. No genuine fact separates the two populations (probe section C in `evidence/r6/`). Residuals: a contract signed and released in the same pre-draft week; r5's R2 (lawful-twin forgery); pre-Invariant-B renewals. Founding set 194/194, UI route 4/4, item-H files 138 pass + 2 declared skips, tsc ×3 and generators 0.
 - **Disk emergency (15:20):** free space fell to 475 MB. Deleted 687 MiB of finished reviewer and refuter tree copies in the session scratchpad (their 743 small probe files archived to `scratchpad/review-probes-archive-20261011.tgz`); 1.16 GB free. The P16 clone carries 718 MB of `docs/` in its sparse checkout; narrow it when P16 r2 finishes. `studio-scratch` holds 5.6 GB of older run directories (save46 proposals r3–r8, e0g/c0/ebg materialized trees) that may be cited evidence, so they stay. The one real `node_modules` install in old scratch (`1370-c0-aging-era-sparse-materialized-r6-20261008-r1`) was removed with a restore note (`npm ci`); it was hard-linked to production's install, so it freed almost nothing. **Swapfiles share this volume's free space** (macOS VM volume): at 857 MB free, one more 1 GB swapfile would fill the disk, so the integrator watches `sysctl vm.swapusage` and memory pressure before adding parallel load.
-- **Founding r6 gate (15:32–):** tsc root/UI/bridge 0, generators 0/0; d16 and the full suites running.
+- **Founding r6 gate (15:32–):** tsc root/UI/bridge 0, generators 0/0; **d16 164/176 with exactly the 12 baseline failures** (15:43); full core running, then full UI.
+- **Disk recovered (16:15):** swap reached 2.1 of 3 GB at load 33 with 769 MB free. VS Code had already marked four superseded extension versions obsolete (`~/.vscode/extensions/.obsolete`: claude-code 2.1.294/2.1.295, chatgpt 26.1002, codex-audio 26.1002); with no running process or open file in them, they and the VSIX download cache were deleted: **1.49 GiB freed, 2.27 GB free.** Memory note saved (`mac-disk-reclaim-swap`).
 - **Commit (d) added to the founding r4 round** (1361-F4 ruling 2 / 1361-D2 F2: d16's `reconstructDiscovery` must receive the stored market factor by `releaseId` as `competitionFactor`; it was never made although 1361-F5 ruling 3 says it rides with 1365).
 - **1365 closure runbook** preserved at `E/1370-ar-1365-closure-runbook-20261011/RUNBOOK.md`: after founding lands, G2 (41 min), G1 (7 min), d16 at (c)/(d), the G2 root/save storage read-out, and G-P/G-L must run; every historical probe needs a reviewed revision first (hard-coded 0.25, Save44/45 literals, refusal of post-Save45 roots), and the G2 control commit must be named by the integrator.
 - **Disk:** user caches cleared under the Owner's cache authorization (Library/Caches except the running Claude CLI and VS Code caches, plus the nvm download cache: +376 MiB) and the stale P15B RED worktree removed after preserving its two files; 2.2 GiB free. The heavy G2/G1/G-P/G-L lane needs the 3.5 GiB floor: swap files (3 GiB) and the 1 GiB sleep image are the remaining reclaimable space and only a restart frees them, which the parent will not do on the Owner's machine.
@@ -549,6 +550,7 @@ The full accounts are in `A/payload/1370-aq-root-continuation-20261010-r1/LESSON
 33. Generate each fix brief mechanically from the upheld-findings list, not from the integrator's summary. The r4 brief dropped one upheld major (the UI owner route) that HANDOFF itself listed, and it cost a full verification round.
 34. A validator rule that recognizes a forgery by one record (a landmark) is defeated by editing that record. Cross-check every independent fact the history carries (landmarks, provenance versus industry origin, ledger dates) so a forger must falsify all of them consistently, and test each single-edit forgery.
 35. Never accept a slice on its own focused union. Founding r4's 63-file union reported zero undeclared NEW; the full core suite on the same bytes found 20 slice-caused failures (a frozen-era replay harness and two message/count pins). The full-suite run is the gate, and its NEW list goes back to the specialist before the next review.
+36. On this Mac the swapfiles share the boot volume's free space. Parallel full-suite gates plus several specialists drove swap from 1.6 to 2.1 GB while free space fell below 0.5 GB; one more swapfile would have filled the disk mid-gate. Check `sysctl vm.swapusage` and `df -k /` before adding parallel load, and tell reviewers never to copy source trees (the last review's tree copies took 687 MiB).
 
 ## Handoff completion and claim limits
 
@@ -558,15 +560,30 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-11 14:33 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
-- Branch: `wip/headless-program-20260916-ts` @ `ad9da36f38e433bb3f82d07672d4b9ae65bad49c`
+- Stamped: 2026-10-11 16:10 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
+- Branch: `wip/headless-program-20260916-ts` @ `b57f5650ef24f9696e78b65266fa079df22df4ed`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 1
-  - `M HANDOFF.md`
+- Uncommitted files: 189
+  - `M  src/core/actions.ts`
+  - `M  src/core/employment.ts`
+  - `A  src/core/foundingFunding.ts`
+  - `M  src/core/hollywoodTick.ts`
+  - `M  src/core/hollywoodValidation.ts`
+  - `M  src/core/index.ts`
+  - `M  src/core/marketIntegration.ts`
+  - `M  src/core/save.ts`
+  - `M  src/core/sharedMarket.ts`
+  - `M  src/core/tick.ts`
+  - `M  src/core/tuning.ts`
+  - `M  src/core/types.ts`
+  - `M  src/core/worldgen.ts`
+  - `M  src/harness/d16/driver.ts`
+  - `M  src/harness/roster-wall/historical-control.ts`
+  - ...
 - Last commits:
+  - b57f5650 docs(handoff): P17/P18 review launched with fresh clones; disk and swap notes; founding r6 gate progress
+  - 38b8e3df docs(handoff): founding r6 complete (R-D); disk reclaimed; r6 verification and landing gate launching; generic integrator tools
   - ad9da36f docs(handoff): founding r5 complete; integrator ruling R-D; r6 dispatched
   - c5ebd1cc docs(handoff): P15B/P16 reviews complete (12 blockers); fix rounds dispatched; production restored; current-state block refreshed
   - eb7c4421 docs(handoff): founding r4 full-core gate (GONE 45, NEW 26) forwarded to r5; lesson 35
-  - 2a3aab51 docs(handoff): founding r4 verification (4 upheld majors); r5 dispatched; lessons 33-34
-  - 4add12ee docs(handoff): founding r4 complete; landing gate and verification review starting; stray symlink removed
 <!-- AUTO:END -->
