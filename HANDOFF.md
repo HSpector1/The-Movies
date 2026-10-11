@@ -492,15 +492,14 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-11 01:14 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
-- Branch: `wip/headless-program-20260916-ts` @ `db3fc57242669d5c752d87a49ce0a87938324b6b`
+- Stamped: 2026-10-11 01:22 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
+- Branch: `wip/headless-program-20260916-ts` @ `205323ac53b20156f21b450f3e9c26a8a3e7b756`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 1
-  - `M HANDOFF.md`
+- Uncommitted files: 0
 - Last commits:
+  - 205323ac docs(1370-ar): post-R8 core baseline on db3fc572 with identity attribution; checkpoint after second usage-limit kill
   - db3fc572 feat(1363): land R8 rival-recovery source and 14-file kit; Save46 live
   - 1bc39fab docs(handoff): Claude resumes as integrator after Codex review; preserve core baseline identity and failure list
   - 6a4d5ca1 docs: review Claude drafts, preserve source backups and P16 repair
   - f7d0dc0f docs(handoff): record Claude in-flight specialist lanes and sequencing decision
-  - 6510c971 docs(handoff): Claude takeover; record Owner approval of fresh baseline and full-autonomy order
 <!-- AUTO:END -->
