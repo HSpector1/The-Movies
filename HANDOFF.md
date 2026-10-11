@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last writer: Claude (Fable 5.1), 2026-10-10 20:20 CDT, resuming as the single integrator after Codex's 18:37 CDT review checkpoint, which is preserved in full below. Historical evidence and the hook-owned AUTO block are preserved.
+Last writer: Claude (Opus 5.5; Fable 5.1 until its usage limit was exhausted), 2026-10-11 08:50 CDT, single integrator. Codex's 18:37 CDT review checkpoint is preserved in full below. Historical evidence and the hook-owned AUTO block are preserved.
 
 ## Current review checkpoint: read before the historical account
 
@@ -89,6 +89,18 @@ Sequencing decision remains: do not publish/fetch during a frozen qualification 
 - **P15B complete** (base 6510c971, 178 files): Waves 2–5 RED-first (condition root/events, real loans with rival policy and installments, shared cost phase, remedy parity, closure/v1 with atomic typed dispositions, claims, 13-week estate, power-ranking/v2 cohort, read-only player, notices, Bridge `takeLoan` intent, Industry `conditionLabel`); P15B suites 54/54; 146-file union with every new failure repaired except five documented era-moved leaves; generators regenerated, exit 0; `conditionRecord`/`outstandingLoan` exported and tested. Its tsc claim (Node 22 shell: 169 `TS5097` plus five of its own fixed by inspection without a rerun) is unverified until the Node 20 landing gate. Balance observation to carry, unmeasured: under the "studios can fail" ruling an unmanaged studio closes in about 26 years and all four rivals of the aca408ec world close by week 553. P15B is now pre-stacking its rebase on founding r3's exact bytes as Save48 (`P15B_SAVE_VERSION`, V47→V48 migration through `validateSaveV47`), so it lands right after founding.
 - Order unchanged: founding (47) → P15B (48) → P16 (49) → P17 (50) → P18 (51); each landing takes a full core baseline and identity attribution.
 
+### Checkpoint 2026-10-11 08:50 CDT: founding r3 FAILED review (one blocker); integrator rulings; r4 fix round; P15B and P16 under review
+
+- **Model change:** the Fable 5.1 usage limit was exhausted (seven refutation agents and the P15B specialist died on it, a third kill this session); the Owner switched the session to **Opus 5.5** and said "Continue". New subagents inherit Opus 5.5; the old Fable specialists cannot be resumed, so their clones and packages are taken over by fresh Opus agents.
+- **Founding r3 review** (`S/1370-ar-1364-1365-founding-market-implementation-20261010-r1/REVIEW-R3-FINDINGS.json`; three lenses, each re-running selections under Node 20): 32 findings (1 blocker, 15 major, 16 minor); 23 of 25 completed refutations upheld the finding. Gate union 215/215 and all 45 declared REDs were independently reproduced; the package was nevertheless **not landable**:
+  - **BLOCKER (conservation), reproduced by two independent probes:** on a normal week-0-founded campaign, `beginFounding` at week 30 was accepted, minted a second full `HIRING_FOUNDING_BUDGET` grant (6,000,000) as an `opened` fund, and the cash-free signatures it paid validated and reloaded byte-identically, while Save46 refuses them. Root cause: the second-grant refusal keyed on a recorded fund, and week-0 campaigns never record one.
+  - Majors upheld: an unrun NEW failure (`bridge-p13b-r07-setup.test.ts:587`, a `parsedSaveVersion` live pin the case-sensitive sweep regex could not match); eight unswept UI live pins in five `ui/src` files (UI gate never run); the 1364-A §3 group-reconciliation branch never executed by any test although REPORT called it "validator-proven"; §5 case 6's "technology-invalid open-draft input remains refused; do not delete rival locks" untested; a vacuous mutant leaf whose premise failure was console-warned and passed with zero assertions; 35 of 40 r1 RED leaves failed at the import premise (the save-version bump), not at their named invariant; the UI founding-screen route (cases 1 and 9) untested.
+  - Refuted (2 of 2): the storage-budget item is a contradiction among parent rulings that the package correctly declared, not a package defect.
+- **Integrator rulings (Claude, 2026-10-11, under the Owner's no-gates order; cited by r4):** **R-A** the week-zero scope is adopted as an explicit amendment to 1364-A §3 — a fund is recorded only for openings after week 0 and the draft/fund pairing reads "after week 0" (Owner: preserve normal week-0 founding). **R-B** the second-grant refusal is based on the campaign's founding fact, enforced in the action and the save validator: a founded campaign can never open another founding draft or receive another grant. **R-C** the 1361-F5 ruling-3 storage row-shape fix is deferred to a measured follow-up (seed-b G2 read-out after landing); the test keeps a ceiling-only measurement pin instead of pinning the violation.
+- **Founding r4 fix round dispatched** (Opus specialist in the founding clone; twelve numbered items: the blocker with action + validator + forged-save REDs; every upheld major; the minors; r3 kept as `*.r3`).
+- **P15B protective cut:** its stacked Save48 work (on founding r3; 150 conflicts resolved, tsc 0, a 14-batch gate run finished at 07:37) existed only as uncommitted clone state when Fable died; the parent cut `PATCH-r2-stacked-on-founding-r3.diff` (123 files, sha256 `21893e65…`). It will be re-stacked on founding r4.
+- **P15B and P16 adversarial reviews launched now** (same three lenses + refuters) so their fix rounds happen before their rebase turns; P15B is reviewed on its stacked tree, P16 on its 6510c971 tree with its integration items (era renumbering, unbound condition readers) treated as expected.
+- Lessons 30–32 added below.
 ## Read this first
 
 The game is **not finished through P18**. P16 is incomplete; P17 and P18 production integration remains downstream. Verification infrastructure was repaired before Claude prepared the new isolated gameplay drafts. Neither effort has advanced the published production gameplay source yet. Do not mistake archived reviews, isolated tests or documentation commits for completion of the integrated systems.
@@ -504,6 +516,9 @@ The full accounts are in `A/payload/1370-aq-root-continuation-20261010-r1/LESSON
 27. Pin the Node version in every gate script. Unpinned clone shells (Node 22) reported 11 `TS5097` diagnostics under `bridge/*.ts` that the pinned Node 20 production gate never showed; a type result is only comparable under the formal runner environment.
 28. Budget concurrency against disk, not only CPU: on an 8 GB machine seven concurrent agents grew swap by 3 GiB and pushed free disk below the heavy lane's floor. Delete clones once their patches are captured and keep the recorded lane's headroom check before every launch.
 29. Timing failures in a loaded broad run are not source regressions until an isolated rerun says so, and an isolated pass near a budget (105 s of 120 s) is a measurement task, not a relabeling.
+30. A green focused union (215/215, all 45 REDs closed) and an honest report did not catch a money-creation path. Adversarial reviewers with an explicit conservation lens and runnable probes found the second-grant blocker in one pass; run that review before every landing, not after.
+31. A refusal keyed on an optional record protects only the cases that create the record. Key "must never happen twice" rules on the authoritative fact (here: the campaign has founded), and enforce them in both the action and the save validator.
+32. Sweep regexes must be derived from the semantic (every live-writer stamp) rather than from one spelling: a case-sensitive `saveVersion).toBe(46)` missed `parsedSaveVersion).toBe(46)`, and the UI project was never run. After a version bump, grep every left operand compared to a literal version in `tests/` and `ui/`, and run both vitest projects on touched files.
 
 ## Handoff completion and claim limits
 
@@ -513,15 +528,14 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-11 04:55 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
-- Branch: `wip/headless-program-20260916-ts` @ `cf66decd8f47314efc718e334526a95ce7696817`
+- Stamped: 2026-10-11 06:12 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
+- Branch: `wip/headless-program-20260916-ts` @ `2e62c704a3e73a870d15db99b3dde84f87275605`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 1
-  - `M HANDOFF.md`
+- Uncommitted files: 0
 - Last commits:
+  - 2e62c704 docs(handoff): founding r3 and P15B complete; founding under three-lens review; P15B pre-stacking as Save48
   - cf66decd docs(handoff): founding r2 and P16 packages complete; founding r3 live-alias sweep dispatched
   - 4c588a86 docs(1370-ar): preserve the fullfunction recovery-route build plan; record Gate 0 BLOCKED and the hold decision
   - 355a2126 docs(handoff): hook AUTO-block stamp (PreCompact) before Gate 0 observation
   - 205323ac docs(1370-ar): post-R8 core baseline on db3fc572 with identity attribution; checkpoint after second usage-limit kill
-  - db3fc572 feat(1363): land R8 rival-recovery source and 14-file kit; Save46 live
 <!-- AUTO:END -->
