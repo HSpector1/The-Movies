@@ -1,20 +1,19 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5; Fable 5.1 until its usage limit was exhausted), 2026-10-11 08:50 CDT, single integrator. Codex's 18:37 CDT review checkpoint is preserved in full below. Historical evidence and the hook-owned AUTO block are preserved.
+Last writer: Claude (Opus 5.5; Fable 5.1 until its usage limit was exhausted), 2026-10-11 17:30 CDT, single integrator. Codex's 18:37 CDT review checkpoint is preserved in full below. Historical evidence and the hook-owned AUTO block are preserved.
 
-## Current state, 2026-10-11 13:45 CDT (read first; the Claude sections further down hold the detail)
+## Current state, 2026-10-11 17:30 CDT (read first; the Claude sections further down hold the detail)
 
-- **Branch** `wip/headless-program-20260916-ts`; resolve the tip with Git. **Production source changed once in this continuation:** R8 landed at `db3fc572` (Save46, src tree `cf7d20cd…`). Everything after it is docs/evidence. Remote `main` is `c902a704…`, unmerged by design. The production worktree is clean (the r4 landing gate was stopped and its staged files restored).
+- **Branch** `wip/headless-program-20260916-ts`; resolve the tip with Git. **Production source changed once in this continuation:** R8 landed at `db3fc572` (Save46, src tree `cf7d20cd…`). Everything after it is docs/evidence. Remote `main` is `c902a704…`, unmerged by design.
+- **Production worktree is NOT clean on purpose:** the founding r6 landing gate (shell `b1t456ccf`, script `land-slice.sh`) holds the r6 patch staged (189 files). tsc ×3, both generators and the manifest pass; d16 matches the db3fc572 baseline exactly (12 failures, the same identities); the full core run started 15:43 CDT (r4's took 2 h 47 min), then full UI. **r6 will not land** (two upheld majors below). When the gate ends: keep `landing-r6/` as evidence, forward its undeclared NEW failures to r7, then restore production: `git restore --staged .`, `git restore` the files in `landing-r6/staged-modified.txt`, delete the files in `landing-r6/staged-added.txt`, and confirm `git status --short` is empty. Commit HANDOFF.md alone with `git commit -- HANDOFF.md` while files are staged.
 - **Owner order (2026-10-11): do not stop until P18 is complete; update HANDOFF.md and GitHub continuously.**
 - **Landing order (integrator-assigned save eras):** R8 = 46 (landed) → founding 1364/1365 = 47 → P15B = 48 → P16 = 49 → P17 = 50 → P18 = 51. Per slice: adversarial review with refuters → fix round → verification → landing gate on production (patch staged uncommitted; root/UI/bridge tsc, generators, d16, FULL core and UI with identity attribution against the predecessor baseline) → commit + push. The full-core run doubles as the next predecessor baseline.
-- **In flight (three specialists, each in its own clone under `/Users/zacheryspector/studio-specialists/`):**
-  - **founding r6 complete (PATCH sha256 `107b16da…`, 189 files): verification workflow and production landing gate running in parallel** (gate output `S/…founding…/landing-r6/`, console `landing-r6.console.log`). On a clean gate plus no upheld major: commit as Save47, push, adopt the gate's core failures as the post-founding baseline.
-  - **P15B r3** (`p15b`, stacked on founding r3; re-stack on final founding afterwards): review found 5 blockers (O6 loan-ends-cost-cutting missing, so every borrowing rival closes; a loan validator that makes lawful saves unwritable; closure live in the browser lot without Wave 5 notices; a rival label leaking a closure countdown; rival-closure staff never reaching free agency) and 25 majors.
-  - **P16 r2** (`p16`, on 6510c971): review found 7 blockers (licences die at the grantor's archival; acquisition capacity not proven; a screenplay rename makes saves unwritable; estates sell encumbered titles; exclusive licences ignored by continuation/branch authority; a refused greenlight leaves a phantom event) and 27 majors.
-- **P17/P18:** three-lens review of their r1 packages running now (workflow `review-lenses.js`; fresh sparse clones `studio-specialists/p17` at 6510c971 and `p18` at f7d0dc0f with r1 applied uncommitted). Plan: fix rounds on their own bases with the injected rights adapters (logic is independent of the stack), then one final rebase each onto the landed P16 (Save50/Save51), so downstream revisions never force repeated re-stacks. P18's REPORT.md was lost in the rate-limit churn; its fix specialist must rewrite it.
-- **Held:** the AR fullfunction route (Gate 0 BLOCKED; new route generation on the settled tree) and every heavy lane (1.4–2.2 GiB free against a 3.5 GiB floor; a restart would reclaim about 4 GiB of swap and sleep image).
-- **Integrator tools:** `/Users/zacheryspector/studio-scratch/1370-ar-integrator-tools-20261011/`: `land-slice.sh <pkg> <patch-sha256> <predecessor-src-tree> <baseline-failures> <out-subdir>` (generic production landing gate: apply staged, manifest, tsc ×3, generators, d16, full core + attribution, full UI, single-worker reruns of files holding NEW failures when ≤8, repo venv on PATH for Pillow/numpy); `verify-slice.js` (fix-round verification workflow: item verifier + delta hunter + two refuters per major); `review-packages.js` (three-lens first review).
-- **Next step if you resume cold:** check each specialist package's PROGRESS.md tail; when founding r5 completes, run the r4-style verification workflow on it, then the landing gate (adapt `land-founding-r4.sh`: new patch sha256, output dir), then commit and push.
+- **Founding:** the r6 verification (workflow run `wf_182305e7-7c7`, saved as `REVIEW-R6-VERIFICATION.json`, sha256 `4dafd23b…`) found 33 items fixed, 10 declared under rulings and 2 not fixed. Upheld majors: **U1** the reader accepts a fund whose life spans weeks (closedWeek > recordedFromWeek), so a late-founded campaign can refill its closed fund (probe-c week-40 refill, D1 cash-signing relabel, D2 legacy re-open); **U2** on the genuine V15 owner saves the R-D reader accepts two-edit forgeries (openingEmploymentCount := 0 plus re-dated or erased pre-draft charges). **Ruling R-E** (`R7-RULING-R-E.md`) sets the reader's bar: lawful-history invariants I1–I4, bound to campaigns with a fund or an open draft; after r7, a new forgery class that violates none of the listed invariants becomes a residual minor with a follow-up item. **r7 dispatched 17:10** to the founding specialist with `R7-BRIEF-FINDINGS.md` (2 upheld + 6 minors, generated mechanically).
+- **P15B r3** (`studio-specialists/p15b`) and **P16 r2** (`studio-specialists/p16`, on 6510c971): specialists are running their final focused sets (P15B `evidence/r3/gate/`, P16 `scratchpad/p16r2/final-chain.log`). Next for each: `verify-slice.js`, then P15B re-stacks on landed founding (Save48) and P16 rebases on founding + P15B (Save49).
+- **P17/P18:** review workflow `wf_411ede85-344` (`review-lenses.js`; the machine has 4 logical CPUs, so the workflow runs 2 agents at a time). P17 contract lens: 23 findings (3 blockers, 10 majors); determinism lens: 10 (2 blockers, 3 majors). The P17 tests lens and the three P18 lenses are still running. **P17 r2 fix specialist dispatched 17:20** with part 1 (`R2-BRIEF-FINDINGS.part1.md`); part 2 (tests lens) follows by message. P18's fix round starts when its lenses return; its REPORT.md was lost and must be rewritten. Both rebase onto landed P16 last (Save50/Save51).
+- **Held:** the AR fullfunction route (Gate 0 BLOCKED; new route generation on the settled tree) and every heavy lane (about 2 GB free against a 3.5 GiB floor; swap 2.25 of 3 GB).
+- **Integrator tools:** `/Users/zacheryspector/studio-scratch/1370-ar-integrator-tools-20261011/`: `land-slice.sh <pkg> <patch-sha256> <predecessor-src-tree> <baseline-failures> <out-subdir>` (generic production landing gate: apply staged, manifest, tsc ×3, generators, d16, full core + attribution, full UI, single-worker reruns of files holding NEW failures when ≤8, repo venv on PATH for Pillow/numpy); `verify-slice.js` (fix-round verification workflow: item verifier + delta hunter + two refuters per major); `review-lenses.js` (three-lens first review, no refuters); `brief-from-lenses.py` (writes every lens finding into a fix brief).
+- **Next step if you resume cold:** read the tail of each package's PROGRESS.md and REPORT.md. When founding r7 arrives, run `verify-slice.js` on it with R-E in the rulings, then `land-slice.sh` (new patch sha256, output `landing-r7`), commit as Save47 and push. Run P15B and P16 verifications as their specialists finish.
 
 ## Current review checkpoint: read before the historical account
 
@@ -551,6 +550,7 @@ The full accounts are in `A/payload/1370-aq-root-continuation-20261010-r1/LESSON
 34. A validator rule that recognizes a forgery by one record (a landmark) is defeated by editing that record. Cross-check every independent fact the history carries (landmarks, provenance versus industry origin, ledger dates) so a forger must falsify all of them consistently, and test each single-edit forgery.
 35. Never accept a slice on its own focused union. Founding r4's 63-file union reported zero undeclared NEW; the full core suite on the same bytes found 20 slice-caused failures (a frozen-era replay harness and two message/count pins). The full-suite run is the gate, and its NEW list goes back to the specialist before the next review.
 36. On this Mac the swapfiles share the boot volume's free space. Parallel full-suite gates plus several specialists drove swap from 1.6 to 2.1 GB while free space fell below 0.5 GB; one more swapfile would have filled the disk mid-gate. Check `sysctl vm.swapusage` and `df -k /` before adding parallel load, and tell reviewers never to copy source trees (the last review's tree copies took 687 MiB).
+37. Forged-save review never converges without a stated bar. Founding r4 to r6 each closed the forgeries the last verification named, and each verification found new multi-edit forms. Write the reader's bar down before the round as a list of lawful-history invariants, each citing the writer that guarantees it, bind them only to the population at risk, and classify a later forgery that violates no listed invariant as a residual minor with a follow-up.
 
 ## Handoff completion and claim limits
 
@@ -560,8 +560,8 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-11 16:10 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
-- Branch: `wip/headless-program-20260916-ts` @ `b57f5650ef24f9696e78b65266fa079df22df4ed`
+- Stamped: 2026-10-11 16:39 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
+- Branch: `wip/headless-program-20260916-ts` @ `b96f0794f11aad03d00ea67bb931f67dda448c43`
 - Upstream: `none`, unpushed commits: ?
 - Uncommitted files: 189
   - `M  src/core/actions.ts`
@@ -581,9 +581,9 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
   - `M  src/harness/roster-wall/historical-control.ts`
   - ...
 - Last commits:
+  - b96f0794 docs(handoff): founding r6 d16 matches baseline; disk recovered (1.49 GiB); lesson 36
   - b57f5650 docs(handoff): P17/P18 review launched with fresh clones; disk and swap notes; founding r6 gate progress
   - 38b8e3df docs(handoff): founding r6 complete (R-D); disk reclaimed; r6 verification and landing gate launching; generic integrator tools
   - ad9da36f docs(handoff): founding r5 complete; integrator ruling R-D; r6 dispatched
   - c5ebd1cc docs(handoff): P15B/P16 reviews complete (12 blockers); fix rounds dispatched; production restored; current-state block refreshed
-  - eb7c4421 docs(handoff): founding r4 full-core gate (GONE 45, NEW 26) forwarded to r5; lesson 35
 <!-- AUTO:END -->
