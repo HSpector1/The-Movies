@@ -41,10 +41,9 @@
 // released-film check refuses it; the charter's B5 ticks it), and B3 ticks an official manifest
 // at week 6239 (the marker rule refuses it; B3 asserts that refusal). None of them saves it.
 //
-// SAVE VERSION. Nothing here names a future version. STEP is the live constant; the step's
-// own functions are found by name (`convertV${STEP-1}ToV${STEP}` and back,
-// `migrateToV${STEP-1}`), the convention 1356-C uses. Today STEP is 44, so those leaves run
-// the Save44 functions and fail on the missing root. A later step pins STEP in its sweep.
+// SAVE VERSION. STEP is frozen at the P15 introduction, Save45. Own-step
+// migration/downgrade checks retain genuine Save44 inputs. Current writers and
+// all continued play use the real current migration and current writer version.
 //
 // SIBLING ROOTS (1356-F2 R3; 1359-F2 item 3). tests/helpers/p15-roots.ts holds the one list of P15
 // root keys, `P15_ROOTS`, shared with 1356-C; this patch adds `campaignLegacy`, and whichever RED
@@ -109,7 +108,7 @@ import {
   budgeted,
   canon,
   captureAt,
-  convertIntoStep,
+  convertIntoStep, currentFromStep, migrateIntoStep,
   convertOutOfStep,
   definitionsTable,
   DOWNGRADE_REFUSAL,
@@ -140,7 +139,6 @@ import {
   withRoot,
   type Archetype,
   type DefinitionEntry,
-  type Envelope,
   type Official,
   type Ref,
 } from './helpers/p15c2-legacy.js'
@@ -360,7 +358,7 @@ describe('p15c2 controls: the fixtures are lawful at RED and at GREEN', () => {
     makeSave(founded)
     for (const week of [B - 2, B - 1, B, B + 1]) {
       expect(routeAt(week).market.tick).toBe(week)
-      expect(makeSave(routeAt(week)).saveVersion).toBe(STEP)
+      expect(makeSave(routeAt(week)).saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
     }
     for (const week of [B - 1, B, B + 1]) {
       const state = run.headless.get(week)!
@@ -381,7 +379,7 @@ describe('p15c2 controls: the fixtures are lawful at RED and at GREEN', () => {
     expect(state.careerEvents).toHaveLength(732)
     expect(state.hollywood!.careerEvents).toHaveLength(120)
     expect(state.technology.adoptions).toHaveLength(9)
-    expect(makeSave(state).saveVersion).toBe(STEP)
+    expect(makeSave(state).saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
   }), FIXTURE_MS)
 })
 
@@ -780,7 +778,7 @@ describe('p15c2 boundary: the freeze as the tick\'s last step (1359-A §4, RED B
     expect(s6760.hollywood!.careerEvents.some((event) => event.releaseWeek >= B)).toBe(true)
     expect(s6760.hollywood!.receipts.length).toBeGreaterThan(s6240.hollywood!.receipts.length)
     // The save still validates: the replay reads 520 weeks of later rows and cuts them.
-    expect(makeSave(s6760).saveVersion).toBe(STEP)
+    expect(makeSave(s6760).saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
     console.info(JSON.stringify({ kind: '1359-legacy-extension-timing', ...routeL().ms, extension520Ms: ext.ms }))
     expect(ext.ms, 'the 520-tick extension against its budget').toBeLessThanOrEqual(EXTENSION_MS)
   }), POST_FREEZE_MS)
@@ -793,7 +791,7 @@ describe('p15c2 boundary: the freeze as the tick\'s last step (1359-A §4, RED B
       expect(state.hollywood).toBeNull()
       expect(canon(legacyOf(state)), `week ${week}`).toBe(canon(legacyOf(fresh)))
       expect(sequenceOf(state).next).toBe(sequenceOf(fresh).next)
-      expect(makeSave(state).saveVersion).toBe(STEP)
+      expect(makeSave(state).saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
     }
   }), ROUTE_MS)
 
@@ -816,7 +814,7 @@ describe('p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5)', 
     const fresh = generateWorld('1359-legacy-fresh-01')
     expect(canon(legacyOf(fresh))).toBe(canon({ version: 1, recordedFromWeek: 0, official: null, endOfRun: null }))
     const save = makeSave(fresh)
-    expect(save.saveVersion).toBe(STEP)
+    expect(save.saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
     expect(STEP, 'the Legacy root arrives in a save step above this base').toBeGreaterThan(BASE_LIVE_SAVE_VERSION)
     expect(canon(legacyOf(save.state as GameState))).toBe(canon(legacyOf(fresh)))
   })
@@ -835,25 +833,27 @@ describe('p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5)', 
       for (const key of added) expect(P15_ROOTS, `${key} is a P15 root`).toContain(key)
       expect(p15Rows(upgraded.state, added), 'no ranking, condition, market or Legacy row arrives with the step').toEqual([])
       for (const key of Object.keys(rawOf(capture.state))) expect(canon(rawOf(upgraded.state)[key]), key).toBe(canon(rawOf(capture.state)[key]))
-      expect(exportSave(migrateToLive(upgraded)), 'a second migration is a no-op').toBe(exportSave(asSaveFile(upgraded)))
+      expect(exportSave(asSaveFile(migrateIntoStep(upgraded))), 'a second introduction-step migration is a no-op').toBe(exportSave(asSaveFile(upgraded)))
+      currentFromStep(upgraded)
     }
   }), FIXTURE_MS)
 
   it('legacy-migration-empty-root-genuine-save38', budgeted(FIXTURE_MS, () => {
     const save38 = genuineSave38()
-    const live = migrateToLive(save38) as unknown as Envelope
+    const live = migrateIntoStep(save38)
     expect(live.saveVersion).toBe(STEP)
     expect(canon(legacyOf(live.state))).toBe(canon({ version: 1, recordedFromWeek: B, official: null, endOfRun: null }))
     expect(p15Rows(live.state), 'no ranking, condition, market or Legacy row: every P15 root migrated at 6240').toEqual([])
     const below = migrateBelowStep(save38)
     expect(canon(stripP15(live.state))).toBe(canon(stripP15(below.state)))
     expect(canon(convertIntoStep(below)), "the step's own converter agrees").toBe(canon(live))
-    expect(exportSave(migrateToLive(live)), 'a second migration is a no-op').toBe(exportSave(asSaveFile(live)))
+    expect(exportSave(asSaveFile(migrateIntoStep(live))), 'a second introduction-step migration is a no-op').toBe(exportSave(asSaveFile(live)))
+    currentFromStep(live)
   }), FIXTURE_MS)
 
   it('legacy-migration-before-boundary', budgeted(ROUTE_MS, () => {
     const capture = captureAt((state) => state.market.tick === B - 1, 'at week 6239')
-    const state = convertIntoStep(capture).state
+    const state = currentFromStep(convertIntoStep(capture)).state
     expect(legacyOf(state).recordedFromWeek).toBe(B - 1)
     expect(legacyOf(state).official).toBeNull()
     const next = tick(state)
@@ -865,11 +865,11 @@ describe('p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5)', 
 
   it('legacy-migration-past-boundary', budgeted(ROUTE_MS, () => {
     const capture = captureAt((state) => state.market.tick >= B, 'at week 6240 or later')
-    const state = convertIntoStep(capture).state
+    const state = currentFromStep(convertIntoStep(capture)).state
     expect(legacyOf(state).recordedFromWeek).toBe(capture.state.market.tick)
     const next = tick(state)
     expect(legacyOf(next).official, 'a save at or past B never freezes').toBeNull()
-    expect(makeSave(next).saveVersion).toBe(STEP)
+    expect(makeSave(next).saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
   }), ROUTE_MS)
 
   it('legacy-migration-past-boundary-genuine-save38', budgeted(FIXTURE_MS, () => {
@@ -879,7 +879,7 @@ describe('p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5)', 
     expect(next.market.tick).toBe(B + 1)
     expect(legacyOf(next).official, 'a save migrated at 6240 never freezes').toBeNull()
     expect(sequenceOf(next).next).toBe(sequenceOf(state).next + newRows(state, next))
-    expect(makeSave(next).saveVersion).toBe(STEP)
+    expect(makeSave(next).saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
   }), FIXTURE_MS)
 
   it('legacy-root-downgrade', budgeted(FIXTURE_MS, () => {
@@ -887,6 +887,7 @@ describe('p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5)', 
     const save38 = genuineSave38()
     const below = migrateBelowStep(save38)
     const live = convertIntoStep(below)
+    currentFromStep(live)
     expect(legacyOf(live.state).official).toBeNull()
     const down = convertOutOfStep(live)
     expect(down.saveVersion).toBe(STEP - 1)
@@ -1167,7 +1168,7 @@ describe('p15c2 replay: the validator re-runs the definition the manifest names 
       return v > 1 && v < 99
     })
     expect(rival, 'premise: a channel strictly inside [0, 100]').toBeGreaterThanOrEqual(0)
-    expect(makeSave(tamper(frozen, (o) => { o.studios[rival]!.standingAtBoundary.audienceAwareness! += 1 })).saveVersion).toBe(STEP)
+    expect(makeSave(tamper(frozen, (o) => { o.studios[rival]!.standingAtBoundary.audienceAwareness! += 1 })).saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
     refuses(tamper(frozen, (o) => { o.studios[rival]!.standingAtBoundary.audienceAwareness = 100.5 }), 'standingAtBoundary')
     refuses(tamper(frozen, (o) => { o.studios[rival]!.standingAtBoundary.industryPrestige = -0.5 }), 'standingAtBoundary')
   }), FIXTURE_MS)
@@ -1201,7 +1202,7 @@ describe('p15c2 replay: the validator re-runs the definition the manifest names 
     expect(voice(officialOf(frozen)), 'v2: 37 acclaimed of 122, held').toEqual([37, 'held'])
     // It validates under live v2 TUNING: the replay runs the frozen v1 entry, never TUNING.
     for (const [name, value] of Object.entries(V2.thresholds)) expect(t[name], `live ${name}`).toBe(value)
-    expect(makeSave(oldLaw).saveVersion).toBe(STEP)
+    expect(makeSave(oldLaw).saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
     // Relabelled as the other era, the same manifest refuses on replay: v2's evaluator holds the voice v1's did not.
     refuses(asOfficial({ ...v1Official, definition: 'campaign-legacy/v2' }), /outcome|qualifying/)
     // Relabelled as v1, the genuine v2 manifest refuses on replay: the validator runs the frozen v1 entry (1359-F6 ruling 1).
@@ -1219,8 +1220,8 @@ describe('p15c2 replay: the validator re-runs the definition the manifest names 
       // The retune is material: the live law now builds a different manifest from the same facts.
       expect(canon(buildLegacyManifest(facts, 'official2040'))).not.toBe(canon(withoutStamp(officialOf(frozen))))
       // Both stored manifests still validate: each replay runs its own entry's frozen thresholds, not live TUNING.
-      expect(makeSave(frozen).saveVersion).toBe(STEP)
-      expect(makeSave(oldLaw).saveVersion).toBe(STEP)
+      expect(makeSave(frozen).saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
+      expect(makeSave(oldLaw).saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
       // And the era guard sees the retune that skipped its definition bump.
       expect(Object.keys(RETUNE).some((name) => live.thresholds[name] !== t[name])).toBe(true)
     })

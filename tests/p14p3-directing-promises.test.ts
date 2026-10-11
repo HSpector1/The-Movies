@@ -6,6 +6,7 @@ import { gunzipSync } from 'node:zlib'
 import { afterAll, describe, expect, it, vi } from 'vitest'
 import * as core from '../src/core/index.js'
 import * as saves from '../src/core/save.js'
+import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 import { qualifyingTakes } from '../src/core/promises.js'
 import * as promiseOwner from '../src/core/promises.js'
 import * as math from '../src/core/math.js'
@@ -377,7 +378,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
     const positives = [a.state, b.state, first.first.afterTake, second.second.afterTake]
     for (const state of positives) {
       admitted(state)
-      const save = saves.makeSave(state); expect(save.saveVersion).toBe(45)
+      const save = saves.makeSave(state); expect(save.saveVersion).toBe(46)
       expect(api.validateSaveV39(save)).toBe(save)
       expect(bytes(reopen(state))).toBe(bytes(state))
       // 1320-A S9-adjacent: a bare saveVersion relabel keeps the live sharedCompetitions
@@ -418,7 +419,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
     // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
     // The V39 opportunity/subject guard stays covered by Q11 in
     // p14p4p5-screenplay-status.test.ts (the genuine Save40 factOnly capture).
-    expect(() => saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.makeSave(a.state)))))))
+    expect(() => saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(saves.makeSave(a.state))))))))
       .toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
     // So the frozen builders take the genuine director-bound-week52 capture (Save39, a bound P3 Director
     // promise), lifted to V40 by convertV39ToV40 alone.
@@ -444,10 +445,12 @@ describe('P3 first slice: public Director promises and historical meaning', () =
       // the empty log and null romance to every edge. 1358-X7t measured both sides equal for all six
       // captures (24 or 30 edges, no track, no log row).
       // 1361-N S5: Save45's four P15 roots, empty, at the input's own week (the migration does not tick).
-      const oldState = saves.stableStringify(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.save.state))))), old.save.state.market.tick))
+      // 1363-N: expected-only null cutting and zero refund in every historical period.
+      const oldState = saves.stableStringify(withEmptyRecovery(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.save.state))))), old.save.state.market.tick)))
       const current = saves.migrateToLive(old.save)
+      expect(saves.validateSaveV46(current)).toBe(current)
       // Existing semantic boundary: fails as37/38 rather than a missing import.
-      expect(current.saveVersion).toBe(45)
+      expect(current.saveVersion).toBe(46)
       expect(saves.stableStringify(current.state)).toBe(oldState)
       expect(current.state.promises).toEqual(old.save.state.promises)
       expect(current.state.firstTakes).toEqual(old.save.state.firstTakes)
@@ -472,7 +475,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
       expect(oldTakes.length).toBeGreaterThanOrEqual(replacement.predicate.count)
       expect(oldTakes.every(take => Object.values(take.cast).includes(replacement.beneficiaryPersonId))).toBe(true)
       const rawBefore = saves.exportSave(old), current = saves.migrateToLive(old)
-      expect(current.saveVersion).toBe(45)
+      expect(current.saveVersion).toBe(46)
       expect(current.state.promises[index]).toEqual(replacement)
       expect(qualifyingTakes(current.state, current.state.promises[index]!)).toEqual(oldTakes)
       expect(saves.exportSave(futureSave().convertV39ToV38(current))).toBe(rawBefore)
@@ -750,7 +753,7 @@ describe('P3 second slice: cancellation and same-domain waiver', () => {
       // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
       // The V39 opportunity/subject guard stays covered by Q11 in
       // p14p4p5-screenplay-status.test.ts (the genuine Save40 factOnly capture).
-      expect(() => saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(save))))))
+      expect(() => saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(save)))))))
         .toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
     }
     // 1358-F11 ruling 1: the genuine director-waived-week61 capture (Save39: promise-0 WAIVED and its open
@@ -1156,7 +1159,7 @@ describe('P3 bounded occupancy admission', () => {
     expect(input.state.market.tick).toBe(52)
     expect(input.actorId).toBe('authored-0006')
     admitted(input.state)
-    expect(saves.makeSave(input.state).saveVersion).toBe(45)
+    expect(saves.makeSave(input.state).saveVersion).toBe(46)
     const root = actualPromise(input.state, input.promiseId)
     expect(root).toMatchObject({ contractId: expect.any(String), progress: 0, outcome: null })
     const contract = activeContract(input.state, input.actorId); assert.ok(contract)
@@ -1196,7 +1199,7 @@ describe('P3 bounded occupancy admission', () => {
     const occupied = made.state
     admitted(occupied)
     expect(occupied.market.tick).toBe(52)
-    expect(saves.makeSave(occupied).saveVersion).toBe(45)
+    expect(saves.makeSave(occupied).saveVersion).toBe(46)
     const production = occupied.studio.activeProductions.find(row => row.id === made.productionId)
     assert.ok(production)
     expect(production).toMatchObject({ startTick: 52, remainingTicks: 8,

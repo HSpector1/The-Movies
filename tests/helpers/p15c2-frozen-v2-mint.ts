@@ -27,7 +27,7 @@ for (const path of ['tests/helpers/p15c2-route-l.ts', 'tests/helpers/p15c2-froze
 }
 if (git('rev-parse', 'HEAD') !== expectedHead) throw new Error('1361-F6 mint: source HEAD differs from accepted landed source')
 if (git('status', '--porcelain', '--untracked-files=no') !== '') throw new Error('1361-F6 mint: tracked source must be clean')
-if (LIVE_SAVE_VERSION !== 45) throw new Error('1361-F6 mint: freeze must be captured at the landed Save45 writer before later migrations')
+if (Number(LIVE_SAVE_VERSION) !== 45) throw new Error('1361-F6 mint: freeze must be captured at the landed Save45 writer before later migrations')
 if (JSON.stringify(TECHNOLOGY_CATALOGUE.map(({ id, commercialWeek }) => [id, commercialWeek])) !== JSON.stringify([
   ['lighting-control-01', 936], ['synchronized-sound', 416],
 ])) throw new Error('1361-F6 mint: catalogue changed before its required replay pin')

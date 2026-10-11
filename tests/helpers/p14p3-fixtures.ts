@@ -75,24 +75,26 @@ export type FutureSaveAPI = {
   convertV39ToV38: (input: unknown) => SaveFileV38
 }
 type FutureSaveChainSteps = FutureSaveAPI & {
-  validateSaveV45: (input: unknown) => unknown
+  validateSaveV46: (input: unknown) => unknown
   convertV40ToV39: (input: unknown) => unknown
   convertV41ToV40: (input: unknown) => unknown
   convertV42ToV41: (input: unknown) => unknown
   convertV43ToV42: (input: unknown) => unknown
   convertV44ToV43: (input: unknown) => unknown
+  convertV46ToV45: (input: unknown) => unknown
   convertV45ToV44: (input: unknown) => unknown
 }
 export function futureSave(): FutureSaveAPI {
   const candidate = core as unknown as Partial<FutureSaveChainSteps>
   assert.equal(typeof candidate.validateSaveV39, 'function', 'public index exposes the new strict reader')
   assert.equal(typeof candidate.convertV39ToV38, 'function', 'public index exposes the guarded reverse conversion')
-  assert.equal(typeof candidate.validateSaveV45, 'function', 'public index exposes the live validator')
+  assert.equal(typeof candidate.validateSaveV46, 'function', 'public index exposes the live validator')
   assert.equal(typeof candidate.convertV40ToV39, 'function', 'public index exposes the V40->V39 downgrade step')
   assert.equal(typeof candidate.convertV41ToV40, 'function', 'public index exposes the V41->V40 downgrade step')
   assert.equal(typeof candidate.convertV42ToV41, 'function', 'public index exposes the V42->V41 downgrade step')
   assert.equal(typeof candidate.convertV43ToV42, 'function', 'public index exposes the V43->V42 downgrade step')
   assert.equal(typeof candidate.convertV44ToV43, 'function', 'public index exposes the V44->V43 downgrade step')
+  assert.equal(typeof candidate.convertV46ToV45, 'function', 'public guarded recovery 46 to 45 conversion')
   assert.equal(typeof candidate.convertV45ToV44, 'function', 'public index exposes the V45->V44 downgrade step')
   const steps = candidate as FutureSaveChainSteps
   // 1309-X2 ruling 3: the chain 1309-D recommended and 1309-F adopted is
@@ -114,8 +116,8 @@ export function futureSave(): FutureSaveAPI {
   // validateSaveV39 validates it with validateSaveV45 and convertV45ToV44
   // leads the chain, one era later again.
   return {
-    validateSaveV39: (input: unknown) => steps.validateSaveV45(input),
-    convertV39ToV38: (input: unknown) => steps.convertV39ToV38(steps.convertV40ToV39(steps.convertV41ToV40(steps.convertV42ToV41(steps.convertV43ToV42(steps.convertV44ToV43(steps.convertV45ToV44(input))))))),
+    validateSaveV39: (input: unknown) => steps.validateSaveV46(input),
+    convertV39ToV38: (input: unknown) => steps.convertV39ToV38(steps.convertV40ToV39(steps.convertV41ToV40(steps.convertV42ToV41(steps.convertV43ToV42(steps.convertV44ToV43(steps.convertV45ToV44(steps.convertV46ToV45(input)))))))),
   }
 }
 

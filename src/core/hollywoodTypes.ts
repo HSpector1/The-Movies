@@ -57,7 +57,7 @@ export type RivalResearchMoneyKind = 'researchSpend' | 'researchCapacity' | 'tec
  */
 export type RivalMoneyKind = 'capacity' | 'signing' | 'payroll' | 'overhead' | 'facilityOpex'
   | 'development' | 'production' | 'marketing' | 'studioRevenue' | 'technologyAdoption'
-  | RivalResearchMoneyKind | 'termination'
+  | RivalResearchMoneyKind | 'termination' | 'facilityDemolitionRefund'
 export type RivalFinancePeriod = {
   fromWeek: number
   throughWeek: number
@@ -117,6 +117,8 @@ export type RivalBusiness = {
   policy: { version: 1; affinities: Record<Genre, number>; negativeScale: number;
     marketingRatio: number; reserveWeeks: number }
   screenplayShelving: ScreenplayShelving
+  /** Save46 recovery episode; cleared only by a real greenlight or later loan principal. */
+  costCutting: { version: 1; since: number | null }
 }
 export type IndustryReceipt = { eventId: string; week: number; studioId: string } & (
   | { kind: 'studioEntered'; entryKey: string; origin: 'fresh' | 'migration' | 'scheduled' }
@@ -131,6 +133,8 @@ export type IndustryReceipt = { eventId: string; week: number; studioId: string 
   // here — "no rival authority without a receipt" is validated against these.
   | { kind: 'laboratoryCommitted'; planId: string; facilityId: string }
   | { kind: 'laboratoryOperational'; facilityId: string }
+  /** Save46: retained paid-body tombstone; no plan/history is removed. */
+  | { kind: 'facilityDisposed'; facilityId: string; planId: string; blueprintId: 'research-laboratory'; refund: number }
   | { kind: 'instrumentOperational'; facilityId: string; technologyId: string }
   | { kind: 'researchSeatAssigned'; projectId: string; talentId: string }
   | { kind: 'researchCompleted'; projectId: string }

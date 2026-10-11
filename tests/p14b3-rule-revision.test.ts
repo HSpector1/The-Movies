@@ -1,3 +1,4 @@
+import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // Drafted before B3 T0 as the intended tests/p14b3-rule-revision.test.ts; installed and run in the core project since f4e1230.
 // B3 T0 must first mint the genuine accepted-B2 evaluator1 corpus. Missing files
 // are a prerequisite failure, NEVER the behavioral RED for evaluator revision2.
@@ -10,7 +11,7 @@ import { beforeAll, describe, expect, it, vi } from 'vitest'
 import * as promiseModule from '../src/core/promises.js'
 import { attachPromise, PROMISE_RULES_VERSION } from '../src/core/promises.js'
 import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
-import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV45 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV46 } from '../src/core/save.js'
 import type { GameState, PromiseFeasibilityReceipt } from '../src/core/types.js'
 import { buildTalentProvenance } from '../src/core/aging.js'
 import type { CareerLifecycleRootV38, CreativeRole } from '../src/core/types.js'
@@ -185,7 +186,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
     const rawCases = (parsedRaw.state.talentMarket.cases as Record<string, unknown>[]).map((kase) => ({ ...kase, variant: 'expiry' }))
     // 1361-N S5: Save45's four P15 roots, empty, at the input's own week (nothing ticks between the
     // migration and this comparison).
-    expect(JSON.parse(exportSave(governed))).toEqual({ ...parsedRaw, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyP15Roots(withEmptyScreenplayShelving(withRivalTermination(parsedRaw.state)), parsedRaw.state.market.tick as number),
+    expect(JSON.parse(exportSave(governed))).toEqual({ ...parsedRaw, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyRecovery(withEmptyP15Roots(withEmptyScreenplayShelving(withRivalTermination(parsedRaw.state)), parsedRaw.state.market.tick as number)),
       relationships: [], promises: (parsedRaw.state.promises as Record<string, unknown>[]).map(addedFieldsRaw),
       talent: rawPeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
       talentProvenance: buildTalentProvenance(rawPeople, parsedRaw.state.market.tick as number, 'legacy_age_anchor'),
@@ -246,7 +247,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
     expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(priorRoots)
     expect(currentProposals(attached, proposal.talentId).find((p) => p.issuerStudioId === proposal.issuerStudioId)!.promises)
       .toEqual([fresh.promiseId])
-    const reloaded = validateSaveV45(importSave(exportSave(makeSave(attached)))).state
+    const reloaded = validateSaveV46(importSave(exportSave(makeSave(attached)))).state
     expect(reloaded.promises).toEqual(attached.promises)
   })
 
@@ -288,7 +289,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
       talentId: old.beneficiaryPersonId, studioId: old.issuerStudioId, week: proposal.startWeek }))
     expect(currentProposals(settled, old.beneficiaryPersonId)).toEqual([])
     expect(JSON.stringify(state.promises)).toBe(priorRoots)
-    const reloaded = validateSaveV45(importSave(exportSave(makeSave(settled)))).state
+    const reloaded = validateSaveV46(importSave(exportSave(makeSave(settled)))).state
     expect(reloaded.promises.find((p) => p.promiseId === old.promiseId)).toEqual(bound)
     expect(old.version).toBe(1)
     expect(old.feasibilityReceipt.rulesVersion).toBe(1)

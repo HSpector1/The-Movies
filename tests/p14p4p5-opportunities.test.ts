@@ -7,6 +7,7 @@ import { gunzipSync } from 'node:zlib'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import * as core from '../src/core/index.js'
 import * as saves from '../src/core/save.js'
+import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 import * as tickOwner from '../src/core/tick.js'
 import * as promiseOwner from '../src/core/promises.js'
 import { occupiedResourceSlots, resourceClaimsOf } from '../src/core/occupancy.js'
@@ -31,9 +32,10 @@ type CurrentView = { saveVersion: number; state: Record<string, unknown> & {
   firstTakeSubjects: Sidecar; promises: Record<string, unknown>[]
 } }
 type FutureAPI = {
-  validateSaveV45(input: unknown): unknown
+  validateSaveV46(input: unknown): unknown
   // 1361-N S4: an extra live-to-one-below hop now precedes the
   // V44->V43 hop the 1358 sweep added.
+  convertV46ToV45(input: unknown): unknown
   convertV45ToV44(input: unknown): unknown
   // 1358-N S4: an extra live-to-one-below hop now precedes the
   // V43->V42 hop the 1344 sweep added.
@@ -101,7 +103,8 @@ function admitted(state: GameState): void {
 }
 function futureAPI(): FutureAPI {
   const api = core as unknown as Partial<FutureAPI>
-  assert.equal(typeof api.validateSaveV45, 'function', 'new public strict43 reader after actual version assertion')
+  assert.equal(typeof api.validateSaveV46, 'function', 'new public strict43 reader after actual version assertion')
+  assert.equal(typeof api.convertV46ToV45, 'function', 'public guarded recovery 46 to 45 conversion')
   assert.equal(typeof api.convertV45ToV44, 'function', 'new public guarded live->44 conversion')
   assert.equal(typeof api.convertV44ToV43, 'function', 'new public guarded live→43 conversion')
   assert.equal(typeof api.convertV43ToV42, 'function', 'new public guarded live→42 conversion')
@@ -341,12 +344,12 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     // The positive is public-created and fully admitted, including all C3 authority.
     // A generic entrant-loss failure cannot stand in for this new semantic guard.
     const valid: unknown = JSON.parse(bytes(admittedGenre))
-    expect((valid as { saveVersion: number }).saveVersion).toBe(45)
-    const api = futureAPI(); expect(api.validateSaveV45(valid)).toBe(valid)
+    expect((valid as { saveVersion: number }).saveVersion).toBe(46)
+    const api = futureAPI(); expect(api.validateSaveV46(valid)).toBe(valid)
     // 1309-X3 ruling 7: the live-to-one-below conversion now reaches V40, which
     // holds opportunity material, so it no longer refuses; the FIRST downgrade
     // that cannot hold the material is convertV40ToV39.
-    const oneDown = api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(api.convertV44ToV43(api.convertV45ToV44(valid)))))
+    const oneDown = api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(api.convertV44ToV43(api.convertV45ToV44(api.convertV46ToV45(valid))))))
     expect(() => api.convertV40ToV39(oneDown)).toThrow(/opportunit|genre|project|predicate/i)
     for (const mutate of [
       (p: Record<string, unknown>) => { p.predicate = { kind: 'genreOpportunity', count: 2, seatClass: 'allCast', genre: 'drama' } },
@@ -355,13 +358,13 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     ]) {
       const bad = clone(valid) as CurrentView, row = bad.state.promises.find(p => p.promiseId === real.promiseId); assert.ok(row)
       mutate(row)
-      expect(() => api.validateSaveV45(bad)).toThrow(/predicate|family|genre|project|class|count|opportunit/i)
+      expect(() => api.validateSaveV46(bad)).toThrow(/predicate|family|genre|project|class|count|opportunit/i)
     }
   }, LEAF_TIMEOUT_MS)
 
   it('Q04 migrates genuine39 to an exact empty subject suffix and preserves outgoing Director authority', () => {
     input45() // Independent old4/6 marker is reached before the version assertion.
-    expect(saves.LIVE_SAVE_VERSION).toBe(45)
+    expect(saves.LIVE_SAVE_VERSION).toBe(46)
     const api = futureAPI()
     const captureManifest = readFileSync(new URL('1221-p4p5-outgoing-capture/MANIFEST.json', E))
     expect(sha(captureManifest)).toBe('02115df5d6e7d4c33284b9a439a7c79601e1b2e807f4fa96c20149f5c84186f3')
@@ -382,7 +385,7 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     for (const [filename, gzipHash, rawHash] of pins) {
       const { raw, save: old } = pinned39(filename, gzipHash, rawHash), before = stable(old)
       const current = saves.migrateToLive(old), valid = current as unknown as CurrentView
-      expect(current.saveVersion).toBe(45); expect(api.validateSaveV45(current)).toBe(current)
+      expect(current.saveVersion).toBe(46); expect(api.validateSaveV46(current)).toBe(current)
       expect(valid.state.firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: old.state.firstTakes.length, facts: [] })
       expect(Object.keys(valid.state.firstTakeSubjects).sort()).toEqual(['cutoverOrdinal', 'facts', 'version'])
       // Comparison-only exclusion of the sole additive root, never an admission path.
@@ -394,16 +397,17 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
       // the empty log and null romance to every edge. 1358-X7t measured both sides equal for all six
       // captures (24 or 30 edges, no track, no log row).
       // 1361-N S5: Save45's four P15 roots, empty, at the input's own week (the migration does not tick).
-      expect(added.facts).toEqual([]); expect(stable(unchanged)).toBe(stable(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick)))
+      // 1363-N: extend only the expected value with the empty recovery migration.
+      expect(added.facts).toEqual([]); expect(stable(unchanged)).toBe(stable(withEmptyRecovery(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick))))
       expect(stable(current.state.firstTakes)).toBe(stable(old.state.firstTakes))
       expect(stable(current.state.promises)).toBe(stable(old.state.promises))
       expect(stable(old)).toBe(before)
-      expect(saves.exportSave(api.convertV40ToV39(api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(api.convertV44ToV43(api.convertV45ToV44(current)))))))).toBe(raw)
+      expect(saves.exportSave(api.convertV40ToV39(api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(api.convertV44ToV43(api.convertV45ToV44(api.convertV46ToV45(current))))))))).toBe(raw)
       expect(() => saves.validateSaveV39(current)).toThrow()
       admitted(current.state)
     }
     const positive = JSON.parse(bytes(input45())) as CurrentView
-    expect(api.validateSaveV45(positive)).toBe(positive)
+    expect(api.validateSaveV46(positive)).toBe(positive)
     expect(positive.state.firstTakeSubjects.cutoverOrdinal).toBe(19)
     const mutations: ((s: CurrentView) => void)[] = [
       s => { delete (s.state as Partial<CurrentView['state']>).firstTakeSubjects },
@@ -417,8 +421,8 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     ]
     for (const mutate of mutations) {
       const bad = clone(positive); mutate(bad)
-      expect(() => api.validateSaveV45(bad)).toThrow(/first.?take|subject|suffix|cutover/i)
-      expect(() => api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(api.convertV44ToV43(api.convertV45ToV44(bad)))))).toThrow(/first.?take|subject|suffix|cutover/i)
+      expect(() => api.validateSaveV46(bad)).toThrow(/first.?take|subject|suffix|cutover/i)
+      expect(() => api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(api.convertV44ToV43(api.convertV45ToV44(api.convertV46ToV45(bad))))))).toThrow(/first.?take|subject|suffix|cutover/i)
     }
   }, LEAF_TIMEOUT_MS)
 })
@@ -756,7 +760,7 @@ function controlsEnd(before: ReturnType<typeof controlsStart>): void {
 function controlSave(state: GameState): ControlSave {
   admitted(state)
   const save = saves.makeSave(state), before = stable(save)
-  expect(saves.validateSaveV45(save)).toBe(save)
+  expect(saves.validateSaveV46(save)).toBe(save)
   expect(stable(save)).toBe(before)
   return save
 }
@@ -764,7 +768,7 @@ function subjectNegative(base: ControlSave, name: string, change: (save: Control
   const before = stable(base), bad = clone(base)
   change(bad)
   let error: unknown
-  try { saves.validateSaveV45(bad) } catch (caught) { error = caught }
+  try { saves.validateSaveV46(bad) } catch (caught) { error = caught }
   const message = error instanceof Error ? error.message : String(error)
   console.info('1249-P4P5-SUBJECT-REFUSAL ' + JSON.stringify({ name, message }))
   expect(error).toBeInstanceOf(Error); expect(message).toMatch(cause)
@@ -840,7 +844,7 @@ describe('P4/P5 retained subject and waiver authority controls', () => {
     // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
     // The V39 opportunity/subject guard stays covered by Q11 in
     // p14p4p5-screenplay-status.test.ts (the genuine Save40 factOnly capture).
-    expect(() => saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(released))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
+    expect(() => saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(released)))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
     expect(stable(released)).toBe(before) // Combined tag+fact refusal; not isolated fact-only proof.
     controlsEnd(counters)
   }, LEAF_TIMEOUT_MS)
@@ -987,7 +991,7 @@ function waiverLinkNegative(base: ControlSave, name: string, change: (state: Gam
   const before = stable(base), bad = clone(base)
   change(bad.state)
   let error: unknown
-  try { saves.validateSaveV45(bad) } catch (caught) { error = caught }
+  try { saves.validateSaveV46(bad) } catch (caught) { error = caught }
   const message = error instanceof Error ? error.message : String(error)
   console.info('1249-P4P5-WAIVER-LINK-REFUSAL ' + JSON.stringify({ name, message }))
   expect(error).toBeInstanceOf(Error); expect(message).toMatch(cause); expect(stable(base)).toBe(before)

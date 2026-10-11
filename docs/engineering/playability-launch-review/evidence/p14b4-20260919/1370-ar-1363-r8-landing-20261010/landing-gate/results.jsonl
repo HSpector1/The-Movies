@@ -1,0 +1,9 @@
+{"name":"tsc-root","exit":0,"seconds":72,"log":"/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/landing/tsc-root.log","node":"v20.20.2"}
+{"name":"tsc-ui","exit":0,"seconds":106,"log":"/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/landing/tsc-ui.log","node":"v20.20.2"}
+{"name":"tsc-bridge","exit":0,"seconds":58,"log":"/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/landing/tsc-bridge.log","node":"v20.20.2"}
+{"name":"gen-contract","exit":0,"seconds":3,"log":"/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/landing/gen-contract.log","node":"v20.20.2"}
+{"name":"gen-contract-fixtures","exit":0,"seconds":2,"log":"/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/landing/gen-contract-fixtures.log","node":"v20.20.2"}
+{"name":"vitest-kit10","exit":0,"seconds":794,"log":"/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/landing/kit10.log","node":"v20.20.2"}
+{"name":"vitest-recovery-own","exit":1,"seconds":339,"log":"/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/landing/recovery-own.log","node":"v20.20.2"}
+{"name":"vitest-changed3","exit":1,"seconds":242,"log":"/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/landing/changed3.log","node":"v20.20.2"}
+{"name":"vitest-ui5","exit":0,"seconds":80,"log":"/Users/zacheryspector/studio-scratch/1370-ar-1363-r8-rebase-20261010-r1/landing/ui5.log","node":"v20.20.2"}

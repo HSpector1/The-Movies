@@ -1,0 +1,34 @@
+{
+  "sourceCommit": "d9faac35a435639dacd0a1df020f0651f6e59f31",
+  "input": {
+    "path": "tests/fixtures/p14/genuine-projection51-runtime-c2rm/genuine-v37-scientist-week670.json.gz",
+    "compressedSha256": "34f0ac18280f8e5fef2482e6e1dcc5c48f30a1ef10d3ca9eaece8699ece99861",
+    "rawSha256": "c119e1aac5b1dda794bf6c6967dceade05eeace2626002eebdae68628d31db72"
+  },
+  "route": {
+    "startWeek": 670,
+    "endWeek": 671,
+    "ticks": 1,
+    "options": {
+      "develop": true
+    }
+  },
+  "output": {
+    "path": "original-v38-scientist-week671.json.gz",
+    "compressedSha256": "23240f46ccee8be3287c41c7c000f5e21ac845e1685a78585cd7963412b66a21",
+    "rawSha256": "cc9710061e893039b4552224af839ad8c59dce9a0d70004828acf592c39e7c0d"
+  },
+  "finalities": [
+    {
+      "personId": "t-sci-00",
+      "week": 671,
+      "profession": "scientist",
+      "source": {
+        "personId": "t-sci-00",
+        "profession": "scientist"
+      },
+      "cause": "noCatalogue",
+      "evaluationId": null
+    }
+  ]
+}

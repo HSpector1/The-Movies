@@ -1334,6 +1334,16 @@ export function advanceTalentMarketWeek(state: GameState): GameState {
   const week = state.market.tick
   let next = state
 
+  // Entry happened in the industry decision before this market phase. Withdraw
+  // through the shared verb before any case can settle, including extensions.
+  const cuttingStudios = new Set(next.hollywood!.businesses
+    .filter(b => b.costCutting.since !== null).map(b => b.studioId))
+  for (const proposal of next.talentMarket.proposals) {
+    if (cuttingStudios.has(proposal.issuerStudioId)) {
+      next = withdrawProposal(next, proposal.talentId, proposal.issuerStudioId)
+    }
+  }
+
   // 1. invalidation
   for (const kase of next.talentMarket.cases) {
     if (kase.outcome !== null) continue
@@ -1387,6 +1397,7 @@ export function advanceTalentMarketWeek(state: GameState): GameState {
     }
     const extension = isExtensionCase(kase)
     for (const business of next.hollywood!.businesses) {
+      if (business.costCutting.since !== null) continue
       if (week < business.nextDecisionWeek) continue // it has not decided this week
       if (next.talentMarket.proposals.some((p) => p.talentId === kase.talentId && p.issuerStudioId === business.studioId)) continue
       // P14C.2b (780 X8, 806 §8.1): on an extension case only the incumbent evaluates, under

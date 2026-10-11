@@ -14,7 +14,7 @@ import { fnv1a64 } from '../src/core/math.js'
 import { advancePromisesWeek, attachedPromiseDigest, promiseDigest } from '../src/core/promises.js'
 import * as promisesModule from '../src/core/promises.js'
 import * as operationsModule from '../src/core/operations.js'
-import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, convertV36ToV37, convertV37ToV38, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV31, validateSaveV45 } from '../src/core/save.js'
+import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, convertV36ToV37, convertV37ToV38, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV31, validateSaveV46 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import type { Action, CastSlot, GameState, GameStateV31, ProfessionalPromiseV30 } from '../src/core/types.js'
 
@@ -37,7 +37,7 @@ type Envelope = ReturnType<typeof validateSaveV31>
 // envelope (every record's `extensionUsed`/`extendedFromWeek`, every case's `variant`).
 // 975: only this live carrier reaches38. The independent frozen31 carrier below
 // retains its original reader, assertions and immutable fixture bytes.
-type EnvelopeV33 = ReturnType<typeof validateSaveV45>
+type EnvelopeV33 = ReturnType<typeof validateSaveV46>
 const SLOTS = ['lead', 'antagonist', 'support'] as const
 const CLASSES = ['lead', 'leadOrAntagonist'] as const
 type SeatClass = typeof CLASSES[number]
@@ -106,7 +106,7 @@ function validateStateV33(carrier: EnvelopeV33, state: GameState): EnvelopeV33 {
   // The live-boundary twin of validateState above, for the second describe
   // block's real-gameplay states (genuinely live-shaped once applyActions/tick
   // have touched them) -- same device, the frozen V31 reader untouched.
-  return validateSaveV45({ ...carrier, state, broadcastCache: state.broadcastItems })
+  return validateSaveV46({ ...carrier, state, broadcastCache: state.broadcastItems })
 }
 function binding(state: GameStateV31, promise: ProfessionalPromiseV30): void {
   assert.notEqual(promise.contractId, null)
@@ -359,7 +359,7 @@ function actualTakeInput(slot: CastSlot): Prepared {
 }
 function outcomes(state: GameState) { return state.talentMarket.receipts.filter((r) => r.kind === 'promiseOutcome') }
 function evaluate(input: EnvelopeV33): GameState {
-  validateSaveV45(input)
+  validateSaveV46(input)
   const before = clone(input)
   const after = advancePromisesWeek(input.state) // existing structurally compatible public owner, no cast
   expect(input).toEqual(before)

@@ -54,7 +54,7 @@ import {
   RELATIONSHIP_SUCCESS_CRITIC_SCORE, RELATIONSHIP_SUCCESS_DELTA, RELATIONSHIP_TIER_FLOOR,
   advanceRelationshipsWeek, currentCloseness, currentTier, pairChemistry, validateRelationshipsRoot,
 } from '../src/core/relationships.js'
-import { LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV45 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV46 } from '../src/core/save.js'
 import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
 import { tick } from '../src/core/tick.js'
 import type { FilmResult, GameState, Production, RelationshipDriver, RelationshipEdge } from '../src/core/types.js'
@@ -410,7 +410,7 @@ describe('CONSTRUCTED group 6 — SAVE AND LOAD ACROSS THE CHANGE: historical de
     expect(written.every((row) => row.includes(FAIL_DELTA))).toBe(true) // the chain really recorded failures
     const save = makeSave(state)
     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
-    expect(validateSaveV45(save)).toEqual(save)
+    expect(validateSaveV46(save)).toEqual(save)
     const migrated = migrateToLive(save)
     expect(JSON.stringify(migrated.state.relationships)).toBe(JSON.stringify(save.state.relationships))
     expect(migrated.state.relationships.map((e) => e.recent.map((d) => d.delta))).toEqual(written)
@@ -435,7 +435,7 @@ describe('CONSTRUCTED group 6 — SAVE AND LOAD ACROSS THE CHANGE: historical de
     const carried = save.state.relationships.flatMap((e) => e.recent.filter((d) => d.kind === 'sharedFailure').map((d) => d.delta))
     expect(carried.length).toBeGreaterThan(0)
     expect(new Set(carried)).toEqual(new Set([historicalDelta]))
-    const migrated = migrateToLive(validateSaveV45(save))
+    const migrated = migrateToLive(validateSaveV46(save))
     expect(JSON.stringify(migrated.state.relationships)).toBe(JSON.stringify(save.state.relationships))
     expect(migrated.state.relationships.flatMap((e) => e.recent.filter((d) => d.kind === 'sharedFailure').map((d) => d.delta)))
       .toEqual(carried)

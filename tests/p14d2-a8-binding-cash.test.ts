@@ -6,9 +6,9 @@ import { computeForecast } from '../src/core/forecast.js'
 import { resolveShape } from '../src/core/shape.js'
 import { marketingCapacityForInputs, marketingMenuFromCapacity } from '../src/core/marketingMenu.js'
 import { isOpportunityPredicate } from '../src/core/opportunityPromises.js'
-import { exportSave, importSave, makeSave, stableStringify, validateSaveV45 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, stableStringify, validateSaveV46 } from '../src/core/save.js'
 import type { GameState } from '../src/core/types.js'
-import { A8_ORDINAL, A8_SCRIPT, A8_STUDIO, a8Raw, a8Sha, loadA8 } from './p14d2-a8-fixture.js'
+import { A8_ORDINAL, A8_SCRIPT, A8_STUDIO, a8Raw, a8Sha, loadA8, a8AccountInRecovery } from './p14d2-a8-fixture.js'
 import type { A8Candidate } from './p14d2-a8-fixture.js'
 
 type Args = Parameters<typeof policyModule.chooseIndustryPackage>
@@ -59,7 +59,7 @@ function premise() {
   expect(facts).toMatchObject({ week: 247, afterWeek: 248, studioId: A8_STUDIO, scriptId: A8_SCRIPT, ordinal: 21,
     countBefore: 12, countAfter: 12, oldOutcome: 'cashBlocked', candidateOutcome: 'economicRejection',
     actualSeatableTeamReachedChooser: true, allCashFreeViable: 0 })
-  expect(b.account).toEqual(facts.accountBefore)
+  expect(b.account).toEqual(a8AccountInRecovery(facts.accountBefore))
   expect(b.screenplayShelving).toEqual(facts.shelvingBefore)
   expect(facts.shelvingAfter).toEqual(facts.shelvingBefore)
   expect(facts.appendedIndustryReceipts).toEqual([])
@@ -93,7 +93,7 @@ describe('1363 Part A A8 — genuine pre-amendment count12', () => {
     expect(candidates.filter(r => r.cost > args[2].cashAvailable)).toHaveLength(6)
     expect(policyModule.searchIndustryPackages(...args)).toEqual({ choice: null, ...provenance.facts.searchCounts })
     expect(stableStringify(args)).toBe(before)
-    validateSaveV45(makeSave(observed))
+    validateSaveV46(makeSave(observed))
     expect(tick(state), 'transparent observer cannot change the actual tick').toEqual(observed)
     expect(stableStringify(state)).toBe(stateBytes)
     expect(a8Raw()).toBe(raw)
@@ -104,7 +104,7 @@ describe('1363 Part A A8 — genuine pre-amendment count12', () => {
     const after = tick(state), later = business(after)
     // Valid input and valid resulting save are prerequisites, never the intended RED.
     const saved = makeSave(after)
-    validateSaveV45(saved)
+    validateSaveV46(saved)
     const afterBytes = stableStringify(after), savedRaw = exportSave(saved)
     expect(exportSave(importSave(savedRaw))).toBe(savedRaw)
     expect(stableStringify(after)).toBe(afterBytes)
@@ -129,7 +129,7 @@ describe('1363 Part A A8 — genuine pre-amendment count12', () => {
     expect(after.firstTakes).toEqual(state.firstTakes)
     expect(later.development).toEqual(before.development)
     expect(later.projects).toEqual(before.projects)
-    expect(later.account).toEqual(provenance.facts.accountAfter)
+    expect(later.account).toEqual(a8AccountInRecovery(provenance.facts.accountAfter))
     expect(later.account.periods.slice(0, -1)).toEqual(before.account.periods.slice(0, -1))
     expect(later.account.cash).toBe(before.account.cash - 116524) // Genuine ordinary weekly charge, no shelving charge/refund.
     expect(after.rngState).toBe(provenance.facts.rngAfter)

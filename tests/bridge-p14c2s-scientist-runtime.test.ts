@@ -1,3 +1,4 @@
+import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // 840 S11: actual outgoing projection50 artifacts, produced BEFORE the Scientist
 // amendment (824 and842). No restamped fixture, invented history or new producer.
 import { createHash } from 'node:crypto'
@@ -9,7 +10,7 @@ import { canonicalJson } from '../bridge/schema/canonical.ts'
 import { decodeBridgeRuntimeCheckpoint, encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS } from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession } from '../bridge/session.ts'
-import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV36, validateSaveV45 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV36, validateSaveV46 } from '../src/core/save.js'
 import type { GameStateV36 } from '../src/core/types.js'
 
 // 1309-X3 ruling 4: convertV40ToV41 (src/core/save.ts:10479) adds a zero
@@ -120,7 +121,7 @@ describe('C.2 Scientist S11: genuine outgoing50 runtime compatibility', () => {
   it('requires literal projection52/Save37, registers actual outgoing50, and excludes the running identity from prior schemas', () => {
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(57)
-    expect(LIVE_SAVE_VERSION).toBe(45)
+    expect(LIVE_SAVE_VERSION).toBe(46)
     expect(SCHEMA_ID).not.toBe(OUTGOING_50)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_50)).toBe('projection-v50')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
@@ -136,8 +137,8 @@ describe('C.2 Scientist S11: genuine outgoing50 runtime compatibility', () => {
       const old = validateSaveV36(JSON.parse(prior[slot]))
       const actualJson = loaded.hydrated.checkpoint[slot]
       expect(typeof actualJson).toBe('string')
-      const actual = validateSaveV45(importSave(actualJson!))
-      expect(actual.saveVersion).toBe(45)
+      const actual = validateSaveV46(importSave(actualJson!))
+      expect(actual.saveVersion).toBe(46)
       expect(actual.state.market.tick).toBe(week)
       // C.3 adds only six dated profession-authority fields; every old root,
       // retirement, skill, employment and receipt remains independently exact.
@@ -148,7 +149,7 @@ describe('C.2 Scientist S11: genuine outgoing50 runtime compatibility', () => {
       // comparison the same way p14p4p5-opportunities.test.ts's Q04 does.
       const { firstTakeSubjects, ...restState } = actual.state
       expect(firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: old.state.firstTakes.length, facts: [] })
-      expect(canonicalJson({ ...restState, careerLifecycle: oldLifecycle })).toBe(canonicalJson(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), week)))
+      expect(canonicalJson({ ...restState, careerLifecycle: oldLifecycle })).toBe(canonicalJson(withEmptyRecovery(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), week))))
       expect({ transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
         industryRetirements, transitionDue }).toEqual({ transitionBoundaryWeek: week,
         professionAnchors: old.state.talent.map(person => ({ personId: person.id, profession: person.role,

@@ -3,8 +3,9 @@ import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { expect } from 'vitest'
-import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV45 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV45, validateSaveV46, convertV46ToV45 } from '../src/core/save.js'
 import type { RivalBusiness } from '../src/core/hollywoodTypes.js'
+type HistoricalAccount = NonNullable<ReturnType<typeof validateSaveV45>['state']['hollywood']>['businesses'][number]['account']
 
 export const A8_STUDIO = 'studio-aca408ec-r02'
 export const A8_SCRIPT = 'script-0021'
@@ -22,7 +23,7 @@ type Provenance = {
     countBefore: number; countAfter: number; oldOutcome: string; candidateOutcome: string;
     actualSeatableTeamReachedChooser: boolean; allCashFreeViable: number;
     searchCounts: { affordable: number; unaffordable: number; viable: number };
-    accountBefore: RivalBusiness['account']; accountAfter: RivalBusiness['account'];
+    accountBefore: HistoricalAccount; accountAfter: HistoricalAccount;
     shelvingBefore: RivalBusiness['screenplayShelving']; shelvingAfter: RivalBusiness['screenplayShelving'];
     appendedIndustryReceipts: unknown[]; rngBefore: string; rngAfter: string;
     decisionInputSha256: string; candidates: A8Candidate[];
@@ -67,13 +68,29 @@ export function loadA8() {
   expect(imported.saveVersion).toBe(45)
   const live = migrateToLive(imported)
   expect(stableStringify(imported), 'migration preserves the imported predecessor').toBe(importedBytes)
-  expect(live.state).toEqual(historical.state) // Part A changes policy only; no save migration authority.
+  expect(live.saveVersion).toBe(46)
+  const expectedState = structuredClone(historical.state)
+  for (const owner of expectedState.hollywood!.businesses) {
+    Object.assign(owner, { costCutting: { version: 1, since: null } })
+    for (const period of owner.account.periods) Object.assign(period.movements, { facilityDemolitionRefund: 0 })
+  }
+  expect(live.state).toEqual(expectedState) // Comparison oracle only; never a producer/reader input.
   const stateBytes = stableStringify(live.state)
   const current = makeSave(live.state)
-  expect(current.saveVersion).toBe(45) // This is the pre-Save46 Part A checkpoint.
-  validateSaveV45(current)
-  expect(exportSave(current)).toBe(raw)
+  expect(current.saveVersion).toBe(46)
+  validateSaveV46(current)
+  const actualOld = convertV46ToV45(current)
+  validateSaveV45(actualOld)
+  expect(exportSave(actualOld)).toBe(raw)
+  expect(exportSave(importSave(exportSave(current)))).toBe(exportSave(current))
   expect(stableStringify(live.state)).toBe(stateBytes)
   expect(a8Raw()).toBe(raw)
   return { raw, state: live.state, provenance }
+}
+
+/** Expected migration adds zeros; no real refund is removed to satisfy comparison. */
+export function a8AccountInRecovery(account: HistoricalAccount): RivalBusiness['account'] {
+  return { ...structuredClone(account), periods: account.periods.map(period => ({ ...structuredClone(period),
+    movements: { ...period.movements, facilityDemolitionRefund: 0 },
+  })) }
 }

@@ -1,3 +1,4 @@
+import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // 654-T (record 653 NEXT653; plan T1 "independent test-author RED against accepted predecessor").
 // P14B.5 First Shared-Work Bond Core — the BRIDGE RED: family 11 (projection 48, THIN — forced by the closed
 // six-member `priorityOrder` enum, plan "Scope — bridge") and family 12 (the R-D5 natural-chain LEDGER, measured
@@ -384,7 +385,7 @@ describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, 
     // 1358-N P2: the live schema is projection57's (1358-E); projection56's id is OUTGOING_56.
     expect(SCHEMA_ID).toBe('sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253')
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
-    expect(LIVE_SAVE_VERSION).toBe(45)
+    expect(LIVE_SAVE_VERSION).toBe(46)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
@@ -471,7 +472,7 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
       ...old.state.talentMarket,
       cases: old.state.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' })),
     })
-    expect(actual.state.hollywood).toEqual(withEmptyScreenplayShelving(withRivalTermination(old.state)).hollywood)
+    expect(actual.state.hollywood).toEqual(withEmptyRecovery(withEmptyScreenplayShelving(withRivalTermination(old.state))).hollywood)
     expect(sha(raw)).toBe(CHECKPOINT.raw)
   })
 

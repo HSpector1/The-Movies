@@ -17,6 +17,7 @@ import type { StudioTechnology, TechnologyAccess } from './technologyTypes.js'
  * is never re-bought, and nothing about the commercial route moved.
  */
 export function considerRivalSoundPurchase(state: GameState, hollywood: HollywoodState, business: RivalBusiness): StudioTechnology {
+  if (business.costCutting.since !== null) return state.technology
   let technology = state.technology
   for (const entry of TECHNOLOGY_CATALOGUE) {
     technology = considerRivalAdoption({ ...state, technology, hollywood }, hollywood, business, entry)

@@ -184,7 +184,7 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
       .account.periods.reduce((sum, p) => sum + p.movements.researchCapacity, 0)
     expect(totalResearchCapacity).not.toBe(0) // the fact this refusal depends on is genuinely nonzero, not forged
     const envelope = save.makeSave(natural) // LIVE_SAVE_VERSION is 28 (P14A.1) — a real, validated SaveFileV28
-    expect(envelope.saveVersion).toBe(45)
+    expect(envelope.saveVersion).toBe(46)
     // 1361-N S9 (MASKED): `natural` is a p13a route ticked to week 20, past quarter 13, so its Power Ranking
     // archive holds a quarter and convertV45ToV44 refuses first (src/core/save.ts:10992, reason :10895). That
     // masks the Save44 romance refusal on relationship-edge-0 (convertV44ToV43, save.ts:10849; 1358-N S9). Under
@@ -216,7 +216,7 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
     // laboratoryCommitted receipt and the researchCapacity movement. Nothing is stripped. Measured in
     // 1358-X7t (probe F1-V27): the week-309 fixture admits a Laboratory, and the receipt arm refuses it.
     const staged = Object.values(V26_FIXTURES).map(fixture => withV27.migrateToV27(JSON.parse(load(fixture.file))))
-      .map(lifted => ({ ...lifted, state: admitRivalPlans(lifted.state).state }))
+      .map(lifted => ({ ...lifted, state: admitRivalPlans(lifted.state, 'pre-recovery').state }))
       .find(lifted => lifted.state.hollywood!.receipts.some(r => r.kind === 'laboratoryCommitted'))
     expect(staged, 'staging premise: a rival in a genuine V26 fixture can afford a Laboratory').toBeDefined()
     expect(() => save.convertV27ToV26(staged as never)).toThrow(/^migrateToV26: cannot downgrade SaveFileV27 or discard rival research \u2014 frozen save projection cannot discard authoritative V27 rival research state on receipt industry-event-\d+$/)
@@ -235,21 +235,25 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
     })).toThrow()
   })
 
-  it('an unknown saveVersion 46 is refused, naming the handled range "1 through 45 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
+  it('an unknown saveVersion 47 is refused, naming the handled range "1 through 46 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
     const json = load(V26_FIXTURES.soundMidDeployment.file)
     const v27 = withV27.migrateToV27(JSON.parse(json))
-    const forged = { ...v27, saveVersion: 46 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 45 only/)
+    const forged = { ...v27, saveVersion: 47 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 46 only/)
   })
 
   it('genuine usage of admitRivalPlans (not just an unused import — the same measured-risk guard tests/p13b-s6-save-v26.test.ts names for cancellationQuote): admitting a well-funded rival Laboratory books a real, nonzero researchCapacity movement — the same fact the natural-campaign downgrade-refused cases above observe emerging on their own', () => {
     const json = load(V26_FIXTURES.soundMidDeployment.file)
-    const genuine = (save.validateSave(JSON.parse(json) as never).state as GameState)
+    // Explicit historical V27 staging: public26 admission and real lift precede the producer.
+    const old = save.validateSaveV26(JSON.parse(json))
+    const lifted = save.migrateToV27(old)
+    expect(save.validateSaveV27(lifted)).toBe(lifted)
+    const genuine = lifted.state as unknown as GameState
     const { business } = bellwether(genuine)
     const week = genuine.market.tick
     const requiredReserve = rivalWeeklyOperatingCost(business, genuine.hollywood!, week) * business.policy.reserveWeeks
     expect(TUNING.RESEARCH_LABORATORY_CAPEX + requiredReserve).toBeGreaterThan(0)
-    const result = admitRivalPlans(genuine) // the ONE call to the new module — proves the import is not a dead specifier
+    const result = admitRivalPlans(genuine, 'pre-recovery') // the ONE call to the new module — proves the import is not a dead specifier
     expect(result).toBeDefined()
   })
 })

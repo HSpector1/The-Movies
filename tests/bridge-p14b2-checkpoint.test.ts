@@ -1,3 +1,4 @@
+import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
@@ -68,7 +69,7 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
     const addedFields = (promise: Record<string, unknown>) => ({ ...promise, supersededByPromiseId: null })
     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
       const governed = migrateToLive(importSave(before[slot]))
-      expect(governed.saveVersion).toBe(45)
+      expect(governed.saveVersion).toBe(46)
       const source = JSON.parse(before[slot])
       // 763-R8 (P14C.1, R-VERSION): the governed lift now also writes C.1's provenance
       // root and FLOORS every stored age against it — the first step in this chain that
@@ -101,7 +102,7 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
       // businesses, nothing else): the live writer stamps 43, and the lift adds the empty shelving root.
       // 1358-N S2: Save44 stamps 44; its edge fields add nothing here, as `relationships` stays [].
       // 1361-N S2+S5: Save45 stamps 45, and the lift adds the four empty P15 roots at each slot's own tick (convertV44ToV45, save.ts:10980-10984).
-      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 45, state: withEmptyScreenplayShelving({ ...withEmptyP15Roots(source.state, source.state.market.tick as number),
+      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 46, state: withEmptyRecovery(withEmptyScreenplayShelving({ ...withEmptyP15Roots(source.state, source.state.market.tick as number),
         relationships: [], promises: (source.state.promises as Record<string, unknown>[]).map(addedFields),
         talent: sourcePeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
         talentProvenance: buildTalentProvenance(sourcePeople, source.state.market.tick as number, 'legacy_age_anchor'),
@@ -112,7 +113,7 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
             kind: 'existing', recordedWeek: source.state.market.tick })),
           transitionEvaluations: [], professionChanges: [], industryRetirements: [], transitionDue: [] },
         talentMarket: { ...source.state.talentMarket, cases: sourceCases },
-        hollywood: { ...sourceHollywood, businesses: sourceBusinesses } }) })
+        hollywood: { ...sourceHollywood, businesses: sourceBusinesses } })) })
       expect(after[slot]).toBe(exportSave(governed))
     }
     expect(after.currentStateDigest).toBe(sha(after.currentSaveJson))

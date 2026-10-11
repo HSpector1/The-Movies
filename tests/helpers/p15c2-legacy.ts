@@ -13,13 +13,13 @@ import { expect } from 'vitest'
 import * as legacyModule from '../../src/core/campaignLegacy.js'
 import { LEGACY_BOUNDARY_WEEK, type LegacyFacts } from '../../src/core/campaignLegacy.js'
 import * as saveModule from '../../src/core/save.js'
-import { importSave, makeSave, migrateToLive, stableStringify, type SaveFile } from '../../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToLive, stableStringify, type SaveFile } from '../../src/core/save.js'
 import type { GameState } from '../../src/core/types.js'
 import { p15Rows } from './p15-roots.js'
 import { CAPTURE_DIRECTORY, captureName, CAPTURE_WEEKS } from './p15c2-route-l.js'
 
 export const B = LEGACY_BOUNDARY_WEEK // 6240 = 2040 · Week 1, derived from the calendar (Wave 1)
-export const STEP: number = saveModule.LIVE_SAVE_VERSION
+export const STEP: number = 45 // Frozen P15 introduction, independent of the current writer.
 
 // BUDGETS (1359-F2 item 2; 1359-D item 2). vitest 2.1.9 runs a synchronous body before it arms its timer
 // (@vitest/runner `withTimeout` races the timer against `fn()` after `fn()` returns), so a timeout
@@ -270,14 +270,27 @@ export function captureAt(accept: (state: GameState) => boolean, what: string): 
   return capture
 }
 
-// ── the save step, by the live constant ──────────────────────────────────────
+// ── the frozen P15 introduction step ──────────────────────────────────────
 function saveFn(name: string): (save: unknown) => Envelope {
   const fn = (saveModule as unknown as Record<string, unknown>)[name]
   if (typeof fn !== 'function') throw new Error(`RED: save.ts does not export ${name} (the Legacy's save step is ${STEP})`)
   return fn as (save: unknown) => Envelope
 }
+// Public migration admits its real input. For current saves it must refuse any
+// nonempty recovery authority before the frozen P15 converter can run.
+export const migrateIntoStep = (save: unknown): Envelope => saveFn(`migrateToV${STEP}`)(save)
+export function currentFromStep(save: Envelope) {
+  const before = stableStringify(save)
+  const current = migrateToLive(save)
+  expect(current.saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
+  const bytes = exportSave(current)
+  expect(exportSave(migrateToLive(current)), 'current migration remains a no-op').toBe(bytes)
+  expect(exportSave(current), 'current reader is neutral').toBe(bytes)
+  expect(stableStringify(save), 'the historical input remains unchanged').toBe(before)
+  return current
+}
 export const convertIntoStep = (save: unknown): Envelope => saveFn(`convertV${STEP - 1}ToV${STEP}`)(save)
-export const convertOutOfStep = (save: unknown): Envelope => saveFn(`convertV${STEP}ToV${STEP - 1}`)(save)
+export const convertOutOfStep = (save: unknown): Envelope => saveFn(`convertV${STEP}ToV${STEP - 1}`)(migrateIntoStep(save))
 export const migrateBelowStep = (save: unknown): Envelope => saveFn(`migrateToV${STEP - 1}`)(save)
 export const asSaveFile = (save: Envelope): SaveFile => save as unknown as SaveFile
 export const DOWNGRADE_REFUSAL = /cannot downgrade or discard the frozen 2040 Legacy/

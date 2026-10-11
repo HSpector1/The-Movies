@@ -13,7 +13,6 @@ import type { GameState } from '../src/core/types.js'
 import { advanceTo, exhaustedScientistPool, labId, owner, project, saveRoundTrip, SCI, SCI_END,
   scientistAt, scientistFilm, scientistSupply, scientistWorld } from './helpers/p14c2s-fixtures.js'
 import { scientistRaw } from './helpers/p14c3-fixtures.js'
-import { stripP15 } from './helpers/p15-roots.js'
 
 const record = (state: GameState) => retirementRecordFor(state, SCI)
 const bytes = (state: GameState) => JSON.stringify(makeSave(state))
@@ -254,7 +253,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     const state = scientistWorld()
     const before = bytes(state)
     const live = makeSave(state)
-    expect(live.saveVersion).toBe(45)
+    expect(live.saveVersion).toBe(46)
     const outgoing37 = migrateToV37(live) // governed lossless C.3 boundary, preserving every older root
     expect(live.state.careerLifecycle).toEqual({ ...outgoing37.state.careerLifecycle,
       transitionBoundaryWeek: state.market.tick,
@@ -265,7 +264,7 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     expect(old.saveVersion).toBe(36)
     expect(JSON.stringify(old.state)).toBe(JSON.stringify(outgoing37.state))
     const lifted = migrateToLive(old)
-    expect(lifted.saveVersion).toBe(45)
+    expect(lifted.saveVersion).toBe(46)
     expect(JSON.stringify(lifted.state)).toBe(JSON.stringify(live.state))
     expect(JSON.stringify(migrateToV37(lifted).state)).toBe(JSON.stringify(old.state))
     expect(bytes(state)).toBe(before)
@@ -275,76 +274,56 @@ describe('Scientist retirement persistence has an explicit semantic version boun
     const state = scientistAt('hardResearch', 566)
     expect(record(state)?.profession).toBe('scientist')
     const live = makeSave(state)
-    expect(live.saveVersion).toBe(45)
+    expect(live.saveVersion).toBe(46)
     const before = JSON.stringify(live)
     expect(importSave(before)).toEqual(live)
-    // 1361-N S9 (MASKED), F7 ruling 2: the recorded Power Ranking quarter makes
-    // convertV45ToV44 refuse first (src/core/save.ts:10989-10995; reason :10895).
-    // x2 measured this first guard in the family; the follow-up must confirm every call.
-    // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
-    // The genuine V37 Scientist refusal remains in the next assertion.
-    // V39 stays covered by p13b-s3-save-v23.test.ts (the V40 input refusal).
-    expect(() => migrateToV36(live)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
-    // 1361-N S9 (MASKED), F7 ruling 2: the recorded Power Ranking quarter makes
-    // convertV45ToV44 refuse first (src/core/save.ts:10989-10995; reason :10895).
-    // x2 measured this first guard in the family; the follow-up must confirm every call.
-    // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
-    // The genuine V37 Scientist refusal remains in the next assertion.
-    // V39 stays covered by p13b-s3-save-v23.test.ts (the V40 input refusal).
-    expect(() => migrateToV35(live)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
-    // The genuine V37 capture at week 670 holds the retired Scientist record of t-sci-00, and
-    // convertV37ToV36 refuses it by name before validation.
-    expect(() => convertV37ToV36(validateSaveV37(JSON.parse(scientistRaw())))).toThrow(/^migrateToV36: cannot downgrade SaveFileV37 or discard Scientist retirement \u2014 t-sci-00 holds a record that V36 does not support$/)
+    // Save46 recovery authority refuses before the older Power Ranking guard.
+    // Keep every real fact. The ranking controls use fresh current week13 saves:
+    // p15a2-power-ranking-archive.test.ts, rank-root-downgrade-recorded-quarter-refuses
+    // and rank-root-downgrade-frozen-builders-refuse (both measured PASS in P15r2).
+    expect(live.state.hollywood!.businesses.some(business => business.costCutting.since !== null)).toBe(true)
+    expect(live.state.hollywood!.businesses.some(business => business.account.periods.some(
+      period => period.movements.facilityDemolitionRefund !== 0))).toBe(true)
+    expect(live.state.hollywood!.receipts.some(receipt => receipt.kind === 'facilityDisposed')).toBe(true)
+    expect(() => migrateToV36(live)).toThrow(/^migrateToV45: cannot downgrade or discard recovery authority: costCutting\.since, facilityDemolitionRefund, facilityDisposed$/)
+    expect(JSON.stringify(live)).toBe(before)
+    expect(bytes(state)).toBe(before)
+    expect(() => migrateToV35(live)).toThrow(/^migrateToV45: cannot downgrade or discard recovery authority: costCutting\.since, facilityDemolitionRefund, facilityDisposed$/)
+    expect(JSON.stringify(live)).toBe(before)
+    expect(bytes(state)).toBe(before)
+    // Reach the Scientist boundary on the genuine V37 capture, preserving it too.
+    const historical = validateSaveV37(JSON.parse(scientistRaw()))
+    expect(historical.state.market.tick).toBe(670)
+    expect(historical.state.careerLifecycle.records.find(row => row.personId === SCI))
+      .toMatchObject({ profession: 'scientist', status: 'retired', retiredWeek: 670 })
+    const historicalBefore = JSON.stringify(historical)
+    expect(() => convertV37ToV36(historical)).toThrow(/^migrateToV36: cannot downgrade SaveFileV37 or discard Scientist retirement \u2014 t-sci-00 holds a record that V36 does not support$/)
+    expect(JSON.stringify(historical)).toBe(historicalBefore)
     expect(JSON.stringify(live)).toBe(before)
     expect(bytes(state)).toBe(before)
   })
 
   it('S10 frozen public34/35/36 readers still refuse the Scientist law, independently of the live tuning table', () => {
-    const state = scientistAt('hardIdle', 566)
-    expect(record(state)?.profession).toBe('scientist')
-    const before = bytes(state)
+    // Use the already-preserved genuine Save37 capture, not a live Save46
+    // continuation with real recovery/accounting/disposition authority. The
+    // source is historical; the old-shaped controls below remain synthetic.
+    const historical = validateSaveV37(JSON.parse(scientistRaw()))
+    expect(historical.saveVersion).toBe(37)
+    expect(historical.state.market.tick).toBe(670)
+    expect(historical.state.careerLifecycle.records.find(row => row.personId === SCI))
+      .toMatchObject({ profession: 'scientist', status: 'retired', announcedWeek: 618,
+        effectiveWeek: 670, retiredWeek: 670, extensionUsed: false, extendedFromWeek: null })
+    expect(historical.state.talentMarket.cases.filter(kase =>
+      kase.talentId === SCI && kase.variant === 'retirementExtension')).toEqual([])
+    const before = JSON.stringify(historical)
     for (const version of [34, 35, 36]) {
       // Reader-only schema mutations, NOT historical fixtures or governed
       // downgrades. No such object is played/exported. Each negative control
       // first validates the WHOLE old-shaped envelope without the Scientist row.
       const envelope = JSON.parse(before)
       envelope.saveVersion = version
-      for (const field of ['transitionBoundaryWeek', 'professionAnchors', 'transitionEvaluations',
-        'professionChanges', 'industryRetirements', 'transitionDue']) delete envelope.state.careerLifecycle[field]
-      // 1327-C sweep (C15): none of V34/V35/V36 ever had the relationship
-      // `sharedCompetitions` field (added V42) either — same reader-only shape
-      // adjustment as the careerLifecycle fields just above.
-      // 1358-N sweep (S7): nor the Save44 edge fields `competitions` and
-      // `romance` (convertV43ToV44, save.ts:10776-10781); same reader-only
-      // shape adjustment.
-      for (const edge of envelope.state.relationships) {
-        delete (edge as { sharedCompetitions?: unknown }).sharedCompetitions
-        delete (edge as { competitions?: unknown }).competitions
-        delete (edge as { romance?: unknown }).romance
-      }
-      // 1327-C sweep (C15): nor the `firstTakeSubjects` root (added V40) —
-      // measured non-empty on this world (real first-take history), but this
-      // block is a reader-only shape control, not a fidelity-preserving
-      // reconstruction (see comment above: "No such object is played/
-      // exported"), exactly like the unconditional `extensionUsed`/`variant`
-      // deletions above — V34/35/36 never had this root at all.
-      delete (envelope.state as { firstTakeSubjects?: unknown }).firstTakeSubjects
-      // 1361-N sweep (S7): nor the four Save45 P15 roots (powerRanking, p15Sequence, sharedMarket,
-      // campaignLegacy; V45-only). The frozen V34 chain refuses 'unknown field "powerRanking"'
-      // (src/core/save.ts:9958, :4185; m2-core.txt:402321) on the whole-envelope control below. Same
-      // reader-only shape adjustment as the deletions above. The RED helper's one list names the
-      // roots (1361-F7 ruling 4).
-      // 1361-F8 ruling 1: reader-only control; P15 roots stripped unconditionally
-      envelope.state = stripP15(envelope.state)
-      // 1327-C sweep (C15): nor the `termination` rival-finance movement key
-      // (added V41 to `RivalMoneyKind`) — same reader-only shape adjustment.
-      // 1344-N sweep (S7): nor the `screenplayShelving` root on each rival
-      // business (added V43, save.ts:10678-10686) — same reader-only shape
-      // adjustment.
-      for (const business of envelope.state.hollywood.businesses) {
-        for (const period of business.account.periods) delete (period.movements as { termination?: unknown }).termination
-        delete (business as { screenplayShelving?: unknown }).screenplayShelving
-      }
+      // V37 shares V36's shape. Only the established older-version fields
+      // need changing: V36 extensions/case variants and V35 cohort receipts.
       if (version < 36) {
         for (const row of envelope.state.careerLifecycle.records) {
           delete row.extensionUsed
@@ -356,17 +335,21 @@ describe('Scientist retirement persistence has an explicit semantic version boun
       const control = structuredClone(envelope)
       control.state.careerLifecycle.records = control.state.careerLifecycle.records.filter(
         (row: { personId: string }) => row.personId !== SCI)
+      const controlBefore = JSON.stringify(control)
+      const envelopeBefore = JSON.stringify(envelope)
       expect(() => importSave(JSON.stringify(control)), `V${version} whole-envelope shape control`).not.toThrow()
       expect(() => importSave(JSON.stringify(envelope)), `V${version} is frozen film-only law`).toThrow(/Scientist record/)
+      expect(JSON.stringify(control)).toBe(controlBefore)
+      expect(JSON.stringify(envelope)).toBe(envelopeBefore)
     }
-    expect(bytes(state)).toBe(before)
+    expect(JSON.stringify(historical)).toBe(before)
   })
 
   it('S10 amended live validator still refuses age, provenance, notice, cap, extension and exact-key corruption independently', () => {
     const state = scientistAt('hardResearch', 566)
     expect(record(state)?.profession).toBe('scientist')
     const live = makeSave(state)
-    expect(live.saveVersion).toBe(45)
+    expect(live.saveVersion).toBe(46)
     const before = JSON.stringify(live)
     type MutableEnvelope = { state: { talentProvenance: { rows: Record<string, unknown>[] },
       careerLifecycle: { records: Record<string, unknown>[] } } }

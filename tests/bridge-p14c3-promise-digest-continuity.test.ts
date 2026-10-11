@@ -1,3 +1,4 @@
+import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // 955/960: bridge-owned continuation and historical journal cases moved intact
 // from the core suite. Root tsconfig excludes bridge*.test.ts; bridge typechecks
 // own the .ts import graph. Small fixture helpers are duplicated without bridge
@@ -171,7 +172,7 @@ describe('955 historical preservation and interim projection52 journal authority
       const current = migrateToLive(old)
       const { transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
         industryRetirements, transitionDue, ...oldLifecycle } = current.state.careerLifecycle
-      const expectedOld = withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state))))), week)
+      const expectedOld = withEmptyRecovery(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state))))), week))
       expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(expectedOld))
       expect({ transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
         industryRetirements, transitionDue }).toEqual({ transitionBoundaryWeek: week,
@@ -181,7 +182,7 @@ describe('955 historical preservation and interim projection52 journal authority
         transitionDue: old.state.hollywood === null ? [] : old.state.careerLifecycle.records
           .filter(row => row.status === 'retired').map(row => ({ personId: row.personId, week: week + 1 }))
           .sort((a, b) => a.personId < b.personId ? -1 : a.personId > b.personId ? 1 : 0) })
-      expect(current.saveVersion).toBe(45)
+      expect(current.saveVersion).toBe(46)
       expect(next[slot]).toBe(exportSave(current))
       expect(next[digest]).toBe(sha(exportSave(current)))
     }

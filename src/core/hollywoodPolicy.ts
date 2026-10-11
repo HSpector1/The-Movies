@@ -1,3 +1,4 @@
+import { terminationCost, weeklySalary } from './employment.js'
 import { computeForecast, forecastCenters } from './forecast.js'
 import { marketingCapacityForInputs, marketingMenuFromCapacity } from './marketingMenu.js'
 import { resolveShape } from './shape.js'
@@ -33,16 +34,20 @@ type IndustryPackageOptions={
   seed:string;key:string;cashAvailable:number;weeklyCost:number;lockScreenplay:boolean
   /** P14B.4 seating preference (plan :215-236): bound-open member masks (promises.ts promisedCastMasks); absent = no preference. */
   promisedMasks?:ReadonlyMap<string,readonly CastSlot[]>
+  /** 1363-F ruling 10: only a refused locked-screenplay re-search opts into extra forecasts. */
+  diagnoseUnaffordableViability?:boolean
 }
 /** P14D.1 (1344-A §3.1): the same bounded search, reporting how many candidates the cash gate skipped
  * (unaffordable), how many it admitted (affordable) and how many of those passed the viability gate (viable).
- * A refusal with unaffordable > 0 is cash-blocked; one with every candidate affordable is an economic rejection. */
+ * The opt-in locked-screenplay diagnostic also counts skipped candidates that pass the same viability gate.
+ * Those candidates never enter the affordable counts or compete for the choice. */
 export function searchIndustryPackages(input:ReceptionInputs,policy:RivalBusiness['policy'],options:IndustryPackageOptions):{
-  choice:IndustryPackageChoice|null;affordable:number;unaffordable:number;viable:number} {
+  choice:IndustryPackageChoice|null;affordable:number;unaffordable:number;viable:number;unaffordableViable?:number} {
   const planning=perceivedPlanningInputs(input)
   const actors=[planning.cast.lead,planning.cast.antagonist,planning.cast.support]
   let best:IndustryPackageChoice|null=null;let bestScore=-Infinity;let bestBenefit=0
-  let affordable=0,unaffordable=0,viable=0
+  let affordable=0,unaffordable=0,viable=0,unaffordableViable=0
+  const diagnoseUnaffordableViability=options.lockScreenplay&&options.diagnoseUnaffordableViability===true
   const masks=options.promisedMasks
   // Benefit = DISTINCT beneficiaries whose assigned slot satisfies their mask (the cast is distinct by construction).
   const benefitOf=(cast:ReceptionInputs['cast']):number=>masks===undefined?0:CAST_SLOTS.filter(slot=>masks.get(cast[slot].id)?.includes(slot)===true).length
@@ -59,8 +64,11 @@ export function searchIndustryPackages(input:ReceptionInputs,policy:RivalBusines
       const negative=Math.round(required*scale*policy.negativeScale)
       const base={...inp,budget:{negative,marketing:0}}
       for(const marketing of marketingMenuFromCapacity(marketingCapacityForInputs(base,true))) {
-        if(negative+marketing>options.cashAvailable){unaffordable++;continue}
-        affordable++
+        const exceedsCash=negative+marketing>options.cashAvailable
+        if(exceedsCash) {
+          unaffordable++
+          if(!diagnoseUnaffordableViability)continue
+        } else affordable++
         const candidate={...base,budget:{negative,marketing}}
         const forecast=computeForecast(candidate,{seed:options.seed,productionId:options.key,directorId:inp.director.id,releasedFilms:[],concepts:[inp.concept]},true,true)
         const expectedIncrementalContribution=forecast.expectedTotal*TUNING.STUDIO_RENTAL_BLENDED-negative-marketing
@@ -71,15 +79,64 @@ export function searchIndustryPackages(input:ReceptionInputs,policy:RivalBusines
         // Preference is a small cost of departing from the authored spend posture; outcomes remain uncertain.
         const score=expectedOperatingMargin-Math.abs(marketing/Math.max(negative,1)-policy.marketingRatio)*TUNING.HOLLYWOOD_POLICY_PREFERENCE_COST
         if(options.lockScreenplay&&score<=holdOperatingMargin)continue
+        // Score the skipped package only for diagnosis; it cannot become a greenlight choice.
+        if(exceedsCash){unaffordableViable++;continue}
         viable++
         // Maximize benefit among candidates that passed the cash and viability gates, then the ordinary score, then the inherited strict-greater BILLINGS order.
         if(benefit>bestBenefit||(benefit===bestBenefit&&score>bestScore)){bestBenefit=benefit;bestScore=score;best={shape,promise:inp.promise,budget:{negative,marketing},cast:{lead:inp.cast.lead.id,antagonist:inp.cast.antagonist.id,support:inp.cast.support.id},expectedOperatingMargin,expectedIncrementalContribution,holdOperatingMargin}}
       }
     }
   }
+  if(diagnoseUnaffordableViability)return {choice:best,affordable,unaffordable,viable,unaffordableViable}
   return {choice:best,affordable,unaffordable,viable}
 }
 /** Bounded legal menu, never a winning-film oracle. The candidate set has a fixed ceiling. */
 export function chooseIndustryPackage(input:ReceptionInputs,policy:RivalBusiness['policy'],options:IndustryPackageOptions):IndustryPackageChoice|null {
   return searchIndustryPackages(input,policy,options).choice
+}
+
+/** Actual evidence from one scheduled rival decision, after its work decisions. */
+export type RivalCostCuttingEntryFacts = {
+  decisionRan: boolean; productionCount: number; runCount: number
+  greenlit: boolean; commissioned: boolean; hasScriptWork: boolean
+  cash: number; reserve: number
+  commissionStop: 'none' | 'unaffordablePackage' | 'missingTeam' | 'missingWriter'
+    | 'fullIndex' | 'hold' | 'busyWriter' | 'economicRejection'
+  unfilledFilmSlotForCash: boolean
+  renewalRefusedForCash: boolean; unrelatedScientistSlotRefusedForCash: boolean
+  indexedOutcomes: readonly ('cashBlocked' | 'economicRejection' | 'staffingBlocked')[]
+}
+
+/** 1363-F: loss of work and a cash-closed commissioning path must coincide. */
+export function rivalCostCuttingEntry(facts: RivalCostCuttingEntryFacts): boolean {
+  if (!facts.decisionRan || facts.productionCount !== 0 || facts.runCount !== 0
+    || facts.greenlit || facts.commissioned || facts.hasScriptWork) return false
+  if (facts.cash < facts.reserve) return true
+  if (facts.commissionStop === 'unaffordablePackage') return true
+  if (facts.commissionStop === 'missingTeam' || facts.commissionStop === 'missingWriter') {
+    return facts.unfilledFilmSlotForCash
+  }
+  // A renewal refusal leaves its employee in place. An unrelated Scientist
+  // vacancy cannot explain a film slot. Neither substitutes for slot evidence.
+  return facts.commissionStop === 'fullIndex' && facts.indexedOutcomes.length > 0
+    && facts.indexedOutcomes.every(outcome => outcome === 'cashBlocked'
+      || (outcome === 'staffingBlocked' && facts.unfilledFilmSlotForCash))
+}
+
+export type RivalCostCuttingReleaseFacts = {
+  week: number; endWeekExclusive: number; annualSalary: number
+  cash: number; weeklyOperatingCost: number; reserveWeeks: number
+  productionSeat: boolean; writingSeat: boolean; unreleasedResearchSeat: boolean; openPromise: boolean
+}
+
+/** R3 protections and shared termination charge, plus 1363-F's runway rule.
+ * The caller supplies fresh cash/cost for each employee in employment order. */
+export function rivalCostCuttingReleaseAllowed(facts: RivalCostCuttingReleaseFacts): boolean {
+  if (facts.productionSeat || facts.writingSeat || facts.unreleasedResearchSeat || facts.openPromise) return false
+  if (!(facts.endWeekExclusive - facts.week > TUNING.HIRING_TERMINATION_CAP_WEEKS)) return false
+  const charge = terminationCost(facts, facts.week)
+  const saving = weeklySalary(facts.annualSalary) + TUNING.OVERHEAD_PER_EMPLOYEE
+  const reserveAfterRelease = (facts.weeklyOperatingCost - saving) * facts.reserveWeeks
+  return facts.cash - charge >= reserveAfterRelease
+    && charge * facts.weeklyOperatingCost <= facts.cash * saving
 }

@@ -52,6 +52,13 @@ Sequencing decision remains: do not publish/fetch during a frozen qualification 
 - R8 lane delivered `MANIFEST.json` at 20:14 CDT and is finalizing its REPORT against Codex's pairing. The AR mapping workflow is still running (6 of 8 maps complete at the interruption); `AR-BUILD-PLAN.md` remains absent until it finishes and is reviewed.
 - Disk at this checkpoint: ~2.67 GiB free; `npm cache clean --force` reduced `~/.npm/_cacache` from 215 MB to 65 MB (remaining entries are root-owned and were left alone). Headroom for the heavy lane comes from deleting the six clones after their patches are captured and from swap shrinking now that load is ~2.
 
+### R8 landed on the branch, 2026-10-10 20:55 CDT (first production source change of the continuation)
+
+- **Landed:** the reviewed 1363 R8 recovery source + 14-file kit, 188 files, zero adaptations, on predecessor `1bc39fab` (src `13880d9b`). `LIVE_SAVE_VERSION` is now **46**. Evidence: `E/1370-ar-1363-r8-landing-20261010/` (landing gate under Node 20.20.2 with the formal capture env vars: tsc root/ui/bridge 0, generators 0, kit 147/147, UI 45/45, recovery-own 210/1, changed-files 60/23; **all 24 gate failures SAME identity vs the 6510c971 baseline, 0 NEW**; four CHANGED diagnostics named and carried as unexplained). The specialist's full 167-file attribution (109 SAME / 4 CHANGED / 0 NEW) matched Codex's independent pairing exactly.
+- **Order deviation recorded:** the plan lands R8 after 1363 causal admission; under the Owner's "just go make it happen" order the parent landed it first on the wip branch. The pre-R8 tree stays at `1bc39fab`; `main` promotion still waits for the 1363/1367-O2 closure conditions. This is not ledger admission.
+- Specialist deliveries now complete: **founding** (1365 held commit applied, b-r2 guard removed, all 45 declared REDs closed 130/130, retune 101/101, 1364 invariants 171/171, Save46 behind one constant with a 46→47 recipe) and **P17** (31 files; Codex findings 4/5a/5b fixed with REDs; six P17 files 80/80; generators 0; not stacked on P16; `P17_SAVE_VERSION` constants with a renumber recipe). Both report 11 `TS5097` diagnostics under `bridge/*.ts` in their clones (Node 22 shells); the production landing under pinned Node 20 shows none — verify at each landing rather than trust either.
+- Next: founding rebases its clone onto the new HEAD (Save47, migration from R8's 46, Node 20 PATH pinned for its gates) and redelivers; parent runs the post-R8 full core suite as the next predecessor baseline; P15B → P16 → P17 → P18 follow in order, each rebased by its own specialist and adversarially reviewed before landing.
+
 ## Read this first
 
 The game is **not finished through P18**. P16 is incomplete; P17 and P18 production integration remains downstream. Verification infrastructure was repaired before Claude prepared the new isolated gameplay drafts. Neither effort has advanced the published production gameplay source yet. Do not mistake archived reviews, isolated tests or documentation commits for completion of the integrated systems.
@@ -470,15 +477,30 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-10 20:13 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
-- Branch: `wip/headless-program-20260916-ts` @ `6a4d5ca176ca6da70824d4faea0da0e1fb3393ba`
+- Stamped: 2026-10-10 20:54 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
+- Branch: `wip/headless-program-20260916-ts` @ `1bc39fab4fca9e55228c48c8e390f68d182d2674`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 1
+- Uncommitted files: 189
   - `M HANDOFF.md`
+  - `M  src/core/employment.ts`
+  - `M  src/core/hollywood.ts`
+  - `M  src/core/hollywoodPolicy.ts`
+  - `M  src/core/hollywoodTick.ts`
+  - `M  src/core/hollywoodTypes.ts`
+  - `M  src/core/hollywoodValidation.ts`
+  - `M  src/core/index.ts`
+  - `M  src/core/productionIdentity.ts`
+  - `M  src/core/rivalResearch.ts`
+  - `M  src/core/save.ts`
+  - `M  src/core/talentMarket.ts`
+  - `M  src/core/technologyRival.ts`
+  - `M  src/core/types.ts`
+  - `A  tests/1368-rival-writing-term.test.ts`
+  - ...
 - Last commits:
+  - 1bc39fab docs(handoff): Claude resumes as integrator after Codex review; preserve core baseline identity and failure list
   - 6a4d5ca1 docs: review Claude drafts, preserve source backups and P16 repair
   - f7d0dc0f docs(handoff): record Claude in-flight specialist lanes and sequencing decision
   - 6510c971 docs(handoff): Claude takeover; record Owner approval of fresh baseline and full-autonomy order
   - 9b67d768 docs: prepare detailed Claude handoff and preserve late AQ evidence
-  - d3072005 docs: preserve Git guard repair and preservation diagnostic
 <!-- AUTO:END -->

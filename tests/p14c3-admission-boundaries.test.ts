@@ -20,7 +20,7 @@ import { FOCUS, chosen, clone, envelope38, migrated, obligationControls, person,
 type Family = 'P1' | 'P2'
 function admitted(state: GameState): void {
   const saved = envelope38(state)
-  expect(saveApi('validateSaveV45')(saved)).toBe(saved)
+  expect(saveApi('validateSaveV46')(saved)).toBe(saved)
 }
 function youngActor(state: GameState): { state: GameState; id: string } {
   const next = applyActions(state, [{ kind: 'createTalent', talent: { name: '1001 actual young quote control',

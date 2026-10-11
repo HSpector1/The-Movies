@@ -193,7 +193,7 @@ function liftsLosslessly(raw: string, save: V30Save) {
 // ─────────────────────────────────────────────────────────────────────────────────────────────────────
 describe('P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep)', () => {
   it('LIVE_SAVE_VERSION is the literal 45 the live writer stamps (stale title corrected post-C.2b and again for Save43; body always asserted the live constant); 30 is the OUTGOING identity (R-VERSION class, re-expressed by 735-T after P14B.7 landed V32)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(45)
+    expect(LIVE_SAVE_VERSION).toBe(46)
     expect(V30_AUTHORITY.saveVersion).toBe(30)
   })
 

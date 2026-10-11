@@ -23,7 +23,7 @@ export const RIVAL_RESEARCH_MONEY_KINDS: readonly RivalResearchMoneyKind[] =
   ['researchSpend','researchCapacity','technologyRestoration','technologyRefund']
 export const RIVAL_MONEY_KINDS: readonly RivalMoneyKind[] = ['capacity','signing','payroll','overhead',
   'facilityOpex','development','production','marketing','studioRevenue','technologyAdoption',
-  ...RIVAL_RESEARCH_MONEY_KINDS,'termination']
+  ...RIVAL_RESEARCH_MONEY_KINDS,'termination','facilityDemolitionRefund']
 
 export function uniqueIdentity(base: string, taken: Set<string>): string {
   let id = base
@@ -32,17 +32,25 @@ export function uniqueIdentity(base: string, taken: Set<string>): string {
   return id
 }
 
-export function newFinancePeriod(week: number, opening: number): RivalFinancePeriod {
+/** Explicit historical admission uses the V27 money roster; ordinary callers are live. */
+export type RivalFinanceEra = 'live' | 'research-v27'
+
+export function newFinancePeriod(week: number, opening: number, era: RivalFinanceEra = 'live'): RivalFinancePeriod {
+  const kinds = era === 'live' ? RIVAL_MONEY_KINDS
+    : RIVAL_MONEY_KINDS.filter(kind => kind !== 'termination' && kind !== 'facilityDemolitionRefund')
   return { fromWeek: week, throughWeek: week, opening, closing: opening,
-    movements: Object.fromEntries(RIVAL_MONEY_KINDS.map(kind => [kind,0])) as RivalFinancePeriod['movements'] }
+    movements: Object.fromEntries(kinds.map(kind => [kind,0])) as RivalFinancePeriod['movements'] }
 }
 
 /** Local working account only. Every committed movement reconciles its period. */
-export function moveRivalMoney(account: RivalAccount, kind: RivalMoneyKind, amount: number, week: number): void {
+export function moveRivalMoney(account: RivalAccount, kind: RivalMoneyKind, amount: number, week: number, era: RivalFinanceEra = 'live'): void {
+  if (era === 'research-v27' && (kind === 'termination' || kind === 'facilityDemolitionRefund')) {
+    throw new Error('V27 rival finance does not admit later movement kinds')
+  }
   if (!Number.isFinite(amount) || !Number.isFinite(account.cash + amount)) throw new Error('Nonfinite rival money')
   let period = account.periods[account.periods.length-1]!
   if (Math.floor(week/52) !== Math.floor(period.fromWeek/52)) {
-    period = newFinancePeriod(week,account.cash)
+    period = newFinancePeriod(week,account.cash,era)
     account.periods.push(period)
   }
   account.cash += amount
@@ -204,6 +212,7 @@ export function enterRival(state: GameState, studioId: string, origin: 'fresh' |
     standing:startingStanding(template,authored), operations:{mode:'managed',workflows:[],facilities:rivalStartingFacilities(studioId)}, development:initialManagedScriptDevelopment(), productions:[], activeScriptOrdinals:[], activeRunFilmOrdinals:[], releaseAuthority:initialReleaseAuthority(),
     runs:[], projects:[], nextDecisionWeek:week+1,
     screenplayShelving:{version:1,rejections:[],shelved:[],commissionHoldUntilWeek:0},
+    costCutting:{version:1,since:null},
     policy:{version:1,affinities:Object.fromEntries(GENRE_ORDER.map(g => [g,template.anchors.includes(g)?5:1])) as Record<Genre,number>,
       negativeScale:template.negativeScale,marketingRatio:template.marketingRatio,reserveWeeks:template.reserveWeeks}}
   const capex = TUNING.BASELINE_DEVELOPMENT_CASTING_CAPEX + TUNING.STAGE_STANDARD_CAPEX +

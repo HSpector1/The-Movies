@@ -23,7 +23,8 @@
 // objects, except the internals the weekly tick calls with its OWN clones.
 
 import { moveRivalMoney, rivalWeeklyOperatingCost } from './hollywood.js'
-import { blueprintById, physicalQuoteFingerprint } from './placement.js'
+import type { RivalFinanceEra } from './hollywood.js'
+import { blueprintById, facilityDemolitionRefund, physicalQuoteFingerprint } from './placement.js'
 import { assignSeat, beginProject, studioContext, advanceRivalResearchWeek } from './technology.js'
 import { TECHNOLOGY_CATALOGUE, technologyEntry } from './technologyCatalogue.js'
 import { TUNING } from './tuning.js'
@@ -112,6 +113,7 @@ function interests(state: GameState, business: RivalBusiness, week: number): rea
  */
 export function rivalScientistDemand(state: GameState, h: HollywoodState, business: RivalBusiness,
   talent: readonly Talent[], week: number): number {
+  if (business.costCutting.since !== null) return 0
   const context = studioContext({ ...state, hollywood: h, talent: talent as Talent[] }, business.studioId)
   const capacity = context.facilities.reduce((sum, f) => f.capability === 'laboratory' ? sum + f.capacity : sum, 0)
   if (capacity === 0) return 0
@@ -127,7 +129,7 @@ export function rivalScientistDemand(state: GameState, h: HollywoodState, busine
  * the caller's working copies and ARE mutated, exactly as the rest of the weekly
  * industry step works). Returns the plan root it produced.
  */
-function admitFor(state: GameState, h: HollywoodState, business: RivalBusiness, plans: StudioPhysicalPlans, week: number): StudioPhysicalPlans {
+function admitFor(state: GameState, h: HollywoodState, business: RivalBusiness, plans: StudioPhysicalPlans, week: number, financeEra: RivalFinanceEra = 'live'): StudioPhysicalPlans {
   let root = plans
   const reserve = rivalWeeklyOperatingCost(business, h, week) * business.policy.reserveWeeks
   const admit = (work: PhysicalPlanWork, facilityId: string | null): boolean => {
@@ -147,7 +149,7 @@ function admitFor(state: GameState, h: HollywoodState, business: RivalBusiness, 
       startedPlacementId: null, commitReceipt: { week, fingerprint: quote.fingerprint, cost: quote.cost },
     }
     root = { ...root, plans: [...root.plans, plan] }
-    moveRivalMoney(business.account, 'researchCapacity', -quote.cost, week)
+    moveRivalMoney(business.account, 'researchCapacity', -quote.cost, week, financeEra)
     if (facilityId !== null) appendReceipt(h, { week, studioId: business.studioId, kind: 'laboratoryCommitted', planId: id, facilityId })
     return true
   }
@@ -197,13 +199,18 @@ function workingBusiness(business: RivalBusiness): RivalBusiness {
  * is modified. `history` mirrors `admitPhysicalPlans`'s shape and is always empty:
  * `studioHistory` is the PLAYER's record, and a rival writes no row in it.
  */
-export function admitRivalPlans(state: GameState): { state: GameState; history: readonly StudioHistoryDraft[] } {
+export function admitRivalPlans(state: GameState, era: 'recovery' | 'pre-recovery' = 'recovery'): { state: GameState; history: readonly StudioHistoryDraft[] } {
   const source = state.hollywood
   if (!source || source.businesses.length === 0) return { state, history: [] }
   const h: HollywoodState = { ...source, receipts: [...source.receipts], businesses: source.businesses.map(workingBusiness) }
   const week = state.market.tick
   let plans = state.physicalPlans
-  for (const business of h.businesses) plans = admitFor({ ...state, hollywood: h }, h, business, plans, week)
+  for (const business of h.businesses) {
+    // Explicit pre-recovery staging is the existing V27 research admission seam.
+    // It selects that money roster; no era is inferred from missing live fields.
+    if (era === 'recovery' && business.costCutting.since !== null) continue
+    plans = admitFor({ ...state, hollywood: h }, h, business, plans, week, era === 'pre-recovery' ? 'research-v27' : 'live')
+  }
   if (plans === state.physicalPlans && h.receipts.length === source.receipts.length) return { state, history: [] }
   return { state: { ...state, hollywood: h, physicalPlans: plans }, history: [] }
 }
@@ -211,6 +218,7 @@ export function admitRivalPlans(state: GameState): { state: GameState; history: 
 /** The admission step the weekly industry tick runs against its own clones. */
 export function admitRivalPlansInWeek(state: GameState, h: HollywoodState, business: RivalBusiness,
   plans: StudioPhysicalPlans, week: number): StudioPhysicalPlans {
+  if (business.costCutting.since !== null) return plans
   return admitFor(state, h, business, plans, week)
 }
 
@@ -224,7 +232,8 @@ export function advanceRivalResearch(state: GameState, h: HollywoodState, busine
   talent: readonly Talent[], week: number): GameState['technology'] {
   let technology = state.technology
   const working = (): GameState => ({ ...state, hollywood: h, technology, talent: talent as Talent[] })
-  for (const row of interests(state, business, week)) {
+  // Existing active projects keep advancing below. Only new seats/starts stop.
+  for (const row of business.costCutting.since === null ? interests(state, business, week) : []) {
     const context = studioContext(working(), business.studioId)
     const laboratories = context.facilities.filter(f => f.capability === 'laboratory' && context.instrumentOperational(f.id, row.technologyId))
     if (laboratories.length === 0) continue
@@ -284,6 +293,10 @@ export function completeRivalPlans(state: GameState): GameState {
       if (plan.work.blueprintId === LABORATORY_BLUEPRINT_ID) {
         const commitment = h.receipts.find(r => r.kind === 'laboratoryCommitted' && r.planId === plan.id)
         if (commitment?.kind !== 'laboratoryCommitted') throw new Error(`Rival plan ${plan.id} has no commitment receipt to name its Laboratory`)
+        // The paid plan remains started forever; a lawful tombstone makes its
+        // already completed body terminal rather than a missing body to rebuild.
+        if (h.receipts.some(r => r.kind === 'facilityDisposed' && r.studioId === business.studioId
+          && r.planId === plan.id && r.facilityId === commitment.facilityId)) continue
         if (operations.facilities.some(f => f.id === commitment.facilityId)) continue
         operations = { ...operations, facilities: [...operations.facilities, {
           id: commitment.facilityId, name: 'Research Laboratory', capability: 'laboratory',
@@ -311,4 +324,284 @@ export function completeRivalPlans(state: GameState): GameState {
     changed = true
   }
   return changed ? { ...state, hollywood: h } : state
+}
+
+export type RivalFacilityDisposalEligibility =
+  | { eligible: true; planId: string; refund: number }
+  | { eligible: false; reason: string; subjectId: string }
+
+/** 1363-A2: only an operational, paid, bare laboratory may be disposed.
+ * Every retained dependency is inspected through its actual typed identity. */
+export function rivalFacilityDisposalEligibility(state: GameState, studioId: string,
+  facilityId: string): RivalFacilityDisposalEligibility {
+  const no = (reason: string, subjectId = facilityId): RivalFacilityDisposalEligibility =>
+    ({ eligible: false, reason, subjectId })
+  const h = state.hollywood
+  if (h?.playerStudioId === studioId) return no('not-rival', studioId)
+  const business = h?.businesses.find(b => b.studioId === studioId)
+  if (!h || !business) return no('unknown-studio', studioId)
+  if (h.receipts.some(r => r.kind === 'facilityDisposed' && r.studioId === studioId && r.facilityId === facilityId)) {
+    return no('already-disposed')
+  }
+  if (h.businesses.some(b => b.studioId !== studioId && b.operations.facilities.some(f => f.id === facilityId))
+    || h.receipts.some(r => (r.kind === 'laboratoryCommitted' || r.kind === 'facilityDisposed')
+      && r.studioId !== studioId && r.facilityId === facilityId)) return no('foreign-facility')
+  if (['development', 'stage', 'scenery', 'post'].some(suffix => facilityId === `${studioId}:${suffix}`)) {
+    return no('core-facility')
+  }
+  const facility = business.operations.facilities.find(f => f.id === facilityId)
+  const commitments = h.receipts.filter((r): r is Extract<IndustryReceipt, { kind: 'laboratoryCommitted' }> =>
+    r.kind === 'laboratoryCommitted' && r.studioId === studioId && r.facilityId === facilityId)
+  if (!facility && commitments.length === 0) return no('unknown-facility')
+  if (business.costCutting.since === null) return no('not-cutting', studioId)
+  if (commitments.length !== 1) return no('body-provenance')
+  const commitment = commitments[0]!
+  const plans = state.physicalPlans.plans.filter(plan => plan.studioId === studioId)
+  const bodies = plans.filter(plan => plan.id === commitment.planId)
+  if (bodies.length !== 1) return no('body-provenance', commitment.planId)
+  const body = bodies[0]!
+  if (body.work.kind !== 'placement' || body.work.blueprintId !== LABORATORY_BLUEPRINT_ID) {
+    return no('ineligible-blueprint', body.id)
+  }
+  const blueprint = blueprintById(LABORATORY_BLUEPRINT_ID)!
+  const refund = facilityDemolitionRefund(blueprint)
+  const quote = rivalQuote(body.work)
+  if (body.status !== 'started' || body.commitReceipt === null || body.startedPlacementId !== null
+    || body.commitReceipt.week !== commitment.week || body.commitReceipt.cost !== quote.cost
+    || body.commitReceipt.fingerprint !== quote.fingerprint || body.approvedQuote.fingerprint !== quote.fingerprint
+    || body.approvedQuote.cost !== quote.cost || body.approvedQuote.buildWeeks !== quote.buildWeeks
+    || !(refund < body.commitReceipt.cost)) return no('body-provenance', body.id)
+  const operational = h.receipts.filter(r => r.kind === 'laboratoryOperational'
+    && r.studioId === studioId && r.facilityId === facilityId)
+  if (!facility || operational.length === 0 || state.market.tick < body.commitReceipt.week + quote.buildWeeks) {
+    return no('not-operational')
+  }
+  if (facility.capability !== 'laboratory' || operational.length !== 1
+    || operational[0]!.week !== body.commitReceipt.week + quote.buildWeeks) return no('body-provenance', body.id)
+
+  const dependency = rivalFacilityDependencyRefusal(state, business, facilityId, body)
+  if (dependency) return dependency
+  return { eligible: true, planId: body.id, refund }
+}
+
+/** Atomic public mutation: cloned money owner, one body removal, one tombstone. */
+export function disposeRivalFacility(state: GameState, studioId: string, facilityId: string): GameState {
+  const eligibility = rivalFacilityDisposalEligibility(state, studioId, facilityId)
+  if (!eligibility.eligible) {
+    throw new Error(`rival facility disposal: ${eligibility.reason} (${eligibility.subjectId})`)
+  }
+  const source = state.hollywood!
+  const index = source.businesses.findIndex(b => b.studioId === studioId)
+  const business = workingBusiness(source.businesses[index]!)
+  business.operations = { ...business.operations,
+    facilities: business.operations.facilities.filter(f => f.id !== facilityId) }
+  const h: HollywoodState = { ...source, businesses: [...source.businesses], receipts: [...source.receipts] }
+  h.businesses[index] = business
+  moveRivalMoney(business.account, 'facilityDemolitionRefund', eligibility.refund, state.market.tick)
+  appendReceipt(h, { kind: 'facilityDisposed', week: state.market.tick, studioId, facilityId,
+    planId: eligibility.planId, blueprintId: LABORATORY_BLUEPRINT_ID, refund: eligibility.refund })
+  return { ...state, hollywood: h }
+}
+
+/** Original commitment receipt order is policy order; every mutation rechecks. */
+export function disposeEligibleRivalFacilities(state: GameState, studioId: string): GameState {
+  const business = state.hollywood?.businesses.find(b => b.studioId === studioId)
+  if (!business || business.costCutting.since === null) return state
+  let next = state
+  for (const receipt of state.hollywood?.receipts ?? []) {
+    if (receipt.kind !== 'laboratoryCommitted' || receipt.studioId !== studioId) continue
+    if (rivalFacilityDisposalEligibility(next, studioId, receipt.facilityId).eligible) {
+      next = disposeRivalFacility(next, studioId, receipt.facilityId)
+    }
+  }
+  return next
+}
+
+/** Retained dependencies protect a body both before removal and in its tombstone proof.
+ * This does not inspect the current cutting flag or require the removed body to stand. */
+function rivalFacilityDependencyRefusal(state: GameState, business: RivalBusiness, facilityId: string,
+  body: PhysicalPlan): Extract<RivalFacilityDisposalEligibility, { eligible: false }> | null {
+  const no = (reason: string, subjectId: string): Extract<RivalFacilityDisposalEligibility, { eligible: false }> =>
+    ({ eligible: false, reason, subjectId })
+  const studioId = business.studioId, h = state.hollywood!
+  const plans = state.physicalPlans.plans.filter(plan => plan.studioId === studioId)
+  for (const workflow of business.operations.workflows) {
+    const setup = workflow.setup
+    if (workflow.reservations.some(r => r.facilityId === facilityId)
+      || workflow.shootingTask?.soundstageFacilityId === facilityId
+      || workflow.bindings.stageFacilityId === facilityId
+      || setup?.stageFacilityId === facilityId || setup?.priorWork.some(p => p.stageFacilityId === facilityId)) {
+      return no('reserved-capacity', workflow.productionId)
+    }
+  }
+  const script = business.development.projects.find(p => p.reservation?.facilityId === facilityId)
+  if (script) return no('reserved-capacity', script.id)
+  const research = state.technology.projects.find(p => p.studioId === studioId
+    && (p.laboratoryFacilityId === facilityId || p.seats.some(seat => seat.laboratoryFacilityId === facilityId)
+      || p.weeks.some(week => week.labs?.some(lab => lab.laboratoryFacilityId === facilityId))))
+  if (research) return no('research-history', research.id)
+
+  const targetsBody = (plan: PhysicalPlan): boolean => plan.work.kind === 'installation'
+    && ('facilityId' in plan.work.target ? plan.work.target.facilityId === facilityId : plan.work.target.planId === body.id)
+  const instrument = plans.find(plan => plan.commitReceipt !== null && targetsBody(plan))
+  if (instrument) return no('instrument-commitment', instrument.id)
+  const installed = h.receipts.find(r => r.kind === 'instrumentOperational'
+    && r.studioId === studioId && r.facilityId === facilityId)
+  if (installed) return no('operational-instrument', installed.eventId)
+
+  // Rival targets resolve through the commitment's plan/body identity, never a
+  // player placement. Retain intermediate edges, even for cancelled intents.
+  const byId = new Map(plans.map(plan => [plan.id, plan]))
+  const requiresBody = (plan: PhysicalPlan, seen: Set<string>): boolean => {
+    if (plan.id === body.id || targetsBody(plan)) return true
+    if (seen.has(plan.id)) return false
+    seen.add(plan.id)
+    const target = plan.work.kind === 'installation' && 'planId' in plan.work.target ? [plan.work.target.planId] : []
+    return [...plan.dependsOn, ...target].some(id => {
+      const dependency = byId.get(id)
+      return dependency !== undefined && requiresBody(dependency, seen)
+    })
+  }
+  const dependent = plans.find(plan => plan.id !== body.id
+    && !(plan.status === 'cancelled' && plan.commitReceipt === null) && requiresBody(plan, new Set()))
+  if (dependent) return no('plan-dependency', dependent.id)
+  const adoption = state.technology.adoptions.find(a => a.studioId === studioId
+    && (a.stageFacilityId === facilityId || a.postFacilityId === facilityId))
+  if (adoption) return no('adoption-dependency', adoption.id)
+  return null
+}
+
+/** New-era owner proof, called only with the explicit disposal era enabled.
+ * Current cutting is deliberately irrelevant to persisted disposal history. */
+export function validateRivalFacilityDisposal(state: GameState): void {
+  const h = state.hollywood
+  if (!h) return
+  const fail: (reason: string) => never = reason => { throw new Error(`rival facility disposal invariant: ${reason}`) }
+  const require = (condition: boolean, reason: string): void => { if (!condition) fail(reason) }
+  const refund = facilityDemolitionRefund(blueprintById(LABORATORY_BLUEPRINT_ID)!)
+  const rows = h.receipts.filter((r): r is Extract<IndustryReceipt, { kind: 'facilityDisposed' }> => r.kind === 'facilityDisposed')
+  const bodies = new Set<string>(), disposedPlans = new Set<string>()
+  for (const row of rows) {
+    require(row.refund === refund, 'wrong-refund')
+    require(row.blueprintId === LABORATORY_BLUEPRINT_ID, 'wrong-blueprint')
+    require(Number.isInteger(row.week) && row.week >= 0 && row.week <= state.market.tick, 'future-disposal')
+    const plan = state.physicalPlans.plans.find(p => p.id === row.planId)
+    if (!plan) fail('missing-body-plan')
+    const business = h.businesses.find(b => b.studioId === row.studioId)
+    if (!business || plan.studioId !== row.studioId || row.studioId === h.playerStudioId) fail('wrong-owner')
+    const commitment = h.receipts.filter((r): r is Extract<IndustryReceipt, { kind: 'laboratoryCommitted' }> =>
+      r.kind === 'laboratoryCommitted' && r.studioId === row.studioId && r.planId === row.planId)
+    require(commitment.length === 1, 'missing-commitment')
+    require(commitment[0]!.facilityId === row.facilityId, 'wrong-body')
+    const key = `${row.studioId}\u0000${row.facilityId}`
+    require(!bodies.has(key) && !disposedPlans.has(row.planId), 'duplicate-disposal')
+    bodies.add(key); disposedPlans.add(row.planId)
+    require(!business.operations.facilities.some(f => f.id === row.facilityId), 'standing-and-disposed')
+    require(!['development', 'stage', 'scenery', 'post'].some(suffix => row.facilityId === `${row.studioId}:${suffix}`), 'core-disposal')
+    require(plan.work.kind === 'placement' && plan.work.blueprintId === LABORATORY_BLUEPRINT_ID, 'wrong-blueprint')
+    const quote = rivalQuote(plan.work)
+    require(plan.status === 'started' && plan.startedPlacementId === null && plan.commitReceipt !== null
+      && plan.commitReceipt.week === commitment[0]!.week && plan.commitReceipt.cost === quote.cost
+      && plan.commitReceipt.fingerprint === quote.fingerprint && plan.approvedQuote.fingerprint === quote.fingerprint
+      && plan.approvedQuote.cost === quote.cost && plan.approvedQuote.buildWeeks === quote.buildWeeks
+      && row.refund < plan.commitReceipt.cost, 'unpaid-body-plan')
+    const operational = h.receipts.filter(r => r.kind === 'laboratoryOperational'
+      && r.studioId === row.studioId && r.facilityId === row.facilityId)
+    require(operational.length === 1, 'missing-operational')
+    require(operational[0]!.week === plan.commitReceipt!.week + quote.buildWeeks
+      && row.week >= operational[0]!.week, 'pre-operational-disposal')
+    require(h.receipts.indexOf(commitment[0]!) < h.receipts.indexOf(operational[0]!)
+      && h.receipts.indexOf(operational[0]!) < h.receipts.indexOf(row), 'disposal-order')
+    require(rivalFacilityDependencyRefusal(state, business, row.facilityId, plan) === null, 'protected-disposal')
+  }
+  // Two-way proof precedes money so removing a tombstone names the missing body,
+  // rather than disguising that authority loss as a refund-total discrepancy.
+  for (const receipt of h.receipts) {
+    if (receipt.kind !== 'laboratoryOperational') continue
+    const owner = h.businesses.find(b => b.studioId === receipt.studioId)
+    if (!owner) fail('wrong-owner')
+    const standing = owner.operations.facilities.some(f => f.id === receipt.facilityId)
+    const disposed = bodies.has(`${receipt.studioId}\u0000${receipt.facilityId}`)
+    require(standing || disposed, 'operational-body-missing')
+    require(!(standing && disposed), 'standing-and-disposed')
+  }
+  for (const business of h.businesses) {
+    const periods = business.account.periods
+    const expected = periods.map(() => 0)
+    for (const row of rows) {
+      if (row.studioId !== business.studioId) continue
+      // Existing money authority selects the last period whose window holds W.
+      let index = -1
+      for (const [i, period] of periods.entries()) {
+        if (period.fromWeek <= row.week && row.week <= period.throughWeek) index = i
+      }
+      require(index >= 0, 'refund-period-missing')
+      expected[index]! += row.refund
+    }
+    for (const [i, period] of periods.entries()) {
+      const actual = period.movements.facilityDemolitionRefund
+      require(Number.isFinite(actual) && actual >= 0, 'negative-refund-movement')
+      require(actual === expected[i], 'refund-movement-mismatch')
+    }
+  }
+}
+
+
+/** Raw boundary for the retained-disposal proof. This admits only the shapes that
+ * proof touches; the complete save chain still proves every root and exact key.
+ * It runs on ORIGINAL live authority, before historical projections strip setup.
+ */
+export function validateRivalFacilityDisposalAuthority(value: unknown): void {
+  const record = (v: unknown): Record<string, unknown> => {
+    if (v === null || typeof v !== 'object' || Array.isArray(v)) throw new Error('rival facility disposal shape: object required')
+    return v as Record<string, unknown>
+  }
+  const rows = (v: unknown): Record<string, unknown>[] => {
+    if (!Array.isArray(v)) throw new Error('rival facility disposal shape: array required')
+    return v.map(record)
+  }
+  const array = (v: unknown): void => {
+    if (!Array.isArray(v)) throw new Error('rival facility disposal shape: array required')
+  }
+  const state = record(value)
+  if (state.hollywood === null) return
+  const h = record(state.hollywood)
+  record(state.market)
+  rows(h.receipts)
+  for (const b of rows(h.businesses)) {
+    const operations = record(b.operations)
+    rows(operations.facilities)
+    for (const workflow of rows(operations.workflows)) {
+      rows(workflow.reservations)
+      record(workflow.bindings)
+      if (workflow.shootingTask !== undefined && workflow.shootingTask !== null) record(workflow.shootingTask)
+      if (workflow.setup !== undefined && workflow.setup !== null) {
+        const setup = record(workflow.setup)
+        rows(setup.priorWork)
+      }
+    }
+    for (const script of rows(record(b.development).projects)) {
+      if (script.reservation !== undefined && script.reservation !== null) record(script.reservation)
+    }
+    for (const period of rows(record(b.account).periods)) record(period.movements)
+  }
+  for (const plan of rows(record(state.physicalPlans).plans)) {
+    const work = record(plan.work)
+    if (work.kind === 'placement') record(work.origin)
+    if (work.kind === 'installation') record(work.target)
+    array(plan.dependsOn)
+    record(plan.approvedQuote)
+    if (plan.commitReceipt !== null) record(plan.commitReceipt)
+  }
+  const technology = record(state.technology)
+  rows(technology.adoptions)
+  for (const project of rows(technology.projects)) {
+    rows(project.seats)
+    for (const week of rows(project.weeks)) {
+      if (week.labs !== undefined && week.labs !== null) rows(week.labs)
+    }
+  }
+  // The proof never mutates input. Exact roots, dates, IDs, kind enums, scalar
+  // types and ordinary accounting are independently mandatory in the chain.
+  validateRivalFacilityDisposal(value as GameState)
 }

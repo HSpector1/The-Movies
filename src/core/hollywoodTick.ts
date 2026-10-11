@@ -1,4 +1,5 @@
-import {chooseIndustryPackage, searchIndustryPackages} from './hollywoodPolicy.js'
+import {chooseIndustryPackage, searchIndustryPackages, rivalCostCuttingEntry, rivalCostCuttingReleaseAllowed,
+  type RivalCostCuttingEntryFacts} from './hollywoodPolicy.js'
 import { considerRivalSoundPurchase, selectRivalSoundProduction, rivalInstallationSlots } from './technologyRival.js'
 import { createProductionTechnologyPolicy } from './technologyProduction.js'
 import { busyTalentIds, offerForTalent, weeklySalary, renewalWindowOpen, terminationCost } from './employment.js'
@@ -8,7 +9,7 @@ import { assignmentRefusal, contractEndRefusal } from './careerLifecycle.js'
 import { promisedCastMasks, WEEKS_TO_FIRST_TAKE } from './promises.js'
 import { isOpportunityPredicate } from './opportunityPromises.js'
 import { industryBusyTalentIds, moveRivalMoney, rivalCapacityOpex, rivalWeeklyOperatingCost, uniqueIdentity } from './hollywood.js'
-import { admitRivalPlansInWeek, advanceRivalResearch, completeRivalPlans, rivalScientistDemand } from './rivalResearch.js'
+import { admitRivalPlansInWeek, advanceRivalResearch, completeRivalPlans, disposeEligibleRivalFacilities, rivalScientistDemand } from './rivalResearch.js'
 import { researchAfterEmploymentRelease } from './technology.js'
 import { RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
 import { buildFilmParticipants } from './filmParticipants.js'
@@ -90,8 +91,12 @@ function operateStage(b:RivalBusiness) {
   }
 }
 
+type StaffingCashFacts = Pick<RivalCostCuttingEntryFacts,
+  'unfilledFilmSlotForCash' | 'renewalRefusedForCash' | 'unrelatedScientistSlotRefusedForCash'>
+
 /** Fill only actual role deficits. Existing lawful employees are preferred; no player poaching. */
-function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],week:number,extraRoles:readonly Talent['role'][],suppliedPeople:{id:string;age:number}[]):Talent[] {
+function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],week:number,extraRoles:readonly Talent['role'][],suppliedPeople:{id:string;age:number}[],cashFacts:StaffingCashFacts):Talent[] {
+  const cutting=b.costCutting.since!==null
   const reserveAfterOffer=(terms:import('./types.js').Contract,replacing?:number)=>{
     const employment=[...h.employment,{contractId:'prospective',studioId:b.studioId,terms,endedWeek:null,reason:'replacement' as const}]
     const activeEmploymentOrdinals=[...h.activeEmploymentOrdinals.filter(i=>i!==replacing),employment.length-1]
@@ -99,7 +104,7 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
   }
   // Same renewal window and immediate replacement terms as the player's renewContract.
   // Ongoing work does not prevent an existing employer from retaining its own people.
-  for(const ordinal of [...h.activeEmploymentOrdinals]) {
+  for(const ordinal of cutting?[]:[...h.activeEmploymentOrdinals]) {
     const old=h.employment[ordinal]!
     if(old.studioId!==b.studioId||!renewalWindowOpen(old.terms,week))continue
     // P14A.1 (companion §2.1.3 / §2.5, the second bounded staff() edit): this loop
@@ -115,7 +120,9 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
     const person=talent.find(t=>t.id===old.terms.talentId)!
     // R1 binds rivals (R3): this studio's own release floor prices its own re-hire.
     const terms=floorOffer({...state,hollywood:h},b.studioId,offerForTalent(state.seed,person,TUNING.HOLLYWOOD_CONTRACT_WEEKS,week),week)
-    if(b.account.cash-terms.signingBonus<reserveAfterOffer(terms,ordinal))continue
+    if(b.account.cash-terms.signingBonus<reserveAfterOffer(terms,ordinal)) {
+      cashFacts.renewalRefusedForCash=true;continue
+    }
     const contractId=`${b.studioId}:contract:${person.id}:${week}`
     const newOrdinal=h.employment.length
     h.employment=[...h.employment]
@@ -137,7 +144,7 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
   let next=talent
   // P13B-S8: the fixed production team, then the Scientists this studio's own
   // research policy demands — one list, one contract law, one receipt per hire.
-  for(const [slot,role] of [...RIVAL_TEAM_ROLES,...extraRoles].entries()) {
+  for(const [slot,role] of (cutting?[]:[...RIVAL_TEAM_ROLES,...extraRoles]).entries()) {
     const retained=own.find(e=>!filled.has(e.terms.talentId)&&next.find(t=>t.id===e.terms.talentId)?.role===role)
     if(retained){filled.add(retained.terms.talentId);continue}
     const expired=[...h.employment].reverse().find(e=>e.studioId===b.studioId && next.find(t=>t.id===e.terms.talentId)?.role===role && !filled.has(e.terms.talentId))
@@ -156,7 +163,11 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
       supplied=true
     }
     const terms=floorOffer({...state,hollywood:h},b.studioId,offerForTalent(state.seed,person,TUNING.HOLLYWOOD_CONTRACT_WEEKS,week),week)
-    if(b.account.cash-terms.signingBonus < reserveAfterOffer(terms))continue
+    if(b.account.cash-terms.signingBonus < reserveAfterOffer(terms)) {
+      if(role==='scientist')cashFacts.unrelatedScientistSlotRefusedForCash=true
+      else cashFacts.unfilledFilmSlotForCash=true
+      continue
+    }
     // P14C.1 (record 762 §4, 759-C amendment 3): the APPEND, not the mint at :138.
     // The affordability check above `continue`s, so a rival that cannot pay discards
     // the person it just minted; provenance written inside a shared mint primitive
@@ -173,15 +184,16 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
     unavailable.add(person.id);filled.add(person.id)
   }
   // R3 (companion §2.1.9, §3.5 E4, §3.6; 1305-A/F): the player's termination law, chosen
-  // by strategy. Surplus is an own non-Scientist employee the slot loop did not retain;
-  // deficit slots retain Scientists, so they are never surplus. A release needs no
+  // by strategy. Ordinarily surplus excludes Scientists and retains filled slots.
+  // While cutting, no slot retains anyone and unseated Scientists may be surplus.
+  // A release needs no
   // production, writing or unreleased research seat, more than the cap left, no open
   // promise from this studio, and this studio's reserve without the person after the charge.
   const seated=industryBusyTalentIds(h)
   for(const project of state.technology.projects) if(project.studioId===b.studioId)
     for(const seat of project.seats) if(seat.releasedWeek===null) seated.add(seat.talentId)
   const surplus=h.activeEmploymentOrdinals.filter(i=>{const e=h.employment[i]!
-    return e.studioId===b.studioId&&!filled.has(e.terms.talentId)&&next.find(t=>t.id===e.terms.talentId)?.role!=='scientist'})
+    return e.studioId===b.studioId&&!filled.has(e.terms.talentId)&&(cutting||next.find(t=>t.id===e.terms.talentId)?.role!=='scientist')})
   for(const ordinal of surplus.sort((x,y)=>x-y)) {
     const e=h.employment[ordinal]!,id=e.terms.talentId
     if(seated.has(id)||e.terms.endWeekExclusive-week<=TUNING.HIRING_TERMINATION_CAP_WEEKS)continue
@@ -189,6 +201,12 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
     const charge=terminationCost(e.terms,week)
     const activeEmploymentOrdinals=h.activeEmploymentOrdinals.filter(i=>i!==ordinal)
     if(b.account.cash-charge<operatingReserve(b,{...h,activeEmploymentOrdinals},week))continue
+    // Existing exclusions above cover production/writing/research seats and promises.
+    // Keep R3 exactly as before outside cutting; the extra payback law is scoped.
+    if(cutting&&!rivalCostCuttingReleaseAllowed({week,endWeekExclusive:e.terms.endWeekExclusive,
+      annualSalary:e.terms.annualSalary,cash:b.account.cash,
+      weeklyOperatingCost:rivalWeeklyOperatingCost(b,h,week),reserveWeeks:b.policy.reserveWeeks,
+      productionSeat:false,writingSeat:false,unreleasedResearchSeat:false,openPromise:false}))continue
     h.employment=[...h.employment]
     h.employment[ordinal]={...e,endedWeek:week}
     h.activeEmploymentOrdinals=activeEmploymentOrdinals
@@ -199,9 +217,13 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
 }
 
 function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],week:number,
-  greenlights:{studioId:string;production:Production}[]) {
+  greenlights:{studioId:string;production:Production}[],cashFacts:StaffingCashFacts) {
   if(week<b.nextDecisionWeek)return
   b.nextDecisionWeek=week+TUNING.HOLLYWOOD_DECISION_WEEKS
+  let greenlit=false,commissioned=false
+  let commissionStop:RivalCostCuttingEntryFacts['commissionStop']='none'
+  const indexedOutcomes=new Map<number,RivalCostCuttingEntryFacts['indexedOutcomes'][number]>()
+  const runDecision=()=>{
   const busy=busyTalentIds({...state,hollywood:h,talent})
   const people=new Map(talent.map(t=>[t.id,t]))
   const employees=currentEmployees(h,b.studioId).map(e=>people.get(e.terms.talentId)!)
@@ -232,8 +254,10 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
       ...(masks.size>0?{promisedMasks:masks}:{})}] as const
     const candidate=chooseIndustryPackage(...args)
     if(candidate)return {outcome:'viable',candidate,provisional,director,cost,concept} as const
-    // A refusal is re-searched only for its counts: any candidate the cash gate skipped makes it cash-blocked.
-    return {outcome:searchIndustryPackages(...args).unaffordable>0?'cashBlocked':'economicRejection'} as const
+    // 1363-A/F Part A: cash binds only if a skipped package would pass the unchanged viability gate.
+    // The ordinary chooser stays opted out; only this refusal re-search pays for the extra forecasts.
+    const diagnostic=searchIndustryPackages(args[0],args[1],{...args[2],diagnoseUnaffordableViability:true})
+    return {outcome:(diagnostic.unaffordableViable??0)>0?'cashBlocked':'economicRejection'} as const
   }
   type Viable=Extract<ReturnType<typeof evaluate>,{outcome:'viable'}>
   const greenlight=(ready:ScriptProject,{candidate,provisional,director,cost,concept}:Viable)=>{
@@ -249,6 +273,8 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
     const development=linkScriptProjectToProduction(hotDevelopment(b),ready.id,id)
     b.operations=operations;b.productions=[...b.productions,production];storeHotDevelopment(b,development)
     greenlights.push({studioId:b.studioId,production})
+    greenlit=true
+    b.costCutting={version:1,since:null}
     // A newly seated person cannot also start writing in this decision.
     // Permanent screenplay credit alone does not occupy a production seat.
     for(const personId of productionCompanyTalentIds([production]))busy.add(personId)
@@ -260,6 +286,7 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
     if(b.productions.length!==0)break
     const ordinal=Number(ready.id.slice(7))
     const result=evaluate(ready)
+    if(result.outcome!=='viable')indexedOutcomes.set(ordinal,result.outcome)
     const shelving=b.screenplayShelving
     // A greenlit screenplay is no longer ready, so its count leaves with it.
     if(result.outcome==='viable'){b.screenplayShelving={...shelving,rejections:shelving.rejections.filter(r=>r.ordinal!==ordinal)};greenlight(ready,result);continue}
@@ -298,10 +325,12 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
     }
   }
   // A bounded ready inventory, paid writers and enough actual runway precede a commission.
-  if(b.activeScriptOrdinals.length>=2||b.account.cash<operatingReserve(b,h,week))return
-  if(week<b.screenplayShelving.commissionHoldUntilWeek)return
+  if(b.costCutting.since!==null)return
+  if(b.activeScriptOrdinals.length>=2){commissionStop='fullIndex';return}
+  if(b.account.cash<operatingReserve(b,h,week))return
+  if(week<b.screenplayShelving.commissionHoldUntilWeek){commissionStop='hold';return}
   const writer=employees.find(t=>t.role==='writer'&&!busy.has(t.id))
-  if(!writer)return
+  if(!writer){commissionStop=employees.some(t=>t.role==='writer')?'busyWriter':'missingWriter';return}
   const ordinal=b.development.projects.length
   const chooser=stream(state.seed,'hollywood-v1',`${b.studioId}:package:${ordinal}`)
   let roll=chooser.next()*GENRE_ORDER.reduce((sum,g)=>sum+b.policy.affinities[g],0)
@@ -317,14 +346,18 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
   const director=employees.find(t=>t.role==='director')
   const cast=employees.filter(t=>t.role==='actor')
   const craft=employees.find(t=>t.role==='craft')
-  if(!director||cast.length<3||!craft)return
+  if(!director||cast.length<3||!craft){commissionStop='missingTeam';return}
   const draftWeeks=scriptDraftWeeks({origin:'original',officeTierAtMint:'baseline',writerExperience:writingPaceExperience([writer],genre),writerCount:1})
+  const writerTerms=currentEmployees(h,b.studioId).find(e=>e.terms.talentId===writer.id)!.terms
+  // Work due at the term end completes before ordinary expiry. Later work needs a paid term
+  // already in force; an open market case does not guarantee a future renewal.
+  if(week+draftWeeks>writerTerms.endWeekExclusive)return
   const weeklyCost=rivalWeeklyOperatingCost(b,h,week)
   const reserve=weeklyCost*Math.max(b.policy.reserveWeeks,draftWeeks+TUNING.PRODUCTION_TICKS+1)
   const candidate=chooseIndustryPackage({concept,shape,shapeEffects:resolveShape(shape),promise,budget:{negative:concept.baseNegativeCost,marketing:0},
     writer,director,cast:{lead:cast[0]!,antagonist:cast[1]!,support:cast[2]!},craftHires:[craft],market:industryMarket(state.market),standing:b.standing,era:state.era},b.policy,
     {seed:state.seed,key:`${b.studioId}:screenplay:${ordinal}`,cashAvailable:b.account.cash-reserve,weeklyCost,lockScreenplay:false})
-  if(!candidate)return
+  if(!candidate){commissionStop='unaffordablePackage';return}
   shape=candidate.shape;promise=candidate.promise
   const hot=hotDevelopment(b)
   const next=commissionScriptProject(hot,b.operations,{conceptId,writerId:writer.id,shape,promise},week,new Set(),draftWeeks,canonicalScriptProjectId(ordinal))
@@ -333,6 +366,17 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
   b.activeScriptOrdinals=[...b.activeScriptOrdinals,ordinal]
   b.projects=[...b.projects,{scriptProjectId:project.id,conceptId,conceptOrdinal:h.concepts.length,productionId:null,development:0,production:0,marketing:0,announcedWeek:null}]
   h.concepts=[...h.concepts,concept]
+  commissioned=true
+  }
+  runDecision()
+  // All ordinary early returns converge here. No scheduled decision means no entry.
+  // A full index is proved by real retained ordinals and their evaluations this week.
+  const outcomes=b.activeScriptOrdinals.map(i=>indexedOutcomes.get(i))
+  const enters=rivalCostCuttingEntry({decisionRan:true,productionCount:b.productions.length,runCount:b.runs.length,
+    greenlit,commissioned,hasScriptWork:hotDevelopment(b).projects.some(p=>p.status==='drafting'||p.status==='rewriting'),
+    cash:b.account.cash,reserve:operatingReserve(b,h,week),commissionStop,...cashFacts,
+    indexedOutcomes:outcomes.every((outcome):outcome is RivalCostCuttingEntryFacts['indexedOutcomes'][number]=>outcome!==undefined)?outcomes:[]})
+  if(b.costCutting.since===null&&enters)b.costCutting={version:1,since:week}
 }
 
 /** Stage rival work against pre-development talent. All writes are to new local objects.
@@ -360,15 +404,26 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
   const greenlights:{studioId:string;production:Production}[]=[]
   const suppliedTalent:{id:string;age:number}[]=[]
   for(const b of h.businesses) {
+    const cashFacts:StaffingCashFacts={unfilledFilmSlotForCash:false,renewalRefusedForCash:false,unrelatedScientistSlotRefusedForCash:false}
     technology=considerRivalSoundPurchase({...state,technology,hollywood:h},h,b)
     if(week>=b.nextDecisionWeek)talent=staff(state,h,b,talent,week,
-      Array.from({length:rivalScientistDemand({...state,technology,physicalPlans,hollywood:h},h,b,talent,week)},()=>'scientist' as const),suppliedTalent)
+      Array.from({length:rivalScientistDemand({...state,technology,physicalPlans,hollywood:h},h,b,talent,week)},()=>'scientist' as const),suppliedTalent,cashFacts)
     // P13B-S8 (audit item 7): this studio's own physical admission and research
     // week, after its hiring and before it commissions a film — its capital and
     // its research bill are spent from the same account the film draws on.
     physicalPlans=admitRivalPlansInWeek({...state,technology,physicalPlans,hollywood:h,talent},h,b,physicalPlans,week)
     technology=advanceRivalResearch({...state,technology,physicalPlans,hollywood:h,talent},h,b,talent,week)
-    decide(state,h,b,talent,week,greenlights)
+    decide(state,h,b,talent,week,greenlights,cashFacts)
+    // Shared disposal law returns an atomic copy; adopt only its four changed
+    // fields into this tick's owned clones. No second staff/decision pass spends
+    // the refund, and the removed body pays no opex for the current week.
+    const disposed=disposeEligibleRivalFacilities({...state,technology,physicalPlans,hollywood:h,talent},b.studioId)
+    if(disposed.hollywood!==h) {
+      const result=disposed.hollywood!
+      const owner=result.businesses.find(row=>row.studioId===b.studioId)!
+      b.account=owner.account;b.operations=owner.operations
+      h.receipts=result.receipts;h.nextReceipt=result.nextReceipt
+    }
     operateStage(b)
     for(const p of b.productions) if(releaseCommitmentRefusal({productions:b.productions,operations:b.operations,releaseAuthority:b.releaseAuthority,concepts:[]},p.id)===null) {
       b.releaseAuthority=withReleaseCommitment(b.releaseAuthority,p.id,week)

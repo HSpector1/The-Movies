@@ -18,17 +18,16 @@
 // `archiveOf`/`sequenceOf`, which throw a named RED message when the root is absent. Leaves
 // marked CONTROL pin behaviour that exists today and must pass both today and after production.
 //
-// SAVE VERSION. The archive's step N is allocated at execution (1356-A §9; 1355-F Amendment 4:
-// it may share one step with the P15A.1 and P15B roots). No literal future version appears in
-// this file: `ARCHIVE_STEP` reads the live constant, so at the step's landing N is the live
-// version and every `…V${N}` name below resolves to the step's own functions. A later save step
-// pins `ARCHIVE_STEP` to that number in its own live-version sweep.
-//
+// SAVE VERSION. The archive arrived at Save45. That introduction step stays
+// frozen while current writers and strict validators use LIVE_SAVE_VERSION.
+// Current-to-historical paths first use the public empty-only recovery downgrade;
+// no recovery state is removed by this test's own object projections.
+
 // SIBLING ROOTS (1356-F2 item 3). tests/helpers/p15-roots.ts holds the one list of P15 root keys,
 // `P15_ROOTS`; each later P15 RED adds its key there at its landing. The leaves that read the
 // allocator, strip the P15 roots or renumber a tamper hold whatever rows sibling roots carry.
 // DECLARED, re-pinned at a sibling landing:
-//   - `ARCHIVE_STEP` (above), at a later save step.
+//   - Historical ARCHIVE_STEP is now frozen at 45 (1363-N group 4).
 //   - RED 9 `rank-step-final-facts` (isolation file) and `rank-step-record-is-law-snapshot`: both
 //     read the ranking step as tick()'s last expression, and 1356-A §4 runs the P15B condition step
 //     (a rival's loan principal at W, 1357-A §5) and the P15C freeze after it. The patch that lands
@@ -165,17 +164,30 @@ const idOf = (row: object): string => {
 const byId = <T extends object>(rows: readonly T[]): T[] =>
   [...rows].sort((a, b) => (idOf(a) < idOf(b) ? -1 : idOf(a) > idOf(b) ? 1 : 0))
 
-// ── the archive's save step, by the live constant (see header) ───────────────
-const ARCHIVE_STEP: number = saveModule.LIVE_SAVE_VERSION
+// ── the archive's frozen P15 introduction step ───────────────
+const ARCHIVE_STEP: number = 45 // Frozen P15 introduction, independent of the current writer.
 type SaveFn = (save: unknown) => Envelope
 function saveFn(name: string): SaveFn {
   const fn = (saveModule as unknown as Record<string, unknown>)[name]
   if (typeof fn !== 'function') throw new Error(`RED: save.ts does not export ${name} (the archive's save step is ${ARCHIVE_STEP})`)
   return fn as SaveFn
 }
-const validateStep = (save: unknown): Envelope => saveFn(`validateSaveV${ARCHIVE_STEP}`)(save)
+const validateCurrent = (save: unknown): Envelope => saveFn(`validateSaveV${saveModule.LIVE_SAVE_VERSION}`)(save)
+// Public migration admits its real input. For current saves it must refuse any
+// nonempty recovery authority before the frozen P15 converter can run.
+const migrateIntoStep = (save: unknown): Envelope => saveFn(`migrateToV${ARCHIVE_STEP}`)(save)
+function currentFromStep(save: Envelope) {
+  const before = stableStringify(save)
+  const current = migrateToLive(save)
+  expect(current.saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
+  const bytes = exportSave(current)
+  expect(exportSave(migrateToLive(current)), 'current migration remains a no-op').toBe(bytes)
+  expect(exportSave(current), 'current reader is neutral').toBe(bytes)
+  expect(stableStringify(save), 'the historical input remains unchanged').toBe(before)
+  return current
+}
 const convertIntoStep = (save: unknown): Envelope => saveFn(`convertV${ARCHIVE_STEP - 1}ToV${ARCHIVE_STEP}`)(save)
-const convertOutOfStep = (save: unknown): Envelope => saveFn(`convertV${ARCHIVE_STEP}ToV${ARCHIVE_STEP - 1}`)(save)
+const convertOutOfStep = (save: unknown): Envelope => saveFn(`convertV${ARCHIVE_STEP}ToV${ARCHIVE_STEP - 1}`)(migrateIntoStep(save))
 const migrateBelowStep = (save: unknown): Envelope => saveFn(`migrateToV${ARCHIVE_STEP - 1}`)(save)
 const liveSave = (state: GameState): Envelope => makeSave(state) as unknown as Envelope
 const DOWNGRADE_REFUSAL = /cannot downgrade or discard a recorded Power Ranking quarter/
@@ -624,7 +636,7 @@ describe('p15a2 archive: the state-to-facts adapter (1356-A §3; RED 1-4, 6-7)',
     const env = JSON.parse(JSON.stringify(liveSave(state))) as Envelope
     archiveOf(env.state).snapshots.at(-1)!.rows[0]!.band = 'leveraged' as unknown as Band
     let refused = ''
-    try { validateStep(env) } catch (error) { refused = (error as Error).message }
+    try { validateCurrent(env) } catch (error) { refused = (error as Error).message }
     expect(refused).toMatch(/power ranking/i)
     for (const probe of probes.map(String)) expect(refused.includes(probe), `the validator echoes ${probe}`).toBe(false)
   }, MEDIUM)
@@ -840,8 +852,8 @@ describe('p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16)', () 
       expect(stableStringify(archiveOf(state))).toBe(empty)
       expect(stableStringify(sequenceOf(state))).toBe(allocator)
       const save = liveSave(state)
-      expect(save.saveVersion).toBe(ARCHIVE_STEP)
-      expect(() => validateStep(JSON.parse(JSON.stringify(save)))).not.toThrow()
+      expect(save.saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
+      expect(() => validateCurrent(JSON.parse(JSON.stringify(save)))).not.toThrow()
     }
   }, MEDIUM)
 
@@ -851,7 +863,7 @@ describe('p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16)', () 
     expect(below.saveVersion).toBe(ARCHIVE_STEP - 1)
     expect(Object.hasOwn(below.state, 'powerRanking'), 'premise: the root is new at the step').toBe(false)
     expect(Object.hasOwn(below.state, 'p15Sequence'), 'premise: the allocator arrives with the first P15 root').toBe(false)
-    const live = migrateToLive(v42) as unknown as Envelope
+    const live = migrateIntoStep(v42)
     expect(live.saveVersion).toBe(ARCHIVE_STEP)
     // An empty archive at the save's own week; the allocator at 1; no past quarter recorded (annex G.2).
     expect(stableStringify(archiveOf(live.state))).toBe(stableStringify({ version: 1, recordedFromWeek: 130, snapshots: [] }))
@@ -859,7 +871,8 @@ describe('p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16)', () 
     // Nothing else moves at the step.
     expect(stableStringify(stripP15(live.state))).toBe(stableStringify(below.state))
     // A second migration is a no-op.
-    expect(exportSave(migrateToLive(live as never))).toBe(exportSave(live as never))
+    expect(exportSave(migrateIntoStep(live) as never)).toBe(exportSave(live as never))
+    currentFromStep(live)
     // The step's own converter, by name, agrees.
     expect(stableStringify(convertIntoStep(below))).toBe(stableStringify(live))
   }, MEDIUM)
@@ -893,15 +906,17 @@ describe('p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16)', () 
         .toBe(stableStringify({ version: 1, recordedFromWeek: capture.state.market.tick, snapshots: [] }))
       expect(stableStringify(sequenceOf(upgraded.state))).toBe(stableStringify({ version: 1, next: 1 }))
       expect(stableStringify(stripP15(upgraded.state))).toBe(stableStringify(capture.state))
-      expect(exportSave(migrateToLive(upgraded as never))).toBe(exportSave(upgraded as never))
+      expect(exportSave(migrateIntoStep(upgraded) as never)).toBe(exportSave(upgraded as never))
+      currentFromStep(upgraded)
     }
   }, MEDIUM)
 
   it('rank-root-downgrade-empty-strips', () => {
     const v42 = genuineV42Week130()
     const below = migrateBelowStep(v42)
-    const live = migrateToLive(v42) as unknown as Envelope
+    const live = migrateIntoStep(v42)
     expect(archiveOf(live.state).snapshots, 'premise: an empty archive').toHaveLength(0)
+    currentFromStep(live)
     const down = convertOutOfStep(live)
     expect(down.saveVersion).toBe(ARCHIVE_STEP - 1)
     expect(Object.hasOwn(down.state, 'powerRanking')).toBe(false)
@@ -915,9 +930,38 @@ describe('p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16)', () 
     while (state.market.tick < 135) state = tick(state)
     const before = archiveOf(state)
     expect(stableStringify(before), 'premise: no quarter between 130 and 135').toBe(stableStringify({ version: 1, recordedFromWeek: 130, snapshots: [] }))
-    const again = convertIntoStep(convertOutOfStep(liveSave(state)))
+    const currentSave = liveSave(state)
+    const currentBefore = stableStringify(currentSave)
+    expect(() => convertOutOfStep(currentSave)).toThrow(/^migrateToV45: cannot downgrade or discard recovery authority: costCutting\.since, facilityDemolitionRefund, facilityDisposed$/)
+    expect(stableStringify(currentSave), 'the refused current input remains unchanged').toBe(currentBefore)
+
+    // An original Save45 engine advanced the genuine Save42 week-130 capture through five
+    // default ticks. Its claims-less week-135 save predates recovery authority and can
+    // exercise the frozen ranking step without projecting fields out of a current save.
+    const directory = new URL('./fixtures/p15/genuine-original45-rank130-135-1368/', import.meta.url)
+    const manifest = JSON.parse(readFileSync(new URL('MANIFEST.json', directory), 'utf8')) as {
+      originalEngineHead: string; startWeek: number; endWeek: number; saveVersion: number
+      file: { path: string; sha256: string; rawSha256: string; bytes: number; rawBytes: number }
+    }
+    expect(manifest.originalEngineHead).toBe('2eaa697effc38538c37da28b486786ce267a2284')
+    expect([manifest.startWeek, manifest.endWeek, manifest.saveVersion]).toEqual([130, 135, ARCHIVE_STEP])
+    const gzip = readFileSync(new URL(manifest.file.path, directory))
+    expect(gzip.byteLength).toBe(manifest.file.bytes)
+    expect(createHash('sha256').update(gzip).digest('hex')).toBe(manifest.file.sha256)
+    const raw = gunzipSync(gzip).toString('utf8')
+    expect(Buffer.byteLength(raw, 'utf8')).toBe(manifest.file.rawBytes)
+    expect(createHash('sha256').update(raw).digest('hex')).toBe(manifest.file.rawSha256)
+    const historical = importSave(raw) as unknown as Envelope
+    const historicalBefore = stableStringify(historical)
+    expect(historical.saveVersion).toBe(ARCHIVE_STEP)
+    expect(historical.state.market.tick).toBe(135)
+    expect(stableStringify(archiveOf(historical.state))).toBe(stableStringify(before))
+    const again = convertIntoStep(convertOutOfStep(historical))
     // A round trip can only claim less history, never more (1356-A §5 "Migration").
     expect(stableStringify(archiveOf(again.state))).toBe(stableStringify({ version: 1, recordedFromWeek: 135, snapshots: [] }))
+    expect(stableStringify(stripP15(again.state))).toBe(stableStringify(stripP15(historical.state)))
+    expect(stableStringify(historical), 'the historical input remains unchanged').toBe(historicalBefore)
+    currentFromStep(again)
   }, MEDIUM)
 
   it('rank-root-downgrade-recorded-quarter-refuses', () => {
@@ -996,7 +1040,7 @@ function base(): { env: Envelope; archive: Archive; sequence: Sequence } {
 const POWER_RANKING = /power ranking/i
 const ALLOCATOR = /power ranking|p15/i
 const refuses = (env: Envelope, pattern: RegExp = POWER_RANKING): void => {
-  expect(() => validateStep(env)).toThrow(pattern)
+  expect(() => validateCurrent(env)).toThrow(pattern)
 }
 const recordAt = (archive: Archive, week: number): ArchiveRecord => {
   const record = archive.snapshots.find((r) => r.week === week)
@@ -1021,7 +1065,7 @@ function filmWeek(state: GameState, filmId: string): number {
 describe('p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-2)', () => {
   it('rank-validate-genuine-archive-validates', () => {
     const { env } = base()
-    expect(() => validateStep(env)).not.toThrow()
+    expect(() => validateCurrent(env)).not.toThrow()
   }, HEAVY)
 
   it('rank-validate-keys-root', () => {
@@ -1127,7 +1171,7 @@ describe('p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-
     const agrees = (state: GameState, weeks: number[]) => {
       expect(archiveOf(state).snapshots.map((r) => r.week)).toEqual(weeks)
       expect(expectedWeeks(state)).toEqual(weeks)
-      expect(() => validateStep(liveSave(state))).not.toThrow()
+      expect(() => validateCurrent(liveSave(state))).not.toThrow()
     }
     /** The excluded lower end refuses even as the step's own true record, renumbered first. */
     const lowerEndRefuses = (state: GameState, lower: GameState) => {
@@ -1396,7 +1440,7 @@ describe('p15a2 archive: validation, §5 item 5 recompute by era (RED 15)', () =
     for (const record of archive.snapshots) {
       for (const row of record.rows) row.band = BANDS[(BANDS.indexOf(row.band) + 1) % BANDS.length]!
     }
-    expect(() => validateStep(env)).not.toThrow()
+    expect(() => validateCurrent(env)).not.toThrow()
   }, HEAVY)
 
   it('rank-validate-band-unknown-refuses', () => {

@@ -110,6 +110,8 @@ export function persistedProductionIds(state: GameState): Set<string> {
       case 'researchSeatAssigned': case 'researchCompleted': break
       // P14D.1: a shelved screenplay was never greenlit; it names no production.
       case 'screenplayShelved': break
+      // Recovery disposes a facility body; the tombstone names no production.
+      case 'facilityDisposed': break
       default: { const exhaustive: never = event; throw new Error(`Unhandled Industry identity: ${exhaustive}`) }
     }
   }

@@ -20,7 +20,7 @@
 // `sharedMarket` added to `P15_ROOTS` here; whichever record lands second merges the list. Pins
 // and comparisons strip every `P15_ROOTS` key, never a fixed set.
 // DECLARED, re-pinned at a sibling landing (or if the landing order changes):
-//   - `MARKET_STEP` (below), at a later save step.
+//   - Historical MARKET_STEP is now frozen at 45 (1363-N group 4).
 //   - `market-validator-reconciles: across P15 roots …` (1355-F4 R1): it needs a sibling root's rows.
 //   - `market-old-save: a non-empty root refuses the downgrade …` (week 70 holds ranking records):
 //     re-pinned at the merge with 1356-C's `rank-root-downgrade-recorded-quarter-refuses`; the
@@ -53,7 +53,7 @@ import { forecastHistoryForOwner } from '../src/core/industryCareer.js'
 import { computeBoxOffice, resolveReception, type ReceptionInputs, type ReceptionResult } from '../src/core/reception.js'
 import { RngStream } from '../src/core/rng.js'
 import * as saveModule from '../src/core/save.js'
-import { exportSave, importSave, makeSave, migrateToLive } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
 import { setNoveltyReceptionFactor } from '../src/core/sets.js'
 import {
   assessBatch, MARKET_REASON_SOURCE_LIMIT, pressureFactor, reduceExposures, SHARED_MARKET_DEFINITION,
@@ -72,9 +72,10 @@ import {
   type Member, type PersistedAssessment, type PinManifest, type Released,
 } from './helpers/p15a1-market-route.js'
 import { P15_ROOTS, p15Rows, stripP15 } from './helpers/p15-roots.js'
+import { historicalSave45Comparison } from './helpers/historical-save45-comparison.js'
 
-// ── the save step, by the live constant (coordinator; 1356-C) ──────────────────────
-const MARKET_STEP: number = saveModule.LIVE_SAVE_VERSION
+// ── the frozen P15 introduction step (coordinator; 1356-C) ──────────────────────
+const MARKET_STEP: number = 45 // Frozen P15 introduction, independent of the current writer.
 type Envelope = { saveVersion: number; seed: string; state: GameState; broadcastCache: unknown[] }
 type SaveFn = (save: unknown) => Envelope
 function saveFn(name: string): SaveFn {
@@ -82,8 +83,21 @@ function saveFn(name: string): SaveFn {
   if (typeof fn !== 'function') throw new Error(`RED: save.ts does not export ${name} (the market's save step is ${MARKET_STEP})`)
   return fn as SaveFn
 }
+// Public migration admits its real input. For current saves it must refuse any
+// nonempty recovery authority before the frozen P15 converter can run.
+const migrateIntoStep = (save: unknown): Envelope => saveFn(`migrateToV${MARKET_STEP}`)(save)
+function currentFromStep(save: Envelope) {
+  const before = stableStringify(save)
+  const current = migrateToLive(save)
+  expect(current.saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
+  const bytes = exportSave(current)
+  expect(exportSave(migrateToLive(current)), 'current migration remains a no-op').toBe(bytes)
+  expect(exportSave(current), 'current reader is neutral').toBe(bytes)
+  expect(stableStringify(save), 'the historical input remains unchanged').toBe(before)
+  return current
+}
 const convertIntoStep = (save: unknown): Envelope => saveFn(`convertV${MARKET_STEP - 1}ToV${MARKET_STEP}`)(save)
-const convertOutOfStep = (save: unknown): Envelope => saveFn(`convertV${MARKET_STEP}ToV${MARKET_STEP - 1}`)(save)
+const convertOutOfStep = (save: unknown): Envelope => saveFn(`convertV${MARKET_STEP}ToV${MARKET_STEP - 1}`)(migrateIntoStep(save))
 const migrateBelowStep = (save: unknown): Envelope => saveFn(`migrateToV${MARKET_STEP - 1}`)(save)
 const liveSave = (state: GameState): Envelope => makeSave(state) as unknown as Envelope
 /** 1355-A §3.5 "refuse by name" (the save.ts:10686-10703 pattern). */
@@ -434,7 +448,7 @@ describe('p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2)', () =>
     expect(k1.week).toBe(pins.k1.week)
     expect(k1.committed).toBe(pins.k1.committed)
     const old = JSON.parse(readGz(PIN_DIRECTORY, pins.k1.capture)) as Record<string, unknown>
-    const now = keepKeys(detached(post), pins.k1.keys)
+    const now = keepKeys(detached(historicalSave45Comparison(post)), pins.k1.keys)
     const root = (post as unknown as { sharedMarket?: { assessments: PersistedAssessment[] } }).sharedMarket
     const pressuredIds = new Set((root?.assessments ?? []).filter((row) => row.week === k1.week && row.factor < 1).map((row) => row.releaseId))
     // 1355-A §4 K1: identical facts, named.
@@ -470,7 +484,7 @@ describe('p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2)', () =>
     const keys = Object.keys(stripP15(post)).sort()
     const pins = readPins(`K2 week ${k2.week}, digest ${digest(keepKeys(post, keys))}`)
     expect(k2.week).toBe(pins.k2.week)
-    expect(digest(keepKeys(post, pins.k2.keys))).toBe(pins.k2.digest)
+    expect(digest(keepKeys(historicalSave45Comparison(post), pins.k2.keys))).toBe(pins.k2.digest)
   }, MEDIUM)
 })
 
@@ -740,7 +754,8 @@ describe('p15a1 market old saves (RED 16)', () => {
       const live = convertIntoStep(capture)
       expect(live.saveVersion).toBe(MARKET_STEP)
       expect(canon(marketRoot(live.state))).toBe(canon({ version: 1, recordedFromWeek: capture.state.market.tick, assessments: [] }))
-      expect(exportSave(migrateToLive(live as never))).toBe(exportSave(live as never))
+      expect(exportSave(migrateIntoStep(live) as never)).toBe(exportSave(live as never))
+      currentFromStep(live)
       expect(canon(convertOutOfStep(live))).toBe(canon(capture))
     }
   }, MEDIUM)
@@ -756,7 +771,7 @@ describe('p15a1 market old saves (RED 16)', () => {
     for (const { capture, premise } of ramped) {
       const migrationWeek = capture.state.market.tick
       const before = new Set(releaseHistory(capture.state).map((film) => film.releaseId))
-      let state = convertIntoStep(capture).state
+      let state = currentFromStep(convertIntoStep(capture)).state
       for (let i = 0; i < TUNING.SHARED_MARKET_RETIRE_AFTER_WEEKS; i++) state = tick(state)
       const rows = marketRoot(state).assessments
       const paired = rows.find((row) => row.releaseId === premise.inFlightProductionId)
@@ -776,9 +791,10 @@ describe('p15a1 market old saves (RED 16)', () => {
 
   it('market-old-save: the genuine Save42 week-130 capture lifts to an empty root at its own week and steps down losslessly while empty', () => {
     const v42 = genuineV42Week130()
-    const live = migrateToLive(v42 as never) as unknown as Envelope
+    const live = migrateIntoStep(v42)
     expect(canon(marketRoot(live.state))).toBe(canon({ version: 1, recordedFromWeek: 130, assessments: [] }))
-    expect(exportSave(migrateToLive(live as never))).toBe(exportSave(live as never))
+    expect(exportSave(migrateIntoStep(live) as never)).toBe(exportSave(live as never))
+    currentFromStep(live)
     const down = convertOutOfStep(live)
     expect(down.saveVersion).toBe(MARKET_STEP - 1)
     expect(Object.hasOwn(down.state, 'sharedMarket')).toBe(false)

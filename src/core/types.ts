@@ -2323,7 +2323,7 @@ export type GameStateV31 = GameStateV30 & {
 // V44 adds the edge's `competitions` log and `romance` track.
 // V45 is the shared P15 step: slice 2a adds the Power Ranking archive and the one P15 allocator,
 // P15A.1 Wave 2 adds the shared-market root, and P15C Wave 2 adds the Campaign Legacy root.
-export type GameState = GameStateV45
+export type GameState = GameStateV46
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
@@ -2606,6 +2606,9 @@ export type P15StepRoots = {
   campaignLegacy: import('./campaignLegacy.js').CampaignLegacyRoot
 }
 export type GameStateV45 = GameStateV44 & P15StepRoots
+/** Save46 recovery B+C: rival episode, refund movement and body tombstone are
+ * explicit-era Hollywood leaf widenings; there is no new duplicate root. */
+export type GameStateV46 = GameStateV45
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.

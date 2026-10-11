@@ -5,7 +5,7 @@ import { expect } from 'vitest'
 import { applyActions } from '../../src/core/actions.js'
 import { retirementRecordFor } from '../../src/core/careerLifecycle.js'
 import { activeContract, busyTalentIds } from '../../src/core/employment.js'
-import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV45 } from '../../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV46 } from '../../src/core/save.js'
 import { careerIdentity } from '../../src/core/talentSummary.js'
 import { tick } from '../../src/core/tick.js'
 import { TUNING } from '../../src/core/tuning.js'
@@ -14,8 +14,8 @@ import { clone, DEFERRED_ACTOR, deferredBoundary, FOCUS, migrated, person } from
 
 export function acceptedEvidence(state: GameState): void {
   const before = stableStringify(state), saved = makeSave(state)
-  expect(saved.saveVersion).toBe(45)
-  expect(validateSaveV45(saved)).toBe(saved)
+  expect(saved.saveVersion).toBe(46)
+  expect(validateSaveV46(saved)).toBe(saved)
   expect(stableStringify(state)).toBe(before)
 }
 export function reopenEvidence(state: GameState): GameState {

@@ -62,7 +62,7 @@ function memo(name: string, build: () => GameState): GameState {
 }
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
+  expect(save.saveVersion).toBe(46); expect(saves.validateSaveV46(save)).toBe(save)
   const raw = saves.exportSave(save)
   expect(saves.exportSave(saves.importSave(raw))).toBe(raw)
   expect(stable(state)).toBe(before)
@@ -320,7 +320,7 @@ function factOnly(state: GameState): void {
   // 1361-N S4: convertV45ToV44 now leads this chain (src/core/save.ts:10989-10995). The route ticks the week-45
   // capture to week 48, short of quarter 52, so every P15 root is empty and the chain reaches the guard pinned
   // below as before. Derived from source, not measured: the pin is unchanged until a run (P4) shows another first guard.
-  try { saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(save)))))) } catch (caught) { error = caught }
+  try { saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(save))))))) } catch (caught) { error = caught }
   const message = error instanceof Error ? error.message : String(error)
   emit('FACT-ONLY-REFUSAL', { actualWeek: 48, message, facts: state.firstTakeSubjects.facts })
   expect(error).toBeInstanceOf(Error)

@@ -95,6 +95,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { hiringMarketIds } from '../src/core/employment.js'
 import { tick } from '../src/core/tick.js'
+import { loadImportedTrust195 } from './helpers/1368-trust-import.js'
 import { p13aGeneratedStudio, advanceTo } from '../src/harness/p13a/fixtures.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
 import type { CastRoleCountPredicate, GameState, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
@@ -639,6 +640,7 @@ describe('P14B.1 test 7: rival symmetry', () => {
 
   function scanNaturalRivalAuthoring(
     visit: (after: GameState, observed: RivalAuthoringObservation) => boolean,
+    importedState?: GameState,
   ): void {
     const evaluate = promiseModule.promiseFeasibility
     let pending = new Map<string, RivalAuthoringObservation>()
@@ -695,10 +697,10 @@ describe('P14B.1 test 7: rival symmetry', () => {
       return receipt
     })
     try {
-      let state = p13aGeneratedStudio()
+      let state = importedState ?? p13aGeneratedStudio()
       expect(state.talentMarket.receipts.filter((r) => r.kind === 'proposalSubmitted'
         && r.studioId !== null && r.studioId !== state.hollywood!.playerStudioId)).toEqual([])
-      for (let step = 0; step < 220; step++) {
+      for (let step = state.market.tick; step < 220; step++) {
         pending = new Map()
         state = tick(state)
         const submissions = state.talentMarket.receipts.filter((r) =>
@@ -806,7 +808,12 @@ describe('P14B.1 test 7: rival symmetry', () => {
   // here is a real option but is out of scope for this ruling; the unproven
   // flexible-P2 and unproven zero-attachment branches of THIS delegated-policy
   // test remain open coverage findings pending that decision.
-  it('natural rival authoring preserves the first writer IFF, the first actor positive (P1 if proven, flexible P2 if unproven), and an actual non-achievable zero-attachment witness for a proven person (unproven branches: open coverage finding above)', () => {
+  // 1368 imported-current compatibility witness: genuine original Save45 week 195,
+  // publicly admitted then migrated to current46; current authoring ends by week 220.
+  // The failed current-genesis220 positive-actor premise and its original input remain
+  // archived under 1368-trust-witness-recorded-runs/probe-r1; this is a named new input,
+  // not a claim that that route recovered or that open unproven coverage is closed.
+  it('genuine Save45 week195 import: current rival authoring preserves the first writer IFF, the first actor positive (P1 if proven, flexible P2 if unproven), and an actual non-achievable zero-attachment witness for a proven person (unproven branches: open coverage finding above)', () => {
     let firstWriter: RivalAuthoringObservation | undefined
     let firstActor: RivalAuthoringObservation | undefined
     let negativeProven: RivalAuthoringObservation | undefined
@@ -848,7 +855,7 @@ describe('P14B.1 test 7: rival symmetry', () => {
         expect(assertOriginalAuthoring(after, observed)).toBeUndefined() // checks EXACTLY zero attachments
       }
       return firstWriter !== undefined && firstActor !== undefined && negativeProven !== undefined
-    })
+    }, loadImportedTrust195())
     expect(firstWriter).toBeDefined()
     expect(firstActor).toBeDefined()
     expect(negativeProven).toBeDefined()

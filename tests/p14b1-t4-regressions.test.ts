@@ -9,7 +9,7 @@ import { gunzipSync } from 'node:zlib'
 import { describe, expect, it, vi } from 'vitest'
 import * as promiseModule from '../src/core/promises.js'
 import { attachPromise, promiseFeasibility } from '../src/core/promises.js'
-import { LIVE_SAVE_VERSION, migrateToLive, validateSaveV45 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, migrateToLive, validateSaveV46 } from '../src/core/save.js'
 import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
 import { tick } from '../src/core/tick.js'
 import { fnv1a64 } from '../src/core/math.js'
@@ -81,9 +81,9 @@ type Raw = {
 }
 function rejects(state: GameState, mutate: (raw: Raw) => void): void {
   const valid = JSON.parse(JSON.stringify(envelope(state))) as Raw
-  expect(() => validateSaveV45(valid)).not.toThrow()
+  expect(() => validateSaveV46(valid)).not.toThrow()
   mutate(valid)
-  expect(() => validateSaveV45(valid)).toThrow()
+  expect(() => validateSaveV46(valid)).toThrow()
 }
 
 describe('P14B.1 T4: feasibility evidence and lawful contract windows', () => {
@@ -163,7 +163,7 @@ describe('P14B.1 T4: V29 owns every proposal promise leaf', () => {
     const historicalVariant: GameState = { ...state, promises: state.promises.map((p) => p.promiseId === target.promiseId
       ? { ...p, windowStartWeek: oldWindowStart, feasibilityReceipt: oldReceipt } : p) }
     const json = JSON.stringify(envelope(historicalVariant))
-    const loaded = validateSaveV45(JSON.parse(json))
+    const loaded = validateSaveV46(JSON.parse(json))
     expect(JSON.stringify(loaded)).toBe(json)
     const retained = ownPromise(loaded.state)
     expect(retained.contractId).toBe(target.contractId)
@@ -303,7 +303,7 @@ describe('P14B.1 T4: terminal V29 promise reference integrity', () => {
       expect(outcome.week).toBe(promise.outcomeWeek)
     }
     const json = JSON.stringify(envelope(state))
-    expect(JSON.stringify(validateSaveV45(JSON.parse(json)))).toBe(json)
+    expect(JSON.stringify(validateSaveV46(JSON.parse(json)))).toBe(json)
   }, 120_000)
 
   it.each(['missing', 'null', 'unknown', 'wrong receipt kind', 'another beneficiary', 'wrong outcome week'])('rejects %s outcome receipt references', (fault) => {

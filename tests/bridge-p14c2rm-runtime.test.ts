@@ -1,3 +1,4 @@
+import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // 875 RM-L/M: genuine outgoing51, two independent Save37 slots, actual old journal.
 import { readFileSync } from 'node:fs'
 import { describe, expect, it, vi } from 'vitest'
@@ -65,10 +66,10 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
 // Independent old-state preservation alongside the actual governed slot bytes.
 function currentSlot(json: string): string {
   const old = validateSaveV37(JSON.parse(json)), current = migrateToLive(importSave(json)), week = old.state.market.tick
-  expect(current.saveVersion).toBe(45)
+  expect(current.saveVersion).toBe(46)
   const { transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
     industryRetirements, transitionDue, ...oldLifecycle } = current.state.careerLifecycle
-  const expectedOld = withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state))))), week)
+  const expectedOld = withEmptyRecovery(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state))))), week))
   expect(canonicalJson({ ...current.state, careerLifecycle: oldLifecycle })).toBe(canonicalJson(expectedOld))
   expect({ transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
     industryRetirements, transitionDue }).toEqual({ transitionBoundaryWeek: week,
@@ -108,7 +109,7 @@ describe('C.2-RM genuine projection51 recovery', () => {
   it('steps projection once to52 while retaining Save37/protocol4 and enumerating actual outgoing51 exactly once', () => {
     expect(PROJECTION_VERSION).toBe(57)
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(LIVE_SAVE_VERSION).toBe(45)
+    expect(LIVE_SAVE_VERSION).toBe(46)
     expect(SCHEMA_ID).not.toBe(OUTGOING_51)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)

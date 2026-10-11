@@ -1,0 +1,1233 @@
+{
+ "summary": {
+  "finalFiles": 167,
+  "finalTests": 2569,
+  "finalStatus": {
+   "passed": 2445,
+   "failed": 113,
+   "todo": 8,
+   "skipped": 3
+  },
+  "failed": 113,
+  "byFormalClass": {
+   "SAME": 111,
+   "unbaselined-file": 2
+  },
+  "byHeadClass": {
+   "SAME": 109,
+   "CHANGED": 4
+  },
+  "goneVsHead": 0,
+  "goneVsFormal": 0,
+  "headBaseline": {
+   "tests": 5412,
+   "failed": 159,
+   "files": 460,
+   "selectedFilesFailingAtHead": 17
+  },
+  "finalOccurrences": {
+   "files": 167,
+   "occurrences": 2574,
+   "passed": 2450,
+   "failed": 113,
+   "skipped": 3,
+   "todo": 8,
+   "note": "counted by occurrence; finalTests/finalStatus above collapse 5 duplicate full names"
+  },
+  "reconciledWith": {
+   "report": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-as-claude-review-and-draft-backup/reviews/r8-results/REPORT.md",
+   "resultsReviewSha256": "192b0979cd5365b5e047b961dda9d99da8485d3cd14667090bdc8f320efebb32",
+   "agreement": "identical per-batch counts, union, 28 ENOENT resolutions, 72 b4-b6 pairings (68 SAME / 4 CHANGED), same four CHANGED identities and diagnostics"
+  }
+ },
+ "failures": [
+  {
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "test": "P14B.2 group3 \u2014 one bound-only newest-first history DTO on both carriers does not publish another studio\u2019s real bound history as the player\u2019s own terms",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "headMessage": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240"
+  },
+  {
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "test": "P14B.2 group5 \u2014 independent promise attention after cases close raises due at minus8 but not minus9 for an actual player poaching winner with no proposals",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "headMessage": "AssertionError: expected 208 to be 52 // Object.is equality"
+  },
+  {
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "test": "P14B.2 group5 \u2014 independent promise attention after cases close raises the poaching winner\u2019s actual outcome only in its recorded week, once per cause/person",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "headMessage": "AssertionError: expected 208 to be 52 // Object.is equality"
+  },
+  {
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "test": "P14B.2 group5 \u2014 independent promise attention after cases close does not require any case entry to retain a real promise reminder (explicit read-only case-carrier probe)",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "headMessage": "AssertionError: expected 208 to be 52 // Object.is equality"
+  },
+  {
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "test": "P14B.2 group5 \u2014 independent promise attention after cases close ignores real withdrawn unbound drafts near due and never interrupts for rival-issued promises",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "headMessage": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240"
+  },
+  {
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "test": "P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public keeps open rival proposal terms literal UNKNOWN across Profile and Market",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "headMessage": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240"
+  },
+  {
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "test": "P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public publishes the real rival kept outcome and aggregate label while withholding bound history terms",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "headMessage": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240"
+  },
+  {
+   "file": "tests/bridge-p14b2-trust.test.ts",
+   "test": "P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public is semantically unchanged when only hidden terminal terms vary, retaining real outcome/event identities",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "headMessage": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240"
+  },
+  {
+   "file": "tests/bridge-p14b5-relationships.test.ts",
+   "test": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) p13a-core-causal-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "CHANGED",
+   "message": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(17) ] to have a length of 40 but got 18",
+   "headMessage": "AssertionError: expected '8a4df62fdd64ba26fc6e00e438c47c2574992\u2026' to be '706e54c6ec9728df1664025982ebbafeb0fc3\u2026' // Object.is equality"
+  },
+  {
+   "file": "tests/bridge-p14b5-relationships.test.ts",
+   "test": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(40) ] to have a length of 48 but got 41",
+   "headMessage": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(40) ] to have a length of 48 but got 41"
+  },
+  {
+   "file": "tests/bridge-p14b5-relationships.test.ts",
+   "test": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) p13b-s8-bridge-probe-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(42) ] to have a length of 48 but got 43",
+   "headMessage": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(42) ] to have a length of 48 but got 43"
+  },
+  {
+   "file": "tests/bridge-p14b5-relationships.test.ts",
+   "test": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "CHANGED",
+   "message": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(41) ] to have a length of 48 but got 42",
+   "headMessage": "AssertionError: expected '62c9fd5d2d7887b1b6263a38f9545f2ad77cd\u2026' to be 'c034f2fb5a8e5f454a475020cec9de1ac764d\u2026' // Object.is equality"
+  },
+  {
+   "file": "tests/bridge-p14b5-relationships.test.ts",
+   "test": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) the MOST EXPOSED shared fixture, poachingFixture (p14b2-fixtures.ts :145-211; consumers bridge-p14b2-trust, p14b2-fixture-preconditions): the week-208 reasons pin and endedWeek 208 hold, and under D1 no survivor holds a shared-take counterpart",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "headMessage": "AssertionError: expected 208 to be 52 // Object.is equality"
+  },
+  {
+   "file": "tests/bridge-p14c2rm-retirement.test.ts",
+   "test": "C.2-RM alumni evidence and disclosure natural retired tiers stay fixed across real drift while lawful current employment changes disclosure",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: freeze premise: counterpart stays lawfully disclosed: expected undefined to match object { endWeekExclusive: 416 }",
+   "headMessage": "AssertionError: freeze premise: counterpart stays lawfully disclosed: expected undefined to match object { endWeekExclusive: 416 }"
+  },
+  {
+   "file": "tests/bridge-p14c2rm-retirement.test.ts",
+   "test": "C.2-RM alumni evidence and disclosure SYNTHETIC imported newer edge withholds unreconstructible retirement tier, with no hidden-counterpart notice leak",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: freeze premise: counterpart stays lawfully disclosed: expected undefined to match object { endWeekExclusive: 416 }",
+   "headMessage": "AssertionError: freeze premise: counterpart stays lawfully disclosed: expected undefined to match object { endWeekExclusive: 416 }"
+  },
+  {
+   "file": "tests/bridge-p14c3-runtime.test.ts",
+   "test": "C.3 projection53 current/save/journal and durable campaign authority R8 durable coordinator Save As branches208, saves B209, then clean-loads A207 and restarts with isolated records/journals",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: Test timed out in 5000ms. If this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".",
+   "headMessage": "Error: Test timed out in 5000ms. If this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\"."
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "test": "P14B.1 T4: terminal V29 promise reference integrity round-trips several beneficiaries sharing one real take and distinct own outcome receipts",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "headMessage": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "test": "P14B.1 T4: terminal V29 promise reference integrity rejects missing outcome receipt references",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "headMessage": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "test": "P14B.1 T4: terminal V29 promise reference integrity rejects null outcome receipt references",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "headMessage": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "test": "P14B.1 T4: terminal V29 promise reference integrity rejects unknown outcome receipt references",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "headMessage": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "test": "P14B.1 T4: terminal V29 promise reference integrity rejects wrong receipt kind outcome receipt references",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "headMessage": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "test": "P14B.1 T4: terminal V29 promise reference integrity rejects another beneficiary outcome receipt references",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "headMessage": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "test": "P14B.1 T4: terminal V29 promise reference integrity rejects wrong outcome week outcome receipt references",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "headMessage": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "test": "P14B.1 T4: terminal V29 promise reference integrity rejects missing take qualifying evidence",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "headMessage": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "test": "P14B.1 T4: terminal V29 promise reference integrity rejects non-take receipt qualifying evidence",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "headMessage": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "test": "P14B.1 T4: terminal V29 promise reference integrity rejects wrong studio or cast qualifying evidence",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "headMessage": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "test": "P14B.1 T4: terminal V29 promise reference integrity rejects empty qualifying evidence",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "headMessage": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "test": "P14B.1 T4: terminal V29 promise reference integrity rejects duplicate qualifying evidence",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "headMessage": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "test": "P14B.1 T4: terminal V29 promise reference integrity rejects outside window qualifying evidence",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "headMessage": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "test": "P14B.1 T4: terminal V29 promise reference integrity rejects wrong progress qualifying evidence",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "headMessage": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+  },
+  {
+   "file": "tests/p14b1-t4-regressions.test.ts",
+   "test": "P14B.1 T4: terminal V29 promise reference integrity rejects unbound outcome qualifying evidence",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks",
+   "headMessage": "Error: fixture: no multi-beneficiary promise outcome from a shared real take within 230 weeks"
+  },
+  {
+   "file": "tests/p14b1-trust-chooser.test.ts",
+   "test": "P14B.1 test 6: trust, the widened chooser and the priority order opportunity changes the winner of an otherwise compensation-versus-incumbency 1-1 tie, with two real surviving proposals",
+   "batch": "b2-recovery-own",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected 'compensation' to be 'opportunity' // Object.is equality",
+   "headMessage": "AssertionError: expected 'compensation' to be 'opportunity' // Object.is equality"
+  },
+  {
+   "file": "tests/p14b2-fixture-preconditions.test.ts",
+   "test": "P14B.2 lawful engine fixture preconditions (not bridge verification) wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected 208 to be 52 // Object.is equality",
+   "headMessage": "AssertionError: expected 208 to be 52 // Object.is equality"
+  },
+  {
+   "file": "tests/p14b2-fixture-preconditions.test.ts",
+   "test": "P14B.2 lawful engine fixture preconditions (not bridge verification) produces a rival-only open promise and public kept outcome from the unmodified natural rival chain",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+   "headMessage": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240"
+  },
+  {
+   "file": "tests/p14b4-cast-class-capacity-evaluator5.test.ts",
+   "test": "P14B4 evaluator-5 kernel vocabulary (record 600 \u00a73 2(b)): the joint certificate the scalar cannot issue a conflicting fixed lead claim makes the joint offer impossible, not a target-specific BROKEN winner choice",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected 'FRAGILE' to be 'IMPOSSIBLE' // Object.is equality",
+   "headMessage": "AssertionError: expected 'FRAGILE' to be 'IMPOSSIBLE' // Object.is equality"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "test": "P14B4 genuine submit/settle/take routes, no synthetic commitments RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "headMessage": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "test": "P14B4 labeled outcome-owner probes on real bound roots and actual casts 'rival' 'lead' with actual 'lead' seat: qualification=true",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "headMessage": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "test": "P14B4 labeled outcome-owner probes on real bound roots and actual casts 'rival' 'lead' with actual 'antagonist' seat: qualification=false",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "headMessage": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "test": "P14B4 labeled outcome-owner probes on real bound roots and actual casts 'rival' 'lead' with actual 'support' seat: qualification=false",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "headMessage": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "test": "P14B4 labeled outcome-owner probes on real bound roots and actual casts 'rival' 'leadOrAntagonist' with actual 'lead' seat: qualification=true",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "headMessage": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "test": "P14B4 labeled outcome-owner probes on real bound roots and actual casts 'rival' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "headMessage": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "test": "P14B4 labeled outcome-owner probes on real bound roots and actual casts 'rival' 'leadOrAntagonist' with actual 'support' seat: qualification=false",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "headMessage": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "test": "P14B4 labeled outcome-owner probes on real bound roots and actual casts rival support qualifies for P1 and shape-legacy count-only P2, not tagged P2",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "headMessage": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+  },
+  {
+   "file": "tests/p14b4-cast-class-outcomes.test.ts",
+   "test": "P14B4 labeled outcome-owner probes on real bound roots and actual casts rival half-open window counts start, excludes before-start and excludes due",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+   "headMessage": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "test": "P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225) p13a-core-causal-01: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected [] to deeply equal [ { week: 208, \u2026(4) }, \u2026(1) ]",
+   "headMessage": "AssertionError: expected [] to deeply equal [ { week: 208, \u2026(4) }, \u2026(1) ]"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "test": "P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225) seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected 'd32e68f685f658666d620bd3faee2841a3af4\u2026' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2\u2026' // Object.is equality",
+   "headMessage": "AssertionError: expected 'd32e68f685f658666d620bd3faee2841a3af4\u2026' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2\u2026' // Object.is equality"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "test": "P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) search table: the first seed-b decision whose seating matters holds two tagged leadOrAntagonist beneficiaries and one P1 beneficiary in a three-actor pool",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "headMessage": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "test": "P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) RED: the real seating serves the maximal DISTINCT-beneficiary count (plan :215-218), the picture is viable and affordable (:223-225), and the real first take then satisfies all three through advancePromisesWeek/qualifyingTakes",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "headMessage": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "test": "P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) CONFLICT: the ordinary economic score prefers a two-beneficiary permutation; benefit count wins over score (:216-217) and the real take proves it",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "headMessage": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "test": "P14B4 final seating preference \u2014 the natural witness (seed-b w211 studio-bc14baf6-r01, record 618 O-T4-1) TIE FALLBACK (labeled reception-input variant): two reception-identical tagged beneficiaries tie on score; the first strict-greater winner in the inherited BILLINGS order is seated \u2014 inherited tie behaviour, not fairness (:218-221)",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "headMessage": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "test": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) CURRENT unaccepted offers never count: seed-b w202, three rivals decide while their own retention offers carry promises with contractId null; re-authored offers make the negative discriminating",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected { week: 202, \u2026(1) } to deeply equal { week: 202, \u2026(1) }",
+   "headMessage": "AssertionError: expected { week: 202, \u2026(1) } to deeply equal { week: 202, \u2026(1) }"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "test": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) another issuer's promise never counts: r02's offers to r01's three actors are present at w202 and at the witness and never enter r01's member set; re-authored r02 offers make the negative discriminating",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "headMessage": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "test": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) a met promise never counts (control, r02 chain): after r02's w211 picture satisfies its three P1 roots at w216, its next real decision has no member and takes the ordinary pick",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "CHANGED",
+   "message": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value: expect(first.cast).toEqual({ lead: WITNESS.a2, antagonist: WITNESS.a4, support: WITNESS.a3 })",
+   "headMessage": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value: ok(s.witness)"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "test": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) a met promise never counts (r01 chain, RED today only through the witness defect): after the witness take the SATISFIED roots leave r01's member set at its next real decision",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "headMessage": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "test": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) a promise whose window excludes the prospective take never counts \u2014 'window starts after every plausible t\u2026'",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "headMessage": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "test": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) a promise whose window excludes the prospective take never counts \u2014 'window ends before any take can land \u2026'",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "headMessage": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "test": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) mask derivation through the shared reader \u2014 'tagged lead stays exact: r01-2 counts\u2026'",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "headMessage": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "test": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) mask derivation through the shared reader \u2014 'legacy count-only LEAD_OR_SIGNIFICANT\u2026'",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "headMessage": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "test": "P14B4 final seating preference \u2014 membership (plan :210-213) and masks (:213-215) mask derivation through the shared reader \u2014 'APPEARANCE_COUNT is generic cast'",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "headMessage": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "test": "P14B4 final seating preference \u2014 the initial cast seam (plan :225-232) promised non-primary-actor beneficiaries (the witness rival's writer, director and craft, each bound OPEN P1) are never seated: one person cannot double, and the sole holder of a role is a capacity constraint, not a forged package",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state",
+   "headMessage": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no rival film decision on 'seed-b' within 350 ticks holds >= 2 pool members whose seating matters; never a synthesized state"
+  },
+  {
+   "file": "tests/p14b4-rival-seating-preference.test.ts",
+   "test": "P14B4 final seating preference \u2014 the initial cast seam (plan :225-232) the positive seam witness (plan :225-227, :233; record 621 R2 / G10-b): the first default-seed picture whose pool seats a promised person outside the historical first three admits r01's sole WRITER \u2014 a non-primary-actor beneficiary \u2014 and the real package and first take serve his promise",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no picture on 'p13a-core-causal-01' within 350 ticks seats a promised person outside the historical first three",
+   "headMessage": "AssertionError [ERR_ASSERTION]: UNEXECUTED natural premise: no picture on 'p13a-core-causal-01' within 350 ticks seats a promised person outside the historical first three"
+  },
+  {
+   "file": "tests/p14b5-relationships.test.ts",
+   "test": "family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3)",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+   "headMessage": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]"
+  },
+  {
+   "file": "tests/p14b5-relationships.test.ts",
+   "test": "family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) the same pair on a second production is ONE edge with sharedProductions 2 and a repeatedCollaboration driver of the capped accelerator; a < b regardless of seat order",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+   "headMessage": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]"
+  },
+  {
+   "file": "tests/p14b5-relationships.test.ts",
+   "test": "family 5 \u2014 RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2)",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+   "headMessage": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]"
+  },
+  {
+   "file": "tests/p14c2c-rival-promises.test.ts",
+   "test": "P14C.2c rival retirement promises R1: a genuine bound rival promise follows the same exact cutoff, with no new trust penalty",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0 } (21 matching properties omitted from actual)",
+   "headMessage": "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0 } (21 matching properties omitted from actual)"
+  },
+  {
+   "file": "tests/p14c2c-rival-promises.test.ts",
+   "test": "P14C.2c rival retirement promises R2: a rival count already impossible without retirement remains OPEN until ordinary due settlement",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0 } (21 matching properties omitted from actual)",
+   "headMessage": "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0 } (21 matching properties omitted from actual)"
+  },
+  {
+   "file": "tests/p14c2c-rival-promises.test.ts",
+   "test": "P14C.2c rival retirement promises R3: real rival VOIDED replay across save/load preserves the source campaign and its outcome identity",
+   "batch": "b4-helper-consumers",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0 } (21 matching properties omitted from actual)",
+   "headMessage": "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0 } (21 matching properties omitted from actual)"
+  },
+  {
+   "file": "tests/p14c3-admission-boundaries.test.ts",
+   "test": "C.3 N01\u2013N10 current global and requested actor boundaries N10 actual open rival promise disposition explicitly requests actor before its genuine cutoff",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0, \u2026(1) } (20 matching properties omitted from actual)",
+   "headMessage": "AssertionError: expected { \u2026(17) } to match object { outcome: null, progress: +0, \u2026(1) } (20 matching properties omitted from actual)"
+  },
+  {
+   "file": "tests/p14c3-canonical-rival-history.test.ts",
+   "test": "C.3 canonical Actor history survives actual passive rival Writer transition and work L1 observes an actual passive non-player Writer hire with one employer and paid signing authority",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError [ERR_ASSERTION]: L passive work premise ended without an obligation: {\"personId\":\"person-studio-8c9ee794-r01-4\",\"week\":607,\"profession\":\"writer\",\"source\":{\"personId\":\"person-studio-8c9ee794-r01-4\",\"profession\":\"writer\"},\"cause\":\"noCatalogue\",\"evaluationId\":null}",
+   "headMessage": "AssertionError [ERR_ASSERTION]: L passive work premise ended without an obligation: {\"personId\":\"person-studio-8c9ee794-r01-4\",\"week\":607,\"profession\":\"writer\",\"source\":{\"personId\":\"person-studio-8c9ee794-r01-4\",\"profession\":\"writer\"},\"cause\":\"noCatalogue\",\"evaluationId\":null}"
+  },
+  {
+   "file": "tests/p14c3-canonical-rival-history.test.ts",
+   "test": "C.3 canonical Actor history survives actual passive rival Writer transition and work L2 completes real rival screenplay review, production and released Writer credit after the change",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError [ERR_ASSERTION]: L passive work premise ended without an obligation: {\"personId\":\"person-studio-8c9ee794-r01-4\",\"week\":607,\"profession\":\"writer\",\"source\":{\"personId\":\"person-studio-8c9ee794-r01-4\",\"profession\":\"writer\"},\"cause\":\"noCatalogue\",\"evaluationId\":null}",
+   "headMessage": "AssertionError [ERR_ASSERTION]: L passive work premise ended without an obligation: {\"personId\":\"person-studio-8c9ee794-r01-4\",\"week\":607,\"profession\":\"writer\",\"source\":{\"personId\":\"person-studio-8c9ee794-r01-4\",\"profession\":\"writer\"},\"cause\":\"noCatalogue\",\"evaluationId\":null}"
+  },
+  {
+   "file": "tests/p14c3-save-v38.test.ts",
+   "test": "C.3 A01/A02 exact Save38 opening exposes matching strict38 conversion, validation and current migration over a genuine37 save",
+   "batch": "b6-current",
+   "formalClass": "SAME",
+   "headClass": "CHANGED",
+   "message": "AssertionError: expected '{\"broadcastCache\":[],\"saveVersion\":46\u2026' to be '{\"broadcastCache\":[],\"saveVersion\":38\u2026' // Object.is equality",
+   "headMessage": "AssertionError: expected '{\"broadcastCache\":[],\"saveVersion\":45\u2026' to be '{\"broadcastCache\":[],\"saveVersion\":38\u2026' // Object.is equality"
+  },
+  {
+   "file": "tests/p14p3-directing-promises.test.ts",
+   "test": "P3 fixed rival: public credit, ordinary contest and distinct staffing D07 authors and fulfills a real rival promise to a credited primary Actor",
+   "batch": "b5-backward",
+   "formalClass": "unbaselined-file",
+   "headClass": "SAME",
+   "message": "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]",
+   "headMessage": "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]"
+  },
+  {
+   "file": "tests/p14p3-directing-promises.test.ts",
+   "test": "P3 fixed rival: public credit, ordinary contest and distinct staffing D18 uses the declared rival strategy and legal distinct staffing",
+   "batch": "b5-backward",
+   "formalClass": "unbaselined-file",
+   "headClass": "SAME",
+   "message": "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]",
+   "headMessage": "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market forecast paths (RED 3, 1355-A \u00a73.2 \"never carry it\") market-forecast-paths-unchanged: a week of rival decisions with no release ignores the root [control]",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: tick: the sharedMarket root already holds market assessments (12 recorded); the save was written by a build with the market batch, and this build cannot move recordedFromWeek past those rows",
+   "headMessage": "Error: tick: the sharedMarket root already holds market assessments (12 recorded); the save was written by a build with the market batch, and this build cannot move recordedFromWeek past those rows"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market due set (RED 4-5, 1355-A \u00a73.1) market-due-set-equals-releases: frozen members are the committed player release plus every rival picture at 1",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected '[]' to be '[{\"genre\":\"horror\",\"releaseId\":\"prod-\u2026' // Object.is equality",
+   "headMessage": "AssertionError: expected '[]' to be '[{\"genre\":\"horror\",\"releaseId\":\"prod-\u2026' // Object.is equality"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market due set (RED 4-5, 1355-A \u00a73.1) market-due-set-mismatch-fails-closed: a frozen batch missing a due rival picture throws, input unchanged",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected [Function] to throw an error",
+   "headMessage": "AssertionError: expected [Function] to throw an error"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market due set (RED 4-5, 1355-A \u00a73.1) market-due-set-mismatch-fails-closed: a frozen batch naming a picture nobody releases throws, input unchanged",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected [Function] to throw an error",
+   "headMessage": "AssertionError: expected [Function] to throw an error"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market live batches (RED 6-9) market-live-one-player-one-rival: same genre, same week, both pressureFactor(1), each names the other",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: the player release is assessed: expected undefined to be defined",
+   "headMessage": "AssertionError: the player release is assessed: expected undefined to be defined"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market live batches (RED 6-9) market-live-window-stock-retire: releases at W\u22122, W\u221210 and W\u221226 act through WINDOW_RELEASES, GENRE_SATURATION and nothing",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: tick: the sharedMarket root already holds market assessments (3 recorded); the save was written by a build with the market batch, and this build cannot move recordedFromWeek past those rows",
+   "headMessage": "Error: tick: the sharedMarket root already holds market assessments (3 recorded); the save was written by a build with the market batch, and this build cannot move recordedFromWeek past those rows"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market live batches (RED 6-9) market-live-self-exclusion-clamp: one studio's two same-genre same-week releases see each other at 1.00, never themselves",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected [] to have a length of 2 but got +0",
+   "headMessage": "AssertionError: expected [] to have a length of 2 but got +0"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market live batches (RED 6-9) market-live-no-player-flag: a persisted row carries exactly the law fields and the 1355-F2 fields, no owner",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected 0 to be greater than 0",
+   "headMessage": "AssertionError: expected 0 to be greater than 0"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market live batches (RED 6-9) market-live-no-player-flag: mirror fixtures that swap the player studio give equal assessments after id normalization",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected 0 to be greater than or equal to 2",
+   "headMessage": "AssertionError: expected 0 to be greater than or equal to 2"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market chronology controls (RED 10-11, 1355-A \u00a74 K1/K2) market-week-diff-confined (K1): the K1 week is pressured exactly where the law says",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected '[]' to be '[{\"genre\":\"comedy\",\"releaseId\":\"studi\u2026' // Object.is equality",
+   "headMessage": "AssertionError: expected '[]' to be '[{\"genre\":\"comedy\",\"releaseId\":\"studi\u2026' // Object.is equality"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market chronology controls (RED 10-11, 1355-A \u00a74 K1/K2) market-no-pressure-week-identity (K2): every release of the K2 week is assessed at P = 0 and f = 1",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected '[]' to be '[{\"genre\":\"drama\",\"releaseId\":\"studio\u2026' // Object.is equality",
+   "headMessage": "AssertionError: expected '[]' to be '[{\"genre\":\"drama\",\"releaseId\":\"studio\u2026' // Object.is equality"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market root (RED 12-13, 1355-A \u00a73.3; 1355-F2 item 2; 1355-F3) market-root-append-canonical: one ordered append per week; derived exposures equal reduceExposures",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected 1 to be +0 // Object.is equality",
+   "headMessage": "AssertionError: expected 1 to be +0 // Object.is equality"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market root (RED 12-13, 1355-A \u00a73.3; 1355-F2 item 2; 1355-F3) market-root-append-canonical: rows ascend in (week, releaseId) and in p15DomainSequence, each with its v1 phase triple",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected 0 to be greater than 0",
+   "headMessage": "AssertionError: expected 0 to be greater than 0"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market root (RED 12-13, 1355-A \u00a73.3; 1355-F2 item 2; 1355-F3) market-inflight-save-replay: save during an active exposure, reload, run 30 weeks: assessments and terminal save equal an unsaved run",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: an active exposure at the save: expected false to be true // Object.is equality",
+   "headMessage": "AssertionError: an active exposure at the save: expected false to be true // Object.is equality"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: the unforged route state validates (premise of every refusal below)",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: premise: rows in at least two weeks: expected 0 to be greater than or equal to 3",
+   "headMessage": "AssertionError: premise: rows in at least two weeks: expected 0 to be greater than or equal to 3"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged pressure by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "TypeError: Cannot read properties of undefined (reading 'pressure')",
+   "headMessage": "TypeError: Cannot read properties of undefined (reading 'pressure')"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged factor by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "TypeError: Cannot read properties of undefined (reading 'factor')",
+   "headMessage": "TypeError: Cannot read properties of undefined (reading 'factor')"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged windowTerm by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "TypeError: Cannot read properties of undefined (reading 'windowTerm')",
+   "headMessage": "TypeError: Cannot read properties of undefined (reading 'windowTerm')"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged stockTerm by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "TypeError: Cannot read properties of undefined (reading 'stockTerm')",
+   "headMessage": "TypeError: Cannot read properties of undefined (reading 'stockTerm')"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged reason by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "TypeError: Cannot read properties of undefined (reading 'pressure')",
+   "headMessage": "TypeError: Cannot read properties of undefined (reading 'pressure')"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a forged inputDigest by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "TypeError: Cannot set properties of undefined (setting 'inputDigest')",
+   "headMessage": "TypeError: Cannot set properties of undefined (setting 'inputDigest')"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses rows out of (week, releaseId) order by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected [Function] to throw an error",
+   "headMessage": "AssertionError: expected [Function] to throw an error"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a duplicate assessment by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected [Function] to throw error matching /duplicate|twice|order|ascend/i but got 'validateSaveV45: sharedMarket assessm\u2026'",
+   "headMessage": "AssertionError: expected [Function] to throw error matching /duplicate|twice|order|ascend/i but got 'validateSaveV45: sharedMarket assessm\u2026'"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an orphan assessment with no film by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "TypeError: Cannot read properties of undefined (reading 'week')",
+   "headMessage": "TypeError: Cannot read properties of undefined (reading 'week')"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a missing assessment by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "Error: fixture premise: no removable row",
+   "headMessage": "Error: fixture premise: no removable row"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an assessment before recordedFromWeek by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "TypeError: Cannot read properties of undefined (reading 'week')",
+   "headMessage": "TypeError: Cannot read properties of undefined (reading 'week')"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an assessment at the tick by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "TypeError: Cannot read properties of undefined (reading 'phaseId')",
+   "headMessage": "TypeError: Cannot read properties of undefined (reading 'phaseId')"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an unknown definitionVersion by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "TypeError: Cannot set properties of undefined (setting 'definitionVersion')",
+   "headMessage": "TypeError: Cannot set properties of undefined (setting 'definitionVersion')"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an owner field on a row (exact keys) by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "TypeError: Cannot set properties of undefined (setting 'owner')",
+   "headMessage": "TypeError: Cannot set properties of undefined (setting 'owner')"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a duplicate p15DomainSequence by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "TypeError: Cannot read properties of undefined (reading 'p15DomainSequence')",
+   "headMessage": "TypeError: Cannot read properties of undefined (reading 'p15DomainSequence')"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a p15DomainSequence at p15Sequence.next by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "TypeError: Cannot set properties of undefined (setting 'p15DomainSequence')",
+   "headMessage": "TypeError: Cannot set properties of undefined (setting 'p15DomainSequence')"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a p15DomainSequence below 1 by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "TypeError: Cannot set properties of undefined (setting 'p15DomainSequence')",
+   "headMessage": "TypeError: Cannot set properties of undefined (setting 'p15DomainSequence')"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses a phase ordinal off its version's table entry by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "TypeError: Cannot read properties of undefined (reading 'phaseOrdinal')",
+   "headMessage": "TypeError: Cannot read properties of undefined (reading 'phaseOrdinal')"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses another phase's phaseId by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "TypeError: Cannot set properties of undefined (setting 'phaseId')",
+   "headMessage": "TypeError: Cannot set properties of undefined (setting 'phaseId')"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: refuses an unknown phaseOrderVersion by name",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "TypeError: Cannot set properties of undefined (setting 'phaseOrderVersion')",
+   "headMessage": "TypeError: Cannot set properties of undefined (setting 'phaseOrderVersion')"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market validator (RED 14, 1355-A \u00a73.4) market-validator-reconciles: across P15 roots, a sibling row may hold the largest sequence and a market row may not reuse a sibling's",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: premise: a sibling sequence below some market row: expected undefined to be defined",
+   "headMessage": "AssertionError: premise: a sibling sequence below some market row: expected undefined to be defined"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market old saves (RED 16) market-old-save: the first batches after migration see no pre-migration release [fixture-pending]",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: studio-315405e1-r03:film:2 is assessed within 26 weeks of the migration: expected undefined to be defined",
+   "headMessage": "AssertionError: studio-315405e1-r03:film:2 is assessed within 26 weeks of the migration: expected undefined to be defined"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market old saves (RED 16) market-old-save: a non-empty root refuses the downgrade by name, at the step and through every older migrator",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: premise: a recorded assessment: expected 0 to be greater than 0",
+   "headMessage": "AssertionError: premise: a recorded assessment: expected 0 to be greater than 0"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market persisted storage (RED 18) market-large-batch-persisted-linear: every live row is bounded: exact keys, at most five reasons of at most five ids",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: expected 0 to be greater than 0",
+   "headMessage": "AssertionError: expected 0 to be greater than 0"
+  },
+  {
+   "file": "tests/p15a1-market-integration.test.ts",
+   "test": "p15a1 market persisted storage (RED 18) market-large-batch-persisted-linear: 32- and 512-member batches persist equal-bounded rows and linear root bytes",
+   "batch": "b3-p15",
+   "formalClass": "SAME",
+   "headClass": "SAME",
+   "message": "AssertionError: premise: a live row supplies the persisted shape: expected undefined to be defined",
+   "headMessage": "AssertionError: premise: a live row supplies the persisted shape: expected undefined to be defined"
+  }
+ ],
+ "goneVsHead": [],
+ "goneVsFormal": [],
+ "batchOfFile": {
+  "tests/bridge-p14c2rm-runtime.test.ts": "b7-rerun-docs-fixed",
+  "tests/bridge-p14c2s-scientist-runtime.test.ts": "b7-rerun-docs-fixed",
+  "tests/bridge-p14c3-promise-digest-continuity.test.ts": "b7-rerun-docs-fixed",
+  "tests/bridge-p14p3-directing-promises.test.ts": "b7-rerun-docs-fixed",
+  "tests/bridge-p14p4p5-opportunities.test.ts": "b7-rerun-docs-fixed",
+  "tests/bridge-p14r2r3-prior55.test.ts": "b7-rerun-docs-fixed",
+  "tests/p14c2s-scientist-retirement.test.ts": "b7-rerun-docs-fixed",
+  "tests/p14c3-transitions.test.ts": "b7-rerun-docs-fixed",
+  "tests/p14p4p5-cross-owner.test.ts": "b7-rerun-docs-fixed",
+  "tests/p15a2-power-ranking-archive.test.ts": "b7-rerun-docs-fixed",
+  "tests/1368-rival-writing-term.test.ts": "b2-recovery-own",
+  "tests/1368-writing-completion-boundary.test.ts": "b2-recovery-own",
+  "tests/p13b-s8-old-era-period.test.ts": "b2-recovery-own",
+  "tests/p14b1-trust-chooser.test.ts": "b2-recovery-own",
+  "tests/p14d2-rival-cost-cutting-adapter.test.ts": "b2-recovery-own",
+  "tests/p14d2-rival-cost-cutting.test.ts": "b2-recovery-own",
+  "tests/p14d2-rival-facility-disposal.test.ts": "b2-recovery-own",
+  "tests/p14d2-save46-migration.test.ts": "b2-recovery-own",
+  "tests/p14r3-rival-release.test.ts": "b2-recovery-own",
+  "tests/p15a1-market-integration.test.ts": "b3-p15",
+  "tests/p15c2-campaign-legacy-integration.test.ts": "b7-rerun-docs-fixed",
+  "tests/p15c2-campaign-legacy-sibling.test.ts": "b7-rerun-docs-fixed",
+  "tests/bridge-p14b10-relationship-labels.test.ts": "b4-helper-consumers",
+  "tests/bridge-p14b9-casting-readers.test.ts": "b4-helper-consumers",
+  "tests/bridge-p14c2b-extension.test.ts": "b4-helper-consumers",
+  "tests/bridge-p14c2c-retirement-promises.test.ts": "b4-helper-consumers",
+  "tests/bridge-p14c2rm-proposals.test.ts": "b4-helper-consumers",
+  "tests/bridge-p14c2rm-retirement.test.ts": "b4-helper-consumers",
+  "tests/bridge-p14c2s-scientist.test.ts": "b4-helper-consumers",
+  "tests/bridge-p14c3-dual-career-surfaces.test.ts": "b4-helper-consumers",
+  "tests/bridge-p14c3-read-models.test.ts": "b4-helper-consumers",
+  "tests/p14b10-competitions-log.test.ts": "b4-helper-consumers",
+  "tests/p14b10-conflict-evidence.test.ts": "b4-helper-consumers",
+  "tests/p14b10-mentor-label.test.ts": "b4-helper-consumers",
+  "tests/p14b10-romance.test.ts": "b4-helper-consumers",
+  "tests/p14b2-fixture-preconditions.test.ts": "b4-helper-consumers",
+  "tests/p14b4-cast-class-capacity-evaluator5.test.ts": "b4-helper-consumers",
+  "tests/p14b4-cast-class-capacity.test.ts": "b4-helper-consumers",
+  "tests/p14b4-owner-adapter-first-slice.test.ts": "b4-helper-consumers",
+  "tests/p14b4-owner-enumerator-slice.test.ts": "b4-helper-consumers",
+  "tests/p14b4-replay-bill-reductions.test.ts": "b4-helper-consumers",
+  "tests/p14b4-rival-seating-preference.test.ts": "b4-helper-consumers",
+  "tests/p14b9-casting-competition.test.ts": "b4-helper-consumers",
+  "tests/p14b9-casting-copy.test.ts": "b4-helper-consumers",
+  "tests/p14c2a-consumers.test.ts": "b4-helper-consumers",
+  "tests/p14c2a-core-lifecycle.test.ts": "b4-helper-consumers",
+  "tests/p14c2b-extension.test.ts": "b4-helper-consumers",
+  "tests/p14c2c-retirement-promises.test.ts": "b4-helper-consumers",
+  "tests/p14c2c-rival-promises.test.ts": "b4-helper-consumers",
+  "tests/p14c3-calendar-career.test.ts": "b4-helper-consumers",
+  "tests/p14c3-deferred-transition-chain.test.ts": "b4-helper-consumers",
+  "tests/p14c3-equal-tuple-evidence.test.ts": "b4-helper-consumers",
+  "tests/p14c3-held-actor-evidence.test.ts": "b4-helper-consumers",
+  "tests/p14c3-second-episode-writing.test.ts": "b4-helper-consumers",
+  "tests/p14c3-transition-owner-and-snapshots.test.ts": "b4-helper-consumers",
+  "tests/p14c4-cohorts.test.ts": "b4-helper-consumers",
+  "tests/save-masked-downgrade-own-era.test.ts": "b4-helper-consumers",
+  "tests/p06a-w1-release-authority.test.ts": "b5-backward",
+  "tests/p12-starting-world.test.ts": "b5-backward",
+  "tests/p14b9-save-v42.test.ts": "b5-backward",
+  "tests/p14c1-materialized-aging.test.ts": "b5-backward",
+  "tests/p14c2rm-writer-continuation.test.ts": "b5-backward",
+  "tests/p14c3-cohort-transition.test.ts": "b5-backward",
+  "tests/p14c3-dual-extensions.test.ts": "b5-backward",
+  "tests/p14c3-offmenu-extensions.test.ts": "b5-backward",
+  "tests/p14c3-profession-history.test.ts": "b5-backward",
+  "tests/p14c3-promise-digest-continuity.test.ts": "b5-backward",
+  "tests/p14p3-directing-promises.test.ts": "b5-backward",
+  "tests/p14p4p5-opportunities.test.ts": "b5-backward",
+  "tests/p14p4p5-screenplay-status.test.ts": "b5-backward",
+  "tests/p14r3-save-v41.test.ts": "b5-backward",
+  "tests/save.test.ts": "b5-backward",
+  "tests/contracts/v14-boundary-guards.contract.test.ts": "b5-backward",
+  "tests/bridge-p13b-r07-setup.test.ts": "b6-current",
+  "tests/bridge-p13b-s8-rivals.test.ts": "b6-current",
+  "tests/bridge-p14a1-market.test.ts": "b6-current",
+  "tests/bridge-p14a2-market.test.ts": "b6-current",
+  "tests/bridge-p14a3-world.test.ts": "b6-current",
+  "tests/bridge-p14b1-promises.test.ts": "b6-current",
+  "tests/bridge-p14b2-checkpoint.test.ts": "b6-current",
+  "tests/bridge-p14b2-trust.test.ts": "b6-current",
+  "tests/bridge-p14b3-promise-command.test.ts": "b6-current",
+  "tests/bridge-p14b4-cast-class.test.ts": "b6-current",
+  "tests/bridge-p14b4-runtime47-compatibility.test.ts": "b6-current",
+  "tests/bridge-p14b5-relationships.test.ts": "b6-current",
+  "tests/bridge-p14b6-d2-withheld-employment-claim.test.ts": "b6-current",
+  "tests/bridge-p14b6-e714-false-empty-absence-lines.test.ts": "b6-current",
+  "tests/bridge-p14b6-relationship-read-models.test.ts": "b6-current",
+  "tests/bridge-p14b8-waiver-surface.test.ts": "b6-current",
+  "tests/bridge-p14c3-runtime.test.ts": "b6-current",
+  "tests/bridge-process-restart.test.ts": "b6-current",
+  "tests/bridge-runtime-checkpoint.test.ts": "b6-current",
+  "tests/c2a-m2-sets-save.test.ts": "b6-current",
+  "tests/c2a-m3-rename-and-pooling.test.ts": "b6-current",
+  "tests/c2a-m3-screenplay-mint.test.ts": "b6-current",
+  "tests/cash-ledger-checkpoint-v11.test.ts": "b6-current",
+  "tests/construction-core.test.ts": "b6-current",
+  "tests/construction-save-v11.test.ts": "b6-current",
+  "tests/d11-employment.test.ts": "b6-current",
+  "tests/d17-engagement-persistence.test.ts": "b6-current",
+  "tests/d17a-adv-migration.test.ts": "b6-current",
+  "tests/d17a-adv-reconciliation.test.ts": "b6-current",
+  "tests/d17b-save-v7.test.ts": "b6-current",
+  "tests/facility-move-demolish.test.ts": "b6-current",
+  "tests/film-chronicle.test.ts": "b6-current",
+  "tests/legacy-parcel-ground.test.ts": "b6-current",
+  "tests/p04a2-writer-credit-law.test.ts": "b6-current",
+  "tests/p08a-w0-studio-history.test.ts": "b6-current",
+  "tests/p09a-w0-founding-regime.test.ts": "b6-current",
+  "tests/p13a-causal-core.test.ts": "b6-current",
+  "tests/p13a-technology-milestones.test.ts": "b6-current",
+  "tests/p13b-r07-save-v25.test.ts": "b6-current",
+  "tests/p13b-s2-access-identity.test.ts": "b6-current",
+  "tests/p13b-s2-save-v22.test.ts": "b6-current",
+  "tests/p13b-s3-save-v23.test.ts": "b6-current",
+  "tests/p13b-s3-validation.test.ts": "b6-current",
+  "tests/p13b-s5-save-v24.test.ts": "b6-current",
+  "tests/p13b-s6-save-v26.test.ts": "b6-current",
+  "tests/p13b-s7-announcements.test.ts": "b6-current",
+  "tests/p13b-s8-save-v27.test.ts": "b6-current",
+  "tests/p14a1-save-v28.test.ts": "b6-current",
+  "tests/p14b1-first-take.test.ts": "b6-current",
+  "tests/p14b1-promises.test.ts": "b6-current",
+  "tests/p14b1-save-v29.test.ts": "b6-current",
+  "tests/p14b1-t4-regressions.test.ts": "b6-current",
+  "tests/p14b10-save-v44.test.ts": "b6-current",
+  "tests/p14b2-setup-wrap-regressions.test.ts": "b6-current",
+  "tests/p14b3-reservations.test.ts": "b6-current",
+  "tests/p14b3-rule-revision.test.ts": "b6-current",
+  "tests/p14b4-cancel-causal-proof.test.ts": "b6-current",
+  "tests/p14b4-cast-class-outcomes.test.ts": "b6-current",
+  "tests/p14b4-material-evidence-core.test.ts": "b6-current",
+  "tests/p14b4-save-v30-compatibility.test.ts": "b6-current",
+  "tests/p14b5-relationships.test.ts": "b6-current",
+  "tests/p14b5-save-v31.test.ts": "b6-current",
+  "tests/p14b5-t-failure-tuning.test.ts": "b6-current",
+  "tests/p14b7-promise-waiver.test.ts": "b6-current",
+  "tests/p14bf2-acting-discipline.test.ts": "b6-current",
+  "tests/p14c2a-save-and-settlement.test.ts": "b6-current",
+  "tests/p14c2b-save-v36.test.ts": "b6-current",
+  "tests/p14c3-admission-boundaries.test.ts": "b6-current",
+  "tests/p14c3-canonical-rival-history.test.ts": "b6-current",
+  "tests/p14c3-profession-episodes.test.ts": "b6-current",
+  "tests/p14c3-queued-writing-proof.test.ts": "b6-current",
+  "tests/p14c3-save-v38.test.ts": "b6-current",
+  "tests/p14c3-transition-evidence.test.ts": "b6-current",
+  "tests/p14c4-save-v35.test.ts": "b6-current",
+  "tests/p14d1-rival-shelving-save-v43.test.ts": "b6-current",
+  "tests/p14p4p5-casting-reservation.test.ts": "b6-current",
+  "tests/p14p4p5-delayed-retirement.test.ts": "b6-current",
+  "tests/p14p4p5-finishing-material.test.ts": "b6-current",
+  "tests/p14p4p5-grouped-witness.test.ts": "b6-current",
+  "tests/p14p4p5-post-capacity.test.ts": "b6-current",
+  "tests/p14p4p5-queued-project-outcome.test.ts": "b6-current",
+  "tests/p14p4p5-receipt-freeze.test.ts": "b6-current",
+  "tests/p14p4p5-retired-acting.test.ts": "b6-current",
+  "tests/p14p4p5-scenery-capacity.test.ts": "b6-current",
+  "tests/p14p4p5-soundstage-capacity.test.ts": "b6-current",
+  "tests/p14p4p5-stock-subject.test.ts": "b6-current",
+  "tests/p14p4p5-writer-resources.test.ts": "b6-current",
+  "tests/placement-save-v12.test.ts": "b6-current",
+  "tests/property-state-v13.test.ts": "b6-current",
+  "tests/script-projects-save-v9.test.ts": "b6-current",
+  "tests/contracts/cross-owner-refusal.contract.test.ts": "b6-current",
+  "tests/contracts/phase-table-agreement.contract.test.ts": "b6-current",
+  "tests/contracts/studio-events.contract.test.ts": "b6-current",
+  "tests/contracts/v14-byte-parity.contract.test.ts": "b6-current"
+ }
+}

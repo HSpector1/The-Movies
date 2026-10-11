@@ -8,7 +8,7 @@ import { activeContract, busyTalentIds } from '../src/core/employment.js'
 import { studioConstructionView } from '../src/core/placement.js'
 import * as professionHistory from '../src/core/professionHistory.js'
 import * as queueAdmission from '../src/core/queueAdmission.js'
-import { stableStringify, validateSaveV45 } from '../src/core/save.js'
+import { stableStringify, validateSaveV46 } from '../src/core/save.js'
 import { availableDevelopmentCastingSlots } from '../src/core/scriptDevelopment.js'
 import { studioCalendar } from '../src/core/studioCalendar.js'
 import { tick } from '../src/core/tick.js'
@@ -26,7 +26,7 @@ import { accepted, B4_TARGETS, originalCommission, preserveActorHistory, project
 // the Hollywood check) and moves with the stamp, which validateSaveV42 would refuse by version.
 // 1358-N S2+S1: Save44 is live, so the stamp moves to 44 and the three readers to validateSaveV44.
 // 1361-N S2+S1: Save45 is live, so the stamp moves to 45 and the three readers to validateSaveV45.
-const envelope = (state: GameState) => ({ saveVersion: 45, seed: state.seed, state, broadcastCache: state.broadcastItems })
+const envelope = (state: GameState) => ({ saveVersion: 46, seed: state.seed, state, broadcastCache: state.broadcastItems })
 
 /** Independent premise check across both actual task owners, not the new private
  * permission/candidate helper. An idle-cost assertion must not hide a candidate. */
@@ -60,7 +60,7 @@ describe.each(B4_TARGETS)('C.3 queued current-%s writing and complete-proof boun
     let after: GameState
     try {
       const control = envelope(state)
-      expect(validateSaveV45(control)).toBe(control)
+      expect(validateSaveV46(control)).toBe(control)
       expect(historySpy.mock.calls, 'mandatory real full-reader instrumentation control').toHaveLength(1)
       expect(historySpy.mock.calls[0]![0].market).toMatchObject({ tick: 468 })
       historySpy.mockClear()
@@ -133,7 +133,7 @@ describe.each(B4_TARGETS)('C.3 queued current-%s writing and complete-proof boun
       .toEqual(f.state.careerLifecycle.records.filter(item => item.personId === f.focusId))
     const malformedBefore = stableStringify(malformed)
     expect(() => professionHistory.validateProfessionHistory({ ...malformed }), 'narrow history-only discriminator is not whole-save admission').not.toThrow()
-    expect(() => validateSaveV45(envelope(malformed))).toThrow(/intentRulesVersion must be 1/)
+    expect(() => validateSaveV46(envelope(malformed))).toThrow(/intentRulesVersion must be 1/)
     const refusal = /intentRulesVersion must be 1|active project .*writer is not contracted/
     expect(() => studioConstructionView(malformed)).toThrow(refusal)
     expect(() => studioCalendar(malformed)).toThrow(refusal)
@@ -158,7 +158,7 @@ describe.each(B4_TARGETS)('C.3 queued current-%s writing and complete-proof boun
     let after: GameState
     try {
       const control = envelope(state)
-      expect(validateSaveV45(control)).toBe(control)
+      expect(validateSaveV46(control)).toBe(control)
       expect(spy.mock.calls, 'positive full-reader control proves this spy observes the actual call graph').toHaveLength(1)
       expect(spy.mock.calls[0]![0].market).toMatchObject({ tick: 260 })
       spy.mockClear()

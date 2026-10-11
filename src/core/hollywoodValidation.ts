@@ -69,10 +69,10 @@ export type HollywoodLeafValidators = {
 // P14D.1 — `rivalShelving` is the Save43 era: `screenplayShelving` on every business and
 // the `screenplayShelved` receipt exist only under it, and an unproduced screenplay is
 // active or shelved, never both; every frozen reader keeps "unproduced ⇔ active".
-export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false): asserts value is HollywoodState | null {
+export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false): asserts value is HollywoodState | null {
   const researchKinds = new Set<string>(RIVAL_RESEARCH_MONEY_KINDS)
   const moneyKinds = RIVAL_MONEY_KINDS.filter(kind =>
-    (technology !== undefined || kind !== 'technologyAdoption') && (research || !researchKinds.has(kind)) && (rivalTermination || kind !== 'termination'))
+    (technology !== undefined || kind !== 'technologyAdoption') && (research || !researchKinds.has(kind)) && (rivalTermination || kind !== 'termination') && (rivalFacilityDisposal || kind !== 'facilityDemolitionRefund'))
   const researchProjects = research ? ((technology as StudioTechnology | undefined)?.projects ?? []) : []
   campaignDate(state.market.tick)
   if (value === null) {
@@ -225,9 +225,26 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
   for(const p of state.studio.activeProductions)verifyParticipants(p,false)
   for(const a of activeScriptWriterAssignments(state.scriptDevelopment,state.concepts))claimAssignment(a.talentId,`${h.playerStudioId}:${a.projectId}`)
   for (const b of h.businesses) {
-    exact(b,['studioId','entryKey','account','standing','operations','development','productions','activeScriptOrdinals','activeRunFilmOrdinals','releaseAuthority','runs','projects','nextDecisionWeek','policy',...(rivalShelving?['screenplayShelving']:[])])
+    exact(b,['studioId','entryKey','account','standing','operations','development','productions','activeScriptOrdinals','activeRunFilmOrdinals','releaseAuthority','runs','projects','nextDecisionWeek','policy',...(rivalShelving?['screenplayShelving']:[]),...(rivalCostCutting?['costCutting']:[])])
     requireFact(!businesses.has(b.studioId) && studios.get(b.studioId)?.role === 'rival' && studios.get(b.studioId)!.enteredWeek !== null,'duplicate/unknown business'); businesses.add(b.studioId)
     requireFact(b.entryKey === `${b.studioId}:entry`,'entry key mismatch'); integer(b.nextDecisionWeek); standing(b.standing)
+    if (rivalCostCutting) {
+      const cutting: unknown = b.costCutting
+      exact(cutting,['version','since']); requireFact(cutting.version === 1,'cost cutting: unknown version')
+      if (cutting.since !== null) {
+        integer(cutting.since,studios.get(b.studioId)!.enteredWeek!)
+        requireFact(cutting.since <= state.market.tick,'cost cutting: future entry')
+        list(b.productions); list(b.runs)
+        requireFact(b.productions.length === 0 && b.runs.length === 0,'cost cutting requires no production or run')
+        const since = cutting.since
+        requireFact(!h.receipts.some(r => r.studioId === b.studioId && r.week > since &&
+          (r.kind === 'filmAnnounced' || r.kind === 'laboratoryCommitted' ||
+            (r.kind === 'employment' && r.toStudioId === b.studioId))), 'cost cutting has a later commitment')
+        // Operational completion is permitted when its commitment predates entry.
+        requireFact(!technology?.adoptions.some(a => a.studioId === b.studioId && a.committedWeek > since),
+          'cost cutting has a later technology adoption')
+      }
+    }
     requireFact(b.nextDecisionWeek>=state.market.tick && b.nextDecisionWeek<=Math.max(state.market.tick,studios.get(b.studioId)!.enteredWeek!)+TUNING.HOLLYWOOD_DECISION_WEEKS,'decision boundary differs from actual cadence')
     exact(b.policy,['version','affinities','negativeScale','marketingRatio','reserveWeeks'])
     requireFact(b.policy.version === 1,'unknown policy version'); exact(b.policy.affinities,GENRE_ORDER)
@@ -292,7 +309,10 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
         requireFact(p.movements.technologyRestoration === 0 && p.movements.technologyRefund === 0, 'rival restoration or refund without a cancellation receipt')
       }
       if (rivalTermination) requireFact(close(p.movements.termination, -expectedTermination[periodIndex]!), 'rival termination movements do not reconcile with termination receipts')
-      for (const [kind,n] of Object.entries(p.movements)) number(n,kind === 'studioRevenue' ? 0 : -Infinity,kind === 'studioRevenue' ? Infinity : 0)
+      for (const [kind,n] of Object.entries(p.movements)) {
+        const positive = kind === 'studioRevenue' || (rivalFacilityDisposal && kind === 'facilityDemolitionRefund')
+        number(n,positive ? 0 : -Infinity,positive ? Infinity : 0)
+      }
       requireFact(close(balance,p.opening) && close(p.opening+Object.values(p.movements).reduce((a,n)=>a+n,0),p.closing),'unreconciled money')
       balance=p.closing
     }
@@ -318,7 +338,9 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     // did not exist, which is exactly the legacy zero-Opex grandfathering.
     const baseOpex=rivalCapacityOpex({...b,operations:{...b.operations,facilities:rivalStartingFacilities(b.studioId)}} as RivalBusiness)
     const plantOpex=h.receipts.reduce((sum,r)=>r.studioId!==b.studioId?sum
-      :r.kind==='laboratoryOperational'?sum+Math.max(0,state.market.tick-r.week)*TUNING.RESEARCH_LABORATORY_WEEKLY_OPERATING_COST
+      :r.kind==='laboratoryOperational'?sum+Math.max(0,Math.min(state.market.tick,
+        rivalFacilityDisposal ? h.receipts.find(d=>d.kind==='facilityDisposed'&&d.studioId===r.studioId&&d.facilityId===r.facilityId)?.week ?? state.market.tick : state.market.tick)
+        -r.week)*TUNING.RESEARCH_LABORATORY_WEEKLY_OPERATING_COST
       :r.kind==='instrumentOperational'?sum+Math.max(0,state.market.tick-r.week)*instrumentWeeklyOperatingCost(r.technologyId):sum,0)
     requireFact(close(movements.facilityOpex!, -(elapsed*baseOpex+plantOpex)), 'facility operating costs do not reconcile')
     for(const kind of ['development','production','marketing'] as const) requireFact(close(movements[kind]!, -b.projects.reduce((sum,p)=>sum+p[kind],0)), `${kind} commitments do not reconcile`)
@@ -474,7 +496,8 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
       instrumentOperational:research?['facilityId','technologyId']:undefined,
       researchSeatAssigned:research?['projectId','talentId']:undefined, researchCompleted:research?['projectId']:undefined,
       // P14D.1: a rival's shelving receipt exists only under the Save43 era.
-      screenplayShelved:rivalShelving?['scriptProjectId','conceptId','rejections']:undefined}[r.kind]
+      screenplayShelved:rivalShelving?['scriptProjectId','conceptId','rejections']:undefined,
+      facilityDisposed:rivalFacilityDisposal?['facilityId','planId','blueprintId','refund']:undefined}[r.kind]
     requireFact(extra,'unknown receipt kind'); exact(r,[...base,'kind',...extra])
     integer(r.week); requireFact(r.week>=priorWeek&&r.week<=state.market.tick,'receipt chronology'); priorWeek=r.week
     const owner=studios.get(r.studioId)
@@ -515,8 +538,11 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     if(r.kind==='laboratoryOperational') {
       requireFact(r.studioId!==h.playerStudioId,'a rival research receipt cannot name the player')
       const business=businessById.get(r.studioId)
-      requireFact(business?.operations.facilities.some(f=>f.id===r.facilityId&&f.capability==='laboratory'),'Laboratory operational receipt has no Laboratory')
+      requireFact(business?.operations.facilities.some(f=>f.id===r.facilityId&&f.capability==='laboratory') ||
+        (rivalFacilityDisposal && h.receipts.some(d=>d.kind==='facilityDisposed'&&d.studioId===r.studioId&&d.facilityId===r.facilityId)),
+        rivalFacilityDisposal ? 'Laboratory operational receipt has no Laboratory or validated disposal' : 'Laboratory operational receipt has no Laboratory')
     }
+    if(r.kind==='facilityDisposed') { text(r.facilityId); text(r.planId); text(r.blueprintId); number(r.refund,0) }
     if(r.kind==='instrumentOperational') {
       requireFact(r.studioId!==h.playerStudioId,'a rival research receipt cannot name the player')
       const business=businessById.get(r.studioId)

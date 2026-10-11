@@ -1,3 +1,4 @@
+import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // Installed after T0 KEEP and exact remote preservation a76242f2f4bdfda98e38ec706e3110ad6a9bb957.
 // Original inert-draft commentary below is retained as provenance; actual RED recorded separately.
 // INERT DRAFT ONLY — intended tests/p14b4-save-v30-compatibility.test.ts.
@@ -226,7 +227,7 @@ function preservesExactly(admitted: OldSave) {
   // own rule) — this corpus predates the retirement-extension market entirely, so
   // every case here always was one, and `lifted` below defaulted it the same way.
   const marketV36 = { ...migrated.state.talentMarket, cases: migrated.state.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' as const })) }
-  expect(lifted).toEqual({ ...migrated, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyP15Roots(withEmptyScreenplayShelving(withRivalTermination(migrated.state)), migrated.state.market.tick), relationships: [],
+  expect(lifted).toEqual({ ...migrated, saveVersion: LIVE_SAVE_VERSION, state: { ...withEmptyRecovery(withEmptyP15Roots(withEmptyScreenplayShelving(withRivalTermination(migrated.state)), migrated.state.market.tick)), relationships: [],
     promises: migrated.state.promises.map(addedFields), talent: floored, talentProvenance: provenance, careerLifecycle: lifecycle,
     talentMarket: marketV36,
     firstTakeSubjects: { version: 1, cutoverOrdinal: migrated.state.firstTakes.length, facts: [] } } })
@@ -262,7 +263,7 @@ function assertActualBacking(save: OldSave, root: OldPromise): void {
 
 describe('P14B4 Save30: genuine final V29 corpus, exact old-state preservation', () => {
   it('pins LIVE_SAVE_VERSION to literal41 independently of the value under test', () => {
-    expect(LIVE_SAVE_VERSION).toBe(45)
+    expect(LIVE_SAVE_VERSION).toBe(46)
   })
 
   it.each(NAMES)('migrates genuine %s without rewriting roots, receipts, digests or history and downgrades losslessly', (name) => {

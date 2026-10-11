@@ -1,3 +1,4 @@
+import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // 1287-A/B/F: genuine refusal, queued request and ordinary commit; fixed45→53 only.
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
@@ -112,7 +113,7 @@ function memo<T>(name: string, build: () => T): T {
 }
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
+  expect(save.saveVersion).toBe(46); expect(saves.validateSaveV46(save)).toBe(save)
   const raw = saves.exportSave(save)
   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
 }
@@ -194,7 +195,7 @@ function input45(): GameState {
     const parsed: unknown = JSON.parse(raw), old = saves.validateSaveV39(parsed), frozen = stable(old)
     expect(old).toBe(parsed); expect(saves.exportSave(old)).toBe(raw)
     const state = saves.migrateToLive(old).state
-    expect(stable(old)).toBe(frozen); expect(state).toEqual({ ...withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
+    expect(stable(old)).toBe(frozen); expect(state).toEqual({ ...withEmptyRecovery(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick)), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
     oldTakes = clone(old.state.firstTakes); expect(oldTakes).toHaveLength(19); admitted(state); suffix(state)
     expect(state.market.tick).toBe(45); expect(state.studio.cash).toBe(24701506); expect(state.promises).toEqual([])
     expect(state.talentMarket.proposals).toEqual([]); expect(state.studio.activeProductions).toEqual([])

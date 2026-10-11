@@ -283,8 +283,8 @@ describe('P13B-S5-R07 Save V25 (test 5)', () => {
   // forged sentinel moves to 46 (src/core/save.ts:5455-5457: "unknown saveVersion 46 (this build
   // handles versions 1 through 45 only)"), and the pattern follows the range.
   it('an unknown saveVersion 46 is refused, naming the handled range "1 through 45 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
-    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 46 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 45 only/)
+    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 47 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 46 only/)
   })
 
   it('mid-setup save/reload round-trips byte-identically (export/import codec only) — INTERPRETATION 3: hand-authored setup, no genuine producer exists yet', () => {

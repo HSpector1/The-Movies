@@ -1,3 +1,4 @@
+import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // 1278-A/B: three public actions, four pure P5 quotes, no engine advances.
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
@@ -94,7 +95,7 @@ function memo(name: string, build: () => GameState): GameState {
 }
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
+  expect(save.saveVersion).toBe(46); expect(saves.validateSaveV46(save)).toBe(save)
   const raw = saves.exportSave(save)
   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
 }
@@ -217,7 +218,7 @@ function input45(): GameState {
     expect(old).toBe(parsed); expect(saves.exportSave(old)).toBe(raw)
     const state = saves.migrateToLive(old).state
     expect(stable(old)).toBe(prior)
-    expect(state).toEqual({ ...withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
+    expect(state).toEqual({ ...withEmptyRecovery(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick)), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
     initial = clone(state); retained(state)
     expect(issuer(state)).toBe('studio-de11f27b-player')
     expect(state.operations.mode).toBe('managed'); expect(state.scriptDevelopment.mode).toBe('managed')

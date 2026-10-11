@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "kind": "genuine-original42-to-original45-rank-130-135",
+  "originalEngineHead": "2eaa697effc38538c37da28b486786ce267a2284",
+  "originalSrcTree": "88d0197645b3a5bd69d73ebff0c5c1c9ff0aa837",
+  "coordinatorHead": "203adcdcb48c73ca4c6aac7f5b43cf505a2a0cb7",
+  "sourcePinsSha256": "61cfe4b107a5939f10834ad148d32712bbf8dac333f513c199f5e61c2eded8f0",
+  "kitManifestSha256": "1decfabceb09fdd5f27ae660972fd539dd0c9aa26649a5cf918a5d8cbb71b04e",
+  "seed": "p13a-core-causal-01",
+  "inputSaveVersion": 42,
+  "saveVersion": 45,
+  "startWeek": 130,
+  "endWeek": 135,
+  "ticks": 5,
+  "options": "default tick(state), no options",
+  "input": {
+    "gzipSha256": "af45c8a0efb9a56ac9ff4c16244509d59b49a02370f8390769c79b133d7238f6",
+    "rawSha256": "f0bf1f76552347f590b54cafefc5704a436f63de49c6782e9bb9a582f28f1425",
+    "manifestSha256": "35f281f6a56190b422c44d16838290a977a595db7e3ad3ace7c4d72cafb74f3f"
+  },
+  "file": {
+    "path": "original42-week130-to-original45-week135.json.gz",
+    "sha256": "ab3114ce026bfdfe33e14068a28695c413f9285105c09e2770f449e94175e638",
+    "bytes": 126333,
+    "rawSha256": "df17c14876e109d4b3b6f2ee412d887e07f804bc6a207ea5c0107e66240c0a32",
+    "rawBytes": 1101383
+  },
+  "boundaries": [
+    {
+      "week": 130,
+      "stateSha256": "c95cfbdd09fdd108ef7ebf314f664ca7811d48d3156888a175c6710bf4a0a376",
+      "saveSha256": "d8eaef466f4bce82baf89c225bfd3350195e0991880cf0233fb87c52d9b2074f"
+    },
+    {
+      "week": 131,
+      "stateSha256": "f24f2905220e9c0fea2e4b2b3fe712c1d095ec5872e9edb764a763ccf1d90eb6",
+      "saveSha256": "8c1eee7bedc6c0779ca1079079ff5f2a4eaf66f9de45c45abca00eea811e61ed"
+    },
+    {
+      "week": 132,
+      "stateSha256": "098c4a455bd8e789fd89cf2a1ab95ef936766c971bee112bea54a60ad3ea5c81",
+      "saveSha256": "ec16bfb729912d491bdf304f8b380a726c26ff80c55c42c1dafca9f03b65d35d"
+    },
+    {
+      "week": 133,
+      "stateSha256": "49753b64334b578923aa79e89dd0d21874c5c48d98c576f65c74d8065edae63f",
+      "saveSha256": "a97ea0aa3a78aa0fd92dd5e6787e5c6895b9946b0c16d266b18582e7d575e158"
+    },
+    {
+      "week": 134,
+      "stateSha256": "363f6ce95003d97aa885e68283355ee27e141b5f17f56e55b5a441fc2e863c5a",
+      "saveSha256": "e0119932754082bc28c5bba7665e08b536504d93adccb8a4c318e54fda1a3cc2"
+    },
+    {
+      "week": 135,
+      "stateSha256": "9c99e4d163d47ba738a1598b64efc1e3863e34facbebfc70bb00c61c1c421b2c",
+      "saveSha256": "df17c14876e109d4b3b6f2ee412d887e07f804bc6a207ea5c0107e66240c0a32"
+    }
+  ],
+  "ownEraRoundtrip": {
+    "before": {
+      "version": 1,
+      "recordedFromWeek": 130,
+      "snapshots": []
+    },
+    "after": {
+      "version": 1,
+      "recordedFromWeek": 135,
+      "snapshots": []
+    }
+  }
+}

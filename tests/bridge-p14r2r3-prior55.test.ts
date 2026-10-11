@@ -1,3 +1,4 @@
+import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // ── P14 task 1308-C (new file): the outgoing projection55 runtime-checkpoint consumer for the
 // combined R2+R3 increment (projection 55->56, Save 40->41) ──
 //
@@ -64,7 +65,7 @@ import {
   encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS,
 } from '../bridge/runtime-checkpoint.ts'
-import { exportSave, migrateToLive, validateSaveV40, validateSaveV45 } from '../src/core/save.js'
+import { exportSave, migrateToLive, validateSaveV40, validateSaveV46 } from '../src/core/save.js'
 
 const FIXTURES = new URL('./fixtures/p14/genuine-runtime55-pre-r3/', import.meta.url)
 const OLD_SCHEMA = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158'
@@ -203,12 +204,12 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
       const nextRaw = current[slot]
       expect(nextRaw, `${slot} must be present on the migrated checkpoint`).toBeTruthy()
       const previous = validateSaveV40(JSON.parse(old.value[slot]))
-      const now = validateSaveV45(JSON.parse(nextRaw!))
-      expect(now.saveVersion).toBe(45)
+      const now = validateSaveV46(JSON.parse(nextRaw!))
+      expect(now.saveVersion).toBe(46)
       // new.state equals old.state with termination:0 added to every rival finance period's
       // movements, and nothing else — the same fact p14r3-save-v41.test.ts asserts directly
       // on the raw fixtures, independently re-derived here through the runtime-checkpoint path.
-      expect(now.state).toEqual(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withSharedCompetitionsZero(withTerminationZero(previous.state as never)))), previous.state.market.tick))
+      expect(now.state).toEqual(withEmptyRecovery(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withSharedCompetitionsZero(withTerminationZero(previous.state as never)))), previous.state.market.tick)))
       // slot bytes equal exportSave(migrateToLive(previous)) — the checkpoint's own migration
       // must route through the SAME migrateToLive chain the save-file path uses, not a second,
       // divergent conversion.

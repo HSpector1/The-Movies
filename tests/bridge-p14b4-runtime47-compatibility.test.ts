@@ -1,3 +1,4 @@
+import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // Installed after T0 KEEP and exact remote preservation a76242f2f4bdfda98e38ec706e3110ad6a9bb957.
 // Original inert-draft commentary below is retained as provenance; actual RED recorded separately.
 // INERT / UNEXECUTED. Intended tests/bridge-p14b4-runtime47-compatibility.test.ts.
@@ -206,7 +207,7 @@ describe('P14B4 genuine outgoing46 runtime compatibility — current Save39/proj
   it('requires literal projection54/Save39 and exact 42 prior IDs, excluding the running identity', () => {
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(57)
-    expect(LIVE_SAVE_VERSION).toBe(45)
+    expect(LIVE_SAVE_VERSION).toBe(46)
     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56].sort())
@@ -255,7 +256,7 @@ describe('P14B4 genuine outgoing46 runtime compatibility — current Save39/proj
       ...old.state.talentMarket,
       cases: old.state.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' })),
     })
-    expect(actual.state.hollywood).toEqual(withEmptyScreenplayShelving(withRivalTermination(old.state)).hollywood)
+    expect(actual.state.hollywood).toEqual(withEmptyRecovery(withEmptyScreenplayShelving(withRivalTermination(old.state))).hollywood)
     expect(exportSave(old)).toBe(oldBytes)
     expect(loaded.hydrated.checkpoint.currentSaveJson).not.toBe(loaded.hydrated.checkpoint.savedSaveJson)
     expect(sha(raw)).toBe(PINS.raw)

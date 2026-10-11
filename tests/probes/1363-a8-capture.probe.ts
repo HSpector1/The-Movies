@@ -8,7 +8,6 @@ import { basename, dirname, isAbsolute, relative, resolve } from 'node:path'
 import { performance } from 'node:perf_hooks'
 import { gzipSync, gunzipSync } from 'node:zlib'
 import { it, vi } from 'vitest'
-import { PROJECTION_VERSION, SCHEMA_ID } from '../../bridge/protocol.js'
 import { p13aGeneratedStudio } from '../../src/harness/p13a/fixtures.js'
 import { tick } from '../../src/core/tick.js'
 import * as policyModule from '../../src/core/hollywoodPolicy.js'
@@ -104,7 +103,7 @@ function observedTick(state: GameState): { next: GameState; observations: Observ
   finally { searchSpy.mockRestore(); chooseSpy.mockRestore() }
 }
 
-it('1363-A8 bounded natural v1 count12 capture — produce or explicitly report absence', () => {
+it('1363-A8 bounded natural v1 count12 capture — produce or explicitly report absence', async () => {
   const root = realpathSync(process.cwd())
   const git = (...args: string[]): string => execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim()
   assert.equal(realpathSync(git('rev-parse', '--show-toplevel')), root)
@@ -119,6 +118,13 @@ it('1363-A8 bounded natural v1 count12 capture — produce or explicitly report 
   const sources = Object.fromEntries(paths.map(path => [path, digest(readFileSync(resolve(root, path)))]))
   assert.ok(!readFileSync(resolve(root, 'src/core/hollywoodPolicy.ts'), 'utf8').includes('diagnoseUnaffordableViability'), 'PartA must not be installed before the v1 capture')
   assert.equal(LIVE_SAVE_VERSION, 45)
+  // Runtime-only Bridge boundary, as in the archived week77 capture producer.
+  // Load actual computed provenance through Vitest without adding Bridge to root tsc.
+  const protocol: Record<string, unknown> = await import('/@fs/' + resolve(root, 'bridge/protocol.ts'))
+  const { PROJECTION_VERSION, SCHEMA_ID } = protocol
+  assert.ok(typeof PROJECTION_VERSION === 'number' && Number.isSafeInteger(PROJECTION_VERSION) && PROJECTION_VERSION > 0)
+  assert.ok(typeof SCHEMA_ID === 'string')
+  assert.match(SCHEMA_ID, /^sha256:[0-9a-f]{64}$/)
   assert.equal(TUNING.HOLLYWOOD_SHELVE_AFTER_REJECTIONS, 13, 'count12 must be exactly one economic rejection below the threshold')
   const outArg = process.env.P1363_A8_OUTPUT ?? ''
   assert.ok(isAbsolute(outArg), 'P1363_A8_OUTPUT must name a new absolute external scratch directory')

@@ -119,7 +119,7 @@ import { describe, expect, it } from 'vitest'
 // src/core/save.ts at HEAD 3c6a7732 (see header, INTERPRETATION 1). Each is called below.
 import {
   LIVE_SAVE_VERSION, exportSave, makeSave, migrateToV40, validateSaveV40,
-  validateSaveV41, validateSaveV45, convertV40ToV41, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, migrateToV41,
+  validateSaveV41, validateSaveV46, convertV40ToV41, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, migrateToV41,
 } from '../src/core/save.js'
 import { terminationCost } from '../src/core/employment.js'
 import { industryBusyTalentIds, moveRivalMoney } from '../src/core/hollywood.js'
@@ -210,12 +210,12 @@ function lawfulTerminatedSave(): { save: unknown; expectedCharge: number; rivalI
 
 describe('P14 1305-C Save41: live boundary', () => {
   it('LIVE_SAVE_VERSION === 42', () => {
-    expect(LIVE_SAVE_VERSION).toBe(45)
+    expect(LIVE_SAVE_VERSION).toBe(46)
   })
   it('makeSave stamps 41 on a freshly generated current campaign', () => {
     const state = p13aGeneratedStudio()
     const saved = makeSave(state)
-    expect((saved as { saveVersion: number }).saveVersion).toBe(45)
+    expect((saved as { saveVersion: number }).saveVersion).toBe(46)
   })
 })
 
@@ -223,8 +223,8 @@ describe('P14 1305-C Save41: fresh V41 validates (freshly generated, no fixture 
   it('a freshly generated current campaign round-trips through validateSaveV41', () => {
     const state = p13aGeneratedStudio()
     const saved = makeSave(state)
-    const revalidated = validateSaveV45(JSON.parse(JSON.stringify(saved)))
-    expect(revalidated.saveVersion).toBe(45)
+    const revalidated = validateSaveV46(JSON.parse(JSON.stringify(saved)))
+    expect(revalidated.saveVersion).toBe(46)
     for (const business of rivalBusinesses(revalidated.state as never)) {
       for (const period of business.account.periods) expect(period.movements.termination).toBe(0)
     }
@@ -341,8 +341,8 @@ describe('P14 1305-C Save41: the player\'s own termination is not counted as a r
 describe('P14 1305-C Save41: a genuine rival release (lawful route) validates under V41 with the exact charge, and is refused by the frozen V40 reader', () => {
   it('validateSaveV41 admits it; the row-2 period\'s termination movement equals -terminationCost(original terms, 22); relabeling saveVersion 40 is refused by the frozen validateSaveV40', () => {
     const { save, expectedCharge, rivalId } = lawfulTerminatedSave()
-    const validated = validateSaveV45(save as never)
-    expect(validated.saveVersion).toBe(45)
+    const validated = validateSaveV46(save as never)
+    expect(validated.saveVersion).toBe(46)
     const business = rivalBusinesses(validated.state as never).find((b) => b.studioId === rivalId)!
     const period = business.account.periods[business.account.periods.length - 1]!
     expect(period.movements.termination).toBe(-expectedCharge)
@@ -380,7 +380,7 @@ describe('P14 1305-C Save41: 41->40 downgrade', () => {
     // The staged V41 assertion below in this leaf covers the rival termination receipt guard.
     // The movement-only leaf above stops in V41 reconciliation (hollywoodValidation.ts:294;
     // measured in 1358-X7t), so it does not independently cover the downgrade movement guard.
-    expect(() => convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(save as never)))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
+    expect(() => convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(save as never))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
     // 1358-F10 ruling 4: no Save41 engine remains to write a rival release, so one is staged on a V41 copy
     // of the genuine week110 input. It writes what the release law writes (src/core/hollywoodTick.ts:180-197)
     // for the first rival employee that passes the law's seat, cap, Scientist and open-promise tests (it

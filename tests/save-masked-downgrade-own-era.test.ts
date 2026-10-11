@@ -99,7 +99,7 @@ describe('1362-O item 9: valid own-era downgrade inputs', () => {
     expect(validateSaveV27(lifted)).toBe(lifted)
     expect(bytes(convertV27ToV26(lifted))).toBe(oldBytes)
     const liftedBytes = bytes(lifted)
-    const produced = admitRivalPlans(lifted.state as unknown as GameState)
+    const produced = admitRivalPlans(lifted.state as unknown as GameState, 'pre-recovery')
     const staged = validateSaveV27({ ...lifted, state: produced.state })
     const kinds = new Set(['laboratoryCommitted', 'laboratoryOperational', 'instrumentOperational', 'researchSeatAssigned', 'researchCompleted'])
     const receipt = staged.state.hollywood!.receipts.find(row => kinds.has(row.kind))

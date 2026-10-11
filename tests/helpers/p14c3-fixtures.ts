@@ -65,7 +65,7 @@ type SaveAPI = { validateSaveV38: (input: unknown) => Save38;
   // (save.ts:10763) is live and validateSaveV43 (:10714) is frozen.
   // 1361-N S1: 44 -> 45 (the four P15 roots); validateSaveV45 (save.ts:10962)
   // is live and validateSaveV44 (:10822) is frozen.
-  validateSaveV45: (input: unknown) => Save38 }
+  validateSaveV46: (input: unknown) => Save38 }
 export function saveApi<K extends keyof SaveAPI>(name: K): SaveAPI[K] {
   const fn = (save as unknown as Partial<SaveAPI>)[name]
   expect(typeof fn, `946 versioned save export ${name}`).toBe('function')
@@ -135,7 +135,7 @@ export function root38(state: GameState): Root38 {
 }
 export function envelope38(state: GameState): Save38 {
   const result = save.makeSave(state)
-  expect(result.saveVersion, 'existing live writer moves coherently to38').toBe(45)
+  expect(result.saveVersion, 'existing live writer moves coherently to38').toBe(46)
   root38(result.state)
   return result as unknown as Save38
 }

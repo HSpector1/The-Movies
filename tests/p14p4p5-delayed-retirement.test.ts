@@ -1,3 +1,4 @@
+import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // 1281-A/B: fixed45→104 continuation; no old helper/prefix evaluation or future arrival.
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
@@ -116,7 +117,7 @@ function admitted(state: GameState): void {
   // masked live validator call on the same line moves with it.
   // 1358-N S2+S1: Save44 moves the live stamp to 44, and both pins on the next line move with it.
   // 1361-N S2+S1: Save45 moves the live stamp to 45, and both pins on the next line move with it again.
-  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
+  expect(save.saveVersion).toBe(46); expect(saves.validateSaveV46(save)).toBe(save)
   const raw = saves.exportSave(save)
   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
 }
@@ -198,7 +199,7 @@ function input45(): GameState {
     const parsed: unknown = JSON.parse(raw), old = saves.validateSaveV39(parsed), frozen = stable(old)
     expect(old).toBe(parsed); expect(saves.exportSave(old)).toBe(raw)
     const state = saves.migrateToLive(old).state
-    expect(stable(old)).toBe(frozen); expect(state).toEqual({ ...withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
+    expect(stable(old)).toBe(frozen); expect(state).toEqual({ ...withEmptyRecovery(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick)), firstTakeSubjects: { version: 1, cutoverOrdinal: 19, facts: [] } })
     oldTakes = clone(old.state.firstTakes); expect(oldTakes).toHaveLength(19); admitted(state); suffix(state)
     expect(state.market.tick).toBe(45); expect(state.studio.cash).toBe(24701506); expect(state.promises).toEqual([])
     expect(state.talentMarket.proposals).toEqual([]); expect(state.studio.activeProductions).toEqual([])

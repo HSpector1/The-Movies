@@ -20,7 +20,7 @@ import { createHash } from 'node:crypto'
 import { existsSync, readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { expect } from 'vitest'
-import { convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, makeSave, migrateToLive, validateSaveV35 } from '../../src/core/save.js'
+import { convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, makeSave, migrateToLive, validateSaveV35 } from '../../src/core/save.js'
 import type { SaveFileV35, SaveFileV36 } from '../../src/core/save.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './p14b2-fixtures.js'
 export { advanceTo, fund, p13aGeneratedStudio, player }
@@ -66,7 +66,7 @@ export function c2bLiveFixture(name: C2bCorpusName): GameState {
  * authority; it cannot strip entrants/events to manufacture a frozen36 input.
  * Frozen-only tests needing such a state require genuine older bytes (record975). */
 export function liveEnvelopeV36(state: GameState): SaveFileV36 {
-  return convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(makeSave(state))))))))))
+  return convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(makeSave(state)))))))))))
 }
 
 /** MANIFEST.json's own `focus` block for one fixture, read fresh from disk (never

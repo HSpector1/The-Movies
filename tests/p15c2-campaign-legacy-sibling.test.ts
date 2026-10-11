@@ -18,14 +18,14 @@
 
 import { describe, expect, it } from 'vitest'
 import { buildLegacyManifest } from '../src/core/campaignLegacy.js'
-import { makeSave } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import {
   B,
   budgeted,
   canon,
   captureAt,
-  convertIntoStep,
+  convertIntoStep, currentFromStep,
   factsFn,
   genuineFrozen,
   officialOf,
@@ -39,7 +39,6 @@ import {
   sequenceOf,
   siblingRows,
   sourceOf,
-  STEP,
   stepFn,
   withoutStamp,
   withRoot,
@@ -84,7 +83,7 @@ describe('p15c2 sibling leaves: the Legacy with a sibling P15 root in the live s
 
   it('legacy-migration-before-boundary-siblings-limited', budgeted(ROUTE_MS, () => {
     const capture = captureAt((state) => state.market.tick === B - 1, 'at week 6239')
-    const next = tick(convertIntoStep(capture).state)
+    const next = tick(currentFromStep(convertIntoStep(capture)).state)
     requireSiblings(next, 'siblings migrated at 6239 read limited only once they land')
     const official = officialOf(next)
     // Only a sibling that arrives in the Legacy's own step is migrated at 6239 with it. A sibling landed
@@ -120,6 +119,6 @@ describe('p15c2 sibling leaves: the Legacy with a sibling P15 root in the live s
       expect(root.recordedFromWeek, `${key} migrated at 6240`).toBeGreaterThanOrEqual(B)
       expect(sourceOf(official, domainId)).toEqual({ domainId, highWatermark: 0, recordedFromWeek: null, status: 'notRecorded' })
     }
-    expect(makeSave(frozen).saveVersion).toBe(STEP)
+    expect(makeSave(frozen).saveVersion).toBe(LIVE_SAVE_VERSION)
   }), FIXTURE_MS)
 })

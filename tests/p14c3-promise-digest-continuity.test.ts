@@ -11,7 +11,7 @@ import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { activeContract } from '../src/core/employment.js'
 import { promiseFeasibility, type PromiseDraft } from '../src/core/promises.js'
-import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify, validateSaveV37 } from '../src/core/save.js'
+import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify, validateSaveV37 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { CreativeRole, GameState } from '../src/core/types.js'
@@ -276,7 +276,7 @@ describe('955 historical preservation and interim projection52 journal authority
     expect(current.state.careerLifecycle.transitionEvaluations).toEqual([])
     expect(current.state.careerLifecycle.professionChanges).toEqual([])
     expect(current.state.careerLifecycle.industryRetirements).toEqual([])
-    expect(exportSave(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(current)))))))))).toBe(raw)
+    expect(exportSave(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(current))))))))))).toBe(raw)
     expect(artifact(filename)).toBe(raw)
   })
 })

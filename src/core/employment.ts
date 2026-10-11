@@ -204,7 +204,7 @@ export function guaranteedComp(contract: Contract, week: number): number {
 // exactly 52 weeks remaining, is HIGHER below that and LOWER above it, and is
 // continuous at the 26-week boundary (companion §3.5 E5 — no cliff). The old
 // `round(0.5 × guaranteed)` figure is explicitly not law (direction 1 / S3).
-export function terminationCost(contract: Contract, week: number): number {
+export function terminationCost(contract: Pick<Contract, 'annualSalary' | 'endWeekExclusive'>, week: number): number {
   const remainingWeeks = Math.max(0, contract.endWeekExclusive - week)
   return weeklySalary(contract.annualSalary) * Math.min(remainingWeeks, TUNING.HIRING_TERMINATION_CAP_WEEKS)
 }

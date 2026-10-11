@@ -152,8 +152,9 @@ import { tick } from '../src/core/tick.js'
 import { p13aGeneratedStudio, advanceTo } from '../src/harness/p13a/fixtures.js'
 import { commitPlacement } from '../src/core/placement.js'
 import { terminationCost } from '../src/core/employment.js'
-import { industryBusyTalentIds, rivalWeeklyOperatingCost, studioEmployerId } from '../src/core/hollywood.js'
+import { industryBusyTalentIds, rivalCapacityOpex, rivalWeeklyOperatingCost, studioEmployerId } from '../src/core/hollywood.js'
 import { RIVAL_TEAM_ROLES } from '../src/core/hollywoodStartingData.js'
+import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
 
 function rowStudioId(state: GameState, row: number): string {
@@ -359,29 +360,119 @@ describe('P14 1305-C R3: Scientists are never R3-surplus', () => {
   })
 })
 
-describe('P14 1305-C R3: no rival exceeds its RIVAL_TEAM_ROLES role targets, and no rival termination receipt appears, on an unmodified generated world', () => {
-  // RENAMED (1305-D required change 2): 1305-A's Tests section states the stronger claim
-  // "Player behavior, rival hiring and research are byte-identical on worlds without
-  // surplus" — this describe block does NOT check that (no full-state/byte diff is taken
-  // here). It checks exactly the two invariants named in its own title and it()'s title
-  // below: role counts never exceed RIVAL_TEAM_ROLES targets, and zero rival `termination`
-  // receipts appear, across weeks 1..150 on the default fixture's four founding rivals. A
-  // true byte-identical/full-state-diff leaf, if the stronger guarantee is wanted, is not
-  // written here (1305-D's other recommended option; left to the parent).
-  //
-  // Comparison method: R3's own logic (once implemented) never finds surplus on an
-  // unmodified natural world if own-employee counts per RIVAL_TEAM_ROLES role never exceed
-  // that role's target — which this describe block confirms is true for weeks 1..150 on the
-  // default fixture across all four founding rivals (rows 1-4, all entered week 0). If R3's
-  // logic is correct, "no surplus found" implies "no termination receipt written" and
-  // "no employment row ends early for reason other than renewal" — both asserted directly
-  // below. This does NOT depend on R3 being absent from production (it reads the SAME
-  // receipts/rows R3 itself would write); it depends on R3 correctly finding zero surplus
-  // on a genuinely unmodified world, which is the actual claim under test.
-  it('no rival ever exceeds its RIVAL_TEAM_ROLES role counts, and no rival termination receipt appears, across weeks 1..150 on all four founding rivals', () => {
+describe('P14 R3 and recovery: natural role targets and accounted cutting releases', () => {
+  // 1363-A §4.2 changes surplus while cutting; no role-count excess is needed then.
+  // Preserve the original seed, 150 default ticks and every weekly role-count check.
+  // Six releases are this measured route's witness, not a universal policy count.
+  // 1368's accepted six-termination attribution establishes the week-91 commission
+  // cash refusal. This leaf checks the persisted entry and complete-tick effects;
+  // it does not claim to observe private decide()/staff() intermediate returns.
+  it('keeps role targets and accounts for every lawful cutting release across weeks 1..150', () => {
+    type Business = NonNullable<GameState['hollywood']>['businesses'][number]
+    type MoneyKind = keyof Business['account']['periods'][number]['movements']
+    const total = (business: Business, kind: MoneyKind) =>
+      business.account.periods.reduce((sum, period) => sum + period.movements[kind], 0)
+    const rivalId = rowStudioId(BASE, 4)
+    const expectedCharges = [367016, 395070, 189514, 447746, 197600, 366730]
+    const expected = expectedCharges.map((_, i) => ({
+      talentId: `person-${rivalId}-${i}`,
+      contractId: `${rivalId}:contract:person-${rivalId}-${i}:0`,
+      week: 92, studioId: rivalId, fromStudioId: rivalId, toStudioId: null,
+      kind: 'employment', reason: 'termination', eventId: `industry-event-${145 + i}`,
+    }))
     let state = BASE
     while (state.market.tick < 150) {
+      const before = state
+      const week = before.market.tick
       state = tick(state)
+      const newEnds = state.hollywood!.receipts.slice(before.hollywood!.receipts.length).filter(
+        (r): r is Extract<typeof r, { kind: 'employment' }> =>
+          r.kind === 'employment' && r.reason === 'termination' && r.studioId !== state.hollywood!.playerStudioId,
+      )
+      if (week === 91) {
+        const prior = before.hollywood!.businesses.find(b => b.studioId === rivalId)!
+        const entered = state.hollywood!.businesses.find(b => b.studioId === rivalId)!
+        expect(prior.costCutting.since).toBeNull()
+        expect(entered.costCutting.since).toBe(91)
+        expect(entered.productions).toEqual([])
+        expect(entered.runs).toEqual([])
+        expect(entered.development.projects).toHaveLength(prior.development.projects.length)
+        expect(entered.activeScriptOrdinals.map(i => entered.development.projects[i]!)
+          .filter(p => p.status === 'drafting' || p.status === 'rewriting')).toEqual([])
+        // The lawful earlier refund remains in history; it is not release-week income.
+        expect(total(entered, 'facilityDemolitionRefund') - total(prior, 'facilityDemolitionRefund')).toBe(450000)
+      }
+      for (const prior of before.hollywood!.businesses) {
+        const next = state.hollywood!.businesses.find(b => b.studioId === prior.studioId)!
+        const ends = newEnds.filter(r => r.studioId === prior.studioId)
+        let chargeSum = 0
+        if (ends.length > 0) {
+          expect(week).toBe(92)
+          expect(prior.studioId).toBe(rivalId)
+          expect(prior.costCutting.since).toBe(91)
+          expect(next.costCutting.since).toBe(91)
+          expect(ends).toEqual(expected)
+          const own = before.hollywood!.activeEmploymentOrdinals
+            .filter(i => before.hollywood!.employment[i]!.studioId === prior.studioId)
+          expect(own).toEqual([18, 19, 20, 21, 22, 23])
+          const busy = industryBusyTalentIds(before.hollywood)
+          const capacityOpex = rivalCapacityOpex(prior, before.hollywood!.receipts)
+          let remaining = [...own]
+          let cash = prior.account.cash
+          for (const [index, receipt] of ends.entries()) {
+            const ordinal = own[index]!
+            const row = before.hollywood!.employment[ordinal]!
+            expect(row.contractId).toBe(receipt.contractId)
+            expect(row.terms.talentId).toBe(receipt.talentId)
+            expect(row.endedWeek).toBeNull()
+            expect(row.terms.startWeek).toBe(0)
+            expect(row.terms.endWeekExclusive).toBe(208)
+            expect(busy.has(receipt.talentId)).toBe(false)
+            expect(before.technology.projects.filter(p => p.studioId === prior.studioId)
+              .flatMap(p => p.seats.filter(s => s.releasedWeek === null && s.talentId === receipt.talentId))).toEqual([])
+            expect(before.promises.filter(p => p.issuerStudioId === prior.studioId &&
+              p.beneficiaryPersonId === receipt.talentId && p.outcome === null)).toEqual([])
+            const salary = Math.round(row.terms.annualSalary / TUNING.TICKS_PER_YEAR)
+            const termLeft = row.terms.endWeekExclusive - week
+            expect(termLeft).toBeGreaterThan(TUNING.HIRING_TERMINATION_CAP_WEEKS)
+            const charge = salary * Math.min(termLeft, TUNING.HIRING_TERMINATION_CAP_WEEKS)
+            expect(charge).toBe(expectedCharges[index])
+            expect(terminationCost(row.terms, week)).toBe(charge)
+            const operatingCost = remaining.reduce((sum, i) => sum + Math.round(
+              before.hollywood!.employment[i]!.terms.annualSalary / TUNING.TICKS_PER_YEAR), 0) +
+              TUNING.OVERHEAD_BASE + TUNING.OVERHEAD_PER_EMPLOYEE * remaining.length + capacityOpex
+            const saving = salary + TUNING.OVERHEAD_PER_EMPLOYEE
+            expect(cash - charge).toBeGreaterThanOrEqual((operatingCost - saving) * prior.policy.reserveWeeks)
+            expect(charge * operatingCost).toBeLessThanOrEqual(cash * saving)
+            cash -= charge
+            chargeSum += charge
+            remaining = remaining.filter(i => i !== ordinal)
+            expect(state.hollywood!.employment[ordinal]).toEqual({ ...row, endedWeek: week })
+            expect(state.hollywood!.activeEmploymentOrdinals).not.toContain(ordinal)
+            expect(endReceiptsFor(state, row.contractId)).toEqual([receipt])
+            expect(state.freeAgents).toContain(receipt.talentId)
+            expect(studioEmployerId(state, receipt.talentId, week)).toBeNull()
+          }
+          expect(chargeSum).toBe(1963676)
+          const kinds = Object.keys(prior.account.periods[0]!.movements) as MoneyKind[]
+          let net = 0
+          for (const kind of kinds) {
+            const delta = total(next, kind) - total(prior, kind)
+            const expectedDelta = kind === 'termination' ? -chargeSum :
+              kind === 'overhead' ? -TUNING.OVERHEAD_BASE : kind === 'facilityOpex' ? -capacityOpex : 0
+            expect(delta, `week ${week} ${kind}`).toBe(expectedDelta)
+            net += delta
+          }
+          expect(capacityOpex).toBe(23500)
+          expect(total(next, 'facilityDemolitionRefund')).toBe(total(prior, 'facilityDemolitionRefund'))
+          // Only the sum of floating cash movements needs a rounding tolerance.
+          expect(Math.abs(next.account.cash - prior.account.cash - net)).toBeLessThanOrEqual(0.00001)
+          expect(next.account.periods.at(-1)!.closing).toBe(next.account.cash)
+        }
+        // A debit without a matching receipt, or an unexplained release at any
+        // other rival/week, fails; no non-cutting receipts are filtered away.
+        expect(total(next, 'termination') - total(prior, 'termination')).toBe(0 - chargeSum)
+      }
       for (const business of state.hollywood!.businesses) {
         const ownByRole = new Map<string, number>()
         for (const i of state.hollywood!.activeEmploymentOrdinals) {
@@ -400,6 +491,6 @@ describe('P14 1305-C R3: no rival exceeds its RIVAL_TEAM_ROLES role targets, and
     const rivalTerminationReceipts = state.hollywood!.receipts.filter(
       (r) => r.kind === 'employment' && r.reason === 'termination' && r.studioId !== state.hollywood!.playerStudioId,
     )
-    expect(rivalTerminationReceipts).toHaveLength(0)
+    expect(rivalTerminationReceipts).toEqual(expected)
   })
 })

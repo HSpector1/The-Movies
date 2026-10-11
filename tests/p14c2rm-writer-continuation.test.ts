@@ -1,3 +1,4 @@
+import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // Independent 880-B: preserve already-lawful retirement writing obligations.
 // This is a bounded live-validation correction, not new work admission or a
 // historical reader amendment. Expected outcomes come from the reviewed contract.
@@ -9,8 +10,8 @@ import { studioConstructionView } from '../src/core/placement.js'
 import { availableDevelopmentCastingSlots } from '../src/core/scriptDevelopment.js'
 import { studioCalendar } from '../src/core/studioCalendar.js'
 import { tick } from '../src/core/tick.js'
-import { convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,
-  validateSaveV36, validateSaveV45 } from '../src/core/save.js'
+import { convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,
+  validateSaveV36, validateSaveV46 } from '../src/core/save.js'
 import type { GameState, GameStateV33, RetirementRecordV36, ScriptProject } from '../src/core/types.js'
 import { c2Fixture } from './helpers/p14c2a-fixtures.js'
 
@@ -78,7 +79,7 @@ describe('880-B natural retired-writer continuation', () => {
     const reopened = readBack(f.finishing)
     // Persistence has always canonicalized JSON -0 to 0. Validate the actual
     // reopened object and compare authoritative canonical bytes across storage.
-    expect(validateSaveV45(envelope(reopened)).state).toBe(reopened)
+    expect(validateSaveV46(envelope(reopened)).state).toBe(reopened)
     expect(stableStringify(reopened)).toBe(before)
     expect(stableStringify(f.finishing)).toBe(before)
   })
@@ -233,7 +234,7 @@ const invalidCases: (InvalidCase & { refusal: RegExp })[] = [
 describe('880-B live allowance stays narrowly scoped', () => {
   it.each(invalidCases)('refuses $name without altering caller bytes', ({ corrupt, refusal }) => {
     const f = finishingWriter(), state = corrupt(f.finishing, f.writerId), input = envelope(state), before = stableStringify(input)
-    expect(() => validateSaveV45(input)).toThrow(refusal)
+    expect(() => validateSaveV46(input)).toThrow(refusal)
     expect(stableStringify(input)).toBe(before)
   })
 
@@ -249,7 +250,7 @@ describe('880-B live allowance stays narrowly scoped', () => {
       originalScreenplays: f.commissioned.originalScreenplays }
     // 1358-N S8: the grafted draft's writer holds no contract and no retirement authority on this
     // branch (src/core/scriptDevelopment.ts:1118). Measured by the 1358-X6 message probe (N-0470).
-    expect(() => validateSaveV45(envelope(illegal))).toThrow(/validateSaveV9: script development invariant: active project "script-0000" writer is not contracted$/)
+    expect(() => validateSaveV46(envelope(illegal))).toThrow(/validateSaveV9: script development invariant: active project "script-0000" writer is not contracted$/)
     expect(() => applyActions(terminated, [originalCommission(f.writerId)])).toThrow()
   })
 
@@ -260,8 +261,8 @@ describe('880-B live allowance stays narrowly scoped', () => {
     } })
     // 1358-N S8: the V9 project key set refuses the extra key (src/core/save.ts:3371). Measured by
     // the 1358-X6 message probe (N-0472).
-    expect(() => validateSaveV45(input)).toThrow(/validateSaveV9: state\.scriptDevelopment\.projects\[0\] has unknown field "retirementBypass"$/)
-    expect(() => validateSaveV45({ ...envelope(f.finishing), retirementBypass: true })).toThrow(/^validateSaveV12: save has unknown field "retirementBypass"$/)
+    expect(() => validateSaveV46(input)).toThrow(/validateSaveV9: state\.scriptDevelopment\.projects\[0\] has unknown field "retirementBypass"$/)
+    expect(() => validateSaveV46({ ...envelope(f.finishing), retirementBypass: true })).toThrow(/^validateSaveV12: save has unknown field "retirementBypass"$/)
   })
 
   it('frozen public V36 stays strict, and an exceptional current save cannot silently downgrade', () => {
@@ -285,7 +286,7 @@ describe('880-B live allowance stays narrowly scoped', () => {
     // The commissioned V37 control above covers the V36 extension guard.
     // The finishing V37 control covers the not-contracted refusal this live chain masks.
     // V39 stays covered by p13b-s3-save-v23.test.ts (the V40 input refusal).
-    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(current)))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
+    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(current))))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
     expect(stableStringify(current)).toBe(before)
   })
 
@@ -296,7 +297,7 @@ describe('880-B live allowance stays narrowly scoped', () => {
     expect(live.scriptDevelopment).toEqual(old.scriptDevelopment)
     expect(live.contracts).toEqual(old.contracts)
     // 1344-N S5 (x2 at a318722, :257 measured `+ "screenplayShelving"` on each of four rival businesses, nothing else).
-    expect(live.hollywood).toEqual(withEmptyScreenplayShelving(withRivalTermination(old)).hollywood)
+    expect(live.hollywood).toEqual(withEmptyRecovery(withEmptyScreenplayShelving(withRivalTermination(old))).hollywood)
     expect(live.talent).toEqual(old.talent)
     expect(live.originalScreenplays).toEqual(old.originalScreenplays)
     expect(stableStringify(old)).toBe(before)
@@ -309,9 +310,9 @@ describe('880-B live allowance stays narrowly scoped', () => {
       records: f.finishing.careerLifecycle.records.filter(row => row.personId !== f.writerId) } })
     const legalBefore = stableStringify(legal), illegalBefore = stableStringify(illegal)
     for (let round = 0; round < 2; round++) {
-      expect(() => validateSaveV45(legal)).not.toThrow()
+      expect(() => validateSaveV46(legal)).not.toThrow()
       // 1358-D9 R2 (S8): `illegal` is N-0468 case 1's input, so it takes that case's measured refusal.
-      expect(() => validateSaveV45(illegal)).toThrow(/validateSaveV36: talentMarket\.cases\[25\] is a retirementExtension case for authored-0000, who holds no retirement record$/) // save.ts:10295
+      expect(() => validateSaveV46(illegal)).toThrow(/validateSaveV36: talentMarket\.cases\[25\] is a retirementExtension case for authored-0000, who holds no retirement record$/) // save.ts:10295
       expect(() => validateSaveV36({ ...historicalWriterPair().finishing, saveVersion: 36 })).toThrow(/not contracted/i)
     }
     expect(stableStringify(legal)).toBe(legalBefore)
@@ -382,7 +383,7 @@ describe('880-B malformed authority refuses before live work, not only at persis
       // The unmodified real state and this same live entrypoint are admissible.
       expect(() => caller.run(f.state, f.youngId)).not.toThrow()
       const invalid = corrupt(f.state, f.retiringId), before = structuredClone(invalid)
-      const validateInvalid = () => validateSaveV45(envelope(invalid))
+      const validateInvalid = () => validateSaveV46(envelope(invalid))
       if (saveRefusal === undefined) expect(validateInvalid, 'existing full-save refusal is a control').toThrow()
       else expect(validateInvalid, 'measured first full-save guard (1361-N S8)').toThrow(saveRefusal)
       expect(() => caller.run(invalid, f.youngId), 'live permission must also reject malformed authority').toThrow()

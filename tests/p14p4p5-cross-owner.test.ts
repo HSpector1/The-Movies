@@ -1,3 +1,4 @@
+import { withEmptyRecovery } from './helpers/recovery-migration-expectation.js'
 // 1269-A/B: six pure cross-owner availability quotes; no action or engine advance.
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
@@ -88,8 +89,8 @@ afterAll(() => {
 })
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(45); expect(saves.validateSaveV45(save)).toBe(save)
-  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV45(imported)
+  expect(save.saveVersion).toBe(46); expect(saves.validateSaveV46(save)).toBe(save)
+  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV46(imported)
   expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw); expect(stable(state)).toBe(before)
 }
 function input45(): GameState {
@@ -116,7 +117,7 @@ function input45(): GameState {
     const { firstTakeSubjects, ...retained } = state
     // 1344-N S5 (x2 at a318722, :94 measured `+ "screenplayShelving"` on each of four rival businesses, nothing else).
     // 1361-N S5: and the four empty P15 roots at the input's own week (this capture ticks nothing after its migration).
-    expect(retained).toEqual(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick)); expect(firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: 19, facts: [] })
+    expect(retained).toEqual(withEmptyRecovery(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(old.state)))), old.state.market.tick))); expect(firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: 19, facts: [] })
     expect(state.market.tick).toBe(45); expect(state.studio.cash).toBe(24701506)
     expect(issuer(state)).toBe('studio-de11f27b-player')
     expect(state.firstTakes).toHaveLength(19); expect(state.promises).toEqual([]); expect(state.talentMarket.proposals).toEqual([])

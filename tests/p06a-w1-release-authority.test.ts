@@ -29,13 +29,13 @@ import {
   makeSave,
   makeSaveV15,
   convertV38ToV37,
-  convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44,
+  convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45,
   migrateToV15,
   migrateToLive,
   mintReleaseCommitmentId,
   stableStringify,
   tick,
-  validateSaveV45,
+  validateSaveV46,
 } from '../src/core/index.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/index.js'
 
@@ -407,7 +407,7 @@ describe('P06A W1 — save law', () => {
     // here: `ready` is the historical-control founding (beginFoundingHistoricalControl, src/core/employment.ts:573-576),
     // which holds no industry, and a state without an industry records no Power Ranking quarter
     // (src/core/powerRankingArchive.ts:151), so every P15 root is empty.
-    const admitted37 = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(makeSave(ready)))))))))
+    const admitted37 = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(makeSave(ready))))))))))
     const { releaseAuthority: _drop, ...v15State } = admitted37.state
     const v15 = makeSaveV15({
       ...v15State,
@@ -460,12 +460,12 @@ describe('P06A W1 — save law', () => {
       state: { releaseAuthority: { commitments: { productionId: string }[] } }
     }
     orphan.state.releaseAuthority.commitments[0]!.productionId = 'prod-9999'
-    expect(() => validateSaveV45(orphan)).toThrow(/foreign identity|orphan/)
+    expect(() => validateSaveV46(orphan)).toThrow(/foreign identity|orphan/)
 
     const extraKey = JSON.parse(exportSave(good)) as {
       state: { releaseAuthority: Record<string, unknown> }
     }
     extraKey.state.releaseAuthority.surprise = true
-    expect(() => validateSaveV45(extraKey)).toThrow(/unknown field .surprise./)
+    expect(() => validateSaveV46(extraKey)).toThrow(/unknown field .surprise./)
   })
 })

@@ -6,7 +6,7 @@ import { assignmentRefusal, contractEndRefusal, retirementRecordFor } from '../s
 import { activeContract, busyTalentIds } from '../src/core/employment.js'
 import { professionAtWeek, transitionInputsFor } from '../src/core/index.js'
 import { validateProfessionHistory } from '../src/core/professionHistory.js'
-import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, exportSave, makeSave, stableStringify, validateSaveV35, validateSaveV37, validateSaveV45 } from '../src/core/save.js'
+import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, exportSave, makeSave, stableStringify, validateSaveV35, validateSaveV37, validateSaveV46 } from '../src/core/save.js'
 import { caseForTalent, playerOffer, proposalDraft } from '../src/core/talentMarket.js'
 import { careerIdentity, expectedPotentialTier, roleTier } from '../src/core/talentSummary.js'
 import { TUNING } from '../src/core/tuning.js'
@@ -270,21 +270,29 @@ describe('C.3 genuine cohort-born Actor enters a new profession with origin auth
     expect(professionAtWeek(state, id, 3283)).toBe('director')
     preserveOrigin(state)
     const control = makeSave(state), controlBytes = stableStringify(control), malformed = clone(control)
-    expect(validateSaveV45(control)).toBe(control)
+    expect(validateSaveV46(control)).toBe(control)
     const amended = malformed.state.careerLifecycle.cohorts.map(row => row.week !== 832 ? row
       : { ...row, requested: { actor: 0, director: 1, writer: 0, craft: 0 } })
     Object.defineProperty(malformed.state.careerLifecycle, 'cohorts', { value: amended, enumerable: true, configurable: true, writable: true })
     expect(validateProfessionHistory({ ...malformed.state }).originalProfession(id)).toBe('actor')
-    expect(() => validateSaveV45(malformed)).toThrow(/cohort receipt.*week 832.*as a director entrant.*original profession disagrees/)
+    expect(() => validateSaveV46(malformed)).toThrow(/cohort receipt.*week 832.*as a director entrant.*original profession disagrees/)
     expect(stableStringify(control)).toBe(controlBytes)
-    expect(validateSaveV45(control)).toBe(control)
-    // 1361-N S9 (MASKED), F7 ruling 2: the recorded Power Ranking quarter makes
-    // convertV45ToV44 refuse first (src/core/save.ts:10989-10995; reason :10895).
-    // x2 measured this first guard in the family; the follow-up must confirm every call.
-    // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
-    // V39 stays covered by p13b-s3-save-v23.test.ts; the shelving receipt guard
-    // stays covered by the own-era V43 input in p14d1-rival-shelving-save-v43.test.ts.
-    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(control))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
+    expect(validateSaveV46(control)).toBe(control)
+    // 1363-N: admitted current recovery authority now refuses at 46->45 first.
+    // Preserve the complete history; deeper rank/romance/shelving guards are masked here.
+    // Separate rank controls remain in p15a2-power-ranking-archive.test.ts:
+    // rank-root-downgrade-recorded-quarter-refuses and rank-root-downgrade-frozen-builders-refuse.
+    // These short live week13 controls assert rank refusal at its own boundary;
+    // their execution is required and is not proved by this chain.
+    // Own-era romance remains in p14b10-save-v44.test.ts; V39 remains in
+    // p13b-s3-save-v23.test.ts; shelving remains in p14d1-rival-shelving-save-v43.test.ts.
+    expect(control.state.hollywood!.businesses.some(b => b.costCutting.since !== null)).toBe(true)
+    expect(control.state.hollywood!.businesses.some(b => b.account.periods.some(p => p.movements.facilityDemolitionRefund !== 0))).toBe(true)
+    expect(control.state.hollywood!.receipts.some(r => r.kind === 'facilityDisposed')).toBe(true)
+    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(control)))))))))).toThrow(/^migrateToV45: cannot downgrade or discard recovery authority: costCutting\.since, facilityDemolitionRefund, facilityDisposed$/)
+    expect(stableStringify(control)).toBe(controlBytes)
+    expect(validateSaveV46(control)).toBe(control)
+    expect(stableStringify(control)).toBe(controlBytes)
     const origin = cohortSetup()
     expect(validateSaveV35(origin.old)).toBe(origin.old); expect(validateSaveV37(origin.old37)).toBe(origin.old37)
   })

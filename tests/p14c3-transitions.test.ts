@@ -1,11 +1,14 @@
 // 963/967 independent Stage A. Genuine history drives state-level assertions;
 // explicitly synthetic public snapshots exercise the pure comparison contract.
 import assert from 'node:assert/strict'
+import { createHash } from 'node:crypto'
+import { readFileSync } from 'node:fs'
+import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import * as core from '../src/core/index.js'
 import { ageAt, nextBirthdayWeek } from '../src/core/aging.js'
 import { retirementRecordFor } from '../src/core/careerLifecycle.js'
-import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, exportSave, importSave, migrateToLive, stableStringify } from '../src/core/save.js'
+import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, exportSave, importSave, migrateToLive, stableStringify, validateSaveV38 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { CreativeRole, GameState } from '../src/core/types.js'
@@ -172,7 +175,10 @@ describe('C.3 A05/A06 public profession history, current evidence and repeat saf
     // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
     // The shelving-count guard stays covered on V43 in p14d1-rival-shelving-save-v43.test.ts.
     // The Scientist noCatalogue leaf below still reaches the V37 transition guard.
-    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(envelope38(reopened) as never))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
+    const currentSave = envelope38(reopened), currentSaveBytes = stableStringify(currentSave)
+    const historical45 = convertV46ToV45(currentSave as never)
+    expect(stableStringify(currentSave), 'Save46 admission does not mutate the current input').toBe(currentSaveBytes)
+    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(historical45))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
   })
 })
 
@@ -201,13 +207,33 @@ describe('C.3 A09/A10 genuine prospective finality and deferred reconciliation',
     const next = tick(reopened, { develop: true })
     expect(root38(next).industryRetirements.filter(row => row.personId === SCIENTIST))
       .toEqual(root.industryRetirements.filter(row => row.personId === SCIENTIST))
-    // 1344-X12 measured this chain's first guard: the V37 profession transition guard
-    // (src/core/professionHistory.ts:67), which the shelving guard masks in the leaf above. Pinned
-    // exactly, so this leaf keeps that guard covered (1344-N S9).
-    // 1361-N S4: convertV45ToV44 now leads this chain (src/core/save.ts:10989-10995). scientistBoundary() is migrated,
-    // not ticked, and its one tick (670 to 671) crosses no quarter week, so every P15 root is empty and the chain
-    // should reach the pinned guard as before. Derived from source, not measured: the pin is unchanged until a run (P4).
-    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(envelope38(reopened) as never))))))))).toThrow(/^migrateToV37: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)
+    // The actual current 670→671 save has nonempty recovery authority and must refuse at Save46→45.
+    const currentSave = envelope38(reopened), currentSaveBytes = stableStringify(currentSave)
+    expect(() => convertV46ToV45(currentSave as never)).toThrow(/^migrateToV45: cannot downgrade or discard recovery authority: costCutting\.since, facilityDemolitionRefund, facilityDisposed$/)
+    expect(stableStringify(currentSave), 'current recovery refusal leaves the full input unchanged').toBe(currentSaveBytes)
+
+    // A separate original Save38 engine advanced the genuine Save37 Scientist week670 input once.
+    // Its recorded week671 finality reaches the still-required exact V37 history refusal without
+    // discarding or changing any current Save46 recovery history.
+    const directory = 'tests/fixtures/p14/genuine-original-v38-scientist-1368'
+    const manifestBytes = readFileSync(`${directory}/MANIFEST.json`)
+    const sha = (value: string | Uint8Array) => createHash('sha256').update(value).digest('hex')
+    expect(sha(manifestBytes)).toBe('ef083c529166d0ea54ac977ecb5f8788f4fe27fb977b684056fab0bbba79d614')
+    const manifest = JSON.parse(manifestBytes.toString('utf8'))
+    expect(manifest.sourceCommit).toBe('d9faac35a435639dacd0a1df020f0651f6e59f31')
+    expect(manifest.route).toEqual({ startWeek: 670, endWeek: 671, ticks: 1, options: { develop: true } })
+    const compressed = readFileSync(`${directory}/${manifest.output.path}`)
+    expect(sha(compressed)).toBe('23240f46ccee8be3287c41c7c000f5e21ac845e1685a78585cd7963412b66a21')
+    const raw = gunzipSync(compressed).toString('utf8')
+    expect(sha(raw)).toBe(manifest.output.rawSha256)
+    const historical = validateSaveV38(JSON.parse(raw)), immutableHistorical = stableStringify(historical)
+    expect(historical.state.market.tick).toBe(671)
+    expect(historical.state.careerLifecycle.records.find(row => row.personId === SCIENTIST))
+      .toMatchObject({ profession: 'scientist', status: 'retired', retiredWeek: 670 })
+    expect(historical.state.careerLifecycle.industryRetirements.filter(row => row.personId === SCIENTIST))
+      .toEqual(manifest.finalities)
+    expect(() => convertV38ToV37(historical)).toThrow(/^migrateToV37: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)
+    expect(stableStringify(historical)).toBe(immutableHistorical)
   })
 
   it('defers the real retired cohort actor at2601 and schedules the exact annual-or-age deadline, never the next week', () => {

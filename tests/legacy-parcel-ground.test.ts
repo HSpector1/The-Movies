@@ -46,7 +46,7 @@ import {
   studioCalendar,
   studioConstructionView,
   tick,
-  validateSaveV45,
+  validateSaveV46,
 } from '../src/core/index.js'
 import {
   CRAFT_ANNEX_BLUEPRINT,
@@ -362,7 +362,7 @@ describe('C1-M8 (E) — a save that stands a generic building there fails CLOSED
     expect(() =>
       assertStudioPlacementInvariants(save.state as unknown as GameState),
     ).toThrow(named)
-    expect(() => validateSaveV45(save)).toThrow(named)
+    expect(() => validateSaveV46(save)).toThrow(named)
     // The load path a player actually reaches — never a half-loaded world.
     expect(() => importSave(JSON.stringify(save))).toThrow(named)
   })
@@ -373,7 +373,7 @@ describe('C1-M8 (E) — a save that stands a generic building there fails CLOSED
       DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.buildWeeks,
     )
     const save = makeSave(annex)
-    expect(validateSaveV45(save)).toBe(save)
+    expect(validateSaveV46(save)).toBe(save)
     const json = exportSave(save)
     expect(exportSave(importSave(json) as LiveSaveFile)).toBe(json)
     expect(annex.placement.facilities[0]!.parcelId).toBe(LEGACY_EXPANSION_PARCEL_ID)
@@ -401,7 +401,7 @@ describe('C1-M8 (E) — a save that stands a generic building there fails CLOSED
           placed.cells.push({ gx: LEGACY_ORIGIN.gx + dx, gy: LEGACY_ORIGIN.gy + dy })
         }
       }
-      expect(() => validateSaveV45(save), blueprint.id).toThrow(/reserved for the studio's Annex/)
+      expect(() => validateSaveV46(save), blueprint.id).toThrow(/reserved for the studio's Annex/)
     }
   })
 })
