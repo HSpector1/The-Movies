@@ -59,6 +59,15 @@ Sequencing decision remains: do not publish/fetch during a frozen qualification 
 - Specialist deliveries now complete: **founding** (1365 held commit applied, b-r2 guard removed, all 45 declared REDs closed 130/130, retune 101/101, 1364 invariants 171/171, Save46 behind one constant with a 46→47 recipe) and **P17** (31 files; Codex findings 4/5a/5b fixed with REDs; six P17 files 80/80; generators 0; not stacked on P16; `P17_SAVE_VERSION` constants with a renumber recipe). Both report 11 `TS5097` diagnostics under `bridge/*.ts` in their clones (Node 22 shells); the production landing under pinned Node 20 shows none — verify at each landing rather than trust either.
 - Next: founding rebases its clone onto the new HEAD (Save47, migration from R8's 46, Node 20 PATH pinned for its gates) and redelivers; parent runs the post-R8 full core suite as the next predecessor baseline; P15B → P16 → P17 → P18 follow in order, each rebased by its own specialist and adversarially reviewed before landing.
 
+### Checkpoint 2026-10-11 01:30 CDT: post-R8 baseline measured, second usage-limit kill survived
+
+- **Post-R8 core baseline on db3fc572** (`E/1370-ar-post-r8-baseline-20261011/`, Node 20, formal env): 5,607 tests, 5,443 pass / 150 fail / 3 skip / 11 todo. Against the pre-R8 baseline by identity: **148 SAME, 11 GONE** (nine 1363 Part A tests now pass under the landed recovery; two supervisor leaves passed this run), **2 NEW**, both timing failures under load (`bridge-p13b-s7-disclosure` item 5 at the 30 s timeout; `p15c2 legacy-root-downgrade` 259 s against a 120 s budget). Isolated rerun of both files: **59/59 pass** (14.7 s and 105.3 s). Attributed as environment/timing; the 105 s-of-120 s downgrade budget is flagged for isolated measurement because the pre-R8 loaded run stayed inside it.
+- **Second session-limit 429 at ~23:10 CDT** killed founding (mid-rebase, 20 unresolved conflicts left in its clone), P15B and P16 (unpackaged at the time) and P18 (already packaged). Reset at 01:10 CDT; all three active lanes resumed with context at 01:12 with a standing rule: cut `PATCH.diff`/`MANIFEST.json`/`REPORT.md` first, then continue, and re-cut at every milestone. P15B's protective snapshot (1.58 MB, base 6510c971) landed at 01:25. P18's package is complete (61 files vs f7d0dc0f, Codex findings 1 and 4 incorporated before packaging). P17's package is complete (31 files vs 6510c971).
+- Rate-limit cadence observed: two kills about five hours apart with six to seven concurrent Fable agents. The rebase chain is inherently serial (founding → P15B → P16 → P17 → P18), so from here the parent keeps at most two or three specialists active and relies on milestone packaging rather than wide fan-out.
+- **Disk:** fell to 1.54 GiB free at 01:11 (swap grew to 3 GiB under the earlier load; `/private/var/vm/sleepimage` holds another 1 GiB). Deleted the `r8`, `p17`, `p18` clones whose work is fully captured in their patches (+0.5 GiB → 2.08 GiB). `~/Library/Caches` is only 318 MB. The recorded heavy lane's 3.5 GiB floor cannot be met until swap is reclaimed (a Mac restart would recover ~3 GiB; the parent will not restart the Owner's machine). Game-system landings need far less and continue; the AR heavy lane waits for headroom.
+- AR mapping workflow: all eight package maps are journaled; the synthesis agent (AR-BUILD-PLAN.md) is still running after being retried by the rate limit. The plan file remains absent until it finishes.
+- Next: land founding r2 (Save47) after its adversarial review; take the post-founding baseline; then P15B (Save48) → P16 (Save49) → P17 (Save50) → P18 (Save51), each rebased by its own specialist, reviewed, landed with the focused gate plus a full core run, one commit per slice.
+
 ## Read this first
 
 The game is **not finished through P18**. P16 is incomplete; P17 and P18 production integration remains downstream. Verification infrastructure was repaired before Claude prepared the new isolated gameplay drafts. Neither effort has advanced the published production gameplay source yet. Do not mistake archived reviews, isolated tests or documentation commits for completion of the integrated systems.
@@ -468,6 +477,12 @@ The full accounts are in `A/payload/1370-aq-root-continuation-20261010-r1/LESSON
 21. Back up untracked source and temporary result files. Docs-only pushes and progress reports do not preserve the implementation; exact manifests and source patches now do.
 22. Compare reruns by stable identity and occurrence and preserve changed diagnostics. The recovered R8 comparison attributes 68 existing failures without pretending the four changed failures are explained.
 23. Completing an exhaustive type table can change old-save behavior. Independent review rejected new `true` entries and disproved an assumed strict V5 boundary; use `false` to preserve the original missing-key/falsy behavior. Retain rejected revisions and the review that caught them.
+24. A specialist's focused selection (167 files) cannot replace a full-suite predecessor baseline. The post-landing full run on db3fc572 surfaced two timing budgets the selection never exercised; take a full core run after every landing and attribute every identity as SAME / NEW / GONE / CHANGED before the next slice.
+25. Usage-limit kills recur on a roughly five-hour cadence under wide fan-out. Only on-disk state survives: a patch, manifest and report cut at every milestone plus a dated PROGRESS line let a killed specialist resume exactly; six clones lost nothing across two kills.
+26. Isolated shared sparse clones (`git clone --shared --no-checkout` + cone checkout + symlinked node_modules) give specialists real repositories at 55 MB each without writing the protected common Git dir; `git worktree add` would have changed the commonGit digest.
+27. Pin the Node version in every gate script. Unpinned clone shells (Node 22) reported 11 `TS5097` diagnostics under `bridge/*.ts` that the pinned Node 20 production gate never showed; a type result is only comparable under the formal runner environment.
+28. Budget concurrency against disk, not only CPU: on an 8 GB machine seven concurrent agents grew swap by 3 GiB and pushed free disk below the heavy lane's floor. Delete clones once their patches are captured and keep the recorded lane's headroom check before every launch.
+29. Timing failures in a loaded broad run are not source regressions until an isolated rerun says so, and an isolated pass near a budget (105 s of 120 s) is a measurement task, not a relabeling.
 
 ## Handoff completion and claim limits
 
@@ -477,30 +492,15 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-10 20:54 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
-- Branch: `wip/headless-program-20260916-ts` @ `1bc39fab4fca9e55228c48c8e390f68d182d2674`
+- Stamped: 2026-10-11 01:14 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
+- Branch: `wip/headless-program-20260916-ts` @ `db3fc57242669d5c752d87a49ce0a87938324b6b`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 189
+- Uncommitted files: 1
   - `M HANDOFF.md`
-  - `M  src/core/employment.ts`
-  - `M  src/core/hollywood.ts`
-  - `M  src/core/hollywoodPolicy.ts`
-  - `M  src/core/hollywoodTick.ts`
-  - `M  src/core/hollywoodTypes.ts`
-  - `M  src/core/hollywoodValidation.ts`
-  - `M  src/core/index.ts`
-  - `M  src/core/productionIdentity.ts`
-  - `M  src/core/rivalResearch.ts`
-  - `M  src/core/save.ts`
-  - `M  src/core/talentMarket.ts`
-  - `M  src/core/technologyRival.ts`
-  - `M  src/core/types.ts`
-  - `A  tests/1368-rival-writing-term.test.ts`
-  - ...
 - Last commits:
+  - db3fc572 feat(1363): land R8 rival-recovery source and 14-file kit; Save46 live
   - 1bc39fab docs(handoff): Claude resumes as integrator after Codex review; preserve core baseline identity and failure list
   - 6a4d5ca1 docs: review Claude drafts, preserve source backups and P16 repair
   - f7d0dc0f docs(handoff): record Claude in-flight specialist lanes and sequencing decision
   - 6510c971 docs(handoff): Claude takeover; record Owner approval of fresh baseline and full-autonomy order
-  - 9b67d768 docs: prepare detailed Claude handoff and preserve late AQ evidence
 <!-- AUTO:END -->
