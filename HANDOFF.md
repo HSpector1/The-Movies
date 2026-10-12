@@ -22,6 +22,13 @@ Paths used below: `R` = `/Users/zacheryspector/The-Movies-headless-program` (pro
 
 Each package's `PROGRESS.md` is the timeline its specialist appends to; read its tail first. Earlier revisions are kept as `PATCH.diff.rN`, `MANIFEST.json.rN`, `REPORT.md.rN`.
 
+### Status at 22:15 CDT (weekly usage reported at 97% by the P16 specialist at 21:34)
+- founding r7: RED record per forged form done (r6 accepts all 21 forms; r7 refuses 19 and accepts the two declared R7-1 residual forms); mutation proof repeated on the final source. Expect PATCH.diff r7 next; then step 1 (verify) and step 2 (gate) below.
+- P15B r3: its own 14-batch gate finished 20:39; a final 59-file gate (`evidence/r3/gate-final/`) started 21:05 after the self-review fix (RED in `evidence/r3/red/red-adoption-stamp-on-draft.*`).
+- P16 r2: the specialist wrote a HANDOFF-TRIGGER safe point in PROGRESS.md at 21:34 (final set 1 GREEN 27 files / 221 tests; bridge set attribution in progress). Resume from that entry.
+- P17 r2: sweep batches ai, ah, ae done with no NEW beyond the archive-harness ceiling; more batches running (`S/1370-ar-p17-r2-scratch-20261011/sweep/runs/progress.txt`).
+- P18 r2: source GREEN at 20:20; sweep batch 00 (20 bridge files) shows 13 failures that fail identically at the base; REPORT.md still to write.
+
 ### In flight at 20:35 (all die if this Claude session ends)
 - Five Claude specialist agents, one per row above. Same-session agent IDs for `SendMessage`: founding `a09203d18be20d25c`, P15B `a0e8421cb3d5fece9`, P16 `a76c2d253a6922c86`, P17 `a99b97d538ac77e80`, P18 `af88951b762e95962`. Each runs its own focused vitest processes in its clone.
 - Predecessor control finished 20:31: **every r6 gate NEW failure is environmental, timing or declared**. The core bridge failures and the Lot UI failures fail the same way on the unpatched tree, and the one UI timeout that passed there took 30,392 ms against a 30 s budget. Table: `S/…founding…/landing-r6/CLASSIFICATION.md`. r7's gate classifies against it.
