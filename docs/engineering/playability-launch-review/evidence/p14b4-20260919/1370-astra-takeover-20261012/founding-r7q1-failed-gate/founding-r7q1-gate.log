@@ -1,0 +1,15 @@
+== preconditions 2026-10-12T14:02:29Z
+HEAD before: 984e9fc86208b7dd395f6a3b4ecff2ce148d324d src cf7d20cd585f72fd178e06c3cd2a8821bbc0c26f node v20.20.2
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LC_ALL = "C.UTF-8",
+	LC_CTYPE = "C.UTF-8",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to a fallback locale ("en_US.UTF-8").
+== apply
+staged entries: 189
+manifest ok=189 mismatch=0 missing=0
+== types and generators
+09:03:19 tsc-root exit=2 seconds=38 
+STOP: prerequisite failed

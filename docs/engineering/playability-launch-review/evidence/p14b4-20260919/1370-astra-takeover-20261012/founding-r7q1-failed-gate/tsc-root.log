@@ -1,0 +1,4 @@
+tests/p14d1-rival-shelving.test.ts(659,117): error TS2339: Property 'kind' does not exist on type '{ count: number; } | CastRoleCountPredicate | DirectorCountPredicate | GenreOpportunityPredicate | ProjectOpportunityPredicate'.
+  Property 'kind' does not exist on type '{ count: number; }'.
+tests/p14d1-rival-shelving.test.ts(659,162): error TS2339: Property 'scriptProjectId' does not exist on type '{ count: number; } | CastRoleCountPredicate | DirectorCountPredicate | GenreOpportunityPredicate | ProjectOpportunityPredicate'.
+  Property 'scriptProjectId' does not exist on type '{ count: number; }'.

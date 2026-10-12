@@ -1,0 +1,5 @@
+# Founding r7q1 failed prerequisite
+
+The full integration attempt on predecessor `984e9fc86208b7dd395f6a3b4ecff2ce148d324d` applied and verified all 189 manifest postimages, then stopped at root TypeScript compilation (exit 2, 38 seconds). No later compiler, generator, d16, full-core or full-UI stage ran. Two TS2339 diagnostics in the new test identified missing narrowing before reading the predicate union's `kind` and `scriptProjectId`; `kind` is valid on opportunity predicates.
+
+The reviewed restore script ran under the original exclusive lane, verified the frozen inputs, restored only gate-owned paths and returned exit 0 at 09:05 CDT. Production was clean at the same predecessor. Exact failed logs and frozen hashes are retained here; full local gate output remains in the original package `landing-r7q1-astra/`. r7q2 adds the one-line `kind in predicate` guard with no gameplay change. Its independent review and fresh compiler/focused results are separate evidence, not a retrospective pass for this run.
