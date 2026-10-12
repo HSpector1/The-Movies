@@ -1,0 +1,119 @@
+{
+  "at": "2026-10-12T22:56:33.901257+00:00",
+  "packetSha256": "945ac4d52bf55d2ecf399377b36a02127fa1647fe877256c925b80e2caaa78e9",
+  "manifestSha256": "282cadedb3435df5db361db436531286e2313fc256459fb75822ae07198172eb",
+  "commands": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791845674,
+      "endEpoch": 1791845719,
+      "seconds": 45,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-regression-r5q3-run/tsc-root.log"
+    },
+    {
+      "name": "legacy-regression",
+      "exit": 1,
+      "startEpoch": 1791845725,
+      "endEpoch": 1791845755,
+      "seconds": 30,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "tests/p15b-legacy-terminal-regression.test.ts",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-regression-r5q3-run/legacy-regression.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-regression-r5q3-run/legacy-regression.log"
+    }
+  ],
+  "counts": {
+    "numTotalTestSuites": 1,
+    "numPassedTestSuites": 0,
+    "numFailedTestSuites": 1,
+    "numPendingTestSuites": 0,
+    "numTotalTests": 11,
+    "numPassedTests": 10,
+    "numFailedTests": 1,
+    "numPendingTests": 0,
+    "numTodoTests": 0
+  },
+  "identities": [
+    {
+      "name": "terminal6239-6240-6241-cutoffs-ranking-and-modern-official-history",
+      "status": "passed",
+      "failureMessages": []
+    },
+    {
+      "name": "terminal6241-preserves-frozen-v1-v2-official-through-actual-player-closure",
+      "status": "passed",
+      "failureMessages": []
+    },
+    {
+      "name": "late-recording-actual6273-closure-keeps-null-official",
+      "status": "passed",
+      "failureMessages": []
+    },
+    {
+      "name": "two-actual-closures-and-not-yet-due-r03-before-one-ended-use-returned-allocator",
+      "status": "passed",
+      "failureMessages": []
+    },
+    {
+      "name": "closure-preparation-fault-rolls-back-whole-admitted-caller",
+      "status": "passed",
+      "failureMessages": []
+    },
+    {
+      "name": "eligible6240-official-builder-and-adapter-faults-preserve-pre-boundary-input",
+      "status": "passed",
+      "failureMessages": []
+    },
+    {
+      "name": "two-closure-real-final-reader-allocator-failure-preserves-caller",
+      "status": "passed",
+      "failureMessages": []
+    },
+    {
+      "name": "ended-links-cutoffs-refs-phase-and-allocator-mutants-refuse-with-input-purity",
+      "status": "passed",
+      "failureMessages": []
+    },
+    {
+      "name": "terminal6240-composed-downward-refusal-preserves-all-authority",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: expected 'migrateToV47: cannot downgrade or dis\u2026' to match /studioClosure/\n    at /Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-terminal-regression.test.ts:224:68\n    at /Users/zacheryspector/studio-specialists/p15b/tests/helpers/p15c2-legacy.ts:49:5\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)"
+      ]
+    },
+    {
+      "name": "real-global-allocator-rejects-duplicate-stamps-on-admitted-two-closure-input",
+      "status": "passed",
+      "failureMessages": []
+    },
+    {
+      "name": "v3-technology-span-uses-actual-closure-and-recording-coverage",
+      "status": "passed",
+      "failureMessages": []
+    }
+  ],
+  "laneExit": 1,
+  "freezeBeforeSha256": "0a2e88f0316ea8cdfe387a0ada20ef4d3f54ad8d46f99351b5ada8253a34aca5",
+  "freezeAfterSha256": "0a2e88f0316ea8cdfe387a0ada20ef4d3f54ad8d46f99351b5ada8253a34aca5",
+  "ownedLaneReleased": true,
+  "prior15ReusedSeparately": true,
+  "interpretation": "Actual new11:10PASS1FAIL. Failure is expectation /studioClosure/ versus actual precise actual studio closure refusal at first downward conversion; assertions after line224 did not execute. Preserve failure pending independent review; no full composed-refusal acceptance."
+}

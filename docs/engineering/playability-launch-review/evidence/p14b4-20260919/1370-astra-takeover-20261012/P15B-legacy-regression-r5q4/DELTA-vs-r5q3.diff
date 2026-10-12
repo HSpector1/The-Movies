@@ -1,0 +1,13 @@
+diff --git a/tests/p15b-legacy-terminal-regression.test.ts b/tests/p15b-legacy-terminal-regression.test.ts
+index b13fe06f..bb6b1dbf 100644
+--- a/tests/p15b-legacy-terminal-regression.test.ts
++++ b/tests/p15b-legacy-terminal-regression.test.ts
+@@ -221,7 +221,7 @@ it('terminal6240-composed-downward-refusal-preserves-all-authority', budgeted(RO
+   for (const convert of [save.convertFromP15BSave, save.migrateToV47, save.migrateToV46, save.migrateToV45]) {
+     let message = ''
+     try { convert(baseline) } catch (e) { message = e instanceof Error ? e.message : String(e) }
+-    expect(message).toMatch(/corporateCondition/); expect(message).toMatch(/studioClosure/)
++    expect(message).toMatch(/corporateCondition/); expect(message).toMatch(/cannot downgrade or discard an actual studio closure/)
+     expect(message).toMatch(/modern Legacy v3 official authority/); expect(message).toMatch(/ended Legacy manifest/)
+     expect(message).toMatch(/frozen 2040 Legacy/)
+     // This leaf asserts modern+P15 composition only. It is NOT nonempty fund/recovery composition proof.

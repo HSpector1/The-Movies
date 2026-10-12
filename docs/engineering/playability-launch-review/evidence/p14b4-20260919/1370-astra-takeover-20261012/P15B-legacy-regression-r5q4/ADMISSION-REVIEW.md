@@ -1,0 +1,7 @@
+# r5q4 message correction admission
+
+GPT-6.1 Sol static independent review. KEEP for parent root compiler+whole11 run. No execution, candidate edits or acceptance claim.
+
+Verified PATCH6578dba2193c41f8e83c4ba859cc132786c9ba605338e28dbe560882574eb18a; MANIFEST7bf297c82c7bdda8ad8b6266483c251d0aec9ff7bca7e207e4fddb42aae4aee0; DELTA8580301270fcc5114953f4c86864604a5494e1955dd226341bfee053027f5120; runner89faa7bae401e754edcd29af1421eb9fc9c86df7f1586be1adddf6d7ddfbc749. All142 worktree hashes/indexed blobs match manifest; only regression test entry changed from q3. New3425 test bytes are precisely the approved one-line /studioClosure/→/cannot downgrade or discard an actual studio closure/ correction. Existing public message and source are unchanged; later assertions/converter iterations remain mandatory.
+
+Runner diff is solely q4 packet/fresh output/self/labels/hash pins, including exact corrected test hash in the scoped old15 reuse guard. Root compiler then unchanged complete11 command, original15 evidence/hash/index-minus-new/cached-minus-new/141postimage/all-original-input admission, strict current freeze,11 roots, owned lane/environment/floors/budgets and child/error recording remain exact. No consequential derivative defect. Preserve q3 actual10PASS1FAIL and unexecuted trailing assertions; require actual complete11 result and final freeze before GREEN. Nonempty inherited composition remains separate.

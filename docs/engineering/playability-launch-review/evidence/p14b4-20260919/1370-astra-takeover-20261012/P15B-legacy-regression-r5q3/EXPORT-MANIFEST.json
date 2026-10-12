@@ -17,13 +17,23 @@
     },
     {
       "path": "README.md",
-      "bytes": 1702,
-      "sha256": "a892733a4e8567e4d4cf3fc9d367b7a37185946542c275f6c9811ecb1b97c04e"
+      "bytes": 2108,
+      "sha256": "813bf1f5310c543e7643ecd22e561fe9c5a907bc3d07389add49450569db21e3"
     },
     {
       "path": "REPORT.md",
       "bytes": 1838,
       "sha256": "ed52b25972cecb26c235d2e774d49492c40a28f70cfc96daa5aaf3df3a259bcb"
+    },
+    {
+      "path": "RESULTS-REVIEW.md",
+      "bytes": 2466,
+      "sha256": "339b7cc22148c7458df83117af04ebeefd07122d9604862f9b327182050c5ccf"
+    },
+    {
+      "path": "RESULTS.json",
+      "bytes": 5171,
+      "sha256": "99d1aa09a0781dc02c25cf681dbdec2ea70ef69dcadcbf32e55150831974539f"
     },
     {
       "path": "RUNNER.sh",
@@ -34,8 +44,43 @@
       "path": "TEST-REVIEW.md",
       "bytes": 3544,
       "sha256": "f0263dd7e7a5158bee0d350d0b5fb43841c2c8ca0cbc14a76d28bd2a85b8723f"
+    },
+    {
+      "path": "commands.jsonl",
+      "bytes": 916,
+      "sha256": "c8a232664bf1d30b3a8da47868cd94ad52f979ea7be010e98fd7288be701e342"
+    },
+    {
+      "path": "lane.log",
+      "bytes": 465,
+      "sha256": "e69fae2064ad370a8991a9c2d754da6ef68433e478893d2c991f23a77e8d9b5e"
+    },
+    {
+      "path": "lane.meta",
+      "bytes": 220,
+      "sha256": "a61ed5892be9504ca1c85110a619d9792c917229bc29503d1ac28bfa18d93fcb"
+    },
+    {
+      "path": "legacy-regression.json",
+      "bytes": 4789,
+      "sha256": "c0a4ea33b4f13b4d08880914fea24c6e88109344ed1ee89f0255132075ac0c47"
+    },
+    {
+      "path": "legacy-regression.log",
+      "bytes": 2663,
+      "sha256": "245d343efff77cf33460694e9b17570f1a2bd4b5a8f97c14ff44df4828f604a5"
+    },
+    {
+      "path": "original15-reuse.json",
+      "bytes": 853,
+      "sha256": "8495b2128fccb27c205305d6939d407a5b1bf85f789bc519156a5c9d2be3e753"
+    },
+    {
+      "path": "tsc-root.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
   ],
   "privateSaveBodies": false,
-  "execution": "new11 unexecuted; original15 retained independently"
+  "execution": "root0;11 total10pass1fail0skip0todo;runtime/lane1;strictfreeze exact; wrong expected public message token"
 }

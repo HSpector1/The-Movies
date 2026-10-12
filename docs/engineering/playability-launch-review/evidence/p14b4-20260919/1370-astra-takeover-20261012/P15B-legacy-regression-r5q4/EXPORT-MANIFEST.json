@@ -1,0 +1,36 @@
+{
+  "files": [
+    {
+      "path": "ADMISSION-REVIEW.md",
+      "bytes": 1424,
+      "sha256": "2034d0f151f3c688648a613e7404ade6f0b5e0ebee828169c1b6da304a525baf"
+    },
+    {
+      "path": "DELTA-vs-r5q3.diff",
+      "bytes": 1077,
+      "sha256": "8580301270fcc5114953f4c86864604a5494e1955dd226341bfee053027f5120"
+    },
+    {
+      "path": "MANIFEST.json",
+      "bytes": 44504,
+      "sha256": "7bf297c82c7bdda8ad8b6266483c251d0aec9ff7bca7e207e4fddb42aae4aee0"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1175,
+      "sha256": "57501e53f8596a7c6c464c77efea29819cefe0b2f92bb6def85cf7df3b3e6224"
+    },
+    {
+      "path": "REPORT.md",
+      "bytes": 1213,
+      "sha256": "552228ba425b3c6cc023ed9c876d1ac2af0dda8f95fcdfe9f8d93ec66741175f"
+    },
+    {
+      "path": "RUNNER.sh",
+      "bytes": 12731,
+      "sha256": "89faa7bae401e754edcd29af1421eb9fc9c86df7f1586be1adddf6d7ddfbc749"
+    }
+  ],
+  "privateSaveBodies": false,
+  "execution": "q4 unexecuted at preparation checkpoint"
+}

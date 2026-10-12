@@ -1,0 +1,13 @@
+{
+  "original15Passed": 15,
+  "new11": "unexecuted at admission; root compiler then complete file required",
+  "oldPacketSha256": "420e91014b98487971f9f49b549972013ec3aa86e701e88e66b761b212d81087",
+  "newPacketSha256": "945ac4d52bf55d2ecf399377b36a02127fa1647fe877256c925b80e2caaa78e9",
+  "oldReporterSha256": "0b223fdab7a4d5975b9ce1f2743c12a4ec75c04005a587add1016f3d37240d35",
+  "exactOriginal141": true,
+  "exactOldIndexExcludingNewTest": true,
+  "exactOldSourceTestsHelpersConfigAndRequiredInputs": true,
+  "metadataException": "HANDOFF-only unstaged metadata changed outside runs; current complete freeze enforced",
+  "environment": "same Node20.20.2 and installed dependencies; no dependency install or edits in this session; package and lock bytes unchanged",
+  "claimsLimit": "15 reused plus independently measured new11, never one26-test run"
+}

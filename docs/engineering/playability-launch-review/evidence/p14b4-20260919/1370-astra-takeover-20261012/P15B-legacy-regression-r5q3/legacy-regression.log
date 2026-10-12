@@ -1,0 +1,41 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p15b
+
+ ❯ |core| tests/p15b-legacy-terminal-regression.test.ts (11 tests | 1 failed) 26132ms
+   ✓ terminal6239-6240-6241-cutoffs-ranking-and-modern-official-history 18433ms
+   ✓ terminal6241-preserves-frozen-v1-v2-official-through-actual-player-closure 372ms
+   ✓ late-recording-actual6273-closure-keeps-null-official 2321ms
+   ✓ two-actual-closures-and-not-yet-due-r03-before-one-ended-use-returned-allocator 1694ms
+   ✓ closure-preparation-fault-rolls-back-whole-admitted-caller 1005ms
+   ✓ ended-links-cutoffs-refs-phase-and-allocator-mutants-refuse-with-input-purity 1635ms
+   × terminal6240-composed-downward-refusal-preserves-all-authority 112ms
+     → expected 'migrateToV47: cannot downgrade or dis…' to match /studioClosure/
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p15b-legacy-terminal-regression.test.ts > terminal6240-composed-downward-refusal-preserves-all-authority
+AssertionError: expected 'migrateToV47: cannot downgrade or dis…' to match /studioClosure/
+
+- Expected: 
+/studioClosure/
+
++ Received: 
+"migrateToV47: cannot downgrade or discard a corporateCondition record (10 evaluated); cannot downgrade or discard a corporateCondition event (3 recorded); cannot downgrade or discard an actual studio closure (1 recorded); cannot downgrade or discard a closure claim (6 recorded); cannot downgrade or discard modern Legacy v3 official authority; cannot downgrade or discard the ended Legacy manifest; cannot downgrade or discard a recorded shared-market assessment (5 recorded); cannot downgrade or discard a recorded Power Ranking quarter; cannot downgrade or discard the frozen 2040 Legacy"
+
+ ❯ tests/p15b-legacy-terminal-regression.test.ts:224:68
+    222|     let message = ''
+    223|     try { convert(baseline) } catch (e) { message = e instanceof Error…
+    224|     expect(message).toMatch(/corporateCondition/); expect(message).toM…
+       |                                                                    ^
+    225|     expect(message).toMatch(/modern Legacy v3 official authority/); ex…
+    226|     expect(message).toMatch(/frozen 2040 Legacy/)
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 10 passed (11)
+   Start at  17:55:26
+   Duration  29.52s (transform 2.12s, setup 0ms, collect 2.87s, tests 26.13s, environment 0ms, prepare 132ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-regression-r5q3-run/legacy-regression.json

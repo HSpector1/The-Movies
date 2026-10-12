@@ -1,0 +1,6 @@
+Legacy regression r5q3: exact142 WT/index postimages; reviewed packet; reverse check PASS
+Original15 GREEN retained: exact original indexed postimages, source/helpers/config and required inputs; one new test only
+node=v20.20.2 python=Python 3.14.4 start=2026-10-12T22:54:33Z
+{"name": "tsc-root", "exit": 0, "seconds": 45}
+{"name": "legacy-regression", "exit": 1, "seconds": 30}
+terminal legacy-regression=1; unchanged=yes; parent must inspect reporter completeness
