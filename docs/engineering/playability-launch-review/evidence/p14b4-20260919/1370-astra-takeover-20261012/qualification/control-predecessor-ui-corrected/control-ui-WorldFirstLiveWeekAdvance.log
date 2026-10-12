@@ -1,0 +1,20 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |ui| ui/src/lot/WorldFirstLiveWeekAdvance.test.tsx (9 tests) 8618ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > returns a real building-origin deep route to that exact companion focus 1459ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > pointer activation records Stage 7 through one exact App-owned tick 1737ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > keyboard activation records Stage 7 through one exact App-owned tick 914ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > preserves the selected named person and production context through a same-world tick 918ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > routes a real release without a Gazette to ReleaseResult and back to the initiating lot 813ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > consumes the freshly rendered App state across two deliberate lot activations 807ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > keeps reduced motion state/RNG/route/focus parity for an App-owned lot tick 463ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > keeps the exact App-owned tick available when the renderer constructor fails 447ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > returns from a no-Gazette ReleaseResult Autopsy to the initiating lot 1057ms
+
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+   Start at  08:50:57
+   Duration  16.80s (transform 4.50s, setup 398ms, collect 5.29s, tests 8.62s, environment 2.12s, prepare 100ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/control-predecessor-ui-corrected/control-ui-WorldFirstLiveWeekAdvance.json

@@ -1,0 +1,219 @@
+PROJECT: STUDIO — FRESH CODEX INTEGRATION TAKEOVER
+
+MISSION
+Take over the existing work, finish and publish the current founding/market
+integration, then integrate P15B, P16, P17 and the authorized bounded P18 first
+season in dependency order. Preserve completed work. Turn the existing drafts
+into verified gameplay; do not restart development or build another review
+framework. Continue after each milestone until the authorized scope is complete,
+I pause you, or a real external/resource/authority blocker prevents safe progress.
+
+You are the sole parent integrator. Use the model and reasoning effort selected
+in this Codex session; do not change global settings or install orchestration.
+This prompt is my authorization for the PROCESS AMENDMENTS below. It does not
+change gameplay rules, erase failed evidence, waive acceptance requirements or
+authorize a main merge.
+
+LOCATIONS AND RECOVERY REFERENCE
+Repository: HSpector1/The-Movies
+Working branch: wip/headless-program-20260916-ts
+Production: /Users/zacheryspector/The-Movies-headless-program
+Scratch packages: /Users/zacheryspector/studio-scratch
+Existing specialist clones: /Users/zacheryspector/studio-specialists
+Integrator tools: /Users/zacheryspector/studio-scratch/1370-ar-integrator-tools-20261011
+Evidence: docs/engineering/playability-launch-review/evidence/p14b4-20260919
+
+Last remotely checked reference when this prompt was prepared:
+cac811c7c773c4d9f93ec6827c95c451d73a3e26
+This is a RECOVERY REFERENCE, never a reset target. Preserve newer legitimate work.
+That commit records a Codex resumption; do not assume the previous owner is Claude
+or assume its workers are still stopped.
+
+1. TAKE OWNERSHIP WITHOUT LOSING WORK
+Begin read-only. Read root HANDOFF.md's newest resume kit and later amendments,
+then reconcile with actual Git, known package directories and live project jobs.
+Read applicable AGENTS.md/CLAUDE.md/coordinator instructions and the current
+slice's contracts, review findings and package PROGRESS.md tail as needed.
+Root PROGRESS.md is historical; HEADLESS-PROGRESS.md can lag. Do not replay their
+old stop orders or restart an already-landed slice.
+
+Verify the explicit remote working ref, local HEAD, source tree, index, dirty
+files, untracked files, known clone bases and any surviving owner/test processes.
+Use explicit remote/ref checks: the existing origin tracking ref can be stale.
+A clean production tree does not imply that specialist clones are clean or backed
+up. Recover their latest patches, manifests, reports, untracked source and late
+worker results. Keep older revisions and failed attempts.
+
+Do not write overlapping files or launch competing tests until the predecessor
+has yielded. A stale PID, agent name or handoff timestamp is not proof of current
+ownership. Do not kill unrelated Node/Claude/Codex processes or launch Claude.
+If ownership cannot be resolved, stop writes and request the one necessary handoff.
+
+Reuse existing clones and reviewed patches. No clone-again, whole-source copy,
+stash, destructive reset, blanket cleanup or blind patch replay. Before adapting
+an isolated clone to a newer predecessor, preserve a reconstructable original
+with its exact base, including new files. Respect the protected common-Git-dir
+boundary and the project's safe restoration procedure; never discard foreign
+changes to make a gate clean.
+
+2. PROCESS AMENDMENTS FOR THIS RUN
+These replace the earlier one-test-process-per-specialist permission and automatic
+review/refutation fan-out. They do not remove tests or independent review.
+
+- At most TWO concurrent Codex-native specialists: normally one bounded repair/
+  test author in the active clone and one independent reviewer. The parent alone
+  integrates into production. Parent and specialist must not edit the same owned
+  candidate concurrently. Park the later packages after preserving them.
+- ONE scheduled CPU/memory-intensive project job tree across this machine:
+  tests, compiler, build, simulation or heavy verification scan. Its required
+  children are part of that job, not unrelated competing jobs. During a full gate,
+  specialists may read/review but may not run their own tests. This is a global
+  execution limit, not one process per clone. Reuse existing scheduling tools;
+  no scheduler installation project.
+- Keep independent review of the active revision, current repairs and integration
+  delta. Replace automatic three-lens campaigns and two refuters per finding with
+  one consolidated actionable findings list and targeted independent verification.
+  Use a second opinion for a genuinely disputed consequential finding, not by
+  default for every item. Preserve reviewer provenance and unresolved findings.
+- Reuse valid evidence when source, relevant inputs, environment and required
+  conditions match. Do not repeat completed REDs or a full suite solely because
+  a report changed. Re-run when a real change invalidates the evidence or the
+  applicable acceptance contract requires it.
+- A solo pass is NONREPRODUCTION, not automatic clearance of a new broad failure.
+  Compare candidate and predecessor under comparable controlled conditions; keep
+  uncertainty explicit. A declared failure is not automatically an approved one.
+
+Reuse existing specialist role contracts through Codex-native workers, not
+Claude invocations or a recreated Workflow stack. Load task-specific skills only
+when relevant. Record these amendments briefly in the existing handoff at a safe
+boundary. No AGENTS.md rewrite or repository-wide instruction audit is requested.
+
+3. FIRST FINISH LINE: THE NEXT UNLANDED PREDECESSOR
+The checked handoff describes landed R8 at db3fc572, Save46, with source tree
+cf7d20cd585f72fd178e06c3cd2a8821bbc0c26f. Later published changes were records.
+Verify this rather than assuming it is still current.
+
+First work: the latest founding/1365 market candidate, last described as revision 7
+for Save47. Package:
+S/1370-ar-1364-1365-founding-market-implementation-20261010-r1
+Clone: K/founding
+Here S and K mean the absolute directories above, not literal shell paths.
+
+Read its latest progress tail, actual final PATCH/MANIFEST/REPORT, r7 findings,
+R7-RULING-R-E.md and any later verdicts. Recover completed results before running
+anything. If a newer revision or landing exists, continue from it.
+
+Close demonstrated defects against the adopted founding invariants, including
+second-grant conservation and the accepted import/sign/found/save-reload route.
+Honor R-E's boundary for residual forgery classes; do not repeatedly expand that
+threat model to prevent completion. Do not downgrade actual invariant violations.
+
+Finish the current independent review and relevant checks, then run the existing
+integration gate with competing jobs parked. Do not begin another full gate on a
+candidate with a known unresolved blocker. Preserve core/UI/d16 failure identities,
+messages, exclusions, timeouts and causes. Keep earlier failures as evidence.
+
+A failed prerequisite does not test the intended assertion. Obtain a lawful,
+reviewed input or record the exact missing coverage; do not fabricate cash,
+receipts/history or weaken validators. Reuse completed real witnesses.
+
+4. LAND ONE SLICE, THEN ADAPT THE NEXT
+Use this planned sequence unless newer legitimate landings already supersede it:
+
+founding/market Save47 -> P15B Save48 -> P16 Save49 -> P17 Save50 -> P18 Save51.
+
+The numbers are predecessor-dependent, not permission to stamp a wrong version.
+Known package suffixes under S:
+- 1370-ar-p15b-waves2-5-implementation-20261010-r1
+- 1370-ar-p16-rights-estate-implementation-20261010-r1
+- 1370-ar-p17-continuation-cameo-implementation-20261010-r1
+- 1370-ar-p18-first-season-implementation-20261010-r1
+
+For each: recover latest draft -> repair actionable findings -> adapt to the
+actual landed predecessor -> focused verification -> independent delta review ->
+required integration gates -> qualified landing -> commit/push/remote readback.
+Keep at most the next dependent package in active preparation; preserve the rest.
+Do not restack every downstream package after every provisional edit.
+
+Preserve historical save readers, original fixtures, exact identities and receipt
+ownership. Use the existing live-era helper for genuinely live-version assertions;
+do not rewrite intentional old-era tests to the newest version. Do not replace
+save.ts wholesale. Validate real ordered migrations, downgrade refusals and replay.
+
+Use the actual producer interfaces when integrating: P16 consumes P15B's real
+condition/loan readers; P17 replaces its temporary ContinuationRights adapter with
+P16's actual rights authority; P18 consumes actual upstream rights, engagements,
+capacity and accounting. Passing with a substitute is not integrated acceptance.
+
+Player outcomes remain the adopted ones, not new design here: real rival recovery
+and loan restart under O1/O6; closure and truthful settlement; meaningful rights/
+acquisition transactions; adopted franchise continuation; one bounded TV season
+through delivery and reconciled payment. Read the current rulings before changing
+these mechanics. No new cameo, platform or other optional scope by inference.
+
+5. EXECUTION, ENVIRONMENT AND PUBLICATION
+Inspect current power, CPU/memory pressure and disk before intensive work. The
+prior host had 4 logical CPUs/8 GB and severe contention; do not assume this is the
+friend's new Mac. Meet each existing gate's disk floor and allow output headroom.
+Only previously authorized, clearly disposable caches may be reclaimed. Never
+remove source, saves, evidence, active tools or unique packages. No sudo, machine
+restart, Python/Node replacement or dependency upgrade campaign.
+
+Use the required Node20.20.2 and scoped .venv for applicable project checks;
+record actual executable versions. Do not mistake a shell/runtime difference
+for the demonstrated cause of a compiler error without checking configuration.
+Use explicit command working directories, never the deleted Downloads launch path.
+Preserve the existing safe Git flags:
+-c gc.auto=0 -c maintenance.auto=0 --no-optional-locks
+
+Keep HEAD, index, source and required inputs frozen during recorded runs through
+postflight; no HANDOFF edits during those freezes. Read child and recorder outcomes,
+not just a successful outer wrapper. Preserve incomplete/interrupted runs honestly.
+
+Reuse the existing gate scripts after checking their current inputs and restoration
+boundaries. Any necessary harness adjustment must be minimal, reviewed and keep the
+same correctness requirements. Do not widen timeouts simply to pass this run.
+
+Commit and push recoverable milestones to the working branch, then verify the
+explicit remote SHA. Snapshot unique in-progress patches with exact bases when
+safe, especially before compaction or quota exhaustion. Do not publish Owner saves,
+credentials or raw machine/process inventories designated local-only. State exactly
+what remains local and what is reconstructable from GitHub.
+
+Keep one concise CURRENT section in HANDOFF: what is LANDED, what is DRAFT, the
+active candidate/tested SHA, actual results and residuals, workers/jobs and exact
+next action. Preserve historical sections. Add only a pointer atop the archived
+root PROGRESS.md if useful. Do not rename candidate passes as shipped features.
+
+6. FINAL QUALIFICATION AND SESSION COMPLETION
+Once these integrations settle, qualify the planned new cross-system verification
+route against that stable tree. Preserve the pre-R8 history and its open questions;
+never relabel old evidence as a current run or repeatedly rebuild the full route
+at every save bump. Complete required recovery, post-2040, migration, replay,
+conservation and cross-package checks. Technical landings are not full acceptance.
+
+At a stable reference-browser checkpoint, use existing smoke coverage for starting
+a studio, releasing a film, and saving/reloading. Identify a demo SHA and actual
+limitations; do not claim a fresh-Mac or native demonstration you did not perform.
+This is not a Unity/UI redesign or a prerequisite to all unrelated engine work.
+
+Do not merge or push to main, enable auto-merge, rewrite campaign history, delete
+the source branch or declare Golden/Owner gameplay acceptance. The current no-main
+instruction governs this run; the older conditional promotion prompt does not
+supply permission to merge now. No P19 or native-Unity completion claim.
+
+Routine fixes, failures and milestone reports are not stopping points. After each
+checkpoint, start the next authorized dependency. A blocked slice does not stop
+safe independent work. If an actual external action or nondelegated decision is
+essential, ask one precise question with evidence; never infer a waiver.
+
+On resource/usage limits, publish a truthful recoverable handoff and park owned
+workers. No promise of a guaranteed number of unattended hours. Completion means
+verified, published integrations and the required cross-system checks—not a plan,
+a pile of patches, an approved review or more elapsed time.
+
+START NOW
+Give a short entry status: actual local/remote identity, current owner, recovered
+candidate, machine readiness, and the next real repair or verification. Then execute.
+The first target is the current founding/market landing, not another preparation
+report. If it has already landed, proceed to the next unlanded predecessor.

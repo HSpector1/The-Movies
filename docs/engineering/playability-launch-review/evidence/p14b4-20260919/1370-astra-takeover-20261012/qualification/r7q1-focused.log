@@ -1,0 +1,35 @@
+start=2026-10-12T13:56:43Z node=v20.20.2 clone_head=db3fc57242669d5c752d87a49ce0a87938324b6b
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/founding
+
+stdout | tests/p14d1-rival-shelving.test.ts > shelving-viable-control (1344-F Amendment 2) > actual v2 genesis through weeks77 and93: natural shelving obeys the retained-work, obligations, hold and loop laws; live saves replay exactly
+actual-v2 shelving measurement {"firstProducedWeek":69,"shelvesThrough77":1,"newShelvesAfter77":0,"endWeek":93,"replayWeeks":16}
+
+ ✓ |core| tests/p14d1-rival-shelving.test.ts (29 tests) 16210ms
+   ✓ searchIndustryPackages counts contract (1344-D Blocking 1) > on a captured genuine economic-rejection call: choice matches chooseIndustryPackage; affordable+unaffordable equals the independently-derived candidate count (never the literal 54); viable<=affordable; (choice===null)===(viable===0) 657ms
+   ✓ searchIndustryPackages counts contract (1344-D Blocking 1) > decide-level: partly unaffordable but all-hopeless packages count as economic rejection under 1363 Part A 609ms
+   ✓ shelving-stalled-route (1344-A §6.1) > a stalled rival with staff and cash available shelves after exactly 13 evaluated economic rejections; the week is derived from receipts, never hard-coded 1804ms
+   ✓ shelving-blocked-weeks-hold (1344-A §6.2) > staffingBlocked weeks (no seatable triple that survives staff()) leave the rejection count unchanged and evaluate no package 396ms
+   ✓ shelving-blocked-weeks-hold (1344-A §6.2) > all-hopeless weeks below every candidate still advance the rejection count under 1363 Part A 397ms
+   ✓ shelving-blocked-weeks-hold (1344-A §6.2) > a week with a running production evaluates nothing (count unchanged while productions.length>0; resumes after) 424ms
+   ✓ shelving-blocked-weeks-hold (1344-A §6.2) > a mixed sequence (staffing-blocked, then economic rejections) shelves only after 13 economic rejections, never 13 calendar weeks 845ms
+   ✓ shelving-viable-control (1344-F Amendment 2) > zero-penalty historical control: genesis to week77 matches the genuine old input under the existing projections; zero shelves precede its own first visible shelving 2002ms
+   ✓ shelving-viable-control (1344-F Amendment 2) > actual v2 genesis through weeks77 and93: natural shelving obeys the retained-work, obligations, hold and loop laws; live saves replay exactly 2808ms
+   ✓ shelving-commission-hold (1344-A §6.4) > no new development project for the shelving studio during its commission hold; commissionHoldUntilWeek is exactly week+HOLD; a commission is not permanently blocked 1095ms
+   ✓ shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > no retry before retryWeek 387ms
+   ✓ shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > an unviable retry advances retryWeek and stays shelved (and never re-enters the slot, so it cannot be shelved twice) 342ms
+   ✓ shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > no retry without a free slot (both original ordinals stay active, and a synthetic third due-shelved entry is not promoted) 348ms
+   ✓ shelving-retry (1344-F Amendment 1: retry reads b.development.projects[ordinal] directly, not through hotDevelopment) > at most one retry per decision: two shelved-and-due entries in the same week advance at most one 332ms
+   ✓ shelving-promise-guard (1344-A §3.3) > an open SPECIFIC_PROJECT promise naming the screenplay defers shelving (count held at 13); shelving proceeds at the next economic rejection after it settles 801ms
+   ✓ rivalPromiseProjectCandidates (1344-X2 parent API decision; covers 1344-A §6 item 7(c)) > a shelved screenplay is absent from the candidates 310ms
+   ✓ shelving-feasibility-readers (1344-A §3.6) > a shelved screenplay changes the feasibility digest (unproducedScripts must stop counting it, promises.ts:410-411) 316ms
+   ✓ shelving-chart-output (1344-A §6.8) > the 13-week chart row equals released (produced) films with a shelved screenplay present, and the state validates 736ms
+   ✓ shelving-player-symmetry (1344-A §3.6, control at RED) > no screenplayShelved receipt ever names the player studio, across a long natural route 713ms
+
+ Test Files  1 passed (1)
+      Tests  29 passed (29)
+   Start at  08:56:44
+   Duration  19.70s (transform 2.15s, setup 0ms, collect 3.09s, tests 16.21s, environment 0ms, prepare 93ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q1-p14d1-focused.json
+end=2026-10-12T13:57:04Z child_exit=0 unchanged=yes

@@ -1,0 +1,13 @@
+# Next dependent draft: P15B r3 recovery
+
+Read-only recovery by GPT-6.1 Sol `founding_recovery_sol`, 2026-10-12. No P15B test, repair or restack occurred. Use the exact preserved draft against local base `8cecf5aa`, not its stale package cut. The published source patch includes late changes to `studioClosure.ts`, `p14c3-promise-digest-continuity.test.ts`, `p15b4-studio-closure.test.ts`, and `ui/src/App.tsx` absent from that package manifest.
+
+Late `evidence/r3/gate-final/progress.txt` ends 22:47:23: 59 files in six batches, 541 tests, 522 pass, 18 fail, one todo. Final root/bridge/UI type checks and both generators recorded exit0, despite report/manifest placeholders. The classifier predates final batches. The advertised final 25-file UI set has no recovered output directory; early Lot 2/2 evidence is not that coverage.
+
+Latest identities across main gate, supplement and final: 2,928 assertions, 2,816 passed, 82 failed, 20 skipped, 10 todo. Existing categories give 78 inherited, one founding residual, two stack-base failures and one new failure. These are recovered categories, not newly approved failures; preserve changed timeout diagnostics.
+
+The new week900 nonleak failure names a missing closure disposition for `research:studio-93532614-r01:research:lighting-control-01`. Its fixture unconditionally selects the row-one rival at week780 and injects research/scientists without checking closure. Before repairing an engine writer, measure closure week, research start and input admission: if closure already occurred, the fixture creates unlawful post-closure work. Choose a genuinely operating rival while preserving the intended forecast/announcement assertions. Never backfill a disposition or weaken the validator. If the research existed lawfully at closure, repair that producer and test exact-once disposition, seat release, frozen work/spend/completion and valid save/reload.
+
+No final independent r3 verdict was recovered. Verify all claimed r2 repairs and carried findings C10/T19 (operating authority), C12 (cross-definition movement), C13 (financial-strength presentation), C16 (P16 encumbrances), C17 (principal choices), T17 (masked downgrade coverage). Recovery is not complete: measured borrowers reset cutting, then re-enter it in the same decision week; no measured loan restored filming.
+
+After founding lands, adapt to its actual Save47 predecessor and retain Save48. Merge funding reader/action changes deliberately across the 36 overlapping paths; preserve genuine historical readers and fixtures. Do not restack P16/P17/P18 before their predecessor is qualified.

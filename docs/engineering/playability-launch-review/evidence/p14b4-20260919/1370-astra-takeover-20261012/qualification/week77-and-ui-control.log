@@ -1,0 +1,6 @@
+start=2026-10-12T13:50:43Z node=v20.20.2 clone_head=db3fc57242669d5c752d87a49ce0a87938324b6b
+probe_child_exit=1; clone unchanged
+control on a4c9c0621a2c024f668a2463a8ac4771f7435351 src cf7d20cd585f72fd178e06c3cd2a8821bbc0c26f load 3.40 3.35 3.14
+08:51:14 control ui WorldFirstLiveWeekAdvance exit=0 seconds=19  Tests 9 passed (9) load 3.56 3.39 3.16
+08:51:40 control ui livingTurn.scheduler exit=0 seconds=26  Tests 13 passed (13) load 3.58 3.42 3.18
+postflight unchanged; inspect individual control child exits/JSON

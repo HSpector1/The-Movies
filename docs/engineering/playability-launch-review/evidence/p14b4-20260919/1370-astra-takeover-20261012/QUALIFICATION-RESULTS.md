@@ -1,0 +1,10 @@
+# Founding pre-gate qualification
+
+2026-10-12, parent measurements under Node v20.20.2, scoped `.venv` on PATH, existing exclusive heavy lane, serial jobs. Production source remained R8 (`cf7d20cd`); founding candidate runtime remained r7. Child outcomes and postflight checks were inspected separately from wrapper outcomes.
+
+- **Named forgery replay:** 22/22 forms refused by both reader and importer on two generated seeds, including B10c. Child/lane0, clone diff/status unchanged. No historical RED was repeated.
+- **Controlled predecessor:** bridge restart 10/10; P15C2 legacy integration 37/37 (downgrade53.650s against120s); WorldFirstLiveWeekAdvance9/9 and livingTurn.scheduler13/13. First UI selection used incorrect paths and ran zero files, exit1; that failed attempt is retained beside the corrected run. These controls do not alone clear candidate broad failures.
+- **Week77 diagnostic on unchanged r7:** failed the original active zero-shelving assertion, with one natural shelf by77, first produced69, and none new through93. Sixteen replay weeks were byte-exact. The explicit zero-penalty control had zero shelves77/first78 and exact historical projected state/receipts. Its failure is retained, not relabelled green.
+- **Reviewed test correction r7q1:** only `tests/p14d1-rival-shelving.test.ts` changed. Full file **29/29 passed**,19.70s total; child/lane0, clone diff/status unchanged. Independent GPT-6.1 Sol review KEEP confirms historical control retains exact comparisons and original bounded shelving assertions, active v2 checks existing substantive laws and replay, tuning restores in finally, and promise eligibility reads pre-tick state. No new timing/count law was derived from the measurements.
+
+The correction follows `WEEK77-ADOPTION.md`. Original fixtures and failed evidence remain intact. This resolves the named forgery replay and the week77 failed prerequisite for the qualified integration gate. Full frozen core/UI/d16/types/generators, exact failure attribution and final cross-system qualification remain pending. The historical 6,240-week controls are not claimed by the bounded93-week route.

@@ -1,0 +1,20 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-process-restart.test.ts (10 tests) 75907ms
+   ✓ rejects the post-commit response gate outside a test process before opening runtime state 2328ms
+   ✓ restores one durable logical bridge session and exact HTTP replay after SIGKILL 19681ms
+   ✓ withholds a durably committed command response until SIGKILL and replays it byte-identically after restart 9383ms
+   ✓ withholds a durably committed save response until SIGKILL and replays it byte-identically after restart 7129ms
+   ✓ withholds a durably committed load response until SIGKILL and replays it byte-identically after restart 12764ms
+   ✓ observes a byte-different semantic replay instead of falsely proving an exact request retry 5428ms
+   ✓ drops a durably committed command response and replays it byte-identically in the same process 5719ms
+   ✓ drops a durably committed save response and replays it byte-identically in the same process 4275ms
+   ✓ drops a durably committed load response and replays it byte-identically in the same process 9192ms
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  08:46:41
+   Duration  80.38s (transform 2.97s, setup 0ms, collect 3.99s, tests 75.91s, environment 0ms, prepare 149ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/control-predecessor-core/control-core-bridge-process-restart.json

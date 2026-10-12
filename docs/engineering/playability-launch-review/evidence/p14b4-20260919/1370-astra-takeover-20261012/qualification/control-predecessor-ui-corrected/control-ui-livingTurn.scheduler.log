@@ -1,0 +1,24 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |ui| ui/src/lot/livingTurn.scheduler.test.tsx (13 tests) 18419ms
+   ✓ Living Turn V1 — the transport > offers hold/roll and the whole pace ladder, paused at 1x 1272ms
+   ✓ Living Turn V1 — the transport > speaks about the studio, never about a scheduler 329ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > commits ONE authoritative week per witnessed week and nothing else 1091ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > runs 12 consecutive weeks with ZERO input and lands byte-identically 4302ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > speed changes the PACE and nothing else — 4x is four weeks in one week s time 1676ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > holding stops the weeks, and the studio stays exactly where it was 1473ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > a hidden tab is a held studio — living time never advances what nobody watches 919ms
+   ✓ Living Turn V1 — the partition, at the seam > auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week 2105ms
+   ✓ Living Turn V1 — the partition, at the seam > a NOTIFY-class wrap reaches the bulletin and the loop keeps working 1132ms
+   ✓ Living Turn V1 — the partition, at the seam > the bulletin clears on request 1083ms
+   ✓ Living Turn V1 — the loop cannot stall silently, and the batch verb holds it > re-arms the week on screen when the cadence channel is cleared under a running loop 1427ms
+   ✓ Living Turn V1 — the loop cannot stall silently, and the batch verb holds it > the batch verb HOLDS the studio — a skipped batch was never witnessed time 890ms
+   ✓ Living Turn V1 — the release week plays before its surfaces take over > the shipping week is witnessed, and the release surface follows it 717ms
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  08:51:15
+   Duration  24.21s (transform 3.99s, setup 113ms, collect 4.63s, tests 18.42s, environment 667ms, prepare 102ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/control-predecessor-ui-corrected/control-ui-livingTurn.scheduler.json

@@ -1,0 +1,35 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p15c2-campaign-legacy-integration.test.ts > p15c2 controls: the fixtures are lawful at RED and at GREEN > legacy-control-late-founding-route-lawful
+{"kind":"1359-legacy-route-timing","seed":"1359-legacy-late-founding-01","headlessTo6188":2143.5165669999997,"industry6188To6241":3741.9011070000006}
+
+stdout | tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-ticks-after-freeze
+{"kind":"1359-legacy-extension-timing","headlessTo6188":2143.5165669999997,"industry6188To6241":3741.9011070000006,"extension520Ms":7019.306540999998}
+
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts (37 tests) 111690ms
+   ✓ p15c2 controls: the fixtures are lawful at RED and at GREEN > legacy-control-late-founding-route-lawful 6163ms
+   ✓ p15c2 controls: the fixtures are lawful at RED and at GREEN > legacy-control-genuine-save38-6240-lawful 7128ms
+   ✓ p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-film-facts 430ms
+   ✓ p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-adapter-only-at-boundary 7221ms
+   ✓ p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-determinism 3130ms
+   ✓ p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-empty-root 802ms
+   ✓ p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-empty-root-genuine-save38 15302ms
+   ✓ p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-before-boundary 487ms
+   ✓ p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-past-boundary 345ms
+   ✓ p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-past-boundary-genuine-save38 520ms
+   ✓ p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-root-downgrade 53650ms
+   ✓ p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-marker 821ms
+   ✓ p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-manifest-identity 1687ms
+   ✓ p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-stamp 2488ms
+   ✓ p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-bounds 2984ms
+   ✓ p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-refs 1915ms
+   ✓ p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) > legacy-validate-replay 2825ms
+   ✓ p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) > legacy-old-law-fixture-v1-validates-after-retune 2331ms
+
+ Test Files  1 passed (1)
+      Tests  37 passed (37)
+   Start at  08:48:04
+   Duration  114.66s (transform 1.86s, setup 0ms, collect 2.48s, tests 111.69s, environment 0ms, prepare 119ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/control-predecessor-core/control-core-p15c2-campaign-legacy-integration.json

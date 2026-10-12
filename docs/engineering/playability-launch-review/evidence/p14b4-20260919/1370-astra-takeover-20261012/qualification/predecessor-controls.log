@@ -1,0 +1,21 @@
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LC_ALL = "C.UTF-8",
+	LC_CTYPE = "C.UTF-8",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to a fallback locale ("en_US.UTF-8").
+control on a4c9c0621a2c024f668a2463a8ac4771f7435351 src cf7d20cd585f72fd178e06c3cd2a8821bbc0c26f load 1.61 2.21 2.73
+08:46:38 control ui WorldFirstLiveWeekAdvance exit=1 seconds=3  load 1.61 2.21 2.73
+08:46:40 control ui livingTurn.scheduler exit=1 seconds=2  load 1.72 2.22 2.73
+control on a4c9c0621a2c024f668a2463a8ac4771f7435351 src cf7d20cd585f72fd178e06c3cd2a8821bbc0c26f load 1.72 2.22 2.73
+08:48:02 control core bridge-process-restart exit=0 seconds=82  Tests 10 passed (10) load 5.03 3.06 3.00
+08:49:59 control core p15c2-campaign-legacy-integration exit=0 seconds=117  Tests 37 passed (37) load 4.85 3.57 3.20
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LC_ALL = "C.UTF-8",
+	LC_CTYPE = "C.UTF-8",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to a fallback locale ("en_US.UTF-8").
+CONTROL POSTFLIGHT PASS; read individual child exits and JSON, not this wrapper as test success

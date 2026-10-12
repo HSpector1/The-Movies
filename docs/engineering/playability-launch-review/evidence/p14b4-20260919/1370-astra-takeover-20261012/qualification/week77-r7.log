@@ -1,0 +1,39 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/founding
+
+stdout | ../../studio-scratch/1370-astra-takeover-20261012/p14d1-week77-probe.test.ts > measures actual v2 week77 shelving, replay and historical zero-penalty control without editing campaign facts
+WEEK77_MEASUREMENT {"label":"actual-r7-v2","definition":"p15a1-market-v2","penalty":0.15,"week":77,"shelvesThrough77":1,"firstProducedWeek":69,"firstNewShelfWithinNext16ProducedWeek":null,"zeroThrough77AndNext16Witness":false,"replay16ByteEqual":true,"comparison":{"admitted":false,"missingPremise":"expected [ { …(15) }, { …(15) }, …(27) ] to deeply equal []"}}
+WEEK77_MEASUREMENT {"label":"K4-zero-penalty-negative-control","definition":"p15a1-market-v2","penalty":0,"week":77,"shelvesThrough77":0,"firstProducedWeek":null,"firstNewShelfWithinNext16ProducedWeek":78,"zeroThrough77AndNext16Witness":true,"replay16ByteEqual":true,"comparison":{"admitted":true,"equalAfterExistingProjection":true,"receiptsEqual":true}}
+WEEK77_QUALIFICATION {"actualLiveRouteCovered":false,"historicalControlExact":true,"continuingGap":"Original zero-through77/next16 premise moved; measured route is not a waiver","scope":"93 generated weeks per law; 16 replay weeks per law; not full K4 6240-week qualification"}
+
+ ❯ ../../studio-scratch/1370-astra-takeover-20261012/p14d1-week77-probe.test.ts (1 test | 1 failed) 6688ms
+   × measures actual v2 week77 shelving, replay and historical zero-penalty control without editing campaign facts 6686ms
+     → original zero-shelving-through-week77 premise: expected 1 to be +0 // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  ../../studio-scratch/1370-astra-takeover-20261012/p14d1-week77-probe.test.ts > measures actual v2 week77 shelving, replay and historical zero-penalty control without editing campaign facts
+AssertionError: original zero-shelving-through-week77 premise: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ ../../studio-scratch/1370-astra-takeover-20261012/p14d1-week77-probe.test.ts:99:82
+     97|   expect(control!.comparison.receiptsEqual, 'K4 exact historical recei…
+     98|   // Preserve the original bounded viable premise as a real assertion,…
+     99|   expect(live.shelvesThrough77, 'original zero-shelving-through-week77…
+       |                                                                                  ^
+    100|   expect(live.firstNewShelfWithinNext16ProducedWeek, 'original next16 …
+    101| }, 30_000)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  08:50:44
+   Duration  9.87s (transform 2.16s, setup 0ms, collect 2.81s, tests 6.69s, environment 0ms, prepare 113ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/week77-r7.json
