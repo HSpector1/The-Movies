@@ -1,0 +1,23 @@
+# C17 shipped57 compatibility RED — A-only exact append
+
+GPT-6.1 Sol, 2026-10-12. No installation/execution/compiler/simulation, K/R/source/index/HANDOFF/Git changes, or source/fixture copies. Proposed patch targets ONLY existing `tests/bridge-runtime-checkpoint.test.ts`: two import bindings, one actual57 entry in the existing independently literal key list, and two appended leaves. No timeout/budget changes. Parent controls projection58 implementation and prior-map repair.
+
+Scope: **constructed in-memory checkpoint unit coverage using real historical capture slots and lawful Save47 migration**, not a captured production57 checkpoint or genuine durable restart claim. Actual outgoing header74826 is established by A/BRIDGE-C17-SCHEMA-CARRY-FORWARD-REVIEW.md; unlanded7e2 draft cannot replace it.
+
+- Literal membership leaf asserts actual shipped `sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253` maps to `projection-v57` and differs from running schema. The existing exact-key list adds this same literal constant in sorted order. Iteration of the implementation map cannot hide omission.
+- Targeted load leaf uses `accepted45('research').old` (actual capture267) and `accepted45('baseline265').old` (actual265) independently. It calls public `migrateToV47`, independently `validateSaveV47`, `exportSave`, then current migration/import APIs for expected envelopes. No Save48 header retag/projection, forged cash, injected receipt or synthetic history enters either slot. The helper's unrelated current48 admission checks remain its established behavior; the selected `.old` value is the real admitted45 capture.
+- Existing `priorProtocol4Bytes` at186–205 constructs exact canonical envelope/digests using actual57 header and distinct Save47 slot bytes. Existing `opaqueJournalEntry` at168–176 supplies a deliberately incompatible opaque historical journal. Real `loadBridgeRuntimeCheckpoint` must migrate both full envelopes independently (not copy current to saved), preserve267/265 histories, stamp current schema, mint named fresh session, reset17→0, and discard journal. Current encode/reload must be idempotent/nonmigrating and exact digests must match. Original45 and migrated47 inputs remain byte-neutral.
+- Existing wrong/unknown-hash, malformed journal digest, duplicate identity and canonical-byte refusal tests at `tests/bridge-runtime-checkpoint.test.ts:791-825,846+` are untouched. New tests bind actual outgoing hash, not a permissive fake old-ID acceptance rule.
+
+Source basis: `bridge/runtime-checkpoint.ts:45-59` distinct shipped-hash law; :1315-1328 prior-map dispatch; existing historical slot migration and journal reset :903–915. Public Save47 owner `src/core/save.ts:11394-11445`; `migrateToLive/importSave/exportSave` at10441/6719/6707. `tests/helpers/1368-recovery-witnesses.ts:11-44` binds root/manifest/raw/gzip/historical-generating-HEAD and validates45; :47-65 carries real public conversions. Actual retained1368 manifest pin11ad61be481a8bec170f40425cfcfe7fcb24596418d30b6c8bf27895e93c3ba5; generatingHEAD2eaa697effc38538c37da28b486786ce267a2284; seedp13a-core-causal-01/develop:true. research267 raw2b27ca1517b8fcf5329b4742e329e252dfb40fe2dbafe3868244bd6f81b0f3b1; baseline265 raw050acfff9d9ff8da7e4359adfee9a5bad6c75bf7299ff7597eae5f8ad142d238. Fixture admission failures are named prerequisites, not authority to relax readers or fabricate replacement bytes.
+
+Exact packet:
+
+- Base existing test SHA256 `8858265abadd0b48cf631c1e6c5b3ecb4b00cd75a5d11f609ddfd8adf80543eb`.
+- APPEND.ts `fc2fd7cf61a0db2a44f15d07c47f4d75053ed07146fe6161fc7523a86a9ae3bb`.
+- IMPORTS.txt `17ad3114b5a4217d5b957d2240e56e7deb5800b2ff200b1bd35cba739f7b9283`.
+- PATCH.diff `11ecffcf53f72d4b8c94b56ef46bbc0da94c77c70995696bc680f17781a2439b` (complete minimal installation delta; no full source copy).
+
+Expected current RED: literal membership fails and targeted actual57 loader refuses unregistered historical schema through strict current-schema path. If a capture/converter admission fails earlier, later migration assertions are unexecuted and must be reported as a prerequisite failure. Source repair alone is not measured restart acceptance. Later parent-selected invocation can target `-t 'C17 shipped projection57 carry-forward'` in the existing file; after repair include its existing exact-membership/current-ID/unknown-hash/digest controls, with original budgets unchanged.
+
+Lesson: two slots must be admitted and migrated independently against the **actual shipped** header. A latest draft identity or a header-retagged modern save can make a compatibility test green without testing a real outgoing contract.

@@ -1,0 +1,121 @@
+diff --git a/ui/src/engine/p15b-lot-closure-gate.test.ts b/ui/src/engine/p15b-lot-closure-gate.test.ts
+index 9e5e2f06..40ff6dd5 100644
+--- a/ui/src/engine/p15b-lot-closure-gate.test.ts
++++ b/ui/src/engine/p15b-lot-closure-gate.test.ts
+@@ -19,6 +19,7 @@ describe('P15B completed Wave5 closure in the browser Studio Lot', () => {
+   it('the Lot commits actual player and rival closure then refuses further operating ticks', () => {
+     const start = week130()
+     let state = drainPlayer(drainRival(start, R04, 10_000_000), Math.floor(start.studio.cash) + 1)
++    expect(() => makeSave(state), 'constructed debit must admit before ticking').not.toThrow()
+     while (state.market.tick < R04_CLOSURE_WEEK) state = advanceWeek(state).next
+     expect(closureOf(state, R04)?.closureWeek).toBe(R04_CLOSURE_WEEK)
+     expect(recordOf(state, PLAYER)!.condition).toMatchObject({ stage: 'closed', since: R04_CLOSURE_WEEK, week: R04_CLOSURE_WEEK })
+@@ -34,6 +35,7 @@ describe('P15B completed Wave5 closure in the browser Studio Lot', () => {
+     // The core player-closure route (one signed contract, drained to −1 at 130) advanced by the core tick.
+     const start = week130()
+     let state = drainPlayer(applyActions(start, [{ kind: 'signContract', talentId: start.freeAgents[0]!, termWeeks: 52 } as Action]), Math.floor(start.studio.cash) + 1)
++    expect(() => makeSave(state), 'constructed debit must admit before ticking').not.toThrow()
+     let before = state
+     while (closureOf(state, PLAYER) === undefined && state.market.tick < R04_CLOSURE_WEEK + 1) { before = state; state = tick(state) }
+     expect(closureOf(state, PLAYER)?.closureWeek).toBe(R04_CLOSURE_WEEK)
+diff --git a/ui/src/lot/livingTurn.parity.test.tsx b/ui/src/lot/livingTurn.parity.test.tsx
+index 148d94ca..ed677a89 100644
+--- a/ui/src/lot/livingTurn.parity.test.tsx
++++ b/ui/src/lot/livingTurn.parity.test.tsx
+@@ -46,8 +46,8 @@ import { studioWeekTheater } from '../../../src/core/index.ts'
+ import type { GameState } from '../../../src/core/index.ts'
+ import { livingStudioUnderPressure } from '../../../tests/_m5Fixtures.ts'
+ import { App } from '../App.tsx'
+-import { advanceToNextEvent, advanceWeek, exportSaveJson } from '../engine/adapter.ts'
+-import { clearActiveSession, loadActiveSession, saveActiveSession } from '../engine/session.ts'
++import { advanceToNextEvent, advanceWeek, exportSaveJson, type ActionOutcome } from '../engine/adapter.ts'
++import { ACTIVE_SESSION_KEY, clearActiveSession, loadActiveSession, saveActiveSession } from '../engine/session.ts'
+ import { setOperationHollywoodOverride, setStudioLotOverviewOverride } from '../flags.ts'
+ import { livingTurnWeekMs } from './livingTurn.ts'
+ import { resetLotStageAssignment } from './snapshot/stageAssignment.ts'
+@@ -94,6 +94,17 @@ const renderer = vi.hoisted(() => {
+ 
+ vi.mock('./StudioLotView.ts', () => ({ StudioLotView: renderer.FakeView }))
+ 
++// Capture the real mounted panel's owner callback; its rendered UI and core authority stay real.
++const loanOwners = vi.hoisted(() => ({ callbacks: [] as Array<(principal: number) => ActionOutcome> }))
++vi.mock('../components/CorporateConditionPanel.tsx', async importOriginal => {
++  const actual = await importOriginal<typeof import('../components/CorporateConditionPanel.tsx')>()
++  return { ...actual, CorporateConditionPanel: (props: Parameters<typeof actual.CorporateConditionPanel>[0]) => {
++    loanOwners.callbacks.push(props.onTakeLoan)
++    return <actual.CorporateConditionPanel {...props} />
++  } }
++})
++
++
+ const SEED = 'c2a-m5-four-way-parity'
+ /** Comfortably inside the fixture's quiet runway, and past the charter's floor. */
+ const WEEKS = 12
+@@ -222,6 +233,7 @@ beforeEach(() => {
+   localStorage.clear()
+   resetLotStageAssignment()
+   renderer.instances.length = 0
++  loanOwners.callbacks.length = 0
+   setStudioLotOverviewOverride(true)
+   setOperationHollywoodOverride(true)
+ })
+@@ -232,6 +244,7 @@ afterEach(() => {
+   localStorage.clear()
+   resetLotStageAssignment()
+   renderer.instances.length = 0
++  loanOwners.callbacks.length = 0
+   vi.useRealTimers()
+   vi.restoreAllMocks()
+   vi.unstubAllGlobals()
+@@ -340,6 +353,7 @@ describe('C2a-M5 — and the four are one studio', () => {
+     localStorage.clear()
+     resetLotStageAssignment()
+     renderer.instances.length = 0
++  loanOwners.callbacks.length = 0
+     vi.useRealTimers()
+ 
+     await mountLot(FIXTURE.state)
+@@ -456,3 +470,43 @@ it('Wave5 living loop commits terminal once and keeps history/export accessible
+ }, MOUNTED_ARM_TIMEOUT_MS)
+ // Remaining host obligation: drive actual SavedStudio import/reload UI and confirm an unsupported due-only
+ // draft refuses BEFORE replacing an existing active session. Adapter-only import assertions are not that host proof.
++
++
++it('Wave5 stale mounted loan callback refuses changed owner terms without session writes', async () => {
++  const initial = wave5FixtureAt(134)
++  await mountLot(initial)
++  const oldLoan = loanOwners.callbacks.at(-1)
++  expect(oldLoan, 'actual warning panel callback must be captured').toBeDefined()
++  const principal = TUNING.LOAN_AMOUNT_STEP
++  const oldTerms = contractLoan(principal, studioWeeklyFixedCost(initial, initial.hollywood!.playerStudioId), 134)
++  await act(async () => { fireEvent.click(screen.getByTestId('lot-advance-week')) })
++  const current = loadActiveSession(); expect(current.ok).toBe(true)
++  if (!current.ok) throw new Error(current.reason)
++  expect(current.state.market.tick).toBe(135)
++  expect(() => coreSave.makeSave(current.state)).not.toThrow()
++  const newTerms = contractLoan(principal, studioWeeklyFixedCost(current.state, current.state.hollywood!.playerStudioId), 135)
++  expect(newTerms.contractedWeek).not.toBe(oldTerms.contractedWeek)
++  expect(loanMaxPrincipal(studioWeeklyFixedCost(current.state, current.state.hollywood!.playerStudioId))).toBeGreaterThanOrEqual(principal)
++  expect(within(screen.getByRole('table', { name: 'Studio loan repayment schedule' })).getByText('Week 136')).toBeVisible()
++  expect(screen.getByRole('region', { name: 'Studio loan offer' })).toBeVisible()
++  expect(loanOwners.callbacks.at(-1)).not.toBe(oldLoan)
++  const ownerBytes = JSON.stringify(current.state)
++  const saveBytes = sessionSave()
++  const storedBytes = localStorage.getItem(ACTIVE_SESSION_KEY)
++  expect(storedBytes).not.toBeNull()
++  const writes = vi.spyOn(Storage.prototype, 'setItem')
++  try {
++    const outcomes: ActionOutcome[] = []
++    await act(async () => { outcomes.push(oldLoan!(principal)) })
++    expect(outcomes).toHaveLength(1)
++    const result = outcomes[0]!
++    expect(result.ok, 'old displayed terms cannot authorize a later owner loan').toBe(false)
++    if (!result.ok) expect(result.error).toMatch(/stale.*loan|loan.*stale|loan.*offer.*changed|loan.*terms.*changed/i)
++    const after = loadActiveSession(); expect(after.ok).toBe(true)
++    if (!after.ok) throw new Error(after.reason)
++    expect(JSON.stringify(after.state)).toBe(ownerBytes)
++    expect(sessionSave()).toBe(saveBytes)
++    expect(localStorage.getItem(ACTIVE_SESSION_KEY)).toBe(storedBytes)
++    expect(writes.mock.calls.filter(([key]) => key === ACTIVE_SESSION_KEY)).toHaveLength(0)
++  } finally { writes.mockRestore() }
++}, MOUNTED_ARM_TIMEOUT_MS)

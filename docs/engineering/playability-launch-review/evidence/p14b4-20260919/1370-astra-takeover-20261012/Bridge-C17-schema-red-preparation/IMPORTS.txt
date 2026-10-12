@@ -1,0 +1,13 @@
+Add these two import bindings to tests/bridge-runtime-checkpoint.test.ts:
+import * as shipped47Save from '../src/core/save.js'
+import { accepted45 } from './helpers/1368-recovery-witnesses.js'
+
+Insert C17_SHIPPED_OUTGOING_57 in the EXISTING exact literal key array around line1010,
+after 'sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b'
+and before 'sha256:7e3af4db0d3d18cdeaab00082e0034f304a9141f46ea87e9e64e5a99d985483c':
+      // Actual shipped projection57, independent of unlanded candidate57 identity.
+      C17_SHIPPED_OUTGOING_57,
+
+Append APPEND.ts bytes to the same EXISTING file. Its const is initialized at module
+completion before test callbacks run, matching existing literals; keep the list
+ordering sorted. No map/source implementation mutation is part of this packet.
