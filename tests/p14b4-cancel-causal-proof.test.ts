@@ -64,7 +64,7 @@ import assert from 'node:assert/strict'
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { hiringMarketIds } from '../src/core/employment.js'
-import { makeSave } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import {
@@ -268,7 +268,7 @@ function bind(state: GameState, spec: BindSpec): GameState {
 }
 /** The live writer validates the whole state (P14C.2a: validateSaveV37, was validateSaveV35, was validateSaveV34); a refusal fails the case with its text. */
 function lawful(state: GameState): void {
-  expect(makeSave(state).saveVersion).toBe(46)
+  expect(makeSave(state).saveVersion).toBe(LIVE_SAVE_VERSION)
 }
 function root(state: GameState, promiseId: string): ProfessionalPromise {
   const rows = state.promises.filter((p) => p.promiseId === promiseId)

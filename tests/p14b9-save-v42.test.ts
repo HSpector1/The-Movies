@@ -71,6 +71,7 @@ import {
 import type { SaveFile, SaveFileV42, SaveFileV43, SaveFileV44, SaveFileV45 } from '../src/core/save.js'
 import * as saveModule from '../src/core/save.js'
 import type { GameState, RelationshipEdge } from '../src/core/types.js'
+import { EXPECTED_LIVE_SAVE_VERSION, validateLiveSave, downgradeLiveTo45 } from './helpers/live-era.js'
 
 const FIXTURES = new URL('./fixtures/p14/genuine-v41-pre-casting-drivers/', import.meta.url)
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
@@ -174,8 +175,6 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
       convertV42ToV43: (s: SaveFileV42) => SaveFileV43
       convertV43ToV44: (s: SaveFileV43) => SaveFileV44
       convertV44ToV45: (s: SaveFileV44) => SaveFileV45
-      validateSaveV46: (s: unknown) => ReturnType<typeof saveModule.validateSaveV46>
-      convertV46ToV45: (s: unknown) => unknown
       convertV45ToV44: (s: unknown) => unknown
       convertV44ToV43: (s: unknown) => unknown
       convertV43ToV42: (s: unknown) => unknown
@@ -218,8 +217,8 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
       expect(driver, `route/RED premise: pair (${x}, ${y}) should carry a castingCompetitionLost driver from production "${productionId}"`).toBeDefined()
     }
     const newSave = makeSave(greenlit)
-    expect(newSave.saveVersion).toBe(46) // LIVE_SAVE_VERSION 45 (was 44 under Save44, 42 at 1313-A §3)
-    expect(() => mods.validateSaveV46(newSave)).not.toThrow()
+    expect(newSave.saveVersion).toBe(saveModule.LIVE_SAVE_VERSION) // LIVE_SAVE_VERSION 45 (was 44 under Save44, 42 at 1313-A §3)
+    expect(() => validateLiveSave(newSave)).not.toThrow()
     // 1358-N S9 (MASKED): the live chain now crosses convertV44ToV43 first, and the greenlight
     // appended a competitions-log row on each slate pair (src/core/relationships.ts:537), so
     // the Save44 log guard (src/core/save.ts:10789) refuses before convertV42ToV41's casting-
@@ -232,17 +231,17 @@ describe('1313-A §3 — the acknowledged input, migrated then greenlit, mints r
     // and never ticked, so every root is still empty and the chain reaches the Save44 log guard as
     // before. Derived from source, not measured: the pin below is unchanged until a run shows another
     // first guard.
-    expect(() => mods.convertV42ToV41(mods.convertV43ToV42(mods.convertV44ToV43(mods.convertV45ToV44(mods.convertV46ToV45(newSave)))))).toThrow(/^migrateToV43: cannot downgrade or discard the competitions log of relationship-edge-24$/)
+    expect(() => mods.convertV42ToV41(mods.convertV43ToV42(mods.convertV44ToV43(mods.convertV45ToV44(downgradeLiveTo45(newSave)))))).toThrow(/^migrateToV43: cannot downgrade or discard the competitions log of relationship-edge-24$/)
   }, 30_000)
 })
 
 describe('LIVE_SAVE_VERSION and the dispatcher message', () => {
   it('LIVE_SAVE_VERSION is 45', () => {
-    expect(LIVE_SAVE_VERSION).toBe(46)
+    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
   })
 
   it('validateSave names the new ceiling in its unknown-version message ("1 through 45")', () => {
-    expect(() => validateSave({ saveVersion: 999 })).toThrow(/1 through 46/)
+    expect(() => validateSave({ saveVersion: 999 })).toThrow(new RegExp(`1 through ${LIVE_SAVE_VERSION}`))
   })
 })
 

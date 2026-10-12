@@ -19,7 +19,7 @@ import {
 } from "../src/core/construction.js";
 import { emptyStudioPlacement } from "../src/core/placement.js";
 import {
-  convertV10ToV11,
+  LIVE_SAVE_VERSION, convertV10ToV11,
   convertV1ToV2,
   convertV2ToV3,
   convertV3ToV4,
@@ -47,7 +47,6 @@ import {
   stableStringify,
   validateSave,
   validateSaveV11,
-  validateSaveV46,
   type SaveFile,
   type SaveFileV11,
 } from "../src/core/save.js";
@@ -64,6 +63,7 @@ import {
   makeLegacyCorpus,
   makeLegacySaveV1,
 } from "./_legacyV1Fixtures.js";
+import { validateLiveSave } from './helpers/live-era.js'
 
 function clone<T>(value: T): T {
   return JSON.parse(stableStringify(value)) as T;
@@ -186,9 +186,9 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
 
     for (const state of states) {
       const save = makeSave(state);
-      expect(save.saveVersion).toBe(46);
+      expect(save.saveVersion).toBe(LIVE_SAVE_VERSION);
       expect(validateSave(save)).toBe(save);
-      expect(validateSaveV46(save)).toBe(save);
+      expect(validateLiveSave(save)).toBe(save);
       const json = exportSave(save);
       expect(exportSave(importSave(json))).toBe(json);
     }
@@ -511,7 +511,7 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
           productionId: reservedId,
           note: "forged persisted production identity",
         });
-        expect(() => validateSaveV46(forgedV13)).toThrow(
+        expect(() => validateLiveSave(forgedV13)).toThrow(
           /canonical Annex id .*collides with persisted production history/,
         );
       }
@@ -550,8 +550,8 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
     };
     expect(() => makeSave(withFuture)).toThrow(/unknown field "futureV13"/);
     const save = makeSave(managedVacant("save-v11-projection"));
-    expect(() => validateSave({ ...save, saveVersion: 47 })).toThrow(
-      /unknown saveVersion 47.*versions 1 through 46 only/,
+    expect(() => validateSave({ ...save, saveVersion: LIVE_SAVE_VERSION + 1 })).toThrow(
+      new RegExp(`unknown saveVersion ${LIVE_SAVE_VERSION + 1}.*versions 1 through ${LIVE_SAVE_VERSION} only`),
     );
   });
 });

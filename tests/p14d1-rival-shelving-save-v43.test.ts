@@ -23,6 +23,7 @@ import type { GameState } from '../src/core/types.js'
 import {
   liveWeek130, genuineV42Week100, genuineV42Week130, week130Raw, RIVAL_R01,
 } from './p14d1-rival-shelving-fixtures.js'
+import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
 
 type ScreenplayShelving = {
   version: 1
@@ -43,7 +44,7 @@ const TUNING_FUTURE = TUNING as unknown as { HOLLYWOOD_SHELVE_AFTER_REJECTIONS: 
 
 describe('API decisions this file exercises (existence asserted first)', () => {
   it('validateSaveV43 / convertV42ToV43 / convertV43ToV42 exist as functions; LIVE_SAVE_VERSION is 45', () => {
-    expect(saveModule.LIVE_SAVE_VERSION).toBe(46)
+    expect(saveModule.LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
     expect(typeof mods().validateSaveV43).toBe('function')
     expect(typeof mods().convertV42ToV43).toBe('function')
     expect(typeof mods().convertV43ToV42).toBe('function')
@@ -82,7 +83,7 @@ describe('save-v43-shelving (1344-A §4, §6.9): V42 -> V43 migration', () => {
   it('migrateToLive carries a genuine V42 save to V45 (LIVE_SAVE_VERSION)', () => {
     const v42 = saveModule.importSave(week130Raw())
     const live = migrateToLive(v42)
-    expect((live as unknown as { saveVersion: number }).saveVersion).toBe(46)
+    expect((live as unknown as { saveVersion: number }).saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
   })
 })
 

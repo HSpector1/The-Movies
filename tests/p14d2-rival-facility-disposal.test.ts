@@ -54,8 +54,8 @@ function era(): EraApi {
 }
 function admitted(s: GameState): GameState {
   const envelope = save.makeSave(s)
-  expect(envelope.saveVersion).toBe(46)
-  expect(era().validateSaveV46(envelope)).toBe(envelope)
+  expect(envelope.saveVersion).toBe(save.LIVE_SAVE_VERSION) // Save47 (1364, 1370-AR r2): the live writer is one step above this era
+  expect(save.validateSaveV47(envelope)).toBe(envelope)
   return s
 }
 const worlds = new Map<number, GameState>()
@@ -89,7 +89,7 @@ function markCutting(state: GameState, studioId: string): void {
 // explicitly not proof of naturally reached entry. Full validation must admit it.
 function bareAt(kind: 'ordinary' | 'calendar' | 'operational' = 'ordinary') {
   const witness = accepted45(kind)
-  const state = witness.live.state
+  const state = witness.current.state // Save47: the live state (see accepted45)
   const week = state.market.tick
   if (kind === 'calendar') expect(week > 0 && week % 52 === 0).toBe(true)
   if (kind === 'ordinary') expect(week % 52).not.toBe(0)
@@ -211,7 +211,7 @@ describe('1363-A2 Part C: admitted synthetic policy-state controls over genuine 
 
   it('C4 actual retained research reference protects its laboratory (accepted original45 idle witness)', () => {
     const witness = accepted45('research')
-    const state = witness.live.state
+    const state = witness.current.state // Save47: the live state (see accepted45)
     const project = state.technology.projects.find(p => p.id === witness.row.projectId
       && p.studioId === witness.row.studioId && p.laboratoryFacilityId === witness.row.facilityId
       && p.studioId !== state.hollywood!.playerStudioId && canMarkCutting(state, p.studioId))
@@ -323,7 +323,7 @@ describe('1363-A2 Part C: admitted synthetic policy-state controls over genuine 
     // These objects intentionally are invalid. They are never described as natural controls.
     const expected = new Error(`rival facility disposal invariant: ${reason}`)
     expect(() => api().validateRivalFacilityDisposal(mutant)).toThrow(expected)
-    expect(() => era().validateSaveV46({ saveVersion: 46, seed: mutant.seed,
+    expect(() => save.validateSaveV47({ saveVersion: 47, seed: mutant.seed, // Save47: the live reader reaches this era's invariant
       state: mutant, broadcastCache: mutant.broadcastItems })).toThrow(expected)
     expect(bytes(mutant)).toBe(before)
   }, 120_000)
@@ -340,7 +340,7 @@ describe('1363-A2 Part C: admitted synthetic policy-state controls over genuine 
       const before = bytes(mutant)
       const expected = new Error(`rival facility disposal invariant: ${reason}`)
       expect(() => api().validateRivalFacilityDisposal(mutant)).toThrow(expected)
-      expect(() => era().validateSaveV46({ saveVersion: 46, seed: mutant.seed,
+      expect(() => save.validateSaveV47({ saveVersion: 47, seed: mutant.seed, // Save47: the live reader reaches this era's invariant
         state: mutant, broadcastCache: mutant.broadcastItems })).toThrow(expected)
       expect(bytes(mutant)).toBe(before)
     }
@@ -370,9 +370,9 @@ describe('1363-A2 Part C: admitted synthetic policy-state controls over genuine 
 
   it('S5 empty live-46 down/up control is lossless; it is not the required genuine pre-amendment capture', () => {
     const state = generatedAt(0), before = bytes(save.makeSave(state))
-    const old = era().convertV46ToV45(save.makeSave(state))
+    const old = era().convertV46ToV45(save.convertV47ToV46(save.makeSave(state))) // Save47: down through the live step first
     expect(save.validateSaveV45(old)).toBe(old)
-    expect(bytes(era().convertV45ToV46(old))).toBe(before)
+    expect(bytes(save.convertV46ToV47(era().convertV45ToV46(old) as never))).toBe(before)
     expect(bytes(save.makeSave(state))).toBe(before)
   }, 120_000)
 })

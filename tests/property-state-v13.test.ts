@@ -22,7 +22,7 @@ import {migrateToCurrentControl} from './_historicalCurrent.js'
 
 import { describe, expect, it } from 'vitest'
 import {
-  INITIAL_PROPERTY,
+  LIVE_SAVE_VERSION, INITIAL_PROPERTY,
   INITIAL_PROPERTY_STRUCTURES,
   LOT_DEPTH,
   LOT_PARCELS,
@@ -62,13 +62,13 @@ import {
   studioPlacementView,
   tick,
   validateSave,
-  validateSaveV46,
   assertStudioPlacementInvariants,
   expectedWeeklyOperatingCostAt,
 } from '../src/core/index.js'
 import { DEVELOPMENT_CASTING_ANNEX_BLUEPRINT } from '../src/core/tuning.js'
 import { INITIAL_STUDIO_FACILITIES } from '../src/core/operations.js'
 import type { GameState, LotCell, PropertyState } from '../src/core/index.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 const ANNEX = DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.id
 
@@ -530,7 +530,7 @@ describe('C1-M1a (b) — nothing assumes eight structures or a small placement c
     // And it all round-trips byte-identically at the live boundary.
     const json = exportSave(makeSave(operational))
     const reloaded = migrateToCurrentControl(importSave(json))
-    expect(reloaded.saveVersion).toBe(46)
+    expect(reloaded.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
     expect(reloaded.state.property).toEqual(INITIAL_PROPERTY)
     expect(reloaded.state.placement.facilities).toEqual(operational.placement.facilities)
@@ -697,9 +697,9 @@ describe('C1-M1a (d) — SaveFileV13', () => {
       const save = makeSave(state)
       // P13B-S6: the LIVE envelope is now V26. The property root and every claim
       // this case makes about it are unchanged — only which version writes it.
-      expect(save.saveVersion).toBe(46)
+      expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
       expect(validateSave(save)).toBe(save)
-      expect(validateSaveV46(save)).toBe(save)
+      expect(validateLiveSave(save)).toBe(save)
       expect(save.state.property).toEqual(INITIAL_PROPERTY)
       const json = exportSave(save)
       expect(exportSave(importSave(json))).toBe(json)
@@ -796,7 +796,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     for (const [, mutate, expected] of cases) {
       const bad = clone(valid)
       mutate(bad)
-      expect(() => validateSaveV46(bad)).toThrow(expected)
+      expect(() => validateLiveSave(bad)).toThrow(expected)
     }
   })
 
@@ -865,7 +865,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     for (const [, mutate, expected] of cases) {
       const bad = clone(valid)
       mutate(bad)
-      expect(() => validateSaveV46(bad)).toThrow(expected)
+      expect(() => validateLiveSave(bad)).toThrow(expected)
     }
   })
 
@@ -877,7 +877,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     const forged = clone(makeSave(state))
     // Move the Theater onto the Annex's ground. Nothing may stand in a body.
     forged.state.property.structures.find((s) => s.id === 'theater')!.origin = { gx: 7, gy: 15 }
-    expect(() => validateSaveV46(forged)).toThrow(
+    expect(() => validateLiveSave(forged)).toThrow(
       /placed facility 1 overlaps property structure "theater"/,
     )
   })
@@ -940,8 +940,8 @@ describe('C1-M1a (d) — SaveFileV13', () => {
 
   it('rejects unknown V42 beyond the current V37 reader boundary (stale numbers corrected post-C.2b)', () => {
     const live = makeSave(managedStudio('c1-m1a-unknown'))
-    expect(() => validateSave({ ...live, saveVersion: 47 })).toThrow(
-      /unknown saveVersion 47.*versions 1 through 46 only/,
+    expect(() => validateSave({ ...live, saveVersion: LIVE_SAVE_VERSION + 1 })).toThrow(
+      new RegExp(`unknown saveVersion ${LIVE_SAVE_VERSION + 1}.*versions 1 through ${LIVE_SAVE_VERSION} only`),
     )
   })
 })

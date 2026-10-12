@@ -19,13 +19,12 @@
 // `advanceWeek` a manual press commits and this file pins that call's determinism.
 
 import { describe, expect, it } from 'vitest'
-import { applyActions, studioWeekTheater } from '../../../../src/core/index.ts'
+import { applyActions, generateWorld, studioWeekTheater } from '../../../../src/core/index.ts'
 import type { GameState } from '../../../../src/core/index.ts'
 import {
   advanceToNextEvent,
   advanceWeek,
   exportSaveJson,
-  newGame,
   studioWeekTheaterView,
 } from '../../engine/adapter.ts'
 import type { SimStopReason } from '../../engine/adapter.ts'
@@ -196,8 +195,12 @@ describe('C2a-M5 — hand-advanced and batch-skipped are the same studio', () =>
 })
 
 describe('C2a-M5 — the LEGACY path is silent (the M0A corpus gate)', () => {
+  // 1364 invariant B (1370-AR r5 item D, a declared premise move): these worlds were `newGame`'s open
+  // founding draft, which a tick now refuses ('tick: complete studio founding before advancing the
+  // campaign'). The legacy/headless path this gate names is the never-founded M0A world itself,
+  // `generateWorld(seed)`, advanced through the same adapter verbs; the claims are unchanged.
   it('produces NO theater subjects, NO wrap stops, and an EMPTY ledger', () => {
-    let state: GameState = newGame('c2a-m5-legacy-silence-determinism')
+    let state: GameState = generateWorld('c2a-m5-legacy-silence-determinism')
     expect(state.operations.mode).not.toBe('managed')
     for (let i = 0; i < 40; i++) {
       // The three claims, every week, for forty weeks.
@@ -214,7 +217,7 @@ describe('C2a-M5 — the LEGACY path is silent (the M0A corpus gate)', () => {
   })
 
   it('and the batch verb never mints a wrap there either', () => {
-    let state: GameState = newGame('c2a-m5-legacy-batch')
+    let state: GameState = generateWorld('c2a-m5-legacy-batch')
     for (let i = 0; i < 6; i++) {
       const result = advanceToNextEvent(state)
       expect(result.stopReason).not.toBe('wrap')

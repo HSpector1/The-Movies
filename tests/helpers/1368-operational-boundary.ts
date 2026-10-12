@@ -4,12 +4,12 @@ import { genuineRenewal196 } from './1368-renewal-fixture.js'
 import { admitRivalPlans, rivalFacilityDisposalEligibility } from '../../src/core/rivalResearch.js'
 import { blueprintById } from '../../src/core/placement.js'
 import { tick } from '../../src/core/tick.js'
-import { makeSave, validateSaveV46, stableStringify } from '../../src/core/save.js'
+import { makeSave, validateSaveV47, stableStringify } from '../../src/core/save.js'
 import type { GameState } from '../../src/core/types.js'
 const bytes = stableStringify
 function admitted(s: GameState) {
   const before = bytes(s), value = makeSave(s)
-  expect(validateSaveV46(value)).toBe(value); expect(bytes(s)).toBe(before)
+  expect(validateSaveV47(value)).toBe(value); expect(bytes(s)).toBe(before)
 }
 // Exact measured construction/premise builder; original C5 assertions remain in their leaf.
 export function operationalBoundary208() {

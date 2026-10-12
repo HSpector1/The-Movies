@@ -18,6 +18,7 @@
 //      work", which is true, useless, and hides the one remedy the player owns.
 
 import { describe, expect, it } from 'vitest'
+import { LIVE_SAVE_VERSION } from '../../../../src/core/index.ts'
 import {
   exportSaveJson,
   importSaveJson,
@@ -43,7 +44,7 @@ describe('C2a-M2 — a save round-trips as V15, roots and all', () => {
     const json = exportSaveJson(state)
     // This exercises the current writer, including the governed P13 root.
     // Frozen historical validators retain their separate versioned tests.
-    expect(JSON.parse(json).saveVersion).toBe(46) // current C.3 writer: SaveFileV38.
+    expect(JSON.parse(json).saveVersion).toBe(LIVE_SAVE_VERSION) // current C.3 writer: SaveFileV38.
 
     const outcome = importSaveJson(json)
     expect(outcome.ok).toBe(true)

@@ -20,6 +20,7 @@ import {
 } from '../src/core/save.js'
 import { buildTalentProvenance } from '../src/core/aging.js'
 import type { CareerLifecycleRootV38, CreativeRole } from '../src/core/types.js'
+import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
 
 // C.3 additive opening oracle, independently derived from the historical input order.
 function expectedCareerLifecycle(week: number, people: readonly { id: string; role: CreativeRole }[]): CareerLifecycleRootV38 {
@@ -165,7 +166,9 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
-    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
+    // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
 }
 
 function preservesExactly(admitted: OldSave) {
@@ -263,7 +266,7 @@ function assertActualBacking(save: OldSave, root: OldPromise): void {
 
 describe('P14B4 Save30: genuine final V29 corpus, exact old-state preservation', () => {
   it('pins LIVE_SAVE_VERSION to literal41 independently of the value under test', () => {
-    expect(LIVE_SAVE_VERSION).toBe(46)
+    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
   })
 
   it.each(NAMES)('migrates genuine %s without rewriting roots, receipts, digests or history and downgrades losslessly', (name) => {

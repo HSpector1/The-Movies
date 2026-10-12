@@ -1,22 +1,21 @@
 # HANDOFF
 
-Last writer: Codex (GPT-6 Astra parent; GPT-6.1 Sol specialists), 2026-10-12 09:11 CDT
+Last writer: Codex (GPT-6 Astra parent; GPT-6.1 Sol specialists), 2026-10-12 12:02 CDT
 
 
-## CURRENT — founding r7q2 compiler/focused pass; full gate next, 2026-10-12
+## CURRENT — qualified Save47 checkpoint; adapt P15B next, 2026-10-12
 
-Current Owner order: `E/1370-astra-takeover-20261012/OWNER-ORDER.txt` (verbatim takeover). Sequence remains founding/market → P15B → P16 → P17 → bounded P18, then all required cross-system and reference-browser qualification. No main merge, auto-merge, P19, native/Golden or Owner acceptance claim.
+Current Owner order: `E/1370-astra-takeover-20261012/OWNER-ORDER.txt`. Continue founding/market → P15B → P16 → P17 → bounded P18, then required stable cross-system/reference-browser qualification. No main merge, native/Golden or Owner acceptance claim. All specialists must be GPT-6.1 Sol; parent remains GPT-6 Astra.
 
-- **LANDED:** R8/Save46 at `db3fc572`, source `cf7d20cd585f72fd178e06c3cd2a8821bbc0c26f`. Recovery/pre-gate records published through `984e9fc8`; this checkpoint records r7q1 failure and r7q2 repair/evidence, not gameplay. Production working ref is `wip/headless-program-20260916-ts`; explicit remote SHA must match each push. Gate records exact docs-checkpoint HEAD in `HEAD-BEFORE`.
-- **ACTIVE DRAFT:** `S/1370-ar-1364-1365-founding-market-implementation-20261010-r1`, clone `K/founding`, base `db3fc572`. Revision **r7q2**, PATCH SHA256 `f9d012fba521a05e56bee675c6b7527d099e0d2195f858af0102d36ed268961f`,189 matching file postimages. Only `tests/p14d1-rival-shelving.test.ts` differs from r7; runtime source is unchanged. Full package is published in takeover `founding-r7q2/`; original cuts and failed attempts remain preserved.
-- **ACTUAL RESULTS:** recovered r7 focused87/87 and mounted route4/4; old broad UI761 pass/11 fail and old isolated bridge9/10 remain historical failed evidence. New r4 generated replay22/22 reader+import refusals closes B10c. Controlled predecessor bridge10/10, legacy37/37 (downgrade53.65s/120s), UI22/22. Wrong-path initial UI attempt ran no files and remains retained. Reviewed r7q1 whole shelving file29/29. Its full gate then STOPPED at root tsc exit2 (38s): missing predicate union narrowing in the new promise assertion. No later stages ran. Reviewed safe restore returned0 at unchanged HEAD984e9fc8. **r7q2 root tsc0, whole shelving file29/29,20.05s,child/lane0,unchanged clone.** Full integration remains pending; failed r7q1 output is preserved in `founding-r7q1-failed-gate/`.
-- **WEEK77 CORRECTION:** diagnostic retained its failure: actual pressure first shelves69/one by77/none new93; zero-penalty control first78 with exact historical projected state/receipts; both replay16 exactly. `WEEK77-ADOPTION.md` and `QUALIFICATION-RESULTS.md` record independently reviewed correction: historical equality under explicit K4, actual-market substantive shelving laws and replay, no new timing/count law. Original fixtures/failures preserved. Full6240/K4/G2 and recovery are still pending.
-- **REVIEW:** GPT-6.1 Sol independent review KEEP runtime r7 fixes U1/U2/M1–M6 and KEEP r7q1 test delta after checking pre-tick promise eligibility. R-E residual R7-1/R7-2 and R-C scope stay intact. r7q2 independent KEEP adds only the `kind in predicate` discriminant guard, retaining pre-tick promise checks. Broad failures need complete identity/message/occurrence attribution; solo passes are NONREPRODUCTION, declarations are not waivers.
-- **NEXT JOB / FREEZE:** after the r7q2 package/evidence checkpoint, launch `bash S/1370-astra-takeover-20261012/launch-founding-r7q2.sh`. Gate output is package `landing-r7q2-astra/`; lane log/meta `S/1370-astra-takeover-20261012/founding-r7q2-gate.log{,.meta}`; owned PID locator `founding-gate.pid.LOCAL`. Check actual live PID/tool handle and logs before doing anything, never infer liveness from the locator. Launch was pending when this handoff was written. Once applied, **HEAD/index/source/required inputs are frozen through postflight: no HANDOFF edits, commits, other tests, or source changes.** Parent monitors available disk and owns child reaping; original lane remains in use. Earlier r7q1 job and restore are terminal; focus lane also ended0.
-- **GATE TOOLS:** amended existing `T/land-slice.sh` and `restore-production.sh` independently reviewed KEEP, syntax checked; published originals/current copies at takeover `tools/`. Gate requires owned lane, fresh output, matching manifest/preimages,3.5GiB launch/3GiB live floors, complete child/recorder results, frozen inputs; test failures return nonzero. Restore only via reviewed script under owned lane after terminal jobs; it refuses any foreign change. Current check: same4CPU/8GiB Mac, AC, about3.85GiB free, Node20.20.2 and scoped Python3.14.4. Recheck before launch.
-- **WORKERS:** parent sole production writer/scheduler; GPT-6.1 Sol author is parked after r7q2 package cut; independent GPT-6.1 Sol reviewer may read P15B only during gate. Earlier inherited-model workers interrupted on Owner correction. At most two specialists and one intensive project job tree globally; no automatic review/refutation fleet. No Claude launch, clone-again, whole-source copy, stash/reset, or protected common-Git-dir manipulation.
-- **PRESERVED NEXT DRAFTS:** all five exact source patches/manifests in takeover `drafts/`; full originals/index/package cuts and excluded fixture data local at `S/1370-astra-takeover-20261012/originals/`. P15B's unpublished base8cecf5aa preserved in BASE.bundle over publisheddb3fc572. P16/P17 base6510c971; P18 basef7d0dc0f. Later packages parked. No Owner saves or raw process inventories published.
-- **AFTER FOUNDING:** classify complete gate results, repair actual new/changed failures, then qualified Save47 landing/commit/push/explicit readback. Immediately adapt preserved P15B final bytes to the actual predecessor (Save48). `P15B-RECOVERY.md` records late522/541 final selection, four unpackaged late edits, stale reports, no independent r3 verdict, and a research-disposition failure likely requiring a lawful fixture-premise check. `P15B-INDEPENDENT-REVIEW.md` preserves actual exposure/coverage gaps (Lot Wave5, lawful loan restart, masked downgrade coverage, ranking presentation). No loan restart filming witness exists yet; flag reset alone is not O6 acceptance. Preserve historical readers/fixtures and use actual producers when integrating later rights/continuation/TV. Final qualification remains the full Owner objective, not this gate.
+- **LANDED BY THIS CHECKPOINT:** exact founding/market r7q2 Save47 candidate,189 paths, PATCH `f9d012fba521a05e56bee675c6b7527d099e0d2195f858af0102d36ed268961f`, source tree `2bcac39e1c88ba48f24df44e015d3b7b7f5a06af`. Working branch `wip/headless-program-20260916-ts`. Gate HEAD was `77e1247c76befe478b37c2e3eab7c365c7fe06eb` plus staged candidate; explicit remote matched it before this commit. Resolve the commit containing this CURRENT section and verify source/ref on resume; parent records final commit/push/readback in local `S/1370-astra-takeover-20261012/SAVE47-PUBLICATION.json`. R8/Save46 at db3fc572 is now the historical predecessor, not a reset target.
+- **ACTUAL RESULTS:** production root/UI/Bridge tsc0 and both generators0. Focused shelving29/29. Full core5679=5564pass/101fail/3skip/11todo, child1/7704s; d16 176=164pass/12fail, child1/400s. Full UI2701=2696pass/0fail/5skip,205files,child0/1140s. Original gate and UI continuation each remain wrapper98 from exact preserved AUTO-only hook incidents; constituent results reused with independently reviewed limitations, never a full-gate pass. All jobs ended; no project test/lane worker remained at the terminal observations.
+- **CLASSIFICATION:** core101 failing identities overlap R8:63 diagnostic arrays exact,29 stack shifts,6 current-era markers,3 pressure-mediated shifts. All49 former failures now pass:45 exact adopted market RED activation leaves plus4 timing/environment non-reproductions.82added/10missing are reviewed additions/replacements. FullUI retains all2701 r6 identities;6 old failures and r7's11 selected failures now pass, classified non-reproduction. D16's12 full diagnostic arrays match historical baseline exactly; failures remain unapproved.
+- **BOUNDED CAUSAL CHECK:** unchanged original3 leaves with in-memory penalty0 reproduced R8 commercialTOTAL42; seed-b TOTAL48 thenSETTLED41; seating received digestd32e68… . Actual child/lane1,33s,3failed/34skipped,complete accounting/2setup+restore markers/strict postfreeze pass. Original historical assertions still fail. This explains the observed pressure shifts only, not whole-ledger/world equality or new golden values.
+- **REVIEW / RESIDUALS:** independent final technicalKEEP finds no demonstrated remaining candidate-induced source blocker under adoptedR-E. Exact189index+worktree postimages and reversecheck verified.101core+12d16 failures, aborted natural prerequisites, skips/todos, masked historical downgrades and broader acceptance stay open. R-E R7-1/R7-2 bounded minors and R-D unreachable engaged-never-founded over-refusal remain (no supported-path exception). R-C2% storage is still open; held2.415%/ceiling2.5% is not compliance. Required G2/G1/K4/recovery/restart/6240/post-2040/migration/replay/conservation/reference-browser gates remain.
+- **EVIDENCE:** new `E/1370-astra-founding-save47-20261012/README.md`, EXPORT-MANIFEST, final independent review, raw core/d16/UI/diagnostic results, complete occurrence/message comparisons and both incident records/dispositions. Existing takeover/founding-r7q2 carries exact PATCH/MANIFEST/REPORT; qualification/ carries focused checks; failedr7q1 and originaldrafts remain. Source/fixtures/hooks were not rewritten to erase metadata98. Ordinary restoration still refuses foreign edits; no restore/reset was used to land this candidate. `.LOCAL` process inventories and Owner fixture bodies stay local.
+- **NEXT REAL TASK:** preserve current P15B clone state (original reconstructable backups already exist), then deliberately adapt its latest recovered draft to actual landed Save47 for planned Save48. Read takeover `P15B-RECOVERY.md`, `P15B-INDEPENDENT-REVIEW.md`, and new `P15B-preparation/P15B-PROSPECTIVE-ADOPTION.md` plus adjacent integration/operating/recovery/compatibility notes. Their final independentKEEP is design-only: actual-closure operating predicate; real Wave5 notices/remedies/terminal view; genuine47→48 empty roots and full future recovery window; unsupported already-due unlanded-draft playable transfer refused before replacement; prospective modern Legacyv3 closure/ended links and atomic closure→official→ended sequencing (one allocator, no extra tick, frozenv1/v2 unchanged). Complete distinguished REDs, real O1/O6 loan-filming restart witness, lawful research non-leak fixture, ranking presentation and masked downgrade coverage before P15B qualification.
+- **OWNERSHIP:** parent sole production writer/scheduler. Both GPT-6.1 Sol specialists parked after final source/evidence review; resume one bounded author and one independent reviewer. One CPU/memory-intensive project tree globally, at most two specialists. Latest AC,4CPU/8GiB; require3.5GiB launch/3GiB live floors. Node20.20.2 and scoped.venv. Every git command uses `-c gc.auto=0 -c maintenance.auto=0 --no-optional-locks`. No Claude launch, clone-again, whole-source copy, stash/reset, protected commonGit manipulation, competing tests, or private-data publication.
+- **PRESERVED LATER DRAFTS:** all five exact source patches/manifests public in takeover/drafts; original indices/packagecuts and excluded fixture data local `S/1370-astra-takeover-20261012/originals/`. P15B unpublished base8cecf5aa has public BASE.bundle over db3fc572; P16/P17 base6510c971 and P18basef7d0dc0f remain parked. Only activate next dependent package. Continue after each milestone until complete or a genuine blocker; this Save47 checkpoint does not finish the Owner objective.
 
 ## RESUME KIT, 2026-10-11 20:35 CDT (read first; written because Claude's weekly usage reached 92%)
 
@@ -623,14 +622,30 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-12 09:05 CDT by **codex** on PreCompact (session 01a13050-fe8f-7903-9af3-0a45b7130787)
-- Branch: `wip/headless-program-20260916-ts` @ `984e9fc86208b7dd395f6a3b4ecff2ce148d324d`
+- Stamped: 2026-10-12 11:46 CDT by **codex** on PreCompact (session 01a13050-fe8f-7903-9af3-0a45b7130787)
+- Branch: `wip/headless-program-20260916-ts` @ `77e1247c76befe478b37c2e3eab7c365c7fe06eb`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 0
+- Uncommitted files: 190
+  - `M HANDOFF.md`
+  - `M  src/core/actions.ts`
+  - `M  src/core/employment.ts`
+  - `A  src/core/foundingFunding.ts`
+  - `M  src/core/hollywoodTick.ts`
+  - `M  src/core/hollywoodValidation.ts`
+  - `M  src/core/index.ts`
+  - `M  src/core/marketIntegration.ts`
+  - `M  src/core/save.ts`
+  - `M  src/core/sharedMarket.ts`
+  - `M  src/core/tick.ts`
+  - `M  src/core/tuning.ts`
+  - `M  src/core/types.ts`
+  - `M  src/core/worldgen.ts`
+  - `M  src/harness/d16/driver.ts`
+  - ...
 - Last commits:
+  - 77e1247c test: correct shelving predicate guard and preserve failed prerequisite evidence
   - 984e9fc8 test: qualify founding market shelving controls before full integration gate
   - a4c9c062 docs: publish reviewed integration gate scripts and restoration boundaries
   - 62b722c3 test: recover founding forgery replay and harden existing integration gate
   - aba38855 docs: preserve recovered integration drafts and Codex takeover state
-  - cac811c7 docs: record Codex handoff resume
 <!-- AUTO:END -->

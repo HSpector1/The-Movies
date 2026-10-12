@@ -77,6 +77,7 @@ function withEmptyScreenplayShelving<T extends { hollywood: GameStateV30['hollyw
 }
 import { advanceTo, fund, p13aGeneratedStudio, player, poachingFixture } from './helpers/p14b2-fixtures.js'
 import type { GameState, RelationshipEdge, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
+import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
 
 const OUTGOING_46 = 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c'
 const OUTGOING_47 = 'sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538' // T0 MANIFEST authority.schemaId
@@ -385,7 +386,7 @@ describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, 
     // 1358-N P2: the live schema is projection57's (1358-E); projection56's id is OUTGOING_56.
     expect(SCHEMA_ID).toBe('sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253')
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
-    expect(LIVE_SAVE_VERSION).toBe(46)
+    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')

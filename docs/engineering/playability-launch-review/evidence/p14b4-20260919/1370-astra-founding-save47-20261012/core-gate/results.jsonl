@@ -1,0 +1,7 @@
+{"name":"tsc-root","exit":0,"seconds":42,"log":"/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/tsc-root.log","node":"v20.20.2"}
+{"name":"tsc-ui","exit":0,"seconds":41,"log":"/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/tsc-ui.log","node":"v20.20.2"}
+{"name":"tsc-bridge","exit":0,"seconds":45,"log":"/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/tsc-bridge.log","node":"v20.20.2"}
+{"name":"gen-contract","exit":0,"seconds":3,"log":"/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/gen-contract.log","node":"v20.20.2"}
+{"name":"gen-contract-fixtures","exit":0,"seconds":2,"log":"/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/gen-contract-fixtures.log","node":"v20.20.2"}
+{"name":"d16","exit":1,"seconds":400,"log":"/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/d16.log","node":"v20.20.2"}
+{"name":"vitest-core-full","exit":1,"seconds":7704,"log":"/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/core.log","node":"v20.20.2"}

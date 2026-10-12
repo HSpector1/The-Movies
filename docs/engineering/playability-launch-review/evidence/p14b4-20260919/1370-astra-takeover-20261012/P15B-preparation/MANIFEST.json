@@ -1,0 +1,40 @@
+{
+  "claim": "Design/recovery preparation only; P15B unlanded. Original hashes preserved.",
+  "files": [
+    {
+      "path": "P15B-INTEGRATION-MAP.md",
+      "bytes": 15273,
+      "sha256": "b2751ac1cd6d38e07d2ed4c7dd354faeb23ff74551aa37e860f5a6ed9af16449"
+    },
+    {
+      "path": "P15B-RECOVERY-WITNESS-MAP.md",
+      "bytes": 10259,
+      "sha256": "b62a96547d752afb0fb7c59442d7b980c7f33c28a8d94551b03b0e53c802c842"
+    },
+    {
+      "path": "P15B-OPERATING-AUTHORITY.md",
+      "bytes": 8997,
+      "sha256": "7dccef6d57678b8eb48c8ee11854159ca6ad205801c1f00b234fd3dc797090e0"
+    },
+    {
+      "path": "P15B-TERMINAL-COMPATIBILITY.md",
+      "bytes": 20403,
+      "sha256": "622d7c4699dfcd466143cfc66fbff059479c3f35efd76f421912fb5158721cee"
+    },
+    {
+      "path": "P15B-COMPATIBILITY-REVIEW.md",
+      "bytes": 9990,
+      "sha256": "303398c9baee89601c65caf17bc2c43bc451e8f7948f437ed3912fe7f7eace12"
+    },
+    {
+      "path": "P15B-LEGACY-PROSPECTIVE-REVIEW.md",
+      "bytes": 7709,
+      "sha256": "21ff236fc8a92a55d3fb2aee5b554d363aecf7053245422b7f58758bae71a836"
+    },
+    {
+      "path": "P15B-PROSPECTIVE-ADOPTION.md",
+      "bytes": 3354,
+      "sha256": "2b1e8bf12ec11fe787ecc4c3fd1fd35edd41638acea3bee399d69cb4069d8d12"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+# Founding Save47 publication review
+
+GPT-6.1 Sol, 2026-10-12. Bounded read-only publication review; no source/test re-audit, tests/compiler or production edits. Reviewed E/1370-astra-founding-save47-20261012 and E/1370-astra-takeover-20261012/P15B-preparation. This note is written only in authorized scratch A.
+
+KEEP publication packet. No actual publication blocker found.
+
+- All86 EXPORT-MANIFEST entries match exported byte lengths/SHA256 and exact original source bytes. The only unmanifested files are README.md and EXPORT-MANIFEST.json, exactly as the manifest declares. No exported original was rewritten. All seven P15B preparation notes also match their manifest hashes/lengths and scratch originals.
+- Every local Markdown link in the Save47 README resolves. Candidate/focused/runtime/adoption references resolve at preserved paths; no false clean-full-gate or accepted failure claim appears. README correctly distinguishes tested HEAD plus candidate, working-branch technical checkpoint, complete UI child0 versus both original wrapper98 outcomes,101core/12d16 failed acceptance work, bounded three-observation pressure mediation and scalar/world-equivalence limits.
+- Corrected R-D wording is present: unreachable engaged-never-founded population, never a supported-path exception. R-E's exact residual classes and R-C's2% budget/2.415% held measurement/2.5% ceiling limitation remain explicit. Skipped/todo/aborted natural prerequisites, historical envelope comparisons, recovery/6240/storage/cross-system and final browser qualifications remain unapproved work. P15B seven notes/adoption are explicitly preparation, not implementation landing.
+- Inventory contains no .LOCAL/process inventory, private-save/body, compressed fixture or bundle export. JSON artifact top-level schemas are reporter/comparison/freeze/provenance evidence, not saved campaign envelopes. Raw reporter content and preserved HANDOFF incident files are the specifically selected evidence previously reviewed; filenames/references/hash inventories do not export private fixture bodies. This is bounded review of the chosen packet, not a broad certification of unrelated historical repository contents.
+
+Parent staging/index/source verification, commit/push/readback and final working-ref controls remain parent-owned. This publication KEEP does not claim those future actions occurred and does not alter the independent qualified technical verdict or acceptance limitations.

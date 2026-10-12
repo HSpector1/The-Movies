@@ -10,6 +10,7 @@ import * as tickOwner from '../src/core/tick.js'
 import { activeContract, busyTalentIds } from '../src/core/employment.js'
 import { occupiedResourceSlots, resourceClaimsOf } from '../src/core/occupancy.js'
 import type { Action, FirstTakeReceipt, FirstTakeSubject, GameState, Production } from '../src/core/types.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 const INPUT = new URL('./fixtures/p14/genuine-v31-pre-b7/', import.meta.url)
 const HARD_ADVANCES = 13, HARD_ACTIONS = 5, TIMEOUT = 60_000
@@ -63,8 +64,8 @@ function memo(name: string, build: () => GameState): GameState {
 }
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(46); expect(saves.validateSaveV46(save)).toBe(save)
-  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV46(imported)
+  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(validateLiveSave(save)).toBe(save)
+  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = validateLiveSave(imported)
   expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw)
   expect(current.state.firstTakeSubjects).toEqual(state.firstTakeSubjects)
   expect(stable(state)).toBe(before)

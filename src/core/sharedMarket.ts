@@ -11,7 +11,13 @@
 // genre g in the batch at week W: P = Σk min(Wk, cap) + stock, where Wk is studio k's
 // genre-g window weight (its exposures plus its other batch members at 1.00 each; never
 // s itself) and stock sums every genre-g stock weight, unclamped. The factor is
-// f(P) = 1 − 0.25·(1 − e^(−P/2)). Other genres contribute nothing.
+// f(P) = 1 − m·(1 − e^(−P/2)), m the era's maximum penalty: 0.25 under `p15a1-market-v1`
+// (frozen below), 0.15 under the live `p15a1-market-v2` (the 1365 retune, 1361-F5 ruling 3,
+// the Owner's named weaker alternative of 1323-F). Other genres contribute nothing.
+//
+// Eras (1355-A §3.4 item 5): every function takes the law it prices under; the default is the
+// live law read from TUNING at the call. A stored row reconciles under the law its
+// `definitionVersion` names, through `MARKET_LAWS`, so a retune never rewrites an old row.
 //
 // Exactness: every term is evaluated from each week offset's summed release contribution
 // (`releaseContribution`; 1 per release in v1, so these are integer counts), in a fixed
@@ -29,7 +35,51 @@ import { fnv1a64 } from './math.js'
 import { GENRE_ORDER, TUNING } from './tuning.js'
 import type { Genre } from './types.js'
 
-export const SHARED_MARKET_DEFINITION = 'p15a1-market-v1'
+export type MarketDefinitionId = 'p15a1-market-v1' | 'p15a1-market-v2'
+/** The live era. A change to any of the seven SHARED_MARKET_* values bumps it (tuning.ts). */
+export const SHARED_MARKET_DEFINITION: MarketDefinitionId = 'p15a1-market-v2'
+
+/** The seven numbers one era prices under (1355-A §3.4 item 5). */
+export type MarketLaw = Readonly<{
+  definition: MarketDefinitionId
+  windowWeights: readonly number[]
+  stockStart: number
+  stockHalfLifeWeeks: number
+  retireAfterWeeks: number
+  factorMaxPenalty: number
+  pressureScale: number
+  studioWindowCap: number
+}>
+/** v1's seven numbers as Wave 1 landed them (D-1323-1). A v1 row reconciles under these forever. */
+export const SHARED_MARKET_LAW_V1: MarketLaw = Object.freeze({
+  definition: 'p15a1-market-v1' as const,
+  windowWeights: Object.freeze([1, 0.55, 0.55, 0.2]) as readonly number[],
+  stockStart: 0.2,
+  stockHalfLifeWeeks: 13,
+  retireAfterWeeks: 26,
+  factorMaxPenalty: 0.25,
+  pressureScale: 2,
+  studioWindowCap: 1,
+})
+/** The live law: the live definition over TUNING, read at the call. */
+export function liveMarketLaw(): MarketLaw {
+  return {
+    definition: SHARED_MARKET_DEFINITION,
+    windowWeights: TUNING.SHARED_MARKET_WINDOW_WEIGHTS,
+    stockStart: TUNING.SHARED_MARKET_STOCK_START,
+    stockHalfLifeWeeks: TUNING.SHARED_MARKET_STOCK_HALF_LIFE_WEEKS,
+    retireAfterWeeks: TUNING.SHARED_MARKET_RETIRE_AFTER_WEEKS,
+    factorMaxPenalty: TUNING.SHARED_MARKET_FACTOR_MAX_PENALTY,
+    pressureScale: TUNING.SHARED_MARKET_PRESSURE_SCALE,
+    studioWindowCap: TUNING.SHARED_MARKET_STUDIO_WINDOW_CAP,
+  }
+}
+/** The era table: each definition a stored row may name, to its law. A later retune adds an entry
+ * and leaves the earlier ones untouched. */
+export const MARKET_LAWS: Readonly<Record<MarketDefinitionId, () => MarketLaw>> = Object.freeze({
+  'p15a1-market-v1': () => SHARED_MARKET_LAW_V1,
+  'p15a1-market-v2': liveMarketLaw,
+})
 
 /** Hard maximum of source ids on one reason (1346-F). Bounds a record, not a market outcome. */
 export const MARKET_REASON_SOURCE_LIMIT = 5
@@ -64,7 +114,7 @@ export type MarketAssessment = {
   studioId: string
   genre: Genre
   week: number
-  definitionVersion: typeof SHARED_MARKET_DEFINITION
+  definitionVersion: MarketDefinitionId
   pressure: number
   factor: number
   windowTerm: number
@@ -81,31 +131,31 @@ export function releaseContribution(_release: MarketRelease): number {
   return 1
 }
 
-/** A release's lane and weight at `week`. Exactly one lane per week; `week < releaseWeek` is a caller error. */
-export function exposureWeight(releaseWeek: number, week: number): { lane: MarketLane; weight: number } {
+/** A release's lane and weight at `week` under `law`. Exactly one lane per week; `week < releaseWeek` is a caller error. */
+export function exposureWeight(releaseWeek: number, week: number, law: MarketLaw = liveMarketLaw()): { lane: MarketLane; weight: number } {
   if (!Number.isInteger(releaseWeek) || !Number.isInteger(week)) {
     throw new Error(`shared market: weeks must be integers (release ${releaseWeek}, week ${week})`)
   }
   const offset = week - releaseWeek
   if (offset < 0) throw new Error(`shared market: week ${week} precedes release week ${releaseWeek}`)
-  const window = TUNING.SHARED_MARKET_WINDOW_WEIGHTS
+  const window = law.windowWeights
   if (offset < window.length) return { lane: 'window', weight: window[offset] as number }
-  if (offset < TUNING.SHARED_MARKET_RETIRE_AFTER_WEEKS) {
+  if (offset < law.retireAfterWeeks) {
     return {
       lane: 'stock',
-      weight: TUNING.SHARED_MARKET_STOCK_START * 2 ** (-(offset - window.length) / TUNING.SHARED_MARKET_STOCK_HALF_LIFE_WEEKS),
+      weight: law.stockStart * 2 ** (-(offset - window.length) / law.stockHalfLifeWeeks),
     }
   }
   return { lane: 'retired', weight: 0 }
 }
 
-/** f(P) = 1 − 0.25·(1 − e^(−P/2)) as written: f(0) = 1 exactly; float64 rounds it to exactly 0.75 past P ≈ 72. */
-export function pressureFactor(pressure: number): number {
+/** f(P) = 1 − m·(1 − e^(−P/s)) as written, under `law` (live: m = 0.15, s = 2, so f ∈ [0.85, 1]; v1: m = 0.25,
+ * f ∈ [0.75, 1]). f(0) = 1 exactly; float64 reaches the floor exactly past P ≈ 72. */
+export function pressureFactor(pressure: number, law: MarketLaw = liveMarketLaw()): number {
   if (!Number.isFinite(pressure) || pressure < 0) {
     throw new Error(`shared market: pressure must be finite and non-negative (got ${pressure})`)
   }
-  const maxPenalty = TUNING.SHARED_MARKET_FACTOR_MAX_PENALTY
-  return 1 - maxPenalty * (1 - Math.exp(-pressure / TUNING.SHARED_MARKET_PRESSURE_SCALE))
+  return 1 - law.factorMaxPenalty * (1 - Math.exp(-pressure / law.pressureScale))
 }
 
 // ── batch assessment ─────────────────────────────────────────────────────────
@@ -139,8 +189,9 @@ const DIGEST_MASK = 0xffffffffffffffffn
 export function assessBatch(
   exposures: readonly MarketExposure[],
   batch: MarketBatch,
-  options: { steps?: { count: number } } = {},
+  options: { steps?: { count: number }; law?: MarketLaw } = {},
 ): MarketAssessment[] {
+  const law = options.law ?? liveMarketLaw()
   const week = requireWeek(batch.week)
   const step = (): void => {
     if (options.steps !== undefined) options.steps.count++
@@ -152,13 +203,13 @@ export function assessBatch(
     if (book === undefined) {
       book = {
         studios: new Map(),
-        windowCounts: zeros(TUNING.SHARED_MARKET_WINDOW_WEIGHTS.length),
+        windowCounts: zeros(law.windowWeights.length),
         sameWeekSources: [],
         windowSources: [],
         clamped: 0,
-        clampedCounts: zeros(TUNING.SHARED_MARKET_WINDOW_WEIGHTS.length),
+        clampedCounts: zeros(law.windowWeights.length),
         clampedTop: [],
-        stockCounts: zeros(TUNING.SHARED_MARKET_RETIRE_AFTER_WEEKS),
+        stockCounts: zeros(law.retireAfterWeeks),
         stockSources: [],
         stockTerm: 0,
         digest: 0n,
@@ -173,13 +224,13 @@ export function assessBatch(
     step()
     requirePreBatch(exposure, week, seen)
     const offset = week - exposure.releaseWeek
-    const { lane, weight } = exposureWeight(exposure.releaseWeek, week)
+    const { lane, weight } = exposureWeight(exposure.releaseWeek, week, law)
     if (lane === 'retired') continue
     const book = bookFor(exposure.genre)
     addDigest(book, exposure.releaseWeek, exposure.releaseId, exposure.studioId)
     const contribution = releaseContribution(exposure)
     const source = { releaseId: exposure.releaseId, weight: contribution * weight }
-    if (lane === 'window') foldWindow(book, exposure.studioId, source, offset, contribution)
+    if (lane === 'window') foldWindow(book, exposure.studioId, source, offset, contribution, law)
     else {
       book.stockCounts[offset]! += contribution
       keepHeaviest(book.stockSources, source, MARKET_REASON_SOURCE_LIMIT)
@@ -187,32 +238,32 @@ export function assessBatch(
   }
 
   const members = canonicalMembers(batch.members)
-  const sameWeekWeight = TUNING.SHARED_MARKET_WINDOW_WEIGHTS[0] as number
+  const sameWeekWeight = law.windowWeights[0] as number
   for (const member of members) {
     step()
     requireRelease(member, seen)
     const book = bookFor(member.genre)
     addDigest(book, week, member.releaseId, member.studioId)
     const contribution = releaseContribution(asRelease(member, week))
-    foldWindow(book, member.studioId, { releaseId: member.releaseId, weight: contribution * sameWeekWeight }, 0, contribution)
+    foldWindow(book, member.studioId, { releaseId: member.releaseId, weight: contribution * sameWeekWeight }, 0, contribution, law)
   }
 
   for (const book of books.values()) {
-    for (let offset = TUNING.SHARED_MARKET_WINDOW_WEIGHTS.length; offset < book.stockCounts.length; offset++) {
-      book.stockTerm += book.stockCounts[offset]! * exposureWeight(0, offset).weight
+    for (let offset = law.windowWeights.length; offset < book.stockCounts.length; offset++) {
+      book.stockTerm += book.stockCounts[offset]! * exposureWeight(0, offset, law).weight
     }
     book.digestHex = book.digest.toString(16).padStart(16, '0')
   }
 
   return members.map((member) => {
     step()
-    return assessSubject(member, week, books.get(member.genre)!)
+    return assessSubject(member, week, books.get(member.genre)!, law)
   })
 }
 
-function assessSubject(member: MarketBatchMember, week: number, book: GenreBook): MarketAssessment {
-  const cap = TUNING.SHARED_MARKET_STUDIO_WINDOW_CAP
-  const windowLength = TUNING.SHARED_MARKET_WINDOW_WEIGHTS.length
+function assessSubject(member: MarketBatchMember, week: number, book: GenreBook, law: MarketLaw): MarketAssessment {
+  const cap = law.studioWindowCap
+  const windowLength = law.windowWeights.length
   // Self-exclusion: the subject is one same-week release in its own studio's window.
   // Take it out and re-clamp that studio; every other studio stands as folded.
   const own = book.studios.get(member.studioId)!
@@ -220,7 +271,7 @@ function assessSubject(member: MarketBatchMember, week: number, book: GenreBook)
   const ownCounts = own.counts.slice()
   ownCounts[0]! -= contribution
   const ownWasClamped = own.raw > cap
-  const ownIsClamped = laneSum(ownCounts, 0, windowLength) > cap
+  const ownIsClamped = laneSum(ownCounts, 0, windowLength, law) > cap
   const counts = book.windowCounts.slice()
   counts[0]! -= contribution
   const clampedCounts = book.clampedCounts.slice()
@@ -229,15 +280,15 @@ function assessSubject(member: MarketBatchMember, week: number, book: GenreBook)
   const clamped = book.clamped - Number(ownWasClamped) + Number(ownIsClamped)
   // Clamped windows add exactly the cap each; the rest add their releases' weights.
   const unclamped = counts.map((n, offset) => n - clampedCounts[offset]!)
-  const windowTerm = clamped * cap + laneSum(unclamped, 0, windowLength)
+  const windowTerm = clamped * cap + laneSum(unclamped, 0, windowLength, law)
   const stockTerm = book.stockTerm
   const pressure = windowTerm + stockTerm
 
   const reasons: MarketReason[] = []
   if (counts[0]! > 0) {
-    reasons.push(reason('SAME_WEEK_RELEASES', laneSum(counts, 0, 1), book.sameWeekSources.filter((s) => s.releaseId !== member.releaseId)))
+    reasons.push(reason('SAME_WEEK_RELEASES', laneSum(counts, 0, 1, law), book.sameWeekSources.filter((s) => s.releaseId !== member.releaseId)))
   }
-  const windowExposures = laneSum(counts, 1, windowLength)
+  const windowExposures = laneSum(counts, 1, windowLength, law)
   if (windowExposures > 0) reasons.push(reason('WINDOW_RELEASES', windowExposures, book.windowSources))
   if (stockTerm > 0) reasons.push(reason('GENRE_SATURATION', stockTerm, book.stockSources))
   if (clamped > 0) {
@@ -251,7 +302,7 @@ function assessSubject(member: MarketBatchMember, week: number, book: GenreBook)
       }
     }
     if (ownIsClamped) pool.push(...own.sources.filter((s) => s.releaseId !== member.releaseId))
-    reasons.push(reason('STUDIO_CLAMPED', laneSum(clampedCounts, 0, windowLength), pool.sort(compareSources)))
+    reasons.push(reason('STUDIO_CLAMPED', laneSum(clampedCounts, 0, windowLength, law), pool.sort(compareSources)))
   }
   if (reasons.length === 0) reasons.push({ code: 'NO_PRESSURE', sourceReleaseIds: [], value: 0 })
 
@@ -260,12 +311,12 @@ function assessSubject(member: MarketBatchMember, week: number, book: GenreBook)
     studioId: member.studioId,
     genre: member.genre,
     week,
-    definitionVersion: SHARED_MARKET_DEFINITION,
+    definitionVersion: law.definition,
     pressure,
-    factor: pressureFactor(pressure),
+    factor: pressureFactor(pressure, law),
     windowTerm,
     stockTerm,
-    inputDigest: fnv1a64(JSON.stringify([SHARED_MARKET_DEFINITION, week, member.releaseId, member.studioId, member.genre, book.digestHex])),
+    inputDigest: fnv1a64(JSON.stringify([law.definition, week, member.releaseId, member.studioId, member.genre, book.digestHex])),
     reasons,
   }
 }
@@ -275,16 +326,16 @@ function reason(code: MarketReasonCode, value: number, sources: readonly Source[
   return { code, sourceReleaseIds: sources.slice(0, MARKET_REASON_SOURCE_LIMIT).map((s) => s.releaseId), value }
 }
 
-function foldWindow(book: GenreBook, studioId: string, source: Source, offset: number, contribution: number): void {
-  const cap = TUNING.SHARED_MARKET_STUDIO_WINDOW_CAP
+function foldWindow(book: GenreBook, studioId: string, source: Source, offset: number, contribution: number, law: MarketLaw): void {
+  const cap = law.studioWindowCap
   let studio = book.studios.get(studioId)
   if (studio === undefined) {
-    studio = { counts: zeros(TUNING.SHARED_MARKET_WINDOW_WEIGHTS.length), raw: 0, sources: [] }
+    studio = { counts: zeros(law.windowWeights.length), raw: 0, sources: [] }
     book.studios.set(studioId, studio)
   }
   const wasClamped = studio.raw > cap
   studio.counts[offset]! += contribution
-  studio.raw = laneSum(studio.counts, 0, studio.counts.length)
+  studio.raw = laneSum(studio.counts, 0, studio.counts.length, law)
   keepHeaviest(studio.sources, source, MARKET_REASON_SOURCE_LIMIT + 1)
   book.windowCounts[offset]! += contribution
   if (offset === 0) keepHeaviest(book.sameWeekSources, source, MARKET_REASON_SOURCE_LIMIT + 1)
@@ -304,8 +355,8 @@ function foldWindow(book: GenreBook, studioId: string, source: Source, offset: n
 }
 
 /** Σ counts[offset] × window weight over [from, to), in offset order: exact for any release order. */
-function laneSum(counts: readonly number[], from: number, to: number): number {
-  const weights = TUNING.SHARED_MARKET_WINDOW_WEIGHTS
+function laneSum(counts: readonly number[], from: number, to: number, law: MarketLaw): number {
+  const weights = law.windowWeights
   let sum = 0
   for (let offset = from; offset < to; offset++) sum += counts[offset]! * weights[offset]!
   return sum
@@ -340,6 +391,7 @@ function addDigest(book: GenreBook, releaseWeek: number, releaseId: string, stud
 export function reduceExposures(
   exposures: readonly MarketExposure[],
   batch: MarketBatch,
+  law: MarketLaw = liveMarketLaw(),
 ): { exposures: MarketExposure[]; retired: string[]; transitions: MarketLaneTransition[] } {
   const week = requireWeek(batch.week)
   const seen = new Set<string>()
@@ -348,8 +400,8 @@ export function reduceExposures(
   const transitions: MarketLaneTransition[] = []
   for (const exposure of exposures) {
     requirePreBatch(exposure, week, seen)
-    const from = exposureWeight(exposure.releaseWeek, week - 1).lane
-    const to = exposureWeight(exposure.releaseWeek, week).lane
+    const from = exposureWeight(exposure.releaseWeek, week - 1, law).lane
+    const to = exposureWeight(exposure.releaseWeek, week, law).lane
     if (from !== to) transitions.push({ releaseId: exposure.releaseId, from, to })
     if (to === 'retired') retired.push(exposure.releaseId)
     else kept.push(exposure)

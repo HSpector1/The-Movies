@@ -1,0 +1,736 @@
+{
+  "sourceComparison": "r7q2-core-comparison.json",
+  "scope": "all38changeddiagnosticarrays; no acceptance waiver",
+  "counts": {
+    "EXPECTED_LIVE_ERA_DIAGNOSTIC": 6,
+    "STACK_COORDINATES_ONLY": 29,
+    "SUBSTANTIVE_NATURAL_CONTROL_DRIFT_UNRESOLVED": 3
+  },
+  "items": [
+    {
+      "item": 1,
+      "id": "bridge-owner-ux-projection20-migration.test.ts :: Owner UX outgoing projection20 migration migrates 'constructed distinct-slot envelope fr\u2026' without changing either V18 gameplay slot",
+      "file": "bridge-owner-ux-projection20-migration.test.ts",
+      "occurrence": 1,
+      "category": "EXPECTED_LIVE_ERA_DIAGNOSTIC",
+      "baselinePrimary": "AssertionError: expected 46 to be 38 // Object.is equality",
+      "candidatePrimary": "AssertionError: expected 47 to be 38 // Object.is equality",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -1 +1 @@\n",
+        "-AssertionError: expected 46 to be 38 // Object.is equality",
+        "+AssertionError: expected 47 to be 38 // Object.is equality"
+      ],
+      "reason": "Already-failing historical/live preservation assertion now reports Save47 instead of46, caused by adopted founding Save47 migration/writer. Abbreviated objects cannot prove every hidden field unchanged; original failure remains."
+    },
+    {
+      "item": 2,
+      "id": "bridge-owner-ux-projection20-migration.test.ts :: Owner UX outgoing projection20 migration migrates 'frozen R12 Week106 null slot and genu\u2026' without changing either V18 gameplay slot",
+      "file": "bridge-owner-ux-projection20-migration.test.ts",
+      "occurrence": 1,
+      "category": "EXPECTED_LIVE_ERA_DIAGNOSTIC",
+      "baselinePrimary": "AssertionError: expected 46 to be 38 // Object.is equality",
+      "candidatePrimary": "AssertionError: expected 47 to be 38 // Object.is equality",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -1 +1 @@\n",
+        "-AssertionError: expected 46 to be 38 // Object.is equality",
+        "+AssertionError: expected 47 to be 38 // Object.is equality"
+      ],
+      "reason": "Already-failing historical/live preservation assertion now reports Save47 instead of46, caused by adopted founding Save47 migration/writer. Abbreviated objects cannot prove every hidden field unchanged; original failure remains."
+    },
+    {
+      "item": 3,
+      "id": "bridge-owner-ux-projection20-migration.test.ts :: Owner UX outgoing projection20 migration migrates 'frozen Week105 null slot' without changing either V18 gameplay slot",
+      "file": "bridge-owner-ux-projection20-migration.test.ts",
+      "occurrence": 1,
+      "category": "EXPECTED_LIVE_ERA_DIAGNOSTIC",
+      "baselinePrimary": "AssertionError: expected 46 to be 38 // Object.is equality",
+      "candidatePrimary": "AssertionError: expected 47 to be 38 // Object.is equality",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -1 +1 @@\n",
+        "-AssertionError: expected 46 to be 38 // Object.is equality",
+        "+AssertionError: expected 47 to be 38 // Object.is equality"
+      ],
+      "reason": "Already-failing historical/live preservation assertion now reports Save47 instead of46, caused by adopted founding Save47 migration/writer. Abbreviated objects cannot prove every hidden field unchanged; original failure remains."
+    },
+    {
+      "item": 4,
+      "id": "bridge-p06-checkpoint-recovery.test.ts :: AUD-001 \u2014 frozen P06 checkpoint recovery loads 'Committed with distinct Ready save an\u2026' through the governed predecessor path",
+      "file": "bridge-p06-checkpoint-recovery.test.ts",
+      "occurrence": 1,
+      "category": "EXPECTED_LIVE_ERA_DIAGNOSTIC",
+      "baselinePrimary": "AssertionError: expected { broadcastCache: [], \u2026(3) } to deeply equal { saveVersion: 46, \u2026(3) }",
+      "candidatePrimary": "AssertionError: expected { broadcastCache: [], \u2026(3) } to deeply equal { saveVersion: 47, \u2026(3) }",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -1 +1 @@\n",
+        "-AssertionError: expected { broadcastCache: [], \u2026(3) } to deeply equal { saveVersion: 46, \u2026(3) }",
+        "+AssertionError: expected { broadcastCache: [], \u2026(3) } to deeply equal { saveVersion: 47, \u2026(3) }"
+      ],
+      "reason": "Already-failing historical/live preservation assertion now reports Save47 instead of46, caused by adopted founding Save47 migration/writer. Abbreviated objects cannot prove every hidden field unchanged; original failure remains."
+    },
+    {
+      "item": 5,
+      "id": "bridge-p06-checkpoint-recovery.test.ts :: AUD-001 \u2014 frozen P06 checkpoint recovery loads 'Ready with no explicit save' through the governed predecessor path",
+      "file": "bridge-p06-checkpoint-recovery.test.ts",
+      "occurrence": 1,
+      "category": "EXPECTED_LIVE_ERA_DIAGNOSTIC",
+      "baselinePrimary": "AssertionError: expected { broadcastCache: [], \u2026(3) } to deeply equal { saveVersion: 46, \u2026(3) }",
+      "candidatePrimary": "AssertionError: expected { broadcastCache: [], \u2026(3) } to deeply equal { saveVersion: 47, \u2026(3) }",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -1 +1 @@\n",
+        "-AssertionError: expected { broadcastCache: [], \u2026(3) } to deeply equal { saveVersion: 46, \u2026(3) }",
+        "+AssertionError: expected { broadcastCache: [], \u2026(3) } to deeply equal { saveVersion: 47, \u2026(3) }"
+      ],
+      "reason": "Already-failing historical/live preservation assertion now reports Save47 instead of46, caused by adopted founding Save47 migration/writer. Abbreviated objects cannot prove every hidden field unchanged; original failure remains."
+    },
+    {
+      "item": 6,
+      "id": "bridge-p14b2-trust.test.ts :: P14B.2 group3 \u2014 one bound-only newest-first history DTO on both carriers does not publish another studio\u2019s real bound history as the player\u2019s own terms",
+      "file": "bridge-p14b2-trust.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+      "candidatePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,2 +2,2 @@\n",
+        "-    at Module.rivalFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:264:9)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b2-trust.test.ts:253:15",
+        "+    at Module.rivalFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:265:9)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b2-trust.test.ts:254:15"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 7,
+      "id": "bridge-p14b2-trust.test.ts :: P14B.2 group5 \u2014 independent promise attention after cases close does not require any case entry to retain a real promise reminder (explicit read-only case-carrier probe)",
+      "file": "bridge-p14b2-trust.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "AssertionError: expected 208 to be 52 // Object.is equality",
+      "candidatePrimary": "AssertionError: expected 208 to be 52 // Object.is equality",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,2 +2,2 @@\n",
+        "-    at Module.poachingFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:198:48)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b2-trust.test.ts:345:15",
+        "+    at Module.poachingFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:199:48)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b2-trust.test.ts:346:15"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 8,
+      "id": "bridge-p14b2-trust.test.ts :: P14B.2 group5 \u2014 independent promise attention after cases close ignores real withdrawn unbound drafts near due and never interrupts for rival-issued promises",
+      "file": "bridge-p14b2-trust.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+      "candidatePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,2 +2,2 @@\n",
+        "-    at Module.rivalFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:264:9)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b2-trust.test.ts:363:19",
+        "+    at Module.rivalFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:265:9)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b2-trust.test.ts:364:19"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 9,
+      "id": "bridge-p14b2-trust.test.ts :: P14B.2 group5 \u2014 independent promise attention after cases close raises due at minus8 but not minus9 for an actual player poaching winner with no proposals",
+      "file": "bridge-p14b2-trust.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "AssertionError: expected 208 to be 52 // Object.is equality",
+      "candidatePrimary": "AssertionError: expected 208 to be 52 // Object.is equality",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,2 +2,2 @@\n",
+        "-    at Module.poachingFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:198:48)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b2-trust.test.ts:298:15",
+        "+    at Module.poachingFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:199:48)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b2-trust.test.ts:299:15"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 10,
+      "id": "bridge-p14b2-trust.test.ts :: P14B.2 group5 \u2014 independent promise attention after cases close raises the poaching winner\u2019s actual outcome only in its recorded week, once per cause/person",
+      "file": "bridge-p14b2-trust.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "AssertionError: expected 208 to be 52 // Object.is equality",
+      "candidatePrimary": "AssertionError: expected 208 to be 52 // Object.is equality",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,2 +2,2 @@\n",
+        "-    at Module.poachingFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:198:48)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b2-trust.test.ts:317:15",
+        "+    at Module.poachingFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:199:48)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b2-trust.test.ts:318:15"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 11,
+      "id": "bridge-p14b2-trust.test.ts :: P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public is semantically unchanged when only hidden terminal terms vary, retaining real outcome/event identities",
+      "file": "bridge-p14b2-trust.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+      "candidatePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,2 +2,2 @@\n",
+        "-    at Module.rivalFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:264:9)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b2-trust.test.ts:412:15",
+        "+    at Module.rivalFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:265:9)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b2-trust.test.ts:413:15"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 12,
+      "id": "bridge-p14b2-trust.test.ts :: P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public keeps open rival proposal terms literal UNKNOWN across Profile and Market",
+      "file": "bridge-p14b2-trust.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+      "candidatePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,2 +2,2 @@\n",
+        "-    at Module.rivalFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:264:9)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b2-trust.test.ts:386:15",
+        "+    at Module.rivalFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:265:9)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b2-trust.test.ts:387:15"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 13,
+      "id": "bridge-p14b2-trust.test.ts :: P14B.2 group7 \u2014 rival terms stay private and rival outcomes stay public publishes the real rival kept outcome and aggregate label while withholding bound history terms",
+      "file": "bridge-p14b2-trust.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+      "candidatePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,2 +2,2 @@\n",
+        "-    at Module.rivalFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:264:9)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b2-trust.test.ts:398:15",
+        "+    at Module.rivalFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:265:9)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b2-trust.test.ts:399:15"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 14,
+      "id": "bridge-p14b5-relationships.test.ts :: family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+      "file": "bridge-p14b5-relationships.test.ts",
+      "occurrence": 1,
+      "category": "SUBSTANTIVE_NATURAL_CONTROL_DRIFT_UNRESOLVED",
+      "baselinePrimary": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(41) ] to have a length of 48 but got 42",
+      "candidatePrimary": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(35) ] to have a length of 48 but got 36",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -1 +1 @@\n",
+        "-AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(41) ] to have a length of 48 but got 42",
+        "+AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(35) ] to have a length of 48 but got 36",
+        "@@ -5 +5 @@\n",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b5-relationships.test.ts:544:18",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b5-relationships.test.ts:545:18"
+      ],
+      "reason": "Observable natural-chain count/digest changes beyond baseline failure. Active market pressure supplies a plausible adopted causal mechanism, but exact two-seed/three-observation zero-penalty comparison has not been recovered; no automatic approval or pin change."
+    },
+    {
+      "item": 15,
+      "id": "bridge-p14b5-relationships.test.ts :: family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) p13a-core-causal-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+      "file": "bridge-p14b5-relationships.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(17) ] to have a length of 40 but got 18",
+      "candidatePrimary": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(17) ] to have a length of 40 but got 18",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -5 +5 @@\n",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b5-relationships.test.ts:544:18",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b5-relationships.test.ts:545:18"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 16,
+      "id": "bridge-p14b5-relationships.test.ts :: family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) p13b-s8-bridge-probe-01: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+      "file": "bridge-p14b5-relationships.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(42) ] to have a length of 48 but got 43",
+      "candidatePrimary": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(42) ] to have a length of 48 but got 43",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -5 +5 @@\n",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b5-relationships.test.ts:545:54",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b5-relationships.test.ts:546:54"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 17,
+      "id": "bridge-p14b5-relationships.test.ts :: family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+      "file": "bridge-p14b5-relationships.test.ts",
+      "occurrence": 1,
+      "category": "SUBSTANTIVE_NATURAL_CONTROL_DRIFT_UNRESOLVED",
+      "baselinePrimary": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(40) ] to have a length of 48 but got 41",
+      "candidatePrimary": "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(46) ] to have a length of 48 but got 47",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -1 +1 @@\n",
+        "-AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(40) ] to have a length of 48 but got 41",
+        "+AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(46) ] to have a length of 48 but got 47",
+        "@@ -5 +5 @@\n",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b5-relationships.test.ts:545:54",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b5-relationships.test.ts:545:18"
+      ],
+      "reason": "Observable natural-chain count/digest changes beyond baseline failure. Active market pressure supplies a plausible adopted causal mechanism, but exact two-seed/three-observation zero-penalty comparison has not been recovered; no automatic approval or pin change.",
+      "metricCorrection": "Baseline assertion544 passes total48 then545 fails settled41(expected48);candidate545 fails total47(expected48) before settled assertion. These are different metrics, not total41->47."
+    },
+    {
+      "item": 18,
+      "id": "bridge-p14b5-relationships.test.ts :: family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) the MOST EXPOSED shared fixture, poachingFixture (p14b2-fixtures.ts :145-211; consumers bridge-p14b2-trust, p14b2-fixture-preconditions): the week-208 reasons pin and endedWeek 208 hold, and under D1 no survivor holds a shared-take counterpart",
+      "file": "bridge-p14b5-relationships.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "AssertionError: expected 208 to be 52 // Object.is equality",
+      "candidatePrimary": "AssertionError: expected 208 to be 52 // Object.is equality",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,2 +2,2 @@\n",
+        "-    at Module.poachingFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:198:48)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b5-relationships.test.ts:575:46",
+        "+    at Module.poachingFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:199:48)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b5-relationships.test.ts:576:46"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 19,
+      "id": "p14b2-fixture-preconditions.test.ts :: P14B.2 lawful engine fixture preconditions (not bridge verification) produces a rival-only open promise and public kept outcome from the unmodified natural rival chain",
+      "file": "p14b2-fixture-preconditions.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+      "candidatePrimary": "Error: P14B.2 fixture: no natural rival-only promise outcome by 240",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2 +2 @@\n",
+        "-    at Module.rivalFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:264:9)",
+        "+    at Module.rivalFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:265:9)"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 20,
+      "id": "p14b2-fixture-preconditions.test.ts :: P14B.2 lawful engine fixture preconditions (not bridge verification) wins a real rival-owned case and reaches reminder/outcome weeks after proposals are gone",
+      "file": "p14b2-fixture-preconditions.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "AssertionError: expected 208 to be 52 // Object.is equality",
+      "candidatePrimary": "AssertionError: expected 208 to be 52 // Object.is equality",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2 +2 @@\n",
+        "-    at Module.poachingFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:198:48)",
+        "+    at Module.poachingFixture (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14b2-fixtures.ts:199:48)"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 21,
+      "id": "p14b4-cast-class-outcomes.test.ts :: P14B4 genuine submit/settle/take routes, no synthetic commitments RIVAL: a genuinely naturally authored tagged commitment binds and qualifies through the real scheduled owner transition",
+      "file": "p14b4-cast-class-outcomes.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+      "candidatePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,2 +2,2 @@\n",
+        "-    at rivalWorlds (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:247:9)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:360:22",
+        "+    at rivalWorlds (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:248:9)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:361:22"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 22,
+      "id": "p14b4-cast-class-outcomes.test.ts :: P14B4 labeled outcome-owner probes on real bound roots and actual casts 'rival' 'lead' with actual 'antagonist' seat: qualification=false",
+      "file": "p14b4-cast-class-outcomes.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+      "candidatePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,3 +2,3 @@\n",
+        "-    at rivalWorlds (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:247:9)",
+        "-    at atFive (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:250:53)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:378:30",
+        "+    at rivalWorlds (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:248:9)",
+        "+    at atFive (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:251:53)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:379:30"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 23,
+      "id": "p14b4-cast-class-outcomes.test.ts :: P14B4 labeled outcome-owner probes on real bound roots and actual casts 'rival' 'lead' with actual 'lead' seat: qualification=true",
+      "file": "p14b4-cast-class-outcomes.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+      "candidatePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,3 +2,3 @@\n",
+        "-    at rivalWorlds (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:247:9)",
+        "-    at atFive (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:250:53)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:378:30",
+        "+    at rivalWorlds (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:248:9)",
+        "+    at atFive (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:251:53)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:379:30"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 24,
+      "id": "p14b4-cast-class-outcomes.test.ts :: P14B4 labeled outcome-owner probes on real bound roots and actual casts 'rival' 'lead' with actual 'support' seat: qualification=false",
+      "file": "p14b4-cast-class-outcomes.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+      "candidatePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,3 +2,3 @@\n",
+        "-    at rivalWorlds (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:247:9)",
+        "-    at atFive (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:250:53)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:378:30",
+        "+    at rivalWorlds (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:248:9)",
+        "+    at atFive (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:251:53)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:379:30"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 25,
+      "id": "p14b4-cast-class-outcomes.test.ts :: P14B4 labeled outcome-owner probes on real bound roots and actual casts 'rival' 'leadOrAntagonist' with actual 'antagonist' seat: qualification=true",
+      "file": "p14b4-cast-class-outcomes.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+      "candidatePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,3 +2,3 @@\n",
+        "-    at rivalWorlds (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:247:9)",
+        "-    at atFive (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:250:53)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:378:30",
+        "+    at rivalWorlds (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:248:9)",
+        "+    at atFive (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:251:53)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:379:30"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 26,
+      "id": "p14b4-cast-class-outcomes.test.ts :: P14B4 labeled outcome-owner probes on real bound roots and actual casts 'rival' 'leadOrAntagonist' with actual 'lead' seat: qualification=true",
+      "file": "p14b4-cast-class-outcomes.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+      "candidatePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,3 +2,3 @@\n",
+        "-    at rivalWorlds (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:247:9)",
+        "-    at atFive (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:250:53)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:378:30",
+        "+    at rivalWorlds (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:248:9)",
+        "+    at atFive (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:251:53)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:379:30"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 27,
+      "id": "p14b4-cast-class-outcomes.test.ts :: P14B4 labeled outcome-owner probes on real bound roots and actual casts 'rival' 'leadOrAntagonist' with actual 'support' seat: qualification=false",
+      "file": "p14b4-cast-class-outcomes.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+      "candidatePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,3 +2,3 @@\n",
+        "-    at rivalWorlds (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:247:9)",
+        "-    at atFive (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:250:53)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:378:30",
+        "+    at rivalWorlds (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:248:9)",
+        "+    at atFive (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:251:53)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:379:30"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 28,
+      "id": "p14b4-cast-class-outcomes.test.ts :: P14B4 labeled outcome-owner probes on real bound roots and actual casts rival half-open window counts start, excludes before-start and excludes due",
+      "file": "p14b4-cast-class-outcomes.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+      "candidatePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,3 +2,3 @@\n",
+        "-    at rivalWorlds (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:247:9)",
+        "-    at atFive (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:250:53)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:409:18",
+        "+    at rivalWorlds (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:248:9)",
+        "+    at atFive (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:251:53)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:410:18"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 29,
+      "id": "p14b4-cast-class-outcomes.test.ts :: P14B4 labeled outcome-owner probes on real bound roots and actual casts rival support qualifies for P1 and shape-legacy count-only P2, not tagged P2",
+      "file": "p14b4-cast-class-outcomes.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+      "candidatePrimary": "Error: UNEXECUTED natural rival prerequisites absent by350: actual bound OPEN roots in each cast slot AND genuine tagged eligible take required; no synthetic substitute",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,3 +2,3 @@\n",
+        "-    at rivalWorlds (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:247:9)",
+        "-    at atFive (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:250:53)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:388:32",
+        "+    at rivalWorlds (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:248:9)",
+        "+    at atFive (/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:251:53)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-cast-class-outcomes.test.ts:389:32"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 30,
+      "id": "p14b4-rival-seating-preference.test.ts :: P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225) seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+      "file": "p14b4-rival-seating-preference.test.ts",
+      "occurrence": 1,
+      "category": "SUBSTANTIVE_NATURAL_CONTROL_DRIFT_UNRESOLVED",
+      "baselinePrimary": "AssertionError: expected 'd32e68f685f658666d620bd3faee2841a3af4\u2026' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2\u2026' // Object.is equality",
+      "candidatePrimary": "AssertionError: expected 'f6cf3e4ab40962481f33a7aa5876700cb7f6d\u2026' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2\u2026' // Object.is equality",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -1 +1 @@\n",
+        "-AssertionError: expected 'd32e68f685f658666d620bd3faee2841a3af4\u2026' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2\u2026' // Object.is equality",
+        "+AssertionError: expected 'f6cf3e4ab40962481f33a7aa5876700cb7f6d\u2026' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2\u2026' // Object.is equality"
+      ],
+      "reason": "Observable natural-chain count/digest changes beyond baseline failure. Active market pressure supplies a plausible adopted causal mechanism, but exact two-seed/three-observation zero-penalty comparison has not been recovered; no automatic approval or pin change."
+    },
+    {
+      "item": 31,
+      "id": "p14b5-relationships.test.ts :: family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3)",
+      "file": "p14b5-relationships.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+      "candidatePrimary": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,2 +2,2 @@\n",
+        "-    at rivalWorld (/Users/zacheryspector/The-Movies-headless-program/tests/p14b5-relationships.test.ts:415:53)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b5-relationships.test.ts:674:46",
+        "+    at rivalWorld (/Users/zacheryspector/The-Movies-headless-program/tests/p14b5-relationships.test.ts:434:53)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b5-relationships.test.ts:693:46"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 32,
+      "id": "p14b5-relationships.test.ts :: family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) the same pair on a second production is ONE edge with sharedProductions 2 and a repeatedCollaboration driver of the capped accelerator; a < b regardless of seat order",
+      "file": "p14b5-relationships.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+      "candidatePrimary": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,2 +2,2 @@\n",
+        "-    at rivalWorld (/Users/zacheryspector/The-Movies-headless-program/tests/p14b5-relationships.test.ts:415:53)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b5-relationships.test.ts:683:40",
+        "+    at rivalWorld (/Users/zacheryspector/The-Movies-headless-program/tests/p14b5-relationships.test.ts:434:53)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b5-relationships.test.ts:702:40"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 33,
+      "id": "p14b5-relationships.test.ts :: family 5 \u2014 RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2)",
+      "file": "p14b5-relationships.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+      "candidatePrimary": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,2 +2,2 @@\n",
+        "-    at rivalWorld (/Users/zacheryspector/The-Movies-headless-program/tests/p14b5-relationships.test.ts:415:53)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b5-relationships.test.ts:891:42",
+        "+    at rivalWorld (/Users/zacheryspector/The-Movies-headless-program/tests/p14b5-relationships.test.ts:434:53)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b5-relationships.test.ts:910:42"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 34,
+      "id": "p14c3-canonical-rival-history.test.ts :: C.3 canonical Actor history survives actual passive rival Writer transition and work L1 observes an actual passive non-player Writer hire with one employer and paid signing authority",
+      "file": "p14c3-canonical-rival-history.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "AssertionError [ERR_ASSERTION]: L passive work premise ended without an obligation: {\"personId\":\"person-studio-8c9ee794-r01-4\",\"week\":607,\"profession\":\"writer\",\"source\":{\"personId\":\"person-studio-8c9ee794-r01-4\",\"profession\":\"writer\"},\"cause\":\"noCatalogue\",\"evaluationId\":null}",
+      "candidatePrimary": "AssertionError [ERR_ASSERTION]: L passive work premise ended without an obligation: {\"personId\":\"person-studio-8c9ee794-r01-4\",\"week\":607,\"profession\":\"writer\",\"source\":{\"personId\":\"person-studio-8c9ee794-r01-4\",\"profession\":\"writer\"},\"cause\":\"noCatalogue\",\"evaluationId\":null}",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -8 +8 @@\n",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/p14c3-canonical-rival-history.test.ts:260:15",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14c3-canonical-rival-history.test.ts:261:15"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 35,
+      "id": "p14c3-canonical-rival-history.test.ts :: C.3 canonical Actor history survives actual passive rival Writer transition and work L2 completes real rival screenplay review, production and released Writer credit after the change",
+      "file": "p14c3-canonical-rival-history.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "AssertionError [ERR_ASSERTION]: L passive work premise ended without an obligation: {\"personId\":\"person-studio-8c9ee794-r01-4\",\"week\":607,\"profession\":\"writer\",\"source\":{\"personId\":\"person-studio-8c9ee794-r01-4\",\"profession\":\"writer\"},\"cause\":\"noCatalogue\",\"evaluationId\":null}",
+      "candidatePrimary": "AssertionError [ERR_ASSERTION]: L passive work premise ended without an obligation: {\"personId\":\"person-studio-8c9ee794-r01-4\",\"week\":607,\"profession\":\"writer\",\"source\":{\"personId\":\"person-studio-8c9ee794-r01-4\",\"profession\":\"writer\"},\"cause\":\"noCatalogue\",\"evaluationId\":null}",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -8 +8 @@\n",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/p14c3-canonical-rival-history.test.ts:260:15",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14c3-canonical-rival-history.test.ts:261:15"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 36,
+      "id": "p14c3-save-v38.test.ts :: C.3 A01/A02 exact Save38 opening exposes matching strict38 conversion, validation and current migration over a genuine37 save",
+      "file": "p14c3-save-v38.test.ts",
+      "occurrence": 1,
+      "category": "EXPECTED_LIVE_ERA_DIAGNOSTIC",
+      "baselinePrimary": "AssertionError: expected '{\"broadcastCache\":[],\"saveVersion\":46\u2026' to be '{\"broadcastCache\":[],\"saveVersion\":38\u2026' // Object.is equality",
+      "candidatePrimary": "AssertionError: expected '{\"broadcastCache\":[],\"saveVersion\":47\u2026' to be '{\"broadcastCache\":[],\"saveVersion\":38\u2026' // Object.is equality",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -1,2 +1,2 @@\n",
+        "-AssertionError: expected '{\"broadcastCache\":[],\"saveVersion\":46\u2026' to be '{\"broadcastCache\":[],\"saveVersion\":38\u2026' // Object.is equality",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/p14c3-save-v38.test.ts:116:49",
+        "+AssertionError: expected '{\"broadcastCache\":[],\"saveVersion\":47\u2026' to be '{\"broadcastCache\":[],\"saveVersion\":38\u2026' // Object.is equality",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14c3-save-v38.test.ts:119:49"
+      ],
+      "reason": "Already-failing historical/live preservation assertion now reports Save47 instead of46, caused by adopted founding Save47 migration/writer. Abbreviated objects cannot prove every hidden field unchanged; original failure remains."
+    },
+    {
+      "item": 37,
+      "id": "p14p3-directing-promises.test.ts :: P3 fixed rival: public credit, ordinary contest and distinct staffing D07 authors and fulfills a real rival promise to a credited primary Actor",
+      "file": "p14p3-directing-promises.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]",
+      "candidatePrimary": "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,4 +2,4 @@\n",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14p3-fixtures.ts:1099:99",
+        "-    at memo (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14p3-fixtures.ts:151:23)",
+        "-    at Module.rivalWinner208 (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14p3-fixtures.ts:1073:10)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/p14p3-directing-promises.test.ts:1020:20",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14p3-fixtures.ts:1102:99",
+        "+    at memo (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14p3-fixtures.ts:154:23)",
+        "+    at Module.rivalWinner208 (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14p3-fixtures.ts:1076:10)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14p3-directing-promises.test.ts:1022:20"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    },
+    {
+      "item": 38,
+      "id": "p14p3-directing-promises.test.ts :: P3 fixed rival: public credit, ordinary contest and distinct staffing D18 uses the declared rival strategy and legal distinct staffing",
+      "file": "p14p3-directing-promises.test.ts",
+      "occurrence": 1,
+      "category": "STACK_COORDINATES_ONLY",
+      "baselinePrimary": "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]",
+      "candidatePrimary": "AssertionError: fixture premise: the same fixed rival really wins the later focus case: expected [ Array(1) ] to deeply equal [ ObjectContaining{\u2026} ]",
+      "fullDiagnosticDelta": [
+        "--- baseline\n",
+        "+++ candidate\n",
+        "@@ -2,4 +2,4 @@\n",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14p3-fixtures.ts:1099:99",
+        "-    at memo (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14p3-fixtures.ts:151:23)",
+        "-    at Module.rivalWinner208 (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14p3-fixtures.ts:1073:10)",
+        "-    at /Users/zacheryspector/The-Movies-headless-program/tests/p14p3-directing-promises.test.ts:1020:20",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14p3-fixtures.ts:1102:99",
+        "+    at memo (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14p3-fixtures.ts:154:23)",
+        "+    at Module.rivalWinner208 (/Users/zacheryspector/The-Movies-headless-program/tests/helpers/p14p3-fixtures.ts:1076:10)",
+        "+    at /Users/zacheryspector/The-Movies-headless-program/tests/p14p3-directing-promises.test.ts:1022:20"
+      ],
+      "reason": "Full diagnostic arrays differ only source stack line/column coordinates; same failed assertion/prerequisite. This preserves the failure, not approval."
+    }
+  ]
+}

@@ -20,6 +20,7 @@ import {
   requiredNegative,
 } from './engine/adapter.ts'
 import {
+  LIVE_SAVE_VERSION,
   stableStringify,
   generateWorld,
   exportSave,
@@ -123,7 +124,7 @@ describe('saves: export → import round-trips the EXACT state', () => {
     state = advanceWeek(state).next
 
     const json = exportSaveJson(state)
-    expect(JSON.parse(json).saveVersion).toBe(46) // current C.3 writer: SaveFileV38.
+    expect(JSON.parse(json).saveVersion).toBe(LIVE_SAVE_VERSION) // current C.3 writer: SaveFileV38.
     const r = importSaveJson(json)
     expect(r.ok).toBe(true)
     if (!r.ok) return

@@ -18,7 +18,7 @@ import {beginFoundingHistoricalControl as beginFounding} from '../src/core/emplo
 
 import { describe, expect, it } from 'vitest'
 import {
-  applyActions,
+  LIVE_SAVE_VERSION, applyActions,
   canAfford,
   convertV5ToV6,
   economyEngaged,
@@ -463,7 +463,7 @@ describe('D-17A/R2: a V6 save without an explicit engagement fact is rejected LO
   it('new games save as V16 and carry the fact', () => {
     // P06A (W1): makeSave now writes the live V16; the R2 fact is still carried.
     const save = makeSave(foundStudio('d17-newgame'))
-    expect(save.saveVersion).toBe(46)
+    expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(save.state.economyEngagedEver).toBe(true)
   })
 })

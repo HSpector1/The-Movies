@@ -96,8 +96,10 @@ describe('1363 Save46 genuine predecessor migration and boundary law', () => {
     expect(bytes(api().convertV46ToV45(current))).toBe(before)
     expect(bytes(api().migrateToV46(old))).toBe(bytes(current))
     expect(bytes(api().migrateToV46(current))).toBe(bytes(current))
-    expect(bytes(entry('migrateToLive')(old))).toBe(bytes(current))
-    expect(bytes(entry('migrateToLive')(current))).toBe(bytes(current))
+    // Save47 (1364, 1370-AR r2): the live writer is one step above this era. Both origins meet at the same live
+    // envelope, stamped with the live constant; this era's own migrator is asserted just above.
+    expect(bytes(entry('migrateToLive')(old))).toBe(bytes(entry('migrateToLive')(current)))
+    expect((entry('migrateToLive')(current) as Envelope).saveVersion).toBe(save.LIVE_SAVE_VERSION)
     expect(bytes(old)).toBe(before)
     const first = current.state.hollywood!.businesses[0]!
     expect(first).not.toBe(old.state.hollywood!.businesses[0])
@@ -228,7 +230,9 @@ describe('1363 Save46 genuine predecessor migration and boundary law', () => {
     const { envelope, studioId, facilityId } = selected!
     const before = bytes(envelope)
     const result = future.disposeRivalFacility(envelope.state, studioId, facilityId)
-    const disposed = admitted(save.makeSave(result) as unknown as Envelope)
+    // Save47 (1364, 1370-AR r2): the live writer is one step above this era; write the disposed state with this
+    // era's own reader, exactly as makeSave did while Save46 was live (validate, then detach).
+    const disposed = admitted(api().validateSaveV46(JSON.parse(JSON.stringify({ saveVersion: 46, seed: result.seed, state: result, broadcastCache: result.broadcastItems }))))
     expect(bytes(envelope)).toBe(before)
     const receipts = disposed.state.hollywood!.receipts.filter(r => (r.kind as string) === 'facilityDisposed')
     expect(receipts).toHaveLength(1)

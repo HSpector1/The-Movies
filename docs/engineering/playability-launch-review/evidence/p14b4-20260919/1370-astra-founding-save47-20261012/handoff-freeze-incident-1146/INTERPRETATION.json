@@ -1,0 +1,9 @@
+{
+  "changedFreezeKeys": [
+    "diff"
+  ],
+  "metadataOnlyExact": true,
+  "statusAlreadyDirtyFromFirstIncident": true,
+  "originalObservationMatcherNote": "matchesExpectedSecondIncident=false assumed both diff and status would change. Actual second AUTO stamp changes only diff; raw observation remains preserved, with no code/index/HEAD/input drift.",
+  "approval": "None; prospective disposition only; UI terminal/results still required."
+}

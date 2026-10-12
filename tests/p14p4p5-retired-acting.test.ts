@@ -11,6 +11,7 @@ import { activeContract, busyTalentIds } from '../src/core/employment.js'
 import { occupiedResourceSlots, resourceClaimsOf } from '../src/core/occupancy.js'
 import type { PromiseDraft } from '../src/core/promises.js'
 import type { GameState } from '../src/core/types.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 const INPUT = new URL('./fixtures/p14/genuine-v38-pre-p3/', import.meta.url)
 const FILE = 'genuine-v38-p3-natural-week208.json.gz'
@@ -44,8 +45,8 @@ afterAll(() => {
 })
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(46); expect(saves.validateSaveV46(save)).toBe(save)
-  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV46(imported)
+  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(validateLiveSave(save)).toBe(save)
+  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = validateLiveSave(imported)
   expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw); expect(stable(state)).toBe(before)
 }
 function input208(): GameState {

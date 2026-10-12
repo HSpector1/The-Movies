@@ -7,7 +7,7 @@ import { activeContract, canAfford, contractOffer, hiringMarketIds } from '../sr
 import { professionAtWeek } from '../src/core/index.js'
 import { trustDescriptor, trustDrivers } from '../src/core/promises.js'
 import { tiersOnRoster } from '../src/core/relationships.js'
-import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
+import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, convertV47ToV46, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
 import { caseForTalent, marketEligibility, openMarketCaseFor, playerOffer, proposalDraft, releaseFloor, studioOffer, submitProposal } from '../src/core/talentMarket.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
@@ -232,7 +232,7 @@ describe.each(OFFMENU_TARGETS)('C.3 actor→%s genuine off-menu58-week extension
     // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
     // V39 stays covered by p13b-s3-save-v23.test.ts; the shelving receipt guard
     // stays covered by the own-era V43 input in p14d1-rival-shelving-save-v43.test.ts.
-    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(saved)))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
+    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(saved))))))))))).toThrow(/^migrateToV45: cannot downgrade or discard recovery authority: (?:costCutting\.since|facilityDemolitionRefund|facilityDisposed)(?:, (?:costCutting\.since|facilityDemolitionRefund|facilityDisposed))*$/) // 1370-AR r2: with the market law active this route carries Save46 recovery facts; R8's refusal at 46->45 is the first guard (1363-N), ahead of the Save45 P15 reasons
     accepted(loaded)
     observed[target] = { ...observed[target], term: contract.termWeeks, decision: contract.startWeek, end: contract.endWeekExclusive }
   })

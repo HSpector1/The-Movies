@@ -1,0 +1,118 @@
+{
+  "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/BASELINE": {
+    "bytes": 178,
+    "sha256": "3e6a379b87f17b11072ab17a3a2498837959de8dcc4d6a18402016b63cda1744"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/HEAD-BEFORE": {
+    "bytes": 41,
+    "sha256": "eb68c7c42104fcaad9d3783c08ca5aad5f5c376a94f0cdc0ee1acfdf3a97ad3e"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/PACKAGE": {
+    "bytes": 98,
+    "sha256": "a595f272c0b312ed5e45eebf16801f3d7702f38b2c68ee2eecd95e458449513d"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/core-START": {
+    "bytes": 21,
+    "sha256": "18b1bcfd9c1922592c9f03bf0b606762d618135020b9581ba0494a24021620f5"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/core-full.json": {
+    "bytes": 2670555,
+    "sha256": "05b6f8c6eb9ac3cbb34e14febfff727294814a79367d9d340c5358aad1028dbb"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/core.log": {
+    "bytes": 1071,
+    "sha256": "310167b0b9798152461998262b3cfbfd218e8c4dd9d4fbc2ec3dcc4394a36633"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/d16.json": {
+    "bytes": 82664,
+    "sha256": "d28962140fe6c495837284ae079c945e9cfc964b3d82a71964899fb563f3ffab"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/d16.log": {
+    "bytes": 18150,
+    "sha256": "30fa22978b4e1d0d4493b700a3736998e14877252acaf0b903ba8c8356fd9d67"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/freeze-current.json": {
+    "bytes": 209381,
+    "sha256": "2a9bf3de5cc5e0c83f7f23406e7823bac35839a5979d6ae82cdf65f84546cb9a"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/freeze.json": {
+    "bytes": 209353,
+    "sha256": "6a41d1e229f76c7297f174252899d021c1c9994d7b19b4a9058c7ba132ce3405"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/gen-contract-fixtures.log": {
+    "bytes": 120,
+    "sha256": "6022e3e982ad022feb086bf8bae953fbb9e10c52cf470657fe5845a5074cfb3d"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/gen-contract.log": {
+    "bytes": 332,
+    "sha256": "81dd2bc807088d8f839a50413e6bc2da733d532305a4bf7e4b8d18cbc69773fe"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/manifest-verify.json": {
+    "bytes": 47,
+    "sha256": "addcd0745f53a477aa62b63c2e41df817a4577063f349ee76b1c78196a291943"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/results.jsonl": {
+    "bytes": 1415,
+    "sha256": "c59e9cf94bccf6860726d63c8f3f36855fc0b955018b2c4c2c3fbde997b45422"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/staged-added.txt": {
+    "bytes": 433,
+    "sha256": "dcd159050f5e1e5952e7d329ed3a77558713c23e90a95f9581b2f679dbd87667"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/staged-modified.txt": {
+    "bytes": 6649,
+    "sha256": "32b392eca0a46f679ff184c04f253f404d2a2293b35591ad51271d1d0a8d5a56"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/tsc-bridge.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/tsc-root.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/tsc-ui.log": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/founding-r7q2-gate.log": {
+    "bytes": 893,
+    "sha256": "717b932ffa76aef021a20b4be77f3649217c9329ba1aece363c33f63ccca62b5"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/founding-r7q2-gate.log.meta": {
+    "bytes": 610,
+    "sha256": "1d66290740aa32886b229a7cc2ef9f62e173c9a3ab9aa8d8b43ce64825f2b9a1"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1032/HANDOFF.after-hook.md": {
+    "bytes": 122124,
+    "sha256": "c93d3abab5da95a5faf9b428ac3a4ea2d35a40008d469272447b91b6f453f549"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1032/HANDOFF.before-hook.md": {
+    "bytes": 121566,
+    "sha256": "7996863bbf22755643a96e0cebfa8e8c06b5d2b8dfcd46ab1a97a65921dd45b4"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1032/HANDOFF.patch": {
+    "bytes": 1829,
+    "sha256": "203bf4968332b4d7df9b2658b5554a73fdae8b69ae8847a78438cea08c9febf7"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1032/OBSERVATION.json": {
+    "bytes": 1409,
+    "sha256": "61f5abd51b93d3c14cef9b8a831b6e44781fa99250b3635b3952aaa8cd0c30e2"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1032/freeze-at-start.json": {
+    "bytes": 209353,
+    "sha256": "6a41d1e229f76c7297f174252899d021c1c9994d7b19b4a9058c7ba132ce3405"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1032/freeze-last-successful-postflight.json": {
+    "bytes": 209353,
+    "sha256": "6a41d1e229f76c7297f174252899d021c1c9994d7b19b4a9058c7ba132ce3405"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1032/freeze-observed-after-hook.json": {
+    "bytes": 209381,
+    "sha256": "2a9bf3de5cc5e0c83f7f23406e7823bac35839a5979d6ae82cdf65f84546cb9a"
+  },
+  "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1032/status.z": {
+    "bytes": 7663,
+    "sha256": "59e747245d82deaee6ab4997af3f82c694288d63fc54917eccb330bce8e5689b"
+  }
+}

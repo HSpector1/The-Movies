@@ -4,12 +4,13 @@
 import { describe, expect, it } from 'vitest'
 import { applyActions, tick } from '../src/core/index.js'
 import { validateProductionSetup } from '../src/core/productionSetup.js'
-import { makeSave, validateSaveV46 } from '../src/core/save.js'
+import { makeSave } from '../src/core/save.js'
 import { isTierDStudioEventKind } from '../src/core/studioEvents.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
 import { advanceTo, clone, retentionFixture } from './helpers/p14b2-fixtures.js'
 import { contendedStudio } from './_m4Fixtures.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 function wrapped() {
   const fixture = retentionFixture()
@@ -24,7 +25,7 @@ function wrapped() {
 }
 function roundTrip(state: GameState): void {
   const saved = makeSave(state)
-  expect(validateSaveV46(JSON.parse(JSON.stringify(saved)))).toEqual(saved)
+  expect(validateLiveSave(JSON.parse(JSON.stringify(saved)))).toEqual(saved)
 }
 describe('P14B.2-F1 completed setup remains historical authority after real wrap', () => {
   it('round-trips actual first take → wrap → Post with unchanged setup and released stage', () => {

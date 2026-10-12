@@ -9,14 +9,15 @@ import {migrateToCurrentControl} from './_historicalCurrent.js'
 // (C2)". A per-WEEK partition is additive over windows by construction — so window
 // additivity is asserted with `===`, not a tolerance.
 //
-// The schedules below are deliberately hostile: a founding prefix of varied length
-// (weeks that charge NOTHING), two overlapping productions with staggered releases, a
+// The schedules below are deliberately hostile: an idle prefix of varied length after founding
+// (weeks that charge payroll and overhead with no film to carry them; pre-1364 the draft ticked open
+// and charged nothing), two overlapping productions with staggered releases, a
 // dead stretch with no production and no runs, a contract expiring mid-run, and a
 // release whose occupancy window reaches back to week 0 of engagement.
 
 import { describe, expect, it } from 'vitest'
 import {
-  allocateFixedCosts,
+  LIVE_SAVE_VERSION, allocateFixedCosts,
   applyActions,
   beginFounding,
   exportSave,
@@ -34,8 +35,11 @@ import type { AllocationWindow, CastSlot, CreativeRole, GameState } from '../src
 
 const ROSTER: Record<CreativeRole, number> = { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 }
 
-/** Found a studio; `foundingTicks` weeks are ticked while the founding draft is still OPEN,
- *  which charges neither payroll nor overhead (tick steps 7 / 7.5 gate on founding === null). */
+/** Found a studio, then tick `foundingTicks` idle weeks before any film is greenlit. Pre-1364 those weeks were
+ *  ticked while the founding draft was still OPEN and charged nothing; 1364 invariant B (src/core/tick.ts,
+ *  "complete studio founding before advancing the campaign") refuses every tick with the draft open, so the prefix
+ *  is now founded and idle: payroll and overhead run with no film to carry them and the reconciliation must put
+ *  every dollar of them in `idle` (1370-AR r3, the bridge-p14c3-read-models M6 precedent). */
 function foundStudio(seed: string, term: number, foundingTicks: number): GameState {
   let s = beginFounding(generateWorld(seed))
   const pool = s.founding!.applicantIds.map((id) => s.talent.find((t) => t.id === id)!)
@@ -47,8 +51,9 @@ function foundStudio(seed: string, term: number, foundingTicks: number): GameSta
     ...byRole('craft', ROSTER.craft),
   ]
   for (const t of toSign) s = applyActions(s, [{ kind: 'signContract', talentId: t.id, termWeeks: term }])
+  s = applyActions(s, [{ kind: 'foundStudio' }])
   for (let i = 0; i < foundingTicks; i++) s = tick(s)
-  return applyActions(s, [{ kind: 'foundStudio' }])
+  return s
 }
 
 function rosterOf(s: GameState, role: CreativeRole) {
@@ -125,7 +130,7 @@ const allocatedSum = (perFilm: Record<string, { allocated: number }>): number =>
 
 /** The hostile run:
  *    weeks 0..4   founding draft still open  → NO payroll, NO overhead
- *    week 5       studio founded; film A greenlit    (occupies 5..18)
+ *    week 5       film A greenlit after a 5-week idle prefix (founded at week 0; occupies 5..18)
  *    week 8       film B greenlit, staggered release (occupies 8..21)
  *    weeks 22..39 DEAD STRETCH — no production, no run
  *    week 40      film C greenlit                    (occupies 40..53)
@@ -145,7 +150,7 @@ function hostileRun(seed: string, foundingTicks: number): GameState {
 
 // ═════════════════════════════════════════════════════════════════════════════
 describe('D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar', () => {
-  it.each([0, 3, 11])('holds over the default window with a founding prefix of %i weeks', (prefix) => {
+  it.each([0, 3, 11])('holds over the default window with an idle prefix of %i weeks after founding', (prefix) => {
     const s = hostileRun(`adv-b-prefix-${prefix}`, prefix)
     const alloc = allocateFixedCosts(s)
 
@@ -334,7 +339,7 @@ describe('D-17A/B — odd dollars: whole-dollar determinism and a governed tie-b
 
     // Property State V13 (C1-M1a): the live load-to-play entry is migrateToV17.
     const reloaded = migrateToCurrentControl(validateSave(importSave(exportSave(makeSave(s)))))
-    expect(reloaded.saveVersion).toBe(46)
+    expect(reloaded.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(stableStringify(allocateFixedCosts(reloaded.state))).toBe(first)
 
     // …and the hostile schedule survives the same trip.

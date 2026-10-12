@@ -1,0 +1,27 @@
+{
+  "baseline": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1361-stage/land/d16-vitest.json",
+  "run": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/d16.json",
+  "total": 176,
+  "passed": 164,
+  "failed": 12,
+  "sameFullDiagnostic": [
+    "driver.test.ts :: d16/driver \u2014 discoveryMultiplier is the D-13 draw, not the information gap (B2-C2) the corpus is not vacuous :: occurrence=1",
+    "driver.test.ts :: d16/driver \u2014 discoveryMultiplier is the D-13 draw, not the information gap (B2-C2) implies a spread inside [0, DISC_SPREAD] \u2014 never a negative one :: occurrence=1",
+    "driver.test.ts :: d16/driver \u2014 discoveryMultiplier is the D-13 draw, not the information gap (B2-C2) is EXACTLY 1 for well-supported films (spread === 0 \u21d2 multiplier === 1) :: occurrence=1",
+    "driver.test.ts :: d16/driver \u2014 discoveryMultiplier is the D-13 draw, not the information gap (B2-C2) emits the information gap SEPARATELY, and it is a different number from the draw :: occurrence=1",
+    "driver.test.ts :: d16/driver \u2014 the engagement cliff is declared, measured and attributable (B2-C3/C8) an unpayable renewal is a ROSTER WALL, not an engagement cliff \u2014 and it carries its week :: occurrence=1",
+    "driver.test.ts :: d16/driver \u2014 the engagement cliff is declared, measured and attributable (B2-C3/C8) renewal at the FULL 12-week window keeps the healthy cadence policies engaged to 260 wk :: occurrence=1",
+    "driver.test.ts :: d16/driver \u2014 a RESUMED run is accounted to itself (B2-C10) counts only the films THIS run released, and slices relative to its own start :: occurrence=1",
+    "isolation.test.ts :: D-16 \u00b7 information discipline (PlayerView leak test) holds after a real run has produced films, runs and career events :: occurrence=1",
+    "isolation.test.ts :: D-16 \u00b7 policy registry past the 208-week contract wall the ROSTER WALL is possible, flagged, and carries its week :: occurrence=1",
+    "isolation.test.ts :: D-17B \u00b7 publicity policy registry a Q arm\u2019s publicity spend is visible in the ledger under the note prefix, and nowhere else :: occurrence=1",
+    "publicity.test.ts :: d17b/publicity \u2014 accounting (the reconciliation invariant is not negotiable) leaves every PER-FILM committedCost and contribution unchanged :: occurrence=1",
+    "publicity.test.ts :: d17b/publicity \u2014 accounting (the reconciliation invariant is not negotiable) moves only PURE-CASH recap fields (the A4 F7 result, locked) :: occurrence=1"
+  ],
+  "changedFullDiagnostic": [],
+  "newFailure": [],
+  "goneFailure": [],
+  "missingIdentities": [],
+  "addedIdentities": [],
+  "limit": "Historical recorded d16 baseline comparison; failed tests remain failures, including corpus gaps. Exact full diagnostic bytes compared without timeout or assertion normalization."
+}

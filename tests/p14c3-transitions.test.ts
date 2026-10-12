@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest'
 import * as core from '../src/core/index.js'
 import { ageAt, nextBirthdayWeek } from '../src/core/aging.js'
 import { retirementRecordFor } from '../src/core/careerLifecycle.js'
-import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, exportSave, importSave, migrateToLive, stableStringify, validateSaveV38 } from '../src/core/save.js'
+import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, convertV47ToV46, exportSave, importSave, migrateToLive, stableStringify, validateSaveV38 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { CreativeRole, GameState } from '../src/core/types.js'
@@ -176,7 +176,7 @@ describe('C.3 A05/A06 public profession history, current evidence and repeat saf
     // The shelving-count guard stays covered on V43 in p14d1-rival-shelving-save-v43.test.ts.
     // The Scientist noCatalogue leaf below still reaches the V37 transition guard.
     const currentSave = envelope38(reopened), currentSaveBytes = stableStringify(currentSave)
-    const historical45 = convertV46ToV45(currentSave as never)
+    const historical45 = convertV46ToV45(convertV47ToV46(currentSave as never))
     expect(stableStringify(currentSave), 'Save46 admission does not mutate the current input').toBe(currentSaveBytes)
     expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(historical45))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
   })
@@ -209,7 +209,7 @@ describe('C.3 A09/A10 genuine prospective finality and deferred reconciliation',
       .toEqual(root.industryRetirements.filter(row => row.personId === SCIENTIST))
     // The actual current 670→671 save has nonempty recovery authority and must refuse at Save46→45.
     const currentSave = envelope38(reopened), currentSaveBytes = stableStringify(currentSave)
-    expect(() => convertV46ToV45(currentSave as never)).toThrow(/^migrateToV45: cannot downgrade or discard recovery authority: costCutting\.since, facilityDemolitionRefund, facilityDisposed$/)
+    expect(() => convertV46ToV45(convertV47ToV46(currentSave as never))).toThrow(/^migrateToV45: cannot downgrade or discard recovery authority: costCutting\.since, facilityDemolitionRefund, facilityDisposed$/)
     expect(stableStringify(currentSave), 'current recovery refusal leaves the full input unchanged').toBe(currentSaveBytes)
 
     // A separate original Save38 engine advanced the genuine Save37 Scientist week670 input once.

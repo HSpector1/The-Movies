@@ -835,7 +835,10 @@ function runOneCore(opts: RunOptions): RunRecord {
         rec.realizedGross = f.boxOffice.total
         rec.realizedOpening = f.boxOffice.opening
         rec.realizedCritic = f.criticScore
-        const disc = reconstructDiscovery(preTick, f.productionId, f.boxOffice.opening, productionD17b)
+        // P15A.1 commit (d) (1361-F4 ruling 2; 1361-D2 F2): the factor the week's batch froze for this
+        // release, read from the post-tick root; no industry, no batch, no row: exactly 1.
+        const factor = state.sharedMarket.assessments.find((row) => row.releaseId === f.productionId)?.factor
+        const disc = reconstructDiscovery(preTick, f.productionId, f.boxOffice.opening, productionD17b, factor)
         rec.discoveryMultiplier = disc.multiplier
         rec.discoveryZ = disc.z
         rec.perceivedVsActualOpeningRatio = disc.perceivedVsActual
@@ -1249,6 +1252,7 @@ function reconstructDiscovery(
   productionId: string,
   realizedOpening: number,
   productionD17b: boolean,
+  competitionFactor: number | undefined,
 ): { multiplier: number | null; z: number; perceivedVsActual: number | null } {
   const engaged = productionD17b ? economyEngaged(preTick) : employmentEngaged(preTick)
   // tick.ts:203-205 — the draw exists ONLY on the engaged path; disengaged releases use z = 0.
@@ -1283,6 +1287,8 @@ function reconstructDiscovery(
     market: preTick.market,
     standing: preTick.studio.standing,
     era: preTick.era,
+    // P15A.1 (d): the release site's frozen market factor, so a pressured release's m stays the D-13 draw.
+    ...(competitionFactor === undefined ? {} : { competitionFactor }),
   }
   // THE ACTUAL-skill deterministic core, z = 0 — the exact denominator.
   const actual = resolveReception(inp, RngStream.deserialize(preTick.rngState), engaged, engaged, 0)
@@ -1301,6 +1307,11 @@ function reconstructDiscovery(
     inp.shapeEffects,
     c.centersOpening,
     engaged,
+    0,
+    0,
+    1,
+    // P15A.1 (d): the same factor on the perceived core, so the gap term stays perceived ÷ actual skill.
+    competitionFactor,
   )
   return { multiplier, z, perceivedVsActual: perceived.opening / actual.opening }
 }

@@ -4,7 +4,7 @@
 // witnesses, proving that the Chronicle correlates by productionId rather than position.
 
 import { describe, expect, it } from 'vitest'
-import { applyActions } from '../../../src/core/index.ts'
+import { LIVE_SAVE_VERSION, applyActions } from '../../../src/core/index.ts'
 import {
   advanceWeek,
   commissionScriptAction,
@@ -286,7 +286,7 @@ describe('Film Chronicle V1 — real adapter wiring', () => {
     const before = releaseNewspaper(state, film)
     expect(before).not.toBeNull()
     const json = exportSaveJson(state)
-    expect((JSON.parse(json) as { saveVersion: number }).saveVersion).toBe(46) // current C.3 writer: SaveFileV38.
+    expect((JSON.parse(json) as { saveVersion: number }).saveVersion).toBe(LIVE_SAVE_VERSION) // current C.3 writer: SaveFileV38.
     const imported = importSaveJson(json)
     expect(imported.ok).toBe(true)
     if (!imported.ok) return

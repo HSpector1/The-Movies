@@ -17,10 +17,11 @@ import { advancePromisesWeek, attachPromise } from '../src/core/promises.js'
 import * as operationsModule from '../src/core/operations.js'
 import { productionTechnologyView } from '../src/core/technologyProduction.js'
 import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
-import { exportSave, importSave, makeSave, migrateToLive, validateSaveV29, validateSaveV46 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, validateSaveV29 } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { Action, CastSlot, GameState, ProfessionalPromise } from '../src/core/types.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 const CLASSES = ['lead', 'leadOrAntagonist'] as const
 type SeatClass = typeof CLASSES[number]
@@ -76,7 +77,7 @@ function live(state: GameState): GameState {
   // Existing live writer is the governed strict V31 validation entry after B5.
   // Do not manually stamp a save version or invent a new outcome-test API.
   const validated = makeSave(state)
-  expect(validated.saveVersion).toBe(46)
+  expect(validated.saveVersion).toBe(LIVE_SAVE_VERSION)
   return validated.state
 }
 function production(prepared: Prepared) {
@@ -352,7 +353,7 @@ describe('P14B4 genuine submit/settle/take routes, no synthetic commitments', ()
     expect(root(prepared.state, bound.promiseId).outcome).toBeNull()
     const after = complete(prepared)
     satisfied(after.state, bound.promiseId, [after.take.eventId])
-    const reloaded = validateSaveV46(importSave(exportSave(makeSave(after.state))))
+    const reloaded = validateLiveSave(importSave(exportSave(makeSave(after.state))))
     expect(reloaded.state.promises).toEqual(after.state.promises)
   })
 

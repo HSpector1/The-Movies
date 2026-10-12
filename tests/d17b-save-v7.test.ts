@@ -14,7 +14,7 @@ import {beginFoundingHistoricalControl as beginFounding} from '../src/core/emplo
 import { describe, expect, it } from 'vitest'
 import { expectForwardHistoryTwin } from './_p08HistoryTwins.js'
 import {
-  applyActions,
+  LIVE_SAVE_VERSION, applyActions,
   convertV5ToV6,
   convertV6ToV7,
   emptyPublicityState,
@@ -160,7 +160,7 @@ describe('D-17B/E4 — the frozen V7 envelope remains valid and isolated', () =>
 
   it('V7 through V36 are known, so the unknown-version boundary is now 42 (stale numbers corrected post-C.2b; the boundary moves on every save bump)', () => {
     const save = makeSaveV7(toV7(foundStudio('d17b-v7-boundary')))
-    expect(() => validateSave({ ...save, saveVersion: 47 })).toThrow(/unknown saveVersion 47/)
+    expect(() => validateSave({ ...save, saveVersion: LIVE_SAVE_VERSION + 1 })).toThrow(new RegExp(`unknown saveVersion ${LIVE_SAVE_VERSION + 1}`))
     // P06A (W1): 16 is now a KNOWN, LIVE version — dispatch reaches validateSaveV16, which
     // fails on this V7 payload's real shape mismatch (no releaseAuthority), not the
     // unknown-version boundary.

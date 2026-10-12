@@ -113,6 +113,7 @@ import { submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
 // RED-by-design: src/core/promises.ts does not exist. All four names below
 // are CALLED, not merely imported.
 import { attachPromise, promiseFeasibility, promiseOutcomes, firstTakeReceipts, trustDescriptor } from '../src/core/promises.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 // ── shared local helpers (this file is self-contained; nothing is imported
 // from any other tests/*.test.ts file, per this suite's convention) ────────
@@ -500,7 +501,7 @@ describe('P14B.1 test 3: the feasibility service', () => {
     const active = withActivePromise.promises.find((p) => p.promiseId === attachedProposal.promises[0])
     expect(active).toMatchObject({ issuerStudioId, beneficiaryPersonId, contractId: null,
       outcome: null, predicate: { count: 1 }, feasibilityReceipt: first })
-    save.validateSaveV46(save.makeSave(withActivePromise))
+    validateLiveSave(save.makeSave(withActivePromise))
     const second = promiseFeasibility(withActivePromise, draft, state.market.tick)
     expect(second.classification).toBe('FRAGILE')
     expect(second.bottleneck ?? '').toMatch(/not.*commission/i)

@@ -8,7 +8,7 @@ import {migrateToCurrentControl} from './_historicalCurrent.js'
 
 import { describe, expect, it } from "vitest";
 import {
-  applyActions,
+  LIVE_SAVE_VERSION, applyActions,
   buildFilmChronicle,
   buildNewspaper,
   exportSave,
@@ -908,7 +908,7 @@ describe("Film Chronicle V1 — SaveFileV11 durability", () => {
   it("reconstructs a deep-equal Chronicle after an exact V11 export/import round-trip", () => {
     const { state, productionId } = validProducedState("film-chronicle-save-v11");
     const envelope = makeSave(state);
-    expect(envelope.saveVersion).toBe(46);
+    expect(envelope.saveVersion).toBe(LIVE_SAVE_VERSION);
     expect(validateSave(envelope)).toBe(envelope);
 
     const beforeState = stableStringify(state);
@@ -919,8 +919,8 @@ describe("Film Chronicle V1 — SaveFileV11 durability", () => {
     expectAvailable(before!.productionRecord);
 
     const restored = importSave(exportSave(envelope));
-    expect(restored.saveVersion).toBe(46);
-    if (restored.saveVersion !== 46) return;
+    expect(restored.saveVersion).toBe(LIVE_SAVE_VERSION);
+    if (restored.saveVersion !== LIVE_SAVE_VERSION) return; // 1370-AR r3: a literal here would silently skip the rest of this leaf at every bump
     const after = buildFilmChronicle(inputFromState(migrateToCurrentControl(restored).state, productionId));
 
     expect(after).toEqual(before);

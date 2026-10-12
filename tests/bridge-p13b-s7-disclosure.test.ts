@@ -151,6 +151,16 @@ const LIGHTING_SENTENCE = 'Controlled lighting replaces conventional setup on th
 const BASIS = 'Public milestone facts from the catalogue; not a rival schedule.'
 const SEED = 'p13b-s7-bridge-01'
 const RIVAL_SEED = 'p13b-s7-independence-01' // proven reliable: tests/p13b-s7-independence.test.ts's own seed
+/** The week item 6 builds its rival-purchase pair at. Pre-1365 this was the sound commercial week itself,
+ * `RIVAL_PURCHASE_WEEK_PRE_1365` (studio-0047c463-r02 bought at 416 at R8 HEAD db3fc572). Under the 1365 market
+ * law (P15A.1(c) active, SHARED_MARKET_FACTOR_MAX_PENALTY 0.15) rival revenue and scheduling diverge from week 0
+ * and no business can buy at 416; the first week >= 416 at which one does is 417, the same studio (deterministic
+ * forward search from 416, 1370-AR r3 evidence/r3/p13b-s7-witness-r3tree.json). With the penalty forced to 0 on the
+ * same tree every rival balance at 416 and the purchase week are byte-identical to R8 HEAD, so the factor alone
+ * moved the premise (-penalty0.json, -r8head.json). 417 < 884 keeps every item-6 premise below: no announcement
+ * row yet, lighting still windowed, the pair advanced to 900 still carries exactly one lighting row. */
+const RIVAL_PURCHASE_WEEK_PRE_1365 = 416
+const RIVAL_PURCHASE_WEEK = 417
 
 let requestCounter = 0
 function nextRequestId(prefix: string): string { return `${prefix}-req-${String(requestCounter++)}` }
@@ -247,7 +257,7 @@ function withRivalPurchase(state: GameState): GameState {
     result = considerRivalSoundPurchase(state, hollywood, business)
     if (result !== state.technology) break
   }
-  if (result === state.technology) throw new Error('bridge-p13b-s7-disclosure fixture: no rival business purchased sound technology at week 416')
+  if (result === state.technology) throw new Error(`bridge-p13b-s7-disclosure fixture: no rival business purchased sound technology at week ${String(RIVAL_PURCHASE_WEEK)} (pre-1365 premise: week ${String(RIVAL_PURCHASE_WEEK_PRE_1365)})`)
   return { ...state, hollywood, technology: result }
 }
 
@@ -567,7 +577,7 @@ describe('P13B-S7-T3 item 5: Industry announcement row — derived, nullable stu
 })
 
 describe('P13B-S7-T3 item 6: rival-independence on the wire — identical forecast/announcement rows across states differing only in rival facts (PARTIAL until S8, per the engine\'s own test 2 scope)', () => {
-  const rbase = advanceTo(labWorld(RIVAL_SEED, 12), 416)
+  const rbase = advanceTo(labWorld(RIVAL_SEED, 12), RIVAL_PURCHASE_WEEK)
   const rvariant = withRivalPurchase(rbase)
 
   it('precondition: the rival-purchase variant genuinely differs from the base world in rival facts only, at the identical week', () => {
@@ -577,19 +587,19 @@ describe('P13B-S7-T3 item 6: rival-independence on the wire — identical foreca
     expect(rvariant.placement).toEqual(rbase.placement)
   })
 
-  it('Laboratory forecast rows (both technologies) are byte-identical across the two rival-divergent states at week 416', () => {
-    const baseSession = new BridgeSession(rbase, 'p13b-s7-rival-base-416')
-    const variantSession = new BridgeSession(rvariant, 'p13b-s7-rival-variant-416')
+  it(`Laboratory forecast rows (both technologies) are byte-identical across the two rival-divergent states at week ${String(RIVAL_PURCHASE_WEEK)}`, () => {
+    const baseSession = new BridgeSession(rbase, `p13b-s7-rival-base-${String(RIVAL_PURCHASE_WEEK)}`)
+    const variantSession = new BridgeSession(rvariant, `p13b-s7-rival-variant-${String(RIVAL_PURCHASE_WEEK)}`)
     const buildingId = anyLabBuildingId(rbase)
-    const baseForecast = required(labPage(baseSession, buildingId, nextRequestId('rival-base-416')).forecast, 'no forecast[] (base)')
-    const variantForecast = required(labPage(variantSession, buildingId, nextRequestId('rival-variant-416')).forecast, 'no forecast[] (variant)')
+    const baseForecast = required(labPage(baseSession, buildingId, nextRequestId(`rival-base-${String(RIVAL_PURCHASE_WEEK)}`)).forecast, 'no forecast[] (base)')
+    const variantForecast = required(labPage(variantSession, buildingId, nextRequestId(`rival-variant-${String(RIVAL_PURCHASE_WEEK)}`)).forecast, 'no forecast[] (variant)')
     expect(variantForecast).toEqual(baseForecast)
     expect(JSON.stringify(variantForecast)).toBe(JSON.stringify(baseForecast))
   })
 
-  it('industry announcement rows are byte-identical across the two rival-divergent states, both at week 416 (empty) and advanced independently to week 900 (one lighting row)', () => {
-    const baseSession416 = new BridgeSession(rbase, 'p13b-s7-rival-base-ann-416')
-    const variantSession416 = new BridgeSession(rvariant, 'p13b-s7-rival-variant-ann-416')
+  it(`industry announcement rows are byte-identical across the two rival-divergent states, both at week ${String(RIVAL_PURCHASE_WEEK)} (empty) and advanced independently to week 900 (one lighting row)`, () => {
+    const baseSession416 = new BridgeSession(rbase, `p13b-s7-rival-base-ann-${String(RIVAL_PURCHASE_WEEK)}`)
+    const variantSession416 = new BridgeSession(rvariant, `p13b-s7-rival-variant-ann-${String(RIVAL_PURCHASE_WEEK)}`)
     const baseRows416 = activitiesOf(industryQuery(baseSession416, 'pulse')).filter(a => a.eventId.startsWith('technology-announcement-'))
     const variantRows416 = activitiesOf(industryQuery(variantSession416, 'pulse')).filter(a => a.eventId.startsWith('technology-announcement-'))
     expect(variantRows416).toEqual(baseRows416)

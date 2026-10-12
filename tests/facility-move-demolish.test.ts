@@ -49,8 +49,7 @@ import {
   tick,
   validateSave,
   LIVE_SAVE_VERSION,
-  validateSaveV46,
-} from '../src/core/index.js'
+  } from '../src/core/index.js'
 import {
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
   FACILITY_DEMOLITION_LEDGER_NOTE,
@@ -66,6 +65,7 @@ import type {
   SegmentId,
   Talent,
 } from '../src/core/index.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 const ANNEX = DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.id
 const ANNEX_FACILITY = DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.facilityIdBase
@@ -779,7 +779,7 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     const save = makeSave(state)
     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(validateSave(save)).toBe(save)
-    expect(validateSaveV46(save)).toBe(save)
+    expect(validateLiveSave(save)).toBe(save)
     const json = exportSave(save)
     expect(exportSave(importSave(json))).toBe(json)
     const reloaded = migrateToCurrentControl(importSave(json)).state
@@ -879,6 +879,11 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     expect(p15Rows(forgedV11.state)).toEqual([])
     expect((forgedV11.state.p15Sequence as { next: number }).next).toBe(1)
     forgedV11.state = stripP15(forgedV11.state)
+    // 1364 (Save47, 1370-AR r3): and the recruitment-fund root, for the same reason as every root above (the
+    // V11 exact-keys allowlist trips on 'unknown field "foundingFunding"' before the walk reaches the demolition
+    // refund boundary this test is about). A natively founded world records an 'opened' fund, so, as with
+    // `talentProvenance` above, there is no emptiness precondition to prove before stripping it.
+    delete forgedV11.state.foundingFunding
     for (const person of forgedV11.state.talent as Record<string, unknown>[]) {
       for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
         delete (person[key] as Record<string, unknown>).research

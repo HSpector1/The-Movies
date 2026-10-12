@@ -1,0 +1,25 @@
+{
+  "record": "1370-AR (1364)",
+  "generatedAt": "LIVE_SAVE_VERSION 45 at 6510c971bed8079f7ca02e528b224988de092c87 with the 1365 (c) hunks applied in the working copy (they do not touch worldgen, beginFounding or a tick without an industry)",
+  "seed": "p1364-late-draft-01",
+  "engine": "headless generateWorld + tick + beginFounding/beginFoundingHistoricalControl + initializeHollywood",
+  "note": "Generated engine inputs exercising the supported import surface (1364-A §4); not proof that any old browser build wrote them.",
+  "inputs": [
+    {
+      "name": "late-draft-week26-unsigned",
+      "saveVersion": 45,
+      "bytes": 292524,
+      "sha256": "68c48f004066683673994ea42e245623952153d9cec920bc17b418f7518d0106",
+      "week": 26,
+      "notes": "generateWorld(seed) + 26 ticks (no industry) + public beginFounding at week 26 (migration origin); no signing, no further tick; founding.spentBonus 0"
+    },
+    {
+      "name": "late-draft-week26-observed-spent",
+      "saveVersion": 45,
+      "bytes": 293223,
+      "sha256": "d52c0e5542381d3109f4bb45cbe9f0b1a0ff0c1c170502815fdc5d60df6184f6",
+      "week": 26,
+      "notes": "generateWorld(seed) + 26 ticks + beginFoundingHistoricalControl + one founding signing (talent t-act-00, bonus 45928) + initializeHollywood(migration): the employment row is observed (existing-player-contract); the spent balance is pre-boundary"
+    }
+  ]
+}

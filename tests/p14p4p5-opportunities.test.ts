@@ -32,9 +32,10 @@ type CurrentView = { saveVersion: number; state: Record<string, unknown> & {
   firstTakeSubjects: Sidecar; promises: Record<string, unknown>[]
 } }
 type FutureAPI = {
-  validateSaveV46(input: unknown): unknown
+  validateSaveV47(input: unknown): unknown
   // 1361-N S4: an extra live-to-one-below hop now precedes the
   // V44->V43 hop the 1358 sweep added.
+  convertV47ToV46(input: unknown): unknown
   convertV46ToV45(input: unknown): unknown
   convertV45ToV44(input: unknown): unknown
   // 1358-N S4: an extra live-to-one-below hop now precedes the
@@ -92,7 +93,9 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
-    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
+    // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
 }
 const issuer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
 const bytes = (state: GameState): string => saves.exportSave(saves.makeSave(state))
@@ -103,7 +106,7 @@ function admitted(state: GameState): void {
 }
 function futureAPI(): FutureAPI {
   const api = core as unknown as Partial<FutureAPI>
-  assert.equal(typeof api.validateSaveV46, 'function', 'new public strict43 reader after actual version assertion')
+  assert.equal(typeof api.validateSaveV47, 'function', 'new public strict43 reader after actual version assertion')
   assert.equal(typeof api.convertV46ToV45, 'function', 'public guarded recovery 46 to 45 conversion')
   assert.equal(typeof api.convertV45ToV44, 'function', 'new public guarded live->44 conversion')
   assert.equal(typeof api.convertV44ToV43, 'function', 'new public guarded live→43 conversion')
@@ -344,12 +347,12 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     // The positive is public-created and fully admitted, including all C3 authority.
     // A generic entrant-loss failure cannot stand in for this new semantic guard.
     const valid: unknown = JSON.parse(bytes(admittedGenre))
-    expect((valid as { saveVersion: number }).saveVersion).toBe(46)
-    const api = futureAPI(); expect(api.validateSaveV46(valid)).toBe(valid)
+    expect((valid as { saveVersion: number }).saveVersion).toBe(saves.LIVE_SAVE_VERSION)
+    const api = futureAPI(); expect(api.validateSaveV47(valid)).toBe(valid)
     // 1309-X3 ruling 7: the live-to-one-below conversion now reaches V40, which
     // holds opportunity material, so it no longer refuses; the FIRST downgrade
     // that cannot hold the material is convertV40ToV39.
-    const oneDown = api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(api.convertV44ToV43(api.convertV45ToV44(api.convertV46ToV45(valid))))))
+    const oneDown = api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(api.convertV44ToV43(api.convertV45ToV44(api.convertV46ToV45(api.convertV47ToV46(valid)))))))
     expect(() => api.convertV40ToV39(oneDown)).toThrow(/opportunit|genre|project|predicate/i)
     for (const mutate of [
       (p: Record<string, unknown>) => { p.predicate = { kind: 'genreOpportunity', count: 2, seatClass: 'allCast', genre: 'drama' } },
@@ -358,13 +361,13 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     ]) {
       const bad = clone(valid) as CurrentView, row = bad.state.promises.find(p => p.promiseId === real.promiseId); assert.ok(row)
       mutate(row)
-      expect(() => api.validateSaveV46(bad)).toThrow(/predicate|family|genre|project|class|count|opportunit/i)
+      expect(() => api.validateSaveV47(bad)).toThrow(/predicate|family|genre|project|class|count|opportunit/i)
     }
   }, LEAF_TIMEOUT_MS)
 
   it('Q04 migrates genuine39 to an exact empty subject suffix and preserves outgoing Director authority', () => {
     input45() // Independent old4/6 marker is reached before the version assertion.
-    expect(saves.LIVE_SAVE_VERSION).toBe(46)
+    expect(saves.LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
     const api = futureAPI()
     const captureManifest = readFileSync(new URL('1221-p4p5-outgoing-capture/MANIFEST.json', E))
     expect(sha(captureManifest)).toBe('02115df5d6e7d4c33284b9a439a7c79601e1b2e807f4fa96c20149f5c84186f3')
@@ -385,7 +388,7 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     for (const [filename, gzipHash, rawHash] of pins) {
       const { raw, save: old } = pinned39(filename, gzipHash, rawHash), before = stable(old)
       const current = saves.migrateToLive(old), valid = current as unknown as CurrentView
-      expect(current.saveVersion).toBe(46); expect(api.validateSaveV46(current)).toBe(current)
+      expect(current.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(api.validateSaveV47(current)).toBe(current)
       expect(valid.state.firstTakeSubjects).toEqual({ version: 1, cutoverOrdinal: old.state.firstTakes.length, facts: [] })
       expect(Object.keys(valid.state.firstTakeSubjects).sort()).toEqual(['cutoverOrdinal', 'facts', 'version'])
       // Comparison-only exclusion of the sole additive root, never an admission path.
@@ -402,12 +405,12 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
       expect(stable(current.state.firstTakes)).toBe(stable(old.state.firstTakes))
       expect(stable(current.state.promises)).toBe(stable(old.state.promises))
       expect(stable(old)).toBe(before)
-      expect(saves.exportSave(api.convertV40ToV39(api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(api.convertV44ToV43(api.convertV45ToV44(api.convertV46ToV45(current))))))))).toBe(raw)
+      expect(saves.exportSave(api.convertV40ToV39(api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(api.convertV44ToV43(api.convertV45ToV44(api.convertV46ToV45(api.convertV47ToV46(current)))))))))).toBe(raw)
       expect(() => saves.validateSaveV39(current)).toThrow()
       admitted(current.state)
     }
     const positive = JSON.parse(bytes(input45())) as CurrentView
-    expect(api.validateSaveV46(positive)).toBe(positive)
+    expect(api.validateSaveV47(positive)).toBe(positive)
     expect(positive.state.firstTakeSubjects.cutoverOrdinal).toBe(19)
     const mutations: ((s: CurrentView) => void)[] = [
       s => { delete (s.state as Partial<CurrentView['state']>).firstTakeSubjects },
@@ -421,8 +424,8 @@ describe('P4/P5 initial Ready paths and genuine39 boundary', () => {
     ]
     for (const mutate of mutations) {
       const bad = clone(positive); mutate(bad)
-      expect(() => api.validateSaveV46(bad)).toThrow(/first.?take|subject|suffix|cutover/i)
-      expect(() => api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(api.convertV44ToV43(api.convertV45ToV44(api.convertV46ToV45(bad))))))).toThrow(/first.?take|subject|suffix|cutover/i)
+      expect(() => api.validateSaveV47(bad)).toThrow(/first.?take|subject|suffix|cutover/i)
+      expect(() => api.convertV41ToV40(api.convertV42ToV41(api.convertV43ToV42(api.convertV44ToV43(api.convertV45ToV44(api.convertV46ToV45(api.convertV47ToV46(bad)))))))).toThrow(/first.?take|subject|suffix|cutover/i)
     }
   }, LEAF_TIMEOUT_MS)
 })
@@ -746,6 +749,7 @@ describe('P4/P5 actual public binding and cast work', () => {
 
 // 1249-A: retained-authority controls. The only setup is the unchanged Q05 route.
 import * as opportunityOwner from '../src/core/opportunityPromises.js'
+import { EXPECTED_LIVE_SAVE_VERSION, validateLiveSave } from './helpers/live-era.js'
 type ControlSave = ReturnType<typeof saves.makeSave>
 function controlsStart() {
   return { q06: clone(routeCounts.Q06), outside: outsideRouteAttempts }
@@ -760,7 +764,7 @@ function controlsEnd(before: ReturnType<typeof controlsStart>): void {
 function controlSave(state: GameState): ControlSave {
   admitted(state)
   const save = saves.makeSave(state), before = stable(save)
-  expect(saves.validateSaveV46(save)).toBe(save)
+  expect(validateLiveSave(save)).toBe(save)
   expect(stable(save)).toBe(before)
   return save
 }
@@ -768,7 +772,7 @@ function subjectNegative(base: ControlSave, name: string, change: (save: Control
   const before = stable(base), bad = clone(base)
   change(bad)
   let error: unknown
-  try { saves.validateSaveV46(bad) } catch (caught) { error = caught }
+  try { validateLiveSave(bad) } catch (caught) { error = caught }
   const message = error instanceof Error ? error.message : String(error)
   console.info('1249-P4P5-SUBJECT-REFUSAL ' + JSON.stringify({ name, message }))
   expect(error).toBeInstanceOf(Error); expect(message).toMatch(cause)
@@ -844,7 +848,12 @@ describe('P4/P5 retained subject and waiver authority controls', () => {
     // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
     // The V39 opportunity/subject guard stays covered by Q11 in
     // p14p4p5-screenplay-status.test.ts (the genuine Save40 factOnly capture).
-    expect(() => saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(released)))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
+    // 1365 P15A.1(c) (1370-AR r5 item H.2, measured on the r5 tree): the activated market records 9
+    // shared-market assessments on this route, so the one P15 downgrade refusal (1361-F ruling 4: every
+    // non-empty P15 root, in the ruled order sharedMarket, powerRanking, campaignLegacy) now names the
+    // assessments first and the quarter second. The pre-1365 pin was
+    // /^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/.
+    expect(() => saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(saves.convertV47ToV46(released))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded shared-market assessment \(9 recorded\); cannot downgrade or discard a recorded Power Ranking quarter$/)
     expect(stable(released)).toBe(before) // Combined tag+fact refusal; not isolated fact-only proof.
     controlsEnd(counters)
   }, LEAF_TIMEOUT_MS)
@@ -991,7 +1000,7 @@ function waiverLinkNegative(base: ControlSave, name: string, change: (state: Gam
   const before = stable(base), bad = clone(base)
   change(bad.state)
   let error: unknown
-  try { saves.validateSaveV46(bad) } catch (caught) { error = caught }
+  try { validateLiveSave(bad) } catch (caught) { error = caught }
   const message = error instanceof Error ? error.message : String(error)
   console.info('1249-P4P5-WAIVER-LINK-REFUSAL ' + JSON.stringify({ name, message }))
   expect(error).toBeInstanceOf(Error); expect(message).toMatch(cause); expect(stable(base)).toBe(before)
@@ -1055,7 +1064,6 @@ describe('P4/P5 actual narrowing on the retained bound contract', () => {
     controlsEnd(counters)
   }, LEAF_TIMEOUT_MS)
 })
-
 
 // 1249-F: one nonempty committed witness, on actual scheduled60; no new offer.
 describe('P4/P5 existing committed reservation witness', () => {

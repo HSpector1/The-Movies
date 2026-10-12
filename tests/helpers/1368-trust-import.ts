@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { gunzipSync } from 'node:zlib'
-import { makeSave, migrateToLive, stableStringify, validateSaveV45, validateSaveV46 } from '../../src/core/save.js'
+import { makeSave, migrateToLive, stableStringify, validateSaveV45, validateSaveV47 } from '../../src/core/save.js'
 import type { GameState } from '../../src/core/types.js'
 import { ordinaryPath } from './1368-archived-route.js'
 
@@ -75,14 +75,14 @@ export function loadImportedTrust195(): GameState {
   assert.deepEqual(old.state.talentMarket.receipts.filter(r => r.kind === 'proposalSubmitted'
     && r.studioId !== null && r.studioId !== old.state.hollywood!.playerStudioId), [])
   const oldBefore = snap(old), current = migrateToLive(old)
-  assert.equal(snap(old), oldBefore); assert.equal(current.saveVersion, 46)
-  const currentBefore = snap(current), admitted = validateSaveV46(current)
+  assert.equal(snap(old), oldBefore); assert.equal(current.saveVersion, 47) // Save47 (1364, 1370-AR r2)
+  const currentBefore = snap(current), admitted = validateSaveV47(current)
   assert.equal(snap(current), currentBefore)
   assert.equal(stableStringify(admitted), stableStringify(current))
   const state = admitted.state, before = snap(state), saved = makeSave(state)
-  assert.equal(saved.saveVersion, 46)
+  assert.equal(saved.saveVersion, 47)
   const readerInput = structuredClone(saved), readerBefore = snap(readerInput)
-  const read = validateSaveV46(readerInput)
+  const read = validateSaveV47(readerInput)
   assert.equal(snap(readerInput), readerBefore)
   assert.equal(stableStringify(read), stableStringify(saved))
   assert.equal(stableStringify(read.state), stableStringify(state))

@@ -62,6 +62,7 @@ import * as labelsModule from '../src/core/relationshipLabels.js'
 import { hasConflictEvidence } from '../src/core/relationships.js'
 import type { GameState } from '../src/core/types.js'
 import { genuineV42Week130 } from './p14d1-rival-shelving-fixtures.js'
+import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
 
 type RelationshipCompetition = { week: number; productionId: string; slots: string[] }
 type RomanceBond = { formedWeek: number; endedWeek: number | null }
@@ -116,7 +117,7 @@ function baseV44Envelope(): RawEnvelope {
 
 describe('API decisions this file exercises (existence asserted first)', () => {
   it('LIVE_SAVE_VERSION is 45; validateSaveV44 / convertV43ToV44 / convertV44ToV43 / migrateToV44 exist as functions', () => {
-    expect(saveModule.LIVE_SAVE_VERSION).toBe(46)
+    expect(saveModule.LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
     expect(typeof mods().validateSaveV44, 'validateSaveV44').toBe('function')
     expect(typeof mods().convertV43ToV44, 'convertV43ToV44').toBe('function')
     expect(typeof mods().convertV44ToV43, 'convertV44ToV43').toBe('function')
@@ -360,14 +361,14 @@ describe('save-v44: down-conversion (convertV44ToV43)', () => {
 describe('save-v44: the chain and the live route (1358-F4 item 3)', () => {
   it('migrateToLive lifts the GENUINE V43 save to Save45 with competitions: [] and romance: null on every edge; makeSave stamps 45 and validateSave dispatches it', () => {
     const live = saveModule.migrateToLive(saveModule.importSave(genuineV43Raw())) as unknown as RawEnvelope
-    expect(live.saveVersion).toBe(46)
+    expect(live.saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
     for (const edge of live.state.relationships) {
       expect(edge.competitions).toEqual([])
       expect(edge.romance).toBeNull()
     }
     const stamped = saveModule.makeSave(live.state as unknown as GameState)
-    expect(stamped.saveVersion).toBe(46)
-    expect(saveModule.validateSave(stamped).saveVersion).toBe(46)
+    expect(stamped.saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
+    expect(saveModule.validateSave(stamped).saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
   })
 
   it('migrateToV43(convertV43ToV44(v43)) deep-equals the GENUINE v43: the downgrade drops only the two empty fields', () => {

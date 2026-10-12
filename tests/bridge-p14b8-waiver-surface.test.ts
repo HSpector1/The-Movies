@@ -108,7 +108,7 @@ import { marketPage } from '../bridge/market.ts'
 import { industryPage } from '../bridge/industry.ts'
 import { promiseRowsForPerson } from '../bridge/trust.ts'
 import { waivePromise } from '../src/core/promises.js'
-import { migrateToLive, validateSaveV31, validateSaveV32 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, migrateToLive, validateSaveV31, validateSaveV32 } from '../src/core/save.js'
 import type { IndustryPage, IndustryQuery } from '../bridge/schema/industry-schema.ts'
 import type { GameState } from '../src/core/types.js'
 
@@ -814,8 +814,8 @@ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing iden
     expect(loaded.migratedFromProtocolVersion, 'handled exactly as its projection-47 and -48 siblings are').toBe(4)
     expect(minted, 'the governed prior path mints one fresh session id').toBe(1)
     const hydrated = loaded.hydrated as unknown as { currentSave: { saveVersion: number; state: { market: { tick: number } } }; savedSave: { saveVersion: number } }
-    expect(hydrated.currentSave.saveVersion, 'P3: each historical slot reaches actual live Save39').toBe(46)
-    expect(hydrated.savedSave.saveVersion).toBe(46)
+    expect(hydrated.currentSave.saveVersion, 'P3: each historical slot reaches actual live Save39').toBe(LIVE_SAVE_VERSION)
+    expect(hydrated.savedSave.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(hydrated.currentSave.state.market.tick).toBe(PROJECTION49_CHECKPOINT.week)
   })
 })

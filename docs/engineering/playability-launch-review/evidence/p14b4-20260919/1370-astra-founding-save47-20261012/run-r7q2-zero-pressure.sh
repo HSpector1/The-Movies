@@ -1,0 +1,254 @@
+#!/bin/bash
+# ONE USE counterfactual: parent schedules after fullUI terminal; no current-law pass claim.
+# Existing lane owns execution; parent manually monitors live disk and owned children.
+set -u
+R=/Users/zacheryspector/The-Movies-headless-program
+P=/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1
+A=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012
+UI="$P/landing-r7q2-astra-ui-continuation"
+INC="$A/handoff-freeze-incident-1146"
+OUT="$A/r7q2-zero-pressure-run"
+BASELINE=/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ar-post-r8-baseline-20261011/core-db3fc572-failures.txt
+export PATH=/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin:$R/.venv/bin:$PATH   # 1361-M3: the venv (numpy/Pillow) is on the core/UI PATH
+export GIT_OPTIONAL_LOCKS=0
+export P1368_ACCEPTED45_ROOT=$R/tests/fixtures/p14/genuine-v45-recovery-witnesses-1368
+export P1368_ACCEPTED45_MANIFEST_SHA256=11ad61be481a8bec170f40425cfcfe7fcb24596418d30b6c8bf27895e93c3ba5
+export P1368_ACCEPTED26_ROOT=$R/tests/fixtures/p13b/genuine-v26-period52-1368
+export P1368_ACCEPTED26_MANIFEST_SHA256=8e40e51bb360ba6ff6c0d641a03e90aa8ed6f73f8c0b232a9a4b5861af358db4
+export RIVAL_WRITING_CAPTURE_DIR=$R/tests/fixtures/p14/genuine-v46-rival-writing-pre414-1368
+export RIVAL_WRITING_MANIFEST_SHA256=d097bbf131c1dc495b881d73e96994953b2f6a0ef50f88bd3b043f263024f205
+export TRUST_AUTHORING_CAPTURE_DIR=$R/tests/fixtures/p14/genuine-v45-trust-authoring-week195-1368
+export TRUST_AUTHORING_MANIFEST_SHA256=0b98763001eb96949d8e312df5dfe600f1adf599f5466dd59eec214e1f229991
+cd "$R" || exit 90
+disk_floor() {
+  local need=$1 avail
+  avail=$(df -Pk "$R" | awk 'NR==2 {print $4}')
+  [[ "$avail" =~ ^[0-9]+$ ]] && [ "$avail" -ge "$need" ] || { echo "STOP: disk below ${need}KiB" >&2; return 97; }
+}
+freeze_snapshot() {
+python3 -I - "$R" "$P" "$BASELINE" <<'SNAP'
+import os,sys,json,hashlib,subprocess,pathlib
+r,p,b=sys.argv[1:]; g=['git','-c','gc.auto=0','-c','maintenance.auto=0','--no-optional-locks','-C',r]
+def git(*a): return subprocess.check_output(g+list(a))
+def digest(q):
+ q=pathlib.Path(q)
+ if q.is_symlink(): return ['symlink',os.readlink(q)]
+ if q.is_file(): return ['file',hashlib.sha256(q.read_bytes()).hexdigest(),q.stat().st_mode & 0o777]
+ return ['missing']
+paths=set(x.decode() for x in git('ls-files','-z').split(b'\0') if x)
+untracked=[x.decode() for x in git('ls-files','--others','--exclude-standard','-z').split(b'\0') if x]
+m=json.loads((pathlib.Path(p)/'MANIFEST.json').read_text())
+manifest_paths={f['path'] for f in m['files']}
+def scoped(x):
+ q=pathlib.PurePosixPath(x)
+ if x in manifest_paths:return True
+ if x.startswith('tests/fixtures/'):return False
+ if q.parts[0] in ('src','tests','ui','bridge','generated','scripts','tools'):
+  return q.suffix in ('.ts','.tsx','.js','.mjs','.cjs','.json','.css','.html','.py','.sh','.yaml','.yml') and 'node_modules' not in q.parts and 'public' not in q.parts[1:]
+ return len(q.parts)==1 and (q.suffix in ('.json','.js','.mjs','.cjs','.yaml','.yml') or x in ('package-lock.json','package.json'))
+paths={x for x in paths if scoped(x)}
+paths.update(x for x in untracked if x in manifest_paths)
+d={'HEAD':git('rev-parse','HEAD').decode().strip(),'index':hashlib.sha256(git('ls-files','--stage','-z')).hexdigest(),'cached':hashlib.sha256(git('diff','--cached','--binary')).hexdigest(),'diff':hashlib.sha256(git('diff','--binary')).hexdigest(),'status':git('status','--porcelain=v1','-z','--untracked-files=all').hex(),'untrackedPaths':sorted(untracked),'files':{x:digest(pathlib.Path(r)/x) for x in sorted(paths)},'inputs':{}}
+for q in [pathlib.Path(p)/'PATCH.diff',pathlib.Path(p)/'MANIFEST.json',pathlib.Path(b)]:d['inputs'][str(q)]=digest(q)
+for key in ['P1368_ACCEPTED45_ROOT','P1368_ACCEPTED26_ROOT','RIVAL_WRITING_CAPTURE_DIR','TRUST_AUTHORING_CAPTURE_DIR']:
+ root=os.environ.get(key)
+ if root:
+  q=pathlib.Path(root);d['inputs'][root]=digest(q) if not q.is_dir() else {str(x.relative_to(q)):digest(x) for x in sorted(q.rglob('*')) if x.is_file() or x.is_symlink()}
+print(json.dumps(d,sort_keys=True))
+SNAP
+}
+check_freeze() {
+  freeze_snapshot > "$OUT/freeze-current.json" || return 98
+  cmp -s "$OUT/freeze.json" "$OUT/freeze-current.json" || { echo 'STOP: frozen HEAD/index/worktree/inputs changed' >&2; return 98; }
+}
+require_lane() {
+python3 -I - <<'LANE'
+import os,pathlib,subprocess,shlex
+p=pathlib.Path('/Users/zacheryspector/studio-scratch/HEAVY-LANE-LOCK')
+if p.is_symlink() or not p.is_file() or p.stat().st_nlink!=1:raise SystemExit('STOP: unsafe or absent lane lock')
+marker=p.read_text().strip();pid=os.getppid();found=False
+while pid>1:
+ args=subprocess.check_output(['ps','-p',str(pid),'-o','args='],text=True).strip();parts=shlex.split(args)
+ for i,x in enumerate(parts):
+  if x.endswith('/lane-run-r8.sh') and len(parts)>i+2 and marker.startswith('lane-run '+parts[i+2]+' token='):found=True
+ pid=int(subprocess.check_output(['ps','-p',str(pid),'-o','ppid='],text=True).strip())
+if not found:raise SystemExit('STOP: gate must be child of owned existing lane')
+LANE
+}
+
+require_lane || exit 99
+[ "$(node --version)" = v20.20.2 ] || exit 90
+[ "$(command -v python3)" = "$R/.venv/bin/python3" ] || exit 90
+disk_floor 3670016 || exit 97
+[ ! -e "$OUT" ] && [ ! -L "$OUT" ] || { echo 'STOP: output already exists'; exit 90; }
+python3 -I - "$UI" "$A" <<'PRIOR'
+import json,pathlib,hashlib,re,sys
+ui,a=map(pathlib.Path,sys.argv[1:])
+def need(ok,msg):
+ if not ok:raise SystemExit('STOP: '+msg)
+pins={'/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure.config.mjs': '0d007cbe8af08a5a8118fd5903b9175ee1e8e96d8c8a15afadc1b5376fd2ba18', '/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure.setup.ts': 'e1d460eae7628f638a4b633d7c836e12cdbbc8f3a7b95ac1325eb268d07bacf9'}
+for path,h in pins.items():need(hashlib.sha256(pathlib.Path(path).read_bytes()).hexdigest()==h,'reviewed probe file changed '+path)
+meta=(a/'founding-r7q2-ui-continuation.log.meta').read_text();prefix='waiting for pid 0; then: bash /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/continue-founding-r7q2-ui.sh; 2026-10-12 11:33:12 CDT\nstart; 2026-10-12 11:33:12 CDT\n'
+need(meta.startswith(prefix) and re.fullmatch(r'end, exit 98; [^\n]+\n',meta[len(prefix):]) is not None,'prior UI continuation not exact terminal98')
+terminal_pins={'/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra-ui-continuation/results.jsonl': 'a9c9a6425d6b02bbadc98dba0838f0db89709240e74f6896f0edd0e7ca0ad6ce', '/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra-ui-continuation/ui-full.json': '0608ef13688b4d5c4d3a5bda26764b973b757dd9c0e196c9f5240594e090e5a3', '/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra-ui-continuation/freeze.json': '2a9bf3de5cc5e0c83f7f23406e7823bac35839a5979d6ae82cdf65f84546cb9a', '/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra-ui-continuation/freeze-current.json': '38eec62c2abc1d986379e7756ddb630bef26b66acd4253cea8e355e3642dc87a', '/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/founding-r7q2-ui-continuation.log': 'a877696f53ba9c11316a22f5a3d1794c0cb2f05d6e01bc14c351b2c144484a97', '/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/founding-r7q2-ui-continuation.log.meta': 'e995eb40ae492fdb26cfd740b7ee65603b699fb2edcce617f5780a74bdc8b67f', '/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1146/freeze-at-ui-start.json': '2a9bf3de5cc5e0c83f7f23406e7823bac35839a5979d6ae82cdf65f84546cb9a', '/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1146/freeze-observed-after-hook.json': '38eec62c2abc1d986379e7756ddb630bef26b66acd4253cea8e355e3642dc87a', '/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1146/HANDOFF.before-hook.md': 'c93d3abab5da95a5faf9b428ac3a4ea2d35a40008d469272447b91b6f453f549', '/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1146/HANDOFF.after-hook.md': '7fb2975c129c2ebd1f5135e1c407817f17afa053903e6ae8d968d7ffc2234a4e', '/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1146/OBSERVATION.json': '4e9b33dbfffb9fd77ad09da6f72f4588f690d59e7532eca0b61c70f222c0c640'}
+for path,h in terminal_pins.items():need(hashlib.sha256(pathlib.Path(path).read_bytes()).hexdigest()==h,'actual terminal/incident evidence changed '+path)
+inc=a/'handoff-freeze-incident-1146'
+initial=json.loads((inc/'freeze-at-ui-start.json').read_text());observed=json.loads((inc/'freeze-observed-after-hook.json').read_text())
+need([k for k in initial if initial[k]!=observed[k]]==['diff'],'second incident drift not exactly preserved diff-only')
+need(json.loads((ui/'freeze.json').read_text())==initial,'original UI start differs from preserved first stamp')
+need(json.loads((ui/'freeze-current.json').read_text())==observed,'original UI final snapshot not exact second incident')
+before=(inc/'HANDOFF.before-hook.md').read_bytes();after=(inc/'HANDOFF.after-hook.md').read_bytes()
+def outside(b):
+ need(b.count(b'<!-- AUTO:BEGIN')==1 and b.count(b'<!-- AUTO:END -->')==1,'ambiguous AUTO markers')
+ head=b.index(b'-->',b.index(b'<!-- AUTO:BEGIN'))+3;end=b.index(b'<!-- AUTO:END -->',head)
+ return b[:head]+b[end:]
+need(outside(before)==outside(after),'second stamp changes outside AUTO')
+need((pathlib.Path('/Users/zacheryspector/The-Movies-headless-program')/'HANDOFF.md').read_bytes()==after,'new/unexpected HANDOFF drift')
+records=[json.loads(l) for l in (ui/'results.jsonl').read_text().splitlines()]
+need(len(records)==1 and records[0]['name']=='vitest-ui-full' and records[0]['node']=='v20.20.2','prior UI child records incomplete')
+need(pathlib.Path(records[0]['log'])==ui/'ui.log','prior UI log identity differs')
+need(records[0]['exit']==0 and records[0]['seconds']==1140,'actual UI child outcome differs from reviewed terminal facts')
+def validate_result(path, child_exit, log):
+ from collections import Counter
+ d=json.loads(path.read_text())
+ def need(ok,msg):
+  if not ok:raise SystemExit('STOP: incomplete/malformed '+path.name+': '+msg)
+ keys=['numTotalTests','numPassedTests','numFailedTests','numPendingTests','numTodoTests','numTotalTestSuites','numPassedTestSuites','numFailedTestSuites','numPendingTestSuites']
+ for key in keys:need(type(d.get(key)) is int and d[key]>=0,'invalid '+key)
+ need(type(d.get('success')) is bool,'invalid success')
+ results=d.get('testResults');need(isinstance(results,list) and len(results)>0,'missing file results')
+ counts=Counter();failed_files=0
+ for tr in results:
+  need(isinstance(tr,dict) and isinstance(tr.get('name'),str) and tr['name'],'missing file identity')
+  need(tr.get('status') in ('passed','failed'),'nonterminal file status')
+  need(isinstance(tr.get('message'),str),'missing suite diagnostic field')
+  assertions=tr.get('assertionResults');need(isinstance(assertions,list) and len(assertions)>0,'missing assertion list '+tr['name'])
+  failed_files+=tr['status']=='failed'
+  for assertion in assertions:
+   need(isinstance(assertion,dict) and assertion.get('status') in ('passed','failed','skipped','todo','pending'),'unknown assertion status')
+   need(isinstance(assertion.get('fullName'),str) and assertion['fullName'],'missing assertion identity')
+   need(isinstance(assertion.get('failureMessages'),list) and all(isinstance(x,str) for x in assertion['failureMessages']),'missing assertion diagnostics')
+   counts[assertion['status']]+=1
+  need(not any(a['status']=='failed' for a in assertions) or tr['status']=='failed','failed assertion in passing file')
+ # Vitest2.1.9: pending header includes skipped/run; todo has its own header.
+ # Reported pending assertion status is unfinished run/only, not a completed skip.
+ need(counts['pending']==0,'unfinished pending assertions')
+ expected={'numTotalTests':sum(counts.values()),'numPassedTests':counts['passed'],'numFailedTests':counts['failed'],'numPendingTests':counts['skipped'],'numTodoTests':counts['todo']}
+ for key,value in expected.items():need(d[key]==value,'actual assertion count differs '+key)
+ need(d['numTotalTests']>0 and d['numTotalTestSuites']>0,'empty totals')
+ need(d['numTotalTestSuites']==d['numPassedTestSuites']+d['numFailedTestSuites']+d['numPendingTestSuites'],'suite summary counts inconsistent')
+ need(d['numTotalTestSuites']>=len(results),'suite total below file count')
+ need(d['numFailedTestSuites']>=failed_files,'failed suite count below failed files')
+ genuine_failure=d['numFailedTests']>0 or d['numFailedTestSuites']>0
+ need(d['success']==(not genuine_failure),'success inconsistent with failure counts')
+ need(child_exit in (0,1) and ((child_exit==0 and d['success']) or (child_exit==1 and genuine_failure and not d['success'])),'child exit inconsistent with JSON success/failure')
+ log_text=log.read_text()
+ need('Some tests are still running when generating the JSON report' not in log_text,'recorder reports unfinished workers')
+ for marker in ('Worker exited unexpectedly','worker exited unexpectedly','Worker terminated unexpectedly'):
+  need(marker not in log_text,'worker-incomplete diagnostic '+marker)
+ return d
+
+validate_result(ui/'ui-full.json',records[0]['exit'],ui/'ui.log')
+need('STOP: frozen HEAD/index/worktree/inputs changed' in (a/'founding-r7q2-ui-continuation.log').read_text(),'original UI lacks expected strict postflight failure')
+need(hashlib.sha256((ui/'ui-full.json').read_bytes()).hexdigest()=='0608ef13688b4d5c4d3a5bda26764b973b757dd9c0e196c9f5240594e090e5a3','reviewed completed UI JSON identity differs')
+print('actual UI child0/fullJSON complete; wrapper98 and exact second AUTO incident preserved; probe pins verified')
+PRIOR
+[ "$?" = 0 ] || exit 98
+mkdir "$OUT" || exit 90
+freeze_snapshot > "$OUT/freeze.json" || exit 98
+cmp -s "$OUT/freeze.json" "$INC/freeze-observed-after-hook.json" || { echo 'STOP: drift beyond exact second incident'; exit 98; }
+python3 -I - "$UI" "$A" "$OUT" <<'BIND'
+import pathlib,json,hashlib,sys
+ui,a,out=map(pathlib.Path,sys.argv[1:])
+inc=a/'handoff-freeze-incident-1146'
+paths=[inc/'freeze-at-ui-start.json',inc/'freeze-observed-after-hook.json',inc/'HANDOFF.before-hook.md',inc/'HANDOFF.after-hook.md',inc/'OBSERVATION.json',ui/'freeze.json',ui/'freeze-current.json',ui/'results.jsonl',ui/'ui-full.json',ui/'ui.log',a/'founding-r7q2-ui-continuation.log',a/'founding-r7q2-ui-continuation.log.meta',a/'r7q2-zero-pressure.config.mjs',a/'r7q2-zero-pressure.setup.ts',a/'run-r7q2-zero-pressure.sh']
+refs={str(p):{'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in paths}
+(out/'bound-inputs.json').write_text(json.dumps(refs,indent=2)+'\n')
+(out/'LIMITS.txt').write_text('In-memory zero-pressure negative control on unchanged r7q2 source; original3assertions and stale historical pins retained. Not live-law acceptance/full-gate pass. Actual child exit is preserved, and matching old failure metrics is narrower than full row-identity equivalence. Original gate98/d16 failure, completed UI child0 and original UI wrapper98 remain unchanged. Only exact second AUTO observation is accepted for this new strict diagnostic freeze; no third stamp exemption.\n')
+BIND
+[ "$?" = 0 ] || exit 98
+bound_unchanged() {
+python3 -I - "$OUT/bound-inputs.json" <<'CHECK'
+import json,pathlib,hashlib,sys
+for path,pin in json.load(open(sys.argv[1])).items():
+ p=pathlib.Path(path)
+ if not p.is_file() or p.stat().st_size!=pin['bytes'] or hashlib.sha256(p.read_bytes()).hexdigest()!=pin['sha256']:raise SystemExit('STOP: bound evidence/config changed '+path)
+CHECK
+}
+check_freeze || exit 98
+bound_unchanged || exit 98
+disk_floor 3145728 || exit 97
+start=$(date +%s)
+nice -n 10 node node_modules/vitest/vitest.mjs run --config "$A/r7q2-zero-pressure.config.mjs" --no-file-parallelism --no-cache --reporter=default --reporter=json --outputFile.json="$OUT/results.json" > "$OUT/run.log" 2>&1
+child_exit=$?
+end=$(date +%s)
+printf '{"name":"r7q2-zero-pressure-original3","exit":%d,"seconds":%d,"node":"%s","log":"%s"}\n' "$child_exit" "$((end-start))" "$(node --version)" "$OUT/run.log" > "$OUT/child.json" || exit 1
+check_freeze || exit 98
+bound_unchanged || exit 98
+disk_floor 3145728 || exit 97
+python3 -I - "$OUT" "$child_exit" <<'RESULT'
+import json,pathlib,sys
+out=pathlib.Path(sys.argv[1]);child_exit=int(sys.argv[2])
+def validate_result(path, child_exit, log):
+ from collections import Counter
+ d=json.loads(path.read_text())
+ def need(ok,msg):
+  if not ok:raise SystemExit('STOP: incomplete/malformed '+path.name+': '+msg)
+ keys=['numTotalTests','numPassedTests','numFailedTests','numPendingTests','numTodoTests','numTotalTestSuites','numPassedTestSuites','numFailedTestSuites','numPendingTestSuites']
+ for key in keys:need(type(d.get(key)) is int and d[key]>=0,'invalid '+key)
+ need(type(d.get('success')) is bool,'invalid success')
+ results=d.get('testResults');need(isinstance(results,list) and len(results)>0,'missing file results')
+ counts=Counter();failed_files=0
+ for tr in results:
+  need(isinstance(tr,dict) and isinstance(tr.get('name'),str) and tr['name'],'missing file identity')
+  need(tr.get('status') in ('passed','failed'),'nonterminal file status')
+  need(isinstance(tr.get('message'),str),'missing suite diagnostic field')
+  assertions=tr.get('assertionResults');need(isinstance(assertions,list) and len(assertions)>0,'missing assertion list '+tr['name'])
+  failed_files+=tr['status']=='failed'
+  for assertion in assertions:
+   need(isinstance(assertion,dict) and assertion.get('status') in ('passed','failed','skipped','todo','pending'),'unknown assertion status')
+   need(isinstance(assertion.get('fullName'),str) and assertion['fullName'],'missing assertion identity')
+   need(isinstance(assertion.get('failureMessages'),list) and all(isinstance(x,str) for x in assertion['failureMessages']),'missing assertion diagnostics')
+   counts[assertion['status']]+=1
+  need(not any(a['status']=='failed' for a in assertions) or tr['status']=='failed','failed assertion in passing file')
+ # Vitest2.1.9: pending header includes skipped/run; todo has its own header.
+ # Reported pending assertion status is unfinished run/only, not a completed skip.
+ need(counts['pending']==0,'unfinished pending assertions')
+ expected={'numTotalTests':sum(counts.values()),'numPassedTests':counts['passed'],'numFailedTests':counts['failed'],'numPendingTests':counts['skipped'],'numTodoTests':counts['todo']}
+ for key,value in expected.items():need(d[key]==value,'actual assertion count differs '+key)
+ need(d['numTotalTests']>0 and d['numTotalTestSuites']>0,'empty totals')
+ need(d['numTotalTestSuites']==d['numPassedTestSuites']+d['numFailedTestSuites']+d['numPendingTestSuites'],'suite summary counts inconsistent')
+ need(d['numTotalTestSuites']>=len(results),'suite total below file count')
+ need(d['numFailedTestSuites']>=failed_files,'failed suite count below failed files')
+ genuine_failure=d['numFailedTests']>0 or d['numFailedTestSuites']>0
+ need(d['success']==(not genuine_failure),'success inconsistent with failure counts')
+ need(child_exit in (0,1) and ((child_exit==0 and d['success']) or (child_exit==1 and genuine_failure and not d['success'])),'child exit inconsistent with JSON success/failure')
+ log_text=log.read_text()
+ need('Some tests are still running when generating the JSON report' not in log_text,'recorder reports unfinished workers')
+ for marker in ('Worker exited unexpectedly','worker exited unexpectedly','Worker terminated unexpectedly'):
+  need(marker not in log_text,'worker-incomplete diagnostic '+marker)
+ return d
+
+d=validate_result(out/'results.json',child_exit,out/'run.log')
+expected=[{'file': 'bridge-p14b5-relationships.test.ts', 'fullName': 'family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only'}, {'file': 'bridge-p14b5-relationships.test.ts', 'fullName': 'family 12 — the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only'}, {'file': 'p14b4-rival-seating-preference.test.ts', 'fullName': 'P14B4 final seating preference — no-preference path and viability gates (plan :223-225) seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable'}]
+actual=[];all_files=set()
+for tr in d['testResults']:
+ file=pathlib.Path(tr['name']).name;all_files.add(file)
+ for a in tr['assertionResults']:
+  if a['status'] in ('passed','failed'):actual.append({'file':file,'fullName':a['fullName'],'status':a['status'],'messages':a['failureMessages']})
+  elif a['status']!='skipped':raise SystemExit('STOP: nonselected assertion not skipped')
+if len(actual)!=3 or sorted((x['file'],x['fullName']) for x in actual)!=sorted((x['file'],x['fullName']) for x in expected):raise SystemExit('STOP: exactly3originalselected leaves did not execute')
+if all_files!={x['file'] for x in expected}:raise SystemExit('STOP: unexpected selected file')
+log=(out/'run.log').read_text()
+if log.count('R7Q2_ZERO_PRESSURE_CONTROL penalty0; original assertions and fixtures unchanged')!=2 or log.count('R7Q2_ZERO_PRESSURE_CONTROL restored0.15')!=2:raise SystemExit('STOP: expected setup/restore markers for two files missing')
+# Suite-level failures cannot serve as the intended original assertion evidence.
+if any(t['message'] for t in d['testResults']):raise SystemExit('STOP: suite error masked an intended leaf')
+summary={'childExit':child_exit,'executed':actual,'skipped':d['numPendingTests'],'todo':d['numTodoTests'],'suiteDiagnostics':[{'name':t['name'],'status':t['status'],'message':t['message']} for t in d['testResults']],'limits':'Counterfactual diagnostic only; no assertions changed, no new golden or live-law acceptance. Parent compares distinct R8 total/settled/hash observations.'}
+(out/'diagnostic.json').write_text(json.dumps(summary,indent=2)+'\n')
+print('exact3original leaves executed; tuning setup/restoration and complete accounting verified')
+RESULT
+[ "$?" = 0 ] || exit 1
+check_freeze || exit 98
+bound_unchanged || exit 98
+echo "Counterfactual recorded; actual child_exit=$child_exit; NOT live-law acceptance."
+exit "$child_exit"

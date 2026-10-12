@@ -16,6 +16,7 @@ import type { Action, GameState, ProfessionalPromise, PromiseFeasibilityReceipt,
   FilmShape, Promise as CreativePromise, CreativeRole } from '../../src/core/types.js'
 import type { PromiseDraft, PromiseAttachment } from '../../src/core/promises.js'
 import type { SaveFileV38 } from '../../src/core/save.js'
+import { validateLiveSave, downgradeLiveTo45 } from './live-era.js'
 
 export const clone = <T>(value: T): T => structuredClone(value)
 export const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
@@ -75,12 +76,13 @@ export type FutureSaveAPI = {
   convertV39ToV38: (input: unknown) => SaveFileV38
 }
 type FutureSaveChainSteps = FutureSaveAPI & {
-  validateSaveV46: (input: unknown) => unknown
+  validateSaveV47: (input: unknown) => unknown
   convertV40ToV39: (input: unknown) => unknown
   convertV41ToV40: (input: unknown) => unknown
   convertV42ToV41: (input: unknown) => unknown
   convertV43ToV42: (input: unknown) => unknown
   convertV44ToV43: (input: unknown) => unknown
+  convertV47ToV46: (input: unknown) => unknown
   convertV46ToV45: (input: unknown) => unknown
   convertV45ToV44: (input: unknown) => unknown
 }
@@ -88,12 +90,13 @@ export function futureSave(): FutureSaveAPI {
   const candidate = core as unknown as Partial<FutureSaveChainSteps>
   assert.equal(typeof candidate.validateSaveV39, 'function', 'public index exposes the new strict reader')
   assert.equal(typeof candidate.convertV39ToV38, 'function', 'public index exposes the guarded reverse conversion')
-  assert.equal(typeof candidate.validateSaveV46, 'function', 'public index exposes the live validator')
+  assert.equal(typeof candidate.validateSaveV47, 'function', 'public index exposes the live validator')
   assert.equal(typeof candidate.convertV40ToV39, 'function', 'public index exposes the V40->V39 downgrade step')
   assert.equal(typeof candidate.convertV41ToV40, 'function', 'public index exposes the V41->V40 downgrade step')
   assert.equal(typeof candidate.convertV42ToV41, 'function', 'public index exposes the V42->V41 downgrade step')
   assert.equal(typeof candidate.convertV43ToV42, 'function', 'public index exposes the V43->V42 downgrade step')
   assert.equal(typeof candidate.convertV44ToV43, 'function', 'public index exposes the V44->V43 downgrade step')
+  assert.equal(typeof candidate.convertV47ToV46, 'function', 'public guarded recruitment-fund 47 to 46 conversion') // 1370-AR r2
   assert.equal(typeof candidate.convertV46ToV45, 'function', 'public guarded recovery 46 to 45 conversion')
   assert.equal(typeof candidate.convertV45ToV44, 'function', 'public index exposes the V45->V44 downgrade step')
   const steps = candidate as FutureSaveChainSteps
@@ -116,8 +119,8 @@ export function futureSave(): FutureSaveAPI {
   // validateSaveV39 validates it with validateSaveV45 and convertV45ToV44
   // leads the chain, one era later again.
   return {
-    validateSaveV39: (input: unknown) => steps.validateSaveV46(input),
-    convertV39ToV38: (input: unknown) => steps.convertV39ToV38(steps.convertV40ToV39(steps.convertV41ToV40(steps.convertV42ToV41(steps.convertV43ToV42(steps.convertV44ToV43(steps.convertV45ToV44(steps.convertV46ToV45(input)))))))),
+    validateSaveV39: (input: unknown) => validateLiveSave(input), // 1370-AR r3: the live reader, named once in tests/helpers/live-era.ts
+    convertV39ToV38: (input: unknown) => steps.convertV39ToV38(steps.convertV40ToV39(steps.convertV41ToV40(steps.convertV42ToV41(steps.convertV43ToV42(steps.convertV44ToV43(steps.convertV45ToV44(downgradeLiveTo45(input as never)))))))),
   }
 }
 

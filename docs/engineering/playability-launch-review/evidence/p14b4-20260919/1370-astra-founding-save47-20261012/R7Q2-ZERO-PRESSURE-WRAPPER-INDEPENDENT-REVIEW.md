@@ -1,0 +1,25 @@
+# Zero-pressure wrapper independent review
+
+GPT-6.1 Sol, 2026-10-12. Read-only review of A/run-r7q2-zero-pressure.sh; `bash -n` completed exit0. Script NOT executed. No tests/compiler/heavy scan, production/source/package/T/live-output edits, locks, signals or hook changes. This review is separate from the prior config/setup KEEP.
+
+Verdict: REFINE before launch because the second HANDOFF AUTO incident invalidates this wrapper's currently specified predecessor conditions. The execution/result machinery is otherwise KEEP for the bounded counterfactual scope; no new source or test repair is requested.
+
+## Required dependency correction
+
+Lines91,136-137 require the original UI wrapper's exact terminal1, successful strict postflight receipt, and byte-identical UI pre/postfreeze. Line143 additionally requires current freeze equal the original UI startfreeze. If the second PreCompact AUTO-only edit produces terminal98, these predicates correctly refuse launch. Do not bypass them or retrospectively alter the original UI outputs/startfreeze. The UI is still live, so its final child/JSON/completion/freeze evidence is not yet available.
+
+After terminal, an amendment must bind preserved second-incident evidence and exact final UI artifacts, require its actual terminal status and completed child/valid JSON accounting, verify that the only authorized comparison difference is the independently reviewed exact AUTO metadata bytes (not arbitrary diff/status exemption), and establish a fresh current strict freeze including the retained current HANDOFF. Bind original and incident artifacts by hashes, then keep that new strict freeze throughout the counterfactual. Preserve original UI98 if observed and distinguish a complete child result from failed metadata postflight. Do not substitute a fabricated terminal1/completion receipt, silently restore HANDOFF, or claim a complete successful UI continuation. Parent review/adoption of that exact amendment is required before launch. If any source/index/package/relevant-input identity differs, this metadata-only route is unavailable.
+
+## Ownership and execution
+
+Lines63-78 require a regular, singly-linked lane lock and matching lane-run ancestor rather than acquiring another lane. This guards scheduling within the existing parent-owned lane; it is not a general security boundary against a malicious same-user process. PATH requires exact Node20.20.2 and the established .venv Python, formal fixture roots/manifests remain inherited, and the output directory must be fresh. Prelaunch/live-return disk floors remain; parent manual monitoring is explicitly required during the foreground child. Line165 launches only the reviewed original Vitest selection. There is no numeric-PID tree controller or unsolicited signal/kill path. Parent alone schedules after the current intensive tree is terminal.
+
+The wrapper writes only new scratch output. Original UI evidence/config/setup/self are bound by byte length/hash at lines145-159 and checked before/after execution. Source/index/worktree/package/fixture snapshots are checked repeatedly, including after recording. Guard failures remain nonzero. The actual child exit is separately preserved at lines166-168; subsequent freeze failure does not erase its child.json/run.log/raw JSON, but can prevent diagnostic classification. This is proper incomplete-evidence handling, not permission to count a guard failure as a completed counterfactual.
+
+## Result accounting and limits
+
+Both embedded validators require nonempty file/assertion arrays, recognized terminal statuses, actual assertion counts equal headers, no unfinished pending, consistent nested suite totals, child0/1 consistent with JSON success/failure, and named incomplete-worker warnings absent. They do not wrongly equate suite totals with result-file count. New-result checks at223-228 require exactly the three original executed file/fullName pairs, all other assertions skipped, exactly the expected two files, two setup and two restore markers, and no suite diagnostic. A duplicate selected identity, unexpected executed leaf, todo/pending substitution, missing restoration or worker/suite error therefore cannot supply the intended result. Original assertions/timeouts remain unchanged.
+
+Returning child1 is valid only after these checks succeed, and means the unchanged selected assertions failed; it cannot mean live-law acceptance. A complete diagnostic must still be interpreted against R8 actual commercial TOTAL42, seed-b TOTAL48 then SETTLED41, and seating d32e68… rather than stale expected48/f9cd. Matching first failure metrics gives bounded pressure attribution, not complete ledger identity equivalence. Core101 failures, d16's12 failures and both metadata incidents remain visible; no full-gate pass or acceptance waiver follows.
+
+No additional wrapper blocker identified beyond the explicit second-incident prerequisite/amendment dependency. Park until actual UI terminal and revised exact binding are available.

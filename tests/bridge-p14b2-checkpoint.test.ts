@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest'
 import { SCHEMA_ID } from '../bridge/protocol.ts'
 import { loadBridgeRuntimeCheckpoint, SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS } from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession } from '../bridge/session.ts'
-import { exportSave, importSave, migrateToLive } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, exportSave, importSave, migrateToLive } from '../src/core/save.js'
 import { buildTalentProvenance } from '../src/core/aging.js'
 
 // Genuine e37cd23 projection45 export, not a current checkpoint with restamped ID.
@@ -28,7 +28,9 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
-    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
+    // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
 }
 describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)', () => {
   it('pins actual historical source bytes and the literal outgoing schema registry entry', () => {
@@ -69,7 +71,7 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
     const addedFields = (promise: Record<string, unknown>) => ({ ...promise, supersededByPromiseId: null })
     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
       const governed = migrateToLive(importSave(before[slot]))
-      expect(governed.saveVersion).toBe(46)
+      expect(governed.saveVersion).toBe(LIVE_SAVE_VERSION)
       const source = JSON.parse(before[slot])
       // 763-R8 (P14C.1, R-VERSION): the governed lift now also writes C.1's provenance
       // root and FLOORS every stored age against it — the first step in this chain that
@@ -102,7 +104,7 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
       // businesses, nothing else): the live writer stamps 43, and the lift adds the empty shelving root.
       // 1358-N S2: Save44 stamps 44; its edge fields add nothing here, as `relationships` stays [].
       // 1361-N S2+S5: Save45 stamps 45, and the lift adds the four empty P15 roots at each slot's own tick (convertV44ToV45, save.ts:10980-10984).
-      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 46, state: withEmptyRecovery(withEmptyScreenplayShelving({ ...withEmptyP15Roots(source.state, source.state.market.tick as number),
+      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: LIVE_SAVE_VERSION, state: withEmptyRecovery(withEmptyScreenplayShelving({ ...withEmptyP15Roots(source.state, source.state.market.tick as number),
         relationships: [], promises: (source.state.promises as Record<string, unknown>[]).map(addedFields),
         talent: sourcePeople.map((person) => ({ ...person, age: Math.floor(person.age) })),
         talentProvenance: buildTalentProvenance(sourcePeople, source.state.market.tick as number, 'legacy_age_anchor'),

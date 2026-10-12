@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest'
 import { extensionIssuer, retirementRecordFor } from '../src/core/careerLifecycle.js'
 import { activeContract } from '../src/core/employment.js'
 import { professionAtWeek } from '../src/core/index.js'
-import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV46 } from '../src/core/save.js'
+import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, convertV47ToV46, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV47 } from '../src/core/save.js'
 import { marketEligibility, openMarketCaseFor, playerOffer, submitProposal } from '../src/core/talentMarket.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
 import { TUNING } from '../src/core/tuning.js'
@@ -178,14 +178,14 @@ describe.each(DUAL_TARGETS)('C.3 actor→%s two genuine profession extensions', 
     // Own-era romance remains in p14b10-save-v44.test.ts; V39 remains in
     // p13b-s3-save-v23.test.ts; shelving remains in p14d1-rival-shelving-save-v43.test.ts.
     const savedBytes = stableStringify(saved)
-    expect(validateSaveV46(saved)).toBe(saved)
+    expect(validateSaveV47(saved)).toBe(saved)
     expect(stableStringify(saved)).toBe(savedBytes)
     expect(saved.state.hollywood!.businesses.some(b => b.costCutting.since !== null)).toBe(true)
     expect(saved.state.hollywood!.businesses.every(b => b.account.periods.every(p => p.movements.facilityDemolitionRefund === 0))).toBe(true)
     expect(saved.state.hollywood!.receipts.some(r => r.kind === 'facilityDisposed')).toBe(false)
-    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(saved)))))))))).toThrow(/^migrateToV45: cannot downgrade or discard recovery authority: costCutting\.since$/)
+    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(saved))))))))))).toThrow(/^migrateToV45: cannot downgrade or discard recovery authority: costCutting\.since$/)
     expect(stableStringify(saved)).toBe(savedBytes)
-    expect(validateSaveV46(saved)).toBe(saved)
+    expect(validateSaveV47(saved)).toBe(saved)
     expect(stableStringify(saved)).toBe(savedBytes)
     accepted(loaded)
   })

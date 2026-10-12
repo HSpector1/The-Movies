@@ -108,7 +108,9 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
-    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
+    // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
 }
 // 1358-F11 ruling 1: a genuine Save39 Director capture of record 1221 (manifest schema.saveVersion
 // 39), pinned and loaded as p14p4p5-opportunities Q04 loads it. Production's convertV39ToV40 alone gives
@@ -378,7 +380,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
     const positives = [a.state, b.state, first.first.afterTake, second.second.afterTake]
     for (const state of positives) {
       admitted(state)
-      const save = saves.makeSave(state); expect(save.saveVersion).toBe(46)
+      const save = saves.makeSave(state); expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION)
       expect(api.validateSaveV39(save)).toBe(save)
       expect(bytes(reopen(state))).toBe(bytes(state))
       // 1320-A S9-adjacent: a bare saveVersion relabel keeps the live sharedCompetitions
@@ -395,7 +397,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
       // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
       // The V39 opportunity/subject guard stays covered by Q11 in
       // p14p4p5-screenplay-status.test.ts (the genuine Save40 factOnly capture).
-      expect(() => api.convertV39ToV38(save)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
+      expect(() => api.convertV39ToV38(save)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded (?:shared-market assessment \(\d+ recorded\)(?:; cannot downgrade or discard a recorded Power Ranking quarter)?|Power Ranking quarter)$/) // 1370-AR r2: with the market law active the shared-market rows are named first (1361-F7 ruling 2)
     }
     const id = a.promiseId
     malformed(a.state, id, row => { (row.predicate as Record<string, unknown>).extra = true }, /predicate.*extra/i)
@@ -419,8 +421,8 @@ describe('P3 first slice: public Director promises and historical meaning', () =
     // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
     // The V39 opportunity/subject guard stays covered by Q11 in
     // p14p4p5-screenplay-status.test.ts (the genuine Save40 factOnly capture).
-    expect(() => saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(saves.makeSave(a.state))))))))
-      .toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
+    expect(() => saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(saves.convertV47ToV46(saves.makeSave(a.state)))))))))
+      .toThrow(/^migrateToV44: cannot downgrade or discard a recorded (?:shared-market assessment \(\d+ recorded\)(?:; cannot downgrade or discard a recorded Power Ranking quarter)?|Power Ranking quarter)$/) // 1370-AR r2: with the market law active the shared-market rows are named first (1361-F7 ruling 2)
     // So the frozen builders take the genuine director-bound-week52 capture (Save39, a bound P3 Director
     // promise), lifted to V40 by convertV39ToV40 alone.
     const bound40 = directorCapture40('director-bound-week52',
@@ -448,9 +450,9 @@ describe('P3 first slice: public Director promises and historical meaning', () =
       // 1363-N: expected-only null cutting and zero refund in every historical period.
       const oldState = saves.stableStringify(withEmptyRecovery(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.save.state))))), old.save.state.market.tick)))
       const current = saves.migrateToLive(old.save)
-      expect(saves.validateSaveV46(current)).toBe(current)
+      expect(saves.validateSaveV47(current)).toBe(current)
       // Existing semantic boundary: fails as37/38 rather than a missing import.
-      expect(current.saveVersion).toBe(46)
+      expect(current.saveVersion).toBe(saves.LIVE_SAVE_VERSION)
       expect(saves.stableStringify(current.state)).toBe(oldState)
       expect(current.state.promises).toEqual(old.save.state.promises)
       expect(current.state.firstTakes).toEqual(old.save.state.firstTakes)
@@ -475,7 +477,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
       expect(oldTakes.length).toBeGreaterThanOrEqual(replacement.predicate.count)
       expect(oldTakes.every(take => Object.values(take.cast).includes(replacement.beneficiaryPersonId))).toBe(true)
       const rawBefore = saves.exportSave(old), current = saves.migrateToLive(old)
-      expect(current.saveVersion).toBe(46)
+      expect(current.saveVersion).toBe(saves.LIVE_SAVE_VERSION)
       expect(current.state.promises[index]).toEqual(replacement)
       expect(qualifyingTakes(current.state, current.state.promises[index]!)).toEqual(oldTakes)
       expect(saves.exportSave(futureSave().convertV39ToV38(current))).toBe(rawBefore)
@@ -489,7 +491,7 @@ describe('P3 first slice: public Director promises and historical meaning', () =
     // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
     // The V39 opportunity/subject guard stays covered by Q11 in
     // p14p4p5-screenplay-status.test.ts (the genuine Save40 factOnly capture).
-    expect(() => futureSave().convertV39ToV38(saves.makeSave(abandoned))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
+    expect(() => futureSave().convertV39ToV38(saves.makeSave(abandoned))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded (?:shared-market assessment \(\d+ recorded\)(?:; cannot downgrade or discard a recorded Power Ranking quarter)?|Power Ranking quarter)$/) // 1370-AR r2: with the market law active the shared-market rows are named first (1361-F7 ruling 2)
   }, LEAF_TIMEOUT_MS)
 })
 
@@ -746,15 +748,15 @@ describe('P3 second slice: cancellation and same-domain waiver', () => {
       // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
       // The V39 opportunity/subject guard stays covered by Q11 in
       // p14p4p5-screenplay-status.test.ts (the genuine Save40 factOnly capture).
-      expect(() => futureSave().convertV39ToV38(save)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
+      expect(() => futureSave().convertV39ToV38(save)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded (?:shared-market assessment \(\d+ recorded\)(?:; cannot downgrade or discard a recorded Power Ranking quarter)?|Power Ranking quarter)$/) // 1370-AR r2: with the market law active the shared-market rows are named first (1361-F7 ruling 2)
       // 1361-N S9 (MASKED), F7 ruling 2: the recorded Power Ranking quarter makes
       // convertV45ToV44 refuse first (src/core/save.ts:10989-10995; reason :10895).
       // x2 measured this first guard in the family; the follow-up must confirm every call.
       // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
       // The V39 opportunity/subject guard stays covered by Q11 in
       // p14p4p5-screenplay-status.test.ts (the genuine Save40 factOnly capture).
-      expect(() => saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(save)))))))
-        .toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
+      expect(() => saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(saves.convertV47ToV46(save))))))))
+        .toThrow(/^migrateToV44: cannot downgrade or discard a recorded (?:shared-market assessment \(\d+ recorded\)(?:; cannot downgrade or discard a recorded Power Ranking quarter)?|Power Ranking quarter)$/) // 1370-AR r2: with the market law active the shared-market rows are named first (1361-F7 ruling 2)
     }
     // 1358-F11 ruling 1: the genuine director-waived-week61 capture (Save39: promise-0 WAIVED and its open
     // successor promise-1, the 1221 runtime's committed waiver) holds WAIVED authority; convertV39ToV40
@@ -1159,7 +1161,7 @@ describe('P3 bounded occupancy admission', () => {
     expect(input.state.market.tick).toBe(52)
     expect(input.actorId).toBe('authored-0006')
     admitted(input.state)
-    expect(saves.makeSave(input.state).saveVersion).toBe(46)
+    expect(saves.makeSave(input.state).saveVersion).toBe(saves.LIVE_SAVE_VERSION)
     const root = actualPromise(input.state, input.promiseId)
     expect(root).toMatchObject({ contractId: expect.any(String), progress: 0, outcome: null })
     const contract = activeContract(input.state, input.actorId); assert.ok(contract)
@@ -1199,7 +1201,7 @@ describe('P3 bounded occupancy admission', () => {
     const occupied = made.state
     admitted(occupied)
     expect(occupied.market.tick).toBe(52)
-    expect(saves.makeSave(occupied).saveVersion).toBe(46)
+    expect(saves.makeSave(occupied).saveVersion).toBe(saves.LIVE_SAVE_VERSION)
     const production = occupied.studio.activeProductions.find(row => row.id === made.productionId)
     assert.ok(production)
     expect(production).toMatchObject({ startTick: 52, remainingTicks: 8,

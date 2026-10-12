@@ -379,9 +379,26 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
   if(b.costCutting.since===null&&enters)b.costCutting={version:1,since:week}
 }
 
+/** P15A.1 Wave 2 (1355-A §3.1 item 5): the frozen batch's rival members must be exactly the rival
+ * pictures at remainingTicks 1 when the week starts (fact 8). Returns each studio's due ids in
+ * release order. A missing or unknown member throws before any work, so the input is untouched. */
+function frozenRivalMembers(source:HollywoodState|null,factorById:ReadonlyMap<string,number>):Map<string,string[]> {
+  const due=new Map<string,string[]>()
+  for(const b of source?.businesses??[]) {
+    const ids=b.productions.filter(p=>p.remainingTicks===1).map(p=>p.id).sort()
+    if(ids.length>0)due.set(b.studioId,ids)
+  }
+  const all=new Set([...due.values()].flat())
+  const missing=[...all].filter(id=>!factorById.has(id)).sort()
+  const unknown=[...factorById.keys()].filter(id=>!all.has(id)).sort()
+  if(missing.length>0||unknown.length>0)throw new Error(`shared market: the frozen batch disagrees with the rival due set: missing [${missing.join(', ')}], unknown [${unknown.join(', ')}]`)
+  return due
+}
+
 /** Stage rival work against pre-development talent. All writes are to new local objects.
- * P15A.1 Wave 2 (1355-A §3.2): `factorById` carries the frozen shared-market factor of each rival
- * release; absent, every rival release takes today's path. */
+ * P15A.1 Wave 2 (1355-A §3.1-3.2): `factorById` carries the frozen shared-market factor of each rival
+ * release, witnessed against the due set and each studio's releases; absent, every rival release
+ * takes today's path. */
 export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<string,number>):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology'];physicalPlans:GameState['physicalPlans'];
   /** P14B.1 (1): this week's rival first takes (the 5 -> 4 advance), handed to
    * the outer tick so the ONE first-take root is appended in one place. */
@@ -392,6 +409,7 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
    * to the outer tick so provenance is written with the same commit that carries them. */
   suppliedTalent:{id:string;age:number}[]} {
   const source=state.hollywood
+  const frozen=factorById===undefined?null:frozenRivalMembers(source,factorById)
   if(!source)return {hollywood:null,talent:state.talent,growth:[],technology:state.technology,physicalPlans:state.physicalPlans,firstTakes:[],greenlights:[],suppliedTalent:[]}
   const week=state.market.tick
   const h:HollywoodState={...source,businesses:source.businesses.map(b=>({...b,account:{...b.account,
@@ -436,6 +454,12 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
     const releasing=advanced.productions.filter(p=>p.remainingTicks===0).sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0)
     const ids=new Set(releasing.map(p=>p.id))
     if(ids.size!==advanced.admittedReleaseIds.length||advanced.admittedReleaseIds.some(id=>!ids.has(id)))throw new Error('Industry release admission mismatch')
+    // P15A.1 Wave 2 (1355-A §3.1 item 5): this studio releases exactly its frozen members, checked
+    // before its first reception. With the due-set check above, the studios sum to the batch.
+    const members=frozen?.get(b.studioId)??[]
+    if(frozen!==null&&(members.length!==releasing.length||releasing.some((p,i)=>p.id!==members[i]))) {
+      throw new Error(`shared market: ${b.studioId} releases [${releasing.map(p=>p.id).join(', ')}] but its frozen batch members are [${members.join(', ')}]`)
+    }
     b.operations=advanced.operations;b.productions=advanced.productions.filter(p=>p.remainingTicks>0)
     const people=new Map(talent.map(t=>[t.id,t]))
     const startStanding=b.standing

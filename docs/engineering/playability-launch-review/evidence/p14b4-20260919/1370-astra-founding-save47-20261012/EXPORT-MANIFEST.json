@@ -1,0 +1,527 @@
+{
+  "claim": "Exact selected public evidence copies; manifest excludes itself and later parent README. No LOCAL process inventories or Owner fixture bodies. Candidate exactPATCH/MANIFEST/REPORT and focusedr7q2 results are already published under1370-astra-takeover-20261012; linked by README.",
+  "files": [
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/BASELINE",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/BASELINE",
+      "bytes": 178,
+      "sha256": "3e6a379b87f17b11072ab17a3a2498837959de8dcc4d6a18402016b63cda1744"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/HEAD-BEFORE",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/HEAD-BEFORE",
+      "bytes": 41,
+      "sha256": "eb68c7c42104fcaad9d3783c08ca5aad5f5c376a94f0cdc0ee1acfdf3a97ad3e"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/PACKAGE",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/PACKAGE",
+      "bytes": 98,
+      "sha256": "a595f272c0b312ed5e45eebf16801f3d7702f38b2c68ee2eecd95e458449513d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/core-START",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/core-START",
+      "bytes": 21,
+      "sha256": "18b1bcfd9c1922592c9f03bf0b606762d618135020b9581ba0494a24021620f5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/core-full.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/core-full.json",
+      "bytes": 2670555,
+      "sha256": "05b6f8c6eb9ac3cbb34e14febfff727294814a79367d9d340c5358aad1028dbb"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/core.log",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/core.log",
+      "bytes": 1071,
+      "sha256": "310167b0b9798152461998262b3cfbfd218e8c4dd9d4fbc2ec3dcc4394a36633"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/d16.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/d16.json",
+      "bytes": 82664,
+      "sha256": "d28962140fe6c495837284ae079c945e9cfc964b3d82a71964899fb563f3ffab"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/d16.log",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/d16.log",
+      "bytes": 18150,
+      "sha256": "30fa22978b4e1d0d4493b700a3736998e14877252acaf0b903ba8c8356fd9d67"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/freeze-current.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/freeze-current.json",
+      "bytes": 209381,
+      "sha256": "2a9bf3de5cc5e0c83f7f23406e7823bac35839a5979d6ae82cdf65f84546cb9a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/freeze.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/freeze.json",
+      "bytes": 209353,
+      "sha256": "6a41d1e229f76c7297f174252899d021c1c9994d7b19b4a9058c7ba132ce3405"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/gen-contract-fixtures.log",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/gen-contract-fixtures.log",
+      "bytes": 120,
+      "sha256": "6022e3e982ad022feb086bf8bae953fbb9e10c52cf470657fe5845a5074cfb3d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/gen-contract.log",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/gen-contract.log",
+      "bytes": 332,
+      "sha256": "81dd2bc807088d8f839a50413e6bc2da733d532305a4bf7e4b8d18cbc69773fe"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/manifest-verify.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/manifest-verify.json",
+      "bytes": 47,
+      "sha256": "addcd0745f53a477aa62b63c2e41df817a4577063f349ee76b1c78196a291943"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/results.jsonl",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/results.jsonl",
+      "bytes": 1415,
+      "sha256": "c59e9cf94bccf6860726d63c8f3f36855fc0b955018b2c4c2c3fbde997b45422"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/staged-added.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/staged-added.txt",
+      "bytes": 433,
+      "sha256": "dcd159050f5e1e5952e7d329ed3a77558713c23e90a95f9581b2f679dbd87667"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/staged-modified.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/staged-modified.txt",
+      "bytes": 6649,
+      "sha256": "32b392eca0a46f679ff184c04f253f404d2a2293b35591ad51271d1d0a8d5a56"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/tsc-bridge.log",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/tsc-bridge.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/tsc-root.log",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/tsc-root.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/tsc-ui.log",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/tsc-ui.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/ui-continuation/LIMITS.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra-ui-continuation/LIMITS.txt",
+      "bytes": 299,
+      "sha256": "49062c9a7df7a915c99b446df0cb07233fb9e1e2ffa39300070ff8ba43ad1560"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/ui-continuation/attribution.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra-ui-continuation/attribution.json",
+      "bytes": 248071,
+      "sha256": "e83ff85120f1844ab8ecf193ca508ff88cddaefa8c7445ac0f8afdc8f66f0e56"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/ui-continuation/core-failures.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra-ui-continuation/core-failures.txt",
+      "bytes": 21976,
+      "sha256": "e9f82fd229099d2d4ece955996f4a997f5ec6f231f8f81caad42bf459cc17812"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/ui-continuation/freeze-current.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra-ui-continuation/freeze-current.json",
+      "bytes": 209381,
+      "sha256": "38eec62c2abc1d986379e7756ddb630bef26b66acd4253cea8e355e3642dc87a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/ui-continuation/freeze.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra-ui-continuation/freeze.json",
+      "bytes": 209381,
+      "sha256": "2a9bf3de5cc5e0c83f7f23406e7823bac35839a5979d6ae82cdf65f84546cb9a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/ui-continuation/original-evidence-refs.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra-ui-continuation/original-evidence-refs.json",
+      "bytes": 6857,
+      "sha256": "6b3b61d84a7c4a452dc26976c9dd65ee79c15150e316c3d8681df434e347b73e"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/ui-continuation/results.jsonl",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra-ui-continuation/results.jsonl",
+      "bytes": 216,
+      "sha256": "a9c9a6425d6b02bbadc98dba0838f0db89709240e74f6896f0edd0e7ca0ad6ce"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/ui-continuation/ui-full.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra-ui-continuation/ui-full.json",
+      "bytes": 1049592,
+      "sha256": "0608ef13688b4d5c4d3a5bda26764b973b757dd9c0e196c9f5240594e090e5a3"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/ui-continuation/ui.log",
+      "source": "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra-ui-continuation/ui.log",
+      "bytes": 169,
+      "sha256": "1fcaa068e3b830d2526c1c0f4b9d7e7d896dca26dbdeffaffa47ccd7f90a5f51"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/zero-pressure/LIMITS.txt",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure-run/LIMITS.txt",
+      "bytes": 481,
+      "sha256": "4fecaf6dcab7832b982431355cf805d55f87e34478f7dc73818d943f697e4a4a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/zero-pressure/bound-inputs.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure-run/bound-inputs.json",
+      "bytes": 3506,
+      "sha256": "1ffc6e8e4dc6d9c776d6d22f3c89e24f47faf3e301fbc15a34010610738761de"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/zero-pressure/child.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure-run/child.json",
+      "bytes": 185,
+      "sha256": "2f8d005b1b91bcbd496136a8d3491a11417ce43a6fb5ebe950c40beb8984fc5f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/zero-pressure/diagnostic.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure-run/diagnostic.json",
+      "bytes": 5861,
+      "sha256": "ba0712c901752a8145aa8ea2939beaf1b957588753bed39ef53291358f1f82a1"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/zero-pressure/freeze-current.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure-run/freeze-current.json",
+      "bytes": 209381,
+      "sha256": "38eec62c2abc1d986379e7756ddb630bef26b66acd4253cea8e355e3642dc87a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/zero-pressure/freeze.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure-run/freeze.json",
+      "bytes": 209381,
+      "sha256": "38eec62c2abc1d986379e7756ddb630bef26b66acd4253cea8e355e3642dc87a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/zero-pressure/results.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure-run/results.json",
+      "bytes": 28720,
+      "sha256": "0cab81d135eaf81ebb96bdbdc561f537e6c5cfd1e8bf90219b5e92c3b8f13533"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/zero-pressure/run.log",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure-run/run.log",
+      "bytes": 5783,
+      "sha256": "380dee208fd9a0643c4e1b326d5eb4774c1d970e7d036231e16df0ea9785a268"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/handoff-freeze-incident-1032/HANDOFF.after-hook.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1032/HANDOFF.after-hook.md",
+      "bytes": 122124,
+      "sha256": "c93d3abab5da95a5faf9b428ac3a4ea2d35a40008d469272447b91b6f453f549"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/handoff-freeze-incident-1032/HANDOFF.before-hook.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1032/HANDOFF.before-hook.md",
+      "bytes": 121566,
+      "sha256": "7996863bbf22755643a96e0cebfa8e8c06b5d2b8dfcd46ab1a97a65921dd45b4"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/handoff-freeze-incident-1032/HANDOFF.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1032/HANDOFF.patch",
+      "bytes": 1829,
+      "sha256": "203bf4968332b4d7df9b2658b5554a73fdae8b69ae8847a78438cea08c9febf7"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/handoff-freeze-incident-1032/OBSERVATION.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1032/OBSERVATION.json",
+      "bytes": 1409,
+      "sha256": "61f5abd51b93d3c14cef9b8a831b6e44781fa99250b3635b3952aaa8cd0c30e2"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/handoff-freeze-incident-1032/freeze-at-start.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1032/freeze-at-start.json",
+      "bytes": 209353,
+      "sha256": "6a41d1e229f76c7297f174252899d021c1c9994d7b19b4a9058c7ba132ce3405"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/handoff-freeze-incident-1032/freeze-last-successful-postflight.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1032/freeze-last-successful-postflight.json",
+      "bytes": 209353,
+      "sha256": "6a41d1e229f76c7297f174252899d021c1c9994d7b19b4a9058c7ba132ce3405"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/handoff-freeze-incident-1032/freeze-observed-after-hook.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1032/freeze-observed-after-hook.json",
+      "bytes": 209381,
+      "sha256": "2a9bf3de5cc5e0c83f7f23406e7823bac35839a5979d6ae82cdf65f84546cb9a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/handoff-freeze-incident-1032/status.z",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1032/status.z",
+      "bytes": 7663,
+      "sha256": "59e747245d82deaee6ab4997af3f82c694288d63fc54917eccb330bce8e5689b"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/handoff-freeze-incident-1146/HANDOFF.after-hook.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1146/HANDOFF.after-hook.md",
+      "bytes": 122088,
+      "sha256": "7fb2975c129c2ebd1f5135e1c407817f17afa053903e6ae8d968d7ffc2234a4e"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/handoff-freeze-incident-1146/HANDOFF.before-hook.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1146/HANDOFF.before-hook.md",
+      "bytes": 122124,
+      "sha256": "c93d3abab5da95a5faf9b428ac3a4ea2d35a40008d469272447b91b6f453f549"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/handoff-freeze-incident-1146/HANDOFF.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1146/HANDOFF.patch",
+      "bytes": 1793,
+      "sha256": "e515fac9c5f5f482ecb2776b1090db6390efa214b9f871f1354ba199f8007bce"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/handoff-freeze-incident-1146/HANDOFF.second-stamp.patch",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1146/HANDOFF.second-stamp.patch",
+      "bytes": 982,
+      "sha256": "61ff6c1d3cc3284d6eb44affefa86bfaf2b50b074f415299725b5c65ab2f748d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/handoff-freeze-incident-1146/INTERPRETATION.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1146/INTERPRETATION.json",
+      "bytes": 443,
+      "sha256": "9ea77fcb8ee05f29f19d6955c2beff50ecb43c8f6bd8db55d64cd7fa8bfb2a84"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/handoff-freeze-incident-1146/OBSERVATION.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1146/OBSERVATION.json",
+      "bytes": 1502,
+      "sha256": "4e9b33dbfffb9fd77ad09da6f72f4588f690d59e7532eca0b61c70f222c0c640"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/handoff-freeze-incident-1146/PROSPECTIVE-DISPOSITION.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1146/PROSPECTIVE-DISPOSITION.md",
+      "bytes": 3825,
+      "sha256": "6821630afc1cccc11eb71b20e1937e8551ae186ab19369c51b78d777d8b740b6"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/handoff-freeze-incident-1146/freeze-at-ui-start.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1146/freeze-at-ui-start.json",
+      "bytes": 209381,
+      "sha256": "2a9bf3de5cc5e0c83f7f23406e7823bac35839a5979d6ae82cdf65f84546cb9a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/handoff-freeze-incident-1146/freeze-last-successful-postflight.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1146/freeze-last-successful-postflight.json",
+      "bytes": 209381,
+      "sha256": "2a9bf3de5cc5e0c83f7f23406e7823bac35839a5979d6ae82cdf65f84546cb9a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/handoff-freeze-incident-1146/freeze-observed-after-hook.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1146/freeze-observed-after-hook.json",
+      "bytes": 209381,
+      "sha256": "38eec62c2abc1d986379e7756ddb630bef26b66acd4253cea8e355e3642dc87a"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/handoff-freeze-incident-1146/status.z",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/handoff-freeze-incident-1146/status.z",
+      "bytes": 7663,
+      "sha256": "59e747245d82deaee6ab4997af3f82c694288d63fc54917eccb330bce8e5689b"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/r7q2-core-comparison.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-core-comparison.json",
+      "bytes": 555604,
+      "sha256": "b8d7fcb5168ab2e6b0efa5be94e17623b000d4303aeeb8b1730bad8391c636f8"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/r7q2-d16-comparison.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-d16-comparison.json",
+      "bytes": 2983,
+      "sha256": "99f992ed0adffaf10d0d8ccc884160158f529239cbdb4e1903f156b4389f419f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/r7q2-ui-terminal-comparison.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-ui-terminal-comparison.json",
+      "bytes": 3508486,
+      "sha256": "0dd7cdb5d61168de4a7190ebf84a569a9adb6d2db8e0d7f28416524d6ba7ddce"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/r7q2-zero-pressure-comparison.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure-comparison.json",
+      "bytes": 24731,
+      "sha256": "b089f2ad22a71083277f994a669c24a76c882fe12d223e402fcd5af9ea006cff"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/founding-r7q2-terminal-observation.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/founding-r7q2-terminal-observation.json",
+      "bytes": 652,
+      "sha256": "acd4333a66122ee3fdc650b134c3206056e9088db28faa493df7995e22e36248"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/founding-r7q2-prepublication-source.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/founding-r7q2-prepublication-source.json",
+      "bytes": 642,
+      "sha256": "b256b42a1bf199ecffc088a73d53e7a42ef8f524f32dd6adf5c6194c1b0da73e"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/FOUNDING-R7Q2-CORE-COVERAGE-REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/FOUNDING-R7Q2-CORE-COVERAGE-REVIEW.md",
+      "bytes": 8261,
+      "sha256": "8ae3f4d3f907d2b230c21401a0145862ad8d2dee6a79fe726dba5776162fab33"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/FOUNDING-R7Q2-CORE-DIAGNOSTICS.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/FOUNDING-R7Q2-CORE-DIAGNOSTICS.md",
+      "bytes": 18074,
+      "sha256": "11665a6f9e7638709a9722a6a6851149acb4d3909ad9eedeef811d24a000d714"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/FOUNDING-R7Q2-CORE-DIAGNOSTICS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/FOUNDING-R7Q2-CORE-DIAGNOSTICS.json",
+      "bytes": 56379,
+      "sha256": "840ddecf44e3bd043c88ed0283028f6ac89a0fd4588573cccad89399a8ddd0e0"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/FOUNDING-R7Q2-QUALIFICATION-DRAFT.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/FOUNDING-R7Q2-QUALIFICATION-DRAFT.md",
+      "bytes": 11204,
+      "sha256": "9d1c62fb3b8ccf608a86cea4ef58220ebbae4a62ea4c7eb9eaea76cdc770aeb8"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/FOUNDING-R7Q2-INDEPENDENT-QUALIFICATION-FINAL.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/FOUNDING-R7Q2-INDEPENDENT-QUALIFICATION-FINAL.md",
+      "bytes": 7561,
+      "sha256": "989ae4593d9f2c0c94b759226a895bd3b4240cedb82186840833f911742ce656"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/HANDOFF-FREEZE-INCIDENT-REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/HANDOFF-FREEZE-INCIDENT-REVIEW.md",
+      "bytes": 12861,
+      "sha256": "4f679d7c6f4e3708917c8c220720c68cc6f079bae7c5e15b4e935fd7d0285e50"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/HANDOFF-FREEZE-DISPOSITION.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/HANDOFF-FREEZE-DISPOSITION.md",
+      "bytes": 2522,
+      "sha256": "6cfb0abfb05bfa18fa89070d343ab0cbdda820a3f9ecd1fde14507cc9fb7eec8"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/HANDOFF-SECOND-FREEZE-INDEPENDENT-REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/HANDOFF-SECOND-FREEZE-INDEPENDENT-REVIEW.md",
+      "bytes": 2450,
+      "sha256": "86c96164ba409b0776c7c67dcc52e9ff96fa026784fd7a25a7457d40439792f3"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/HANDOFF-SECOND-FREEZE-DISPOSITION.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/HANDOFF-SECOND-FREEZE-DISPOSITION.md",
+      "bytes": 3697,
+      "sha256": "601d9f1b8906e9660fc19563f75643b15a7028f702388b7963d31ba7333714e0"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/R7Q2-ZERO-PRESSURE-PROPOSAL.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/R7Q2-ZERO-PRESSURE-PROPOSAL.md",
+      "bytes": 3408,
+      "sha256": "495f5bdfec3214db624cf371a82d217bfc1870f09e736b8b8a5507d6ca63b607"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/R7Q2-ZERO-PRESSURE-INDEPENDENT-REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/R7Q2-ZERO-PRESSURE-INDEPENDENT-REVIEW.md",
+      "bytes": 4789,
+      "sha256": "16308045f99f2acd2b38e2ba1c96640e2dcd8ebdeb46284babe7281313b3067d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/R7Q2-ZERO-PRESSURE-WRAPPER-INDEPENDENT-REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/R7Q2-ZERO-PRESSURE-WRAPPER-INDEPENDENT-REVIEW.md",
+      "bytes": 5004,
+      "sha256": "cf1add2807869be8f41808c47fc5f71c9a970f12b4108d7e0c8931e6022ee90d"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/R7Q2-ZERO-PRESSURE-WRAPPER-AMENDMENT-REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/R7Q2-ZERO-PRESSURE-WRAPPER-AMENDMENT-REVIEW.md",
+      "bytes": 2234,
+      "sha256": "88ee3caad6c9bcea7370f9bc96e6fb366226717c4c2212a2d594b5a480f6dc00"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/continue-founding-r7q2-ui.sh",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/continue-founding-r7q2-ui.sh",
+      "bytes": 21749,
+      "sha256": "faf7f515ac74887c7ecfae8f67aa55f200cd0b7fdabf1f03c50ab0fa35704d22"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/continue-founding-r7q2-ui.sh.r1",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/continue-founding-r7q2-ui.sh.r1",
+      "bytes": 16403,
+      "sha256": "95cbbe79ecf8c96a2a847977bcc0eef1ed23ac4bbc777c905a85737106393b79"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/run-r7q2-zero-pressure.sh",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/run-r7q2-zero-pressure.sh",
+      "bytes": 22956,
+      "sha256": "3a288249e1c1f551448c62207605d0119482e2a24efbb445badd585d13d8c5f5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/run-r7q2-zero-pressure.sh.r1",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/run-r7q2-zero-pressure.sh.r1",
+      "bytes": 19008,
+      "sha256": "2ffd76b78f876275f77b3cc71c530a2f16a10edd994c829863ac65b65d8f81dc"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/r7q2-zero-pressure.config.mjs",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure.config.mjs",
+      "bytes": 1744,
+      "sha256": "0d007cbe8af08a5a8118fd5903b9175ee1e8e96d8c8a15afadc1b5376fd2ba18"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/r7q2-zero-pressure.setup.ts",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure.setup.ts",
+      "bytes": 1003,
+      "sha256": "e1d460eae7628f638a4b633d7c836e12cdbbc8f3a7b95ac1325eb268d07bacf9"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/founding-r7q2-gate.log",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/founding-r7q2-gate.log",
+      "bytes": 893,
+      "sha256": "717b932ffa76aef021a20b4be77f3649217c9329ba1aece363c33f63ccca62b5"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/founding-r7q2-gate.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/founding-r7q2-gate.log.meta",
+      "bytes": 610,
+      "sha256": "1d66290740aa32886b229a7cc2ef9f62e173c9a3ab9aa8d8b43ce64825f2b9a1"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/founding-r7q2-ui-continuation.log",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/founding-r7q2-ui-continuation.log",
+      "bytes": 207,
+      "sha256": "a877696f53ba9c11316a22f5a3d1794c0cb2f05d6e01bc14c351b2c144484a97"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/founding-r7q2-ui-continuation.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/founding-r7q2-ui-continuation.log.meta",
+      "bytes": 219,
+      "sha256": "e995eb40ae492fdb26cfd740b7ee65603b699fb2edcce617f5780a74bdc8b67f"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/founding-r7q2-zero-pressure.log",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/founding-r7q2-zero-pressure.log",
+      "bytes": 269,
+      "sha256": "53677f5c4affff1a150ed6a00c826a3f92690fc64b6d3507d7fedb4cf45ea55b"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/founding-r7q2-zero-pressure.log.meta",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/founding-r7q2-zero-pressure.log.meta",
+      "bytes": 215,
+      "sha256": "05aa58a6649f4fac293cd685bda6a56e82cf80a29d4739efea8a68aff539c2b3"
+    },
+    {
+      "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/FOUNDING-R7Q2-PUBLICATION-REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/FOUNDING-R7Q2-PUBLICATION-REVIEW.md",
+      "bytes": 2463,
+      "sha256": "b0bccc24dc672f3154d41620a5a62f66d423e6a73d964ab669a56d98c80f979f"
+    }
+  ]
+}

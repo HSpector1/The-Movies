@@ -1,0 +1,44 @@
+{
+  "childExit": 1,
+  "executed": [
+    {
+      "file": "bridge-p14b5-relationships.test.ts",
+      "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+      "status": "failed",
+      "messages": [
+        "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(40) ] to have a length of 48 but got 41\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1339:22)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/chai/index.js:1686:25)\n    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b5-relationships.test.ts:546:54\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:5\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:11)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ]
+    },
+    {
+      "file": "bridge-p14b5-relationships.test.ts",
+      "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+      "status": "failed",
+      "messages": [
+        "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(41) ] to have a length of 48 but got 42\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1339:22)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/chai/index.js:1686:25)\n    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b5-relationships.test.ts:545:18\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:5\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:11)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ]
+    },
+    {
+      "file": "p14b4-rival-seating-preference.test.ts",
+      "fullName": "P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225) seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+      "status": "failed",
+      "messages": [
+        "AssertionError: expected 'd32e68f685f658666d620bd3faee2841a3af4\u2026' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2\u2026' // Object.is equality\n    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-rival-seating-preference.test.ts:498:20\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:633:57\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ]
+    }
+  ],
+  "skipped": 34,
+  "todo": 0,
+  "suiteDiagnostics": [
+    {
+      "name": "/Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b5-relationships.test.ts",
+      "status": "failed",
+      "message": ""
+    },
+    {
+      "name": "/Users/zacheryspector/The-Movies-headless-program/tests/p14b4-rival-seating-preference.test.ts",
+      "status": "failed",
+      "message": ""
+    }
+  ],
+  "limits": "Counterfactual diagnostic only; no assertions changed, no new golden or live-law acceptance. Parent compares distinct R8 total/settled/hash observations."
+}

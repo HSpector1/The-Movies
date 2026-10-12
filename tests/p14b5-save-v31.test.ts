@@ -29,6 +29,7 @@ import {
   migrateToLive, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSave, validateSaveV29,
   validateSaveV30, validateSaveV31,
 } from '../src/core/save.js'
+import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
 
 // ── the T0 corpus: tests/fixtures/p14/genuine-v30-pre-b5 (MANIFEST.json written last; pins copied from it at HEAD) ──
 const V30_NAMES = [
@@ -193,7 +194,7 @@ function liftsLosslessly(raw: string, save: V30Save) {
 // ─────────────────────────────────────────────────────────────────────────────────────────────────────
 describe('P14B.5 frozen side — the OUTGOING identities and the T0 corpus (GREEN today; moves only at the T2 values-only sweep)', () => {
   it('LIVE_SAVE_VERSION is the literal 45 the live writer stamps (stale title corrected post-C.2b and again for Save43; body always asserted the live constant); 30 is the OUTGOING identity (R-VERSION class, re-expressed by 735-T after P14B.7 landed V32)', () => {
-    expect(LIVE_SAVE_VERSION).toBe(46)
+    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
     expect(V30_AUTHORITY.saveVersion).toBe(30)
   })
 

@@ -83,6 +83,16 @@ import type { GameState } from '../src/core/types.js'
 import { technologyAnnouncements, technologyForecast } from '../src/core/technologyDisclosure.js'
 
 const SEED = 'p13b-s7-independence-01'
+/** The week the rival-purchase pair is built at. Pre-1365 this was the sound commercial week itself,
+ * `RIVAL_PURCHASE_WEEK_PRE_1365` (studio-0047c463-r02 bought at 416 at R8 HEAD db3fc572). Under the 1365 market law
+ * (P15A.1(c) active, SHARED_MARKET_FACTOR_MAX_PENALTY 0.15) no business can buy at 416; the first week >= 416 at
+ * which one does is 417, the same studio (deterministic forward search from 416 on this exact world, 1370-AR r3
+ * evidence/r3/p13b-s7-witness-r3tree-nolab.json; with the penalty forced to 0 every rival balance at 416 and the
+ * purchase week are byte-identical to R8 HEAD, so the factor alone moved the premise). Every forecast and
+ * announcement below reads `base.market.tick`, and 417 < 884 keeps lighting windowed and unannounced; the sound
+ * forecast's `commercialWeek: 416` is the catalogue's own fact and is untouched. */
+const RIVAL_PURCHASE_WEEK_PRE_1365 = 416
+const RIVAL_PURCHASE_WEEK = 417
 
 /** Real rival commercial sound purchase, looped exactly as tests/p13a-rival-adoption.test.ts does. */
 function withRivalPurchase(state: GameState): GameState {
@@ -93,7 +103,7 @@ function withRivalPurchase(state: GameState): GameState {
     if (result !== state.technology) break
   }
   if (result === state.technology) {
-    throw new Error('p13b-s7-independence fixture: no rival business purchased sound technology at week 416 — widen the seed/business pool')
+    throw new Error(`p13b-s7-independence fixture: no rival business purchased sound technology at week ${String(RIVAL_PURCHASE_WEEK)} (pre-1365 premise: week ${String(RIVAL_PURCHASE_WEEK_PRE_1365)}) — widen the seed/business pool`)
   }
   return { ...state, hollywood, technology: result }
 }
@@ -103,7 +113,7 @@ describe('P13B-S7 rival-independence: identical forecast/announcements across st
   let rivalVariant: GameState
 
   beforeAll(() => {
-    base = advanceTo(p13aGeneratedStudio(SEED), 416)
+    base = advanceTo(p13aGeneratedStudio(SEED), RIVAL_PURCHASE_WEEK)
     rivalVariant = withRivalPurchase(base)
   }, 30_000)
 
@@ -117,7 +127,7 @@ describe('P13B-S7 rival-independence: identical forecast/announcements across st
     expect(rivalVariant.placement).toEqual(base.placement)
   })
 
-  it('lighting forecast (windowed) is byte-identical across the two rival-divergent states at week 416', () => {
+  it(`lighting forecast (windowed) is byte-identical across the two rival-divergent states at week ${String(RIVAL_PURCHASE_WEEK)}`, () => {
     const entry = technologyEntry('lighting-control-01')
     const fromBase = technologyForecast(entry, base.market.tick)
     const fromRivalVariant = technologyForecast(entry, rivalVariant.market.tick)
@@ -126,7 +136,7 @@ describe('P13B-S7 rival-independence: identical forecast/announcements across st
     expect(fromBase).toEqual({ kind: 'window', fromWeek: 884, toWeek: 988 })
   })
 
-  it('sound forecast (exact) is byte-identical across the two rival-divergent states at week 416', () => {
+  it(`sound forecast (exact) is byte-identical across the two rival-divergent states at week ${String(RIVAL_PURCHASE_WEEK)}`, () => {
     const entry = technologyEntry('synchronized-sound')
     const fromBase = technologyForecast(entry, base.market.tick)
     const fromRivalVariant = technologyForecast(entry, rivalVariant.market.tick)
@@ -134,7 +144,7 @@ describe('P13B-S7 rival-independence: identical forecast/announcements across st
     expect(fromBase).toEqual({ kind: 'exact', commercialWeek: 416, announcedWeek: 416 })
   })
 
-  it('technologyAnnouncements(416) is byte-identical (both empty — lighting has not announced yet) across the two states', () => {
+  it(`technologyAnnouncements(${String(RIVAL_PURCHASE_WEEK)}) is byte-identical (both empty — lighting has not announced yet) across the two states`, () => {
     const fromBase = technologyAnnouncements(base.market.tick)
     const fromRivalVariant = technologyAnnouncements(rivalVariant.market.tick)
     expect(fromRivalVariant).toEqual(fromBase)
@@ -175,7 +185,7 @@ describe('P13B-S7 rival-independence: identical forecast/announcements across st
     expect(rivalVariant900.operations).toEqual(base900.operations)
     expect(rivalVariant900.placement).toEqual(base900.placement)
     expect(rivalVariant900.technology.access).toEqual(base900.technology.access)
-    // The forged fact itself survived every tick from 416 to 900, unreconciled.
+    // The forged fact itself survived every tick from RIVAL_PURCHASE_WEEK to 900, unreconciled.
     expect(() => save.exportCurrentState(rivalVariant900)).not.toThrow()
 
     const entry = technologyEntry('lighting-control-01')

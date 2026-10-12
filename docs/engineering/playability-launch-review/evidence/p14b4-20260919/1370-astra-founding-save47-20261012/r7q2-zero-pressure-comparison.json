@@ -1,0 +1,210 @@
+{
+  "observedUTC": "2026-10-12T16:57:42.294780+00:00",
+  "actualToolSession": 16513,
+  "actualToolExit": 1,
+  "oldPIDsAbsent": [
+    72347,
+    72360,
+    72361,
+    72412,
+    72415
+  ],
+  "laneLockAbsent": true,
+  "strictFreezeEqual": true,
+  "boundInputsUnchanged": true,
+  "child": {
+    "name": "r7q2-zero-pressure-original3",
+    "exit": 1,
+    "seconds": 33,
+    "node": "v20.20.2",
+    "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure-run/run.log"
+  },
+  "targetsMatched": 3,
+  "comparisons": [
+    {
+      "file": "bridge-p14b5-relationships.test.ts",
+      "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+      "result": "R8 and zero pass preceding TOTAL48 then fail SETTLED41 versus expected48. Active fails earlier TOTAL47; active settled unknown.",
+      "assertions": {
+        "R8": {
+          "ancestorTitles": [
+            "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts)"
+          ],
+          "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+          "status": "failed",
+          "title": "seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+          "duration": 49754.29111100001,
+          "failureMessages": [
+            "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(40) ] to have a length of 48 but got 41\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1339:22)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/chai/index.js:1686:25)\n    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b5-relationships.test.ts:545:54\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:5\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:11)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+          ],
+          "meta": {}
+        },
+        "active": {
+          "ancestorTitles": [
+            "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts)"
+          ],
+          "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+          "status": "failed",
+          "title": "seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+          "duration": 8325.717977,
+          "failureMessages": [
+            "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(46) ] to have a length of 48 but got 47\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1339:22)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/chai/index.js:1686:25)\n    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b5-relationships.test.ts:545:18\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:5\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:11)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+          ],
+          "meta": {}
+        },
+        "zero": {
+          "ancestorTitles": [
+            "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts)"
+          ],
+          "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+          "status": "failed",
+          "title": "seed-b: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+          "duration": 9808.277625,
+          "failureMessages": [
+            "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(40) ] to have a length of 48 but got 41\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1339:22)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/chai/index.js:1686:25)\n    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b5-relationships.test.ts:546:54\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:5\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:11)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+          ],
+          "meta": {}
+        }
+      }
+    },
+    {
+      "file": "bridge-p14b5-relationships.test.ts",
+      "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+      "result": "TOTAL42 at R8 and zero; TOTAL36 active; stale expected48 remains failed.",
+      "assertions": {
+        "R8": {
+          "ancestorTitles": [
+            "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts)"
+          ],
+          "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+          "status": "failed",
+          "title": "p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+          "duration": 32190.357819999976,
+          "failureMessages": [
+            "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(41) ] to have a length of 48 but got 42\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1339:22)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/chai/index.js:1686:25)\n    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b5-relationships.test.ts:544:18\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:5\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:11)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+          ],
+          "meta": {}
+        },
+        "active": {
+          "ancestorTitles": [
+            "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts)"
+          ],
+          "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+          "status": "failed",
+          "title": "p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+          "duration": 5176.357473999997,
+          "failureMessages": [
+            "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(35) ] to have a length of 48 but got 36\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1339:22)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/chai/index.js:1686:25)\n    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b5-relationships.test.ts:545:18\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:5\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:11)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+          ],
+          "meta": {}
+        },
+        "zero": {
+          "ancestorTitles": [
+            "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts)"
+          ],
+          "fullName": "family 12 \u2014 the R-D5 natural-chain LEDGER (measured; the frozen controls MUST NOT move at T2; after T2 every settlement is checked against the D5 receipt facts) p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+          "status": "failed",
+          "title": "p13-public-commercial-adoption: chain digests, row counts, churn rosters empty under D1, zero exposed rows through 416; the nine frozen drop templates only",
+          "duration": 6295.1367310000005,
+          "failureMessages": [
+            "AssertionError: expected [ { week: 208, \u2026(11) }, \u2026(41) ] to have a length of 48 but got 42\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1339:22)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/chai/index.js:1686:25)\n    at /Users/zacheryspector/The-Movies-headless-program/tests/bridge-p14b5-relationships.test.ts:545:18\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:5\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:11)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+          ],
+          "meta": {}
+        }
+      }
+    },
+    {
+      "file": "p14b4-rival-seating-preference.test.ts",
+      "fullName": "P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225) seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+      "result": "R8 and zero received matching pre211 ordered decision-projection digest; active digest differs. Stale expectedf9cd remains failed.",
+      "assertions": {
+        "R8": {
+          "ancestorTitles": [
+            "P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225)"
+          ],
+          "fullName": "P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225) seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+          "status": "failed",
+          "title": "seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+          "duration": 49469.210532000005,
+          "failureMessages": [
+            "AssertionError: expected 'd32e68f685f658666d620bd3faee2841a3af4\u2026' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2\u2026' // Object.is equality\n    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-rival-seating-preference.test.ts:498:20\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:633:57\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+          ],
+          "meta": {}
+        },
+        "active": {
+          "ancestorTitles": [
+            "P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225)"
+          ],
+          "fullName": "P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225) seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+          "status": "failed",
+          "title": "seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+          "duration": 10284.330598999997,
+          "failureMessages": [
+            "AssertionError: expected 'f6cf3e4ab40962481f33a7aa5876700cb7f6d\u2026' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2\u2026' // Object.is equality\n    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-rival-seating-preference.test.ts:498:20\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:633:57\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+          ],
+          "meta": {}
+        },
+        "zero": {
+          "ancestorTitles": [
+            "P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225)"
+          ],
+          "fullName": "P14B4 final seating preference \u2014 no-preference path and viability gates (plan :223-225) seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+          "status": "failed",
+          "title": "seed-b: every real film decision without members equals the pre-existing choice and pool; every decision seats the law pick over the pool the seam law derives; a null choice only when no permutation is viable",
+          "duration": 11231.629146000001,
+          "failureMessages": [
+            "AssertionError: expected 'd32e68f685f658666d620bd3faee2841a3af4\u2026' to be 'f9cd2a86368b222882e84776b30f8a8d3f5b2\u2026' // Object.is equality\n    at /Users/zacheryspector/The-Movies-headless-program/tests/p14b4-rival-seating-preference.test.ts:498:20\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:633:57\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+          ],
+          "meta": {}
+        }
+      }
+    }
+  ],
+  "references": {
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ar-post-r8-baseline-20261011/core-db3fc572-vitest.json": {
+      "bytes": 2686660,
+      "sha256": "8376836ddf7ce2cbe32eeaa898ec6db4e15ae1c0dc802a2382d25bb97e5a58ec"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/core-full.json": {
+      "bytes": 2670555,
+      "sha256": "05b6f8c6eb9ac3cbb34e14febfff727294814a79367d9d340c5358aad1028dbb"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure-run/results.json": {
+      "bytes": 28720,
+      "sha256": "0cab81d135eaf81ebb96bdbdc561f537e6c5cfd1e8bf90219b5e92c3b8f13533"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure-run/run.log": {
+      "bytes": 5783,
+      "sha256": "380dee208fd9a0643c4e1b326d5eb4774c1d970e7d036231e16df0ea9785a268"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure-run/diagnostic.json": {
+      "bytes": 5861,
+      "sha256": "ba0712c901752a8145aa8ea2939beaf1b957588753bed39ef53291358f1f82a1"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure-run/child.json": {
+      "bytes": 185,
+      "sha256": "2f8d005b1b91bcbd496136a8d3491a11417ce43a6fb5ebe950c40beb8984fc5f"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure-run/freeze.json": {
+      "bytes": 209381,
+      "sha256": "38eec62c2abc1d986379e7756ddb630bef26b66acd4253cea8e355e3642dc87a"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure-run/freeze-current.json": {
+      "bytes": 209381,
+      "sha256": "38eec62c2abc1d986379e7756ddb630bef26b66acd4253cea8e355e3642dc87a"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/r7q2-zero-pressure-run/bound-inputs.json": {
+      "bytes": 3506,
+      "sha256": "1ffc6e8e4dc6d9c776d6d22f3c89e24f47faf3e301fbc15a34010610738761de"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/founding-r7q2-zero-pressure.log": {
+      "bytes": 269,
+      "sha256": "53677f5c4affff1a150ed6a00c826a3f92690fc64b6d3507d7fedb4cf45ea55b"
+    },
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/founding-r7q2-zero-pressure.log.meta": {
+      "bytes": 215,
+      "sha256": "05aa58a6649f4fac293cd685bda6a56e82cf80a29d4739efea8a68aff539c2b3"
+    }
+  },
+  "limits": "Bounded pressure mediation of these observed differences. Original three historical assertions remain failures. No downstream ledger equality, stale-pin approval, full-gate pass, slice landing or Owner acceptance."
+}

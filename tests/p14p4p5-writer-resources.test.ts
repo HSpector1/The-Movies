@@ -11,6 +11,7 @@ import { activeContract, busyTalentIds } from '../src/core/employment.js'
 import { occupiedResourceSlots, resourceClaimsOf } from '../src/core/occupancy.js'
 import type { PromiseDraft } from '../src/core/promises.js'
 import type { Action, GameState, ScriptProject } from '../src/core/types.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 const E = new URL('../docs/engineering/playability-launch-review/evidence/p14b4-20260919/', import.meta.url)
 const WRITING_ACTOR = 'authored-0001', OTHER_WRITER = 'authored-0003', IDLE_ACTOR = 'authored-0005'
@@ -47,7 +48,7 @@ function memo(name: string, build: () => GameState): GameState {
 }
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(46); expect(saves.validateSaveV46(save)).toBe(save)
+  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(validateLiveSave(save)).toBe(save)
   const raw = saves.exportSave(save)
   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
 }

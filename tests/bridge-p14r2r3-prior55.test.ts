@@ -65,7 +65,7 @@ import {
   encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS,
 } from '../bridge/runtime-checkpoint.ts'
-import { exportSave, migrateToLive, validateSaveV40, validateSaveV46 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, exportSave, migrateToLive, validateSaveV40, validateSaveV47 } from '../src/core/save.js'
 
 const FIXTURES = new URL('./fixtures/p14/genuine-runtime55-pre-r3/', import.meta.url)
 const OLD_SCHEMA = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158'
@@ -159,7 +159,9 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
-    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
+    // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
 }
 
 describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to current56, and each Save40 slot migrates to Save41 independently', () => {
@@ -204,8 +206,8 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
       const nextRaw = current[slot]
       expect(nextRaw, `${slot} must be present on the migrated checkpoint`).toBeTruthy()
       const previous = validateSaveV40(JSON.parse(old.value[slot]))
-      const now = validateSaveV46(JSON.parse(nextRaw!))
-      expect(now.saveVersion).toBe(46)
+      const now = validateSaveV47(JSON.parse(nextRaw!))
+      expect(now.saveVersion).toBe(LIVE_SAVE_VERSION)
       // new.state equals old.state with termination:0 added to every rival finance period's
       // movements, and nothing else — the same fact p14r3-save-v41.test.ts asserts directly
       // on the raw fixtures, independently re-derived here through the runtime-checkpoint path.

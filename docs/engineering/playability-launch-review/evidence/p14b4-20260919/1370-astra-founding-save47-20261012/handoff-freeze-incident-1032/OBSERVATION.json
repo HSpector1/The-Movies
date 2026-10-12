@@ -1,0 +1,43 @@
+{
+  "observedUTC": "2026-10-12T15:38:53.480975+00:00",
+  "HEAD": "77e1247c76befe478b37c2e3eab7c365c7fe06eb",
+  "unstagedPaths": [
+    "HANDOFF.md"
+  ],
+  "changedFreezeKeys": [
+    "diff",
+    "status"
+  ],
+  "outsideAUTOIdentical": true,
+  "files": {
+    "freeze-at-start.json": {
+      "bytes": 209353,
+      "sha256": "6a41d1e229f76c7297f174252899d021c1c9994d7b19b4a9058c7ba132ce3405"
+    },
+    "status.z": {
+      "bytes": 7663,
+      "sha256": "59e747245d82deaee6ab4997af3f82c694288d63fc54917eccb330bce8e5689b"
+    },
+    "HANDOFF.before-hook.md": {
+      "bytes": 121566,
+      "sha256": "7996863bbf22755643a96e0cebfa8e8c06b5d2b8dfcd46ab1a97a65921dd45b4"
+    },
+    "HANDOFF.after-hook.md": {
+      "bytes": 122124,
+      "sha256": "c93d3abab5da95a5faf9b428ac3a4ea2d35a40008d469272447b91b6f453f549"
+    },
+    "freeze-observed-after-hook.json": {
+      "bytes": 209381,
+      "sha256": "2a9bf3de5cc5e0c83f7f23406e7823bac35839a5979d6ae82cdf65f84546cb9a"
+    },
+    "freeze-last-successful-postflight.json": {
+      "bytes": 209353,
+      "sha256": "6a41d1e229f76c7297f174252899d021c1c9994d7b19b4a9058c7ba132ce3405"
+    },
+    "HANDOFF.patch": {
+      "bytes": 1829,
+      "sha256": "203bf4968332b4d7df9b2658b5554a73fdae8b69ae8847a78438cea08c9febf7"
+    }
+  },
+  "claim": "Incident observation only. Original gate remains running; no freeze exemption, source edit, restore or gate success is implied."
+}

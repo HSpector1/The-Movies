@@ -1,0 +1,11 @@
+# Final wrapper amendment review
+
+GPT-6.1 Sol, 2026-10-12. Reviewed final run-r7q2-zero-pressure.sh against preserved .sh.r1, independently verified all11 terminal/incident hash pins, and ran bash -n only (exit0). No execution, tests/compiler, source/production/package/live-output changes or process actions.
+
+KEEP for parent adoption and scheduling under the existing lane. Exact reviewed script SHA256: 3a288249e1c1f551448c62207605d0119482e2a24efbb445badd585d13d8c5f5. This resolves the prior second-incident launch blocker without granting a metadata exemption to the original gate.
+
+The minimal amendment replaces impossible terminal1/clean-postflight requirements with exact actual terminal98 metadata/log/raw result pins and child0/1140s; validates complete UI JSON; requires the preserved strict-postflight refusal. It explicitly compares original UI start/final snapshots to the two pinned incident snapshots, requires only diff changed, exact current HANDOFF equals the preserved second stamp, and bytes outside the actual unique AUTO markers equal. All11 embedded terminal pins matched the preserved bytes during review. The fresh diagnostic freeze must equal the exact second observed snapshot; subsequent checks remain strict, so a third stamp or any source/index/input drift refuses. Original evidence is only read and bound, never rewritten.
+
+Original execution, ownership, disk/manual-monitoring, formal environment, exact-three selection, worker setup/restoration, complete child/JSON accounting, scratch-only fresh output and repeated freeze/bound-input checks are unchanged from the prior review. No PID controller or signal handling was added. Parent must verify original UI tree terminal and adopt the exact script before launch; the script does not itself turn a terminal log into proof that every OS descendant is gone.
+
+Original core wrapper98, UI wrapper98, core101 failures and d16's12 failures remain. UI child0 is separately complete test evidence, not a clean full gate. Any completed zero-pressure result retains its actual child status and only bounded counterfactual inference; no live-law acceptance, stale-pin approval or full row-equivalence claim is authorized. No further amendment blocker found.

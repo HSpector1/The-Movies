@@ -180,8 +180,10 @@ describe('D-17A/T3 (a) — synthetic fuzz: the per-week partition is exact', () 
 // ══════════════════════════════════════════════════════════════════════════════
 // (b) ENGINE-DRIVEN — the real tick, the real ledger
 // ══════════════════════════════════════════════════════════════════════════════
-function openFounding(seed: string, termWeeks: number, extra = true): GameState {
-  let s = beginFounding(generateWorld(seed))
+function openFounding(seed: string, termWeeks: number, extra = true, headlessWeeks = 0): GameState {
+  let world = generateWorld(seed)
+  for (let i = 0; i < headlessWeeks; i++) world = tick(world) // a headless world: no engaged economy, nothing charged
+  let s = beginFounding(world)
   const pool = s.founding!.applicantIds.map((id) => s.talent.find((t) => t.id === id)!)
   const byRole = (role: CreativeRole, n: number) => pool.filter((t) => t.role === role).slice(0, n)
   const toSign = extra
@@ -253,10 +255,13 @@ function advance(s: GameState, n: number): GameState {
   return out
 }
 
-/** founding prefix → idle → two overlapping productions → runs → trailing idle. */
+/** pre-founding prefix → idle → two overlapping productions → runs → trailing idle.
+ *  1364 invariant B (1370-AR r4 census): an open founding draft no longer ticks, so the zero-charge prefix
+ *  is the lawful pre-founding one: the world runs three headless weeks (nothing charged), then founds late
+ *  at week 3. Pre-1364 the draft opened at week 0 and ticked open for those three weeks, also charging
+ *  nothing; the ledger the allocator must reconcile is the same shape (first fixed charge at week 3). */
 function overlapFixture(): GameState {
-  let s = openFounding('d17a-alloc-overlap', 156)
-  s = advance(s, 3) // FOUNDING PREFIX: three weeks charged nothing at all
+  let s = openFounding('d17a-alloc-overlap', 156, true, 3) // PRE-FOUNDING PREFIX: three weeks charged nothing at all
   s = applyActions(s, [{ kind: 'foundStudio' }])
   s = advance(s, 2) // IDLE GAP: founded, paying, no film
   s = greenlight(s, 0)
@@ -395,6 +400,14 @@ describe('D-17A/T3 (b) — engine-driven: the allocation reconciles to the real 
 // (c) NEGATIVE CONTROL — the C1 mistake must be caught by this very invariant
 // ══════════════════════════════════════════════════════════════════════════════
 describe('D-17A/T3 (c) — negative control: a formula-based allocator FAILS the invariant', () => {
+  /** The C1 mistake: price the SIGNED roster every week instead of reading what the tick charged. */
+  const formulaSeriesOf = (s: GameState, win: AllocationWindow): WeeklyOccupancy[] =>
+    fixedCostOccupancy(s, win).map((w) => ({
+      week: w.week,
+      fixedCost: weeklyPayroll(s, w.week) + TUNING.OVERHEAD_BASE + TUNING.OVERHEAD_PER_EMPLOYEE * s.contracts.length,
+      activeProductionIds: w.activeProductionIds,
+    }))
+
   it('recomputing the weekly cost from contracts over-attributes the founding prefix', () => {
     const s = overlapFixture()
     const win = { from: 0, to: s.market.tick - 1 }
@@ -405,12 +418,7 @@ describe('D-17A/T3 (c) — negative control: a formula-based allocator FAILS the
     // … the formula-based one does not. It prices the SIGNED roster every week, including the
     // founding weeks in which the tick charged nothing at all (tick.ts:465/:476) — exactly the
     // C1 mistake the design forbids.
-    const formulaSeries: WeeklyOccupancy[] = fixedCostOccupancy(s, win).map((w) => ({
-      week: w.week,
-      fixedCost: weeklyPayroll(s, w.week) + TUNING.OVERHEAD_BASE + TUNING.OVERHEAD_PER_EMPLOYEE * s.contracts.length,
-      activeProductionIds: w.activeProductionIds,
-    }))
-    const formula = allocateFixedCostSeries(formulaSeries, win)
+    const formula = allocateFixedCostSeries(formulaSeriesOf(s, win), win)
     // it is still internally consistent (it partitions SOMETHING exactly) …
     expect(sumAllocated(formula) + formula.idle).toBe(formula.total)
     // … but what it partitions is not the money the studio spent. THE TEST HAS TEETH.
@@ -423,7 +431,21 @@ describe('D-17A/T3 (c) — negative control: a formula-based allocator FAILS the
     const prefix = { from: 0, to: 2 }
     expect(ledgerFixedCost(s, prefix)).toBe(0) // the engine charged NOTHING
     expect(allocateFixedCosts(s, prefix).total).toBe(0)
-    // the formula would have charged a full roster's payroll for those same weeks
-    expect(weeklyPayroll(s, 0)).toBeGreaterThan(0)
+    // 1364 invariant B (1370-AR r4 census, r5 item E): pre-1364 the prefix held a signed roster ticking with
+    // the draft open, and the leaf read the formula's payroll term there (`weeklyPayroll(s, 0) > 0`). No
+    // lawful week holds an uncharged signed roster now: the prefix is pre-founding. The negative control's
+    // own series must therefore match the tick's charge on every week after the prefix and exceed it on
+    // every prefix week, so the formula's whole over-attribution is its prefix total. A change to the
+    // tick's charges or to the allocator breaks one of these.
+    const win = { from: 0, to: s.market.tick - 1 }
+    const series = formulaSeriesOf(s, win)
+    expect(series.map((w) => w.week)).toEqual(Array.from({ length: s.market.tick }, (_, week) => week))
+    for (const w of series) {
+      const charged = ledgerFixedCost(s, { from: w.week, to: w.week })
+      if (w.week <= prefix.to) expect(w.fixedCost, `prefix week ${w.week}`).toBeGreaterThan(charged)
+      else expect(w.fixedCost, `week ${w.week}`).toBe(charged)
+    }
+    const prefixTotal = series.filter((w) => w.week <= prefix.to).reduce((sum, w) => sum + w.fixedCost, 0)
+    expect(allocateFixedCostSeries(series, win).total - ledgerFixedCost(s, win)).toBe(prefixTotal)
   })
 })

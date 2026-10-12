@@ -1,4 +1,5 @@
 import type { ProfessionValidationContext } from './professionHistory.js'
+import type { FoundingFundingContext } from './foundingFunding.js'
 import { flattenParticipants } from './starPower.js'
 import type { RetirementWritingAuthority } from './retirementWriting.js'
 import { sameContractTerms } from './industryEmployment.js'
@@ -69,7 +70,10 @@ export type HollywoodLeafValidators = {
 // P14D.1 — `rivalShelving` is the Save43 era: `screenplayShelving` on every business and
 // the `screenplayShelved` receipt exist only under it, and an unproduced screenplay is
 // active or shelved, never both; every frozen reader keeps "unproduced ⇔ active".
-export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false): asserts value is HollywoodState | null {
+// 1364 — `foundingFunding` is the Save47 era's validated recruitment-fund context (foundingFunding.ts):
+// a `player-contract` row it names was paid from the founding draft's fund and carries no cash
+// signing row; every frozen reader threads none and keeps the cash rule for every row.
+export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>, research = false, plans: readonly PhysicalPlan[] = [], terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext): asserts value is HollywoodState | null {
   const researchKinds = new Set<string>(RIVAL_RESEARCH_MONEY_KINDS)
   const moneyKinds = RIVAL_MONEY_KINDS.filter(kind =>
     (technology !== undefined || kind !== 'technologyAdoption') && (research || !researchKinds.has(kind)) && (rivalTermination || kind !== 'termination') && (rivalFacilityDisposal || kind !== 'facilityDemolitionRefund'))
@@ -591,10 +595,37 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     const ends=grouped('employment',`${e.contractId}:end`)
     const terminated=ends.length===1&&ends[0]!.kind==='employment'&&ends[0]!.reason==='termination'&&(rivalTermination||e.studioId===h.playerStudioId)
     if(terminated&&e.studioId===h.playerStudioId){const lawful=terminationLaw(e.terms,e.endedWeek!,e.contractId);requireFact(state.ledger.some(row=>row.kind==='termination'&&row.talentId===e.terms.talentId&&row.week===e.endedWeek&&lawful.some(charge=>close(row.amount,-charge))),'employment termination lacks its actual player payment')}
-    if(e.studioId===h.playerStudioId&&e.reason!=='existing-player-contract'&&!(h.origin==='fresh'&&e.reason==='player-contract'&&e.terms.startWeek===0))
+    // 1364: a row the Save47 funding context names was paid from the recruitment fund (its allocation
+    // is proven by foundingFunding.ts); every other row keeps the cash rule exactly as before.
+    if(e.studioId===h.playerStudioId&&e.reason!=='existing-player-contract'&&!(h.origin==='fresh'&&e.reason==='player-contract'&&e.terms.startWeek===0)&&!(foundingFunding?.fundedContractIds.has(e.contractId)??false))
       requireFact(state.ledger.some(row=>row.kind==='signingBonus'&&row.talentId===e.terms.talentId&&row.week===e.terms.startWeek&&close(row.amount,-e.terms.signingBonus)),'employment start lacks its actual player signing payment')
     requireFact(ends.length===(e.endedWeek===e.terms.endWeekExclusive||terminated?1:0),'employment interval lacks exact end receipt or has an extra one')
     if(e.endedWeek!==null&&e.endedWeek<e.terms.endWeekExclusive&&!terminated)requireFact(employmentByPerson.get(e.terms.talentId)!.some(next=>next!==e&&next.studioId===e.studioId&&next.reason==='renewal'&&next.terms.startWeek===e.endedWeek),'early interval end lacks actual replacement renewal')
+  }
+  // 1364 (1364-A §3 "group reconciliation"): for every talent/week signing group that holds a funded
+  // interval, each ordinary interval consumes one distinct matching cash row; a cash row left over
+  // is attributable only to a funded interval and refuses as a double payment. A group with no
+  // funded interval keeps the per-row rule above unchanged.
+  if(foundingFunding!==undefined&&foundingFunding.fundedContractIds.size>0) {
+    const groups=new Map<string,{talentId:string;week:number;funded:number;ordinary:number[]}>()
+    for(const e of h.employment) {
+      if(e.studioId!==h.playerStudioId||e.reason==='existing-player-contract')continue
+      if(h.origin==='fresh'&&e.reason==='player-contract'&&e.terms.startWeek===0)continue
+      const key=`${e.terms.talentId}:${e.terms.startWeek}`
+      const group=groups.get(key)??{talentId:e.terms.talentId,week:e.terms.startWeek,funded:0,ordinary:[]}
+      if(foundingFunding.fundedContractIds.has(e.contractId))group.funded++;else group.ordinary.push(e.terms.signingBonus)
+      groups.set(key,group)
+    }
+    for(const group of groups.values()) {
+      if(group.funded===0)continue
+      const pool=state.ledger.filter(row=>row.kind==='signingBonus'&&row.talentId===group.talentId&&row.week===group.week)
+      for(const bonus of group.ordinary) {
+        const i=pool.findIndex(row=>close(row.amount,-bonus))
+        requireFact(i>=0,'employment start lacks its actual player signing payment')
+        pool.splice(i,1)
+      }
+      requireFact(pool.length===0,`founding signature of ${group.talentId} at week ${group.week} also carries a cash signing payment (double payment)`)
+    }
   }
   for(const c of state.contracts.filter(c=>c.startWeek<=state.market.tick&&state.market.tick<c.endWeekExclusive))requireFact(h.activeEmploymentOrdinals.some(i=>{const e=h.employment[i]!;return e.studioId===h.playerStudioId&&sameContractTerms(e.terms,c)}),'actual player contract lacks industry employment observation')
   for(const b of h.businesses) for(const p of b.projects) {

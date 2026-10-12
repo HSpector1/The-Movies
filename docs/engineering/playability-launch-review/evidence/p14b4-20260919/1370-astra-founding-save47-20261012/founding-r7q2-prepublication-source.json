@@ -1,0 +1,12 @@
+{
+  "observedUTC": "2026-10-12T16:58:50.436284+00:00",
+  "HEAD": "77e1247c76befe478b37c2e3eab7c365c7fe06eb",
+  "expectedRemoteAtPrepublication": "77e1247c76befe478b37c2e3eab7c365c7fe06eb",
+  "candidatePathCount": 189,
+  "allWorktreeAndIndexPostimagesMatch": true,
+  "stagedPathSetExactlyManifest": true,
+  "reversePatchCheckExit": 0,
+  "PATCHsha256": "f9d012fba521a05e56bee675c6b7527d099e0d2195f858af0102d36ed268961f",
+  "MANIFESTsha256": "cdef5f4bb3dde22583e35117feb484d1dd2eaa43f3e6cca9fc35c34991067583",
+  "limits": "Prepublication exact189candidatepaths. No checkpointcommit yet. Existing source remains unchanged from qualified runs."
+}

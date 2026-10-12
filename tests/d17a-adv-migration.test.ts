@@ -15,7 +15,7 @@
 
 import { describe, expect, it } from 'vitest'
 import {
-  makeSaveV2,
+  LIVE_SAVE_VERSION, makeSaveV2,
   makeSaveV3,
   makeSaveV4,
   makeSaveV5,
@@ -271,7 +271,7 @@ describe('D-17A/D — validateSave still guards the version boundary loudly', ()
   // boundary moved one further, to 17 — the same law the boundary has always followed one
   // bump on.
   it('rejects unknown V42 loudly (stale title corrected post-C.2b; the boundary moves on every save bump)', () => {
-    expect(() => validateSave({ ...v6, saveVersion: 47 })).toThrow(/unknown saveVersion 47/)
+    expect(() => validateSave({ ...v6, saveVersion: LIVE_SAVE_VERSION + 1 })).toThrow(new RegExp(`unknown saveVersion ${LIVE_SAVE_VERSION + 1}`))
   })
 
   it('rejects a V6 whose persisted regime fact is missing or not a boolean', () => {

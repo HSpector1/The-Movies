@@ -113,7 +113,12 @@ describe('D-17A/G — the founding guard (T1): burn is what the tick charges, th
     expect(weeklyPayroll(s)).toBeGreaterThan(0) // salaries EXIST…
 
     expect(weeklyBurn(s)).toBe(0) // …but nothing is charged yet
-    expect(ledgerFixedChargeForThisWeek(s)).toBe(0) // proven against the tick's own ledger
+    // 1364 invariant B (1370-AR r4 census): proven against the engine, which refuses to advance an open
+    // founding draft, so no week passes and nothing is charged. Pre-1364 the tick ran and its own ledger
+    // showed the zero charge (`ledgerFixedChargeForThisWeek(s)` was 0).
+    const before = s.ledger.length
+    expect(() => ledgerFixedChargeForThisWeek(s)).toThrow(/^tick: complete studio founding before advancing the campaign$/)
+    expect(s.ledger).toHaveLength(before)
   })
 
   it('during founding the prospective basis is the PROJECTED post-founding burn (non-zero)', () => {

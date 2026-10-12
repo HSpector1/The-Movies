@@ -61,7 +61,9 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
-    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
+    // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
 }
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
 const issuer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
@@ -95,7 +97,7 @@ function memo(name: string, build: () => GameState): GameState {
 }
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(46); expect(saves.validateSaveV46(save)).toBe(save)
+  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV47(save)).toBe(save)
   const raw = saves.exportSave(save)
   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
 }

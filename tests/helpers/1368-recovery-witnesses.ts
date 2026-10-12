@@ -45,11 +45,15 @@ export function accepted45(key: 'ordinary'|'calendar'|'operational'|'research'|'
   const live = save.convertV45ToV46(old)
   requireFact(save.validateSaveV46(live) === live && save.stableStringify(old) === before, 'actual45→46 neutral admission failed')
   requireFact(save.stableStringify(save.convertV46ToV45(live)) === before, 'only null/zero initialized roundtrip differs')
+  // Save47 (1364, 1370-AR r2): `live` keeps its Save46 era facts above; `current` is the live envelope one step up,
+  // whose null recruitment fund strips back to the same V46 bytes.
+  const current = save.convertV46ToV47(live)
+  requireFact(save.validateSaveV47(current) === current && save.stableStringify(save.convertV47ToV46(current)) === save.stableStringify(live), 'the Save47 null fund does not round-trip')
   for (const b of live.state.hollywood!.businesses) {
     requireFact(b.costCutting.since === null && b.costCutting.version === 1, 'new recovery authority is not empty')
     requireFact(b.account.periods.every(p => p.movements.facilityDemolitionRefund === 0), 'retroactive refund not empty')
   }
-  return { old, live, row }
+  return { old, live, current, row }
 }
 export function acceptedPeriod52() {
   const { value, row } = load(26, 'period52')

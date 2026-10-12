@@ -45,7 +45,6 @@ import {
   makeSaveV11,
   migrateToV11,
   migrateToV14,
-  validateSaveV46,
   stableStringify,
   validateSaveV1,
   validateSaveV2,
@@ -63,6 +62,7 @@ import {
   makeLegacyCorpus,
   makeLegacyStateV1,
 } from "./_legacyV1Fixtures.js";
+import { validateLiveSave } from './helpers/live-era.js'
 
 function clone<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T;
@@ -222,7 +222,7 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
     const nativeWorld = generateWorld("checkpoint-native-omission");
     const native = makeSave(nativeWorld);
     expect("cashLedgerCheckpoint" in native.state).toBe(false);
-    expect(validateSaveV46(native)).toBe(native);
+    expect(validateLiveSave(native)).toBe(native);
     expect(migrateToCurrentControl(native)).toBe(native);
 
     const played = applyActions(
@@ -232,7 +232,7 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
     const reconciled = makeSave(played);
     expect(reconciled.state.ledger).toHaveLength(1);
     expect("cashLedgerCheckpoint" in reconciled.state).toBe(false);
-    expect(validateSaveV46(reconciled)).toBe(reconciled);
+    expect(validateLiveSave(reconciled)).toBe(reconciled);
 
     const json = exportSave(reconciled);
     const imported = importSave(json);
@@ -284,7 +284,7 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
       cash: redundant.state.studio.cash,
       ledgerLength: redundant.state.ledger.length,
     };
-    expect(() => validateSaveV46(redundant)).toThrow(
+    expect(() => validateLiveSave(redundant)).toThrow(
       /checkpoint must encode a genuine historical reconciliation boundary/,
     );
   });
@@ -361,7 +361,7 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
       expect(stableStringify(invalid)).toBe(invalidBytes);
     }
 
-    const current = validateSaveV46(makeSave(generateWorld("checkpoint-frozen-redundant")));
+    const current = validateLiveSave(makeSave(generateWorld("checkpoint-frozen-redundant")));
     const currentBytes = stableStringify(current);
     const historical = validateSaveV11(makeSaveV11(current.state));
     expect(stableStringify(current)).toBe(currentBytes);
@@ -458,25 +458,25 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
 
     const changedAnchor = clone(valid);
     changedAnchor.state.cashLedgerCheckpoint!.cash += 1;
-    expect(() => validateSaveV46(changedAnchor)).toThrow(
+    expect(() => validateLiveSave(changedAnchor)).toThrow(
       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
     );
 
     const changedCash = clone(valid);
     changedCash.state.studio.cash += 1;
-    expect(() => validateSaveV46(changedCash)).toThrow(
+    expect(() => validateLiveSave(changedCash)).toThrow(
       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
     );
 
     const movedBoundary = clone(valid);
     movedBoundary.state.cashLedgerCheckpoint!.ledgerLength += 1;
-    expect(() => validateSaveV46(movedBoundary)).toThrow(
+    expect(() => validateLiveSave(movedBoundary)).toThrow(
       /construction capex cannot predate the V11 cash-ledger checkpoint/,
     );
 
     const changedSuffix = clone(valid);
     changedSuffix.state.ledger[overheadIndex]!.amount -= 1;
-    expect(() => validateSaveV46(changedSuffix)).toThrow(
+    expect(() => validateLiveSave(changedSuffix)).toThrow(
       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
     );
   });

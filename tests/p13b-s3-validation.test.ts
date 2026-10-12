@@ -1,11 +1,12 @@
 import { beforeAll, describe, expect, it } from 'vitest'
-import { exportSave, makeSave, validateSaveV46 } from '../src/core/save.js'
+import { exportSave, makeSave } from '../src/core/save.js'
 import { initialPhysicalPlans } from '../src/core/physicalPlans.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
 import { p13aResearchEntry } from '../src/harness/p13a/fixtures.js'
 import { nextLaboratoryOrigin } from '../src/harness/p13b/fixtures.js'
 import { s3ForgeAndReimport } from '../src/harness/p13b/s3-fixtures.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 // P13B-S3 plan test 8 (task expansion, 2026-09-16). Requirement-derived from the
 // "Validator" bullet and test 8's list in "S3 — Persistent physical plans,
@@ -156,7 +157,7 @@ describe('P13B-S3 validator refusals for physicalPlans (test 8)', () => {
   // AMENDED (735-T live-version sweep, 2026-09-23): live envelope now V32.
   it('accepts the unmutated hand-authored baseline directly through validateSaveV32', () => {
     const json = exportSave(makeSave(base))
-    expect(() => validateSaveV46(JSON.parse(json))).not.toThrow()
+    expect(() => validateLiveSave(JSON.parse(json))).not.toThrow()
   })
 
   it('(a) rejects a dependency cycle', () => {

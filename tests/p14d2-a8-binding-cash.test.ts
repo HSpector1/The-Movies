@@ -6,10 +6,11 @@ import { computeForecast } from '../src/core/forecast.js'
 import { resolveShape } from '../src/core/shape.js'
 import { marketingCapacityForInputs, marketingMenuFromCapacity } from '../src/core/marketingMenu.js'
 import { isOpportunityPredicate } from '../src/core/opportunityPromises.js'
-import { exportSave, importSave, makeSave, stableStringify, validateSaveV46 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, stableStringify } from '../src/core/save.js'
 import type { GameState } from '../src/core/types.js'
 import { A8_ORDINAL, A8_SCRIPT, A8_STUDIO, a8Raw, a8Sha, loadA8, a8AccountInRecovery } from './p14d2-a8-fixture.js'
 import type { A8Candidate } from './p14d2-a8-fixture.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 type Args = Parameters<typeof policyModule.chooseIndustryPackage>
 const business = (state: GameState) => state.hollywood!.businesses.find(b => b.studioId === A8_STUDIO)!
@@ -93,7 +94,7 @@ describe('1363 Part A A8 — genuine pre-amendment count12', () => {
     expect(candidates.filter(r => r.cost > args[2].cashAvailable)).toHaveLength(6)
     expect(policyModule.searchIndustryPackages(...args)).toEqual({ choice: null, ...provenance.facts.searchCounts })
     expect(stableStringify(args)).toBe(before)
-    validateSaveV46(makeSave(observed))
+    validateLiveSave(makeSave(observed))
     expect(tick(state), 'transparent observer cannot change the actual tick').toEqual(observed)
     expect(stableStringify(state)).toBe(stateBytes)
     expect(a8Raw()).toBe(raw)
@@ -104,7 +105,7 @@ describe('1363 Part A A8 — genuine pre-amendment count12', () => {
     const after = tick(state), later = business(after)
     // Valid input and valid resulting save are prerequisites, never the intended RED.
     const saved = makeSave(after)
-    validateSaveV46(saved)
+    validateLiveSave(saved)
     const afterBytes = stableStringify(after), savedRaw = exportSave(saved)
     expect(exportSave(importSave(savedRaw))).toBe(savedRaw)
     expect(stableStringify(after)).toBe(afterBytes)

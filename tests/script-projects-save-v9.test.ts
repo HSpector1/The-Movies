@@ -2,7 +2,7 @@
 
 import { describe, expect, it } from "vitest";
 import {
-  emptyWorkflowBindings,
+  LIVE_SAVE_VERSION, emptyWorkflowBindings,
   addManagedProductionWorkflow,
   applyActions,
   convertV1ToV2,
@@ -412,11 +412,11 @@ describe("Script Projects V1 — SaveFileV9", () => {
 
   it("rejects unknown V42 and refuses to downgrade V9 through migrateToV8 (stale number corrected post-C.2b)", () => {
     const save = makeSaveV9(generateWorld("save-v9-boundary"));
-    expect(() => validateSave({ ...save, saveVersion: 47 })).toThrow(
-      /unknown saveVersion 47/,
+    expect(() => validateSave({ ...save, saveVersion: LIVE_SAVE_VERSION + 1 })).toThrow(
+      new RegExp(`unknown saveVersion ${LIVE_SAVE_VERSION + 1}`),
     );
-    expect(() => validateSave({ ...save, saveVersion: 47 })).toThrow(
-      /versions 1 through 46 only/,
+    expect(() => validateSave({ ...save, saveVersion: LIVE_SAVE_VERSION + 1 })).toThrow(
+      new RegExp(`versions 1 through ${LIVE_SAVE_VERSION} only`),
     );
     expect(() => migrateToV8(save)).toThrow(/cannot downgrade SaveFileV9/);
   });

@@ -10,6 +10,7 @@ import { BridgeSession } from '../bridge/session.ts'
 import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV37 } from '../src/core/save.js'
 import { retirementRecordFor } from '../src/core/careerLifecycle.js'
 import { OUTGOING_51, RUNTIME_51, SCI, readRuntime51, runtime51Artifact, sha } from './helpers/p14c2rm-fixtures.js'
+import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
 
 type Historical = { format: string; checkpointVersion: number; protocolVersion: number; schemaId: string;
   sessionId: string; stateRevision: number; currentSaveJson: string; savedSaveJson: string;
@@ -61,12 +62,14 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
-    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
+    // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
 }
 // Independent old-state preservation alongside the actual governed slot bytes.
 function currentSlot(json: string): string {
   const old = validateSaveV37(JSON.parse(json)), current = migrateToLive(importSave(json)), week = old.state.market.tick
-  expect(current.saveVersion).toBe(46)
+  expect(current.saveVersion).toBe(LIVE_SAVE_VERSION)
   const { transitionBoundaryWeek, professionAnchors, transitionEvaluations, professionChanges,
     industryRetirements, transitionDue, ...oldLifecycle } = current.state.careerLifecycle
   const expectedOld = withEmptyRecovery(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.state))))), week))
@@ -109,7 +112,7 @@ describe('C.2-RM genuine projection51 recovery', () => {
   it('steps projection once to52 while retaining Save37/protocol4 and enumerating actual outgoing51 exactly once', () => {
     expect(PROJECTION_VERSION).toBe(57)
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(LIVE_SAVE_VERSION).toBe(46)
+    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
     expect(SCHEMA_ID).not.toBe(OUTGOING_51)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)

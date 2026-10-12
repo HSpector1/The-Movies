@@ -26,7 +26,7 @@ import {
   type SaveResponse,
   type SnapshotEnvelope,
 } from '../bridge/session.ts'
-import { exportSave } from '../src/core/index.js'
+import { LIVE_SAVE_VERSION, exportSave } from '../src/core/index.js'
 
 const ROOT = process.cwd()
 const VITE_NODE = path.join(ROOT, 'node_modules', 'vite-node', 'vite-node.mjs')
@@ -794,9 +794,9 @@ it('restores one durable logical bridge session and exact HTTP replay after SIGK
       laterCommandRaw.body,
       loadRaw.body,
     ])
-    expect(hydrated.currentSave.saveVersion).toBe(46)
+    expect(hydrated.currentSave.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(exportSave(hydrated.currentSave)).toBe(hydrated.checkpoint.currentSaveJson)
-    expect(hydrated.savedSave?.saveVersion).toBe(46)
+    expect(hydrated.savedSave?.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(hydrated.savedSave === null ? null : exportSave(hydrated.savedSave)).toBe(
       hydrated.checkpoint.savedSaveJson,
     )

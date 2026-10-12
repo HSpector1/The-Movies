@@ -100,7 +100,7 @@ import { contractActionDecisions, marketProposalDraftToEngine } from '../bridge/
 import { industryPage } from '../bridge/industry.ts'
 import { BridgeSession } from '../bridge/session.ts'
 import {
-  activeContract, applyActions, campaignDate, canAfford, hiringMarketIds, renewalWindowOpen, tick,
+  LIVE_SAVE_VERSION, activeContract, applyActions, campaignDate, canAfford, hiringMarketIds, renewalWindowOpen, tick,
 } from '../src/core/index.js'
 import type { GameState } from '../src/core/types.js'
 import {
@@ -405,7 +405,7 @@ describe('group 7: save/load', () => {
     expect(saved.accepted).toBe(true)
     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
     const parsed = JSON.parse(saved.saveJson) as { saveVersion: number; state: { talentMarket: { legacyTerminations: unknown[]; representation: null } } }
-    expect(parsed.saveVersion).toBe(46)
+    expect(parsed.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(parsed.state.talentMarket.legacyTerminations).toEqual([])
     expect(parsed.state.talentMarket.representation).toBeNull()
 

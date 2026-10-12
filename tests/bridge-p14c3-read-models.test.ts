@@ -217,7 +217,9 @@ describe('C.3 exact public career read models and retained history', () => {
     }
     expect(career(worlds.activated, worlds.id).status).toBe('awaitingTransition')
     expect(career(worlds.reconciled, worlds.id).status).toBe('awaitingTransition')
-    expect(worlds.reconciled.founding).toEqual(worlds.activated.founding)
+    // 1364 Invariant B (1370-AR r2): the activated draft closes before the world advances; the tick no longer carries an open draft.
+    expect(worlds.activated.founding).not.toBeNull()
+    expect(worlds.reconciled.founding).toBeNull()
   })
 
   it('M7 pages all genuine alumni by latest completed profession and counts complete role credits, including working former actors', () => {

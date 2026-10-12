@@ -118,9 +118,12 @@ describe('D-17A/T1 — weeklyBurn is the actual-charge basis', () => {
   it('a founding tick really does debit nothing — the selector matches the engine', () => {
     const drafting = openFounding('d17a-t1-b')
     const before = drafting.studio.cash
-    const after = tick(drafting)
-    expect(after.studio.cash).toBe(before)
-    expect(after.ledger).toHaveLength(drafting.ledger.length)
+    const ledger = drafting.ledger.length
+    // 1364 invariant B (1370-AR r4 census): the engine refuses to advance an open founding draft, so no
+    // week passes and nothing is debited. Pre-1364 the tick ran and its ledger showed the zero charge.
+    expect(() => tick(drafting)).toThrow(/^tick: complete studio founding before advancing the campaign$/)
+    expect(drafting.studio.cash).toBe(before)
+    expect(drafting.ledger).toHaveLength(ledger)
     expect(weeklyBurn(drafting)).toBe(0)
   })
 

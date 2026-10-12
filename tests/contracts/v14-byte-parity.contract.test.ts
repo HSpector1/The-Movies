@@ -30,7 +30,7 @@
 
 import { beforeAll, describe, expect, it } from 'vitest'
 
-import { applyActions, stableStringify } from '../../src/core/index.js'
+import { LIVE_SAVE_VERSION, applyActions, stableStringify } from '../../src/core/index.js'
 import type { GameState } from '../../src/core/index.js'
 
 import { operationsStudio, productionPayload, withCash } from './_contractFixtures.js'
@@ -198,11 +198,11 @@ describe('C2a-M1 · parity (C) — every exported row is inside the window or Ti
   it('re-validates what it wrote, at its own version', () => {
     const validateV15 = requireFunction(
       requireCore(),
-      'validateSaveV46',
+      `validateSaveV${LIVE_SAVE_VERSION}`, // 1370-AR r3: the live reader by its export name, so the bump moves it
       '§8.1: the live boundary (P13B-S6: V26)',
     ) as unknown as (save: unknown) => unknown
     const save = makeSave(runScriptedWeeks(scriptedStart(SEED), RUN_WEEKS))
-    expect(save.saveVersion).toBe(46) // P14C.2b: the live version (was 35)
+    expect(save.saveVersion).toBe(LIVE_SAVE_VERSION) // P14C.2b: the live version (was 35)
     expect(() => validateV15(save)).not.toThrow()
   })
 })

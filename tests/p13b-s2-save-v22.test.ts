@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import {
-  exportSave,
+  LIVE_SAVE_VERSION, exportSave,
   importSave,
   makeSave,
   migrateToV19,
@@ -205,13 +205,13 @@ describe('P13B-S2 V21 to V22 migration (test 8)', () => {
 describe('P13B-S2 envelope law at the live writer (test 8)', () => {
   it('makeSave always writes the live saveVersion 37 (stale title corrected post-C.4)', () => {
     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz')))
-    expect(makeSave(live(migrated)).saveVersion).toBe(46)
+    expect(makeSave(live(migrated)).saveVersion).toBe(LIVE_SAVE_VERSION)
   })
 
   it('refuses an unknown saveVersion 46 with the updated range (stale number corrected post-C.2b)', () => {
     const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz')))
     const save = makeSave(live(migrated))
-    expect(() => validateSave({ ...save, saveVersion: 47 })).toThrow(/versions 1 through 46 only/)
+    expect(() => validateSave({ ...save, saveVersion: LIVE_SAVE_VERSION + 1 })).toThrow(new RegExp(`versions 1 through ${LIVE_SAVE_VERSION} only`))
   })
 
   it('round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV32 byte-identically', () => {

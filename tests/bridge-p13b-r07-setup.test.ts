@@ -3,6 +3,7 @@ import { applyActions } from '../src/core/actions.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { Action, GameState } from '../src/core/types.js'
+import { LIVE_SAVE_VERSION } from '../src/core/save.js'
 import { advanceTo } from '../src/harness/p13a/fixtures.js'
 import { p13bTwoLabWorld } from '../src/harness/p13b/fixtures.js'
 import { operationsStudio, productionPayload, withCash } from './contracts/_contractFixtures.js'
@@ -584,7 +585,7 @@ describe('extra pin (parent instruction): the bridge\'s save/load "converted" re
     expect(saved.accepted).toBe(true)
     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
     const parsedSaveVersion = (JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion
-    expect(parsedSaveVersion).toBe(46) // the CURRENT live version — confirms this is not genuinely a migration
+    expect(parsedSaveVersion).toBe(LIVE_SAVE_VERSION) // the CURRENT live version — confirms this is not genuinely a migration
 
     const loaded = session.load(control(session, nextCommandId('load')))
     expect(loaded.accepted).toBe(true)

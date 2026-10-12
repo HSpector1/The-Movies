@@ -18,7 +18,7 @@ import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions, hiringMarketIds, SKILL_ORDER, tick } from '../src/core/index.js'
 import { attachPromise, promiseFeasibility, PROMISE_RULES_VERSION, type PromiseDraft } from '../src/core/promises.js'
 import { currentProposals, submitProposal, withdrawProposal } from '../src/core/talentMarket.js'
-import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV46 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV47 } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { Action, CastSlot, GameState } from '../src/core/types.js'
 import { buildTalentProvenance } from '../src/core/aging.js'
@@ -58,7 +58,9 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
-    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
+    // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
 }
 import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
 
@@ -106,7 +108,7 @@ function fixture(): Window {
     state = submitProposal(state, { talentId: lead.id, issuerStudioId: player(state), termWeeks: 52, premiumTier: 1.25 })
     expect(state.studio.activeProductions).toEqual([])
     expect(state.promises.filter((p) => p.beneficiaryPersonId === lead.id)).toEqual([])
-    validateSaveV46(makeSave(state))
+    validateSaveV47(makeSave(state))
     cached = { castable, state, crew }
   }
   return structuredClone(cached)
@@ -146,7 +148,7 @@ describe('B-F2: settled has-acting-discipline law, not primary-role eligibility'
     expect(legal.studio.activeProductions.at(-1)!.cast.lead).toBe(crew.leadId)
     expect(legal.studio.activeProductions.at(-1)!.writerId).toBe(crew.writerId)
     expect(legal.talent.find((p) => p.id === crew.leadId)!.role).toBe('writer')
-    validateSaveV46(makeSave(legal))
+    validateSaveV47(makeSave(legal))
     const doubleRole = payload(castable, crew)
     doubleRole.writerId = crew.leadId
     expect(() => applyActions(castable, [{ kind: 'greenlight', production: doubleRole }]))
@@ -278,7 +280,7 @@ describe('B-F2: settled has-acting-discipline law, not primary-role eligibility'
     expect(receipts[0]).toMatchObject({ kind: 'promiseOutcome', week: take.week,
       talentId: crew.leadId, studioId: player(state) })
     expect(state.talent.find((p) => p.id === crew.leadId)!.role).toBe('writer')
-    const loaded = validateSaveV46(importSave(exportSave(makeSave(state)))).state
+    const loaded = validateSaveV47(importSave(exportSave(makeSave(state)))).state
     expect(loaded.promises).toEqual(state.promises)
     expect(loaded.firstTakes).toEqual(state.firstTakes)
   })
@@ -429,6 +431,6 @@ describe('B-F2: genuine old role-refusal evidence survives, fresh evaluations us
       contractId: null, outcome: null, feasibilityReceipt: fresh })
     expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(originalRoots)
     expect(attached.talent.find((p) => p.id === old.beneficiaryPersonId)!.role).toBe('writer')
-    expect(validateSaveV46(importSave(exportSave(makeSave(attached)))).state.promises).toEqual(attached.promises)
+    expect(validateSaveV47(importSave(exportSave(makeSave(attached)))).state.promises).toEqual(attached.promises)
   })
 })

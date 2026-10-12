@@ -10,8 +10,9 @@ import { canonicalJson } from '../bridge/schema/canonical.ts'
 import { decodeBridgeRuntimeCheckpoint, encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS } from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession } from '../bridge/session.ts'
-import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV36, validateSaveV46 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV36, validateSaveV47 } from '../src/core/save.js'
 import type { GameStateV36 } from '../src/core/types.js'
+import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
 
 // 1309-X3 ruling 4: convertV40ToV41 (src/core/save.ts:10479) adds a zero
 // `termination` movement to every rival finance period; the OLD (V36-vintage)
@@ -49,7 +50,9 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
-    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
+    // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
 }
 
 const OUTGOING_50 = 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698'
@@ -121,7 +124,7 @@ describe('C.2 Scientist S11: genuine outgoing50 runtime compatibility', () => {
   it('requires literal projection52/Save37, registers actual outgoing50, and excludes the running identity from prior schemas', () => {
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(57)
-    expect(LIVE_SAVE_VERSION).toBe(46)
+    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
     expect(SCHEMA_ID).not.toBe(OUTGOING_50)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_50)).toBe('projection-v50')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
@@ -137,8 +140,8 @@ describe('C.2 Scientist S11: genuine outgoing50 runtime compatibility', () => {
       const old = validateSaveV36(JSON.parse(prior[slot]))
       const actualJson = loaded.hydrated.checkpoint[slot]
       expect(typeof actualJson).toBe('string')
-      const actual = validateSaveV46(importSave(actualJson!))
-      expect(actual.saveVersion).toBe(46)
+      const actual = validateSaveV47(importSave(actualJson!))
+      expect(actual.saveVersion).toBe(LIVE_SAVE_VERSION)
       expect(actual.state.market.tick).toBe(week)
       // C.3 adds only six dated profession-authority fields; every old root,
       // retirement, skill, employment and receipt remains independently exact.

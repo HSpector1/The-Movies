@@ -114,7 +114,10 @@ const GENRES: Genre[] = ['comedy', 'drama', 'crime', 'romance', 'horror', 'adven
 
 // worked expectations, computed independently from the 1323-A §3 / 1323-F formula
 // TEXT (not by calling production): f(P) = 1 - MAX_PENALTY * (1 - e^(-P/SCALE)).
-const MAX_PENALTY = 0.25
+// 1365 (1361-F5 ruling 3): the live era is `p15a1-market-v2`, maximum penalty 0.15 (the Owner's
+// named weaker alternative, 1323-F:61-63). v1's 0.25 is frozen as SHARED_MARKET_LAW_V1 and its
+// prose values (0.90/0.84/0.78) are pinned on that frozen law in tests/p15a1-market-retune.test.ts.
+const MAX_PENALTY = 0.15
 const SCALE = 2
 function expectedFactor(pressure: number): number {
   return 1 - MAX_PENALTY * (1 - Math.exp(-pressure / SCALE))
@@ -136,7 +139,7 @@ describe('p15a1 shared market: TUNING (real, already-existing module)', () => {
     expect(t.SHARED_MARKET_STOCK_START).toBe(0.2)
     expect(t.SHARED_MARKET_STOCK_HALF_LIFE_WEEKS).toBe(13)
     expect(t.SHARED_MARKET_RETIRE_AFTER_WEEKS).toBe(26)
-    expect(t.SHARED_MARKET_FACTOR_MAX_PENALTY).toBe(0.25)
+    expect(t.SHARED_MARKET_FACTOR_MAX_PENALTY).toBe(0.15) // 1365 retune (was v1's 0.25, frozen in SHARED_MARKET_LAW_V1)
     expect(t.SHARED_MARKET_PRESSURE_SCALE).toBe(2)
     expect(t.SHARED_MARKET_STUDIO_WINDOW_CAP).toBe(1)
 
@@ -164,7 +167,7 @@ describe('p15a1 shared market: TUNING (real, already-existing module)', () => {
 describe('p15a1 shared market: module surface', () => {
   it('market-definition-version-export', async () => {
     const market = await loadMarket()
-    expect(market.SHARED_MARKET_DEFINITION).toBe('p15a1-market-v1')
+    expect(market.SHARED_MARKET_DEFINITION).toBe('p15a1-market-v2') // 1365 retune; v1 stays reachable through MARKET_LAWS
   })
 
   it('market-reason-source-limit-export', async () => {
@@ -279,15 +282,17 @@ describe('p15a1 shared market: pressureFactor', () => {
     expect(f1).toBeGreaterThan(f2)
     expect(f2).toBeGreaterThan(f4)
 
-    // strict > 0.75 for every P up to 20, beyond any pressure the charter describes.
+    // strict > floor for every P up to 20, beyond any pressure the charter describes. The floor is
+    // 1 - MAX_PENALTY: 0.75 under v1, 0.85 under the live v2 (1365).
+    const floor = 1 - MAX_PENALTY
     for (const P of [0.5, 1, 2, 4, 8, 16, 20]) {
-      expect(pressureFactor(P)).toBeGreaterThan(0.75)
+      expect(pressureFactor(P)).toBeGreaterThan(floor)
     }
 
-    // extreme P (1000): >= 0.75, not > 0.75 -- the plain formula legitimately rounds to
+    // extreme P (1000): >= floor, not > floor -- the plain formula legitimately rounds to
     // exactly the floor here.
     const fExtreme = pressureFactor(1000)
-    expect(fExtreme).toBeGreaterThanOrEqual(0.75)
+    expect(fExtreme).toBeGreaterThanOrEqual(floor)
     expect(fExtreme).toBeLessThanOrEqual(1)
 
     // f(0) === 1 exactly is also asserted by market-factor-zero-exact; kept here too as
@@ -306,18 +311,19 @@ describe('p15a1 shared market: pressureFactor', () => {
   it('market-factor-worked-examples', async () => {
     const market = await loadMarket()
     const pressureFactor = requireFn(market, 'pressureFactor')
+    // 1365: the live v2 values at P = 1 / 2 / 4 (1323-A §3's v1 prose 0.90/0.84/0.78 is pinned on
+    // the frozen v1 law in tests/p15a1-market-retune.test.ts).
     const cases: readonly (readonly [number, number])[] = [
-      [1, 0.9],
-      [2, 0.84],
-      [4, 0.78],
+      [1, 0.941],
+      [2, 0.905],
+      [4, 0.870],
     ]
     for (const [P, prose] of cases) {
       const expected = expectedFactor(P) // independent local formula, see header
       // tight tolerance: both values come from the same closed-form expression
       expect(pressureFactor(P)).toBeCloseTo(expected, 9)
-      // 1323-A §3 states these to 2 decimals ("about 0.90/0.84/0.78"); toBeCloseTo(x,2)
-      // allows +/-0.005, matching the prose's stated precision exactly.
-      expect(pressureFactor(P)).toBeCloseTo(prose, 2)
+      // stated to 3 decimals; toBeCloseTo(x,3) allows +/-0.0005.
+      expect(pressureFactor(P)).toBeCloseTo(prose, 3)
     }
   })
 
@@ -351,7 +357,7 @@ describe('p15a1 shared market: assessBatch symmetry and identity invariants', ()
       expect(byId[id].windowTerm).toBeCloseTo(1, 9)
       expect(byId[id].stockTerm).toBeCloseTo(0, 9)
       expect(byId[id].factor).toBeCloseTo(expected, 9)
-      expect(byId[id].factor).toBeCloseTo(0.9, 2)
+      expect(byId[id].factor).toBeCloseTo(0.941, 3) // 1365: v2's f(1); v1's 0.90 is pinned on the frozen law in the retune file
     }
     // self-exclusion baseline: a solo release with no rivals and no exposures gets
     // no pressure at all (the subject never counts itself).

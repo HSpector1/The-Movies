@@ -1,0 +1,39 @@
+diff --git a/HANDOFF.md b/HANDOFF.md
+index 0e2dffaa..e8ce200d 100644
+--- a/HANDOFF.md
++++ b/HANDOFF.md
+@@ -623,14 +623,30 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
+ 
+ ## Auto snapshot
+ <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
+-- Stamped: 2026-10-12 09:05 CDT by **codex** on PreCompact (session 01a13050-fe8f-7903-9af3-0a45b7130787)
+-- Branch: `wip/headless-program-20260916-ts` @ `984e9fc86208b7dd395f6a3b4ecff2ce148d324d`
++- Stamped: 2026-10-12 11:46 CDT by **codex** on PreCompact (session 01a13050-fe8f-7903-9af3-0a45b7130787)
++- Branch: `wip/headless-program-20260916-ts` @ `77e1247c76befe478b37c2e3eab7c365c7fe06eb`
+ - Upstream: `none`, unpushed commits: ?
+-- Uncommitted files: 0
++- Uncommitted files: 190
++  - `M HANDOFF.md`
++  - `M  src/core/actions.ts`
++  - `M  src/core/employment.ts`
++  - `A  src/core/foundingFunding.ts`
++  - `M  src/core/hollywoodTick.ts`
++  - `M  src/core/hollywoodValidation.ts`
++  - `M  src/core/index.ts`
++  - `M  src/core/marketIntegration.ts`
++  - `M  src/core/save.ts`
++  - `M  src/core/sharedMarket.ts`
++  - `M  src/core/tick.ts`
++  - `M  src/core/tuning.ts`
++  - `M  src/core/types.ts`
++  - `M  src/core/worldgen.ts`
++  - `M  src/harness/d16/driver.ts`
++  - ...
+ - Last commits:
++  - 77e1247c test: correct shelving predicate guard and preserve failed prerequisite evidence
+   - 984e9fc8 test: qualify founding market shelving controls before full integration gate
+   - a4c9c062 docs: publish reviewed integration gate scripts and restoration boundaries
+   - 62b722c3 test: recover founding forgery replay and harden existing integration gate
+   - aba38855 docs: preserve recovered integration drafts and Codex takeover state
+-  - cac811c7 docs: record Codex handoff resume
+ <!-- AUTO:END -->

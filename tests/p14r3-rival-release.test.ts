@@ -367,6 +367,18 @@ describe('P14 R3 and recovery: natural role targets and accounted cutting releas
   // 1368's accepted six-termination attribution establishes the week-91 commission
   // cash refusal. This leaf checks the persisted entry and complete-tick effects;
   // it does not claim to observe private decide()/staff() intermediate returns.
+  //
+  // 1365 P15A.1(c) witness (1370-AR r5 item H.3), measured on the r5 tree like the r3 witnesses: under the
+  // activated, retuned market law this route records 43 shared-market rows by week 150, 32 with a factor
+  // below 1, and the row-4 rival enters cost cutting at week 86 and releases the same six people at week 87
+  // (industry-event-138 onward). Every other pinned fact is unchanged: the six ordinals 18..23, the charges
+  // and their 1,963,676 sum, capacity opex 23,500, the 450,000 refund at the entry week. With
+  // SHARED_MARKET_FACTOR_MAX_PENALTY forced to 0 at runtime on the same tree (45 rows, none below 1) the
+  // route returns to week 91/92 and industry-event-145, as at db3fc572 (evidence/r5/probe-p14r3*.log). The
+  // market penalty alone moved the weeks; the pre-1365 values stay named below.
+  const CUT_ENTRY_WEEK = 86, CUT_ENTRY_WEEK_PRE_1365 = 91
+  const RELEASE_WEEK = 87, RELEASE_WEEK_PRE_1365 = 92
+  const FIRST_RELEASE_EVENT = 138, FIRST_RELEASE_EVENT_PRE_1365 = 145
   it('keeps role targets and accounts for every lawful cutting release across weeks 1..150', () => {
     type Business = NonNullable<GameState['hollywood']>['businesses'][number]
     type MoneyKind = keyof Business['account']['periods'][number]['movements']
@@ -377,8 +389,8 @@ describe('P14 R3 and recovery: natural role targets and accounted cutting releas
     const expected = expectedCharges.map((_, i) => ({
       talentId: `person-${rivalId}-${i}`,
       contractId: `${rivalId}:contract:person-${rivalId}-${i}:0`,
-      week: 92, studioId: rivalId, fromStudioId: rivalId, toStudioId: null,
-      kind: 'employment', reason: 'termination', eventId: `industry-event-${145 + i}`,
+      week: RELEASE_WEEK, studioId: rivalId, fromStudioId: rivalId, toStudioId: null,
+      kind: 'employment', reason: 'termination', eventId: `industry-event-${FIRST_RELEASE_EVENT + i}`,
     }))
     let state = BASE
     while (state.market.tick < 150) {
@@ -389,11 +401,11 @@ describe('P14 R3 and recovery: natural role targets and accounted cutting releas
         (r): r is Extract<typeof r, { kind: 'employment' }> =>
           r.kind === 'employment' && r.reason === 'termination' && r.studioId !== state.hollywood!.playerStudioId,
       )
-      if (week === 91) {
+      if (week === CUT_ENTRY_WEEK) {
         const prior = before.hollywood!.businesses.find(b => b.studioId === rivalId)!
         const entered = state.hollywood!.businesses.find(b => b.studioId === rivalId)!
         expect(prior.costCutting.since).toBeNull()
-        expect(entered.costCutting.since).toBe(91)
+        expect(entered.costCutting.since, `cost-cutting entry (pre-1365: week ${CUT_ENTRY_WEEK_PRE_1365})`).toBe(CUT_ENTRY_WEEK)
         expect(entered.productions).toEqual([])
         expect(entered.runs).toEqual([])
         expect(entered.development.projects).toHaveLength(prior.development.projects.length)
@@ -407,10 +419,10 @@ describe('P14 R3 and recovery: natural role targets and accounted cutting releas
         const ends = newEnds.filter(r => r.studioId === prior.studioId)
         let chargeSum = 0
         if (ends.length > 0) {
-          expect(week).toBe(92)
+          expect(week, `cutting release week (pre-1365: week ${RELEASE_WEEK_PRE_1365})`).toBe(RELEASE_WEEK)
           expect(prior.studioId).toBe(rivalId)
-          expect(prior.costCutting.since).toBe(91)
-          expect(next.costCutting.since).toBe(91)
+          expect(prior.costCutting.since).toBe(CUT_ENTRY_WEEK)
+          expect(next.costCutting.since).toBe(CUT_ENTRY_WEEK)
           expect(ends).toEqual(expected)
           const own = before.hollywood!.activeEmploymentOrdinals
             .filter(i => before.hollywood!.employment[i]!.studioId === prior.studioId)
@@ -491,6 +503,6 @@ describe('P14 R3 and recovery: natural role targets and accounted cutting releas
     const rivalTerminationReceipts = state.hollywood!.receipts.filter(
       (r) => r.kind === 'employment' && r.reason === 'termination' && r.studioId !== state.hollywood!.playerStudioId,
     )
-    expect(rivalTerminationReceipts).toEqual(expected)
+    expect(rivalTerminationReceipts, `six releases from industry-event-${FIRST_RELEASE_EVENT} (pre-1365: industry-event-${FIRST_RELEASE_EVENT_PRE_1365})`).toEqual(expected)
   })
 })

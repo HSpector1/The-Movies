@@ -61,6 +61,7 @@ import {
 } from './employment.js'
 import { computeForecast, type ForecastContext } from './forecast.js'
 import { forecastHistoryForOwner } from './industryCareer.js'
+import { allocateFoundingSignature, closeFoundingFund } from './foundingFunding.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
 import { breakPromisesOnCancel, breakPromisesOnGreenlight, breakPromisesOnTermination, waivePromise } from './promises.js'
 import { recordCancelledAfterFirstTake, recordCastingCompetition } from './relationships.js'
@@ -2612,6 +2613,11 @@ function applySignContract(state: GameState, action: Action & { kind: 'signContr
 function applyRenewContract(state: GameState, action: Action & { kind: 'renewContract' }): GameState {
   const { talentId, termWeeks } = action
   const week = state.market.tick
+  // 1364 R-E (I3): renewal waits for the founding, as release does (R2), so an open draft employs nobody
+  // its recruitment fund does not allocate.
+  if (state.founding !== null) {
+    throw new Error('applyActions: renewContract rejected — the founding draft is still open; renewal waits until the studio is founded (1364 R-E)')
+  }
   const contract = activeContract(state, talentId)
   if (contract === undefined) {
     throw new Error(`applyActions: renewContract rejected — talent "${talentId}" has no active contract (D-11.7)`)
@@ -2964,11 +2970,17 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         next = applyCreateBalancedTalent(next, action)
         break
       case 'foundStudio':
-        next = applyFoundStudio(next, action)
+        // 1364 (1364-A §3): a recorded recruitment fund closes in the same pure transition as the draft.
+        next = closeFoundingFund(applyFoundStudio(next, action))
         break
-      case 'signContract':
+      case 'signContract': {
+        // 1364 (1364-A §3): a founding signature's allocation attaches in the same action, after the
+        // recorder has assigned the row's identity; the recorder's trailing call below is then a no-op.
+        const draftOpen = next.founding !== null
         next = applySignContract(next, action)
+        if (draftOpen) next = allocateFoundingSignature(recordPlayerEmployment(next), action.talentId)
         break
+      }
       case 'renewContract':
         next = applyRenewContract(next, action)
         break

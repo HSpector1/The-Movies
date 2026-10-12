@@ -393,6 +393,10 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
   delete raw.studioHistory
   delete raw.hollywood
   delete raw.foundingRegime
+  // 1364 (Save47, 1370-AR r3): the recruitment-fund root is V47-only; a genuine V13 file never carried it.
+  // Every natively founded world records an 'opened' fund, so there is no emptiness precondition to prove
+  // before projecting it away, exactly as `hollywood` and `talentProvenance` are projected unconditionally.
+  delete raw.foundingFunding
   // This explicit historical test projection has no P13 authority. Strip only
   // the later neutral foundation, then prove the original V13 boundary below.
   if (state.technology && (state.technology.projects.length || state.technology.access.length || state.technology.adoptions.length || state.technology.productions.length) || state.talent.some(person => person.role === 'scientist')) {

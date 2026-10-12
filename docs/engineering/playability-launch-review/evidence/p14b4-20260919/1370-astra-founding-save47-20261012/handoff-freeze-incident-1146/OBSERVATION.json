@@ -1,0 +1,43 @@
+{
+  "observedUTC": "2026-10-12T16:50:59.299876+00:00",
+  "HEAD": "77e1247c76befe478b37c2e3eab7c365c7fe06eb",
+  "unstagedPaths": [
+    "HANDOFF.md"
+  ],
+  "changedFreezeKeys": [
+    "diff"
+  ],
+  "outsideAUTOIdentical": true,
+  "matchesExpectedSecondIncident": false,
+  "files": {
+    "HANDOFF.before-hook.md": {
+      "bytes": 122124,
+      "sha256": "c93d3abab5da95a5faf9b428ac3a4ea2d35a40008d469272447b91b6f453f549"
+    },
+    "HANDOFF.after-hook.md": {
+      "bytes": 122088,
+      "sha256": "7fb2975c129c2ebd1f5135e1c407817f17afa053903e6ae8d968d7ffc2234a4e"
+    },
+    "HANDOFF.patch": {
+      "bytes": 1793,
+      "sha256": "e515fac9c5f5f482ecb2776b1090db6390efa214b9f871f1354ba199f8007bce"
+    },
+    "freeze-at-ui-start.json": {
+      "bytes": 209381,
+      "sha256": "2a9bf3de5cc5e0c83f7f23406e7823bac35839a5979d6ae82cdf65f84546cb9a"
+    },
+    "freeze-last-successful-postflight.json": {
+      "bytes": 209381,
+      "sha256": "2a9bf3de5cc5e0c83f7f23406e7823bac35839a5979d6ae82cdf65f84546cb9a"
+    },
+    "freeze-observed-after-hook.json": {
+      "bytes": 209381,
+      "sha256": "38eec62c2abc1d986379e7756ddb630bef26b66acd4253cea8e355e3642dc87a"
+    },
+    "status.z": {
+      "bytes": 7663,
+      "sha256": "59e747245d82deaee6ab4997af3f82c694288d63fc54917eccb330bce8e5689b"
+    }
+  },
+  "claim": "Second incident observation only; UI continuation remains live. No source/index/HEAD/input exemption, terminal outcome, restore or acceptance implied. Original outputs and script untouched."
+}

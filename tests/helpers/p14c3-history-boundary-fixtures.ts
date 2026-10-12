@@ -3,12 +3,13 @@ import assert from 'node:assert/strict'
 import { expect } from 'vitest'
 import { applyActions } from '../../src/core/actions.js'
 import { beginFounding } from '../../src/core/employment.js'
-import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV46 } from '../../src/core/save.js'
+import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../../src/core/save.js'
 import { tick } from '../../src/core/tick.js'
 import { generateWorld } from '../../src/core/worldgen.js'
 import type { Action, GameState } from '../../src/core/types.js'
 import { c4Fixture, envelopeV34 } from './p14c4-fixtures.js'
 import { clone, expectFocusChosen, migrated } from './p14c3-fixtures.js'
+import { validateLiveSave } from './live-era.js'
 
 type Cached<T> = { ok: true; value: T } | { ok: false; error: unknown }
 const cache = new Map<string, Cached<unknown>>()
@@ -23,8 +24,8 @@ export function cachedBoundary<T>(key: string, build: () => T): T {
 }
 export function acceptBoundary(state: GameState): void {
   const before = stableStringify(state), saved = makeSave(state)
-  expect(saved.saveVersion).toBe(46)
-  expect(validateSaveV46(saved)).toBe(saved)
+  expect(saved.saveVersion).toBe(LIVE_SAVE_VERSION) // 1370-AR r2: Save47
+  expect(validateLiveSave(saved)).toBe(saved)
   expect(stableStringify(state)).toBe(before)
 }
 export function reopenBoundary(state: GameState): GameState {

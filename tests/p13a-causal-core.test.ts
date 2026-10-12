@@ -1,12 +1,13 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { tick } from '../src/core/tick.js'
-import { exportCurrentState, importSave, migrateToLive, validateSaveV46, makeSave } from '../src/core/save.js'
+import { exportCurrentState, importSave, migrateToLive, makeSave } from '../src/core/save.js'
 import { researchWeekQuote, technologyAccess } from '../src/core/technology.js'
 import { facilityInstallationPhase } from '../src/core/placement.js'
 import { hasOperationalFacilityInstallation } from '../src/core/facilityEffects.js'
 import { advanceTo, p13aResearchReady, p13aGeneratedStudio, adoptExistingSoundChain } from '../src/harness/p13a/fixtures.js'
 import type { GameState } from '../src/core/types.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 describe('P13A causal Core through the real weekly engine',()=>{
   let ready: GameState
@@ -46,7 +47,7 @@ describe('P13A causal Core through the real weekly engine',()=>{
     state=advanceTo(state,315)
     expect(state.technology.adoptions.find(a=>a.id===adoption.id)!.operationalWeek).toBe(315)
     expect(hasOperationalFacilityInstallation(state,adoption.stageFacilityId,'synchronized-sound-stage')).toBe(true)
-    expect(()=>validateSaveV46(makeSave(state))).not.toThrow()
+    expect(()=>validateLiveSave(makeSave(state))).not.toThrow()
     const restored=migrateToLive(importSave(exportCurrentState(state))).state
     expect(restored.technology).toEqual(state.technology)
     expect(exportCurrentState(restored)===exportCurrentState(state)).toBe(true)
@@ -88,6 +89,6 @@ describe('P13A causal Core through the real weekly engine',()=>{
     expect(428-315).toBe(113)
     expect(state.era.soundRequired).toBe(false)
     expect(state.ledger.some(e=>e.kind==='researchSpend'||e.kind==='researchPayroll')).toBe(false)
-    expect(()=>validateSaveV46(makeSave(state))).not.toThrow()
+    expect(()=>validateLiveSave(makeSave(state))).not.toThrow()
   },30_000)
 })

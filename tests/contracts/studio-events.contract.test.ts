@@ -37,7 +37,7 @@
 
 import { beforeAll, describe, expect, it } from 'vitest'
 
-import { applyActions, stableStringify } from '../../src/core/index.js'
+import { LIVE_SAVE_VERSION, applyActions, stableStringify } from '../../src/core/index.js'
 import type { GameState } from '../../src/core/index.js'
 
 import { clone, operationsStudio, productionPayload, withCash } from './_contractFixtures.js'
@@ -126,7 +126,7 @@ function validateAtOwningBoundary(kind: string, rows: readonly Record<string, un
     const makeSaveLive = requireFunction(requireCore(), 'makeSave', 'P08A live boundary') as unknown as (
       s: GameState,
     ) => { state: Record<string, unknown> }
-    const validateLive = requireFunction(requireCore(), 'validateSaveV46', 'P09 live boundary') as unknown as (
+    const validateLive = requireFunction(requireCore(), `validateSaveV${LIVE_SAVE_VERSION}`, 'P09 live boundary') as unknown as ( // 1370-AR r3: the live reader by its export name
       save: unknown,
     ) => unknown
     const forged = clone(makeSaveLive(managed) as unknown as Envelope)

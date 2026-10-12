@@ -144,6 +144,7 @@ import { decodeCampaignStorage } from '../bridge/runtime/campaign-storage-codec.
 import type { CampaignRequest } from '../bridge/schema/bridge-schema.ts'
 import type { CampaignLibrary } from '../bridge/runtime/campaign-library.ts'
 import { DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS } from '../bridge/runtime-checkpoint.ts'
+import { LIVE_SAVE_VERSION } from '../src/core/save.js'
 
 // ── Wire shapes (loosely typed, matching tests/bridge-p13b-s7-disclosure.test.ts) ──
 type WireActivity = {
@@ -230,7 +231,7 @@ describe('P13B-S8-T3 item 1: projection version bump 40 -> 41; converted flag', 
     const saved = session.save(control(session, nextCommandId('save')))
     expect(saved.accepted).toBe(true)
     if (!saved.accepted) throw new Error(`save refused: ${JSON.stringify(saved)}`)
-    expect((JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion).toBe(46)
+    expect((JSON.parse(saved.saveJson) as { saveVersion: number }).saveVersion).toBe(LIVE_SAVE_VERSION)
     const loaded = session.load(control(session, nextCommandId('load')))
     expect(loaded.accepted).toBe(true)
     if (!loaded.accepted) throw new Error(`load refused: ${JSON.stringify(loaded)}`)
@@ -401,7 +402,7 @@ describe('P13B-S8-T3 item 6: live-version save round-trip, Save As, genuine V26 
     const savedBefore = session.save(control(session, nextCommandId('save-before')))
     expect(savedBefore.accepted).toBe(true)
     if (!savedBefore.accepted) throw new Error(`save refused: ${JSON.stringify(savedBefore)}`)
-    expect((JSON.parse(savedBefore.saveJson) as { saveVersion: number }).saveVersion).toBe(46)
+    expect((JSON.parse(savedBefore.saveJson) as { saveVersion: number }).saveVersion).toBe(LIVE_SAVE_VERSION)
     const loaded = session.load(control(session, nextCommandId('load')))
     expect(loaded.accepted).toBe(true)
     if (!loaded.accepted) throw new Error(`load refused: ${JSON.stringify(loaded)}`)

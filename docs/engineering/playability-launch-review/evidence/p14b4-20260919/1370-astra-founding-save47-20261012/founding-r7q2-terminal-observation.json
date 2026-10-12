@@ -1,0 +1,22 @@
+{
+  "observedUTC": "2026-10-12T16:33:12.150414+00:00",
+  "originalExecSession": 78281,
+  "originalExecExit": 98,
+  "originalCoreChildExit": 1,
+  "originalCoreSeconds": 7704,
+  "tests": 5679,
+  "passed": 5564,
+  "failed": 101,
+  "skipped": 3,
+  "todo": 11,
+  "finalFreezeChangedKeys": [
+    "diff",
+    "status"
+  ],
+  "finalFreezeMatchesExactPreservedIncident": true,
+  "ownedGateAndVitestProcessesAbsent": true,
+  "originalLaneLockAbsent": true,
+  "power": "AC",
+  "availableKiB": 3954936,
+  "claim": "Parent observed terminal job, actual JSON/child/lane outcomes and final snapshot. Original98 and failed assertions retained. No acceptance claim."
+}

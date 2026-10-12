@@ -1,12 +1,13 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { tick } from '../src/core/tick.js'
-import { exportSave, importSave, makeSave, migrateToLive, validateSaveV46 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToLive } from '../src/core/save.js'
 import { playerTechnologyAccess } from '../src/core/technology.js'
 import type { TechnologyAccess, TechnologyId } from '../src/core/technologyTypes.js'
 import type { GameState } from '../src/core/types.js'
 import { advanceTo } from '../src/harness/p13a/fixtures.js'
 import { p13bTwoLabWorld } from '../src/harness/p13b/fixtures.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 // P13B-S2 independent test-engineer regression (Current Ops disposition
 // OPS-P13B-R07-DISPOSITION-20260916-01 §5, source-confirmed defect at
@@ -193,7 +194,7 @@ describe('P13B-S2 access identity: completion grant must key on (studioId, techn
     expect(lightRows).toHaveLength(1)
     expect(soundRows[0]).toEqual({ studioId: own, technologyId: 'synchronized-sound', route: 'research', chosenWeek: 780, acquiredWeek: 787, accessCost: 0, researchProjectId: firstId })
     expect(lightRows[0]).toEqual({ studioId: own, technologyId: 'lighting-control-01', route: 'research', chosenWeek: 787, acquiredWeek: 794, accessCost: 0, researchProjectId: secondId })
-    expect(() => validateSaveV46(makeSave(state))).not.toThrow()
+    expect(() => validateLiveSave(makeSave(state))).not.toThrow()
   })
 
   it('7. idempotence: ticking again after completion never adds a duplicate row for either technology', () => {

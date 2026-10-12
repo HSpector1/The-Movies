@@ -8,10 +8,11 @@ import { expect } from 'vitest'
 import { busyTalentIds } from '../../src/core/employment.js'
 import { stream } from '../../src/core/rng.js'
 import { scriptDraftWeeks, writingPaceExperience } from '../../src/core/screenplay.js'
-import { makeSave, validateSaveV46, stableStringify } from '../../src/core/save.js'
+import { LIVE_SAVE_VERSION, convertV46ToV47, makeSave, validateSaveV46, stableStringify } from '../../src/core/save.js'
 import { GENRE_ORDER } from '../../src/core/tuning.js'
 import type { GameState } from '../../src/core/types.js'
 import { ordinaryPath } from './1368-archived-route.js'
+import { validateLiveSave } from './live-era.js'
 
 export const SEED = 'p13b-s7-independence-01'
 export const sha = (value: string | Uint8Array) => createHash('sha256').update(value).digest('hex')
@@ -45,9 +46,9 @@ export function snap(value: unknown): string {
 export function admitted(state: GameState): GameState {
   const before = snap(state)
   const saved = makeSave(state)
-  expect(saved.saveVersion).toBe(46)
+  expect(saved.saveVersion).toBe(LIVE_SAVE_VERSION) // Save47 (1364, 1370-AR r2)
   const readerInput = structuredClone(saved), readerBefore = snap(readerInput)
-  const read = validateSaveV46(readerInput)
+  const read = validateLiveSave(readerInput)
   expect(snap(readerInput)).toBe(readerBefore)
   expect(stableStringify(read)).toBe(stableStringify(saved))
   expect(stableStringify(read.state)).toBe(stableStringify(state))
@@ -119,7 +120,7 @@ export function load414(): GameState {
   const saved = validateSaveV46(parsed)
   expect(snap(parsed)).toBe(before)
   expect(stableStringify(saved)).toBe(raw.toString('utf8'))
-  const state = admitted(saved.state)
+  const state = admitted(convertV46ToV47(saved).state) // Save47: the V46 artifact enters the live engine through the step
   premise414(state)
   return state
 }

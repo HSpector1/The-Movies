@@ -49,11 +49,12 @@ import { describe, expect, it } from 'vitest'
 
 import { applyActions, beginFounding, generateWorld, nextStudioDecision, tick } from '../src/core/index.js'
 import { RELATIONSHIP_TIERS } from '../src/core/relationships.js'
-import { LIVE_SAVE_VERSION, makeSave, validateSaveV46 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave } from '../src/core/save.js'
 import type { CreativeRole, GameState, RelationshipDriver, RelationshipTier, SegmentId } from '../src/core/types.js'
 import { peopleProjection } from '../bridge/people.ts'
 import { castingChemistryRows, sharedPictureCount, type ChemistrySeats } from '../bridge/relationships.ts'
 import { player, retentionFixture } from './helpers/p14b2-fixtures.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 // ── the pinned copy (existing + this brief's four new sentences) ────────────────────────────
 const CASE1_WITHHELD_LINE = 'Other working ties here are with people you do not employ.'
@@ -92,7 +93,7 @@ const withRoot = (state: GameState, rows: readonly Edge[]): GameState => ({ ...s
 function admitted(state: GameState, label: string): GameState {
   const save = makeSave(state)
   expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
-  validateSaveV46(JSON.parse(JSON.stringify(save)))
+  validateLiveSave(JSON.parse(JSON.stringify(save)))
   expect(label.length).toBeGreaterThan(0)
   return save.state as GameState
 }

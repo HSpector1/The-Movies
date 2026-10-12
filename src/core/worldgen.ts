@@ -84,6 +84,7 @@ import {
 } from './tuning.js'
 import { ageRunwayMult, roleOVR } from './talentSummary.js'
 import { emptyPublicityState, initialP15Roots } from './save.js'
+import { initialFoundingFunding } from './foundingFunding.js'
 import type {
   CastSlot,
   Ceilings,
@@ -819,5 +820,7 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
     // from week 0, and the one P15 allocator starts at 1. P15A.1 Wave 2 (1355-A §3.5): the shared
     // market records from week 0 too. P15C Wave 2 (1359-A §5.2): so does the Legacy, unfrozen.
     ...initialP15Roots(0),
+    // 1364 (1364-A §3): a fresh world records no recruitment fund; the root records from week 0.
+    foundingFunding: initialFoundingFunding(0),
   }
 }

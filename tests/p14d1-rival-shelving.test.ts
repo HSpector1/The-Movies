@@ -32,7 +32,7 @@ import * as careerLifecycle from '../src/core/careerLifecycle.js'
 import * as saveModule from '../src/core/save.js'
 import { promiseFeasibility } from '../src/core/promises.js'
 import { marketingCapacityForInputs, marketingMenuFromCapacity } from '../src/core/marketingMenu.js'
-import type { GameState } from '../src/core/types.js'
+import type { GameState, GameStateV45 } from '../src/core/types.js'
 import type { RivalBusiness, IndustryReceipt } from '../src/core/hollywoodTypes.js'
 import { RIVAL_MONEY_KINDS, rivalWeeklyOperatingCost } from '../src/core/hollywood.js'
 import { validatePowerRankingArchive } from '../src/core/powerRankingArchive.js'
@@ -40,6 +40,7 @@ import { liveWeek100, liveWeek130, RIVAL_R01 } from './p14d1-rival-shelving-fixt
 import { genuineV42Week77 } from './p14d1-week77-fixture.js'
 import type { PromiseDraft } from '../src/core/promises.js'
 import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+import { EXPECTED_LIVE_SAVE_VERSION, validateLiveSave, downgradeLiveTo45 } from './helpers/live-era.js'
 
 const HARNESS_GENESIS = (): GameState => p13aGeneratedStudio('p13a-core-causal-01')
 
@@ -187,7 +188,7 @@ describe('API decisions this file exercises (asserted to exist first, per PITFAL
     expect(typeof fn).toBe('function')
   })
   it('save.ts LIVE_SAVE_VERSION is 46, and validateSaveV43/convertV42ToV43/convertV43ToV42 exist', () => {
-    expect(saveModule.LIVE_SAVE_VERSION).toBe(46)
+    expect(saveModule.LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
     const mods = saveModule as unknown as Record<string, unknown>
     expect(typeof mods.validateSaveV43).toBe('function')
     expect(typeof mods.convertV42ToV43).toBe('function')
@@ -539,15 +540,19 @@ describe('shelving-blocked-weeks-hold (1344-A §6.2)', () => {
 
 // ── 3. shelving-viable-control (1344-F Amendment 2) ─────────────────────────────
 describe('shelving-viable-control (1344-F Amendment 2)', () => {
-  it('genesis to week 77: admitted candidate matches the genuine old input under the existing projections; zero shelves precede its own first visible shelving', () => {
+  it('zero-penalty historical control: genesis to week77 matches the genuine old input under the existing projections; zero shelves precede its own first visible shelving', () => {
+    // 1355-A K4: isolated negative control; never a current-law gameplay claim.
+    const tuning = TUNING as unknown as { SHARED_MARKET_FACTOR_MAX_PENALTY: number }
+    const livePenalty = tuning.SHARED_MARKET_FACTOR_MAX_PENALTY
+    expect(livePenalty).toBe(0.15)
+    try {
+      tuning.SHARED_MARKET_FACTOR_MAX_PENALTY = 0
     // 1363-F11 trigger: measured Part A receipt week77 first appears at produced week78.
     // Keep the old week93 fixture. This new original-engine capture does not assert
     // that earlier Hollywood divergence is harmless; exact comparison below decides.
     const mods = saveModule as unknown as {
       convertV42ToV43(s: unknown): { state: GameState }
       convertV43ToV44(s: unknown): { state: GameState }
-      validateSaveV46(s: unknown): unknown
-      convertV46ToV45(s: unknown): { state: GameState }
     }
     const genuine = genuineV42Week77(), originalBytes = saveModule.stableStringify(genuine)
     const genuineState = mods.convertV43ToV44(mods.convertV42ToV43(genuine)).state
@@ -557,15 +562,16 @@ describe('shelving-viable-control (1344-F Amendment 2)', () => {
     expect(state.market.tick).toBe(77)
     const stateBytes = saveModule.stableStringify(state)
     const ordinary = saveModule.makeSave(state), ordinaryBytes = saveModule.stableStringify(ordinary)
-    let candidate45: GameState
+    let candidate45: GameState | GameStateV45 // the V45 comparison operand is one era below the live state (1370-AR r3)
     if (Number(ordinary.saveVersion) === 45) {
       // Part A-only Save45: validate the actual ordinary candidate before projections.
       expect(saveModule.validateSaveV45(ordinary)).toBe(ordinary)
       candidate45 = ordinary.state
     } else {
-      // Combined Save46: admit it, then require empty recovery before a real downgrade.
-      expect(Number(ordinary.saveVersion)).toBe(46)
-      expect(mods.validateSaveV46(ordinary)).toBe(ordinary)
+      // Save46 and every later live era: admit it with the live reader, then require empty recovery before a real
+      // downgrade through the live chain (tests/helpers/live-era.ts; 1370-AR r3).
+      expect(Number(ordinary.saveVersion)).toBe(saveModule.LIVE_SAVE_VERSION)
+      expect(validateLiveSave(ordinary)).toBe(ordinary)
       for (const business of ordinary.state.hollywood!.businesses) {
         expect((business as unknown as { costCutting: unknown }).costCutting,
           'UNMET PREMISE: recovery entered before historical comparison').toEqual({ version: 1, since: null })
@@ -575,7 +581,7 @@ describe('shelving-viable-control (1344-F Amendment 2)', () => {
       }
       expect(ordinary.state.hollywood!.receipts.some(r => (r.kind as string) === 'facilityDisposed'),
         'UNMET PREMISE: real disposal cannot be projected away').toBe(false)
-      const historical = mods.convertV46ToV45(ordinary)
+      const historical = downgradeLiveTo45(ordinary)
       expect(saveModule.validateSaveV45(historical)).toBe(historical)
       candidate45 = historical.state
     }
@@ -593,12 +599,13 @@ describe('shelving-viable-control (1344-F Amendment 2)', () => {
     const withoutSliceB = (s: GameState) => ({ ...s, relationships: (s.relationships ?? []).map(e => ({ ...e, competitions: [], romance: null })) })
     expect((candidate45.relationships ?? []).every(e => e.competitions.length === 0)).toBe(true)
     // Existing authorized P15 projection, still guarded by every original premise.
-    expect(candidate45.sharedMarket.assessments).toEqual([])
+    expect(candidate45.sharedMarket.assessments.length, 'K4 nonvacuous validated batches').toBeGreaterThan(0)
+    expect(candidate45.sharedMarket.assessments.every(row => row.factor === 1), 'K4 unit-factor records only').toBe(true)
     expect(candidate45.campaignLegacy.official).toBeNull()
     expect(candidate45.campaignLegacy.endOfRun).toBeNull()
     expect(() => validatePowerRankingArchive(candidate45 as unknown as Record<string, unknown>)).not.toThrow()
     expect(() => saveModule.validateP15Allocator(candidate45 as unknown as Record<string, unknown>, 'week-77 control')).not.toThrow()
-    const withoutP15 = (s: GameState) => {
+    const withoutP15 = (s: GameState | GameStateV45) => {
       const { powerRanking: _pr, p15Sequence: _seq, sharedMarket: _sm, campaignLegacy: _cl, ...rest } = s
       return rest as unknown as GameState
     }
@@ -615,6 +622,83 @@ describe('shelving-viable-control (1344-F Amendment 2)', () => {
     expect(found, `first visible shelving must occur within ${BOUND} later ticks from the exact compared state`).toBe(true)
     expect(saveModule.stableStringify(state)).toBe(stateBytes)
     expect(saveModule.stableStringify(genuine)).toBe(originalBytes)
+    } finally { tuning.SHARED_MARKET_FACTOR_MAX_PENALTY = livePenalty }
+    expect(tuning.SHARED_MARKET_FACTOR_MAX_PENALTY).toBe(livePenalty)
+  }, 30_000)
+
+  it('actual v2 genesis through weeks77 and93: natural shelving obeys the retained-work, obligations, hold and loop laws; live saves replay exactly', () => {
+    // 1355-A active pressure changes natural premises. Historical equality belongs
+    // to the K4 control above; here 1344-A §§3.2/3.3/3.5 and 1344-F Amendment3 govern.
+    expect(TUNING.SHARED_MARKET_FACTOR_MAX_PENALTY).toBe(0.15)
+    let state = HARNESS_GENESIS(), replay: GameState | null = null
+    let firstProducedWeek: number | null = null, shelvesThrough77 = 0, newShelvesAfter77 = 0
+    let bytes77 = '', saved77: GameState | null = null
+    for (let i = 0; i < 93; i++) {
+      const before = state
+      state = tick(state)
+      const fresh = shelvedReceiptsOf(newReceipts(before, state))
+      for (const receipt of fresh) {
+        if (firstProducedWeek === null) firstProducedWeek = state.market.tick
+        if (state.market.tick > 77) newShelvesAfter77++
+        expect(receipt.week).toBe(before.market.tick)
+        expect(receipt.rejections).toBe(TUNING_FUTURE.HOLLYWOOD_SHELVE_AFTER_REJECTIONS)
+        const b0 = business(before, receipt.studioId), b1 = business(state, receipt.studioId)
+        const ordinal = ordinalOf(b1, receipt.scriptProjectId)
+        expect(shelvedReceiptsOf(newReceipts(before, state)).filter(r => r.studioId === receipt.studioId && r.scriptProjectId === receipt.scriptProjectId)).toHaveLength(1)
+        expect(b1.activeScriptOrdinals).not.toContain(ordinal)
+        expect(b1.development.projects[ordinal]!.status).toBe('ready')
+        expect(b1.development.projects[ordinal]).toEqual(b0.development.projects[ordinal])
+        expect(b1.projects[ordinal]).toEqual(b0.projects[ordinal])
+        expect(receipt.conceptId).toBe(b1.projects[ordinal]!.conceptId)
+        const priorCount = shelving(b0).rejections.find(r => r.ordinal === ordinal)?.count
+        expect(priorCount).toBeGreaterThanOrEqual(TUNING_FUTURE.HOLLYWOOD_SHELVE_AFTER_REJECTIONS - 1)
+        expect(priorCount).toBeLessThanOrEqual(TUNING_FUTURE.HOLLYWOOD_SHELVE_AFTER_REJECTIONS)
+        const entry = shelving(b1).shelved.find(r => r.ordinal === ordinal)
+        expect(entry).toEqual({ ordinal, week: receipt.week, retryWeek: receipt.week + TUNING_FUTURE.HOLLYWOOD_SHELVED_RETRY_WEEKS })
+        expect(shelving(b1).commissionHoldUntilWeek).toBe(receipt.week + TUNING_FUTURE.HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS)
+        expect(before.promises.some(p => p.issuerStudioId === receipt.studioId && p.outcome === null && 'kind' in p.predicate && p.predicate.kind === 'projectOpportunity' && p.predicate.scriptProjectId === receipt.scriptProjectId), 'no open studio-owned named promise at shelving decision input').toBe(false)
+      }
+      for (const b0 of before.hollywood!.businesses) {
+        const b1 = business(state, b0.studioId)
+        if (before.market.tick < shelving(b0).commissionHoldUntilWeek) {
+          expect(b1.development.projects.length, 'no development commission during hold').toBe(b0.development.projects.length)
+          expect(b1.projects.length, 'no cost-row commission during hold').toBe(b0.projects.length)
+        }
+        for (const entry of shelving(b0).shelved) if (before.market.tick < entry.retryWeek) {
+          expect(b1.activeScriptOrdinals).not.toContain(entry.ordinal)
+          expect(shelving(b1).shelved.find(r => r.ordinal === entry.ordinal)).toEqual(entry)
+        }
+        // Complete rolling52 windows, counted by studio and authoritative receipt week.
+        const receipts = shelvedReceiptsOf(state.hollywood!.receipts).filter(r => r.studioId === b1.studioId)
+        for (const receipt of receipts) expect(receipts.filter(r => r.week > receipt.week - 52 && r.week <= receipt.week).length).toBeLessThanOrEqual(4)
+      }
+      if (replay !== null) {
+        replay = tick(replay)
+        expect(saveModule.stableStringify(replay)).toBe(saveModule.stableStringify(state))
+      }
+      if (state.market.tick === 77 || state.market.tick === 93) {
+        const bytes = saveModule.stableStringify(state), envelope = saveModule.makeSave(state)
+        expect(validateLiveSave(envelope)).toBe(envelope)
+        const wire = saveModule.exportSave(envelope)
+        const loaded = saveModule.migrateToLive(saveModule.importSave(wire)).state
+        expect(saveModule.stableStringify(loaded)).toBe(bytes)
+        expect(saveModule.exportSave(saveModule.makeSave(loaded))).toBe(wire)
+        expect(saveModule.stableStringify(state)).toBe(bytes)
+        expect(state.sharedMarket.assessments.length, 'nonvacuous actual v2 batches').toBeGreaterThan(0)
+        expect(state.sharedMarket.assessments.every(r => r.definitionVersion === 'p15a1-market-v2')).toBe(true)
+        expect(state.sharedMarket.assessments.some(r => r.factor < 1), 'actual pressure changes reception').toBe(true)
+        if (state.market.tick === 77) {
+          shelvesThrough77 = shelvedReceiptsOf(state.hollywood!.receipts).length
+          bytes77 = bytes; saved77 = state; replay = loaded
+        }
+      }
+    }
+    expect(shelvedReceiptsOf(state.hollywood!.receipts).length, 'natural shelving-law checks are nonvacuous').toBeGreaterThan(0)
+    expect(saved77).not.toBeNull()
+    expect(saveModule.stableStringify(saved77)).toBe(bytes77)
+    // Observations (prior bounded probe: produced69, one through77, none new93)
+    // are measurements, never a replacement law or a pinned timing/count target.
+    console.info('actual-v2 shelving measurement ' + JSON.stringify({ firstProducedWeek, shelvesThrough77, newShelvesAfter77, endWeek: state.market.tick, replayWeeks: 16 }))
   }, 30_000)
 
   it('a business with at least one recorded greenlight and zero economic rejections in the first 5 weeks keeps the empty screenplayShelving state', () => {
@@ -971,8 +1055,7 @@ describe('shelving-chart-output (1344-A §6.8)', () => {
     const releasedSimulationCount = h.films.filter(f => f.studioId === RIVAL && f.provenance === 'simulation/v1' && f.result.releaseTick < state.market.tick).length
     expect(authoredCount, 'route premise: r01 has its two canonical starting (authored) films').toBe(2)
     expect(row!.output).toBe(releasedSimulationCount + authoredCount)
-    const mods = saveModule as unknown as { validateSaveV46: (s: unknown) => unknown }
-    expect(() => mods.validateSaveV46(saveModule.makeSave(state))).not.toThrow()
+    expect(() => validateLiveSave(saveModule.makeSave(state))).not.toThrow()
   }, 20_000)
 })
 

@@ -627,7 +627,8 @@ const FORGERIES: { title: string; refusal: RegExp; forge: Forge }[] = [
     appendLawRow(s, 'zzzz-p15a1-red-current-week', s.market.tick)
   } },
   { title: 'an unknown definitionVersion', refusal: /definitionVersion|unknown/i, forge: (s) => {
-    (rowsOf(s)[0] as unknown as { definitionVersion: string }).definitionVersion = 'p15a1-market-v2'
+    // 1365: v2 is the live era after the retune (1361-F5 ruling 3), so the unknown id moves to v3.
+    (rowsOf(s)[0] as unknown as { definitionVersion: string }).definitionVersion = 'p15a1-market-v3'
   } },
   { title: 'an unknown root version', refusal: /version/i, forge: (s) => { marketRoot(s).version = 2 } },
   { title: 'an owner field on a row (exact keys)', refusal: /key|owner|unexpected/i, forge: (s) => {

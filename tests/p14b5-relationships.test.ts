@@ -71,13 +71,14 @@ import * as marketModule from '../src/core/talentMarket.js'
 import { publicPreferredTerm, publicPriorityOrder, submitProposal, type FreezeDrop } from '../src/core/talentMarket.js'
 import { attachPromise } from '../src/core/promises.js'
 import { validateFirstTakeSubjects } from '../src/core/firstTakeSubjects.js'
-import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33, validateSaveV46 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV25, migrateToV26, migrateToV27, migrateToV28, migrateToV29, migrateToV30, migrateToV31, validateSaveV30, validateSaveV31, validateSaveV33 } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
 import { careerIdentity } from '../src/core/talentSummary.js'
 import { advanceTo, fund, p13aGeneratedStudio, player } from './helpers/p14b2-fixtures.js'
 import { p15Rows, stripP15 } from './helpers/p15-roots.js'
+import { validateSharedMarketRoot } from '../src/core/marketIntegration.js'
 import { historicalSave45Comparison } from './helpers/historical-save45-comparison.js'
-import type { CastSlot, FilmResult, GameState, Production, RelationshipEdge, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
+import type { GameStateV45, CastSlot, FilmResult, GameState, Production, RelationshipEdge, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
 // RED-by-design: src/core/relationships.ts does not exist. Every binding below is CALLED.
 import {
   RELATIONSHIP_BASELINE, RELATIONSHIP_CANCEL_DELTA, RELATIONSHIP_DRIFT_GRACE_WEEKS, RELATIONSHIP_DRIFT_RETURN_WEEKS,
@@ -87,6 +88,7 @@ import {
   RELATIONSHIP_TIER_FLOOR, advanceRelationshipsWeek, currentCloseness, currentTier, driverGain, pairChemistry,
   projectRelationshipsPreV31, recordCancelledAfterFirstTake, requireRelationshipsRoot, validateRelationshipsRoot,
 } from '../src/core/relationships.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 // ── shapes read by this RED (plan scope (1) PROPOSED SHAPE; field names pinned here) ────────────────
 type Tier = 'Nemeses' | 'Enemies' | 'Strained' | 'Acquaintances' | 'Colleagues' | 'Friends' | 'CloseFriends' | 'Inseparable'
@@ -281,7 +283,11 @@ const stage = (state: GameState, edge: Edge): GameState => live(withEdges(state,
 // one list names them (tests/helpers/p15-roots.ts, read only), so a later P15 root joins this
 // guard. `postTakeDigestStripped` stays UNCHANGED: the guarded strip must reproduce it, and any
 // other value refutes the attribution.
-const bytes = (state: GameState): string => {
+// 1365 (1370-AR r3): the activated market law writes its first batch inside this very window (one rival
+// release at week 60), so the "no row" premise moved while the digest did not: the zero-pressure first batch
+// is admitted by the guard below and stripped, and `postTakeDigestStripped` is reproduced byte for byte
+// (evidence/r3/p14b5-witness-r3tree.json against -r8head.json). The constant stays UNCHANGED.
+const bytes = (state: GameState | GameStateV45): string => {
   // P14C.2b: before the structural strip below silently drops the whole root,
   // confirm it is dropping no retirement-extension authority — this window
   // (60-65) never reaches a settled extension either.
@@ -319,10 +325,23 @@ const bytes = (state: GameState): string => {
   if (state.hollywood?.receipts.some((r) => r.kind === 'screenplayShelved')) {
     throw new Error('bytes: a screenplayShelved receipt exists, so the screenplayShelving strip would hide a real shelving')
   }
-  // 1361-N S10: the P15 guard, before the strip below drops the four roots.
-  if (p15Rows(state).length > 0 || state.p15Sequence.next !== 1) {
-    throw new Error('bytes: a P15 row or an allocated sequence exists, so the P15 strip would hide real authority')
+  // 1361-N S10: the P15 guard, before the strip below drops the four roots. Pre-1365 it read
+  // `p15Rows(state).length > 0 || state.p15Sequence.next !== 1` and threw on any row at all.
+  // 1365 (1370-AR r3, the 1361-N S9 first-guard-moved form): with P15A.1(c) active the same tick writes the
+  // week's market batch (one row per rival picture at remainingTicks 1, src/core/tick.ts:537 and :1142).
+  // Over the root the migration wrote empty there is no active exposure, so every row carries pressure 0 and
+  // factor exactly 1 (src/core/sharedMarket.ts pressureFactor: 1 - 0.15 * (1 - e^0)), which moves no revenue;
+  // everything outside the four roots stays byte-identical and the guarded strip still reproduces
+  // `postTakeDigestStripped` (measured: evidence/r3/p14b5-witness-r3tree.json, ONE row, studio-aca408ec-r04:film:6
+  // at week 60, P=0, f=1, p15DomainSequence 1, p15Sequence.next 2; the same digest at R8 HEAD with no row). The
+  // guard admits exactly that class, through the law's own root validator, and refuses every other P15 fact.
+  const marketRows = p15Rows(state, ['sharedMarket']) as unknown as { pressure: number; factor: number }[]
+  const lawfulZeroPressureBatch = marketRows.length === p15Rows(state).length && state.p15Sequence.next === 1 + marketRows.length
+    && marketRows.every((row) => row.pressure === 0 && row.factor === 1)
+  if (!lawfulZeroPressureBatch) {
+    throw new Error('bytes: a P15 row with effect (pressure, a factor below 1, a Power Ranking or Legacy row) or an unaccounted allocation exists, so the P15 strip would hide real authority')
   }
+  if (marketRows.length > 0) validateSharedMarketRoot(state as unknown as Record<string, unknown>, 'bytes')
   const strippedHollywood = state.hollywood === null ? null : { ...state.hollywood,
     businesses: state.hollywood.businesses.map(({ screenplayShelving: _shelving, ...business }) => ({ ...business,
       account: { ...business.account, periods: business.account.periods.map((period) => {
@@ -1307,12 +1326,19 @@ describe('family 8 — RESERVATION enumerated and CHEMISTRY read-only (scope (6)
 })
 
 // ─────────────────────────────────────────────────────────────────────────────────────────────────────
+// 1370-AR r4 (1361-N S9 MASKED; review item 11): the exact first guard family 10's downgrades meet, measured on
+// the r4 source at all seven sites (migrateToV30/29/28/27/26/25 of `admitted`, migrateToV30 of `empty`): once the
+// market law records the route's one week-60 row, the Save45 P15 guard at migrateToV44 fires before the Save42
+// shelving guard. Pre-1365 first guard, kept for the record:
+//   /^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01$/
+// The shelving guard stays covered on its own V43 input in p14d1-rival-shelving-save-v43.test.ts.
+const FAMILY10_FIRST_GUARD = /^migrateToV44: cannot downgrade or discard a recorded shared-market assessment \(1 recorded\)$/
 describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9\'s ONE-EDGE downgrade refusal (scope (10))', () => {
   const v31 = () => { const { after } = takeWorld(); return JSON.parse(JSON.stringify(makeSave(after))) as { saveVersion: number; seed: string; state: Record<string, unknown> & { relationships: Edge[] }; broadcastCache: unknown } }
   const expectRefused = (mutate: (edges: Edge[], state: Record<string, unknown>) => void, pattern: RegExp) => {
     const save = v31()
     mutate(save.state.relationships, save.state)
-    expect(() => validateSaveV46(save)).toThrow(pattern)
+    expect(() => validateLiveSave(save)).toThrow(pattern)
     // 1320-A: save is genuinely live (era 42, from v31()'s makeSave); the era-31
     // default would refuse on the unrelated new sharedCompetitions field before
     // ever reaching the deliberate tamper below it.
@@ -1332,13 +1358,13 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     const save = v31()
     expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(save.state.relationships).toHaveLength(6)
-    expect(validateSaveV46(save)).toEqual(save)
+    expect(validateLiveSave(save)).toEqual(save)
   })
 
   it('refuses a missing root', () => {
     const save = v31()
     Reflect.deleteProperty(save.state, 'relationships')
-    expect(() => validateSaveV46(save)).toThrow(/relationships/)
+    expect(() => validateLiveSave(save)).toThrow(/relationships/)
   })
   it('refuses a non-ordinal edgeId', () => expectRefused((e) => { e[0]!.edgeId = 'edge-x' }, /edgeId/))
   it('refuses a duplicate pair', () => expectRefused((e) => { e[1]!.a = e[0]!.a; e[1]!.b = e[0]!.b }, /duplicate|pair/i))
@@ -1382,7 +1408,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // moves with it again, same reasoning.
     // 1358-N S1: and once more, to 44 (Save44); same reasoning.
     // 1361-N S1: and once more, to 45 (Save45); same reasoning.
-    const admitted = validateSaveV46(one)
+    const admitted = validateLiveSave(one)
     const before = JSON.stringify(admitted)
     expect(() => projectRelationshipsPreV31(one.state)).toThrow()
     // RE-EXPRESSED (was: `/cannot downgrade SaveFileV31 or discard the relationship
@@ -1418,7 +1444,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // last assertion: the genuine week-110 Save40 capture, downgraded once; 1358-F11,
     // since Save44's romance refusal now masks Q11's live chain), the V33
     // aging guard by tests/p14c1-materialized-aging.test.ts:445 (family 5, :423).
-    expect(() => migrateToV30(admitted)).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01$/)
+    expect(() => migrateToV30(admitted)).toThrow(FAMILY10_FIRST_GUARD)
     // Every older migrateToVn refuses too, but MEASURED (not assumed) to be for
     // two DIFFERENT reasons depending on vintage, so the loop's regex only claims
     // what both share: migrateToV29/28/27/26 chain through the same convertV33ToV32
@@ -1435,7 +1461,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // same rejection-count guard refuses. Derived from source, not measured: x2
     // stopped at the migrateToV30(admitted) assertion.
     for (const older of [migrateToV29, migrateToV28, migrateToV27, migrateToV26]) {
-      expect(() => older(admitted as never)).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01$/)
+      expect(() => older(admitted as never)).toThrow(FAMILY10_FIRST_GUARD)
     }
     // P14C.4: migrateToV25 (and every migrator older than V26) now meets the
     // NEWER unconditional V35 guard FIRST — added directly beside the
@@ -1450,7 +1476,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // retirement-extension guard behind the same recorded first-take subject.
     // 1344-N S9: migrateToV25 crosses convertV43ToV42 first too (save.ts:8591);
     // derived from source, as above.
-    expect(() => migrateToV25(admitted as never)).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01$/)
+    expect(() => migrateToV25(admitted as never)).toThrow(FAMILY10_FIRST_GUARD)
     expect(JSON.stringify(admitted)).toBe(before)
 
     // RE-EXPRESSED (was: "empty is lossless" — `migrateToV30(empty)` succeeded and
@@ -1463,7 +1489,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // That downgrade route does not exist for this fixture any more; the correct,
     // current-law assertion is that it is refused too — not a different message,
     // and not a success.
-    const empty = validateSaveV46({ ...save, state: { ...save.state, relationships: [] } })
+    const empty = validateLiveSave({ ...save, state: { ...save.state, relationships: [] } })
     expect(projectRelationshipsPreV31(empty.state)).toBeUndefined()
     // 1309-X3 ruling 2: `empty` is also takeWorld()-derived, so it too carries a
     // recorded first-take subject; the V39 guard masks the V33 materialization
@@ -1471,7 +1497,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // 1344-N S9: `empty` differs from `admitted` only in `relationships`, so it
     // holds the same rival rejection count and convertV43ToV42 (save.ts:9210,
     // :10698) refuses it first too; derived from source, as above.
-    expect(() => migrateToV30(empty)).toThrow(/^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01$/)
+    expect(() => migrateToV30(empty)).toThrow(FAMILY10_FIRST_GUARD)
     // GAP, disclosed rather than hidden: the ORIGINAL claim under test here — that an
     // EMPTY relationship root downgrades losslessly — is a real, still-implemented
     // behavior of `convertV32ToV31`/`convertV31ToV30`, but it is not observable from

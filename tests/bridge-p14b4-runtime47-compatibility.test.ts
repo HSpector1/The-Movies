@@ -20,6 +20,7 @@ import {
 } from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession } from '../bridge/session.ts'
 import { exportSave, importSave, LIVE_SAVE_VERSION, migrateToLive, validateSaveV29 } from '../src/core/save.js'
+import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
 
 // 1309-X3 ruling 4: convertV40ToV41 (src/core/save.ts:10479) adds a zero
 // `termination` movement to every rival finance period; the OLD state never
@@ -207,7 +208,7 @@ describe('P14B4 genuine outgoing46 runtime compatibility — current Save39/proj
   it('requires literal projection54/Save39 and exact 42 prior IDs, excluding the running identity', () => {
     expect(PROTOCOL_VERSION).toBe(4)
     expect(PROJECTION_VERSION).toBe(57)
-    expect(LIVE_SAVE_VERSION).toBe(46)
+    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56].sort())

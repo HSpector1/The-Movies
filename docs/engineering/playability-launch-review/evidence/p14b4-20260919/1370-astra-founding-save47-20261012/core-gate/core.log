@@ -1,0 +1,6 @@
+[bridge] 2026-10-12T15:47:27.924Z commandId=5f4eb0ac-3a4a-41f6-8b4f-a8d5037e976d expectedRevision=0 operation=save result=accepted revision=0 disposition=first-seen durationMs=28.531
+[bridge] 2026-10-12T15:47:28.024Z commandId=5f4eb0ac-3a4a-41f6-8b4f-a8d5037e976d expectedRevision=0 operation=save result=accepted revision=0 disposition=replay durationMs=28.531
+[bridge] 2026-10-12T15:47:30.473Z commandId=4f8de2a4-5d2e-4b2c-af4e-8fe23c07e62a expectedRevision=0 operation=submitIntent result=accepted revision=1 disposition=first-seen durationMs=459.628
+[bridge] 2026-10-12T15:47:33.325Z commandId=5f4eb0ac-3a4a-41f6-8b4f-a8d5037e976d expectedRevision=0 operation=save result=accepted revision=0 disposition=replay durationMs=28.531
+[bridge] 2026-10-12T15:47:38.019Z commandId=8cdcfbbf-bb47-4f1d-94f5-2a95bfa72a4a expectedRevision=0 operation=save result=accepted revision=0 disposition=first-seen durationMs=35.686
+JSON report written to /Users/zacheryspector/studio-scratch/1370-ar-1364-1365-founding-market-implementation-20261010-r1/landing-r7q2-astra/core-full.json

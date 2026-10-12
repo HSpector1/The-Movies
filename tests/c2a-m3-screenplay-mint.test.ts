@@ -7,7 +7,7 @@
 
 import { describe, expect, it } from 'vitest'
 import {
-  CONCEPT_DISTRIBUTIONS,
+  LIVE_SAVE_VERSION, CONCEPT_DISTRIBUTIONS,
   FOUNDING_MINIMUMS,
   ORIGINAL_CONCEPT_ID_PREFIX,
   TUNING,
@@ -353,7 +353,7 @@ describe('C2a-M3 — a writer goes to work and hands the studio a new movie', ()
       { kind: 'commissionOriginalScreenplay', screenplay: originalPayload(state, 'crime') },
     ])
     const save = makeSave(state)
-    expect(save.saveVersion).toBe(46)
+    expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)
     expect(save.state.originalScreenplays.blueprints).toHaveLength(1)
     expect(save.state.concepts.at(-1)!.id).toBe(`${ORIGINAL_CONCEPT_ID_PREFIX}0000`)
   })

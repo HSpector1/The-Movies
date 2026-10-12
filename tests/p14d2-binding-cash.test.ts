@@ -7,10 +7,11 @@ import * as policyModule from '../src/core/hollywoodPolicy.js'
 import * as forecasts from '../src/core/forecast.js'
 import { resolveShape } from '../src/core/shape.js'
 import { marketingCapacityForInputs, marketingMenuFromCapacity } from '../src/core/marketingMenu.js'
-import { makeSave, validateSaveV46 } from '../src/core/save.js'
+import { makeSave } from '../src/core/save.js'
 import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
 import { liveWeek130, RIVAL_R01 } from './p14d1-rival-shelving-fixtures.js'
 import type { GameState } from '../src/core/types.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 type Args = Parameters<typeof policyModule.chooseIndustryPackage>
 type Options = Args[2] & { diagnoseUnaffordableViability?: boolean }
@@ -98,7 +99,7 @@ function dueState(ordinals: number[], source = liveWeek130(), delay = 0): GameSt
   }
   b.screenplayShelving.shelved.sort((a, b) => a.ordinal - b.ordinal)
   b.screenplayShelving.commissionHoldUntilWeek = week + 3
-  validateSaveV46(makeSave(state))
+  validateLiveSave(makeSave(state))
   return state
 }
 

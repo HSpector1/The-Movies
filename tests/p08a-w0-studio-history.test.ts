@@ -50,14 +50,14 @@ import {
   tick,
   TUNING,
   updateStanding,
-  validateSaveV46,
-} from '../src/core/index.js'
+  } from '../src/core/index.js'
 import type {
   CastSlot,
   CreativeRole,
   GameState,
   StudioHistoryEvent,
 } from '../src/core/index.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 // ── fixtures (the d12-economy vocabulary, minimally copied) ──────────────────
 function foundStudio(seed: string,historical=false): GameState {
@@ -438,7 +438,7 @@ describe('P08A H8 — the save boundary refuses forged history', () => {
   it('refuses out-of-order ids, pre-boundary rows, lying deltas, and unknown kinds', () => {
     const { after } = releaseOne('p08-h8-forge')
     const legal = makeSave(after)
-    expect(validateSaveV46(clone(legal))).toBeTruthy()
+    expect(validateLiveSave(clone(legal))).toBeTruthy()
 
     const swapped = clone(legal)
     const rows = [...swapped.state.studioHistory.rows]
@@ -447,7 +447,7 @@ describe('P08A H8 — the save boundary refuses forged history', () => {
       rows[0] = b
       rows[1] = a
       ;(swapped.state.studioHistory as unknown as { rows: unknown[] }).rows = rows
-      expect(() => validateSaveV46(swapped)).toThrow(/ascending eventId/)
+      expect(() => validateLiveSave(swapped)).toThrow(/ascending eventId/)
     }
 
     const early = clone(legal)
@@ -456,13 +456,13 @@ describe('P08A H8 — the save boundary refuses forged history', () => {
     expect(early.state.firstTakes.every((take) => take.week >= boundary)).toBe(true)
     expect(early.state.promises).toEqual([])
     ;(early.state.studioHistory as { recordingStartedWeek: number }).recordingStartedWeek = boundary
-    expect(() => validateSaveV46(early)).toThrow(/recording boundary/)
+    expect(() => validateLiveSave(early)).toThrow(/recording boundary/)
 
     const lying = clone(legal)
     const receipt = lying.state.studioHistory.rows.find((r) => r.kind === 'standingChanged')
     if (receipt !== undefined && receipt.kind === 'standingChanged') {
       ;(receipt.deltas as { audienceAwareness: number }).audienceAwareness += 1
-      expect(() => validateSaveV46(lying)).toThrow(/after − before/)
+      expect(() => validateLiveSave(lying)).toThrow(/after − before/)
     }
 
     const unknown = clone(legal)
@@ -474,6 +474,6 @@ describe('P08A H8 — the save boundary refuses forged history', () => {
       subjects: [{ kind: 'studio' }],
     })
     ;(unknown.state.studioHistory as { nextEventId: number }).nextEventId += 1
-    expect(() => validateSaveV46(unknown)).toThrow(/not a known history kind/)
+    expect(() => validateLiveSave(unknown)).toThrow(/not a known history kind/)
   })
 })

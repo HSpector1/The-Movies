@@ -1,7 +1,9 @@
 // 1030/1048/1063/1065: core-only, file-owned lazy routes. No bridge graph.
 import assert from 'node:assert/strict'
 import { expect } from 'vitest'
-import { beginFounding } from '../../src/core/employment.js'
+import { applyActions } from '../../src/core/actions.js'
+import { beginFounding, FOUNDING_MINIMUMS } from '../../src/core/employment.js'
+import { contractOfferOptions } from '../../src/core/index.js'
 import { initializeHollywood } from '../../src/core/hollywood.js'
 import { migrateToLive, exportSave, stableStringify } from '../../src/core/save.js'
 import { studioCalendar } from '../../src/core/studioCalendar.js'
@@ -123,8 +125,24 @@ export function surfaceFixtures(label: string, cap: 15 | 71) {
       expect(activated.careerLifecycle.transitionDue).toEqual([{ personId: id, week: 210 }])
       expect(activated.careerLifecycle.transitionEvaluations).toEqual([])
       expect(stableStringify(initializeHollywood(activated, 'migration'))).toBe(stableStringify(activated))
-      const reconciled = step('dormant', activated); acceptedEvidence(reconciled)
-      expect(reconciled.founding).toEqual(activated.founding)
+      // 1364 Invariant B (1370-AR r2): a tick refuses an open founding draft, so the activated world founds its studio
+      // first (the minimum roster from the draft's own applicants, never the compatibility subject), then advances.
+      let founded = activated
+      for (const role of ['actor', 'director', 'writer', 'craft'] as const) {
+        let count = 0
+        for (const talentId of activated.founding!.applicantIds) {
+          if (count === FOUNDING_MINIMUMS[role]) break
+          if (talentId === id || founded.talent.find(row => row.id === talentId)?.role !== role) continue
+          const offer = contractOfferOptions(founded, talentId)[0]
+          if (offer === undefined) continue
+          founded = applyActions(founded, [{ kind: 'signContract', talentId, termWeeks: offer.termWeeks }]); count++
+        }
+        assert.equal(count, FOUNDING_MINIMUMS[role], `dormant founding: the draft offers the ${role} minimum`)
+      }
+      founded = applyActions(founded, [{ kind: 'foundStudio' }]); acceptedEvidence(founded)
+      expect(founded.founding).toBeNull()
+      const reconciled = step('dormant', founded); acceptedEvidence(reconciled)
+      expect(reconciled.founding).toBeNull()
       expect(reconciled.careerLifecycle.transitionEvaluations.filter(row => row.personId === id))
         .toEqual([expect.objectContaining({ week: 210, outcome: 'deferred', inputs: expect.objectContaining({ actingFirstTakes: 0 }) })])
       expect(reconciled.careerLifecycle.transitionDue).toContainEqual({ personId: id, week: 262 })

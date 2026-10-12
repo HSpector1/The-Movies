@@ -8,11 +8,13 @@
 // never stored. Its validator refuses by name. The one allocator check across every P15 root runs
 // once in save.ts (1361-F ruling 5), so no copy of it lives here.
 
-import { P15_PHASE_TABLES } from './p15Phases.js'
-import { assessBatch, SHARED_MARKET_DEFINITION } from './sharedMarket.js'
+import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
+import {
+  assessBatch, SHARED_MARKET_DEFINITION, SHARED_MARKET_LAW_V1, type MarketAssessment, type MarketBatchMember, type MarketExposure,
+} from './sharedMarket.js'
 import { GENRE_ORDER, TUNING } from './tuning.js'
 import type { HollywoodState } from './hollywoodTypes.js'
-import type { GameState, Genre, PersistedMarketAssessment, SharedMarketRoot } from './types.js'
+import type { GameState, Genre, PersistedMarketAssessment, Production, SharedMarketRoot } from './types.js'
 
 export const MARKET_PHASE_ID = 'p15a1.marketBatch'
 
@@ -27,14 +29,94 @@ export function requireSharedMarket(state: GameState): SharedMarketRoot {
   return root
 }
 
+// ── step 2.5, the market batch (1355-A §3.1; 1355-F2 item 2; activated 1365) ─────────
+export type MarketBatchResult = {
+  assessments: MarketAssessment[]
+  /** Every member's frozen factor, by release id. */
+  factorById: ReadonlyMap<string, number>
+  /** The rival members' frozen factors: what `advanceHollywoodWeek` witnesses and applies. */
+  rivalFactorById: ReadonlyMap<string, number>
+}
+
+/** The active exposures at `week` (1355-A §3.3): the root's suffix with week > W - 26, found by a
+ * backward scan, since rows append in week order. */
+function activeExposures(root: SharedMarketRoot, week: number): MarketExposure[] {
+  const out: MarketExposure[] = []
+  for (let i = root.assessments.length - 1; i >= 0; i--) {
+    const row = root.assessments[i]!
+    if (row.week <= week - TUNING.SHARED_MARKET_RETIRE_AFTER_WEEKS) break
+    out.push({ releaseId: row.releaseId, studioId: row.studioId, genre: row.genre, releaseWeek: row.week })
+  }
+  return out.reverse()
+}
+
+/**
+ * Step 2.5 (1355-A §3.1): one batch per week, frozen after the P06A witness and before the week's
+ * first verdict. The members are the player's releasing pictures and every rival picture at
+ * remainingTicks 1 (fact 8), each with its studio and genre and no owner flag, and the law runs
+ * once against the root's active exposures. It writes nothing; the root appends at finalize. With
+ * no industry there is no batch, so the M0A corpus keeps today's path.
+ */
+export function runMarketBatch(state: GameState, playerReleasing: readonly Production[], week: number): MarketBatchResult | null {
+  const hollywood = state.hollywood
+  if (hollywood === null) return null
+  const root = requireSharedMarket(state)
+  const genreOf = (concepts: readonly { id: string; genre: Genre }[], production: Production): Genre => {
+    const concept = concepts.find((candidate) => candidate.id === production.conceptId)
+    if (concept === undefined) throw new Error(`shared market: release ${production.id} has no concept`)
+    return concept.genre
+  }
+  const player: MarketBatchMember[] = playerReleasing.map((production) =>
+    ({ releaseId: production.id, studioId: hollywood.playerStudioId, genre: genreOf(state.concepts, production) }))
+  const rivals: MarketBatchMember[] = hollywood.businesses.flatMap((business) => business.productions
+    .filter((production) => production.remainingTicks === 1)
+    .map((production) => ({ releaseId: production.id, studioId: business.studioId, genre: genreOf(hollywood.concepts, production) })))
+  const assessments = assessBatch(activeExposures(root, week), { week, members: [...player, ...rivals] })
+  const rivalIds = new Set(rivals.map((member) => member.releaseId))
+  return {
+    assessments,
+    factorById: new Map(assessments.map((row) => [row.releaseId, row.factor])),
+    rivalFactorById: new Map(assessments.filter((row) => rivalIds.has(row.releaseId)).map((row) => [row.releaseId, row.factor])),
+  }
+}
+
+/** The frozen factor of one releasing picture. A release the batch did not freeze fails the week. */
+export function frozenFactor(batch: MarketBatchResult, releaseId: string): number {
+  const factor = batch.factorById.get(releaseId)
+  if (factor === undefined) throw new Error(`shared market: release ${releaseId} has no frozen batch factor`)
+  return factor
+}
+
+/** The one ordered append at finalize (1355-A §3.3; 1355-F2 item 2): the week's rows in
+ * (week, releaseId) order, each taking the allocator's next number, so the batch holds the tick's
+ * first P15 numbers and the end-of-tick ranking record takes the next. */
+// DEFERRED (1365; parent ruling 2026-10-11 R-C): 1361-F5 ruling 3 routes the root's save share above 2% (G2:
+// 2.33-3.12% on seed-b) to a storage fix; the parent deferred that row-shape fix to a measured follow-up, the
+// seed-b G2 read-out after landing. At the ruled row shape (1355-F2 items 1-3) a row is 476-529 B as
+// stableStringify writes it; at week 160 the held route's root is 2.415% of the save and the rival route's
+// 1.957% (r4 measurement; tests/p15a1-market-retune.test.ts market-retune-storage-root-share, ceilings only).
+// Rows append unchanged here.
+export function appendMarketBatch(state: GameState, batch: MarketBatchResult): Pick<GameState, 'sharedMarket' | 'p15Sequence'> {
+  const root = requireSharedMarket(state)
+  if (batch.assessments.length === 0) return { sharedMarket: root, p15Sequence: state.p15Sequence }
+  let next = state.p15Sequence.next
+  const triple = p15PhaseTriple(MARKET_PHASE_ID)
+  const rows = batch.assessments.map((row): PersistedMarketAssessment => ({ ...row, p15DomainSequence: next++, ...triple }))
+  return { sharedMarket: { ...root, assessments: [...root.assessments, ...rows] }, p15Sequence: { ...state.p15Sequence, next } }
+}
+
 // ── the save validator (1355-A §3.4; 1355-F3 RED 14; 1355-F5 ruling 1) ─────────────
 const ROOT_KEYS = ['assessments', 'recordedFromWeek', 'version']
 const ROW_KEYS = ['definitionVersion', 'factor', 'genre', 'inputDigest', 'p15DomainSequence', 'phaseId', 'phaseOrderVersion',
   'phaseOrdinal', 'pressure', 'reasons', 'releaseId', 'stockTerm', 'studioId', 'week', 'windowTerm']
 const REASON_KEYS = ['code', 'sourceReleaseIds', 'value']
-/** The era map (1355-A §3.4 item 5): each definition version to its law; v1 is the live TUNING. A
- * retune adds a definition and its law here, so old rows keep reconciling under their own. */
-const LAWS: Readonly<Record<string, typeof assessBatch>> = { [SHARED_MARKET_DEFINITION]: assessBatch }
+/** The era map (1355-A §3.4 item 5): each definition version to its law. v1 is frozen in
+ * sharedMarket.ts (SHARED_MARKET_LAW_V1); v2, the live TUNING, is the 1365 retune. A later retune
+ * adds a definition and its law here, so old rows keep reconciling under their own. */
+const LAWS: Readonly<Record<string, typeof assessBatch>> = {
+  'p15a1-market-v1': (exposures, batch) => assessBatch(exposures, batch, { law: SHARED_MARKET_LAW_V1 }),
+  [SHARED_MARKET_DEFINITION]: assessBatch,
+}
 const LAW_FIELDS = ['pressure', 'factor', 'windowTerm', 'stockTerm', 'inputDigest'] as const
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>

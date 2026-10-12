@@ -3,13 +3,13 @@ import { expect } from 'vitest'
 import { accepted45 } from './1368-recovery-witnesses.js'
 import { rivalScientistDemand } from '../../src/core/rivalResearch.js'
 import { tick } from '../../src/core/tick.js'
-import { makeSave, validateSaveV46, stableStringify } from '../../src/core/save.js'
+import { makeSave, validateSaveV47, stableStringify } from '../../src/core/save.js'
 import type { GameState } from '../../src/core/types.js'
 import type { RivalBusiness } from '../../src/core/hollywoodTypes.js'
 
 function admitted(input: GameState): void {
   const before = stableStringify(input), envelope = makeSave(input)
-  expect(validateSaveV46(envelope)).toBe(envelope)
+  expect(validateSaveV47(envelope)).toBe(envelope)
   expect(stableStringify(input)).toBe(before)
 }
 function idle(input: GameState, b: RivalBusiness): boolean {
@@ -17,7 +17,7 @@ function idle(input: GameState, b: RivalBusiness): boolean {
     && !input.talentMarket.proposals.some(p => p.issuerStudioId === b.studioId)
 }
 export function demandBoundary265() {
-  const input = accepted45('baseline265').live.state
+  const input = accepted45('baseline265').current.state
   expect(input.market.tick).toBe(265); admitted(input)
   const before = stableStringify(input)
   // Whole-input demand is the original pure-policy control. This does not claim
@@ -29,7 +29,7 @@ export function demandBoundary265() {
   return { input, id: owner!.studioId }
 }
 export function activeResearchBoundary267() {
-  const input = accepted45('research').live.state
+  const input = accepted45('research').current.state
   expect(input.market.tick).toBe(267); admitted(input)
   const before = stableStringify(input), control = tick(input)
   expect(stableStringify(input)).toBe(before); admitted(control)

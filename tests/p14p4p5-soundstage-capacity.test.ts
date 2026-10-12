@@ -12,6 +12,7 @@ import { activeContract, busyTalentIds } from '../src/core/employment.js'
 import { occupiedResourceSlots, resourceClaimsOf } from '../src/core/occupancy.js'
 import type { PromiseDraft } from '../src/core/promises.js'
 import type { Action, GameState } from '../src/core/types.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 const INPUT = new URL('./fixtures/p14/genuine-pre38-validation-controls/', import.meta.url)
 const E = new URL('../docs/engineering/playability-launch-review/evidence/p14b4-20260919/', import.meta.url)
@@ -52,8 +53,8 @@ function memo(name: string, build: () => GameState): GameState {
 }
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(46); expect(saves.validateSaveV46(save)).toBe(save)
-  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV46(imported)
+  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(validateLiveSave(save)).toBe(save)
+  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = validateLiveSave(imported)
   expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw); expect(stable(state)).toBe(before)
 }
 function unchangedAuthority(state: GameState): void {

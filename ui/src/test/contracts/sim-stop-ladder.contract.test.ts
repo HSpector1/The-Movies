@@ -38,7 +38,6 @@ import type { CastSlot, CreativeRole, GameState } from '../../../../src/core/ind
 import {
   advanceToNextEvent,
   advanceWeek,
-  newGame,
   simStopDetailFor,
   simStopFor,
 } from '../../engine/adapter.ts'
@@ -355,8 +354,11 @@ describe('C2a-M5 §4.3 — the LOT can mint an exact wrap receipt', () => {
 })
 
 describe('C2a-M5 §5 — the legacy path is silent', () => {
+  // 1364 invariant B (1370-AR r5 item D, a declared premise move): this world was `newGame`'s open
+  // founding draft, which a tick now refuses. The legacy/headless world is the never-founded M0A
+  // world, `generateWorld(seed)`, advanced through the same adapter verb; the claims are unchanged.
   it('a legacy world never produces a wrap stop (the ledger is empty there)', () => {
-    let cur: GameState = newGame('c2a-m5-legacy-silence')
+    let cur: GameState = generateWorld('c2a-m5-legacy-silence')
     expect(cur.operations.mode).not.toBe('managed')
     for (let i = 0; i < 40; i++) {
       const step = advanceWeek(cur)

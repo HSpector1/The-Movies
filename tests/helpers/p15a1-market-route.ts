@@ -23,7 +23,7 @@ import { assessBatch, type MarketAssessment, type MarketExposure } from '../../s
 import { tick } from '../../src/core/tick.js'
 import { GENRE_ORDER, TUNING } from '../../src/core/tuning.js'
 import { generateWorld } from '../../src/core/worldgen.js'
-import type { Action, FilmConcept, FilmShape, GameState, Genre } from '../../src/core/types.js'
+import type { Action, FilmConcept, FilmShape, GameState, GameStateV45, Genre } from '../../src/core/types.js'
 import { makeBudget, makeReceptionInputs, makeTalent } from '../_fixtures.js'
 import { P15_ROOTS, p15Rows } from './p15-roots.js'
 
@@ -66,7 +66,7 @@ export const canon = (value: unknown): string => stableStringify(JSON.parse(JSON
 export const sha256 = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
 export const digest = (value: unknown): string => sha256(canon(value))
 /** Keeps only the named top-level keys: a later state compared against an earlier one. */
-export function keepKeys(state: GameState, keys: readonly string[]): Record<string, unknown> {
+export function keepKeys(state: GameState | GameStateV45, keys: readonly string[]): Record<string, unknown> {
   const raw = state as unknown as Record<string, unknown>
   return Object.fromEntries(keys.filter((key) => Object.hasOwn(raw, key)).map((key) => [key, raw[key]]))
 }
@@ -422,7 +422,7 @@ export function swapStudioIds(state: GameState, a: string, b: string): GameState
   const text = JSON.stringify(state).split(a).join(token).split(b).join(a).split(token).join(b)
   return JSON.parse(text) as GameState
 }
-export const detached = (state: GameState): GameState => JSON.parse(JSON.stringify(state)) as GameState
+export const detached = <T extends object>(state: T): T => JSON.parse(JSON.stringify(state)) as T
 
 // ── K1: path-level diff of two JSON values ───────────────────────────────────────
 export function diffPaths(a: unknown, b: unknown, path = '', out: string[] = []): string[] {

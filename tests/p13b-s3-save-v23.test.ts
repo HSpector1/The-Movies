@@ -4,7 +4,7 @@ import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import {
-  convertV22ToV23,
+  LIVE_SAVE_VERSION, convertV22ToV23,
   exportSave,
   importSave,
   makeSave,
@@ -111,19 +111,26 @@ describe('P13B-S3 Save V23 (test 7)', () => {
     // 1309-X3 ruling 2: migrateToV22/21/20 now cross convertV41ToV40 then convertV40ToV39 FIRST;
     // `live` genuinely carries a recorded first-take subject, so the NEW V39 guard refuses first --
     // migrateToV37's own guard, still true of this state, is masked.
+    // 1365 (1370-AR r3, the S9 first-guard-moved form): with P15A.1(c) active, p13aLaboratorySlice's twelve
+    // weeks record shared-market assessments, so migrateToV22/21/20 now cross convertV45ToV44's P15 guard FIRST
+    // (src/core/save.ts p15DowngradeRefusal) and refuse there; the V39 subject guard, still true of this state,
+    // is masked. Pre-1365 pin kept for the record: /^migrateToV39: cannot downgrade or discard an opportunity
+    // predicate or recorded first-take subject$/. Measured: evidence/r3/sweep-b4.json.
     const live = makeSave(p13aLaboratorySlice())
-    expect(() => migrateToV22(live)).toThrow(/^migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject$/)
-    expect(() => migrateToV21(live)).toThrow(/^migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject$/)
-    expect(() => migrateToV20(live)).toThrow(/^migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject$/)
+    const firstGuard = /^migrateToV44: cannot downgrade or discard a recorded shared-market assessment \(\d+ recorded\)$/
+    expect(live.state.sharedMarket.assessments.length).toBeGreaterThan(0) // the premise of the new first guard, asserted
+    expect(() => migrateToV22(live)).toThrow(firstGuard)
+    expect(() => migrateToV21(live)).toThrow(firstGuard)
+    expect(() => migrateToV20(live)).toThrow(firstGuard)
   })
 
   it('makeSave writes the live saveVersion 37 (stale title corrected post-C.2b)', () => {
-    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(46)
+    expect(makeSave(p13aLaboratorySlice()).saveVersion).toBe(LIVE_SAVE_VERSION)
   })
 
   it('an unknown saveVersion 46 is refused, naming the handled range (stale number corrected post-C.2b)', () => {
-    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: 47 }
-    expect(() => validateSave(forged)).toThrow(/versions 1 through 46 only/)
+    const forged = { ...makeSave(p13aLaboratorySlice()), saveVersion: LIVE_SAVE_VERSION + 1 }
+    expect(() => validateSave(forged)).toThrow(new RegExp(`versions 1 through ${LIVE_SAVE_VERSION} only`))
   })
 
   it('save/reload mid-queue continues identically (byte for byte)', () => {

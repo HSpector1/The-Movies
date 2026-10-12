@@ -14,7 +14,7 @@
 
 import { describe, expect, it } from 'vitest'
 import {
-  FOUNDING_MINIMUMS,
+  LIVE_SAVE_VERSION, FOUNDING_MINIMUMS,
   ORIGINAL_CONCEPT_ID_PREFIX,
   TUNING,
   applyActions,
@@ -211,7 +211,7 @@ describe('C2a-M3 — renaming a screenplay', () => {
     )
     // Still saveable: the invariant is "never renamed ⇒ still the generated
     // title", not "the title never changes".
-    expect(makeSave(state).saveVersion).toBe(46)
+    expect(makeSave(state).saveVersion).toBe(LIVE_SAVE_VERSION)
   })
 
   it('leaves the TWO frozen-history surfaces frozen, BY DESIGN', () => {
@@ -360,7 +360,7 @@ describe('C2a-M3 — the bounded writer pool (00E.9)', () => {
         },
       ]),
     ).toThrow(/maximum of 5 writers/)
-    expect(makeSave(state).saveVersion).toBe(46)
+    expect(makeSave(state).saveVersion).toBe(LIVE_SAVE_VERSION)
   })
 
   it('is refused on a screenplay that is not being drafted', () => {

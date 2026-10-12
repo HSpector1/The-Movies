@@ -1,0 +1,22 @@
+== preconditions 2026-10-12T14:14:10Z
+HEAD before: 77e1247c76befe478b37c2e3eab7c365c7fe06eb src cf7d20cd585f72fd178e06c3cd2a8821bbc0c26f node v20.20.2
+perl: warning: Setting locale failed.
+perl: warning: Please check that your locale settings:
+	LC_ALL = "C.UTF-8",
+	LC_CTYPE = "C.UTF-8",
+	LANG = "en_US.UTF-8"
+    are supported and installed on your system.
+perl: warning: Falling back to a fallback locale ("en_US.UTF-8").
+== apply
+staged entries: 189
+manifest ok=189 mismatch=0 missing=0
+== types and generators
+09:15:03 tsc-root exit=0 seconds=42 
+09:15:48 tsc-ui exit=0 seconds=41 
+09:16:41 tsc-bridge exit=0 seconds=45 
+09:16:52 gen-contract exit=0 seconds=3 
+09:17:02 gen-contract-fixtures exit=0 seconds=2 
+== d16
+09:23:51 d16 exit=1 seconds=400  Tests 12 failed | 164 passed (176)
+== full core (doubles as the next predecessor baseline)
+STOP: frozen HEAD/index/worktree/inputs changed

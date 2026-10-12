@@ -3,11 +3,12 @@ import { gunzipSync } from 'node:zlib'
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { initializeHollywood } from '../src/core/hollywood.js'
-import { exportSave, importSave, makeSave, migrateToV25, migrateToLive, validateSaveV19, validateSaveV46 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToV25, migrateToLive, validateSaveV19 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { technologyMilestoneDrafts } from '../src/core/technologyMilestones.js'
 import type { GameState } from '../src/core/types.js'
 import { generateWorld } from '../src/core/worldgen.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 const milestones = (state: GameState) => state.studioHistory.rows.filter(row => row.kind === 'technologyMilestone')
 const accepted = () => validateSaveV19(JSON.parse(gunzipSync(readFileSync(new URL('./fixtures/p13a/accepted-v19.json.gz', import.meta.url))).toString('utf8')))
@@ -71,14 +72,14 @@ describe('P13A dated public technology history', () => {
     ]) {
       const forged = structuredClone(save)
       Object.assign(milestones(forged.state)[0]!, change)
-      expect(() => validateSaveV46(forged)).toThrow(/technology milestone/)
+      expect(() => validateLiveSave(forged)).toThrow(/technology milestone/)
     }
     const duplicated = structuredClone(save)
     duplicated.state.studioHistory.rows = [...duplicated.state.studioHistory.rows,
       { ...milestones(duplicated.state)[0]!, eventId: duplicated.state.studioHistory.nextEventId++ }]
-    expect(() => validateSaveV46(duplicated)).toThrow(/duplicate technology milestone/)
+    expect(() => validateLiveSave(duplicated)).toThrow(/duplicate technology milestone/)
     const preRecorded = structuredClone(save)
     preRecorded.state.technology.recordingStartedWeek = 260
-    expect(() => validateSaveV46(preRecorded)).toThrow(/invented technology history/)
+    expect(() => validateLiveSave(preRecorded)).toThrow(/invented technology history/)
   })
 })

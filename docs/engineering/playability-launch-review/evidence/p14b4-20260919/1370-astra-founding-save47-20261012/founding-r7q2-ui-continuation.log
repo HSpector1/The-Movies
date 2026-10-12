@@ -1,0 +1,3 @@
+original terminal98 and exact1032 incident verified; completed core retained with incident limit
+core tests=5679 passed=5564 failed=101 SAME=101 NEW=0 GONE=49
+STOP: frozen HEAD/index/worktree/inputs changed

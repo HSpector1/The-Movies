@@ -1,5 +1,6 @@
 import { productionCompanyTalentIds } from './productionPeople.js'
 import { initializeHollywood, industryBusyTalentIds, rivalEmployment } from './hollywood.js'
+import { campaignHasFounded, campaignRecordsFounding, ENGAGED_FOUNDING_REFUSAL, recordFoundingFund, recordsFoundingFund, SECOND_FOUNDING_REFUSAL } from './foundingFunding.js'
 // ── D-11 Studio Employment, Contracts, Roster, Freelancer Market ──────────────
 // A PURE module (like talentSummary/filmPackage): no React/DOM/async/IO, no time,
 // no unseeded entropy. It derives employment status, prices deterministic contract
@@ -543,6 +544,12 @@ export function correlateConceptCost(concepts: FilmConcept[]): FilmConcept[] {
 
 function beginFoundingDraft(state: GameState): GameState {
   if (state.founding !== null) return state
+  // 1364 R-B (parent ruling 2026-10-11): one founding per campaign, on its founding facts (the
+  // predicate the save validator reads too), never on the fund alone (a week-0 founding records none).
+  // R-D adds an economy engaged outside a draft; that refusal names its own fact, because the campaign may
+  // never have founded (r6 verification M5). Both public openers route through this draft opener.
+  if (campaignRecordsFounding(state)) throw new Error(`beginFounding: the player studio has already founded; ${SECOND_FOUNDING_REFUSAL}`)
+  if (campaignHasFounded(state)) throw new Error(`beginFounding: the campaign records no founding, but its economy engaged outside a founding draft (a founding before studio history recorded, or a signing outside any draft); ${ENGAGED_FOUNDING_REFUSAL}`)
   const applicantIds: string[] = []
   for (const { role, count } of DRAFT_ROLES) {
     const pool = state.talent.filter((t) => t.role === role)
@@ -566,7 +573,16 @@ function beginFoundingDraft(state: GameState): GameState {
 }
 
 export function beginFounding(state: GameState): GameState {
-  return initializeHollywood(beginFoundingDraft(state),state.market.tick===0?'fresh':'migration')
+  const alreadyOpen = state.founding !== null
+  const next = initializeHollywood(beginFoundingDraft(state),state.market.tick===0?'fresh':'migration')
+  // 1364: a draft open after week 0 over the living industry records its fund once the industry
+  // exists: `opened` when this call opened the draft, `observed-open-draft` when it was already open
+  // (the historical control's headless draft). A week-0 draft keeps the ordinary cash path and a null
+  // fund (parent ruling 2026-10-11 R-A). Re-entry over a recorded fund is a no-op.
+  if ((next.foundingFunding?.fund ?? null) === null && recordsFoundingFund(next)) {
+    return { ...next, foundingFunding: recordFoundingFund(next, alreadyOpen ? 'observed-open-draft' : 'opened') }
+  }
+  return next
 }
 
 /** Explicit historical analysis control; native campaign creation never calls this. */

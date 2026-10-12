@@ -8,7 +8,7 @@ import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { describe, expect, it, vi } from 'vitest'
-import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV37 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV37 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState } from '../src/core/types.js'
 import { PROJECTION_VERSION, PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
@@ -109,7 +109,9 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
-    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
+    // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
 }
 describe('955 genuine207 normal-development continuation', () => {
   it('matches actual BridgeSession advance from saved207 with uninterrupted develop:true on the reordered raw world', () => {
@@ -182,7 +184,7 @@ describe('955 historical preservation and interim projection52 journal authority
         transitionDue: old.state.hollywood === null ? [] : old.state.careerLifecycle.records
           .filter(row => row.status === 'retired').map(row => ({ personId: row.personId, week: week + 1 }))
           .sort((a, b) => a.personId < b.personId ? -1 : a.personId > b.personId ? 1 : 0) })
-      expect(current.saveVersion).toBe(46)
+      expect(current.saveVersion).toBe(LIVE_SAVE_VERSION)
       expect(next[slot]).toBe(exportSave(current))
       expect(next[digest]).toBe(sha(exportSave(current)))
     }

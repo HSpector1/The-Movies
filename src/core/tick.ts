@@ -1,6 +1,7 @@
 import { prepareLiveWritingContext } from './liveRetirementWriting.js'
 import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
-import { requireSharedMarket } from './marketIntegration.js'
+import { appendMarketBatch, frozenFactor, runMarketBatch } from './marketIntegration.js'
+import { TICK_OPEN_DRAFT_REFUSAL } from './foundingFunding.js'
 import { birthdaysDueAt, materializeAges, withTalentProvenance } from './aging.js'
 import { advanceLifecycleIntent, advanceLifecycleSettlement } from './careerLifecycle.js'
 import { freezeCampaignLegacyWeek } from './campaignLegacy.js'
@@ -195,6 +196,12 @@ export type TickOptions = {
 }
 
 export function tick(state: GameState, options?: TickOptions): GameState {
+  // ── 1364 invariant B (1364-A §2.B; 1362-O third response) ─────────────────
+  // A campaign cannot advance while its founding draft is open: before the writing context,
+  // RNG deserialization, phase allocation or any producer, at week zero and later alike. The
+  // browser and the bridge already withhold every advance during founding (1364-R); this is the
+  // engine boundary's own refusal, not a new UI path, and it erases no genuine rival activity.
+  if (state.founding !== null) throw new Error(TICK_OPEN_DRAFT_REFUSAL)
   const writingContext = prepareLiveWritingContext(state)
   const develop = options?.develop ?? false
   const currentTick = state.market.tick
@@ -522,6 +529,13 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     }
   }
 
+  // ── 2.5 MARKET BATCH (P15A.1 Wave 2; 1355-A §3.1; 1361-F ruling 9; activated 1365) ───
+  // One batch per week, frozen after the witness and before the week's first verdict: the
+  // player's releasing pictures and every rival picture at remainingTicks 1, assessed once
+  // against the root's active exposures. It writes nothing; the root appends at finalize.
+  // No industry, no batch: the M0A corpus keeps today's path.
+  const marketBatch = runMarketBatch(admitted, releasing, currentTick)
+
   // ── 3. RECEPTION ───────────────────────────────────────────────────────────
   // For each releasing production IN ascending-id order: resolve reception (the
   // ONLY sim-stream consumer — one critic gaussian per release, in this order),
@@ -613,6 +627,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       ...(releasedBindings?.lockedNovelty == null
         ? {}
         : { setNovelty: releasedBindings.lockedNovelty }),
+      // P15A.1 Wave 2 (1355-A §3.2): the player release site of the seam, the batch's frozen factor.
+      ...(marketBatch === null ? {} : { competitionFactor: frozenFactor(marketBatch, prod.id) }),
     }
 
     // The single §5.3 critic draw for this release — the ONLY sim-stream advance. `engaged` drives
@@ -935,7 +951,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // reference). When develop === false, `talent` is state.talent unchanged — the
   // validated M0A/D-6 baseline. A single talent working on two same-tick releases
   // develops once per release, in release order, over the evolving talent list.
-  const industry = advanceHollywoodWeek({...admitted,technology:researchAdvance.technology})
+  // P15A.1 Wave 2 (1355-A §3.1 item 5, §3.2): the rival release site, witnessed against the batch.
+  const industry = advanceHollywoodWeek({...admitted,technology:researchAdvance.technology}, marketBatch?.rivalFactorById)
   // The develop switch belongs to the frozen player corpus. A living industry's
   // real releases always write their shared career consequences.
   const allGrowthRecords = [...(develop?records:[]),...industry.growth].sort((a,b)=>
@@ -1065,13 +1082,9 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // reads intent for exactly these people and never scans the population.
   const birthdays = birthdaysDueAt(provenanced.talentProvenance, currentTick + 1)
   const materialized = materializeAges(provenanced, currentTick + 1)
-  // P15A.1 Wave 2 (b) r2, F3's guard (1361-D2 F3; 1361-F4 ruling 3 item 4): the finalize write below
-  // moves the market root's recordedFromWeek, so a root that already holds rows refuses here, at the
-  // first tick, instead of at the next save.
-  const heldAssessments = admitted.hollywood === null ? 0 : requireSharedMarket(admitted).assessments.length
-  if (heldAssessments > 0) {
-    throw new Error(`tick: the sharedMarket root already holds market assessments (${heldAssessments} recorded); the save was written by a build with the market batch, and this build cannot move recordedFromWeek past those rows`)
-  }
+  // 1365: the (b) r2 held-batch guard (1361-D2 F3) is removed with (c)'s activation (1361-F5
+  // Amendment 1): the finalize append below keeps `recordedFromWeek` and appends rows, so a root
+  // that already holds rows is the ordinary case, not a foreign build's.
 
   let finalized: GameState = {
     // C2a-M4: the ADMITTED state is the base — it carries this advance's queue
@@ -1124,11 +1137,9 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     // P08A: stamp this advance's history rows in pipeline order and fold routine
     // detail that aged past the window — against the week this advance PRODUCES.
     studioHistory: commitStudioHistory(state.studioHistory, history, currentTick + 1, facilityCompletionDrafts(placementCompletion.completed)),
-    // P15A.1 Wave 2 commit (b): no market batch runs yet, so a world with an industry assesses
-    // nothing and its root records from the week this advance produces. The film bijection
-    // (1355-A §3.4 item 3) then covers no release, and a later batch starts with the disclosed
-    // 26-week ramp of a migrated world. A world with no industry keeps its root as created.
-    ...(admitted.hollywood === null ? {} : { sharedMarket: { ...requireSharedMarket(admitted), recordedFromWeek: currentTick + 1 } }),
+    // P15A.1 Wave 2 (1355-A §3.3; 1355-F2 item 2): the ONE ordered append of this week's
+    // assessments. The batch takes the tick's first P15 numbers, before the ranking record.
+    ...(marketBatch === null ? {} : appendMarketBatch(admitted, marketBatch)),
   }
   for(const identity of finalized.hollywood?.identities ?? []) {
     if(identity.role==='rival' && identity.enteredWeek===null && identity.eligibleWeek<=finalized.market.tick) {

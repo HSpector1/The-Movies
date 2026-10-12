@@ -46,8 +46,7 @@ import {
   studioCalendar,
   studioConstructionView,
   tick,
-  validateSaveV46,
-} from '../src/core/index.js'
+  } from '../src/core/index.js'
 import {
   CRAFT_ANNEX_BLUEPRINT,
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
@@ -56,6 +55,7 @@ import {
   FACILITY_BLUEPRINTS,
 } from '../src/core/tuning.js'
 import type { GameState, LotCell, LiveSaveFile } from '../src/core/index.js'
+import { validateLiveSave } from './helpers/live-era.js'
 
 const ANNEX = DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.id
 const OFFICE_2 = DEVELOPMENT_OFFICE_2_BLUEPRINT.id
@@ -362,7 +362,7 @@ describe('C1-M8 (E) — a save that stands a generic building there fails CLOSED
     expect(() =>
       assertStudioPlacementInvariants(save.state as unknown as GameState),
     ).toThrow(named)
-    expect(() => validateSaveV46(save)).toThrow(named)
+    expect(() => validateLiveSave(save)).toThrow(named)
     // The load path a player actually reaches — never a half-loaded world.
     expect(() => importSave(JSON.stringify(save))).toThrow(named)
   })
@@ -373,7 +373,7 @@ describe('C1-M8 (E) — a save that stands a generic building there fails CLOSED
       DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.buildWeeks,
     )
     const save = makeSave(annex)
-    expect(validateSaveV46(save)).toBe(save)
+    expect(validateLiveSave(save)).toBe(save)
     const json = exportSave(save)
     expect(exportSave(importSave(json) as LiveSaveFile)).toBe(json)
     expect(annex.placement.facilities[0]!.parcelId).toBe(LEGACY_EXPANSION_PARCEL_ID)
@@ -401,7 +401,7 @@ describe('C1-M8 (E) — a save that stands a generic building there fails CLOSED
           placed.cells.push({ gx: LEGACY_ORIGIN.gx + dx, gy: LEGACY_ORIGIN.gy + dy })
         }
       }
-      expect(() => validateSaveV46(save), blueprint.id).toThrow(/reserved for the studio's Annex/)
+      expect(() => validateLiveSave(save), blueprint.id).toThrow(/reserved for the studio's Annex/)
     }
   })
 })

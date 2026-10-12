@@ -7,6 +7,7 @@ import { withResearchFoundation } from '../../core/researchPeople.js'
 import { buildTalentProvenance } from '../../core/aging.js'
 import { initialCareerLifecycle } from '../../core/careerLifecycle.js'
 import { initialP15Roots, stableStringify, validateTalentProvenanceRoot } from '../../core/save.js'
+import { initialFoundingFunding } from '../../core/foundingFunding.js'
 import { validateFirstTakeSubjects } from '../../core/firstTakeSubjects.js'
 import { SKILL_ORDER, GENRE_ORDER } from '../../core/tuning.js'
 import type { GameState, GameStateV18 } from '../../core/types.js'
@@ -55,12 +56,14 @@ export function liftV18Control(state:GameStateV18):GameState { const cloned=stru
   // P15 (Save V45): a control has no industry, so it records no Power Ranking quarter, assesses
   // no release, freezes no Legacy and allocates no P15 row: the empty roots at the lift week,
   // exactly what the real lift writes.
-  ...initialP15Roots(state.market.tick)} }
+  ...initialP15Roots(state.market.tick),
+  // 1364 (Save V47): a control records no recruitment fund; the null root at the lift week.
+  foundingFunding:initialFoundingFunding(state.market.tick)} }
 export function historicalHashState<T extends object>(state:T):object {
   if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state) && !('talentMarket' in state)
     && !('firstTakes' in state) && !('promises' in state) && !('relationships' in state) && !('talentProvenance' in state)
     && !('careerLifecycle' in state) && !('firstTakeSubjects' in state) && !('powerRanking' in state) && !('p15Sequence' in state)
-    && !('sharedMarket' in state) && !('campaignLegacy' in state))return state
+    && !('sharedMarket' in state) && !('campaignLegacy' in state) && !('foundingFunding' in state))return state
   if('hollywood' in state && state.hollywood!==null)throw new Error('Historical hash cannot discard a living industry')
   // P14B.1: the control records no qualifying event and no commitment; an empty
   // pair of roots is the only lawful shape to discard. P14B.5: nor any edge.
@@ -122,10 +125,16 @@ export function historicalHashState<T extends object>(state:T):object {
       throw new Error('Historical hash cannot discard P15 authority')
     }
   }
+  if ('foundingFunding' in state) {
+    // 1364 (Save V47): a control has no industry, so it never records a recruitment fund; the null root is the
+    // only lawful shape to discard, exactly what the frozen builders strip (1370-AR r5 item H.1: keeping it made
+    // every roster-wall Week-196 harvest compare a live projection with the root against its V18 replay without).
+    if ((state as Partial<GameState>).foundingFunding?.fund !== null) throw new Error('Historical hash cannot discard recruitment-fund authority')
+  }
   const {hollywood: _control, technology: _research, physicalPlans: _plans, talentMarket: _market,
     firstTakes: _takes, firstTakeSubjects: _subjects, promises: _promises, relationships: _relationships, talentProvenance: _provenance,
     careerLifecycle: _lifecycle, powerRanking: _ranking, p15Sequence: _sequence, sharedMarket: _sharedMarket,
-    campaignLegacy: _legacy, ...frozen}=state as Partial<GameState>
+    campaignLegacy: _legacy, foundingFunding: _funding, ...frozen}=state as Partial<GameState>
   if (frozen.operations) {
     // P13B S5-R07: the live workflow carries `setup`/`planRevision`; a historical control never selected a recipe, so the only lawful
     // shape to discard is the null record at revision 0.

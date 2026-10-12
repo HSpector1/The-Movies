@@ -206,6 +206,10 @@ function asV25Envelope(state: GameState): { saveVersion: 25; seed: string; state
   // fact and nothing is discarded.
   expect(stripped.firstTakeSubjects.facts).toEqual([])
   delete (stripped as unknown as { firstTakeSubjects?: unknown }).firstTakeSubjects
+  // 1364 (Save47, 1370-AR r3): a frozen V25 envelope carries no recruitment-fund root either (V47-only), so the
+  // frozen chain refuses 'validateSaveV12: state has unknown field "foundingFunding"' first. Same honest
+  // reconstruction: V25 never had the root; the natively founded world's 'opened' fund is live-side authority.
+  delete (stripped as unknown as { foundingFunding?: unknown }).foundingFunding
   // 1361-N S7: a frozen V25 envelope carries no P15 root either (the four are V45-only), so the
   // frozen chain refuses 'validateSaveV12: state has unknown field "powerRanking"' (src/core/save.ts:4185;
   // measured at m2-core.txt:2864). Same honest reconstruction as the roots above, removed only while
@@ -283,8 +287,8 @@ describe('P13B-S5-R07 Save V25 (test 5)', () => {
   // forged sentinel moves to 46 (src/core/save.ts:5455-5457: "unknown saveVersion 46 (this build
   // handles versions 1 through 45 only)"), and the pattern follows the range.
   it('an unknown saveVersion 46 is refused, naming the handled range "1 through 45 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
-    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: 47 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 46 only/)
+    const forged = { ...save.makeSave(legacyRehearsingWorld('r07-save-v25-unknown-version')), saveVersion: save.LIVE_SAVE_VERSION + 1 }
+    expect(() => save.validateSave(forged as never)).toThrow(new RegExp(`versions 1 through ${save.LIVE_SAVE_VERSION} only`))
   })
 
   it('mid-setup save/reload round-trips byte-identically (export/import codec only) — INTERPRETATION 3: hand-authored setup, no genuine producer exists yet', () => {

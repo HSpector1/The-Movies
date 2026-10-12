@@ -99,7 +99,11 @@ describe('P11 W0 complete recurring reporting reconciles with actual advances', 
     expect(draft.contracts.length).toBeGreaterThan(0)
     expect(financeView(draft).weeklyPayroll).toBeGreaterThan(0)
     expect(weeklyBurn(draft)).toBe(0)
-    proveNextCharge(draft)
+    // 1364 invariant B (1370-AR r4 census): the draft stays charge-free because the engine refuses to advance
+    // it; nothing moves. Pre-1364 `proveNextCharge(draft)` ticked the open draft and read its zero charge.
+    const unchanged = stableStringify(draft)
+    expect(() => tick(draft)).toThrow(/^tick: complete studio founding before advancing the campaign$/)
+    expect(stableStringify(draft)).toBe(unchanged)
     const state: GameState = { ...draft, founding: null, economyEngagedEver: true,
       market: { ...draft.market, tick: draft.contracts[0]!.endWeekExclusive - 1 } }
     const next = proveNextCharge(state)

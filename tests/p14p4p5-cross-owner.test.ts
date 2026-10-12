@@ -61,7 +61,9 @@ function withEmptyP15Roots<T extends object>(state: T, week: number): T {
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
-    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null } }
+    campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
+    // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
 }
 const stable = saves.stableStringify
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
@@ -89,8 +91,8 @@ afterAll(() => {
 })
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(46); expect(saves.validateSaveV46(save)).toBe(save)
-  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV46(imported)
+  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV47(save)).toBe(save)
+  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV47(imported)
   expect(current).toBe(imported); expect(saves.exportSave(current)).toBe(raw); expect(stable(state)).toBe(before)
 }
 function input45(): GameState {

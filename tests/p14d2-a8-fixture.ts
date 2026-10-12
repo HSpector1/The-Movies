@@ -3,7 +3,8 @@ import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { expect } from 'vitest'
-import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV45, validateSaveV46, convertV46ToV45 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV45, validateSaveV47, convertV46ToV45, convertV47ToV46 } from '../src/core/save.js'
+import { initialFoundingFunding } from '../src/core/foundingFunding.js'
 import type { RivalBusiness } from '../src/core/hollywoodTypes.js'
 type HistoricalAccount = NonNullable<ReturnType<typeof validateSaveV45>['state']['hollywood']>['businesses'][number]['account']
 
@@ -68,18 +69,19 @@ export function loadA8() {
   expect(imported.saveVersion).toBe(45)
   const live = migrateToLive(imported)
   expect(stableStringify(imported), 'migration preserves the imported predecessor').toBe(importedBytes)
-  expect(live.saveVersion).toBe(46)
+  expect(live.saveVersion).toBe(LIVE_SAVE_VERSION) // Save47 (1364, 1370-AR r2)
   const expectedState = structuredClone(historical.state)
   for (const owner of expectedState.hollywood!.businesses) {
     Object.assign(owner, { costCutting: { version: 1, since: null } })
     for (const period of owner.account.periods) Object.assign(period.movements, { facilityDemolitionRefund: 0 })
   }
+  Object.assign(expectedState, { foundingFunding: initialFoundingFunding(expectedState.market.tick) }) // Save47: the null fund at the input's week
   expect(live.state).toEqual(expectedState) // Comparison oracle only; never a producer/reader input.
   const stateBytes = stableStringify(live.state)
   const current = makeSave(live.state)
-  expect(current.saveVersion).toBe(46)
-  validateSaveV46(current)
-  const actualOld = convertV46ToV45(current)
+  expect(current.saveVersion).toBe(LIVE_SAVE_VERSION)
+  validateSaveV47(current)
+  const actualOld = convertV46ToV45(convertV47ToV46(current))
   validateSaveV45(actualOld)
   expect(exportSave(actualOld)).toBe(raw)
   expect(exportSave(importSave(exportSave(current)))).toBe(exportSave(current))
