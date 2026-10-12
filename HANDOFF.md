@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5), 2026-10-11 20:35 CDT, single integrator, writing at 92% of the weekly usage limit. Codex's 18:37 CDT review checkpoint is preserved in full below. Historical evidence and the hook-owned AUTO block are preserved.
+Last writer: Codex (GPT-5), 2026-10-12 CDT, resumed from the recorded checkpoint. Branch, HEAD, remote publication, clean worktree, and absence of project jobs were verified; historical evidence and the hook-owned AUTO block are preserved.
 
 ## RESUME KIT, 2026-10-11 20:35 CDT (read first; written because Claude's weekly usage reached 92%)
 
