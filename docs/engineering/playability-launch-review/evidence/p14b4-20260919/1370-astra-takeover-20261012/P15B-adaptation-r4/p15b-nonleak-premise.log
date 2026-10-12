@@ -1,0 +1,4 @@
+r4: exact137 WT/index postimages; reviewed packet; reverse check PASS
+node=v20.20.2 python=Python 3.14.4 start=2026-10-12T17:40:17Z
+{"name": "nonleak-premise", "exit": 0, "seconds": 9}
+terminal diagnostic child=0; unchanged=yes; admission outcome is evidence, not an acceptance pass

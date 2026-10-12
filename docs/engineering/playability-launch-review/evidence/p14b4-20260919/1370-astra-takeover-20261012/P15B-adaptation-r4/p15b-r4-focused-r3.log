@@ -1,0 +1,10 @@
+r4: exact137 WT/index postimages; reviewed packet; reverse check PASS
+Reusing exact r4 root compiler0/49s; baseline atlas input pinned for UI continuation
+node=v20.20.2 python=Python 3.14.4 start=2026-10-12T17:34:23Z
+{"name": "tsc-ui", "exit": 0, "seconds": 43}
+{"name": "tsc-bridge", "exit": 0, "seconds": 36}
+{"name": "generator-contract", "exit": 0, "seconds": 2}
+{"name": "generator-fixtures", "exit": 0, "seconds": 1}
+{"name": "core-preservation", "exit": 1, "seconds": 55}
+{"name": "q07", "exit": 0, "seconds": 15}
+terminal core=1 q07=0; unchanged=yes; parent must inspect reporter completeness

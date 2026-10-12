@@ -1,0 +1,4 @@
+r4: exact137 WT/index postimages; reviewed packet; reverse check PASS
+node=v20.20.2 python=Python 3.14.4 start=2026-10-12T17:28:21Z
+{"name": "tsc-root", "exit": 0, "seconds": 49}
+{"name": "tsc-ui", "exit": 2, "seconds": 48}

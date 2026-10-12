@@ -1,0 +1,24 @@
+{
+  "firstLocalCheckpoint": "b401b3f406e972da3b140117a937d6db9270b46a",
+  "initialStagedPaths": 41,
+  "expectedInitialPaths": 55,
+  "missingIgnoredArtifacts": [
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-adaptation-r4/p15b-nonleak-premise-run/nonleak-premise.log",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-adaptation-r4/p15b-nonleak-premise.log",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-adaptation-r4/p15b-r4-focused-r2-run/tsc-root.log",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-adaptation-r4/p15b-r4-focused-r2-run/tsc-ui.log",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-adaptation-r4/p15b-r4-focused-r2.log",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-adaptation-r4/p15b-r4-focused-r3-run/core-preservation.log",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-adaptation-r4/p15b-r4-focused-r3-run/generator-contract.log",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-adaptation-r4/p15b-r4-focused-r3-run/generator-fixtures.log",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-adaptation-r4/p15b-r4-focused-r3-run/q07.log",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-adaptation-r4/p15b-r4-focused-r3-run/tsc-bridge.log",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-adaptation-r4/p15b-r4-focused-r3-run/tsc-ui.log",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-adaptation-r4/p15b-r4-focused-r3.log",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-adaptation-r4/p15b-r4-focused.log",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-adaptation-r4/README.md"
+  ],
+  "issue": "The initial count assertion failed but the shell sequence did not stop before its local documentation commit. No push had occurred. Raw diff context whitespace was also reported; original patch bytes are intentionally preserved.",
+  "repair": "Explicitly stage only14 manifest-selected ignored artifacts, verify all52 evidence blobs in index against hashes, add completion checkpoint before first push. No source mutation or history rewrite.",
+  "finalEvidenceHashes": "All52 index blobs verified exact"
+}
