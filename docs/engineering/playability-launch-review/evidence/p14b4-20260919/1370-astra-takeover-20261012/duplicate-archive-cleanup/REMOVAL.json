@@ -1,0 +1,254 @@
+{
+  "startedAt": "2026-10-12T20:49:29.784168+00:00",
+  "authorization": "Owner: remove duplicate game files first, when exact same version is backed up on GitHub and no longer needed locally",
+  "verifiedRemoteCommit": "8cf0178da77f67a3fdd1f33cceb540823232aade",
+  "reviewSHA256": "97cd9b91c001b44a3e8a7c84689b0ad4998dd44b0a2d56691a1b7cd819497da7",
+  "beforeFreeKiB": 2656064,
+  "targets": [
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-f1-frozen-evidence-archive-proposal-r1/f1-original-cap-20261008-r1-raw-evidence.tar.gz",
+      "bytes": 1050870,
+      "allocatedBytes": 1052672,
+      "gitBlob": "4e87499d01cd7e20f42f1a3ae9581bea215d396c",
+      "publishedPaths": [
+        "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-third-verification/f1-raw-evidence.tar.gz"
+      ],
+      "sha256": "196ee273dfb29b5f0d16aafa01608b68d1f47711257b63ae387c70b360707549",
+      "uid": 501,
+      "device": 16777220,
+      "inode": 166399240,
+      "mtimeNs": 1791436819035571204,
+      "retainedLocalCopy": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-third-verification/f1-raw-evidence.tar.gz",
+      "githubURL": "https://github.com/HSpector1/The-Movies/blob/8cf0178da77f67a3fdd1f33cceb540823232aade/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/thirty-third-verification/f1-raw-evidence.tar.gz",
+      "action": "removed exact redundant archive file",
+      "restore": "Copy retainedLocalCopy back to path, or retrieve publishedPaths[0] from verifiedRemoteCommit; verify sha256."
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-b-twenty-second-archive-refine-r1/evidence.tar.gz",
+      "bytes": 20912294,
+      "allocatedBytes": 20914176,
+      "gitBlob": "2aa972b518440083383dab45e6ca7f74aa0ee545",
+      "publishedPaths": [
+        "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/twenty-second-verification/evidence.tar.gz"
+      ],
+      "sha256": "36d304bca0ff2a01b4b7d134c8e57eb612d02d5fbf989e49bb78aa9e3eb8b1ed",
+      "uid": 501,
+      "device": 16777220,
+      "inode": 166213521,
+      "mtimeNs": 1791301948090970173,
+      "retainedLocalCopy": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/twenty-second-verification/evidence.tar.gz",
+      "githubURL": "https://github.com/HSpector1/The-Movies/blob/8cf0178da77f67a3fdd1f33cceb540823232aade/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/twenty-second-verification/evidence.tar.gz",
+      "action": "removed exact redundant archive file",
+      "restore": "Copy retainedLocalCopy back to path, or retrieve publishedPaths[0] from verifiedRemoteCommit; verify sha256."
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-save46-nine-superseded-archive-proposal-r1/starter-r7-interrupted-01.tar.gz",
+      "bytes": 10606035,
+      "allocatedBytes": 10608640,
+      "gitBlob": "1aa9a205d40886487e7e2db2a6a0586c1164cfab",
+      "publishedPaths": [
+        "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/twenty-sixth-verification/starter-r7-interrupted-01.tar.gz"
+      ],
+      "sha256": "f6f08c4826392ed5bcce9a8e000a13591b04b55d2585ada48d05c92e216c2279",
+      "uid": 501,
+      "device": 16777220,
+      "inode": 166249988,
+      "mtimeNs": 1791314223383100010,
+      "retainedLocalCopy": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/twenty-sixth-verification/starter-r7-interrupted-01.tar.gz",
+      "githubURL": "https://github.com/HSpector1/The-Movies/blob/8cf0178da77f67a3fdd1f33cceb540823232aade/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/twenty-sixth-verification/starter-r7-interrupted-01.tar.gz",
+      "action": "removed exact redundant archive file",
+      "restore": "Copy retainedLocalCopy back to path, or retrieve publishedPaths[0] from verifiedRemoteCommit; verify sha256."
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-cd-archive-proposal-r1/evidence.tar.gz",
+      "bytes": 5204705,
+      "allocatedBytes": 5206016,
+      "gitBlob": "0e5cd8b335dccd31515d8ac9539b9d5fea708703",
+      "publishedPaths": [
+        "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/twenty-third-verification/evidence.tar.gz"
+      ],
+      "sha256": "00f6888a1ea3c7a8209d3194010ec0d0dcaad77dd0664da234df6dae45712a19",
+      "uid": 501,
+      "device": 16777220,
+      "inode": 166219355,
+      "mtimeNs": 1791304815537978150,
+      "retainedLocalCopy": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/twenty-third-verification/evidence.tar.gz",
+      "githubURL": "https://github.com/HSpector1/The-Movies/blob/8cf0178da77f67a3fdd1f33cceb540823232aade/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/twenty-third-verification/evidence.tar.gz",
+      "action": "removed exact redundant archive file",
+      "restore": "Copy retainedLocalCopy back to path, or retrieve publishedPaths[0] from verifiedRemoteCommit; verify sha256."
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1368-fifteenth-publication-prep-r1/evidence.tar.gz",
+      "bytes": 3583411,
+      "allocatedBytes": 3584000,
+      "gitBlob": "dda8a1e14bc5e5aa44c8f948ab2c9002e64c6898",
+      "publishedPaths": [
+        "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/fifteenth-verification/evidence.tar.gz"
+      ],
+      "sha256": "edcfce58af00c8946819a46dcafcc212ecaa173e37fc6aa9c818ad97d482f2e4",
+      "uid": 501,
+      "device": 16777220,
+      "inode": 166054259,
+      "mtimeNs": 1791243228713720422,
+      "retainedLocalCopy": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/fifteenth-verification/evidence.tar.gz",
+      "githubURL": "https://github.com/HSpector1/The-Movies/blob/8cf0178da77f67a3fdd1f33cceb540823232aade/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/fifteenth-verification/evidence.tar.gz",
+      "action": "removed exact redundant archive file",
+      "restore": "Copy retainedLocalCopy back to path, or retrieve publishedPaths[0] from verifiedRemoteCommit; verify sha256."
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1368-eighteenth-publication-prep-r4/evidence.tar.gz",
+      "bytes": 6393248,
+      "allocatedBytes": 6393856,
+      "gitBlob": "c5dbdf423e8ba31b733858c60e30a46ff195c097",
+      "publishedPaths": [
+        "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/eighteenth-verification/evidence.tar.gz"
+      ],
+      "sha256": "3f42e3644a22532ea9845b17e93661a9e90beff79da790333d3c1d993f5e3ded",
+      "uid": 501,
+      "device": 16777220,
+      "inode": 166064266,
+      "mtimeNs": 1791250221437997195,
+      "retainedLocalCopy": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/eighteenth-verification/evidence.tar.gz",
+      "githubURL": "https://github.com/HSpector1/The-Movies/blob/8cf0178da77f67a3fdd1f33cceb540823232aade/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/eighteenth-verification/evidence.tar.gz",
+      "action": "removed exact redundant archive file",
+      "restore": "Copy retainedLocalCopy back to path, or retrieve publishedPaths[0] from verifiedRemoteCommit; verify sha256."
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1369-evidence-archive-output-r2/evidence.tar.gz",
+      "bytes": 3789524,
+      "allocatedBytes": 3792896,
+      "gitBlob": "a8ee1952a9896cb48bca8e4b86670694879f8448",
+      "publishedPaths": [
+        "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1369-stage/adoption-clean-exploratory-720-750-r1/evidence.tar.gz"
+      ],
+      "sha256": "f616d42ffe6f25738c2c130da37dcb73e91c21f5631364af3a97ca05e730927f",
+      "uid": 501,
+      "device": 16777220,
+      "inode": 166093853,
+      "mtimeNs": 1791259258349593384,
+      "retainedLocalCopy": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1369-stage/adoption-clean-exploratory-720-750-r1/evidence.tar.gz",
+      "githubURL": "https://github.com/HSpector1/The-Movies/blob/8cf0178da77f67a3fdd1f33cceb540823232aade/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1369-stage/adoption-clean-exploratory-720-750-r1/evidence.tar.gz",
+      "action": "removed exact redundant archive file",
+      "restore": "Copy retainedLocalCopy back to path, or retrieve publishedPaths[0] from verifiedRemoteCommit; verify sha256."
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1370-c0-s1-evidence-archive-proposal-r1/EVIDENCE.tar.gz",
+      "bytes": 8147032,
+      "allocatedBytes": 8151040,
+      "gitBlob": "b0cad8ff896718ec1d13c94154e5c3cbc2d5f1a8",
+      "publishedPaths": [
+        "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/twenty-fourth-verification/EVIDENCE.tar.gz"
+      ],
+      "sha256": "20c4605caca8352bbfc5a9d7b2929f4a372b8d536aac1ea26c47dcafdaaa1cf7",
+      "uid": 501,
+      "device": 16777220,
+      "inode": 166224409,
+      "mtimeNs": 1791307077985707637,
+      "retainedLocalCopy": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/twenty-fourth-verification/EVIDENCE.tar.gz",
+      "githubURL": "https://github.com/HSpector1/The-Movies/blob/8cf0178da77f67a3fdd1f33cceb540823232aade/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-stage/twenty-fourth-verification/EVIDENCE.tar.gz",
+      "action": "removed exact redundant archive file",
+      "restore": "Copy retainedLocalCopy back to path, or retrieve publishedPaths[0] from verifiedRemoteCommit; verify sha256."
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1369-evidence-archive-output-r3/evidence.tar.gz",
+      "bytes": 3789524,
+      "allocatedBytes": 3792896,
+      "gitBlob": "a8ee1952a9896cb48bca8e4b86670694879f8448",
+      "publishedPaths": [
+        "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1369-stage/adoption-clean-exploratory-720-750-r1/evidence.tar.gz"
+      ],
+      "sha256": "f616d42ffe6f25738c2c130da37dcb73e91c21f5631364af3a97ca05e730927f",
+      "uid": 501,
+      "device": 16777220,
+      "inode": 166093910,
+      "mtimeNs": 1791259320854957142,
+      "retainedLocalCopy": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1369-stage/adoption-clean-exploratory-720-750-r1/evidence.tar.gz",
+      "githubURL": "https://github.com/HSpector1/The-Movies/blob/8cf0178da77f67a3fdd1f33cceb540823232aade/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1369-stage/adoption-clean-exploratory-720-750-r1/evidence.tar.gz",
+      "action": "removed exact redundant archive file",
+      "restore": "Copy retainedLocalCopy back to path, or retrieve publishedPaths[0] from verifiedRemoteCommit; verify sha256."
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1368-seventeenth-publication-prep-r1/evidence.tar.gz",
+      "bytes": 1978621,
+      "allocatedBytes": 1982464,
+      "gitBlob": "71291cab8d6bd19d8113e738e8db26a7413e65cf",
+      "publishedPaths": [
+        "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/seventeenth-verification/evidence.tar.gz"
+      ],
+      "sha256": "d0ff1fdb5afcf2c9dace670b098ca708f2220f6d73d7821dbc0c2d5bcffe73a2",
+      "uid": 501,
+      "device": 16777220,
+      "inode": 166058465,
+      "mtimeNs": 1791246985676836202,
+      "retainedLocalCopy": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/seventeenth-verification/evidence.tar.gz",
+      "githubURL": "https://github.com/HSpector1/The-Movies/blob/8cf0178da77f67a3fdd1f33cceb540823232aade/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/seventeenth-verification/evidence.tar.gz",
+      "action": "removed exact redundant archive file",
+      "restore": "Copy retainedLocalCopy back to path, or retrieve publishedPaths[0] from verifiedRemoteCommit; verify sha256."
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1369-evidence-archive-independent-rebuild-r1/evidence.tar.gz",
+      "bytes": 3789524,
+      "allocatedBytes": 3792896,
+      "gitBlob": "a8ee1952a9896cb48bca8e4b86670694879f8448",
+      "publishedPaths": [
+        "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1369-stage/adoption-clean-exploratory-720-750-r1/evidence.tar.gz"
+      ],
+      "sha256": "f616d42ffe6f25738c2c130da37dcb73e91c21f5631364af3a97ca05e730927f",
+      "uid": 501,
+      "device": 16777220,
+      "inode": 166094377,
+      "mtimeNs": 1791259376282150902,
+      "retainedLocalCopy": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1369-stage/adoption-clean-exploratory-720-750-r1/evidence.tar.gz",
+      "githubURL": "https://github.com/HSpector1/The-Movies/blob/8cf0178da77f67a3fdd1f33cceb540823232aade/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1369-stage/adoption-clean-exploratory-720-750-r1/evidence.tar.gz",
+      "action": "removed exact redundant archive file",
+      "restore": "Copy retainedLocalCopy back to path, or retrieve publishedPaths[0] from verifiedRemoteCommit; verify sha256."
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1369-evidence-archive-output-r1/evidence.tar.gz",
+      "bytes": 3789524,
+      "allocatedBytes": 3792896,
+      "gitBlob": "a8ee1952a9896cb48bca8e4b86670694879f8448",
+      "publishedPaths": [
+        "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1369-stage/adoption-clean-exploratory-720-750-r1/evidence.tar.gz"
+      ],
+      "sha256": "f616d42ffe6f25738c2c130da37dcb73e91c21f5631364af3a97ca05e730927f",
+      "uid": 501,
+      "device": 16777220,
+      "inode": 166093842,
+      "mtimeNs": 1791259245441496463,
+      "retainedLocalCopy": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1369-stage/adoption-clean-exploratory-720-750-r1/evidence.tar.gz",
+      "githubURL": "https://github.com/HSpector1/The-Movies/blob/8cf0178da77f67a3fdd1f33cceb540823232aade/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1369-stage/adoption-clean-exploratory-720-750-r1/evidence.tar.gz",
+      "action": "removed exact redundant archive file",
+      "restore": "Copy retainedLocalCopy back to path, or retrieve publishedPaths[0] from verifiedRemoteCommit; verify sha256."
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch/1368-sixteenth-publication-prep-r1/evidence.tar.gz",
+      "bytes": 1001119,
+      "allocatedBytes": 1003520,
+      "gitBlob": "43a1e33ec24ab09597792cf3d9de17987913d759",
+      "publishedPaths": [
+        "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/sixteenth-verification/evidence.tar.gz"
+      ],
+      "sha256": "8cca3370c901c21b33539b0ce48747738a5f1b98ae738120f0273848f109bfcb",
+      "uid": 501,
+      "device": 16777220,
+      "inode": 166056963,
+      "mtimeNs": 1791245534998549314,
+      "retainedLocalCopy": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/sixteenth-verification/evidence.tar.gz",
+      "githubURL": "https://github.com/HSpector1/The-Movies/blob/8cf0178da77f67a3fdd1f33cceb540823232aade/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1368-stage/sixteenth-verification/evidence.tar.gz",
+      "action": "removed exact redundant archive file",
+      "restore": "Copy retainedLocalCopy back to path, or retrieve publishedPaths[0] from verifiedRemoteCommit; verify sha256."
+    }
+  ],
+  "scope": "Only13 reviewed redundant scratch archive output files. Canonical repository files, expanded originals, historical manifests, source, inputs, candidates, Git and toolchains retained.",
+  "openFileCheck": "target-specific lsof exit1, empty output and stderr; no target open",
+  "errors": [],
+  "afterFreeKiB": 2718060,
+  "measuredNetFreeKiB": 61996,
+  "removedLogicalBytes": 74035431,
+  "estimatedAllocatedBytes": 74067968,
+  "launchFloorKiB": 3670016,
+  "remainingLaunchShortfallKiB": 951956,
+  "launchFloorPassed": false,
+  "completedAt": "2026-10-12T20:49:30.496120+00:00"
+}

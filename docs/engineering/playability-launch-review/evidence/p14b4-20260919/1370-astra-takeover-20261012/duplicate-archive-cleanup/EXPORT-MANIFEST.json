@@ -1,0 +1,20 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1692,
+      "sha256": "6bd7707ece045bf914b11b1abd03adf945fee7bff260627ce42839c96f8553fb"
+    },
+    {
+      "path": "REMOVAL.json",
+      "bytes": 16929,
+      "sha256": "7a9ec9a383f0729be9f1eff72b98074780b91aebd646eafab2e9428b2359b952"
+    },
+    {
+      "path": "REVIEW.md",
+      "bytes": 5819,
+      "sha256": "97cd9b91c001b44a3e8a7c84689b0ad4998dd44b0a2d56691a1b7cd819497da7"
+    }
+  ],
+  "privatePersonalMetadata": false
+}
