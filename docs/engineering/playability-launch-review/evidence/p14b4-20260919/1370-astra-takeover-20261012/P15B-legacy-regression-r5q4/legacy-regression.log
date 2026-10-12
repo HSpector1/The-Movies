@@ -1,0 +1,18 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p15b
+
+ ✓ |core| tests/p15b-legacy-terminal-regression.test.ts (11 tests) 26787ms
+   ✓ terminal6239-6240-6241-cutoffs-ranking-and-modern-official-history 18374ms
+   ✓ terminal6241-preserves-frozen-v1-v2-official-through-actual-player-closure 457ms
+   ✓ late-recording-actual6273-closure-keeps-null-official 2668ms
+   ✓ two-actual-closures-and-not-yet-due-r03-before-one-ended-use-returned-allocator 1675ms
+   ✓ closure-preparation-fault-rolls-back-whole-admitted-caller 1011ms
+   ✓ ended-links-cutoffs-refs-phase-and-allocator-mutants-refuse-with-input-purity 1520ms
+   ✓ terminal6240-composed-downward-refusal-preserves-all-authority 452ms
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  18:02:27
+   Duration  30.20s (transform 2.27s, setup 0ms, collect 2.95s, tests 26.79s, environment 0ms, prepare 122ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-regression-r5q4-run/legacy-regression.json

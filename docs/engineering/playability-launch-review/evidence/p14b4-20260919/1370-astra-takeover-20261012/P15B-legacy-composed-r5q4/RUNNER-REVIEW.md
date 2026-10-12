@@ -1,0 +1,11 @@
+# Composed q4 diagnostic runner admission
+
+GPT-6.1 Sol bounded static review. KEEP for parent-scheduled two-case diagnostic; no execution, compiler/simulation or candidate edits. Runner SHA1fb582a750a3b193d772301186dfea5593ac7afb6abb7297154eb9530116e579 verified.
+
+Diff from reviewed extra-premises-q2 is limited to q4packet/count142/PATCH6578dba2193c41f8e83c4ba859cc132786c9ba605338e28dbe560882574eb18a/MANIFEST7bf297c82c7bdda8ad8b6266483c251d0aec9ff7bca7e207e4fddb42aae4aee0, fresh self/output/driver0aa2061da6516d86e4b7f7f76565824d7fd6818294672d842ea49a82ca11758d input12, actual1368 fixture input13, matching explicit P1368_ACCEPTED45 root/pin and manifest admission, and measured q4 compiler-reuse pins. No consequential derivative defect found.
+
+New fixture root is mandatory and recursively frozen, with exact accepted manifest11ad61be481a8bec170f40425cfcfe7fcb24596418d30b6c8bf27895e93c3ba5. Helper separately verifies gzip/raw/predecessor/migration authority. This corrects the distinct1363/1368 input issue; no implicit default fixture or mismatched override.
+
+Reuse pins q4 before/final freezes e5677f1d27fe5441c58d2d27ff5e02c684a2fef7ec90fe3db80d002cfef2fc40 and results23c37f82d6922530385e228f066cdf6a8e6377b3d20fdd4419e9dda7f5a84a63, requires measured root0 exact Node20.20.2 command and other child0, and compares entire HEAD/index/status/source/config snapshot. Input comparison removes only old/new wrapper plus separately pinned/frozen driver/new fixture; all original11 roots and q4packet remain exact. Root compiler reuse is for unchanged candidate source, not scratch driver compilation.
+
+Existing lane/environment, fresh output refusal, exact142 index/worktree admission, launch3.5GiB/live3GiB floors, before/after freeze and child/error recording remain. Driver original90/120-second elapsed budgets and precise refusal/purity/actual-present authority assertions are unchanged from reviewed corrected version. Parent must classify both actual case records, full admissions, observed terminal/authority preservation, four ordered refusal messages/purity and final strict freeze; child0 alone is not broader acceptance. Any offers/eligibility/timing/admission failure remains an unfulfilled diagnostic premise. No all-authorities-single-envelope or natural gameplay proof is claimed.

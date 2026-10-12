@@ -1,0 +1,118 @@
+{
+  "at": "2026-10-12T23:03:31.568087+00:00",
+  "packetSha256": "6578dba2193c41f8e83c4ba859cc132786c9ba605338e28dbe560882574eb18a",
+  "manifestSha256": "7bf297c82c7bdda8ad8b6266483c251d0aec9ff7bca7e207e4fddb42aae4aee0",
+  "commands": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791846100,
+      "endEpoch": 1791846142,
+      "seconds": 42,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-regression-r5q4-run/tsc-root.log"
+    },
+    {
+      "name": "legacy-regression",
+      "exit": 0,
+      "startEpoch": 1791846147,
+      "endEpoch": 1791846178,
+      "seconds": 31,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "tests/p15b-legacy-terminal-regression.test.ts",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-regression-r5q4-run/legacy-regression.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-regression-r5q4-run/legacy-regression.log"
+    }
+  ],
+  "counts": {
+    "numTotalTestSuites": 1,
+    "numPassedTestSuites": 1,
+    "numFailedTestSuites": 0,
+    "numPendingTestSuites": 0,
+    "numTotalTests": 11,
+    "numPassedTests": 11,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "numTodoTests": 0
+  },
+  "identities": [
+    {
+      "file": "p15b-legacy-terminal-regression.test.ts",
+      "name": "terminal6239-6240-6241-cutoffs-ranking-and-modern-official-history",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-terminal-regression.test.ts",
+      "name": "terminal6241-preserves-frozen-v1-v2-official-through-actual-player-closure",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-terminal-regression.test.ts",
+      "name": "late-recording-actual6273-closure-keeps-null-official",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-terminal-regression.test.ts",
+      "name": "two-actual-closures-and-not-yet-due-r03-before-one-ended-use-returned-allocator",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-terminal-regression.test.ts",
+      "name": "closure-preparation-fault-rolls-back-whole-admitted-caller",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-terminal-regression.test.ts",
+      "name": "eligible6240-official-builder-and-adapter-faults-preserve-pre-boundary-input",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-terminal-regression.test.ts",
+      "name": "two-closure-real-final-reader-allocator-failure-preserves-caller",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-terminal-regression.test.ts",
+      "name": "ended-links-cutoffs-refs-phase-and-allocator-mutants-refuse-with-input-purity",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-terminal-regression.test.ts",
+      "name": "terminal6240-composed-downward-refusal-preserves-all-authority",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-terminal-regression.test.ts",
+      "name": "real-global-allocator-rejects-duplicate-stamps-on-admitted-two-closure-input",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-terminal-regression.test.ts",
+      "name": "v3-technology-span-uses-actual-closure-and-recording-coverage",
+      "status": "passed"
+    }
+  ],
+  "exactSame11IdentitiesAsFailedQ3": true,
+  "laneExit": 0,
+  "freezeBeforeSha256": "e5677f1d27fe5441c58d2d27ff5e02c684a2fef7ec90fe3db80d002cfef2fc40",
+  "freezeAfterSha256": "e5677f1d27fe5441c58d2d27ff5e02c684a2fef7ec90fe3db80d002cfef2fc40",
+  "ownedLaneReleased": true,
+  "prior15ReusedSeparately": true,
+  "claimLimit": "New11PASS after exact message correction; original15 reused with admission guards. No single26 run. Nonempty fund/recovery terminal composition and broader Wave5/main acceptance remain open."
+}

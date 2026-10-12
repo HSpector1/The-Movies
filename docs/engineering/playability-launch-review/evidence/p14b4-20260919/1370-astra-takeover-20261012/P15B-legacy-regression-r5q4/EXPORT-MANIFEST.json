@@ -17,8 +17,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 1175,
-      "sha256": "57501e53f8596a7c6c464c77efea29819cefe0b2f92bb6def85cf7df3b3e6224"
+      "bytes": 1332,
+      "sha256": "61ee75fda43928ce2a23b5a3ede1ce39badaa70446d0dadca207d887fad586a1"
     },
     {
       "path": "REPORT.md",
@@ -26,11 +26,56 @@
       "sha256": "552228ba425b3c6cc023ed9c876d1ac2af0dda8f95fcdfe9f8d93ec66741175f"
     },
     {
+      "path": "RESULTS-REVIEW.md",
+      "bytes": 2048,
+      "sha256": "a5e0a64e6eb8f24acea427ad2890fe4e43eaa3f4ad1db724de98fa46e90f9dc1"
+    },
+    {
+      "path": "RESULTS.json",
+      "bytes": 4194,
+      "sha256": "2565afb1027706e673f3a552da70f87643d34b427e3dfd9b581c5c623e1e0cfa"
+    },
+    {
       "path": "RUNNER.sh",
       "bytes": 12731,
       "sha256": "89faa7bae401e754edcd29af1421eb9fc9c86df7f1586be1adddf6d7ddfbc749"
+    },
+    {
+      "path": "commands.jsonl",
+      "bytes": 916,
+      "sha256": "23c37f82d6922530385e228f066cdf6a8e6377b3d20fdd4419e9dda7f5a84a63"
+    },
+    {
+      "path": "lane.log",
+      "bytes": 465,
+      "sha256": "8c7fa4ae06df8159a53748adb4e8533796266f5bb399834d51853e7e8021e5db"
+    },
+    {
+      "path": "lane.meta",
+      "bytes": 220,
+      "sha256": "3ca7c76e45fd4c6cb5403b37e85d96ed01f57c89c7e62d7289fde0a9939ce5f3"
+    },
+    {
+      "path": "legacy-regression.json",
+      "bytes": 3560,
+      "sha256": "f69dd9f6e2bf844a90cf40360608fa0112dc5c0c6b2a0e485db8b146032309d3"
+    },
+    {
+      "path": "legacy-regression.log",
+      "bytes": 1043,
+      "sha256": "06270c68528b592870846594f73ad50cd04f73082730b49756ed25a346fc9176"
+    },
+    {
+      "path": "original15-reuse.json",
+      "bytes": 853,
+      "sha256": "9a6a95c35b749a942ecb14465211bbf2ab4a7cda973639ddb9ce702033eeeeb0"
+    },
+    {
+      "path": "tsc-root.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
   ],
   "privateSaveBodies": false,
-  "execution": "q4 unexecuted at preparation checkpoint"
+  "execution": "q4 root0;whole11PASS;runtime/lane0;strictfreeze exact;original15 separately reused"
 }
