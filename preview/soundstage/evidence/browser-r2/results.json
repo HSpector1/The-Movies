@@ -1,0 +1,2955 @@
+{
+  "started": "2026-10-12T18:33:54.248Z",
+  "inputHashes": {
+    "src/main.ts": "7a1ebcc1bbe768760117e76d93fbc128d2ff9a0a27379015c5bdce31e114238e",
+    "src/style.css": "52ea40e6dd7e7515510d50fea972d8946b66bd34c5c31f44041decbec7e61e59",
+    "index.html": "c064a469733c9538490a2e4eb50aa7484b7d60d6ba7331079214a899874d6994",
+    "package.json": "40da1c5a9959f464996aa2b23ba1fa9655b01613686c1432229c5f51c377d880",
+    "tsconfig.json": "6de46855c5c28957916dabfc28ac783166354d17239af480cbba0a36a9077c2c",
+    "scripts/server.mjs": "71e7b59f3ce2ad470e53032341b9346885fefa0ba1b35d7b50cdfcfd3c16eda6",
+    "scripts/verify-browser.mjs": "7bdc1064e4e997453ad137a48d2798e33b737be8f4fe035b43d8f2ea65b97439",
+    "PROVENANCE.json": "bf0c96d589922b80842f60c9d1ea7c9d0df76d15a7ebe178b6d5e02c0fba4ed4"
+  },
+  "checks": [
+    "Baseline loads exactly9 GLBs, no candidate maps, no external app requests",
+    "Visible figure/pose selectors activate all4 explicitly procedural poses",
+    "Pause stops render loop, resume restarts",
+    "Static server refuses source/repository/traversal probes",
+    "12 real screenshots; all4 modes retain exact object transforms/camera/lighting/poses at all3 views; four valid60s samples",
+    "Repeated material toggles return resource counts to baseline",
+    "Missing map shows error, retains prior material, and retry succeeds",
+    "Stale asynchronous material request releases its resources"
+  ],
+  "measurements": [
+    {
+      "material": "baseline",
+      "valid": true,
+      "invalidReasons": [],
+      "durationMs": 60001.30000001192,
+      "renderedFrames": 2006,
+      "renderedFps": 33.432608960132555,
+      "frameIntervalMs": {
+        "p50": 33.19999998807907,
+        "p95": 34.5,
+        "max": 71.89999997615814
+      },
+      "renderSubmissionCpuMs": {
+        "p50": 0.8999999761581421,
+        "p95": 1.600000023841858
+      },
+      "snapshot": {
+        "ready": true,
+        "disposed": false,
+        "paused": false,
+        "hidden": false,
+        "mode": "baseline",
+        "pending": 0,
+        "renderCount": 2159,
+        "poses": {
+          "director": "idle",
+          "operator": "work"
+        },
+        "camera": [
+          13.999999999999998,
+          13,
+          17
+        ],
+        "target": [
+          1.5,
+          0.6,
+          -0.2
+        ],
+        "geometry": [
+          {
+            "name": "rear wall 0",
+            "position": [
+              -3,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "rear wall 1",
+            "position": [
+              -1,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "rear wall 2",
+            "position": [
+              1,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "rear wall 3",
+            "position": [
+              3,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "cutaway side 0",
+            "position": [
+              -4,
+              0,
+              -3
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0.7071067811865475,
+              0,
+              0.7071067811865476
+            ]
+          },
+          {
+            "name": "cutaway side 1",
+            "position": [
+              -4,
+              0,
+              -1
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0.7071067811865475,
+              0,
+              0.7071067811865476
+            ]
+          },
+          {
+            "name": "stage corner",
+            "position": [
+              -4,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.38095238095238093,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "stage floor",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "service area",
+            "position": [
+              6,
+              0,
+              0
+            ],
+            "scale": [
+              0.5,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "studio camera",
+            "position": [
+              1,
+              0.05,
+              -0.3
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "director chair",
+            "position": [
+              -2.3,
+              0.015,
+              1.65
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "Fresnel light",
+            "position": [
+              -2.8,
+              0.015,
+              -1.4
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "C stand",
+            "position": [
+              2.6,
+              0.02,
+              -1.5
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "director",
+            "position": [
+              -1.3,
+              0.01,
+              0.5
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "operator",
+            "position": [
+              1,
+              0.01,
+              0.95
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          }
+        ],
+        "lighting": [
+          {
+            "type": "HemisphereLight",
+            "position": [
+              0,
+              1,
+              0
+            ],
+            "intensity": 2.1
+          },
+          {
+            "type": "DirectionalLight",
+            "position": [
+              2,
+              8,
+              5
+            ],
+            "intensity": 2.7
+          }
+        ],
+        "drawingBuffer": [
+          1232,
+          693
+        ],
+        "calls": 43,
+        "triangles": 18068,
+        "resources": {
+          "geometries": 33,
+          "textures": 7
+        },
+        "importedClips": 0
+      },
+      "visibility": "visible"
+    },
+    {
+      "material": "concrete",
+      "valid": true,
+      "invalidReasons": [],
+      "durationMs": 60000.40000003576,
+      "renderedFrames": 2038,
+      "renderedFps": 33.9664402237116,
+      "frameIntervalMs": {
+        "p50": 33.10000002384186,
+        "p95": 34.40000003576279,
+        "max": 61.30000001192093
+      },
+      "renderSubmissionCpuMs": {
+        "p50": 0.8999999761581421,
+        "p95": 1.4000000357627869
+      },
+      "snapshot": {
+        "ready": true,
+        "disposed": false,
+        "paused": false,
+        "hidden": false,
+        "mode": "concrete",
+        "pending": 0,
+        "renderCount": 4317,
+        "poses": {
+          "director": "idle",
+          "operator": "work"
+        },
+        "camera": [
+          13.999999999999998,
+          13,
+          17
+        ],
+        "target": [
+          1.5,
+          0.6,
+          -0.2
+        ],
+        "geometry": [
+          {
+            "name": "rear wall 0",
+            "position": [
+              -3,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "rear wall 1",
+            "position": [
+              -1,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "rear wall 2",
+            "position": [
+              1,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "rear wall 3",
+            "position": [
+              3,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "cutaway side 0",
+            "position": [
+              -4,
+              0,
+              -3
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0.7071067811865475,
+              0,
+              0.7071067811865476
+            ]
+          },
+          {
+            "name": "cutaway side 1",
+            "position": [
+              -4,
+              0,
+              -1
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0.7071067811865475,
+              0,
+              0.7071067811865476
+            ]
+          },
+          {
+            "name": "stage corner",
+            "position": [
+              -4,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.38095238095238093,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "stage floor",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "service area",
+            "position": [
+              6,
+              0,
+              0
+            ],
+            "scale": [
+              0.5,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "studio camera",
+            "position": [
+              1,
+              0.05,
+              -0.3
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "director chair",
+            "position": [
+              -2.3,
+              0.015,
+              1.65
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "Fresnel light",
+            "position": [
+              -2.8,
+              0.015,
+              -1.4
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "C stand",
+            "position": [
+              2.6,
+              0.02,
+              -1.5
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "director",
+            "position": [
+              -1.3,
+              0.01,
+              0.5
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "operator",
+            "position": [
+              1,
+              0.01,
+              0.95
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          }
+        ],
+        "lighting": [
+          {
+            "type": "HemisphereLight",
+            "position": [
+              0,
+              1,
+              0
+            ],
+            "intensity": 2.1
+          },
+          {
+            "type": "DirectionalLight",
+            "position": [
+              2,
+              8,
+              5
+            ],
+            "intensity": 2.7
+          }
+        ],
+        "drawingBuffer": [
+          1232,
+          693
+        ],
+        "calls": 43,
+        "triangles": 18068,
+        "resources": {
+          "geometries": 33,
+          "textures": 9
+        },
+        "importedClips": 0
+      },
+      "visibility": "visible"
+    },
+    {
+      "material": "asphalt",
+      "valid": true,
+      "invalidReasons": [],
+      "durationMs": 60000.89999997616,
+      "renderedFrames": 2042,
+      "renderedFps": 34.03282284100424,
+      "frameIntervalMs": {
+        "p50": 33.10000002384186,
+        "p95": 34.5,
+        "max": 41.09999996423721
+      },
+      "renderSubmissionCpuMs": {
+        "p50": 0.8999999761581421,
+        "p95": 1.399999976158142
+      },
+      "snapshot": {
+        "ready": true,
+        "disposed": false,
+        "paused": false,
+        "hidden": false,
+        "mode": "asphalt",
+        "pending": 0,
+        "renderCount": 6458,
+        "poses": {
+          "director": "idle",
+          "operator": "work"
+        },
+        "camera": [
+          13.999999999999998,
+          13,
+          17
+        ],
+        "target": [
+          1.5,
+          0.6,
+          -0.2
+        ],
+        "geometry": [
+          {
+            "name": "rear wall 0",
+            "position": [
+              -3,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "rear wall 1",
+            "position": [
+              -1,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "rear wall 2",
+            "position": [
+              1,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "rear wall 3",
+            "position": [
+              3,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "cutaway side 0",
+            "position": [
+              -4,
+              0,
+              -3
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0.7071067811865475,
+              0,
+              0.7071067811865476
+            ]
+          },
+          {
+            "name": "cutaway side 1",
+            "position": [
+              -4,
+              0,
+              -1
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0.7071067811865475,
+              0,
+              0.7071067811865476
+            ]
+          },
+          {
+            "name": "stage corner",
+            "position": [
+              -4,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.38095238095238093,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "stage floor",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "service area",
+            "position": [
+              6,
+              0,
+              0
+            ],
+            "scale": [
+              0.5,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "studio camera",
+            "position": [
+              1,
+              0.05,
+              -0.3
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "director chair",
+            "position": [
+              -2.3,
+              0.015,
+              1.65
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "Fresnel light",
+            "position": [
+              -2.8,
+              0.015,
+              -1.4
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "C stand",
+            "position": [
+              2.6,
+              0.02,
+              -1.5
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "director",
+            "position": [
+              -1.3,
+              0.01,
+              0.5
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "operator",
+            "position": [
+              1,
+              0.01,
+              0.95
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          }
+        ],
+        "lighting": [
+          {
+            "type": "HemisphereLight",
+            "position": [
+              0,
+              1,
+              0
+            ],
+            "intensity": 2.1
+          },
+          {
+            "type": "DirectionalLight",
+            "position": [
+              2,
+              8,
+              5
+            ],
+            "intensity": 2.7
+          }
+        ],
+        "drawingBuffer": [
+          1232,
+          693
+        ],
+        "calls": 43,
+        "triangles": 18068,
+        "resources": {
+          "geometries": 33,
+          "textures": 9
+        },
+        "importedClips": 0
+      },
+      "visibility": "visible"
+    },
+    {
+      "material": "both",
+      "valid": true,
+      "invalidReasons": [],
+      "durationMs": 60000.19999998808,
+      "renderedFrames": 2016,
+      "renderedFps": 33.59988800038001,
+      "frameIntervalMs": {
+        "p50": 33.10000002384186,
+        "p95": 34.40000003576279,
+        "max": 156.60000002384186
+      },
+      "renderSubmissionCpuMs": {
+        "p50": 0.800000011920929,
+        "p95": 1.399999976158142
+      },
+      "snapshot": {
+        "ready": true,
+        "disposed": false,
+        "paused": false,
+        "hidden": false,
+        "mode": "both",
+        "pending": 0,
+        "renderCount": 8601,
+        "poses": {
+          "director": "idle",
+          "operator": "work"
+        },
+        "camera": [
+          13.999999999999998,
+          13,
+          17
+        ],
+        "target": [
+          1.5,
+          0.6,
+          -0.2
+        ],
+        "geometry": [
+          {
+            "name": "rear wall 0",
+            "position": [
+              -3,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "rear wall 1",
+            "position": [
+              -1,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "rear wall 2",
+            "position": [
+              1,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "rear wall 3",
+            "position": [
+              3,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "cutaway side 0",
+            "position": [
+              -4,
+              0,
+              -3
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0.7071067811865475,
+              0,
+              0.7071067811865476
+            ]
+          },
+          {
+            "name": "cutaway side 1",
+            "position": [
+              -4,
+              0,
+              -1
+            ],
+            "scale": [
+              1,
+              0.4,
+              1
+            ],
+            "rotation": [
+              0,
+              0.7071067811865475,
+              0,
+              0.7071067811865476
+            ]
+          },
+          {
+            "name": "stage corner",
+            "position": [
+              -4,
+              0,
+              -4
+            ],
+            "scale": [
+              1,
+              0.38095238095238093,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "stage floor",
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "service area",
+            "position": [
+              6,
+              0,
+              0
+            ],
+            "scale": [
+              0.5,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "studio camera",
+            "position": [
+              1,
+              0.05,
+              -0.3
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "director chair",
+            "position": [
+              -2.3,
+              0.015,
+              1.65
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "Fresnel light",
+            "position": [
+              -2.8,
+              0.015,
+              -1.4
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "C stand",
+            "position": [
+              2.6,
+              0.02,
+              -1.5
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "director",
+            "position": [
+              -1.3,
+              0.01,
+              0.5
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          },
+          {
+            "name": "operator",
+            "position": [
+              1,
+              0.01,
+              0.95
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ],
+            "rotation": [
+              0,
+              0,
+              0,
+              1
+            ]
+          }
+        ],
+        "lighting": [
+          {
+            "type": "HemisphereLight",
+            "position": [
+              0,
+              1,
+              0
+            ],
+            "intensity": 2.1
+          },
+          {
+            "type": "DirectionalLight",
+            "position": [
+              2,
+              8,
+              5
+            ],
+            "intensity": 2.7
+          }
+        ],
+        "drawingBuffer": [
+          1232,
+          693
+        ],
+        "calls": 43,
+        "triangles": 18068,
+        "resources": {
+          "geometries": 33,
+          "textures": 11
+        },
+        "importedClips": 0
+      },
+      "visibility": "visible"
+    }
+  ],
+  "screenshots": [
+    "baseline-management.png",
+    "baseline-crew.png",
+    "baseline-service.png",
+    "concrete-management.png",
+    "concrete-crew.png",
+    "concrete-service.png",
+    "asphalt-management.png",
+    "asphalt-crew.png",
+    "asphalt-service.png",
+    "both-management.png",
+    "both-crew.png",
+    "both-service.png"
+  ],
+  "resourceObservations": [
+    {
+      "at": "2026-10-12T18:33:54.291Z",
+      "freeKiB": 3724688,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:34:00.692Z",
+      "freeKiB": 3721784,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:34:05.709Z",
+      "freeKiB": 3721464,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:34:10.685Z",
+      "freeKiB": 3721412,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:34:15.701Z",
+      "freeKiB": 3721400,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:34:20.687Z",
+      "freeKiB": 3721412,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:34:25.683Z",
+      "freeKiB": 3721408,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:34:30.680Z",
+      "freeKiB": 3721280,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:34:35.701Z",
+      "freeKiB": 3720860,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:34:40.688Z",
+      "freeKiB": 3720856,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:34:45.704Z",
+      "freeKiB": 3720856,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:34:50.691Z",
+      "freeKiB": 3720848,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:34:55.691Z",
+      "freeKiB": 3720808,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:35:00.808Z",
+      "freeKiB": 3720472,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:35:05.697Z",
+      "freeKiB": 3719112,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:35:10.702Z",
+      "freeKiB": 3718944,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:35:15.697Z",
+      "freeKiB": 3718640,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:35:20.688Z",
+      "freeKiB": 3718608,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:35:25.708Z",
+      "freeKiB": 3714516,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:35:30.714Z",
+      "freeKiB": 3714496,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:35:35.701Z",
+      "freeKiB": 3714484,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:35:40.715Z",
+      "freeKiB": 3713904,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:35:45.708Z",
+      "freeKiB": 3713420,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:35:50.704Z",
+      "freeKiB": 3712892,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:35:55.720Z",
+      "freeKiB": 3712448,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:36:00.703Z",
+      "freeKiB": 3711012,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:36:05.726Z",
+      "freeKiB": 3709648,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:36:10.720Z",
+      "freeKiB": 3709524,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:36:15.719Z",
+      "freeKiB": 3708852,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:36:20.717Z",
+      "freeKiB": 3708664,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:36:25.734Z",
+      "freeKiB": 3707932,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:36:30.720Z",
+      "freeKiB": 3707896,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:36:35.713Z",
+      "freeKiB": 3707012,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:36:40.720Z",
+      "freeKiB": 3707008,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:36:45.717Z",
+      "freeKiB": 3707012,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:36:50.715Z",
+      "freeKiB": 3707008,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:36:55.735Z",
+      "freeKiB": 3707000,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:37:00.759Z",
+      "freeKiB": 3706880,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:37:05.731Z",
+      "freeKiB": 3706140,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:37:10.742Z",
+      "freeKiB": 3704588,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:37:15.749Z",
+      "freeKiB": 3703920,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:37:20.744Z",
+      "freeKiB": 3703476,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:37:25.734Z",
+      "freeKiB": 3703112,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:37:30.732Z",
+      "freeKiB": 3702664,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:37:35.730Z",
+      "freeKiB": 3702308,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:37:40.740Z",
+      "freeKiB": 3701548,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:37:45.743Z",
+      "freeKiB": 3701516,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:37:50.732Z",
+      "freeKiB": 3700756,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:37:55.744Z",
+      "freeKiB": 3700276,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:38:00.750Z",
+      "freeKiB": 3699716,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:38:05.794Z",
+      "freeKiB": 3698360,
+      "ac": true
+    },
+    {
+      "at": "2026-10-12T18:38:10.764Z",
+      "freeKiB": 3697728,
+      "ac": true
+    }
+  ],
+  "browser": "150.0.7871.125",
+  "headless": true,
+  "viewport": {
+    "width": 1280,
+    "height": 1000
+  },
+  "deviceScaleFactor": 1,
+  "webgl": {
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "renderer": "ANGLE (Intel Inc., Intel(R) HD Graphics 6000, OpenGL 4.1)",
+    "visibility": "visible"
+  },
+  "rig": {
+    "director": {
+      "bones": [
+        "root",
+        "pelvis",
+        "spine_01",
+        "spine_02",
+        "spine_03",
+        "clavicle_l",
+        "upperarm_l",
+        "lowerarm_l",
+        "hand_l",
+        "index_01_l",
+        "index_02_l",
+        "index_03_l",
+        "index_04_leaf_l",
+        "middle_01_l",
+        "middle_02_l",
+        "middle_03_l",
+        "middle_04_leaf_l",
+        "pinky_01_l",
+        "pinky_02_l",
+        "pinky_03_l",
+        "pinky_04_leaf_l",
+        "ring_01_l",
+        "ring_02_l",
+        "ring_03_l",
+        "ring_04_leaf_l",
+        "thumb_01_l",
+        "thumb_02_l",
+        "thumb_03_l",
+        "thumb_04_leaf_l",
+        "clavicle_r",
+        "upperarm_r",
+        "lowerarm_r",
+        "hand_r",
+        "index_01_r",
+        "index_02_r",
+        "index_03_r",
+        "index_04_leaf_r",
+        "middle_01_r",
+        "middle_02_r",
+        "middle_03_r",
+        "middle_04_leaf_r",
+        "pinky_01_r",
+        "pinky_02_r",
+        "pinky_03_r",
+        "pinky_04_leaf_r",
+        "ring_01_r",
+        "ring_02_r",
+        "ring_03_r",
+        "ring_04_leaf_r",
+        "thumb_01_r",
+        "thumb_02_r",
+        "thumb_03_r",
+        "thumb_04_leaf_r",
+        "neck_01",
+        "Head",
+        "thigh_l",
+        "calf_l",
+        "foot_l",
+        "ball_l",
+        "ball_leaf_l",
+        "thigh_r",
+        "calf_r",
+        "foot_r",
+        "ball_r",
+        "ball_leaf_r"
+      ],
+      "clips": [],
+      "bounds": [
+        0.7468032242645357,
+        1.868183504135625,
+        0.600000036959013
+      ],
+      "worldHandOrigins": [
+        [
+          -0.9566517147886301,
+          0.9291914945390971,
+          0.44111757022688297
+        ],
+        [
+          -1.6423611179691282,
+          0.9278555795419943,
+          0.4411600677376465
+        ]
+      ]
+    },
+    "operator": {
+      "bones": [
+        "root",
+        "pelvis",
+        "spine_01",
+        "spine_02",
+        "spine_03",
+        "clavicle_l",
+        "upperarm_l",
+        "lowerarm_l",
+        "hand_l",
+        "index_01_l",
+        "index_02_l",
+        "index_03_l",
+        "index_04_leaf_l",
+        "middle_01_l",
+        "middle_02_l",
+        "middle_03_l",
+        "middle_04_leaf_l",
+        "pinky_01_l",
+        "pinky_02_l",
+        "pinky_03_l",
+        "pinky_04_leaf_l",
+        "ring_01_l",
+        "ring_02_l",
+        "ring_03_l",
+        "ring_04_leaf_l",
+        "thumb_01_l",
+        "thumb_02_l",
+        "thumb_03_l",
+        "thumb_04_leaf_l",
+        "clavicle_r",
+        "upperarm_r",
+        "lowerarm_r",
+        "hand_r",
+        "index_01_r",
+        "index_02_r",
+        "index_03_r",
+        "index_04_leaf_r",
+        "middle_01_r",
+        "middle_02_r",
+        "middle_03_r",
+        "middle_04_leaf_r",
+        "pinky_01_r",
+        "pinky_02_r",
+        "pinky_03_r",
+        "pinky_04_leaf_r",
+        "ring_01_r",
+        "ring_02_r",
+        "ring_03_r",
+        "ring_04_leaf_r",
+        "thumb_01_r",
+        "thumb_02_r",
+        "thumb_03_r",
+        "thumb_04_leaf_r",
+        "neck_01",
+        "Head",
+        "thigh_l",
+        "calf_l",
+        "foot_l",
+        "ball_l",
+        "ball_leaf_l",
+        "thigh_r",
+        "calf_r",
+        "foot_r",
+        "ball_r",
+        "ball_leaf_r"
+      ],
+      "clips": [],
+      "bounds": [
+        0.6777542697078698,
+        1.7822722394592037,
+        0.7131434771507416
+      ],
+      "worldHandOrigins": [
+        [
+          1.29289578480318,
+          1.0771502043884875,
+          0.5521524344458839
+        ],
+        [
+          0.707543444040809,
+          1.0790362627557322,
+          0.55107676664302
+        ]
+      ]
+    }
+  },
+  "fixed_management": {
+    "ready": true,
+    "disposed": false,
+    "paused": true,
+    "hidden": false,
+    "mode": "baseline",
+    "pending": 0,
+    "renderCount": 29,
+    "poses": {
+      "director": "idle",
+      "operator": "work"
+    },
+    "camera": [
+      13.999999999999998,
+      13,
+      17
+    ],
+    "target": [
+      1.5,
+      0.6,
+      -0.2
+    ],
+    "geometry": [
+      {
+        "name": "rear wall 0",
+        "position": [
+          -3,
+          0,
+          -4
+        ],
+        "scale": [
+          1,
+          0.4,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "rear wall 1",
+        "position": [
+          -1,
+          0,
+          -4
+        ],
+        "scale": [
+          1,
+          0.4,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "rear wall 2",
+        "position": [
+          1,
+          0,
+          -4
+        ],
+        "scale": [
+          1,
+          0.4,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "rear wall 3",
+        "position": [
+          3,
+          0,
+          -4
+        ],
+        "scale": [
+          1,
+          0.4,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "cutaway side 0",
+        "position": [
+          -4,
+          0,
+          -3
+        ],
+        "scale": [
+          1,
+          0.4,
+          1
+        ],
+        "rotation": [
+          0,
+          0.7071067811865475,
+          0,
+          0.7071067811865476
+        ]
+      },
+      {
+        "name": "cutaway side 1",
+        "position": [
+          -4,
+          0,
+          -1
+        ],
+        "scale": [
+          1,
+          0.4,
+          1
+        ],
+        "rotation": [
+          0,
+          0.7071067811865475,
+          0,
+          0.7071067811865476
+        ]
+      },
+      {
+        "name": "stage corner",
+        "position": [
+          -4,
+          0,
+          -4
+        ],
+        "scale": [
+          1,
+          0.38095238095238093,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "stage floor",
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "service area",
+        "position": [
+          6,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "studio camera",
+        "position": [
+          1,
+          0.05,
+          -0.3
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "director chair",
+        "position": [
+          -2.3,
+          0.015,
+          1.65
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "Fresnel light",
+        "position": [
+          -2.8,
+          0.015,
+          -1.4
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "C stand",
+        "position": [
+          2.6,
+          0.02,
+          -1.5
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "director",
+        "position": [
+          -1.3,
+          0.01,
+          0.5
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "operator",
+        "position": [
+          1,
+          0.01,
+          0.95
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    ],
+    "lighting": [
+      {
+        "type": "HemisphereLight",
+        "position": [
+          0,
+          1,
+          0
+        ],
+        "intensity": 2.1
+      },
+      {
+        "type": "DirectionalLight",
+        "position": [
+          2,
+          8,
+          5
+        ],
+        "intensity": 2.7
+      }
+    ],
+    "drawingBuffer": [
+      1232,
+      693
+    ],
+    "calls": 43,
+    "triangles": 18068,
+    "resources": {
+      "geometries": 33,
+      "textures": 7
+    },
+    "importedClips": 0
+  },
+  "fixed_crew": {
+    "ready": true,
+    "disposed": false,
+    "paused": true,
+    "hidden": false,
+    "mode": "baseline",
+    "pending": 0,
+    "renderCount": 31,
+    "poses": {
+      "director": "idle",
+      "operator": "work"
+    },
+    "camera": [
+      5,
+      4.200000000000001,
+      6
+    ],
+    "target": [
+      -0.3,
+      0.75,
+      0.2
+    ],
+    "geometry": [
+      {
+        "name": "rear wall 0",
+        "position": [
+          -3,
+          0,
+          -4
+        ],
+        "scale": [
+          1,
+          0.4,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "rear wall 1",
+        "position": [
+          -1,
+          0,
+          -4
+        ],
+        "scale": [
+          1,
+          0.4,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "rear wall 2",
+        "position": [
+          1,
+          0,
+          -4
+        ],
+        "scale": [
+          1,
+          0.4,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "rear wall 3",
+        "position": [
+          3,
+          0,
+          -4
+        ],
+        "scale": [
+          1,
+          0.4,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "cutaway side 0",
+        "position": [
+          -4,
+          0,
+          -3
+        ],
+        "scale": [
+          1,
+          0.4,
+          1
+        ],
+        "rotation": [
+          0,
+          0.7071067811865475,
+          0,
+          0.7071067811865476
+        ]
+      },
+      {
+        "name": "cutaway side 1",
+        "position": [
+          -4,
+          0,
+          -1
+        ],
+        "scale": [
+          1,
+          0.4,
+          1
+        ],
+        "rotation": [
+          0,
+          0.7071067811865475,
+          0,
+          0.7071067811865476
+        ]
+      },
+      {
+        "name": "stage corner",
+        "position": [
+          -4,
+          0,
+          -4
+        ],
+        "scale": [
+          1,
+          0.38095238095238093,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "stage floor",
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "service area",
+        "position": [
+          6,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "studio camera",
+        "position": [
+          1,
+          0.05,
+          -0.3
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "director chair",
+        "position": [
+          -2.3,
+          0.015,
+          1.65
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "Fresnel light",
+        "position": [
+          -2.8,
+          0.015,
+          -1.4
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "C stand",
+        "position": [
+          2.6,
+          0.02,
+          -1.5
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "director",
+        "position": [
+          -1.3,
+          0.01,
+          0.5
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "operator",
+        "position": [
+          1,
+          0.01,
+          0.95
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    ],
+    "lighting": [
+      {
+        "type": "HemisphereLight",
+        "position": [
+          0,
+          1,
+          0
+        ],
+        "intensity": 2.1
+      },
+      {
+        "type": "DirectionalLight",
+        "position": [
+          2,
+          8,
+          5
+        ],
+        "intensity": 2.7
+      }
+    ],
+    "drawingBuffer": [
+      1232,
+      693
+    ],
+    "calls": 43,
+    "triangles": 18068,
+    "resources": {
+      "geometries": 33,
+      "textures": 7
+    },
+    "importedClips": 0
+  },
+  "fixed_service": {
+    "ready": true,
+    "disposed": false,
+    "paused": true,
+    "hidden": false,
+    "mode": "baseline",
+    "pending": 0,
+    "renderCount": 33,
+    "poses": {
+      "director": "idle",
+      "operator": "work"
+    },
+    "camera": [
+      10,
+      5.4,
+      7.000000000000001
+    ],
+    "target": [
+      5.1,
+      0.1,
+      0.3
+    ],
+    "geometry": [
+      {
+        "name": "rear wall 0",
+        "position": [
+          -3,
+          0,
+          -4
+        ],
+        "scale": [
+          1,
+          0.4,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "rear wall 1",
+        "position": [
+          -1,
+          0,
+          -4
+        ],
+        "scale": [
+          1,
+          0.4,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "rear wall 2",
+        "position": [
+          1,
+          0,
+          -4
+        ],
+        "scale": [
+          1,
+          0.4,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "rear wall 3",
+        "position": [
+          3,
+          0,
+          -4
+        ],
+        "scale": [
+          1,
+          0.4,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "cutaway side 0",
+        "position": [
+          -4,
+          0,
+          -3
+        ],
+        "scale": [
+          1,
+          0.4,
+          1
+        ],
+        "rotation": [
+          0,
+          0.7071067811865475,
+          0,
+          0.7071067811865476
+        ]
+      },
+      {
+        "name": "cutaway side 1",
+        "position": [
+          -4,
+          0,
+          -1
+        ],
+        "scale": [
+          1,
+          0.4,
+          1
+        ],
+        "rotation": [
+          0,
+          0.7071067811865475,
+          0,
+          0.7071067811865476
+        ]
+      },
+      {
+        "name": "stage corner",
+        "position": [
+          -4,
+          0,
+          -4
+        ],
+        "scale": [
+          1,
+          0.38095238095238093,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "stage floor",
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "service area",
+        "position": [
+          6,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "studio camera",
+        "position": [
+          1,
+          0.05,
+          -0.3
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "director chair",
+        "position": [
+          -2.3,
+          0.015,
+          1.65
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "Fresnel light",
+        "position": [
+          -2.8,
+          0.015,
+          -1.4
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "C stand",
+        "position": [
+          2.6,
+          0.02,
+          -1.5
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "director",
+        "position": [
+          -1.3,
+          0.01,
+          0.5
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "name": "operator",
+        "position": [
+          1,
+          0.01,
+          0.95
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    ],
+    "lighting": [
+      {
+        "type": "HemisphereLight",
+        "position": [
+          0,
+          1,
+          0
+        ],
+        "intensity": 2.1
+      },
+      {
+        "type": "DirectionalLight",
+        "position": [
+          2,
+          8,
+          5
+        ],
+        "intensity": 2.7
+      }
+    ],
+    "drawingBuffer": [
+      1232,
+      693
+    ],
+    "calls": 42,
+    "triangles": 18056,
+    "resources": {
+      "geometries": 33,
+      "textures": 7
+    },
+    "importedClips": 0
+  },
+  "passed": false,
+  "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n1 !== 0\n\n    at file:///Users/zacheryspector/studio-scratch/browser-soundstage-preview/preview/soundstage/scripts/verify-browser.mjs:51:252",
+  "finished": "2026-10-12T18:38:12.561Z",
+  "serverExit": {
+    "code": 0,
+    "signal": null
+  }
+}

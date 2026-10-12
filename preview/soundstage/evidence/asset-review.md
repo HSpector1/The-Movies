@@ -1,0 +1,59 @@
+# Selected soundstage assets — independent byte review
+
+GPT-6.1 Sol, 2026-10-12. Read Owner CODEX-LOW-SPEC-SOUNDSTAGE-PREVIEW.txt, relevant provenance register/file manifest, audit script and crew3d source. Inspected ONLY nine current GLBs at production ui/public/spike3d via header/JSON/accessor metadata, small PNG headers and hashes. No render/browser/build/test/audit execution, full mesh import, preview/source/index writes or delegation. This is byte/provenance review, not visual/art/Unity/performance acceptance.
+
+Verdict: KEEP all nine as cleared **evaluation inputs**, with the specific compatibility limits below. No restricted/unclear asset selected. Imported-animation evaluation remains INCOMPLETE: all nine files contain ZERO embedded clips.
+
+## Exact selected copies
+
+All nine have valid glTF2 GLB header length/version, match their complete SHA256 in PROVENANCE-lab05h.json, classification VERIFIED_PROJECT_GENERATED and shippingLicensePermitted=true. Total585560bytes,17876 triangle-mode indexed triangles,32 mesh primitives before batching. This is file/metadata cost, not measured drawcalls/GPU memory/frame rate.
+
+| File | Bytes / triangles / primitives | Authored bounds or dimensions (X,Y,Z) | Preview recommendation |
+| --- | --- | --- | --- |
+| Arch_M01_StageWall |7900 /36 /2 |2 ×8 ×0.24, bottomY0 |KEEP; intentionally tall2m-wide wall module, not a whole stage. Cutaway camera must retain crew visibility. |
+| Arch_M04_StageCorner |6792 /24 /2 |0.5 ×8.4 ×0.5, bottomY0 |KEEP; cap extends0.4 above wall, account for it when composing corner. |
+| Arch_M14_GroundTile |2524 /12 /1 |8 ×0.08 ×8, topY0 |KEEP; floor top is zero, thickness extends below it. |
+| Char_Director_Standard |263140 /8112 /8 |Bind accessor bounds Y−0.008..1.85997, X±0.87485 |KEEP for explicitly procedural poses; hat accounts for taller bounds. |
+| Char_CameraDP_Standard |265880 /8200 /8 |Bind accessor bounds Y−0.008..1.77427, X±0.87485 |KEEP for procedural work stance; no camera-operation clip or synchronized grip evidence. |
+| Prop_StudioCamera |14792 /588 /4 |Approx1.067 ×1.95 ×1.080; Y−0.05..1.90 |KEEP as static freestanding camera; lens/viewfinder/hand alignment requires real close-up. |
+| Prop_DirectorsChair |7008 /256 /2 |Approx0.524 ×0.9642 ×0.4736; Y−0.0142..0.95 |KEEP static; sitting pose has not been evaluated. |
+| Prop_Fresnel |10248 /380 /3 |Approx0.7194 ×2.1142 ×0.8228; Y−0.0142..2.10 |KEEP static light prop; geometry is not an emitted Three light by itself. |
+| Prop_CStand |7276 /268 /2 |Approx1.1959 ×2.4200 ×0.8860; X−0.2673..0.9285 |KEEP static; boom offcentre, so footprint/pivot differs from symmetric props. |
+
+Bounds are accessor min/max unions in authored mesh coordinates; static root meshes have identity transforms. Character bounds describe exported bind geometry, not posed/skinned dynamic bounds. No actual screenshot/readability/culling certification performed. Small negative bottomY offsets require intentional grounding/placement rather than blindly treating origins as bottom centre.
+
+## Rig / coordinate observations
+
+Both characters have one Armature skin,65 joints,65 inverse-bind MAT4 values, and eight material primitives with POSITION/NORMAL/JOINTS_0/WEIGHTS_0. Their entire joint-node JSON/hierarchy/bind transforms match exactly. This supports sharing procedural pose code between THESE two copies; it does not certify any separate animation library file or Unity humanoid mapping.
+
+Names include root,pelvis,spine_01/02/03,clavicle_l/r,upperarm_l/r,lowerarm_l/r,hand_l/r,neck_01,capitalized Head,thigh_l/r,calf_l/r,foot_l/r,ball_l/r plus finger chains and leaf bones. crew3d's name matching uses this exact spelling and headcase. Skeleton root has X−90° quaternion (−0.70710677,0,0,0.70710677); keep it and inverse bind transforms intact. Mesh extras retain studio_front_axis='−Y', a source-pipeline label, while actual exported geometry is Y-up. Treat source−Y→exported+Z front as an inference needing the browser close-up, not a reason to rotate the skeleton root again. Source crew3d declares1unit=1m/nominal1.8m adults; current bounds are compatible with nominal metre-scale meshes, but GLB JSON has no independent unit declaration. Preserve documented source/export axis distinction for Unity.
+
+Useful bind socket positions in model root coordinates (same both rigs): hand_l≈(0.7389,1.4408,−0.0654), hand_r≈(−0.7389,1.4408,−0.0654), pelvis≈(0,0.9167,−0.0501), Head≈(0,1.5687,0.0051). These are joint origins computed only from node TRS, NOT prop attachment/IK offsets. Listed props have no named hand socket/exported animation. Camera/chair/Fresnel remain whole freestanding static meshes; procedural work gestures must not pretend contact/synchronized filming is proven.
+
+## Textures and source clearance
+
+Only wall/corner contain images: each has embedded corrugated_metal_n and corrugated_metal_r PNG256×256. Other seven have no texture/image entries; characters/props use material colours. No required GLTF compression/extension recorded in these nine. All buffers/images are embedded rather than external texture download dependencies. Current dimensions are below Owner1024-side evaluation target.
+
+File-level provenance ties architecture/props to original owner-owned Asset Lab factory commitf4f60b4f94b112976d35f035aa773e7178c955c7, and characters to exact05E exports ff9837f9a32979267f051d9c7da1b4a00877efc5 with original geometry plus the Quaternius65-bone mannequin rig. The register carries embedded CC0 evidence for Universal Animation Library; asset manifest records source archive SHA cc73fc4e495b82958207316596317a3f40b9fa38065bde1027937452da537724. Project-generated geometry stamp is 'original-CC0-equivalent'/owner-owned, not an independent downloaded third-party licence assumption. All selected file-level sourceRefs/hashes agree with these entries. No LICENSE-UNCLEAR FBX or DO-NOT-USE wintersets/The Movies bytes are selected.
+
+The same manifest explicitly says productionAdoption=NOT_ESTABLISHED and old factory/re-export integration awaited Owner review. Preview authorization permits bounded evaluation/publishing selected cleared copies; it does not retroactively approve finished identity art or imported animation. Keep original registers and per-file sourceRefs/hashes in preview manifest; do not describe every selected file as05H-generated merely because the manifest filename contains05H.
+
+## Concrete integration limits
+
+Use only selected loaders. Existing CrewFactory.load loads every role character and all PROP_FILES, so invoking it wholesale violates selected-nine loading scope. Reuse exact skeleton cloning/pose/batching logic selectively; its gridNoise import comes from game-world module, and this isolated preview must not boot App/simulation/storage or claim person identity. The existing 'normalize1.8m' comment in person() does not perform an actual bounds-based scaling operation in the inspected body; current authored scale is already close. Document any deliberate preview grounding/scaling, do not assume a hidden normalization.
+
+No imported clips means idle/walk/direct/working controls must clearly say PROCEDURAL PREVIEW POSE. Keep any procedural root translation within preview. The Director/CameraDP matching rig is promising for later external clip testing, but none was inspected/loaded/retargeted; commonGLB format or samebonecount cannot close that test. External compatible clip remains deferred rather than fabricated from unrelated choreography.
+
+Parent's real WebGL2/rendered overview/close-up/60s cadence/resource measurement, selected-root asset audit and scoped type/build/loading/error/disposal checks remain required. No FPS, MacGPU, visual KEEP or Unity drop-in compatibility claim follows from this review. Existing asset bytes remain untouched; no licence blocker found within the nine selected copies.
+
+## Two-material Owner clarification / audit fit
+
+Read-only follow-up: exactly Poly Haven concrete_floor (stage floor) and asphalt_03 (small service area), local-equivalent check first, at most1K, diffuse+roughness first, TOTALdownload≤25MiB. No downloads/browser/build/tests performed. Relevant ui/public filename search found no named concrete/asphalt raster; selected GroundTile has no textures and selected corrugated-metal maps are not equivalent floor/asphalt. This bounded observation is not a full repository asset search; parent should record actual cleared local-equivalent decision before acquisition. No ambientCG/characters/animation/audio search needed.
+
+For each of the two assets record original publisher asset page and exact author/source credit, publisher's explicit CC0 evidence (not a 'free' assumption), retrieval UTCdate, exact file URLs/names/map roles, downloaded byte counts, decoded width/height and SHA256. Owner clarification establishes allowed materials, not proof that their current download bytes/licence were checked. Bind four selected diffuse/roughness files in preview manifest; add normal only if demonstrated useful, with same1K/totalbyte constraints and a separate cost measurement. Count all acquisition bytes against25MiB, including alternate/retried payloads retained/downloaded; do not use a perfile25MiB limit as the totalcap. Keep originals/sourcecolour-space metadata and use appropriate diffuse versus data-map decoding; no change to character/geometry art.
+
+Existing audit tool can run narrowly via --asset-root/--provenance/--provenance-register/--output on ONLY selected preview GLBs/maps. It inventories byte sizes/hashes/GLB metadata, duplicate hashes and presence of provenance paths. Its path collector descends only assets/entries/provenance arrays, so use an assets entry PER downloaded file (a nested arbitrary files list alone is not recognised). IMPORTANTlimitations: it does NOT authenticate licence/author/date, compare inventory hashes against declared expected hashes, decode raster dimensions or enforce1K, or enforce the totaldownload25MiB cap. Default raster threshold is16MiB EACH. It reports GLBstructuralErrors separately; passed currently derives only violationlist, so inspect structuralErrors explicitly rather than relying on passed. No widening auditframework requested; parent can supply focused manifest/imageheader checks and explicitly retain these limits.
+
+Useful focused checks: (1) selected manifest file set equals nineGLBs+fourinitial maps, every hash/byte/dimension/source record exact, no blocked licence or absolute/path-traversal asset reference; (2) actual loader failure/missing map produces actionable error while keeping usable scene, all awaited textures selected only; (3) baseline→candidate toggle changes ONLY floor/service materials, preserves geometry/worldtransforms/camera/light/pose/timepoint and resetview, no per-toggle re-download or texture leaks; (4) diffuse/data-map assignments and repeat settings stable, rendererDPR≤1, no normals/shadows/post enabled accidentally; (5) pause/hidden/unload disposes owned geometry/material/texture/control/renderer resources once and stopsanimation/listeners; (6) procedural/clip selector cannot represent absent importedclip as available. These are narrow behavior tests, not mirrored implementation or mocked visual verification.
+
+Actual overview+close-up must compare same deterministic baseline/candidate scene/view/light. Measure fixed60s afterload for each mode under same renderer/browser/viewport, plus incremental assetbytes/texture count/drawcalls/triangles/cadence; distinguish totalassetbytes from newdownloadbytes and actualGPUmemory from resourcecounts. Floor material should not change triangle/drawcounts unless implementation itself introduces a change; record actual differences rather than assume free cost. A real WebGL2 scene and screenshots remain required; no HTTP200/mockcanvas/FPS certification inferred. Final source/visual review pending parent implementation.

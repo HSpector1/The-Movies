@@ -1,0 +1,241 @@
+{
+  "schemaVersion": 1,
+  "scope": "Selected assets for bounded isolated soundstage preview; no finished art adoption.",
+  "evidenceSources": {
+    "productionIntroduction": "The Movies commit fc31e127d38ad47c438cbcdc16af844d8b359b4a first added all 26 files under ui/public/spike3d/.",
+    "assetLabFactory": {
+      "repository": "Project Studio - Asset Lab",
+      "commit": "f4f60b4f94b112976d35f035aa773e7178c955c7",
+      "claim": "Asset Lab 05 Blender production-art factory; original/owner-owned assets only.",
+      "generation": "blender/build_all.py or blender/make_hero_scene.py -> studio_pipeline/exporter.py::export_glb",
+      "license": "Project Studio Asset Lab original/owner-owned geometry (source stamp: original-CC0-equivalent)"
+    },
+    "assetLabCharacters": {
+      "repository": "Project Studio - Asset Lab",
+      "commit": "ff9837f9a32979267f051d9c7da1b4a00877efc5",
+      "claim": "Asset Lab 05E re-exported the exact eight character GLBs from the procedural 05B character pipeline.",
+      "generation": "blender/build_characters05b.py -> studio_pipeline/character2.py -> studio_pipeline/exporter.py::export_glb",
+      "license": "Project Studio Asset Lab original/owner-owned character geometry plus the Quaternius Universal Animation Library 65-bone mannequin rig (CC0 1.0)."
+    },
+    "characterRig": "PROVENANCE-REGISTER.md records embedded CC0 1.0 evidence for Quaternius Universal Animation Library; Asset Lab source archive SHA-256 cc73fc4e495b82958207316596317a3f40b9fa38065bde1027937452da537724 is in its manifests/source-archives.json.",
+    "productionAdoption": "Asset Lab f4f60b4 says NOT merged. The Asset Lab 05E final report and integration recommendation say production integration was not approved pending owner M3 review. No later approval evidence was found."
+  },
+  "assets": [
+    {
+      "path": "arch/Arch_M01_StageWall.glb",
+      "classification": "VERIFIED_PROJECT_GENERATED",
+      "sha256": "f215df0408cac6586d31352d63bcd09a036a27e57b5f2dd8fd0e65a60e2929f0",
+      "sourceRef": "assetLabFactory",
+      "sourcePath": "public/assets/studio/architecture/Arch_M01_StageWall.glb",
+      "shippingLicensePermitted": true,
+      "productionAdoption": "NOT_ESTABLISHED",
+      "byteSize": 7900,
+      "localSource": "ui/public/spike3d/arch/Arch_M01_StageWall.glb"
+    },
+    {
+      "path": "arch/Arch_M04_StageCorner.glb",
+      "classification": "VERIFIED_PROJECT_GENERATED",
+      "sha256": "76b2f02d495362b1dd6692c1df33f34697b9d4d16de5163595ce2ed27d16d64c",
+      "sourceRef": "assetLabFactory",
+      "sourcePath": "public/assets/studio/architecture/Arch_M04_StageCorner.glb",
+      "shippingLicensePermitted": true,
+      "productionAdoption": "NOT_ESTABLISHED",
+      "byteSize": 6792,
+      "localSource": "ui/public/spike3d/arch/Arch_M04_StageCorner.glb"
+    },
+    {
+      "path": "arch/Arch_M14_GroundTile.glb",
+      "classification": "VERIFIED_PROJECT_GENERATED",
+      "sha256": "d94a51ef5502a2cc447c26fd617ed349d09a6a9993bb72751f192dfcc36a7ed2",
+      "sourceRef": "assetLabFactory",
+      "sourcePath": "public/assets/studio/architecture/Arch_M14_GroundTile.glb",
+      "shippingLicensePermitted": true,
+      "productionAdoption": "NOT_ESTABLISHED",
+      "byteSize": 2524,
+      "localSource": "ui/public/spike3d/arch/Arch_M14_GroundTile.glb"
+    },
+    {
+      "path": "characters/Char_CameraDP_Standard.glb",
+      "classification": "VERIFIED_PROJECT_GENERATED",
+      "sha256": "8abfd3d6a2e47f0c79a8be56e407e276c58e6844df0f27778906ae934d71290f",
+      "sourceRef": "assetLabCharacters",
+      "sourcePath": "public/assets/studio/characters/Char_CameraDP_Standard.glb",
+      "shippingLicensePermitted": true,
+      "productionAdoption": "NOT_ESTABLISHED",
+      "byteSize": 265880,
+      "localSource": "ui/public/spike3d/characters/Char_CameraDP_Standard.glb"
+    },
+    {
+      "path": "characters/Char_Director_Standard.glb",
+      "classification": "VERIFIED_PROJECT_GENERATED",
+      "sha256": "01a8939aedccdbd9655a83e72208d6f244270428390efd3e9e8d6e89f777d7fa",
+      "sourceRef": "assetLabCharacters",
+      "sourcePath": "public/assets/studio/characters/Char_Director_Standard.glb",
+      "shippingLicensePermitted": true,
+      "productionAdoption": "NOT_ESTABLISHED",
+      "byteSize": 263140,
+      "localSource": "ui/public/spike3d/characters/Char_Director_Standard.glb"
+    },
+    {
+      "path": "props/Prop_CStand.glb",
+      "classification": "VERIFIED_PROJECT_GENERATED",
+      "sha256": "b63e8ebc6e2c40422fc1843e5f304f31410a8533a44b1ae48a00ceceb9de967b",
+      "sourceRef": "assetLabFactory",
+      "sourcePath": "public/assets/studio/props/Prop_CStand.glb",
+      "shippingLicensePermitted": true,
+      "productionAdoption": "NOT_ESTABLISHED",
+      "byteSize": 7276,
+      "localSource": "ui/public/spike3d/props/Prop_CStand.glb"
+    },
+    {
+      "path": "props/Prop_DirectorsChair.glb",
+      "classification": "VERIFIED_PROJECT_GENERATED",
+      "sha256": "df0c3b2bfdf0e3f01c269985d73aa3a226759837070b433140f0809374349a1f",
+      "sourceRef": "assetLabFactory",
+      "sourcePath": "public/assets/studio/props/Prop_DirectorsChair.glb",
+      "shippingLicensePermitted": true,
+      "productionAdoption": "NOT_ESTABLISHED",
+      "byteSize": 7008,
+      "localSource": "ui/public/spike3d/props/Prop_DirectorsChair.glb"
+    },
+    {
+      "path": "props/Prop_Fresnel.glb",
+      "classification": "VERIFIED_PROJECT_GENERATED",
+      "sha256": "0a1c8231b9bf41ae574e1e0d98e9a4460e797d87709377aeadd44d49dff855c5",
+      "sourceRef": "assetLabFactory",
+      "sourcePath": "public/assets/studio/props/Prop_Fresnel.glb",
+      "shippingLicensePermitted": true,
+      "productionAdoption": "NOT_ESTABLISHED",
+      "byteSize": 10248,
+      "localSource": "ui/public/spike3d/props/Prop_Fresnel.glb"
+    },
+    {
+      "path": "props/Prop_StudioCamera.glb",
+      "classification": "VERIFIED_PROJECT_GENERATED",
+      "sha256": "3ef55021ce44a8f04ff07ab5c67d654f5207f2b38ffae1bf9a3851fa8992b336",
+      "sourceRef": "assetLabFactory",
+      "sourcePath": "public/assets/studio/props/Prop_StudioCamera.glb",
+      "shippingLicensePermitted": true,
+      "productionAdoption": "NOT_ESTABLISHED",
+      "byteSize": 14792,
+      "localSource": "ui/public/spike3d/props/Prop_StudioCamera.glb"
+    },
+    {
+      "path": "textures/concrete_floor/concrete_floor_diff_1k.jpg",
+      "classification": "VERIFIED_CC0_PUBLISHER_DOWNLOAD",
+      "assetId": "concrete_floor",
+      "assetPage": "https://polyhaven.com/a/concrete_floor",
+      "authors": {
+        "eye-candy.xyz": "All"
+      },
+      "license": "CC0 1.0",
+      "licenseReference": "https://polyhaven.com/license",
+      "licenseDeed": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "downloadDate": "2026-10-12T18:26:16.978637+00:00",
+      "downloadUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/concrete_floor/concrete_floor_diff_1k.jpg",
+      "usage": "baseColor",
+      "resolution": [
+        1024,
+        1024
+      ],
+      "byteSize": 927975,
+      "sha256": "5e06d0fb226f671470f59bf7798954b6965c9ed56dd45084dfd012e15737e444",
+      "publisherMd5": "99b94da291a4f038fa6af93c3993cbec",
+      "shippingLicensePermitted": true,
+      "productionAdoption": "NOT_ESTABLISHED"
+    },
+    {
+      "path": "textures/concrete_floor/concrete_floor_rough_1k.jpg",
+      "classification": "VERIFIED_CC0_PUBLISHER_DOWNLOAD",
+      "assetId": "concrete_floor",
+      "assetPage": "https://polyhaven.com/a/concrete_floor",
+      "authors": {
+        "eye-candy.xyz": "All"
+      },
+      "license": "CC0 1.0",
+      "licenseReference": "https://polyhaven.com/license",
+      "licenseDeed": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "downloadDate": "2026-10-12T18:26:19.739219+00:00",
+      "downloadUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/concrete_floor/concrete_floor_rough_1k.jpg",
+      "usage": "roughness",
+      "resolution": [
+        1024,
+        1024
+      ],
+      "byteSize": 503981,
+      "sha256": "342110e685c07af2c56194662a796b2ab4f2a4d992a9745b8fc55943414faead",
+      "publisherMd5": "5d9bd1bfd18e5d32a3217e8275dd8271",
+      "shippingLicensePermitted": true,
+      "productionAdoption": "NOT_ESTABLISHED"
+    },
+    {
+      "path": "textures/asphalt_03/asphalt_03_diff_1k.jpg",
+      "classification": "VERIFIED_CC0_PUBLISHER_DOWNLOAD",
+      "assetId": "asphalt_03",
+      "assetPage": "https://polyhaven.com/a/asphalt_03",
+      "authors": {
+        "Dario Barresi": "processing",
+        "Charlotte Baglioni": "photography"
+      },
+      "license": "CC0 1.0",
+      "licenseReference": "https://polyhaven.com/license",
+      "licenseDeed": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "downloadDate": "2026-10-12T18:26:23.756932+00:00",
+      "downloadUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/asphalt_03/asphalt_03_diff_1k.jpg",
+      "usage": "baseColor",
+      "resolution": [
+        1024,
+        1024
+      ],
+      "byteSize": 788840,
+      "sha256": "95ad02e2631c41cf9fdd6a37596cf75adb4fb8a8b6880567cc78ed1c41dc5681",
+      "publisherMd5": "1dba74b167b3d8460717776b22ca42c5",
+      "shippingLicensePermitted": true,
+      "productionAdoption": "NOT_ESTABLISHED"
+    },
+    {
+      "path": "textures/asphalt_03/asphalt_03_rough_1k.jpg",
+      "classification": "VERIFIED_CC0_PUBLISHER_DOWNLOAD",
+      "assetId": "asphalt_03",
+      "assetPage": "https://polyhaven.com/a/asphalt_03",
+      "authors": {
+        "Dario Barresi": "processing",
+        "Charlotte Baglioni": "photography"
+      },
+      "license": "CC0 1.0",
+      "licenseReference": "https://polyhaven.com/license",
+      "licenseDeed": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "downloadDate": "2026-10-12T18:26:26.888366+00:00",
+      "downloadUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/asphalt_03/asphalt_03_rough_1k.jpg",
+      "usage": "roughness",
+      "resolution": [
+        1024,
+        1024
+      ],
+      "byteSize": 590105,
+      "sha256": "069b6ea342aaad04fd1582f59c16fbbe5c7a6f0f3a87bc9d57648ed53336fb3a",
+      "publisherMd5": "475b1ae5bce5abb88a73b14abc5eab5d",
+      "shippingLicensePermitted": true,
+      "productionAdoption": "NOT_ESTABLISHED"
+    }
+  ],
+  "baselineCommit": "98abbc550d0cbfe8751fff4132af4ebf79dcd4f9",
+  "acquisition": {
+    "assetBytes": 2810901,
+    "metadataBytes": 53732,
+    "totalNewDownloadedBytes": 2864633,
+    "limitBytes": 26214400,
+    "maps": "Two JPEG maps per set: base color and roughness. No normal/displacement/AO/ARM/bundle/preview image downloads.",
+    "localEquivalentCheck": {
+      "scope": [
+        "ui/public",
+        "Downloads filename search concrete/asphalt/PolyHaven/ambientCG",
+        "selected nine GLB embedded textures"
+      ],
+      "result": "No equivalent named copy/PBR map set found in scoped search; GroundTile has no maps. Wall/corner embedded256px corrugated-metal maps are not equivalent floor/service surfaces. Not a whole-machine absence claim."
+    },
+    "apiTerms": "https://github.com/Poly-Haven/Public-API/blob/master/ToS.md",
+    "userAgent": "ProjectStudio-BoundedSoundstagePreview/1.0",
+    "note": "Python urllib certificate-chain error transferred no API payload; system curl succeeded with TLS verification. Browser/tool page fetch overhead is not an asset download; metadata payloads counted above."
+  }
+}

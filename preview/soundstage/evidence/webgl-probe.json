@@ -1,0 +1,15 @@
+{
+  "at": "2026-10-12T18:23:54.189Z",
+  "browser": "150.0.7871.125",
+  "headless": true,
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "webgl2": true,
+  "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+  "renderer": "WebKit WebGL",
+  "unmaskedRenderer": "ANGLE (Intel Inc., Intel(R) HD Graphics 6000, OpenGL 4.1)",
+  "unmaskedVendor": "Google Inc. (Intel Inc.)",
+  "maxTextureSize": 16384
+}

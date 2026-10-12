@@ -1,0 +1,353 @@
+{
+  "generatedAt": "2026-10-12T18:30:14.403Z",
+  "assetRoot": "/Users/zacheryspector/studio-scratch/browser-soundstage-preview/preview/soundstage/public/assets",
+  "provenance": {
+    "jsonPath": "/Users/zacheryspector/studio-scratch/browser-soundstage-preview/preview/soundstage/PROVENANCE.json",
+    "jsonStatus": "parsed",
+    "matchingEntryCount": 13,
+    "markdownRegisterPath": "/Users/zacheryspector/studio-scratch/browser-soundstage-preview/preview/soundstage/PROVENANCE-REGISTER.md",
+    "markdownRegisterPresent": true
+  },
+  "thresholds": {
+    "glbBytes": 26214400,
+    "rasterBytes": 16777216
+  },
+  "totals": {
+    "assetCount": 13,
+    "byExtension": {
+      ".glb": 9,
+      ".gltf": 0,
+      ".png": 0,
+      ".jpg": 4,
+      ".jpeg": 0,
+      ".webp": 0
+    },
+    "byCategory": {
+      "arch": 3,
+      "characters": 2,
+      "props": 4,
+      "textures": 4,
+      "other": 0
+    }
+  },
+  "assets": [
+    {
+      "relativePath": "arch/Arch_M01_StageWall.glb",
+      "byteSize": 7900,
+      "extension": ".glb",
+      "category": "arch",
+      "sha256": "f215df0408cac6586d31352d63bcd09a036a27e57b5f2dd8fd0e65a60e2929f0",
+      "glb": {
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 2,
+        "materialCount": 2,
+        "textureCount": 2,
+        "animationClips": [],
+        "animationClipCount": 0,
+        "approximateTriangleCount": 36,
+        "approximateTriangleCountComplete": true,
+        "containsSkinnedMeshes": false,
+        "attachmentNodes": []
+      }
+    },
+    {
+      "relativePath": "arch/Arch_M04_StageCorner.glb",
+      "byteSize": 6792,
+      "extension": ".glb",
+      "category": "arch",
+      "sha256": "76b2f02d495362b1dd6692c1df33f34697b9d4d16de5163595ce2ed27d16d64c",
+      "glb": {
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 2,
+        "materialCount": 2,
+        "textureCount": 2,
+        "animationClips": [],
+        "animationClipCount": 0,
+        "approximateTriangleCount": 24,
+        "approximateTriangleCountComplete": true,
+        "containsSkinnedMeshes": false,
+        "attachmentNodes": []
+      }
+    },
+    {
+      "relativePath": "arch/Arch_M14_GroundTile.glb",
+      "byteSize": 2524,
+      "extension": ".glb",
+      "category": "arch",
+      "sha256": "d94a51ef5502a2cc447c26fd617ed349d09a6a9993bb72751f192dfcc36a7ed2",
+      "glb": {
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 1,
+        "materialCount": 1,
+        "textureCount": 0,
+        "animationClips": [],
+        "animationClipCount": 0,
+        "approximateTriangleCount": 12,
+        "approximateTriangleCountComplete": true,
+        "containsSkinnedMeshes": false,
+        "attachmentNodes": []
+      }
+    },
+    {
+      "relativePath": "characters/Char_CameraDP_Standard.glb",
+      "byteSize": 265880,
+      "extension": ".glb",
+      "category": "characters",
+      "sha256": "8abfd3d6a2e47f0c79a8be56e407e276c58e6844df0f27778906ae934d71290f",
+      "glb": {
+        "sceneCount": 1,
+        "nodeCount": 67,
+        "meshCount": 1,
+        "primitiveCount": 8,
+        "materialCount": 8,
+        "textureCount": 0,
+        "animationClips": [],
+        "animationClipCount": 0,
+        "approximateTriangleCount": 8200,
+        "approximateTriangleCountComplete": true,
+        "containsSkinnedMeshes": true,
+        "attachmentNodes": [
+          {
+            "index": 20,
+            "name": "hand_l",
+            "matches": [
+              "hand_l"
+            ]
+          },
+          {
+            "index": 44,
+            "name": "hand_r",
+            "matches": [
+              "hand_r"
+            ]
+          },
+          {
+            "index": 48,
+            "name": "Head",
+            "matches": [
+              "head"
+            ]
+          },
+          {
+            "index": 64,
+            "name": "root",
+            "matches": [
+              "root"
+            ]
+          },
+          {
+            "index": 65,
+            "name": "Char_CameraDP_Standard_LOD0",
+            "matches": [
+              "camera"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "relativePath": "characters/Char_Director_Standard.glb",
+      "byteSize": 263140,
+      "extension": ".glb",
+      "category": "characters",
+      "sha256": "01a8939aedccdbd9655a83e72208d6f244270428390efd3e9e8d6e89f777d7fa",
+      "glb": {
+        "sceneCount": 1,
+        "nodeCount": 67,
+        "meshCount": 1,
+        "primitiveCount": 8,
+        "materialCount": 8,
+        "textureCount": 0,
+        "animationClips": [],
+        "animationClipCount": 0,
+        "approximateTriangleCount": 8112,
+        "approximateTriangleCountComplete": true,
+        "containsSkinnedMeshes": true,
+        "attachmentNodes": [
+          {
+            "index": 20,
+            "name": "hand_l",
+            "matches": [
+              "hand_l"
+            ]
+          },
+          {
+            "index": 44,
+            "name": "hand_r",
+            "matches": [
+              "hand_r"
+            ]
+          },
+          {
+            "index": 48,
+            "name": "Head",
+            "matches": [
+              "head"
+            ]
+          },
+          {
+            "index": 64,
+            "name": "root",
+            "matches": [
+              "root"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "relativePath": "props/Prop_CStand.glb",
+      "byteSize": 7276,
+      "extension": ".glb",
+      "category": "props",
+      "sha256": "b63e8ebc6e2c40422fc1843e5f304f31410a8533a44b1ae48a00ceceb9de967b",
+      "glb": {
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 2,
+        "materialCount": 2,
+        "textureCount": 0,
+        "animationClips": [],
+        "animationClipCount": 0,
+        "approximateTriangleCount": 268,
+        "approximateTriangleCountComplete": true,
+        "containsSkinnedMeshes": false,
+        "attachmentNodes": []
+      }
+    },
+    {
+      "relativePath": "props/Prop_DirectorsChair.glb",
+      "byteSize": 7008,
+      "extension": ".glb",
+      "category": "props",
+      "sha256": "df0c3b2bfdf0e3f01c269985d73aa3a226759837070b433140f0809374349a1f",
+      "glb": {
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 2,
+        "materialCount": 2,
+        "textureCount": 0,
+        "animationClips": [],
+        "animationClipCount": 0,
+        "approximateTriangleCount": 256,
+        "approximateTriangleCountComplete": true,
+        "containsSkinnedMeshes": false,
+        "attachmentNodes": []
+      }
+    },
+    {
+      "relativePath": "props/Prop_Fresnel.glb",
+      "byteSize": 10248,
+      "extension": ".glb",
+      "category": "props",
+      "sha256": "0a1c8231b9bf41ae574e1e0d98e9a4460e797d87709377aeadd44d49dff855c5",
+      "glb": {
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 3,
+        "materialCount": 3,
+        "textureCount": 0,
+        "animationClips": [],
+        "animationClipCount": 0,
+        "approximateTriangleCount": 380,
+        "approximateTriangleCountComplete": true,
+        "containsSkinnedMeshes": false,
+        "attachmentNodes": []
+      }
+    },
+    {
+      "relativePath": "props/Prop_StudioCamera.glb",
+      "byteSize": 14792,
+      "extension": ".glb",
+      "category": "props",
+      "sha256": "3ef55021ce44a8f04ff07ab5c67d654f5207f2b38ffae1bf9a3851fa8992b336",
+      "glb": {
+        "sceneCount": 1,
+        "nodeCount": 1,
+        "meshCount": 1,
+        "primitiveCount": 4,
+        "materialCount": 4,
+        "textureCount": 0,
+        "animationClips": [],
+        "animationClipCount": 0,
+        "approximateTriangleCount": 588,
+        "approximateTriangleCountComplete": true,
+        "containsSkinnedMeshes": false,
+        "attachmentNodes": [
+          {
+            "index": 0,
+            "name": "Prop_StudioCamera_LOD0",
+            "matches": [
+              "camera"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "relativePath": "textures/asphalt_03/asphalt_03_diff_1k.jpg",
+      "byteSize": 788840,
+      "extension": ".jpg",
+      "category": "textures",
+      "sha256": "95ad02e2631c41cf9fdd6a37596cf75adb4fb8a8b6880567cc78ed1c41dc5681"
+    },
+    {
+      "relativePath": "textures/asphalt_03/asphalt_03_rough_1k.jpg",
+      "byteSize": 590105,
+      "extension": ".jpg",
+      "category": "textures",
+      "sha256": "069b6ea342aaad04fd1582f59c16fbbe5c7a6f0f3a87bc9d57648ed53336fb3a"
+    },
+    {
+      "relativePath": "textures/concrete_floor/concrete_floor_diff_1k.jpg",
+      "byteSize": 927975,
+      "extension": ".jpg",
+      "category": "textures",
+      "sha256": "5e06d0fb226f671470f59bf7798954b6965c9ed56dd45084dfd012e15737e444"
+    },
+    {
+      "relativePath": "textures/concrete_floor/concrete_floor_rough_1k.jpg",
+      "byteSize": 503981,
+      "extension": ".jpg",
+      "category": "textures",
+      "sha256": "342110e685c07af2c56194662a796b2ab4f2a4d992a9745b8fc55943414faead"
+    }
+  ],
+  "glbStructuralErrors": [],
+  "duplicatePayloads": [],
+  "missingProvenance": [],
+  "characterAnimationReadiness": [
+    {
+      "filename": "Char_CameraDP_Standard.glb",
+      "skinned": "YES",
+      "clips": 0,
+      "clipNames": [],
+      "likelyUsableForIdle": "UNKNOWN",
+      "likelyUsableForWalk": "UNKNOWN",
+      "likelyUsableForWork": "UNKNOWN",
+      "notes": "No animation clips embedded; readiness is UNKNOWN."
+    },
+    {
+      "filename": "Char_Director_Standard.glb",
+      "skinned": "YES",
+      "clips": 0,
+      "clipNames": [],
+      "likelyUsableForIdle": "UNKNOWN",
+      "likelyUsableForWalk": "UNKNOWN",
+      "likelyUsableForWork": "UNKNOWN",
+      "notes": "No animation clips embedded; readiness is UNKNOWN."
+    }
+  ],
+  "characterAnimationReadinessMarkdown": "| Filename | Skinned | Clips | Clip names | Idle | Walk | Work | Notes |\n| --- | --- | ---: | --- | --- | --- | --- | --- |\n| Char_CameraDP_Standard.glb | YES | 0 | — | UNKNOWN | UNKNOWN | UNKNOWN | No animation clips embedded; readiness is UNKNOWN. |\n| Char_Director_Standard.glb | YES | 0 | — | UNKNOWN | UNKNOWN | UNKNOWN | No animation clips embedded; readiness is UNKNOWN. |",
+  "violations": [],
+  "passed": true
+}

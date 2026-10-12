@@ -1,0 +1,6 @@
+{
+  "name": "studio-bounded-soundstage-preview",
+  "private": true,
+  "type": "module",
+  "scripts": {"check":"tsc --noEmit", "build":"vite build"}
+}

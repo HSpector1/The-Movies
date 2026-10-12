@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Studio · Soundstage material study</title><link rel="icon" href="data:,"></head>
+<body><main>
+<header><div class="eyebrow">PROJECT STUDIO / VISUAL STUDY 01</div><h1>A small stage. Two surfaces.</h1><p class="notice">ART / ANIMATION PREVIEW — NOT LIVE GAMEPLAY.</p></header>
+<section class="toolbar" aria-label="Preview controls">
+<label>Material comparison<select disabled id="material"><option value="baseline">Baseline · existing materials</option><option value="concrete">Candidate · concrete floor only</option><option value="asphalt">Candidate · exterior asphalt only</option><option value="both">Candidate · both surfaces</option></select></label>
+<label>Preview figure<select disabled id="figure"><option value="director">Director</option><option value="operator">Camera operator</option><option value="both">Both figures</option></select></label>
+<label>Procedural demonstration<select disabled id="pose"><option value="idle">Idle pose</option><option value="walk">Walk in place</option><option value="direct">Directing gesture</option><option value="work">Work stance · no prop contact</option></select></label>
+<button disabled id="pause">Pause motion</button><button disabled id="reset">Management view</button><button disabled id="close">Crew / floor close-up</button><button disabled id="service">Service-area close-up</button><button id="stop">Stop preview</button>
+</section>
+<div id="viewport"><canvas aria-label="Interactive cutaway soundstage, orbit by dragging and zoom with the wheel"></canvas><div class="legend"><span>01 / SOUNDSTAGE</span><span>02 / SERVICE AREA</span></div></div>
+<p id="status" role="status">Loading the nine selected models…</p><p id="error" role="alert" hidden></p>
+<footer><p id="material-note">Baseline: the existing untextured floor and exterior tile. No new maps loaded.</p><p>Drag to orbit · wheel to zoom. Two figures, procedural poses only; no imported animation clips. Camera and lighting stay fixed when materials change.</p><p>Concrete Floor: eye-candy.xyz · Asphalt 03: Charlotte Baglioni / Dario Barresi · <a href="https://polyhaven.com/license" target="_blank" rel="noreferrer">Poly Haven / CC0</a>. Preview evaluation; finished-art adoption remains open.</p><output id="metrics">30 FPS target · DPR ≤ 1 · shadows and post-processing off</output></footer>
+</main><script type="module" src="/src/main.ts"></script></body></html>

@@ -1,0 +1,10 @@
+Verified exact13 asset files, SHA256/licence fields/embedded GLB dependencies/zero clips/1K map dimensions; 2864633 total downloaded bytes including metadata.
+3D asset audit: 13 assets; 0 hard violation(s).
+Report: /Users/zacheryspector/studio-scratch/browser-soundstage-preview/preview/soundstage/evidence/scoped-audit.json
+src/main.ts(39,232): error TS2677: A type predicate's type must be assignable to its parameter's type.
+  Type 'PromiseFulfilledResult<Texture<unknown, TextureEventMap>>' is not assignable to type 'PromiseSettledResult<Texture<HTMLImageElement, TextureEventMap>>'.
+    Type 'PromiseFulfilledResult<Texture<unknown, TextureEventMap>>' is not assignable to type 'PromiseFulfilledResult<Texture<HTMLImageElement, TextureEventMap>>'.
+      Type 'Texture<unknown, TextureEventMap>' is not assignable to type 'Texture<HTMLImageElement, TextureEventMap>'.
+        Type 'unknown' is not assignable to type 'HTMLImageElement'.
+src/main.ts(39,304): error TS2339: Property 'value' does not exist on type 'PromiseSettledResult<Texture<HTMLImageElement, TextureEventMap>>'.
+  Property 'value' does not exist on type 'PromiseRejectedResult'.

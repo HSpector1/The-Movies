@@ -1,0 +1,97 @@
+{
+  "started": "2026-10-12T19:00:15.893Z",
+  "headlessLauncherTest": true,
+  "checks": [
+    "Actual START command owns existing lane, builds selected preview, starts localhost server and isolated installed Chrome",
+    "Direct session refuses matching lock without owned lane ancestor",
+    "Occupied port refuses second server and preserves the existing server",
+    "Control-C closes owned Chrome/server, ends lane0, removes owned lock and leaves no owned process or listening preview"
+  ],
+  "sessionLog": "/Users/zacheryspector/studio-scratch/browser-soundstage-preview/preview/soundstage//.runs/2026-10-12T19-00-15.975Z-7b8cab6e-04bc-464b-a9f6-0b03045be537/session.log",
+  "ownedBeforeStop": [
+    {
+      "pid": 4338,
+      "parent": 4337,
+      "name": "node"
+    },
+    {
+      "pid": 4340,
+      "parent": 4338,
+      "name": "bash"
+    },
+    {
+      "pid": 4348,
+      "parent": 4340,
+      "name": "caffeinate"
+    },
+    {
+      "pid": 4353,
+      "parent": 4340,
+      "name": "bash"
+    },
+    {
+      "pid": 4354,
+      "parent": 4353,
+      "name": "bash"
+    },
+    {
+      "pid": 4372,
+      "parent": 4354,
+      "name": "node"
+    },
+    {
+      "pid": 4375,
+      "parent": 4354,
+      "name": "node"
+    },
+    {
+      "pid": 4384,
+      "parent": 4375,
+      "name": "Google Chrome"
+    },
+    {
+      "pid": 4401,
+      "parent": 4384,
+      "name": "Google Chrome Helper (GPU)"
+    },
+    {
+      "pid": 4402,
+      "parent": 4384,
+      "name": "Google Chrome Helper"
+    },
+    {
+      "pid": 4405,
+      "parent": 4384,
+      "name": "Google Chrome Helper"
+    },
+    {
+      "pid": 4408,
+      "parent": 4384,
+      "name": "Google Chrome Helper (Renderer)"
+    },
+    {
+      "pid": 4409,
+      "parent": 4384,
+      "name": "Google Chrome Helper (Renderer)"
+    },
+    {
+      "pid": 4415,
+      "parent": 4354,
+      "name": "sleep"
+    }
+  ],
+  "unownedSession": {
+    "status": 1,
+    "output": "Required lane ancestor absent.\n"
+  },
+  "occupiedPort": {
+    "status": 1,
+    "output": "Preview did not start: listen EADDRINUSE: address already in use 127.0.0.1:4197. Port 4197 may be occupied; choose PREVIEW_PORT without stopping another process.\n"
+  },
+  "survivors": [],
+  "passed": true,
+  "sessionContents": "Verified exact13 asset files, SHA256/licence fields/embedded GLB dependencies/zero clips/1K map dimensions; 2864633 total downloaded bytes including metadata.\nvite v6.4.3 building for production...\ntransforming...\n✓ 10 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   2.64 kB │ gzip:   1.30 kB\ndist/assets/index-DqusBmVL.css    1.79 kB │ gzip:   0.85 kB\ndist/assets/index-BPwWaip3.js   639.50 kB │ gzip: 164.54 kB\n✓ built in 2.88s\nREADY http://127.0.0.1:4197/ · Control-C stops this server.\nISOLATED_BROWSER_READY http://127.0.0.1:4197/\n",
+  "laneMetadata": "waiting for pid 0; then: /bin/bash /Users/zacheryspector/studio-scratch/browser-soundstage-preview/preview/soundstage//scripts/session.sh /Users/zacheryspector/studio-scratch/browser-soundstage-preview/preview/soundstage//.runs/2026-10-12T19-00-15.975Z-7b8cab6e-04bc-464b-a9f6-0b03045be537/session.log /Users/zacheryspector/studio-scratch/browser-soundstage-preview/preview/soundstage//.runs/2026-10-12T19-00-15.975Z-7b8cab6e-04bc-464b-a9f6-0b03045be537/stop; 2026-10-12 14:00:15 CDT\nstart; 2026-10-12 14:00:16 CDT\nend, exit 0; 2026-10-12 14:00:27 CDT\n",
+  "finished": "2026-10-12T19:00:27.639Z",
+  "launcherOutput": "Waiting for the existing intensive-work lane, then opening an isolated Chrome window.\nClose that window or press Control-C here to stop and release the lane.\nSession log: /Users/zacheryspector/studio-scratch/browser-soundstage-preview/preview/soundstage//.runs/2026-10-12T19-00-15.975Z-7b8cab6e-04bc-464b-a9f6-0b03045be537/session.log\nStopping at the next safe point; waiting for browser/server cleanup…\nPreview session ended (0).\n"
+}
