@@ -1,0 +1,262 @@
+{
+  "packetSha256": "d1d70308328416ec3644b6dc4a8cda9ab89a5c5dab5efb390bd275bb41ae9093",
+  "manifestSha256": "44026cb783b1a4ecddb1785a7ae8e65931628bd768c6c90e329faf2c109a1178",
+  "runnerSha256": "9e33e20bc83a9bd88c6b27807c695c847734c384c33678d2e2c8d930a6f3890a",
+  "commands": [
+    {
+      "name": "tsc-ui",
+      "exit": 0,
+      "startEpoch": 1791848220,
+      "endEpoch": 1791848261,
+      "seconds": 41,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "-p",
+        "ui/tsconfig.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-wave5-red-r2-run/tsc-ui.log"
+    },
+    {
+      "name": "wave5-red",
+      "exit": 1,
+      "startEpoch": 1791848266,
+      "endEpoch": 1791848296,
+      "seconds": 30,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "ui",
+        "--no-file-parallelism",
+        "--no-cache",
+        "ui/src/saves.test.tsx",
+        "ui/src/lot/livingTurn.parity.test.tsx",
+        "-t",
+        "^(?:Wave5\\ genuine47\\ normal\\ import\\ replaces\\ App\\ session\\ prospectively\\ without\\ old\\ notices|Wave5\\ actual\\ terminal\\ import\\ replaces\\ active\\ App\\ state\\ and\\ reloads\\ read\\-only\\ with\\ exact\\ export/history|Wave5\\ unsupported\\ due\\-only\\ draft\\ refuses\\ before\\ App\\ replacement\\ or\\ any\\ autosave|Wave5\\ living\\ loop\\ commits\\ terminal\\ once\\ and\\ keeps\\ history/export\\ accessible\\ without\\ operating\\ verbs)$",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-wave5-red-r2-run/wave5-red.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-wave5-red-r2-run/wave5-red.log"
+    }
+  ],
+  "laneExit": 1,
+  "freezeBeforeSha256": "bcd5d8b8421f3146dd40f4aeb5d8f9253eb534d9b236b6fc0cfae078aa8ca4d0",
+  "freezeAfterSha256": "bcd5d8b8421f3146dd40f4aeb5d8f9253eb534d9b236b6fc0cfae078aa8ca4d0",
+  "reporterSha256": "3edba98284947f46b1be2f01fdcfbe38bad75f939de20885398dfab2c223a9ef",
+  "rawLogSha256": "eed4eb3f23ea24d5e7ad59176f6ba0fbcf7920fe6d512fed14bcae74b97c58b0",
+  "selectedCounts": {
+    "total": 4,
+    "passed": 1,
+    "failed": 3,
+    "skipped": 0,
+    "todo": 0
+  },
+  "excludedCounts": {
+    "historical": 22,
+    "unchangedMountedWarning": 1
+  },
+  "selected": [
+    {
+      "file": "ui/src/saves.test.tsx",
+      "title": "Wave5 genuine47 normal import replaces App session prospectively without old notices",
+      "fullName": "Wave5 genuine47 normal import replaces App session prospectively without old notices",
+      "status": "passed",
+      "durationMs": 1802.2278319999987,
+      "classification": "PASS: actual supported47 host import, replacement, prospective roots and migration notice; source bytes preserved"
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "title": "Wave5 actual terminal import replaces active App state and reloads read-only with exact export/history",
+      "fullName": "Wave5 actual terminal import replaces active App state and reloads read-only with exact export/history",
+      "status": "failed",
+      "durationMs": 2349.6623069999987,
+      "classification": "terminal import fails expected active-session replacement at line437; later heading/export/reload/read-only checks unexecuted"
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "title": "Wave5 unsupported due-only draft refuses before App replacement or any autosave",
+      "fullName": "Wave5 unsupported due-only draft refuses before App replacement or any autosave",
+      "status": "failed",
+      "durationMs": 1731.8708590000024,
+      "classification": "deferred closure-due draft lacks required unsupported rejection at line461; later no-write/purity assertions unexecuted"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "title": "Wave5 living loop commits terminal once and keeps history/export accessible without operating verbs",
+      "fullName": "Wave5 living loop commits terminal once and keeps history/export accessible without operating verbs",
+      "status": "failed",
+      "durationMs": 4183.469187000001,
+      "classification": "admitted actual saved simulation tick165 instead of163 at line445; later exactparity/terminal controls/no-further-write assertions unexecuted"
+    }
+  ],
+  "excluded": [
+    {
+      "file": "ui/src/saves.test.tsx",
+      "title": "importSaveJson(exportSaveJson(state)) has a serialized form equal to the original",
+      "fullName": "saves: export \u2192 import round-trips the EXACT state importSaveJson(exportSaveJson(state)) has a serialized form equal to the original",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "title": "a restored state continues deterministically (same next tick as the original)",
+      "fullName": "saves: export \u2192 import round-trips the EXACT state a restored state continues deterministically (same next tick as the original)",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "title": "the Saves screen exports the exact state and re-imports it, restoring it (UI path)",
+      "fullName": "saves: export \u2192 import round-trips the EXACT state the Saves screen exports the exact state and re-imports it, restoring it (UI path)",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "title": "importSaveJson rejects malformed JSON with a non-empty error (as data)",
+      "fullName": "saves: malformed / unsupported saves are rejected loudly and understandably importSaveJson rejects malformed JSON with a non-empty error (as data)",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "title": "importSaveJson rejects an unknown save version",
+      "fullName": "saves: malformed / unsupported saves are rejected loudly and understandably importSaveJson rejects an unknown save version",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "title": "the Saves screen surfaces a rejection message and does NOT crash on a bad save",
+      "fullName": "saves: malformed / unsupported saves are rejected loudly and understandably the Saves screen surfaces a rejection message and does NOT crash on a bad save",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "title": "the StartScreen import surfaces a rejection message for a wrong-version save",
+      "fullName": "saves: malformed / unsupported saves are rejected loudly and understandably the StartScreen import surfaces a rejection message for a wrong-version save",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "title": "a legacy V1 save auto-loads, is flagged converted, and yields a playable current state",
+      "fullName": "saves: legacy V1 import (D-9.15) converts and reports the conversion a legacy V1 save auto-loads, is flagged converted, and yields a playable current state",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "title": "the explicit \"Import legacy V1 save\" affordance converts and shows a conversion notice",
+      "fullName": "saves: legacy V1 import (D-9.15) converts and reports the conversion the explicit \"Import legacy V1 save\" affordance converts and shows a conversion notice",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "title": "the legacy affordance rejects a NON-V1 save as data (no crash)",
+      "fullName": "saves: legacy V1 import (D-9.15) converts and reports the conversion the legacy affordance rejects a NON-V1 save as data (no crash)",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "title": "shows a one-shot, version-neutral notice after an accepted V8 load leaves Saves",
+      "fullName": "saves: migration disclosure through real App navigation shows a one-shot, version-neutral notice after an accepted V8 load leaves Saves",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "title": "keeps the live studio and emits no success notice when App rejects an import",
+      "fullName": "saves: migration disclosure through real App navigation keeps the live studio and emits no success notice when App rejects an import",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "title": "carries the same version-neutral notice through a Start-screen V8 import",
+      "fullName": "saves: migration disclosure through real App navigation carries the same version-neutral notice through a Start-screen V8 import",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "title": "discloses migration when App restores an older active-session envelope",
+      "fullName": "saves: migration disclosure through real App navigation discloses migration when App restores an older active-session envelope",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "title": "keeps Start on a rejected import and emits no success notice",
+      "fullName": "saves: migration disclosure through real App navigation keeps Start on a rejected import and emits no success notice",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "title": "(a) by hand at the seam \u2014 the manual verb, pressed twelve times",
+      "fullName": "C2a-M5 \u2014 four-way time parity: the same twelve weeks, four ways (a) by hand at the seam \u2014 the manual verb, pressed twelve times",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "title": "(b) by the living loop at 1\u00d7 \u2014 one press of Roll, then nothing at all",
+      "fullName": "C2a-M5 \u2014 four-way time parity: the same twelve weeks, four ways (b) by the living loop at 1\u00d7 \u2014 one press of Roll, then nothing at all",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "title": "(b\u2032) by the living loop at 4\u00d7 \u2014 the same weeks, a quarter of the wall time",
+      "fullName": "C2a-M5 \u2014 four-way time parity: the same twelve weeks, four ways (b\u2032) by the living loop at 4\u00d7 \u2014 the same weeks, a quarter of the wall time",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "title": "(c) paused and resumed arbitrarily, including mid-week",
+      "fullName": "C2a-M5 \u2014 four-way time parity: the same twelve weeks, four ways (c) paused and resumed arbitrarily, including mid-week",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "title": "(d) batch-skipped \u2014 and the skip is genuine, not a hand walk in disguise",
+      "fullName": "C2a-M5 \u2014 four-way time parity: the same twelve weeks, four ways (d) batch-skipped \u2014 and the skip is genuine, not a hand walk in disguise",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "title": "exports FOUR byte-identical saves from four different ways of spending time",
+      "fullName": "C2a-M5 \u2014 and the four are one studio exports FOUR byte-identical saves from four different ways of spending time",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "title": "runs byte-identically with the theater READ every week and with it never read",
+      "fullName": "C2a-M5 \u2014 the theater is evidence, and evidence changes nothing (G8.1/G8.2) runs byte-identically with the theater READ every week and with it never read",
+      "status": "skipped",
+      "durationMs": null
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "title": "Wave5 mounted warning presents terms before lawful loan commit and autosaves one receipt",
+      "fullName": "Wave5 mounted warning presents terms before lawful loan commit and autosaves one receipt",
+      "status": "skipped",
+      "durationMs": null
+    }
+  ],
+  "claimLimits": "Four corrected controls measured separately from previous eleven; seven unchanged r1 outcomes retained as earlier evidence, not rerun. Terminal-related later assertions remain blocked. Root/source/schema implementation unmodified at this recording. No acceptance claim."
+}

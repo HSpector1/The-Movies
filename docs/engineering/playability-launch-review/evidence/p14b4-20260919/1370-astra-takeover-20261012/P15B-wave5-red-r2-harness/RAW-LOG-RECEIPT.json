@@ -1,0 +1,6 @@
+{
+  "file": "wave5-red.log",
+  "bytes": 1576665,
+  "sha256": "eed4eb3f23ea24d5e7ad59176f6ba0fbcf7920fe6d512fed14bcae74b97c58b0",
+  "disposition": "Original retained locally with the run. Not copied to GitHub because terminal-export assertion diagnostic contains full save-body differences. Exact JSON reporter is published: it contains abbreviated error and stacks, without those save-body dumps."
+}

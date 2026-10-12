@@ -1,0 +1,5 @@
+Wave5 RED r2: exact145 WT/index postimages; reviewed packet; reverse check PASS
+node=v20.20.2 python=Python 3.14.4 start=2026-10-12T23:36:59Z
+{"name": "tsc-ui", "exit": 0, "seconds": 41}
+{"name": "wave5-red", "exit": 1, "seconds": 30}
+terminal wave5-red=1; unchanged=yes; parent must check exact four selected identities and report excluded historical leaves separately

@@ -16,14 +16,29 @@
       "sha256": "44026cb783b1a4ecddb1785a7ae8e65931628bd768c6c90e329faf2c109a1178"
     },
     {
+      "path": "RAW-LOG-RECEIPT.json",
+      "bytes": 400,
+      "sha256": "09065552c5b5b138e190604548f736bc1295d59e0627d8046defeeabdf3ee8f7"
+    },
+    {
       "path": "README.md",
-      "bytes": 676,
-      "sha256": "c5cc240cd045ae98f50082dee937e1ac337618bc9b80eecc14e09c37ab465f60"
+      "bytes": 1198,
+      "sha256": "a282b7088e462cca5efe28f07df7a7f9e7ee688c4665e0c7d5cb66d8cd72bc26"
     },
     {
       "path": "REPORT.md",
       "bytes": 1963,
       "sha256": "964c903d2fdb55f824b0b7528c2383966e9f345d5d4768a4dbb80637bb11f183"
+    },
+    {
+      "path": "RESULTS-REVIEW.md",
+      "bytes": 3581,
+      "sha256": "071caacea01de9bcd921c5ef40221cc100de23a5c3884efe45fa8e48874baeea"
+    },
+    {
+      "path": "RESULTS.json",
+      "bytes": 13134,
+      "sha256": "b411254e81f602f25f60089dc6c9d4a3741499c3b87b2dea507e09e7d570e15c"
     },
     {
       "path": "RUNNER.sh",
@@ -34,6 +49,31 @@
       "path": "SELECTED-FOUR-IDENTITIES.json",
       "bytes": 625,
       "sha256": "5e967cbf52ba628c6f3dc25f19fd42cb1111184cbeb2ce70246a07c94339303c"
+    },
+    {
+      "path": "commands.jsonl",
+      "bytes": 1376,
+      "sha256": "78c59eb13fd633baf68e3d6a4adc0238b3ec8e5c2fae361dd592bf65f7972600"
+    },
+    {
+      "path": "lane.log",
+      "bytes": 370,
+      "sha256": "4c4f6886d6e9e5e0725d651ce362ed8df9770c3fbcd3c4b80af610c0bc2c8e44"
+    },
+    {
+      "path": "lane.meta",
+      "bytes": 210,
+      "sha256": "9a0ec6e4a6f932225eeaafa591b769cb0c6abbd1d311c4666c9ca1c181ce6d9b"
+    },
+    {
+      "path": "tsc-ui.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "wave5-red.json",
+      "bytes": 24240,
+      "sha256": "3edba98284947f46b1be2f01fdcfbe38bad75f939de20885398dfab2c223a9ef"
     }
   ]
 }
