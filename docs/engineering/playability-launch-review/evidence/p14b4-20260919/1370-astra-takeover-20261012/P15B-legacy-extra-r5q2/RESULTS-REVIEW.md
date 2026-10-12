@@ -1,0 +1,11 @@
+# Extra r5q2 measured diagnostic review
+
+Reviewer: GPT-6.1 Sol. KEEP the bounded evidence and its mixed disposition. Read-only immutable run review; no execution, candidate/source/index/HANDOFF edits or simulation. Raw premise.log SHA07d6241448e59d4b346180b028fa860e1e744ef151e102f19bbff467112bb9e8.
+
+Actual child/lane1,7seconds; strict start/final snapshots byte-identical. Exactly two complete case records are present, both within original budgets. Overall run did not pass.
+
+Late stored Save44 route-L6240 → actual current migration PASS: baseline and drained admissions true; baseline Legacy/condition recording begins6240, no official. Integer debit leaves actual cash−0.5382865071296692. Ordinary advancement yields actual player closure6273, linked v3 ended cutoff6274 sequence8 after closure7, next9, official remains null; final admission true. Case passes in4408.030775ms within90seconds. The driver's tick/source/refusal-purity assertions completed. This is a valid constructed late-ineligible terminal witness, not natural gameplay, complete replay proof or overall Legacy acceptance.
+
+Multi case fails in714.480640ms within120seconds after baseline admission and target selection player/r01/r04, at drainRival line46: r01 fixed debit does not establish negative cash. No drained admission, closure ticks, final admission, same-week163 or allocator/order assertion was reached. This is an input-selection premise failure, not a migrated admission result, engine defect or multi-closure proof. Preserve this original failure. Parent's raw-fixture finance numbers are selection guidance only, not an admitted migrated witness.
+
+The narrow proposed retry may choose a different actually migrated settled rival whose existing cash is below the unchanged10M constructor debit, retaining R04, exact before/drained/final admissions, integer/cash conservation, purity, ordinary tick/163 assertions and original budget. Do not increase debit or alter source/history to force the result. Omitting the separately measured late case is legitimate targeted continuation if its original raw record remains bound and preserved. Retry and any multi-closure coverage remain unmeasured until actual execution.

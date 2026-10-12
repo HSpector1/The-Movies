@@ -12,8 +12,18 @@
     },
     {
       "path": "README.md",
-      "bytes": 1055,
-      "sha256": "325dfbcd0a9491109909025d0df05998175c3a3b850537ccc73f638e27365793"
+      "bytes": 1464,
+      "sha256": "b93e24b4da3eae91430800a0df1bc11b54fd3541ac26489e298ec4fd18aa2474"
+    },
+    {
+      "path": "RESULTS-REVIEW.md",
+      "bytes": 2209,
+      "sha256": "bf0f3cfc6a834fd86b06ff51f31b68602bef82ce567bd3583de0d429290c6a6c"
+    },
+    {
+      "path": "RESULTS.json",
+      "bytes": 3549,
+      "sha256": "1219b4de8242cac8c1bd00c9dbb0d6d03cffc5fab46fbccb82f40d980efbc0fb"
     },
     {
       "path": "RUNNER-REVIEW.md",
@@ -24,8 +34,23 @@
       "path": "RUNNER.sh",
       "bytes": 10382,
       "sha256": "db5c83ac6597db0c34557408a5ccfb65edb5081f96f64e39d462f9df71d6c1f0"
+    },
+    {
+      "path": "commands.jsonl",
+      "bytes": 399,
+      "sha256": "4711f894e25dcbbaa08b366279fc43d47ad32598c35b2f80b95bf9bbb2c66c2e"
+    },
+    {
+      "path": "lane.log",
+      "bytes": 383,
+      "sha256": "24274515967136140a2f28297def81819bf072871da15dfde684a55c7c0337d5"
+    },
+    {
+      "path": "lane.meta",
+      "bytes": 224,
+      "sha256": "512d81fc2a956fd9a07b8116cc4070564a73b027a1dca9eb67a9a5475cb62fee"
     }
   ],
   "privateSaveBodies": false,
-  "execution": "prepared; unexecuted"
+  "execution": "child/lane1; late6273pass; multi negative-cash premise failure; strictfreeze exact"
 }

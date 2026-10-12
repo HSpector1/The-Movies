@@ -1,0 +1,67 @@
+{
+  "at": "2026-10-12T22:40:29.561742+00:00",
+  "candidatePacketSha256": "420e91014b98487971f9f49b549972013ec3aa86e701e88e66b761b212d81087",
+  "driverSha256": "b22d37fe9bcee8a1c27059bf6165f39949c5c44206ed0390b051540c11e1a8d5",
+  "childExit": 1,
+  "laneExit": 1,
+  "seconds": 7,
+  "cases": [
+    {
+      "label": "Stored Save44 route L at6240 migrated to current; constructed player debit then actual later closure",
+      "budgetMs": 90000,
+      "passed": true,
+      "elapsedMs": 4408.030775,
+      "budgetPassed": true,
+      "baselineAdmitted": true,
+      "drainedAdmitted": true,
+      "finalAdmitted": true,
+      "error": null,
+      "targets": null,
+      "final": {
+        "week": 6273,
+        "recordedFromWeek": 6240,
+        "closures": [
+          {
+            "studioId": "studio-fa1c1996-player",
+            "closureId": "studio-closure-1",
+            "week": 6273,
+            "sequence": 7,
+            "endOfRun": "campaign-legacy-8"
+          }
+        ],
+        "sequenceNext": 9,
+        "stateSHA256": "bf48bf79f390c1cf13f49655a97278d84385f743b6fea419c83b1dadd7072823",
+        "officialIsNull": true,
+        "endedHeader": {
+          "kind": "endOfRun",
+          "definition": "campaign-legacy/v3",
+          "boundaryWeek": 6274,
+          "p15DomainSequence": 8,
+          "closureId": "studio-closure-1",
+          "legacySnapshotId": "campaign-legacy-8"
+        }
+      }
+    },
+    {
+      "label": "Genuine130 migrated capture with constructed player and two settled-rival debits",
+      "budgetMs": 120000,
+      "passed": false,
+      "elapsedMs": 714.4806400000007,
+      "budgetPassed": true,
+      "baselineAdmitted": true,
+      "drainedAdmitted": false,
+      "finalAdmitted": false,
+      "error": "AssertionError [ERR_ASSERTION]: studio-aca408ec-r01 fixed debit does not establish negative cash\n    at drainRival (/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-extra-premises.ts:46:3)\n    at /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-extra-premises.ts:119:11\n    at measure (/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-extra-premises.ts:84:9)\n    at /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-extra-premises.ts:107:1\n    at ViteNodeRunner.runModule (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:399:5)\n    at ViteNodeRunner.directRequest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:381:5)\n    at ViteNodeRunner.cachedRequest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:206:14)\n    at ViteNodeRunner.executeFile (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:169:12)\n    at CAC.run (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/cli.mjs:99:5)",
+      "targets": [
+        "studio-aca408ec-player",
+        "studio-aca408ec-r01",
+        "studio-aca408ec-r04"
+      ]
+    }
+  ],
+  "rawReportSha256": "07d6241448e59d4b346180b028fa860e1e744ef151e102f19bbff467112bb9e8",
+  "rawReportLocalOnly": true,
+  "freezeSha256": "429103c9a9c149061396b2237e72598b6cab7e606d58842771dad4260e56ae88",
+  "freezeExact": true,
+  "limits": "Late6273 is one constructed witness, not natural play. Multiple case fails its negative-cash setup before drained admission/ticks/final/ordering. No multiple-closure implementation result."
+}

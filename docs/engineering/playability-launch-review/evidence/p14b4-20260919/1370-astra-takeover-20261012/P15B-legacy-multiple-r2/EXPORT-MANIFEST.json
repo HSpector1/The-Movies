@@ -1,0 +1,26 @@
+{
+  "files": [
+    {
+      "path": "ADMISSION-REVIEW.md",
+      "bytes": 1705,
+      "sha256": "6534edf2305b4798c8fc78f9922548c23f7e2b07726e6a6f6356f81c87ff193b"
+    },
+    {
+      "path": "DRIVER.ts",
+      "bytes": 8401,
+      "sha256": "8187f7d09da68f73cf50afa14762fca57b4d9dd66c38526ddf169811b786502f"
+    },
+    {
+      "path": "README.md",
+      "bytes": 934,
+      "sha256": "2d4540c24f7b631a37124c961f4d5cf34f55c80638e2737f7c60ba69cb5aad01"
+    },
+    {
+      "path": "RUNNER.sh",
+      "bytes": 10402,
+      "sha256": "17bf2c3097a64c08bc144b2d4b7d6ef27f3833224718d51bbac74568fb468911"
+    }
+  ],
+  "privateSaveBodies": false,
+  "execution": "prepared; staticKEEP; not yet executed"
+}
