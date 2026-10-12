@@ -1,0 +1,19 @@
+{
+  "files": [
+    {
+      "path": "BRIEF.md",
+      "bytes": 7623,
+      "sha256": "038c16d52108893c9bf285c54da32a71fde0ac5702849c9b21ca4b564f027fe4"
+    },
+    {
+      "path": "README.md",
+      "bytes": 491,
+      "sha256": "5692c163c0361eb95cd694104a9b5c24949512e175eab36f69dd6236b5885974"
+    },
+    {
+      "path": "bridge-p15b5-loan-choice.test.ts",
+      "bytes": 12638,
+      "sha256": "af08adcef3479f5e8f93e60557331a02bfda73695c3937de40bfb14807fa9bf5"
+    }
+  ]
+}

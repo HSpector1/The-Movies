@@ -1,0 +1,11 @@
+# Wave5 browser distinguishing RED r1 — test-only admission
+
+145-path packet over actualSave47 d68. All prior142 candidatepostimages/index unchanged. Exactly3 additional changedpaths: new ui/src/engine/p15b-browser-wave5.test.ts (reviewedadapter5+stale1 concatenated); existing livingTurn.parity.test.tsx +2 and saves.test.tsx +3 with concrete namespace/import bindings. Neitherexistinghost belonged to prior142 manifest, so145 total. Old assertions/test bodies untouched; historical p15b-lot-closure-gate.test.ts unchanged and preserved. Runtime/source/helpers/config/fixtures untouched.
+
+R3 draft11 staticKEEP, exact originals/pins retained under reviewed-originals; EXPECTED-IDENTITIES.json enumerates11 names/project/files. Fixture120s/mounted60s unchanged; construction admission beforetick, develop:true expectedproducer, exactnonmaxprincipal/schedule and zeroACTIVE_SESSION_KEYwrite spy. New read/action/accessibility/closure-stop seams remain missing prerequisiteRED or semanticRED to classify from actual compiler/results, not asserted engine acceptance. BridgeC17 maximum-only gap is separate; no guessed loan rules.
+
+Prior modernq4 parentwhole11 PASS plus2 separately admitted composition cases completed exactfreeze/independentKEEP. Those sourcefacts stay frozen; new UI testbytes NO compiler/runtime result yet. Minimum parent commands: UI tsc --noEmit -p ui/tsconfig.json; then Vitest run --project ui --no-file-parallelism --no-cache the3 listedfiles -t 'browser-|Wave5 ' with default+JSON reporters into freshOUT. That selects6adapter+2mounted+3Saves; require exact11identities and classify any unrelated fixture/type/harness failure before implementation. No testlaunch byauthor.
+
+145 index=worktree=manifest, cached diffcheck0, reversefullPATCHcheck0; noforeign/untracked changes; HEAD remainsd68. Exact host and newadapter delta files supplied. Oldq4/drafts/failures immutable. LocalHANDOFF CURRENT/AUTOandhistorypreserved; no commit/push/productionwrites.
+
+Lesson/prevention: baseline admission does not admit a labelled newfixture—eachnewdebit nowadmits beforeticks. Finalstorage equality cannot prove rejection preventedwrites—observezeroactualkeywrites. Producer-option parity explicitlyusesdevelop:true; these newcontrols remain unmeasured until parentRED. No separatelessonframework; parentexistingMajorLessons owns durable entry.

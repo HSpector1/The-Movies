@@ -1,0 +1,21 @@
+{
+  "project": "ui",
+  "files": [
+    "ui/src/engine/p15b-browser-wave5.test.ts",
+    "ui/src/lot/livingTurn.parity.test.tsx",
+    "ui/src/saves.test.tsx"
+  ],
+  "newLeaves": [
+    "browser-warning-distress-displays-authoritative-remedies-and-lawful-loan-terms",
+    "browser-loan-commit-revalidates-and-stale-offer-never-duplicates-money",
+    "browser-actual-closure-commits-once-imports-and-reloads-as-read-only-history",
+    "browser-batch-stops-at-actual-closure-and-living-turn-classifies-terminal-as-pause",
+    "browser-supported47-migrates-prospectively-and-unsupported-due-only-draft-refuses",
+    "browser-stale-nonloan-operating-requests-refuse-on-latest-terminal-and-preserve-all-bytes",
+    "Wave5 mounted warning presents terms before lawful loan commit and autosaves one receipt",
+    "Wave5 living loop commits terminal once and keeps history/export accessible without operating verbs",
+    "Wave5 genuine47 normal import replaces App session prospectively without old notices",
+    "Wave5 actual terminal import replaces active App state and reloads read-only with exact export/history",
+    "Wave5 unsupported due-only draft refuses before App replacement or any autosave"
+  ]
+}

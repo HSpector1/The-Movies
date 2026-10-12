@@ -1,0 +1,49 @@
+{
+  "files": [
+    {
+      "path": "ADMISSION-REVIEW.md",
+      "bytes": 3248,
+      "sha256": "29fd50e4bac3df0a58c2672937eb689415263442f2060f31cb83de1ae295a6e1"
+    },
+    {
+      "path": "DELTA-vs-q4-adapter.diff",
+      "bytes": 10113,
+      "sha256": "84c8e78893c9773d01f145a2a9ddd8aaac38de00ff1c6c352d2b5d8b41867f96"
+    },
+    {
+      "path": "DELTA-vs-q4-host.diff",
+      "bytes": 14399,
+      "sha256": "903bc9170172c9b68c2033fb727b1114a8e55219f8e5a2ac709f34f8a752e4a1"
+    },
+    {
+      "path": "EXPECTED-IDENTITIES.json",
+      "bytes": 1198,
+      "sha256": "2db6a38dce0466e1a1da89118903d5b120bb34b13d8b94c489605f7d8f146fb5"
+    },
+    {
+      "path": "IMPORT-BINDINGS.md",
+      "bytes": 721,
+      "sha256": "fc735f6fcbadbd9cf990a465aa77889975711f2eccd5d380400567f0072323e6"
+    },
+    {
+      "path": "MANIFEST.json",
+      "bytes": 45575,
+      "sha256": "ca3ce2990d689798c2dd8c7dc5b0306181fde1a3f4fd3ef3f654d5d8613e08ff"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1238,
+      "sha256": "9b3afed48d6ef6a767f94fb8d543287eb3b0785cd1b3f9fc349941ce6ab8670b"
+    },
+    {
+      "path": "REPORT.md",
+      "bytes": 2362,
+      "sha256": "11a4fb7fd4f7cd46cae9e104ef9d68c6baea84f17e8331265aa421058ebfc988"
+    },
+    {
+      "path": "RUNNER.sh",
+      "bytes": 10122,
+      "sha256": "0049eafb625ac3775a064e1de4429b0f3fb38372649bc4be4b9e5d800aa0e3e1"
+    }
+  ]
+}

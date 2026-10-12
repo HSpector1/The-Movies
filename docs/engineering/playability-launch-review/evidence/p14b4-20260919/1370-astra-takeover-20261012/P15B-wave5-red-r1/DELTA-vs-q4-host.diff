@@ -1,0 +1,208 @@
+diff --git a/ui/src/lot/livingTurn.parity.test.tsx b/ui/src/lot/livingTurn.parity.test.tsx
+index f6b385ff..837e8552 100644
+--- a/ui/src/lot/livingTurn.parity.test.tsx
++++ b/ui/src/lot/livingTurn.parity.test.tsx
+@@ -27,9 +27,21 @@
+ // makes a hands-off parity run possible at all: an arm that had to answer a
+ // decision mid-run would be comparing two different action scripts.
+ 
+-import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
++import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
+ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+ 
++import { readFileSync } from 'node:fs'
++import { resolve } from 'node:path'
++import { gunzipSync } from 'node:zlib'
++import { createHash } from 'node:crypto'
++import * as coreSave from '../../../src/core/save.ts'
++import * as coreTick from '../../../src/core/tick.ts'
++import { corporateNotices } from '../../../src/core/corporateNotices.ts'
++import { contractLoan, loanMaxPrincipal } from '../../../src/core/studioLoan.ts'
++import { studioWeeklyFixedCost } from '../../../src/core/powerRankingArchive.ts'
++import { TUNING } from '../../../src/core/tuning.ts'
++import { moneyExact } from '../format.ts'
++
+ import { studioWeekTheater } from '../../../src/core/index.ts'
+ import type { GameState } from '../../../src/core/index.ts'
+ import { livingStudioUnderPressure } from '../../../tests/_m5Fixtures.ts'
+@@ -373,3 +385,70 @@ describe('C2a-M5 — the theater is evidence, and evidence changes nothing (G8.1
+     expect(kinds.size).toBeGreaterThanOrEqual(2)
+   })
+ })
++
++// Proposed append to ui/src/lot/livingTurn.parity.test.tsx, reusing its existing renderer/mountLot/spend/sessionSave.
++// No copied App/renderer harness. Existing MOUNTED_ARM_TIMEOUT_MS60s unchanged.
++// Add import namespace coreSave from '../../../src/core/save.ts', coreTick from '../../../src/core/tick.ts',
++// readFileSync/resolve/gunzipSync/createHash, corporateNotices, contractLoan/loanMaxPrincipal/studioWeeklyFixedCost, TUNING and moneyExact/within.
++// Namespaced imports avoid colliding with existing core/adapter identifiers.
++// This helper is a labelled fixture control, not a new gameplay route.
++function wave5FixtureAt(week: number): GameState {
++  const gz = readFileSync(resolve(process.cwd(), 'tests/fixtures/p14/genuine-v42-pre-shelving/genuine-v42-rival-stall-week-130.json.gz'))
++  expect(createHash('sha256').update(gz).digest('hex')).toBe('af45c8a0efb9a56ac9ff4c16244509d59b49a02370f8390769c79b133d7238f6')
++  const initial = coreSave.migrateToLive(coreSave.importSave(gunzipSync(gz).toString('utf8'))).state as GameState
++  expect(() => coreSave.makeSave(initial), 'baseline admission before debit').not.toThrow()
++  const amount = Math.floor(initial.studio.cash) + 1
++  let state: GameState = { ...initial, studio: { ...initial.studio, cash: initial.studio.cash - amount }, ledger: [...initial.ledger,
++    { week: initial.market.tick, kind: 'publicity', amount: -amount, note: 'p15b test drain' }] }
++  expect(() => coreSave.makeSave(state), 'labelled debit must admit before ticking').not.toThrow()
++  while (state.market.tick < week) state = coreTick.tick(state)
++  expect(() => coreSave.makeSave(state)).not.toThrow(); return state
++}
++it('Wave5 mounted warning presents terms before lawful loan commit and autosaves one receipt', async () => {
++  const initial = wave5FixtureAt(134)
++  const fixed = studioWeeklyFixedCost(initial, initial.hollywood!.playerStudioId)
++  const principal = TUNING.LOAN_AMOUNT_STEP
++  expect(loanMaxPrincipal(fixed)).toBeGreaterThan(principal) // C17: this case must exercise a real nonmaximum legal choice.
++  const terms = contractLoan(principal, fixed, initial.market.tick)
++  await mountLot(initial)
++  expect(screen.getByText(corporateNotices(initial).find(n => n.id === 'corporate-warning')!.message)).toBeVisible()
++  // Existing core permits each positive step up to actual maximum; no new loan gameplay authority.
++  const principalChoice = screen.getByRole('combobox', { name: /loan principal/i })
++  await act(async () => { fireEvent.change(principalChoice, { target: { value: String(principal) } }) })
++  const offer = screen.getByRole('region', { name: /studio loan offer/i }) // proposed bounded accessible offer owner
++  expect(within(offer).getByText(moneyExact(terms.principal), { exact: true })).toBeVisible()
++  expect(within(offer).getByText(moneyExact(terms.total), { exact: true })).toBeVisible()
++  const schedule = screen.getByRole('table', { name: /studio loan repayment schedule/i })
++  const rows = within(schedule).getAllByRole('row').slice(1)
++  expect(rows).toHaveLength(terms.installments.length)
++  for (const [i, amount] of terms.installments.entries()) {
++    expect(within(rows[i]!).getByText(`Week ${initial.market.tick + i + 1}`, { exact: true })).toBeVisible()
++    expect(within(rows[i]!).getByText(moneyExact(amount), { exact: true })).toBeVisible()
++  }
++  await act(async () => { fireEvent.click(screen.getByRole('button', { name: /take.*studio loan/i })) })
++  const restored = loadActiveSession(); expect(restored.ok).toBe(true)
++  if (!restored.ok) throw new Error(restored.reason)
++  expect(restored.state.studio.cash).toBe(initial.studio.cash + terms.principal)
++  expect(restored.state.corporateCondition.loans.filter(l => l.studioId === initial.hollywood!.playerStudioId)).toHaveLength(1)
++  expect(screen.queryByRole('button', { name: /take.*studio loan/i })).toBeNull()
++}, MOUNTED_ARM_TIMEOUT_MS)
++it('Wave5 living loop commits terminal once and keeps history/export accessible without operating verbs', async () => {
++  const initial = wave5FixtureAt(162)
++  const expected = coreTick.tick(initial, { develop: true }); const c = expected.studioClosure.closures.find(c => c.studioId === expected.hollywood!.playerStudioId)!
++  expect(c.closureWeek).toBe(163)
++  await mountLot(initial)
++  await act(async () => { fireEvent.click(screen.getByTestId('lot-transport-toggle')) })
++  await spendWeeks(3) // Existing witnessed fake-clock pacing; no independent simulation scheduler.
++  expect(shownWeek()).toBe(163); expect(sessionSave()).toBe(exportSaveJson(expected))
++  expect(screen.getByText(corporateNotices(expected).find(n => n.id === 'corporate-closed')!.message)).toBeVisible()
++  expect(screen.getByTestId('lot-advance-week')).toBeDisabled()
++  const saved = sessionSave(); await spendWeeks(3); expect(sessionSave()).toBe(saved)
++  // Retained history/save navigation stays available; no operating command hidden behind a stale overlay.
++  expect(screen.getByTestId('lot-open-saves')).not.toBeDisabled()
++  expect(screen.queryByRole('button', { name: /take.*studio loan/i })).toBeNull()
++  const restored = loadActiveSession(); expect(restored.ok).toBe(true)
++  if (!restored.ok) throw new Error(restored.reason)
++  expect(() => coreSave.makeSave(restored.state)).not.toThrow()
++}, MOUNTED_ARM_TIMEOUT_MS)
++// Remaining host obligation: drive actual SavedStudio import/reload UI and confirm an unsupported due-only
++// draft refuses BEFORE replacing an existing active session. Adapter-only import assertions are not that host proof.
+diff --git a/ui/src/saves.test.tsx b/ui/src/saves.test.tsx
+index aec364bb..85891805 100644
+--- a/ui/src/saves.test.tsx
++++ b/ui/src/saves.test.tsx
+@@ -5,12 +5,20 @@
+ //   • Malformed / unsupported saves are rejected LOUDLY and understandably —
+ //     surfaced to the UI, never a crash.
+ 
+-import { describe, it, expect, beforeEach, afterEach } from 'vitest'
++import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+ import { render, screen, fireEvent, cleanup } from '@testing-library/react'
++import { readFileSync } from 'node:fs'
++import { resolve } from 'node:path'
++import { gunzipSync } from 'node:zlib'
++import { createHash } from 'node:crypto'
++import * as coreSave from '../../src/core/save.ts'
++import * as coreTick from '../../src/core/tick.ts'
++import { budgeted, FIXTURE_MS } from '../../tests/helpers/p15c2-legacy.ts'
++
+ import { Saves } from './screens/Saves.tsx'
+ import { StartScreen } from './screens/StartScreen.tsx'
+ import { App } from './App.tsx'
+-import { ACTIVE_SESSION_KEY } from './engine/session.ts'
++import { ACTIVE_SESSION_KEY, loadActiveSession } from './engine/session.ts'
+ import {
+   newGame,
+   exportSaveJson,
+@@ -380,3 +388,82 @@ describe('saves: migration disclosure through real App navigation', () => {
+     expect(screen.queryByTestId('save-migration-notice')).not.toBeInTheDocument()
+   })
+ })
++
++// Proposed append to existing ui/src/saves.test.tsx: reuse App/Saves + openCurrentStudioThroughStart.
++// No new host/renderer framework. Add namespaced imports coreSave/coreTick, loadActiveSession,
++// vi from vitest, node fs/path/zlib/crypto and budgeted/FIXTURE_MS from ../../tests/helpers/p15c2-legacy.ts.
++// Existing beforeEach selects dashboard route (Lot override false); test BOTH actual App and session owner.
++function wave5SaveControl(week: number, debit = true): GameState {
++  const gz = readFileSync(resolve(process.cwd(), 'tests/fixtures/p14/genuine-v42-pre-shelving/genuine-v42-rival-stall-week-130.json.gz'))
++  expect(createHash('sha256').update(gz).digest('hex')).toBe('af45c8a0efb9a56ac9ff4c16244509d59b49a02370f8390769c79b133d7238f6')
++  let state = coreSave.migrateToLive(coreSave.importSave(gunzipSync(gz).toString('utf8'))).state as GameState
++  expect(() => coreSave.makeSave(state), 'migrated baseline before constructor').not.toThrow()
++  if (debit) {
++    const amount = Math.floor(state.studio.cash) + 1
++    state = { ...state, studio: { ...state.studio, cash: state.studio.cash - amount }, ledger: [...state.ledger,
++      { week: state.market.tick, kind: 'publicity', amount: -amount, note: 'p15b test drain' }] }
++  }
++  expect(() => coreSave.makeSave(state), 'constructed debit admitted before any tick').not.toThrow()
++  while (state.market.tick < week) state = coreTick.tick(state)
++  expect(() => coreSave.makeSave(state)).not.toThrow(); return state
++}
++function acceptedActiveState(): GameState {
++  const session = loadActiveSession(); expect(session.ok).toBe(true)
++  if (!session.ok) throw new Error(session.reason)
++  return session.state
++}
++it('Wave5 genuine47 normal import replaces App session prospectively without old notices', budgeted(FIXTURE_MS, () => {
++  localStorage.clear(); openCurrentStudioThroughStart('wave5-host-47-existing')
++  const source = wave5SaveControl(130, false)
++  const historical = coreSave.migrateToV47(coreSave.makeSave(source))
++  expect(() => coreSave.validateSaveV47(historical)).not.toThrow()
++  const historicalText = coreSave.exportSave(historical), bytes = coreSave.stableStringify(historical)
++  fireEvent.click(screen.getByTestId('open-saves'))
++  fireEvent.change(screen.getByTestId('saves-import-text'), { target: { value: historicalText } })
++  fireEvent.click(screen.getByTestId('saves-import'))
++  const restored = acceptedActiveState()
++  expect(exportSaveJson(restored)).toBe(coreSave.exportSave(coreSave.migrateToLive(historical)))
++  expect(restored.corporateCondition.studios).toEqual([]); expect(restored.studioClosure.closures).toEqual([])
++  expect(screen.getByTestId('save-migration-notice')).toBeInTheDocument()
++  expect(coreSave.stableStringify(historical)).toBe(bytes)
++}), FIXTURE_MS)
++it('Wave5 actual terminal import replaces active App state and reloads read-only with exact export/history', budgeted(FIXTURE_MS, () => {
++  localStorage.clear(); openCurrentStudioThroughStart('wave5-host-terminal-existing')
++  const terminal = wave5SaveControl(163), expected = exportSaveJson(terminal)
++  expect(terminal.campaignLegacy.endOfRun).not.toBeNull()
++  fireEvent.click(screen.getByTestId('open-saves'))
++  fireEvent.change(screen.getByTestId('saves-import-text'), { target: { value: expected } })
++  fireEvent.click(screen.getByTestId('saves-import'))
++  expect(exportSaveJson(acceptedActiveState())).toBe(expected)
++  expect(screen.getByRole('heading', { name: /closed studio|ended run|read.only history/i })).toBeVisible()
++  const advance = screen.queryByRole('button', { name: /advance.*week/i })
++  if (advance) expect(advance).toBeDisabled() // Both omitted and disabled operating controls are lawful presentation.
++  fireEvent.click(screen.getByTestId('open-saves'))
++  expect((screen.getByTestId('export-text') as HTMLTextAreaElement).value).toBe(expected)
++  const activeBytes = localStorage.getItem(ACTIVE_SESSION_KEY)
++  cleanup(); render(<App />) // Actual session restoration, not just adapter import.
++  expect(exportSaveJson(acceptedActiveState())).toBe(expected)
++  expect(localStorage.getItem(ACTIVE_SESSION_KEY)).toBe(activeBytes)
++  expect(screen.getByRole('heading', { name: /closed studio|ended run|read.only history/i })).toBeVisible()
++}), FIXTURE_MS)
++it('Wave5 unsupported due-only draft refuses before App replacement or any autosave', budgeted(FIXTURE_MS, () => {
++  localStorage.clear(); openCurrentStudioThroughStart('wave5-host-due-existing')
++  const current = exportSaveJson(acceptedActiveState())
++  const due = coreTick.tick(wave5SaveControl(162), { deferPlayerClosure: true })
++  expect(due.studioClosure.closures.some(c => c.studioId === due.hollywood!.playerStudioId)).toBe(false)
++  expect(due.corporateCondition.studios.find(r => r.studioId === due.hollywood!.playerStudioId)!.condition.stage).toBe('closed')
++  const text = exportSaveJson(due); fireEvent.click(screen.getByTestId('open-saves'))
++  const activeBytes = localStorage.getItem(ACTIVE_SESSION_KEY)
++  expect(activeBytes).not.toBeNull()
++  const writes = vi.spyOn(Storage.prototype, 'setItem')
++  try {
++    fireEvent.change(screen.getByTestId('saves-import-text'), { target: { value: text } }); fireEvent.click(screen.getByTestId('saves-import'))
++    expect(screen.getByText(/This save was rejected:.*(closure.due.*unsupported|unsupported.*closure.due)/i)).toBeVisible()
++    expect(exportSaveJson(acceptedActiveState())).toBe(current)
++    expect(localStorage.getItem(ACTIVE_SESSION_KEY)).toBe(activeBytes)
++    expect((screen.getByTestId('export-text') as HTMLTextAreaElement).value).toBe(current)
++    expect(screen.queryByTestId('save-migration-notice')).toBeNull()
++    expect(exportSaveJson(due)).toBe(text)
++    expect(writes.mock.calls.filter(([key]) => key === ACTIVE_SESSION_KEY)).toHaveLength(0)
++  } finally { writes.mockRestore() }
++}), FIXTURE_MS)
