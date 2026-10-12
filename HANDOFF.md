@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last writer: Codex (GPT-6 Astra parent; GPT-6.1 Sol specialists), 2026-10-12 14:30 CDT
+Last writer: Codex (GPT-6 Astra parent; GPT-6.1 Sol specialists), 2026-10-12 14:38 CDT
 
 
 ## CURRENT — preview complete; modern Legacy r5q1 frozen; execution resource-limited, 2026-10-12
@@ -18,6 +18,7 @@ Current Owner order: `E/1370-astra-takeover-20261012/OWNER-ORDER.txt`. Continue 
 - **FOCUSED R4 RESULTS:** root compiler0/49s; first UI attempt2/48s was a sparse-omitted baseline atlas input, restored from exact HEAD/index21850-byte blob. Reviewed strict continuation reuses root0 only after matching source/config/index/HEAD/all existing inputs, then UI0/43s, Bridge0/36s and both generators0/2s+1s. Runtime80=76pass/4fail, all four founding compatibility leaves; Bridge3 and Save48 save17 passed. Q07 exactly1pass/9skip. Wrapper1 and exact finalfreeze. Earlier sparse snapshot preflight98 had no compiler/test. `P15B-adaptation-r4/` preserves exact packet, raw failures, reviews, atlas restoration and result manifest; not production source. Exact local outcome `S/1370-astra-takeover-20261012/P15B-R4-FOCUSED-RESULTS.json`.
 - **NON-LEAK PREMISE MEASURED:** one originalseed diagnostic child0/9s, exactfreeze. Baseweek780 admits; selected row1 studio93532614-r01 actually closed345. Original injected variant refuses missing laboratory operational receipt, unchanged input hashes, never ticked. Only operatingr05 is negativecash with no standing lab/scientists/projects; prior lab receipts520/532. No lawful repaired pair is proven. Raw driver/results/review in P15B-adaptation-r4; no production research-defect or non-leak acceptance claim.
 - **FINITE PREVIEW COMPLETE:** isolated branch `wip/browser-soundstage-preview` published and explicit remote SHA verified `9cc684f93e0185a53d36fc39e425f4e5a360f5ba` at14:11 CDT. Runnable `S/browser-soundstage-preview/preview/soundstage/START PREVIEW.command`; README, RESULTS, exact13asset provenance, matched16screenshots and independent publicationKEEP committed. Two1K Poly Haven materialsets plus metadata2,864,633bytes;15browserchecks+4actuallauncherchecks PASS; four60s headlessChrome150/IntelHD6000ANGLE samples29.999FPS capped30,43calls/18,068triangles/textures7→9/11. ConcreteREJECT-as-is/asphaltREVISE for finishedart; baseline default. Zeroimportedclips, noMacGPU/Unity/uncapped/headedcertification. Browser/server/ownedlane closed/survivors[]/port4197absent. No main source change or merge. Exact receipt `S/1370-astra-takeover-20261012/PREVIEW-PUBLICATION.json` and linked public checkpoint.
+- **RUNNER READINESS:** bounded independent static review KEEP at `A/P15B-LEGACY-R5Q1-RUNNER-REVIEW.md`; unchanged runner SHA9fab4a0c, all11 requiredinputpaths exist, compiler precedes15 runtimeleaves, budgets/floors/freeze/ownedlane unchanged. `A/P15B-LEGACY-R5Q1-READINESS.json` records latest free 2676188KiB, ACconnected100%, absent run/log/lock. No r5q1 execution; all specialists parked. Same externalresource blocker remains after source repair and final staticreview. Exact next step below; do not spin new planning or testing before reserve actually recovers.
 - **NEXT REAL TASK:** restore existing3.5GiB launchreserve, recheckAC and exact141packet/index/WT, then parent runs `A/p15b-legacy-modern-r5q1.sh` under existinglane with fresh `A/p15b-legacy-modern-r5q1-lane.log`. Rootcompiler then unchanged14 plus distinct official-orderRED; no budget/floor widening. Newguard deliberatelyabsent until admittedorderingRED measured. Author/reviewerSol parked; no concurrentwriter/job. Afterthose prerequisites, implement narrowofficialorderguard and finish fullmodern/frozen/boundary/multiclosure/fault/ref/stamp proof, Wave5 and mainprogram. Reviewed scratch `A/p15b-legacy-extra-premises.ts` SHA b22d37fe9bcee8a1c27059bf6165f39949c5c44206ed0390b051540c11e1a8d5 remains unexecuted.
 - **MODERN LEGACY EVIDENCE:** `E/1370-astra-takeover-20261012/P15B-legacy-modern-r5/` preserves exact4-filedelta/140manifest/rootcompilerfailure/strictfreeze receipt/source review and unexecuted extra-premise driver; adjacent `P15B-legacy-modern-r5q1/` preserves both repair/newtestdeltas,141manifest,staticadmission and preparedrunner. Source can reconstruct from published139 baseline plus these deltas. Full localpatches remain inA; no private savebodies exported. This is a failed-prerequisite/preserved-draft checkpoint, not modernLegacy acceptance.
 - **MAIN PROGRAM RESUME:** r4q1 founding60/60 and root/Bridge0 remainqualified; newLegacy baseline14=4pass10fail, no skips/todos. Failures:3missingdefinition,2missingfaultcallpaths,3nullended,2v2writer. Passed historicalpure/oldhook/no-backfill/oldofficialbytes. Afterpreview implement adopted v3 and atomicfinalizer using measured constructed6239/6240/6241 routes, then add after-boundary ineligible andmulticlosure/fault/ref/stamp proofs; matrix distinguishes supported C6240eligible from constructor-only ineligible. Preserveoldmanifests/readers; finishWave5 beforeplayerdeferral removal, lawfulresearch/O1/O6restart,C12/C13,T17 thenP16/P17/P18/fullcrosssystem. No fullgate with knownblockers.
@@ -629,14 +630,14 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-12 14:20 CDT by **codex** on PreCompact (session 01a13050-fe8f-7903-9af3-0a45b7130787)
-- Branch: `wip/headless-program-20260916-ts` @ `b10ae3d2ea2928cd0e33a5a07ea85eebc824e64d`
+- Stamped: 2026-10-12 14:32 CDT by **codex** on PreCompact (session 01a13050-fe8f-7903-9af3-0a45b7130787)
+- Branch: `wip/headless-program-20260916-ts` @ `8bc9762e83a39490920ba8f182c2abf54c881964`
 - Upstream: `none`, unpushed commits: ?
 - Uncommitted files: 0
 - Last commits:
+  - 8bc9762e test: preserve modern Legacy prerequisite failure and ordering RED
   - b10ae3d2 docs: record preview publication and resume P15B integration
   - 98abbc55 test: preserve Legacy REDs and admitted terminal boundary controls
   - ae973b29 test: preserve qualified Save48 founding compatibility repair
   - f8e0419a docs: complete exact Save48 adaptation evidence export
-  - b401b3f4 docs: preserve Save48 adaptation and measured prerequisite failures
 <!-- AUTO:END -->

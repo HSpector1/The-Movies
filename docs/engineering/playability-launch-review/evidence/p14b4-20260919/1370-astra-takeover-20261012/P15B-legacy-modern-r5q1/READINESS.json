@@ -1,0 +1,85 @@
+{
+  "observedAt": "2026-10-12T19:37:26.861000+00:00",
+  "review": "RUNNER-REVIEW.md",
+  "reviewSHA256": "13b8e9b1a52b68f120fe0af34c183bd08aa52aeb5f6fd1d661867ed88d685f52",
+  "runnerSHA256": "9fab4a0c2d905c1e011bb9ae05b36fbeabab7d15708f4005d1d21992f90f837c",
+  "requiredInputs": [
+    {
+      "name": "P15B_FOCUS_INPUT_1",
+      "relativePath": "tests/fixtures/p1364/generated-v45-late-draft",
+      "exists": true,
+      "kind": "directory"
+    },
+    {
+      "name": "P15B_FOCUS_INPUT_2",
+      "relativePath": "tests/fixtures/p14/genuine-v42-pre-shelving",
+      "exists": true,
+      "kind": "directory"
+    },
+    {
+      "name": "P15B_FOCUS_INPUT_3",
+      "relativePath": "tests/fixtures/p14/genuine-v42-pre-shelving-week93",
+      "exists": true,
+      "kind": "directory"
+    },
+    {
+      "name": "P15B_FOCUS_INPUT_4",
+      "relativePath": "tests/fixtures/p14/genuine-v45-recovery-predecessors-1363",
+      "exists": true,
+      "kind": "directory"
+    },
+    {
+      "name": "P15B_FOCUS_INPUT_5",
+      "relativePath": "tests/fixtures/p13b/genuine-v26-old-era-period-1363",
+      "exists": true,
+      "kind": "directory"
+    },
+    {
+      "name": "P15B_FOCUS_INPUT_6",
+      "relativePath": "tests/fixtures/p05a1-owner-profile-rev2.save.json",
+      "exists": true,
+      "kind": "file"
+    },
+    {
+      "name": "P15B_FOCUS_INPUT_7",
+      "relativePath": "tests/fixtures/p05a3-owner-profile-rev10.save.json",
+      "exists": true,
+      "kind": "file"
+    },
+    {
+      "name": "P15B_FOCUS_INPUT_8",
+      "relativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture",
+      "exists": true,
+      "kind": "directory"
+    },
+    {
+      "name": "P15B_FOCUS_INPUT_9",
+      "relativePath": "ui/public/lot/hollywood/role-atlas-v1.json",
+      "exists": true,
+      "kind": "file"
+    },
+    {
+      "name": "P15B_FOCUS_INPUT_10",
+      "relativePath": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json",
+      "exists": true,
+      "kind": "file"
+    },
+    {
+      "name": "P15B_FOCUS_INPUT_11",
+      "relativePath": "tests/fixtures/p15/p15c2-route-l-captures",
+      "exists": true,
+      "kind": "directory"
+    }
+  ],
+  "candidateIdentity": "141-path packet/index/worktree verified in P15B-LEGACY-R5-PUBLICATION.json at 2026-10-12T19:31:57Z; full preflight must recheck before launch",
+  "runOutputExists": false,
+  "laneLogExists": false,
+  "laneLockExists": false,
+  "availableKiB": 2676188,
+  "launchFloorKiB": 3670016,
+  "liveFloorKiB": 3145728,
+  "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=6619235)\t100%; charged; 0:00 remaining present: true",
+  "execution": "NONE on r5q1; existing resource floor unmet",
+  "nextAction": "Once resource floor is actually restored, recheck AC, exact frozen candidate, runner and owned single lane; run root compiler then all 15 leaves. Classify prerequisites separately from distinguishing ordering RED.",
+  "mainProgram": "Incomplete P15B through bounded P18; preview completed on separate branch; no merge or wider art campaign."
+}

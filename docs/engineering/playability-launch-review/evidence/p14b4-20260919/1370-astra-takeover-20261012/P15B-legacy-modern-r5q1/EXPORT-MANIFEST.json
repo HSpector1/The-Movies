@@ -29,6 +29,16 @@
       "path": "RUNNER.sh",
       "bytes": 8884,
       "sha256": "9fab4a0c2d905c1e011bb9ae05b36fbeabab7d15708f4005d1d21992f90f837c"
+    },
+    {
+      "path": "RUNNER-REVIEW.md",
+      "bytes": 1985,
+      "sha256": "13b8e9b1a52b68f120fe0af34c183bd08aa52aeb5f6fd1d661867ed88d685f52"
+    },
+    {
+      "path": "READINESS.json",
+      "bytes": 3136,
+      "sha256": "a225ee6384399012ac80884a3abc9d27fe4ca4748a7df3f6b71eb532e61b7b4e"
     }
   ],
   "execution": "NONE; launch reserve unmet",
