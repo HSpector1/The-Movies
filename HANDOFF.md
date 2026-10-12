@@ -1,9 +1,9 @@
 # HANDOFF
 
-Last writer: Codex (GPT-6 Astra parent; GPT-6.1 Sol specialists), 2026-10-12 13:14 CDT
+Last writer: Codex (GPT-6 Astra parent; GPT-6.1 Sol specialists), 2026-10-12 14:13 CDT
 
 
-## CURRENT — Save47 published; Legacy RED checkpoint; finite soundstage preview next, 2026-10-12
+## CURRENT — preview published; P15B Legacy v3 implementation resumed, 2026-10-12
 
 Current Owner order: `E/1370-astra-takeover-20261012/OWNER-ORDER.txt`. Continue founding/market → P15B → P16 → P17 → bounded P18, then required stable cross-system/reference-browser qualification. No main merge, native/Golden or Owner acceptance claim. All specialists must be GPT-6.1 Sol; parent remains GPT-6 Astra.
 
@@ -17,9 +17,10 @@ Current Owner order: `E/1370-astra-takeover-20261012/OWNER-ORDER.txt`. Continue 
 - **PUBLICATION CHECKPOINT:** ae973b297a20cd58fa39bf039d62e729bbf523b8 matched remote12:58; source2bcac39e unchanged. This containing checkpoint adds `E/1370-astra-takeover-20261012/P15B-legacy-red/` exact139draft, raw14RED and both terminal-input diagnostic attempts. Production remains Save47. Receipt afterpush/readback: `S/1370-astra-takeover-20261012/P15B-LEGACY-RED-PUBLICATION.json`.
 - **FOCUSED R4 RESULTS:** root compiler0/49s; first UI attempt2/48s was a sparse-omitted baseline atlas input, restored from exact HEAD/index21850-byte blob. Reviewed strict continuation reuses root0 only after matching source/config/index/HEAD/all existing inputs, then UI0/43s, Bridge0/36s and both generators0/2s+1s. Runtime80=76pass/4fail, all four founding compatibility leaves; Bridge3 and Save48 save17 passed. Q07 exactly1pass/9skip. Wrapper1 and exact finalfreeze. Earlier sparse snapshot preflight98 had no compiler/test. `P15B-adaptation-r4/` preserves exact packet, raw failures, reviews, atlas restoration and result manifest; not production source. Exact local outcome `S/1370-astra-takeover-20261012/P15B-R4-FOCUSED-RESULTS.json`.
 - **NON-LEAK PREMISE MEASURED:** one originalseed diagnostic child0/9s, exactfreeze. Baseweek780 admits; selected row1 studio93532614-r01 actually closed345. Original injected variant refuses missing laboratory operational receipt, unchanged input hashes, never ticked. Only operatingr05 is negativecash with no standing lab/scientists/projects; prior lab receipts520/532. No lawful repaired pair is proven. Raw driver/results/review in P15B-adaptation-r4; no production research-defect or non-leak acceptance claim.
-- **NEXT REAL TASK:** finite Owner browser soundstage preview first, after this safecheckpoint; exact order `E/1370-astra-takeover-20261012/P15B-legacy-red/OWNER-PREVIEW-ORDER.txt` (original Downloads/CODEX-LOW-SPEC-SOUNDSTAGE-PREVIEW.txt). Isolated narrow workspace and separate `wip/browser-soundstage-preview` branch; existing licensed assets/Three/Vite only, actualWebGL2 and60s browser measurement, selected asset audit, runnableSTART command, screenshots/limitations, commitpushremotecheck. No gameplay/save/finance/bridge/main/integrationcheckout change, no Unity/downloadcampaign. Parent+atmost1Sol reviewer, one intensive lane, releasebrowser/server before mainresume. This is finite sidecar, never abandonment of P15B→P18.
+- **FINITE PREVIEW COMPLETE:** isolated branch `wip/browser-soundstage-preview` published and explicit remote SHA verified `9cc684f93e0185a53d36fc39e425f4e5a360f5ba` at14:11 CDT. Runnable `S/browser-soundstage-preview/preview/soundstage/START PREVIEW.command`; README, RESULTS, exact13asset provenance, matched16screenshots and independent publicationKEEP committed. Two1K Poly Haven materialsets plus metadata2,864,633bytes;15browserchecks+4actuallauncherchecks PASS; four60s headlessChrome150/IntelHD6000ANGLE samples29.999FPS capped30,43calls/18,068triangles/textures7→9/11. ConcreteREJECT-as-is/asphaltREVISE for finishedart; baseline default. Zeroimportedclips, noMacGPU/Unity/uncapped/headedcertification. Browser/server/ownedlane closed/survivors[]/port4197absent. No main source change or merge. Exact receipt `S/1370-astra-takeover-20261012/PREVIEW-PUBLICATION.json` and linked public checkpoint.
+- **NEXT REAL TASK RESUMED:** authorSol now owns bounded modernLegacyv3/atomicclosure-finale implementation in K/p15b; reviewerSol read-only reviews frozen-reader/coverage/allocator law and finaldelta. Parent verified parked139index/WT/HEAD/manifest and reversecheck before release; saved RED139 packet remains exact and unchanged. No new compiler/test scheduled yet; source first, then parent owns one serial lane. Preserve frozenv1/v2; futureofficial and linkedended v3; allactualclosures→eligibleofficial→ended→fulljoinedvalidation with one returnedallocator. Continue mainprogram below; preview is finished, not an excuse to restart artwork.
 - **MAIN PROGRAM RESUME:** r4q1 founding60/60 and root/Bridge0 remainqualified; newLegacy baseline14=4pass10fail, no skips/todos. Failures:3missingdefinition,2missingfaultcallpaths,3nullended,2v2writer. Passed historicalpure/oldhook/no-backfill/oldofficialbytes. Afterpreview implement adopted v3 and atomicfinalizer using measured constructed6239/6240/6241 routes, then add after-boundary ineligible andmulticlosure/fault/ref/stamp proofs; matrix distinguishes supported C6240eligible from constructor-only ineligible. Preserveoldmanifests/readers; finishWave5 beforeplayerdeferral removal, lawfulresearch/O1/O6restart,C12/C13,T17 thenP16/P17/P18/fullcrosssystem. No fullgate with knownblockers.
-- **OWNERSHIP / JOBS:** all recordedjobs terminal. Legacy14RED session46965 exit1/root0/56s/runtime4pass10fail1/21s exactfreeze. Terminaldiagnostic firstsession36220 exit1/11s atintegerdebit prerequisite; repaired44773 exit0/27s with exactfreeze. Actual6188/prefix/drained/finalstates admit and closures6239/6240/6241 exactly; endednull remainssemanticgap. Body24.004s/90s. No timestamps/historyshifted. All cases are constructed unitdebits, not naturalgameplay. Parentsole scheduler/productionwriter; authorSol parkedK/p15b139, reviewerSol availableforfinitepreviewonly; oldmodelagent staysinterrupted. AC4CPU/8GiB; launch3.5GiB/live3GiB; latestfree3,785,832KiB,recheck. Node20.20.2/.venv, safeGitflags, no otherownedintensivejobs.
+- **OWNERSHIP / JOBS:** all prior recorded executions terminal. Parent sole scheduler/productionwriter; authorSol actively repairs K/p15b, reviewerSol read-only; oldmodelagent staysinterrupted. Existing Legacy14RED/root0 and constructedterminal0 results remain preserved; source begins onlyafter exact139recheck. No browser/server/test/lane worker. AC4CPU/8GiB; launch3.5GiB/live3GiB; latest14:10free3,675,068KiB after authorized unopened usercache cleanup, recheck beforelaunch. Root-owned npm cache remnants refused/retained; no permissionchanges. Cache receipts `A/PREVIEW-RESUME-CACHE-RECLAIM.json` and `-R2.json`; source/assets/saves/evidence preserved. Node20.20.2/.venv and safeGitflags unchanged.
 - **PRESERVED LATER DRAFTS:** all five exact source patches/manifests public in takeover/drafts; original indices/packagecuts and excluded fixture data local `S/1370-astra-takeover-20261012/originals/`. P15B unpublished base8cecf5aa has public BASE.bundle over db3fc572; P16/P17 base6510c971 and P18basef7d0dc0f remain parked. Only activate next dependent package. Continue after each milestone until complete or a genuine blocker; this Save47 checkpoint does not finish the Owner objective.
 
 ## RESUME KIT, 2026-10-11 20:35 CDT (read first; written because Claude's weekly usage reached 92%)
@@ -627,14 +628,15 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-12 12:48 CDT by **codex** on PreCompact (session 01a13050-fe8f-7903-9af3-0a45b7130787)
-- Branch: `wip/headless-program-20260916-ts` @ `f8e0419a2f0b82523953bb49ced867ef7e018029`
+- Stamped: 2026-10-12 14:01 CDT by **codex** on PreCompact (session 01a13050-fe8f-7903-9af3-0a45b7130787)
+- Branch: `wip/headless-program-20260916-ts` @ `98abbc550d0cbfe8751fff4132af4ebf79dcd4f9`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 0
+- Uncommitted files: 1
+  - `M HANDOFF.md`
 - Last commits:
+  - 98abbc55 test: preserve Legacy REDs and admitted terminal boundary controls
+  - ae973b29 test: preserve qualified Save48 founding compatibility repair
   - f8e0419a docs: complete exact Save48 adaptation evidence export
   - b401b3f4 docs: preserve Save48 adaptation and measured prerequisite failures
   - d68d4b13 feat: integrate qualified Save47 founding and market candidate
-  - 77e1247c test: correct shelving predicate guard and preserve failed prerequisite evidence
-  - 984e9fc8 test: qualify founding market shelving controls before full integration gate
 <!-- AUTO:END -->
