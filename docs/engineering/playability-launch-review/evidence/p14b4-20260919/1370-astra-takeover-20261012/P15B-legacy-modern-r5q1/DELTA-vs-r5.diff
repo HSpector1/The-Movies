@@ -1,0 +1,26 @@
+diff --git a/src/core/campaignLegacy.ts b/src/core/campaignLegacy.ts
+index bbe80807..c4308a1c 100644
+--- a/src/core/campaignLegacy.ts
++++ b/src/core/campaignLegacy.ts
+@@ -799,7 +799,7 @@ function lenses(f: Facts, s: LegacyStudioFact, releases: Release[], discoveries:
+ 
+ // ── the builder and the freeze step ───────────────────────────────────────────
+ export function buildLegacyManifest(facts: LegacyFacts, kind: LegacyManifestKind, definition: LegacyDefinitionId = CAMPAIGN_LEGACY_DEFINITION): LegacyManifest {
+-  if (definition === MODERN_LEGACY_DEFINITION) return LEGACY_DEFINITIONS[definition].evaluate(facts, kind)
++  if (definition === MODERN_LEGACY_DEFINITION || definition === 'campaign-legacy/v1') return LEGACY_DEFINITIONS[definition].evaluate(facts, kind)
+   return evaluateLegacyManifest(facts, kind, CAMPAIGN_LEGACY_DEFINITION,
+     { boundaryWeek: LEGACY_BOUNDARY_WEEK, postFinaleMode: LEGACY_POST_FINALE_MODE, thresholds: liveLegacyThresholds() })
+ }
+diff --git a/src/core/save.ts b/src/core/save.ts
+index 80f479c8..9b72df4c 100644
+--- a/src/core/save.ts
++++ b/src/core/save.ts
+@@ -11317,7 +11317,7 @@ function hasRecoveryShape(state: Record<string, unknown>): boolean {
+ }
+ 
+ /** Called after full V46 admission. Report all present authority, in adopted order. */
+-function recoveryDowngradeRefusal(state: GameStateV46): string | null {
++function recoveryDowngradeRefusal(state: Pick<GameStateV46, 'hollywood'>): string | null {
+   const h = state.hollywood;
+   if (h === null) return null;
+   const reasons: string[] = [];

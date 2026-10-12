@@ -1,0 +1,38 @@
+{
+  "at": "2026-10-12T19:27:19.632123+00:00",
+  "packet": "p15b-save48-modern-legacy-r5",
+  "patchSHA256": "e14e9d9b2b841c49ea4e9c077a9b8f2d29264062fdb3ab2cbff47f17cf4239da",
+  "manifestSHA256": "ea7fa16150f8649c54e7e912008b272ac5a22b76c2b022f99c709edeebff8d85",
+  "paths": 140,
+  "implementationSourceFiles": 4,
+  "results": [
+    {
+      "name": "tsc-root",
+      "exit": 2,
+      "startEpoch": 1791833003,
+      "endEpoch": 1791833067,
+      "seconds": 64,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-modern-r5-run/tsc-root.log"
+    }
+  ],
+  "wrapperExit": 97,
+  "strictFreezeUnchanged": true,
+  "freezeSHA256": "5875393b1e41a4f87892806ce8e1816d347f7587c9cb23d2be58fc8ddd732ad8",
+  "runtime14": "NOT LAUNCHED: root compiler failed; post-command live disk floor also failed",
+  "compilerDiagnosis": "TS2379 save.ts11571:58: recoveryDowngradeRefusal accepts whole GameStateV46 although it only reads hollywood; modern Legacy type is correctly excluded from frozen root. Narrow helper input, not reader authority.",
+  "resourceObservation": {
+    "freeKiBAfterCommand": 2686116,
+    "launchFloorKiB": 3670016,
+    "liveFloorKiB": 3145728,
+    "swapTotalMiBAfter": 3072,
+    "swapTotalMiBBefore": 2048,
+    "noVerificationInterrupted": true
+  },
+  "limits": "No runtime result or modern Legacy qualification. Source repair may continue; no next intensive launch until reserve restored."
+}

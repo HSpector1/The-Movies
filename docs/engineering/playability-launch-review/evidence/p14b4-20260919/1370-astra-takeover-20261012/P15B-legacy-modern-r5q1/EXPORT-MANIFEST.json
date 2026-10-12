@@ -1,0 +1,36 @@
+{
+  "files": [
+    {
+      "path": "DELTA-vs-r5.diff",
+      "bytes": 1633,
+      "sha256": "51ce9fffabeed654ef6769f2aed8b6582cbd35f9c3d34beab4a6074499b36afd"
+    },
+    {
+      "path": "DELTA-vs-r5-new-test.diff",
+      "bytes": 3113,
+      "sha256": "d6e335e17057b2555aded61eccec1071d67e2283c79c8ab18aef9b68ea6e7c7c"
+    },
+    {
+      "path": "MANIFEST.json",
+      "bytes": 44347,
+      "sha256": "281b313be3cf6d74e060dbe1caff16e2a7240fdd222e8598cb20cad20931eca2"
+    },
+    {
+      "path": "REPORT.md",
+      "bytes": 2265,
+      "sha256": "b8111d8829746c5e7b2796069099590aa346a6a8097d476edddd42d04dfcb44b"
+    },
+    {
+      "path": "ADMISSION-REVIEW.md",
+      "bytes": 2193,
+      "sha256": "3854229568c7531f20287647673ba1ca7d1400c8dc71083c53352f645ed75fdd"
+    },
+    {
+      "path": "RUNNER.sh",
+      "bytes": 8884,
+      "sha256": "9fab4a0c2d905c1e011bb9ae05b36fbeabab7d15708f4005d1d21992f90f837c"
+    }
+  ],
+  "execution": "NONE; launch reserve unmet",
+  "privateSaveBodies": false
+}

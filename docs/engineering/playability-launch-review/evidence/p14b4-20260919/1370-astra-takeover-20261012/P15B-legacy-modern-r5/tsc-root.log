@@ -1,0 +1,10 @@
+src/core/save.ts(11571,58): error TS2379: Argument of type 'GameStateP15B' is not assignable to parameter of type 'GameStateV45' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateP15B' is not assignable to type 'P15StepRoots'.
+    The types of 'campaignLegacy.official' are incompatible between these types.
+      Type 'OfficialLegacy | null' is not assignable to type '(LegacyManifest & { legacySnapshotId: string; p15DomainSequence: number; phaseId: string; phaseOrdinal: number; phaseOrderVersion: number; } & { definition: HistoricalLegacyDefinitionId; }) | null'.
+        Type 'OfficialLegacy' is not assignable to type '(LegacyManifest & { legacySnapshotId: string; p15DomainSequence: number; phaseId: string; phaseOrdinal: number; phaseOrderVersion: number; } & { definition: HistoricalLegacyDefinitionId; }) | null'.
+          Type 'OfficialLegacy' is not assignable to type 'LegacyManifest & { legacySnapshotId: string; p15DomainSequence: number; phaseId: string; phaseOrdinal: number; phaseOrderVersion: number; } & { definition: HistoricalLegacyDefinitionId; }'.
+            Type 'OfficialLegacy' is not assignable to type '{ definition: HistoricalLegacyDefinitionId; }'.
+              Types of property 'definition' are incompatible.
+                Type 'LegacyDefinitionId' is not assignable to type 'HistoricalLegacyDefinitionId'.
+                  Type '"campaign-legacy/v3"' is not assignable to type 'HistoricalLegacyDefinitionId'. Did you mean '"campaign-legacy/v1"'?

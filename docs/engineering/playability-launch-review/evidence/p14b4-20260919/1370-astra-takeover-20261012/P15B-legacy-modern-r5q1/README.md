@@ -1,0 +1,9 @@
+# P15B modern Legacy r5q1: source repair and ordering RED, unexecuted
+
+Apply both DELTA files here after ../P15B-legacy-modern-r5/DELTA-vs-r4q1-red.diff and the earlier ../P15B-legacy-red/PATCH.diff over Save47 d68d4b13. MANIFEST records the resulting141 postimages. Full local packet PATCH SHA256:0330186d5962207f9cbf22fff07ce4384d36e61ffc4147dc1731c98d5b049c06. No production gameplay source is changed by this evidence checkpoint.
+
+The recovery refusal helper now accepts only the hollywood field it reads, preserving frozen reader exclusion. Explicit v1 selection uses its frozen evaluator; the old two-argument live builder remains unchanged. A separate ordering RED is added without changing the original14 tests or their budgets. The modern official ordering guard is intentionally absent until the new leaf proves a distinguishing failure on an otherwise admitted6240 transaction. See independent static ADMISSION-REVIEW.md and author REPORT.md.
+
+No compiler or runtime has run on this revision. The previous r5 root compiler2/64s and wrapper97/resource result are retained in the adjacent directory. At this checkpoint free disk remains about2.56GiB, below the existing3.5GiB launchfloor and3GiB livefloor after macOS swap growth. No tests, compiler or browser remains active. The Owner has been notified; never lower the floor or kill unrelated applications to launch.
+
+Next: recheck AC/disk and exact141 packet/index/worktree identity. Only after launch reserve is restored, run the prepared parent RUNNER.sh under the unchanged existing single lane with a fresh log. It compiles root then runs unchanged14 plus the distinct ordering RED under original budgets. Report prerequisite failures separately from an admitted missing-refusal RED; only then add the narrow modernofficial order guard. Extra late-import/multipleclosure diagnostic, full modern/frozen controls, Wave5 and the remaining P15B→P18 program remain outstanding.

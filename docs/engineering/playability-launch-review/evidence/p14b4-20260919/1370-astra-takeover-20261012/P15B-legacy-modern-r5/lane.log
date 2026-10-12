@@ -1,0 +1,4 @@
+Legacy modern r5: exact140 WT/index postimages; reviewed packet; reverse check PASS
+node=v20.20.2 python=Python 3.14.4 start=2026-10-12T19:23:22Z
+{"name": "tsc-root", "exit": 2, "seconds": 64}
+STOP: disk below 3145728KiB

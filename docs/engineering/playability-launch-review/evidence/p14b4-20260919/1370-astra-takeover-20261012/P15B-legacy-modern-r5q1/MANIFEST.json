@@ -1,0 +1,1277 @@
+{
+  "package": "p15b-save48-modern-legacy-r5q1-type-and-order-red",
+  "revision": "r5q1-type-and-order-RED",
+  "stage": "uncompiled-root-and15-tests-pending",
+  "createdUTC": "2026-10-12T19:28:10.367491+00:00",
+  "clone": "/Users/zacheryspector/studio-specialists/p15b",
+  "branch": "p15b/save48-on-d68d4b13",
+  "baseHead": "d68d4b13b454922cf84eff5c0c73cae3e780eebe",
+  "baseSrcTree": "2bcac39e1c88ba48f24df44e015d3b7b7f5a06af",
+  "preservedOriginal": {
+    "stackBase": "8cecf5aa8a7073fdad8a02534fe40d67ba54558e",
+    "localCheckpoint": "6f77159d709c2cdfe329562a1dad0145dd920ec3",
+    "checkpointLocalOnly": true,
+    "formerBranch": "p15b/r2-stacked",
+    "sourcePatchSHA256": "71b7a337bd907dba786bb110cc3ea991aa5605e5192c3fef00a37a5b7ac985a8"
+  },
+  "patch": {
+    "file": "PATCH.diff",
+    "sha256": "0330186d5962207f9cbf22fff07ce4384d36e61ffc4147dc1731c98d5b049c06",
+    "bytes": 1761573,
+    "command": "git safe-flags diff --cached --binary d68d4b13b454922cf84eff5c0c73cae3e780eebe -- . ':(exclude)HANDOFF.md'",
+    "applyCheckReverse": "PASS"
+  },
+  "saveStep": {
+    "value": 48,
+    "predecessor": 47,
+    "constant": "P15B_SAVE_VERSION"
+  },
+  "files": [
+    {
+      "path": "bridge/finance.ts",
+      "status": "modified",
+      "bytes": 9475,
+      "sha256": "fc38e716477c293fcc9662cb42ae99c626e305e1556db7cbcbbe331dff9d3a57",
+      "mode": "0o644"
+    },
+    {
+      "path": "bridge/industry.ts",
+      "status": "modified",
+      "bytes": 38520,
+      "sha256": "cb343a340b83e296f4f0caa975de6129aaf70e05f49f4cb0904bf28183838fed",
+      "mode": "0o644"
+    },
+    {
+      "path": "bridge/schema/industry-schema.ts",
+      "status": "modified",
+      "bytes": 24702,
+      "sha256": "c97911f97a8c6e7f1d2ff4e83548648c5fa0a1c3245f77935c623e2f23c0db57",
+      "mode": "0o644"
+    },
+    {
+      "path": "bridge/schema/intent-schema.ts",
+      "status": "modified",
+      "bytes": 3850,
+      "sha256": "4fd965dc79ccee532c5a9b50a25c0b952a9c6fbb9ce5cf78f12baae25187579d",
+      "mode": "0o644"
+    },
+    {
+      "path": "bridge/schema/project-studio-bridge.schema.json",
+      "status": "modified",
+      "bytes": 404069,
+      "sha256": "a3b97e1acb6f2751e4f057a786327a632ff320f1f2a8b38c10111b75622b965e",
+      "mode": "0o644"
+    },
+    {
+      "path": "bridge/session.ts",
+      "status": "modified",
+      "bytes": 98566,
+      "sha256": "abaf2399fe53e66ff53af911a0bc9c8d79f045fadf8544d20452b3156d787069",
+      "mode": "0o644"
+    },
+    {
+      "path": "generated/unity/StudioBridgeDtos.Generated.cs",
+      "status": "modified",
+      "bytes": 891014,
+      "sha256": "070b0845b2f0f4a18adbd5f94507203c1ed36c8083320e0edca0d6832ea4f140",
+      "mode": "0o644"
+    },
+    {
+      "path": "generated/unity/project-studio-bridge.contract-manifest.json",
+      "status": "modified",
+      "bytes": 820,
+      "sha256": "d669061678125bc7137d27d1360652611336724f8ac3109a1560c4e6905a5d90",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/actions.ts",
+      "status": "modified",
+      "bytes": 131226,
+      "sha256": "ca440e97b7cca8427da127ca273d137c3969c0b44bb6c879f46080a82d244233",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/corporateConditionLive.ts",
+      "status": "added",
+      "bytes": 41249,
+      "sha256": "e188744336178fd1b1bc0c7f53b799572110b0b3521cd68d29e7cc257a33c112",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/corporateNotices.ts",
+      "status": "added",
+      "bytes": 8241,
+      "sha256": "97a235398b3161107ad0ab81fa431030c58b2085278af2bd53c3efd5d1d1d3ef",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/economyView.ts",
+      "status": "modified",
+      "bytes": 34303,
+      "sha256": "0e6819e4ba549f44d40bb8afac7b7f6b9f2c6b3a0796ece51e499d76fa61f996",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/employment.ts",
+      "status": "modified",
+      "bytes": 29951,
+      "sha256": "ed519454282dcee6b8e97e6fffcd3659b79a155f9bed130184a0d703d88ea9c6",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/financeReport.ts",
+      "status": "modified",
+      "bytes": 18379,
+      "sha256": "1412076511eaec783354eb8d7da0d609743a5e4d352fa513d4b6f22c47029187",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/hollywood.ts",
+      "status": "modified",
+      "bytes": 18690,
+      "sha256": "9e4a9f718dc7937a70fbc01dda75e64cc2912b3c92c6d425986266b5a234d39f",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/hollywoodTick.ts",
+      "status": "modified",
+      "bytes": 44850,
+      "sha256": "393ad2d92c51889633804ac5a0144d1993f75f3644be4d9694f45266030a93b9",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/hollywoodTypes.ts",
+      "status": "modified",
+      "bytes": 7988,
+      "sha256": "4a1d647330060a79c806d9088f25dc93a362fcae070d59d5f663ffbbcc116340",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/hollywoodValidation.ts",
+      "status": "modified",
+      "bytes": 62936,
+      "sha256": "9201837ddbcd9049d4fed4e7a0d25bde6b36731145632f3557c77b01263fe190",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/index.ts",
+      "status": "modified",
+      "bytes": 52910,
+      "sha256": "562fa5d96177ec7c6cec5a88828cd4d355efbe1f85c5517a8581643db7221f7e",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/marketIntegration.ts",
+      "status": "modified",
+      "bytes": 17108,
+      "sha256": "6320b39b061c3b5feece9e65981681bf913dcc6ae518b23854085ca1c3b7a43e",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/operatingState.ts",
+      "status": "added",
+      "bytes": 1098,
+      "sha256": "bd3bfb02f124bbab2cc65169cb14a1b5de13feff7bf59cc0e6a513a01e93181a",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/p15Phases.ts",
+      "status": "modified",
+      "bytes": 2464,
+      "sha256": "e28cf6be1bddcae34c680bc661ab1c34c0543f501fd4de2e5c7d43781703cf17",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/powerRankingArchive.ts",
+      "status": "modified",
+      "bytes": 15831,
+      "sha256": "a20e2c8da666f258abfee605f8e9890accac01e1102a2917d3dae5a419c1f0f3",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/rivalResearch.ts",
+      "status": "modified",
+      "bytes": 36732,
+      "sha256": "caffc8a44268c97f930e1492d5c986a8bbdb723d839b61daed60490005e869bf",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/save.ts",
+      "status": "modified",
+      "bytes": 562956,
+      "sha256": "0a9875c1fe9431bfac1c566a449b89e16b003bd0554858c1341f0beaac4f36f9",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/studioClosure.ts",
+      "status": "added",
+      "bytes": 72237,
+      "sha256": "f9385a431108150bb28362608992107c0b5e9468a2b144409554cfea0ad91f82",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/studioRunRecap.ts",
+      "status": "modified",
+      "bytes": 48630,
+      "sha256": "a22c9e55842db24305d6c486464e69469c9fcc1a7873fdde635fd18977e41200",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/talentMarket.ts",
+      "status": "modified",
+      "bytes": 94717,
+      "sha256": "4bf319559473689195503ba3205213b4266940156e7e0c82fe8f59ce343719ac",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/technology.ts",
+      "status": "modified",
+      "bytes": 97378,
+      "sha256": "4c69a95c2aea5de8fb5ac295ba12630021a49dd26637e4ee50e6607464e456d5",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/tick.ts",
+      "status": "modified",
+      "bytes": 67111,
+      "sha256": "f74718662d0a38045c92d9bd5ce846399d627a44b60cab1ac9a77747e3cc2adf",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/tuning.ts",
+      "status": "modified",
+      "bytes": 144804,
+      "sha256": "ef2014c21c712aa193e2dbcd60fde9568b264965d497f779b0012bc7b2554ddf",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/types.ts",
+      "status": "modified",
+      "bytes": 135203,
+      "sha256": "cdf92b8d3060aea5e84cfe3e3524353ec2dc38a4878567c086641956be73e795",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/worldgen.ts",
+      "status": "modified",
+      "bytes": 36555,
+      "sha256": "365e94219f9c3ead05ed5e910b5199d3f17402e675e978fe4f7a14e76968a815",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/harness/roster-wall/historical-control.ts",
+      "status": "modified",
+      "bytes": 14144,
+      "sha256": "575b30a3a2cf3c602ae4bbba30aeb4f1410ae9be0c1a8c48ec8172e5834fc9ce",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/bridge-contract-generator.test.ts",
+      "status": "modified",
+      "bytes": 54915,
+      "sha256": "17e257800949804730701e61dd2700f047accdb02c8ebb4737fff6f9fbdb2bc1",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/bridge-p1364-founding-no-advance.test.ts",
+      "status": "modified",
+      "bytes": 5203,
+      "sha256": "6da1ef881fbd15618545cceb13fdfa3b257e02b0c62c838f015bfa9887eaf08d",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/bridge-p14b2-checkpoint.test.ts",
+      "status": "modified",
+      "bytes": 10788,
+      "sha256": "50051e85532afbb9c02941e699d050a0b70e0b4647af9950f24eba2010eb0be1",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/bridge-p14b2-trust.test.ts",
+      "status": "modified",
+      "bytes": 32477,
+      "sha256": "4de1d1a084ea64ff2b6f8ac623d52cabc92a34c412793094c4386872ba4ec583",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+      "status": "modified",
+      "bytes": 20495,
+      "sha256": "1e2318cd900310248c676aee16095a7f198e78888cb8b44b2503324644728a2a",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/bridge-p14b5-relationships.test.ts",
+      "status": "modified",
+      "bytes": 50586,
+      "sha256": "4806a4f5d97c396823d3d06ffc87aa442a284112bb3822ebe8509b559a680fbb",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/bridge-p14c2rm-runtime.test.ts",
+      "status": "modified",
+      "bytes": 15325,
+      "sha256": "e01976a39afad6184bee74b9a3f6e0245ab11787f69706cdac68e9eb0e20e9a9",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+      "status": "modified",
+      "bytes": 17936,
+      "sha256": "c6985d2c252fbd86f542d42dc1a47773e4d6cc49dc14f5f5aaf89d65b1e905f1",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+      "status": "modified",
+      "bytes": 14355,
+      "sha256": "2286c9d50a854a645f24b3f611149e76e3d0fe6f08bbbc8ee1db25ec026135c5",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/bridge-p14p3-directing-promises.test.ts",
+      "status": "modified",
+      "bytes": 51763,
+      "sha256": "63edf1b791e69107b6ad3addffbdef37b002909d450341bd2372bd90072e74fc",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/bridge-p14p4p5-opportunities.test.ts",
+      "status": "modified",
+      "bytes": 44582,
+      "sha256": "c310afc1c9a4fd76359025f88b0ea92085acca7c3a66dac94d0bd141015bc7a0",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/bridge-p14r2r3-prior55.test.ts",
+      "status": "modified",
+      "bytes": 16819,
+      "sha256": "16737f7c7842401dd5b6a8b3ace130ffeeeef8535c15c12cbe8ba594e7babb96",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/bridge-p15b5-notices.test.ts",
+      "status": "added",
+      "bytes": 6029,
+      "sha256": "12481154ee310b57543c000371737d931dea23f00ff01a6b2ba4330a44085502",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/contracts/v14-boundary-guards.contract.test.ts",
+      "status": "modified",
+      "bytes": 22467,
+      "sha256": "20dbb08cfa35b4f84310fdf31fdf71ce39dfca063879a1acd7594976a15e7ed9",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/1368-adoption-boundary.ts",
+      "status": "modified",
+      "bytes": 5590,
+      "sha256": "19b731f347d4f9005d991f21750b8fd55fa67d50b00e893df348d56079dfeeb7",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/1368-lowmarket-research-boundary.ts",
+      "status": "modified",
+      "bytes": 9758,
+      "sha256": "015b8f935466ada548976b0c2baa9c88542cf83e0539e701bb7f0c481cd3ea91",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/1368-operational-boundary.ts",
+      "status": "modified",
+      "bytes": 4539,
+      "sha256": "a0198e08724cdaef3c7f32ed7625ab219149c95b94fab20eae1b11dfef66beae",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/1368-recovery-witnesses.ts",
+      "status": "modified",
+      "bytes": 5155,
+      "sha256": "fbb29c1fe7ccb3f995d0f3ae57162922d19490448b33a457cf30746643ec4cb7",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/1368-renewal-fixture.ts",
+      "status": "modified",
+      "bytes": 2532,
+      "sha256": "ecea00a0ee9a408db1547c9b59b12c056d37ddd1154add2598f3e6f9decad1c4",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/1368-research-controls.ts",
+      "status": "modified",
+      "bytes": 2378,
+      "sha256": "3d0608e566e26f763a8fc9e3b30cd7e00ce7055a91ef8b8bf7eccbd8ba059a86",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/1368-rival-writing.ts",
+      "status": "modified",
+      "bytes": 7608,
+      "sha256": "239332acde13bca745c23fffdcbdb9fb3cd6eefcf0bdd00edc3d9bfc6e07298c",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/1368-trust-import.ts",
+      "status": "modified",
+      "bytes": 6077,
+      "sha256": "6c38c36663b044c75683bdb02737822fa060ae36478093000648d54e322d6ee0",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/historical-save45-comparison.ts",
+      "status": "modified",
+      "bytes": 1871,
+      "sha256": "1158f028402e03b9d01c58249953a1ad0bce0e64f7f262027ecd28a525d42754",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/live-era.ts",
+      "status": "modified",
+      "bytes": 2087,
+      "sha256": "17404e9ed1060f07abee00c907cc4bf27212443166ccf5aea6b39f1d41c4af61",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/p14c2b-fixtures.ts",
+      "status": "modified",
+      "bytes": 5631,
+      "sha256": "ed8f276da2336493ec0d273ef183df0298bc0fb923affd54ebce8491380574d3",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/p14c2c-fixtures.ts",
+      "status": "modified",
+      "bytes": 9259,
+      "sha256": "5e94884b24399ffe2741bc24ccc5e120604cbf8188807e98d2dceff8699893cc",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/p14c2rm-fixtures.ts",
+      "status": "modified",
+      "bytes": 19661,
+      "sha256": "c79d24be8556c1027e9ba329c1c7a5acd80b0454ced356990eaed407d3501b83",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/p14c3-canonical-rival-fixtures.ts",
+      "status": "modified",
+      "bytes": 22178,
+      "sha256": "6f3236a8933a0d9af01e2bb5f896db84a9da3b60b92dbd1729ab795f72992e03",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/p14c3-fixtures.ts",
+      "status": "modified",
+      "bytes": 23739,
+      "sha256": "0debe5b1faee65528a1b25875110af5a933f804575b929c6df980cefd40767c6",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/p14c3-genuine-evidence-fixtures.ts",
+      "status": "modified",
+      "bytes": 15984,
+      "sha256": "0a6dc84862d6f8935a78cf12e5aa6f855bcffd081b99f0d140501d1dfb565aba",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/p14c3-history-boundary-fixtures.ts",
+      "status": "modified",
+      "bytes": 8168,
+      "sha256": "843c93505e63bfa451276709f4bc9614a49b0fd190a5fe1758226be11c1799cd",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/p14c3-second-episode-fixtures.ts",
+      "status": "modified",
+      "bytes": 12337,
+      "sha256": "1ae17315a9513abc8942bf30b7f2867b6d84aee37b4e7f55056ee211f2f9a7ac",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/p14c4-fixtures.ts",
+      "status": "modified",
+      "bytes": 16053,
+      "sha256": "54a069025e2e4fa7e37b8020b83243233a818937b9d6fd42b7033303a547bb78",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/p14p3-fixtures.ts",
+      "status": "modified",
+      "bytes": 81999,
+      "sha256": "0af5860a5189dbc3001c1f5654fc5a85fbb2970206cf167b4f777f7b6834d153",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/p15-roots.ts",
+      "status": "modified",
+      "bytes": 4941,
+      "sha256": "9cdf6bc0c88c8d90468c4437551155afcbd447b4e94fe028c589130a87ae78c7",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/p15b-live.ts",
+      "status": "added",
+      "bytes": 18406,
+      "sha256": "921a8e1e69f07dfc3e9d6bcaeef63e0493772adac6f3c3b3deebaa1cb0e8a060",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/helpers/p15c2-legacy.ts",
+      "status": "modified",
+      "bytes": 16907,
+      "sha256": "c663a4118afa3bf0ddf57697b7e7d4d44fb3cd7d216af353cbeb37284cf68180",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p06a-w1-release-authority.test.ts",
+      "status": "modified",
+      "bytes": 21975,
+      "sha256": "143bb2f96b032f77477e6f98cfb80be02d200571adf475b92a4695810d8d3736",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p09a-w0-founding-regime.test.ts",
+      "status": "modified",
+      "bytes": 29694,
+      "sha256": "dbab6c4d6cea2f422ff60f7c65226de98336b9a39366165f5907d8da0efb7e9b",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p12-starting-world.test.ts",
+      "status": "modified",
+      "bytes": 4746,
+      "sha256": "21b96739db352052f6c29e237c2cab16584e6915b42f352d58bdc84a02f0ac72",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p1364-late-founding.test.ts",
+      "status": "modified",
+      "bytes": 93914,
+      "sha256": "f99eb75c15948b2901b674aa0cee57c1567abda0f2ddc70d0e5a85fc6fc23052",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p13b-s3-save-v23.test.ts",
+      "status": "modified",
+      "bytes": 9063,
+      "sha256": "263a690a147e67368b99a944517420f4c6e6317b44f0169c237dc6e592760d80",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p13b-s7-announcements.test.ts",
+      "status": "modified",
+      "bytes": 8915,
+      "sha256": "7d21ae74bfe268e9255857005690da7eed63d2cf22d6e0ae78f1a3dd71f82e3f",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p13b-s8-save-v27.test.ts",
+      "status": "modified",
+      "bytes": 18880,
+      "sha256": "fa357b3dbdbcc9b09056e23c63d941a28c89409c0459f2f3cad59fb8a8eb52bb",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14b1-first-take.test.ts",
+      "status": "modified",
+      "bytes": 19720,
+      "sha256": "708ef6f2c901a22629ab3b9683020b560afcf4169a3fc77219c78b313957825a",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14b1-t4-regressions.test.ts",
+      "status": "modified",
+      "bytes": 19279,
+      "sha256": "effaf2dca2afda95b4e657bbaa98f9a0b00643366282e3abd951fe3934133b91",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14b3-reservations.test.ts",
+      "status": "modified",
+      "bytes": 12745,
+      "sha256": "94120dba06fde05a39acf12a0c786cda05ff7e30c966e0dc7176fcd8bd8a5f18",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14b3-rule-revision.test.ts",
+      "status": "modified",
+      "bytes": 21301,
+      "sha256": "e10293f5eb13580a919cf773664107da54d3235e315938855825f57058b1d8c3",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14b4-cast-class-policy.test.ts",
+      "status": "modified",
+      "bytes": 45670,
+      "sha256": "27ab6fb66d61c0bb4b424e29d710a18b8c57a90b1aede7392045d7eefc627a37",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14b4-material-evidence-core.test.ts",
+      "status": "modified",
+      "bytes": 29355,
+      "sha256": "aa6854c8db3f87d12b5774b5dc376604938037d6a296e99538a62a5f4e214516",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14b4-save-v30-compatibility.test.ts",
+      "status": "modified",
+      "bytes": 28806,
+      "sha256": "d18e6830f15294ff07e775839bb2cda223cd88bf5ac42fbb88cc3b9154ffdda1",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14b5-relationships.test.ts",
+      "status": "modified",
+      "bytes": 119465,
+      "sha256": "45ce7bff4ba60b709dd83848a3bca6426ff848a76872e9bc664353aada3b4704",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14bf2-acting-discipline.test.ts",
+      "status": "modified",
+      "bytes": 31034,
+      "sha256": "d73222ab617773ebdbd98a3267f80a3091c699298e10afb9f4a7c4f58e812c12",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14c2a-save-and-settlement.test.ts",
+      "status": "modified",
+      "bytes": 26069,
+      "sha256": "d275f1cc973d587350555c0f81688df9196d1d962f27c257717290875bb33f91",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14c2b-extension.test.ts",
+      "status": "modified",
+      "bytes": 30777,
+      "sha256": "857dc5066d11ebfb422ae87a9d2bad9d0cac8a3ecc3f87372c9328f218962fdf",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14c2b-save-v36.test.ts",
+      "status": "modified",
+      "bytes": 12839,
+      "sha256": "b44cf02e8b6bcb81718a58a1119ee0ca17f7c99e4b6b56f6aec753746be29200",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14c2rm-writer-continuation.test.ts",
+      "status": "modified",
+      "bytes": 31797,
+      "sha256": "4a1660a370af25992115e45258ea18c70b768678589fb0edf6d9a1d56ad560b8",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14c2s-scientist-retirement.test.ts",
+      "status": "modified",
+      "bytes": 25540,
+      "sha256": "e106cd1f262efbbc904512831820f14cb6c517dda0e6239177bd1f6ef743d795",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14c3-admission-boundaries.test.ts",
+      "status": "modified",
+      "bytes": 15092,
+      "sha256": "c27e73bf4008b8ee5a4a1a96438f1f3e44c04c6a6c03271685a6300ecfa1691e",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14c3-cohort-transition.test.ts",
+      "status": "modified",
+      "bytes": 28788,
+      "sha256": "d38be14d4f1e7677b49bc9a92953357613f2071636d0d04ac5a06cf0ac69044e",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14c3-dual-extensions.test.ts",
+      "status": "modified",
+      "bytes": 16683,
+      "sha256": "90ce46f19376035e6dd5385944e6924b4a6ddf4692355e8453bcfbe697c94a43",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14c3-offmenu-extensions.test.ts",
+      "status": "modified",
+      "bytes": 21736,
+      "sha256": "d7d38f3eecad50e7fcc1dea940c49db1c1b0e263efb0a319ff65b36dc291b606",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14c3-profession-episodes.test.ts",
+      "status": "modified",
+      "bytes": 9404,
+      "sha256": "e9cc52662fea75bf00eb53559f8bc2c1317c7de0ce95fa30b23ba73bd57e9124",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14c3-profession-history.test.ts",
+      "status": "modified",
+      "bytes": 30996,
+      "sha256": "ccad7a274d5d98e6c4af148d08fb7c8067d0972ae00dfe2a46a5aabc890d0ce2",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14c3-promise-digest-continuity.test.ts",
+      "status": "modified",
+      "bytes": 17821,
+      "sha256": "548883750fce547447032e45a528e391db95bffb08c8a80f719c26a3c111869c",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14c3-save-v38.test.ts",
+      "status": "modified",
+      "bytes": 38826,
+      "sha256": "3ff0245d568f49c65a8a74e3f096475e2f613ff457df0422a114f5d65d59a585",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14c3-transition-evidence.test.ts",
+      "status": "modified",
+      "bytes": 9742,
+      "sha256": "f1987152599d43af749c96a54bcbd16215f3ecfbbeac79272428dced0b6d2f77",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14c3-transitions.test.ts",
+      "status": "modified",
+      "bytes": 21226,
+      "sha256": "7b3babab88a6aa0950622a3779405fc9917b84180285e01b5dacfaa7e4423757",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14c4-cohorts.test.ts",
+      "status": "modified",
+      "bytes": 26606,
+      "sha256": "9ffde66792f156cd538b906696bb843473526f546f22c407ad6429b04391327a",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14c4-save-v35.test.ts",
+      "status": "modified",
+      "bytes": 18899,
+      "sha256": "8d10b62f6ee666343ee910b2c5885385e1a86145bb5fec1d1a7931e615d9e30c",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14d2-a8-fixture.ts",
+      "status": "modified",
+      "bytes": 6856,
+      "sha256": "f7c159d544993837425c863b347fff7eeff76d4b9c16c1819587bdc291942f66",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14d2-rival-cost-cutting.test.ts",
+      "status": "modified",
+      "bytes": 32719,
+      "sha256": "83bce14d412c7c3aac0e8532f651a4aaae942c675eed62696aafc5c47a9c6c11",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14d2-rival-facility-disposal.test.ts",
+      "status": "modified",
+      "bytes": 25687,
+      "sha256": "2c601ba250d354a5b495e751d664f5dfdd63d54d6d7be70b30ebb3e5d2b49d66",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14p3-directing-promises.test.ts",
+      "status": "modified",
+      "bytes": 112760,
+      "sha256": "c4f20e8c8ce8431b3c1c1af6d2957a232cab02bcd30bc6adcd70249ae49e32b8",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14p4p5-casting-reservation.test.ts",
+      "status": "modified",
+      "bytes": 28937,
+      "sha256": "27e85a8872831a50c4e83756a2158b69a14764d04083c2e2383a7157aa33dc63",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14p4p5-cross-owner.test.ts",
+      "status": "modified",
+      "bytes": 23168,
+      "sha256": "f1e942da23cd6fae94272876214c78a714b79a9e066e6ceedbc0bb72df71400e",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14p4p5-delayed-retirement.test.ts",
+      "status": "modified",
+      "bytes": 47652,
+      "sha256": "82b8b01ee66d8f867135d80cc832137f8072020709a5361a17a27332510fb97f",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14p4p5-opportunities.test.ts",
+      "status": "modified",
+      "bytes": 88594,
+      "sha256": "a2186f8b7ff13578d9c4b154d0257d1f55f4ed5af1d3623800816af8eedec316",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14p4p5-queued-project-outcome.test.ts",
+      "status": "modified",
+      "bytes": 51303,
+      "sha256": "5421cdf282b479138851ab5b0f3d395f61444d9b5279013661922040a6de6a89",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14p4p5-receipt-freeze.test.ts",
+      "status": "modified",
+      "bytes": 25519,
+      "sha256": "d9110f5e0bd56c0b2ad7be207966bb95b879197eaf55a283ae53538f2ff13f0d",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14p4p5-scenery-capacity.test.ts",
+      "status": "modified",
+      "bytes": 30140,
+      "sha256": "0f00854bc81d2271d5a82ef91e425e2b8daadf26337a3577e897f0bbd4675264",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p14p4p5-screenplay-status.test.ts",
+      "status": "modified",
+      "bytes": 28646,
+      "sha256": "b87085dbe9a43fa679106af875ef19bf0152deac7dd76b7b8e65a4ce18b870ab",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p15a2-power-ranking-archive-harness.test.ts",
+      "status": "modified",
+      "bytes": 6333,
+      "sha256": "08affe7d197684ae70acf633f7ed4c795c87e4f081089cee5baa574a57c94095",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p15a2-power-ranking-archive-isolation.test.ts",
+      "status": "modified",
+      "bytes": 10377,
+      "sha256": "232cbeff051128831ba129ac78a39f0fdd9c0b8acc60d152fd85bd308e6102ad",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p15a2-power-ranking-archive.test.ts",
+      "status": "modified",
+      "bytes": 83990,
+      "sha256": "8414cefd3da30cb90a476ad27c7ee668ed535d060d56e79d79ff38168e75344d",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p15b2-corporate-condition-live.test.ts",
+      "status": "added",
+      "bytes": 26042,
+      "sha256": "4e126399508131dad8960030060c55429d03acd2f1d5b077c7609a02d10d5193",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p15b2-corporate-condition-save.test.ts",
+      "status": "added",
+      "bytes": 20193,
+      "sha256": "cb7350b11486bade4eecba430b33598686e62338c7477970f7ad7363708ec4eb",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p15b3-remedy-parity.test.ts",
+      "status": "added",
+      "bytes": 13997,
+      "sha256": "17d010933947796fbc43eb70d52f51cbf7d9482da78d4cf9ab0b8ddf2eff2e1b",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p15b4-studio-closure-save.test.ts",
+      "status": "added",
+      "bytes": 15993,
+      "sha256": "319d76274c74251fd3c4bc74299af7993ef8e6dda5b80c22b2177248276a2df0",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p15b4-studio-closure.test.ts",
+      "status": "added",
+      "bytes": 62075,
+      "sha256": "72d67fd62a727726c82e8b6fe3862f8de6083a88693ef45a04bf060ecc2e40cf",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p15b5-notices.test.ts",
+      "status": "added",
+      "bytes": 12945,
+      "sha256": "9b39b8f1cf6fffe50dc6d5983d9c35dd28ff17f0f38bf611266c7f4829608b77",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "status": "modified",
+      "bytes": 84694,
+      "sha256": "d6e5f4446c0b2bd685f70de96cfda87c3a14eba17404715ba8d10872d07d9c60",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/save.test.ts",
+      "status": "modified",
+      "bytes": 19730,
+      "sha256": "0097958ebf1db454c190dd110ae18f8ef541e2b1b8bb8e87cf7a3ad8c5c156fe",
+      "mode": "0o644"
+    },
+    {
+      "path": "ui/src/App.tsx",
+      "status": "modified",
+      "bytes": 209487,
+      "sha256": "1b106744ba085a00ebe7e9054da2f1cd5f8287530da7c89a4f51112a64853e54",
+      "mode": "0o644"
+    },
+    {
+      "path": "ui/src/engine/adapter.ts",
+      "status": "modified",
+      "bytes": 360225,
+      "sha256": "74baf4096936f24e6368eee5652c1a3edd7ff38cb668e0cc7a9a3cfffc50ac11",
+      "mode": "0o644"
+    },
+    {
+      "path": "ui/src/engine/p15b-lot-closure-gate.test.ts",
+      "status": "added",
+      "bytes": 3253,
+      "sha256": "b1c84e5beed4a0b58fa99a5970ee178f0fe57f835b491bc796513363d9c83af4",
+      "mode": "0o644"
+    },
+    {
+      "path": "ui/src/lot/LotNextEventRail.test.tsx",
+      "status": "modified",
+      "bytes": 29896,
+      "sha256": "7eaac7d103dffa79ea802c539d199fa576692c71d8ea0225e3278fec49077aac",
+      "mode": "0o644"
+    },
+    {
+      "path": "ui/src/lot/snapshot/nextEvent.ts",
+      "status": "modified",
+      "bytes": 43405,
+      "sha256": "df3217cd233ed8b1b3ef5a615c879788a9d332e0511c428ecf05f31e25c83cc2",
+      "mode": "0o644"
+    },
+    {
+      "path": "ui/src/test/contracts/advance-week-grammar.contract.test.ts",
+      "status": "modified",
+      "bytes": 24407,
+      "sha256": "3495be46f8a677fd74b2a2f568fdb6eb62a412e3c553acb2f4982d4744210eb0",
+      "mode": "0o644"
+    },
+    {
+      "path": "ui/src/test/contracts/cue-determinism.contract.test.ts",
+      "status": "modified",
+      "bytes": 7222,
+      "sha256": "bda41e4789ef346eb5126fd66d094e640445447f32663b04efc15bdbc5be8293",
+      "mode": "0o644"
+    },
+    {
+      "path": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "status": "modified",
+      "bytes": 24891,
+      "sha256": "7d0bd0f3936f4e76221d8777fe15d84b0c2d4e48c41518d0f23cb1a5f6698d1e",
+      "mode": "0o644"
+    },
+    {
+      "path": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "status": "modified",
+      "bytes": 16013,
+      "sha256": "4df82a88e28d7213f02b93ba9aedec22598294d3eb2cb5e6c5f87174ca36da3e",
+      "mode": "0o644"
+    },
+    {
+      "path": "ui/src/test/redteam/rt-announcement-law.redteam.test.tsx",
+      "status": "modified",
+      "bytes": 18710,
+      "sha256": "cc44f4bda439fecdc0632b169da920880f294fea4d17e9009b0fcd542be791cd",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p15b-legacy-v3.test.ts",
+      "status": "added",
+      "bytes": 10311,
+      "sha256": "afadcb0a63ba09ce9748cd841d964da14db64e4ccba8c7721e60af38ddbf2507",
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p15b-legacy-atomic.test.ts",
+      "status": "added",
+      "bytes": 7953,
+      "sha256": "49b5d18e855a3db52a97d944e71aa66598f02dff38ab989cd2dae6b4aaf19333",
+      "mode": "0o644"
+    },
+    {
+      "path": "src/core/campaignLegacy.ts",
+      "status": "modified",
+      "sha256": "7b12f052dfa07af727a0964fc1b5b5e4c9b995e88434a3b00ed2ed396bc9543d",
+      "bytes": 92172,
+      "mode": "0o644"
+    },
+    {
+      "path": "tests/p15b-legacy-official-order.test.ts",
+      "status": "added",
+      "bytes": 2846,
+      "sha256": "e4cba588eab15c397a92aadfe70563faec5160ce3ca5e9a12952196efb685316",
+      "mode": "0o644"
+    }
+  ],
+  "integrationDelta": {
+    "file": "INTEGRATION-DELTA.diff",
+    "sha256": "8722c95c98fa015fbf24ecc58701ce235123e8759184092fd0c71d2b95654499",
+    "bytes": 206022,
+    "comparison": "current source/config scope vs exact preserved r3 final draft; excludes published docs/coordinator metadata",
+    "originalOwnedPathsChanged": [
+      {
+        "path": "src/core/actions.ts",
+        "preservedSHA256": "c9a6c91b787737d53d3f67ac42cf17f7bce6fd3505fffce9566f17a8dd359030",
+        "adaptedSHA256": "ca440e97b7cca8427da127ca273d137c3969c0b44bb6c879f46080a82d244233"
+      },
+      {
+        "path": "src/core/employment.ts",
+        "preservedSHA256": "923411d2150780568b06316bfd2ab8a98f9a8b9f330d585f08b81264c623a971",
+        "adaptedSHA256": "ed519454282dcee6b8e97e6fffcd3659b79a155f9bed130184a0d703d88ea9c6"
+      },
+      {
+        "path": "src/core/marketIntegration.ts",
+        "preservedSHA256": "c4042b6b471f800874fb79f4b3ecdb46eebd58c1e06eb5cec68461bf7e9ab807",
+        "adaptedSHA256": "6320b39b061c3b5feece9e65981681bf913dcc6ae518b23854085ca1c3b7a43e"
+      },
+      {
+        "path": "src/core/save.ts",
+        "preservedSHA256": "df8130104d25c59f08fae1196cf3970c6bb3f03fe651ff2d65f84a506f27c040",
+        "adaptedSHA256": "80aeb5f6496ce02f6f2ba2674d8c06a85200eada75f01993cc2be945b55b5ac5"
+      },
+      {
+        "path": "src/harness/roster-wall/historical-control.ts",
+        "preservedSHA256": "61cd4258a588f403404892e0091ceceb3536a7c9cdd9f482c0da4442455a06fc",
+        "adaptedSHA256": "b39ea5b49841f2c1a6070e13d4e2b7af8ffa18617de1c05bf7c96c4bc2f88e61"
+      },
+      {
+        "path": "tests/bridge-p1364-founding-no-advance.test.ts",
+        "preservedSHA256": "4c20244621feb345daf9bf90286ab34d569a4bb0d5861af62ff60b70cebece8e",
+        "adaptedSHA256": "6da1ef881fbd15618545cceb13fdfa3b257e02b0c62c838f015bfa9887eaf08d"
+      },
+      {
+        "path": "tests/bridge-p14b2-checkpoint.test.ts",
+        "preservedSHA256": "a53c8af292de29f61f58d5b280f1863519c8183485bd7aad38c394ce4ffdbb3b",
+        "adaptedSHA256": "50051e85532afbb9c02941e699d050a0b70e0b4647af9950f24eba2010eb0be1"
+      },
+      {
+        "path": "tests/bridge-p14c2rm-runtime.test.ts",
+        "preservedSHA256": "fccc6938c243444e888f5a1df1527f43d9d743b29ed35a7a83b8177c3785f85f",
+        "adaptedSHA256": "e01976a39afad6184bee74b9a3f6e0245ab11787f69706cdac68e9eb0e20e9a9"
+      },
+      {
+        "path": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+        "preservedSHA256": "8891e5ff16dd1feaf4d90c1a548ce9c81f5853bdf876349d2539ee75ab35cd52",
+        "adaptedSHA256": "c6985d2c252fbd86f542d42dc1a47773e4d6cc49dc14f5f5aaf89d65b1e905f1"
+      },
+      {
+        "path": "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+        "preservedSHA256": "3bec477a5bf0a6f3c350b3848800d9c9d311a96f0a6dc6f873986462261dd48b",
+        "adaptedSHA256": "2286c9d50a854a645f24b3f611149e76e3d0fe6f08bbbc8ee1db25ec026135c5"
+      },
+      {
+        "path": "tests/bridge-p14p3-directing-promises.test.ts",
+        "preservedSHA256": "23915eced87891c30916e55303d6517630e4f7240a565590b8f980d9ed3d5ed4",
+        "adaptedSHA256": "63edf1b791e69107b6ad3addffbdef37b002909d450341bd2372bd90072e74fc"
+      },
+      {
+        "path": "tests/bridge-p14p4p5-opportunities.test.ts",
+        "preservedSHA256": "bf1007da677cf1ee0fb53da9869d9da8027ffbf75e92c5423f163819b0b838f3",
+        "adaptedSHA256": "c310afc1c9a4fd76359025f88b0ea92085acca7c3a66dac94d0bd141015bc7a0"
+      },
+      {
+        "path": "tests/bridge-p14r2r3-prior55.test.ts",
+        "preservedSHA256": "85b8ea1599156d85a32321ec027b49d013a510076a3000f35d3375c333ba0ac4",
+        "adaptedSHA256": "16737f7c7842401dd5b6a8b3ace130ffeeeef8535c15c12cbe8ba594e7babb96"
+      },
+      {
+        "path": "tests/helpers/p14c3-fixtures.ts",
+        "preservedSHA256": "0bc09810f60614b97f11290ce7f49a469e9dda8826b6aa4b169627164e413241",
+        "adaptedSHA256": "0debe5b1faee65528a1b25875110af5a933f804575b929c6df980cefd40767c6"
+      },
+      {
+        "path": "tests/helpers/p14c3-second-episode-fixtures.ts",
+        "preservedSHA256": "f06e29854552d3e3e9da9c87fb54de4e2e6be7f606d80de6719172dd03c46c1a",
+        "adaptedSHA256": "1ae17315a9513abc8942bf30b7f2867b6d84aee37b4e7f55056ee211f2f9a7ac"
+      },
+      {
+        "path": "tests/p09a-w0-founding-regime.test.ts",
+        "preservedSHA256": "84721a10cbcefaf197e928de3e8d37b35826f39170675ae7cffe11ee85f467f3",
+        "adaptedSHA256": "dbab6c4d6cea2f422ff60f7c65226de98336b9a39366165f5907d8da0efb7e9b"
+      },
+      {
+        "path": "tests/p1364-late-founding.test.ts",
+        "preservedSHA256": "3b1948d0ca9819584b1ab20a264308951c783fa9ba861663e82a15d70477d795",
+        "adaptedSHA256": "8029db216f3b281d832542439390b2a846d92d141cc13a7a2caf5f32b81aa059"
+      },
+      {
+        "path": "tests/p13b-s8-save-v27.test.ts",
+        "preservedSHA256": "4da2339066acab67d98bf05fea993e20a79cb069e271e85749ce2da09d24c82f",
+        "adaptedSHA256": "fa357b3dbdbcc9b09056e23c63d941a28c89409c0459f2f3cad59fb8a8eb52bb"
+      },
+      {
+        "path": "tests/p14b4-save-v30-compatibility.test.ts",
+        "preservedSHA256": "f41cf8f46b809108e6762f8781e2b313f95c963e118b07bf733329aa18a39223",
+        "adaptedSHA256": "d18e6830f15294ff07e775839bb2cda223cd88bf5ac42fbb88cc3b9154ffdda1"
+      },
+      {
+        "path": "tests/p14b5-relationships.test.ts",
+        "preservedSHA256": "e7fa67cf08757bfc949e4e1bef78c63d63cca96592c4565f4a808590313fc0d3",
+        "adaptedSHA256": "45ce7bff4ba60b709dd83848a3bca6426ff848a76872e9bc664353aada3b4704"
+      },
+      {
+        "path": "tests/p14c2a-save-and-settlement.test.ts",
+        "preservedSHA256": "762dd46afbd9a13ccf0b262143bb02cd9aafa34d5e59491aa9615909e428fb84",
+        "adaptedSHA256": "d275f1cc973d587350555c0f81688df9196d1d962f27c257717290875bb33f91"
+      },
+      {
+        "path": "tests/p14c2b-save-v36.test.ts",
+        "preservedSHA256": "08314249fab9ad31e335f40e33782d0ede96c013d975b5aaec26d287e2d3eeb2",
+        "adaptedSHA256": "b44cf02e8b6bcb81718a58a1119ee0ca17f7c99e4b6b56f6aec753746be29200"
+      },
+      {
+        "path": "tests/p14c2s-scientist-retirement.test.ts",
+        "preservedSHA256": "0e1d82e96cbec624d930a1efafea19b81e19a1995d4cd04070ddf91084ab749d",
+        "adaptedSHA256": "e106cd1f262efbbc904512831820f14cb6c517dda0e6239177bd1f6ef743d795"
+      },
+      {
+        "path": "tests/p14c3-save-v38.test.ts",
+        "preservedSHA256": "d3d7fbeb17d5f4820d8340f81d31ad7a34bea69bc5e590094d1b3de311738659",
+        "adaptedSHA256": "3ff0245d568f49c65a8a74e3f096475e2f613ff457df0422a114f5d65d59a585"
+      },
+      {
+        "path": "tests/p14c4-save-v35.test.ts",
+        "preservedSHA256": "ecbd76a63eeb196979901cf655e5fd53328cf216beccf8f9e014039b2cb1542c",
+        "adaptedSHA256": "8d10b62f6ee666343ee910b2c5885385e1a86145bb5fec1d1a7931e615d9e30c"
+      },
+      {
+        "path": "tests/p14d2-a8-fixture.ts",
+        "preservedSHA256": "62062208a7ea1f03f3eedc5d053a2e223e305b0822c61b959ebeed6361d2ced3",
+        "adaptedSHA256": "f7c159d544993837425c863b347fff7eeff76d4b9c16c1819587bdc291942f66"
+      },
+      {
+        "path": "tests/p14d2-rival-facility-disposal.test.ts",
+        "preservedSHA256": "fe756f5bbf286deb52fc946ae09698301b190856b4578425aeb65ba08ecdf002",
+        "adaptedSHA256": "2c601ba250d354a5b495e751d664f5dfdd63d54d6d7be70b30ebb3e5d2b49d66"
+      },
+      {
+        "path": "tests/p14p3-directing-promises.test.ts",
+        "preservedSHA256": "7de44f5ba962d936aca3716e1540bffd3458ceb73758dd25521cd349b939b528",
+        "adaptedSHA256": "c4f20e8c8ce8431b3c1c1af6d2957a232cab02bcd30bc6adcd70249ae49e32b8"
+      },
+      {
+        "path": "tests/p14p4p5-casting-reservation.test.ts",
+        "preservedSHA256": "3fe943a7e6693b097663bcd6c4a5b3f4f648f161388ff09f238db585d3416e71",
+        "adaptedSHA256": "27e85a8872831a50c4e83756a2158b69a14764d04083c2e2383a7157aa33dc63"
+      },
+      {
+        "path": "tests/p14p4p5-cross-owner.test.ts",
+        "preservedSHA256": "4e883d4020de37dc2ab6cc21992f595c5cf58f532531bbd8d5873026eb26d285",
+        "adaptedSHA256": "f1e942da23cd6fae94272876214c78a714b79a9e066e6ceedbc0bb72df71400e"
+      },
+      {
+        "path": "tests/p14p4p5-delayed-retirement.test.ts",
+        "preservedSHA256": "e8ac4ea17bbca28cf2d818bc3dfd56c67fa240a4d485b46b0d6ed53f6e63d5c4",
+        "adaptedSHA256": "82b8b01ee66d8f867135d80cc832137f8072020709a5361a17a27332510fb97f"
+      },
+      {
+        "path": "tests/p14p4p5-opportunities.test.ts",
+        "preservedSHA256": "1901f47f6204b35f6be6da510a920fb7f1287d55cf356a4110c2155df51e63db",
+        "adaptedSHA256": "a2186f8b7ff13578d9c4b154d0257d1f55f4ed5af1d3623800816af8eedec316"
+      },
+      {
+        "path": "tests/p14p4p5-queued-project-outcome.test.ts",
+        "preservedSHA256": "6516e7eef6850a4b4a1f296706399f89f2d85342a593039415056e1c496cefe6",
+        "adaptedSHA256": "5421cdf282b479138851ab5b0f3d395f61444d9b5279013661922040a6de6a89"
+      },
+      {
+        "path": "tests/p14p4p5-receipt-freeze.test.ts",
+        "preservedSHA256": "834702ea27119d0aa46836d89742cc1a9f8996ae80baff1a0c057317b38b6e59",
+        "adaptedSHA256": "d9110f5e0bd56c0b2ad7be207966bb95b879197eaf55a283ae53538f2ff13f0d"
+      },
+      {
+        "path": "tests/p14p4p5-scenery-capacity.test.ts",
+        "preservedSHA256": "75ed6f6accd9b1c49edb69e1afc2536afb57daeaec91e5dcbe5ae0b556fc6a2c",
+        "adaptedSHA256": "0f00854bc81d2271d5a82ef91e425e2b8daadf26337a3577e897f0bbd4675264"
+      },
+      {
+        "path": "tests/p14p4p5-screenplay-status.test.ts",
+        "preservedSHA256": "ce3b8d2e29c5caf10ab2ebdcd8617c5dbc36a9f50e49dfae23bd0ed2baa2b576",
+        "adaptedSHA256": "b87085dbe9a43fa679106af875ef19bf0152deac7dd76b7b8e65a4ce18b870ab"
+      }
+    ]
+  },
+  "conflicts": {
+    "files": 32,
+    "blocks": 59,
+    "record": "../P15B-RESTACK-CONFLICT-RESOLUTIONS.json"
+  },
+  "checksRun": [
+    "141 index=WT=manifest",
+    "original14 byteunchanged",
+    "cacheddiffcheck0",
+    "reversefullPATCHcheck0",
+    "noforeignchanges"
+  ],
+  "notRun": [
+    "r5q1compiler",
+    "r5q1original14",
+    "neworderingRED",
+    "simulation",
+    "fullgate"
+  ],
+  "inheritedLimits": [
+    "old r3 tests/type/evidence belong to foundingr3 stack, not this source",
+    "Legacy hook remains null; prospective producer not implemented",
+    "loan-restart natural witness unresolved",
+    "research nonleak fixture closure premise pending verification",
+    "1370 r3 masked downgrade residuals retained"
+  ],
+  "localOnlyPaths": [
+    "HANDOFF.md"
+  ],
+  "retainedInputs": "../P15B-RETAINED-INPUT-ADMISSION.json",
+  "production": "unchanged by specialist; no local metadata push",
+  "localOnlyMetadata": {
+    "path": "HANDOFF.md",
+    "sha256": "202c1c553dc5855564a6614d608c5a0133c4e154e89e3efe52fddc19791f7f32",
+    "reason": "local current state note;excludedsourcePATCH;AUTO/historyuntouched"
+  },
+  "documents": [
+    {
+      "path": "REPORT.md",
+      "sha256": "b8111d8829746c5e7b2796069099590aa346a6a8097d476edddd42d04dfcb44b",
+      "bytes": 2265
+    }
+  ],
+  "repair": {
+    "changedPaths": [
+      "src/harness/roster-wall/historical-control.ts",
+      "tests/p1364-late-founding.test.ts"
+    ],
+    "deltaFile": "DELTA-vs-r4.diff",
+    "deltaSHA256": "db3455ee3cdd7634d6e74bf82e3bcbdef9e7f4064250d29d8f84031734cabf6a",
+    "originalR4PatchSHA256": "c0958daf3a71176d349343ad3b16532ead4db8f0392a0a25cea5cc0e108db340",
+    "originalEvidence": "../P15B-R4-FOCUSED-RESULTS.json"
+  },
+  "testAdmission": {
+    "newPaths": [
+      "tests/p15b-legacy-v3.test.ts",
+      "tests/p15b-legacy-atomic.test.ts"
+    ],
+    "expectedLeaves": 14,
+    "priorR4q1PatchSHA256": "1677eb0654be43014ec86f61d23cdefe96615fb34470578133afdaa35f2ff0d0",
+    "review": "../P15B-LEGACY-RED-ADMISSION-REVIEW.md"
+  },
+  "implementationDelta": {
+    "paths": [
+      "src/core/campaignLegacy.ts",
+      "src/core/save.ts",
+      "tests/p15b-legacy-official-order.test.ts"
+    ],
+    "file": "DELTA-vs-r5.diff",
+    "newTestFile": "DELTA-vs-r5-new-test.diff"
+  }
+}
