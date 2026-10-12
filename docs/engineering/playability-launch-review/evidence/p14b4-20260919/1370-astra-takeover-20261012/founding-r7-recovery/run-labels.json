@@ -1,0 +1,46 @@
+{
+ "red-r7.json": {
+  "label": "the r7 leaves RED on the r6 source (tests first): founding-second-grant-pre-history and founding-operated-campaign-refused fail at R-D's own action message (M5), founding-fund-lifetime at the probe-c refill (I1), founding-interval-and-charges at the lowered opening (I3); the null-fund witness leaf (then one leaf) passes, its RED is the mutation",
+  "command": "export PATH=/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin:$PATH; cd /Users/zacheryspector/studio-specialists/founding; nice -n 10 npx vitest run --project core --no-file-parallelism --no-cache tests/p1364-late-founding.test.ts --reporter=default --reporter=json --outputFile.json=<package>/evidence/r7/red-r7.json (stdout to evidence/r7/red-r7.log)"
+ },
+ "green-r7-1.json": {
+  "label": "p1364 and the bridge-p1364 file after the r7 src change (before the null-fund leaf was split into one leaf per message)",
+  "command": "export PATH=/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin:$PATH; cd /Users/zacheryspector/studio-specialists/founding; nice -n 10 npx vitest run --project core --no-file-parallelism --no-cache tests/p1364-late-founding.test.ts tests/bridge-p1364-founding-no-advance.test.ts --reporter=default --reporter=json --outputFile.json=<package>/evidence/r7/green-r7-1.json (stdout to evidence/r7/green-r7-1.log)"
+ },
+ "null-fund-green.json": {
+  "label": "M1/M4: the two null-fund leaves on the final r7 tree, after the in-place mutation was restored (evidence/r7/mutation-final.sh)",
+  "filter": "founding-null-fund",
+  "command": "export PATH=/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin:$PATH; cd /Users/zacheryspector/studio-specialists/founding; nice -n 10 npx vitest run --project core --no-file-parallelism --no-cache tests/p1364-late-founding.test.ts -t \"founding-null-fund\" --reporter=default --reporter=json --outputFile.json=<package>/evidence/r7/null-fund-green.json (stdout to evidence/r7/null-fund-green.log)"
+ },
+ "mutation-null-fund.json": {
+  "label": "M1/M4 mutation proof on the final tree: the null-fund open-draft block (foundingFunding.ts:247-257) deleted in place, the two leaves run, the file restored (sha256 in mutation-null-fund.sha; evidence/r7/mutation-final.sh)",
+  "filter": "founding-null-fund",
+  "command": "evidence/r7/mutation-final.sh: export PATH=/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin:$PATH; cd /Users/zacheryspector/studio-specialists/founding; python3 <delete the null-fund `if (draftOpen) {` block>; nice -n 10 npx vitest run --project core --no-file-parallelism --no-cache tests/p1364-late-founding.test.ts -t \"founding-null-fund\" --reporter=default --reporter=json --outputFile.json=<package>/evidence/r7/mutation-null-fund.json; cp <saved copy> src/core/foundingFunding.ts"
+ },
+ "focused-core.json": {
+  "label": "the focused founding set on the r7 tree before the last test-file edit (the refuter2-opening form) and the comment-only source edit",
+  "command": "export PATH=/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin:$PATH; cd /Users/zacheryspector/studio-specialists/founding; nice -n 10 npx vitest run --project core --no-file-parallelism --no-cache tests/p1364-late-founding.test.ts tests/bridge-p1364-founding-no-advance.test.ts tests/d17a-fixed-cost-allocation.test.ts tests/p15a1-market-retune.test.ts --reporter=default --reporter=json --outputFile.json=<package>/evidence/r7/focused-core.json (stdout to evidence/r7/focused-core.log)"
+ },
+ "focused-ui-route.json": {
+  "label": "the mounted late-founding route leaf file (ui project) on the r7 tree",
+  "project": "ui",
+  "command": "export PATH=/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin:$PATH; cd /Users/zacheryspector/studio-specialists/founding; nice -n 10 npx vitest run --project ui --no-file-parallelism --no-cache ui/src/p1364-late-founding-route.test.tsx --reporter=verbose --reporter=json --outputFile.json=<package>/evidence/r7/focused-ui-route.json (stdout to evidence/r7/focused-ui-route.log)"
+ },
+ "broad-core.json": {
+  "label": "the grep-derived core files that build or load a save with a founding draft or a recorded fund, open a founding, renew a contract or pin a founding refusal (110 files; list in evidence/r7/core-broad.txt), with the db3fc572 evidence captures linked at docs/ for the run and unlinked after (broad-core-docs-link.log)",
+  "command": "evidence/r7/run-broad-core.sh: export PATH=/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin:$PATH; cd /Users/zacheryspector/studio-specialists/founding; ln -s <scratch>/r5/docs-captures/docs docs; nice -n 10 npx vitest run --project core --no-file-parallelism --no-cache $(cat core-broad.txt) --reporter=default --reporter=json --outputFile.json=<package>/evidence/r7/broad-core.json; rm docs"
+ },
+ "focused-core-final.json": {
+  "label": "the focused founding set on the final r7 tree: p1364-late-founding (60), bridge-p1364-founding-no-advance (3), d17a-fixed-cost-allocation (16), p15a1-market-retune (8)",
+  "command": "export PATH=/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin:$PATH; cd /Users/zacheryspector/studio-specialists/founding; nice -n 10 npx vitest run --project core --no-file-parallelism --no-cache tests/p1364-late-founding.test.ts tests/bridge-p1364-founding-no-advance.test.ts tests/d17a-fixed-cost-allocation.test.ts tests/p15a1-market-retune.test.ts --reporter=default --reporter=json --outputFile.json=<package>/evidence/r7/focused-core-final.json (stdout to evidence/r7/focused-core-final.log)"
+ },
+ "alone-bridge-process-restart.json": {
+  "label": "bridge-process-restart alone on the final tree (its two timeouts in the broad run are the load class)",
+  "command": "export PATH=/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin:$PATH; cd /Users/zacheryspector/studio-specialists/founding; nice -n 10 npx vitest run --project core --no-file-parallelism --no-cache tests/bridge-process-restart.test.ts --reporter=default --reporter=json --outputFile.json=<package>/evidence/r7/alone-bridge-process-restart.json"
+ },
+ "broad-ui.json": {
+  "label": "the grep-derived UI files that open a founding and build or load a save (53 files including the late-founding route; list in evidence/r7/ui-broad.txt), ui project",
+  "project": "ui",
+  "command": "evidence/r7/run-broad-ui.sh: export PATH=/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin:$PATH; cd /Users/zacheryspector/studio-specialists/founding; nice -n 10 npx vitest run --project ui --no-file-parallelism --no-cache $(cat ui-broad.txt) --reporter=default --reporter=json --outputFile.json=<package>/evidence/r7/broad-ui.json (stdout to evidence/r7/broad-ui.log)"
+ }
+}

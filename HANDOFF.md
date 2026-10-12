@@ -1,6 +1,21 @@
 # HANDOFF
 
-Last writer: Codex (GPT-5), 2026-10-12 CDT, resumed from the recorded checkpoint. Branch, HEAD, remote publication, clean worktree, and absence of project jobs were verified; historical evidence and the hook-owned AUTO block are preserved.
+Last writer: Codex (GPT-6 Astra parent; GPT-6.1 Sol specialists), 2026-10-12 08:41 CDT
+
+
+## CURRENT — Codex takeover, 2026-10-12
+
+This section supersedes the historical resume-kit execution procedure. Governing order: Owner's `/Users/zacheryspector/Downloads/CODEX-ASTRA-INTEGRATION-TAKEOVER.txt`, supplied in this thread. Continue founding/market → P15B → P16 → P17 → bounded P18, then required cross-system qualification; no main merge or Owner/Golden/native acceptance claim.
+
+- **LANDED:** R8/Save46 at `db3fc572`; production and explicit remote working ref recovered at `cac811c7c773c4d9f93ec6827c95c451d73a3e26`, source tree `cf7d20cd585f72fd178e06c3cd2a8821bbc0c26f`. Only the hook-owned AUTO block was initially dirty; preserved unchanged. This checkpoint adds records/backups, not gameplay.
+- **DRAFT:** founding r7 PATCH `ed28d11295bd74e15e59316c257968512a6035de686b8d4a77129526380a26fd` (189 manifest paths all match), clone `K/founding` at `db3fc572`. P15B at local stack commit `8cecf5aa` (founding r3 over R8), P16/P17 at `6510c971`, P18 at `f7d0dc0f`. Their newer uncommitted/untracked bytes are preserved, not reverted to old package cuts. Later packages parked.
+- **Recovery evidence:** `E/1370-astra-takeover-20261012/` has code-only reconstructable draft patches/manifests for all five clones. P15B's unpublished exact base is preserved in `drafts/p15b/BASE.bundle`, requiring published `db3fc572`. Full original patches, index patches, package cuts and excluded fixture data remain local at `S/1370-astra-takeover-20261012/originals/`; original packages/clones and prior revisions remain intact. No Owner saves or raw process inventories are published.
+- **Actual results:** recovered founding r7 focused 87/87 and mounted route 4/4; late broad UI completed 772 tests, 761 pass / 11 fail (WorldFirstLiveWeekAdvance ×1, livingTurn.scheduler ×10), despite REPORT's stale PENDING marker. Raw completed UI artifacts and exact failures are in the recovery folder. Broad core 1309 pass / 47 fail and isolated bridge restart 9/10 remain qualified old evidence, not a fresh frozen run. No new game check has run in this takeover yet.
+- **Independent review:** GPT-6.1 Sol found r6 U1/U2 and M1–M6 fixes present, no demonstrated new source blocker, and retained R-E's bounded residuals. Landing still requires full frozen gates, exact failure attribution, and locating/replaying the specifically requested B10c form. The declared p14d1 week-77 failed prerequisite is missing assertion coverage, not automatically accepted.
+- **Ownership/resources:** predecessor Claude session explicitly reported quota-paused on 2026-10-12; no live project test/simulation worker remained. Parent owns production and scheduling. Surviving unrelated/idle processes were not killed. Same 4 logical CPU / 8 GiB Mac, AC power, about 3.9 GiB available at recovery. Node v20.20.2 and scoped `.venv` Python 3.14.4 verified. Recheck 3.5 GiB launch / 3 GiB live floors before work.
+- **Current process amendments:** at most two Codex-native specialists, all GPT-6.1 Sol per latest Owner instruction; one intensive project job tree across the machine. No automatic review/refutation fan-out. Reuse valid unchanged evidence. Solo passes are NONREPRODUCTION; declarations are not waivers. Preserve HEAD/index/source/required inputs through postflight; no HANDOFF edits during a freeze. Parent alone integrates; no clone-again, whole-source copies, stash, reset, protected common-Git-dir manipulation, or blind patch replay.
+- **Workers/jobs:** two Sol specialists: independent founding/source reviewer and bounded recovery/harness repair author. No tests launched. Original inherited-model agents were interrupted on the Owner's model correction and have no jobs. Existing `T/land-slice.sh` and `restore-production.sh` are being minimally repaired/reviewed for mismatch/child-exit handling, frozen identities, full diagnostics and safe restoration; originals retained under `S/1370-astra-takeover-20261012/tools-original/`.
+- **Exact next action:** resolve narrow B10c and week-77 coverage dispositions; review amended existing gate scripts, reconcile r7 report with recovered evidence without changing source, then use the existing single heavy lane for mandatory targeted verification and the frozen production integration gate. Classify every new/changed core/UI/d16 failure without inventing acceptance, qualify/land/push founding Save47 if its requirements are met, then adapt the preserved P15B draft to that actual predecessor. Final recovery/post-2040/migration/replay/conservation/cross-package/reference-browser qualification remains required after the chain.
 
 ## RESUME KIT, 2026-10-11 20:35 CDT (read first; written because Claude's weekly usage reached 92%)
 
@@ -607,30 +622,14 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-11 18:23 CDT by **claude** on PreCompact (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
-- Branch: `wip/headless-program-20260916-ts` @ `9da34a3f2f7a8a2be5af5e80a86b2fdf69e7d510`
+- Stamped: 2026-10-12 08:32 CDT by **claude** on SessionEnd (session 21e515ff-0aed-48b0-9b7f-11c9d5239850)
+- Branch: `wip/headless-program-20260916-ts` @ `cac811c7c773c4d9f93ec6827c95c451d73a3e26`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 190
-  - `M HANDOFF.md`
-  - `M  src/core/actions.ts`
-  - `M  src/core/employment.ts`
-  - `A  src/core/foundingFunding.ts`
-  - `M  src/core/hollywoodTick.ts`
-  - `M  src/core/hollywoodValidation.ts`
-  - `M  src/core/index.ts`
-  - `M  src/core/marketIntegration.ts`
-  - `M  src/core/save.ts`
-  - `M  src/core/sharedMarket.ts`
-  - `M  src/core/tick.ts`
-  - `M  src/core/tuning.ts`
-  - `M  src/core/types.ts`
-  - `M  src/core/worldgen.ts`
-  - `M  src/harness/d16/driver.ts`
-  - ...
+- Uncommitted files: 0
 - Last commits:
-  - 9da34a3f docs(handoff): founding r6 verification (2 upheld majors), ruling R-E, r7 and P17 r2 dispatched; lesson 37
-  - b96f0794 docs(handoff): founding r6 d16 matches baseline; disk recovered (1.49 GiB); lesson 36
-  - b57f5650 docs(handoff): P17/P18 review launched with fresh clones; disk and swap notes; founding r6 gate progress
-  - 38b8e3df docs(handoff): founding r6 complete (R-D); disk reclaimed; r6 verification and landing gate launching; generic integrator tools
-  - ad9da36f docs(handoff): founding r5 complete; integrator ruling R-D; r6 dispatched
+  - cac811c7 docs: record Codex handoff resume
+  - 97f985ed docs(handoff): 22:15 status of all five in-flight slices (usage near limit)
+  - e39fe2f1 docs(handoff): r6 gate failures classified against the predecessor control (none slice-caused)
+  - 4738093e docs(handoff): mark the 2026-10-10 read-first sections as superseded by the resume kit
+  - 16aa08f5 docs(handoff): resume kit for a fresh session (all in-flight slices, paths, procedure, rulings, limits); lesson 38
 <!-- AUTO:END -->

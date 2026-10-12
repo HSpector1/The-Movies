@@ -1,0 +1,36 @@
+{
+  "createdAt": "2026-10-12T08:37:58.692059-05:00",
+  "disposition": "UNLANDED DRAFTS; NOT ACCEPTANCE",
+  "drafts": {
+    "founding": {
+      "baseHead": "db3fc57242669d5c752d87a49ce0a87938324b6b",
+      "sourceFiles": 186,
+      "localOnlyFiles": 3,
+      "patchSha256": "c5bc2aaf97622fee91a738d88e53e9e859845c012f093eb9e3aa464056428171"
+    },
+    "p15b": {
+      "baseHead": "8cecf5aa8a7073fdad8a02534fe40d67ba54558e",
+      "sourceFiles": 137,
+      "localOnlyFiles": 1,
+      "patchSha256": "71b7a337bd907dba786bb110cc3ea991aa5605e5192c3fef00a37a5b7ac985a8"
+    },
+    "p16": {
+      "baseHead": "6510c971bed8079f7ca02e528b224988de092c87",
+      "sourceFiles": 190,
+      "localOnlyFiles": 0,
+      "patchSha256": "d551b315934cf037573cfc2b93082b3ffe5f75cfead0d44373dbe1ebe4caf9f6"
+    },
+    "p17": {
+      "baseHead": "6510c971bed8079f7ca02e528b224988de092c87",
+      "sourceFiles": 196,
+      "localOnlyFiles": 1,
+      "patchSha256": "7a39e5c40b5556be479a7e4e31ef2bb24ce5226aaf240cc5fb1d39f15b1aca69"
+    },
+    "p18": {
+      "baseHead": "f7d0dc0fd4f31ff1a3bff47abb4db07bd3ce298c",
+      "sourceFiles": 190,
+      "localOnlyFiles": 0,
+      "patchSha256": "7b32d672419a3974e85b862ae677591fac69d3bc3bc644a3f09e274c1780e17d"
+    }
+  }
+}
