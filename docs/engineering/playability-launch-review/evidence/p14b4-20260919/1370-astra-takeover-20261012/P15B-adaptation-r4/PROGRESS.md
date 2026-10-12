@@ -1,0 +1,2 @@
+- 2026-10-12 Local preservation checkpoint6f77159d;formerbranch8ce retained;actualSave47fetch/switchd68;explicit3way32files59blocksresolved.
+- Adaptation-only packet cut againstd68, index/working source equal, reversecheckPASS. No tests/compiler/gates. Independent review pending. Original package unchanged.

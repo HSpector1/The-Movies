@@ -1,0 +1,206 @@
+{
+  "candidate": "r4 adaptation PATCH c0958daf3a71176d349343ad3b16532ead4db8f0392a0a25cea5cc0e108db340",
+  "rootCompiler": {
+    "result": {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791826103,
+      "endEpoch": 1791826152,
+      "seconds": 49,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "-p",
+        "tsconfig.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4-focused-r2-run/tsc-root.log"
+    },
+    "reason": "Exact prior candidate source/index/HEAD/config match; only tracked baseline ui/public atlas materialized, outside root tsconfig include",
+    "references": {
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4-focused-r2-run/results.jsonl": "5111b28a3b72e674b99cafcd01cf546f18f91121401eaa5aba380d978d3b0c98",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4-focused-r2-run/tsc-root.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4-focused-r2-run/freeze.json": "54ce0888b1c4dcc57f645fedbf168140970c49edc6301d4513fcb114b9f5ecde",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4-focused-r2-run/freeze-current.json": "54ce0888b1c4dcc57f645fedbf168140970c49edc6301d4513fcb114b9f5ecde",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P15B-R4-ATLAS-INPUT-RESTORATION.json": "68e6e52f5e9b43bd5b84b1c2584d2b1e77653698fd796752db36f75054aa1c9c"
+    }
+  },
+  "children": [
+    {
+      "name": "tsc-ui",
+      "exit": 0,
+      "startEpoch": 1791826464,
+      "endEpoch": 1791826507,
+      "seconds": 43,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "-p",
+        "ui/tsconfig.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4-focused-r3-run/tsc-ui.log"
+    },
+    {
+      "name": "tsc-bridge",
+      "exit": 0,
+      "startEpoch": 1791826512,
+      "endEpoch": 1791826548,
+      "seconds": 36,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "-p",
+        "tsconfig.bridge.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4-focused-r3-run/tsc-bridge.log"
+    },
+    {
+      "name": "generator-contract",
+      "exit": 0,
+      "startEpoch": 1791826550,
+      "endEpoch": 1791826552,
+      "seconds": 2,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vite-node/vite-node.mjs",
+        "scripts/generate-bridge-contract.ts",
+        "--check"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4-focused-r3-run/generator-contract.log"
+    },
+    {
+      "name": "generator-fixtures",
+      "exit": 0,
+      "startEpoch": 1791826554,
+      "endEpoch": 1791826555,
+      "seconds": 1,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vite-node/vite-node.mjs",
+        "scripts/generate-bridge-contract-fixtures.ts",
+        "--check"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4-focused-r3-run/generator-fixtures.log"
+    },
+    {
+      "name": "core-preservation",
+      "exit": 1,
+      "startEpoch": 1791826558,
+      "endEpoch": 1791826613,
+      "seconds": 55,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "tests/p1364-late-founding.test.ts",
+        "tests/bridge-p1364-founding-no-advance.test.ts",
+        "tests/p15b2-corporate-condition-save.test.ts",
+        "tests/p15b4-studio-closure-save.test.ts",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4-focused-r3-run/core-preservation.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4-focused-r3-run/core-preservation.log"
+    },
+    {
+      "name": "q07",
+      "exit": 0,
+      "startEpoch": 1791826615,
+      "endEpoch": 1791826630,
+      "seconds": 15,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "tests/p14p4p5-opportunities.test.ts",
+        "-t",
+        "Q07 rejects nonempty suffix and owner contradictions after actual cast work",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4-focused-r3-run/q07.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4-focused-r3-run/q07.log"
+    }
+  ],
+  "runtime": {
+    "core-preservation": {
+      "childExit": 1,
+      "counts": {
+        "passed": 76,
+        "failed": 4
+      },
+      "files": [
+        "bridge-p1364-founding-no-advance.test.ts",
+        "p1364-late-founding.test.ts",
+        "p15b2-corporate-condition-save.test.ts",
+        "p15b4-studio-closure-save.test.ts"
+      ],
+      "resultSHA256": "3808b73183d9d6b4a7a6f742680dad3b40857aa3ccd1b411eb557dde5ecf1689",
+      "failures": [
+        {
+          "file": "p1364-late-founding.test.ts",
+          "name": "1364 invariant A: a supported late import signs from its recruitment fund, founds, saves and reloads founding-import-premise: both generated V45 inputs convert on import through the genuine 45 -> 46 -> 47 step chain, the premise every import leaf builds on",
+          "messages": [
+            "AssertionError: late-draft-week26-unsigned: expected 48 to be 47 // Object.is equality\n    at /Users/zacheryspector/studio-specialists/p15b/tests/p1364-late-founding.test.ts:239:57\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)"
+          ]
+        },
+        {
+          "file": "p1364-late-founding.test.ts",
+          "name": "1364 observation: older open drafts, closed campaigns, week-zero founding, the historical control founding-historical-hash-control: the roster-wall historical hash discards a control's null funding root, so a ticked control and its SaveFileV18 replay hash equal (the Week-196 entry harvest); a recorded fund is never discarded (1370-AR r5 item H.1)",
+          "messages": [
+            "AssertionError: expected '{\"broadcastItems\":[],\"careerEvents\":[\u2026' to be '{\"broadcastItems\":[],\"careerEvents\":[\u2026' // Object.is equality\n    at /Users/zacheryspector/studio-specialists/p15b/tests/p1364-late-founding.test.ts:436:64\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)"
+          ]
+        },
+        {
+          "file": "p1364-late-founding.test.ts",
+          "name": "1364 refusals: unsupported historical input and malformed funding fail before gameplay mutation founding-technology-invalid-draft: an open late draft carrying a rival method lock keeps the predecessor's technology refusal at its reader and at import, input untouched and every lock kept; an accepted import never deletes rival locks (1364-A \u00a75 case 6)",
+          "messages": [
+            "AssertionError: expected [Function] to throw error matching /Technology save: unfounded or non-pla\u2026/ but got 'validateSaveV45: state has unknown fi\u2026'\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1509:21)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/chai/index.js:1686:25)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/p1364-late-founding.test.ts:475:71\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+          ]
+        },
+        {
+          "file": "p1364-late-founding.test.ts",
+          "name": "1364 R-B: a founded campaign never opens a second founding draft or receives a second grant (parent ruling 2026-10-11) founding-second-grant-forged-save: a save carrying a second draft or grant on a founded campaign refuses by its exact name at the live reader and at import, input untouched, whatever the forger does to the landmarks or the provenance; Save46 refuses the same cash-free signatures",
+          "messages": [
+            "AssertionError: expected [Function] to throw error matching /employment start lacks its actual pla\u2026/ but got 'validateSaveV45: state has unknown fi\u2026'\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1509:21)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/chai/index.js:1686:25)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/p1364-late-founding.test.ts:761:8\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+          ]
+        }
+      ],
+      "executedQ07": null
+    },
+    "q07": {
+      "childExit": 0,
+      "counts": {
+        "skipped": 9,
+        "passed": 1
+      },
+      "files": [
+        "p14p4p5-opportunities.test.ts"
+      ],
+      "resultSHA256": "38feec9136ecf8fb2fa97a2575e2059c5d1fd027e2485c332803fd9ae971bc25",
+      "failures": [],
+      "executedQ07": [
+        "P4/P5 retained subject and waiver authority controls Q07 rejects nonempty suffix and owner contradictions after actual cast work"
+      ]
+    }
+  },
+  "postfreeze": "exact",
+  "limits": "Prerequisites only. Four founding compatibility failures remain, no full P15B acceptance. All original attempts preserved."
+}

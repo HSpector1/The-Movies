@@ -1,0 +1,26 @@
+{
+  "result": {
+    "name": "tsc-root",
+    "exit": 0,
+    "startEpoch": 1791826103,
+    "endEpoch": 1791826152,
+    "seconds": 49,
+    "node": "v20.20.2",
+    "command": [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "--noEmit",
+      "-p",
+      "tsconfig.json"
+    ],
+    "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4-focused-r2-run/tsc-root.log"
+  },
+  "reason": "Exact prior candidate source/index/HEAD/config match; only tracked baseline ui/public atlas materialized, outside root tsconfig include",
+  "references": {
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4-focused-r2-run/results.jsonl": "5111b28a3b72e674b99cafcd01cf546f18f91121401eaa5aba380d978d3b0c98",
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4-focused-r2-run/tsc-root.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4-focused-r2-run/freeze.json": "54ce0888b1c4dcc57f645fedbf168140970c49edc6301d4513fcb114b9f5ecde",
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4-focused-r2-run/freeze-current.json": "54ce0888b1c4dcc57f645fedbf168140970c49edc6301d4513fcb114b9f5ecde",
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P15B-R4-ATLAS-INPUT-RESTORATION.json": "68e6e52f5e9b43bd5b84b1c2584d2b1e77653698fd796752db36f75054aa1c9c"
+  }
+}

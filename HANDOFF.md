@@ -1,20 +1,23 @@
 # HANDOFF
 
-Last writer: Codex (GPT-6 Astra parent; GPT-6.1 Sol specialists), 2026-10-12 12:02 CDT
+Last writer: Codex (GPT-6 Astra parent; GPT-6.1 Sol specialists), 2026-10-12 12:42 CDT
 
 
-## CURRENT — qualified Save47 checkpoint; adapt P15B next, 2026-10-12
+## CURRENT — Save47 published; P15B Save48 adaptation under focused qualification, 2026-10-12
 
 Current Owner order: `E/1370-astra-takeover-20261012/OWNER-ORDER.txt`. Continue founding/market → P15B → P16 → P17 → bounded P18, then required stable cross-system/reference-browser qualification. No main merge, native/Golden or Owner acceptance claim. All specialists must be GPT-6.1 Sol; parent remains GPT-6 Astra.
 
-- **LANDED BY THIS CHECKPOINT:** exact founding/market r7q2 Save47 candidate,189 paths, PATCH `f9d012fba521a05e56bee675c6b7527d099e0d2195f858af0102d36ed268961f`, source tree `2bcac39e1c88ba48f24df44e015d3b7b7f5a06af`. Working branch `wip/headless-program-20260916-ts`. Gate HEAD was `77e1247c76befe478b37c2e3eab7c365c7fe06eb` plus staged candidate; explicit remote matched it before this commit. Resolve the commit containing this CURRENT section and verify source/ref on resume; parent records final commit/push/readback in local `S/1370-astra-takeover-20261012/SAVE47-PUBLICATION.json`. R8/Save46 at db3fc572 is now the historical predecessor, not a reset target.
+- **LANDED AND REMOTELY VERIFIED:** founding/market Save47 at `d68d4b13b454922cf84eff5c0c73cae3e780eebe`, branch `wip/headless-program-20260916-ts`; explicit remote matched at12:21 CDT. Exact189-path r7q2 PATCH `f9d012fba521a05e56bee675c6b7527d099e0d2195f858af0102d36ed268961f`, source tree `2bcac39e1c88ba48f24df44e015d3b7b7f5a06af`. Receipt `S/1370-astra-takeover-20261012/SAVE47-PUBLICATION.json`. R8/Save46 atdb3fc572 is the historical predecessor, never a reset target.
 - **ACTUAL RESULTS:** production root/UI/Bridge tsc0 and both generators0. Focused shelving29/29. Full core5679=5564pass/101fail/3skip/11todo, child1/7704s; d16 176=164pass/12fail, child1/400s. Full UI2701=2696pass/0fail/5skip,205files,child0/1140s. Original gate and UI continuation each remain wrapper98 from exact preserved AUTO-only hook incidents; constituent results reused with independently reviewed limitations, never a full-gate pass. All jobs ended; no project test/lane worker remained at the terminal observations.
 - **CLASSIFICATION:** core101 failing identities overlap R8:63 diagnostic arrays exact,29 stack shifts,6 current-era markers,3 pressure-mediated shifts. All49 former failures now pass:45 exact adopted market RED activation leaves plus4 timing/environment non-reproductions.82added/10missing are reviewed additions/replacements. FullUI retains all2701 r6 identities;6 old failures and r7's11 selected failures now pass, classified non-reproduction. D16's12 full diagnostic arrays match historical baseline exactly; failures remain unapproved.
 - **BOUNDED CAUSAL CHECK:** unchanged original3 leaves with in-memory penalty0 reproduced R8 commercialTOTAL42; seed-b TOTAL48 thenSETTLED41; seating received digestd32e68… . Actual child/lane1,33s,3failed/34skipped,complete accounting/2setup+restore markers/strict postfreeze pass. Original historical assertions still fail. This explains the observed pressure shifts only, not whole-ledger/world equality or new golden values.
 - **REVIEW / RESIDUALS:** independent final technicalKEEP finds no demonstrated remaining candidate-induced source blocker under adoptedR-E. Exact189index+worktree postimages and reversecheck verified.101core+12d16 failures, aborted natural prerequisites, skips/todos, masked historical downgrades and broader acceptance stay open. R-E R7-1/R7-2 bounded minors and R-D unreachable engaged-never-founded over-refusal remain (no supported-path exception). R-C2% storage is still open; held2.415%/ceiling2.5% is not compliance. Required G2/G1/K4/recovery/restart/6240/post-2040/migration/replay/conservation/reference-browser gates remain.
 - **EVIDENCE:** new `E/1370-astra-founding-save47-20261012/README.md`, EXPORT-MANIFEST, final independent review, raw core/d16/UI/diagnostic results, complete occurrence/message comparisons and both incident records/dispositions. Existing takeover/founding-r7q2 carries exact PATCH/MANIFEST/REPORT; qualification/ carries focused checks; failedr7q1 and originaldrafts remain. Source/fixtures/hooks were not rewritten to erase metadata98. Ordinary restoration still refuses foreign edits; no restore/reset was used to land this candidate. `.LOCAL` process inventories and Owner fixture bodies stay local.
-- **NEXT REAL TASK:** preserve current P15B clone state (original reconstructable backups already exist), then deliberately adapt its latest recovered draft to actual landed Save47 for planned Save48. Read takeover `P15B-RECOVERY.md`, `P15B-INDEPENDENT-REVIEW.md`, and new `P15B-preparation/P15B-PROSPECTIVE-ADOPTION.md` plus adjacent integration/operating/recovery/compatibility notes. Their final independentKEEP is design-only: actual-closure operating predicate; real Wave5 notices/remedies/terminal view; genuine47→48 empty roots and full future recovery window; unsupported already-due unlanded-draft playable transfer refused before replacement; prospective modern Legacyv3 closure/ended links and atomic closure→official→ended sequencing (one allocator, no extra tick, frozenv1/v2 unchanged). Complete distinguished REDs, real O1/O6 loan-filming restart witness, lawful research non-leak fixture, ranking presentation and masked downgrade coverage before P15B qualification.
-- **OWNERSHIP:** parent sole production writer/scheduler. Both GPT-6.1 Sol specialists parked after final source/evidence review; resume one bounded author and one independent reviewer. One CPU/memory-intensive project tree globally, at most two specialists. Latest AC,4CPU/8GiB; require3.5GiB launch/3GiB live floors. Node20.20.2 and scoped.venv. Every git command uses `-c gc.auto=0 -c maintenance.auto=0 --no-optional-locks`. No Claude launch, clone-again, whole-source copy, stash/reset, protected commonGit manipulation, competing tests, or private-data publication.
+- **CURRENT DRAFT:** existing `K/p15b`, branch `p15b/save48-on-d68d4b13`, HEADd68 plus137 staged source paths. Original finalr3 preserved locally at `6f77159d709c2cdfe329562a1dad0145dd920ec3` on `p15b/preserved-r3-20261012` (never push local checkpoint); oldbranch remains8ce. Exact originalsource and basebundle already public.32files/59conflict blocks deliberately resolved;13 retained read-only fixture warnings independently admitted as exactd68 bytes. Stable packet `S/1370-astra-takeover-20261012/p15b-save48-on-d68d4b13-r4/`: PATCH `c0958daf3a71176d349343ad3b16532ead4db8f0392a0a25cea5cc0e108db340`, MANIFEST `ee867eba68baa19dfc7c968459c23d4c7f94cc625f914dc5146b75a71e7bbf32`.137index/WT exact, reverse/diffcheck0. Independent `P15B-R4-ADAPTATION-REVIEW.md` KEEP for focused prerequisites, no new restack blocker; focused results now recorded below.
+- **FOCUSED R4 RESULTS:** root compiler0/49s; first UI attempt2/48s was a sparse-omitted baseline atlas input, restored from exact HEAD/index21850-byte blob. Reviewed strict continuation reuses root0 only after matching source/config/index/HEAD/all existing inputs, then UI0/43s, Bridge0/36s and both generators0/2s+1s. Runtime80=76pass/4fail, all four founding compatibility leaves; Bridge3 and Save48 save17 passed. Q07 exactly1pass/9skip. Wrapper1 and exact finalfreeze. Earlier sparse snapshot preflight98 had no compiler/test. `P15B-adaptation-r4/` publicly stages exact packet, raw failures, reviews, atlas restoration and result manifest; not production source. Exact local outcome `S/1370-astra-takeover-20261012/P15B-R4-FOCUSED-RESULTS.json`.
+- **NON-LEAK PREMISE MEASURED:** one originalseed diagnostic child0/9s, exactfreeze. Baseweek780 admits; selected row1 studio93532614-r01 actually closed345. Original injected variant refuses missing laboratory operational receipt, unchanged input hashes, never ticked. Only operatingr05 is negativecash with no standing lab/scientists/projects; prior lab receipts520/532. No lawful repaired pair is proven. Raw driver/results/review in P15B-adaptation-r4; no production research-defect or non-leak acceptance claim.
+- **NEXT REAL TASK:** author and reviewer finish the bounded four-failure compatibility repair (stale live47 pin, guarded historical-hash empty P15B stripping, genuinely own-era46 controls) and requalify affected evidence. Modern Legacy REDs are stable scratch-only and revised for invalid awards/foreign-root premises; independent review/admission still required. Then implement adopted Legacyv3/actual-closure ended linkage and atomic closure→eligibleofficial6240→ended allocator sequencing; frozenv1/v2 and47/46/45 readers remain strict. Complete Wave5 notices/remedies/loan/terminal/safe import before playerdeferral removal, lawful research premise, real O1/O6 restart, C12/C13 ranking and T17 own-era coverage. No fullgate while known blockers remain. Published prospective adoption/adjacent notes govern; design KEEP is not gameplay acceptance.
+- **OWNERSHIP / JOBS:** parent sole production writer/scheduler. Both specialists GPT-6.1 Sol: founding_recovery_sol prepares compatibility repair and Legacy REDs in scratch; founding_review_sol independently reviews diagnostic/repairs. R4 diagnostic freeze released after exact terminal postflight; author still prepares repair in scratch until review. Older-model founding_recovery remains interrupted, never resume. R4 prerequisites and subsequent non-leak diagnostic are terminal; no live projecttest at this entry. Check new lane logs on resume. At most2specialists/one intensive tree globally. AC,4CPU/8GiB;3.5GiB launch/3GiB livefloors. Latestfree3,799,488KiB; recheck. Node20.20.2/scoped.venv. Prior4userowned cache files reclaimed;4root/unwritable retained, no sudo/chown. Safe Gitflags always; no Claude/newclone/wholesourcecopy/stash/reset/protectedcommonGitwrites/competingtests/privatefixturepublication. Root12:19 AUTOstamp occurred outside any freeze.
 - **PRESERVED LATER DRAFTS:** all five exact source patches/manifests public in takeover/drafts; original indices/packagecuts and excluded fixture data local `S/1370-astra-takeover-20261012/originals/`. P15B unpublished base8cecf5aa has public BASE.bundle over db3fc572; P16/P17 base6510c971 and P18basef7d0dc0f remain parked. Only activate next dependent package. Continue after each milestone until complete or a genuine blocker; this Save47 checkpoint does not finish the Owner objective.
 
 ## RESUME KIT, 2026-10-11 20:35 CDT (read first; written because Claude's weekly usage reached 92%)
@@ -622,30 +625,15 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-12 11:46 CDT by **codex** on PreCompact (session 01a13050-fe8f-7903-9af3-0a45b7130787)
-- Branch: `wip/headless-program-20260916-ts` @ `77e1247c76befe478b37c2e3eab7c365c7fe06eb`
+- Stamped: 2026-10-12 12:24 CDT by **codex** on PreCompact (session 01a13050-fe8f-7903-9af3-0a45b7130787)
+- Branch: `wip/headless-program-20260916-ts` @ `d68d4b13b454922cf84eff5c0c73cae3e780eebe`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 190
+- Uncommitted files: 1
   - `M HANDOFF.md`
-  - `M  src/core/actions.ts`
-  - `M  src/core/employment.ts`
-  - `A  src/core/foundingFunding.ts`
-  - `M  src/core/hollywoodTick.ts`
-  - `M  src/core/hollywoodValidation.ts`
-  - `M  src/core/index.ts`
-  - `M  src/core/marketIntegration.ts`
-  - `M  src/core/save.ts`
-  - `M  src/core/sharedMarket.ts`
-  - `M  src/core/tick.ts`
-  - `M  src/core/tuning.ts`
-  - `M  src/core/types.ts`
-  - `M  src/core/worldgen.ts`
-  - `M  src/harness/d16/driver.ts`
-  - ...
 - Last commits:
+  - d68d4b13 feat: integrate qualified Save47 founding and market candidate
   - 77e1247c test: correct shelving predicate guard and preserve failed prerequisite evidence
   - 984e9fc8 test: qualify founding market shelving controls before full integration gate
   - a4c9c062 docs: publish reviewed integration gate scripts and restoration boundaries
   - 62b722c3 test: recover founding forgery replay and harden existing integration gate
-  - aba38855 docs: preserve recovered integration drafts and Codex takeover state
 <!-- AUTO:END -->

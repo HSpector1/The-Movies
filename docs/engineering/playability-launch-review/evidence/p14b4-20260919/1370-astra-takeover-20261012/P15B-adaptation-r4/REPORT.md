@@ -1,0 +1,15 @@
+# P15B r4 adaptation only — review packet
+
+Existing clone is now based on published Save47 d68d4b13b454922cf84eff5c0c73cae3e780eebe (source2bcac39e…), with Save48 draft staged and uncommitted. Original137 source postimages and old staging are preserved; exact local checkpoint6f77159d… on p15b/preserved-r3-20261012 is never to be pushed. Former p15b/r2-stacked remains8cecf5aa. Only original clone HANDOFF received a preservation note before that checkpoint; original bytes/hash are preserved. No production or original package/tool changes.
+
+Explicit production tracking ref verified d68. Existing-clone switch used --no-overwrite-ignore.13 warning paths were retained read-only; every actual byte hash matches a tracked d68 blob, including existing public fixture manifest files and the sixth1230 legacy input. No chmod/delete/ignored scan occurred.
+
+Hash-bound final SOURCE.patch applied deliberately with3way preimages.32 files/59 conflict blocks resolved; only runtime conflict was employment import union. Retained all r7 funding predicates/messages and the P15B closed-operation guard; fundingFunding.ts and adopted p14d1 historical/live qualification file are byte-identical to landed Save47. Existing renew-during-draft refusal remains. Save48 validation threads the actual Save47 funding context and six-root allocator; no wholesale save.ts replacement.
+
+Test conflicts retain landed live-era constants/census/invariants and incoming Save48 strict live readers/additive roots; preserved full48→47→46→45 chains. Q07 combines P15B predecessor projection with the landed measured9-market-assessment composed refusal. Existing P15B first-refusal masking policy remains; obsolete predecessor guard constant is retained as documentation rather than an unused binding. Detailed each-block decisions are in P15B-RESTACK-CONFLICT-RESOLUTIONS.json.
+
+No new Legacy/Wave5/recovery mechanics implemented. Null end-run hook and its typed/reader limits remain. Existing field changes from old draft are integration-only and are listed in manifest; INTEGRATION-DELTA.diff compares with exact preserved finalr3 including late four files, not old134-file cut. Its larger whole-source differences include legitimate foundingr3→landedr7q2 changes.
+
+Measured lightweight checks: exact candidate working bytes equal staged blobs, no unmerged/conflict markers, diff--check passes, reverse patch check passes. **No compiler, tests, generator, simulation or gate ran.** Earlier r3 evidence remains historical, not relabelled current. Independent adaptation review must precede parent-scheduled prerequisites. Known original concerns remain: lawful research/closure fixture premise, actual loan restart, prospective Legacy implementation and due-only draft compatibility gate; no exception is inferred.
+
+Next: independent review of source/test integration delta; then parent schedules root/UI/Bridge compiler, generators and targeted original finding/proof routes in the single global lane. No tests without scheduling.

@@ -1,0 +1,26 @@
+{
+  "utc": "2026-10-12T17:31:14.299654+00:00",
+  "candidateHEAD": "d68d4b13b454922cf84eff5c0c73cae3e780eebe",
+  "path": "ui/public/lot/hollywood/role-atlas-v1.json",
+  "gitSparseFlag": "S",
+  "source": "exact unchanged HEAD and index blob",
+  "bytes": 21850,
+  "sha256": "641e007a87e4702641246cf7e36e43e012acdf1fb72a9dbbe0ac868f9d4af89c",
+  "mode": "0o644",
+  "sourceChanged": false,
+  "priorRun": "p15b-r4-focused-r2-run",
+  "priorResults": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "seconds": 49
+    },
+    {
+      "name": "tsc-ui",
+      "exit": 2,
+      "seconds": 48
+    }
+  ],
+  "freezePostflight": "exact",
+  "scope": "Only missing baseline UI compiler input materialized; no fixture history or candidate code edited. Root compiler excludes ui/public and its successful result can be retained for unchanged r4."
+}

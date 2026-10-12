@@ -1,0 +1,474 @@
+[
+  {
+    "path": "src/core/employment.ts",
+    "block": 1,
+    "rule": "union terminal operating guard with all landed funding predicates/messages",
+    "ours": "import { campaignHasFounded, campaignRecordsFounding, ENGAGED_FOUNDING_REFUSAL, recordFoundingFund, recordsFoundingFund, SECOND_FOUNDING_REFUSAL } from './foundingFunding.js'\n",
+    "theirs": "import { closedWeekOf } from './operatingState.js'\nimport { recordFoundingFund, recordsFoundingFund } from './foundingFunding.js'\n",
+    "resolved": "import { closedWeekOf } from './operatingState.js'\nimport { campaignHasFounded, campaignRecordsFounding, ENGAGED_FOUNDING_REFUSAL, recordFoundingFund, recordsFoundingFund, SECOND_FOUNDING_REFUSAL } from './foundingFunding.js'\n"
+  },
+  {
+    "path": "tests/bridge-p1364-founding-no-advance.test.ts",
+    "block": 1,
+    "rule": "retain complete r7 supported-surface census and P15B live reader import",
+    "ours": "import { generateWorld } from '../src/core/worldgen.js'\nimport type { GameState } from '../src/core/types.js'\n\n/** Every non-test source line under `roots` that calls a founding opener. */\nfunction openerCalls(roots: string[]): string[] {\n  const found: string[] = []\n  const walk = (dir: string): void => {\n    for (const entry of readdirSync(dir, { withFileTypes: true })) {\n      const path = join(dir, entry.name)\n      if (entry.isDirectory()) { if (entry.name !== 'test' && entry.name !== 'node_modules') walk(path); continue }\n      if (!/\\.tsx?$/.test(entry.name) || /\\.test\\.tsx?$/.test(entry.name)) continue\n      for (const line of readFileSync(path, 'utf8').split('\\n')) if (/\\bbeginFounding\\w*\\(/.test(line) && !/^\\s*(\\/\\/|\\*)/.test(line)) found.push(`${path}: ${line.trim()}`)\n    }\n  }\n  for (const root of roots) walk(root)\n  return found\n}\nconst SECOND_GRANT = /^beginFounding: the player studio has already founded; a founded campaign never opens a second founding draft or receives a second founding grant$/\nconst landmarks = (state: GameState): number[] => state.studioHistory.rows.filter((row) => row.kind === 'studioFounded').map((row) => row.week)\n",
+    "theirs": "import { validateLiveSave } from './helpers/live-era.js'\n",
+    "resolved": "import { validateLiveSave } from './helpers/live-era.js'\nimport { generateWorld } from '../src/core/worldgen.js'\nimport type { GameState } from '../src/core/types.js'\n\n/** Every non-test source line under `roots` that calls a founding opener. */\nfunction openerCalls(roots: string[]): string[] {\n  const found: string[] = []\n  const walk = (dir: string): void => {\n    for (const entry of readdirSync(dir, { withFileTypes: true })) {\n      const path = join(dir, entry.name)\n      if (entry.isDirectory()) { if (entry.name !== 'test' && entry.name !== 'node_modules') walk(path); continue }\n      if (!/\\.tsx?$/.test(entry.name) || /\\.test\\.tsx?$/.test(entry.name)) continue\n      for (const line of readFileSync(path, 'utf8').split('\\n')) if (/\\bbeginFounding\\w*\\(/.test(line) && !/^\\s*(\\/\\/|\\*)/.test(line)) found.push(`${path}: ${line.trim()}`)\n    }\n  }\n  for (const root of roots) walk(root)\n  return found\n}\nconst SECOND_GRANT = /^beginFounding: the player studio has already founded; a founded campaign never opens a second founding draft or receives a second founding grant$/\nconst landmarks = (state: GameState): number[] => state.studioHistory.rows.filter((row) => row.kind === 'studioFounded').map((row) => row.week)\n"
+  },
+  {
+    "path": "tests/bridge-p14b2-checkpoint.test.ts",
+    "block": 1,
+    "rule": "union live constant/P15B additions; select Save48 live reader",
+    "ours": "import { LIVE_SAVE_VERSION, exportSave, importSave, migrateToLive } from '../src/core/save.js'\n",
+    "theirs": "import { exportSave, importSave, migrateToLive, initialP15BRoots } from '../src/core/save.js'\n",
+    "resolved": "import { LIVE_SAVE_VERSION, exportSave, importSave, migrateToLive, initialP15BRoots } from '../src/core/save.js'\n"
+  },
+  {
+    "path": "tests/bridge-p14b2-checkpoint.test.ts",
+    "block": 2,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "      expect(governed.saveVersion).toBe(LIVE_SAVE_VERSION)\n",
+    "theirs": "      expect(governed.saveVersion).toBe(48)\n",
+    "resolved": "      expect(governed.saveVersion).toBe(LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/bridge-p14b2-checkpoint.test.ts",
+    "block": 3,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: LIVE_SAVE_VERSION, state: withEmptyRecovery(withEmptyScreenplayShelving({ ...withEmptyP15Roots(source.state, source.state.market.tick as number),\n",
+    "theirs": "      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: 48, state: withEmptyRecovery(withEmptyScreenplayShelving({ ...withEmptyP15Roots(source.state, source.state.market.tick as number),\n",
+    "resolved": "      expect(JSON.parse(exportSave(governed))).toEqual({ ...source, saveVersion: LIVE_SAVE_VERSION, state: withEmptyRecovery(withEmptyScreenplayShelving({ ...withEmptyP15Roots(source.state, source.state.market.tick as number),\n"
+  },
+  {
+    "path": "tests/bridge-p14c2rm-runtime.test.ts",
+    "block": 1,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "  expect(current.saveVersion).toBe(LIVE_SAVE_VERSION)\n",
+    "theirs": "  expect(current.saveVersion).toBe(48)\n",
+    "resolved": "  expect(current.saveVersion).toBe(LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/bridge-p14c2rm-runtime.test.ts",
+    "block": 2,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)\n",
+    "theirs": "    expect(LIVE_SAVE_VERSION).toBe(48)\n",
+    "resolved": "    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+    "block": 1,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)\n",
+    "theirs": "    expect(LIVE_SAVE_VERSION).toBe(48)\n",
+    "resolved": "    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+    "block": 2,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "      const actual = validateSaveV47(importSave(actualJson!))\n      expect(actual.saveVersion).toBe(LIVE_SAVE_VERSION)\n",
+    "theirs": "      const actual = validateSaveV48(importSave(actualJson!))\n      expect(actual.saveVersion).toBe(48)\n",
+    "resolved": "      const actual = validateSaveV48(importSave(actualJson!))\n      expect(actual.saveVersion).toBe(LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+    "block": 1,
+    "rule": "union live constant/P15B additions; select Save48 live reader",
+    "ours": "import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV37 } from '../src/core/save.js'\n",
+    "theirs": "import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV37, initialP15BRoots } from '../src/core/save.js'\n",
+    "resolved": "import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV37, initialP15BRoots } from '../src/core/save.js'\n"
+  },
+  {
+    "path": "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+    "block": 2,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "      expect(current.saveVersion).toBe(LIVE_SAVE_VERSION)\n",
+    "theirs": "      expect(current.saveVersion).toBe(48)\n",
+    "resolved": "      expect(current.saveVersion).toBe(LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/bridge-p14p3-directing-promises.test.ts",
+    "block": 1,
+    "rule": "union live constant/P15B additions; select Save48 live reader",
+    "ours": "import {\n  LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify,\n  validateSaveV38, validateSaveV39, validateSaveV47 } from '../src/core/save.js'\n",
+    "theirs": "import { exportSave, importSave, makeSave, migrateToLive, stableStringify,\n  validateSaveV38, validateSaveV39, validateSaveV48, initialP15BRoots } from '../src/core/save.js'\n",
+    "resolved": "import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV38, validateSaveV39, validateSaveV48, initialP15BRoots } from '../src/core/save.js'\n"
+  },
+  {
+    "path": "tests/bridge-p14p3-directing-promises.test.ts",
+    "block": 2,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "  expect(save.saveVersion).toBe(LIVE_SAVE_VERSION); expect(validateSaveV47(save)).toBe(save)\n",
+    "theirs": "  expect(save.saveVersion).toBe(48); expect(validateSaveV48(save)).toBe(save)\n",
+    "resolved": "  expect(save.saveVersion).toBe(LIVE_SAVE_VERSION); expect(validateSaveV48(save)).toBe(save)\n"
+  },
+  {
+    "path": "tests/bridge-p14p3-directing-promises.test.ts",
+    "block": 3,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "    expect(current.saveVersion).toBe(LIVE_SAVE_VERSION)\n",
+    "theirs": "    expect(current.saveVersion).toBe(48)\n",
+    "resolved": "    expect(current.saveVersion).toBe(LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/bridge-p14p3-directing-promises.test.ts",
+    "block": 4,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "  const current = migrateToLive(variant); expect(current.saveVersion).toBe(LIVE_SAVE_VERSION)\n",
+    "theirs": "  const current = migrateToLive(variant); expect(current.saveVersion).toBe(48)\n",
+    "resolved": "  const current = migrateToLive(variant); expect(current.saveVersion).toBe(LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/bridge-p14p4p5-opportunities.test.ts",
+    "block": 1,
+    "rule": "union live constant/P15B additions; select Save48 live reader",
+    "ours": "import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV39, validateSaveV47 } from '../src/core/save.js'\n",
+    "theirs": "import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV39, validateSaveV48, initialP15BRoots } from '../src/core/save.js'\n",
+    "resolved": "import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV39, validateSaveV48, initialP15BRoots } from '../src/core/save.js'\n"
+  },
+  {
+    "path": "tests/bridge-p14p4p5-opportunities.test.ts",
+    "block": 2,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "  expect(save.saveVersion).toBe(LIVE_SAVE_VERSION); expect(validateSaveV47(save)).toBe(save)\n",
+    "theirs": "  expect(save.saveVersion).toBe(48); expect(validateSaveV48(save)).toBe(save)\n",
+    "resolved": "  expect(save.saveVersion).toBe(LIVE_SAVE_VERSION); expect(validateSaveV48(save)).toBe(save)\n"
+  },
+  {
+    "path": "tests/bridge-p14p4p5-opportunities.test.ts",
+    "block": 3,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "    const current = migrateToLive(old); expect(current.saveVersion).toBe(LIVE_SAVE_VERSION)\n",
+    "theirs": "    const current = migrateToLive(old); expect(current.saveVersion).toBe(48)\n",
+    "resolved": "    const current = migrateToLive(old); expect(current.saveVersion).toBe(LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/bridge-p14r2r3-prior55.test.ts",
+    "block": 1,
+    "rule": "union live constant/P15B additions; select Save48 live reader",
+    "ours": "import { LIVE_SAVE_VERSION, exportSave, migrateToLive, validateSaveV40, validateSaveV47 } from '../src/core/save.js'\n",
+    "theirs": "import { exportSave, migrateToLive, validateSaveV40, validateSaveV48, initialP15BRoots } from '../src/core/save.js'\n",
+    "resolved": "import { LIVE_SAVE_VERSION, exportSave, migrateToLive, validateSaveV40, validateSaveV48, initialP15BRoots } from '../src/core/save.js'\n"
+  },
+  {
+    "path": "tests/bridge-p14r2r3-prior55.test.ts",
+    "block": 2,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "      const now = validateSaveV47(JSON.parse(nextRaw!))\n      expect(now.saveVersion).toBe(LIVE_SAVE_VERSION)\n",
+    "theirs": "      const now = validateSaveV48(JSON.parse(nextRaw!))\n      expect(now.saveVersion).toBe(48)\n",
+    "resolved": "      const now = validateSaveV48(JSON.parse(nextRaw!))\n      expect(now.saveVersion).toBe(LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/helpers/p14c3-fixtures.ts",
+    "block": 1,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "  expect(result.saveVersion, 'existing live writer moves coherently to38').toBe(save.LIVE_SAVE_VERSION) // 1370-AR r2: Save47\n",
+    "theirs": "  expect(result.saveVersion, 'existing live writer moves coherently to38').toBe(48) // 1370-AR r2: Save47\n",
+    "resolved": "  expect(result.saveVersion, 'existing live writer moves coherently to38').toBe(save.LIVE_SAVE_VERSION) // 1370-AR r2: Save47\n"
+  },
+  {
+    "path": "tests/helpers/p14c3-second-episode-fixtures.ts",
+    "block": 1,
+    "rule": "union live constant/P15B additions; select Save48 live reader",
+    "ours": "import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV47 } from '../../src/core/save.js'\n",
+    "theirs": "import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV48 } from '../../src/core/save.js'\n",
+    "resolved": "import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV48 } from '../../src/core/save.js'\n"
+  },
+  {
+    "path": "tests/helpers/p14c3-second-episode-fixtures.ts",
+    "block": 2,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "  expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)\n  expect(validateSaveV47(save)).toBe(save)\n",
+    "theirs": "  expect(save.saveVersion).toBe(48)\n  expect(validateSaveV48(save)).toBe(save)\n",
+    "resolved": "  expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)\n  expect(validateSaveV48(save)).toBe(save)\n"
+  },
+  {
+    "path": "tests/p09a-w0-founding-regime.test.ts",
+    "block": 1,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "      expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)\n",
+    "theirs": "      expect(save.saveVersion).toBe(48)\n",
+    "resolved": "      expect(save.saveVersion).toBe(LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/p1364-late-founding.test.ts",
+    "block": 1,
+    "rule": "retain r7 historical control/live reader and P15B predecessor projection helper",
+    "ours": "import { historicalHashState } from '../src/harness/roster-wall/historical-control.js'\nimport { validateLiveSave } from './helpers/live-era.js'\n",
+    "theirs": "import { predecessorSave } from './helpers/p15-roots.js'\n",
+    "resolved": "import { historicalHashState } from '../src/harness/roster-wall/historical-control.js'\nimport { validateLiveSave } from './helpers/live-era.js'\nimport { predecessorSave } from './helpers/p15-roots.js'\n"
+  },
+  {
+    "path": "tests/p13b-s8-save-v27.test.ts",
+    "block": 1,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "    expect(envelope.saveVersion).toBe(save.LIVE_SAVE_VERSION)\n",
+    "theirs": "    expect(envelope.saveVersion).toBe(48)\n",
+    "resolved": "    expect(envelope.saveVersion).toBe(save.LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/p14b4-save-v30-compatibility.test.ts",
+    "block": 1,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)\n",
+    "theirs": "    expect(LIVE_SAVE_VERSION).toBe(48)\n",
+    "resolved": "    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/p14b5-relationships.test.ts",
+    "block": 1,
+    "rule": "existing P15B first refusal masking policy; retain predecessor pin as documentary comment",
+    "ours": "    expect(() => migrateToV30(admitted)).toThrow(FAMILY10_FIRST_GUARD)\n",
+    "theirs": "    // P15B (1370-ar, MASKED): the live chain now crosses the P15B step's converter FIRST, and every ticked industry\n    // state carries evaluated condition records, so the P15B guard (naming the predecessor version) is the one that\n    // actually refuses; the guard pinned before stays covered on its own-era input elsewhere.\n    expect(() => migrateToV30(admitted)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))\n",
+    "resolved": "    // P15B (1370-ar, MASKED): the live chain now crosses the P15B step's converter FIRST, and every ticked industry\n    // state carries evaluated condition records, so the P15B guard (naming the predecessor version) is the one that\n    // actually refuses; the guard pinned before stays covered on its own-era input elsewhere.\n    expect(() => migrateToV30(admitted)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))\n"
+  },
+  {
+    "path": "tests/p14b5-relationships.test.ts",
+    "block": 2,
+    "rule": "existing P15B first refusal masking policy; retain predecessor pin as documentary comment",
+    "ours": "      expect(() => older(admitted as never)).toThrow(FAMILY10_FIRST_GUARD)\n",
+    "theirs": "      expect(() => older(admitted as never)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))\n",
+    "resolved": "      expect(() => older(admitted as never)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))\n"
+  },
+  {
+    "path": "tests/p14b5-relationships.test.ts",
+    "block": 3,
+    "rule": "existing P15B first refusal masking policy; retain predecessor pin as documentary comment",
+    "ours": "    expect(() => migrateToV25(admitted as never)).toThrow(FAMILY10_FIRST_GUARD)\n",
+    "theirs": "    expect(() => migrateToV25(admitted as never)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))\n",
+    "resolved": "    expect(() => migrateToV25(admitted as never)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))\n"
+  },
+  {
+    "path": "tests/p14b5-relationships.test.ts",
+    "block": 4,
+    "rule": "existing P15B first refusal masking policy; retain predecessor pin as documentary comment",
+    "ours": "    expect(() => migrateToV30(empty)).toThrow(FAMILY10_FIRST_GUARD)\n",
+    "theirs": "    expect(() => migrateToV30(empty)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))\n",
+    "resolved": "    expect(() => migrateToV30(empty)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))\n"
+  },
+  {
+    "path": "tests/p14c2a-save-and-settlement.test.ts",
+    "block": 1,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)\n",
+    "theirs": "    expect(LIVE_SAVE_VERSION).toBe(48)\n",
+    "resolved": "    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/p14c2b-save-v36.test.ts",
+    "block": 1,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)\n",
+    "theirs": "    expect(LIVE_SAVE_VERSION).toBe(48)\n",
+    "resolved": "    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/p14c2b-save-v36.test.ts",
+    "block": 2,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "    expect((saved as { saveVersion: number }).saveVersion).toBe(LIVE_SAVE_VERSION)\n",
+    "theirs": "    expect((saved as { saveVersion: number }).saveVersion).toBe(48)\n",
+    "resolved": "    expect((saved as { saveVersion: number }).saveVersion).toBe(LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/p14c2s-scientist-retirement.test.ts",
+    "block": 1,
+    "rule": "union live constant/P15B additions; select Save48 live reader",
+    "ours": "import { LIVE_SAVE_VERSION, convertV37ToV36, importSave, makeSave, migrateToLive, migrateToV35, migrateToV36, migrateToV37, validateSaveV37 } from '../src/core/save.js'\n",
+    "theirs": "import { convertV37ToV36, importSave, makeSave, migrateToLive, migrateToV35, migrateToV36, migrateToV37, validateSaveV37, LIVE_SAVE_VERSION } from '../src/core/save.js'\n",
+    "resolved": "import { LIVE_SAVE_VERSION, convertV37ToV36, importSave, makeSave, migrateToLive, migrateToV35, migrateToV36, migrateToV37, validateSaveV37 } from '../src/core/save.js'\n"
+  },
+  {
+    "path": "tests/p14c2s-scientist-retirement.test.ts",
+    "block": 2,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "    expect(live.saveVersion).toBe(LIVE_SAVE_VERSION)\n",
+    "theirs": "    expect(live.saveVersion).toBe(48)\n",
+    "resolved": "    expect(live.saveVersion).toBe(LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/p14c2s-scientist-retirement.test.ts",
+    "block": 3,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "    expect(lifted.saveVersion).toBe(LIVE_SAVE_VERSION)\n",
+    "theirs": "    expect(lifted.saveVersion).toBe(48)\n",
+    "resolved": "    expect(lifted.saveVersion).toBe(LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/p14c2s-scientist-retirement.test.ts",
+    "block": 4,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "    expect(live.saveVersion).toBe(LIVE_SAVE_VERSION)\n",
+    "theirs": "    expect(live.saveVersion).toBe(48)\n",
+    "resolved": "    expect(live.saveVersion).toBe(LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/p14c3-save-v38.test.ts",
+    "block": 1,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "    expect(saved.saveVersion, 'existing makeSave must write the governed new envelope').toBe(LIVE_SAVE_VERSION)\n    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)\n",
+    "theirs": "    expect(saved.saveVersion, 'existing makeSave must write the governed new envelope').toBe(48)\n    expect(LIVE_SAVE_VERSION).toBe(48)\n",
+    "resolved": "    expect(saved.saveVersion, 'existing makeSave must write the governed new envelope').toBe(LIVE_SAVE_VERSION)\n    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/p14c3-save-v38.test.ts",
+    "block": 2,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "      expect(upgraded.saveVersion, 'actual migration must change the current envelope').toBe(LIVE_SAVE_VERSION)\n",
+    "theirs": "      expect(upgraded.saveVersion, 'actual migration must change the current envelope').toBe(48)\n",
+    "resolved": "      expect(upgraded.saveVersion, 'actual migration must change the current envelope').toBe(LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/p14c4-save-v35.test.ts",
+    "block": 1,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)\n",
+    "theirs": "    expect(LIVE_SAVE_VERSION).toBe(48)\n",
+    "resolved": "    expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/p14c4-save-v35.test.ts",
+    "block": 2,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "    expect((saved as { saveVersion: number }).saveVersion).toBe(LIVE_SAVE_VERSION)\n",
+    "theirs": "    expect((saved as { saveVersion: number }).saveVersion).toBe(48)\n",
+    "resolved": "    expect((saved as { saveVersion: number }).saveVersion).toBe(LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/p14d2-a8-fixture.ts",
+    "block": 1,
+    "rule": "union live constant/P15B additions; select Save48 live reader",
+    "ours": "import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV45, validateSaveV47, convertV46ToV45, convertV47ToV46 } from '../src/core/save.js'\n",
+    "theirs": "import { exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV45, validateSaveV48, convertV46ToV45, convertV47ToV46, convertV48ToV47, initialP15BRoots } from '../src/core/save.js'\n",
+    "resolved": "import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV45, validateSaveV48, convertV46ToV45, convertV47ToV46, convertV48ToV47, initialP15BRoots } from '../src/core/save.js'\n"
+  },
+  {
+    "path": "tests/p14d2-a8-fixture.ts",
+    "block": 2,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "  expect(live.saveVersion).toBe(LIVE_SAVE_VERSION) // Save47 (1364, 1370-AR r2)\n",
+    "theirs": "  expect(live.saveVersion).toBe(48) // Save47 (1364, 1370-AR r2)\n",
+    "resolved": "  expect(live.saveVersion).toBe(LIVE_SAVE_VERSION) // Save47 (1364, 1370-AR r2)\n"
+  },
+  {
+    "path": "tests/p14d2-a8-fixture.ts",
+    "block": 3,
+    "rule": "retain full Save48\u219247\u219246\u219245 chain and live constant",
+    "ours": "  expect(current.saveVersion).toBe(LIVE_SAVE_VERSION)\n  validateSaveV47(current)\n  const actualOld = convertV46ToV45(convertV47ToV46(current))\n",
+    "theirs": "  expect(current.saveVersion).toBe(48)\n  validateSaveV48(current)\n  const actualOld = convertV46ToV45(convertV47ToV46(convertV48ToV47(current))) // Save48 (1370-ar): down through the live step first (nothing evaluated: lossless)\n",
+    "resolved": "  expect(current.saveVersion).toBe(LIVE_SAVE_VERSION)\n  validateSaveV48(current)\n  const actualOld = convertV46ToV45(convertV47ToV46(convertV48ToV47(current))) // Save48 (1370-ar): down through the live step first (nothing evaluated: lossless)\n"
+  },
+  {
+    "path": "tests/p14d2-rival-facility-disposal.test.ts",
+    "block": 1,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "  expect(envelope.saveVersion).toBe(save.LIVE_SAVE_VERSION) // Save47 (1364, 1370-AR r2): the live writer is one step above this era\n  expect(save.validateSaveV47(envelope)).toBe(envelope)\n",
+    "theirs": "  expect(envelope.saveVersion).toBe(48) // Save47 (1364, 1370-AR r2): the live writer is one step above this era\n  expect(save.validateSaveV48(envelope)).toBe(envelope)\n",
+    "resolved": "  expect(envelope.saveVersion).toBe(save.LIVE_SAVE_VERSION) // Save47 (1364, 1370-AR r2): the live writer is one step above this era\n  expect(save.validateSaveV48(envelope)).toBe(envelope)\n"
+  },
+  {
+    "path": "tests/p14p3-directing-promises.test.ts",
+    "block": 1,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "      const save = saves.makeSave(state); expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION)\n",
+    "theirs": "      const save = saves.makeSave(state); expect(save.saveVersion).toBe(48)\n",
+    "resolved": "      const save = saves.makeSave(state); expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/p14p3-directing-promises.test.ts",
+    "block": 2,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "      expect(current.saveVersion).toBe(saves.LIVE_SAVE_VERSION)\n",
+    "theirs": "      expect(current.saveVersion).toBe(48)\n",
+    "resolved": "      expect(current.saveVersion).toBe(saves.LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/p14p3-directing-promises.test.ts",
+    "block": 3,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "      expect(current.saveVersion).toBe(saves.LIVE_SAVE_VERSION)\n",
+    "theirs": "      expect(current.saveVersion).toBe(48)\n",
+    "resolved": "      expect(current.saveVersion).toBe(saves.LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/p14p3-directing-promises.test.ts",
+    "block": 4,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "    expect(saves.makeSave(input.state).saveVersion).toBe(saves.LIVE_SAVE_VERSION)\n",
+    "theirs": "    expect(saves.makeSave(input.state).saveVersion).toBe(48)\n",
+    "resolved": "    expect(saves.makeSave(input.state).saveVersion).toBe(saves.LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/p14p3-directing-promises.test.ts",
+    "block": 5,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "    expect(saves.makeSave(occupied).saveVersion).toBe(saves.LIVE_SAVE_VERSION)\n",
+    "theirs": "    expect(saves.makeSave(occupied).saveVersion).toBe(48)\n",
+    "resolved": "    expect(saves.makeSave(occupied).saveVersion).toBe(saves.LIVE_SAVE_VERSION)\n"
+  },
+  {
+    "path": "tests/p14p4p5-casting-reservation.test.ts",
+    "block": 1,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV47(save)).toBe(save)\n",
+    "theirs": "  expect(save.saveVersion).toBe(48); expect(saves.validateSaveV48(save)).toBe(save)\n",
+    "resolved": "  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV48(save)).toBe(save)\n"
+  },
+  {
+    "path": "tests/p14p4p5-cross-owner.test.ts",
+    "block": 1,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV47(save)).toBe(save)\n  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV47(imported)\n",
+    "theirs": "  expect(save.saveVersion).toBe(48); expect(saves.validateSaveV48(save)).toBe(save)\n  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV48(imported)\n",
+    "resolved": "  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV48(save)).toBe(save)\n  const raw = saves.exportSave(save), imported = saves.importSave(raw), current = saves.validateSaveV48(imported)\n"
+  },
+  {
+    "path": "tests/p14p4p5-delayed-retirement.test.ts",
+    "block": 1,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV47(save)).toBe(save)\n",
+    "theirs": "  expect(save.saveVersion).toBe(48); expect(saves.validateSaveV48(save)).toBe(save)\n",
+    "resolved": "  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV48(save)).toBe(save)\n"
+  },
+  {
+    "path": "tests/p14p4p5-opportunities.test.ts",
+    "block": 1,
+    "rule": "P15B predecessor projection plus landed measured9-assessment composed refusal",
+    "ours": "    // 1365 P15A.1(c) (1370-AR r5 item H.2, measured on the r5 tree): the activated market records 9\n    // shared-market assessments on this route, so the one P15 downgrade refusal (1361-F ruling 4: every\n    // non-empty P15 root, in the ruled order sharedMarket, powerRanking, campaignLegacy) now names the\n    // assessments first and the quarter second. The pre-1365 pin was\n    // /^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/.\n    expect(() => saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(saves.convertV47ToV46(released))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded shared-market assessment \\(9 recorded\\); cannot downgrade or discard a recorded Power Ranking quarter$/)\n",
+    "theirs": "    expect(() => saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(saves.convertV47ToV46(predecessorSave(released.state)))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)\n",
+    "resolved": "    // 1365 P15A.1(c) (1370-AR r5 item H.2, measured on the r5 tree): the activated market records 9\n    // shared-market assessments on this route, so the one P15 downgrade refusal (1361-F ruling 4: every\n    // non-empty P15 root, in the ruled order sharedMarket, powerRanking, campaignLegacy) now names the\n    // assessments first and the quarter second. The pre-1365 pin was\n    // /^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/.\n    expect(() => saves.convertV40ToV39(saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(saves.convertV47ToV46(predecessorSave(released.state)))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded shared-market assessment \\(9 recorded\\); cannot downgrade or discard a recorded Power Ranking quarter$/)\n"
+  },
+  {
+    "path": "tests/p14p4p5-queued-project-outcome.test.ts",
+    "block": 1,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV47(save)).toBe(save)\n",
+    "theirs": "  expect(save.saveVersion).toBe(48); expect(saves.validateSaveV48(save)).toBe(save)\n",
+    "resolved": "  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV48(save)).toBe(save)\n"
+  },
+  {
+    "path": "tests/p14p4p5-receipt-freeze.test.ts",
+    "block": 1,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV47(save)).toBe(save)\n",
+    "theirs": "  expect(save.saveVersion).toBe(48); expect(saves.validateSaveV48(save)).toBe(save)\n",
+    "resolved": "  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV48(save)).toBe(save)\n"
+  },
+  {
+    "path": "tests/p14p4p5-scenery-capacity.test.ts",
+    "block": 1,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV47(save)).toBe(save)\n",
+    "theirs": "  expect(save.saveVersion).toBe(48); expect(saves.validateSaveV48(save)).toBe(save)\n",
+    "resolved": "  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV48(save)).toBe(save)\n"
+  },
+  {
+    "path": "tests/p14p4p5-screenplay-status.test.ts",
+    "block": 1,
+    "rule": "landed live-era/helper text; retain incoming Save48 live reader",
+    "ours": "  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV47(save)).toBe(save)\n",
+    "theirs": "  expect(save.saveVersion).toBe(48); expect(saves.validateSaveV48(save)).toBe(save)\n",
+    "resolved": "  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV48(save)).toBe(save)\n"
+  }
+]

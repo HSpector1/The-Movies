@@ -1,0 +1,768 @@
+{
+  "kind": "non-leak original fixture premise diagnostic; not gameplay acceptance",
+  "seed": "p13b-s8-nonleak-01",
+  "week": 780,
+  "baseElapsedMs": 5282.848546,
+  "originalBeforeAllBudgetMs": 30000,
+  "fixtureSHA256": "dbf0996d9d925d9f3019d68fe3dda14874b52cdaed4a1e724e6f6d419706ae5c",
+  "exactHelperSHA256": "eaf5042a9146722bdf6115cea1440369ab467206852c1ac382eba85d6f033aee",
+  "originalRow1StudioId": "studio-93532614-r01",
+  "originalActualClosure": {
+    "closureId": "studio-closure-3",
+    "studioId": "studio-93532614-r01",
+    "closureWeek": 345,
+    "causeEventId": "corporate-event-23",
+    "lawVersion": "closure/v1",
+    "p15DomainSequence": 121,
+    "phaseId": "p15b.closure",
+    "phaseOrdinal": 4,
+    "phaseOrderVersion": 2,
+    "cash": {
+      "closing": -6903444.095491945,
+      "distributable": 0
+    },
+    "loan": {
+      "loanId": "corporate-loan-3",
+      "stopWeek": 345,
+      "paidInstallments": 44,
+      "paidAmount": 3403168,
+      "remainder": 618752
+    },
+    "dispositions": [
+      {
+        "subjectKind": "cash",
+        "subjectId": "studio-93532614-r01",
+        "prior": "closing -6903444.095491945",
+        "result": "distributable 0; 0 paid to claims at closure; balance preserved",
+        "status": "applied",
+        "claimId": null,
+        "lotId": null,
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "employment",
+        "subjectId": "studio-93532614-r01:contract:person-studio-93532614-r01-1:208",
+        "prior": "talent person-studio-93532614-r01-1; through week 416",
+        "result": "ended at week 345; claim closure-claim-2 for 247546",
+        "status": "applied",
+        "claimId": "closure-claim-2",
+        "lotId": null,
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "employment",
+        "subjectId": "studio-93532614-r01:contract:person-studio-93532614-r01-supply-265-6:265",
+        "prior": "talent person-studio-93532614-r01-supply-265-6; through week 473",
+        "result": "ended at week 345; claim closure-claim-3 for 52000",
+        "status": "applied",
+        "claimId": "closure-claim-3",
+        "lotId": null,
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "employment",
+        "subjectId": "studio-93532614-r01:contract:person-studio-93532614-r01-supply-265-7:265",
+        "prior": "talent person-studio-93532614-r01-supply-265-7; through week 473",
+        "result": "ended at week 345; claim closure-claim-4 for 52000",
+        "status": "applied",
+        "claimId": "closure-claim-4",
+        "lotId": null,
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "employment",
+        "subjectId": "studio-93532614-r01:contract:person-studio-93532614-r01-supply-265-8:265",
+        "prior": "talent person-studio-93532614-r01-supply-265-8; through week 473",
+        "result": "ended at week 345; claim closure-claim-5 for 52000",
+        "status": "applied",
+        "claimId": "closure-claim-5",
+        "lotId": null,
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "employment",
+        "subjectId": "studio-93532614-r01:contract:person-studio-93532614-r01-supply-265-9:265",
+        "prior": "talent person-studio-93532614-r01-supply-265-9; through week 473",
+        "result": "ended at week 345; claim closure-claim-6 for 52000",
+        "status": "applied",
+        "claimId": "closure-claim-6",
+        "lotId": null,
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "employment",
+        "subjectId": "studio-93532614-r01:contract:person-studio-93532614-r02-0:208",
+        "prior": "talent person-studio-93532614-r02-0; through week 416",
+        "result": "ended at week 345; claim closure-claim-7 for 385762",
+        "status": "applied",
+        "claimId": "closure-claim-7",
+        "lotId": null,
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "employment",
+        "subjectId": "studio-93532614-r01:contract:person-studio-93532614-r02-3:208",
+        "prior": "talent person-studio-93532614-r02-3; through week 416",
+        "result": "ended at week 345; claim closure-claim-8 for 422084",
+        "status": "applied",
+        "claimId": "closure-claim-8",
+        "lotId": null,
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "employment",
+        "subjectId": "studio-93532614-r01:contract:person-studio-93532614-r02-4:208",
+        "prior": "talent person-studio-93532614-r02-4; through week 416",
+        "result": "ended at week 345; claim closure-claim-9 for 615576",
+        "status": "applied",
+        "claimId": "closure-claim-9",
+        "lotId": null,
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "employment",
+        "subjectId": "studio-93532614-r01:contract:t-act-00:260",
+        "prior": "talent t-act-00; through week 468",
+        "result": "ended at week 345; claim closure-claim-10 for 140816",
+        "status": "applied",
+        "claimId": "closure-claim-10",
+        "lotId": null,
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "facility",
+        "subjectId": "studio-93532614-r01:development",
+        "prior": "development-casting",
+        "result": "nonoperational in place; zero refund",
+        "status": "applied",
+        "claimId": null,
+        "lotId": null,
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "facility",
+        "subjectId": "studio-93532614-r01:laboratory:0",
+        "prior": "laboratory",
+        "result": "nonoperational in place; zero refund",
+        "status": "applied",
+        "claimId": null,
+        "lotId": null,
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "facility",
+        "subjectId": "studio-93532614-r01:post",
+        "prior": "post",
+        "result": "nonoperational in place; zero refund",
+        "status": "applied",
+        "claimId": null,
+        "lotId": null,
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "facility",
+        "subjectId": "studio-93532614-r01:scenery",
+        "prior": "set-scenery",
+        "result": "nonoperational in place; zero refund",
+        "status": "applied",
+        "claimId": null,
+        "lotId": null,
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "facility",
+        "subjectId": "studio-93532614-r01:stage",
+        "prior": "soundstage",
+        "result": "nonoperational in place; zero refund",
+        "status": "applied",
+        "claimId": null,
+        "lotId": null,
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "loan",
+        "subjectId": "corporate-loan-3",
+        "prior": "total 4021920; contracted week 300",
+        "result": "stopped at week 345; 44 installments paid (3403168); remainder 618752 unpaid and non-distributable",
+        "status": "applied",
+        "claimId": null,
+        "lotId": null,
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "physicalPlan",
+        "subjectId": "studio-93532614-r01:plan:1",
+        "prior": "started",
+        "result": "complete; its plant is a terminal facility",
+        "status": "applied",
+        "claimId": null,
+        "lotId": null,
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "physicalPlan",
+        "subjectId": "studio-93532614-r01:plan:2",
+        "prior": "started",
+        "result": "complete; its plant is a terminal facility",
+        "status": "applied",
+        "claimId": null,
+        "lotId": null,
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "physicalPlan",
+        "subjectId": "studio-93532614-r01:plan:3",
+        "prior": "started",
+        "result": "complete; its plant is a terminal facility",
+        "status": "applied",
+        "claimId": null,
+        "lotId": null,
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:0",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:1; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:1",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:1",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:2; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:2",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:10",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:3; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:3",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:11",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:4; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:4",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:12",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:5; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:5",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:13",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:6; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:6",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:14",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:7; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:7",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:15",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:8; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:8",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:16",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:9; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:9",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:17",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:10; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:10",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:18",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:11; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:11",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:19",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:12; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:12",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:2",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:13; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:13",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:20",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:14; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:14",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:24",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:15; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:15",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:3",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:16; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:16",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:4",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:17; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:17",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:5",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:18; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:18",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:6",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:19; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:19",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:7",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:20; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:20",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:8",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:21; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:21",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:film:9",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:22; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:22",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:historical-film:0",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:23; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:23",
+        "lawVersion": "closure/v1"
+      },
+      {
+        "subjectKind": "title",
+        "subjectId": "studio-93532614-r01:historical-film:1",
+        "prior": "owned",
+        "result": "R2 lot studio-closure-3:lot:24; sale route pending until the estate closes",
+        "status": "pending",
+        "claimId": null,
+        "lotId": "studio-closure-3:lot:24",
+        "lawVersion": "closure/v1"
+      }
+    ],
+    "counts": {
+      "cash": 1,
+      "employment": 9,
+      "facility": 5,
+      "loan": 1,
+      "physicalPlan": 3,
+      "title": 24
+    },
+    "digest": "d933ca47",
+    "estate": {
+      "opensWeek": 345,
+      "closesWeek": 358,
+      "lots": [
+        {
+          "lotId": "studio-closure-3:lot:1",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:0"
+        },
+        {
+          "lotId": "studio-closure-3:lot:2",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:1"
+        },
+        {
+          "lotId": "studio-closure-3:lot:3",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:10"
+        },
+        {
+          "lotId": "studio-closure-3:lot:4",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:11"
+        },
+        {
+          "lotId": "studio-closure-3:lot:5",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:12"
+        },
+        {
+          "lotId": "studio-closure-3:lot:6",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:13"
+        },
+        {
+          "lotId": "studio-closure-3:lot:7",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:14"
+        },
+        {
+          "lotId": "studio-closure-3:lot:8",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:15"
+        },
+        {
+          "lotId": "studio-closure-3:lot:9",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:16"
+        },
+        {
+          "lotId": "studio-closure-3:lot:10",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:17"
+        },
+        {
+          "lotId": "studio-closure-3:lot:11",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:18"
+        },
+        {
+          "lotId": "studio-closure-3:lot:12",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:19"
+        },
+        {
+          "lotId": "studio-closure-3:lot:13",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:2"
+        },
+        {
+          "lotId": "studio-closure-3:lot:14",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:20"
+        },
+        {
+          "lotId": "studio-closure-3:lot:15",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:24"
+        },
+        {
+          "lotId": "studio-closure-3:lot:16",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:3"
+        },
+        {
+          "lotId": "studio-closure-3:lot:17",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:4"
+        },
+        {
+          "lotId": "studio-closure-3:lot:18",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:5"
+        },
+        {
+          "lotId": "studio-closure-3:lot:19",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:6"
+        },
+        {
+          "lotId": "studio-closure-3:lot:20",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:7"
+        },
+        {
+          "lotId": "studio-closure-3:lot:21",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:8"
+        },
+        {
+          "lotId": "studio-closure-3:lot:22",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:film:9"
+        },
+        {
+          "lotId": "studio-closure-3:lot:23",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:historical-film:0"
+        },
+        {
+          "lotId": "studio-closure-3:lot:24",
+          "right": "R2",
+          "subjectId": "studio-93532614-r01:historical-film:1"
+        }
+      ]
+    },
+    "receipts": [],
+    "endOfRun": null
+  },
+  "originalCondition": {
+    "studioId": "studio-93532614-r01",
+    "firstEvaluatedWeek": 1,
+    "definitionVersion": "corporate-condition/v1",
+    "condition": {
+      "stage": "closed",
+      "since": 345,
+      "week": 345,
+      "lowRun": 37,
+      "negativeRun": 33,
+      "clearRun": 0,
+      "distressWeeks": 0
+    }
+  },
+  "baseAdmission": {
+    "admitted": true,
+    "error": null,
+    "beforeSHA256": "54222536b319b6152d9a44c80bf3429b3e20d48c70bb502b1b377a7ed76e53e4",
+    "afterSHA256": "54222536b319b6152d9a44c80bf3429b3e20d48c70bb502b1b377a7ed76e53e4"
+  },
+  "variantAdmission": {
+    "admitted": false,
+    "error": "validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — Technology save: rival Laboratory without its operational receipt",
+    "beforeSHA256": "09376347a0c9f508ecee701054e7152d39510c856c39f747977e5daee777b6c3",
+    "afterSHA256": "09376347a0c9f508ecee701054e7152d39510c856c39f747977e5daee777b6c3"
+  },
+  "businesses": [
+    {
+      "studioId": "studio-93532614-r01",
+      "row": 1,
+      "actualClosedWeek": 345,
+      "cash": -6903444.095491945,
+      "costCuttingSince": 300,
+      "laboratories": [
+        {
+          "id": "studio-93532614-r01:laboratory:0",
+          "capacity": 4
+        }
+      ],
+      "activeScientistIds": [],
+      "laboratoryReceiptKinds": [
+        {
+          "eventId": "industry-event-28",
+          "week": 0,
+          "kind": "laboratoryCommitted"
+        },
+        {
+          "eventId": "industry-event-36",
+          "week": 12,
+          "kind": "laboratoryOperational"
+        },
+        {
+          "eventId": "industry-event-292",
+          "week": 266,
+          "kind": "laboratoryCommitted"
+        },
+        {
+          "eventId": "industry-event-299",
+          "week": 278,
+          "kind": "laboratoryOperational"
+        }
+      ],
+      "researchProjects": [
+        {
+          "id": "studio-93532614-r01:research:synchronized-sound",
+          "status": "completed",
+          "startedWeek": 265,
+          "verifiedWork": 64,
+          "expenditure": 440000
+        }
+      ]
+    },
+    {
+      "studioId": "studio-93532614-r02",
+      "row": 2,
+      "actualClosedWeek": 346,
+      "cash": -3890121.919988431,
+      "costCuttingSince": 301,
+      "laboratories": [
+        {
+          "id": "studio-93532614-r02:laboratory:0",
+          "capacity": 4
+        }
+      ],
+      "activeScientistIds": [],
+      "laboratoryReceiptKinds": [
+        {
+          "eventId": "industry-event-29",
+          "week": 0,
+          "kind": "laboratoryCommitted"
+        },
+        {
+          "eventId": "industry-event-37",
+          "week": 12,
+          "kind": "laboratoryOperational"
+        }
+      ],
+      "researchProjects": []
+    },
+    {
+      "studioId": "studio-93532614-r03",
+      "row": 3,
+      "actualClosedWeek": 295,
+      "cash": -1962507.1620742604,
+      "costCuttingSince": 250,
+      "laboratories": [],
+      "activeScientistIds": [],
+      "laboratoryReceiptKinds": [
+        {
+          "eventId": "industry-event-30",
+          "week": 0,
+          "kind": "laboratoryCommitted"
+        },
+        {
+          "eventId": "industry-event-38",
+          "week": 12,
+          "kind": "laboratoryOperational"
+        }
+      ],
+      "researchProjects": []
+    },
+    {
+      "studioId": "studio-93532614-r04",
+      "row": 4,
+      "actualClosedWeek": 250,
+      "cash": -2106719.4092977503,
+      "costCuttingSince": 207,
+      "laboratories": [],
+      "activeScientistIds": [],
+      "laboratoryReceiptKinds": [
+        {
+          "eventId": "industry-event-31",
+          "week": 0,
+          "kind": "laboratoryCommitted"
+        },
+        {
+          "eventId": "industry-event-39",
+          "week": 12,
+          "kind": "laboratoryOperational"
+        }
+      ],
+      "researchProjects": []
+    },
+    {
+      "studioId": "studio-93532614-r05",
+      "row": 5,
+      "actualClosedWeek": null,
+      "cash": -620342.2146726642,
+      "costCuttingSince": 760,
+      "laboratories": [],
+      "activeScientistIds": [],
+      "laboratoryReceiptKinds": [
+        {
+          "eventId": "industry-event-320",
+          "week": 520,
+          "kind": "laboratoryCommitted"
+        },
+        {
+          "eventId": "industry-event-323",
+          "week": 532,
+          "kind": "laboratoryOperational"
+        }
+      ],
+      "researchProjects": []
+    }
+  ],
+  "followup": null
+}

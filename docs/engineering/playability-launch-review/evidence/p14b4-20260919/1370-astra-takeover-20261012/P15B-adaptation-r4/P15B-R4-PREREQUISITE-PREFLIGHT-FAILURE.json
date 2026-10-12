@@ -1,0 +1,9 @@
+{
+  "utc": "2026-10-12T17:27:20.454464+00:00",
+  "originalRunnerSHA256": "9d9f5201c38ba47e256bed3ad8240aee88216d4fe1478656b0c30d289c5a2739",
+  "laneExit": 98,
+  "stage": "initial freeze before any compiler or test",
+  "failure": "snapshot tried to require an unrelated sparse-omitted tracked ui/e2e file",
+  "consequence": "No compiler/generator/test ran. Empty initial freeze and original log retained. Candidate admission passed beforehand.",
+  "repair": "Snapshot represents missing tracked sparse files as missing (the original existing helper behavior), while explicit required input roots still fail closed if missing. Exact candidate postimage/path admission unchanged. New one-use output and script; no original evidence rewritten."
+}
