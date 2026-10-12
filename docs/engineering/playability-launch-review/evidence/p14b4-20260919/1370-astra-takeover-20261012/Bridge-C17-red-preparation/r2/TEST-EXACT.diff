@@ -1,0 +1,21 @@
+--- bridge-c17-red-draft/bridge-p15b5-loan-choice.test.ts
++++ bridge-c17-red-draft-r2/bridge-p15b5-loan-choice.test.ts
+@@ -139,8 +139,10 @@
+ 
+   it('real stable and already-borrowed states refuse eligibility BEFORE an illegal principal', () => {
+     const stable = tick(base())
++    expect(() => makeSave(stable), 'admit the real stable state before testing eligibility').not.toThrow()
+     expect(recordOf(stable, PLAYER)?.condition.stage).toBe('stable')
+     const borrowed = applyTakeLoan(warning(), 1_000)
++    expect(() => makeSave(borrowed), 'admit the core-produced outstanding loan before testing eligibility').not.toThrow()
+     for (const [label, state] of [['stable', stable], ['borrowed', borrowed]] as const) {
+       const session = new BridgeSession(state, `c17-${label}`)
+       const before = truth(session)
+@@ -202,6 +204,7 @@
+     expect(intent, 'PREREQUISITE: a legal loan quote must register a real pending intent').toBeDefined()
+     if (intent === undefined) throw new Error('PREREQUISITE RED: no pending loan intent; revalidation NOT reached')
+     const changed = applyTakeLoan(initial, 1_000)
++    expect(() => makeSave(changed), 'admit the core-produced changed input BEFORE pending apply').not.toThrow()
+     const before = canon(changed)
+     const outcome = intent.apply(changed)
+     expect(outcome.ok).toBe(false)

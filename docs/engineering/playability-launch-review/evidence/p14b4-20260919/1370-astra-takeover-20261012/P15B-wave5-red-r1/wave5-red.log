@@ -1,0 +1,664 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p15b
+
+ ❯ |ui| ui/src/saves.test.tsx (18 tests | 3 failed | 15 skipped) 787ms
+   × Wave5 genuine47 normal import replaces App session prospectively without old notices 371ms
+     → Unable to find an element by: [data-testid="dash-week"]
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<p[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"hint"[39m
+        [33mdata-testid[39m=[32m"studio-lot-lazy-loading"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [0mOpening the Studio Lot…[0m
+      [36m</p>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+   × Wave5 actual terminal import replaces active App state and reloads read-only with exact export/history 247ms
+     → Unable to find an element by: [data-testid="dash-week"]
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<p[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"hint"[39m
+        [33mdata-testid[39m=[32m"studio-lot-lazy-loading"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [0mOpening the Studio Lot…[0m
+      [36m</p>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+   × Wave5 unsupported due-only draft refuses before App replacement or any autosave 167ms
+     → Unable to find an element by: [data-testid="dash-week"]
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<p[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"hint"[39m
+        [33mdata-testid[39m=[32m"studio-lot-lazy-loading"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [0mOpening the Studio Lot…[0m
+      [36m</p>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ |ui| ui/src/lot/livingTurn.parity.test.tsx (9 tests | 2 failed | 7 skipped) 4493ms
+   × Wave5 mounted warning presents terms before lawful loan commit and autosaves one receipt 1963ms
+     → Unable to find an element with the text: Corporate condition: warning since Week 134. Cash covers fewer than 4 weeks of obligations. Routes that remain: a studio loan.. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"card"[39m
+      [33mdata-recovery[39m=[32m"continuing"[39m
+      [33mdata-testid[39m=[32m"recovery-notice"[39m
+      [33mrole[39m=[32m"status"[39m
+      [33mstyle[39m=[32m"margin-bottom: 12px;"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"spread"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0mContinuing your studio — Week 134.[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"ghost"[39m
+          [33mdata-testid[39m=[32m"recovery-dismiss"[39m
+        [36m>[39m
+          [0mDismiss[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"lot-screen lot-hollywood"[39m
+      [33mdata-entry-focus[39m=[32m"studio-home"[39m
+      [33mdata-testid[39m=[32m"studio-lot-screen"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-casting-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-production-formation-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-script-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"lot-topbar"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-brand"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"mark lot-studio-heading"[39m
+            [33mdata-testid[39m=[32m"lot-studio-heading"[39m
+            [33mtabindex[39m=[32m"-1"[39m
+          [36m>[39m
+            [0mPROJECT: STUDIO[0m
+          [36m</h1>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-sub"[39m
+          [36m>[39m
+            [0mStudio Chronicle · Hollywood, 1922 · Week 31[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-topbar-actions"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-cash-slot"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-cash"[39m
+              [33mdata-testid[39m=[32m"lot-cash"[39m
+            [36m>[39m
+              [0m-$60,001[0m
+            [36m</span>[39m
+          [36m</span>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-transport"[39m
+            [33mdata-mode[39m=[32m"paused"[39m
+            [33mdata-paused-by[39m=[32m"none"[39m
+            [33mdata-speed[39m=[32m"1"[39m
+            [33mdata-testid[39m=[32m"lot-transport"[39m
+            [33mdata-week[39m=[32m"134"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33maria-pressed[39m=[32m"false"[39m
+              [33mclass[39m=[32m"lot-transport-run lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-transport-toggle"[39m
+              [33mtitle[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m▶[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mRoll[0m
+              [36m</span>[39m
+            [36m</button>[39m
+            [36m<div[39m
+              [33maria-label[39m=[32m"Pace"[39m
+              [33mclass[39m=[32m"lot-transport-speeds"[39m
+              [33mrole[39m=[32m"group"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33maria-pressed[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-transport-speed is-current"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-1"[39m
+                [33mtitle[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m1[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Brisk pace — twice as fast"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-2"[39m
+                [33mtitle[39m=[32m"Brisk pace — twice as fast"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m2[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-4"[39m
+                [33mtitle[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m4[0m
+                [0m×[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Advance one week"[39m
+            [33mclass[39m=[32m"primary lot-advance-week lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-advance-week"[39m
+            [33mtitle[39m=[32m"Advance one week"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▸[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mAdvance one week[0m
+            [36m</span>[39m
+      ...
+   × Wave5 living loop commits terminal once and keeps history/export accessible without operating verbs 2529ms
+     → expected 10 to be 163 // Object.is equality
+ ❯ |ui| ui/src/engine/p15b-browser-wave5.test.ts (6 tests | 5 failed) 9845ms
+   × browser-warning-distress-displays-authoritative-remedies-and-lawful-loan-terms 1058ms
+     → PREREQUISITE RED: adapter.studioCorporateView missing (Wave5)
+   × browser-loan-commit-revalidates-and-stale-offer-never-duplicates-money 657ms
+     → PREREQUISITE RED: adapter.studioCorporateView missing (Wave5)
+   × browser-actual-closure-commits-once-imports-and-reloads-as-read-only-history 1537ms
+     → SEMANTIC RED: browser removes deferral only with completed Wave5: expected undefined to be 163 // Object.is equality
+   × browser-batch-stops-at-actual-closure-and-living-turn-classifies-terminal-as-pause 4266ms
+     → expected 682 to be 163 // Object.is equality
+   × browser-supported47-migrates-prospectively-and-unsupported-due-only-draft-refuses 665ms
+     → PREREQUISITE RED: adapter.studioCorporateView missing (Wave5)
+   ✓ browser-stale-nonloan-operating-requests-refuse-on-latest-terminal-and-preserve-all-bytes 1660ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 10 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |ui|  ui/src/saves.test.tsx > Wave5 genuine47 normal import replaces App session prospectively without old notices
+TestingLibraryElementError: Unable to find an element by: [data-testid="dash-week"]
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<p[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"hint"[39m
+        [33mdata-testid[39m=[32m"studio-lot-lazy-loading"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [0mOpening the Studio Lot…[0m
+      [36m</p>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError ../../The-Movies-headless-program/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ ../../The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ ../../The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ ../../The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ openCurrentStudioThroughStart ui/src/saves.test.tsx:92:17
+     90|   })
+     91|   fireEvent.click(screen.getByTestId('import-save'))
+     92|   expect(screen.getByTestId('dash-week')).toBeInTheDocument()
+       |                 ^
+     93|   expect(screen.queryByTestId('save-migration-notice')).not.toBeInTheD…
+     94| }
+ ❯ ui/src/saves.test.tsx:416:25
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/10]⎯
+
+ FAIL |ui|  ui/src/saves.test.tsx > Wave5 actual terminal import replaces active App state and reloads read-only with exact export/history
+TestingLibraryElementError: Unable to find an element by: [data-testid="dash-week"]
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<p[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"hint"[39m
+        [33mdata-testid[39m=[32m"studio-lot-lazy-loading"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [0mOpening the Studio Lot…[0m
+      [36m</p>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError ../../The-Movies-headless-program/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ ../../The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ ../../The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ ../../The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ openCurrentStudioThroughStart ui/src/saves.test.tsx:92:17
+     90|   })
+     91|   fireEvent.click(screen.getByTestId('import-save'))
+     92|   expect(screen.getByTestId('dash-week')).toBeInTheDocument()
+       |                 ^
+     93|   expect(screen.queryByTestId('save-migration-notice')).not.toBeInTheD…
+     94| }
+ ❯ ui/src/saves.test.tsx:431:25
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/10]⎯
+
+ FAIL |ui|  ui/src/saves.test.tsx > Wave5 unsupported due-only draft refuses before App replacement or any autosave
+TestingLibraryElementError: Unable to find an element by: [data-testid="dash-week"]
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<p[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"hint"[39m
+        [33mdata-testid[39m=[32m"studio-lot-lazy-loading"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [0mOpening the Studio Lot…[0m
+      [36m</p>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError ../../The-Movies-headless-program/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ ../../The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ ../../The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ ../../The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ openCurrentStudioThroughStart ui/src/saves.test.tsx:92:17
+     90|   })
+     91|   fireEvent.click(screen.getByTestId('import-save'))
+     92|   expect(screen.getByTestId('dash-week')).toBeInTheDocument()
+       |                 ^
+     93|   expect(screen.queryByTestId('save-migration-notice')).not.toBeInTheD…
+     94| }
+ ❯ ui/src/saves.test.tsx:450:25
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/10]⎯
+
+ FAIL |ui|  ui/src/engine/p15b-browser-wave5.test.ts > browser-warning-distress-displays-authoritative-remedies-and-lawful-loan-terms
+Error: PREREQUISITE RED: adapter.studioCorporateView missing (Wave5)
+ ❯ seam ui/src/engine/p15b-browser-wave5.test.ts:26:42
+     24| function seam<T>(name: string): T {
+     25|   const value = (adapter as unknown as Record<string, unknown>)[name]
+     26|   if (typeof value !== 'function') throw new Error(`PREREQUISITE RED: …
+       |                                          ^
+     27|   return value as T
+     28| }
+ ❯ corporateView ui/src/engine/p15b-browser-wave5.test.ts:29:41
+ ❯ ui/src/engine/p15b-browser-wave5.test.ts:51:18
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/10]⎯
+
+ FAIL |ui|  ui/src/engine/p15b-browser-wave5.test.ts > browser-loan-commit-revalidates-and-stale-offer-never-duplicates-money
+Error: PREREQUISITE RED: adapter.studioCorporateView missing (Wave5)
+ ❯ seam ui/src/engine/p15b-browser-wave5.test.ts:26:42
+     24| function seam<T>(name: string): T {
+     25|   const value = (adapter as unknown as Record<string, unknown>)[name]
+     26|   if (typeof value !== 'function') throw new Error(`PREREQUISITE RED: …
+       |                                          ^
+     27|   return value as T
+     28| }
+ ❯ corporateView ui/src/engine/p15b-browser-wave5.test.ts:29:41
+ ❯ ui/src/engine/p15b-browser-wave5.test.ts:63:60
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/10]⎯
+
+ FAIL |ui|  ui/src/engine/p15b-browser-wave5.test.ts > browser-actual-closure-commits-once-imports-and-reloads-as-read-only-history
+AssertionError: SEMANTIC RED: browser removes deferral only with completed Wave5: expected undefined to be 163 // Object.is equality
+
+- Expected: 
+163
+
++ Received: 
+undefined
+
+ ❯ ui/src/engine/p15b-browser-wave5.test.ts:76:94
+     74|   const before = at(162); const bytes = canon(before); const result = …
+     75|   const c = playerClosure(result.next)
+     76|   expect(c?.closureWeek, 'SEMANTIC RED: browser removes deferral only …
+       |                                                                                              ^
+     77|   expect(result.next.campaignLegacy.endOfRun!.closureId).toBe(c!.closu…
+     78|   expect(canon(before)).toBe(bytes); expect(() => saves.makeSave(resul…
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/10]⎯
+
+ FAIL |ui|  ui/src/engine/p15b-browser-wave5.test.ts > browser-batch-stops-at-actual-closure-and-living-turn-classifies-terminal-as-pause
+AssertionError: expected 682 to be 163 // Object.is equality
+
+- Expected
++ Received
+
+- 163
++ 682
+
+ ❯ ui/src/engine/p15b-browser-wave5.test.ts:94:34
+     92| it('browser-batch-stops-at-actual-closure-and-living-turn-classifies-t…
+     93|   const before = at(162); const bytes = canon(before); const batch = a…
+     94|   expect(batch.next.market.tick).toBe(163); expect(playerClosure(batch…
+       |                                  ^
+     95|   expect(batch.stopReason).toBe('studioClosure') // Narrow new stop re…
+     96|   const classify = livingTurnStopClass as (reason: string) => string
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/10]⎯
+
+ FAIL |ui|  ui/src/engine/p15b-browser-wave5.test.ts > browser-supported47-migrates-prospectively-and-unsupported-due-only-draft-refuses
+Error: PREREQUISITE RED: adapter.studioCorporateView missing (Wave5)
+ ❯ seam ui/src/engine/p15b-browser-wave5.test.ts:26:42
+     24| function seam<T>(name: string): T {
+     25|   const value = (adapter as unknown as Record<string, unknown>)[name]
+     26|   if (typeof value !== 'function') throw new Error(`PREREQUISITE RED: …
+       |                                          ^
+     27|   return value as T
+     28| }
+ ❯ corporateView ui/src/engine/p15b-browser-wave5.test.ts:29:41
+ ❯ ui/src/engine/p15b-browser-wave5.test.ts:106:71
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/10]⎯
+
+ FAIL |ui|  ui/src/lot/livingTurn.parity.test.tsx > Wave5 mounted warning presents terms before lawful loan commit and autosaves one receipt
+TestingLibraryElementError: Unable to find an element with the text: Corporate condition: warning since Week 134. Cash covers fewer than 4 weeks of obligations. Routes that remain: a studio loan.. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"card"[39m
+      [33mdata-recovery[39m=[32m"continuing"[39m
+      [33mdata-testid[39m=[32m"recovery-notice"[39m
+      [33mrole[39m=[32m"status"[39m
+      [33mstyle[39m=[32m"margin-bottom: 12px;"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"spread"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0mContinuing your studio — Week 134.[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"ghost"[39m
+          [33mdata-testid[39m=[32m"recovery-dismiss"[39m
+        [36m>[39m
+          [0mDismiss[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"lot-screen lot-hollywood"[39m
+      [33mdata-entry-focus[39m=[32m"studio-home"[39m
+      [33mdata-testid[39m=[32m"studio-lot-screen"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-casting-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-production-formation-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-script-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"lot-topbar"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-brand"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"mark lot-studio-heading"[39m
+            [33mdata-testid[39m=[32m"lot-studio-heading"[39m
+            [33mtabindex[39m=[32m"-1"[39m
+          [36m>[39m
+            [0mPROJECT: STUDIO[0m
+          [36m</h1>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-sub"[39m
+          [36m>[39m
+            [0mStudio Chronicle · Hollywood, 1922 · Week 31[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-topbar-actions"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-cash-slot"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-cash"[39m
+              [33mdata-testid[39m=[32m"lot-cash"[39m
+            [36m>[39m
+              [0m-$60,001[0m
+            [36m</span>[39m
+          [36m</span>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-transport"[39m
+            [33mdata-mode[39m=[32m"paused"[39m
+            [33mdata-paused-by[39m=[32m"none"[39m
+            [33mdata-speed[39m=[32m"1"[39m
+            [33mdata-testid[39m=[32m"lot-transport"[39m
+            [33mdata-week[39m=[32m"134"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33maria-pressed[39m=[32m"false"[39m
+              [33mclass[39m=[32m"lot-transport-run lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-transport-toggle"[39m
+              [33mtitle[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m▶[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mRoll[0m
+              [36m</span>[39m
+            [36m</button>[39m
+            [36m<div[39m
+              [33maria-label[39m=[32m"Pace"[39m
+              [33mclass[39m=[32m"lot-transport-speeds"[39m
+              [33mrole[39m=[32m"group"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33maria-pressed[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-transport-speed is-current"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-1"[39m
+                [33mtitle[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m1[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Brisk pace — twice as fast"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-2"[39m
+                [33mtitle[39m=[32m"Brisk pace — twice as fast"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m2[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-4"[39m
+                [33mtitle[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m4[0m
+                [0m×[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Advance one week"[39m
+            [33mclass[39m=[32m"primary lot-advance-week lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-advance-week"[39m
+            [33mtitle[39m=[32m"Advance one week"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▸[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mAdvance one week[0m
+            [36m</span>[39m
+      ...
+ ❯ Object.getElementError ../../The-Movies-headless-program/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ ../../The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ ../../The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ ../../The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ ui/src/lot/livingTurn.parity.test.tsx:414:17
+    412|   const terms = contractLoan(principal, fixed, initial.market.tick)
+    413|   await mountLot(initial)
+    414|   expect(screen.getByText(corporateNotices(initial).find(n => n.id ===…
+       |                 ^
+    415|   // Existing core permits each positive step up to actual maximum; no…
+    416|   const principalChoice = screen.getByRole('combobox', { name: /loan p…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/10]⎯
+
+ FAIL |ui|  ui/src/lot/livingTurn.parity.test.tsx > Wave5 living loop commits terminal once and keeps history/export accessible without operating verbs
+AssertionError: expected 10 to be 163 // Object.is equality
+
+- Expected
++ Received
+
+- 163
++ 10
+
+ ❯ ui/src/lot/livingTurn.parity.test.tsx:442:23
+    440|   await act(async () => { fireEvent.click(screen.getByTestId('lot-tran…
+    441|   await spendWeeks(3) // Existing witnessed fake-clock pacing; no inde…
+    442|   expect(shownWeek()).toBe(163); expect(sessionSave()).toBe(exportSave…
+       |                       ^
+    443|   expect(screen.getByText(corporateNotices(expected).find(n => n.id ==…
+    444|   expect(screen.getByTestId('lot-advance-week')).toBeDisabled()
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/10]⎯
+
+ Test Files  3 failed (3)
+      Tests  10 failed | 1 passed | 22 skipped (33)
+   Start at  18:30:37
+   Duration  37.23s (transform 7.91s, setup 590ms, collect 16.94s, tests 15.13s, environment 3.44s, prepare 313ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-wave5-red-r1-run/wave5-red.json

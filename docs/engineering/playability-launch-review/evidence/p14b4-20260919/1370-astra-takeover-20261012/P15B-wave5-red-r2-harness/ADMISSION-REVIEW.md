@@ -1,0 +1,11 @@
+# Wave5 RED r2 harness admission
+
+GPT-6.1 Sol bounded exact-delta review. KEEP conditional on parent resource/lane/input admission for UI compiler then exact four corrected leaves. No execution, repeated source sweep or candidate edits.
+
+Verified PATCHd1d70308328416ec3644b6dc4a8cda9ab89a5c5dab5efb390bd275bb41ae9093; MANIFEST44026cb783b1a4ecddb1785a7ae8e65931628bd768c6c90e329faf2c109a1178; DELTA2276f3f196f5d0e47d0ca4bd171d59b1dbc24b27bff762ce49746aa0cad7e4a4; SELECTED-FOUR5e967cbf52ba628c6f3dc25f19fd42cb1111184cbeb2ce70246a07c94339303c; runner9e33e20bc83a9bd88c6b27807c695c847734c384c33678d2e2c8d930a6f3890a. Manifest changes exactly two host paths, with other143 entries unchanged; both changed worktree/index postimages match their hashes.
+
+Test delta exactly approved: three new Saves leaves restore existing false route override immediately after clearing storage; new mounted terminal leaf reads admitted active-session absolute market.tick163, retaining exact bytes and every later terminal/control/persistence assertion. Expected163 is not weakened; no gameplay, old host body, fixture, budget or timeout change.
+
+Runner is r1 derivative only new packet/output/self/hash/selection authority and exact anchored four-name/two-file command. UI compiler still first; projectui/default+JSON,145 admission, full current freeze,11 input roots, owned lane/environment and launch3.5GiB/live3GiB floors/child propagation unchanged. Static installed-title matching selects exactly the four pinned titles. SELECTED-FOUR descriptive filter field is not the command; actual command uses full anchored titles and is the reviewed selection. No unrelated original15 reuse or runtime-pass claim.
+
+Parent must report four executed identities and every excluded host/uncorrected leaf separately. Original r1 eleven dispositions,1PASS10FAIL/22skipped and exact failed bytes remain preserved. This targeted run only resolves harness attribution for the four; seven other original controls are neither repeated nor newly passed. Specific source semantics/remaining unreachable assertions require actual results before implementation/qualification. Lesson remains storage clearing removes fixture route flags, and calendar label is not the absolute engine counter.

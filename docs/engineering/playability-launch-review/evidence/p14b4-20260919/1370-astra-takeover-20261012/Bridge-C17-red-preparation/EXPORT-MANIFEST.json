@@ -6,6 +6,11 @@
       "sha256": "038c16d52108893c9bf285c54da32a71fde0ac5702849c9b21ca4b564f027fe4"
     },
     {
+      "path": "DRAFT-REVIEW.md",
+      "bytes": 4447,
+      "sha256": "06f817e5f1dfecae2da7b995791af5dde94c1656140ab1a00e8033f5a51f8891"
+    },
+    {
       "path": "README.md",
       "bytes": 491,
       "sha256": "5692c163c0361eb95cd694104a9b5c24949512e175eab36f69dd6236b5885974"
@@ -14,6 +19,26 @@
       "path": "bridge-p15b5-loan-choice.test.ts",
       "bytes": 12638,
       "sha256": "af08adcef3479f5e8f93e60557331a02bfda73695c3937de40bfb14807fa9bf5"
+    },
+    {
+      "path": "r2/BRIEF.md",
+      "bytes": 8334,
+      "sha256": "e52a3a8038bb7669227f40a33537c7abea4626e0ac123e830e7754402d5ca4f3"
+    },
+    {
+      "path": "r2/PARENT-DELTA-REVIEW.md",
+      "bytes": 461,
+      "sha256": "3775d9e17facd825e45d198faf144d3f0ba6685ca07a31ade25c90b5f85313a3"
+    },
+    {
+      "path": "r2/TEST-EXACT.diff",
+      "bytes": 1347,
+      "sha256": "5c8afb807c205f5c880dcf252d9d61ebe82b4009c69bc8acc2a2aeb15d510fbf"
+    },
+    {
+      "path": "r2/bridge-p15b5-loan-choice.test.ts",
+      "bytes": 12979,
+      "sha256": "035f09861bfe40d3f775558bc45a9ec9b38faeac43572ce606b423a3d06c446a"
     }
   ]
 }

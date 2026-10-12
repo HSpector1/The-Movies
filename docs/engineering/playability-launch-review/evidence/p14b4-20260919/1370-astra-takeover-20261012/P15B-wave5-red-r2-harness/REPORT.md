@@ -1,0 +1,9 @@
+# Wave5 RED r2 — precise four-leaf harness repair only
+
+145-path packet over unchangedd68; allother143index/WT hashes unchanged. Only ui/src/saves.test.tsx3newleaves reapply setStudioLotOverviewOverride(false) immediately after their localStorage.clear, and ui/src/lot/livingTurn.parity.test.tsx newterminalleaf replaces calendar shownWeek with real admittedloadActiveSession state.market.tick163. ExactsessionSaveparity and everylater assertion retained. No runtime/source/helper/config/fixture/budget or oldbody/assertion changes.
+
+Read actual immutable red-r1 wave5-red.json/log: UIcompiler0/43s;11=1PASS10FAIL/39s. All3Saves fail dash-week during setup before testedimport because clearerased beforeEachfalseoverride and App routed tolazyLot. Mountedterminal failed expected10vs163 because shownWeek reads calendarweek, notabsolutetick. These are harnessdefects, not genuineimport/terminalRED. Originalr1 packet/rawdiagnostics preserved. Otherobservations retained:3missingviewprerequisites, actualclosureundefined/batch682semantic, missingwarningUI andstalenonloanPASS; unchanged7 leaves are not rerunsolelyfor thisrepair.
+
+SELECTED-FOUR-IDENTITIES.json suppliesexactfournewtitles/files/project/filter. ParentfirstUIcompiler then freshselected4 underexistingsolelane, notfull11 or baselineRED. Newr2 uncompiled/unrun byauthor. MissingAPI/semanticRED stillmustbemeasured before implementation. Static145index=WT=manifest/cacheddiffcheck0/reversePATCH0; HEADunchanged/no foreignuntracked changes. No commit/push/productionedit. LocalCURRENT/AUTOandhistorypreserved.
+
+Lesson: localStorage.clear also clears storedfeature-policy override; reset the intended route after clearing, not only beforeEach. Calendar displayweek is not an absolute simulationclock; assert admittedownerstate for temporal law. Both defects were evidenced in rawRED; exactharness fixes preserveoriginalfailures and allintendedassertions. Newcorrected outcomes pending, notclaimed wins.

@@ -1,0 +1,48 @@
+diff --git a/ui/src/lot/livingTurn.parity.test.tsx b/ui/src/lot/livingTurn.parity.test.tsx
+index 837e8552..148d94ca 100644
+--- a/ui/src/lot/livingTurn.parity.test.tsx
++++ b/ui/src/lot/livingTurn.parity.test.tsx
+@@ -439,7 +439,11 @@ it('Wave5 living loop commits terminal once and keeps history/export accessible
+   await mountLot(initial)
+   await act(async () => { fireEvent.click(screen.getByTestId('lot-transport-toggle')) })
+   await spendWeeks(3) // Existing witnessed fake-clock pacing; no independent simulation scheduler.
+-  expect(shownWeek()).toBe(163); expect(sessionSave()).toBe(exportSaveJson(expected))
++  const terminalSession = loadActiveSession(); expect(terminalSession.ok).toBe(true)
++  if (!terminalSession.ok) throw new Error(terminalSession.reason)
++  expect(() => coreSave.makeSave(terminalSession.state)).not.toThrow()
++  expect(terminalSession.state.market.tick).toBe(163)
++  expect(sessionSave()).toBe(exportSaveJson(expected))
+   expect(screen.getByText(corporateNotices(expected).find(n => n.id === 'corporate-closed')!.message)).toBeVisible()
+   expect(screen.getByTestId('lot-advance-week')).toBeDisabled()
+   const saved = sessionSave(); await spendWeeks(3); expect(sessionSave()).toBe(saved)
+diff --git a/ui/src/saves.test.tsx b/ui/src/saves.test.tsx
+index 85891805..38d1b0dd 100644
+--- a/ui/src/saves.test.tsx
++++ b/ui/src/saves.test.tsx
+@@ -413,7 +413,7 @@ function acceptedActiveState(): GameState {
+   return session.state
+ }
+ it('Wave5 genuine47 normal import replaces App session prospectively without old notices', budgeted(FIXTURE_MS, () => {
+-  localStorage.clear(); openCurrentStudioThroughStart('wave5-host-47-existing')
++  localStorage.clear(); setStudioLotOverviewOverride(false); openCurrentStudioThroughStart('wave5-host-47-existing')
+   const source = wave5SaveControl(130, false)
+   const historical = coreSave.migrateToV47(coreSave.makeSave(source))
+   expect(() => coreSave.validateSaveV47(historical)).not.toThrow()
+@@ -428,7 +428,7 @@ it('Wave5 genuine47 normal import replaces App session prospectively without old
+   expect(coreSave.stableStringify(historical)).toBe(bytes)
+ }), FIXTURE_MS)
+ it('Wave5 actual terminal import replaces active App state and reloads read-only with exact export/history', budgeted(FIXTURE_MS, () => {
+-  localStorage.clear(); openCurrentStudioThroughStart('wave5-host-terminal-existing')
++  localStorage.clear(); setStudioLotOverviewOverride(false); openCurrentStudioThroughStart('wave5-host-terminal-existing')
+   const terminal = wave5SaveControl(163), expected = exportSaveJson(terminal)
+   expect(terminal.campaignLegacy.endOfRun).not.toBeNull()
+   fireEvent.click(screen.getByTestId('open-saves'))
+@@ -447,7 +447,7 @@ it('Wave5 actual terminal import replaces active App state and reloads read-only
+   expect(screen.getByRole('heading', { name: /closed studio|ended run|read.only history/i })).toBeVisible()
+ }), FIXTURE_MS)
+ it('Wave5 unsupported due-only draft refuses before App replacement or any autosave', budgeted(FIXTURE_MS, () => {
+-  localStorage.clear(); openCurrentStudioThroughStart('wave5-host-due-existing')
++  localStorage.clear(); setStudioLotOverviewOverride(false); openCurrentStudioThroughStart('wave5-host-due-existing')
+   const current = exportSaveJson(acceptedActiveState())
+   const due = coreTick.tick(wave5SaveControl(162), { deferPlayerClosure: true })
+   expect(due.studioClosure.closures.some(c => c.studioId === due.hollywood!.playerStudioId)).toBe(false)

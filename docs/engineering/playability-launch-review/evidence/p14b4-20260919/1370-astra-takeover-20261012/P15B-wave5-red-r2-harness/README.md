@@ -1,0 +1,3 @@
+# Four corrected Wave5 controls — r2 harness-only
+
+Apply DELTA-vs-red-r1.diff to the published r1 candidate chain. All other143 paths unchanged; no game source/fixture/budget change. Resulting145-path PATCH SHA256d1d70308328416ec3644b6dc4a8cda9ab89a5c5dab5efb390bd275bb41ae9093 and MANIFEST44026cb783b1a4ecddb1785a7ae8e65931628bd768c6c90e329faf2c109a1178. Retain raw r1 failures and classification in sibling P15B-wave5-red-r1. Parent runner compiles UI, then selects only four corrected titles across two files. Unchanged seven r1 outcomes remain separate evidence; no rerun or combined11 claim. No runtime result yet. Exact packet/input/freeze/lane/floor guards retained.
