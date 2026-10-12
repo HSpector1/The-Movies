@@ -1,0 +1,103 @@
+{
+  "at": "2026-10-12T22:34:05.629806+00:00",
+  "candidateBase": "d68d4b13b454922cf84eff5c0c73cae3e780eebe",
+  "candidatePacketSha256": "420e91014b98487971f9f49b549972013ec3aa86e701e88e66b761b212d81087",
+  "candidateManifestSha256": "f17b024eb4b136a1f5a654b32d1a4ead54904fd9f52e8c847c778a85e7d2c078",
+  "candidatePaths": 141,
+  "productionSourceTree": "2bcac39e1c88ba48f24df44e015d3b7b7f5a06af",
+  "node": "v20.20.2",
+  "python": "3.14.4",
+  "rootCompilerExit": 0,
+  "rootCompilerSeconds": 41,
+  "runtimeExit": 0,
+  "runtimeSeconds": 38,
+  "laneExit": 0,
+  "tests": 15,
+  "passed": 15,
+  "failed": 0,
+  "skipped": 0,
+  "todo": 0,
+  "identities": [
+    {
+      "file": "p15b-legacy-atomic.test.ts",
+      "name": "p15b early complete aggregate transaction controls early-aggregate-links-publishes-once-and-keeps-input",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-atomic.test.ts",
+      "name": "p15b early complete aggregate transaction controls early-aggregate-ended-builder-failure-preserves-whole-input",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-atomic.test.ts",
+      "name": "p15b early complete aggregate transaction controls early-aggregate-final-full-reader-failure-preserves-whole-input",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-atomic.test.ts",
+      "name": "p15b stored route L official-only eligibility controls recording-at6239-freezes-v3-on-one-ordinary-tick",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-atomic.test.ts",
+      "name": "p15b stored route L official-only eligibility controls recording-at6240-never-backfills-official",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-atomic.test.ts",
+      "name": "p15b stored route L official-only eligibility controls later6241-tick-retains-validated-frozen-v1-v2-official-bytes",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-official-order.test.ts",
+      "name": "actual6240-official-reader-refuses-closure-after-finale-sequence",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-v3.test.ts",
+      "name": "p15b modern Legacy pure definition controls v3-due-is-not-actual-in-archetype-and-lens",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-v3.test.ts",
+      "name": "p15b modern Legacy pure definition controls v3-actual-ref-and-exclusive-cutoff",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-v3.test.ts",
+      "name": "p15b modern Legacy pure definition controls v3-closure-recording-is-not-proof-of-open-when-absent-or-late",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-v3.test.ts",
+      "name": "p15b modern Legacy pure definition controls frozen-v1-v2-retain-condition-owned-closure-semantics",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-v3.test.ts",
+      "name": "p15b modern Legacy constructed transaction controls early-closure-publishes-linked-ended-without-extra-week",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-v3.test.ts",
+      "name": "p15b modern Legacy constructed transaction controls ended-save-reload-links-and-downward-refusal",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-v3.test.ts",
+      "name": "p15b modern Legacy constructed transaction controls official-v3-with-null-ended-is-not-admitted-by-frozen-readers",
+      "status": "passed"
+    },
+    {
+      "file": "p15b-legacy-v3.test.ts",
+      "name": "p15b modern Legacy constructed transaction controls deferred-due-input-retains-complete-bytes-if-publication-refuses",
+      "status": "passed"
+    }
+  ],
+  "distinguishingGreen": "Unchanged official-order leaf now reaches the specific ordering refusal at44 and input-purity assertion45 after all baseline6240 premises.",
+  "freezeBeforeSha256": "3d5800d5ff42c268b154f8066210fb0c8a640d6fb3a8b6b6774909cbfd44130d",
+  "freezeAfterSha256": "3d5800d5ff42c268b154f8066210fb0c8a640d6fb3a8b6b6774909cbfd44130d",
+  "ownedLaneReleased": true,
+  "freeKiBAfter": 3782044,
+  "claimsLimit": "Named15 controls including order repair pass. Full modern/frozen/boundary/multiclosure/fault/ref/stamp and wider qualification remain open. No production landing or Owner acceptance."
+}

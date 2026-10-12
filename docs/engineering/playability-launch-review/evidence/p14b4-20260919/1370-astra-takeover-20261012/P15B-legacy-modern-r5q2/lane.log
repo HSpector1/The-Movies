@@ -1,0 +1,5 @@
+Legacy modern r5q2: exact141 WT/index postimages; reviewed packet; reverse check PASS
+node=v20.20.2 python=Python 3.14.4 start=2026-10-12T22:29:41Z
+{"name": "tsc-root", "exit": 0, "seconds": 41}
+{"name": "legacy-modern", "exit": 0, "seconds": 38}
+terminal legacy-modern=0; unchanged=yes; parent must inspect reporter completeness

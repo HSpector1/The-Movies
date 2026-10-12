@@ -1,0 +1,5 @@
+# P15B r5q2: two additional constructed premises
+
+Prepared parent-only run on the exact r5q2 candidate qualified by ../P15B-legacy-modern-r5q2/. The existing unchanged diagnostic checks late imported recording with actual player closure6273 and truthful-null official, then a genuine early capture with constructed player/two settled-rival debits and actual simultaneous closures163. It uses ordinary migration/signing/ticks and full baseline/drained/final reader admissions with input-purity and existing90/120s budgets. It is constructed transaction coverage, not natural gameplay or complete Legacy acceptance.
+
+The wrapper reuses the measured root compiler0 only when pinned before/after freeze and command records match and every source/index/HEAD/config/original input is unchanged. New driver input12 is pinned and frozen. Same owned lane and3.5GiBlaunch/3GiBruntime floors. Independent driver and runner reviews are KEEP; actual execution remains pending at this preparation checkpoint. Parent must inspect both result rows, not child exit alone.

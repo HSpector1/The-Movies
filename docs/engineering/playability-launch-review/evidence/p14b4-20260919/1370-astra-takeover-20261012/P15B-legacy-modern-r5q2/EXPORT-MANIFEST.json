@@ -17,8 +17,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 931,
-      "sha256": "49fd26c16e63e5041b787cde0db76cda7e19dfa2bcc725bab68009657380114d"
+      "bytes": 1198,
+      "sha256": "fc121c656c0a962cabc8e93a095d5934566385086bc3c9a6c186fc43d686a289"
     },
     {
       "path": "REPORT.md",
@@ -26,11 +26,51 @@
       "sha256": "8de1decbbcead0315390695fc8ef0b728be57d8538b72efb945042cd99caf361"
     },
     {
+      "path": "RESULTS-REVIEW.md",
+      "bytes": 1955,
+      "sha256": "73bf362541f7751f9c311c3fbe44f84305a45b5255f2dce44891c5f7cb258315"
+    },
+    {
+      "path": "RESULTS.json",
+      "bytes": 4241,
+      "sha256": "6a6171aa4db5df4c7bd37c495f8668759479736c03af9ce6adcd581b446e23a1"
+    },
+    {
       "path": "RUNNER.sh",
       "bytes": 8865,
       "sha256": "1e16cb5c649ed4ad29e2e03814e18586ca5e653ba607560e330bd0e0b8f8b387"
+    },
+    {
+      "path": "commands.jsonl",
+      "bytes": 955,
+      "sha256": "720d510ae2a3fd24007a556a65b71162ce2775ebc5647c40681721c063f16e74"
+    },
+    {
+      "path": "lane.log",
+      "bytes": 330,
+      "sha256": "d1d500d4727cfa8693becc59288267503cb8271fce09a66db0dd83698a1706d8"
+    },
+    {
+      "path": "lane.meta",
+      "bytes": 216,
+      "sha256": "ea15afbc03cd07daef4c7dbfe2b126c97554af4eef8564b634bf72b5b4252d9e"
+    },
+    {
+      "path": "legacy-modern.json",
+      "bytes": 5970,
+      "sha256": "0b223fdab7a4d5975b9ce1f2743c12a4ec75c04005a587add1016f3d37240d35"
+    },
+    {
+      "path": "legacy-modern.log",
+      "bytes": 1503,
+      "sha256": "3ab72eabfee834cc251a5a2feea0c0d64874ae7dc71bc5b65ebccc50b4b69fed"
+    },
+    {
+      "path": "tsc-root.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
   ],
   "privateSaveBodies": false,
-  "execution": "not yet run; independent static KEEP"
+  "execution": "compiler0;15PASS0fail0skip0todo;runtime/lane0;strictfreeze exact"
 }
