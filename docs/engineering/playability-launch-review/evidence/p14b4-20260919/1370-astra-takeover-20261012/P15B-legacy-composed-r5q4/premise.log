@@ -1,0 +1,27 @@
+{
+  "classification": "Two proposed separately admitted authority composition witnesses; no full gameplay acceptance",
+  "results": [
+    {
+      "label": "Public lawful late founding at3 plus labelled debit terminal: nonempty fund composition",
+      "budgetMs": 90000,
+      "preparedWeek": 3,
+      "fundAllocations": 6,
+      "baselineAndPreparedAdmitted": true,
+      "passed": false,
+      "error": "TypeError: Cannot read properties of undefined (reading 'CORPORATE_WARN_SUSTAIN_WEEKS')\n    at terminal (/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-downgrade-premise.ts:30:36)\n    at /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-downgrade-premise.ts:89:18\n    at measure (/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-downgrade-premise.ts:65:9)\n    at /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-downgrade-premise.ts:69:1\n    at ViteNodeRunner.runModule (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:399:5)\n    at ViteNodeRunner.directRequest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:381:5)\n    at ViteNodeRunner.cachedRequest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:206:14)\n    at ViteNodeRunner.executeFile (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:169:12)\n    at CAC.run (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/cli.mjs:99:5)",
+      "elapsedMs": 716.769577,
+      "budgetPassed": true
+    },
+    {
+      "label": "Accepted genuine45 current migration plus actual durable disposal and labelled player debit terminal",
+      "budgetMs": 120000,
+      "baselineAndPreparedAdmitted": true,
+      "disposedWeek": 91,
+      "actualRefund": 450000,
+      "passed": false,
+      "error": "TypeError: Cannot read properties of undefined (reading 'CORPORATE_WARN_SUSTAIN_WEEKS')\n    at terminal (/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-downgrade-premise.ts:30:36)\n    at /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-downgrade-premise.ts:109:18\n    at measure (/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-downgrade-premise.ts:65:9)\n    at /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-downgrade-premise.ts:95:1\n    at ViteNodeRunner.runModule (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:399:5)\n    at ViteNodeRunner.directRequest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:381:5)\n    at ViteNodeRunner.cachedRequest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:206:14)\n    at ViteNodeRunner.executeFile (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:169:12)\n    at CAC.run (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/cli.mjs:99:5)",
+      "elapsedMs": 1594.446468,
+      "budgetPassed": true
+    }
+  ]
+}

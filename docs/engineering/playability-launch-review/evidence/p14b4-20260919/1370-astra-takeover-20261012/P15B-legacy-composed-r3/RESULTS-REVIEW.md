@@ -1,0 +1,11 @@
+# Composed r3 measured results
+
+GPT-6.1 Sol independent read-only immutable evidence review. KEEP: the specifically identified separate nonempty fund/recovery plus modern ended composition gap is closed by two admitted constructed controls. No reviewer execution or candidate edits; no universal all-authorities envelope, natural recovery, Wave5 or Owner acceptance claim.
+
+Actual child/lane0,13seconds; exactly two complete PASS records, budgets3602.280662ms/90s and5218.823220ms/120s. Strict start/final freeze bytes identical SHAe2cb89454e1aa1707f249da9540768e2f5ee53a7d0967613611a46110613d40c. Preserve prior import-failed attempt and static oversight record unchanged.
+
+Fund control actual public opening/sign/found at3 has six allocations; source, prepared debit and final admissions complete, actual closure36 with linked modern ended, original funding bytes preserved. Observed first4/33evaluations/limit36 matches derived bound. All four entry routes (48→47,migrate47,migrate46,migrate45) return precise ordered condition/closure/ended/nonnull opened fund6allocations/sharedmarket/Ranking/frozenLegacy refusal, with whole-envelope purity. Lower target dispatch legitimately refuses at the48→47 boundary with composed inherited reasons rather than completing a destructive conversion.
+
+Recovery control accepted genuine45→current state at91, admitted policy premise and real disposal yields450000 refund. Source/debit/final admissions complete; actual closure124 with linked modern ended; original real receipt retained, plant absent and refund history preserved. Actual-present reasons include costCutting.since, facilityDemolitionRefund and facilityDisposed. All four entry routes preserve exact ordered modern terminal plus all three recovery/P15 reasons and whole-envelope purity. Observed first92/33evaluations/limit124 is actual evidence, not a new gameplay timing rule.
+
+These cases prove separate lawful producer/admitted constructed composition edges that prior conditional/null-root assertions did not. They do not prove coexistence of funded+recovery authority in one save, every recovery subtype/state, natural decision entry, full gameplay economic liveness, mounted presentation or broad final gates. Existing technical checks and incomplete surface/acceptance work remain separately qualified.

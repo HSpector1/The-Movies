@@ -22,8 +22,18 @@
     },
     {
       "path": "README.md",
-      "bytes": 1388,
-      "sha256": "76d2702608ec9842e006980dcb2b7e47f0d821a5bee5a633440c77bd2210a826"
+      "bytes": 1787,
+      "sha256": "241270fc13482c1670bc2d5e827b556fa325c7fbca0e4d11887d238b2a1d68c9"
+    },
+    {
+      "path": "RESULTS-AND-REPAIR-REVIEW.md",
+      "bytes": 2468,
+      "sha256": "5733213bcbea769f955605ee4f8189f394ff62e32831d705efd016e90350c5e3"
+    },
+    {
+      "path": "RESULTS.json",
+      "bytes": 4614,
+      "sha256": "71511ac60b17b09d6fc184920bcee81357edc53a9e247bcdd050378c402ad3b8"
     },
     {
       "path": "RUNNER-REVIEW.md",
@@ -39,8 +49,28 @@
       "path": "WITNESS-MAP.md",
       "bytes": 4050,
       "sha256": "d16b7f94e87f6694de00a47945597a24df0fe7760bd0a1df90ba0f57d20bdbb3"
+    },
+    {
+      "path": "commands.jsonl",
+      "bytes": 413,
+      "sha256": "fd4e8e837cb5e32b5d80802015f21e7a5e4c848205d00fea72d131b86dc613d6"
+    },
+    {
+      "path": "lane.log",
+      "bytes": 384,
+      "sha256": "74c12074229b3163cfef6e6763f1ac25df483f89cf48353adf69e48f73d93d65"
+    },
+    {
+      "path": "lane.meta",
+      "bytes": 226,
+      "sha256": "d095db4cbddb56d29ff4f303080ce8dc6ee94295bfe721a6bb022a44931a1182"
+    },
+    {
+      "path": "premise.log",
+      "bytes": 3378,
+      "sha256": "d8ac2ca1d5781202922b94c3d7a6bfe2d340568eb6addcce494b2da3cf70fc8d"
     }
   ],
   "privateSaveBodies": false,
-  "execution": "unexecuted at preparation checkpoint"
+  "execution": "both cases FAIL before terminal loop due scratch import defect; prepared setups admitted; strictfreeze exact"
 }

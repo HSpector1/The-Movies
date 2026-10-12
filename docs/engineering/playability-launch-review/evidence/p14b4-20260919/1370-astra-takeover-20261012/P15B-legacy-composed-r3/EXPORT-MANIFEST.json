@@ -1,0 +1,56 @@
+{
+  "files": [
+    {
+      "path": "ADMISSION-REVIEW.md",
+      "bytes": 2468,
+      "sha256": "5733213bcbea769f955605ee4f8189f394ff62e32831d705efd016e90350c5e3"
+    },
+    {
+      "path": "DRIVER.ts",
+      "bytes": 11770,
+      "sha256": "4d26ae9705bebdfa93ee6c72004690dc7a2c607c79543a4519c7ade138704e2d"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1337,
+      "sha256": "cdddd949b59295f635741ce11865e28ed9395b7da0cca0282b109754d73247b0"
+    },
+    {
+      "path": "RESULTS-REVIEW.md",
+      "bytes": 2323,
+      "sha256": "b0e4a789b623feb958219cc6615e07566b96b11a56a22bc7af65e99803b3a753"
+    },
+    {
+      "path": "RESULTS.json",
+      "bytes": 8144,
+      "sha256": "b6b2e34c048ebced8b36c27ae673f8712ed296300ccc65352b08bc1245746543"
+    },
+    {
+      "path": "RUNNER.sh",
+      "bytes": 11091,
+      "sha256": "982f841fa50f42d5cd2a0871ea90421fe2e3731d638ee4e19df3fdbb2fe76c02"
+    },
+    {
+      "path": "commands.jsonl",
+      "bytes": 415,
+      "sha256": "ef4b5013fd7f74cd60bbc90e9c2a93169cface23ee2bfd7a6f3e3609f5718737"
+    },
+    {
+      "path": "lane.log",
+      "bytes": 385,
+      "sha256": "da6c8f250918a8a9430b0f61c92afe7c68581b8c588ec02246eb09440ef6c122"
+    },
+    {
+      "path": "lane.meta",
+      "bytes": 224,
+      "sha256": "43f68a01706cb8286d0329edce60fa3d1cdeeead9bc837d5692f550f2caa8380"
+    },
+    {
+      "path": "premise.log",
+      "bytes": 6865,
+      "sha256": "78892b8463e9b2b1519d2000f0c43ce4389a3bc8cd310586e9733472c52c8dca"
+    }
+  ],
+  "privateSaveBodies": false,
+  "execution": "two separately admitted composition cases PASS;child/lane0/13s;exactfreeze; independentKEEP"
+}

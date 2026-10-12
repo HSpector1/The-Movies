@@ -1,0 +1,107 @@
+{
+  "at": "2026-10-12T23:10:12.838541+00:00",
+  "candidatePacketSha256": "6578dba2193c41f8e83c4ba859cc132786c9ba605338e28dbe560882574eb18a",
+  "driverSha256": "4d26ae9705bebdfa93ee6c72004690dc7a2c607c79543a4519c7ade138704e2d",
+  "commands": [
+    {
+      "name": "premise",
+      "exit": 0,
+      "startEpoch": 1791846577,
+      "endEpoch": 1791846590,
+      "seconds": 13,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vite-node/vite-node.mjs",
+        "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-downgrade-premise.r3.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-premise-r3-run/premise.log"
+    }
+  ],
+  "cases": [
+    {
+      "label": "Public lawful late founding at3 plus labelled debit terminal: nonempty fund composition",
+      "budgetMs": 90000,
+      "preparedWeek": 3,
+      "fundAllocations": 6,
+      "baselineAndPreparedAdmitted": true,
+      "finalAdmitted": true,
+      "actualClosureWeek": 36,
+      "observation": {
+        "firstEligible": 4,
+        "evaluations": 33,
+        "limit": 36,
+        "definition": "corporate-condition/v1"
+      },
+      "endedId": "campaign-legacy-19",
+      "messages": [
+        {
+          "target": "48\u219247",
+          "message": "migrateToV47: cannot downgrade or discard a corporateCondition record (5 evaluated); cannot downgrade or discard a corporateCondition event (3 recorded); cannot downgrade or discard an actual studio closure (1 recorded); cannot downgrade or discard a closure claim (6 recorded); cannot downgrade or discard the ended Legacy manifest; cannot downgrade or discard the recorded founding fund (opened, 6 allocations); cannot downgrade or discard a recorded shared-market assessment (12 recorded); cannot downgrade or discard a recorded Power Ranking quarter; cannot downgrade or discard the frozen 2040 Legacy"
+        },
+        {
+          "target": "migrate47",
+          "message": "migrateToV47: cannot downgrade or discard a corporateCondition record (5 evaluated); cannot downgrade or discard a corporateCondition event (3 recorded); cannot downgrade or discard an actual studio closure (1 recorded); cannot downgrade or discard a closure claim (6 recorded); cannot downgrade or discard the ended Legacy manifest; cannot downgrade or discard the recorded founding fund (opened, 6 allocations); cannot downgrade or discard a recorded shared-market assessment (12 recorded); cannot downgrade or discard a recorded Power Ranking quarter; cannot downgrade or discard the frozen 2040 Legacy"
+        },
+        {
+          "target": "migrate46",
+          "message": "migrateToV47: cannot downgrade or discard a corporateCondition record (5 evaluated); cannot downgrade or discard a corporateCondition event (3 recorded); cannot downgrade or discard an actual studio closure (1 recorded); cannot downgrade or discard a closure claim (6 recorded); cannot downgrade or discard the ended Legacy manifest; cannot downgrade or discard the recorded founding fund (opened, 6 allocations); cannot downgrade or discard a recorded shared-market assessment (12 recorded); cannot downgrade or discard a recorded Power Ranking quarter; cannot downgrade or discard the frozen 2040 Legacy"
+        },
+        {
+          "target": "migrate45",
+          "message": "migrateToV47: cannot downgrade or discard a corporateCondition record (5 evaluated); cannot downgrade or discard a corporateCondition event (3 recorded); cannot downgrade or discard an actual studio closure (1 recorded); cannot downgrade or discard a closure claim (6 recorded); cannot downgrade or discard the ended Legacy manifest; cannot downgrade or discard the recorded founding fund (opened, 6 allocations); cannot downgrade or discard a recorded shared-market assessment (12 recorded); cannot downgrade or discard a recorded Power Ranking quarter; cannot downgrade or discard the frozen 2040 Legacy"
+        }
+      ],
+      "openedBaselineBytes": 271420,
+      "passed": true,
+      "elapsedMs": 3602.2806619999997,
+      "budgetPassed": true
+    },
+    {
+      "label": "Accepted genuine45 current migration plus actual durable disposal and labelled player debit terminal",
+      "budgetMs": 120000,
+      "baselineAndPreparedAdmitted": true,
+      "disposedWeek": 91,
+      "actualRefund": 450000,
+      "finalAdmitted": true,
+      "actualClosureWeek": 124,
+      "observation": {
+        "firstEligible": 92,
+        "evaluations": 33,
+        "limit": 124,
+        "definition": "corporate-condition/v1"
+      },
+      "actualPresentRecoveryReasons": [
+        "facilityDemolitionRefund",
+        "facilityDisposed",
+        "costCutting.since"
+      ],
+      "messages": [
+        {
+          "target": "48\u219247",
+          "message": "migrateToV47: cannot downgrade or discard a corporateCondition record (5 evaluated); cannot downgrade or discard a corporateCondition event (3 recorded); cannot downgrade or discard an actual studio closure (1 recorded); cannot downgrade or discard the ended Legacy manifest; cannot downgrade or discard recovery authority: costCutting.since, facilityDemolitionRefund, facilityDisposed; cannot downgrade or discard a recorded shared-market assessment (9 recorded); cannot downgrade or discard a recorded Power Ranking quarter; cannot downgrade or discard the frozen 2040 Legacy"
+        },
+        {
+          "target": "migrate47",
+          "message": "migrateToV47: cannot downgrade or discard a corporateCondition record (5 evaluated); cannot downgrade or discard a corporateCondition event (3 recorded); cannot downgrade or discard an actual studio closure (1 recorded); cannot downgrade or discard the ended Legacy manifest; cannot downgrade or discard recovery authority: costCutting.since, facilityDemolitionRefund, facilityDisposed; cannot downgrade or discard a recorded shared-market assessment (9 recorded); cannot downgrade or discard a recorded Power Ranking quarter; cannot downgrade or discard the frozen 2040 Legacy"
+        },
+        {
+          "target": "migrate46",
+          "message": "migrateToV47: cannot downgrade or discard a corporateCondition record (5 evaluated); cannot downgrade or discard a corporateCondition event (3 recorded); cannot downgrade or discard an actual studio closure (1 recorded); cannot downgrade or discard the ended Legacy manifest; cannot downgrade or discard recovery authority: costCutting.since, facilityDemolitionRefund, facilityDisposed; cannot downgrade or discard a recorded shared-market assessment (9 recorded); cannot downgrade or discard a recorded Power Ranking quarter; cannot downgrade or discard the frozen 2040 Legacy"
+        },
+        {
+          "target": "migrate45",
+          "message": "migrateToV47: cannot downgrade or discard a corporateCondition record (5 evaluated); cannot downgrade or discard a corporateCondition event (3 recorded); cannot downgrade or discard an actual studio closure (1 recorded); cannot downgrade or discard the ended Legacy manifest; cannot downgrade or discard recovery authority: costCutting.since, facilityDemolitionRefund, facilityDisposed; cannot downgrade or discard a recorded shared-market assessment (9 recorded); cannot downgrade or discard a recorded Power Ranking quarter; cannot downgrade or discard the frozen 2040 Legacy"
+        }
+      ],
+      "passed": true,
+      "elapsedMs": 5218.823219999999,
+      "budgetPassed": true
+    }
+  ],
+  "laneExit": 0,
+  "freezeBeforeSha256": "e2cb89454e1aa1707f249da9540768e2f5ee53a7d0967613611a46110613d40c",
+  "freezeAfterSha256": "e2cb89454e1aa1707f249da9540768e2f5ee53a7d0967613611a46110613d40c",
+  "ownedLaneReleased": true,
+  "claimsLimit": "Both separately admitted constructed authority-composition cases PASS, four converter paths each with exact present reasons and purity. Fund original6 allocations preserved through actual36 closure; real disposal/refund450000 and cutting authority preserved through actual124 closure. No all-authorities-single-envelope or natural recovery/loan restart/browser/Wave5/full-program acceptance."
+}

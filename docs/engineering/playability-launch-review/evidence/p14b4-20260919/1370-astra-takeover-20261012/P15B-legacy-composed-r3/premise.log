@@ -1,0 +1,84 @@
+{
+  "classification": "Two proposed separately admitted authority composition witnesses; no full gameplay acceptance",
+  "results": [
+    {
+      "label": "Public lawful late founding at3 plus labelled debit terminal: nonempty fund composition",
+      "budgetMs": 90000,
+      "preparedWeek": 3,
+      "fundAllocations": 6,
+      "baselineAndPreparedAdmitted": true,
+      "finalAdmitted": true,
+      "actualClosureWeek": 36,
+      "observation": {
+        "firstEligible": 4,
+        "evaluations": 33,
+        "limit": 36,
+        "definition": "corporate-condition/v1"
+      },
+      "endedId": "campaign-legacy-19",
+      "messages": [
+        {
+          "target": "48→47",
+          "message": "migrateToV47: cannot downgrade or discard a corporateCondition record (5 evaluated); cannot downgrade or discard a corporateCondition event (3 recorded); cannot downgrade or discard an actual studio closure (1 recorded); cannot downgrade or discard a closure claim (6 recorded); cannot downgrade or discard the ended Legacy manifest; cannot downgrade or discard the recorded founding fund (opened, 6 allocations); cannot downgrade or discard a recorded shared-market assessment (12 recorded); cannot downgrade or discard a recorded Power Ranking quarter; cannot downgrade or discard the frozen 2040 Legacy"
+        },
+        {
+          "target": "migrate47",
+          "message": "migrateToV47: cannot downgrade or discard a corporateCondition record (5 evaluated); cannot downgrade or discard a corporateCondition event (3 recorded); cannot downgrade or discard an actual studio closure (1 recorded); cannot downgrade or discard a closure claim (6 recorded); cannot downgrade or discard the ended Legacy manifest; cannot downgrade or discard the recorded founding fund (opened, 6 allocations); cannot downgrade or discard a recorded shared-market assessment (12 recorded); cannot downgrade or discard a recorded Power Ranking quarter; cannot downgrade or discard the frozen 2040 Legacy"
+        },
+        {
+          "target": "migrate46",
+          "message": "migrateToV47: cannot downgrade or discard a corporateCondition record (5 evaluated); cannot downgrade or discard a corporateCondition event (3 recorded); cannot downgrade or discard an actual studio closure (1 recorded); cannot downgrade or discard a closure claim (6 recorded); cannot downgrade or discard the ended Legacy manifest; cannot downgrade or discard the recorded founding fund (opened, 6 allocations); cannot downgrade or discard a recorded shared-market assessment (12 recorded); cannot downgrade or discard a recorded Power Ranking quarter; cannot downgrade or discard the frozen 2040 Legacy"
+        },
+        {
+          "target": "migrate45",
+          "message": "migrateToV47: cannot downgrade or discard a corporateCondition record (5 evaluated); cannot downgrade or discard a corporateCondition event (3 recorded); cannot downgrade or discard an actual studio closure (1 recorded); cannot downgrade or discard a closure claim (6 recorded); cannot downgrade or discard the ended Legacy manifest; cannot downgrade or discard the recorded founding fund (opened, 6 allocations); cannot downgrade or discard a recorded shared-market assessment (12 recorded); cannot downgrade or discard a recorded Power Ranking quarter; cannot downgrade or discard the frozen 2040 Legacy"
+        }
+      ],
+      "openedBaselineBytes": 271420,
+      "passed": true,
+      "elapsedMs": 3602.2806619999997,
+      "budgetPassed": true
+    },
+    {
+      "label": "Accepted genuine45 current migration plus actual durable disposal and labelled player debit terminal",
+      "budgetMs": 120000,
+      "baselineAndPreparedAdmitted": true,
+      "disposedWeek": 91,
+      "actualRefund": 450000,
+      "finalAdmitted": true,
+      "actualClosureWeek": 124,
+      "observation": {
+        "firstEligible": 92,
+        "evaluations": 33,
+        "limit": 124,
+        "definition": "corporate-condition/v1"
+      },
+      "actualPresentRecoveryReasons": [
+        "facilityDemolitionRefund",
+        "facilityDisposed",
+        "costCutting.since"
+      ],
+      "messages": [
+        {
+          "target": "48→47",
+          "message": "migrateToV47: cannot downgrade or discard a corporateCondition record (5 evaluated); cannot downgrade or discard a corporateCondition event (3 recorded); cannot downgrade or discard an actual studio closure (1 recorded); cannot downgrade or discard the ended Legacy manifest; cannot downgrade or discard recovery authority: costCutting.since, facilityDemolitionRefund, facilityDisposed; cannot downgrade or discard a recorded shared-market assessment (9 recorded); cannot downgrade or discard a recorded Power Ranking quarter; cannot downgrade or discard the frozen 2040 Legacy"
+        },
+        {
+          "target": "migrate47",
+          "message": "migrateToV47: cannot downgrade or discard a corporateCondition record (5 evaluated); cannot downgrade or discard a corporateCondition event (3 recorded); cannot downgrade or discard an actual studio closure (1 recorded); cannot downgrade or discard the ended Legacy manifest; cannot downgrade or discard recovery authority: costCutting.since, facilityDemolitionRefund, facilityDisposed; cannot downgrade or discard a recorded shared-market assessment (9 recorded); cannot downgrade or discard a recorded Power Ranking quarter; cannot downgrade or discard the frozen 2040 Legacy"
+        },
+        {
+          "target": "migrate46",
+          "message": "migrateToV47: cannot downgrade or discard a corporateCondition record (5 evaluated); cannot downgrade or discard a corporateCondition event (3 recorded); cannot downgrade or discard an actual studio closure (1 recorded); cannot downgrade or discard the ended Legacy manifest; cannot downgrade or discard recovery authority: costCutting.since, facilityDemolitionRefund, facilityDisposed; cannot downgrade or discard a recorded shared-market assessment (9 recorded); cannot downgrade or discard a recorded Power Ranking quarter; cannot downgrade or discard the frozen 2040 Legacy"
+        },
+        {
+          "target": "migrate45",
+          "message": "migrateToV47: cannot downgrade or discard a corporateCondition record (5 evaluated); cannot downgrade or discard a corporateCondition event (3 recorded); cannot downgrade or discard an actual studio closure (1 recorded); cannot downgrade or discard the ended Legacy manifest; cannot downgrade or discard recovery authority: costCutting.since, facilityDemolitionRefund, facilityDisposed; cannot downgrade or discard a recorded shared-market assessment (9 recorded); cannot downgrade or discard a recorded Power Ranking quarter; cannot downgrade or discard the frozen 2040 Legacy"
+        }
+      ],
+      "passed": true,
+      "elapsedMs": 5218.823219999999,
+      "budgetPassed": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "at": "2026-10-12T23:07:52.339446+00:00",
+  "candidatePacketSha256": "6578dba2193c41f8e83c4ba859cc132786c9ba605338e28dbe560882574eb18a",
+  "driverSha256": "0aa2061da6516d86e4b7f7f76565824d7fd6818294672d842ea49a82ca11758d",
+  "commands": [
+    {
+      "name": "premise",
+      "exit": 1,
+      "startEpoch": 1791846415,
+      "endEpoch": 1791846421,
+      "seconds": 6,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vite-node/vite-node.mjs",
+        "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-downgrade-premise.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-premise-r5q4-run/premise.log"
+    }
+  ],
+  "cases": [
+    {
+      "label": "Public lawful late founding at3 plus labelled debit terminal: nonempty fund composition",
+      "budgetMs": 90000,
+      "preparedWeek": 3,
+      "fundAllocations": 6,
+      "baselineAndPreparedAdmitted": true,
+      "passed": false,
+      "error": "TypeError: Cannot read properties of undefined (reading 'CORPORATE_WARN_SUSTAIN_WEEKS')\n    at terminal (/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-downgrade-premise.ts:30:36)\n    at /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-downgrade-premise.ts:89:18\n    at measure (/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-downgrade-premise.ts:65:9)\n    at /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-downgrade-premise.ts:69:1\n    at ViteNodeRunner.runModule (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:399:5)\n    at ViteNodeRunner.directRequest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:381:5)\n    at ViteNodeRunner.cachedRequest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:206:14)\n    at ViteNodeRunner.executeFile (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:169:12)\n    at CAC.run (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/cli.mjs:99:5)",
+      "elapsedMs": 716.769577,
+      "budgetPassed": true
+    },
+    {
+      "label": "Accepted genuine45 current migration plus actual durable disposal and labelled player debit terminal",
+      "budgetMs": 120000,
+      "baselineAndPreparedAdmitted": true,
+      "disposedWeek": 91,
+      "actualRefund": 450000,
+      "passed": false,
+      "error": "TypeError: Cannot read properties of undefined (reading 'CORPORATE_WARN_SUSTAIN_WEEKS')\n    at terminal (/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-downgrade-premise.ts:30:36)\n    at /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-downgrade-premise.ts:109:18\n    at measure (/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-downgrade-premise.ts:65:9)\n    at /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-composed-downgrade-premise.ts:95:1\n    at ViteNodeRunner.runModule (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:399:5)\n    at ViteNodeRunner.directRequest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:381:5)\n    at ViteNodeRunner.cachedRequest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:206:14)\n    at ViteNodeRunner.executeFile (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:169:12)\n    at CAC.run (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/cli.mjs:99:5)",
+      "elapsedMs": 1594.446468,
+      "budgetPassed": true
+    }
+  ],
+  "laneExit": 1,
+  "freezeBeforeSha256": "d61f8f7b8b65e60b89a2a08bf4b9034ba0322a23d9660520a083e68c3df2cd3f",
+  "freezeAfterSha256": "d61f8f7b8b65e60b89a2a08bf4b9034ba0322a23d9660520a083e68c3df2cd3f",
+  "ownedLaneReleased": true,
+  "claimsLimit": "Both baseline/prepared routes and labelled debit admission succeeded; both fail on diagnostic import: CORPORATE_CONDITION_VERSION is not exported by corporateConditionLive. No terminal loop, final admission or composed refusal reached. Source law export is corporateCondition.ts44. Harness defect, not gameplay defect; original failed diagnostic preserved."
+}

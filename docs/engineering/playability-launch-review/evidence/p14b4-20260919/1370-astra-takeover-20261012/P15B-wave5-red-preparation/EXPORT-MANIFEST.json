@@ -1,0 +1,85 @@
+{
+  "files": [
+    {
+      "path": "DRAFT-REVIEW.md",
+      "bytes": 3899,
+      "sha256": "26869aaac271c8eee3e0e7fe5e39332183f5c7c489a067ec49adc8602c8b8886"
+    },
+    {
+      "path": "R2-REVIEW.md",
+      "bytes": 4802,
+      "sha256": "bdd30541bf014bb811f1d6fe7c203ec240d18156ebc9a97827f00feea2ee5450"
+    },
+    {
+      "path": "R3-ADMISSION-REVIEW.md",
+      "bytes": 2930,
+      "sha256": "1205ca835485a237270393a1063250542989d16cd9ab3da7d11c77e78bde18ce"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1092,
+      "sha256": "8d673a17f5fb2c8ff0e25f9826eabb7055eb737bf2b9f3e62c4bc3d0db46a0e0"
+    },
+    {
+      "path": "p15b-wave5-red-draft/adapter-operating-gates.wave5.append.ts",
+      "bytes": 1285,
+      "sha256": "83a641867a337c7a43d2a55296016a06bb6ce3858acec67145debdf6a44694a0"
+    },
+    {
+      "path": "p15b-wave5-red-draft/livingTurn.parity.wave5.append.tsx",
+      "bytes": 4261,
+      "sha256": "41bc5c4d75358353593b5e38e93a1816f6361308e2bd54eb1fa356fed160828f"
+    },
+    {
+      "path": "p15b-wave5-red-draft/p15b-browser-wave5.test.ts",
+      "bytes": 7824,
+      "sha256": "c7950d3cfcef997c5a30302c3b761c1e090aa4fd4e422fa0a8a5c9d3203ff6d9"
+    },
+    {
+      "path": "p15b-wave5-red-draft/saves.wave5.append.tsx",
+      "bytes": 5336,
+      "sha256": "9987b307ea75ea9f8043ce7f9c88ec3b553684392c3ac8bd98e7240f73ececf1"
+    },
+    {
+      "path": "p15b-wave5-red-draft-r2/adapter-operating-gates.wave5.append.ts",
+      "bytes": 1285,
+      "sha256": "83a641867a337c7a43d2a55296016a06bb6ce3858acec67145debdf6a44694a0"
+    },
+    {
+      "path": "p15b-wave5-red-draft-r2/livingTurn.parity.wave5.append.tsx",
+      "bytes": 5197,
+      "sha256": "abb34f50d38d0d089cbd1f3ebcdb193ff1b741f3286c8f2f04d0188c90a0b8f1"
+    },
+    {
+      "path": "p15b-wave5-red-draft-r2/p15b-browser-wave5.test.ts",
+      "bytes": 8233,
+      "sha256": "11f98277a0bf86ba9848d26f536ff68a137a020a8b40b2fef9e7a4884d9b3ab0"
+    },
+    {
+      "path": "p15b-wave5-red-draft-r2/saves.wave5.append.tsx",
+      "bytes": 5336,
+      "sha256": "9987b307ea75ea9f8043ce7f9c88ec3b553684392c3ac8bd98e7240f73ececf1"
+    },
+    {
+      "path": "p15b-wave5-red-draft-r3/adapter-operating-gates.wave5.append.ts",
+      "bytes": 1285,
+      "sha256": "83a641867a337c7a43d2a55296016a06bb6ce3858acec67145debdf6a44694a0"
+    },
+    {
+      "path": "p15b-wave5-red-draft-r3/livingTurn.parity.wave5.append.tsx",
+      "bytes": 5489,
+      "sha256": "8a25473a95c818095488a957199d0ea04848bd92ac781c77c2d7cf422ab752a8"
+    },
+    {
+      "path": "p15b-wave5-red-draft-r3/p15b-browser-wave5.test.ts",
+      "bytes": 8469,
+      "sha256": "6e27c8631b7fc19c6a471be2f41568153745dd0886bc1e48d06d5143bbc0897d"
+    },
+    {
+      "path": "p15b-wave5-red-draft-r3/saves.wave5.append.tsx",
+      "bytes": 5792,
+      "sha256": "0aa24311e3e061feb1e02f4b9987ed4b3c61b046482b2c3ae59f112fd8c0071e"
+    }
+  ],
+  "execution": "static r3 KEEP; actual test-only installation in progress, no RED run yet"
+}

@@ -1,0 +1,5 @@
+Legacy composed q4: exact142 WT/index postimages; reviewed packet; reverse check PASS
+Reused measured r5q4 root compiler0: exact source/index/HEAD/config and every original input match
+node=v20.20.2 python=Python 3.14.4 start=2026-10-12T23:06:54Z
+{"name": "premise", "exit": 1, "seconds": 6}
+terminal premise=1; unchanged=yes; parent must inspect actual admission and observed timing
