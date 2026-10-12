@@ -1,0 +1,9 @@
+# Modern Legacy r5q3 — independently reviewed regression admission
+
+142-path packet over unchanged Save47 d68. Exactly one new test path tests/p15b-legacy-terminal-regression.test.ts; installed byte-for-byte from independently reviewed scratch r2 SHA7f21e7b10157618ac0026aab43bd33f2052bcc23c7bb2dda693a7ac5338c8b00. Prior141 index/worktree hashes exact before and after; all runtime/helper/config/fixture and old15 test bytes unchanged. Original scratch0428, revisedr2 and failedthree diagnostic retained.
+
+Parent r5q2 root0/41s and15PASS/0fail/0skip/0todo, runtime0/38s/lane0, exactfreeze and independentKEEP retained. New11 regression leaves have NO compiler/test result yet. Parent owns next runner and soleintensivelane.
+
+Coverage intended: actualconstructed terminal6239/6240/6241 cutoffs/Rankingplayerrow/frozenofficial preservation/replay; truthful late6240import→actual6273nullofficial; measured2closed+1notdueR03 sequence/eligibility/replay; meaningful realprep/builder/adapter/fullreader-allocator faults, endedref/stamp/link/source mutants, exported globalallocatorownerduplicate refusal and v3technology span/recording distinctions. Globalduplicate test explicitly owner-unit, not proof that fullreader reachesduplicatebeforeotherguards. Modern/P15 downgrade composition only; nonemptyfund/recovery+modernterminal composition remains exactgap. Source/API/tuning/authority unchanged, existingROUTE/FIXTURE budgets preserved. No3closureGREEN, naturalgameplay/Wave5 or broadqualification claim.
+
+Static142 staged=worktree=manifest, diffcheck0/reversefullPATCHcheck0, noforeign/untracked changes andHEAD unchanged. Exact delta versus immutable r5q2 included. HANDOFF CURRENT safe/AUTOandhistory unchanged, localmetadataonly; no commit/push/productionwrite/test/compiler/simulation/build byauthor. Parent verification pending.

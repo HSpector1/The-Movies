@@ -1,0 +1,41 @@
+{
+  "files": [
+    {
+      "path": "ADMISSION-REVIEW.md",
+      "bytes": 2644,
+      "sha256": "ea0211b2a82a69aab02e8f77095fe5da77ca60e39a52d338e2f4fd482cb30be6"
+    },
+    {
+      "path": "DELTA-vs-r5q2.diff",
+      "bytes": 20490,
+      "sha256": "bf30f65be95ed56735f4276b3d73fdd239f5df0666a61e877113eb9bdb434dc6"
+    },
+    {
+      "path": "MANIFEST.json",
+      "bytes": 44576,
+      "sha256": "282cadedb3435df5db361db436531286e2313fc256459fb75822ae07198172eb"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1702,
+      "sha256": "a892733a4e8567e4d4cf3fc9d367b7a37185946542c275f6c9811ecb1b97c04e"
+    },
+    {
+      "path": "REPORT.md",
+      "bytes": 1838,
+      "sha256": "ed52b25972cecb26c235d2e774d49492c40a28f70cfc96daa5aaf3df3a259bcb"
+    },
+    {
+      "path": "RUNNER.sh",
+      "bytes": 12737,
+      "sha256": "835f4f4701751350e7c370010543088b7814d86c81d6156aaa546aedc657b268"
+    },
+    {
+      "path": "TEST-REVIEW.md",
+      "bytes": 3544,
+      "sha256": "f0263dd7e7a5158bee0d350d0b5fb43841c2c8ca0cbc14a76d28bd2a85b8723f"
+    }
+  ],
+  "privateSaveBodies": false,
+  "execution": "new11 unexecuted; original15 retained independently"
+}
