@@ -1,0 +1,25 @@
+{
+  "wrapperExit": 1,
+  "child": {
+    "name": "premise",
+    "exit": 1,
+    "startEpoch": 1791828482,
+    "endEpoch": 1791828493,
+    "seconds": 11,
+    "node": "v20.20.2",
+    "command": [
+      "node",
+      "node_modules/vite-node/vite-node.mjs",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-terminal-premise.ts"
+    ],
+    "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-terminal-premise-run/premise.log"
+  },
+  "strictFreezeUnchanged": true,
+  "driverSHA256": "9f465ebf6fafca80204114c7d1c5942484ba13cff60611eced0b4d07ff1e43e7",
+  "preservedDriver": "p15b-legacy-terminal-premise.ts.r2",
+  "elapsedBodyMs": 8516.309756999999,
+  "precursorAndAllPrefixesAdmitted": true,
+  "caseCount": 3,
+  "failure": "Existing drainPlayer requires integer amount; fractional source cash plus1 is not integer. No debit, branch ticks or finalclosure tested.",
+  "repair": "Choose a whole debit Math.floor(actualCash)+1 leaving unchanged fractional balance below0; do not round the actual cash or rewrite history. New bounded attempt required."
+}

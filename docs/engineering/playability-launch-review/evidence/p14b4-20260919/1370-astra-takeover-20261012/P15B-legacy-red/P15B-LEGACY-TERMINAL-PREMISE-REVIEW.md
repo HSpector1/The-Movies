@@ -1,0 +1,19 @@
+# Constructed terminal premise diagnostic review
+
+GPT-6.1 Sol, 2026-10-12. Read-only driver/runner review, no execution or candidate writes. Driver f66845623240523e25d3a8c9cdf16f5296cc6f7287c3dca196281a4a01c9967a; runner7fccf1fd220096235ba0330bd0ca2c236dbecf1f8ef21b63bf1576dfe549505b. REFINE one output qualification before launch; otherwise KEEP bounded scope.
+
+Driver finalAdmission can be false while targetMatched=true and no gap/error. Record final admission refusal explicitly as a coverage gap and require both finalAdmission.admitted and actual target match for any qualified-input flag. Actual timing match may remain a separately labelled observation. Do not let an unadmitted terminal state appear as usable full-validator input merely because diagnostic exit0 means observations completed. Initial/drained admission gaps already behave honestly.
+
+Existing routeL is Vitest-free and memoized, actual6188 precursor admitted, detached prefixes/branches preserve complete caller bytes. Source uses copied exact existing labelled drain with helper hash pin, ordinary ticks6206/7/8 onward, no clock/counter/history shifts or extra seeds. Stable/no-loan/no-due/no-closure/nonnegative-cash checks are valid conservative prerequisites; exact counter-derived target remains measured rather than forced. If cash is fractional, existing integer-debit guard will report a constructed-input error rather than silently round/edit the campaign. Source pin plus runner frozen tracked code binds route implementation. Timing checks precede each added tick and final elapsed90s guard covers original route build plus the three cases; slow synchronous original route cannot be interrupted midcall but its overrun is recorded as failed budget, not a pass.
+
+Runner delta retains exact139 package/index/worktree admission, all relevant freeze, existinglane/environment/floors, new fresh output/selfbinding and mandatory driverinput12 with explicit hash. Only one vite-node child; no source/test mutation or signals. Prior root56s compiler is unchanged source evidence; no redundant compiler required for scratch diagnostic. Parent manually monitors lane/resources and interprets complete JSON, precursor/baseline/drained/final admissions, gaps/errors, budget and actual-versus-requested timing. No child0 means Legacy/gameplay qualification.
+
+Pending final refined driver hash requires matching updated runner admission pin and independent bounded verification. All14 previous RED statuses remain separate4pass/10fail; complete terminal6240/allocator/rollback coverage and mounted lawful playability are still unproved.
+
+## Final refinement KEEP
+
+Independently verified only finalAdmission binding, admittedTargetMatched combining actual timing with successful final admission, and explicit final-refusal gap changed. Driver SHA9f465ebf6fafca80204114c7d1c5942484ba13cff60611eced0b4d07ff1e43e7; runner SHAaaab1ba8335fb90003c2e197c6a789e499eb9cdfe81cf5232595afadfe802a4c matches updated driverpin with no other runnerdelta. KEEP for parent sole scheduled diagnostic. Original review/finding and .r1 inputs remain preserved. No execution performed; actual target/admission/budget and freeze outcomes must be reviewed after terminal.
+
+## Fractional-cash debit refinement
+
+Verified driver31445e255dd8c92ddf5652755bfe8dd96a1564d67473ba382270d6dfd5e17b5f changes only amount tofloor(actualcash)+1 and asserts resulting cashnegative. This chooses a legal integer labelled unit debit while retaining original fractional cash/remainder, ledger conservation and purity; no cash rounding/history rewrite. New runnerc906a1afbeaab0d8348569300d701433e978d70d0677213a36895ee17c99d471 changes only freshoutput/selfbinding and driverpin. Narrow KEEP for parent sole diagnostic launch. Original failed fractional-input attempt/r2 source retained; no actualclosure proof claimed yet. No execution by reviewer.

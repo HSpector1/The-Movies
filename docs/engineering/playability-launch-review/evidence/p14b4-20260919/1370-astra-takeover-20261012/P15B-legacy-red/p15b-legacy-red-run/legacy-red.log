@@ -1,0 +1,194 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p15b
+
+ ❯ |core| tests/p15b-legacy-v3.test.ts (8 tests | 6 failed) 11778ms
+   × p15b modern Legacy pure definition controls > v3-due-is-not-actual-in-archetype-and-lens 8ms
+     → PREREQUISITE RED: missing frozen definition campaign-legacy/v3
+   × p15b modern Legacy pure definition controls > v3-actual-ref-and-exclusive-cutoff 1ms
+     → PREREQUISITE RED: missing frozen definition campaign-legacy/v3
+   × p15b modern Legacy pure definition controls > v3-closure-recording-is-not-proof-of-open-when-absent-or-late 1ms
+     → PREREQUISITE RED: missing frozen definition campaign-legacy/v3
+   × p15b modern Legacy constructed transaction controls > early-closure-publishes-linked-ended-without-extra-week 2761ms
+     → SEMANTIC RED: actual player closure must publish linked ended atomically: expected null not to be null
+   × p15b modern Legacy constructed transaction controls > ended-save-reload-links-and-downward-refusal 1ms
+     → SEMANTIC RED: actual player closure must publish linked ended atomically: expected null not to be null
+   × p15b modern Legacy constructed transaction controls > official-v3-with-null-ended-is-not-admitted-by-frozen-readers 8861ms
+     → SEMANTIC RED: future official writer selects v3: expected 'campaign-legacy/v2' to be 'campaign-legacy/v3' // Object.is equality
+ ❯ |core| tests/p15b-legacy-atomic.test.ts (6 tests | 4 failed) 4027ms
+   × p15b early complete aggregate transaction controls > early-aggregate-links-publishes-once-and-keeps-input 2494ms
+     → SEMANTIC RED: complete aggregate must publish player ended: expected null not to be null
+   × p15b early complete aggregate transaction controls > early-aggregate-ended-builder-failure-preserves-whole-input 131ms
+     → expected [Function] to throw an error
+   × p15b early complete aggregate transaction controls > early-aggregate-final-full-reader-failure-preserves-whole-input 109ms
+     → expected [Function] to throw an error
+   × p15b stored route L official-only eligibility controls > recording-at6239-freezes-v3-on-one-ordinary-tick 411ms
+     → expected { kind: 'official2040', …(10) } to match object { …(3) }
+(8 matching properties omitted from actual)
+   ✓ p15b stored route L official-only eligibility controls > recording-at6240-never-backfills-official 389ms
+   ✓ p15b stored route L official-only eligibility controls > later6241-tick-retains-validated-frozen-v1-v2-official-bytes 492ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 10 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p15b-legacy-atomic.test.ts > p15b early complete aggregate transaction controls > early-aggregate-links-publishes-once-and-keeps-input
+AssertionError: SEMANTIC RED: complete aggregate must publish player ended: expected null not to be null
+ ❯ tests/p15b-legacy-atomic.test.ts:41:96
+     39|     const input = earlyInput(); const bytes = canon(input)
+     40|     const result = closure.advanceStudioClosureWeek(input)
+     41|     expect(terminal(result), 'SEMANTIC RED: complete aggregate must pu…
+       |                                                                                                ^
+     42|     const e = terminal(result)!; const c = closureOf(result, PLAYER)!
+     43|     expect(e).toMatchObject({ closureId: c.closureId, boundaryWeek: c.…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/10]⎯
+
+ FAIL |core|  tests/p15b-legacy-atomic.test.ts > p15b early complete aggregate transaction controls > early-aggregate-ended-builder-failure-preserves-whole-input
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/p15b-legacy-atomic.test.ts:62:61
+     60|     const spy = vi.spyOn(legacy, 'buildLegacyManifest').mockImplementa…
+     61|     try {
+     62|       expect(() => closure.advanceStudioClosureWeek(input)).toThrow('f…
+       |                                                             ^
+     63|       expect(spy).toHaveBeenCalled(); expect(canon(input)).toBe(bytes)
+     64|     } finally { spy.mockRestore() }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/10]⎯
+
+ FAIL |core|  tests/p15b-legacy-atomic.test.ts > p15b early complete aggregate transaction controls > early-aggregate-final-full-reader-failure-preserves-whole-input
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/p15b-legacy-atomic.test.ts:71:61
+     69|     const spy = vi.spyOn(save, 'validateSaveP15B').mockImplementation(…
+     70|     try {
+     71|       expect(() => closure.advanceStudioClosureWeek(input)).toThrow('f…
+       |                                                             ^
+     72|       expect(spy).toHaveBeenCalled(); expect(canon(input)).toBe(bytes)
+     73|     } finally { spy.mockRestore() }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/10]⎯
+
+ FAIL |core|  tests/p15b-legacy-atomic.test.ts > p15b stored route L official-only eligibility controls > recording-at6239-freezes-v3-on-one-ordinary-tick
+AssertionError: expected { kind: 'official2040', …(10) } to match object { …(3) }
+(8 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "boundaryWeek": 6240,
+-   "definition": "campaign-legacy/v3",
++   "definition": "campaign-legacy/v2",
+    "kind": "official2040",
+  }
+
+ ❯ tests/p15b-legacy-atomic.test.ts:91:44
+     89|     const result = tick(input)
+     90|     expect(result.market.tick).toBe(6240)
+     91|     expect(result.campaignLegacy.official).toMatchObject({ definition:…
+       |                                            ^
+     92|     expect(terminal(result)).toBeNull(); expect(() => save.makeSave(re…
+     93|     expect(canon(input)).toBe(bytes)
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/10]⎯
+
+ FAIL |core|  tests/p15b-legacy-v3.test.ts > p15b modern Legacy pure definition controls > v3-due-is-not-actual-in-archetype-and-lens
+Error: PREREQUISITE RED: missing frozen definition campaign-legacy/v3
+ ❯ evaluate tests/p15b-legacy-v3.test.ts:17:21
+     15|   const table = legacy.LEGACY_DEFINITIONS as unknown as Record<string,…
+     16|   const entry = table[definition]
+     17|   if (!entry) throw new Error(`PREREQUISITE RED: missing frozen defini…
+       |                     ^
+     18|   return entry.evaluate(facts, 'official2040')
+     19| }
+ ❯ tests/p15b-legacy-v3.test.ts:43:33
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/10]⎯
+
+ FAIL |core|  tests/p15b-legacy-v3.test.ts > p15b modern Legacy pure definition controls > v3-actual-ref-and-exclusive-cutoff
+Error: PREREQUISITE RED: missing frozen definition campaign-legacy/v3
+ ❯ evaluate tests/p15b-legacy-v3.test.ts:17:21
+     15|   const table = legacy.LEGACY_DEFINITIONS as unknown as Record<string,…
+     16|   const entry = table[definition]
+     17|   if (!entry) throw new Error(`PREREQUISITE RED: missing frozen defini…
+       |                     ^
+     18|   return entry.evaluate(facts, 'official2040')
+     19| }
+ ❯ tests/p15b-legacy-v3.test.ts:51:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/10]⎯
+
+ FAIL |core|  tests/p15b-legacy-v3.test.ts > p15b modern Legacy pure definition controls > v3-closure-recording-is-not-proof-of-open-when-absent-or-late
+Error: PREREQUISITE RED: missing frozen definition campaign-legacy/v3
+ ❯ evaluate tests/p15b-legacy-v3.test.ts:17:21
+     15|   const table = legacy.LEGACY_DEFINITIONS as unknown as Record<string,…
+     16|   const entry = table[definition]
+     17|   if (!entry) throw new Error(`PREREQUISITE RED: missing frozen defini…
+       |                     ^
+     18|   return entry.evaluate(facts, 'official2040')
+     19| }
+ ❯ tests/p15b-legacy-v3.test.ts:60:31
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/10]⎯
+
+ FAIL |core|  tests/p15b-legacy-v3.test.ts > p15b modern Legacy constructed transaction controls > early-closure-publishes-linked-ended-without-extra-week
+AssertionError: SEMANTIC RED: actual player closure must publish linked ended atomically: expected null not to be null
+ ❯ ended tests/p15b-legacy-v3.test.ts:78:93
+     76| function ended(state: unknown): Terminal {
+     77|   const e = (state as { campaignLegacy: { endOfRun: Terminal | null } …
+     78|   expect(e, 'SEMANTIC RED: actual player closure must publish linked e…
+       |                                                                                             ^
+     79|   return e!
+     80| }
+ ❯ tests/p15b-legacy-v3.test.ts:89:83
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/10]⎯
+
+ FAIL |core|  tests/p15b-legacy-v3.test.ts > p15b modern Legacy constructed transaction controls > ended-save-reload-links-and-downward-refusal
+AssertionError: SEMANTIC RED: actual player closure must publish linked ended atomically: expected null not to be null
+ ❯ ended tests/p15b-legacy-v3.test.ts:78:93
+     76| function ended(state: unknown): Terminal {
+     77|   const e = (state as { campaignLegacy: { endOfRun: Terminal | null } …
+     78|   expect(e, 'SEMANTIC RED: actual player closure must publish linked e…
+       |                                                                                             ^
+     79|   return e!
+     80| }
+ ❯ tests/p15b-legacy-v3.test.ts:96:46
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/10]⎯
+
+ FAIL |core|  tests/p15b-legacy-v3.test.ts > p15b modern Legacy constructed transaction controls > official-v3-with-null-ended-is-not-admitted-by-frozen-readers
+AssertionError: SEMANTIC RED: future official writer selects v3: expected 'campaign-legacy/v2' to be 'campaign-legacy/v3' // Object.is equality
+
+Expected: "campaign-legacy/v3"
+Received: "campaign-legacy/v2"
+
+ ❯ tests/p15b-legacy-v3.test.ts:111:106
+    109|     // G6240F is the existing named recordedFromWeek forgery; NOT genu…
+    110|     const state = genuineFrozen(); const save = saves.makeSave(state)
+    111|     expect(state.campaignLegacy.official!.definition, 'SEMANTIC RED: f…
+       |                                                                                                          ^
+    112|     expect(state.campaignLegacy.endOfRun).toBeNull()
+    113|     expect(() => saves.validateSaveP15B(save)).not.toThrow()
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/10]⎯
+
+ Test Files  2 failed (2)
+      Tests  10 failed | 4 passed (14)
+   Start at  13:03:01
+   Duration  20.09s (transform 2.23s, setup 0ms, collect 3.43s, tests 15.81s, environment 1ms, prepare 216ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-red-run/legacy-red.json

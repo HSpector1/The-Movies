@@ -1,0 +1,462 @@
+{
+  "label": "constructed route-L player-debit terminal premise diagnostic; no gameplay acceptance",
+  "helperSHA256": "921a8e1e69f07dfc3e9d6bcaeef63e0493772adac6f3c3b3deebaa1cb0e8a060",
+  "routeBudgetMs": 90000,
+  "cases": [
+    {
+      "drainWeek": 6206,
+      "requestedTarget": 6239,
+      "beforeDebit": {
+        "week": 6206,
+        "cash": 241141805.4617135,
+        "condition": {
+          "studioId": "studio-fa1c1996-player",
+          "firstEvaluatedWeek": 6189,
+          "definitionVersion": "corporate-condition/v1",
+          "condition": {
+            "stage": "stable",
+            "since": 6189,
+            "week": 6206,
+            "lowRun": 0,
+            "negativeRun": 0,
+            "clearRun": 18,
+            "distressWeeks": 0
+          }
+        },
+        "latestStage": null,
+        "due": [],
+        "closures": [],
+        "recentLedger": {
+          "payroll": -46200,
+          "overhead": -24000
+        },
+        "playerLoans": 0,
+        "playerLoanLedgerRows": 0,
+        "stateSHA256": "da1b5eec82d11456cd885fbcdf4cc5dd510326a99074a3ee0c4659f638009700"
+      },
+      "baselineAdmission": {
+        "admitted": true
+      },
+      "constructedDebit": 241141806,
+      "drained": {
+        "week": 6206,
+        "cash": -0.5382865071296692,
+        "condition": {
+          "studioId": "studio-fa1c1996-player",
+          "firstEvaluatedWeek": 6189,
+          "definitionVersion": "corporate-condition/v1",
+          "condition": {
+            "stage": "stable",
+            "since": 6189,
+            "week": 6206,
+            "lowRun": 0,
+            "negativeRun": 0,
+            "clearRun": 18,
+            "distressWeeks": 0
+          }
+        },
+        "latestStage": null,
+        "due": [],
+        "closures": [],
+        "recentLedger": {
+          "payroll": -46200,
+          "overhead": -24000,
+          "publicity": -241141806
+        },
+        "playerLoans": 0,
+        "playerLoanLedgerRows": 0,
+        "stateSHA256": "f424afa1d26d36f4270b76f4a191510ecef9da7d54c0832932ab7cd41ee39b16"
+      },
+      "drainedAdmission": {
+        "admitted": true
+      },
+      "trace": [
+        {
+          "week": 6239,
+          "cash": -2316600.538286507,
+          "condition": {
+            "studioId": "studio-fa1c1996-player",
+            "firstEvaluatedWeek": 6189,
+            "definitionVersion": "corporate-condition/v1",
+            "condition": {
+              "stage": "closed",
+              "since": 6239,
+              "week": 6239,
+              "lowRun": 33,
+              "negativeRun": 33,
+              "clearRun": 0,
+              "distressWeeks": 0
+            }
+          },
+          "latestStage": "closed",
+          "due": [
+            6239
+          ],
+          "closures": [
+            {
+              "week": 6239,
+              "closureId": "studio-closure-1",
+              "endOfRun": null
+            }
+          ],
+          "recentLedger": {
+            "payroll": -46200,
+            "overhead": -24000
+          },
+          "playerLoans": 0,
+          "playerLoanLedgerRows": 0,
+          "stateSHA256": "0cf293a88641dd4fa834b1f8b9815e3340217be75c71efcaac6493b5f8018cd7"
+        }
+      ],
+      "final": {
+        "week": 6239,
+        "cash": -2316600.538286507,
+        "condition": {
+          "studioId": "studio-fa1c1996-player",
+          "firstEvaluatedWeek": 6189,
+          "definitionVersion": "corporate-condition/v1",
+          "condition": {
+            "stage": "closed",
+            "since": 6239,
+            "week": 6239,
+            "lowRun": 33,
+            "negativeRun": 33,
+            "clearRun": 0,
+            "distressWeeks": 0
+          }
+        },
+        "latestStage": "closed",
+        "due": [
+          6239
+        ],
+        "closures": [
+          {
+            "week": 6239,
+            "closureId": "studio-closure-1",
+            "endOfRun": null
+          }
+        ],
+        "recentLedger": {
+          "payroll": -46200,
+          "overhead": -24000
+        },
+        "playerLoans": 0,
+        "playerLoanLedgerRows": 0,
+        "stateSHA256": "0cf293a88641dd4fa834b1f8b9815e3340217be75c71efcaac6493b5f8018cd7"
+      },
+      "finalAdmission": {
+        "admitted": true
+      },
+      "targetMatched": true,
+      "admittedTargetMatched": true
+    },
+    {
+      "drainWeek": 6207,
+      "requestedTarget": 6240,
+      "beforeDebit": {
+        "week": 6207,
+        "cash": 241071605.4617135,
+        "condition": {
+          "studioId": "studio-fa1c1996-player",
+          "firstEvaluatedWeek": 6189,
+          "definitionVersion": "corporate-condition/v1",
+          "condition": {
+            "stage": "stable",
+            "since": 6189,
+            "week": 6207,
+            "lowRun": 0,
+            "negativeRun": 0,
+            "clearRun": 19,
+            "distressWeeks": 0
+          }
+        },
+        "latestStage": null,
+        "due": [],
+        "closures": [],
+        "recentLedger": {
+          "payroll": -46200,
+          "overhead": -24000
+        },
+        "playerLoans": 0,
+        "playerLoanLedgerRows": 0,
+        "stateSHA256": "8ff126cea804f8bfca47dd2e931f2c729892e4a41b2f353efc4dcfc3507ed2f8"
+      },
+      "baselineAdmission": {
+        "admitted": true
+      },
+      "constructedDebit": 241071606,
+      "drained": {
+        "week": 6207,
+        "cash": -0.5382865071296692,
+        "condition": {
+          "studioId": "studio-fa1c1996-player",
+          "firstEvaluatedWeek": 6189,
+          "definitionVersion": "corporate-condition/v1",
+          "condition": {
+            "stage": "stable",
+            "since": 6189,
+            "week": 6207,
+            "lowRun": 0,
+            "negativeRun": 0,
+            "clearRun": 19,
+            "distressWeeks": 0
+          }
+        },
+        "latestStage": null,
+        "due": [],
+        "closures": [],
+        "recentLedger": {
+          "payroll": -46200,
+          "overhead": -24000,
+          "publicity": -241071606
+        },
+        "playerLoans": 0,
+        "playerLoanLedgerRows": 0,
+        "stateSHA256": "d9285ea855987d128347d52094e8abb7337b2ea94e04b6505e844d5c38bd13c2"
+      },
+      "drainedAdmission": {
+        "admitted": true
+      },
+      "trace": [
+        {
+          "week": 6240,
+          "cash": -2316600.538286507,
+          "condition": {
+            "studioId": "studio-fa1c1996-player",
+            "firstEvaluatedWeek": 6189,
+            "definitionVersion": "corporate-condition/v1",
+            "condition": {
+              "stage": "closed",
+              "since": 6240,
+              "week": 6240,
+              "lowRun": 33,
+              "negativeRun": 33,
+              "clearRun": 0,
+              "distressWeeks": 0
+            }
+          },
+          "latestStage": "closed",
+          "due": [
+            6240
+          ],
+          "closures": [
+            {
+              "week": 6240,
+              "closureId": "studio-closure-1",
+              "endOfRun": null
+            }
+          ],
+          "recentLedger": {
+            "payroll": -46200,
+            "overhead": -24000
+          },
+          "playerLoans": 0,
+          "playerLoanLedgerRows": 0,
+          "stateSHA256": "8ae271fefb6913222a3b889849d247266bdf5d821054869dcb9748e223eac515"
+        }
+      ],
+      "final": {
+        "week": 6240,
+        "cash": -2316600.538286507,
+        "condition": {
+          "studioId": "studio-fa1c1996-player",
+          "firstEvaluatedWeek": 6189,
+          "definitionVersion": "corporate-condition/v1",
+          "condition": {
+            "stage": "closed",
+            "since": 6240,
+            "week": 6240,
+            "lowRun": 33,
+            "negativeRun": 33,
+            "clearRun": 0,
+            "distressWeeks": 0
+          }
+        },
+        "latestStage": "closed",
+        "due": [
+          6240
+        ],
+        "closures": [
+          {
+            "week": 6240,
+            "closureId": "studio-closure-1",
+            "endOfRun": null
+          }
+        ],
+        "recentLedger": {
+          "payroll": -46200,
+          "overhead": -24000
+        },
+        "playerLoans": 0,
+        "playerLoanLedgerRows": 0,
+        "stateSHA256": "8ae271fefb6913222a3b889849d247266bdf5d821054869dcb9748e223eac515"
+      },
+      "finalAdmission": {
+        "admitted": true
+      },
+      "targetMatched": true,
+      "admittedTargetMatched": true
+    },
+    {
+      "drainWeek": 6208,
+      "requestedTarget": 6241,
+      "beforeDebit": {
+        "week": 6208,
+        "cash": 241001405.4617135,
+        "condition": {
+          "studioId": "studio-fa1c1996-player",
+          "firstEvaluatedWeek": 6189,
+          "definitionVersion": "corporate-condition/v1",
+          "condition": {
+            "stage": "stable",
+            "since": 6189,
+            "week": 6208,
+            "lowRun": 0,
+            "negativeRun": 0,
+            "clearRun": 20,
+            "distressWeeks": 0
+          }
+        },
+        "latestStage": null,
+        "due": [],
+        "closures": [],
+        "recentLedger": {
+          "payroll": -46200,
+          "overhead": -24000
+        },
+        "playerLoans": 0,
+        "playerLoanLedgerRows": 0,
+        "stateSHA256": "f86f033693d929eaf4f9126d8a708238b818e89e53f75878c77fd07bbd5f1232"
+      },
+      "baselineAdmission": {
+        "admitted": true
+      },
+      "constructedDebit": 241001406,
+      "drained": {
+        "week": 6208,
+        "cash": -0.5382865071296692,
+        "condition": {
+          "studioId": "studio-fa1c1996-player",
+          "firstEvaluatedWeek": 6189,
+          "definitionVersion": "corporate-condition/v1",
+          "condition": {
+            "stage": "stable",
+            "since": 6189,
+            "week": 6208,
+            "lowRun": 0,
+            "negativeRun": 0,
+            "clearRun": 20,
+            "distressWeeks": 0
+          }
+        },
+        "latestStage": null,
+        "due": [],
+        "closures": [],
+        "recentLedger": {
+          "payroll": -46200,
+          "overhead": -24000,
+          "publicity": -241001406
+        },
+        "playerLoans": 0,
+        "playerLoanLedgerRows": 0,
+        "stateSHA256": "063a0bdc4e03091a94e573ba4a3fce5539b14888b8c164ee74640e18e586a963"
+      },
+      "drainedAdmission": {
+        "admitted": true
+      },
+      "trace": [
+        {
+          "week": 6241,
+          "cash": -2316600.538286507,
+          "condition": {
+            "studioId": "studio-fa1c1996-player",
+            "firstEvaluatedWeek": 6189,
+            "definitionVersion": "corporate-condition/v1",
+            "condition": {
+              "stage": "closed",
+              "since": 6241,
+              "week": 6241,
+              "lowRun": 33,
+              "negativeRun": 33,
+              "clearRun": 0,
+              "distressWeeks": 0
+            }
+          },
+          "latestStage": "closed",
+          "due": [
+            6241
+          ],
+          "closures": [
+            {
+              "week": 6241,
+              "closureId": "studio-closure-1",
+              "endOfRun": null
+            }
+          ],
+          "recentLedger": {
+            "payroll": -46200,
+            "overhead": -24000
+          },
+          "playerLoans": 0,
+          "playerLoanLedgerRows": 0,
+          "stateSHA256": "83a4be198f06675046e083a13cbe8510ebd2d2116550569e628e4ec3f1c67b4b"
+        }
+      ],
+      "final": {
+        "week": 6241,
+        "cash": -2316600.538286507,
+        "condition": {
+          "studioId": "studio-fa1c1996-player",
+          "firstEvaluatedWeek": 6189,
+          "definitionVersion": "corporate-condition/v1",
+          "condition": {
+            "stage": "closed",
+            "since": 6241,
+            "week": 6241,
+            "lowRun": 33,
+            "negativeRun": 33,
+            "clearRun": 0,
+            "distressWeeks": 0
+          }
+        },
+        "latestStage": "closed",
+        "due": [
+          6241
+        ],
+        "closures": [
+          {
+            "week": 6241,
+            "closureId": "studio-closure-1",
+            "endOfRun": null
+          }
+        ],
+        "recentLedger": {
+          "payroll": -46200,
+          "overhead": -24000
+        },
+        "playerLoans": 0,
+        "playerLoanLedgerRows": 0,
+        "stateSHA256": "83a4be198f06675046e083a13cbe8510ebd2d2116550569e628e4ec3f1c67b4b"
+      },
+      "finalAdmission": {
+        "admitted": true
+      },
+      "targetMatched": true,
+      "admittedTargetMatched": true
+    }
+  ],
+  "precursor": {
+    "week": 6188,
+    "cash": 242405405.4617135,
+    "latestStage": null,
+    "due": [],
+    "closures": [],
+    "recentLedger": {},
+    "playerLoans": 0,
+    "playerLoanLedgerRows": 0,
+    "stateSHA256": "5e968d351eda3a5695774f1e4aa0e70066b5d222a087187d998d15ae14b2ca2e",
+    "admitted": true
+  },
+  "elapsedMs": 24004.256268,
+  "budgetPassed": true
+}

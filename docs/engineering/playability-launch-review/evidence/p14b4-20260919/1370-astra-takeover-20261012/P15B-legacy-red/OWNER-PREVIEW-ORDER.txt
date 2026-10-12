@@ -1,0 +1,55 @@
+PROJECT: STUDIO — LOW-SPEC BROWSER SOUNDSTAGE PREVIEW
+
+OWNER AUTHORIZATION
+Build one small, inspectable art-and-animation preview using the existing browser/Three.js tooling. This is a bounded presentation evaluation, not Unity integration, a new game client, or a change to simulation rules. Schedule it after the current integration task reaches its next safe checkpoint; do not interrupt recorded tests or abandon P15B and the authorized roadmap.
+
+Start from the existing repository:
+/Users/zacheryspector/The-Movies-headless-program
+Read the newest HANDOFF.md for ownership, current paths and machine limits. Preserve all newer work. Use the actual available model/tool configuration; do not install or reconfigure agents.
+
+1. ISOLATE AND REUSE
+The current integrator owns scheduling. No second writer may take over its worktree. Use an existing suitable isolated preview/draft workspace; if needed, have the integrator create one ordinary narrowly scoped evaluation worktree at a safe checkpoint. Do not switch the active integration checkout or manually alter protected Git internals. Publish on a separate wip/browser-soundstage-preview branch, never main or the headless integration branch. If an independent terminal cannot coordinate ownership, prepare the task and report that scheduling prerequisite rather than modifying the live tree.
+
+Reuse installed dependencies and existing asset-viewer code where suitable. Search only relevant viewer, asset and manifest paths; do not copy the full repository, node_modules, evidence tree or private saves. Read:
+- ui/public/spike3d/PROVENANCE-REGISTER.md
+- ui/public/spike3d/PROVENANCE-lab05h.json
+- scripts/audit-3d-assets.mjs
+- existing visual-spike/viewer code and the installed Three.js/Vite versions.
+
+Check local asset bytes and licences against the existing register. The file-level manifest lists project-generated stage architecture, Director/CameraDP characters, a studio camera, lights, a director's chair and other props. It does NOT establish finished-art adoption or animation compatibility. Prefer these existing copies before considering a download.
+
+2. BUILD ONE SMALL SCENE
+Make a separate browser entry that does not boot the full App or simulation. Reuse the current viewer when that yields the same isolation. Default scene: a cutaway soundstage corner, floor, one director, one camera operator, camera, chair and one or two lights. Load only selected models, not the whole hero scene or city pack by default.
+
+Use a management-style camera with orbit/zoom, reset view, pause/resume, and a compact asset/clip selector. Demonstrate distinct preview poses or available compatible clips for idle, walking and directing/working. Start by checking the rig, bone names and actual clips; a common file format does not prove compatibility. Keep root motion inside the preview, never as authoritative travel. A clearly labelled procedural pose is acceptable where no suitable clip exists, but report that imported-animation evaluation remains incomplete. Do not fake camera operation or synchronized choreography with an unrelated clip.
+
+Clearly display: "ART / ANIMATION PREVIEW — NOT LIVE GAMEPLAY." Mode buttons are preview controls, not real production commands. No GameState, save, finance, clock, person identity, bridge/schema or Unity changes. Do not read or modify real browser campaign storage. Do not claim walking, filming, pathfinding, queues or production progress have been implemented.
+
+Preserve the existing art direction; use coherent scale, restrained materials and role-readable silhouettes. Preserve source assets. Record unit/up-axis, dimensions, rig/clip names and useful attachment offsets for later Unity evaluation. Browser code is not a drop-in Unity implementation.
+
+3. FIT THE MACHINE
+Check a real WebGL2 context first. Do not promise compatibility or FPS from hardware labels. Honour the current power/disk requirements and do not clean source, assets, saves or evidence to make room.
+
+Initial preview settings, not new game-wide performance gates:
+- At most 3 animated humanoids; start with 2.
+- 1280x720 drawing area or smaller, device-pixel ratio capped at 1.
+- Small existing textures, normally <=1024 per side for this evaluation.
+- Simple lighting; shadows and post-processing off by default.
+- A 30 FPS render target, pause when hidden, clean disposal on unload.
+- Load only selected assets; show loading and actionable asset/WebGL errors.
+
+One CPU/GPU-intensive project execution across this Mac at a time, including this preview. Do not run browsers/renderers alongside the integrator's full suite. Use no swarm: parent plus at most one bounded reviewer, within the existing global specialist allowance. Stop the preview before returning the heavy lane to integration.
+
+No Unity, Blender, new rendering engine, package upgrades, paid purchases or bulk downloads. If one essential compatible asset is absent, a maximum 25 MiB total download from its original publisher is permitted only with explicit CC0 evidence and no account/credential requirement. Otherwise use cleared existing assets or placeholders and state the gap. Exclude LICENSE-UNCLEAR, DO-NOT-USE and original The Movies assets. Do not serve or package an entire asset directory merely because it already exists.
+
+4. VERIFY PROPORTIONATELY
+Use the existing scoped asset audit, selecting only this preview's asset root and manifest; any limitation stays explicit. Run the preview's type/build checks and focused tests for loading/error handling, clip selection and resource cleanup. Inspect it in a real installed browser using available automation, or provide an exact manual check if automation is unavailable. Never call HTTP 200 or a mocked canvas visual verification.
+
+When a real browser is available, inspect the rendered scene, capture one overview and one close-up, and measure a short, fixed 60-second foreground run after loading. Report browser, viewport, renderer mode, frame cadence, draw calls, triangles and asset bytes. Use memory observations only where genuinely available; resource counts are not GPU-byte measurements. Headless/software-rendered results are not Mac GPU certification or Unity performance evidence. Fix only concrete preview defects; no multi-hour full-game regression or performance-research campaign.
+
+5. DELIVER AND STOP THIS SIDECAR TASK
+Provide a simple START PREVIEW.command that uses the existing runtime/dependencies, serves only the selected preview content on 127.0.0.1 at its own unused port, and opens the exact URL after readiness. No installs, privilege escalation, full-repository exposure or killing an unrelated process on an occupied port. Include clear stop instructions and a brief README.
+
+Deliver the runnable preview, selected-asset manifest referencing the existing provenance register, actual verification results/screenshots where available, and one short KEEP/REVISE/REJECT recommendation per selected asset. Commit/push the isolated preview source and permitted assets, verify its remote SHA, and give the integrator a small deferred-adoption note. Do not ship restricted raw assets or make unearned visual/Unity acceptance claims.
+
+No automatic merge, full art overhaul or new roadmap. Finish this finite preview and yield resources; the integrator then continues the main authorized program. Give a brief entry status, then implement rather than stopping at an asset inventory. If WebGL2 or a required runtime is unavailable, preserve the useful inspection work and report the exact blocker instead of pretending a live preview ran.

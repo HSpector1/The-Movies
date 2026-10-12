@@ -1,0 +1,77 @@
+--- reviewed/p15b-legacy-v3.test.ts
++++ installed/p15b-legacy-v3.test.ts
+@@ -5,7 +5,7 @@
+ import * as saves from '../src/core/save.js'
+ import { tick } from '../src/core/tick.js'
+ import { PLAYER, PLAYER_CLOSURE_DEFERRED, playerClosure, closureOf, canon } from './helpers/p15b-live.js'
+-import { genuineFrozen } from './helpers/p15c2-legacy.js'
++import { genuineFrozen, budgeted, FIXTURE_MS } from './helpers/p15c2-legacy.js'
+ 
+ type Ref = { domainId: string; id: string }
+ type Manifest = { definition: string; sources: { domainId: string; highWatermark: number; status: string }[]; studios: { studioId: string; archetypes: { archetypeId: string; outcome: string; limitedBy: string[]; contrary: Ref[] }[]; lenses: { lensId: string; status: string; counts: Record<string, number>; refs: Ref[] }[] }[] }
+@@ -105,7 +105,7 @@
+     }
+     expect(ended(saves.importSave(saves.exportSave(save)).state).legacySnapshotId).toBe(e.legacySnapshotId)
+   })
+-  it('official-v3-with-null-ended-is-not-admitted-by-frozen-readers', () => {
++  it('official-v3-with-null-ended-is-not-admitted-by-frozen-readers', budgeted(FIXTURE_MS, () => {
+     // G6240F is the existing named recordedFromWeek forgery; NOT genuine world-start coverage.
+     const state = genuineFrozen(); const save = saves.makeSave(state)
+     expect(state.campaignLegacy.official!.definition, 'SEMANTIC RED: future official writer selects v3').toBe('campaign-legacy/v3')
+@@ -132,7 +132,7 @@
+       expect(() => read(hostile)).toThrow(/campaignLegacy\.official\.definition/)
+       expect(canon(baseline)).toBe(before)
+     }
+-  })
++  }), FIXTURE_MS)
+   it('deferred-due-input-retains-complete-bytes-if-publication-refuses', async () => {
+     const c = closureOf(closedControl(), PLAYER)!.closureWeek
+     const before = playerClosure().get(c - 1)!
+--- reviewed/p15b-legacy-atomic.test.ts
++++ installed/p15b-legacy-atomic.test.ts
+@@ -8,7 +8,7 @@
+ import { tick } from '../src/core/tick.js'
+ import type { GameState } from '../src/core/types.js'
+ import { PLAYER, playerClosure, closureOf, eventsOf, canon } from './helpers/p15b-live.js'
+-import { captureAt } from './helpers/p15c2-legacy.js'
++import { captureAt, budgeted, ROUTE_MS } from './helpers/p15c2-legacy.js'
+ import { p15Rows } from './helpers/p15-roots.js'
+ 
+ // Capture the real produced state AFTER condition, BEFORE closure; do not rewrite its clock/history.
+@@ -83,7 +83,7 @@
+   return live
+ }
+ describe('p15b stored route L official-only eligibility controls', () => {
+-  it('recording-at6239-freezes-v3-on-one-ordinary-tick', () => {
++  it('recording-at6239-freezes-v3-on-one-ordinary-tick', budgeted(ROUTE_MS, () => {
+     const input = routeCapture(6239); const bytes = canon(input)
+     expect(input.campaignLegacy.recordedFromWeek).toBe(6239); expect(input.campaignLegacy.official).toBeNull()
+     const result = tick(input)
+@@ -91,16 +91,16 @@
+     expect(result.campaignLegacy.official).toMatchObject({ definition: 'campaign-legacy/v3', kind: 'official2040', boundaryWeek: 6240 })
+     expect(terminal(result)).toBeNull(); expect(() => save.makeSave(result)).not.toThrow()
+     expect(canon(input)).toBe(bytes)
+-  })
+-  it('recording-at6240-never-backfills-official', () => {
++  }), ROUTE_MS)
++  it('recording-at6240-never-backfills-official', budgeted(ROUTE_MS, () => {
+     const input = routeCapture(6240); const bytes = canon(input)
+     expect(input.campaignLegacy.recordedFromWeek).toBe(6240)
+     const at = legacy.freezeCampaignLegacyWeek(input); const later = tick(at)
+     expect(at.campaignLegacy.official).toBeNull(); expect(later.campaignLegacy.official).toBeNull()
+     expect(later.market.tick).toBe(6241); expect(terminal(later)).toBeNull()
+     expect(() => save.makeSave(later)).not.toThrow(); expect(canon(input)).toBe(bytes)
+-  })
+-  it('later6241-tick-retains-validated-frozen-v1-v2-official-bytes', () => {
++  }), ROUTE_MS)
++  it('later6241-tick-retains-validated-frozen-v1-v2-official-bytes', budgeted(ROUTE_MS, () => {
+     const at = tick(routeCapture(6239)); const original = at.campaignLegacy.official
+     if (!original) throw new Error('PREREQUISITE: eligible official writer missing')
+     for (const version of ['campaign-legacy/v1', 'campaign-legacy/v2'] as const) {
+@@ -116,5 +116,5 @@
+       expect(result.market.tick).toBe(6241); expect(canon(result.campaignLegacy.official)).toBe(bytes)
+       expect(terminal(result)).toBeNull(); expect(() => save.makeSave(result)).not.toThrow()
+     }
+-  })
++  }), ROUTE_MS)
+ })

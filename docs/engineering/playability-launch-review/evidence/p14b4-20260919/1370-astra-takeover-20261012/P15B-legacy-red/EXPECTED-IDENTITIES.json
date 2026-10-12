@@ -1,0 +1,16 @@
+[
+  "v3-due-is-not-actual-in-archetype-and-lens",
+  "v3-actual-ref-and-exclusive-cutoff",
+  "v3-closure-recording-is-not-proof-of-open-when-absent-or-late",
+  "frozen-v1-v2-retain-condition-owned-closure-semantics",
+  "early-closure-publishes-linked-ended-without-extra-week",
+  "ended-save-reload-links-and-downward-refusal",
+  "official-v3-with-null-ended-is-not-admitted-by-frozen-readers",
+  "deferred-due-input-retains-complete-bytes-if-publication-refuses",
+  "early-aggregate-links-publishes-once-and-keeps-input",
+  "early-aggregate-ended-builder-failure-preserves-whole-input",
+  "early-aggregate-final-full-reader-failure-preserves-whole-input",
+  "recording-at6239-freezes-v3-on-one-ordinary-tick",
+  "recording-at6240-never-backfills-official",
+  "later6241-tick-retains-validated-frozen-v1-v2-official-bytes"
+]

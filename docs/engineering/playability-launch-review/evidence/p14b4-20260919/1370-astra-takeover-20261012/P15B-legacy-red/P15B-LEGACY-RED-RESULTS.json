@@ -1,0 +1,203 @@
+{
+  "candidatePatchSHA256": "eea9d24e608555826276fb6b5ab1e9fa34e54c9c9a1389ac14f4b0a39066b59b",
+  "candidatePaths": 139,
+  "results": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791828119,
+      "endEpoch": 1791828175,
+      "seconds": 56,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-red-run/tsc-root.log"
+    },
+    {
+      "name": "legacy-red",
+      "exit": 1,
+      "startEpoch": 1791828180,
+      "endEpoch": 1791828201,
+      "seconds": 21,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "tests/p15b-legacy-v3.test.ts",
+        "tests/p15b-legacy-atomic.test.ts",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-red-run/legacy-red.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-red-run/legacy-red.log"
+    }
+  ],
+  "counts": {
+    "files": 2,
+    "total": 14,
+    "passed": 4,
+    "failed": 10,
+    "skipped": 0,
+    "todo": 0
+  },
+  "wrapperExit": 1,
+  "strictFreezeUnchanged": true,
+  "expectedIdentitiesComplete": true,
+  "rows": [
+    {
+      "file": "/Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-atomic.test.ts",
+      "identity": "p15b early complete aggregate transaction controls early-aggregate-links-publishes-once-and-keeps-input",
+      "title": "early-aggregate-links-publishes-once-and-keeps-input",
+      "status": "failed",
+      "durationMs": 2493.760895,
+      "classification": "semantic RED: actual closure returns null ended; later link/persistence assertions not reached",
+      "failureMessages": [
+        "AssertionError: SEMANTIC RED: complete aggregate must publish player ended: expected null not to be null\n    at /Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-atomic.test.ts:41:96\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)"
+      ]
+    },
+    {
+      "file": "/Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-atomic.test.ts",
+      "identity": "p15b early complete aggregate transaction controls early-aggregate-ended-builder-failure-preserves-whole-input",
+      "title": "early-aggregate-ended-builder-failure-preserves-whole-input",
+      "status": "failed",
+      "durationMs": 131.15273099999968,
+      "classification": "prerequisite RED: intended aggregate call path absent; rollback law not yet exercised",
+      "failureMessages": [
+        "AssertionError: expected [Function] to throw an error\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1509:21)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/chai/index.js:1686:25)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-atomic.test.ts:62:61\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ]
+    },
+    {
+      "file": "/Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-atomic.test.ts",
+      "identity": "p15b early complete aggregate transaction controls early-aggregate-final-full-reader-failure-preserves-whole-input",
+      "title": "early-aggregate-final-full-reader-failure-preserves-whole-input",
+      "status": "failed",
+      "durationMs": 108.95301599999993,
+      "classification": "prerequisite RED: intended aggregate call path absent; rollback law not yet exercised",
+      "failureMessages": [
+        "AssertionError: expected [Function] to throw an error\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1509:21)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/chai/index.js:1686:25)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-atomic.test.ts:71:61\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ]
+    },
+    {
+      "file": "/Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-atomic.test.ts",
+      "identity": "p15b stored route L official-only eligibility controls recording-at6239-freezes-v3-on-one-ordinary-tick",
+      "title": "recording-at6239-freezes-v3-on-one-ordinary-tick",
+      "status": "failed",
+      "durationMs": 411.0270479999999,
+      "classification": "semantic RED: writer still v2; later modern reader assertions not reached",
+      "failureMessages": [
+        "AssertionError: expected { kind: 'official2040', \u2026(10) } to match object { \u2026(3) }\n(8 matching properties omitted from actual)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1134:13)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/chai/index.js:1686:25)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-atomic.test.ts:91:44\n    at /Users/zacheryspector/studio-specialists/p15b/tests/helpers/p15c2-legacy.ts:49:5\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)"
+      ]
+    },
+    {
+      "file": "/Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-atomic.test.ts",
+      "identity": "p15b stored route L official-only eligibility controls recording-at6240-never-backfills-official",
+      "title": "recording-at6240-never-backfills-official",
+      "status": "passed",
+      "durationMs": 389.1168120000002,
+      "classification": "historical/control pass; no missing modern body inferred",
+      "failureMessages": []
+    },
+    {
+      "file": "/Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-atomic.test.ts",
+      "identity": "p15b stored route L official-only eligibility controls later6241-tick-retains-validated-frozen-v1-v2-official-bytes",
+      "title": "later6241-tick-retains-validated-frozen-v1-v2-official-bytes",
+      "status": "passed",
+      "durationMs": 491.6273859999992,
+      "classification": "historical/control pass; no missing modern body inferred",
+      "failureMessages": []
+    },
+    {
+      "file": "/Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-v3.test.ts",
+      "identity": "p15b modern Legacy pure definition controls v3-due-is-not-actual-in-archetype-and-lens",
+      "title": "v3-due-is-not-actual-in-archetype-and-lens",
+      "status": "failed",
+      "durationMs": 8.31599899999992,
+      "classification": "prerequisite RED: definition absent; actual-vs-due semantics not yet reached",
+      "failureMessages": [
+        "Error: PREREQUISITE RED: missing frozen definition campaign-legacy/v3\n    at evaluate (/Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-v3.test.ts:17:21)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-v3.test.ts:43:33\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ]
+    },
+    {
+      "file": "/Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-v3.test.ts",
+      "identity": "p15b modern Legacy pure definition controls v3-actual-ref-and-exclusive-cutoff",
+      "title": "v3-actual-ref-and-exclusive-cutoff",
+      "status": "failed",
+      "durationMs": 1.3580919999999423,
+      "classification": "prerequisite RED: definition absent; actual-vs-due semantics not yet reached",
+      "failureMessages": [
+        "Error: PREREQUISITE RED: missing frozen definition campaign-legacy/v3\n    at evaluate (/Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-v3.test.ts:17:21)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-v3.test.ts:51:17\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ]
+    },
+    {
+      "file": "/Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-v3.test.ts",
+      "identity": "p15b modern Legacy pure definition controls v3-closure-recording-is-not-proof-of-open-when-absent-or-late",
+      "title": "v3-closure-recording-is-not-proof-of-open-when-absent-or-late",
+      "status": "failed",
+      "durationMs": 0.6285560000001169,
+      "classification": "prerequisite RED: definition absent; actual-vs-due semantics not yet reached",
+      "failureMessages": [
+        "Error: PREREQUISITE RED: missing frozen definition campaign-legacy/v3\n    at evaluate (/Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-v3.test.ts:17:21)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-v3.test.ts:60:31\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ]
+    },
+    {
+      "file": "/Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-v3.test.ts",
+      "identity": "p15b modern Legacy pure definition controls frozen-v1-v2-retain-condition-owned-closure-semantics",
+      "title": "frozen-v1-v2-retain-condition-owned-closure-semantics",
+      "status": "passed",
+      "durationMs": 6.110532000000148,
+      "classification": "historical/control pass; no missing modern body inferred",
+      "failureMessages": []
+    },
+    {
+      "file": "/Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-v3.test.ts",
+      "identity": "p15b modern Legacy constructed transaction controls early-closure-publishes-linked-ended-without-extra-week",
+      "title": "early-closure-publishes-linked-ended-without-extra-week",
+      "status": "failed",
+      "durationMs": 2761.320001,
+      "classification": "semantic RED: actual closure returns null ended; later link/persistence assertions not reached",
+      "failureMessages": [
+        "AssertionError: SEMANTIC RED: actual player closure must publish linked ended atomically: expected null not to be null\n    at ended (/Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-v3.test.ts:78:93)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-v3.test.ts:89:83\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ]
+    },
+    {
+      "file": "/Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-v3.test.ts",
+      "identity": "p15b modern Legacy constructed transaction controls ended-save-reload-links-and-downward-refusal",
+      "title": "ended-save-reload-links-and-downward-refusal",
+      "status": "failed",
+      "durationMs": 1.0271210000000792,
+      "classification": "semantic RED: actual closure returns null ended; later link/persistence assertions not reached",
+      "failureMessages": [
+        "AssertionError: SEMANTIC RED: actual player closure must publish linked ended atomically: expected null not to be null\n    at ended (/Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-v3.test.ts:78:93)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-v3.test.ts:96:46\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ]
+    },
+    {
+      "file": "/Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-v3.test.ts",
+      "identity": "p15b modern Legacy constructed transaction controls official-v3-with-null-ended-is-not-admitted-by-frozen-readers",
+      "title": "official-v3-with-null-ended-is-not-admitted-by-frozen-readers",
+      "status": "failed",
+      "durationMs": 8861.31486,
+      "classification": "semantic RED: writer still v2; later modern reader assertions not reached",
+      "failureMessages": [
+        "AssertionError: SEMANTIC RED: future official writer selects v3: expected 'campaign-legacy/v2' to be 'campaign-legacy/v3' // Object.is equality\n    at /Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-v3.test.ts:111:106\n    at /Users/zacheryspector/studio-specialists/p15b/tests/helpers/p15c2-legacy.ts:49:5\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ]
+    },
+    {
+      "file": "/Users/zacheryspector/studio-specialists/p15b/tests/p15b-legacy-v3.test.ts",
+      "identity": "p15b modern Legacy constructed transaction controls deferred-due-input-retains-complete-bytes-if-publication-refuses",
+      "title": "deferred-due-input-retains-complete-bytes-if-publication-refuses",
+      "status": "passed",
+      "durationMs": 136.1526699999995,
+      "classification": "historical/control pass; no missing modern body inferred",
+      "failureMessages": []
+    }
+  ],
+  "limits": "Baseline RED evidence only. No failed requirement accepted. Full terminal boundary/multiclosure/modern rollback/readers not yet qualified. Production remains Save47."
+}

@@ -1,0 +1,5 @@
+Legacy RED: exact139 WT/index postimages; reviewed packet; reverse check PASS
+node=v20.20.2 python=Python 3.14.4 start=2026-10-12T18:01:57Z
+{"name": "tsc-root", "exit": 0, "seconds": 56}
+{"name": "legacy-red", "exit": 1, "seconds": 21}
+terminal legacy-red=1; unchanged=yes; parent must inspect reporter completeness

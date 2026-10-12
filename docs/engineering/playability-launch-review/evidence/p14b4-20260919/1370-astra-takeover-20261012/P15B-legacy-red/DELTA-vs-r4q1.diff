@@ -1,0 +1,277 @@
+diff --git a/tests/p15b-legacy-atomic.test.ts b/tests/p15b-legacy-atomic.test.ts
+new file mode 100644
+index 00000000..368d9118
+--- /dev/null
++++ b/tests/p15b-legacy-atomic.test.ts
+@@ -0,0 +1,120 @@
++// Proposed tests/p15b-legacy-atomic.test.ts. Scratch-only, unexecuted.
++// Early drained transaction controls + genuine stored route-L official-only captures.
++// No fresh public-route acceptance; no full terminal C6239/6240/6241 input supplied.
++import { describe, expect, it, vi } from 'vitest'
++import * as closure from '../src/core/studioClosure.js'
++import * as legacy from '../src/core/campaignLegacy.js'
++import * as save from '../src/core/save.js'
++import { tick } from '../src/core/tick.js'
++import type { GameState } from '../src/core/types.js'
++import { PLAYER, playerClosure, closureOf, eventsOf, canon } from './helpers/p15b-live.js'
++import { captureAt, budgeted, ROUTE_MS } from './helpers/p15c2-legacy.js'
++import { p15Rows } from './helpers/p15-roots.js'
++
++// Capture the real produced state AFTER condition, BEFORE closure; do not rewrite its clock/history.
++function earlyInput(): GameState {
++  const route = playerClosure(); const closed = [...route.values()].find(s => closureOf(s, PLAYER))
++  if (!closed) throw new Error('PREREQUISITE: existing drained player control never closes')
++  const c = closureOf(closed, PLAYER)!.closureWeek
++  const before = route.get(c - 1)
++  if (!before) throw new Error('PREREQUISITE: missing real pre-boundary route state')
++  let captured: GameState | undefined
++  const spy = vi.spyOn(closure, 'advanceStudioClosureWeek').mockImplementation(s => { captured = s; return s })
++  try { tick(before) } finally { spy.mockRestore() }
++  if (!captured) throw new Error('PREREQUISITE: tick no longer crosses existing closure phase; update capture seam explicitly')
++  expect(captured.market.tick).toBe(c)
++  expect(closureOf(captured, PLAYER)).toBeUndefined()
++  expect(eventsOf(captured, PLAYER).some(e => e.to === 'closed' && e.week === c)).toBe(true)
++  // Real due-state admission is prerequisite, never stubbed successful.
++  expect(() => save.makeSave(captured!)).not.toThrow()
++  return captured
++}
++type Ended = { closureId: string; legacySnapshotId: string; boundaryWeek: number; definition: string; p15DomainSequence: number }
++const terminal = (s: GameState) => (s as unknown as { campaignLegacy: { endOfRun: Ended | null } }).campaignLegacy.endOfRun
++
++// Proposed exact source seam: advanceStudioClosureWeek retains its public signature but returns
++// the COMPLETE aggregate closure+finale transaction. Builders/full validator are real imported calls.
++describe('p15b early complete aggregate transaction controls', () => {
++  it('early-aggregate-links-publishes-once-and-keeps-input', () => {
++    const input = earlyInput(); const bytes = canon(input)
++    const result = closure.advanceStudioClosureWeek(input)
++    expect(terminal(result), 'SEMANTIC RED: complete aggregate must publish player ended').not.toBeNull()
++    const e = terminal(result)!; const c = closureOf(result, PLAYER)!
++    expect(e).toMatchObject({ closureId: c.closureId, boundaryWeek: c.closureWeek + 1, definition: 'campaign-legacy/v3' })
++    expect(c.endOfRun).toBe(e.legacySnapshotId); expect(result.market.tick).toBe(input.market.tick)
++    expect(result.campaignLegacy.official).toBeNull()
++    expect(e.p15DomainSequence).toBeGreaterThan(c.p15DomainSequence)
++    const sequences = p15Rows(result).map(r => r.p15DomainSequence)
++    expect(new Set(sequences).size).toBe(sequences.length)
++    expect(result.p15Sequence.next).toBe(Math.max(0, ...sequences) + 1)
++    expect(() => save.makeSave(result)).not.toThrow()
++    const replay = save.importSave(save.exportSave(save.makeSave(result)))
++    expect(canon(replay.state)).toBe(canon(result))
++    const again = closure.advanceStudioClosureWeek(replay.state as GameState)
++    expect(canon(again)).toBe(canon(result)); expect(canon(input)).toBe(bytes)
++  })
++  it('early-aggregate-ended-builder-failure-preserves-whole-input', () => {
++    const input = earlyInput(); const bytes = canon(input)
++    // Proposed inter-module seam: finalizer calls the existing common builder for ended.
++    // Throw-only spy: no validator or producer is ever stubbed successful.
++    const spy = vi.spyOn(legacy, 'buildLegacyManifest').mockImplementation(() => { throw new Error('fault: ended builder') })
++    try {
++      expect(() => closure.advanceStudioClosureWeek(input)).toThrow('fault: ended builder')
++      expect(spy).toHaveBeenCalled(); expect(canon(input)).toBe(bytes)
++    } finally { spy.mockRestore() }
++  })
++  it('early-aggregate-final-full-reader-failure-preserves-whole-input', () => {
++    const input = earlyInput(); const bytes = canon(input)
++    // Proposed inter-module seam: aggregate finishes through the real exported full reader.
++    const spy = vi.spyOn(save, 'validateSaveP15B').mockImplementation(() => { throw new Error('fault: final joined reader') })
++    try {
++      expect(() => closure.advanceStudioClosureWeek(input)).toThrow('fault: final joined reader')
++      expect(spy).toHaveBeenCalled(); expect(canon(input)).toBe(bytes)
++    } finally { spy.mockRestore() }
++  })
++})
++
++function routeCapture(week: number): GameState {
++  const capture = captureAt(s => s.market.tick === week, `stored route L week${week}`)
++  const live = save.migrateToLive(capture as never).state as GameState
++  expect(live.market.tick).toBe(week); expect(() => save.makeSave(live)).not.toThrow()
++  expect(live.studioClosure.closures.some(c => c.studioId === live.hollywood!.playerStudioId)).toBe(false)
++  expect(terminal(live)).toBeNull()
++  return live
++}
++describe('p15b stored route L official-only eligibility controls', () => {
++  it('recording-at6239-freezes-v3-on-one-ordinary-tick', budgeted(ROUTE_MS, () => {
++    const input = routeCapture(6239); const bytes = canon(input)
++    expect(input.campaignLegacy.recordedFromWeek).toBe(6239); expect(input.campaignLegacy.official).toBeNull()
++    const result = tick(input)
++    expect(result.market.tick).toBe(6240)
++    expect(result.campaignLegacy.official).toMatchObject({ definition: 'campaign-legacy/v3', kind: 'official2040', boundaryWeek: 6240 })
++    expect(terminal(result)).toBeNull(); expect(() => save.makeSave(result)).not.toThrow()
++    expect(canon(input)).toBe(bytes)
++  }), ROUTE_MS)
++  it('recording-at6240-never-backfills-official', budgeted(ROUTE_MS, () => {
++    const input = routeCapture(6240); const bytes = canon(input)
++    expect(input.campaignLegacy.recordedFromWeek).toBe(6240)
++    const at = legacy.freezeCampaignLegacyWeek(input); const later = tick(at)
++    expect(at.campaignLegacy.official).toBeNull(); expect(later.campaignLegacy.official).toBeNull()
++    expect(later.market.tick).toBe(6241); expect(terminal(later)).toBeNull()
++    expect(() => save.makeSave(later)).not.toThrow(); expect(canon(input)).toBe(bytes)
++  }), ROUTE_MS)
++  it('later6241-tick-retains-validated-frozen-v1-v2-official-bytes', budgeted(ROUTE_MS, () => {
++    const at = tick(routeCapture(6239)); const original = at.campaignLegacy.official
++    if (!original) throw new Error('PREREQUISITE: eligible official writer missing')
++    for (const version of ['campaign-legacy/v1', 'campaign-legacy/v2'] as const) {
++      const entry = legacy.LEGACY_DEFINITIONS[version]
++      const adapter = legacy.legacyFactsFromState(at, 6240)
++      const facts = { ...adapter, domains: adapter.domains.filter(d => entry.domainIds.includes(d.domainId)) }
++      delete (facts as unknown as { studioClosures?: unknown }).studioClosures
++      // Named historical-payload unit construction, same real state/stamps; no claimed old capture.
++      const official = { ...original, ...entry.evaluate(facts, 'official2040') }
++      const input = { ...at, campaignLegacy: { ...at.campaignLegacy, official } } as GameState
++      expect(() => save.makeSave(input), `${version} own-definition replay prerequisite`).not.toThrow()
++      const bytes = canon(official); const result = tick(input)
++      expect(result.market.tick).toBe(6241); expect(canon(result.campaignLegacy.official)).toBe(bytes)
++      expect(terminal(result)).toBeNull(); expect(() => save.makeSave(result)).not.toThrow()
++    }
++  }), ROUTE_MS)
++})
+diff --git a/tests/p15b-legacy-v3.test.ts b/tests/p15b-legacy-v3.test.ts
+new file mode 100644
+index 00000000..8af86fcb
+--- /dev/null
++++ b/tests/p15b-legacy-v3.test.ts
+@@ -0,0 +1,145 @@
++// Proposed destination: tests/p15b-legacy-v3.test.ts. NOT executed or admitted.
++// Constructed pure facts and existing drained transaction controls, NOT lawful gameplay evidence.
++import { describe, expect, it } from 'vitest'
++import * as legacy from '../src/core/campaignLegacy.js'
++import * as saves from '../src/core/save.js'
++import { tick } from '../src/core/tick.js'
++import { PLAYER, PLAYER_CLOSURE_DEFERRED, playerClosure, closureOf, canon } from './helpers/p15b-live.js'
++import { genuineFrozen, budgeted, FIXTURE_MS } from './helpers/p15c2-legacy.js'
++
++type Ref = { domainId: string; id: string }
++type Manifest = { definition: string; sources: { domainId: string; highWatermark: number; status: string }[]; studios: { studioId: string; archetypes: { archetypeId: string; outcome: string; limitedBy: string[]; contrary: Ref[] }[]; lenses: { lensId: string; status: string; counts: Record<string, number>; refs: Ref[] }[] }[] }
++type ClosureFact = { closureId: string; studioId: string; closureWeek: number; p15DomainSequence: number }
++// Representation proposal: add studioClosures to modern facts only; reuse existing definition.evaluate API.
++function evaluate(facts: unknown, definition = 'campaign-legacy/v3'): Manifest {
++  const table = legacy.LEGACY_DEFINITIONS as unknown as Record<string, { evaluate: (f: unknown, k: string) => Manifest }>
++  const entry = table[definition]
++  if (!entry) throw new Error(`PREREQUISITE RED: missing frozen definition ${definition}`)
++  return entry.evaluate(facts, 'official2040')
++}
++function facts(closures: ClosureFact[] | undefined = [], recordedFromWeek: number | null = 0, definition = 'campaign-legacy/v3') {
++  const old = definition !== 'campaign-legacy/v3'
++  const frozen = legacy.LEGACY_DEFINITIONS as unknown as Record<string, { domainIds: readonly string[] }>
++  const domains = frozen[old ? definition : 'campaign-legacy/v2'].domainIds.filter(id => id !== 'awards' && id !== 'studioClosures')
++  return { boundaryWeek: 6240, baseMarketValue: 1_000_000,
++    studios: [{ studioId: 'S', row: 0, enteredWeek: 0, closedWeek: null, standing: { audienceAwareness: 50, industryPrestige: 50, commercialConfidence: 50 } }],
++    films: [], careerEvents: [], adoptions: [], technologies: [],
++    domains: [...domains.map(domainId => ({ domainId, highWatermark: 0, recordedFromWeek: 0 })),
++      ...(old ? [] : [{ domainId: 'studioClosures', highWatermark: closures?.length ? 9 : 0, recordedFromWeek }])],
++    conditionEvents: [
++      { eventId: 'distress', studioId: 'S', week: 10, from: 'warning', to: 'distress' },
++      { eventId: 'stable', studioId: 'S', week: 20, from: 'recovery', to: 'stable' },
++      { eventId: 'due', studioId: 'S', week: 30, from: 'distress', to: 'closed' },
++    ], ...(old || recordedFromWeek === null ? {} : { studioClosures: closures }) }
++}
++const actual = (week: number): ClosureFact => ({ closureId: 'actual-S', studioId: 'S', closureWeek: week, p15DomainSequence: 9 })
++function resilience(m: Manifest) {
++  const s = m.studios.find(s => s.studioId === 'S')!
++  return { a: s.archetypes.find(a => a.archetypeId === 'resilient-survivor')!, l: s.lenses.find(l => l.lensId === 'resilience')! }
++}
++
++describe('p15b modern Legacy pure definition controls', () => {
++  it('v3-due-is-not-actual-in-archetype-and-lens', () => {
++    const { a, l } = resilience(evaluate(facts()))
++    expect(a.outcome).toBe('held'); expect(l.counts.closures).toBe(0)
++    expect(a.contrary).not.toContainEqual({ domainId: 'corporateCondition', id: 'due' })
++    expect(l.refs).not.toContainEqual({ domainId: 'studioClosures', id: 'due' })
++    expect(l.counts.distressEntries).toBe(1); expect(l.counts.returnsToStable).toBe(1)
++  })
++  it('v3-actual-ref-and-exclusive-cutoff', () => {
++    for (const [week, count] of [[6239, 1], [6240, 0]] as const) {
++      const m = evaluate(facts([actual(week)])); const { a, l } = resilience(m)
++      expect(l.counts.closures).toBe(count); expect(a.outcome).toBe(count ? 'notHeld' : 'held')
++      const ref = { domainId: 'studioClosures', id: 'actual-S' }
++      if (count) { expect(a.contrary).toContainEqual(ref); expect(l.refs).toContainEqual(ref) }
++      else { expect(a.contrary).not.toContainEqual(ref); expect(l.refs).not.toContainEqual(ref) }
++      expect(m.sources.find(s => s.domainId === 'studioClosures')!.highWatermark).toBe(9)
++    }
++  })
++  it('v3-closure-recording-is-not-proof-of-open-when-absent-or-late', () => {
++    const absent = resilience(evaluate(facts(undefined, null)))
++    expect(absent.a.outcome).toBe('notRecorded'); expect(absent.a.limitedBy).toContain('studioClosures')
++    expect(absent.l.status).toBe('notRecorded')
++    const late = resilience(evaluate(facts([], 25)))
++    expect(late.a.limitedBy).toContain('studioClosures'); expect(late.l.status).toBe('limited')
++  })
++  it('frozen-v1-v2-retain-condition-owned-closure-semantics', () => {
++    for (const version of ['campaign-legacy/v1', 'campaign-legacy/v2']) {
++      const { a, l } = resilience(evaluate(facts([], 0, version), version))
++      expect(a.outcome).toBe('notHeld'); expect(l.counts.closures).toBe(1)
++      expect(a.contrary).toContainEqual({ domainId: 'corporateCondition', id: 'due' })
++    }
++  })
++})
++
++type Terminal = { legacySnapshotId: string; closureId: string; definition: string; kind: string; boundaryWeek: number; postFinaleMode: null; p15DomainSequence: number }
++function ended(state: unknown): Terminal {
++  const e = (state as { campaignLegacy: { endOfRun: Terminal | null } }).campaignLegacy.endOfRun
++  expect(e, 'SEMANTIC RED: actual player closure must publish linked ended atomically').not.toBeNull()
++  return e!
++}
++const closedControl = () => {
++  const route = playerClosure(); const s = [...route.values()].find(s => closureOf(s, PLAYER))
++  if (!s) throw new Error('fixture prerequisite: drained player control never closed')
++  return s
++}
++
++describe('p15b modern Legacy constructed transaction controls', () => {
++  it('early-closure-publishes-linked-ended-without-extra-week', () => {
++    const state = closedControl(); const c = closureOf(state, PLAYER)!; const e = ended(state)
++    expect(c.closureWeek).toBeLessThan(6240)
++    expect(e).toMatchObject({ closureId: c.closureId, definition: 'campaign-legacy/v3', kind: 'endOfRun', boundaryWeek: c.closureWeek + 1, postFinaleMode: null })
++    expect(c.endOfRun).toBe(e.legacySnapshotId); expect(state.market.tick).toBe(c.closureWeek)
++    expect(state.campaignLegacy.official).toBeNull(); expect(e.p15DomainSequence).toBeGreaterThan(c.p15DomainSequence)
++  })
++  it('ended-save-reload-links-and-downward-refusal', () => {
++    const state = closedControl(); const e = ended(state); const save = saves.makeSave(state)
++    expect(() => saves.validateSaveP15B(save), 'complete transaction admits before mutation').not.toThrow()
++    expect(state.campaignLegacy.official).toBeNull()
++    expect(canon(saves.importSave(saves.exportSave(save)))).toBe(canon(save))
++    const copy = JSON.parse(JSON.stringify(save))
++    copy.state.campaignLegacy.endOfRun.closureId = 'not-a-closure'
++    expect(() => saves.validateSaveP15B(copy)).toThrow(/closure/i)
++    for (const convert of [saves.migrateToV45, saves.migrateToV46, saves.migrateToV47]) {
++      expect(() => convert(save)).toThrow(/Legacy|end.of.run/i)
++    }
++    expect(ended(saves.importSave(saves.exportSave(save)).state).legacySnapshotId).toBe(e.legacySnapshotId)
++  })
++  it('official-v3-with-null-ended-is-not-admitted-by-frozen-readers', budgeted(FIXTURE_MS, () => {
++    // G6240F is the existing named recordedFromWeek forgery; NOT genuine world-start coverage.
++    const state = genuineFrozen(); const save = saves.makeSave(state)
++    expect(state.campaignLegacy.official!.definition, 'SEMANTIC RED: future official writer selects v3').toBe('campaign-legacy/v3')
++    expect(state.campaignLegacy.endOfRun).toBeNull()
++    expect(() => saves.validateSaveP15B(save)).not.toThrow()
++    // Direct frozen Legacy gate prevents unrelated outer-era refusals from masking the requirement.
++    expect(() => legacy.validateCampaignLegacy(save.state as unknown as Record<string, unknown>, 'frozen-v45-v47')).toThrow(/definition/i)
++    // Build an admitted historical official from its own frozen evaluator, retaining stamps.
++    // Conversion uses real public builders: no retagging Save48 or foreign-root masking.
++    const oldLive = JSON.parse(JSON.stringify(save))
++    const oldTable = legacy.LEGACY_DEFINITIONS['campaign-legacy/v2']
++    const adapter = legacy.legacyFactsFromState(state, 6240)
++    const historicalFacts = { ...adapter, domains: adapter.domains.filter(d => oldTable.domainIds.includes(d.domainId)) }
++    delete (historicalFacts as unknown as { studioClosures?: unknown }).studioClosures
++    oldLive.state.campaignLegacy.official = { ...oldLive.state.campaignLegacy.official, ...oldTable.evaluate(historicalFacts, 'official2040') }
++    expect(() => saves.validateSaveP15B(oldLive), 'historical payload replay admits before conversion').not.toThrow()
++    for (const [convert, read] of [[saves.migrateToV45, saves.validateSaveV45], [saves.migrateToV46, saves.validateSaveV46], [saves.migrateToV47, saves.validateSaveV47]] as const) {
++      const baseline = convert(oldLive)
++      expect(() => read(baseline), 'own-era baseline admission').not.toThrow()
++      const hostile = JSON.parse(JSON.stringify(baseline))
++      const before = canon(baseline)
++      // Only this definition changes; all stamps, roots and null-ended history remain baseline.
++      hostile.state.campaignLegacy.official.definition = 'campaign-legacy/v3'
++      expect(() => read(hostile)).toThrow(/campaignLegacy\.official\.definition/)
++      expect(canon(baseline)).toBe(before)
++    }
++  }), FIXTURE_MS)
++  it('deferred-due-input-retains-complete-bytes-if-publication-refuses', async () => {
++    const c = closureOf(closedControl(), PLAYER)!.closureWeek
++    const before = playerClosure().get(c - 1)!
++    const due = tick(before, PLAYER_CLOSURE_DEFERRED); const bytes = canon(due)
++    const cause = due.corporateCondition.events.find(e => e.studioId === PLAYER && e.to === 'closed')!.eventId
++    const mod = await import('../src/core/studioClosure.js')
++    expect(() => mod.closeStudio(due, PLAYER, cause, { endOfRunHook: () => { throw new Error('injected modern finale failure') } })).toThrow('injected modern finale failure')
++    expect(canon(due)).toBe(bytes)
++  })
++})

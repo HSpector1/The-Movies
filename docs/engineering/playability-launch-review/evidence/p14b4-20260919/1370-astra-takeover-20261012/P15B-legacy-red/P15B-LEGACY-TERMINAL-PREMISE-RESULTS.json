@@ -1,0 +1,97 @@
+{
+  "driverSHA256": "31445e255dd8c92ddf5652755bfe8dd96a1564d67473ba382270d6dfd5e17b5f",
+  "wrapperExit": 0,
+  "child": {
+    "name": "premise",
+    "exit": 0,
+    "startEpoch": 1791828694,
+    "endEpoch": 1791828721,
+    "seconds": 27,
+    "node": "v20.20.2",
+    "command": [
+      "node",
+      "node_modules/vite-node/vite-node.mjs",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-terminal-premise.ts"
+    ],
+    "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-terminal-premise-r2-run/premise.log"
+  },
+  "strictFreezeUnchanged": true,
+  "elapsedBodyMs": 24004.256268,
+  "budgetPassed": true,
+  "precursorAdmission": true,
+  "cases": [
+    {
+      "drainWeek": 6206,
+      "requestedTarget": 6239,
+      "baselineAdmission": {
+        "admitted": true
+      },
+      "drainedAdmission": {
+        "admitted": true
+      },
+      "actualFinalWeek": 6239,
+      "actualClosures": [
+        {
+          "week": 6239,
+          "closureId": "studio-closure-1",
+          "endOfRun": null
+        }
+      ],
+      "finalAdmission": {
+        "admitted": true
+      },
+      "admittedTargetMatched": true,
+      "gap": null,
+      "error": null
+    },
+    {
+      "drainWeek": 6207,
+      "requestedTarget": 6240,
+      "baselineAdmission": {
+        "admitted": true
+      },
+      "drainedAdmission": {
+        "admitted": true
+      },
+      "actualFinalWeek": 6240,
+      "actualClosures": [
+        {
+          "week": 6240,
+          "closureId": "studio-closure-1",
+          "endOfRun": null
+        }
+      ],
+      "finalAdmission": {
+        "admitted": true
+      },
+      "admittedTargetMatched": true,
+      "gap": null,
+      "error": null
+    },
+    {
+      "drainWeek": 6208,
+      "requestedTarget": 6241,
+      "baselineAdmission": {
+        "admitted": true
+      },
+      "drainedAdmission": {
+        "admitted": true
+      },
+      "actualFinalWeek": 6241,
+      "actualClosures": [
+        {
+          "week": 6241,
+          "closureId": "studio-closure-1",
+          "endOfRun": null
+        }
+      ],
+      "finalAdmission": {
+        "admitted": true
+      },
+      "admittedTargetMatched": true,
+      "gap": null,
+      "error": null
+    }
+  ],
+  "limits": "Explicit constructed negative publicity-debit controls, not natural gameplay. Modern Legacy absent, so no linked ended/atomic v3 qualification. Preserve first failed integer-amount attempt."
+}
