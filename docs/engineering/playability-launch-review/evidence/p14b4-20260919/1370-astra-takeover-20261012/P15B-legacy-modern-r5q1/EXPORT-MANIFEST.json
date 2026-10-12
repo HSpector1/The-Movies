@@ -44,6 +44,11 @@
       "path": "RESOURCE-BLOCK-AUDIT.json",
       "bytes": 1965,
       "sha256": "bba54791ef7f3d179cdd2e31fe8bd60370f4fa22ad409e43ff0ef29498c61efd"
+    },
+    {
+      "path": "OWNER-CACHE-CLEANUP.json",
+      "bytes": 4905,
+      "sha256": "a6190adaf6b8fd18f12d161e768913499d264054f943a2ac19afd35614050b31"
     }
   ],
   "execution": "NONE; launch reserve unmet",

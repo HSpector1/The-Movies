@@ -1,0 +1,105 @@
+{
+  "startedAt": "2026-10-12T20:27:18.415673+00:00",
+  "authorization": "Owner one bounded cache cleanup, ordinary uid501 only",
+  "volume": "/dev/disk1s1 /System/Volumes/Data",
+  "initialObservationFreeKiB": 2686564,
+  "immediatelyBeforeFreeKiB": 2673228,
+  "launchFloorKiB": 3670016,
+  "runtimeFloorKiB": 3145728,
+  "desiredFreeKiB": 5242880,
+  "dependencyCheck": "No recorded run/project writer; existing lane absent. npm target-specific lsof exit1 with empty output and no diagnostics means neither target open. Active MCP npm executable/dependency tree preserved.",
+  "actions": [
+    {
+      "path": "/Users/zacheryspector/.npm/_cacache/content-v2/sha512/22/30/b8a3a9bab63308992219a463fc7fb8da145f5bc818cd7cbe31e59476781e295d42a6f8a17cbc79b0dda7e5b506fff64076b265971206fb8ea1ec4c27f0c5",
+      "action": "unlink exact regular cache file only",
+      "uid": 501,
+      "logicalBytes": 1517863,
+      "allocatedBytesEstimate": 1519616,
+      "purpose": "npm regenerable package-download payload",
+      "result": "removed"
+    },
+    {
+      "path": "/Users/zacheryspector/.npm/_cacache/index-v5/41/c5/4270bf1cd1aae004ed6fee83989ac428601f4c060987660e9a1aef9d53b6",
+      "action": "unlink exact regular cache file only",
+      "uid": 501,
+      "logicalBytes": 1462,
+      "allocatedBytesEstimate": 4096,
+      "purpose": "npm regenerable download-cache index entry",
+      "result": "removed"
+    }
+  ],
+  "skipped": [
+    {
+      "path": "/Users/zacheryspector/.npm/_cacache/content-v2/sha512/dd/f4/749e936283bfe77307ad7c301db64158a3e84f37cbc1eb3450a482d547f02d9340632ee045cb4ac0e3f00b04e21fb645427a75cc0f95085113cc9e187fb0",
+      "logicalBytes": 64996787,
+      "uid": 0,
+      "reason": "root-owned; no removal attempted"
+    },
+    {
+      "path": "/Users/zacheryspector/.npm/_cacache/content-v2/sha512/78/bb/aa3b48a25e34148a95d04041c1a025c6d427711be5416b3579b1cf1e03a1de454d7cbabd54a0beb10eb4b5180e40dc88089202056bd38cac9495a2c762eb",
+      "logicalBytes": 13541,
+      "uid": 0,
+      "reason": "root-owned; no removal attempted"
+    },
+    {
+      "path": "/Users/zacheryspector/.npm/_cacache/index-v5/e5/dd/9d19eb25d59782f35c7361ff4cda9fe7db8d7812a69c055366f476f1a572",
+      "logicalBytes": 746,
+      "uid": 0,
+      "reason": "root-owned; no removal attempted"
+    },
+    {
+      "path": "/Users/zacheryspector/.npm/_cacache/index-v5/2d/ac/76da7f1ff704b0992edde3b882a8d76e94e6d359b47a996f7499d77a290c",
+      "logicalBytes": 793,
+      "uid": 0,
+      "reason": "root-owned; no removal attempted"
+    },
+    {
+      "path": "/Users/zacheryspector/.npm/_npx",
+      "reason": "installed dependency tree supporting active Playwright MCP; excluded"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Caches/Google",
+      "reason": "active Chrome cache files open; preserve current app use"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/CachedData",
+      "reason": "supports active editor/session; excluded as ambiguous"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/Cache",
+      "reason": "active editor cache file open; excluded"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Caches/claude-cli-nodejs",
+      "reason": "active-session related cache/history ambiguity; excluded"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Caches",
+      "reason": "all other inspected entries: small service databases, protected or ambiguous caches; no removal"
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Application Support/Code/CachedExtensionVSIXs",
+      "reason": "empty; no removal"
+    }
+  ],
+  "absentCandidatePaths": [
+    "/Users/zacheryspector/.nvm/.cache",
+    "/Users/zacheryspector/.yarn/cache",
+    "/Users/zacheryspector/.yarn/berry/cache",
+    "/Users/zacheryspector/.pnpm-store",
+    "/Users/zacheryspector/.cache/uv",
+    "/Users/zacheryspector/.cache/pip",
+    "/Users/zacheryspector/.rustup/downloads",
+    "/Users/zacheryspector/Library/Application Support/Code/Service Worker/CacheStorage",
+    "/Users/zacheryspector/Library/Application Support/OneDrive/StandaloneUpdater/UpdaterFiles"
+  ],
+  "afterFreeKiB": 2674716,
+  "observedNetFreeKiB": 1488,
+  "removedLogicalBytes": 1519325,
+  "removedAllocatedBytesEstimate": 1523712,
+  "remainingLaunchShortfallKiB": 995300,
+  "launchFloorPassed": false,
+  "scopeEnd": "Cleanup stopped after one bounded pass. Safe disposable targets insufficient; no privilege escalation, broadening, repeat failed preflight, test or build. Next compiler/15-test invocation remains unchanged and unexecuted.",
+  "smallestOwnerAction": "Independently make at least the recorded launch shortfall available on the same volume (about1GiB), then request resume. Owner may move a personally selected file to an external volume; no personal-file deletion is authorized to the agent.",
+  "completedAt": "2026-10-12T20:27:18.483469+00:00"
+}
