@@ -1,0 +1,124 @@
+{
+  "at": "2026-10-12T22:45:26.672892+00:00",
+  "candidatePacketSha256": "420e91014b98487971f9f49b549972013ec3aa86e701e88e66b761b212d81087",
+  "driverSha256": "8187f7d09da68f73cf50afa14762fca57b4d9dd66c38526ddf169811b786502f",
+  "childExit": 1,
+  "laneExit": 1,
+  "seconds": 7,
+  "cases": [
+    {
+      "label": "Genuine130 migrated capture with constructed player and two settled-rival debits",
+      "budgetMs": 120000,
+      "passed": false,
+      "elapsedMs": 4225.045023,
+      "budgetPassed": true,
+      "baselineAdmitted": true,
+      "drainedAdmitted": true,
+      "finalAdmitted": true,
+      "targets": [
+        "studio-aca408ec-player",
+        "studio-aca408ec-r03",
+        "studio-aca408ec-r04"
+      ],
+      "error": "AssertionError [ERR_ASSERTION]: all three actual closures, ascending studio ID\n+ actual - expected\n\n  [\n    'studio-aca408ec-player',\n-   'studio-aca408ec-r03',\n    'studio-aca408ec-r04'\n  ]\n    at /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-multiple-premise-r2.ts:112:10\n    at measure (/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-multiple-premise-r2.ts:85:9)\n    at /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-multiple-premise-r2.ts:90:1\n    at ViteNodeRunner.runModule (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:399:5)\n    at ViteNodeRunner.directRequest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:381:5)\n    at ViteNodeRunner.cachedRequest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:206:14)\n    at ViteNodeRunner.executeFile (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/client.mjs:169:12)\n    at CAC.run (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vite-node/dist/cli.mjs:99:5)",
+      "final": {
+        "week": 163,
+        "conditions": [
+          {
+            "studioId": "studio-aca408ec-player",
+            "condition": {
+              "stage": "closed",
+              "since": 163,
+              "week": 163,
+              "lowRun": 33,
+              "negativeRun": 33,
+              "clearRun": 0,
+              "distressWeeks": 0
+            }
+          },
+          {
+            "studioId": "studio-aca408ec-r01",
+            "condition": {
+              "stage": "stable",
+              "since": 131,
+              "week": 163,
+              "lowRun": 0,
+              "negativeRun": 0,
+              "clearRun": 33,
+              "distressWeeks": 0
+            }
+          },
+          {
+            "studioId": "studio-aca408ec-r02",
+            "condition": {
+              "stage": "stable",
+              "since": 131,
+              "week": 163,
+              "lowRun": 0,
+              "negativeRun": 0,
+              "clearRun": 33,
+              "distressWeeks": 0
+            }
+          },
+          {
+            "studioId": "studio-aca408ec-r03",
+            "condition": {
+              "stage": "distress",
+              "since": 160,
+              "week": 163,
+              "lowRun": 15,
+              "negativeRun": 11,
+              "clearRun": 0,
+              "distressWeeks": 4
+            }
+          },
+          {
+            "studioId": "studio-aca408ec-r04",
+            "condition": {
+              "stage": "closed",
+              "since": 163,
+              "week": 163,
+              "lowRun": 33,
+              "negativeRun": 33,
+              "clearRun": 0,
+              "distressWeeks": 0
+            }
+          }
+        ],
+        "closures": [
+          {
+            "studioId": "studio-aca408ec-player",
+            "closureId": "studio-closure-1",
+            "week": 163,
+            "sequence": 17,
+            "endOfRun": "campaign-legacy-19"
+          },
+          {
+            "studioId": "studio-aca408ec-r04",
+            "closureId": "studio-closure-2",
+            "week": 163,
+            "sequence": 18,
+            "endOfRun": null
+          }
+        ],
+        "sequenceNext": 20,
+        "stateSHA256": "75b6b2003efe773678cbfc8805cd6089f4072cc0fcb0769075dfb0108caaa5dc",
+        "officialIsNull": true,
+        "endedHeader": {
+          "kind": "endOfRun",
+          "definition": "campaign-legacy/v3",
+          "boundaryWeek": 164,
+          "p15DomainSequence": 19,
+          "closureId": "studio-closure-1",
+          "legacySnapshotId": "campaign-legacy-19"
+        }
+      }
+    }
+  ],
+  "rawReportSha256": "1fe3a68210340ca172e6f12c2e1f2dde73b197ac130ff10195f26ecd5ee4e96e",
+  "rawReportLocalOnly": true,
+  "freezeSha256": "6568bef5979520d1ad99de753da0449d5bc903aec23338174aea6f39e7097193",
+  "freezeExact": true,
+  "measuredBoundedWitness": "Exactly two actual same-week closures player17/rival18 followed by ended19,next20 at163; third rival remains distress negativeRun11, not due. Full baseline/drained/final admissions and preceding purity checks passed.",
+  "limits": "The original diagnostic expected3 and remainsFAILED. Measured2 supports adopted multiple/allactualclosures-before-finale dimension only; it is not3GREEN, naturalplay or broadacceptance."
+}
