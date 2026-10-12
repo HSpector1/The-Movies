@@ -1,0 +1,22 @@
+#!/bin/bash
+# restore-production.sh <gate-out-dir>
+# Undo a land-slice.sh application that will not be committed: unstage everything, restore the files the gate
+# modified, delete the files it added, and prove the worktree is clean at the HEAD the gate started from.
+# Refuses when HEAD moved, when anything outside the gate's lists is dirty, or when a gate vitest is still running.
+set -u
+OUT="$1"; R=/Users/zacheryspector/The-Movies-headless-program
+G="git -c gc.auto=0 -c maintenance.auto=0 --no-optional-locks"
+cd "$R" || exit 90
+[ -f "$OUT/HEAD-BEFORE" ] && [ -f "$OUT/staged-added.txt" ] && [ -f "$OUT/staged-modified.txt" ] || { echo "STOP: gate lists missing in $OUT"; exit 91; }
+moved=$($G diff --name-only "$(cat "$OUT/HEAD-BEFORE")" HEAD | grep -v '^HANDOFF.md$' || true)   # HANDOFF-only commits are expected
+[ -z "$moved" ] || { echo "STOP: HEAD moved beyond HANDOFF.md since the gate started:"; echo "$moved" | head; exit 92; }
+if pgrep -f "vitest run --project (core|ui) --reporter=json --outputFile=$OUT" >/dev/null; then echo "STOP: the gate's vitest is still running"; exit 93; fi
+expected=$(sort -u "$OUT/staged-added.txt" "$OUT/staged-modified.txt")
+dirty=$($G status --porcelain=v1 --untracked-files=all | sed 's/^...//' | sort -u)
+extra=$(comm -13 <(echo "$expected") <(echo "$dirty") | grep -v '^HANDOFF.md$' || true)
+[ -z "$extra" ] || { echo "STOP: dirty paths outside the gate's lists:"; echo "$extra" | head; exit 94; }
+$G restore --staged -- . && $G restore --worktree --pathspec-from-file="$OUT/staged-modified.txt" || { echo "STOP: restore failed"; exit 95; }
+while read -r f; do [ -n "$f" ] && [ -f "$R/$f" ] && rm -- "$R/$f"; done < "$OUT/staged-added.txt"
+left=$($G status --porcelain=v1 --untracked-files=all | grep -v ' HANDOFF.md$' || true)
+[ -z "$left" ] || { echo "STOP: still dirty after restore:"; echo "$left" | head; exit 96; }
+echo "production restored to $($G rev-parse HEAD); only HANDOFF.md may differ: $($G status --short | tr '\n' ' ')"

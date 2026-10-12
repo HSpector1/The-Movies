@@ -1,0 +1,9 @@
+# Existing integration scripts — bounded amendments
+
+Author: Codex-native GPT-6.1 Sol (`founding_recovery_sol`). Independent reviewer: GPT-6.1 Sol (`founding_review_sol`). Parent inspected the changes. Both scripts pass `bash -n`; no full gate was run for this review.
+
+Verdict: KEEP for the existing gate. Original scripts remain adjacent. The amendments preserve the required compiler/generator/d16/full core/full UI selection and existing timeouts, schedule tests without file parallelism, and require the existing owned heavy lane. New output directories, manifest failures, prerequisite child failures, exact frozen HEAD/index/worktree/input checks, complete diagnostics and candidate-only safe restoration replace unsafe success/restoration assumptions. Production may be a docs-only descendant of the package base, provided source identity, available ancestry and real patch preimages agree.
+
+No test failure is automatically approved. The gate returns nonzero when broad failures exist; SAME initially means identity overlap only, so the parent must compare messages/occurrences and classify d16/UI failures against their actual predecessors. A solo pass remains NONREPRODUCTION. The original lane launcher is unchanged; the parent owns live disk monitoring and must reap owned children before releasing the lane on interruption. Floors: 3.5 GiB at launch, 3 GiB during execution. No HANDOFF or commit changes are permitted during the frozen run.
+
+The first review caught two defects and the author corrected both before this verdict: comparing manifest base HEAD to a later docs-only HEAD, and overbroad hashing of historical evidence. The final snapshot hashes candidate code/configuration, manifest-owned paths and four explicitly required fixture roots; Git index/diff/status covers other tracked changes, with a path inventory for other untracked files. Restore mirrors the same snapshot and refuses foreign changes.
