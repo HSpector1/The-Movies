@@ -1,0 +1,8 @@
+{
+  "head": "d68d4b13b454922cf84eff5c0c73cae3e780eebe",
+  "files": {
+    "src/harness/roster-wall/historical-control.ts": "b39ea5b49841f2c1a6070e13d4e2b7af8ffa18617de1c05bf7c96c4bc2f88e61",
+    "tests/p1364-late-founding.test.ts": "8029db216f3b281d832542439390b2a846d92d141cc13a7a2caf5f32b81aa059"
+  },
+  "all137ManifestAndIndexMatch": true
+}

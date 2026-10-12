@@ -1,0 +1,75 @@
+{
+  "candidatePatchSHA256": "1677eb0654be43014ec86f61d23cdefe96615fb34470578133afdaa35f2ff0d0",
+  "laneExit": 0,
+  "results": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791827629,
+      "endEpoch": 1791827671,
+      "seconds": 42,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4q1-focused-run/tsc-root.log"
+    },
+    {
+      "name": "tsc-bridge",
+      "exit": 0,
+      "startEpoch": 1791827675,
+      "endEpoch": 1791827707,
+      "seconds": 32,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "-p",
+        "tsconfig.bridge.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4q1-focused-run/tsc-bridge.log"
+    },
+    {
+      "name": "founding",
+      "exit": 0,
+      "startEpoch": 1791827709,
+      "endEpoch": 1791827727,
+      "seconds": 18,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "tests/p1364-late-founding.test.ts",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4q1-focused-run/founding.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-r4q1-focused-run/founding.log"
+    }
+  ],
+  "founding": {
+    "files": 1,
+    "tests": 60,
+    "passed": 60,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "identitiesExactlyMatchOriginal60": true,
+    "priorFourFailuresNowPassed": [
+      "1364 invariant A: a supported late import signs from its recruitment fund, founds, saves and reloads founding-import-premise: both generated V45 inputs convert on import through the genuine 45 -> 46 -> 47 step chain, the premise every import leaf builds on",
+      "1364 observation: older open drafts, closed campaigns, week-zero founding, the historical control founding-historical-hash-control: the roster-wall historical hash discards a control's null funding root, so a ticked control and its SaveFileV18 replay hash equal (the Week-196 entry harvest); a recorded fund is never discarded (1370-AR r5 item H.1)",
+      "1364 refusals: unsupported historical input and malformed funding fail before gameplay mutation founding-technology-invalid-draft: an open late draft carrying a rival method lock keeps the predecessor's technology refusal at its reader and at import, input untouched and every lock kept; an accepted import never deletes rival locks (1364-A \u00a75 case 6)",
+      "1364 R-B: a founded campaign never opens a second founding draft or receives a second grant (parent ruling 2026-10-11) founding-second-grant-forged-save: a save carrying a second draft or grant on a founded campaign refuses by its exact name at the live reader and at import, input untouched, whatever the forger does to the landmarks or the provenance; Save46 refuses the same cash-free signatures"
+    ]
+  },
+  "strictFreezeUnchanged": true,
+  "limits": "Focused repair verification only; original r4 failures preserved. Legacy, Wave5, natural recovery and broad qualification incomplete. Production remains Save47."
+}

@@ -1,0 +1,116 @@
+--- a/src/harness/roster-wall/historical-control.ts
++++ b/src/harness/roster-wall/historical-control.ts
+@@ -65,7 +65,7 @@
+   if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state) && !('talentMarket' in state)
+     && !('firstTakes' in state) && !('promises' in state) && !('relationships' in state) && !('talentProvenance' in state)
+     && !('careerLifecycle' in state) && !('firstTakeSubjects' in state) && !('powerRanking' in state) && !('p15Sequence' in state)
+-    && !('sharedMarket' in state) && !('campaignLegacy' in state) && !('foundingFunding' in state))return state
++    && !('sharedMarket' in state) && !('campaignLegacy' in state) && !('foundingFunding' in state) && !('corporateCondition' in state) && !('studioClosure' in state))return state
+   if('hollywood' in state && state.hollywood!==null)throw new Error('Historical hash cannot discard a living industry')
+   // P14B.1: the control records no qualifying event and no commitment; an empty
+   // pair of roots is the only lawful shape to discard. P14B.5: nor any edge.
+@@ -133,10 +133,21 @@
+     // every roster-wall Week-196 harvest compare a live projection with the root against its V18 replay without).
+     if ((state as Partial<GameState>).foundingFunding?.fund !== null) throw new Error('Historical hash cannot discard recruitment-fund authority')
+   }
++  // Observatory projection only: exact initial shapes, not a gameplay downgrade.
++  for (const [key, authority] of [['corporateCondition', 'corporate-condition'], ['studioClosure', 'studio-closure']] as const) {
++    if (!(key in state)) continue
++    const root = (state as Record<string, unknown>)[key]
++    const week = root !== null && typeof root === 'object' ? (root as { recordedFromWeek?: unknown }).recordedFromWeek : undefined
++    const tick = (state as Partial<GameState>).market?.tick
++    if (typeof week !== 'number' || !Number.isSafeInteger(week) || week < 0 || typeof tick !== 'number' || week > tick
++      || stableStringify(root) !== stableStringify(initialP15BRoots(week)[key])) {
++      throw new Error(`Historical hash cannot discard ${authority} authority`)
++    }
++  }
+   const {hollywood: _control, technology: _research, physicalPlans: _plans, talentMarket: _market,
+     firstTakes: _takes, firstTakeSubjects: _subjects, promises: _promises, relationships: _relationships, talentProvenance: _provenance,
+     careerLifecycle: _lifecycle, powerRanking: _ranking, p15Sequence: _sequence, sharedMarket: _sharedMarket,
+-    campaignLegacy: _legacy, foundingFunding: _funding, ...frozen}=state as Partial<GameState>
++    campaignLegacy: _legacy, foundingFunding: _funding, corporateCondition: _condition, studioClosure: _closure, ...frozen}=state as Partial<GameState>
+   if (frozen.operations) {
+     // P13B S5-R07: the live workflow carries `setup`/`planRevision`; a historical control never selected a recipe, so the only lawful
+     // shape to discard is the null record at revision 0.
+--- a/tests/p1364-late-founding.test.ts
++++ b/tests/p1364-late-founding.test.ts
+@@ -236,7 +236,7 @@
+       const outcome = importSaveJson(predecessorValidated(name))
+       if (!outcome.ok) throw new Error(`import refused: ${outcome.error}`)
+       expect(outcome.converted, name).toBe(true)
+-      expect(makeSave(outcome.state).saveVersion, name).toBe(FOUNDING_STEP)
++      expect(makeSave(outcome.state).saveVersion, name).toBe(saveModule.LIVE_SAVE_VERSION)
+     }
+   }, HEAVY)
+ 
+@@ -434,6 +434,23 @@
+     const replay = saveModule.validateSaveV18(importSave(exportSave(saveModule.makeSaveV18(structuredClone(control)))))
+     expect('foundingFunding' in replay.state, 'premise: the frozen V18 era carries no funding root').toBe(false)
+     expect(stableStringify(historicalHashState(replay.state))).toBe(stableStringify(historicalHashState(control)))
++    // Hash projection refuses every authority family and malformed initial metadata without mutation.
++    for (const [key, edits, message] of [
++      ['corporateCondition', ['studios', 'events', 'loans'], /^Historical hash cannot discard corporate-condition authority$/],
++      ['studioClosure', ['closures', 'claims', 'estateEvents'], /^Historical hash cannot discard studio-closure authority$/],
++    ] as const) {
++      for (const field of [...edits, 'nextCounter', 'recordedFromWeek', 'version', 'foreign']) {
++        const forged = detached(control) as unknown as Record<string, unknown>
++        const root = forged[key] as Record<string, unknown>
++        if ((edits as readonly string[]).includes(field)) root[field] = [{}]
++        else if (field === 'nextCounter') root[key === 'corporateCondition' ? 'nextEvent' : 'nextClosure'] = 2
++        else if (field === 'recordedFromWeek') root[field] = control.market.tick + 1
++        else root[field] = 2
++        const before = canon(forged)
++        expect(() => historicalHashState(forged), `${key}.${field}`).toThrow(message)
++        expect(canon(forged)).toBe(before)
++      }
++    }
+     const recorded = withRoot(control, { version: 1, recordedFromWeek: 3, fund: { provenance: 'opened', budget: TUNING.HIRING_FOUNDING_BUDGET, spentAtRecording: 0, spentBonus: 0, openingEmploymentCount: 0, closedWeek: null, closingEmploymentCount: null, allocations: [] } })
+     expect(() => historicalHashState(recorded)).toThrow(/^Historical hash cannot discard recruitment-fund authority$/)
+   }, HEAVY)
+@@ -468,8 +485,12 @@
+     while (locked.technology.productions.length === 0 && locked.market.tick < draft.market.tick + 60) locked = tick(locked)
+     const locks = locked.technology.productions.length
+     expect(locks, 'premise: a rival locks a production method within 60 weeks').toBeGreaterThan(0)
+-    const { foundingFunding: _f, ...state } = detached({ ...locked, founding: draft.founding }) as unknown as Record<string, unknown>
+-    const text = stableStringify({ saveVersion: FOUNDING_STEP - 1, seed: draft.seed, state, broadcastCache: locked.broadcastItems })
++    // Explicit historical control, not a lossless downgrade of evaluated P15B facts.
++    // Project while still valid, admit V47 then convert/admit V46 BEFORE reopening the draft.
++    const baseline = saveFn(`convertV${FOUNDING_STEP}ToV${FOUNDING_STEP - 1}`)(predecessorSave(locked))
++    expect(() => saveFn(`validateSaveV${FOUNDING_STEP - 1}`)(baseline)).not.toThrow()
++    const state = { ...detached(baseline.state), founding: detached(draft.founding) }
++    const text = stableStringify({ ...baseline, state })
+     const parsed = JSON.parse(text) as { state: { technology: { productions: unknown[] } } }
+     const TECHNOLOGY = /Technology save: unfounded or non-player corpus cannot hold technology authority$/
+     expect(() => saveFn(`validateSaveV${FOUNDING_STEP - 1}`)(parsed)).toThrow(TECHNOLOGY)
+@@ -756,9 +777,29 @@
+       expect(canon(parsed), `${title}: the parsed input is not mutated`).toBe(canon(JSON.parse(text)))
+     }
+     // The fund is the only thing that exempted the signature from cash: Save46 refuses it as the old law does.
+-    const { foundingFunding: _f, ...predecessorState } = JSON.parse(liveText(closed)).state as Record<string, unknown>
+-    expect(() => saveFn(`validateSaveV${FOUNDING_STEP - 1}`)({ saveVersion: FOUNDING_STEP - 1, seed: closed.seed, state: predecessorState, broadcastCache: closed.broadcastItems }))
++    // Admit the valid pre-forgery own-era baseline first. Never send the forged grant through
++    // predecessorSave: its strict V47 guard would mask the V46 cash-payment assertion.
++    const baseline = saveFn(`convertV${FOUNDING_STEP}ToV${FOUNDING_STEP - 1}`)(predecessorSave(week30))
++    expect(() => saveFn(`validateSaveV${FOUNDING_STEP - 1}`)(baseline)).not.toThrow()
++    const predecessorState = detached(baseline.state)
++    // Transfer only the injected cash-free signature and second landmark; retain V46 account schema.
++    predecessorState.contracts = detached(closed.contracts)
++    predecessorState.freeAgents = detached(closed.freeAgents)
++    predecessorState.studioHistory = detached(closed.studioHistory)
++    predecessorState.hollywood = { ...predecessorState.hollywood!,
++      employment: detached(closed.hollywood!.employment),
++      activeEmploymentOrdinals: detached(closed.hollywood!.activeEmploymentOrdinals),
++      receipts: detached(closed.hollywood!.receipts), nextReceipt: closed.hollywood!.nextReceipt }
++    expect(predecessorState.hollywood.nextReceipt).toBe(predecessorState.hollywood.receipts.length)
++    expect(new Set(predecessorState.hollywood.receipts.map(r => r.eventId)).size).toBe(predecessorState.hollywood.receipts.length)
++    expect(predecessorState.studioHistory.nextEventId).toBe(closed.studioHistory.nextEventId)
++    expect(canon(predecessorState.ledger)).toBe(canon(baseline.state.ledger))
++    expect(predecessorState.studio.cash).toBe(baseline.state.studio.cash)
++    const hostile = { ...baseline, state: predecessorState }
++    const hostileBytes = canon(hostile)
++    expect(() => saveFn(`validateSaveV${FOUNDING_STEP - 1}`)(hostile))
+       .toThrow(/employment start lacks its actual player signing payment/)
++    expect(canon(hostile)).toBe(hostileBytes)
+   }, HEAVY)
+ 
+   it('founding-fund-lifetime: R-E I1, a fund closes in its recording week and an open fund stays in it; the r6 verification\'s forms refuse by name: the week-40 refill of a closed fund (probe-c, opened and observed), an ordinary week-30 cash signing relabelled as funded (D1) and a legacy founding re-opened a week later (D2)', () => {

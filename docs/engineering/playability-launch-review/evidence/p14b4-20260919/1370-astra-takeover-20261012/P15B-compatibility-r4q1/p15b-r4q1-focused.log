@@ -1,0 +1,6 @@
+r4q1: exact137 WT/index postimages; reviewed packet; reverse check PASS
+node=v20.20.2 python=Python 3.14.4 start=2026-10-12T17:53:48Z
+{"name": "tsc-root", "exit": 0, "seconds": 42}
+{"name": "tsc-bridge", "exit": 0, "seconds": 32}
+{"name": "founding", "exit": 0, "seconds": 18}
+terminal founding=0; unchanged=yes; parent must inspect reporter completeness
