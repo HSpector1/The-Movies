@@ -1,0 +1,13 @@
+# r5q1 measured prerequisite and ordering RED review
+
+Reviewer: GPT-6.1 Sol. Read-only immutable run/packet review; no execution or candidate-tree inspection/identity claim. Author now owns live K/p15b. Packet hashes verified: PATCH0330186d5962207f9cbf22fff07ce4384d36e61ffc4147dc1731c98d5b049c06; MANIFEST281b313be3cf6d74e060dbe1caff16e2a7240fdd222e8598cb20cad20931eca2. Raw legacy-modern.json SHA70210b08c09c82ad6afd589f70cac0a185fea0ee638d4c91b881a4491cfa7c8d.
+
+KEEP the evidence as a complete prerequisite run and the intended distinguishing ordering RED. Required modern-official ordering repair remains open; no runtime acceptance or full gate pass.
+
+results.jsonl records root compiler0/43s then runtime1/40s with the exact unfiltered three-file command. Lane metadata records start17:22:52 and terminal1 at17:24:39 CDT. Lane log records exact141 admission/reverse-check PASS and final unchanged=yes. freeze.json and freeze-current.json are byte-identical. These bind the tested immutable candidate, not subsequently edited live files.
+
+Reporter accounting is complete: three files,15 unique full identities,14 passed/1 failed, zero pending/todo. The frozen packet's static leaf titles match each file's actual titles exactly:8 v3 +6 atomic +1 official-order, none missing or added. All original14 pass. Suite headers sum7=6passed+1failed+0pending; this is not equated to the three file records. success=false agrees with runtime/lane1. Raw runtime log contains no unhandled/worker-error/timeout warning.
+
+The sole failure is AssertionError expected function to throw, at frozen official-order test:44:48. Therefore all preceding original-route/full-baseline admissions, actual closure6240, modern official identity, closure-before-official adjacent sequence and ended-after-official assertions completed. The coherent sequence/officialID/closure-watermark mutant was accepted by validateSaveP15B; it did not fail at a premise or unrelated reader guard. This demonstrates exactly the missing modern-official ordering refusal. The input-purity assertion at line45 is after the failed assertion and did NOT execute; this RED does not independently prove hostile-envelope purity. Retain it for the repaired GREEN.
+
+Passing14 establishes these named pure/frozen/early constructed aggregate/fault/save/refusal/official-only controls only. It does not establish all constructed6239/6240/6241 final states under modern source, late ineligible closure, simultaneous multi-closure, broader natural/recovery/Wave5 or Owner acceptance. Await immutable r5q2 guard packet and distinguishing GREEN; preserve this actual failed source/result unchanged.

@@ -1,0 +1,36 @@
+{
+  "files": [
+    {
+      "path": "ADMISSION-REVIEW.md",
+      "bytes": 2195,
+      "sha256": "6addad0c9e2ad6ab8674e1b2ebb2ae001ea51b6a0d164ed5b204f9c580c0870e"
+    },
+    {
+      "path": "DELTA-vs-r5q1.diff",
+      "bytes": 1189,
+      "sha256": "95b83a4d28c487fa91bc71d0f9c97899ca899a0d1942efeb7af3d12041848882"
+    },
+    {
+      "path": "MANIFEST.json",
+      "bytes": 44341,
+      "sha256": "f17b024eb4b136a1f5a654b32d1a4ead54904fd9f52e8c847c778a85e7d2c078"
+    },
+    {
+      "path": "README.md",
+      "bytes": 931,
+      "sha256": "49fd26c16e63e5041b787cde0db76cda7e19dfa2bcc725bab68009657380114d"
+    },
+    {
+      "path": "REPORT.md",
+      "bytes": 1600,
+      "sha256": "8de1decbbcead0315390695fc8ef0b728be57d8538b72efb945042cd99caf361"
+    },
+    {
+      "path": "RUNNER.sh",
+      "bytes": 8865,
+      "sha256": "1e16cb5c649ed4ad29e2e03814e18586ca5e653ba607560e330bd0e0b8f8b387"
+    }
+  ],
+  "privateSaveBodies": false,
+  "execution": "not yet run; independent static KEEP"
+}

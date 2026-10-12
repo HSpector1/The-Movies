@@ -1,0 +1,44 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p15b
+
+ ✓ |core| tests/p15b-legacy-v3.test.ts (8 tests) 19688ms
+   ✓ p15b modern Legacy constructed transaction controls > early-closure-publishes-linked-ended-without-extra-week 2062ms
+   ✓ p15b modern Legacy constructed transaction controls > ended-save-reload-links-and-downward-refusal 594ms
+   ✓ p15b modern Legacy constructed transaction controls > official-v3-with-null-ended-is-not-admitted-by-frozen-readers 16851ms
+ ✓ |core| tests/p15b-legacy-atomic.test.ts (6 tests) 4446ms
+   ✓ p15b early complete aggregate transaction controls > early-aggregate-links-publishes-once-and-keeps-input 2812ms
+   ✓ p15b stored route L official-only eligibility controls > recording-at6239-freezes-v3-on-one-ordinary-tick 483ms
+   ✓ p15b stored route L official-only eligibility controls > recording-at6240-never-backfills-official 359ms
+   ✓ p15b stored route L official-only eligibility controls > later6241-tick-retains-validated-frozen-v1-v2-official-bytes 467ms
+ ❯ |core| tests/p15b-legacy-official-order.test.ts (1 test | 1 failed) 9546ms
+   × actual6240-official-reader-refuses-closure-after-finale-sequence 9545ms
+     → expected [Function] to throw an error
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p15b-legacy-official-order.test.ts > actual6240-official-reader-refuses-closure-after-finale-sequence
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ tests/p15b-legacy-official-order.test.ts:44:48
+     42|   }
+     43|   const bytes = canon(hostile)
+     44|   expect(() => save.validateSaveP15B(hostile)).toThrow(/campaignLegacy…
+       |                                                ^
+     45|   expect(canon(hostile)).toBe(bytes)
+     46| }), ROUTE_MS)
+ ❯ tests/helpers/p15c2-legacy.ts:49:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  1 failed | 14 passed (15)
+   Start at  17:23:57
+   Duration  38.44s (transform 2.06s, setup 0ms, collect 3.55s, tests 33.68s, environment 1ms, prepare 354ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-legacy-modern-r5q1-run/legacy-modern.json

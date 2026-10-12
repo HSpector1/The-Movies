@@ -1,0 +1,15 @@
+diff --git a/src/core/campaignLegacy.ts b/src/core/campaignLegacy.ts
+index c4308a1c..e0e8f076 100644
+--- a/src/core/campaignLegacy.ts
++++ b/src/core/campaignLegacy.ts
+@@ -1296,6 +1296,10 @@ function validateLegacyManifest(raw: Record<string, unknown>, label: string, mod
+     refuse('official.p15DomainSequence', 'must be a whole number of at least 1')
+   }
+   if (official.definition === MODERN_LEGACY_DEFINITION && official.phaseOrderVersion !== 2) refuse('official.phaseOrderVersion', 'must use the actual-closure finale phase table 2')
++  if (!ended && official.definition === MODERN_LEGACY_DEFINITION
++    && state.studioClosure.closures.some(c => c.closureWeek <= B && c.p15DomainSequence >= sequence)) {
++    refuse('official.p15DomainSequence', 'must follow every actual closure dated at or before the official boundary')
++  }
+   if (ended) {
+     if (tick !== playerClosure!.closureWeek) refuse('official.boundaryWeek', 'must publish at the actual player closure without another simulated tick')
+     if (sequence <= Math.max(0, ...state.studioClosure.closures.map(c => c.p15DomainSequence))) refuse('official.p15DomainSequence', 'must follow every actual closure before finale')

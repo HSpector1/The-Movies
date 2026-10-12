@@ -1,3 +1,5 @@
+> Historical preparation checkpoint. Subsequent actual compiler0/original14PASS plus intended orderingRED: [r5q1 results](../P15B-legacy-modern-r5q1-results/README.md). Later repair: [r5q2](../P15B-legacy-modern-r5q2/README.md).
+
 # P15B modern Legacy r5q1: source repair and ordering RED, unexecuted
 
 Apply both DELTA files here after ../P15B-legacy-modern-r5/DELTA-vs-r4q1-red.diff and the earlier ../P15B-legacy-red/PATCH.diff over Save47 d68d4b13. MANIFEST records the resulting141 postimages. Full local packet PATCH SHA256:0330186d5962207f9cbf22fff07ce4384d36e61ffc4147dc1731c98d5b049c06. No production gameplay source is changed by this evidence checkpoint.

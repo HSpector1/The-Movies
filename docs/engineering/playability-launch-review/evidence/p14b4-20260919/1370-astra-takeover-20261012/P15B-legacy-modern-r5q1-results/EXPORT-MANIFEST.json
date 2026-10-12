@@ -1,0 +1,51 @@
+{
+  "files": [
+    {
+      "path": "INDEPENDENT-REVIEW.md",
+      "bytes": 2645,
+      "sha256": "b7dee4a7fbebb5f7dbc7bdd9a86cbe1b45aa27adca22b37c0d4387bc9f13b493"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1508,
+      "sha256": "074f0cb8c2fbeb430198e482dea1b8357b8fcf263782e44d035045b81d7cdba6"
+    },
+    {
+      "path": "RESULTS.json",
+      "bytes": 4322,
+      "sha256": "6c9eebd1713ba3699fde891e41ef276a285cc060ac8cf3153f356184bd8de8e8"
+    },
+    {
+      "path": "commands.jsonl",
+      "bytes": 955,
+      "sha256": "34ef37f87beb1e6f32bbbcd5b735247741f69cfaf8a88c75cf07c5aecf11fb75"
+    },
+    {
+      "path": "lane.log",
+      "bytes": 330,
+      "sha256": "e773679b4c9708187daa2d95b150289e4d40e4508f0596499ffe907c8ba78c92"
+    },
+    {
+      "path": "lane.meta",
+      "bytes": 216,
+      "sha256": "0623491f2713f0f0432b1095a2b1679dcbad1e8c0582bbe0c63356bdd00faf3a"
+    },
+    {
+      "path": "legacy-modern.json",
+      "bytes": 7155,
+      "sha256": "70210b08c09c82ad6afd589f70cac0a185fea0ee638d4c91b881a4491cfa7c8d"
+    },
+    {
+      "path": "legacy-modern.log",
+      "bytes": 2300,
+      "sha256": "0799297d4a6863747c2a8ff9234405a558d0ee8fffb3c9521aef1289f7d32f11"
+    },
+    {
+      "path": "tsc-root.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "privateSaveBodies": false,
+  "execution": "compiler0; original14pass; official-order RED; runtime/lane1"
+}
