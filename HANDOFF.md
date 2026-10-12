@@ -50,6 +50,8 @@ The AR fullfunction route (Gate 0 BLOCKED; a new route generation waits for the 
 
 ## Current review checkpoint: read before the historical account
 
+> Historical (written 2026-10-10 before R8 landed). The RESUME KIT at the top of this file supersedes every instruction in this section.
+
 - User request: check Claude's updates, judge their quality and fix concrete blockers. **Useful unfinished gameplay drafts exist; none have landed in the production source. P16/P17/P18 are not complete or ready for main.** The latest review is `E/1370-as-claude-review-and-draft-backup/REVIEW.md`; its README explains restoration and the manifest.
 - Git reconciliation: fetched branch and local HEAD were `f7d0dc0fd4f31ff1a3bff47abb4db07bd3ce298c`, following Claude's `6510c971` and the prior Codex handoff `9b67d768`. All are docs-only successors of AQ; `HEAD:src` remains `13880d9b0ba72aff5d4c5bcf5d12fe682c5de554`; remote main remains `c902a704eb948cc576083d0973c8c23e59937dc1`. This review/backup is another nonproduction-source checkpoint; resolve its containing commit with Git and the publication readback.
 - **Owner authority is resolved.** Claude recorded "Approve fresh baseline" and later "Owner approval not needed for anything, just go make it happen." Do not re-ask the old baseline question. Fresh source binding, independent review, disk headroom, real implementation and verification remain necessary. Historical failures stay failed.
@@ -162,6 +164,8 @@ Sequencing decision remains: do not publish/fetch during a frozen qualification 
 - **1365 closure runbook** preserved at `E/1370-ar-1365-closure-runbook-20261011/RUNBOOK.md`: after founding lands, G2 (41 min), G1 (7 min), d16 at (c)/(d), the G2 root/save storage read-out, and G-P/G-L must run; every historical probe needs a reviewed revision first (hard-coded 0.25, Save44/45 literals, refusal of post-Save45 roots), and the G2 control commit must be named by the integrator.
 - **Disk:** user caches cleared under the Owner's cache authorization (Library/Caches except the running Claude CLI and VS Code caches, plus the nvm download cache: +376 MiB) and the stale P15B RED worktree removed after preserving its two files; 2.2 GiB free. The heavy G2/G1/G-P/G-L lane needs the 3.5 GiB floor: swap files (3 GiB) and the 1 GiB sleep image are the remaining reclaimable space and only a restart frees them, which the parent will not do on the Owner's machine.
 ## Read this first
+
+> Historical (written 2026-10-10 before R8 landed). The RESUME KIT at the top of this file supersedes every instruction in this section.
 
 The game is **not finished through P18**. P16 is incomplete; P17 and P18 production integration remains downstream. Verification infrastructure was repaired before Claude prepared the new isolated gameplay drafts. Neither effort has advanced the published production gameplay source yet. Do not mistake archived reviews, isolated tests or documentation commits for completion of the integrated systems.
 
@@ -409,6 +413,8 @@ The historical adoption records `ownerQuestionAsked=true`, `ownerApprovalReceive
 Proceed within the recorded approval without re-asking. Complete operational/source prerequisites before the new attempt; review and documentation/backup work may continue independently.
 
 ## Exact next steps for Claude
+
+> Historical (written 2026-10-10 before R8 landed). The RESUME KIT at the top of this file supersedes every instruction in this section.
 
 ### 1. Reconcile the takeover without restarting work
 
