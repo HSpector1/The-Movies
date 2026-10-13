@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-13T17:23:28.704292-05:00",
+  "session": 97542,
+  "terminal": {
+    "overallExit": 2,
+    "groups": {
+      "tsc-root": 2
+    },
+    "scope": "three compiler diagnostic only; no runtime/generator/acceptance claim",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "child": {
+    "name": "tsc-root",
+    "exit": 2,
+    "startEpoch": 1791930148,
+    "endEpoch": 1791930188,
+    "seconds": 40,
+    "node": "v20.20.2",
+    "command": [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "--noEmit"
+    ],
+    "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-save49-types-r1-run/tsc-root.log"
+  },
+  "diagnostics": 29,
+  "files": [
+    "tests/p14b5-relationships.test.ts",
+    "tests/p14d2-a8-binding-cash.test.ts",
+    "tests/p14d2-a8-fixture.ts",
+    "tests/p14p3-directing-promises.test.ts",
+    "tests/p14p4p5-opportunities.test.ts",
+    "tests/p15b-legacy-terminal-regression.test.ts"
+  ],
+  "metadataErrorsBytes": 0,
+  "checks": "{\"metadataOnly\": false, \"oldAUTOsha256\": \"d4a8db106e058f4b2bdc9bd10eeaca18109d8f6d4f61a0e27671856816c1423c\", \"newAUTOsha256\": \"d4a8db106e058f4b2bdc9bd10eeaca18109d8f6d4f61a0e27671856816c1423c\", \"receipt\": \"/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-save49-types-r1-run/metadata-b795a9d204404828b008d0d2a92c1921\", \"detectedUTC\": \"2026-10-13T22:22:28.052975+00:00\"}\n{\"metadataOnly\": false, \"oldAUTOsha256\": \"d4a8db106e058f4b2bdc9bd10eeaca18109d8f6d4f61a0e27671856816c1423c\", \"newAUTOsha256\": \"d4a8db106e058f4b2bdc9bd10eeaca18109d8f6d4f61a0e27671856816c1423c\", \"receipt\": \"/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-save49-types-r1-run/metadata-976c2b3628514e34840ee59c98906501\", \"detectedUTC\": \"2026-10-13T22:23:11.357673+00:00\"}\n",
+  "logSHA256": "7a3eb652d08e4efd406e2c3f165b41d487e0d8b74761d35fe3bddb9e367cd89a",
+  "laneAbsent": true
+}

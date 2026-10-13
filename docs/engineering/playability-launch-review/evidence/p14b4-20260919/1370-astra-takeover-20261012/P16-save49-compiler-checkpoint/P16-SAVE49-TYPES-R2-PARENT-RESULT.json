@@ -1,0 +1,49 @@
+{
+  "at": "2026-10-13T17:30:33.458065-05:00",
+  "session": 88952,
+  "overallExit": 0,
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "seconds": 41,
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ]
+    },
+    {
+      "name": "tsc-ui",
+      "exit": 0,
+      "seconds": 42,
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "ui/tsconfig.json",
+        "--noEmit"
+      ]
+    },
+    {
+      "name": "tsc-bridge",
+      "exit": 0,
+      "seconds": 31,
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.bridge.json",
+        "--noEmit"
+      ]
+    }
+  ],
+  "strictMetadataChecks": 7,
+  "metadataErrorsBytes": 0,
+  "exactFreezeEqualExceptReceipt": true,
+  "sourceFiles": 1585,
+  "inputBindings": 13,
+  "laneAbsent": true,
+  "freeKiB": 5239332,
+  "scope": "Root/UI/Bridge compiler qualification on exact restacked114-r2 only; gameplay/estate/acceptance remain open"
+}
