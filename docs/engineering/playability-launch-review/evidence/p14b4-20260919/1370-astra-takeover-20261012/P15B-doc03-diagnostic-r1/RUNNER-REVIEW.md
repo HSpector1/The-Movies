@@ -1,0 +1,11 @@
+# DOC03 diagnostic runner static admission
+
+GPT-6.1 Sol. KEEP conditional on parent external bootstrap binding and preflight; no execution or runtime qualification. Reviewed runner SHA256 7514d2962e720ccdb26a9d47c95b14e7cdf2992ae1ed66778700223bd164d851.
+
+The command runs the unchanged complete tests/p13b-s2-doc03.test.ts in project core, serial files, no cache, default plus JSON reporters. No test filter, budget override, compiler, D16 or UI is introduced. Original beforeAll/default budgets therefore remain authoritative. Original source6749872f… is admitted explicitly. This is diagnosis of the unchanged failed setup; no hypothesis about actual closure is represented as measured cause.
+
+Admission binds production HEAD02536a2c3826f30568cad5e2cc544fddc1a0cec1, exact159 staged path set, WT/index postimages, Git executable modes, actual-R mode receipt457b3832…, packet28f12/e60c, required1368 manifest, no unmerged/untracked paths, and only HANDOFF unstaged changes. No chmod or C-mode substitution occurs. Required14 inputs and union fixture are captured; exact runner/helper and mode receipt are frozen. External runner/helper SHA environment pins default to rejecting PENDING. Parent must supply independently verified exact pins, not treat self-selected caller values as authentication.
+
+Owned existing lane ancestry, Node20.20.2/Python environment, fresh output, 3.5GiB launch/3GiB live floors and before/after AUTO-aware freeze checks remain. Child exit is recorded before postflight and propagated unless a stricter freeze/storage failure supersedes it; raw child record retains that distinction. Initial snapshot and every check preserve raw metadata receipts. The measured helper controls support this prospective use, without rewriting original98 failures or authenticating hook origin.
+
+Parent must inspect reporter completeness and setup diagnostics separately; a zero-assertion setup failure is not a pass, and a terminal banner alone is not evidence that all17 leaves executed. No concrete blocking runner defect found. Print wording “no unstaged change” is imprecise because admitted HANDOFF dirtiness is explicitly allowed; actual guards and receipts govern, not that wording. No game result or landing clearance is inferred.

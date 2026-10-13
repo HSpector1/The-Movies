@@ -1,0 +1,20 @@
+{
+  "sourceHead": "02536a2c3826f30568cad5e2cc544fddc1a0cec1",
+  "sourcePatchSHA256": "28f12dbc2821377209629603cadee51240554a61f0b9352f7ce6c5f11bce6b4b",
+  "completeTestSHA256": "6749872f1ebed2870aca18f240d54e46a29dd21b9cc9cae5f2d41846effeef60",
+  "receipts": {
+    "doc03.json": {
+      "sha256": "4b269e9ac897d0606522732770476039ca058c1a5e8773e0ec809899e7eddb70",
+      "gzipSha256": "0217969d410a49c86dbb43d4172c84dcb0ef741d1177a2f737f09d977059e632"
+    },
+    "freeze.json": {
+      "sha256": "82dd4abefacf67cfd214b4833f13bcb661b3a44650c03d3122f484bd773579d9",
+      "gzipSha256": "addba7cbbef464ef7833f3c9e998582f7530fecfc41d7509995efdae64cb4ca3"
+    },
+    "freeze-current.json": {
+      "sha256": "8aab1b2f7832d0961e987cb247d16e5fa2e7c57053682ba773c74cb8a6c8bbba",
+      "gzipSha256": "99f1a37488725ae286fc81999d896ac3d9987a41f7cada47cc4bce6dc8ce634f"
+    }
+  },
+  "result": "child/lane1;17 skipped, none executed; actual studio closure837 blocks residual horizon841; strict freezes unchanged"
+}
