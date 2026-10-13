@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-13T14:55:35.265037-05:00",
+  "freeKiB": 2652372,
+  "launchMinimumKiB": 3670016,
+  "shortfallKiB": 1017644,
+  "laneAbsent": true,
+  "competingHeavy": 0,
+  "AC": true,
+  "swap": "vm.swapusage: total = 3072.00M  used = 1605.00M  free = 1467.00M  (encrypted)",
+  "memory": "The system has 8589934592 (2097152 pages with a page size of 4096).\nSystem-wide memory free percentage: 75%",
+  "preflightNotRetried": true
+}
