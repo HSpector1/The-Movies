@@ -1,18 +1,18 @@
 # HANDOFF
 
-Last writer: Codex (GPT-6 Astra parent; GPT-6.1 Sol specialists), 2026-10-12 23:39 CDT
+Last writer: Codex (GPT-6 Astra parent; GPT-6.1 Sol specialists), 2026-10-13 06:44 CDT
 
 
-## CURRENT — full core finished;193-file repair candidate UNRUN; disk blocks launch, 2026-10-12 23:39 CDT
+## CURRENT — P15B repair candidate UNRUN; renewed cache inspection needs Chrome closed, 2026-10-13 06:44 CDT
 
 This section supersedes older snapshots. Required reading: [Owner integration order](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/OWNER-ORDER.txt), [technical landing versus acceptance](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-TECHNICAL-LANDING-VS-ACCEPTANCE.md), [actual full-gate result](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-full-gate-r1/BRIEF.md), its independent reviews, and [repair source backup](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-post-fullgate-repairs-r1/SOURCE-BACKUP.json). Continue founding → P15B → P16 → P17 → bounded P18, then required cross-system/browser qualification. No main merge or full acceptance claim.
 
-**Lessons — Owner instruction:** update [Major lessons to carry forward](#major-lessons-to-carry-forward) at safe checkpoints with cause, actual evidence and prevention. Lessons60–61 below record this gate's hidden suite failure and invalid whole-state counterfactual. Preserve original failures; static review is not runtime qualification.
+**Lessons — Owner instruction:** update [Major lessons to carry forward](#major-lessons-to-carry-forward) at safe checkpoints with cause, actual evidence and prevention. Lessons60–61 below record this gate's hidden suite failure and invalid whole-state counterfactual; lesson62 records the cache ownership/process constraint. Preserve original failures; static review is not runtime qualification.
 
 ### Where the work is
 
 - R=`/Users/zacheryspector/The-Movies-headless-program`; S=`/Users/zacheryspector/studio-scratch`; K=`/Users/zacheryspector/studio-specialists`; C=`K/p15b`; A=`S/1370-astra-takeover-20261012`; T=`S/1370-ar-integrator-tools-20261011`.
-- Branch `wip/headless-program-20260916-ts`; explicit remote `https://github.com/HSpector1/The-Movies.git`, ref `refs/heads/wip/headless-program-20260916-ts`. Last verified local/remote before this documentation/backup checkpoint: `d65b27c0c3f07dec811a295efd32d088fe878fba`. Read actual HEAD on resume. Safe Git flags: `-c gc.auto=0 -c maintenance.auto=0 --no-optional-locks`.
+- Branch `wip/headless-program-20260916-ts`; explicit remote `https://github.com/HSpector1/The-Movies.git`, ref `refs/heads/wip/headless-program-20260916-ts`. Last verified local/remote before this resource receipt checkpoint: `1f5e0a48b0980784be488e00da62a4ec7eb5b08f`. Read actual HEAD on resume. Safe Git flags: `-c gc.auto=0 -c maintenance.auto=0 --no-optional-locks`.
 - **LANDED:** Save47 source `d68d4b13b454922cf84eff5c0c73cae3e780eebe`, source tree `2bcac39e1c88ba48f24df44e015d3b7b7f5a06af`. **P15B NOT LANDED.** R still holds the original159-file candidate staged and uncommitted; this checkpoint must commit only HANDOFF/evidence, preserving that staged source exactly.
 - **ISOLATED UNRUN193:** C on d68 contains reviewed repairs across46 paths relative to original159;147 original patch sections are retained unchanged. Published compressed full patch, original159 patch, exact repair delta and provenance are in `P15B-post-fullgate-repairs-r1`. This is a recoverable source backup, not a final qualification packet. Exact patch/delta hashes are in SOURCE-BACKUP.json. No gameplay-engine change in this repair delta: D16 harness handling plus test repairs. C's separate local HANDOFF is metadata, excluded from source patch.
 - Original159 immutable packet: A/p15b-save48-nonleak-lawful-r2, PATCH`28f12dbc2821377209629603cadee51240554a61f0b9352f7ce6c5f11bce6b4b`, MANIFEST`e60c93c95c7155eea2a3d8a7123197a7ab2158d47e85836b9c654dd121e1aae3`. Preserve all original packets/results/inputs. Earlier qualified research5, Bridge117+55 separate, T17 residuals, browser123, modern boundary/composition and O1/O6 negative evidence are retained in [prior qualification references](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-full-gate-r1/PRIOR-QUALIFICATION.md); no unrelated reruns just to recreate history.
@@ -27,7 +27,9 @@ This section supersedes older snapshots. Required reading: [Owner integration or
 
 ### Exact next step and resource blocker
 
-Parent read-only preflight23:29 CDT used the unchanged existing gate formula: **3,580,056KiB free on shared Data**, below launch3,670,016KiB by89,960KiB; target5GiB short1,662,824KiB. Runtime floor3,145,728KiB unchanged. AC100%, owned lane absent; detailed receipt A/p15b-post-fullgate-preflight-r1.LOCAL.json staysLOCAL. No new tests/compilers/cleanup followed. Owner asked to free about1.6GiB; no response at this checkpoint. Do not keep retrying an unchanged failed preflight or expand the closed cleanup scope.
+Owner renewed bounded cache authorization: “Clear disk space if you need to.” The inspected Data volume has **3,548,408 KiB available**, below the unchanged launch minimum by **121,608 KiB**. **No deletion performed; cleanup recovery0bytes.** No tests/builds/writers active, parent lane absent, specialists parked. [Cleanup receipt](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-resource-blocker-20261013.md) records exact paths, allocations, skips and actual volume change; detailed inventory A/disk-cleanup-renewed-20261013.LOCAL.json staysLOCAL.
+
+Smallest pending Owner action: quit Google Chrome normally. Its two verified user-owned disposable cache directories total184,200KiB allocated, enough in estimate to cover the current launch shortfall; **Chrome remains active, so neither was removed**. An asynchronous question is already pending; do not infer elapsed time as a response. Owner prohibits agent app termination. npm `_cacache` has root-owned descendants and is skipped without escalation; installed dependencies/session caches and all project/evidence data remain protected. Stop broad cleanup discovery. After Chrome is absent, revalidate ownership/no symlinks/no open handles on the exact two paths, perform bounded cache removal, measure actual recovered space, then run fresh full resource preflight. Do not lower floors or repeatedly retry an unchanged failed preflight.
 
 Once space is actually available, perform fresh full resource/lane preflight. The first pending execution is the already reviewed **tiny isolated AUTO-recorder controls**, through the existing parent lane. Draft A/p15b-auto-recorder-r4r2-draft: helperSHA`9bc9b89c0ae5dd6bc3e558ee1b823414d86cb5134170326f74779350b34d3e00`, controlsSHA`33ba7c1c1daa8d544e435a3010f37b575e93e7d99ee76fd3a0f4965578681fe1`, runnerSHA`a2a2c5a05bd3cd8612a8f234a7123fdd4c73e5c35811e871f48314fa464577bf`. External hash-check first; controls command is `R/.venv/bin/python3 -I -B A/p15b-auto-recorder-r4r2-draft/controls.py A/p15b-auto-recorder-r4r2-controls-r1` with an absent fresh output, via `S/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh 0 A/p15b-auto-recorder-r4r2-controls-r1-lane.log <command>`. Read A/P15B-AUTO-RECORDER-R4-DRAFT-REVIEW.md. These controls have NEVER run; no fixture exists. They create only a tiny invented A-only Git fixture, not a game clone. Review actual results before prospectively adopting the helper; preserve original98 and global hooks.
 
@@ -39,7 +41,7 @@ Qualified technical landing remains conditional on actual verification and resid
 
 Parent sole R writer/scheduler; three GPT-6.1 Sol specialists used for bounded author/review work and parked at checkpoint. One intensive job tree globally; no source/index/required-input/HANDOFF edits during recorded freezes. Existing laneSHA`aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e`; unchanged T/land-sliceSHA`e198be165bb8d08ff72e88d42df031f750fe28e039c200addefc7463af001819`. Preserve foreign caffeinate98123; no app termination. No reset/stash/clean/GC/sudo/forcepush/dependencies.
 
-Closed: bounded caches/verified duplicates/personal iCloud transfer and finite isolated preview. Preview branch`wip/browser-soundstage-preview` at`9cc684f93e0185a53d36fc39e425f4e5a360f5ba`, launcher S/browser-soundstage-preview/preview/soundstage/START PREVIEW.command. No new cleanup/assets/REA/Unity/maintenance. No open Owner design/approval question; only external disk headroom blocks execution. Stored goal status was already blocked from an older interruption; tools cannot resume that label. Actual work continued and is now awaiting resource recovery.
+Closed: previous bounded cleanup, verified duplicates/personal iCloud transfer and finite isolated preview. The newly authorized two-cache cleanup is pending Chrome quit as above. Preview branch`wip/browser-soundstage-preview` at`9cc684f93e0185a53d36fc39e425f4e5a360f5ba`, launcher S/browser-soundstage-preview/preview/soundstage/START PREVIEW.command. No wider cleanup/assets/REA/Unity/maintenance. No open Owner design/approval question; the pending normal Chrome quit and actual disk recovery block execution. Stored goal status was already blocked from an older interruption; tools cannot resume that label. Actual work continued and is now awaiting resource recovery.
 
 ## RESUME KIT, 2026-10-11 20:35 CDT (read first; written because Claude's weekly usage reached 92%)
 
@@ -672,6 +674,8 @@ The full accounts are in `A/payload/1370-aq-root-continuation-20261010-r1/LESSON
 60. A failed setup can appear as skipped assertions in a JSON reporter. The complete core run reported17 newly skipped doc03 leaves, but its file status is FAILED and no setup diagnostic was captured. Preserve both facts and obtain the unchanged suite's default-reporter cause before classifying coverage; totals or empty failure arrays do not prove deliberate skips. [Independent actual review](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-full-gate-r1/CORE-INDEPENDENT-REVIEW.md).
 61. A phase-local no-side-effects claim needs a valid boundary. Removing ranking writes from an entire campaign made its later mandatory closure publication invalid; synthetic retirement controls also failed full-save age/provenance checks. The reviewed repairs compare the real producer at its private phase and require complete public admission around constructed consumer inputs, without weakening the reader. These are static repairs awaiting execution, not measured wins. [Reviewed repair scope](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-post-fullgate-repairs-r1/TRIAGE-CONTROL-DRAFTS-REVIEW.md).
 
+62. A cache directory name does not establish safe deletion. The renewed 2026-10-13 inspection found root-owned npm cache descendants and active Chrome cache consumers. Preserve those targets until ownership and process conditions permit action; never confuse allocated cache size with actual recovered volume space. This attempt removed nothing. [Exact receipt](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-resource-blocker-20261013.md).
+
 ## Handoff completion and claim limits
 
 This checkpoint updates the detailed handoff, backs up Claude's unlanded source/evidence and records independent review plus a bounded P16 draft repair. No new game test/compiler, new operational baseline, production gameplay landing, ledger closure or main merge was performed. Retained Claude test results are distinguished from new source review and backup checks. The AUTO block below is preserved byte-for-byte and remains historical hook output.
@@ -680,11 +684,10 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-12 23:32 CDT by **codex** on PreCompact (session 01a13050-fe8f-7903-9af3-0a45b7130787)
-- Branch: `wip/headless-program-20260916-ts` @ `d65b27c0c3f07dec811a295efd32d088fe878fba`
+- Stamped: 2026-10-13 06:37 CDT by **codex** on PreCompact (session 01a13050-fe8f-7903-9af3-0a45b7130787)
+- Branch: `wip/headless-program-20260916-ts` @ `1f5e0a48b0980784be488e00da62a4ec7eb5b08f`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 161
-  - `M HANDOFF.md`
+- Uncommitted files: 159
   - `M  bridge/finance.ts`
   - `M  bridge/industry.ts`
   - `A  bridge/loan.ts`
@@ -699,11 +702,12 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
   - `M  src/core/actions.ts`
   - `M  src/core/campaignLegacy.ts`
   - `A  src/core/corporateConditionLive.ts`
+  - `A  src/core/corporateNotices.ts`
   - ...
 - Last commits:
+  - 1f5e0a48 test: preserve P15B full-gate failures and reviewed repair candidate
   - d65b27c0 test: qualify lawful research controls and prepare P15B integration gate
   - e2a0aeba test: qualify Bridge consumers and historical save guards
   - 8764be2c test: record Bridge behavior and bounded research recovery outcomes
   - 5801d2bd feat: preserve reviewed Bridge loan choice and Power Ranking implementation
-  - bdab06fa test: record Bridge prerequisite failures and prepare bounded research continuation
 <!-- AUTO:END -->
