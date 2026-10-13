@@ -1,0 +1,90 @@
+[
+  {
+    "file": "tests/bridge-p15b5-loan-choice.test.ts",
+    "fullName": "Bridge C17: explicit lawful loan choice quotes and commits selected $1000 once, with exact terms and journal replay"
+  },
+  {
+    "file": "tests/bridge-p15b5-loan-choice.test.ts",
+    "fullName": "Bridge C17: explicit lawful loan choice quotes and commits selected $2000 once, with exact terms and journal replay"
+  },
+  {
+    "file": "tests/bridge-p15b5-loan-choice.test.ts",
+    "fullName": "Bridge C17: explicit lawful loan choice distinct chosen principals bind distinct IDs; maximum shortcut remains exactly one option"
+  },
+  {
+    "file": "tests/bridge-p15b5-loan-choice.test.ts",
+    "fullName": "Bridge C17: explicit lawful loan choice illegal finite principals are precise noncommittable core refusals, never clamped"
+  },
+  {
+    "file": "tests/bridge-p15b5-loan-choice.test.ts",
+    "fullName": "Bridge C17: explicit lawful loan choice real stable and already-borrowed states refuse eligibility BEFORE an illegal principal"
+  },
+  {
+    "file": "tests/bridge-p15b5-loan-choice.test.ts",
+    "fullName": "Bridge C17: explicit lawful loan choice loan quotes use shared stale guard and clear-on-load even for digest-identical saved bytes"
+  },
+  {
+    "file": "tests/bridge-p15b5-loan-choice.test.ts",
+    "fullName": "Bridge C17: explicit lawful loan choice loan family enters the existing cap16 map: first distinct draft evicted, latest usable"
+  },
+  {
+    "file": "tests/bridge-p15b5-loan-choice.test.ts",
+    "fullName": "Bridge C17: explicit lawful loan choice resolved real loan commit revalidates a core-produced outstanding loan; public digest guard is not the witness"
+  },
+  {
+    "file": "tests/bridge-p15a2-power-ranking.test.ts",
+    "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-routes: real latest/archive IDs, row paging, exact unknown refusal and pure detached output"
+  },
+  {
+    "file": "tests/bridge-p15a2-power-ranking.test.ts",
+    "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-projection-schema: adopted view/nullable section and existing 1\u201350 query cap"
+  },
+  {
+    "file": "tests/bridge-p15a2-power-ranking.test.ts",
+    "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-empty and unavailable13: honest first quarter, no ranks, banner/window/first-ranked copy"
+  },
+  {
+    "file": "tests/bridge-p15a2-power-ranking.test.ts",
+    "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-closure: actual169 inclusion/182 exclusion, frozen historical page and cross-definition movement"
+  },
+  {
+    "file": "tests/bridge-p15a2-power-ranking.test.ts",
+    "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-archived-stage-band: stage at selected quarter and recorded band, no private finance"
+  },
+  {
+    "file": "tests/bridge-p15a2-power-ranking.test.ts",
+    "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-not-recorded: genuine precondition-history quarter has no backfilled stage"
+  },
+  {
+    "file": "tests/bridge-p15a2-power-ranking.test.ts",
+    "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-copy/film-explain: real record rows, no-finished sentence and actual creator film score"
+  },
+  {
+    "file": "tests/bridge-p15a2-power-ranking.test.ts",
+    "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-industry-unchanged: Studio Charts unchanged except adopted notice and nullable rank section"
+  },
+  {
+    "file": "tests/bridge-p15a2-power-ranking.test.ts",
+    "fullName": "Power Ranking comparator units: constructed source-independent records, no campaign reachability claim rank-view-movement: identical ranked cohort preserves competition ties1\u20131\u20133 and normal movement"
+  },
+  {
+    "file": "tests/bridge-p15a2-power-ranking.test.ts",
+    "fullName": "Power Ranking comparator units: constructed source-independent records, no campaign reachability claim cross-definition is unavailable even with identical ranked cohort"
+  },
+  {
+    "file": "tests/bridge-p15a2-power-ranking.test.ts",
+    "fullName": "Power Ranking comparator units: constructed source-independent records, no campaign reachability claim absent prior, wrong W\u221213, current unranked and truly absent prior row are unavailable"
+  },
+  {
+    "file": "tests/bridge-p15a2-power-ranking.test.ts",
+    "fullName": "Power Ranking comparator units: constructed source-independent records, no campaign reachability claim existing prior-unranked row is new BEFORE differing-ranked-cohort rule; other cohort changes unavailable"
+  },
+  {
+    "file": "tests/bridge-runtime-checkpoint.test.ts",
+    "fullName": "C17 shipped projection57 carry-forward registers the actual shipped projection57 identity, independently of map iteration"
+  },
+  {
+    "file": "tests/bridge-runtime-checkpoint.test.ts",
+    "fullName": "C17 shipped projection57 carry-forward independently migrates two admitted Save47 slots under actual shipped57 and discards opaque prior journal"
+  }
+]

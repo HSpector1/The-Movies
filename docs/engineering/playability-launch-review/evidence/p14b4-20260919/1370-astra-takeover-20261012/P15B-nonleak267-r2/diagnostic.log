@@ -1,0 +1,2 @@
+{"kind":"non-leak267 current-budget-only counterfactual DIAGNOSTIC, not acceptance","status":"DISTINGUISHING_ONE_TICK_OBSERVED_NOT_ACCEPTANCE","ticksAttempted":2,"elapsedMs":5085.059545,"error":null,"diagnosticSHA256":"77d5b73a966dabe12c172f3a9f0e73cb36ac2cdef0f9e826d4de45d206bb1aee"}
+{"watchdog": "completed within30s", "childExit": 0, "seconds": 5.171304691990372, "ownedGroupGone": true, "exit": 0}
