@@ -1,0 +1,11 @@
+--- r1/MAKE-S7-MANIFEST.ts
++++ r2/MAKE-S7-MANIFEST.ts
+@@ -21,7 +21,7 @@
+  'tests/zz-s7-lib.ts':'2d58f57506312a149f153be11688181ec3045a3a22c3be0e7a358b59dc7e7b12',
+  'tests/zz-s7-natural-route.test.ts':'96e46eebb5ace875710a8a3ad8e741c0c15466b4b27669935ed9a28c6faf7e41',
+  'tests/zz-s7-decide-diag.test.ts':'00966e3873d571c2c475f9a0ff9e275c8a8688909d7294adf5dbcf296997fdf2'}
+-const configs=['package.json','package-lock.json','vitest.config.ts','vitest.workspace.ts']
++const configs=['package.json','package-lock.json','vitest.config.ts','vitest.workspace.ts','tsconfig.json']
+ const hash=(value:string|Buffer)=>createHash('sha256').update(value).digest('hex')
+ function need(value:unknown,message:string):asserts value {if(!value)throw new Error('STOP: '+message)}
+ function regular(path:string):Buffer {

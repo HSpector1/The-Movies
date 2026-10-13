@@ -1,0 +1,31 @@
+{
+  "fullFiles": [
+    "tests/p13b-s8-nonleak.test.ts"
+  ],
+  "requiredExact5": [
+    {
+      "file": "tests/p13b-s8-nonleak.test.ts",
+      "fullName": "P13B-S8 non-leak: admitted one-week budget counterfactual retains earned rival research divergence (test5) precondition: same-week admitted arms differ only in current rival research budget initially, retaining earned research divergence at780"
+    },
+    {
+      "file": "tests/p13b-s8-nonleak.test.ts",
+      "fullName": "P13B-S8 non-leak: admitted one-week budget counterfactual retains earned rival research divergence (test5) real full research week earns positive unequal verifiedWork/expenditure and rival debits without changing player/shared roots"
+    },
+    {
+      "file": "tests/p13b-s8-nonleak.test.ts",
+      "fullName": "P13B-S8 non-leak: admitted one-week budget counterfactual retains earned rival research divergence (test5) lighting forecast (windowed) is byte-identical across the research-divergent states at week780"
+    },
+    {
+      "file": "tests/p13b-s8-nonleak.test.ts",
+      "fullName": "P13B-S8 non-leak: admitted one-week budget counterfactual retains earned rival research divergence (test5) technologyAnnouncements(780) is byte-identical (no research row, seat count or spend published)"
+    },
+    {
+      "file": "tests/p13b-s8-nonleak.test.ts",
+      "fullName": "P13B-S8 non-leak: admitted one-week budget counterfactual retains earned rival research divergence (test5) advanced independently to900, earned research divergence persists while pure forecasts/announcements remain byte-identical"
+    }
+  ],
+  "expectedCount": 5,
+  "filters": null,
+  "scope": "Complete five-test one-week constructed budget fixture; original persistent-budget failure preserved, no originalseed/natural-policy/fullP15B claim",
+  "timeouts": "original beforeAll30s/fifthleaf30s,otherdefaults unchanged"
+}

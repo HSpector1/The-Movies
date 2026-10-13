@@ -1,0 +1,22 @@
+[
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-full-gate-preparation-r1/bootstrap.sh",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-full-gate-r1.sh",
+    "sha256": "0736e9a7dd26334d562ed910197afe67a00091d88265f849db06b6d3cce308cf"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-full-gate-preparation-r1/BRIEF.md",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-full-gate-supplement-r1/BRIEF.md",
+    "sha256": "9f70c7d57ae0f4f0720682f84dbf2cc55e81470003e16d821d6bb1aad7ed80d0"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-full-gate-preparation-r1/PINS.json",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-full-gate-supplement-r1/PINS.json",
+    "sha256": "454f1df860fd7346cd0952af3bde573dcf0af5087a33aac8e2b56da31f4b818a"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-full-gate-preparation-r1/RUN-FULL-GATE.py",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-full-gate-supplement-r1/RUN-FULL-GATE.py",
+    "sha256": "08e2755bf3b7dda986a05fd47ddf7aa5ff5a027cfadf1812fa437fea0418217e"
+  }
+]

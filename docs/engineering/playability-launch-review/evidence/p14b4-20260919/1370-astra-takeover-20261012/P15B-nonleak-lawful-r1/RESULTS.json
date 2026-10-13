@@ -1,0 +1,119 @@
+{
+  "commands": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791855048,
+      "endEpoch": 1791855093,
+      "seconds": 45,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-nonleak-lawful-r1-run/tsc-root.log"
+    },
+    {
+      "name": "nonleak-focused",
+      "exit": 1,
+      "startEpoch": 1791855097,
+      "endEpoch": 1791855111,
+      "seconds": 14,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "tests/p13b-s8-nonleak.test.ts",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-nonleak-lawful-r1-run/nonleak-focused.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-nonleak-lawful-r1-run/nonleak-focused.log"
+    }
+  ],
+  "freezeSHA256": "5edaf51dcb65984ff0277f0d297280ff272b9265395d5bc84b152b9a5dbb6aed",
+  "postFreezeSHA256": "5edaf51dcb65984ff0277f0d297280ff272b9265395d5bc84b152b9a5dbb6aed",
+  "freezeEqual": true,
+  "runtimeExecuted": true,
+  "reporterCounts": {
+    "numTotalTestSuites": 2,
+    "numPassedTestSuites": 0,
+    "numFailedTestSuites": 2,
+    "numPendingTestSuites": 0,
+    "numTotalTests": 5,
+    "numPassedTests": 4,
+    "numFailedTests": 1,
+    "numPendingTests": 0,
+    "numTodoTests": 0,
+    "success": false
+  },
+  "actualCounts": {
+    "failed": 1,
+    "passed": 4
+  },
+  "fileCounts": {
+    "tests/p13b-s8-nonleak.test.ts": {
+      "failed": 1,
+      "passed": 4
+    }
+  },
+  "missingRequired5": [],
+  "missingFullFiles": [],
+  "unexpectedFiles": [],
+  "required5Counts": {
+    "failed": 1,
+    "passed": 4
+  },
+  "duplicateIdentities": [],
+  "identities": [
+    {
+      "file": "tests/p13b-s8-nonleak.test.ts",
+      "fullName": "P13B-S8 non-leak: admitted budget-only counterfactual earns rival research divergence (test5) precondition: same-week admitted arms differ only in current rival research budget initially, retaining earned research divergence at780",
+      "status": "failed",
+      "duration": 113.99800400000095,
+      "failures": [
+        {
+          "preview": "AssertionError: expected [ { \u2026(7) }, { \u2026(7) } ] to deeply equal [ { \u2026(7) }, { \u2026(7) } ]\n    at /Users/zacheryspector/studio-specialists/p15b/tests/p13b-s8-nonleak.test.ts:143:52\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)",
+          "characters": 1228,
+          "SHA256": "3fd1d5d885964fd555c4cd056d5c1b333977417137cc81c81dfd3cf3f4cd1365",
+          "truncated": false
+        }
+      ]
+    },
+    {
+      "file": "tests/p13b-s8-nonleak.test.ts",
+      "fullName": "P13B-S8 non-leak: admitted budget-only counterfactual earns rival research divergence (test5) real full research week earns positive unequal verifiedWork/expenditure and rival debits without changing player/shared roots",
+      "status": "passed",
+      "duration": 209.90598599999976,
+      "failures": []
+    },
+    {
+      "file": "tests/p13b-s8-nonleak.test.ts",
+      "fullName": "P13B-S8 non-leak: admitted budget-only counterfactual earns rival research divergence (test5) lighting forecast (windowed) is byte-identical across the research-divergent states at week780",
+      "status": "passed",
+      "duration": 172.8271079999995,
+      "failures": []
+    },
+    {
+      "file": "tests/p13b-s8-nonleak.test.ts",
+      "fullName": "P13B-S8 non-leak: admitted budget-only counterfactual earns rival research divergence (test5) technologyAnnouncements(780) is byte-identical (no research row, seat count or spend published)",
+      "status": "passed",
+      "duration": 175.69099899999856,
+      "failures": []
+    },
+    {
+      "file": "tests/p13b-s8-nonleak.test.ts",
+      "fullName": "P13B-S8 non-leak: admitted budget-only counterfactual earns rival research divergence (test5) advanced independently to900, earned research divergence persists while pure forecasts/announcements remain byte-identical",
+      "status": "passed",
+      "duration": 1286.1194169999999,
+      "failures": []
+    }
+  ],
+  "scope": "bounded one-full-file lawful-fixture qualification, complete actual results; not fullP15B/native or acceptance"
+}

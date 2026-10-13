@@ -1,0 +1,13 @@
+# P15B full-gate supplemental wrapper independent review
+
+GPT-6.1 Sol. Static KEEP for parent-owned existing fullgate, conditional on exact reviewed launch bytes/environment/readiness; no execution/source/index/HANDOFF writes. Bootstrap0736e9a7dd26334d562ed910197afe67a00091d88265f849db06b6d3cce308cf; Python08e2755bf3b7dda986a05fd47ddf7aa5ff5a027cfadf1812fa437fea0418217e; PINS454f1df860fd7346cd0952af3bde573dcf0af5087a33aac8e2b56da31f4b818a match.
+
+Exact unchanged land-slicee198be bytes and final15928f12/e60c93/Save47src2bcac39 baseline e9f82 are pre/post pins. Existing gate owns apply/index/source/full-suite freeze and leaves state for parent on failure; supplement performs no restore, chmod, hook or timeout change. Four environment fixture manifests are fixed beforeapply/post, while existinggate recursively binds payloads. Additional actualC fixture inventories from immutable focused/T17 freezes map onlyC-relative inputs toR, require identical regularpathsets/content and reject symlinks/missing/extra. A/privateforeign paths are intentionally excluded, not presented as requiredRinputs.
+
+Crossworkspace permission provenance is explicit: C600 union fixture versus actualR644 identicalbe4content, and C444 baseline versusR644, are not content drift. ActualR modes are recorded before/post and must remain equal; unionR644 is additionally fixed. This does not waive executable-bit/source admission or permit in-runmode changes. No copies/deletions/mode normalization appear.
+
+Bootstrap execs actualRvenv; Node20 version, suppliedhash-pinned existinglane launcher ancestry/locktoken, fresh outputs and launch/runtime floors are checked. Parent must independently pin exact Python/bootstrap beforelaunch; Python's selfhash captures actualstartbytes for before/post but is not a self-authenticating external pin. Parent live-resource/process monitoring remains necessary; no competing scheduler or detached job is introduced.
+
+Receipt attempts postobservation even child1/98, retains originalGateExit separately from supplementalExit/finalExit, and never converts inheritedfailedchild1 to pass. Supplemental drift/error yields98 and must stop for parent assessment, not silently restore/reuse source. NewAUTO metadata drift remains an incident; no originalfreeze overwrite or exemption is implemented.
+
+Final researchfive qualified; fullgate remains unexecuted here. Parent must classify complete actualcore/UI/child evidence, inherited versusnewfailures and allremainingtechnical blockers before independentlandingreview. This KEEP permits the formalverification step, not a source merge/fullP15B/liveclosure/Owneracceptance or1363matrix waiver.

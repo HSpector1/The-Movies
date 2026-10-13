@@ -1,0 +1,8 @@
+{"progressWeek":390,"target":780,"ticksAttempted":246}
+{"progressWeek":520,"target":780,"ticksAttempted":506}
+{"progressWeek":650,"target":780,"ticksAttempted":766}
+{"endpointWeek":780,"admittedBoth":true,"retainedEarnedResearchDifference":true,"operationsPlacementEqual":true,"disclosureEqualAndExpected":true}
+{"progressWeek":780,"target":900,"ticksAttempted":1026}
+{"endpointWeek":900,"admittedBoth":true,"retainedEarnedResearchDifference":true,"operationsPlacementEqual":true,"disclosureEqualAndExpected":true}
+{"kind":"non-leak267 ONE-WEEK20k then restore40k at268 forward780/900 DIAGNOSTIC, constructed policy not originalseed/acceptance","status":"SINGLE_WEEK_RESTORED_FORWARD780_900_OBSERVED_NOT_ORIGINALSEED_OR_ACCEPTANCE","ticksAttempted":1266,"elapsedMs":11177.123048,"error":null,"diagnosticSHA256":"fbe9dc120adf981c7fa54c6acd0c80e30786f3682f188549b7c6ab0370e4bcef"}
+{"watchdog": "child completed", "childPid": 14846, "groupId": 14846, "childExit": 0, "intendedExit": 0, "deadlineExceeded": false, "seconds": 11.27280818298459, "groupState": "absent", "ownedGroupGone": true, "cleanupError": null, "exit": 0}

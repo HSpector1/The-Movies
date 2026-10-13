@@ -1,0 +1,19 @@
+{
+  "run": "p15b-nonleak-single-week-r1",
+  "beforeSHA256": "e60c95fe5e0b546cf26f0454295ea057fb666734b82544601ae9c7814c22c15e",
+  "afterSHA256": "e60c95fe5e0b546cf26f0454295ea057fb666734b82544601ae9c7814c22c15e",
+  "equal": true,
+  "fullLocalSource": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-nonleak-single-week-r1-run/freeze.json",
+  "candidatePacketInputs": {
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r1/MANIFEST.json": [
+      "file",
+      "cd7e25fc80a63eefc282653f771baf081d62cdd70d5509e7dd82781aded71ac2",
+      420
+    ],
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r1/PATCH.diff": [
+      "file",
+      "174012ced86ed0b2a597378926713500da8ef8588164735a176cf634a482f396",
+      420
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "reason": "Preserve exact immutable patch context, no executable source waiver",
+  "files": {
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-nonleak-single-week-test-draft/EXACT.diff": "14daadfcf73a4f01b5f9c9f3ea105528ebb2d994105603c84340332121021bdb",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r2/DELTA-vs-nonleak-r1.diff": "23f87bb0c69ab2f7007426b01b43e396839fdfd61d44c851124df39b1a1b16de"
+  }
+}

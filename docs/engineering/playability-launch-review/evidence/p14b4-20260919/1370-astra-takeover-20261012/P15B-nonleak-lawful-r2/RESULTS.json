@@ -1,0 +1,109 @@
+{
+  "commands": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791856158,
+      "endEpoch": 1791856200,
+      "seconds": 42,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-nonleak-lawful-r2-run/tsc-root.log"
+    },
+    {
+      "name": "nonleak-focused",
+      "exit": 0,
+      "startEpoch": 1791856204,
+      "endEpoch": 1791856218,
+      "seconds": 14,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "tests/p13b-s8-nonleak.test.ts",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-nonleak-lawful-r2-run/nonleak-focused.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-nonleak-lawful-r2-run/nonleak-focused.log"
+    }
+  ],
+  "freezeSHA256": "d38ca6a75463d222c33df3c076c14f83dc57cac13f084c9fddb51ea9de250010",
+  "postFreezeSHA256": "d38ca6a75463d222c33df3c076c14f83dc57cac13f084c9fddb51ea9de250010",
+  "freezeEqual": true,
+  "runtimeExecuted": true,
+  "reporterCounts": {
+    "numTotalTestSuites": 2,
+    "numPassedTestSuites": 2,
+    "numFailedTestSuites": 0,
+    "numPendingTestSuites": 0,
+    "numTotalTests": 5,
+    "numPassedTests": 5,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "numTodoTests": 0,
+    "success": true
+  },
+  "actualCounts": {
+    "passed": 5
+  },
+  "fileCounts": {
+    "tests/p13b-s8-nonleak.test.ts": {
+      "passed": 5
+    }
+  },
+  "missingRequired5": [],
+  "missingFullFiles": [],
+  "unexpectedFiles": [],
+  "required5Counts": {
+    "passed": 5
+  },
+  "duplicateIdentities": [],
+  "identities": [
+    {
+      "file": "tests/p13b-s8-nonleak.test.ts",
+      "fullName": "P13B-S8 non-leak: admitted one-week budget counterfactual retains earned rival research divergence (test5) precondition: same-week admitted arms differ only in current rival research budget initially, retaining earned research divergence at780",
+      "status": "passed",
+      "duration": 74.49837799999841,
+      "failures": []
+    },
+    {
+      "file": "tests/p13b-s8-nonleak.test.ts",
+      "fullName": "P13B-S8 non-leak: admitted one-week budget counterfactual retains earned rival research divergence (test5) real full research week earns positive unequal verifiedWork/expenditure and rival debits without changing player/shared roots",
+      "status": "passed",
+      "duration": 265.0676079999994,
+      "failures": []
+    },
+    {
+      "file": "tests/p13b-s8-nonleak.test.ts",
+      "fullName": "P13B-S8 non-leak: admitted one-week budget counterfactual retains earned rival research divergence (test5) lighting forecast (windowed) is byte-identical across the research-divergent states at week780",
+      "status": "passed",
+      "duration": 188.70960399999967,
+      "failures": []
+    },
+    {
+      "file": "tests/p13b-s8-nonleak.test.ts",
+      "fullName": "P13B-S8 non-leak: admitted one-week budget counterfactual retains earned rival research divergence (test5) technologyAnnouncements(780) is byte-identical (no research row, seat count or spend published)",
+      "status": "passed",
+      "duration": 188.824122,
+      "failures": []
+    },
+    {
+      "file": "tests/p13b-s8-nonleak.test.ts",
+      "fullName": "P13B-S8 non-leak: admitted one-week budget counterfactual retains earned rival research divergence (test5) advanced independently to900, earned research divergence persists while pure forecasts/announcements remain byte-identical",
+      "status": "passed",
+      "duration": 1462.192137,
+      "failures": []
+    }
+  ],
+  "scope": "bounded one-full-file lawful-fixture qualification, complete actual results; not fullP15B/native or acceptance"
+}

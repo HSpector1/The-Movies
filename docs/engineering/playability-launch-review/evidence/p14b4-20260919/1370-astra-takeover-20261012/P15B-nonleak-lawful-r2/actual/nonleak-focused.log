@@ -1,0 +1,12 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p15b
+
+ ✓ |core| tests/p13b-s8-nonleak.test.ts (5 tests) 9521ms
+   ✓ P13B-S8 non-leak: admitted one-week budget counterfactual retains earned rival research divergence (test5) > advanced independently to900, earned research divergence persists while pure forecasts/announcements remain byte-identical 1462ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  20:50:05
+   Duration  12.59s (transform 1.97s, setup 0ms, collect 2.65s, tests 9.52s, environment 0ms, prepare 118ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-nonleak-lawful-r2-run/nonleak-focused.json

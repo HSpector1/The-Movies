@@ -1,0 +1,5 @@
+# Final lawful non-leak r2 admission
+
+GPT-6.1 Sol. Static KEEP; no execution/source/index/HANDOFF edits. PATCH28f12dbc2821377209629603cadee51240554a61f0b9352f7ce6c5f11bce6b4b/MANIFESTe60c93c95c7155eea2a3d8a7123197a7ab2158d47e85836b9c654dd121e1aae3 match.159 manifest changes exactlyone test fromr1;158othersidentical. Test bcef0e1c62a8dfbb49310309a86d755b6e8875adcac38518616016fd0ea3b475 is the exact independently reviewed one-week restoration/purity/allfive-obligations draft, with no timinggolden or originalassertion deletion.
+
+Runner54d1f90f7528ba8fc915bbbee8ecd87d7295fa249925e086cddd247ce8609fe6/selection16ea010341042e9d1a86cc5c079a5b2d76aa9cb6895eb914f2d8562d9455a367 independently match. Exact r1 derivative changes only packet/selection pins, fresh paths and labels. Same159admission/sourceconfig/fixture/actual1368/prior170guard, strictfreeze/lane/floors/environment/budgets. Rootcompiler then completefive unfiltered file remains; child/postflight failures propagate. Allfive exact renamed identities must execute and pass, preserving failedr1/originalseed limits. Actual fullfive qualification remains pending; no acceptance or productionlanding asserted.

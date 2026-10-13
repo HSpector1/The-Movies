@@ -1,0 +1,54 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p15b
+
+ ❯ |core| tests/p13b-s8-nonleak.test.ts (5 tests | 1 failed) 8638ms
+   × P13B-S8 non-leak: admitted budget-only counterfactual earns rival research divergence (test5) > precondition: same-week admitted arms differ only in current rival research budget initially, retaining earned research divergence at780 114ms
+     → expected [ { …(7) }, { …(7) } ] to deeply equal [ { …(7) }, { …(7) } ]
+   ✓ P13B-S8 non-leak: admitted budget-only counterfactual earns rival research divergence (test5) > advanced independently to900, earned research divergence persists while pure forecasts/announcements remain byte-identical 1286ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s8-nonleak.test.ts > P13B-S8 non-leak: admitted budget-only counterfactual earns rival research divergence (test5) > precondition: same-week admitted arms differ only in current rival research budget initially, retaining earned research divergence at780
+AssertionError: expected [ { …(7) }, { …(7) } ] to deeply equal [ { …(7) }, { …(7) } ]
+
+- Expected
++ Received
+
+  Array [
+    Object {
+      "accessCost": 0,
+-     "acquiredWeek": 276,
++     "acquiredWeek": 278,
+      "chosenWeek": 265,
+      "researchProjectId": "studio-aca408ec-r01:research:synchronized-sound",
+      "route": "research",
+      "studioId": "studio-aca408ec-r01",
+      "technologyId": "synchronized-sound",
+    },
+    Object {
+      "accessCost": 200000,
+      "acquiredWeek": 520,
+      "chosenWeek": 520,
+      "researchProjectId": null,
+      "route": "purchase",
+      "studioId": "studio-aca408ec-r05",
+      "technologyId": "synchronized-sound",
+    },
+  ]
+
+ ❯ tests/p13b-s8-nonleak.test.ts:143:52
+    141|     expect(rivalResearchVariant.operations).toEqual(base.operations)
+    142|     expect(rivalResearchVariant.placement).toEqual(base.placement)
+    143|     expect(rivalResearchVariant.technology.access).toEqual(base.techno…
+       |                                                    ^
+    144|     expect(rivalResearchVariant.technology.adoptions).toEqual(base.tec…
+    145|     expect(rivalResearchVariant.hollywood!.chart).toEqual(base.hollywo…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  20:31:38
+   Duration  12.18s (transform 2.31s, setup 0ms, collect 3.03s, tests 8.64s, environment 0ms, prepare 128ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-nonleak-lawful-r1-run/nonleak-focused.json

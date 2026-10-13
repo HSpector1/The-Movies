@@ -1,0 +1,55 @@
+diff --git a/tests/p13b-s8-nonleak.test.ts b/tests/p13b-s8-nonleak.test.ts
+index 690b332f..e12ff846 100644
+--- a/tests/p13b-s8-nonleak.test.ts
++++ b/tests/p13b-s8-nonleak.test.ts
+@@ -1,7 +1,7 @@
+ // S8 test5: real earned rival RESEARCH divergence preserves pure S7 disclosure.
+ // Fixture repair: original p13b-s8-nonleak-01 minted invalid lab/seats/history.
+ // Genuine accepted1368 p13a-core-causal-01 week267 is publicly migrated45→current.
+-// Only current r01 sound budget40000→20000 is CONSTRUCTED, not naturally chosen
++// Only current r01 sound budget40000→20000 for worked267, then40000 restored at268, is CONSTRUCTED, not naturally chosen
+ // policy or a public rival command. Both fully admitted arms earn all later facts
+ // through ordinary full develop:true ticks. No standalone half-phase research.
+ import { beforeAll, describe, expect, it } from 'vitest'
+@@ -89,10 +89,11 @@ function endpoint(a: GameState, b: GameState) {
+   expect(bytes(readPure(a))).toBe(bytes(readPure(b)))
+ }
+ 
+-describe('P13B-S8 non-leak: admitted budget-only counterfactual earns rival research divergence (test5)', () => {
++describe('P13B-S8 non-leak: admitted one-week budget counterfactual retains earned rival research divergence (test5)', () => {
+   let original267: GameState, constructed267: GameState, actual268: GameState, constructed268: GameState
+   let base: GameState, rivalResearchVariant: GameState
+   let originalBytes: string, constructedBytes: string
++  let restored268: GameState, restored268Bytes: string, constructed268Bytes: string
+   let qA: ReturnType<typeof researchWeekQuote>, qB: ReturnType<typeof researchWeekQuote>
+   beforeAll(() => {
+     const started = performance.now()
+@@ -128,7 +129,18 @@ describe('P13B-S8 non-leak: admitted budget-only counterfactual earns rival rese
+     constructed268 = tick(constructed267, options); admit(constructed268)
+     expect(bytes(constructed267)).toBe(constructedBytes)
+     expect(actual268.market.tick).toBe(268); expect(constructed268.market.tick).toBe(268)
+-    ;[base, rivalResearchVariant] = advancePair(actual268, constructed268, 780, started)
++    // Measured one-week intervention: current policy returns to40k without rewriting earned267 facts.
++    expect(project(constructed268)).toMatchObject({ status: 'active', budgetPerWeek: 20_000 })
++    constructed268Bytes = bytes(constructed268)
++    restored268 = { ...constructed268, technology: { ...constructed268.technology,
++      projects: constructed268.technology.projects.map(p => p.id === PROJECT ? { ...p, budgetPerWeek: 40_000 } : p) } }
++    expect(bytes(normalized(restored268))).toBe(bytes(normalized(constructed268)))
++    expect(bytes(constructed268)).toBe(constructed268Bytes)
++    admit(restored268) // Refusal stops BEFORE any restored-policy tick.
++    restored268Bytes = bytes(restored268)
++    ;[base, rivalResearchVariant] = advancePair(actual268, restored268, 780, started)
++    expect(bytes(constructed268)).toBe(constructed268Bytes)
++    expect(bytes(restored268)).toBe(restored268Bytes)
+     endpoint(base, rivalResearchVariant)
+     expect(bytes(original267)).toBe(originalBytes); expect(bytes(constructed267)).toBe(constructedBytes)
+   }, 30_000)
+@@ -184,6 +196,8 @@ describe('P13B-S8 non-leak: admitted budget-only counterfactual earns rival rese
+     expect(a.lighting).toEqual({ kind: 'exact', commercialWeek: 936, announcedWeek: 884 })
+     expect(b.announcements).toEqual(a.announcements); expect(bytes(b.announcements)).toBe(bytes(a.announcements))
+     expect(a.announcements).toEqual([{ technologyId: 'lighting-control-01', week: 884 }])
++    expect(bytes(constructed268)).toBe(constructed268Bytes)
++    expect(bytes(restored268)).toBe(restored268Bytes)
+     expect(bytes(original267)).toBe(originalBytes); expect(bytes(constructed267)).toBe(constructedBytes)
+   }, 30_000)
+ })
