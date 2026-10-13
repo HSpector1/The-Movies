@@ -1,0 +1,6 @@
+[bridge] 2026-10-13T03:29:57.137Z commandId=665c2c3d-b7e2-4d83-9d32-7bb78a9bcb0a expectedRevision=0 operation=save result=accepted revision=0 disposition=first-seen durationMs=28.861
+[bridge] 2026-10-13T03:29:57.232Z commandId=665c2c3d-b7e2-4d83-9d32-7bb78a9bcb0a expectedRevision=0 operation=save result=accepted revision=0 disposition=replay durationMs=28.861
+[bridge] 2026-10-13T03:29:59.499Z commandId=a4f90a25-b935-43b3-b7c0-25b7ef58c596 expectedRevision=0 operation=submitIntent result=accepted revision=1 disposition=first-seen durationMs=394.870
+[bridge] 2026-10-13T03:30:02.563Z commandId=665c2c3d-b7e2-4d83-9d32-7bb78a9bcb0a expectedRevision=0 operation=save result=accepted revision=0 disposition=replay durationMs=28.861
+[bridge] 2026-10-13T03:30:07.410Z commandId=99f6083e-7023-4f68-b6bc-82db93273f39 expectedRevision=0 operation=save result=accepted revision=0 disposition=first-seen durationMs=27.418
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r2/landing-p15b-final-r1/core-full.json

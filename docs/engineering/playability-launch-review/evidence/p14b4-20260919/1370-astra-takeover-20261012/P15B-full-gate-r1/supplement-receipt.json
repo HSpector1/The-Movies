@@ -1,0 +1,13 @@
+{
+  "consoleLog": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-full-gate-r1-supplement/full-gate.console.log",
+  "crossWorkspaceModes": "C modes preserved in CExpected; only relative paths+regular file hashes must match C; actual R modes strictly bound before/post",
+  "finalExit": 98,
+  "gateLaunched": true,
+  "gateOutput": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r2/landing-p15b-final-r1",
+  "originalGateExit": 98,
+  "postErrors": [],
+  "preconditionOrChildLaunchError": null,
+  "scope": "existing production fullgate; no fullacceptance/mainmerge; original gate freeze untouched",
+  "seconds": 8059.4994831085205,
+  "supplementalExit": 0
+}

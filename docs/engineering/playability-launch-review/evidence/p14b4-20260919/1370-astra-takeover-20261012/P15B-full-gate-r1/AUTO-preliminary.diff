@@ -1,0 +1,39 @@
+diff --git a/HANDOFF.md b/HANDOFF.md
+index 5c3225e3..883afc82 100644
+--- a/HANDOFF.md
++++ b/HANDOFF.md
+@@ -679,14 +679,30 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
+ 
+ ## Auto snapshot
+ <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
+-- Stamped: 2026-10-12 20:34 CDT by **codex** on PreCompact (session 01a13050-fe8f-7903-9af3-0a45b7130787)
+-- Branch: `wip/headless-program-20260916-ts` @ `e2a0aeba24a36610615118371b1ba2e76ba457c9`
++- Stamped: 2026-10-12 21:19 CDT by **codex** on PreCompact (session 01a13050-fe8f-7903-9af3-0a45b7130787)
++- Branch: `wip/headless-program-20260916-ts` @ `d65b27c0c3f07dec811a295efd32d088fe878fba`
+ - Upstream: `none`, unpushed commits: ?
+-- Uncommitted files: 0
++- Uncommitted files: 160
++  - `M HANDOFF.md`
++  - `M  bridge/finance.ts`
++  - `M  bridge/industry.ts`
++  - `A  bridge/loan.ts`
++  - `M  bridge/runtime-checkpoint.ts`
++  - `M  bridge/schema/bridge-schema.ts`
++  - `M  bridge/schema/industry-schema.ts`
++  - `M  bridge/schema/intent-schema.ts`
++  - `M  bridge/schema/project-studio-bridge.schema.json`
++  - `M  bridge/session.ts`
++  - `M  generated/unity/StudioBridgeDtos.Generated.cs`
++  - `M  generated/unity/project-studio-bridge.contract-manifest.json`
++  - `M  src/core/actions.ts`
++  - `M  src/core/campaignLegacy.ts`
++  - `A  src/core/corporateConditionLive.ts`
++  - ...
+ - Last commits:
++  - d65b27c0 test: qualify lawful research controls and prepare P15B integration gate
+   - e2a0aeba test: qualify Bridge consumers and historical save guards
+   - 8764be2c test: record Bridge behavior and bounded research recovery outcomes
+   - 5801d2bd feat: preserve reviewed Bridge loan choice and Power Ranking implementation
+   - bdab06fa test: record Bridge prerequisite failures and prepare bounded research continuation
+-  - 5f58f017 test: establish lawful research contrast and install Bridge Ranking regressions
+ <!-- AUTO:END -->

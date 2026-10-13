@@ -1,0 +1,300 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program/src/harness/d16
+
+ ❯ |d16| isolation.test.ts (25 tests | 8 failed) 44047ms
+   ✓ D-16 · production import isolation > no module under src/core/ or ui/src/ imports anything from a harness path 313ms
+   × D-16 · information discipline (PlayerView leak test) > holds after a real run has produced films, runs and career events 2896ms
+     → expected 0 to be greater than 0
+   ✓ D-16 · determinism smoke > two 60-week P3 runs on one seed are byte-identical 2158ms
+   ✓ D-16 · determinism smoke > different seeds produce different runs (the comparison above is not vacuous) 2036ms
+   ✓ D-16 · conservation smoke > cash === INITIAL_CASH + Σ ledger (array order) at the end of a run for several policies 3500ms
+   × D-16 · policy registry > every policy places its films on the ACTIVE marketing grid, resolved per decision 5713ms
+     → tick: the studio closed in week 93 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+   × D-16 · policy registry > every policy that does NOT declare disengagement stays engaged over 104 weeks 5948ms
+     → tick: the studio closed in week 79 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+   × D-16 · policy registry > past the 208-week contract wall the ROSTER WALL is possible, flagged, and carries its week 1580ms
+     → tick: the studio closed in week 100 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+   × D-16 · policy registry > no policy loses the ENGAGED ECONOMY over 260 weeks (the cliff is structurally closed post-R2) 6833ms
+     → tick: the studio closed in week 150 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+   ✓ D-16 · policy registry > the exploit policy sheds every contract but STAYS in the engaged economy (D-17A/R2) 939ms
+   × D-17B · publicity policy registry > every Q arm keeps its host’s greenlight behaviour (only `publicize` differs) 1622ms
+     → tick: the studio closed in week 100 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+   × D-17B · publicity policy registry > no Q arm disengages unintentionally over 104 weeks WITH the shim live 6656ms
+     → tick: the studio closed in week 100 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+   ✓ D-17B · publicity policy registry > every publicize() intent is derived ONLY from the visible view (never a hidden field) 363ms
+   × D-17B · publicity policy registry > a Q arm’s publicity spend is visible in the ledger under the note prefix, and nowhere else 3239ms
+     → expected -5369782.91 to be -2684891.455 // Object.is equality
+ ❯ |d16| driver.test.ts (0 test)
+ ✓ |d16| packages.test.ts (22 tests) 2703ms
+   ✓ d16/packages — authoritative cost parity (Lesson AC) > the FREELANCER-FEE leg is exact too: cash delta and the ledger rows both match 675ms
+   ✓ d16/packages — player-visible evaluation > an exploit run can no longer reach the 100 %-of-gross path at all (D-17A/R2) 1915ms
+ ❯ |d16| publicity.test.ts (23 tests | 3 failed) 16422ms
+   ✓ d17b/publicity — accounting (the reconciliation invariant is not negotiable) > moves cash by EXACTLY the cost and writes exactly one paired ledger row 1516ms
+   ✓ d17b/publicity — accounting (the reconciliation invariant is not negotiable) > cash === INITIAL_CASH + Σ ledger after N purchases, and after the NEXT tick 935ms
+   ✓ d17b/publicity — accounting (the reconciliation invariant is not negotiable) > leaves the FIXED-COST ALLOCATOR byte-identical (R7 break-even is untouched) 768ms
+   × d17b/publicity — accounting (the reconciliation invariant is not negotiable) > leaves every PER-FILM committedCost and contribution unchanged 816ms
+     → expected 0 to be greater than 0
+   × d17b/publicity — accounting (the reconciliation invariant is not negotiable) > moves only PURE-CASH recap fields (the A4 F7 result, locked) 798ms
+     → expected 0 to be greater than 0
+   ✓ d17b/publicity — the effect shape R9 requires > delivers a durationWeeks campaign in equal weekly parts, not as a switch 759ms
+   ✓ d17b/publicity — the effect shape R9 requires > liftDelivered equals the awareness actually gained when a campaign leg and an instant buy land in the SAME week 757ms
+   ✓ d17b/publicity — the effect shape R9 requires > never pushes awareness past the engine ceiling of 100 793ms
+   ✓ d17b/publicity — availability is a gate, not a suggestion > honours the per-tier cooldown AND the global anti-spam cooldown 725ms
+   ✓ d17b/publicity — availability is a gate, not a suggestion > refuses a purchase that would take cash below zero (the canAfford rule, not a lookalike) 754ms
+   ✓ d17b/publicity — availability is a gate, not a suggestion > honours a per-run cap 768ms
+   ✓ d17b/publicity — availability is a gate, not a suggestion > the production action agrees exactly with the lab formula at every tier and representative stock 791ms
+   ✓ d17b/publicity — the view panel and the policy channel > the panel reports availability the same way the gate does 734ms
+   ✓ d17b/publicity — the view panel and the policy channel > a run WITHOUT the shim never calls publicize and emits no publicity record 767ms
+   ✓ d17b/publicity — the view panel and the policy channel > Q0 (never publicize) reproduces its host P3 EXACTLY even with the shim enabled 2926ms
+   × d17b/publicity — the view panel and the policy channel > the adversary really does spend, and the ledger self-check binds on a full run 1531ms
+     → tick: the studio closed in week 99 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+ ❯ |d16| counterflow.test.ts (17 tests | 1 failed) 6684ms
+   × d17b/counterflow — THE NEUTRAL-ARM INVARIANT > runOne with the shim OFF is byte-identical to runOne without the option (3 seeds × 2 policies) 3646ms
+     → tick: the studio closed in week 171 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+   ✓ d17b/counterflow — the shim touches awareness and NOTHING else > a real 104-week run under a family MOVES awareness and still reconciles (not vacuous) 2971ms
+ ✓ |d16| states.test.ts (17 tests) 71ms
+ ✓ |d16| experiment.test.ts (21 tests) 30ms
+ ✓ |d16| stats.test.ts (14 tests) 14ms
+ ❯ |d16| production-agreement.test.ts (4 tests | 1 failed) 1754ms
+   × D-17B Phase H — production candidate agreement > a production corpus row uses real publicity ledger rows and no counter-flow shim 1610ms
+     → tick: the studio closed in week 61 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+ ✓ |d16| luck.test.ts (8 tests) 1020ms
+   ✓ d16/luck > a resampled continuation is itself deterministic and replayable 942ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |d16|  driver.test.ts [ driver.test.ts ]
+Error: tick: the studio closed in week 79 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+ ❯ Module.assertOperatingPlayer ../../core/studioClosure.ts:115:11
+    113|   const closedWeek = closedWeekOf(state).get(h.playerStudioId)
+    114|   if (closedWeek !== undefined) {
+    115|     throw new Error(`${verb}: the studio closed in week ${closedWeek} …
+       |           ^
+    116|   }
+    117| }
+ ❯ Module.tick ../../core/tick.ts:213:3
+ ❯ runWeek driver.ts:826:13
+ ❯ runOneCore driver.ts:899:7
+ ❯ Module.runOne driver.ts:587:10
+ ❯ driver.test.ts:46:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/14]⎯
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 13 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |d16|  counterflow.test.ts > d17b/counterflow — THE NEUTRAL-ARM INVARIANT > runOne with the shim OFF is byte-identical to runOne without the option (3 seeds × 2 policies)
+Error: tick: the studio closed in week 171 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+ ❯ Module.assertOperatingPlayer ../../core/studioClosure.ts:115:11
+    113|   const closedWeek = closedWeekOf(state).get(h.playerStudioId)
+    114|   if (closedWeek !== undefined) {
+    115|     throw new Error(`${verb}: the studio closed in week ${closedWeek} …
+       |           ^
+    116|   }
+    117| }
+ ❯ Module.tick ../../core/tick.ts:213:3
+ ❯ runWeek driver.ts:826:13
+ ❯ runOneCore driver.ts:899:7
+ ❯ Module.runOne driver.ts:587:10
+ ❯ counterflow.test.ts:43:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/14]⎯
+
+ FAIL |d16|  isolation.test.ts > D-16 · information discipline (PlayerView leak test) > holds after a real run has produced films, runs and career events
+AssertionError: expected 0 to be greater than 0
+ ❯ isolation.test.ts:188:31
+    186|   it('holds after a real run has produced films, runs and career event…
+    187|     const rec = runOne({ seed: 'd16-leak', policy: standardCadence, ho…
+    188|     expect(rec.filmsReleased).toBeGreaterThan(0)
+       |                               ^
+    189|     // Rebuild the view at the end of an equivalent run and re-check.
+    190|     const founded = foundStudioFor('d16-leak', standardCadence).state
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/14]⎯
+
+ FAIL |d16|  isolation.test.ts > D-16 · policy registry > every policy places its films on the ACTIVE marketing grid, resolved per decision
+Error: tick: the studio closed in week 93 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+ ❯ Module.assertOperatingPlayer ../../core/studioClosure.ts:115:11
+    113|   const closedWeek = closedWeekOf(state).get(h.playerStudioId)
+    114|   if (closedWeek !== undefined) {
+    115|     throw new Error(`${verb}: the studio closed in week ${closedWeek} …
+       |           ^
+    116|   }
+    117| }
+ ❯ Module.tick ../../core/tick.ts:213:3
+ ❯ runWeek driver.ts:826:13
+ ❯ runOneCore driver.ts:899:7
+ ❯ Module.runOne driver.ts:587:10
+ ❯ isolation.test.ts:287:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/14]⎯
+
+ FAIL |d16|  isolation.test.ts > D-16 · policy registry > every policy that does NOT declare disengagement stays engaged over 104 weeks
+Error: tick: the studio closed in week 79 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+ ❯ Module.assertOperatingPlayer ../../core/studioClosure.ts:115:11
+    113|   const closedWeek = closedWeekOf(state).get(h.playerStudioId)
+    114|   if (closedWeek !== undefined) {
+    115|     throw new Error(`${verb}: the studio closed in week ${closedWeek} …
+       |           ^
+    116|   }
+    117| }
+ ❯ Module.tick ../../core/tick.ts:213:3
+ ❯ runWeek driver.ts:826:13
+ ❯ runOneCore driver.ts:899:7
+ ❯ Module.runOne driver.ts:587:10
+ ❯ isolation.test.ts:319:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/14]⎯
+
+ FAIL |d16|  isolation.test.ts > D-16 · policy registry > past the 208-week contract wall the ROSTER WALL is possible, flagged, and carries its week
+Error: tick: the studio closed in week 100 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+ ❯ Module.assertOperatingPlayer ../../core/studioClosure.ts:115:11
+    113|   const closedWeek = closedWeekOf(state).get(h.playerStudioId)
+    114|   if (closedWeek !== undefined) {
+    115|     throw new Error(`${verb}: the studio closed in week ${closedWeek} …
+       |           ^
+    116|   }
+    117| }
+ ❯ Module.tick ../../core/tick.ts:213:3
+ ❯ runWeek driver.ts:826:13
+ ❯ runOneCore driver.ts:899:7
+ ❯ Module.runOne driver.ts:587:10
+ ❯ isolation.test.ts:337:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/14]⎯
+
+ FAIL |d16|  isolation.test.ts > D-16 · policy registry > no policy loses the ENGAGED ECONOMY over 260 weeks (the cliff is structurally closed post-R2)
+Error: tick: the studio closed in week 150 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+ ❯ Module.assertOperatingPlayer ../../core/studioClosure.ts:115:11
+    113|   const closedWeek = closedWeekOf(state).get(h.playerStudioId)
+    114|   if (closedWeek !== undefined) {
+    115|     throw new Error(`${verb}: the studio closed in week ${closedWeek} …
+       |           ^
+    116|   }
+    117| }
+ ❯ Module.tick ../../core/tick.ts:213:3
+ ❯ runWeek driver.ts:826:13
+ ❯ runOneCore driver.ts:899:7
+ ❯ Module.runOne driver.ts:587:10
+ ❯ isolation.test.ts:356:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/14]⎯
+
+ FAIL |d16|  isolation.test.ts > D-17B · publicity policy registry > every Q arm keeps its host’s greenlight behaviour (only `publicize` differs)
+Error: tick: the studio closed in week 100 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+ ❯ Module.assertOperatingPlayer ../../core/studioClosure.ts:115:11
+    113|   const closedWeek = closedWeekOf(state).get(h.playerStudioId)
+    114|   if (closedWeek !== undefined) {
+    115|     throw new Error(`${verb}: the studio closed in week ${closedWeek} …
+       |           ^
+    116|   }
+    117| }
+ ❯ Module.tick ../../core/tick.ts:213:3
+ ❯ runWeek driver.ts:826:13
+ ❯ runOneCore driver.ts:899:7
+ ❯ Module.runOne driver.ts:587:10
+ ❯ isolation.test.ts:433:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/14]⎯
+
+ FAIL |d16|  isolation.test.ts > D-17B · publicity policy registry > no Q arm disengages unintentionally over 104 weeks WITH the shim live
+Error: tick: the studio closed in week 100 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+ ❯ Module.assertOperatingPlayer ../../core/studioClosure.ts:115:11
+    113|   const closedWeek = closedWeekOf(state).get(h.playerStudioId)
+    114|   if (closedWeek !== undefined) {
+    115|     throw new Error(`${verb}: the studio closed in week ${closedWeek} …
+       |           ^
+    116|   }
+    117| }
+ ❯ Module.tick ../../core/tick.ts:213:3
+ ❯ runWeek driver.ts:826:13
+ ❯ runOneCore driver.ts:899:7
+ ❯ Module.runOne driver.ts:587:10
+ ❯ isolation.test.ts:440:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/14]⎯
+
+ FAIL |d16|  isolation.test.ts > D-17B · publicity policy registry > a Q arm’s publicity spend is visible in the ledger under the note prefix, and nowhere else
+AssertionError: expected -5369782.91 to be -2684891.455 // Object.is equality
+
+- Expected
++ Received
+
+- -2684891.455
++ -5369782.91
+
+ ❯ isolation.test.ts:492:43
+    490|       publicity: DEFAULT_PUBLICITY,
+    491|     })
+    492|     expect(q0.ledgerTotals['production']).toBe(rec.ledgerTotals['produ…
+       |                                           ^
+    493|   })
+    494| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/14]⎯
+
+ FAIL |d16|  production-agreement.test.ts > D-17B Phase H — production candidate agreement > a production corpus row uses real publicity ledger rows and no counter-flow shim
+Error: tick: the studio closed in week 61 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+ ❯ Module.assertOperatingPlayer ../../core/studioClosure.ts:115:11
+    113|   const closedWeek = closedWeekOf(state).get(h.playerStudioId)
+    114|   if (closedWeek !== undefined) {
+    115|     throw new Error(`${verb}: the studio closed in week ${closedWeek} …
+       |           ^
+    116|   }
+    117| }
+ ❯ Module.tick ../../core/tick.ts:213:3
+ ❯ runWeek driver.ts:826:13
+ ❯ runOneCore driver.ts:899:7
+ ❯ driver.ts:583:46
+ ❯ Module.withProductionMarketingMenu packages.ts:212:12
+ ❯ Module.runOne driver.ts:583:12
+ ❯ production-agreement.test.ts:62:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/14]⎯
+
+ FAIL |d16|  publicity.test.ts > d17b/publicity — accounting (the reconciliation invariant is not negotiable) > leaves every PER-FILM committedCost and contribution unchanged
+AssertionError: expected 0 to be greater than 0
+ ❯ publicity.test.ts:112:27
+    110|     const after = buildPlayerView(s1).releasedFilms.map((f) => `${f.pr…
+    111|     expect(after).toEqual(before)
+    112|     expect(before.length).toBeGreaterThan(0) // not vacuous — the stat…
+       |                           ^
+    113|   })
+    114| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/14]⎯
+
+ FAIL |d16|  publicity.test.ts > d17b/publicity — accounting (the reconciliation invariant is not negotiable) > moves only PURE-CASH recap fields (the A4 F7 result, locked)
+AssertionError: expected 0 to be greater than 0
+ ❯ publicity.test.ts:125:28
+    123|     // every per-film row — the allocator's output as the recap render…
+    124|     expect(stableStringify(b.films)).toBe(stableStringify(a.films))
+    125|     expect(a.films.length).toBeGreaterThan(0)
+       |                            ^
+    126|     // …and the cash it SHOULD move, it moves
+    127|     expect(b.summary.currentCash).toBe(a.summary.currentCash - DEFAULT…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/14]⎯
+
+ FAIL |d16|  publicity.test.ts > d17b/publicity — the view panel and the policy channel > the adversary really does spend, and the ledger self-check binds on a full run
+Error: tick: the studio closed in week 99 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+ ❯ Module.assertOperatingPlayer ../../core/studioClosure.ts:115:11
+    113|   const closedWeek = closedWeekOf(state).get(h.playerStudioId)
+    114|   if (closedWeek !== undefined) {
+    115|     throw new Error(`${verb}: the studio closed in week ${closedWeek} …
+       |           ^
+    116|   }
+    117| }
+ ❯ Module.tick ../../core/tick.ts:213:3
+ ❯ runWeek driver.ts:826:13
+ ❯ runOneCore driver.ts:899:7
+ ❯ Module.runOne driver.ts:587:10
+ ❯ publicity.test.ts:346:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/14]⎯
+
+ Test Files  5 failed | 5 passed (10)
+      Tests  13 failed | 138 passed (151)
+   Start at  21:02:38
+   Duration  89.25s (transform 2.60s, setup 0ms, collect 6.49s, tests 72.75s, environment 3ms, prepare 926ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r2/landing-p15b-final-r1/d16.json

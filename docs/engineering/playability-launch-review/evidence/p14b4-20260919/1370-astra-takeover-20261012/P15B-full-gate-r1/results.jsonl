@@ -1,0 +1,7 @@
+{"name":"tsc-root","exit":0,"seconds":43,"log":"/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r2/landing-p15b-final-r1/tsc-root.log","node":"v20.20.2"}
+{"name":"tsc-ui","exit":0,"seconds":43,"log":"/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r2/landing-p15b-final-r1/tsc-ui.log","node":"v20.20.2"}
+{"name":"tsc-bridge","exit":0,"seconds":31,"log":"/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r2/landing-p15b-final-r1/tsc-bridge.log","node":"v20.20.2"}
+{"name":"gen-contract","exit":0,"seconds":1,"log":"/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r2/landing-p15b-final-r1/gen-contract.log","node":"v20.20.2"}
+{"name":"gen-contract-fixtures","exit":0,"seconds":1,"log":"/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r2/landing-p15b-final-r1/gen-contract-fixtures.log","node":"v20.20.2"}
+{"name":"d16","exit":1,"seconds":91,"log":"/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r2/landing-p15b-final-r1/d16.log","node":"v20.20.2"}
+{"name":"vitest-core-full","exit":1,"seconds":7814,"log":"/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r2/landing-p15b-final-r1/core.log","node":"v20.20.2"}
