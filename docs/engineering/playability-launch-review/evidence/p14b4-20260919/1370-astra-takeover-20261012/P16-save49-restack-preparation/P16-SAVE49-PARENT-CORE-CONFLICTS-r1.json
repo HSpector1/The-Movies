@@ -1,0 +1,37 @@
+{
+  "at": "2026-10-13T17:05:30.640581-05:00",
+  "files": [
+    {
+      "path": "src/core/economyView.ts",
+      "blocks": 2,
+      "beforeSHA256": "7db0b8877e99687c6e60b1d5cb5507aa506bcc5c9b496a9ffde573099a027877",
+      "afterSHA256": "26d4f011282ad8a6ed7bd0f67ad2762751a18037d22f4e7f9acc554064090606"
+    },
+    {
+      "path": "src/core/financeReport.ts",
+      "blocks": 1,
+      "beforeSHA256": "9176dcc4801ea00b5a4d35b751d5c8438a5f48d55bd32a077831c343e6cbb92c",
+      "afterSHA256": "943b3eaa9b928e7a4f49188bb4ff7bffed43c000e5651324133a22546a8a8080"
+    },
+    {
+      "path": "src/core/hollywood.ts",
+      "blocks": 2,
+      "beforeSHA256": "090eb8d046c27628a90d47d6b0c30f036ede9a5ba1329f0fe74a8c58d2d877fb",
+      "afterSHA256": "398d4e816482a0075f0f91b182ceff75e888a4e68c46673164864497ba40fb4e"
+    },
+    {
+      "path": "src/core/tick.ts",
+      "blocks": 2,
+      "beforeSHA256": "dad1724ad320345ff906dc591593fb99e15d12f8ac2c5862b9f2496e976377c2",
+      "afterSHA256": "c240e58e1d1ba9e0c36043bfb30fafb7a3afa001a94570452a42cfbfdcb8eb34"
+    },
+    {
+      "path": "src/core/worldgen.ts",
+      "blocks": 2,
+      "beforeSHA256": "bf4c2e3e0170db89bbdaace4f4705c083b0bf86deaa325ab97066d429f90be2f",
+      "afterSHA256": "fcb0de92c07f54dd61fb6a65297ffc81bbb70b301321c3af1d14cf487ec279f7"
+    }
+  ],
+  "unrun": true,
+  "scope": "Preserve both P15B loan/claims/funding and P16 rights bookkeeping/mints. Tick retains both old phase sequences; true C handoff and D proceeds/claims integration remain required before any qualification."
+}

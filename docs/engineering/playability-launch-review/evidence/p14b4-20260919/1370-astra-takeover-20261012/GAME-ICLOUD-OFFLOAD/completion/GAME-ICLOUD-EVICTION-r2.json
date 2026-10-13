@@ -1,0 +1,41 @@
+{
+  "at": "2026-10-13T17:13:27.447116-05:00",
+  "before": {
+    "at": "2026-10-13T17:13:27.339837-05:00",
+    "rows": [
+      {
+        "path": "/Users/zacheryspector/Library/Mobile Documents/com~apple~CloudDocs/The Movies Archive/2026-10-13-inactive-verification-2/inactive-verification.tar.gz",
+        "values": {
+          "NSURLUbiquitousItemIsUploadedKey": 1,
+          "NSURLUbiquitousItemIsUploadingKey": false,
+          "NSURLUbiquitousItemDownloadingStatusKey": "NSURLUbiquitousItemDownloadingStatusCurrent",
+          "NSURLUbiquitousItemIsDownloadingKey": false,
+          "NSURLIsUbiquitousItemKey": 1
+        },
+        "allocatedBytes": 277032960
+      },
+      {
+        "path": "/Users/zacheryspector/Library/Mobile Documents/com~apple~CloudDocs/The Movies Archive/2026-10-13-inactive-verification-2/MANIFEST.json",
+        "values": {
+          "NSURLUbiquitousItemIsUploadedKey": 1,
+          "NSURLUbiquitousItemIsUploadingKey": false,
+          "NSURLUbiquitousItemDownloadingStatusKey": "NSURLUbiquitousItemDownloadingStatusCurrent",
+          "NSURLUbiquitousItemIsDownloadingKey": false,
+          "NSURLIsUbiquitousItemKey": 1
+        },
+        "allocatedBytes": 2400256
+      }
+    ],
+    "freeBytes": 5107814400
+  },
+  "result": [
+    {
+      "path": "/Users/zacheryspector/Library/Mobile Documents/com~apple~CloudDocs/The Movies Archive/2026-10-13-inactive-verification-2/inactive-verification.tar.gz",
+      "ok": true
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Mobile Documents/com~apple~CloudDocs/The Movies Archive/2026-10-13-inactive-verification-2/MANIFEST.json",
+      "ok": true
+    }
+  ]
+}

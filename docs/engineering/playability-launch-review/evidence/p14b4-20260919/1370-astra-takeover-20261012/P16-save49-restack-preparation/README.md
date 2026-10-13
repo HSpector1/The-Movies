@@ -1,0 +1,7 @@
+# Actual Save48 → P16 Save49 restack in progress
+
+Actual published P15B predecessor is 2c3024e203abec74db95b8c01334723f10595ed2, source tree 476b387d65a4c427dc0f6120724e946cf22d7969; publication receipt verifies all 237 committed blobs. Original P16's 190 paths exactly matched its prior recovery copy and were preserved locally in commit 05cc62f59a52da417de9c7704f0d7132dea77432. Original full patch/postimages/HANDOFF remain in A/p16-restack-preservation-20261013-r1; equivalent original source is already published under ../drafts/p16.
+
+Reviewed F15r4 and condition-bindingr2 repairs were applied before renaming only P16's six save identifiers to49. Local-only prepared commit 12757d1371d533883fb49f6069356e330a0ddf20 produced the retained 191-path SOURCE.patch. A guarded fresh branch p16/save49-on-2c3024e2 switched to actual Save48 and applied that patch with checked3way; 157 conflicts were declared and retained. No reset/stash/reclone/clean or ignored-file deletion.
+
+Parent/core specialists resolved ten core files; test/UI/historical-control cleanup remains active. Index stages remain retained until parent reviews/stages resolutions. This archive binds preparation and static notes, not the still-moving final candidate. No Save49 compiler/test/generator has run. All prior P16 runtime results remain prior-base evidence. Proposed estate amendment is uninstalled/unreviewed implementation design at this checkpoint; actual closure, proceeds/claims, absorption and acceptance gates remain open.

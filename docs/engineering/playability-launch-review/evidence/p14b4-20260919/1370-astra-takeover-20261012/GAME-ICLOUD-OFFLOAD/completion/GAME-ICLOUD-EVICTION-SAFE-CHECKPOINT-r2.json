@@ -1,0 +1,9 @@
+{
+  "at": "2026-10-13T17:13:27.179064-05:00",
+  "laneAbsent": true,
+  "heavy": [],
+  "allThreeSpecialistsExplicitlyParked": true,
+  "projectWriterAbsent": true,
+  "volumeBefore": "Filesystem     1024-blocks     Used Available Capacity  Mounted on\n/dev/disk1s1     118284248 90966368   4988104    95%    /System/Volumes/Data\n/dev/disk1s1     118284248 90966368   4988104    95%    /System/Volumes/Data\n/dev/disk1s1     118284248 90966368   4988104    95%    /System/Volumes/Data\n",
+  "action": "native iCloud eviction of fully uploaded/rehashed second archive and manifest only"
+}

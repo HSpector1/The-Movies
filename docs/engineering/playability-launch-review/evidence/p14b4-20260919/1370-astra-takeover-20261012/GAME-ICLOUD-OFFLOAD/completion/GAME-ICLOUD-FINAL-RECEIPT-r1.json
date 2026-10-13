@@ -1,0 +1,110 @@
+{
+  "at": "2026-10-13T17:14:29.546232-05:00",
+  "authority": "Owner: Any files from this game can be taken from this laptop to the icloud and offloaded",
+  "scope": "Two verified inactive game scratch archives only; no further removals",
+  "initialFreeBytes": 2742112256,
+  "finalFreeBytes": 5386334208,
+  "actualNetRecoveredBytes": 2644221952,
+  "netIncludesBackgroundActivity": true,
+  "targetFreeBytes": 5368709120,
+  "targetAchievedAtReceipt": true,
+  "launchMinimumKiB": 3670016,
+  "runtimeFloorKiB": 3145728,
+  "archivedMembers": 25667,
+  "consolidatedOriginalPaths": 24882,
+  "skippedProtectedOriginalPaths": 785,
+  "skippedPolicy": "Retained permission-protected originals; no chmod/ownership changes/escalation",
+  "payloadResidentBytes": 0,
+  "icloudStubAllocatedBytes": 16384,
+  "archives": [
+    {
+      "number": 1,
+      "state": {
+        "at": "2026-10-13T17:14:29.367486-05:00",
+        "rows": [
+          {
+            "path": "/Users/zacheryspector/Library/Mobile Documents/com~apple~CloudDocs/The Movies Archive/2026-10-13-inactive-verification/inactive-verification.tar.gz",
+            "values": {
+              "NSURLUbiquitousItemIsUploadedKey": 1,
+              "NSURLUbiquitousItemDownloadingStatusKey": "NSURLUbiquitousItemDownloadingStatusNotDownloaded",
+              "NSURLUbiquitousItemIsDownloadingKey": false,
+              "NSURLIsUbiquitousItemKey": 1
+            },
+            "allocatedBytes": null
+          },
+          {
+            "path": "/Users/zacheryspector/Library/Mobile Documents/com~apple~CloudDocs/The Movies Archive/2026-10-13-inactive-verification/MANIFEST.json",
+            "values": {
+              "NSURLUbiquitousItemIsUploadedKey": 1,
+              "NSURLUbiquitousItemDownloadingStatusKey": "NSURLUbiquitousItemDownloadingStatusNotDownloaded",
+              "NSURLUbiquitousItemIsDownloadingKey": false,
+              "NSURLIsUbiquitousItemKey": 1
+            },
+            "allocatedBytes": null
+          }
+        ],
+        "freeBytes": 5386334208
+      },
+      "stubs": [
+        {
+          "path": "/Users/zacheryspector/Library/Mobile Documents/com~apple~CloudDocs/The Movies Archive/2026-10-13-inactive-verification/.inactive-verification.tar.gz.icloud",
+          "bytes": 180,
+          "allocatedBytes": 4096
+        },
+        {
+          "path": "/Users/zacheryspector/Library/Mobile Documents/com~apple~CloudDocs/The Movies Archive/2026-10-13-inactive-verification/.MANIFEST.json.icloud",
+          "bytes": 163,
+          "allocatedBytes": 4096
+        }
+      ],
+      "proof": "GAME-ICLOUD-PRE-EVICTION-HASH-r1.json",
+      "nativeEvictionReceipt": "GAME-ICLOUD-EVICTION-r1.json"
+    },
+    {
+      "number": 2,
+      "state": {
+        "at": "2026-10-13T17:14:29.534987-05:00",
+        "rows": [
+          {
+            "path": "/Users/zacheryspector/Library/Mobile Documents/com~apple~CloudDocs/The Movies Archive/2026-10-13-inactive-verification-2/inactive-verification.tar.gz",
+            "values": {
+              "NSURLUbiquitousItemIsUploadedKey": 1,
+              "NSURLUbiquitousItemDownloadingStatusKey": "NSURLUbiquitousItemDownloadingStatusNotDownloaded",
+              "NSURLUbiquitousItemIsDownloadingKey": false,
+              "NSURLIsUbiquitousItemKey": 1
+            },
+            "allocatedBytes": null
+          },
+          {
+            "path": "/Users/zacheryspector/Library/Mobile Documents/com~apple~CloudDocs/The Movies Archive/2026-10-13-inactive-verification-2/MANIFEST.json",
+            "values": {
+              "NSURLUbiquitousItemIsUploadedKey": 1,
+              "NSURLUbiquitousItemDownloadingStatusKey": "NSURLUbiquitousItemDownloadingStatusNotDownloaded",
+              "NSURLUbiquitousItemIsDownloadingKey": false,
+              "NSURLIsUbiquitousItemKey": 1
+            },
+            "allocatedBytes": null
+          }
+        ],
+        "freeBytes": 5386334208
+      },
+      "stubs": [
+        {
+          "path": "/Users/zacheryspector/Library/Mobile Documents/com~apple~CloudDocs/The Movies Archive/2026-10-13-inactive-verification-2/.inactive-verification.tar.gz.icloud",
+          "bytes": 180,
+          "allocatedBytes": 4096
+        },
+        {
+          "path": "/Users/zacheryspector/Library/Mobile Documents/com~apple~CloudDocs/The Movies Archive/2026-10-13-inactive-verification-2/.MANIFEST.json.icloud",
+          "bytes": 163,
+          "allocatedBytes": 4096
+        }
+      ],
+      "proof": "GAME-ICLOUD-PRE-EVICTION-HASH-r2.json",
+      "nativeEvictionReceipt": "GAME-ICLOUD-EVICTION-r2.json"
+    }
+  ],
+  "restoration": "GAME-ICLOUD-RESTORE-r1.md + exact manifests/consolidation journals",
+  "completed": true,
+  "localDeletionScopeClosed": true
+}

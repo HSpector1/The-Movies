@@ -1,0 +1,25 @@
+{
+  "at": "2026-10-13T17:10:25.605738-05:00",
+  "rows": [
+    {
+      "path": "/Users/zacheryspector/Library/Mobile Documents/com~apple~CloudDocs/The Movies Archive/2026-10-13-inactive-verification/inactive-verification.tar.gz",
+      "sha256": "aa5729ba808b68f9b1235b83dd46e4deaed34f7a424a012cfc922439d6248cff",
+      "bytes": 1258361643,
+      "allocatedBytes": 1258364928,
+      "uid": 501,
+      "purpose": "Verified inactive game archive",
+      "noSymlinkComponents": true
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Mobile Documents/com~apple~CloudDocs/The Movies Archive/2026-10-13-inactive-verification/MANIFEST.json",
+      "sha256": "3dd1ba9ff2fde1772c5e7810c7d1417f24b2b42ffb3973a47e63955c96486951",
+      "bytes": 7068906,
+      "allocatedBytes": 7069696,
+      "uid": 501,
+      "purpose": "Exact archive member manifest",
+      "noSymlinkComponents": true
+    }
+  ],
+  "against": "GAME-ICLOUD-ARCHIVE-PACK-VERIFIED-r1.json",
+  "allMatch": true
+}

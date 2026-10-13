@@ -1,0 +1,70 @@
+{
+  "files": [
+    {
+      "path": "p16-restack-preservation-20261013-r1/MANIFEST.original.json",
+      "bytes": 82629,
+      "sha256": "e5f689f999554d6ebf080d46f89485c3eb7158ba0ef958e720267f067bbf0288"
+    },
+    {
+      "path": "p16-restack-preservation-20261013-r1/PRESERVATION.json",
+      "bytes": 37216,
+      "sha256": "7e66e4b0d8b808f4f08aa6c4c58494830ef3c14ed5b84da95b4f5474877af890"
+    },
+    {
+      "path": "p16-restack-preservation-20261013-r1/STATUS.txt",
+      "bytes": 7224,
+      "sha256": "7b88ea64c69dc91d9ad2cc2ecb250a84c5d4397faeacbecb10193c12e2d1691b"
+    },
+    {
+      "path": "p16-restack-preservation-20261013-r1/preservation-commit.log",
+      "bytes": 1483,
+      "sha256": "9840f072db2afe187e73b32c708abfae7497b126efbc035fbb119db32c559318"
+    },
+    {
+      "path": "p16-save49-premerge-r1/MANIFEST.json",
+      "bytes": 33753,
+      "sha256": "af93eaee8f749edf6b8ad7a86cf9081d58d7eb35b52579e90f487bec8e4de637"
+    },
+    {
+      "path": "p16-save49-premerge-r1/SOURCE.patch",
+      "bytes": 983188,
+      "sha256": "9b987b289660c7c6fbe0fb1ada8465937071eb5bf2eb51f38cc66e644c7e58b0"
+    },
+    {
+      "path": "p16-save49-premerge-r1/THREEWAY-RESULT.json",
+      "bytes": 7380,
+      "sha256": "66c03ff790f185675ca0c5e15949b8a7987003023bbbcfd25109f541756cfe0f"
+    },
+    {
+      "path": "p16-save49-premerge-r1/UNMERGED-INDEX.txt",
+      "bytes": 40869,
+      "sha256": "27c5b21b717360b6cff8a30902326780c625f849f60d78192551474ea829a549"
+    },
+    {
+      "path": "p16-save49-premerge-r1/fetch.log",
+      "bytes": 147,
+      "sha256": "e5e453728899073b8e39f9bd34dabe9db31a0f0de2198b5aa1d301cb090a2d7f"
+    },
+    {
+      "path": "p16-save49-premerge-r1/local-commit.log",
+      "bytes": 240,
+      "sha256": "ca6272a9e9b794612aa5bd8ff197fab68fe52f30ce3029d4f7c5f204f19abe64"
+    },
+    {
+      "path": "p16-save49-premerge-r1/switch-first.log",
+      "bytes": 51,
+      "sha256": "eb30e913244ab90456b6dde2daeb1b4f16bdcaf0ac8db62a0fa074ca57f4f99f"
+    },
+    {
+      "path": "p16-save49-premerge-r1/threeway-apply.log",
+      "bytes": 18708,
+      "sha256": "f4a97e747165523c7eb78e22d4fadaba2ba12a3ac4ed2611734053d2960ecfe9"
+    },
+    {
+      "path": "p16-save49-premerge-r1/threeway-check.log",
+      "bytes": 12621,
+      "sha256": "829bee634688de616a69deb4fa01178b386fd52ec50df4036cac1277a42e12d2"
+    }
+  ],
+  "archiveSHA256": "96136115d981f04f27bead18743c6a3313145f1b00f124461ceb42f5f429f014"
+}

@@ -1,0 +1,14 @@
+{
+  "at": "2026-10-13T16:58:07.556590-05:00",
+  "HEAD": "2c3024e203abec74db95b8c01334723f10595ed2",
+  "remote": "https://github.com/HSpector1/The-Movies.git",
+  "ref": "refs/heads/wip/headless-program-20260916-ts",
+  "remoteHEAD": "2c3024e203abec74db95b8c01334723f10595ed2",
+  "FETCH_HEAD": "2c3024e203abec74db95b8c01334723f10595ed2",
+  "sourceTree": "476b387d65a4c427dc0f6120724e946cf22d7969",
+  "committedPaths": 237,
+  "allBlobsVerified": true,
+  "source204Verified": true,
+  "laneAbsent": true,
+  "status": ""
+}
