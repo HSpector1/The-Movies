@@ -1,0 +1,28 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p13b-s2-doc03.test.ts (17 tests | 17 skipped) 8202ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s2-doc03.test.ts > P13B-S2 document 03 [780,832) through the real scheduler (test 5)
+Error: tick: the studio closed in week 837 and is read-only history; nothing advances or acts after an actual closure (closure/v1)
+ ❯ Module.assertOperatingPlayer src/core/studioClosure.ts:115:11
+    113|   const closedWeek = closedWeekOf(state).get(h.playerStudioId)
+    114|   if (closedWeek !== undefined) {
+    115|     throw new Error(`${verb}: the studio closed in week ${closedWeek} …
+       |           ^
+    116|   }
+    117| }
+ ❯ Module.tick src/core/tick.ts:213:3
+ ❯ Module.advanceTo src/harness/p13a/fixtures.ts:15:44
+ ❯ tests/p13b-s2-doc03.test.ts:175:36
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  17 skipped (17)
+   Start at  08:12:39
+   Duration  11.19s (transform 1.91s, setup 0ms, collect 2.58s, tests 8.20s, environment 0ms, prepare 116ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-doc03-diagnostic-r1-run/doc03.json

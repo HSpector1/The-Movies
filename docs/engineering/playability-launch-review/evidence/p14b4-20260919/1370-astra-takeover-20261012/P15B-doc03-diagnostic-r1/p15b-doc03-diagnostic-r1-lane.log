@@ -1,0 +1,4 @@
+Exact production159 WT/index candidate, no unstaged change, reviewed final pins, reverse check PASS
+node=v20.20.2 python=Python 3.14.4 start=2026-10-13T13:12:35Z
+{"name": "doc03", "exit": 1, "seconds": 13}
+terminal DOC03=1; unchanged=yes; complete original file/default budgets, setup diagnosis only
