@@ -1,0 +1,32 @@
+[
+  {
+    "at": "2026-10-13T17:39:25.509266-05:00",
+    "freeKiB": 5235444,
+    "launchMinimumKiB": 3670016,
+    "runtimeFloorKiB": 3145728,
+    "pins": {
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-original48-capture-runner-r1/runner.sh": "805e83efc8081b46d3769d10dcbb672764b606bf2f9dddbd04a2bf8221823d43",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-original48-capture-runner-r1/SELECTION.json": "207cb86faf1553abeb7937498a8fe859b836940f088f88e90d545ed1db7a435d",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-auto-recorder-r4r2-draft/auto_freeze.py": "9bc9b89c0ae5dd6bc3e558ee1b823414d86cb5134170326f74779350b34d3e00",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-d16-ui-r5-draft/RUNTIME-INPUTS.json": "2fceb39464fe13985c12d7d7503ed700696fbffcd1b9abea84fb2fec099c8d35",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "laneAbsent": true,
+    "launchAllowed": true
+  },
+  {
+    "at": "2026-10-13T17:44:16.928234-05:00",
+    "freeKiB": 5226556,
+    "launchMinimumKiB": 3670016,
+    "runtimeFloorKiB": 3145728,
+    "pins": {
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-join-red-runner-r1/runner.sh": "1fc61710fd800190851c536dff75eeef3e9ac1411f154d4faa22228394cd682b",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-join-red-runner-r1/SELECTION.json": "5b7ad9786f5c970d21979fc774b1c4bab7f94aafa7f5c35e031edddd67374886",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-auto-recorder-r4r2-draft/auto_freeze.py": "9bc9b89c0ae5dd6bc3e558ee1b823414d86cb5134170326f74779350b34d3e00",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-d16-ui-r5-draft/RUNTIME-INPUTS.json": "2fceb39464fe13985c12d7d7503ed700696fbffcd1b9abea84fb2fec099c8d35",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "laneAbsent": true,
+    "launchAllowed": true
+  }
+]

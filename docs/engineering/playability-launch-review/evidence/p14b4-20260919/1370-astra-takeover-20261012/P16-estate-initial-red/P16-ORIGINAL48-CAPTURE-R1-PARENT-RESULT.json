@@ -1,0 +1,78 @@
+{
+  "at": "2026-10-13T17:40:57.051003-05:00",
+  "session": 7764,
+  "terminal": {
+    "overallExit": 0,
+    "groups": {
+      "capture": 0
+    },
+    "scope": "original48 capture producer only; default5s leaf remains binding; no49 qualification",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "child": {
+    "name": "capture",
+    "exit": 0,
+    "startEpoch": 1791931184,
+    "endEpoch": 1791931192,
+    "seconds": 8,
+    "node": "v20.20.2",
+    "command": [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--workspace",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-original48-capture-runner-r1/capture.workspace.mjs",
+      "--project",
+      "original48-capture",
+      "--no-file-parallelism",
+      "--no-cache",
+      "--reporter=default",
+      "--reporter=json",
+      "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-original48-capture-wrapper-r1-run/results.json"
+    ],
+    "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-original48-capture-wrapper-r1-run/capture.log"
+  },
+  "assertions": [
+    {
+      "ancestorTitles": [],
+      "fullName": "original48 one retained R04 route captures preclosure162, actual163 and archived176 with admitted public bytes",
+      "status": "passed",
+      "title": "original48 one retained R04 route captures preclosure162, actual163 and archived176 with admitted public bytes",
+      "duration": 3850.5560109999997,
+      "failureMessages": [],
+      "meta": {}
+    }
+  ],
+  "sourceTree": "476b387d65a4c427dc0f6120724e946cf22d7969",
+  "HEAD": "67077b722e3bd477f57a5b03220e63497dc9957a",
+  "metadataChecks": 3,
+  "metadataErrors": 0,
+  "frozenSourceCount": 1556,
+  "frozenInputCount": 16,
+  "allFreezeFieldsExceptAutoMetadataIdentical": true,
+  "captureManifestSHA256": "e7cf4625a1198ff229047460a5c25b82f50e70e5efa2523474abe2ade161a528",
+  "files": [
+    {
+      "name": "r04-pre162.save48.json",
+      "sha256": "cd11f369558e09f1d65d8e848374ea028f4c5f666c168b5527e48c098cfdfb19",
+      "bytes": 1124940,
+      "week": 162
+    },
+    {
+      "name": "r04-actual163.save48.json",
+      "sha256": "c17b7aa82bd09e6988867e149ed0266803d8e432cfcd8842d9c2aca1f7ace8ad",
+      "bytes": 1137150,
+      "week": 163
+    },
+    {
+      "name": "r04-archived176.save48.json",
+      "sha256": "94fa74dfda8ee4df049e81d6ec0a1b3d61e3eddf8030c8fd623a0d44f6e493de",
+      "bytes": 1173791,
+      "week": 176
+    }
+  ],
+  "laneAbsent": true,
+  "freeKiB": 5230840,
+  "scope": "qualified disclosed original48 transaction capture; no naturalcampaign or49qualification"
+}

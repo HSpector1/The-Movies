@@ -1,0 +1,113 @@
+{
+  "at": "2026-10-13T17:46:46.841199-05:00",
+  "session": 12879,
+  "terminal": {
+    "overallExit": 1,
+    "groups": {
+      "tsc-root": 0,
+      "estate-red": 1
+    },
+    "scope": "rootcompiler and completeinitial5estateRED; noacceptance claim",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791931485,
+      "endEpoch": 1791931532,
+      "seconds": 47,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-join-red-r1-run/tsc-root.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 1,
+      "startEpoch": 1791931537,
+      "endEpoch": 1791931543,
+      "seconds": 6,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-join-red-r1-run/results.json",
+        "tests/p16-estate-join.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-join-red-r1-run/estate-red.log"
+    }
+  ],
+  "assertions": [
+    {
+      "fullName": "P16 joined estate actual-source boundaries actual49 closure atomically publishes matching handoff once without changing the caller",
+      "status": "failed",
+      "durationMs": 578.3378139999995,
+      "budgetQualified": true,
+      "failureMessages": [
+        "Error: validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV12: state has unknown field \"rights\"\n    at validateSaveV37WithProfession (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:10770:11)\n    at proveProfessionSave (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:10832:3)\n    at validateSaveV42Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11051:3)\n    at validateSaveV43Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11101:3)\n    at validateSaveV44Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11161:3)\n    at validateSaveV45Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11323:3)\n    at validateSaveV46Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11374:3)\n    at validateSaveV47Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11485:3)\n    at validateSaveP15BEra (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11629:3)\n    at Module.validateSaveP15B (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11614:10)"
+      ]
+    },
+    {
+      "fullName": "P16 joined estate actual-source boundaries genuine normal48 migration admits without manufacturing actual closure or estate history",
+      "status": "passed",
+      "durationMs": 398.682554,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "fullName": "P16 joined estate actual-source boundaries genuine public48 liveclosure migration observes authentic provenance without retroactive49 events",
+      "status": "failed",
+      "durationMs": 231.22120600000017,
+      "budgetQualified": true,
+      "failureMessages": [
+        "AssertionError: semantic RED: actual closure must publish its joined typed estate: expected undefined to be defined\n    at estateOf (/Users/zacheryspector/studio-specialists/p16/tests/p16-estate-join.test.ts:48:85)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-estate-join.test.ts:108:18\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ]
+    },
+    {
+      "fullName": "P16 joined estate actual-source boundaries current49 handoff cannot masquerade as observed48 or borrow foreign claim authority",
+      "status": "failed",
+      "durationMs": 329.65120599999955,
+      "budgetQualified": true,
+      "failureMessages": [
+        "Error: validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV12: state has unknown field \"rights\"\n    at validateSaveV37WithProfession (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:10770:11)\n    at proveProfessionSave (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:10832:3)\n    at validateSaveV42Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11051:3)\n    at validateSaveV43Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11101:3)\n    at validateSaveV44Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11161:3)\n    at validateSaveV45Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11323:3)\n    at validateSaveV46Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11374:3)\n    at validateSaveV47Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11485:3)\n    at validateSaveP15BEra (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11629:3)\n    at Module.validateSaveP15B (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11614:10)"
+      ]
+    },
+    {
+      "fullName": "P16 joined estate actual-source boundaries actual terminal bidder refuses with retained business and even a labelled stale-stable reader",
+      "status": "failed",
+      "durationMs": 335.9082870000002,
+      "budgetQualified": true,
+      "failureMessages": [
+        "Error: validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 validateSaveV18: frozen V17 state is invalid \u2014 validateSaveV17: frozen V16 state is invalid \u2014 validateSaveV16: frozen V15 state is invalid \u2014 validateSaveV12: state has unknown field \"rights\"\n    at validateSaveV37WithProfession (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:10770:11)\n    at proveProfessionSave (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:10832:3)\n    at validateSaveV42Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11051:3)\n    at validateSaveV43Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11101:3)\n    at validateSaveV44Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11161:3)\n    at validateSaveV45Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11323:3)\n    at validateSaveV46Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11374:3)\n    at validateSaveV47Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11485:3)\n    at validateSaveP15BEra (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11629:3)\n    at Module.validateSaveP15B (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11614:10)"
+      ]
+    }
+  ],
+  "reporterSHA256": "2d35c8af36148233ae1cbe3148cbbb6d5e8e2089a5d37dd8492f7d5c73129e4c",
+  "candidatePacket": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-join-red115-r2",
+  "candidateManifestSHA256": "d55e968d496b5ca58fa4d0d273dbaa2cdfa01e8f40a7bdcd7058d35812d07200",
+  "metadataChecks": 5,
+  "metadataErrors": 0,
+  "frozenSourceCount": 1586,
+  "frozenInputCount": 31,
+  "nonAutoFreezeFieldsIdentical": true,
+  "laneAbsent": true,
+  "classification": {
+    "normalMigration": "PASS genuine45\u2192public48\u219249, no original48 own-era claim",
+    "actualClosure": "semanticRED current49 tick publication invokes private48 reader: unknown rights; input fullyadmitted beforeaction",
+    "original48ClosureMigration": "semanticRED missing joined observedestate",
+    "provenanceAndTerminal": "same currentaction prerequisite failure; later named assertions UNREACHED"
+  },
+  "scope": "initial distinguishing RED only, not49 estateacceptance"
+}
