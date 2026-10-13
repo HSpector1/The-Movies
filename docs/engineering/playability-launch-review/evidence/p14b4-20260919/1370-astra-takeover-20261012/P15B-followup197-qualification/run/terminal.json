@@ -1,0 +1,14 @@
+{
+  "overallExit": 1,
+  "groups": {
+    "tsc-root": 0,
+    "tsc-ui": 0,
+    "tsc-bridge": 0,
+    "core": 0,
+    "d16": 1,
+    "ui": 0
+  },
+  "scope": "three compilers; four complete core files; complete original D16; two complete UI files",
+  "identityAccounting": "parent independent complete reporter identity validation required",
+  "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+}

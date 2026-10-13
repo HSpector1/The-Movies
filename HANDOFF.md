@@ -1,21 +1,37 @@
 # HANDOFF
 
-Last writer: Codex (GPT-6 Astra parent; GPT-6.1 Sol specialists), 2026-10-13 10:01 CDT
+Last writer: Codex (GPT-6 Astra parent; GPT-6.1 Sol specialists), 2026-10-13 10:38 CDT
 
 
-## CURRENT — measured checkpoint; eight reviewed test repairs next, 2026-10-13 10:01 CDT
+## CURRENT — all nine followup repairs pass; lawful reuse exposes save-reader defect, 2026-10-13 10:38 CDT
 
 Continue founding → P15B → P16 → P17 → bounded P18, then required cross-system/browser qualification. Parent is sole production writer; one intensive job tree globally. All specialists are GPT-6.1 Sol; up to three are authorized. No main merge or full acceptance claim. Required authority: [Owner order](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/OWNER-ORDER.txt), [technical landing versus acceptance](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-TECHNICAL-LANDING-VS-ACCEPTANCE.md).
 
-**Lessons — Owner instruction:** keep [Major lessons to carry forward](#major-lessons-to-carry-forward) current at safe checkpoints with cause, evidence and prevention. Lessons60–67 preserve the hidden suite failure, unlawful counterfactual, actual disk recovery, corrected distress law and real post-research borrowing. Preserve original failures; source review is not runtime qualification.
+**Lessons — Owner instruction:** keep [Major lessons to carry forward](#major-lessons-to-carry-forward) current at safe checkpoints with cause, evidence and prevention. Lessons60–69 preserve the hidden suite failure, unlawful counterfactual, actual disk recovery, corrected distress law and real post-research borrowing. Preserve original failures; source review is not runtime qualification.
+
+### Latest measured197 result
+
+A/p15b-followup-verification-r3-run is TERMINAL lane1,10:08–10:23CDT. Root0/42s,UIcompiler0/42s,Bridge0/36s; four complete core files27PASS/308s; fullD16179=168PASS11FAIL/342s; two complete UI files40PASS/86s. All9 targeted failures repaired (4core+2D16+3UI); no identity added/missing and no previously passed leaf fails. Thirteen strict checks pass/errors0/AUTO unchanged. All11 remainingD16 first causes match priorr5; no whole-program pass. A/P15B-FOLLOWUP-R3-ACCOUNTING.json and independent A/P15B-FOLLOWUP-R3-ACTUAL-REVIEW.md. All4registry/retirement whole-file consumers now execute successfully; B5 crosses actual52/520. No source edits occurred during the recorded run.
+
+The ONE capital-edge diagnostic is TERMINAL lane/child2,8s, no timeout/interruption/cleanup uncertainty/owned residue. A/p15b-pending-player-capital-edge-r1-run (diagnostic SHA95361cd7e8d1d0b6a839032fe55851badf8f4d2ab8ef54f81d8509ea5c9e48d9) recorded genuine795→actual900k laboratory→distress23 at828→actual450k demolition refund→legal1.389M loan (freshmax1.482M). Five full admissions passed through the loan. Public adoption returned/input purity passed, then makeSave rejected its output: **Technology save: equipment asset is held by another adoption**. No adoption success logged, rejected output never ticked, no pendingclosure proof. Three strict checks/errors0; historical/migrated input purity true. Independent actual review is published in E/P15B-followup197-qualification/capital-edge/P15B-PENDING-PLAYER-CAPITAL-EDGE-R1-ACTUAL-REVIEW.md. All original route failures retained; no automatic policy rerun/timing sweep.
+
+**Exact next engineering step:** repair the equipment reuse producer/reader mismatch with narrowly scoped current-versus-historical ownership checks and meaningful genuine-public-action save/reload/negative/frozen-era controls. The quote explicitly allows reuse of released equipment while canceled adoption history retains its reference; reader technology.ts788 rejects that historical reference after its legitimate new holder is bound. Recovery specialist drafts source/tests A-only; independent reviewer checks current/frozen boundaries; parent alone applies to R/C and runs serial compilers/affected tests under a fresh immutable packet. No source repair installed yet. After qualification, rerun only the unchanged capital policy against repaired source before claiming pendingclosure. Original joint adoption/proposal/rivalbuild and four promise cutoff obligations remain open. P15B still unlanded; no P16 restack or main merge.
+
+Published evidence packet E/P15B-followup197-qualification retains exact197 PATCH/MANIFEST, all followup/compiler outputs, raw metadata, independent reviews, installation receipts and this capital diagnostic. The snapshot commits evidence/HANDOFF only; staged197 source remains uncommitted and byte-identical. Verify containing commit and explicit remote on resume.
+
+### Installed followup candidate — latest safe boundary
+
+Parent applied the six reviewed patches affecting eight test/harness files to R/C; full staged PATCH bytes match. Current immutable A/p15b-post-fullgate-lawful197-r1 has197 paths, PATCH`8793330db0eaec588517a76e1b8f810b5bd3273782d53802ae3f3711d64018ba`, MANIFEST`7b51d83539c3ad4b88a2cfddb564b004ea5e97c11bef539440bf8a55d3beb1ec`. All unrelated194r2 postimages unchanged; no core production/Bridge/UI production change. A/p15b-eight-followup-install-r1 retains exact preimages and before/after receipt. The additional three candidate paths are D16driver test and the two UI tests. Original194r2 and every failed result are immutable/published.
+
+Completed exact invocation (do not rerun unchanged): A/p15b-followup-verification-draft-r3/runner.sh SHA`a5e7946c507e8a76ac568f51251fd527337fefa593b71cc8f70947b2644512c6`; selection`f87f71ee794a7c11ce3dddbf0cce2445828a1465ef16dc6fcbbe2a082914ee3a`; runtime inputs2fceb394…; helper9bc9b89c…; HEADac3f3662. Fresh OUT A/p15b-followup-verification-r3-run. Root/UI/Bridge compilers serial and stop on failure, then four complete core files, complete originalD16, two complete UI files, original budgets/no-cache/default+JSON. Ordinary test1 continues, abnormal stops; receipt-write failure exits98. A/P15B-FOLLOWUP-VERIFICATION-R3-RUNNER-REVIEW.md conditionalKEEP; actual preflight and external pins mandatory. Freeze R/C/index/required inputs/HANDOFF until terminal postflight. Do not run old d099-bound runners or recreate finished work.
 
 ### Actual state and ownership
 
 R=`/Users/zacheryspector/The-Movies-headless-program`; S=`/Users/zacheryspector/studio-scratch`; K=`/Users/zacheryspector/studio-specialists`; C=`K/p15b`; A=`S/1370-astra-takeover-20261012`; E=`R/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012`. Node20.20.2 via `~/.nvm/versions/node/v20.20.2/bin`; Python `R/.venv/bin/python3 -I -B`. Safe Git flags always `-c gc.auto=0 -c maintenance.auto=0 --no-optional-locks`.
 
-- Branch `wip/headless-program-20260916-ts`. Last explicitly verified local/remote `d099499a3423cd99018495e057cf419215c71e99`; remote `https://github.com/HSpector1/The-Movies.git`, ref `refs/heads/wip/headless-program-20260916-ts`. Read actual HEAD on resume; origin tracking can be stale.
-- **LANDED:** Save47 source `d68d4b13b454922cf84eff5c0c73cae3e780eebe`, source tree `2bcac39e1c88ba48f24df44e015d3b7b7f5a06af`. **P15B NOT LANDED.** R/C contain matching194 staged source paths. Current immutable A/p15b-post-fullgate-lawful194-r2 PATCH`7f6db62c4bf897c30b92e4d6644cfd46d3aef0a919f89cbaa00839adad97763d`, MANIFEST`b642bad9359023e777f242f3e68aeb23ecb8bd90969b24bd5287347f68fb3c96`, actual R modes0o600/0o644 without chmod. Original159/193/194r1 inputs, source backups and failed results are intact.
-- Parent alone schedules through S/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh SHA`aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e`. All44/D16/UI and both bounded diagnostics are TERMINAL, with clean recorded postflights and no remaining owned workers. Parent is publishing evidence before installing eight reviewed test/harness repairs; specialists write A-only drafts/reviews. Do not kill foreign caffeinate98123 or touch common Git data.
+- Branch `wip/headless-program-20260916-ts`. Last explicitly verified local/remote `ac3f36629a03a1d726c3e3c31a8d5e0a4db0fa0c`; remote `https://github.com/HSpector1/The-Movies.git`, ref `refs/heads/wip/headless-program-20260916-ts`. Read actual HEAD on resume; origin tracking can be stale.
+- **LANDED:** Save47 source `d68d4b13b454922cf84eff5c0c73cae3e780eebe`, source tree `2bcac39e1c88ba48f24df44e015d3b7b7f5a06af`. **P15B NOT LANDED.** R/C now contain matching197 staged source paths as above. Previous measured immutable A/p15b-post-fullgate-lawful194-r2 PATCH`7f6db62c4bf897c30b92e4d6644cfd46d3aef0a919f89cbaa00839adad97763d`, MANIFEST`b642bad9359023e777f242f3e68aeb23ecb8bd90969b24bd5287347f68fb3c96`, actual R modes0o600/0o644 without chmod. Original159/193/194r1 inputs, source backups and failed results are intact.
+- Parent alone schedules through S/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh SHA`aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e`. All44/D16/UI/followup197 and all three bounded diagnostics are TERMINAL, with clean recorded postflights and no remaining owned workers. Parent published evidence and installed eight reviewed test/harness repairs; all nine repairs passed; source reuse repair is next; specialists write A-only drafts/reviews. Do not kill foreign caffeinate98123 or touch common Git data.
 - Disk cleanup is CLOSED, zero deletions this turn. Owner quit Chrome normally; parent verified it absent and actual Data free rose from3,553,820 to4,814,812KiB (+1,260,992KiB/~1.20GiB, not a cleanup-attributable deletion). Both inspected Chrome caches remain intact. Latest post44 Data free4,784,024KiB. Launch floor3,670,016KiB/runtime3,145,728KiB unchanged; do not reopen deletion merely to hit5GiB. Detailed process/resource receipts are LOCAL only.
 
 ### Measured progress and preserved failures
@@ -59,7 +75,7 @@ Completed diagnostic invocation identities, preserved for provenance (do not rer
 
 Closure-adoption-and-proposal-dispositions still uses invalid access-less/forged pending work. Keep originalfailure; no inventedcash/history/receipt or validator bypass. DistressWeeks can continue while cash is nonnegative below four weeks cover; negativeRun resets independently. Prior33-consecutive-negative impossibility claim was corrected (A/P15B-PENDING-FAMILY-REACHABILITY-R2.md). Existing795→847 canceled adoption is not pending; historical started rival plans do not prove incomplete builds. A/P15B-RIVAL-PENDING-WITNESS-PREP.md gives concrete unmeasured premises. Four genuine2600 promise controls are masked by actualclosure2633; Save47 already failed later OPEN premise, so surviving alone cannot repair them.
 
-**Publication checkpoint:** E/P15B-repair-qualification-r2 contains exact194r2 backup, original compiler failure, successful root/DOC0317, complete44/D16/fullUI results, both failed bounded diagnostics, raw metadata captures, independent reviews and eight proposed test/harness repairs. EXPORT-MANIFEST pins129 payloads including the brief; the manifest itself completes130 files. All failed outcomes remain failed. Parent publishes only this evidence plus HANDOFF with commit--only, preserving all194 staged source bytes and verifying the explicit remote. No LOCAL machine inventory or Owner save is included. P15B remains unlanded. Next apply reviewed patches on R/C, cut actual new packet, rebind/review followup runner and execute; pendingfamily and masked historicalpromise requirements stay open.
+**Publication checkpoint:** E/P15B-repair-qualification-r2 contains exact194r2 backup, original compiler failure, successful root/DOC0317, complete44/D16/fullUI results, both failed bounded diagnostics, raw metadata captures, independent reviews and eight proposed test/harness repairs. EXPORT-MANIFEST pins129 payloads including the brief; the manifest itself completes130 files. All failed outcomes remain failed. Parent publishes only this evidence plus HANDOFF with commit--only, preserving all194 staged source bytes and verifying the explicit remote. No LOCAL machine inventory or Owner save is included. P15B remains unlanded. Reviewed patches are now installed; new197 packet and bound reviewed runner are ready to execute; pendingfamily and masked historicalpromise requirements stay open.
 
 P16 preparatory recovery is complete; no restack until P15B qualifies/lands. P17/P18 parked. Full1363long/fiveseeds6240/G-P/G-L/post2040/private154 attribution and browser qualification remain acceptanceOPEN; bounded technical landing is separate. Preview is CLOSED/published wip/browser-soundstage-preview@9cc684f93e0185a53d36fc39e425f4e5a360f5ba; resources released. Personal photos/Guardian installer work is closed. Do not reopen asset shopping, cleanup, REA or another project. Stored goal label was blocked earlier and tools cannot resume it; actual engineering is proceeding.
 
@@ -700,12 +716,17 @@ The full accounts are in `A/payload/1370-aq-root-continuation-20261010-r1/LESSON
 
 64. A public remedy can restore a test's observation horizon without rewriting the behavior it measures. DOC03's real loan occurs only after both research projects complete; all original17 assertions now pass, completed research bytes and input purity hold, and financing costs are reported separately. Keep the original unfinanced closure837 failure: the repaired fixture proves research components with a financed observation window, not the paper's whole-studio total economics. Actual run A/p15b-doc03-loan-r2-run, independent review A/P15B-DOC03-LOAN-R2-ACTUAL-REVIEW.md.
 
-65. Constructed test people and their generated profession anchors must preserve the same order. B5 prepended a new person while the append owner appended its anchor, so fullsave admission failed before any consumer tick. Move only that newly produced anchor with its disclosed first-match candidate; preserve historical anchors and require full admission before claiming52/520 coverage. The exact44 run exposed this setup defect; the source-reviewed repair remains runtime UNRUN. Also distinguish historical started plan rows from genuinely unfinished work before claiming pending-build coverage.
+65. Constructed test people and their generated profession anchors must preserve the same order. B5 prepended a new person while the append owner appended its anchor, so fullsave admission failed before any consumer tick. Move only that newly produced anchor with its disclosed first-match candidate; preserve historical anchors and require full admission before claiming52/520 coverage. The exact44 run exposed this setup defect; the followup197 run now passes all27 whole-file controls, including B5 actual52/520 in5.116s. Also distinguish historical started plan rows from genuinely unfinished work before claiming pending-build coverage.
 
 
 66. Follow the real UI owner after an advance. The cash test's first Administration/Finances ceremony passed; its second action reached actualclosure144, where read-only history replaces the operating rail. A remounted renderer also cancels stale gestures through one task, so a new pointer gesture must begin after readiness. Preserve session bytes, action counts and original failed stacks when revising these premises; source review alone is not qualification. [Actual UI review](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-repair-qualification-r2/P15B-UI-R5-ACTUAL-REVIEW.md).
 
 67. A legal public remedy is not necessarily sufficient. The exact795 adoption route needed1.902M when only1.482M was lawful; a separate genuine2600 campaign still closed2633 after its actual390k maximum loan. Stop at the measured obstruction, retain original inputs and settled facts, and avoid turning one failed policy into an impossibility claim or unbounded timing/amount search. [Actual diagnostic review](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-repair-qualification-r2/P15B-TWO-PREMISE-DIAGNOSTICS-ACTUAL-REVIEW.md).
+
+
+68. A sampling test must reach the weeks it claims. The old D16 cadence closed before208/260; do not manufacture those rows or weaken terminal behavior. The repaired control uses the already measured same-seed doNothing route, validates its starting states, reaches the same260 horizon both from0 and from real52, and preserves input bytes. It passes in8.131s under the original budget; the fullD16 still retains11 unrelated failures. All three repaired UI leaves also pass in their complete40-test files. [Published actual followup review](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-followup197-qualification/P15B-FOLLOWUP-R3-ACTUAL-REVIEW.md).
+
+69. A successful quote and public action do not establish saveability. The real capital-edge route paid for its facility, collected the actual refund and borrowed legally, but full admission rejected the adoption producer's valid reuse of released equipment. Cancellation history is not current ownership: retain historical rows while enforcing one actual holder, correct asset/studio/technology and frozen-era boundaries. Add full save/reload after public cancel/re-adopt, not only a zero-cost quote assertion. This is a reached defect, not yet a repaired win or P15B-specific regression attribution. [Actual failure and repair constraints](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-followup197-qualification/capital-edge/P15B-PENDING-PLAYER-CAPITAL-EDGE-R1-ACTUAL-REVIEW.md).
 
 ## Handoff completion and claim limits
 
@@ -715,10 +736,10 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-13 09:36 CDT by **codex** on PreCompact (session 01a13050-fe8f-7903-9af3-0a45b7130787)
-- Branch: `wip/headless-program-20260916-ts` @ `d099499a3423cd99018495e057cf419215c71e99`
+- Stamped: 2026-10-13 10:30 CDT by **codex** on PreCompact (session 01a13050-fe8f-7903-9af3-0a45b7130787)
+- Branch: `wip/headless-program-20260916-ts` @ `ac3f36629a03a1d726c3e3c31a8d5e0a4db0fa0c`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 195
+- Uncommitted files: 198
   - `M HANDOFF.md`
   - `M  bridge/finance.ts`
   - `M  bridge/industry.ts`
@@ -736,9 +757,9 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
   - `A  src/core/corporateConditionLive.ts`
   - ...
 - Last commits:
+  - ac3f3662 Record P15B repair qualification and bounded route obstructions
   - d099499a test: retain exact default-reporter setup diagnostic logs
   - c4f96c97 test: recover disk headroom and diagnose P15B research setup closure
   - 02536a2c docs: record bounded cache inspection and pending disk recovery
   - 1f5e0a48 test: preserve P15B full-gate failures and reviewed repair candidate
-  - d65b27c0 test: qualify lawful research controls and prepare P15B integration gate
 <!-- AUTO:END -->

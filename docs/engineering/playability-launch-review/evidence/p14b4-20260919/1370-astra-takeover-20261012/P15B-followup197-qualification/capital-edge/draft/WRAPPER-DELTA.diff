@@ -1,0 +1,63 @@
+--- /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-pending-player-adoption-r3-draft/runner.sh
++++ /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-pending-player-capital-edge-r1-draft/runner.sh
+@@ -1,19 +1,19 @@
+ #!/bin/bash
+-# UNRUN DRAFT: production DOC03 complete-file setup diagnostic only, no timeout override; final pins intentionally PENDING.
++# UNRUN DRAFT: ONE reviewed capital-edge standalone diagnostic; fixed30s startup watchdog; actual197 binding.
+ # Parent alone schedules. No test/source mutation or timeout override.
+ set -u
+ R=/Users/zacheryspector/The-Movies-headless-program
+ C="$R"
+ A=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012
+-P="$A/p15b-post-fullgate-lawful194-r2"
+-OUT="$A/p15b-pending-player-adoption-r3-run"
+-SCRIPT="$A/p15b-pending-player-adoption-r3-draft/runner.sh"
++P="$A/p15b-post-fullgate-lawful197-r1"
++OUT="$A/p15b-pending-player-capital-edge-r1-run"
++SCRIPT="$A/p15b-pending-player-capital-edge-r1-draft/runner.sh"
+ AUTO_HELPER="$A/p15b-auto-recorder-r4r2-draft/auto_freeze.py"
+ EXTRA_INPUTS="$A/p15b-affected44-r1-draft/RUNTIME-INPUTS.json"
+ SELECTION="/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-post-fullgate-repairs-r1/AFFECTED-CORE-FILES.json"
+-DIAGNOSTIC="$A/p15b-pending-player-adoption-r3-draft/DIAGNOSTIC.ts"
++DIAGNOSTIC="$A/p15b-pending-player-capital-edge-r1-draft/DIAGNOSTIC.ts"
+ export AUTO_HELPER OUT EXTRA_INPUTS SELECTION DIAGNOSTIC
+-export P15B_PENDING_PLAYER_ADOPTION_JSON="$OUT/diagnostic.json"
++export P15B_PENDING_PLAYER_CAPITAL_JSON="$OUT/diagnostic.json"
+ export PATH=/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin:$R/.venv/bin:$PATH GIT_OPTIONAL_LOCKS=0
+ export P15B_FOCUS_INPUT_1="$C/tests/fixtures/p1364/generated-v45-late-draft"
+ export P15B_FOCUS_INPUT_2="$C/tests/fixtures/p14/genuine-v42-pre-shelving"
+@@ -128,14 +128,14 @@
+ need(hashlib.sha256(pathlib.Path(os.environ['SELECTION']).read_bytes()).hexdigest()=='f291b97bb1d74a7318c73a8d0972e3a12730aea440d6fbe7de13f879dda4b0b7','literal complete44 selection pin')
+ need((c/'generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs').is_file() and not (c/'generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs').is_symlink(),'union fixture mandatory current binding')
+ need(hashlib.sha256(pathlib.Path(os.environ['SELECTION']).read_bytes()).hexdigest()==os.environ.get('P15B_BOOTSTRAP_SELECTION_SHA256','PENDING'),'external selection pin')
+-need(hashlib.sha256(pathlib.Path(os.environ['DIAGNOSTIC']).read_bytes()).hexdigest()=='775487f0de4e0ea2cefc568f4ad0bc511bcc13f1302002cac32ff57d7da7c397','diagnostic derivative pin')
++need(hashlib.sha256(pathlib.Path(os.environ['DIAGNOSTIC']).read_bytes()).hexdigest()=='045915d8d3209cce4065d493a102f8528168a4f091e1410d137c68dce4cd5c3e','diagnostic derivative pin')
+ need((c/'node_modules/vite-node/vite-node.mjs').is_file(),'installed vite-node entrypoint')
+ need(hashlib.sha256(script.read_bytes()).hexdigest()==os.environ.get('P15B_BOOTSTRAP_RUNNER_SHA256','PENDING_EXTERNAL_RUNNER_SHA256'),'external bootstrap runner pin')
+ need(hashlib.sha256(helper.read_bytes()).hexdigest()==os.environ.get('P15B_BOOTSTRAP_HELPER_SHA256','PENDING_EXTERNAL_HELPER_SHA256'),'external bootstrap helper pin')
+-need(subprocess.check_output(g+['rev-parse','HEAD']).decode().strip()=='d099499a3423cd99018495e057cf419215c71e99','candidate HEAD changed')
+-for f,h in [('PATCH.diff','7f6db62c4bf897c30b92e4d6644cfd46d3aef0a919f89cbaa00839adad97763d'),('MANIFEST.json','b642bad9359023e777f242f3e68aeb23ecb8bd90969b24bd5287347f68fb3c96')]:need(hashlib.sha256((p/f).read_bytes()).hexdigest()==h,'candidate packet changed '+f)
++need(subprocess.check_output(g+['rev-parse','HEAD']).decode().strip()=='ac3f36629a03a1d726c3e3c31a8d5e0a4db0fa0c','candidate HEAD changed')
++for f,h in [('PATCH.diff','8793330db0eaec588517a76e1b8f810b5bd3273782d53802ae3f3711d64018ba'),('MANIFEST.json','7b51d83539c3ad4b88a2cfddb564b004ea5e97c11bef539440bf8a55d3beb1ec')]:need(hashlib.sha256((p/f).read_bytes()).hexdigest()==h,'candidate packet changed '+f)
+ need(hashlib.sha256((c/'tests/fixtures/p14/genuine-v45-recovery-witnesses-1368/MANIFEST.json').read_bytes()).hexdigest()=='11ad61be481a8bec170f40425cfcfe7fcb24596418d30b6c8bf27895e93c3ba5','actual1368 pin differs')
+-m=json.loads((p/'MANIFEST.json').read_text());need(len(m['files'])==194,'manifest count')
++m=json.loads((p/'MANIFEST.json').read_text());need(len(m['files'])==197,'manifest count')
+ def paths(*args):return {x.decode() for x in subprocess.check_output(g+list(args)).split(b'\0') if x}
+ expected={f['path'] for f in m['files']}
+ need(paths('diff','--cached','--name-only','-z')==expected,'complete staged path set differs from candidate')
+@@ -151,7 +151,7 @@
+ subprocess.run(g+['diff','--check'],check=True)
+ subprocess.run(g+['apply','--check','--reverse',str(p/'PATCH.diff')],check=True)
+ 
+-print('Exact production194 WT/index candidate, no unstaged change, reviewed final pins, reverse check PASS')
++print('Exact production197 WT/index candidate, no unstaged change, reviewed final pins, reverse check PASS')
+ 
+ ADMIT
+ [ "$?" = 0 ] || exit 98
+@@ -233,5 +233,5 @@
+ ec=$?
+ check_freeze || exit 98
+ disk_floor 3145728 || exit 97
+-printf 'terminal pending-player=%s; fixed795/player-adoption only; earliest unmet premise retained, no joint-family claim\n' "$ec"
++printf 'terminal pending-player=%s; fixed795/capital-edge/player-adoption only; earliest unmet premise retained, no joint-family claim\n' "$ec"
+ exit "$ec"

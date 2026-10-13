@@ -1,0 +1,8 @@
+Exact pending-rebound production WT/index candidate, no unstaged change, reviewed final pins, reverse check PASS
+node=v20.20.2 python=Python 3.14.4 start=2026-10-13T15:08:23Z
+{"name": "tsc-root", "exit": 0, "seconds": 42}
+{"name": "tsc-ui", "exit": 0, "seconds": 42}
+{"name": "tsc-bridge", "exit": 0, "seconds": 36}
+{"name": "core-followup", "exit": 0, "seconds": 308}
+{"name": "d16", "exit": 1, "seconds": 342}
+{"name": "ui-followup", "exit": 0, "seconds": 86}

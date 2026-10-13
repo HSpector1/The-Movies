@@ -1,0 +1,34 @@
+{
+  "tests/bridge-p14r2r3-prior55.test.ts": {
+    "sha256": "58ce135ead23edf40fa3422a0733f2c4ceba09cd021e838d2fadb506e10d5834",
+    "mode": "0o644"
+  },
+  "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx": {
+    "sha256": "00bad0d14b9cdda5d88fd74b507ad36d1246808de06c2fe6dbc6519db28fefc5",
+    "mode": "0o644"
+  },
+  "tests/bridge-p14p4p5-opportunities.test.ts": {
+    "sha256": "1ff5a5e52357957822e313e1d2c2ee264e181d9e862624f8ebd964f8217771a7",
+    "mode": "0o644"
+  },
+  "ui/src/p1364-late-founding-route.test.tsx": {
+    "sha256": "5203af9f19afb1cbc780be9046e7fef95801bd2543d5cf85eae9e59987295118",
+    "mode": "0o600"
+  },
+  "tests/bridge-p14b4-runtime47-compatibility.test.ts": {
+    "sha256": "6293d0e04dbb0f368217c82aa14691c75d7104ccda0deb035fd6e6606f911095",
+    "mode": "0o644"
+  },
+  "tests/p14c2a-consumers.test.ts": {
+    "sha256": "30b99b51cd82f759044b70da0cea708a748f1adeb3e1bd44b2a71d0769751282",
+    "mode": "0o644"
+  },
+  "src/harness/d16/terminal.test.ts": {
+    "sha256": "c949d518498a8ddde97c308737699b6db7ddec6e3d76709d8a7c6bdd489db895",
+    "mode": "0o644"
+  },
+  "src/harness/d16/driver.test.ts": {
+    "sha256": "b0c5e127d215ab1ec674de33f918d9c8bf1b541d699a459913bdf0665fdab66d",
+    "mode": "0o644"
+  }
+}

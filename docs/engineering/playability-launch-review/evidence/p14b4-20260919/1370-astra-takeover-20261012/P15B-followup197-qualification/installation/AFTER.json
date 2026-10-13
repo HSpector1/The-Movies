@@ -1,0 +1,74 @@
+{
+  "touched": {
+    "src/harness/d16/driver.test.ts": {
+      "before": {
+        "sha256": "b0c5e127d215ab1ec674de33f918d9c8bf1b541d699a459913bdf0665fdab66d",
+        "mode": "0o644"
+      },
+      "afterSHA256": "86e1affd437171502391e7b87829c9814bdaedc80c234d6944712aeb1f1f2789",
+      "afterMode": "0o644"
+    },
+    "src/harness/d16/terminal.test.ts": {
+      "before": {
+        "sha256": "c949d518498a8ddde97c308737699b6db7ddec6e3d76709d8a7c6bdd489db895",
+        "mode": "0o644"
+      },
+      "afterSHA256": "26565ac9cfc87c28be691ca5ba6fc19a6759a7df04564a4833b1baea5c9f39b9",
+      "afterMode": "0o644"
+    },
+    "tests/bridge-p14b4-runtime47-compatibility.test.ts": {
+      "before": {
+        "sha256": "6293d0e04dbb0f368217c82aa14691c75d7104ccda0deb035fd6e6606f911095",
+        "mode": "0o644"
+      },
+      "afterSHA256": "37dc7f38c138aaf479a8ab31c375b06ac42e6001bd8606fa2f4091bc7d766335",
+      "afterMode": "0o644"
+    },
+    "tests/bridge-p14p4p5-opportunities.test.ts": {
+      "before": {
+        "sha256": "1ff5a5e52357957822e313e1d2c2ee264e181d9e862624f8ebd964f8217771a7",
+        "mode": "0o644"
+      },
+      "afterSHA256": "5ed420e88e97660f8f3120ed901686f1227d19d7630cdf03125d08256901cd5d",
+      "afterMode": "0o644"
+    },
+    "tests/bridge-p14r2r3-prior55.test.ts": {
+      "before": {
+        "sha256": "58ce135ead23edf40fa3422a0733f2c4ceba09cd021e838d2fadb506e10d5834",
+        "mode": "0o644"
+      },
+      "afterSHA256": "2d6eaf33c06f262131b2ef6d17d83a8ab4c6a005abf6f0d64d3e5e3f5cd6ed49",
+      "afterMode": "0o644"
+    },
+    "tests/p14c2a-consumers.test.ts": {
+      "before": {
+        "sha256": "30b99b51cd82f759044b70da0cea708a748f1adeb3e1bd44b2a71d0769751282",
+        "mode": "0o644"
+      },
+      "afterSHA256": "ddbd7a028a400c9c837a4f42d647ae95c5f940938dd726f195e414b15b8b3a62",
+      "afterMode": "0o644"
+    },
+    "ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx": {
+      "before": {
+        "sha256": "00bad0d14b9cdda5d88fd74b507ad36d1246808de06c2fe6dbc6519db28fefc5",
+        "mode": "0o644"
+      },
+      "afterSHA256": "666b2b8a04784583f55141206f003bd3818803d4f0f0869ddc0fb27964a27720",
+      "afterMode": "0o644"
+    },
+    "ui/src/p1364-late-founding-route.test.tsx": {
+      "before": {
+        "sha256": "5203af9f19afb1cbc780be9046e7fef95801bd2543d5cf85eae9e59987295118",
+        "mode": "0o600"
+      },
+      "afterSHA256": "7ffeaea769b259dc9f008d3fbf917624eb4db532c2c70df69d2181c72b7c61db",
+      "afterMode": "0o644"
+    }
+  },
+  "packet": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-post-fullgate-lawful197-r1",
+  "paths": 197,
+  "PATCH_SHA256": "8793330db0eaec588517a76e1b8f810b5bd3273782d53802ae3f3711d64018ba",
+  "MANIFEST_SHA256": "7b51d83539c3ad4b88a2cfddb564b004ea5e97c11bef539440bf8a55d3beb1ec",
+  "R_C_candidateBytesEqual": true,
+  "qualification": "UNRUN"
+}

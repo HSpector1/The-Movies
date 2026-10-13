@@ -1,0 +1,4 @@
+Exact production197 WT/index candidate, no unstaged change, reviewed final pins, reverse check PASS
+node=v20.20.2 python=Python 3.14.4 start=2026-10-13T15:29:31Z
+{"name": "pending-player", "exit": 2, "seconds": 8}
+terminal pending-player=2; fixed795/capital-edge/player-adoption only; earliest unmet premise retained, no joint-family claim
