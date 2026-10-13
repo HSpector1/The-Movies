@@ -1,0 +1,58 @@
+--- s7-natural-route.test.ts
++++ zz-s7-natural-route.test.ts
+@@ -1,3 +1,4 @@
++// CURRENT FINAL-ARM adaptation; old comments below describe compatibility serialization only.
+ // 1344-s7 §7 probe: the 1329 natural-chain and rival-economy probes on one chain, plus the §7 measures.
+ // NOT RUN by the author. RUNBOOK.md copies it into a scratch tree as tests/zz-s7-natural-route.test.ts, beside
+ // tests/zz-s7-lib.ts, and runs it alone:
+@@ -17,6 +18,7 @@
+ import type { GameState } from '../src/core/index.js'
+ import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+ import { makeSave } from '../src/core/save.js'
++import { isOperatingStudio } from '../src/core/operatingState.js'
+ import { canon, digest, requireTree, runOutput, sha, shelvingOf, stripShelving } from './zz-s7-lib.js'
+ import type { Business } from './zz-s7-lib.js'
+ 
+@@ -35,6 +37,7 @@
+ 
+ it('s7 natural route', () => {
+   if (!Number.isInteger(WEEKS) || WEEKS < 1) throw new Error(`S7_WEEKS must be a positive integer, got "${process.env.S7_WEEKS}"`)
++  if (process.env.S7_OBSERVER_MODE !== 'clean') throw new Error('wrong observer mode')
+   const tree = requireTree()
+   const out = runOutput()
+   const started = Date.now()
+@@ -192,7 +195,7 @@
+     // the first tick where candidate and old differ), the 10-week series, and the end state.
+     {
+       const h = state.hollywood!
+-      weekly.push(JSON.stringify({ w: state.market.tick, d: digest(stripShelving(state)),
++      weekly.push(JSON.stringify({ w: state.market.tick, d: digest(stripShelving(state)), fullCurrentStateDigest: digest(state),
+         a: Object.fromEntries(h.businesses.map((b) => [b.studioId.slice(-3), digest(b.account)])) }))
+       if (state.talentMarket.proposals.some((p) => p.issuerStudioId === playerId && p.promises.length > 0)) playerProposalWeeks++
+       if (week % 10 === 0 || week === WEEKS) series.push({ week: state.market.tick, films: h.films.length, firstTakes: state.firstTakes.length,
+@@ -204,6 +207,7 @@
+       if (week === WEEKS) { atEnd = state; finalState = canon(state) } // serialized before the 1329 summary's extra tick
+     }
+     const before = state
++    if (!isOperatingStudio(state, playerId)) throw new Error(`UNMET PREMISE: player terminal at${week}, no further tick`)
+     state = tick(state)
+     if (week < WEEKS) observe(week, before, state)
+   }
+@@ -240,7 +244,7 @@
+   const businessIds = h.businesses.map((b) => b.studioId)
+   const tuning = TUNING as unknown as Record<string, unknown>
+   const s7 = {
+-    meta: { seed: SEED, weeks: WEEKS, tree, kit: '1344-s7 probes/s7-natural-route.test.ts', finalStateSha256: sha(finalState),
++    meta: { status: 'final-arm-only-measured-not-full1363V', summaryWeek: WEEKS+1, summaryStateSha256: sha(canon(state)), sourceManifestSHA256: process.env.S7_SOURCE_MANIFEST_SHA256, candidateSourceIdentity: process.env.S7_CANDIDATE_SOURCE_ID, seed: SEED, weeks: WEEKS, tree, kit: '1344-s7 probes/s7-natural-route.test.ts', finalStateSha256: sha(finalState),
+       tuning: { HOLLYWOOD_SHELVE_AFTER_REJECTIONS: tuning.HOLLYWOOD_SHELVE_AFTER_REJECTIONS ?? null,
+         HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS: tuning.HOLLYWOOD_SHELVE_COMMISSION_HOLD_WEEKS ?? null,
+         HOLLYWOOD_SHELVED_RETRY_WEEKS: tuning.HOLLYWOOD_SHELVED_RETRY_WEEKS ?? null } },
+@@ -255,6 +259,8 @@
+       issuedPromisesAtEnd: end.promises.filter((p) => p.issuerStudioId === playerId).length, proposalWeeksWithPromises: playerProposalWeeks },
+     series, controlC, integrity,
+   }
++  makeSave(end) // actual current admission at520; throws before publishing success
++  requireTree() // post-source guard
+   out.write('natural-chain.jsonl', lines.join('\n') + '\n')
+   out.write('rival-economy.jsonl', economy.join('\n') + '\n')
+   out.write('weekly.jsonl', weekly.join('\n') + '\n')

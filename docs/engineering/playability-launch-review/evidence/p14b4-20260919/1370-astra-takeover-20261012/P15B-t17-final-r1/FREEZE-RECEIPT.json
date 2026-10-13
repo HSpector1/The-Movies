@@ -1,0 +1,9 @@
+{
+  "run": "p15b-t17-final-r1",
+  "beforeSHA256": "0cee62257308b313b92c345b1069e2adcfcd2b2498fbb206f4b1157997245c17",
+  "afterSHA256": "0cee62257308b313b92c345b1069e2adcfcd2b2498fbb206f4b1157997245c17",
+  "equal": true,
+  "fullLocalSource": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-t17-final-r1-run/freeze.json",
+  "candidatePatchSHA256": "9a4a7a10349c8cd080ee8a7a22dbff08ec32902b18be52e7dbbba1c8ec605980",
+  "candidateManifestSHA256": "da19e34cc1935d18100738c63835c8ae988e83c8be621f2f6502e69d48132a78"
+}

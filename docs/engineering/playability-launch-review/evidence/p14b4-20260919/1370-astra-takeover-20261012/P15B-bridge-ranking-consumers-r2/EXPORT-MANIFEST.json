@@ -1,0 +1,292 @@
+[
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r1/DELTA-vs-bridge-ranking-impl-r1.diff",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-bridge-ranking-consumers-r1/DELTA-vs-bridge-ranking-impl-r1.diff",
+    "sha256": "0270e24658763087f12b4eb7533ad84fbc965a544e508274d64f28bc28b74250"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r1/EXPECTED-NEW-IDENTITIES.json",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-bridge-ranking-consumers-r1/EXPECTED-NEW-IDENTITIES.json",
+    "sha256": "c56a311efd28778d7f2bcea01f9ff036b2b4d372c5d38c94edcbe820d2d8dfc5"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r1/MANIFEST.json",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-bridge-ranking-consumers-r1/MANIFEST.json",
+    "sha256": "fdfb4f4655a9b42b4d16cdad5ea0719ad964a5e7d9cbd0bb3b2f869161806145"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r1/REPORT.md",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-bridge-ranking-consumers-r1/REPORT.md",
+    "sha256": "4eb1e5b0035d6f6edeb10185c85ec798b1a02565b1bb1ac2cd0122b938bf0be6"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r1/originals/bridge-contract-generator.test.ts",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-bridge-ranking-consumers-r1/originals/bridge-contract-generator.test.ts",
+    "sha256": "72e1db1d2ec294c028a18eca450e23a026bb79983d4b229d5372d1fdb908cf19"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r1/originals/bridge-schema.test.ts",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-bridge-ranking-consumers-r1/originals/bridge-schema.test.ts",
+    "sha256": "a0f16cf11f8c6c60a0ca60a0adefc6ad1e441b735204e0fde7228d4e314f79e6"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r1/REVIEW.md",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P15B-BRIDGE-RANKING-CONSUMERS-R1-REVIEW.md",
+    "sha256": "63cfc1edd528c8e31b66f2f3bef520cd87a31a374b8b69656aa8a3cb7e665e12"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r2/DELTA-vs-consumers-r1.diff",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-bridge-ranking-consumers-r2/DELTA-vs-consumers-r1.diff",
+    "sha256": "f1e7a7144634cd585bf3b22ec27e86a5dc41765ead87d844b41d636efb9043f1"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r2/MANIFEST.json",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-bridge-ranking-consumers-r2/MANIFEST.json",
+    "sha256": "da19e34cc1935d18100738c63835c8ae988e83c8be621f2f6502e69d48132a78"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r2/REPORT.md",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-bridge-ranking-consumers-r2/REPORT.md",
+    "sha256": "12440e9d858576e64bf4567e5f61e5bf3ce46ab4fd4975fac65d8c94d362a0b7"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r2/originals/bridge-schema.test.ts",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-bridge-ranking-consumers-r2/originals/bridge-schema.test.ts",
+    "sha256": "6912b3775b668da2174f06aa5ca3cd5d69e62c6e78d43ca3be9d624108dc6d74"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r2/REVIEW.md",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P15B-BRIDGE-RANKING-CONSUMERS-R2-REVIEW.md",
+    "sha256": "334c795cf65bb869985251200fa5411e01b5ea9d20b1c80e03a29e8a101fcf9f"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r2/RESULTS.json",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P15B-BRIDGE-RANKING-CONSUMERS-R2-RESULTS.json",
+    "sha256": "45e87e4565c80c2611815b3549827eaca188013ee33a73de4f1a56a6ff11873f"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r2/RESULTS-REVIEW.md",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P15B-BRIDGE-RANKING-CONSUMERS-R2-RESULTS-REVIEW.md",
+    "sha256": "2f7e80e7db73c9739aab110cdf3b61e07ca67cd500832fa49d30248cb85af07a"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r2/SELECTION.json",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P15B-BRIDGE-RANKING-CONSUMERS-R2-SELECTION.json",
+    "sha256": "4067732f6e0a904860b36c753c890ee6a73b673bcfc0f9661fcd2652d45c1b7c"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r2/actual/results.jsonl",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-consumers-r2-run/results.jsonl",
+    "sha256": "ffc308ab62ddead8b70cec40f8c9df02de8e3e96f0f795d1daed396ffe12fe14"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r2/actual/consumer-focused.log",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-consumers-r2-run/consumer-focused.log",
+    "sha256": "d03ad1f92adb4f1d6a21beacdda19419d8f380b4b8cf65102389979d87856692"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r2/actual/consumer-focused.json",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-consumers-r2-run/consumer-focused.json",
+    "sha256": "04d6de720b15bec76576c7c9f55fe0875f12adec88a1b0766491f42d264e3d9d"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r2/actual/tsc-root.log",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-consumers-r2-run/tsc-root.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r2/runner.sh",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-consumers-r2.sh",
+    "sha256": "4d5811d1caf4dd386665fcb7ddb2a03781223bbd146e8ce47900d9ab383eba81"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r2/lane.log",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-consumers-r2-lane.log",
+    "sha256": "d85eeeead8352e4ed829272cbfee2d20b57b1a4092dc4ad7287b3964c0751b88"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r2/lane.log.meta",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-consumers-r2-lane.log.meta",
+    "sha256": "61e7331377e3d4d47f8932d63c2c73cba77a5b6bce3abb4d02cd39b658650187"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r2/FREEZE-RECEIPT.json",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-consumers-r2-FREEZE-RECEIPT.json",
+    "sha256": "7babf22c92f692c9b84a0497e0471e710bf79e0390411c1db21040324e0a4f84"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-t17-final-r1/actual/results.jsonl",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-t17-final-r1-run/results.jsonl",
+    "sha256": "2f0916d6593ce7f736acbd0b9d493a5df486b6b117bb9786663b839d4e1e433b"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-t17-final-r1/actual/t17-focused.log",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-t17-final-r1-run/t17-focused.log",
+    "sha256": "82651ea4a0e72e4be003136440dad82eb8e3d10153e7abdc86008973c142cbb3"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-t17-final-r1/actual/t17-focused.json",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-t17-final-r1-run/t17-focused.json",
+    "sha256": "657755963312cb217c7a6c0838c8b3a8c4532807181da331cafe5a9a8da1ddcb"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-t17-final-r1/runner.sh",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-t17-final-r1.sh",
+    "sha256": "c987969fa2046aba2198e78b971b3fe8b1f0c326fe8bc7bc3f064223b6611a4b"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-t17-final-r1/lane.log",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-t17-final-r1-lane.log",
+    "sha256": "0d87a58bcb9d95cb965f134dfa40cb50a1906c97bc7391175cec5374a567e2e8"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-t17-final-r1/lane.log.meta",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-t17-final-r1-lane.log.meta",
+    "sha256": "1cb2c8f6cc17bcceb39d32e840489f636e20dbadd58c9d62bec9d92db573c709"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-t17-final-r1/FREEZE-RECEIPT.json",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-t17-final-r1-FREEZE-RECEIPT.json",
+    "sha256": "dfa7fa710f6334525df32b651432bb81d32d92e76a460802de341f7376f862cd"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-t17-final-r1/RESULTS.json",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P15B-T17-FINAL-R1-RESULTS.json",
+    "sha256": "0e505ef192cdf8b99dd003ad654c2190ec910857696309a7343a29cf4a1ed2f0"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-t17-final-r1/RESULTS-REVIEW.md",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P15B-T17-FINAL-R1-RESULTS-REVIEW.md",
+    "sha256": "a19c15dde197b819aafaeadb1ba8acec106035a524f28a398724a21909195132"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-t17-final-r1/RUNNER-REVIEW.md",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P15B-T17-FINAL-R1-RUNNER-REVIEW.md",
+    "sha256": "34aec324f739f407d880bc448b5c126418c06e8300ad90ed55e12cba3a0713f0"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-t17-final-r1/SELECTION.json",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P15B-T17-FINAL-R1-SELECTION.json",
+    "sha256": "fa03922e5d6eba6b42414441b74f40060017ed1060509da7726f024ded9112cb"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-t17-final-r1/COMPILER-REUSE.json",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P15B-T17-FINAL-R1-COMPILER-REUSE.json",
+    "sha256": "b4b70f572ebb6c115e30c3d7e2979cbddc234cdec460e5b8ded4856c26ea4541"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-t17-final-r1/WHOLE-FILE-INPUT-ADDENDUM.md",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P15B-T17-WHOLE-FILE-INPUT-ADDENDUM.md",
+    "sha256": "04e70ae869e20c49cc15aac349bde91084b75701f2c0777dc75e2bc823f91f87"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-nonleak-lawful-test-draft/BRIEF.md",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-nonleak-lawful-test-draft/BRIEF.md",
+    "sha256": "f680e2e2c46110af5fc4ccbafe1ba3c76fe2a2e4027f830a68dc6760db7711c6"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-nonleak-lawful-test-draft/EXACT.diff",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-nonleak-lawful-test-draft/EXACT.diff",
+    "sha256": "15edaf105cdc8a4a4ac0f56b87a64d791840cc811c13202d3e9a6248f6f18ff1"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-nonleak-lawful-test-draft/p13b-s8-nonleak.test.ts",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-nonleak-lawful-test-draft/p13b-s8-nonleak.test.ts",
+    "sha256": "ea4f7fe4f9033845a34de8f36d585b58baf0acf1897282a453d897464b537ff4"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-nonleak-lawful-test-draft/REVIEW.md",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P15B-NONLEAK-LAWFUL-TEST-DRAFT-REVIEW.md",
+    "sha256": "e9c7fbe7d19ccac7885d759a8c34ecba86132950e459dea05be2a5fd443fe77a"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/BRIEF.md",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/BRIEF.md",
+    "sha256": "52b306d51903e25ec8f12d3c9253ee3fe24cec56ab0c2ea16652ff7bb2355fb5"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/PINS.json",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/PINS.json",
+    "sha256": "b19e52b5ce0cb8f25e1a2bdd74d4eba40053a3a13da72884b83aad30b11a7b22"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/natural-adaptation.diff",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/natural-adaptation.diff",
+    "sha256": "498304ab5fc68fea358a0717313b03f0a27eabf21dd987672ae8246e6e2b611d"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/s7-decide-diag.test.ts.diff",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/s7-decide-diag.test.ts.diff",
+    "sha256": "f4990ef552963e5eb49b5a57e8417d9f803f72bcbf9fc67a0410a7e13e9b6ccf"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/s7-lib.ts.diff",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/s7-lib.ts.diff",
+    "sha256": "ca0963896c4fa3b174ee041a3c942337d5267cd282ec54394c1efd7856c0e370"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/scratch-observer.patch",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/scratch-observer.patch",
+    "sha256": "483a87f8fbab1efee208f96bf4869fa7ddbdd4d46a24f0eaa08f1b302bc75392"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/zz-s7-decide-diag.test.ts",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/zz-s7-decide-diag.test.ts",
+    "sha256": "f4a77fa6f2f14c5558056cfc08b3ea0d893fb70049f3a8de6832f547fba4ce35"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/zz-s7-lib.ts",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/zz-s7-lib.ts",
+    "sha256": "81a15d8cf69e9a5be9743b0bc839813488d01471b0c3e9f7789ff5d8b3c8e5ad"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/zz-s7-natural-route.test.ts",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/zz-s7-natural-route.test.ts",
+    "sha256": "96e46eebb5ace875710a8a3ad8e741c0c15466b4b27669935ed9a28c6faf7e41"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft-r2/BRIEF.md",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft-r2/BRIEF.md",
+    "sha256": "9b625d463834d98c942debc78a039641af0a53e814f83581d7fc58193490405e"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft-r2/EXACT-R1-R2.diff",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft-r2/EXACT-R1-R2.diff",
+    "sha256": "939ec81c1c3d62a6dcd2d855c485ecb45ad45f0279c8d92573be59c6d70d7d45"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft-r2/PINS.json",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft-r2/PINS.json",
+    "sha256": "f229a63e3a0de2b613189e741cc9ec4ff3eaed5db1bcd365a151016447fb9b57"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft-r2/scratch-observer.patch",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft-r2/scratch-observer.patch",
+    "sha256": "31d6468e4175cd41c6a143aa690979cac56a3520a3977a3faf23c0e48793d41a"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft-r2/zz-s7-decide-diag.test.ts",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft-r2/zz-s7-decide-diag.test.ts",
+    "sha256": "00966e3873d571c2c475f9a0ff9e275c8a8688909d7294adf5dbcf296997fdf2"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft-r2/zz-s7-lib.ts",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft-r2/zz-s7-lib.ts",
+    "sha256": "2d58f57506312a149f153be11688181ec3045a3a22c3be0e7a358b59dc7e7b12"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft-r2/zz-s7-natural-route.test.ts",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft-r2/zz-s7-natural-route.test.ts",
+    "sha256": "96e46eebb5ace875710a8a3ad8e741c0c15466b4b27669935ed9a28c6faf7e41"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/REVIEW.md",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P15B-O1-O6-S7-CURRENT-DRAFT-REVIEW.md",
+    "sha256": "d8ec2542ebdc02b95aa2121531e4315dd8bbb258018ef31f5d07f2e4404852c5"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft-r2/REVIEW.md",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P15B-O1-O6-S7-CURRENT-R2-DRAFT-REVIEW.md",
+    "sha256": "9ac232845e733aba336dadccee499ecd400ddff99883396cc3fc388f9f4f8583"
+  }
+]

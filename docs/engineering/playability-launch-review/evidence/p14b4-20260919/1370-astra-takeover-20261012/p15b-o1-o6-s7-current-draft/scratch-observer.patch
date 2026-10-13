@@ -1,0 +1,108 @@
+--- a/src/core/hollywoodTick.ts
++++ b/src/core/hollywoodTick.ts
+@@ -221,9 +221,17 @@
+   return next
+ }
+ 
++// SCRATCH-ONLY1363 observer: immutable primitive facts, no policy return/state refs.
++export type S7DecideObservation = { inputWeek:number; resultingStateWeek:number; studioId:string; kind:string; [key:string]:unknown }
++let s7DecideObserver:((row:S7DecideObservation)=>void)|null=null
++export function setS7DecideObserver(observer:((row:S7DecideObservation)=>void)|null):void { s7DecideObserver=observer }
++function observeS7Decide(week:number,studioId:string,kind:string,facts:Record<string,unknown>={}):void {
++  if(s7DecideObserver!==null)s7DecideObserver(JSON.parse(JSON.stringify({inputWeek:week,resultingStateWeek:week+1,studioId,kind,...facts})))
++}
+ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],week:number,
+   greenlights:{studioId:string;production:Production}[],cashFacts:StaffingCashFacts) {
+-  if(week<b.nextDecisionWeek)return
++  if(week<b.nextDecisionWeek){observeS7Decide(week,b.studioId,'notDue',{nextDecisionWeek:b.nextDecisionWeek});return}
++  observeS7Decide(week,b.studioId,'decisionStart',{cash:b.account.cash,cuttingSince:b.costCutting.since,...cashFacts})
+   b.nextDecisionWeek=week+TUNING.HOLLYWOOD_DECISION_WEEKS
+   let greenlit=false,commissioned=false
+   let commissionStop:RivalCostCuttingEntryFacts['commissionStop']='none'
+@@ -237,7 +245,7 @@
+   const seatable=(t:Talent)=>!busy.has(t.id)&&assignmentRefusal(state,t.id,week)===null
+   // P14D.1 (1344-A §3.1): one decision opportunity for one ready screenplay. A viable package
+   // is returned for the greenlight; otherwise the outcome names why none was chosen.
+-  const evaluate=(ready:ScriptProject)=>{
++  const evaluate=(ready:ScriptProject,phase:'ready'|'retry')=>{
+     const director=employees.find(t=>t.role==='director'&&seatable(t))
+     const craft=employees.find(t=>t.role==='craft'&&seatable(t))
+     // P14B.4 seating preference (plan :215-236): eligible PROMISED people enter the triple first, in employment
+@@ -249,7 +257,10 @@
+     const taken=new Set([ready.writerId,director?.id,craft?.id])
+     const promised=employees.filter(t=>masks.has(t.id)&&seatable(t)&&!taken.has(t.id)&&t.skills.acting!==undefined)
+     const actors=[...promised,...employees.filter(t=>t.role==='actor'&&seatable(t)&&!promised.includes(t))].slice(0,3)
+-    if(!director||actors.length!==3||!craft)return {outcome:'staffingBlocked'} as const
++    if(!director||actors.length!==3||!craft){
++      observeS7Decide(week,b.studioId,'evaluation',{phase,scriptProjectId:ready.id,outcome:'staffingBlocked',directorPresent:!!director,actorCount:actors.length,craftPresent:!!craft})
++      return {outcome:'staffingBlocked'} as const
++    }
+     const cost=b.projects[Number(ready.id.slice(7))]!
+     const concept=h.concepts[cost.conceptOrdinal]!
+     const provisional={conceptId:concept.id,shape:ready.shape,promise:ready.promise,budget:{negative:concept.baseNegativeCost,marketing:0},writerId:ready.writerId,
+@@ -258,10 +269,16 @@
+       cashAvailable:b.account.cash-operatingReserve(b,h,week),weeklyCost:rivalWeeklyOperatingCost(b,h,week),lockScreenplay:true,
+       ...(masks.size>0?{promisedMasks:masks}:{})}] as const
+     const candidate=chooseIndustryPackage(...args)
+-    if(candidate)return {outcome:'viable',candidate,provisional,director,cost,concept} as const
++    if(candidate){
++      observeS7Decide(week,b.studioId,'evaluation',{phase,scriptProjectId:ready.id,outcome:'viable',cashAvailable:args[2].cashAvailable,negative:candidate.budget.negative,marketing:candidate.budget.marketing})
++      return {outcome:'viable',candidate,provisional,director,cost,concept} as const
++    }
+     // 1363-A/F Part A: cash binds only if a skipped package would pass the unchanged viability gate.
+     // The ordinary chooser stays opted out; only this refusal re-search pays for the extra forecasts.
+     const diagnostic=searchIndustryPackages(args[0],args[1],{...args[2],diagnoseUnaffordableViability:true})
++    observeS7Decide(week,b.studioId,'evaluation',{phase,scriptProjectId:ready.id,
++      outcome:(diagnostic.unaffordableViable??0)>0?'cashBlocked':'economicRejection',cashAvailable:args[2].cashAvailable,
++      affordable:diagnostic.affordable,unaffordable:diagnostic.unaffordable,viable:diagnostic.viable,unaffordableViable:diagnostic.unaffordableViable??0})
+     return {outcome:(diagnostic.unaffordableViable??0)>0?'cashBlocked':'economicRejection'} as const
+   }
+   type Viable=Extract<ReturnType<typeof evaluate>,{outcome:'viable'}>
+@@ -290,7 +307,7 @@
+   for(const ready of hotDevelopment(b).projects.filter(p=>p.status==='ready')) {
+     if(b.productions.length!==0)break
+     const ordinal=Number(ready.id.slice(7))
+-    const result=evaluate(ready)
++    const result=evaluate(ready,'ready')
+     if(result.outcome!=='viable')indexedOutcomes.set(ordinal,result.outcome)
+     const shelving=b.screenplayShelving
+     // A greenlit screenplay is no longer ready, so its count leaves with it.
+@@ -319,7 +336,7 @@
+     ?b.screenplayShelving.shelved.find(s=>s.retryWeek<=week):undefined
+   if(due) {
+     const ready=b.development.projects[due.ordinal]!
+-    const result=evaluate(ready)
++    const result=evaluate(ready,'retry')
+     const shelving=b.screenplayShelving
+     if(result.outcome==='viable') {
+       b.activeScriptOrdinals=[...b.activeScriptOrdinals,due.ordinal].sort((x,y)=>x-y)
+@@ -330,9 +347,9 @@
+     }
+   }
+   // A bounded ready inventory, paid writers and enough actual runway precede a commission.
+-  if(b.costCutting.since!==null)return
++  if(b.costCutting.since!==null){observeS7Decide(week,b.studioId,'commissionRefusal',{reason:'cutting'});return}
+   if(b.activeScriptOrdinals.length>=2){commissionStop='fullIndex';return}
+-  if(b.account.cash<operatingReserve(b,h,week))return
++  if(b.account.cash<operatingReserve(b,h,week)){observeS7Decide(week,b.studioId,'commissionRefusal',{reason:'reserve'});return}
+   if(week<b.screenplayShelving.commissionHoldUntilWeek){commissionStop='hold';return}
+   const writer=employees.find(t=>t.role==='writer'&&!busy.has(t.id))
+   if(!writer){commissionStop=employees.some(t=>t.role==='writer')?'busyWriter':'missingWriter';return}
+@@ -356,7 +373,7 @@
+   const writerTerms=currentEmployees(h,b.studioId).find(e=>e.terms.talentId===writer.id)!.terms
+   // Work due at the term end completes before ordinary expiry. Later work needs a paid term
+   // already in force; an open market case does not guarantee a future renewal.
+-  if(week+draftWeeks>writerTerms.endWeekExclusive)return
++  if(week+draftWeeks>writerTerms.endWeekExclusive){observeS7Decide(week,b.studioId,'commissionRefusal',{reason:'writerTermTooShort'});return}
+   const weeklyCost=rivalWeeklyOperatingCost(b,h,week)
+   const reserve=weeklyCost*Math.max(b.policy.reserveWeeks,draftWeeks+TUNING.PRODUCTION_TICKS+1)
+   const candidate=chooseIndustryPackage({concept,shape,shapeEffects:resolveShape(shape),promise,budget:{negative:concept.baseNegativeCost,marketing:0},
+@@ -382,6 +399,8 @@
+     cash:b.account.cash,reserve:operatingReserve(b,h,week),commissionStop,...cashFacts,
+     indexedOutcomes:outcomes.every((outcome):outcome is RivalCostCuttingEntryFacts['indexedOutcomes'][number]=>outcome!==undefined)?outcomes:[]})
+   if(b.costCutting.since===null&&enters)b.costCutting={version:1,since:week}
++  observeS7Decide(week,b.studioId,'decisionEnd',{greenlit,commissioned,commissionStop,enters,cuttingSince:b.costCutting.since,
++    cash:b.account.cash,productionCount:b.productions.length,runCount:b.runs.length,indexedOutcomes:outcomes})
+ }
+ 
+ /** Each active run pays its installment due at input week `week` at its locked share; a final payment settles the

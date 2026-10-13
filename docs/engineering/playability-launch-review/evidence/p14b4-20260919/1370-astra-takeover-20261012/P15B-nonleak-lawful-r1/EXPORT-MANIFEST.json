@@ -1,0 +1,27 @@
+[
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-nonleak-lawful-r1/DELTA-vs-consumers-r2.diff",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r1/DELTA-vs-consumers-r2.diff",
+    "sha256": "29284c549da5f2c49f7dac7fe6d5a86040dab36730e51c5c62c5f20cdad1b854"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-nonleak-lawful-r1/EXPECTED-IDENTITIES.json",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r1/EXPECTED-IDENTITIES.json",
+    "sha256": "887c19cd99f3731f5464b41640067e82353509405b4a82cae1c0ebdc6c4a67b3"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-nonleak-lawful-r1/MANIFEST.json",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r1/MANIFEST.json",
+    "sha256": "cd7e25fc80a63eefc282653f771baf081d62cdd70d5509e7dd82781aded71ac2"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-nonleak-lawful-r1/REPORT.md",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r1/REPORT.md",
+    "sha256": "5c7838889a036353126ff86c9580f564f9db64f7f824cd1a1aea72d287da08f7"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-nonleak-lawful-r1/originals/p13b-s8-nonleak.test.ts",
+    "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r1/originals/p13b-s8-nonleak.test.ts",
+    "sha256": "dbf0996d9d925d9f3019d68fe3dda14874b52cdaed4a1e724e6f6d419706ae5c"
+  }
+]

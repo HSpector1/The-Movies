@@ -1,0 +1,467 @@
+{
+  "commands": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791854339,
+      "endEpoch": 1791854382,
+      "seconds": 43,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-consumers-r2-run/tsc-root.log"
+    },
+    {
+      "name": "consumer-focused",
+      "exit": 0,
+      "startEpoch": 1791854387,
+      "endEpoch": 1791854442,
+      "seconds": 55,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "tests/bridge-contract-generator.test.ts",
+        "tests/bridge-schema.test.ts",
+        "tests/bridge-p15a2-ranking-presentation-unit.test.ts",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-consumers-r2-run/consumer-focused.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-consumers-r2-run/consumer-focused.log"
+    }
+  ],
+  "freezeSHA256": "6ebc9cda543ce48d0e9aba04aaf2b88ff52fca0504793a1d98600bcc1af170db",
+  "postFreezeSHA256": "6ebc9cda543ce48d0e9aba04aaf2b88ff52fca0504793a1d98600bcc1af170db",
+  "freezeEqual": true,
+  "runtimeExecuted": true,
+  "reporterCounts": {
+    "numTotalTestSuites": 14,
+    "numPassedTestSuites": 14,
+    "numFailedTestSuites": 0,
+    "numPendingTestSuites": 0,
+    "numTotalTests": 55,
+    "numPassedTests": 55,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "numTodoTests": 0,
+    "success": true
+  },
+  "actualCounts": {
+    "passed": 55
+  },
+  "fileCounts": {
+    "tests/bridge-contract-generator.test.ts": {
+      "passed": 31
+    },
+    "tests/bridge-p15a2-ranking-presentation-unit.test.ts": {
+      "passed": 2
+    },
+    "tests/bridge-schema.test.ts": {
+      "passed": 22
+    }
+  },
+  "missingRequired55": [],
+  "missingFullFiles": [],
+  "unexpectedFiles": [],
+  "required55Counts": {
+    "passed": 55
+  },
+  "duplicateIdentities": [],
+  "identities": [
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation A \u2014 exact nullable unions F01 emits required string|null without a union class and is arm-order independent",
+      "status": "passed",
+      "duration": 10.122976000000108,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation A \u2014 exact nullable unions F02 preserves a named object behind required object|null",
+      "status": "passed",
+      "duration": 2.5283069999998133,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation A \u2014 exact nullable unions rejects malformed nullable wrappers exactly",
+      "status": "passed",
+      "duration": 1.5577740000001086,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation A \u2014 exact nullable unions preserves nullable value-type array items recursively and initializes the exact element type",
+      "status": "passed",
+      "duration": 2.5772089999998116,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation A \u2014 exact nullable unions leaves optional arrays absent while required arrays retain empty initialization",
+      "status": "passed",
+      "duration": 1.1096950000001016,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation B \u2014 structurally compatible object unions F03 emits one sealed aggregate only after exact recursive compatibility",
+      "status": "passed",
+      "duration": 4.187787000000071,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation B \u2014 structurally compatible object unions F05 fails closed for conflicting same-name types in stable definition-path order",
+      "status": "passed",
+      "duration": 1.8986320000001342,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation B \u2014 structurally compatible object unions F06 keeps absent, optional, and required as three different laws",
+      "status": "passed",
+      "duration": 1.2331480000000283,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation B \u2014 structurally compatible object unions F08 reports the nested defect and exact referencing use site",
+      "status": "passed",
+      "duration": 1.1606899999999314,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation C \u2014 closed discriminated object unions F04 emits an abstract base, exact concrete members, a closed vocabulary, and converter",
+      "status": "passed",
+      "duration": 9.896944000000076,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation C \u2014 closed discriminated object unions keeps member storage attached and generated bytes identical when anyOf order reverses",
+      "status": "passed",
+      "duration": 818.289759,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation C \u2014 closed discriminated object unions rejects ambiguous, overlapping, malformed, and unsafe discriminator selection exactly",
+      "status": "passed",
+      "duration": 3.642481000000089,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation C \u2014 closed discriminated object unions rejects repeated discriminator literals at the duplicate enum entry",
+      "status": "passed",
+      "duration": 0.7984449999999015,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation C \u2014 closed discriminated object unions quotes hostile discriminator values in every generated diagnostic context",
+      "status": "passed",
+      "duration": 2.1937279999999646,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation C \u2014 closed discriminated object unions rejects anonymous/open members and multiple generated base ownership",
+      "status": "passed",
+      "duration": 2.120775999999978,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation D/E \u2014 unsupported unions fail closed F07 rejects an object/primitive mix independent of arm order",
+      "status": "passed",
+      "duration": 0.7942219999999907,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation D/E \u2014 unsupported unions fail closed F09 supports a named discriminated array item and rejects anonymous/conflicting items",
+      "status": "passed",
+      "duration": 1.814728999999943,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation current accepted contract and future sentinel F10 emits sound request and response union shapes without changing schema identity",
+      "status": "passed",
+      "duration": 311.7528030000001,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation current accepted contract and future sentinel F11 preserves command member-only directorId and nullable base use",
+      "status": "passed",
+      "duration": 170.76240599999983,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation current accepted contract and future sentinel F12 emits six concrete Production-state fixture members without promoting conflicts",
+      "status": "passed",
+      "duration": 4.038404999999784,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation current accepted contract and future sentinel pins exact positive output identities and deterministic rerendering",
+      "status": "passed",
+      "duration": 357.7968799999999,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation current accepted contract and future sentinel is a red mutation guard against first-member-wins flattening",
+      "status": "passed",
+      "duration": 162.5332599999997,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards fails unknown references and cycles at exact use paths",
+      "status": "passed",
+      "duration": 0.7936299999996663,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards rejects normalized vocabulary identifiers that collide",
+      "status": "passed",
+      "duration": 0.49135200000000623,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards rejects duplicate vocabulary literals at the exact enum entry",
+      "status": "passed",
+      "duration": 0.4183189999998831,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards validates compatible and promoted properties in their emitted class scopes",
+      "status": "passed",
+      "duration": 1.667685000000347,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards rejects enclosing class and synthesized discriminator member collisions",
+      "status": "passed",
+      "duration": 2.0082580000002963,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards rejects inherited promoted and vocabulary-enclosing symbol collisions",
+      "status": "passed",
+      "duration": 1.174626999999873,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards reserves configured contract class and generated contract member names",
+      "status": "passed",
+      "duration": 2.0414099999998143,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards allows annotation-only $ref siblings and rejects assertions/applicators at the sibling path",
+      "status": "passed",
+      "duration": 1.2927899999999681,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards renders the whole contract before a caller can invoke any output sink",
+      "status": "passed",
+      "duration": 1.8465750000000298,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15a2-ranking-presentation-unit.test.ts",
+      "fullName": "Power Ranking NONCAMPAIGN presentation units:1356-A166\u2013170 counted zero-score retained film is nonempty and does not display the empty-film sentence",
+      "status": "passed",
+      "duration": 1593.243316,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15a2-ranking-presentation-unit.test.ts",
+      "fullName": "Power Ranking NONCAMPAIGN presentation units:1356-A166\u2013170 available unranked late143 entry displays Ranked from quarter195 with no comparable rank",
+      "status": "passed",
+      "duration": 1331.1203409999998,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema uses fixed ordinal key order, including non-ASCII keys, independent of insertion order",
+      "status": "passed",
+      "duration": 2.4882950000001074,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema hashes the complete canonical contract and changes on structural wire drift",
+      "status": "passed",
+      "duration": 32.37973099999999,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema closes every declared object recursively and publishes explicit protocol metadata",
+      "status": "passed",
+      "duration": 16.168916999999965,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope",
+      "status": "passed",
+      "duration": 4947.986959,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema keeps live location identities in the projection-v4 building namespace",
+      "status": "passed",
+      "duration": 28131.475059,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema owns every legacy projection field exactly once with byte-equivalent schema semantics",
+      "status": "passed",
+      "duration": 0.954901000004611,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data",
+      "status": "passed",
+      "duration": 2525.0157999999938,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema preserves required nullable numeric fields through schema projection",
+      "status": "passed",
+      "duration": 2105.021664,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema models accepted load/command responses as one flat projection envelope",
+      "status": "passed",
+      "duration": 2001.7558849999987,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema requires one closed structured rejection with non-empty guidance and a nullable holder",
+      "status": "passed",
+      "duration": 1323.4255580000026,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema models the schema discovery response without a self-referential object contract",
+      "status": "passed",
+      "duration": 44.57980800000223,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema validates the session and health handshake envelopes",
+      "status": "passed",
+      "duration": 1732.8976059999986,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema keeps checked-in JSON and generated C# byte-derived from the canonical schema",
+      "status": "passed",
+      "duration": 16.131002999994962,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema parseWireValue anyOf dispatch on a discriminated object union (P04A Lane B Step 1 spike) dispatches each member by its literal discriminant and preserves its own fields",
+      "status": "passed",
+      "duration": 0.49785500000143657,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema parseWireValue anyOf dispatch on a discriminated object union (P04A Lane B Step 1 spike) rejects a value matching neither member",
+      "status": "passed",
+      "duration": 0.3646160000062082,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema parseWireValue anyOf dispatch on a discriminated object union (P04A Lane B Step 1 spike) rejects a mixed member carrying fields from both alternatives",
+      "status": "passed",
+      "duration": 0.4372719999955734,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema parseWireValue anyOf dispatch on a discriminated object union (P04A Lane B Step 1 spike) rejects a member whose discriminant is right but whose own field is malformed",
+      "status": "passed",
+      "duration": 0.46929999999701977,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema P04A casting schema \u2014 closed union coverage validates a quoteCommission and a quoteCasting request through the SAME StudioBridgeQuoteRequest union",
+      "status": "passed",
+      "duration": 1.371274999997695,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema P04A casting schema \u2014 closed union coverage rejects a request carrying an extra key on either union member",
+      "status": "passed",
+      "duration": 0.9001969999953872,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema P04A casting schema \u2014 closed union coverage rejects a request whose `type` and `draft` shape disagree (mixed member)",
+      "status": "passed",
+      "duration": 1.1943820000014966,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema P04A casting schema \u2014 closed union coverage StudioCastingDraftPayload keeps every by-kind field REQUIRED (nullable, never optional)",
+      "status": "passed",
+      "duration": 0.9180110000015702,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema P04A casting schema \u2014 closed union coverage validates a commission AND a casting quote through the SAME StudioQuoteSnapshot union, closed with P11 finances confined to the shared envelope",
+      "status": "passed",
+      "duration": 2.301114999994752,
+      "failures": []
+    }
+  ],
+  "scope": "bounded three-full-file qualification, complete actual results; not fullP15B/native or acceptance"
+}

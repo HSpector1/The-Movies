@@ -1,0 +1,14 @@
+{
+  "reason": "preserve exact immutable patch context/raw evidence, no executable source waiver",
+  "files": {
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r1/DELTA-vs-bridge-ranking-impl-r1.diff": "0270e24658763087f12b4eb7533ad84fbc965a544e508274d64f28bc28b74250",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-bridge-ranking-consumers-r2/DELTA-vs-consumers-r1.diff": "f1e7a7144634cd585bf3b22ec27e86a5dc41765ead87d844b41d636efb9043f1",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-nonleak-lawful-r1/DELTA-vs-consumers-r2.diff": "29284c549da5f2c49f7dac7fe6d5a86040dab36730e51c5c62c5f20cdad1b854",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-nonleak-lawful-test-draft/EXACT.diff": "15edaf105cdc8a4a4ac0f56b87a64d791840cc811c13202d3e9a6248f6f18ff1",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft-r2/EXACT-R1-R2.diff": "939ec81c1c3d62a6dcd2d855c485ecb45ad45f0279c8d92573be59c6d70d7d45",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft-r2/scratch-observer.patch": "31d6468e4175cd41c6a143aa690979cac56a3520a3977a3faf23c0e48793d41a",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/natural-adaptation.diff": "498304ab5fc68fea358a0717313b03f0a27eabf21dd987672ae8246e6e2b611d",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/s7-decide-diag.test.ts.diff": "f4990ef552963e5eb49b5a57e8417d9f803f72bcbf9fc67a0410a7e13e9b6ccf",
+    "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/p15b-o1-o6-s7-current-draft/scratch-observer.patch": "483a87f8fbab1efee208f96bf4869fa7ddbdd4d46a24f0eaa08f1b302bc75392"
+  }
+}

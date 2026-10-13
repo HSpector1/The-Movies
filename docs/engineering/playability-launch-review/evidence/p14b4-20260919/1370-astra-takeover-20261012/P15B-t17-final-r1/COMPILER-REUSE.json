@@ -1,0 +1,53 @@
+{
+  "kind": "parent explicit conditional compiler-reuse preflight; no new execution",
+  "commands": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791854339,
+      "endEpoch": 1791854382,
+      "seconds": 43,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-consumers-r2-run/tsc-root.log"
+    },
+    {
+      "name": "consumer-focused",
+      "exit": 0,
+      "startEpoch": 1791854387,
+      "endEpoch": 1791854442,
+      "seconds": 55,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "tests/bridge-contract-generator.test.ts",
+        "tests/bridge-schema.test.ts",
+        "tests/bridge-p15a2-ranking-presentation-unit.test.ts",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-consumers-r2-run/consumer-focused.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-consumers-r2-run/consumer-focused.log"
+    }
+  ],
+  "recordsSHA256": "ffc308ab62ddead8b70cec40f8c9df02de8e3e96f0f795d1daed396ffe12fe14",
+  "freezeSHA256": "6ebc9cda543ce48d0e9aba04aaf2b88ff52fca0504793a1d98600bcc1af170db",
+  "freezeAfterSHA256": "6ebc9cda543ce48d0e9aba04aaf2b88ff52fca0504793a1d98600bcc1af170db",
+  "fullFreezeEqual": true,
+  "currentIndexCachedDiffAndWorkingDiffMatch": true,
+  "laneMetaSHA256": "61e7331377e3d4d47f8932d63c2c73cba77a5b6bce3abb4d02cd39b658650187",
+  "nextRunnerSHA256": "c987969fa2046aba2198e78b971b3fe8b1f0c326fe8bc7bc3f064223b6611a4b",
+  "candidatePatchSHA256": "9a4a7a10349c8cd080ee8a7a22dbff08ec32902b18be52e7dbbba1c8ec605980",
+  "candidateManifestSHA256": "da19e34cc1935d18100738c63835c8ae988e83c8be621f2f6502e69d48132a78",
+  "condition": "T17 runner MUST subsequently enforce exact same158 WT/index postimages and all previous170 source/config/required-input identities; adds inputs only, no source changes"
+}

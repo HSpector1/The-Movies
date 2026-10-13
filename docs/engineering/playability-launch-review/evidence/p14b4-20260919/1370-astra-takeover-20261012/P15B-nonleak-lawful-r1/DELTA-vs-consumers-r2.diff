@@ -1,0 +1,335 @@
+diff --git a/tests/p13b-s8-nonleak.test.ts b/tests/p13b-s8-nonleak.test.ts
+index 4faafa24..690b332f 100644
+--- a/tests/p13b-s8-nonleak.test.ts
++++ b/tests/p13b-s8-nonleak.test.ts
+@@ -1,168 +1,189 @@
+-// ── P13B-S8 test 5: the S7 non-leak invariant survives genuine rival
+-// RESEARCH divergence (not merely rival adoption) ──────────────────────────
+-//
+-// Requirement-derived from "S8 — Symmetric rival research and finance" scope
+-// record ("Forecast invariant (S7): rival research never leaks; the
+-// announcement stays campaign-clock driven"), the plan's "Tests" item 5 ("S7
+-// non-leak invariant with rival research present"), and the Refinement
+-// block's own words: "S7 invariant: technologyForecast/technologyAnnouncements
+-// are unchanged (pure); the industry page publishes rival research NEVER (no
+-// research rows, no seat counts, no spend) — only technologyAdopted receipts
+-// (existing) and the campaign-clock announcement; test 5 UPGRADES S7's
+-// PARTIAL rival-independence to a genuine one (two campaigns differing in
+-// rival RESEARCH state publish identical forecast/announcement rows)."
+-//
+-// tests/p13b-s7-independence.test.ts's own header names EXACTLY the gap this
+-// file closes: "Player research/employment cannot yet be varied independently
+-// of the world seed in this engine (no rival research exists — S8)... this
+-// file is PARTIAL: it exercises rival technology ADOPTION divergence only,
+-// and names rival RESEARCH/EMPLOYMENT divergence as the S8 gap this file
+-// does not close." This file builds that exact divergent pair instead
+-// (rival RESEARCH — a project, seats, employment, researchSpend — never
+-// rival adoption) and shows the SAME pure-signature independence holds.
+-//
+-// RED-by-design: `src/core/rivalResearch.ts` does not exist yet.
+-// `advanceRivalResearchWeek` is the import from that new module and is
+-// CALLED below, so this file fails at module resolution before any test
+-// body runs. `technologyForecast`/`technologyAnnouncements`
+-// (technologyDisclosure.ts) are REAL and already exist (S7 landed on this
+-// branch) — this file's sole RED cause is the new S8 module.
+-//
+-// PREMISES NAMED: same `advanceRivalResearchWeek(state, business, project)`
+-// signature premise as tests/p13b-s8-research.test.ts's header (not
+-// repeated here in full); rival Scientist seats are minted with
+-// `generateScientist` and real rival employment rows for the same reason
+-// named there.
+-
++// S8 test5: real earned rival RESEARCH divergence preserves pure S7 disclosure.
++// Fixture repair: original p13b-s8-nonleak-01 minted invalid lab/seats/history.
++// Genuine accepted1368 p13a-core-causal-01 week267 is publicly migrated45→current.
++// Only current r01 sound budget40000→20000 is CONSTRUCTED, not naturally chosen
++// policy or a public rival command. Both fully admitted arms earn all later facts
++// through ordinary full develop:true ticks. No standalone half-phase research.
+ import { beforeAll, describe, expect, it } from 'vitest'
+-import { generateScientist } from '../src/core/worldgen.js'
+-import { withTalentProvenance } from '../src/core/aging.js'
++import { performance } from 'node:perf_hooks'
++import { accepted45 } from './helpers/1368-recovery-witnesses.js'
++import { makeSave, stableStringify, validateSaveV48 } from '../src/core/save.js'
++import { tick } from '../src/core/tick.js'
++import { researchWeekQuote, studioContext } from '../src/core/technology.js'
+ import { technologyEntry } from '../src/core/technologyCatalogue.js'
+ import { technologyAnnouncements, technologyForecast } from '../src/core/technologyDisclosure.js'
+-import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+-import type { GameState, Talent } from '../src/core/types.js'
+-import type { HollywoodState, RivalBusiness } from '../src/core/hollywoodTypes.js'
+-import type { ResearchProject } from '../src/core/technologyTypes.js'
+-// RED-by-design: src/core/rivalResearch.ts does not exist yet. This is the
+-// ONE import from that new module in this file.
+-import { advanceRivalResearchWeek } from '../src/core/rivalResearch.js'
+-
+-const SEED = 'p13b-s8-nonleak-01'
++import { isOperatingStudio } from '../src/core/operatingState.js'
++import type { GameState } from '../src/core/types.js'
+ 
+-function bellwether(state: GameState): { hollywood: HollywoodState; business: RivalBusiness } {
+-  const hollywood = state.hollywood!
+-  const identity = hollywood.identities.find(s => s.row === 1)!
+-  const business = hollywood.businesses.find(b => b.studioId === identity.studioId)!
+-  return { hollywood, business }
++const PROJECT = 'studio-aca408ec-r01:research:synchronized-sound'
++const RIVAL = 'studio-aca408ec-r01'
++const bytes = (value: unknown) => stableStringify(value)
++const options = { develop: true } as const
++function project(state: GameState) {
++  const found = state.technology.projects.find(p => p.id === PROJECT)
++  expect(found, 'actual accepted267 research project prerequisite').toBeDefined()
++  return found!
+ }
+-
+-/** Real rival research divergence: a genuinely staffed, actively spending rival lighting-control-01 project on the rival's OWN abstract Laboratory ({capability:'laboratory', capacity:4} — S8 LAW item 9) — never a rival adoption. */
+-function withRivalResearch(state: GameState): GameState {
+-  const { business } = bellwether(state)
+-  const week = state.market.tick
+-  const labId = `${business.studioId}:lab-0`
+-  const scientists: Talent[] = Array.from({ length: 2 }, (_, i) => generateScientist(state.seed, `${business.studioId}:scientist-forged-${String(i)}`))
+-  const hollywood = state.hollywood!
+-  const startOrdinal = hollywood.employment.length
+-  const employment = [...hollywood.employment, ...scientists.map(s => ({
+-    contractId: `${business.studioId}:contract:${s.id}:${String(week)}`, studioId: business.studioId,
+-    terms: { talentId: s.id, annualSalary: s.salary ?? 60_000, signingBonus: 0, startWeek: week, endWeekExclusive: week + 208, termWeeks: 208 },
+-    endedWeek: null, reason: 'entry' as const,
+-  }))]
+-  const activeEmploymentOrdinals = [...hollywood.activeEmploymentOrdinals, ...scientists.map((_, i) => startOrdinal + i)]
+-  const businesses = hollywood.businesses.map(b => b.studioId === business.studioId
+-    ? { ...b, operations: { ...b.operations, facilities: [...b.operations.facilities, { id: labId, name: 'Research Laboratory', capability: 'laboratory' as const, capacity: 4 }] } }
+-    : b)
+-  const project: ResearchProject = {
+-    id: `${business.studioId}:research:lighting-control-01`, studioId: business.studioId, technologyId: 'lighting-control-01',
+-    laboratoryFacilityId: labId, status: 'active', budgetPerWeek: 20_000,
+-    verifiedWork: 0, expenditure: 0, startedWeek: week, completedWeek: null,
+-    seats: scientists.map(s => ({ talentId: s.id, laboratoryFacilityId: labId, assignedWeek: week, releasedWeek: null })),
+-    weeks: [], legacy: null,
+-  }
+-  const withRoster: GameState = {
+-    ...state,
+-    // P14C.4: every live person carries a talentProvenance row (V33+ validator
+-    // condition, C.1) — the forged Scientists are lawful talent (a rival research
+-    // append), not just research furniture, so each gets one, via the same
+-    // floor-then-anchor convention the real append site uses (actions.ts's
+-    // recruitScientist): `state.talent` stores the floored age, `withTalentProvenance`
+-    // anchors the row on the exact generated age. This is a lawful append, not a
+-    // rival RESEARCH fact — it changes nothing the precondition test below checks.
+-    talent: [...state.talent, ...scientists.map(s => ({ ...s, age: Math.floor(s.age) }))],
+-    hollywood: { ...hollywood, employment, activeEmploymentOrdinals, businesses },
+-    technology: { ...state.technology, projects: [...state.technology.projects, project] },
++function business(state: GameState) {
++  const found = state.hollywood!.businesses.find(b => b.studioId === RIVAL)
++  expect(found, 'actual named rival business prerequisite').toBeDefined()
++  return found!
++}
++function admit(state: GameState) {
++  const before = bytes(state)
++  const saved = makeSave(state)
++  expect(validateSaveV48(saved)).toBe(saved)
++  expect(bytes(state)).toBe(before)
++}
++function normalized(state: GameState) {
++  return { ...state, technology: { ...state.technology, projects: state.technology.projects.map(p =>
++    p.id === PROJECT ? { ...p, budgetPerWeek: null } : p) } }
++}
++function shared(state: GameState) {
++  return { studio: state.studio, contracts: state.contracts, ledger: state.ledger,
++    operations: state.operations, placement: state.placement, market: state.market,
++    era: state.era, rngState: state.rngState, access: state.technology.access,
++    adoptions: state.technology.adoptions, chart: state.hollywood!.chart }
++}
++function earned(state: GameState) {
++  const p = project(state)
++  return { status: p.status, verifiedWork: p.verifiedWork, expenditure: p.expenditure,
++    startedWeek: p.startedWeek, completedWeek: p.completedWeek, seats: p.seats, weeks: p.weeks, legacy: p.legacy }
++}
++function spend(state: GameState) {
++  return business(state).account.periods.reduce((sum, p) => sum + p.movements.researchSpend, 0)
++}
++function disclosure(state: GameState) {
++  return { lighting: technologyForecast(technologyEntry('lighting-control-01'), state.market.tick),
++    sound: technologyForecast(technologyEntry('synchronized-sound'), state.market.tick),
++    announcements: technologyAnnouncements(state.market.tick) }
++}
++function readPure(state: GameState) {
++  const before = bytes(state), out = disclosure(state)
++  expect(bytes(state)).toBe(before)
++  return out
++}
++function advancePair(a: GameState, b: GameState, target: number, started: number): [GameState, GameState] {
++  while (a.market.tick < target) {
++    expect(b.market.tick).toBe(a.market.tick)
++    // Never advance either actual player terminal. No funding/closure deferral.
++    if (!isOperatingStudio(a, a.hollywood!.playerStudioId) || !isOperatingStudio(b, b.hollywood!.playerStudioId))
++      throw new Error(`PREREQUISITE: player closed before non-leak target${target} at${a.market.tick}`)
++    if (performance.now() - started > 30_000) throw new Error('30-second existing route budget exceeded')
++    const at = a.market.tick
++    a = tick(a, options); b = tick(b, options)
++    expect(a.market.tick).toBe(at + 1); expect(b.market.tick).toBe(at + 1)
+   }
+-  return scientists.reduce((next, s) => withTalentProvenance(next, s), withRoster)
++  expect(a.market.tick).toBe(target); expect(b.market.tick).toBe(target)
++  admit(a); admit(b)
++  return [a, b]
++}
++function endpoint(a: GameState, b: GameState) {
++  expect(a.market.tick).toBe(b.market.tick)
++  expect(a.operations).toEqual(b.operations)
++  expect(a.placement).toEqual(b.placement)
++  expect(project(a).weeks.find(w => w.week === 267)?.spend).toBe(40_000)
++  expect(project(b).weeks.find(w => w.week === 267)?.spend).toBe(20_000)
++  expect(bytes(earned(a))).not.toBe(bytes(earned(b)))
++  expect(project(a).expenditure).not.toBe(project(b).expenditure)
++  expect(bytes(readPure(a))).toBe(bytes(readPure(b)))
+ }
+ 
+-describe('P13B-S8 non-leak: forecast/announcements identical across states differing ONLY in rival RESEARCH state (test 5, upgrades S7\'s PARTIAL to genuine)', () => {
+-  let base: GameState
+-  let rivalResearchVariant: GameState
+-
++describe('P13B-S8 non-leak: admitted budget-only counterfactual earns rival research divergence (test5)', () => {
++  let original267: GameState, constructed267: GameState, actual268: GameState, constructed268: GameState
++  let base: GameState, rivalResearchVariant: GameState
++  let originalBytes: string, constructedBytes: string
++  let qA: ReturnType<typeof researchWeekQuote>, qB: ReturnType<typeof researchWeekQuote>
+   beforeAll(() => {
+-    base = advanceTo(p13aGeneratedStudio(SEED), 780) // lighting-control-01's own researchableWeek
+-    rivalResearchVariant = withRivalResearch(base)
++    const started = performance.now()
++    const captured = accepted45('research')
++    expect(captured.row.rawSha256).toBe('2b27ca1517b8fcf5329b4742e329e252dfb40fe2dbafe3868244bd6f81b0f3b1')
++    original267 = captured.current.state
++    expect(original267.seed).toBe('p13a-core-causal-01'); expect(original267.market.tick).toBe(267)
++    expect(project(original267)).toMatchObject({ studioId: RIVAL, technologyId: 'synchronized-sound',
++      status: 'active', budgetPerWeek: 40_000, verifiedWork: 12, expenditure: 80_000 })
++    expect(project(original267).seats.filter(s => s.releasedWeek === null)).toHaveLength(4)
++    expect(isOperatingStudio(original267, RIVAL)).toBe(true)
++    expect(business(original267).costCutting.since).toBeNull()
++    admit(original267) // Genuine input admission BEFORE constructing the current-policy counterfactual.
++    constructed267 = { ...original267, technology: { ...original267.technology,
++      projects: original267.technology.projects.map(p => p.id === PROJECT ? { ...p, budgetPerWeek: 20_000 } : p) } }
++    originalBytes = bytes(original267); constructedBytes = bytes(constructed267)
++    expect(constructedBytes).not.toBe(originalBytes)
++    expect(bytes(normalized(constructed267))).toBe(bytes(normalized(original267)))
++    admit(constructed267) // Failure aborts setup BEFORE any tick.
++    qA = researchWeekQuote(original267, project(original267), studioContext(original267, RIVAL))
++    qB = researchWeekQuote(constructed267, project(constructed267), studioContext(constructed267, RIVAL))
++    expect(qA.spend).toBeGreaterThan(qB.spend); expect(qB.spend).toBeGreaterThan(0)
++    expect(qA.output).toBeGreaterThan(qB.output); expect(qB.output).toBeGreaterThan(0)
++    expect(qA.output).toBeLessThan(technologyEntry('synchronized-sound').work - 12)
++    expect(qB.output).toBeLessThan(technologyEntry('synchronized-sound').work - 12)
++    expect(bytes(original267)).toBe(originalBytes); expect(bytes(constructed267)).toBe(constructedBytes)
++    expect(shared(constructed267)).toEqual(shared(original267))
++    expect(readPure(constructed267)).toEqual(readPure(original267))
++    expect(isOperatingStudio(original267, original267.hollywood!.playerStudioId)).toBe(true)
++    expect(isOperatingStudio(constructed267, constructed267.hollywood!.playerStudioId)).toBe(true)
++    actual268 = tick(original267, options); admit(actual268)
++    expect(bytes(original267)).toBe(originalBytes)
++    constructed268 = tick(constructed267, options); admit(constructed268)
++    expect(bytes(constructed267)).toBe(constructedBytes)
++    expect(actual268.market.tick).toBe(268); expect(constructed268.market.tick).toBe(268)
++    ;[base, rivalResearchVariant] = advancePair(actual268, constructed268, 780, started)
++    endpoint(base, rivalResearchVariant)
++    expect(bytes(original267)).toBe(originalBytes); expect(bytes(constructed267)).toBe(constructedBytes)
+   }, 30_000)
+ 
+-  it('precondition: the rival-research variant genuinely differs from the base world in rival RESEARCH facts only, at the identical week', () => {
++  it('precondition: same-week admitted arms differ only in current rival research budget initially, retaining earned research divergence at780', () => {
++    expect(bytes(normalized(constructed267))).toBe(bytes(normalized(original267)))
++    expect(constructed267).not.toEqual(original267)
+     expect(rivalResearchVariant.market.tick).toBe(base.market.tick)
+-    expect(rivalResearchVariant.technology.projects.length).toBeGreaterThan(base.technology.projects.length)
+-    expect(rivalResearchVariant).not.toEqual(base)
+-    // Player-owned roots and the shared chart/announcement clock untouched —
+-    // only rival research facts (technology.projects, hollywood.employment,
+-    // hollywood.talent) differ. `talent`/`talentProvenance` also differ (the
+-    // forged Scientists and their provenance rows), but that is the SAME lawful
+-    // talent append the roster line above already names, not a second, separate
+-    // "research" fact — a live person always carries a provenance row (C.1), so
+-    // appending one without the other would be the actual leak.
++    expect(bytes(earned(rivalResearchVariant))).not.toBe(bytes(earned(base)))
+     expect(rivalResearchVariant.operations).toEqual(base.operations)
+     expect(rivalResearchVariant.placement).toEqual(base.placement)
+     expect(rivalResearchVariant.technology.access).toEqual(base.technology.access)
+     expect(rivalResearchVariant.technology.adoptions).toEqual(base.technology.adoptions)
+     expect(rivalResearchVariant.hollywood!.chart).toEqual(base.hollywood!.chart)
++    // Keep the original780 access/adoption/chart invariants; measurement is
++    // still required. Retained earned history, not active-at780, is required.
++    expect(shared(constructed267)).toEqual(shared(original267))
++    expect(shared(constructed268)).toEqual(shared(actual268))
+   })
+ 
+-  it('the rival research step is real: driving it once advances the forged project\'s verifiedWork/expenditure without touching the player\'s cash', () => {
+-    const { business } = bellwether(rivalResearchVariant)
+-    const project = rivalResearchVariant.technology.projects.find(p => p.studioId === business.studioId)!
+-    const stepped = advanceRivalResearchWeek(rivalResearchVariant, business, project)
+-    const advancedProject = stepped.technology.projects.find(p => p.id === project.id)!
+-    expect(advancedProject.expenditure).toBeGreaterThanOrEqual(project.expenditure)
+-    expect(rivalResearchVariant.studio.cash).toBe(base.studio.cash) // the player's own cash is never touched by a rival's own step
++  it('real full research week earns positive unequal verifiedWork/expenditure and rival debits without changing player/shared roots', () => {
++    for (const [input, next, quote] of [[original267, actual268, qA], [constructed267, constructed268, qB]] as const) {
++      expect(project(next).verifiedWork - project(input).verifiedWork).toBe(quote.output)
++      expect(project(next).expenditure - project(input).expenditure).toBe(quote.spend)
++      expect(project(next).weeks.at(-1)).toMatchObject({ week: 267, spend: quote.spend })
++      expect(spend(next) - spend(input)).toBe(-quote.spend)
++    }
++    expect(project(actual268).verifiedWork).toBeGreaterThan(project(constructed268).verifiedWork)
++    expect(project(actual268).expenditure).toBeGreaterThan(project(constructed268).expenditure)
++    expect(shared(constructed268)).toEqual(shared(actual268)) // Includes player's actual cash/ledger after full ticks.
++    expect(readPure(constructed268)).toEqual(readPure(actual268))
++    expect(bytes(original267)).toBe(originalBytes); expect(bytes(constructed267)).toBe(constructedBytes)
+   })
+ 
+-  it('lighting forecast (windowed) is byte-identical across the two research-divergent states at week 780', () => {
+-    const entry = technologyEntry('lighting-control-01')
+-    const fromBase = technologyForecast(entry, base.market.tick)
+-    const fromVariant = technologyForecast(entry, rivalResearchVariant.market.tick)
+-    expect(fromVariant).toEqual(fromBase)
+-    expect(JSON.stringify(fromVariant)).toBe(JSON.stringify(fromBase))
++  it('lighting forecast (windowed) is byte-identical across the research-divergent states at week780', () => {
++    const a = readPure(base).lighting, b = readPure(rivalResearchVariant).lighting
++    expect(b).toEqual(a); expect(JSON.stringify(b)).toBe(JSON.stringify(a))
++    expect(a).toEqual({ kind: 'window', fromWeek: 884, toWeek: 988 })
+   })
+ 
+-  it('technologyAnnouncements(780) is byte-identical (no research row, no seat count, no spend figure — never published) across the two states', () => {
+-    const fromBase = technologyAnnouncements(base.market.tick)
+-    const fromVariant = technologyAnnouncements(rivalResearchVariant.market.tick)
+-    expect(fromVariant).toEqual(fromBase)
++  it('technologyAnnouncements(780) is byte-identical (no research row, seat count or spend published)', () => {
++    const a = readPure(base).announcements, b = readPure(rivalResearchVariant).announcements
++    expect(b).toEqual(a); expect(bytes(b)).toBe(bytes(a)); expect(a).toEqual([])
+   })
+ 
+-  it('advanced independently to week 900 (past the lighting announcement), the rival-research-only divergence persists in the engine roots but forecasts/announcements still publish byte-identical', () => {
+-    const base900 = advanceTo(base, 900)
+-    const variant900 = advanceTo(rivalResearchVariant, 900)
+-    expect(base900.market.tick).toBe(900)
+-    expect(variant900.market.tick).toBe(900)
+-    expect(variant900.operations).toEqual(base900.operations)
+-    expect(variant900.placement).toEqual(base900.placement)
+-
+-    const entry = technologyEntry('lighting-control-01')
+-    const forecastFromBase = technologyForecast(entry, base900.market.tick)
+-    const forecastFromVariant = technologyForecast(entry, variant900.market.tick)
+-    expect(forecastFromVariant).toEqual(forecastFromBase)
+-    expect(forecastFromBase).toEqual({ kind: 'exact', commercialWeek: 936, announcedWeek: 884 })
+-
+-    const announcementsFromBase = technologyAnnouncements(base900.market.tick)
+-    const announcementsFromVariant = technologyAnnouncements(variant900.market.tick)
+-    expect(announcementsFromVariant).toEqual(announcementsFromBase)
+-    expect(announcementsFromBase).toEqual([{ technologyId: 'lighting-control-01', week: 884 }])
++  it('advanced independently to900, earned research divergence persists while pure forecasts/announcements remain byte-identical', () => {
++    const started = performance.now(), beforeA = bytes(base), beforeB = bytes(rivalResearchVariant)
++    const [base900, variant900] = advancePair(base, rivalResearchVariant, 900, started)
++    endpoint(base900, variant900)
++    expect(bytes(base)).toBe(beforeA); expect(bytes(rivalResearchVariant)).toBe(beforeB)
++    const a = readPure(base900), b = readPure(variant900)
++    expect(b.lighting).toEqual(a.lighting); expect(bytes(b.lighting)).toBe(bytes(a.lighting))
++    expect(a.lighting).toEqual({ kind: 'exact', commercialWeek: 936, announcedWeek: 884 })
++    expect(b.announcements).toEqual(a.announcements); expect(bytes(b.announcements)).toBe(bytes(a.announcements))
++    expect(a.announcements).toEqual([{ technologyId: 'lighting-control-01', week: 884 }])
++    expect(bytes(original267)).toBe(originalBytes); expect(bytes(constructed267)).toBe(constructedBytes)
+   }, 30_000)
+ })

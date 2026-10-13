@@ -1,0 +1,6 @@
+Previous full170 source/config and required input guard PASS; only2 consumer test postimages exempt, new viewer test separately packet-bound
+Bridge/Ranking consumers r2: exact158 WT/index postimages; reviewed packet; reverse check PASS
+node=v20.20.2 python=Python 3.14.4 start=2026-10-13T01:18:58Z
+{"name": "tsc-root", "exit": 0, "seconds": 43}
+{"name": "consumer-focused", "exit": 0, "seconds": 55}
+terminal consumer-focused=0; unchanged=yes; verify complete3files/exact55, all failures/skips; prior170 scope separately preserved

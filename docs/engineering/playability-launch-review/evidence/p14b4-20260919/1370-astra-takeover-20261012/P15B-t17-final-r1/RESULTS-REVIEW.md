@@ -1,0 +1,9 @@
+# T17 whole-file measured review
+
+GPT-6.1 Sol. Independently inspected raw121 reporter, command/freeze and exact failed identities in preserved R8full8376836ddf7ce2cbe32eeaa898ec6db4e15ae1c0dc802a2382d25bb97e5a58ec and Save47full05b6f8c6eb9ac3cbb34e14febfff727294814a79367d9d340c5358aad1028dbb. Both baseline file hashes match their recorded pins. No execution/source changes.
+
+Five complete files121=118pass3fail, no skip/todo; runtime63s child/lane1. All11 required historical guards pass, no missing/duplicate identities. Strict freeze bytes equal0cee62257308b313b92c345b1069e2adcfcd2b2498fbb206f4b1157997245c17. S3all13, S8all8, agingall46 and screenplay1 pass; relationships50pass/3fail. KEEP for bounded T17 guard closure, not a clean five-file result.
+
+The three failures are existing relationship film6 prerequisites: family2 first rival take, family2 repeated collaboration and family5 rival release. Each exact full-name identity uniquely exists and fails in both saved baselines with the identical first assertion diagnostic: expected [] to equal [studio-aca408ec-r01:film:6]. Current failures occur at that shared first-take premise, before their later edge/accelerator/release assertions. Preserve all complete failed stacks/raw records; matching first messages do not mean stacks byte-identical or acceptance granted.
+
+No new T17 converter/reader over-refusal is evidenced by these three producer-premise failures. Passing11 guards establishes those particular historical/refusal surfaces, not every lawful predecessor or all downgrade compositions. Existing separate full modern terminal/fund/recovery proof remains separately scoped. Earlier baseline failures remain unresolved acceptance findings rather than waivers; this run does not authorize repairing their film/history by construction or declare fullP15B/native acceptance.

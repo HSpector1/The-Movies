@@ -1,0 +1,13 @@
+diff --git a/tests/bridge-schema.test.ts b/tests/bridge-schema.test.ts
+index 7bd827e1..91f48b85 100644
+--- a/tests/bridge-schema.test.ts
++++ b/tests/bridge-schema.test.ts
+@@ -81,7 +81,7 @@ describe('canonical Unity bridge schema', () => {
+       projectionVersion: 58,
+       transport: 'http-json-localhost',
+     })
+-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-57')
++    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-58')
+   })
+ 
+   it('projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope', () => {

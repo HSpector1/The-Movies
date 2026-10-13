@@ -1,0 +1,5 @@
+Previous full170 source/config and required input guard PASS; only2 consumer test postimages exempt, new viewer test separately packet-bound
+Bridge/Ranking consumers r2: exact158 WT/index postimages; reviewed packet; reverse check PASS
+node=v20.20.2 python=Python 3.14.4 start=2026-10-13T01:23:02Z
+{"name": "t17-focused", "exit": 1, "seconds": 63}
+terminal t17-focused=1; unchanged=yes; complete5file accounting incl historical3failures, independent11guard scope, no fullacceptance claim

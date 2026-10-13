@@ -1,0 +1,9 @@
+# Bridge/Ranking consumers r2 — current schema URN literal only
+
+Only tests/bridge-schema.test.ts:84 changes independent current schema $id expectation protocol4/projection57→protocol4/projection58. The assertion remains exact and independent; canonical real owner bridge-schema.ts derives the current projection58 URN. All previous157 other postimages unchanged; 158 index/WT/manifest exact, cached diffcheck0 and reverseapply0. Original r1/preimages preserved. No runtime, generator, source/helper/config/fixture or other assertion change; K local HANDOFF intentionally unchanged under one-line-only grant, prior CURRENT still references r1. Newpacket identity given parent/roothandoff for checkpoint.
+
+This previously masked literal follows the earlier metadata assertion in the same leaf. Parent/reviewer found it after r1 cut BEFORE a recorded run; no r1 runtime result exists and no passing result is claimed. Static bounded audit of all affected generator31/schema22 identities/assertion structure and current literals found no other concrete remaining current projection/hash pin. Historical negative snapshotVersion24 remains24; fixed original positive declaration hashes and fixture protocol/projection1/historical comments remain unchanged. Do not mass-retag historical controls.
+
+Consumersr1 changes remain intact: independently measured F10/F11 47c2bade…/431186bytes/16renders/sixfixed; exact reviewed b633… NONCAMPAIGN viewer2. Existing22 Bridge/Ranking/schema test bodies, generated/runtime source and research original remain untouched. Parent fullaffected generator31/schema22/newviewer2 after immutable review; no author compiler/tests/sim/build/generator, production/commit/push. Broad/native/P15B acceptance remains separate.
+
+Lesson: an early failed metadata assertion masks later independent identity assertions in the same leaf. Audit the entire affected current-contract leaf before freezing, while preserving explicit historical negative versions.

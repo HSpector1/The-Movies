@@ -1,0 +1,115 @@
+--- r1/zz-s7-lib.ts
++++ r2/zz-s7-lib.ts
+@@ -36,21 +36,23 @@
+     throw new Error('manifest arm/head/current save era mismatch')
+   if (manifest.candidateSourceIdentity !== process.env.S7_CANDIDATE_SOURCE_ID || sha(canon(manifest.candidateFiles)) !== manifest.candidateSourceIdentity) throw new Error('candidate source identity mismatch')
+   if (process.version !== 'v20.20.2') throw new Error('reviewed Node20.20.2 required')
+-  if (execFileSync('git', ['rev-parse','HEAD'], { encoding:'utf8' }).trim() !== head) throw new Error('HEAD mismatch')
++  if (execFileSync('git', ['-c','gc.auto=0','-c','maintenance.auto=0','--no-optional-locks','rev-parse','HEAD'], { encoding:'utf8' }).trim() !== head) throw new Error('HEAD mismatch')
+   // Cover all runtime source/generated inputs, including staged and untracked files.
+-  const tracked = execFileSync('git', ['ls-files','-z','--cached','--others','--exclude-standard'], { encoding:'utf8' }).split('\0').filter(Boolean)
++  const tracked = execFileSync('git', ['-c','gc.auto=0','-c','maintenance.auto=0','--no-optional-locks','ls-files','-z','--cached','--others','--exclude-standard'], { encoding:'utf8' }).split('\0').filter(Boolean)
+   const required = tracked.filter(p => p.startsWith('src/') || p.startsWith('generated/') ||
+     ['package.json','package-lock.json','vitest.config.ts','vitest.workspace.ts','tests/zz-s7-lib.ts',
+      'tests/zz-s7-natural-route.test.ts','tests/zz-s7-decide-diag.test.ts'].includes(p))
+   for (const path of required) if (!(path in manifest.files)) throw new Error(`manifest lacks runtime input ${path}`)
+   const observerBase = '393ad2d92c51889633804ac5a0144d1993f75f3644be4d9694f45266030a93b9', observerPatched = '52b07bd0bd2fd8e68b002416240c64bad65ce9887ac29925956dcbcbe3fd56f7'
++  const policyBase = 'ea2994dbb980aa60ce70d1e53ecc6c2a0acf1365145f0e6aad148e5cd0a9bce1', policyPatched = 'c090d5f9a811387f1dba2ac5cd779f5ef97e8ed50b29703a02cf80599fcf6ff3'
+   for (const path of required.filter(p=>p.startsWith('src/')||p.startsWith('generated/'))) {
+     const clean = manifest.candidateFiles[path], actual = manifest.files[path]
+-    if (!clean || (actual!==clean && !(path==='src/core/hollywoodTick.ts' && clean===observerBase && actual===observerPatched)))
++    if (!clean || (actual!==clean && !((path==='src/core/hollywoodTick.ts' && clean===observerBase && actual===observerPatched) || (path==='src/core/hollywoodPolicy.ts' && clean===policyBase && actual===policyPatched))))
+       throw new Error(`unreviewed source difference ${path}`)
+   }
+   const mode=process.env.S7_OBSERVER_MODE
+   if ((mode!=='clean'&&mode!=='decide') || manifest.files['src/core/hollywoodTick.ts'] !== (mode==='clean'?observerBase:observerPatched)) throw new Error('exact clean/observed source mode mismatch')
++  if (manifest.files['src/core/hollywoodPolicy.ts'] !== (mode==='clean'?policyBase:policyPatched)) throw new Error('exact clean/observed policy mode mismatch')
+   for (const [path, expected] of Object.entries(manifest.files)) {
+     const full = resolve(root,path)
+     if (isAbsolute(path) || !full.startsWith(root+'/') || !expected.match(/^[a-f0-9]{64}$/)) throw new Error('unsafe manifest member')
+--- r1/zz-s7-decide-diag.test.ts
++++ r2/zz-s7-decide-diag.test.ts
+@@ -6,6 +6,7 @@
+ import { tick } from '../src/core/index.js'
+ import { makeSave } from '../src/core/save.js'
+ import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
++import * as policy from '../src/core/hollywoodPolicy.js'
+ import * as privateTick from '../src/core/hollywoodTick.js'
+ import { isOperatingStudio } from '../src/core/operatingState.js'
+ import { canon, requireTree, runOutput, sha } from './zz-s7-lib.js'
+@@ -25,14 +26,20 @@
+   type ObserverRow = { inputWeek:number; resultingStateWeek:number; studioId:string; kind:string; [key:string]:unknown }
+   const setter = (privateTick as unknown as {setS7DecideObserver?:(observer:((row:ObserverRow)=>void)|null)=>void}).setS7DecideObserver
+   if (!setter) throw new Error('PREREQUISITE: reviewed scratch-only private decide observer patch absent')
++  type RefusedRow = {key:string;negative:number;marketing:number;cashAvailable:number;score:number;holdOperatingMargin:number;expectedOperatingMargin:number;expectedIncrementalContribution:number;directorId:string;castIds:string[]}
++  const costSetter = (policy as unknown as {setS7RefusedViableObserver?:(observer:((row:RefusedRow)=>void)|null)=>void}).setS7RefusedViableObserver
++  if (!costSetter) throw new Error('PREREQUISITE: reviewed exact refused viable cost observer absent')
++  let atWeek = -1
+   let state = p13aGeneratedStudio('p13a-core-causal-01'), state520 = ''
+   const rows: string[] = [], counts: Record<string,number> = {}
+   let pending: ObserverRow[] = [], ordinal = 0
+   setter(row => pending.push(row)) // No state refs, policy return, market submissions or gameplay writes.
++  costSetter(row => pending.push({ ...row, kind:'refusedViablePackage',inputWeek:atWeek,resultingStateWeek:atWeek+1,studioId:row.key.split(':')[0]! }))
+   try {
+     // Preserve extra520→521 summary transition and its observer coverage separately.
+     while (state.market.tick <= 520) {
+       const at = state.market.tick
++      atWeek = at
+       if (!isOperatingStudio(state,state.hollywood!.playerStudioId)) throw new Error(`UNMET PREMISE: player terminal at${at}; no tick`)
+       if (at === 520) { makeSave(state); state520 = canon(state) }
+       const before = sha(canon(state))
+@@ -42,9 +49,12 @@
+       const after = sha(canon(next))
+       for (const row of pending) {
+         if (row.inputWeek !== at || row.resultingStateWeek !== at+1) throw new Error('observer phase mismatch')
++        if (row.kind === 'refusedViablePackage' && !(Number(row.negative)+Number(row.marketing)>Number(row.cashAvailable) && Number(row.score)>Number(row.holdOperatingMargin))) throw new Error('actual refused viable package cost/viability premise fails')
+         if (row.kind === 'evaluation' && row.outcome !== 'staffingBlocked' && row.outcome !== 'viable') {
+           const a = Number(row.affordable), u = Number(row.unaffordable), v = Number(row.viable), uv = Number(row.unaffordableViable)
+           if (![a,u,v,uv].every(n=>Number.isInteger(n)&&n>=0) || v>a || uv>u) throw new Error('actual search counters invalid')
++          const costs = pending.filter(r=>r.kind==='refusedViablePackage' && r.key===`${row.studioId}:package:${row.scriptProjectId}`)
++          if (costs.length!==uv) throw new Error('exact refused viable cost rows do not reconcile with actual search count')
+           if ((uv>0?'cashBlocked':'economicRejection') !== row.outcome) throw new Error('actual v2 refusal classifier drift')
+         }
+         const key = `${row.kind}:${row.phase??''}:${row.outcome??row.reason??''}`
+@@ -54,7 +64,7 @@
+       }
+       state = next
+     }
+-  } finally { setter(null) }
++  } finally { setter(null); costSetter(null) }
+   const final520 = sha(state520), summary521 = sha(canon(state))
+   if (final520 !== natural.meta.finalStateSha256 || summary521 !== natural.meta.summaryStateSha256)
+     throw new Error('OBSERVER NEUTRALITY FAILED: actual520/521 states differ from unobserved same-arm natural replay')
+--- r1/scratch-observer.patch
++++ r2/scratch-observer.patch
+@@ -106,3 +106,30 @@
+  }
+  
+  /** Each active run pays its installment due at input week `week` at its locked share; a final payment settles the
++--- a/src/core/hollywoodPolicy.ts
+++++ b/src/core/hollywoodPolicy.ts
++@@ -41,6 +41,10 @@
++  * (unaffordable), how many it admitted (affordable) and how many of those passed the viability gate (viable).
++  * The opt-in locked-screenplay diagnostic also counts skipped candidates that pass the same viability gate.
++  * Those candidates never enter the affordable counts or compete for the choice. */
+++// SCRATCH-ONLY1363-F92: copied already-computed refused viable package facts.
+++export type S7RefusedViablePackage = {key:string;negative:number;marketing:number;cashAvailable:number;score:number;holdOperatingMargin:number;expectedOperatingMargin:number;expectedIncrementalContribution:number;directorId:string;castIds:string[]}
+++let s7RefusedViableObserver:((row:S7RefusedViablePackage)=>void)|null=null
+++export function setS7RefusedViableObserver(observer:((row:S7RefusedViablePackage)=>void)|null):void {s7RefusedViableObserver=observer}
++ export function searchIndustryPackages(input:ReceptionInputs,policy:RivalBusiness['policy'],options:IndustryPackageOptions):{
++   choice:IndustryPackageChoice|null;affordable:number;unaffordable:number;viable:number;unaffordableViable?:number} {
++   const planning=perceivedPlanningInputs(input)
++@@ -80,7 +84,12 @@
++         const score=expectedOperatingMargin-Math.abs(marketing/Math.max(negative,1)-policy.marketingRatio)*TUNING.HOLLYWOOD_POLICY_PREFERENCE_COST
++         if(options.lockScreenplay&&score<=holdOperatingMargin)continue
++         // Score the skipped package only for diagnosis; it cannot become a greenlight choice.
++-        if(exceedsCash){unaffordableViable++;continue}
+++        if(exceedsCash){
+++          if(s7RefusedViableObserver!==null)s7RefusedViableObserver({key:options.key,negative,marketing,cashAvailable:options.cashAvailable,
+++            score,holdOperatingMargin,expectedOperatingMargin,expectedIncrementalContribution,directorId:inp.director.id,
+++            castIds:[inp.cast.lead.id,inp.cast.antagonist.id,inp.cast.support.id]})
+++          unaffordableViable++;continue
+++        }
++         viable++
++         // Maximize benefit among candidates that passed the cash and viability gates, then the ordinary score, then the inherited strict-greater BILLINGS order.
++         if(benefit>bestBenefit||(benefit===bestBenefit&&score>bestScore)){bestBenefit=benefit;bestScore=score;best={shape,promise:inp.promise,budget:{negative,marketing},cast:{lead:inp.cast.lead.id,antagonist:inp.cast.antagonist.id,support:inp.cast.support.id},expectedOperatingMargin,expectedIncrementalContribution,holdOperatingMargin}}

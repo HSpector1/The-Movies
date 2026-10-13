@@ -1,0 +1,7 @@
+# Consumer r2 measured results review
+
+GPT-6.1 Sol. Independently read raw reporter/command records/equal pre/post freeze; no execution or candidate changes. KEEP within bounded consumer qualification. Root compiler0/43s; three complete unfiltered files55pass/no failed/skipped/todo, runtime0/55s.31generator,22schema and2markedNONCAMPAIGN viewer unit bodies now execute fully, including formerly blocked declarationF11/schema downstream assertions. Parent exact55/no-duplicate/no-missing accounting agrees with raw complete counts.
+
+Independent47c2 declaration golden updates and actual58 metadata/URN/negative-literal/generatedconstant repairs are GREEN; historical negative24 remains. New zero-score/nonempty-film versus empty sentence and available-unranked firstdate195 controls pass through realprojection/schema with only the explicitly marked unit digest seam. They qualify presentation branches, not fabricated campaign history or native/naturalwriter routes.
+
+Prior unchanged117passes remain separately reusable under the actual source/config/fixture admission guard. Replacing prior53affected leaves with measured55 yields aggregate172covered identities, NOT a single172run or clean prior170result. Preserve four original failures and independentproducer evidence. No completeP15B/Owner/native acceptance follows; T17freshwholefiles still pending. Current rootcompiler0/equalfreeze can ground parent T17reuse preflight only after exactcurrentidentity check and recordedreceipt, since existingT17wrapperdoesnot itself bind these records.
