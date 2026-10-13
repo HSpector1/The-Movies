@@ -1,0 +1,61 @@
+--- bridge-power-ranking-red-draft/bridge-p15a2-power-ranking.test.ts
++++ bridge-power-ranking-red-draft-r2/bridge-p15a2-power-ranking.test.ts
+@@ -3,6 +3,7 @@
+ import { describe, expect, it } from 'vitest'
+ import { BRIDGE_SCHEMA, PROTOCOL_VERSION, SCHEMA_ID, validateIndustry } from '../bridge/protocol.js'
+ import { parseWireValue } from '../bridge/schema/runtime.js'
++import { INDUSTRY_LANES } from '../bridge/schema/industry-schema.js'
+ import { BridgeSession, authoritativeDigest } from '../bridge/session.js'
+ import * as industryModule from '../bridge/industry.js'
+ import { campaignDate } from '../src/core/calendar.js'
+@@ -149,6 +150,7 @@
+     expect(shown.windowLabel).toBe(`${campaignDate(0).label} to ${campaignDate(12).label}`)
+     expect(shown.firstRankedLabel).toContain(campaignDate(52).label)
+     expect(shown.rows.every(r => !r.ranked && r.rank === null && r.priorRank === null && r.movement === 'unavailable')).toBe(true)
++    expect(shown.rows.every(r => r.movementLabel === 'No comparable prior cohort')).toBe(true)
+   })
+ 
+   it('rank-view-closure: actual169 inclusion/182 exclusion, frozen historical page and cross-definition movement', () => {
+@@ -161,6 +163,7 @@
+     expect(current.definitionVersion).toBe('power-ranking/v2'); expect(current.rows.some(r => r.studioId === R02)).toBe(false)
+     expect(current.priorSnapshotId).toBe(archived(state182, 169).id)
+     expect(current.rows.every(r => r.movement === 'unavailable' && r.priorRank === null)).toBe(true)
++    expect(current.rows.every(r => r.movementLabel === 'No comparable prior cohort')).toBe(true)
+     expect(historical).toEqual(requireRanking(before)) // same recorded169 page after actual closure
+     expect(canon(archived(state182, 169))).toBe(canon(archived(state169, 169)))
+   })
+@@ -208,6 +211,11 @@
+     expect(shown.priorSnapshotId).toBe(prior.id)
+     for (const row of shown.rows) {
+       expect({ priorRank: row.priorRank, movement: row.movement }).toEqual(movement(source, prior, row.studioId))
++      const expectedMovementLabel = row.movement === 'new' ? 'New to this comparison'
++        : row.movement === 'unavailable' ? 'No comparable prior cohort'
++        : row.movement === 'unchanged' ? 'No rank change'
++        : `${row.movement === 'up' ? 'Up' : 'Down'} ${Math.abs(row.rank! - row.priorRank!)} since ${campaignDate(prior.week).label}`
++      expect(row.movementLabel).toBe(expectedMovementLabel)
+       const stored = source.rows.find(r => r.studioId === row.studioId)!
+       expect(row).toMatchObject({ ranked: stored.ranked, rank: stored.rank, filmsTenths: stored.filmsTenths,
+         releases: stored.releases, releasesTenths: stored.releasesTenths, pointsTenths: stored.filmsTenths + stored.releasesTenths })
+@@ -218,6 +226,12 @@
+       for (const film of row.films) {
+         const actual = facts.films.find(f => f.filmId === film.filmId)!
+         expect(actual).toBeDefined(); expect(actual.studioId).toBe(row.studioId)
++        const rivalTitle = state.hollywood!.films.find(f => f.filmId === film.filmId && f.studioId === row.studioId)?.title
++        const playerRelease = state.studio.releasedFilms.find(f => f.productionId === film.filmId)
++        const playerTitle = playerRelease ? state.concepts.find(c => c.id === playerRelease.conceptId)?.title : undefined
++        const retainedTitle = row.player ? playerTitle : rivalTitle
++        expect(retainedTitle, 'actual counted film needs its retained title source').toBeDefined()
++        expect(film.title).toBe(retainedTitle)
+         expect(actual.releaseTick).toBeGreaterThanOrEqual(source.windowStartWeek); expect(actual.releaseTick).toBeLessThan(156)
+         expect(actual.runEndedByWeek).toBe(true); expect(actual.authoredPreCampaign).toBe(false)
+         const api = rankingLaw as unknown as { filmScoreTenths?: (film: typeof actual, base: number) => number }
+@@ -236,7 +250,9 @@
+     expect(chart, 'real Studio Charts control source must exist').toBeDefined()
+     const studios = wire.studios as { studioId: string; lanes: { key: string; value: number; rank: number }[] }[]
+     expect(studios.map(r => r.studioId).sort()).toEqual(state.hollywood!.identities.filter(r => r.enteredWeek !== null).map(r => r.studioId).sort())
++    expect([...INDUSTRY_LANES]).toEqual(['audienceAwareness', 'industryPrestige', 'commercialConfidence', 'output'])
+     for (const studio of studios) {
++      expect(studio.lanes.map(lane => lane.key).sort(), 'complete Studio Charts lane membership BEFORE per-lane values').toEqual([...INDUSTRY_LANES].sort())
+       const fact = chart.rows.find(r => r.studioId === studio.studioId)!
+       expect(fact).toBeDefined()
+       for (const lane of studio.lanes) {

@@ -1,0 +1,9 @@
+# Wave5 implementation r2 measured review
+
+GPT-6.1 Sol. KEEP for this bounded browser implementation qualification. Independently inspected immutable run reporter, selection, command records and pre/post freeze; no execution or candidate changes.
+
+UI compiler exit0/44s; nine complete unfiltered UI suites runtime exit0/98s. Raw reporter contains exactly123 unique expected file/full-name identities, all123 passed, none failed/skipped/todo; expected identity set is exact and all36 named host/browser/transition controls are included. The complete consumer suites are included rather than inferred from the new leaves. Pre/post freeze bytes are identical, SHA256 f53d488a32ed39606561b96959b3f4ad114116ade38e15c4f56a2ba8b72fd47f. Parent reports lane0 and released owned lock; no process inspection was repeated by this reviewer.
+
+The unchanged stale mounted134 callback control now passes against authoritative135: refusal, exact latest-state/session purity and zero active-session writes are reached. The terminal Saves leaf's level1 heading correction permits the retained read-only, exact export and reload assertions to execute and pass. Supported47 import and unsupported due-only rejection controls, exact chosen-principal schedule and manual/batch actual terminal stop controls also pass. This closes the two measured owner-r2 failures within their stated test scopes; it does not erase preserved RED/compiler/harness attempts.
+
+This is nine-file browser qualification, not full P15B/Owner acceptance, a full engine gate, native Bridge C17/Ranking proof, natural recovery acceptance or a restoration of original780→900 non-leak coverage. The owner test remains a captured real callback control, not a same-selected-principal detached-DOM click proof. Existing separate Legacy/core evidence remains separate; no combined single-run claim is made.
