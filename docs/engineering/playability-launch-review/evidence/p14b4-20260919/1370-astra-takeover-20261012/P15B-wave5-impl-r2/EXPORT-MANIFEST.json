@@ -1,0 +1,38 @@
+[
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-wave5-impl-r2/DELTA-vs-owner-red-r2.diff",
+    "sha256": "9a7e4b57b271a28965f37c34b19dfd3849335c8d28e95c2fd3e8c03fc08670bd"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-wave5-impl-r2/MANIFEST.json",
+    "sha256": "29a079f82b4114697b68ef8b39701ca6b95b1b746e2e52e56e971a2dd7b6c54e"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-wave5-impl-r2/REPORT.md",
+    "sha256": "be7e8e9fc06e4f8016ce348f1ef0201833a1dcf15990229c6eff16d675d31541"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-wave5-impl-r2/runner.sh",
+    "sha256": "73e2b61931fc3d8daf86528bb58522e097fe553050264e4f384e47798e568ca9"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-wave5-impl-r2/SELECTION.json",
+    "sha256": "9032c07ddddbffa20a1469b8402f14a5bb0a92d6f8862324119164ac9302c132"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-wave5-impl-r2/REVIEW.md",
+    "sha256": "c0fc1df91715b87aa6017feb5ac813a8253526cb3c758e93a4172d8088e86c8c"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-NONLEAK-BUDGET-COUNTERFACTUAL-ADMISSION.md",
+    "sha256": "4f7eede322fb694b6e912208ca84170cfe4efe801c0808174fd48806dd2a0710"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-nonleak267-counterfactual-preparation/DIAGNOSTIC.ts",
+    "sha256": "0164e09bec4eafef69f847bbfb51ff8343433024585cf0262f5699a28632fdc8"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-nonleak267-counterfactual-preparation/BRIEF.md",
+    "sha256": "2cc1b843db221f6ebd41e11a18c6438dbaf5c2fcfc41d3d99b0305444892bd3f"
+  }
+]
