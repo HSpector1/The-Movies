@@ -1,0 +1,722 @@
+{
+  "run": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-wave5-owner-red-r2-run",
+  "commands": [
+    {
+      "name": "tsc-ui",
+      "exit": 0,
+      "startEpoch": 1791849877,
+      "endEpoch": 1791849921,
+      "seconds": 44,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "-p",
+        "ui/tsconfig.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-wave5-owner-red-r2-run/tsc-ui.log"
+    },
+    {
+      "name": "wave5-focused",
+      "exit": 1,
+      "startEpoch": 1791849925,
+      "endEpoch": 1791850018,
+      "seconds": 93,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "ui",
+        "--no-file-parallelism",
+        "--no-cache",
+        "ui/src/engine/p15b-browser-wave5.test.ts",
+        "ui/src/lot/livingTurn.parity.test.tsx",
+        "ui/src/saves.test.tsx",
+        "ui/src/engine/p15b-lot-closure-gate.test.ts",
+        "ui/src/lot/livingTurn.test.ts",
+        "ui/src/lot/snapshot/nextEvent.test.ts",
+        "ui/src/test/contracts/event-grammar.contract.test.ts",
+        "ui/src/test/contracts/punctuate.contract.test.ts",
+        "ui/src/test/contracts/cue-determinism.contract.test.ts",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-wave5-owner-red-r2-run/wave5-focused.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-wave5-owner-red-r2-run/wave5-focused.log"
+    }
+  ],
+  "freezeSHA256": "d532c6abd02cb59e27a10c75560309cca7a313225018e48b48af4720c8501411",
+  "postFreezeSHA256": "d532c6abd02cb59e27a10c75560309cca7a313225018e48b48af4720c8501411",
+  "freezeEqual": true,
+  "runtimeExecuted": true,
+  "selectedFileCount": 9,
+  "knownFourFileCountRequired": 36,
+  "counts": {
+    "passed": 121,
+    "failed": 2
+  },
+  "actualFileCounts": {
+    "ui/src/saves.test.tsx": 18,
+    "ui/src/engine/p15b-browser-wave5.test.ts": 6,
+    "ui/src/engine/p15b-lot-closure-gate.test.ts": 2,
+    "ui/src/lot/livingTurn.parity.test.tsx": 10,
+    "ui/src/lot/livingTurn.test.ts": 28,
+    "ui/src/lot/snapshot/nextEvent.test.ts": 6,
+    "ui/src/test/contracts/cue-determinism.contract.test.ts": 5,
+    "ui/src/test/contracts/event-grammar.contract.test.ts": 26,
+    "ui/src/test/contracts/punctuate.contract.test.ts": 22
+  },
+  "missingKnownIdentities": [],
+  "missingFiles": [],
+  "failures": [
+    {
+      "file": "ui/src/saves.test.tsx",
+      "fullName": "Wave5 actual terminal import replaces active App state and reloads read-only with exact export/history",
+      "status": "failed",
+      "failureMessages": [
+        "TestingLibraryElementError: Found multiple elements with the role \"heading\" and name `/closed studio|ended run|read.only history/i`\n\nHere are the matching elements:\n\nIgnored nodes: comments, script, style\n\u001b[36m<h1>\u001b[39m\n  \u001b[0mClosed studio \u2014 read-only history\u001b[0m\n\u001b[36m</h1>\u001b[39m\n\nIgnored nodes: comments, script, style\n\u001b[36m<h2>\u001b[39m\n  \u001b[0mEnded run\u001b[0m\n\u001b[36m</h2>\u001b[39m\n\n(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).\n\nIgnored nodes: comments, script, style\n\u001b[36m<body\u001b[39m\n  \u001b[33mstyle\u001b[39m=\u001b[32m\"\"\u001b[39m\n\u001b[36m>\u001b[39m\n  \u001b[36m<div>\u001b[39m\n    \u001b[36m<main\u001b[39m\n      \u001b[33mclass\u001b[39m=\u001b[32m\"app-shell\"\u001b[39m\n    \u001b[36m>\u001b[39m\n      \u001b[36m<h1>\u001b[39m\n        \u001b[0mClosed studio \u2014 read-only history\u001b[0m\n      \u001b[36m</h1>\u001b[39m\n      \u001b[36m<p>\u001b[39m\n        \u001b[0mWeek \u001b[0m\n        \u001b[0m163\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<p\u001b[39m\n        \u001b[33mrole\u001b[39m=\u001b[32m\"status\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[0mThe studio closed in Week 163. This world is read-only history. 0 employment claims: 0 paid in full, 0 partially paid, 0 unpaid; 0 paid and 0 unpaid. 0 obligations remain pending in this saved world.\u001b[0m\n      \u001b[36m</p>\u001b[39m\n      \u001b[36m<button\u001b[39m\n        \u001b[33mdata-testid\u001b[39m=\u001b[32m\"lot-advance-week\"\u001b[39m\n        \u001b[33mdisabled\u001b[39m=\u001b[32m\"\"\u001b[39m\n        \u001b[33mtype\u001b[39m=\u001b[32m\"button\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[0mAdvance one week\u001b[0m\n      \u001b[36m</button>\u001b[39m\n      \u001b[36m<button\u001b[39m\n        \u001b[33mdata-testid\u001b[39m=\u001b[32m\"open-saves\"\u001b[39m\n        \u001b[33mtype\u001b[39m=\u001b[32m\"button\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[0mExport or load a save\u001b[0m\n      \u001b[36m</button>\u001b[39m\n      \u001b[36m<button\u001b[39m\n        \u001b[33mtype\u001b[39m=\u001b[32m\"button\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[0mStudio history\u001b[0m\n      \u001b[36m</button>\u001b[39m\n      \u001b[36m<section\u001b[39m\n        \u001b[33maria-label\u001b[39m=\u001b[32m\"Employment claims\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<h2>\u001b[39m\n          \u001b[0mEmployment claims\u001b[0m\n        \u001b[36m</h2>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mNo employment claims.\u001b[0m\n        \u001b[36m</p>\u001b[39m\n      \u001b[36m</section>\u001b[39m\n      \u001b[36m<section\u001b[39m\n        \u001b[33maria-label\u001b[39m=\u001b[32m\"Terminal obligations\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<h2>\u001b[39m\n          \u001b[0mRetained obligations\u001b[0m\n        \u001b[36m</h2>\u001b[39m\n        \u001b[36m<ul>\u001b[39m\n          \u001b[36m<li>\u001b[39m\n            \u001b[0mcash\u001b[0m\n            \u001b[0m: \u001b[0m\n            \u001b[0mstudio-aca408ec-player\u001b[0m\n            \u001b[0m \u2014 \u001b[0m\n            \u001b[0mdistributable 0; 0 paid to claims at closure; balance preserved\u001b[0m\n            \u001b[0m (\u001b[0m\n            \u001b[0mapplied\u001b[0m\n            \u001b[0m)\u001b[0m\n          \u001b[36m</li>\u001b[39m\n          \u001b[36m<li>\u001b[39m\n            \u001b[0mset\u001b[0m\n            \u001b[0m: \u001b[0m\n            \u001b[0mset-0\u001b[0m\n            \u001b[0m \u2014 \u001b[0m\n            \u001b[0mretained; nonoperational in place\u001b[0m\n            \u001b[0m (\u001b[0m\n            \u001b[0mapplied\u001b[0m\n            \u001b[0m)\u001b[0m\n          \u001b[36m</li>\u001b[39m\n          \u001b[36m<li>\u001b[39m\n            \u001b[0mset\u001b[0m\n            \u001b[0m: \u001b[0m\n            \u001b[0mset-1\u001b[0m\n            \u001b[0m \u2014 \u001b[0m\n            \u001b[0mretained; nonoperational in place\u001b[0m\n            \u001b[0m (\u001b[0m\n            \u001b[0mapplied\u001b[0m\n            \u001b[0m)\u001b[0m\n          \u001b[36m</li>\u001b[39m\n        \u001b[36m</ul>\u001b[39m\n      \u001b[36m</section>\u001b[39m\n      \u001b[36m<section\u001b[39m\n        \u001b[33maria-label\u001b[39m=\u001b[32m\"Ended run\"\u001b[39m\n      \u001b[36m>\u001b[39m\n        \u001b[36m<h2>\u001b[39m\n          \u001b[0mEnded run\u001b[0m\n        \u001b[36m</h2>\u001b[39m\n        \u001b[36m<p>\u001b[39m\n          \u001b[0mRecorded through Week \u001b[0m\n          \u001b[0m163\u001b[0m\n          \u001b[0m. This is the ended run, not a new official 2040 assessment.\u001b[0m\n        \u001b[36m</p>\u001b[39m\n        \u001b[36m<section>\u001b[39m\n          \u001b[36m<h3>\u001b[39m\n            \u001b[0mYour Studio\u001b[0m\n          \u001b[36m</h3>\u001b[39m\n          \u001b[36m<ul>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0martistic voice\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0maudience institution\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mcommercial engine\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mtechnology pioneer\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n              \u001b[0m; limited by studioClosures\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mtalent foundry\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mgenre specialist\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mresilient survivor\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m1\u001b[0m\n              \u001b[0m contrary\u001b[0m\n              \u001b[0m; limited by corporateCondition, studioClosures\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mawards dynasty\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotRecorded\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n              \u001b[0m; limited by awards\u001b[0m\n            \u001b[36m</li>\u001b[39m\n          \u001b[36m</ul>\u001b[39m\n        \u001b[36m</section>\u001b[39m\n        \u001b[36m<section>\u001b[39m\n          \u001b[36m<h3>\u001b[39m\n            \u001b[0mBellwether Pictures\u001b[0m\n          \u001b[36m</h3>\u001b[39m\n          \u001b[36m<ul>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0martistic voice\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m1\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0maudience institution\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m1\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mcommercial engine\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m9\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mtechnology pioneer\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n              \u001b[0m; limited by studioClosures\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mtalent foundry\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mgenre specialist\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mresilient survivor\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n              \u001b[0m; limited by corporateCondition, studioClosures\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mawards dynasty\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotRecorded\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n              \u001b[0m; limited by awards\u001b[0m\n            \u001b[36m</li>\u001b[39m\n          \u001b[36m</ul>\u001b[39m\n        \u001b[36m</section>\u001b[39m\n        \u001b[36m<section>\u001b[39m\n          \u001b[36m<h3>\u001b[39m\n            \u001b[0mRose Lantern Films\u001b[0m\n          \u001b[36m</h3>\u001b[39m\n          \u001b[36m<ul>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0martistic voice\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m1\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0maudience institution\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m1\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mcommercial engine\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m11\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mtechnology pioneer\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n              \u001b[0m; limited by studioClosures\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mtalent foundry\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mgenre specialist\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mheld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m9\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m3\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mresilient survivor\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n              \u001b[0m; limited by corporateCondition, studioClosures\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mawards dynasty\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotRecorded\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n              \u001b[0m; limited by awards\u001b[0m\n            \u001b[36m</li>\u001b[39m\n          \u001b[36m</ul>\u001b[39m\n        \u001b[36m</section>\u001b[39m\n        \u001b[36m<section>\u001b[39m\n          \u001b[36m<h3>\u001b[39m\n            \u001b[0mNight Orchard Productions\u001b[0m\n          \u001b[36m</h3>\u001b[39m\n          \u001b[36m<ul>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0martistic voice\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m3\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0maudience institution\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m1\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mcommercial engine\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m15\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mtechnology pioneer\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n              \u001b[0m; limited by studioClosures\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mtalent foundry\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mgenre specialist\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mheld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m12\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m3\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mresilient survivor\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n              \u001b[0m; limited by corporateCondition, studioClosures\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mawards dynasty\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotRecorded\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n              \u001b[0m; limited by awards\u001b[0m\n            \u001b[36m</li>\u001b[39m\n          \u001b[36m</ul>\u001b[39m\n        \u001b[36m</section>\u001b[39m\n        \u001b[36m<section>\u001b[39m\n          \u001b[36m<h3>\u001b[39m\n            \u001b[0mSilver Current Pictures\u001b[0m\n          \u001b[36m</h3>\u001b[39m\n          \u001b[36m<ul>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0martistic voice\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m2\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0maudience institution\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m1\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mcommercial engine\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m8\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mtechnology pioneer\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n              \u001b[0m; limited by studioClosures\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mtalent foundry\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mgenre specialist\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mresilient survivor\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotHeld\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m1\u001b[0m\n              \u001b[0m contrary\u001b[0m\n              \u001b[0m; limited by corporateCondition, studioClosures\u001b[0m\n            \u001b[36m</li>\u001b[39m\n            \u001b[36m<li>\u001b[39m\n              \u001b[0mawards dynasty\u001b[0m\n              \u001b[0m: \u001b[0m\n              \u001b[0mnotRecorded\u001b[0m\n              \u001b[0m; \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m qualifying, \u001b[0m\n              \u001b[0m0\u001b[0m\n              \u001b[0m contrary\u001b[0m\n              \u001b[0m; limited by awards\u001b[0m\n            \u001b[36m</li>\u001b[39m\n          \u001b[36m</ul>\u001b[39m\n        \u001b[36m</section>\u001b[39m\n      \u001b[36m</section>\u001b[39m\n    \u001b[36m</main>\u001b[39m\n  \u001b[36m</div>\u001b[39m\n\u001b[36m</body>\u001b[39m\n    at Object.getElementError (/Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/config.js:37:19)\n    at getElementError (/Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:20:35)\n    at getMultipleElementsFoundError (/Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:23:10)\n    at /Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:55:13\n    at /Users/zacheryspector/The-Movies-headless-program/node_modules/@testing-library/dom/dist/query-helpers.js:95:19\n    at /Users/zacheryspector/studio-specialists/p15b/ui/src/saves.test.tsx:438:17\n    at /Users/zacheryspector/studio-specialists/p15b/tests/helpers/p15c2-legacy.ts:49:5\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)"
+      ]
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "fullName": "Wave5 stale mounted loan callback refuses changed owner terms without session writes",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: old displayed terms cannot authorize a later owner loan: expected true to be false // Object.is equality\n    at /Users/zacheryspector/studio-specialists/p15b/ui/src/lot/livingTurn.parity.test.tsx:503:82\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:5\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:11)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/runBaseTests.3qpJUEJM.js:126:11\n    at withEnv (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/runBaseTests.3qpJUEJM.js:90:5)\n    at run (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/runBaseTests.3qpJUEJM.js:112:3)\n    at runBaseTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/vitest/dist/chunks/base.BZZh4cSm.js:29:3)"
+      ]
+    }
+  ],
+  "notRun": [],
+  "reporterCounts": {
+    "numTotalTestSuites": 35,
+    "numPassedTestSuites": 33,
+    "numFailedTestSuites": 2,
+    "numPendingTestSuites": 0,
+    "numTotalTests": 123,
+    "numPassedTests": 121,
+    "numFailedTests": 2,
+    "numPendingTests": 0,
+    "numTodoTests": 0,
+    "success": false
+  },
+  "identities": [
+    {
+      "file": "ui/src/saves.test.tsx",
+      "fullName": "saves: export \u2192 import round-trips the EXACT state importSaveJson(exportSaveJson(state)) has a serialized form equal to the original",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "fullName": "saves: export \u2192 import round-trips the EXACT state a restored state continues deterministically (same next tick as the original)",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "fullName": "saves: export \u2192 import round-trips the EXACT state the Saves screen exports the exact state and re-imports it, restoring it (UI path)",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "fullName": "saves: malformed / unsupported saves are rejected loudly and understandably importSaveJson rejects malformed JSON with a non-empty error (as data)",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "fullName": "saves: malformed / unsupported saves are rejected loudly and understandably importSaveJson rejects an unknown save version",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "fullName": "saves: malformed / unsupported saves are rejected loudly and understandably the Saves screen surfaces a rejection message and does NOT crash on a bad save",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "fullName": "saves: malformed / unsupported saves are rejected loudly and understandably the StartScreen import surfaces a rejection message for a wrong-version save",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "fullName": "saves: legacy V1 import (D-9.15) converts and reports the conversion a legacy V1 save auto-loads, is flagged converted, and yields a playable current state",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "fullName": "saves: legacy V1 import (D-9.15) converts and reports the conversion the explicit \"Import legacy V1 save\" affordance converts and shows a conversion notice",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "fullName": "saves: legacy V1 import (D-9.15) converts and reports the conversion the legacy affordance rejects a NON-V1 save as data (no crash)",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "fullName": "saves: migration disclosure through real App navigation shows a one-shot, version-neutral notice after an accepted V8 load leaves Saves",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "fullName": "saves: migration disclosure through real App navigation keeps the live studio and emits no success notice when App rejects an import",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "fullName": "saves: migration disclosure through real App navigation carries the same version-neutral notice through a Start-screen V8 import",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "fullName": "saves: migration disclosure through real App navigation discloses migration when App restores an older active-session envelope",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "fullName": "saves: migration disclosure through real App navigation keeps Start on a rejected import and emits no success notice",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "fullName": "Wave5 genuine47 normal import replaces App session prospectively without old notices",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "fullName": "Wave5 actual terminal import replaces active App state and reloads read-only with exact export/history",
+      "status": "failed"
+    },
+    {
+      "file": "ui/src/saves.test.tsx",
+      "fullName": "Wave5 unsupported due-only draft refuses before App replacement or any autosave",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/engine/p15b-browser-wave5.test.ts",
+      "fullName": "browser-warning-distress-displays-authoritative-remedies-and-lawful-loan-terms",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/engine/p15b-browser-wave5.test.ts",
+      "fullName": "browser-loan-commit-revalidates-and-stale-offer-never-duplicates-money",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/engine/p15b-browser-wave5.test.ts",
+      "fullName": "browser-actual-closure-commits-once-imports-and-reloads-as-read-only-history",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/engine/p15b-browser-wave5.test.ts",
+      "fullName": "browser-batch-stops-at-actual-closure-and-living-turn-classifies-terminal-as-pause",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/engine/p15b-browser-wave5.test.ts",
+      "fullName": "browser-supported47-migrates-prospectively-and-unsupported-due-only-draft-refuses",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/engine/p15b-browser-wave5.test.ts",
+      "fullName": "browser-stale-nonloan-operating-requests-refuse-on-latest-terminal-and-preserve-all-bytes",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/engine/p15b-lot-closure-gate.test.ts",
+      "fullName": "P15B completed Wave5 closure in the browser Studio Lot the Lot commits actual player and rival closure then refuses further operating ticks",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/engine/p15b-lot-closure-gate.test.ts",
+      "fullName": "P15B completed Wave5 closure in the browser Studio Lot the Lot admits an actual closed save as exact read-only history",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "fullName": "C2a-M5 \u2014 four-way time parity: the same twelve weeks, four ways (a) by hand at the seam \u2014 the manual verb, pressed twelve times",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "fullName": "C2a-M5 \u2014 four-way time parity: the same twelve weeks, four ways (b) by the living loop at 1\u00d7 \u2014 one press of Roll, then nothing at all",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "fullName": "C2a-M5 \u2014 four-way time parity: the same twelve weeks, four ways (b\u2032) by the living loop at 4\u00d7 \u2014 the same weeks, a quarter of the wall time",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "fullName": "C2a-M5 \u2014 four-way time parity: the same twelve weeks, four ways (c) paused and resumed arbitrarily, including mid-week",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "fullName": "C2a-M5 \u2014 four-way time parity: the same twelve weeks, four ways (d) batch-skipped \u2014 and the skip is genuine, not a hand walk in disguise",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "fullName": "C2a-M5 \u2014 and the four are one studio exports FOUR byte-identical saves from four different ways of spending time",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "fullName": "C2a-M5 \u2014 the theater is evidence, and evidence changes nothing (G8.1/G8.2) runs byte-identically with the theater READ every week and with it never read",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "fullName": "Wave5 mounted warning presents terms before lawful loan commit and autosaves one receipt",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "fullName": "Wave5 living loop commits terminal once and keeps history/export accessible without operating verbs",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.parity.test.tsx",
+      "fullName": "Wave5 stale mounted loan callback refuses changed owner terms without session writes",
+      "status": "failed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the speed ladder (\u00a74.1) offers exactly 1x / 2x / 4x and names 4x as the ceiling",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the speed ladder (\u00a74.1) 1x is the shipped played window exactly \u2014 10.35s, nine beats",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the speed ladder (\u00a74.1) 2x and 4x land on the figures the charter states",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the speed ladder (\u00a74.1) a week is strictly shorter at every step up the ladder",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the speed ladder (\u00a74.1) collapses witnessed beats only ABOVE 2x \u2014 1x and 2x play in full",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the speed ladder (\u00a74.1) recognises its own ladder and refuses anything else",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the speed ladder (\u00a74.1) steps up and saturates at the ceiling",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the auto-pause partition (\u00a74.1 / 08A \u00a73) is TOTAL over SimStopReason",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the auto-pause partition (\u00a74.1 / 08A \u00a73) classifies every charter-named member exactly where the charter puts it",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the auto-pause partition (\u00a74.1 / 08A \u00a73) the two published classes partition the union with limit named separately",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the auto-pause partition (\u00a74.1 / 08A \u00a73) an ordinary week never pauses; wrap never pauses; cash crossing always does",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the attention channel says nothing at all for a PAUSE-class stop (no second announcement)",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the attention channel names the picture and the stage a wrap cleared",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the attention channel never prints an id when the engine could not name the picture",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the attention channel lists several wrapped pictures without a stage claim",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the attention channel carries the engine s own completion sentence for a finished build",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the attention channel speaks in filmmaking for runs and contracts",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the attention channel never uses the batch verb s stopped-at sentence \u2014 nothing stopped",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the attention channel retains a bounded bulletin, newest last",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the attention channel returns the same array reference when nothing was added",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the loop state starts paused at 1x with nothing to say",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the loop state play clears the stop that paused the loop",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the loop state a NOTIFY-class stop keeps the loop running and adds one line",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the loop state an ordinary week changes nothing at all",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the loop state speed and dismissal are idempotent when nothing changes",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the witnessed-week clock a fresh week owes the whole week at the current speed",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the witnessed-week clock a speed change mid-week keeps the FRACTION, not the milliseconds",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/livingTurn.test.ts",
+      "fullName": "Living Turn V1 \u2014 the witnessed-week clock clamps both ends and never returns a negative wait",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/snapshot/nextEvent.test.ts",
+      "fullName": "strict Lot next-event presentation boundary accepts real screenplay, casting, and physical Stage 7 decision projections",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/snapshot/nextEvent.test.ts",
+      "fullName": "strict Lot next-event presentation boundary accepts exact run, cash, renewal, and expiry outcomes without inventing identity",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/snapshot/nextEvent.test.ts",
+      "fullName": "strict Lot next-event presentation boundary validates Annex completion independently and retains it through primary neutral fallback",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/snapshot/nextEvent.test.ts",
+      "fullName": "strict Lot next-event presentation boundary keeps release and zero-week preflight outside exact receipts and accepts only the 520 guard neutral",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/snapshot/nextEvent.test.ts",
+      "fullName": "strict Lot next-event presentation boundary retains finite fractional money exactly but rejects bad provenance, numbers, shapes, and projections",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/lot/snapshot/nextEvent.test.ts",
+      "fullName": "strict Lot next-event presentation boundary compares every closed field and rejects malformed values even against themselves",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/cue-determinism.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 the same script sounds byte-identically two fresh service+sink pairs produce byte-identical ordered sink logs",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/cue-determinism.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 the same script sounds byte-identically the run is not vacuous: the script actually reached the hardware",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/cue-determinism.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 the same script sounds byte-identically the ordered cue-id sequence is identical across runs",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/cue-determinism.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 the same script sounds byte-identically a third run, after other work has run the service, still matches the first",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/cue-determinism.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 the same script sounds byte-identically every id in the script is a stable, non-empty string",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 SimStopReason exhaustiveness (the 13th-member gate; wrap at C2a-M5, releaseReview at P06A, studioClosure at Wave5) names exactly the thirteen SimStopReason members the engine declares",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 SimStopReason exhaustiveness (the 13th-member gate; wrap at C2a-M5, releaseReview at P06A, studioClosure at Wave5) produces at least one cue for every member \u2014 no stop reason falls into silence",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 SimStopReason exhaustiveness (the 13th-member gate; wrap at C2a-M5, releaseReview at P06A, studioClosure at Wave5) pins the full tier-table row for every SimStopReason member",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 SimStopReason exhaustiveness (the 13th-member gate; wrap at C2a-M5, releaseReview at P06A, studioClosure at Wave5) is total: a constructionCompleted stop with no summary attached still returns one cue",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 SimStopReason exhaustiveness (the 13th-member gate; wrap at C2a-M5, releaseReview at P06A, studioClosure at Wave5) keeps every cue inside the closed tier/motion/sound vocabularies",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 tier discipline (\u00a75-M2) tier 3 is bookkeeping: no sound and no motion",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 tier discipline (\u00a75-M2) tier 1 is reserved and few: exactly release and constructionCompleted among stop reasons",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 tier discipline (\u00a75-M2) every commit is tier 2 \u2014 a commit receipt is minor by law",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 co-tick law (adapter.ts:2236-2240 is the spec) release + a construction completion yields exactly two cues, release first",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 co-tick law (adapter.ts:2236-2240 is the spec) constructionCompleted with its own completion summary yields exactly ONE cue",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 co-tick law (adapter.ts:2236-2240 is the spec) every OTHER stop reason carries the completion exactly once, after its primary",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 co-tick law (adapter.ts:2236-2240 is the spec) a null constructionCompletion adds nothing at all",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 co-tick law (adapter.ts:2236-2240 is the spec) the completion cue is the same row wherever it rides",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 cue ids are stable and derived from receipt facts only every cue carries a non-empty string id",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 cue ids are stable and derived from receipt facts only same receipt facts \u2192 identical ids, from two independently built results",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 cue ids are stable and derived from receipt facts only asking twice for the same result returns the identical cue list (no counter, no nonce)",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 cue ids are stable and derived from receipt facts only a different week \u2192 a different id (the week is part of the receipt identity)",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 cue ids are stable and derived from receipt facts only the commit / refusal / formation / week-advance ids all move with the week",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 cue ids are stable and derived from receipt facts only two different receipts in the SAME week never share an id (dedup needs distinguishability)",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 action commits, refusal, formation, week advance pins the full row for every CommitKind",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 action commits, refusal, formation, week advance a build commit says CONSTRUCTION STARTED, not the generic commit sound",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 action commits, refusal, formation, week advance a refusal is heard, never animated",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 action commits, refusal, formation, week advance PICTURE FORMED gets its held beat",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 action commits, refusal, formation, week advance a week advance is a quiet tick \u2014 a sound, no motion (law 3: skipped weeks are not narrated)",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 the grammar is pure (\u00a75-M2, \u00a72) names no clock, no RNG, no React and no audio call",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/event-grammar.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 the grammar is pure (\u00a75-M2, \u00a72) does not mutate the SimResult it is handed",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 punctuate returns the grammar verbatim punctuateSimResult returns cuesForSimResult, unchanged",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 punctuate returns the grammar verbatim punctuateCommit / Refusal / Formation / WeekAdvance return their cueFor* descriptor",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 punctuate returns the grammar verbatim punctuate adds nothing of its own \u2014 no extra cue, no reordering",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 punctuate \u2192 playCue, exactly once, in order a release sting sounds exactly once, on the effects bus",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 punctuate \u2192 playCue, exactly once, in order a co-tick sounds the primary first, then the completion \u2014 exactly two cues",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 punctuate \u2192 playCue, exactly once, in order a constructionCompleted stop sounds its completion sting ONCE, never twice",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 punctuate \u2192 playCue, exactly once, in order a tier-3 stop is silent: a null sound emits nothing at all",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 punctuate \u2192 playCue, exactly once, in order a tier-3 stop that shares its tick with a completion still sounds the completion once",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 punctuate \u2192 playCue, exactly once, in order every commit kind sounds its own family, exactly once",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 punctuate \u2192 playCue, exactly once, in order a build commit is heard as CONSTRUCTION STARTED",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 punctuate \u2192 playCue, exactly once, in order a refusal, a formation and a week advance each sound exactly once",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 punctuate \u2192 playCue, exactly once, in order holds no state: the same call twice sounds twice and returns the same cue twice",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 punctuate \u2192 playCue, exactly once, in order a mixed sequence reaches the hardware in call order",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 punctuate \u2192 playCue, exactly once, in order never touches music or ambience \u2014 punctuation is an effects-bus concern",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 a muted studio still gets its cues, silently punctuate returns the cues (the visual/aria surfaces still fire) and plays nothing",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 a muted studio still gets its cues, silently nothing sounds through mute from any punctuate entry point",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 a muted studio still gets its cues, silently unmuting restores sound without replaying anything that was muted",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 before the first gesture: silence, no throw, no queue punctuates without throwing and without a single sink call",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 before the first gesture: silence, no throw, no queue still returns the full cue list, so the visual/aria surfaces are never gated on audio",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 before the first gesture: silence, no throw, no queue never queues: a dropped cue does not replay when a later cue arrives after unlock",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 punctuate holds no state of its own re-initialising the service redirects every later cue to the NEW sink",
+      "status": "passed"
+    },
+    {
+      "file": "ui/src/test/contracts/punctuate.contract.test.ts",
+      "fullName": "PF1-M2 contract \u2014 punctuate holds no state of its own returns an ordinary array the caller may keep \u2014 punctuate does not reuse one buffer",
+      "status": "passed"
+    }
+  ]
+}
