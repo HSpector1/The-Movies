@@ -1,0 +1,1 @@
+{"name": "tsc-ui", "exit": 2, "startEpoch": 1791849541, "endEpoch": 1791849583, "seconds": 42, "node": "v20.20.2", "command": ["node", "node_modules/typescript/bin/tsc", "--noEmit", "-p", "ui/tsconfig.json"], "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-wave5-owner-red-r1-run/tsc-ui.log"}

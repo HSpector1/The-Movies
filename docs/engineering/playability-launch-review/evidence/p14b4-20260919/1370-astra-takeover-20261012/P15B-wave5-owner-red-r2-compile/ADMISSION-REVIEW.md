@@ -1,0 +1,11 @@
+# Owner RED r2 compiler prerequisite repair admission
+
+GPT-6.1 Sol bounded static exact-delta/runner review. KEEP for parent UI compiler then unchanged nine-file diagnostic. No execution, source/index/HANDOFF edit or repaired runtime acceptance.
+
+Verified PATCHfedb12a31f6c484197614f3075a2ea3c38d93b82ce094460ed4be61215a5785d, MANIFESTcfb732fba29b08a651291b67356589b1b6be3432866e26c06a79dbd4330c57d4, DELTA830f6eb77406c690a4d9d7adc77de881bacac8eb9905e10fcf76768374ea8e4d. Manifest149 changes only event-grammar.contract.test.ts;148 other entries remain exact. Changed worktree/index hash matches. Stale-owner runtime guard and terminal copy remain unchanged for required RED measurement.
+
+Delta adds exact studioClosure tier2/warning/emphasis row matching production cue owner, adds its member to independent exhaustive list, updates12→13 count and truthful describe/title/next-member comment. Existing Record type and never coverageProof remain strict; no assertion weakening, budget/source policy or unexpected enum member. This addresses actual compiler2 missing-row/list errors without claiming compile success. Renamed exhaustive leaf is an intentional union-expansion identity transition, with original retained.
+
+Verified runner774f6129de3bd5a823960b3b010b2975922c3af5b329a226158e4b62deb7baf7 and selection39dffae6c459f1bc0e7c65b2ef68a6e899d270640ee2a6cb7e14f0e1fa34c48b. Diff only fresh packet/output/self/selection/hash pins and label; selection only changes claimLimits. UI compiler→same nine unfiltered files,36 known host/browser/transition identities plus all five consumer files,149 admission, full snapshot/input/selection/script freeze,11 roots, existing owned lane, formal environment, launch3.5GiB/live3GiB floors and child/postflight recording remain. No timeout override or implied old15 reuse.
+
+Parent must clear compiler prerequisite then classify complete runtime identities, owner assertion reach, consumer results and strict final freeze. The owner-boundary leaf's accepted scope limit (private1000 invocation versus initialmax display) remains explicit; no optional combobox change is imposed. Original compiler-only r1 records stay preserved. Known owner/copy findings mean legitimate other passes cannot become fullgate acceptance. No new gameplay/schema/finance authority or waiver.

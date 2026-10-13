@@ -1,0 +1,3 @@
+Wave5 owner RED r1 diagnostic: exact149 WT/index postimages; reviewed packet; reverse check PASS
+node=v20.20.2 python=Python 3.14.4 start=2026-10-12T23:59:00Z
+{"name": "tsc-ui", "exit": 2, "seconds": 42}
