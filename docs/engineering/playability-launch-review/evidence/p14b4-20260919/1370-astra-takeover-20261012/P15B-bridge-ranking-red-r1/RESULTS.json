@@ -1,0 +1,713 @@
+{
+  "commands": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791851192,
+      "endEpoch": 1791851235,
+      "seconds": 43,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-red-r1-run/tsc-root.log"
+    },
+    {
+      "name": "bridge-ranking-red",
+      "exit": 1,
+      "startEpoch": 1791851240,
+      "endEpoch": 1791851253,
+      "seconds": 13,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "tests/bridge-p15b5-loan-choice.test.ts",
+        "tests/bridge-p15a2-power-ranking.test.ts",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-red-r1-run/bridge-ranking-red.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-red-r1-run/bridge-ranking-red.log"
+    },
+    {
+      "name": "shipped57-red",
+      "exit": 1,
+      "startEpoch": 1791851256,
+      "endEpoch": 1791851265,
+      "seconds": 9,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "tests/bridge-runtime-checkpoint.test.ts",
+        "-t",
+        "C17 shipped projection57 carry-forward",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-red-r1-run/shipped57-red.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-red-r1-run/shipped57-red.log"
+    }
+  ],
+  "freezeSHA256": "266e615b57e962fae9ce3a5366cc5209b6326164bcceb0f1b7edec7dfebd1f33",
+  "finalFreezeSHA256": "266e615b57e962fae9ce3a5366cc5209b6326164bcceb0f1b7edec7dfebd1f33",
+  "freezeEqual": true,
+  "selectedCounts": {
+    "failed": 22
+  },
+  "excludedCounts": {
+    "skipped": 72
+  },
+  "missingSelected": [],
+  "reporters": {
+    "bridge-ranking-red": {
+      "numTotalTestSuites": 5,
+      "numPassedTestSuites": 0,
+      "numFailedTestSuites": 5,
+      "numPendingTestSuites": 0,
+      "numTotalTests": 20,
+      "numPassedTests": 0,
+      "numFailedTests": 20,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "success": false
+    },
+    "shipped57-red": {
+      "numTotalTestSuites": 5,
+      "numPassedTestSuites": 3,
+      "numFailedTestSuites": 2,
+      "numPendingTestSuites": 0,
+      "numTotalTests": 74,
+      "numPassedTests": 0,
+      "numFailedTests": 2,
+      "numPendingTests": 72,
+      "numTodoTests": 0,
+      "success": false
+    }
+  },
+  "selected": [
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-routes: real latest/archive IDs, row paging, exact unknown refusal and pure detached output",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: PREREQUISITE RED: canonical powerRanking query unavailable: {\"ok\":false,\"reasonCode\":\"INVALID_CONTROL\",\"message\":\"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.\",\"commandId\":null}: expected false to be true // Object.is equality\n    at ask (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:67:112)\n    at page (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:72:15)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:107:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ]
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-projection-schema: adopted view/nullable section and existing 1\u201350 query cap",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: PREREQUISITE RED: canonical powerRanking query unavailable: {\"ok\":false,\"reasonCode\":\"INVALID_CONTROL\",\"message\":\"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.\",\"commandId\":null}: expected false to be true // Object.is equality\n    at ask (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:67:112)\n    at page (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:72:15)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:126:5\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ]
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-empty and unavailable13: honest first quarter, no ranks, banner/window/first-ranked copy",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: PREREQUISITE RED: canonical powerRanking query unavailable: {\"ok\":false,\"reasonCode\":\"INVALID_CONTROL\",\"message\":\"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.\",\"commandId\":null}: expected false to be true // Object.is equality\n    at ask (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:67:112)\n    at page (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:72:15)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:143:19\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ]
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-closure: actual169 inclusion/182 exclusion, frozen historical page and cross-definition movement",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: PREREQUISITE RED: canonical powerRanking query unavailable: {\"ok\":false,\"reasonCode\":\"INVALID_CONTROL\",\"message\":\"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.\",\"commandId\":null}: expected false to be true // Object.is equality\n    at ask (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:67:112)\n    at page (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:72:15)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:158:20\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ]
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-archived-stage-band: stage at selected quarter and recorded band, no private finance",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: PREREQUISITE RED: canonical powerRanking query unavailable: {\"ok\":false,\"reasonCode\":\"INVALID_CONTROL\",\"message\":\"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.\",\"commandId\":null}: expected false to be true // Object.is equality\n    at ask (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:67:112)\n    at page (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:72:15)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:173:18\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ]
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-not-recorded: genuine precondition-history quarter has no backfilled stage",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: PREREQUISITE RED: canonical powerRanking query unavailable: {\"ok\":false,\"reasonCode\":\"INVALID_CONTROL\",\"message\":\"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.\",\"commandId\":null}: expected false to be true // Object.is equality\n    at ask (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:67:112)\n    at page (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:72:15)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:195:34\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ]
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-copy/film-explain: real record rows, no-finished sentence and actual creator film score",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: PREREQUISITE RED: canonical powerRanking query unavailable: {\"ok\":false,\"reasonCode\":\"INVALID_CONTROL\",\"message\":\"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.\",\"commandId\":null}: expected false to be true // Object.is equality\n    at ask (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:67:112)\n    at page (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:72:15)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:202:94\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ]
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-industry-unchanged: Studio Charts unchanged except adopted notice and nullable rank section",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: expected 'Public facts only. Standing channels \u2026' to be 'Public facts only. Standing channels \u2026' // Object.is equality\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:264:25\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)"
+      ]
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking comparator units: constructed source-independent records, no campaign reachability claim rank-view-movement: identical ranked cohort preserves competition ties1\u20131\u20133 and normal movement",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: PREREQUISITE RED: internal archive comparator not exported: expected 'undefined' to be 'function' // Object.is equality\n    at movement (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:98:105)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:273:61\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ]
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking comparator units: constructed source-independent records, no campaign reachability claim cross-definition is unavailable even with identical ranked cohort",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: PREREQUISITE RED: internal archive comparator not exported: expected 'undefined' to be 'function' // Object.is equality\n    at movement (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:98:105)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:280:12\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ]
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking comparator units: constructed source-independent records, no campaign reachability claim absent prior, wrong W\u221213, current unranked and truly absent prior row are unavailable",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: PREREQUISITE RED: internal archive comparator not exported: expected 'undefined' to be 'function' // Object.is equality\n    at movement (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:98:105)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:284:12\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ]
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking comparator units: constructed source-independent records, no campaign reachability claim existing prior-unranked row is new BEFORE differing-ranked-cohort rule; other cohort changes unavailable",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: PREREQUISITE RED: internal archive comparator not exported: expected 'undefined' to be 'function' // Object.is equality\n    at movement (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:98:105)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15a2-power-ranking.test.ts:292:12\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ]
+    },
+    {
+      "file": "tests/bridge-p15b5-loan-choice.test.ts",
+      "fullName": "Bridge C17: explicit lawful loan choice quotes and commits selected $1000 once, with exact terms and journal replay",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: PREREQUISITE RED: canonical quoteLoan request absent/refused: {\"ok\":false,\"reasonCode\":\"INVALID_COMMAND\",\"message\":\"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).\",\"commandId\":\"choice\"}: expected false to be true // Object.is equality\n    at ask (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:51:112)\n    at legal (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:70:18)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:89:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:633:57\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ]
+    },
+    {
+      "file": "tests/bridge-p15b5-loan-choice.test.ts",
+      "fullName": "Bridge C17: explicit lawful loan choice quotes and commits selected $2000 once, with exact terms and journal replay",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: PREREQUISITE RED: canonical quoteLoan request absent/refused: {\"ok\":false,\"reasonCode\":\"INVALID_COMMAND\",\"message\":\"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).\",\"commandId\":\"choice\"}: expected false to be true // Object.is equality\n    at ask (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:51:112)\n    at legal (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:70:18)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:89:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:633:57\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ]
+    },
+    {
+      "file": "tests/bridge-p15b5-loan-choice.test.ts",
+      "fullName": "Bridge C17: explicit lawful loan choice distinct chosen principals bind distinct IDs; maximum shortcut remains exactly one option",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: PREREQUISITE RED: canonical quoteLoan request absent/refused: {\"ok\":false,\"reasonCode\":\"INVALID_COMMAND\",\"message\":\"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).\",\"commandId\":\"small\"}: expected false to be true // Object.is equality\n    at ask (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:51:112)\n    at legal (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:70:18)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:115:19\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ]
+    },
+    {
+      "file": "tests/bridge-p15b5-loan-choice.test.ts",
+      "fullName": "Bridge C17: explicit lawful loan choice illegal finite principals are precise noncommittable core refusals, never clamped",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: PREREQUISITE RED: canonical quoteLoan request absent/refused: {\"ok\":false,\"reasonCode\":\"INVALID_COMMAND\",\"message\":\"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).\",\"commandId\":\"bad-0\"}: expected false to be true // Object.is equality\n    at ask (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:51:112)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:131:17\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ]
+    },
+    {
+      "file": "tests/bridge-p15b5-loan-choice.test.ts",
+      "fullName": "Bridge C17: explicit lawful loan choice real stable and already-borrowed states refuse eligibility BEFORE an illegal principal",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: PREREQUISITE RED: canonical quoteLoan request absent/refused: {\"ok\":false,\"reasonCode\":\"INVALID_COMMAND\",\"message\":\"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).\",\"commandId\":\"eligibility-stable\"}: expected false to be true // Object.is equality\n    at ask (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:51:112)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:151:17\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ]
+    },
+    {
+      "file": "tests/bridge-p15b5-loan-choice.test.ts",
+      "fullName": "Bridge C17: explicit lawful loan choice loan quotes use shared stale guard and clear-on-load even for digest-identical saved bytes",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: PREREQUISITE RED: canonical quoteLoan request absent/refused: {\"ok\":false,\"reasonCode\":\"INVALID_COMMAND\",\"message\":\"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).\",\"commandId\":\"before-load\"}: expected false to be true // Object.is equality\n    at ask (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:51:112)\n    at legal (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:70:18)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:162:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ]
+    },
+    {
+      "file": "tests/bridge-p15b5-loan-choice.test.ts",
+      "fullName": "Bridge C17: explicit lawful loan choice loan family enters the existing cap16 map: first distinct draft evicted, latest usable",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: PREREQUISITE RED: canonical quoteLoan request absent/refused: {\"ok\":false,\"reasonCode\":\"INVALID_COMMAND\",\"message\":\"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).\",\"commandId\":\"cap-1\"}: expected false to be true // Object.is equality\n    at ask (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:51:112)\n    at legal (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:70:18)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:186:44\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ]
+    },
+    {
+      "file": "tests/bridge-p15b5-loan-choice.test.ts",
+      "fullName": "Bridge C17: explicit lawful loan choice resolved real loan commit revalidates a core-produced outstanding loan; public digest guard is not the witness",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: PREREQUISITE RED: canonical quoteLoan request absent/refused: {\"ok\":false,\"reasonCode\":\"INVALID_COMMAND\",\"message\":\"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).\",\"commandId\":\"revalidate\"}: expected false to be true // Object.is equality\n    at ask (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:51:112)\n    at legal (/Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:70:18)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-p15b5-loan-choice.test.ts:199:15\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ]
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "C17 shipped projection57 carry-forward registers the actual shipped projection57 identity, independently of map iteration",
+      "status": "failed",
+      "failureMessages": [
+        "AssertionError: expected undefined to be 'projection-v57' // Object.is equality\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-runtime-checkpoint.test.ts:1068:80\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)"
+      ]
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "C17 shipped projection57 carry-forward independently migrates two admitted Save47 slots under actual shipped57 and discards opaque prior journal",
+      "status": "failed",
+      "failureMessages": [
+        "BridgeRuntimeCheckpointError: checkpoint.schemaId: does not match the running TypeScript bridge schema\n    at fail (/Users/zacheryspector/studio-specialists/p15b/bridge/runtime-checkpoint.ts:379:9)\n    at hydrateAndEncodeBridgeRuntimeCheckpoint (/Users/zacheryspector/studio-specialists/p15b/bridge/runtime-checkpoint.ts:1101:5)\n    at decodeBridgeRuntimeCheckpoint (/Users/zacheryspector/studio-specialists/p15b/bridge/runtime-checkpoint.ts:1277:20)\n    at Module.loadBridgeRuntimeCheckpoint (/Users/zacheryspector/studio-specialists/p15b/bridge/runtime-checkpoint.ts:1328:15)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-runtime-checkpoint.test.ts:1104:20\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)"
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 forward-migrates protocol 3 by preserving both V15 slots and discarding incompatible replay bytes",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 rolls the previous protocol-4 schema forward without changing either V15 save slot",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 rolls an authentic previous protocol-4 checkpoint with no explicit save slot",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 rejects an impossible open-founding state attributed to the previous protocol-4 runtime",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 encodes one exact closed canonical shape with one LF and hydrates stable V15 bytes",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 requires canonical checkpoint bytes followed by exactly one LF",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 rejects missing and additional roots plus incompatible format, version, protocol, and schema",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 requires untouched canonical V15 current and explicit-save bytes with exact digests",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 validates route-specific requests, responses, identity, session, revision, and canonical JSON",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 binds exact historical bytes and rejection semantics to their original route",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 rejects duplicate identities and revision-regressing journal order",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 binds the root revision to the terminal journal response",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 returns a normalized prospective append only after identity and capacity validation",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 enforces injectable entry, journal-byte, and checkpoint-byte bounds before hydration",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 validates an accepted save response V15 payload and digest before journaling it",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 surfaces a typed checkpoint error with the exact failing path",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import preserves both actual accepted P12 founding slots through the P13 save migration",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import migrates a v4-identity (f84ae77e) checkpoint with a V14 current save and an opaque 2-entry journal",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import preserves and migrates a non-null savedSaveJson slot for a prior protocol-4 identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1 (projection-v56) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158 (projection-v55) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302 (projection-v54) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d (projection-v53) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2 (projection-v52) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f (projection-v51) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698 (projection-v50) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b (projection-v49) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec (projection-v48) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538 (projection-v47) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c (projection-v46) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d (projection-v45) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:c9c07d6febe4afee7f7c27c991acdfa1c86b6c3a7f5dff8528d7fa5ad72e43a1 (projection-v31) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:e64a3b659e4247b98631f1caa1f0e9eb0b6016aac92b0f46be590360ff9cee48 (projection-v30) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85 (projection-v29) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712 (projection-v28) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:97940e51e0566bed80231b223e5b7303a45d62db8d698f693e525eb244775211 (projection-v27) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:2b339a6a8b3e5add0726b7eaac9ce8746e235d8b6111a6816f890ff56afdffd1 (projection-v26) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:fe9bf4558dc12abc5f258ba8b8f581242e06361cfbae8ae31d8c676f6c7a6460 (projection-v25) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:204a71924bd8c2e8ae9af47591226894b3e42f62457da3cc20ed6b106ede611a (projection-v24) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f (projection-v4-early) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:f84ae77ec59a0d7ca7cdd89115456504ddecbde2c6e3839936e4951bd65bce61 (projection-v4) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:be7ed660d04ed9b1056f48e946f86f26c10cab42b950a273d57ad9cba372f5bb (projection-v5) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:15033cf9ca43be65abcb25fc6f910f9487ac23056090126ec7d3e2353f6ce587 (projection-v6) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:7e3af4db0d3d18cdeaab00082e0034f304a9141f46ea87e9e64e5a99d985483c (projection-v7) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5 (projection-v8) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:510f08e4a551827a30e0f3d93bbe09fa5ddadbd39366b4dcfa93530500c7979c (projection-v9-early) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:80f2f0fcd14d1b25e713c2624286a6c05a98c53ea5cfcb2b47612f8c030f5e47 (projection-v9) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:92317ec179456cdc5bd5cc7c4ca47dd066b768a9e2e45519f1263ef921a211a4 (projection-v10) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e (projection-v11) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:a481d14f3810ffbafcba2bbf509db7340263f3f0fd665a059507a1567d98923d (projection-v12-stale-urn) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b (projection-v12) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f (projection-v13) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b (projection-v14) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99 (projection-v15) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236 (projection-v16) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399 (projection-v17-early) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25 (projection-v17-w1b) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78 (projection-v17) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:ea5d645f34a472f4710b9273b225d6f15433d6d17ae8ed1af3c03686a225c8c4 (projection-v18) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9 (projection-v19) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b (projection-v20) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:1bad05a95c284e64ceaef54c276f2dd0ccad8ca3ef1b12198068bb61b85198c9 (projection-v23) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:b779faa92227bd1f2e623ad04d0899c87e7ddc60ce43f9ae9c39a7626c20a83d (projection-v22) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1 (projection-v21) identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import fails closed on a duplicate commandId, a wrong journalDigest, and non-canonical bytes",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import re-hydrates the migrated output via the normal current-schema path (write-read round trip, idempotent)",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import fails closed on an unknown protocol-4 schemaId with the exact current message",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import fails closed on malformed prior protocol-4 checkpoint bytes",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import rejects an impossible open-founding state on either migrated save slot",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import never parses journal request/response bodies for a prior protocol-4 identity",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "prior protocol-4 acceptance boundary pins never contains the RUNNING schema identity (re-migration must be impossible)",
+      "status": "skipped",
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "prior protocol-4 acceptance boundary pins contains exactly the independently pinned historical protocol-4 identities",
+      "status": "skipped",
+      "failureMessages": []
+    }
+  ]
+}

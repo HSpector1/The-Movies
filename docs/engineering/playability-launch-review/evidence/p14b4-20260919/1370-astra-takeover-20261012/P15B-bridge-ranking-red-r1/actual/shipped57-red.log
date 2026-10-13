@@ -1,0 +1,52 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p15b
+
+ ❯ |core| tests/bridge-runtime-checkpoint.test.ts (74 tests | 2 failed | 72 skipped) 3630ms
+   × C17 shipped projection57 carry-forward > registers the actual shipped projection57 identity, independently of map iteration 19ms
+     → expected undefined to be 'projection-v57' // Object.is equality
+   × C17 shipped projection57 carry-forward > independently migrates two admitted Save47 slots under actual shipped57 and discards opaque prior journal 3608ms
+     → checkpoint.schemaId: does not match the running TypeScript bridge schema
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-runtime-checkpoint.test.ts > C17 shipped projection57 carry-forward > registers the actual shipped projection57 identity, independently of map iteration
+AssertionError: expected undefined to be 'projection-v57' // Object.is equality
+
+- Expected: 
+"projection-v57"
+
++ Received: 
+undefined
+
+ ❯ tests/bridge-runtime-checkpoint.test.ts:1068:80
+    1066| describe('C17 shipped projection57 carry-forward', () => {
+    1067|   it('registers the actual shipped projection57 identity, independentl…
+    1068|     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(C17_SHIPPED_OUTGO…
+       |                                                                                ^
+    1069|     expect(C17_SHIPPED_OUTGOING_57).not.toBe(SCHEMA_ID)
+    1070|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/bridge-runtime-checkpoint.test.ts > C17 shipped projection57 carry-forward > independently migrates two admitted Save47 slots under actual shipped57 and discards opaque prior journal
+BridgeRuntimeCheckpointError: checkpoint.schemaId: does not match the running TypeScript bridge schema
+ ❯ fail bridge/runtime-checkpoint.ts:379:9
+    377| 
+    378| function fail(path: string, message: string): never {
+    379|   throw new BridgeRuntimeCheckpointError(path, message)
+       |         ^
+    380| }
+    381| 
+ ❯ hydrateAndEncodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1101:5
+ ❯ decodeBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1277:20
+ ❯ Module.loadBridgeRuntimeCheckpoint bridge/runtime-checkpoint.ts:1328:15
+ ❯ tests/bridge-runtime-checkpoint.test.ts:1104:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 72 skipped (74)
+   Start at  19:27:37
+   Duration  8.11s (transform 2.97s, setup 0ms, collect 4.02s, tests 3.63s, environment 0ms, prepare 111ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-red-r1-run/shipped57-red.json

@@ -1,0 +1,431 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-specialists/p15b
+
+ ❯ |core| tests/bridge-p15a2-power-ranking.test.ts (12 tests | 12 failed) 4678ms
+   × Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b > rank-view-routes: real latest/archive IDs, row paging, exact unknown refusal and pure detached output 3241ms
+     → PREREQUISITE RED: canonical powerRanking query unavailable: {"ok":false,"reasonCode":"INVALID_CONTROL","message":"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.","commandId":null}: expected false to be true // Object.is equality
+   × Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b > rank-projection-schema: adopted view/nullable section and existing 1–50 query cap 2ms
+     → PREREQUISITE RED: canonical powerRanking query unavailable: {"ok":false,"reasonCode":"INVALID_CONTROL","message":"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.","commandId":null}: expected false to be true // Object.is equality
+   × Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b > rank-view-empty and unavailable13: honest first quarter, no ranks, banner/window/first-ranked copy 92ms
+     → PREREQUISITE RED: canonical powerRanking query unavailable: {"ok":false,"reasonCode":"INVALID_CONTROL","message":"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.","commandId":null}: expected false to be true // Object.is equality
+   × Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b > rank-view-closure: actual169 inclusion/182 exclusion, frozen historical page and cross-definition movement 1ms
+     → PREREQUISITE RED: canonical powerRanking query unavailable: {"ok":false,"reasonCode":"INVALID_CONTROL","message":"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.","commandId":null}: expected false to be true // Object.is equality
+   × Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b > rank-view-archived-stage-band: stage at selected quarter and recorded band, no private finance 58ms
+     → PREREQUISITE RED: canonical powerRanking query unavailable: {"ok":false,"reasonCode":"INVALID_CONTROL","message":"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.","commandId":null}: expected false to be true // Object.is equality
+   × Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b > rank-view-not-recorded: genuine precondition-history quarter has no backfilled stage 1139ms
+     → PREREQUISITE RED: canonical powerRanking query unavailable: {"ok":false,"reasonCode":"INVALID_CONTROL","message":"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.","commandId":null}: expected false to be true // Object.is equality
+   × Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b > rank-view-copy/film-explain: real record rows, no-finished sentence and actual creator film score 1ms
+     → PREREQUISITE RED: canonical powerRanking query unavailable: {"ok":false,"reasonCode":"INVALID_CONTROL","message":"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.","commandId":null}: expected false to be true // Object.is equality
+   × Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b > rank-view-industry-unchanged: Studio Charts unchanged except adopted notice and nullable rank section 137ms
+     → expected 'Public facts only. Standing channels …' to be 'Public facts only. Standing channels …' // Object.is equality
+   × Power Ranking comparator units: constructed source-independent records, no campaign reachability claim > rank-view-movement: identical ranked cohort preserves competition ties1–1–3 and normal movement 1ms
+     → PREREQUISITE RED: internal archive comparator not exported: expected 'undefined' to be 'function' // Object.is equality
+   × Power Ranking comparator units: constructed source-independent records, no campaign reachability claim > cross-definition is unavailable even with identical ranked cohort 1ms
+     → PREREQUISITE RED: internal archive comparator not exported: expected 'undefined' to be 'function' // Object.is equality
+   × Power Ranking comparator units: constructed source-independent records, no campaign reachability claim > absent prior, wrong W−13, current unranked and truly absent prior row are unavailable 1ms
+     → PREREQUISITE RED: internal archive comparator not exported: expected 'undefined' to be 'function' // Object.is equality
+   × Power Ranking comparator units: constructed source-independent records, no campaign reachability claim > existing prior-unranked row is new BEFORE differing-ranked-cohort rule; other cohort changes unavailable 1ms
+     → PREREQUISITE RED: internal archive comparator not exported: expected 'undefined' to be 'function' // Object.is equality
+ ❯ |core| tests/bridge-p15b5-loan-choice.test.ts (8 tests | 8 failed) 2133ms
+   × Bridge C17: explicit lawful loan choice > quotes and commits selected $1000 once, with exact terms and journal replay 1158ms
+     → PREREQUISITE RED: canonical quoteLoan request absent/refused: {"ok":false,"reasonCode":"INVALID_COMMAND","message":"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).","commandId":"choice"}: expected false to be true // Object.is equality
+   × Bridge C17: explicit lawful loan choice > quotes and commits selected $2000 once, with exact terms and journal replay 49ms
+     → PREREQUISITE RED: canonical quoteLoan request absent/refused: {"ok":false,"reasonCode":"INVALID_COMMAND","message":"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).","commandId":"choice"}: expected false to be true // Object.is equality
+   × Bridge C17: explicit lawful loan choice > distinct chosen principals bind distinct IDs; maximum shortcut remains exactly one option 92ms
+     → PREREQUISITE RED: canonical quoteLoan request absent/refused: {"ok":false,"reasonCode":"INVALID_COMMAND","message":"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).","commandId":"small"}: expected false to be true // Object.is equality
+   × Bridge C17: explicit lawful loan choice > illegal finite principals are precise noncommittable core refusals, never clamped 47ms
+     → PREREQUISITE RED: canonical quoteLoan request absent/refused: {"ok":false,"reasonCode":"INVALID_COMMAND","message":"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).","commandId":"bad-0"}: expected false to be true // Object.is equality
+   × Bridge C17: explicit lawful loan choice > real stable and already-borrowed states refuse eligibility BEFORE an illegal principal 207ms
+     → PREREQUISITE RED: canonical quoteLoan request absent/refused: {"ok":false,"reasonCode":"INVALID_COMMAND","message":"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).","commandId":"eligibility-stable"}: expected false to be true // Object.is equality
+   × Bridge C17: explicit lawful loan choice > loan quotes use shared stale guard and clear-on-load even for digest-identical saved bytes 413ms
+     → PREREQUISITE RED: canonical quoteLoan request absent/refused: {"ok":false,"reasonCode":"INVALID_COMMAND","message":"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).","commandId":"before-load"}: expected false to be true // Object.is equality
+   × Bridge C17: explicit lawful loan choice > loan family enters the existing cap16 map: first distinct draft evicted, latest usable 109ms
+     → PREREQUISITE RED: canonical quoteLoan request absent/refused: {"ok":false,"reasonCode":"INVALID_COMMAND","message":"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).","commandId":"cap-1"}: expected false to be true // Object.is equality
+   × Bridge C17: explicit lawful loan choice > resolved real loan commit revalidates a core-produced outstanding loan; public digest guard is not the witness 55ms
+     → PREREQUISITE RED: canonical quoteLoan request absent/refused: {"ok":false,"reasonCode":"INVALID_COMMAND","message":"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).","commandId":"revalidate"}: expected false to be true // Object.is equality
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 20 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p15a2-power-ranking.test.ts > Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b > rank-view-routes: real latest/archive IDs, row paging, exact unknown refusal and pure detached output
+AssertionError: PREREQUISITE RED: canonical powerRanking query unavailable: {"ok":false,"reasonCode":"INVALID_CONTROL","message":"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.","commandId":null}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ask tests/bridge-p15a2-power-ranking.test.ts:67:112
+     65| function ask(session: BridgeSession, extra: Record<string, unknown> = …
+     66|   const checked = validateIndustry(request(session, extra))
+     67|   expect(checked.ok, `PREREQUISITE RED: canonical powerRanking query u…
+       |                                                                                                                ^
+     68|   if (!checked.ok) throw new Error('PREREQUISITE RED: view not admitte…
+     69|   return session.industry(checked.request)
+ ❯ page tests/bridge-p15a2-power-ranking.test.ts:72:15
+ ❯ tests/bridge-p15a2-power-ranking.test.ts:107:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/20]⎯
+
+ FAIL |core|  tests/bridge-p15a2-power-ranking.test.ts > Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b > rank-projection-schema: adopted view/nullable section and existing 1–50 query cap
+AssertionError: PREREQUISITE RED: canonical powerRanking query unavailable: {"ok":false,"reasonCode":"INVALID_CONTROL","message":"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.","commandId":null}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ask tests/bridge-p15a2-power-ranking.test.ts:67:112
+     65| function ask(session: BridgeSession, extra: Record<string, unknown> = …
+     66|   const checked = validateIndustry(request(session, extra))
+     67|   expect(checked.ok, `PREREQUISITE RED: canonical powerRanking query u…
+       |                                                                                                                ^
+     68|   if (!checked.ok) throw new Error('PREREQUISITE RED: view not admitte…
+     69|   return session.industry(checked.request)
+ ❯ page tests/bridge-p15a2-power-ranking.test.ts:72:15
+ ❯ tests/bridge-p15a2-power-ranking.test.ts:126:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/20]⎯
+
+ FAIL |core|  tests/bridge-p15a2-power-ranking.test.ts > Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b > rank-view-empty and unavailable13: honest first quarter, no ranks, banner/window/first-ranked copy
+AssertionError: PREREQUISITE RED: canonical powerRanking query unavailable: {"ok":false,"reasonCode":"INVALID_CONTROL","message":"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.","commandId":null}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ask tests/bridge-p15a2-power-ranking.test.ts:67:112
+     65| function ask(session: BridgeSession, extra: Record<string, unknown> = …
+     66|   const checked = validateIndustry(request(session, extra))
+     67|   expect(checked.ok, `PREREQUISITE RED: canonical powerRanking query u…
+       |                                                                                                                ^
+     68|   if (!checked.ok) throw new Error('PREREQUISITE RED: view not admitte…
+     69|   return session.industry(checked.request)
+ ❯ page tests/bridge-p15a2-power-ranking.test.ts:72:15
+ ❯ tests/bridge-p15a2-power-ranking.test.ts:143:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/20]⎯
+
+ FAIL |core|  tests/bridge-p15a2-power-ranking.test.ts > Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b > rank-view-closure: actual169 inclusion/182 exclusion, frozen historical page and cross-definition movement
+AssertionError: PREREQUISITE RED: canonical powerRanking query unavailable: {"ok":false,"reasonCode":"INVALID_CONTROL","message":"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.","commandId":null}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ask tests/bridge-p15a2-power-ranking.test.ts:67:112
+     65| function ask(session: BridgeSession, extra: Record<string, unknown> = …
+     66|   const checked = validateIndustry(request(session, extra))
+     67|   expect(checked.ok, `PREREQUISITE RED: canonical powerRanking query u…
+       |                                                                                                                ^
+     68|   if (!checked.ok) throw new Error('PREREQUISITE RED: view not admitte…
+     69|   return session.industry(checked.request)
+ ❯ page tests/bridge-p15a2-power-ranking.test.ts:72:15
+ ❯ tests/bridge-p15a2-power-ranking.test.ts:158:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/20]⎯
+
+ FAIL |core|  tests/bridge-p15a2-power-ranking.test.ts > Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b > rank-view-archived-stage-band: stage at selected quarter and recorded band, no private finance
+AssertionError: PREREQUISITE RED: canonical powerRanking query unavailable: {"ok":false,"reasonCode":"INVALID_CONTROL","message":"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.","commandId":null}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ask tests/bridge-p15a2-power-ranking.test.ts:67:112
+     65| function ask(session: BridgeSession, extra: Record<string, unknown> = …
+     66|   const checked = validateIndustry(request(session, extra))
+     67|   expect(checked.ok, `PREREQUISITE RED: canonical powerRanking query u…
+       |                                                                                                                ^
+     68|   if (!checked.ok) throw new Error('PREREQUISITE RED: view not admitte…
+     69|   return session.industry(checked.request)
+ ❯ page tests/bridge-p15a2-power-ranking.test.ts:72:15
+ ❯ tests/bridge-p15a2-power-ranking.test.ts:173:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/20]⎯
+
+ FAIL |core|  tests/bridge-p15a2-power-ranking.test.ts > Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b > rank-view-not-recorded: genuine precondition-history quarter has no backfilled stage
+AssertionError: PREREQUISITE RED: canonical powerRanking query unavailable: {"ok":false,"reasonCode":"INVALID_CONTROL","message":"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.","commandId":null}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ask tests/bridge-p15a2-power-ranking.test.ts:67:112
+     65| function ask(session: BridgeSession, extra: Record<string, unknown> = …
+     66|   const checked = validateIndustry(request(session, extra))
+     67|   expect(checked.ok, `PREREQUISITE RED: canonical powerRanking query u…
+       |                                                                                                                ^
+     68|   if (!checked.ok) throw new Error('PREREQUISITE RED: view not admitte…
+     69|   return session.industry(checked.request)
+ ❯ page tests/bridge-p15a2-power-ranking.test.ts:72:15
+ ❯ tests/bridge-p15a2-power-ranking.test.ts:195:34
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/20]⎯
+
+ FAIL |core|  tests/bridge-p15a2-power-ranking.test.ts > Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b > rank-view-copy/film-explain: real record rows, no-finished sentence and actual creator film score
+AssertionError: PREREQUISITE RED: canonical powerRanking query unavailable: {"ok":false,"reasonCode":"INVALID_CONTROL","message":"Control envelope is invalid: $.view: expected one of studios, studio, films, film, person, pulse, history, roster, project, employment, laboratory, plans, office, market, alumni.","commandId":null}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ask tests/bridge-p15a2-power-ranking.test.ts:67:112
+     65| function ask(session: BridgeSession, extra: Record<string, unknown> = …
+     66|   const checked = validateIndustry(request(session, extra))
+     67|   expect(checked.ok, `PREREQUISITE RED: canonical powerRanking query u…
+       |                                                                                                                ^
+     68|   if (!checked.ok) throw new Error('PREREQUISITE RED: view not admitte…
+     69|   return session.industry(checked.request)
+ ❯ page tests/bridge-p15a2-power-ranking.test.ts:72:15
+ ❯ tests/bridge-p15a2-power-ranking.test.ts:202:94
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/20]⎯
+
+ FAIL |core|  tests/bridge-p15a2-power-ranking.test.ts > Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b > rank-view-industry-unchanged: Studio Charts unchanged except adopted notice and nullable rank section
+AssertionError: expected 'Public facts only. Standing channels …' to be 'Public facts only. Standing channels …' // Object.is equality
+
+Expected: "Public facts only. Standing channels and film measures have separate meanings. The quarterly Power Ranking is a separate comparison."
+Received: "Public facts only. Standing channels and film measures have separate meanings; there is no combined Power score."
+
+ ❯ tests/bridge-p15a2-power-ranking.test.ts:264:25
+    262|       }
+    263|     }
+    264|     expect(wire.notice).toBe('Public facts only. Standing channels and…
+       |                         ^
+    265|     expect(wire.powerRanking).toBeNull(); expect(whole(session)).toEqu…
+    266|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/20]⎯
+
+ FAIL |core|  tests/bridge-p15a2-power-ranking.test.ts > Power Ranking comparator units: constructed source-independent records, no campaign reachability claim > rank-view-movement: identical ranked cohort preserves competition ties1–1–3 and normal movement
+AssertionError: PREREQUISITE RED: internal archive comparator not exported: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ movement tests/bridge-p15a2-power-ranking.test.ts:98:105
+     96|   // Parent-approved internal pure seam; no new wire API. Runtime look…
+     97|   const api = industryModule as unknown as { powerRankingMovement?: (c…
+     98|   expect(typeof api.powerRankingMovement, 'PREREQUISITE RED: internal …
+       |                                                                                                         ^
+     99|   if (!api.powerRankingMovement) throw new Error('PREREQUISITE RED: co…
+    100|   const before = canon({ record, prior }); const result = api.powerRan…
+ ❯ tests/bridge-p15a2-power-ranking.test.ts:273:61
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/20]⎯
+
+ FAIL |core|  tests/bridge-p15a2-power-ranking.test.ts > Power Ranking comparator units: constructed source-independent records, no campaign reachability claim > cross-definition is unavailable even with identical ranked cohort
+AssertionError: PREREQUISITE RED: internal archive comparator not exported: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ movement tests/bridge-p15a2-power-ranking.test.ts:98:105
+     96|   // Parent-approved internal pure seam; no new wire API. Runtime look…
+     97|   const api = industryModule as unknown as { powerRankingMovement?: (c…
+     98|   expect(typeof api.powerRankingMovement, 'PREREQUISITE RED: internal …
+       |                                                                                                         ^
+     99|   if (!api.powerRankingMovement) throw new Error('PREREQUISITE RED: co…
+    100|   const before = canon({ record, prior }); const result = api.powerRan…
+ ❯ tests/bridge-p15a2-power-ranking.test.ts:280:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/20]⎯
+
+ FAIL |core|  tests/bridge-p15a2-power-ranking.test.ts > Power Ranking comparator units: constructed source-independent records, no campaign reachability claim > absent prior, wrong W−13, current unranked and truly absent prior row are unavailable
+AssertionError: PREREQUISITE RED: internal archive comparator not exported: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ movement tests/bridge-p15a2-power-ranking.test.ts:98:105
+     96|   // Parent-approved internal pure seam; no new wire API. Runtime look…
+     97|   const api = industryModule as unknown as { powerRankingMovement?: (c…
+     98|   expect(typeof api.powerRankingMovement, 'PREREQUISITE RED: internal …
+       |                                                                                                         ^
+     99|   if (!api.powerRankingMovement) throw new Error('PREREQUISITE RED: co…
+    100|   const before = canon({ record, prior }); const result = api.powerRan…
+ ❯ tests/bridge-p15a2-power-ranking.test.ts:284:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/20]⎯
+
+ FAIL |core|  tests/bridge-p15a2-power-ranking.test.ts > Power Ranking comparator units: constructed source-independent records, no campaign reachability claim > existing prior-unranked row is new BEFORE differing-ranked-cohort rule; other cohort changes unavailable
+AssertionError: PREREQUISITE RED: internal archive comparator not exported: expected 'undefined' to be 'function' // Object.is equality
+
+Expected: "function"
+Received: "undefined"
+
+ ❯ movement tests/bridge-p15a2-power-ranking.test.ts:98:105
+     96|   // Parent-approved internal pure seam; no new wire API. Runtime look…
+     97|   const api = industryModule as unknown as { powerRankingMovement?: (c…
+     98|   expect(typeof api.powerRankingMovement, 'PREREQUISITE RED: internal …
+       |                                                                                                         ^
+     99|   if (!api.powerRankingMovement) throw new Error('PREREQUISITE RED: co…
+    100|   const before = canon({ record, prior }); const result = api.powerRan…
+ ❯ tests/bridge-p15a2-power-ranking.test.ts:292:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/20]⎯
+
+ FAIL |core|  tests/bridge-p15b5-loan-choice.test.ts > Bridge C17: explicit lawful loan choice > quotes and commits selected $1000 once, with exact terms and journal replay
+ FAIL |core|  tests/bridge-p15b5-loan-choice.test.ts > Bridge C17: explicit lawful loan choice > quotes and commits selected $2000 once, with exact terms and journal replay
+AssertionError: PREREQUISITE RED: canonical quoteLoan request absent/refused: {"ok":false,"reasonCode":"INVALID_COMMAND","message":"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).","commandId":"choice"}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ask tests/bridge-p15b5-loan-choice.test.ts:51:112
+     49|   const wire = request(session, principal, commandId)
+     50|   const parsed = validateQuote(wire)
+     51|   expect(parsed.ok, `PREREQUISITE RED: canonical quoteLoan request abs…
+       |                                                                                                                ^
+     52|   if (!parsed.ok) throw new Error('PREREQUISITE RED: quoteLoan request…
+     53|   const response = session.quote(parsed.quote)
+ ❯ legal tests/bridge-p15b5-loan-choice.test.ts:70:18
+ ❯ tests/bridge-p15b5-loan-choice.test.ts:89:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/20]⎯
+
+ FAIL |core|  tests/bridge-p15b5-loan-choice.test.ts > Bridge C17: explicit lawful loan choice > distinct chosen principals bind distinct IDs; maximum shortcut remains exactly one option
+AssertionError: PREREQUISITE RED: canonical quoteLoan request absent/refused: {"ok":false,"reasonCode":"INVALID_COMMAND","message":"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).","commandId":"small"}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ask tests/bridge-p15b5-loan-choice.test.ts:51:112
+     49|   const wire = request(session, principal, commandId)
+     50|   const parsed = validateQuote(wire)
+     51|   expect(parsed.ok, `PREREQUISITE RED: canonical quoteLoan request abs…
+       |                                                                                                                ^
+     52|   if (!parsed.ok) throw new Error('PREREQUISITE RED: quoteLoan request…
+     53|   const response = session.quote(parsed.quote)
+ ❯ legal tests/bridge-p15b5-loan-choice.test.ts:70:18
+ ❯ tests/bridge-p15b5-loan-choice.test.ts:115:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/20]⎯
+
+ FAIL |core|  tests/bridge-p15b5-loan-choice.test.ts > Bridge C17: explicit lawful loan choice > illegal finite principals are precise noncommittable core refusals, never clamped
+AssertionError: PREREQUISITE RED: canonical quoteLoan request absent/refused: {"ok":false,"reasonCode":"INVALID_COMMAND","message":"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).","commandId":"bad-0"}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ask tests/bridge-p15b5-loan-choice.test.ts:51:112
+     49|   const wire = request(session, principal, commandId)
+     50|   const parsed = validateQuote(wire)
+     51|   expect(parsed.ok, `PREREQUISITE RED: canonical quoteLoan request abs…
+       |                                                                                                                ^
+     52|   if (!parsed.ok) throw new Error('PREREQUISITE RED: quoteLoan request…
+     53|   const response = session.quote(parsed.quote)
+ ❯ tests/bridge-p15b5-loan-choice.test.ts:131:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/20]⎯
+
+ FAIL |core|  tests/bridge-p15b5-loan-choice.test.ts > Bridge C17: explicit lawful loan choice > real stable and already-borrowed states refuse eligibility BEFORE an illegal principal
+AssertionError: PREREQUISITE RED: canonical quoteLoan request absent/refused: {"ok":false,"reasonCode":"INVALID_COMMAND","message":"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).","commandId":"eligibility-stable"}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ask tests/bridge-p15b5-loan-choice.test.ts:51:112
+     49|   const wire = request(session, principal, commandId)
+     50|   const parsed = validateQuote(wire)
+     51|   expect(parsed.ok, `PREREQUISITE RED: canonical quoteLoan request abs…
+       |                                                                                                                ^
+     52|   if (!parsed.ok) throw new Error('PREREQUISITE RED: quoteLoan request…
+     53|   const response = session.quote(parsed.quote)
+ ❯ tests/bridge-p15b5-loan-choice.test.ts:151:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/20]⎯
+
+ FAIL |core|  tests/bridge-p15b5-loan-choice.test.ts > Bridge C17: explicit lawful loan choice > loan quotes use shared stale guard and clear-on-load even for digest-identical saved bytes
+AssertionError: PREREQUISITE RED: canonical quoteLoan request absent/refused: {"ok":false,"reasonCode":"INVALID_COMMAND","message":"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).","commandId":"before-load"}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ask tests/bridge-p15b5-loan-choice.test.ts:51:112
+     49|   const wire = request(session, principal, commandId)
+     50|   const parsed = validateQuote(wire)
+     51|   expect(parsed.ok, `PREREQUISITE RED: canonical quoteLoan request abs…
+       |                                                                                                                ^
+     52|   if (!parsed.ok) throw new Error('PREREQUISITE RED: quoteLoan request…
+     53|   const response = session.quote(parsed.quote)
+ ❯ legal tests/bridge-p15b5-loan-choice.test.ts:70:18
+ ❯ tests/bridge-p15b5-loan-choice.test.ts:162:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/20]⎯
+
+ FAIL |core|  tests/bridge-p15b5-loan-choice.test.ts > Bridge C17: explicit lawful loan choice > loan family enters the existing cap16 map: first distinct draft evicted, latest usable
+AssertionError: PREREQUISITE RED: canonical quoteLoan request absent/refused: {"ok":false,"reasonCode":"INVALID_COMMAND","message":"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).","commandId":"cap-1"}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ask tests/bridge-p15b5-loan-choice.test.ts:51:112
+     49|   const wire = request(session, principal, commandId)
+     50|   const parsed = validateQuote(wire)
+     51|   expect(parsed.ok, `PREREQUISITE RED: canonical quoteLoan request abs…
+       |                                                                                                                ^
+     52|   if (!parsed.ok) throw new Error('PREREQUISITE RED: quoteLoan request…
+     53|   const response = session.quote(parsed.quote)
+ ❯ legal tests/bridge-p15b5-loan-choice.test.ts:70:18
+ ❯ tests/bridge-p15b5-loan-choice.test.ts:186:44
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/20]⎯
+
+ FAIL |core|  tests/bridge-p15b5-loan-choice.test.ts > Bridge C17: explicit lawful loan choice > resolved real loan commit revalidates a core-produced outstanding loan; public digest guard is not the witness
+AssertionError: PREREQUISITE RED: canonical quoteLoan request absent/refused: {"ok":false,"reasonCode":"INVALID_COMMAND","message":"Command envelope is invalid: $: matched no allowed type ($.draft.conceptId: required property is missing; $.draft.budgetMarketing: required property is missing; $.draft.blueprintId: required property is missing; $.draft.blueprintId: required property is missing; $.draft.talentId: required property is missing; $.draft.premiumTier: required property is missing; $.draft.promiseId: required property is missing).","commandId":"revalidate"}: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ ask tests/bridge-p15b5-loan-choice.test.ts:51:112
+     49|   const wire = request(session, principal, commandId)
+     50|   const parsed = validateQuote(wire)
+     51|   expect(parsed.ok, `PREREQUISITE RED: canonical quoteLoan request abs…
+       |                                                                                                                ^
+     52|   if (!parsed.ok) throw new Error('PREREQUISITE RED: quoteLoan request…
+     53|   const response = session.quote(parsed.quote)
+ ❯ legal tests/bridge-p15b5-loan-choice.test.ts:70:18
+ ❯ tests/bridge-p15b5-loan-choice.test.ts:199:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/20]⎯
+
+ Test Files  2 failed (2)
+      Tests  20 failed (20)
+   Start at  19:27:21
+   Duration  12.24s (transform 2.87s, setup 0ms, collect 4.62s, tests 6.81s, environment 1ms, prepare 203ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-red-r1-run/bridge-ranking-red.json

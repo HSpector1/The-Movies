@@ -1,0 +1,13 @@
+# Non-leak267 continuation static admission
+
+GPT-6.1 Sol. Conditional KEEP for parent-bound diagnostic only, no execution/candidate changes. Driver8b1d0daf4cd67caf4312770c7c775bc95e18799c7fa738472c517dcbc02bed74. Reviewed the bounded continuation and unchanged real API owners, not a replacement acceptance campaign.
+
+The initial paired267 construction reproduces the previously measured one-tick proof with both full input admissions before either tick, exact sole-budget normalization, real quoted and actual research work/spend/debit, dated267 receipts, both268 admissions and input purity. Later ticks are full develop:true ticks at matched clocks; input hashes check each arm and clock increment. Actual player closure stops before another tick, with terminal admission/error observation; no defer option, cash intervention, clock rewrite or historical fact fabrication appears. Endpoints780/900 require both whole readers before later continuation, retained unequal earned267 expenditure/history, equal player operations/placement and pure equal catalogue disclosure.
+
+The exact780 window884–988 and900 commercial936/announced884 assertions match technologyDisclosure's actual clock-based functions; announcement collections are independently compared with the expected literal rows. Long continuation properly permits causal rival chart/access/adoption differences rather than demanding the one-tick broader shared signature forever. A target rival's closure is recorded, not bypassed or interpreted as loss of retained history.
+
+Prior observation77d5b73a966dabe12c172f3a9f0e73cb36ac2cdef0f9e826d4de45d206bb1aee is a provenance constant, not read/verified by this driver: parent must separately pin the actual prior JSON and source relation. Actual1368 fixture/helper/transitive inputs and fresh driver/brief must be frozen. New152 includes test-only changes; no claim is made that the earlier complete source freeze is identical.
+
+Required external30s owned-group watchdog remains necessary. Per-pair full-state hashing and1266 possible ticks may exceed30s; completion is unmeasured. Timeout/terminal/premise failure is incomplete evidence, not permission to widen the deadline or continue rejected inputs. Intermediate successors are clock/purity checked, not each fully admitted; full admission is established at268 and the named endpoints only. Thrown tick/error paths do not independently certify final input purity.
+
+A successful result would establish this admitted constructed trajectory's specific780/900 clauses, not originalp13b-s8-nonleak-01 requalification, all original five leaves, naturally chosen alternate budget or P15B acceptance. No concrete static blocker found within those limits.
