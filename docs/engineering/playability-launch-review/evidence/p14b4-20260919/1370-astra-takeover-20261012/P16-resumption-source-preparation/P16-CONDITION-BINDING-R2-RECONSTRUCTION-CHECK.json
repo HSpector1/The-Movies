@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-13T14:52:20.553334-05:00",
+  "patchSHA256": "fa56983d0b7f527402a95f4fb48cbfff256945bf83b4109c9a66a2c449d6fa0b",
+  "preimagesMatchPublishedOriginalAndUnchangedClone": 3,
+  "newTestAbsent": true,
+  "actualPredecessorInterfacePinsMatch": 7,
+  "fixturePinMatches": true,
+  "gitApplyCheck": 0,
+  "status": "UNRUN source preparation, no installation"
+}

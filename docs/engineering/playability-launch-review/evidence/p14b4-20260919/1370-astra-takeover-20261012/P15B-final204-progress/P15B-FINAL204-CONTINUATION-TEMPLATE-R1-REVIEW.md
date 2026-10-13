@@ -1,0 +1,11 @@
+# Final204 continuation template: independent review
+
+GPT-6.1 Sol. Conditional KEEP template only; PENDING currentHEAD prevents launch until fresh parent-rebound review/preflight. No execution/hashscan/source edits.
+
+Runner43c850be489c994a9ba3d26cbb5d6fd397a3cd73d920be06ed1527df4097bbd2/ROOT-REUSE2f52764ff69d4381b2ddd3bd0adbf360b0dfc5b79240bed5ffddb8276628d89f verified. Literalself/selection/reuse pathactualtemplate; freshcontinuationOUT. Omission is only alreadymeasuredroot0/41s; remainingUI+Bridge compilers/original2generator--checks/5completefiles and originalbudgets/serial/floor/freeze/childstatus/EXITtrap preserved.
+
+Reusable root evidence is exacthash-pinned: before/finalfreeze, childrecords, terminal97, emptycompilerlog, successfulmetadata checks/emptyerrors, oldrunner/selection/PINS and independentactualreview. freeze_snapshot validates artifact hashes before adding them to everycurrent snapshot; changed/missingartifact halts, originaloutputs never overwritten. Currentfile/content/mode/path inventory and fullcachedpatch equalprior, everypriorrequiredinput equalscurrent rolebound counterpart. Only namedpriorrunner skip and samebytes selectionpath rename are explicit; priorrunner still separatelyhashbound as artifact. No broad normalization of source/inputbytes or untrackedpaths.
+
+New documentationHEAD/HANDOFF are explicitly separate parent-reviewed metadata, not compared asif unchanged tooldHEAD. Existingcandidate204postimages/indexadmission, currentHEADliteral afterrebind, unstagedHANDOFF-only allowance, unmerged/untracked refusal and currentstrictfreeze guard the newrun. Parent must verify thatHEADchange truly docs-only and model-ownedHANDOFF exterior is authorised beforebinding; pendingHEAD is not an exemption. No dependency/environmenthistoricalhash claim added: retain installedNode20.20.2/package/config/sourceidentity and knownsame-session dependencies.
+
+Originalwrapper97 resourcefailure remains97 forever. Pinnedchild0 is a constituentcompile result, not gatepass. Restoredactual3.5GiB launch/3GiBlive/AC/ownedlane preflight required; reuse cannot authorise execution belowfloor. Finalreporters/assertioncompleteness/budgets and independentterminalpostflight still pending. No concrete blocking template defect found; park until finalbinding and actualresource availability.

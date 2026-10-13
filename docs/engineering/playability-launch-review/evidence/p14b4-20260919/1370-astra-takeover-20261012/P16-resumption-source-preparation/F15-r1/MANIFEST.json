@@ -1,0 +1,22 @@
+[
+  {
+    "path": "src/core/rights.ts",
+    "preimageSHA256": "34d3db41905aa04c0c59a5b92289ff413eed2f4da0f52ff3a9f6aa74da378d4a",
+    "postimageSHA256": "26649b4285aa4c5238545c2d3c5643dd670196ec93cf65f0775ad19b8548c67f"
+  },
+  {
+    "path": "src/core/save.ts",
+    "preimageSHA256": "5721c9ba537d5c296abae92d4633e42a27ed46d048a62e0d1387d638be5ff9bf",
+    "postimageSHA256": "51d6ca1cfa4c52b2efeee6cc008367a6bc42c34be00715f2dc7f14799062bb6f"
+  },
+  {
+    "path": "src/core/hollywood.ts",
+    "preimageSHA256": "b0153bf5f7fbfdb2a61912403b233eae909d639b2d4a8e4cf09b81a249f8e7d8",
+    "postimageSHA256": "f6aab26e530d7fb31c404752e5d009c7cea2f30429f278ecae5ae689e3135d94"
+  },
+  {
+    "path": "tests/p16a-mint-hooks.test.ts",
+    "preimageSHA256": "b1f82d68ddfed89556d121c041705fd246f74e828fab498bbd716bd00407fb14",
+    "postimageSHA256": "93c5f1651dc9e56fdea168604e8e26b5d9094f4ab1e05ef8ff97b430aae689ac"
+  }
+]

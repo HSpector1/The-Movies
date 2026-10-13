@@ -1,0 +1,14 @@
+{
+  "at": "2026-10-13T14:07:22.180810-05:00",
+  "path": "tests/p15b4-studio-closure.test.ts",
+  "baseHeads": {
+    "/Users/zacheryspector/The-Movies-headless-program": "40a9a440c0ae2baee5f3df4dfd40280500516cbd",
+    "/Users/zacheryspector/studio-specialists/p15b": "d68d4b13b454922cf84eff5c0c73cae3e780eebe"
+  },
+  "preimage": "b8b2263ba0bc410e6919fb0c1b5e3211d9baa654f96d47bbd3676a21fb774f63",
+  "postimage": "901d45bb383ca7d9495000f61148c79ffabb25453c089cc28b7c4930d216dac3",
+  "qualifiedReplacementReporterSHA256": "1d50c772accd47365c7b476e0f749266979afb7b3765b917d069af59913be14d",
+  "oldIdentitiesRemoved": 1,
+  "newReplacementIdentitiesQualified": 5,
+  "scope": "exact invalid jointleaf removal and six unusedimports; all remaining leaves retained"
+}

@@ -1,0 +1,33 @@
+{
+  "status": "UNRUN; requires actual Save48\u219249 restack",
+  "preimages": {
+    "src/core/rightsFinance.ts": "615e78b6754df53e433b24c5aef4ec45ecaca22b2c1126595459e6b8fcdd2235",
+    "tests/p16b-condition-readers.test.ts": "500f8c194336112f370f4477b17cb2a2de76ca7874500621a889e8172e8f1949",
+    "tests/p16b-asset-sale.test.ts": "f65f82cb585f191f45d4335c78f85c4b0b1e47c2fe5f6f4d0d88628cc367ce94"
+  },
+  "predecessorInterfaces": {
+    "src/core/corporateConditionLive.ts": "e188744336178fd1b1bc0c7f53b799572110b0b3521cd68d29e7cc257a33c112",
+    "src/core/studioLoan.ts": "def5bd5b03e45b307615e33935ac6064e01e239735ee4128f61eae8a5b6f57b2",
+    "src/core/powerRankingArchive.ts": "a20e2c8da666f258abfee605f8e9890accac01e1102a2917d3dae5a419c1f0f3",
+    "src/core/save.ts": "c7fbe216d86a1cf2acf971dd50d999c5797b431f24d4169b7ce7fcb3746706f7",
+    "src/core/tick.ts": "f74718662d0a38045c92d9bd5ce846399d627a44b60cab1ac9a77747e3cc2adf",
+    "src/core/actions.ts": "ca440e97b7cca8427da127ca273d137c3969c0b44bb6c879f46080a82d244233",
+    "src/core/types.ts": "cdf92b8d3060aea5e84cfe3e3524353ec2dc38a4878567c086641956be73e795"
+  },
+  "fixture": {
+    "tests/fixtures/p13b/legacy-v26-lighting-restored-795.json.gz": "47d266bccb7871450e089f886d4565c970e97ad1b0af54d297733b064416312f"
+  },
+  "expectedFiles": [
+    "src/core/rightsFinance.ts",
+    "tests/p16b-live-condition-readers.test.ts",
+    "tests/p16b-condition-readers.test.ts",
+    "tests/p16b-asset-sale.test.ts"
+  ],
+  "outputs": {
+    "rightsFinance.ts": "db1e57c0231a90a2f1180744d3bb8ca378752d8c5945618f9487655474af8aeb",
+    "p16b-live-condition-readers.test.ts": "f3735ff00ebe72c82164b6c18b016e66aa3c4359688b3afe49b071bf3ada5c66",
+    "PATCH.diff": "f2c3740807e3281927a0ae87660659fad63b0aa534856f4f2ac6c44745242388",
+    "p16b-condition-readers.test.ts": "a3b9f170251e4737d54efb58c2022850260c8733e6ab62764df49aa719efa20d",
+    "p16b-asset-sale.test.ts": "606fed222310ae64032adce3898b46a78419e24e761b47c6f13d8f99b96b1aef"
+  }
+}

@@ -1,0 +1,13 @@
+# Final204r2 root compiler versus resource stop
+
+GPT-6.1 Sol. KEEP root-child compilation evidence for conditional constituent reuse; wrapper remainsFAILED97. No execution/source edits/hashscan.
+
+Actualresults.jsonl contains exactly one child: Node20.20.2 node node_modules/typescript/bin/tsc --noEmit, exit0/41s; compiler logempty. terminal.json overall97/group tsc-root97 is the wrapper post-child diskfloor result, not compilerexit2 or0gate. Lane records start14:13:09/end14:14:23CDT exit97. NoUI/Bridge/generator/test child ran; no freshfalloutreporter exists or qualification is inferred.
+
+Two metadata checks succeeded/errors0, unchangedAUTO hash. Before/final strict HEAD/index/cached/diff/status/source/input/inventory equal; raw autoMetadata differs only receipt path. HEAD40a9a440c0ae2baee5f3df4dfd40280500516cbd, final204r2 PATCH7e5ea6c9…/MANIFEST9eb3db63…/rootconfig requiredinputs bind the child. Postcompile floor failed; preserve raworiginalwrapper97 and all failed earlier attempts.
+
+A fresh reviewed continuation may reuse this one root0 if parent first observes originaltree/lane terminal, satisfies actual launch/live resource floors, verifies original rawrecord/command/hash and two successful strict postflight checks, then binds current same source/index/config/HEAD/requiredinputs/dependency environment. New wrapper self/output inputs may differ only explicitly named newlypinned bindings; no silent source/HANDOFF/fixture normalization or priororiginaloutput writes. Evidence reuse must compare actualcurrent envelope, not rely on packetlabel/hashalone. Any additional actualdiff requires concrete relevance review; docs-onlyHEAD by itself need not repeat compilation, but must be explicitly accounted rather than pretending rawidentityequal.
+
+Remaining exactcommands: UI tsc -p ui/tsconfig.json --noEmit; Bridge tsc -p tsconfig.bridge.json --noEmit; original generate-bridge-contract.ts --check and generate-bridge-contract-fixtures.ts --check throughinstalledvite-node; complete5corefiles S5save24/R07save25/S8save27/closure-save/remainingoriginalclosure. Originalbudgets/serial/default+JSON/floor/freeze/status propagation apply; actualreporter identities and durations must be inspected. Freshcontinuationsuccess cannot confer oldwholegatepass or waive101core/11D16/98/acceptance.
+
+The successful currentrootcompiler supersedes the measured unusedpreClosure fallout for the rootTS graph. No other obvious compiler-only fallout is established by the smallreviewed removal/cancellation-policy/helper deltas; UI/Bridge separateproject checks remain unexecuted and necessary. No genericscan or newcompiler run was performed. Current2.55GiB stillblocks anylaunch until measuredfloorrestored; reuse is not an exemption from that guard.

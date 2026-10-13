@@ -1,0 +1,30 @@
+{
+  "scope": "Unrun conditional continuation template; final checkpoint HEAD deliberately pending",
+  "files": [
+    {
+      "file": "P15B-FINAL204-CONTINUATION-TEMPLATE-R1-REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P15B-FINAL204-CONTINUATION-TEMPLATE-R1-REVIEW.md",
+      "sha256": "9c44b3b3161f2f21d9372d2c8debd9cad23d8d30a78da232635fc5e038b3d48f"
+    },
+    {
+      "file": "continuation-template/runner.sh",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-reader-fallout-continuation-template-r1/runner.sh",
+      "sha256": "43c850be489c994a9ba3d26cbb5d6fd397a3cd73d920be06ed1527df4097bbd2"
+    },
+    {
+      "file": "continuation-template/SELECTION.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-reader-fallout-continuation-template-r1/SELECTION.json",
+      "sha256": "cc349ebb509e64749402af53d4052b2aa054c9ea83c61fdb51bc9088e6ddc7cc"
+    },
+    {
+      "file": "continuation-template/ROOT-REUSE.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-reader-fallout-continuation-template-r1/ROOT-REUSE.json",
+      "sha256": "2f52764ff69d4381b2ddd3bd0adbf360b0dfc5b79240bed5ffddb8276628d89f"
+    },
+    {
+      "file": "final204-progress-resource-observation.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/final204-progress-resource-observation.json",
+      "sha256": "087e5dde69c7df2279b6944af595c53b3feddb9a38197d45ab285a256ebd0493"
+    }
+  ]
+}

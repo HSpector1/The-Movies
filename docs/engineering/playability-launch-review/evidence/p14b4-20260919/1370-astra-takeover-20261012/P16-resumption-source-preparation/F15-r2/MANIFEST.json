@@ -1,0 +1,32 @@
+[
+  {
+    "path": "src/core/rights.ts",
+    "preimageSHA256": "34d3db41905aa04c0c59a5b92289ff413eed2f4da0f52ff3a9f6aa74da378d4a",
+    "postimageSHA256": "5064bd971a1dbbdad02ee298bc88b2f989adf25aae2a94d122d6eb6aeb9446e3"
+  },
+  {
+    "path": "src/core/save.ts",
+    "preimageSHA256": "5721c9ba537d5c296abae92d4633e42a27ed46d048a62e0d1387d638be5ff9bf",
+    "postimageSHA256": "51d6ca1cfa4c52b2efeee6cc008367a6bc42c34be00715f2dc7f14799062bb6f"
+  },
+  {
+    "path": "src/core/hollywood.ts",
+    "preimageSHA256": "b0153bf5f7fbfdb2a61912403b233eae909d639b2d4a8e4cf09b81a249f8e7d8",
+    "postimageSHA256": "f6aab26e530d7fb31c404752e5d009c7cea2f30429f278ecae5ae689e3135d94"
+  },
+  {
+    "path": "tests/p16a-mint-hooks.test.ts",
+    "preimageSHA256": "b1f82d68ddfed89556d121c041705fd246f74e828fab498bbd716bd00407fb14",
+    "postimageSHA256": "5bd8492b3740d867e4b0d1a1c3d5c54672868df286685f5f530ace27cf182d9d"
+  },
+  {
+    "path": "tests/helpers/p16-era.ts",
+    "preimageSHA256": "0213325f94464b88c8f52abab512c04152a21d7430710308859dd6b975dcdebf",
+    "postimageSHA256": "a6de86673338837252b6509cb3816ed612570ac003a39ab3af563656c1f4f994"
+  },
+  {
+    "path": "tests/p16a-save-v46.test.ts",
+    "preimageSHA256": "e2e3b850c8babbd693af99cd6f034190844cd49b18854af86c39b2bc69eceab7",
+    "postimageSHA256": "39577f2d47efeb4fb250f906817316909b9deaa51239dd5a84859fc12ce0ed08"
+  }
+]

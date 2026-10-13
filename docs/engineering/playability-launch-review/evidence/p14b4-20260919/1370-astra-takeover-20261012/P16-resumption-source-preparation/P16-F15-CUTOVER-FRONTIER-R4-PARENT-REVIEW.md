@@ -1,0 +1,7 @@
+# P16 F15 r4 — parent delta KEEP / UNRUN
+
+Reviewed exact DELTA-vs-r3.diff bf8e46f8d304b42ef676849d2092e95eab655ad9b79a56e866e22e6ad9cb8eb6. It adds only the requested public conversion pair to the existing actual pre-opening positive test, imports the actual upward converter, and corrects the expected-era helper caption. It preserves the nonempty original frontier, requires actual predecessor/current save versions, no minted properties/events, and purity of both original inputs. It is explicitly converter-derived predecessor coverage, not an original own-era capture.
+
+All three runtime postimage hashes equal independently reviewed r3. The six exact preimages match both current unchanged P16 clone and the preserved original190 manifest at6510c971. git apply --check succeeds; it does not install the patch or execute code. Rootv2 remains an unlanded P16 schema refinement; provisional45→46 converter/version literals must become actual48→49 on the authorized restack after P15B landing. Historical45 capture remains historical and must travel through actual ordered migrations.
+
+KEEP as reconstructable source preparation only. No new compiler, test, simulation or runtime qualification has run. All r3 source trust/coverage limits and inherited P16 results remain; no Save49 landing, rights/campaign acceptance or blanket forgery proof is claimed. Preserve r1/r2 rejected designs and r3 independent review. Focused execution and actual restack review remain required.

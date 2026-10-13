@@ -1,0 +1,234 @@
+{
+  "originalBase": "6510c971bed8079f7ca02e528b224988de092c87",
+  "original190Patch": "../drafts/p16/SOURCE.patch",
+  "original190PatchSHA256": "d551b315934cf037573cfc2b93082b3ffe5f75cfead0d44373dbe1ebe4caf9f6",
+  "currentF15": "F15-r4/PATCH.diff.gz",
+  "state": "UNRUN source preparation only; P15B not landed, P16 not restacked/installed",
+  "files": [
+    {
+      "file": "F15-r1/PATCH.diff.gz",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-f15-cutover-frontier-draft-r1/PATCH.diff",
+      "sourceSHA256": "2437db1eb5c431dd91beb12be51291c5e2da85f98766b029349908c3e88b136a",
+      "publishedSHA256": "d754d27b19cad0fcfe1e8ddb6b72210435a8b2fa6e95c363111a3121cbd43220",
+      "publishedBytes": 4075
+    },
+    {
+      "file": "F15-r1/MANIFEST.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-f15-cutover-frontier-draft-r1/MANIFEST.json",
+      "sourceSHA256": "78950ba52a32de8a9683715587b9e647ba848581cc0fb31fa6c33ebd999e97c8",
+      "publishedSHA256": "78950ba52a32de8a9683715587b9e647ba848581cc0fb31fa6c33ebd999e97c8",
+      "publishedBytes": 907
+    },
+    {
+      "file": "F15-r1/PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-f15-cutover-frontier-draft-r1/PINS.json",
+      "sourceSHA256": "5615b8712df72b4838204e3fbe1e8c28b7f9a275bc4f883413ba61f931b2110d",
+      "publishedSHA256": "5615b8712df72b4838204e3fbe1e8c28b7f9a275bc4f883413ba61f931b2110d",
+      "publishedBytes": 256
+    },
+    {
+      "file": "F15-r1/BRIEF.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-f15-cutover-frontier-draft-r1/BRIEF.md",
+      "sourceSHA256": "8bf4250e7607a2ce38373d11f9638060dfb5a4fb67b113087f25546428a991cc",
+      "publishedSHA256": "8bf4250e7607a2ce38373d11f9638060dfb5a4fb67b113087f25546428a991cc",
+      "publishedBytes": 2467
+    },
+    {
+      "file": "F15-r2/PATCH.diff.gz",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-f15-cutover-frontier-draft-r2/PATCH.diff",
+      "sourceSHA256": "18bd61c6ba281d2f248528669079baafb5d0a824f18c537ebf2ed120503c829a",
+      "publishedSHA256": "6852c23893dbca8fa573d53ba27e90effd45820dccee9aae285331d33a81417b",
+      "publishedBytes": 6102
+    },
+    {
+      "file": "F15-r2/MANIFEST.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-f15-cutover-frontier-draft-r2/MANIFEST.json",
+      "sourceSHA256": "e233a97190792a642298a688290d82d744884110b8d9b9fcc90f26fb5fc027eb",
+      "publishedSHA256": "e233a97190792a642298a688290d82d744884110b8d9b9fcc90f26fb5fc027eb",
+      "publishedBytes": 1368
+    },
+    {
+      "file": "F15-r2/PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-f15-cutover-frontier-draft-r2/PINS.json",
+      "sourceSHA256": "92b351153afe370f5d48e4da5f6f24cc78909eb900fe12f7b08ab87d737efd76",
+      "publishedSHA256": "92b351153afe370f5d48e4da5f6f24cc78909eb900fe12f7b08ab87d737efd76",
+      "publishedBytes": 256
+    },
+    {
+      "file": "F15-r2/BRIEF.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-f15-cutover-frontier-draft-r2/BRIEF.md",
+      "sourceSHA256": "0b7a5284d8c9e99cbe47b0faa179babf632433c4df7c283af19ff544fea9f118",
+      "publishedSHA256": "0b7a5284d8c9e99cbe47b0faa179babf632433c4df7c283af19ff544fea9f118",
+      "publishedBytes": 2250
+    },
+    {
+      "file": "F15-r3/PATCH.diff.gz",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-f15-cutover-frontier-draft-r3/PATCH.diff",
+      "sourceSHA256": "96bc5e3ea9f0d85effb80aec40736d1de49238a1934a2f8d64ee4414ba36fc0d",
+      "publishedSHA256": "a306926c47407d2cde07b253acd7536d493218138783d73c11076e9e7db3393e",
+      "publishedBytes": 8305
+    },
+    {
+      "file": "F15-r3/MANIFEST.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-f15-cutover-frontier-draft-r3/MANIFEST.json",
+      "sourceSHA256": "d271253bb18456e835f73251c39b9eab1325bb3de4bae749288df8dafaed14b8",
+      "publishedSHA256": "d271253bb18456e835f73251c39b9eab1325bb3de4bae749288df8dafaed14b8",
+      "publishedBytes": 1368
+    },
+    {
+      "file": "F15-r3/PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-f15-cutover-frontier-draft-r3/PINS.json",
+      "sourceSHA256": "952e298bcb07d0ed9a31b1e47f88ed1e47975a87585be4e7b32f3da415d0ebbf",
+      "publishedSHA256": "952e298bcb07d0ed9a31b1e47f88ed1e47975a87585be4e7b32f3da415d0ebbf",
+      "publishedBytes": 256
+    },
+    {
+      "file": "F15-r3/BRIEF.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-f15-cutover-frontier-draft-r3/BRIEF.md",
+      "sourceSHA256": "b3bc9574003dc5d5fbe10a660f49d1865600f6a6fb029dd4c8b43f29bfcb9937",
+      "publishedSHA256": "b3bc9574003dc5d5fbe10a660f49d1865600f6a6fb029dd4c8b43f29bfcb9937",
+      "publishedBytes": 2509
+    },
+    {
+      "file": "F15-r4/PATCH.diff.gz",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-f15-cutover-frontier-draft-r4/PATCH.diff",
+      "sourceSHA256": "8cb936c44b2d03eeb852baf6e0a94b40183bfa40efaa058c2154c7bfdf1060c0",
+      "publishedSHA256": "f90f0b15811880c3ce0cbf7717b2625d818d7514699fb139163946a6132bb7f9",
+      "publishedBytes": 8455
+    },
+    {
+      "file": "F15-r4/MANIFEST.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-f15-cutover-frontier-draft-r4/MANIFEST.json",
+      "sourceSHA256": "7fd89b47f22dd0f324f6576198d084b8aec37a049460ce92688e2f7e8e5c2a3c",
+      "publishedSHA256": "7fd89b47f22dd0f324f6576198d084b8aec37a049460ce92688e2f7e8e5c2a3c",
+      "publishedBytes": 1368
+    },
+    {
+      "file": "F15-r4/PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-f15-cutover-frontier-draft-r4/PINS.json",
+      "sourceSHA256": "d3b5a693907898e153a30ec3e7b066c53fdedf1d1951c807c449892bfb047d21",
+      "publishedSHA256": "d3b5a693907898e153a30ec3e7b066c53fdedf1d1951c807c449892bfb047d21",
+      "publishedBytes": 346
+    },
+    {
+      "file": "F15-r4/BRIEF.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-f15-cutover-frontier-draft-r4/BRIEF.md",
+      "sourceSHA256": "08c25ef7b6e1588f846d6ce51aa3e10ea07f68e481440ba82b1a858dfeb270ff",
+      "publishedSHA256": "08c25ef7b6e1588f846d6ce51aa3e10ea07f68e481440ba82b1a858dfeb270ff",
+      "publishedBytes": 756
+    },
+    {
+      "file": "F15-r4/DELTA-vs-r3.diff.gz",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-f15-cutover-frontier-draft-r4/DELTA-vs-r3.diff",
+      "sourceSHA256": "bf8e46f8d304b42ef676849d2092e95eab655ad9b79a56e866e22e6ad9cb8eb6",
+      "publishedSHA256": "1112582cee49e452058915560dc586c9747ba92f7fe0dd04ea6a48b55b43fb0d",
+      "publishedBytes": 1060
+    },
+    {
+      "file": "P16-F15-CUTOVER-FRONTIER-R1-REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P16-F15-CUTOVER-FRONTIER-R1-REVIEW.md",
+      "sourceSHA256": "9e7ccb7df1d6abcfff73bd836b3fb9444f73d3dab165571c719932689464d522",
+      "publishedSHA256": "9e7ccb7df1d6abcfff73bd836b3fb9444f73d3dab165571c719932689464d522",
+      "publishedBytes": 4643
+    },
+    {
+      "file": "P16-F15-CUTOVER-FRONTIER-R2-REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P16-F15-CUTOVER-FRONTIER-R2-REVIEW.md",
+      "sourceSHA256": "23bda2db0b98bb77cca46a71130107e9c291448185d7893ffdf21dbf3eb4b18a",
+      "publishedSHA256": "23bda2db0b98bb77cca46a71130107e9c291448185d7893ffdf21dbf3eb4b18a",
+      "publishedBytes": 4986
+    },
+    {
+      "file": "P16-F15-CUTOVER-FRONTIER-R3-REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P16-F15-CUTOVER-FRONTIER-R3-REVIEW.md",
+      "sourceSHA256": "357728ec7ae2138e743ec69a5655f23faa26bdff06d070a3acdc48fe556e8b30",
+      "publishedSHA256": "357728ec7ae2138e743ec69a5655f23faa26bdff06d070a3acdc48fe556e8b30",
+      "publishedBytes": 6864
+    },
+    {
+      "file": "P16-F15-CUTOVER-FRONTIER-R4-PARENT-REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P16-F15-CUTOVER-FRONTIER-R4-PARENT-REVIEW.md",
+      "sourceSHA256": "dc55fc7ec3d25a09af87fd9c00f5b6367afaf31dbd2b66efa092116486d8f0de",
+      "publishedSHA256": "dc55fc7ec3d25a09af87fd9c00f5b6367afaf31dbd2b66efa092116486d8f0de",
+      "publishedBytes": 1484
+    },
+    {
+      "file": "P16-F15-R4-RECONSTRUCTION-CHECK.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P16-F15-R4-RECONSTRUCTION-CHECK.json",
+      "sourceSHA256": "3d1365d80221efef0107189114e2a91b7eca15df659af0ac6c1989a92dae0be2",
+      "publishedSHA256": "3d1365d80221efef0107189114e2a91b7eca15df659af0ac6c1989a92dae0be2",
+      "publishedBytes": 438
+    },
+    {
+      "file": "condition-binding-r1/PATCH.diff.gz",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-condition-reader-binding-draft-r1/PATCH.diff",
+      "sourceSHA256": "f2c3740807e3281927a0ae87660659fad63b0aa534856f4f2ac6c44745242388",
+      "publishedSHA256": "52362e86c51f9bc6c76a9e6fe2a58bae3f7cc7d0f3aa65076e45b324c04bf42d",
+      "publishedBytes": 2977
+    },
+    {
+      "file": "condition-binding-r1/PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-condition-reader-binding-draft-r1/PINS.json",
+      "sourceSHA256": "60864385312ce47255345d730540b7f855b75e13dbdde499c20c6a68402dfbfd",
+      "publishedSHA256": "60864385312ce47255345d730540b7f855b75e13dbdde499c20c6a68402dfbfd",
+      "publishedBytes": 1979
+    },
+    {
+      "file": "condition-binding-r1/BRIEF.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-condition-reader-binding-draft-r1/BRIEF.md",
+      "sourceSHA256": "eee93236101af1271176780ebe460d39a95eb9d299f8312ceab88515b1727dfc",
+      "publishedSHA256": "eee93236101af1271176780ebe460d39a95eb9d299f8312ceab88515b1727dfc",
+      "publishedBytes": 1889
+    },
+    {
+      "file": "condition-binding-r2/PATCH.diff.gz",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-condition-reader-binding-draft-r2/PATCH.diff",
+      "sourceSHA256": "fa56983d0b7f527402a95f4fb48cbfff256945bf83b4109c9a66a2c449d6fa0b",
+      "publishedSHA256": "e82cacef3039f308943436180cb8dcb515a8541ed0ccd9e5025fccb672a26a5b",
+      "publishedBytes": 3780
+    },
+    {
+      "file": "condition-binding-r2/PINS.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-condition-reader-binding-draft-r2/PINS.json",
+      "sourceSHA256": "a19e6f34ee5e7efcb7cbb64b089effc2be15d481a353f22faca3431ba820b269",
+      "publishedSHA256": "a19e6f34ee5e7efcb7cbb64b089effc2be15d481a353f22faca3431ba820b269",
+      "publishedBytes": 1979
+    },
+    {
+      "file": "condition-binding-r2/BRIEF.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-condition-reader-binding-draft-r2/BRIEF.md",
+      "sourceSHA256": "c6d6bacf3b1162cf56681616a9182f3ad65704db3b70860fbf5fa8d41a191d5d",
+      "publishedSHA256": "c6d6bacf3b1162cf56681616a9182f3ad65704db3b70860fbf5fa8d41a191d5d",
+      "publishedBytes": 2123
+    },
+    {
+      "file": "condition-binding-r2/DELTA-vs-r1.diff.gz",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-condition-reader-binding-draft-r2/DELTA-vs-r1.diff",
+      "sourceSHA256": "9fac0be4639a5265409811e781aaf6cb2b649599049d73755f5a6b8d992792fa",
+      "publishedSHA256": "9f80b90c489dc959b333cc1141d9fca901c1bf591fa62a205892f2a2d9817df4",
+      "publishedBytes": 1198
+    },
+    {
+      "file": "P16-CONDITION-READER-BINDING-R1-REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P16-CONDITION-READER-BINDING-R1-REVIEW.md",
+      "sourceSHA256": "b8cd7287491137832e2edf46933176087f893cab2d1c29ef1b46473b7c67bfba",
+      "publishedSHA256": "b8cd7287491137832e2edf46933176087f893cab2d1c29ef1b46473b7c67bfba",
+      "publishedBytes": 502
+    },
+    {
+      "file": "P16-CONDITION-READER-BINDING-R2-REVIEW.md",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P16-CONDITION-READER-BINDING-R2-REVIEW.md",
+      "sourceSHA256": "0d63db9f5c4cc72f6111a776fa3fde621e4002b7b520fcd61b18cec51a7df10d",
+      "publishedSHA256": "0d63db9f5c4cc72f6111a776fa3fde621e4002b7b520fcd61b18cec51a7df10d",
+      "publishedBytes": 4146
+    },
+    {
+      "file": "P16-CONDITION-BINDING-R2-RECONSTRUCTION-CHECK.json",
+      "source": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P16-CONDITION-BINDING-R2-RECONSTRUCTION-CHECK.json",
+      "sourceSHA256": "26c77c42df1f5b869020ce356e7a1a8005f63e347ea50f4577b897b946274e90",
+      "publishedSHA256": "26c77c42df1f5b869020ce356e7a1a8005f63e347ea50f4577b897b946274e90",
+      "publishedBytes": 366
+    }
+  ],
+  "currentConditionBinding": "condition-binding-r2/PATCH.diff.gz"
+}

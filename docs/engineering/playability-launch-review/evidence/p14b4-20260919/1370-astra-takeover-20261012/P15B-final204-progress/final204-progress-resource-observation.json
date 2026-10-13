@@ -1,0 +1,12 @@
+{
+  "observedAt": "2026-10-13T14:38:52-05:00",
+  "volume": "/dev/disk1s1",
+  "freeKiB": 2660524,
+  "launchMinimumKiB": 3670016,
+  "runtimeFloorKiB": 3145728,
+  "shortfallKiB": 1009492,
+  "swapAllocatedMiB": 3072,
+  "swapUsedMiB": 1669,
+  "action": "Read-only resource observation after source preparation; no preflight retry, deletion, test or build.",
+  "externalAction": "Owner asked once for 1.25GiB personal-space recovery or one explicitly selected iCloud folder; keep source preparation active meanwhile."
+}

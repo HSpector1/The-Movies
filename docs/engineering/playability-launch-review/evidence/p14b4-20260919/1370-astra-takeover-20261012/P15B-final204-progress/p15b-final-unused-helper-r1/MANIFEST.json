@@ -1,0 +1,7 @@
+{
+  "path": "tests/p15b4-studio-closure.test.ts",
+  "preimageSHA256": "901d45bb383ca7d9495000f61148c79ffabb25453c089cc28b7c4930d216dac3",
+  "postimageSHA256": "11bb61a2bb2fd2f76c83cbcaea0c538d97ccf97b833d4d7a9fbdf7b5ba6e891d",
+  "patchSHA256": "dee9d0e6fc521f9223ba4c119fab7a3db9f5be3d291a0202c3e9c2a4b75e27c1",
+  "scope": "remove unreachable preClosure helper plus sole vi import; correct disproven impossibility comment; no test leaf/body change"
+}

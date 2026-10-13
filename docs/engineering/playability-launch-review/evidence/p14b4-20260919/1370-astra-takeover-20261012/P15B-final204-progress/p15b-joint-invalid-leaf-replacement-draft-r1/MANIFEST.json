@@ -1,0 +1,14 @@
+{
+  "path": "tests/p15b4-studio-closure.test.ts",
+  "preimageSHA256": "b8b2263ba0bc410e6919fb0c1b5e3211d9baa654f96d47bbd3676a21fb774f63",
+  "postimageSHA256": "901d45bb383ca7d9495000f61148c79ffabb25453c089cc28b7c4930d216dac3",
+  "removedOnlyUnusedImports": [
+    "validateInstallationCancellation",
+    "validatePhysicalPlans",
+    "completeRivalPlans",
+    "finishTechnologyWeek",
+    "validateTalentMarketRoot",
+    "IndustryReceipt"
+  ],
+  "installCondition": "parent confirms five replacement leaves actualPASS and originalbudgets before install; playerproposal assertProposalFamily required"
+}

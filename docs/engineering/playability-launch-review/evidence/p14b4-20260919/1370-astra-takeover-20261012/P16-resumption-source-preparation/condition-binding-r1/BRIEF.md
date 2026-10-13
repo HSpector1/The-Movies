@@ -1,0 +1,9 @@
+# Prepared P16 actual-reader adapter (GPT-6.1 Sol)
+
+UNRUN, uninstalled, four paths only. Apply after actual Save48→49 restack; current old P16 clone has no corporateConditionLive module. No estate, absorption, reserve, finance, save or tick law changes. Default adapter is the real two readers; explicit UNBOUND negative unit fixture retained. Two directly stale shipping-default assertions become explicit negative-fixture controls.
+
+New two-leaf test uses pinned genuine Save26 lighting795, own-era admission, actual public migration, ordinary ticks and one public takeLoan maximum computed by the actual core loan law. Missing evaluated record must fail closed; first actual stable evaluation permits the player; a fixed ordinary first-warning route (no later than830) followed by up to13 ordinary recovery weeks must yield stable with the same outstanding actual loan and refusal. These are UNMEASURED premises, not assumed valid results. Every state is whole-save admitted; producer inputs and reader observations stay pure. No cash/history/clock/receipt edits or substitute readers. Default core budget unchanged. Required fixture must be explicitly frozen at execution.
+
+Known additional adapter fallout, not silently repaired here: p16b-condition-readers.test.ts “every P16 entry refuses under the unbound binding…” also invokes shipping applyActions/tick without an explicit adapter seam. That unit must be independently adapted to the new actual default before claiming the entire existing P16 suite green; no broad caller rewrite is included. Existing synthetic world helper admission against the new predecessor remains unmeasured.
+
+PINS.json binds exact old P16 source/test preimages, current actual P15B source interfaces and fixture, four expected paths and prepared outputs. No compilation or simulation performed. Parent independently reviews before installation.

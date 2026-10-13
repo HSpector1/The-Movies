@@ -1,0 +1,11 @@
+{
+  "at": "2026-10-13T14:47:59.343931-05:00",
+  "patchSHA256": "8cb936c44b2d03eeb852baf6e0a94b40183bfa40efaa058c2154c7bfdf1060c0",
+  "manifestSHA256": "7fd89b47f22dd0f324f6576198d084b8aec37a049460ce92688e2f7e8e5c2a3c",
+  "assignedPreimages": 6,
+  "matchOriginalPublished190": true,
+  "currentCloneUnchanged": true,
+  "runtimeFilesUnchangedFromReviewedR3": 3,
+  "gitApplyCheck": 0,
+  "execution": "NONE; static patch applicability only"
+}
