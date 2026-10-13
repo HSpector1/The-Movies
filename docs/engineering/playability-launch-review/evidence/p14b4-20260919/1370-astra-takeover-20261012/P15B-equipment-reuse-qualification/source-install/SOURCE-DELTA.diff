@@ -1,0 +1,75 @@
+--- a/src/core/technology.ts
++++ b/src/core/technology.ts
+@@ -647,7 +647,7 @@
+  * fact is gated on the stored version, so an older root is never taught a newer
+  * one and never silently tolerates one.
+  */
+-function validateSharedTechnology(state: TechnologyBearingState, v: Validator, projectIds: Set<string>, completedProjects: Map<string, number>): void {
++function validateSharedTechnology(state: TechnologyBearingState, v: Validator, projectIds: Set<string>, completedProjects: Map<string, number>, cancellationAwarePolicy = false): void {
+   const {fail, exact, integer, text, week, studio, own} = v
+   const root = state.technology as StudioTechnology
+   const full = state as GameState
+@@ -781,12 +781,19 @@
+       const asset = root.equipment.find(e => e.id === row.equipmentAssetId)
+       if (!asset || asset.studioId !== a.studioId || asset.technologyId !== a.technologyId) fail('adoption names an unknown equipment asset')
+       // P13B-S6: an adoption whose physical work was cancelled LETS GO of its asset
+-      // (so a restart reuses it at $0) while keeping the reference as history, so a
+-      // null holder is lawful for it — and only for it.
++      // (so a restart reuses it at $0) while keeping the reference as history.
++      // Frozen pre-cancellation policy keeps its original null-holder exception.
++      // The explicit cancellation-era policy also permits a later live holder,
++      // while historical references never consume current ownership.
+       const cancelled = a.studioId === own && a.physicalProjectIds.some(id =>
+         state.placement.facilities.some(p => p.projectId === id && p.status === 'cancelled'))
+-      if (asset!.holderAdoptionId !== a.id && !(cancelled && asset!.holderAdoptionId === null) || heldAssets.has(asset!.id)) fail('equipment asset is held by another adoption')
+-      if (asset!.holderAdoptionId !== null) heldAssets.add(asset!.id)
++      if (cancellationAwarePolicy && cancelled) {
++        // Historical references survive reuse; only an uncancelled adoption owns now.
++        if (asset!.holderAdoptionId === a.id) fail('equipment asset is still held by a cancelled adoption')
++      } else {
++        if (asset!.holderAdoptionId !== a.id && !(cancelled && asset!.holderAdoptionId === null) || heldAssets.has(asset!.id)) fail('equipment asset is held by another adoption')
++        if (asset!.holderAdoptionId !== null) heldAssets.add(asset!.id)
++      }
+     }
+     if (a.operationalWeek !== null) {week(a.operationalWeek);if (a.operationalWeek < a.committedWeek + entry.deploymentWeeks) fail('installation finished early')}
+     if (a.prototypeProjectId !== null) {
+@@ -903,8 +910,8 @@
+ }
+ 
+ /** Exact, campaign-local P13B boundary for the live v4 root. It never repairs or invents a receipt. */
+-export function validateTechnology(state: GameState): void {
+-  validateTechnologyRoot(state, 4)
++export function validateTechnology(state: GameState, cancellationAwarePolicy = false): void {
++  validateTechnologyRoot(state, 4, cancellationAwarePolicy)
+ }
+ /**
+  * Frozen P13B-S3 validator for a genuine V23 (and V22) root — technology root v3:
+@@ -915,7 +922,7 @@
+ export function validateTechnologyV3(state: GameStateV23): void {
+   validateTechnologyRoot(state as unknown as GameState, 3)
+ }
+-function validateTechnologyRoot(state: GameState, version: 3 | 4): void {
++function validateTechnologyRoot(state: GameState, version: 3 | 4, cancellationAwarePolicy = false): void {
+   const v = validator(state)
+   const {fail, exact, integer, text, week, studio, own} = v
+   validateRootShape(state, v, version)
+@@ -1099,7 +1106,7 @@
+       ? granted.researchProjectId !== p.id || granted.acquiredWeek !== p.completedWeek
+       : granted.route !== 'purchase')) fail('completed research without its access grant')
+   }
+-  validateSharedTechnology(state, v, ids, completed)
++  validateSharedTechnology(state, v, ids, completed, cancellationAwarePolicy)
+ }
+ 
+ /**
+--- a/src/core/save.ts
++++ b/src/core/save.ts
+@@ -8568,7 +8568,7 @@
+   if (!Object.hasOwn(raw, 'technology')) throw new Error('validateSaveV24: technology root missing');
+   if (!Object.hasOwn(raw, 'physicalPlans')) throw new Error('validateSaveV24: physicalPlans root missing');
+   const typed = save as SaveFileV24;
+-  validateTechnology(typed.state as unknown as GameState);
++  validateTechnology(typed.state as unknown as GameState, cancellationAwarePolicy(policy));
+   validatePhysicalPlans(typed.state as unknown as GameState);
+   const { technology, physicalPlans: _physicalPlans, ...legacy } = raw;
+   validateSaveV19WithPolicy({ saveVersion: 19, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, policy, technology as StudioTechnology, typed.state.physicalPlans.plans, terminationLaw, retirementWriting, professionContext, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);

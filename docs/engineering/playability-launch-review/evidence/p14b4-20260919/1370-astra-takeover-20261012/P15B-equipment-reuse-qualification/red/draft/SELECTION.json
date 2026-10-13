@@ -1,0 +1,6 @@
+{
+  "coreFiles": [
+    "tests/p13b-s6-cancel-reuse-save.test.ts"
+  ],
+  "scope": "root compiler then complete RED regression only; original budgets unchanged"
+}

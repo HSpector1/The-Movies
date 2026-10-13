@@ -1,0 +1,17 @@
+{
+  "files": [
+    {
+      "path": "src/core/technology.ts",
+      "beforeSHA256": "4c69a95c2aea5de8fb5ac295ba12630021a49dd26637e4ee50e6607464e456d5",
+      "afterSHA256": "4c287c7a304fef73f6404801ff19645d53a4a66252332b32f196ab610f08b98e"
+    },
+    {
+      "path": "src/core/save.ts",
+      "beforeSHA256": "0a9875c1fe9431bfac1c566a449b89e16b003bd0554858c1341f0beaac4f36f9",
+      "afterSHA256": "c7fbe216d86a1cf2acf971dd50d999c5797b431f24d4169b7ce7fcb3746706f7"
+    }
+  ],
+  "sourceDeltaSHA256": "4522dda34b6f47f1a1bd1bd69bc1256c7d80f6cbca0f5654e6296df64a598edb",
+  "testSHA256": "cc2044a8a088d60d0688f4b1ddcdefd16114472dffbd8ee7311ba1e044f6de53",
+  "redRetained": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-equipment-reuse-red-r1-run"
+}

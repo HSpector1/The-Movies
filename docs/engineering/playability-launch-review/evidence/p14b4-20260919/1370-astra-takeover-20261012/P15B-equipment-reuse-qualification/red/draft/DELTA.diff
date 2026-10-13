@@ -1,0 +1,15 @@
+--- r3
++++ r4
+@@ -7,10 +7,10 @@
+ A=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012
+ P="$A/p15b-equipment-reuse-red198-r1"
+ OUT="$A/p15b-equipment-reuse-red-r1-run"
+-SCRIPT="$A/p15b-equipment-reuse-red-draft-r2/runner.sh"
++SCRIPT="$A/p15b-equipment-reuse-red-draft-r4/runner.sh"
+ AUTO_HELPER="$A/p15b-auto-recorder-r4r2-draft/auto_freeze.py"
+ EXTRA_INPUTS="$A/p15b-d16-ui-r5-draft/RUNTIME-INPUTS.json"
+-SELECTION="$A/p15b-equipment-reuse-red-draft-r2/SELECTION.json"
++SELECTION="$A/p15b-equipment-reuse-red-draft-r4/SELECTION.json"
+ export AUTO_HELPER OUT EXTRA_INPUTS SELECTION
+ export PATH=/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin:$R/.venv/bin:$PATH GIT_OPTIONAL_LOCKS=0
+ export P15B_FOCUS_INPUT_1="$C/tests/fixtures/p1364/generated-v45-late-draft"

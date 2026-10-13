@@ -1,0 +1,14 @@
+{
+  "childPID": 13689,
+  "ownedGroupID": 13689,
+  "childExit": 0,
+  "timedOut": false,
+  "interruptionSignal": null,
+  "deadlineSeconds": 30,
+  "elapsedSeconds": 7.822352489980403,
+  "cleanupUncertain": false,
+  "cleanupErrors": [],
+  "remainingOwnedGroupCount": 0,
+  "overallExit": 0,
+  "scope": "standalone30s diagnostic cap, not original core5s leaf budget; no acceptance"
+}

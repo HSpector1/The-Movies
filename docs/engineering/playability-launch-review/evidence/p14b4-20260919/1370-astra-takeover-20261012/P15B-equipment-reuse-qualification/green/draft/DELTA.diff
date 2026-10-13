@@ -1,0 +1,31 @@
+--- p15b-equipment-reuse-green-draft-r2
++++ p15b-equipment-reuse-green-draft-r3
+@@ -7,10 +7,10 @@
+ A=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012
+ P="$A/p15b-equipment-reuse-green198-r1"
+ OUT="$A/p15b-equipment-reuse-green-r1-run"
+-SCRIPT="$A/p15b-equipment-reuse-green-draft-r2/runner.sh"
++SCRIPT="$A/p15b-equipment-reuse-green-draft-r3/runner.sh"
+ AUTO_HELPER="$A/p15b-auto-recorder-r4r2-draft/auto_freeze.py"
+ EXTRA_INPUTS="$A/p15b-d16-ui-r5-draft/RUNTIME-INPUTS.json"
+-SELECTION="$A/p15b-equipment-reuse-green-draft-r2/SELECTION.json"
++SELECTION="$A/p15b-equipment-reuse-green-draft-r3/SELECTION.json"
+ export AUTO_HELPER OUT EXTRA_INPUTS SELECTION
+ export PATH=/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin:$R/.venv/bin:$PATH GIT_OPTIONAL_LOCKS=0
+ export P15B_FOCUS_INPUT_1="$C/tests/fixtures/p1364/generated-v45-late-draft"
+@@ -125,13 +125,13 @@
+  if not ok:raise SystemExit('STOP: '+msg)
+ need(hashlib.sha256(pathlib.Path(os.environ['EXTRA_INPUTS']).read_bytes()).hexdigest()=='2fceb39464fe13985c12d7d7503ed700696fbffcd1b9abea84fb2fec099c8d35','runtime input-list changed')
+ need(hashlib.sha256(pathlib.Path(os.environ['EXTRA_INPUTS']).read_bytes()).hexdigest()==os.environ.get('P15B_BOOTSTRAP_INPUTS_SHA256','PENDING'),'external input-list pin')
+-need(hashlib.sha256(pathlib.Path(os.environ['SELECTION']).read_bytes()).hexdigest()=='PENDING_SELECTION_SHA256','literal complete followup selection pin')
++need(hashlib.sha256(pathlib.Path(os.environ['SELECTION']).read_bytes()).hexdigest()=='da511a4662d75067fa4a6b0a7b7b1cbdd45038b1ec91d9ed6e27c477790ccab7','literal complete followup selection pin')
+ need((c/'generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs').is_file() and not (c/'generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs').is_symlink(),'union fixture mandatory current binding')
+ need(hashlib.sha256(pathlib.Path(os.environ['SELECTION']).read_bytes()).hexdigest()==os.environ.get('P15B_BOOTSTRAP_SELECTION_SHA256','PENDING'),'external selection pin')
+ need(hashlib.sha256(script.read_bytes()).hexdigest()==os.environ.get('P15B_BOOTSTRAP_RUNNER_SHA256','PENDING_EXTERNAL_RUNNER_SHA256'),'external bootstrap runner pin')
+ need(hashlib.sha256(helper.read_bytes()).hexdigest()==os.environ.get('P15B_BOOTSTRAP_HELPER_SHA256','PENDING_EXTERNAL_HELPER_SHA256'),'external bootstrap helper pin')
+ need(subprocess.check_output(g+['rev-parse','HEAD']).decode().strip()=='587f8f8faed7d8f4f16712069d262cccfaeafd9e','candidate HEAD changed')
+-for f,h in [('PATCH.diff','PENDING_PATCH_SHA256'),('MANIFEST.json','PENDING_MANIFEST_SHA256')]:need(hashlib.sha256((p/f).read_bytes()).hexdigest()==h,'candidate packet changed '+f)
++for f,h in [('PATCH.diff','c4aae745e91300147455eb432e1c978d627483e9dc60faaf9390d99a1828f25a'),('MANIFEST.json','7dba98c9d589e1ffb0b7803b7d97a0bf182ab20cfb05ec656726a1c93f716903')]:need(hashlib.sha256((p/f).read_bytes()).hexdigest()==h,'candidate packet changed '+f)
+ need(hashlib.sha256((c/'tests/fixtures/p14/genuine-v45-recovery-witnesses-1368/MANIFEST.json').read_bytes()).hexdigest()=='11ad61be481a8bec170f40425cfcfe7fcb24596418d30b6c8bf27895e93c3ba5','actual1368 pin differs')
+ m=json.loads((p/'MANIFEST.json').read_text());need(len(m['files'])==198,'manifest count')
+ def paths(*args):return {x.decode() for x in subprocess.check_output(g+list(args)).split(b'\0') if x}

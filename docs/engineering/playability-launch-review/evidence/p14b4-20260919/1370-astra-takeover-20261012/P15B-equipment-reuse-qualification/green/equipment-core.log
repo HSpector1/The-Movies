@@ -1,0 +1,27 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s6-save-v26.test.ts (11 tests) 3705ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > genuine V25 sound-mid-deployment fixture: sha256 matches, migrates to V26 with cancellation:null / cancelledWeek:null and no constructionRefund rows, otherwise byte-identical 308ms
+   ✓ P13B-S6 Save V26: genuine V25 fixtures, honest lift, chains, validator refusals (test 7) > VALID: a cancelled adoption with a passed original completesWeek is exempt from the v4 "operational receipt differs" clause 2377ms
+ ✓ |core| tests/p13b-s5-equipment.test.ts (5 tests) 24168ms
+   ✓ P13B-S5 equipment assets (test 3) > an adoption’s equipment asset is minted exactly once, held by it, and never duplicated by a second adoption 5263ms
+   ✓ P13B-S5 equipment assets (test 3) > an unheld retained asset (holderAdoptionId null, referenced by no adoption) is reused at $0 by a NEW adoption of the SAME technology 4515ms
+   ✓ P13B-S5 equipment assets (test 3) > an unheld retained asset of one technology is NEVER reused by a different technology’s adoption 5967ms
+   ✓ P13B-S5 equipment assets (test 3) > a held asset cannot be reused: two adoptions naming the same equipmentAssetId is refused on reimport 4294ms
+   ✓ P13B-S5 equipment assets (test 3) > exported-save round trip never fabricates an equipment row: makeSave/exportSave/importSave over an unmutated adoption reproduces the same equipment array byte for byte 4128ms
+ ✓ |core| tests/p13b-s6-equipment.test.ts (3 tests) 13944ms
+   ✓ P13B-S6 equipment retained, unheld, and reused at $0 (test 3) > cancelling an adoption's remaining physical work unholds its equipment asset, stamps cancelledWeek, and keeps the equipmentAssetId reference as history 5349ms
+   ✓ P13B-S6 equipment retained, unheld, and reused at $0 (test 3) > the unheld asset is reused at $0 by the next quote for the SAME technology (see header ENGINE CONFLICT) 4359ms
+   ✓ P13B-S6 equipment retained, unheld, and reused at $0 (test 3) > the first-prototype entitlement is NOT restored by cancellation: a hypothetical next quote is never first-prototype again, even though the original adoption never became operational 4234ms
+ ✓ |core| tests/p13b-s6-cancel-reuse-save.test.ts (3 tests) 5741ms
+   ✓ S6 public cancellation equipment reuse remains whole-save admitted > keeps direct frozen24/25 whole readers on admitted own-era inputs and refuses cancelled/unheld mutants 398ms
+   ✓ S6 public cancellation equipment reuse remains whole-save admitted > retains cancelled history and exactly one current holder across restart/save/reload 2530ms
+   ✓ S6 public cancellation equipment reuse remains whole-save admitted > refuses active unheld/dangling/cancelled/rival holders and foreign asset identity without mutating input 2811ms
+
+ Test Files  4 passed (4)
+      Tests  22 passed (22)
+   Start at  10:54:05
+   Duration  53.16s (transform 2.32s, setup 0ms, collect 4.17s, tests 47.56s, environment 1ms, prepare 399ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-equipment-reuse-green-r1-run/equipment-core.json

@@ -1,0 +1,6 @@
+{
+  "coreFiles": [
+    "tests/p15b4-pending-player-adoption.test.ts"
+  ],
+  "scope": "root compiler then only complete pending-player adoption supplemental file; default5s unchanged; actual reported duration must be <=5000ms"
+}

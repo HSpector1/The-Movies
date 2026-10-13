@@ -1,0 +1,4 @@
+Exact pending-rebound production WT/index candidate, no unstaged change, reviewed final pins, reverse check PASS
+node=v20.20.2 python=Python 3.14.4 start=2026-10-13T15:47:50Z
+{"name": "tsc-root", "exit": 0, "seconds": 41}
+{"name": "equipment-core", "exit": 1, "seconds": 10}

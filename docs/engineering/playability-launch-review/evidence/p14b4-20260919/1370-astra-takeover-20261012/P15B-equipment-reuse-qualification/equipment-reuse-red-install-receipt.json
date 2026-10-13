@@ -1,0 +1,6 @@
+{
+  "test": "tests/p13b-s6-cancel-reuse-save.test.ts",
+  "testSHA256": "cc2044a8a088d60d0688f4b1ddcdefd16114472dffbd8ee7311ba1e044f6de53",
+  "sourceFixInstalled": false,
+  "priorCandidateSHA256": "8793330db0eaec588517a76e1b8f810b5bd3273782d53802ae3f3711d64018ba"
+}

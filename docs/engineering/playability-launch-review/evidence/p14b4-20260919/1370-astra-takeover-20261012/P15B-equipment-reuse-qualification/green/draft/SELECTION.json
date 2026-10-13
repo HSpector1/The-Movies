@@ -1,0 +1,9 @@
+{
+  "coreFiles": [
+    "tests/p13b-s6-equipment.test.ts",
+    "tests/p13b-s6-save-v26.test.ts",
+    "tests/p13b-s5-equipment.test.ts",
+    "tests/p13b-s6-cancel-reuse-save.test.ts"
+  ],
+  "scope": "root compiler then four complete files; original budgets unchanged"
+}

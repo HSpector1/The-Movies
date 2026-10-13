@@ -1,0 +1,35 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p13b-s6-cancel-reuse-save.test.ts (3 tests | 2 failed) 6053ms
+   ✓ S6 public cancellation equipment reuse remains whole-save admitted > keeps direct frozen24/25 whole readers on admitted own-era inputs and refuses cancelled/unheld mutants 398ms
+   × S6 public cancellation equipment reuse remains whole-save admitted > retains cancelled history and exactly one current holder across restart/save/reload 2214ms
+     → validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — Technology save: equipment asset is held by another adoption
+   × S6 public cancellation equipment reuse remains whole-save admitted > refuses active unheld/dangling/cancelled/rival holders and foreign asset identity without mutating input 3440ms
+     → validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — Technology save: equipment asset is held by another adoption
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s6-cancel-reuse-save.test.ts > S6 public cancellation equipment reuse remains whole-save admitted > retains cancelled history and exactly one current holder across restart/save/reload
+ FAIL |core|  tests/p13b-s6-cancel-reuse-save.test.ts > S6 public cancellation equipment reuse remains whole-save admitted > refuses active unheld/dangling/cancelled/rival holders and foreign asset identity without mutating input
+Error: validateSaveV37: state is invalid — validateSaveV36: frozen V35 state is invalid — validateSaveV35: frozen V34 state is invalid — validateSaveV34: frozen V33 state is invalid — validateSaveV33: frozen V32 state is invalid — validateSaveV32: frozen V31 state is invalid — validateSaveV31: frozen V30 state is invalid — validateSaveV30: frozen V28 state is invalid — validateSaveV28: frozen V27 state is invalid — validateSaveV27: frozen V26 state is invalid — validateSaveV26: frozen V25 state is invalid — validateSaveV25: frozen V24 state is invalid — Technology save: equipment asset is held by another adoption
+ ❯ validateSaveV37WithProfession src/core/save.ts:10700:11
+
+ ❯ proveProfessionSave src/core/save.ts:10761:3
+ ❯ validateSaveV42Era src/core/save.ts:10976:3
+ ❯ validateSaveV43Era src/core/save.ts:11025:3
+ ❯ validateSaveV44Era src/core/save.ts:11084:3
+ ❯ validateSaveV45Era src/core/save.ts:11245:3
+ ❯ validateSaveV46Era src/core/save.ts:11295:3
+ ❯ validateSaveV47Era src/core/save.ts:11405:3
+ ❯ validateSaveP15B src/core/save.ts:11543:3
+ ❯ Module.makeSave src/core/save.ts:6691:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 1 passed (3)
+   Start at  10:48:46
+   Duration  9.44s (transform 2.15s, setup 0ms, collect 2.93s, tests 6.05s, environment 0ms, prepare 130ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-equipment-reuse-red-r1-run/equipment-core.json

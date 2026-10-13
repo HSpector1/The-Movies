@@ -1,0 +1,25 @@
+--- p15b-pending-player-capital-edge-r2-draft
++++ p15b-pending-player-capital-edge-r3-draft
+@@ -7,11 +7,11 @@
+ A=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012
+ P="$A/p15b-equipment-reuse-green198-r1"
+ OUT="$A/p15b-pending-player-capital-edge-r2-run"
+-SCRIPT="$A/p15b-pending-player-capital-edge-r2-draft/runner.sh"
++SCRIPT="$A/p15b-pending-player-capital-edge-r3-draft/runner.sh"
+ AUTO_HELPER="$A/p15b-auto-recorder-r4r2-draft/auto_freeze.py"
+ EXTRA_INPUTS="$A/p15b-affected44-r1-draft/RUNTIME-INPUTS.json"
+ SELECTION="/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-post-fullgate-repairs-r1/AFFECTED-CORE-FILES.json"
+-DIAGNOSTIC="$A/p15b-pending-player-capital-edge-r2-draft/DIAGNOSTIC.ts"
++DIAGNOSTIC="$A/p15b-pending-player-capital-edge-r3-draft/DIAGNOSTIC.ts"
+ export AUTO_HELPER OUT EXTRA_INPUTS SELECTION DIAGNOSTIC
+ export P15B_PENDING_PLAYER_CAPITAL_JSON="$OUT/diagnostic.json"
+ export PATH=/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin:$R/.venv/bin:$PATH GIT_OPTIONAL_LOCKS=0
+@@ -133,7 +133,7 @@
+ need(hashlib.sha256(script.read_bytes()).hexdigest()==os.environ.get('P15B_BOOTSTRAP_RUNNER_SHA256','PENDING_EXTERNAL_RUNNER_SHA256'),'external bootstrap runner pin')
+ need(hashlib.sha256(helper.read_bytes()).hexdigest()==os.environ.get('P15B_BOOTSTRAP_HELPER_SHA256','PENDING_EXTERNAL_HELPER_SHA256'),'external bootstrap helper pin')
+ need(subprocess.check_output(g+['rev-parse','HEAD']).decode().strip()=='587f8f8faed7d8f4f16712069d262cccfaeafd9e','candidate HEAD changed')
+-for f,h in [('PATCH.diff','PENDING_PATCH_SHA256'),('MANIFEST.json','PENDING_MANIFEST_SHA256')]:need(hashlib.sha256((p/f).read_bytes()).hexdigest()==h,'candidate packet changed '+f)
++for f,h in [('PATCH.diff','c4aae745e91300147455eb432e1c978d627483e9dc60faaf9390d99a1828f25a'),('MANIFEST.json','7dba98c9d589e1ffb0b7803b7d97a0bf182ab20cfb05ec656726a1c93f716903')]:need(hashlib.sha256((p/f).read_bytes()).hexdigest()==h,'candidate packet changed '+f)
+ need(hashlib.sha256((c/'tests/fixtures/p14/genuine-v45-recovery-witnesses-1368/MANIFEST.json').read_bytes()).hexdigest()=='11ad61be481a8bec170f40425cfcfe7fcb24596418d30b6c8bf27895e93c3ba5','actual1368 pin differs')
+ m=json.loads((p/'MANIFEST.json').read_text());need(len(m['files'])==198,'manifest count')
+ def paths(*args):return {x.decode() for x in subprocess.check_output(g+list(args)).split(b'\0') if x}
