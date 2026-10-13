@@ -1,0 +1,19 @@
+{
+  "at": "2026-10-13T16:49:01.831216-05:00",
+  "freeKiB": 3775560,
+  "launchMinimumKiB": 3670016,
+  "runtimeFloorKiB": 3145728,
+  "launchAllowed": true,
+  "laneAbsent": true,
+  "pins": {
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-reader-fallout-continuation-runner-r2/runner.sh": "b0fd690faefb92f4706248d9290b9ae9506f49941b1db19d5dec94ba6f89e047",
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-reader-fallout-continuation-runner-r2/SELECTION.json": "cc349ebb509e64749402af53d4052b2aa054c9ea83c61fdb51bc9088e6ddc7cc",
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-auto-recorder-r4r2-draft/auto_freeze.py": "9bc9b89c0ae5dd6bc3e558ee1b823414d86cb5134170326f74779350b34d3e00",
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-d16-ui-r5-draft/RUNTIME-INPUTS.json": "2fceb39464fe13985c12d7d7503ed700696fbffcd1b9abea84fb2fec099c8d35",
+    "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+  },
+  "competingHeavy": 0,
+  "ACPower": true,
+  "swap": "vm.swapusage: total = 3072.00M  used = 1413.00M  free = 1659.00M  (encrypted)\n",
+  "memory": "The system has 8589934592 (2097152 pages with a page size of 4096).\nSystem-wide memory free percentage: 75%\n"
+}

@@ -83,7 +83,7 @@ import {
   WORLD_CONFIG,
 } from './tuning.js'
 import { ageRunwayMult, roleOVR } from './talentSummary.js'
-import { emptyPublicityState, initialP15Roots } from './save.js'
+import { emptyPublicityState, initialP15BRoots, initialP15Roots } from './save.js'
 import { initialFoundingFunding } from './foundingFunding.js'
 import type {
   CastSlot,
@@ -822,5 +822,7 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
     ...initialP15Roots(0),
     // 1364 (1364-A §3): a fresh world records no recruitment fund; the root records from week 0.
     foundingFunding: initialFoundingFunding(0),
+    // P15B Waves 2-4 (1357-A §4.2; closure/v1): a fresh world evaluates from week 0 and has closed nothing.
+    ...initialP15BRoots(0),
   }
 }

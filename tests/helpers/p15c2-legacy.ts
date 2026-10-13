@@ -292,6 +292,8 @@ export function currentFromStep(save: Envelope) {
 export const convertIntoStep = (save: unknown): Envelope => saveFn(`convertV${STEP - 1}ToV${STEP}`)(save)
 export const convertOutOfStep = (save: unknown): Envelope => saveFn(`convertV${STEP}ToV${STEP - 1}`)(migrateIntoStep(save))
 export const migrateBelowStep = (save: unknown): Envelope => saveFn(`migrateToV${STEP - 1}`)(save)
+/** The step's own migration by name: the no-op at the step, where a later live step would move the version. */
+export const migrateToStep = (save: unknown): Envelope => saveFn(`migrateToV${STEP}`)(save)
 export const asSaveFile = (save: Envelope): SaveFile => save as unknown as SaveFile
 export const DOWNGRADE_REFUSAL = /cannot downgrade or discard the frozen 2040 Legacy/
 /** The marker rule's refusal names the field itself, never a path below it (C6, B3). */

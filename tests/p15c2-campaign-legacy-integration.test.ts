@@ -81,6 +81,9 @@ import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import {
   buildLegacyManifest,
+  LEGACY_DEFINITIONS,
+  legacyFactsFromState,
+  MODERN_LEGACY_DEFINITION,
   CAMPAIGN_LEGACY_DEFINITION,
   LEGACY_ARCHETYPE_IDS,
   LEGACY_BOUNDARY_WEEK,
@@ -100,7 +103,7 @@ import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState, TalentCareerEvent } from '../src/core/types.js'
 import { generateWorld } from '../src/core/worldgen.js'
-import { P15_ROOTS, p15Rows, stripP15 } from './helpers/p15-roots.js'
+import { P15_ROOTS, p15Rows, predecessorSave, stripP15 } from './helpers/p15-roots.js'
 import {
   asSaveFile,
   B,
@@ -666,7 +669,6 @@ describe('p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9)', 
 describe('p15c2 boundary: the freeze as the tick\'s last step (1359-A §4, RED B1-B9)', () => {
   it('legacy-tick-freezes-once-at-6240', budgeted(ROUTE_MS, () => {
     stepFn()
-    const facts = factsFn()
     const [s6238, s6239, s6240, s6241] = [routeAt(B - 2), routeAt(B - 1), routeAt(B), routeAt(B + 1)]
     // 6238 → 6239 writes nothing.
     expect(legacyOf(s6239).official).toBeNull()
@@ -679,12 +681,12 @@ describe('p15c2 boundary: the freeze as the tick\'s last step (1359-A §4, RED B
     expect(official.p15DomainSequence).toBe(next - 1)
     expect(official.legacySnapshotId).toBe(`campaign-legacy-${official.p15DomainSequence}`)
     expect(official.phaseId).toBe('p15c.finale')
-    expect(official.phaseOrderVersion).toBe(1)
+    expect(official.phaseOrderVersion).toBe(2) // P15B Wave 4 (1370-ar): written under phase-order version 2
     expect(Number.isSafeInteger(official.phaseOrdinal)).toBe(true)
     expect([official.kind, official.definition, official.boundaryWeek, official.postFinaleMode])
-      .toEqual(['official2040', 'campaign-legacy/v2', B, LEGACY_POST_FINALE_MODE])
+      .toEqual(['official2040', 'campaign-legacy/v3', B, LEGACY_POST_FINALE_MODE])
     // The law over the tick's final facts, plus the stamp: nothing else (the step reads the final state).
-    expect(canon(withoutStamp(official))).toBe(canon(buildLegacyManifest(facts(s6240, B), 'official2040')))
+    expect(canon(withoutStamp(official))).toBe(canon(buildLegacyManifest(legacyFactsFromState(s6240, B, MODERN_LEGACY_DEFINITION), 'official2040', MODERN_LEGACY_DEFINITION)))
     expect(official.studios.map((row) => row.studioId)).toEqual(enteredIds(s6240))
     expect(legacyOf(s6240).recordedFromWeek).toBe(legacyOf(s6239).recordedFromWeek)
     expect(legacyOf(s6240).endOfRun).toBeNull()
@@ -859,7 +861,7 @@ describe('p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5)', 
     const next = tick(state)
     const official = officialOf(next)
     expect(official.p15DomainSequence).toBe(sequenceOf(next).next - 1)
-    expect(canon(withoutStamp(official))).toBe(canon(buildLegacyManifest(factsFn()(next, B), 'official2040')))
+    expect(canon(withoutStamp(official))).toBe(canon(buildLegacyManifest(legacyFactsFromState(next, B, MODERN_LEGACY_DEFINITION), 'official2040', MODERN_LEGACY_DEFINITION)))
     makeSave(next)
   }), ROUTE_MS)
 
@@ -894,7 +896,10 @@ describe('p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5)', 
     expect(Object.hasOwn(rawOf(down.state), 'campaignLegacy')).toBe(false)
     expect(canon(down)).toBe(canon(below))
     // A frozen 2040 Legacy refuses by name: the step's converter and every older migrator.
-    const frozen = makeSave(genuineFrozen())
+    // P15B (1370-ar): the live save meets the P15B step's own refusal first (its condition records); the Legacy's
+    // refusal is proven on the Save45 envelope the test helper builds, by the step's converter and every older migrator.
+    expect(() => migrateBelowStep(makeSave(genuineFrozen()))).toThrow(/cannot downgrade or discard/)
+    const frozen = predecessorSave(historicalV2FrozenControl())
     expect(() => convertOutOfStep(frozen)).toThrow(DOWNGRADE_REFUSAL)
     let checked = 0
     for (let version = 4; version < STEP; version++) {
@@ -915,6 +920,23 @@ describe('p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5)', 
     expect(Object.hasOwn(v18.state as unknown as Record<string, unknown>, 'campaignLegacy')).toBe(false)
   }), FIXTURE_MS)
 })
+
+// Separate explicitly constructed historical producer control on the existing labelled
+// G6240F input. This is NOT a downgrade or relabel of the modern manifest.
+function historicalV2FrozenControl(): GameState {
+  const state = genuineFrozen()
+  makeSave(state)
+  const old = officialOf(state)
+  const built = LEGACY_DEFINITIONS['campaign-legacy/v2'].evaluate(
+    legacyFactsFromState(state, B, 'campaign-legacy/v2'), 'official2040')
+  const historical = withRoot(state, 'campaignLegacy', { ...legacyOf(state), official: {
+    ...built, legacySnapshotId: old.legacySnapshotId, p15DomainSequence: old.p15DomainSequence,
+    phaseId: old.phaseId, phaseOrdinal: old.phaseOrdinal, phaseOrderVersion: old.phaseOrderVersion,
+  } })
+  makeSave(historical) // Whole48 admission, not only Legacy/root validation.
+  predecessorSave(historical) // Own frozen47 admission before testing any later guard.
+  return historical
+}
 
 // ── the frozen definition table as literals (1359-F2 item 1; 1353-F6 ruling 2; 1353-F7 ruling 3) ──
 // A pin that copied TUNING or the live exports at load would pass a comparison with them, and a retune that edits an
@@ -1010,7 +1032,7 @@ describe('p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359
     refuses(tamper(frozen, (o) => { o.legacySnapshotId = `power-ranking-${o.p15DomainSequence}` }), 'campaignLegacy.official.legacySnapshotId')
     refuses(tamper(frozen, (o) => { o.phaseId = 'p15b.condition' }), 'campaignLegacy.official.phase')
     refuses(tamper(frozen, (o) => { o.phaseOrdinal += 1 }), 'campaignLegacy.official.phase')
-    refuses(tamper(frozen, (o) => { o.phaseOrderVersion = 2 }), 'campaignLegacy.official.phase')
+    refuses(tamper(frozen, (o) => { o.phaseOrderVersion = 3 }), 'campaignLegacy.official.phase') // P15B Wave 4 (1370-ar): 2 has a table now
   }), FIXTURE_MS)
 
   it('legacy-validate-bounds', budgeted(FIXTURE_MS, () => {
@@ -1093,7 +1115,9 @@ describe('p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359
     // definition bump, fails here, whatever Wave 1's own pin says.
     const table = definitionsTable()
     // The table holds exactly two eras: v1 kept frozen (1353-F6 ruling 2) and v2 beside it.
-    expect(Object.keys(table).sort(), 'the frozen table').toEqual(['campaign-legacy/v1', 'campaign-legacy/v2'])
+    expect(Object.keys(table).sort(), 'frozen historical entries plus adopted modern era').toEqual(['campaign-legacy/v1', 'campaign-legacy/v2', 'campaign-legacy/v3'])
+    expect(MODERN_LEGACY_DEFINITION).toBe('campaign-legacy/v3')
+    expect(fieldsOf(table['campaign-legacy/v3']), 'modern actual-closure domain, unchanged thresholds').toBe(canon({ ...V2, domainIds: [...V2.domainIds, 'studioClosures'] }))
     // Each frozen entry equals its literals, field by field.
     expect(fieldsOf(table['campaign-legacy/v1']), "the frozen 'campaign-legacy/v1' entry").toBe(canon(V1))
     expect(fieldsOf(table['campaign-legacy/v2']), "the frozen 'campaign-legacy/v2' entry").toBe(canon(V2))
@@ -1108,7 +1132,7 @@ describe('p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359
     expect(Object.keys(t).filter((key) => key.startsWith('LEGACY_')).sort()).toEqual(Object.keys(V2.thresholds).sort())
     for (const [name, value] of Object.entries(V2.thresholds)) expect(t[name], name).toBe(value)
     // An unknown definition refuses by name: an id outside the table (1353-U finding 6).
-    refuses(tamper(genuineFrozen(), (o) => { o.definition = 'campaign-legacy/v3' }), 'campaignLegacy.official.definition')
+    refuses(tamper(genuineFrozen(), (o) => { o.definition = 'campaign-legacy/v999' }), 'campaignLegacy.official.definition')
   }), FIXTURE_MS)
 
   it('legacy-round-trip', budgeted(ROUTE_MS, () => {
@@ -1180,13 +1204,13 @@ describe('p15c2 replay: the validator re-runs the definition the manifest names 
     // changes; and the id a v1 tree writes, `campaign-legacy/v1`. That is the manifest a v1 tree freezes for this
     // campaign. It validates only if the frozen v1 entry's replay reproduces it, id included, so it cannot pass by
     // replaying itself (1353-U findings 7-8).
-    const frozen = genuineFrozen()
+    const frozen = historicalV2FrozenControl()
     const table = definitionsTable()
     const t = TUNING as unknown as Record<string, number>
     expect(Object.keys(t).filter((key) => key.startsWith('LEGACY_')).sort(), 'premise: the fifteen Legacy values')
       .toEqual(Object.keys(V1.thresholds).sort())
-    const facts = factsFn()(frozen, B)
-    const built = underThresholds(V1.thresholds, () => buildLegacyManifest(facts, 'official2040')) as unknown as Official
+    const facts = legacyFactsFromState(frozen, B, 'campaign-legacy/v1')
+    const built = underThresholds(V1.thresholds, () => buildLegacyManifest(facts, 'official2040', 'campaign-legacy/v1')) as unknown as Official
     const v1Official: Official = { ...officialOf(frozen), ...built, definition: 'campaign-legacy/v1' }
     const asOfficial = (official: Official): GameState => withRoot(frozen, 'campaignLegacy', { ...legacyOf(frozen), official })
     const oldLaw = asOfficial(v1Official)

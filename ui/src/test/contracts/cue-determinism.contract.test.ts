@@ -48,6 +48,7 @@ function emptySummary(fromWeek: number, toWeek: number): PeriodSummary {
     production: 0,
     publicity: 0,
     construction: 0,
+    financing: 0, // P15B (1370-ar): the loan bucket of the period summary
     otherCash: 0,
     netCash: 0,
     releases: 0,

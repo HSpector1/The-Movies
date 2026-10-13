@@ -162,6 +162,7 @@ const SUMMARY_KEYS = [
   'production',
   'publicity',
   'construction',
+  'financing', // P15B (1370-ar): the loan bucket of the period summary
   'otherCash',
   'netCash',
   'releases',
@@ -176,6 +177,7 @@ const SUMMARY_MONEY_KEYS = [
   'production',
   'publicity',
   'construction',
+  'financing',
   'otherCash',
   'netCash',
 ] as const
@@ -254,6 +256,7 @@ const EXACT_STOP_REASON_LIST = [
   'contractExpired',
   'renewalWindow',
   'cashNegative',
+  'studioClosure',
 ] as const satisfies readonly LotNextEventStopReason[]
 
 /**
@@ -384,6 +387,7 @@ function copySummary(summary: PeriodSummary): PeriodSummary {
     production: summary.production,
     publicity: summary.publicity,
     construction: summary.construction,
+    financing: summary.financing, // P15B (1370-ar): the loan bucket of the period summary
     otherCash: summary.otherCash,
     netCash: summary.netCash,
     releases: summary.releases,
@@ -799,6 +803,9 @@ function targetFor(
         runs: rows.map((row) => ({ ...row })),
         buildingId: 'theater',
       }
+    case 'studioClosure':
+      // App presents the stored terminal owner, never an operating world-hop receipt.
+      return null
     case 'cashNegative':
       if (
         studioDecision(result.next) !== null ||

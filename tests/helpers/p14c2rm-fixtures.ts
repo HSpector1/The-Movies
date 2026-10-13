@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { expect } from 'vitest'
-import { exportSave, importSave, makeSave, migrateToLive, validateSaveV37, validateSaveV47 } from '../../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToLive, validateSaveV37, validateSaveV48 } from '../../src/core/save.js'
 import type { SaveFileV37 } from '../../src/core/save.js'
 import { retirementRecordFor } from '../../src/core/careerLifecycle.js'
 import { applyActions } from '../../src/core/actions.js'
@@ -14,6 +14,7 @@ import { activeContract } from '../../src/core/employment.js'
 import type { CreativeRole, GameState } from '../../src/core/types.js'
 import { advanceTo } from '../../src/harness/p13a/fixtures.js'
 import { c2bFixture } from './p14c2b-fixtures.js'
+import { advanceDeferred } from './p15b-live.js'
 import { fund, p13aGeneratedStudio } from './p14b2-fixtures.js'
 import { c2cFixture, greenlightAction, toScheduledTake } from './p14c2c-fixtures.js'
 export { advanceTo }
@@ -21,7 +22,7 @@ export const sha = (value: string | Uint8Array) => createHash('sha256').update(v
 export const bytes = (state: GameState) => exportSave(makeSave(state))
 export const owner = (state: GameState) => state.hollywood!.playerStudioId
 export function admitted(state: GameState): GameState {
-  return validateSaveV47(JSON.parse(bytes(state))).state
+  return validateSaveV48(JSON.parse(bytes(state))).state
 }
 export const OUTGOING_51 = 'sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f'
 export const SCI = 't-sci-00'
@@ -106,7 +107,11 @@ export function extensionWorld(axis: keyof typeof AXES = 'gap', atWeek: number =
     expect(retirementRecordFor(live, facts.personId), 'genuine axis premise').toMatchObject({
       announcedWeek: facts.announcement, effectiveWeek: facts.effective, extensionUsed: false,
     })
-    extensionCache.set(key, admitted(advanceTo(live, atWeek)))
+    // P15B closure/v1 (1370-ar r3; Owner ruling 1342-O 3): a studio 26 weeks in distress is closure due, so the long
+    // rival axis (2566 -> 2692) makes the player closure due at week 2633. The axis premise is the rival's extension,
+    // never the player's cash: the route keeps the genuine capture unfunded and advances it as the browser Studio Lot
+    // does, the player's closure due recorded and left due (the gap and exact axes are unaffected).
+    extensionCache.set(key, admitted(advanceDeferred(live, atWeek)))
   }
   return structuredClone(extensionCache.get(key)!)
 }

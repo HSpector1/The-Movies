@@ -1878,7 +1878,12 @@ describe('p15c1 campaign legacy: postFinaleMode inert (1353-A §8 item 16, §6)'
         if (!file.endsWith('.ts')) continue
         if (file === 'campaignLegacy.ts' || file === 'save.ts') continue // the law itself + the validator
         const text = fs.readFileSync(path.join(coreDir, file), 'utf8')
-        if (text.includes('postFinaleMode')) offenders.push(file)
+        // Exact adopted ended-manifest constant construction is a WRITE, not a mode read.
+        // No file exemption: every other occurrence (including a conditional/read) remains forbidden.
+        const construction = "postFinaleMode: null,"
+        const inspected = file === 'studioClosure.ts' && text.split(construction).length === 2
+          ? text.replace(construction, '') : text
+        if (inspected.includes('postFinaleMode')) offenders.push(file)
       }
       expect(offenders).toEqual([])
     }

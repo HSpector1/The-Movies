@@ -24,9 +24,7 @@ import type { BridgeCheckpointStore } from '../bridge/runtime/checkpoint-store.t
 import type { CampaignLibrary } from '../bridge/runtime/campaign-library.ts'
 import { caseDisclosure } from '../src/core/talentMarket.js'
 import { activeContract } from '../src/core/employment.js'
-import {
-  LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify,
-  validateSaveV38, validateSaveV39, validateSaveV47 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV38, validateSaveV39, validateSaveV48, initialP15BRoots } from '../src/core/save.js'
 import type { GameState, ProfessionalPromise } from '../src/core/types.js'
 
 // 1333-I: D15/D16/D17 measured 139,426/116,959/118,597 ms in the full-suite gate; the old
@@ -80,19 +78,28 @@ function withEmptyCompetitionsAndRomance<T extends WithEdgeLogAndRomance>(state:
 // save's own week and back-fills nothing; a genuine V44-or-older old.state never carried them. The literals
 // are this file's own expectation: production's initialP15Roots never defines it (1361-F7 ruling 3).
 function withEmptyP15Roots<T extends object>(state: T, week: number): T {
-  return { ...state,
+  // P15B (1370-ar): the P15B step (convertToP15BSave) adds its two empty roots at the input's own week and the
+  // three loan money kinds at zero on every rival finance period; a genuine V45-or-older old.state never carried them.
+  type Period = { movements: Record<string, number> }
+  type Business = { account: { periods: Period[] } }
+  const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
+  const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
+    businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } })) } }
+  return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
     campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
     // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
-    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null },
+    ...initialP15BRoots(week) }
 }
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
 const bytes = (state: GameState): string => exportSave(makeSave(state))
 function full(state: GameState): string {
   const before = stableStringify(state), save = makeSave(state)
-  expect(save.saveVersion).toBe(LIVE_SAVE_VERSION); expect(validateSaveV47(save)).toBe(save)
+  expect(save.saveVersion).toBe(LIVE_SAVE_VERSION); expect(validateSaveV48(save)).toBe(save)
   const raw = exportSave(save)
   expect(exportSave(importSave(raw))).toBe(raw)
   expect(stableStringify(state)).toBe(before)
@@ -375,7 +382,7 @@ function qualifyPrior53(): void {
     const factory = vi.fn(() => `1174-prior53-${name}`)
     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
     expect(loaded.migratedFromProtocolVersion).toBe(4); expect(factory).toHaveBeenCalledTimes(1)
-    expect(PROJECTION_VERSION).toBe(57); expect(PROTOCOL_VERSION).toBe(4)
+    expect(PROJECTION_VERSION).toBe(58); expect(PROTOCOL_VERSION).toBe(4)
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v53']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     const current = loaded.hydrated.checkpoint
@@ -385,7 +392,7 @@ function qualifyPrior53(): void {
     for (const slot of ['currentSaveJson', 'savedSaveJson'] as const) {
       assert.ok(current[slot])
       const previous = validateSaveV38(JSON.parse(old.value[slot]))
-      const now = validateSaveV47(JSON.parse(current[slot]!))
+      const now = validateSaveV48(JSON.parse(current[slot]!))
       // 1344-N S5 (x2 at a318722, :361 D17 measured `+ "screenplayShelving"` on each of four rival businesses, nothing else).
       expect(now.state).toEqual(withEmptyRecovery({ ...withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withRivalTermination(withSharedCompetitions(previous.state)))), previous.state.market.tick), firstTakeSubjects: { version: 1, cutoverOrdinal: previous.state.firstTakes.length, facts: [] } }))
       expect(current[slot]).toBe(exportSave(migrateToLive(previous)))

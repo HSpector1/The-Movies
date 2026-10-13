@@ -5,6 +5,7 @@ import { campaignDate } from './calendar.js'
 import { productionHasBegunFilming, retargetProductionTechnologyChoice, assertProductionTechnologyBindings } from './technologyProduction.js'
 import { generateScientist } from './worldgen.js'
 import { isTechnologyId, technologyEntry } from './technologyCatalogue.js'
+import { closedWeekOf } from './operatingState.js'
 import {
   adoptionChainOperational, adoptionComponents, adoptionPhysicalComplete, adoptionQuote, adoptionRejections, aggregatedAdoptionComponents,
   componentTotal, equipmentPlan, installationCatalogueCost, mintEquipmentAsset, resolvedPostFacilityId,
@@ -594,12 +595,16 @@ export function advanceRivalResearchWeek(state: GameState, business: {studioId: 
  * component's facility is; abstract rival plant keeps its deployment clock.
  */
 export function finishTechnologyWeek(state: GameState): GameState {
+  const closed = closedWeekOf(state)
   const adoptions = state.technology.adoptions.map(a => {
     if (a.operationalWeek !== null) return a
     // P13B-S6: a cancelled adoption is skipped for good. The player's own is already
     // incomplete by its placements, but a rival's deployment is a CLOCK — without
     // this it would quietly go operational on work that was stopped.
     if ((a.cancelledWeek ?? null) !== null) return a
+    // P15B closure/v1 (r3; Wave-4 contract §4): an actually closed studio deploys nothing; its in-flight adoption
+    // stays pending in place (operatingState.closedWeekOf, the one operating-state derivation).
+    if (closed.has(a.studioId)) return a
     const player = a.studioId === state.hollywood?.playerStudioId
     const complete = player
       ? adoptionPhysicalComplete(state, a)
@@ -642,7 +647,7 @@ function validator(state: TechnologyBearingState): Validator {
  * fact is gated on the stored version, so an older root is never taught a newer
  * one and never silently tolerates one.
  */
-function validateSharedTechnology(state: TechnologyBearingState, v: Validator, projectIds: Set<string>, completedProjects: Map<string, number>): void {
+function validateSharedTechnology(state: TechnologyBearingState, v: Validator, projectIds: Set<string>, completedProjects: Map<string, number>, cancellationAwarePolicy = false): void {
   const {fail, exact, integer, text, week, studio, own} = v
   const root = state.technology as StudioTechnology
   const full = state as GameState
@@ -776,12 +781,19 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
       const asset = root.equipment.find(e => e.id === row.equipmentAssetId)
       if (!asset || asset.studioId !== a.studioId || asset.technologyId !== a.technologyId) fail('adoption names an unknown equipment asset')
       // P13B-S6: an adoption whose physical work was cancelled LETS GO of its asset
-      // (so a restart reuses it at $0) while keeping the reference as history, so a
-      // null holder is lawful for it — and only for it.
+      // (so a restart reuses it at $0) while keeping the reference as history.
+      // Frozen pre-cancellation policy keeps its original null-holder exception.
+      // The explicit cancellation-era policy also permits a later live holder,
+      // while historical references never consume current ownership.
       const cancelled = a.studioId === own && a.physicalProjectIds.some(id =>
         state.placement.facilities.some(p => p.projectId === id && p.status === 'cancelled'))
-      if (asset!.holderAdoptionId !== a.id && !(cancelled && asset!.holderAdoptionId === null) || heldAssets.has(asset!.id)) fail('equipment asset is held by another adoption')
-      if (asset!.holderAdoptionId !== null) heldAssets.add(asset!.id)
+      if (cancellationAwarePolicy && cancelled) {
+        // Historical references survive reuse; only an uncancelled adoption owns now.
+        if (asset!.holderAdoptionId === a.id) fail('equipment asset is still held by a cancelled adoption')
+      } else {
+        if (asset!.holderAdoptionId !== a.id && !(cancelled && asset!.holderAdoptionId === null) || heldAssets.has(asset!.id)) fail('equipment asset is held by another adoption')
+        if (asset!.holderAdoptionId !== null) heldAssets.add(asset!.id)
+      }
     }
     if (a.operationalWeek !== null) {week(a.operationalWeek);if (a.operationalWeek < a.committedWeek + entry.deploymentWeeks) fail('installation finished early')}
     if (a.prototypeProjectId !== null) {
@@ -898,8 +910,8 @@ function validateRootShape(state: TechnologyBearingState, v: Validator, version:
 }
 
 /** Exact, campaign-local P13B boundary for the live v4 root. It never repairs or invents a receipt. */
-export function validateTechnology(state: GameState): void {
-  validateTechnologyRoot(state, 4)
+export function validateTechnology(state: GameState, cancellationAwarePolicy = false): void {
+  validateTechnologyRoot(state, 4, cancellationAwarePolicy)
 }
 /**
  * Frozen P13B-S3 validator for a genuine V23 (and V22) root — technology root v3:
@@ -910,7 +922,7 @@ export function validateTechnology(state: GameState): void {
 export function validateTechnologyV3(state: GameStateV23): void {
   validateTechnologyRoot(state as unknown as GameState, 3)
 }
-function validateTechnologyRoot(state: GameState, version: 3 | 4): void {
+function validateTechnologyRoot(state: GameState, version: 3 | 4, cancellationAwarePolicy = false): void {
   const v = validator(state)
   const {fail, exact, integer, text, week, studio, own} = v
   validateRootShape(state, v, version)
@@ -1094,7 +1106,7 @@ function validateTechnologyRoot(state: GameState, version: 3 | 4): void {
       ? granted.researchProjectId !== p.id || granted.acquiredWeek !== p.completedWeek
       : granted.route !== 'purchase')) fail('completed research without its access grant')
   }
-  validateSharedTechnology(state, v, ids, completed)
+  validateSharedTechnology(state, v, ids, completed, cancellationAwarePolicy)
 }
 
 /**

@@ -1,5 +1,6 @@
 import { productionCompanyTalentIds } from './productionPeople.js'
 import { initializeHollywood, industryBusyTalentIds, rivalEmployment } from './hollywood.js'
+import { closedWeekOf } from './operatingState.js'
 import { campaignHasFounded, campaignRecordsFounding, ENGAGED_FOUNDING_REFUSAL, recordFoundingFund, recordsFoundingFund, SECOND_FOUNDING_REFUSAL } from './foundingFunding.js'
 // ── D-11 Studio Employment, Contracts, Roster, Freelancer Market ──────────────
 // A PURE module (like talentSummary/filmPackage): no React/DOM/async/IO, no time,
@@ -172,7 +173,7 @@ export function creditedWriterIds(state: GameState): Set<string> {
 export function busyTalentIds(state: GameState): Set<string> {
   const busy = activeProductionCompanyTalentIds(state)
   for (const id of activeWritingAssignmentIds(state)) busy.add(id)
-  for (const id of industryBusyTalentIds(state.hollywood)) busy.add(id)
+  for (const id of industryBusyTalentIds(state.hollywood, closedWeekOf(state))) busy.add(id)
   for (const project of state.technology?.projects ?? []) {
     if (project.status !== 'active') continue
     for (const seat of project.seats) {

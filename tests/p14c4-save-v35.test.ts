@@ -30,7 +30,7 @@
 //    merely that it says "downgrade".
 import { describe, expect, it } from 'vitest'
 import {
-  LIVE_SAVE_VERSION, convertV34ToV35, convertV35ToV34, makeSave, migrateToV35, validateSaveV35, validateSaveV47,
+  LIVE_SAVE_VERSION, convertV34ToV35, convertV35ToV34, makeSave, migrateToV35, validateSaveV35, validateSaveV48,
 } from '../src/core/save.js'
 import type { CohortReceipt, GameStateV37 } from '../src/core/types.js'
 import { recomputeDue } from '../src/core/aging.js'
@@ -275,8 +275,8 @@ describe('P14C.4 D5: replay determinism, and save/load mid-year then continuing 
     // P14C.2b: reload at the LIVE (V36) boundary, not the frozen V35 one `liveEnvelope`
     // now targets (helpers/p14c4-fixtures.ts) — continuing to tick needs every V36 key
     // `readExtensionUsed` requires, which the V35-stripped shape no longer carries.
-    const savedLive = validateSaveV47({ saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems })
-    const reloaded = validateSaveV47(JSON.parse(JSON.stringify(savedLive)))
+    const savedLive = validateSaveV48({ saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems })
+    const reloaded = validateSaveV48(JSON.parse(JSON.stringify(savedLive)))
     const viaSaveLoad = advanceTo(reloaded.state, 156)
     expect(JSON.stringify(viaSaveLoad)).toBe(JSON.stringify(continuous))
   })

@@ -33,6 +33,7 @@ const summary: PeriodSummary = {
   production: -700.25,
   publicity: -40.5,
   construction: -2_000.25,
+  financing: 0, // P15B (1370-ar): the loan bucket of the period summary
   otherCash: -55.5,
   netCash: -1_971.999,
   releases: 0,

@@ -15,6 +15,7 @@ import { activeContract, busyTalentIds } from '../src/core/employment.js'
 import { occupiedResourceSlots, resourceClaimsOf } from '../src/core/occupancy.js'
 import type { PromiseAttachment, PromiseDraft } from '../src/core/promises.js'
 import type { Action, FirstTakeReceipt, FirstTakeSubject, GameState, ProfessionalPromise, PromiseFeasibilityReceipt } from '../src/core/types.js'
+import { initialP15BRoots } from '../src/core/save.js'
 
 const E = new URL('../docs/engineering/playability-launch-review/evidence/p14b4-20260919/', import.meta.url)
 const FOCUS = 'authored-0006', WRITER = 'authored-0003', DIRECTOR = 'authored-0002', CRAFT = 'authored-0004'
@@ -60,13 +61,22 @@ function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T
 // literals are this file's own expectation: production's initialP15Roots never defines it
 // (1361-F7 ruling 3).
 function withEmptyP15Roots<T extends object>(state: T, week: number): T {
-  return { ...state,
+  // P15B (1370-ar): the P15B step (convertToP15BSave) adds its two empty roots at the input's own week and the
+  // three loan money kinds at zero on every rival finance period; a genuine V45-or-older old.state never carried them.
+  type Period = { movements: Record<string, number> }
+  type Business = { account: { periods: Period[] } }
+  const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
+  const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
+    businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } })) } }
+  return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
     campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
     // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
-    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null },
+    ...initialP15BRoots(week) }
 }
 const sha = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex')
 const issuer = (state: GameState): string => { assert.ok(state.hollywood); return state.hollywood.playerStudioId }
@@ -115,7 +125,7 @@ function memo<T>(name: string, build: () => T): T {
 }
 function admitted(state: GameState): void {
   const before = stable(state), save = saves.makeSave(state)
-  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV47(save)).toBe(save)
+  expect(save.saveVersion).toBe(saves.LIVE_SAVE_VERSION); expect(saves.validateSaveV48(save)).toBe(save)
   const raw = saves.exportSave(save)
   expect(saves.exportSave(saves.importSave(raw))).toBe(raw); expect(stable(state)).toBe(before)
 }

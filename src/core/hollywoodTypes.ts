@@ -55,9 +55,15 @@ export type RivalResearchMoneyKind = 'researchSpend' | 'researchCapacity' | 'tec
  * the player's termination law. Every V41 period carries it; a V40 period is lifted
  * with it at zero and a V41 period whose charge is zero downgrades losslessly.
  */
+/**
+ * P15B (1357-A §6.3; closure/v1 §3): a rival's loan principal (≥ 0), its installments (≤ 0)
+ * and its closure claim payments (≤ 0). Every P15B-era period carries the three; a predecessor period is lifted
+ * with them at zero and a P15B-era period whose three are all zero downgrades losslessly.
+ */
+export type RivalLoanMoneyKind = 'loanPrincipal' | 'loanInstallment' | 'claimPayment'
 export type RivalMoneyKind = 'capacity' | 'signing' | 'payroll' | 'overhead' | 'facilityOpex'
   | 'development' | 'production' | 'marketing' | 'studioRevenue' | 'technologyAdoption'
-  | RivalResearchMoneyKind | 'termination' | 'facilityDemolitionRefund'
+  | RivalResearchMoneyKind | 'termination' | 'facilityDemolitionRefund' | RivalLoanMoneyKind
 export type RivalFinancePeriod = {
   fromWeek: number
   throughWeek: number
@@ -123,7 +129,9 @@ export type RivalBusiness = {
 export type IndustryReceipt = { eventId: string; week: number; studioId: string } & (
   | { kind: 'studioEntered'; entryKey: string; origin: 'fresh' | 'migration' | 'scheduled' }
   | { kind: 'employment'; talentId: string; fromStudioId: string | null; toStudioId: string | null;
-      contractId: string; reason: 'entry' | 'renewal' | 'replacement' | 'expiry' | 'termination' | 'player-contract' | 'existing-player-contract' }
+      contractId: string; reason: 'entry' | 'renewal' | 'replacement' | 'expiry' | 'termination' | 'player-contract' | 'existing-player-contract'
+      // P15B Wave 4 (closure/v1 §3): the studio's actual closure ended this interval at its closure week.
+      | 'closure' }
   | { kind: 'filmAnnounced'; productionId: string; conceptId: string }
   | { kind: 'filmReleased'; productionId: string; conceptId: string; before: Standing; after: Standing }
   | { kind: 'filmSettled'; productionId: string }

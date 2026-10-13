@@ -195,9 +195,10 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
     // title names, cannot fire on a valid save (1358-F11 closure findings; 1358-D9 N3). The romance guard
     // stays covered on a V44 envelope by tests/p14b10-save-v44.test.ts:356 ('refuses a real (non-null)
     // romance by name').
-    // 1365 (1361-F7 ruling 2, the predicted move): with P15A.1(c) active the shared-market reason comes first;
-    // re-pinned at the 1370-AR landing to the measured first guard.
-    expect(() => save.migrateToV26(envelope as never)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded shared-market assessment \(\d+ recorded\); cannot downgrade or discard a recorded Power Ranking quarter$/)
+    // P15B (1370-ar, MASKED): the live chain now crosses the P15B step's converter FIRST, and every ticked industry
+    // state carries evaluated condition records, so the P15B guard (naming the predecessor version) is the one that
+    // actually refuses; the guard pinned before stays covered on its own-era input elsewhere.
+    expect(() => save.migrateToV26(envelope as never)).toThrow(new RegExp(`^migrateToV${save.LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
   })
 
   it('downgrade REFUSED: the same natural campaign also carries a new receipt kind (laboratoryCommitted/laboratoryOperational), independently sufficient to refuse V27->V26', () => {
@@ -211,9 +212,10 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
     // this campaign (1344-X12 section 4, in the leaf above). Measured in 1361-M2. The V27 guard keeps its
     // own-era coverage in the staged assertion below, and the romance guard on a V44 envelope in
     // tests/p14b10-save-v44.test.ts:356 ('refuses a real (non-null) romance by name').
-    // 1365 (1361-F7 ruling 2, the predicted move): with P15A.1(c) active the shared-market reason comes first;
-    // re-pinned at the 1370-AR landing to the measured first guard.
-    expect(() => save.migrateToV26(envelope as never)).toThrow(/^migrateToV44: cannot downgrade or discard a recorded shared-market assessment \(\d+ recorded\); cannot downgrade or discard a recorded Power Ranking quarter$/)
+    // P15B (1370-ar, MASKED): the live chain now crosses the P15B step's converter FIRST, and every ticked industry
+    // state carries evaluated condition records, so the P15B guard (naming the predecessor version) is the one that
+    // actually refuses; the guard pinned before stays covered on its own-era input elsewhere.
+    expect(() => save.migrateToV26(envelope as never)).toThrow(new RegExp(`^migrateToV${save.LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
     // 1358-F10 ruling 4: no Save27 engine remains, so the V27 guard's own-era input is a genuine V26
     // fixture lifted to V27 (as the LOSSLESS leaf lifts it) after one admission by the S8 rival admission
     // boundary itself (admitRivalPlans, src/core/rivalResearch.ts:200-209): a started Laboratory plan, its
@@ -239,11 +241,11 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
     })).toThrow()
   })
 
-  it('an unknown saveVersion 48 is refused, naming the handled range "1 through 47 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
+  it('an unknown saveVersion 49 is refused, naming the handled range "1 through 48 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
     const json = load(V26_FIXTURES.soundMidDeployment.file)
     const v27 = withV27.migrateToV27(JSON.parse(json))
-    const forged = { ...v27, saveVersion: 48 }
-    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 47 only/)
+    const forged = { ...v27, saveVersion: 49 }
+    expect(() => save.validateSave(forged as never)).toThrow(/versions 1 through 48 only/)
   })
 
   it('genuine usage of admitRivalPlans (not just an unused import — the same measured-risk guard tests/p13b-s6-save-v26.test.ts names for cancellationQuote): admitting a well-funded rival Laboratory books a real, nonzero researchCapacity movement — the same fact the natural-campaign downgrade-refused cases above observe emerging on their own', () => {

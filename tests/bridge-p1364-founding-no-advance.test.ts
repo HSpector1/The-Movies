@@ -10,6 +10,7 @@ import { BridgeSession, createManagedBridgeState } from '../bridge/session.ts'
 import { exportSaveJson, importSaveJson } from '../ui/src/engine/adapter.ts'
 import { beginFounding } from '../src/core/employment.js'
 import { LIVE_SAVE_VERSION } from '../src/core/save.js'
+import { validateLiveSave } from './helpers/live-era.js'
 import { generateWorld } from '../src/core/worldgen.js'
 import type { GameState } from '../src/core/types.js'
 
@@ -42,7 +43,8 @@ describe('1364 no new access (bridge and adapter boundaries)', () => {
   it('founding-import-boundary: malformed input is a typed failure at importSaveJson, never a throw', () => {
     const outcome = importSaveJson(`{"saveVersion": ${LIVE_SAVE_VERSION}, "seed": "x", "state": {}, "broadcastCache": []}`)
     expect(outcome.ok).toBe(false)
-    if (!outcome.ok) expect(outcome.error).toMatch(new RegExp(`validateSaveV${LIVE_SAVE_VERSION}`))
+    // 1370-ar r2: the live reader labels its refusals by its own name (validateSaveP15B at Save48), read from the helper.
+    if (!outcome.ok) expect(outcome.error).toMatch(new RegExp(`^${validateLiveSave.name}:`))
   })
 
   it('founding-first-founding-supported-surfaces: R-D (2): the browser adapter and the Bridge open a founding only through newGame over a fresh generateWorld, a campaign that never engaged; each still signs and founds that first founding, which saves, reloads and then refuses a second', () => {

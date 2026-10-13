@@ -79,6 +79,8 @@ import { p15Rows, stripP15 } from './helpers/p15-roots.js'
 import { validateSharedMarketRoot } from '../src/core/marketIntegration.js'
 import { historicalSave45Comparison } from './helpers/historical-save45-comparison.js'
 import type { GameStateV45, CastSlot, FilmResult, GameState, Production, RelationshipEdge, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
+import { advanceCorporateConditionWeek } from '../src/core/corporateConditionLive.js'
+import { advanceStudioClosureWeek } from '../src/core/studioClosure.js'
 // RED-by-design: src/core/relationships.ts does not exist. Every binding below is CALLED.
 import {
   RELATIONSHIP_BASELINE, RELATIONSHIP_CANCEL_DELTA, RELATIONSHIP_DRIFT_GRACE_WEEKS, RELATIONSHIP_DRIFT_RETURN_WEEKS,
@@ -312,6 +314,11 @@ const bytes = (state: GameState | GameStateV45): string => {
       if (period.movements.termination !== 0) {
         throw new Error('bytes: a real rival termination movement would be silently dropped by this strip')
       }
+      // P15B (1370-ar): the three loan money kinds (added at the P15B step) under the same guard-before-strip rule.
+      for (const kind of ['loanPrincipal', 'loanInstallment', 'claimPayment'] as const) {
+        // r2: a predecessor-era comparison state (historicalSave45Comparison) carries no such key; absence is zero, not money.
+        if ((period.movements[kind] ?? 0) !== 0) throw new Error(`bytes: a real rival ${kind} movement would be silently dropped by this strip`)
+      }
     }
   }
   // 1344-F4 ruling 2: the shelving guard, before the strip below drops the key.
@@ -345,7 +352,7 @@ const bytes = (state: GameState | GameStateV45): string => {
   const strippedHollywood = state.hollywood === null ? null : { ...state.hollywood,
     businesses: state.hollywood.businesses.map(({ screenplayShelving: _shelving, ...business }) => ({ ...business,
       account: { ...business.account, periods: business.account.periods.map((period) => {
-        const { termination: _t, ...movements } = period.movements
+        const { termination: _t, loanPrincipal: _lp, loanInstallment: _li, claimPayment: _cp, ...movements } = period.movements
         return { ...period, movements }
       }) } })) }
   const { relationships: _r, careerLifecycle: _cl, firstTakeSubjects: _fts, ...rest } = stripP15(state) as Record<string, unknown> & {
@@ -481,6 +488,9 @@ function f6Base(): F6Base {
     try { tick(state) } finally { capture.mockRestore() }
     if (preMarket196 === undefined) throw new Error('F6 premise: no real week-196 market input captured')
     state = preMarket196
+    // P15B (1370-ar): the captured input predates the tick's end-of-tick P15 steps for week 196, so the condition
+    // step and the closure phase run on it here (the weekly evaluation the next tick requires), from its own cash.
+    state = advanceStudioClosureWeek(advanceCorporateConditionWeek(state))
     const playerId = player(state)
     const row = state.hollywood!.employment.find((e) => e.studioId === F6.incumbent && e.terms.talentId === F6.subject && e.endedWeek === null)
     assert.ok(row, 'F6 premise: the subject holds no live r04 row at 196')
@@ -1332,7 +1342,8 @@ describe('family 8 — RESERVATION enumerated and CHEMISTRY read-only (scope (6)
 // shelving guard. Pre-1365 first guard, kept for the record:
 //   /^migrateToV42: cannot downgrade or discard a screenplay shelving rejection count of studio-aca408ec-r01$/
 // The shelving guard stays covered on its own V43 input in p14d1-rival-shelving-save-v43.test.ts.
-const FAMILY10_FIRST_GUARD = /^migrateToV44: cannot downgrade or discard a recorded shared-market assessment \(1 recorded\)$/
+// Landed predecessor pin retained; current P15B head refusal above is authoritative:
+// const FAMILY10_FIRST_GUARD = /^migrateToV44: cannot downgrade or discard a recorded shared-market assessment \(1 recorded\)$/
 describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; family 9\'s ONE-EDGE downgrade refusal (scope (10))', () => {
   const v31 = () => { const { after } = takeWorld(); return JSON.parse(JSON.stringify(makeSave(after))) as { saveVersion: number; seed: string; state: Record<string, unknown> & { relationships: Edge[] }; broadcastCache: unknown } }
   const expectRefused = (mutate: (edges: Edge[], state: Record<string, unknown>) => void, pattern: RegExp) => {
@@ -1444,7 +1455,10 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // last assertion: the genuine week-110 Save40 capture, downgraded once; 1358-F11,
     // since Save44's romance refusal now masks Q11's live chain), the V33
     // aging guard by tests/p14c1-materialized-aging.test.ts:445 (family 5, :423).
-    expect(() => migrateToV30(admitted)).toThrow(FAMILY10_FIRST_GUARD)
+    // P15B (1370-ar, MASKED): the live chain now crosses the P15B step's converter FIRST, and every ticked industry
+    // state carries evaluated condition records, so the P15B guard (naming the predecessor version) is the one that
+    // actually refuses; the guard pinned before stays covered on its own-era input elsewhere.
+    expect(() => migrateToV30(admitted)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
     // Every older migrateToVn refuses too, but MEASURED (not assumed) to be for
     // two DIFFERENT reasons depending on vintage, so the loop's regex only claims
     // what both share: migrateToV29/28/27/26 chain through the same convertV33ToV32
@@ -1461,7 +1475,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // same rejection-count guard refuses. Derived from source, not measured: x2
     // stopped at the migrateToV30(admitted) assertion.
     for (const older of [migrateToV29, migrateToV28, migrateToV27, migrateToV26]) {
-      expect(() => older(admitted as never)).toThrow(FAMILY10_FIRST_GUARD)
+      expect(() => older(admitted as never)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
     }
     // P14C.4: migrateToV25 (and every migrator older than V26) now meets the
     // NEWER unconditional V35 guard FIRST — added directly beside the
@@ -1476,7 +1490,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // retirement-extension guard behind the same recorded first-take subject.
     // 1344-N S9: migrateToV25 crosses convertV43ToV42 first too (save.ts:8591);
     // derived from source, as above.
-    expect(() => migrateToV25(admitted as never)).toThrow(FAMILY10_FIRST_GUARD)
+    expect(() => migrateToV25(admitted as never)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
     expect(JSON.stringify(admitted)).toBe(before)
 
     // RE-EXPRESSED (was: "empty is lossless" — `migrateToV30(empty)` succeeded and
@@ -1497,7 +1511,7 @@ describe('family 10 — the V31 ROOT VALIDATOR refuses every malformed edge; fam
     // 1344-N S9: `empty` differs from `admitted` only in `relationships`, so it
     // holds the same rival rejection count and convertV43ToV42 (save.ts:9210,
     // :10698) refuses it first too; derived from source, as above.
-    expect(() => migrateToV30(empty)).toThrow(FAMILY10_FIRST_GUARD)
+    expect(() => migrateToV30(empty)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
     // GAP, disclosed rather than hidden: the ORIGINAL claim under test here — that an
     // EMPTY relationship root downgrades losslessly — is a real, still-implemented
     // behavior of `convertV32ToV31`/`convertV31ToV30`, but it is not observable from

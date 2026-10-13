@@ -14,9 +14,11 @@ import { fnv1a64 } from '../src/core/math.js'
 import { advancePromisesWeek, attachedPromiseDigest, promiseDigest } from '../src/core/promises.js'
 import * as promisesModule from '../src/core/promises.js'
 import * as operationsModule from '../src/core/operations.js'
-import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, convertV36ToV37, convertV37ToV38, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV31, validateSaveV47 } from '../src/core/save.js'
+import { convertV31ToV32, convertV32ToV33, convertV33ToV34, convertV34ToV35, convertV35ToV36, convertV36ToV37, convertV37ToV38, exportSave, migrateToLive, migrateToV31, validateSaveV29, validateSaveV31, validateSaveV48 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import type { Action, CastSlot, GameState, GameStateV31, ProfessionalPromiseV30 } from '../src/core/types.js'
+import { advanceCorporateConditionWeek } from '../src/core/corporateConditionLive.js'
+import { advanceStudioClosureWeek } from '../src/core/studioClosure.js'
 
 // P14B.7 sweep (735-T): `fixture()` stays the frozen V29->V31 proof (P14B.5's own
 // migration contract, untouched below); `actualTakeInput()` then converts the
@@ -37,7 +39,7 @@ type Envelope = ReturnType<typeof validateSaveV31>
 // envelope (every record's `extensionUsed`/`extendedFromWeek`, every case's `variant`).
 // 975: only this live carrier reaches38. The independent frozen31 carrier below
 // retains its original reader, assertions and immutable fixture bytes.
-type EnvelopeV33 = ReturnType<typeof validateSaveV47>
+type EnvelopeV33 = ReturnType<typeof validateSaveV48>
 const SLOTS = ['lead', 'antagonist', 'support'] as const
 const CLASSES = ['lead', 'leadOrAntagonist'] as const
 type SeatClass = typeof CLASSES[number]
@@ -106,7 +108,7 @@ function validateStateV33(carrier: EnvelopeV33, state: GameState): EnvelopeV33 {
   // The live-boundary twin of validateState above, for the second describe
   // block's real-gameplay states (genuinely live-shaped once applyActions/tick
   // have touched them) -- same device, the frozen V31 reader untouched.
-  return validateSaveV47({ ...carrier, state, broadcastCache: state.broadcastItems })
+  return validateSaveV48({ ...carrier, state, broadcastCache: state.broadcastItems })
 }
 function binding(state: GameStateV31, promise: ProfessionalPromiseV30): void {
   assert.notEqual(promise.contractId, null)
@@ -337,7 +339,10 @@ function actualTakeInput(slot: CastSlot): Prepared {
   try { tick(state) } finally { outcomeSpy.mockRestore(); takeSpy.mockRestore() }
   expect(transitions).toEqual([{ before: 5, after: 4, emitted: [filmId] }])
   assert.ok(observed, 'fixture: actual pre-outcome owner input absent')
-  const carrier = validateStateV33(migratedLive, observed)
+  // P15B (1370-ar): the captured owner input is a mid-tick snapshot whose clock already names the produced week while
+  // the end-of-tick P15 steps have not run for it, so the condition step and the closure phase run on it here (the
+  // weekly evaluation the live validator requires), from its own cash.
+  const carrier = validateStateV33(migratedLive, advanceStudioClosureWeek(advanceCorporateConditionWeek(observed)))
   const takes = carrier.state.firstTakes.filter((t) => t.productionId === filmId)
   expect(takes).toHaveLength(1)
   const take = takes[0]!
@@ -359,7 +364,7 @@ function actualTakeInput(slot: CastSlot): Prepared {
 }
 function outcomes(state: GameState) { return state.talentMarket.receipts.filter((r) => r.kind === 'promiseOutcome') }
 function evaluate(input: EnvelopeV33): GameState {
-  validateSaveV47(input)
+  validateSaveV48(input)
   const before = clone(input)
   const after = advancePromisesWeek(input.state) // existing structurally compatible public owner, no cast
   expect(input).toEqual(before)

@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest'
 import { SCHEMA_ID } from '../bridge/protocol.ts'
 import { loadBridgeRuntimeCheckpoint, SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS } from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession } from '../bridge/session.ts'
-import { LIVE_SAVE_VERSION, exportSave, importSave, migrateToLive } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, exportSave, importSave, migrateToLive, initialP15BRoots } from '../src/core/save.js'
 import { buildTalentProvenance } from '../src/core/aging.js'
 
 // Genuine e37cd23 projection45 export, not a current checkpoint with restamped ID.
@@ -24,13 +24,22 @@ function withEmptyScreenplayShelving<T extends { hollywood: { businesses: readon
 // save's own week and back-fills nothing; the genuine V29 slots never carried them. The literals
 // are this file's own expectation: production's initialP15Roots never defines it (1361-F7 ruling 3).
 function withEmptyP15Roots<T extends object>(state: T, week: number): T {
-  return { ...state,
+  // P15B (1370-ar): the P15B step (convertToP15BSave) adds its two empty roots at the input's own week and the
+  // three loan money kinds at zero on every rival finance period; a genuine V45-or-older old.state never carried them.
+  type Period = { movements: Record<string, number> }
+  type Business = { account: { periods: Period[] } }
+  const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
+  const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
+    businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } })) } }
+  return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
     campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
     // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
-    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null },
+    ...initialP15BRoots(week) }
 }
 describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)', () => {
   it('pins actual historical source bytes and the literal outgoing schema registry entry', () => {
@@ -98,7 +107,8 @@ describe('P14B.2 outgoing projection45 runtime compatibility (Save29 unchanged)'
       const sourceBusinesses = sourceHollywood.businesses.map((business) => ({ ...business,
         account: { ...(business.account as Record<string, unknown>),
           periods: ((business.account as { periods: Record<string, unknown>[] }).periods).map((period) => ({
-            ...period, movements: { ...(period.movements as Record<string, unknown>), termination: 0 } })) } }))
+            // P15B (1370-ar): the P15B step adds the three loan money kinds at zero to every rival finance period.
+            ...period, movements: { ...(period.movements as Record<string, unknown>), termination: 0, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } }))
       // 1344-N S2+S5 (x2 at a318722, :81 measured `"saveVersion": 42` -> 43 and `+ "screenplayShelving"`
       // {version 1, rejections [], shelved [], commissionHoldUntilWeek 0} on each of the four rival
       // businesses, nothing else): the live writer stamps 43, and the lift adds the empty shelving root.

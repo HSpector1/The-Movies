@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { beginFounding, generateWorld, makeSave, exportSave, importSave, migrateToV25, migrateToLive, makeSaveV18, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, convertV47ToV46 } from '../src/core/index.js'
 import { enterRival } from '../src/core/hollywood.js'
 import { persistedConceptIds, persistedProductionIds } from '../src/core/productionIdentity.js'
+import { predecessorSave } from './helpers/p15-roots.js'
 
 describe('R05 canonical starting history and genuine migration', () => {
   it('opens four established distinct businesses with settled canonical history and protected applicants', () => {
@@ -55,7 +56,7 @@ describe('R05 canonical starting history and genuine migration', () => {
     // 1361-N S4: Save45 is live, so convertV45ToV44 (src/core/save.ts:10989-10995) leads the chain. It passes: this
     // founding state is at week 0, so no tick has recorded a Power Ranking quarter and every P15 root is empty.
     // The pinned refusal below is unchanged.
-    expect(()=>makeSaveV18(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(makeSave(state)))))))).state)).toThrow(/^makeSaveV18: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)
+    expect(()=>makeSaveV18(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(predecessorSave(state)))))))).state)).toThrow(/^makeSaveV18: cannot downgrade or discard profession transition, industry retirement or entrant authority$/)
     const saved=makeSave(state)
     const duplicate=structuredClone(saved)
     duplicate.state.hollywood!.films.push(duplicate.state.hollywood!.films[0]!)

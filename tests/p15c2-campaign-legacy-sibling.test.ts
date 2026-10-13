@@ -17,7 +17,7 @@
 // closure route that only P15B's RED can supply, so it is a note for that RED (1359-B7 note).
 
 import { describe, expect, it } from 'vitest'
-import { buildLegacyManifest } from '../src/core/campaignLegacy.js'
+import { buildLegacyManifest, legacyFactsFromState, MODERN_LEGACY_DEFINITION } from '../src/core/campaignLegacy.js'
 import { LIVE_SAVE_VERSION, makeSave } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import {
@@ -26,7 +26,6 @@ import {
   canon,
   captureAt,
   convertIntoStep, currentFromStep,
-  factsFn,
   genuineFrozen,
   officialOf,
   P15_SIBLINGS,
@@ -70,15 +69,14 @@ describe('p15c2 sibling leaves: the Legacy with a sibling P15 root in the live s
     // B4's inside half on the live tick (1359-F2 item 4). The outside half (a condition event stamped 6240)
     // left with 1359-D item 4: route L need not stamp one, and B4 proves the cut on a forged root.
     stepFn()
-    const facts = factsFn()
     const s6240 = routeAt(B)
     requireRoot(s6240, 'powerRanking', 'the freeze tick writes the 6240 ranking record only once P15A.2 slice 2a lands')
     const ranking = rawOf(s6240).powerRanking as { snapshots: { week: number }[] }
     expect(ranking.snapshots.some((record) => record.week === B), 'the ranking step records week 6240 before the freeze').toBe(true)
     // Inside: the official equals the law over the tick's facts, and removing the 6240 record changes it.
-    expect(canon(withoutStamp(officialOf(s6240)))).toBe(canon(buildLegacyManifest(facts(s6240, B), 'official2040')))
+    expect(canon(withoutStamp(officialOf(s6240)))).toBe(canon(buildLegacyManifest(legacyFactsFromState(s6240, B, MODERN_LEGACY_DEFINITION), 'official2040', MODERN_LEGACY_DEFINITION)))
     const without = withRoot(s6240, 'powerRanking', { ...ranking, snapshots: ranking.snapshots.filter((record) => record.week !== B) })
-    expect(canon(buildLegacyManifest(facts(without, B), 'official2040'))).not.toBe(canon(withoutStamp(officialOf(s6240))))
+    expect(canon(buildLegacyManifest(legacyFactsFromState(without, B, MODERN_LEGACY_DEFINITION), 'official2040', MODERN_LEGACY_DEFINITION))).not.toBe(canon(withoutStamp(officialOf(s6240))))
   }), ROUTE_MS)
 
   it('legacy-migration-before-boundary-siblings-limited', budgeted(ROUTE_MS, () => {

@@ -1,12 +1,13 @@
 // 1041/1047/1053: actual cohort-born player work and dated origin authority.
 import assert from 'node:assert/strict'
+
 import { afterAll, describe, expect, it } from 'vitest'
 import { ageAt } from '../src/core/aging.js'
 import { assignmentRefusal, contractEndRefusal, retirementRecordFor } from '../src/core/careerLifecycle.js'
 import { activeContract, busyTalentIds } from '../src/core/employment.js'
 import { professionAtWeek, transitionInputsFor } from '../src/core/index.js'
 import { validateProfessionHistory } from '../src/core/professionHistory.js'
-import { convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, convertV47ToV46, exportSave, makeSave, stableStringify, validateSaveV35, validateSaveV37, validateSaveV47 } from '../src/core/save.js'
+import { exportSave, LIVE_SAVE_VERSION, makeSave, migrateToV44, stableStringify, validateSaveV35, validateSaveV37, validateSaveV48 } from '../src/core/save.js'
 import { caseForTalent, playerOffer, proposalDraft } from '../src/core/talentMarket.js'
 import { careerIdentity, expectedPotentialTier, roleTier } from '../src/core/talentSummary.js'
 import { TUNING } from '../src/core/tuning.js'
@@ -270,14 +271,14 @@ describe('C.3 genuine cohort-born Actor enters a new profession with origin auth
     expect(professionAtWeek(state, id, 3283)).toBe('director')
     preserveOrigin(state)
     const control = makeSave(state), controlBytes = stableStringify(control), malformed = clone(control)
-    expect(validateSaveV47(control)).toBe(control)
+    expect(validateSaveV48(control)).toBe(control)
     const amended = malformed.state.careerLifecycle.cohorts.map(row => row.week !== 832 ? row
       : { ...row, requested: { actor: 0, director: 1, writer: 0, craft: 0 } })
     Object.defineProperty(malformed.state.careerLifecycle, 'cohorts', { value: amended, enumerable: true, configurable: true, writable: true })
     expect(validateProfessionHistory({ ...malformed.state }).originalProfession(id)).toBe('actor')
-    expect(() => validateSaveV47(malformed)).toThrow(/cohort receipt.*week 832.*as a director entrant.*original profession disagrees/)
+    expect(() => validateSaveV48(malformed)).toThrow(/cohort receipt.*week 832.*as a director entrant.*original profession disagrees/)
     expect(stableStringify(control)).toBe(controlBytes)
-    expect(validateSaveV47(control)).toBe(control)
+    expect(validateSaveV48(control)).toBe(control)
     // 1363-N: admitted current recovery authority now refuses at 46->45 first.
     // Preserve the complete history; deeper rank/romance/shelving guards are masked here.
     // Separate rank controls remain in p15a2-power-ranking-archive.test.ts:
@@ -289,9 +290,13 @@ describe('C.3 genuine cohort-born Actor enters a new profession with origin auth
     expect(control.state.hollywood!.businesses.some(b => b.costCutting.since !== null)).toBe(true)
     expect(control.state.hollywood!.businesses.some(b => b.account.periods.some(p => p.movements.facilityDemolitionRefund !== 0))).toBe(true)
     expect(control.state.hollywood!.receipts.some(r => r.kind === 'facilityDisposed')).toBe(true)
-    expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(control))))))))))).toThrow(/^migrateToV45: cannot downgrade or discard recovery authority: costCutting\.since, facilityDemolitionRefund, facilityDisposed$/)
+    // P15B (1370-ar, MASKED): this route's rivals borrow under 1357-A §6.2, so no predecessor envelope can carry the
+    // state (the test helper refuses by name); the live save's own P15B refusal is the pin, and it appends R8's
+    // recovery reasons rather than masking them. The recorded Power Ranking guard stays covered on its Save45 input in
+    // tests/p15a2-power-ranking-archive.test.ts.
+    expect(() => migrateToV44(control as never)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record.*; cannot downgrade or discard recovery authority: costCutting\\.since, facilityDemolitionRefund, facilityDisposed(; |$)`))
     expect(stableStringify(control)).toBe(controlBytes)
-    expect(validateSaveV47(control)).toBe(control)
+    expect(validateSaveV48(control)).toBe(control)
     expect(stableStringify(control)).toBe(controlBytes)
     const origin = cohortSetup()
     expect(validateSaveV35(origin.old)).toBe(origin.old); expect(validateSaveV37(origin.old37)).toBe(origin.old37)

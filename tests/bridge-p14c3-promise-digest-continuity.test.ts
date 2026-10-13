@@ -8,7 +8,7 @@ import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { describe, expect, it, vi } from 'vitest'
-import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV37 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, exportSave, importSave, makeSave, migrateToLive, stableStringify, validateSaveV37, initialP15BRoots } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState } from '../src/core/types.js'
 import { PROJECTION_VERSION, PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
@@ -105,13 +105,22 @@ function withEmptyCompetitionsAndRomance<T extends WithEdgeLogAndRomance>(state:
 // save's own week and back-fills nothing; a genuine Save37 old.state never carried them. The literals
 // are this file's own expectation: production's initialP15Roots never defines it (1361-F7 ruling 3).
 function withEmptyP15Roots<T extends object>(state: T, week: number): T {
-  return { ...state,
+  // P15B (1370-ar): the P15B step (convertToP15BSave) adds its two empty roots at the input's own week and the
+  // three loan money kinds at zero on every rival finance period; a genuine V45-or-older old.state never carried them.
+  type Period = { movements: Record<string, number> }
+  type Business = { account: { periods: Period[] } }
+  const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
+  const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
+    businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } })) } }
+  return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
     campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
     // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
-    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null },
+    ...initialP15BRoots(week) }
 }
 describe('955 genuine207 normal-development continuation', () => {
   it('matches actual BridgeSession advance from saved207 with uninterrupted develop:true on the reordered raw world', () => {
@@ -135,7 +144,7 @@ describe('955 historical preservation and interim projection52 journal authority
     // Stable historical leaf title is retained for the paired selector. Under
     // the explicit53 cutover this actual52 journal is preserved as old evidence;
     // it must lose replay authority when both genuine37 slots migrate to38.
-    expect(PROJECTION_VERSION).toBe(57)
+    expect(PROJECTION_VERSION).toBe(58)
     const outgoing52 = 'sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2'
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(outgoing52)).toBe('projection-v52')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)

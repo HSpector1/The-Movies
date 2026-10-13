@@ -13,6 +13,9 @@ import { initialP15Sequence } from './p15Phases.js'
 import { initialFoundingFunding, recordFoundingFund, recordsFoundingFund, validateFoundingFunding, type FoundingFundingContext } from './foundingFunding.js'
 import { initialSharedMarket, validateSharedMarketRoot } from './marketIntegration.js'
 import { initialCampaignLegacy, validateCampaignLegacy } from './campaignLegacy.js'
+import { corporateConditionDowngradeRefusal, initialCorporateCondition, validateCorporateConditionRoot } from './corporateConditionLive.js'
+import { closureStops, initialStudioClosure, studioClosureDowngradeRefusal, validateStudioClosureRoot } from './studioClosure.js'
+import { NO_P15B_ERA, type P15BEra } from './hollywoodValidation.js'
 import { RIVAL_RESEARCH_MONEY_KINDS } from './hollywood.js'
 import { RIVAL_RESEARCH_RECEIPT_KINDS } from './hollywoodTypes.js'
 import type { HollywoodState, RivalFinancePeriod } from './hollywoodTypes.js'
@@ -116,6 +119,8 @@ import type {
   GameStateV45,
   GameStateV46,
   GameStateV47,
+  GameStateP15B,
+  P15BStepRoots,
   P15StepRoots,
   RelationshipEdge,
   CohortReceipt,
@@ -651,7 +656,26 @@ export type SaveFileV47 = Omit<SaveFileV46, 'saveVersion' | 'state'> & {
   saveVersion: 47;
   state: GameStateV47;
 };
-export type LiveSaveFile = SaveFileV47;
+// ── P15B save era (record 1370-ar), Save48 — RENUMBER HERE ONLY ───────────────────────────────
+// `P15B_SAVE_VERSION` is the ONE constant the P15B block stamps and checks; the predecessor is bound
+// once beside it (founding's Save47, typed against its constant so a renumber of either side fails to
+// compile until both move). A renumber is these two names and the V48 suffix of the five aliases below.
+export const P15B_SAVE_VERSION = 48 as const;
+const P15B_PREDECESSOR_VERSION: typeof FOUNDING_FUNDING_SAVE_VERSION = 47;
+type P15BPredecessorSave = SaveFileV47;
+export type SaveFileP15B = Omit<P15BPredecessorSave, 'saveVersion' | 'state'> & {
+  saveVersion: typeof P15B_SAVE_VERSION;
+  state: GameStateP15B;
+};
+export type LiveSaveFile = SaveFileP15B;
+// The conventional names other suites derive from `LIVE_SAVE_VERSION` (`validateSaveV<n>`,
+// `convertV<n-1>ToV<n>`, `convertV<n>ToV<n-1>`, `migrateToV<n>`, `SaveFileV<n>`): aliases of the P15B
+// names, renumbered with the constant above. Function declarations hoist, so the bindings are live.
+export type SaveFileV48 = SaveFileP15B;
+export const validateSaveV48 = (save: unknown): SaveFileP15B => validateSaveP15B(save);
+export const convertV47ToV48 = (save: P15BPredecessorSave): SaveFileP15B => convertToP15BSave(save);
+export const convertV48ToV47 = (save: SaveFileP15B): P15BPredecessorSave => convertFromP15BSave(save);
+export const migrateToV48 = (save: SaveFile | { saveVersion: number }): SaveFileP15B => migrateToP15BSave(save);
 
 // Any envelope (the return of the version-dispatching validateSave/loadSave).
 export type SaveFile =
@@ -701,7 +725,8 @@ export type SaveFile =
   | SaveFileV44
   | SaveFileV45
   | SaveFileV46
-  | SaveFileV47;
+  | SaveFileV47
+  | SaveFileP15B;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -1341,7 +1366,11 @@ type LiveStateValidationPolicy =
   // A genuine SaveFileV26 is still validated under "cancellation-v26" and still
   // refuses both, which keeps every frozen validator's ten-kind rival finance
   // record exactly as it shipped.
-  | "research-v27";
+  | "research-v27"
+  // P15B: the live policy. It differs from "research-v27" in exactly one way — it admits the
+  // loanPrincipal, loanInstallment and claimPayment ledger kinds — and exists so that admission cannot
+  // leak backwards: a genuine file of any earlier era is still validated under "research-v27" and refuses the rows.
+  | "loans-p15b";
 
 /** Every policy that knows about the placement root and its catalog project ids. */
 function placementAwarePolicy(policy: LiveStateValidationPolicy): boolean {
@@ -1375,7 +1404,15 @@ function technologyAwarePolicy(policy: LiveStateValidationPolicy): boolean {
 
 /** The ONE policy that admits a cancelled placement record and its refund row. */
 function cancellationAwarePolicy(policy: LiveStateValidationPolicy): boolean {
-  return policy === "cancellation-v26" || policy === "research-v27";
+  return policy === "cancellation-v26" || researchAwarePolicy(policy);
+}
+/** Every policy that admits V27's rival research roots: the V27 policy and the V46 policy built on it. */
+function researchAwarePolicy(policy: LiveStateValidationPolicy): boolean {
+  return policy === "research-v27" || policy === "loans-p15b";
+}
+/** The ONE policy that admits the P15B loan and claim ledger kinds. */
+function loansAwarePolicy(policy: LiveStateValidationPolicy): boolean {
+  return policy === "loans-p15b";
 }
 const CAREER_REASON_CODES = [
   "substantialLeadExposure",
@@ -2223,7 +2260,9 @@ function v8LedgerEntry(
   v8Integer(entry.week, `${label}.week`, 0);
   v8Enum(
     entry.kind,
-    cancellationAwarePolicy(policy)
+    loansAwarePolicy(policy)
+      ? [...V14_LEDGER_KINDS, "researchPayroll", "researchSpend", "technologyAdoption", "constructionRefund", "loanPrincipal", "loanInstallment", "claimPayment"]
+      : cancellationAwarePolicy(policy)
       ? [...V14_LEDGER_KINDS, "researchPayroll", "researchSpend", "technologyAdoption", "constructionRefund"]
       : technologyAwarePolicy(policy)
       ? [...V14_LEDGER_KINDS, "researchPayroll", "researchSpend", "technologyAdoption"]
@@ -2239,6 +2278,18 @@ function v8LedgerEntry(
     `${label}.kind`,
   );
   v8Number(entry.amount, `${label}.amount`);
+  // P15B (V46): a principal is a positive whole receipt, an installment and a claim payment negative
+  // whole charges; the loan rows carry no correlation and a claim payment names its claimant.
+  if (loansAwarePolicy(policy) && ["loanPrincipal", "loanInstallment", "claimPayment"].includes(String(entry.kind))) {
+    const positive = entry.kind === "loanPrincipal";
+    if (!Number.isInteger(entry.amount) || (positive ? (entry.amount as number) <= 0 : (entry.amount as number) >= 0)) {
+      v8Error(`${label}.amount`, `${String(entry.kind)} ${positive ? "must be a positive whole-dollar receipt" : "must be a negative whole-dollar charge"}`);
+    }
+    for (const key of ["productionId", "constructionProjectId", ...(entry.kind === "claimPayment" ? [] : ["talentId"])]) {
+      if (Object.hasOwn(entry, key)) v8Error(`${label}.${key}`, "is forbidden for a loan ledger row");
+    }
+    if (entry.kind === "claimPayment") v8String(entry.talentId, `${label}.talentId`, true);
+  }
   if (technologyAwarePolicy(policy) && ["researchPayroll", "researchSpend", "technologyAdoption"].includes(String(entry.kind))) {
     if (!Number.isInteger(entry.amount) || (entry.amount as number) >= 0) v8Error(`${label}.amount`, "must be a negative whole-dollar charge");
     for (const key of ["talentId", "productionId", "constructionProjectId"]) {
@@ -4316,7 +4367,7 @@ function checkPlacementShape(value: unknown, policy: LiveStateValidationPolicy =
 // this returns. Structure, envelope, and the frozen V11 law all still run here.
 function validateSaveV12WithPolicy(
   save: unknown,
-  policy: "placement-v12" | "property-v13" | "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "research-v27" | "research-v27",
+  policy: "placement-v12" | "property-v13" | "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b",
   retirementWriting?: RetirementWritingAuthority,
 ): SaveFileV12 {
   if (!isRecord(save)) {
@@ -4502,7 +4553,7 @@ function checkPropertyShape(value: unknown): PropertyState {
 // carries rather than the authored constants.
 function validateSaveV13WithPolicy(
   save: unknown,
-  policy: "property-v13" | "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "research-v27",
+  policy: "property-v13" | "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b",
   retirementWriting?: RetirementWritingAuthority,
 ): SaveFileV13 {
   if (!isRecord(save)) {
@@ -4963,7 +5014,7 @@ export function validateSaveV14(save: unknown): SaveFileV14 {
   return validateSaveV14WithPolicy(save, "sets-v14");
 }
 
-function validateSaveV14WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27", retirementWriting?: RetirementWritingAuthority): SaveFileV14 {
+function validateSaveV14WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b", retirementWriting?: RetirementWritingAuthority): SaveFileV14 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV14: save is not a plain object");
   }
@@ -5087,7 +5138,7 @@ export function validateSaveV15(save: unknown): SaveFileV15 {
   return validateSaveV15WithPolicy(save, "sets-v14");
 }
 
-function validateSaveV15WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27", retirementWriting?: RetirementWritingAuthority): SaveFileV15 {
+function validateSaveV15WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b", retirementWriting?: RetirementWritingAuthority): SaveFileV15 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV15: save is not a plain object");
   }
@@ -5160,7 +5211,7 @@ export function validateSaveV16(save: unknown): SaveFileV16 {
   return validateSaveV16WithPolicy(save, "sets-v14");
 }
 
-function validateSaveV16WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27", retirementWriting?: RetirementWritingAuthority): SaveFileV16 {
+function validateSaveV16WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b", retirementWriting?: RetirementWritingAuthority): SaveFileV16 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV16: save is not a plain object");
   }
@@ -5259,7 +5310,7 @@ export function validateSaveV17(save: unknown): SaveFileV17 {
   return validateSaveV17WithPolicy(save, "sets-v14");
 }
 
-function validateSaveV17WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27", retirementWriting?: RetirementWritingAuthority): SaveFileV17 {
+function validateSaveV17WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b", retirementWriting?: RetirementWritingAuthority): SaveFileV17 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV17: save is not a plain object");
   }
@@ -5362,7 +5413,7 @@ export function validateSaveV18(save: unknown): SaveFileV18 {
   return validateSaveV18WithPolicy(save, "sets-v14");
 }
 
-function validateSaveV18WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27", retirementWriting?: RetirementWritingAuthority): SaveFileV18 {
+function validateSaveV18WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b", retirementWriting?: RetirementWritingAuthority): SaveFileV18 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV18: save is not a plain object");
   }
@@ -5471,6 +5522,7 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 45) return validateSaveV45(save);
   if (s.saveVersion === 46) return validateSaveV46(save);
   if (s.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return validateSaveV47(save);
+  if (s.saveVersion === P15B_SAVE_VERSION) return validateSaveP15B(save);
   throw new Error(
     `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through ${LIVE_SAVE_VERSION} only)`,
   );
@@ -6210,6 +6262,15 @@ function projectTalentPreV20(person: Talent): Talent {
 
 function assertFrozenBuilderRetainsHollywood(state: object, builder: string): void {
   const original = state as Record<string, unknown>;
+  // P15B (1370-ar, Save48): the outermost step strips first, so founding's and R8's branches below see the state
+  // their readers admit. No frozen builder carries a recorded condition, closure or loan fact: the one refusal
+  // names every non-empty root, non-zero loan movement or loan ledger row, and the empty roots and zero kinds strip.
+  // r3 (1362-O item 9): the predecessor steps' own refusals are appended, as convertFromP15BSave does, never masked.
+  if (P15B_ROOT_KEYS.some((key) => Object.hasOwn(original, key)) || hasP15BMoney(original)) {
+    const refusal = p15bDowngradeRefusal(original);
+    if (refusal !== null) throw new Error(`${builder}: ${[refusal, ...predecessorDowngradeRefusals(original as unknown as GameStateP15B)].join('; ')}`);
+    return assertFrozenBuilderRetainsHollywood(stripP15BMoney(stripP15BRoots(original)), builder);
+  }
   // 1364 (Save47): no frozen builder carries a recorded recruitment fund; the null root strips.
   if (Object.hasOwn(original, FOUNDING_FUNDING_KEY)) {
     const root = original[FOUNDING_FUNDING_KEY] as { fund?: { provenance?: unknown; allocations?: unknown[] } | null } | null;
@@ -6619,17 +6680,18 @@ export function makeSaveV16(state: GameStateV16): SaveFileV16 {
 // constant rather than a literal that goes stale the next time `makeSave` moves
 // (the bridge and the ui adapter both still compared against 23 at V25).
 /** 1364: the founding-funding step's save version, the ONE constant its block stamps and checks (see
- * the Save47 block at the end of this module). The live writer stamps it. */
+ * the Save47 block at the end of this module). */
 export const FOUNDING_FUNDING_SAVE_VERSION = 47 as const;
-export const LIVE_SAVE_VERSION = FOUNDING_FUNDING_SAVE_VERSION;
+// P15B (1370-ar): the live writer stamps the P15B step (declared once beside `SaveFileV47` above).
+export const LIVE_SAVE_VERSION = P15B_SAVE_VERSION;
 
-// makeSave: the live V47 boundary (1364). Frozen prior values migrate explicitly.
+// makeSave: the live P15B boundary. Frozen prior values migrate explicitly.
 // The plain-JSON state is detached once; only final serialization sorts it.
-export function makeSave(state: GameState): SaveFileV47 {
-  const save = validateSaveV47({ saveVersion: LIVE_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems });
+export function makeSave(state: GameState): SaveFileP15B {
+  const save = validateSaveP15B({ saveVersion: P15B_SAVE_VERSION, seed: state.seed, state, broadcastCache: state.broadcastItems });
   // Validation precedes detachment, so undefined/non-JSON authority cannot be
   // silently repaired by stringify before the boundary sees it.
-  return JSON.parse(JSON.stringify(save)) as SaveFileV47;
+  return JSON.parse(JSON.stringify(save)) as SaveFileP15B;
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -7057,6 +7119,11 @@ const LEDGER_KIND_PROVES_ENGAGEMENT = {
   // P13B-S6: a cancellation refund can only follow a capital commitment this
   // studio made, so it proves engagement for exactly the reason the capex row does.
   constructionRefund: true,
+  // P15B (V46; 1357-A §6.3): `false`. A loan row is written only for an already-engaged studio, so it
+  // proves nothing the regime check does not already know; a claim payment likewise (Wave 4).
+  loanPrincipal: false,
+  loanInstallment: false,
+  claimPayment: false,
 } as const satisfies Record<LedgerKind, boolean>;
 
 function ledgerKindProvesEngagement(kind: LedgerKind): boolean {
@@ -7475,6 +7542,7 @@ export function importLegacyV1ToV4(json: string): SaveFileV4 {
 export function migrateToV4(
   save: SaveFile,
 ): SaveFileV4 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV4(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV4(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV4(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV4(convertV45ToV44(save as SaveFileV45));
@@ -7507,6 +7575,7 @@ export function migrateToV4(
 export function migrateToV5(
   save: SaveFile,
 ): SaveFileV5 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV5(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV5(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV5(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV5(convertV45ToV44(save as SaveFileV45));
@@ -7534,6 +7603,7 @@ export function migrateToV5(
 export function migrateToV6(
   save: SaveFile,
 ): SaveFileV6 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV6(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV6(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV6(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV6(convertV45ToV44(save as SaveFileV45));
@@ -7562,6 +7632,7 @@ export function migrateToV6(
 export function migrateToV7(
   save: SaveFile,
 ): SaveFileV7 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV7(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV7(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV7(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV7(convertV45ToV44(save as SaveFileV45));
@@ -7586,6 +7657,7 @@ export function migrateToV7(
 // V1–V7 migrate deterministically. Newer files are rejected loudly: this function
 // may never silently discard authoritative screenplay or casting state.
 export function migrateToV8(save: SaveFile): SaveFileV8 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV8(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV8(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV8(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV8(convertV45ToV44(save as SaveFileV45));
@@ -7628,6 +7700,7 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
 // identity; V1–V8 migrate forward. V10 is rejected rather than silently losing
 // authoritative casting history.
 export function migrateToV9(save: SaveFile): SaveFileV9 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV9(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV9(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV9(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV9(convertV45ToV44(save as SaveFileV45));
@@ -7669,6 +7742,7 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
 // identity; V1–V9 cross every frozen boundary and receive exactly legacy-empty
 // casting state only at the final V9→V10 step. V11 is rejected, never downgraded.
 export function migrateToV10(save: SaveFile): SaveFileV10 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV10(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV10(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV10(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV10(convertV45ToV44(save as SaveFileV45));
@@ -7711,6 +7785,7 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
 // mode. V12 is rejected, never downgraded: a placed facility, its land, its
 // debit, and its operating history have no V11 home.
 export function migrateToV11(save: SaveFile): SaveFileV11 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV11(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV11(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV11(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV11(convertV45ToV44(save as SaveFileV45));
@@ -7751,6 +7826,7 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
 // their own validated construction history implies at the final V11→V12 step.
 // V13 is rejected, never downgraded: a property that has grown has no V12 home.
 export function migrateToV12(save: SaveFile): SaveFileV12 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV12(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV12(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV12(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV12(convertV45ToV44(save as SaveFileV45));
@@ -7794,6 +7870,7 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
 // one widened leaf — the honest, un-guessed `subjectId: null` on any
 // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
 export function migrateToV15(save: SaveFile): SaveFileV15 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV15(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV15(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV15(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV15(convertV45ToV44(save as SaveFileV45));
@@ -7889,6 +7966,7 @@ export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
 // identity (after validation at the call boundary); V1–V17 cross every frozen
 // boundary, then receive `endowed` at the final V17→V18 step.
 export function migrateToV18(save: SaveFile): SaveFileV18 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV18(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV18(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV18(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV18(convertV45ToV44(save as SaveFileV45));
@@ -7925,6 +8003,7 @@ export function migrateToV18(save: SaveFile): SaveFileV18 {
 // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
 // be downgraded: discarding the founding regime would erase exact history.
 export function migrateToV17(save: SaveFile): SaveFileV17 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV17(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV17(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV17(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV17(convertV45ToV44(save as SaveFileV45));
@@ -7966,6 +8045,7 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
 // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
 // be downgraded: discarding the recorded history would silently erase provenance.
 export function migrateToV16(save: SaveFile): SaveFileV16 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV16(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV16(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV16(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV16(convertV45ToV44(save as SaveFileV45));
@@ -8010,6 +8090,7 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
 }
 
 export function migrateToV14(save: SaveFile): SaveFileV14 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV14(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV14(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV14(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV14(convertV45ToV44(save as SaveFileV45));
@@ -8064,6 +8145,7 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
 }
 
 export function migrateToV13(save: SaveFile): SaveFileV13 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV13(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV13(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV13(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV13(convertV45ToV44(save as SaveFileV45));
@@ -8124,7 +8206,7 @@ export function validateSaveV19(save: unknown): SaveFileV19 {
 
 function validateSaveV19WithPolicy(
   save: unknown,
-  policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27",
+  policy: "sets-v14" | "technology-v20" | "cancellation-v26" | "research-v27" | "loans-p15b",
   technology?: Pick<StudioTechnology, 'access' | 'adoptions'> | Pick<StudioTechnologyV3, 'access' | 'adoptions'>,
   // P13B-S8: the plan root the industry law reconciles `researchCapacity`
   // against. It is stripped from the frozen V19 state below, so it travels
@@ -8144,6 +8226,8 @@ function validateSaveV19WithPolicy(
   rivalFacilityDisposal = false,
   // 1364: the Save47 era's recruitment-fund context (foundingFunding.ts), threaded the same way.
   foundingFunding?: FoundingFundingContext,
+  // P15B (V46): the loan and closure era, threaded the same way.
+  era: P15BEra = NO_P15B_ERA,
 ): SaveFileV19 {
   if (!isRecord(save)) throw new Error('validateSaveV19: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
@@ -8166,9 +8250,9 @@ function validateSaveV19WithPolicy(
     // placement-aware here), and the exact rival facility SET (the costed four,
     // then at most two receipt-backed Laboratories at four seats) is pinned by
     // `validateHollywood` immediately afterwards.
-    operations: (v, productions) => checkOperationsContext({ operations: v, activeProductions: productions, engaged: true, founding: null }, 'hollywood.operations', policy === 'research-v27' ? policy : 'sets-v14'),
+    operations: (v, productions) => checkOperationsContext({ operations: v, activeProductions: productions, engaged: true, founding: null }, 'hollywood.operations', researchAwarePolicy(policy) ? 'research-v27' : 'sets-v14'),
     development: v => checkScriptDevelopmentShape(v, 'sets-v14'),
-  }, technology, policy === 'research-v27', plans ?? [], terminationLaw, retirementWriting, professionContext, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding);
+  }, technology, researchAwarePolicy(policy), plans ?? [], terminationLaw, retirementWriting, professionContext, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
   return save as SaveFileV19;
 }
 
@@ -8199,6 +8283,11 @@ export function convertV18ToV19(save: SaveFileV18): SaveFileV19 {
       // V19 intermediate must not carry that later key or discard a real refund.
       if (period.movements.facilityDemolitionRefund !== 0) throw new Error('V18 to V19 cannot discard a rival facility refund');
       Reflect.deleteProperty(period.movements, 'facilityDemolitionRefund');
+      // P15B (1370-ar): the shared initializer now mints the three zero loan movements too; the P15B step adds them back.
+      for (const kind of RIVAL_LOAN_KINDS) {
+        if ((period.movements as Record<string, number>)[kind] !== 0) throw new Error(`V18 to V19 cannot discard a rival ${kind} movement`);
+        Reflect.deleteProperty(period.movements, kind);
+      }
     }
     if (business.costCutting.since !== null) throw new Error('V18 to V19 cannot discard rival cost cutting');
     Reflect.deleteProperty(business, 'costCutting');
@@ -8212,6 +8301,7 @@ export function convertV18ToV19(save: SaveFileV18): SaveFileV19 {
   return validateSaveV19({ saveVersion: 19, seed: save.seed, state, broadcastCache: state.broadcastItems });
 }
 export function migrateToV19(save: SaveFile): SaveFileV19 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV19(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV19(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV19(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV19(convertV45ToV44(save as SaveFileV45));
@@ -8310,6 +8400,7 @@ export function convertV20ToV21(save: SaveFileV20): SaveFileV21 {
 }
 
 export function migrateToV21(save: SaveFile): SaveFileV21 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV21(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV21(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV21(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV21(convertV45ToV44(save as SaveFileV45));
@@ -8354,6 +8445,7 @@ export function convertV21ToV22(save: SaveFileV21): SaveFileV22 {
 }
 
 export function migrateToV22(save: SaveFile): SaveFileV22 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV22(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV22(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV22(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV22(convertV45ToV44(save as SaveFileV45));
@@ -8423,6 +8515,7 @@ export function convertV22ToV23(save: SaveFileV22): SaveFileV23 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV23(save: SaveFile | { saveVersion: number }): SaveFileV23 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV23(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV23(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV23(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV23(convertV45ToV44(save as SaveFileV45));
@@ -8467,7 +8560,7 @@ export function validateSaveV24(save: unknown): SaveFileV24 {
  * and refund rows, while a genuine V24 or V25 file is still validated under
  * 'technology-v20' and still refuses both.
  */
-function validateSaveV24WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext): SaveFileV24 {
+function validateSaveV24WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27' | 'loans-p15b', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): SaveFileV24 {
   if (!isRecord(save)) throw new Error('validateSaveV24: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 24) throw new Error('validateSaveV24: expected version 24');
@@ -8475,10 +8568,10 @@ function validateSaveV24WithPolicy(save: unknown, policy: 'technology-v20' | 'ca
   if (!Object.hasOwn(raw, 'technology')) throw new Error('validateSaveV24: technology root missing');
   if (!Object.hasOwn(raw, 'physicalPlans')) throw new Error('validateSaveV24: physicalPlans root missing');
   const typed = save as SaveFileV24;
-  validateTechnology(typed.state as unknown as GameState);
+  validateTechnology(typed.state as unknown as GameState, cancellationAwarePolicy(policy));
   validatePhysicalPlans(typed.state as unknown as GameState);
   const { technology, physicalPlans: _physicalPlans, ...legacy } = raw;
-  validateSaveV19WithPolicy({ saveVersion: 19, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, policy, technology as StudioTechnology, typed.state.physicalPlans.plans, terminationLaw, retirementWriting, professionContext, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding);
+  validateSaveV19WithPolicy({ saveVersion: 19, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, policy, technology as StudioTechnology, typed.state.physicalPlans.plans, terminationLaw, retirementWriting, professionContext, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
   assertNoDoubleBookedResourceSlots(typed.state as unknown as GameState);
   return typed;
 }
@@ -8502,6 +8595,7 @@ export function convertV23ToV24(save: SaveFileV23): SaveFileV24 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV24(save: SaveFile | { saveVersion: number }): SaveFileV24 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV24(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV24(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV24(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV24(convertV45ToV44(save as SaveFileV45));
@@ -8648,7 +8742,7 @@ export function validateSaveV25(save: unknown): SaveFileV25 {
 }
 
 /** See `validateSaveV24WithPolicy`: the V26 chain threads its own policy down. */
-function validateSaveV25WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext): SaveFileV25 {
+function validateSaveV25WithPolicy(save: unknown, policy: 'technology-v20' | 'cancellation-v26' | 'research-v27' | 'loans-p15b', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): SaveFileV25 {
   if (!isRecord(save)) throw new Error('validateSaveV25: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 25) throw new Error('validateSaveV25: expected version 25');
@@ -8696,7 +8790,7 @@ function validateSaveV25WithPolicy(save: unknown, policy: 'technology-v20' | 'ca
         studioEvents: strippedEvents,
       },
       broadcastCache: save.broadcastCache,
-    }, policy, terminationLaw, retirementWriting, professionContext, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding);
+    }, policy, terminationLaw, retirementWriting, professionContext, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
   } catch (error) {
     throw new Error(`validateSaveV25: frozen V24 state is invalid — ${(error as Error).message}`);
   }
@@ -8742,6 +8836,7 @@ export function convertV24ToV25(save: SaveFileV24): SaveFileV25 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV25(save: SaveFile | { saveVersion: number }): SaveFileV25 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV25(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV25(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV25(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV25(convertV45ToV44(save as SaveFileV45));
@@ -8863,7 +8958,7 @@ export function validateSaveV26(save: unknown): SaveFileV26 {
 }
 
 /** See `validateSaveV25WithPolicy`: the V27 chain threads its own policy down. */
-function validateSaveV26WithPolicy(save: unknown, policy: 'cancellation-v26' | 'research-v27', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext): SaveFileV26 {
+function validateSaveV26WithPolicy(save: unknown, policy: 'cancellation-v26' | 'research-v27' | 'loans-p15b', terminationLaw: TerminationLaw = PRE_V28_TERMINATION_LAW, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): SaveFileV26 {
   if (!isRecord(save)) throw new Error('validateSaveV26: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 26) throw new Error('validateSaveV26: expected version 26');
@@ -8884,7 +8979,7 @@ function validateSaveV26WithPolicy(save: unknown, policy: 'cancellation-v26' | '
         technology: { ...technologyRaw, adoptions: strippedAdoptions },
       },
       broadcastCache: save.broadcastCache,
-    }, policy, terminationLaw, retirementWriting, professionContext, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding);
+    }, policy, terminationLaw, retirementWriting, professionContext, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
   } catch (error) {
     throw new Error(`validateSaveV26: frozen V25 state is invalid — ${(error as Error).message}`);
   }
@@ -8923,6 +9018,7 @@ export function convertV25ToV26(save: SaveFileV25): SaveFileV26 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV26(save: SaveFile | { saveVersion: number }): SaveFileV26 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV26(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV26(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV26(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV26(convertV45ToV44(save as SaveFileV45));
@@ -9028,14 +9124,14 @@ export function validateSaveV27(save: unknown): SaveFileV27 {
 
 /** P14A.1/R4: V28 reads the same frozen V27 state under ITS OWN era's
  * termination law. Everything else about the chain is unchanged. */
-function validateSaveV27WithLaw(save: unknown, terminationLaw: TerminationLaw, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext): SaveFileV27 {
+function validateSaveV27WithLaw(save: unknown, terminationLaw: TerminationLaw, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): SaveFileV27 {
   if (!isRecord(save)) throw new Error('validateSaveV27: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 27) throw new Error('validateSaveV27: expected version 27');
   const raw = v14Record(checkEnvelope(save, 'validateSaveV27'), 'state');
   v27Movements(raw);
   try {
-    validateSaveV26WithPolicy({ saveVersion: 26, seed: save.seed, state: raw, broadcastCache: save.broadcastCache }, 'research-v27', terminationLaw, retirementWriting, professionContext, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding);
+    validateSaveV26WithPolicy({ saveVersion: 26, seed: save.seed, state: raw, broadcastCache: save.broadcastCache }, era.studioLoans ? 'loans-p15b' : 'research-v27', terminationLaw, retirementWriting, professionContext, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
   } catch (error) {
     throw new Error(`validateSaveV27: frozen V26 state is invalid — ${(error as Error).message}`);
   }
@@ -9094,6 +9190,7 @@ export function convertV27ToV26(save: SaveFileV27): SaveFileV26 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV27(save: SaveFile | { saveVersion: number }): SaveFileV27 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV27(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV27(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV27(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV27(convertV45ToV44(save as SaveFileV45));
@@ -9130,7 +9227,7 @@ export function validateSaveV28(save: unknown): SaveFileV28 {
   return validateSaveV28WithWriting(save);
 }
 
-function validateSaveV28WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext): SaveFileV28 {
+function validateSaveV28WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): SaveFileV28 {
   if (!isRecord(save)) throw new Error('validateSaveV28: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 28) throw new Error('validateSaveV28: expected version 28');
@@ -9139,7 +9236,7 @@ function validateSaveV28WithWriting(save: unknown, retirementWriting?: Retiremen
   validateTalentMarketRoot(raw.talentMarket, raw);
   const { talentMarket: _talentMarket, ...legacy } = raw;
   try {
-    validateSaveV27WithLaw({ saveVersion: 27, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, talentMarketTerminationLaw(raw.talentMarket), retirementWriting, professionContext, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding);
+    validateSaveV27WithLaw({ saveVersion: 27, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, talentMarketTerminationLaw(raw.talentMarket), retirementWriting, professionContext, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
   } catch (error) {
     throw new Error(`validateSaveV28: frozen V27 state is invalid — ${(error as Error).message}`);
   }
@@ -9197,6 +9294,7 @@ export function convertV28ToV27(save: SaveFileV28): SaveFileV27 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV28(save: SaveFile | { saveVersion: number }): SaveFileV28 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV28(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV28(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV28(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV28(convertV45ToV44(save as SaveFileV45));
@@ -9312,6 +9410,7 @@ export function convertV29ToV28(save: SaveFileV29): SaveFileV28 {
  * so nothing here is trusted on the strength of its declared type alone.
  */
 export function migrateToV29(save: SaveFile | { saveVersion: number }): SaveFileV29 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV29(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV29(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV29(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV29(convertV45ToV44(save as SaveFileV45));
@@ -9342,7 +9441,7 @@ export function validateSaveV30(save: unknown): SaveFileV30 {
   return validateSaveV30WithWriting(save);
 }
 
-function validateSaveV30WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext): SaveFileV30 {
+function validateSaveV30WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): SaveFileV30 {
   if (!isRecord(save)) throw new Error('validateSaveV30: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 30) throw new Error('validateSaveV30: expected version 30');
@@ -9354,7 +9453,7 @@ function validateSaveV30WithWriting(save: unknown, retirementWriting?: Retiremen
   else validatePromiseRootsV30(raw);
   try {
     validateSaveV28WithWriting({ saveVersion: 28, seed: save.seed, state: directingPromises === 40
-      ? stripFirstTakeSubjects(stripV29Roots(raw)) : stripV29Roots(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding);
+      ? stripFirstTakeSubjects(stripV29Roots(raw)) : stripV29Roots(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
   } catch (error) {
     throw new Error(`validateSaveV30: frozen V28 state is invalid — ${(error as Error).message}`);
   }
@@ -9381,6 +9480,7 @@ export function convertV30ToV29(save: SaveFileV30): SaveFileV29 {
 /** The V30 boundary (P14B.4, record 600); since P14B.5 a frozen prior shape
  * reached from the live V31 by the ONE lossless-when-empty downgrade. */
 export function migrateToV30(save: SaveFile | { saveVersion: number }): SaveFileV30 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV30(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV30(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV30(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV30(convertV45ToV44(save as SaveFileV45));
@@ -9422,7 +9522,7 @@ export function validateSaveV31(save: unknown): SaveFileV31 {
   return validateSaveV31WithWriting(save);
 }
 
-function validateSaveV31WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext): SaveFileV31 {
+function validateSaveV31WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): SaveFileV31 {
   if (!isRecord(save)) throw new Error('validateSaveV31: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 31) throw new Error('validateSaveV31: expected version 31');
@@ -9430,7 +9530,7 @@ function validateSaveV31WithWriting(save: unknown, retirementWriting?: Retiremen
   if (!Object.hasOwn(raw, 'relationships')) throw new Error('validateSaveV31: relationships root missing');
   validateRelationshipsRoot(raw);
   try {
-    validateSaveV30WithWriting({ saveVersion: 30, seed: save.seed, state: stripV31Root(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext, directingPromises, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding);
+    validateSaveV30WithWriting({ saveVersion: 30, seed: save.seed, state: stripV31Root(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext, directingPromises, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
   } catch (error) {
     throw new Error(`validateSaveV31: frozen V30 state is invalid — ${(error as Error).message}`);
   }
@@ -9476,6 +9576,7 @@ export function convertV31ToV30(save: SaveFileV31): SaveFileV30 {
 /** The live load-to-play route (P14B.5): every prior envelope migrates to the
  * V31 boundary the live writer stamps. */
 export function migrateToV31(save: SaveFile | { saveVersion: number }): SaveFileV31 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV31(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV31(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV31(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV31(convertV45ToV44(save as SaveFileV45));
@@ -9527,14 +9628,14 @@ export function validateSaveV32(save: unknown): SaveFileV32 {
   return validateSaveV32WithWriting(save);
 }
 
-function validateSaveV32WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext): SaveFileV32 {
+function validateSaveV32WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): SaveFileV32 {
   if (!isRecord(save)) throw new Error('validateSaveV32: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 32) throw new Error('validateSaveV32: expected version 32');
   const raw = v14Record(checkEnvelope(save, 'validateSaveV32'), 'state');
   validateWaivedPromiseLinks(raw);
   try {
-    validateSaveV31WithWriting({ saveVersion: 31, seed: save.seed, state: stripV32Field(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext, directingPromises, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding);
+    validateSaveV31WithWriting({ saveVersion: 31, seed: save.seed, state: stripV32Field(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext, directingPromises, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
   } catch (error) {
     throw new Error(`validateSaveV32: frozen V31 state is invalid — ${(error as Error).message}`);
   }
@@ -9581,6 +9682,7 @@ export function convertV32ToV31(save: SaveFileV32): SaveFileV31 {
 /** The live load-to-play route (P14B.7): every prior envelope migrates to the
  * V32 boundary the live writer stamps. */
 export function migrateToV32(save: SaveFile | { saveVersion: number }): SaveFileV32 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV32(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV32(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV32(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV32(convertV45ToV44(save as SaveFileV45));
@@ -9754,7 +9856,7 @@ export function validateSaveV33(save: unknown): SaveFileV33 {
   return validateSaveV33WithWriting(save);
 }
 
-function validateSaveV33WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext): SaveFileV33 {
+function validateSaveV33WithWriting(save: unknown, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): SaveFileV33 {
   if (!isRecord(save)) throw new Error('validateSaveV33: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 33) throw new Error('validateSaveV33: expected version 33');
@@ -9762,7 +9864,7 @@ function validateSaveV33WithWriting(save: unknown, retirementWriting?: Retiremen
   if (!Object.hasOwn(raw, 'talentProvenance')) throw new Error('validateSaveV33: talentProvenance root missing');
   validateTalentProvenanceRoot(raw);
   try {
-    validateSaveV32WithWriting({ saveVersion: 32, seed: save.seed, state: stripV33Root(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext, directingPromises, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding);
+    validateSaveV32WithWriting({ saveVersion: 32, seed: save.seed, state: stripV33Root(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext, directingPromises, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
   } catch (error) {
     throw new Error(`validateSaveV33: frozen V32 state is invalid — ${(error as Error).message}`);
   }
@@ -9851,6 +9953,7 @@ export function convertV33ToV32(save: SaveFileV33): SaveFileV32 {
 /** The live load-to-play route (P14C.1): every prior envelope migrates to the
  * V33 boundary the live writer stamps. */
 export function migrateToV33(save: SaveFile | { saveVersion: number }): SaveFileV33 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV33(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV33(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV33(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV33(convertV45ToV44(save as SaveFileV45));
@@ -10051,7 +10154,7 @@ export function validateSaveV34(save: unknown): SaveFileV34 {
   return validateSaveV34WithPolicy(save, frozenLifecycleWindow);
 }
 
-function validateSaveV34WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext): SaveFileV34 {
+function validateSaveV34WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): SaveFileV34 {
   if (!isRecord(save)) throw new Error('validateSaveV34: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 34) throw new Error('validateSaveV34: expected version 34');
@@ -10059,7 +10162,7 @@ function validateSaveV34WithPolicy(save: unknown, windowOf: LifecycleWindowPolic
   if (!Object.hasOwn(raw, 'careerLifecycle')) throw new Error('validateSaveV34: careerLifecycle root missing');
   validateCareerLifecycleRootWithPolicy(raw, windowOf, professionContext);
   try {
-    validateSaveV33WithWriting({ saveVersion: 33, seed: save.seed, state: stripV34Root(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext, directingPromises, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding);
+    validateSaveV33WithWriting({ saveVersion: 33, seed: save.seed, state: stripV34Root(raw), broadcastCache: save.broadcastCache }, retirementWriting, professionContext, directingPromises, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
   } catch (error) {
     throw new Error(`validateSaveV34: frozen V33 state is invalid — ${(error as Error).message}`);
   }
@@ -10106,6 +10209,7 @@ export function convertV34ToV33(save: SaveFileV34): SaveFileV33 {
 /** Every prior envelope migrates to the V34 boundary; a V35 one downgrades losslessly
  * only while it holds no cohort receipt. */
 export function migrateToV34(save: SaveFile | { saveVersion: number }): SaveFileV34 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV34(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV34(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV34(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV34(convertV45ToV44(save as SaveFileV45));
@@ -10262,7 +10366,7 @@ export function validateSaveV35(save: unknown): SaveFileV35 {
   return validateSaveV35WithPolicy(save, frozenLifecycleWindow);
 }
 
-function validateSaveV35WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext): SaveFileV35 {
+function validateSaveV35WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): SaveFileV35 {
   if (!isRecord(save)) throw new Error('validateSaveV35: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 35) throw new Error('validateSaveV35: expected version 35');
@@ -10270,7 +10374,7 @@ function validateSaveV35WithPolicy(save: unknown, windowOf: LifecycleWindowPolic
   if (!Object.hasOwn(raw, 'careerLifecycle')) throw new Error('validateSaveV35: careerLifecycle root missing');
   validateCohortReceipts(raw, professionContext);
   try {
-    validateSaveV34WithPolicy({ saveVersion: 34, seed: save.seed, state: stripV35Cohorts(raw), broadcastCache: save.broadcastCache }, windowOf, retirementWriting, professionContext, directingPromises, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding);
+    validateSaveV34WithPolicy({ saveVersion: 34, seed: save.seed, state: stripV35Cohorts(raw), broadcastCache: save.broadcastCache }, windowOf, retirementWriting, professionContext, directingPromises, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
   } catch (error) {
     throw new Error(`validateSaveV35: frozen V34 state is invalid — ${(error as Error).message}`);
   }
@@ -10314,6 +10418,7 @@ export function convertV35ToV34(save: SaveFileV35): SaveFileV34 {
 /** Every prior envelope migrates to the V35 boundary; a V36 one downgrades losslessly
  * only while it holds no retirement extension. */
 export function migrateToV35(save: SaveFile | { saveVersion: number }): SaveFileV35 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV35(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV35(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV35(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV35(convertV45ToV44(save as SaveFileV45));
@@ -10334,7 +10439,7 @@ export function migrateToV35(save: SaveFile | { saveVersion: number }): SaveFile
  * stamps. Callers whose meaning is "the live state" call this, never a numbered
  * step, so the next save bump moves this one definition. */
 export function migrateToLive(save: SaveFile | { saveVersion: number }): LiveSaveFile {
-  return migrateToV47(save);
+  return migrateToP15BSave(save);
 }
 
 export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
@@ -10355,6 +10460,7 @@ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
 }
 
 export function migrateToV20(save: SaveFile): SaveFileV20 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV20(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV20(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV20(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV20(convertV45ToV44(save as SaveFileV45));
@@ -10491,7 +10597,7 @@ export function validateSaveV36(save: unknown): SaveFileV36 {
   return validateSaveV36WithPolicy(save, frozenLifecycleWindow);
 }
 
-function validateSaveV36WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext): SaveFileV36 {
+function validateSaveV36WithPolicy(save: unknown, windowOf: LifecycleWindowPolicy, retirementWriting?: RetirementWritingAuthority, professionContext?: ProfessionValidationContext, directingPromises: false | 39 | 40 = false, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): SaveFileV36 {
   if (!isRecord(save)) throw new Error('validateSaveV36: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 36) throw new Error('validateSaveV36: expected version 36');
@@ -10500,7 +10606,7 @@ function validateSaveV36WithPolicy(save: unknown, windowOf: LifecycleWindowPolic
   if (!Object.hasOwn(raw, 'talentMarket')) throw new Error('validateSaveV36: talentMarket root missing');
   validateRetirementExtensions(raw, professionContext);
   try {
-    validateSaveV35WithPolicy({ saveVersion: 35, seed: save.seed, state: stripV36Extension(raw), broadcastCache: save.broadcastCache }, windowOf, retirementWriting, professionContext, directingPromises, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding);
+    validateSaveV35WithPolicy({ saveVersion: 35, seed: save.seed, state: stripV36Extension(raw), broadcastCache: save.broadcastCache }, windowOf, retirementWriting, professionContext, directingPromises, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
   } catch (error) {
     throw new Error(`validateSaveV36: frozen V35 state is invalid — ${(error as Error).message}`);
   }
@@ -10556,6 +10662,7 @@ export function convertV36ToV35(save: SaveFileV36): SaveFileV35 {
 
 /** Every prior envelope migrates to the V36 boundary. */
 export function migrateToV36(save: SaveFile | { saveVersion: number }): SaveFileV36 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV36(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV36(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV36(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV36(convertV45ToV44(save as SaveFileV45));
@@ -10580,7 +10687,7 @@ export function validateSaveV37(save: unknown): SaveFileV37 {
 }
 
 function validateSaveV37WithProfession(save: unknown, professionContext?: ProfessionValidationContext,
-  writing?: RetirementWritingAuthority, directingPromises: false | 39 | 40 = false, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext): SaveFileV37 {
+  writing?: RetirementWritingAuthority, directingPromises: false | 39 | 40 = false, rivalTermination = false, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): SaveFileV37 {
   if (!isRecord(save)) throw new Error('validateSaveV37: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 37) throw new Error('validateSaveV37: expected version 37');
@@ -10588,7 +10695,7 @@ function validateSaveV37WithProfession(save: unknown, professionContext?: Profes
   // They travel beside stripped fragments; public historical entry points omit them.
   const retirementWriting = writing ?? retirementWritingAuthority(save.state);
   try {
-    validateSaveV36WithPolicy({ ...save, saveVersion: 36 }, retirementWindow, retirementWriting, professionContext, directingPromises, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding);
+    validateSaveV36WithPolicy({ ...save, saveVersion: 36 }, retirementWindow, retirementWriting, professionContext, directingPromises, rivalTermination, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
   } catch (error) {
     throw new Error(`validateSaveV37: state is invalid — ${(error as Error).message}`);
   }
@@ -10625,6 +10732,7 @@ export function convertV37ToV36(save: SaveFileV37): SaveFileV36 {
 
 /** Every prior envelope migrates to the explicit amended-law boundary. */
 export function migrateToV37(save: SaveFile | { saveVersion: number }): SaveFileV37 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV37(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV37(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV37(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV37(convertV45ToV44(save as SaveFileV45));
@@ -10641,7 +10749,7 @@ export function migrateToV37(save: SaveFile | { saveVersion: number }): SaveFile
 
 
 // ── P14C.3 — prospective profession history, Save38 ────────────────────────
-function proveProfessionSave(save: unknown, version: 38 | 39 | 40 | 41, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext): { save: SaveFileV38 | SaveFileV39 | SaveFileV40 | SaveFileV41; professionContext: ProfessionValidationContext } {
+function proveProfessionSave(save: unknown, version: 38 | 39 | 40 | 41, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): { save: SaveFileV38 | SaveFileV39 | SaveFileV40 | SaveFileV41; professionContext: ProfessionValidationContext } {
   if (!isRecord(save)) throw new Error(`validateSaveV${version}: object required`);
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== version) throw new Error(`validateSaveV${version}: expected version ${version}`);
@@ -10651,7 +10759,7 @@ function proveProfessionSave(save: unknown, version: 38 | 39 | 40 | 41, rivalShe
   const writing = retirementWritingAuthority(raw, professionContext);
   // Save41 moves no promise law: its promise roots validate as Save40's.
   validateSaveV37WithProfession({ ...save, saveVersion: 37, state: stripProfessionHistory(raw) }, professionContext, writing,
-    version === 38 ? false : version === 41 ? 40 : version, version === 41, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding);
+    version === 38 ? false : version === 41 ? 40 : version, version === 41, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
   if (version >= 39) validateDirectorWaiverLinks((save as SaveFileV39 | SaveFileV40 | SaveFileV41).state.promises);
   if (version >= 40) validateOpportunityWaiverLinks((save as SaveFileV40 | SaveFileV41).state);
   return { save: save as SaveFileV38 | SaveFileV39 | SaveFileV40 | SaveFileV41, professionContext };
@@ -10672,7 +10780,9 @@ export function validatedLiveProfessionContext(state: GameState): ProfessionVali
   return proveProfessionSave({ saveVersion: 41, seed: state.seed,
     // 1364: without the Save47 funding root, with its validated context (the live chain's own proof).
     state: { ...stripP15Roots(stripFoundingFunding(state)), hollywood, relationships: relationshipsAtV31(state.relationships) },
-    broadcastCache: state.broadcastItems }, 41, true, false, true, validateFoundingFunding(state as unknown as Record<string, unknown>, 'validatedLiveProfessionContext')).professionContext;
+    // P15B (1370-ar): the live state is a P15B-era state, so the chain proves its rival money under that era.
+    broadcastCache: state.broadcastItems }, 41, true, false, true, validateFoundingFunding(state as unknown as Record<string, unknown>, 'validatedLiveProfessionContext'),
+    p15bEraOf(state as unknown as Record<string, unknown>)).professionContext;
 }
 
 export function convertV37ToV38(save: SaveFileV37): SaveFileV38 {
@@ -10705,6 +10815,7 @@ export function convertV38ToV37(save: SaveFileV38): SaveFileV37 {
 }
 
 export function migrateToV38(save: SaveFile | { saveVersion: number }): SaveFileV38 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV38(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV38(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV38(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV38(convertV45ToV44(save as SaveFileV45));
@@ -10744,6 +10855,7 @@ export function convertV39ToV38(save: SaveFileV39): SaveFileV38 {
 }
 
 export function migrateToV39(save: SaveFile | { saveVersion: number }): SaveFileV39 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV39(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV39(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV39(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV39(convertV45ToV44(save as SaveFileV45));
@@ -10786,6 +10898,7 @@ export function convertV40ToV39(save: SaveFileV40): SaveFileV39 {
 }
 
 export function migrateToV40(save: SaveFile | { saveVersion: number }): SaveFileV40 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV40(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV40(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV40(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV40(convertV45ToV44(save as SaveFileV45));
@@ -10834,6 +10947,7 @@ export function convertV41ToV40(save: SaveFileV41): SaveFileV40 {
 }
 
 export function migrateToV41(save: SaveFile | { saveVersion: number }): SaveFileV41 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV41(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV41(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV41(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV41(convertV45ToV44(save as SaveFileV45));
@@ -10853,14 +10967,14 @@ export function validateSaveV42(save: unknown): SaveFileV42 {
   return validateSaveV42Era(save);
 }
 
-function validateSaveV42Era(save: unknown, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext): SaveFileV42 {
+function validateSaveV42Era(save: unknown, rivalShelving = false, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): SaveFileV42 {
   if (!isRecord(save)) throw new Error('validateSaveV42: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 42) throw new Error('validateSaveV42: expected version 42');
   const raw = v14Record(checkEnvelope(save, 'validateSaveV42'), 'state');
   validateRelationshipsRoot(raw, 42);
   proveProfessionSave({ ...save, saveVersion: 41,
-    state: { ...raw, relationships: relationshipsAtV31(raw.relationships as readonly RelationshipEdge[]) } }, 41, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding);
+    state: { ...raw, relationships: relationshipsAtV31(raw.relationships as readonly RelationshipEdge[]) } }, 41, rivalShelving, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
   return save as SaveFileV42;
 }
 
@@ -10884,6 +10998,7 @@ export function convertV42ToV41(save: SaveFileV42): SaveFileV41 {
 }
 
 export function migrateToV42(save: SaveFile | { saveVersion: number }): SaveFileV42 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV42(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV42(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV42(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV42(convertV45ToV44(save as SaveFileV45));
@@ -10903,11 +11018,11 @@ export function validateSaveV43(save: unknown): SaveFileV43 {
   return validateSaveV43Era(save);
 }
 
-function validateSaveV43Era(save: unknown, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext): SaveFileV43 {
+function validateSaveV43Era(save: unknown, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): SaveFileV43 {
   if (!isRecord(save)) throw new Error('validateSaveV43: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 43) throw new Error('validateSaveV43: expected version 43');
-  validateSaveV42Era({ ...save, saveVersion: 42 }, true, rivalCostCutting, rivalFacilityDisposal, foundingFunding);
+  validateSaveV42Era({ ...save, saveVersion: 42 }, true, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
   return save as SaveFileV43;
 }
 
@@ -10942,6 +11057,7 @@ export function convertV43ToV42(save: SaveFileV43): SaveFileV42 {
 }
 
 export function migrateToV43(save: SaveFile | { saveVersion: number }): SaveFileV43 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV43(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV43(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV43(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return migrateToV43(convertV45ToV44(save as SaveFileV45));
@@ -10959,14 +11075,14 @@ export function validateSaveV44(save: unknown): SaveFileV44 {
   return validateSaveV44Era(save);
 }
 
-function validateSaveV44Era(save: unknown, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext): SaveFileV44 {
+function validateSaveV44Era(save: unknown, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA): SaveFileV44 {
   if (!isRecord(save)) throw new Error('validateSaveV44: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 44) throw new Error('validateSaveV44: expected version 44');
   const raw = v14Record(checkEnvelope(save, 'validateSaveV44'), 'state');
   validateRelationshipsRoot(raw, 44);
   validateSaveV43Era({ ...save, saveVersion: 43,
-    state: { ...raw, relationships: relationshipsAtV42(raw.relationships as readonly RelationshipEdge[]) } }, rivalCostCutting, rivalFacilityDisposal, foundingFunding);
+    state: { ...raw, relationships: relationshipsAtV42(raw.relationships as readonly RelationshipEdge[]) } }, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
   return save as SaveFileV44;
 }
 
@@ -10993,6 +11109,7 @@ export function convertV44ToV43(save: SaveFileV44): SaveFileV43 {
 }
 
 export function migrateToV44(save: SaveFile | { saveVersion: number }): SaveFileV44 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV44(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV44(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV44(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return convertV45ToV44(save as SaveFileV45);
@@ -11017,7 +11134,9 @@ const P15_ROOT_KEYS: readonly string[] = Object.keys({ p15Sequence: true, powerR
 
 /** The state without the step's roots, every other key kept in its order. */
 function stripP15Roots(raw: object): Record<string, unknown> {
-  return Object.fromEntries(Object.entries(raw).filter(([key]) => !P15_ROOT_KEYS.includes(key)));
+  // P15B (1370-ar): the frozen chain below Save45 carries no P15 root of either step, so the P15B roots
+  // leave here too; `validateSaveV45Era` keeps its own strictness by refusing them outside the P15B era.
+  return Object.fromEntries(Object.entries(raw).filter(([key]) => !P15_ROOT_KEYS.includes(key) && !P15B_ROOT_KEYS.includes(key)));
 }
 
 /** The step's roots as a fresh world, a migration and a historical control's lift write them:
@@ -11075,7 +11194,7 @@ function p15Sequences(node: unknown, found: unknown[] = []): unknown[] {
  * the sequenced roots is a whole number of at least 1, distinct, and below `next`; and `next` is one
  * more than the largest, 1 when there is none. No root validator keeps a copy of this rule.
  */
-export function validateP15Allocator(raw: Record<string, unknown>, label: string): void {
+export function validateP15Allocator(raw: Record<string, unknown>, label: string, roots: readonly string[] = P15_SEQUENCED_ROOTS): void {
   const sequence = raw.p15Sequence;
   if (!isRecord(sequence) || Object.keys(sequence).sort().join() !== 'next,version' || sequence.version !== 1 ||
     typeof sequence.next !== 'number' || !Number.isSafeInteger(sequence.next) || sequence.next < 1) {
@@ -11084,7 +11203,7 @@ export function validateP15Allocator(raw: Record<string, unknown>, label: string
   const next = sequence.next;
   const seen = new Set<number>();
   let largest = 0;
-  for (const root of P15_SEQUENCED_ROOTS) {
+  for (const root of roots) {
     for (const n of p15Sequences(raw[root])) {
       if (typeof n !== 'number' || !Number.isSafeInteger(n) || n < 1) {
         throw new Error(`${label}: ${root} p15DomainSequence ${String(n)} is not a whole number of at least 1`);
@@ -11106,7 +11225,9 @@ export function validateSaveV45(save: unknown): SaveFileV45 {
   return validateSaveV45Era(save);
 }
 
-function validateSaveV45Era(save: unknown, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext): SaveFileV45 {
+/** P15B (1361-F3 ruling 2): the P15B step hands the frozen V45 chain its era and runs the one allocator
+ * check itself over every root, its own included, so `allocator` is false exactly on that call. */
+function validateSaveV45Era(save: unknown, rivalCostCutting = false, rivalFacilityDisposal = false, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA, allocator = true): SaveFileV45 {
   if (!isRecord(save)) throw new Error('validateSaveV45: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 45) throw new Error('validateSaveV45: expected version 45');
@@ -11114,11 +11235,18 @@ function validateSaveV45Era(save: unknown, rivalCostCutting = false, rivalFacili
   for (const key of P15_ROOT_KEYS) {
     if (!Object.hasOwn(raw, key)) throw new Error(`validateSaveV45: the ${key} root is missing`);
   }
-  validateSaveV44Era({ ...save, saveVersion: 44, state: stripP15Roots(raw) }, rivalCostCutting, rivalFacilityDisposal, foundingFunding);
-  validatePowerRankingArchive(raw);
+  // P15B (1370-ar): only the P15B step hands this chain a state carrying the P15B roots (its Legacy and
+  // watermark checks below must see the sibling roots); a genuine Save45 never carries them.
+  if (!era.studioLoans) {
+    for (const key of P15B_ROOT_KEYS) {
+      if (Object.hasOwn(raw, key)) throw new Error(`validateSaveV45: state has unknown field "${key}"`);
+    }
+  }
+  validateSaveV44Era({ ...save, saveVersion: 44, state: stripP15Roots(raw) }, rivalCostCutting, rivalFacilityDisposal, foundingFunding, era);
+  validatePowerRankingArchive(raw, era.closure);
   validateSharedMarketRoot(raw, 'validateSaveV45');
-  validateCampaignLegacy(raw, 'validateSaveV45');
-  validateP15Allocator(raw, 'validateSaveV45');
+  validateCampaignLegacy(raw, 'validateSaveV45', era.studioLoans);
+  if (allocator) validateP15Allocator(raw, 'validateSaveV45');
   return save as SaveFileV45;
 }
 
@@ -11142,6 +11270,7 @@ export function convertV45ToV44(save: SaveFileV45): SaveFileV44 {
 }
 
 export function migrateToV45(save: SaveFile | { saveVersion: number }): SaveFileV45 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV45(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return migrateToV45(convertV47ToV46(save as SaveFileV47));
   if (save.saveVersion === 46) return migrateToV45(convertV46ToV45(save as SaveFileV46));
   if (save.saveVersion === 45) return validateSaveV45(save);
@@ -11156,13 +11285,14 @@ export function validateSaveV46(save: unknown): SaveFileV46 {
 }
 /** 1364: the V46 law with the Save47 recruitment-fund context threaded below (the Save43 pattern). The
  * public reader above threads none and keeps refusing the historical late signatures. */
-function validateSaveV46Era(save: unknown, foundingFunding?: FoundingFundingContext): SaveFileV46 {
+function validateSaveV46Era(save: unknown, foundingFunding?: FoundingFundingContext, era: P15BEra = NO_P15B_ERA, allocator = true): SaveFileV46 {
   if (!isRecord(save)) throw new Error('validateSaveV46: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== 46) throw new Error('validateSaveV46: expected version 46');
   const raw = v14Record(checkEnvelope(save, 'validateSaveV46'), 'state');
   validateRivalFacilityDisposalAuthority(raw);
-  validateSaveV45Era({ ...save, saveVersion: 45, state: raw }, true, true, foundingFunding);
+  // P15B (1370-ar): the P15B era and its allocator switch travel below (the Save43 pattern).
+  validateSaveV45Era({ ...save, saveVersion: 45, state: raw }, true, true, foundingFunding, era, allocator);
   // The frozen V28 descent strips talentMarket. Inspect current proposals only
   // after complete admission, on the retained original state.
   const current = save as SaveFileV46;
@@ -11187,7 +11317,7 @@ function hasRecoveryShape(state: Record<string, unknown>): boolean {
 }
 
 /** Called after full V46 admission. Report all present authority, in adopted order. */
-function recoveryDowngradeRefusal(state: GameStateV46): string | null {
+function recoveryDowngradeRefusal(state: Pick<GameStateV46, 'hollywood'>): string | null {
   const h = state.hollywood;
   if (h === null) return null;
   const reasons: string[] = [];
@@ -11226,6 +11356,7 @@ export function convertV46ToV45(save: SaveFileV46): SaveFileV45 {
 }
 
 export function migrateToV46(save: SaveFile | { saveVersion: number }): SaveFileV46 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return migrateToV46(convertFromP15BSave(save as SaveFileP15B));
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return convertV47ToV46(save as SaveFileV47);
   if (save.saveVersion === 46) return validateSaveV46(save);
   return convertV45ToV46(migrateToV45(save));
@@ -11260,13 +11391,18 @@ function stripFoundingFunding(raw: object): Record<string, unknown> {
 }
 
 export function validateSaveV47(save: unknown): SaveFileV47 {
+  return validateSaveV47Era(save);
+}
+/** P15B (1370-ar): the V47 law with the P15B era and allocator switch threaded below (the Save43 pattern);
+ * only the P15B step passes them. The public reader above threads none. */
+function validateSaveV47Era(save: unknown, era: P15BEra = NO_P15B_ERA, allocator = true): SaveFileV47 {
   if (!isRecord(save)) throw new Error('validateSaveV47: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
   if (save.saveVersion !== FOUNDING_FUNDING_SAVE_VERSION) throw new Error(`validateSaveV47: expected version ${FOUNDING_FUNDING_SAVE_VERSION}`);
   const raw = v14Record(checkEnvelope(save, 'validateSaveV47'), 'state');
   if (!Object.hasOwn(raw, FOUNDING_FUNDING_KEY)) throw new Error(`validateSaveV47: the ${FOUNDING_FUNDING_KEY} root is missing`);
   const funding = validateFoundingFunding(raw, 'validateSaveV47');
-  validateSaveV46Era({ ...save, saveVersion: 46, state: stripFoundingFunding(raw) }, funding);
+  validateSaveV46Era({ ...save, saveVersion: 46, state: stripFoundingFunding(raw) }, funding, era, allocator);
   return save as SaveFileV47;
 }
 
@@ -11303,7 +11439,152 @@ export function convertV47ToV46(save: SaveFileV47): SaveFileV46 {
 }
 
 export function migrateToV47(save: SaveFile | { saveVersion: number }): SaveFileV47 {
+  if (save.saveVersion === P15B_SAVE_VERSION) return convertFromP15BSave(save as SaveFileP15B);
   if (save.saveVersion === FOUNDING_FUNDING_SAVE_VERSION) return validateSaveV47(save);
   return convertV46ToV47(migrateToV46(save));
 }
 // ── end of the Save47 block ───────────────────────────────────────────────────────────────────
+
+// ── P15B Waves 2–4 (record 1370-ar), the P15B save era (Save48): the condition root and the closure root ──
+// ONE delimited block. The version and the predecessor are named once at `P15B_SAVE_VERSION` above.
+// Stacked on founding's Save47 over R8's Save46: the step hands founding's reader (`validateSaveV47Era`,
+// every recovery and funding gate kept) the state with the P15B roots, under the P15B era, with the one
+// allocator check deferred to this step; the downgrade appends the predecessor steps' own refusals.
+// 1357-A §4.2 with 1357-F Amendment 1; 1361-F3 ruling 2 (this step keeps its roots out of P15_ROOT_KEYS,
+// hands the frozen V45 chain its era, and runs the one allocator check over every root, its own
+// included); the Wave-4 contract §5 (era-gated roots, empty observational migration, no lossy
+// downgrade). The step adds `corporateCondition` and `studioClosure` at the save's own week, the three
+// loan/closure money kinds at zero on every rival period, and backfills nothing.
+
+// The predecessor's three entry points, bound once (renumber with the header above).
+const validateP15BPredecessor: (save: unknown) => P15BPredecessorSave = validateSaveV47;
+const validateP15BPredecessorEra: (save: unknown, era: P15BEra, allocator: boolean) => P15BPredecessorSave = validateSaveV47Era;
+const migrateToP15BPredecessor: (save: SaveFile | { saveVersion: number }) => P15BPredecessorSave = migrateToV47;
+
+const P15B_ROOT_KEYS: readonly string[] = Object.keys({ corporateCondition: true, studioClosure: true } satisfies Record<keyof P15BStepRoots, true>);
+/** The sequenced roots of the one allocator check at this step: the V45 four plus this step's two. */
+const P15B_SEQUENCED_ROOTS: readonly string[] = [...P15_SEQUENCED_ROOTS, ...P15B_ROOT_KEYS];
+
+function stripP15BRoots(raw: object): Record<string, unknown> {
+  return Object.fromEntries(Object.entries(raw).filter(([key]) => !P15B_ROOT_KEYS.includes(key)));
+}
+
+/** Whether any rival finance period carries one of the three loan money kinds (a P15B-era industry). */
+function hasP15BMoney(raw: Record<string, unknown>): boolean {
+  const hollywood = raw.hollywood;
+  if (!isRecord(hollywood) || !Array.isArray(hollywood.businesses)) return false;
+  return (hollywood.businesses as { account?: { periods?: { movements?: unknown }[] } }[]).some((b) =>
+    (b.account?.periods ?? []).some((p) => isRecord(p.movements) && RIVAL_LOAN_KINDS.some((kind) => Object.hasOwn(p.movements as object, kind))));
+}
+
+/** The three rival loan money kinds removed from every finance period: lossless only when each is zero,
+ * which `p15bDowngradeRefusal` has already required. Returns a detached copy of the industry. */
+function stripP15BMoney(raw: Record<string, unknown>): Record<string, unknown> {
+  const hollywood = raw.hollywood;
+  if (!isRecord(hollywood) || !Array.isArray(hollywood.businesses)) return raw;
+  const businesses = (hollywood.businesses as { account: { periods: { movements: Record<string, number> }[] } }[]).map((b) => ({
+    ...b,
+    account: { ...b.account, periods: b.account.periods.map((p) => {
+      const movements = { ...p.movements };
+      for (const kind of RIVAL_LOAN_KINDS) Reflect.deleteProperty(movements, kind);
+      return { ...p, movements };
+    }) },
+  }));
+  return { ...raw, hollywood: { ...hollywood, businesses } };
+}
+
+/** The step's roots as a fresh world and a migration write them: nothing evaluated, nothing closed, recording from `week`. */
+export function initialP15BRoots(week: number): P15BStepRoots {
+  return { corporateCondition: initialCorporateCondition(week), studioClosure: initialStudioClosure(week) };
+}
+
+const RIVAL_LOAN_KINDS = ['loanPrincipal', 'loanInstallment', 'claimPayment'] as const;
+
+/** The one refusal of this step's roots, in the order condition, closure; null when both are empty. */
+function p15bDowngradeRefusal(state: Record<string, unknown>): string | null {
+  const reasons = [corporateConditionDowngradeRefusal(state), studioClosureDowngradeRefusal(state)].filter((reason) => reason !== null);
+  const legacy = state.campaignLegacy;
+  if (isRecord(legacy)) {
+    if (isRecord(legacy.official) && legacy.official.definition === 'campaign-legacy/v3') reasons.push('cannot downgrade or discard modern Legacy v3 official authority');
+    if (legacy.endOfRun !== null) reasons.push('cannot downgrade or discard the ended Legacy manifest');
+  }
+  const hollywood = state.hollywood;
+  if (isRecord(hollywood) && Array.isArray(hollywood.businesses)) {
+    for (const business of hollywood.businesses as { studioId: string; account: { periods: { movements: Record<string, number> }[] } }[]) {
+      for (const period of business.account.periods) {
+        for (const kind of RIVAL_LOAN_KINDS) if ((period.movements[kind] ?? 0) !== 0) reasons.push(`cannot downgrade or discard the ${kind} movement of ${business.studioId}`);
+      }
+    }
+  }
+  if (Array.isArray(state.ledger) && (state.ledger as { kind: string }[]).some((row) => (RIVAL_LOAN_KINDS as readonly string[]).includes(row.kind))) {
+    reasons.push('cannot downgrade or discard a loan or claim ledger row');
+  }
+  return reasons.length === 0 ? null : reasons.join('; ');
+}
+
+/** The P15B era of a P15B-era state: loans are lawful, and each actual closure stops its studio's charges. */
+function p15bEraOf(raw: Record<string, unknown>): P15BEra {
+  return { studioLoans: true, closure: closureStops(raw) };
+}
+
+/** Both roots present; the predecessor chain proves the state without them under the P15B era; then each
+ * root's own validator, and the one allocator check over all six roots last. */
+export function validateSaveP15B(save: unknown): SaveFileP15B {
+  if (!isRecord(save)) throw new Error('validateSaveP15B: object required');
+  v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+  if (save.saveVersion !== P15B_SAVE_VERSION) throw new Error(`validateSaveP15B: expected version ${P15B_SAVE_VERSION}`);
+  const raw = v14Record(checkEnvelope(save, 'validateSaveP15B'), 'state');
+  for (const key of P15B_ROOT_KEYS) {
+    if (!Object.hasOwn(raw, key)) throw new Error(`validateSaveP15B: the ${key} root is missing`);
+  }
+  const era = p15bEraOf(raw);
+  // The full state: the predecessor's Legacy validator re-derives each sibling root's recording week and
+  // watermark, so it must see the P15B roots; the frozen chain below it strips them (`stripP15Roots`).
+  validateP15BPredecessorEra({ ...save, saveVersion: P15B_PREDECESSOR_VERSION, state: raw }, era, false);
+  validateCorporateConditionRoot(raw, 'validateSaveP15B', era.closure ?? new Map());
+  validateStudioClosureRoot(raw, 'validateSaveP15B');
+  validateP15Allocator(raw, 'validateSaveP15B', P15B_SEQUENCED_ROOTS);
+  return save as SaveFileP15B;
+}
+
+/** Adds the two empty roots at the save's own week and the three money kinds at zero on every rival
+ * period. No past week is evaluated, no closure or claim is reconstructed, and a second migration is a no-op. */
+export function convertToP15BSave(save: P15BPredecessorSave): SaveFileP15B {
+  const validated = validateP15BPredecessor(save);
+  const old = JSON.parse(JSON.stringify(validated)) as P15BPredecessorSave;
+  for (const business of old.state.hollywood?.businesses ?? []) {
+    for (const period of business.account.periods) {
+      for (const kind of RIVAL_LOAN_KINDS) (period.movements as Record<string, number>)[kind] = 0;
+    }
+  }
+  return validateSaveP15B({ ...old, saveVersion: P15B_SAVE_VERSION, state: { ...old.state, ...initialP15BRoots(old.state.market.tick) } });
+}
+
+/** The predecessor steps' own refusals (Save47 fund, Save46 recovery, Save45 P15), appended after this
+ * step's rather than masked (founding's convertV47ToV46 pattern). */
+function predecessorDowngradeRefusals(state: GameStateP15B): string[] {
+  // A frozen builder hands an unversioned state: each predecessor reason is read only where its shape is present.
+  const fund = (state as Partial<GameStateP15B>).foundingFunding?.fund ?? null;
+  const raw = state as unknown as Record<string, unknown>;
+  return [
+    ...(fund === null ? [] : [`cannot downgrade or discard the recorded founding fund (${fund.provenance}, ${fund.allocations.length} allocation${fund.allocations.length === 1 ? '' : 's'})`]),
+    ...[hasRecoveryShape(raw) ? recoveryDowngradeRefusal(state) : null, p15DowngradeRefusal(state)].filter((reason): reason is string => reason !== null),
+  ];
+}
+
+/** Lossless only while both roots are empty, every loan movement zero and no loan row written: the roots
+ * and the zero movements drop. Anything else refuses once, after validation, naming every reason, this
+ * step's first and the predecessor steps' own after it. */
+export function convertFromP15BSave(save: SaveFileP15B): P15BPredecessorSave {
+  const validated = validateSaveP15B(save);
+  const refusal = p15bDowngradeRefusal(validated.state as unknown as Record<string, unknown>);
+  if (refusal !== null) throw new Error(`migrateToV${P15B_PREDECESSOR_VERSION}: ${[refusal, ...predecessorDowngradeRefusals(validated.state)].join('; ')}`);
+  const detached = JSON.parse(JSON.stringify(validated)) as SaveFileP15B;
+  return validateP15BPredecessor({ ...detached, saveVersion: P15B_PREDECESSOR_VERSION, state: stripP15BMoney(stripP15BRoots(detached.state)) });
+}
+
+export function migrateToP15BSave(save: SaveFile | { saveVersion: number }): SaveFileP15B {
+  if (save.saveVersion === P15B_SAVE_VERSION) return validateSaveP15B(save);
+  return convertToP15BSave(migrateToP15BPredecessor(save));
+}
+// ── end of the P15B (Save48) block ────────────────────────────────────────────────────────────

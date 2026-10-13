@@ -101,6 +101,7 @@ export const LIVING_TURN_PAUSE_CLASS = [
   'productionDecision',
   'releaseReview',
   'cashNegative',
+  'studioClosure',
 ] as const
 
 /**
@@ -140,6 +141,7 @@ export function livingTurnStopClass(reason: SimStopReason): LivingTurnStopClass 
     // P06A: the release decision is exactly that — a decision. The loop pauses.
     case 'releaseReview':
     case 'cashNegative':
+    case 'studioClosure':
       return 'pause'
     case 'wrap':
     case 'runCompleted':

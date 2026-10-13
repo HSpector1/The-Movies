@@ -1,0 +1,371 @@
+{
+  "rows": [
+    {
+      "file": "p13b-r07-save-v25.test.ts",
+      "title": "P13B-S5-R07 Save V25 (test 5) SETUP_RECIPES exists (sanity for the setup: null lift assertions below)",
+      "status": "passed",
+      "duration": 1.9879829999999856
+    },
+    {
+      "file": "p13b-r07-save-v25.test.ts",
+      "title": "P13B-S5-R07 Save V25 (test 5) validates the genuine V24 fixtures directly (sha256-pinned, week-pinned) before migration",
+      "status": "passed",
+      "duration": 201.756032
+    },
+    {
+      "file": "p13b-r07-save-v25.test.ts",
+      "title": "P13B-S5-R07 Save V25 (test 5) migrates both genuine V24 fixtures to V25: saveVersion 25, technology state byte-identical aside from the version bump, setup: null lift (vacuous \u2014 both carry zero workflows)",
+      "status": "passed",
+      "duration": 297.966668
+    },
+    {
+      "file": "p13b-r07-save-v25.test.ts",
+      "title": "P13B-S5-R07 Save V25 (test 5) validates a reconstructed V25 envelope with a real rehearsing production and setup: null on a nonempty workflow",
+      "status": "passed",
+      "duration": 66.59107399999994
+    },
+    {
+      "file": "p13b-r07-save-v25.test.ts",
+      "title": "P13B-S5-R07 Save V25 (test 5) migrateToV24 / migrateToV23 / migrateToV22 / migrateToV21 / migrateToV20 refuse a V25 save",
+      "status": "passed",
+      "duration": 34.6416499999998
+    },
+    {
+      "file": "p13b-r07-save-v25.test.ts",
+      "title": "P13B-S5-R07 Save V25 (test 5) an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)",
+      "status": "passed",
+      "duration": 47.4017080000001
+    },
+    {
+      "file": "p13b-r07-save-v25.test.ts",
+      "title": "P13B-S5-R07 Save V25 (test 5) mid-setup save/reload round-trips byte-identically (export/import codec only) \u2014 INTERPRETATION 3: hand-authored setup, no genuine producer exists yet",
+      "status": "passed",
+      "duration": 176.7748869999998
+    },
+    {
+      "file": "p13b-r07-save-v25.test.ts",
+      "title": "P13B-S5-R07 Save V25 (test 5) Save As worlds isolated (core level) \u2014 INTERPRETATION 2: two independent imports of one envelope never alias, and advancing one never mutates the other",
+      "status": "passed",
+      "duration": 110.1351900000002
+    },
+    {
+      "file": "p13b-s5-save-v24.test.ts",
+      "title": "P13B-S5 Save V24 (test 4) validates the genuine V23 fixture legacy-v23-sound-operational-315 directly (sha256-pinned, week-pinned) before it is migrated in the chain test below",
+      "status": "passed",
+      "duration": 132.16982399999995
+    },
+    {
+      "file": "p13b-s5-save-v24.test.ts",
+      "title": "P13B-S5 Save V24 (test 4) migrates legacy-v23-sound-operational-315 and its identical V20 ancestor to V24 with an honest first-prototype lift, byte-identical otherwise",
+      "status": "passed",
+      "duration": 431.6767440000001
+    },
+    {
+      "file": "p13b-s5-save-v24.test.ts",
+      "title": "P13B-S5 Save V24 (test 4) migrates the genuine V23 fixture legacy-v23-lighting-complete-plan-queued: rival EMPTY-physicalProjectIds adoption lifts to ONE aggregated installation row (placementId null), one held commercial asset, the queued physical plan survives byte-identically",
+      "status": "passed",
+      "duration": 143.68791899999997
+    },
+    {
+      "file": "p13b-s5-save-v24.test.ts",
+      "title": "P13B-S5 Save V24 (test 4) chains the genuine V22 fixture './fixtures/p13b/legacy-v22-staffed-4-\u2026' through V23 to V24 with the same honest lift",
+      "status": "passed",
+      "duration": 137.73804900000005
+    },
+    {
+      "file": "p13b-s5-save-v24.test.ts",
+      "title": "P13B-S5 Save V24 (test 4) chains the genuine V22 fixture './fixtures/p13b/legacy-v22-two-labs-c\u2026' through V23 to V24 with the same honest lift",
+      "status": "passed",
+      "duration": 186.94746699999996
+    },
+    {
+      "file": "p13b-s5-save-v24.test.ts",
+      "title": "P13B-S5 Save V24 (test 4) chains the genuine V21 fixture './fixtures/p13b/legacy-v21-staffed-4-\u2026' through V22, V23 to V24",
+      "status": "passed",
+      "duration": 185.5173259999999
+    },
+    {
+      "file": "p13b-s5-save-v24.test.ts",
+      "title": "P13B-S5 Save V24 (test 4) chains the genuine V21 fixture './fixtures/p13b/legacy-v21-released-p\u2026' through V22, V23 to V24",
+      "status": "passed",
+      "duration": 244.59542099999976
+    },
+    {
+      "file": "p13b-s5-save-v24.test.ts",
+      "title": "P13B-S5 Save V24 (test 4) chains the genuine V21 fixture './fixtures/p13b/legacy-v21-two-labs-t\u2026' through V22, V23 to V24",
+      "status": "passed",
+      "duration": 247.80255400000033
+    },
+    {
+      "file": "p13b-s5-save-v24.test.ts",
+      "title": "P13B-S5 Save V24 (test 4) chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-a\u2026' through V21, V22, V23 to V24",
+      "status": "passed",
+      "duration": 235.7894070000002
+    },
+    {
+      "file": "p13b-s5-save-v24.test.ts",
+      "title": "P13B-S5 Save V24 (test 4) chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-p\u2026' through V21, V22, V23 to V24",
+      "status": "passed",
+      "duration": 237.10648100000026
+    },
+    {
+      "file": "p13b-s5-save-v24.test.ts",
+      "title": "P13B-S5 Save V24 (test 4) chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-c\u2026' through V21, V22, V23 to V24",
+      "status": "passed",
+      "duration": 231.29718400000002
+    },
+    {
+      "file": "p13b-s5-save-v24.test.ts",
+      "title": "P13B-S5 Save V24 (test 4) migrateToV23 / migrateToV22 / migrateToV21 / migrateToV20 refuse a V24 save",
+      "status": "passed",
+      "duration": 772.2063330000001
+    },
+    {
+      "file": "p13b-s5-save-v24.test.ts",
+      "title": "P13B-S5 Save V24 (test 4) makeSave writes the live saveVersion 37 (stale title corrected post-C.4)",
+      "status": "passed",
+      "duration": 344.2583199999999
+    },
+    {
+      "file": "p13b-s5-save-v24.test.ts",
+      "title": "P13B-S5 Save V24 (test 4) an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (stale numbers corrected post-C.2b)",
+      "status": "passed",
+      "duration": 224.87020399999983
+    },
+    {
+      "file": "p13b-s5-save-v24.test.ts",
+      "title": "P13B-S5 Save V24 (test 4) save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational",
+      "status": "passed",
+      "duration": 7662.002819999999
+    },
+    {
+      "file": "p13b-s8-save-v27.test.ts",
+      "title": "P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) genuine V26 sound-mid-deployment fixture: sha256 matches, migrates to V27 with the four new RivalMoneyKind movement keys at 0 on every period and NO new receipts, otherwise byte-identical",
+      "status": "passed",
+      "duration": 258.0630890000001
+    },
+    {
+      "file": "p13b-s8-save-v27.test.ts",
+      "title": "P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) genuine V26 lighting-cancelled and lighting-restored fixtures: sha256 matches, migrate to V27 honestly (four zero keys, no new receipts)",
+      "status": "passed",
+      "duration": 326.9774110000001
+    },
+    {
+      "file": "p13b-s8-save-v27.test.ts",
+      "title": "P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) downgrade LOSSLESS: a freshly-lifted V27 state (genuine V26 fixture, every new key still zero) downgrades through save.migrateToV26 directly, byte-identical to the source",
+      "status": "passed",
+      "duration": 194.40999799999986
+    },
+    {
+      "file": "p13b-s8-save-v27.test.ts",
+      "title": "P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) downgrade REFUSED: a NATURAL campaign whose rival genuinely admitted a Laboratory carries a nonzero researchCapacity movement, and save.migrateToV26 refuses it",
+      "status": "passed",
+      "duration": 924.242105
+    },
+    {
+      "file": "p13b-s8-save-v27.test.ts",
+      "title": "P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) downgrade REFUSED: the same natural campaign also carries a new receipt kind (laboratoryCommitted/laboratoryOperational), independently sufficient to refuse V27->V26",
+      "status": "passed",
+      "duration": 803.3671370000002
+    },
+    {
+      "file": "p13b-s8-save-v27.test.ts",
+      "title": "P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) VALIDATOR REFUSED: \"no rival authority without a receipt\" \u2014 a rival Laboratory facility with no laboratoryCommitted/laboratoryOperational receipt is refused",
+      "status": "passed",
+      "duration": 122.29571399999986
+    },
+    {
+      "file": "p13b-s8-save-v27.test.ts",
+      "title": "P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) an unknown saveVersion 49 is refused, naming the handled range \"1 through 48 only\" (B4 additive reader boundary; stale numbers corrected post-C.2b)",
+      "status": "passed",
+      "duration": 87.25161100000014
+    },
+    {
+      "file": "p13b-s8-save-v27.test.ts",
+      "title": "P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) genuine usage of admitRivalPlans (not just an unused import \u2014 the same measured-risk guard tests/p13b-s6-save-v26.test.ts names for cancellationQuote): admitting a well-funded rival Laboratory books a real, nonzero researchCapacity movement \u2014 the same fact the natural-campaign downgrade-refused cases above observe emerging on their own",
+      "status": "passed",
+      "duration": 173.11412399999972
+    },
+    {
+      "file": "p15b4-studio-closure-save.test.ts",
+      "title": "p15b4 closure save step: migration and downgrade (closure/v1 \u00a75) closure-root-migration-empty",
+      "status": "passed",
+      "duration": 1416.592039
+    },
+    {
+      "file": "p15b4-studio-closure-save.test.ts",
+      "title": "p15b4 closure save step: migration and downgrade (closure/v1 \u00a75) closure-root-downgrade-refusals",
+      "status": "passed",
+      "duration": 1670.7184320000001
+    },
+    {
+      "file": "p15b4-studio-closure-save.test.ts",
+      "title": "p15b4 closure save step: the root validator (closure/v1 \u00a75; contract RED 1, 3, 4, 8) closure-validate-record-identity-and-phase",
+      "status": "passed",
+      "duration": 1069.0462850000004
+    },
+    {
+      "file": "p15b4-studio-closure-save.test.ts",
+      "title": "p15b4 closure save step: the root validator (closure/v1 \u00a75; contract RED 1, 3, 4, 8) closure-validate-dispositions-complete-and-digest",
+      "status": "passed",
+      "duration": 844.9748479999998
+    },
+    {
+      "file": "p15b4-studio-closure-save.test.ts",
+      "title": "p15b4 closure save step: the root validator (closure/v1 \u00a75; contract RED 1, 3, 4, 8) closure-validate-claims-loan-and-estate",
+      "status": "passed",
+      "duration": 1635.591053
+    },
+    {
+      "file": "p15b4-studio-closure-save.test.ts",
+      "title": "p15b4 closure save step: the root validator (closure/v1 \u00a75; contract RED 1, 3, 4, 8) closure-validate-terminal-business",
+      "status": "passed",
+      "duration": 359.52088000000003
+    },
+    {
+      "file": "p15b4-studio-closure-save.test.ts",
+      "title": "p15b4 closure save step: the root validator (closure/v1 \u00a75; contract RED 1, 3, 4, 8) closure-due-save-closes-prospectively (contract \u00a72; review T16)",
+      "status": "passed",
+      "duration": 1128.5925990000005
+    },
+    {
+      "file": "p15b4-studio-closure-save.test.ts",
+      "title": "p15b4 closure save step: the root validator (closure/v1 \u00a75; contract RED 1, 3, 4, 8) closure-round-trip",
+      "status": "passed",
+      "duration": 1823.4381089999988
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: the boundary, the terminal state and the loan stop (contract \u00a72) closure-record-boundary-phase-ids",
+      "status": "passed",
+      "duration": 2326.1549689999997
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: the boundary, the terminal state and the loan stop (contract \u00a72) closure-terminal-operating-state",
+      "status": "passed",
+      "duration": 111.392699
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: the boundary, the terminal state and the loan stop (contract \u00a72) closure-loan-stop",
+      "status": "passed",
+      "duration": 2.057002000000466
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: claims, dispositions, titles and the estate window (contract \u00a73\u2013\u00a74) closure-claims-and-estate-archive",
+      "status": "passed",
+      "duration": 217.57201000000077
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: claims, dispositions, titles and the estate window (contract \u00a73\u2013\u00a74) closure-dispositions-complete-and-digest",
+      "status": "passed",
+      "duration": 136.80699200000072
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: claims, dispositions, titles and the estate window (contract \u00a73\u2013\u00a74) closure-titles-handoff-lots",
+      "status": "passed",
+      "duration": 4.306167000000642
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: claims, dispositions, titles and the estate window (contract \u00a73\u2013\u00a74) closure-distribution-law",
+      "status": "passed",
+      "duration": 1.3027219999994486
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: claims, dispositions, titles and the estate window (contract \u00a73\u2013\u00a74) closure-pagination",
+      "status": "passed",
+      "duration": 2.219720000000052
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: the estate end to end (contract \u00a73\u2013\u00a75, RED 3 and RED 5; review T7, C8, D5) estate-run-receipts-claims-and-archival",
+      "status": "passed",
+      "duration": 1780.1195209999996
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: the estate end to end (contract \u00a73\u2013\u00a75, RED 3 and RED 5; review T7, C8, D5) estate-validator-mutants",
+      "status": "passed",
+      "duration": 933.299379000001
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: the player, the market, the families and the transaction (contract \u00a72\u2013\u00a75) closure-player-read-only-end-of-run",
+      "status": "passed",
+      "duration": 765.5377000000008
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: the player, the market, the families and the transaction (contract \u00a72\u2013\u00a75) closure-disposes-an-open-market-case (review C6/D3)",
+      "status": "passed",
+      "duration": 901.3025180000004
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: the player, the market, the families and the transaction (contract \u00a72\u2013\u00a75) closure-genuine-unfunded-route-closes (review T4)",
+      "status": "passed",
+      "duration": 2376.064359
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: the player, the market, the families and the transaction (contract \u00a72\u2013\u00a75) closure-research-family (review T13)",
+      "status": "passed",
+      "duration": 2170.30054
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: the player, the market, the families and the transaction (contract \u00a72\u2013\u00a75) closure-refusal-purity (contract RED 4; review T8)",
+      "status": "passed",
+      "duration": 304.33287999999993
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: the player, the market, the families and the transaction (contract \u00a72\u2013\u00a75) closure-operating-loops-skip-closed-studios (review C10/D10; Codex item 7)",
+      "status": "passed",
+      "duration": 467.6444929999998
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: the player, the market, the families and the transaction (contract \u00a72\u2013\u00a75) closure-ranking-cohort-v2",
+      "status": "passed",
+      "duration": 0.816248999999516
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: the player, the market, the families and the transaction (contract \u00a72\u2013\u00a75) closure-ranking-cohort-boundary (contract RED 9; review T11)",
+      "status": "passed",
+      "duration": 880.4174349999994
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: the player, the market, the families and the transaction (contract \u00a72\u2013\u00a75) closure-retry-is-duplicate-refusal",
+      "status": "passed",
+      "duration": 58.83510700000079
+    },
+    {
+      "file": "p15b4-studio-closure.test.ts",
+      "title": "p15b4 closure: the player, the market, the families and the transaction (contract \u00a72\u2013\u00a75) closure-tuning-bounds (review T12)",
+      "status": "passed",
+      "duration": 0.6696709999996528
+    }
+  ],
+  "reportSHA256": "ddb45dd3f3b66225168793416d2af23a86dde36fef09c7b1a74535d029aa5e8e",
+  "reportedPassing": 59,
+  "overDefaultBudget": [
+    {
+      "file": "p13b-s5-save-v24.test.ts",
+      "title": "P13B-S5 Save V24 (test 4) save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational",
+      "status": "passed",
+      "duration": 7662.002819999999
+    }
+  ],
+  "metadataCheckCount": 11,
+  "metadataErrorBytes": 0,
+  "qualification": "assertion PASS, one pre-existing sync test measured beyond default budget; independent disposition pending"
+}

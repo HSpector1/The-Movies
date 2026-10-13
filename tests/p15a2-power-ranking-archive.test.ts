@@ -76,7 +76,7 @@ import type { AuthoredFilm, LiveIndustryFilm } from '../src/core/hollywoodTypes.
 import type { FilmResult, GameState, TheatricalRun } from '../src/core/types.js'
 import { p13aGeneratedStudio, p13aResearchReady } from '../src/harness/p13a/fixtures.js'
 import { migrated } from './helpers/p14c3-fixtures.js'
-import { P15_ROOTS, p15Rows, stripP15 } from './helpers/p15-roots.js'
+import { P15_ROOTS, p15Rows, predecessorSave, stripP15 } from './helpers/p15-roots.js'
 import { genuineV42Week100, genuineV42Week130 } from './p14d1-rival-shelving-fixtures.js'
 
 // ── the new modules, loaded per leaf ────────────────────────────────────────
@@ -358,7 +358,8 @@ describe('p15a2 archive: module surface (1356-A §3; 1355-F2 item 3)', () => {
 
   it('p15-phase-table-v1', async () => {
     const mod = (await import('../src/core/p15Phases.js')) as unknown as Record<string, unknown>
-    expect(mod.P15_PHASE_ORDER_VERSION).toBe(1)
+    // P15B Wave 4 (1370-ar): the live version is 2 (p15b.closure inserted); table 1 is kept unchanged.
+    expect(mod.P15_PHASE_ORDER_VERSION).toBe(2)
     const v1 = await phaseTableV1()
     // 1355-F2 item 3: one documented domain-local table, version 1, ordinals ascending in this order.
     expect(v1.map((entry) => entry.phaseId)).toEqual(['p15a1.marketBatch', 'p15a2.rankingRecord', 'p15b.condition', 'p15c.finale'])
@@ -820,8 +821,9 @@ describe('p15a2 archive: the tick step (1356-A §4; RED 8, 11)', () => {
     const records = archiveOf(fresh(130)).snapshots
     expect(records.length, 'premise: a non-empty archive (1356-F2 item 4)').toBeGreaterThan(0)
     for (const record of records) {
+      // P15B Wave 4 (1370-ar): a new row is written under the live version; the ranking ordinal is 2 in both tables.
       expect(stableStringify({ phaseId: record.phaseId, phaseOrdinal: record.phaseOrdinal, phaseOrderVersion: record.phaseOrderVersion }))
-        .toBe(stableStringify({ phaseId: RANKING_PHASE, phaseOrdinal: ordinal, phaseOrderVersion: 1 }))
+        .toBe(stableStringify({ phaseId: RANKING_PHASE, phaseOrdinal: ordinal, phaseOrderVersion: (await import('../src/core/p15Phases.js')).P15_PHASE_ORDER_VERSION }))
     }
   }, HEAVY)
 
@@ -932,7 +934,9 @@ describe('p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16)', () 
     expect(stableStringify(before), 'premise: no quarter between 130 and 135').toBe(stableStringify({ version: 1, recordedFromWeek: 130, snapshots: [] }))
     const currentSave = liveSave(state)
     const currentBefore = stableStringify(currentSave)
-    expect(() => convertOutOfStep(currentSave)).toThrow(/^migrateToV45: cannot downgrade or discard recovery authority: costCutting\.since, facilityDemolitionRefund, facilityDisposed$/)
+    // P15B (1370-ar): the P15B step refuses first (its condition records) and appends the predecessor steps' own
+    // refusals rather than masking them, so R8's recovery reasons are still asserted by name on the same throw.
+    expect(() => convertOutOfStep(currentSave)).toThrow(new RegExp(`^migrateToV${saveModule.LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record.*; cannot downgrade or discard recovery authority: costCutting\\.since, facilityDemolitionRefund, facilityDisposed(; |$)`))
     expect(stableStringify(currentSave), 'the refused current input remains unchanged').toBe(currentBefore)
 
     // An original Save45 engine advanced the genuine Save42 week-130 capture through five
@@ -967,7 +971,10 @@ describe('p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16)', () 
   it('rank-root-downgrade-recorded-quarter-refuses', () => {
     const at13 = fresh(13)
     expect(archiveOf(at13).snapshots, 'premise: one recorded quarter').toHaveLength(1)
-    const save = liveSave(at13)
+    // P15B (1370-ar): the live save meets the P15B step's own refusal first (its condition records); the archive's
+    // refusal is proven on the Save45 envelope the test helper builds, by the step's converter and every older migrator.
+    expect(() => migrateBelowStep(liveSave(at13))).toThrow(/cannot downgrade or discard/)
+    const save = predecessorSave(at13)
     expect(() => convertOutOfStep(save)).toThrow(DOWNGRADE_REFUSAL)
     // Every older migrateToVxx refuses by name too (the downgrade line per older migrator, save.ts:7414 pattern).
     let checked = 0
@@ -1323,7 +1330,8 @@ describe('p15a2 archive: validation, §5 items 1-4 (RED 14; 1356-F Amendments 1-
     const tampers: ((record: ArchiveRecord) => void)[] = [
       (record) => { record.phaseOrdinal += 1 },
       (record) => { record.phaseId = condition.phaseId; record.phaseOrdinal = condition.phaseOrdinal },
-      (record) => { record.phaseOrderVersion = 2 },
+      // P15B Wave 4 (1370-ar): version 2 now has a table; a version with none still refuses.
+      (record) => { record.phaseOrderVersion = 3 },
     ]
     for (const tamper of tampers) {
       const { env, archive } = base()

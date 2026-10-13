@@ -7,7 +7,7 @@ import { canonicalJson } from '../bridge/schema/canonical.ts'
 import { decodeBridgeRuntimeCheckpoint, encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS } from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession } from '../bridge/session.ts'
-import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV37 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV37, initialP15BRoots } from '../src/core/save.js'
 import { retirementRecordFor } from '../src/core/careerLifecycle.js'
 import { OUTGOING_51, RUNTIME_51, SCI, readRuntime51, runtime51Artifact, sha } from './helpers/p14c2rm-fixtures.js'
 import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
@@ -58,13 +58,22 @@ function withEmptyCompetitionsAndRomance<T extends WithEdgeLogAndRomance>(state:
 // save's own week and back-fills nothing; a genuine Save37 old.state never carried them. The literals
 // are this file's own expectation: production's initialP15Roots never defines it (1361-F7 ruling 3).
 function withEmptyP15Roots<T extends object>(state: T, week: number): T {
-  return { ...state,
+  // P15B (1370-ar): the P15B step (convertToP15BSave) adds its two empty roots at the input's own week and the
+  // three loan money kinds at zero on every rival finance period; a genuine V45-or-older old.state never carried them.
+  type Period = { movements: Record<string, number> }
+  type Business = { account: { periods: Period[] } }
+  const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
+  const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
+    businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } })) } }
+  return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
     campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
     // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
-    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null },
+    ...initialP15BRoots(week) }
 }
 // Independent old-state preservation alongside the actual governed slot bytes.
 function currentSlot(json: string): string {
@@ -110,7 +119,7 @@ describe('C.2-RM genuine projection51 recovery', () => {
   })
 
   it('steps projection once to52 while retaining Save37/protocol4 and enumerating actual outgoing51 exactly once', () => {
-    expect(PROJECTION_VERSION).toBe(57)
+    expect(PROJECTION_VERSION).toBe(58)
     expect(PROTOCOL_VERSION).toBe(4)
     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
     expect(SCHEMA_ID).not.toBe(OUTGOING_51)

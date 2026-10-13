@@ -1,3 +1,4 @@
+import { loanQuoteSnapshot, loanDraftApply } from './loan.ts'
 import { createHash, randomUUID } from 'node:crypto'
 import { performance } from 'node:perf_hooks'
 
@@ -39,6 +40,10 @@ import type {
   GameState,
 } from '../ui/src/engine/adapter.ts'
 import { applyActions, importSave, LIVE_SAVE_VERSION, migrateToLive } from '../src/core/index.js'
+import { studioRemedies } from '../src/core/corporateConditionLive.js'
+import { isOperatingStudio } from '../src/core/studioClosure.js'
+import { studioWeeklyFixedCost } from '../src/core/powerRankingArchive.js'
+import { contractLoan, loanMaxPrincipal } from '../src/core/studioLoan.js'
 import type { FoundingRegime } from '../src/core/index.js'
 import {
   PROTOCOL_VERSION,
@@ -95,6 +100,9 @@ import type {
   BridgeSetCommissionDraftPayload,
   BridgeQuoteSetCommissionRequest,
   BridgeSetCommissionQuoteSnapshot,
+  BridgeLoanDraftPayload,
+  BridgeQuoteLoanRequest,
+  BridgeLoanQuoteSnapshot,
   BridgeContractDraftPayload,
   BridgeQuoteContractRequest,
   BridgeContractQuoteSnapshot,
@@ -179,6 +187,7 @@ export type AcceptedQuoteResponseFor<TQuote> = Omit<BridgeQuoteResponse, 'quote'
  * clear-on-load stay generic over intentId regardless of which family minted it.
  */
 type PendingQuote =
+  | { family: 'loan'; draft: BridgeLoanDraftPayload; stateDigest: string; kind: 'takeLoan'; commitLabel: string }
   | {
       family: 'commission'
       draft: BridgeCommissionDraftPayload
@@ -1184,8 +1193,34 @@ function resolveProductionSetupIntents(state: GameState): Array<IntentApplicatio
   }))
 }
 
+/**
+ * P15B Wave5 compatibility maximum shortcut, offered exactly when the live remedy list holds
+ * LOAN (warning or distress, no loan outstanding, max ≥ LOAN_AMOUNT_STEP), at the lawful maximum. The
+ * action revalidates the law at commit; the option carries the whole schedule in words.
+ * quoteLoan separately admits a player-chosen legal principal without expanding this bounded list.
+ */
+function resolveLoanIntents(state: GameState): IntentApplication[] {
+  const h = state.hollywood
+  if (h === null || state.founding === null && !studioRemedies(state, h.playerStudioId).includes('LOAN')) return []
+  if (state.founding !== null) return []
+  const principal = loanMaxPrincipal(studioWeeklyFixedCost(state, h.playerStudioId))
+  const terms = contractLoan(principal, studioWeeklyFixedCost(state, h.playerStudioId), state.market.tick)
+  const fields: Omit<AvailableIntent, 'intentId'> = {
+    kind: 'takeLoan',
+    label: `Take a studio loan of ${exactDollars(principal)}`,
+    detail: `Flat interest brings the total to ${exactDollars(terms.total)}, repaid over ${terms.installments.length} weeks at ${exactDollars(terms.installments[0]!)}/week from Week ${state.market.tick + 1}, charged with payroll whatever the cash. One loan at a time; no early repayment.`,
+    projectId: null,
+    castingSessionId: null,
+    productionId: null,
+  }
+  const action = { kind: 'takeLoan' as const, principal }
+  return [{ option: option(authoritativeDigest(state), fields, action), apply: (current) => caught(() => ({ ok: true, next: applyActions(current, [action]) })) }]
+}
+
 function resolveAvailableIntents(state: GameState): IntentApplication[] {
-  return [...resolveStudioIntents(state), ...resolveLaboratoryIntents(state), ...resolvePlanIntents(state), ...resolveOfficeIntents(state), ...resolveProductionSetupIntents(state)]
+  // P15B Wave 4 (closure/v1; 1362-O §5.2): a closed player studio is read-only history and offers nothing.
+  if (state.hollywood !== null && !isOperatingStudio(state, state.hollywood.playerStudioId)) return []
+  return [...resolveStudioIntents(state), ...resolveLoanIntents(state), ...resolveLaboratoryIntents(state), ...resolvePlanIntents(state), ...resolveOfficeIntents(state), ...resolveProductionSetupIntents(state)]
 }
 
 export function availableIntents(state: GameState): AvailableIntent[] {
@@ -1644,6 +1679,12 @@ export class BridgeSession {
     const pending = this.pendingQuotes.get(intentId)
     if (pending === undefined) return undefined
     if (pending.stateDigest !== authoritativeDigest(this.state)) return undefined
+    if (pending.family === 'loan') {
+      // Resolve to a live action, never to the preflight successor captured at quote time.
+      return { option: { intentId, kind: pending.kind, label: pending.commitLabel, detail: '',
+        projectId: null, castingSessionId: null, productionId: null },
+        apply: current => loanDraftApply(current, pending.draft) }
+    }
     const fields = {
       kind: pending.kind,
       label: pending.commitLabel,
@@ -1792,6 +1833,7 @@ export class BridgeSession {
    * which family it asked for gets that family's quote type back narrowed,
    * with no cast.
    */
+  quote(request: BridgeQuoteLoanRequest): AcceptedQuoteResponseFor<BridgeLoanQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteCommissionRequest): AcceptedQuoteResponseFor<BridgeCommissionQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteCastingRequest): AcceptedQuoteResponseFor<BridgeCastingQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuotePlacementRequest): AcceptedQuoteResponseFor<BridgePlacementQuoteSnapshot> | RejectedResponse
@@ -1805,6 +1847,17 @@ export class BridgeSession {
     const { commandId } = request
     const guarded = this.quoteGuard(request, started)
     if (guarded !== null) return guarded
+    if (request.type === 'quoteLoan') {
+      const stateDigest = authoritativeDigest(this.state)
+      const intentId = opaqueIntentId(stateDigest, { loanDraft: request.draft })
+      const quote = loanQuoteSnapshot(this.state, request.draft, intentId)
+      if (quote.ok) {
+        this.pendingQuotes.set(intentId, { family: 'loan', draft: { ...request.draft }, stateDigest,
+          kind: 'takeLoan', commitLabel: quote.commitLabel })
+        this.capPendingQuotes()
+      }
+      return this.mintQuoteResponse(request, started, stateDigest, quote)
+    }
     if (request.type === 'quotePlacement') {
       // P09 §18: a PREVIEW is a first-class answer. The engine's legality
       // authority never throws; an illegal spot is an ACCEPTED quote with

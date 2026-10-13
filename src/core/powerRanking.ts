@@ -104,7 +104,7 @@ export function financialStrengthBand(cash: number, weeklyFixedCost: number): Fi
  * exact half stays exact and rounds up: critic 0 at gross 243,000 of base 1,000,000
  * (reach 0.27) is 13.5 tenths → 14, where gross/base/scale gives 13.499999999999998 → 13.
  */
-function filmScoreTenths(film: RankingFilm, baseMarketValue: number): number {
+export function filmScoreTenths(film: Pick<RankingFilm, 'criticScore' | 'totalGross'>, baseMarketValue: number): number {
   const reachPoints = Math.min(100, (100 * film.totalGross) / (Math.max(baseMarketValue, 1) * TUNING.POWER_RANKING_REACH_SCALE))
   const share = TUNING.POWER_RANKING_CRITIC_SHARE
   return Math.round(share * film.criticScore + (1 - share) * reachPoints)

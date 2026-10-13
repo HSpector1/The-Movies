@@ -1,0 +1,15 @@
+{
+  "phase": "Verified resident local archive consolidation; Apple upload may still be pending. No native eviction yet.",
+  "at": "2026-10-13T16:48:08.480421-05:00",
+  "destination": "/Users/zacheryspector/Library/Mobile Documents/com~apple~CloudDocs/The Movies Archive/2026-10-13-inactive-verification-2",
+  "archiveSHA256": "c748d65415c5f76c99f27c91245ab5540d4eeb5b853557ab332b3bd30f5c7f67",
+  "beforeOriginalOffloadBytes": 3164303360,
+  "afterBytes": 3867254784,
+  "beforeOperationBytes": 3446611968,
+  "actualNetRecoveredBytes": 420642816,
+  "filesOffloaded": 6571,
+  "allocatedEstimateRemoved": 786444288,
+  "skipped": [],
+  "stoppedAtFiveGiB": false,
+  "remainingArchivedOriginalFiles": 0
+}

@@ -130,7 +130,10 @@ export function deepDeficit2652() {
       expect(state.market.tick).toBe(2600 + routeCalls.cohort)
       if (state.market.tick === 2651) { previous = state; acceptBoundary(previous) }
       calls++; routeCalls.cohort++
-      const after = tick(state, { develop: true })
+      // P15B closure/v1 (1370-ar r3; Owner ruling 1342-O 3): this deep-deficit route makes the player closure due at
+      // 2633. The route measures the cohort boundary at 2652 in its genuine deficit, so it ticks as the browser Studio
+      // Lot does: the player's closure due recorded and left due, no injected money.
+      const after = tick(state, { develop: true, deferPlayerClosure: true })
       expect(after.market.tick).toBe(state.market.tick + 1)
       state = after
       if (state.market.tick === 2601) { reconciled = state; acceptBoundary(reconciled) }

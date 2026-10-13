@@ -7,6 +7,8 @@
 // reads any of these; they are display-only, exactly like talentSummary / filmPackage.
 
 import type { Contract, GameState, GameStateV3, TheatricalRun, LedgerKind } from './types.js'
+import { loanInstallmentDue } from './studioLoan.js'
+import { closedWeekOf } from './operatingState.js'
 import { TUNING } from './tuning.js'
 import { weeklyPlacementOperatingCost } from './placement.js'
 import { weeklyResearchSpend } from './technology.js'
@@ -69,7 +71,20 @@ export function weeklyFacilityOperatingCost(state: GameState): number {
 // PROJECTION past that gate and is unchanged.
 export function weeklyBurn(state: GameState): number {
   if (state.founding !== null) return 0
-  return weeklyPayroll(state) + weeklyOverhead(state) + weeklyFacilityOperatingCost(state) + weeklyResearchSpend(state)
+  return weeklyPayroll(state) + weeklyOverhead(state) + weeklyFacilityOperatingCost(state) + weeklyResearchSpend(state) + weeklyLoanInstallment(state)
+}
+
+// P15B Wave 5 (1357-A §6.4, §7): the studio loan installment the next advance charges (tick step 7.7),
+// 0 without a loan or outside its schedule. An existing commitment, so it is in burn and runway; the
+// shared fixed cost of the ranking band (powerRankingArchive.studioWeeklyFixedCost) deliberately omits it.
+export function weeklyLoanInstallment(state: GameState): number {
+  const h = state.hollywood
+  const root = (state as Partial<GameState>).corporateCondition
+  // Wave-4 contract §2: an actual closure stops the schedule; a closed studio's burn carries no installment (r3).
+  if (h === null || root === undefined || state.founding !== null || closedWeekOf(state).has(h.playerStudioId)) return 0
+  const week = state.market.tick
+  const loan = root.loans.find((l) => l.studioId === h.playerStudioId && week >= l.contractedWeek && week <= l.contractedWeek + l.installments.length)
+  return loan === undefined ? 0 : loanInstallmentDue({ principal: loan.principal, total: loan.total, contractedWeek: loan.contractedWeek, installments: loan.installments }, week)
 }
 
 // During FOUNDING (founding !== null) overhead is not yet charged (tick step 7.5 gates on
@@ -435,6 +450,7 @@ export type FinanceTotals = {
   termination: number
   publicity: number // D-17B §5: Σ publicity campaign purchases, stored negative
   construction: number // Annex V1: Σ studio construction capex, stored negative
+  financing: number // P15B (1357-A §6.3): Σ loan principal received less installments paid, signed
   net: number // Σ all retained ledger amounts; migrated pre-ledger cash may use a V11 checkpoint
 }
 
@@ -449,6 +465,7 @@ const ZERO_TOTALS = (): FinanceTotals => ({
   termination: 0,
   publicity: 0,
   construction: 0,
+  financing: 0,
   net: 0,
 })
 
@@ -493,6 +510,11 @@ const KIND_FIELD: Record<LedgerKind, keyof FinanceTotals> = {
   setCapex: 'construction',
   setDemolitionRefund: 'construction',
   setMaintenance: 'overhead',
+  // P15B (1357-A §6.3): the loan is financing, its own explicit bucket, so operating cash never flatters
+  // itself with borrowed money; a closure claim payment is an employment exit payment beside termination.
+  loanPrincipal: 'financing',
+  loanInstallment: 'financing',
+  claimPayment: 'termination',
 }
 
 // Aggregate the whole signed ledger by kind. `net` is the reconciliation total.
@@ -518,7 +540,8 @@ export type PeriodSummary = {
   production: number
   publicity: number // D-17B §5: publicity campaign purchases in the window (negative)
   construction: number // Annex V1: studio construction capex in the window (negative)
-  otherCash: number // signingBonus + freelancerFee + termination
+  financing: number // P15B: loan principal received less installments charged in the window
+  otherCash: number // signingBonus + freelancerFee + termination + claimPayment
   netCash: number // signed Σ over the window
   releases: number // runs opened in the window
   completedRuns: number // runs whose final week credited in the window
@@ -538,6 +561,7 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
     production: 0,
     publicity: 0,
     construction: 0,
+    financing: 0,
     otherCash: 0,
     netCash: 0,
     releases: 0,
@@ -600,7 +624,13 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
       case 'signingBonus':
       case 'freelancerFee':
       case 'termination':
+      case 'claimPayment':
         s.otherCash += e.amount
+        break
+      // P15B (1357-A §6.3): financing has its own explicit case, as KIND_FIELD files it.
+      case 'loanPrincipal':
+      case 'loanInstallment':
+        s.financing += e.amount
         break
       default: {
         // Exhaustiveness guard (the actions.ts:1288 idiom): a new LedgerKind must be given a

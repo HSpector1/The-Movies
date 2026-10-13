@@ -94,7 +94,11 @@ function stepEvidence(group: keyof typeof consumed, state: GameState): GameState
   assert.ok(consumed[group] < limit.ticks, `${group} aggregate ${limit.ticks}-tick limit`)
   assert.ok(state.market.tick < limit.week, `${group} maximum world${limit.week}`)
   consumed[group]++
-  const next = tick(state, { develop: true })
+  // P15B closure/v1 (1370-ar r3; Owner ruling 1342-O 3): the deferred chain runs the genuine deep-deficit world
+  // 2600 -> 3162, whose player is closure due from 2633. The chain's subject is one retired actor's transitions,
+  // never the player's cash, so both groups tick as the browser Studio Lot does: the player's closure due recorded
+  // and left due, no injected money (the held group, at most week 365, never reaches a closure due).
+  const next = tick(state, { develop: true, deferPlayerClosure: true })
   expect(next.market.tick).toBe(state.market.tick + 1)
   return next
 }

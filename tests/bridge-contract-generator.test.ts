@@ -530,6 +530,7 @@ describe('CF-08 sound union-to-C# generation', () => {
         ['StudioQuoteCommissionRequest', ['quoteCommission'], ['draft', 'type']],
         // P10-R1: the contract quote family (renewal / early release) joins the same envelope.
         ['StudioQuoteContractRequest', ['quoteContract'], ['draft', 'type']],
+        ['StudioQuoteLoanRequest', ['quoteLoan'], ['draft', 'type']],
         // P14A.1: the market-proposal quote family (propose/revise/withdraw) joins it too.
         ['StudioQuoteMarketProposalRequest', ['quoteMarketProposal'], ['draft', 'type']],
         // P09 W1: the placement quote family joins the SAME union envelope.
@@ -566,12 +567,12 @@ describe('CF-08 sound union-to-C# generation', () => {
       // read independently of this test (never schemaIdentity(schema) itself).
       // Relationship slice B (1358-N P1/P2, projection 57): `labels` and `romance` on
       // the relationship row moved the whole-schema identity again.
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 57 })
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 58 })
       expect(generated).toContain(
-        '// Schema identity: sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253',
+        '// Schema identity: sha256:13b7933fdd1e3dc9851dd08630e46efd43e70227f5e0c6f6cf130d885752ab74',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253',
+        'sha256:13b7933fdd1e3dc9851dd08630e46efd43e70227f5e0c6f6cf130d885752ab74',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -729,8 +730,8 @@ describe('CF-08 sound union-to-C# generation', () => {
         // are 420340 bytes / 1dadf88f…; all six fixed bodies, including F12, remain
         // unchanged.
         // This measurement precedes these pins and is not failure-derived.
-        F10_CURRENT_QUOTE_UNIONS: '1dadf88fb7230405a6232fff3a37e3aee9014718200dfdb8baf4ff385ab71fa4',
-        F11_CURRENT_COMMAND_UNION: '1dadf88fb7230405a6232fff3a37e3aee9014718200dfdb8baf4ff385ab71fa4',
+        F10_CURRENT_QUOTE_UNIONS: '47c2bade023735a54472cace898aaa65a3f516d1ea6ea0db598274f58dc725d0', // P15B (1370-ar): the `takeLoan` intent kind joins the quote unions
+        F11_CURRENT_COMMAND_UNION: '47c2bade023735a54472cace898aaa65a3f516d1ea6ea0db598274f58dc725d0', // P15B (1370-ar): the `takeLoan` intent kind joins the command union
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

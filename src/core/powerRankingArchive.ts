@@ -23,6 +23,20 @@ import type { HollywoodState } from './hollywoodTypes.js'
 import type { GameState, PowerRankingRecord, PowerRankingRecordRow } from './types.js'
 
 const RANKING_PHASE = 'p15a2.rankingRecord'
+/**
+ * P15B Wave 4 (the Wave-4 closure contract §2 "Ranking and end-of-run consumers"; 1356-A §7): the closure
+ * cohort. At quarter boundary W the cohort is the studios entered by W whose actual closure week is null
+ * or ≥ W; their films alone compete. The v1 evaluator, formula, window and tie law are unchanged and every
+ * v1 record stays v1. A record is written under v2 exactly when an actual closure precedes its boundary
+ * (the first boundary at which the two cohorts can differ); before that the definitions coincide and v1
+ * remains the sole definition. No reader compares archive records across definitions yet: the Bridge's movement
+ * (bridge/industry.ts) reads the industry chart snapshots, not this archive, so a W − 13 movement consumer with a
+ * cross-definition "unavailable" rule is a declared gap (1370-ar REPORT r3, review C12).
+ */
+export const POWER_RANKING_CLOSURE_DEFINITION = 'power-ranking/v2'
+type Closed = ReadonlyMap<string, number> | null
+const closedBefore = (closed: Closed, week: number): boolean => closed !== null && [...closed.values()].some((c) => c < week)
+const excluded = (closed: Closed, studioId: string, week: number): boolean => { const c = closed?.get(studioId); return c !== undefined && c < week }
 const BANDS: readonly FinancialStrengthBand[] = ['inTheRed', 'strained', 'stable', 'thriving']
 const ROOT_KEYS = ['recordedFromWeek', 'snapshots', 'version'] as const
 const RECORD_KEYS = ['available', 'definitionVersion', 'id', 'p15DomainSequence', 'phaseId', 'phaseOrderVersion',
@@ -59,11 +73,11 @@ function cashOf(state: GameState, h: HollywoodState, studioId: string): number {
 }
 
 /** The law's input at `week` from persisted facts; `finance` false reads cash and cost as 0. */
-function rankingInputAt(state: GameState, week: number, finance: boolean): RankingInput {
+function rankingInputAt(state: GameState, week: number, finance: boolean, closed: Closed = null): RankingInput {
   const h = industryOf(state)
   const studios: RankingStudio[] = []
   for (const identity of h.identities) {
-    if (identity.enteredWeek === null || identity.enteredWeek > week) continue
+    if (identity.enteredWeek === null || identity.enteredWeek > week || excluded(closed, identity.studioId, week)) continue
     studios.push({
       studioId: identity.studioId,
       enteredWeek: identity.enteredWeek,
@@ -75,7 +89,7 @@ function rankingInputAt(state: GameState, week: number, finance: boolean): Ranki
   const films: RankingFilm[] = []
   for (const film of state.studio.releasedFilms) {
     // A pre-origin player film (migration-origin saves only) is not passed (1356-A §3).
-    if (film.releaseTick < h.originWeek) continue
+    if (film.releaseTick < h.originWeek || excluded(closed, h.playerStudioId, week)) continue
     const run = runs.get(film.productionId)
     films.push({
       filmId: film.productionId,
@@ -90,6 +104,7 @@ function rankingInputAt(state: GameState, week: number, finance: boolean): Ranki
     })
   }
   for (const film of h.films) {
+    if (excluded(closed, film.studioId, week)) continue
     if (film.provenance === 'authored-start/v1') {
       films.push({
         filmId: film.filmId,
@@ -119,7 +134,12 @@ function rankingInputAt(state: GameState, week: number, finance: boolean): Ranki
 
 /** The law's input at W = state.market.tick (1356-A §3). No player flag, no RNG. */
 export function powerRankingInput(state: GameState): RankingInput {
-  return rankingInputAt(state, state.market.tick, true)
+  return rankingInputAt(state, state.market.tick, true, closedStudios(state))
+}
+/** The actual closures (closure/v1): read from the sibling root, never from the condition stage. */
+function closedStudios(state: GameState): Closed {
+  const root = (state as Partial<GameState>).studioClosure
+  return root === undefined || root.closures.length === 0 ? null : new Map(root.closures.map((c) => [c.studioId, c.closureWeek]))
 }
 
 function recordRow(row: PowerRankingRow): PowerRankingRecordRow {
@@ -156,7 +176,7 @@ export function recordPowerRankingQuarter(state: GameState): GameState {
     p15DomainSequence: n,
     ...p15PhaseTriple(RANKING_PHASE),
     week,
-    definitionVersion: snapshot.definitionVersion,
+    definitionVersion: closedBefore(closedStudios(state), week) ? POWER_RANKING_CLOSURE_DEFINITION : snapshot.definitionVersion,
     available: snapshot.available,
     windowStartWeek: snapshot.windowStartWeek,
     rows: snapshot.rows.map(recordRow),
@@ -190,7 +210,7 @@ const rowFacts = (row: Pick<PowerRankingRecordRow, 'studioId' | 'ranked' | 'rank
  * cohort; the recompute by era. The allocator across every P15 root is save.ts's
  * `validateP15Allocator`, which the step runs once (1361-F ruling 5). Refuses by name; never repairs.
  */
-export function validatePowerRankingArchive(raw: Record<string, unknown>): void {
+export function validatePowerRankingArchive(raw: Record<string, unknown>, closed: ReadonlyMap<string, number> | null = null): void {
   const archive = raw.powerRanking
   if (!isObject(archive) || !hasExactKeys(archive, ROOT_KEYS)) refuse('root must be exactly {version, recordedFromWeek, snapshots}')
   if (archive.version !== 1) refuse('version must be 1')
@@ -223,7 +243,10 @@ export function validatePowerRankingArchive(raw: Record<string, unknown>): void 
     if (!isObject(value) || !hasExactKeys(value, RECORD_KEYS)) refuse(`record ${index} has the wrong keys`)
     const record = value as unknown as PowerRankingRecord
     if (record.week !== expected[index]) refuse(`cadence: record ${index} is not the quarter ${expected[index]}`)
-    if (record.definitionVersion !== POWER_RANKING_DEFINITION) refuse(`record ${record.week} names an unknown definition`)
+    // P15B Wave 4: v2 exactly when an actual closure precedes the boundary; a v2 stamp with no earlier
+    // closure, or v1 with one, names a definition the law did not write at that week.
+    const closureCohort = closedBefore(closed, record.week)
+    if (record.definitionVersion !== (closureCohort ? POWER_RANKING_CLOSURE_DEFINITION : POWER_RANKING_DEFINITION)) refuse(`record ${record.week} names an unknown definition`)
     // This root's own rule (1355-F2 item 4): whole sequences that ascend with weeks, and the id
     // that cites them (annex D.7). Distinct across roots and below `next` is the allocator's rule.
     const n = record.p15DomainSequence
@@ -244,13 +267,13 @@ export function validatePowerRankingArchive(raw: Record<string, unknown>): void 
       if (!isObject(row) || !hasExactKeys(row, ROW_KEYS)) refuse(`record ${record.week} has a row with the wrong keys`)
       if (!BANDS.includes(row.band as FinancialStrengthBand)) refuse(`record ${record.week} has an unknown band`)
     }
-    const cohort = h.identities.filter((s) => s.enteredWeek !== null && s.enteredWeek <= record.week).map((s) => s.studioId).sort()
+    const cohort = h.identities.filter((s) => s.enteredWeek !== null && s.enteredWeek <= record.week && !(closureCohort && excluded(closed, s.studioId, record.week))).map((s) => s.studioId).sort()
     const rowIds = record.rows.map((row) => row.studioId).sort()
     if (JSON.stringify(rowIds) !== JSON.stringify(cohort)) refuse(`cohort: record ${record.week} rows are not exactly the studios entered by its week`)
 
     // Recompute by era: v1 is computePowerRanking with today's pinned TUNING. Cash and cost read 0,
     // because cash at W is not recoverable, so every field but the band must match, row order included.
-    const law = computePowerRanking(rankingInputAt(state, record.week, false))
+    const law = computePowerRanking(rankingInputAt(state, record.week, false, closureCohort ? closed : null))
     if (record.available !== law.available || record.windowStartWeek !== law.windowStartWeek) {
       refuse(`record ${record.week} availability or window differs from the recomputed law`)
     }

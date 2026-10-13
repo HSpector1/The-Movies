@@ -15,6 +15,7 @@ import { advanceHollywoodWeek } from '../src/core/hollywoodTick.js'
 import { tick } from '../src/core/tick.js'
 import { makeSave, validatedLiveProfessionContext } from '../src/core/save.js'
 import { p13aGeneratedStudio, advanceTo } from '../src/harness/p13a/fixtures.js'
+import { PLAYER_CLOSURE_DEFERRED } from './helpers/p15b-live.js'
 import { generateWorld } from '../src/core/worldgen.js'
 import { TUNING } from '../src/core/tuning.js'
 import { rivalWeeklyOperatingCost } from '../src/core/hollywood.js'
@@ -433,7 +434,10 @@ function marketControls(): Map<MarketKind, MarketWitness> {
         }
         return control
       })
-      try { state = tick(state) } finally { observer.mockRestore() }
+      // P15B closure/v1 (1370-ar r3; Owner ruling 1342-O 3): the c2b corpus player is closure due at 2633, inside this
+      // bounded route. The witnesses are rival market phases, never the player's cash, so the route ticks as the
+      // browser Studio Lot does: the player's closure due recorded and left due, no injected money.
+      try { state = tick(state, PLAYER_CLOSURE_DEFERRED) } finally { observer.mockRestore() }
     }
   }
   marketWitnesses = found

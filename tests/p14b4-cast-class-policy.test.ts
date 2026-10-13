@@ -23,6 +23,8 @@ import { publicPreferredOpportunity, publicPreferredTerm, publicPriorityOrder, s
 import { attachPromise, promiseFeasibility, trustDescriptor } from '../src/core/promises.js'
 import type { PromisePredicate } from '../src/core/promises.js'
 import { ageAt, anchorOf, provenanceRowFor, recomputeDue } from '../src/core/aging.js'
+import { advanceCorporateConditionWeek } from '../src/core/corporateConditionLive.js'
+import { advanceStudioClosureWeek } from '../src/core/studioClosure.js'
 
 const clone = <T>(value: T): T => structuredClone(value)
 
@@ -291,7 +293,10 @@ function controlledPair(age: 29 | 30) {
   expect(entered).toHaveLength(5)
   for (const issuer of entered) state = submitProposal(state, { talentId, issuerStudioId: issuer.studioId,
     termWeeks: 208, premiumTier: issuer.studioId === playerId ? 1.25 : 1 })
-  state = advanceTo(marketModule.advanceTalentMarketWeek(state), 207)
+  // P15B (record 1370-ar, r3): the spy-captured pre-market input stops week 196's tick at the market. The P15B
+  // corporate condition evaluates every week, so its phase and the closure phase of week 196 run here after the
+  // manual market week, as tick runs them; without them the next tick refuses week 197 as non-consecutive.
+  state = advanceTo(advanceStudioClosureWeek(advanceCorporateConditionWeek(marketModule.advanceTalentMarketWeek(state))), 207)
   expect(state.promises.filter((p) => p.beneficiaryPersonId === talentId)).toEqual([])
   const nonpair = entered.filter((s) => ![playerId, incumbentId].includes(s.studioId))
   expect(nonpair).toHaveLength(3)

@@ -363,6 +363,7 @@ describe('PF1-M2 contract — advance grammar agrees with the other cue surfaces
       production: 0,
       publicity: 0,
       construction: 0,
+      financing: 0, // P15B (1370-ar): the loan bucket of the period summary
       otherCash: 0,
       netCash: 0,
       releases: 0,

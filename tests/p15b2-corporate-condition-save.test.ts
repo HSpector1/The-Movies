@@ -1,0 +1,268 @@
+// ── P15B Wave 2 — the save step: migration, downgrade, validation and round trip, RED tests (record 1370-ar) ──
+//
+// Authority: 1357-A §4.1 (validation items 1-7), §4.2 (migration and the save step), §10 S1-S7, as adopted by
+// 1357-F Amendment 1 (cross-root allocator rules; RED S3 gains a duplicate sequence across roots, a stale
+// `next` and a mismatched phase triple); 1361-F3 ruling 2 (P15B's root stays out of P15_ROOT_KEYS and runs
+// the one allocator check itself); the Wave-4 contract §5 (era-gated roots, empty observational migration,
+// no lossy downgrade, both phase tables).
+//
+// RED BY DESIGN at 6510c971: LIVE_SAVE_VERSION is 45, no P15B step exists, and the frozen V45 chain refuses
+// the loan ledger kinds and rival money kinds by name.
+// r2 (stacked on founding r3): the step is Save48 over founding's Save47 (R8's Save46 below it); the predecessor's
+// own reader `validateSaveV47` admits every downgraded envelope here, and the P15B refusal appends the predecessor
+// steps' own reasons rather than masking them.
+import { describe, expect, it } from 'vitest'
+import { applyActions } from '../src/core/actions.js'
+import { exportSave, FOUNDING_FUNDING_SAVE_VERSION, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, migrateToV45, migrateToV46, migrateToV47, validateSaveV47 } from '../src/core/save.js'
+import { tick } from '../src/core/tick.js'
+import { TUNING } from '../src/core/tuning.js'
+import type { Action, GameState } from '../src/core/types.js'
+import { base, BASE_WEEK, canon, conditionRoot, drainPlayer, loansOf, PLAYER, R04, raw, recordOf, refuses, rivalClosure, ticks } from './helpers/p15b-live.js'
+import { genuineV42Week130 } from './p14d1-rival-shelving-fixtures.js'
+
+type Save = { saveVersion: number; seed: string; state: Record<string, unknown>; broadcastCache: unknown[] }
+type SaveModule = Record<string, (save: unknown) => Save>
+
+async function saveModule(): Promise<SaveModule> {
+  return (await import('../src/core/save.js')) as unknown as SaveModule
+}
+function step<T extends (...a: any[]) => any>(mod: Record<string, unknown>, name: string): T {
+  const value = mod[name]
+  if (typeof value !== 'function') throw new Error(`RED: src/core/save.ts exports no function '${name}' (the V46 step has not landed)`)
+  return value as T
+}
+const takeLoan = (principal: number): Action => ({ kind: 'takeLoan', principal } as unknown as Action)
+const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value)) as T
+const LOAN_KINDS = ['loanPrincipal', 'loanInstallment', 'claimPayment']
+
+/** A ticked, borrowed, mid-distress state at week 140 (player negative from 131, loan at 134), saved once. */
+let borrowedAt140: GameState | null = null
+function borrowed(): GameState {
+  if (borrowedAt140 === null) {
+    const s134 = ticks(drainPlayer(base(), base().studio.cash + 1), 4)
+    borrowedAt140 = ticks(applyActions(s134, [takeLoan(390_000)]), 6)
+  }
+  return borrowedAt140
+}
+function tampered(edit: (state: Record<string, unknown>) => void): Save {
+  const save = clone(makeSave(borrowed())) as unknown as Save
+  edit(save.state)
+  return save
+}
+const root = (state: Record<string, unknown>) => state.corporateCondition as { version: number; recordedFromWeek: number; nextEvent: number; nextLoan: number; studios: Record<string, unknown>[]; events: Record<string, unknown>[]; loans: Record<string, unknown>[] }
+
+describe('p15b2 save step: migration and downgrade (1357-A §4.2; S1-S2)', () => {
+  it('condition-root-migration-empty-genuine-v42', async () => {
+    const mod = await saveModule()
+    const live = migrateToLive(genuineV42Week130() as never)
+    expect(live.saveVersion).toBe(LIVE_SAVE_VERSION)
+    const state = live.state as unknown as GameState
+    expect(canon(conditionRoot(state))).toBe(canon({ version: 1, recordedFromWeek: BASE_WEEK, nextEvent: 1, nextLoan: 1, studios: [], events: [], loans: [] }))
+    for (const business of state.hollywood!.businesses) {
+      for (const period of business.account.periods) {
+        for (const kind of LOAN_KINDS) expect((period.movements as Record<string, number>)[kind], `${business.studioId} ${kind}`).toBe(0)
+      }
+    }
+    expect(state.ledger.some((row) => LOAN_KINDS.includes(row.kind))).toBe(false)
+    // The step is explicit: convertToP15BSave of the predecessor projection reproduces the live save byte for byte.
+    const convertFromStep = step<(save: unknown) => Save>(mod, 'convertFromP15BSave')
+    const convertToStep = step<(save: unknown) => Save>(mod, 'convertToP15BSave')
+    const down = convertFromStep(live)
+    expect(down.saveVersion).toBe(LIVE_SAVE_VERSION - 1) // the predecessor, renumbered with P15B_SAVE_VERSION
+    expect(canon(convertToStep(down))).toBe(canon(live))
+    // The first tick evaluates its own week and nothing earlier (1352-F2 ruling 1).
+    const ticked = tick(state)
+    expect(conditionRoot(ticked).studios.every((r) => r.firstEvaluatedWeek === BASE_WEEK + 1)).toBe(true)
+  })
+
+  it('condition-root-downgrade', async () => {
+    const mod = await saveModule()
+    const convertFromStep = step<(save: unknown) => Save>(mod, 'convertFromP15BSave')
+    const empty = makeSave(base())
+    const down = convertFromStep(empty)
+    expect(Object.hasOwn(down.state, 'corporateCondition')).toBe(false)
+    expect(Object.hasOwn(down.state, 'studioClosure')).toBe(false)
+    expect(() => validateSaveV47(down)).not.toThrow() // the predecessor's own reader (founding's Save47)
+    for (const business of (down.state.hollywood as { businesses: { account: { periods: { movements: Record<string, number> }[] } }[] }).businesses) {
+      for (const period of business.account.periods) for (const kind of LOAN_KINDS) expect(Object.hasOwn(period.movements, kind)).toBe(false)
+    }
+    // A ticked save holds records: the downgrade refuses by name, and a loan is named too.
+    refuses(() => convertFromStep(makeSave(tick(base()))), 'corporateCondition')
+    refuses(() => convertFromStep(makeSave(borrowed())), 'loan')
+    // The loan kinds are refused below the era: a predecessor envelope carrying one fails the frozen chain.
+    const forgedLedger = clone(down)
+    ;(forgedLedger.state.ledger as Record<string, unknown>[]).push({ week: BASE_WEEK, kind: 'loanPrincipal', amount: 1000, note: 'forged' })
+    ;(forgedLedger.state.studio as { cash: number }).cash += 1000
+    refuses(() => validateSaveV47(forgedLedger), 'kind')
+    const forgedMovement = clone(down)
+    const period = (forgedMovement.state.hollywood as { businesses: { account: { periods: { movements: Record<string, number> }[] } }[] }).businesses[0]!.account.periods[0]!
+    period.movements.loanPrincipal = 0
+    // r3 (review T14): the frozen chain names the exact movement keys it admits; the loan key is not one of them.
+    refuses(() => validateSaveV47(forgedMovement), 'Hollywood save: exact keys required: capacity,signing,payroll,overhead,facilityOpex,development,production,marketing,studioRevenue,technologyAdoption,researchSpend,researchCapacity,technologyRestoration,technologyRefund,termination,facilityDemolitionRefund')
+  })
+
+  // r2 (1370-ar, stacked on founding r3): the step over founding's Save47 and R8's Save46.
+  it('stacked-step-save48-over-founding-save47', async () => {
+    const mod = await saveModule()
+    const convertFromStep = step<(save: unknown) => Save>(mod, 'convertFromP15BSave')
+    const convertToStep = step<(save: unknown) => Save>(mod, 'convertToP15BSave')
+    expect(LIVE_SAVE_VERSION, 'one step above the recruitment-fund era').toBe(FOUNDING_FUNDING_SAVE_VERSION + 1)
+    // (a) the null-root downgrade is lossless and lands on the predecessor's own reader; every public step below
+    // it (founding's fund, R8's recovery, the shared P15 step) admits the empty world, and the live migration lifts
+    // each of them back to this step byte for byte.
+    const empty = makeSave(base())
+    const down = convertFromStep(empty)
+    expect(down.saveVersion).toBe(FOUNDING_FUNDING_SAVE_VERSION)
+    expect(validateSaveV47(down)).toBe(down)
+    expect(canon(convertToStep(down))).toBe(canon(empty))
+    expect(migrateToV47(empty).saveVersion).toBe(FOUNDING_FUNDING_SAVE_VERSION)
+    expect(migrateToV46(empty).saveVersion).toBe(FOUNDING_FUNDING_SAVE_VERSION - 1)
+    expect(migrateToV45(empty).saveVersion).toBe(FOUNDING_FUNDING_SAVE_VERSION - 2)
+    for (const older of [migrateToV47(empty), migrateToV46(empty), migrateToV45(empty)]) expect(canon(migrateToLive(older))).toBe(canon(empty))
+    // (b) the predecessor era is gated: a Save47 envelope carrying a P15B root or a loan movement is refused by
+    // the frozen chain by name; the roots never leak into an older reader.
+    const forgedRoot = clone(down)
+    ;(forgedRoot.state as Record<string, unknown>).corporateCondition = clone(empty.state.corporateCondition)
+    refuses(() => validateSaveV47(forgedRoot), 'corporateCondition')
+    // (c) a ticked, borrowed state refuses here first, naming this step's reasons before the predecessor steps'
+    // own, which are appended rather than masked (founding's convertV47ToV46 pattern): the message starts with the
+    // condition record, names the loan, and ends with the shared P15 step's reason when that step holds a row.
+    const live = makeSave(borrowed())
+    let message = ''
+    try { convertFromStep(live) } catch (error) { message = (error as Error).message }
+    expect(message).toMatch(new RegExp(`^migrateToV${FOUNDING_FUNDING_SAVE_VERSION}: cannot downgrade or discard a corporateCondition record`))
+    expect(message).toMatch(/cannot downgrade or discard a loan or claim ledger row/)
+    const p15Rows = (live.state.sharedMarket as { assessments: unknown[] }).assessments.length + (live.state.powerRanking as { snapshots: unknown[] }).snapshots.length
+    if (p15Rows > 0) expect(message).toMatch(/; cannot downgrade or discard a recorded (?:shared-market assessment|Power Ranking quarter)/)
+    for (const older of [migrateToV47, migrateToV46, migrateToV45]) expect(() => older(live)).toThrow(new RegExp(`^migrateToV${FOUNDING_FUNDING_SAVE_VERSION}: cannot downgrade or discard a corporateCondition record`))
+    expect(canon(makeSave(borrowed()))).toBe(canon(live))
+  })
+})
+
+describe('p15b2 save step: the root validator (1357-A §4.1; S3-S6)', () => {
+  it('condition-validate-records-and-ids', async () => {
+    const validateSaveP15B = step<(save: unknown) => Save>(await saveModule(), 'validateSaveP15B')
+    expect(() => validateSaveP15B(makeSave(borrowed()))).not.toThrow()
+    expect(root(raw(borrowed())).events.length, 'premise: warning and distress events').toBeGreaterThanOrEqual(2)
+    refuses(() => validateSaveP15B(tampered((s) => { root(s).events.push({ ...root(s).events[0]! }) })), 'corporateCondition')
+    refuses(() => validateSaveP15B(tampered((s) => { root(s).events[0]!.eventId = 'corporate-event-99' })), 'corporateCondition')
+    refuses(() => validateSaveP15B(tampered((s) => { root(s).nextEvent = 1 })), 'corporateCondition')
+    refuses(() => validateSaveP15B(tampered((s) => { (root(s).studios[0]!.condition as { week: number }).week -= 1 })), 'corporateCondition')
+    refuses(() => validateSaveP15B(tampered((s) => { (root(s).studios[0]!.condition as { lowRun: number }).lowRun = -1 })), 'corporateCondition')
+    refuses(() => validateSaveP15B(tampered((s) => { root(s).studios.push({ ...root(s).studios[0]!, studioId: 'studio-aca408ec-r05' }) })), 'corporateCondition')
+    refuses(() => validateSaveP15B(tampered((s) => { root(s).version = 2 })), 'corporateCondition')
+    refuses(() => validateSaveP15B(tampered((s) => { (root(s) as Record<string, unknown>).extra = 1 })), 'corporateCondition')
+    // 1357-F Amendment 1: a duplicate sequence across roots and a stale allocator refuse.
+    refuses(() => validateSaveP15B(tampered((s) => { (root(s).events[1]! as { p15DomainSequence: number }).p15DomainSequence = (root(s).events[0]! as { p15DomainSequence: number }).p15DomainSequence })), 'p15DomainSequence')
+    refuses(() => validateSaveP15B(tampered((s) => { (s.p15Sequence as { next: number }).next += 1 })), 'p15Sequence')
+  })
+
+  it('condition-validate-events', async () => {
+    const validateSaveP15B = step<(save: unknown) => Save>(await saveModule(), 'validateSaveP15B')
+    // events[1] is r04's stable→warning at 134; a `from` that is not its chain's stage breaks the chain.
+    refuses(() => validateSaveP15B(tampered((s) => { root(s).events[1]!.from = 'recovery' })), 'corporateCondition')
+    refuses(() => validateSaveP15B(tampered((s) => { (root(s).events[0]!.causes as { weeks: number }[])[0]!.weeks = 3 })), 'corporateCondition')
+    refuses(() => validateSaveP15B(tampered((s) => { root(s).events[0]!.definitionVersion = 'corporate-condition/v9' })), 'corporateCondition')
+    refuses(() => validateSaveP15B(tampered((s) => { (root(s).events[0]! as { phaseOrdinal: number }).phaseOrdinal += 1 })), 'corporateCondition')
+    refuses(() => validateSaveP15B(tampered((s) => { (root(s).events[0]! as { week: number }).week += 1 })), 'corporateCondition')
+  })
+
+  it('loan-validate-reconcile', async () => {
+    const validateSaveP15B = step<(save: unknown) => Save>(await saveModule(), 'validateSaveP15B')
+    // The player's one loan (134) is the only loan at 140: r04's natural distress loan falls at 141 on the stacked
+    // tree (R8's refund at 131), so the rival leaves below tamper a route where r04 holds a loan (r3, review T14).
+    expect(loansOf(borrowed(), PLAYER).length).toBe(1)
+    expect(root(raw(borrowed())).loans.map((l) => l.studioId)).toEqual([PLAYER])
+    refuses(() => validateSaveP15B(tampered((s) => { (root(s).loans[0]!.installments as number[])[0] += 1 })), 'corporateCondition')
+    refuses(() => validateSaveP15B(tampered((s) => { (root(s).loans[0]! as { principal: number }).principal += 1 })), 'corporateCondition')
+    refuses(() => validateSaveP15B(tampered((s) => { (root(s).loans[0]! as { contractedWeek: number }).contractedWeek = 132 })), 'corporateCondition')
+    refuses(() => validateSaveP15B(tampered((s) => { root(s).loans[0]!.lawVersion = 'studio-loan/v9' })), 'corporateCondition')
+    // Money: the principal row and every due installment row must exist exactly once and reconcile.
+    refuses(() => validateSaveP15B(tampered((s) => {
+      const ledger = s.ledger as { kind: string; amount: number }[]
+      const index = ledger.findIndex((row) => row.kind === 'loanPrincipal')
+      ledger.splice(index, 1)
+      ;(s.studio as { cash: number }).cash -= 390_000
+    })), 'loan')
+    refuses(() => validateSaveP15B(tampered((s) => {
+      const ledger = s.ledger as { kind: string; amount: number }[]
+      const index = ledger.findIndex((row) => row.kind === 'loanInstallment')
+      ledger.splice(index, 1)
+      ;(s.studio as { cash: number }).cash += 8_400
+    })), 'loan')
+    refuses(() => validateSaveP15B(tampered((s) => {
+      const ledger = s.ledger as { week: number; kind: string; amount: number; note: string }[]
+      ledger.push({ week: 136, kind: 'loanInstallment', amount: -8_400, note: 'studio loan installment' })
+      ;(s.studio as { cash: number }).cash -= 8_400
+    })), 'loan')
+    // Sign rules: a negative principal row is refused by the frozen chain itself.
+    refuses(() => validateSaveP15B(tampered((s) => {
+      const row = (s.ledger as { kind: string; amount: number }[]).find((r) => r.kind === 'loanPrincipal')!
+      row.amount = -row.amount
+      ;(s.studio as { cash: number }).cash -= 2 * 390_000
+    })), 'loanPrincipal')
+    // A rival period's loan movements must equal the loans root's sums over the weeks it holds: r04 drained by 10M
+    // borrows at 138 and has paid eleven installments by 150.
+    const holder = rivalClosure(150).get(150)!
+    expect(loansOf(holder, R04).map((l) => l.contractedWeek), 'premise: r04 holds its distress loan').toEqual([138])
+    const rivalTamper = (edit: (business: { account: { cash: number; periods: { closing: number; movements: Record<string, number> }[] } }) => void): Save => {
+      const save = clone(makeSave(holder)) as unknown as Save
+      edit((save.state.hollywood as { businesses: { studioId: string; account: { cash: number; periods: { closing: number; movements: Record<string, number> }[] } }[] }).businesses.find((b) => b.studioId === R04)!)
+      return save
+    }
+    expect(() => validateSaveP15B(makeSave(holder))).not.toThrow()
+    for (const [kind, delta, named] of [['loanInstallment', -8_400, 'loanInstallment movements do not reconcile with its loan schedule'],
+      ['loanInstallment', 8_400, 'loanInstallment movements do not reconcile with its loan schedule'], ['loanPrincipal', 1000, 'loanPrincipal movements do not reconcile with its loans']] as const) {
+      refuses(() => validateSaveP15B(rivalTamper((business) => { const period = business.account.periods.at(-1)!; period.movements[kind] += delta; period.closing += delta; business.account.cash += delta })),
+        `rival ${R04} ${named}`)
+    }
+  })
+
+  // r3 (review C2/D2): a rival's boundary loan and the player's own takeLoan in the same week are a lawful pair, and
+  // the campaign stays savable. The order law still refuses a rival loan appended after the player's in one week.
+  it('loan-same-week-rival-boundary-then-player-action', async () => {
+    const validateSaveP15B = step<(save: unknown) => Save>(await saveModule(), 'validateSaveP15B')
+    const s141 = ticks(drainPlayer(base(), base().studio.cash + 1), 11)
+    expect(loansOf(s141, R04).map((l) => l.contractedWeek), 'premise: r04 borrows at the 141 boundary').toEqual([141])
+    expect(recordOf(s141, PLAYER)!.condition.stage).toBe('distress')
+    const both = applyActions(s141, [takeLoan(390_000)])
+    expect(root(raw(both)).loans.map((l) => [l.studioId, l.contractedWeek])).toEqual([[R04, 141], [PLAYER, 141]])
+    const saved = makeSave(both)
+    expect(() => validateSaveP15B(saved)).not.toThrow()
+    const reloaded = migrateToLive(importSave(exportSave(saved))).state as unknown as GameState
+    expect(canon(reloaded)).toBe(canon(both))
+    expect(canon(ticks(reloaded, 2))).toBe(canon(ticks(both, 2)))
+    expect(() => makeSave(ticks(reloaded, 2))).not.toThrow()
+    const reversed = clone(saved) as unknown as Save
+    const loans = root(reversed.state).loans
+    const [first, second] = [loans[0]!, loans[1]!]
+    loans[0] = { ...second, loanId: first.loanId, p15DomainSequence: first.p15DomainSequence }
+    loans[1] = { ...first, loanId: second.loanId, p15DomainSequence: second.p15DomainSequence }
+    refuses(() => validateSaveP15B(reversed), 'append order')
+  })
+
+  it('condition-law-tables-frozen', async () => {
+    const mod = (await import('../src/core/corporateConditionLive.js')) as unknown as Record<string, unknown>
+    const conditionLaws = mod.CONDITION_LAWS as Record<string, Record<string, number>>
+    const loanLaws = mod.LOAN_LAWS as Record<string, Record<string, number>>
+    if (conditionLaws === undefined || loanLaws === undefined) throw new Error('RED: corporateConditionLive.ts exports no CONDITION_LAWS / LOAN_LAWS tables (1357-A §4.1 item 7)')
+    const condition = conditionLaws['corporate-condition/v1']!
+    for (const key of ['CORPORATE_WARN_COVER_WEEKS', 'CORPORATE_WARN_SUSTAIN_WEEKS', 'CORPORATE_CLEAR_WEEKS', 'CORPORATE_DISTRESS_SUSTAIN_WEEKS', 'CORPORATE_RECOVERY_STABLE_WEEKS', 'CORPORATE_CLOSURE_DISTRESS_WEEKS'] as const) {
+      expect(condition[key], key).toBe(TUNING[key])
+    }
+    const loan = loanLaws['studio-loan/v1']!
+    for (const key of ['LOAN_MAX_FIXED_COST_WEEKS', 'LOAN_TERM_WEEKS', 'LOAN_INTEREST_PERCENT', 'LOAN_AMOUNT_STEP'] as const) expect(loan[key], key).toBe(TUNING[key])
+    expect(Object.isFrozen(condition) && Object.isFrozen(loan)).toBe(true)
+  })
+})
+
+describe('p15b2 save step: the round trip (S7)', () => {
+  it('condition-round-trip', () => {
+    const s140 = borrowed()
+    expect(loansOf(s140, PLAYER).length).toBe(1)
+    const reloaded = migrateToLive(importSave(exportSave(makeSave(s140)))).state as unknown as GameState
+    expect(canon(reloaded)).toBe(canon(s140))
+    expect(canon(ticks(reloaded, 20))).toBe(canon(ticks(s140, 20)))
+    expect(conditionRoot(ticks(reloaded, 20)).studios.find((r) => r.studioId === PLAYER)!.condition.week).toBe(160)
+  })
+})

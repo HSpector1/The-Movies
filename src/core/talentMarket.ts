@@ -43,6 +43,7 @@ import { relationshipsReasonSentence, rosterTies, tiersOnRoster } from './relati
 import type { PromiseAttachment } from './promises.js'
 import { careerIdentity } from './talentSummary.js'
 import { TUNING } from './tuning.js'
+import { closedWeekOf } from './operatingState.js'
 import type { Contract, GameState, Genre, LedgerEntry, LegacyTermination, MarketCaseStatus, MarketEligibilityStatus, OpportunitySeatClass,
   ProfessionalPromise, PromiseClassification, PromiseFamily, PromiseFeasibilityReceipt,
   Standing, TalentMarketCase, TalentMarketCaseV36, TalentMarketProposal, TalentMarketReceipt,
@@ -488,6 +489,30 @@ export function withdrawProposal(state: GameState, talentId: string, issuerStudi
     throw new Error(`talentMarket: studio "${issuerStudioId}" has no current proposal for "${talentId}" to withdraw`)
   }
   return { ...state, talentMarket: { ...state.talentMarket, proposals: others } }
+}
+
+/** P15B closure/v1 (record 1370-ar, r3; Wave-4 contract §4 row 1, §5): the issuer's actual closure withdraws its
+ * proposal through the shared verb and leaves the producer's own `proposalWithdrawn` receipt at the closure week,
+ * the transition the closure validator reads back for bidirectional completeness. */
+export const CLOSURE_PROPOSAL_REASON = 'the issuing studio closed'
+export function withdrawProposalAtClosure(state: GameState, talentId: string, issuerStudioId: string): GameState {
+  const next = withdrawProposal(state, talentId, issuerStudioId)
+  return { ...next, talentMarket: appendReceipt(next.talentMarket, { kind: 'proposalWithdrawn', week: state.market.tick, talentId,
+    studioId: issuerStudioId, reasons: [CLOSURE_PROPOSAL_REASON] }) }
+}
+
+/** P15B closure/v1 (r3; Wave-4 contract §4 row 1): the subject studio's actual closure ended every interval at C,
+ * before each case's decision week, so its open cases are invalidated in the closure transaction itself, by the
+ * market's own invalidation (`closeCase`, the early-release law), under the closure's own reason. */
+export const CLOSURE_CASE_REASON = 'the subject studio closed'
+export function invalidateCasesAtClosure(state: GameState, subjectStudioId: string): GameState {
+  let next = state
+  for (const kase of state.talentMarket.cases) {
+    if (kase.outcome !== null || kase.subjectStudioId !== subjectStudioId) continue
+    next = closeCase(next, kase, 'invalidated', state.market.tick, CLOSURE_CASE_REASON, null,
+      ['the employing studio closed; the person is a free agent now'])
+  }
+  return next
 }
 
 export function currentProposals(state: GameState, talentId: string): readonly TalentMarketProposal[] {
@@ -1396,8 +1421,10 @@ export function advanceTalentMarketWeek(state: GameState): GameState {
       decisionWeek: decisionWeekOf(next, kase),
     }
     const extension = isExtensionCase(kase)
+    const closed = closedWeekOf(next)
     for (const business of next.hollywood!.businesses) {
-      if (business.costCutting.since !== null) continue
+      // P15B closure/v1 (r3; Wave-4 contract §4): an actually closed studio never proposes.
+      if (business.costCutting.since !== null || closed.has(business.studioId)) continue
       if (week < business.nextDecisionWeek) continue // it has not decided this week
       if (next.talentMarket.proposals.some((p) => p.talentId === kase.talentId && p.issuerStudioId === business.studioId)) continue
       // P14C.2b (780 X8, 806 §8.1): on an extension case only the incumbent evaluates, under

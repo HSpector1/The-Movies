@@ -110,6 +110,7 @@ const PRIMARY_CUES: Record<SimStopReason, CueShape> = {
   runCompleted: { tier: 2, sound: 'positive', motion: 'emphasis' },
   contractExpired: { tier: 2, sound: 'warning', motion: 'emphasis' },
   renewalWindow: { tier: 2, sound: 'warning', motion: 'emphasis' },
+  studioClosure: { tier: 2, sound: 'warning', motion: 'emphasis' },
   cashNegative: { tier: 2, sound: 'warning', motion: 'emphasis' },
   limit: { tier: 3, sound: null, motion: 'none' },
 }

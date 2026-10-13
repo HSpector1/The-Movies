@@ -117,11 +117,10 @@ describe('P13B-S3 Save V23 (test 7)', () => {
     // is masked. Pre-1365 pin kept for the record: /^migrateToV39: cannot downgrade or discard an opportunity
     // predicate or recorded first-take subject$/. Measured: evidence/r3/sweep-b4.json.
     const live = makeSave(p13aLaboratorySlice())
-    const firstGuard = /^migrateToV44: cannot downgrade or discard a recorded shared-market assessment \(\d+ recorded\)$/
-    expect(live.state.sharedMarket.assessments.length).toBeGreaterThan(0) // the premise of the new first guard, asserted
-    expect(() => migrateToV22(live)).toThrow(firstGuard)
-    expect(() => migrateToV21(live)).toThrow(firstGuard)
-    expect(() => migrateToV20(live)).toThrow(firstGuard)
+    // P15B (1370-ar, MASKED): the live chain now crosses the P15B step's converter FIRST, and every ticked industry
+    expect(() => migrateToV22(live)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
+    expect(() => migrateToV21(live)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
+    expect(() => migrateToV20(live)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
   })
 
   it('makeSave writes the live saveVersion 37 (stale title corrected post-C.2b)', () => {

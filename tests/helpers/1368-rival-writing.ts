@@ -8,7 +8,7 @@ import { expect } from 'vitest'
 import { busyTalentIds } from '../../src/core/employment.js'
 import { stream } from '../../src/core/rng.js'
 import { scriptDraftWeeks, writingPaceExperience } from '../../src/core/screenplay.js'
-import { LIVE_SAVE_VERSION, convertV46ToV47, makeSave, validateSaveV46, stableStringify } from '../../src/core/save.js'
+import { LIVE_SAVE_VERSION, makeSave, migrateToLive, validateSaveV46, stableStringify } from '../../src/core/save.js'
 import { GENRE_ORDER } from '../../src/core/tuning.js'
 import type { GameState } from '../../src/core/types.js'
 import { ordinaryPath } from './1368-archived-route.js'
@@ -120,7 +120,7 @@ export function load414(): GameState {
   const saved = validateSaveV46(parsed)
   expect(snap(parsed)).toBe(before)
   expect(stableStringify(saved)).toBe(raw.toString('utf8'))
-  const state = admitted(convertV46ToV47(saved).state) // Save47: the V46 artifact enters the live engine through the step
+  const state = admitted(migrateToLive(saved).state) // Save47, then Save48 (1370-ar): the V46 artifact enters the live engine through every later step
   premise414(state)
   return state
 }

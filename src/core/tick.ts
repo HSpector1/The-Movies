@@ -6,6 +6,8 @@ import { birthdaysDueAt, materializeAges, withTalentProvenance } from './aging.j
 import { advanceLifecycleIntent, advanceLifecycleSettlement } from './careerLifecycle.js'
 import { freezeCampaignLegacyWeek } from './campaignLegacy.js'
 import { recordPowerRankingQuarter } from './powerRankingArchive.js'
+import { advanceCorporateConditionWeek, loanInstallmentDueFor } from './corporateConditionLive.js'
+import { advanceStudioClosureWeek, assertOperatingPlayer } from './studioClosure.js'
 import { advancePromisesWeek, appendFirstTakes, breakPromisesOnGreenlight } from './promises.js'
 import { advanceRelationshipsWeek } from './relationships.js'
 import { advanceTalentMarketWeek } from './talentMarket.js'
@@ -107,7 +109,7 @@ import {
   scriptOccupiedFacilitySlots,
   scriptProjectForProduction,
 } from './scriptDevelopment.js'
-import { FACILITY_OPEX_LEDGER_NOTE, TUNING } from './tuning.js'
+import { FACILITY_OPEX_LEDGER_NOTE, LOAN_INSTALLMENT_LEDGER_NOTE, TUNING } from './tuning.js'
 import { buildFilmResult, resolveReception, type ReceptionInputs } from './reception.js'
 import { RngStream, stream } from './rng.js'
 import { resolveShape } from './shape.js'
@@ -193,6 +195,10 @@ type ReleaseRecord = {
 // This is a parameter — like agent choice — NOT a persisted GameState field.
 export type TickOptions = {
   develop?: boolean
+  /** P15B closure/v1 (r3; Wave-4 contract §2, 1367-G): a surface without the Wave 5 notices, loan verb and
+   * read-only closure screen (the browser Studio Lot) passes true. The player's closure due is recorded and stays
+   * due; its actual closure runs at the first closure phase of a surface that presents it. Rivals close as ever. */
+  deferPlayerClosure?: boolean
 }
 
 export function tick(state: GameState, options?: TickOptions): GameState {
@@ -202,6 +208,9 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // browser and the bridge already withhold every advance during founding (1364-R); this is the
   // engine boundary's own refusal, not a new UI path, and it erases no genuine rival activity.
   if (state.founding !== null) throw new Error(TICK_OPEN_DRAFT_REFUSAL)
+  // P15B Wave 4 (closure/v1; 1362-O §5.2): an actually closed player studio is read-only history. The
+  // week never advances again; nothing is simulated past its closure.
+  assertOperatingPlayer(state, 'tick')
   const writingContext = prepareLiveWritingContext(state)
   const develop = options?.develop ?? false
   const currentTick = state.market.tick
@@ -1017,6 +1026,18 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     }
   }
 
+  // ── 7.7 STUDIO LOAN INSTALLMENT (P15B Wave 2; 1357-A §5-§6.3) ─────────────
+  // INSERTION, NOT A REORDERING. The installment due at the week being advanced is charged with the
+  // fixed costs, whatever the cash (§6.4); no row when nothing is due. Only an actual closure stops the
+  // schedule (Wave 4), and a closed player never reaches this step.
+  if (state.hollywood !== null && state.founding === null) {
+    const installment = loanInstallmentDueFor(state, state.hollywood.playerStudioId, currentTick)
+    if (installment > 0) {
+      cash -= installment
+      ledger.push({ week: currentTick, kind: 'loanInstallment', amount: -installment, note: LOAN_INSTALLMENT_LEDGER_NOTE })
+    }
+  }
+
   // ── 8. CONTRACT EXPIRATION (D-11.8) ────────────────────────────────────────
   // Contracts whose term ends at or before the NEW week expire; their talent
   // become free agents (deterministic order: existing free agents, then expiring
@@ -1189,8 +1210,13 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // between the two (1355-F2 item 2; 1361-F ruling 9). No RNG.
   // P15C Wave 2 (1359-A §4.2): the 2040 freeze reads the week's final state, the 6240 ranking record
   // included, and writes only `campaignLegacy` and `p15Sequence`, in the tick producing week 6240 alone.
-  return freezeCampaignLegacyWeek(recordPowerRankingQuarter(
-    advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withBonds, birthdays))))))
+  // P15B Waves 2 and 4 (1357-A §5; the Wave-4 closure contract §2; phase-order version 2): the condition
+  // step follows the ranking record (the quarter's band and the condition read the same settled cash, and
+  // a studio closing at W stays in that snapshot), the closure phase follows the condition step (closure
+  // due declared at W is closed at W, before Legacy freeze), and the freeze stays last. No RNG.
+  return freezeCampaignLegacyWeek(advanceStudioClosureWeek(advanceCorporateConditionWeek(recordPowerRankingQuarter(
+    advanceLifecycleSettlement(advanceTalentMarketWeek(advancePromisesWeek(advanceLifecycleIntent(withBonds, birthdays)))))),
+    { deferPlayerClosure: options?.deferPlayerClosure === true }))
 }
 
 /**

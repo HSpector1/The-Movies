@@ -16,6 +16,8 @@ export const FINANCE_CATEGORIES: Record<LedgerKind, string> = {
   setCapex: 'Set capital spending', setDemolitionRefund: 'Set capital recovered',
   setMaintenance: 'One-time Set repairs', signingBonus: 'Signing and renewal bonuses',
   termination: 'Termination payments', publicity: 'Publicity',
+  // P15B (1357-A §6.3): the two loan homes, and the closure claim payments beside termination.
+  loanPrincipal: 'Studio loan received', loanInstallment: 'Studio loan installments', claimPayment: 'Closure claim payments',
 }
 export type FinanceCategory = { kind: LedgerKind; label: string; amount: number; entryCount: number }
 export const FINANCE_TIME_CLASSES = {

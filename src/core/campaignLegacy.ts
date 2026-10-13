@@ -65,6 +65,7 @@
 // Lenses follow 1353-A §5.4 with the count keys of 1353-F2 §2; a notRecorded lens
 // carries no count and no ref. A ranking ref cites the archive record's own recordId.
 
+import { validateSaveP15B, P15B_SAVE_VERSION } from './save.js'
 import { campaignDate } from './calendar.js'
 import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
 import type { FinancialStrengthBand } from './powerRanking.js'
@@ -98,7 +99,9 @@ export type LegacyArchetypeId = (typeof LEGACY_ARCHETYPE_IDS)[number]
 export type LegacyLensId = (typeof LEGACY_LENS_IDS)[number]
 export type LegacyManifestKind = 'official2040' | 'endOfRun'
 /** The keys of the frozen definition table (1359-A §5.1): every era a stored manifest may name. */
-export type LegacyDefinitionId = 'campaign-legacy/v1' | 'campaign-legacy/v2'
+export type HistoricalLegacyDefinitionId = 'campaign-legacy/v1' | 'campaign-legacy/v2'
+export const MODERN_LEGACY_DEFINITION = 'campaign-legacy/v3' as const
+export type LegacyDefinitionId = HistoricalLegacyDefinitionId | typeof MODERN_LEGACY_DEFINITION
 export type LegacyStatus = 'complete' | 'limited' | 'notRecorded'
 export type LegacyFilmDomainId = 'playerFilms' | 'industryFilms'
 export type LegacyCareerEventDomainId = 'playerCareerEvents' | 'industryCareerEvents'
@@ -160,8 +163,10 @@ export type LegacyConditionEventFact = {
 /** `recordId` is the archive record's own id (1359-A §3.3 A1); a ref never derives one from the week. */
 export type LegacyRankingSnapshotFact = { recordId: string; week: number; studioId: string; rank: number | null; band: FinancialStrengthBand }
 export type LegacyMarketAssessmentFact = { assessmentId: string; studioId: string; week: number; assessed: boolean; underPressure: boolean }
+export type LegacyClosureFact = { closureId: string; studioId: string; closureWeek: number; p15DomainSequence: number }
 export type LegacyDomainFact = { domainId: string; highWatermark: number; recordedFromWeek: number | null }
 export type LegacyFacts = {
+  studioClosures?: readonly LegacyClosureFact[]
   boundaryWeek: number
   /** World-generation market value; commercial engine's one exact product reads it. */
   baseMarketValue: number
@@ -248,6 +253,8 @@ type Release = {
 }
 type Discovery = { talentId: string; credits: number; firstWeek: number; event: LegacyCareerEventFact }
 type Facts = {
+  modern: boolean
+  closureOf: Map<string, LegacyClosureFact[]> | null
   B: number
   bmv: number
   studios: LegacyStudioFact[]
@@ -271,7 +278,7 @@ function push<K, V>(map: Map<K, V[]>, key: K, value: V): void {
   else list.push(value)
 }
 
-function readFacts(facts: LegacyFacts): Facts {
+function readFacts(facts: LegacyFacts, modern = false): Facts {
   if (facts === null || typeof facts !== 'object') fail('facts', 'must be an object')
   const B = facts.boundaryWeek
   if (!Number.isSafeInteger(B) || B <= 0) fail('boundaryWeek', 'must be a positive whole week')
@@ -522,12 +529,29 @@ function readFacts(facts: LegacyFacts): Facts {
     })
   }
 
+  let closureOf: Map<string, LegacyClosureFact[]> | null = null
+  if (modern && facts.studioClosures !== undefined) {
+    closureOf = new Map()
+    const ids = new Set<string>(), closedStudios = new Set<string>()
+    rows(facts.studioClosures, 'studioClosures').forEach((c, i) => {
+      const at = `studioClosures[${i}]`
+      if (!isId(c?.closureId) || ids.has(c.closureId)) fail(at, 'must name a distinct actual closure')
+      knownStudio(c.studioId, `${at}.studioId`)
+      if (closedStudios.has(c.studioId)) fail(at, 'must close a studio only once')
+      if (!isWeek(c.closureWeek) || c.closureWeek < studioById.get(c.studioId)!.enteredWeek!) fail(at, 'must close at or after entry')
+      if (!Number.isSafeInteger(c.p15DomainSequence) || c.p15DomainSequence < 1
+        || c.p15DomainSequence > (domainFacts.get('studioClosures')?.highWatermark ?? 0)) fail(at, 'must lie within the actual closure watermark')
+      recorded('studioClosures', c.closureWeek, at)
+      ids.add(c.closureId); closedStudios.add(c.studioId); push(closureOf!, c.studioId, c)
+    })
+  }
+
   const studios = [...studioById.values()]
     .filter((s) => s.enteredWeek !== null && s.enteredWeek < B)
     .sort((a, b) => a.row - b.row || compareText(a.studioId, b.studioId))
   const technologies = [...technologyById.values()].sort((a, b) => a.commercialWeek - b.commercialWeek || compareText(a.technologyId, b.technologyId))
   return {
-    B, bmv, studios, technologies, domainFacts, releasesOf, authoredCountOf, adoptionsOf,
+    modern, closureOf, B, bmv, studios, technologies, domainFacts, releasesOf, authoredCountOf, adoptionsOf,
     conditionOf, rankingOf, marketOf, discoveriesOf, creditedOf,
     optionalPresent: {
       corporateCondition: conditionOf !== null,
@@ -541,6 +565,7 @@ function readFacts(facts: LegacyFacts): Facts {
 /** recordedFromWeek when the domain records rows below B; null when it reads notRecorded. */
 function recordingStart(f: Facts, domainId: string): number | null {
   if (domainId === 'awards') return null
+  if (f.modern && domainId === 'studioClosures' && f.closureOf === null) return null
   if (Object.hasOwn(OPTIONAL_ROOT, domainId) && !f.optionalPresent[domainId as keyof typeof OPTIONAL_ROOT]) return null
   const start = f.domainFacts.get(domainId)?.recordedFromWeek ?? null
   return start === null || start >= f.B ? null : start
@@ -565,7 +590,7 @@ function sources(f: Facts): LegacySource[] {
 function limitedBy(f: Facts, studio: LegacyStudioFact, domains: readonly string[], extra: readonly string[] = []): string[] {
   const hit = new Set(extra)
   for (const d of domains) if (statusFor(f, d, studio.enteredWeek!) !== 'complete') hit.add(d)
-  return LEGACY_DOMAIN_IDS.filter((d) => hit.has(d))
+  return [...LEGACY_DOMAIN_IDS, ...(f.modern ? ['studioClosures'] : [])].filter((d) => hit.has(d))
 }
 function lensStatus(f: Facts, studio: LegacyStudioFact, domains: readonly string[]): LegacyStatus {
   const all = domains.map((d) => statusFor(f, d, studio.enteredWeek!))
@@ -645,6 +670,7 @@ function operationalAdoptions(f: Facts, s: LegacyStudioFact): LegacyAdoptionFact
 }
 
 function technologyPioneer(f: Facts, s: LegacyStudioFact, th: LegacyThresholds): ArchetypeResult {
+  if (f.modern && statusFor(f, 'studioClosures', s.enteredWeek!) === 'notRecorded') return archetypeResult('technology-pioneer', 'notRecorded', limitedBy(f, s, ['technologyAdoptions', 'technologyCatalogue', 'studioClosures']), [], [])
   const commercialWeekOf = new Map(f.technologies.map((t) => [t.technologyId, t.commercialWeek]))
   const operational = operationalAdoptions(f, s)
   const pioneers = operational.filter((a) => a.operationalWeek! <= commercialWeekOf.get(a.technologyId)! + th.LEGACY_PIONEER_WEEKS)
@@ -661,7 +687,7 @@ function technologyPioneer(f: Facts, s: LegacyStudioFact, th: LegacyThresholds):
   }
   contrary.sort((a, b) => a.week - b.week || compareText(a.ref.id, b.ref.id))
   return archetypeResult(
-    'technology-pioneer', heldWhen(pioneers.length > 0), limitedBy(f, s, ['technologyAdoptions', 'technologyCatalogue']),
+    'technology-pioneer', heldWhen(pioneers.length > 0), limitedBy(f, s, f.modern ? ['technologyAdoptions', 'technologyCatalogue', 'studioClosures'] : ['technologyAdoptions', 'technologyCatalogue']),
     pioneers.map((a) => ({ domainId: 'technologyAdoptions', id: a.adoptionId })), contrary.map((c) => c.ref),
   )
 }
@@ -697,8 +723,9 @@ function conditionEventsBefore(f: Facts, s: LegacyStudioFact): LegacyConditionEv
 }
 
 function resilientSurvivor(f: Facts, s: LegacyStudioFact): ArchetypeResult {
-  const limited = limitedBy(f, s, ['corporateCondition'])
-  if (statusFor(f, 'corporateCondition', s.enteredWeek!) === 'notRecorded') {
+  const limited = limitedBy(f, s, f.modern ? ['corporateCondition', 'studioClosures'] : ['corporateCondition'])
+  if (statusFor(f, 'corporateCondition', s.enteredWeek!) === 'notRecorded'
+    || (f.modern && statusFor(f, 'studioClosures', s.enteredWeek!) === 'notRecorded')) {
     return archetypeResult('resilient-survivor', 'notRecorded', limited, [], [])
   }
   const events = conditionEventsBefore(f, s)
@@ -709,10 +736,11 @@ function resilientSurvivor(f: Facts, s: LegacyStudioFact): ArchetypeResult {
     if (back !== undefined) cited.add(entry).add(back)
   }
   const closures = events.filter((c) => c.to === 'closed')
-  const closed = closures.length > 0 || (s.closedWeek !== null && s.closedWeek < f.B)
+  const actual = (f.closureOf?.get(s.studioId) ?? []).filter(c => c.closureWeek < f.B)
+  const closed = f.modern ? actual.length > 0 : closures.length > 0 || (s.closedWeek !== null && s.closedWeek < f.B)
   const qualifying = events.filter((c) => cited.has(c))
-  const contrary = events.filter((c) => (c.from === 'recovery' && c.to === 'warning') || c.to === 'closed')
-  return archetypeResult('resilient-survivor', heldWhen(cited.size > 0 && !closed), limited, qualifying.map(conditionRef), contrary.map(conditionRef))
+  const contrary = events.filter((c) => (c.from === 'recovery' && c.to === 'warning') || (!f.modern && c.to === 'closed'))
+  return archetypeResult('resilient-survivor', heldWhen(cited.size > 0 && !closed), limited, qualifying.map(conditionRef), [...contrary.map(conditionRef), ...(f.modern ? actual.map(c => ({ domainId: 'studioClosures', id: c.closureId })) : [])])
 }
 
 // ── lenses ────────────────────────────────────────────────────────────────────
@@ -757,18 +785,21 @@ function lenses(f: Facts, s: LegacyStudioFact, releases: Release[], discoveries:
       assessed: market.filter((m) => m.assessed).length,
       underPressure: market.filter((m) => m.underPressure).length,
     })),
-    lens('resilience', at(['corporateCondition']), () => ({
+    lens('resilience', f.modern && statusFor(f, 'studioClosures', s.enteredWeek!) === 'notRecorded' ? 'notRecorded'
+      : at(f.modern ? ['corporateCondition', 'studioClosures'] : ['corporateCondition']), () => ({
       warnings: conditions.filter((c) => c.to === 'warning').length,
       distressEntries: conditions.filter((c) => c.to === 'distress').length,
       returnsToStable: conditions.filter((c) => c.to === 'stable').length,
-      closures: conditions.filter((c) => c.to === 'closed').length,
-    }), () => conditions.map(conditionRef)),
+      closures: f.modern ? (f.closureOf?.get(s.studioId) ?? []).filter(c => c.closureWeek < f.B).length
+        : conditions.filter((c) => c.to === 'closed').length,
+    }), () => [...conditions.map(conditionRef), ...(f.modern ? (f.closureOf?.get(s.studioId) ?? []).filter(c => c.closureWeek < f.B).map(c => ({ domainId: 'studioClosures', id: c.closureId })) : [])]),
     lens('awards', 'notRecorded', () => ({})),
   ]
 }
 
 // ── the builder and the freeze step ───────────────────────────────────────────
-export function buildLegacyManifest(facts: LegacyFacts, kind: LegacyManifestKind): LegacyManifest {
+export function buildLegacyManifest(facts: LegacyFacts, kind: LegacyManifestKind, definition: LegacyDefinitionId = CAMPAIGN_LEGACY_DEFINITION): LegacyManifest {
+  if (definition === MODERN_LEGACY_DEFINITION || definition === 'campaign-legacy/v1') return LEGACY_DEFINITIONS[definition].evaluate(facts, kind)
   return evaluateLegacyManifest(facts, kind, CAMPAIGN_LEGACY_DEFINITION,
     { boundaryWeek: LEGACY_BOUNDARY_WEEK, postFinaleMode: LEGACY_POST_FINALE_MODE, thresholds: liveLegacyThresholds() })
 }
@@ -778,7 +809,7 @@ export function buildLegacyManifest(facts: LegacyFacts, kind: LegacyManifestKind
 function evaluateLegacyManifest(facts: LegacyFacts, kind: LegacyManifestKind, definition: LegacyDefinitionId,
   era: Pick<LegacyDefinition, 'boundaryWeek' | 'postFinaleMode' | 'thresholds'>): LegacyManifest {
   if (kind !== 'official2040' && kind !== 'endOfRun') fail('kind', 'must be official2040 or endOfRun')
-  const f = readFacts(facts)
+  const f = readFacts(facts, definition === MODERN_LEGACY_DEFINITION)
   if (kind === 'official2040' && f.B !== era.boundaryWeek) fail('boundaryWeek', 'must be 2040 · Week 1 for the official Legacy')
   const th = era.thresholds
   const studios = f.studios.map((s): LegacyStudio => {
@@ -913,7 +944,7 @@ const LEGACY_ERA_STRUCTURE = Object.freeze({
 /** A frozen entry. Its evaluator stamps the entry's own id, boundary and mode and applies the entry's own
  * thresholds, so a replay under one era never writes another's (1353-U finding 8; 1353-F7 ruling 4). */
 function frozenDefinition(definition: LegacyDefinitionId, thresholds: LegacyThresholds): LegacyDefinition {
-  const era = { ...LEGACY_ERA_STRUCTURE, thresholds }
+  const era = { ...LEGACY_ERA_STRUCTURE, thresholds, ...(definition === MODERN_LEGACY_DEFINITION ? { domainIds: Object.freeze([...LEGACY_DOMAIN_IDS, 'studioClosures']) } : {}) }
   return Object.freeze({
     ...era,
     evaluate: (facts: LegacyFacts, kind: LegacyManifestKind) => evaluateLegacyManifest(facts, kind, definition, era),
@@ -924,6 +955,7 @@ function frozenDefinition(definition: LegacyDefinitionId, thresholds: LegacyThre
 export const LEGACY_DEFINITIONS: Readonly<Record<LegacyDefinitionId, LegacyDefinition>> = Object.freeze({
   'campaign-legacy/v1': frozenDefinition('campaign-legacy/v1', V1_THRESHOLDS),
   'campaign-legacy/v2': frozenDefinition('campaign-legacy/v2', V2_THRESHOLDS),
+  'campaign-legacy/v3': frozenDefinition('campaign-legacy/v3', V2_THRESHOLDS),
 })
 
 // ── the root (1359-A §5) ──────────────────────────────────────────────────────
@@ -939,10 +971,12 @@ export type OfficialLegacy = LegacyManifest & {
 export type CampaignLegacyRoot = {
   version: 1
   recordedFromWeek: number
-  official: OfficialLegacy | null
+  official: (OfficialLegacy & { definition: HistoricalLegacyDefinitionId }) | null
   /** Wave 5 (1359-A §6): always null in this era. */
   endOfRun: null
 }
+export type EndedLegacy = OfficialLegacy & { kind: 'endOfRun'; definition: typeof MODERN_LEGACY_DEFINITION; postFinaleMode: null; closureId: string }
+export type ModernCampaignLegacyRoot = Omit<CampaignLegacyRoot, 'official' | 'endOfRun'> & { official: OfficialLegacy | null; endOfRun: EndedLegacy | null }
 /** The empty root a fresh world, a migration and a historical lift write: recording from `week`, unfrozen. No
  * freeze runs at migration (1359-A §5.2). */
 export const initialCampaignLegacy = (week: number): CampaignLegacyRoot => ({ version: 1, recordedFromWeek: week, official: null, endOfRun: null })
@@ -993,7 +1027,7 @@ function largestSequence(rows: readonly Row[], below = Number.POSITIVE_INFINITY)
  * makes every cut. It reads no cash, cost, revenue, loan amount, in-run payment or career money or skill field. A
  * player film's genre is its concept's; a missing concept refuses by name.
  */
-export function legacyFactsFromState(state: GameState, boundaryWeek: number): LegacyFacts {
+export function legacyFactsFromState(state: GameState, boundaryWeek: number, definition: LegacyDefinitionId = CAMPAIGN_LEGACY_DEFINITION): LegacyFacts {
   if (state.hollywood === null) fail('state.hollywood', 'must hold the living industry the Legacy reads')
   const h = state.hollywood
   const genreOf = new Map(state.concepts.map((concept) => [concept.id, concept.genre]))
@@ -1116,6 +1150,14 @@ export function legacyFactsFromState(state: GameState, boundaryWeek: number): Le
       }))
     }
   }
+  if (definition === MODERN_LEGACY_DEFINITION) {
+    const root = siblingBefore(state, 'studioClosure', boundaryWeek)
+    domains.push({ domainId: 'studioClosures', highWatermark: root === undefined ? 0 : largestSequence(rowsOf(root.closures)), recordedFromWeek: root?.recordedFromWeek as number ?? null })
+    if (root !== undefined) facts.studioClosures = rowsOf(root.closures).map(c => ({ closureId: c.closureId as string,
+      studioId: c.studioId as string, closureWeek: c.closureWeek as number, p15DomainSequence: c.p15DomainSequence as number }))
+    const actual = new Map((facts.studioClosures ?? []).map(c => [c.studioId, c.closureWeek]))
+    facts.studios = facts.studios.map(s => ({ ...s, closedWeek: actual.get(s.studioId) ?? null }))
+  }
   return facts
 }
 
@@ -1131,7 +1173,7 @@ export type LegacyRefPlace = { position: number; week: number | null }
  * never cited (playerRuns, awards) or no row has its id. A sibling root recorded from `boundaryWeek` or later
  * reads as absent, as it does in the adapter.
  */
-export function legacyRefResolver(state: GameState, boundaryWeek: number): (ref: LegacyRef) => LegacyRefPlace | undefined {
+export function legacyRefResolver(state: GameState, boundaryWeek: number, definition: LegacyDefinitionId = CAMPAIGN_LEGACY_DEFINITION): (ref: LegacyRef) => LegacyRefPlace | undefined {
   const places = new Map<string, Map<string, LegacyRefPlace>>()
   const index = (domainId: string, entries: Iterable<[string, LegacyRefPlace]>): void => { places.set(domainId, new Map(entries)) }
   index('playerFilms', state.studio.releasedFilms.map((film, i) => [film.productionId, { position: i + 1, week: film.releaseTick }]))
@@ -1150,6 +1192,7 @@ export function legacyRefResolver(state: GameState, boundaryWeek: number): (ref:
     position: event.p15DomainSequence as number, week: event.week as number }]))
   index('marketAssessments', rowsOf(siblingBefore(state, 'sharedMarket', boundaryWeek)?.assessments).map((assessment) => [assessment.releaseId as string, {
     position: assessment.p15DomainSequence as number, week: assessment.week as number }]))
+  if (definition === MODERN_LEGACY_DEFINITION) index('studioClosures', rowsOf(siblingBefore(state, 'studioClosure', boundaryWeek)?.closures).map(c => [c.closureId as string, { position: c.p15DomainSequence as number, week: c.closureWeek as number }]))
   return (ref) => places.get(ref.domainId)?.get(ref.id)
 }
 
@@ -1166,16 +1209,17 @@ export function freezeCampaignLegacyWeek(state: GameState): GameState {
   const root = state.campaignLegacy
   if (root.official !== null) return state
   if (state.hollywood.originWeek >= LEGACY_BOUNDARY_WEEK || root.recordedFromWeek >= LEGACY_BOUNDARY_WEEK) return state
-  const frozen = freezeLegacy(root, LEGACY_BOUNDARY_WEEK, legacyFactsFromState(state, LEGACY_BOUNDARY_WEEK))
-  if (frozen.official === null) fail('campaignLegacy.official', 'must be written by the freeze at the boundary')
+  const manifest = buildLegacyManifest(legacyFactsFromState(state, LEGACY_BOUNDARY_WEEK, MODERN_LEGACY_DEFINITION), 'official2040', MODERN_LEGACY_DEFINITION)
   const sequence = state.p15Sequence.next
   const official: OfficialLegacy = {
-    ...frozen.official,
+    ...manifest,
     legacySnapshotId: `campaign-legacy-${sequence}`,
     p15DomainSequence: sequence,
     ...p15PhaseTriple(FINALE_PHASE),
   }
-  return { ...state, campaignLegacy: { ...root, official }, p15Sequence: { ...state.p15Sequence, next: sequence + 1 } }
+  const result = { ...state, campaignLegacy: { ...root, official }, p15Sequence: { ...state.p15Sequence, next: sequence + 1 } }
+  validateSaveP15B({ saveVersion: P15B_SAVE_VERSION, seed: result.seed, state: result, broadcastCache: result.broadcastItems })
+  return result
 }
 
 // ── the validator (1359-A §5.1 with 1359-F Amendment 1) ───────────────────────
@@ -1186,10 +1230,15 @@ export function freezeCampaignLegacyWeek(state: GameState): GameState {
  * the frozen entry its definition names, then replays with the catalogue and archetype evaluators
  * frozen by 1361-F6 ruling 2. It never reads TUNING and refuses malformed state by name.
  */
-export function validateCampaignLegacy(raw: Record<string, unknown>, label: string): void {
+export function validateCampaignLegacy(raw: Record<string, unknown>, label: string, modern = false): void {
+  validateLegacyManifest(raw, label, modern, false)
+  if (modern) validateLegacyManifest(raw, label, true, true)
+}
+
+function validateLegacyManifest(raw: Record<string, unknown>, label: string, modern: boolean, ended: boolean): void {
   // An explicit type on the binding makes every call a never-returning call for narrowing.
   const refuse: (path: string, rule: string) => never = (path, rule) => {
-    throw new Error(`${label}: campaignLegacy${path === '' ? '' : `.${path}`} ${rule}`)
+    throw new Error(`${label}: campaignLegacy${path === '' ? '' : `.${ended ? path.replace(/^official/, 'endOfRun') : path}`} ${rule}`)
   }
   const exactKeys = (value: Row, keys: readonly string[], path: string): void => {
     const own = Object.keys(value)
@@ -1210,34 +1259,51 @@ export function validateCampaignLegacy(raw: Record<string, unknown>, label: stri
   if (typeof from !== 'number' || !Number.isSafeInteger(from) || from < 0 || from > tick) {
     refuse('recordedFromWeek', 'must be a whole week in [0, market.tick]')
   }
-  if (root.endOfRun !== null) refuse('endOfRun', 'must be null in this era: the end-of-run record is Wave 5 (1359-A §6)')
+  if (!modern && root.endOfRun !== null) refuse('endOfRun', 'must be null in this era: the end-of-run record is Wave 5 (1359-A §6)')
 
-  // 2. The marker rule (1359-A §4.3). The freeze was due exactly when the industry and the root both record
-  // from before B and the save stands at B or later. An official manifest exists exactly when it was due.
   const h = state.hollywood
+  const playerClosure = h === null ? undefined : state.studioClosure?.closures.find(c => c.studioId === h.playerStudioId)
   const due = h !== null && h.originWeek < B && from < B && tick >= B
-  if (due && root.official === null) refuse('official', 'must hold the frozen 2040 Legacy: the freeze was due')
-  if (!due && root.official !== null) refuse('official', 'must be null: the 2040 freeze was not due')
-  if (root.official === null || h === null) return // a manifest that was due has an industry
-  const value = root.official
+  if (!ended) {
+    if (due && root.official === null) refuse('official', 'must hold the frozen 2040 Legacy: the freeze was due')
+    if (!due && root.official !== null) refuse('official', 'must be null: the 2040 freeze was not due')
+    if (root.official === null || h === null) return
+  } else {
+    if ((root.endOfRun === null) !== (playerClosure === undefined)) refuse('official', 'must exist exactly for an actual player closure')
+    if (root.endOfRun === null || h === null) return
+  }
+  const value = ended ? root.endOfRun : root.official
   if (!isRow(value)) refuse('official', 'must be an object')
-  exactKeys(value, ['kind', 'definition', 'boundaryWeek', 'postFinaleMode', 'sources', 'studios', ...STAMP_KEYS], 'official')
+  exactKeys(value, ['kind', 'definition', 'boundaryWeek', 'postFinaleMode', 'sources', 'studios', ...STAMP_KEYS, ...(ended ? ['closureId'] : [])], 'official')
   const official = value as unknown as OfficialLegacy
+  const cutoff = ended ? playerClosure!.closureWeek + 1 : B
+  if (ended && (value.closureId !== playerClosure!.closureId || playerClosure!.endOfRun !== official.legacySnapshotId)) refuse('official.closureId', 'must join its actual player closure in both directions')
 
   // 3. Identity, against the frozen definition table.
-  if (official.kind !== 'official2040') refuse('official.kind', 'must be official2040')
-  if (typeof official.definition !== 'string' || !Object.hasOwn(LEGACY_DEFINITIONS, official.definition)) {
+  if (official.kind !== (ended ? 'endOfRun' : 'official2040')) refuse('official.kind', 'must match its official or ended slot')
+  if (typeof official.definition !== 'string' || !Object.hasOwn(LEGACY_DEFINITIONS, official.definition)
+    || (!modern && official.definition === MODERN_LEGACY_DEFINITION) || (ended && official.definition !== MODERN_LEGACY_DEFINITION)) {
     refuse('official.definition', 'must name a definition of the frozen table')
   }
   const entry = LEGACY_DEFINITIONS[official.definition]
-  if (official.boundaryWeek !== entry.boundaryWeek) refuse('official.boundaryWeek', `must be ${entry.boundaryWeek}, its definition's boundary`)
-  if (official.postFinaleMode !== entry.postFinaleMode) refuse('official.postFinaleMode', `must be ${entry.postFinaleMode}, its definition's mode`)
+  if (official.boundaryWeek !== cutoff) refuse('official.boundaryWeek', `must be ${cutoff}, its definition's boundary`)
+  if (official.postFinaleMode !== (ended ? null : entry.postFinaleMode)) refuse('official.postFinaleMode', `must be ${entry.postFinaleMode}, its definition's mode`)
 
   // 4. The stamp (1355-F2 items 2-5). This root's own rule: a whole sequence and the id that cites it. Distinct
   // across the P15 roots and below p15Sequence.next is the one allocator check's rule (1361-F ruling 5).
   const sequence = official.p15DomainSequence
   if (typeof sequence !== 'number' || !Number.isSafeInteger(sequence) || sequence < 1) {
     refuse('official.p15DomainSequence', 'must be a whole number of at least 1')
+  }
+  if (official.definition === MODERN_LEGACY_DEFINITION && official.phaseOrderVersion !== 2) refuse('official.phaseOrderVersion', 'must use the actual-closure finale phase table 2')
+  if (!ended && official.definition === MODERN_LEGACY_DEFINITION
+    && state.studioClosure.closures.some(c => c.closureWeek <= B && c.p15DomainSequence >= sequence)) {
+    refuse('official.p15DomainSequence', 'must follow every actual closure dated at or before the official boundary')
+  }
+  if (ended) {
+    if (tick !== playerClosure!.closureWeek) refuse('official.boundaryWeek', 'must publish at the actual player closure without another simulated tick')
+    if (sequence <= Math.max(0, ...state.studioClosure.closures.map(c => c.p15DomainSequence))) refuse('official.p15DomainSequence', 'must follow every actual closure before finale')
+    if (state.campaignLegacy.official !== null && sequence <= state.campaignLegacy.official.p15DomainSequence) refuse('official.p15DomainSequence', 'must follow the preserved official Legacy')
   }
   if (official.legacySnapshotId !== `campaign-legacy-${sequence}`) refuse('official.legacySnapshotId', 'must be campaign-legacy-<p15DomainSequence>')
   if (official.phaseId !== FINALE_PHASE) refuse('official.phaseId', `must be ${FINALE_PHASE}`)
@@ -1274,7 +1340,7 @@ export function validateCampaignLegacy(raw: Record<string, unknown>, label: stri
     if (!isRow(studio)) refuse(at, 'must be an object')
     exactKeys(studio as unknown as Row, ['studioId', 'standingAtBoundary', 'archetypes', 'lenses'], at)
     const identity = identities.get(studio.studioId)
-    if (identity === undefined || identity.enteredWeek === null || identity.enteredWeek >= entry.boundaryWeek || studioIds.has(studio.studioId)) {
+    if (identity === undefined || identity.enteredWeek === null || identity.enteredWeek >= cutoff || studioIds.has(studio.studioId)) {
       refuse(`${at}.studioId`, 'must name a distinct studio that entered before the boundary')
     }
     studioIds.add(studio.studioId)
@@ -1336,7 +1402,7 @@ export function validateCampaignLegacy(raw: Record<string, unknown>, label: stri
   // recorded from B or later; notRecorded exactly when the domain records nothing before B. A P15 watermark is
   // the largest sequence in its root below the official's, exact because the allocator is append order; an
   // array watermark lies within its root's length, which grows after the freeze.
-  const facts = legacyFactsFromState(state, entry.boundaryWeek)
+  const facts = legacyFactsFromState(state, cutoff, official.definition)
   const derived = new Map(facts.domains.map((domain) => [domain.domainId, domain]))
   const lengthOf: Readonly<Record<string, number>> = {
     playerFilms: state.studio.releasedFilms.length, industryFilms: h.films.length, playerRuns: state.theatricalRuns.length,
@@ -1348,14 +1414,15 @@ export function validateCampaignLegacy(raw: Record<string, unknown>, label: stri
     const domain = derived.get(source.domainId)
     if (domain === undefined) refuse(`${at}.domainId`, 'must name a domain the adapter reads')
     if (source.recordedFromWeek !== domain.recordedFromWeek) refuse(`${at}.recordedFromWeek`, 'must equal the re-derived recording week')
-    const notRecorded = source.recordedFromWeek === null || source.recordedFromWeek >= entry.boundaryWeek
+    const notRecorded = source.recordedFromWeek === null || source.recordedFromWeek >= cutoff
     if ((source.status === 'notRecorded') !== notRecorded || !['complete', 'limited', 'notRecorded'].includes(source.status)) {
       refuse(`${at}.status`, 'must read notRecorded exactly when the domain records nothing before the boundary')
     }
     const sibling = SIBLING_ROOTS.find((candidate) => candidate.domainId === source.domainId)
+      ?? (official.definition === MODERN_LEGACY_DEFINITION && source.domainId === 'studioClosures' ? { domainId: 'studioClosures', key: 'studioClosure' } : undefined)
     if (sibling !== undefined) {
-      const siblingRoot = siblingBefore(state, sibling.key, entry.boundaryWeek)
-      const expected = siblingRoot === undefined ? 0 : largestSequence(sequencedRows(siblingRoot, source.domainId), sequence)
+      const siblingRoot = siblingBefore(state, sibling.key, cutoff)
+      const expected = siblingRoot === undefined ? 0 : largestSequence(source.domainId === 'studioClosures' ? rowsOf(siblingRoot.closures) : sequencedRows(siblingRoot, source.domainId), sequence)
       if (source.highWatermark !== expected) refuse(`${at}.highWatermark`, "must equal the largest P15 sequence in its root below the official's")
     } else if (!Number.isSafeInteger(source.highWatermark) || source.highWatermark < 0 || source.highWatermark > (lengthOf[source.domainId] ?? 0)) {
       refuse(`${at}.highWatermark`, "must be a whole position within its root's length")
@@ -1365,7 +1432,7 @@ export function validateCampaignLegacy(raw: Record<string, unknown>, label: stri
   // 7. Refs: a citable domain, an existing row, a position within the watermark, dated before B (a ranking
   // record at most B), each resolved through the exported resolver.
   const citable = new Set(entry.domainIds.filter((id) => id !== 'awards' && id !== 'playerRuns'))
-  const resolve = legacyRefResolver(state, entry.boundaryWeek)
+  const resolve = legacyRefResolver(state, cutoff, official.definition)
   const watermarkOf = new Map(official.sources.map((source) => [source.domainId, source.highWatermark]))
   const checkRef = (ref: unknown, path: string): void => {
     if (!isRow(ref)) refuse(path, 'must be an object')
@@ -1376,7 +1443,7 @@ export function validateCampaignLegacy(raw: Record<string, unknown>, label: stri
     const place = typeof ref.id === 'string' ? resolve({ domainId: ref.domainId, id: ref.id }) : undefined
     if (place === undefined) refuse(path, `names no ${ref.domainId} row`)
     if (place.position > (watermarkOf.get(ref.domainId) ?? 0)) refuse(path, "sits above its domain's watermark")
-    const before = place.week !== null && (ref.domainId === 'powerRanking' ? place.week <= entry.boundaryWeek : place.week < entry.boundaryWeek)
+    const before = place.week !== null && (ref.domainId === 'powerRanking' ? place.week <= cutoff : place.week < cutoff)
     if (!before) refuse(path, 'is dated at or after the boundary')
   }
   official.studios.forEach((studio, i) => {
@@ -1393,15 +1460,17 @@ export function validateCampaignLegacy(raw: Record<string, unknown>, label: stri
   const stored = new Map(official.sources.map((source) => [source.domainId, source]))
   const replayFacts: LegacyFacts = {
     ...facts,
+    ...(facts.studioClosures === undefined ? {} : { studioClosures: facts.studioClosures.filter(c => c.p15DomainSequence < sequence) }),
     domains: facts.domains.map((domain) => {
       const source = stored.get(domain.domainId)
       return source === undefined ? domain
         : { domainId: domain.domainId, highWatermark: source.highWatermark, recordedFromWeek: source.recordedFromWeek }
     }),
   }
-  const replayed = entry.evaluate(replayFacts, 'official2040')
+  const replayed = entry.evaluate(replayFacts, ended ? 'endOfRun' : 'official2040')
   const manifest: Row = { ...official }
   for (const key of STAMP_KEYS) delete manifest[key]
+  if (ended) delete manifest.closureId
   const difference = firstDifference(manifest, replayed, 'official')
   if (difference !== null) refuse(difference, `must equal the replay under ${official.definition}`)
 }

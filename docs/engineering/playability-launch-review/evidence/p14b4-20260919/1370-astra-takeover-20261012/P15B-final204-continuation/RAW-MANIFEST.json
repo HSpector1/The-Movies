@@ -1,0 +1,286 @@
+{
+  "sourceRoot": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012",
+  "files": [
+    {
+      "path": "P15B-CONTINUATION-R2-PARENT-IDENTITIES.json",
+      "sha256": "9eb4fba3ea1e979f00cbfb010c2135e50eace7f976d7a2d4a8d88e585be5e869",
+      "bytes": 18324
+    },
+    {
+      "path": "p15b-continuation-r2-lane.log",
+      "sha256": "9644b377ed691c49979a55fbba1f00a87133dcf586dc22af3cd26adc0d3200e7",
+      "bytes": 624
+    },
+    {
+      "path": "p15b-continuation-r2-lane.log.meta",
+      "sha256": "577a0f394efed26088e00ec9a634c2281bb82a9cc93dde32db318d11809d3cf3",
+      "bytes": 242
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/check-contract.log",
+      "sha256": "81dd2bc807088d8f839a50413e6bc2da733d532305a4bf7e4b8d18cbc69773fe",
+      "bytes": 332
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/check-fixtures.log",
+      "sha256": "6022e3e982ad022feb086bf8bae953fbb9e10c52cf470657fe5845a5074cfb3d",
+      "bytes": 120
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/freeze-current.json",
+      "sha256": "a5b760cfdeb0f8785f15e20f3e21ce1a7ab43db7dd74f68065c1ea7d1b034659",
+      "bytes": 600147
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/freeze.json",
+      "sha256": "e31bd5eb80b503fa1cf0da8c3fc7de898c7576f6c94e825503157f1df1eb6e72",
+      "bytes": 600147
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-0cbeba54160b42bb80c49df77c435d8a/HANDOFF.raw",
+      "sha256": "d34749a0c1f0d9c4b38db5825e756e166f5881f8b17d293b3485b9def2ab1b99",
+      "bytes": 158379
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-0cbeba54160b42bb80c49df77c435d8a/diff.raw",
+      "sha256": "09797e941497a547db8e13edb238686a8fbffdd84a2265d120858be09e85a77d",
+      "bytes": 13697
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-0cbeba54160b42bb80c49df77c435d8a/status.raw",
+      "sha256": "5cd1d3def0fb78fc73d61152fe1ef50737fc715043aabae2e63bb4224f4de03b",
+      "bytes": 8046
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-107a1ffa229043f18b8ecfaf43326cca/HANDOFF.raw",
+      "sha256": "d34749a0c1f0d9c4b38db5825e756e166f5881f8b17d293b3485b9def2ab1b99",
+      "bytes": 158379
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-107a1ffa229043f18b8ecfaf43326cca/diff.raw",
+      "sha256": "09797e941497a547db8e13edb238686a8fbffdd84a2265d120858be09e85a77d",
+      "bytes": 13697
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-107a1ffa229043f18b8ecfaf43326cca/status.raw",
+      "sha256": "5cd1d3def0fb78fc73d61152fe1ef50737fc715043aabae2e63bb4224f4de03b",
+      "bytes": 8046
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-29685a8a3ab54e0a9ec664428a581a34/HANDOFF.raw",
+      "sha256": "d34749a0c1f0d9c4b38db5825e756e166f5881f8b17d293b3485b9def2ab1b99",
+      "bytes": 158379
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-29685a8a3ab54e0a9ec664428a581a34/diff.raw",
+      "sha256": "09797e941497a547db8e13edb238686a8fbffdd84a2265d120858be09e85a77d",
+      "bytes": 13697
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-29685a8a3ab54e0a9ec664428a581a34/status.raw",
+      "sha256": "5cd1d3def0fb78fc73d61152fe1ef50737fc715043aabae2e63bb4224f4de03b",
+      "bytes": 8046
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-3780773fe1234e878b73603b461feb43/HANDOFF.raw",
+      "sha256": "d34749a0c1f0d9c4b38db5825e756e166f5881f8b17d293b3485b9def2ab1b99",
+      "bytes": 158379
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-3780773fe1234e878b73603b461feb43/diff.raw",
+      "sha256": "09797e941497a547db8e13edb238686a8fbffdd84a2265d120858be09e85a77d",
+      "bytes": 13697
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-3780773fe1234e878b73603b461feb43/status.raw",
+      "sha256": "5cd1d3def0fb78fc73d61152fe1ef50737fc715043aabae2e63bb4224f4de03b",
+      "bytes": 8046
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-6ac278f778a44b4b8738d505a68bbe76/HANDOFF.raw",
+      "sha256": "d34749a0c1f0d9c4b38db5825e756e166f5881f8b17d293b3485b9def2ab1b99",
+      "bytes": 158379
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-6ac278f778a44b4b8738d505a68bbe76/diff.raw",
+      "sha256": "09797e941497a547db8e13edb238686a8fbffdd84a2265d120858be09e85a77d",
+      "bytes": 13697
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-6ac278f778a44b4b8738d505a68bbe76/status.raw",
+      "sha256": "5cd1d3def0fb78fc73d61152fe1ef50737fc715043aabae2e63bb4224f4de03b",
+      "bytes": 8046
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-9ac094c4dbbf4b0c95561d1f62bedc14/HANDOFF.raw",
+      "sha256": "d34749a0c1f0d9c4b38db5825e756e166f5881f8b17d293b3485b9def2ab1b99",
+      "bytes": 158379
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-9ac094c4dbbf4b0c95561d1f62bedc14/diff.raw",
+      "sha256": "09797e941497a547db8e13edb238686a8fbffdd84a2265d120858be09e85a77d",
+      "bytes": 13697
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-9ac094c4dbbf4b0c95561d1f62bedc14/status.raw",
+      "sha256": "5cd1d3def0fb78fc73d61152fe1ef50737fc715043aabae2e63bb4224f4de03b",
+      "bytes": 8046
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-aff3278c4c774a6fb1bb99e6feeee87c/HANDOFF.raw",
+      "sha256": "d34749a0c1f0d9c4b38db5825e756e166f5881f8b17d293b3485b9def2ab1b99",
+      "bytes": 158379
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-aff3278c4c774a6fb1bb99e6feeee87c/diff.raw",
+      "sha256": "09797e941497a547db8e13edb238686a8fbffdd84a2265d120858be09e85a77d",
+      "bytes": 13697
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-aff3278c4c774a6fb1bb99e6feeee87c/status.raw",
+      "sha256": "5cd1d3def0fb78fc73d61152fe1ef50737fc715043aabae2e63bb4224f4de03b",
+      "bytes": 8046
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-b1510706671c4e0b911579184f6a5706/HANDOFF.raw",
+      "sha256": "d34749a0c1f0d9c4b38db5825e756e166f5881f8b17d293b3485b9def2ab1b99",
+      "bytes": 158379
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-b1510706671c4e0b911579184f6a5706/diff.raw",
+      "sha256": "09797e941497a547db8e13edb238686a8fbffdd84a2265d120858be09e85a77d",
+      "bytes": 13697
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-b1510706671c4e0b911579184f6a5706/status.raw",
+      "sha256": "5cd1d3def0fb78fc73d61152fe1ef50737fc715043aabae2e63bb4224f4de03b",
+      "bytes": 8046
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-checks-errors.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-checks.jsonl",
+      "sha256": "903df72035f548bb0381dabf7582964885c510c2bf9c8eadd9fd5aca7ebd0518",
+      "bytes": 4477
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-d68b1aa2c01144e998b8381c50eb229d/HANDOFF.raw",
+      "sha256": "d34749a0c1f0d9c4b38db5825e756e166f5881f8b17d293b3485b9def2ab1b99",
+      "bytes": 158379
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-d68b1aa2c01144e998b8381c50eb229d/diff.raw",
+      "sha256": "09797e941497a547db8e13edb238686a8fbffdd84a2265d120858be09e85a77d",
+      "bytes": 13697
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-d68b1aa2c01144e998b8381c50eb229d/status.raw",
+      "sha256": "5cd1d3def0fb78fc73d61152fe1ef50737fc715043aabae2e63bb4224f4de03b",
+      "bytes": 8046
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-e627fd9b0167453c9ad34d1970760afc/HANDOFF.raw",
+      "sha256": "d34749a0c1f0d9c4b38db5825e756e166f5881f8b17d293b3485b9def2ab1b99",
+      "bytes": 158379
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-e627fd9b0167453c9ad34d1970760afc/diff.raw",
+      "sha256": "09797e941497a547db8e13edb238686a8fbffdd84a2265d120858be09e85a77d",
+      "bytes": 13697
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-e627fd9b0167453c9ad34d1970760afc/status.raw",
+      "sha256": "5cd1d3def0fb78fc73d61152fe1ef50737fc715043aabae2e63bb4224f4de03b",
+      "bytes": 8046
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-eef47329f1d9412b8386e6bf4b565b22/HANDOFF.raw",
+      "sha256": "d34749a0c1f0d9c4b38db5825e756e166f5881f8b17d293b3485b9def2ab1b99",
+      "bytes": 158379
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-eef47329f1d9412b8386e6bf4b565b22/diff.raw",
+      "sha256": "09797e941497a547db8e13edb238686a8fbffdd84a2265d120858be09e85a77d",
+      "bytes": 13697
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-eef47329f1d9412b8386e6bf4b565b22/status.raw",
+      "sha256": "5cd1d3def0fb78fc73d61152fe1ef50737fc715043aabae2e63bb4224f4de03b",
+      "bytes": 8046
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-f82f8e43a6f44e40beb276b4c253aa73/HANDOFF.raw",
+      "sha256": "d34749a0c1f0d9c4b38db5825e756e166f5881f8b17d293b3485b9def2ab1b99",
+      "bytes": 158379
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-f82f8e43a6f44e40beb276b4c253aa73/diff.raw",
+      "sha256": "09797e941497a547db8e13edb238686a8fbffdd84a2265d120858be09e85a77d",
+      "bytes": 13697
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/metadata-f82f8e43a6f44e40beb276b4c253aa73/status.raw",
+      "sha256": "5cd1d3def0fb78fc73d61152fe1ef50737fc715043aabae2e63bb4224f4de03b",
+      "bytes": 8046
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/reader-fallout.json",
+      "sha256": "ddb45dd3f3b66225168793416d2af23a86dde36fef09c7b1a74535d029aa5e8e",
+      "bytes": 27434
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/reader-fallout.log",
+      "sha256": "cfe620e7d849303f0cabf49c83a164911123c7c9aa104ee7fb956f96d4393a7a",
+      "bytes": 4776
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/results.jsonl",
+      "sha256": "461926f69304126e0ae8ef25731db5e1bcdfea6b141cc41efd57f40a4733f95d",
+      "bytes": 2181
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/terminal.json",
+      "sha256": "fa85261a8bc61c98687e72aaa7b4286711c2a4963405d45cefbe2a87d6ddf962",
+      "bytes": 509
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/tsc-bridge.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-r2-run/tsc-ui.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-runner-r2/PINS.json",
+      "sha256": "44c5ef3c48ee1954c1cf83cd3b087a6094f8277e12e086e6b354226cd9fa669f",
+      "bytes": 263
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-runner-r2/REBIND-REVIEW.json",
+      "sha256": "00d5ade2a2b17c4fdf68536c895ccc2bef4c479342f9f818f2bbcb421cf07c16",
+      "bytes": 23643
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-runner-r2/ROOT-REUSE.json",
+      "sha256": "795465f358302e8e971cf2174d142bcc3f410cb3b8ea25b046688ca965997844",
+      "bytes": 3303
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-runner-r2/SELECTION.json",
+      "sha256": "cc349ebb509e64749402af53d4052b2aa054c9ea83c61fdb51bc9088e6ddc7cc",
+      "bytes": 443
+    },
+    {
+      "path": "p15b-reader-fallout-continuation-runner-r2/runner.sh",
+      "sha256": "b0fd690faefb92f4706248d9290b9ae9506f49941b1db19d5dec94ba6f89e047",
+      "bytes": 16683
+    }
+  ],
+  "archiveSHA256": "fbe5ff9a7dbd3a3e33886120d37a5470111a7482416bdfe8d835e399794915cd"
+}

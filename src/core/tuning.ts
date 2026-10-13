@@ -1035,6 +1035,10 @@ export const TUNING = {
   LOAN_TERM_WEEKS: 52, // integer > 0, at most LOAN_AMOUNT_STEP·(100 + LOAN_INTEREST_PERCENT)/100 (1,120), so no installment is 0
   LOAN_INTEREST_PERCENT: 12, // integer > 0; flat over the term: total = principal·(100 + 12)/100
   LOAN_AMOUNT_STEP: 1000, // integer > 0; principals are whole multiples, which keeps the flat interest an integer
+  // ── P15B Wave 4 (closure/v1; the Wave-4 closure contract §4 and 1367-G): newly selected provisional
+  // tuning, not earlier Owner arithmetic. A change bumps CLOSURE_LAW_VERSION with it.
+  CLOSURE_ESTATE_WINDOW_WEEKS: 13, // integer > THEATRICAL_WEEKS; an estate opens at C, admits bids in [C, C + 13) and closes once at D = C + 13
+  CLOSURE_QUERY_PAGE_ROWS: 100, // integer in [1, 100]; a disposition query page holds at most 100 rows (annex D.5), never the closure itself
 
   // P15C Legacy law `campaign-legacy/v2` (src/core/campaignLegacy.ts; charter 1353-A §5.5,
   // adopted in 1353-F, amended by 1353-T and 1353-F6). PROVISIONAL TUNING under Owner rulings 5 and 6 of 1342-O, which
@@ -1583,6 +1587,10 @@ export const FACILITY_BLUEPRINTS: readonly FacilityBlueprint[] = [
 
 /** The canonical ledger note for a weekly placed-facility operating charge. */
 export const FACILITY_OPEX_LEDGER_NOTE = 'weekly facility operating cost'
+// P15B Wave 2 (1357-A §6.3): the two loan ledger notes. Wave 4: the claim payment note prefix.
+export const LOAN_PRINCIPAL_LEDGER_NOTE = 'studio loan principal'
+export const LOAN_INSTALLMENT_LEDGER_NOTE = 'studio loan installment'
+export const CLAIM_PAYMENT_LEDGER_NOTE = 'closure claim payment'
 
 // ── C2a-M2 — SET_TYPES: the closed authored location vocabulary (§9) ─────────
 //

@@ -26,16 +26,34 @@ describe('P11 bounded history at long-save scale', () => {
         period.toWeekInclusive, period.id, period.label))
       expect(window.points.at(-1)!.closingCash).toBe(state.studio.cash)
     }
-    // The bound guards growth with SAVE LENGTH (the 13/52-point caps above), not with
-    // the authored category count: every FINANCE_CATEGORIES entry publishes a 13- and
-    // a 52-point series per window whether or not it has entries. Measured on this
-    // trajectory: 99,151 bytes at 18 categories (S4–S5-R07 passes), 103,332 at 19
-    // (P13B-S6 `constructionRefund`; evidence p13b-s6-20260917/22).
-    expect(reportBytes).toBeLessThan(110_000)
+    // Keep the original 110,000-byte bound on the pre-P15B report shape. The
+    // three adopted loan/closure categories each add one 13- and one 52-point
+    // series even on this no-loan trajectory. Bound those additions separately;
+    // neither longer saves nor future category additions get an automatic allowance.
+    const addedKinds: ReadonlySet<string> = new Set(['loanPrincipal', 'loanInstallment', 'claimPayment'])
+    for (const window of history.windows) {
+      const added = window.costSeries.filter(series => addedKinds.has(series.kind))
+      expect(added.map(series => series.kind)).toEqual(['loanPrincipal', 'loanInstallment', 'claimPayment'])
+      for (const series of added) {
+        expect(series.periodAmount).toBe(0)
+        expect(series.points).toHaveLength(window.windowWeeks)
+        expect(series.points.map(point => point.week)).toEqual(window.points.map(point => point.fromWeek))
+        expect(series.points.every(point => point.amount === 0 && point.coverage === 'complete' && point.notice === null)).toBe(true)
+      }
+    }
+    const originalShapeBytes = Buffer.byteLength(JSON.stringify({ ...history,
+      windows: history.windows.map(window => ({ ...window,
+        costSeries: window.costSeries.filter(series => !addedKinds.has(series.kind)),
+      })),
+    }))
+    expect(originalShapeBytes).toBeLessThan(110_000)
+    // 65 bounded points plus two series headers per category: 4,500 bytes each.
+    // This fixed allowance is only for the three named additions above.
+    expect(reportBytes - originalShapeBytes).toBeLessThan(3 * 4_500)
     expect(queryMilliseconds).toBeLessThan(2_000)
     expect(stableStringify(makeSaveV18(state))).toBe(saveBefore)
     console.info(JSON.stringify({ proof: 'p11-week-history-scale', advances: 6_240,
       ledgerEntries: state.ledger.length, saveBytes: Buffer.byteLength(saveBefore),
-      reportBytes, queryMilliseconds: Math.round(queryMilliseconds * 100) / 100 }))
+      reportBytes, originalShapeBytes, addedSeriesBytes: reportBytes - originalShapeBytes, queryMilliseconds: Math.round(queryMilliseconds * 100) / 100 }))
   }, 60_000)
 })

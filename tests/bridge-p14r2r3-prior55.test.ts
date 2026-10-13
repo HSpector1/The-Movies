@@ -65,7 +65,7 @@ import {
   encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint,
   SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS,
 } from '../bridge/runtime-checkpoint.ts'
-import { LIVE_SAVE_VERSION, exportSave, migrateToLive, validateSaveV40, validateSaveV47 } from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, exportSave, migrateToLive, validateSaveV40, validateSaveV48, initialP15BRoots } from '../src/core/save.js'
 
 const FIXTURES = new URL('./fixtures/p14/genuine-runtime55-pre-r3/', import.meta.url)
 const OLD_SCHEMA = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158'
@@ -155,13 +155,22 @@ function withEmptyCompetitionsAndRomance<T extends { relationships?: readonly ob
 // save's own week and back-fills nothing; a genuine V44-or-older previous.state never carried them. The literals
 // are this file's own expectation: production's initialP15Roots never defines it (1361-F7 ruling 3).
 function withEmptyP15Roots<T extends object>(state: T, week: number): T {
-  return { ...state,
+  // P15B (1370-ar): the P15B step (convertToP15BSave) adds its two empty roots at the input's own week and the
+  // three loan money kinds at zero on every rival finance period; a genuine V45-or-older old.state never carried them.
+  type Period = { movements: Record<string, number> }
+  type Business = { account: { periods: Period[] } }
+  const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
+  const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
+    businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } })) } }
+  return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
     campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
     // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
-    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null },
+    ...initialP15BRoots(week) }
 }
 
 describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to current56, and each Save40 slot migrates to Save41 independently', () => {
@@ -172,8 +181,8 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
 
     // The schema/projection literals the migration target must already carry.
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(57)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-57')
+    expect(PROJECTION_VERSION).toBe(58)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-58')
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id === OLD_SCHEMA)).toEqual([[OLD_SCHEMA, 'projection-v55']])
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     // 1308-D required change 1 / 1308-F item 1 (B55-3-style older-roster pin, mirrored from
@@ -192,8 +201,9 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
     // (tests/bridge-p14p4p5-opportunities.test.ts).
     const older = [...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id !== OLD_SCHEMA)
       .sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0)
-    expect(older).toHaveLength(44)
-    expect(sha(canonicalJson(older))).toBe('d25c64254ac090a8470cc43b2f02740e149b6f29f75966ba4d2d1684b26654a6')
+    // Actual shipped outgoing57 adds one prior identity; exclude only genuine55 here.
+    expect(older).toHaveLength(45)
+    expect(sha(canonicalJson(older))).toBe('fc2e8804eb1c4729cc21403d7722114deb49cb1c234421e7629fa12430f316b9')
 
     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
     expect(loaded.migratedFromProtocolVersion).toBe(4)
@@ -206,7 +216,7 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
       const nextRaw = current[slot]
       expect(nextRaw, `${slot} must be present on the migrated checkpoint`).toBeTruthy()
       const previous = validateSaveV40(JSON.parse(old.value[slot]))
-      const now = validateSaveV47(JSON.parse(nextRaw!))
+      const now = validateSaveV48(JSON.parse(nextRaw!))
       expect(now.saveVersion).toBe(LIVE_SAVE_VERSION)
       // new.state equals old.state with termination:0 added to every rival finance period's
       // movements, and nothing else — the same fact p14r3-save-v41.test.ts asserts directly

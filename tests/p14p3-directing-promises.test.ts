@@ -25,6 +25,8 @@ import { act, actualPromise, admitted, at45, attach, attached, bound, bytes, CAS
   counters, creative, directorDraft, firstFilm, futureSave, greenlight, issuer, managedEmpty,
   outgoing, outgoingNames, person, proposal, quote, reopen, secondFilm, sha, SHAPE, terminal208, WRITER,
   type DirectorDraft, type DirectorPromise } from './helpers/p14p3-fixtures.js'
+import { predecessorSave } from './helpers/p15-roots.js'
+import { initialP15BRoots } from '../src/core/save.js'
 
 // Set before any execution. A single <=208-tick cached trajectory plus whole-save
 // negative families needs more than the runner's 5s default; this does not alter
@@ -104,13 +106,31 @@ function withEmptyScreenplayShelving<T extends WithRivalBusinesses>(state: T): T
 // save's own week and back-fills nothing; a genuine Save38 `outgoing()` state never carried them. The
 // literals are this file's own expectation: production's initialP15Roots never defines it (1361-F7 ruling 3).
 function withEmptyP15Roots<T extends object>(state: T, week: number): T {
-  return { ...state,
+  // P15B (1370-ar): the P15B step (convertToP15BSave) adds its two empty roots at the input's own week and the
+  // three loan money kinds at zero on every rival finance period; a genuine V45-or-older old.state never carried them.
+  type Period = { movements: Record<string, number> }
+  type Business = { account: { periods: Period[] } }
+  const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
+  const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
+    businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } })) } }
+  return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
     campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
     // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
-    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null },
+    ...initialP15BRoots(week) }
+}
+// P15B (1370-ar): the P15B step gives every rival finance period the three loan money kinds at zero; a genuine
+// V45-or-older old.state never carried them.
+function withZeroLoanMovements<T extends WithRivalBusinesses>(state: T): T {
+  if (state.hollywood === null) return state
+  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+    ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
+      ...period, movements: { ...period.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) },
+  })) } }
 }
 // 1358-F11 ruling 1: a genuine Save39 Director capture of record 1221 (manifest schema.saveVersion
 // 39), pinned and loaded as p14p4p5-opportunities Q04 loads it. Production's convertV39ToV40 alone gives
@@ -421,7 +441,9 @@ describe('P3 first slice: public Director promises and historical meaning', () =
     // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
     // The V39 opportunity/subject guard stays covered by Q11 in
     // p14p4p5-screenplay-status.test.ts (the genuine Save40 factOnly capture).
-    expect(() => saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(saves.convertV47ToV46(saves.makeSave(a.state)))))))))
+    // P15B (1370-ar): the chain takes the predecessor envelope the test helper builds from the live state
+    // (tests/helpers/p15-roots.ts); the P15B step's own refusal would mask the guard under test.
+    expect(() => saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(saves.convertV47ToV46(predecessorSave(a.state)))))))))
       .toThrow(/^migrateToV44: cannot downgrade or discard a recorded (?:shared-market assessment \(\d+ recorded\)(?:; cannot downgrade or discard a recorded Power Ranking quarter)?|Power Ranking quarter)$/) // 1370-AR r2: with the market law active the shared-market rows are named first (1361-F7 ruling 2)
     // So the frozen builders take the genuine director-bound-week52 capture (Save39, a bound P3 Director
     // promise), lifted to V40 by convertV39ToV40 alone.
@@ -448,9 +470,9 @@ describe('P3 first slice: public Director promises and historical meaning', () =
       // captures (24 or 30 edges, no track, no log row).
       // 1361-N S5: Save45's four P15 roots, empty, at the input's own week (the migration does not tick).
       // 1363-N: expected-only null cutting and zero refund in every historical period.
-      const oldState = saves.stableStringify(withEmptyRecovery(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.save.state))))), old.save.state.market.tick)))
+      const oldState = saves.stableStringify(withZeroLoanMovements(withEmptyRecovery(withEmptyP15Roots(withEmptyCompetitionsAndRomance(withEmptyScreenplayShelving(withFirstTakeSubjects(withRivalTermination(withSharedCompetitions(old.save.state))))), old.save.state.market.tick))))
       const current = saves.migrateToLive(old.save)
-      expect(saves.validateSaveV47(current)).toBe(current)
+      expect(saves.validateSaveV48(current)).toBe(current)
       // Existing semantic boundary: fails as37/38 rather than a missing import.
       expect(current.saveVersion).toBe(saves.LIVE_SAVE_VERSION)
       expect(saves.stableStringify(current.state)).toBe(oldState)
@@ -755,7 +777,9 @@ describe('P3 second slice: cancellation and same-domain waiver', () => {
       // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
       // The V39 opportunity/subject guard stays covered by Q11 in
       // p14p4p5-screenplay-status.test.ts (the genuine Save40 factOnly capture).
-      expect(() => saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(saves.convertV47ToV46(save))))))))
+      // P15B (1370-ar): the chain takes the predecessor envelope the test helper builds from the live state
+      // (tests/helpers/p15-roots.ts); the P15B step's own refusal would mask the guard under test.
+      expect(() => saves.convertV41ToV40(saves.convertV42ToV41(saves.convertV43ToV42(saves.convertV44ToV43(saves.convertV45ToV44(saves.convertV46ToV45(saves.convertV47ToV46(predecessorSave(save.state)))))))))
         .toThrow(/^migrateToV44: cannot downgrade or discard a recorded (?:shared-market assessment \(\d+ recorded\)(?:; cannot downgrade or discard a recorded Power Ranking quarter)?|Power Ranking quarter)$/) // 1370-AR r2: with the market law active the shared-market rows are named first (1361-F7 ruling 2)
     }
     // 1358-F11 ruling 1: the genuine director-waived-week61 capture (Save39: promise-0 WAIVED and its open

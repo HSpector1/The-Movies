@@ -16,14 +16,16 @@ import { FACILITY_BLUEPRINTS, GENRE_ORDER, ROLE_TO_DISCIPLINE, TUNING } from './
 import { TECHNOLOGY_CATALOGUE } from './technologyCatalogue.js'
 import type { GameState, GameStateV18, Genre, Talent } from './types.js'
 import type { HollywoodState, IndustryReceipt, RivalAccount, RivalBusiness, RivalFinancePeriod,
-  RivalMoneyKind, RivalResearchMoneyKind, StudioIdentity } from './hollywoodTypes.js'
+  RivalLoanMoneyKind, RivalMoneyKind, RivalResearchMoneyKind, StudioIdentity } from './hollywoodTypes.js'
 
 /** P13B-S8: the four research kinds, as one roster the save boundary and the projection share. */
 export const RIVAL_RESEARCH_MONEY_KINDS: readonly RivalResearchMoneyKind[] =
   ['researchSpend','researchCapacity','technologyRestoration','technologyRefund']
+/** P15B: the three loan/closure kinds, as one roster the save boundary and the projection share. */
+export const RIVAL_LOAN_MONEY_KINDS: readonly RivalLoanMoneyKind[] = ['loanPrincipal','loanInstallment','claimPayment']
 export const RIVAL_MONEY_KINDS: readonly RivalMoneyKind[] = ['capacity','signing','payroll','overhead',
   'facilityOpex','development','production','marketing','studioRevenue','technologyAdoption',
-  ...RIVAL_RESEARCH_MONEY_KINDS,'termination','facilityDemolitionRefund']
+  ...RIVAL_RESEARCH_MONEY_KINDS,'termination','facilityDemolitionRefund',...RIVAL_LOAN_MONEY_KINDS]
 
 export function uniqueIdentity(base: string, taken: Set<string>): string {
   let id = base
@@ -37,7 +39,8 @@ export type RivalFinanceEra = 'live' | 'research-v27'
 
 export function newFinancePeriod(week: number, opening: number, era: RivalFinanceEra = 'live'): RivalFinancePeriod {
   const kinds = era === 'live' ? RIVAL_MONEY_KINDS
-    : RIVAL_MONEY_KINDS.filter(kind => kind !== 'termination' && kind !== 'facilityDemolitionRefund')
+    // P15B (1370-ar): the three loan kinds are the live era's too; a frozen-era period keeps the V27 roster.
+    : RIVAL_MONEY_KINDS.filter(kind => kind !== 'termination' && kind !== 'facilityDemolitionRefund' && !(RIVAL_LOAN_MONEY_KINDS as readonly string[]).includes(kind))
   return { fromWeek: week, throughWeek: week, opening, closing: opening,
     movements: Object.fromEntries(kinds.map(kind => [kind,0])) as RivalFinancePeriod['movements'] }
 }
@@ -97,9 +100,12 @@ export function studioEmployerId(state: GameState, talentId: string, week = stat
   return rivalEmployment(state,talentId,week)?.studioId ?? null
 }
 
-export function industryBusyTalentIds(hollywood: HollywoodState | null | undefined): Set<string> {
+/** P15B closure/v1 (r3; Wave-4 contract §4): `closed` (operatingState.closedWeekOf) leaves out an actually closed
+ * business, whose retained work is terminal history and whose people were released at its closure week. */
+export function industryBusyTalentIds(hollywood: HollywoodState | null | undefined, closed: ReadonlyMap<string, number> = new Map()): Set<string> {
   const ids = new Set<string>()
   for (const business of hollywood?.businesses ?? []) {
+    if (closed.has(business.studioId)) continue
     for (const ordinal of business.activeScriptOrdinals) {
       const project=business.development.projects[ordinal]!
       if (project.status === 'drafting' || project.status === 'rewriting') {

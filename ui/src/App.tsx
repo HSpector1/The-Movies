@@ -867,6 +867,10 @@ class DevErrorBoundary extends Component<{ children: ReactNode }, { error: Error
   }
 }
 
+import { CorporateConditionPanel } from './components/CorporateConditionPanel.tsx'
+import { ClosedStudioHistory } from './screens/ClosedStudioHistory.tsx'
+import { studioCorporateView, takeStudioLoanAction } from './engine/adapter.ts'
+
 export function App() {
   // D-12 session recovery: on FIRST mount, restore the active-session autosave (through the same
   // validate/migrate path as a manual load) BEFORE offering a new game — so a browser refresh, HMR
@@ -2916,6 +2920,8 @@ export function App() {
   }, [livingTurn.mode, lotCadenceFeedback, screen.kind, state])
 
   function handleLivingTurnCommand(command: LivingTurnCommand) {
+    const owner = latestStateRef.current
+    if (owner !== null && studioCorporateView(owner).mode === 'terminal') return
     setLivingTurn((run) => livingTurnAfterCommand(run, command))
     if (command.kind !== 'play') return
     // Unpausing on a week whose playback has already settled would leave the loop
@@ -2933,10 +2939,21 @@ export function App() {
   ) {
     if (source === 'mounted-lot' && !currentLotWorldInputOwner()) return
     if (!state) return
+    if (latestStateRef.current !== state || studioCorporateView(state).mode === 'terminal') return
     // RULING A: advanceWeek ticks with development ON. The engine applies development
     // EXACTLY ONCE inside this single tick; we then replace the authoritative GameState
     // with `next` and never re-tick on re-render — so development is never double-applied.
-    const { preTick, next, released, constructionCompletion, stopReason, stop } = advanceWeek(state)
+    // P15B (r3): an engine refusal never escapes a React handler; the lot stays as it was and says so, the way
+    // the next-event path already does.
+    let advanced: ReturnType<typeof advanceWeek>
+    try {
+      advanced = advanceWeek(state)
+    } catch {
+      punctuateRefusal(state.market.tick)
+      showNotice('The studio could not advance this week. The current lot is unchanged.')
+      return
+    }
+    const { preTick, next, released, constructionCompletion, stopReason, stop } = advanced
     // Build the per-release development summary by DIFFING the pre-tick vs post-tick
     // talent (pure read of two immutable snapshots — no re-run of development).
     const development = buildReleaseDevelopment(preTick, next, released)
@@ -3140,6 +3157,7 @@ export function App() {
   // stop tick is exactly one tick after `preTick`); any other stop shows the weekly summary.
   function handleSimToEvent(returnContext: StudioReturnContext) {
     if (!state) return
+    if (latestStateRef.current !== state || studioCorporateView(state).mode === 'terminal') return
     // Living Turn V1 (§4.1 / law 3). The batch verb keeps the FULL unpartitioned
     // ladder and its semantics are unchanged — so it always lands on a governed
     // event, with a summary the player is meant to read. Holding the studio there
@@ -3147,7 +3165,15 @@ export function App() {
     // that carried on through the stop would be narrating weeks nobody was present
     // for. The player rolls again when they have looked.
     setLivingTurn((run) => livingTurnAfterCommand(run, { kind: 'pause' }))
-    const result = advanceToNextEvent(state)
+    // P15B (r3): an engine refusal never escapes a React handler; the lot stays as it was and says so.
+    let result: ReturnType<typeof advanceToNextEvent>
+    try {
+      result = advanceToNextEvent(state)
+    } catch {
+      punctuateRefusal(state.market.tick)
+      showNotice('The studio could not advance to the next event. The current lot is unchanged.')
+      return
+    }
     replaceAuthoritativeState(result.next)
     // PF1-M2: the governed stop is the receipt. One stop, one punctuation, whatever the
     // week count — a forty-week batch is not forty beats (operational law 3).
@@ -3298,6 +3324,12 @@ export function App() {
     // the successor has actually been committed. A rejected or superseded result makes no
     // sound at all — that is what "reacts to truth" means at a contested gate.
     applyPunctuation(punctuateSimResult(result))
+
+    if (studioCorporateView(result.next).mode === 'terminal') {
+      lotNextEventSessionRef.current = null
+      setLotCadenceFeedback(null)
+      return true // The committed stored terminal owner replaces operating event hops.
+    }
 
     if (hasRelease) {
       const returnContext: StudioReturnContext = {
@@ -4479,6 +4511,31 @@ export function App() {
     return true
   }
 
+  function handleStudioLoan(principal: number) {
+    const current = latestStateRef.current
+    if (current === null) return { ok: false as const, error: 'No active studio.' }
+    if (current !== state) {
+      const error = 'This studio loan offer changed. Review the current terms before borrowing.'
+      showNotice(error)
+      return { ok: false as const, error }
+    }
+    const result = takeStudioLoanAction(current, principal)
+    if (result.ok) {
+      setLivingTurn(run => livingTurnAfterCommand(run, { kind: 'pause' }))
+      replaceAuthoritativeState(result.next)
+    } else showNotice(result.error)
+    return result
+  }
+  // Replace every operating surface/retained overlay with the same stored terminal owner.
+  // Saves and the existing read-only recap remain reachable; no partially ended state is routed here.
+  if (studioCorporateView(state).mode === 'terminal' && screen.kind !== 'saves' && screen.kind !== 'recap') {
+    return <DevErrorBoundary>{recoveryBanner}{saveMigrationBanner}{persistenceBanner}{appNoticeBanner}
+      <ClosedStudioHistory state={state} fromLot={lotEnabled}
+        onSaves={() => setScreen({ kind: 'saves', returnContext: lotEnabled ? { kind: 'lot', focus: 'studio-home', suppressOperationalAnnouncement: false } : { kind: 'dashboard' } })}
+        onHistory={() => setScreen({ kind: 'recap', returnContext: lotEnabled ? { kind: 'lot', focus: 'studio-home', suppressOperationalAnnouncement: false } : { kind: 'dashboard' } })} />
+    </DevErrorBoundary>
+  }
+
   const openProfile = openProfileId ? talentProfile(state, openProfileId) : undefined
   // Keep the world inert for the full lifetime of the App-owned drawer identity,
   // including the single reconciliation render where a hostile/replaced state no
@@ -4505,6 +4562,9 @@ export function App() {
       {saveMigrationBanner}
       {persistenceBanner}
       {appNoticeBanner}
+      {(screen.kind === 'lot' || screen.kind === 'dashboard') && <CorporateConditionPanel state={state} onTakeLoan={handleStudioLoan}
+        onReduceObligations={() => { setLivingTurn(run => livingTurnAfterCommand(run, { kind: 'pause' })); setScreen({ kind: 'roster', returnContext: screen.kind === 'lot' ? { kind: 'lot', focus: 'studio-home', suppressOperationalAnnouncement: false } : { kind: 'dashboard' } }) }}
+        onRelease={() => { setLivingTurn(run => livingTurnAfterCommand(run, { kind: 'pause' })); setScreen({ kind: 'dashboard', returnContext: { kind: 'dashboard' } }) }} />}
       {openProfile && (
         <TalentProfileDrawer
           profile={openProfile}

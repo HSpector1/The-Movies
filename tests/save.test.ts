@@ -44,10 +44,12 @@ import type {
   Segment,
 } from "../src/core/index.js";
 import type { SaveFileV14, SaveFileV15, LiveSaveFile } from "../src/core/save.js";
+import { LIVE_SAVE_VERSION } from "../src/core/save.js";
 import { initialCareerLifecycle } from "../src/core/careerLifecycle.js";
 import { buildTalentProvenance } from "../src/core/aging.js";
 import { initialProperty } from "../src/core/lot.js";
 import { contendedStudio, freePackage } from "./_m4Fixtures.js";
+import { predecessorSave } from './helpers/p15-roots.js'
 
 // ── Minimal valid fixtures (all values are chosen inputs) ────────────────────
 
@@ -285,8 +287,8 @@ describe("§17 — loud rejection of an unknown saveVersion", () => {
     // recognizes versions 1–38 after the C.3 cutover; the unsupported
     // sentinel remains one version past that CURRENT dispatch ceiling.
     const save = wellFormedSave();
-    const bad = { ...save, saveVersion: 48 } as unknown as SaveFileV14;
-    expect(() => loadSave(bad)).toThrow(/unknown saveVersion 48/);
+    const bad = { ...save, saveVersion: LIVE_SAVE_VERSION + 1 } as unknown as SaveFileV14;
+    expect(() => loadSave(bad)).toThrow(new RegExp(`unknown saveVersion ${LIVE_SAVE_VERSION + 1}`));
   });
 });
 
@@ -367,7 +369,7 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
     // tests/contracts/_v14Contract.ts's `projectToV13State` already uses).
     // C.3: the real guarded downgrade proves no profession history is lost
     // BEFORE this explicitly historical fixture omits V25 workflow fields.
-    const historical = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(makeSave(cancelled))))))))))).state;
+    const historical = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(predecessorSave(cancelled))))))))))).state;
     const strippedForV15 = {
       ...historical,
       operations: {
@@ -416,7 +418,7 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
 
     // Validate and genuinely downgrade before making the historical omission;
     // malformed Save38 must never bypass its complete-state guard.
-    const historical = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(makeSave(cancelled))))))))))).state;
+    const historical = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(predecessorSave(cancelled))))))))))).state;
     const v14Rows = historical.studioEvents.rows.map((row) => {
       if (row.kind !== "queueIntentExpired") return row;
       const { subjectId: _subjectId, ...rest } = row;
@@ -450,10 +452,10 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
     ).toMatchObject({ subjectId: null });
   });
 
-  it("rejects an unknown saveVersion 46 with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.2b)", () => {
+  it("rejects an unknown saveVersion one past the live version with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.2b)", () => {
     const save = wellFormedV15Save();
-    expect(() => validateSave({ ...save, saveVersion: 48 })).toThrow(
-      /versions 1 through 47 only/,
+    expect(() => validateSave({ ...save, saveVersion: 49 })).toThrow(
+      /versions 1 through 48 only/,
     );
     expect(() => migrateToV14(save)).toThrow(/cannot downgrade SaveFileV15/);
   });

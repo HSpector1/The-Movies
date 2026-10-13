@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
+import { makeSave } from '../src/core/save.js'
 import { technologyEntry } from '../src/core/technologyCatalogue.js'
 import type { GameState } from '../src/core/types.js'
-import { advanceTo, p13aResearchReady } from '../src/harness/p13a/fixtures.js'
+import { advanceTo, p13aGeneratedStudio, p13aResearchReady } from '../src/harness/p13a/fixtures.js'
 import { p13bTwoLabWorld } from '../src/harness/p13b/fixtures.js'
 // RED-by-design: `src/core/technologyAdoption.ts` does not exist yet (S5-T1/T2/T3
 // engine increment is not landed). This import fails module resolution before
@@ -190,13 +191,17 @@ describe('P13B-S5 quotes and components per route (test 1)', () => {
   })
 
   it('lighting commercial at 936: access $100k charged once at purchase, equipment $200k commercial, physical $100k', () => {
-    let state = advanceTo(p13bTwoLabWorld().state, LIGHTING.commercialWeek)
-    // p13bTwoLabWorld() carries no revenue business; measured cash here is
-    // -$6,431,760 (overhead burn only from week 780 to 936). Fund the world
-    // lawfully before the purchase so the $100,000 access charge is affordable
-    // under the D-12.11 solvency gate — this is fixture staging, not tuning.
-    state = fundTo(state, 1_000_000)
+    // Commercial access needs no research department. Advance the existing
+    // generated studio through real ticks, without the two Labs/eight salaries
+    // of the inventor fixture and without an invented cash/ledger top-up.
+    let state = advanceTo(p13aGeneratedStudio(), LIGHTING.commercialWeek)
+    expect(state.market.tick).toBe(936)
+    expect(state.studio.cash).toBeGreaterThanOrEqual(LIGHTING.accessCost)
+    expect(state.technology.access.some(access => access.studioId === state.hollywood!.playerStudioId
+      && access.technologyId === LIGHTING.id)).toBe(false)
+    makeSave(state) // the complete current input must be admitted before purchase
     state = applyActions(state, [{ kind: 'purchaseTechnology', technologyId: LIGHTING.id }])
+    makeSave(state)
     const purchases = state.ledger.filter(e => e.kind === 'technologyAdoption' && e.note === `technology-access:${state.hollywood!.playerStudioId}:${LIGHTING.id}`)
     expect(purchases).toHaveLength(1)
     expect(purchases[0]!.amount).toBe(-LIGHTING.accessCost)

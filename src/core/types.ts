@@ -413,6 +413,11 @@ export type LedgerKind =
   | 'researchPayroll'
   | 'researchSpend'
   | 'technologyAdoption'
+  // P15B Wave 2 (1357-A §6.3): the loan principal received (+) and each installment charged (−).
+  | 'loanPrincipal'
+  | 'loanInstallment'
+  // P15B Wave 4 (closure/v1 §3): one employment claim payment (−), correlated by talentId.
+  | 'claimPayment'
 
 // Frozen V11 rows discriminate the one capital event and its exact correlation.
 // Construction capex cannot masquerade as film/talent spend, while historical
@@ -441,6 +446,26 @@ export type LedgerEntry =
       kind: 'researchPayroll' | 'researchSpend' | 'technologyAdoption'
       amount: number
       talentId?: never
+      productionId?: never
+      constructionProjectId?: never
+      note: string
+    }
+  // P15B Wave 2: a studio-level loan movement carries no correlation; one loan at a time makes
+  // (kind, week) unique (1357-A §6.3). Wave 4: a claim payment names its claimant, as a termination row does.
+  | {
+      week: number
+      kind: 'loanPrincipal' | 'loanInstallment'
+      amount: number
+      talentId?: never
+      productionId?: never
+      constructionProjectId?: never
+      note: string
+    }
+  | {
+      week: number
+      kind: 'claimPayment'
+      amount: number
+      talentId: string
       productionId?: never
       constructionProjectId?: never
       note: string
@@ -2082,6 +2107,9 @@ export type TalentMarketReceiptKind =
   /** P14B.1 (6): the ONE promise receipt kind, carrying the outcome as a typed
    * field on the promise record it names and the causing event's id. */
   | 'promiseOutcome'
+  /** P15B closure/v1 (record 1370-ar, r3): the issuing studio's actual closure withdrew its proposal, the
+   * producer-owned transition the closure validator reads back (Wave-4 contract §4 row 1, §5). */
+  | 'proposalWithdrawn'
 
 /** Reasons are ORDERING ONLY (companion §2.1.5): never an amount, never a formula. */
 export type TalentMarketReceipt = {
@@ -2323,7 +2351,7 @@ export type GameStateV31 = GameStateV30 & {
 // V44 adds the edge's `competitions` log and `romance` track.
 // V45 is the shared P15 step: slice 2a adds the Power Ranking archive and the one P15 allocator,
 // P15A.1 Wave 2 adds the shared-market root, and P15C Wave 2 adds the Campaign Legacy root.
-export type GameState = GameStateV47
+export type GameState = GameStateP15B
 
 // ── P14B.7 — the waived-promise link (Save V32) ─────────────────────────────
 
@@ -2579,7 +2607,7 @@ export type PowerRankingRecordRow = {
 }
 export type PowerRankingRecord = {
   id: string; p15DomainSequence: number; phaseId: string; phaseOrdinal: number; phaseOrderVersion: number
-  week: number; definitionVersion: 'power-ranking/v1'; available: boolean; windowStartWeek: number
+  week: number; definitionVersion: 'power-ranking/v1' | 'power-ranking/v2'; available: boolean; windowStartWeek: number
   rows: PowerRankingRecordRow[]
 }
 export type PowerRankingArchive = { version: 1; recordedFromWeek: number; snapshots: PowerRankingRecord[] }
@@ -2615,6 +2643,142 @@ export type GameStateV46 = GameStateV45
  * P15_ROOT_KEYS or p15Sequence. Additive over R8's Save46 (nothing of V46 moves).
  */
 export type GameStateV47 = GameStateV46 & { foundingFunding: import('./foundingFunding.js').FoundingFundingRoot }
+
+// ── P15B Waves 2–4 (record 1370-ar): the condition root and the closure root ──────────────────
+// 1357-A §4 as adopted by 1357-F Amendment 1: `corporateCondition` holds each evaluated studio's record,
+// the append-only condition events and loan contracts, each event and loan carrying its P15 domain
+// sequence and phase triple. `studioClosure` (closure/v1, the Wave-4 contract §2-§5) holds the actual
+// closure records, their typed dispositions and the employment claims. Neither root joins save.ts's
+// P15_ROOT_KEYS (1361-F3 ruling 2); both join the one allocator check at V46.
+export type StudioConditionRecord = {
+  studioId: string
+  firstEvaluatedWeek: number
+  definitionVersion: 'corporate-condition/v1'
+  condition: import('./corporateCondition.js').Condition
+}
+export type ConditionEvent = {
+  eventId: string
+  studioId: string
+  week: number
+  from: import('./corporateCondition.js').ConditionStage
+  to: import('./corporateCondition.js').ConditionStage
+  causes: import('./corporateCondition.js').ConditionCause[]
+  definitionVersion: 'corporate-condition/v1'
+  p15DomainSequence: number; phaseId: string; phaseOrdinal: number; phaseOrderVersion: number
+}
+/** 1357-A §4: the persisted loan contract. Installments paid are derived, never stored (1357-F R2); the
+ * Wave-4 stop week lives on the closure record that stopped it, so this row is byte-stable across closure. */
+export type StudioLoanRecord = {
+  loanId: string
+  studioId: string
+  lawVersion: 'studio-loan/v1'
+  contractedWeek: number
+  weeklyFixedCostAtContract: number
+  principal: number
+  total: number
+  installments: number[]
+  p15DomainSequence: number; phaseId: string; phaseOrdinal: number; phaseOrderVersion: number
+}
+export type CorporateConditionRoot = {
+  version: 1
+  recordedFromWeek: number
+  nextEvent: number
+  nextLoan: number
+  studios: StudioConditionRecord[]
+  events: ConditionEvent[]
+  loans: StudioLoanRecord[]
+}
+/** One typed terminal disposition (Wave-4 contract §4). `status` 'pending' is an explicit, honest
+ * non-execution (P16 contract §4 (b)); it never means "forgotten". */
+export type ClosureDisposition = {
+  subjectKind: 'employment' | 'screenplay' | 'production' | 'theatricalRun' | 'research' | 'adoption' | 'physicalPlan'
+    | 'facility' | 'construction' | 'set' | 'castingSession' | 'queuedIntent' | 'proposal' | 'marketCase' | 'loan' | 'cash' | 'title'
+  subjectId: string
+  /** Prior-state proof fields the validator can check against retained history (§5). */
+  prior: string
+  result: string
+  status: 'applied' | 'pending'
+  claimId: string | null
+  lotId: string | null
+  lawVersion: 'closure/v1'
+}
+export type ClosureClaimPayment = { week: number; amount: number; reference: string }
+export type ClosureClaim = {
+  claimId: string
+  closureId: string
+  studioId: string
+  kind: 'employment'
+  sourceContractId: string
+  claimantTalentId: string
+  lawVersion: 'closure/v1'
+  original: number
+  paid: number
+  unpaid: number
+  status: 'paid' | 'unpaid' | 'partiallyPaid' | 'unpaidArchived'
+  payments: ClosureClaimPayment[]
+}
+/** One R2 title lot of the estate (P16 handoff). Its open/archived status is derived from the estate's
+ * archival event (r3: the closure record is immutable after creation, Wave-4 contract §5). */
+export type EstateLot = { lotId: string; right: 'R2'; subjectId: string }
+export type ClosureEstate = {
+  opensWeek: number
+  closesWeek: number
+  lots: EstateLot[]
+}
+/** The claims distribution made inside the closure transaction at C (§3 "at closure"); later batches are
+ * estate events. */
+export type ClosureReceipt = { week: number; kind: 'distribution'; amount: number; reference: string }
+/** r3 (Wave-4 contract §2, §5): one later estate transaction, a separate dated record linked to its closure,
+ * carrying its own stable id, the one global P15 sequence and the phase triple. `runReceipt` names the run
+ * installment the estate collected (`<filmId>:due:<T−1>`), `distribution` one claims batch (its payments
+ * reference this event id), `archival` the one close boundary D of a rival estate. */
+export type EstateEvent = {
+  eventId: string
+  closureId: string
+  studioId: string
+  week: number
+  kind: 'runReceipt' | 'distribution' | 'archival'
+  amount: number
+  reference: string
+  p15DomainSequence: number; phaseId: string; phaseOrdinal: number; phaseOrderVersion: number
+}
+export type ClosureRecord = {
+  closureId: string
+  studioId: string
+  closureWeek: number
+  causeEventId: string
+  lawVersion: 'closure/v1'
+  p15DomainSequence: number; phaseId: string; phaseOrdinal: number; phaseOrderVersion: number
+  cash: { closing: number; distributable: number }
+  loan: { loanId: string; stopWeek: number; paidInstallments: number; paidAmount: number; remainder: number } | null
+  dispositions: ClosureDisposition[]
+  counts: Record<string, number>
+  digest: string
+  estate: ClosureEstate
+  receipts: ClosureReceipt[]
+  /** The P15C end-of-run hook (1353-A §7): the stamped end-of-run manifest id when the hook was enabled at
+   * closure, else null. Disabled by default until the Legacy adapter amendment is adopted (1367-G). */
+  endOfRun: string | null
+}
+export type StudioClosureRoot = {
+  version: 1
+  recordedFromWeek: number
+  nextClosure: number
+  nextClaim: number
+  nextEstateEvent: number
+  closures: ClosureRecord[]
+  claims: ClosureClaim[]
+  estateEvents: EstateEvent[]
+}
+export type P15BStepRoots = {
+  corporateCondition: CorporateConditionRoot
+  studioClosure: StudioClosureRoot
+}
+// RENUMBER WITH save.ts's P15B header (Save48 over founding's Save47): the predecessor state is named once here.
+type P15BPredecessorState = GameStateV47
+export type GameStateP15B = Omit<P15BPredecessorState, 'campaignLegacy'> & P15BStepRoots & { campaignLegacy: import('./campaignLegacy.js').ModernCampaignLegacyRoot }
+/** The conventional name, renumbered with save.ts's header. */
+export type GameStateV48 = GameStateP15B
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
@@ -2777,6 +2941,9 @@ export type Action =
   | { kind: 'cancelPhysicalPlan'; planId: string }
   | { kind: 'reviewPhysicalPlan'; planId: string; approvedMaximumDebit: number }
   | { kind: 'setPhysicalPlanAdmission'; planId: string; admission: PhysicalPlanAdmission }
+  // P15B Wave 2 (1357-A §6.1): the player's one loan verb. It names a principal and nothing else; the
+  // stage, the maximum and the schedule come from the law at the action's own week.
+  | { kind: 'takeLoan'; principal: number }
 
 // §10 Authored talent — extended per D-9.14 (creation budget). `actual` persona
 // stays fully player-chosen; potential/workEthic/skillBias/secondary share a

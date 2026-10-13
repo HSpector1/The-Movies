@@ -28,6 +28,7 @@ import type {
   CastSlot,
 } from './types.js'
 import { resolveShape } from './shape.js'
+import { TUNING } from './tuning.js'
 import { filmCommittedCost, filmAudienceScore } from './receptionVerdict.js'
 import { NEGATIVE_BUDGET_MULTIPLIERS } from './grid.js'
 import { marketingLevelsFor } from './marketingMenu.js'
@@ -1000,7 +1001,7 @@ function classifyRecovery(inp: {
   if (!inp.hasActiveRevenue) reasons.push('No active theatrical run is generating revenue, so nothing offsets that weekly drain.')
   if (inp.contractsOutliveRunway)
     reasons.push('You cannot wait for current contracts to expire: they end after the cash would run out under current fixed costs.')
-  reasons.push('A bare-minimum film being possible is not a strong recovery path — recovery would require an underfunded film to succeed before fixed costs consume the remaining cash. No recovery mechanic (loans/financing) exists in the current rules.')
+  reasons.push(`A bare-minimum film being possible is not a strong recovery path — recovery would require an underfunded film to succeed before fixed costs consume the remaining cash. A studio loan, where offered, is open only in warning or distress, at most ${TUNING.LOAN_MAX_FIXED_COST_WEEKS} weeks of fixed costs repaid over ${TUNING.LOAN_TERM_WEEKS} weeks; it buys time and does not fund a film by itself.`)
 
   const severe = !standardOk && !inp.hasActiveRevenue && !waitingHelps && inp.runwayWeeks != null
   return { recovery: severe ? 'severe' : 'constrained', reasons }

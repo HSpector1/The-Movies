@@ -45,10 +45,14 @@ export function accepted45(key: 'ordinary'|'calendar'|'operational'|'research'|'
   const live = save.convertV45ToV46(old)
   requireFact(save.validateSaveV46(live) === live && save.stableStringify(old) === before, 'actual45→46 neutral admission failed')
   requireFact(save.stableStringify(save.convertV46ToV45(live)) === before, 'only null/zero initialized roundtrip differs')
-  // Save47 (1364, 1370-AR r2): `live` keeps its Save46 era facts above; `current` is the live envelope one step up,
-  // whose null recruitment fund strips back to the same V46 bytes.
-  const current = save.convertV46ToV47(live)
-  requireFact(save.validateSaveV47(current) === current && save.stableStringify(save.convertV47ToV46(current)) === save.stableStringify(live), 'the Save47 null fund does not round-trip')
+  // Save47 (1364, 1370-AR r2): `live` keeps its Save46 era facts above; founding's step adds the null recruitment
+  // fund, which strips back to the same V46 bytes.
+  const funded = save.convertV46ToV47(live)
+  requireFact(save.validateSaveV47(funded) === funded && save.stableStringify(save.convertV47ToV46(funded)) === save.stableStringify(live), 'the Save47 null fund does not round-trip')
+  // Save48 (1370-ar r2): `current` is the live envelope one more step up; its empty condition and closure roots and
+  // its zero loan movements strip back to the same V47 bytes.
+  const current = save.convertV47ToV48(funded)
+  requireFact(save.validateSaveV48(current) === current && save.stableStringify(save.convertV48ToV47(current)) === save.stableStringify(funded), 'the Save48 empty roots do not round-trip')
   for (const b of live.state.hollywood!.businesses) {
     requireFact(b.costCutting.since === null && b.costCutting.version === 1, 'new recovery authority is not empty')
     requireFact(b.account.periods.every(p => p.movements.facilityDemolitionRefund === 0), 'retroactive refund not empty')

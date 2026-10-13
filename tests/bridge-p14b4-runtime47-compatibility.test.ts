@@ -27,6 +27,15 @@ import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
 // carried it, so the expected migrated `hollywood` must build it the same
 // way, never a bare `old.state.hollywood`.
 type OldV29State = ReturnType<typeof validateSaveV29>['state']
+// P15B (1370-ar): the P15B step gives every rival finance period the three loan money kinds at zero; a genuine
+// V45-or-older old.state never carried them.
+function withZeroLoanMovements<T extends { hollywood: { businesses: readonly { account: { periods: readonly { movements: Record<string, number> }[] } }[] } | null }>(state: T): T {
+  if (state.hollywood === null) return state
+  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+    ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
+      ...period, movements: { ...period.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) },
+  })) } }
+}
 function withRivalTermination<T extends OldV29State>(state: T): T {
   if (state.hollywood === null) return state
   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
@@ -52,6 +61,8 @@ const OUTGOING_53 = 'sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2
 const OUTGOING_54 = 'sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302' // P4/P5: genuine1221 outgoing54
 const OUTGOING_55 = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158' // R2/R3: genuine1307 outgoing55
 const OUTGOING_56 = 'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1' // relationship slice B: outgoing56, the manifest schemaId before projection 57
+// Actual shipped outgoing57 is preserved alongside the historic identities.
+const OUTGOING_57 = 'sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253'
 const PINS = {
   gzip: '3db0599c6e183140b79c83880eb967dde37aecc0d178a85d192283893ea0cc34',
   raw: 'e344be06db6794e9d1523c036befb4180595564ef8a3fb6e6062328e477e7699',
@@ -207,11 +218,11 @@ describe('P14B4 genuine outgoing46 runtime compatibility — current Save39/proj
 
   it('requires literal projection54/Save39 and exact 42 prior IDs, excluding the running identity', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(57)
+    expect(PROJECTION_VERSION).toBe(58)
     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_53)).toBe('projection-v53')
@@ -257,7 +268,7 @@ describe('P14B4 genuine outgoing46 runtime compatibility — current Save39/proj
       ...old.state.talentMarket,
       cases: old.state.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' })),
     })
-    expect(actual.state.hollywood).toEqual(withEmptyRecovery(withEmptyScreenplayShelving(withRivalTermination(old.state))).hollywood)
+    expect(actual.state.hollywood).toEqual(withZeroLoanMovements(withEmptyRecovery(withEmptyScreenplayShelving(withRivalTermination(old.state)))).hollywood)
     expect(exportSave(old)).toBe(oldBytes)
     expect(loaded.hydrated.checkpoint.currentSaveJson).not.toBe(loaded.hydrated.checkpoint.savedSaveJson)
     expect(sha(raw)).toBe(PINS.raw)

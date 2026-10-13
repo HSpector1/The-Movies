@@ -11,7 +11,7 @@ import { availableDevelopmentCastingSlots } from '../src/core/scriptDevelopment.
 import { studioCalendar } from '../src/core/studioCalendar.js'
 import { tick } from '../src/core/tick.js'
 import { convertV36ToV35, convertV37ToV36, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, convertV47ToV46, exportSave, importSave, LIVE_SAVE_VERSION, makeSave, migrateToLive, stableStringify,
-  validateSaveV36, validateSaveV47 } from '../src/core/save.js'
+  validateSaveV36, validateSaveV48 } from '../src/core/save.js'
 import type { GameState, GameStateV33, RetirementRecordV36, ScriptProject } from '../src/core/types.js'
 import { c2Fixture } from './helpers/p14c2a-fixtures.js'
 
@@ -32,8 +32,18 @@ function withEmptyScreenplayShelving<T extends { hollywood: GameStateV33['hollyw
   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
     ...business, screenplayShelving: { version: 1, rejections: [], shelved: [], commissionHoldUntilWeek: 0 } })) } }
 }
+// P15B (1370-ar): the P15B save step (convertToP15BSave) gives every rival finance period the three loan
+// money kinds at zero; the genuine V33 old state never carried them.
+function withZeroLoanMovements<T extends { hollywood: GameStateV33['hollywood'] }>(state: T): T {
+  if (state.hollywood === null) return state
+  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+    ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
+      ...period, movements: { ...period.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) },
+  })) } }
+}
 import { addPerson, admitted, advanceTo, bytes, finishingWriter, historicalWriterPair, owner } from './helpers/p14c2rm-fixtures.js'
 import { announcedGapWriter, originalCommission, pooledFinishingWriter } from './helpers/p14c2rm-writer-fixtures.js'
+import { predecessorSave } from './helpers/p15-roots.js'
 
 function envelope(state: GameState, saveVersion: number = LIVE_SAVE_VERSION) {
   return { saveVersion, seed: state.seed, state, broadcastCache: state.broadcastItems }
@@ -79,7 +89,7 @@ describe('880-B natural retired-writer continuation', () => {
     const reopened = readBack(f.finishing)
     // Persistence has always canonicalized JSON -0 to 0. Validate the actual
     // reopened object and compare authoritative canonical bytes across storage.
-    expect(validateSaveV47(envelope(reopened)).state).toBe(reopened)
+    expect(validateSaveV48(envelope(reopened)).state).toBe(reopened)
     expect(stableStringify(reopened)).toBe(before)
     expect(stableStringify(f.finishing)).toBe(before)
   })
@@ -234,7 +244,7 @@ const invalidCases: (InvalidCase & { refusal: RegExp })[] = [
 describe('880-B live allowance stays narrowly scoped', () => {
   it.each(invalidCases)('refuses $name without altering caller bytes', ({ corrupt, refusal }) => {
     const f = finishingWriter(), state = corrupt(f.finishing, f.writerId), input = envelope(state), before = stableStringify(input)
-    expect(() => validateSaveV47(input)).toThrow(refusal)
+    expect(() => validateSaveV48(input)).toThrow(refusal)
     expect(stableStringify(input)).toBe(before)
   })
 
@@ -250,7 +260,7 @@ describe('880-B live allowance stays narrowly scoped', () => {
       originalScreenplays: f.commissioned.originalScreenplays }
     // 1358-N S8: the grafted draft's writer holds no contract and no retirement authority on this
     // branch (src/core/scriptDevelopment.ts:1118). Measured by the 1358-X6 message probe (N-0470).
-    expect(() => validateSaveV47(envelope(illegal))).toThrow(/validateSaveV9: script development invariant: active project "script-0000" writer is not contracted$/)
+    expect(() => validateSaveV48(envelope(illegal))).toThrow(/validateSaveV9: script development invariant: active project "script-0000" writer is not contracted$/)
     expect(() => applyActions(terminated, [originalCommission(f.writerId)])).toThrow()
   })
 
@@ -261,8 +271,8 @@ describe('880-B live allowance stays narrowly scoped', () => {
     } })
     // 1358-N S8: the V9 project key set refuses the extra key (src/core/save.ts:3371). Measured by
     // the 1358-X6 message probe (N-0472).
-    expect(() => validateSaveV47(input)).toThrow(/validateSaveV9: state\.scriptDevelopment\.projects\[0\] has unknown field "retirementBypass"$/)
-    expect(() => validateSaveV47({ ...envelope(f.finishing), retirementBypass: true })).toThrow(/^validateSaveV12: save has unknown field "retirementBypass"$/)
+    expect(() => validateSaveV48(input)).toThrow(/validateSaveV9: state\.scriptDevelopment\.projects\[0\] has unknown field "retirementBypass"$/)
+    expect(() => validateSaveV48({ ...envelope(f.finishing), retirementBypass: true })).toThrow(/^validateSaveV12: save has unknown field "retirementBypass"$/)
   })
 
   it('frozen public V36 stays strict, and an exceptional current save cannot silently downgrade', () => {
@@ -286,7 +296,7 @@ describe('880-B live allowance stays narrowly scoped', () => {
     // The commissioned V37 control above covers the V36 extension guard.
     // The finishing V37 control covers the not-contracted refusal this live chain masks.
     // V39 stays covered by p13b-s3-save-v23.test.ts (the V40 input refusal).
-    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(current)))))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded shared-market assessment \(\d+ recorded\); cannot downgrade or discard a recorded Power Ranking quarter$/) // 1370-AR r2: the market law is active (1361-F7 ruling 2)
+    expect(() => convertV37ToV36(convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(predecessorSave(current.state))))))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded shared-market assessment \(\d+ recorded\); cannot downgrade or discard a recorded Power Ranking quarter$/) // 1370-AR r2: the market law is active (1361-F7 ruling 2)
     expect(stableStringify(current)).toBe(before)
   })
 
@@ -297,7 +307,7 @@ describe('880-B live allowance stays narrowly scoped', () => {
     expect(live.scriptDevelopment).toEqual(old.scriptDevelopment)
     expect(live.contracts).toEqual(old.contracts)
     // 1344-N S5 (x2 at a318722, :257 measured `+ "screenplayShelving"` on each of four rival businesses, nothing else).
-    expect(live.hollywood).toEqual(withEmptyRecovery(withEmptyScreenplayShelving(withRivalTermination(old))).hollywood)
+    expect(live.hollywood).toEqual(withZeroLoanMovements(withEmptyRecovery(withEmptyScreenplayShelving(withRivalTermination(old)))).hollywood)
     expect(live.talent).toEqual(old.talent)
     expect(live.originalScreenplays).toEqual(old.originalScreenplays)
     expect(stableStringify(old)).toBe(before)
@@ -310,9 +320,9 @@ describe('880-B live allowance stays narrowly scoped', () => {
       records: f.finishing.careerLifecycle.records.filter(row => row.personId !== f.writerId) } })
     const legalBefore = stableStringify(legal), illegalBefore = stableStringify(illegal)
     for (let round = 0; round < 2; round++) {
-      expect(() => validateSaveV47(legal)).not.toThrow()
+      expect(() => validateSaveV48(legal)).not.toThrow()
       // 1358-D9 R2 (S8): `illegal` is N-0468 case 1's input, so it takes that case's measured refusal.
-      expect(() => validateSaveV47(illegal)).toThrow(/validateSaveV36: talentMarket\.cases\[25\] is a retirementExtension case for authored-0000, who holds no retirement record$/) // save.ts:10295
+      expect(() => validateSaveV48(illegal)).toThrow(/validateSaveV36: talentMarket\.cases\[25\] is a retirementExtension case for authored-0000, who holds no retirement record$/) // save.ts:10295
       expect(() => validateSaveV36({ ...historicalWriterPair().finishing, saveVersion: 36 })).toThrow(/not contracted/i)
     }
     expect(stableStringify(legal)).toBe(legalBefore)
@@ -383,7 +393,7 @@ describe('880-B malformed authority refuses before live work, not only at persis
       // The unmodified real state and this same live entrypoint are admissible.
       expect(() => caller.run(f.state, f.youngId)).not.toThrow()
       const invalid = corrupt(f.state, f.retiringId), before = structuredClone(invalid)
-      const validateInvalid = () => validateSaveV47(envelope(invalid))
+      const validateInvalid = () => validateSaveV48(envelope(invalid))
       if (saveRefusal === undefined) expect(validateInvalid, 'existing full-save refusal is a control').toThrow()
       else expect(validateInvalid, 'measured first full-save guard (1361-N S8)').toThrow(saveRefusal)
       expect(() => caller.run(invalid, f.youngId), 'live permission must also reject malformed authority').toThrow()

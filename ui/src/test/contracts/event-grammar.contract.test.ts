@@ -75,6 +75,7 @@ const STOP_REASON_TIERS = {
   runCompleted: { tier: 2, sound: 'positive', motion: 'emphasis' },
   contractExpired: { tier: 2, sound: 'warning', motion: 'emphasis' },
   renewalWindow: { tier: 2, sound: 'warning', motion: 'emphasis' },
+  studioClosure: { tier: 2, sound: 'warning', motion: 'emphasis' }, // Wave5: terminal pause, no new ceremonial tier.
   cashNegative: { tier: 2, sound: 'warning', motion: 'emphasis' },
   limit: { tier: 3, sound: null, motion: 'none' },
 } satisfies Record<SimStopReason, TierRow>
@@ -122,6 +123,7 @@ const ALL_STOP_REASONS = [
   'contractExpired',
   'renewalWindow',
   'cashNegative',
+  'studioClosure',
   'limit',
 ] as const satisfies readonly SimStopReason[]
 
@@ -161,6 +163,7 @@ function emptySummary(fromWeek: number, toWeek: number): PeriodSummary {
     production: 0,
     publicity: 0,
     construction: 0,
+    financing: 0, // P15B (1370-ar): the loan bucket of the period summary
     otherCash: 0,
     netCash: 0,
     releases: 0,
@@ -231,14 +234,14 @@ function row(cue: PresentationCue): TierRow {
 }
 
 // ── Exhaustiveness ───────────────────────────────────────────────────────────
-describe('PF1-M2 contract — SimStopReason exhaustiveness (the 12th-member gate; wrap landed at C2a-M5, releaseReview at P06A)', () => {
-  it('names exactly the twelve SimStopReason members the engine declares', () => {
+describe('PF1-M2 contract — SimStopReason exhaustiveness (the 13th-member gate; wrap at C2a-M5, releaseReview at P06A, studioClosure at Wave5)', () => {
+  it('names exactly the thirteen SimStopReason members the engine declares', () => {
     // TOOTH 1: these two calls stop compiling the moment a union member is added.
     coverageProof<Exclude<SimStopReason, (typeof ALL_STOP_REASONS)[number]>>([])
     coverageProof<Exclude<CommitKind, (typeof ALL_COMMIT_KINDS)[number]>>([])
-    // TOOTH 2. A 13th member cannot reach production without failing here, even
+    // TOOTH 2. A 14th member cannot reach production without failing here, even
     // after the compile-time teeth above have been satisfied by a new table row.
-    expect(ALL_STOP_REASONS).toHaveLength(12)
+    expect(ALL_STOP_REASONS).toHaveLength(13)
     expect([...ALL_STOP_REASONS].sort()).toEqual(Object.keys(STOP_REASON_TIERS).sort())
   })
 

@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-13T16:49:01.614434-05:00",
+  "phase": "Local archive consolidation complete; cloud uploads pending; no native eviction yet.",
+  "beforeBytes": 2742112256,
+  "afterBytes": 3866169344,
+  "actualNetRecoveredBytes": 1124057088,
+  "freeGiB": 3.6006507873535156,
+  "consolidatedFiles": 24882,
+  "archivedFiles": 25667,
+  "protectedOriginalsSkipped": 785,
+  "minimumKiB": 3670016,
+  "runtimeFloorKiB": 3145728,
+  "noFurtherLocalConsolidation": true,
+  "archiveProofs": [
+    "GAME-ICLOUD-ARCHIVE-PACK-VERIFIED-r1.json",
+    "GAME-ICLOUD-ARCHIVE-PACK-VERIFIED-r2.json"
+  ],
+  "journals": [
+    "GAME-ICLOUD-LOCAL-CONSOLIDATION-r1.jsonl",
+    "GAME-ICLOUD-LOCAL-CONSOLIDATION-r2.jsonl"
+  ]
+}

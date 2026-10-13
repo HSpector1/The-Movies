@@ -1,12 +1,14 @@
+import {filmScoreTenths} from '../src/core/powerRanking.js'
 /** Public, bounded Industry reads. Authoritative IDs and facts only; no private business inputs. */
 import {campaignDate} from '../src/core/calendar.js'
 import {technologyAnnouncements} from '../src/core/technologyDisclosure.js'
 import {technologyEntry} from '../src/core/technologyCatalogue.js'
 import {filmAudienceScore} from '../src/core/index.js'
+import {publicConditionLabel} from '../src/core/corporateNotices.js'
 import {flattenParticipants} from '../src/core/starPower.js'
-import type {GameState,Standing} from '../src/core/types.js'
+import type {GameState,Standing,PowerRankingRecord} from '../src/core/types.js'
 import type {HollywoodChartSnapshot,IndustryReceipt} from '../src/core/hollywoodTypes.js'
-import {INDUSTRY_LANES,type IndustryPage,type IndustryQuery,type IndustrySummary} from './schema/industry-schema.ts'
+import {INDUSTRY_LANES,type IndustryPage,type IndustryQuery,type IndustrySummary,type PowerRankingPage} from './schema/industry-schema.ts'
 import {PROTOCOL_VERSION,SCHEMA_ID,SNAPSHOT_VERSION} from './protocol.ts'
 import {snapshotBuildContextFor} from './snapshot-build-context.ts'
 import {studioPresence} from '../src/core/presence.ts'
@@ -107,7 +109,7 @@ function indexFor(state:GameState):Index {
     return {studioId:s.studioId,name:s.name,mark:s.mark,color:s.color,player:s.role==='player',
       trustLabel:studioTrustDescriptor(state,s.studioId,state.market.tick).label,
       foundingLabel:s.role==='player'&&state.founding!==null?`Campaign began ${campaignDate(s.enteredWeek!).label} · Studio founding in progress`:s.founding===null?'Founding date not recorded':s.founding.kind==='beforeCampaign'?`Established ${s.founding.year}`:`Founded ${campaignDate(s.founding.week).label}`,
-      entryLabel:`Present since ${campaignDate(s.enteredWeek!).label}`,recordingNotice:h.origin==='migration'?`Industry recording begins ${campaignDate(s.recordedFromWeek!).label}. Earlier rival films are not reconstructed.`:s.row>4?'Entered during this campaign; film records come from actual releases.':'Authored earlier films are labelled separately from this campaign’s simulated releases.',filmCount:owned.length,authoredFilmCount:owned.filter(f=>f.provenance==='authored-start/v1').length,liveFilmCount:owned.filter(f=>f.provenance!=='authored-start/v1').length,lanes}
+      entryLabel:`Present since ${campaignDate(s.enteredWeek!).label}`,conditionLabel:publicConditionLabel(state,s.studioId),recordingNotice:h.origin==='migration'?`Industry recording begins ${campaignDate(s.recordedFromWeek!).label}. Earlier rival films are not reconstructed.`:s.row>4?'Entered during this campaign; film records come from actual releases.':'Authored earlier films are labelled separately from this campaign’s simulated releases.',filmCount:owned.length,authoredFilmCount:owned.filter(f=>f.provenance==='authored-start/v1').length,liveFilmCount:owned.filter(f=>f.provenance!=='authored-start/v1').length,lanes}
   })
   const filmById=new Map(films.map(f=>[f.filmId,f]))
   const activities:Activity[]=h.receipts.flatMap((r):Activity[]=>{
@@ -234,15 +236,82 @@ function filterFilms(rows:Film[],q:IndustryQuery,week:number):Film[] {
   return rows.filter(f=>q.period==='authored'?f.provenance==='authored-start/v1':q.period==='live'?f.provenance!=='authored-start/v1':q.period==='recent'?f.releaseWeek!==null&&f.releaseWeek>=Math.max(0,week-51):true)
     .sort((a,b)=>{const value=(f:Film)=>q.lane==='critics'?f.criticScore:q.lane==='audience'?f.audienceScore:q.lane==='opening'?f.openingGross:q.lane==='total'?f.totalGross:chronology(f);return value(b)-value(a)||byText(a.filmId,b.filmId)})
 }
+/** Pure viewer comparison: archive identities/definition and the W-13 ranked cohort are authority. */
+export function powerRankingMovement(current:PowerRankingRecord,prior:PowerRankingRecord|null,studioId:string):{priorRank:number|null;movement:'new'|'unavailable'|'up'|'down'|'unchanged'} {
+  const own=current.rows.find(r=>r.studioId===studioId)
+  const previous=prior?.rows.find(r=>r.studioId===studioId)
+  const unavailable={priorRank:null,movement:'unavailable' as const}
+  if(!own?.ranked||own.rank===null||prior===null||prior.week!==current.week-13||previous===undefined||prior.definitionVersion!==current.definitionVersion)return unavailable
+  if(!previous.ranked||previous.rank===null)return {priorRank:null,movement:'new'}
+  const nowIds=current.rows.filter(r=>r.ranked).map(r=>r.studioId).sort()
+  const priorIds=prior.rows.filter(r=>r.ranked).map(r=>r.studioId).sort()
+  if(nowIds.length!==priorIds.length||nowIds.some((id,i)=>id!==priorIds[i]))return unavailable
+  return {priorRank:previous.rank,movement:own.rank<previous.rank?'up':own.rank>previous.rank?'down':'unchanged'}
+}
+const rankingUnavailable='Not enough comparable history for a Power Ranking.'
+const rankingBanner='Power Ranking is recent comparative momentum. Studio Standing and Studio History are separate.'
+const firstQuarter=(week:number)=>Math.ceil(week/13)*13
+const bandLabels={inTheRed:'In the red',strained:'Strained',stable:'Stable',thriving:'Thriving'}
+function quarterCondition(state:GameState,studioId:string,week:number):PowerRankingPage['rows'][number]['distressStage'] {
+  const root=state.corporateCondition
+  const record=root.studios.find(r=>r.studioId===studioId)
+  if(week<=root.recordedFromWeek||record===undefined||week<record.firstEvaluatedWeek)return 'notRecorded'
+  let stage:PowerRankingPage['rows'][number]['distressStage']='stable'
+  for(const event of root.events)if(event.studioId===studioId&&event.week<=week)stage=event.to
+  return stage
+}
+function rankingPage(state:GameState,index:Index,record:PowerRankingRecord):PowerRankingPage {
+  const h=state.hollywood!
+  const prior=state.powerRanking.snapshots.find(r=>r.week===record.week-13)??null
+  const rankedCount=record.rows.filter(r=>r.ranked).length
+  const rows=record.rows.map(row=>{
+    const identity=h.identities.find(s=>s.studioId===row.studioId)!
+    const comparison=powerRankingMovement(record,prior,row.studioId)
+    const movementLabel=comparison.movement==='new'?'New to this comparison':comparison.movement==='unavailable'?'No comparable prior cohort':comparison.movement==='unchanged'?'No rank change':`${comparison.movement==='up'?'Up':'Down'} ${Math.abs(row.rank!-comparison.priorRank!)} since ${campaignDate(prior!.week).label}`
+    const films=row.countedFilmIds.map(filmId=>{
+      const film=index.filmById.get(filmId)
+      if(film===undefined||film.studioId!==row.studioId)throw new Error('A counted Power Ranking release is missing from the retained film record.')
+      // Finished counted releases retain their final public totals; do not disclose gross in the page.
+      return {filmId,title:film.title,criticScore:film.criticScore,scoreTenths:filmScoreTenths(film,state.market.baseMarketValue)}
+    })
+    const pointsTenths=row.filmsTenths+row.releasesTenths
+    return {studioId:row.studioId,name:identity.name,player:identity.role==='player',ranked:row.ranked,rank:row.rank,
+      rankLabel:row.ranked?`#${row.rank} of ${rankedCount} ranked`:record.available?`Ranked from ${campaignDate(firstQuarter(Math.max(identity.enteredWeek!,h.originWeek)+52)).label}`:rankingUnavailable,
+      ...comparison,movementLabel,filmsTenths:row.filmsTenths,films,filmsLine:films.length===0?'No finished release in the window.':null,
+      releases:row.releases,releasesTenths:row.releasesTenths,pointsTenths,pointsLabel:`${(pointsTenths/10).toFixed(1)} of 20 · 2 of 3 lanes recorded (Honors not recorded)`,
+      honors:'notRecorded' as const,band:row.band,bandLabel:bandLabels[row.band],distressStage:quarterCondition(state,row.studioId,record.week)}
+  })
+  return {snapshotId:record.id,priorSnapshotId:prior?.id??null,week:record.week,dateLabel:campaignDate(record.week).label,
+    definitionVersion:record.definitionVersion,windowLabel:`${campaignDate(Math.max(0,record.windowStartWeek)).label} to ${campaignDate(record.week-1).label}`,
+    available:record.available,availabilityLine:record.available?null:rankingUnavailable,
+    firstRankedLabel:record.available?null:`First ranked quarter: ${campaignDate(firstQuarter(h.originWeek+52)).label}`,
+    recordingNotice:state.powerRanking.recordedFromWeek>h.originWeek?`Power Ranking recording begins ${campaignDate(state.powerRanking.snapshots[0]!.week).label}. Earlier quarters are not reconstructed.`:null,
+    rankedCount,cohortCount:record.rows.length,rows}
+}
+
 /** Query results own their output objects; the immutable per-state index never escapes. */
 export function industryPage(state:GameState,sessionId:string,stateRevision:number,q:IndustryQuery,laboratoryIntents:readonly LaboratoryIntent[]=[],planIntents:readonly PlanIntent[]=[],officeIntents:readonly OfficeIntent[]=[]):IndustryPage {
   if(!Number.isInteger(q.page)||q.page<0||!Number.isInteger(q.pageSize)||q.pageSize<1||q.pageSize>50) {
     throw new Error('Industry pages require a non-negative integer page and a pageSize from 1 to 50.')
   }
   const index=indexFor(state),h=state.hollywood!,calendar=campaignDate(state.market.tick)
-  const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings; there is no combined Power score.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null,plans:null,office:null,market:null}
+  const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings. The quarterly Power Ranking is a separate comparison.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null,plans:null,office:null,market:null,powerRanking:null}
   const page=<T>(rows:T[]):T[]=>{result.totalRows=rows.length;result.pageCount=Math.ceil(rows.length/q.pageSize);if(q.page>0&&q.page>=result.pageCount)throw new Error('That page is outside this snapshot. Return to the first page.');return rows.slice(q.page*q.pageSize,(q.page+1)*q.pageSize)}
-  if(q.view==='alumni') {
+  if(q.view==='powerRanking') {
+    const records=state.powerRanking.snapshots
+    const selected=q.targetId===null?records.at(-1):records.find(r=>q.targetId===`power-ranking-${r.week}`)
+    if(selected===undefined&&q.targetId!==null)throw new Error('That Power Ranking quarter is not in this record.')
+    result.title='Power Ranking'
+    if(selected===undefined) {
+      if(q.page!==0)throw new Error('That page is outside this snapshot. Return to the first page.')
+      const first=firstQuarter(Math.max(h.originWeek,state.powerRanking.recordedFromWeek)+1)
+      result.notice=`${rankingUnavailable} First recorded quarter: ${campaignDate(first).label}.`
+    } else {
+      result.notice=rankingBanner
+      const selectedPage=rankingPage(state,index,selected)
+      result.powerRanking={...selectedPage,rows:page(selectedPage.rows)}
+    }
+  } else if(q.view==='alumni') {
     if(q.targetId!==null)throw new Error('The alumni list requires a null targetId; open a person for detail.')
     result.title='Alumni'
     result.notice='People who completed a profession remain in the public record, including those working in a new profession. Recorded credits count roles on released films; honors are not recorded.'

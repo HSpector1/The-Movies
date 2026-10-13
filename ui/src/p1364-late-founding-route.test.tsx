@@ -132,7 +132,8 @@ function malformedFundingSave(): { text: string; refusal: string } {
   ;(save.state.foundingFunding.fund as unknown as { spentBonus: number }).spentBonus = 1
   return {
     text: JSON.stringify(save),
-    refusal: `validateSaveV${LIVE_SAVE_VERSION}: foundingFunding fund.spentBonus 1 differs from founding.spentBonus 0`,
+    // Founding's frozen47 reader owns this refusal inside live48 validation.
+    refusal: 'validateSaveV47: foundingFunding fund.spentBonus 1 differs from founding.spentBonus 0',
   }
 }
 

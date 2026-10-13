@@ -26,6 +26,7 @@ import { performance } from 'node:perf_hooks'
 import { describe, expect, it } from 'vitest'
 import * as saveModule from '../src/core/save.js'
 import { makeSave, stableStringify } from '../src/core/save.js'
+import { PLAYER_CLOSURE_DEFERRED } from './helpers/p15b-live.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
@@ -46,9 +47,13 @@ let campaignMilliseconds = 0
 function campaign(): GameState {
   if (cached === null) {
     const started = performance.now()
+    // P15B closure/v1 (1370-ar r3; Owner ruling 1342-O 3): the unmanaged p13a player's cash runs out and it is closure
+    // due at week 1366. This harness measures the archive over 480 quarters, never the player's cash, so the campaign
+    // advances as the browser Studio Lot plays it: natural ticks, no action, no injected money, the player's closure
+    // due recorded and left due.
     let state = p13aGeneratedStudio()
     while (state.market.tick < WEEKS) {
-      state = tick(state)
+      state = tick(state, PLAYER_CLOSURE_DEFERRED)
       if (state.market.tick === 13) archiveOf(state) // fail at the first quarter, not after the run
       const elapsed = performance.now() - started
       if (elapsed > CEILING_MS) {

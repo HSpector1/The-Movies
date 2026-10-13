@@ -36,6 +36,10 @@ import { generateIndustryTalent } from '../src/core/worldgen.js'
 import { ageAt } from '../src/core/aging.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { FilmCreativeRole, GameState } from '../src/core/types.js'
+// P15B closure/v1 (1370-ar r3; Owner ruling 1342-O 3): the corpus deep-deficit player (week 2600) is closure due at
+// 2633. These leaves measure cohorts, never the player's cash, so that world advances as the browser Studio Lot plays
+// it: the player's closure due recorded and left due, natural ticks, no injected money.
+import { advanceDeferred } from './helpers/p15b-live.js'
 import {
   FILM_ROLE_ORDER, advanceTo, c4ContinuationFacts, c4Fixture, c4LiveFixture, cohortsOf, expectedActiveAndYoung,
   expectedCohortEntrantAge, expectedCohortRequest, expectedCohortRequestS9, expectedYoungLookahead, fund, p13aGeneratedStudio,
@@ -154,7 +158,7 @@ describe('P14C.4 B1-B6: the request formula (782 §7.1 REPLACED by §7 item 1)',
     // C.4 code existed — no tick() ever PRODUCED week 2600 under cohort-aware logic,
     // so the next real trigger is the next tick() that produces a 52k week: 2652,
     // exactly matching 790/791's own "V1" continuation.
-    const state = advanceTo(c4LiveFixture('genuine-v34-c4-deep-deficit'), 2652)
+    const state = advanceDeferred(c4LiveFixture('genuine-v34-c4-deep-deficit'), 2652)
     const facts = c4ContinuationFacts('genuine-v34-c4-deep-deficit').w1
     expect(facts.week).toBe(2652)
     expect(facts.activeByProfession).toEqual({
@@ -230,7 +234,7 @@ describe('P14C.4 C1-C6: entrant identity, provenance, market membership', () => 
   // at week 2652 is guaranteed BY REQUIREMENT (782 §7.1, pinned again by B5), never by
   // hoping a fresh seed happens to have a youth gap.
   function deepDeficitReceipt() {
-    const state = advanceTo(c4LiveFixture('genuine-v34-c4-deep-deficit'), 2652)
+    const state = advanceDeferred(c4LiveFixture('genuine-v34-c4-deep-deficit'), 2652)
     const receipt = state.careerLifecycle.cohorts.find((r) => r.week === 2652)
     expect(receipt, 'a receipt must exist at week 2652').toBeDefined()
     expect(receipt!.personIds.length, 'guaranteed non-empty by 782 §7.1 (B5): 32 actor entrants').toBeGreaterThan(0)
@@ -349,7 +353,7 @@ describe('P14C.4 E1: per-corpus-world cohort request at the first cohort week ma
     const live = c4LiveFixture(name)
     expect(live.hollywood, `${name} must carry hollywood (E1 excludes null-hollywood worlds)`).not.toBeNull()
     const facts = c4ContinuationFacts(name).w1
-    const state = advanceTo(live, facts.week)
+    const state = (name === 'genuine-v34-c4-deep-deficit' ? advanceDeferred : advanceTo)(live, facts.week)
     expect(state.market.tick).toBe(facts.week)
     const receipt = state.careerLifecycle.cohorts.find((r) => r.week === facts.week)
     expect(receipt, `${name}: a receipt must exist at its own first cohort week`).toBeDefined()

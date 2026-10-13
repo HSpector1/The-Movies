@@ -9,6 +9,8 @@ import { assignmentRefusal, contractEndRefusal } from './careerLifecycle.js'
 import { promisedCastMasks, WEEKS_TO_FIRST_TAKE } from './promises.js'
 import { isOpportunityPredicate } from './opportunityPromises.js'
 import { industryBusyTalentIds, moveRivalMoney, rivalCapacityOpex, rivalWeeklyOperatingCost, uniqueIdentity } from './hollywood.js'
+import { loanInstallmentDueFor, releaseRefusal } from './corporateConditionLive.js'
+import { closedWeekOf } from './operatingState.js'
 import { admitRivalPlansInWeek, advanceRivalResearch, completeRivalPlans, disposeEligibleRivalFacilities, rivalScientistDemand } from './rivalResearch.js'
 import { researchAfterEmploymentRelease } from './technology.js'
 import { RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
@@ -189,13 +191,16 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
   // A release needs no
   // production, writing or unreleased research seat, more than the cap left, no open
   // promise from this studio, and this studio's reserve without the person after the charge.
-  const seated=industryBusyTalentIds(h)
+  const seated=industryBusyTalentIds(h,closedWeekOf(state))
   for(const project of state.technology.projects) if(project.studioId===b.studioId)
     for(const seat of project.seats) if(seat.releasedWeek===null) seated.add(seat.talentId)
   const surplus=h.activeEmploymentOrdinals.filter(i=>{const e=h.employment[i]!
     return e.studioId===b.studioId&&!filled.has(e.terms.talentId)&&(cutting||next.find(t=>t.id===e.terms.talentId)?.role!=='scientist')})
   for(const ordinal of surplus.sort((x,y)=>x-y)) {
     const e=h.employment[ordinal]!,id=e.terms.talentId
+    // P15B Wave 3 (1352-A §4.3; 1357-A §3.4): legality is the one shared release predicate; the research
+    // seat, the cap, the promise and the reserve below remain this studio's policy.
+    if(releaseRefusal({...state,hollywood:h},b.studioId,id)!==null)continue
     if(seated.has(id)||e.terms.endWeekExclusive-week<=TUNING.HIRING_TERMINATION_CAP_WEEKS)continue
     if(state.promises.some(p=>p.issuerStudioId===b.studioId&&p.beneficiaryPersonId===id&&p.outcome===null))continue
     const charge=terminationCost(e.terms,week)
@@ -379,12 +384,35 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
   if(b.costCutting.since===null&&enters)b.costCutting={version:1,since:week}
 }
 
+/** Each active run pays its installment due at input week `week` at its locked share; a final payment settles the
+ * film at that week. One loop for an operating business and for a closed business's estate (P15B r3). */
+function payRuns(h:HollywoodState,b:RivalBusiness,week:number) {
+  const runs:typeof b.runs=[];const runOrdinals:number[]=[]
+  if(b.runs.length>0)h.films=[...h.films]
+  for(const [i,sourceRun] of b.runs.entries()) {
+    const run={...sourceRun}
+    const gross=run.weeklyGross[run.weekIndex]!
+    const revenue=gross*run.studioShare
+    run.cumulativeGrossPaid+=gross;run.cumulativeStudioRevenuePaid+=revenue;run.weekIndex++
+    moveRivalMoney(b.account,'studioRevenue',revenue,week)
+    const ordinal=b.activeRunFilmOrdinals[i]!
+    const film=h.films[ordinal]!
+    if(film.provenance!=='simulation/v1'||film.filmId!==run.productionId)throw new Error('Industry receipt owner mismatch')
+    const settled=run.weekIndex>=run.totalWeeks
+    h.films[ordinal]={...film,studioRevenueReceived:run.cumulativeStudioRevenuePaid,settledWeek:settled?week:null}
+    if(settled)appendReceipt(h,{week,studioId:b.studioId,kind:'filmSettled',productionId:run.productionId})
+    else {runs.push(run);runOrdinals.push(ordinal)}
+  }
+  b.runs=runs;b.activeRunFilmOrdinals=runOrdinals
+}
+
 /** P15A.1 Wave 2 (1355-A §3.1 item 5): the frozen batch's rival members must be exactly the rival
  * pictures at remainingTicks 1 when the week starts (fact 8). Returns each studio's due ids in
  * release order. A missing or unknown member throws before any work, so the input is untouched. */
-function frozenRivalMembers(source:HollywoodState|null,factorById:ReadonlyMap<string,number>):Map<string,string[]> {
+function frozenRivalMembers(source:HollywoodState|null,factorById:ReadonlyMap<string,number>,closed:ReadonlyMap<string,number>):Map<string,string[]> {
   const due=new Map<string,string[]>()
   for(const b of source?.businesses??[]) {
+    if(closed.has(b.studioId))continue // P15B closure/v1 (r3): a closed business releases nothing (marketIntegration.runMarketBatch)
     const ids=b.productions.filter(p=>p.remainingTicks===1).map(p=>p.id).sort()
     if(ids.length>0)due.set(b.studioId,ids)
   }
@@ -409,7 +437,9 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
    * to the outer tick so provenance is written with the same commit that carries them. */
   suppliedTalent:{id:string;age:number}[]} {
   const source=state.hollywood
-  const frozen=factorById===undefined?null:frozenRivalMembers(source,factorById)
+  // P15B Wave 4 (closure/v1): an actually closed business is terminal history (operatingState.closedWeekOf).
+  const closed=closedWeekOf(state)
+  const frozen=factorById===undefined?null:frozenRivalMembers(source,factorById,closed)
   if(!source)return {hollywood:null,talent:state.talent,growth:[],technology:state.technology,physicalPlans:state.physicalPlans,firstTakes:[],greenlights:[],suppliedTalent:[]}
   const week=state.market.tick
   const h:HollywoodState={...source,businesses:source.businesses.map(b=>({...b,account:{...b.account,
@@ -422,6 +452,11 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
   const greenlights:{studioId:string;production:Production}[]=[]
   const suppliedTalent:{id:string;age:number}[]=[]
   for(const b of h.businesses) {
+    // P15B Wave 4 (closure/v1 §4 "active theatrical run"; r3): a closed business staffs, decides, films, pays and
+    // researches nothing. Its estate-run adapter is the ordinary run loop alone, at the ordinary week: each retained
+    // run collects exactly its installment due at this input week (money, settledWeek and the filmSettled receipt
+    // at T−1, the canonical schedule), and the closure phase records it as an estate event and distributes it.
+    if(closed.has(b.studioId)){payRuns(h,b,week);continue}
     const cashFacts:StaffingCashFacts={unfilledFilmSlotForCash:false,renewalRefusedForCash:false,unrelatedScientistSlotRefusedForCash:false}
     technology=considerRivalSoundPurchase({...state,technology,hollywood:h},h,b)
     if(week>=b.nextDecisionWeek)talent=staff(state,h,b,talent,week,
@@ -490,29 +525,18 @@ export function advanceHollywoodWeek(state:GameState,factorById?:ReadonlyMap<str
       storeHotDevelopment(b,markScriptProjectProduced(hotDevelopment(b),p.id))
     }
     b.releaseAuthority=pruneReleasedCommitments(b.releaseAuthority,ids)
-    const runs:typeof b.runs=[];const runOrdinals:number[]=[]
-    if(b.runs.length>0)h.films=[...h.films]
-    for(const [i,sourceRun] of b.runs.entries()) {
-      const run={...sourceRun}
-      const gross=run.weeklyGross[run.weekIndex]!
-      const revenue=gross*run.studioShare
-      run.cumulativeGrossPaid+=gross;run.cumulativeStudioRevenuePaid+=revenue;run.weekIndex++
-      moveRivalMoney(b.account,'studioRevenue',revenue,week)
-      const ordinal=b.activeRunFilmOrdinals[i]!
-      const film=h.films[ordinal]!
-      if(film.provenance!=='simulation/v1'||film.filmId!==run.productionId)throw new Error('Industry receipt owner mismatch')
-      const settled=run.weekIndex>=run.totalWeeks
-      h.films[ordinal]={...film,studioRevenueReceived:run.cumulativeStudioRevenuePaid,settledWeek:settled?week:null}
-      if(settled)appendReceipt(h,{week,studioId:b.studioId,kind:'filmSettled',productionId:run.productionId})
-      else {runs.push(run);runOrdinals.push(ordinal)}
-    }
-    b.runs=runs;b.activeRunFilmOrdinals=runOrdinals
+    payRuns(h,b,week)
     const excess=Math.max(0,b.standing.audienceAwareness-TUNING.AWARENESS_DRIFT_ANCHOR)
     if(excess>0)b.standing={...b.standing,audienceAwareness:clamp(b.standing.audienceAwareness-TUNING.AWARENESS_DRIFT_RATE*excess,0,100)}
     const employees=currentEmployees(h,b.studioId)
     moveRivalMoney(b.account,'payroll',-employees.reduce((sum,e)=>sum+weeklySalary(e.terms.annualSalary),0),week)
     moveRivalMoney(b.account,'overhead',-(TUNING.OVERHEAD_BASE+TUNING.OVERHEAD_PER_EMPLOYEE*employees.length),week)
     moveRivalMoney(b.account,'facilityOpex',-rivalCapacityOpex(b,h.receipts),week)
+    // P15B Wave 2 (1357-A §5-§6.3): the installment due this week follows facility opex, whatever the
+    // cash; no movement when none is due. The loans root is read from the input state: the step that
+    // writes it runs after this one.
+    const installment=loanInstallmentDueFor(state,b.studioId,week)
+    if(installment>0)moveRivalMoney(b.account,'loanInstallment',-installment,week)
     const hot=hotDevelopment(b)
     const concepts=b.activeScriptOrdinals.map(i=>h.concepts[b.projects[i]!.conceptOrdinal]!)
     let complete=completeDueScriptWork(hot,week+1,{concepts,talent,estUplift:0})

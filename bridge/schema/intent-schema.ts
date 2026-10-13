@@ -58,6 +58,9 @@ export const AVAILABLE_INTENT_KINDS = [
   // verb kind rather than a family router: a waiver settles one promise WAIVED and binds
   // one substitute to the same employment contract, and nothing else.
   'waivePromise',
+  // P15B Wave 5 (1357-A §6.1, §7): the ONE loan verb, offered only while the loan law allows it (warning or
+  // distress, no loan outstanding) and always at the lawful maximum; commit revalidates through the action.
+  'takeLoan',
 ] as const
 
 export const StudioBridgeIntentOption = object('StudioBridgeIntentOption', {

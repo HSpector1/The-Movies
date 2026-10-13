@@ -8,7 +8,16 @@ import { retirementRecordFor } from '../src/core/careerLifecycle.js'
 import { advancePromisesWeek, trustDrivers } from '../src/core/promises.js'
 import type { GameState } from '../src/core/types.js'
 import { c2bLiveFixture } from './helpers/p14c2b-fixtures.js'
-import { advanceTo, ownOutcomeReceipt, promiseById, savedState, tick, withPromiseVariant } from './helpers/p14c2c-fixtures.js'
+import { ownOutcomeReceipt, promiseById, savedState, tick as actualTick, withPromiseVariant } from './helpers/p14c2c-fixtures.js'
+
+// Explicit nonplayable deferred-player closure HARNESS, like rival261 producer.
+// Rivals/receipts/readers remain real; no natural player-survival or browser import claim.
+const tick=(s:GameState):GameState=>actualTick(s,{deferPlayerClosure:true})
+function advanceTo(s:GameState,target:number):GameState {
+ let next=s
+ while(next.market.tick<target)next=tick(next)
+ return savedState(next)
+}
 
 const PERSON = 'person-cohort-208-actor-1'
 const ISSUER = 'studio-25969b11-r01'

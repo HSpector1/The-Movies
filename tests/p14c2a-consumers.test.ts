@@ -12,10 +12,13 @@ import { describe, expect, it } from 'vitest'
 import { applyActions, freelancerMarketIds, hiringMarketIds, tick } from '../src/core/index.js'
 import { caseForTalent, currentProposals, marketEligibility, submitProposal, advanceTalentMarketWeek } from '../src/core/talentMarket.js'
 import { lifecycleStatus, readExtensionUsed, retirementRecordFor } from '../src/core/careerLifecycle.js'
+import { ageAt, withTalentProvenance } from '../src/core/aging.js'
+import { isOperatingStudio } from '../src/core/operatingState.js'
+import { makeSave } from '../src/core/save.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/types.js'
 import {
-  advanceTo, c2LiveFixture as c2Fixture, fund, p13aGeneratedStudio, player, prependSyntheticCandidate, syntheticRecord, withSyntheticCareerLifecycle,
+  c2LiveFixture as c2Fixture, fund, p13aGeneratedStudio, player, prependSyntheticCandidate, syntheticRecord, withSyntheticCareerLifecycle,
 } from './helpers/p14c2a-fixtures.js'
 
 const snapshot = (state: GameState): string => JSON.stringify(state)
@@ -129,11 +132,34 @@ describe('P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, r
   // incumbent evaluate an extension) ──
   it('C2: no EXPIRY case ever opens for an announced person under an active contract, through its own real renewal window; exactly one retirementExtension case opens at E-12 and expires at E with no proposal (natural route via tick)', () => {
     const base = c2Fixture('genuine-v33-c2-contract-and-case') // week 48; authored-0000: 208wk contract (end 208)
+    const baseBefore = snapshot(base)
+    makeSave(base) // Admit actual historical33→current input BEFORE synthetic consumer construction.
+    expect(snapshot(base)).toBe(baseBefore)
+    const provenance = base.talentProvenance.rows.find((r) => r.personId === 'authored-0000')!
+    expect(provenance).toBeDefined()
+    const ageAtAnnouncement = ageAt(provenance, 48)
+    expect(ageAtAnnouncement).toBe(65) // Exact fixture fact; actor window[60,70) supports idleInWindow.
     const state = withSyntheticCareerLifecycle(base, {
-      boundaryWeek: 48, cohorts: [], records: [syntheticRecord({ personId: 'authored-0000', profession: 'actor', announcedWeek: 48, effectiveWeek: 208 })],
+      boundaryWeek: base.careerLifecycle.boundaryWeek, cohorts: base.careerLifecycle.cohorts,
+      records: [...base.careerLifecycle.records, syntheticRecord({ personId: 'authored-0000', profession: 'actor',
+        announcedWeek: 48, ageAtAnnouncement, cause: 'idleInWindow', effectiveWeek: 208 })],
     })
+    const stateBefore = snapshot(state)
+    makeSave(state) // Fully admitted LABELED synthetic retirement intent, not a naturally produced announcement.
+    expect(snapshot(state)).toBe(stateBefore)
     expect(caseForTalent(state, 'authored-0000')).toBeNull()
-    const ticked = advanceTo(state as unknown as GameState, 208) // real ticks through the renewal window (196-207) and the extension window (196) through E (208)
+    expect(state.market.tick).toBe(48)
+    let ticked = state
+    while (ticked.market.tick < 208) {
+      if (!isOperatingStudio(ticked, ticked.hollywood!.playerStudioId)) throw new Error('PREREQUISITE: player terminal before C2 extension endpoint208; no further tick')
+      ticked = tick(ticked) // Real full ticks through196-207 and E208; no phase shortcut.
+    }
+    expect(ticked.market.tick).toBe(208)
+    const tickedBefore = snapshot(ticked)
+    makeSave(ticked)
+    expect(snapshot(ticked)).toBe(tickedBefore)
+    expect(snapshot(state)).toBe(stateBefore)
+    expect(snapshot(base)).toBe(baseBefore)
     const cases = ticked.talentMarket.cases.filter((c) => c.talentId === 'authored-0000')
     expect(cases.some((c) => c.variant === 'expiry'), 'no EXPIRY case ever opens for an announced person under an active contract through its renewal window').toBe(false)
     expect(cases, 'exactly one case ever opens for this person through the window').toHaveLength(1)
@@ -275,11 +301,58 @@ describe('P14C.2a B1-B5, C1-C3, D1-D2: retirement consumers (SYNTHETIC record, r
 
   // ── B5: enterRival skips announced, finishing and retired people (natural route via tick's scheduled entry) ──
   it('B5: a retired free candidate, made the FIRST match for r05\'s scheduled entry (week 520), is skipped — r05 mints a fresh person instead, exactly as it does with no candidate at all', () => {
-    let state = prependSyntheticCandidate(p13aGeneratedStudio(), 'synthetic-b5-writer', 'writer', 40)
-    let lifecycle: GameState = withSyntheticCareerLifecycle(state, {
-      boundaryWeek: 0, cohorts: [], records: [syntheticRecord({ personId: 'synthetic-b5-writer', profession: 'writer', announcedWeek: 0, effectiveWeek: 52, status: 'retired', finishingFromWeek: 52, retiredWeek: 52 })],
-    }) as unknown as GameState
-    for (let w = 0; w < 520; w++) lifecycle = tick(lifecycle)
+    const base = p13aGeneratedStudio()
+    const baseBefore = snapshot(base)
+    expect(base.market.tick).toBe(0)
+    makeSave(base)
+    expect(snapshot(base)).toBe(baseBefore)
+    const id = 'synthetic-b5-writer'
+    expect(base.talent.some((t) => t.id === id)).toBe(false)
+    const template = base.talent.find((t) => t.role === 'writer')!
+    expect(template).toBeDefined()
+    // Leaf-local CONSTRUCTED candidate, not a naturally generated retirement witness.
+    // Current age65 is in writer window[65,75); no receipts/history/cash/clocks rewritten.
+    const person = { ...template, id, role: 'writer' as const, age: 65, authored: false }
+    const appended = withTalentProvenance({ ...base, talent: [...base.talent, person] }, person)
+    const entrant = appended.careerLifecycle.professionAnchors.find(a => a.personId === id)!
+    expect(entrant).toMatchObject({ personId: id, profession: 'writer', recordedWeek: 0, kind: 'entrant' })
+    // Disclosed FIRST-match unit input: move the generated entrant anchor together
+    // with its new person. Preserve every historical anchor byte and relative order.
+    const state = { ...appended, talent: [person, ...base.talent], careerLifecycle: {
+      ...appended.careerLifecycle, professionAnchors: [entrant, ...base.careerLifecycle.professionAnchors],
+    } }
+    expect(state.careerLifecycle.professionAnchors.slice(1)).toEqual(base.careerLifecycle.professionAnchors)
+    // Actual append owner writes the birthday due bucket AND profession entrant anchor.
+    expect(state.talent[0]!.id).toBe(id)
+    expect(state.talentProvenance.due.some((bucket) => bucket.personIds.includes(id))).toBe(true)
+    const provenance = state.talentProvenance.rows.find((r) => r.personId === id)!
+    let lifecycle = withSyntheticCareerLifecycle(state, {
+      boundaryWeek: state.careerLifecycle.boundaryWeek, cohorts: state.careerLifecycle.cohorts,
+      records: [...state.careerLifecycle.records, syntheticRecord({ personId: id, profession: 'writer',
+        announcedWeek: 0, ageAtAnnouncement: ageAt(provenance, 0), cause: 'idleInWindow', effectiveWeek: 52 })],
+    })
+    const input = lifecycle, inputBefore = snapshot(input)
+    makeSave(input) // Rejected input aborts BEFORE any tick; no future-dated retired fact at0.
+    expect(snapshot(input)).toBe(inputBefore)
+    for (let w = 0; w < 520; w++) {
+      if (!isOperatingStudio(lifecycle, lifecycle.hollywood!.playerStudioId)) throw new Error('PREREQUISITE: player terminal before B5 entry520; no further tick')
+      lifecycle = tick(lifecycle)
+      if (lifecycle.market.tick === 52) {
+        expect(retirementRecordFor(lifecycle, id)).toMatchObject({ status: 'retired', effectiveWeek: 52, retiredWeek: 52 })
+        const at52 = snapshot(lifecycle)
+        makeSave(lifecycle)
+        expect(snapshot(lifecycle)).toBe(at52)
+      }
+    }
+    expect(lifecycle.market.tick).toBe(520)
+    expect(retirementRecordFor(lifecycle, id)?.status).toBe('retired')
+    expect(lifecycle.talent.find((t) => t.id === id)!.age).toBe(ageAt(provenance, 520))
+    const at520 = snapshot(lifecycle)
+    makeSave(lifecycle)
+    expect(snapshot(lifecycle)).toBe(at520)
+    expect(snapshot(input)).toBe(inputBefore)
+    expect(snapshot(base)).toBe(baseBefore)
+    expect(lifecycle.hollywood!.identities.find((s) => s.studioId === 'studio-aca408ec-r05')!.enteredWeek).toBe(520)
     const r05 = lifecycle.hollywood!.businesses.find((b) => b.studioId === 'studio-aca408ec-r05')!
     const writerHire = lifecycle.hollywood!.employment.find((e) => e.studioId === r05.studioId && lifecycle.talent.find((t) => t.id === e.terms.talentId)?.role === 'writer')
     expect(writerHire?.terms.talentId).not.toBe('synthetic-b5-writer')

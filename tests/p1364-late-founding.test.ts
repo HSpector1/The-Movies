@@ -36,6 +36,7 @@ import type { FoundingRegime, GameState, LedgerEntry } from '../src/core/types.j
 import { recoveryPredecessor45 } from './helpers/1367-recovery-predecessors.js'
 import { historicalHashState } from '../src/harness/roster-wall/historical-control.js'
 import { validateLiveSave } from './helpers/live-era.js'
+import { predecessorSave } from './helpers/p15-roots.js'
 
 // ── the supported entry surfaces, as the adapter wraps them (ui/src/engine/adapter.ts) ─────
 // The browser's `newGame`, `importSaveJson`, `foundManagedStudioAction` and `advanceWeek` are thin
@@ -235,7 +236,7 @@ describe('1364 invariant A: a supported late import signs from its recruitment f
       const outcome = importSaveJson(predecessorValidated(name))
       if (!outcome.ok) throw new Error(`import refused: ${outcome.error}`)
       expect(outcome.converted, name).toBe(true)
-      expect(makeSave(outcome.state).saveVersion, name).toBe(FOUNDING_STEP)
+      expect(makeSave(outcome.state).saveVersion, name).toBe(saveModule.LIVE_SAVE_VERSION)
     }
   }, HEAVY)
 
@@ -258,7 +259,7 @@ describe('1364 invariant A: a supported late import signs from its recruitment f
     const once = migrateToLive(importSave(text))
     const twice = migrateToLive(once)
     expect(exportSave(twice)).toBe(exportSave(once))
-    expect(once.saveVersion).toBe(FOUNDING_STEP)
+    expect(once.saveVersion).toBe(saveModule.LIVE_SAVE_VERSION) // 1370-ar r2: the live step stacks above the founding step
     expect(sha256(text)).toBe(sha256(fixtureText('late-draft-week26-unsigned')))
   }, HEAVY)
 
@@ -433,6 +434,23 @@ describe('1364 observation: older open drafts, closed campaigns, week-zero found
     const replay = saveModule.validateSaveV18(importSave(exportSave(saveModule.makeSaveV18(structuredClone(control)))))
     expect('foundingFunding' in replay.state, 'premise: the frozen V18 era carries no funding root').toBe(false)
     expect(stableStringify(historicalHashState(replay.state))).toBe(stableStringify(historicalHashState(control)))
+    // Hash projection refuses every authority family and malformed initial metadata without mutation.
+    for (const [key, edits, message] of [
+      ['corporateCondition', ['studios', 'events', 'loans'], /^Historical hash cannot discard corporate-condition authority$/],
+      ['studioClosure', ['closures', 'claims', 'estateEvents'], /^Historical hash cannot discard studio-closure authority$/],
+    ] as const) {
+      for (const field of [...edits, 'nextCounter', 'recordedFromWeek', 'version', 'foreign']) {
+        const forged = detached(control) as unknown as Record<string, unknown>
+        const root = forged[key] as Record<string, unknown>
+        if ((edits as readonly string[]).includes(field)) root[field] = [{}]
+        else if (field === 'nextCounter') root[key === 'corporateCondition' ? 'nextEvent' : 'nextClosure'] = 2
+        else if (field === 'recordedFromWeek') root[field] = control.market.tick + 1
+        else root[field] = 2
+        const before = canon(forged)
+        expect(() => historicalHashState(forged), `${key}.${field}`).toThrow(message)
+        expect(canon(forged)).toBe(before)
+      }
+    }
     const recorded = withRoot(control, { version: 1, recordedFromWeek: 3, fund: { provenance: 'opened', budget: TUNING.HIRING_FOUNDING_BUDGET, spentAtRecording: 0, spentBonus: 0, openingEmploymentCount: 0, closedWeek: null, closingEmploymentCount: null, allocations: [] } })
     expect(() => historicalHashState(recorded)).toThrow(/^Historical hash cannot discard recruitment-fund authority$/)
   }, HEAVY)
@@ -446,7 +464,9 @@ describe('1364 refusals: unsupported historical input and malformed funding fail
     const { draft, signed } = lateFounded()
     const offer = contractOfferOptions(draft, signed[0]!.talentId)[0]!
     const signedOnce = applyActions(draft, [{ kind: 'signContract', talentId: signed[0]!.talentId, termWeeks: offer.termWeeks }])
-    const live = detached(makeSave(signedOnce)) as unknown as Record<string, unknown>
+    // 1370-ar r2: the predecessor envelope (tests/helpers/p15-roots.ts) carries no P15B root or loan kind, so the
+    // V46 shape below is genuine once the fund root leaves it.
+    const live = detached(predecessorSave(signedOnce)) as unknown as Record<string, unknown>
     const state = { ...(live.state as Record<string, unknown>) }
     delete state.foundingFunding
     const predecessorText = stableStringify({ ...live, saveVersion: FOUNDING_STEP - 1, state })
@@ -465,8 +485,12 @@ describe('1364 refusals: unsupported historical input and malformed funding fail
     while (locked.technology.productions.length === 0 && locked.market.tick < draft.market.tick + 60) locked = tick(locked)
     const locks = locked.technology.productions.length
     expect(locks, 'premise: a rival locks a production method within 60 weeks').toBeGreaterThan(0)
-    const { foundingFunding: _f, ...state } = detached({ ...locked, founding: draft.founding }) as unknown as Record<string, unknown>
-    const text = stableStringify({ saveVersion: FOUNDING_STEP - 1, seed: draft.seed, state, broadcastCache: locked.broadcastItems })
+    // Explicit historical control, not a lossless downgrade of evaluated P15B facts.
+    // Project while still valid, admit V47 then convert/admit V46 BEFORE reopening the draft.
+    const baseline = saveFn(`convertV${FOUNDING_STEP}ToV${FOUNDING_STEP - 1}`)(predecessorSave(locked))
+    expect(() => saveFn(`validateSaveV${FOUNDING_STEP - 1}`)(baseline)).not.toThrow()
+    const state = { ...detached(baseline.state), founding: detached(draft.founding) }
+    const text = stableStringify({ ...baseline, state })
     const parsed = JSON.parse(text) as { state: { technology: { productions: unknown[] } } }
     const TECHNOLOGY = /Technology save: unfounded or non-player corpus cannot hold technology authority$/
     expect(() => saveFn(`validateSaveV${FOUNDING_STEP - 1}`)(parsed)).toThrow(TECHNOLOGY)
@@ -753,9 +777,29 @@ describe('1364 R-B: a founded campaign never opens a second founding draft or re
       expect(canon(parsed), `${title}: the parsed input is not mutated`).toBe(canon(JSON.parse(text)))
     }
     // The fund is the only thing that exempted the signature from cash: Save46 refuses it as the old law does.
-    const { foundingFunding: _f, ...predecessorState } = JSON.parse(liveText(closed)).state as Record<string, unknown>
-    expect(() => saveFn(`validateSaveV${FOUNDING_STEP - 1}`)({ saveVersion: FOUNDING_STEP - 1, seed: closed.seed, state: predecessorState, broadcastCache: closed.broadcastItems }))
+    // Admit the valid pre-forgery own-era baseline first. Never send the forged grant through
+    // predecessorSave: its strict V47 guard would mask the V46 cash-payment assertion.
+    const baseline = saveFn(`convertV${FOUNDING_STEP}ToV${FOUNDING_STEP - 1}`)(predecessorSave(week30))
+    expect(() => saveFn(`validateSaveV${FOUNDING_STEP - 1}`)(baseline)).not.toThrow()
+    const predecessorState = detached(baseline.state)
+    // Transfer only the injected cash-free signature and second landmark; retain V46 account schema.
+    predecessorState.contracts = detached(closed.contracts)
+    predecessorState.freeAgents = detached(closed.freeAgents)
+    predecessorState.studioHistory = detached(closed.studioHistory)
+    predecessorState.hollywood = { ...predecessorState.hollywood!,
+      employment: detached(closed.hollywood!.employment),
+      activeEmploymentOrdinals: detached(closed.hollywood!.activeEmploymentOrdinals),
+      receipts: detached(closed.hollywood!.receipts), nextReceipt: closed.hollywood!.nextReceipt }
+    expect(predecessorState.hollywood.nextReceipt).toBe(predecessorState.hollywood.receipts.length)
+    expect(new Set(predecessorState.hollywood.receipts.map(r => r.eventId)).size).toBe(predecessorState.hollywood.receipts.length)
+    expect(predecessorState.studioHistory.nextEventId).toBe(closed.studioHistory.nextEventId)
+    expect(canon(predecessorState.ledger)).toBe(canon(baseline.state.ledger))
+    expect(predecessorState.studio.cash).toBe(baseline.state.studio.cash)
+    const hostile = { ...baseline, state: predecessorState }
+    const hostileBytes = canon(hostile)
+    expect(() => saveFn(`validateSaveV${FOUNDING_STEP - 1}`)(hostile))
       .toThrow(/employment start lacks its actual player signing payment/)
+    expect(canon(hostile)).toBe(hostileBytes)
   }, HEAVY)
 
   it('founding-fund-lifetime: R-E I1, a fund closes in its recording week and an open fund stays in it; the r6 verification\'s forms refuse by name: the week-40 refill of a closed fund (probe-c, opened and observed), an ordinary week-30 cash signing relabelled as funded (D1) and a legacy founding re-opened a week later (D2)', () => {
@@ -1004,8 +1048,8 @@ describe('1364 mutants: each funding invariant refuses by name and the unmutated
 // ═══════════════════════════════════════════════════════════════════════════════
 describe('1364 persistence: the step, its downgrade and the frozen reader', () => {
   it('founding-step-live: the live writer stamps the founding step and the step functions exist by name', () => {
-    expect(saveModule.LIVE_SAVE_VERSION).toBe(FOUNDING_STEP)
-    expect(makeSave(newGame('p1364-step-01')).saveVersion).toBe(FOUNDING_STEP)
+    expect(saveModule.LIVE_SAVE_VERSION).toBe(FOUNDING_STEP + 1) // 1370-ar r2: the P15B step (Save48) stacks above the founding step
+    expect(makeSave(newGame('p1364-step-01')).saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
     for (const name of [`validateSaveV${FOUNDING_STEP}`, `convertV${FOUNDING_STEP - 1}ToV${FOUNDING_STEP}`, `convertV${FOUNDING_STEP}ToV${FOUNDING_STEP - 1}`, `migrateToV${FOUNDING_STEP}`]) saveFn(name)
   })
 
@@ -1018,15 +1062,19 @@ describe('1364 persistence: the step, its downgrade and the frozen reader', () =
     expect(canon(fundingRoot(live.state as GameState))).toBe(canon({ version: 1, recordedFromWeek: 0, fund: null }))
     expect(canon(saveFn(`convertV${FOUNDING_STEP}ToV${FOUNDING_STEP - 1}`)(live))).toBe(canon(era46))
     // R8's own synthetic policy-state control (p14d2-save46-migration withSince): an idle owner enters cost cutting now.
-    const state = JSON.parse(JSON.stringify(live.state)) as GameState
+    // 1370-ar r2: the live writer is the P15B step, so the state is lifted once more (its two empty roots, zero loan kinds).
+    const state = JSON.parse(JSON.stringify(migrateToLive(live as never).state)) as GameState
     const owner = state.hollywood!.businesses.find((b) => b.productions.length === 0 && b.runs.length === 0
       && !state.talentMarket.proposals.some((p) => p.issuerStudioId === b.studioId))
     expect(owner, 'premise: a genuine week-zero idle owner').toBeDefined()
     ;(owner as unknown as { costCutting: { version: 1; since: number | null } }).costCutting.since = state.market.tick
-    const cutting = makeSave(state) as unknown as Envelope // the Save47 writer admits R8's valid recovery fact
-    expect(cutting.saveVersion).toBe(FOUNDING_STEP)
+    const cutting = makeSave(state) as unknown as Envelope // the live writer admits R8's valid recovery fact
+    expect(cutting.saveVersion).toBe(saveModule.LIVE_SAVE_VERSION)
+    // 1370-ar r2: nothing is evaluated at week 0, so the P15B step's empty roots strip losslessly down to the founding step.
+    const atStep = saveFn(`convertV${saveModule.LIVE_SAVE_VERSION}ToV${FOUNDING_STEP}`)(cutting)
+    expect(atStep.saveVersion).toBe(FOUNDING_STEP)
     const r8 = /^migrateToV45: cannot downgrade or discard recovery authority: costCutting\.since$/
-    const down46 = saveFn(`convertV${FOUNDING_STEP}ToV${FOUNDING_STEP - 1}`)(cutting) // 47 -> 46 keeps the fact
+    const down46 = saveFn(`convertV${FOUNDING_STEP}ToV${FOUNDING_STEP - 1}`)(atStep) // 47 -> 46 keeps the fact
     expect(down46.saveVersion).toBe(FOUNDING_STEP - 1)
     expect((down46.state.hollywood!.businesses.find((b) => b.studioId === owner!.studioId) as unknown as { costCutting: { since: number | null } }).costCutting.since).toBe(state.market.tick)
     expect(() => saveModule.convertV46ToV45(down46 as never)).toThrow(r8)
@@ -1034,7 +1082,7 @@ describe('1364 persistence: the step, its downgrade and the frozen reader', () =
     expect(() => saveModule.migrateToV44(cutting as never)).toThrow(r8)
     expect(() => saveModule.makeSaveV18(cutting.state as never)).toThrow(/^makeSaveV18: cannot downgrade or discard recovery authority: costCutting\.since$/) // frozen builder: the null fund strips, R8's refusal stands
     // A Save46 violation is refused by the Save47 reader with R8's own reason: the predecessor's law runs inside the step.
-    const violating = JSON.parse(JSON.stringify(cutting)) as Envelope
+    const violating = JSON.parse(JSON.stringify(atStep)) as Envelope
     ;(violating.state.hollywood!.businesses.find((b) => b.studioId === owner!.studioId) as unknown as { costCutting: { since: number } }).costCutting.since = state.market.tick + 1
     expect(() => saveModule.validateSaveV47(violating)).toThrow(/cost cutting: future entry/)
     const { foundingFunding: _f, ...rest } = violating.state as unknown as Record<string, unknown>
@@ -1047,7 +1095,9 @@ describe('1364 persistence: the step, its downgrade and the frozen reader', () =
     let state = outcome.next
     for (let i = 0; i < 2; i++) state = tick(state)
     expect(fundingRoot(state).fund).toBeNull()
-    const live = makeSave(state) as unknown as Envelope
+    // 1370-ar r2: the two ticks evaluated the condition, which the P15B step refuses to discard; the founding step's
+    // own round trip starts from the predecessor envelope the test helper builds (tests/helpers/p15-roots.ts).
+    const live = predecessorSave(state) as unknown as Envelope
     const below = saveFn(`convertV${FOUNDING_STEP}ToV${FOUNDING_STEP - 1}`)(live)
     expect(below.saveVersion).toBe(FOUNDING_STEP - 1)
     expect(Object.hasOwn(below.state, 'foundingFunding')).toBe(false)
@@ -1060,15 +1110,17 @@ describe('1364 persistence: the step, its downgrade and the frozen reader', () =
   it('founding-downgrade-refuses-recorded-fund: a closed fund and an open fund refuse by name, appending the P15 refusals rather than masking them', () => {
     const { founded, draft } = lateFounded()
     const down = saveFn(`convertV${FOUNDING_STEP}ToV${FOUNDING_STEP - 1}`)
-    expect(() => down(makeSave(founded))).toThrow(FUND_DOWNGRADE)
-    expect(() => down(makeSave(draft))).toThrow(FUND_DOWNGRADE)
+    // 1370-ar r2: the founding step's converter takes the predecessor envelope (tests/helpers/p15-roots.ts); the live
+    // dispatch row below refuses first by the P15B reasons and appends the fund's, so the same regex matches both.
+    expect(() => down(predecessorSave(founded))).toThrow(FUND_DOWNGRADE)
+    expect(() => down(predecessorSave(draft))).toThrow(FUND_DOWNGRADE)
     expect(() => saveModule.migrateToV44(makeSave(founded) as never)).toThrow(FUND_DOWNGRADE)
     // A recorded P15 row joins the same message after the fund's reason.
     let ticked = founded
     for (let i = 0; i < 14; i++) ticked = tick(ticked)
     const snapshots = (ticked as unknown as { powerRanking: { snapshots: unknown[] } }).powerRanking.snapshots.length
     expect(snapshots, 'premise: a quarter was recorded').toBeGreaterThan(0)
-    expect(() => down(makeSave(ticked))).toThrow(/cannot downgrade or discard the recorded founding fund[^;]*; .*cannot downgrade or discard a recorded Power Ranking quarter/)
+    expect(() => down(predecessorSave(ticked))).toThrow(/cannot downgrade or discard the recorded founding fund[^;]*; .*cannot downgrade or discard a recorded Power Ranking quarter/)
   }, HEAVY)
 
 })

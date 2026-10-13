@@ -24,6 +24,14 @@ import {
   forecastHistoryForOwner,
   exportCurrentState,
   // world + actions + tick
+  closureRecordOf,
+  assertOperatingPlayer,
+  corporateNotices,
+  studioRemedies,
+  conditionRecord,
+  loanMaxPrincipal,
+  contractLoan,
+  studioWeeklyFixedCost,
   generateWorld,
   applyActions,
   predictProductionId,
@@ -2480,9 +2488,13 @@ function constructionCompletionBetween(
   }
 }
 
+/** Completed Wave5: both manual and batch callers use normal development and actual closure.
+ * Notices/remedies and read-only history are mounted together; unsupported old deferred drafts gate at import. */
+const LOT_TICK_OPTIONS = { develop: true } as const
+
 export function advanceWeek(state: GameState): AdvanceResult {
   const preTick = state // pre-tick snapshot (immutable; tick returns a fresh state)
-  const next = tick(state, { develop: true }) // RULING A: development ON in normal play
+  const next = tick(state, LOT_TICK_OPTIONS)
   // Newly-released films = the entries appended to releasedFilms this tick.
   const before = state.studio.releasedFilms.length
   const released = next.studio.releasedFilms.slice(before)
@@ -2498,6 +2510,31 @@ export function advanceWeek(state: GameState): AdvanceResult {
     stopReason: stop?.reason ?? null,
     stop,
   }
+}
+
+// ── P15B Wave5 corporate read/action boundary ──────────────────────────────
+export function studioCorporateView(state: GameState, selectedPrincipal?: number) {
+  const player = state.hollywood?.playerStudioId
+  const closure = player === undefined ? undefined : closureRecordOf(state, player)
+  const notices = corporateNotices(state)
+  const remedies = player === undefined || closure !== undefined ? [] : studioRemedies(state, player)
+  const fixed = player === undefined ? 0 : studioWeeklyFixedCost(state, player)
+  const maximum = remedies.includes('LOAN') ? loanMaxPrincipal(fixed) : 0
+  const loanPrincipals = Array.from({ length: maximum / TUNING.LOAN_AMOUNT_STEP }, (_, i) => (i + 1) * TUNING.LOAN_AMOUNT_STEP)
+  const principal = selectedPrincipal !== undefined && loanPrincipals.includes(selectedPrincipal) ? selectedPrincipal : maximum
+  return {
+    mode: closure === undefined ? 'operating' as const : 'terminal' as const,
+    notices, remedies, loanPrincipals,
+    loan: maximum > 0 ? contractLoan(principal, fixed, state.market.tick) : null,
+    terminal: closure === undefined ? null : { closureId: closure.closureId, closureWeek: closure.closureWeek, endedId: closure.endOfRun },
+  }
+}
+export type StudioCorporateView = ReturnType<typeof studioCorporateView>
+
+/** Commit uses the latest owner state and the unchanged core eligibility/amount/refusal law. */
+export function takeStudioLoanAction(state: GameState, principal: number): ActionOutcome {
+  try { return { ok: true, next: applyActions(state, [{ kind: 'takeLoan', principal }]) } }
+  catch (e) { return { ok: false, error: (e as Error).message } }
 }
 
 // ── D-12 financial read models (thin selectors over the pure core economyView) ─
@@ -2565,6 +2602,7 @@ export { offerObligation }
 // hands off to the identical autopsy/development path as a single Advance (the stop tick is
 // exactly one tick after `preTick`).
 export type SimStopReason =
+  | 'studioClosure'
   | 'release'
   | 'scriptReview'
   | 'castingReview'
@@ -2737,6 +2775,9 @@ function simStopDetailWith(
 ): SimStopDetail | null {
   const carried = { constructionCompletion: completion }
   const newReleases = after.studio.releasedFilms.slice(before.studio.releasedFilms.length)
+  if (after.hollywood !== null && closureRecordOf(after, after.hollywood.playerStudioId) !== undefined) {
+    return { ...NO_STOP_PAYLOAD, ...carried, reason: 'studioClosure', released: newReleases }
+  }
   if (newReleases.length > 0) {
     return { ...NO_STOP_PAYLOAD, ...carried, reason: 'release', released: newReleases }
   }
@@ -2847,6 +2888,7 @@ export function simStopFor(before: GameState, after: GameState): SimStopReason |
 }
 
 export function advanceToNextEvent(state: GameState): SimResult {
+  assertOperatingPlayer(state, 'advanceToNextEvent')
   const fromWeek = state.market.tick
   // The core's unified selector owns cross-system priority. Never charge a
   // hidden week when any actionable studio decision is already waiting.
@@ -2981,7 +3023,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
   let constructionCompletion: ConstructionCompletionSummary | null = null
   for (let i = 0; i < SIM_CAP; i++) {
     const before = cur
-    const after = tick(before, { develop: true })
+    const after = tick(before, LOT_TICK_OPTIONS)
     cur = after
     // The completion is carried across EVERY tick of the batch, stopping or not
     // (the co-tick law) — so it is computed here and handed to the ladder rather
@@ -3109,6 +3151,8 @@ function simStopMessage(
     }
     case 'constructionCompleted':
       return `${at}: committed studio construction reached its completion boundary.`
+    case 'studioClosure':
+      return `${at}: the studio closed. This run is now read-only history.`
     case 'cashNegative':
       return `${at}: Studio cash crossed below $0.`
     case 'contractExpired':
@@ -3793,7 +3837,14 @@ export function importSaveJson(json: string): ImportOutcome {
     // P13B-S5-R07-T3: the live version is the constant beside `makeSave`, never a
     // literal — a stale one reported every current save as a migration.
     const converted = save.saveVersion !== LIVE_SAVE_VERSION
-    return { ok: true, state: migrateToLive(save).state, converted }
+    const state = migrateToLive(save).state
+    // Genuine47 imports receive empty prospective roots. Only unsupported old deferred48 drafts
+    // with a due cause but no actual closure are withheld before App can replace/autosave anything.
+    const closure = state.hollywood === null ? undefined : closureRecordOf(state, state.hollywood.playerStudioId)
+    if (closure === undefined && state.hollywood !== null && conditionRecord(state, state.hollywood.playerStudioId)?.condition.stage === 'closed') {
+      return { ok: false, error: 'Unsupported closure-due draft: this deferred campaign did not provide the complete browser notice and recovery route. The current studio is unchanged; retain this save as historical evidence.' }
+    }
+    return { ok: true, state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }

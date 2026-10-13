@@ -14,10 +14,7 @@ import { gunzipSync } from 'node:zlib'
 import { beforeAll, describe, expect, it } from 'vitest'
 import { fnv1a64 } from '../src/core/math.js'
 import { attachedPromiseDigest, promiseDigest, proposalDigest } from '../src/core/promises.js'
-import {
-  LIVE_SAVE_VERSION, convertV29ToV28, exportSave, importSave, loadSave, makeSave,
-  validateSaveV29, validateSaveV30, validateSaveV38, migrateToV30, migrateToLive, convertV30ToV29,
-} from '../src/core/save.js'
+import { LIVE_SAVE_VERSION, convertV29ToV28, exportSave, importSave, loadSave, makeSave, validateSaveV29, validateSaveV30, validateSaveV38, migrateToV30, migrateToLive, convertV30ToV29, initialP15BRoots } from '../src/core/save.js'
 import { buildTalentProvenance } from '../src/core/aging.js'
 import type { CareerLifecycleRootV38, CreativeRole } from '../src/core/types.js'
 import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
@@ -162,13 +159,22 @@ function withEmptyScreenplayShelving<T extends { hollywood: { businesses: readon
 // literals are this file's own expectation: production's initialP15Roots never defines it
 // (1361-F7 ruling 3).
 function withEmptyP15Roots<T extends object>(state: T, week: number): T {
-  return { ...state,
+  // P15B (1370-ar): the P15B step (convertToP15BSave) adds its two empty roots at the input's own week and the
+  // three loan money kinds at zero on every rival finance period; a genuine V45-or-older old.state never carried them.
+  type Period = { movements: Record<string, number> }
+  type Business = { account: { periods: Period[] } }
+  const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
+  const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
+    businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } })) } }
+  return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
     campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
     // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
-    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null },
+    ...initialP15BRoots(week) }
 }
 
 function preservesExactly(admitted: OldSave) {

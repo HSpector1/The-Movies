@@ -57,7 +57,7 @@ import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import * as save from '../src/core/save.js'
 import type { GameState } from '../src/core/types.js'
-import { advanceTo } from '../src/harness/p13a/fixtures.js'
+import { advanceDeferred } from './helpers/p15b-live.js'
 // RED-by-design: src/core/technologyDisclosure.ts does not exist yet — see
 // this file's header. `technologyAnnouncements` is the ONLY import from the
 // new module.
@@ -82,6 +82,11 @@ function assertSha256(json: string, expected: string) {
  * is derived from the campaign clock and persists nowhere.
  */
 const liveState = (json: string): GameState => save.migrateToLive(JSON.parse(json) as never).state as GameState
+// P15B closure/v1 (1370-ar r3; Owner ruling 1342-O 3): this genuine V26 world's unmanaged studio pays a laboratory and
+// a scientist with no income, so under the closure law it closes at week 847 (tests/p15b4-studio-closure.test.ts pins
+// that unfunded route). The announcements under test are derived from the clock alone, so this advance plays the world
+// as the browser Studio Lot does: natural ticks, no injected money, the player's closure due recorded and left due.
+const advanceTo = (state: GameState, week: number): GameState => advanceDeferred(state, week)
 
 describe('P13B-S7 announcements persist nowhere: genuine V26 fixture, live load, advance past the announce week (test 3)', () => {
   it('LIVE_SAVE_VERSION is 45 (stale title corrected post-C.4 and again for Save43; P13B-S8 made it 27 at the time) — S7 itself changes no save', () => {

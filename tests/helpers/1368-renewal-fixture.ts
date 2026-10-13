@@ -4,7 +4,7 @@ import { expect } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { createHash } from 'node:crypto'
-import { convertV46ToV47, validateSaveV26, migrateToV46, validateSaveV46, stableStringify, exportSave, importSave } from '../../src/core/save.js'
+import { migrateToLive, validateSaveV26, migrateToV46, validateSaveV46, stableStringify, exportSave, importSave } from '../../src/core/save.js'
 const root = new URL('../fixtures/p14/genuine-v26-renewal196-1368/', import.meta.url)
 const sha = (v: string | Uint8Array) => createHash('sha256').update(v).digest('hex')
 export function genuineRenewal196() {
@@ -27,7 +27,7 @@ export function genuineRenewal196() {
   expect(exportSave(historical)).toBe(raw)
   expect(validateSaveV26(importSave(raw))).toEqual(historical)
   const migrated = migrateToV46(historical), migratedBefore = stableStringify(migrated)
-  const live = convertV46ToV47(validateSaveV46(migrated)).state // Save47 (1364, 1370-AR r2): the live state is one step above
+  const live = migrateToLive(validateSaveV46(migrated)).state // Save47, then Save48 (1370-ar): the live state is every later step above
   expect(stableStringify(migrated)).toBe(migratedBefore)
   expect(stableStringify(parsed)).toBe(before)
   expect(live.market.tick).toBe(196)

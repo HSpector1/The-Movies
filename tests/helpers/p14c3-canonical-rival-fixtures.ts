@@ -14,6 +14,7 @@ import type { IndustryEmployment, LiveIndustryFilm } from '../../src/core/hollyw
 import type { GameState, RetirementKey, ScriptProject } from '../../src/core/types.js'
 import { clone, person, sha } from './p14c3-fixtures.js'
 import { acceptedEvidence, reopenEvidence } from './p14c3-genuine-evidence-fixtures.js'
+import { predecessorSave } from './p15-roots.js'
 
 export const CANONICAL_SUBJECT = 'person-studio-8c9ee794-r01-4'
 export const CANONICAL_STUDIO = 'studio-8c9ee794-r01'
@@ -195,7 +196,8 @@ export function canonicalInitial(): GameState {
     // pinned here), v38 down-projection sha 2f9ec0fa… (equals CANONICAL_INITIAL_SHA).
     const live = makeSave(state)
     expect(live.saveVersion).toBe(LIVE_SAVE_VERSION)
-    const v38 = convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(live)))))))))
+    // P15B (1370-ar): the chain takes the Save45 envelope the test helper builds from the live state.
+    const v38 = convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(predecessorSave(state))))))))))
     expect(sha(exportSave(v38))).toBe(CANONICAL_INITIAL_SHA)
     expect(state.market.tick).toBe(0)
     expect(person(state, id)).toMatchObject({ name: 'Clara Moss', role: 'actor', age: 62 })

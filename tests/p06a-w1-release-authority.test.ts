@@ -35,9 +35,10 @@ import {
   mintReleaseCommitmentId,
   stableStringify,
   tick,
-  validateSaveV47,
+  validateSaveV48,
 } from '../src/core/index.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/index.js'
+import { predecessorSave } from './helpers/p15-roots.js'
 
 // ── fixtures (the operations.test.ts vocabulary, minimally copied) ───────────
 
@@ -407,7 +408,7 @@ describe('P06A W1 — save law', () => {
     // here: `ready` is the historical-control founding (beginFoundingHistoricalControl, src/core/employment.ts:573-576),
     // which holds no industry, and a state without an industry records no Power Ranking quarter
     // (src/core/powerRankingArchive.ts:151), so every P15 root is empty.
-    const admitted37 = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(makeSave(ready)))))))))))
+    const admitted37 = convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(convertV46ToV45(convertV47ToV46(predecessorSave(ready)))))))))))
     const { releaseAuthority: _drop, ...v15State } = admitted37.state
     const v15 = makeSaveV15({
       ...v15State,
@@ -448,7 +449,10 @@ describe('P06A W1 — save law', () => {
     // 1309-X3 ruling 2: migrateToV15 now crosses convertV41ToV40 then convertV40ToV39 FIRST; this
     // fixture's `save` genuinely carries a recorded first-take subject, so the NEW V39 guard is the
     // one that actually refuses -- migrateToV37's own guard, still true of this state, is masked.
-    expect(() => migrateToV15(save)).toThrow(/^migrateToV39: cannot downgrade or discard an opportunity predicate or recorded first-take subject$/)
+    // P15B (1370-ar): migrateToV15 now crosses the P15B step's converter FIRST; this fixture's `save` is a
+    // ticked live world whose studios carry evaluated condition records, so the NEW P15B guard is the one
+    // that actually refuses (naming the predecessor version it would have written) -- the V39 guard is masked.
+    expect(() => migrateToV15(save)).toThrow(new RegExp(`^migrateToV${LIVE_SAVE_VERSION - 1}: cannot downgrade or discard a corporateCondition record`))
   })
 
   it('validateSaveV37 rejects forged authority at the save boundary (stale title said V32 before this sweep too)', () => {
@@ -460,12 +464,12 @@ describe('P06A W1 — save law', () => {
       state: { releaseAuthority: { commitments: { productionId: string }[] } }
     }
     orphan.state.releaseAuthority.commitments[0]!.productionId = 'prod-9999'
-    expect(() => validateSaveV47(orphan)).toThrow(/foreign identity|orphan/)
+    expect(() => validateSaveV48(orphan)).toThrow(/foreign identity|orphan/)
 
     const extraKey = JSON.parse(exportSave(good)) as {
       state: { releaseAuthority: Record<string, unknown> }
     }
     extraKey.state.releaseAuthority.surprise = true
-    expect(() => validateSaveV47(extraKey)).toThrow(/unknown field .surprise./)
+    expect(() => validateSaveV48(extraKey)).toThrow(/unknown field .surprise./)
   })
 })

@@ -4,6 +4,7 @@ import { financeHistory, financeOverview } from '../src/core/financeReport.ts'
 import { blueprintById } from '../src/core/placement.ts'
 import { filmCommittedCost } from '../src/core/receptionVerdict.ts'
 import { filmResultView } from '../ui/src/engine/adapter.ts'
+import { corporateNotices } from '../src/core/corporateNotices.ts'
 import { financeUpcoming } from './finance-upcoming.ts'
 import { financePortfolio } from './finance-portfolio.ts'
 import type { FinanceRoute } from './finance-route.ts'
@@ -91,7 +92,7 @@ export function financeProjection(state: GameState, people: BridgePeopleProjecti
     guaranteedPayrollRemaining: employees.reduce((sum,e)=>sum+e.guaranteedRemaining,0),
     obligationsBasis:'Contract guarantees describe future payroll under existing terms. They are not an additional charge and are not subtracted from Cash. Signing bonuses already paid are excluded.',
     operationsBasis:'Ordinary overhead and operational facility costs are recurring. Construction capital and one-time Set repairs are recorded separately. Builder employment costs are not modeled.',
-    attention: attentionRows(overview, employees),
+    attention: attentionRows(overview, employees, state),
   }
 }
 
@@ -103,6 +104,7 @@ export function financeProjection(state: GameState, people: BridgePeopleProjecti
 function attentionRows(
   overview: ReturnType<typeof financeOverview>,
   employees: readonly { talentId: string; renewalOpen: boolean }[],
+  state: GameState,
 ): FinanceAttention[] {
   const renewing = employees.filter(e => e.renewalOpen)
   const rows: FinanceAttention[] = []
@@ -118,5 +120,8 @@ function attentionRows(
   if (overview.coverageNotice !== null) rows.push({ id: 'recording-coverage',
     message: 'Earlier financial history is incomplete. See recording coverage before comparing periods.',
     route: null })
+  // P15B Wave 5 (1352-A §7): the corporate condition notices, after the existing three so a replayed
+  // response without them keeps its exact reading order. Each row is the core's own sentence.
+  for (const notice of corporateNotices(state)) rows.push({ id: notice.id, message: notice.message, route: null })
   return rows
 }

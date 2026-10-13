@@ -17,6 +17,7 @@ import { CONTINUOUS208, DEFERRED_ACTOR, FOCUS, PRE207, RUNTIME208, SCIENTIST,
   expectedFocusInputs, migrated, person, root38, scientistBoundary,
   syntheticInputs } from './helpers/p14c3-fixtures.js'
 import type { Choice, Inputs, Root38, TargetInput } from './helpers/p14c3-fixtures.js'
+import { predecessorSave } from './helpers/p15-roots.js'
 
 const chosenDirector: Choice = { outcome: 'chosen', selected: 'director', reason: 'onlyEligibleTarget' }
 const chosenWriter: Choice = { outcome: 'chosen', selected: 'writer', reason: 'onlyEligibleTarget' }
@@ -175,8 +176,11 @@ describe('C.3 A05/A06 public profession history, current evidence and repeat saf
     // The romance guard remains covered on its own V44 input in p14b10-save-v44.test.ts.
     // The shelving-count guard stays covered on V43 in p14d1-rival-shelving-save-v43.test.ts.
     // The Scientist noCatalogue leaf below still reaches the V37 transition guard.
+    // P15B (1370-ar): every ticked industry state carries evaluated condition records, which the P15B step's own
+    // downgrade refuses first; the chain below takes the predecessor envelope the test helper builds from the live
+    // state (tests/helpers/p15-roots.ts), so the guard under test stays observable.
     const currentSave = envelope38(reopened), currentSaveBytes = stableStringify(currentSave)
-    const historical45 = convertV46ToV45(convertV47ToV46(currentSave as never))
+    const historical45 = convertV46ToV45(convertV47ToV46(predecessorSave(reopened)))
     expect(stableStringify(currentSave), 'Save46 admission does not mutate the current input').toBe(currentSaveBytes)
     expect(() => convertV38ToV37(convertV39ToV38(convertV40ToV39(convertV41ToV40(convertV42ToV41(convertV43ToV42(convertV44ToV43(convertV45ToV44(historical45))))))))).toThrow(/^migrateToV44: cannot downgrade or discard a recorded Power Ranking quarter$/)
   })
@@ -209,7 +213,10 @@ describe('C.3 A09/A10 genuine prospective finality and deferred reconciliation',
       .toEqual(root.industryRetirements.filter(row => row.personId === SCIENTIST))
     // The actual current 670→671 save has nonempty recovery authority and must refuse at Save46→45.
     const currentSave = envelope38(reopened), currentSaveBytes = stableStringify(currentSave)
-    expect(() => convertV46ToV45(convertV47ToV46(currentSave as never))).toThrow(/^migrateToV45: cannot downgrade or discard recovery authority: costCutting\.since, facilityDemolitionRefund, facilityDisposed$/)
+    // P15B (1370-ar): every ticked industry state carries evaluated condition records, which the P15B step's own
+    // downgrade refuses first; the chain below takes the predecessor envelope the test helper builds from the live
+    // state (tests/helpers/p15-roots.ts), so the guard under test stays observable.
+    expect(() => convertV46ToV45(convertV47ToV46(predecessorSave(reopened)))).toThrow(/^migrateToV45: cannot downgrade or discard recovery authority: costCutting\.since, facilityDemolitionRefund, facilityDisposed$/)
     expect(stableStringify(currentSave), 'current recovery refusal leaves the full input unchanged').toBe(currentSaveBytes)
 
     // A separate original Save38 engine advanced the genuine Save37 Scientist week670 input once.

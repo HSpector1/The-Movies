@@ -25,7 +25,7 @@ import {
   // RED-by-design (776 S6): none of these five exist in src/core/save.ts today.
   validateSaveV34, convertV33ToV34, convertV34ToV33, migrateToV34, migrateToLive,
   // P14C.2b: the live validator now (G5 alone drives a real tick()/makeSave round trip).
-  validateSaveV37, validateSaveV47,
+  validateSaveV37, validateSaveV48,
 } from '../src/core/save.js'
 import type { GameState, GameStateV34, GameStateV37 } from '../src/core/types.js'
 import {
@@ -344,7 +344,7 @@ describe('P14C.2a G1-G5: Save V34', () => {
     const state = migrateToLive(validateSaveV37({ saveVersion: 37, seed: historical.seed,
       state: historical, broadcastCache: historical.broadcastItems })).state
     const continuous = tick(tick(state))
-    const reloaded = validateSaveV47(JSON.parse(JSON.stringify(makeSave(state)))).state
+    const reloaded = validateSaveV48(JSON.parse(JSON.stringify(makeSave(state)))).state
     const viaSaveLoad = tick(tick(reloaded))
     expect(JSON.stringify(viaSaveLoad)).toBe(JSON.stringify(continuous))
   })

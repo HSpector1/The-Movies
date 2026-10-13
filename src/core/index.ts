@@ -1392,6 +1392,17 @@ export {
   convertV46ToV47,
   convertV47ToV46,
   migrateToV47,
+  // P15B (record 1370-ar), Save48: the P15B save step under its own names and the conventional
+  // version-derived aliases (renumbered with P15B_SAVE_VERSION in save.ts).
+  P15B_SAVE_VERSION,
+  validateSaveP15B,
+  convertToP15BSave,
+  convertFromP15BSave,
+  migrateToP15BSave,
+  validateSaveV48,
+  convertV47ToV48,
+  convertV48ToV47,
+  migrateToV48,
   convertV27ToV28,
   convertV28ToV27,
   // P13B-S5-R07 — live V24 → NEW V25 + migrateToV25 (the widened production
@@ -1448,6 +1459,9 @@ export type {
   SaveFileV45,
   SaveFileV46,
   SaveFileV47,
+  // P15B (record 1370-ar), Save48.
+  SaveFileP15B,
+  SaveFileV48,
   LiveSaveFile,
   SaveFile,
   TalentV1,
@@ -1731,7 +1745,7 @@ export type { AdoptionQuote, AdoptionRequest } from './technologyAdoption.js'
 export { productionTechnologyView } from './technologyProduction.js'
 export type { StudioTechnology, StudioTechnologyV2, StudioTechnologyV3, TechnologyAction, ResearchProject, ResearchWeekReceipt, ResearchLabContribution, TechnologyAdoption, TechnologyAdoptionComponent, TechnologyEquipmentAsset, ProductionTechnology } from './technologyTypes.js'
 
-export type { GameStateV40, GameStateV41, GameStateV42, GameStateV43, GameStateV44, GameStateV45, GameStateV46, GameStateV47, ProfessionalPromiseV40, OpportunitySeatClass, OpportunityPredicate, GenreOpportunityPredicate, ProjectOpportunityPredicate, FirstTakeSubject, FirstTakeSubjects,
+export type { GameStateV40, GameStateV41, GameStateV42, GameStateV43, GameStateV44, GameStateV45, GameStateV46, GameStateV47, GameStateV48, ProfessionalPromiseV40, OpportunitySeatClass, OpportunityPredicate, GenreOpportunityPredicate, ProjectOpportunityPredicate, FirstTakeSubject, FirstTakeSubjects,
   GameStateV38, GameStateV39, ProfessionalPromiseV39, DirectorCountPredicate, CareerLifecycleRootV38, TransitionTarget, TransitionRoleTier, TransitionPotentialTier,
   RetirementKey, ProfessionAnchor, TransitionPictureRef, TransitionContextWitness, TransitionTargetInput,
   TransitionInputs, TransitionEvaluation, ProfessionChange, IndustryRetirement, TransitionDue } from './types.js'
@@ -1753,3 +1767,18 @@ export {
   type FoundingFundingContext,
   type FoundingFundingRoot,
 } from './foundingFunding.js'
+// P15B Waves 2-5 (record 1370-ar): the live condition, loans, closure and notices.
+export { CONDITION_PHASE_ID, CONDITION_LAWS, LOAN_LAWS, initialCorporateCondition, requireCorporateCondition, conditionRecord, conditionFacts, closureDue,
+  outstandingLoan, loanInstallmentDueFor, advanceCorporateConditionWeek, applyTakeLoan, releaseRefusal, terminableContracts, remedyCapability,
+  studioRemedies, validateCorporateConditionRoot } from './corporateConditionLive.js'
+export { CLOSURE_LAW_VERSION, CLOSURE_PHASE_ID, initialStudioClosure, requireStudioClosure, closedWeekOf, closureStops, isOperatingStudio, assertOperatingPlayer,
+  advanceStudioClosureWeek, closureRecordOf, claimsOfClosure, estateEventsOf, estateView, validateStudioClosureRoot } from './studioClosure.js'
+export type { ClosurePhaseOptions, EstateView } from './studioClosure.js'
+export { corporateNotices, publicConditionLabel, closureDueWeek } from './corporateNotices.js'
+export type { CorporateNotice } from './corporateNotices.js'
+export type { StudioConditionRecord, ConditionEvent, StudioLoanRecord, CorporateConditionRoot, ClosureDisposition, ClosureClaim, ClosureClaimPayment,
+  EstateLot, ClosureEstate, ClosureReceipt, EstateEvent, ClosureRecord, StudioClosureRoot, P15BStepRoots, GameStateP15B } from './types.js'
+
+// Wave5 browser quotation: expose existing pure owners without duplicating loan arithmetic.
+export { loanMaxPrincipal, contractLoan } from './studioLoan.js'
+export { studioWeeklyFixedCost } from './powerRankingArchive.js'

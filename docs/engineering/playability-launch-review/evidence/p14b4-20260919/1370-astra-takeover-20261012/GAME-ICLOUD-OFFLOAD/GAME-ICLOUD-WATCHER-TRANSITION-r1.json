@@ -1,0 +1,7 @@
+{
+  "at": "2026-10-13T16:42:38.497226-05:00",
+  "ownWatcherPID": 41463,
+  "action": "SIGINT own waiting helper only; retain Apple upload",
+  "reason": "Lossless consolidation into fully hash-verified, still-resident local archive permits progress while upload continues. Native eviction remains forbidden until uploaded; active archive bytes retained.",
+  "noOriginalOffloadYet": true
+}

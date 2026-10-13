@@ -58,6 +58,15 @@ import type { GameStateV30 } from '../src/core/types.js'
 // `termination` movement to every rival finance period; the OLD (V30-vintage)
 // state never carried it, so an expected migrated-state comparison must
 // build it the same way, never a bare `old.state`.
+// P15B (1370-ar): the P15B step gives every rival finance period the three loan money kinds at zero; a genuine
+// V45-or-older old.state never carried them.
+function withZeroLoanMovements<T extends { hollywood: { businesses: readonly { account: { periods: readonly { movements: Record<string, number> }[] } }[] } | null }>(state: T): T {
+  if (state.hollywood === null) return state
+  return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
+    ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
+      ...period, movements: { ...period.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) },
+  })) } }
+}
 function withRivalTermination<T extends { hollywood: GameStateV30['hollywood'] }>(state: T): T {
   if (state.hollywood === null) return state
   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
@@ -78,6 +87,8 @@ function withEmptyScreenplayShelving<T extends { hollywood: GameStateV30['hollyw
 import { advanceTo, fund, p13aGeneratedStudio, player, poachingFixture } from './helpers/p14b2-fixtures.js'
 import type { GameState, RelationshipEdge, TalentMarketCaseV36, TalentMarketReceipt } from '../src/core/types.js'
 import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
+import { advanceCorporateConditionWeek } from '../src/core/corporateConditionLive.js'
+import { advanceStudioClosureWeek } from '../src/core/studioClosure.js'
 
 const OUTGOING_46 = 'sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c'
 const OUTGOING_47 = 'sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538' // T0 MANIFEST authority.schemaId
@@ -92,6 +103,7 @@ const OUTGOING_53 = 'sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2
 const OUTGOING_54 = 'sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302' // P4/P5: genuine1221 outgoing54
 const OUTGOING_55 = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158' // R2/R3: genuine1307 outgoing55
 const OUTGOING_56 = 'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1' // 1358-N P2: outgoing56, projection-v56 at bridge/runtime-checkpoint.ts:64
+const OUTGOING_57 = 'sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253' // P15B: actual shipped projection57 becomes prior under current58
 const OUTGOING_PROJECTION = 47
 // The 35 accepted prior literals (tests/bridge-p14b4-runtime47-compatibility.test.ts :41-83); never derived from the registry.
 const EXPECTED_35_PRIOR_IDS = [
@@ -327,6 +339,9 @@ function f6Base(): { at207: GameState; playerId: string; r01: string; offCycle: 
   try { tick(state) } finally { capture.mockRestore() }
   if (preMarket196 === undefined) throw new Error('F6 premise: no real week-196 market input captured')
   state = preMarket196
+  // P15B (1370-ar): the captured input predates the tick's end-of-tick P15 steps for week 196, so the condition
+  // step and the closure phase run on it here (the weekly evaluation the next tick requires), from its own cash.
+  state = advanceStudioClosureWeek(advanceCorporateConditionWeek(state))
   const playerId = player(state)
   const row = state.hollywood!.employment.find((e) => e.studioId === F6.incumbent && e.terms.talentId === F6.subject && e.endedWeek === null)!
   expect(row.terms.endWeekExclusive).toBe(F6.W)
@@ -379,17 +394,18 @@ const wireEnum = (): string[] => {
 describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.8 landed projection 50 / Save V32 unchanged)', () => {
   it('live projection52/Save37 and literal current hash retain all40 independent prior identities (875)', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(57)
+    expect(PROJECTION_VERSION).toBe(58)
     expect(OUTGOING_PROJECTION).toBe(47)
     // 1309-X3 ruling 5: SCHEMA_ID tracks the LIVE (projection56) schema now,
     // not projection53's identity (OUTGOING_53) -- states the received value.
-    // 1358-N P2: the live schema is projection57's (1358-E); projection56's id is OUTGOING_56.
-    expect(SCHEMA_ID).toBe('sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253')
+    // 1358-N P2 supplied outgoing56; P15B serves current58 and retains actual shipped57 as OUTGOING_57.
+    expect(SCHEMA_ID).toBe('sha256:13b7933fdd1e3dc9851dd08630e46efd43e70227f5e0c6f6cf130d885752ab74')
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_57)).toBe('projection-v57')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
   })
@@ -436,7 +452,7 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57].sort())
     expect(LIVE_SAVE_VERSION).toBeGreaterThan(30) // the governed inner-save step rides the same wave (R22 :610)
   })
 
@@ -473,7 +489,7 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
       ...old.state.talentMarket,
       cases: old.state.talentMarket.cases.map((kase) => ({ ...kase, variant: 'expiry' })),
     })
-    expect(actual.state.hollywood).toEqual(withEmptyRecovery(withEmptyScreenplayShelving(withRivalTermination(old.state))).hollywood)
+    expect(actual.state.hollywood).toEqual(withZeroLoanMovements(withEmptyRecovery(withEmptyScreenplayShelving(withRivalTermination(old.state)))).hollywood)
     expect(sha(raw)).toBe(CHECKPOINT.raw)
   })
 

@@ -6,7 +6,9 @@ import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { ResearchProject, TechnologyId } from '../src/core/technologyTypes.js'
 import type { GameState } from '../src/core/types.js'
-import { advanceTo } from '../src/harness/p13a/fixtures.js'
+import { conditionFacts, studioRemedies } from '../src/core/corporateConditionLive.js'
+import { loanMaxPrincipal, contractLoan } from '../src/core/studioLoan.js'
+import { makeSave, stableStringify } from '../src/core/save.js'
 import { p13bTwoLabWorld } from '../src/harness/p13b/fixtures.js'
 
 // P13B-S2 plan test 5 (task expansion, 2026-09-16): document 03's matched
@@ -142,6 +144,44 @@ describe('P13B-S2 document 03 [780,832) through the real scheduler (test 5)', ()
   type Route = { state: GameState; soundId: string; lightId: string }
   let cooperateFull: Route, splitFull: Route, cooperateResidual: Route, splitResidual: Route
 
+  /** Loan-supported POST-RESEARCH observation control, not paper total-economics.
+   * First available real LOAN remedy; at most one public loan per route. No clock,
+   * receipt, cash injection or research-policy edit; original research clauses remain. */
+  function finalWindow(state: GameState, target: number, projectIds: string[], route: string): GameState {
+    expect(projectIds.every(id => state.technology.projects.find(p => p.id === id)!.completedWeek !== null), `${route}: loan only after both research completions`).toBe(true)
+    makeSave(state)
+    const originalBytes = stableStringify(state)
+    const research = projectIds.map(id => stableStringify(state.technology.projects.find(p => p.id === id)!))
+    let s = state
+    let borrowing: { week: number; principal: number; total: number; interest: number } | null = null
+    while (s.market.tick < target) {
+      const own = s.hollywood!.playerStudioId
+      if (borrowing === null && studioRemedies(s, own).includes('LOAN')) {
+        makeSave(s)
+        const before = stableStringify(s)
+        const principal = loanMaxPrincipal(conditionFacts(s, own).weeklyFixedCost)
+        const terms = contractLoan(principal, conditionFacts(s, own).weeklyFixedCost, s.market.tick)
+        const borrowed = applyActions(s, [{ kind: 'takeLoan', principal }])
+        expect(stableStringify(s), `${route}: real loan leaves input pure`).toBe(before)
+        makeSave(borrowed)
+        expect(borrowed.studio.cash - s.studio.cash).toBe(principal)
+        borrowing = { week: s.market.tick, principal, total: terms.total, interest: terms.total - principal }
+        s = borrowed
+      }
+      s = tick(s) // A real terminal throws; never defer or fake survival.
+    }
+    expect(s.market.tick).toBe(target)
+    makeSave(s)
+    expect(stableStringify(state), `${route}: original completed input pure`).toBe(originalBytes)
+    expect(projectIds.map(id => stableStringify(s.technology.projects.find(p => p.id === id)!)), `${route}: original completed research/receipts untouched`).toEqual(research)
+    // Full routes may reach their window without an eligible loan; residual routes
+    // must exhibit the proposed real financing premise rather than silently shorten.
+    if (target === 841) expect(borrowing, `${route}: lawful final-window loan premise`).not.toBeNull()
+    const installments = s.ledger.filter(e => e.kind === 'loanInstallment' && e.week >= state.market.tick && e.week < target).reduce((sum,e) => sum-e.amount,0)
+    console.info('DOC03 final-window financing (separate from paper components)', { route, requestedThroughWeek: target, actualWeek: s.market.tick, borrowing, installments })
+    return s
+  }
+
   beforeAll(() => {
     world = p13bTwoLabWorld()
     ;[lab1, lab2] = world.laboratoryFacilityIds
@@ -154,7 +194,7 @@ describe('P13B-S2 document 03 [780,832) through the real scheduler (test 5)', ()
       const released = release(soundDone, sound.projectId, ids)
       const light = seatAndBegin(released, 'lighting-control-01', ids.slice(0, 4), ids.slice(4, 8), 80_000)
       const lightDone = advanceUntilComplete(light.state, light.projectId)
-      cooperateFull = { state: advanceTo(lightDone, 832), soundId: sound.projectId, lightId: light.projectId }
+      cooperateFull = { state: finalWindow(lightDone, 832, [sound.projectId, light.projectId], 'cooperateFull'), soundId: sound.projectId, lightId: light.projectId }
     }
     // ── split sound and light ───────────────────────────────────────────────
     {
@@ -162,7 +202,7 @@ describe('P13B-S2 document 03 [780,832) through the real scheduler (test 5)', ()
       const light = seatAndBegin(sound.state, 'lighting-control-01', [], ids.slice(4, 8), 40_000)
       let s = advanceUntilComplete(light.state, sound.projectId)
       s = advanceUntilComplete(s, light.projectId)
-      splitFull = { state: advanceTo(s, 832), soundId: sound.projectId, lightId: light.projectId }
+      splitFull = { state: finalWindow(s, 832, [sound.projectId, light.projectId], 'splitFull'), soundId: sound.projectId, lightId: light.projectId }
     }
     // ── cooperate sound then residual light (+9 shift) ──────────────────────
     {
@@ -172,7 +212,7 @@ describe('P13B-S2 document 03 [780,832) through the real scheduler (test 5)', ()
       const released = release(soundDone, sound.projectId, ids)
       const resumed = reseatAndResume(released, 'lighting-control-01', pre.projectId, ids.slice(0, 4), ids.slice(4, 8), 80_000)
       const lightDone = advanceUntilComplete(resumed, pre.projectId)
-      cooperateResidual = { state: advanceTo(lightDone, 841), soundId: sound.projectId, lightId: pre.projectId }
+      cooperateResidual = { state: finalWindow(lightDone, 841, [sound.projectId, pre.projectId], 'cooperateResidual'), soundId: sound.projectId, lightId: pre.projectId }
     }
     // ── split sound and residual light (+9 shift) ───────────────────────────
     {
@@ -181,7 +221,7 @@ describe('P13B-S2 document 03 [780,832) through the real scheduler (test 5)', ()
       const resumed = reseatAndResume(sound.state, 'lighting-control-01', pre.projectId, ids.slice(0, 4), [], 40_000)
       let s = advanceUntilComplete(resumed, sound.projectId)
       s = advanceUntilComplete(s, pre.projectId)
-      splitResidual = { state: advanceTo(s, 841), soundId: sound.projectId, lightId: pre.projectId }
+      splitResidual = { state: finalWindow(s, 841, [sound.projectId, pre.projectId], 'splitResidual'), soundId: sound.projectId, lightId: pre.projectId }
     }
   }, 180_000)
 

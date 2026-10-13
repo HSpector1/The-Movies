@@ -283,7 +283,8 @@ export const PROTOCOL_VERSION = 4 as const
 // Relationship slice B (1347-F Addendum: one step for both): the collaborators row gains
 // `labels` (HIS-014 Mentor, Professional Rivals) and `romance` (D-1312-2). The outgoing56
 // identity is registered as a prior schema before this Save44 runtime boundary.
-export const PROJECTION_VERSION = 57 as const
+// Projection58: chosen loan quote and archive-owned Power Ranking; protocol4/Save48 unchanged.
+export const PROJECTION_VERSION = 58 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1944,7 +1945,15 @@ const StudioQuoteWaivePromiseRequest = object('StudioQuoteWaivePromiseRequest', 
   draft: reference('StudioPromiseWaiverDraftPayload', StudioPromiseWaiverDraftPayload),
 })
 
+const StudioLoanDraftPayload = object('StudioLoanDraftPayload', { principal: number() })
+const StudioQuoteLoanRequest = object('StudioQuoteLoanRequest', {
+  protocolVersion: literal(PROTOCOL_VERSION), schemaId: nonEmptyText(), sessionId: nonEmptyText(),
+  commandId: nonEmptyText(), expectedStateRevision: nonNegativeInteger(), type: literal('quoteLoan'),
+  draft: reference('StudioLoanDraftPayload', StudioLoanDraftPayload),
+})
+
 const StudioBridgeQuoteRequest = union('StudioBridgeQuoteRequest', [
+  reference('StudioQuoteLoanRequest', StudioQuoteLoanRequest),
   reference('StudioQuoteCommissionRequest', StudioQuoteCommissionRequest),
   reference('StudioQuoteCastingRequest', StudioQuoteCastingRequest),
   reference('StudioQuotePlacementRequest', StudioQuotePlacementRequest),
@@ -2245,7 +2254,16 @@ const StudioPromiseWaiverQuoteSnapshot = object('StudioPromiseWaiverQuoteSnapsho
   consequence: nonEmptyText(),
 })
 
+const StudioLoanQuoteSnapshot = object('StudioLoanQuoteSnapshot', {
+  intentId: nonEmptyText(), kind: literal('takeLoan'), commitLabel: nonEmptyText(),
+  startsNow: bool(), queues: bool(), queueNote: nullable(text()), ok: bool(), refusalReason: nullable(text()),
+  principal: number(), minimumPrincipal: nonNegativeInteger(), principalStep: nonNegativeInteger(),
+  maximumPrincipal: nonNegativeInteger(), total: nullable(nonNegativeInteger()), contractedWeek: nonNegativeInteger(),
+  installments: array(nonNegativeInteger()),
+})
+
 const StudioQuoteSnapshot = union('StudioQuoteSnapshot', [
+  reference('StudioLoanQuoteSnapshot', StudioLoanQuoteSnapshot),
   reference('StudioCommissionQuoteSnapshot', StudioCommissionQuoteSnapshot),
   reference('StudioCastingQuoteSnapshot', StudioCastingQuoteSnapshot),
   reference('StudioPlacementQuoteSnapshot', StudioPlacementQuoteSnapshot),
@@ -3635,6 +3653,9 @@ const definitions = {
   StudioQuoteSetCommissionRequest,
   StudioContractDraftPayload,
   StudioQuoteContractRequest,
+  StudioLoanDraftPayload,
+  StudioQuoteLoanRequest,
+  StudioLoanQuoteSnapshot,
   StudioMarketProposalCastClassPromiseDraftPayload,
   StudioMarketProposalDirectorPromiseDraftPayload,
   StudioMarketProposalGenrePromiseDraftPayload,
@@ -3917,3 +3938,7 @@ export type BridgePersonAlumni = InferSchema<typeof StudioPersonAlumni>
 export type CampaignSummary=InferSchema<typeof StudioCampaignSummary>
 export type CampaignLibraryResponse=InferSchema<typeof StudioCampaignLibraryResponse>
 export type CampaignAcceptedResponse=InferSchema<typeof StudioCampaignAcceptedResponse>
+
+export type BridgeLoanDraftPayload = InferSchema<typeof StudioLoanDraftPayload>
+export type BridgeQuoteLoanRequest = InferSchema<typeof StudioQuoteLoanRequest>
+export type BridgeLoanQuoteSnapshot = InferSchema<typeof StudioLoanQuoteSnapshot>

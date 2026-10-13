@@ -1,0 +1,3156 @@
+{
+  "phase": "Verified resident local archive consolidation; Apple upload may still be pending. No native eviction yet.",
+  "at": "2026-10-13T16:44:59.529524-05:00",
+  "destination": "/Users/zacheryspector/Library/Mobile Documents/com~apple~CloudDocs/The Movies Archive/2026-10-13-inactive-verification",
+  "archiveSHA256": "aa5729ba808b68f9b1235b83dd46e4deaed34f7a424a012cfc922439d6248cff",
+  "beforeOriginalOffloadBytes": 3126652928,
+  "afterBytes": 3449647104,
+  "beforeOperationBytes": 2742112256,
+  "actualNetRecoveredBytes": 707534848,
+  "filesOffloaded": 18311,
+  "allocatedEstimateRemoved": 2804219904,
+  "skipped": [
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/save.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/save.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/save.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/save.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/promiseCapacityOwnerReplay.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/promiseCapacityOwnerReplay.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/promiseCapacityOwnerReplay.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/promiseCapacityOwnerReplay.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/tuning.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/tuning.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/tuning.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/tuning.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/roster-wall/artifacts.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/roster-wall/artifacts.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/roster-wall/artifacts.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/roster-wall/artifacts.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/actions.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/types.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/actions.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/types.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/actions.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/types.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/actions.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/types.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/placement.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/placement.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/placement.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/placement.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/promises.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/promises.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/promises.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/promises.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/facilities/index.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/facilities/index.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/facilities/index.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/facilities/index.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/technology.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/technology.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/technology.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/technology.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/talentMarket.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/roster-wall/summary.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/talentMarket.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/roster-wall/summary.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/talentMarket.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/roster-wall/summary.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/talentMarket.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/roster-wall/summary.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/campaignLegacy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/campaignLegacy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/campaignLegacy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/campaignLegacy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/operations.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/operations.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/operations.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/operations.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/tick.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/roster-wall/continuation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/tick.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/roster-wall/continuation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/tick.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/roster-wall/continuation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/tick.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/roster-wall/continuation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/filmPackage.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/hollywoodValidation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/promiseCapacityKernel.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/scriptReadModel.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/roster-wall/campaign.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/run-owner-calibration-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/filmPackage.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/hollywoodValidation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/promiseCapacityKernel.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/scriptReadModel.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/roster-wall/campaign.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/run-owner-calibration-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/filmPackage.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/hollywoodValidation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/promiseCapacityKernel.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/scriptReadModel.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/roster-wall/campaign.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/run-owner-calibration-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/filmPackage.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/hollywoodValidation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/promiseCapacityKernel.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/scriptReadModel.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/roster-wall/campaign.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/run-owner-calibration-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/firstFilmJourney.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/driver.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/roster-wall/player-policy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/firstFilmJourney.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/driver.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/roster-wall/player-policy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/firstFilmJourney.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/driver.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/roster-wall/player-policy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/firstFilmJourney.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/driver.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/roster-wall/player-policy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/index.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/relationships.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/tests/1368-ledger-attribution.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/tests/bridge-p14b5-relationships.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/index.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/relationships.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/tests/1368-ledger-attribution.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/tests/bridge-p14b5-relationships.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/index.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/relationships.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/tests/1368-ledger-attribution.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/tests/bridge-p14b5-relationships.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/index.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/relationships.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/tests/1368-ledger-attribution.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/tests/bridge-p14b5-relationships.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/scriptDevelopment.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/studioRunRecap.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/policies.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/run-capital-risk-reward-audit.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/run-microbudget-dominance-audit.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/scriptDevelopment.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/studioRunRecap.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/policies.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/run-capital-risk-reward-audit.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/run-microbudget-dominance-audit.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/scriptDevelopment.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/studioRunRecap.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/policies.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/run-capital-risk-reward-audit.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/run-microbudget-dominance-audit.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/scriptDevelopment.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/studioRunRecap.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/policies.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/run-capital-risk-reward-audit.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/run-microbudget-dominance-audit.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/run-d16-corpus.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/run-d16-corpus.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/run-d16-corpus.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/run-d16-corpus.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/hollywoodTick.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/physicalPlans.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/presence.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/reception.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/packages.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/roster-wall/fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/run-economy-balance-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/hollywoodTick.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/physicalPlans.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/presence.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/reception.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/packages.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/roster-wall/fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/run-economy-balance-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/hollywoodTick.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/physicalPlans.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/presence.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/reception.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/packages.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/roster-wall/fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/run-economy-balance-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/hollywoodTick.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/physicalPlans.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/presence.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/reception.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/packages.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/roster-wall/fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/run-economy-balance-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/sets.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/studioCalendar.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/worldgen.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/sets.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/studioCalendar.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/worldgen.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/sets.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/studioCalendar.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/worldgen.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/sets.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/studioCalendar.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/worldgen.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/economyView.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/occupancy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/studioWeekTheater.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/economyView.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/occupancy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/studioWeekTheater.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/economyView.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/occupancy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/studioWeekTheater.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/economyView.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/occupancy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/studioWeekTheater.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/careerLifecycle.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/castingPackageReadModel.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/employment.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/installationCancellation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/lot.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/newspaper.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/screenplay.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/talentSummary.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/aggregate.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/careerLifecycle.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/castingPackageReadModel.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/employment.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/installationCancellation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/lot.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/newspaper.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/screenplay.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/talentSummary.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/aggregate.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/careerLifecycle.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/castingPackageReadModel.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/employment.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/installationCancellation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/lot.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/newspaper.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/screenplay.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/talentSummary.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/aggregate.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/careerLifecycle.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/castingPackageReadModel.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/employment.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/installationCancellation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/lot.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/newspaper.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/screenplay.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/talentSummary.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/aggregate.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/castingSessions.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/construction.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/forecast.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/opportunityPromises.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/professionHistory.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/studioQueueView.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/isolation.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/run-d17b-continuation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/view.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/castingSessions.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/construction.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/forecast.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/opportunityPromises.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/professionHistory.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/studioQueueView.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/isolation.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/run-d17b-continuation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/view.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/castingSessions.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/construction.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/forecast.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/opportunityPromises.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/professionHistory.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/studioQueueView.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/isolation.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/run-d17b-continuation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/view.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/castingSessions.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/construction.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/forecast.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/opportunityPromises.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/professionHistory.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/studioQueueView.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/isolation.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/run-d17b-continuation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/view.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/candidates.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/castingReadModel.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/financeReport.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/hollywood.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/productionSetup.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/rivalResearch.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/sharedMarket.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/studioHistory.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/technologyAdoption.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/compare-d17b-production.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/counterflow.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/driver.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/experiment.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/packages.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/publicity.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/publicity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/roster-wall/renewal.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/roster-wall/schema.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/run-dev-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/run-driver.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/run-facilities-observatory.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/run-final-balance.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/run-writer-bottleneck-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/candidates.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/castingReadModel.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/financeReport.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/hollywood.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/productionSetup.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/rivalResearch.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/sharedMarket.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/studioHistory.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/technologyAdoption.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/compare-d17b-production.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/counterflow.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/driver.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/experiment.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/packages.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/publicity.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/publicity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/roster-wall/renewal.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/roster-wall/schema.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/run-dev-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/run-driver.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/run-facilities-observatory.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/run-final-balance.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/run-writer-bottleneck-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/candidates.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/castingReadModel.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/financeReport.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/hollywood.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/productionSetup.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/rivalResearch.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/sharedMarket.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/studioHistory.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/technologyAdoption.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/compare-d17b-production.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/counterflow.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/driver.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/experiment.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/packages.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/publicity.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/publicity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/roster-wall/renewal.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/roster-wall/schema.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/run-dev-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/run-driver.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/run-facilities-observatory.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/run-final-balance.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/run-writer-bottleneck-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/candidates.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/castingReadModel.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/financeReport.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/hollywood.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/productionSetup.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/rivalResearch.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/sharedMarket.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/studioHistory.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/technologyAdoption.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/compare-d17b-production.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/counterflow.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/driver.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/experiment.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/packages.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/publicity.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/publicity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/roster-wall/renewal.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/roster-wall/schema.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/run-dev-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/run-driver.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/run-facilities-observatory.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/run-final-balance.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/run-writer-bottleneck-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/aging.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/blueprintRequirements.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/broadcast.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/officeConversion.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/powerRankingArchive.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/professionTransitions.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/promiseCapacityOwners.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/sceneryLoadIn.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/run-d17b-week86.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/states.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/p14/legacy-v28-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/run-integrated-balance.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/run-roster-balance-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/tests/1368-ledger-original.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/tests/contracts/_contractFixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/aging.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/blueprintRequirements.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/broadcast.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/officeConversion.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/powerRankingArchive.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/professionTransitions.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/promiseCapacityOwners.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/sceneryLoadIn.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/run-d17b-week86.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/states.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/p14/legacy-v28-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/run-integrated-balance.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/run-roster-balance-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/tests/1368-ledger-original.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/tests/contracts/_contractFixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/aging.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/blueprintRequirements.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/broadcast.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/officeConversion.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/powerRankingArchive.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/professionTransitions.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/promiseCapacityOwners.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/sceneryLoadIn.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/run-d17b-week86.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/states.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/p14/legacy-v28-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/run-integrated-balance.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/run-roster-balance-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/tests/1368-ledger-original.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/tests/contracts/_contractFixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/aging.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/blueprintRequirements.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/broadcast.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/officeConversion.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/powerRankingArchive.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/professionTransitions.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/promiseCapacityOwners.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/sceneryLoadIn.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/run-d17b-week86.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/states.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/p14/legacy-v28-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/run-integrated-balance.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/run-roster-balance-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/tests/1368-ledger-original.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/tests/contracts/_contractFixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/grant_before_fill.py",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/corporateCondition.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/data/screenplay.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/facilityEffects.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/fixedCostAllocation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/hollywoodPolicy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/marketIntegration.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/powerRanking.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/productionAdmission.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/productionIdentity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/productionPhases.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/productionQueue.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/promiseCapacityEnumerator.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/releaseAuthority.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/retirementWriting.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/rng.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/standing.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/starPower.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/studioEvents.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/technologyProduction.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/counterflow.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/experiment.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/states.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/measure.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/p13b/fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/roster-wall/corpus.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/roster-wall/historical-control.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/roster-wall/provenance.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/run-corpus.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/run-creator-baseline-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/run-multihyphenate-stats.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/run-shape-sensitivity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/run-star-power-calibration.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/tests/full-state-neutrality.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/corporateCondition.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/data/screenplay.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/facilityEffects.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/fixedCostAllocation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/hollywoodPolicy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/marketIntegration.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/powerRanking.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/productionAdmission.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/productionIdentity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/productionPhases.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/productionQueue.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/promiseCapacityEnumerator.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/releaseAuthority.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/retirementWriting.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/rng.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/standing.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/starPower.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/studioEvents.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/technologyProduction.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/counterflow.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/experiment.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/states.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/measure.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/p13b/fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/roster-wall/corpus.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/roster-wall/historical-control.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/roster-wall/provenance.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/run-corpus.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/run-creator-baseline-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/run-multihyphenate-stats.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/run-shape-sensitivity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/run-star-power-calibration.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/tests/full-state-neutrality.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/corporateCondition.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/data/screenplay.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/facilityEffects.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/fixedCostAllocation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/hollywoodPolicy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/marketIntegration.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/powerRanking.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/productionAdmission.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/productionIdentity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/productionPhases.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/productionQueue.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/promiseCapacityEnumerator.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/releaseAuthority.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/retirementWriting.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/rng.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/standing.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/starPower.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/studioEvents.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/technologyProduction.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/counterflow.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/experiment.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/states.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/measure.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/p13b/fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/roster-wall/corpus.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/roster-wall/historical-control.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/roster-wall/provenance.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/run-corpus.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/run-creator-baseline-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/run-multihyphenate-stats.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/run-shape-sensitivity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/run-star-power-calibration.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/tests/full-state-neutrality.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/corporateCondition.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/data/screenplay.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/facilityEffects.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/fixedCostAllocation.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/hollywoodPolicy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/marketIntegration.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/powerRanking.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/productionAdmission.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/productionIdentity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/productionPhases.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/productionQueue.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/promiseCapacityEnumerator.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/releaseAuthority.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/retirementWriting.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/rng.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/standing.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/starPower.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/studioEvents.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/technologyProduction.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/counterflow.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/experiment.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/states.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/measure.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/p13b/fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/roster-wall/corpus.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/roster-wall/historical-control.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/roster-wall/provenance.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/run-corpus.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/run-creator-baseline-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/run-multihyphenate-stats.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/run-shape-sensitivity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/run-star-power-calibration.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/tests/full-state-neutrality.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/EXACT-ARGV.json",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/SOURCE-PINS.json",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/agents.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/data/wordlists.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/development.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/economy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/firstTakeSubjects.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/hollywoodStartingData.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/hollywoodTypes.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/marketingMenu.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/queueAdmission.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/receptionVerdict.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/releaseCareers.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/shape.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/studioLoan.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/technologyCatalogue.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/technologyRival.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/technologyTypes.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/luck.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/stats.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/stats.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/p13b/legacy-v23-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/p13b/legacy-v24-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/p13b/legacy-v25-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/p13b/s4-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/p13b/s6-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/run-creator-development-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/run-roster-wall-observatory.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/run-selection-stats.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/agents.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/data/wordlists.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/development.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/economy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/firstTakeSubjects.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/hollywoodStartingData.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/hollywoodTypes.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/marketingMenu.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/queueAdmission.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/receptionVerdict.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/releaseCareers.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/shape.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/studioLoan.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/technologyCatalogue.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/technologyRival.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/technologyTypes.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/luck.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/stats.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/stats.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/p13b/legacy-v23-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/p13b/legacy-v24-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/p13b/legacy-v25-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/p13b/s4-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/p13b/s6-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/run-creator-development-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/run-roster-wall-observatory.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/run-selection-stats.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/agents.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/data/wordlists.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/development.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/economy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/firstTakeSubjects.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/hollywoodStartingData.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/hollywoodTypes.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/marketingMenu.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/queueAdmission.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/receptionVerdict.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/releaseCareers.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/shape.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/studioLoan.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/technologyCatalogue.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/technologyRival.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/technologyTypes.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/luck.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/stats.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/stats.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/p13b/legacy-v23-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/p13b/legacy-v24-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/p13b/legacy-v25-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/p13b/s4-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/p13b/s6-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/run-creator-development-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/run-roster-wall-observatory.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/run-selection-stats.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/agents.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/data/wordlists.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/development.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/economy.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/firstTakeSubjects.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/hollywoodStartingData.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/hollywoodTypes.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/marketingMenu.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/queueAdmission.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/receptionVerdict.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/releaseCareers.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/shape.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/studioLoan.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/technologyCatalogue.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/technologyRival.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/technologyTypes.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/luck.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/stats.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/stats.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/p13b/legacy-v23-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/p13b/legacy-v24-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/p13b/legacy-v25-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/p13b/s4-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/p13b/s6-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/run-creator-development-study.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/run-roster-wall-observatory.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/run-selection-stats.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json.diff",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/CONFIG.json.inverse.diff",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/LESSONS.md",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/README.md",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/SEAL.json",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/SOURCE-PROOF.json",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py.diff",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-c0-a208-fullguard-game-filled-after-al-20261009-r1/snapshot.py.inverse.diff",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/boundedStableSort.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/calendar.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/filmParticipants.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/grid.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/industryCareer.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/industryEmployment.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/liveRetirementWriting.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/math.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/p15Phases.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/productionPeople.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/publicity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/relationshipLabels.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/researchPeople.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/technologyDisclosure.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/technologyMilestones.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/core/vector.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/luck.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/production-agreement.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/productionIdentity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/sourceProvenance.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/d16/vitest.d16.config.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/p13a/fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/p13b/legacy-v20-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/p13b/legacy-v21-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/p13b/legacy-v22-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/p13b/legacy-v26-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/p13b/legacy-v27-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/p13b/s3-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-clean-20261008-ebg-adoption-clean-r1/runtime-tree/src/harness/roster-wall/records.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/boundedStableSort.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/calendar.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/filmParticipants.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/grid.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/industryCareer.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/industryEmployment.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/liveRetirementWriting.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/math.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/p15Phases.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/productionPeople.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/publicity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/relationshipLabels.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/researchPeople.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/technologyDisclosure.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/technologyMilestones.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/core/vector.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/luck.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/production-agreement.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/productionIdentity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/sourceProvenance.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/d16/vitest.d16.config.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/p13a/fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/p13b/legacy-v20-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/p13b/legacy-v21-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/p13b/legacy-v22-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/p13b/legacy-v26-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/p13b/legacy-v27-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/p13b/s3-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-adoption-clean-recorded-r3/ebg-adoption-types-20261008-ebg-adoption-r1/runtime-tree/src/harness/roster-wall/records.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/boundedStableSort.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/calendar.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/filmParticipants.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/grid.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/industryCareer.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/industryEmployment.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/liveRetirementWriting.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/math.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/p15Phases.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/productionPeople.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/publicity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/relationshipLabels.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/researchPeople.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/technologyDisclosure.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/technologyMilestones.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/core/vector.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/luck.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/production-agreement.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/productionIdentity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/sourceProvenance.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/d16/vitest.d16.config.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/p13a/fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/p13b/legacy-v20-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/p13b/legacy-v21-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/p13b/legacy-v22-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/p13b/legacy-v26-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/p13b/legacy-v27-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/p13b/s3-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-clean-20261008-ebg-p13a-clean-r1/runtime-tree/src/harness/roster-wall/records.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/boundedStableSort.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/calendar.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/filmParticipants.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/grid.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/industryCareer.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/industryEmployment.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/liveRetirementWriting.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/math.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/p15Phases.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/productionPeople.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/publicity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/relationshipLabels.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/researchPeople.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/technologyDisclosure.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/technologyMilestones.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/core/vector.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/luck.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/production-agreement.test.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/productionIdentity.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/sourceProvenance.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/d16/vitest.d16.config.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/p13a/fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/p13b/legacy-v20-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/p13b/legacy-v21-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/p13b/legacy-v22-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/p13b/legacy-v26-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/p13b/legacy-v27-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/p13b/s3-fixtures.ts",
+      "reason": "parent not writable; no permission changes"
+    },
+    {
+      "path": "1370-ebg-p13a-clean-recorded-r4/ebg-p13a-types-20261008-ebg-p13a-r2/runtime-tree/src/harness/roster-wall/records.ts",
+      "reason": "parent not writable; no permission changes"
+    }
+  ],
+  "stoppedAtFiveGiB": false,
+  "remainingArchivedOriginalFiles": 785
+}

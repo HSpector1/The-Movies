@@ -11,7 +11,7 @@ import { beforeAll, describe, expect, it, vi } from 'vitest'
 import * as promiseModule from '../src/core/promises.js'
 import { attachPromise, PROMISE_RULES_VERSION } from '../src/core/promises.js'
 import { currentProposals, submitProposal } from '../src/core/talentMarket.js'
-import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV47 } from '../src/core/save.js'
+import { exportSave, importSave, LIVE_SAVE_VERSION, loadSave, makeSave, migrateToV29, migrateToLive, validateSaveV29, validateSaveV38, validateSaveV48, initialP15BRoots } from '../src/core/save.js'
 import type { GameState, PromiseFeasibilityReceipt } from '../src/core/types.js'
 import { buildTalentProvenance } from '../src/core/aging.js'
 import type { CareerLifecycleRootV38, CreativeRole } from '../src/core/types.js'
@@ -50,13 +50,22 @@ function withEmptyScreenplayShelving(state: GameState): GameState {
 // literals are this file's own expectation: production's initialP15Roots never defines it
 // (1361-F7 ruling 3).
 function withEmptyP15Roots<T extends object>(state: T, week: number): T {
-  return { ...state,
+  // P15B (1370-ar): the P15B step (convertToP15BSave) adds its two empty roots at the input's own week and the
+  // three loan money kinds at zero on every rival finance period; a genuine V45-or-older old.state never carried them.
+  type Period = { movements: Record<string, number> }
+  type Business = { account: { periods: Period[] } }
+  const h = (state as { hollywood?: { businesses?: Business[] } | null }).hollywood
+  const withLoans = h === undefined || h === null || !Array.isArray(h.businesses) ? state : { ...state, hollywood: { ...h,
+    businesses: h.businesses.map((b) => ({ ...b, account: { ...b.account, periods: b.account.periods.map((p) => ({
+      ...p, movements: { ...p.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0 } })) } })) } }
+  return { ...withLoans,
     powerRanking: { version: 1, recordedFromWeek: week, snapshots: [] },
     p15Sequence: { version: 1, next: 1 },
     sharedMarket: { version: 1, recordedFromWeek: week, assessments: [] },
     campaignLegacy: { version: 1, recordedFromWeek: week, official: null, endOfRun: null },
     // 1364 (Save46, convertV45ToV46): the null recruitment fund at the save's own week; nothing is inferred.
-    foundingFunding: { version: 1, recordedFromWeek: week, fund: null } }
+    foundingFunding: { version: 1, recordedFromWeek: week, fund: null },
+    ...initialP15BRoots(week) }
 }
 import { advanceTo } from '../src/harness/p13a/fixtures.js'
 
@@ -249,7 +258,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
     expect(JSON.stringify(attached.promises.slice(0, state.promises.length))).toBe(priorRoots)
     expect(currentProposals(attached, proposal.talentId).find((p) => p.issuerStudioId === proposal.issuerStudioId)!.promises)
       .toEqual([fresh.promiseId])
-    const reloaded = validateSaveV47(importSave(exportSave(makeSave(attached)))).state
+    const reloaded = validateSaveV48(importSave(exportSave(makeSave(attached)))).state
     expect(reloaded.promises).toEqual(attached.promises)
   })
 
@@ -291,7 +300,7 @@ describe('P14B.3 continuity under the live evaluator (4 after record 600) with g
       talentId: old.beneficiaryPersonId, studioId: old.issuerStudioId, week: proposal.startWeek }))
     expect(currentProposals(settled, old.beneficiaryPersonId)).toEqual([])
     expect(JSON.stringify(state.promises)).toBe(priorRoots)
-    const reloaded = validateSaveV47(importSave(exportSave(makeSave(settled)))).state
+    const reloaded = validateSaveV48(importSave(exportSave(makeSave(settled)))).state
     expect(reloaded.promises.find((p) => p.promiseId === old.promiseId)).toEqual(bound)
     expect(old.version).toBe(1)
     expect(old.feasibilityReceipt.rulesVersion).toBe(1)

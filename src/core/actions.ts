@@ -56,7 +56,6 @@ import {
   hiringMarketIds,
   isContracted,
   renewalWindowOpen,
-  seatingProduction,
   terminationCost,
 } from './employment.js'
 import { computeForecast, type ForecastContext } from './forecast.js'
@@ -64,6 +63,8 @@ import { forecastHistoryForOwner } from './industryCareer.js'
 import { allocateFoundingSignature, closeFoundingFund } from './foundingFunding.js'
 import { recordPlayerEmployment } from './industryEmployment.js'
 import { breakPromisesOnCancel, breakPromisesOnGreenlight, breakPromisesOnTermination, waivePromise } from './promises.js'
+import { applyTakeLoan, releaseRefusal } from './corporateConditionLive.js'
+import { assertOperatingPlayer } from './studioClosure.js'
 import { recordCancelledAfterFirstTake, recordCastingCompetition } from './relationships.js'
 import { caseOpenForTalent, playerOffer } from './talentMarket.js'
 import { cancelAdoption, cancelInstallation, cancellationQuote } from './installationCancellation.js'
@@ -169,7 +170,6 @@ import {
 } from './productionQueue.js'
 import {
   acceptScriptProject,
-  activeScriptWriterAssignments,
   assertScriptDevelopmentInvariants,
   commissionScriptProject,
   initialManagedScriptDevelopment,
@@ -2681,24 +2681,10 @@ function applyReleaseTalent(state: GameState, action: Action & { kind: 'releaseT
   }
   // R2 (companion §3.4): release is refused during the founding draft and for a
   // person seated on an active production, before any charge or record.
-  if (state.founding !== null) {
-    throw new Error('applyActions: releaseTalent rejected — the founding draft is still open; release waits until the studio is founded (R2)')
-  }
-  const seated = seatingProduction(state, talentId)
-  if (seated !== undefined) {
-    throw new Error(
-      `applyActions: releaseTalent rejected — talent "${talentId}" is seated on active production "${seated.id}" until it is released (R2)`,
-    )
-  }
-  const scriptAssignment = activeScriptWriterAssignments(
-    state.scriptDevelopment,
-    state.concepts,
-  ).find((assignment) => assignment.talentId === talentId)
-  if (scriptAssignment !== undefined) {
-    throw new Error(
-      `applyActions: releaseTalent rejected — talent "${talentId}" is ${scriptAssignment.label} and must finish that screenplay task first`,
-    )
-  }
+  // P15B Wave 3 (1352-A §4.3): the three refusals are the one legal release predicate every studio
+  // shares (corporateConditionLive.ts releaseRefusal); the sentences are unchanged.
+  const refusal = releaseRefusal(state, state.hollywood?.playerStudioId ?? '', talentId)
+  if (refusal !== null) throw new Error(`applyActions: releaseTalent rejected — ${refusal}`)
   const cost = terminationCost(contract, week)
   const entry: LedgerEntry = {
     week,
@@ -2903,11 +2889,17 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
     )
   }
 
+  // P15B Wave 4 (closure/v1; 1362-O §5.2): an actually closed player studio takes no action.
+  assertOperatingPlayer(state, 'applyActions')
   // Process in array order, threading the evolving state so a createTalent
   // earlier in the list is visible to a later greenlight.
   let next = state
   for (const action of actions) {
     switch (action.kind) {
+      // P15B Wave 2 (1357-A §6.1): the one loan verb, refused in the charter's order before any write.
+      case 'takeLoan':
+        next = applyTakeLoan(next, action.principal)
+        break
       case 'recruitScientist': {
         if (!next.hollywood || next.founding !== null || !next.operations.facilities.some(f => f.id === action.laboratoryFacilityId && f.capability === 'laboratory')) {
           throw new Error('Complete this Research Laboratory before recruiting its Scientist.')

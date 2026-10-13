@@ -5,7 +5,10 @@
 // One documented table per phase-order version. A P15 native row stores the triple it
 // was written under and keeps it; a later catalogue maps versions and never rewrites rows.
 
-export const P15_PHASE_ORDER_VERSION = 1 as const
+// P15B Wave 4 (record 1370-ar; the Wave-4 closure contract §2): version 2 inserts the actual closure phase
+// `p15b.closure` between the condition step and the finale. Table 1 and every row written under it are
+// unchanged; a new row is written under version 2.
+export const P15_PHASE_ORDER_VERSION = 2 as const
 
 /** Ordinals ascend in the table's order (1355-F2 item 3). */
 export const P15_PHASE_TABLES: Readonly<Record<number, readonly { readonly phaseId: string; readonly phaseOrdinal: number }[]>> = {
@@ -14,6 +17,13 @@ export const P15_PHASE_TABLES: Readonly<Record<number, readonly { readonly phase
     { phaseId: 'p15a2.rankingRecord', phaseOrdinal: 2 },
     { phaseId: 'p15b.condition', phaseOrdinal: 3 },
     { phaseId: 'p15c.finale', phaseOrdinal: 4 },
+  ],
+  2: [
+    { phaseId: 'p15a1.marketBatch', phaseOrdinal: 1 },
+    { phaseId: 'p15a2.rankingRecord', phaseOrdinal: 2 },
+    { phaseId: 'p15b.condition', phaseOrdinal: 3 },
+    { phaseId: 'p15b.closure', phaseOrdinal: 4 },
+    { phaseId: 'p15c.finale', phaseOrdinal: 5 },
   ],
 }
 

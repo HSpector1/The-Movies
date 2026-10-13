@@ -41,6 +41,8 @@ import {
   beginFounding,
   commitmentPreview,
   computeBoxOffice,
+  closureRecordOf,
+  makeSave,
   economyEngaged,
   employmentEngaged,
   forecastCenters,
@@ -185,7 +187,10 @@ export type RunRecord = {
   seed: string
   policy: string
   policyKind: Policy['kind']
+  /** Requested ceiling; actual elapsed weeks are endWeek-startWeek. */
   horizonWeeks: number
+  /** Present only for an actual player terminal, never a condition-due prediction. */
+  terminal?: { reason: 'actualPlayerClosure'; closureId: string; closureWeek: number; weeksElapsed: number; requestedWeeks: number }
   founded: boolean
   foundingHires: number
   /** cash the run OPENED at. INITIAL_CASH for a fresh run; the save's cash for a resume. */
@@ -220,7 +225,7 @@ export type RunRecord = {
   engagementCliffCash: number | null
   /** true when the policy is DESIGNED to disengage (P15 exploit, P16 doNothing). */
   disengagementIntended: boolean
-  /** weeks with `employmentEngaged === true` ÷ horizonWeeks. Emitted for EVERY run (B2-C8). */
+  /** weeks with `employmentEngaged === true` ÷ actually simulated weeks. Emitted for EVERY run (B2-C8). */
   engagedWeekFraction: number
   reconciliationOk: boolean
   rejectedActions: number
@@ -293,7 +298,7 @@ export type RunCapture = { week: number; state: FinancialState; cash: number; ga
  * sign asymmetry A4 F6 measured (1472/1472 non-zero P3 steps negative).
  *
  * THE SERIES. One sample per simulated week, taken at the TOP of the week (the same instant
- * `checkpoints` and the state series sample), so `timeInBand` sums to exactly `horizonWeeks`.
+ * `checkpoints` and the state series sample), so `timeInBand` sums to actually simulated weeks (requested horizon only when reached).
  * `final` is the post-loop value; `min`/`max` span the samples AND `final`.
  */
 export type AwarenessRecord = {
@@ -849,7 +854,7 @@ function runOneCore(opts: RunOptions): RunRecord {
     // ── D-17B counter-flow: after the tick and the release backfill, BEFORE the
     // reconciliation assert (so an illegal cash touch is caught in the same iteration) and
     // BEFORE slice capture (so the slice records the post-shim stock). OFF ⇒ object identity.
-    if (cfCfg.family !== 'off') {
+    if (cfCfg.family !== 'off' && actualPlayerClosure() === undefined) {
       const cf = applyCounterFlow(state, cfMemo, cfCfg, {
         seed,
         week: state.market.tick,
@@ -894,7 +899,10 @@ function runOneCore(opts: RunOptions): RunRecord {
     }
   }
 
+  const actualPlayerClosure = () => state.hollywood === null ? undefined : closureRecordOf(state, state.hollywood.playerStudioId)
   for (let w = 0; w < horizonWeeks; w++) {
+    // Actual closure is the final authoritative state. No next policy/action/publicity/tick/grid.
+    if (actualPlayerClosure() !== undefined) break
     if (gridFn === null) {
       runWeek(w)
       continue
@@ -907,6 +915,8 @@ function runOneCore(opts: RunOptions): RunRecord {
     })
   }
 
+  const closure = actualPlayerClosure()
+  if (closure !== undefined) makeSave(state) // Full joined terminal admission only; ordinary weeks unchanged.
   assertReconciled(state, seed, policy.name)
 
   // The publicity self-check (A4 §2.3): the run-local tally must equal Σ of the relevant
@@ -973,7 +983,7 @@ function runOneCore(opts: RunOptions): RunRecord {
     engagementCliffWeek,
     engagementCliffCash,
     disengagementIntended,
-    engagedWeekFraction: horizonWeeks === 0 ? NaN : engagedWeeks / horizonWeeks,
+    engagedWeekFraction: state.market.tick === startWeek ? NaN : engagedWeeks / (state.market.tick - startWeek),
     reconciliationOk,
     rejectedActions,
     rejections,
@@ -990,6 +1000,9 @@ function runOneCore(opts: RunOptions): RunRecord {
     series: opts.keepFullSeries === true ? series : null,
     ledgerTotals: ledgerTotals(state),
   }
+
+  if (closure !== undefined) record.terminal = { reason: 'actualPlayerClosure', closureId: closure.closureId,
+    closureWeek: closure.closureWeek, weeksElapsed: state.market.tick-startWeek, requestedWeeks: horizonWeeks }
 
   // ── D-17B optional stamps: assigned ONLY when they fired (never `null`, never `false`) ──
   if (rosterWallWeek !== null) {

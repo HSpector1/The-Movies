@@ -9,6 +9,7 @@
 // once in save.ts (1361-F ruling 5), so no copy of it lives here.
 
 import { P15_PHASE_TABLES, p15PhaseTriple } from './p15Phases.js'
+import { closedWeekOf } from './operatingState.js'
 import {
   assessBatch, SHARED_MARKET_DEFINITION, SHARED_MARKET_LAW_V1, type MarketAssessment, type MarketBatchMember, type MarketExposure,
 } from './sharedMarket.js'
@@ -68,7 +69,9 @@ export function runMarketBatch(state: GameState, playerReleasing: readonly Produ
   }
   const player: MarketBatchMember[] = playerReleasing.map((production) =>
     ({ releaseId: production.id, studioId: hollywood.playerStudioId, genre: genreOf(state.concepts, production) }))
-  const rivals: MarketBatchMember[] = hollywood.businesses.flatMap((business) => business.productions
+  // P15B closure/v1 (r3; Wave-4 contract §4): an actually closed business's retained production never releases.
+  const closed = closedWeekOf(state)
+  const rivals: MarketBatchMember[] = hollywood.businesses.filter((business) => !closed.has(business.studioId)).flatMap((business) => business.productions
     .filter((production) => production.remainingTicks === 1)
     .map((production) => ({ releaseId: production.id, studioId: business.studioId, genre: genreOf(hollywood.concepts, production) })))
   const assessments = assessBatch(activeExposures(root, week), { week, members: [...player, ...rivals] })

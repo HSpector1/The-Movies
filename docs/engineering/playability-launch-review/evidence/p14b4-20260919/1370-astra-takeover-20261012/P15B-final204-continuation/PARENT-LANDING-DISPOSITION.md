@@ -1,0 +1,11 @@
+# Parent adoption — Save48 technical source checkpoint
+
+Parent adopts the independent qualified KEEP for exactly the204-file final204r2 source packet: PATCH7e5ea6c9ab6f1e5658f286f5092a4580f3681e458e33794a239259387b5bf36a / MANIFEST9eb3db63c3107955c05f113b33f0144cf15db79ec478501c4479e2cb487a8320. The containing source commit lands that packet on Save47. No main merge or playable/Owner acceptance is authorized by this record.
+
+Final continuation on df57b1e142a3a8938b8ccdb2fe85d71113ebe021 completed in the parent lane with terminal0: UI0/42s, Bridge0/31s, both generator checks0, five complete reader files59 reportedPASS/0FAIL/0skip/0todo,11 strict checks/errors0. Reporter ddb45dd3f3b66225168793416d2af23a86dde36fef09c7b1a74535d029aa5e8e. Exact-source/input-qualified rootchild0/41s is reused; its old wrapper97 remains failed. The prior fullgate and every original failure are preserved, not retroactively passed.
+
+One unchanged existing synchronous S5 mid-deployment leaf reportedPASS7662.00282ms, exceeding its unchanged5000ms default; actual Save47 reportedPASS6606.952032ms. Its functional reader assertions reached PASS; timing is OPEN. No budget was raised, no test weakened, no speculative rerun or new performance approval inferred. All other58 current leaves measured≤5000ms. Five separately qualified replacement family leaves remain under5000ms each.
+
+The checkpoint expressly retains101 unresolved inherited core obligations and11 D16 failures, original fullgate/AUTO incidents, original failed intermediate compiler/resource attempts, and the disclosed prior fullUI failures/replacement constituents/skips. This is a qualified technical source checkpoint, not a clean complete integration suite. Enabled-pressure/current-final/actual-loan/long6240/cross-system/natural-recovery/native/browser/Owner live-closure acceptance remains OPEN. P16 estate production/accounting dependencies remain to implement.
+
+Next: verify the explicit GitHub branch and committed204 postimages, then preserve and restack the existing P16 candidate onto this exact Save48 commit. Restore archived historical scratch records only if their specific inputs are required; current integration source/packages and original qualification records remain available locally.

@@ -34,6 +34,7 @@ import { offerForTalent } from '../src/core/employment.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
 import { advanceTo, c2bFixture, c2bLiveFixture } from './helpers/p14c2b-fixtures.js'
+import { advanceDeferred } from './helpers/p15b-live.js'
 
 // ── measured axis facts (807/808/MANIFEST.json; every number cross-checked once
 // against the fixture's own live record below, so a transcription slip fails loudly
@@ -60,6 +61,11 @@ const AXIS_C = {
   contractId: 'studio-25969b11-r01:contract:person-cohort-208-actor-1:2496',
   announcedWeek: 2566, effectiveWeek: 2704, eMinus12: 2692,
 }
+// P15B closure/v1 (1370-ar r3; Owner ruling 1342-O 3): the axis-c corpus player (week 2600, deep deficit) is closure
+// due at week 2633, before this axis's window (2692) and effective week (2704). The axis premise is the rival
+// incumbent's extension, never the player's cash, so these natural routes keep the genuine capture unfunded and
+// advance it as the browser Studio Lot does: the player's closure due recorded and left due, no injected money.
+const liveC = (): GameState => c2bLiveFixture(AXIS_C.fixture)
 
 function checkAxisPremise(state: GameState, personId: string, expectedEffectiveWeek: number): void {
   const record = retirementRecordFor(state, personId)
@@ -85,9 +91,9 @@ describe('P14C.2b W1: the extension case opens at exactly E-12 iff an employer i
   })
 
   it('W1c: through the NATURAL tick route alone (F1: migrated live first), a retirementExtension case exists at E-12 for the rival incumbent (axis c)', () => {
-    const live = c2bLiveFixture(AXIS_C.fixture)
+    const live = liveC()
     checkAxisPremise(live, AXIS_C.personId, AXIS_C.effectiveWeek)
-    const atWindow = advanceTo(live, AXIS_C.eMinus12) // 92 real ticks, no forced state
+    const atWindow = advanceDeferred(live, AXIS_C.eMinus12) // 92 real ticks, no forced state
     expect(atWindow.market.tick).toBe(AXIS_C.eMinus12)
     const found = atWindow.talentMarket.cases.find((c) => c.contractId === AXIS_C.contractId)
     expect(found, '806 §4: a retirementExtension case must exist here, subject studio = the rival').toBeDefined()
@@ -359,7 +365,7 @@ describe('P14C.2b W8: no promise can ride an extension (806 §7.1 / §8.4)', () 
   })
 
   it('W8c: the rival incumbent (axis c), through the natural tick route, never has a promise attached to its own extension proposal', () => {
-    const settled = advanceTo(c2bLiveFixture(AXIS_C.fixture), AXIS_C.effectiveWeek) // decisionWeek === effectiveWeek here (no gap)
+    const settled = advanceDeferred(liveC(), AXIS_C.effectiveWeek) // decisionWeek === effectiveWeek here (no gap)
     const attemptReceipt = settled.talentMarket.receipts.find((r) => r.kind === 'proposalSubmitted' && r.talentId === AXIS_C.personId && r.studioId === AXIS_C.employerStudioId)
     expect(attemptReceipt, 'the rival must genuinely have tried (a real proposalSubmitted receipt), so this case is not vacuously true').toBeDefined()
     // A BUG FOUND WHILE PROBING (test-side, not a defect): this person's own career
@@ -377,13 +383,13 @@ describe('P14C.2b W8: no promise can ride an extension (806 §7.1 / §8.4)', () 
 
 describe('P14C.2b W9: the rival incumbent, at tier 1.1 with the exact term, or not at all when its reserve fails (806 §8.1, axis c)', () => {
   it('W9a: through the natural tick route alone (F1: migrated live first), a case exists at E-12 for the rival to evaluate at its own decision cadence', () => {
-    const atWindow = advanceTo(c2bLiveFixture(AXIS_C.fixture), AXIS_C.eMinus12)
+    const atWindow = advanceDeferred(liveC(), AXIS_C.eMinus12)
     const found = atWindow.talentMarket.cases.find((c) => c.contractId === AXIS_C.contractId)
     expect(found, '806 §8.1: the rival must have a case to evaluate at its own decision cadence').toBeDefined()
   })
 
   it('W9b: a rival whose reserve cannot clear the bonus is refused for RESERVE reasons at submission, not the retirement guard', () => {
-    const state = advanceTo(c2bLiveFixture(AXIS_C.fixture), AXIS_C.eMinus12)
+    const state = advanceDeferred(liveC(), AXIS_C.eMinus12)
     const business = state.hollywood!.businesses.find((b) => b.studioId === AXIS_C.employerStudioId)
     expect(business, 'axis c\'s own rival business must exist').toBeDefined()
     const starved: GameState = {

@@ -138,10 +138,10 @@ describe('P14B.2 group1 — projection46, unchanged Save29/intents, closed wire 
   it('pins the exact version, old-five-plus-two attention enum and unchanged intent vocabulary', () => {
     const state = p13aGeneratedStudio()
     readModels(state, state.talent[0]!.id)
-    expect(PROJECTION_VERSION).toBe(57)
+    expect(PROJECTION_VERSION).toBe(58)
     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-57`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(57)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-58`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(58)
     const attentionSchema = schemaDefinition('StudioMarketAttentionRowSnapshot') as unknown as { properties: { cause: { enum: string[] } } }
     // Schema enum order is not gameplay row order; copies retain exact membership/count without mutating the schema.
     expect([...attentionSchema.properties.cause.enum].sort()).toEqual(['decisionWeekNear', 'newCompetingProposal', 'termsRevised',
@@ -152,7 +152,8 @@ describe('P14B.2 group1 — projection46, unchanged Save29/intents, closed wire 
       'acceptScreenplay', 'requestRewrite', 'startAuditions', 'acknowledgeAuditions', 'greenlightPicture', 'resolveProductionBlocker',
       'startConstruction', 'commissionOriginalScreenplay', 'signContract', 'commitPictureToRelease', 'placeFacility', 'commissionSet',
       'renewContract', 'releaseTalent', 'researchAction', 'physicalPlanAction', 'installationAction', 'adoptTechnology',
-      'productionSetupAction', 'cancellationAction', 'marketProposalAction', 'waivePromise'])
+      'productionSetupAction', 'cancellationAction', 'marketProposalAction', 'waivePromise',
+      'takeLoan']) // P15B Wave 5 (1370-ar): the one loan verb (1357-A §7)
   })
   it('validates actual session profile, Market, Pulse and studio DTOs without stripping the new members', () => {
     const f = retentionFixture()

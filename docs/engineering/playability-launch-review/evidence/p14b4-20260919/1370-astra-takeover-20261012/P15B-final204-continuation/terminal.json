@@ -1,0 +1,13 @@
+{
+  "overallExit": 0,
+  "groups": {
+    "tsc-ui": 0,
+    "tsc-bridge": 0,
+    "check-contract": 0,
+    "check-fixtures": 0,
+    "core": 0
+  },
+  "scope": "UI and Bridge compilers, two generators and five complete reader-fallout files; root0 reused from explicitly pinned final-r2 constituent",
+  "identityAccounting": "parent independent complete reporter identity validation required",
+  "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+}

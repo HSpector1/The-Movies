@@ -8,19 +8,19 @@ import * as lifecycle from '../src/core/careerLifecycle.js'
 import * as math from '../src/core/math.js'
 import { advancePromisesWeek, promiseFeasibility } from '../src/core/promises.js'
 import type { PromiseDraft } from '../src/core/promises.js'
-import { migrateToLive, stableStringify } from '../src/core/save.js'
+import { makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
 import { c2bLiveFixture } from './helpers/p14c2b-fixtures.js'
-import { advanceTo, c2cFixture, promiseById } from './helpers/p14c2c-fixtures.js'
+import { c2cFixture, promiseById } from './helpers/p14c2c-fixtures.js'
 import { historicalWriterPair } from './helpers/p14c2rm-fixtures.js'
 import { FOCUS, chosen, clone, envelope38, migrated, obligationControls, person, saveApi } from './helpers/p14c3-fixtures.js'
 
 type Family = 'P1' | 'P2'
 function admitted(state: GameState): void {
   const saved = envelope38(state)
-  expect(saveApi('validateSaveV47')(saved)).toBe(saved)
+  expect(saveApi('validateSaveV48')(saved)).toBe(saved)
 }
 function youngActor(state: GameState): { state: GameState; id: string } {
   const next = applyActions(state, [{ kind: 'createTalent', talent: { name: '1001 actual young quote control',
@@ -234,7 +234,11 @@ describe('C.3 N01–N10 current global and requested actor boundaries', () => {
     expect(promiseById(initial, promiseId)).toMatchObject({ outcome: null, beneficiaryPersonId: id,
       issuerStudioId: issuer, windowStartWeek: 2496, dueWeekExclusive: 2704,
       contractId: 'studio-25969b11-r01:contract:person-cohort-208-actor-1:2496' })
-    const state = advanceTo(initial, 2695) // existing qualified95-tick rival fixture route
+    // Same explicit deferred-player harness as rival promise producer; never a
+    // playable player survival claim. Full current admission remains mandatory.
+    let state=initial
+    while(state.market.tick<2695)state=tick(state,{deferPlayerClosure:true})
+    makeSave(state)
     expect(state.market.tick).toBe(2695)
     expect(lifecycle.retirementRecordFor(state, id)).toMatchObject({ announcedWeek: 2566, effectiveWeek: 2704, status: 'announced' })
     expect(state.hollywood!.businesses.find(row => row.studioId === issuer)!.productions).toEqual([])
