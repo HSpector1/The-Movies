@@ -1,0 +1,918 @@
+{
+  "at": "2026-10-13T18:13:36.753504-05:00",
+  "base": "2c3024e203abec74db95b8c01334723f10595ed2",
+  "productionSource": "476b387d65a4c427dc0f6120724e946cf22d7969",
+  "archive": {
+    "path": "SOURCE-AND-RAW-EVIDENCE.tar.gz",
+    "bytes": 2843767,
+    "sha256": "101bc4224b0cd67e719464f38b4c937a634f5f6eefc393adc0acba0fa1f135c1"
+  },
+  "members": [
+    {
+      "path": "P16-ESTATE-D-IMPLEMENTATION-MAP-R1.md",
+      "bytes": 5513,
+      "sha256": "9fd1d6911eadc1e5e36b2a39cdbcf406013b5406e99932f1b05b6d703e5b32b9",
+      "mode": "0o644"
+    },
+    {
+      "path": "P16-ESTATE-GREEN-CHECKPOINT-FILES-R1.json",
+      "bytes": 43678,
+      "sha256": "2e230251139b0255c3dea4d84ba25a5164b383f8b1f12639d58432634785da8d",
+      "mode": "0o644"
+    },
+    {
+      "path": "P16-ESTATE-GREEN-CHECKPOINT-README-DRAFT.md",
+      "bytes": 4453,
+      "sha256": "e1775e734740a663e15a50a84a97e159c902db459af5e97a5abb520a3a536b8d",
+      "mode": "0o644"
+    },
+    {
+      "path": "P16-ESTATE-INITIAL-FIX-R1-BOOTSTRAP.json",
+      "bytes": 333,
+      "sha256": "252e42980c22019469dc6c4267be9bf281347150da9e22266c41f62bd5b0d220",
+      "mode": "0o644"
+    },
+    {
+      "path": "P16-ESTATE-INITIAL-FIX-R1-PARENT-RESULT.json",
+      "bytes": 1326,
+      "sha256": "28bc5bb3ac0f8a8a8fc4116224381d4d588164b29b23175fd530c3a0e079652d",
+      "mode": "0o644"
+    },
+    {
+      "path": "P16-ESTATE-INITIAL-FIX-R2-BOOTSTRAP.json",
+      "bytes": 333,
+      "sha256": "b5d2f82df7857a1230cb82aad903180d538c42e26d165d34db8f918388173983",
+      "mode": "0o644"
+    },
+    {
+      "path": "P16-ESTATE-INITIAL-FIX-R2-PARENT-RESULT.json",
+      "bytes": 9339,
+      "sha256": "6e9321561765c0e62ccd16c84552c009d78ab28219f7c5fe298aa1806d765360",
+      "mode": "0o644"
+    },
+    {
+      "path": "P16-ESTATE-INITIAL-FIX-REVIEW-R1.md",
+      "bytes": 5440,
+      "sha256": "0d36b8dd08abff22c69b6a9a3ef3317eb7a2eff5602e517b9338602877945fc2",
+      "mode": "0o644"
+    },
+    {
+      "path": "P16-ESTATE-INITIAL-FIX-RUNNER-R2-REVIEW.md",
+      "bytes": 3228,
+      "sha256": "8015eff683149f51c3f88b90d57bd89e4b5a17e8d55eec33c2dff2e9e6ee7eae",
+      "mode": "0o644"
+    },
+    {
+      "path": "P16-ESTATE-JOIN-AMENDMENT-R2.md",
+      "bytes": 14414,
+      "sha256": "04ef8463e038500b305964c25e24a41cc94f8108067de89d2d76f965bb846688",
+      "mode": "0o644"
+    },
+    {
+      "path": "P16-ESTATE-JOIN-AMENDMENT-REVIEW-R1.md",
+      "bytes": 5779,
+      "sha256": "f4a1366d5a4c300a18995f21079d010fe6d4e63a08186d0fca6f815fd607dc78",
+      "mode": "0o644"
+    },
+    {
+      "path": "P16-ESTATE-NEXT-RED-DRAFTS-REVIEW-R1.md",
+      "bytes": 8266,
+      "sha256": "a32a4ae01ef7cafbe3c7b5dd0b25f6d8779ace6cc80018cc754ec5ec640202fc",
+      "mode": "0o644"
+    },
+    {
+      "path": "P16-ESTATE-NEXT-SIX-R1-BOOTSTRAP.json",
+      "bytes": 333,
+      "sha256": "1675c09cfbad47aa5b0c099540f33b77ffd6bf4ea2e880546573a834c28e3c78",
+      "mode": "0o644"
+    },
+    {
+      "path": "P16-ESTATE-NEXT-SIX-R1-INDEPENDENT-RESULTS-REVIEW.md",
+      "bytes": 2029,
+      "sha256": "c2f8cc07e77a131e572faaa0d1e662af924c7483115bc2e35c52c17a39152209",
+      "mode": "0o644"
+    },
+    {
+      "path": "P16-ESTATE-NEXT-SIX-R1-PARENT-RESULT.json",
+      "bytes": 5737,
+      "sha256": "42947a92da26e0a8c78828d90a9259e5c25ba826c79336d18414e92cab1b5b96",
+      "mode": "0o644"
+    },
+    {
+      "path": "P16-ESTATE-NEXT-SIX-RUNNER-R1-REVIEW.md",
+      "bytes": 3154,
+      "sha256": "f4fb8b2986bd507d6de7253136e8a73a844dddf583db282a4835c7b4b50c7084",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-current49-rollback-test-draft-r1/BRIEF.md",
+      "bytes": 905,
+      "sha256": "9ff630b77cc4d84a170ee1f7c4d72d08c677fad9bf12973c7ac887f1885b75c9",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-current49-rollback-test-draft-r1/MANIFEST.json",
+      "bytes": 694,
+      "sha256": "77944aa59e5221d89a131e5e2a50f82a4b67d28ab6c5843da66efac77adc563b",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-current49-rollback-test-draft-r1/p16-estate-current49-rollback.test.ts",
+      "bytes": 2398,
+      "sha256": "00f810e510fcb5d064ff4f19e26891c56a69f156f4be9a216f415632c863dfb3",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-d-red-draft-r1/INPUTS.json",
+      "bytes": 733,
+      "sha256": "1bf24a917738bbe485d856f4acc595fc141f03499dedea574d4fc2ff993942dd",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-d-red-draft-r1/MANIFEST.json",
+      "bytes": 470,
+      "sha256": "9da3cf84bf8fa55b9ab8d7ff08427032d6983072099e2feb76870d93b9ebd94c",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-d-red-draft-r1/README.md",
+      "bytes": 2492,
+      "sha256": "d6ffc06d189ab7f61613ed23d3bdc9734456457020919ef448db6eebb5f151e3",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-d-red-draft-r1/SOURCE.patch",
+      "bytes": 9529,
+      "sha256": "2358ec81a3b07074505b9944353e945a7f1a6fad2a03a536cf653700ceab2eec",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-d-red-draft-r1/p16-estate-d-ceremony.test.ts",
+      "bytes": 9228,
+      "sha256": "4fec1734557cb61c092a2e272beab2386599eadb26b763f8ee1428d28453cd28",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1/MANIFEST.json",
+      "bytes": 1727,
+      "sha256": "acfa641e41bc148779e8a83e07d0e9c221ef57a37011c10c334765f7a4e65688",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1/PREIMAGES.json",
+      "bytes": 780,
+      "sha256": "52af0c2dfa6781273304db4adf80fab8c71df9a547a6001b71a79a0708115fc0",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1/REPORT.md",
+      "bytes": 5089,
+      "sha256": "ee24b0ae143a98a58a0295187224cd54a1e6bd06ceb9ad96224743de88e257af",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1/SOURCE.patch",
+      "bytes": 25890,
+      "sha256": "e985e8a69407a63fdbdd75ea59e57a3cfb8513e9f45f76804fec00416cb31710",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1/postimages/src/core/estate.ts",
+      "bytes": 30620,
+      "sha256": "d8e8821b46df2fefc0e2fd93e8336a472f8f6e10de90abc301f9cb865e3ba8a7",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1/postimages/src/core/rights.ts",
+      "bytes": 93786,
+      "sha256": "b6db74a0db4818f18968a448fae32f3dfb83099f9dd2c62b36133be0b11cca80",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1/postimages/src/core/rightsFinance.ts",
+      "bytes": 7737,
+      "sha256": "0a8e37121412a776d6d6254cb0fb937af8579b856bf73e98e4a1467bb779c1b8",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1/postimages/src/core/save.ts",
+      "bytes": 576632,
+      "sha256": "2d88a3383a04183bbefcb50ce84ef87260b35ff66017c4a805d6402533de6561",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1/postimages/src/core/studioClosure.ts",
+      "bytes": 72826,
+      "sha256": "adb895b57eb13a0374cf9aef33e9fa4a662b05ce4cb2033a7682157ded72a0bb",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1/preimages/src/core/estate.ts",
+      "bytes": 18758,
+      "sha256": "aed2b411742a8670b1523122573666a3dcd823fdcd2aebcd37d633b1875b1fb8",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1/preimages/src/core/rights.ts",
+      "bytes": 92856,
+      "sha256": "46e91244f0f706829d5b7280a2f7dc244e4e995c82c00e96b1307c8ff7a267f1",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1/preimages/src/core/rightsFinance.ts",
+      "bytes": 7649,
+      "sha256": "db1e57c0231a90a2f1180744d3bb8ca378752d8c5945618f9487655474af8aeb",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1/preimages/src/core/save.ts",
+      "bytes": 576204,
+      "sha256": "539218058a0fbeae6a58971445505a711a56f25ada75a880da29690ee7437695",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1/preimages/src/core/studioClosure.ts",
+      "bytes": 72237,
+      "sha256": "f9385a431108150bb28362608992107c0b5e9468a2b144409554cfea0ad91f82",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1-lane.log",
+      "bytes": 47,
+      "sha256": "3aa7e7b94e42f23ce3bf5db66e39f635df7cf8853a096b883f8f070845044bda",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1-lane.log.meta",
+      "bytes": 237,
+      "sha256": "575f121055e9902a3b7c8bece6f970bb2d5ba9031b1a00753404591c52925876",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1-run/freeze-current.json",
+      "bytes": 550174,
+      "sha256": "9d0063f70b888468f708c951a45c788210a32b5ae9757901727c295e19f51616",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1-run/freeze.json",
+      "bytes": 550174,
+      "sha256": "bd7f836c49c39463eacf663a16ad0562066d309fb268abb22156ae89635d1b8e",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1-run/metadata-3b25d4c50ddb417aae36c9eaa0ef9cd9/HANDOFF.raw",
+      "bytes": 158974,
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1-run/metadata-3b25d4c50ddb417aae36c9eaa0ef9cd9/diff.raw",
+      "bytes": 3390,
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1-run/metadata-3b25d4c50ddb417aae36c9eaa0ef9cd9/status.raw",
+      "bytes": 4227,
+      "sha256": "f9591f6d15e01a5d962a93c7eac2e54d3d09eeebb3ec2b80f39bebdd527da047",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1-run/metadata-ba2f79a24b654082914d302f8e71a2e7/HANDOFF.raw",
+      "bytes": 158974,
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1-run/metadata-ba2f79a24b654082914d302f8e71a2e7/diff.raw",
+      "bytes": 3390,
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1-run/metadata-ba2f79a24b654082914d302f8e71a2e7/status.raw",
+      "bytes": 4227,
+      "sha256": "f9591f6d15e01a5d962a93c7eac2e54d3d09eeebb3ec2b80f39bebdd527da047",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1-run/metadata-c18c17432735496a90a0b785eb7a8f6b/HANDOFF.raw",
+      "bytes": 158974,
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1-run/metadata-c18c17432735496a90a0b785eb7a8f6b/diff.raw",
+      "bytes": 3390,
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1-run/metadata-c18c17432735496a90a0b785eb7a8f6b/status.raw",
+      "bytes": 4227,
+      "sha256": "f9591f6d15e01a5d962a93c7eac2e54d3d09eeebb3ec2b80f39bebdd527da047",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1-run/metadata-checks-errors.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1-run/metadata-checks.jsonl",
+      "bytes": 794,
+      "sha256": "44b29aeac5ef6879ab33c264f343379f388902ca863382899d7d12743189f946",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1-run/results.jsonl",
+      "bytes": 304,
+      "sha256": "d0a418d02e334c790b8575e45ae075f7167e5a5a6a919d2a3501591059352f7e",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1-run/terminal.json",
+      "bytes": 351,
+      "sha256": "32768cb5a45caaf53f297d1b7f9b46ba79b0caa7a9850d4296eb5dabf9d1d110",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r1-run/tsc-root.log",
+      "bytes": 721,
+      "sha256": "425ff13c85958746fc8247e7b32ee0b80c221c95f056be745e35d2442f63bc7c",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-lane.log",
+      "bytes": 96,
+      "sha256": "5a682ac3c93971594b61a678ddcb47adf980cccb0c8c73f0cfc58a3837f3f840",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-lane.log.meta",
+      "bytes": 237,
+      "sha256": "438b99825bb37e84794e0a903ee5853715142b01efe0bf1c2f1024d9b685991d",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/estate-red.log",
+      "bytes": 2786,
+      "sha256": "5ba4e9cd52e3f0e2b5fef6e395424196a3b06f6359727db5d1abe2b4b1313ba9",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/freeze-current.json",
+      "bytes": 550382,
+      "sha256": "54da6ec714ce1cf779d6f4c9f9d36700a12cefaf7a638e2f8a33ca9a9114f62b",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/freeze.json",
+      "bytes": 550382,
+      "sha256": "9a0df3da5103d5cb4a6db969b84de842ed30def72a1e7af2ad5ba8d49a052513",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/identity-accounting.json",
+      "bytes": 7373,
+      "sha256": "1e68ae062a165a8e28fc39f09d5e7491b3cf71291e60d0ba588ad15648bc1385",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-2bd9b7eb5b3a46b390a11ad6dd5b2995/HANDOFF.raw",
+      "bytes": 158974,
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-2bd9b7eb5b3a46b390a11ad6dd5b2995/diff.raw",
+      "bytes": 3390,
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-2bd9b7eb5b3a46b390a11ad6dd5b2995/status.raw",
+      "bytes": 4227,
+      "sha256": "f9591f6d15e01a5d962a93c7eac2e54d3d09eeebb3ec2b80f39bebdd527da047",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-3abe62589cbb49089c4be72b76c51c22/HANDOFF.raw",
+      "bytes": 158974,
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-3abe62589cbb49089c4be72b76c51c22/diff.raw",
+      "bytes": 3390,
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-3abe62589cbb49089c4be72b76c51c22/status.raw",
+      "bytes": 4227,
+      "sha256": "f9591f6d15e01a5d962a93c7eac2e54d3d09eeebb3ec2b80f39bebdd527da047",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-60b7d7d54a74489485b44647d05097b9/HANDOFF.raw",
+      "bytes": 158974,
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-60b7d7d54a74489485b44647d05097b9/diff.raw",
+      "bytes": 3390,
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-60b7d7d54a74489485b44647d05097b9/status.raw",
+      "bytes": 4227,
+      "sha256": "f9591f6d15e01a5d962a93c7eac2e54d3d09eeebb3ec2b80f39bebdd527da047",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-77c6d6d3e77141b294f9268e0c958e3d/HANDOFF.raw",
+      "bytes": 158974,
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-77c6d6d3e77141b294f9268e0c958e3d/diff.raw",
+      "bytes": 3390,
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-77c6d6d3e77141b294f9268e0c958e3d/status.raw",
+      "bytes": 4227,
+      "sha256": "f9591f6d15e01a5d962a93c7eac2e54d3d09eeebb3ec2b80f39bebdd527da047",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-8c5ec156ed4f49e896030b1822277f9c/HANDOFF.raw",
+      "bytes": 158974,
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-8c5ec156ed4f49e896030b1822277f9c/diff.raw",
+      "bytes": 3390,
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-8c5ec156ed4f49e896030b1822277f9c/status.raw",
+      "bytes": 4227,
+      "sha256": "f9591f6d15e01a5d962a93c7eac2e54d3d09eeebb3ec2b80f39bebdd527da047",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-checks-errors.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-checks.jsonl",
+      "bytes": 1985,
+      "sha256": "916cd0678afbe0b6c01b2a2303b4051aec9d9a54179628f2bcf6f97046fd2cda",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-e9deb07154c14e6980df27fa9e546dcd/HANDOFF.raw",
+      "bytes": 158974,
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-e9deb07154c14e6980df27fa9e546dcd/diff.raw",
+      "bytes": 3390,
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/metadata-e9deb07154c14e6980df27fa9e546dcd/status.raw",
+      "bytes": 4227,
+      "sha256": "f9591f6d15e01a5d962a93c7eac2e54d3d09eeebb3ec2b80f39bebdd527da047",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/results.json",
+      "bytes": 9676,
+      "sha256": "4ab2d4cb4f1aee4e445c018eeb7f15722577de8c2183d5362e0f7c33385d1d7c",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/results.jsonl",
+      "bytes": 901,
+      "sha256": "cc9bf2fd9b7ab4dbc41791683199d75662c267d8f35e8d72f984bf86d378930d",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/terminal.json",
+      "bytes": 374,
+      "sha256": "bcbeda41e338f8ab3f818898df6d020aab7207b397b18f012a300fd32030a190",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-r2-run/tsc-root.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-initial-fix-runner-r1/BINDINGS.json",
+      "bytes": 3933,
+      "sha256": "c1c175843a77f93ce5b804b6aa90afad2719dd2648e7cfa384890dc84c16ad29",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-runner-r1/EXPECTED-IDENTITIES.json",
+      "bytes": 696,
+      "sha256": "9bafd862916f6dcae5709333316211eb1d9f8675642783e7f8896fab60b7e279",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-runner-r1/README.md",
+      "bytes": 366,
+      "sha256": "c8320ac21e082eaefeb6796bdcdbcd7dc4c1d532a9066dde039aa180d3708f5c",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-runner-r1/SELECTION.json",
+      "bytes": 443,
+      "sha256": "35e77ac95dea640f308dc303181f0dcbfac01e55132dd97f595c1da735996e4b",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-runner-r1/account-results.py",
+      "bytes": 1243,
+      "sha256": "e3f1c23f4e9f7d8f73d0288f361f6acb22820245c11fed8c1c171226ccac0bf6",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-runner-r1/auto_freeze.py",
+      "bytes": 8761,
+      "sha256": "9bc9b89c0ae5dd6bc3e558ee1b823414d86cb5134170326f74779350b34d3e00",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-runner-r1/runner.sh",
+      "bytes": 11024,
+      "sha256": "85636b9fdea19b446eabd2a973fba6301769a10367f93f2e49c802fd59566bd9",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-runner-r2/BINDINGS.json",
+      "bytes": 4276,
+      "sha256": "59d57ed4196a46c24942fb8eadd765aabe9b4077d2722428a5358662dea662ac",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-runner-r2/EXPECTED-IDENTITIES.json",
+      "bytes": 3669,
+      "sha256": "7ca3543864ed3b2c9a7467c085d4cd158bd974d1fb0c0222a3a36ef9c644b825",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-runner-r2/README.md",
+      "bytes": 1651,
+      "sha256": "29977460e84b80db834b34163ead3f04ae7037af9820d8794c5eed1de529f497",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-runner-r2/SELECTION.json",
+      "bytes": 478,
+      "sha256": "ad8d8dcabf35fef963cffc98fe912f409cd3377ce96d30097786387421650886",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-runner-r2/account-results.py",
+      "bytes": 1625,
+      "sha256": "73a5face80c2c61917c8e3ff6e08272a3b8ac4dfcc6428bf4f7df9645784bad4",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-runner-r2/auto_freeze.py",
+      "bytes": 8761,
+      "sha256": "9bc9b89c0ae5dd6bc3e558ee1b823414d86cb5134170326f74779350b34d3e00",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix-runner-r2/runner.sh",
+      "bytes": 11202,
+      "sha256": "dbfdcca13ab19e43decd50da7da00968bde9193f071497e50b985126a78647f4",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix116-r1/MANIFEST.json",
+      "bytes": 22585,
+      "sha256": "c569bc0dc4df57a2ff9d122d5f9fa7b1b813d23273493df8e9da7b4403f73ddd",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix116-r1/PATCH.diff",
+      "bytes": 790275,
+      "sha256": "761769f269f56e6710b27cae227f48755fc7b97c4fc4fd3ba40b75b7340034c1",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix116-r2/MANIFEST.json",
+      "bytes": 22706,
+      "sha256": "4ccab1f067896a685df9234da27225c4e3ede0af938e2a77d8ea52665b6dc9bb",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fix116-r2/PATCH.diff",
+      "bytes": 790330,
+      "sha256": "489f3615117be78e22e3bf7aa4a2c52324ead63b1b907615c604766fd9343964",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fixture-repair-r1/MANIFEST.json",
+      "bytes": 351,
+      "sha256": "e0a32608b83546f7d48ff6c6d636135ff9647526d3146e930832e07cf944a2dd",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fixture-repair-r1/PATCH.diff",
+      "bytes": 1714,
+      "sha256": "acd92f162f4dd0dc5e60a33259d09d8c129dc49cb9f2a75196f0b01331e32a2b",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fixture-repair-r1/postimage.ts",
+      "bytes": 15716,
+      "sha256": "cc7cb5d1ce367684fbace84ade18292df1c7236fe34ac57e86f96e0cb8f29f78",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-initial-fixture-repair-r1/preimage.ts",
+      "bytes": 15661,
+      "sha256": "fd29329eb2b099cbb8628bce5526c4928aefc38824a087ac4861b0f704352f36",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-next-six-r1-lane.log",
+      "bytes": 96,
+      "sha256": "18038d950b3ae6fc0be2beb8d34b771992efec71b6ffdb114abe968fea3165c0",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-lane.log.meta",
+      "bytes": 234,
+      "sha256": "9c647fc35b9b5e57a8edd1ec056b7b80efa42a5600498eb625ee8bc76fb5a0a3",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/estate-red.log",
+      "bytes": 2820,
+      "sha256": "9b0df172dea4233dcf1222e1349194deea838aad672489c6f8fbdfd1a78964d0",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/freeze-current.json",
+      "bytes": 552312,
+      "sha256": "f5de3dbd81dc8b983cf739a26beeeb049bbbb5ced3f3a8fb321535072e07e4a5",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/freeze.json",
+      "bytes": 552312,
+      "sha256": "092de9098c5d348426a902c1a2625872a9ea0fef8ec5d51444be45933bb6b2bd",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/identity-accounting.json",
+      "bytes": 3514,
+      "sha256": "a3d9c8225141068d19a5646ca983e9fc55ac0b1d351551c1f6ff9bbefc0a0b9c",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-19d319ba21a84ad3a9431aaedb806341/HANDOFF.raw",
+      "bytes": 158974,
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-19d319ba21a84ad3a9431aaedb806341/diff.raw",
+      "bytes": 3390,
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-19d319ba21a84ad3a9431aaedb806341/status.raw",
+      "bytes": 4360,
+      "sha256": "fb35e204bd0e9edfe02e22d39e6b00ccb2738355b5e66943b5568ff83f3049b2",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-4357494e0a9046a9bfd22e2613ebd9bc/HANDOFF.raw",
+      "bytes": 158974,
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-4357494e0a9046a9bfd22e2613ebd9bc/diff.raw",
+      "bytes": 3390,
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-4357494e0a9046a9bfd22e2613ebd9bc/status.raw",
+      "bytes": 4360,
+      "sha256": "fb35e204bd0e9edfe02e22d39e6b00ccb2738355b5e66943b5568ff83f3049b2",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-598fc22e12a8451eab78d6dd397cb1f8/HANDOFF.raw",
+      "bytes": 158974,
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-598fc22e12a8451eab78d6dd397cb1f8/diff.raw",
+      "bytes": 3390,
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-598fc22e12a8451eab78d6dd397cb1f8/status.raw",
+      "bytes": 4360,
+      "sha256": "fb35e204bd0e9edfe02e22d39e6b00ccb2738355b5e66943b5568ff83f3049b2",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-816ca705530f4d1588b06598b3ed703a/HANDOFF.raw",
+      "bytes": 158974,
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-816ca705530f4d1588b06598b3ed703a/diff.raw",
+      "bytes": 3390,
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-816ca705530f4d1588b06598b3ed703a/status.raw",
+      "bytes": 4360,
+      "sha256": "fb35e204bd0e9edfe02e22d39e6b00ccb2738355b5e66943b5568ff83f3049b2",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-checks-errors.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-checks.jsonl",
+      "bytes": 1970,
+      "sha256": "8a0b71bc444017e11d6096bee06c3a3962e6aaaef915906d3b9546476c7f9057",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-da9e62d5a28f4574aee4f099da21a567/HANDOFF.raw",
+      "bytes": 158974,
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-da9e62d5a28f4574aee4f099da21a567/diff.raw",
+      "bytes": 3390,
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-da9e62d5a28f4574aee4f099da21a567/status.raw",
+      "bytes": 4360,
+      "sha256": "fb35e204bd0e9edfe02e22d39e6b00ccb2738355b5e66943b5568ff83f3049b2",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-eb7f43ee83034de69cc49984f617954e/HANDOFF.raw",
+      "bytes": 158974,
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-eb7f43ee83034de69cc49984f617954e/diff.raw",
+      "bytes": 3390,
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/metadata-eb7f43ee83034de69cc49984f617954e/status.raw",
+      "bytes": 4360,
+      "sha256": "fb35e204bd0e9edfe02e22d39e6b00ccb2738355b5e66943b5568ff83f3049b2",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/results.json",
+      "bytes": 4825,
+      "sha256": "7d7c07f6becda6079a74135c62640d9de7ebe8c16e1b2a9aa28aba0e4edb9159",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/results.jsonl",
+      "bytes": 961,
+      "sha256": "d2f46ed9a567756a9b17becaf366c0cfc2d46c481583f95802341486996f72b6",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/terminal.json",
+      "bytes": 378,
+      "sha256": "af1b2936ce11911d0da774e6c528bfd9349744b3800840d659797f4654f95651",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-r1-run/tsc-root.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o600"
+    },
+    {
+      "path": "p16-estate-next-six-runner-r1/BINDINGS.json",
+      "bytes": 4983,
+      "sha256": "efd16157790b1089d86879bc511bafd0f642c95b7473e62b073b26735a06299c",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-next-six-runner-r1/EXPECTED-IDENTITIES.json",
+      "bytes": 1499,
+      "sha256": "30180084bc520d0f4f6fadc1164ad0eb2d210e3d9eb0569929bc4c0315988383",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-next-six-runner-r1/README.md",
+      "bytes": 1551,
+      "sha256": "481fbad3f7e5d9e4a44e26c6f94531677c0f1e2bae978e80e61731fab5fbd32c",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-next-six-runner-r1/SELECTION.json",
+      "bytes": 548,
+      "sha256": "b1ad44c9e9e50f1347730a20968b755e68864e9e9b40bcb461790c5e04dcf47e",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-next-six-runner-r1/account-results.py",
+      "bytes": 1613,
+      "sha256": "493d7fc3106a46bde49bd559b38da029af4094da12bc1bbb763048ae187bf04f",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-next-six-runner-r1/auto_freeze.py",
+      "bytes": 8761,
+      "sha256": "9bc9b89c0ae5dd6bc3e558ee1b823414d86cb5134170326f74779350b34d3e00",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-next-six-runner-r1/runner.sh",
+      "bytes": 12072,
+      "sha256": "b80ba9dc7427f04a93c93598ad6e5ddddf55bcf76cc17a963521362dd27073e8",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-next119-r1/MANIFEST.json",
+      "bytes": 23182,
+      "sha256": "8cc2d894faa3fed27fd428bf04df2dd5c4f36432d2080d7612c4d31c5b3c1d73",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-next119-r1/PATCH.diff",
+      "bytes": 809051,
+      "sha256": "e0643ba9c9462a9f7f7ffcbe1028916bda74099947d510de9b6a18f09cf8ba4f",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-observed-migration-red-draft-r3/BRIEF.md",
+      "bytes": 2107,
+      "sha256": "fcf3f6ee8f5d97c4f81624b280a21b90f886066e4eec81527229e7f29d838991",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-observed-migration-red-draft-r3/MANIFEST.json",
+      "bytes": 555,
+      "sha256": "de919370681c29dbf585729d5e9b73c69cc1105122d234bdd2bb516829279b76",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-observed-migration-red-draft-r3/ROOT-VERSION-NEGATIVE.diff",
+      "bytes": 644,
+      "sha256": "0e2d716132823c22d1f0e66920134729de466a0fbca0ffd86fceafddb0c22306",
+      "mode": "0o644"
+    },
+    {
+      "path": "p16-estate-observed-migration-red-draft-r3/p16-estate-observed-migration.test.ts",
+      "bytes": 6181,
+      "sha256": "bf57cdf652a1dc5d0899d3e38d0912eb525bb725d4cf7a2d7407fab61f6ac612",
+      "mode": "0o644"
+    }
+  ]
+}

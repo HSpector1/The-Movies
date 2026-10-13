@@ -1,0 +1,38 @@
+{
+  "at": "2026-10-13T17:56:10.055337-05:00",
+  "session": 16918,
+  "terminal": {
+    "overallExit": 2,
+    "groups": {
+      "tsc-root": 2
+    },
+    "scope": "rootcompiler and completeinitial5estateRED; noacceptance claim",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 2,
+      "startEpoch": 1791932068,
+      "endEpoch": 1791932108,
+      "seconds": 40,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-initial-fix-r1-run/tsc-root.log"
+    }
+  ],
+  "compilerLogSHA256": "425ff13c85958746fc8247e7b32ee0b80c221c95f056be745e35d2442f63bc7c",
+  "metadataChecks": 2,
+  "metadataErrors": 0,
+  "nonAutoFreezeFieldsIdentical": true,
+  "frozenSourceCount": 1586,
+  "frozenInputCount": 31,
+  "runtime": "UNRUN after compiler2",
+  "cause": "one TS2345 old hostile unknown-studio estate fixture missing new required origin",
+  "candidateManifestSHA256": "c569bc0dc4df57a2ff9d122d5f9fa7b1b813d23273493df8e9da7b4403f73ddd"
+}

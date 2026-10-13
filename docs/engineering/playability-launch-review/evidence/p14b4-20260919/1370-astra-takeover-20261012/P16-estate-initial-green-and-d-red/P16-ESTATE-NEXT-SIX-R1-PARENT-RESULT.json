@@ -1,0 +1,115 @@
+{
+  "at": "2026-10-13T18:09:32.350626-05:00",
+  "session": 31781,
+  "terminal": {
+    "overallExit": 1,
+    "groups": {
+      "tsc-root": 0,
+      "estate-red": 1
+    },
+    "scope": "rootcompiler and completeNEWthreefiles/sixleaves; noacceptance claim",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791932876,
+      "endEpoch": 1791932923,
+      "seconds": 47,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-next-six-r1-run/tsc-root.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 1,
+      "startEpoch": 1791932928,
+      "endEpoch": 1791932940,
+      "seconds": 12,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-next-six-r1-run/results.json",
+        "tests/p16-estate-d-ceremony.test.ts",
+        "tests/p16-estate-observed-migration.test.ts",
+        "tests/p16-estate-current49-rollback.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-next-six-r1-run/estate-red.log"
+    }
+  ],
+  "reporterSHA256": "7d7c07f6becda6079a74135c62640d9de7ebe8c16e1b2a9aa28aba0e4edb9159",
+  "candidateManifestSHA256": "8cc2d894faa3fed27fd428bf04df2dd5c4f36432d2080d7612c4d31c5b3c1d73",
+  "rows": [
+    {
+      "file": "tests/p16-estate-d-ceremony.test.ts",
+      "fullName": "P16 D ceremony actual13M sale intake pays partial claims once before one archival and replays",
+      "status": "failed",
+      "durationMs": 2255.2673119999995,
+      "budgetQualified": true,
+      "failureMessages": [
+        "Error: estate: current49 D sale/intake/claims join is not implemented; no partial ceremony is published\n    at resolveEstate (/Users/zacheryspector/studio-specialists/p16/src/core/estate.ts:325:86)\n    at Module.closeDueEstates (/Users/zacheryspector/studio-specialists/p16/src/core/estate.ts:398:73)\n    at Module.advanceRightsWeek (/Users/zacheryspector/studio-specialists/p16/src/core/rightsTick.ts:51:10)\n    at Module.tick (/Users/zacheryspector/studio-specialists/p16/src/core/tick.ts:1217:22)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-estate-d-ceremony.test.ts:66:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)"
+      ]
+    },
+    {
+      "file": "tests/p16-estate-observed-migration.test.ts",
+      "fullName": "P16 observed original48 migration retains terminal authority without new history C163 and archivedD176 retain complete closure claim loan run archive roots and same-boundary lossless roundtrip",
+      "status": "passed",
+      "durationMs": 1486.8458979999998,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16-estate-observed-migration.test.ts",
+      "fullName": "P16 observed original48 migration retains terminal authority without new history archived176 observes one original archival, never reopens bidding, and retains nontradeable film ownership",
+      "status": "passed",
+      "durationMs": 398.062915,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16-estate-observed-migration.test.ts",
+      "fullName": "P16 observed original48 migration retains terminal authority without new history a real new public bid is admitted current authority and blocks discard of an otherwise reconstructable live observation",
+      "status": "passed",
+      "durationMs": 655.15139,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16-estate-observed-migration.test.ts",
+      "fullName": "P16 observed original48 migration retains terminal authority without new history frozen48 reader refuses the added current rights root without retagging a49 envelope",
+      "status": "passed",
+      "durationMs": 423.03829300000007,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16-estate-current49-rollback.test.ts",
+      "fullName": "actual49 closure publication refusal rolls back the fully admitted pre-C caller",
+      "status": "passed",
+      "durationMs": 991.9581260000001,
+      "budgetQualified": true,
+      "failureMessages": []
+    }
+  ],
+  "metadataChecks": 5,
+  "metadataErrors": 0,
+  "nonAutoFreezeFieldsIdentical": true,
+  "frozenSourceCount": 1589,
+  "frozenInputCount": 34,
+  "laneAbsent": true,
+  "scope": "5 qualified migration/rollback PASS; actualD reaches deliberate incomplete joined settlement guard. Public13M bid, actual stable175/no loan/reserve and admitted preD premises reached. Later sale/payment/archive assertions UNREACHED; noP16acceptance"
+}

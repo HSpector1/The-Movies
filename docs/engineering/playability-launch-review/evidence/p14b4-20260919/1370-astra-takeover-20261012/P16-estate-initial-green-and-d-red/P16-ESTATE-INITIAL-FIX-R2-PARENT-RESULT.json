@@ -1,0 +1,223 @@
+{
+  "at": "2026-10-13T18:03:03.225515-05:00",
+  "session": 78209,
+  "terminal": {
+    "overallExit": 0,
+    "groups": {
+      "tsc-root": 0,
+      "estate-red": 0
+    },
+    "scope": "rootcompiler and completeinitialjoin5+save15; noacceptance claim",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791932356,
+      "endEpoch": 1791932396,
+      "seconds": 40,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-initial-fix-r2-run/tsc-root.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 0,
+      "startEpoch": 1791932401,
+      "endEpoch": 1791932414,
+      "seconds": 13,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-initial-fix-r2-run/results.json",
+        "tests/p16-estate-join.test.ts",
+        "tests/p16a-save-v46.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-initial-fix-r2-run/estate-red.log"
+    }
+  ],
+  "reporterSHA256": "4ab2d4cb4f1aee4e445c018eeb7f15722577de8c2183d5362e0f7c33385d1d7c",
+  "candidateManifestSHA256": "4ccab1f067896a685df9234da27225c4e3ede0af938e2a77d8ea52665b6dc9bb",
+  "rows": [
+    {
+      "file": "tests/p16-estate-join.test.ts",
+      "fullName": "P16 joined estate actual-source boundaries actual49 closure atomically publishes matching handoff once without changing the caller",
+      "status": "passed",
+      "durationMs": 1174.5961360000001,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16-estate-join.test.ts",
+      "fullName": "P16 joined estate actual-source boundaries genuine normal48 migration admits without manufacturing actual closure or estate history",
+      "status": "passed",
+      "durationMs": 352.9050050000001,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16-estate-join.test.ts",
+      "fullName": "P16 joined estate actual-source boundaries genuine public48 liveclosure migration observes authentic provenance without retroactive49 events",
+      "status": "passed",
+      "durationMs": 270.36631899999975,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16-estate-join.test.ts",
+      "fullName": "P16 joined estate actual-source boundaries current49 handoff cannot masquerade as observed48 or borrow foreign claim authority",
+      "status": "passed",
+      "durationMs": 308.109876,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16-estate-join.test.ts",
+      "fullName": "P16 joined estate actual-source boundaries actual terminal bidder refuses with retained business and even a labelled stale-stable reader",
+      "status": "passed",
+      "durationMs": 156.48060399999986,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "fullName": "Save49 era surface LIVE_SAVE_VERSION is P16_SAVE_VERSION (49 at this base) with predecessor48, and the V49 functions exist",
+      "status": "passed",
+      "durationMs": 2.9894100000001345,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "fullName": "Save49 era surface validateSave dispatches49 and names the handled range \"1 through 49\"",
+      "status": "passed",
+      "durationMs": 478.45028200000024,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 convertV48ToV49 adds exactly the empty rights root at the save week and zero P16 movements on every rival period; nothing else moves",
+      "status": "passed",
+      "durationMs": 444.7894419999998,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 migrateToLive lifts the genuine raw capture to 46 through importSave, and a second migration is a no-op",
+      "status": "passed",
+      "durationMs": 389.4039220000004,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 convertV49ToV48 is lossless while the root is empty and every P16 movement is zero, round-tripping to the genuine bytes",
+      "status": "passed",
+      "durationMs": 867.9303399999999,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 the downgrade refuses by name once a rights record exists; a P16 movement or ledger row without its transaction is refused by the validator first",
+      "status": "passed",
+      "durationMs": 320.10105099999964,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 a Save45 envelope is refused the P16 kinds below their era: a rightsConsideration movement or ledger row cannot be written under version 45",
+      "status": "passed",
+      "durationMs": 101.92141699999956,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "fullName": "the actual migrated Save48 predecessor refuses rights authority below Save49 without retagging a modern envelope",
+      "status": "passed",
+      "durationMs": 299.06211900000017,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates the control: a materialized genesis pair validates",
+      "status": "passed",
+      "durationMs": 327.3061080000007,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates refuses a missing root, a wrong version, a recordedFromWeek outside [0, tick], or unknown keys",
+      "status": "passed",
+      "durationMs": 337.0492780000004,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates refuses a duplicate genesis, a broken priorHolder chain, a future-dated event, bad ordinals, duplicate ids, a mismatched subject and an unknown holder",
+      "status": "passed",
+      "durationMs": 444.2348899999997,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates refuses a persisted record that contradicts the authentic source (creator, date or title) as ambiguous provenance",
+      "status": "passed",
+      "durationMs": 323.3984359999995,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates an archive event needs its estate record, and an estate record must name a reserved identity",
+      "status": "passed",
+      "durationMs": 294.31935899999917,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates every authored-start manifest film stays resolvable after migration: the root invents none of them",
+      "status": "passed",
+      "durationMs": 239.08813199999895,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "fullName": "F15 genuine predecessor migration keeps observational frontier and lossless empty-era roundtrip",
+      "status": "passed",
+      "durationMs": 496.5192079999997,
+      "budgetQualified": true,
+      "failureMessages": []
+    }
+  ],
+  "metadataChecks": 5,
+  "metadataErrors": 0,
+  "nonAutoFreezeFieldsIdentical": true,
+  "frozenSourceCount": 1586,
+  "frozenInputCount": 32,
+  "scope": "initial5 RED\u2192GREEN and completeaffected15 PASS, every5squalified; noD/wholeP16qualification"
+}
