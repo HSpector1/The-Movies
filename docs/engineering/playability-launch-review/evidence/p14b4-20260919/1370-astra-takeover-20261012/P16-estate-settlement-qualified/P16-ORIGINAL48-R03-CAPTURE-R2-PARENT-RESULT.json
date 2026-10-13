@@ -1,0 +1,102 @@
+{
+  "disposition": "Capture constituents adopted with explicit original recorder98 incident; original wrapper remains failed; no child rerun or timing waiver",
+  "childExit": 0,
+  "childSeconds": 9,
+  "wrapperExit": 98,
+  "test": {
+    "ancestorTitles": [],
+    "fullName": "original48 one retained R03 estate route captures130/131/132/134/144 with positiveclaims and active132run",
+    "status": "passed",
+    "title": "original48 one retained R03 estate route captures130/131/132/134/144 with positiveclaims and active132run",
+    "duration": 3725.162805,
+    "failureMessages": [],
+    "meta": {}
+  },
+  "originalPostflight": "missing/zero-byte; one completed metadata comparison only",
+  "independentReconciliation": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-original48-r03-r2-reconciliation-r1",
+  "parentComparedEnvelopes": true,
+  "sameSourceFiles": 1556,
+  "sameInputs": 16,
+  "sourceHEAD": "1436436c154c94744a927dc30d3f10f5781b3050",
+  "causeLimit": "AUTO-only before/current transition matches stability race; predicate does not identify exact first differing read or prove continuous observation",
+  "captureManifest": {
+    "source": {
+      "HEAD": "1436436c154c94744a927dc30d3f10f5781b3050",
+      "sourceTree": "476b387d65a4c427dc0f6120724e946cf22d7969",
+      "files": {
+        "tests/helpers/p15b-live.ts": "921a8e1e69f07dfc3e9d6bcaeef63e0493772adac6f3c3b3deebaa1cb0e8a060",
+        "tests/p14d1-rival-shelving-fixtures.ts": "d356f28bda30816a27457ef54627ea8b38953b542fc8872c93e6d25dc339c0fe",
+        "src/core/save.ts": "c7fbe216d86a1cf2acf971dd50d999c5797b431f24d4169b7ce7fcb3746706f7",
+        "src/core/studioClosure.ts": "f9385a431108150bb28362608992107c0b5e9468a2b144409554cfea0ad91f82"
+      }
+    },
+    "scope": "existing disclosedcondition/finance R03transaction fixture; notnaturalcampaign",
+    "closureId": "studio-closure-1",
+    "archivalEventId": "estate-event-7",
+    "positive132": {
+      "paidTotal": 60006,
+      "claimPaymentMovement": -60006,
+      "runReceipt": {
+        "eventId": "estate-event-1",
+        "closureId": "studio-closure-1",
+        "studioId": "studio-aca408ec-r03",
+        "week": 132,
+        "kind": "runReceipt",
+        "amount": 360007.48047857336,
+        "reference": "studio-aca408ec-r03:film:13:due:131",
+        "p15DomainSequence": 5,
+        "phaseId": "p15b.closure",
+        "phaseOrdinal": 4,
+        "phaseOrderVersion": 2
+      },
+      "distribution": {
+        "eventId": "estate-event-2",
+        "closureId": "studio-closure-1",
+        "studioId": "studio-aca408ec-r03",
+        "week": 132,
+        "kind": "distribution",
+        "amount": 60006,
+        "reference": "studio-closure-1",
+        "p15DomainSequence": 6,
+        "phaseId": "p15b.closure",
+        "phaseOrdinal": 4,
+        "phaseOrderVersion": 2
+      },
+      "filmId": "studio-aca408ec-r03:film:13"
+    },
+    "elapsedMsBeforeManifestWrite": 3722.907042,
+    "files": [
+      {
+        "name": "r03-week130.save48.json",
+        "sha256": "f3a4ba519a87a62f5d170d11709070c2ec986541a1a2913a2f4477d03015d80e",
+        "bytes": 1100922,
+        "week": 130
+      },
+      {
+        "name": "r03-week131.save48.json",
+        "sha256": "107c095c05ed1cd2c3fafd6bf7f3236c26f561f548d24c76487f1e53c58dfbad",
+        "bytes": 1116739,
+        "week": 131
+      },
+      {
+        "name": "r03-week132.save48.json",
+        "sha256": "6c2d21b44b718bf33c9c8f019c0d737f59cd02a53573f4a31c29c0b21d6b0f25",
+        "bytes": 1118013,
+        "week": 132
+      },
+      {
+        "name": "r03-week134.save48.json",
+        "sha256": "677b0615a7a0a7e54bd6865c6f526d0f7b773d7c28d77ff739c6deca33a9653a",
+        "bytes": 1120754,
+        "week": 134
+      },
+      {
+        "name": "r03-week144.save48.json",
+        "sha256": "c4d319f62d97c9e667fbca2dee8cf87fa21f7a9169192ed7ed1bed9dac40e89b",
+        "bytes": 1131113,
+        "week": 144
+      }
+    ]
+  },
+  "qualifiedScope": "original48 public inputs with nonzero claimPayment and active run; new49 conversion must independently admit original48 input; not P16 acceptance"
+}

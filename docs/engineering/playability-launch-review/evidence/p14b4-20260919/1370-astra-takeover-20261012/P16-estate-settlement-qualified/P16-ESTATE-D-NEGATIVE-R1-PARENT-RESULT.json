@@ -1,0 +1,293 @@
+{
+  "disposition": "All18 assertions reached/PASS; firstnegative default5000 timingOPEN, wrapper1; notfullP16acceptance",
+  "terminal": {
+    "overallExit": 1,
+    "groups": {
+      "tsc-root": 0,
+      "estate-red": 0
+    },
+    "scope": "rootcompiler and completezero-lift15+negative3; D timingOPEN; noacceptance claim",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791934956,
+      "endEpoch": 1791935019,
+      "seconds": 63,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-d-negative-r1-run/tsc-root.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 0,
+      "startEpoch": 1791935036,
+      "endEpoch": 1791935068,
+      "seconds": 32,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-d-negative-r1-run/results.json",
+        "tests/p16a-save-v46.test.ts",
+        "tests/p16-estate-d-join-negative.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-d-negative-r1-run/estate-red.log"
+    }
+  ],
+  "rows": [
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 era surface"
+      ],
+      "fullName": "Save49 era surface LIVE_SAVE_VERSION is P16_SAVE_VERSION (49 at this base) with predecessor48, and the V49 functions exist",
+      "status": "passed",
+      "title": "LIVE_SAVE_VERSION is P16_SAVE_VERSION (49 at this base) with predecessor48, and the V49 functions exist",
+      "duration": 4.83930699999928,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 era surface"
+      ],
+      "fullName": "Save49 era surface validateSave dispatches49 and names the handled range \"1 through 49\"",
+      "status": "passed",
+      "title": "validateSave dispatches49 and names the handled range \"1 through 49\"",
+      "duration": 1278.0728129999998,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 convertV48ToV49 adds exactly the empty rights root at the save week and zero P16 movements on every rival period; nothing else moves",
+      "status": "passed",
+      "title": "convertV48ToV49 adds exactly the empty rights root at the save week and zero P16 movements on every rival period; nothing else moves",
+      "duration": 764.1123680000001,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 migrateToLive lifts the genuine raw capture to 46 through importSave, and a second migration is a no-op",
+      "status": "passed",
+      "title": "migrateToLive lifts the genuine raw capture to 46 through importSave, and a second migration is a no-op",
+      "duration": 741.8139470000006,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 convertV49ToV48 is lossless while the root is empty and every P16 movement is zero, round-tripping to the genuine bytes",
+      "status": "passed",
+      "title": "convertV49ToV48 is lossless while the root is empty and every P16 movement is zero, round-tripping to the genuine bytes",
+      "duration": 1695.982435,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 the downgrade refuses by name once a rights record exists; a P16 movement or ledger row without its transaction is refused by the validator first",
+      "status": "passed",
+      "title": "the downgrade refuses by name once a rights record exists; a P16 movement or ledger row without its transaction is refused by the validator first",
+      "duration": 396.4893970000012,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 a Save45 envelope is refused the P16 kinds below their era: a rightsConsideration movement or ledger row cannot be written under version 45",
+      "status": "passed",
+      "title": "a Save45 envelope is refused the P16 kinds below their era: a rightsConsideration movement or ledger row cannot be written under version 45",
+      "duration": 122.7024790000014,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [],
+      "fullName": "the actual migrated Save48 predecessor refuses rights authority below Save49 without retagging a modern envelope",
+      "status": "passed",
+      "title": "the actual migrated Save48 predecessor refuses rights authority below Save49 without retagging a modern envelope",
+      "duration": 683.9006449999997,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates the control: a materialized genesis pair validates",
+      "status": "passed",
+      "title": "the control: a materialized genesis pair validates",
+      "duration": 541.0055959999991,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates refuses a missing root, a wrong version, a recordedFromWeek outside [0, tick], or unknown keys",
+      "status": "passed",
+      "title": "refuses a missing root, a wrong version, a recordedFromWeek outside [0, tick], or unknown keys",
+      "duration": 434.09958499999993,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates refuses a duplicate genesis, a broken priorHolder chain, a future-dated event, bad ordinals, duplicate ids, a mismatched subject and an unknown holder",
+      "status": "passed",
+      "title": "refuses a duplicate genesis, a broken priorHolder chain, a future-dated event, bad ordinals, duplicate ids, a mismatched subject and an unknown holder",
+      "duration": 606.6386849999999,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates refuses a persisted record that contradicts the authentic source (creator, date or title) as ambiguous provenance",
+      "status": "passed",
+      "title": "refuses a persisted record that contradicts the authentic source (creator, date or title) as ambiguous provenance",
+      "duration": 443.46999700000015,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates an archive event needs its estate record, and an estate record must name a reserved identity",
+      "status": "passed",
+      "title": "an archive event needs its estate record, and an estate record must name a reserved identity",
+      "duration": 410.45253500000035,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates every authored-start manifest film stays resolvable after migration: the root invents none of them",
+      "status": "passed",
+      "title": "every authored-start manifest film stays resolvable after migration: the root invents none of them",
+      "duration": 474.61747000000105,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [],
+      "fullName": "F15 genuine predecessor migration keeps observational frontier and lossless empty-era roundtrip",
+      "status": "passed",
+      "title": "F15 genuine predecessor migration keeps observational frontier and lossless empty-era roundtrip",
+      "duration": 709.0298179999991,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-d-join-negative.test.ts",
+      "ancestorTitles": [
+        "P16 joinedD strict-save corruption and actual publication rollback"
+      ],
+      "fullName": "P16 joinedD strict-save corruption and actual publication rollback refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source",
+      "status": "passed",
+      "title": "refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source",
+      "duration": 9502.89511,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-d-join-negative.test.ts",
+      "ancestorTitles": [
+        "P16 joinedD strict-save corruption and actual publication rollback"
+      ],
+      "fullName": "P16 joinedD strict-save corruption and actual publication rollback refuses extra estateSaleProceeds and an extra buyer rights debit even with their matching cash changes",
+      "status": "passed",
+      "title": "refuses extra estateSaleProceeds and an extra buyer rights debit even with their matching cash changes",
+      "duration": 1243.2995439999995,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-d-join-negative.test.ts",
+      "ancestorTitles": [
+        "P16 joinedD strict-save corruption and actual publication rollback"
+      ],
+      "fullName": "P16 joinedD strict-save corruption and actual publication rollback a real strict49 D publication refusal cannot publish partial sale cash claims or archival",
+      "status": "passed",
+      "title": "a real strict49 D publication refusal cannot publish partial sale cash claims or archival",
+      "duration": 1002.37579,
+      "failureMessages": [],
+      "meta": {}
+    }
+  ],
+  "overBudget": [
+    {
+      "file": "tests/p16-estate-d-join-negative.test.ts",
+      "ancestorTitles": [
+        "P16 joinedD strict-save corruption and actual publication rollback"
+      ],
+      "fullName": "P16 joinedD strict-save corruption and actual publication rollback refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source",
+      "status": "passed",
+      "title": "refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source",
+      "duration": 9502.89511,
+      "failureMessages": [],
+      "meta": {}
+    }
+  ],
+  "strictChecks": 5,
+  "strictErrors": 0,
+  "sourceFiles": 1590,
+  "inputs": 36,
+  "candidatePatchSHA256": "af48ff04e1cfdba0f6fefa3e2dcf566f447e7d5d5f991253e5eea442c1a0737b",
+  "firstCauses": [
+    "{\"proof\":\"p16-D-hostile-first-refusal\",\"label\":\"missing-saleReceipt\",\"strict49\":\"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts\",\"writer\":\"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts\"}",
+    "{\"proof\":\"p16-D-hostile-first-refusal\",\"label\":\"duplicate-saleReceipt\",\"strict49\":\"validateSaveP15B: studioClosure estate event estate-event-1 is out of append order or at or above nextEstateEvent\",\"writer\":\"validateSaveP15B: studioClosure estate event estate-event-1 is out of append order or at or above nextEstateEvent\"}",
+    "{\"proof\":\"p16-D-hostile-first-refusal\",\"label\":\"amount-saleReceipt\",\"strict49\":\"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts\",\"writer\":\"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts\"}",
+    "{\"proof\":\"p16-D-hostile-first-refusal\",\"label\":\"foreign-saleReceipt\",\"strict49\":\"validateSaveV49: estate join sale intake differs from actual estate transaction\",\"writer\":\"validateSaveV49: estate join sale intake differs from actual estate transaction\"}",
+    "{\"proof\":\"p16-D-hostile-first-refusal\",\"label\":\"extra-estateSaleProceeds\",\"strict49\":\"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts\",\"writer\":\"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts\"}",
+    "{\"proof\":\"p16-D-hostile-first-refusal\",\"label\":\"extra-buyer-rights-debit\",\"strict49\":\"validateSaveV49: rights.transactions studio-aca408ec-player rightsConsideration -13000001 does not reconcile with its rights transactions (-13000000)\",\"writer\":\"validateSaveV49: rights.transactions studio-aca408ec-player rightsConsideration -13000001 does not reconcile with its rights transactions (-13000000)\"}"
+  ]
+}

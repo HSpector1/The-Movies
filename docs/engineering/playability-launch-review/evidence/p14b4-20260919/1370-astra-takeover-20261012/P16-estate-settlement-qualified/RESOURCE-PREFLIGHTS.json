@@ -1,0 +1,66 @@
+[
+  {
+    "receipt": "P16-ESTATE-D-JOIN-R1-PREFLIGHT-LOCAL.json",
+    "at": "2026-10-13T18:26:26.778005-05:00",
+    "freeKiB": 5099220,
+    "launchMinimumKiB": 3670016,
+    "runtimeFloorKiB": 3145728,
+    "pins": {
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-d-join-runner-r1/runner.sh": "d843da0c35fcd4d51a3ce0a13bca6193b189b96ecd9052fc1ab442aa937a9708",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-d-join-runner-r1/SELECTION.json": "89c10c2766288c623c11834535666c826c6d842cef31c122cd91c26460ebe193",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-auto-recorder-r4r2-draft/auto_freeze.py": "9bc9b89c0ae5dd6bc3e558ee1b823414d86cb5134170326f74779350b34d3e00",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-d16-ui-r5-draft/RUNTIME-INPUTS.json": "2fceb39464fe13985c12d7d7503ed700696fbffcd1b9abea84fb2fec099c8d35",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "laneAbsent": true,
+    "launchAllowed": true
+  },
+  {
+    "receipt": "P16-ESTATE-D-NEGATIVE-R1-PREFLIGHT-LOCAL.json",
+    "at": "2026-10-13T18:41:47.426499-05:00",
+    "freeKiB": 3981388,
+    "launchMinimumKiB": 3670016,
+    "runtimeFloorKiB": 3145728,
+    "pins": {
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-d-negative-runner-r1/runner.sh": "6655d069fe55a13fe1a6cc2d928f162f005030fb45bbb01761a069ad5f17e1ac",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-d-negative-runner-r1/SELECTION.json": "37440e6a57523f25d5e38a16fd214bbc915f05e425b775da869b58d764ac19db",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-auto-recorder-r4r2-draft/auto_freeze.py": "9bc9b89c0ae5dd6bc3e558ee1b823414d86cb5134170326f74779350b34d3e00",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-d16-ui-r5-draft/RUNTIME-INPUTS.json": "2fceb39464fe13985c12d7d7503ed700696fbffcd1b9abea84fb2fec099c8d35",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "laneAbsent": true,
+    "launchAllowed": true
+  },
+  {
+    "receipt": "P16-ESTATE-D-SUCCESS-R2-PREFLIGHT-LOCAL.json",
+    "at": "2026-10-13T18:47:52.899454-05:00",
+    "freeKiB": 3956360,
+    "launchMinimumKiB": 3670016,
+    "runtimeFloorKiB": 3145728,
+    "pins": {
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-d-success-runner-r2/runner.sh": "db576d6974367a166f6275f2965c941d46a42cd53242732606ce2ef1347f6264",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-d-success-runner-r2/SELECTION.json": "5c46ea7eec898c5150f8dbf07201bae1df151a61438c4e2f677b0e321b3a99a9",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-auto-recorder-r4r2-draft/auto_freeze.py": "9bc9b89c0ae5dd6bc3e558ee1b823414d86cb5134170326f74779350b34d3e00",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-d16-ui-r5-draft/RUNTIME-INPUTS.json": "2fceb39464fe13985c12d7d7503ed700696fbffcd1b9abea84fb2fec099c8d35",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "laneAbsent": true,
+    "launchAllowed": true
+  },
+  {
+    "receipt": "P16-ORIGINAL48-R03-CAPTURE-R2-PREFLIGHT-LOCAL.json",
+    "at": "2026-10-13T18:36:26.045794-05:00",
+    "freeKiB": 4001016,
+    "launchMinimumKiB": 3670016,
+    "runtimeFloorKiB": 3145728,
+    "pins": {
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-original48-r03-capture-draft-r2/runner.sh": "a5002bf4872c83e3b77912dd9794128badb283b3ba83bd746d65d2d341663d96",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-original48-r03-capture-draft-r2/SELECTION.json": "7cf60085a85da243160ba3f102ac3ac7c62329c5664ed0f945ee5ad5a4110a41",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-auto-recorder-r4r2-draft/auto_freeze.py": "9bc9b89c0ae5dd6bc3e558ee1b823414d86cb5134170326f74779350b34d3e00",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-d16-ui-r5-draft/RUNTIME-INPUTS.json": "2fceb39464fe13985c12d7d7503ed700696fbffcd1b9abea84fb2fec099c8d35",
+      "/Users/zacheryspector/studio-scratch/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh": "aff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e"
+    },
+    "laneAbsent": true,
+    "launchAllowed": true
+  }
+]

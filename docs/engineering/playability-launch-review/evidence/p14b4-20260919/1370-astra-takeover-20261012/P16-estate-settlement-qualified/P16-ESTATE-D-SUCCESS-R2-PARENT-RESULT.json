@@ -1,0 +1,67 @@
+{
+  "disposition": "Qualified bounded actual13M D sale/intake/claims/archival/replay; firstnegative timing9502ms remainsOPEN, no wholeP16acceptance",
+  "terminal": {
+    "overallExit": 0,
+    "groups": {
+      "tsc-root": 0,
+      "estate-red": 0
+    },
+    "scope": "rootcompiler and onecompleteDsuccess harnessr2; priorDtimingOPEN; noacceptance claim",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791935307,
+      "endEpoch": 1791935354,
+      "seconds": 47,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-d-success-r2-run/tsc-root.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 0,
+      "startEpoch": 1791935362,
+      "endEpoch": 1791935370,
+      "seconds": 8,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-d-success-r2-run/results.json",
+        "tests/p16-estate-d-ceremony.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-d-success-r2-run/estate-red.log"
+    }
+  ],
+  "rows": [
+    {
+      "ancestorTitles": [],
+      "fullName": "P16 D ceremony actual13M sale intake pays partial claims once before one archival and replays",
+      "status": "passed",
+      "title": "P16 D ceremony actual13M sale intake pays partial claims once before one archival and replays",
+      "duration": 3407.6165170000004,
+      "failureMessages": [],
+      "meta": {}
+    }
+  ],
+  "strictChecks": 5,
+  "strictErrors": 0,
+  "sourceFiles": 1590,
+  "inputs": 39,
+  "candidatePatchSHA256": "a63d3c9b622d7833278a1fe41668be178d4ab409b221251d75d2973abf3cb6f2"
+}
