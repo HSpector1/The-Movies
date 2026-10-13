@@ -1,0 +1,6 @@
+{
+  "coreFiles": [
+    "tests/p15b4-proposal-transaction.test.ts"
+  ],
+  "scope": "root compiler then complete proposal transaction supplemental file; default5s unchanged; actual reported duration must be <=5000ms"
+}

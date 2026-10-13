@@ -1,0 +1,9 @@
+# Proposal and rival boundary wrapper admission
+
+GPT-6.1 Sol. Conditional KEEP proposal runner; boundary template shape KEEP only, final rebind required. No execution/source writes.
+
+Proposal a1685158ed06bc4eb2ed260a3f6a03ed93a45c902ac503331dd0f5db80c5c361 is reviewed supplemental derivative: literalSCRIPT/SELECTION pointactualr1, selection544f32df…, packet05a68497/de3acd9f/HEAD2ccb58a0a719fc1263eed89e652d9c4de856c053/count200. Rootcompiler then ONLY complete proposal test, defaultbudgets/nooverride/default+JSON. Input open45 and conserved helper/source scopes already bound; existing freeze/actualRmode/index/lane/floors/trap/externalbootstrap unchanged. Parent must inspect exact leaf premise and duration<=5000 regardless synchronousPASS.
+
+Boundary template literalSCRIPT/DIAGNOSTIC pointactual boundary draft, outputenvironmentRIVAL_INSTRUMENT_BOUNDARY_JSON correct; copieddriver d9e8 exact. Required1368 calendar root is input12 with manifest11ad61 pin, not merely795. Existing30s startup owned watchdog/assignment-race fix/cleanup98 and source/input guards preserved. Packet path/hash PENDING makes current template nonrunnable; parent must fresh-bind same measured200 and currentHEAD/selfpins before finalreview/launch. No compiler reuse result or naturalplayer-survival/pendingclosure proof asserted. Success still needs child0/purity/noerrors and operating261 before laterconstruction; any98 stopsdependentwork. Originalnegatives retained.
+
+Boundary final988ae1f54dd88d4e9d20ef1c279b2d3b2fb715c4bf21f393feface325241aa04 conditionalKEEP: actual200packet05a/de3,HEAD2ccb,count200,exactcalendar104gzip9b473 bound; literalself/driveractualr2 and copiedd9e unchanged. Diff only intendedPENDINGpacket/hash replacement/selfdriverpaths, all ownership/30s/freeze/floors unchanged. Parent bootstrap/currentlane/resourcepreflight required; not a runtime admission/closure claim. No execution.

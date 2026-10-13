@@ -1,0 +1,15 @@
+{
+  "scope": "carry exact originaljoint literalassertions forward; no assertion removed",
+  "files": [
+    {
+      "path": "tests/helpers/p15b-pending-family-assertions.ts",
+      "preimage": "eeac2741a9eebce621a8d3c78c5934823c5d304c2158c83a41e16b1bdd7fbe15",
+      "postimage": "c189607b369a420c8f59678e19cd469c64a85f0b3591c740e47844e60181450f"
+    },
+    {
+      "path": "tests/p15b4-pending-rival-work.test.ts",
+      "preimage": "b7fde3162671385121864dd21586b4267c7bb19e9bf805c549dad5dfb16351c5",
+      "postimage": "96d61b87ebee8ea442021be3fbdd652f773984092a434d3c8a53901c80659ba4"
+    }
+  ]
+}

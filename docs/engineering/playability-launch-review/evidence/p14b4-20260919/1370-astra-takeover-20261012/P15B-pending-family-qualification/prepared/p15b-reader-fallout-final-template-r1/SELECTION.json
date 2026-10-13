@@ -1,0 +1,9 @@
+{
+  "files": [
+    "tests/p13b-s5-save-v24.test.ts",
+    "tests/p13b-r07-save-v25.test.ts",
+    "tests/p13b-s8-save-v27.test.ts",
+    "tests/p15b4-studio-closure-save.test.ts"
+  ],
+  "scope": "complete frozen24/25, cancellation26\u2192research27 policy conservation, current48closure reader fallout"
+}

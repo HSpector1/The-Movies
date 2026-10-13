@@ -1,0 +1,70 @@
+{
+  "status": "ACTUAL260_COMMIT_UNFINISHED_AT261_ONLY",
+  "mode": "rival transaction harness; develop:true/deferPlayerClosure:true explicitly NOT natural player survival",
+  "inputWeek": 104,
+  "producerInputWeek": 260,
+  "outputWeek": 261,
+  "ticks": 157,
+  "admissions": [
+    {
+      "label": "original104",
+      "week": 104,
+      "stateSHA256": "4ff32214e9638a4e818d8c4876238cfceb96b5a829201a04b8ab15ae0ebfc071"
+    },
+    {
+      "label": "producerInput260",
+      "week": 260,
+      "stateSHA256": "66136b6da5dc3c72595c6b525f7af64b5af977619396f84081314db6ca921762"
+    },
+    {
+      "label": "actualOutput261",
+      "week": 261,
+      "stateSHA256": "4871768a02b9ca31f10dca7865f825be5892d06da75094d66a01b1a7b41a2a82"
+    }
+  ],
+  "scope": "unfinished actual rival instrument producer ONLY; no closure proof",
+  "planCount": 1,
+  "subject": {
+    "id": "studio-aca408ec-r01:plan:2",
+    "status": "started",
+    "queuedWeek": 260,
+    "statusWeek": 260,
+    "work": {
+      "kind": "installation",
+      "blueprintId": "acoustic-instruments",
+      "target": {
+        "facilityId": "studio-aca408ec-r01:laboratory:0"
+      }
+    },
+    "approvedQuote": {
+      "fingerprint": "45faeb9f76f5eca3",
+      "cost": 350000,
+      "buildWeeks": 5,
+      "weeklyOperatingCost": 2000,
+      "components": [
+        {
+          "label": "Acoustic instruments",
+          "cost": 350000,
+          "weeks": 5
+        }
+      ]
+    },
+    "commitReceipt": {
+      "week": 260,
+      "fingerprint": "45faeb9f76f5eca3",
+      "cost": 350000
+    }
+  },
+  "completions": [],
+  "target": {
+    "cash": 5700290.457904154,
+    "costCutting": {
+      "version": 1,
+      "since": null
+    },
+    "operating": true
+  },
+  "inputPure": true,
+  "elapsedMs": 4398.009416999999,
+  "timingScope": "after module imports; external30s watchdog includes startup"
+}

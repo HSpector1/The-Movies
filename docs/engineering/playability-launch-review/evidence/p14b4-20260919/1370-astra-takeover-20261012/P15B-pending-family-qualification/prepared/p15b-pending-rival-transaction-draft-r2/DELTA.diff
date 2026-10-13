@@ -1,0 +1,46 @@
+--- /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-pending-rival-transaction-draft-r1/pending-rival.test.ts
++++ /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-pending-rival-transaction-draft-r2/pending-rival.test.ts
+@@ -5,7 +5,7 @@
+ import {makeSave,validateSaveV48,exportSave,importSave,stableStringify} from '../src/core/save.js'
+ import {tick} from '../src/core/tick.js'
+ import {P15_PHASE_ORDER_VERSION,P15_PHASE_TABLES} from '../src/core/p15Phases.js'
+-import {closureDigest} from '../src/core/studioClosure.js'
++import {closureDigest,validateStudioClosureRoot} from '../src/core/studioClosure.js'
+ import type {GameState} from '../src/core/types.js'
+ const R='studio-aca408ec-r01',LAB=R+':laboratory:1',PLAN=R+':plan:3',ADOPTION=R+':sound-adoption:0'
+ const text=(x:unknown)=>stableStringify(x)
+@@ -32,7 +32,12 @@
+  const original=text(s),W=s.market.tick,withCondition=admitted(conditionPremise(s))
+  const cash=withCondition.hollywood!.businesses.find(b=>b.studioId===R)!.account.cash
+  const premise=admitted(drainRival(withCondition,R,Math.ceil(cash)+10_000_000)),before=text(premise)
++ const booked=(state:GameState,money:'researchCapacity'|'technologyAdoption')=>state.hollywood!.businesses.find(b=>b.studioId===R)!.account.periods.reduce((n,p)=>n+p.movements[money],0)
++ const money=kind==='physicalPlan'?'researchCapacity':'technologyAdoption'
++ const paidBefore=booked(premise,money)
+  const next=admitted(tick(premise,{develop:true,deferPlayerClosure:true}))
++ // The work's existing capital movement is retained; no positive refund is booked at closure.
++ expect(booked(next,money)).toBe(paidBefore)
+  expect(text(premise)).toBe(before);expect(text(s)).toBe(original)
+  const c=next.studioClosure.closures.find(c=>c.studioId===R)!;expect(c).toBeDefined();expect(c.closureWeek).toBe(W+1)
+  const cause=next.corporateCondition.events.find(e=>e.eventId===c.causeEventId);expect(cause).toMatchObject({studioId:R,week:W+1,to:'closed'})
+@@ -43,7 +48,11 @@
+  bc.dispositions=bc.dispositions.filter(d=>!(d.subjectKind===kind&&d.subjectId===id));bc.counts={}
+  for(const d of bc.dispositions)bc.counts[d.subjectKind]=(bc.counts[d.subjectKind]??0)+1
+  bc.digest=closureDigest(bc.closureId,bc.dispositions)
+- expect(()=>makeSave(bad)).toThrow()
++ const mutantBefore=text(bad),missing=`no disposition for live subject ${kind}:${id}`
++ expect(()=>validateStudioClosureRoot(bad as unknown as Record<string,unknown>,'pending-rival completeness')).toThrow(missing)
++ expect(text(bad)).toBe(mutantBefore)
++ expect(()=>makeSave(bad)).toThrow(missing)
++ expect(text(bad)).toBe(mutantBefore)
+  return {next,c}
+ }
+ it('constructed condition/finance premise closes authentic pending rival lab; independent ordinary arm completes it',()=>{
+@@ -54,7 +63,7 @@
+  const completed=runTo(s,278);expect(completed.hollywood!.receipts.filter(r=>r.kind==='laboratoryOperational'&&r.facilityId===LAB)).toHaveLength(1)
+  const {next}=terminal(s,'physicalPlan',PLAN);expect(next.physicalPlans.plans.find(p=>p.id===PLAN)).toEqual(p)
+  const stopped=runTo(next,278);expect(stopped.hollywood!.receipts.filter(r=>r.kind==='laboratoryOperational'&&r.facilityId===LAB)).toEqual([])
+- expect(stopped.hollywood!.receipts.find(r=>r.eventId==='industry-event-258')).toEqual(commitment);expect(text(s)).toBe(source)
++ expect(stopped.hollywood!.receipts.filter(r=>r.kind==='laboratoryCommitted'&&r.planId===PLAN)).toEqual([commitment]);expect(text(s)).toBe(source)
+ })
+ it('constructed condition/finance premise closes authentic pending rival sound; independent ordinary arm completes it',()=>{
+  const s=admitted(accepted45('baseline280').current.state),source=text(s);expect(s.market.tick).toBe(280)

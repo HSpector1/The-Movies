@@ -1,0 +1,10 @@
+{
+  "path": "tests/p15b4-player-proposal-transaction.test.ts",
+  "sha256": "4b4ab9d8fd5a469b7610f83e7be64c8ddcd3cb88722fcf941d21beb954908635",
+  "preimage": "absent",
+  "refinement": "correct fresh path plus reviewed qualified familyhelper import/call",
+  "workspaces": [
+    "/Users/zacheryspector/The-Movies-headless-program",
+    "/Users/zacheryspector/studio-specialists/p15b"
+  ]
+}

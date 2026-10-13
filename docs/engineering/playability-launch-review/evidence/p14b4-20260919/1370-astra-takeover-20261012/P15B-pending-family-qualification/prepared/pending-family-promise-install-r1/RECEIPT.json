@@ -1,0 +1,30 @@
+{
+  "scope": "tests-only original-budget terminal-family assertions and explicit nonplayable deferred-player promise harness; no originaljoint waiver",
+  "files": [
+    {
+      "path": "tests/p15b4-pending-player-adoption.test.ts",
+      "beforeSHA256": "77e216941b6171f90f57c722db73f0e09de76337c848ce92039968a12dfc541e",
+      "afterSHA256": "b9e4e1ba14c69433fb18e3268404e12c5c6bb2aac4a028a535ca3d8c65d35a44"
+    },
+    {
+      "path": "tests/p15b4-proposal-transaction.test.ts",
+      "beforeSHA256": "477307db0789b0a40e533ec184be2a0189b9544b0a7aa29dfccd7031a28d100b",
+      "afterSHA256": "be2cdd117220f3e4fab38e4374b1b79520d9da897821d71a19d7c61e6f2f33c5"
+    },
+    {
+      "path": "tests/p14c2c-rival-promises.test.ts",
+      "beforeSHA256": "ddb4586eacbd618d9bebdd46dae1e31f5c07bacf9e9d17c972ee29d6c4410195",
+      "afterSHA256": "15d22c9b1057076062d25df607b196039d601dc47ba4d98e79e48aaa01e0e292"
+    },
+    {
+      "path": "tests/p14c3-admission-boundaries.test.ts",
+      "beforeSHA256": "c27e73bf4008b8ee5a4a1a96438f1f3e44c04c6a6c03271685a6300ecfa1691e",
+      "afterSHA256": "90113153a93843bb856690cfdb5fee03868805ebf4c899ecb023cd4d9f1ef344"
+    },
+    {
+      "path": "tests/helpers/p15b-pending-family-assertions.ts",
+      "beforeSHA256": null,
+      "afterSHA256": "eeac2741a9eebce621a8d3c78c5934823c5d304c2158c83a41e16b1bdd7fbe15"
+    }
+  ]
+}

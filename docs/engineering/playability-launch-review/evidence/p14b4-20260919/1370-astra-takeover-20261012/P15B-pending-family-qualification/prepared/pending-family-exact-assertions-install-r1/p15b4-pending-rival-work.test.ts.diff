@@ -1,0 +1,10 @@
+--- a/tests/p15b4-pending-rival-work.test.ts
++++ b/tests/p15b4-pending-rival-work.test.ts
+@@ -43,6 +43,7 @@
+  const c=next.studioClosure.closures.find(c=>c.studioId===R)!;expect(c).toBeDefined();expect(c.closureWeek).toBe(W+1)
+  const cause=next.corporateCondition.events.find(e=>e.eventId===c.causeEventId);expect(cause).toMatchObject({studioId:R,week:W+1,to:'closed'})
+  const rows=c.dispositions.filter(d=>d.subjectKind===kind&&d.subjectId===id);expect(rows).toHaveLength(1);expect(rows[0]!.status).toBe('applied');expect(rows[0]!.result).toContain('zero refund')
++ if(kind==='physicalPlan')expect(rows[0]!.result).toBe(`build stopped at week ${W+1} by the terminal operating state; zero refund`)
+  const serialized=exportSave(makeSave(next));expect(exportSave(importSave(serialized))).toBe(serialized)
+  // Digest repair cannot hide a deleted required terminal subject.
+  const bad=structuredClone(next),bc=bad.studioClosure.closures.find(x=>x.closureId===c.closureId)!

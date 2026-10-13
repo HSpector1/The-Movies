@@ -1,0 +1,18 @@
+--- /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-pending-rival-transaction-draft-r2/pending-rival.test.ts
++++ /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-pending-rival-transaction-draft-r3/pending-rival.test.ts
+@@ -32,12 +32,13 @@
+  const original=text(s),W=s.market.tick,withCondition=admitted(conditionPremise(s))
+  const cash=withCondition.hollywood!.businesses.find(b=>b.studioId===R)!.account.cash
+  const premise=admitted(drainRival(withCondition,R,Math.ceil(cash)+10_000_000)),before=text(premise)
+- const booked=(state:GameState,money:'researchCapacity'|'technologyAdoption')=>state.hollywood!.businesses.find(b=>b.studioId===R)!.account.periods.reduce((n,p)=>n+p.movements[money],0)
++ const booked=(state:GameState,money:'researchCapacity'|'technologyAdoption'|'facilityDemolitionRefund')=>state.hollywood!.businesses.find(b=>b.studioId===R)!.account.periods.reduce((n,p)=>n+p.movements[money],0)
+  const money=kind==='physicalPlan'?'researchCapacity':'technologyAdoption'
+- const paidBefore=booked(premise,money)
++ const paidBefore=booked(premise,money),refundsBefore=booked(premise,'facilityDemolitionRefund')
+  const next=admitted(tick(premise,{develop:true,deferPlayerClosure:true}))
+  // The work's existing capital movement is retained; no positive refund is booked at closure.
+  expect(booked(next,money)).toBe(paidBefore)
++ expect(booked(next,'facilityDemolitionRefund')).toBe(refundsBefore)
+  expect(text(premise)).toBe(before);expect(text(s)).toBe(original)
+  const c=next.studioClosure.closures.find(c=>c.studioId===R)!;expect(c).toBeDefined();expect(c.closureWeek).toBe(W+1)
+  const cause=next.corporateCondition.events.find(e=>e.eventId===c.causeEventId);expect(cause).toMatchObject({studioId:R,week:W+1,to:'closed'})

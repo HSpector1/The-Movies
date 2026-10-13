@@ -1,0 +1,12 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p15b4-proposal-transaction.test.ts (1 test) 1646ms
+   ✓ real retained week45 proposal is withdrawn once by a full-admitted constructed rival closure 1644ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  11:25:41
+   Duration  5.26s (transform 2.30s, setup 0ms, collect 3.14s, tests 1.65s, environment 0ms, prepare 114ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-proposal-transaction-r1-run/equipment-core.json

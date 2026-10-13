@@ -1,0 +1,28 @@
+--- /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-rival-instrument-boundary-runner-draft-r1/runner.sh
++++ /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-rival-instrument-boundary-runner-r2/runner.sh
+@@ -5,13 +5,13 @@
+ R=/Users/zacheryspector/The-Movies-headless-program
+ C="$R"
+ A=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012
+-P="$A/PENDING-PROPOSAL200-PACKET"
++P="$A/p15b-proposal200-r1"
+ OUT="$A/p15b-rival-instrument-boundary-r1-run"
+-SCRIPT="$A/p15b-rival-instrument-boundary-runner-draft-r1/runner.sh"
++SCRIPT="$A/p15b-rival-instrument-boundary-runner-r2/runner.sh"
+ AUTO_HELPER="$A/p15b-auto-recorder-r4r2-draft/auto_freeze.py"
+ EXTRA_INPUTS="$A/p15b-affected44-r1-draft/RUNTIME-INPUTS.json"
+ SELECTION="/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-post-fullgate-repairs-r1/AFFECTED-CORE-FILES.json"
+-DIAGNOSTIC="$A/p15b-rival-instrument-boundary-runner-draft-r1/DIAGNOSTIC.ts"
++DIAGNOSTIC="$A/p15b-rival-instrument-boundary-runner-r2/DIAGNOSTIC.ts"
+ export AUTO_HELPER OUT EXTRA_INPUTS SELECTION DIAGNOSTIC
+ export P15B_RIVAL_INSTRUMENT_BOUNDARY_JSON="$OUT/diagnostic.json"
+ export PATH=/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin:$R/.venv/bin:$PATH GIT_OPTIONAL_LOCKS=0
+@@ -133,7 +133,7 @@
+ need(hashlib.sha256(script.read_bytes()).hexdigest()==os.environ.get('P15B_BOOTSTRAP_RUNNER_SHA256','PENDING_EXTERNAL_RUNNER_SHA256'),'external bootstrap runner pin')
+ need(hashlib.sha256(helper.read_bytes()).hexdigest()==os.environ.get('P15B_BOOTSTRAP_HELPER_SHA256','PENDING_EXTERNAL_HELPER_SHA256'),'external bootstrap helper pin')
+ need(subprocess.check_output(g+['rev-parse','HEAD']).decode().strip()=='2ccb58a0a719fc1263eed89e652d9c4de856c053','candidate HEAD changed')
+-for f,h in [('PATCH.diff','PENDING_PATCH_SHA256'),('MANIFEST.json','PENDING_MANIFEST_SHA256')]:need(hashlib.sha256((p/f).read_bytes()).hexdigest()==h,'candidate packet changed '+f)
++for f,h in [('PATCH.diff','05a68497c03649065f5fe420e01cd2d9e8076c21872c7061353ea816faef1742'),('MANIFEST.json','de3acd9fd80a8342c36a9de3d58d62c5e7d2c31aa8e02dc3cca0f338a4e85f04')]:need(hashlib.sha256((p/f).read_bytes()).hexdigest()==h,'candidate packet changed '+f)
+ need(hashlib.sha256((c/'tests/fixtures/p14/genuine-v45-recovery-witnesses-1368/MANIFEST.json').read_bytes()).hexdigest()=='11ad61be481a8bec170f40425cfcfe7fcb24596418d30b6c8bf27895e93c3ba5','actual1368 pin differs')
+ need(hashlib.sha256((c/'tests/fixtures/p14/genuine-v45-recovery-witnesses-1368/calendar.json.gz').read_bytes()).hexdigest()=='9b4732127aa6bae8d77da1ea9bf0afe22acdb1a1b15cf2ae80a727dc14181dc9','exact calendar104 input')
+ m=json.loads((p/'MANIFEST.json').read_text());need(len(m['files'])==200,'manifest count')

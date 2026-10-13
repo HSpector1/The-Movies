@@ -1,0 +1,10 @@
+{
+  "path": "tests/p15b4-pending-rival-work.test.ts",
+  "sha256": "b7fde3162671385121864dd21586b4267c7bb19e9bf805c549dad5dfb16351c5",
+  "preimage": "absent",
+  "refinement": "Parent independent review of r2; also assert actual existing refund movement unchanged, not only paid-capital movement",
+  "workspaces": [
+    "/Users/zacheryspector/The-Movies-headless-program",
+    "/Users/zacheryspector/studio-specialists/p15b"
+  ]
+}

@@ -1,0 +1,124 @@
+--- a/tests/p15b4-studio-closure.test.ts
++++ b/tests/p15b4-studio-closure.test.ts
+@@ -18,18 +18,14 @@
+ import { applyActions } from '../src/core/actions.js'
+ import { terminationCost } from '../src/core/employment.js'
+ import { industryBusyTalentIds } from '../src/core/hollywood.js'
+-import { validateInstallationCancellation } from '../src/core/installationCancellation.js'
+ import { runMarketBatch } from '../src/core/marketIntegration.js'
+ import { P15_PHASE_ORDER_VERSION, P15_PHASE_TABLES } from '../src/core/p15Phases.js'
+-import { validatePhysicalPlans } from '../src/core/physicalPlans.js'
+ import { productionCompanyTalentIds } from '../src/core/productionPeople.js'
+-import { completeRivalPlans } from '../src/core/rivalResearch.js'
+ import { exportSave, importSave, makeSave, migrateToLive, stableStringify } from '../src/core/save.js'
+-import { advanceTalentMarketWeek, validateTalentMarketRoot } from '../src/core/talentMarket.js'
+-import { finishTechnologyWeek } from '../src/core/technology.js'
++import { advanceTalentMarketWeek } from '../src/core/talentMarket.js'
+ import { tick } from '../src/core/tick.js'
+ import { CLAIM_PAYMENT_LEDGER_NOTE, TUNING } from '../src/core/tuning.js'
+-import type { IndustryReceipt, LiveIndustryFilm, RivalBusiness } from '../src/core/hollywoodTypes.js'
++import type { LiveIndustryFilm, RivalBusiness } from '../src/core/hollywoodTypes.js'
+ import type { Action, ClosureClaim, ClosureDisposition, ClosureRecord, GameState } from '../src/core/types.js'
+ import { base, BASE_WEEK, canon, claimsOf, closureOf, closureRoot, conditionRoot, drainPlayer, drainRival, ESTATE_CLOSING_DEFICIT, ESTATE_CLOSURE_WEEK, estateEventsOf, eventsOf,
+   forgedEstateRoute, ledgerRows, loansOf, MARKET_CASE_CLOSURE_WEEK, marketCaseClosure, PLAYER, PLAYER_CLOSURE_DEFERRED, playerClosure, R01, R02, R03, R04, R04_CLOSURE_WEEK, raw,
+@@ -578,100 +574,6 @@
+     expect(await everyFamilyComplete(s, record.closureId)).toContain('research')
+   })
+ 
+-  it('closure-adoption-and-proposal-dispositions (review C6, C9)', async () => {
+-    const mod = await closure()
+-    const closeStudio = fn<CloseStudio>(mod, 'closeStudio')
+-    const validate = fn<ValidateRoot>(mod, 'validateStudioClosureRoot')
+-    const digest = fn<(id: string, rows: readonly ClosureDisposition[]) => string>(mod, 'closureDigest')
+-    // No cash law lets a closing studio hold a proposal or an unfinished adoption (a proposal needs cash for its
+-    // commitment, a deployment ends 12 weeks after its commitment, and closure needs 33 negative weeks), so both are
+-    // pinned on the transaction itself, from the states the closure phase receives.
+-    // A rival's adoption as technologyRival writes it: no placed physical work, one equipment asset it holds.
+-    const adoption = (studioId: string, id: string) => ({ id, studioId, technologyId: 'synchronized-sound', stageFacilityId: 'stage', postFacilityId: null, route: 'purchase',
+-      committedWeek: C - 5, operationalWeek: null, cancelledWeek: null, equipmentCost: 0, installationCost: 0, physicalProjectIds: [], prototypeProjectId: null, components: [], equipmentAssetId: `${id}:asset` })
+-    const asset = (studioId: string, id: string) => ({ id: `${id}:asset`, studioId, technologyId: 'synchronized-sound', acquiredWeek: C - 5, source: 'commercial', cost: 0, holderAdoptionId: id })
+-    const proposal = (issuerStudioId: string, talentId: string) => ({ talentId, issuerStudioId, termWeeks: 52, premiumTier: 1, startWeek: C + 10, annualSalary: 0, signingBonus: 0,
+-      submittedWeek: C - 1, digest: 'forged', promises: [], representation: null })
+-    const withWork = (s: GameState, studioId: string): GameState => ({ ...s,
+-      technology: { ...s.technology, adoptions: [...s.technology.adoptions, adoption(studioId, `${studioId}:sound:adoption:9`)] as unknown as GameState['technology']['adoptions'],
+-        equipment: [...s.technology.equipment, asset(studioId, `${studioId}:sound:adoption:9`)] as unknown as GameState['technology']['equipment'] },
+-      talentMarket: { ...s.talentMarket, proposals: [...s.talentMarket.proposals, proposal(studioId, 'person-studio-aca408ec-r02-0')] as unknown as GameState['talentMarket']['proposals'] } })
+-    // A rival build still in progress at C: a copy of r04's own laboratory plan committed at C − 2, with its commitment
+-    // receipt (a lab builds in 12 weeks and an instrument in 5, so no closure follows an admission that closely).
+-    const BUILD = `${R04}:plan:99`
+-    const LAB = `${R04}:lab:99`
+-    const withBuild = (s: GameState): GameState => {
+-      const own = s.physicalPlans.plans.find((p) => p.studioId === R04 && p.status === 'started' && p.work.kind === 'placement')
+-      expect(own).toBeDefined()
+-      const h = s.hollywood!
+-      const receipt = { eventId: `industry-event-${h.nextReceipt}`, week: C - 2, studioId: R04, kind: 'laboratoryCommitted', planId: BUILD, facilityId: LAB } as unknown as IndustryReceipt
+-      return { ...s, physicalPlans: { ...s.physicalPlans, plans: [...s.physicalPlans.plans, { ...own!, id: BUILD, ordinal: 99, queuedWeek: C - 2, statusWeek: C - 2, earliestStartWeek: C - 2, dependsOn: [], commitReceipt: { ...own!.commitReceipt!, week: C - 2 } }] },
+-        hollywood: { ...h, receipts: [...h.receipts, receipt], nextReceipt: h.nextReceipt + 1 } }
+-    }
+-    // The rival: the terminal operating state stops the deployment and the build in place (zero refund, the equipment
+-    // still held, the commit receipt kept on a started plan); P13B-S6's cancellation law and the plan law have nothing
+-    // to object to, and the closed studio's deployment clock and build never run again.
+-    const rivalDue = withBuild(withWork(await preClosure(rivalClosure(C).get(C - 1)!), R04))
+-    const rivalCause = eventsOf(rivalDue, R04).find((e) => e.to === 'closed')!.eventId
+-    const rival = closeStudio(rivalDue, R04, rivalCause)
+-    // The laws of the roots the dispositions write, each over the closed state (P13B-S6 cancellation, physical plans,
+-    // the talent market).
+-    const otherLaws = (s: GameState): string[] => {
+-      const violations = [...validateInstallationCancellation(s)]
+-      try { validatePhysicalPlans(s) } catch (error) { violations.push((error as Error).message) }
+-      try { validateTalentMarketRoot(s.talentMarket, s) } catch (error) { violations.push((error as Error).message) }
+-      return violations
+-    }
+-    expect(otherLaws(rivalDue)).toEqual([]) // premise: the forged work is lawful before the closure
+-    expect(otherLaws(rival)).toEqual([])
+-    expect(byKind(requireClosure(rival, R04), 'physicalPlan').find((d) => d.subjectId === BUILD)).toMatchObject({ status: 'applied', result: `build stopped at week ${C} by the terminal operating state; zero refund` })
+-    expect(rival.physicalPlans.plans.find((p) => p.id === BUILD)!.status).toBe('started')
+-    const rivalRecord = requireClosure(rival, R04)
+-    const rivalAdoption = `${R04}:sound:adoption:9`
+-    expect(byKind(rivalRecord, 'adoption').map((d) => [d.subjectId, d.status])).toEqual([[rivalAdoption, 'applied']])
+-    expect(rival.technology.adoptions.find((a) => a.id === rivalAdoption)).toMatchObject({ operationalWeek: null, cancelledWeek: null })
+-    const later = (s: GameState): GameState => ({ ...s, market: { ...s.market, tick: C + 20 } })
+-    expect(finishTechnologyWeek(later(rival)).technology.adoptions.find((a) => a.id === rivalAdoption)!.operationalWeek).toBeNull()
+-    expect(finishTechnologyWeek(later(rivalDue)).technology.adoptions.find((a) => a.id === rivalAdoption)!.operationalWeek).toBe(C + 20) // control: an operating studio's clock runs
+-    const built = (s: GameState): number => completeRivalPlans(later(s)).hollywood!.receipts.filter((r) => r.kind === 'laboratoryOperational' && r.facilityId === LAB).length
+-    expect([built(rival), built(rivalDue)]).toEqual([0, 1]) // the closed studio's build never completes; an operating one's does
+-    // The player: its adoption stays pending in its saved world; the issuer's proposal is withdrawn with the market's receipt.
+-    const playerDue = withWork(tick(playerClosure().get(C - 1)!, PLAYER_CLOSURE_DEFERRED), PLAYER)
+-    const playerCause = eventsOf(playerDue, PLAYER).find((e) => e.to === 'closed')!.eventId
+-    const player = closeStudio(playerDue, PLAYER, playerCause)
+-    expect(otherLaws(player)).toEqual([])
+-    const record = requireClosure(player, PLAYER)
+-    expect(byKind(record, 'adoption').map((d) => [d.subjectId, d.status])).toEqual([[`${PLAYER}:sound:adoption:9`, 'pending']])
+-    expect(player.technology.adoptions.find((a) => a.id === `${PLAYER}:sound:adoption:9`)).toMatchObject({ operationalWeek: null, cancelledWeek: null })
+-    const key = `${PLAYER}:proposal:person-studio-aca408ec-r02-0`
+-    expect(byKind(record, 'proposal').map((d) => [d.subjectId, d.status])).toEqual([[key, 'applied']])
+-    expect(player.talentMarket.proposals.some((p) => p.issuerStudioId === PLAYER)).toBe(false)
+-    const withdrawal = player.talentMarket.receipts.filter((r) => r.kind === 'proposalWithdrawn')
+-    expect(withdrawal.map((r) => [r.week, r.studioId, r.talentId, r.reasons[0]])).toEqual([[C, PLAYER, 'person-studio-aca408ec-r02-0', 'the issuing studio closed']])
+-    expect(() => validate(json(raw(player)), 'control')).not.toThrow()
+-    // Bidirectional completeness against the market's own record (C9): a deleted row, an invented row, a lost receipt
+-    // and a withdrawal for a closure that never happened all refuse after a re-digest.
+-    const redigest = (copy: Record<string, unknown>, change: (rows: ClosureDisposition[]) => void) => {
+-      const target = (copy.studioClosure as { closures: ClosureRecord[] }).closures[0]!
+-      change(target.dispositions)
+-      target.dispositions.sort((a, b) => (`${a.subjectKind}:${a.subjectId}` < `${b.subjectKind}:${b.subjectId}` ? -1 : 1))
+-      const counts: Record<string, number> = {}
+-      for (const d of target.dispositions) counts[d.subjectKind] = (counts[d.subjectKind] ?? 0) + 1
+-      target.counts = counts
+-      target.digest = digest(target.closureId, target.dispositions)
+-      return copy
+-    }
+-    const row = byKind(record, 'proposal')[0]!
+-    refuses(() => validate(redigest(json(raw(player)), (rows) => rows.splice(rows.findIndex((d) => d.subjectKind === 'proposal'), 1)), 'tamper'), `no disposition for live subject proposal:${key}`)
+-    refuses(() => validate(redigest(json(raw(player)), (rows) => rows.push({ ...row, subjectId: `${PLAYER}:proposal:person-ghost` })), 'tamper'), 'not a subject the retained history knows')
+-    const lost = json(raw(player)) as { talentMarket: { receipts: { kind: string }[] } }
+-    lost.talentMarket.receipts = lost.talentMarket.receipts.filter((r) => r.kind !== 'proposalWithdrawn')
+-    refuses(() => validate(lost as unknown as Record<string, unknown>, 'tamper'), 'not a subject the retained history knows')
+-    const forged = json(raw(player)) as { talentMarket: { receipts: Record<string, unknown>[] } }
+-    forged.talentMarket.receipts.push({ ...forged.talentMarket.receipts.find((r) => r.kind === 'proposalWithdrawn')!, studioId: R01 })
+-    refuses(() => validate(forged as unknown as Record<string, unknown>, 'tamper'), 'closure that did not happen')
+-  })
+-
+   it('closure-refusal-purity (contract RED 4; review T8)', async () => {
+     const mod = await closure()
+     const closeStudio = fn<CloseStudio>(mod, 'closeStudio')

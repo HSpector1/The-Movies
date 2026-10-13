@@ -1,0 +1,62 @@
+--- /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-pending-player-regression-draft-r3/runner.sh
++++ /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-proposal-transaction-runner-r1/runner.sh
+@@ -1,16 +1,16 @@
+ #!/bin/bash
+-# UNRUN derivative: root compiler then one complete pending-player regression file; pending final packet.
++# UNRUN derivative: root compiler then one complete proposal transaction regression file; pending final packet.
+ # Parent alone schedules. No test/source mutation or timeout override.
+ set -u
+ R=/Users/zacheryspector/The-Movies-headless-program
+ C="$R"
+ A=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012
+-P="$A/p15b-pending-player199-r1"
+-OUT="$A/p15b-pending-player-regression-r1-run"
+-SCRIPT="$A/p15b-pending-player-regression-draft-r3/runner.sh"
++P="$A/p15b-proposal200-r1"
++OUT="$A/p15b-proposal-transaction-r1-run"
++SCRIPT="$A/p15b-proposal-transaction-runner-r1/runner.sh"
+ AUTO_HELPER="$A/p15b-auto-recorder-r4r2-draft/auto_freeze.py"
+ EXTRA_INPUTS="$A/p15b-d16-ui-r5-draft/RUNTIME-INPUTS.json"
+-SELECTION="$A/p15b-pending-player-regression-draft-r3/SELECTION.json"
++SELECTION="$A/p15b-proposal-transaction-runner-r1/SELECTION.json"
+ export AUTO_HELPER OUT EXTRA_INPUTS SELECTION
+ export PATH=/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin:$R/.venv/bin:$PATH GIT_OPTIONAL_LOCKS=0
+ export P15B_FOCUS_INPUT_1="$C/tests/fixtures/p1364/generated-v45-late-draft"
+@@ -125,15 +125,15 @@
+  if not ok:raise SystemExit('STOP: '+msg)
+ need(hashlib.sha256(pathlib.Path(os.environ['EXTRA_INPUTS']).read_bytes()).hexdigest()=='2fceb39464fe13985c12d7d7503ed700696fbffcd1b9abea84fb2fec099c8d35','runtime input-list changed')
+ need(hashlib.sha256(pathlib.Path(os.environ['EXTRA_INPUTS']).read_bytes()).hexdigest()==os.environ.get('P15B_BOOTSTRAP_INPUTS_SHA256','PENDING'),'external input-list pin')
+-need(hashlib.sha256(pathlib.Path(os.environ['SELECTION']).read_bytes()).hexdigest()=='7f36fcd90849a1cc73d513ef133794987d2e1b98bb664168d9e17df2d3e6cc67','literal complete followup selection pin')
++need(hashlib.sha256(pathlib.Path(os.environ['SELECTION']).read_bytes()).hexdigest()=='544f32dfe064befe4ec79a88f926e9384477e4368a7111007066c1e267c45ea2','literal complete followup selection pin')
+ need((c/'generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs').is_file() and not (c/'generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs').is_symlink(),'union fixture mandatory current binding')
+ need(hashlib.sha256(pathlib.Path(os.environ['SELECTION']).read_bytes()).hexdigest()==os.environ.get('P15B_BOOTSTRAP_SELECTION_SHA256','PENDING'),'external selection pin')
+ need(hashlib.sha256(script.read_bytes()).hexdigest()==os.environ.get('P15B_BOOTSTRAP_RUNNER_SHA256','PENDING_EXTERNAL_RUNNER_SHA256'),'external bootstrap runner pin')
+ need(hashlib.sha256(helper.read_bytes()).hexdigest()==os.environ.get('P15B_BOOTSTRAP_HELPER_SHA256','PENDING_EXTERNAL_HELPER_SHA256'),'external bootstrap helper pin')
+-need(subprocess.check_output(g+['rev-parse','HEAD']).decode().strip()=='587f8f8faed7d8f4f16712069d262cccfaeafd9e','candidate HEAD changed')
+-for f,h in [('PATCH.diff','ae2cb345b3704c952382f53f094c918e1b8e35b0a2bbcedcd7ae62fefc5c5d7f'),('MANIFEST.json','3122cd2087d454d093474ceab92859e4fbdc444d9be070942eb3b6ae0eb690b8')]:need(hashlib.sha256((p/f).read_bytes()).hexdigest()==h,'candidate packet changed '+f)
++need(subprocess.check_output(g+['rev-parse','HEAD']).decode().strip()=='2ccb58a0a719fc1263eed89e652d9c4de856c053','candidate HEAD changed')
++for f,h in [('PATCH.diff','05a68497c03649065f5fe420e01cd2d9e8076c21872c7061353ea816faef1742'),('MANIFEST.json','de3acd9fd80a8342c36a9de3d58d62c5e7d2c31aa8e02dc3cca0f338a4e85f04')]:need(hashlib.sha256((p/f).read_bytes()).hexdigest()==h,'candidate packet changed '+f)
+ need(hashlib.sha256((c/'tests/fixtures/p14/genuine-v45-recovery-witnesses-1368/MANIFEST.json').read_bytes()).hexdigest()=='11ad61be481a8bec170f40425cfcfe7fcb24596418d30b6c8bf27895e93c3ba5','actual1368 pin differs')
+-m=json.loads((p/'MANIFEST.json').read_text());need(len(m['files'])==199,'manifest count')
++m=json.loads((p/'MANIFEST.json').read_text());need(len(m['files'])==200,'manifest count')
+ def paths(*args):return {x.decode() for x in subprocess.check_output(g+list(args)).split(b'\0') if x}
+ expected={f['path'] for f in m['files']}
+ need(paths('diff','--cached','--name-only','-z')==expected,'complete staged path set differs from candidate')
+@@ -184,7 +184,7 @@
+ import json,os,pathlib,sys
+ out=pathlib.Path(sys.argv[1]);code=int(sys.argv[2])
+ r={'overallExit':code,'groups':json.loads(os.environ['FOLLOWUP_GROUPS_JSON']),
+-'scope':'root compiler then complete cancel/reuse-save pending-player regression file',
++'scope':'root compiler then complete cancel/reuse-save proposal transaction regression file',
+ 'identityAccounting':'parent independent complete reporter identity validation required',
+ 'freezeQualification':'see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop'}
+ with (out/'terminal.json').open('x') as f:json.dump(r,f,indent=2);f.write('\n')
+@@ -204,7 +204,7 @@
+ run tsc-root node node_modules/typescript/bin/tsc --noEmit
+ ec=$?;remember tsc-root "$ec"
+ [ "$ec" = 0 ] || exit "$ec"
+-run equipment-core node node_modules/vitest/vitest.mjs run --project core --no-file-parallelism --no-cache --reporter=default --reporter=json --outputFile.json="$OUT/equipment-core.json" tests/p15b4-pending-player-adoption.test.ts
++run equipment-core node node_modules/vitest/vitest.mjs run --project core --no-file-parallelism --no-cache --reporter=default --reporter=json --outputFile.json="$OUT/equipment-core.json" tests/p15b4-proposal-transaction.test.ts
+ core_ec=$?;remember core "$core_ec"
+ [ "$core_ec" -le 1 ] || exit "$core_ec"
+ check_freeze || exit 98

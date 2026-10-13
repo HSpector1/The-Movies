@@ -1,0 +1,9 @@
+{
+  "coreFiles": [
+    "tests/p15b4-pending-player-adoption.test.ts",
+    "tests/p15b4-proposal-transaction.test.ts",
+    "tests/p14c2c-rival-promises.test.ts",
+    "tests/p14c3-admission-boundaries.test.ts"
+  ],
+  "scope": "root compiler then four complete changed core files; original core5s unchanged; actual durations accounted; packet directory name201 has actual202 stagedpaths"
+}

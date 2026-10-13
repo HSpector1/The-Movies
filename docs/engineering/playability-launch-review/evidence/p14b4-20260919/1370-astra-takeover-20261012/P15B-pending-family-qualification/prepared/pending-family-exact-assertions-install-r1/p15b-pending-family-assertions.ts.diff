@@ -1,0 +1,10 @@
+--- a/tests/helpers/p15b-pending-family-assertions.ts
++++ b/tests/helpers/p15b-pending-family-assertions.ts
+@@ -39,6 +39,7 @@
+  expect(row).toBeDefined();expect(row.status).toBe('applied');expect(c.dispositions.filter(d=>d.subjectKind==='proposal'&&d.subjectId===key)).toHaveLength(1)
+  const withdrawals=s.talentMarket.receipts.filter(r=>r.kind==='proposalWithdrawn'&&r.studioId===issuer&&r.talentId===talentId&&r.week===c.closureWeek)
+  expect(withdrawals).toHaveLength(1)
++ expect(withdrawals[0]!.reasons[0]).toBe('the issuing studio closed')
+  const deleted=removeAndRedigest(s,c.closureId,'proposal',key)
+  refusePure(deleted,`no disposition for live subject proposal:${key}`)
+  const invented=copy(s),target=invented.studioClosure.closures.find(x=>x.closureId===c.closureId)!

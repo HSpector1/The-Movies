@@ -1,0 +1,18 @@
+--- /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-player-proposal-transaction-prep-r1/player-proposal.test.ts
++++ /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-player-proposal-transaction-draft-r2/player-proposal.test.ts
+@@ -1,6 +1,7 @@
+-// Proposed NEW tests/p15b4-proposal-transaction.test.ts. Disclosed condition/finance UNIT input,
++// Proposed NEW tests/p15b4-player-proposal-transaction.test.ts. Disclosed condition/finance UNIT input,
+ // real proposal producer + ordinary closure tick; not a natural campaign, original joint RED retained.
+ import { it, expect } from 'vitest'
++import { assertProposalFamily } from './helpers/p15b-pending-family-assertions.js'
+ import { readFileSync } from 'node:fs'
+ import { gunzipSync } from 'node:zlib'
+ import { createHash } from 'node:crypto'
+@@ -63,5 +64,6 @@
+  expect(closed.talentMarket.cases.find(c=>c.talentId===talentId&&c.outcome==='invalidated')).toMatchObject({closedWeek:week+1,subjectStudioId:issuer})
+  expect(closed.campaignLegacy.endOfRun).toMatchObject({closureId:closure.closureId,boundaryWeek:week+2})
+  expect(closure.endOfRun).toBe(closed.campaignLegacy.endOfRun!.legacySnapshotId)
++ assertProposalFamily(closed,issuer,talentId)
+  // No budget override: original core5s remains separate from constructed-unit authority.
+ })

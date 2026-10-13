@@ -1,0 +1,144 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p14c3-admission-boundaries.test.ts (10 tests | 1 failed) 19552ms
+   ✓ C.3 N01–N10 current global and requested actor boundaries > N01 preserves original nonactor global admission despite having no actor record 2485ms
+   ✓ C.3 N01–N10 current global and requested actor boundaries > N04 retains the legacy single-actor boundary tail and adds no tail for a genuine no-record subject 1234ms
+   ✓ C.3 N01–N10 current global and requested actor boundaries > N05 binds the distinct retired-actor tail after a real director transition 1710ms
+   ✓ C.3 N01–N10 current global and requested actor boundaries > N06 binds both real profession boundaries after normal208→364 continuation 3992ms
+   ✓ C.3 N01–N10 current global and requested actor boundaries > N09 actual open player promise disposition explicitly requests actor at its real current week 2501ms
+   × C.3 N01–N10 current global and requested actor boundaries > N10 actual open rival promise disposition explicitly requests actor before its genuine cutoff 6915ms
+     → expected { …(17) } to match object { outcome: null, progress: +0, …(1) }
+(20 matching properties omitted from actual)
+ ✓ |core| tests/p15b4-proposal-transaction.test.ts (1 test) 2059ms
+   ✓ real retained week45 proposal is withdrawn once by a full-admitted constructed rival closure 2057ms
+stdout | tests/p15b4-pending-player-adoption.test.ts > real paid capital/refund/loan edge retains earned pending player adoption at actual closure
+pending adoption public-policy financing only {
+  principal: 1389000,
+  refund: 450000,
+  loan: undefined,
+  installments: 59834
+}
+
+ ✓ |core| tests/p15b4-pending-player-adoption.test.ts (1 test) 4187ms
+   ✓ real paid capital/refund/loan edge retains earned pending player adoption at actual closure 4185ms
+ ❯ |core| tests/p14c2c-rival-promises.test.ts (3 tests | 3 failed) 19404ms
+   × P14C.2c rival retirement promises > R1: a genuine bound rival promise follows the same exact cutoff, with no new trust penalty 7333ms
+     → expected { …(17) } to match object { outcome: null, progress: +0 }
+(21 matching properties omitted from actual)
+   × P14C.2c rival retirement promises > R2: a rival count already impossible without retirement remains OPEN until ordinary due settlement 6155ms
+     → expected { …(17) } to match object { outcome: null, progress: +0 }
+(21 matching properties omitted from actual)
+   × P14C.2c rival retirement promises > R3: real rival VOIDED replay across save/load preserves the source campaign and its outcome identity 5915ms
+     → expected { …(17) } to match object { outcome: null, progress: +0 }
+(21 matching properties omitted from actual)
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p14c2c-rival-promises.test.ts > P14C.2c rival retirement promises > R1: a genuine bound rival promise follows the same exact cutoff, with no new trust penalty
+AssertionError: expected { …(17) } to match object { outcome: null, progress: +0 }
+(21 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "outcome": null,
+-   "progress": 0,
++   "outcome": "SATISFIED",
++   "progress": 1,
+  }
+
+ ❯ beforeRivalCutoff tests/p14c2c-rival-promises.test.ts:34:42
+     32|     const at2695 = advanceTo(migrated, 2695)
+     33|     expect(retirementRecordFor(at2695, PERSON)).toMatchObject({ announ…
+     34|     expect(promiseById(at2695, PROMISE)).toMatchObject({ outcome: null…
+       |                                          ^
+     35|     const business = at2695.hollywood!.businesses.find((b) => b.studio…
+     36|     expect(business.productions, 'fixture premise: this genuine late-n…
+ ❯ tests/p14c2c-rival-promises.test.ts:44:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL |core|  tests/p14c2c-rival-promises.test.ts > P14C.2c rival retirement promises > R2: a rival count already impossible without retirement remains OPEN until ordinary due settlement
+AssertionError: expected { …(17) } to match object { outcome: null, progress: +0 }
+(21 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "outcome": null,
+-   "progress": 0,
++   "outcome": "SATISFIED",
++   "progress": 1,
+  }
+
+ ❯ beforeRivalCutoff tests/p14c2c-rival-promises.test.ts:34:42
+     32|     const at2695 = advanceTo(migrated, 2695)
+     33|     expect(retirementRecordFor(at2695, PERSON)).toMatchObject({ announ…
+     34|     expect(promiseById(at2695, PROMISE)).toMatchObject({ outcome: null…
+       |                                          ^
+     35|     const business = at2695.hollywood!.businesses.find((b) => b.studio…
+     36|     expect(business.productions, 'fixture premise: this genuine late-n…
+ ❯ tests/p14c2c-rival-promises.test.ts:59:40
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL |core|  tests/p14c2c-rival-promises.test.ts > P14C.2c rival retirement promises > R3: real rival VOIDED replay across save/load preserves the source campaign and its outcome identity
+AssertionError: expected { …(17) } to match object { outcome: null, progress: +0 }
+(21 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+-   "outcome": null,
+-   "progress": 0,
++   "outcome": "SATISFIED",
++   "progress": 1,
+  }
+
+ ❯ beforeRivalCutoff tests/p14c2c-rival-promises.test.ts:34:42
+     32|     const at2695 = advanceTo(migrated, 2695)
+     33|     expect(retirementRecordFor(at2695, PERSON)).toMatchObject({ announ…
+     34|     expect(promiseById(at2695, PROMISE)).toMatchObject({ outcome: null…
+       |                                          ^
+     35|     const business = at2695.hollywood!.businesses.find((b) => b.studio…
+     36|     expect(business.productions, 'fixture premise: this genuine late-n…
+ ❯ tests/p14c2c-rival-promises.test.ts:70:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL |core|  tests/p14c3-admission-boundaries.test.ts > C.3 N01–N10 current global and requested actor boundaries > N10 actual open rival promise disposition explicitly requests actor before its genuine cutoff
+AssertionError: expected { …(17) } to match object { outcome: null, progress: +0, …(1) }
+(20 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  Object {
+    "beneficiaryPersonId": "person-cohort-208-actor-1",
+-   "outcome": null,
+-   "progress": 0,
++   "outcome": "SATISFIED",
++   "progress": 1,
+  }
+
+ ❯ assertOutcomeDispatch tests/p14c3-admission-boundaries.test.ts:141:19
+    139|   admitted(state)
+    140|   const promise = promiseById(state, promiseId), before = stableString…
+    141|   expect(promise).toMatchObject({ outcome: null, progress: 0, benefici…
+       |                   ^
+    142|   expect(promise.contractId).not.toBeNull()
+    143|   expect(promise.dueWeekExclusive).toBeGreaterThan(state.market.tick)
+ ❯ tests/p14c3-admission-boundaries.test.ts:245:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+ Test Files  2 failed | 2 passed (4)
+      Tests  4 failed | 11 passed (15)
+   Start at  11:34:54
+   Duration  51.09s (transform 2.33s, setup 0ms, collect 4.38s, tests 45.20s, environment 1ms, prepare 405ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-family-promise-r1-run/equipment-core.json
