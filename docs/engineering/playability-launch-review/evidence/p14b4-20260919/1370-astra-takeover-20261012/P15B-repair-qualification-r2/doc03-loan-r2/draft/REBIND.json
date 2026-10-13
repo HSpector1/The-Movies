@@ -1,0 +1,12 @@
+{
+  "reviewedRunnerSHA256": "63e2cb22d188372a2a35b57f17a74d77f38d58f5cb8f12fba8db64e71971acd8",
+  "runnerSHA256": "a414b0b0cf9d0fb94d2d9f6ae27383f6f68543d1a778ec1e07972397b44d8652",
+  "literalReplacementsOnly": {
+    "p15b-post-fullgate-lawful194-r1": "p15b-post-fullgate-lawful194-r2",
+    "p15b-doc03-loan-r1-run": "p15b-doc03-loan-r2-run",
+    "p15b-doc03-loan-r1-draft": "p15b-doc03-loan-r2-draft",
+    "ac7dffa31e49376e0e1d75c0b3b765ad63705349a3a07a9bc45133c1fa770414": "7f6db62c4bf897c30b92e4d6644cfd46d3aef0a919f89cbaa00839adad97763d",
+    "e0f62d2a5d576ea186eb6b70e6e62b924e9d2ba4df78b1f59b6a0e519d7fe4c3": "b642bad9359023e777f242f3e68aeb23ecb8bd90969b24bd5287347f68fb3c96"
+  },
+  "codeGuardsAndCommands": "byte-identical after reversing the five literal replacements"
+}

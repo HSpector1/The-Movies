@@ -1,0 +1,16 @@
+{
+  "oldFull": "ac7dffa31e49376e0e1d75c0b3b765ad63705349a3a07a9bc45133c1fa770414",
+  "newFull": "7f6db62c4bf897c30b92e4d6644cfd46d3aef0a919f89cbaa00839adad97763d",
+  "files": [
+    {
+      "path": "tests/p14c2a-consumers.test.ts",
+      "before": "da08d908aadd3d8e9d415c358f903221568241d489f8485af7addeb081d3f7d8",
+      "after": "30b99b51cd82f759044b70da0cea708a748f1adeb3e1bd44b2a71d0769751282"
+    },
+    {
+      "path": "tests/p15c2-campaign-legacy-sibling.test.ts",
+      "before": "dcd803f783d899d3940d3018869176bef993fe0850a4d66f56d6c497c93420cd",
+      "after": "14bf8c073afc2e77dc33dae7379e2baa87e896683f17450f6f800d1e54b9baed"
+    }
+  ]
+}

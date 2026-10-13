@@ -1,0 +1,7 @@
+# Pending player adoption R2 — UNRUN
+
+R1/original157a preserved. Diagnostic775487f0de4e0ea2cefc568f4ad0bc511bcc13f1302002cac32ff57d7da7c397 changes only one wording string after prior C→R derivative: standalone30s diagnostic cap, NOT core default5s or original leaf budget/acceptance. Explicit wordingdelta retained; no premise/algorithm/timing change.
+
+Watchdog handles INT/TERM/HUP with finally cleanup and always attempts structured child/deadline/interruption/PID/group/error/cleanup receipt. Start deadline beforePopen unchanged30s; on timeout/interruption/error signals only owned new-session group while rootreturncodeNone/unreaped, never afterreap. Cleanup wait1s/probe1s are bounded teardown only, no running-engine grace. EPERM/races/probe/record failures become98/parentmustaudit beforefurtherjobs. Normal returnedroot followed by residualgroup =>98, no signalafterPIDreservationlost. SIGKILL of recorder itself cannot be handled and alwaysrequires parent ownedprocessaudit. No source/helper/requiredinput/global change, no dependencies. bash-n only, no execution; independent watchdogreview required.
+
+R3 only assignment-race fix: while spawning, signal handler records interruption but cannot raise before Popen's returned child is assigned. After assignment/spawnfinally, pending interruption enters existing bounded finally cleanup/receipt path. R2 preserved; no cap/policy changes. No execution.

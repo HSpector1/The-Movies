@@ -1,0 +1,70 @@
+--- a/src/harness/d16/terminal.test.ts
++++ b/src/harness/d16/terminal.test.ts
+@@ -1,8 +1,7 @@
+ // Proposed NEW src/harness/d16/terminal.test.ts; real engine/harness, no mock/validator bypass.
+ // All existing D16 test assertions/timeouts remain untouched and still must execute.
+ import { describe, expect, it } from 'vitest'
+-import { tick, closureRecordOf } from '../../core/index.js'
+-import { makeSave, stableStringify } from '../../core/save.js'
++import { tick, closureRecordOf, makeSave, stableStringify } from '../../core/index.js'
+ import { base, drainPlayer } from '../../../tests/helpers/p15b-live.js'
+ import { runOne } from './driver.js'
+ import { doNothing, publicitySpamAdversary, type PlayerPolicy } from './policies.js'
+--- a/src/harness/d16/driver.test.ts
++++ b/src/harness/d16/driver.test.ts
+@@ -5,7 +5,7 @@
+ // names its finding so a regression is attributable.
+ 
+ import { describe, it, expect } from 'vitest'
+-import { TUNING, applyActions, employmentEngaged, tick } from '../../core/index.js'
++import { TUNING, applyActions, employmentEngaged, tick, makeSave, stableStringify } from '../../core/index.js'
+ import type { GameState } from '../../core/index.js'
+ import { foundStudioFor, runOne } from './driver.js'
+ import { assertMarketingGridPristine, standardPackage, toGreenlightAction } from './packages.js'
+@@ -338,10 +338,16 @@
+   })
+ 
+   it('--slice-weeks style custom slices are honoured, and stay RELATIVE to the run’s start', () => {
++    // Sampling control, not a standardCadence survival claim. Existing same-seed
++    // doNothing260 control passes full D16; no cash/clock/history edits or new seed.
++    const initial = foundStudioFor('d16-0001', doNothing).state
++    makeSave(initial)
++    const initialBytes = stableStringify(initial)
+     const rec = runOne({
+       seed: 'd16-0001',
+-      policy: standardCadence,
++      policy: doNothing,
+       horizonWeeks: 260,
++      initialState: initial,
+       sliceWeeks: [52, 104, 208, 260, 312],
+     })
+     expect(Object.keys(rec.slices).sort((a, b) => Number(a) - Number(b))).toEqual(['52', '104', '208', '260'])
+@@ -349,6 +355,28 @@
+     expect(rec.slices['260']!.weeksElapsed).toBe(260)
+     // 312 is past the horizon, so it is clipped rather than emitted empty
+     expect(rec.slices['312']).toBeUndefined()
++    expect(rec.endWeek).toBe(260)
++    expect(rec.terminal).toBeUndefined()
++    expect(stableStringify(initial)).toBe(initialBytes)
++    // Same admitted no-action route, split at actual52: ends at the SAME260,
++    // exercises nonzero-start relative stamps without extending the survival horizon.
++    let resumed = initial
++    for (let w=0; w<52; w++) resumed=tick(resumed,{develop:true})
++    makeSave(resumed)
++    const resumedBytes=stableStringify(resumed)
++    const relative=runOne({seed:'d16-0001',policy:doNothing,initialState:resumed,horizonWeeks:208,
++      sliceWeeks:[52,104,208,260,312]})
++    expect(relative.startWeek).toBe(52)
++    expect(relative.endWeek).toBe(260)
++    expect(relative.terminal).toBeUndefined()
++    expect(Object.keys(relative.slices).sort((a,b)=>Number(a)-Number(b))).toEqual(['52','104','208'])
++    for(const elapsed of [52,104,208]) {
++      expect(relative.slices[String(elapsed)]!.week).toBe(52+elapsed)
++      expect(relative.slices[String(elapsed)]!.weeksElapsed).toBe(elapsed)
++    }
++    expect(relative.slices['260']).toBeUndefined()
++    expect(relative.slices['312']).toBeUndefined()
++    expect(stableStringify(resumed)).toBe(resumedBytes)
+   })
+ 
+   it('a CAPACITY-ANCHORED grid re-resolves every week and moves what the policy commits', () => {

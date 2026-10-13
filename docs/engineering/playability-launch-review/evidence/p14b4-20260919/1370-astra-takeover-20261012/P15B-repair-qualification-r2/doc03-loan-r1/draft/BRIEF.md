@@ -1,0 +1,3 @@
+# DOC03 loan-window qualification runner — UNRUN
+
+Production HEADd099499a, exact194 PATCHac7dffa3 and actualR MANIFESTe0f62d2a pinned; DOC03 postimage370f0a64 pinned. ActualR manifest modes required (no C mode substitution/old159 mode receipt). External parent bootstrap runner/helper SHA envpins mandatory, defaults PENDING. Reviewed prospective helper unchanged; fourteen input guards unchanged. Root compiler then complete corrected DOC03 file, core defaults/original180000ms beforeAll/default+JSON/no-fileparallel/no-cache. Fresh output only. No D16/UI/other suite runs or budget changes. Child/recorder/freeze/disk outcomes propagated. No execution/source change. Independent static review before parent-only launch required.

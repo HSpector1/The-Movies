@@ -1,0 +1,61 @@
+--- a/ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx
++++ b/ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx
+@@ -1688,23 +1688,22 @@
+     fireEvent.pointerDown(successorControl)
+     fireEvent.click(successorControl, { detail: 1 })
+     await waitFor(() => expect(adapterProbe.calls).toHaveLength(2))
+-    const successorRail = await screen.findByTestId('lot-next-event-rail')
+-    expect(successorRail).toHaveAttribute(
+-      'data-feedback-kind',
+-      secondExpected.stopReason === 'limit'
+-        ? 'next-event-neutral'
+-        : 'next-event-exact',
+-    )
+-    if (secondExpected.stopReason !== 'limit') {
+-      expect(
+-        screen.getByRole('heading', { level: 2, name: 'NEXT EVENT' }),
+-      ).toHaveFocus()
+-      expect(screen.getByTestId('lot-studio-heading')).not.toHaveFocus()
+-    }
+-    expect(screen.getByTestId('studio-lot-screen')).toHaveAttribute(
+-      'data-entry-focus',
+-      'next-event-reaction',
+-    )
++    // The public idle route now ends at its stored closure, after the first cash ceremony.
++    expect(secondExpected.stopReason).toBe('studioClosure')
++    const closure = secondExpected.next.studioClosure.closures.find(
++      (row) => row.studioId === secondExpected.next.hollywood!.playerStudioId,
++    )
++    expect(closure).toMatchObject({ closureWeek: 144 })
++    expect(await screen.findByRole('heading', {
++      name: 'Closed studio — read-only history',
++    })).toBeInTheDocument()
++    expect(screen.queryByTestId('lot-next-event-rail')).not.toBeInTheDocument()
++    expect(screen.queryByTestId('studio-lot-screen')).not.toBeInTheDocument()
++    const advance = screen.getByTestId('lot-advance-week')
++    expect(advance).toBeDisabled()
++    expect(screen.getByTestId('lot-open-saves')).toBeEnabled()
++    fireEvent.click(advance)
++    expect(adapterProbe.calls).toHaveLength(2)
+     expect(currentSessionBytes()).toBe(exportSaveJson(secondExpected.next))
+   }, 30_000)
+ 
+@@ -1929,7 +1928,17 @@
+     expect(adapterProbe.calls).toHaveLength(1)
+ 
+     async function openSavesFromExactReaction() {
+-      fireEvent.click(screen.getByTestId('lot-next-event-open-details'))
++      await waitFor(() =>
++        expect(screen.queryByTestId('lot-canvas-loading')).not.toBeInTheDocument(),
++      )
++      // Renderer readiness seals held/virtual rail tails through one task.
++      // Cross that boundary, then begin a fresh gesture on these current details.
++      await new Promise((resolve) => window.setTimeout(resolve, 5))
++      expect(currentSessionBytes()).toBe(acceptedBytes)
++      expect(adapterProbe.calls).toHaveLength(1)
++      const details = screen.getByTestId('lot-next-event-open-details')
++      fireEvent.pointerDown(details)
++      fireEvent.click(details, { detail: 1 })
+       const releasesHeading = await screen.findByTestId(
+         'dashboard-releases-heading',
+       )

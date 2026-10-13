@@ -1,0 +1,21 @@
+--- a/tests/p14c2a-consumers.test.ts
++++ b/tests/p14c2a-consumers.test.ts
+@@ -18,7 +18,7 @@
+ import { TUNING } from '../src/core/tuning.js'
+ import type { CastSlot, GameState, SegmentId } from '../src/core/types.js'
+ import {
+-  advanceTo, c2LiveFixture as c2Fixture, fund, p13aGeneratedStudio, player, prependSyntheticCandidate, syntheticRecord, withSyntheticCareerLifecycle,
++  c2LiveFixture as c2Fixture, fund, p13aGeneratedStudio, player, prependSyntheticCandidate, syntheticRecord, withSyntheticCareerLifecycle,
+ } from './helpers/p14c2a-fixtures.js'
+ 
+ const snapshot = (state: GameState): string => JSON.stringify(state)
+--- a/tests/p15c2-campaign-legacy-sibling.test.ts
++++ b/tests/p15c2-campaign-legacy-sibling.test.ts
+@@ -26,7 +26,6 @@
+   canon,
+   captureAt,
+   convertIntoStep, currentFromStep,
+-  factsFn,
+   genuineFrozen,
+   officialOf,
+   P15_SIBLINGS,

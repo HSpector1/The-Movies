@@ -1,0 +1,8 @@
+{
+  "path": "tests/bridge-p14p4p5-opportunities.test.ts",
+  "sha256": "1ff5a5e52357957822e313e1d2c2ee264e181d9e862624f8ebd964f8217771a7",
+  "postimageSHA256": "5ed420e88e97660f8f3120ed901686f1227d19d7630cdf03125d08256901cd5d",
+  "registrySourceSHA256": "8539e726feeaa6ba4b474d310cd724393416081034e0c3d38fda9918979c5f26",
+  "olderCount": 45,
+  "olderSortedPairsSHA256": "66ff414a2aec7abe942744415e65e4984181aceb2244c71855639adce902610a"
+}

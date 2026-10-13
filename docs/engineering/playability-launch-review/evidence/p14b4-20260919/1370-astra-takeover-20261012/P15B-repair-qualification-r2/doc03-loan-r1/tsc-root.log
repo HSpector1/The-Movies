@@ -1,0 +1,2 @@
+tests/p14c2a-consumers.test.ts(21,3): error TS6133: 'advanceTo' is declared but its value is never read.
+tests/p15c2-campaign-legacy-sibling.test.ts(29,3): error TS6133: 'factsFn' is declared but its value is never read.

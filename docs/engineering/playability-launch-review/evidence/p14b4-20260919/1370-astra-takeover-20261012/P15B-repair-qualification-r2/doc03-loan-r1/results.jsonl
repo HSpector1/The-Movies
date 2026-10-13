@@ -1,0 +1,1 @@
+{"name": "tsc-root", "exit": 2, "startEpoch": 1791898045, "endEpoch": 1791898089, "seconds": 44, "node": "v20.20.2", "command": ["node", "node_modules/typescript/bin/tsc", "--noEmit"], "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-doc03-loan-r1-run/tsc-root.log"}

@@ -1,0 +1,11 @@
+# Two prospective premise routes: actual review
+
+GPT-6.1 Sol. KEEP measured negative evidence; neither required premise qualifies. Read-only actual diagnostic/child/results/freeze review; no execution or source edits.
+
+Both bind194r2/HEADd099 and admitted real fixtures. Each child/lane exits2 (expected unmet premise), not timeout/error success. Three strict checks each pass/errors0; initial/final strict fields equal, raw autoMetadata differs only receipt path. Structured child receipts timedOut:false, interruption:null, cleanupUncertain:false/errors[] and remainingOwnedGroupCount0. This measures ordinary completion cleanup only, not timeout/interruption branches.
+
+Pending player-adoption route:51 ordinary ticks795→846,9s recorder/~8.505s internal. Initial/fixed input admissions and original historical/migrated hashes pure. Real quote debit100,000 and currentcash−1,801,760 require minimum legalstep principal1,902,000, exceeding actualmax1,482,000. Driver stops BEFORE loan or adoption; no action, pending commitment or pending-closure disposition was produced. This is one fixedstage12/duration25 route failure, not general inability of any lawful pending adoption or positive-low distress transaction.
+
+Promise route:real current2600 admission then first eligible maximum publicloan390,000 at2604, with actualprincipal ledger and total436,800/52×8400 installments. Cash−19,060,000→−18,670,000.33ordinaryticks reach actualclosure2633, not2695. Actual final closure/full admission/purity succeed, loan28installments235,200 paid/remainder201,600 retained. Settled132SATISFIED at2085/progress1 and142BROKEN at2496/progress0 preserved. These facts establish this remedy failed to recover the required2695 open148/retirement/no-rival-production substrate; the original four failed controls are not qualified, and their later old promise assertions remain unreached by this run.
+
+No impossibility ruling, alternative seed/amount/timing search or automatic repeat follows. Pending joint adoption/proposal/rivalbuild remains unqualified; a separate reviewed player-only diagnostic could never clear all families. Defaultcore5s original tests remain separate from these standalone30s caps. Preserve both negative raw outputs and earlier failures; no acceptance/landing waiver is implied.

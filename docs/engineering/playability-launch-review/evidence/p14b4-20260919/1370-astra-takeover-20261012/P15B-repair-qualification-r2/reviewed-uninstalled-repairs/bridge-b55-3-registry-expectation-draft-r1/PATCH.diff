@@ -1,0 +1,14 @@
+--- a/tests/bridge-p14p4p5-opportunities.test.ts
++++ b/tests/bridge-p14p4p5-opportunities.test.ts
+@@ -530,8 +530,9 @@
+     // array elements, and this array has no object elements to sort).
+     // 1358-N P2: outgoing56 (projection-v56) is registered too, so the older count
+     // grows to 44; the digest is recomputed by the same method.
+-    expect(older).toHaveLength(44)
+-    expect(sha(canonicalJson(older))).toBe('afae82e478438adcd177592fca60fc283c0e73bdc5eefc1101a8115de28cce58')
++    // Actual shipped outgoing57 is also prior; literal-map sorted pairs excluding54 now number45.
++    expect(older).toHaveLength(45)
++    expect(sha(canonicalJson(older))).toBe('66ff414a2aec7abe942744415e65e4984181aceb2244c71855639adce902610a')
+     const current = loaded.hydrated.checkpoint
+     expect(current).toMatchObject({ schemaId: SCHEMA_ID, sessionId: '1236-prior54', stateRevision: 0, journal: [], journalDigest: sha('[]') })
+     expect(current.sessionId).not.toBe(old.value.sessionId)

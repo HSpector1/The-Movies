@@ -1,0 +1,10 @@
+{
+  "tests/bridge-p14b4-runtime47-compatibility.test.ts": {
+    "preimageSHA256": "6293d0e04dbb0f368217c82aa14691c75d7104ccda0deb035fd6e6606f911095",
+    "postimageSHA256": "37dc7f38c138aaf479a8ab31c375b06ac42e6001bd8606fa2f4091bc7d766335"
+  },
+  "tests/bridge-p14r2r3-prior55.test.ts": {
+    "preimageSHA256": "58ce135ead23edf40fa3422a0733f2c4ceba09cd021e838d2fadb506e10d5834",
+    "postimageSHA256": "2d6eaf33c06f262131b2ef6d17d83a8ab4c6a005abf6f0d64d3e5e3f5cd6ed49"
+  }
+}

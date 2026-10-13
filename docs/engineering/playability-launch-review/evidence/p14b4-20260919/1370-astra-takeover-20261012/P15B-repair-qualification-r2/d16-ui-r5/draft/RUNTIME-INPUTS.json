@@ -1,0 +1,210 @@
+[
+  {
+    "path": "tests/fixtures/p13b",
+    "kind": "topLevelFiles"
+  },
+  {
+    "path": "tests/fixtures/p14/legacy-v28-open-case-45.json.gz",
+    "kind": "file"
+  },
+  {
+    "path": "tests/fixtures/p14/legacy-v28-settled-208.json.gz",
+    "kind": "file"
+  },
+  {
+    "path": "tests/fixtures/p14/legacy-v28-legacy-terminations-20.json.gz",
+    "kind": "file"
+  },
+  {
+    "path": "tests/fixtures/p14/genuine-projection45-runtime.checkpoint.json.gz",
+    "kind": "file"
+  },
+  {
+    "path": "tests/fixtures/p14/genuine-projection46-runtime",
+    "kind": "directory"
+  },
+  {
+    "path": "tests/fixtures/p14/genuine-projection47-runtime",
+    "kind": "directory"
+  },
+  {
+    "path": "tests/fixtures/p14/genuine-projection48-runtime",
+    "kind": "directory"
+  },
+  {
+    "path": "tests/fixtures/p14/genuine-projection49-runtime",
+    "kind": "directory"
+  },
+  {
+    "path": "tests/fixtures/p14/genuine-projection50-runtime-c2rm",
+    "kind": "directory"
+  },
+  {
+    "path": "tests/fixtures/p14/genuine-projection51-runtime-c2rm",
+    "kind": "directory"
+  },
+  {
+    "path": "tests/fixtures/p14/genuine-runtime55-pre-r3",
+    "kind": "directory"
+  },
+  {
+    "path": "tests/fixtures/p14/genuine-v30-pre-b5",
+    "kind": "directory"
+  },
+  {
+    "path": "tests/fixtures/p14/genuine-v31-pre-b7",
+    "kind": "directory"
+  },
+  {
+    "path": "tests/fixtures/p14/genuine-v32-pre-b8",
+    "kind": "directory"
+  },
+  {
+    "path": "tests/fixtures/p14/genuine-v32-c1-corpus",
+    "kind": "directory"
+  },
+  {
+    "path": "tests/fixtures/p14/genuine-v33-c2-corpus",
+    "kind": "directory"
+  },
+  {
+    "path": "tests/fixtures/p14/genuine-v35-c2b-corpus",
+    "kind": "directory"
+  },
+  {
+    "path": "tests/fixtures/p14/genuine-v36-scientist-corpus",
+    "kind": "directory"
+  },
+  {
+    "path": "tests/fixtures/p14/genuine-v37-c3-corpus",
+    "kind": "directory"
+  },
+  {
+    "path": "tests/fixtures/p14/genuine-v38-pre-p3",
+    "kind": "directory"
+  },
+  {
+    "path": "ui/e2e/p11-core-v1/s2-p11-capital-heavy.checkpoint.json",
+    "kind": "file"
+  },
+  {
+    "path": "ui/e2e/p11-core-v2/s2-p11-capital-heavy.checkpoint.json",
+    "kind": "file"
+  },
+  {
+    "path": "ui/e2e/p11-core-v2/s3-p11-ongoing-deficit.checkpoint.json",
+    "kind": "file"
+  },
+  {
+    "path": "ui/e2e/p11-core-v2/s5-p11-steady.checkpoint.json",
+    "kind": "file"
+  },
+  {
+    "path": "ui/e2e/p11-core-v2/s6-p11-positive-long-payroll.checkpoint.json",
+    "kind": "file"
+  },
+  {
+    "path": "ui/e2e/p11-core-v2/s7-p11-same-title-active-settled.checkpoint.json",
+    "kind": "file"
+  },
+  {
+    "path": "ui/e2e/p11-core-v2/s8-p11-incomplete-history.checkpoint.json",
+    "kind": "file"
+  },
+  {
+    "path": "ui/e2e/p11-core-v3/s9-p11-development-review.checkpoint.json",
+    "kind": "file"
+  },
+  {
+    "path": "ui/e2e/p11-core-v3/s10-p11-ready-package.checkpoint.json",
+    "kind": "file"
+  },
+  {
+    "path": "ui/e2e/p11-core-v3/s11-p11-in-production.checkpoint.json",
+    "kind": "file"
+  },
+  {
+    "path": "ui/e2e/p11-core-v3/s12-p11-post-production.checkpoint.json",
+    "kind": "file"
+  },
+  {
+    "path": "ui/e2e/p11-core-v3/s13-p11-release-ready.checkpoint.json",
+    "kind": "file"
+  },
+  {
+    "path": "ui/e2e/p11-core-v3/s14-p11-renewal-window.checkpoint.json",
+    "kind": "file"
+  },
+  {
+    "path": "ui/e2e/p11-core-v3/s16-p11-long-portfolio.checkpoint.json",
+    "kind": "file"
+  },
+  {
+    "path": "ui/e2e/p11-core-v1/manifest.json",
+    "kind": "file"
+  },
+  {
+    "path": "docs/engineering/playability-launch-review/evidence/p14b4-20260919/1221-p4p5-outgoing-capture",
+    "kind": "directory"
+  },
+  {
+    "path": "ui/public/lot/b-stage-b.png",
+    "kind": "file"
+  },
+  {
+    "path": "ui/public/lot/b-stage-b-ud.png",
+    "kind": "file"
+  },
+  {
+    "path": "ui/public/lot/b-stage-a-h2.png",
+    "kind": "file"
+  },
+  {
+    "path": "ui/public/lot/b-stage-a-h2-ud.png",
+    "kind": "file"
+  },
+  {
+    "path": "ui/public/lot/hollywood/district-manifest.json",
+    "kind": "file"
+  },
+  {
+    "path": "ui/public/audio",
+    "kind": "directory"
+  },
+  {
+    "path": "AUDIO-PROVENANCE.md",
+    "kind": "file"
+  },
+  {
+    "path": "ui/AUDIO-PROVENANCE.md",
+    "kind": "optionalFile"
+  },
+  {
+    "path": "docs/AUDIO-PROVENANCE.md",
+    "kind": "optionalFile"
+  },
+  {
+    "path": "ui/public/audio/AUDIO-PROVENANCE.md",
+    "kind": "optionalFile"
+  },
+  {
+    "path": "ui/e2e/lot-native-next-event-v1",
+    "kind": "directory"
+  },
+  {
+    "path": "ui/e2e/world-first-scenery-load-in-v1",
+    "kind": "directory"
+  },
+  {
+    "path": "ui/e2e/world-first-operational-annex-work-presence-v1",
+    "kind": "directory"
+  },
+  {
+    "path": "ui/e2e/expanded-property-v1",
+    "kind": "directory"
+  },
+  {
+    "path": "ui/e2e/p06-visual-oracle-v1/s2-wrapped-waiting-for-post.save.json",
+    "kind": "file"
+  }
+]

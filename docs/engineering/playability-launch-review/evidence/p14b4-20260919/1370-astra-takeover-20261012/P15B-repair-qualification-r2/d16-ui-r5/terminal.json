@@ -1,0 +1,8 @@
+{
+  "d16ChildExit": 1,
+  "uiChildExit": 1,
+  "overallExit": 1,
+  "scope": "completeD16 then fullUI only; root0 reused on exactsource",
+  "identityAccounting": "PENDING actual parent reporter validation, all failures retained",
+  "freezeUnchanged": true
+}

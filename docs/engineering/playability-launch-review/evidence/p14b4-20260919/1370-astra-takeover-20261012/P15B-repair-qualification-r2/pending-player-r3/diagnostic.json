@@ -1,0 +1,913 @@
+{
+  "kind": "fixed795→distress25→minimumloan→stage12 lighting pending-closure DIAGNOSTIC",
+  "status": "UNMET_SINGLE_ROUTE_PREMISE_NOT_ACCEPTANCE",
+  "request": {
+    "technologyId": "lighting-control-01",
+    "stageFacilityId": "facility-soundstage-12"
+  },
+  "inputWeek": 795,
+  "horizon": 900,
+  "targetDuration": 25,
+  "budgetMs": 30000,
+  "seed": "p13a-core-causal-01",
+  "ticks": 51,
+  "admissions": [
+    {
+      "label": "original795",
+      "stateSHA256": "d553d68e0307c8ac57478fcceb7a83e03ad60e0c42e0440dcc5a5ae4b5c0dc62",
+      "week": 795
+    },
+    {
+      "label": "fixedCommitmentInput",
+      "stateSHA256": "aeb53ca2dafa5025cb63228339abb95af68c01417a6cff19802a1bddacbf67dd",
+      "week": 846
+    }
+  ],
+  "conditions": [
+    {
+      "week": 795,
+      "condition": null,
+      "cash": 1105240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 19.39017543859649
+    },
+    {
+      "week": 796,
+      "condition": {
+        "stage": "stable",
+        "since": 796,
+        "week": 796,
+        "lowRun": 0,
+        "negativeRun": 0,
+        "clearRun": 1,
+        "distressWeeks": 0
+      },
+      "cash": 1048240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 18.39017543859649
+    },
+    {
+      "week": 797,
+      "condition": {
+        "stage": "stable",
+        "since": 796,
+        "week": 797,
+        "lowRun": 0,
+        "negativeRun": 0,
+        "clearRun": 2,
+        "distressWeeks": 0
+      },
+      "cash": 991240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 17.39017543859649
+    },
+    {
+      "week": 798,
+      "condition": {
+        "stage": "stable",
+        "since": 796,
+        "week": 798,
+        "lowRun": 0,
+        "negativeRun": 0,
+        "clearRun": 3,
+        "distressWeeks": 0
+      },
+      "cash": 934240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 16.39017543859649
+    },
+    {
+      "week": 799,
+      "condition": {
+        "stage": "stable",
+        "since": 796,
+        "week": 799,
+        "lowRun": 0,
+        "negativeRun": 0,
+        "clearRun": 4,
+        "distressWeeks": 0
+      },
+      "cash": 877240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 15.390175438596492
+    },
+    {
+      "week": 800,
+      "condition": {
+        "stage": "stable",
+        "since": 796,
+        "week": 800,
+        "lowRun": 0,
+        "negativeRun": 0,
+        "clearRun": 5,
+        "distressWeeks": 0
+      },
+      "cash": 820240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 14.390175438596492
+    },
+    {
+      "week": 801,
+      "condition": {
+        "stage": "stable",
+        "since": 796,
+        "week": 801,
+        "lowRun": 0,
+        "negativeRun": 0,
+        "clearRun": 6,
+        "distressWeeks": 0
+      },
+      "cash": 763240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 13.390175438596492
+    },
+    {
+      "week": 802,
+      "condition": {
+        "stage": "stable",
+        "since": 796,
+        "week": 802,
+        "lowRun": 0,
+        "negativeRun": 0,
+        "clearRun": 7,
+        "distressWeeks": 0
+      },
+      "cash": 706240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 12.390175438596492
+    },
+    {
+      "week": 803,
+      "condition": {
+        "stage": "stable",
+        "since": 796,
+        "week": 803,
+        "lowRun": 0,
+        "negativeRun": 0,
+        "clearRun": 8,
+        "distressWeeks": 0
+      },
+      "cash": 649240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 11.390175438596492
+    },
+    {
+      "week": 804,
+      "condition": {
+        "stage": "stable",
+        "since": 796,
+        "week": 804,
+        "lowRun": 0,
+        "negativeRun": 0,
+        "clearRun": 9,
+        "distressWeeks": 0
+      },
+      "cash": 592240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 10.390175438596492
+    },
+    {
+      "week": 805,
+      "condition": {
+        "stage": "stable",
+        "since": 796,
+        "week": 805,
+        "lowRun": 0,
+        "negativeRun": 0,
+        "clearRun": 10,
+        "distressWeeks": 0
+      },
+      "cash": 535240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 9.390175438596492
+    },
+    {
+      "week": 806,
+      "condition": {
+        "stage": "stable",
+        "since": 796,
+        "week": 806,
+        "lowRun": 0,
+        "negativeRun": 0,
+        "clearRun": 11,
+        "distressWeeks": 0
+      },
+      "cash": 478240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 8.390175438596492
+    },
+    {
+      "week": 807,
+      "condition": {
+        "stage": "stable",
+        "since": 796,
+        "week": 807,
+        "lowRun": 0,
+        "negativeRun": 0,
+        "clearRun": 12,
+        "distressWeeks": 0
+      },
+      "cash": 421240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 7.390175438596491
+    },
+    {
+      "week": 808,
+      "condition": {
+        "stage": "stable",
+        "since": 796,
+        "week": 808,
+        "lowRun": 0,
+        "negativeRun": 0,
+        "clearRun": 13,
+        "distressWeeks": 0
+      },
+      "cash": 364240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 6.390175438596491
+    },
+    {
+      "week": 809,
+      "condition": {
+        "stage": "stable",
+        "since": 796,
+        "week": 809,
+        "lowRun": 0,
+        "negativeRun": 0,
+        "clearRun": 14,
+        "distressWeeks": 0
+      },
+      "cash": 307240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 5.390175438596491
+    },
+    {
+      "week": 810,
+      "condition": {
+        "stage": "stable",
+        "since": 796,
+        "week": 810,
+        "lowRun": 0,
+        "negativeRun": 0,
+        "clearRun": 15,
+        "distressWeeks": 0
+      },
+      "cash": 250240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 4.390175438596491
+    },
+    {
+      "week": 811,
+      "condition": {
+        "stage": "stable",
+        "since": 796,
+        "week": 811,
+        "lowRun": 1,
+        "negativeRun": 0,
+        "clearRun": 0,
+        "distressWeeks": 0
+      },
+      "cash": 193240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 3.3901754385964913
+    },
+    {
+      "week": 812,
+      "condition": {
+        "stage": "stable",
+        "since": 796,
+        "week": 812,
+        "lowRun": 2,
+        "negativeRun": 0,
+        "clearRun": 0,
+        "distressWeeks": 0
+      },
+      "cash": 136240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 2.3901754385964913
+    },
+    {
+      "week": 813,
+      "condition": {
+        "stage": "stable",
+        "since": 796,
+        "week": 813,
+        "lowRun": 3,
+        "negativeRun": 0,
+        "clearRun": 0,
+        "distressWeeks": 0
+      },
+      "cash": 79240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 1.3901754385964913
+    },
+    {
+      "week": 814,
+      "condition": {
+        "stage": "warning",
+        "since": 814,
+        "week": 814,
+        "lowRun": 4,
+        "negativeRun": 0,
+        "clearRun": 0,
+        "distressWeeks": 0
+      },
+      "cash": 22240,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": 0.39017543859649123
+    },
+    {
+      "week": 815,
+      "condition": {
+        "stage": "warning",
+        "since": 814,
+        "week": 815,
+        "lowRun": 5,
+        "negativeRun": 1,
+        "clearRun": 0,
+        "distressWeeks": 0
+      },
+      "cash": -34760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -0.6098245614035088
+    },
+    {
+      "week": 816,
+      "condition": {
+        "stage": "warning",
+        "since": 814,
+        "week": 816,
+        "lowRun": 6,
+        "negativeRun": 2,
+        "clearRun": 0,
+        "distressWeeks": 0
+      },
+      "cash": -91760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -1.6098245614035087
+    },
+    {
+      "week": 817,
+      "condition": {
+        "stage": "warning",
+        "since": 814,
+        "week": 817,
+        "lowRun": 7,
+        "negativeRun": 3,
+        "clearRun": 0,
+        "distressWeeks": 0
+      },
+      "cash": -148760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -2.6098245614035087
+    },
+    {
+      "week": 818,
+      "condition": {
+        "stage": "warning",
+        "since": 814,
+        "week": 818,
+        "lowRun": 8,
+        "negativeRun": 4,
+        "clearRun": 0,
+        "distressWeeks": 0
+      },
+      "cash": -205760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -3.6098245614035087
+    },
+    {
+      "week": 819,
+      "condition": {
+        "stage": "warning",
+        "since": 814,
+        "week": 819,
+        "lowRun": 9,
+        "negativeRun": 5,
+        "clearRun": 0,
+        "distressWeeks": 0
+      },
+      "cash": -262760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -4.609824561403509
+    },
+    {
+      "week": 820,
+      "condition": {
+        "stage": "warning",
+        "since": 814,
+        "week": 820,
+        "lowRun": 10,
+        "negativeRun": 6,
+        "clearRun": 0,
+        "distressWeeks": 0
+      },
+      "cash": -319760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -5.609824561403509
+    },
+    {
+      "week": 821,
+      "condition": {
+        "stage": "warning",
+        "since": 814,
+        "week": 821,
+        "lowRun": 11,
+        "negativeRun": 7,
+        "clearRun": 0,
+        "distressWeeks": 0
+      },
+      "cash": -376760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -6.609824561403509
+    },
+    {
+      "week": 822,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 822,
+        "lowRun": 12,
+        "negativeRun": 8,
+        "clearRun": 0,
+        "distressWeeks": 1
+      },
+      "cash": -433760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -7.609824561403509
+    },
+    {
+      "week": 823,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 823,
+        "lowRun": 13,
+        "negativeRun": 9,
+        "clearRun": 0,
+        "distressWeeks": 2
+      },
+      "cash": -490760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -8.609824561403508
+    },
+    {
+      "week": 824,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 824,
+        "lowRun": 14,
+        "negativeRun": 10,
+        "clearRun": 0,
+        "distressWeeks": 3
+      },
+      "cash": -547760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -9.609824561403508
+    },
+    {
+      "week": 825,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 825,
+        "lowRun": 15,
+        "negativeRun": 11,
+        "clearRun": 0,
+        "distressWeeks": 4
+      },
+      "cash": -604760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -10.609824561403508
+    },
+    {
+      "week": 826,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 826,
+        "lowRun": 16,
+        "negativeRun": 12,
+        "clearRun": 0,
+        "distressWeeks": 5
+      },
+      "cash": -661760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -11.609824561403508
+    },
+    {
+      "week": 827,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 827,
+        "lowRun": 17,
+        "negativeRun": 13,
+        "clearRun": 0,
+        "distressWeeks": 6
+      },
+      "cash": -718760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -12.609824561403508
+    },
+    {
+      "week": 828,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 828,
+        "lowRun": 18,
+        "negativeRun": 14,
+        "clearRun": 0,
+        "distressWeeks": 7
+      },
+      "cash": -775760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -13.609824561403508
+    },
+    {
+      "week": 829,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 829,
+        "lowRun": 19,
+        "negativeRun": 15,
+        "clearRun": 0,
+        "distressWeeks": 8
+      },
+      "cash": -832760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -14.609824561403508
+    },
+    {
+      "week": 830,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 830,
+        "lowRun": 20,
+        "negativeRun": 16,
+        "clearRun": 0,
+        "distressWeeks": 9
+      },
+      "cash": -889760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -15.609824561403508
+    },
+    {
+      "week": 831,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 831,
+        "lowRun": 21,
+        "negativeRun": 17,
+        "clearRun": 0,
+        "distressWeeks": 10
+      },
+      "cash": -946760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -16.60982456140351
+    },
+    {
+      "week": 832,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 832,
+        "lowRun": 22,
+        "negativeRun": 18,
+        "clearRun": 0,
+        "distressWeeks": 11
+      },
+      "cash": -1003760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -17.60982456140351
+    },
+    {
+      "week": 833,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 833,
+        "lowRun": 23,
+        "negativeRun": 19,
+        "clearRun": 0,
+        "distressWeeks": 12
+      },
+      "cash": -1060760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -18.60982456140351
+    },
+    {
+      "week": 834,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 834,
+        "lowRun": 24,
+        "negativeRun": 20,
+        "clearRun": 0,
+        "distressWeeks": 13
+      },
+      "cash": -1117760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -19.60982456140351
+    },
+    {
+      "week": 835,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 835,
+        "lowRun": 25,
+        "negativeRun": 21,
+        "clearRun": 0,
+        "distressWeeks": 14
+      },
+      "cash": -1174760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -20.60982456140351
+    },
+    {
+      "week": 836,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 836,
+        "lowRun": 26,
+        "negativeRun": 22,
+        "clearRun": 0,
+        "distressWeeks": 15
+      },
+      "cash": -1231760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -21.60982456140351
+    },
+    {
+      "week": 837,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 837,
+        "lowRun": 27,
+        "negativeRun": 23,
+        "clearRun": 0,
+        "distressWeeks": 16
+      },
+      "cash": -1288760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -22.60982456140351
+    },
+    {
+      "week": 838,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 838,
+        "lowRun": 28,
+        "negativeRun": 24,
+        "clearRun": 0,
+        "distressWeeks": 17
+      },
+      "cash": -1345760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -23.60982456140351
+    },
+    {
+      "week": 839,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 839,
+        "lowRun": 29,
+        "negativeRun": 25,
+        "clearRun": 0,
+        "distressWeeks": 18
+      },
+      "cash": -1402760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -24.60982456140351
+    },
+    {
+      "week": 840,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 840,
+        "lowRun": 30,
+        "negativeRun": 26,
+        "clearRun": 0,
+        "distressWeeks": 19
+      },
+      "cash": -1459760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -25.60982456140351
+    },
+    {
+      "week": 841,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 841,
+        "lowRun": 31,
+        "negativeRun": 27,
+        "clearRun": 0,
+        "distressWeeks": 20
+      },
+      "cash": -1516760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -26.60982456140351
+    },
+    {
+      "week": 842,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 842,
+        "lowRun": 32,
+        "negativeRun": 28,
+        "clearRun": 0,
+        "distressWeeks": 21
+      },
+      "cash": -1573760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -27.60982456140351
+    },
+    {
+      "week": 843,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 843,
+        "lowRun": 33,
+        "negativeRun": 29,
+        "clearRun": 0,
+        "distressWeeks": 22
+      },
+      "cash": -1630760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -28.60982456140351
+    },
+    {
+      "week": 844,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 844,
+        "lowRun": 34,
+        "negativeRun": 30,
+        "clearRun": 0,
+        "distressWeeks": 23
+      },
+      "cash": -1687760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -29.60982456140351
+    },
+    {
+      "week": 845,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 845,
+        "lowRun": 35,
+        "negativeRun": 31,
+        "clearRun": 0,
+        "distressWeeks": 24
+      },
+      "cash": -1744760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -30.60982456140351
+    },
+    {
+      "week": 846,
+      "condition": {
+        "stage": "distress",
+        "since": 822,
+        "week": 846,
+        "lowRun": 36,
+        "negativeRun": 32,
+        "clearRun": 0,
+        "distressWeeks": 25
+      },
+      "cash": -1801760,
+      "weeklyFixedCost": 57000,
+      "loanInstallment": 0,
+      "cover": -31.60982456140351
+    }
+  ],
+  "actions": [],
+  "scope": "player pending adoption ONLY; original failed joint adoption/proposal/rivalbuild leaf retained",
+  "initialQuote": {
+    "ok": true,
+    "components": [
+      {
+        "kind": "access",
+        "label": "Lighting control access",
+        "cost": 0,
+        "weeks": null,
+        "source": "existing",
+        "placementId": null,
+        "equipmentAssetId": null
+      },
+      {
+        "kind": "equipment",
+        "label": "Lighting control equipment set already owned by this studio",
+        "cost": 0,
+        "weeks": null,
+        "source": "existing",
+        "placementId": null,
+        "equipmentAssetId": "studio-aca408ec-player:equipment:1"
+      },
+      {
+        "kind": "site",
+        "label": "Stage site adaptation",
+        "cost": 50000,
+        "weeks": 2,
+        "source": "physical",
+        "placementId": null,
+        "equipmentAssetId": null
+      },
+      {
+        "kind": "installation",
+        "label": "Lighting control installation",
+        "cost": 50000,
+        "weeks": 2,
+        "source": "physical",
+        "placementId": null,
+        "equipmentAssetId": null
+      }
+    ],
+    "total": 100000,
+    "reusedPostFacilityId": null,
+    "reusedEquipmentAssetId": "studio-aca408ec-player:equipment:1",
+    "refusal": null,
+    "rejections": []
+  },
+  "minimumLoan": {
+    "week": 846,
+    "actualCash": -1801760,
+    "quotedDebit": 100000,
+    "principal": 1902000,
+    "maximum": 1482000
+  },
+  "error": "single minimum lawful principal exceeds maximum; no amount sweep",
+  "inputPurity": {
+    "historical": true,
+    "migrated": true
+  },
+  "elapsedMs": 8505.05257
+}

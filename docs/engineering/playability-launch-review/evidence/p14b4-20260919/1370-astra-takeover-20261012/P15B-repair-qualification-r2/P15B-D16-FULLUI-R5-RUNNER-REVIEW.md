@@ -1,0 +1,9 @@
+# Complete D16/fullUI r5 static admission
+
+GPT-6.1 Sol. Conditional KEEP; no execution or constituent pass claim. Exact runner28988eec16ca6a653c0fa359fad1fab5ad4a1f9c323a6b8fb36f18ae0ddc924d compared with affected44 runner.
+
+Same194r2/HEADd099 admission, actual-R manifest modes/postimages/index,14 original inputs, union snapshot, external runner/helper/input-list/selection pins, ownedlane, launch/live floors and raw AUTO-aware strict checks. Inputlist2fceb394… retains every affected44 binding and adds exactly reviewed stage PNGs/district/audio/provenance plus named UI fixture inventories. Optional provenance files are represented as missing when absent, so subsequent creation is drift; symlinks remain refused. Existing source/config and D16 driver/new terminal tests stay packet-bound.
+
+Tail runs complete original D16 configuration then complete projectUI serial/no-cache/default+JSON with no budget override. Ordinary D16 child1 continues UI; abnormal or guard result greater1 stops. Each actual child record precedes postflight; terminal receipt stores both statuses and returns1 if either fails. Reporter identity accounting explicitly remains pending rather than a guessed pass/count. Final freeze validation follows both children and the terminal record.
+
+Explicit parent launch condition: measured corrected194 root0/40s may be reused only while source/config/dependency environment remain unchanged; wrapper does not mechanically compare the prior compiler receipt. Parent should bind/record that condition before launch. Affected44 must be terminal/lane released first; no concurrent intensive tree. terminal.json freezeUnchanged refers to normalized comparison, not byte-identical raw receipt paths. No concrete blocking derivative defect found; no fullgate or landing approval follows, and all inherited/new failures must remain visible.

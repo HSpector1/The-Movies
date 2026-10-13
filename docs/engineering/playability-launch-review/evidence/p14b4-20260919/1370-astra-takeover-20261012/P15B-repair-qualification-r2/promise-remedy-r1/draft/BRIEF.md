@@ -1,0 +1,5 @@
+# Promise public remedy one-use execution derivative — UNRUN
+
+Exact reviewed diagnosticdb28 copied unchanged, no import/policy edits. Minimal derivative of reviewed adoptionwatchdogr3df18: only diagnosticpath/hash, output/environment variable, runlabel/names and terminalscope line rebound; watchdog/source194r2/d099/actualRmanifest/guards/inputpins unchanged. Required genuine35-c2b-corpus is already mandatory directory in bound affected44extra list, including compressed/raw selfpins/provenance. Installedvite-node entrypoint remains bound. Externalbootstrap runner/helper/inputlist/selection required; parent-only lane after priority44/D16UI. No compiler/suite or source writes.
+
+30s outer startup-inclusive standalone diagnostic cap retained, not original core5s promise leaf budget; original4tests unchanged. Interrupted/unknowncleanup98 blocks scheduling untilparentaudit; no acceptance or claim of originalleaf budget/proofs merely from diagnostic. Preserve priorrunner and all failed evidence. Only bash-n validation, no execution.

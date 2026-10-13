@@ -1,0 +1,7 @@
+# Affected44 qualification runner — UNRUN
+
+Exact194-r2 production admission/manifest actual modes, existing14 input bindings and bootstraphelper/runner retained. No compiler or DOC03 repeat. Complete44 list pinned literalf291b97b and external P15B_BOOTSTRAP_SELECTION_SHA256. Additional mandatory input-list literald06a2ecd plus external P15B_BOOTSTRAP_INPUTS_SHA256, preserved as frozen input. Parent must bind final runner/helper hashes in reviewed launcher. Defaultcorebudgets/no-cache/no-fileparallel/default+JSON unchanged. Known pending adoption/proposal leaf may fail; no automatic fullgate/landing acceptance.
+
+New input-list exactly follows reviewer addendum: only p13b TOP LEVEL files (not historical recursive evidence), exact p14 files/16small directories, exact p11UIcheckpoint files, one1221capture directory. All newly bound payload contents, actualR modes and inventories captured before/post. Missing/empty/symlink input fails. Old14 reuse is NOT established by this new runner; capture representations/somepaths differ from prior evidence. Unionfixture explicitly mandatory and content/mode frozen in current run, no byte-equivalence claim from oldreadable/modeonly generation statement. Parent must separately classify source/input identities for any inherited evidence reuse.
+
+No tests/compiler/simulation or C/R writes. bash-n only. Parent alone decides launch after actualDOC03 + independentreview/adoption; any source change requires new packet/rebinding.

@@ -1,0 +1,704 @@
+{
+  "oldFullGateFreezeSource": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P15B-full-gate-r1/freeze.json.gz",
+  "currentFreezeSource": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-doc03-loan-r2-run/freeze.json",
+  "currentFreezeSHA256": "aae894ba2758f635c5d4040460c5cf429dd0bcc575302c416ff4ce97242f8baf",
+  "fileIdentityChanges": [
+    {
+      "path": "generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs",
+      "old": null,
+      "new": [
+        "file",
+        "be4b1dd1da2e7dc28906b9bad1ab0fa73e32d4dbe69eef344d9aeaf0a697bdb6",
+        420
+      ]
+    },
+    {
+      "path": "src/harness/d16/driver.ts",
+      "old": [
+        "file",
+        "ba6de47540ea8cec738e6193ebd2a0c07fbfe3485145ab411f3dbb01b55255f4",
+        384
+      ],
+      "new": [
+        "file",
+        "d4c81e6b7a67bc2c54afc88404b2cf27d2cfec16bf25e62a782f6fc1990264a1",
+        420
+      ]
+    },
+    {
+      "path": "src/harness/d16/terminal.test.ts",
+      "old": null,
+      "new": [
+        "file",
+        "c949d518498a8ddde97c308737699b6db7ddec6e3d76709d8a7c6bdd489db895",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-operations-events.test.ts",
+      "old": [
+        "file",
+        "3c2c738bded25736721037138e5743f1d49e23f2b3ebde0f89ca73102cf0f293",
+        420
+      ],
+      "new": [
+        "file",
+        "44f876d05e49ad1e69e201d26685e16b75cfd4d25b75bc7a32c5bd582e9a237e",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-owner-ux-projection21-schema.test.ts",
+      "old": [
+        "file",
+        "220e88702e06c4b67f3d2a19d25ceb15e38b4b434bbb4a0911de15bbf9a2da9a",
+        420
+      ],
+      "new": [
+        "file",
+        "5445aad2380ce064b3425e70372b6b235619f7e9c80e1e66bb077e8c2530ec70",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p10a-w0-people-projection.test.ts",
+      "old": [
+        "file",
+        "7c5231c1218fb0152a8a026a80cf784efca716a16c91aba049e8ed44ff64c40c",
+        420
+      ],
+      "new": [
+        "file",
+        "6d7b9e6b6185c07055172a3488ce3f44e0818f719b2aeacfe862577fc35e858b",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p11-capital-contributors.test.ts",
+      "old": [
+        "file",
+        "3cdcb976ff1e26f2241d93b542c91cef0f0883d0d44e27d490190ad321d01961",
+        420
+      ],
+      "new": [
+        "file",
+        "131f6825b752d98165f540aa53b2ca533dde06b5e9386a5cbfeca93cbe4d7d57",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p11-ready.test.ts",
+      "old": [
+        "file",
+        "ef3b350e4591cb75ea019a3416de2d9395df000b0fa77f915f735998e6a1c70f",
+        420
+      ],
+      "new": [
+        "file",
+        "986e6591070e6c91f6ba885af5b48cc8274515255158c0790ee2401e2f07e1ec",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p13b-r07-setup.test.ts",
+      "old": [
+        "file",
+        "ab46950346486219b6cf71c6e11fd7798d7268b23fb9bd5f71922c5135cbaee7",
+        384
+      ],
+      "new": [
+        "file",
+        "cc31701b5a71870aad0d66b7f26c1a8bf6ea752acae02d0e503bac4cf4dce807",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p13b-s1b-seats.test.ts",
+      "old": [
+        "file",
+        "9d8e4f22aaa19b899adc1fa1cebc58bfba3fdd43c4462be61953ebd93559e766",
+        420
+      ],
+      "new": [
+        "file",
+        "f4e6e4b02934d628f30ef4312488862b37a7c38a0d3ff505b710fd4065f1018c",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p13b-s2-labs.test.ts",
+      "old": [
+        "file",
+        "277f0d296885a8736f3b4484b15ab8ab98d580c1639c9c264948464d57c70288",
+        420
+      ],
+      "new": [
+        "file",
+        "27bdf0ccbd23aba7966a636e96260dcb412bcddcfbed723c446e3e517e8b3462",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p13b-s3-plans.test.ts",
+      "old": [
+        "file",
+        "8c546e1519b8cd7c74f7fe9b1ad241afe837c23321aece0ae29d0d7c7beae39f",
+        420
+      ],
+      "new": [
+        "file",
+        "329bc921b1cb46584d20bfd2a59a06a420eb185692b901f124aaefb65830137a",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p13b-s4-office.test.ts",
+      "old": [
+        "file",
+        "8b7d9aa2f662e0d6456ef30ceec5fe99eb46ed46decbd1ad045121eafc9a3960",
+        420
+      ],
+      "new": [
+        "file",
+        "d5e0232dc8ffcf4f893b2ffb996f57d8945ddb9674155e960a449591521822ab",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p13b-s5-adoption.test.ts",
+      "old": [
+        "file",
+        "e0554c4d59e345e66e3b5a1398a9df7a2ae9d5510aacbc4580ee8739f2e46771",
+        420
+      ],
+      "new": [
+        "file",
+        "68ffed4bf8a5715ad227e8f66bf280ddf65c36e89f4d2f1c86f9997a3415402f",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p13b-s6-cancellation.test.ts",
+      "old": [
+        "file",
+        "603e4aaf976fe5e43440c3a92cd805865b992163e21cdfeef91c212760092e6b",
+        420
+      ],
+      "new": [
+        "file",
+        "374ed0de302c63319feaa071729ab3c0c07cf034e02c076cd6ffdd1515bbcb81",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p13b-s7-disclosure.test.ts",
+      "old": [
+        "file",
+        "41eb071837f8c40cf64df7abd65d11845323b5b701e139b42c4eaa97159d6045",
+        384
+      ],
+      "new": [
+        "file",
+        "cbbe39cbdeec3533020f859a7faa34849ebf69e8425f5e96bf5498904a1d0f05",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p13b-s8-rivals.test.ts",
+      "old": [
+        "file",
+        "8c9fe465c104efbe4000cfea039ab0a28930ce4b0856e1c5b5de842c301cfe38",
+        384
+      ],
+      "new": [
+        "file",
+        "59e735f80f888fe9804d4c3562b81d0340903ae1a9784a48471a1ce171848c60",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14a1-market.test.ts",
+      "old": [
+        "file",
+        "2730d1df94fe3e1d9fbf51a633852aa862b12b759b104a2559f2a2c19ef00ff4",
+        384
+      ],
+      "new": [
+        "file",
+        "f23fb6eb516b74e205565bb2278a9dc73d0c99fca696e438938945639ac93689",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14a1-release-busy-set.test.ts",
+      "old": [
+        "file",
+        "572764accce395ed8d7f19e707f2942c15c38e7e0f27b72c19f598422b45babb",
+        420
+      ],
+      "new": [
+        "file",
+        "8fc5d57ac2b60ef018f84984d87d0a671edd7c21d781d936694e79db1f6ab0f1",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14a2-market.test.ts",
+      "old": [
+        "file",
+        "bae23d3693ab5c50d774d4ee20363895d359faddfa75bffd92b0e3614022576c",
+        384
+      ],
+      "new": [
+        "file",
+        "31f899f0000517dfd97f192d9aa5541aa00fd7b938a9703ed7ead71490a7d775",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14a3-world.test.ts",
+      "old": [
+        "file",
+        "009191538e1a1e9e9f2af1a02d623a0ebcf8f9babe9d35af20903ae5e14e033c",
+        384
+      ],
+      "new": [
+        "file",
+        "4e0c8dc0318412d6d70addedd56d5ae7770a2469b0c2864f1758bada4e30e8db",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14b1-promises.test.ts",
+      "old": [
+        "file",
+        "4580e9d2f836dbcd1e5a3bab1d3bcea84ae9d70f0a8a03200467705a91bda16c",
+        384
+      ],
+      "new": [
+        "file",
+        "092767454d02d70e792239c65c544191a280861d16ef69236caf1c7ceaff1689",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14b10-relationship-labels.test.ts",
+      "old": [
+        "file",
+        "698eaafcc2cb3f281e10ed5cf657bf8cf50d653a2e8b914fddac5095286ccff6",
+        420
+      ],
+      "new": [
+        "file",
+        "07b61bfa0dc7f4919c46145a0e9a90134c9ab0aba5d60d2288c354682f9ad366",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14b2-trust.test.ts",
+      "old": [
+        "file",
+        "4de1d1a084ea64ff2b6f8ac623d52cabc92a34c412793094c4386872ba4ec583",
+        384
+      ],
+      "new": [
+        "file",
+        "f335cb5bdaa889b03851713a76c3f62bef9c91fafdb8054e05341dcdd8c8d13e",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14b3-promise-command.test.ts",
+      "old": [
+        "file",
+        "c1e09d59110ccf69dd4fde17e357fcada4b6cbf9b9b3b37cfe4df90d31185879",
+        384
+      ],
+      "new": [
+        "file",
+        "cda6c02b08e731ce5be6ed7bf6c65e2b2d6bfe04c6c24811eae441acaf52f50c",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+      "old": [
+        "file",
+        "1e2318cd900310248c676aee16095a7f198e78888cb8b44b2503324644728a2a",
+        384
+      ],
+      "new": [
+        "file",
+        "6293d0e04dbb0f368217c82aa14691c75d7104ccda0deb035fd6e6606f911095",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14b5-relationships.test.ts",
+      "old": [
+        "file",
+        "4806a4f5d97c396823d3d06ffc87aa442a284112bb3822ebe8509b559a680fbb",
+        384
+      ],
+      "new": [
+        "file",
+        "d36aa8f7f4083ca2b3b1fdeb29f35d0c1165c225870afaf4d28987fc1043a0ba",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14b6-relationship-read-models.test.ts",
+      "old": [
+        "file",
+        "598ec2a382fafbb2967a63fb384b5189ae2067a08f632e44f38d61d0d30e2ccf",
+        384
+      ],
+      "new": [
+        "file",
+        "6cdefc2d5ce59998fc363141ca2250dbef18d66edb04d4cd6e337c3229cbdfe0",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14b7-promise-waiver.test.ts",
+      "old": [
+        "file",
+        "e5f9a4e1bf444caa954851c2498b702780386fe3440c178f855163d933692702",
+        420
+      ],
+      "new": [
+        "file",
+        "ee135cdb302560e400de155c780808bbda025799cb8f5090bccf424c060d6cd3",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14b8-waiver-surface.test.ts",
+      "old": [
+        "file",
+        "02869b35193dd17eb35807678a9a0157dba748bd3aa855b79b3d7758f614688d",
+        384
+      ],
+      "new": [
+        "file",
+        "81a31fb46454265741c385440fb1ba7b08f08df390677f63aed3819d17d72312",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14c2rm-runtime.test.ts",
+      "old": [
+        "file",
+        "e01976a39afad6184bee74b9a3f6e0245ab11787f69706cdac68e9eb0e20e9a9",
+        384
+      ],
+      "new": [
+        "file",
+        "1304ed1612b02104ab6ab374741f0e1acfe8f70046a1724176ced4ccd6eef9c9",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14c2s-scientist-runtime.test.ts",
+      "old": [
+        "file",
+        "c6985d2c252fbd86f542d42dc1a47773e4d6cc49dc14f5f5aaf89d65b1e905f1",
+        384
+      ],
+      "new": [
+        "file",
+        "5c08e9876a30a4ec910317928f570b1bd930cd2412fc2a95a98356d48810fdab",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+      "old": [
+        "file",
+        "2286c9d50a854a645f24b3f611149e76e3d0fe6f08bbbc8ee1db25ec026135c5",
+        384
+      ],
+      "new": [
+        "file",
+        "c106c8dd5f8b5f8ae29585939ae1ad5304727384d57d3f8567107ba50ca0fe63",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14c3-runtime.test.ts",
+      "old": [
+        "file",
+        "85caf27f827ded68838bdbc160a24879df05f1a45aace84be7cf674ef17f2ab2",
+        384
+      ],
+      "new": [
+        "file",
+        "cdc352332627324136021858be722218b280b7437db9c67746bfcbf042a94c13",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14p3-directing-promises.test.ts",
+      "old": [
+        "file",
+        "63edf1b791e69107b6ad3addffbdef37b002909d450341bd2372bd90072e74fc",
+        384
+      ],
+      "new": [
+        "file",
+        "dee81ba54c055ea7f741102acc2a1fe38eb3f334822decb9b3a76f6d029c985e",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14p4p5-opportunities.test.ts",
+      "old": [
+        "file",
+        "c310afc1c9a4fd76359025f88b0ea92085acca7c3a66dac94d0bd141015bc7a0",
+        384
+      ],
+      "new": [
+        "file",
+        "1ff5a5e52357957822e313e1d2c2ee264e181d9e862624f8ebd964f8217771a7",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-p14r2r3-prior55.test.ts",
+      "old": [
+        "file",
+        "16737f7c7842401dd5b6a8b3ace130ffeeeef8535c15c12cbe8ba594e7babb96",
+        384
+      ],
+      "new": [
+        "file",
+        "58ce135ead23edf40fa3422a0733f2c4ceba09cd021e838d2fadb506e10d5834",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge-r3n4-read-model-deltas.test.ts",
+      "old": [
+        "file",
+        "d8527460f0b7218e66b58a48d1025b9943bd4487cbd066b7c568294c4d742bcb",
+        420
+      ],
+      "new": [
+        "file",
+        "52faf0824b998c446a960166fccf3781d20fa504e7812e0bd76e30239040a2f6",
+        420
+      ]
+    },
+    {
+      "path": "tests/bridge.test.ts",
+      "old": [
+        "file",
+        "25c63784f0a663713cb6c48b3d5c86b90c7c864c390ac71ee44b8754b2b96a7b",
+        420
+      ],
+      "new": [
+        "file",
+        "909c762eece8a32e170be288c2e05ae7819ad0bcf5278c2f53140cf070690483",
+        420
+      ]
+    },
+    {
+      "path": "tests/p11-finance-history-scale.test.ts",
+      "old": [
+        "file",
+        "018107d90340385699cc584112d2eb25667582936c986c6aa3f43a3357a94c4c",
+        420
+      ],
+      "new": [
+        "file",
+        "3641fbd788c43f1cfff8923491f72184ba48f09b5a880f41aeaa79bdc1fb555d",
+        420
+      ]
+    },
+    {
+      "path": "tests/p13b-s2-doc03.test.ts",
+      "old": [
+        "file",
+        "6749872f1ebed2870aca18f240d54e46a29dd21b9cc9cae5f2d41846effeef60",
+        420
+      ],
+      "new": [
+        "file",
+        "370f0a64327df5463f2b91952a12b2da0355e1e840733fc29ed807594b59b780",
+        420
+      ]
+    },
+    {
+      "path": "tests/p13b-s5-quotes.test.ts",
+      "old": [
+        "file",
+        "b0c6cd0204f39fc0191e6ec55d1ccd3727618ace710f554d6fe004bc9ffa468f",
+        420
+      ],
+      "new": [
+        "file",
+        "12537d6316e74d1d58d541af9192039292f99387064715ba11bf841c5d819211",
+        420
+      ]
+    },
+    {
+      "path": "tests/p14c2a-consumers.test.ts",
+      "old": [
+        "file",
+        "8012909c8ef162450490a97b34960444cc0ff9edd919b22db400726bbdfd2b56",
+        420
+      ],
+      "new": [
+        "file",
+        "30b99b51cd82f759044b70da0cea708a748f1adeb3e1bd44b2a71d0769751282",
+        420
+      ]
+    },
+    {
+      "path": "tests/p15a2-power-ranking-archive-isolation.test.ts",
+      "old": [
+        "file",
+        "232cbeff051128831ba129ac78a39f0fdd9c0b8acc60d152fd85bd308e6102ad",
+        384
+      ],
+      "new": [
+        "file",
+        "fdd6037ce1e7a00c92ec9545b830f1d92f7574fe3543cdef06db6621472a4c55",
+        420
+      ]
+    },
+    {
+      "path": "tests/p15b4-studio-closure.test.ts",
+      "old": [
+        "file",
+        "72d67fd62a727726c82e8b6fe3862f8de6083a88693ef45a04bf060ecc2e40cf",
+        384
+      ],
+      "new": [
+        "file",
+        "b8b2263ba0bc410e6919fb0c1b5e3211d9baa654f96d47bbd3676a21fb774f63",
+        420
+      ]
+    },
+    {
+      "path": "tests/p15c1-campaign-legacy.test.ts",
+      "old": [
+        "file",
+        "b7200d53af236f21051e9c61d4ef94a25abd2eca71be569f23439d77dcd62761",
+        420
+      ],
+      "new": [
+        "file",
+        "4b9f8770c2b534b8145a7df996e4dd3f6b5563b046c42c7102e6c8dd84efaa20",
+        420
+      ]
+    },
+    {
+      "path": "tests/p15c2-campaign-legacy-integration.test.ts",
+      "old": [
+        "file",
+        "d6e5f4446c0b2bd685f70de96cfda87c3a14eba17404715ba8d10872d07d9c60",
+        384
+      ],
+      "new": [
+        "file",
+        "931f63a734605370d473860c771f0fc50c38f50eff77246f7d8d28f21d628931",
+        420
+      ]
+    },
+    {
+      "path": "tests/p15c2-campaign-legacy-sibling.test.ts",
+      "old": [
+        "file",
+        "692efa2c2f5643449322358eda080e62548aadaea7c2f4dc4b1be37c428e1890",
+        420
+      ],
+      "new": [
+        "file",
+        "14bf8c073afc2e77dc33dae7379e2baa87e896683f17450f6f800d1e54b9baed",
+        420
+      ]
+    }
+  ],
+  "changedProductionCorePaths": [],
+  "inputIdentityChanges": [
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1052-c3-endurance-A-observer-fixed/authority-6240.json",
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1171-p3-current45-capture",
+    "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/ui-continuation/core-failures.txt",
+    "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p05a1-owner-profile-rev2.save.json",
+    "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p05a3-owner-profile-rev10.save.json",
+    "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p1364/generated-v45-late-draft",
+    "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p13b/genuine-v26-old-era-period-1363",
+    "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p13b/genuine-v26-period52-1368",
+    "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p14/genuine-v42-pre-shelving",
+    "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p14/genuine-v42-pre-shelving-week93",
+    "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p14/genuine-v45-recovery-predecessors-1363",
+    "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p14/genuine-v45-trust-authoring-week195-1368",
+    "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p14/genuine-v46-rival-writing-pre414-1368",
+    "/Users/zacheryspector/The-Movies-headless-program/tests/fixtures/p15/p15c2-route-l-captures",
+    "/Users/zacheryspector/The-Movies-headless-program/ui/public/lot/hollywood/role-atlas-v1.json",
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-auto-recorder-r4r2-draft/auto_freeze.py",
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-impl-r1-run/bridge-focused.json",
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-impl-r1-run/freeze.json",
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-d16-identity-accounting.py",
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-doc03-loan-r2-draft/runner.sh",
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-post-fullgate-lawful194-r2/MANIFEST.json",
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-post-fullgate-lawful194-r2/PATCH.diff",
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r2/MANIFEST.json",
+    "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-save48-nonleak-lawful-r2/PATCH.diff"
+  ],
+  "scope": "Source/input identity comparison only. Original fullgate failures and unreached coverage remain. Added runtimeinputinventory needs fresh affected44 run; no retroactive binding claim.",
+  "newlyBoundSourcePaths": [
+    "generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs",
+    "src/harness/d16/terminal.test.ts"
+  ],
+  "changedPreviouslyBoundSourcePaths": [
+    "src/harness/d16/driver.ts",
+    "tests/bridge-operations-events.test.ts",
+    "tests/bridge-owner-ux-projection21-schema.test.ts",
+    "tests/bridge-p10a-w0-people-projection.test.ts",
+    "tests/bridge-p11-capital-contributors.test.ts",
+    "tests/bridge-p11-ready.test.ts",
+    "tests/bridge-p13b-r07-setup.test.ts",
+    "tests/bridge-p13b-s1b-seats.test.ts",
+    "tests/bridge-p13b-s2-labs.test.ts",
+    "tests/bridge-p13b-s3-plans.test.ts",
+    "tests/bridge-p13b-s4-office.test.ts",
+    "tests/bridge-p13b-s5-adoption.test.ts",
+    "tests/bridge-p13b-s6-cancellation.test.ts",
+    "tests/bridge-p13b-s7-disclosure.test.ts",
+    "tests/bridge-p13b-s8-rivals.test.ts",
+    "tests/bridge-p14a1-market.test.ts",
+    "tests/bridge-p14a1-release-busy-set.test.ts",
+    "tests/bridge-p14a2-market.test.ts",
+    "tests/bridge-p14a3-world.test.ts",
+    "tests/bridge-p14b1-promises.test.ts",
+    "tests/bridge-p14b10-relationship-labels.test.ts",
+    "tests/bridge-p14b2-trust.test.ts",
+    "tests/bridge-p14b3-promise-command.test.ts",
+    "tests/bridge-p14b4-runtime47-compatibility.test.ts",
+    "tests/bridge-p14b5-relationships.test.ts",
+    "tests/bridge-p14b6-relationship-read-models.test.ts",
+    "tests/bridge-p14b7-promise-waiver.test.ts",
+    "tests/bridge-p14b8-waiver-surface.test.ts",
+    "tests/bridge-p14c2rm-runtime.test.ts",
+    "tests/bridge-p14c2s-scientist-runtime.test.ts",
+    "tests/bridge-p14c3-promise-digest-continuity.test.ts",
+    "tests/bridge-p14c3-runtime.test.ts",
+    "tests/bridge-p14p3-directing-promises.test.ts",
+    "tests/bridge-p14p4p5-opportunities.test.ts",
+    "tests/bridge-p14r2r3-prior55.test.ts",
+    "tests/bridge-r3n4-read-model-deltas.test.ts",
+    "tests/bridge.test.ts",
+    "tests/p11-finance-history-scale.test.ts",
+    "tests/p13b-s2-doc03.test.ts",
+    "tests/p13b-s5-quotes.test.ts",
+    "tests/p14c2a-consumers.test.ts",
+    "tests/p15a2-power-ranking-archive-isolation.test.ts",
+    "tests/p15b4-studio-closure.test.ts",
+    "tests/p15c1-campaign-legacy.test.ts",
+    "tests/p15c2-campaign-legacy-integration.test.ts",
+    "tests/p15c2-campaign-legacy-sibling.test.ts"
+  ],
+  "interpretation": "47 previously bound changed paths =45coretestfiles+2D16paths. No core production change. Unionfixture newly bound, not evidence of actual content change. Added/removed runtime input keys reflect different inventories; do not infer byte drift or retrospective binding from key difference."
+}

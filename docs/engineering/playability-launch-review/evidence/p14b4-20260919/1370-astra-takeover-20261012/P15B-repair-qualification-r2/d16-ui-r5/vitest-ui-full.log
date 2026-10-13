@@ -1,0 +1,2698 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |ui| ui/src/lot/hollywood/HollywoodScene.test.ts (99 tests) 675ms
+   ✓ HollywoodScene snapshot authority > keeps the exact successor command legal after the call settles the load-in in its own transaction 486ms
+stderr | ui/src/lot/StudioLotScreen.test.tsx > StudioLotScreen — host lifecycle + accessible companion navigation > 5. + 6. pauses when the tab is hidden and resumes when visible
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ |ui| ui/src/lot/StudioLotScreen.test.tsx (61 tests) 17837ms
+   ✓ StudioLotScreen — World-First Live Week Advance V1 host boundary > keeps the same focused renderer host through sequential authoritative snapshots 520ms
+   ✓ StudioLotScreen — World-First Live Week Advance V1 host boundary > records a scheduled Stage 7 take only after the authoritative weekly result 1032ms
+   ✓ StudioLotScreen — World-First Live Week Advance V1 host boundary > gives exact construction completion sole focus and suppresses duplicate Operational copy 563ms
+   ✓ StudioLotScreen — World-First Live Week Advance V1 host boundary > dismisses the construction card, and a LATER completion still announces itself 738ms
+   ✓ StudioLotScreen — World-First Live Week Advance V1 host boundary > suppresses Operational on the immediate deep return, then restores it on a fresh mount 428ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > moves Hollywood keyboard focus to each successor and announces the final take 550ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > selects and focuses the exact Stage 7 operation from a world event when Stage 12 is first 302ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > dispatches the field-exact Production Board command and yields a byte-identical outcome 426ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > revalidates a production event against the latest full managed and engine predicate 472ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > fails closed when an explicitly selected production disappears from the latest snapshot 343ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > gives the Stage 7 blocker and companion Stage A button equivalent in-lot selection 570ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > keeps complete SaveFileV11 and RNG bytes through camera and reduced-motion controls 404ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > handles a rejected command once, preserves exact live error and selection, and clears stale focus 430ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > clears a prior command error after the next accepted engine outcome 380ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > retains the semantic Stage 7 command path when renderer construction fails 321ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > keeps a selected person and the production command in one two-film inspector context 419ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > keeps all six exact company members selectable while only the assigned Director owns the call 735ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > clears semantic and physical person ownership when a company identity becomes duplicated 337ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > gives the exact physical polygon and semantic Administration companion one context, while hostile identity fails closed 345ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > converts an asynchronous Hollywood boot/runtime failure into the explicit semantic fallback 392ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > clears semantic and physical campaign selection when an accepted receipt names the wrong tier 311ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > clears semantic and physical campaign selection when an accepted receipt names the wrong week 302ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > accepts once through the Lot-safe owner, then repaints exact successor accounting and all-tier cooldown truth 405ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > produces the byte-exact existing Engine successor for an independent whisper Lot purchase 407ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > produces the byte-exact existing Engine successor for an independent push Lot purchase 448ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > produces the byte-exact existing Engine successor for an independent blitz Lot purchase 453ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > makes the complete Lot inert and blocks held/programmatic campaign actions while a profile modal is open 460ms
+stderr | ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > rejects a delayed hidden-tab compatibility tail and accepts a later fresh pointer boundary
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > rejects a delayed hidden-tab compatibility tail and accepts a later fresh pointer boundary
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ❯ |ui| ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx (36 tests | 2 failed) 64391ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > keeps an exact non-release stop on one mounted world, contains a stale repeat, and returns from the exact deep owner 2132ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > accepts a newly surfaced first draft in the mounted Lot with direct-adapter parity 668ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > requests the legal final rewrite from a newly surfaced review and reports its exact base slot 722ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > uses and repaints the operational Annex only when the accepted rewrite owns its exact slot 1613ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > opens an already-pending final review from Development, returns by exact identity, and accepts it in the same Lot 1035ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > rebuilds an imported pending review only after the player selects Development in the replacement Lot 950ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > returns neutral instead of substituting the next screenplay after the focused deep review is accepted 514ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > keeps the pending screenplay action complete when the Hollywood renderer fails 691ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > keeps the same Lot-native screenplay review and action in Classic semantic fallback 463ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > contains same-stack duplicate screenplay activation when the Engine rejects 536ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > restores the exact next-event screenplay ceremony after Engine rejection and permits a fresh retry 982ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > does not replay an already-Operational Annex announcement across an unchanged exact deep return 1270ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > consumes a script/completion co-event through a deep state successor without replaying either Annex announcement 1167ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > cancels a held rail action across renderer failure while preserving fresh semantic fallback 566ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > names the exact pending production problem when next-event cadence is disabled 491ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > rejects pointer-cancel compatibility recapture while keeping a fresh virtual activation 504ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > rejects a delayed compatibility tail after pointer blur and accepts a fresh physical boundary 481ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > rejects a delayed hidden-tab compatibility tail and accepts a later fresh pointer boundary 612ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > cannot recapture a delayed pointer tail onto an authoritative replacement state 673ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > revalidates an exact deep route against current truth and demotes stale detail without leaving the world 812ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > physically orients an exact Stage 7 decision and keeps the world command before either deep route 925ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > dismisses an exact Stage 7 reaction into a neutral world instead of retaining event-owned selection 1555ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > consumes one exact event world command before Engine dispatch and rejects its same-stack tail 1187ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > retains the exact event world command on Classic Lot rollback without inventing Hollywood presence 854ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > keeps an exact Stage 12 decision semantic without painting or substituting the Stage 7 production 1078ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > clears an unrelated selected production when a neutral event becomes the sole orientation 883ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > keeps a generic contract stop spatially neutral, claims no person, and focuses the Roster heading 2265ms
+   × World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > orients a cash stop to Administration and focuses the supporting Finances section 27542ms
+     → Unable to find an element by: [data-testid="lot-next-event-rail"]
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"card"[39m
+      [33mdata-recovery[39m=[32m"continuing"[39m
+      [33mdata-testid[39m=[32m"recovery-notice"[39m
+      [33mrole[39m=[32m"status"[39m
+      [33mstyle[39m=[32m"margin-bottom: 12px;"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"spread"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0mContinuing your studio — Week 0.[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"ghost"[39m
+          [33mdata-testid[39m=[32m"recovery-dismiss"[39m
+        [36m>[39m
+          [0mDismiss[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<h1>[39m
+        [0mClosed studio — read-only history[0m
+      [36m</h1>[39m
+      [36m<p>[39m
+        [0mWeek [0m
+        [0m144[0m
+      [36m</p>[39m
+      [36m<p[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [0mThe studio closed in Week 144. This world is read-only history. 15 employment claims: 0 paid in full, 0 partially paid, 15 unpaid; 0 paid and 3681340 unpaid. 0 obligations remain pending in this saved world.[0m
+      [36m</p>[39m
+      [36m<button[39m
+        [33mdata-testid[39m=[32m"lot-advance-week"[39m
+        [33mdisabled[39m=[32m""[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mAdvance one week[0m
+      [36m</button>[39m
+      [36m<button[39m
+        [33mdata-testid[39m=[32m"lot-open-saves"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mExport or load a save[0m
+      [36m</button>[39m
+      [36m<button[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mStudio history[0m
+      [36m</button>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Employment claims"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mEmployment claims[0m
+        [36m</h2>[39m
+        [36m<table>[39m
+          [36m<thead>[39m
+            [36m<tr>[39m
+              [36m<th>[39m
+                [0mClaimant[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mOriginal[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mPaid[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mUnpaid[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mStatus[0m
+              [36m</th>[39m
+            [36m</tr>[39m
+          [36m</thead>[39m
+          [36m<tbody>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mSpencer Fenwick[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$168,792[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$168,792[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mMarlon Salazar[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$266,292[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$266,292[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mLoretta Sable[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$175,916[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$175,916[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mErrol Larkin[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$104,910[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$104,910[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mMarion Vance[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$855,400[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$855,400[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mConrad Castellano[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$70,382[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$70,382[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mAdolphe Reyes[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$222,794[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$222,794[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mCary Halberstam[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$207,896[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$207,896[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mGenevieve Vollmer[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$210,...
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"card"[39m
+      [33mdata-recovery[39m=[32m"continuing"[39m
+      [33mdata-testid[39m=[32m"recovery-notice"[39m
+      [33mrole[39m=[32m"status"[39m
+      [33mstyle[39m=[32m"margin-bottom: 12px;"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"spread"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0mContinuing your studio — Week 0.[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"ghost"[39m
+          [33mdata-testid[39m=[32m"recovery-dismiss"[39m
+        [36m>[39m
+          [0mDismiss[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<h1>[39m
+        [0mClosed studio — read-only history[0m
+      [36m</h1>[39m
+      [36m<p>[39m
+        [0mWeek [0m
+        [0m144[0m
+      [36m</p>[39m
+      [36m<p[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [0mThe studio closed in Week 144. This world is read-only history. 15 employment claims: 0 paid in full, 0 partially paid, 15 unpaid; 0 paid and 3681340 unpaid. 0 obligations remain pending in this saved world.[0m
+      [36m</p>[39m
+      [36m<button[39m
+        [33mdata-testid[39m=[32m"lot-advance-week"[39m
+        [33mdisabled[39m=[32m""[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mAdvance one week[0m
+      [36m</button>[39m
+      [36m<button[39m
+        [33mdata-testid[39m=[32m"lot-open-saves"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mExport or load a save[0m
+      [36m</button>[39m
+      [36m<button[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mStudio history[0m
+      [36m</button>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Employment claims"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mEmployment claims[0m
+        [36m</h2>[39m
+        [36m<table>[39m
+          [36m<thead>[39m
+            [36m<tr>[39m
+              [36m<th>[39m
+                [0mClaimant[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mOriginal[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mPaid[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mUnpaid[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mStatus[0m
+              [36m</th>[39m
+            [36m</tr>[39m
+          [36m</thead>[39m
+          [36m<tbody>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mSpencer Fenwick[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$168,792[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$168,792[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mMarlon Salazar[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$266,292[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$266,292[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mLoretta Sable[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$175,916[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$175,916[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mErrol Larkin[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$104,910[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$104,910[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mMarion Vance[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$855,400[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$855,400[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mConrad Castellano[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$70,382[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$70,382[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mAdolphe Reyes[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$222,794[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$222,794[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mCary Halberstam[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$207,896[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$207,896[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mGenevieve Vollmer[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$210,...
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > accepts only neutral final facts when the primary receipt is malformed and retains one independently valid completion 1619ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > drops a malformed completion before non-release suppression or focus ownership 985ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > renders the exact 520-week guard as neutral and never fabricates a deep event target 744ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > keeps the canonical release route, owns a simultaneous completion once, and returns receipt-free to the Lot control 875ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > never forwards a malformed completion into the release chain 1092ms
+   × World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > preserves the exact live-world reaction after a rejected import or declined restart 2598ms
+     → Unable to find an element by: [data-testid="dashboard-releases-heading"]
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"card"[39m
+      [33mdata-recovery[39m=[32m"continuing"[39m
+      [33mdata-testid[39m=[32m"recovery-notice"[39m
+      [33mrole[39m=[32m"status"[39m
+      [33mstyle[39m=[32m"margin-bottom: 12px;"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"spread"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0mContinuing your studio — Week 13.[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"ghost"[39m
+          [33mdata-testid[39m=[32m"recovery-dismiss"[39m
+        [36m>[39m
+          [0mDismiss[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"lot-screen lot-hollywood"[39m
+      [33mdata-entry-focus[39m=[32m"next-event-reaction"[39m
+      [33mdata-testid[39m=[32m"studio-lot-screen"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-casting-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-production-formation-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-script-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"lot-topbar"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-brand"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"mark lot-studio-heading"[39m
+            [33mdata-testid[39m=[32m"lot-studio-heading"[39m
+            [33mtabindex[39m=[32m"-1"[39m
+          [36m>[39m
+            [0mPROJECT: STUDIO[0m
+          [36m</h1>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-sub"[39m
+          [36m>[39m
+            [0mStudio Chronicle · Hollywood, 1920 · Week 19[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-topbar-actions"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-cash-slot"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-cash"[39m
+              [33mdata-testid[39m=[32m"lot-cash"[39m
+            [36m>[39m
+              [0m$18,127,000[0m
+            [36m</span>[39m
+          [36m</span>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-transport"[39m
+            [33mdata-mode[39m=[32m"paused"[39m
+            [33mdata-paused-by[39m=[32m"none"[39m
+            [33mdata-speed[39m=[32m"1"[39m
+            [33mdata-testid[39m=[32m"lot-transport"[39m
+            [33mdata-week[39m=[32m"18"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33maria-pressed[39m=[32m"false"[39m
+              [33mclass[39m=[32m"lot-transport-run lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-transport-toggle"[39m
+              [33mtitle[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m▶[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mRoll[0m
+              [36m</span>[39m
+            [36m</button>[39m
+            [36m<div[39m
+              [33maria-label[39m=[32m"Pace"[39m
+              [33mclass[39m=[32m"lot-transport-speeds"[39m
+              [33mrole[39m=[32m"group"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33maria-pressed[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-transport-speed is-current"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-1"[39m
+                [33mtitle[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m1[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Brisk pace — twice as fast"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-2"[39m
+                [33mtitle[39m=[32m"Brisk pace — twice as fast"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m2[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-4"[39m
+                [33mtitle[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m4[0m
+                [0m×[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Advance one week"[39m
+            [33mclass[39m=[32m"primary lot-advance-week lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-advance-week"[39m
+            [33mtitle[39m=[32m"Advance one week"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▸[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mAdvance one week[0m
+            [36m</span>[3...
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"card"[39m
+      [33mdata-recovery[39m=[32m"continuing"[39m
+      [33mdata-testid[39m=[32m"recovery-notice"[39m
+      [33mrole[39m=[32m"status"[39m
+      [33mstyle[39m=[32m"margin-bottom: 12px;"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"spread"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0mContinuing your studio — Week 13.[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"ghost"[39m
+          [33mdata-testid[39m=[32m"recovery-dismiss"[39m
+        [36m>[39m
+          [0mDismiss[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"lot-screen lot-hollywood"[39m
+      [33mdata-entry-focus[39m=[32m"next-event-reaction"[39m
+      [33mdata-testid[39m=[32m"studio-lot-screen"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-casting-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-production-formation-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-script-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"lot-topbar"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-brand"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"mark lot-studio-heading"[39m
+            [33mdata-testid[39m=[32m"lot-studio-heading"[39m
+            [33mtabindex[39m=[32m"-1"[39m
+          [36m>[39m
+            [0mPROJECT: STUDIO[0m
+          [36m</h1>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-sub"[39m
+          [36m>[39m
+            [0mStudio Chronicle · Hollywood, 1920 · Week 19[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-topbar-actions"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-cash-slot"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-cash"[39m
+              [33mdata-testid[39m=[32m"lot-cash"[39m
+            [36m>[39m
+              [0m$18,127,000[0m
+            [36m</span>[39m
+          [36m</span>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-transport"[39m
+            [33mdata-mode[39m=[32m"paused"[39m
+            [33mdata-paused-by[39m=[32m"none"[39m
+            [33mdata-speed[39m=[32m"1"[39m
+            [33mdata-testid[39m=[32m"lot-transport"[39m
+            [33mdata-week[39m=[32m"18"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33maria-pressed[39m=[32m"false"[39m
+              [33mclass[39m=[32m"lot-transport-run lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-transport-toggle"[39m
+              [33mtitle[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m▶[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mRoll[0m
+              [36m</span>[39m
+            [36m</button>[39m
+            [36m<div[39m
+              [33maria-label[39m=[32m"Pace"[39m
+              [33mclass[39m=[32m"lot-transport-speeds"[39m
+              [33mrole[39m=[32m"group"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33maria-pressed[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-transport-speed is-current"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-1"[39m
+                [33mtitle[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m1[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Brisk pace — twice as fast"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-2"[39m
+                [33mtitle[39m=[32m"Brisk pace — twice as fast"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m2[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-4"[39m
+                [33mtitle[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m4[0m
+                [0m×[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Advance one week"[39m
+            [33mclass[39m=[32m"primary lot-advance-week lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-advance-week"[39m
+            [33mtitle[39m=[32m"Advance one week"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▸[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mAdvance one week[0m
+            [36m</span>[3...
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > clears every next-event transient across an accepted same-seed same-week whole-studio replacement 3032ms
+ ✓ |ui| ui/src/lot/WorldFirstAnnexConstruction.test.tsx (58 tests) 49233ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > accepts only exact physical Annex identity, projects every Vacant fact, and clears cleanly 861ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > fails closed when the visual Annex lifecycle is stale against the latest construction view 329ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > replaces person and production commands only inside the Annex inspector, then clears cleanly 997ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > dispatches the native Build button exactly once by Enter with no payload 341ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > dispatches the native Build button exactly once by Space with no payload 507ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > lets App own the one accepted start and repaints exact Building truth in the same lot 904ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > produces a byte-identical SaveFileV11 successor from lot and deep Studio Development 457ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > keeps Stage 7 operations and people alive while Annex context replaces only the inspector 1364ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > keeps selected Annex context through progress and gives completion sole focus 1411ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > reconstructs exact vacant truth after SaveFileV11 reload without replaying ceremony 345ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > reconstructs exact building truth after SaveFileV11 reload without replaying ceremony 630ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > reconstructs exact operational truth after SaveFileV11 reload without replaying ceremony 662ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > retains the complete semantic Annex path when renderer construction fails 323ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > accepts the exact construction transition under renderer rejection 670ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > accepts the exact construction transition under reduced motion 631ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > accepts the exact construction transition under procedural rollback 485ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > renders the exact unaffordable reason, focuses status, and dispatches no owner 308ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > announces the real stale-owner rejection, preserves latest bytes/RNG, restores focus, and clears pending 541ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > renders exact building truth as inspect-only and clears no authoritative state 574ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > renders exact operational truth as inspect-only and clears no authoritative state 728ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > keeps available Annex inspector truth and semantic companion state in parity 983ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > keeps working Annex inspector truth and semantic companion state in parity 1682ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > keeps held Annex inspector truth and semantic companion state in parity 1041ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > keeps neutral Annex inspector truth and semantic companion state in parity 964ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > loads native Working SaveFileV11 truth, exposes exact work, and emits identity only 1136ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > renders exact rewriting screenplay semantics and destination without person fiction 1037ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > renders exact auditioning casting session semantics and destination without person fiction 1040ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > renders exact production development semantics and destination without person fiction 1085ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > renders exact production pre-production semantics and destination without person fiction 1052ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > renders exact configured production hold semantics and destination without person fiction 1059ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > opens occupied Annex details at most once under repeated pointer activation 990ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > opens occupied Annex details at most once under repeated Enter activation 982ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > opens occupied Annex details at most once under repeated Space activation 983ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > does not let a pointer activation begun for one occupant open its replacement 1988ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > keeps the current world context, announces a rejected handoff, and permits a fresh retry 1130ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > focuses fresh Current work for annex-work entry and retains the semantic path on renderer failure 944ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > returns to fresh replacement truth instead of the prior Annex occupant 2057ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > returns to fresh released-slot truth as Available with no stale owner action 895ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > returns to configured Held truth and preserves its exact blocker semantics 910ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > suspends Annex inspection actions for the full profile-modal boundary 1090ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > routes native screenplay work through App and returns to fresh Annex work on the same Lot home 1462ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > resolves native casting work through the exact current session ID, never its title 1362ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > routes native production work to the exact Production Board card and returns directly to fresh work 1614ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > retains annex-work return only through the exact screenplay child route 1641ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > demotes annex-work when Writers Room opens a different screenplay child 1554ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > demotes annex-work when Casting Room opens the unrelated Roster child 1346ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > demotes production annex-work return after unrelated Dashboard navigation 1519ms
+ ✓ |ui| ui/src/lot/studio-lot-snapshot.test.ts (38 tests) 6139ms
+   ✓ studioLotSnapshot — authoritative, deterministic, invents nothing > 2. an imported SaveFileV4 yields the same week / cash / standing 584ms
+   ✓ studioLotSnapshot — authoritative, deterministic, invents nothing > 13b. projects the managed Annex parcel lifecycle without a lot-owned clock 713ms
+   ✓ studioLotSnapshot — managed Production Operations truth > projects exact Annex screenplay and casting occupants from ordinary allocation 724ms
+   ✓ studioLotSnapshot — managed Production Operations truth > maps exact Annex production reservations to expansion and joins Working/Held Calendar truth 446ms
+ ✓ |ui| ui/src/lot/WorldFirstSceneryLoadIn.test.tsx (33 tests) 70130ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > preserves a generic physical service-yard outline when no exact scenery selector exists 1462ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > revalidates exact physical service identity against the latest Engine projection before entry 1330ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > opens the exact load-in command from Picture Journey without executing it 1360ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > keeps Picture Journey detached from a selected same-title production 1307ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > routes a same-title blocker to the exact production identity 1195ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > rejects a physical scenery selection with wrong locationBuildingId without disturbing prior context 1225ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > rejects a physical scenery selection with wrong placeId without disturbing prior context 1449ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > physical service entry exposes every exact field and clears person, place, and Annex contexts 4615ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > semantic service entry via pointer is field-equivalent after clearing prior person context 2398ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > semantic service entry via Enter is field-equivalent after clearing prior place context 1436ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > semantic service entry via Space is field-equivalent after clearing prior Annex context 3535ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > completes inspect → Clear → Schedule through semantic truth when renderer construction fails 3948ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > completes semantic inspect → Clear → Schedule when canonical manifest selection fails 2753ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > selects exact Stage 7 with reversed multi-production order: Stage 12 first 1510ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > selects exact Stage 7 with reversed multi-production order: Stage 7 first 1583ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > produces one byte-identical successor from service yard, Stage 7, Production Board, and direct adapter 4842ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > continues blocked → ready → scheduled in one live context with direct SaveFile/RNG parity 4183ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > clears completed arrival feedback when the generic Stage 7 inspector schedules the take 2945ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > dispatches one field-exact clear command for one pointer activation 2845ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > dispatches one field-exact clear command for one Enter activation 1619ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > dispatches one field-exact clear command for one Space activation 1306ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > guards rapid repeated activation synchronously until accepted state replacement arrives 1296ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > treats a real pointer double-click across blocked → ready as one Clear gesture 1504ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > does not let one held Enter gesture dispatch the successor after blocked → ready repaint 1461ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > re-announces identical stale-clear rejections with fresh DOM identity while retaining truth 3424ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > re-announces identical schedule rejections with fresh DOM identity and no false Stage 7 selection 3055ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > fails closed for malformed or duplicate Stage 7 truth and clears a stale selected identity 1482ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > fails empty and clears the matching arrival activity after an external scheduled replacement 1420ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > fails empty and clears the matching arrival activity after an external duplicate replacement 1330ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > fails empty and clears the matching arrival activity after an external absent replacement 1437ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > follows a picture that moves to ANOTHER of the studio’s stages, and names it 1263ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > exits service context cleanly for physical person/place and semantic Annex selection 1609ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > loads direct ready truth without replaying clear and focuses the fresh schedule command 1997ms
+ ✓ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx (15 tests) 22481ms
+   ✓ Lot-native Casting review — App commit and handoff authority > commits the clear successor, invokes autosave, then opens the exact Package owner once 1873ms
+   ✓ Lot-native Casting review — App commit and handoff authority > contains retained Lot profile tails while the Package and its nested Profile own input 1024ms
+   ✓ Lot-native Casting review — App commit and handoff authority > cancels only the optional Package open when a current Lot Profile wins the handoff boundary 1318ms
+   ✓ Lot-native Casting review — App commit and handoff authority > accepts one exact Custom Talent successor without replacing the Lot, workspace, or Assembly owner 1312ms
+   ✓ Lot-native Casting review — App commit and handoff authority > keeps the committing successor above the same Lot until autosave, then publishes one live formation atomically 1052ms
+   ✓ Lot-native Casting review — App commit and handoff authority > commits a valid greenlight with a mismatched presentation receipt but exposes no formation guess 1010ms
+   ✓ Lot-native Casting review — App commit and handoff authority > retains an exact queued greenlight with project truth, no formation cue, and no invented production 1187ms
+   ✓ Lot-native Casting review — App commit and handoff authority > keeps a blocked accepted successor in the same mounted Lot and autosaves exact parity 2273ms
+   ✓ Lot-native Casting review — App commit and handoff authority > restores one rejected event ceremony and permits exactly one later fresh retry 1259ms
+   ✓ Lot-native Casting review — App commit and handoff authority > demotes a malformed Casting receipt neutrally, then permits only a later explicit pending action 1056ms
+   ✓ Lot-native Casting review — App commit and handoff authority > never lets stale Casting review closures demote or mutate a newer exact event 4373ms
+   ✓ Lot-native Casting review — App commit and handoff authority > invalidates retained Lot Casting callbacks synchronously when deep navigation starts 966ms
+   ✓ Lot-native Casting review — App commit and handoff authority > keeps the committed clear successor and autosave but cancels Package after Lot drift 1172ms
+   ✓ Lot-native Casting review — App commit and handoff authority > rejects retained Casting callbacks after the exact Lot presentation unmounts 1287ms
+   ✓ Lot-native Casting review — App commit and handoff authority > rejects retained Casting commands synchronously behind the Talent Profile modal 1314ms
+ ✓ |ui| ui/src/screens/d17a-decision-truth.test.tsx (34 tests) 14933ms
+   ✓ D-17A/T1 — the Roster and the Dashboard show ONE runway > roster-runway is character-for-character the Dashboard runway on the same state 480ms
+   ✓ D-17A/T2 — the break-even headline is cycle-inclusive > Budget & Forecast headlines the cycle-inclusive figure and keeps the direct figure labelled 2390ms
+   ✓ D-17A/T2 — the break-even headline is cycle-inclusive > shared occupancy is a NAMED second line at concurrency 2 — never blended, never a fraction 1004ms
+   ✓ D-17A/T2 — the break-even headline is cycle-inclusive > names its assumption: 8 + 6 weeks at today’s weekly burn, with no decimal on the week count 755ms
+   ✓ D-17A/T2 — the break-even headline is cycle-inclusive > the Review step headlines the same cycle-inclusive figure as Budget & Forecast 911ms
+   ✓ D-17A/T2 — Assembly wires the real cycle fixed cost into both panels > the Review step shows a studio-economic triple built from prospectiveCycleFixedCost 821ms
+   ✓ D-17A/T9 — the forecast-positive discipline is named at the decision > the budget step computes expected studio revenue − (commitment + cycle fixed cost) 963ms
+   ✓ D-17A/T9 — the forecast-positive discipline is named at the decision > the review step computes expected studio revenue − (commitment + cycle fixed cost) 991ms
+   ✓ D-17A/T9 — the forecast-positive discipline is named at the decision > is information, not auto-play: no ranking, no best-package marker, no recommendation 906ms
+   ✓ D-17A/T4 — Assembly shows the same three scopes as the Dashboard > renders the promoted read-model beside the budget picker, in D-15’s vocabulary 828ms
+   ✓ D-17A/T6 — the discoverability band is quantified, never hardcoded > states support vs threshold and the band the engine can actually produce 797ms
+   ✓ D-17A/T7 — marketing truth > reports spend against measured capacity, and the reach the campaign converts to 728ms
+   ✓ D-17A/T7 — marketing truth > DELETES the "most of this campaign is wasted" assertion and all steering language 575ms
+   ✓ D-17A/T7 — marketing truth > on screen the overexposure line appears only above the threshold ratio it names 863ms
+   ✓ D-17A/T7 — marketing truth > renders the active capacity-anchored grid as exact dollars and named multiples 769ms
+   ✓ D-17A/T8 — the autopsy narrates the confidence channel on its REAL basis > reports the FULL-GROSS return that moved the channel, not the studio-revenue one 532ms
+ ✓ |ui| ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx (28 tests) 21774ms
+   ✓ World Inspector Default V1 — no building click ever ejects > never navigates from any of the nine places, and always lands an in-world context 1963ms
+   ✓ World Inspector Default V1 — no building click ever ejects > lands the generic inspector — with name, role and live status — where no richer context applies 1672ms
+   ✓ World Inspector Default V1 — no building click ever ejects > reaches the canonical deep screen ONLY through the explicit details action 2548ms
+   ✓ World Inspector Default V1 — no building click ever ejects > routes canvas intent and semantic companion activation to the same owner 446ms
+   ✓ World Inspector Default V1 — no building click ever ejects > prints the shared Development & Casting occupancy and the stage’s own idle truth 358ms
+   ✓ World Inspector Default V1 — no building click ever ejects > moves focus into the in-world panel it just opened 311ms
+   ✓ the camera grammar — selection frames, and the whole property is always one control away > keeps the retained contexts asking the world to bring their place into view 318ms
+   ✓ the camera grammar — selection frames, and the whole property is always one control away > never asks the world to reframe for an ORDINARY inspector — the quiet half of the grammar 683ms
+   ✓ M-B — the buildings carry the verbs the guidance names > never lets any place print its blocks out of the canonical order 6693ms
+   ✓ M-B — the buildings carry the verbs the guidance names > routes the Commission verb to the commission intent, and the deep ghost to Development 540ms
+   ✓ M-B — the buildings carry the verbs the guidance names > F4: offers the Commission verb while a screenplay is already being written 301ms
+   ✓ M-B — the buildings carry the verbs the guidance names > F4: offers it with an accepted screenplay waiting on casting, too 472ms
+   ✓ M-B — the buildings carry the verbs the guidance names > names the picture in Casting’s audition verb, and prefers the retained in-world planner 436ms
+   ✓ M-B — the buildings carry the verbs the guidance names > falls back to the existing deep Casting path rather than leaving a dead button 335ms
+   ✓ M-B — the buildings carry the verbs the guidance names > reads the deep ghosts in plain language, never in internal screen names 360ms
+   ✓ M-B — the audition verb is a first-class retained-planner origin > opens the in-world planner over the live lot when the companion rail cannot vouch for it 956ms
+   ✓ M-B — the audition verb is a first-class retained-planner origin > still refuses — and still never dead-ends — when the verb cannot prove ITSELF either 786ms
+   ✓ M-B — the audition verb is a first-class retained-planner origin > keeps the companion rail a first-class origin of its own 449ms
+ ✓ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx (10 tests) 24514ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > reviews all six event-owned observations in the Lot, keeps deep detail optional, then hands the clear successor to Package 3208ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer 4004ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > keeps a blocked acknowledgement and every current remedy on the same mounted fallback Lot 3206ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > keeps the complete blocked world action available in the Classic physical fallback 2085ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > preserves the clear Classic rollback route as standalone Package Assembly 1583ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > rebuilds an imported pending review only after Casting is selected in the replacement Lot 3271ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > keeps a malformed current Casting decision neutral instead of falling through to Casting Room 1480ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > keeps a thrown current-decision adapter neutral 1186ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > lands the in-world Casting inspector when no current studio decision exists, and still reaches the Casting Room by explicit choice 1315ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > dispatches the first same-title session from the Lot and returns neutral instead of substituting the later review 3174ms
+ ✓ |ui| ui/src/lot/WorldFirstLotRetainedCommissioningWorkspaceAppAuthority.test.tsx (15 tests) 6889ms
+   ✓ World-first retained screenplay commissioning — App authority > keeps one Lot and canvas mounted, suspends world input, and cancels byte-neutrally to its opener 1056ms
+   ✓ World-first retained screenplay commissioning — App authority > rejects an old Lot navigation callback after a newer exact presentation mounts 485ms
+   ✓ World-first retained screenplay commissioning — App authority > dispatches once, rejects the same stale activation, autosaves before close, and publishes one consumable receipt 631ms
+   ✓ World-first retained screenplay commissioning — App authority > keeps an accepted successor when strict receipt presentation fails and guesses no witness 443ms
+   ✓ World-first retained screenplay commissioning — App authority > retains an exact queued successor with truthful copy, no commit cue, and no invented project 499ms
+   ✓ World-first retained screenplay commissioning — App authority > keeps an Engine rejection and draft in place, suppresses its duplicate, then permits a changed retry 667ms
+   ✓ World-first retained screenplay commissioning — App authority > keeps constrained capacity IN THE WORLD and opens the retained queueable commission 325ms
+   ✓ World-first retained screenplay commissioning — App authority > F4: keeps active work IN THE WORLD and opens the retained workspace on a free room 339ms
+   ✓ World-first retained screenplay commissioning — App authority > F4: keeps a Ready screenplay IN THE WORLD and opens the retained workspace on a free room 383ms
+   ✓ World-first retained screenplay commissioning — App authority > preserves the Operation Hollywood-off full Writers Room fallback 315ms
+   ✓ World-first retained screenplay commissioning — App authority > contains a closed workspace callback after a newer commission owner opens 373ms
+   ✓ World-first retained screenplay commissioning — App authority > clears a retained owner before an accepted whole-studio replacement can publish 445ms
+   ✓ World-first retained screenplay commissioning — App authority > contains retained callbacks after App teardown 305ms
+   ✓ World-first retained screenplay commissioning — App authority > contains a retained form callback after explicit replacement by the full Writers Room 320ms
+ ✓ |ui| ui/src/test/contracts/audio-service.contract.test.ts (56 tests | 5 skipped) 41ms
+ ✓ |ui| ui/src/lot/tycoon/world.test.ts (60 tests) 1041ms
+   ✓ tycoon world — presence anchors and commutes (M3-UI) > never walks a commute THROUGH a building — the whole path, densely sampled 811ms
+ ✓ |ui| ui/src/lot/WorldFirstLotRetainedAuditionPlanningAppAuthority.test.tsx (13 tests) 8330ms
+   ✓ World-first retained audition planning — App authority > keeps one Lot/canvas mounted and cancels byte-neutrally to the exact Casting opener 1245ms
+   ✓ World-first retained audition planning — App authority > dispatches once, autosaves before close, and publishes one exact consumable receipt 887ms
+   ✓ World-first retained audition planning — App authority > keeps an exact rejection across hidden and unchanged tails, then retries only the genuinely revised slate 1380ms
+   ✓ World-first retained audition planning — App authority > submits only the exact draft currently owned by App 812ms
+   ✓ World-first retained audition planning — App authority > contains an old submit callback after a genuine draft revision 433ms
+   ✓ World-first retained audition planning — App authority > contains an old cancel callback after a genuine draft revision 425ms
+   ✓ World-first retained audition planning — App authority > contains an old details callback after a genuine draft revision 489ms
+   ✓ World-first retained audition planning — App authority > keeps an accepted successor when receipt presentation fails and guesses no witness 457ms
+   ✓ World-first retained audition planning — App authority > opens the exact project in full Casting details without starting a session 446ms
+   ✓ World-first retained audition planning — App authority > contains a stale workspace callback after an accepted whole-studio replacement 456ms
+   ✓ World-first retained audition planning — App authority > blocks retained audition planning while an exact next-event session owns the Lot transition 584ms
+   ✓ World-first retained audition planning — App authority > preserves the full Casting Room fallback when Operation Hollywood is off 318ms
+   ✓ World-first retained audition planning — App authority > contains retained callbacks after App teardown 395ms
+stderr | ui/src/lot/WorldFirstGateTalentArrival.test.tsx > World-First Studio Gate Talent Arrival V1 — StudioLotScreen contract > cancels a begun pointer gesture while hidden and keeps fresh visible activation exact-once
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ |ui| ui/src/lot/WorldFirstGateTalentArrival.test.tsx (22 tests) 8189ms
+   ✓ World-First Studio Gate Talent Arrival V1 — StudioLotScreen contract > closes one stale Gate-origin profile, restores fresh Gate focus, and never resurrects it 541ms
+   ✓ World-First Studio Gate Talent Arrival V1 — StudioLotScreen contract > feeds delayed renderer readiness the latest snapshot and visitor fields 469ms
+   ✓ World-First Studio Gate Talent Arrival V1 — StudioLotScreen contract > keeps complete semantic Gate play available after renderer failure 328ms
+   ✓ World-First Studio Gate Talent Arrival V1 — StudioLotScreen contract > hands off the exact current candidate to profile at most once 323ms
+   ✓ World-First Studio Gate Talent Arrival V1 — StudioLotScreen contract > rejects a stale pointer token after retained-candidate terms and week change 412ms
+   ✓ World-First Studio Gate Talent Arrival V1 — StudioLotScreen contract > clears a replaced candidate to the neutral Gate without selecting a substitute 414ms
+   ✓ World-First Studio Gate Talent Arrival V1 — StudioLotScreen contract > cancels a begun pointer gesture across a modal and accepts only a fresh boundary 1132ms
+   ✓ World-First Studio Gate Talent Arrival V1 — StudioLotScreen contract > allows one fresh virtual-AT click after pointer cancellation 429ms
+   ✓ World-First Studio Gate Talent Arrival V1 — StudioLotScreen contract > allows at most one owner call across held-key repetition and synthetic click 394ms
+   ✓ World-First Studio Gate Talent Arrival V1 — StudioLotScreen contract > does not retry a rejected keyboard owner through its synthetic click 495ms
+   ✓ World-First Studio Gate Talent Arrival V1 — StudioLotScreen contract > blocks a second held key but permits a fresh rejected-key retry after keyup without a click 367ms
+   ✓ World-First Studio Gate Talent Arrival V1 — StudioLotScreen contract > keeps more than eight arrivals as complete native semantic controls 785ms
+ ✓ |ui| ui/src/lot/snapshot/castingReview.test.ts (17 tests) 2845ms
+   ✓ strict Lot casting review context > copies all six persisted rows in canonical role order with exact current evidence and sole clear action 631ms
+ ✓ |ui| ui/src/lot/buildingInspector.test.ts (41 tests) 63ms
+ ✓ |ui| ui/src/lot/LotNextEventRail.test.tsx (18 tests) 750ms
+ ✓ |ui| ui/src/screens/film-package.test.tsx (14 tests) 5092ms
+   ✓ crew: the Production/Craft Lead is assigned and contributes to the result > two films differing ONLY in the Production/Craft Lead produce different craft output 1219ms
+   ✓ candidate cards: default sort is by Project Fit; fame does not outrank Fit > the picker lists candidates in descending Project Fit order by default 458ms
+   ✓ candidate cards: default sort is by Project Fit; fame does not outrank Fit > a higher-fame candidate does NOT rank above a higher-Fit candidate by default 333ms
+   ✓ owner-ruling filters: each new control narrows the candidate pool > OVR range (min) keeps exactly the candidates with card OVR ≥ the threshold 344ms
+   ✓ owner-ruling filters: each new control narrows the candidate pool > genre-experience threshold keeps exactly the candidates with card genreExp ≥ the threshold 410ms
+   ✓ change preview: a swap in the wizard shows the resulting package change > the Film Package summary + a change preview appear, and swapping updates them 1092ms
+ ✓ |ui| ui/src/lot/WorldFirstGreenlightProductionFormation.test.tsx (14 tests) 7551ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > consumes a live formation once in the same mounted Lot after modal suspension clears 556ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > returns to the exact formed picture, frames its Director in the ready world, and keeps its Lead independently selectable 464ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > selects the receipt-owned second picture and Director instead of the array-first active production 774ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > clears mounted formation to neutral after missing operation invalidates the exact join, without selecting another picture 737ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > clears mounted formation to neutral after duplicate operation invalidates the exact join, without selecting another picture 654ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > clears mounted formation to neutral after missing Director invalidates the exact join, without selecting another picture 623ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > clears mounted formation to neutral after duplicate Lead invalidates the exact join, without selecting another picture 712ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > rejects a stale receipt to an explicit neutral Lot with no replacement picture or acknowledgement 308ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > does not replay a consumed formation witness across repeated renderer readiness, ordinary rerender, or profile open/close suspension 708ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > does not infer a formation ceremony when the accepted post-greenlight state is freshly remounted without its transient receipt 492ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > retains exact semantic picture and person facts when renderer construction is rejected 344ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > keeps the exact picture and Director through mounted Engine advance while consuming the one-shot witness 468ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > reconciles delayed renderer readiness against the latest still-valid phase, never the mount snapshot 564ms
+ ✓ |ui| ui/src/screens/casting-sessions-ui.test.tsx (11 tests) 3304ms
+   ✓ Casting Sessions V1 — player-facing flow > disables a prepared slate when a selected actor becomes busy but planning stays legal 488ms
+   ✓ Casting Sessions V1 — player-facing flow > stops at review, shows only Est. evidence beside Fit, then opens a blank package 774ms
+   ✓ Casting Sessions V1 — player-facing flow > hands completed review to an announced, focused blank package after navigation 511ms
+ ✓ |ui| ui/src/lot/snapshot/auditionPlanning.test.ts (14 tests) 5668ms
+   ✓ current Lot audition-planning context > plans the studio’s SECOND picture, with a finished camera test already on the books 877ms
+   ✓ current Lot audition-planning context > refuses while any session is still in flight, even one the board files under history 367ms
+   ✓ current Lot audition-planning context > rejects malformed, sparse, decorated, contradictory, or throwing complete boards 443ms
+   ✓ accepted Lot audition-planning receipt > accepts lawful signed zero through the current JSON boundary while rejecting NaN and decoration 409ms
+   ✓ accepted Lot audition-planning receipt > accepts the exact direct action, canonical reservation, six read order, and current truth 338ms
+   ✓ accepted Lot audition-planning receipt > rejects same-state, non-casting mutation, noncanonical session/reservation, and substituted slate 831ms
+   ✓ accepted Lot audition-planning receipt > accepts a legally duplicated name, and still rejects an unfaithful or decorated receipt 466ms
+   ✓ accepted Lot audition-planning receipt > rejects every stale current-state identity and every closed receipt-field substitution 889ms
+ ✓ |ui| ui/src/lot/StudioLotView.hollywood.test.ts (19 tests) 32ms
+ ✓ |ui| ui/src/lot/snapshot/scriptReview.test.ts (19 tests) 1807ms
+   ✓ current Lot screenplay review context > exposes the final-draft review with Accept only and preserves all player-safe assessment arrays 399ms
+   ✓ accepted Lot screenplay review successor proof > names the studio’s own writer on an original, and the working title they gave it 307ms
+ ✓ |ui| ui/src/screens/studio-development-ui.test.tsx (16 tests) 9367ms
+   ✓ Development & Casting Annex player experience > owns the one start action and moves accessibly from Vacant to Building to Operational 1445ms
+   ✓ Development & Casting Annex player experience > reloads exact Building progress without replaying the debit or start ceremony 665ms
+   ✓ Development & Casting Annex player experience > shows ordinary Advance completion once when no film releases, then clears it 1029ms
+   ✓ Development & Casting Annex player experience > keeps a no-release Annex completion on the same mounted lot with one focus owner 1035ms
+   ✓ Development & Casting Annex player experience > repaints exact intermediate Annex progress in the same mounted lot 636ms
+   ✓ Development & Casting Annex player experience > keeps release priority, reports completion first on Newspaper, and never repeats after Continue 623ms
+   ✓ Development & Casting Annex player experience > returns a lot-origin release plus Annex completion without repeating Operational 812ms
+   ✓ Development & Casting Annex player experience > carries a lot-origin completion context through Newspaper Autopsy back to the lot 902ms
+   ✓ Development & Casting Annex player experience > newspaper-to-autopsy bypass still consumes the same-tick completion exactly once 621ms
+   ✓ Development & Casting Annex player experience > renders Dashboard construction as positive capital spend while period accounting remains signed 579ms
+   ✓ Development & Casting Annex player experience > announces Operational and the new capacity when returning to Calendar and lot 400ms
+ ✓ |ui| ui/src/lot/facilityMutation.test.ts (11 tests) 3693ms
+   ✓ C1-M3b — the words never invent a name and never print an engine word > calls a construction site a construction site, and names the write-off (C1-M8) 1246ms
+   ✓ C1-M3b — a facility the studio built offers both verbs > offers them enabled, with the engine’s own refund, and never on other bodies 678ms
+ ✓ |ui| ui/src/lot/livingTurn.parity.test.tsx (10 tests) 31066ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (a) by hand at the seam — the manual verb, pressed twelve times 2972ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (b) by the living loop at 1× — one press of Roll, then nothing at all 4147ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (b′) by the living loop at 4× — the same weeks, a quarter of the wall time 3531ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (c) paused and resumed arbitrarily, including mid-week 4626ms
+   ✓ C2a-M5 — and the four are one studio > exports FOUR byte-identical saves from four different ways of spending time 8252ms
+   ✓ Wave5 mounted warning presents terms before lawful loan commit and autosaves one receipt 2282ms
+   ✓ Wave5 living loop commits terminal once and keeps history/export accessible without operating verbs 3143ms
+   ✓ Wave5 stale mounted loan callback refuses changed owner terms without session writes 1888ms
+ ✓ |ui| ui/src/lot/LotCastingReviewPanel.test.tsx (13 tests) 1025ms
+   ✓ LotCastingReviewPanel > renders all six advisory rows in frozen role order and keeps the exact action before deep detail 325ms
+ ✓ |ui| ui/src/test/contracts/event-grammar.contract.test.ts (26 tests) 39ms
+ ✓ |ui| ui/src/lot/WorldFirstBuildModeV1.test.tsx (20 tests) 10045ms
+   ✓ Build Mode V1 — a parcel is a place, and clicking it stays in the world > offers every buildable parcel except the legacy Annex ground, which keeps its own row 314ms
+   ✓ Build Mode V1 — a parcel is a place, and clicking it stays in the world > lands the in-world parcel panel and never navigates 425ms
+   ✓ Build Mode V1 — a parcel is a place, and clicking it stays in the world > moves focus into the panel it just opened 310ms
+   ✓ Build Mode V1 — catalog, ghost, and quote > renders a real catalog with the blueprint’s whole economic story 353ms
+   ✓ Build Mode V1 — catalog, ghost, and quote > paints a UI-only ghost with a verdict for EVERY cell, and a full cost box 651ms
+   ✓ Build Mode V1 — catalog, ghost, and quote > moves the origin by keyboard, bumping the draft revision, and repaints the ghost 604ms
+   ✓ Build Mode V1 — catalog, ghost, and quote > clamps the draft INTO its parcel instead of sliding it off 1003ms
+   ✓ Build Mode V1 — catalog, ghost, and quote > accepts a pointer origin from the world, and ignores one for a parcel it has left 553ms
+   ✓ Build Mode V1 — catalog, ghost, and quote > shows the primary rejection in words and refuses the commit 530ms
+   ✓ Build Mode V1 — commit, receipt, and cancel > sends only a blueprint id and an origin, and shows a receipt naming both numbers 541ms
+   ✓ Build Mode V1 — commit, receipt, and cancel > repaints the parcel panel as a construction site over the same mounted world 527ms
+   ✓ Build Mode V1 — commit, receipt, and cancel > keeps the draft and prints the Engine’s exact words when the commit is refused 668ms
+   ✓ Build Mode V1 — commit, receipt, and cancel > cancels byte-neutrally — no action, no state, no ghost 699ms
+   ✓ Build Mode V1 — commit, receipt, and cancel > proves two annexes on two parcels coexist in the world and in both inspectors 429ms
+   ✓ Build Mode V1 — commit, receipt, and cancel > shows the operational building, its capacity and its running cost, after the clock runs out 1214ms
+   ✓ Build Mode V1 — the retained Annex context is untouched > releases an open parcel panel when a building takes the rail 345ms
+ ✓ |ui| ui/src/test/contracts/advance-week-grammar.contract.test.ts (34 tests) 29ms
+ ✓ |ui| ui/src/screens/studio-calendar-ui.test.tsx (13 tests) 3434ms
+   ✓ Studio Calendar V1 — player surface > renders exact managed slots, committed/conditional semantics, and focuses its heading without mutating state 529ms
+   ✓ Studio Calendar V1 — player surface > routes the authoritative production decision to its live command and focuses it 509ms
+   ✓ Studio Calendar V1 — player surface > routes a locked theatrical receipt to the exact active run and focuses it 778ms
+ ✓ |ui| ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts (13 tests) 2869ms
+   ✓ P05A W2 — closed operational states across the lifecycle > walks one picture through the closed states without ever guessing 333ms
+   ✓ P05A W2 — closed operational states across the lifecycle > the guidance card agrees with the rail on the wrapped-waiting oracle fixture — never SHOOTING (P06C §5) 1058ms
+   ✓ P05A W2 — closed operational states across the lifecycle > the rail, the world Stage card, the workspace source and the guidance card all agree for the wrapped-waiting picture (P06D item 2) 868ms
+stderr | ui/src/lot/WorldFirstStage7ProductionDetailHandoff.test.tsx > World-First Selected Stage 7 Production Detail Handoff — Lot boundary > cancels a begun pointer gesture across hidden-resume and requires one fresh boundary
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ |ui| ui/src/lot/WorldFirstStage7ProductionDetailHandoff.test.tsx (15 tests) 17632ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > keeps the default desk non-eligible, then exposes the exact secondary action after physical Stage 7 selection 1385ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > grants the same exact context from native Stage A while renderer creation fails 985ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > never grants detail provenance from the generic production rail or a named person 1264ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > retains world provenance through the exact blocker → load-in → schedule continuation 1422ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > rejects a gesture whose rendered title changed before click and focuses fresh Stage 7 truth 1325ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > keeps the Lot mounted and returns focus to current truth when App rejects the handoff 1225ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > allows at most one owner call across double click and held-key repetition 1114ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > suspends a begun gesture at the modal boundary and accepts only a fresh later activation 1297ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > cancels a begun pointer gesture across renderer-failure and requires one fresh boundary 1231ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > cancels a begun pointer gesture across delayed-ready and requires one fresh boundary 1184ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > cancels a begun pointer gesture across hidden-resume and requires one fresh boundary 1193ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > keeps a fresh virtual-AT click available after a cancelled pointer gesture 1032ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > restores fresh semantic context immediately and the physical outline after delayed renderer ready 1081ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > returns an invalid duplicate Stage 7 identity to neutral Lot truth without selecting a replacement 940ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > returns a relocated original plus one valid replacement to neutral truth without substitution 950ms
+ ✓ |ui| ui/src/screens/d12-beta-closure.test.tsx (12 tests) 10391ms
+   ✓ D-12 beta P1: Review forecast == persisted greenlight snapshot (same-week 2nd film) > P1: Sim to Next Event STOPS when a single theatrical run ends, applying the final payment once 821ms
+   ✓ D-12 beta P1: Review forecast == persisted greenlight snapshot (same-week 2nd film) > P3: opening newspaper separates PAID-this-week from PROJECTED full-run totals 326ms
+   ✓ D-12 beta P1: Review forecast == persisted greenlight snapshot (same-week 2nd film) > P4 (adversarial): a VAGUE-promise film never leaks raw factor detail or contradicts the brief 6207ms
+   ✓ D-12 P7: profitable films always get an engine-derived commercial strength > a profitable release lists at least one commercial strength (never "Nothing stood out") 1741ms
+ ✓ |ui| ui/src/lot/livingTurn.scheduler.test.tsx (13 tests) 19346ms
+   ✓ Living Turn V1 — the transport > offers hold/roll and the whole pace ladder, paused at 1x 798ms
+   ✓ Living Turn V1 — the transport > speaks about the studio, never about a scheduler 363ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > commits ONE authoritative week per witnessed week and nothing else 1090ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > runs 12 consecutive weeks with ZERO input and lands byte-identically 4641ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > speed changes the PACE and nothing else — 4x is four weeks in one week s time 1899ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > holding stops the weeks, and the studio stays exactly where it was 1549ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > a hidden tab is a held studio — living time never advances what nobody watches 961ms
+   ✓ Living Turn V1 — the partition, at the seam > auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week 2211ms
+   ✓ Living Turn V1 — the partition, at the seam > a NOTIFY-class wrap reaches the bulletin and the loop keeps working 1445ms
+   ✓ Living Turn V1 — the partition, at the seam > the bulletin clears on request 778ms
+   ✓ Living Turn V1 — the loop cannot stall silently, and the batch verb holds it > re-arms the week on screen when the cadence channel is cleared under a running loop 1540ms
+   ✓ Living Turn V1 — the loop cannot stall silently, and the batch verb holds it > the batch verb HOLDS the studio — a skipped batch was never witnessed time 1224ms
+   ✓ Living Turn V1 — the release week plays before its surfaces take over > the shipping week is witnessed, and the release surface follows it 843ms
+ ✓ |ui| ui/src/lot/NamedPersonWorkCareerInspectorV1.test.tsx (7 tests) 4077ms
+   ✓ World-First Named Person Work & Career Inspector V1 > shows exact managed Director and Lead facts, permits an exact cross-discipline profile, and emits only that ID 739ms
+   ✓ World-First Named Person Work & Career Inspector V1 > withholds career copy and profile handoff when whole-studio assignment identity is ambiguous 320ms
+   ✓ World-First Named Person Work & Career Inspector V1 > withholds assignment, career, and profile handoff when current-work projection is unavailable 347ms
+   ✓ World-First Named Person Work & Career Inspector V1 > keeps one mounted world and selected person while modal input suspension turns on and off 319ms
+   ✓ World-First Named Person Work & Career Inspector V1 > withholds Director dispatch from the selected Lead while retaining exact Director and picture interventions 811ms
+   ✓ World-First Named Person Work & Career Inspector V1 > closes once and moves focus to the surviving named-people group when the open person disappears 660ms
+   ✓ World-First Named Person Work & Career Inspector V1 > clears a raw open ID when the full handoff becomes invalid and never auto-reopens it 880ms
+ ✓ |ui| ui/src/lot/buildCatalog.test.ts (12 tests) 4612ms
+   ✓ C1-M5 — the catalog lists every blueprint, in the studio’s own words > counts what the studio owns without calling a hole in the ground a building 1052ms
+   ✓ C1-M5 — a lock that a studio can actually clear > locks Office III with its own sentence, then unlocks it IN THE SAME SESSION 509ms
+   ✓ C1-M5 — a lock that a studio can actually clear > names the highest standing tier in the commission form’s line, and only then 396ms
+   ✓ C1-M5 — every new blueprint is a fully presented world citizen > reports real capacity where a blueprint really has it 777ms
+   ✓ C1-M5 — every new blueprint is a fully presented world citizen > survives a second placement world and a demolished prerequisite 354ms
+   ✓ C1-M8 — an owned entry outranks a lock, and a superseded tier says so > reads an operating building as OWNED, never as locked out of a prerequisite 391ms
+   ✓ C1-M8 — an owned entry outranks a lock, and a superseded tier says so > notes the lower tier as superseded while the higher one stands 463ms
+ ✓ |ui| ui/src/engine/writer-credit-not-assignment.test.ts (13 tests) 1751ms
+   ✓ P04A.2 — two live pictures sharing ONE credited writer > reaches the state at all: both greenlights succeed and both credits are the same person 320ms
+   ✓ P04A.2 — two live pictures sharing ONE credited writer > (a) CONTROL — sharing a writer costs the world exactly one person, not eight 347ms
+ ✓ |ui| ui/src/lot/LotPictureGuidanceCard.test.tsx (40 tests) 511ms
+ ✓ |ui| ui/src/saves.test.tsx (18 tests) 13136ms
+   ✓ saves: export → import round-trips the EXACT state > importSaveJson(exportSaveJson(state)) has a serialized form equal to the original 652ms
+   ✓ saves: legacy V1 import (D-9.15) converts and reports the conversion > a legacy V1 save auto-loads, is flagged converted, and yields a playable current state 915ms
+   ✓ saves: legacy V1 import (D-9.15) converts and reports the conversion > the explicit "Import legacy V1 save" affordance converts and shows a conversion notice 970ms
+   ✓ saves: migration disclosure through real App navigation > shows a one-shot, version-neutral notice after an accepted V8 load leaves Saves 1424ms
+   ✓ saves: migration disclosure through real App navigation > keeps the live studio and emits no success notice when App rejects an import 413ms
+   ✓ saves: migration disclosure through real App navigation > carries the same version-neutral notice through a Start-screen V8 import 1100ms
+   ✓ saves: migration disclosure through real App navigation > discloses migration when App restores an older active-session envelope 866ms
+   ✓ Wave5 genuine47 normal import replaces App session prospectively without old notices 1724ms
+   ✓ Wave5 actual terminal import replaces active App state and reloads read-only with exact export/history 2542ms
+   ✓ Wave5 unsupported due-only draft refuses before App replacement or any autosave 1698ms
+ ✓ |ui| ui/src/lot/WorldFirstStudioHome.test.tsx (33 tests) 33708ms
+   ✓ Studio Home V1 — App world-root navigation > routes accepted Start imports through the canonical founded/founding home matrix 946ms
+   ✓ Studio Home V1 — App world-root navigation > returns explicit Publicity Dashboard details to fresh campaign context and demotes unrelated deep navigation 369ms
+   ✓ Studio Home V1 — App world-root navigation > keeps exact save/RNG/ledger bytes and adds no autosave write across pure root navigation 356ms
+   ✓ Studio Home V1 — App world-root navigation > carries Lot root through archived Clipping → Film Chronicle and direct Chronicle 1002ms
+   ✓ Studio Home V1 — App world-root navigation > discards old Lot origin and recovery notice on an accepted founded Saves import 301ms
+   ✓ Studio Home V1 — App world-root navigation > routes an accepted founding-draft Saves import to Founding, not either operating root 402ms
+   ✓ Studio Home V1 — App world-root navigation > carries Lot root through supporting Dashboard → Talent Hub 442ms
+   ✓ Studio Home V1 — App world-root navigation > retains Lot root through the latent/visible hub route 373ms
+   ✓ Studio Home V1 — App world-root navigation > preserves topbar focus through a supporting-Dashboard Sim result 11982ms
+   ✓ Studio Home V1 — App world-root navigation > preserves building focus through a supporting-Dashboard Sim result 13153ms
+ ✓ |ui| ui/src/lot/snapshot/scriptCommission.test.ts (14 tests) 4015ms
+   ✓ accepted screenplay commission receipt > accepts lawful signed zero through the current JSON boundary while rejecting NaN and decoration 363ms
+   ✓ accepted screenplay commission receipt > rejects same-state, studio, tick, RNG, mode, and every non-project mutation 308ms
+   ✓ accepted screenplay commission receipt > rejects missing, replaced, reordered, duplicate, noncanonical, or changed project facts 807ms
+   ✓ accepted screenplay commission receipt > requires the exact explicit payload and rejects malformed or widened payload copies 329ms
+   ✓ accepted screenplay commission receipt > requires a startable canonical before projection with a FREE SLOT and an available projected writer 437ms
+   ✓ current and same screenplay commission receipt > revalidates exact current project, names, timing, reservation, and capacity occupancy 405ms
+ ✓ |ui| ui/src/lot/WorldFirstProductionFormationApp.test.tsx (8 tests) 3605ms
+   ✓ Greenlight production formation — App owner boundary > independently accepts the exact current transition and gives only a Lot origin the typed receipt 1052ms
+   ✓ Greenlight production formation — App owner boundary > accepts an exact-before Engine successor with a mismatched receipt only through generic Lot return 356ms
+   ✓ Greenlight production formation — App owner boundary > does not replay formation after an ordinary non-modal Saves round trip 394ms
+   ✓ Greenlight production formation — App owner boundary > clears formation across an accepted same-seed colliding-ID save replacement and Lot remount 512ms
+   ✓ Greenlight production formation — App owner boundary > rejects a stale retained callback without recomputing, overwriting newer state, or navigating 300ms
+   ✓ Greenlight production formation — App owner boundary > keeps an exact receipt generic for Dashboard rollback origin 438ms
+ ✓ |ui| ui/src/presentation/wiring.test.tsx (15 tests) 4390ms
+   ✓ PF1-M2 — the transient notice lifecycle > keeps the announcement through the action that produced it 354ms
+   ✓ PF1-M2 — aria-only promotion > keeps the topbar to ONE ROW by compacting Saves and Settings, losing nothing 532ms
+   ✓ PF1-M2 — aria-only promotion > animates the promoted notice, and does not under reduced motion 339ms
+   ✓ PF1-M2 — punctuation at App’s advance gates > gives an ordinary week the quiet tick 761ms
+   ✓ PF1-M2 — punctuation at App’s advance gates > gives a facility completion its sting instead of the tick 1158ms
+ ✓ |ui| ui/src/screens/assembly-legality.test.tsx (10 tests) 3333ms
+   ✓ assembly legality: greenlight is blocked until every required choice is made > the Next button is disabled at the talent step until writer, director and 3 cast are chosen 1528ms
+   ✓ assembly legality: choosing one performer disables it in the other principal roles > the picked lead actor is disabled/unselectable in the antagonist and support pickers 610ms
+   ✓ assembly legality: review cost arithmetic equals what the adapter sends the engine > the budget-step Total committed cost equals negative + marketing + Σsalaries and equals totalCommittedCost() 882ms
+ ✓ |ui| ui/src/screens/d12-owner-ux.test.tsx (16 tests) 7976ms
+   ✓ A1: Create Custom Talent is prominent on the Talent step and preserves the draft > the Create Custom Talent action appears at the TOP of the Talent step, before the cast pickers 720ms
+   ✓ A1: Create Custom Talent is prominent on the Talent step and preserves the draft > opening the creator and returning keeps every film-package selection intact 1483ms
+   ✓ A1: Create Custom Talent is prominent on the Talent step and preserves the draft > the create action is not shown when the create seam is unavailable (no onStateChange) 328ms
+   ✓ A2: moving Talent → Budget & Forecast focuses the new step heading > after Next from Talent, the Budget & Forecast heading receives focus 931ms
+   ✓ A3: the budget step uses Production Budget, with the negative-cost helper > shows a Production Budget control and the negative-cost helper, not a bare "Negative budget" 993ms
+   ✓ A3: the budget step uses Production Budget, with the negative-cost helper > groups the decision under Your spending decision / Studio impact / Commercial outlook 909ms
+   ✓ A7/A8: autopsy Expected-vs-Actual labels and plain-English alignment > A7: Advanced Analysis names Expected/Actual Critic Score and Total Theatrical Gross 794ms
+   ✓ A7/A8: autopsy Expected-vs-Actual labels and plain-English alignment > A8: the default view explains Delivered Talent Alignment in plain English 532ms
+   ✓ A7/A8: autopsy Expected-vs-Actual labels and plain-English alignment > A8: raw contributor vectors live in a Technical Details disclosure, collapsed by default 327ms
+   ✓ A7/A8: autopsy Expected-vs-Actual labels and plain-English alignment > A8 (unit): deliveredAlignmentReport derives a band + opposed/aligned pair from the vectors 398ms
+   ✓ A9: same-week secondary releases carry full reception + financials > a secondary story shows title, critic, audience, opening, paid, projected totals and an autopsy link 340ms
+ ✓ |ui| ui/src/lot/LotScriptReviewPanel.test.tsx (15 tests) 619ms
+ ✓ |ui| ui/src/lot/snapshot/productionFormation.test.ts (15 tests) 718ms
+ ✓ |ui| ui/src/lot/snapshot/nextEvent.test.ts (6 tests) 5502ms
+   ✓ strict Lot next-event presentation boundary > accepts real screenplay, casting, and physical Stage 7 decision projections 600ms
+   ✓ strict Lot next-event presentation boundary > accepts exact run, cash, renewal, and expiry outcomes without inventing identity 3291ms
+   ✓ strict Lot next-event presentation boundary > validates Annex completion independently and retains it through primary neutral fallback 347ms
+   ✓ strict Lot next-event presentation boundary > keeps release and zero-week preflight outside exact receipts and accepts only the 520 guard neutral 424ms
+   ✓ strict Lot next-event presentation boundary > retains finite fractional money exactly but rejects bad provenance, numbers, shapes, and projections 553ms
+ ✓ |ui| ui/src/lot/snapshot/productionCompany.test.ts (32 tests) 55ms
+ ✓ |ui| ui/src/lot/WorldFirstLiveWeekAdvance.test.tsx (9 tests) 17363ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > returns a real building-origin deep route to that exact companion focus 842ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > pointer activation records Stage 7 through one exact App-owned tick 3576ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > keyboard activation records Stage 7 through one exact App-owned tick 1735ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > preserves the selected named person and production context through a same-world tick 1970ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > routes a real release without a Gazette to ReleaseResult and back to the initiating lot 2202ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > consumes the freshly rendered App state across two deliberate lot activations 2103ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > keeps reduced motion state/RNG/route/focus parity for an App-owned lot tick 2222ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > keeps the exact App-owned tick available when the renderer constructor fails 1216ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > returns from a no-Gazette ReleaseResult Autopsy to the initiating lot 1492ms
+ ✓ |ui| ui/src/lot/tycoon/buildings.test.ts (10 tests) 3638ms
+   ✓ C1-M1b — THREE placed facilities are three first-class world citizens > gives each its own id, label, ground and anchors, on the snapshot and in the world 929ms
+   ✓ C1-M1b — THREE placed facilities are three first-class world citizens > carries an availability and attention record for each, alongside the founding nine 1152ms
+   ✓ C1-M1b — THREE placed facilities are three first-class world citizens > inspects each of the three as itself — name, ground, cost and capacity 382ms
+   ✓ C1-M1b — THREE placed facilities are three first-class world citizens > resolves a distinct presence site for each, from its own blueprint template 374ms
+   ✓ C1-M1b — the legacy Annex contract survives every other placement > keeps `expansion` as the Annex with two more facilities standing elsewhere 439ms
+ ✓ |ui| ui/src/test/redteam/rt-announcement-law.redteam.test.tsx (17 tests) 4489ms
+   ✓ REDTEAM — the operational announcement across a committed action > a committed action does NOT remount the live-region line with identical text 1441ms
+   ✓ REDTEAM — the operational announcement across a committed action > and the epoch then expires it — one action of life, exactly as designed 1148ms
+   ✓ REDTEAM — the operational announcement across a committed action > a FRESH mount of a studio whose annex finished long ago replays no sting 623ms
+ ✓ |ui| ui/src/session.test.tsx (17 tests) 7939ms
+   ✓ D-12 active-session recovery — exact round-trip > refresh restores a founded studio exactly 478ms
+   ✓ D-12 active-session recovery — exact round-trip > restores an ACTIVE production mid-flight 314ms
+   ✓ D-12 active-session recovery — exact round-trip > restores a theatrical run mid-flight — week, payments received/remaining, no duplicate 1237ms
+   ✓ D-12 active-session recovery — exact round-trip > restores completed releases + their film records 757ms
+   ✓ D-12 active-session recovery — App startup > a valid autosave is RESTORED on mount (no new studio) with a continuation notice 308ms
+   ✓ D-12 active-session recovery — App startup > keeps restored Chronicle, Clipping, and session-only Autopsy as three honest paths 882ms
+   ✓ D-17A fix-pass — a stored V5 autosave migrates on load > an ENGAGED V5 session restores with the flag true and the converted banner 957ms
+   ✓ D-17A fix-pass — a stored V5 autosave migrates on load > a NEVER-ENGAGED headless V5 session restores with the flag false 1299ms
+   ✓ Script Projects V1 — a stored V8 autosave migrates on load > preserves operations, seeds legacy screenplay and casting state, then re-saves as V15 918ms
+ ✓ |ui| ui/src/screens/production-operations-ui.test.tsx (11 tests) 2481ms
+   ✓ Production Operations V1 UI boundary > falls back to the stable board heading when a requested production ID is duplicated 517ms
+   ✓ Production Operations V1 UI boundary > moves keyboard focus through the command chain and announces the final scheduled state 591ms
+   ✓ Production Operations V1 UI boundary > runs the two-command shooting chain through engine actions and advances only once scheduled 351ms
+ ✓ |ui| ui/src/screens/development-summary.test.tsx (13 tests) 10792ms
+   ✓ RULING A: development is on in play and produces a per-participant summary > advanceWeek develops the participants (some skill moves across the release) 1554ms
+   ✓ RULING A: development is on in play and produces a per-participant summary > the summary lists every participating talent for the released film 805ms
+   ✓ RULING A: development is on in play and produces a per-participant summary > participants who gained nothing show "No measurable professional-skill increase" 754ms
+   ✓ RULING A: development is on in play and produces a per-participant summary > re-building the summary from the same snapshots is idempotent (no double-count on reload) 479ms
+   ✓ RULING A: development is on in play and produces a per-participant summary > D-14 §7: the ReleaseResult screen shows the CANONICAL Career Impact (development summary superseded) 735ms
+   ✓ RULING A: development is on in play and produces a per-participant summary > WE/approaching-range notes are truthful — only present when the factor applies 450ms
+   ✓ RULING A: the development summary leaks no hidden ceiling / roll / true potential > no participant line or note contains a hidden ceiling value or a raw roll/potential 749ms
+   ✓ RULING B: capability is distinct from credited career identity > after a release, the performing disciplines become credited identity 1239ms
+   ✓ RULING B: capability is distinct from credited career identity > the Hub roster renders the identity line (credited or capable-but-unproven, never faked) 3350ms
+   ✓ RULING C: shape reasons come from the shared projectSkillWeights path > a reason is only emitted when the shape MATERIALLY moves the skill weight (shared fn) 517ms
+ ✓ |ui| ui/src/screens/talent-creator.test.tsx (17 tests) 7092ms
+   ✓ D-12 P3: age is an accessible integer dropdown (18–70), default 18, preserved to Review > defaults to 18 and is a <select> bounded strictly to 18–70 616ms
+   ✓ D-12 P3: age is an accessible integer dropdown (18–70), default 18, preserved to Review > selects 33 directly and preserves it across steps to Review & Contract 921ms
+   ✓ talent creator: valid talent appears in the correct pool (D-11.C Balanced flow) > creating an actor adds exactly one authored actor to the actor pool 1514ms
+   ✓ talent creator: valid talent appears in the correct pool (D-11.C Balanced flow) > creating a writer lands the authored talent in the WRITER pool, not others 471ms
+   ✓ talent creator: the creation maps deterministically (same inputs → same talent) > two identical BALANCED creations on the same seed produce byte-identical talent 374ms
+   ✓ talent creator: honest presentation — OVR is derived, the player never sets skill or fame > the created Balanced talent has derived skill, perceived===actual and authored===true (skill/fame never player-set) 489ms
+   ✓ talent creator: the UI cannot submit an over-budget allocation, and blocks invalid input > the 40-point specialization pool is structurally capped — it cannot go negative and the created talent is in-budget 1528ms
+ ✓ |ui| ui/src/shell/dialog-replacement.test.tsx (10 tests) 14691ms
+   ✓ PF1-M3 — no site speaks through the browser (site by site) > site 1/9 — a refused publicity campaign is said by the studio, dismissibly 1146ms
+   ✓ PF1-M3 — no site speaks through the browser (site by site) > site 2/9 — a refused production command surfaces the engine’s exact reason 651ms
+   ✓ PF1-M3 — no site speaks through the browser (site by site) > site 3/9 — a decision check that throws refuses WITHOUT dispatching (blocking-site order) 538ms
+   ✓ PF1-M3 — no site speaks through the browser (site by site) > site 4/9 — an adapter that throws refuses WITHOUT dispatching, and frees the lot 4874ms
+   ✓ PF1-M3 — no site speaks through the browser (site by site) > site 5/9 — a blank event presentation says so AFTER the week has been committed 3485ms
+   ✓ PF1-M3 — no site speaks through the browser (site by site) > site 6/9 — a film with no archived front page says so 1559ms
+   ✓ PF1-M3 — no site speaks through the browser (site by site) > site 7/9 — a film with no frozen record says so instead of opening a Chronicle 828ms
+   ✓ PF1-M3 — no site speaks through the browser (site by site) > site 8/9 — an autopsy with no retained snapshot explains what it needs 756ms
+   ✓ PF1-M3 — no site speaks through the browser (site by site) > site 9/9 — the destructive verb is answered in the product, with two named buttons 434ms
+   ✓ PF1-M3 — a notice is news, and news expires > a refusal survives its own action and expires on the next one 418ms
+ ✓ |ui| ui/src/test/contracts/p05a-w2-invariant-kills.contract.test.ts (8 tests) 1730ms
+   ✓ P05A W2 correction — mutation-killing invariants (review F4) > keeps ≥3 closed rows ascending when the active array is reversed 363ms
+   ✓ P05A W7 correction — theater subjects join by OWNER, not by address (hostile F4) > an outgoing wrap subject never rides the new holder’s row 750ms
+stderr | ui/src/test/redteam/rt-audio-edges.redteam.test.tsx > REDTEAM — the hidden-tab seam > unlocking WHILE hidden starts nothing on its own
+Error: Not implemented: HTMLCanvasElement.prototype.getContext (without installing the canvas npm package)
+    at module.exports (/Users/zacheryspector/The-Movies-headless-program/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLCanvasElementImpl.getContext (/Users/zacheryspector/The-Movies-headless-program/node_modules/jsdom/lib/jsdom/living/nodes/HTMLCanvasElement-impl.js:42:5)
+    at HTMLCanvasElement.getContext (/Users/zacheryspector/The-Movies-headless-program/node_modules/jsdom/lib/jsdom/living/generated/HTMLCanvasElement.js:131:58)
+    at checkInverseAlpha (/Users/zacheryspector/The-Movies-headless-program/node_modules/phaser/src/device/CanvasFeatures.js:72:26)
+    at init (/Users/zacheryspector/The-Movies-headless-program/node_modules/phaser/src/device/CanvasFeatures.js:106:46)
+    at Object.<anonymous> (/Users/zacheryspector/The-Movies-headless-program/node_modules/phaser/src/device/CanvasFeatures.js:112:18)
+    at Module._compile (node:internal/modules/cjs/loader:1521:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1091:12) undefined
+
+ ✓ |ui| ui/src/test/redteam/rt-audio-edges.redteam.test.tsx (18 tests) 2444ms
+   ✓ REDTEAM — the Lot audio effects under StrictMode double-invocation > leaves exactly ONE live music loop and ONE live ambience loop, not two 558ms
+   ✓ REDTEAM — the Lot audio effects under StrictMode double-invocation > unmounting a StrictMode-mounted Lot leaves nothing running 631ms
+   ✓ REDTEAM — the hidden-tab seam > a Lot that MOUNTS into an already-hidden tab makes no sound at all 411ms
+   ✓ REDTEAM — the hidden-tab seam > hide then SHOW restores the bed — the tab-restore case, not only the hide case 313ms
+   ✓ REDTEAM — the hidden-tab seam > unlocking WHILE hidden starts nothing on its own 355ms
+ ✓ |ui| ui/src/screens/d11-cycle3-ui.test.tsx (12 tests) 7234ms
+   ✓ D-11.C PART 1: Balanced creator shows a player-facing STANDING (four separate facts) > reports OVR, experience status, market percentile and career tier as four labeled rows (D-12 P8) 334ms
+   ✓ D-11.C PART 1: OVR is DERIVED — allocating points to the primary craft raises it > spreading points across the primary discipline raises the derived primary OVR 813ms
+   ✓ D-11.C PART 1: multi-hyphenate — spending in a secondary discipline raises ITS OVR > the Advanced panel lets points build a second craft; that discipline OVR rises 1890ms
+   ✓ D-11.C PART 1: the creator baseline DISPLAY matches the engine boost (no divergence) > a director multi-hyphenate shows the boosted writing baseline in the Advanced panel 325ms
+   ✓ D-11.C PART 2: the newspaper front page renders from the recorded result > shows the masthead, a headline, the critic star line, the audience verdict, and the financials 1334ms
+   ✓ D-11.C PART 2: the newspaper front page renders from the recorded result > the headline never contradicts the numbers: a critic-love/audience-reject split reads as such 904ms
+   ✓ D-11.C PART 2: the reveal hands off to the autopsy and continues the loop > "open autopsy" fires the callback and "continue" advances the loop 408ms
+   ✓ D-11.C PART 2: multiple releases in one beat get secondary stories > a second film renders as a secondary story with its own autopsy link 313ms
+   ✓ D-11.C PART 2: the newspaper is RECONSTRUCTABLE from persisted state > the same front page is derived after a save → reload round-trip (no drift) 446ms
+ ✓ |ui| ui/src/lot/WorldFirstGateHiringReturnApp.test.tsx (7 tests) 5677ms
+   ✓ World-First Studio Gate talent handoff — App owner boundary > independently revalidates latest Engine truth and opens the canonical profile over one byte-neutral mounted Lot 1214ms
+   ✓ World-First Studio Gate talent handoff — App owner boundary > opens exact focused Hiring terms and Back returns the retained typed visitor without changing a save byte 708ms
+   ✓ World-First Studio Gate talent handoff — App owner boundary > rejects stale ID, rename, profession and content-seed provenance without leaving the mounted Lot or writing state 387ms
+   ✓ World-First Studio Gate talent handoff — App owner boundary > does not trust a rendered exact identity after the independent latest selector fails 475ms
+   ✓ World-First Studio Gate talent handoff — App owner boundary > returns an Engine-accepted signing to neutral Gate truth without selecting the next candidate 666ms
+   ✓ World-First Studio Gate talent handoff — App owner boundary > accepted different-seed whole-studio replacement clears typed Gate return identity unconditionally 1352ms
+   ✓ World-First Studio Gate talent handoff — App owner boundary > accepted same-seed whole-studio replacement clears typed Gate return identity unconditionally 874ms
+ ✓ |ui| ui/src/lot/StudioLotScreen.audition-planning.test.tsx (9 tests) 5299ms
+   ✓ StudioLotScreen — retained audition-planning origin > offers the exact connected current Casting cue from the semantic surface and retains this world 709ms
+   ✓ StudioLotScreen — retained audition-planning origin > offers the exact connected current Casting cue from the renderer surface and retains this world 423ms
+   ✓ StudioLotScreen — retained audition-planning receipt > consumes one exact current receipt into Casting without remounting or claiming camera 1447ms
+   ✓ StudioLotScreen — retained audition-planning receipt > consumes a stale receipt once and fails neutral without substitution 703ms
+   ✓ StudioLotScreen — retained audition-planning receipt > consumes a malformed receipt once and fails neutral without substitution 640ms
+   ✓ StudioLotScreen — retained audition-planning receipt > consumes a state-mismatched receipt once and fails neutral without substitution 588ms
+ ✓ |ui| ui/src/test/redteam/rt-parity-adversarial.redteam.test.ts (9 tests) 1230ms
+   ✓ REDTEAM — adversarial parity on an unfamiliar seed and a long, nasty script > the cue log itself is deterministic: replaying the script sounds identical 1158ms
+ ✓ |ui| ui/src/screens/Recap.test.tsx (19 tests) 15937ms
+   ✓ StudioRunRecap screen > renders all six sections with a released slate 1890ms
+   ✓ StudioRunRecap screen > shows the run through-week and a recovery classification 1122ms
+   ✓ StudioRunRecap screen > Back button is keyboard-focusable and fires onBack 470ms
+   ✓ StudioRunRecap screen > opens a talent profile from the talent table 608ms
+   ✓ StudioRunRecap screen > surfaces the cash-positive-but-normal-unaffordable warning when cash is tight 966ms
+   ✓ StudioRunRecap screen > renders a cash chart with an accessible text equivalent (not the 86-row table by default) 590ms
+   ✓ StudioRunRecap screen > caps default warnings at three and collapses the rest 712ms
+   ✓ StudioRunRecap screen > film result pills read Profit / Break-even / Loss and money is formatted (no raw integers) 828ms
+   ✓ StudioRunRecap screen > methodology notes are collapsed by default 633ms
+   ✓ StudioRunRecap screen > chart annotations stay inside the SVG viewBox (right-aligned, no clipping) 746ms
+   ✓ StudioRunRecap screen > uses consistent timeline-count wording (closing balances, not elapsed weeks) 1733ms
+   ✓ StudioRunRecap screen > keeps the BREAK-EVEN (and every) result pill on one line 936ms
+   ✓ StudioRunRecap screen > does not expose repository paths, filenames, or dev references in the player UI 553ms
+   ✓ StudioRunRecap screen > methodology still explains the figures in plain language 1092ms
+   ✓ D-17A/T13 — studio-economic layer on the recap screen > renders three labelled lines per film, from the recap read-model 569ms
+   ✓ D-17A/T13 — studio-economic layer on the recap screen > shows the reconciliation identity: allocated + idle === payroll+overhead paid 1200ms
+   ✓ D-17A/T13 — studio-economic layer on the recap screen > the existing Contribution and ROI columns are untouched, on the direct basis 800ms
+   ✓ D-17A/T13 — studio-economic layer on the recap screen > the glossary names the allocation a labelled convention, not a charge 429ms
+ ✓ |ui| ui/src/screens/autopsy-faithful.test.tsx (15 tests) 7979ms
+   ✓ autopsy: shows forecast snapshot AND realized result > renders both the forecast estimate and the realized result numbers 1739ms
+   ✓ autopsy: shows forecast snapshot AND realized result > the realized critic score shown equals the engine FilmResult.criticScore 1087ms
+   ✓ autopsy: the sampled review term is NEVER hidden > displays criticMean, criticSigma, and the sampled reviewVariance 579ms
+   ✓ autopsy: the sampled review term is NEVER hidden > reviewVariance equals criticScore − criticMean by construction (engine identity) 372ms
+   ✓ autopsy: each segment response is displayed > shows an appeal figure for every segment 534ms
+   ✓ autopsy: box office and profit match the public engine outputs > the shown total box office equals the engine FilmResult.boxOffice.total 440ms
+   ✓ autopsy: box office and profit match the public engine outputs > profit shown equals studio revenue − committedCost 434ms
+   ✓ autopsy: standing deltas equal engine post−pre and the WHY lines map to D-6 inputs > the three WHY lines reference reach, critic-vs-benchmark, and ROI respectively 430ms
+   ✓ autopsy: greenlight expectation vs actual compare (locked assessment) > renders the locked greenlight expectation beside the actual result 353ms
+   ✓ autopsy: greenlight expectation vs actual compare (locked assessment) > the fit-by-assignment table lists every locked assignment with its Fit 546ms
+   ✓ autopsy: greenlight expectation vs actual compare (locked assessment) > maps identified risks to whether they materialized (engine risksMaterialized) 337ms
+   ✓ D-17A fix-pass — the autopsy dates its one contribution figure, consistently > all three renderings of view.profit use the projected-at-release basis 326ms
+ ✓ |ui| ui/src/screens/script-projects-edge-ui.test.tsx (8 tests) 2381ms
+   ✓ managed screenplay gate truth > disables greenlight and renders every Ready-package blocker with its remedy 1423ms
+ ✓ |ui| ui/src/simulation.test.tsx (8 tests) 9434ms
+   ✓ simulation: advancing a week ticks the engine exactly once > two advanceWeek calls advance tick by exactly 2 (no double-tick per press) 456ms
+   ✓ simulation: advancing a week ticks the engine exactly once > the dashboard Advance button moves the shown week by exactly 1 per click 2417ms
+   ✓ simulation: release timing follows PRODUCTION_TICKS exactly > a film greenlit at week t is NOT released before t+PRODUCTION_TICKS and IS at t+PRODUCTION_TICKS 427ms
+   ✓ simulation: release timing follows PRODUCTION_TICKS exactly > the active production countdown (remainingTicks) follows the engine toward release 483ms
+   ✓ simulation: NO Broadcast presentation or feed appears anywhere in the UI > driving the whole loop through the UI produces no broadcast/headline/feed elements 5176ms
+ ✓ |ui| ui/src/test/redteam/rt-save-shell.redteam.test.tsx (22 tests) 3116ms
+   ✓ REDTEAM — hostile file import through the ONE accept path > a save of a DIFFERENT studio is accepted exactly once, through the engine 303ms
+   ✓ REDTEAM — hostile file import through the ONE accept path > a file far larger than any print is refused WITHOUT being opened 771ms
+ ✓ |ui| ui/src/lot/FirstPictureGuidanceApp.test.tsx (9 tests) 2303ms
+   ✓ Picture guidance owns the desk before the first greenlight > names the picture and its next step instead of calling the lot idle 507ms
+   ✓ Picture guidance owns the desk before the first greenlight > states the imperative step before a screenplay exists 333ms
+   ✓ The next step points at the world — it never teleports to a screen > pans to Casting for a casting step 323ms
+ ✓ |ui| ui/src/test/contracts/punctuate.contract.test.ts (22 tests) 28ms
+ ✓ |ui| ui/src/lot/authored-stage.test.ts (16 tests) 74ms
+ ✓ |ui| ui/src/test/contracts/sim-stop-ladder.contract.test.ts (10 tests) 3607ms
+   ✓ C2a-M5 §4.1 — the extracted per-tick stop predicate > is exported and returns the reason for exactly the pair of states it is given 1161ms
+   ✓ C2a-M5 §4.1 — the extracted per-tick stop predicate > NEVER returns `limit` — the 520-week guard belongs to the batch verb alone 783ms
+   ✓ C2a-M5 §4.1 — the extracted per-tick stop predicate > returns null on a tick that governed nothing (a plain week is not a stop) 368ms
+   ✓ C2a-M5 §4.3 — the wrap member > fires automatically — no player command wraps a picture 412ms
+ ✓ |ui| ui/src/screens/c2a-m4-queue-panel.test.tsx (11 tests) 1809ms
+   ✓ C2a-M4 — the queue panel answers all four of owner law 2’s questions > renders the four facts for a PICTURE held for want of scenery 403ms
+ ✓ |ui| ui/src/lot/scene/assets.test.ts (18 tests) 32ms
+ ✓ |ui| ui/src/screens/c2a-m2-set-legibility.test.tsx (16 tests) 1636ms
+   ✓ C2a-M2 §12-M2 — the plan names the set the engine actually binds > the set `packageSetPlan` names before greenlight is the set bound at rehearsal 369ms
+   ✓ C2a-M2 §12-M2 — the plan names the set the engine actually binds > a second picture is planned onto the OTHER stage while the first holds one 555ms
+ ✓ |ui| ui/src/lot/snapshot/stage7Production.test.ts (44 tests) 19ms
+ ✓ |ui| ui/src/lot/snapshot/firstFilmJourney.test.ts (20 tests) 23ms
+ ✓ |ui| ui/src/screens/hub-integrity.test.tsx (11 tests) 3871ms
+   ✓ talent hub: MUTATION-GRADE — no hidden actual skill or true ceiling is ever rendered > the roster never renders any distinct hidden actual skill or true ceiling 1033ms
+   ✓ talent hub: MUTATION-GRADE — no hidden actual skill or true ceiling is ever rendered > an open profile (incl. cross-role fit) never renders a hidden actual skill or true ceiling 612ms
+   ✓ talent hub: MUTATION-GRADE — no hidden actual skill or true ceiling is ever rendered > the profile shows perceived persona / temperament, never the hidden actual persona 430ms
+   ✓ talent hub: rendering > renders every talent as a roster card with four discipline OVRs 864ms
+   ✓ talent hub: rendering > opening a profile shows the ability-by-discipline table and Work Ethic label 306ms
+   ✓ talent hub: rendering > a cross-role consideration surfaces the "Unproven in this role" note 320ms
+ ✓ |ui| ui/src/lot/d1b-assignment-lifecycle.test.tsx (5 tests) 7740ms
+   ✓ CASE A — the memory outlives the lot screen within one game > a survivor keeps Stage B across a full unmount and remount of the lot 1308ms
+   ✓ CASE B — a new studio does not inherit the previous studio’s stages > clears the memory at the real new-game boundary, colliding id and all 1953ms
+   ✓ CASE B — a new studio does not inherit the previous studio’s stages > keeps both presentation memories when New Studio is declined 1710ms
+   ✓ CASE C — a loaded save does not inherit the previous studio’s stages > clears the memory when another save is successfully loaded 1766ms
+   ✓ CASE C — a loaded save does not inherit the previous studio’s stages > a REJECTED import keeps the live studio’s stages — reset only on success 1000ms
+ ✓ |ui| ui/src/lot/tycoon/placedSoundstageBody.test.ts (7 tests) 499ms
+   ✓ C2a-M2 — a built soundstage says what a soundstage says > is dark when nothing shoots in it, and names the picture when one does 444ms
+ ✓ |ui| ui/src/test/contracts/motion-css-pairing.contract.test.ts (15 tests) 17ms
+ ✓ |ui| ui/src/lot/snapshot/weekTheater.test.ts (17 tests) 1472ms
+   ✓ the Call Board says what the engine said, and nothing else > reads in the STUDIO’s words when the reasons are the ENGINE’s, not an author’s (G12) 589ms
+   ✓ grounded ambient patrols (§4.2, 00C.6) > a managed studio grounds the gate, and never claims a fact it has no subject for 445ms
+ ✓ |ui| ui/src/test/redteam/rt-prefs-hostile.redteam.test.tsx (38 tests) 358ms
+ ✓ |ui| ui/src/test/redteam/rt-hygiene-voice.redteam.test.ts (15 tests) 2716ms
+   ✓ REDTEAM — the browser never speaks (independent scanner) > finds no native dialog call anywhere in shipping ui/src 685ms
+   ✓ REDTEAM — exactly one module may name the audio hardware > AudioContext / new Audio( appear only inside the sanctioned sink 325ms
+   ✓ REDTEAM — no engine jargon reaches the player > the named worst offenders are gone from shipping copy 472ms
+   ✓ REDTEAM — no engine jargon reaches the player > the FOURTH named offender — "unattended simulation" — ships nowhere 346ms
+   ✓ REDTEAM — the renderer was touched exactly once, and only to go silent > no shipping module outside the sink loads a file from ui/public/audio by hand 342ms
+ ✓ |ui| ui/src/lot/snapshot/setDressing.test.ts (23 tests) 34ms
+ ✓ |ui| ui/src/lot/buildMode.test.ts (22 tests) 894ms
+   ✓ Build Mode V1 — the parcel panel > reads a construction site, then the operational building, from engine truth 659ms
+ ✓ |ui| ui/src/screens/audition-payoff.test.tsx (9 tests) 3545ms
+   ✓ R3 · the audition payoff carries to the moment of cast choice > badges everyone who read for the role and shows the engine’s own observation 701ms
+   ✓ R3 · the audition payoff carries to the moment of cast choice > marks everyone else honestly instead of leaving them ambiguous 546ms
+   ✓ R3 · the audition payoff carries to the moment of cast choice > lists the people who read first, and says so in a sentence that counts them 603ms
+   ✓ R3 · the audition payoff carries to the moment of cast choice > carries the reads per role — a Support read never badges the Lead picker 760ms
+   ✓ R3 · the audition payoff carries to the moment of cast choice > keeps the engine’s law: evidence, not commitment 417ms
+ ✓ |ui| ui/src/screens/d11-cycle4-ui.test.tsx (9 tests) 3056ms
+   ✓ D-11.D founding: ONE writer suffices to found (tabbed flow) > signing 3 actors / 1 director / 1 writer / 1 craft founds the studio 1410ms
+   ✓ D-11.D accessible autopsy: concise, truthful, decision-graded > maps result / worked / hurt / surprise / lesson from a REAL released film 754ms
+   ✓ D-11.D autopsy: accessible default + Advanced Analysis (collapsed, preserved) > shows the concise summary and hides the technical report until expanded 563ms
+ ✓ |ui| ui/src/lot/tycoon/presence.test.ts (21 tests) 20ms
+ ✓ |ui| ui/src/screens/film-chronicle-ui.test.tsx (5 tests) 400ms
+ ✓ |ui| ui/src/engine/adapter.test.ts (17 tests) 1242ms
+   ✓ adapter: full loop + autopsy reconstruction > greenlight → advance to release → autopsy matches stored FilmResult 804ms
+ ✓ |ui| ui/src/components/information-integrity.test.tsx (8 tests) 1030ms
+   ✓ information integrity: actual persona is NEVER rendered > TalentPicker renders perceived axes and never the hidden actual axes 368ms
+ ✓ |ui| ui/src/lot/snapshot/personWork.test.ts (18 tests) 24ms
+ ✓ |ui| ui/src/lot/tycoon/visualWarmth.test.ts (24 tests) 117ms
+ ✓ |ui| ui/src/lot/snapshot/gateHiring.test.ts (13 tests) 196ms
+ ✓ |ui| ui/src/test/contracts/parity-proof.contract.test.ts (6 tests) 13ms
+ ❯ |ui| ui/src/p1364-late-founding-route.test.tsx (4 tests | 1 failed) 4440ms
+   ✓ 1364 late founding through the mounted browser surfaces (1364-A §4, §5 cases 1 and 9) > StartScreen route: the pasted late draft opens the founding screen with no Advance or Sim control; the minimum roster signs and the studio founds through the screen; the autosaved campaign reloads founded and its Saves export carries the closed fund 2042ms
+   ✓ 1364 late founding through the mounted browser surfaces (1364-A §4, §5 cases 1 and 9) > Saves route: the late draft imported over a founded campaign routes to the founding screen with no Advance or Sim control; signing and founding through the screen; the autosaved campaign reloads founded 1659ms
+   × 1364 late founding through the mounted browser surfaces (1364-A §4, §5 cases 1 and 9) > malformed funding: a live save whose fund disagrees with its draft is refused by name on the StartScreen and on Saves, and the current campaign is kept 491ms
+     → expect(element).toHaveTextContent()
+
+Expected element to have text content:
+  Could not load that save: validateSaveV48: foundingFunding fund.spentBonus 1 differs from founding.spentBonus 0
+Received:
+  Could not load that save: validateSaveV47: foundingFunding fund.spentBonus 1 differs from founding.spentBonus 0
+ ✓ |ui| ui/src/screens/d11-cycle2-ui.test.tsx (11 tests) 2712ms
+   ✓ D-11.A — Star Power and age display as whole numbers > no player-facing screen emits a long floating-point value (4+ decimals) 367ms
+   ✓ D-11.A — autopsy / record render the film's OWN participants > the autopsy shows a film-specific participants table with the film's writer 1100ms
+ ✓ |ui| ui/src/test/contracts/prefs.contract.test.ts (28 tests) 34ms
+ ✓ |ui| ui/src/lot/scene/LotScene.production-occupancy.test.ts (5 tests) 21ms
+ ✓ |ui| ui/src/lot/snapshot/stageIdentity.test.ts (15 tests) 13ms
+ ✓ |ui| ui/src/screens/c2a-m3-commission-original.test.tsx (5 tests) 4546ms
+   ✓ C2a-M3 — commissioning an original screenplay > inverts the exhaustion story: the bought-out market offers the original path as the remedy 2628ms
+   ✓ C2a-M3 — commissioning an original screenplay > writes a real screenplay from the Writers Room, end to end 1432ms
+ ✓ |ui| ui/src/screens/a3-queue-admission-ui.test.tsx (5 tests) 4438ms
+   ✓ A3 retained-client queue admission parity > submits one market commission under capacity-only contention and suppresses the queued premise on reopen 348ms
+   ✓ A3 retained-client queue admission parity > submits one contended greenlight, emits no fake formation receipt, and closes the exact package on fresh reopen 2821ms
+   ✓ A3 retained-client queue admission parity > keeps an unfinished casting session as a hard greenlight blocker even when capacity is full 1070ms
+ ✓ |ui| ui/src/screens/d17a-offer-truth.test.tsx (10 tests) 1595ms
+   ✓ D-17A/T5 — signing states the whole obligation and its runway consequence > every offer shows term total = guaranteed comp + bonus, from the engine helper 346ms
+   ✓ D-17A/T5 — renewal states the same truth, priced as a replacement > renders a real price per term (it previously offered term lengths with no price) 307ms
+ ✓ |ui| ui/src/lot/presence-on-the-lot.test.ts (11 tests) 329ms
+ ✓ |ui| ui/src/engine/film-chronicle-adapter.test.ts (2 tests) 2690ms
+   ✓ Film Chronicle V1 — real adapter wiring > associates the middle film with its exact Produced project and production debit 1371ms
+   ✓ Film Chronicle V1 — real adapter wiring > uses current market week as the chronology gate and reconstructs deeply after V13 reload 1317ms
+ ✓ |ui| ui/src/screens/c2a-m3-title-and-rename.test.tsx (6 tests) 1083ms
+   ✓ C2a-M3 — the title moment and the rename > says the writer DELIVERS it once the draft is in 518ms
+ ✓ |ui| ui/src/screens/c2a-m2-scenery-shop.test.tsx (11 tests) 1722ms
+   ✓ C2a-M2 §3.1 — the Scenery Shop, where a set is commissioned > a commissioned set stands, and the shop then says so 766ms
+ ✓ |ui| ui/src/lot/livingTurn.test.ts (28 tests) 23ms
+ ✓ |ui| ui/src/lot/snapshot/stageAssignment.test.ts (10 tests) 3947ms
+   ✓ D1-B — the stage-assignment defect (pre-existing, presentation-side) > 1. REPRODUCED: a surviving production migrates Stage B → Stage A when the other releases 938ms
+   ✓ D1-B — StageAssignment fixes it, presentation-side only > 2. a production keeps its stage for its whole presentation lifetime 497ms
+   ✓ D1-B — StageAssignment fixes it, presentation-side only > 3. the buildings follow the corrected assignment (canvas + companion nav agree) 581ms
+   ✓ D1-B — StageAssignment fixes it, presentation-side only > 5. deterministic: two independent resolvers over the same sequence agree exactly 307ms
+   ✓ D1-B — StageAssignment fixes it, presentation-side only > 7. a freed slot is reused once its production leaves 340ms
+   ✓ D1-B — StageAssignment fixes it, presentation-side only > 8. the snapshot SCHEMA is untouched — same keys, same building count, same ids 310ms
+ ✓ |ui| ui/src/lot/snapshot/presenceLines.test.ts (18 tests) 26ms
+ ✓ |ui| ui/src/test/contracts/save-card.contract.test.ts (19 tests) 438ms
+   ✓ PF1-M3 contract — the derivation is pure (§2: presentation never writes truth) > deriving a card mutates NOTHING — the state serializes byte-identically after 378ms
+ ✓ |ui| ui/src/screens/d12-sim-event-stop.test.tsx (8 tests) 5610ms
+   ✓ D-12 P1 — Sim to Next Event stop semantics > (1,3,4,5) one run at payment 1 of 6 stops at the run end; final payment + payroll/overhead applied once 955ms
+   ✓ D-12 P1 — Sim to Next Event stop semantics > (2,12) two same-week runs both end → one stop, both titles reported, no Week-131 overshoot 698ms
+   ✓ D-12 P1 — Sim to Next Event stop semantics > (6) a run ending is detected even though the completed run stays in the collection (status completed) 301ms
+   ✓ D-12 P1 — Sim to Next Event stop semantics > (8) a contract event still stops correctly 498ms
+   ✓ D-12 P1 — Sim to Next Event stop semantics > (9) the first negative-cash crossing still stops after a full tick 1618ms
+   ✓ D-12 P1 — Sim to Next Event stop semantics > (10) reloading after the run-completed event preserves the stop week and payments 766ms
+   ✓ D-12 P1 — Sim to Next Event stop semantics > (11) the UI displays the engine-provided stop reason verbatim (React never infers it) 561ms
+ ✓ |ui| ui/src/components/refusal-voice.test.tsx (9 tests) 164ms
+ ✓ |ui| ui/src/screens/d12-team-direction.test.tsx (12 tests) 2122ms
+   ✓ D-12 Team Direction Preview > the full-team preview band MATCHES the autopsy delivered-alignment band for the identical inputs 931ms
+   ✓ D-12 Team Direction Preview > actionable guidance > (1) the visible 0–100 score matches the band thresholds — across many teams, not one lucky seed 789ms
+ ✓ |ui| ui/src/test/contracts/audio-provenance.contract.test.ts (13 tests) 22ms
+ ✓ |ui| ui/src/screens/d14-talent-profile.test.tsx (8 tests) 3501ms
+   ✓ D-14 Talent Profile drawer > 20. shows current OVR, Star Power (approved definition), skills, genres, role proficiencies 1040ms
+   ✓ D-14 Talent Profile drawer > 16. career history reuses the SAME frozen events (film-mode cards) 589ms
+   ✓ D-14 Talent Profile drawer > 19. never renders hidden ceilings / true potential 372ms
+   ✓ D-14 Talent Profile drawer > 14. Escape closes the drawer and focus returns to the opener 302ms
+   ✓ D-14 Talent Profile drawer > shows the honest pre-V5 notice only when there are unrecorded credits 378ms
+   ✓ D-14 Talent Profile — three entry points call the SAME opener > 12. Autopsy participant name opens the profile with the talent id 420ms
+ ✓ |ui| ui/src/lot/WorldFirstRosterStaffPresence.test.ts (13 tests) 773ms
+ ✓ |ui| ui/src/engine/script-assessment-parity.test.ts (2 tests) 981ms
+   ✓ managed screenplay assessment parity > keeps a rewritten Ready preview, locked forecast, and linked autopsy on the persisted assessment 786ms
+ ✓ |ui| ui/src/lot/authored-stage-a.test.ts (17 tests) 1584ms
+   ✓ Stage A — the committed assets satisfy the CURRENT production export contract > 4. the RGB channel carries the recovered 128-colour contract 636ms
+   ✓ Stage A — the committed assets satisfy the CURRENT production export contract > 5. alpha is bit-identical between the two finishes 404ms
+ ✓ |ui| ui/src/test/contracts/session-status.contract.test.ts (17 tests) 654ms
+ ✓ |ui| ui/src/lot/StudioLotScreen.commission-receipt.test.tsx (4 tests) 2017ms
+   ✓ StudioLotScreen — retained screenplay commission receipt > consumes one exact current receipt into Development without remounting or claiming camera 912ms
+   ✓ StudioLotScreen — retained screenplay commission receipt > consumes a stale receipt once and fails neutral without substitution 380ms
+   ✓ StudioLotScreen — retained screenplay commission receipt > consumes a state-mismatched receipt once and fails neutral without substitution 443ms
+ ✓ |ui| ui/src/engine/d17a-regime.test.ts (6 tests) 185ms
+ ✓ |ui| ui/src/screens/script-projects-ui.test.tsx (6 tests) 909ms
+   ✓ Writers Room — managed screenplay workspace > keeps focus on the acted-on project when another review card precedes it 367ms
+ ✓ |ui| ui/src/screens/d17a-release-truth.test.tsx (7 tests) 5035ms
+   ✓ D-17A/T2 — a live run’s full-run figure is labelled Projected > the Dashboard release row says "Projected …" while the run pays, and drops it when it ends 1132ms
+   ✓ D-17A/T2 — a live run’s full-run figure is labelled Projected > the archived Film Record labels a live run’s profit as projected 821ms
+   ✓ D-17A fix-pass — retrospective profit/break-even labels name their basis > the Dashboard release table names the direct-cost basis in its Result column 437ms
+   ✓ D-17A fix-pass — retrospective profit/break-even labels name their basis > the Film Record labels its profit metric as direct, before studio fixed costs 312ms
+   ✓ D-17A fix-pass — retrospective profit/break-even labels name their basis > the autopsy narrative never says "profit" or "break-even" without naming the basis 1893ms
+ ✓ |ui| ui/src/lot/selectionReassert.test.tsx (3 tests) 3504ms
+   ✓ C1-M5 — the repaint re-assert fires only when the renderer lost the selection > adds ZERO renderer selects when repaints arrive over a selection it already holds 1484ms
+   ✓ C1-M5 — the repaint re-assert fires only when the renderer lost the selection > re-asserts exactly ONCE when the renderer genuinely lost the selection 1114ms
+   ✓ C1-M5 — the repaint re-assert fires only when the renderer lost the selection > reads the RENDERER, so a world that silently drops a selection is restored 903ms
+ ✓ |ui| ui/src/lot/tycoon/expandedPropertyWorld.test.ts (5 tests) 5098ms
+   ✓ C1-M6 — the world composes a property far past the founding one > reports the bounds the snapshot describes, at two different property sizes 1876ms
+   ✓ C1-M6 — the world composes a property far past the founding one > composes every placed facility on a twenty-two-parcel property, in placement order 922ms
+   ✓ C1-M6 — the world composes a property far past the founding one > draws the authored bodies it knows, and honestly draws nothing for the ones it does not 920ms
+   ✓ C1-M6 — a world id is an identity, not a coordinate > keeps `placed-<id>` across a move and changes only where the body stands 723ms
+   ✓ C1-M6 — a world id is an identity, not a coordinate > gives a successor raised on the dead building’s exact ground its own world id 655ms
+ ✓ |ui| ui/src/lot/StudioLotIdentityReview.test.tsx (10 tests) 1826ms
+   ✓ D1-A identity review selector > each mode drives setIdentityMode / setReducedMotion correctly 408ms
+   ✓ D1-A identity review selector > switching review modes never mutates GameState 361ms
+ ✓ |ui| ui/src/test/contracts/p05a-w1-scenery-alignment.contract.test.ts (8 tests) 455ms
+ ✓ |ui| ui/src/audio/wiring.test.tsx (11 tests) 1124ms
+ ✓ |ui| ui/src/test/contracts/dialog-hygiene.contract.test.ts (16 tests) 465ms
+   ✓ PF1-M3 hygiene gate — shipping ui/src > the browser never speaks: ZERO alert( / confirm( / prompt( in shipping ui/src 319ms
+ ✓ |ui| ui/src/lot/WorldFirstStage7ProductionDetailHandoffApp.test.tsx (5 tests) 6237ms
+   ✓ Selected Stage 7 detail handoff — App owner boundary > independently reselects latest Engine truth, focuses the exact Board card, and returns the typed exact identity byte-neutrally 1743ms
+   ✓ Selected Stage 7 detail handoff — App owner boundary > rejects an unproven identity without unmounting the Lot or changing any save byte 993ms
+   ✓ Selected Stage 7 detail handoff — App owner boundary > returns to fresh exact Stage 7 truth after one existing Board command 1139ms
+   ✓ Selected Stage 7 detail handoff — App owner boundary > preserves the old typed identity for the remounted Lot to reject without replacement auto-selection 1238ms
+   ✓ Selected Stage 7 detail handoff — App owner boundary > demotes Stage 7 identity to studio-home across unrelated Dashboard child navigation 1122ms
+ ✓ |ui| ui/src/shell/settings.test.tsx (9 tests) 2568ms
+   ✓ PF1-M3 — settings on the Dashboard > opens as a focus-trapped dialog, not a route 511ms
+   ✓ PF1-M3 — settings on the Dashboard > publishes the resolved motion on the document element and holds it across a reload 326ms
+   ✓ PF1-M3 — the OS request is never weakened > follows a LIVE change to the system setting without a reload 452ms
+   ✓ PF1-M3 — settings over the living Lot > keeps the Lot MOUNTED and suspends its input instead of routing away 453ms
+ ✓ |ui| ui/src/engine/p15b-browser-wave5.test.ts (6 tests) 11575ms
+   ✓ browser-warning-distress-displays-authoritative-remedies-and-lawful-loan-terms 2300ms
+   ✓ browser-loan-commit-revalidates-and-stale-offer-never-duplicates-money 941ms
+   ✓ browser-actual-closure-commits-once-imports-and-reloads-as-read-only-history 2133ms
+   ✓ browser-batch-stops-at-actual-closure-and-living-turn-classifies-terminal-as-pause 1691ms
+   ✓ browser-supported47-migrates-prospectively-and-unsupported-due-only-draft-refuses 2134ms
+   ✓ browser-stale-nonloan-operating-requests-refuse-on-latest-terminal-and-preserve-all-bytes 2374ms
+ ✓ |ui| ui/src/shell/save-presentation.test.tsx (10 tests) 3075ms
+   ✓ PF1-M3 — the save surface leads with the studio, not the envelope > shows the card first and keeps the raw envelope mounted behind a disclosure 320ms
+   ✓ PF1-M3 — the save surface leads with the studio, not the envelope > accepts a save from the file picker through the SAME path as paste 432ms
+   ✓ PF1-M3 — the save surface leads with the studio, not the envelope > accepts a dropped file, and rejects a bad one in the studio’s own voice 378ms
+   ✓ PF1-M3 — the save surface leads with the studio, not the envelope > gives the Lot a way to the vault (the route existed; nothing emitted it) 499ms
+   ✓ PF1-M3 — autosave failure is never silent (Owner addendum) > says so, persistently, while the studio is not being written down 638ms
+ ✓ |ui| ui/src/test/contracts/m5-determinism.contract.test.ts (7 tests) 2407ms
+   ✓ C2a-M5 — same seed, same script, same answer > produces an IDENTICAL stop sequence on two runs 390ms
+   ✓ C2a-M5 — the LEGACY path is silent (the M0A corpus gate) > and the batch verb never mints a wrap there either 1130ms
+ ✓ |ui| ui/src/engine/placement-completion-stop.test.ts (5 tests) 2219ms
+   ✓ V12 committed builds stop the sim on their completion week > a NON-LEGACY parcel placement stops advanceToNextEvent with constructionCompleted 784ms
+   ✓ V12 committed builds stop the sim on their completion week > a NON-LEGACY parcel placement returns a truthful advanceWeek completion receipt 610ms
+   ✓ V12 committed builds stop the sim on their completion week > reports nothing on a tick with no completion, and nothing after one has completed 364ms
+ ✓ |ui| ui/src/lot/snapshot/publicityCampaign.test.ts (31 tests) 87ms
+ ✓ |ui| ui/src/lot/snapshot/sceneryLoadIn.test.ts (28 tests) 13ms
+ ✓ |ui| ui/src/lot/scene/authoredValueStandard.test.ts (13 tests) 10ms
+ ✓ |ui| ui/src/components/ProfessionalPromiseTerms.test.tsx (2 tests) 429ms
+ ✓ |ui| ui/src/screens/c2a-m3-package-and-chronicle.test.tsx (6 tests) 329ms
+ ✓ |ui| ui/src/lot/snapshot/annexWork.test.ts (37 tests) 28ms
+ ✓ |ui| ui/src/screens/AssemblyFormationReceipt.test.tsx (2 tests) 2528ms
+   ✓ Assembly production-formation handoff > emits the strict exact receipt for one accepted managed Ready-screenplay greenlight 1238ms
+   ✓ Assembly production-formation handoff > releases the synchronous gate after Engine rejection, then accepts one legacy callback with a null special receipt despite event tails 1289ms
+ ✓ |ui| ui/src/lot/buildingInspector.sets.test.ts (8 tests) 45ms
+ ✓ |ui| ui/src/test/p06a-w1-decision-surfaces.test.ts (7 tests) 170ms
+ ✓ |ui| ui/src/lot/tycoon/placedSupportBodies.test.ts (4 tests) 17ms
+ ✓ |ui| ui/src/lot/StudioLotScreen.import-race.test.tsx (1 test) 1764ms
+   ✓ StudioLotScreen — delayed renderer import > constructs first world frames from latest App-owned Building and accepted scenery truth 1763ms
+ ✓ |ui| ui/src/test/contracts/motion-resolver.contract.test.ts (19 tests) 18ms
+ ✓ |ui| ui/src/lot/LotAuditionWorkspace.test.tsx (4 tests) 584ms
+ ✓ |ui| ui/src/lot/world-first-operational-annex-work-presence-fixtures.test.ts (2 tests) 3243ms
+   ✓ World-First Operational Annex Work Presence V1 — native fixture authority > replays all three pinned SaveFileV13 files byte-identically and projects exact Annex truth 3233ms
+ ✓ |ui| ui/src/engine/completion-receipt-copy.test.ts (5 tests) 2363ms
+   ✓ C1-M6 completion receipts: a facility that adds no slot says nothing about slots > a CAPACITY-0 facility ends the message at the Operational sentence 694ms
+   ✓ C1-M6 completion receipts: a facility that adds no slot says nothing about slots > a CAPACITY-1 facility keeps its accepted sentence, unchanged 864ms
+ ✓ |ui| ui/src/screens/c2a-m2-production-board-sets.test.tsx (4 tests) 921ms
+   ✓ C2a-M2 — a picture waiting for a set says so > reports the set-unavailable hold instead of calling it On schedule 447ms
+ ✓ |ui| ui/src/App.test.tsx (3 tests) 7240ms
+   ✓ App end-to-end loop > starts a game and shows the dashboard 2124ms
+   ✓ App end-to-end loop > assembles, greenlights, advances to release, and opens the autopsy 5041ms
+ ✓ |ui| ui/src/engine/recap-parity.test.tsx (7 tests) 608ms
+ ✓ |ui| ui/src/test/contracts/m5-hands-off-gate.contract.test.ts (9 tests) 326ms
+ ✓ |ui| ui/src/determinism.test.tsx (3 tests) 19272ms
+   ✓ determinism: same seed → identical initial dashboard values > two fresh games with the same seed show identical week/cash/standing 4497ms
+   ✓ determinism: same seed → identical initial dashboard values > different seeds generally produce a different initial world 4039ms
+   ✓ determinism: a fixed sequence of UI actions → identical visible results across runs > greenlight + advance N weeks yields the same dashboard snapshot on two runs 10732ms
+ ✓ |ui| ui/src/lot/d1b-soundstage-wiring.test.tsx (2 tests) 2137ms
+   ✓ D1-B wiring — accepted default (soundstage content ON) > the corrected assignment reaches the Phaser view AND the companion navigation 1373ms
+   ✓ D1-B wiring — the visual rollback path > rolls the ART back to the shared stage but KEEPS the assignment correctness fix 761ms
+ ✓ |ui| ui/src/lot/hollywood/hollywood-bridge.test.ts (7 tests) 102ms
+ ✓ |ui| ui/src/screens/d17a-regime-basis.test.tsx (3 tests) 2022ms
+   ✓ D-17A fix-pass — a never-engaged studio is priced at 100% of gross, everywhere > the engine credits the full gross, and the scorecard, release narrative and break-even all agree 1925ms
+ ✓ |ui| ui/src/flags.test.ts (15 tests) 19ms
+ ✓ |ui| ui/src/lot/authored-rgba-export.test.ts (8 tests) 5569ms
+   ✓ current production authored export — the shipped Stage B assets > 3. the RGB channel is reduced to the recovered 128-colour contract 499ms
+   ✓ current production authored export — the shipped Stage B assets > 4. alpha is bit-identical between the two finishes 366ms
+   ✓ rgba-export tool contract > 6. output is truecolour RGBA with no PLTE/tRNS, alpha preserved exactly 1998ms
+   ✓ rgba-export tool contract > 7. repeated runs are byte-identical 1951ms
+   ✓ rgba-export tool contract > 8. the historical PNG-8 path is still available and clearly separate 537ms
+ ✓ |ui| ui/src/screens/next-event-destination-focus.test.tsx (3 tests) 1047ms
+   ✓ lot-native next-event destination focus > focuses a casting decision only when session and project form one exact match 375ms
+   ✓ lot-native next-event destination focus > focuses finance, releases, or the generic Dashboard root without changing state 406ms
+ ✓ |ui| ui/src/audio/sink.test.ts (8 tests) 178ms
+ ✓ |ui| ui/src/screens/d14-career-impact.test.tsx (7 tests) 2818ms
+   ✓ D-14 Career Impact — data layer (frozen events) > translateReasons never leaks raw machine reason codes 940ms
+   ✓ D-14 Career Impact — data layer (frozen events) > a pre-V5 / no-event film is reported as unavailable (no invented history) 408ms
+   ✓ D-14 Career Impact — component > 1+2+3+4. renders every participant with frozen OVR + Star Power before→after 596ms
+   ✓ D-14 Career Impact — component > zero-delta participants remain visible with an explicit "No change" 496ms
+   ✓ D-14 Career Impact — component > talentCareerHistory returns the frozen events for one talent (most recent first) 372ms
+ ✓ |ui| ui/src/test/contracts/cue-determinism.contract.test.ts (5 tests) 15ms
+ ✓ |ui| ui/src/components/FilmPoster.test.tsx (9 tests) 313ms
+ ✓ |ui| ui/src/lot/tycoon/playback.test.ts (14 tests) 18ms
+ ✓ |ui| ui/src/engine/d17-save-migration.test.ts (6 tests) 5353ms
+   ✓ V11: adapter migration preserves an honest pre-ledger cash checkpoint > a played literal V2 save preserves its pre-ledger cash checkpoint when upgraded to V11 1131ms
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > an ENGAGED V5 save loads into the current state with engagement preserved 852ms
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a NEVER-ENGAGED V5 save loads as a non-engaged studio (byte-identical behaviour) 1344ms
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a literal V8 save upgrades to V16 with legacy screenplay, casting, construction, placement, and property state 822ms
+   ✓ D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file > a V5 file with a hand-added economyEngagedEver is still read as V5 (the flag is recomputed) 1071ms
+ ✓ |ui| ui/src/lot/WorldFirstLotNativeScriptReviewAppAuthority.test.tsx (2 tests) 4636ms
+   ✓ Lot-native screenplay review — App event ownership > consumes a malformed current presentation instead of retaining an inert event session 1567ms
+   ✓ Lot-native screenplay review — App event ownership > never lets stale review detail/action closures demote a newer exact event 3067ms
+ ✓ |ui| ui/src/screens/d11-screens.test.tsx (7 tests) 1912ms
+   ✓ FoundingScreen — hire an initial roster, then found > found-studio is disabled until the required minimums are met, then founds the studio 980ms
+ ✓ |ui| ui/src/lot/authored-stage-a-wiring.test.tsx (3 tests) 977ms
+   ✓ Stage A — the adopted gate reaches the scene > 1. DEFAULT (no override): the scene is configured AUTHORED and fetches exactly the pair 647ms
+ ✓ |ui| ui/src/screens/d12-decision-ux.test.tsx (4 tests) 1756ms
+   ✓ C3: script browsing on the concept step > sorts by base cost, searches by title, and preserves the current selection 459ms
+   ✓ C3: script browsing on the concept step > the Budget step shows Solvency, Capital committed %, Exposure, and the Shape/Demand panels 1227ms
+ ✓ |ui| ui/src/screens/c2a-m4-cap-consumers.test.tsx (3 tests) 3021ms
+   ✓ C2a-M4 — the break-even second line counts the films that actually share the cycle > still says "a second film" on an empty lot — the counterfactual it always was 1837ms
+   ✓ C2a-M4 — the break-even second line counts the films that actually share the cycle > says THREE when three films would share the cycle — the cap’s literal is gone 1093ms
+ ✓ |ui| ui/src/screens/d12-economy-ui.test.tsx (4 tests) 2603ms
+   ✓ D-12 Dashboard — finances card mirrors financeView > shows cash, runway, payroll, overhead, burn and net weekly from the read model 1279ms
+   ✓ D-12 Dashboard — theatrical runs card + Studio Rev column > renders an active run with this-week and total Studio Revenue 561ms
+   ✓ D-12 Dashboard — theatrical runs card + Studio Rev column > the releases table shows a Studio Rev cell equal to studioRevenueForFilm 584ms
+ ✓ |ui| ui/src/test/contracts/week-theater-mirror.contract.test.ts (5 tests) 461ms
+ ✓ |ui| ui/src/lot/snapshot/queueAdmission.test.ts (5 tests) 409ms
+ ✓ |ui| ui/src/test/redteam/rt-notice-epoch.redteam.test.tsx (9 tests) 223ms
+ ✓ |ui| ui/src/screens/WorldFirstGateHiringFocus.test.tsx (6 tests) 1323ms
+   ✓ World-First Gate → focused Hiring > focuses one exact current eligible card heading once and sorting does not steal focus 382ms
+ ✓ |ui| ui/src/test/contracts/audio-hygiene.contract.test.ts (9 tests) 210ms
+ ✓ |ui| ui/src/lot/StudioLotScreen.script-review-receipt.test.tsx (3 tests) 1429ms
+   ✓ StudioLotScreen — malformed exact script-review receipt boundary > demotes a missing required field without exposing or dispatching screenplay authority 825ms
+   ✓ StudioLotScreen — malformed exact script-review receipt boundary > demotes a decorated target without exposing or dispatching screenplay authority 335ms
+ ✓ |ui| ui/src/screens/ScreenplayCommissionForm.test.tsx (3 tests) 438ms
+ ✓ |ui| ui/src/test/contracts/registry.contract.test.ts (13 tests) 18ms
+ ✓ |ui| ui/src/screens/d12-live-forecast-truth.test.tsx (3 tests) 208ms
+stdout | ui/src/screens/StudioCalendar.career.test.tsx
+{"phase":"1065-ui-career","calls":{"changed":14,"scientist":1,"deferred":0,"dormant":0,"film":0},"total":15,"cap":15,"failedSetups":[]}
+
+ ✓ |ui| ui/src/screens/StudioCalendar.career.test.tsx (3 tests) 10992ms
+   ✓ C.3 recent career facts use existing Calendar identity routes > U1 renders genuine change/finality names and dates, retains age12, and removes age13 news 9871ms
+   ✓ C.3 recent career facts use existing Calendar identity routes > U2 App opens the exact off-roster career profile and restores focus without post-hydration writes 496ms
+   ✓ C.3 recent career facts use existing Calendar identity routes > U3 actual208 expiry explains its stop while Scientist finality alone adds no automatic stop 622ms
+ ✓ |ui| ui/src/lot/snapshot/v14SetHolderBoundary.test.ts (5 tests) 338ms
+ ✓ |ui| ui/src/screens/d12-autopsy-arithmetic.test.tsx (1 test) 734ms
+   ✓ D-12 autopsy arithmetic reconciles with the locked greenlight snapshot > Expected Studio Revenue = Expected Gross × 0.52, and Expected Contribution = that − commitment 732ms
+ ✓ |ui| ui/src/screens/dashboard-release-commit.test.tsx (2 tests) 1205ms
+   ✓ P06A — the browser release-commit affordance > renders an exact-title commit control at Release Ready and dispatches the exact id 1118ms
+ ✓ |ui| ui/src/lot/identity/draw.test.ts (6 tests) 12ms
+ ✓ |ui| ui/src/screens/d17b-truth-surfaces.test.tsx (5 tests) 664ms
+   ✓ D-17B publicity decision surface > renders each exact offer and sends the selected tier through the action callback 322ms
+ ✓ |ui| ui/src/screens/AssemblySurface.test.tsx (2 tests) 1589ms
+   ✓ Assembly presentation surface > keeps the canonical wizard inside one Lot-local scroll owner with embedded chrome 1496ms
+ ✓ |ui| ui/src/screens/p07a-film-result-view.test.tsx (5 tests) 7ms
+ ✓ |ui| ui/src/lot/identity/manifest.test.ts (9 tests) 9ms
+ ✓ |ui| ui/src/components/restricted.test.tsx (3 tests) 284ms
+ ✓ |ui| ui/src/hygiene.test.tsx (2 tests) 206ms
+ ✓ |ui| ui/src/screens/StudioCalendar.retirement.test.tsx (2 tests) 3554ms
+   ✓ C.2-RM real Calendar retirement route > shows the public boundary immediately beyond the Finance horizon, with nonfinancial wording and exact profile identity 1843ms
+   ✓ C.2-RM real Calendar retirement route > App opens the existing exact off-roster profile and restores Calendar focus without gameplay/autosave writes 1709ms
+ ✓ |ui| ui/src/engine/salary-sum-writer-credit.test.ts (2 tests) 108ms
+ ✓ |ui| ui/src/lot/LotRetainedWorkspace.test.tsx (2 tests) 310ms
+ ✓ |ui| ui/src/engine/p15b-lot-closure-gate.test.ts (2 tests) 4359ms
+   ✓ P15B completed Wave5 closure in the browser Studio Lot > the Lot commits actual player and rival closure then refuses further operating ticks 2345ms
+   ✓ P15B completed Wave5 closure in the browser Studio Lot > the Lot admits an actual closed save as exact read-only history 2013ms
+ ✓ |ui| ui/src/screens/d12-p2-marketing-ui.test.tsx (2 tests) 133ms
+ ✓ |ui| ui/src/screens/p07a-result-projection.test.tsx (3 tests) 6ms
+ ✓ |ui| ui/src/screens/d12-production-demand-ui.test.tsx (3 tests) 147ms
+ ✓ |ui| ui/src/lot/hollywood/roleAtlas.test.ts (3 tests) 9ms
+ ✓ |ui| ui/src/screens/Dashboard.navigation.test.tsx (1 test) 608ms
+   ✓ Dashboard Lot navigation > shows one exact return action for a Lot-rooted Dashboard and suppresses ordinary Lot entry 606ms
+ ✓ |ui| ui/src/lot/scene/productionStageState.test.ts (3 tests) 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |ui|  ui/src/p1364-late-founding-route.test.tsx > 1364 late founding through the mounted browser surfaces (1364-A §4, §5 cases 1 and 9) > malformed funding: a live save whose fund disagrees with its draft is refused by name on the StartScreen and on Saves, and the current campaign is kept
+Error: expect(element).toHaveTextContent()
+
+Expected element to have text content:
+  Could not load that save: validateSaveV48: foundingFunding fund.spentBonus 1 differs from founding.spentBonus 0
+Received:
+  Could not load that save: validateSaveV47: foundingFunding fund.spentBonus 1 differs from founding.spentBonus 0
+ ❯ ui/src/p1364-late-founding-route.test.tsx:197:39
+    195|     fireEvent.change(screen.getByTestId('import-text'), { target: { va…
+    196|     fireEvent.click(screen.getByTestId('import-save'))
+    197|     expect(screen.getByRole('alert')).toHaveTextContent(`Could not loa…
+       |                                       ^
+    198|     expect(screen.getByTestId('title-card')).toBeInTheDocument()
+    199|     expect(screen.queryByTestId('founding-intro')).not.toBeInTheDocume…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL |ui|  ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > orients a cash stop to Administration and focuses the supporting Finances section
+TestingLibraryElementError: Unable to find an element by: [data-testid="lot-next-event-rail"]
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"card"[39m
+      [33mdata-recovery[39m=[32m"continuing"[39m
+      [33mdata-testid[39m=[32m"recovery-notice"[39m
+      [33mrole[39m=[32m"status"[39m
+      [33mstyle[39m=[32m"margin-bottom: 12px;"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"spread"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0mContinuing your studio — Week 0.[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"ghost"[39m
+          [33mdata-testid[39m=[32m"recovery-dismiss"[39m
+        [36m>[39m
+          [0mDismiss[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<h1>[39m
+        [0mClosed studio — read-only history[0m
+      [36m</h1>[39m
+      [36m<p>[39m
+        [0mWeek [0m
+        [0m144[0m
+      [36m</p>[39m
+      [36m<p[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [0mThe studio closed in Week 144. This world is read-only history. 15 employment claims: 0 paid in full, 0 partially paid, 15 unpaid; 0 paid and 3681340 unpaid. 0 obligations remain pending in this saved world.[0m
+      [36m</p>[39m
+      [36m<button[39m
+        [33mdata-testid[39m=[32m"lot-advance-week"[39m
+        [33mdisabled[39m=[32m""[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mAdvance one week[0m
+      [36m</button>[39m
+      [36m<button[39m
+        [33mdata-testid[39m=[32m"lot-open-saves"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mExport or load a save[0m
+      [36m</button>[39m
+      [36m<button[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mStudio history[0m
+      [36m</button>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Employment claims"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mEmployment claims[0m
+        [36m</h2>[39m
+        [36m<table>[39m
+          [36m<thead>[39m
+            [36m<tr>[39m
+              [36m<th>[39m
+                [0mClaimant[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mOriginal[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mPaid[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mUnpaid[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mStatus[0m
+              [36m</th>[39m
+            [36m</tr>[39m
+          [36m</thead>[39m
+          [36m<tbody>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mSpencer Fenwick[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$168,792[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$168,792[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mMarlon Salazar[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$266,292[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$266,292[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mLoretta Sable[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$175,916[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$175,916[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mErrol Larkin[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$104,910[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$104,910[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mMarion Vance[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$855,400[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$855,400[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mConrad Castellano[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$70,382[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$70,382[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mAdolphe Reyes[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$222,794[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$222,794[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mCary Halberstam[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$207,896[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$207,896[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mGenevieve Vollmer[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$210,...
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"card"[39m
+      [33mdata-recovery[39m=[32m"continuing"[39m
+      [33mdata-testid[39m=[32m"recovery-notice"[39m
+      [33mrole[39m=[32m"status"[39m
+      [33mstyle[39m=[32m"margin-bottom: 12px;"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"spread"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0mContinuing your studio — Week 0.[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"ghost"[39m
+          [33mdata-testid[39m=[32m"recovery-dismiss"[39m
+        [36m>[39m
+          [0mDismiss[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<h1>[39m
+        [0mClosed studio — read-only history[0m
+      [36m</h1>[39m
+      [36m<p>[39m
+        [0mWeek [0m
+        [0m144[0m
+      [36m</p>[39m
+      [36m<p[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m>[39m
+        [0mThe studio closed in Week 144. This world is read-only history. 15 employment claims: 0 paid in full, 0 partially paid, 15 unpaid; 0 paid and 3681340 unpaid. 0 obligations remain pending in this saved world.[0m
+      [36m</p>[39m
+      [36m<button[39m
+        [33mdata-testid[39m=[32m"lot-advance-week"[39m
+        [33mdisabled[39m=[32m""[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mAdvance one week[0m
+      [36m</button>[39m
+      [36m<button[39m
+        [33mdata-testid[39m=[32m"lot-open-saves"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mExport or load a save[0m
+      [36m</button>[39m
+      [36m<button[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mStudio history[0m
+      [36m</button>[39m
+      [36m<section[39m
+        [33maria-label[39m=[32m"Employment claims"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mEmployment claims[0m
+        [36m</h2>[39m
+        [36m<table>[39m
+          [36m<thead>[39m
+            [36m<tr>[39m
+              [36m<th>[39m
+                [0mClaimant[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mOriginal[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mPaid[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mUnpaid[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mStatus[0m
+              [36m</th>[39m
+            [36m</tr>[39m
+          [36m</thead>[39m
+          [36m<tbody>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mSpencer Fenwick[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$168,792[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$168,792[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mMarlon Salazar[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$266,292[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$266,292[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mLoretta Sable[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$175,916[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$175,916[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mErrol Larkin[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$104,910[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$104,910[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mMarion Vance[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$855,400[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$855,400[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mConrad Castellano[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$70,382[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$70,382[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mAdolphe Reyes[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$222,794[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$222,794[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mCary Halberstam[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$207,896[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$0[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$207,896[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0mUnpaid[0m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mGenevieve Vollmer[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m$210,...
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx:1691:40
+    1689|     fireEvent.click(successorControl, { detail: 1 })
+    1690|     await waitFor(() => expect(adapterProbe.calls).toHaveLength(2))
+    1691|     const successorRail = await screen.findByTestId('lot-next-event-ra…
+       |                                        ^
+    1692|     expect(successorRail).toHaveAttribute(
+    1693|       'data-feedback-kind',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL |ui|  ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > preserves the exact live-world reaction after a rejected import or declined restart
+TestingLibraryElementError: Unable to find an element by: [data-testid="dashboard-releases-heading"]
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"card"[39m
+      [33mdata-recovery[39m=[32m"continuing"[39m
+      [33mdata-testid[39m=[32m"recovery-notice"[39m
+      [33mrole[39m=[32m"status"[39m
+      [33mstyle[39m=[32m"margin-bottom: 12px;"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"spread"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0mContinuing your studio — Week 13.[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"ghost"[39m
+          [33mdata-testid[39m=[32m"recovery-dismiss"[39m
+        [36m>[39m
+          [0mDismiss[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"lot-screen lot-hollywood"[39m
+      [33mdata-entry-focus[39m=[32m"next-event-reaction"[39m
+      [33mdata-testid[39m=[32m"studio-lot-screen"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-casting-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-production-formation-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-script-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"lot-topbar"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-brand"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"mark lot-studio-heading"[39m
+            [33mdata-testid[39m=[32m"lot-studio-heading"[39m
+            [33mtabindex[39m=[32m"-1"[39m
+          [36m>[39m
+            [0mPROJECT: STUDIO[0m
+          [36m</h1>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-sub"[39m
+          [36m>[39m
+            [0mStudio Chronicle · Hollywood, 1920 · Week 19[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-topbar-actions"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-cash-slot"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-cash"[39m
+              [33mdata-testid[39m=[32m"lot-cash"[39m
+            [36m>[39m
+              [0m$18,127,000[0m
+            [36m</span>[39m
+          [36m</span>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-transport"[39m
+            [33mdata-mode[39m=[32m"paused"[39m
+            [33mdata-paused-by[39m=[32m"none"[39m
+            [33mdata-speed[39m=[32m"1"[39m
+            [33mdata-testid[39m=[32m"lot-transport"[39m
+            [33mdata-week[39m=[32m"18"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33maria-pressed[39m=[32m"false"[39m
+              [33mclass[39m=[32m"lot-transport-run lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-transport-toggle"[39m
+              [33mtitle[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m▶[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mRoll[0m
+              [36m</span>[39m
+            [36m</button>[39m
+            [36m<div[39m
+              [33maria-label[39m=[32m"Pace"[39m
+              [33mclass[39m=[32m"lot-transport-speeds"[39m
+              [33mrole[39m=[32m"group"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33maria-pressed[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-transport-speed is-current"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-1"[39m
+                [33mtitle[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m1[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Brisk pace — twice as fast"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-2"[39m
+                [33mtitle[39m=[32m"Brisk pace — twice as fast"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m2[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-4"[39m
+                [33mtitle[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m4[0m
+                [0m×[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Advance one week"[39m
+            [33mclass[39m=[32m"primary lot-advance-week lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-advance-week"[39m
+            [33mtitle[39m=[32m"Advance one week"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▸[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mAdvance one week[0m
+            [36m</span>[3...
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"card"[39m
+      [33mdata-recovery[39m=[32m"continuing"[39m
+      [33mdata-testid[39m=[32m"recovery-notice"[39m
+      [33mrole[39m=[32m"status"[39m
+      [33mstyle[39m=[32m"margin-bottom: 12px;"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"spread"[39m
+      [36m>[39m
+        [36m<span>[39m
+          [0mContinuing your studio — Week 13.[0m
+        [36m</span>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"ghost"[39m
+          [33mdata-testid[39m=[32m"recovery-dismiss"[39m
+        [36m>[39m
+          [0mDismiss[0m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"lot-screen lot-hollywood"[39m
+      [33mdata-entry-focus[39m=[32m"next-event-reaction"[39m
+      [33mdata-testid[39m=[32m"studio-lot-screen"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-casting-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-production-formation-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<div[39m
+        [33maria-atomic[39m=[32m"true"[39m
+        [33maria-live[39m=[32m"polite"[39m
+        [33mclass[39m=[32m"visually-hidden"[39m
+        [33mdata-testid[39m=[32m"lot-script-review-announcement"[39m
+        [33mrole[39m=[32m"status"[39m
+      [36m/>[39m
+      [36m<header[39m
+        [33mclass[39m=[32m"lot-topbar"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-brand"[39m
+        [36m>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"mark lot-studio-heading"[39m
+            [33mdata-testid[39m=[32m"lot-studio-heading"[39m
+            [33mtabindex[39m=[32m"-1"[39m
+          [36m>[39m
+            [0mPROJECT: STUDIO[0m
+          [36m</h1>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-sub"[39m
+          [36m>[39m
+            [0mStudio Chronicle · Hollywood, 1920 · Week 19[0m
+          [36m</span>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"lot-topbar-actions"[39m
+        [36m>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"lot-cash-slot"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-cash"[39m
+              [33mdata-testid[39m=[32m"lot-cash"[39m
+            [36m>[39m
+              [0m$18,127,000[0m
+            [36m</span>[39m
+          [36m</span>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"lot-transport"[39m
+            [33mdata-mode[39m=[32m"paused"[39m
+            [33mdata-paused-by[39m=[32m"none"[39m
+            [33mdata-speed[39m=[32m"1"[39m
+            [33mdata-testid[39m=[32m"lot-transport"[39m
+            [33mdata-week[39m=[32m"18"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33maria-label[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33maria-pressed[39m=[32m"false"[39m
+              [33mclass[39m=[32m"lot-transport-run lot-topbar-compactable"[39m
+              [33mdata-testid[39m=[32m"lot-transport-toggle"[39m
+              [33mtitle[39m=[32m"Let the studio work — the weeks run on their own"[39m
+              [33mtype[39m=[32m"button"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-topbar-mark"[39m
+              [36m>[39m
+                [0m▶[0m
+              [36m</span>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"lot-topbar-label"[39m
+              [36m>[39m
+                [0mRoll[0m
+              [36m</span>[39m
+            [36m</button>[39m
+            [36m<div[39m
+              [33maria-label[39m=[32m"Pace"[39m
+              [33mclass[39m=[32m"lot-transport-speeds"[39m
+              [33mrole[39m=[32m"group"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33maria-pressed[39m=[32m"true"[39m
+                [33mclass[39m=[32m"lot-transport-speed is-current"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-1"[39m
+                [33mtitle[39m=[32m"Ordinary pace — one week plays in full"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m1[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Brisk pace — twice as fast"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-2"[39m
+                [33mtitle[39m=[32m"Brisk pace — twice as fast"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m2[0m
+                [0m×[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33maria-label[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33maria-pressed[39m=[32m"false"[39m
+                [33mclass[39m=[32m"lot-transport-speed"[39m
+                [33mdata-testid[39m=[32m"lot-transport-speed-4"[39m
+                [33mtitle[39m=[32m"Fastest pace — the week settles as it lands"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0m4[0m
+                [0m×[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<button[39m
+            [33maria-label[39m=[32m"Advance one week"[39m
+            [33mclass[39m=[32m"primary lot-advance-week lot-topbar-compactable"[39m
+            [33mdata-testid[39m=[32m"lot-advance-week"[39m
+            [33mtitle[39m=[32m"Advance one week"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"lot-topbar-mark"[39m
+            [36m>[39m
+              [0m▸[0m
+            [36m</span>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"lot-topbar-label"[39m
+            [36m>[39m
+              [0mAdvance one week[0m
+            [36m</span>[3...
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ openSavesFromExactReaction ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx:1933:44
+    1931|     async function openSavesFromExactReaction() {
+    1932|       fireEvent.click(screen.getByTestId('lot-next-event-open-details'…
+    1933|       const releasesHeading = await screen.findByTestId(
+       |                                            ^
+    1934|         'dashboard-releases-heading',
+    1935|       )
+ ❯ ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx:1975:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+ Test Files  2 failed | 205 passed (207)
+      Tests  3 failed | 2707 passed | 5 skipped (2715)
+   Start at  09:24:15
+   Duration  1499.57s (transform 37.25s, setup 28.87s, collect 310.93s, tests 905.03s, environment 175.21s, prepare 24.45s)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-d16-ui-r5-run/ui-full.json

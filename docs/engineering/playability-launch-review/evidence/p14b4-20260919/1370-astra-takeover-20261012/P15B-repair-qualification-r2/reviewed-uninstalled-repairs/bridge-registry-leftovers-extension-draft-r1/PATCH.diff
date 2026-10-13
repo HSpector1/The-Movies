@@ -1,0 +1,34 @@
+--- a/tests/bridge-p14b4-runtime47-compatibility.test.ts
++++ b/tests/bridge-p14b4-runtime47-compatibility.test.ts
+@@ -61,6 +61,8 @@
+ const OUTGOING_54 = 'sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302' // P4/P5: genuine1221 outgoing54
+ const OUTGOING_55 = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158' // R2/R3: genuine1307 outgoing55
+ const OUTGOING_56 = 'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1' // relationship slice B: outgoing56, the manifest schemaId before projection 57
++// Actual shipped outgoing57 is preserved alongside the historic identities.
++const OUTGOING_57 = 'sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253'
+ const PINS = {
+   gzip: '3db0599c6e183140b79c83880eb967dde37aecc0d178a85d192283893ea0cc34',
+   raw: 'e344be06db6794e9d1523c036befb4180595564ef8a3fb6e6062328e477e7699',
+@@ -220,7 +222,7 @@
+     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
+     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
+-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56].sort())
++    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57].sort())
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
+     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_53)).toBe('projection-v53')
+--- a/tests/bridge-p14r2r3-prior55.test.ts
++++ b/tests/bridge-p14r2r3-prior55.test.ts
+@@ -201,8 +201,9 @@
+     // (tests/bridge-p14p4p5-opportunities.test.ts).
+     const older = [...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id !== OLD_SCHEMA)
+       .sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0)
+-    expect(older).toHaveLength(44)
+-    expect(sha(canonicalJson(older))).toBe('d25c64254ac090a8470cc43b2f02740e149b6f29f75966ba4d2d1684b26654a6')
++    // Actual shipped outgoing57 adds one prior identity; exclude only genuine55 here.
++    expect(older).toHaveLength(45)
++    expect(sha(canonicalJson(older))).toBe('fc2e8804eb1c4729cc21403d7722114deb49cb1c234421e7629fa12430f316b9')
+ 
+     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
+     expect(loaded.migratedFromProtocolVersion).toBe(4)

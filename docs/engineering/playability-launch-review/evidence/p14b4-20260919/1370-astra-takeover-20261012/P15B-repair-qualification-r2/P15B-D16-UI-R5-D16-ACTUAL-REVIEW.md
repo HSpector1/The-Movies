@@ -1,0 +1,13 @@
+# D16 r5 constituent: complete independent actual review
+
+GPT-6.1 Sol. D16 remains FAILED; fullUI/whole lane still active, no post-UI claim. Read-only JSON accounting invoked the unchanged reviewed p15b-d16-identity-accounting.py into fresh P15B-D16-R5-INDEPENDENT-IDENTITIES.json, preserving every raw assertion/diagnostic and file collection field.
+
+Actual179=166PASS13FAIL,11files,0skip/todo, no assertion/header accounting mismatch. All176Save47 identities present plus exactly3new terminal controls; original159151identities all present plus25previously collection-masked driver identities and3new. Restored25 split18PASS/7FAIL. All3new actual terminal/reconciliation/alreadyclosed-no-callback/nonterminal-cadence controls PASS. No lost identity or deliberate skip. Original15913fail split8nowPASS and5stillFAIL; another previously159PASS isolation control nowfails. Thus current13 is not the same failed set as old13.
+
+Remaining causes vs Save47:
+
+- Ten retain identical first causes:4 discovery corpus/information-gap nonvacuity,1 driver run-film count,1 driver roster-wall missing flag,1 isolation real-film prerequisite,1 publicity ledger doublecount and2 per-film/pure-cash empty-corpus prerequisites. These are failures, not inherited clearance.
+- One states roster-wall failure existed Save47 with a different first assertion (expected true to be undefined); original159 closure100 had masked it, now it reaches missing roster flag (expected undefined to be true). Preserve the cause change and unmet survival/roster premise.
+- Two Save47-passed controls now fail: custom slices expects208/260 though actual terminal route emits only52/104; original159 had not collected it. Never fabricate unreached slices: require terminal-aware law and a separate genuine nonterminal cadence/input if retaining a260 full-horizon dimension. Isolation import failure is concrete new test seam: terminal.test.ts:5 directly imports core/save.js while isolation.test.ts:147–157 scans every D16 .ts and mandates core/index.js. Existing index exports makeSave/stableStringify, so merge those into the index import after currentUI terminal, preserve isolation control unchanged and rerun affectedcompleteD16.
+
+Child1/292s, exact D16 config and default budgets; parent post-D16 source/input/AUTO-aware guard succeeded. Current fullUI postflight is pending, so no final freeze/whole-lane verdict. Originalgate98 and old collection failure remain preserved. Static original terminal-test admission missed the whole-directory barrel constraint; required completeD16 exposed it. Fix imports by the existing public barrel, not by weakening the isolation test or excluding the new file.

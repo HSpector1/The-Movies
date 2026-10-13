@@ -1,0 +1,2 @@
+{"status":"UNMET_SINGLE_ROUTE_PREMISE_NOT_ACCEPTANCE","ticks":51,"error":"single minimum lawful principal exceeds maximum; no amount sweep","diagnosticSHA256":"89d70cbc6dc4671be3d5eea59377963bef47d243a111fa9055291bd0e387aee7"}
+{"childPID": 2600, "ownedGroupID": 2600, "childExit": 2, "timedOut": false, "interruptionSignal": null, "deadlineSeconds": 30, "elapsedSeconds": 8.625681238016114, "cleanupUncertain": false, "cleanupErrors": [], "remainingOwnedGroupCount": 0, "overallExit": 2, "scope": "standalone30s diagnostic cap, not original core5s leaf budget; no acceptance"}

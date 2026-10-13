@@ -1,0 +1,41 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p13b-s2-doc03.test.ts > P13B-S2 document 03 [780,832) through the real scheduler (test 5)
+DOC03 final-window financing (separate from paper components) {
+  route: 'cooperateFull',
+  requestedThroughWeek: 832,
+  actualWeek: 832,
+  borrowing: { week: 803, principal: 1482000, total: 1659840, interest: 177840 },
+  installments: 893760
+}
+DOC03 final-window financing (separate from paper components) {
+  route: 'splitFull',
+  requestedThroughWeek: 832,
+  actualWeek: 832,
+  borrowing: { week: 807, principal: 1482000, total: 1659840, interest: 177840 },
+  installments: 766080
+}
+DOC03 final-window financing (separate from paper components) {
+  route: 'cooperateResidual',
+  requestedThroughWeek: 841,
+  actualWeek: 841,
+  borrowing: { week: 804, principal: 1482000, total: 1659840, interest: 177840 },
+  installments: 1149120
+}
+DOC03 final-window financing (separate from paper components) {
+  route: 'splitResidual',
+  requestedThroughWeek: 841,
+  actualWeek: 841,
+  borrowing: { week: 808, principal: 1482000, total: 1659840, interest: 177840 },
+  installments: 1021440
+}
+
+ ✓ |core| tests/p13b-s2-doc03.test.ts (17 tests) 9965ms
+
+ Test Files  1 passed (1)
+      Tests  17 passed (17)
+   Start at  08:34:48
+   Duration  12.94s (transform 1.97s, setup 0ms, collect 2.60s, tests 9.97s, environment 0ms, prepare 92ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-doc03-loan-r2-run/doc03.json

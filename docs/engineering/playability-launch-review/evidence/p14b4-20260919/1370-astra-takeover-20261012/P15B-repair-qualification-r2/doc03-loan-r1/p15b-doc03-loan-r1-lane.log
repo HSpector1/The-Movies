@@ -1,0 +1,3 @@
+Exact production194 WT/index candidate, no unstaged change, reviewed final pins, reverse check PASS
+node=v20.20.2 python=Python 3.14.4 start=2026-10-13T13:27:21Z
+{"name": "tsc-root", "exit": 2, "seconds": 44}

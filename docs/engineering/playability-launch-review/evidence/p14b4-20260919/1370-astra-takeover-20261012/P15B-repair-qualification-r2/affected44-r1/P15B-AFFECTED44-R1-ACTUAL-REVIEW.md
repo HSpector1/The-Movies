@@ -1,0 +1,14 @@
+# Complete affected44 actual independent review
+
+GPT-6.1 Sol. KEEP evidence accounting; run remains FAILED. No execution/source edits. Machine receipt P15B-AFFECTED44-R1-INDEPENDENT-IDENTITIES.json retains all19 full diagnostics paired to both actual Save47 and original159, including occurrence-qualified identity and statuses.
+
+Independent raw accounting: exact44 selected files,598 assertions577PASS/19FAIL/2TODO, no missing/added identities versus original159 selection. Original75fails become56PASS+19stillFAIL; previously521PASS and2TODO remain. Reporter success:false; child/lane1/2014s. Raw219295e… matches parent. Three strict/AUTO checks succeed with no error: one valid changed stamp recorded, all source/input/HEAD/index/cached/inventory/exterior comparison guards preserved. Original98 is not rewritten.
+
+Remaining19 dispositions:
+
+- Fourteen actual Save47 inherited first-cause failures:8 bridge-p14b2-trust (5 missing natural rival-only outcome by240;3 actual208 vs expected52),5 bridge-p14b5-relationships (4 old roster/chain counts18/47/43/36 vs40/48/48/48, plus poaching208vs52),1 bridge-p14c3-runtime timeout5000ms. Ten messages/stacks are byte-identical to original159; five remaining changed diagnostics are line/column offsets only. These remain failed prerequisites/assertions, not acceptance-cleared by inheritance. No ledger reconciliation failure exists among these19; avoid that umbrella label.
+- Three previously Save47-passed registry consumers now advance beyond fixed current58 marker and fail stale prior-map lists/counts: runtime47 compatibility expected45keys vs46, B55-3 older44vs45, prior55 older44vs45. Reviewed exact actual57 list/digest patches address the observed assertions, not the still-unexecuted later portions of those leaves.
+- B5 previously Save47-passed now fails before first tick on professionAnchors identity/order; original159 failed a different invalid age/provenance prerequisite. Reviewed generated-entrant-anchor reorder targets only this new first throw;520 survival/consumer outcome is still unmeasured. C2 now passes.
+- New P15B pending-family control has no Save47 counterpart and retains original159 unlawful adoption-without-access refusal. Later pending disposition semantics did not run; prospective single player-adoption diagnostic cannot replace combined proposal/rival-build qualification.
+
+Nine changed existing diagnostics are precisely5offset-only+3registry-first-assertion progression+1B5premise progression. No prior-selected PASS→FAIL regression or newly added failure identity was observed; this does not prove gameplay equivalence or clear the above changed/pending prerequisites. All56 repaired leaves ran and passed; broader full-core results remain separately failed and unchanged. Next complete D16/fullUI evidence remains necessary; proposed4consumer repairs require fresh qualified whole-file coverage after installation. Long1363/full acceptance scope is still separate.

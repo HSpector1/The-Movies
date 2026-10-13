@@ -1,0 +1,19 @@
+--- a/tests/p14c2a-consumers.test.ts
++++ b/tests/p14c2a-consumers.test.ts
+@@ -313,7 +313,15 @@
+     // Leaf-local CONSTRUCTED candidate, not a naturally generated retirement witness.
+     // Current age65 is in writer window[65,75); no receipts/history/cash/clocks rewritten.
+     const person = { ...template, id, role: 'writer' as const, age: 65, authored: false }
+-    const state = withTalentProvenance({ ...base, talent: [person, ...base.talent] }, person)
++    const appended = withTalentProvenance({ ...base, talent: [...base.talent, person] }, person)
++    const entrant = appended.careerLifecycle.professionAnchors.find(a => a.personId === id)!
++    expect(entrant).toMatchObject({ personId: id, profession: 'writer', recordedWeek: 0, kind: 'entrant' })
++    // Disclosed FIRST-match unit input: move the generated entrant anchor together
++    // with its new person. Preserve every historical anchor byte and relative order.
++    const state = { ...appended, talent: [person, ...base.talent], careerLifecycle: {
++      ...appended.careerLifecycle, professionAnchors: [entrant, ...base.careerLifecycle.professionAnchors],
++    } }
++    expect(state.careerLifecycle.professionAnchors.slice(1)).toEqual(base.careerLifecycle.professionAnchors)
+     // Actual append owner writes the birthday due bucket AND profession entrant anchor.
+     expect(state.talent[0]!.id).toBe(id)
+     expect(state.talentProvenance.due.some((bucket) => bucket.personIds.includes(id))).toBe(true)

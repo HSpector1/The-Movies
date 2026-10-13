@@ -1,0 +1,5 @@
+Exact production194 WT/index candidate, no unstaged change, reviewed final pins, reverse check PASS
+node=v20.20.2 python=Python 3.14.4 start=2026-10-13T14:19:11Z
+{"name": "d16", "exit": 1, "seconds": 292}
+{"name": "vitest-ui-full", "exit": 1, "seconds": 1508}
+{"d16ChildExit": 1, "uiChildExit": 1, "overallExit": 1, "scope": "completeD16 then fullUI only; root0 reused on exactsource", "identityAccounting": "PENDING actual parent reporter validation, all failures retained", "freezeUnchanged": true}
