@@ -1,0 +1,7 @@
+{
+  "path": "tests/p15b4-pending-rival-work.test.ts",
+  "preimageSHA256": "96d61b87ebee8ea442021be3fbdd652f773984092a434d3c8a53901c80659ba4",
+  "postimageSHA256": "acd045d862ed8324f9da4a14290d9e03c78ed8cc77bbb085a9a8f6a05e42aee9",
+  "originalFailureReport": "A/p15b-pending-families-r1-run/equipment-core.json",
+  "scope": "one exactrefund attribution; failed204r2 preserved"
+}

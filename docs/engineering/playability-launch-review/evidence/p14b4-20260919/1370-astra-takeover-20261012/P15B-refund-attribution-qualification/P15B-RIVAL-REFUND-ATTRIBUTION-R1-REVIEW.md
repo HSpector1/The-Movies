@@ -1,0 +1,9 @@
+# Rival refund attribution repair: independent static review
+
+GPT-6.1 Sol. Conditional KEEP for fresh completefive qualification; no execution/source edits. Reviewed PATCH/MANIFEST preimage96d61b87…→postimageacd045d8… against source and prior actualfailure.
+
+Independently inspected only established baseline280 payload: event258 is actualR01lab1/plan3 committed266; plan3 paid900k/build12/started retained; event261 is that same lab operational278, present in R01operations at280. These are genuine retained source facts, not pins derived from450k failure. Real disposeRivalFacility owner eligibility verifies unique paidoperational bare laboratory and authentic plan/fingerprint, writes facilityDisposed atinputW and450k authoredhalfrefund before posttickclosureW+1.
+
+Patch no longer conflates whole-studio facilityrefund with targetadoption refund. For sound arm it requires exactlyone new actualreceipt with exactowner/lab1/plan3/blueprint/week/refund, sourcecommit+operational evidence, operational facility beforetick, authoredrefund equality and paidhalf; refuses any disposal of targetstage/Post. For labpending arm it still requires no disposal. Whole account refunddelta must equal actualnewreceipt sum; targetpaidcapital unchanged, full reader/directdisposal validator retained. Targetadoption held/null/pending-stoppedresult, actualclosure/cause/roundtrip/completeness/purity and continuation comparisons remain afterward. No producer/disposal suppression, clock/financialfabrication or budget change.
+
+Original sound failure happened after fulloutputadmission but before terminalclauses; this proposal’s future receipt and later terminal checks remain UNRUN. Must qualify allfive under unchangeddefault5s and retain priorfailure/preimage; no originaljointleaf retirement yet. Event/paid-body source is confirmed, future exactdisposal is still a test premise, not an alreadyobserved specificreceipt in the old scalarreporter. No coverage weakening found.

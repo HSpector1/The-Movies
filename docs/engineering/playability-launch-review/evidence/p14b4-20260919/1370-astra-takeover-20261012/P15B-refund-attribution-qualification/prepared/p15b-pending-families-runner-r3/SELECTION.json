@@ -1,0 +1,9 @@
+{
+  "coreFiles": [
+    "tests/p15b4-pending-player-adoption.test.ts",
+    "tests/p15b4-proposal-transaction.test.ts",
+    "tests/p15b4-pending-rival-work.test.ts",
+    "tests/p15b4-player-proposal-transaction.test.ts"
+  ],
+  "scope": "root compiler then four complete terminal-family files/fiveleaves after exact original-literal assertions; original core5s unchanged; all actual durations <=5000 required before originalleaf retirement"
+}

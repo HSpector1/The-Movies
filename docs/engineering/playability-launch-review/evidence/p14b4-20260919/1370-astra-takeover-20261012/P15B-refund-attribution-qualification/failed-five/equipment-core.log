@@ -1,0 +1,50 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p15b4-pending-rival-work.test.ts (2 tests | 1 failed) 5384ms
+   ✓ constructed condition/finance premise closes authentic pending rival lab; independent ordinary arm completes it 3394ms
+   × constructed condition/finance premise closes authentic pending rival sound; independent ordinary arm completes it 1989ms
+     → expected 450000 to be +0 // Object.is equality
+ ✓ |core| tests/p15b4-proposal-transaction.test.ts (1 test) 2015ms
+   ✓ real retained week45 proposal is withdrawn once by a full-admitted constructed rival closure 2014ms
+ ✓ |core| tests/p15b4-player-proposal-transaction.test.ts (1 test) 2073ms
+   ✓ real retained week45 player proposal withdraws before own-case invalidation and linked ended publication 2072ms
+stdout | tests/p15b4-pending-player-adoption.test.ts > real paid capital/refund/loan edge retains earned pending player adoption at actual closure
+pending adoption public-policy financing only {
+  principal: 1389000,
+  refund: 450000,
+  loan: undefined,
+  installments: 59834
+}
+
+ ✓ |core| tests/p15b4-pending-player-adoption.test.ts (1 test) 4190ms
+   ✓ real paid capital/refund/loan edge retains earned pending player adoption at actual closure 4188ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p15b4-pending-rival-work.test.ts > constructed condition/finance premise closes authentic pending rival sound; independent ordinary arm completes it
+AssertionError: expected 450000 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 450000
+
+ ❯ terminal tests/p15b4-pending-rival-work.test.ts:41:50
+     39|  // The work's existing capital movement is retained; no positive refu…
+     40|  expect(booked(next,money)).toBe(paidBefore)
+     41|  expect(booked(next,'facilityDemolitionRefund')).toBe(refundsBefore)
+       |                                                  ^
+     42|  expect(text(premise)).toBe(before);expect(text(s)).toBe(original)
+     43|  const c=next.studioClosure.closures.find(c=>c.studioId===R)!;expect(c…
+ ❯ tests/p15b4-pending-rival-work.test.ts:76:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  1 failed | 4 passed (5)
+   Start at  12:01:59
+   Duration  19.32s (transform 2.30s, setup 0ms, collect 4.26s, tests 13.66s, environment 1ms, prepare 391ms)
+
+JSON report written to /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-pending-families-r1-run/equipment-core.json

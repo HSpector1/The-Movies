@@ -1,0 +1,16 @@
+{
+  "at": "2026-10-13T12:10:46.084404-05:00",
+  "path": "tests/p15b4-pending-rival-work.test.ts",
+  "before": {
+    "/Users/zacheryspector/The-Movies-headless-program": {
+      "head": "6c7c77efab73fef2b4ad1b2a79a830242f1cb011",
+      "sourceSHA256": "96d61b87ebee8ea442021be3fbdd652f773984092a434d3c8a53901c80659ba4"
+    },
+    "/Users/zacheryspector/studio-specialists/p15b": {
+      "head": "d68d4b13b454922cf84eff5c0c73cae3e780eebe",
+      "sourceSHA256": "96d61b87ebee8ea442021be3fbdd652f773984092a434d3c8a53901c80659ba4"
+    }
+  },
+  "afterSHA256": "acd045d862ed8324f9da4a14290d9e03c78ed8cc77bbb085a9a8f6a05e42aee9",
+  "scope": "test-only attribution; no engine edits"
+}

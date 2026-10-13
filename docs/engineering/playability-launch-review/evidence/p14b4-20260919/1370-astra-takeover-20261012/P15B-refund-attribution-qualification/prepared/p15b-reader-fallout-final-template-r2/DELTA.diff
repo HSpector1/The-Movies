@@ -1,0 +1,24 @@
+--- /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-reader-fallout-final-template-r1/runner.sh
++++ /Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-reader-fallout-final-template-r2/runner.sh
+@@ -7,10 +7,10 @@
+ A=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012
+ P="$A/PENDING-FINAL-P15B-PACKET"
+ OUT="$A/p15b-reader-fallout-final-r1-run"
+-SCRIPT="$A/p15b-reader-fallout-final-template-r1/runner.sh"
++SCRIPT="$A/p15b-reader-fallout-final-template-r2/runner.sh"
+ AUTO_HELPER="$A/p15b-auto-recorder-r4r2-draft/auto_freeze.py"
+ EXTRA_INPUTS="$A/p15b-d16-ui-r5-draft/RUNTIME-INPUTS.json"
+-SELECTION="$A/p15b-reader-fallout-final-template-r1/SELECTION.json"
++SELECTION="$A/p15b-reader-fallout-final-template-r2/SELECTION.json"
+ export AUTO_HELPER OUT EXTRA_INPUTS SELECTION
+ export PATH=/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin:$R/.venv/bin:$PATH GIT_OPTIONAL_LOCKS=0
+ export P15B_FOCUS_INPUT_1="$C/tests/fixtures/p1364/generated-v45-late-draft"
+@@ -214,7 +214,7 @@
+ ec=$?;remember check-contract "$ec";[ "$ec" = 0 ] || exit "$ec"
+ run check-fixtures node node_modules/vite-node/vite-node.mjs scripts/generate-bridge-contract-fixtures.ts --check
+ ec=$?;remember check-fixtures "$ec";[ "$ec" = 0 ] || exit "$ec"
+-run reader-fallout node node_modules/vitest/vitest.mjs run --project core --no-file-parallelism --no-cache --reporter=default --reporter=json --outputFile.json="$OUT/reader-fallout.json" tests/p13b-s5-save-v24.test.ts tests/p13b-r07-save-v25.test.ts tests/p13b-s8-save-v27.test.ts tests/p15b4-studio-closure-save.test.ts
++run reader-fallout node node_modules/vitest/vitest.mjs run --project core --no-file-parallelism --no-cache --reporter=default --reporter=json --outputFile.json="$OUT/reader-fallout.json" tests/p13b-s5-save-v24.test.ts tests/p13b-r07-save-v25.test.ts tests/p13b-s8-save-v27.test.ts tests/p15b4-studio-closure-save.test.ts tests/p15b4-studio-closure.test.ts
+ core_ec=$?;remember core "$core_ec"
+ [ "$core_ec" -le 1 ] || exit "$core_ec"
+ check_freeze || exit 98
