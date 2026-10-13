@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-nonleak267-watchdog-r3-verify.py", line 16, in <module>
+    assert r['exit'] == 124 and r['ownedGroupGone'] and r['deadlineExceeded'] and r['childExit'] is not None
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+{"kind": "isolated watchdog verification", "exit": 1, "seconds": 0.3283353789593093, "beforeKiB": 3765660, "afterKiB": 3765568, "inputs": {"p15b-nonleak267-watchdog-r3.py": "a11088d97560cd3938d26554535c25a1a7e3c448190b263424502e144b70d4c8", "p15b-nonleak267-watchdog-r3-verify.py": "750ed07d9d266ea7dd3a18344d31dc49ef750585d261998b58bfad796fbc568e"}, "unchanged": true}

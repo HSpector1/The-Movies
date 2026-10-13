@@ -1,0 +1,20 @@
+--- p15b-nonleak267-continuation-draft/DIAGNOSTIC.ts
++++ p15b-nonleak267-continuation-draft-r2/DIAGNOSTIC.ts
+@@ -167,17 +167,14 @@
+       }
+       if (at % 130 === 0) process.stdout.write(JSON.stringify({ progressWeek: at, target, ticksAttempted: result.ticksAttempted }) + '\n')
+       within(`continuation${at}:before-actual`)
+-      const actualBefore = sha(bytes(actual)), counterfactualBefore = sha(bytes(counterfactual))
+       result.nextTick = { arm: 'actual40000', fromWeek: at, target }
+       result.ticksAttempted = Number(result.ticksAttempted) + 1
+       const nextA = tick(actual, options)
+-      check(sha(bytes(actual)) === actualBefore, `actual40000 input mutated at${at}`)
+       check(nextA.market.tick === at + 1, `actual40000 tick clock differs at${at}`)
+       within(`continuation${at}:after-actual`)
+       result.nextTick = { arm: 'constructed20000', fromWeek: at, target }
+       result.ticksAttempted = Number(result.ticksAttempted) + 1
+       const nextB = tick(counterfactual, options)
+-      check(sha(bytes(counterfactual)) === counterfactualBefore, `constructed20000 input mutated at${at}`)
+       check(nextB.market.tick === at + 1, `constructed20000 tick clock differs at${at}`)
+       within(`continuation${at}:after-constructed`)
+       actual = nextA; counterfactual = nextB

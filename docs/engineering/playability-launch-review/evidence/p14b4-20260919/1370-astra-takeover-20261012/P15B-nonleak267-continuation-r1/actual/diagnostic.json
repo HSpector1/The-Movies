@@ -1,0 +1,132 @@
+{
+  "kind": "non-leak267 budget-only forward780/900 DIAGNOSTIC, not originalseed/replacement/acceptance",
+  "status": "UNMET_PREMISE_NOT_ACCEPTANCE",
+  "seed": "p13a-core-causal-01",
+  "inputWeek": 267,
+  "targetProjectId": "studio-aca408ec-r01:research:synchronized-sound",
+  "studioId": "studio-aca408ec-r01",
+  "originalBudget": 40000,
+  "constructedBudget": 20000,
+  "naturallyChosenConstructedPolicy": false,
+  "inputChangesPermitted": [
+    "target current budgetPerWeek ONLY"
+  ],
+  "options": {
+    "develop": true
+  },
+  "totalBudgetMs": 30000,
+  "scope": "same admitted267 pair, full ordinary develop:true ticks to780 then900, no seed search/terminal bypass",
+  "ticksAttempted": 283,
+  "sourceDriverSHA256": "8b1d0daf4cd67caf4312770c7c775bc95e18799c7fa738472c517dcbc02bed74",
+  "acceptedManifestSHA256": "11ad61be481a8bec170f40425cfcfe7fcb24596418d30b6c8bf27895e93c3ba5",
+  "priorMeasuredOneTickDiagnosticSHA256": "77d5b73a966dabe12c172f3a9f0e73cb36ac2cdef0f9e826d4de45d206bb1aee",
+  "originalInvalidFixtureSeedNotRequalified": "p13b-s8-nonleak-01",
+  "endpoints": [],
+  "nextTick": {
+    "arm": "actual40000",
+    "fromWeek": 408,
+    "target": 780
+  },
+  "acceptedRootMode": "explicit-paired1368-override",
+  "captureLoaderSHA256": "fbb29c1fe7ccb3f995d0f3ae57162922d19490448b33a457cf30746643ec4cb7",
+  "admissions": [
+    {
+      "label": "original267",
+      "admitted": true,
+      "error": null,
+      "beforeSHA256": "c7767fdb2f424ab99cc25a83d9664e8eb585ba28e5688c0c4c88b134e613895e",
+      "afterSHA256": "c7767fdb2f424ab99cc25a83d9664e8eb585ba28e5688c0c4c88b134e613895e"
+    },
+    {
+      "label": "constructed267-budget20000",
+      "admitted": true,
+      "error": null,
+      "beforeSHA256": "dbca297c29450ea1a7d96c0e71ce15bf171cb852a080d90cdedc08f377a3b910",
+      "afterSHA256": "dbca297c29450ea1a7d96c0e71ce15bf171cb852a080d90cdedc08f377a3b910"
+    },
+    {
+      "label": "original268",
+      "admitted": true,
+      "error": null,
+      "beforeSHA256": "a6ddc3b7f0123f9cb1fcd89528e60fec1317d52662bb649a5d08fd1bb6084519",
+      "afterSHA256": "a6ddc3b7f0123f9cb1fcd89528e60fec1317d52662bb649a5d08fd1bb6084519"
+    },
+    {
+      "label": "constructed268",
+      "admitted": true,
+      "error": null,
+      "beforeSHA256": "c14023718e41f35f70da6a8cd39d0b9a04318eb440d9fbe27c7140cf81d38ff6",
+      "afterSHA256": "c14023718e41f35f70da6a8cd39d0b9a04318eb440d9fbe27c7140cf81d38ff6"
+    }
+  ],
+  "capture": {
+    "week": 267,
+    "version": 45,
+    "rawSHA256": "2b27ca1517b8fcf5329b4742e329e252dfb40fe2dbafe3868244bd6f81b0f3b1",
+    "gzipSHA256": "c3f78360efc6ff30f7ef63a873ee49174dac4b5cf8a4e683672e3aac20591a56",
+    "qualification": "Original45 idle/null-since control; actual retained primary project; synthetic since admitted; exact research-history refusal"
+  },
+  "inputComparison": {
+    "originalSHA256": "c7767fdb2f424ab99cc25a83d9664e8eb585ba28e5688c0c4c88b134e613895e",
+    "constructedSHA256": "dbca297c29450ea1a7d96c0e71ce15bf171cb852a080d90cdedc08f377a3b910",
+    "normalizedOriginalSHA256": "dfedd4035b3a5ed443adf2bd6a5e8770f5919f770379320c9ccff6a357da5085",
+    "normalizedConstructedSHA256": "dfedd4035b3a5ed443adf2bd6a5e8770f5919f770379320c9ccff6a357da5085",
+    "soleCurrentBudgetDifference": true
+  },
+  "quotes": {
+    "original": {
+      "spend": 40000,
+      "output": 6,
+      "seats": 4,
+      "bottleneck": "4 assigned Scientists: $40,000/week is usable. A higher budget adds no work and is not charged."
+    },
+    "constructed": {
+      "spend": 20000,
+      "output": 5,
+      "seats": 4,
+      "bottleneck": "The research budget limits acceleration. $40,000/week reaches 6 work units with these 4 Scientists."
+    }
+  },
+  "outcomes": [
+    {
+      "arm": "actual40000",
+      "verifiedWorkBefore": 12,
+      "verifiedWorkAfter": 18,
+      "workDelta": 6,
+      "expenditureDelta": 40000,
+      "researchSpendMovementDelta": -40000,
+      "rivalCashDelta": -156515,
+      "lastActualWeek": 267,
+      "lastActualSpend": 40000,
+      "expectedWorkDelta": 6,
+      "expectedSpend": 40000,
+      "successorSHA256": "a6ddc3b7f0123f9cb1fcd89528e60fec1317d52662bb649a5d08fd1bb6084519"
+    },
+    {
+      "arm": "constructed20000",
+      "verifiedWorkBefore": 12,
+      "verifiedWorkAfter": 17,
+      "workDelta": 5,
+      "expenditureDelta": 20000,
+      "researchSpendMovementDelta": -20000,
+      "rivalCashDelta": -136515,
+      "lastActualWeek": 267,
+      "lastActualSpend": 20000,
+      "expectedWorkDelta": 5,
+      "expectedSpend": 20000,
+      "successorSHA256": "c14023718e41f35f70da6a8cd39d0b9a04318eb440d9fbe27c7140cf81d38ff6"
+    }
+  ],
+  "outputComparisons": {
+    "sharedOriginalSHA256": "1a9b559eb598d7b0813c62c8d4d59c02bb987f1c95440b58c9d6bffa29034852",
+    "sharedConstructedSHA256": "1a9b559eb598d7b0813c62c8d4d59c02bb987f1c95440b58c9d6bffa29034852",
+    "disclosureOriginalSHA256": "8dced013afe04e0cca242616172b6c5f5701333320637e1b9f8c7533b537f9c7",
+    "disclosureConstructedSHA256": "8dced013afe04e0cca242616172b6c5f5701333320637e1b9f8c7533b537f9c7",
+    "sharedEqual": true,
+    "disclosureEqual": true
+  },
+  "oneTickReproduced": true,
+  "lastCompletedPairWeek": 408,
+  "error": "30-second total budget exceeded at continuation408:after-actual",
+  "elapsedMs": 30092.552429
+}

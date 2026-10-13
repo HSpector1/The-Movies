@@ -1,0 +1,25 @@
+--- p15b-o1-o6-current-outcome-draft/DIAGNOSTIC.ts
++++ p15b-o1-o6-current-outcome-draft-r2/DIAGNOSTIC.ts
+@@ -174,7 +174,8 @@
+         ;(result.disposals as unknown[]).push({ studioId: id, week: receipt.week, observedProducedWeek: next.market.tick,
+           facilityId: receipt.facilityId, planId: receipt.planId, paidCapital: body.commitReceipt.cost, refund: receipt.refund,
+           quotedBlueprint: body.work.blueprintId, bodyWeeklyOpex: blueprint.weeklyOperatingCost,
+-          refundMovementDelta: totals(b).facilityDemolitionRefund - totals(prev).facilityDemolitionRefund,
++          studioWeekAggregateRefundMovementDelta: totals(b).facilityDemolitionRefund - totals(prev).facilityDemolitionRefund,
++          refundMovementScope: 'same-studio same-week aggregate; repeated reference, DO NOT sum per-disposal rows; receipt.refund is per-facility amount',
+           beforeCash: prev.account.cash, afterCash: b.account.cash })
+       }
+       if (isOperatingStudio(s, id)) {
+@@ -228,7 +229,11 @@
+       postLoanFilmingDisposition: loans.length ? postLoanProduction ? 'actual postloan greenlight observed; subsequent firstTake/release/revenue fields remain separate' : 'NO postloan greenlight within measured horizon; valid negative outcome' : 'NO loan observed; no postloan qualification',
+       policyOutcome: closure ? 'actuallyClosed' : end.closureDue ? 'closureDueOnly' : noGreenlightSinceCurrentCutting ? 'noProductionCuttingSurvivorAtHorizon' : 'operatingAtHorizon-not-guaranteedSustainable',
+       routeMovements: Object.fromEntries(Object.keys(finalTotals).map(k => [k, finalTotals[k as RivalMoneyKind] - start[k as RivalMoneyKind]])),
+-      avoidedDisposedBodyOpexOnActualChargedOperatingInputs: avoided[id],
++      potentialRetainedBodyOpexCounterfactualEstimate: { amount: avoided[id],
++        scope: 'hypothetical bare-body-only retained cost over observed operating input weeks; NOT observed cash savings or controlled causal effect',
++        excludes: ['instrument/module costs', 'independent control differences', 'policy substitutions'],
++        disposalWeekChargePhaseEstablished: false,
++        timingLimit: 'includes disposal-week receipt while using input operating status; actual disposal-week avoided booked charge is NOT established' },
+       loans: payments, cumulativeMovementBasis: 'route deltas begin at first observed current-policy snapshot; annual periods separately retain actual entry capital/signing',
+       annualFinancePeriodSummaries: b.account.periods.map(p => ({ fromWeek: p.fromWeek, throughWeek: p.throughWeek, opening: p.opening, closing: p.closing, movements: p.movements })) }
+   })

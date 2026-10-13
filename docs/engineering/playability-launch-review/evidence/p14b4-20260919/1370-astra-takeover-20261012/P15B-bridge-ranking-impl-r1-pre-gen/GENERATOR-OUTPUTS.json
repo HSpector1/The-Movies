@@ -1,0 +1,22 @@
+[
+  {
+    "path": "bridge/schema/project-studio-bridge.schema.json",
+    "beforeSHA256": "a3b97e1acb6f2751e4f057a786327a632ff320f1f2a8b38c10111b75622b965e",
+    "beforeIndexSHA256": "a3b97e1acb6f2751e4f057a786327a632ff320f1f2a8b38c10111b75622b965e"
+  },
+  {
+    "path": "generated/unity/StudioBridgeDtos.Generated.cs",
+    "beforeSHA256": "070b0845b2f0f4a18adbd5f94507203c1ed36c8083320e0edca0d6832ea4f140",
+    "beforeIndexSHA256": "070b0845b2f0f4a18adbd5f94507203c1ed36c8083320e0edca0d6832ea4f140"
+  },
+  {
+    "path": "generated/unity/project-studio-bridge.contract-manifest.json",
+    "beforeSHA256": "d669061678125bc7137d27d1360652611336724f8ac3109a1560c4e6905a5d90",
+    "beforeIndexSHA256": "d669061678125bc7137d27d1360652611336724f8ac3109a1560c4e6905a5d90"
+  },
+  {
+    "path": "generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs",
+    "beforeSHA256": "be4b1dd1da2e7dc28906b9bad1ab0fa73e32d4dbe69eef344d9aeaf0a697bdb6",
+    "beforeIndexSHA256": "be4b1dd1da2e7dc28906b9bad1ab0fa73e32d4dbe69eef344d9aeaf0a697bdb6"
+  }
+]

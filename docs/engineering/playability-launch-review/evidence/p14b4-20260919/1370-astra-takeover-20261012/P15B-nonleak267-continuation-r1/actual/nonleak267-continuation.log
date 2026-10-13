@@ -1,0 +1,10 @@
+{"progressWeek":390,"target":780,"ticksAttempted":246}
+{"kind":"non-leak267 budget-only forward780/900 DIAGNOSTIC, not originalseed/replacement/acceptance","status":"UNMET_PREMISE_NOT_ACCEPTANCE","ticksAttempted":283,"elapsedMs":30092.552429,"error":"30-second total budget exceeded at continuation408:after-actual","diagnosticSHA256":"f200bd6950ed738a039fd6d0f5550dd91965a86e6bdcbb91cea768c691a7fdf6"}
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-nonleak267-watchdog-r2.py", line 34, in <module>
+    while group_alive() and time.monotonic()<deadline:
+          ~~~~~~~~~~~^^
+  File "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-nonleak267-watchdog-r2.py", line 16, in group_alive
+    try:os.killpg(child.pid,0);return True
+        ~~~~~~~~~^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted

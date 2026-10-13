@@ -1,0 +1,33 @@
+{
+  "command": {
+    "name": "nonleak267-continuation",
+    "exit": 1,
+    "startEpoch": 1791851700,
+    "endEpoch": 1791851730,
+    "seconds": 30,
+    "node": "v20.20.2",
+    "command": [
+      "python3",
+      "-I",
+      "-B",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-nonleak267-watchdog-r2.py",
+      "node",
+      "node_modules/vite-node/vite-node.mjs",
+      "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-nonleak267-continuation-draft/DIAGNOSTIC.ts"
+    ],
+    "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-nonleak267-continuation-r1-run/nonleak267-continuation.log"
+  },
+  "laneExit": 1,
+  "freezeSHA256": "6cb851e7f8caed30c3dad5536ae1fe3badb44c591921288c2c00876f17ffb5c0",
+  "postFreezeSHA256": "6cb851e7f8caed30c3dad5536ae1fe3badb44c591921288c2c00876f17ffb5c0",
+  "freezeEqual": true,
+  "diagnosticSHA256": "f200bd6950ed738a039fd6d0f5550dd91965a86e6bdcbb91cea768c691a7fdf6",
+  "driverStatus": "UNMET_PREMISE_NOT_ACCEPTANCE",
+  "oneTickReproduced": true,
+  "lastCompletedPairWeek": 408,
+  "ticksAttempted": 283,
+  "endpoints": [],
+  "error": "30-second total budget exceeded at continuation408:after-actual",
+  "wrapperLimit": "watchdog EPERM finally traceback; no structured cleanup status",
+  "postRunObservation": "Parent observed no matching diagnostic/watchdog/vite-node process after completion; owned lane lock absent. Separate observation, not retroactive watchdog proof."
+}

@@ -1,0 +1,350 @@
+diff --git a/bridge/industry.ts b/bridge/industry.ts
+index 72b028d4..7e9e305c 100644
+--- a/bridge/industry.ts
++++ b/bridge/industry.ts
+@@ -1,3 +1,4 @@
++import {filmScoreTenths} from '../src/core/powerRanking.js'
+ /** Public, bounded Industry reads. Authoritative IDs and facts only; no private business inputs. */
+ import {campaignDate} from '../src/core/calendar.js'
+ import {technologyAnnouncements} from '../src/core/technologyDisclosure.js'
+@@ -5,9 +6,9 @@ import {technologyEntry} from '../src/core/technologyCatalogue.js'
+ import {filmAudienceScore} from '../src/core/index.js'
+ import {publicConditionLabel} from '../src/core/corporateNotices.js'
+ import {flattenParticipants} from '../src/core/starPower.js'
+-import type {GameState,Standing} from '../src/core/types.js'
++import type {GameState,Standing,PowerRankingRecord} from '../src/core/types.js'
+ import type {HollywoodChartSnapshot,IndustryReceipt} from '../src/core/hollywoodTypes.js'
+-import {INDUSTRY_LANES,type IndustryPage,type IndustryQuery,type IndustrySummary} from './schema/industry-schema.ts'
++import {INDUSTRY_LANES,type IndustryPage,type IndustryQuery,type IndustrySummary,type PowerRankingPage} from './schema/industry-schema.ts'
+ import {PROTOCOL_VERSION,SCHEMA_ID,SNAPSHOT_VERSION} from './protocol.ts'
+ import {snapshotBuildContextFor} from './snapshot-build-context.ts'
+ import {studioPresence} from '../src/core/presence.ts'
+@@ -235,15 +236,82 @@ function filterFilms(rows:Film[],q:IndustryQuery,week:number):Film[] {
+   return rows.filter(f=>q.period==='authored'?f.provenance==='authored-start/v1':q.period==='live'?f.provenance!=='authored-start/v1':q.period==='recent'?f.releaseWeek!==null&&f.releaseWeek>=Math.max(0,week-51):true)
+     .sort((a,b)=>{const value=(f:Film)=>q.lane==='critics'?f.criticScore:q.lane==='audience'?f.audienceScore:q.lane==='opening'?f.openingGross:q.lane==='total'?f.totalGross:chronology(f);return value(b)-value(a)||byText(a.filmId,b.filmId)})
+ }
++/** Pure viewer comparison: archive identities/definition and the W-13 ranked cohort are authority. */
++export function powerRankingMovement(current:PowerRankingRecord,prior:PowerRankingRecord|null,studioId:string):{priorRank:number|null;movement:'new'|'unavailable'|'up'|'down'|'unchanged'} {
++  const own=current.rows.find(r=>r.studioId===studioId)
++  const previous=prior?.rows.find(r=>r.studioId===studioId)
++  const unavailable={priorRank:null,movement:'unavailable' as const}
++  if(!own?.ranked||own.rank===null||prior===null||prior.week!==current.week-13||previous===undefined||prior.definitionVersion!==current.definitionVersion)return unavailable
++  if(!previous.ranked||previous.rank===null)return {priorRank:null,movement:'new'}
++  const nowIds=current.rows.filter(r=>r.ranked).map(r=>r.studioId).sort()
++  const priorIds=prior.rows.filter(r=>r.ranked).map(r=>r.studioId).sort()
++  if(nowIds.length!==priorIds.length||nowIds.some((id,i)=>id!==priorIds[i]))return unavailable
++  return {priorRank:previous.rank,movement:own.rank<previous.rank?'up':own.rank>previous.rank?'down':'unchanged'}
++}
++const rankingUnavailable='Not enough comparable history for a Power Ranking.'
++const rankingBanner='Power Ranking is recent comparative momentum. Studio Standing and Studio History are separate.'
++const firstQuarter=(week:number)=>Math.ceil(week/13)*13
++const bandLabels={inTheRed:'In the red',strained:'Strained',stable:'Stable',thriving:'Thriving'}
++function quarterCondition(state:GameState,studioId:string,week:number):PowerRankingPage['rows'][number]['distressStage'] {
++  const root=state.corporateCondition
++  const record=root.studios.find(r=>r.studioId===studioId)
++  if(week<=root.recordedFromWeek||record===undefined||week<record.firstEvaluatedWeek)return 'notRecorded'
++  let stage:PowerRankingPage['rows'][number]['distressStage']='stable'
++  for(const event of root.events)if(event.studioId===studioId&&event.week<=week)stage=event.to
++  return stage
++}
++function rankingPage(state:GameState,index:Index,record:PowerRankingRecord):PowerRankingPage {
++  const h=state.hollywood!
++  const prior=state.powerRanking.snapshots.find(r=>r.week===record.week-13)??null
++  const rankedCount=record.rows.filter(r=>r.ranked).length
++  const rows=record.rows.map(row=>{
++    const identity=h.identities.find(s=>s.studioId===row.studioId)!
++    const comparison=powerRankingMovement(record,prior,row.studioId)
++    const movementLabel=comparison.movement==='new'?'New to this comparison':comparison.movement==='unavailable'?'No comparable prior cohort':comparison.movement==='unchanged'?'No rank change':`${comparison.movement==='up'?'Up':'Down'} ${Math.abs(row.rank!-comparison.priorRank!)} since ${campaignDate(prior!.week).label}`
++    const films=row.countedFilmIds.map(filmId=>{
++      const film=index.filmById.get(filmId)
++      if(film===undefined||film.studioId!==row.studioId)throw new Error('A counted Power Ranking release is missing from the retained film record.')
++      // Finished counted releases retain their final public totals; do not disclose gross in the page.
++      return {filmId,title:film.title,criticScore:film.criticScore,scoreTenths:filmScoreTenths(film,state.market.baseMarketValue)}
++    })
++    const pointsTenths=row.filmsTenths+row.releasesTenths
++    return {studioId:row.studioId,name:identity.name,player:identity.role==='player',ranked:row.ranked,rank:row.rank,
++      rankLabel:row.ranked?`#${row.rank} of ${rankedCount} ranked`:record.available?`Ranked from ${campaignDate(firstQuarter(Math.max(identity.enteredWeek!,h.originWeek)+52)).label}`:rankingUnavailable,
++      ...comparison,movementLabel,filmsTenths:row.filmsTenths,films,filmsLine:films.length===0?'No finished release in the window.':null,
++      releases:row.releases,releasesTenths:row.releasesTenths,pointsTenths,pointsLabel:`${(pointsTenths/10).toFixed(1)} of 20 · 2 of 3 lanes recorded (Honors not recorded)`,
++      honors:'notRecorded' as const,band:row.band,bandLabel:bandLabels[row.band],distressStage:quarterCondition(state,row.studioId,record.week)}
++  })
++  return {snapshotId:record.id,priorSnapshotId:prior?.id??null,week:record.week,dateLabel:campaignDate(record.week).label,
++    definitionVersion:record.definitionVersion,windowLabel:`${campaignDate(Math.max(0,record.windowStartWeek)).label} to ${campaignDate(record.week-1).label}`,
++    available:record.available,availabilityLine:record.available?null:rankingUnavailable,
++    firstRankedLabel:record.available?null:`First ranked quarter: ${campaignDate(firstQuarter(h.originWeek+52)).label}`,
++    recordingNotice:state.powerRanking.recordedFromWeek>h.originWeek?`Power Ranking recording begins ${campaignDate(state.powerRanking.snapshots[0]!.week).label}. Earlier quarters are not reconstructed.`:null,
++    rankedCount,cohortCount:record.rows.length,rows}
++}
++
+ /** Query results own their output objects; the immutable per-state index never escapes. */
+ export function industryPage(state:GameState,sessionId:string,stateRevision:number,q:IndustryQuery,laboratoryIntents:readonly LaboratoryIntent[]=[],planIntents:readonly PlanIntent[]=[],officeIntents:readonly OfficeIntent[]=[]):IndustryPage {
+   if(!Number.isInteger(q.page)||q.page<0||!Number.isInteger(q.pageSize)||q.pageSize<1||q.pageSize>50) {
+     throw new Error('Industry pages require a non-negative integer page and a pageSize from 1 to 50.')
+   }
+   const index=indexFor(state),h=state.hollywood!,calendar=campaignDate(state.market.tick)
+-  const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings; there is no combined Power score.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null,plans:null,office:null,market:null}
++  const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings. The quarterly Power Ranking is a separate comparison.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null,plans:null,office:null,market:null,powerRanking:null}
+   const page=<T>(rows:T[]):T[]=>{result.totalRows=rows.length;result.pageCount=Math.ceil(rows.length/q.pageSize);if(q.page>0&&q.page>=result.pageCount)throw new Error('That page is outside this snapshot. Return to the first page.');return rows.slice(q.page*q.pageSize,(q.page+1)*q.pageSize)}
+-  if(q.view==='alumni') {
++  if(q.view==='powerRanking') {
++    const records=state.powerRanking.snapshots
++    const selected=q.targetId===null?records.at(-1):records.find(r=>q.targetId===`power-ranking-${r.week}`)
++    if(selected===undefined&&q.targetId!==null)throw new Error('That Power Ranking quarter is not in this record.')
++    result.title='Power Ranking'
++    if(selected===undefined) {
++      if(q.page!==0)throw new Error('That page is outside this snapshot. Return to the first page.')
++      const first=firstQuarter(Math.max(h.originWeek,state.powerRanking.recordedFromWeek)+1)
++      result.notice=`${rankingUnavailable} First recorded quarter: ${campaignDate(first).label}.`
++    } else {
++      result.notice=rankingBanner
++      const selectedPage=rankingPage(state,index,selected)
++      result.powerRanking={...selectedPage,rows:page(selectedPage.rows)}
++    }
++  } else if(q.view==='alumni') {
+     if(q.targetId!==null)throw new Error('The alumni list requires a null targetId; open a person for detail.')
+     result.title='Alumni'
+     result.notice='People who completed a profession remain in the public record, including those working in a new profession. Recorded credits count roles on released films; honors are not recorded.'
+diff --git a/bridge/runtime-checkpoint.ts b/bridge/runtime-checkpoint.ts
+index 0df9e365..39cfc988 100644
+--- a/bridge/runtime-checkpoint.ts
++++ b/bridge/runtime-checkpoint.ts
+@@ -58,6 +58,8 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
+ // that window would carry the earlier hash, and this map is keyed on the
+ // hash, not the label.
+ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
++  // Actual shipped outgoing57; preserve independent prior slot migration and discard its opaque journal.
++  ['sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253', 'projection-v57'],
+   // Relationship slice B: the outgoing56 identity (the contract manifest's schemaId before the
+   // projection-57 bump). Each Save41-Save43 slot lifts to Save44 independently; prior
+   // session/journal authority resets.
+diff --git a/bridge/schema/bridge-schema.ts b/bridge/schema/bridge-schema.ts
+index 3007ee5e..77544fd7 100644
+--- a/bridge/schema/bridge-schema.ts
++++ b/bridge/schema/bridge-schema.ts
+@@ -283,7 +283,8 @@ export const PROTOCOL_VERSION = 4 as const
+ // Relationship slice B (1347-F Addendum: one step for both): the collaborators row gains
+ // `labels` (HIS-014 Mentor, Professional Rivals) and `romance` (D-1312-2). The outgoing56
+ // identity is registered as a prior schema before this Save44 runtime boundary.
+-export const PROJECTION_VERSION = 57 as const
++// Projection58: chosen loan quote and archive-owned Power Ranking; protocol4/Save48 unchanged.
++export const PROJECTION_VERSION = 58 as const
+ 
+ const nonEmptyText = () => text({ minLength: 1 })
+ const nonNegativeInteger = () => integer({ minimum: 0 })
+@@ -1944,7 +1945,15 @@ const StudioQuoteWaivePromiseRequest = object('StudioQuoteWaivePromiseRequest',
+   draft: reference('StudioPromiseWaiverDraftPayload', StudioPromiseWaiverDraftPayload),
+ })
+ 
++const StudioLoanDraftPayload = object('StudioLoanDraftPayload', { principal: number() })
++const StudioQuoteLoanRequest = object('StudioQuoteLoanRequest', {
++  protocolVersion: literal(PROTOCOL_VERSION), schemaId: nonEmptyText(), sessionId: nonEmptyText(),
++  commandId: nonEmptyText(), expectedStateRevision: nonNegativeInteger(), type: literal('quoteLoan'),
++  draft: reference('StudioLoanDraftPayload', StudioLoanDraftPayload),
++})
++
+ const StudioBridgeQuoteRequest = union('StudioBridgeQuoteRequest', [
++  reference('StudioQuoteLoanRequest', StudioQuoteLoanRequest),
+   reference('StudioQuoteCommissionRequest', StudioQuoteCommissionRequest),
+   reference('StudioQuoteCastingRequest', StudioQuoteCastingRequest),
+   reference('StudioQuotePlacementRequest', StudioQuotePlacementRequest),
+@@ -2245,7 +2254,16 @@ const StudioPromiseWaiverQuoteSnapshot = object('StudioPromiseWaiverQuoteSnapsho
+   consequence: nonEmptyText(),
+ })
+ 
++const StudioLoanQuoteSnapshot = object('StudioLoanQuoteSnapshot', {
++  intentId: nonEmptyText(), kind: literal('takeLoan'), commitLabel: nonEmptyText(),
++  startsNow: bool(), queues: bool(), queueNote: nullable(text()), ok: bool(), refusalReason: nullable(text()),
++  principal: number(), minimumPrincipal: nonNegativeInteger(), principalStep: nonNegativeInteger(),
++  maximumPrincipal: nonNegativeInteger(), total: nullable(nonNegativeInteger()), contractedWeek: nonNegativeInteger(),
++  installments: array(nonNegativeInteger()),
++})
++
+ const StudioQuoteSnapshot = union('StudioQuoteSnapshot', [
++  reference('StudioLoanQuoteSnapshot', StudioLoanQuoteSnapshot),
+   reference('StudioCommissionQuoteSnapshot', StudioCommissionQuoteSnapshot),
+   reference('StudioCastingQuoteSnapshot', StudioCastingQuoteSnapshot),
+   reference('StudioPlacementQuoteSnapshot', StudioPlacementQuoteSnapshot),
+@@ -3635,6 +3653,9 @@ const definitions = {
+   StudioQuoteSetCommissionRequest,
+   StudioContractDraftPayload,
+   StudioQuoteContractRequest,
++  StudioLoanDraftPayload,
++  StudioQuoteLoanRequest,
++  StudioLoanQuoteSnapshot,
+   StudioMarketProposalCastClassPromiseDraftPayload,
+   StudioMarketProposalDirectorPromiseDraftPayload,
+   StudioMarketProposalGenrePromiseDraftPayload,
+@@ -3917,3 +3938,7 @@ export type BridgePersonAlumni = InferSchema<typeof StudioPersonAlumni>
+ export type CampaignSummary=InferSchema<typeof StudioCampaignSummary>
+ export type CampaignLibraryResponse=InferSchema<typeof StudioCampaignLibraryResponse>
+ export type CampaignAcceptedResponse=InferSchema<typeof StudioCampaignAcceptedResponse>
++
++export type BridgeLoanDraftPayload = InferSchema<typeof StudioLoanDraftPayload>
++export type BridgeQuoteLoanRequest = InferSchema<typeof StudioQuoteLoanRequest>
++export type BridgeLoanQuoteSnapshot = InferSchema<typeof StudioLoanQuoteSnapshot>
+diff --git a/bridge/schema/industry-schema.ts b/bridge/schema/industry-schema.ts
+index 28d92e7a..709e8665 100644
+--- a/bridge/schema/industry-schema.ts
++++ b/bridge/schema/industry-schema.ts
+@@ -153,9 +153,14 @@ export const StudioIndustryProjection=object('StudioIndustryProjection',{industr
+ // person's talentId (null for the buckets alone), `page` pages the CLOSED case bucket and
+ // the OPTIONAL `historyPage` pages the selected person's employer history. `historyPage` is
+ // optional so every request minted before projection 43 stays valid exactly as it is.
+-export const StudioIndustryRequest=object('StudioIndustryRequest',{protocolVersion:literal(4),schemaId:id(),sessionId:id(),requestId:id(),expectedStateRevision:count(),type:literal('industryQuery'),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market','alumni']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),lane:enumeration([...INDUSTRY_LANES,...INDUSTRY_FILM_LANES]),period:enumeration(['recent','all','authored','live']),historyPage:optional(count())})
+-export const StudioIndustryResponse=object('StudioIndustryResponse',{protocolVersion:literal(4),schemaId:id(),snapshotVersion:count(),type:literal('industryPage'),requestId:id(),sessionId:id(),stateRevision:count(),stateDigest:id(),calendar:reference('StudioCampaignDate',StudioCampaignDate),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market','alumni']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),totalRows:count(),pageCount:count(),lane:id(),period:id(),title:id(),notice:id(),studios:array(reference('StudioIndustryStudio',StudioIndustryStudio)),films:array(reference('StudioIndustryFilm',StudioIndustryFilm)),people:array(reference('StudioIndustryPerson',StudioIndustryPerson)),credits:array(reference('StudioIndustryCredit',StudioIndustryCredit)),activities:array(reference('StudioIndustryActivity',StudioIndustryActivity)),projects:array(reference('StudioIndustryProject',StudioIndustryProject)),tendencies:array(reference('StudioIndustryTendency',StudioIndustryTendency)),laboratory:nullable(reference('StudioLaboratoryPage',StudioLaboratoryPage)),plans:nullable(reference('StudioPlansPage',StudioPlansPage)),office:nullable(reference('StudioOfficePage',StudioOfficePage)),market:nullable(marketPageRef())})
+-export const industryDefinitions={StudioAdoptionComponent,StudioCancellationRestoration,StudioActionQuoteComponent,StudioActionQuote,StudioEquipmentAsset,StudioAdoptionRow,StudioLaboratoryAction,StudioOfficeConversionRow,StudioOfficePage,StudioPlanQuoteComponent,StudioPlanQuote,StudioPlanNext,StudioPlanCommitReceipt,StudioPlanRow,StudioPlansPage,StudioLaboratorySeat,StudioResearchLabRow,StudioResearchReceipt,StudioResearchLabShare,StudioResearchWeek,StudioLaboratoryProject,StudioTechnologyForecast,StudioLaboratoryPage,StudioCampaignDate,StudioIndustryLane,StudioIndustryStudio,StudioIndustryFilm,StudioIndustryPerson,StudioIndustryCredit,StudioIndustryActivity,StudioIndustryProject,StudioIndustryTendency,StudioIndustrySummary,StudioIndustryProjection,StudioIndustryRequest,StudioIndustryResponse}
++const StudioPowerRankingFilm=object('StudioPowerRankingFilm',{filmId:id(),title:id(),criticScore:score(),scoreTenths:count()})
++const StudioPowerRankingRow=object('StudioPowerRankingRow',{studioId:id(),name:id(),player:bool(),ranked:bool(),rank:nullable(integer({minimum:1})),rankLabel:id(),priorRank:nullable(integer({minimum:1})),movement:enumeration(['new','unavailable','up','down','unchanged']),movementLabel:id(),filmsTenths:count(),films:array(reference('StudioPowerRankingFilm',StudioPowerRankingFilm)),filmsLine:nullable(id()),releases:count(),releasesTenths:count(),pointsTenths:count(),pointsLabel:id(),honors:literal('notRecorded'),band:enumeration(['inTheRed','strained','stable','thriving']),bandLabel:id(),distressStage:enumeration(['notRecorded','stable','warning','distress','recovery','closed'])})
++const StudioPowerRankingPage=object('StudioPowerRankingPage',{snapshotId:id(),priorSnapshotId:nullable(id()),week:count(),dateLabel:id(),definitionVersion:enumeration(['power-ranking/v1','power-ranking/v2']),windowLabel:id(),available:bool(),availabilityLine:nullable(id()),firstRankedLabel:nullable(id()),recordingNotice:nullable(id()),rankedCount:count(),cohortCount:count(),rows:array(reference('StudioPowerRankingRow',StudioPowerRankingRow))})
++export const StudioIndustryRequest=object('StudioIndustryRequest',{protocolVersion:literal(4),schemaId:id(),sessionId:id(),requestId:id(),expectedStateRevision:count(),type:literal('industryQuery'),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market','alumni','powerRanking']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),lane:enumeration([...INDUSTRY_LANES,...INDUSTRY_FILM_LANES]),period:enumeration(['recent','all','authored','live']),historyPage:optional(count())})
++export const StudioIndustryResponse=object('StudioIndustryResponse',{protocolVersion:literal(4),schemaId:id(),snapshotVersion:count(),type:literal('industryPage'),requestId:id(),sessionId:id(),stateRevision:count(),stateDigest:id(),calendar:reference('StudioCampaignDate',StudioCampaignDate),view:enumeration(['studios','studio','films','film','person','pulse','history','roster','project','employment','laboratory','plans','office','market','alumni','powerRanking']),targetId:nullable(id()),page:count(),pageSize:integer({minimum:1,maximum:50}),totalRows:count(),pageCount:count(),lane:id(),period:id(),title:id(),notice:id(),studios:array(reference('StudioIndustryStudio',StudioIndustryStudio)),films:array(reference('StudioIndustryFilm',StudioIndustryFilm)),people:array(reference('StudioIndustryPerson',StudioIndustryPerson)),credits:array(reference('StudioIndustryCredit',StudioIndustryCredit)),activities:array(reference('StudioIndustryActivity',StudioIndustryActivity)),projects:array(reference('StudioIndustryProject',StudioIndustryProject)),tendencies:array(reference('StudioIndustryTendency',StudioIndustryTendency)),laboratory:nullable(reference('StudioLaboratoryPage',StudioLaboratoryPage)),plans:nullable(reference('StudioPlansPage',StudioPlansPage)),office:nullable(reference('StudioOfficePage',StudioOfficePage)),market:nullable(marketPageRef()),powerRanking:nullable(reference('StudioPowerRankingPage',StudioPowerRankingPage))})
++export const industryDefinitions={StudioPowerRankingFilm,StudioPowerRankingRow,StudioPowerRankingPage,StudioAdoptionComponent,StudioCancellationRestoration,StudioActionQuoteComponent,StudioActionQuote,StudioEquipmentAsset,StudioAdoptionRow,StudioLaboratoryAction,StudioOfficeConversionRow,StudioOfficePage,StudioPlanQuoteComponent,StudioPlanQuote,StudioPlanNext,StudioPlanCommitReceipt,StudioPlanRow,StudioPlansPage,StudioLaboratorySeat,StudioResearchLabRow,StudioResearchReceipt,StudioResearchLabShare,StudioResearchWeek,StudioLaboratoryProject,StudioTechnologyForecast,StudioLaboratoryPage,StudioCampaignDate,StudioIndustryLane,StudioIndustryStudio,StudioIndustryFilm,StudioIndustryPerson,StudioIndustryCredit,StudioIndustryActivity,StudioIndustryProject,StudioIndustryTendency,StudioIndustrySummary,StudioIndustryProjection,StudioIndustryRequest,StudioIndustryResponse}
+ export type IndustryQuery=InferSchema<typeof StudioIndustryRequest>
+ export type IndustryPage=InferSchema<typeof StudioIndustryResponse>
+ export type IndustrySummary=InferSchema<typeof StudioIndustrySummary>
++
++export type PowerRankingPage=InferSchema<typeof StudioPowerRankingPage>
+diff --git a/bridge/session.ts b/bridge/session.ts
+index df5784ca..6e8c8854 100644
+--- a/bridge/session.ts
++++ b/bridge/session.ts
+@@ -1,3 +1,4 @@
++import { loanQuoteSnapshot, loanDraftApply } from './loan.ts'
+ import { createHash, randomUUID } from 'node:crypto'
+ import { performance } from 'node:perf_hooks'
+ 
+@@ -99,6 +100,9 @@ import type {
+   BridgeSetCommissionDraftPayload,
+   BridgeQuoteSetCommissionRequest,
+   BridgeSetCommissionQuoteSnapshot,
++  BridgeLoanDraftPayload,
++  BridgeQuoteLoanRequest,
++  BridgeLoanQuoteSnapshot,
+   BridgeContractDraftPayload,
+   BridgeQuoteContractRequest,
+   BridgeContractQuoteSnapshot,
+@@ -183,6 +187,7 @@ export type AcceptedQuoteResponseFor<TQuote> = Omit<BridgeQuoteResponse, 'quote'
+  * clear-on-load stay generic over intentId regardless of which family minted it.
+  */
+ type PendingQuote =
++  | { family: 'loan'; draft: BridgeLoanDraftPayload; stateDigest: string; kind: 'takeLoan'; commitLabel: string }
+   | {
+       family: 'commission'
+       draft: BridgeCommissionDraftPayload
+@@ -1189,9 +1194,10 @@ function resolveProductionSetupIntents(state: GameState): Array<IntentApplicatio
+ }
+ 
+ /**
+- * P15B Wave 5 (1357-A §6.1, §7): the one loan intent, offered exactly when the live remedy list holds
++ * P15B Wave5 compatibility maximum shortcut, offered exactly when the live remedy list holds
+  * LOAN (warning or distress, no loan outstanding, max ≥ LOAN_AMOUNT_STEP), at the lawful maximum. The
+  * action revalidates the law at commit; the option carries the whole schedule in words.
++ * quoteLoan separately admits a player-chosen legal principal without expanding this bounded list.
+  */
+ function resolveLoanIntents(state: GameState): IntentApplication[] {
+   const h = state.hollywood
+@@ -1673,6 +1679,12 @@ export class BridgeSession {
+     const pending = this.pendingQuotes.get(intentId)
+     if (pending === undefined) return undefined
+     if (pending.stateDigest !== authoritativeDigest(this.state)) return undefined
++    if (pending.family === 'loan') {
++      // Resolve to a live action, never to the preflight successor captured at quote time.
++      return { option: { intentId, kind: pending.kind, label: pending.commitLabel, detail: '',
++        projectId: null, castingSessionId: null, productionId: null },
++        apply: current => loanDraftApply(current, pending.draft) }
++    }
+     const fields = {
+       kind: pending.kind,
+       label: pending.commitLabel,
+@@ -1821,6 +1833,7 @@ export class BridgeSession {
+    * which family it asked for gets that family's quote type back narrowed,
+    * with no cast.
+    */
++  quote(request: BridgeQuoteLoanRequest): AcceptedQuoteResponseFor<BridgeLoanQuoteSnapshot> | RejectedResponse
+   quote(request: BridgeQuoteCommissionRequest): AcceptedQuoteResponseFor<BridgeCommissionQuoteSnapshot> | RejectedResponse
+   quote(request: BridgeQuoteCastingRequest): AcceptedQuoteResponseFor<BridgeCastingQuoteSnapshot> | RejectedResponse
+   quote(request: BridgeQuotePlacementRequest): AcceptedQuoteResponseFor<BridgePlacementQuoteSnapshot> | RejectedResponse
+@@ -1834,6 +1847,17 @@ export class BridgeSession {
+     const { commandId } = request
+     const guarded = this.quoteGuard(request, started)
+     if (guarded !== null) return guarded
++    if (request.type === 'quoteLoan') {
++      const stateDigest = authoritativeDigest(this.state)
++      const intentId = opaqueIntentId(stateDigest, { loanDraft: request.draft })
++      const quote = loanQuoteSnapshot(this.state, request.draft, intentId)
++      if (quote.ok) {
++        this.pendingQuotes.set(intentId, { family: 'loan', draft: { ...request.draft }, stateDigest,
++          kind: 'takeLoan', commitLabel: quote.commitLabel })
++        this.capPendingQuotes()
++      }
++      return this.mintQuoteResponse(request, started, stateDigest, quote)
++    }
+     if (request.type === 'quotePlacement') {
+       // P09 §18: a PREVIEW is a first-class answer. The engine's legality
+       // authority never throws; an illegal spot is an ACCEPTED quote with
+diff --git a/src/core/powerRanking.ts b/src/core/powerRanking.ts
+index 8d2f6dbf..fde9194e 100644
+--- a/src/core/powerRanking.ts
++++ b/src/core/powerRanking.ts
+@@ -104,7 +104,7 @@ export function financialStrengthBand(cash: number, weeklyFixedCost: number): Fi
+  * exact half stays exact and rounds up: critic 0 at gross 243,000 of base 1,000,000
+  * (reach 0.27) is 13.5 tenths → 14, where gross/base/scale gives 13.499999999999998 → 13.
+  */
+-function filmScoreTenths(film: RankingFilm, baseMarketValue: number): number {
++export function filmScoreTenths(film: Pick<RankingFilm, 'criticScore' | 'totalGross'>, baseMarketValue: number): number {
+   const reachPoints = Math.min(100, (100 * film.totalGross) / (Math.max(baseMarketValue, 1) * TUNING.POWER_RANKING_REACH_SCALE))
+   const share = TUNING.POWER_RANKING_CRITIC_SHARE
+   return Math.round(share * film.criticScore + (1 - share) * reachPoints)
+diff --git a/tests/bridge-contract-generator.test.ts b/tests/bridge-contract-generator.test.ts
+index 750cf599..5187b651 100644
+--- a/tests/bridge-contract-generator.test.ts
++++ b/tests/bridge-contract-generator.test.ts
+@@ -530,6 +530,7 @@ describe('CF-08 sound union-to-C# generation', () => {
+         ['StudioQuoteCommissionRequest', ['quoteCommission'], ['draft', 'type']],
+         // P10-R1: the contract quote family (renewal / early release) joins the same envelope.
+         ['StudioQuoteContractRequest', ['quoteContract'], ['draft', 'type']],
++        ['StudioQuoteLoanRequest', ['quoteLoan'], ['draft', 'type']],
+         // P14A.1: the market-proposal quote family (propose/revise/withdraw) joins it too.
+         ['StudioQuoteMarketProposalRequest', ['quoteMarketProposal'], ['draft', 'type']],
+         // P09 W1: the placement quote family joins the SAME union envelope.
+@@ -566,7 +567,7 @@ describe('CF-08 sound union-to-C# generation', () => {
+       // read independently of this test (never schemaIdentity(schema) itself).
+       // Relationship slice B (1358-N P1/P2, projection 57): `labels` and `romance` on
+       // the relationship row moved the whole-schema identity again.
+-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 57 })
++      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 58 })
+       expect(generated).toContain(
+         '// Schema identity: sha256:7e2af680a2093f94e2d956f4e004034c409b5fde64e2e6aae1630fc3c783da75',
+       )
+diff --git a/bridge/loan.ts b/bridge/loan.ts
+new file mode 100644
+index 00000000..138e1a9d
+--- /dev/null
++++ b/bridge/loan.ts
+@@ -0,0 +1,26 @@
++/** Chosen financing is quoted by the existing core law, never a new debt product. */
++import type { GameState } from '../src/core/types.js'
++import { applyActions } from '../src/core/actions.js'
++import { applyTakeLoan } from '../src/core/corporateConditionLive.js'
++import { contractLoan, loanMaxPrincipal } from '../src/core/studioLoan.js'
++import { studioWeeklyFixedCost } from '../src/core/powerRankingArchive.js'
++import { TUNING } from '../src/core/tuning.js'
++import type { BridgeLoanDraftPayload, BridgeLoanQuoteSnapshot } from './schema/bridge-schema.ts'
++
++export function loanDraftApply(current: GameState, draft: BridgeLoanDraftPayload) {
++  try { return { ok: true as const, next: applyActions(current, [{ kind: 'takeLoan', principal: draft.principal }]) } }
++  catch (error) { return { ok: false as const, error: (error as Error).message } }
++}
++export function loanQuoteSnapshot(state: GameState, draft: BridgeLoanDraftPayload, intentId: string): BridgeLoanQuoteSnapshot {
++  // Core checks eligibility BEFORE the principal. Its discarded successor never becomes authority.
++  let refusalReason: string | null = null
++  try { applyTakeLoan(state, draft.principal) } catch (error) { refusalReason = (error as Error).message }
++  const player = state.hollywood?.playerStudioId
++  const fixed = player === undefined ? 0 : studioWeeklyFixedCost(state, player)
++  const maximumPrincipal = loanMaxPrincipal(fixed)
++  const terms = refusalReason === null ? contractLoan(draft.principal, fixed, state.market.tick) : null
++  return { intentId, kind: 'takeLoan', commitLabel: 'Take the selected studio loan', startsNow: terms !== null,
++    queues: false, queueNote: null, ok: terms !== null, refusalReason, principal: draft.principal,
++    minimumPrincipal: TUNING.LOAN_AMOUNT_STEP, principalStep: TUNING.LOAN_AMOUNT_STEP, maximumPrincipal,
++    total: terms?.total ?? null, contractedWeek: state.market.tick, installments: terms === null ? [] : [...terms.installments] }
++}
