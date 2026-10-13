@@ -1,0 +1,9 @@
+# Diagnostic r2 runners static admission
+
+GPT-6.1 Sol. Conditional KEEP for parent sequential scheduling after the current qualification lane terminates and frozen source is verified. Research runnerc4c8c91529eaf4f5f4ba7bc2ca11a9bf5fe809cd2f8d7c6da73faa928553a521; O1 runnerf08189e12fb3b3fafe450a848c3baabfcf209653b42f10fd803adaa7cc7a6c76 match. No execution/source/index/HANDOFF edits.
+
+Bounded derivatives correctly rebind final156 PATCHa448/MANIFEST5298 and selection97aea; explicit unchanged union C# content/mode freeze is added. Same HEAD/index/WT/config,12 existing required inputs, actual1368 manifest pin, lane/environment/resource floors, fresh output and strict postflight remain. Each tail launches one appropriate driver via the exact watchdogr3a11088d97560cd3938d26554535c25a1a7e3c448190b263424502e144b70d4c8. Default production deadline30s remains unchanged and every child status propagates.
+
+Research pins/freezes r2driverca1ce6,brief5c308 and prior actually measured267 JSON77d5b7 as mandatory inputs13/15/16; output variable is the continuation-specific absolute fresh path. O1 substitutes its reviewed driver472070/brief6b16, omits unused priorJSON and supplies paired actual130 root=input2/manifest35f281 pin with independent admission; output variable is O1-specific. No fixture options or producer behavior change is hidden in wrappers.
+
+Neither wrapper turns successful source qualification into diagnostic completion or grants acceptance. Watchdog98/unknown requires STOP and parent owned-process observations before any dependent launch; its verified normal path is not verified timeout cleanup. Completion to600/780/900 remains unmeasured, with no timeout increase or forced terminal bypass. Driver scope concessions/reporting refinements and original failures remain in prior reviews. No consequential static derivative defect found.

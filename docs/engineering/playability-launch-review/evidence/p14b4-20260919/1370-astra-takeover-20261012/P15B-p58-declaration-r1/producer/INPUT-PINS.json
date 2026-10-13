@@ -1,0 +1,72 @@
+{
+  "candidatePacket": "p15b-save48-bridge-ranking-impl-r1",
+  "candidatePatchSHA256": "a4488890cf6dfeb678cabf91af2d295b57501589eac11639cb60b39b9b3cfe66",
+  "candidateManifestSHA256": "5298df121e6a170868130c5fdc1d4af5528815b3c083f4ef6a1a7060d67e4ce0",
+  "inputs": [
+    {
+      "path": "scripts/bridge-contract-csharp.ts",
+      "bytes": 65692,
+      "sha256": "9adf58d7350062e25fdb4fbed73b7bdf8d613b89f4e2841eb032d06e32294057"
+    },
+    {
+      "path": "bridge/schema/canonical.ts",
+      "bytes": 870,
+      "sha256": "b84768f3a565f7e027938fefd46960ffbbd55a35d44a51145e94b82a1529e340"
+    },
+    {
+      "path": "bridge/schema/dsl.ts",
+      "bytes": 3946,
+      "sha256": "199880cc5ad275cdf4e277c7afba44823022d9e0e0b93bbee01e4fb8ad7cef8b"
+    },
+    {
+      "path": "bridge/schema/bridge-schema.ts",
+      "bytes": 192677,
+      "sha256": "13f88d4f0c592997e6ba45e57f3e81776d1e341942049cd28bc61696dd75033c"
+    },
+    {
+      "path": "bridge/schema/industry-schema.ts",
+      "bytes": 26218,
+      "sha256": "1f9475ebc68c2d4ff9422cf6f8d966f0d6e136ced3ea8000209f225127fe69f5"
+    },
+    {
+      "path": "bridge/schema/intent-schema.ts",
+      "bytes": 3850,
+      "sha256": "4fd965dc79ccee532c5a9b50a25c0b952a9c6fbb9ce5cf78f12baae25187579d"
+    },
+    {
+      "path": "tests/fixtures/bridge-contract-union-fixtures.ts",
+      "bytes": 10210,
+      "sha256": "0689507dd4e5407ec9fdc5ba3834ab9304d29120040ccac2af254cb51b637e8f"
+    },
+    {
+      "path": "tests/bridge-contract-generator.test.ts",
+      "bytes": 54985,
+      "sha256": "72e1db1d2ec294c028a18eca450e23a026bb79983d4b229d5372d1fdb908cf19"
+    },
+    {
+      "path": "generated/unity/project-studio-bridge.contract-manifest.json",
+      "bytes": 820,
+      "sha256": "33a56a7e068a3b7bf7d00a1bfa9e0b2374cdf9cac1b614b9ebd2af56383d216c"
+    },
+    {
+      "path": "generated/unity/StudioBridgeDtos.Generated.cs",
+      "bytes": 913887,
+      "sha256": "57b9c273bb12a178899bce5a405c01cb7659a485b180f48818ff6b3c67d59dc3"
+    },
+    {
+      "path": "bridge/schema/project-studio-bridge.schema.json",
+      "bytes": 414515,
+      "sha256": "53aefe53da6a6de33eb71c47f03a0955737bc0b6a5d7f0fbc9d93e8475e65ca6"
+    },
+    {
+      "path": "package.json",
+      "bytes": 2726,
+      "sha256": "031dadd99741140dae256481de76d98502bfb5855dee6f8eb46d043baa6fac9f"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 149287,
+      "sha256": "728ee1693d3d4f33d04fc731264e442cb5f00e922fb36943aee9db9bf2e7c5de"
+    }
+  ]
+}

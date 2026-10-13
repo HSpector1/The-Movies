@@ -1,0 +1,7 @@
+{
+  "reason": "immutable generated patch context and actual raw diagnostic blank source lines; preserve exact measured bytes, not source-code waiver",
+  "files": {
+    "P15B-bridge-ranking-impl-r1/DELTA-vs-pre-generation.diff": "36f3b83c8db67341fc1e034f53022a365eadeffb2291f71c90ab4a1a3e80e035",
+    "P15B-bridge-ranking-impl-r1/actual/bridge-focused.log": "ecc1d8ffae97da6dd984d0f563d74dccaa283e7added168690c23798ad25f4c9"
+  }
+}

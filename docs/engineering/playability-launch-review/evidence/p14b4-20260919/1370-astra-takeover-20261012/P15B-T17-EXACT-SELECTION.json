@@ -1,0 +1,373 @@
+{
+  "format": "p15b-t17-exact-selection/v1",
+  "kind": "read-only selection map; not execution or acceptance",
+  "candidateRoot": "/Users/zacheryspector/studio-specialists/p15b",
+  "completeFiles": [
+    {
+      "path": "tests/p13b-s3-save-v23.test.ts",
+      "currentSourceSHA256": "263a690a147e67368b99a944517420f4c6e6317b44f0169c237dc6e592760d80"
+    },
+    {
+      "path": "tests/p13b-s8-save-v27.test.ts",
+      "currentSourceSHA256": "fa357b3dbdbcc9b09056e23c63d941a28c89409c0459f2f3cad59fb8a8eb52bb"
+    },
+    {
+      "path": "tests/p14b5-relationships.test.ts",
+      "currentSourceSHA256": "45ce7bff4ba60b709dd83848a3bca6426ff848a76872e9bc664353aada3b4704"
+    },
+    {
+      "path": "tests/p14p4p5-screenplay-status.test.ts",
+      "currentSourceSHA256": "b87085dbe9a43fa679106af875ef19bf0152deac7dd76b7b8e65a4ce18b870ab"
+    },
+    {
+      "path": "tests/p14c1-materialized-aging.test.ts",
+      "currentSourceSHA256": "056f106efd92e84ff18a3f13fca7f951a3349eb6800dda622676419af88e6d70"
+    }
+  ],
+  "completeFileExpectedHistoricalAccounting": {
+    "total": 121,
+    "passed": 118,
+    "failed": 3,
+    "scope": "same totals in post-R8 full and Save47 full; finalcandidate must be freshly measured"
+  },
+  "minimalLeafSmoke": [
+    {
+      "file": "tests/p13b-s3-save-v23.test.ts",
+      "fullName": "P13B-S3 Save V23 (test 7) migrateToV22 / migrateToV21 / migrateToV20 refuse a live save",
+      "existingResultStatuses": {
+        "post_r8_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "save47_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "p15b_r3_gate5": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ]
+      }
+    },
+    {
+      "file": "tests/p13b-s8-save-v27.test.ts",
+      "fullName": "P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) downgrade REFUSED: a NATURAL campaign whose rival genuinely admitted a Laboratory carries a nonzero researchCapacity movement, and save.migrateToV26 refuses it",
+      "existingResultStatuses": {
+        "post_r8_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "save47_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "p15b_r3_gate5": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ]
+      }
+    },
+    {
+      "file": "tests/p13b-s8-save-v27.test.ts",
+      "fullName": "P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downgrade, validator refusals, sentinel 28 (test 7) downgrade REFUSED: the same natural campaign also carries a new receipt kind (laboratoryCommitted/laboratoryOperational), independently sufficient to refuse V27->V26",
+      "existingResultStatuses": {
+        "post_r8_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "save47_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "p15b_r3_gate5": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ]
+      }
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "fullName": "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) a V31 world holding ONE edge, and the SAME world with relationships emptied, both refuse migrateToV30 \u2014 MEASURED: the nearest guard is now V33s own materialization gate, one week past its migration boundary, not the V31-specific message",
+      "existingResultStatuses": {
+        "post_r8_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "save47_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "p15b_r3_gate7": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ]
+      }
+    },
+    {
+      "file": "tests/p14c1-materialized-aging.test.ts",
+      "fullName": "5. V32 -> V33 -> V32 is byte-identical on every held world, and refused one week past the boundary genuine-v32-bare-world: round trip reproduces the exact original bytes; ticking once past the boundary is refused as a downgrade",
+      "existingResultStatuses": {
+        "post_r8_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "save47_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "p15b_r3_gate8": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ]
+      }
+    },
+    {
+      "file": "tests/p14c1-materialized-aging.test.ts",
+      "fullName": "5. V32 -> V33 -> V32 is byte-identical on every held world, and refused one week past the boundary genuine-v32-bare-ticked: round trip reproduces the exact original bytes; ticking once past the boundary is refused as a downgrade",
+      "existingResultStatuses": {
+        "post_r8_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "save47_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "p15b_r3_gate8": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ]
+      }
+    },
+    {
+      "file": "tests/p14c1-materialized-aging.test.ts",
+      "fullName": "5. V32 -> V33 -> V32 is byte-identical on every held world, and refused one week past the boundary genuine-v32-fresh-tick0: round trip reproduces the exact original bytes; ticking once past the boundary is refused as a downgrade",
+      "existingResultStatuses": {
+        "post_r8_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "save47_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "p15b_r3_gate8": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ]
+      }
+    },
+    {
+      "file": "tests/p14c1-materialized-aging.test.ts",
+      "fullName": "5. V32 -> V33 -> V32 is byte-identical on every held world, and refused one week past the boundary genuine-v32-authored: round trip reproduces the exact original bytes; ticking once past the boundary is refused as a downgrade",
+      "existingResultStatuses": {
+        "post_r8_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "save47_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "p15b_r3_gate8": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ]
+      }
+    },
+    {
+      "file": "tests/p14c1-materialized-aging.test.ts",
+      "fullName": "5. V32 -> V33 -> V32 is byte-identical on every held world, and refused one week past the boundary genuine-v32-scientist: round trip reproduces the exact original bytes; ticking once past the boundary is refused as a downgrade",
+      "existingResultStatuses": {
+        "post_r8_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "save47_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "p15b_r3_gate8": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ]
+      }
+    },
+    {
+      "file": "tests/p14c1-materialized-aging.test.ts",
+      "fullName": "5. V32 -> V33 -> V32 is byte-identical on every held world, and refused one week past the boundary genuine-v32-owes-two-p1: round trip reproduces the exact original bytes; ticking once past the boundary is refused as a downgrade",
+      "existingResultStatuses": {
+        "post_r8_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "save47_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "p15b_r3_gate8": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ]
+      }
+    },
+    {
+      "file": "tests/p14p4p5-screenplay-status.test.ts",
+      "fullName": "P4/P5 screenplay and casting status clocks Q11 uses actual writing and audition boundaries and retains fact-only take authority",
+      "existingResultStatuses": {
+        "post_r8_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "save47_full": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ],
+        "p15b_r3_gate12_failed_q11": [
+          {
+            "status": "failed",
+            "firstFailureLine": "Error: ENOENT: no such file or directory, open '/Users/zacheryspector/studio-specialists/p15b/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1230-legacy46-baseline.txt'"
+          }
+        ],
+        "p15b_r3_final5_q11": [
+          {
+            "status": "passed",
+            "firstFailureLine": ""
+          }
+        ]
+      }
+    }
+  ],
+  "minimalLeafSmokeCount": 11,
+  "smokeIsNotCompleteFileQualification": true,
+  "evidence": [
+    {
+      "label": "post_r8_full",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-ar-post-r8-baseline-20261011/core-db3fc572-vitest.json",
+      "sha256": "8376836ddf7ce2cbe32eeaa898ec6db4e15ae1c0dc802a2382d25bb97e5a58ec"
+    },
+    {
+      "label": "save47_full",
+      "path": "/Users/zacheryspector/The-Movies-headless-program/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-founding-save47-20261012/core-gate/core-full.json",
+      "sha256": "05b6f8c6eb9ac3cbb34e14febfff727294814a79367d9d340c5358aad1028dbb"
+    },
+    {
+      "label": "p15b_r3_gate5",
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-p15b-waves2-5-implementation-20261010-r1/evidence/r3/gate/batch-5.json",
+      "sha256": "3f0ecb262523be8abaf0b544f8cc217de1ca7c2c530dd72e51e68cf03c5b3a27"
+    },
+    {
+      "label": "p15b_r3_gate7",
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-p15b-waves2-5-implementation-20261010-r1/evidence/r3/gate/batch-7.json",
+      "sha256": "95d83412038eea03852a8164130c1acb3e4332d0d0c828ac9179b8df4f8518c7"
+    },
+    {
+      "label": "p15b_r3_gate8",
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-p15b-waves2-5-implementation-20261010-r1/evidence/r3/gate/batch-8.json",
+      "sha256": "45df374e25c8dfdad644d3b47fa584180b8d1f0f417ea8b29bc7a42d2b24da59"
+    },
+    {
+      "label": "p15b_r3_gate12_failed_q11",
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-p15b-waves2-5-implementation-20261010-r1/evidence/r3/gate/batch-12.json",
+      "sha256": "1e5abbcf9ae0a778549e95cca6c73f7f74113934d107a2cac39e89726f74ebf4"
+    },
+    {
+      "label": "p15b_r3_final5_q11",
+      "path": "/Users/zacheryspector/studio-scratch/1370-ar-p15b-waves2-5-implementation-20261010-r1/evidence/r3/gate-final/batch-5.json",
+      "sha256": "cdd7ec073be5408d36018ec6b7f81862ebe71e7206499a0b12deaf405697da8b"
+    }
+  ],
+  "separateKnownFailures": [
+    {
+      "fullName": "family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3)",
+      "firstFailureLine": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+      "classification": "separate rivalWorld film6 prerequisite; not T17 downgrade leaf"
+    },
+    {
+      "fullName": "family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) the same pair on a second production is ONE edge with sharedProductions 2 and a repeatedCollaboration driver of the capped accelerator; a < b regardless of seat order",
+      "firstFailureLine": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+      "classification": "separate rivalWorld film6 prerequisite; not T17 downgrade leaf"
+    },
+    {
+      "fullName": "family 5 \u2014 RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2)",
+      "firstFailureLine": "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]",
+      "classification": "separate rivalWorld film6 prerequisite; not T17 downgrade leaf"
+    }
+  ],
+  "guardScopeLimits": {
+    "V39": "genuine Save40 full validator then convertV40ToV39 exact semantic refusal in Q11",
+    "V27": "actual genuine V26 public lift plus pre-recovery paid lab; convertV27ToV26 validates own-era V27 before exact receipt refusal",
+    "V31": "direct nonempty/empty relationship projector exercised on admitted CURRENT input; NOT independently admitted own-era Save31 public converter proof",
+    "V33": "positive own-era32\u219233\u219232 admitted/lossless; negative age-boundary early guard invoked after modern tick/structural lifecycle strip; negative own-era33 admission NOT asserted"
+  },
+  "remainingSeparatePresentationGaps": [
+    "exact-zero counted-film page edge",
+    "available-but-unranked Rankfrom label",
+    "native consumer presentation"
+  ],
+  "runPolicy": "parent sole lane, pinnedNode20, exact finalcandidate/core/helpers/config/fixture/doc freeze, no timeout widening"
+}

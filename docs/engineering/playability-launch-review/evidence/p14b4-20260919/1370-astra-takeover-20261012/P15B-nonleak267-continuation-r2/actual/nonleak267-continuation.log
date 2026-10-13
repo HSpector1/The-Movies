@@ -1,0 +1,8 @@
+{"progressWeek":390,"target":780,"ticksAttempted":246}
+{"progressWeek":520,"target":780,"ticksAttempted":506}
+{"progressWeek":650,"target":780,"ticksAttempted":766}
+{"endpointWeek":780,"admittedBoth":true,"retainedEarnedResearchDifference":true,"operationsPlacementEqual":true,"disclosureEqualAndExpected":true}
+{"progressWeek":780,"target":900,"ticksAttempted":1026}
+{"endpointWeek":900,"admittedBoth":true,"retainedEarnedResearchDifference":true,"operationsPlacementEqual":true,"disclosureEqualAndExpected":true}
+{"kind":"non-leak267 budget-only forward780/900 DIAGNOSTIC, not originalseed/replacement/acceptance","status":"FORWARD780_900_DIAGNOSTIC_OBSERVED_NOT_ORIGINALSEED_OR_ACCEPTANCE","ticksAttempted":1266,"elapsedMs":9963.23259,"error":null,"diagnosticSHA256":"5b5699515593041fd836ff19f0239bf0dbd5dbfca1cd162cf932cf3af24bbf8d"}
+{"watchdog": "child completed", "childPid": 2800, "groupId": 2800, "childExit": 0, "intendedExit": 0, "deadlineExceeded": false, "seconds": 10.030668061051983, "groupState": "absent", "ownedGroupGone": true, "cleanupError": null, "exit": 0}

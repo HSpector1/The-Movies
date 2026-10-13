@@ -1,0 +1,9 @@
+Bridge/Ranking implementation r1: exact156 WT/index postimages; reviewed packet; reverse check PASS
+node=v20.20.2 python=Python 3.14.4 start=2026-10-13T00:54:26Z
+{"name": "tsc-root", "exit": 0, "seconds": 46}
+{"name": "tsc-bridge", "exit": 0, "seconds": 33}
+{"name": "tsc-ui", "exit": 0, "seconds": 43}
+{"name": "check-contract", "exit": 0, "seconds": 1}
+{"name": "check-fixtures", "exit": 0, "seconds": 1}
+{"name": "bridge-focused", "exit": 1, "seconds": 225}
+terminal bridge-focused=1; unchanged=yes; verify all nine files and required22 exactidentities, report every failure/skip

@@ -1,0 +1,83 @@
+{
+  "producer": "measure-p58-declarations.ts",
+  "producerSHA256": "67b49e538d22327edf30478108764d2be620ddacedfe70c0ddbe3653f3cab8a7",
+  "inputManifestSHA256": "5f5d318f3299bddd09d44c5aa008d26b366a0f5fb9f1e261b2ca1854b2d64224",
+  "schemaId": "sha256:13b7933fdd1e3dc9851dd08630e46efd43e70227f5e0c6f6cf130d885752ab74",
+  "protocolVersion": 4,
+  "projectionVersion": 58,
+  "generatedWholeContract": {
+    "bytes": 913887,
+    "sha256": "57b9c273bb12a178899bce5a405c01cb7659a485b180f48818ff6b3c67d59dc3",
+    "isDeclarationBodyHash": false
+  },
+  "identities": {
+    "F01_STRING_OR_NULL": {
+      "sha256": "797f92b1f532d61f21dad93ba8fea8da02dd5104c4f744213c9832cb2c1f6bdd",
+      "bytes": 452,
+      "deterministic": true,
+      "priorSha256": "797f92b1f532d61f21dad93ba8fea8da02dd5104c4f744213c9832cb2c1f6bdd",
+      "matchesPrior": true
+    },
+    "F02_OBJECT_OR_NULL": {
+      "sha256": "0fef8c834b895f9cf185af8f421357c642dc71984f1b4618a79eba9c4dd60e1f",
+      "bytes": 648,
+      "deterministic": true,
+      "priorSha256": "0fef8c834b895f9cf185af8f421357c642dc71984f1b4618a79eba9c4dd60e1f",
+      "matchesPrior": true
+    },
+    "F03_COMPATIBLE_OBJECTS": {
+      "sha256": "99f44add260a66d0eab17a86d3f743110277292606dff073a90a354bad335c68",
+      "bytes": 1072,
+      "deterministic": true,
+      "priorSha256": "99f44add260a66d0eab17a86d3f743110277292606dff073a90a354bad335c68",
+      "matchesPrior": true
+    },
+    "F04_DISCRIMINATED_OBJECTS": {
+      "sha256": "d878443418291974137b9affddf066d3b65d8d09286febebcafec35561a2fc5b",
+      "bytes": 5462,
+      "deterministic": true,
+      "priorSha256": "d878443418291974137b9affddf066d3b65d8d09286febebcafec35561a2fc5b",
+      "matchesPrior": true
+    },
+    "F09_ARRAY_ITEM_UNION": {
+      "sha256": "7c1f83b70b0e82152821b0c4a5e59bdedcf901f639445b45ec7ef49010e2af1b",
+      "bytes": 5087,
+      "deterministic": true,
+      "priorSha256": "7c1f83b70b0e82152821b0c4a5e59bdedcf901f639445b45ec7ef49010e2af1b",
+      "matchesPrior": true
+    },
+    "F10_CURRENT_QUOTE_UNIONS": {
+      "sha256": "47c2bade023735a54472cace898aaa65a3f516d1ea6ea0db598274f58dc725d0",
+      "bytes": 431186,
+      "deterministic": true,
+      "priorSha256": "c83fd0f4febb9f78753593c26b941de49b8772ec727600aa32a57b8f6bfb66cc",
+      "matchesPrior": false
+    },
+    "F11_CURRENT_COMMAND_UNION": {
+      "sha256": "47c2bade023735a54472cace898aaa65a3f516d1ea6ea0db598274f58dc725d0",
+      "bytes": 431186,
+      "deterministic": true,
+      "priorSha256": "c83fd0f4febb9f78753593c26b941de49b8772ec727600aa32a57b8f6bfb66cc",
+      "matchesPrior": false
+    },
+    "F12_P05_PRODUCTION_SENTINEL": {
+      "sha256": "78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6",
+      "bytes": 15018,
+      "deterministic": true,
+      "priorSha256": "78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6",
+      "matchesPrior": true
+    }
+  },
+  "positiveFixtures": 8,
+  "fixedPositiveFixtures": 6,
+  "renders": 16,
+  "actualTicks": 0,
+  "inputsAndProducerUnchanged": true,
+  "completion": "ALL_EIGHT_POSITIVES_MEASURED_TWICE_SIX_FIXED_UNCHANGED",
+  "environment": {
+    "node": "v20.20.2",
+    "platform": "darwin",
+    "arch": "x64"
+  }
+}
+{"watchdog": "child completed", "childPid": 2248, "groupId": 2248, "childExit": 0, "intendedExit": 0, "deadlineExceeded": false, "seconds": 1.3353091779863462, "groupState": "absent", "ownedGroupGone": true, "cleanupError": null, "exit": 0}

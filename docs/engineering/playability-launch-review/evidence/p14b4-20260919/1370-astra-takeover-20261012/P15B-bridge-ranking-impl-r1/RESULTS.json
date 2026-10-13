@@ -1,0 +1,1389 @@
+{
+  "commands": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791852867,
+      "endEpoch": 1791852913,
+      "seconds": 46,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-impl-r1-run/tsc-root.log"
+    },
+    {
+      "name": "tsc-bridge",
+      "exit": 0,
+      "startEpoch": 1791852919,
+      "endEpoch": 1791852952,
+      "seconds": 33,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "-p",
+        "tsconfig.bridge.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-impl-r1-run/tsc-bridge.log"
+    },
+    {
+      "name": "tsc-ui",
+      "exit": 0,
+      "startEpoch": 1791852954,
+      "endEpoch": 1791852997,
+      "seconds": 43,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "-p",
+        "ui/tsconfig.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-impl-r1-run/tsc-ui.log"
+    },
+    {
+      "name": "check-contract",
+      "exit": 0,
+      "startEpoch": 1791853001,
+      "endEpoch": 1791853002,
+      "seconds": 1,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vite-node/vite-node.mjs",
+        "scripts/generate-bridge-contract.ts",
+        "--check"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-impl-r1-run/check-contract.log"
+    },
+    {
+      "name": "check-fixtures",
+      "exit": 0,
+      "startEpoch": 1791853005,
+      "endEpoch": 1791853006,
+      "seconds": 1,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vite-node/vite-node.mjs",
+        "scripts/generate-bridge-contract-fixtures.ts",
+        "--check"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-impl-r1-run/check-fixtures.log"
+    },
+    {
+      "name": "bridge-focused",
+      "exit": 1,
+      "startEpoch": 1791853008,
+      "endEpoch": 1791853233,
+      "seconds": 225,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "tests/bridge-p15b5-loan-choice.test.ts",
+        "tests/bridge-p15a2-power-ranking.test.ts",
+        "tests/bridge-runtime-checkpoint.test.ts",
+        "tests/bridge-schema.test.ts",
+        "tests/bridge-contract-generator.test.ts",
+        "tests/bridge-p15b5-notices.test.ts",
+        "tests/bridge-p12-industry.test.ts",
+        "tests/bridge-p10a-r1-contract-quote.test.ts",
+        "tests/bridge-p09a-w1-placement-quote.test.ts",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-impl-r1-run/bridge-focused.json"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-bridge-ranking-impl-r1-run/bridge-focused.log"
+    }
+  ],
+  "freezeSHA256": "0f2af19094025de353cfd30eb5999acc7db6a647b91dfb9e596daebc76fecf25",
+  "postFreezeSHA256": "0f2af19094025de353cfd30eb5999acc7db6a647b91dfb9e596daebc76fecf25",
+  "freezeEqual": true,
+  "runtimeExecuted": true,
+  "reporterCounts": {
+    "numTotalTestSuites": 30,
+    "numPassedTestSuites": 25,
+    "numFailedTestSuites": 5,
+    "numPendingTestSuites": 0,
+    "numTotalTests": 170,
+    "numPassedTests": 166,
+    "numFailedTests": 4,
+    "numPendingTests": 0,
+    "numTodoTests": 0,
+    "success": false
+  },
+  "actualCounts": {
+    "passed": 166,
+    "failed": 4
+  },
+  "fileCounts": {
+    "tests/bridge-contract-generator.test.ts": {
+      "passed": 30,
+      "failed": 1
+    },
+    "tests/bridge-p09a-w1-placement-quote.test.ts": {
+      "passed": 7
+    },
+    "tests/bridge-p10a-r1-contract-quote.test.ts": {
+      "passed": 9
+    },
+    "tests/bridge-p12-industry.test.ts": {
+      "passed": 4
+    },
+    "tests/bridge-p15a2-power-ranking.test.ts": {
+      "passed": 12
+    },
+    "tests/bridge-p15b5-loan-choice.test.ts": {
+      "passed": 8
+    },
+    "tests/bridge-p15b5-notices.test.ts": {
+      "passed": 2
+    },
+    "tests/bridge-runtime-checkpoint.test.ts": {
+      "passed": 75
+    },
+    "tests/bridge-schema.test.ts": {
+      "passed": 19,
+      "failed": 3
+    }
+  },
+  "missingRequired22": [],
+  "missingFullFiles": [],
+  "unexpectedFiles": [],
+  "required22Counts": {
+    "passed": 22
+  },
+  "duplicateIdentities": [],
+  "identities": [
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation A \u2014 exact nullable unions F01 emits required string|null without a union class and is arm-order independent",
+      "status": "passed",
+      "duration": 7.370957999999973,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation A \u2014 exact nullable unions F02 preserves a named object behind required object|null",
+      "status": "passed",
+      "duration": 1.5668279999999868,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation A \u2014 exact nullable unions rejects malformed nullable wrappers exactly",
+      "status": "passed",
+      "duration": 1.1424070000000484,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation A \u2014 exact nullable unions preserves nullable value-type array items recursively and initializes the exact element type",
+      "status": "passed",
+      "duration": 2.1007640000000265,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation A \u2014 exact nullable unions leaves optional arrays absent while required arrays retain empty initialization",
+      "status": "passed",
+      "duration": 0.9573940000000221,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation B \u2014 structurally compatible object unions F03 emits one sealed aggregate only after exact recursive compatibility",
+      "status": "passed",
+      "duration": 3.357091999999966,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation B \u2014 structurally compatible object unions F05 fails closed for conflicting same-name types in stable definition-path order",
+      "status": "passed",
+      "duration": 1.255884999999921,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation B \u2014 structurally compatible object unions F06 keeps absent, optional, and required as three different laws",
+      "status": "passed",
+      "duration": 2.0452569999999923,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation B \u2014 structurally compatible object unions F08 reports the nested defect and exact referencing use site",
+      "status": "passed",
+      "duration": 1.1162349999999606,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation C \u2014 closed discriminated object unions F04 emits an abstract base, exact concrete members, a closed vocabulary, and converter",
+      "status": "passed",
+      "duration": 8.353549999999927,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation C \u2014 closed discriminated object unions keeps member storage attached and generated bytes identical when anyOf order reverses",
+      "status": "passed",
+      "duration": 725.932927,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation C \u2014 closed discriminated object unions rejects ambiguous, overlapping, malformed, and unsafe discriminator selection exactly",
+      "status": "passed",
+      "duration": 3.5587279999999737,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation C \u2014 closed discriminated object unions rejects repeated discriminator literals at the duplicate enum entry",
+      "status": "passed",
+      "duration": 0.8158800000001065,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation C \u2014 closed discriminated object unions quotes hostile discriminator values in every generated diagnostic context",
+      "status": "passed",
+      "duration": 1.4647200000001703,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation C \u2014 closed discriminated object unions rejects anonymous/open members and multiple generated base ownership",
+      "status": "passed",
+      "duration": 1.5912610000000313,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation D/E \u2014 unsupported unions fail closed F07 rejects an object/primitive mix independent of arm order",
+      "status": "passed",
+      "duration": 0.8022849999999835,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation D/E \u2014 unsupported unions fail closed F09 supports a named discriminated array item and rejects anonymous/conflicting items",
+      "status": "passed",
+      "duration": 2.147219999999834,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation current accepted contract and future sentinel F10 emits sound request and response union shapes without changing schema identity",
+      "status": "passed",
+      "duration": 315.9758559999998,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation current accepted contract and future sentinel F11 preserves command member-only directorId and nullable base use",
+      "status": "passed",
+      "duration": 170.20976400000018,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation current accepted contract and future sentinel F12 emits six concrete Production-state fixture members without promoting conflicts",
+      "status": "passed",
+      "duration": 3.890178999999989,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation current accepted contract and future sentinel pins exact positive output identities and deterministic rerendering",
+      "status": "failed",
+      "duration": 196.43934299999978,
+      "failures": [
+        {
+          "preview": "AssertionError: F10_CURRENT_QUOTE_UNIONS: expected '47c2bade023735a54472cace898aaa65a3f51\u2026' to be 'c83fd0f4febb9f78753593c26b941de49b877\u2026' // Object.is equality\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-contract-generator.test.ts:742:37\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)",
+          "characters": 1311,
+          "SHA256": "9ace6b1af51ad37f1e191371006722f83db71cea6e5514ad776a762d97f3186c",
+          "truncated": false
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation current accepted contract and future sentinel is a red mutation guard against first-member-wins flattening",
+      "status": "passed",
+      "duration": 166.9079499999998,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards fails unknown references and cycles at exact use paths",
+      "status": "passed",
+      "duration": 0.6911350000000311,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards rejects normalized vocabulary identifiers that collide",
+      "status": "passed",
+      "duration": 0.44446200000038516,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards rejects duplicate vocabulary literals at the exact enum entry",
+      "status": "passed",
+      "duration": 0.3753030000002582,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards validates compatible and promoted properties in their emitted class scopes",
+      "status": "passed",
+      "duration": 1.402060999999776,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards rejects enclosing class and synthesized discriminator member collisions",
+      "status": "passed",
+      "duration": 1.790911000000051,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards rejects inherited promoted and vocabulary-enclosing symbol collisions",
+      "status": "passed",
+      "duration": 1.2406340000002274,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards reserves configured contract class and generated contract member names",
+      "status": "passed",
+      "duration": 2.0108430000000226,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards allows annotation-only $ref siblings and rejects assertions/applicators at the sibling path",
+      "status": "passed",
+      "duration": 1.241863000000194,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards renders the whole contract before a caller can invoke any output sink",
+      "status": "passed",
+      "duration": 1.7200789999997141,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p09a-w1-placement-quote.test.ts",
+      "fullName": "P09A W1 \u2014 placement quote family over the bridge R1: a legal preview is an accepted quote that reads the engine authority verbatim, engine-priced",
+      "status": "passed",
+      "duration": 248.74330999999995,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p09a-w1-placement-quote.test.ts",
+      "fullName": "P09A W1 \u2014 placement quote family over the bridge R2: an illegal preview is an ACCEPTED ok:false answer with reasons \u2014 and its id is not a registered intent",
+      "status": "passed",
+      "duration": 235.63681700000006,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p09a-w1-placement-quote.test.ts",
+      "fullName": "P09A W1 \u2014 placement quote family over the bridge R3: a full-grid sweep with two footprints rides every rejection family the ground produces, exactly as the engine says",
+      "status": "passed",
+      "duration": 4914.058004,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p09a-w1-placement-quote.test.ts",
+      "fullName": "P09A W1 \u2014 placement quote family over the bridge R4: commit builds exactly once at the quoted engine price, then the intent is spent",
+      "status": "passed",
+      "duration": 1199.963339,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p09a-w1-placement-quote.test.ts",
+      "fullName": "P09A W1 \u2014 placement quote family over the bridge R5: any accepted command retires outstanding placement quotes; a stale revision is refused first",
+      "status": "passed",
+      "duration": 2218.0018199999995,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p09a-w1-placement-quote.test.ts",
+      "fullName": "P09A W1 \u2014 placement quote family over the bridge R6: the founding regime is on the wire as exact history; the same authority answers per the ground it sees",
+      "status": "passed",
+      "duration": 2467.4587030000002,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p09a-w1-placement-quote.test.ts",
+      "fullName": "P09A W1 \u2014 placement quote family over the bridge R7: the protocol validator accepts the placement quote request and refuses malformed drafts",
+      "status": "passed",
+      "duration": 10.051304000000528,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p10a-r1-contract-quote.test.ts",
+      "fullName": "P10-R1 \u2014 contract renewal / early release over the bridge R0: the Profile publishes the legal windows and the engine's own terms; the schema publishes both intent kinds",
+      "status": "passed",
+      "duration": 1286.8402459999998,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p10a-r1-contract-quote.test.ts",
+      "fullName": "P10-R1 \u2014 contract renewal / early release over the bridge R1 \u2192 re-expressed under R6: the incumbent's PROPOSAL reads the engine verbatim, commits once at the quoted bonus, and refuses replay / re-use",
+      "status": "passed",
+      "duration": 480.0544679999998,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p10a-r1-contract-quote.test.ts",
+      "fullName": "P10-R1 \u2014 contract renewal / early release over the bridge R2: a legal release carries the engine's termination cost, commits once, and keeps every recorded credit",
+      "status": "passed",
+      "duration": 1110.4639029999998,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p10a-r1-contract-quote.test.ts",
+      "fullName": "P10-R1 \u2014 contract renewal / early release over the bridge R3: a closed renewal window is an accepted ok:false answer whose id is never a commit",
+      "status": "passed",
+      "duration": 136.29712900000004,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p10a-r1-contract-quote.test.ts",
+      "fullName": "P10-R1 \u2014 contract renewal / early release over the bridge R4 \u2192 re-expressed under R6: a proposal draft that is no longer legal on the live state is refused once the authority moved on",
+      "status": "passed",
+      "duration": 1141.4153919999999,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p10a-r1-contract-quote.test.ts",
+      "fullName": "P10-R1 \u2014 contract renewal / early release over the bridge R5: unknown person is a draft refusal; no contract is an accepted refusal; a changed PROPOSAL re-prices (re-expressed under R6)",
+      "status": "passed",
+      "duration": 678.442532,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p10a-r1-contract-quote.test.ts",
+      "fullName": "P10-R1 \u2014 contract renewal / early release over the bridge R6: the engine's own refusals \u2014 unpublished term, a screenplay task (UNCHANGED); D-12 on a PROPOSAL (re-expressed under R6)",
+      "status": "passed",
+      "duration": 637.0181060000004,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p10a-r1-contract-quote.test.ts",
+      "fullName": "P10-R1 \u2014 contract renewal / early release over the bridge R7 \u2192 re-expressed under R6: cancellation is state-neutral for a PROPOSAL draft \u2014 drafting mutates nothing, and asking again is deterministic",
+      "status": "passed",
+      "duration": 559.8855910000002,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p10a-r1-contract-quote.test.ts",
+      "fullName": "P10-R1 \u2014 contract renewal / early release over the bridge R6 ruling, ADDED (iii): in-window renewContract is now refused \u2014 the market-case redirect (P14A \u00a72.1.3), verbatim",
+      "status": "passed",
+      "duration": 432.59654000000046,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p12-industry.test.ts",
+      "fullName": "R05 public Industry projections joins authored films to exact people and current employers with true opening ranks and bounded pages",
+      "status": "passed",
+      "duration": 186.26313900000014,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p12-industry.test.ts",
+      "fullName": "R05 public Industry projections exposes only actual announced work and earned gross while rivals are still in theatrical runs",
+      "status": "passed",
+      "duration": 668.4061339999998,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p12-industry.test.ts",
+      "fullName": "R05 public Industry projections follows the exact funded announcement through release, complete credits, history and paged employment",
+      "status": "passed",
+      "duration": 362.5094089999998,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p12-industry.test.ts",
+      "fullName": "R05 public Industry projections keeps recent Output newcomers distinct from incomparable incumbents and absent observations",
+      "status": "passed",
+      "duration": 196.01129899999978,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-routes: real latest/archive IDs, row paging, exact unknown refusal and pure detached output",
+      "status": "passed",
+      "duration": 3438.6905129999996,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-projection-schema: adopted view/nullable section and existing 1\u201350 query cap",
+      "status": "passed",
+      "duration": 7.348034999999982,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-empty and unavailable13: honest first quarter, no ranks, banner/window/first-ranked copy",
+      "status": "passed",
+      "duration": 515.4510110000001,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-closure: actual169 inclusion/182 exclusion, frozen historical page and cross-definition movement",
+      "status": "passed",
+      "duration": 81.61864500000047,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-archived-stage-band: stage at selected quarter and recorded band, no private finance",
+      "status": "passed",
+      "duration": 132.50965499999984,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-not-recorded: genuine precondition-history quarter has no backfilled stage",
+      "status": "passed",
+      "duration": 1235.87784,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-copy/film-explain: real record rows, no-finished sentence and actual creator film score",
+      "status": "passed",
+      "duration": 79.7336809999997,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking Bridge actual wire: C12/C13, adopted1356-A slice2b rank-view-industry-unchanged: Studio Charts unchanged except adopted notice and nullable rank section",
+      "status": "passed",
+      "duration": 96.5078880000001,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking comparator units: constructed source-independent records, no campaign reachability claim rank-view-movement: identical ranked cohort preserves competition ties1\u20131\u20133 and normal movement",
+      "status": "passed",
+      "duration": 1.726622999999563,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking comparator units: constructed source-independent records, no campaign reachability claim cross-definition is unavailable even with identical ranked cohort",
+      "status": "passed",
+      "duration": 0.5501420000000508,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking comparator units: constructed source-independent records, no campaign reachability claim absent prior, wrong W\u221213, current unranked and truly absent prior row are unavailable",
+      "status": "passed",
+      "duration": 1.2304669999994076,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15a2-power-ranking.test.ts",
+      "fullName": "Power Ranking comparator units: constructed source-independent records, no campaign reachability claim existing prior-unranked row is new BEFORE differing-ranked-cohort rule; other cohort changes unavailable",
+      "status": "passed",
+      "duration": 0.8208509999994931,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15b5-loan-choice.test.ts",
+      "fullName": "Bridge C17: explicit lawful loan choice quotes and commits selected $1000 once, with exact terms and journal replay",
+      "status": "passed",
+      "duration": 3180.544131,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15b5-loan-choice.test.ts",
+      "fullName": "Bridge C17: explicit lawful loan choice quotes and commits selected $2000 once, with exact terms and journal replay",
+      "status": "passed",
+      "duration": 1820.9253959999996,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15b5-loan-choice.test.ts",
+      "fullName": "Bridge C17: explicit lawful loan choice distinct chosen principals bind distinct IDs; maximum shortcut remains exactly one option",
+      "status": "passed",
+      "duration": 1523.070087,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15b5-loan-choice.test.ts",
+      "fullName": "Bridge C17: explicit lawful loan choice illegal finite principals are precise noncommittable core refusals, never clamped",
+      "status": "passed",
+      "duration": 837.8091250000007,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15b5-loan-choice.test.ts",
+      "fullName": "Bridge C17: explicit lawful loan choice real stable and already-borrowed states refuse eligibility BEFORE an illegal principal",
+      "status": "passed",
+      "duration": 712.2763559999985,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15b5-loan-choice.test.ts",
+      "fullName": "Bridge C17: explicit lawful loan choice loan quotes use shared stale guard and clear-on-load even for digest-identical saved bytes",
+      "status": "passed",
+      "duration": 2736.4988409999987,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15b5-loan-choice.test.ts",
+      "fullName": "Bridge C17: explicit lawful loan choice loan family enters the existing cap16 map: first distinct draft evicted, latest usable",
+      "status": "passed",
+      "duration": 3018.771339000001,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15b5-loan-choice.test.ts",
+      "fullName": "Bridge C17: explicit lawful loan choice resolved real loan commit revalidates a core-produced outstanding loan; public digest guard is not the witness",
+      "status": "passed",
+      "duration": 319.65651199999957,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15b5-notices.test.ts",
+      "fullName": "p15b5 notices: the Bridge (1357-A \u00a77; 1352-A \u00a73 row 5) bridge-take-loan-intent",
+      "status": "passed",
+      "duration": 2809.4744029999997,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-p15b5-notices.test.ts",
+      "fullName": "p15b5 notices: the Bridge (1357-A \u00a77; 1352-A \u00a73 row 5) bridge-finance-attention-and-industry-label",
+      "status": "passed",
+      "duration": 1417.7252490000005,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 forward-migrates protocol 3 by preserving both V15 slots and discarding incompatible replay bytes",
+      "status": "passed",
+      "duration": 5848.567814999999,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 rolls the previous protocol-4 schema forward without changing either V15 save slot",
+      "status": "passed",
+      "duration": 4612.956254000001,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 rolls an authentic previous protocol-4 checkpoint with no explicit save slot",
+      "status": "passed",
+      "duration": 1794.4311340000004,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 rejects an impossible open-founding state attributed to the previous protocol-4 runtime",
+      "status": "passed",
+      "duration": 140.89392000000225,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 encodes one exact closed canonical shape with one LF and hydrates stable V15 bytes",
+      "status": "passed",
+      "duration": 5012.849646999999,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 requires canonical checkpoint bytes followed by exactly one LF",
+      "status": "passed",
+      "duration": 6233.711323000003,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 rejects missing and additional roots plus incompatible format, version, protocol, and schema",
+      "status": "passed",
+      "duration": 3818.679688,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 requires untouched canonical V15 current and explicit-save bytes with exact digests",
+      "status": "passed",
+      "duration": 10388.192376999996,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 validates route-specific requests, responses, identity, session, revision, and canonical JSON",
+      "status": "passed",
+      "duration": 6832.483162000004,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 binds exact historical bytes and rejection semantics to their original route",
+      "status": "passed",
+      "duration": 5573.399862999999,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 rejects duplicate identities and revision-regressing journal order",
+      "status": "passed",
+      "duration": 5037.454614000002,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 binds the root revision to the terminal journal response",
+      "status": "passed",
+      "duration": 6144.139439999999,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 returns a normalized prospective append only after identity and capacity validation",
+      "status": "passed",
+      "duration": 4782.710489000005,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 enforces injectable entry, journal-byte, and checkpoint-byte bounds before hydration",
+      "status": "passed",
+      "duration": 5192.779311999999,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 validates an accepted save response V15 payload and digest before journaling it",
+      "status": "passed",
+      "duration": 4201.892305000001,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 surfaces a typed checkpoint error with the exact failing path",
+      "status": "passed",
+      "duration": 0.9737259999965318,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import preserves both actual accepted P12 founding slots through the P13 save migration",
+      "status": "passed",
+      "duration": 2112.8778840000014,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import migrates a v4-identity (f84ae77e) checkpoint with a V14 current save and an opaque 2-entry journal",
+      "status": "passed",
+      "duration": 795.1005420000001,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import preserves and migrates a non-null savedSaveJson slot for a prior protocol-4 identity",
+      "status": "passed",
+      "duration": 1668.921463000006,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253 (projection-v57) identity",
+      "status": "passed",
+      "duration": 746.3081289999973,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1 (projection-v56) identity",
+      "status": "passed",
+      "duration": 756.5503539999918,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158 (projection-v55) identity",
+      "status": "passed",
+      "duration": 765.818379999997,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302 (projection-v54) identity",
+      "status": "passed",
+      "duration": 755.2100599999976,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d (projection-v53) identity",
+      "status": "passed",
+      "duration": 748.0335599999962,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2 (projection-v52) identity",
+      "status": "passed",
+      "duration": 745.135540000003,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f (projection-v51) identity",
+      "status": "passed",
+      "duration": 757.7592620000069,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698 (projection-v50) identity",
+      "status": "passed",
+      "duration": 895.0180609999952,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b (projection-v49) identity",
+      "status": "passed",
+      "duration": 775.3638360000041,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec (projection-v48) identity",
+      "status": "passed",
+      "duration": 764.1659019999934,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538 (projection-v47) identity",
+      "status": "passed",
+      "duration": 759.4537689999997,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c (projection-v46) identity",
+      "status": "passed",
+      "duration": 782.2538810000115,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d (projection-v45) identity",
+      "status": "passed",
+      "duration": 815.904039999994,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:c9c07d6febe4afee7f7c27c991acdfa1c86b6c3a7f5dff8528d7fa5ad72e43a1 (projection-v31) identity",
+      "status": "passed",
+      "duration": 760.8450250000024,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:e64a3b659e4247b98631f1caa1f0e9eb0b6016aac92b0f46be590360ff9cee48 (projection-v30) identity",
+      "status": "passed",
+      "duration": 747.8353229999921,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85 (projection-v29) identity",
+      "status": "passed",
+      "duration": 748.7156429999886,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712 (projection-v28) identity",
+      "status": "passed",
+      "duration": 759.419075999991,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:97940e51e0566bed80231b223e5b7303a45d62db8d698f693e525eb244775211 (projection-v27) identity",
+      "status": "passed",
+      "duration": 757.5919619999913,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:2b339a6a8b3e5add0726b7eaac9ce8746e235d8b6111a6816f890ff56afdffd1 (projection-v26) identity",
+      "status": "passed",
+      "duration": 809.5634620000055,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:fe9bf4558dc12abc5f258ba8b8f581242e06361cfbae8ae31d8c676f6c7a6460 (projection-v25) identity",
+      "status": "passed",
+      "duration": 746.0560799999948,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:204a71924bd8c2e8ae9af47591226894b3e42f62457da3cc20ed6b106ede611a (projection-v24) identity",
+      "status": "passed",
+      "duration": 813.3702340000018,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f (projection-v4-early) identity",
+      "status": "passed",
+      "duration": 926.9202030000015,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:f84ae77ec59a0d7ca7cdd89115456504ddecbde2c6e3839936e4951bd65bce61 (projection-v4) identity",
+      "status": "passed",
+      "duration": 744.3626570000051,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:be7ed660d04ed9b1056f48e946f86f26c10cab42b950a273d57ad9cba372f5bb (projection-v5) identity",
+      "status": "passed",
+      "duration": 742.639028000005,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:15033cf9ca43be65abcb25fc6f910f9487ac23056090126ec7d3e2353f6ce587 (projection-v6) identity",
+      "status": "passed",
+      "duration": 778.5747980000015,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:7e3af4db0d3d18cdeaab00082e0034f304a9141f46ea87e9e64e5a99d985483c (projection-v7) identity",
+      "status": "passed",
+      "duration": 772.6633909999946,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5 (projection-v8) identity",
+      "status": "passed",
+      "duration": 749.1375249999983,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:510f08e4a551827a30e0f3d93bbe09fa5ddadbd39366b4dcfa93530500c7979c (projection-v9-early) identity",
+      "status": "passed",
+      "duration": 742.714347000001,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:80f2f0fcd14d1b25e713c2624286a6c05a98c53ea5cfcb2b47612f8c030f5e47 (projection-v9) identity",
+      "status": "passed",
+      "duration": 749.6396819999936,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:92317ec179456cdc5bd5cc7c4ca47dd066b768a9e2e45519f1263ef921a211a4 (projection-v10) identity",
+      "status": "passed",
+      "duration": 748.596744999988,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e (projection-v11) identity",
+      "status": "passed",
+      "duration": 743.8135580000089,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:a481d14f3810ffbafcba2bbf509db7340263f3f0fd665a059507a1567d98923d (projection-v12-stale-urn) identity",
+      "status": "passed",
+      "duration": 736.3265709999978,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b (projection-v12) identity",
+      "status": "passed",
+      "duration": 755.0305690000096,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f (projection-v13) identity",
+      "status": "passed",
+      "duration": 820.360440000004,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b (projection-v14) identity",
+      "status": "passed",
+      "duration": 739.8055429999949,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99 (projection-v15) identity",
+      "status": "passed",
+      "duration": 734.7744200000016,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236 (projection-v16) identity",
+      "status": "passed",
+      "duration": 740.6803820000059,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399 (projection-v17-early) identity",
+      "status": "passed",
+      "duration": 736.6558409999998,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25 (projection-v17-w1b) identity",
+      "status": "passed",
+      "duration": 781.3107480000035,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78 (projection-v17) identity",
+      "status": "passed",
+      "duration": 802.585162000003,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:ea5d645f34a472f4710b9273b225d6f15433d6d17ae8ed1af3c03686a225c8c4 (projection-v18) identity",
+      "status": "passed",
+      "duration": 738.0549639999954,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9 (projection-v19) identity",
+      "status": "passed",
+      "duration": 748.2933720000001,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b (projection-v20) identity",
+      "status": "passed",
+      "duration": 797.2808500000101,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:1bad05a95c284e64ceaef54c276f2dd0ccad8ca3ef1b12198068bb61b85198c9 (projection-v23) identity",
+      "status": "passed",
+      "duration": 761.4839930000016,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:b779faa92227bd1f2e623ad04d0899c87e7ddc60ce43f9ae9c39a7626c20a83d (projection-v22) identity",
+      "status": "passed",
+      "duration": 742.547470000005,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1 (projection-v21) identity",
+      "status": "passed",
+      "duration": 750.0614449999994,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import fails closed on a duplicate commandId, a wrong journalDigest, and non-canonical bytes",
+      "status": "passed",
+      "duration": 63.036624999993364,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import re-hydrates the migrated output via the normal current-schema path (write-read round trip, idempotent)",
+      "status": "passed",
+      "duration": 866.9990570000082,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import fails closed on an unknown protocol-4 schemaId with the exact current message",
+      "status": "passed",
+      "duration": 46.85291599998891,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import fails closed on malformed prior protocol-4 checkpoint bytes",
+      "status": "passed",
+      "duration": 60.43873600001098,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import rejects an impossible open-founding state on either migrated save slot",
+      "status": "passed",
+      "duration": 144.00465300001088,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import never parses journal request/response bodies for a prior protocol-4 identity",
+      "status": "passed",
+      "duration": 749.1471639999945,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "prior protocol-4 acceptance boundary pins never contains the RUNNING schema identity (re-migration must be impossible)",
+      "status": "passed",
+      "duration": 0.2267509999946924,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "prior protocol-4 acceptance boundary pins contains exactly the independently pinned historical protocol-4 identities",
+      "status": "passed",
+      "duration": 0.2863999999972293,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "C17 shipped projection57 carry-forward registers the actual shipped projection57 identity, independently of map iteration",
+      "status": "passed",
+      "duration": 0.23097200000484008,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "C17 shipped projection57 carry-forward independently migrates two admitted Save47 slots under actual shipped57 and discards opaque prior journal",
+      "status": "passed",
+      "duration": 4790.033534999995,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema uses fixed ordinal key order, including non-ASCII keys, independent of insertion order",
+      "status": "passed",
+      "duration": 2.6410949999999502,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema hashes the complete canonical contract and changes on structural wire drift",
+      "status": "passed",
+      "duration": 32.77348200000006,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema closes every declared object recursively and publishes explicit protocol metadata",
+      "status": "failed",
+      "duration": 33.04138400000011,
+      "failures": [
+        {
+          "preview": "AssertionError: expected { \u2026(5) } to match object { protocolVersion: 4, \u2026(2) }\n(10 matching properties omitted from actual)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1134:13)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/chai/index.js:1686:25)\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-schema.test.ts:79:47\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)",
+          "characters": 1275,
+          "SHA256": "53d2b3c4566fb60c4a8e9b68c00adf2c3c95450926299a9633c6bb320f4ce352",
+          "truncated": false
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope",
+      "status": "passed",
+      "duration": 5110.091973,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema keeps live location identities in the projection-v4 building namespace",
+      "status": "passed",
+      "duration": 28736.719749,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema owns every legacy projection field exactly once with byte-equivalent schema semantics",
+      "status": "passed",
+      "duration": 0.9744740000023739,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data",
+      "status": "failed",
+      "duration": 2243.396274000006,
+      "failures": [
+        {
+          "preview": "AssertionError: expected 58 to be 57 // Object.is equality\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-schema.test.ts:340:32\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)",
+          "characters": 1198,
+          "SHA256": "b90b4f05f641e8d8f5be330e6cc5dc1ffda62085c01704c944e77f550a681c31",
+          "truncated": false
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema preserves required nullable numeric fields through schema projection",
+      "status": "passed",
+      "duration": 2396.9009240000014,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema models accepted load/command responses as one flat projection envelope",
+      "status": "passed",
+      "duration": 2114.5146310000055,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema requires one closed structured rejection with non-empty guidance and a nullable holder",
+      "status": "passed",
+      "duration": 1265.403072000001,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema models the schema discovery response without a self-referential object contract",
+      "status": "passed",
+      "duration": 31.86391800000274,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema validates the session and health handshake envelopes",
+      "status": "passed",
+      "duration": 1723.2804800000013,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema keeps checked-in JSON and generated C# byte-derived from the canonical schema",
+      "status": "failed",
+      "duration": 39.958592999995744,
+      "failures": [
+        {
+          "preview": "AssertionError: expected '// <auto-generated>\\n// Generated by \u2026' to contain 'public const int ProjectionVersion = \u2026'\n    at /Users/zacheryspector/studio-specialists/p15b/tests/bridge-schema.test.ts:576:29\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)",
+          "characters": 1257,
+          "SHA256": "1db9225567e0ad4e5873d856119f51b85c83fcaf8cf2ca3a1ffc6f835178c197",
+          "truncated": false
+        }
+      ]
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema parseWireValue anyOf dispatch on a discriminated object union (P04A Lane B Step 1 spike) dispatches each member by its literal discriminant and preserves its own fields",
+      "status": "passed",
+      "duration": 0.5317680000007385,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema parseWireValue anyOf dispatch on a discriminated object union (P04A Lane B Step 1 spike) rejects a value matching neither member",
+      "status": "passed",
+      "duration": 0.47162399999797344,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema parseWireValue anyOf dispatch on a discriminated object union (P04A Lane B Step 1 spike) rejects a mixed member carrying fields from both alternatives",
+      "status": "passed",
+      "duration": 0.4600900000004913,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema parseWireValue anyOf dispatch on a discriminated object union (P04A Lane B Step 1 spike) rejects a member whose discriminant is right but whose own field is malformed",
+      "status": "passed",
+      "duration": 0.6285229999994044,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema P04A casting schema \u2014 closed union coverage validates a quoteCommission and a quoteCasting request through the SAME StudioBridgeQuoteRequest union",
+      "status": "passed",
+      "duration": 1.3803600000028382,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema P04A casting schema \u2014 closed union coverage rejects a request carrying an extra key on either union member",
+      "status": "passed",
+      "duration": 0.9911680000004708,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema P04A casting schema \u2014 closed union coverage rejects a request whose `type` and `draft` shape disagree (mixed member)",
+      "status": "passed",
+      "duration": 1.460242000001017,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema P04A casting schema \u2014 closed union coverage StudioCastingDraftPayload keeps every by-kind field REQUIRED (nullable, never optional)",
+      "status": "passed",
+      "duration": 0.9182119999968563,
+      "failures": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema P04A casting schema \u2014 closed union coverage validates a commission AND a casting quote through the SAME StudioQuoteSnapshot union, closed with P11 finances confined to the shared envelope",
+      "status": "passed",
+      "duration": 2.4144210000013118,
+      "failures": []
+    }
+  ],
+  "scope": "bounded nine-full-file qualification, complete actual results; not fullP15B/native or acceptance"
+}

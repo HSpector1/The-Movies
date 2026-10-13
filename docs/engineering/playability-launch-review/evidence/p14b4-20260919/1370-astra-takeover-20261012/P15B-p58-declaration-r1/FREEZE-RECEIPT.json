@@ -1,0 +1,9 @@
+{
+  "run": "p15b-p58-declaration-r1",
+  "sourcePacketPatch": "a4488890cf6dfeb678cabf91af2d295b57501589eac11639cb60b39b9b3cfe66",
+  "sourcePacketManifest": "5298df121e6a170868130c5fdc1d4af5528815b3c083f4ef6a1a7060d67e4ce0",
+  "freezeBeforeSHA256": "183fabd34b155dbd00a8544bc0204a306708cac3fabed4bb2ace3c580ed80af6",
+  "freezeAfterSHA256": "183fabd34b155dbd00a8544bc0204a306708cac3fabed4bb2ace3c580ed80af6",
+  "equal": true,
+  "originalFreezeRetainedLocally": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p15b-p58-declaration-r1-run/freeze.json"
+}

@@ -1,0 +1,4 @@
+O1/O6 current live-arm diagnostic: exact156 WT/index postimages; reviewed packet; reverse check PASS
+node=v20.20.2 python=Python 3.14.4 start=2026-10-13T01:09:22Z
+{"name": "o1-o6-current", "exit": 0, "seconds": 18}
+terminal o1-o6-current=0; unchanged=yes; diagnostic only, inspect admission and actual paired results

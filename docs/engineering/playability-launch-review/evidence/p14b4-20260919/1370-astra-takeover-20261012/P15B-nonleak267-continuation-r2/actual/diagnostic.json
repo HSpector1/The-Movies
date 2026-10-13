@@ -1,0 +1,287 @@
+{
+  "kind": "non-leak267 budget-only forward780/900 DIAGNOSTIC, not originalseed/replacement/acceptance",
+  "status": "FORWARD780_900_DIAGNOSTIC_OBSERVED_NOT_ORIGINALSEED_OR_ACCEPTANCE",
+  "seed": "p13a-core-causal-01",
+  "inputWeek": 267,
+  "targetProjectId": "studio-aca408ec-r01:research:synchronized-sound",
+  "studioId": "studio-aca408ec-r01",
+  "originalBudget": 40000,
+  "constructedBudget": 20000,
+  "naturallyChosenConstructedPolicy": false,
+  "inputChangesPermitted": [
+    "target current budgetPerWeek ONLY"
+  ],
+  "options": {
+    "develop": true
+  },
+  "totalBudgetMs": 30000,
+  "scope": "same admitted267 pair, full ordinary develop:true ticks to780 then900, no seed search/terminal bypass",
+  "ticksAttempted": 1266,
+  "sourceDriverSHA256": "ca1ce6f805379a3a4b1d6d04fd32a7aa6298c6a3c96973805b1832642278c822",
+  "acceptedManifestSHA256": "11ad61be481a8bec170f40425cfcfe7fcb24596418d30b6c8bf27895e93c3ba5",
+  "priorMeasuredOneTickDiagnosticSHA256": "77d5b73a966dabe12c172f3a9f0e73cb36ac2cdef0f9e826d4de45d206bb1aee",
+  "originalInvalidFixtureSeedNotRequalified": "p13b-s8-nonleak-01",
+  "endpoints": [
+    {
+      "week": 780,
+      "admitted": true,
+      "actual": {
+        "status": "completed",
+        "verifiedWork": 64,
+        "expenditure": 440000,
+        "completedWeek": 276,
+        "earnedHistorySHA256": "50c0ef11f459fb9e71faf4bd7a714bb54cd08b5c701c321b648f55b7138fa0a5",
+        "first267Spend": 40000,
+        "first267Units": 960000,
+        "targetActualClosedWeek": 350,
+        "stateSHA256": "006b0e1acddd157c1491dcd78b9c834524f987b530e4beaf8dad6475e8e9cabf"
+      },
+      "constructed": {
+        "status": "completed",
+        "verifiedWork": 64,
+        "expenditure": 300000,
+        "completedWeek": 278,
+        "earnedHistorySHA256": "fd0cd88f716aebef2c93dabf0a9336d3700b62e862c14c2f894cec7dd490afdb",
+        "first267Spend": 20000,
+        "first267Units": 800000,
+        "targetActualClosedWeek": 351,
+        "stateSHA256": "ca621cc7e8d992776d2ad0c0dffb284e8cae6e351260f9d5a0f678727c8937ed"
+      },
+      "operations": {
+        "actualSHA256": "2ec900796e81dc3b92a53ce4212ae9e85d53474aaf32ebdba45a1aeaead60921",
+        "constructedSHA256": "2ec900796e81dc3b92a53ce4212ae9e85d53474aaf32ebdba45a1aeaead60921",
+        "equal": true
+      },
+      "placement": {
+        "actualSHA256": "5d3d09e9bd2f5bf92b52c2536b6c1def9c3461b7d716b5d0b7527725b41e9595",
+        "constructedSHA256": "5d3d09e9bd2f5bf92b52c2536b6c1def9c3461b7d716b5d0b7527725b41e9595",
+        "equal": true
+      },
+      "lightingForecast": {
+        "actual": {
+          "kind": "window",
+          "fromWeek": 884,
+          "toWeek": 988
+        },
+        "constructed": {
+          "kind": "window",
+          "fromWeek": 884,
+          "toWeek": 988
+        },
+        "expected": {
+          "kind": "window",
+          "fromWeek": 884,
+          "toWeek": 988
+        }
+      },
+      "announcements": {
+        "actual": [],
+        "constructed": [],
+        "expected": []
+      }
+    },
+    {
+      "week": 900,
+      "admitted": true,
+      "actual": {
+        "status": "completed",
+        "verifiedWork": 64,
+        "expenditure": 440000,
+        "completedWeek": 276,
+        "earnedHistorySHA256": "50c0ef11f459fb9e71faf4bd7a714bb54cd08b5c701c321b648f55b7138fa0a5",
+        "first267Spend": 40000,
+        "first267Units": 960000,
+        "targetActualClosedWeek": 350,
+        "stateSHA256": "5200dbf63dcf9b4f289193487989ef2c9ae3b9f16250fe7a3b2fcb0ba4164abc"
+      },
+      "constructed": {
+        "status": "completed",
+        "verifiedWork": 64,
+        "expenditure": 300000,
+        "completedWeek": 278,
+        "earnedHistorySHA256": "fd0cd88f716aebef2c93dabf0a9336d3700b62e862c14c2f894cec7dd490afdb",
+        "first267Spend": 20000,
+        "first267Units": 800000,
+        "targetActualClosedWeek": 351,
+        "stateSHA256": "04806e89b26ef0153574d9796812d8f6080f8c9e8e7cdea3208390356e0bf7f6"
+      },
+      "operations": {
+        "actualSHA256": "2ec900796e81dc3b92a53ce4212ae9e85d53474aaf32ebdba45a1aeaead60921",
+        "constructedSHA256": "2ec900796e81dc3b92a53ce4212ae9e85d53474aaf32ebdba45a1aeaead60921",
+        "equal": true
+      },
+      "placement": {
+        "actualSHA256": "5d3d09e9bd2f5bf92b52c2536b6c1def9c3461b7d716b5d0b7527725b41e9595",
+        "constructedSHA256": "5d3d09e9bd2f5bf92b52c2536b6c1def9c3461b7d716b5d0b7527725b41e9595",
+        "equal": true
+      },
+      "lightingForecast": {
+        "actual": {
+          "kind": "exact",
+          "commercialWeek": 936,
+          "announcedWeek": 884
+        },
+        "constructed": {
+          "kind": "exact",
+          "commercialWeek": 936,
+          "announcedWeek": 884
+        },
+        "expected": {
+          "kind": "exact",
+          "commercialWeek": 936,
+          "announcedWeek": 884
+        }
+      },
+      "announcements": {
+        "actual": [
+          {
+            "technologyId": "lighting-control-01",
+            "week": 884
+          }
+        ],
+        "constructed": [
+          {
+            "technologyId": "lighting-control-01",
+            "week": 884
+          }
+        ],
+        "expected": [
+          {
+            "technologyId": "lighting-control-01",
+            "week": 884
+          }
+        ]
+      }
+    }
+  ],
+  "nextTick": null,
+  "acceptedRootMode": "explicit-paired1368-override",
+  "captureLoaderSHA256": "fbb29c1fe7ccb3f995d0f3ae57162922d19490448b33a457cf30746643ec4cb7",
+  "admissions": [
+    {
+      "label": "original267",
+      "admitted": true,
+      "error": null,
+      "beforeSHA256": "c7767fdb2f424ab99cc25a83d9664e8eb585ba28e5688c0c4c88b134e613895e",
+      "afterSHA256": "c7767fdb2f424ab99cc25a83d9664e8eb585ba28e5688c0c4c88b134e613895e"
+    },
+    {
+      "label": "constructed267-budget20000",
+      "admitted": true,
+      "error": null,
+      "beforeSHA256": "dbca297c29450ea1a7d96c0e71ce15bf171cb852a080d90cdedc08f377a3b910",
+      "afterSHA256": "dbca297c29450ea1a7d96c0e71ce15bf171cb852a080d90cdedc08f377a3b910"
+    },
+    {
+      "label": "original268",
+      "admitted": true,
+      "error": null,
+      "beforeSHA256": "a6ddc3b7f0123f9cb1fcd89528e60fec1317d52662bb649a5d08fd1bb6084519",
+      "afterSHA256": "a6ddc3b7f0123f9cb1fcd89528e60fec1317d52662bb649a5d08fd1bb6084519"
+    },
+    {
+      "label": "constructed268",
+      "admitted": true,
+      "error": null,
+      "beforeSHA256": "c14023718e41f35f70da6a8cd39d0b9a04318eb440d9fbe27c7140cf81d38ff6",
+      "afterSHA256": "c14023718e41f35f70da6a8cd39d0b9a04318eb440d9fbe27c7140cf81d38ff6"
+    },
+    {
+      "label": "actual40000-endpoint780",
+      "admitted": true,
+      "error": null,
+      "beforeSHA256": "006b0e1acddd157c1491dcd78b9c834524f987b530e4beaf8dad6475e8e9cabf",
+      "afterSHA256": "006b0e1acddd157c1491dcd78b9c834524f987b530e4beaf8dad6475e8e9cabf"
+    },
+    {
+      "label": "constructed20000-endpoint780",
+      "admitted": true,
+      "error": null,
+      "beforeSHA256": "ca621cc7e8d992776d2ad0c0dffb284e8cae6e351260f9d5a0f678727c8937ed",
+      "afterSHA256": "ca621cc7e8d992776d2ad0c0dffb284e8cae6e351260f9d5a0f678727c8937ed"
+    },
+    {
+      "label": "actual40000-endpoint900",
+      "admitted": true,
+      "error": null,
+      "beforeSHA256": "5200dbf63dcf9b4f289193487989ef2c9ae3b9f16250fe7a3b2fcb0ba4164abc",
+      "afterSHA256": "5200dbf63dcf9b4f289193487989ef2c9ae3b9f16250fe7a3b2fcb0ba4164abc"
+    },
+    {
+      "label": "constructed20000-endpoint900",
+      "admitted": true,
+      "error": null,
+      "beforeSHA256": "04806e89b26ef0153574d9796812d8f6080f8c9e8e7cdea3208390356e0bf7f6",
+      "afterSHA256": "04806e89b26ef0153574d9796812d8f6080f8c9e8e7cdea3208390356e0bf7f6"
+    }
+  ],
+  "capture": {
+    "week": 267,
+    "version": 45,
+    "rawSHA256": "2b27ca1517b8fcf5329b4742e329e252dfb40fe2dbafe3868244bd6f81b0f3b1",
+    "gzipSHA256": "c3f78360efc6ff30f7ef63a873ee49174dac4b5cf8a4e683672e3aac20591a56",
+    "qualification": "Original45 idle/null-since control; actual retained primary project; synthetic since admitted; exact research-history refusal"
+  },
+  "inputComparison": {
+    "originalSHA256": "c7767fdb2f424ab99cc25a83d9664e8eb585ba28e5688c0c4c88b134e613895e",
+    "constructedSHA256": "dbca297c29450ea1a7d96c0e71ce15bf171cb852a080d90cdedc08f377a3b910",
+    "normalizedOriginalSHA256": "dfedd4035b3a5ed443adf2bd6a5e8770f5919f770379320c9ccff6a357da5085",
+    "normalizedConstructedSHA256": "dfedd4035b3a5ed443adf2bd6a5e8770f5919f770379320c9ccff6a357da5085",
+    "soleCurrentBudgetDifference": true
+  },
+  "quotes": {
+    "original": {
+      "spend": 40000,
+      "output": 6,
+      "seats": 4,
+      "bottleneck": "4 assigned Scientists: $40,000/week is usable. A higher budget adds no work and is not charged."
+    },
+    "constructed": {
+      "spend": 20000,
+      "output": 5,
+      "seats": 4,
+      "bottleneck": "The research budget limits acceleration. $40,000/week reaches 6 work units with these 4 Scientists."
+    }
+  },
+  "outcomes": [
+    {
+      "arm": "actual40000",
+      "verifiedWorkBefore": 12,
+      "verifiedWorkAfter": 18,
+      "workDelta": 6,
+      "expenditureDelta": 40000,
+      "researchSpendMovementDelta": -40000,
+      "rivalCashDelta": -156515,
+      "lastActualWeek": 267,
+      "lastActualSpend": 40000,
+      "expectedWorkDelta": 6,
+      "expectedSpend": 40000,
+      "successorSHA256": "a6ddc3b7f0123f9cb1fcd89528e60fec1317d52662bb649a5d08fd1bb6084519"
+    },
+    {
+      "arm": "constructed20000",
+      "verifiedWorkBefore": 12,
+      "verifiedWorkAfter": 17,
+      "workDelta": 5,
+      "expenditureDelta": 20000,
+      "researchSpendMovementDelta": -20000,
+      "rivalCashDelta": -136515,
+      "lastActualWeek": 267,
+      "lastActualSpend": 20000,
+      "expectedWorkDelta": 5,
+      "expectedSpend": 20000,
+      "successorSHA256": "c14023718e41f35f70da6a8cd39d0b9a04318eb440d9fbe27c7140cf81d38ff6"
+    }
+  ],
+  "outputComparisons": {
+    "sharedOriginalSHA256": "1a9b559eb598d7b0813c62c8d4d59c02bb987f1c95440b58c9d6bffa29034852",
+    "sharedConstructedSHA256": "1a9b559eb598d7b0813c62c8d4d59c02bb987f1c95440b58c9d6bffa29034852",
+    "disclosureOriginalSHA256": "8dced013afe04e0cca242616172b6c5f5701333320637e1b9f8c7533b537f9c7",
+    "disclosureConstructedSHA256": "8dced013afe04e0cca242616172b6c5f5701333320637e1b9f8c7533b537f9c7",
+    "sharedEqual": true,
+    "disclosureEqual": true
+  },
+  "oneTickReproduced": true,
+  "lastCompletedPairWeek": 900,
+  "elapsedMs": 9963.23259
+}

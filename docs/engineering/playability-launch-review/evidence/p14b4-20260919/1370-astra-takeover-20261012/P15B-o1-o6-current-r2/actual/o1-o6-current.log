@@ -1,0 +1,7 @@
+{"progressWeek":200,"ticksAttempted":70}
+{"progressWeek":300,"ticksAttempted":170}
+{"progressWeek":400,"ticksAttempted":270}
+{"progressWeek":500,"ticksAttempted":370}
+{"progressWeek":600,"ticksAttempted":470}
+{"kind":"O1/O6 current-source130→600 LIVE-ARM DIAGNOSTIC, not full1363-V or acceptance","status":"CURRENT_ROUTE_OUTCOME_ACCOUNTING_OBSERVED_PARTIAL_REPROBE_NOT_ACCEPTANCE","ticksAttempted":470,"lastCompletedWeek":600,"error":null,"elapsedMs":18067.406418,"diagnosticSHA256":"523d12e5262c418ec5f37ebda2320e17f026e31b8d87d8dc4bb7e998701dc736"}
+{"watchdog": "child completed", "childPid": 3147, "groupId": 3147, "childExit": 0, "intendedExit": 0, "deadlineExceeded": false, "seconds": 18.199022813001648, "groupState": "absent", "ownedGroupGone": true, "cleanupError": null, "exit": 0}

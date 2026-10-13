@@ -1,0 +1,5 @@
+# Declaration measurement runner admission
+
+GPT-6.1 Sol. Static conditional KEEP; runner42e7dca0fc4157f4afa8824e17e8989418c98b173f1bfd7f6465b7bb5c32412d matches. Exact final156 focused-runner derivative preserves complete packet/WT/index/HEAD/mode admission, union C# explicit snapshot, selection97aea,12 fixture inputs, environment/floors/lane and strict postflight.
+
+Adds exact producer67b49,INPUT-PINS5f5d,brief76a2 and conditional watchdogr3a110 as mandatory admitted/frozen inputs13–16; correct P58_DECLARATION_INPUT_MANIFEST_SHA256 is exported. Fresh output/self paths and single declaration command replace compiler/test tail. Actual shared vite-node producer stdout is retained in log, child status and postflight propagate. Fixed30s deadline remains; no compiler/runtime/generator-file mutation or passing golden asserted by wrapper. Any98 requires parent cleanup observations before another dependent launch. Parent schedules only after current lane terminal and source/readback verified. No execution or source edits by reviewer.

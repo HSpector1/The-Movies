@@ -1,0 +1,9 @@
+# Projection58 declaration producer admission
+
+GPT-6.1 Sol. Static KEEP; no execution or candidate changes. Driver67b49e538d22327edf30478108764d2be620ddacedfe70c0ddbe3653f3cab8a7; INPUT-PINS5f5d318f3299bddd09d44c5aa008d26b366a0f5fb9f1e261b2ca1854b2d64224. All13 bounded input sizes/hashes match current frozen bytes.
+
+Producer uses the actual exported generateCsharpTypeDeclarations and pure existing union FIXTURES, not Vitest, copied declarations or a failure-derived expected new value. It separately renders each of eight positive fixtures twice, requires exact deterministic bytes,16 total renders, six fixed original hashes including F12 unchanged, independently measured F10/F11 equality in bytes/hash and difference from priorc83. Schema identity13b793/projection58/protocol4 and whole generated DTO hash/manifest are separately checked; declaration-body hashes are explicitly distinguished from whole-contract hash.
+
+Required external INPUT manifest pin, before/after-finally subset identities and self hash protect this bounded measurement; parent whole source/index/HEAD/environment freeze must supplement them. Metadata packet labels alone are not runtime complete packet admission. No output file is written; success stdout contains only measured summary. Assertions failing before completion do not emit a success record and must remain failed prerequisites. No test-golden repair may precede actual producer evidence; this static admission does not supply its new hashes.
+
+A subsequent passing measurement can ground precisely the two current F10/F11 golden updates, preserving six frozen hashes and exhaustive structural tests. It does not erase fullrun failures or grant gameplay/native/fullP15B acceptance. Lesson: independently rerender the shared producer and retain frozen controls before changing an expected golden, rather than copying received failure text.

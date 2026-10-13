@@ -1,0 +1,4 @@
+Bridge/Ranking implementation r1: exact156 WT/index postimages; reviewed packet; reverse check PASS
+node=v20.20.2 python=Python 3.14.4 start=2026-10-13T01:03:20Z
+{"name": "declarations", "exit": 0, "seconds": 2}
+terminal declaration measurement=0; unchanged=yes; parse actual independent16renders and ownedwatchdog disposition
