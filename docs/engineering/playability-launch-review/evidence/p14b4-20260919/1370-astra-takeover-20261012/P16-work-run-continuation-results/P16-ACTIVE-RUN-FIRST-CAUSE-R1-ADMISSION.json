@@ -1,0 +1,48 @@
+{
+  "status": "UNRUN; independent conditional KEEP fulfilled by exact parent binding; fresh existing resource preflight required",
+  "runner": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-active-run-first-cause-runner-r1/runner.sh",
+  "out": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-active-run-first-cause-r1-run",
+  "bootstrap": {
+    "SCRIPT": "135d7e8ab9f592d9ba37d23f997d3a695652c0580731b1f2931c128176a20322",
+    "AUTO_HELPER": "9bc9b89c0ae5dd6bc3e558ee1b823414d86cb5134170326f74779350b34d3e00",
+    "SELECTION": "b134ba81ac18fe943bb187faa7f86a7b517d087a927483b2214c06bc2fc92a19",
+    "BINDINGS": "bb1a6a8a7d088f611c779eae306b7e919688fbb6d1c3e208ad4663651ee9611e"
+  },
+  "package": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-run167-r3",
+  "patchSHA256": "abc21aa7b4339e6214beed6f8d32ff200de3f9166c8f09be6ce33ae7d8a62ff5",
+  "manifestSHA256": "54a81f029c0e14fdc6520074093dc1ffa24bbabd1bf26ee848595bef36e7cf30",
+  "actualCommands": [
+    [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "--noEmit"
+    ],
+    [
+      "node",
+      "node_modules/vitest/vitest.mjs",
+      "run",
+      "--project",
+      "core",
+      "--no-file-parallelism",
+      "--no-cache",
+      "--reporter=default",
+      "--reporter=json",
+      "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-active-run-first-cause-r1-run/results.json",
+      "tests/p16-absorption-active-run.test.ts"
+    ]
+  ],
+  "unchangedBudgets": "launch3670016KiB/runtime3145728KiB/defaulttest5000ms",
+  "parentBindingChange": {
+    "beforeSHA256": "4302a13b7a5672e940d008f6b9a777260b4c61b7d9ece91fd240e2acd9a2e98a",
+    "before": {
+      "scope": "same25identities+threecompilers after narrowactualsourcefixes and exactfiledomain rename",
+      "finalCleanTestAdmission": "PENDING_PARENT_REVIEWED_ONE_TARGET_CORRECTION"
+    },
+    "after": {
+      "scope": "Freshroot compiler then complete active-run2 after only measured omitted-installment expected-guard correction; prior UI/Bridge and24 successes retained separately",
+      "finalCleanTestAdmission": "Independent KEEP for5c04ac0d one-case revenue guard correction; exact original2identities/default5s/allmutants/purity preserved. Parent verifies actual167-r3 abc21aa7/54a81f02."
+    },
+    "additiveProofPins": true
+  },
+  "claimLimits": "Prior complete25 remains24PASS1FAIL; no fresh whole25/allcompiler/acceptance claim"
+}

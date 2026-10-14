@@ -1,0 +1,14 @@
+{
+  "status": "INSTALLED_UNRUN",
+  "changedOnly": [
+    "tests/p16-absorption-active-run.test.ts"
+  ],
+  "preimage": "dac70107fc5102201ecd69f19b495b96eb2f52fe19e418aa46a5cc96038dc9cc",
+  "postimage": "5c04ac0db120f335b0e233859b9df60bf07aabb8f190fbdb7a25ae0b6613bb9f",
+  "package": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-run167-r3",
+  "patchSHA256": "abc21aa7b4339e6214beed6f8d32ff200de3f9166c8f09be6ce33ae7d8a62ff5",
+  "manifestSHA256": "54a81f029c0e14fdc6520074093dc1ffa24bbabd1bf26ee848595bef36e7cf30",
+  "pathCount": 167,
+  "priorActualResult": "24PASS1FAIL unchanged; laterhostiles remain unexecuted",
+  "review": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/P16-ABSORPTION-ACTIVE-RUN-FIRST-CAUSE-R3-INDEPENDENT-REVIEW.md"
+}

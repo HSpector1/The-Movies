@@ -1,0 +1,7 @@
+# Active-run correction runner R1
+
+KEEP CONDITIONAL on parent replacing the explicit final-admission PENDING binding and supplying externally pinned bootstrap; current draft is intentionally failclosed. SCRIPT135d7e8ab9f592d9ba37d23f997d3a695652c0580731b1f2931c128176a20322; BINDINGS4302a13b7a5672e940d008f6b9a777260b4c61b7d9ece91fd240e2acd9a2e98a; SELECTIONb134ba81ac18fe943bb187faa7f86a7b517d087a927483b2214c06bc2fc92a19. All PINS hashes verified.
+
+Derivative runs fresh root compiler first, then the complete actual active-run file with both exact identities, ordinary default5s and unchanged generic identity/duration accounting. No name filtering, compiler reuse execution, UI/Bridge repetition or floor/budget override. Old proof inputs remain bound provenance only. Exact167-r3 abc21aa7/54a81f02 packet and test5c04ac0d are declared. Source/index/mode/fixture/input/AUTO/lane/one-shot guards unchanged; helper and accountant bytes exactly prior reviewed ones. Ordinary runtime failure is retained and identity accounting still executes; compiler failure stops runtime.
+
+Binding scope prose still says same25identities+threecompilers although executionScope and actual terminal/commands correctly say freshroot+complete2. Update that prose alongside the parent admission pin for truthful provenance; it does not alter execution. Preserve original continuation24P1F and root/UI/Bridge evidence separately. Static only, no launch or preflight.

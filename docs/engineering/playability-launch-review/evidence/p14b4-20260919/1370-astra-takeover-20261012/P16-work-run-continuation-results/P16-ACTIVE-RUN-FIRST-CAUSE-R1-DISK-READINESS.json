@@ -1,0 +1,27 @@
+{
+  "at": "2026-10-14T09:58:53.767142-05:00",
+  "volumes": [
+    {
+      "path": "/Users/zacheryspector/The-Movies-headless-program",
+      "volume": "/dev/disk1s1",
+      "freeKiB": 3263112
+    },
+    {
+      "path": "/Users/zacheryspector/studio-scratch",
+      "volume": "/dev/disk1s1",
+      "freeKiB": 3263112
+    },
+    {
+      "path": "/Users/zacheryspector/studio-specialists",
+      "volume": "/dev/disk1s1",
+      "freeKiB": 3263112
+    }
+  ],
+  "launchMinimumKiB": 3670016,
+  "runtimeFloorKiB": 3145728,
+  "shortfallKiB": 406904,
+  "launchAllowedByDisk": false,
+  "laneAbsent": true,
+  "cleanup": "none; closed boundedcache inspection remains valid",
+  "scope": "read-only actual next-gate readiness measurement; do not repeat failed preflight while unchanged"
+}
