@@ -1,0 +1,36 @@
+{
+  "terminal": {
+    "overallExit": 97,
+    "groups": {
+      "tsc-root": 97
+    },
+    "scope": "fresh root compiler; complete31 early SILENT initial8/7/6, cancellation, latepost and S5 save compatibility; all original budgets and prior failures retained",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1792002593,
+      "endEpoch": 1792002754,
+      "seconds": 161,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r12-run/tsc-root.log"
+    }
+  ],
+  "independentFinalFreeze": "PASS",
+  "sourceCount": 1620,
+  "inputCount": 403,
+  "strictChecks": 2,
+  "strictErrorsBytes": 0,
+  "audit": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r12-parent-reconciliation",
+  "scope": "Fresh root compiler and complete5 files31 with unchanged5000ms per-leaf budgets; all original fixtures, native ticks, caller purity, full validation, canonical crossproducer output, rollback and save/replay assertions retained; no wholeP16/native/player claim",
+  "runtime": "NOT_STARTED",
+  "assertionsCounted": 0
+}

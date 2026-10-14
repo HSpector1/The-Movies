@@ -1,0 +1,11 @@
+# R12 compiler/resource-stop actual review
+
+Retain original wrapper97; runtime NOT_STARTED, zero assertions credited. Original results.jsonl records one actual root child0/161s, command node node_modules/typescript/bin/tsc --noEmit, empty compiler diagnostic log. terminal.json groups tsc-root97 reflects the wrapper resource-floor stop after that successful child, not a TypeScript failure. No Vitest child/results reporter exists.
+
+Fresh independent reconciliation PASS1620sources403inputs; two strict checks and zero metadata errors. Protected freeze fields agree with the original before snapshot (only receipt-wrapper autoMetadata differs). Thus the independently retained compiler result applies narrowly to the exact reviewed191 packet ee529535…/491c7852… and its recorded source/config/tool/input envelope. The run is not a passing combined gate and does not qualify any new6 or original31 runtime assertions/timings.
+
+A fresh runtime-only successor is supportable if it fail-closes on exact prior source/config/tool/index/cached/HEAD/required-input proof and current equality, binds the original child/terminal/log/freeze and independent result, preserves all original required inputs except explicit successor runner-role replacements, and captures a fresh full envelope before/after. This is reuse of the successful child, not normalization of wrapper97. Source or test edits invalidate this exact compiler reuse unless explicitly recompiled; unrelated docs HEAD must not silently bypass evidence binding.
+
+Successor must execute the same complete five files31 with original5000ms budgets, unchanged identities/fixtures/full validators/ticks/save/replay/rollback and strict accounting, only after unchanged real lane/resource preflight passes. No floor decrease, concurrent intensive job, or unmodified failing-harness retry is authorized by this review. Resource competition is environmental evidence, not a product defect or test outcome; private unrelated-project details are deliberately excluded here.
+
+Original R11 overrun, R12 resource97 and all prior failures remain. No new root/UI/Bridge/fullgate/native acceptance claim. No runtime/helper execution or K/R/index/HANDOFF edits performed.
