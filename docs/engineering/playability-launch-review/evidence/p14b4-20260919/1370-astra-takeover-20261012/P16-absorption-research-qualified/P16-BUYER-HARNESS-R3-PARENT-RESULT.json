@@ -1,0 +1,34 @@
+{
+  "terminal": {
+    "overallExit": 1,
+    "groups": {
+      "buyer": 0,
+      "buyer-accounting": 3
+    },
+    "scope": "Buyer harnessr3 completeoneleaf/default5s; unchanged product compiler reused, test compile next coherent gate",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "passed": 1,
+  "durationMs": 5676.262514,
+  "budgetMs": 5000,
+  "budgetQualified": false,
+  "actualClosureWeek": 269,
+  "allAssertionsReached": true,
+  "strictChecks": 3,
+  "strictErrorsBytes": 0,
+  "sourceCount": 1596,
+  "inputCount": 78,
+  "independentFinalFreeze": "PASS",
+  "row": {
+    "ancestorTitles": [],
+    "fullName": "real purchased R04film0 survives four fixed public campaigns and joins actual buyer closure without changing creator history",
+    "status": "passed",
+    "title": "real purchased R04film0 survives four fixed public campaigns and joins actual buyer closure without changing creator history",
+    "duration": 5676.262514,
+    "failureMessages": [],
+    "meta": {}
+  },
+  "scope": "Actual functional buyerC269 proven; timing remainsOPEN; no further unchanged rerun or budgetwaiver. Next coherent root includes this test.",
+  "next": "Real clean-target absorption/F17 producer qualification; retain buyer/consumer timing obligations."
+}

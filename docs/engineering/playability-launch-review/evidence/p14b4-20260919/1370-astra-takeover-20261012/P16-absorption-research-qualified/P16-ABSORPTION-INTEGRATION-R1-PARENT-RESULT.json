@@ -1,0 +1,73 @@
+{
+  "terminal": {
+    "overallExit": 2,
+    "groups": {
+      "tsc-root": 0,
+      "tsc-ui": 0,
+      "tsc-bridge": 2
+    },
+    "scope": "threecompilers then ten complete rights/save/absorption/F17 files; research excluded; noacceptance claim",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "compilerResults": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791940445,
+      "endEpoch": 1791940505,
+      "seconds": 60,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-absorption-integration-r1-run/tsc-root.log"
+    },
+    {
+      "name": "tsc-ui",
+      "exit": 0,
+      "startEpoch": 1791940514,
+      "endEpoch": 1791940561,
+      "seconds": 47,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "ui/tsconfig.json",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-absorption-integration-r1-run/tsc-ui.log"
+    },
+    {
+      "name": "tsc-bridge",
+      "exit": 2,
+      "startEpoch": 1791940573,
+      "endEpoch": 1791940625,
+      "seconds": 52,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.bridge.json",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-absorption-integration-r1-run/tsc-bridge.log"
+    }
+  ],
+  "runtimeStarted": false,
+  "assertionsReached": 0,
+  "strictChecks": 6,
+  "strictErrorBytes": 0,
+  "independentFinalFreeze": "PASS",
+  "sourceCount": 1599,
+  "inputCount": 68,
+  "firstCauses": [
+    "bridge/industry.ts:285 current projection omits actual power-ranking/v3",
+    "bridge/market.ts:163 current employment projection omits actual absorptionContinuation"
+  ],
+  "claim": "Root/UI compile PASS. Bridge compile FAIL2; no 44-test assertions counted."
+}

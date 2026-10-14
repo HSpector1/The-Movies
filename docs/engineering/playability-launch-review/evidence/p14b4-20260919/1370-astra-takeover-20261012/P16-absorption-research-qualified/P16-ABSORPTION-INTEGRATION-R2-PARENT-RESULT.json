@@ -1,0 +1,146 @@
+{
+  "terminal": {
+    "overallExit": 1,
+    "groups": {
+      "tsc-root": 0,
+      "tsc-ui": 0,
+      "tsc-bridge": 0,
+      "estate-red": 1,
+      "identity-accounting": 0
+    },
+    "scope": "threecompilers then eleven complete rights/save/absorption/F17 files; research included; noacceptance claim",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791941314,
+      "endEpoch": 1791941363,
+      "seconds": 49,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-absorption-integration-r2-run/tsc-root.log"
+    },
+    {
+      "name": "tsc-ui",
+      "exit": 0,
+      "startEpoch": 1791941371,
+      "endEpoch": 1791941419,
+      "seconds": 48,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "ui/tsconfig.json",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-absorption-integration-r2-run/tsc-ui.log"
+    },
+    {
+      "name": "tsc-bridge",
+      "exit": 0,
+      "startEpoch": 1791941428,
+      "endEpoch": 1791941462,
+      "seconds": 34,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.bridge.json",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-absorption-integration-r2-run/tsc-bridge.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 1,
+      "startEpoch": 1791941468,
+      "endEpoch": 1791941521,
+      "seconds": 53,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-absorption-integration-r2-run/results.json",
+        "tests/p16-estate-join.test.ts",
+        "tests/p16a-save-v46.test.ts",
+        "tests/p16-estate-d-ceremony.test.ts",
+        "tests/p16-estate-observed-migration.test.ts",
+        "tests/p16-estate-current49-rollback.test.ts",
+        "tests/p16-estate-d-join-negative.test.ts",
+        "tests/p16-held-title-seller.test.ts",
+        "tests/p16-r03-observed-migration.test.ts",
+        "tests/p16-absorption-clean-target.test.ts",
+        "tests/p16-quote-age.test.ts",
+        "tests/p16-absorption-research-cancellation.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-absorption-integration-r2-run/estate-red.log"
+    }
+  ],
+  "identities": 46,
+  "counts": {
+    "passed": 39,
+    "failed": 7
+  },
+  "failedAtPositivePublication": [
+    {
+      "file": "tests/p16-absorption-clean-target.test.ts",
+      "name": "P16 actual clean-target absorption from retained original48 R03 retains one linked bargain, pays five capped exits and exact fractional cash at par, preserves titles/history and ordinary replay",
+      "cause": "Error: validateSaveV49: absorption held title dispositions incomplete\n    at fail (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:469:51)\n    at Module.validateAbsorptionRoot (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:575:94)\n    at validateSaveV49 (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11751:3)\n    at Module.makeSave (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:6724:16)\n    at Module.closeAbsorption (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:463:3)\n    at complete (/Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-clean-target.test.ts:77:27)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-clean-target.test.ts:88:38\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)"
+    },
+    {
+      "file": "tests/p16-absorption-clean-target.test.ts",
+      "name": "P16 actual clean-target absorption from retained original48 R03 full current reader refuses independent cent drift and missing employment/title links, and named downgrade preserves its caller",
+      "cause": "Error: validateSaveV49: absorption held title dispositions incomplete\n    at fail (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:469:51)\n    at Module.validateAbsorptionRoot (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:575:94)\n    at validateSaveV49 (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11751:3)\n    at Module.makeSave (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:6724:16)\n    at Module.closeAbsorption (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:463:3)\n    at complete (/Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-clean-target.test.ts:77:27)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-clean-target.test.ts:140:38\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)"
+    },
+    {
+      "file": "tests/p16-absorption-clean-target.test.ts",
+      "name": "P16 actual clean-target absorption from retained original48 R03 real current49 publication refusal rolls back the fully admitted clean-target caller after actual joined validation",
+      "cause": "Error: validateSaveV49: absorption held title dispositions incomplete\n    at fail (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:469:51)\n    at Module.validateAbsorptionRoot (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:575:94)\n    at validateSaveV49 (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11751:3)\n    at Module.makeSave (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:6724:16)\n    at Module.closeAbsorption (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:463:3)\n    at complete (/Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-clean-target.test.ts:77:27)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-clean-target.test.ts:159:31\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)"
+    },
+    {
+      "file": "tests/p16-absorption-clean-target.test.ts",
+      "name": "P16 actual clean-target absorption from retained original48 R03 recorded original preview pair survives real close and reload; missing unknown future and age13 records refuse full readers purely",
+      "cause": "Error: validateSaveV49: absorption held title dispositions incomplete\n    at fail (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:469:51)\n    at Module.validateAbsorptionRoot (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:575:94)\n    at validateSaveV49 (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11751:3)\n    at Module.makeSave (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:6724:16)\n    at Module.closeAbsorption (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:463:3)\n    at complete (/Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-clean-target.test.ts:77:27)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-clean-target.test.ts:182:38\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)"
+    },
+    {
+      "file": "tests/p16-absorption-clean-target.test.ts",
+      "name": "P16 actual clean-target absorption from retained original48 R03 carried close refuses missing partial unknown future and age13 preview pairs on a real positive current input without refreshing or mutation",
+      "cause": "Error: validateSaveV49: absorption held title dispositions incomplete\n    at fail (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:469:51)\n    at Module.validateAbsorptionRoot (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:575:94)\n    at validateSaveV49 (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11751:3)\n    at Module.makeSave (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:6724:16)\n    at Module.closeAbsorption (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:463:3)\n    at complete (/Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-clean-target.test.ts:77:27)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-clean-target.test.ts:206:31\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)"
+    },
+    {
+      "file": "tests/p16-absorption-research-cancellation.test.ts",
+      "name": "P16 real absorbed research marker from fixed accepted267 input actual public close retains all earned work and paid physical history with one source-owned cancellation and roundtrip",
+      "cause": "Error: validateSaveV49: absorption held title dispositions incomplete\n    at fail (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:469:51)\n    at Module.validateAbsorptionRoot (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:575:94)\n    at validateSaveV49 (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11751:3)\n    at Module.makeSave (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:6724:16)\n    at Module.closeAbsorption (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:463:3)\n    at preparedCancellation (/Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-research-cancellation.test.ts:63:26)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-research-cancellation.test.ts:79:11\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)"
+    },
+    {
+      "file": "tests/p16-absorption-research-cancellation.test.ts",
+      "name": "P16 real absorbed research marker from fixed accepted267 input full joined reader refuses either omitted authority or malformed marker and frozen own-era project readers reject its new field",
+      "cause": "Error: validateSaveV49: absorption held title dispositions incomplete\n    at fail (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:469:51)\n    at Module.validateAbsorptionRoot (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:575:94)\n    at validateSaveV49 (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11751:3)\n    at Module.makeSave (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:6724:16)\n    at Module.closeAbsorption (/Users/zacheryspector/studio-specialists/p16/src/core/acquisition.ts:463:3)\n    at preparedCancellation (/Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-research-cancellation.test.ts:63:26)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-research-cancellation.test.ts:95:11\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)"
+    }
+  ],
+  "budgetOverruns": [],
+  "passedBudgetQualified": 39,
+  "maxPassedMs": 3734.8618020000004,
+  "strictChecks": 9,
+  "strictErrorsBytes": 0,
+  "sourceCount": 1600,
+  "inputCount": 74,
+  "independentFinalFreeze": "PASS",
+  "limits": "All seven new absorption identities failed at positive joined publication, before named downstream corruption/rollback assertions; do not count those. Real research268 prerequisite passed but no successful close. Other39 including existing32 and F17seven qualify within5s. Next narrow title reconstruction repair."
+}

@@ -1,0 +1,153 @@
+{
+  "terminal": {
+    "overallExit": 0,
+    "groups": {
+      "tsc-root": 0,
+      "estate-red": 0,
+      "identity-accounting": 0
+    },
+    "scope": "root then two complete absorption files; private reader repair only; noacceptance claim",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791941919,
+      "endEpoch": 1791941967,
+      "seconds": 48,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-absorption-title-fix-r1-run/tsc-root.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 0,
+      "startEpoch": 1791941975,
+      "endEpoch": 1791941991,
+      "seconds": 16,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-absorption-title-fix-r1-run/results.json",
+        "tests/p16-absorption-clean-target.test.ts",
+        "tests/p16-absorption-research-cancellation.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-absorption-title-fix-r1-run/estate-red.log"
+    }
+  ],
+  "counts": {
+    "passed": 7
+  },
+  "identities": 7,
+  "allReached": true,
+  "allBudgetQualified": true,
+  "budgetMs": 5000,
+  "maxMs": 2352.5704629999996,
+  "rows": [
+    {
+      "file": "tests/p16-absorption-clean-target.test.ts",
+      "ancestorTitles": [
+        "P16 actual clean-target absorption from retained original48 R03"
+      ],
+      "fullName": "P16 actual clean-target absorption from retained original48 R03 retains one linked bargain, pays five capped exits and exact fractional cash at par, preserves titles/history and ordinary replay",
+      "status": "passed",
+      "title": "retains one linked bargain, pays five capped exits and exact fractional cash at par, preserves titles/history and ordinary replay",
+      "duration": 2352.5704629999996,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-clean-target.test.ts",
+      "ancestorTitles": [
+        "P16 actual clean-target absorption from retained original48 R03"
+      ],
+      "fullName": "P16 actual clean-target absorption from retained original48 R03 full current reader refuses independent cent drift and missing employment/title links, and named downgrade preserves its caller",
+      "status": "passed",
+      "title": "full current reader refuses independent cent drift and missing employment/title links, and named downgrade preserves its caller",
+      "duration": 1585.0824620000003,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-clean-target.test.ts",
+      "ancestorTitles": [
+        "P16 actual clean-target absorption from retained original48 R03"
+      ],
+      "fullName": "P16 actual clean-target absorption from retained original48 R03 real current49 publication refusal rolls back the fully admitted clean-target caller after actual joined validation",
+      "status": "passed",
+      "title": "real current49 publication refusal rolls back the fully admitted clean-target caller after actual joined validation",
+      "duration": 847.246615,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-clean-target.test.ts",
+      "ancestorTitles": [
+        "P16 actual clean-target absorption from retained original48 R03"
+      ],
+      "fullName": "P16 actual clean-target absorption from retained original48 R03 recorded original preview pair survives real close and reload; missing unknown future and age13 records refuse full readers purely",
+      "status": "passed",
+      "title": "recorded original preview pair survives real close and reload; missing unknown future and age13 records refuse full readers purely",
+      "duration": 1450.7973079999992,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-clean-target.test.ts",
+      "ancestorTitles": [
+        "P16 actual clean-target absorption from retained original48 R03"
+      ],
+      "fullName": "P16 actual clean-target absorption from retained original48 R03 carried close refuses missing partial unknown future and age13 preview pairs on a real positive current input without refreshing or mutation",
+      "status": "passed",
+      "title": "carried close refuses missing partial unknown future and age13 preview pairs on a real positive current input without refreshing or mutation",
+      "duration": 1459.401296,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-research-cancellation.test.ts",
+      "ancestorTitles": [
+        "P16 real absorbed research marker from fixed accepted267 input"
+      ],
+      "fullName": "P16 real absorbed research marker from fixed accepted267 input actual public close retains all earned work and paid physical history with one source-owned cancellation and roundtrip",
+      "status": "passed",
+      "title": "actual public close retains all earned work and paid physical history with one source-owned cancellation and roundtrip",
+      "duration": 1557.731871,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-research-cancellation.test.ts",
+      "ancestorTitles": [
+        "P16 real absorbed research marker from fixed accepted267 input"
+      ],
+      "fullName": "P16 real absorbed research marker from fixed accepted267 input full joined reader refuses either omitted authority or malformed marker and frozen own-era project readers reject its new field",
+      "status": "passed",
+      "title": "full joined reader refuses either omitted authority or malformed marker and frozen own-era project readers reject its new field",
+      "duration": 1266.3046809999996,
+      "failureMessages": [],
+      "meta": {}
+    }
+  ],
+  "strictChecks": 5,
+  "strictErrorsBytes": 0,
+  "sourceCount": 1600,
+  "inputCount": 81,
+  "independentFinalFreeze": "PASS",
+  "qualification": "Actual fixedR03 clean healthy acquisition and original267\u2192268 research stop now qualify, including actualpublicpublicationrollback, exactfractionalcash/retention/cappedexits/titlecompleteness including pairedmissingtransfer, storedquote/currentage and save/replay. Prior39 estate/history/F17 and UI/Bridge compilers retained exact publictypes; not a fresh wholebroad gate. Originalseven firstfailures preserved.",
+  "limits": "Deadline278 physical, completedknowledge/pendingadoption, actualAction/Bridge/native, retainedwork/runs/rivalbuyer/openpromise/market and other remaining table obligations still required; P16unlanded."
+}
