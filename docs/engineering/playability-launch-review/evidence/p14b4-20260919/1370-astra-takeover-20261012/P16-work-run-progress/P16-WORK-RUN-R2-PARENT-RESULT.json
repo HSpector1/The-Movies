@@ -1,0 +1,37 @@
+{
+  "terminal": {
+    "overallExit": 97,
+    "groups": {
+      "tsc-root": 97
+    },
+    "scope": "threecompilers then nine completefiles25 identities; work/run and relatedowners boundedqualification, no fullacceptance claim",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791944572,
+      "endEpoch": 1791944618,
+      "seconds": 46,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-run-r2-run/tsc-root.log"
+    }
+  ],
+  "runtime": "NOT STARTED: actual runtime disk-floor stop after completed root compiler",
+  "runtimeAssertionsReached": 0,
+  "selectedIdentities": 25,
+  "strictChecks": 2,
+  "strictErrorsBytes": 0,
+  "sourceCount": 1610,
+  "inputCount": 178,
+  "independentFinalFreeze": "PASS",
+  "audit": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-run-r2-parent-reconciliation",
+  "claimLimits": "Root child0 is a reusable exact-source constituent, not a whole-gate pass. UI/Bridge/25 runtime identities remain UNRUN. Original compiler failure and wrapper97 are retained."
+}

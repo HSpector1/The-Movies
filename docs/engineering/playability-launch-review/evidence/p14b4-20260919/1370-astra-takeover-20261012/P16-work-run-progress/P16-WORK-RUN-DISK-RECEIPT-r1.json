@@ -1,0 +1,51 @@
+{
+  "timestampUTC": "2026-10-14T02:34:28.268790+00:00",
+  "trigger": "86614 actual wrapper97 runtime disk floor after root compiler0",
+  "status": "bounded inspection complete; no removals; safe caches insufficient",
+  "volume": "/dev/disk1s1",
+  "beforeAvailableKiB": 2635884,
+  "afterAvailableKiB": 2632460,
+  "actualNetChangeKiB": -3424,
+  "attributableRecoveredBytes": 0,
+  "launchMinimumKiB": 3670016,
+  "runtimeFloorKiB": 3145728,
+  "launchShortfallKiB": 1037556,
+  "target5GiBShortfallKiB": 2610420,
+  "quiescence": "All three GPT-6.1 Sol workers completed/parked; no project compiler/test/lane active; stopped run independently reconciled before source writes.",
+  "targets": [
+    {
+      "path": "/Users/zacheryspector/.npm/_cacache",
+      "allocatedKiB": 66476,
+      "owner": "mixed uid501/root",
+      "action": "SKIP",
+      "reason": "Only about2.9MiB user-owned payload; root-owned contents protected; insufficient to clear blocker; no whole-cache purge."
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Caches/com.microsoft.VSCode.ShipIt/update.YmJCImD",
+      "allocatedKiB": 985956,
+      "owner": "parent uid501; full ownership not traversed after dependency established",
+      "action": "SKIP",
+      "reason": "Exact pending updateBundleURL in ShipItState.plist; live ShipIt PID24770 references that state; actively required updater payload."
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Caches/Google/Chrome",
+      "allocatedKiBUpperBoundFromGoogleParent": 354832,
+      "action": "SKIP",
+      "reason": "Chrome is active; not an obsolete installer/package cache, insufficient even if disposable."
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Caches/Firefox",
+      "allocatedKiB": 372,
+      "action": "SKIP",
+      "reason": "Too small to resolve blocker; no broader browser-cache campaign."
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Caches/Mozilla",
+      "allocatedKiB": 0,
+      "action": "SKIP",
+      "reason": "No reclaimable payload."
+    }
+  ],
+  "protected": "No archives hydrated; no project/source/assets/saves/fixtures/evidence/Git/dependencies/toolchains/session data/swap/system files altered; no escalation or app termination.",
+  "next": "Owner asked to quit currently running Chrome to reduce memory/swap pressure; recovery is not guaranteed until measured. Continue light source drafting and independent review. Do not repeat failed launch without a resource change."
+}

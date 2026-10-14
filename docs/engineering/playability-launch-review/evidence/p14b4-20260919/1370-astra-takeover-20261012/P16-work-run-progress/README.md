@@ -1,0 +1,13 @@
+# P16 work/run progress — preserved draft, verification resource-blocked
+
+The closing-day estate transaction and earlier knowledge/installations/claims controls remain qualified by their prior checkpoints. This checkpoint preserves the newer167-file P16 work/run candidate; it does not land P16 or accept its new runtime behavior.
+
+The first coherent gate failed all three compilers. Exact original diagnostics are retained. The narrow correction keeps the real Bridge finance test byte-identical in the existing Bridge compiler domain, restores genuine discriminant narrowing with a declared never-returning helper, and classifies the new current revenue kind false in the frozen historical engagement lookup. No flags or assertions were relaxed.
+
+The corrected root compiler completed0 in46s. Its wrapper then stopped97 at the existing runtime disk floor after swap expansion. UI, Bridge and all25 runtime identities never started; zero runtime assertions are credited. Two strict checks had zero errors; fresh independent reconciliation verifies1610 source paths and178 inputs unchanged. The exact-source continuation keeps UI/Bridge plus the same nine complete files25 under their original budgets and resource guards. Independent review allows reuse of the valid root constituent, never a whole-gate pass.
+
+The archive contains both full candidate patches/manifests, original failures, exact runners/freezes, correction/reviews, pending tests, and explicitly UNRUN Bridge/readback drafts. Its exact members, sizes, modes and hashes were verified without extraction. Earlier pinned inputs and qualified results remain preserved in the prior estate/finance/research/knowledge checkpoints. Moving R9/native drafts and LOCAL machine inventories are excluded.
+
+Bounded cache inspection recovered0 bytes: the large VSCode update payload is actively referenced; foreign-owned npm entries are protected; remaining cache candidates cannot clear the roughly0.99GiB launch shortfall. No game or archive data was deleted or hydrated. The Owner was asked to quit currently running Chrome to reduce memory/swap pressure; actual space must still pass preflight. Light P16 source and independent test/review work continues, with one parent production writer and no parallel intensive jobs.
+
+Next: after actual resource change, use the reviewed continuation and fresh existing preflight. Close real work/revenue/deadline/financial proofs; finish native production continuation and actual paid-report/opaque-intent interfaces, then the existing remaining table and full qualification obligations. P17/P18 stay inactive until P16 dependencies qualify. No main merge.

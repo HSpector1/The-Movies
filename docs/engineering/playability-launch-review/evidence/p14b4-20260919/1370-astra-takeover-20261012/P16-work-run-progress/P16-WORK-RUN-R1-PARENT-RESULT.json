@@ -1,0 +1,93 @@
+{
+  "terminal": {
+    "overallExit": 2,
+    "groups": {
+      "tsc-root": 2,
+      "tsc-ui": 2,
+      "tsc-bridge": 2
+    },
+    "scope": "threecompilers then nine completefiles25 identities; work/run and relatedowners boundedqualification, no fullacceptance claim",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 2,
+      "startEpoch": 1791944261,
+      "endEpoch": 1791944309,
+      "seconds": 48,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-run-r1-run/tsc-root.log"
+    },
+    {
+      "name": "tsc-ui",
+      "exit": 2,
+      "startEpoch": 1791944318,
+      "endEpoch": 1791944361,
+      "seconds": 43,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "ui/tsconfig.json",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-run-r1-run/tsc-ui.log"
+    },
+    {
+      "name": "tsc-bridge",
+      "exit": 2,
+      "startEpoch": 1791944367,
+      "endEpoch": 1791944397,
+      "seconds": 30,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.bridge.json",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-run-r1-run/tsc-bridge.log"
+    }
+  ],
+  "runtime": "NOT STARTED: compiler prerequisites failed",
+  "selectedIdentities": 25,
+  "runtimeAssertionsReached": 0,
+  "diagnosticCounts": {
+    "tsc-root": {
+      "TS5097": 170,
+      "TS2322": 1,
+      "TS1360": 1,
+      "TS7053": 1
+    },
+    "tsc-ui": {
+      "TS2322": 1,
+      "TS1360": 1,
+      "TS7053": 1
+    },
+    "tsc-bridge": {
+      "TS2322": 1,
+      "TS1360": 1,
+      "TS7053": 1
+    }
+  },
+  "strictChecks": 6,
+  "strictErrorsBytes": 0,
+  "sourceCount": 1610,
+  "inputCount": 171,
+  "independentFinalFreeze": "PASS",
+  "firstCauses": [
+    "absorbedRuns32 film discriminant not narrowed through const never helper; do not cast authored film",
+    "save7170 frozen V5 engagement exhaustive map missing absorbedRunRevenue; preserve modern rights false historical inference",
+    "finance test imports actualBridge in root .js build because filename notin existing bridge*.test.ts domain; move entiretest byteidentically into existingdomain, no compiler weakening"
+  ],
+  "limits": "Original threecompiler2 results preserved; no runtime/revenue/work/finance PASS claimed; priorqualified162 results retained."
+}
