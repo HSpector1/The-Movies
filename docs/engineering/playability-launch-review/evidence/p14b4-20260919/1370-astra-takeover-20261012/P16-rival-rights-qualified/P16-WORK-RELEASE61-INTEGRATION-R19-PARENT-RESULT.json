@@ -1,0 +1,107 @@
+{
+  "terminal": {
+    "overallExit": 0,
+    "groups": {
+      "tsc-root": 0,
+      "estate-red": 0,
+      "identity-accounting": 0
+    },
+    "scope": "Fresh root and complete rival-buyer rights file3/default5000ms; actual pre162 R01 sale to R03, paid recipient DD, direct-answer parity and real cash-owner atomic refusal; no native or whole-P16 acceptance",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1792008319,
+      "endEpoch": 1792008414,
+      "seconds": 95,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r19-run/tsc-root.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 0,
+      "startEpoch": 1792008423,
+      "endEpoch": 1792008431,
+      "seconds": 8,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r19-run/results.json",
+        "tests/p16-rival-buyer-rights.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r19-run/estate-red.log"
+    }
+  ],
+  "independentFinalFreeze": "PASS",
+  "sourceCount": 1623,
+  "inputCount": 112,
+  "strictChecks": 5,
+  "strictErrorsBytes": 0,
+  "audit": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r19-parent-reconciliation",
+  "scope": "Fresh root and complete rival-buyer rights file3/default5000ms; actual pre162 R01 sale to R03, paid recipient DD, direct-answer parity and real cash-owner atomic refusal; no native or whole-P16 acceptance",
+  "counts": {
+    "passed": 3
+  },
+  "identities": 3,
+  "rows": [
+    {
+      "file": "tests/p16-rival-buyer-rights.test.ts",
+      "ancestorTitles": [
+        "P16 genuine rival buyer bilateral rights parity"
+      ],
+      "fullName": "P16 genuine rival buyer bilateral rights parity real paid R03 diligence and funded R01 seller offer close once through direct and ordinary rival answer owners with exact rival cash title and save parity",
+      "status": "passed",
+      "title": "real paid R03 diligence and funded R01 seller offer close once through direct and ordinary rival answer owners with exact rival cash title and save parity",
+      "duration": 1021.8855629999998,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-rival-buyer-rights.test.ts",
+      "ancestorTitles": [
+        "P16 genuine rival buyer bilateral rights parity"
+      ],
+      "fullName": "P16 genuine rival buyer bilateral rights parity positive rival close does not grant foreign acceptance or seller use of buyer-held private report authority",
+      "status": "passed",
+      "title": "positive rival close does not grant foreign acceptance or seller use of buyer-held private report authority",
+      "duration": 577.1454800000001,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-rival-buyer-rights.test.ts",
+      "ancestorTitles": [
+        "P16 genuine rival buyer bilateral rights parity"
+      ],
+      "fullName": "P16 genuine rival buyer bilateral rights parity real second cash owner refusal cannot expose a partial title payment or accepted rival offer to the original caller",
+      "status": "passed",
+      "title": "real second cash owner refusal cannot expose a partial title payment or accepted rival offer to the original caller",
+      "duration": 820.8007359999992,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    }
+  ],
+  "allBudgetQualified": true,
+  "maxMs": 1021.8855629999998,
+  "failures": [],
+  "overBudget": []
+}

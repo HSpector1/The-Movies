@@ -1,0 +1,390 @@
+{
+  "at": "2026-10-14T15:08:59.056645-05:00",
+  "archive": {
+    "path": "evidence.tar.gz",
+    "sha256": "c3455ecf6b23bbd44ed2116b75bd1a1f949b85e19452ca4d2cdce7671fde5fa6",
+    "bytes": 1384553,
+    "members": 63
+  },
+  "entries": [
+    {
+      "path": "P16-RIVAL-BUYER-RIGHTS-INSTALL-SPEC.json",
+      "sha256": "08d1fd8d04f155fa5f4bbc0581f39a86b4c188eaec7e16b55bea3f6c3e4cb940",
+      "bytes": 538,
+      "mode": 420
+    },
+    {
+      "path": "P16-RIVAL-BUYER-RIGHTS-R19-ACTUAL-REVIEW.md",
+      "sha256": "3c885819a38aec74d962384c0ec9427143baaccfd8511ef43a5f0e0f2b6da445",
+      "bytes": 2094,
+      "mode": 420
+    },
+    {
+      "path": "P16-RIVAL-BUYER-RIGHTS-R19-RUNNER-INDEPENDENT-REVIEW.md",
+      "sha256": "e65c7da9c57d88116076ff40017c29d11bd455fc6fd9250513220aae04a743f7",
+      "bytes": 1659,
+      "mode": 420
+    },
+    {
+      "path": "P16-RIVAL-BUYER-RIGHTS-TESTS-R2-INDEPENDENT-REVIEW.md",
+      "sha256": "206c3e1dc90dae55b899c5476dd4de9613b74887c7ca90caed3b8dabb435104a",
+      "bytes": 2003,
+      "mode": 420
+    },
+    {
+      "path": "P16-WORK-RELEASE61-INTEGRATION-R19-PARENT-RESULT.json",
+      "sha256": "db7bf2abb1f6f1fc9da9e30cc87b1addd3ba460b88bc30a893d1f3a49e09a26c",
+      "bytes": 4326,
+      "mode": 420
+    },
+    {
+      "path": "p16-companion-independent-audit-parent.py",
+      "sha256": "8e2152702966b2f1d040b0aced0fe9192c98d4b0ee48db5448be60cd26d55456",
+      "bytes": 3294,
+      "mode": 420
+    },
+    {
+      "path": "p16-install-reviewed-group-parent-r2.py",
+      "sha256": "216ab1103151db62a93e3cb066228fdd3bf2e9dec9ea03460a605e0fb75b87c7",
+      "bytes": 2523,
+      "mode": 420
+    },
+    {
+      "path": "p16-rival-buyer-rights-integration-r1/INSTALL-RECEIPT.json",
+      "sha256": "45dc9d7ae3bb6d6d63845baca416a7d3fb69605423d7884f73761b144855212d",
+      "bytes": 895,
+      "mode": 420
+    },
+    {
+      "path": "p16-rival-buyer-rights-integration-r1/MANIFEST.json",
+      "sha256": "14979035eb7f980f037cf26fbc0be8af1bbd23f307d3eab9177bfcc4efad9b5d",
+      "bytes": 37304,
+      "mode": 420
+    },
+    {
+      "path": "p16-rival-buyer-rights-integration-r1/PATCH.diff",
+      "sha256": "19faa623a5fb82d491f7d470741e8eb40c8e7ef6f80dcdf11a7a4f3739d15bd6",
+      "bytes": 2541493,
+      "mode": 420
+    },
+    {
+      "path": "p16-rival-buyer-rights-tests-r1/EXPECTED-IDENTITIES.json",
+      "sha256": "a34911af7652d85ff1c8668fb606e7e28cdcae8340043005f046681d0267804f",
+      "bytes": 739,
+      "mode": 420
+    },
+    {
+      "path": "p16-rival-buyer-rights-tests-r1/MANIFEST.json",
+      "sha256": "1856299db2eb34529f9557ac5d0d27903593246af9f2dcf3d7b714785907aa5a",
+      "bytes": 361,
+      "mode": 420
+    },
+    {
+      "path": "p16-rival-buyer-rights-tests-r1/REPORT.md",
+      "sha256": "1650ae271c998023ef53d7b8ef49136a00303041e6ae0f9222e0759c788a5114",
+      "bytes": 810,
+      "mode": 420
+    },
+    {
+      "path": "p16-rival-buyer-rights-tests-r1/SOURCE.patch",
+      "sha256": "8446ac2e831f61acc3f999b42fa604b20c50d7bb7758733a5cd0a973d49dc59a",
+      "bytes": 7065,
+      "mode": 420
+    },
+    {
+      "path": "p16-rival-buyer-rights-tests-r1/p16-rival-buyer-rights.test.ts",
+      "sha256": "2b58e46ebd368cf6501b3d530bcbab7ea6840117abc467dc95c8254154d48722",
+      "bytes": 6909,
+      "mode": 420
+    },
+    {
+      "path": "p16-rival-buyer-rights-tests-r2/DELTA.diff",
+      "sha256": "3a7f3964b8d612b2f68107c5c45515bc26a63e379efe755d2200676a8ef86a9d",
+      "bytes": 2899,
+      "mode": 420
+    },
+    {
+      "path": "p16-rival-buyer-rights-tests-r2/EXPECTED-IDENTITIES.json",
+      "sha256": "f77180850b9928c2e4af17a55b5132ca62000a1dd44ca24b0bfbc21869dc0ee0",
+      "bytes": 739,
+      "mode": 420
+    },
+    {
+      "path": "p16-rival-buyer-rights-tests-r2/MANIFEST.json",
+      "sha256": "102ba72998c47d8fd934b02c5ead6fe62c5b432cb80cbdf5f8b7c644028e1899",
+      "bytes": 534,
+      "mode": 420
+    },
+    {
+      "path": "p16-rival-buyer-rights-tests-r2/REPORT.md",
+      "sha256": "fc9594b05fadb4c6785a465d9cb0fe97fe637f1c49261c6db532bddf91afd776",
+      "bytes": 1234,
+      "mode": 420
+    },
+    {
+      "path": "p16-rival-buyer-rights-tests-r2/SOURCE-BINDING.json",
+      "sha256": "b94d7a4befe77d5941488cb1c12cf8e8e0ead5b35af5133434620e1ba32a87c8",
+      "bytes": 984,
+      "mode": 420
+    },
+    {
+      "path": "p16-rival-buyer-rights-tests-r2/SOURCE.patch",
+      "sha256": "e9936ea97ddff9d1991be8656a4cd092414ac1c625f55aa8e35e54977b959204",
+      "bytes": 7884,
+      "mode": 420
+    },
+    {
+      "path": "p16-rival-buyer-rights-tests-r2/p16-rival-buyer-rights.test.ts",
+      "sha256": "d551bb772005a52eec177c14f1aeb600cc0976f665cab2604fab1170dafec987",
+      "bytes": 7718,
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release61-integration-r19-parent-reconciliation/independent-freeze.json",
+      "sha256": "57ba24a05a291a56b10f56934c9d94a0373370062ae261eb8fd20276d7702371",
+      "bytes": 590301,
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release61-integration-r19-parent-reconciliation/metadata-f59c827d55ad46a8a42b0ea80a600171/HANDOFF.raw",
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "bytes": 158974,
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release61-integration-r19-parent-reconciliation/metadata-f59c827d55ad46a8a42b0ea80a600171/diff.raw",
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "bytes": 3390,
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release61-integration-r19-parent-reconciliation/metadata-f59c827d55ad46a8a42b0ea80a600171/status.raw",
+      "sha256": "5ae4499970aaaec0c89071de3db9a4525ce385a64743c2645826dd32a03233b1",
+      "bytes": 7084,
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/estate-red.log",
+      "sha256": "163d6fc00465f3cb8c657036af196228ef6af8e1e75b8f33a1bcec4117ae9982",
+      "bytes": 1020,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/freeze-current.json",
+      "sha256": "fd116ba83cac4f4c87ffe0c8665c9edcb97f6ca26a587d66af32382bdd881f04",
+      "bytes": 590283,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/freeze.json",
+      "sha256": "029625889b44b6c303fd35e310db0dfe2022ce106666fffa2b819dd31bf477db",
+      "bytes": 590283,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/identity-accounting.json",
+      "sha256": "d0c3395fae026a876026563433855bd5e46e64a57f37d3df36e658f343ed60c5",
+      "bytes": 1521,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-56a91182e4834d1893278fb9d8b82f3b/HANDOFF.raw",
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "bytes": 158974,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-56a91182e4834d1893278fb9d8b82f3b/diff.raw",
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "bytes": 3390,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-56a91182e4834d1893278fb9d8b82f3b/status.raw",
+      "sha256": "5ae4499970aaaec0c89071de3db9a4525ce385a64743c2645826dd32a03233b1",
+      "bytes": 7084,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-6124d7acf77b4122a31442c65a7c2a54/HANDOFF.raw",
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "bytes": 158974,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-6124d7acf77b4122a31442c65a7c2a54/diff.raw",
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "bytes": 3390,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-6124d7acf77b4122a31442c65a7c2a54/status.raw",
+      "sha256": "5ae4499970aaaec0c89071de3db9a4525ce385a64743c2645826dd32a03233b1",
+      "bytes": 7084,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-679bf07da6d34bb09bf34c3a6efdf54e/HANDOFF.raw",
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "bytes": 158974,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-679bf07da6d34bb09bf34c3a6efdf54e/diff.raw",
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "bytes": 3390,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-679bf07da6d34bb09bf34c3a6efdf54e/status.raw",
+      "sha256": "5ae4499970aaaec0c89071de3db9a4525ce385a64743c2645826dd32a03233b1",
+      "bytes": 7084,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-9a3a6cf4be9546d2883ebddb7da8d58c/HANDOFF.raw",
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "bytes": 158974,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-9a3a6cf4be9546d2883ebddb7da8d58c/diff.raw",
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "bytes": 3390,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-9a3a6cf4be9546d2883ebddb7da8d58c/status.raw",
+      "sha256": "5ae4499970aaaec0c89071de3db9a4525ce385a64743c2645826dd32a03233b1",
+      "bytes": 7084,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-c452d3dcb7594b6981a6537003bdb567/HANDOFF.raw",
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "bytes": 158974,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-c452d3dcb7594b6981a6537003bdb567/diff.raw",
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "bytes": 3390,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-c452d3dcb7594b6981a6537003bdb567/status.raw",
+      "sha256": "5ae4499970aaaec0c89071de3db9a4525ce385a64743c2645826dd32a03233b1",
+      "bytes": 7084,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-c66e764632e843548f08678461ad4acd/HANDOFF.raw",
+      "sha256": "7f23d65d7d3184ed83c8e194878067e0f4a70456532ba76b878f2182e469d017",
+      "bytes": 158974,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-c66e764632e843548f08678461ad4acd/diff.raw",
+      "sha256": "0a4a018a285009e3c93b5eadedd3a2ec4ffedfa8ef02a614dfb87cf107e582dc",
+      "bytes": 3390,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-c66e764632e843548f08678461ad4acd/status.raw",
+      "sha256": "5ae4499970aaaec0c89071de3db9a4525ce385a64743c2645826dd32a03233b1",
+      "bytes": 7084,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-checks-errors.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/metadata-checks.jsonl",
+      "sha256": "f33fe26b1c6a916c566a1ca75c27a662b0e2baf7e47da3dd349c9ffda9527509",
+      "bytes": 2030,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/results.json",
+      "sha256": "782bba3e74dac47bb4349319c7057470341999b8a30fc130aca70d4be668b100",
+      "bytes": 2100,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/results.jsonl",
+      "sha256": "6ab1f68236bce1ae6256accbdb582dc581ba4aec45622dc5738269b8cfff3c53",
+      "bytes": 903,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/terminal.json",
+      "sha256": "9e5c859c6274aab20ff67a56a56780b24d1be16446cb969d3013683534dd29cd",
+      "bytes": 544,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-r19-run/tsc-root.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": 384
+    },
+    {
+      "path": "p16-work-release61-integration-runner-r19/BINDINGS.json",
+      "sha256": "b12ea94a4ed07e2133f91ae3fedb1d7546720dbb5b41b616c796a54fc87815ba",
+      "bytes": 26946,
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release61-integration-runner-r19/EXPECTED-IDENTITIES.json",
+      "sha256": "fa8ec27968d6b9e0137ddb6626786125a3708209492dc49ba9eea03555844b7f",
+      "bytes": 1712,
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release61-integration-runner-r19/PINS.json",
+      "sha256": "2088fa6247c0af0cc1c139191dd7b64b4a471f95399f8df9e1ed7801cef1be1d",
+      "bytes": 539,
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release61-integration-runner-r19/README.md",
+      "sha256": "bd16e55d192e81dd8a82f4a23232b1b65035a63be909324f7fbb4c4726c6cc26",
+      "bytes": 272,
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release61-integration-runner-r19/SELECTION.json",
+      "sha256": "d6fc6a9af1d227226af5c60076ea58246e16ca7005c6441486469ece9cb24c8c",
+      "bytes": 459,
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release61-integration-runner-r19/account-results.py",
+      "sha256": "eab890487a4ecc70198aab148ca98e954ee299d2b7b4195fe7304a570fbaf6ee",
+      "bytes": 1969,
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release61-integration-runner-r19/auto_freeze.py",
+      "sha256": "9bc9b89c0ae5dd6bc3e558ee1b823414d86cb5134170326f74779350b34d3e00",
+      "bytes": 8761,
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release61-integration-runner-r19/runner.sh",
+      "sha256": "d47984f1d01df727809c82b6b017d039ef6b81dc9aefce9918426ee77f4f7c35",
+      "bytes": 13697,
+      "mode": 420
+    },
+    {
+      "path": "prepare-p16-rival-buyer-rights-runner-parent.py",
+      "sha256": "b32bc49d1b571a1a88b54bee11bc8eba0413ccfe647c72e0aa5dec8b5d894f24",
+      "bytes": 4986,
+      "mode": 420
+    }
+  ],
+  "verification": "Exact member path/hash/size/mode verified without extraction; private LOCAL inventories excluded"
+}

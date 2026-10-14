@@ -1,0 +1,9 @@
+# P16 rival-buyer rights transaction qualified
+
+Actual R19 root compilation passed in 95 seconds; complete three-test runtime passed in 8 seconds. All three original 5-second budgets qualified, with maximum 1021.885563 ms. Fresh independent reconciliation passed 1623 source paths, 112 inputs, five strict checks and zero errors; independent actual review KEEP.
+
+The fixed already-admitted pre162 save supplies actual R01 settled film0 and a healthy R03 buyer. R03 pays for real recipient-only diligence; seller/player readback refuses. The seller offer keeps the buyer report separate from seller authority. The fixed1000 offer passes actual willingness, cash, reserve and closing owners without price searches or edited state. Direct acceptance and the ordinary rival-answer function produce the same complete current save.
+
+Exact title transfer and signed buyer/seller cash effects occur once; player cash/ledger and paid report history remain unchanged. Duplicate acceptance, foreign counterparty and seller misuse of buyer-held report refuse. Full save/reload succeeds. A downstream fault executes actual title preparation, buyer debit and seller credit internally, then throws before returning the second state; original caller and open offer remain pure. This is real intermediate cash-owner atomic refusal, not a fabricated final-save publication seam. No production-source change was necessary for this bounded path.
+
+Archive preserves exact194 candidate, both independent test drafts, final source binding, installed test/runner/reviews and actual logs/reconciliation. Earlier coherent silent-work22 is separately qualified in P16-initial-shooting-qualified. Whole-P16, full tick/Bridge/native/player acceptance and S5 timing remain open. HANDOFF.md carries the existing remaining table and next real initial-shooting cancellation control. No main merge, P17/P18 activation, new captures or cleanup. Private LOCAL inventories are excluded.
