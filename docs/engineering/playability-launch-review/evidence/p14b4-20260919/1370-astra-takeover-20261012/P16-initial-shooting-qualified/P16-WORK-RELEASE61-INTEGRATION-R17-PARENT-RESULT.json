@@ -1,0 +1,81 @@
+{
+  "terminal": {
+    "overallExit": 0,
+    "groups": {
+      "tsc-root": 0,
+      "estate-red": 0,
+      "identity-accounting": 0
+    },
+    "scope": "Fresh root and complete initialshooting5 diagnostic1/default5000ms; genuine actual163 plus two ordinary ticks and expected current refusal only; no positive feature acceptance",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1792007487,
+      "endEpoch": 1792007545,
+      "seconds": 58,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r17-run/tsc-root.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 0,
+      "startEpoch": 1792007554,
+      "endEpoch": 1792007561,
+      "seconds": 7,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r17-run/results.json",
+        "tests/p16-continued-work-shooting5-baseline.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r17-run/estate-red.log"
+    }
+  ],
+  "independentFinalFreeze": "PASS",
+  "sourceCount": 1622,
+  "inputCount": 89,
+  "strictChecks": 5,
+  "strictErrorsBytes": 0,
+  "audit": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r17-parent-reconciliation",
+  "scope": "Fresh root and complete initialshooting5 diagnostic1/default5000ms; genuine actual163 plus two ordinary ticks and expected current refusal only; no positive feature acceptance",
+  "counts": {
+    "passed": 1
+  },
+  "identities": 1,
+  "rows": [
+    {
+      "file": "tests/p16-continued-work-shooting5-baseline.test.ts",
+      "ancestorTitles": [
+        "P16 genuine initial shooting5 baseline"
+      ],
+      "fullName": "P16 genuine initial shooting5 baseline two ordinary ticks of actual163 produce source unassigned silent shooting work then reach the current public close owner refusal with pure admitted callers",
+      "status": "passed",
+      "title": "two ordinary ticks of actual163 produce source unassigned silent shooting work then reach the current public close owner refusal with pure admitted callers",
+      "duration": 1256.6591639999997,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    }
+  ],
+  "allBudgetQualified": true,
+  "maxMs": 1256.6591639999997,
+  "failures": [],
+  "overBudget": []
+}
