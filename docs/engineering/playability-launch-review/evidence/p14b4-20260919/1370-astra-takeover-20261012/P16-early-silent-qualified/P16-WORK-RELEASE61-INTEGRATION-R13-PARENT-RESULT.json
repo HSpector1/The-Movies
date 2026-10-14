@@ -1,0 +1,474 @@
+{
+  "terminal": {
+    "overallExit": 1,
+    "groups": {
+      "estate-red": 0,
+      "identity-accounting": 3
+    },
+    "scope": "exact actual root0 reused; complete31 early SILENT initial8/7/6, cancellation, latepost and S5 save compatibility; all original budgets and prior failures retained",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "estate-red",
+      "exit": 0,
+      "startEpoch": 1792005703,
+      "endEpoch": 1792005753,
+      "seconds": 50,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r13-run/results.json",
+        "tests/p16-continued-work-silent-early.test.ts",
+        "tests/p16-continued-work-silent-phases76.test.ts",
+        "tests/p16-continued-work-cancel.test.ts",
+        "tests/p16-absorption-continued-production.test.ts",
+        "tests/p13b-s5-save-v24.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r13-run/estate-red.log"
+    }
+  ],
+  "independentFinalFreeze": "PASS",
+  "sourceCount": 1620,
+  "inputCount": 419,
+  "strictChecks": 3,
+  "strictErrorsBytes": 0,
+  "audit": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r13-parent-reconciliation",
+  "scope": "Reuse actual root compiler0/161s only after exact full original freeze/input equality; run complete31 unchanged5000ms; no original failure or timing waiver, no wholeP16 acceptance",
+  "counts": {
+    "passed": 31
+  },
+  "identities": 31,
+  "rows": [
+    {
+      "file": "tests/p16-continued-work-silent-early.test.ts",
+      "ancestorTitles": [
+        "P16 genuine early SILENT buyer-operated production"
+      ],
+      "fullName": "P16 genuine early SILENT buyer-operated production public funded acquisition and native director scenery scheduling produce one actual buyer first take with creator screenplay and paid history",
+      "status": "passed",
+      "title": "public funded acquisition and native director scenery scheduling produce one actual buyer first take with creator screenplay and paid history",
+      "duration": 2422.196213,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-continued-work-silent-early.test.ts",
+      "ancestorTitles": [
+        "P16 genuine early SILENT buyer-operated production"
+      ],
+      "fullName": "P16 genuine early SILENT buyer-operated production actual positive first take refuses missing or foreign operator lock and creator subject without mutating any refused caller",
+      "status": "passed",
+      "title": "actual positive first take refuses missing or foreign operator lock and creator subject without mutating any refused caller",
+      "duration": 1452.3390610000001,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-continued-work-silent-early.test.ts",
+      "ancestorTitles": [
+        "P16 genuine early SILENT buyer-operated production"
+      ],
+      "fullName": "P16 genuine early SILENT buyer-operated production real joined public acquisition publication fault leaves the admitted earlier paid work caller untouched",
+      "status": "passed",
+      "title": "real joined public acquisition publication fault leaves the admitted earlier paid work caller untouched",
+      "duration": 538.3197689999997,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-continued-work-silent-early.test.ts",
+      "ancestorTitles": [
+        "P16 genuine early SILENT buyer-operated production"
+      ],
+      "fullName": "P16 genuine early SILENT buyer-operated production native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save",
+      "status": "passed",
+      "title": "native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save",
+      "duration": 2212.5772660000002,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-continued-work-silent-phases76.test.ts",
+      "ancestorTitles": [
+        "P16 genuine initial early SILENT boundary 163"
+      ],
+      "fullName": "P16 genuine initial early SILENT boundary 163 actual positive first take refuses missing or foreign operator lock and creator subject without mutating any refused caller",
+      "status": "passed",
+      "title": "actual positive first take refuses missing or foreign operator lock and creator subject without mutating any refused caller",
+      "duration": 1893.6952299999998,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-continued-work-silent-phases76.test.ts",
+      "ancestorTitles": [
+        "P16 genuine initial early SILENT boundary 163"
+      ],
+      "fullName": "P16 genuine initial early SILENT boundary 163 real joined public acquisition publication fault leaves the admitted earlier paid work caller untouched",
+      "status": "passed",
+      "title": "real joined public acquisition publication fault leaves the admitted earlier paid work caller untouched",
+      "duration": 831.962407,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-continued-work-silent-phases76.test.ts",
+      "ancestorTitles": [
+        "P16 genuine initial early SILENT boundary 163"
+      ],
+      "fullName": "P16 genuine initial early SILENT boundary 163 native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save",
+      "status": "passed",
+      "title": "native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save",
+      "duration": 2833.490129,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-continued-work-silent-phases76.test.ts",
+      "ancestorTitles": [
+        "P16 genuine initial early SILENT boundary 164"
+      ],
+      "fullName": "P16 genuine initial early SILENT boundary 164 actual positive first take refuses missing or foreign operator lock and creator subject without mutating any refused caller",
+      "status": "passed",
+      "title": "actual positive first take refuses missing or foreign operator lock and creator subject without mutating any refused caller",
+      "duration": 1314.130271,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-continued-work-silent-phases76.test.ts",
+      "ancestorTitles": [
+        "P16 genuine initial early SILENT boundary 164"
+      ],
+      "fullName": "P16 genuine initial early SILENT boundary 164 real joined public acquisition publication fault leaves the admitted earlier paid work caller untouched",
+      "status": "passed",
+      "title": "real joined public acquisition publication fault leaves the admitted earlier paid work caller untouched",
+      "duration": 660.3827179999998,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-continued-work-silent-phases76.test.ts",
+      "ancestorTitles": [
+        "P16 genuine initial early SILENT boundary 164"
+      ],
+      "fullName": "P16 genuine initial early SILENT boundary 164 native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save",
+      "status": "passed",
+      "title": "native wrap preserves production identity then explicit release publishes creator film buyer rights and a replayable current save",
+      "duration": 1740.8831229999996,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-continued-work-cancel.test.ts",
+      "ancestorTitles": [
+        "P16 actual buyer public cancellation of acquired paid R02 work"
+      ],
+      "fullName": "P16 actual buyer public cancellation of acquired paid R02 work real public cancel frees buyer work and capacity without erasing source paid history employment first take or retained rights and replays ordinary stop",
+      "status": "passed",
+      "title": "real public cancel frees buyer work and capacity without erasing source paid history employment first take or retained rights and replays ordinary stop",
+      "duration": 2498.546708,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-continued-work-cancel.test.ts",
+      "ancestorTitles": [
+        "P16 actual buyer public cancellation of acquired paid R02 work"
+      ],
+      "fullName": "P16 actual buyer public cancellation of acquired paid R02 work real cancelled-publication failure preserves the admitted buyer source after successful manual cancellation positive",
+      "status": "passed",
+      "title": "real cancelled-publication failure preserves the admitted buyer source after successful manual cancellation positive",
+      "duration": 1206.7383050000003,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-continued-work-cancel.test.ts",
+      "ancestorTitles": [
+        "P16 actual buyer public cancellation of acquired paid R02 work"
+      ],
+      "fullName": "P16 actual buyer public cancellation of acquired paid R02 work actual cancellation authority is complete once-only and full joined readers refuse missing foreign counter date or repeated receipts while committed work stays irreversible",
+      "status": "passed",
+      "title": "actual cancellation authority is complete once-only and full joined readers refuse missing foreign counter date or repeated receipts while committed work stays irreversible",
+      "duration": 1904.9014320000006,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-absorption-continued-production.test.ts",
+      "ancestorTitles": [
+        "P16 genuine163 R02 paid post-production explicit healthy continuation"
+      ],
+      "fullName": "P16 genuine163 R02 paid post-production explicit healthy continuation actual buyer allocation holds ready work without commitment then public commit166 releases with original creator buyer R2 Standing future cash and replay",
+      "status": "passed",
+      "title": "actual buyer allocation holds ready work without commitment then public commit166 releases with original creator buyer R2 Standing future cash and replay",
+      "duration": 2458.4531639999996,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-absorption-continued-production.test.ts",
+      "ancestorTitles": [
+        "P16 genuine163 R02 paid post-production explicit healthy continuation"
+      ],
+      "fullName": "P16 genuine163 R02 paid post-production explicit healthy continuation actual admitted release refuses omitted or invented work counter commitment title and Standing authority with full-reader caller purity",
+      "status": "passed",
+      "title": "actual admitted release refuses omitted or invented work counter commitment title and Standing authority with full-reader caller purity",
+      "duration": 2204.1203720000003,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-absorption-continued-production.test.ts",
+      "ancestorTitles": [
+        "P16 genuine163 R02 paid post-production explicit healthy continuation"
+      ],
+      "fullName": "P16 genuine163 R02 paid post-production explicit healthy continuation real complete current49 publication fault rolls back the original public163 caller after all native snapshot and title employment joins validate",
+      "status": "passed",
+      "title": "real complete current49 publication fault rolls back the original public163 caller after all native snapshot and title employment joins validate",
+      "duration": 880.0983820000001,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) validates the genuine V23 fixture legacy-v23-sound-operational-315 directly (sha256-pinned, week-pinned) before it is migrated in the chain test below",
+      "status": "passed",
+      "title": "validates the genuine V23 fixture legacy-v23-sound-operational-315 directly (sha256-pinned, week-pinned) before it is migrated in the chain test below",
+      "duration": 156.278733,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) migrates legacy-v23-sound-operational-315 and its identical V20 ancestor to V24 with an honest first-prototype lift, byte-identical otherwise",
+      "status": "passed",
+      "title": "migrates legacy-v23-sound-operational-315 and its identical V20 ancestor to V24 with an honest first-prototype lift, byte-identical otherwise",
+      "duration": 451.47530800000004,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) migrates the genuine V23 fixture legacy-v23-lighting-complete-plan-queued: rival EMPTY-physicalProjectIds adoption lifts to ONE aggregated installation row (placementId null), one held commercial asset, the queued physical plan survives byte-identically",
+      "status": "passed",
+      "title": "migrates the genuine V23 fixture legacy-v23-lighting-complete-plan-queued: rival EMPTY-physicalProjectIds adoption lifts to ONE aggregated installation row (placementId null), one held commercial asset, the queued physical plan survives byte-identically",
+      "duration": 145.5158140000001,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) chains the genuine V22 fixture './fixtures/p13b/legacy-v22-staffed-4-\u2026' through V23 to V24 with the same honest lift",
+      "status": "passed",
+      "title": "chains the genuine V22 fixture './fixtures/p13b/legacy-v22-staffed-4-\u2026' through V23 to V24 with the same honest lift",
+      "duration": 141.614595,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) chains the genuine V22 fixture './fixtures/p13b/legacy-v22-two-labs-c\u2026' through V23 to V24 with the same honest lift",
+      "status": "passed",
+      "title": "chains the genuine V22 fixture './fixtures/p13b/legacy-v22-two-labs-c\u2026' through V23 to V24 with the same honest lift",
+      "duration": 179.00096099999996,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) chains the genuine V21 fixture './fixtures/p13b/legacy-v21-staffed-4-\u2026' through V22, V23 to V24",
+      "status": "passed",
+      "title": "chains the genuine V21 fixture './fixtures/p13b/legacy-v21-staffed-4-\u2026' through V22, V23 to V24",
+      "duration": 190.42437799999993,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) chains the genuine V21 fixture './fixtures/p13b/legacy-v21-released-p\u2026' through V22, V23 to V24",
+      "status": "passed",
+      "title": "chains the genuine V21 fixture './fixtures/p13b/legacy-v21-released-p\u2026' through V22, V23 to V24",
+      "duration": 239.33893799999987,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) chains the genuine V21 fixture './fixtures/p13b/legacy-v21-two-labs-t\u2026' through V22, V23 to V24",
+      "status": "passed",
+      "title": "chains the genuine V21 fixture './fixtures/p13b/legacy-v21-two-labs-t\u2026' through V22, V23 to V24",
+      "duration": 239.57237099999975,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-a\u2026' through V21, V22, V23 to V24",
+      "status": "passed",
+      "title": "chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-a\u2026' through V21, V22, V23 to V24",
+      "duration": 230.88425499999994,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-p\u2026' through V21, V22, V23 to V24",
+      "status": "passed",
+      "title": "chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-p\u2026' through V21, V22, V23 to V24",
+      "duration": 272.750998,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-c\u2026' through V21, V22, V23 to V24",
+      "status": "passed",
+      "title": "chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-c\u2026' through V21, V22, V23 to V24",
+      "duration": 247.2527140000002,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) migrateToV23 / migrateToV22 / migrateToV21 / migrateToV20 refuse a V24 save",
+      "status": "passed",
+      "title": "migrateToV23 / migrateToV22 / migrateToV21 / migrateToV20 refuse a V24 save",
+      "duration": 804.2709099999997,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) makeSave writes the live saveVersion 37 (stale title corrected post-C.4)",
+      "status": "passed",
+      "title": "makeSave writes the live saveVersion 37 (stale title corrected post-C.4)",
+      "duration": 353.6323620000003,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (stale numbers corrected post-C.2b)",
+      "status": "passed",
+      "title": "an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (stale numbers corrected post-C.2b)",
+      "duration": 217.1011499999995,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational",
+      "status": "passed",
+      "title": "save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational",
+      "duration": 10051.038001,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    }
+  ],
+  "allBudgetQualified": false,
+  "maxMs": 10051.038001,
+  "failures": [],
+  "overBudget": [
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational",
+      "status": "passed",
+      "title": "save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational",
+      "duration": 10051.038001,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    }
+  ]
+}
