@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-14T11:16:56.005357-05:00",
+  "target": "/Users/zacheryspector/.npm/_cacache",
+  "purpose": "Regenerable npm package download cache; _npx installed tools remain untouched",
+  "ownerUid": 501,
+  "openFiles": "none; lsof exit1 with empty output and stderr",
+  "beforeAvailableKiB": 3281788,
+  "afterAvailableKiB": 3584064,
+  "removedFiles": 277,
+  "estimatedAllocatedBytes": 308477952,
+  "skipped": [
+    "/Users/zacheryspector/.npm/_cacache/content-v2/sha512/dd",
+    "/Users/zacheryspector/.npm/_cacache/content-v2/sha512/78",
+    "/Users/zacheryspector/.npm/_cacache/index-v5/e5",
+    "/Users/zacheryspector/.npm/_cacache/index-v5/2d"
+  ],
+  "symlinksFollowed": false,
+  "laneAbsent": true,
+  "activeNpmExec": "Existing Playwright MCP wrapper preserved; no handles in _cacache; _npx and installed dependencies untouched",
+  "actualNetChangeKiB": 302276
+}

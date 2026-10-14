@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-14T11:17:47.161759-05:00",
+  "path": "/Users/zacheryspector/Library/Application Support/Code/CachedExtensionVSIXs/anthropic.claude-code-2.1.299-darwin-x64",
+  "purpose": "VS Code extension VSIX package-download archive; installed version verified separate and preserved",
+  "uid": 501,
+  "bytes": 117522721,
+  "estimatedAllocatedBytes": 117526528,
+  "sha256": "50939c78d502d96c1722a35f59eac65b0f7a7849752af3fff6646220a17f2b9d",
+  "installedManifest": "/Users/zacheryspector/.vscode/extensions/anthropic.claude-code-2.1.299-darwin-x64/package.json",
+  "installedManifestSHA256": "311ed3bfb2707412f5b78438c6794596d139b62ed235131ca0353f3adabf38df",
+  "openFileCheck": "none",
+  "beforeAvailableKiB": 3583104,
+  "skipped": [
+    "CachedExtensionVSIXs/.trash preserved",
+    "current live ShipIt update preserved",
+    "node-gyp headers for active Node22 left alone",
+    "all installed extensions/releases and session data preserved"
+  ],
+  "afterAvailableKiB": 3698032,
+  "action": "removed exact verified disposable download archive only",
+  "actualNetChangeKiB": 114928
+}

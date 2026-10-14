@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-14T11:11:17.710129-05:00",
+  "installed": [
+    {
+      "path": "/Users/zacheryspector/.claude/hooks/handoff_guard.py",
+      "beforeSHA256": "d40f99d955dd879ef599742e10567b05087781f4b0d6534f9245938f1e135af8",
+      "afterSHA256": "ffd5efcf883b7901d1766eff2546cc0e1872d9347a39b6ae9531f5c4f0f02cf9",
+      "mode": 493
+    },
+    {
+      "path": "/Users/zacheryspector/.claude/skills/handoff/SKILL.md",
+      "beforeSHA256": "281d41d97726c1371116d5ba476b1ec8f836feb895d099c8e56a444658807c69",
+      "afterSHA256": "812e9ad260c186141df5ab53ec1c498dabbabf48c47495f58d597f3f880ca5a6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/zacheryspector/.claude/state/handoff_guard_projects.json",
+      "beforeSHA256": null,
+      "afterSHA256": "810ac23807f46f40d2425f28173f4650de57f21d9e6d78e5095e65fcb3fa5273",
+      "mode": 384
+    }
+  ],
+  "validation": "12 focused tests passed before install; exact installed hashes verified",
+  "review": "AGENT-HARNESS-HANDOFF-R1-INDEPENDENT-REVIEW.md",
+  "limits": "Parent-coordinated idle boundary; atomic replacement is not compare-and-swap; bundled skill validator unavailable without PyYAML",
+  "hookRegistrationChanged": false,
+  "trustConfigurationChanged": false
+}

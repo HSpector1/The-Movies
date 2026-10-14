@@ -1,0 +1,231 @@
+{
+  "terminal": {
+    "overallExit": 0,
+    "groups": {
+      "tsc-root": 0,
+      "tsc-bridge": 0,
+      "estate-red": 0,
+      "identity-accounting": 0
+    },
+    "scope": "focused root and Bridge compilers then three complete files12 identities; no whole gate or P16 acceptance",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791994734,
+      "endEpoch": 1791994778,
+      "seconds": 44,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r3-run/tsc-root.log"
+    },
+    {
+      "name": "tsc-bridge",
+      "exit": 0,
+      "startEpoch": 1791994787,
+      "endEpoch": 1791994819,
+      "seconds": 32,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.bridge.json",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r3-run/tsc-bridge.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 0,
+      "startEpoch": 1791994825,
+      "endEpoch": 1791994856,
+      "seconds": 31,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r3-run/results.json",
+        "tests/p16-absorption-active-run.test.ts",
+        "tests/p16-absorption-continued-production.test.ts",
+        "tests/bridge-p16-rights-parity.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r3-run/estate-red.log"
+    }
+  ],
+  "independentFinalFreeze": "PASS",
+  "sourceCount": 1617,
+  "inputCount": 277,
+  "strictChecks": 7,
+  "strictErrorsBytes": 0,
+  "audit": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r3-parent-reconciliation",
+  "scope": "root and Bridge compilers then complete active2 continued3 parity7; no fresh UI/generator or broad gate claim",
+  "counts": {
+    "passed": 12
+  },
+  "identities": 12,
+  "rows": [
+    {
+      "file": "tests/p16-absorption-active-run.test.ts",
+      "ancestorTitles": [
+        "P16 fixed real R01 paid production completes before healthy active-run absorption"
+      ],
+      "fullName": "P16 fixed real R01 paid production completes before healthy active-run absorption actual eight ordinary ticks produce the named run and healthy absorption pays future locked installments only to buyer with original creator and settlement history",
+      "status": "passed",
+      "title": "actual eight ordinary ticks produce the named run and healthy absorption pays future locked installments only to buyer with original creator and settlement history",
+      "duration": 2767.073765,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-active-run.test.ts",
+      "ancestorTitles": [
+        "P16 fixed real R01 paid production completes before healthy active-run absorption"
+      ],
+      "fullName": "P16 fixed real R01 paid production completes before healthy active-run absorption real admitted active-run history refuses missing handoff omitted installment wrong beneficiary and altered gross or earned cash through full current reader",
+      "status": "passed",
+      "title": "real admitted active-run history refuses missing handoff omitted installment wrong beneficiary and altered gross or earned cash through full current reader",
+      "duration": 1831.9752420000004,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-continued-production.test.ts",
+      "ancestorTitles": [
+        "P16 genuine163 R02 paid post-production explicit healthy continuation"
+      ],
+      "fullName": "P16 genuine163 R02 paid post-production explicit healthy continuation actual buyer allocation holds ready work without commitment then public commit166 releases with original creator buyer R2 Standing future cash and replay",
+      "status": "passed",
+      "title": "actual buyer allocation holds ready work without commitment then public commit166 releases with original creator buyer R2 Standing future cash and replay",
+      "duration": 2408.506206,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-continued-production.test.ts",
+      "ancestorTitles": [
+        "P16 genuine163 R02 paid post-production explicit healthy continuation"
+      ],
+      "fullName": "P16 genuine163 R02 paid post-production explicit healthy continuation actual admitted release refuses omitted or invented work counter commitment title and Standing authority with full-reader caller purity",
+      "status": "passed",
+      "title": "actual admitted release refuses omitted or invented work counter commitment title and Standing authority with full-reader caller purity",
+      "duration": 2115.8009580000003,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-continued-production.test.ts",
+      "ancestorTitles": [
+        "P16 genuine163 R02 paid post-production explicit healthy continuation"
+      ],
+      "fullName": "P16 genuine163 R02 paid post-production explicit healthy continuation real complete current49 publication fault rolls back the original public163 caller after all native snapshot and title employment joins validate",
+      "status": "passed",
+      "title": "real complete current49 publication fault rolls back the original public163 caller after all native snapshot and title employment joins validate",
+      "duration": 888.0082440000006,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/bridge-p16-rights-parity.test.ts",
+      "ancestorTitles": [
+        "P16 real Bridge paid due diligence and healthy absorption opaque families"
+      ],
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families paid preview reveals no body or held report and real commit charges exactly once with public-action equality and same-command replay",
+      "status": "passed",
+      "title": "paid preview reveals no body or held report and real commit charges exactly once with public-action equality and same-command replay",
+      "duration": 2638.060286000001,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/bridge-p16-rights-parity.test.ts",
+      "ancestorTitles": [
+        "P16 real Bridge paid due diligence and healthy absorption opaque families"
+      ],
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families held real report prices and commits exact fractional acquisition once with original quote pair linked titles and public direct action parity",
+      "status": "passed",
+      "title": "held real report prices and commits exact fractional acquisition once with original quote pair linked titles and public direct action parity",
+      "duration": 3003.7074409999996,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/bridge-p16-rights-parity.test.ts",
+      "ancestorTitles": [
+        "P16 real Bridge paid due diligence and healthy absorption opaque families"
+      ],
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families unheld and genuinely paid partial-scope reports refuse before private absorption terms and never register an executable intent",
+      "status": "passed",
+      "title": "unheld and genuinely paid partial-scope reports refuse before private absorption terms and never register an executable intent",
+      "duration": 742.6953099999992,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/bridge-p16-rights-parity.test.ts",
+      "ancestorTitles": [
+        "P16 real Bridge paid due diligence and healthy absorption opaque families"
+      ],
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families closed canonical drafts refuse supplied buyer and quote dates while private nested retention remains detached from later caller mutation",
+      "status": "passed",
+      "title": "closed canonical drafts refuse supplied buyer and quote dates while private nested retention remains detached from later caller mutation",
+      "duration": 2009.216961,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/bridge-p16-rights-parity.test.ts",
+      "ancestorTitles": [
+        "P16 real Bridge paid due diligence and healthy absorption opaque families"
+      ],
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families captured actual paid and absorption apply closures refuse a different fully admitted real state and public revision guards retain authority",
+      "status": "passed",
+      "title": "captured actual paid and absorption apply closures refuse a different fully admitted real state and public revision guards retain authority",
+      "duration": 2387.98301,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/bridge-p16-rights-parity.test.ts",
+      "ancestorTitles": [
+        "P16 real Bridge paid due diligence and healthy absorption opaque families"
+      ],
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families seventeen fixed legal quotes share cap16 across families and evict the first absorption without preview fees or authority changes",
+      "status": "passed",
+      "title": "seventeen fixed legal quotes share cap16 across families and evict the first absorption without preview fees or authority changes",
+      "duration": 1441.335572,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/bridge-p16-rights-parity.test.ts",
+      "ancestorTitles": [
+        "P16 real Bridge paid due diligence and healthy absorption opaque families"
+      ],
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families actual full-writer publication failure after legal preview rolls back paid fee and acquisition with no successful validator stub",
+      "status": "passed",
+      "title": "actual full-writer publication failure after legal preview rolls back paid fee and acquisition with no successful validator stub",
+      "duration": 790.0602399999989,
+      "failureMessages": [],
+      "meta": {}
+    }
+  ],
+  "allBudgetQualified": true,
+  "maxMs": 3003.7074409999996,
+  "failures": [],
+  "overBudget": []
+}

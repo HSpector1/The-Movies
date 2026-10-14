@@ -1,0 +1,1179 @@
+{
+  "terminal": {
+    "overallExit": 1,
+    "groups": {
+      "tsc-root": 0,
+      "tsc-ui": 0,
+      "tsc-bridge": 0,
+      "generator-contract-check": 0,
+      "generator-fixtures-check": 0,
+      "estate-red": 1,
+      "identity-accounting": 3
+    },
+    "scope": "fresh threecompilers twogeneratorchecks21completefiles76 identities; coherent source qualification, no fullP16 acceptance",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791993038,
+      "endEpoch": 1791993089,
+      "seconds": 51,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r2-run/tsc-root.log"
+    },
+    {
+      "name": "tsc-ui",
+      "exit": 0,
+      "startEpoch": 1791993095,
+      "endEpoch": 1791993143,
+      "seconds": 48,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "ui/tsconfig.json",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r2-run/tsc-ui.log"
+    },
+    {
+      "name": "tsc-bridge",
+      "exit": 0,
+      "startEpoch": 1791993150,
+      "endEpoch": 1791993190,
+      "seconds": 40,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.bridge.json",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r2-run/tsc-bridge.log"
+    },
+    {
+      "name": "generator-contract-check",
+      "exit": 0,
+      "startEpoch": 1791993197,
+      "endEpoch": 1791993198,
+      "seconds": 1,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vite-node/vite-node.mjs",
+        "scripts/generate-bridge-contract.ts",
+        "--check"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r2-run/generator-contract-check.log"
+    },
+    {
+      "name": "generator-fixtures-check",
+      "exit": 0,
+      "startEpoch": 1791993204,
+      "endEpoch": 1791993205,
+      "seconds": 1,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vite-node/vite-node.mjs",
+        "scripts/generate-bridge-contract-fixtures.ts",
+        "--check"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r2-run/generator-fixtures-check.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 1,
+      "startEpoch": 1791993212,
+      "endEpoch": 1791993380,
+      "seconds": 168,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r2-run/results.json",
+        "tests/p16-absorption-clean-target.test.ts",
+        "tests/p16-absorption-research-cancellation.test.ts",
+        "tests/p16-absorption-physical.test.ts",
+        "tests/p16-absorption-knowledge.test.ts",
+        "tests/p16-estate-run-continuation.test.ts",
+        "tests/p16-absorption-public-action.test.ts",
+        "tests/p16-absorption-paid-production.test.ts",
+        "tests/p16-absorption-active-run.test.ts",
+        "tests/bridge-p16-absorption-finance.test.ts",
+        "tests/p16-estate-join.test.ts",
+        "tests/p16a-save-v46.test.ts",
+        "tests/p16-estate-d-ceremony.test.ts",
+        "tests/p16-estate-observed-migration.test.ts",
+        "tests/p16-estate-current49-rollback.test.ts",
+        "tests/p16-estate-d-join-negative.test.ts",
+        "tests/p16-held-title-seller.test.ts",
+        "tests/p16-r03-observed-migration.test.ts",
+        "tests/p16-quote-age.test.ts",
+        "tests/p16-absorption-continued-production.test.ts",
+        "tests/bridge-p16-rights-parity.test.ts",
+        "tests/bridge-p16-paid-reports.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r2-run/estate-red.log"
+    }
+  ],
+  "independentFinalFreeze": "PASS",
+  "sourceCount": 1617,
+  "inputCount": 259,
+  "strictChecks": 13,
+  "strictErrorsBytes": 0,
+  "audit": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r2-parent-reconciliation",
+  "scope": "coherent 181 source; no fullP16/native/player acceptance",
+  "counts": {
+    "passed": 72,
+    "failed": 4
+  },
+  "identities": 76,
+  "rows": [
+    {
+      "file": "tests/p16-absorption-clean-target.test.ts",
+      "ancestorTitles": [
+        "P16 actual clean-target absorption from retained original48 R03"
+      ],
+      "fullName": "P16 actual clean-target absorption from retained original48 R03 retains one linked bargain, pays five capped exits and exact fractional cash at par, preserves titles/history and ordinary replay",
+      "status": "passed",
+      "title": "retains one linked bargain, pays five capped exits and exact fractional cash at par, preserves titles/history and ordinary replay",
+      "duration": 2366.691511,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-clean-target.test.ts",
+      "ancestorTitles": [
+        "P16 actual clean-target absorption from retained original48 R03"
+      ],
+      "fullName": "P16 actual clean-target absorption from retained original48 R03 full current reader refuses independent cent drift and missing employment/title links, and named downgrade preserves its caller",
+      "status": "passed",
+      "title": "full current reader refuses independent cent drift and missing employment/title links, and named downgrade preserves its caller",
+      "duration": 2195.640869,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-clean-target.test.ts",
+      "ancestorTitles": [
+        "P16 actual clean-target absorption from retained original48 R03"
+      ],
+      "fullName": "P16 actual clean-target absorption from retained original48 R03 real current49 publication refusal rolls back the fully admitted clean-target caller after actual joined validation",
+      "status": "passed",
+      "title": "real current49 publication refusal rolls back the fully admitted clean-target caller after actual joined validation",
+      "duration": 1011.8486330000005,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-clean-target.test.ts",
+      "ancestorTitles": [
+        "P16 actual clean-target absorption from retained original48 R03"
+      ],
+      "fullName": "P16 actual clean-target absorption from retained original48 R03 recorded original preview pair survives real close and reload; missing unknown future and age13 records refuse full readers purely",
+      "status": "passed",
+      "title": "recorded original preview pair survives real close and reload; missing unknown future and age13 records refuse full readers purely",
+      "duration": 1952.8245930000003,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-clean-target.test.ts",
+      "ancestorTitles": [
+        "P16 actual clean-target absorption from retained original48 R03"
+      ],
+      "fullName": "P16 actual clean-target absorption from retained original48 R03 carried close refuses missing partial unknown future and age13 preview pairs on a real positive current input without refreshing or mutation",
+      "status": "passed",
+      "title": "carried close refuses missing partial unknown future and age13 preview pairs on a real positive current input without refreshing or mutation",
+      "duration": 1829.8675270000003,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-research-cancellation.test.ts",
+      "ancestorTitles": [
+        "P16 real absorbed research marker from fixed accepted267 input"
+      ],
+      "fullName": "P16 real absorbed research marker from fixed accepted267 input actual public close retains all earned work and paid physical history with one source-owned cancellation and roundtrip",
+      "status": "passed",
+      "title": "actual public close retains all earned work and paid physical history with one source-owned cancellation and roundtrip",
+      "duration": 2181.6627120000003,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-research-cancellation.test.ts",
+      "ancestorTitles": [
+        "P16 real absorbed research marker from fixed accepted267 input"
+      ],
+      "fullName": "P16 real absorbed research marker from fixed accepted267 input full joined reader refuses either omitted authority or malformed marker and frozen own-era project readers reject its new field",
+      "status": "passed",
+      "title": "full joined reader refuses either omitted authority or malformed marker and frozen own-era project readers reject its new field",
+      "duration": 2219.78885,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-physical.test.ts",
+      "ancestorTitles": [
+        "P16 absorbed physical paid-work authority from fixed genuine267"
+      ],
+      "fullName": "P16 absorbed physical paid-work authority from fixed genuine267 ordinary ticks through original278 deadline retain completed instruments and never materialize or refund stopped paid laboratory",
+      "status": "passed",
+      "title": "ordinary ticks through original278 deadline retain completed instruments and never materialize or refund stopped paid laboratory",
+      "duration": 2465.459634,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-physical.test.ts",
+      "ancestorTitles": [
+        "P16 absorbed physical paid-work authority from fixed genuine267"
+      ],
+      "fullName": "P16 absorbed physical paid-work authority from fixed genuine267 full joined reader rejects missing either owner, altered real paid cost, foreign authority and duplicate disposition while frozen physical admission stays exact",
+      "status": "passed",
+      "title": "full joined reader rejects missing either owner, altered real paid cost, foreign authority and duplicate disposition while frozen physical admission stays exact",
+      "duration": 1633.5581029999998,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-knowledge.test.ts",
+      "ancestorTitles": [
+        "P16 actual completed-source knowledge from retained original45 baseline280"
+      ],
+      "fullName": "P16 actual completed-source knowledge from retained original45 baseline280 public absorption grants linked knowledge, preserves source invention and performs one ordinary paid noninventor adoption with roundtrip",
+      "status": "passed",
+      "title": "public absorption grants linked knowledge, preserves source invention and performs one ordinary paid noninventor adoption with roundtrip",
+      "duration": 2614.620313,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-knowledge.test.ts",
+      "ancestorTitles": [
+        "P16 actual completed-source knowledge from retained original45 baseline280"
+      ],
+      "fullName": "P16 actual completed-source knowledge from retained original45 baseline280 full current reader refuses either omitted knowledge authority, foreign source and false completed history while frozen45 rejects the new access field",
+      "status": "passed",
+      "title": "full current reader refuses either omitted knowledge authority, foreign source and false completed history while frozen45 rejects the new access field",
+      "duration": 2003.8996079999997,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-knowledge.test.ts",
+      "ancestorTitles": [
+        "P16 actual completed-source knowledge from retained original45 baseline280"
+      ],
+      "fullName": "P16 actual completed-source knowledge from retained original45 baseline280 full reader rejects a source-project prototype and a money-conserved later-inventor discount on actual acquired adoption",
+      "status": "passed",
+      "title": "full reader rejects a source-project prototype and a money-conserved later-inventor discount on actual acquired adoption",
+      "duration": 1153.9699580000006,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-run-continuation.test.ts",
+      "ancestorTitles": [
+        "P16 retained original48 active estate run continues under current49"
+      ],
+      "fullName": "P16 retained original48 active estate run continues under current49 actual132 active run settles133 with estate beneficiary, contract-priority payments and fractional cash conservation through134 replay",
+      "status": "passed",
+      "title": "actual132 active run settles133 with estate beneficiary, contract-priority payments and fractional cash conservation through134 replay",
+      "duration": 1784.6471860000001,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-run-continuation.test.ts",
+      "ancestorTitles": [
+        "P16 retained original48 active estate run continues under current49"
+      ],
+      "fullName": "P16 retained original48 active estate run continues under current49 actual134 continuation reaches one144 archival without duplicate run money and full reader rejects changed beneficiary receipt and claim payment",
+      "status": "passed",
+      "title": "actual134 continuation reaches one144 archival without duplicate run money and full reader rejects changed beneficiary receipt and claim payment",
+      "duration": 1679.1152579999998,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-public-action.test.ts",
+      "ancestorTitles": [
+        "P16 public absorbStudio dispatch on retained original48 R03"
+      ],
+      "fullName": "P16 public absorbStudio dispatch on retained original48 R03 public action equals the real direct owner with original quote pair, one outlay, no second fee or bonus and byte roundtrip",
+      "status": "passed",
+      "title": "public action equals the real direct owner with original quote pair, one outlay, no second fee or bonus and byte roundtrip",
+      "duration": 2518.108557,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-public-action.test.ts",
+      "ancestorTitles": [
+        "P16 public absorbStudio dispatch on retained original48 R03"
+      ],
+      "fullName": "P16 public absorbStudio dispatch on retained original48 R03 public dispatch forces the actual player and refuses missing or unheld report and stale invalid carried quote after a real positive",
+      "status": "passed",
+      "title": "public dispatch forces the actual player and refuses missing or unheld report and stale invalid carried quote after a real positive",
+      "duration": 2710.413764,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-public-action.test.ts",
+      "ancestorTitles": [
+        "P16 public absorbStudio dispatch on retained original48 R03"
+      ],
+      "fullName": "P16 public absorbStudio dispatch on retained original48 R03 real full publication fault rolls back public caller after the transaction owner builds and validates its joined output",
+      "status": "passed",
+      "title": "real full publication fault rolls back public caller after the transaction owner builds and validates its joined output",
+      "duration": 1013.2134500000002,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-public-action.test.ts",
+      "ancestorTitles": [
+        "P16 public absorbStudio dispatch on retained original48 R03"
+      ],
+      "fullName": "P16 public absorbStudio dispatch on retained original48 R03 actual R01 paid foreign-recipient report never authorizes player absorption or reveals its body to the player",
+      "status": "passed",
+      "title": "actual R01 paid foreign-recipient report never authorizes player absorption or reveals its body to the player",
+      "duration": 1034.2539459999998,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-public-action.test.ts",
+      "ancestorTitles": [
+        "P16 public absorbStudio dispatch on retained original48 R03"
+      ],
+      "fullName": "P16 public absorbStudio dispatch on retained original48 R03 actual held paid report expires after exactly13 ordinary ticks while a genuine fresh quote pair cannot rescue its old report authority",
+      "status": "passed",
+      "title": "actual held paid report expires after exactly13 ordinary ticks while a genuine fresh quote pair cannot rescue its old report authority",
+      "duration": 4000.2677440000007,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-paid-production.test.ts",
+      "ancestorTitles": [
+        "P16 genuine pre162 paid R01 production cancellation-required transaction"
+      ],
+      "fullName": "P16 genuine pre162 paid R01 production cancellation-required transaction public priced quote cancels only its actual required production and ordinary ticks retain paid screenplay footage and commitment without release refund or run income",
+      "status": "passed",
+      "title": "public priced quote cancels only its actual required production and ordinary ticks retain paid screenplay footage and commitment without release refund or run income",
+      "duration": 2114.443325,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-paid-production.test.ts",
+      "ancestorTitles": [
+        "P16 genuine pre162 paid R01 production cancellation-required transaction"
+      ],
+      "fullName": "P16 genuine pre162 paid R01 production cancellation-required transaction strict joined reader rejects omitted disposition wrong screenplay remaining footage and invented missing participant after actual cancellation positive",
+      "status": "passed",
+      "title": "strict joined reader rejects omitted disposition wrong screenplay remaining footage and invented missing participant after actual cancellation positive",
+      "duration": 987.6016129999998,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-active-run.test.ts",
+      "ancestorTitles": [
+        "P16 fixed real R01 paid production completes before healthy active-run absorption"
+      ],
+      "fullName": "P16 fixed real R01 paid production completes before healthy active-run absorption actual eight ordinary ticks produce the named run and healthy absorption pays future locked installments only to buyer with original creator and settlement history",
+      "status": "failed",
+      "title": "actual eight ordinary ticks produce the named run and healthy absorption pays future locked installments only to buyer with original creator and settlement history",
+      "duration": 6803.4741859999995,
+      "failureMessages": [
+        "AssertionError: expected { \u2026(5) } to deeply equal { \u2026(4) }\n    at absorbed (/Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-active-run.test.ts:88:25)\n    at serviceToSettlement (/Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-active-run.test.ts:92:10)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-active-run.test.ts:111:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-active-run.test.ts",
+      "ancestorTitles": [
+        "P16 fixed real R01 paid production completes before healthy active-run absorption"
+      ],
+      "fullName": "P16 fixed real R01 paid production completes before healthy active-run absorption real admitted active-run history refuses missing handoff omitted installment wrong beneficiary and altered gross or earned cash through full current reader",
+      "status": "failed",
+      "title": "real admitted active-run history refuses missing handoff omitted installment wrong beneficiary and altered gross or earned cash through full current reader",
+      "duration": 1978.7345409999998,
+      "failureMessages": [
+        "AssertionError: expected { \u2026(5) } to deeply equal { \u2026(4) }\n    at absorbed (/Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-active-run.test.ts:88:25)\n    at serviceToSettlement (/Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-active-run.test.ts:92:10)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-active-run.test.ts:148:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ],
+      "meta": {}
+    },
+    {
+      "file": "tests/bridge-p16-absorption-finance.test.ts",
+      "ancestorTitles": [
+        "P16 actual fractional R03 acquisition financial presentation"
+      ],
+      "fullName": "P16 actual fractional R03 acquisition financial presentation real paid diligence and signed fractional net acquisition remain separate recorded categories and reconcile exact period and cash totals",
+      "status": "passed",
+      "title": "real paid diligence and signed fractional net acquisition remain separate recorded categories and reconcile exact period and cash totals",
+      "duration": 1350.8832080000002,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/bridge-p16-absorption-finance.test.ts",
+      "ancestorTitles": [
+        "P16 actual fractional R03 acquisition financial presentation"
+      ],
+      "fullName": "P16 actual fractional R03 acquisition financial presentation real Bridge snapshot finance publishes the same fractional acquisition categories and cash without target private disclosure or changing save authority",
+      "status": "passed",
+      "title": "real Bridge snapshot finance publishes the same fractional acquisition categories and cash without target private disclosure or changing save authority",
+      "duration": 2751.013595,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-join.test.ts",
+      "ancestorTitles": [
+        "P16 joined estate actual-source boundaries"
+      ],
+      "fullName": "P16 joined estate actual-source boundaries actual49 closure atomically publishes matching handoff once without changing the caller",
+      "status": "passed",
+      "title": "actual49 closure atomically publishes matching handoff once without changing the caller",
+      "duration": 1834.343057,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-join.test.ts",
+      "ancestorTitles": [
+        "P16 joined estate actual-source boundaries"
+      ],
+      "fullName": "P16 joined estate actual-source boundaries genuine normal48 migration admits without manufacturing actual closure or estate history",
+      "status": "passed",
+      "title": "genuine normal48 migration admits without manufacturing actual closure or estate history",
+      "duration": 367.77468699999963,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-join.test.ts",
+      "ancestorTitles": [
+        "P16 joined estate actual-source boundaries"
+      ],
+      "fullName": "P16 joined estate actual-source boundaries genuine public48 liveclosure migration observes authentic provenance without retroactive49 events",
+      "status": "passed",
+      "title": "genuine public48 liveclosure migration observes authentic provenance without retroactive49 events",
+      "duration": 426.7061880000001,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-join.test.ts",
+      "ancestorTitles": [
+        "P16 joined estate actual-source boundaries"
+      ],
+      "fullName": "P16 joined estate actual-source boundaries current49 handoff cannot masquerade as observed48 or borrow foreign claim authority",
+      "status": "passed",
+      "title": "current49 handoff cannot masquerade as observed48 or borrow foreign claim authority",
+      "duration": 351.11069499999985,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-join.test.ts",
+      "ancestorTitles": [
+        "P16 joined estate actual-source boundaries"
+      ],
+      "fullName": "P16 joined estate actual-source boundaries actual terminal bidder refuses with retained business and even a labelled stale-stable reader",
+      "status": "passed",
+      "title": "actual terminal bidder refuses with retained business and even a labelled stale-stable reader",
+      "duration": 166.8285450000003,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 era surface"
+      ],
+      "fullName": "Save49 era surface LIVE_SAVE_VERSION is P16_SAVE_VERSION (49 at this base) with predecessor48, and the V49 functions exist",
+      "status": "passed",
+      "title": "LIVE_SAVE_VERSION is P16_SAVE_VERSION (49 at this base) with predecessor48, and the V49 functions exist",
+      "duration": 2.951667000000043,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 era surface"
+      ],
+      "fullName": "Save49 era surface validateSave dispatches49 and names the handled range \"1 through 49\"",
+      "status": "passed",
+      "title": "validateSave dispatches49 and names the handled range \"1 through 49\"",
+      "duration": 632.4857200000001,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 convertV48ToV49 adds exactly the empty rights root at the save week and zero P16 movements on every rival period; nothing else moves",
+      "status": "passed",
+      "title": "convertV48ToV49 adds exactly the empty rights root at the save week and zero P16 movements on every rival period; nothing else moves",
+      "duration": 683.312107,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 migrateToLive lifts the genuine raw capture to 46 through importSave, and a second migration is a no-op",
+      "status": "passed",
+      "title": "migrateToLive lifts the genuine raw capture to 46 through importSave, and a second migration is a no-op",
+      "duration": 585.2087959999999,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 convertV49ToV48 is lossless while the root is empty and every P16 movement is zero, round-tripping to the genuine bytes",
+      "status": "passed",
+      "title": "convertV49ToV48 is lossless while the root is empty and every P16 movement is zero, round-tripping to the genuine bytes",
+      "duration": 1196.2231929999998,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 the downgrade refuses by name once a rights record exists; a P16 movement or ledger row without its transaction is refused by the validator first",
+      "status": "passed",
+      "title": "the downgrade refuses by name once a rights record exists; a P16 movement or ledger row without its transaction is refused by the validator first",
+      "duration": 409.7486479999998,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 a Save45 envelope is refused the P16 kinds below their era: a rightsConsideration movement or ledger row cannot be written under version 45",
+      "status": "passed",
+      "title": "a Save45 envelope is refused the P16 kinds below their era: a rightsConsideration movement or ledger row cannot be written under version 45",
+      "duration": 173.1767549999995,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [],
+      "fullName": "the actual migrated Save48 predecessor refuses rights authority below Save49 without retagging a modern envelope",
+      "status": "passed",
+      "title": "the actual migrated Save48 predecessor refuses rights authority below Save49 without retagging a modern envelope",
+      "duration": 334.8253219999997,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates the control: a materialized genesis pair validates",
+      "status": "passed",
+      "title": "the control: a materialized genesis pair validates",
+      "duration": 353.89176899999984,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates refuses a missing root, a wrong version, a recordedFromWeek outside [0, tick], or unknown keys",
+      "status": "passed",
+      "title": "refuses a missing root, a wrong version, a recordedFromWeek outside [0, tick], or unknown keys",
+      "duration": 437.27052600000025,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates refuses a duplicate genesis, a broken priorHolder chain, a future-dated event, bad ordinals, duplicate ids, a mismatched subject and an unknown holder",
+      "status": "passed",
+      "title": "refuses a duplicate genesis, a broken priorHolder chain, a future-dated event, bad ordinals, duplicate ids, a mismatched subject and an unknown holder",
+      "duration": 596.0496009999997,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates refuses a persisted record that contradicts the authentic source (creator, date or title) as ambiguous provenance",
+      "status": "passed",
+      "title": "refuses a persisted record that contradicts the authentic source (creator, date or title) as ambiguous provenance",
+      "duration": 485.22386600000027,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates an archive event needs its estate record, and an estate record must name a reserved identity",
+      "status": "passed",
+      "title": "an archive event needs its estate record, and an estate record must name a reserved identity",
+      "duration": 414.03866000000016,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates every authored-start manifest film stays resolvable after migration: the root invents none of them",
+      "status": "passed",
+      "title": "every authored-start manifest film stays resolvable after migration: the root invents none of them",
+      "duration": 292.3324990000001,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [],
+      "fullName": "F15 genuine predecessor migration keeps observational frontier and lossless empty-era roundtrip",
+      "status": "passed",
+      "title": "F15 genuine predecessor migration keeps observational frontier and lossless empty-era roundtrip",
+      "duration": 543.7158530000006,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-d-ceremony.test.ts",
+      "ancestorTitles": [],
+      "fullName": "P16 D ceremony actual13M sale intake pays partial claims once before one archival and replays",
+      "status": "passed",
+      "title": "P16 D ceremony actual13M sale intake pays partial claims once before one archival and replays",
+      "duration": 5160.3740609999995,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-observed-migration.test.ts",
+      "ancestorTitles": [
+        "P16 observed original48 migration retains terminal authority without new history"
+      ],
+      "fullName": "P16 observed original48 migration retains terminal authority without new history C163 and archivedD176 retain complete closure claim loan run archive roots and same-boundary lossless roundtrip",
+      "status": "passed",
+      "title": "C163 and archivedD176 retain complete closure claim loan run archive roots and same-boundary lossless roundtrip",
+      "duration": 2051.9857810000003,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-observed-migration.test.ts",
+      "ancestorTitles": [
+        "P16 observed original48 migration retains terminal authority without new history"
+      ],
+      "fullName": "P16 observed original48 migration retains terminal authority without new history archived176 observes one original archival, never reopens bidding, and retains nontradeable film ownership",
+      "status": "passed",
+      "title": "archived176 observes one original archival, never reopens bidding, and retains nontradeable film ownership",
+      "duration": 407.00382000000036,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-observed-migration.test.ts",
+      "ancestorTitles": [
+        "P16 observed original48 migration retains terminal authority without new history"
+      ],
+      "fullName": "P16 observed original48 migration retains terminal authority without new history a real new public bid is admitted current authority and blocks discard of an otherwise reconstructable live observation",
+      "status": "passed",
+      "title": "a real new public bid is admitted current authority and blocks discard of an otherwise reconstructable live observation",
+      "duration": 545.6798140000001,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-observed-migration.test.ts",
+      "ancestorTitles": [
+        "P16 observed original48 migration retains terminal authority without new history"
+      ],
+      "fullName": "P16 observed original48 migration retains terminal authority without new history frozen48 reader refuses the added current rights root without retagging a49 envelope",
+      "status": "passed",
+      "title": "frozen48 reader refuses the added current rights root without retagging a49 envelope",
+      "duration": 370.260448,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-current49-rollback.test.ts",
+      "ancestorTitles": [],
+      "fullName": "actual49 closure publication refusal rolls back the fully admitted pre-C caller",
+      "status": "passed",
+      "title": "actual49 closure publication refusal rolls back the fully admitted pre-C caller",
+      "duration": 1222.228489,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-d-join-negative.test.ts",
+      "ancestorTitles": [
+        "P16 joinedD strict-save corruption and actual publication rollback"
+      ],
+      "fullName": "P16 joinedD strict-save corruption and actual publication rollback refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source",
+      "status": "passed",
+      "title": "refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source",
+      "duration": 6965.0292,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-d-join-negative.test.ts",
+      "ancestorTitles": [
+        "P16 joinedD strict-save corruption and actual publication rollback"
+      ],
+      "fullName": "P16 joinedD strict-save corruption and actual publication rollback refuses extra estateSaleProceeds and an extra buyer rights debit even with their matching cash changes",
+      "status": "passed",
+      "title": "refuses extra estateSaleProceeds and an extra buyer rights debit even with their matching cash changes",
+      "duration": 745.025466000001,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-d-join-negative.test.ts",
+      "ancestorTitles": [
+        "P16 joinedD strict-save corruption and actual publication rollback"
+      ],
+      "fullName": "P16 joinedD strict-save corruption and actual publication rollback a real strict49 D publication refusal cannot publish partial sale cash claims or archival",
+      "status": "passed",
+      "title": "a real strict49 D publication refusal cannot publish partial sale cash claims or archival",
+      "duration": 627.6965079999991,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-held-title-seller.test.ts",
+      "ancestorTitles": [],
+      "fullName": "real public film0 sale before R04 C excludes the sold title from current closure and handoff while retaining creator history",
+      "status": "passed",
+      "title": "real public film0 sale before R04 C excludes the sold title from current closure and handoff while retaining creator history",
+      "duration": 2022.0987140000002,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-r03-observed-migration.test.ts",
+      "ancestorTitles": [],
+      "fullName": "observed original48 R03 week132 preserves nonzero claimPayment and the authentic active run through public49 migration and same-boundary downgrade",
+      "status": "passed",
+      "title": "observed original48 R03 week132 preserves nonzero claimPayment and the authentic active run through public49 migration and same-boundary downgrade",
+      "duration": 808.0530660000001,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-r03-observed-migration.test.ts",
+      "ancestorTitles": [],
+      "fullName": "observed original48 R03 settled134 and archived144 preserve earned payments and one original archival without inventing past49 history",
+      "status": "passed",
+      "title": "observed original48 R03 settled134 and archived144 preserve earned payments and one original archival without inventing past49 history",
+      "duration": 1190.6978950000002,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-quote-age.test.ts",
+      "ancestorTitles": [
+        "F17 public bilateral quote-age boundaries from genuine pre162"
+      ],
+      "fullName": "F17 public bilateral quote-age boundaries from genuine pre162 accepts age0 with real title/cash/transaction once and caller purity",
+      "status": "passed",
+      "title": "accepts age0 with real title/cash/transaction once and caller purity",
+      "duration": 1273.0681719999998,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-quote-age.test.ts",
+      "ancestorTitles": [
+        "F17 public bilateral quote-age boundaries from genuine pre162"
+      ],
+      "fullName": "F17 public bilateral quote-age boundaries from genuine pre162 accepts age3 after ordinary advancement while the player-addressed sell offer stays open",
+      "status": "passed",
+      "title": "accepts age3 after ordinary advancement while the player-addressed sell offer stays open",
+      "duration": 1126.5247459999996,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-quote-age.test.ts",
+      "ancestorTitles": [
+        "F17 public bilateral quote-age boundaries from genuine pre162"
+      ],
+      "fullName": "F17 public bilateral quote-age boundaries from genuine pre162 expires at age4 after ordinary advancement and refuses without any sale/payment",
+      "status": "passed",
+      "title": "expires at age4 after ordinary advancement and refuses without any sale/payment",
+      "duration": 1794.305609,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-quote-age.test.ts",
+      "ancestorTitles": [
+        "F17 public bilateral quote-age boundaries from genuine pre162"
+      ],
+      "fullName": "F17 public bilateral quote-age boundaries from genuine pre162 refuses unknown stamps, future quotes and accepted-age4 mutations after a real positive control",
+      "status": "passed",
+      "title": "refuses unknown stamps, future quotes and accepted-age4 mutations after a real positive control",
+      "duration": 3306.6323789999997,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-quote-age.test.ts",
+      "ancestorTitles": [
+        "F17 public bilateral quote-age boundaries from genuine pre162"
+      ],
+      "fullName": "F17 public bilateral quote-age boundaries from genuine pre162 accepts real disclosure age12 but refuses fresh offer age1 when that same disclosure becomes13",
+      "status": "passed",
+      "title": "accepts real disclosure age12 but refuses fresh offer age1 when that same disclosure becomes13",
+      "duration": 10789.867945,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-quote-age.test.ts",
+      "ancestorTitles": [
+        "F17 public bilateral quote-age boundaries from genuine pre162"
+      ],
+      "fullName": "F17 public bilateral quote-age boundaries from genuine pre162 admits explicitly constructed unstamped/zero legacy-shape rows without claiming historical capture",
+      "status": "passed",
+      "title": "admits explicitly constructed unstamped/zero legacy-shape rows without claiming historical capture",
+      "duration": 3958.2583769999983,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-quote-age.test.ts",
+      "ancestorTitles": [
+        "F17 finite policy pure-unit boundaries (not campaign or absorption execution)"
+      ],
+      "fullName": "F17 finite policy pure-unit boundaries (not campaign or absorption execution) pins versioned minima/maxima and refuses invalid/future ages without subject-age substitution",
+      "status": "passed",
+      "title": "pins versioned minima/maxima and refuses invalid/future ages without subject-age substitution",
+      "duration": 2.891399000000092,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-continued-production.test.ts",
+      "ancestorTitles": [
+        "P16 genuine163 R02 paid post-production explicit healthy continuation"
+      ],
+      "fullName": "P16 genuine163 R02 paid post-production explicit healthy continuation actual buyer allocation holds ready work without commitment then public commit166 releases with original creator buyer R2 Standing future cash and replay",
+      "status": "failed",
+      "title": "actual buyer allocation holds ready work without commitment then public commit166 releases with original creator buyer R2 Standing future cash and replay",
+      "duration": 2278.7686249999997,
+      "failureMessages": [
+        "Error: validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 Hollywood save: duplicate film identity\n    at validateSaveV37WithProfession (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:10793:11)\n    at proveProfessionSave (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:10855:3)\n    at validateSaveV42Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11074:3)\n    at validateSaveV43Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11124:3)\n    at validateSaveV44Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11184:3)\n    at validateSaveV45Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11346:3)\n    at validateSaveV46Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11397:3)\n    at validateSaveV47Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11508:3)\n    at validateSaveP15BEra (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11654:3)\n    at validateSaveV49 (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11807:3)"
+      ],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-continued-production.test.ts",
+      "ancestorTitles": [
+        "P16 genuine163 R02 paid post-production explicit healthy continuation"
+      ],
+      "fullName": "P16 genuine163 R02 paid post-production explicit healthy continuation actual admitted release refuses omitted or invented work counter commitment title and Standing authority with full-reader caller purity",
+      "status": "failed",
+      "title": "actual admitted release refuses omitted or invented work counter commitment title and Standing authority with full-reader caller purity",
+      "duration": 1737.0517499999996,
+      "failureMessages": [
+        "Error: validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 Hollywood save: duplicate film identity\n    at validateSaveV37WithProfession (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:10793:11)\n    at proveProfessionSave (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:10855:3)\n    at validateSaveV42Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11074:3)\n    at validateSaveV43Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11124:3)\n    at validateSaveV44Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11184:3)\n    at validateSaveV45Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11346:3)\n    at validateSaveV46Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11397:3)\n    at validateSaveV47Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11508:3)\n    at validateSaveP15BEra (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11654:3)\n    at validateSaveV49 (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11807:3)"
+      ],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-continued-production.test.ts",
+      "ancestorTitles": [
+        "P16 genuine163 R02 paid post-production explicit healthy continuation"
+      ],
+      "fullName": "P16 genuine163 R02 paid post-production explicit healthy continuation real complete current49 publication fault rolls back the original public163 caller after all native snapshot and title employment joins validate",
+      "status": "passed",
+      "title": "real complete current49 publication fault rolls back the original public163 caller after all native snapshot and title employment joins validate",
+      "duration": 1015.8515390000002,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/bridge-p16-rights-parity.test.ts",
+      "ancestorTitles": [
+        "P16 real Bridge paid due diligence and healthy absorption opaque families"
+      ],
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families paid preview reveals no body or held report and real commit charges exactly once with public-action equality and same-command replay",
+      "status": "passed",
+      "title": "paid preview reveals no body or held report and real commit charges exactly once with public-action equality and same-command replay",
+      "duration": 3436.6214,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/bridge-p16-rights-parity.test.ts",
+      "ancestorTitles": [
+        "P16 real Bridge paid due diligence and healthy absorption opaque families"
+      ],
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families held real report prices and commits exact fractional acquisition once with original quote pair linked titles and public direct action parity",
+      "status": "passed",
+      "title": "held real report prices and commits exact fractional acquisition once with original quote pair linked titles and public direct action parity",
+      "duration": 6709.315563000002,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/bridge-p16-rights-parity.test.ts",
+      "ancestorTitles": [
+        "P16 real Bridge paid due diligence and healthy absorption opaque families"
+      ],
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families unheld and genuinely paid partial-scope reports refuse before private absorption terms and never register an executable intent",
+      "status": "passed",
+      "title": "unheld and genuinely paid partial-scope reports refuse before private absorption terms and never register an executable intent",
+      "duration": 1458.9962840000007,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/bridge-p16-rights-parity.test.ts",
+      "ancestorTitles": [
+        "P16 real Bridge paid due diligence and healthy absorption opaque families"
+      ],
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families closed canonical drafts refuse supplied buyer and quote dates while private nested retention remains detached from later caller mutation",
+      "status": "passed",
+      "title": "closed canonical drafts refuse supplied buyer and quote dates while private nested retention remains detached from later caller mutation",
+      "duration": 2428.758657999999,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/bridge-p16-rights-parity.test.ts",
+      "ancestorTitles": [
+        "P16 real Bridge paid due diligence and healthy absorption opaque families"
+      ],
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families captured actual paid and absorption apply closures refuse a different fully admitted real state and public revision guards retain authority",
+      "status": "passed",
+      "title": "captured actual paid and absorption apply closures refuse a different fully admitted real state and public revision guards retain authority",
+      "duration": 3074.4049239999986,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/bridge-p16-rights-parity.test.ts",
+      "ancestorTitles": [
+        "P16 real Bridge paid due diligence and healthy absorption opaque families"
+      ],
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families seventeen fixed legal quotes share cap16 across families and evict the first absorption without preview fees or authority changes",
+      "status": "passed",
+      "title": "seventeen fixed legal quotes share cap16 across families and evict the first absorption without preview fees or authority changes",
+      "duration": 2609.5361249999987,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/bridge-p16-rights-parity.test.ts",
+      "ancestorTitles": [
+        "P16 real Bridge paid due diligence and healthy absorption opaque families"
+      ],
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families actual full-writer publication failure after legal preview rolls back paid fee and acquisition with no successful validator stub",
+      "status": "passed",
+      "title": "actual full-writer publication failure after legal preview rolls back paid fee and acquisition with no successful validator stub",
+      "duration": 1258.113343000001,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/bridge-p16-paid-reports.test.ts",
+      "ancestorTitles": [
+        "P16 real recipient-bound paid-report Bridge readback"
+      ],
+      "fullName": "P16 real recipient-bound paid-report Bridge readback no unpaid body then real player report only; foreign R01 paid report and missing selection stay private with detached responses and guarded revisions",
+      "status": "passed",
+      "title": "no unpaid body then real player report only; foreign R01 paid report and missing selection stay private with detached responses and guarded revisions",
+      "duration": 942.33457,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/bridge-p16-paid-reports.test.ts",
+      "ancestorTitles": [
+        "P16 real recipient-bound paid-report Bridge readback"
+      ],
+      "fullName": "P16 real recipient-bound paid-report Bridge readback real rights-only paid scope remains exact dated history after13 ordinary ticks and stale readback grants no extra employment or liability fields",
+      "status": "passed",
+      "title": "real rights-only paid scope remains exact dated history after13 ordinary ticks and stale readback grants no extra employment or liability fields",
+      "duration": 1474.6735990000002,
+      "failureMessages": [],
+      "meta": {}
+    }
+  ],
+  "allBudgetQualified": false,
+  "maxMs": 10789.867945,
+  "failures": [
+    {
+      "file": "tests/p16-absorption-active-run.test.ts",
+      "ancestorTitles": [
+        "P16 fixed real R01 paid production completes before healthy active-run absorption"
+      ],
+      "fullName": "P16 fixed real R01 paid production completes before healthy active-run absorption actual eight ordinary ticks produce the named run and healthy absorption pays future locked installments only to buyer with original creator and settlement history",
+      "status": "failed",
+      "title": "actual eight ordinary ticks produce the named run and healthy absorption pays future locked installments only to buyer with original creator and settlement history",
+      "duration": 6803.4741859999995,
+      "failureMessages": [
+        "AssertionError: expected { \u2026(5) } to deeply equal { \u2026(4) }\n    at absorbed (/Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-active-run.test.ts:88:25)\n    at serviceToSettlement (/Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-active-run.test.ts:92:10)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-active-run.test.ts:111:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-active-run.test.ts",
+      "ancestorTitles": [
+        "P16 fixed real R01 paid production completes before healthy active-run absorption"
+      ],
+      "fullName": "P16 fixed real R01 paid production completes before healthy active-run absorption real admitted active-run history refuses missing handoff omitted installment wrong beneficiary and altered gross or earned cash through full current reader",
+      "status": "failed",
+      "title": "real admitted active-run history refuses missing handoff omitted installment wrong beneficiary and altered gross or earned cash through full current reader",
+      "duration": 1978.7345409999998,
+      "failureMessages": [
+        "AssertionError: expected { \u2026(5) } to deeply equal { \u2026(4) }\n    at absorbed (/Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-active-run.test.ts:88:25)\n    at serviceToSettlement (/Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-active-run.test.ts:92:10)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-active-run.test.ts:148:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-continued-production.test.ts",
+      "ancestorTitles": [
+        "P16 genuine163 R02 paid post-production explicit healthy continuation"
+      ],
+      "fullName": "P16 genuine163 R02 paid post-production explicit healthy continuation actual buyer allocation holds ready work without commitment then public commit166 releases with original creator buyer R2 Standing future cash and replay",
+      "status": "failed",
+      "title": "actual buyer allocation holds ready work without commitment then public commit166 releases with original creator buyer R2 Standing future cash and replay",
+      "duration": 2278.7686249999997,
+      "failureMessages": [
+        "Error: validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 Hollywood save: duplicate film identity\n    at validateSaveV37WithProfession (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:10793:11)\n    at proveProfessionSave (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:10855:3)\n    at validateSaveV42Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11074:3)\n    at validateSaveV43Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11124:3)\n    at validateSaveV44Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11184:3)\n    at validateSaveV45Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11346:3)\n    at validateSaveV46Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11397:3)\n    at validateSaveV47Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11508:3)\n    at validateSaveP15BEra (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11654:3)\n    at validateSaveV49 (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11807:3)"
+      ],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-continued-production.test.ts",
+      "ancestorTitles": [
+        "P16 genuine163 R02 paid post-production explicit healthy continuation"
+      ],
+      "fullName": "P16 genuine163 R02 paid post-production explicit healthy continuation actual admitted release refuses omitted or invented work counter commitment title and Standing authority with full-reader caller purity",
+      "status": "failed",
+      "title": "actual admitted release refuses omitted or invented work counter commitment title and Standing authority with full-reader caller purity",
+      "duration": 1737.0517499999996,
+      "failureMessages": [
+        "Error: validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 Hollywood save: duplicate film identity\n    at validateSaveV37WithProfession (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:10793:11)\n    at proveProfessionSave (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:10855:3)\n    at validateSaveV42Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11074:3)\n    at validateSaveV43Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11124:3)\n    at validateSaveV44Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11184:3)\n    at validateSaveV45Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11346:3)\n    at validateSaveV46Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11397:3)\n    at validateSaveV47Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11508:3)\n    at validateSaveP15BEra (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11654:3)\n    at validateSaveV49 (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11807:3)"
+      ],
+      "meta": {}
+    }
+  ],
+  "overBudget": [
+    {
+      "file": "tests/p16-absorption-active-run.test.ts",
+      "ancestorTitles": [
+        "P16 fixed real R01 paid production completes before healthy active-run absorption"
+      ],
+      "fullName": "P16 fixed real R01 paid production completes before healthy active-run absorption actual eight ordinary ticks produce the named run and healthy absorption pays future locked installments only to buyer with original creator and settlement history",
+      "status": "failed",
+      "title": "actual eight ordinary ticks produce the named run and healthy absorption pays future locked installments only to buyer with original creator and settlement history",
+      "duration": 6803.4741859999995,
+      "failureMessages": [
+        "AssertionError: expected { \u2026(5) } to deeply equal { \u2026(4) }\n    at absorbed (/Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-active-run.test.ts:88:25)\n    at serviceToSettlement (/Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-active-run.test.ts:92:10)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-absorption-active-run.test.ts:111:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-d-ceremony.test.ts",
+      "ancestorTitles": [],
+      "fullName": "P16 D ceremony actual13M sale intake pays partial claims once before one archival and replays",
+      "status": "passed",
+      "title": "P16 D ceremony actual13M sale intake pays partial claims once before one archival and replays",
+      "duration": 5160.3740609999995,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-d-join-negative.test.ts",
+      "ancestorTitles": [
+        "P16 joinedD strict-save corruption and actual publication rollback"
+      ],
+      "fullName": "P16 joinedD strict-save corruption and actual publication rollback refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source",
+      "status": "passed",
+      "title": "refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source",
+      "duration": 6965.0292,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-quote-age.test.ts",
+      "ancestorTitles": [
+        "F17 public bilateral quote-age boundaries from genuine pre162"
+      ],
+      "fullName": "F17 public bilateral quote-age boundaries from genuine pre162 accepts real disclosure age12 but refuses fresh offer age1 when that same disclosure becomes13",
+      "status": "passed",
+      "title": "accepts real disclosure age12 but refuses fresh offer age1 when that same disclosure becomes13",
+      "duration": 10789.867945,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/bridge-p16-rights-parity.test.ts",
+      "ancestorTitles": [
+        "P16 real Bridge paid due diligence and healthy absorption opaque families"
+      ],
+      "fullName": "P16 real Bridge paid due diligence and healthy absorption opaque families held real report prices and commits exact fractional acquisition once with original quote pair linked titles and public direct action parity",
+      "status": "passed",
+      "title": "held real report prices and commits exact fractional acquisition once with original quote pair linked titles and public direct action parity",
+      "duration": 6709.315563000002,
+      "failureMessages": [],
+      "meta": {}
+    }
+  ]
+}

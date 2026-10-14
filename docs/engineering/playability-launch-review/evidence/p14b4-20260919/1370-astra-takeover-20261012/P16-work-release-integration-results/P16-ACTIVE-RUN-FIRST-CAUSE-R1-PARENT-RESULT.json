@@ -1,0 +1,91 @@
+{
+  "terminal": {
+    "overallExit": 0,
+    "groups": {
+      "tsc-root": 0,
+      "estate-red": 0,
+      "identity-accounting": 0
+    },
+    "scope": "fresh root compiler then active-run completefile2 identities; prior UI/Bridge success retained separately; no full25/allcompiler claim",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791990659,
+      "endEpoch": 1791990703,
+      "seconds": 44,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-active-run-first-cause-r1-run/tsc-root.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 0,
+      "startEpoch": 1791990708,
+      "endEpoch": 1791990717,
+      "seconds": 9,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-active-run-first-cause-r1-run/results.json",
+        "tests/p16-absorption-active-run.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-active-run-first-cause-r1-run/estate-red.log"
+    }
+  ],
+  "counts": {
+    "passed": 2
+  },
+  "identities": 2,
+  "rows": [
+    {
+      "file": "tests/p16-absorption-active-run.test.ts",
+      "ancestorTitles": [
+        "P16 fixed real R01 paid production completes before healthy active-run absorption"
+      ],
+      "fullName": "P16 fixed real R01 paid production completes before healthy active-run absorption actual eight ordinary ticks produce the named run and healthy absorption pays future locked installments only to buyer with original creator and settlement history",
+      "status": "passed",
+      "title": "actual eight ordinary ticks produce the named run and healthy absorption pays future locked installments only to buyer with original creator and settlement history",
+      "duration": 2961.353315,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-active-run.test.ts",
+      "ancestorTitles": [
+        "P16 fixed real R01 paid production completes before healthy active-run absorption"
+      ],
+      "fullName": "P16 fixed real R01 paid production completes before healthy active-run absorption real admitted active-run history refuses missing handoff omitted installment wrong beneficiary and altered gross or earned cash through full current reader",
+      "status": "passed",
+      "title": "real admitted active-run history refuses missing handoff omitted installment wrong beneficiary and altered gross or earned cash through full current reader",
+      "duration": 1941.1661349999995,
+      "failureMessages": [],
+      "meta": {}
+    }
+  ],
+  "allBudgetQualified": true,
+  "allAssertionsReached": true,
+  "maxMs": 2961.353315,
+  "strictChecks": 5,
+  "strictErrorsBytes": 0,
+  "sourceCount": 1610,
+  "inputCount": 205,
+  "independentFinalFreeze": "PASS",
+  "audit": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-active-run-first-cause-r1-parent-reconciliation",
+  "limits": "Focused complete2 passed after one-case measured earlier-guard expectation; original25 remains24PASS1FAIL, prior UI/Bridge separately retained; no fullP16 acceptance"
+}

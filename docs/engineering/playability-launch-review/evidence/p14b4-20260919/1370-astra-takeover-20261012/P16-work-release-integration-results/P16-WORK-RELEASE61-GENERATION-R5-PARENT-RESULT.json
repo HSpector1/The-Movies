@@ -1,0 +1,114 @@
+{
+  "terminal": {
+    "overallExit": 0,
+    "groups": {
+      "generator-contract": 0,
+      "generator-fixtures": 0
+    },
+    "scope": "two canonical generators only; no compiler/runtime acceptance claim",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "generator-contract",
+      "exit": 0,
+      "startEpoch": 1791992752,
+      "endEpoch": 1791992754,
+      "seconds": 2,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vite-node/vite-node.mjs",
+        "scripts/generate-bridge-contract.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-generation-r5-run/generator-contract.log"
+    },
+    {
+      "name": "generator-fixtures",
+      "exit": 0,
+      "startEpoch": 1791992761,
+      "endEpoch": 1791992762,
+      "seconds": 1,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vite-node/vite-node.mjs",
+        "scripts/generate-bridge-contract-fixtures.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-generation-r5-run/generator-fixtures.log"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "bridge/schema/project-studio-bridge.schema.json",
+      "before": [
+        "file",
+        "e69504a6ec7399347499080732f2ea0471a166b67a419d7a349a4ffbf6f3a460",
+        384
+      ],
+      "after": [
+        "file",
+        "11ad1866fa4409688f4ce57719760b2c96f0b077132e9dd735bb69a3f381eb0b",
+        384
+      ]
+    },
+    {
+      "path": "generated/unity/StudioBridgeDtos.Generated.cs",
+      "before": [
+        "file",
+        "2e7488558d5e52222a644d7cea0fa780f085c5d36e022fca0acac0495c92ac1e",
+        384
+      ],
+      "after": [
+        "file",
+        "3479de66be48731b19350cdc562dc3674e88a59343d7be9fe761a9d524c92839",
+        384
+      ]
+    },
+    {
+      "path": "generated/unity/project-studio-bridge.contract-manifest.json",
+      "before": [
+        "file",
+        "65d67bff05e209c3330455b015713726c23314d6008263a6a801fea7b69303d4",
+        384
+      ],
+      "after": [
+        "file",
+        "dc9195a7de6442799eb6bbe6e57d47437637b886915d522f22cb5af9c0a6f734",
+        384
+      ]
+    },
+    {
+      "path": "generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs",
+      "before": [
+        "file",
+        "be4b1dd1da2e7dc28906b9bad1ab0fa73e32d4dbe69eef344d9aeaf0a697bdb6",
+        384
+      ],
+      "after": [
+        "file",
+        "be4b1dd1da2e7dc28906b9bad1ab0fa73e32d4dbe69eef344d9aeaf0a697bdb6",
+        384
+      ]
+    }
+  ],
+  "actualManifest": {
+    "contractId": "project-studio-current-game-unity-bridge",
+    "generatorSourceSha256": "333b359383208c2c5356d7ef0bee1da88433ebe1c66b618209079bb7ace86a2f",
+    "generatorVersion": 1,
+    "manifestVersion": 1,
+    "projectionVersion": 61,
+    "protocolVersion": 4,
+    "schemaId": "sha256:7d23fdb9a710175afb88208170cfe5692510febe06fb898a3ccd95edc9c53306",
+    "typescriptGeneratedContractPath": "generated/unity/StudioBridgeDtos.Generated.cs",
+    "typescriptGeneratedContractSha256": "3479de66be48731b19350cdc562dc3674e88a59343d7be9fe761a9d524c92839",
+    "unityConsumerRepository": "HSpector1/project-studio-unity-visual-spike",
+    "unityGeneratedContractPath": "Assets/Studio/Runtime/Data/Generated/StudioBridgeDtos.Generated.cs",
+    "unityGeneratedContractSha256": "3479de66be48731b19350cdc562dc3674e88a59343d7be9fe761a9d524c92839"
+  },
+  "independentNonOutputFreeze": "PASS",
+  "sourceCount": 1618,
+  "inputCount": 113,
+  "scope": "canonical generation only; compiler/runtime pending"
+}

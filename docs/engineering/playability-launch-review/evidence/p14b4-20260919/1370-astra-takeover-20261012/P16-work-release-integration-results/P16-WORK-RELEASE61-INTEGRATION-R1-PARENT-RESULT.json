@@ -1,0 +1,70 @@
+{
+  "terminal": {
+    "overallExit": 2,
+    "groups": {
+      "tsc-root": 2,
+      "tsc-ui": 2,
+      "tsc-bridge": 2
+    },
+    "scope": "fresh threecompilers twogeneratorchecks21completefiles76 identities; coherent source qualification, no fullP16 acceptance",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 2,
+      "startEpoch": 1791992327,
+      "endEpoch": 1791992375,
+      "seconds": 48,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r1-run/tsc-root.log"
+    },
+    {
+      "name": "tsc-ui",
+      "exit": 2,
+      "startEpoch": 1791992388,
+      "endEpoch": 1791992478,
+      "seconds": 90,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "ui/tsconfig.json",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r1-run/tsc-ui.log"
+    },
+    {
+      "name": "tsc-bridge",
+      "exit": 2,
+      "startEpoch": 1791992489,
+      "endEpoch": 1791992546,
+      "seconds": 57,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.bridge.json",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r1-run/tsc-bridge.log"
+    }
+  ],
+  "independentFinalFreeze": "PASS",
+  "sourceCount": 1617,
+  "inputCount": 245,
+  "strictChecks": 6,
+  "strictErrorsBytes": 0,
+  "audit": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r1-parent-reconciliation",
+  "scope": "coherent 181 source; no fullP16/native/player acceptance",
+  "runtime": "NOT_STARTED",
+  "assertionsCounted": 0
+}

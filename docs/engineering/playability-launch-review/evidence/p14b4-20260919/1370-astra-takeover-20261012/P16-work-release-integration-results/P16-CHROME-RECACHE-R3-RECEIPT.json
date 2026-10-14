@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-14T10:49:53.998744-05:00",
+  "target": "/Users/zacheryspector/Library/Caches/Google/Chrome",
+  "action": "Removed verified user-owned regular single-link disposable Chrome cache files and empty owned directories; browser closed, no open handles, no symlink traversal",
+  "filesRemoved": 940,
+  "estimatedAllocatedBytes": 74674176,
+  "beforeFreeKiB": 3688228,
+  "afterFreeKiB": 3761744,
+  "actualNetRecoveredKiB": 73516,
+  "skipped": [],
+  "limits": "Shared volume background activity affects actual net; no game/source/evidence/dependencies/Git removed"
+}
