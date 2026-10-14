@@ -1,0 +1,440 @@
+{
+  "disposition": "Qualified compiler and complete eight-file32 held-title/settlement/rollback/historical regression. Bounded requirements only; P16 remains open.",
+  "terminal": {
+    "overallExit": 0,
+    "groups": {
+      "tsc-root": 0,
+      "estate-red": 0
+    },
+    "scope": "rootcompiler and eightcompletefiles32; reviewedheldtitle sourcefix; noacceptance claim",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791936564,
+      "endEpoch": 1791936610,
+      "seconds": 46,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-held-title-regression-r1-run/tsc-root.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 0,
+      "startEpoch": 1791936618,
+      "endEpoch": 1791936653,
+      "seconds": 35,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-held-title-regression-r1-run/results.json",
+        "tests/p16-estate-join.test.ts",
+        "tests/p16a-save-v46.test.ts",
+        "tests/p16-estate-d-ceremony.test.ts",
+        "tests/p16-estate-observed-migration.test.ts",
+        "tests/p16-estate-current49-rollback.test.ts",
+        "tests/p16-estate-d-join-negative.test.ts",
+        "tests/p16-held-title-seller.test.ts",
+        "tests/p16-r03-observed-migration.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-held-title-regression-r1-run/estate-red.log"
+    }
+  ],
+  "rows": [
+    {
+      "file": "tests/p16-estate-current49-rollback.test.ts",
+      "ancestorTitles": [],
+      "fullName": "actual49 closure publication refusal rolls back the fully admitted pre-C caller",
+      "status": "passed",
+      "title": "actual49 closure publication refusal rolls back the fully admitted pre-C caller",
+      "duration": 1022.435229,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-d-ceremony.test.ts",
+      "ancestorTitles": [],
+      "fullName": "P16 D ceremony actual13M sale intake pays partial claims once before one archival and replays",
+      "status": "passed",
+      "title": "P16 D ceremony actual13M sale intake pays partial claims once before one archival and replays",
+      "duration": 3424.5267750000003,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-d-join-negative.test.ts",
+      "ancestorTitles": [
+        "P16 joinedD strict-save corruption and actual publication rollback"
+      ],
+      "fullName": "P16 joinedD strict-save corruption and actual publication rollback refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source",
+      "status": "passed",
+      "title": "refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source",
+      "duration": 4129.415715,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-d-join-negative.test.ts",
+      "ancestorTitles": [
+        "P16 joinedD strict-save corruption and actual publication rollback"
+      ],
+      "fullName": "P16 joinedD strict-save corruption and actual publication rollback refuses extra estateSaleProceeds and an extra buyer rights debit even with their matching cash changes",
+      "status": "passed",
+      "title": "refuses extra estateSaleProceeds and an extra buyer rights debit even with their matching cash changes",
+      "duration": 616.1876840000004,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-d-join-negative.test.ts",
+      "ancestorTitles": [
+        "P16 joinedD strict-save corruption and actual publication rollback"
+      ],
+      "fullName": "P16 joinedD strict-save corruption and actual publication rollback a real strict49 D publication refusal cannot publish partial sale cash claims or archival",
+      "status": "passed",
+      "title": "a real strict49 D publication refusal cannot publish partial sale cash claims or archival",
+      "duration": 582.6641819999995,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-join.test.ts",
+      "ancestorTitles": [
+        "P16 joined estate actual-source boundaries"
+      ],
+      "fullName": "P16 joined estate actual-source boundaries actual49 closure atomically publishes matching handoff once without changing the caller",
+      "status": "passed",
+      "title": "actual49 closure atomically publishes matching handoff once without changing the caller",
+      "duration": 1212.449108,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-join.test.ts",
+      "ancestorTitles": [
+        "P16 joined estate actual-source boundaries"
+      ],
+      "fullName": "P16 joined estate actual-source boundaries genuine normal48 migration admits without manufacturing actual closure or estate history",
+      "status": "passed",
+      "title": "genuine normal48 migration admits without manufacturing actual closure or estate history",
+      "duration": 368.0652699999998,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-join.test.ts",
+      "ancestorTitles": [
+        "P16 joined estate actual-source boundaries"
+      ],
+      "fullName": "P16 joined estate actual-source boundaries genuine public48 liveclosure migration observes authentic provenance without retroactive49 events",
+      "status": "passed",
+      "title": "genuine public48 liveclosure migration observes authentic provenance without retroactive49 events",
+      "duration": 307.880635,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-join.test.ts",
+      "ancestorTitles": [
+        "P16 joined estate actual-source boundaries"
+      ],
+      "fullName": "P16 joined estate actual-source boundaries current49 handoff cannot masquerade as observed48 or borrow foreign claim authority",
+      "status": "passed",
+      "title": "current49 handoff cannot masquerade as observed48 or borrow foreign claim authority",
+      "duration": 321.7420040000002,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-join.test.ts",
+      "ancestorTitles": [
+        "P16 joined estate actual-source boundaries"
+      ],
+      "fullName": "P16 joined estate actual-source boundaries actual terminal bidder refuses with retained business and even a labelled stale-stable reader",
+      "status": "passed",
+      "title": "actual terminal bidder refuses with retained business and even a labelled stale-stable reader",
+      "duration": 160.17428900000004,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-observed-migration.test.ts",
+      "ancestorTitles": [
+        "P16 observed original48 migration retains terminal authority without new history"
+      ],
+      "fullName": "P16 observed original48 migration retains terminal authority without new history C163 and archivedD176 retain complete closure claim loan run archive roots and same-boundary lossless roundtrip",
+      "status": "passed",
+      "title": "C163 and archivedD176 retain complete closure claim loan run archive roots and same-boundary lossless roundtrip",
+      "duration": 1462.628486,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-observed-migration.test.ts",
+      "ancestorTitles": [
+        "P16 observed original48 migration retains terminal authority without new history"
+      ],
+      "fullName": "P16 observed original48 migration retains terminal authority without new history archived176 observes one original archival, never reopens bidding, and retains nontradeable film ownership",
+      "status": "passed",
+      "title": "archived176 observes one original archival, never reopens bidding, and retains nontradeable film ownership",
+      "duration": 426.9802800000002,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-observed-migration.test.ts",
+      "ancestorTitles": [
+        "P16 observed original48 migration retains terminal authority without new history"
+      ],
+      "fullName": "P16 observed original48 migration retains terminal authority without new history a real new public bid is admitted current authority and blocks discard of an otherwise reconstructable live observation",
+      "status": "passed",
+      "title": "a real new public bid is admitted current authority and blocks discard of an otherwise reconstructable live observation",
+      "duration": 500.728881,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-observed-migration.test.ts",
+      "ancestorTitles": [
+        "P16 observed original48 migration retains terminal authority without new history"
+      ],
+      "fullName": "P16 observed original48 migration retains terminal authority without new history frozen48 reader refuses the added current rights root without retagging a49 envelope",
+      "status": "passed",
+      "title": "frozen48 reader refuses the added current rights root without retagging a49 envelope",
+      "duration": 362.3829700000001,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-held-title-seller.test.ts",
+      "ancestorTitles": [],
+      "fullName": "real public film0 sale before R04 C excludes the sold title from current closure and handoff while retaining creator history",
+      "status": "passed",
+      "title": "real public film0 sale before R04 C excludes the sold title from current closure and handoff while retaining creator history",
+      "duration": 1845.8139239999998,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-r03-observed-migration.test.ts",
+      "ancestorTitles": [],
+      "fullName": "observed original48 R03 week132 preserves nonzero claimPayment and the authentic active run through public49 migration and same-boundary downgrade",
+      "status": "passed",
+      "title": "observed original48 R03 week132 preserves nonzero claimPayment and the authentic active run through public49 migration and same-boundary downgrade",
+      "duration": 829.3491430000001,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-r03-observed-migration.test.ts",
+      "ancestorTitles": [],
+      "fullName": "observed original48 R03 settled134 and archived144 preserve earned payments and one original archival without inventing past49 history",
+      "status": "passed",
+      "title": "observed original48 R03 settled134 and archived144 preserve earned payments and one original archival without inventing past49 history",
+      "duration": 1168.10324,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 era surface"
+      ],
+      "fullName": "Save49 era surface LIVE_SAVE_VERSION is P16_SAVE_VERSION (49 at this base) with predecessor48, and the V49 functions exist",
+      "status": "passed",
+      "title": "LIVE_SAVE_VERSION is P16_SAVE_VERSION (49 at this base) with predecessor48, and the V49 functions exist",
+      "duration": 3.273678000000018,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 era surface"
+      ],
+      "fullName": "Save49 era surface validateSave dispatches49 and names the handled range \"1 through 49\"",
+      "status": "passed",
+      "title": "validateSave dispatches49 and names the handled range \"1 through 49\"",
+      "duration": 508.3309989999998,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 convertV48ToV49 adds exactly the empty rights root at the save week and zero P16 movements on every rival period; nothing else moves",
+      "status": "passed",
+      "title": "convertV48ToV49 adds exactly the empty rights root at the save week and zero P16 movements on every rival period; nothing else moves",
+      "duration": 445.7677950000002,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 migrateToLive lifts the genuine raw capture to 46 through importSave, and a second migration is a no-op",
+      "status": "passed",
+      "title": "migrateToLive lifts the genuine raw capture to 46 through importSave, and a second migration is a no-op",
+      "duration": 384.06489899999997,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 convertV49ToV48 is lossless while the root is empty and every P16 movement is zero, round-tripping to the genuine bytes",
+      "status": "passed",
+      "title": "convertV49ToV48 is lossless while the root is empty and every P16 movement is zero, round-tripping to the genuine bytes",
+      "duration": 936.0383759999995,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 the downgrade refuses by name once a rights record exists; a P16 movement or ledger row without its transaction is refused by the validator first",
+      "status": "passed",
+      "title": "the downgrade refuses by name once a rights record exists; a P16 movement or ledger row without its transaction is refused by the validator first",
+      "duration": 379.26866300000074,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 a Save45 envelope is refused the P16 kinds below their era: a rightsConsideration movement or ledger row cannot be written under version 45",
+      "status": "passed",
+      "title": "a Save45 envelope is refused the P16 kinds below their era: a rightsConsideration movement or ledger row cannot be written under version 45",
+      "duration": 121.63767800000005,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [],
+      "fullName": "the actual migrated Save48 predecessor refuses rights authority below Save49 without retagging a modern envelope",
+      "status": "passed",
+      "title": "the actual migrated Save48 predecessor refuses rights authority below Save49 without retagging a modern envelope",
+      "duration": 357.8234200000006,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates the control: a materialized genesis pair validates",
+      "status": "passed",
+      "title": "the control: a materialized genesis pair validates",
+      "duration": 303.80090500000006,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates refuses a missing root, a wrong version, a recordedFromWeek outside [0, tick], or unknown keys",
+      "status": "passed",
+      "title": "refuses a missing root, a wrong version, a recordedFromWeek outside [0, tick], or unknown keys",
+      "duration": 419.82823800000006,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates refuses a duplicate genesis, a broken priorHolder chain, a future-dated event, bad ordinals, duplicate ids, a mismatched subject and an unknown holder",
+      "status": "passed",
+      "title": "refuses a duplicate genesis, a broken priorHolder chain, a future-dated event, bad ordinals, duplicate ids, a mismatched subject and an unknown holder",
+      "duration": 555.4870950000004,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates refuses a persisted record that contradicts the authentic source (creator, date or title) as ambiguous provenance",
+      "status": "passed",
+      "title": "refuses a persisted record that contradicts the authentic source (creator, date or title) as ambiguous provenance",
+      "duration": 443.110431000001,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates an archive event needs its estate record, and an estate record must name a reserved identity",
+      "status": "passed",
+      "title": "an archive event needs its estate record, and an estate record must name a reserved identity",
+      "duration": 339.3912019999989,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates every authored-start manifest film stays resolvable after migration: the root invents none of them",
+      "status": "passed",
+      "title": "every authored-start manifest film stays resolvable after migration: the root invents none of them",
+      "duration": 264.74723900000026,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [],
+      "fullName": "F15 genuine predecessor migration keeps observational frontier and lossless empty-era roundtrip",
+      "status": "passed",
+      "title": "F15 genuine predecessor migration keeps observational frontier and lossless empty-era roundtrip",
+      "duration": 502.09189700000024,
+      "failureMessages": [],
+      "meta": {}
+    }
+  ],
+  "strictChecks": 5,
+  "strictErrors": 0,
+  "sourceFiles": 1592,
+  "inputs": 61,
+  "candidatePatchSHA256": "4d655bfa2896b4ce45f9b3607f1783bd60f30e168f31ed05b759a1bca3567580",
+  "limits": [
+    "Buyer closure pending; healthy absorption not implemented.",
+    "No actual49 run continuation / multi-estate / 6240 composition claim.",
+    "UI/Bridge broad gates and full P16 acceptance pending."
+  ]
+}

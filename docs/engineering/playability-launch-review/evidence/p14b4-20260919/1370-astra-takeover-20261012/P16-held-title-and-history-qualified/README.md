@@ -1,0 +1,11 @@
+# Qualified held-title closure and historical migration
+
+A real public sale previously left ten creator-owned films in the seller’s closure instead of its nine retained titles. The recorded RED reached that exact mismatch; later assertions were not counted. Current49 now derives ownership at the closure week, binds the complete original non-rights save context, and leaves frozen predecessor creator-based law unchanged. Creator history stays intact.
+
+The coherent compiler and eight complete files pass: root0/46s, child0/35s, 32 passes with no skips/todos, every leaf within unchanged5000ms (maximum4129.416ms). Five strict metadata checks and independent final comparison pass across1592 source files/61 inputs. The actual13M settlement and atomic refusal/rollback remain green alongside seller-C, context injection/frozen controls and genuine original48 historical migration. Candidate127r2 patch4d655bfa2896b4ce45f9b3607f1783bd60f30e168f31ed05b759a1bca3567580; manifest e5503f94db6c43dd34cec42ebd375120c85a2bd5168c6fe5b71ea806b4601890.
+
+The earlier negative timing failure remains preserved at5424a6c1. A reviewed duplicate-positive-read removal retains real strict admission, full state equality, all hostile reader/writer calls, first-cause checks and purity. Its focused three-leaf run passes3815.628/629.981/638.158ms; the current compiler and32 run qualify the combined candidate.
+
+Two genuine R03 history controls retain nonzero paid claims and an authentic active run at132, settled134 and archived144, public49 migration and lossless same-boundary48 downgrade. This is not actual49 continuation, simultaneous D-sale/run proof, or fabricated historical rights activity. Original captures and the disclosed wrapper98 reconciliation remain at5424a6c1.
+
+Recoverable source patch, exact pre/postimages, original RED, focused negative result, runner guards and full raw coherent evidence are in the hash-verified archive. Local process inventories are excluded. Production gameplay remains Save48 source tree476b387d65a4c427dc0f6120724e946cf22d7969. P16 is not landed or accepted: buyer-C, real absorption/work/research, rights policy, finance, remaining transaction compositions and broader consumer/player gates remain. Continue the existing HANDOFF requirements list.

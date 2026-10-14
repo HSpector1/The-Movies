@@ -1,0 +1,85 @@
+{
+  "disposition": "All3 actual negative/rollback tests qualified under5000; pairedwith actual13M success3407ms; no wholeP16 acceptance",
+  "terminal": {
+    "overallExit": 0,
+    "groups": {
+      "estate-red": 0
+    },
+    "scope": "complete negative3 only; new test helper not compilerqualified; noacceptance claim",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "estate-red",
+      "exit": 0,
+      "startEpoch": 1791935818,
+      "endEpoch": 1791935828,
+      "seconds": 10,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-d-negative-r2-run/results.json",
+        "tests/p16-estate-d-join-negative.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-estate-d-negative-r2-run/estate-red.log"
+    }
+  ],
+  "rows": [
+    {
+      "ancestorTitles": [
+        "P16 joinedD strict-save corruption and actual publication rollback"
+      ],
+      "fullName": "P16 joinedD strict-save corruption and actual publication rollback refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source",
+      "status": "passed",
+      "title": "refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source",
+      "duration": 3815.628433,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "ancestorTitles": [
+        "P16 joinedD strict-save corruption and actual publication rollback"
+      ],
+      "fullName": "P16 joinedD strict-save corruption and actual publication rollback refuses extra estateSaleProceeds and an extra buyer rights debit even with their matching cash changes",
+      "status": "passed",
+      "title": "refuses extra estateSaleProceeds and an extra buyer rights debit even with their matching cash changes",
+      "duration": 629.9808720000001,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "ancestorTitles": [
+        "P16 joinedD strict-save corruption and actual publication rollback"
+      ],
+      "fullName": "P16 joinedD strict-save corruption and actual publication rollback a real strict49 D publication refusal cannot publish partial sale cash claims or archival",
+      "status": "passed",
+      "title": "a real strict49 D publication refusal cannot publish partial sale cash claims or archival",
+      "duration": 638.1579399999991,
+      "failureMessages": [],
+      "meta": {}
+    }
+  ],
+  "strictChecks": 3,
+  "strictErrors": 0,
+  "sourceFiles": 1590,
+  "inputs": 41,
+  "candidatePatchSHA256": "e8d72ea392a639f1727a77b402bf28070f883a76df4ac9d4392ac7e0bbddf62a",
+  "compileLimit": "same product source retains actual priorroot0/47; changedtesthelper notfreshcompilerqualified; nextcoherentgatecompiles",
+  "firstCauses": [
+    "{\"proof\":\"p16-D-hostile-first-refusal\",\"label\":\"missing-saleReceipt\",\"strict49\":\"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts\",\"writer\":\"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts\"}",
+    "{\"proof\":\"p16-D-hostile-first-refusal\",\"label\":\"duplicate-saleReceipt\",\"strict49\":\"validateSaveP15B: studioClosure estate event estate-event-1 is out of append order or at or above nextEstateEvent\",\"writer\":\"validateSaveP15B: studioClosure estate event estate-event-1 is out of append order or at or above nextEstateEvent\"}",
+    "{\"proof\":\"p16-D-hostile-first-refusal\",\"label\":\"amount-saleReceipt\",\"strict49\":\"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts\",\"writer\":\"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts\"}",
+    "{\"proof\":\"p16-D-hostile-first-refusal\",\"label\":\"foreign-saleReceipt\",\"strict49\":\"validateSaveV49: estate join sale intake differs from actual estate transaction\",\"writer\":\"validateSaveV49: estate join sale intake differs from actual estate transaction\"}",
+    "{\"proof\":\"p16-D-hostile-first-refusal\",\"label\":\"extra-estateSaleProceeds\",\"strict49\":\"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts\",\"writer\":\"validateSaveP15B: studioClosure closure studio-closure-1 estateSaleProceeds period 3 does not match its actual intake receipts\"}",
+    "{\"proof\":\"p16-D-hostile-first-refusal\",\"label\":\"extra-buyer-rights-debit\",\"strict49\":\"validateSaveV49: rights.transactions studio-aca408ec-player rightsConsideration -13000001 does not reconcile with its rights transactions (-13000000)\",\"writer\":\"validateSaveV49: rights.transactions studio-aca408ec-player rightsConsideration -13000001 does not reconcile with its rights transactions (-13000000)\"}"
+  ]
+}

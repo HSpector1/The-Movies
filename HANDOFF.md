@@ -1,21 +1,21 @@
 # HANDOFF
 
-Last writer: Codex (parent; specialists GPT-6.1 Sol), 2026-10-13 18:53 CDT
+Last writer: Codex (parent; specialists GPT-6.1 Sol), 2026-10-13 19:17 CDT
 
-## CURRENT — P16 closing-day settlement works; finish focused qualification, then remaining P16
+## CURRENT — P16 settlement, seller-held rights and historical migration qualified; finish remaining P16
 
 Owner's latest **P16 COMPLETION FOCUS** continues founding → P15B → P16 → P17 → boundedP18. First finish existing closing-day settlement and atomic refusal with admitted inputs; then group and close remaining adopted P16 requirements. No temporary upstream adapters at acceptance. Preserve P17/P18 drafts but do not activate implementation until actual dependencies qualify. Parent sole production writer/scheduler, independent test/review ownership, one intensive tree globally, up to three GPT-6.1 Sol specialists. Focused corrections now, broader gates at coherent integration points. No reviewer-of-reviewer swarm, main merge, REA, new assets/dependencies/engines or maintenance campaign. Disk/iCloud/preview/photos closed; address storage only after an actual required preflight fails. No acceptance waiver.
 
-**Lessons — Owner instruction:** update [Major lessons to carry forward](#major-lessons-to-carry-forward) at substantive safe checkpoints. New84 records actual settlement/rollback versus timing qualification and removing duplicate work without dropping game assertions;85 preserves an AUTO-race recorder failure while separately reconciling useful captured inputs. Next agent must read and carry these forward.
+**Lessons — Owner instruction:** update [Major lessons to carry forward](#major-lessons-to-carry-forward) at substantive safe checkpoints. Lessons84–85 preserve timing and recorder incidents;86 records actual held-title closure and historical compatibility qualification. Next agent must read and carry these forward.
 
 ### Where the work is
 
 R=/Users/zacheryspector/The-Movies-headless-program; S=/Users/zacheryspector/studio-scratch; K=/Users/zacheryspector/studio-specialists; A=S/1370-astra-takeover-20261012; E=R/docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012. Node20.20.2 from ~/.nvm/versions/node/v20.20.2/bin; Python R/.venv/bin/python3 -I -B. EveryGit: -c gc.auto=0 -c maintenance.auto=0 --no-optional-locks.
 
-- Production wip/headless-program-20260916-ts, explicitHTTPS remote https://github.com/HSpector1/The-Movies.git / refs/heads/wip/headless-program-20260916-ts. Before this evidence checkpoint local/remote/FETCH_HEAD1436436c154c94744a927dc30d3f10f5781b3050; source remains476b387d65a4c427dc0f6120724e946cf22d7969, Save48 landed2c3024e203abec74db95b8c01334723f10595ed2. Verify containingHEAD and A/p16-estate-settlement-checkpoint-VERIFIED.json afterpublication; never reset newerwork.
-- K/p16 branch p16/save49-on-2c3024e2 at2c3024e2,125 stagedpaths. Current A/p16-estate-d-success125-r2 PATCHa63d3c9b622d7833278a1fe41668be178d4ab409b221251d75d2973abf3cb6f2 / MANIFESTae1c9ee95a2e45c690cb88ebe19995a3a58e7faf83d692c524804e0b1a51c56d. ExactD14 source; test-only migrationexpectation+negative3+reviewedsuccessharness. Only K HANDOFF localmetadata unstaged. P16 notlanded.
+- Production wip/headless-program-20260916-ts, explicitHTTPS remote https://github.com/HSpector1/The-Movies.git / refs/heads/wip/headless-program-20260916-ts. Before this checkpoint local/remote/FETCH_HEAD5424a6c153cc29c0144fb3c4b4b41d1c5393c695; source remains476b387d65a4c427dc0f6120724e946cf22d7969, Save48 landed2c3024e203abec74db95b8c01334723f10595ed2. Verify containingHEAD and A/p16-held-title-checkpoint-VERIFIED.json afterpublication; preserve newerwork.
+- K/p16 branch p16/save49-on-2c3024e2 at2c3024e2,127 stagedpaths. Current A/p16-held-title-history127-r2 PATCH4d655bfa2896b4ce45f9b3607f1783bd60f30e168f31ed05b759a1bca3567580 / MANIFESTe5503f94db6c43dd34cec42ebd375120c85a2bd5168c6fe5b71ea806b4601890. D14 source plus reviewed two-file held-title fix, seller/context and history controls, reviewed negative/success harnesses. Only K HANDOFF localmetadata unstaged. P16 notlanded.
 - Original190/191/restack preserved05cc62f5/12757d13 and A/p16-restack-preservation-20261013-r1,p16-save49-premerge-r1; previous114/116/119 packets and allfailures preserved. No reconstruction.
-- Required reading: E/OWNER-ORDER.txt; E/P15B-final204-continuation/PARENT-LANDING-DISPOSITION.md; E/P16-estate-settlement-qualified/README.md and fourparentresults; earlier P16-estate-initial-green-and-d-red; A/P16-ESTATE-JOIN-AMENDMENT-R2.md, P16-REMAINING-AUTHORITY-RECOVERY.md, P16-ESTATE-D-IMPLEMENTATION-MAP-R1.md. AdoptedR2/actualclosure claimpriority; no new Owner question.
+- Required reading: E/OWNER-ORDER.txt; E/P15B-final204-continuation/PARENT-LANDING-DISPOSITION.md; E/P16-held-title-and-history-qualified/README.md and threeparentresults; E/P16-estate-settlement-qualified/README.md;  earlier P16-estate-initial-green-and-d-red; A/P16-ESTATE-JOIN-AMENDMENT-R2.md, P16-REMAINING-AUTHORITY-RECOVERY.md, P16-ESTATE-D-IMPLEMENTATION-MAP-R1.md. AdoptedR2/actualclosure claimpriority; no new Owner question.
 
 ### What now works and actual evidence
 
@@ -31,24 +31,28 @@ Negative18 session30327 terminal1: root0/63s, child0/32s, all18assertionsPASS, f
 
 OriginalR03 public48 R1 session64830 failed elapsed9227msbeforeanyoutput; preserve. R2 session64542 child0/9s/PASS3725.162805ms writes genuine130/131/132/134/144; wrapper98 dueAUTOcapture stabilityrace. Originalpostfreeze0bytes/onlyonecompletedcheck, NOTgreen. Separate A/p16-original48-r03-r2-reconciliation-r1 strictcomparison confirmsunchanged1556source16inputs/HEAD/index/nonAUTO; parentcomparedsameenvelopes+fivecapturehashes and explicitlyadoptsinputconstituents withincident in P16-ORIGINAL48-R03-CAPTURE-R2-PARENT-RESULT.json. Week132 actualclaimspaid60006/claimPayment−60006/runreceipt360007.48047857336/film13active; settled133seen134 beforeD144. No loanprincipal/installments inR03; R04separatepositivecontrols. Future49tests mustadmitoriginal48, no fabricatedhistory or simultaneousDsale/run claim.
 
+**New qualified coherent checkpoint:** A/p16-held-title-regression-r1-run session91136 terminal0; root0/46s and eightcompletefiles32P0F0skip0todo/core0/35s, all≤5000ms (max4129.415715ms). Five strictchecks/errors0, independently compared1592source61inputs and all32 identities. Realpublicsale sellerC previously failed expected9/actual10 at820ms; exactRED preserved. Held-sourceR2 now uses actualC ownership while binding allnonrights context and preserving frozen48 creator-law; seller/control leaf1845.813924ms. Dsuccess3424.526775ms, actualcurrentC/D rollback passed. OriginalR03 history2 also passed original48→49 and same-boundarylossless48, including positiveclaims and authenticactive-run132; no49run-continuation claim. A/P16-HELD-TITLE-REGRESSION-R1-PARENT-RESULT.json.
+
+Negative timing repair now qualified: complete3 focused session74560 terminal0 at3815.628433/629.980872/638.157940ms, three strictchecks0. Removed only duplicated positive reader after realmakeSave, added fullcurrentversion/stateequality, retained every hostile reader/writer assertion and actualfirstcauses. Currentcoherent32/root closes its compilerqualification. The earlier9502ms result remains historicalunqualified, not overwritten.
+
 ### Existing P16 remaining requirements — update here, not another planning package
 
 | Group | Closed evidence / remaining requirement |
 |---|---|
-| Closing-day settlement | Singleactual13M fulltransaction/save/replay qualified3407ms; realpublicationrollback qualified1002ms. Missing/duplicate/amount/foreignreceipt semanticsPASS but9502ms timingOPEN: minimalduplicatepositive-admission harnessr3 prepared, uninstalled. Remaining twoestates/reservations/order; bidderlosesstable/gainsloanatD; negative/equal/excessclaimcash beyondpartialcontrol; direct/player/6240 faultcomposition. |
-| Closure/title/run handoffs | InitialCactualhandoff and genuine48observation qualified. CurrentP15 creator-owned inventory afteractualbuy/sale is a genuinegap; A-onlyheld-title source r1 required explicitfrozenhelper and ALL nonrights titlecontext binding; r2prepared, independentreviewpending. Mustprove realpublicsale→sellerC andboughttitle→buyerC, frozen48unchanged. R1/encumbrances, actualactive-run/afterD receipts and multi-estate composition remain. Do notaccept structural stand-ins. |
-| Historical compatibility | GenuineR03 positiveclaim/run input now available withexplicitrecorderincident; A/p16-r03-migration-draft-r1 twoleaves uninstalled/unrun. Zero-lift15 qualifiedafterfourthmoneyfield repair. Need positiveclaim roundtrip/downgrade/continuation, oldera refusal and coherent frozenfixture fallout; keep authenticC/D observations. |
-| Healthy acquisition/absorption | Still throwingstub. Implement realabsorbedterminal, linked newemployer contractIDs/unchangedbargain/no secondbonus, actualperson/capacity/work/run disposition, exitcashonce, completedknowledge and retained cancelledresearchhistory. ActualP15 condition/loan bind alone isinsufficient; no fakeclosurecast or temporaryacceptanceadapter. |
-| Rights policy and financial presentation | F17 explicitversionednumericquote min/max age is delegatedproducerwork withreview, notOwnerblocker; F40 separateFinanceTotals/Bridgefield remains. Actual795/fulltickoffers, rights/UI/Bridge/generator integration remain. No policysearch orsilentwaiver. |
-| Coherent integration and acceptance | Rootcurrent1250/47. EarlierUI/Bridge0 belong114, notfreshD14qualification. Focusedcorrections then coherent broadercore/UI/Bridge/generator/identity-attributed gates; P15B retainedlimitsbelow. TechnicalP16landing separatecross-system/playeracceptance. Only then P17 andboundedP18 dependencies. |
+| Closing-day settlement | Actual13M fulltransaction/save/replay, hostile missing/duplicate/amount/foreignreceipt/extracredit/debit and realpublicationrollback nowqualified within5000ms; coherent32/root0. Remaining twoestates/reservations/order; bidderlosesstable/gainsloanatD; negative/equal/excessclaimcash beyondpartialcontrol; direct/player/6240 faultcomposition. |
+| Closure/title/run handoffs | ActualsellerC held-title repair qualified with realpublicsale, contextmutants and frozen48unchanged; creatorhistory retained. BuyerC publicroute drafted, unrun. R1/encumbrances, actualactive-run/afterD receipts and multi-estate composition remain. No structuralstand-ins. |
+| Historical compatibility | GenuineR03 positiveclaim/active-run input migration, settled/archive roots and same-boundary48 downgrade nowqualified in twoleaves; zero-lift15 and originalR04 observations also coherentgreen. Actual49 continuation withrun and broader oldera/frozenfixture fallout remain. No inventedhistory. |
+| Healthy acquisition/absorption | Still throwingstub inK. A/p16-absorption-producers-r1 inprogress: realabsorbedterminal, linked newemployer IDs/bargain/no secondbonus, actualperson/capacity/work/run disposition, cappedexitcashonce, completedknowledge and cancelledresearchhistory. Clean-target increment alone cannotcloseP16; no fakeclosurecast or temporaryacceptanceadapter. |
+| Rights policy and financial presentation | F17 explicitversionednumericquote min/max age delegatedproducerwork, notOwnerblocker. F40 ninefile A/p16-finance-presentation-r1 draft prepared; independentreview underway, uninstalled/unrun; Bridgeprojection59 generation and consumerproof required. Actual795/fulltickoffers/rights/UI remain. |
+| Coherent integration and acceptance | Rootcurrent1270/46 and selected32 qualified. EarlierUI/Bridge0 belong114, notfreshheldsourcequalification. Focusedcorrections then required broadercore/UI/Bridge/generator/identity-attributed gates; P15B limitsbelow persist. TechnicalP16landing separatecross-system/playeracceptance. Only then P17 andboundedP18. |
 
 ### Active ownership and exact next action
 
-No recordedrun active at this checkpoint. All production/source/index writes parent-only. founding_review_sol authored A/p16-estate-d-join-negative-draft-r3, parentmustreview/installaftercheckpoint: keep realmakeSave, exactcurrentversion/fullsavedstate equality/purity, remove onlyredundant secondpositive read; allhostile directreader+writer calls andfirstcauses remain. Measurecompleteaffected3 only/default5000 withexistingminimalrunner/identityguards; broadergatesdeferreduntilcoherentsourcepoint. Do notrerununmodified9502ms testcase toseekpass.
+No recordedrun active at this checkpoint. Parent soleproduction/source/index writer. First review/install founding_review_sol's A/p16-held-title-tests-r2/p16-held-title-buyer-public.test.ts and execute its completeoneleaf using prepared A/p16-held-title-buyer-runner-r1 afterfreshpreflight/pins. FixedactualR04film0purchase→publiccampaigns163blitz/169push/175whisper/181push→ordinaryticks toactualplayerclosure; no cash/history/time fallback, no loans/defer. Firstunmetpremise and any overbudget stayreal failures; setupinsideunchanged5s. Parent removed soleunusedvalidateSaveV49import; semanticroute unrun.
 
-bridge_loan_choice_sol prepared A-only held-title r2 repair fromindependentreview (noKwrite); founding_recovery_sol reviewingr2. Source/testKfrozenon125r2 above. R03migrationdrafthelduntilclosing-day groupqualifies. Parent checkpointpush+explicitremoteverification thencontinue actualimplementation; thisHANDOFF isnotstopwork.
+bridge_loan_choice_sol remains A-only actualabsorptionproducer author; founding_review_sol independently reviews F40 source; founding_recovery_sol prepares A-only buyer runner. No extra reviewers or parallelruntime. Follow buyerproof with reviewedrealabsorption/F40 implementation, retaining allactualwork/run requirements. Parentcheckpointpush+explicitremoteverification thencontinue; thisHANDOFF isnotstopwork.
 
-Solelane S/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh SHAaff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e. Launch3670016KiB/runtime3145728 unchanged; latestsuccesspreflight3956360KiB/AC/noheavy. No R/K/source/index/HANDOFFwrites during recordedrun; preserveforeigncaffeinate98123/activecoding. Freshoutputs/strictAUTOhelper/nestedfilemaps. Resources released afterterminal; no cleanup without actualfailedpreflight.
+Solelane S/1370-c0-stage41-heavy-lane-recovery-proposal-r8/lane-run-r8.sh SHAaff8e9749cd3e33de874931dbf258fc13ceb79d2f7ea44fcc56816db85af3f2e. Launch3670016KiB/runtime3145728 unchanged; coherent32preflight3930112KiB/AC/noheavy. No R/K/source/index/HANDOFFwrites during recordedrun; preserveforeigncaffeinate98123/activecoding. Freshoutputs/strictAUTOhelper/nestedfilemaps. Resources released afterterminal; no cleanup without actualfailedpreflight.
 
 ### Retained P15B qualification limits
 
@@ -751,17 +755,19 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 85. A zero-byte final freeze and empty error file do not establish a passed postflight. The R03 producer completed within budget, but a legitimate AUTO stamp changed during the recorder's double-read; the original wrapper98 stays failed. A separate strict source/input/index/exterior reconciliation plus exact output hashes can preserve usable captured-input constituents with a disclosed incident. Never silently overwrite the failed receipt or claim continuous observation. [Incident and reconciliation](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P16-estate-settlement-qualified/P16-ORIGINAL48-R03-CAPTURE-R2-RESULT-REVIEW.md).
 
 
+86. Creator history and current ownership serve different purposes. A real public sale exposed a closure inventory that still counted the seller's ten created films instead of its nine retained titles. Derive current closure inventory at the actual closure week, keep creator history and frozen predecessor rules intact, and bind the entire supplied save context before using it for title resolution. The recorded RED and complete32-test compiler-qualified pass now establish this repair; buyer closure and actual49 run continuation remain separate obligations. [Measured repair and historical controls](docs/engineering/playability-launch-review/evidence/p14b4-20260919/1370-astra-takeover-20261012/P16-held-title-and-history-qualified/README.md).
+
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-13 18:36 CDT by **codex** on PreCompact (session 01a13050-fe8f-7903-9af3-0a45b7130787)
-- Branch: `wip/headless-program-20260916-ts` @ `1436436c154c94744a927dc30d3f10f5781b3050`
+- Stamped: 2026-10-13 19:11 CDT by **codex** on PreCompact (session 01a13050-fe8f-7903-9af3-0a45b7130787)
+- Branch: `wip/headless-program-20260916-ts` @ `5424a6c153cc29c0144fb3c4b4b41d1c5393c695`
 - Upstream: `none`, unpushed commits: ?
 - Uncommitted files: 1
   - `M HANDOFF.md`
 - Last commits:
+  - 5424a6c1 Qualify P16 estate settlement and preserve rollback and capture evidence
   - 1436436c Preserve qualified first estate join and closing-day integration failure
   - ac552307 Preserve genuine Save48 captures and measured P16 estate integration failures
   - 67077b72 Preserve qualified Save49 compiler checkpoint and exact next estate proofs
   - f130f652 Preserve Save49 restack and completed iCloud disk recovery
-  - 2c3024e2 Land qualified P15B Save48 source and preserve open acceptance gates
 <!-- AUTO:END -->

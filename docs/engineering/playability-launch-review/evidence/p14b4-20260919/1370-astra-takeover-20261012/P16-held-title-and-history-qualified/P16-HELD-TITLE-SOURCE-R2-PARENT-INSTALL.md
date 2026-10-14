@@ -1,0 +1,3 @@
+# Parent held-title source r2 installation
+
+Installed exactreviewedtwofilepatch afteractualqualifiedRED expected9 actual10 (sellerpublicsale→C reached), preservingoriginalD14source/postcandidate. SourceusesactualheldR2 atoriginalC andkeepscreatorhistory. Frozenreaderexplicitcreatorhelper; currentfullcontext requiresALLnonrights key/value/refidentity fromprivateSave49owner. No globalcurrent-era default orinjectedtitleinventory. IndependentR1findings correctedandR2KEEP; parentinspectedfullpatch andactualstripP16Root shallowsemantics/holderAtC/observed48 D ordering. Sourcepre/posthashes verified; sourcegatepending targettestboundaryadditions. Noauthorchanges toR/K; parentsolewriter.
