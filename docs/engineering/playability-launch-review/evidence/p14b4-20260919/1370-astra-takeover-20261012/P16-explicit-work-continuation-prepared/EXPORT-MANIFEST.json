@@ -1,0 +1,1514 @@
+{
+  "status": "STATIC SOURCE/REVIEW CHECKPOINT; no new runtime results or P16 landing",
+  "created": "2026-10-13T22:27:03.009236-05:00",
+  "archive": {
+    "path": "evidence.tar.gz",
+    "bytes": 2935233,
+    "sha256": "4b80a7c9f455477f98e453f84b0c990125327629edc21e443ed1d71cc8eba1b0",
+    "members": 250
+  },
+  "members": [
+    {
+      "path": "P16-ABSORPTION-CONTINUED-PRODUCTION-TESTS-R3-INDEPENDENT-REVIEW.md",
+      "bytes": 2308,
+      "sha256": "68e6dea22e7330927a9e1ad2a4588bc74a888a9deca814c77f1a50690cf5007c",
+      "mode": 420
+    },
+    {
+      "path": "P16-ABSORPTION-R9-R2-INDEPENDENT-REVIEW.md",
+      "bytes": 3208,
+      "sha256": "67993deac018a79cd602ab540ddc17f89cd124f4c96c1bab67456515c4daeab3",
+      "mode": 420
+    },
+    {
+      "path": "P16-ABSORPTION-R9-R3-PARENT-DELTA-REVIEW.json",
+      "bytes": 483,
+      "sha256": "a8fd1f40627b6430ed351e91ca01370ad6b5c57347e9c2ede547c93e51755160",
+      "mode": 420
+    },
+    {
+      "path": "P16-BRIDGE61-COMPOSITION-R1-INDEPENDENT-REVIEW.md",
+      "bytes": 1820,
+      "sha256": "fde2b3c82cd596fe122406668678d46c5059ffba99a5bf4612c7ea4df584ba45",
+      "mode": 420
+    },
+    {
+      "path": "P16-CONTINUED-WORK-VALIDATION-PARENT-INDEPENDENT-REVIEW-R1.md",
+      "bytes": 3202,
+      "sha256": "4312caf1bc018d6c068fdb89a7553a1879bd92e18b0d521f82a271cbf9577ee6",
+      "mode": 420
+    },
+    {
+      "path": "P16-CONTINUED-WORK-VALIDATION-PARENT-R2-INDEPENDENT-REVIEW.md",
+      "bytes": 1559,
+      "sha256": "e6b039ff44e62aa800d60eaa58f3ff7d348c0e9a55fa762441f6190d121d7635",
+      "mode": 420
+    },
+    {
+      "path": "P16-NATIVE-RIGHTS-CONSUMER-R2-PARENT-REVIEW.md",
+      "bytes": 2811,
+      "sha256": "c4f830b9a833ad929552bf9c45eb5023778e07e32f030a9a30ba3200fbb4f119",
+      "mode": 420
+    },
+    {
+      "path": "P16-NATIVE-RIGHTS-CONSUMER-R3-INDEPENDENT-REVIEW.md",
+      "bytes": 2405,
+      "sha256": "5a10c9dbaab73bdef2f2be6f8d314fe7e10a2e4ee2b132e755335c7acf13149d",
+      "mode": 420
+    },
+    {
+      "path": "P16-R9-WORK-RECORD-CONTRACT-R1.md",
+      "bytes": 5811,
+      "sha256": "1846a6cc46efaccf5d4024a7cd992a9656026b94c2e91851a838a905bdcc86fd",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-continued-production-tests-r1-skeleton/EXPECTED-IDENTITIES.json",
+      "bytes": 524,
+      "sha256": "e0866126b9f6fe95acbe2c0bbe227a839470ec750fbfb4251f7e1bfb746301f2",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-continued-production-tests-r1-skeleton/MANIFEST.json",
+      "bytes": 484,
+      "sha256": "c73de0dc4665e5f2acd596be55430daf15be3601c36c2d00cd2392d76d1d8d66",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-continued-production-tests-r1-skeleton/REPORT.md",
+      "bytes": 710,
+      "sha256": "5f4641fd1f1a9ce2dcf9c5711d800f904673c0216fe1ef922179d000a8474f15",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-continued-production-tests-r1-skeleton/SOURCE.patch",
+      "bytes": 9980,
+      "sha256": "eb3ad57c2f1c1c6df6c544532b8bdf30ad61d9f54842c9b95f3b70a20c5497c1",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-continued-production-tests-r1-skeleton/p16-absorption-continued-production.test.ts",
+      "bytes": 9625,
+      "sha256": "f3a66178ad4b4eed4179285ab9c42f730f5ec5ab340272e30ebb62b8504d9e18",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-continued-production-tests-r2-skeleton/DELTA.patch",
+      "bytes": 3583,
+      "sha256": "931259073c10741df25adc18db151aa9b46ea7db517522c87ff24e4bd1240fad",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-continued-production-tests-r2-skeleton/EXPECTED-IDENTITIES.json",
+      "bytes": 524,
+      "sha256": "e0866126b9f6fe95acbe2c0bbe227a839470ec750fbfb4251f7e1bfb746301f2",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-continued-production-tests-r2-skeleton/MANIFEST.json",
+      "bytes": 723,
+      "sha256": "24ac0bd54178be3bb65877254912162d9d6e5e7501db908da1c8076d4f964195",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-continued-production-tests-r2-skeleton/PREIMAGE.ts",
+      "bytes": 9625,
+      "sha256": "f3a66178ad4b4eed4179285ab9c42f730f5ec5ab340272e30ebb62b8504d9e18",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-continued-production-tests-r2-skeleton/REPORT.md",
+      "bytes": 674,
+      "sha256": "213f78d705917b7d881d82b9649e6668a4446bd81cfa1fadb48722378a2f33e9",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-continued-production-tests-r2-skeleton/p16-absorption-continued-production.test.ts",
+      "bytes": 11417,
+      "sha256": "3f9562f8b6f1c6a01903a8efcde4c543b0efcf735da95c985e78c655afcc933c",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-continued-production-tests-r3/DELTA.patch",
+      "bytes": 16128,
+      "sha256": "69f70abde76ca2957482f56a282070bf27b73f867408797868b6baa74a7e9ea0",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-continued-production-tests-r3/EXPECTED-IDENTITIES.json",
+      "bytes": 774,
+      "sha256": "81795d0a1426c4d8139f23f8f4ab7e2f01306f056d39b3b2a33f29d146551a6f",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-continued-production-tests-r3/MANIFEST.json",
+      "bytes": 804,
+      "sha256": "934eaec9bd8d1de9027ca7277ebfc720edab332d0c2ba91c905d0c8e359cc21f",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-continued-production-tests-r3/PREIMAGE.ts",
+      "bytes": 11417,
+      "sha256": "3f9562f8b6f1c6a01903a8efcde4c543b0efcf735da95c985e78c655afcc933c",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-continued-production-tests-r3/REPORT.md",
+      "bytes": 982,
+      "sha256": "46b2a18c670f9a0326d1f36be83b00c81bb69575150476a10d76258af01396ec",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-continued-production-tests-r3/SOURCE.patch",
+      "bytes": 17417,
+      "sha256": "39fa0d7198e532f20d1690d5380b418b8e4c36bffdae55a0f90dbeb1d81da034",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-continued-production-tests-r3/p16-absorption-continued-production.test.ts",
+      "bytes": 16991,
+      "sha256": "443a8b3e45e3a9fc5f9cd3ddd37f9c8c0d273968f038f13217113521d8485027",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/MANIFEST.json",
+      "bytes": 6433,
+      "sha256": "5fe2a5c7c7ec5eba66b60d1ef6256cc7b709cf5e2e3b5ed3187eeaeabdb239e2",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/REPORT.md",
+      "bytes": 4488,
+      "sha256": "23ae3916144419a9d3b96a7a40589350df1ce32f9e6197c115fd38b9424a0b95",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/SOURCE.patch",
+      "bytes": 74658,
+      "sha256": "796a410db95c703ccb47f6b5af9485e4a42e202b5b6ecec8e6ff06f9bdea4041",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/postimages/bridge/release.ts",
+      "bytes": 4252,
+      "sha256": "910793485ef37538eb3fcf5014aa66a6728e05ac141f4e81833652aeca4640b9",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/postimages/bridge/session.ts",
+      "bytes": 100184,
+      "sha256": "1188b9fb2a74b136a5242db67cc3c3f650d594b2ac5edebfc827cfe15e55d1f6",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/postimages/src/core/absorbedRuns.ts",
+      "bytes": 7439,
+      "sha256": "54b364d82ec0f21ac5a01e6413397025c4f8db9c7a17ab61c65767ac116eb497",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/postimages/src/core/absorbedWork.ts",
+      "bytes": 4244,
+      "sha256": "94a32945595a05f81e8389133cf54f8346fecb8320dee5f79286e46c033a08a5",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/postimages/src/core/acquisition.ts",
+      "bytes": 52993,
+      "sha256": "1ccae7daeede8193efd2a7f0419b9d5740d1fb598bb21644e95d2f0af675629b",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/postimages/src/core/actions.ts",
+      "bytes": 134628,
+      "sha256": "ec25165ede67cf19ae14442f0b43d25dcd394a4a4dbe7bcd9c29387500b6d816",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/postimages/src/core/continuedWork.ts",
+      "bytes": 8941,
+      "sha256": "0a31e1d7dd676a10b2f449327f03291bfce44340f7f1f6288b621d326a0c2d87",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/postimages/src/core/employment.ts",
+      "bytes": 30020,
+      "sha256": "0fceaca2610c2a0892217cb14f2c3246d090626ed00acad6a95b79cbe67197b4",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/postimages/src/core/hollywoodTick.ts",
+      "bytes": 48946,
+      "sha256": "b0b7569b2ef9745ec20cf9e013bebdae5afffa7c1da7446521c27e4b04eb93da",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/postimages/src/core/hollywoodValidation.ts",
+      "bytes": 65261,
+      "sha256": "fbf374def0e02ce24517fbf455800e28cb89aa964e85898a1c228874b6cd8717",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/postimages/src/core/marketIntegration.ts",
+      "bytes": 17810,
+      "sha256": "2c6e5b2866005807f3c5f8fac0b3b42bd396cfc77b365394d2146d1ec40c2f4a",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/postimages/src/core/occupancy.ts",
+      "bytes": 32033,
+      "sha256": "35131b9778c59bf0d5e12d871ac23c2e6d2141a1320fc1c92c5138a3608b295c",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/postimages/src/core/releaseAuthority.ts",
+      "bytes": 9869,
+      "sha256": "3102dc3735605f9bd0c870b55d11da4c0599971319b594a3028d69d671d01081",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/postimages/src/core/rights.ts",
+      "bytes": 101879,
+      "sha256": "9e548217d2f106f845568dedf60854a63840d56528473b31c570df0a90c7a907",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/postimages/src/core/rightsTick.ts",
+      "bytes": 4394,
+      "sha256": "a83b24400faf2819008030157ef3feff8c6b8cd47c93e570d62d08afb4d49860",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/postimages/src/core/scriptReadModel.ts",
+      "bytes": 58459,
+      "sha256": "93b3c99876c0c252a63388f5fd8c3df97d8a704f81ce22666f068f4a010875ef",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/postimages/src/core/studioClosure.ts",
+      "bytes": 81132,
+      "sha256": "6ab3c5fd96a8bf0ebf83e5cdcc77eef8952d3fea9363b315e5aadbc04f50d1f0",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/postimages/src/core/tick.ts",
+      "bytes": 69353,
+      "sha256": "9716a4221855c679f1a3328d6672cf5749c93f43f8351e3d19e4701293d3c8a5",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/preimages/bridge/release.ts",
+      "bytes": 4006,
+      "sha256": "81fc9efbdfe3951ef6cb06b5c1cda40fdb1966a4cbd46e89a3c840034484f183",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/preimages/bridge/session.ts",
+      "bytes": 99948,
+      "sha256": "a2072ee0181ca0d059e8c99228d1d1b52196d952ef51b51bf80b5a076ed164ce",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/preimages/src/core/absorbedRuns.ts",
+      "bytes": 6867,
+      "sha256": "66e9bc5d21cfe48760f3bac6b22db76a5cd5795246bdf20f727e945e215203c2",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/preimages/src/core/absorbedWork.ts",
+      "bytes": 4089,
+      "sha256": "40cf388f674e07f2423f220d156b5fe6d7b608a9a345652cef7e9a7805f6d050",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/preimages/src/core/acquisition.ts",
+      "bytes": 51466,
+      "sha256": "aacc56af685ec11e5b89daa012343becdeeb8aa805d7c895024ffe9cdcf847e0",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/preimages/src/core/actions.ts",
+      "bytes": 134189,
+      "sha256": "e5606b348e7322c4d6ff40b0d364e4947e429398a67c18c972f2d997d921d192",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/preimages/src/core/employment.ts",
+      "bytes": 29955,
+      "sha256": "95e95da58a5d41cea13677d2ddbae923ea1ef737e5c0dc7a30872cb378e7c9b0",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/preimages/src/core/hollywoodTick.ts",
+      "bytes": 45838,
+      "sha256": "aa5d9e2184fcfb5bd3f0e80290e7cc576030bf7b0edd95ea536455282d23d9f5",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/preimages/src/core/hollywoodValidation.ts",
+      "bytes": 64678,
+      "sha256": "c05ec2fd7b076eecb91b4e9c8e01a15b7e403e41b6e16148bfad233bda8ff3e8",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/preimages/src/core/marketIntegration.ts",
+      "bytes": 17293,
+      "sha256": "cb701cc3a8cb34664f54db6daa708354eec96ede264323b094bd152be6278930",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/preimages/src/core/occupancy.ts",
+      "bytes": 31596,
+      "sha256": "e9f66c3d225d8fe9f47d52ce18fc1ca00c587d24ec84f4dc70e9b0ab29a85122",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/preimages/src/core/releaseAuthority.ts",
+      "bytes": 9646,
+      "sha256": "9ab259623d3b5f5f75f1d750168e68ccb5c14d27d96f06f4656985db8064b218",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/preimages/src/core/rights.ts",
+      "bytes": 100093,
+      "sha256": "768f866f7af777e2e2ac3d6d18f286dfebc3ed8c56b14e9785afae28fbbe351c",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/preimages/src/core/rightsTick.ts",
+      "bytes": 3665,
+      "sha256": "6397c3ae890ac0dc4c8aa2550f21b460790a48e017d4170b6043713892bc05e9",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/preimages/src/core/scriptReadModel.ts",
+      "bytes": 58205,
+      "sha256": "c0ee15d37264b8329de70cb37e525a4644518497527763eccdf00fc5cac73616",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/preimages/src/core/studioClosure.ts",
+      "bytes": 79958,
+      "sha256": "95eadb6e8945a08cf827819eaa2ae1fa88090d3fdff85f089c6554a1481cadac",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9/preimages/src/core/tick.ts",
+      "bytes": 67710,
+      "sha256": "cac0098e57c02776d9575bb3f2837ec16c99b91d3fab00f25f7bad8d1537051a",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/MANIFEST.json",
+      "bytes": 6528,
+      "sha256": "e250f6ef3ca8f79655d8438d764eb65d28fb6fc4b1f443f4af6ae6da07d7da71",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/R9-R9R2.patch",
+      "bytes": 762,
+      "sha256": "822264781b238f3673559bff717296222c9b6a6db661f8bc40658f97d30cfa08",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/REPORT.md",
+      "bytes": 4878,
+      "sha256": "dad384ea3ab3b14eb6493720dd20d9d17150c0cb240f8ef673ab0411b9d85423",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/SOURCE.patch",
+      "bytes": 74115,
+      "sha256": "56fe0ab932561424797938552e4e6bd7f21b0e9e20a5476a389b2d243ff62776",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/postimages/bridge/release.ts",
+      "bytes": 4252,
+      "sha256": "910793485ef37538eb3fcf5014aa66a6728e05ac141f4e81833652aeca4640b9",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/postimages/bridge/session.ts",
+      "bytes": 100184,
+      "sha256": "1188b9fb2a74b136a5242db67cc3c3f650d594b2ac5edebfc827cfe15e55d1f6",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/postimages/src/core/absorbedRuns.ts",
+      "bytes": 7439,
+      "sha256": "54b364d82ec0f21ac5a01e6413397025c4f8db9c7a17ab61c65767ac116eb497",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/postimages/src/core/absorbedWork.ts",
+      "bytes": 4244,
+      "sha256": "94a32945595a05f81e8389133cf54f8346fecb8320dee5f79286e46c033a08a5",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/postimages/src/core/acquisition.ts",
+      "bytes": 52993,
+      "sha256": "1ccae7daeede8193efd2a7f0419b9d5740d1fb598bb21644e95d2f0af675629b",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/postimages/src/core/actions.ts",
+      "bytes": 134628,
+      "sha256": "ec25165ede67cf19ae14442f0b43d25dcd394a4a4dbe7bcd9c29387500b6d816",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/postimages/src/core/continuedWork.ts",
+      "bytes": 8941,
+      "sha256": "0a31e1d7dd676a10b2f449327f03291bfce44340f7f1f6288b621d326a0c2d87",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/postimages/src/core/employment.ts",
+      "bytes": 30020,
+      "sha256": "0fceaca2610c2a0892217cb14f2c3246d090626ed00acad6a95b79cbe67197b4",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/postimages/src/core/hollywoodTick.ts",
+      "bytes": 48946,
+      "sha256": "b0b7569b2ef9745ec20cf9e013bebdae5afffa7c1da7446521c27e4b04eb93da",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/postimages/src/core/hollywoodValidation.ts",
+      "bytes": 65249,
+      "sha256": "9ab3743047945de7d40478e5c596471f25475662f516652b1565aa852a3ef383",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/postimages/src/core/marketIntegration.ts",
+      "bytes": 17810,
+      "sha256": "2c6e5b2866005807f3c5f8fac0b3b42bd396cfc77b365394d2146d1ec40c2f4a",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/postimages/src/core/occupancy.ts",
+      "bytes": 32033,
+      "sha256": "35131b9778c59bf0d5e12d871ac23c2e6d2141a1320fc1c92c5138a3608b295c",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/postimages/src/core/releaseAuthority.ts",
+      "bytes": 9869,
+      "sha256": "3102dc3735605f9bd0c870b55d11da4c0599971319b594a3028d69d671d01081",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/postimages/src/core/rights.ts",
+      "bytes": 101879,
+      "sha256": "9e548217d2f106f845568dedf60854a63840d56528473b31c570df0a90c7a907",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/postimages/src/core/rightsTick.ts",
+      "bytes": 4394,
+      "sha256": "a83b24400faf2819008030157ef3feff8c6b8cd47c93e570d62d08afb4d49860",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/postimages/src/core/scriptReadModel.ts",
+      "bytes": 58459,
+      "sha256": "93b3c99876c0c252a63388f5fd8c3df97d8a704f81ce22666f068f4a010875ef",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/postimages/src/core/studioClosure.ts",
+      "bytes": 81132,
+      "sha256": "6ab3c5fd96a8bf0ebf83e5cdcc77eef8952d3fea9363b315e5aadbc04f50d1f0",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/postimages/src/core/tick.ts",
+      "bytes": 69353,
+      "sha256": "9716a4221855c679f1a3328d6672cf5749c93f43f8351e3d19e4701293d3c8a5",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/preimages/bridge/release.ts",
+      "bytes": 4006,
+      "sha256": "81fc9efbdfe3951ef6cb06b5c1cda40fdb1966a4cbd46e89a3c840034484f183",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/preimages/bridge/session.ts",
+      "bytes": 99948,
+      "sha256": "a2072ee0181ca0d059e8c99228d1d1b52196d952ef51b51bf80b5a076ed164ce",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/preimages/src/core/absorbedRuns.ts",
+      "bytes": 6867,
+      "sha256": "66e9bc5d21cfe48760f3bac6b22db76a5cd5795246bdf20f727e945e215203c2",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/preimages/src/core/absorbedWork.ts",
+      "bytes": 4089,
+      "sha256": "40cf388f674e07f2423f220d156b5fe6d7b608a9a345652cef7e9a7805f6d050",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/preimages/src/core/acquisition.ts",
+      "bytes": 51466,
+      "sha256": "aacc56af685ec11e5b89daa012343becdeeb8aa805d7c895024ffe9cdcf847e0",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/preimages/src/core/actions.ts",
+      "bytes": 134189,
+      "sha256": "e5606b348e7322c4d6ff40b0d364e4947e429398a67c18c972f2d997d921d192",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/preimages/src/core/employment.ts",
+      "bytes": 29955,
+      "sha256": "95e95da58a5d41cea13677d2ddbae923ea1ef737e5c0dc7a30872cb378e7c9b0",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/preimages/src/core/hollywoodTick.ts",
+      "bytes": 45838,
+      "sha256": "aa5d9e2184fcfb5bd3f0e80290e7cc576030bf7b0edd95ea536455282d23d9f5",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/preimages/src/core/hollywoodValidation.ts",
+      "bytes": 64678,
+      "sha256": "c05ec2fd7b076eecb91b4e9c8e01a15b7e403e41b6e16148bfad233bda8ff3e8",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/preimages/src/core/marketIntegration.ts",
+      "bytes": 17293,
+      "sha256": "cb701cc3a8cb34664f54db6daa708354eec96ede264323b094bd152be6278930",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/preimages/src/core/occupancy.ts",
+      "bytes": 31596,
+      "sha256": "e9f66c3d225d8fe9f47d52ce18fc1ca00c587d24ec84f4dc70e9b0ab29a85122",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/preimages/src/core/releaseAuthority.ts",
+      "bytes": 9646,
+      "sha256": "9ab259623d3b5f5f75f1d750168e68ccb5c14d27d96f06f4656985db8064b218",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/preimages/src/core/rights.ts",
+      "bytes": 100093,
+      "sha256": "768f866f7af777e2e2ac3d6d18f286dfebc3ed8c56b14e9785afae28fbbe351c",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/preimages/src/core/rightsTick.ts",
+      "bytes": 3665,
+      "sha256": "6397c3ae890ac0dc4c8aa2550f21b460790a48e017d4170b6043713892bc05e9",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/preimages/src/core/scriptReadModel.ts",
+      "bytes": 58205,
+      "sha256": "c0ee15d37264b8329de70cb37e525a4644518497527763eccdf00fc5cac73616",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/preimages/src/core/studioClosure.ts",
+      "bytes": 79958,
+      "sha256": "95eadb6e8945a08cf827819eaa2ae1fa88090d3fdff85f089c6554a1481cadac",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r2/preimages/src/core/tick.ts",
+      "bytes": 67710,
+      "sha256": "cac0098e57c02776d9575bb3f2837ec16c99b91d3fab00f25f7bad8d1537051a",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/MANIFEST.json",
+      "bytes": 6551,
+      "sha256": "2d2ff8551c9fd8cd22c720f7d61e8b67fee5a12ca9553fc4a59e2b1e92782fc5",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/R9R2-R9R3.patch",
+      "bytes": 568,
+      "sha256": "752c8d217219db9e0c3972005f70077a8f825ed34d01846c1c8cae49dd4e459a",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/REPORT.md",
+      "bytes": 5161,
+      "sha256": "b9ecae0d5147e1d04b8e955470f7e6e842940e367c839237f633de37bfa4fcd5",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/SOURCE.patch",
+      "bytes": 74385,
+      "sha256": "3e66139d8920028ed085cb4dcdbc59f369b6b40637d43b5f85b9069df6b0f155",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/postimages/bridge/release.ts",
+      "bytes": 4252,
+      "sha256": "910793485ef37538eb3fcf5014aa66a6728e05ac141f4e81833652aeca4640b9",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/postimages/bridge/session.ts",
+      "bytes": 100184,
+      "sha256": "1188b9fb2a74b136a5242db67cc3c3f650d594b2ac5edebfc827cfe15e55d1f6",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/postimages/src/core/absorbedRuns.ts",
+      "bytes": 7439,
+      "sha256": "54b364d82ec0f21ac5a01e6413397025c4f8db9c7a17ab61c65767ac116eb497",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/postimages/src/core/absorbedWork.ts",
+      "bytes": 4244,
+      "sha256": "94a32945595a05f81e8389133cf54f8346fecb8320dee5f79286e46c033a08a5",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/postimages/src/core/acquisition.ts",
+      "bytes": 52993,
+      "sha256": "1ccae7daeede8193efd2a7f0419b9d5740d1fb598bb21644e95d2f0af675629b",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/postimages/src/core/actions.ts",
+      "bytes": 134628,
+      "sha256": "ec25165ede67cf19ae14442f0b43d25dcd394a4a4dbe7bcd9c29387500b6d816",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/postimages/src/core/continuedWork.ts",
+      "bytes": 8941,
+      "sha256": "0a31e1d7dd676a10b2f449327f03291bfce44340f7f1f6288b621d326a0c2d87",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/postimages/src/core/employment.ts",
+      "bytes": 30020,
+      "sha256": "0fceaca2610c2a0892217cb14f2c3246d090626ed00acad6a95b79cbe67197b4",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/postimages/src/core/hollywoodTick.ts",
+      "bytes": 48896,
+      "sha256": "59db4a324a771cce4fb816f66a95f0922b8622d812d4cf52a46a4760d32899ee",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/postimages/src/core/hollywoodValidation.ts",
+      "bytes": 65249,
+      "sha256": "9ab3743047945de7d40478e5c596471f25475662f516652b1565aa852a3ef383",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/postimages/src/core/marketIntegration.ts",
+      "bytes": 17810,
+      "sha256": "2c6e5b2866005807f3c5f8fac0b3b42bd396cfc77b365394d2146d1ec40c2f4a",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/postimages/src/core/occupancy.ts",
+      "bytes": 32033,
+      "sha256": "35131b9778c59bf0d5e12d871ac23c2e6d2141a1320fc1c92c5138a3608b295c",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/postimages/src/core/releaseAuthority.ts",
+      "bytes": 9869,
+      "sha256": "3102dc3735605f9bd0c870b55d11da4c0599971319b594a3028d69d671d01081",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/postimages/src/core/rights.ts",
+      "bytes": 101879,
+      "sha256": "9e548217d2f106f845568dedf60854a63840d56528473b31c570df0a90c7a907",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/postimages/src/core/rightsTick.ts",
+      "bytes": 4394,
+      "sha256": "a83b24400faf2819008030157ef3feff8c6b8cd47c93e570d62d08afb4d49860",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/postimages/src/core/scriptReadModel.ts",
+      "bytes": 58459,
+      "sha256": "93b3c99876c0c252a63388f5fd8c3df97d8a704f81ce22666f068f4a010875ef",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/postimages/src/core/studioClosure.ts",
+      "bytes": 81132,
+      "sha256": "6ab3c5fd96a8bf0ebf83e5cdcc77eef8952d3fea9363b315e5aadbc04f50d1f0",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/postimages/src/core/tick.ts",
+      "bytes": 69353,
+      "sha256": "9716a4221855c679f1a3328d6672cf5749c93f43f8351e3d19e4701293d3c8a5",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/preimages/bridge/release.ts",
+      "bytes": 4006,
+      "sha256": "81fc9efbdfe3951ef6cb06b5c1cda40fdb1966a4cbd46e89a3c840034484f183",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/preimages/bridge/session.ts",
+      "bytes": 99948,
+      "sha256": "a2072ee0181ca0d059e8c99228d1d1b52196d952ef51b51bf80b5a076ed164ce",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/preimages/src/core/absorbedRuns.ts",
+      "bytes": 6867,
+      "sha256": "66e9bc5d21cfe48760f3bac6b22db76a5cd5795246bdf20f727e945e215203c2",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/preimages/src/core/absorbedWork.ts",
+      "bytes": 4089,
+      "sha256": "40cf388f674e07f2423f220d156b5fe6d7b608a9a345652cef7e9a7805f6d050",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/preimages/src/core/acquisition.ts",
+      "bytes": 51466,
+      "sha256": "aacc56af685ec11e5b89daa012343becdeeb8aa805d7c895024ffe9cdcf847e0",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/preimages/src/core/actions.ts",
+      "bytes": 134189,
+      "sha256": "e5606b348e7322c4d6ff40b0d364e4947e429398a67c18c972f2d997d921d192",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/preimages/src/core/employment.ts",
+      "bytes": 29955,
+      "sha256": "95e95da58a5d41cea13677d2ddbae923ea1ef737e5c0dc7a30872cb378e7c9b0",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/preimages/src/core/hollywoodTick.ts",
+      "bytes": 45838,
+      "sha256": "aa5d9e2184fcfb5bd3f0e80290e7cc576030bf7b0edd95ea536455282d23d9f5",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/preimages/src/core/hollywoodValidation.ts",
+      "bytes": 64678,
+      "sha256": "c05ec2fd7b076eecb91b4e9c8e01a15b7e403e41b6e16148bfad233bda8ff3e8",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/preimages/src/core/marketIntegration.ts",
+      "bytes": 17293,
+      "sha256": "cb701cc3a8cb34664f54db6daa708354eec96ede264323b094bd152be6278930",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/preimages/src/core/occupancy.ts",
+      "bytes": 31596,
+      "sha256": "e9f66c3d225d8fe9f47d52ce18fc1ca00c587d24ec84f4dc70e9b0ab29a85122",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/preimages/src/core/releaseAuthority.ts",
+      "bytes": 9646,
+      "sha256": "9ab259623d3b5f5f75f1d750168e68ccb5c14d27d96f06f4656985db8064b218",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/preimages/src/core/rights.ts",
+      "bytes": 100093,
+      "sha256": "768f866f7af777e2e2ac3d6d18f286dfebc3ed8c56b14e9785afae28fbbe351c",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/preimages/src/core/rightsTick.ts",
+      "bytes": 3665,
+      "sha256": "6397c3ae890ac0dc4c8aa2550f21b460790a48e017d4170b6043713892bc05e9",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/preimages/src/core/scriptReadModel.ts",
+      "bytes": 58205,
+      "sha256": "c0ee15d37264b8329de70cb37e525a4644518497527763eccdf00fc5cac73616",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/preimages/src/core/studioClosure.ts",
+      "bytes": 79958,
+      "sha256": "95eadb6e8945a08cf827819eaa2ae1fa88090d3fdff85f089c6554a1481cadac",
+      "mode": 420
+    },
+    {
+      "path": "p16-absorption-producers-r9-r3/preimages/src/core/tick.ts",
+      "bytes": 67710,
+      "sha256": "cac0098e57c02776d9575bb3f2837ec16c99b91d3fab00f25f7bad8d1537051a",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge61-composed-draft-r1/MANIFEST.json",
+      "bytes": 3653,
+      "sha256": "75007aeb9a6d724ecf00fae35fe0fc870a392b8f1b296267b799354f82050fb8",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge61-composed-draft-r1/REPORT.md",
+      "bytes": 947,
+      "sha256": "3b38ab2615728675ff3caee490aaedaddbf51cf0871003de85f1f8f01a40afaf",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge61-composed-draft-r1/SOURCE.patch",
+      "bytes": 60252,
+      "sha256": "8dfc642c778a64d59b231d13e531decd08d9023efe9dadbb48d7a0d75dec9e44",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge61-composed-draft-r1/postimages/bridge/industry.ts",
+      "bytes": 44664,
+      "sha256": "9c85e928cab05a3852c3019c79cbd29546223062946023f071f31de737ad1bfd",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge61-composed-draft-r1/postimages/bridge/paidReports.ts",
+      "bytes": 2769,
+      "sha256": "21de8fb18d0838927e6a8ba76c16ab6a02116eb3a11bf34851a377d57ffd78b8",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge61-composed-draft-r1/postimages/bridge/rights.ts",
+      "bytes": 4256,
+      "sha256": "197922c76a4ad57534939fab1d1addfa844b382fee5654d92416c970cbfc4d9b",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge61-composed-draft-r1/postimages/bridge/runtime-checkpoint.ts",
+      "bytes": 64848,
+      "sha256": "ef94e2ed2b548be563815c642fbc7e9fe06b2f0524009a68c7cb709f65a1f26b",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge61-composed-draft-r1/postimages/bridge/schema/bridge-schema.ts",
+      "bytes": 197857,
+      "sha256": "535a073689d5ed8ae2b9a33f38c8767ec3384a344ad6bb4017b423afd1521182",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge61-composed-draft-r1/postimages/bridge/schema/industry-schema.ts",
+      "bytes": 28439,
+      "sha256": "e5850e722ab67f81a963d50be5c0902d417e3494b6e88c941c2351165a9d34fc",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge61-composed-draft-r1/postimages/bridge/schema/intent-schema.ts",
+      "bytes": 3893,
+      "sha256": "74f7129f47c353600c51ff9059bd480f6eec4788c1776d37f0be074b82cf9fb1",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge61-composed-draft-r1/postimages/bridge/session.ts",
+      "bytes": 102658,
+      "sha256": "a673027e944b1c628ce4cc44f7abbb7f31acbdfe55a57103de9b37aee5c5e7c8",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge61-composed-draft-r1/postimages/tests/bridge-p16-paid-reports.test.ts",
+      "bytes": 7657,
+      "sha256": "c100a0715781b3b03a3958d875e9a5fe8cba3cb47d665cba1a48a3d8695fb8e6",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge61-composed-draft-r1/postimages/tests/bridge-p16-rights-parity.test.ts",
+      "bytes": 18901,
+      "sha256": "4d5d10b9781672d83a3133e22df8399ec894a3ee54627407a0edc6bf93f55357",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge61-composed-draft-r1/preimages/bridge/industry.ts",
+      "bytes": 44305,
+      "sha256": "0bbfbfecc4983b53a5d6bbad1a19a3746e57860c4437943772f48b032196778e",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge61-composed-draft-r1/preimages/bridge/runtime-checkpoint.ts",
+      "bytes": 64667,
+      "sha256": "4fc419e917c694115b07196ffeba43c88184fec3aff770e9c581c295d8bd9295",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge61-composed-draft-r1/preimages/bridge/schema/bridge-schema.ts",
+      "bytes": 193444,
+      "sha256": "99563ed9982d7f804a484a070a4168720f495c7458081eb6638c7f349c4c6270",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge61-composed-draft-r1/preimages/bridge/schema/industry-schema.ts",
+      "bytes": 26248,
+      "sha256": "73c9eabbb284480bdea417d6bae5df60dba1ea1b53f2baedf21a8134a9e05115",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge61-composed-draft-r1/preimages/bridge/schema/intent-schema.ts",
+      "bytes": 3850,
+      "sha256": "4fd965dc79ccee532c5a9b50a25c0b952a9c6fbb9ce5cf78f12baae25187579d",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge61-composed-draft-r1/preimages/bridge/session.ts",
+      "bytes": 99948,
+      "sha256": "a2072ee0181ca0d059e8c99228d1d1b52196d952ef51b51bf80b5a076ed164ce",
+      "mode": 420
+    },
+    {
+      "path": "p16-continued-work-validation-parent-r2/MANIFEST.json",
+      "bytes": 1015,
+      "sha256": "b51c89276e7cfea87cc9cbfa34dc5ea49d2ef2a41fbee935e25eb66de1dc9b3e",
+      "mode": 420
+    },
+    {
+      "path": "p16-continued-work-validation-parent-r2/R1-R2-HELPER.diff",
+      "bytes": 4457,
+      "sha256": "8838065604953b8025df4794ee5a239cb8f7c615a56dcc5349644d54ae1d2860",
+      "mode": 420
+    },
+    {
+      "path": "p16-continued-work-validation-parent-r2/REPORT.md",
+      "bytes": 2313,
+      "sha256": "8c36c90ece3be91c1356bd6701d6100e91b0682d9f9c7bee09dbaf5f46b333dc",
+      "mode": 420
+    },
+    {
+      "path": "p16-continued-work-validation-parent-r2/SOURCE.diff",
+      "bytes": 25512,
+      "sha256": "78a74723164d413c67688e7394475e1e9b336a4cefa5099ffd0ac9c4852cbd6e",
+      "mode": 420
+    },
+    {
+      "path": "p16-continued-work-validation-parent-r2/postimages/src/core/continuedWorkValidation.ts",
+      "bytes": 18165,
+      "sha256": "3cda00425e3fec90a7807d1a21e97a265441bb385dac7ea2823c9d058e6df487",
+      "mode": 420
+    },
+    {
+      "path": "p16-continued-work-validation-parent-r2/postimages/src/core/save.ts",
+      "bytes": 582139,
+      "sha256": "249a2bf94feda99c9bd3647870cb2529525f81bb900ffb56af8fb47edd23fc62",
+      "mode": 420
+    },
+    {
+      "path": "p16-continued-work-validation-parent-r2/preimages/src/core/save.ts",
+      "bytes": 578382,
+      "sha256": "b85a9135571ce7a72fd0f39d1c7e366021252236a58f0f82e3728a79afd8a42b",
+      "mode": 420
+    },
+    {
+      "path": "p16-continued-work-validation-parent-working/reviewed-r1/continuedWorkValidation.ts",
+      "bytes": 15790,
+      "sha256": "40ac254d419cc3f9fca5c234c56500e39fe451bafe956486b5777b17a71ae8dd",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r2/INTERFACE-PINS.json",
+      "bytes": 683,
+      "sha256": "fbdd2159dedf0b6e7ca90857032dc246e008d5d5a243cc7f2c67d62247d00780",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r2/MANIFEST.json",
+      "bytes": 927,
+      "sha256": "162b7d68162ada56a724df81331144ecc80259f3fec0b84dc675631ea9d5f673",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r2/R1-R2.patch",
+      "bytes": 8548,
+      "sha256": "05b710083f56916bccf5df9115d004770c3e179d823d6c99f4f99b2693d5b188",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r2/REPORT.md",
+      "bytes": 4403,
+      "sha256": "5ba1b7d88ad38ba155c12c2154ae7dd5ed7d51cb5afeb26d4321e6ba5c8bc8c5",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r2/SOURCE.patch",
+      "bytes": 20454,
+      "sha256": "5f642951034baab3ed2b60b10e1f88211836253c1a77cdb4531a5ff04fb3de1c",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r2/postimages/Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.Rights.cs",
+      "bytes": 18993,
+      "sha256": "461a4e6c68b1210b6d726d93cbfb7c40c88198f49db2dce6b00b05ba003f29f0",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r2/postimages/Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.Rights.cs.meta",
+      "bytes": 243,
+      "sha256": "cdbf346c1234720f8500da25b4e1ec9198651ca229d7e1afa0ed08f5088ccab4",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r2/postimages/Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.cs",
+      "bytes": 95466,
+      "sha256": "deeb232ade7e5eca181c8458972e790659cf3a49707605399cff48664ab6977c",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r2/preimages/Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.Rights.cs",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r2/preimages/Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.Rights.cs.meta",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r2/preimages/Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.cs",
+      "bytes": 95389,
+      "sha256": "8fca3e751c3a3705980b694bc90737b5795da2d0a3b1470ebc74b651a1143fc9",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r3/INTERFACE-PINS.json",
+      "bytes": 683,
+      "sha256": "fbdd2159dedf0b6e7ca90857032dc246e008d5d5a243cc7f2c67d62247d00780",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r3/MANIFEST.json",
+      "bytes": 927,
+      "sha256": "2adb3f56efcdcae924b45a482c8bbc3c3a1d6416d54cc5a40534ce08c5bc4efe",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r3/R1-R2.patch",
+      "bytes": 8548,
+      "sha256": "05b710083f56916bccf5df9115d004770c3e179d823d6c99f4f99b2693d5b188",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r3/R2-R3.patch",
+      "bytes": 19123,
+      "sha256": "e8938612d4ac3c5b42c1056c94962850e8c77fc6d791ea11a678cf9f8b9d34fb",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r3/REPORT.md",
+      "bytes": 5479,
+      "sha256": "abfb0d448a2ef07dafde1f06e8d8dbb5d0f7b7cf6e53be7056c203523e827d20",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r3/SOURCE.patch",
+      "bytes": 26009,
+      "sha256": "3f60134374632c8ef2346953159c1eb4a03b4775e61801cb9ab95c588a11b908",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r3/postimages/Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.Rights.cs",
+      "bytes": 24471,
+      "sha256": "30abf0be2f4181cea64715fb13eeeb7ca7fb0e5809b38aed2921548f015db01a",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r3/postimages/Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.Rights.cs.meta",
+      "bytes": 243,
+      "sha256": "cdbf346c1234720f8500da25b4e1ec9198651ca229d7e1afa0ed08f5088ccab4",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r3/postimages/Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.cs",
+      "bytes": 95466,
+      "sha256": "deeb232ade7e5eca181c8458972e790659cf3a49707605399cff48664ab6977c",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r3/preimages/Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.Rights.cs",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r3/preimages/Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.Rights.cs.meta",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "p16-native-rights-consumer-draft-r3/preimages/Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.cs",
+      "bytes": 95389,
+      "sha256": "8fca3e751c3a3705980b694bc90737b5795da2d0a3b1470ebc74b651a1143fc9",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/COMPOSITION-CONFLICT.txt",
+      "bytes": 103181,
+      "sha256": "12b83865978cda4fb0ba32e6ebd2cd55f8224308facaa14d1b675d084eefdc65",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/MANIFEST.json",
+      "bytes": 8564,
+      "sha256": "c26430e041e3ec7e4613ca1331aaba419494603d7c0ff99ce3173e9501c501d1",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/REPORT.md",
+      "bytes": 1785,
+      "sha256": "b31a8aeb1a1d75e6db21c5aae4a42aae96bd34c1f51ed1c35efa53e791c74df2",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/SOURCE-COMPOSITION-CHECK.json",
+      "bytes": 234,
+      "sha256": "ac62668f6c2255f91e44d9d814b28037da8479a0e9c1b3817215fa90a3bb1de5",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/SOURCE.diff",
+      "bytes": 161811,
+      "sha256": "695b9295b989f6f48eaf085e707113e1c1c6496337a7dd6fa2dffc79dc83170b",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/bridge/industry.ts",
+      "bytes": 44664,
+      "sha256": "9c85e928cab05a3852c3019c79cbd29546223062946023f071f31de737ad1bfd",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/bridge/paidReports.ts",
+      "bytes": 2769,
+      "sha256": "21de8fb18d0838927e6a8ba76c16ab6a02116eb3a11bf34851a377d57ffd78b8",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/bridge/release.ts",
+      "bytes": 4252,
+      "sha256": "910793485ef37538eb3fcf5014aa66a6728e05ac141f4e81833652aeca4640b9",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/bridge/rights.ts",
+      "bytes": 4256,
+      "sha256": "197922c76a4ad57534939fab1d1addfa844b382fee5654d92416c970cbfc4d9b",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/bridge/runtime-checkpoint.ts",
+      "bytes": 64848,
+      "sha256": "ef94e2ed2b548be563815c642fbc7e9fe06b2f0524009a68c7cb709f65a1f26b",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/bridge/schema/bridge-schema.ts",
+      "bytes": 197857,
+      "sha256": "535a073689d5ed8ae2b9a33f38c8767ec3384a344ad6bb4017b423afd1521182",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/bridge/schema/industry-schema.ts",
+      "bytes": 28439,
+      "sha256": "e5850e722ab67f81a963d50be5c0902d417e3494b6e88c941c2351165a9d34fc",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/bridge/schema/intent-schema.ts",
+      "bytes": 3893,
+      "sha256": "74f7129f47c353600c51ff9059bd480f6eec4788c1776d37f0be074b82cf9fb1",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/bridge/session.ts",
+      "bytes": 102894,
+      "sha256": "81c0c367b5e73c34d5d030d81a98aedac0d6a2d328a5f0533449f775c3a56fe7",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/src/core/absorbedRuns.ts",
+      "bytes": 7439,
+      "sha256": "54b364d82ec0f21ac5a01e6413397025c4f8db9c7a17ab61c65767ac116eb497",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/src/core/absorbedWork.ts",
+      "bytes": 4244,
+      "sha256": "94a32945595a05f81e8389133cf54f8346fecb8320dee5f79286e46c033a08a5",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/src/core/acquisition.ts",
+      "bytes": 52993,
+      "sha256": "1ccae7daeede8193efd2a7f0419b9d5740d1fb598bb21644e95d2f0af675629b",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/src/core/actions.ts",
+      "bytes": 134628,
+      "sha256": "ec25165ede67cf19ae14442f0b43d25dcd394a4a4dbe7bcd9c29387500b6d816",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/src/core/continuedWork.ts",
+      "bytes": 8941,
+      "sha256": "0a31e1d7dd676a10b2f449327f03291bfce44340f7f1f6288b621d326a0c2d87",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/src/core/continuedWorkValidation.ts",
+      "bytes": 18165,
+      "sha256": "3cda00425e3fec90a7807d1a21e97a265441bb385dac7ea2823c9d058e6df487",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/src/core/employment.ts",
+      "bytes": 30020,
+      "sha256": "0fceaca2610c2a0892217cb14f2c3246d090626ed00acad6a95b79cbe67197b4",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/src/core/hollywoodTick.ts",
+      "bytes": 48896,
+      "sha256": "59db4a324a771cce4fb816f66a95f0922b8622d812d4cf52a46a4760d32899ee",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/src/core/hollywoodValidation.ts",
+      "bytes": 65249,
+      "sha256": "9ab3743047945de7d40478e5c596471f25475662f516652b1565aa852a3ef383",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/src/core/marketIntegration.ts",
+      "bytes": 17810,
+      "sha256": "2c6e5b2866005807f3c5f8fac0b3b42bd396cfc77b365394d2146d1ec40c2f4a",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/src/core/occupancy.ts",
+      "bytes": 32033,
+      "sha256": "35131b9778c59bf0d5e12d871ac23c2e6d2141a1320fc1c92c5138a3608b295c",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/src/core/releaseAuthority.ts",
+      "bytes": 9869,
+      "sha256": "3102dc3735605f9bd0c870b55d11da4c0599971319b594a3028d69d671d01081",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/src/core/rights.ts",
+      "bytes": 101879,
+      "sha256": "9e548217d2f106f845568dedf60854a63840d56528473b31c570df0a90c7a907",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/src/core/rightsTick.ts",
+      "bytes": 4394,
+      "sha256": "a83b24400faf2819008030157ef3feff8c6b8cd47c93e570d62d08afb4d49860",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/src/core/save.ts",
+      "bytes": 582139,
+      "sha256": "249a2bf94feda99c9bd3647870cb2529525f81bb900ffb56af8fb47edd23fc62",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/src/core/scriptReadModel.ts",
+      "bytes": 58459,
+      "sha256": "93b3c99876c0c252a63388f5fd8c3df97d8a704f81ce22666f068f4a010875ef",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/src/core/studioClosure.ts",
+      "bytes": 81132,
+      "sha256": "6ab3c5fd96a8bf0ebf83e5cdcc77eef8952d3fea9363b315e5aadbc04f50d1f0",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/src/core/tick.ts",
+      "bytes": 69353,
+      "sha256": "9716a4221855c679f1a3328d6672cf5749c93f43f8351e3d19e4701293d3c8a5",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/tests/bridge-p16-paid-reports.test.ts",
+      "bytes": 7657,
+      "sha256": "c100a0715781b3b03a3958d875e9a5fe8cba3cb47d665cba1a48a3d8695fb8e6",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/postimages/tests/bridge-p16-rights-parity.test.ts",
+      "bytes": 18901,
+      "sha256": "4d5d10b9781672d83a3133e22df8399ec894a3ee54627407a0edc6bf93f55357",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/bridge/industry.ts",
+      "bytes": 44305,
+      "sha256": "0bbfbfecc4983b53a5d6bbad1a19a3746e57860c4437943772f48b032196778e",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/bridge/release.ts",
+      "bytes": 4006,
+      "sha256": "81fc9efbdfe3951ef6cb06b5c1cda40fdb1966a4cbd46e89a3c840034484f183",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/bridge/runtime-checkpoint.ts",
+      "bytes": 64667,
+      "sha256": "4fc419e917c694115b07196ffeba43c88184fec3aff770e9c581c295d8bd9295",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/bridge/schema/bridge-schema.ts",
+      "bytes": 193444,
+      "sha256": "99563ed9982d7f804a484a070a4168720f495c7458081eb6638c7f349c4c6270",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/bridge/schema/industry-schema.ts",
+      "bytes": 26248,
+      "sha256": "73c9eabbb284480bdea417d6bae5df60dba1ea1b53f2baedf21a8134a9e05115",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/bridge/schema/intent-schema.ts",
+      "bytes": 3850,
+      "sha256": "4fd965dc79ccee532c5a9b50a25c0b952a9c6fbb9ce5cf78f12baae25187579d",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/bridge/session.ts",
+      "bytes": 99948,
+      "sha256": "a2072ee0181ca0d059e8c99228d1d1b52196d952ef51b51bf80b5a076ed164ce",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/src/core/absorbedRuns.ts",
+      "bytes": 6867,
+      "sha256": "66e9bc5d21cfe48760f3bac6b22db76a5cd5795246bdf20f727e945e215203c2",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/src/core/absorbedWork.ts",
+      "bytes": 4089,
+      "sha256": "40cf388f674e07f2423f220d156b5fe6d7b608a9a345652cef7e9a7805f6d050",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/src/core/acquisition.ts",
+      "bytes": 51466,
+      "sha256": "aacc56af685ec11e5b89daa012343becdeeb8aa805d7c895024ffe9cdcf847e0",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/src/core/actions.ts",
+      "bytes": 134189,
+      "sha256": "e5606b348e7322c4d6ff40b0d364e4947e429398a67c18c972f2d997d921d192",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/src/core/employment.ts",
+      "bytes": 29955,
+      "sha256": "95e95da58a5d41cea13677d2ddbae923ea1ef737e5c0dc7a30872cb378e7c9b0",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/src/core/hollywoodTick.ts",
+      "bytes": 45838,
+      "sha256": "aa5d9e2184fcfb5bd3f0e80290e7cc576030bf7b0edd95ea536455282d23d9f5",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/src/core/hollywoodValidation.ts",
+      "bytes": 64678,
+      "sha256": "c05ec2fd7b076eecb91b4e9c8e01a15b7e403e41b6e16148bfad233bda8ff3e8",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/src/core/marketIntegration.ts",
+      "bytes": 17293,
+      "sha256": "cb701cc3a8cb34664f54db6daa708354eec96ede264323b094bd152be6278930",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/src/core/occupancy.ts",
+      "bytes": 31596,
+      "sha256": "e9f66c3d225d8fe9f47d52ce18fc1ca00c587d24ec84f4dc70e9b0ab29a85122",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/src/core/releaseAuthority.ts",
+      "bytes": 9646,
+      "sha256": "9ab259623d3b5f5f75f1d750168e68ccb5c14d27d96f06f4656985db8064b218",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/src/core/rights.ts",
+      "bytes": 100093,
+      "sha256": "768f866f7af777e2e2ac3d6d18f286dfebc3ed8c56b14e9785afae28fbbe351c",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/src/core/rightsTick.ts",
+      "bytes": 3665,
+      "sha256": "6397c3ae890ac0dc4c8aa2550f21b460790a48e017d4170b6043713892bc05e9",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/src/core/save.ts",
+      "bytes": 578382,
+      "sha256": "b85a9135571ce7a72fd0f39d1c7e366021252236a58f0f82e3728a79afd8a42b",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/src/core/scriptReadModel.ts",
+      "bytes": 58205,
+      "sha256": "c0ee15d37264b8329de70cb37e525a4644518497527763eccdf00fc5cac73616",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/src/core/studioClosure.ts",
+      "bytes": 79958,
+      "sha256": "95eadb6e8945a08cf827819eaa2ae1fa88090d3fdff85f089c6554a1481cadac",
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release-and-bridge61-composed-r1/preimages/src/core/tick.ts",
+      "bytes": 67710,
+      "sha256": "cac0098e57c02776d9575bb3f2837ec16c99b91d3fab00f25f7bad8d1537051a",
+      "mode": 420
+    }
+  ],
+  "verification": "exact member order/type/hash/size/mode verified by streaming read without extraction",
+  "excluded": "LOCAL machine inventories; moving source directories; original fixture copies; installed dependencies; session data"
+}

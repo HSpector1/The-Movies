@@ -1,0 +1,23 @@
+{
+  "runtime": "NONE; current167 UI/Bridge/25 remain NOT STARTED after preserved86614 wrapper97",
+  "qualification": "static independent source/tests only",
+  "prepared": {
+    "producer": "p16-absorption-producers-r9-r3",
+    "producerSourceSHA256": "3e66139d8920028ed085cb4dcdbc59f369b6b40637d43b5f85b9069df6b0f155",
+    "reader": "p16-continued-work-validation-parent-r2",
+    "composition": "p16-work-release-and-bridge61-composed-r1",
+    "compositionSourceSHA256": "695b9295b989f6f48eaf085e707113e1c1c6496337a7dd6fa2dffc79dc83170b",
+    "tests": "p16-absorption-continued-production-tests-r3",
+    "testCount": 3,
+    "testsRun": 0,
+    "native": "p16-native-rights-consumer-draft-r3"
+  },
+  "disk": {
+    "lastObservedAvailableKiB": 2622040,
+    "launchMinimumKiB": 3670016,
+    "runtimeFloorKiB": 3145728,
+    "launchShortfallKiB": 1047976,
+    "maintenanceReopened": false
+  },
+  "next": "After actual resource change, exact existing preflight then p16-work-run-continuation-runner-r3; retain same167 candidate/root reuse. Only afterward compose/install new reviewed source/tests and canonical61 generation/gates under single lane."
+}

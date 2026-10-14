@@ -1,0 +1,11 @@
+# R9 continued-production tests R3 independent review
+
+KEEP for bounded installation/measurement, static UNRUN. Test SHA256 443a8b3e45e3a9fc5f9cd3ddd37f9c8c0d273968f038f13217113521d8485027; SOURCE 39fa0d7198e532f20d1690d5380b418b8e4c36bffdae55a0f90dbeb1d81da034. All manifest file hashes verified; three complete identities, default5s/setup inside each leaf.
+
+The fixed real48 C163 R02 post3 fixture is publicly admitted and migrated, with actual stable/no-loan/paid first-take/retained-six/public price and affordability prerequisites before close. Real close performs joined publication. The journey requires exact native 3→2→1, ready hold165→166, explicit public commit166, duplicate refusal, actual input166 release observed167, replay after saved held state, retained paid creator/first-take/forecast, future R2 ownership, buyer capacity and original source Standing. The hostile leaf separately requires a nonempty single actual Standing history row before deletion, avoiding a vacuous no-op claim. Future166/167 installments compare canonical run schedule, actual ledger ownership and target cash freeze.
+
+Early refusal /not Release Ready/ and duplicate refusal match existing releaseCommitmentRefusal. Hostile fullreader mutations follow a positive actual exported save; purity runs in finally. Their broad category regex does not identify a particular sole first guard: omission may be history/allocator-first. Preserve raw first causes on execution; do not infer each exact downstream guard was reached merely from a thrown refusal.
+
+Rollback uses a real positive close first, then actual makeSave runs full joined admission before the unique throw; input admission without a new absorption does not trigger the fault. Original input/raw/old/current caller equality is retained after restoration. No successful-validator stub.
+
+No concrete API/type mismatch found. Three fixed cash/condition/retention/capacity and Standing-change prerequisites remain prospective, as do actual default5s durations; the two repeated journey leaves may be expensive and must remain failed/unqualified if they overrun. Earlier phases and buyer closure remain explicitly uncovered. Source prerequisite is corrected R9-r3 plus parent reader R2, not a whole-P16 qualification. No runtime or K/R changes performed.
