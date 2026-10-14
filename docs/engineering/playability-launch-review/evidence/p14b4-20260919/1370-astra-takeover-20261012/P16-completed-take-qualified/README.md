@@ -1,0 +1,11 @@
+# P16 completed-take film continuation qualified
+
+Actual R16 root compilation passed in43seconds; complete three-test runtime passed in8seconds, with every assertion within its original5000ms budget (max1798.851480ms). The genuine acquired film preserves its original completed take, source silent lock and paid creator history through real buyer allocation, native wrap, ready/hold, explicit release commitment, buyer rights/run and save/reload/replay. All full-reader missing/null/wrong-owner/paid-snapshot refusals and caller-purity checks execute. Actual full-publication fault rolls back the original caller.
+
+Fresh independent reconciliation passed1621sources81inputs, five strict checks and zero errors. Independent actual review qualifies only this bounded completed-take path. Earlier initial8/7/6, cancellation and late-post evidence remains in P16-early-silent-qualified. Whole-P16/native/player acceptance and historical S5 timing remain open.
+
+Original R14 compiler2/50s and zero runtime are preserved. Two explicit null-date guards fixed actual nullable references without casts. Original R15 root0/48s plus two passing constituents and one hostile mismatch are preserved. Its null-lock mutant was already rejected by the earlier frozen technology validator; one precise expected-first-owner correction retained the mutation, full reader, purity, all other assertions and budgets. R16 reaches the previously blocked later hostile rows.
+
+The archive preserves all three192-path revisions and actual runs, exact independent corrections/reviews/runners, and explicitly UNRUN next initial-shooting5 drafts. The next diagnostic uses the existing genuine actual163 capture plus two ordinary ticks to165; its phase/task/lock premises must be measured before installing the prospective initial5 source and replacing diagnostic1 with independent final3 at the same repository path. No new captures or fabricated history. Original immutable A packets remain.
+
+Owner-authorized app removal restored launch headroom; cleanup is closed. Private process/app/tax/photo/iCloud inventories are excluded. HANDOFF.md has the existing remaining-requirements table, exact next action and lesson111. No main merge or P17/P18 activation.

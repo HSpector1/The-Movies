@@ -1,0 +1,9 @@
+# R16 shooting4 actual independent review
+
+KEEP bounded completed-take shooting4 qualification. Original terminal0, fresh root0/43s, complete single file3 runtime0/8s, all3PASS with no skip/todo and all original5000ms budgets met (maximum1798.851480ms). Full reporter/accounting identities are complete; independent reconciliation PASS1621sources81inputs, five strict checks/zero metadata errors. Protected fields match initial freeze; only receipt-wrapper autoMetadata differs.
+
+Actual genuine completed creator take/source silentlock/paid snapshot survive public funded six-person acquisition, real buyer allocated stage/task, native4→3 wrap input162 observed163, ready/hold, explicitpubliccommit166/release observed167, creator film/buyer title/run, fullsave/reload/replay. Positive qualification does not retime or mint a second take/technology lock.
+
+The complete hostile leaf now reaches wrongbuyer firsttake, deleted source lock, null source lock, wrongbuyer source-lock ownership, and altered paid original snapshot. All actual full-reader refusals and per-mutant caller byte-purity checks execute. Null lock specifically refuses through existing frozen Production technology owner; other expected categories remain unchanged. Real publication fault calls actual full makeSave before throwing, restores spy and proves original caller unchanged. No validator-returning stub.
+
+Original R14 compiler2 and R15 hostile expectation failure remain retained, along with their unreached boundaries. This successor qualifies the previously unexecuted later hostile rows; it does not rewrite earlier failed results. Initialshooting5, Set/setup/sound/drafting, native interface and whole-P16/Owner acceptance remain separate. Existing S5 timing limit remains OPEN. No runtime/helper/compiler or K/R writes by reviewer.

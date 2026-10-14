@@ -1,0 +1,107 @@
+{
+  "terminal": {
+    "overallExit": 0,
+    "groups": {
+      "tsc-root": 0,
+      "estate-red": 0,
+      "identity-accounting": 0
+    },
+    "scope": "fresh root compiler and complete shooting4 file3; actual source-owned completed take and lock, native wrap and explicit release; all original budgets and prior failures retained",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1792006927,
+      "endEpoch": 1792006970,
+      "seconds": 43,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r16-run/tsc-root.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 0,
+      "startEpoch": 1792006978,
+      "endEpoch": 1792006986,
+      "seconds": 8,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r16-run/results.json",
+        "tests/p16-continued-work-shooting4.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r16-run/estate-red.log"
+    }
+  ],
+  "independentFinalFreeze": "PASS",
+  "sourceCount": 1621,
+  "inputCount": 81,
+  "strictChecks": 5,
+  "strictErrorsBytes": 0,
+  "audit": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r16-parent-reconciliation",
+  "scope": "Fresh root then complete shooting4 file3 with original5000ms and exact observed null-lock first owner; original R14 compiler2 and R15 hostile mismatch retained; no whole-P16/native acceptance",
+  "counts": {
+    "passed": 3
+  },
+  "identities": 3,
+  "rows": [
+    {
+      "file": "tests/p16-continued-work-shooting4.test.ts",
+      "ancestorTitles": [
+        "P16 genuine completed-take shooting4 handoff"
+      ],
+      "fullName": "P16 genuine completed-take shooting4 handoff public funded acquisition preserves the actual take silent lock and paid creator work through buyer wrap explicit release and save replay",
+      "status": "passed",
+      "title": "public funded acquisition preserves the actual take silent lock and paid creator work through buyer wrap explicit release and save replay",
+      "duration": 1798.8514800000003,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-continued-work-shooting4.test.ts",
+      "ancestorTitles": [
+        "P16 genuine completed-take shooting4 handoff"
+      ],
+      "fullName": "P16 genuine completed-take shooting4 handoff actual positive shooting handoff refuses invented buyer take lock or altered source paid snapshot with full caller purity",
+      "status": "passed",
+      "title": "actual positive shooting handoff refuses invented buyer take lock or altered source paid snapshot with full caller purity",
+      "duration": 829.7248129999998,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-continued-work-shooting4.test.ts",
+      "ancestorTitles": [
+        "P16 genuine completed-take shooting4 handoff"
+      ],
+      "fullName": "P16 genuine completed-take shooting4 handoff real fully admitted shooting acquisition publication fault rolls back original input without cancelling paid work",
+      "status": "passed",
+      "title": "real fully admitted shooting acquisition publication fault rolls back original input without cancelling paid work",
+      "duration": 622.9821190000002,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    }
+  ],
+  "allBudgetQualified": true,
+  "maxMs": 1798.8514800000003,
+  "failures": [],
+  "overBudget": []
+}

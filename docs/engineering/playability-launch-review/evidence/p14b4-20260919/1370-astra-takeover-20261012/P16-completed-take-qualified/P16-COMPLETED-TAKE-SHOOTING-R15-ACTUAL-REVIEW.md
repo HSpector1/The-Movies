@@ -1,0 +1,13 @@
+# R15 actual independent review
+
+Retain terminal1; fresh root0/48s, complete shooting4 file3 =2PASS/1FAIL, no skip/todo, all durations below original5000ms. Independent final reconciliation PASS1621sources74inputs, five strict checks/zero errors; protected freeze fields match, only receipt-wrapper autoMetadata differs. R14 compiler2/zero runtime remains retained separately.
+
+Qualified positive journey PASS1754.912073ms: genuine original completed source take45/week162 and silentlock160/paid snapshot retained, real public funded six-person acquisition, actual buyer task/stage capacity, native wrap input162 observed163, post/ready165, hold166, publiccommit166/release observed167, source creator film/buyer title/run and save/reload/replay. Actual real-full-admission acquisition publication rollback PASS510.200620ms. Neither implies initialshooting5/Set/setup/sound or native acceptance.
+
+Hostile leaf FAIL1241.069440ms. Positive admission and preceding wrong-take/missing-source-lock mutant checks execute, but null lockedWeek reaches earlier frozen Production technology owner: `filming has begun without its selected loadout lock.` Expected current continued-work category is incorrect. The mutation really refuses; this is an expectation-owner defect, not permission to weaken frozen validation. Its finally caller-purity assertion executes. Later wrong-owner lock and altered-paid-snapshot mutants in this leaf remain unreached and uncredited.
+
+Earlier static review missed this lower frozen first-owner path; generic nullable technology shape alone was insufficient to establish actual full-reader ordering. A correction should name only this exact actual source refusal for the null mutant, leaving mutation, purity, all other expectations/identities/default budgets unchanged. No source/frozen-law or assertion deletion required. Successor hostile completion remains pending actual measurement; no whole shooting3/gate/P16/native PASS.
+
+No runtime/helper/compiler execution or K/R/index/HANDOFF edits by reviewer.
+
+Successor test-only first-owner correction R4: KEEP static/UNRUN, post27757ff9f54797a2bad964f0466bafb0afef673de053d17f4f26287f7bea0170 / DELTA9084cb23462ba3d320d7e4a61e27936c6c2bb06c4bd0aab97faf6dfc05567931 / MANIFEST329816b0041a0454564845cc94507317636d76097169c26e9804e9933eaa70d4. Exact one null-lock row now names the actual technologyProduction.ts:147 refusal, including literal period. All other rows, mutation/fullreader/caller-purity assertions, three identities and5000ms budgets remain. Later wrongowner/paid-snapshot refusal and timing remain pending successor execution.
