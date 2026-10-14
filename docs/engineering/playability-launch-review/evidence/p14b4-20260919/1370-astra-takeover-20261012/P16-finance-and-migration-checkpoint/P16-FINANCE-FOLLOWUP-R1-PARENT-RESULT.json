@@ -1,0 +1,1777 @@
+{
+  "terminal": {
+    "overallExit": 1,
+    "groups": {
+      "tsc-root": 0,
+      "buyer": 0,
+      "buyer-accounting": 3,
+      "core": 0,
+      "core-accounting": 3,
+      "ui": 0,
+      "ui-accounting": 0
+    },
+    "scope": "F40 root/buyer/corefive/UItwo focused followup; no nativeacceptance claim",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791938956,
+      "endEpoch": 1791939002,
+      "seconds": 46,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-finance-followup-r1-run/tsc-root.log"
+    },
+    {
+      "name": "buyer",
+      "exit": 0,
+      "startEpoch": 1791939010,
+      "endEpoch": 1791939021,
+      "seconds": 11,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-finance-followup-r1-run/buyer.json",
+        "tests/p16-held-title-buyer-public.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-finance-followup-r1-run/buyer.log"
+    },
+    {
+      "name": "core",
+      "exit": 0,
+      "startEpoch": 1791939026,
+      "endEpoch": 1791939232,
+      "seconds": 206,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-finance-followup-r1-run/core.json",
+        "tests/bridge-contract-generator.test.ts",
+        "tests/bridge-p11-finance.test.ts",
+        "tests/bridge-runtime-checkpoint.test.ts",
+        "tests/bridge-schema.test.ts",
+        "tests/p11-finance-history-scale.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-finance-followup-r1-run/core.log"
+    },
+    {
+      "name": "ui",
+      "exit": 0,
+      "startEpoch": 1791939237,
+      "endEpoch": 1791939255,
+      "seconds": 18,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "ui",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-finance-followup-r1-run/ui.json",
+        "ui/src/lot/snapshot/nextEvent.test.ts",
+        "ui/src/lot/LotNextEventRail.test.tsx"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-finance-followup-r1-run/ui.log"
+    }
+  ],
+  "groupSummary": [
+    {
+      "group": "buyer",
+      "files": 1,
+      "passed": 1,
+      "overBudget": 1
+    },
+    {
+      "group": "core",
+      "files": 5,
+      "passed": 141,
+      "overBudget": 13
+    },
+    {
+      "group": "ui",
+      "files": 2,
+      "passed": 26,
+      "overBudget": 0
+    }
+  ],
+  "passed": 168,
+  "failed": 0,
+  "skipped": 0,
+  "todo": 0,
+  "budgetQualified": 154,
+  "overBudget": [
+    {
+      "file": "tests/p16-held-title-buyer-public.test.ts",
+      "fullName": "real purchased R04film0 survives four fixed public campaigns and joins actual buyer closure without changing creator history",
+      "status": "passed",
+      "durationMs": 6076.618778,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 forward-migrates protocol 3 by preserving both V15 slots and discarding incompatible replay bytes",
+      "status": "passed",
+      "durationMs": 6273.146885,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 encodes one exact closed canonical shape with one LF and hydrates stable V15 bytes",
+      "status": "passed",
+      "durationMs": 5079.231874999998,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 requires canonical checkpoint bytes followed by exactly one LF",
+      "status": "passed",
+      "durationMs": 6302.322763,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 requires untouched canonical V15 current and explicit-save bytes with exact digests",
+      "status": "passed",
+      "durationMs": 11840.440519000003,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 validates route-specific requests, responses, identity, session, revision, and canonical JSON",
+      "status": "passed",
+      "durationMs": 8043.161457000002,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 binds exact historical bytes and rejection semantics to their original route",
+      "status": "passed",
+      "durationMs": 6831.658777000004,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 rejects duplicate identities and revision-regressing journal order",
+      "status": "passed",
+      "durationMs": 5405.789403999996,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 binds the root revision to the terminal journal response",
+      "status": "passed",
+      "durationMs": 5827.77532500001,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 returns a normalized prospective append only after identity and capacity validation",
+      "status": "passed",
+      "durationMs": 5263.339822000009,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 enforces injectable entry, journal-byte, and checkpoint-byte bounds before hydration",
+      "status": "passed",
+      "durationMs": 5450.65595,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "C17 shipped projection57 carry-forward independently migrates two admitted Save47 slots under actual shipped57 and discards opaque prior journal",
+      "status": "passed",
+      "durationMs": 5481.197304999994,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope",
+      "status": "passed",
+      "durationMs": 5502.814313,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema keeps live location identities in the projection-v4 building namespace",
+      "status": "passed",
+      "durationMs": 29479.361782,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    }
+  ],
+  "strictChecks": 9,
+  "strictErrorsBytes": 0,
+  "sourceCount": 1596,
+  "inputCount": 77,
+  "independentFreezeComparison": "PASS",
+  "rows": [
+    {
+      "file": "tests/p16-held-title-buyer-public.test.ts",
+      "fullName": "real purchased R04film0 survives four fixed public campaigns and joins actual buyer closure without changing creator history",
+      "status": "passed",
+      "durationMs": 6076.618778,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation A \u2014 exact nullable unions F01 emits required string|null without a union class and is arm-order independent",
+      "status": "passed",
+      "durationMs": 7.434468999999922,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation A \u2014 exact nullable unions F02 preserves a named object behind required object|null",
+      "status": "passed",
+      "durationMs": 1.401081999999974,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation A \u2014 exact nullable unions rejects malformed nullable wrappers exactly",
+      "status": "passed",
+      "durationMs": 1.1068369999999277,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation A \u2014 exact nullable unions preserves nullable value-type array items recursively and initializes the exact element type",
+      "status": "passed",
+      "durationMs": 2.0046950000000834,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation A \u2014 exact nullable unions leaves optional arrays absent while required arrays retain empty initialization",
+      "status": "passed",
+      "durationMs": 0.8739739999999756,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation B \u2014 structurally compatible object unions F03 emits one sealed aggregate only after exact recursive compatibility",
+      "status": "passed",
+      "durationMs": 3.324752999999987,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation B \u2014 structurally compatible object unions F05 fails closed for conflicting same-name types in stable definition-path order",
+      "status": "passed",
+      "durationMs": 1.0637980000000198,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation B \u2014 structurally compatible object unions F06 keeps absent, optional, and required as three different laws",
+      "status": "passed",
+      "durationMs": 1.0323740000000043,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation B \u2014 structurally compatible object unions F08 reports the nested defect and exact referencing use site",
+      "status": "passed",
+      "durationMs": 0.776538999999957,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation C \u2014 closed discriminated object unions F04 emits an abstract base, exact concrete members, a closed vocabulary, and converter",
+      "status": "passed",
+      "durationMs": 6.990256999999929,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation C \u2014 closed discriminated object unions keeps member storage attached and generated bytes identical when anyOf order reverses",
+      "status": "passed",
+      "durationMs": 777.926949,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation C \u2014 closed discriminated object unions rejects ambiguous, overlapping, malformed, and unsafe discriminator selection exactly",
+      "status": "passed",
+      "durationMs": 3.2576000000001386,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation C \u2014 closed discriminated object unions rejects repeated discriminator literals at the duplicate enum entry",
+      "status": "passed",
+      "durationMs": 0.7715650000000096,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation C \u2014 closed discriminated object unions quotes hostile discriminator values in every generated diagnostic context",
+      "status": "passed",
+      "durationMs": 1.3331519999999273,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation C \u2014 closed discriminated object unions rejects anonymous/open members and multiple generated base ownership",
+      "status": "passed",
+      "durationMs": 1.3339160000000447,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation D/E \u2014 unsupported unions fail closed F07 rejects an object/primitive mix independent of arm order",
+      "status": "passed",
+      "durationMs": 0.8155030000000352,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation D/E \u2014 unsupported unions fail closed F09 supports a named discriminated array item and rejects anonymous/conflicting items",
+      "status": "passed",
+      "durationMs": 1.6582820000000993,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation current accepted contract and future sentinel F10 emits sound request and response union shapes without changing schema identity",
+      "status": "passed",
+      "durationMs": 314.07020999999986,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation current accepted contract and future sentinel F11 preserves command member-only directorId and nullable base use",
+      "status": "passed",
+      "durationMs": 170.098121,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation current accepted contract and future sentinel F12 emits six concrete Production-state fixture members without promoting conflicts",
+      "status": "passed",
+      "durationMs": 4.130783000000065,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation current accepted contract and future sentinel pins exact positive output identities and deterministic rerendering",
+      "status": "passed",
+      "durationMs": 375.15054299999997,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation current accepted contract and future sentinel is a red mutation guard against first-member-wins flattening",
+      "status": "passed",
+      "durationMs": 159.6871759999999,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards fails unknown references and cycles at exact use paths",
+      "status": "passed",
+      "durationMs": 0.7670239999997648,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards rejects normalized vocabulary identifiers that collide",
+      "status": "passed",
+      "durationMs": 0.4973899999999958,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards rejects duplicate vocabulary literals at the exact enum entry",
+      "status": "passed",
+      "durationMs": 0.42072700000016994,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards validates compatible and promoted properties in their emitted class scopes",
+      "status": "passed",
+      "durationMs": 1.6411149999998997,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards rejects enclosing class and synthesized discriminator member collisions",
+      "status": "passed",
+      "durationMs": 2.040216999999757,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards rejects inherited promoted and vocabulary-enclosing symbol collisions",
+      "status": "passed",
+      "durationMs": 1.1695039999999608,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards reserves configured contract class and generated contract member names",
+      "status": "passed",
+      "durationMs": 2.1155579999999645,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards allows annotation-only $ref siblings and rejects assertions/applicators at the sibling path",
+      "status": "passed",
+      "durationMs": 1.374286000000211,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-contract-generator.test.ts",
+      "fullName": "CF-08 sound union-to-C# generation reference, identifier, and publication guards renders the whole contract before a caller can invoke any output sink",
+      "status": "passed",
+      "durationMs": 1.8373030000002473,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-p11-finance.test.ts",
+      "fullName": "Playability financial consequence calendar disclosure uses the same calendar as the clock at absolute week 19",
+      "status": "passed",
+      "durationMs": 87.06620500000008,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-p11-finance.test.ts",
+      "fullName": "Playability financial consequence calendar disclosure uses the same calendar as the clock at absolute week 51",
+      "status": "passed",
+      "durationMs": 59.95596599999999,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-p11-finance.test.ts",
+      "fullName": "Playability financial consequence calendar disclosure uses the same calendar as the clock at absolute week 52",
+      "status": "passed",
+      "durationMs": 57.637272000000166,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-p11-finance.test.ts",
+      "fullName": "P11 construction financial consequence over the real bridge development-casting-annex: retains pennies, charges once now and introduces Opex only after completion",
+      "status": "passed",
+      "durationMs": 4120.96116,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-p11-finance.test.ts",
+      "fullName": "P11 construction financial consequence over the real bridge development-office-2: retains pennies, charges once now and introduces Opex only after completion",
+      "status": "passed",
+      "durationMs": 3714.0469080000003,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-p11-finance.test.ts",
+      "fullName": "P11 construction financial consequence over the real bridge gives illegal placement no financial successor and refuses a stale legal financial preview",
+      "status": "passed",
+      "durationMs": 1758.6167650000007,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-p11-finance.test.ts",
+      "fullName": "P11 current people, obligations and film economics owners publishes only current contracts, with guarantees beside literal Cash and exact payroll",
+      "status": "passed",
+      "durationMs": 775.0108899999996,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-p11-finance.test.ts",
+      "fullName": "P11 current people, obligations and film economics owners keeps same-title films independent, preserves every P07 business amount and excludes studio costs",
+      "status": "passed",
+      "durationMs": 566.8740399999988,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-p11-finance.test.ts",
+      "fullName": "P11 current people, obligations and film economics owners marks genuinely missing legacy direct commitments unavailable without rewriting P07",
+      "status": "passed",
+      "durationMs": 900.1112900000007,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-p11-finance.test.ts",
+      "fullName": "P11 current people, obligations and film economics owners does not turn a retained legacy freelancer receipt into a complete film budget",
+      "status": "passed",
+      "durationMs": 791.3715370000009,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-p11-finance.test.ts",
+      "fullName": "P11 current people, obligations and film economics owners discloses legacy bundled production spending without inventing a historic budget split",
+      "status": "passed",
+      "durationMs": 792.2906350000012,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 forward-migrates protocol 3 by preserving both V15 slots and discarding incompatible replay bytes",
+      "status": "passed",
+      "durationMs": 6273.146885,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 rolls the previous protocol-4 schema forward without changing either V15 save slot",
+      "status": "passed",
+      "durationMs": 4916.15778,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 rolls an authentic previous protocol-4 checkpoint with no explicit save slot",
+      "status": "passed",
+      "durationMs": 1817.1963219999998,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 rejects an impossible open-founding state attributed to the previous protocol-4 runtime",
+      "status": "passed",
+      "durationMs": 162.78644300000087,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 encodes one exact closed canonical shape with one LF and hydrates stable V15 bytes",
+      "status": "passed",
+      "durationMs": 5079.231874999998,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 requires canonical checkpoint bytes followed by exactly one LF",
+      "status": "passed",
+      "durationMs": 6302.322763,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 rejects missing and additional roots plus incompatible format, version, protocol, and schema",
+      "status": "passed",
+      "durationMs": 3906.127824000003,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 requires untouched canonical V15 current and explicit-save bytes with exact digests",
+      "status": "passed",
+      "durationMs": 11840.440519000003,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 validates route-specific requests, responses, identity, session, revision, and canonical JSON",
+      "status": "passed",
+      "durationMs": 8043.161457000002,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 binds exact historical bytes and rejection semantics to their original route",
+      "status": "passed",
+      "durationMs": 6831.658777000004,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 rejects duplicate identities and revision-regressing journal order",
+      "status": "passed",
+      "durationMs": 5405.789403999996,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 binds the root revision to the terminal journal response",
+      "status": "passed",
+      "durationMs": 5827.77532500001,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 returns a normalized prospective append only after identity and capacity validation",
+      "status": "passed",
+      "durationMs": 5263.339822000009,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 enforces injectable entry, journal-byte, and checkpoint-byte bounds before hydration",
+      "status": "passed",
+      "durationMs": 5450.65595,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 validates an accepted save response V15 payload and digest before journaling it",
+      "status": "passed",
+      "durationMs": 4236.619413000008,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "BridgeRuntimeCheckpointV1 surfaces a typed checkpoint error with the exact failing path",
+      "status": "passed",
+      "durationMs": 0.4859709999873303,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import preserves both actual accepted P12 founding slots through the P13 save migration",
+      "status": "passed",
+      "durationMs": 2033.8047959999967,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import migrates a v4-identity (f84ae77e) checkpoint with a V14 current save and an opaque 2-entry journal",
+      "status": "passed",
+      "durationMs": 847.364625000002,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import preserves and migrates a non-null savedSaveJson slot for a prior protocol-4 identity",
+      "status": "passed",
+      "durationMs": 1613.147363000011,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:13b7933fdd1e3dc9851dd08630e46efd43e70227f5e0c6f6cf130d885752ab74 (projection-v58) identity",
+      "status": "passed",
+      "durationMs": 796.1277960000007,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253 (projection-v57) identity",
+      "status": "passed",
+      "durationMs": 835.6536510000005,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1 (projection-v56) identity",
+      "status": "passed",
+      "durationMs": 793.9769280000037,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158 (projection-v55) identity",
+      "status": "passed",
+      "durationMs": 859.8179810000001,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae3a656025b302 (projection-v54) identity",
+      "status": "passed",
+      "durationMs": 804.4742989999941,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d (projection-v53) identity",
+      "status": "passed",
+      "durationMs": 822.1234069999919,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2 (projection-v52) identity",
+      "status": "passed",
+      "durationMs": 807.3007939999952,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:a690e6f9e6f93f3a78f8eed8eaa20a1532a9ebd82812b0bc9414a04fdcb5968f (projection-v51) identity",
+      "status": "passed",
+      "durationMs": 883.0184660000086,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698 (projection-v50) identity",
+      "status": "passed",
+      "durationMs": 794.9585660000012,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b (projection-v49) identity",
+      "status": "passed",
+      "durationMs": 817.6799369999935,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:00c0075bef257634956da7d16d117a145d203047e7169c643156b7971c4c7fec (projection-v48) identity",
+      "status": "passed",
+      "durationMs": 788.1167179999902,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:6f6b48805aadcf14d456614d87bf1571eb1ce0d9aa0bc44f604e7976f4f85538 (projection-v47) identity",
+      "status": "passed",
+      "durationMs": 864.900112000003,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:584bdd8565030f049d548b1af4fcbf8c517ca7c9150016736f632f1ef8fcb98c (projection-v46) identity",
+      "status": "passed",
+      "durationMs": 789.9941229999968,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:5b2a4ca93d930e90a288db55bb5cc3fdc8eea070ef51fa1450a193a325bd755d (projection-v45) identity",
+      "status": "passed",
+      "durationMs": 783.8980919999885,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:c9c07d6febe4afee7f7c27c991acdfa1c86b6c3a7f5dff8528d7fa5ad72e43a1 (projection-v31) identity",
+      "status": "passed",
+      "durationMs": 826.0287709999975,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:e64a3b659e4247b98631f1caa1f0e9eb0b6016aac92b0f46be590360ff9cee48 (projection-v30) identity",
+      "status": "passed",
+      "durationMs": 794.345153000002,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85 (projection-v29) identity",
+      "status": "passed",
+      "durationMs": 763.5715889999992,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712 (projection-v28) identity",
+      "status": "passed",
+      "durationMs": 800.5499399999972,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:97940e51e0566bed80231b223e5b7303a45d62db8d698f693e525eb244775211 (projection-v27) identity",
+      "status": "passed",
+      "durationMs": 778.3120809999964,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:2b339a6a8b3e5add0726b7eaac9ce8746e235d8b6111a6816f890ff56afdffd1 (projection-v26) identity",
+      "status": "passed",
+      "durationMs": 794.3739229999919,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:fe9bf4558dc12abc5f258ba8b8f581242e06361cfbae8ae31d8c676f6c7a6460 (projection-v25) identity",
+      "status": "passed",
+      "durationMs": 828.2130000000034,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:204a71924bd8c2e8ae9af47591226894b3e42f62457da3cc20ed6b106ede611a (projection-v24) identity",
+      "status": "passed",
+      "durationMs": 810.7635260000097,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f (projection-v4-early) identity",
+      "status": "passed",
+      "durationMs": 814.0656880000024,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:f84ae77ec59a0d7ca7cdd89115456504ddecbde2c6e3839936e4951bd65bce61 (projection-v4) identity",
+      "status": "passed",
+      "durationMs": 793.2168589999928,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:be7ed660d04ed9b1056f48e946f86f26c10cab42b950a273d57ad9cba372f5bb (projection-v5) identity",
+      "status": "passed",
+      "durationMs": 848.8085329999885,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:15033cf9ca43be65abcb25fc6f910f9487ac23056090126ec7d3e2353f6ce587 (projection-v6) identity",
+      "status": "passed",
+      "durationMs": 805.442962999994,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:7e3af4db0d3d18cdeaab00082e0034f304a9141f46ea87e9e64e5a99d985483c (projection-v7) identity",
+      "status": "passed",
+      "durationMs": 777.7245919999987,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5 (projection-v8) identity",
+      "status": "passed",
+      "durationMs": 819.7259279999998,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:510f08e4a551827a30e0f3d93bbe09fa5ddadbd39366b4dcfa93530500c7979c (projection-v9-early) identity",
+      "status": "passed",
+      "durationMs": 808.9132160000008,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:80f2f0fcd14d1b25e713c2624286a6c05a98c53ea5cfcb2b47612f8c030f5e47 (projection-v9) identity",
+      "status": "passed",
+      "durationMs": 778.8519640000013,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:92317ec179456cdc5bd5cc7c4ca47dd066b768a9e2e45519f1263ef921a211a4 (projection-v10) identity",
+      "status": "passed",
+      "durationMs": 815.9057239999966,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e (projection-v11) identity",
+      "status": "passed",
+      "durationMs": 781.364579000001,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:a481d14f3810ffbafcba2bbf509db7340263f3f0fd665a059507a1567d98923d (projection-v12-stale-urn) identity",
+      "status": "passed",
+      "durationMs": 792.4592030000058,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b (projection-v12) identity",
+      "status": "passed",
+      "durationMs": 822.4626900000003,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f (projection-v13) identity",
+      "status": "passed",
+      "durationMs": 800.0431329999992,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b (projection-v14) identity",
+      "status": "passed",
+      "durationMs": 790.2170380000025,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99 (projection-v15) identity",
+      "status": "passed",
+      "durationMs": 771.6403149999969,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236 (projection-v16) identity",
+      "status": "passed",
+      "durationMs": 799.5442000000039,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399 (projection-v17-early) identity",
+      "status": "passed",
+      "durationMs": 887.2224850000057,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25 (projection-v17-w1b) identity",
+      "status": "passed",
+      "durationMs": 843.9567280000047,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78 (projection-v17) identity",
+      "status": "passed",
+      "durationMs": 966.1012579999951,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:ea5d645f34a472f4710b9273b225d6f15433d6d17ae8ed1af3c03686a225c8c4 (projection-v18) identity",
+      "status": "passed",
+      "durationMs": 847.1386950000015,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9 (projection-v19) identity",
+      "status": "passed",
+      "durationMs": 834.1998199999944,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b (projection-v20) identity",
+      "status": "passed",
+      "durationMs": 913.1776479999971,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:1bad05a95c284e64ceaef54c276f2dd0ccad8ca3ef1b12198068bb61b85198c9 (projection-v23) identity",
+      "status": "passed",
+      "durationMs": 837.8024609999993,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:b779faa92227bd1f2e623ad04d0899c87e7ddc60ce43f9ae9c39a7626c20a83d (projection-v22) identity",
+      "status": "passed",
+      "durationMs": 799.2906619999994,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import accepts and migrates the enumerated sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1 (projection-v21) identity",
+      "status": "passed",
+      "durationMs": 767.2473920000048,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import fails closed on a duplicate commandId, a wrong journalDigest, and non-canonical bytes",
+      "status": "passed",
+      "durationMs": 67.29886000000988,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import re-hydrates the migrated output via the normal current-schema path (write-read round trip, idempotent)",
+      "status": "passed",
+      "durationMs": 1007.8088909999933,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import fails closed on an unknown protocol-4 schemaId with the exact current message",
+      "status": "passed",
+      "durationMs": 51.13605600000301,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import fails closed on malformed prior protocol-4 checkpoint bytes",
+      "status": "passed",
+      "durationMs": 67.63590799999656,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import rejects an impossible open-founding state on either migrated save slot",
+      "status": "passed",
+      "durationMs": 153.51904499999364,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "P04A REOPEN \u2014 enumerated prior protocol-4 checkpoint import never parses journal request/response bodies for a prior protocol-4 identity",
+      "status": "passed",
+      "durationMs": 774.9412719999964,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "prior protocol-4 acceptance boundary pins never contains the RUNNING schema identity (re-migration must be impossible)",
+      "status": "passed",
+      "durationMs": 0.2263810000004014,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "prior protocol-4 acceptance boundary pins contains exactly the independently pinned historical protocol-4 identities",
+      "status": "passed",
+      "durationMs": 0.2807369999936782,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "C17 shipped projection57 carry-forward registers the actual shipped projection57 identity, independently of map iteration",
+      "status": "passed",
+      "durationMs": 0.22763100000156555,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint.test.ts",
+      "fullName": "C17 shipped projection57 carry-forward independently migrates two admitted Save47 slots under actual shipped57 and discards opaque prior journal",
+      "status": "passed",
+      "durationMs": 5481.197304999994,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema uses fixed ordinal key order, including non-ASCII keys, independent of insertion order",
+      "status": "passed",
+      "durationMs": 2.393861999999899,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema hashes the complete canonical contract and changes on structural wire drift",
+      "status": "passed",
+      "durationMs": 37.387473,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema closes every declared object recursively and publishes explicit protocol metadata",
+      "status": "passed",
+      "durationMs": 11.635057999999844,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope",
+      "status": "passed",
+      "durationMs": 5502.814313,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema keeps live location identities in the projection-v4 building namespace",
+      "status": "passed",
+      "durationMs": 29479.361782,
+      "budgetMs": 5000,
+      "budgetQualified": false,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema owns every legacy projection field exactly once with byte-equivalent schema semantics",
+      "status": "passed",
+      "durationMs": 1.0024600000033388,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data",
+      "status": "passed",
+      "durationMs": 2645.964752,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema preserves required nullable numeric fields through schema projection",
+      "status": "passed",
+      "durationMs": 2651.5046929999953,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema models accepted load/command responses as one flat projection envelope",
+      "status": "passed",
+      "durationMs": 2115.8766719999985,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema requires one closed structured rejection with non-empty guidance and a nullable holder",
+      "status": "passed",
+      "durationMs": 1374.708219,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema models the schema discovery response without a self-referential object contract",
+      "status": "passed",
+      "durationMs": 37.04574899999716,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema validates the session and health handshake envelopes",
+      "status": "passed",
+      "durationMs": 1832.8598610000045,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema keeps checked-in JSON and generated C# byte-derived from the canonical schema",
+      "status": "passed",
+      "durationMs": 17.535212999995565,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema parseWireValue anyOf dispatch on a discriminated object union (P04A Lane B Step 1 spike) dispatches each member by its literal discriminant and preserves its own fields",
+      "status": "passed",
+      "durationMs": 0.4821330000049784,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema parseWireValue anyOf dispatch on a discriminated object union (P04A Lane B Step 1 spike) rejects a value matching neither member",
+      "status": "passed",
+      "durationMs": 0.36667900000611553,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema parseWireValue anyOf dispatch on a discriminated object union (P04A Lane B Step 1 spike) rejects a mixed member carrying fields from both alternatives",
+      "status": "passed",
+      "durationMs": 0.4369460000016261,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema parseWireValue anyOf dispatch on a discriminated object union (P04A Lane B Step 1 spike) rejects a member whose discriminant is right but whose own field is malformed",
+      "status": "passed",
+      "durationMs": 0.46815300000162097,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema P04A casting schema \u2014 closed union coverage validates a quoteCommission and a quoteCasting request through the SAME StudioBridgeQuoteRequest union",
+      "status": "passed",
+      "durationMs": 1.3743800000011106,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema P04A casting schema \u2014 closed union coverage rejects a request carrying an extra key on either union member",
+      "status": "passed",
+      "durationMs": 1.0276429999939865,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema P04A casting schema \u2014 closed union coverage rejects a request whose `type` and `draft` shape disagree (mixed member)",
+      "status": "passed",
+      "durationMs": 1.5047510000003967,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema P04A casting schema \u2014 closed union coverage StudioCastingDraftPayload keeps every by-kind field REQUIRED (nullable, never optional)",
+      "status": "passed",
+      "durationMs": 0.9144430000014836,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/bridge-schema.test.ts",
+      "fullName": "canonical Unity bridge schema P04A casting schema \u2014 closed union coverage validates a commission AND a casting quote through the SAME StudioQuoteSnapshot union, closed with P11 finances confined to the shared envelope",
+      "status": "passed",
+      "durationMs": 2.3745530000014696,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "tests/p11-finance-history-scale.test.ts",
+      "fullName": "P11 bounded history at long-save scale keeps a 6,240-advance real ledger exact with at most 52 weekly chart/text points",
+      "status": "passed",
+      "durationMs": 3420.857819,
+      "budgetMs": 60000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/snapshot/nextEvent.test.ts",
+      "fullName": "strict Lot next-event presentation boundary accepts real screenplay, casting, and physical Stage 7 decision projections",
+      "status": "passed",
+      "durationMs": 652.387798,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/snapshot/nextEvent.test.ts",
+      "fullName": "strict Lot next-event presentation boundary accepts exact run, cash, renewal, and expiry outcomes without inventing identity",
+      "status": "passed",
+      "durationMs": 3270.2690810000004,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/snapshot/nextEvent.test.ts",
+      "fullName": "strict Lot next-event presentation boundary validates Annex completion independently and retains it through primary neutral fallback",
+      "status": "passed",
+      "durationMs": 348.8255989999998,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/snapshot/nextEvent.test.ts",
+      "fullName": "strict Lot next-event presentation boundary keeps release and zero-week preflight outside exact receipts and accepts only the 520 guard neutral",
+      "status": "passed",
+      "durationMs": 477.41810500000065,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/snapshot/nextEvent.test.ts",
+      "fullName": "strict Lot next-event presentation boundary retains finite fractional money exactly but rejects bad provenance, numbers, shapes, and projections",
+      "status": "passed",
+      "durationMs": 531.2098559999995,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/snapshot/nextEvent.test.ts",
+      "fullName": "strict Lot next-event presentation boundary compares every closed field and rejects malformed values even against themselves",
+      "status": "passed",
+      "durationMs": 204.678723,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/snapshot/nextEvent.test.ts",
+      "fullName": "F40 accepts all four actual summary fields and retained old shape while refusing partial mixed and extra receipt fields",
+      "status": "passed",
+      "durationMs": 1480.4881159999995,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/LotNextEventRail.test.tsx",
+      "fullName": "LotNextEventRail presents the exact receipt, complete accounting, and world-before-deep action order",
+      "status": "passed",
+      "durationMs": 210.01661699999931,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/LotNextEventRail.test.tsx",
+      "fullName": "LotNextEventRail retains every completed-run identity in receipt order",
+      "status": "passed",
+      "durationMs": 27.542801999999938,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/LotNextEventRail.test.tsx",
+      "fullName": "LotNextEventRail defers focus and live ownership to the one construction completion notice",
+      "status": "passed",
+      "durationMs": 56.12820499999998,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/LotNextEventRail.test.tsx",
+      "fullName": "LotNextEventRail keeps neutral feedback primitive-only and requests stable Lot focus once",
+      "status": "passed",
+      "durationMs": 12.427025999999387,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/LotNextEventRail.test.tsx",
+      "fullName": "LotNextEventRail lets an independently valid completion own focus on the neutral arm",
+      "status": "passed",
+      "durationMs": 17.14642400000048,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/LotNextEventRail.test.tsx",
+      "fullName": "LotNextEventRail rejects and seals a pointer/mouse tail when any closed receipt field changed, then accepts a later fresh boundary",
+      "status": "passed",
+      "durationMs": 33.894054000000324,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/LotNextEventRail.test.tsx",
+      "fullName": "LotNextEventRail keeps the first down token and invokes its captured callback, never the newest closure",
+      "status": "passed",
+      "durationMs": 29.924254999999903,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/LotNextEventRail.test.tsx",
+      "fullName": "LotNextEventRail consumes and seals a detail-greater-than-one token before any other slot can act",
+      "status": "passed",
+      "durationMs": 30.3118170000007,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/LotNextEventRail.test.tsx",
+      "fullName": "LotNextEventRail allows only one world/deep/dismiss claim before the presentation turn settles",
+      "status": "passed",
+      "durationMs": 27.275636999999733,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/LotNextEventRail.test.tsx",
+      "fullName": "LotNextEventRail captures semantic key presentation without dispatching until click and rejects a replacement tail",
+      "status": "passed",
+      "durationMs": 44.31970100000035,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/LotNextEventRail.test.tsx",
+      "fullName": "LotNextEventRail does not let a presentation-A touch tail dismiss replacement B",
+      "status": "passed",
+      "durationMs": 20.666261999999733,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/LotNextEventRail.test.tsx",
+      "fullName": "LotNextEventRail contains every physical start family before the world canvas",
+      "status": "passed",
+      "durationMs": 19.1372709999996,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/LotNextEventRail.test.tsx",
+      "fullName": "LotNextEventRail clears a hidden-tab token and cannot dispatch it after visibility or unmount",
+      "status": "passed",
+      "durationMs": 37.74748499999987,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/LotNextEventRail.test.tsx",
+      "fullName": "LotNextEventRail makes a suspended modal boundary inert and admits a later fresh AT click",
+      "status": "passed",
+      "durationMs": 57.96110399999998,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/LotNextEventRail.test.tsx",
+      "fullName": "LotNextEventRail clears a held rail action across renderer/context generations without disabling fallback",
+      "status": "passed",
+      "durationMs": 41.06497500000023,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/LotNextEventRail.test.tsx",
+      "fullName": "LotNextEventRail keeps virtual AT activation available after bounded pointer and keyboard cancellation",
+      "status": "passed",
+      "durationMs": 47.65174300000035,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/LotNextEventRail.test.tsx",
+      "fullName": "C2a-M4 \u00b7 the rail names the stage the picture is actually on prints the engine's own name for a stage the studio BUILT",
+      "status": "passed",
+      "durationMs": 18.93189799999982,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/LotNextEventRail.test.tsx",
+      "fullName": "C2a-M4 \u00b7 the rail names the stage the picture is actually on still names Soundstage 7 for a founding-stage receipt",
+      "status": "passed",
+      "durationMs": 28.395198000000164,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    },
+    {
+      "file": "ui/src/lot/LotNextEventRail.test.tsx",
+      "fullName": "F40 mounted accounting renders signed rights estate acquisition and diligence labels while old receipts omit unrecorded categories",
+      "status": "passed",
+      "durationMs": 65.27467799999977,
+      "budgetMs": 5000,
+      "budgetQualified": true,
+      "failureMessages": []
+    }
+  ],
+  "limits": "Assertion result168PASS is not all-budget PASS or P16 acceptance. Original60 functional failures and all original14 overruns retained. Original F40 core2/other11 pass constituents separate. Three compiler0 source identities exact; only root repeated for save fix/test changes. No native/browser/player acceptance."
+}

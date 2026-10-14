@@ -1,0 +1,99 @@
+{
+  "disposition": "Canonical generation qualified only. Three bytechanges and one mode-only regeneration; allnonoutput/source/index/inputs/HANDOFF preserved. No compiler/test/Unity consumer claim.",
+  "terminal": {
+    "overallExit": 0,
+    "groups": {
+      "generator-contract": 0,
+      "generator-fixtures": 0
+    },
+    "scope": "two canonical generators only; no compiler/runtime acceptance claim",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "outputs": [
+    {
+      "path": "bridge/schema/project-studio-bridge.schema.json",
+      "before": [
+        "file",
+        "53aefe53da6a6de33eb71c47f03a0955737bc0b6a5d7f0fbc9d93e8475e65ca6",
+        420
+      ],
+      "after": [
+        "file",
+        "d09806bb2188e37d26a695e4c2438c50d9ca2a1838237731248a533bd12ec4e7",
+        384
+      ]
+    },
+    {
+      "path": "generated/unity/StudioBridgeDtos.Generated.cs",
+      "before": [
+        "file",
+        "57b9c273bb12a178899bce5a405c01cb7659a485b180f48818ff6b3c67d59dc3",
+        420
+      ],
+      "after": [
+        "file",
+        "3846a2fd05ce8d96ef8433ee62a40bb4a10d0e1f691efc5e50d927f8e05ab097",
+        384
+      ]
+    },
+    {
+      "path": "generated/unity/project-studio-bridge.contract-manifest.json",
+      "before": [
+        "file",
+        "33a56a7e068a3b7bf7d00a1bfa9e0b2374cdf9cac1b614b9ebd2af56383d216c",
+        420
+      ],
+      "after": [
+        "file",
+        "00667e8bdc837f28d55fe442e18d8d5ddc4042b3aab14b81be1d5f450ba32446",
+        384
+      ]
+    },
+    {
+      "path": "generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs",
+      "before": [
+        "file",
+        "be4b1dd1da2e7dc28906b9bad1ab0fa73e32d4dbe69eef344d9aeaf0a697bdb6",
+        420
+      ],
+      "after": [
+        "file",
+        "be4b1dd1da2e7dc28906b9bad1ab0fa73e32d4dbe69eef344d9aeaf0a697bdb6",
+        384
+      ]
+    }
+  ],
+  "children": [
+    {
+      "name": "generator-contract",
+      "exit": 0,
+      "startEpoch": 1791937755,
+      "endEpoch": 1791937757,
+      "seconds": 2,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vite-node/vite-node.mjs",
+        "scripts/generate-bridge-contract.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-finance-generation-r1-run/generator-contract.log"
+    },
+    {
+      "name": "generator-fixtures",
+      "exit": 0,
+      "startEpoch": 1791937763,
+      "endEpoch": 1791937763,
+      "seconds": 0,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vite-node/vite-node.mjs",
+        "scripts/generate-bridge-contract-fixtures.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-finance-generation-r1-run/generator-fixtures.log"
+    }
+  ],
+  "sourceFiles": 1597,
+  "inputs": 62
+}
