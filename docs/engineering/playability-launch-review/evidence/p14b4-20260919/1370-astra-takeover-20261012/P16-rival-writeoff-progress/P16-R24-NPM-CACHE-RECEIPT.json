@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-14T16:13:51.172783-05:00",
+  "target": "/Users/zacheryspector/.npm/_cacache",
+  "ownerUid": 501,
+  "purpose": "Regenerable npm package download cache; installed _npx tools and dependencies excluded",
+  "beforeFreeKiB": 3688804,
+  "openHandles": "lsof exit1 with empty stdout and stderr",
+  "noCompetingIntensiveProcesses": true,
+  "symlinksFollowed": false,
+  "removedFiles": 364,
+  "estimatedAllocatedBytes": 169021440,
+  "afterFreeKiB": 3856656,
+  "actualNetRecoveredKiB": 167852,
+  "remainingLaunchShortfallKiB": 0,
+  "skipped": [
+    "/Users/zacheryspector/.npm/_cacache/content-v2/sha512/dd",
+    "/Users/zacheryspector/.npm/_cacache/content-v2/sha512/78",
+    "/Users/zacheryspector/.npm/_cacache/index-v5/e5",
+    "/Users/zacheryspector/.npm/_cacache/index-v5/2d"
+  ],
+  "normalMaintenanceChoice": "npm normal cache clean previously failed on root-owned remnants; exact user-owned cache contents only, no escalation",
+  "protectedItemsPreserved": [
+    "root-owned cache subtrees",
+    "node_modules and installed _npx tools",
+    "live VSCode updater",
+    "project files, evidence, saves, assets, Git and toolchains",
+    "Desktop, Documents, Downloads, Trash and cloud archives"
+  ]
+}
