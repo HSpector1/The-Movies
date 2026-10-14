@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-14T15:44:00.454011-05:00",
+  "initialExit": 98,
+  "initialLog": "P16-R22-LANE.LOG",
+  "initialLogSHA256": "86c187a7d30410673e35efd77f591e92ea67dc290c2c1ae2a5499a67c7b4486d",
+  "initialCause": "Mistyped external BINDINGS SHA rejected before OUT/compiler/test",
+  "initialAssertionsCounted": 0,
+  "correctReviewedBindingSHA256": "72d6b09d97c69f99111dd1d25ab1495e4c72e4b85f1359430c323c1fcf122005",
+  "correction": "Read unchanged reviewed pins after exact verification into external bootstrap environment; no runner/input changes",
+  "actualRun": "p16-work-release61-integration-r22-run",
+  "actualResult": "P16-WORK-RELEASE61-INTEGRATION-R22-PARENT-RESULT.json",
+  "actualOverallExit": 1
+}

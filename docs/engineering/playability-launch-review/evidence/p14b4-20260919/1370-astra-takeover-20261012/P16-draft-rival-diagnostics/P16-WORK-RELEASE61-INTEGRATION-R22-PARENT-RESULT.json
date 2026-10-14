@@ -1,0 +1,99 @@
+{
+  "terminal": {
+    "overallExit": 1,
+    "groups": {
+      "tsc-root": 0,
+      "estate-red": 1,
+      "identity-accounting": 0
+    },
+    "scope": "Fresh root and complete fixed actual163 plus eight ordinary ticks171 diagnostic1/default5000ms; require genuinely new drafting commissioned170 before existing capability refusal; no search, invented history, funded closing or feature acceptance",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1792010424,
+      "endEpoch": 1792010486,
+      "seconds": 62,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r22-run/tsc-root.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 1,
+      "startEpoch": 1792010497,
+      "endEpoch": 1792010503,
+      "seconds": 6,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r22-run/results.json",
+        "tests/p16-healthy-new-drafting171.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r22-run/estate-red.log"
+    }
+  ],
+  "independentFinalFreeze": "PASS",
+  "sourceCount": 1625,
+  "inputCount": 136,
+  "strictChecks": 5,
+  "strictErrorsBytes": 0,
+  "audit": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r22-parent-reconciliation",
+  "scope": "Fresh root and complete fixed actual163 plus eight ordinary ticks171 diagnostic1/default5000ms; require genuinely new drafting commissioned170 before existing capability refusal; no search, invented history, funded closing or feature acceptance",
+  "counts": {
+    "failed": 1
+  },
+  "identities": 1,
+  "rows": [
+    {
+      "file": "tests/p16-healthy-new-drafting171.test.ts",
+      "ancestorTitles": [
+        "P16 fixed genuine actual163 new healthy drafting premise"
+      ],
+      "fullName": "P16 fixed genuine actual163 new healthy drafting premise observes exactly eight ordinary ticks then requires a genuinely new active drafting project before diagnosing the current absorption owner",
+      "status": "failed",
+      "title": "observes exactly eight ordinary ticks then requires a genuinely new active drafting project before diagnosing the current absorption owner",
+      "duration": 1336.6115300000001,
+      "failureMessages": [
+        "AssertionError: fixed first-available drafting boundary has no concurrent production: expected [ { \u2026(13) } ] to deeply equal []\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-healthy-new-drafting171.test.ts:42:101\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)"
+      ],
+      "meta": {},
+      "originalBudgetMs": 5000
+    }
+  ],
+  "allBudgetQualified": true,
+  "maxMs": 1336.6115300000001,
+  "failures": [
+    {
+      "file": "tests/p16-healthy-new-drafting171.test.ts",
+      "ancestorTitles": [
+        "P16 fixed genuine actual163 new healthy drafting premise"
+      ],
+      "fullName": "P16 fixed genuine actual163 new healthy drafting premise observes exactly eight ordinary ticks then requires a genuinely new active drafting project before diagnosing the current absorption owner",
+      "status": "failed",
+      "title": "observes exactly eight ordinary ticks then requires a genuinely new active drafting project before diagnosing the current absorption owner",
+      "duration": 1336.6115300000001,
+      "failureMessages": [
+        "AssertionError: fixed first-available drafting boundary has no concurrent production: expected [ { \u2026(13) } ] to deeply equal []\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-healthy-new-drafting171.test.ts:42:101\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)\n    at startTests (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1271:3)"
+      ],
+      "meta": {},
+      "originalBudgetMs": 5000
+    }
+  ],
+  "overBudget": []
+}

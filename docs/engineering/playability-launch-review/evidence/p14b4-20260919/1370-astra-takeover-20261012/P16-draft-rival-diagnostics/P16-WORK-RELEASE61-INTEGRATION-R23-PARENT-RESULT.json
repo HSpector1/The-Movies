@@ -1,0 +1,95 @@
+{
+  "terminal": {
+    "overallExit": 0,
+    "groups": {
+      "tsc-root": 0,
+      "estate-red": 0,
+      "identity-accounting": 0
+    },
+    "scope": "Fresh root and two complete diagnostic files2/default5000ms: fixed actual163-to171 newdraft plus exact concurrent paidfilm12 and fixed actual163 R02buyer-to-R01target funded explicit nonretention quote before current producer refusals; original R22 failure retained, no search, invented history or feature acceptance",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1792010987,
+      "endEpoch": 1792011152,
+      "seconds": 165,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r23-run/tsc-root.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 0,
+      "startEpoch": 1792011163,
+      "endEpoch": 1792011176,
+      "seconds": 13,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r23-run/results.json",
+        "tests/p16-healthy-new-drafting171.test.ts",
+        "tests/p16-rival-buyer-absorption163-baseline.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r23-run/estate-red.log"
+    }
+  ],
+  "independentFinalFreeze": "PASS",
+  "sourceCount": 1626,
+  "inputCount": 149,
+  "strictChecks": 5,
+  "strictErrorsBytes": 0,
+  "audit": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r23-parent-reconciliation",
+  "scope": "Fresh root and two complete diagnostic files2/default5000ms: fixed actual163-to171 newdraft plus exact concurrent paidfilm12 and fixed actual163 R02buyer-to-R01target funded explicit nonretention quote before current producer refusals; original R22 failure retained, no search, invented history or feature acceptance",
+  "counts": {
+    "passed": 2
+  },
+  "identities": 2,
+  "rows": [
+    {
+      "file": "tests/p16-healthy-new-drafting171.test.ts",
+      "ancestorTitles": [
+        "P16 fixed genuine actual163 new healthy drafting premise"
+      ],
+      "fullName": "P16 fixed genuine actual163 new healthy drafting premise observes exactly eight ordinary ticks then requires a genuinely new active drafting project before diagnosing the current absorption owner",
+      "status": "passed",
+      "title": "observes exactly eight ordinary ticks then requires a genuinely new active drafting project before diagnosing the current absorption owner",
+      "duration": 2633.574777,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-rival-buyer-absorption163-baseline.test.ts",
+      "ancestorTitles": [
+        "P16 genuine actual163 rival buyer healthy acquisition baseline"
+      ],
+      "fullName": "P16 genuine actual163 rival buyer healthy acquisition baseline real paid R02 diligence and fixed empty retention reach an affordable R01 cancellation quote before the current rival buyer producer refusal",
+      "status": "passed",
+      "title": "real paid R02 diligence and fixed empty retention reach an affordable R01 cancellation quote before the current rival buyer producer refusal",
+      "duration": 1614.5672410000006,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    }
+  ],
+  "allBudgetQualified": true,
+  "maxMs": 2633.574777,
+  "failures": [],
+  "overBudget": []
+}
