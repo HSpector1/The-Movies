@@ -1,0 +1,36 @@
+{
+  "at": "2026-10-14T18:11:11.207379-05:00",
+  "R25PreflightAt": "2026-10-14T17:59:28.876274-05:00",
+  "R25PreflightCompetingHeavy": 0,
+  "externalProcessAbsentFromPreflightSnapshots": true,
+  "laterExternalPID": 8701,
+  "laterExternalKind": "Ghidra headless Java analysis",
+  "laterExternalStartLocal": "2026-10-14T17:59:54-05:00",
+  "startEvidence": "ps lstart for same live PID; current process command identified in private failed-generation preflight",
+  "R25Commands": [
+    {
+      "name": "tsc-root",
+      "start": "2026-10-14T18:00:40-05:00",
+      "end": "2026-10-14T18:02:07-05:00",
+      "exit": 0
+    },
+    {
+      "name": "estate-red",
+      "start": "2026-10-14T18:02:18-05:00",
+      "end": "2026-10-14T18:02:45-05:00",
+      "exit": 0
+    }
+  ],
+  "R25MeasuredCounts": {
+    "passed": 7
+  },
+  "R25AllOriginalBudgetsMet": true,
+  "R25IndependentFreeze": "PASS",
+  "uninterruptedMachineWideExclusivity": false,
+  "generationPreflightAt": "2026-10-14T18:09:04.657081-05:00",
+  "generationFreeKiB": 3675268,
+  "generationLaunchAllowed": false,
+  "generationOutputAbsent": true,
+  "disposition": "Preserve actual functional/timing evidence; no machine-wide exclusive acceptance claim; supplemental independent review and relevant successor verification required",
+  "cleanup": "No offload, copy, deletion or hydration performed; adequate launch headroom recovered before R25; external drive absent"
+}

@@ -1,0 +1,144 @@
+{
+  "at": "2026-10-14T18:11:57.370710-05:00",
+  "archive": {
+    "path": "evidence.tar.gz",
+    "sha256": "6e92ff6f8d60f65631bec3dec868a61e2dbb157ec15c0a0b509dc587d5222ec7",
+    "bytes": 466445,
+    "members": 22
+  },
+  "entries": [
+    {
+      "path": "P16-R25-EXECUTION-OVERLAP-SUPPLEMENTAL-REVIEW.md",
+      "sha256": "f8f747fcfcd1fcd5919953d511951fbe5f1ff1ba6ddd5c113083790c7a65081f",
+      "bytes": 2741,
+      "mode": 420
+    },
+    {
+      "path": "P16-R25-EXTERNAL-OVERLAP-STATUS.json",
+      "sha256": "d17944039ae848db479de3e8c8dbcb9b83bb73e5a9ca69ded68e0a25bb638caf",
+      "bytes": 1417,
+      "mode": 420
+    },
+    {
+      "path": "P16-STOPPED-DRAFTING-BRIDGE62-INSTALL-SPEC.json",
+      "sha256": "4b71387749ade12b3a464e0c25f399a585a709e36fcee6aaed7b6d676ca0942f",
+      "bytes": 3228,
+      "mode": 420
+    },
+    {
+      "path": "P16-STOPPED-DRAFTING171-REFUSAL-TESTS-R1-INDEPENDENT-REVIEW.md",
+      "sha256": "f89a446a08a882f73d9d9b4ad06a4659cb0ad5081a9ae34785a3ecbac46d86b1",
+      "bytes": 1952,
+      "mode": 420
+    },
+    {
+      "path": "P16-WORK-RELEASE62-GENERATION-R6-INDEPENDENT-ADMISSION.md",
+      "sha256": "6b167563d741bea6519735c8ba841153cb813a8bc02f783fe47adcb5cc2ccbdc",
+      "bytes": 2018,
+      "mode": 420
+    },
+    {
+      "path": "p16-generation-independent-audit-parent.py",
+      "sha256": "b9a9c0ffce9ecd4b48183477dc113ef96288dd63afe5c8b087b65c30cb85f580",
+      "bytes": 2136,
+      "mode": 420
+    },
+    {
+      "path": "p16-install-reviewed-group-parent-r2.py",
+      "sha256": "216ab1103151db62a93e3cb066228fdd3bf2e9dec9ea03460a605e0fb75b87c7",
+      "bytes": 2523,
+      "mode": 420
+    },
+    {
+      "path": "p16-stopped-drafting-bridge62-integration-r1/INSTALL-RECEIPT.json",
+      "sha256": "ebf4c6f24d9eecb0a345a255d9ad059651d808641106669cb5a1ed27320149af",
+      "bytes": 3704,
+      "mode": 420
+    },
+    {
+      "path": "p16-stopped-drafting-bridge62-integration-r1/MANIFEST.json",
+      "sha256": "7b16780a9573185c443d4f153ead6f98795074064136031944a36d71f224039e",
+      "bytes": 38519,
+      "mode": 420
+    },
+    {
+      "path": "p16-stopped-drafting-bridge62-integration-r1/PATCH.diff",
+      "sha256": "d59d331be952e608aa4da9f89f88d71212826adb62a1f54ebbaf0cd6c4e1a1c5",
+      "bytes": 2609239,
+      "mode": 420
+    },
+    {
+      "path": "p16-stopped-drafting171-refusal-tests-r1/EXPECTED-IDENTITIES.json",
+      "sha256": "03a76669f48964abf01226d25bcc559cab890911bd88d269eafc5e88e0b8c2cb",
+      "bytes": 602,
+      "mode": 420
+    },
+    {
+      "path": "p16-stopped-drafting171-refusal-tests-r1/MANIFEST.json",
+      "sha256": "0165a7c84215b2a8ee4239a2b1dac289c8c3559e7fde34611a484b38ac8ae97f",
+      "bytes": 549,
+      "mode": 420
+    },
+    {
+      "path": "p16-stopped-drafting171-refusal-tests-r1/REPORT.md",
+      "sha256": "4c3c0d456f925190f5ec87fe52749232bf39514e48d6ac858fdfc6cd6d952af0",
+      "bytes": 1462,
+      "mode": 420
+    },
+    {
+      "path": "p16-stopped-drafting171-refusal-tests-r1/SOURCE.patch",
+      "sha256": "8e7ffffadf6022fac5026c75475bf57aa01377d940a7fd0f1cd98903a39d38da",
+      "bytes": 10485,
+      "mode": 420
+    },
+    {
+      "path": "p16-stopped-drafting171-refusal-tests-r1/p16-stopped-drafting171-refusals.test.ts",
+      "sha256": "2fed40fb75b5f4e9ccff6429b5b88a1a0d96365ac7f6aa4a04fd4ec4109a7ed3",
+      "bytes": 10278,
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release61-generation-runner-r6/BINDINGS.json",
+      "sha256": "c03d09d1ac763449b465d99a0ddb1213f6c1bd62250ee3e3d038622854a0a0db",
+      "bytes": 35436,
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release61-generation-runner-r6/OUTPUTS.json",
+      "sha256": "eec63d015fb8ee5f1e71ea15567dbb946ab7729b67e9e42c9ae39e24cfc69dbc",
+      "bytes": 1127,
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release61-generation-runner-r6/PINS.json",
+      "sha256": "402757ed17460e517cf1b25b83a37cfe23098b69d30cf781aeeaa899048c9cf2",
+      "bytes": 435,
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release61-generation-runner-r6/RUNNER-DELTA.diff",
+      "sha256": "a15d32f4cbad2e632bc37753a002e49c45a8a3ea00a81f4bbc3df288da114dfc",
+      "bytes": 4846,
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release61-generation-runner-r6/SELECTION.json",
+      "sha256": "b4cf712bd6d93de29aba70ed68900a269f28a3abe437d524959eb0221ea9848a",
+      "bytes": 479,
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release61-generation-runner-r6/auto_freeze.py",
+      "sha256": "9bc9b89c0ae5dd6bc3e558ee1b823414d86cb5134170326f74779350b34d3e00",
+      "bytes": 8761,
+      "mode": 420
+    },
+    {
+      "path": "p16-work-release61-generation-runner-r6/runner.sh",
+      "sha256": "91accb1fd9aa2f779e88277528547d880edac6ee7425d004e5a74e9e75ee25f8",
+      "bytes": 15975,
+      "mode": 420
+    }
+  ],
+  "verification": "Exact members/bytes/modes verified without extraction; LOCAL inventories excluded"
+}

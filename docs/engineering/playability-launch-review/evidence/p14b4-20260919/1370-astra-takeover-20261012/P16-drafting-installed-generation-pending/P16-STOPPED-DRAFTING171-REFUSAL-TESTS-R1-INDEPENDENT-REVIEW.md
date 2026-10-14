@@ -1,0 +1,9 @@
+# Drafting retained-writer refusal controls
+
+Conditional KEEP static/UNRUN against reviewed stopped-script source. Exact test2fed40fb75b5f4e9ccff6429b5b88a1a0d96365ac7f6aa4a04fd4ec4109a7ed3 / SOURCE8e7ffffadf6022fac5026c75475bf57aa01377d940a7fd0f1cd98903a39d38da / MANIFEST0165a7c84215b2a8ee4239a2b1dac289c8c3559e7fde34611a484b38ac8ae97f verified.
+
+Two default5000ms leaves independently run same genuine171 funded helper/setup inside. That helper requires new-source explicit[] scripts writeOff premise, so tests are conditional on actual producer install and exact Bridge group binding; no successful makeSave stub or invented positive. Retained choices separately quote actual same report/library/input using one public whole ask based on cash BEFORE exits; this is a predetermined willingness-safe ceiling for nonnegative capped exits, not reuse of stale empty-retention consideration or a price sweep. Actual quote affordability remains mandatory and UNRUN; if default retention chooses differently or reserve binds, preserve that first failure, no fallback.
+
+Default choice must expose actual continuationRequired and current retainedScriptProducerRequired; explicit selection retains all actual in-flight script writers but less than full company, asserting real active target contract IDs. This tests partial COMPANY selection, not a fabricated multiwriter/partial-cowriter scenario. Producer source deliberately refuses default and retained writer even if its default algorithm would omit a writer; quote verdict matches that explicit-scope law. Complete source byte-purity/fullsave after actual refusal remain.
+
+Existing clean-target5 can establish v1/no-script positive path as separate evidence, but these two leaves do not themselves qualify every v1/v2 malformed-history boundary. All actual fixed prices/conditions/refusal firstowner/timings remain pending. No runtime/K/R edits, widened drafting acceptance, whole-P16/native/S5 waiver.
