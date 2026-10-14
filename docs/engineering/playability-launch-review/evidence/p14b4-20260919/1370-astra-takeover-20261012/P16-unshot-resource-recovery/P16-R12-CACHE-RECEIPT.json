@@ -1,0 +1,61 @@
+{
+  "atEpoch": 1792003562.658915,
+  "reason": "Actual R12 runtime floor97 after independent reconciliation; writers finished; literal disposable caches only",
+  "beforeFreeKiB": 574472,
+  "targets": [
+    {
+      "path": "/Users/zacheryspector/.npm/_cacache",
+      "purpose": "regenerable npm package download cache",
+      "ownerUid": 501,
+      "estimatedAllocatedBytes": 507076608,
+      "beforeFreeKiB": 574472,
+      "removedFiles": 1666,
+      "removedEstimatedAllocatedBytes": 507076608,
+      "skipped": [
+        {
+          "path": "/Users/zacheryspector/.npm/_cacache/index-v5/e5",
+          "reason": "not user owned",
+          "uid": 0
+        },
+        {
+          "path": "/Users/zacheryspector/.npm/_cacache/index-v5/2d",
+          "reason": "not user owned",
+          "uid": 0
+        },
+        {
+          "path": "/Users/zacheryspector/.npm/_cacache/content-v2/sha512/dd",
+          "reason": "not user owned",
+          "uid": 0
+        },
+        {
+          "path": "/Users/zacheryspector/.npm/_cacache/content-v2/sha512/78",
+          "reason": "not user owned",
+          "uid": 0
+        }
+      ],
+      "openHandles": "none; lsof exit1 empty stdout/stderr",
+      "afterFreeKiB": 1073836,
+      "actualNetRecoveredKiB": 499364
+    },
+    {
+      "path": "/Users/zacheryspector/Library/Caches/Google/Chrome",
+      "purpose": "regenerable browser HTTP/code cache after normal Chrome quit",
+      "ownerUid": 501,
+      "estimatedAllocatedBytes": 54083584,
+      "beforeFreeKiB": 1073840,
+      "removedFiles": 1838,
+      "removedEstimatedAllocatedBytes": 54083584,
+      "skipped": [],
+      "openHandles": "none; lsof exit1 empty stdout/stderr",
+      "afterFreeKiB": 1127748,
+      "actualNetRecoveredKiB": 53908
+    }
+  ],
+  "protectedItemsPreserved": "All project work, dependencies, Git, sessions, user documents and archives preserved; no symlink traversal",
+  "normalMaintenanceChoice": "Earlier npm cache clean failed on root-owned remnants; only verified owned regular cache files eligible; no escalation",
+  "symlinksFollowed": false,
+  "afterFreeKiB": 1127748,
+  "actualNetRecoveredKiB": 553276,
+  "remainingLaunchShortfallKiB": 2542268,
+  "targetShortfallKiB": 4115132
+}

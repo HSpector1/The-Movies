@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-14T13:47:06.724095-05:00",
+  "freeKiB": 1157812,
+  "launchMinimumKiB": 3670016,
+  "runtimeFloorKiB": 3145728,
+  "competingHeavyCount": 1,
+  "laneAbsent": true,
+  "launchAllowed": false,
+  "remainingLaunchShortfallKiB": 2512204,
+  "runtime": "NOT_STARTED",
+  "parentAction": "No unchanged preflight retry. Approved user-owned disposable caches exhausted. Await at least2.5GiB additional available space and no competing intensive tree, then guarded R13 runtime31 using exact retained compiler proof."
+}

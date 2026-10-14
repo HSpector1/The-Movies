@@ -1,0 +1,37 @@
+[
+  {
+    "patch": "p16-completed-take-silent-handoff-r1/SOURCE.patch",
+    "patchSHA256": "d0979f693b49c8e59ec5918d1e0c789b31090516e41f071db71675610ac45dfa",
+    "review": "P16-COMPLETED-TAKE-SILENT-HANDOFF-R1-INDEPENDENT-REVIEW.md",
+    "reviewSHA256": "1d157068ee3e3a4bd131aae5cad89546bad53d4f7ad66fc5d670fc27cd9b6319",
+    "files": [
+      {
+        "path": "src/core/continuedWork.ts",
+        "preimageSHA256": "623b1ebfd4791c8e2f84a204b5f0bda91b7f8c6e089d20a80f7c581ae2891de9",
+        "postimageSHA256": "1effb6373ef526a66f5bdef84659f6e62ea304aed9abf53331f8ed5c269b5104",
+        "preimageBytes": 11958,
+        "postimageBytes": 13477
+      },
+      {
+        "path": "src/core/continuedWorkValidation.ts",
+        "preimageSHA256": "91f847407c4242fe51e84d90e0ae45205f01190adc11c0578992baa9f4b19175",
+        "postimageSHA256": "980b994620a54b390e78b63f695b9cc35ac1ae5f193ab7c0a696b3509bec371b",
+        "preimageBytes": 21249,
+        "postimageBytes": 21890
+      }
+    ]
+  },
+  {
+    "patch": "p16-completed-take-shooting-tests-r2/SOURCE.patch",
+    "patchSHA256": "0ea2bd0e5dfabd7bf65ff3abbfa447db5864bc50dc2cd5bf3b92faba67c5f9f8",
+    "review": "P16-COMPLETED-TAKE-SHOOTING-TESTS-R1-INDEPENDENT-REVIEW.md",
+    "reviewSHA256": "166b6473820c66885f346f179b11a748c945a5c3459740ddffc06759b0ae57c8",
+    "files": [
+      {
+        "path": "tests/p16-continued-work-shooting4.test.ts",
+        "preimageSHA256": null,
+        "postimageSHA256": "69539a7f9b0fc775ce71430677e1dfd88900f186b5352dcc9951eb14f3cc4b22"
+      }
+    ]
+  }
+]
