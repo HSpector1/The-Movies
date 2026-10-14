@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-14T16:36:31.089026-05:00",
+  "status": "R25_NOT_STARTED",
+  "initialFailedPreflightFreeKiB": 1748272,
+  "latestObservedFreeKiB": 2238408,
+  "launchMinimumKiB": 3670016,
+  "runtimeFloorKiB": 3145728,
+  "latestShortfallKiB": 1431608,
+  "activeIntensive": [
+    {
+      "pid": 25689,
+      "executable": "java",
+      "kind": "Ghidra headless analysis"
+    }
+  ],
+  "swapNow": "vm.swapusage: total = 4096.00M  used = 2726.50M  free = 1369.50M  (encrypted)",
+  "sameVolume": true,
+  "noNewCleanupPerformed": true,
+  "noOtherProcessInterrupted": true,
+  "R25OutputAbsent": true,
+  "facts": "R25 native-aware R2 guard failed disk before any compiler/runtime. A subsequent observation found Ghidra headless Java omitted by the build-only Java predicate. Reviewed R3 includes the actual analysis entry point. Process samples do not establish whether it overlapped R24; no causal attribution for R24 timings.",
+  "requiredExternalChange": "Other session must yield all intensive analysis/build work at its safe checkpoint; unchanged disk and AC floors must pass before R25. Do not repeatedly retry an unchanged failed preflight, interrupt recorded work, delete swap or widen deletion scope.",
+  "preserved": "Current198, reviewed R25 root+7, original results and future unrun drafting/Bridge62 packets."
+}

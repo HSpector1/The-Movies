@@ -1,0 +1,9 @@
+# Stopped drafting / Bridge62 composition
+
+KEEP exact static composition; installation/runtime remains conditional. Verified SOURCEf9ec9ef26f2c0e2d234c1daaa4743251f1932641884e7ab804f8004c805c86ce / MANIFESTa8063abe554f55e9ce6c0e7694414b3dfcd3d358356799c58d967d8f3f2c3c67.
+
+All seven manifest pre/post source references and content hashes match immutable reviewed input paths. Independently reconstructed path-sorted unified diff from those exact original preimages/final postimages equals SOURCE.patch byte-for-byte, including new absorbedScripts absent preimage. Schema is the sole overlap: six-source post8c74bf4c… exactly equals overlay pre8c74bf4c…, final0ce8e084… contains both named scripts verdict and projection62. Other five source postimages and outgoing61 registry overlay are unchanged reviewed bytes. No semantic conflict resolution, extra output or hidden source rewrite.
+
+Composition retains six-source all-writer-explicit-exit/v2 exact snapshot/sourceexit/terminal-native authority and overlay literal earned61 prior identity/projection62 without fabricated generated identity. Original input packets/preimages remain preserved. Parent reported read-only applycheck is consistent; reviewer did not mutate index/source or run apply/generation.
+
+Actual funded171 diagnostic must qualify first; then exact parent source installation and immutable canonical generation runner with four declared outputs/strict nonoutput guards, earned62 identities and later compiler/consumer/runtime/negative/rollback/original-budget evidence remain required. Owner pause/resource blockers remain mandatory; this static composition does not authorize launch or waive whole-P16/native/wider drafting requirements. No runtime/helper/compiler/K/R/index/HANDOFF edits performed. Reviewer parked after this bounded review.
