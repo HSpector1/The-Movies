@@ -1,0 +1,32 @@
+{
+  "recordedAt": "2026-10-14T18:53:00-05:00",
+  "scope": "Owner-authorized exact Firefox app and verified disposable caches only",
+  "firefox": {
+    "beforeFreeKiB": 3327104,
+    "afterFreeKiB": 3846796,
+    "actualNetRecoveredKiB": 519692,
+    "profilePreserved": true,
+    "unrelatedTrashPreserved": true
+  },
+  "cache": {
+    "targets": [
+      "~/Library/Caches/Google/Chrome",
+      "~/.npm/_cacache"
+    ],
+    "removedUserOwnedFiles": 2385,
+    "estimatedAllocatedBytes": 205955072,
+    "beforeFreeKiB": 3837764,
+    "afterFreeKiB": 4040392,
+    "actualNetRecoveredKiB": 202628,
+    "rootOwnedRemnantsSkipped": true,
+    "symlinksFollowed": false
+  },
+  "latestObservedFreeKiB": 4095068,
+  "launchMinimumKiB": 3670016,
+  "runtimeMinimumKiB": 3145728,
+  "recordedP16RunActive": false,
+  "generationR6Started": false,
+  "remainingExecutionLimitation": "Separate headless analysis remains live; sampled low CPU does not establish terminal completion or exclusive execution",
+  "protected": "Source/assets/saves/evidence/fixtures/Git/scratch/specialist trees/dependencies/active tools/session data/cloud archives preserved",
+  "newInspection": "Read-only installed-app size and last-use metadata; no additional app removal"
+}
