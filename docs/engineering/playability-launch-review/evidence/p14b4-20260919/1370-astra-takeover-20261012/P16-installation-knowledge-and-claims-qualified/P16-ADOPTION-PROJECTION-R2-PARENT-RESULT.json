@@ -1,0 +1,128 @@
+{
+  "terminal": {
+    "overallExit": 0,
+    "groups": {
+      "tsc-root": 0,
+      "estate-red": 0,
+      "identity-accounting": 0
+    },
+    "scope": "root then two completefiles5 identities; focused actualcorrection, no fullacceptance claim",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791943726,
+      "endEpoch": 1791943773,
+      "seconds": 47,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-adoption-projection-r2-run/tsc-root.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 0,
+      "startEpoch": 1791943782,
+      "endEpoch": 1791943795,
+      "seconds": 13,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-adoption-projection-r2-run/results.json",
+        "tests/p16-absorption-knowledge.test.ts",
+        "tests/p16-estate-run-continuation.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-adoption-projection-r2-run/estate-red.log"
+    }
+  ],
+  "counts": {
+    "passed": 5
+  },
+  "identities": 5,
+  "allReached": true,
+  "allBudgetQualified": true,
+  "maxMs": 1953.26691,
+  "rows": [
+    {
+      "file": "tests/p16-absorption-knowledge.test.ts",
+      "ancestorTitles": [
+        "P16 actual completed-source knowledge from retained original45 baseline280"
+      ],
+      "fullName": "P16 actual completed-source knowledge from retained original45 baseline280 public absorption grants linked knowledge, preserves source invention and performs one ordinary paid noninventor adoption with roundtrip",
+      "status": "passed",
+      "title": "public absorption grants linked knowledge, preserves source invention and performs one ordinary paid noninventor adoption with roundtrip",
+      "duration": 1855.6993529999995,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-knowledge.test.ts",
+      "ancestorTitles": [
+        "P16 actual completed-source knowledge from retained original45 baseline280"
+      ],
+      "fullName": "P16 actual completed-source knowledge from retained original45 baseline280 full current reader refuses either omitted knowledge authority, foreign source and false completed history while frozen45 rejects the new access field",
+      "status": "passed",
+      "title": "full current reader refuses either omitted knowledge authority, foreign source and false completed history while frozen45 rejects the new access field",
+      "duration": 1699.0330840000006,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-absorption-knowledge.test.ts",
+      "ancestorTitles": [
+        "P16 actual completed-source knowledge from retained original45 baseline280"
+      ],
+      "fullName": "P16 actual completed-source knowledge from retained original45 baseline280 full reader rejects a source-project prototype and a money-conserved later-inventor discount on actual acquired adoption",
+      "status": "passed",
+      "title": "full reader rejects a source-project prototype and a money-conserved later-inventor discount on actual acquired adoption",
+      "duration": 1068.4683450000002,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-run-continuation.test.ts",
+      "ancestorTitles": [
+        "P16 retained original48 active estate run continues under current49"
+      ],
+      "fullName": "P16 retained original48 active estate run continues under current49 actual132 active run settles133 with estate beneficiary, contract-priority payments and fractional cash conservation through134 replay",
+      "status": "passed",
+      "title": "actual132 active run settles133 with estate beneficiary, contract-priority payments and fractional cash conservation through134 replay",
+      "duration": 1953.26691,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-run-continuation.test.ts",
+      "ancestorTitles": [
+        "P16 retained original48 active estate run continues under current49"
+      ],
+      "fullName": "P16 retained original48 active estate run continues under current49 actual134 continuation reaches one144 archival without duplicate run money and full reader rejects changed beneficiary receipt and claim payment",
+      "status": "passed",
+      "title": "actual134 continuation reaches one144 archival without duplicate run money and full reader rejects changed beneficiary receipt and claim payment",
+      "duration": 1438.4578269999997,
+      "failureMessages": [],
+      "meta": {}
+    }
+  ],
+  "strictChecks": 5,
+  "strictErrorsBytes": 0,
+  "sourceCount": 1605,
+  "inputCount": 152,
+  "independentFinalFreeze": "PASS",
+  "qualified": "Actual281 completed-source knowledge grants/preserved paidtargetadoption/noninventorcommercialadoption/save-reload qualify. Fullreader source/prototype/conserveddiscount/bothpaidmarker/cost/date/deadline/currentcancelledWeek/frozen45 refusals reached. Actual132 input-week estate installments settle133 asobserved134 with exactoriginal134accounts/claims/replay; separate134to144archive/hostiles qualified. Prior16 coherentpasses retained; original4failures retained.",
+  "limits": "Pendingadoption ordinarydeadline288 continuation separate; alreadyheldknowledge/rivalbuyer/trueworkcontinuation/promise/market/Bridge/native/coherentacceptance and inheritedtime obligations remain; P16unlanded."
+}

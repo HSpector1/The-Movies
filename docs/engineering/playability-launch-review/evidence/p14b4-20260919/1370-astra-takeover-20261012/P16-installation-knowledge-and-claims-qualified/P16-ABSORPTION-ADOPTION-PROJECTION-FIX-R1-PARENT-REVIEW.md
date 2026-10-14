@@ -1,0 +1,5 @@
+# Parent independent source review — KEEP for focused measurement
+
+Exact one-file SOURCEeb8ad1481840502740fa6bd4228aca42032bd8f58fc3b8fad888baaad3b054a0 inspected against actual technology.ts697–723 and save.ts8997–9010/full acquisition541–550. V26 requires and validates cancelledWeek before truthful removal into V25/V24; shared ordered proof must not demand an already-stripped field. Conditional check only when the leaf is present preserves exact shape, source owner/key/ID/week, original equipment/cost and deadline rules. Fullcurrentjoin independently demands actual cancelledWeek===null and V26 catches missing/untyped leaf. Frozen/default marker admission remains unchanged.
+
+No insertion, cancellation reinterpretation, fabricated context, paid-history edit or weakened currentreader. Original57752 failures preserved. All three knowledge tests remain UNRUN after repair; additive missing/non-null currentleaf and bothmarker/disposition mutations requested before focused root+completefile gate.
