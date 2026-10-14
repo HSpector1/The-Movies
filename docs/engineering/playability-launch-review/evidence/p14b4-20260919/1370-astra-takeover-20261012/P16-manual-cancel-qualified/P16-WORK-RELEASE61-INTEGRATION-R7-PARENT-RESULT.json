@@ -1,0 +1,104 @@
+{
+  "terminal": {
+    "overallExit": 0,
+    "groups": {
+      "tsc-root": 0,
+      "estate-red": 0,
+      "identity-accounting": 0
+    },
+    "scope": "fresh root compiler then complete manual-cancel3 with actual relationships/staffing/reader/publication rollback; original failed baseline retained",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791998657,
+      "endEpoch": 1791998705,
+      "seconds": 48,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r7-run/tsc-root.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 0,
+      "startEpoch": 1791998715,
+      "endEpoch": 1791998726,
+      "seconds": 11,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r7-run/results.json",
+        "tests/p16-continued-work-cancel.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r7-run/estate-red.log"
+    }
+  ],
+  "independentFinalFreeze": "PASS",
+  "sourceCount": 1618,
+  "inputCount": 307,
+  "strictChecks": 5,
+  "strictErrorsBytes": 0,
+  "audit": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r7-parent-reconciliation",
+  "scope": "Fresh root compiler and complete independent3 default5s; real relationship driver, retained-workforce release, frozen source/payment history, save/replay, hostile reader and actual final-publication rollback. No native or whole-P16 acceptance.",
+  "counts": {
+    "passed": 3
+  },
+  "identities": 3,
+  "rows": [
+    {
+      "file": "tests/p16-continued-work-cancel.test.ts",
+      "ancestorTitles": [
+        "P16 actual buyer public cancellation of acquired paid R02 work"
+      ],
+      "fullName": "P16 actual buyer public cancellation of acquired paid R02 work real public cancel frees buyer work and capacity without erasing source paid history employment first take or retained rights and replays ordinary stop",
+      "status": "passed",
+      "title": "real public cancel frees buyer work and capacity without erasing source paid history employment first take or retained rights and replays ordinary stop",
+      "duration": 2890.9925030000004,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-continued-work-cancel.test.ts",
+      "ancestorTitles": [
+        "P16 actual buyer public cancellation of acquired paid R02 work"
+      ],
+      "fullName": "P16 actual buyer public cancellation of acquired paid R02 work real cancelled-publication failure preserves the admitted buyer source after successful manual cancellation positive",
+      "status": "passed",
+      "title": "real cancelled-publication failure preserves the admitted buyer source after successful manual cancellation positive",
+      "duration": 1480.792219,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-continued-work-cancel.test.ts",
+      "ancestorTitles": [
+        "P16 actual buyer public cancellation of acquired paid R02 work"
+      ],
+      "fullName": "P16 actual buyer public cancellation of acquired paid R02 work actual cancellation authority is complete once-only and full joined readers refuse missing foreign counter date or repeated receipts while committed work stays irreversible",
+      "status": "passed",
+      "title": "actual cancellation authority is complete once-only and full joined readers refuse missing foreign counter date or repeated receipts while committed work stays irreversible",
+      "duration": 2193.114439,
+      "failureMessages": [],
+      "meta": {}
+    }
+  ],
+  "allBudgetQualified": true,
+  "maxMs": 2890.9925030000004,
+  "failures": [],
+  "overBudget": []
+}

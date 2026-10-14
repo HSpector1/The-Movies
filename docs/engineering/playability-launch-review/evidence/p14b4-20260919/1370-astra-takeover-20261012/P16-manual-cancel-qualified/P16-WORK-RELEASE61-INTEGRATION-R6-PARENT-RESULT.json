@@ -1,0 +1,110 @@
+{
+  "terminal": {
+    "overallExit": 1,
+    "groups": {
+      "estate-red": 1,
+      "identity-accounting": 0
+    },
+    "scope": "exact prior root0 reused; complete manual-cancel baseline2; expected own-only failure stays RED, no unreached assertions credited",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "estate-red",
+      "exit": 1,
+      "startEpoch": 1791998435,
+      "endEpoch": 1791998442,
+      "seconds": 7,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r6-run/results.json",
+        "tests/p16-continued-work-cancel.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r6-run/estate-red.log"
+    }
+  ],
+  "independentFinalFreeze": "PASS",
+  "sourceCount": 1618,
+  "inputCount": 307,
+  "strictChecks": 3,
+  "strictErrorsBytes": 0,
+  "audit": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r6-parent-reconciliation",
+  "scope": "Reuse actual root compiler0/62s only after exact full original freeze/input equality; run complete baseline2 unchanged5s; expected RED is not acceptance",
+  "counts": {
+    "failed": 2
+  },
+  "identities": 2,
+  "rows": [
+    {
+      "file": "tests/p16-continued-work-cancel.test.ts",
+      "ancestorTitles": [
+        "P16 actual buyer public cancellation of acquired paid R02 work"
+      ],
+      "fullName": "P16 actual buyer public cancellation of acquired paid R02 work real public cancel frees buyer work and capacity without erasing source paid history employment first take or retained rights and replays ordinary stop",
+      "status": "failed",
+      "title": "real public cancel frees buyer work and capacity without erasing source paid history employment first take or retained rights and replays ordinary stop",
+      "duration": 939.2215590000001,
+      "failureMessages": [
+        "Error: applyActions: cancel references productionId \"studio-aca408ec-r02:film:14\" not in activeProductions\n    at applyCancel (/Users/zacheryspector/studio-specialists/p16/src/core/actions.ts:618:11)\n    at Module.applyActions (/Users/zacheryspector/studio-specialists/p16/src/core/actions.ts:2980:16)\n    at cancellation (/Users/zacheryspector/studio-specialists/p16/tests/p16-continued-work-cancel.test.ts:92:18)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-continued-work-cancel.test.ts:113:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-continued-work-cancel.test.ts",
+      "ancestorTitles": [
+        "P16 actual buyer public cancellation of acquired paid R02 work"
+      ],
+      "fullName": "P16 actual buyer public cancellation of acquired paid R02 work real cancelled-publication failure preserves the admitted buyer source after successful manual cancellation positive",
+      "status": "failed",
+      "title": "real cancelled-publication failure preserves the admitted buyer source after successful manual cancellation positive",
+      "duration": 706.5411059999997,
+      "failureMessages": [
+        "Error: applyActions: cancel references productionId \"studio-aca408ec-r02:film:14\" not in activeProductions\n    at applyCancel (/Users/zacheryspector/studio-specialists/p16/src/core/actions.ts:618:11)\n    at Module.applyActions (/Users/zacheryspector/studio-specialists/p16/src/core/actions.ts:2980:16)\n    at cancellation (/Users/zacheryspector/studio-specialists/p16/tests/p16-continued-work-cancel.test.ts:92:18)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-continued-work-cancel.test.ts:134:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ],
+      "meta": {}
+    }
+  ],
+  "allBudgetQualified": true,
+  "maxMs": 939.2215590000001,
+  "failures": [
+    {
+      "file": "tests/p16-continued-work-cancel.test.ts",
+      "ancestorTitles": [
+        "P16 actual buyer public cancellation of acquired paid R02 work"
+      ],
+      "fullName": "P16 actual buyer public cancellation of acquired paid R02 work real public cancel frees buyer work and capacity without erasing source paid history employment first take or retained rights and replays ordinary stop",
+      "status": "failed",
+      "title": "real public cancel frees buyer work and capacity without erasing source paid history employment first take or retained rights and replays ordinary stop",
+      "duration": 939.2215590000001,
+      "failureMessages": [
+        "Error: applyActions: cancel references productionId \"studio-aca408ec-r02:film:14\" not in activeProductions\n    at applyCancel (/Users/zacheryspector/studio-specialists/p16/src/core/actions.ts:618:11)\n    at Module.applyActions (/Users/zacheryspector/studio-specialists/p16/src/core/actions.ts:2980:16)\n    at cancellation (/Users/zacheryspector/studio-specialists/p16/tests/p16-continued-work-cancel.test.ts:92:18)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-continued-work-cancel.test.ts:113:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-continued-work-cancel.test.ts",
+      "ancestorTitles": [
+        "P16 actual buyer public cancellation of acquired paid R02 work"
+      ],
+      "fullName": "P16 actual buyer public cancellation of acquired paid R02 work real cancelled-publication failure preserves the admitted buyer source after successful manual cancellation positive",
+      "status": "failed",
+      "title": "real cancelled-publication failure preserves the admitted buyer source after successful manual cancellation positive",
+      "duration": 706.5411059999997,
+      "failureMessages": [
+        "Error: applyActions: cancel references productionId \"studio-aca408ec-r02:film:14\" not in activeProductions\n    at applyCancel (/Users/zacheryspector/studio-specialists/p16/src/core/actions.ts:618:11)\n    at Module.applyActions (/Users/zacheryspector/studio-specialists/p16/src/core/actions.ts:2980:16)\n    at cancellation (/Users/zacheryspector/studio-specialists/p16/tests/p16-continued-work-cancel.test.ts:92:18)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-continued-work-cancel.test.ts:134:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ],
+      "meta": {}
+    }
+  ],
+  "overBudget": []
+}

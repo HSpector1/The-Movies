@@ -1,0 +1,36 @@
+{
+  "terminal": {
+    "overallExit": 97,
+    "groups": {
+      "tsc-root": 97
+    },
+    "scope": "fresh root compiler then manual-cancel baseline complete2; expected real current failure remains RED, no success or rollback assertions credited if unreached",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791996694,
+      "endEpoch": 1791996756,
+      "seconds": 62,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r5-run/tsc-root.log"
+    }
+  ],
+  "independentFinalFreeze": "PASS",
+  "sourceCount": 1618,
+  "inputCount": 293,
+  "strictChecks": 2,
+  "strictErrorsBytes": 0,
+  "audit": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r5-parent-reconciliation",
+  "scope": "root compiler then new public-cancel baseline complete2; expected RED retained as failure, not gameplay acceptance",
+  "runtime": "NOT_STARTED",
+  "assertionsCounted": 0
+}

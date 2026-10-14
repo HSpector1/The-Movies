@@ -1,0 +1,200 @@
+{
+  "terminal": {
+    "overallExit": 0,
+    "groups": {
+      "tsc-root": 0,
+      "estate-red": 0,
+      "identity-accounting": 0
+    },
+    "scope": "focused root compiler then estate/quote three complete files11 identities; no whole gate or P16 acceptance",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1791996152,
+      "endEpoch": 1791996220,
+      "seconds": 68,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r4-run/tsc-root.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 0,
+      "startEpoch": 1791996231,
+      "endEpoch": 1791996251,
+      "seconds": 20,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r4-run/results.json",
+        "tests/p16-estate-d-ceremony.test.ts",
+        "tests/p16-estate-d-join-negative.test.ts",
+        "tests/p16-quote-age.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r4-run/estate-red.log"
+    }
+  ],
+  "independentFinalFreeze": "PASS",
+  "sourceCount": 1617,
+  "inputCount": 285,
+  "strictChecks": 5,
+  "strictErrorsBytes": 0,
+  "audit": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r4-parent-reconciliation",
+  "scope": "root compiler then complete estate ceremony, estate hostile joins and quote age11; no fresh UI/Bridge/generator/broad claim",
+  "counts": {
+    "passed": 11
+  },
+  "identities": 11,
+  "rows": [
+    {
+      "file": "tests/p16-estate-d-ceremony.test.ts",
+      "ancestorTitles": [],
+      "fullName": "P16 D ceremony actual13M sale intake pays partial claims once before one archival and replays",
+      "status": "passed",
+      "title": "P16 D ceremony actual13M sale intake pays partial claims once before one archival and replays",
+      "duration": 3249.483596,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-d-join-negative.test.ts",
+      "ancestorTitles": [
+        "P16 joinedD strict-save corruption and actual publication rollback"
+      ],
+      "fullName": "P16 joinedD strict-save corruption and actual publication rollback refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source",
+      "status": "passed",
+      "title": "refuses missing duplicate amount and foreign saleReceipt without mutating the admitted source",
+      "duration": 2937.886848,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-d-join-negative.test.ts",
+      "ancestorTitles": [
+        "P16 joinedD strict-save corruption and actual publication rollback"
+      ],
+      "fullName": "P16 joinedD strict-save corruption and actual publication rollback refuses extra estateSaleProceeds and an extra buyer rights debit even with their matching cash changes",
+      "status": "passed",
+      "title": "refuses extra estateSaleProceeds and an extra buyer rights debit even with their matching cash changes",
+      "duration": 449.47247000000016,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-estate-d-join-negative.test.ts",
+      "ancestorTitles": [
+        "P16 joinedD strict-save corruption and actual publication rollback"
+      ],
+      "fullName": "P16 joinedD strict-save corruption and actual publication rollback a real strict49 D publication refusal cannot publish partial sale cash claims or archival",
+      "status": "passed",
+      "title": "a real strict49 D publication refusal cannot publish partial sale cash claims or archival",
+      "duration": 504.68412699999953,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-quote-age.test.ts",
+      "ancestorTitles": [
+        "F17 public bilateral quote-age boundaries from genuine pre162"
+      ],
+      "fullName": "F17 public bilateral quote-age boundaries from genuine pre162 accepts age0 with real title/cash/transaction once and caller purity",
+      "status": "passed",
+      "title": "accepts age0 with real title/cash/transaction once and caller purity",
+      "duration": 605.0430040000001,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-quote-age.test.ts",
+      "ancestorTitles": [
+        "F17 public bilateral quote-age boundaries from genuine pre162"
+      ],
+      "fullName": "F17 public bilateral quote-age boundaries from genuine pre162 accepts age3 after ordinary advancement while the player-addressed sell offer stays open",
+      "status": "passed",
+      "title": "accepts age3 after ordinary advancement while the player-addressed sell offer stays open",
+      "duration": 698.9031749999995,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-quote-age.test.ts",
+      "ancestorTitles": [
+        "F17 public bilateral quote-age boundaries from genuine pre162"
+      ],
+      "fullName": "F17 public bilateral quote-age boundaries from genuine pre162 expires at age4 after ordinary advancement and refuses without any sale/payment",
+      "status": "passed",
+      "title": "expires at age4 after ordinary advancement and refuses without any sale/payment",
+      "duration": 670.179873,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-quote-age.test.ts",
+      "ancestorTitles": [
+        "F17 public bilateral quote-age boundaries from genuine pre162"
+      ],
+      "fullName": "F17 public bilateral quote-age boundaries from genuine pre162 refuses unknown stamps, future quotes and accepted-age4 mutations after a real positive control",
+      "status": "passed",
+      "title": "refuses unknown stamps, future quotes and accepted-age4 mutations after a real positive control",
+      "duration": 929.619181,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-quote-age.test.ts",
+      "ancestorTitles": [
+        "F17 public bilateral quote-age boundaries from genuine pre162"
+      ],
+      "fullName": "F17 public bilateral quote-age boundaries from genuine pre162 accepts real disclosure age12 but refuses fresh offer age1 when that same disclosure becomes13",
+      "status": "passed",
+      "title": "accepts real disclosure age12 but refuses fresh offer age1 when that same disclosure becomes13",
+      "duration": 2137.1006670000006,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-quote-age.test.ts",
+      "ancestorTitles": [
+        "F17 public bilateral quote-age boundaries from genuine pre162"
+      ],
+      "fullName": "F17 public bilateral quote-age boundaries from genuine pre162 admits explicitly constructed unstamped/zero legacy-shape rows without claiming historical capture",
+      "status": "passed",
+      "title": "admits explicitly constructed unstamped/zero legacy-shape rows without claiming historical capture",
+      "duration": 665.1092750000007,
+      "failureMessages": [],
+      "meta": {}
+    },
+    {
+      "file": "tests/p16-quote-age.test.ts",
+      "ancestorTitles": [
+        "F17 finite policy pure-unit boundaries (not campaign or absorption execution)"
+      ],
+      "fullName": "F17 finite policy pure-unit boundaries (not campaign or absorption execution) pins versioned minima/maxima and refuses invalid/future ages without subject-age substitution",
+      "status": "passed",
+      "title": "pins versioned minima/maxima and refuses invalid/future ages without subject-age substitution",
+      "duration": 0.8988850000005186,
+      "failureMessages": [],
+      "meta": {}
+    }
+  ],
+  "allBudgetQualified": true,
+  "maxMs": 3249.483596,
+  "failures": [],
+  "overBudget": []
+}

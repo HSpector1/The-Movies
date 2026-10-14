@@ -1,0 +1,2157 @@
+{
+  "terminal": {
+    "overallExit": 98,
+    "groups": {
+      "estate-red": 1,
+      "identity-accounting": 1
+    },
+    "scope": "strictly reuse actual root0/48s; complete154 companion identities with original per-leaf budgets; all failures retained including inherited",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "estate-red",
+      "exit": 1,
+      "startEpoch": 1791999263,
+      "endEpoch": 1791999315,
+      "seconds": 52,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r8-run/results.json",
+        "tests/actions.test.ts",
+        "tests/p14b5-relationships.test.ts",
+        "tests/p14b4-cancel-causal-proof.test.ts",
+        "tests/p13b-s5-save-v24.test.ts",
+        "tests/p16a-save-v46.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r8-run/estate-red.log"
+    }
+  ],
+  "independentFinalFreeze": "PASS",
+  "sourceCount": 1618,
+  "inputCount": 343,
+  "strictChecks": 2,
+  "strictErrorsBytes": 0,
+  "audit": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r8-parent-reconciliation-r2",
+  "scope": "Strict exact root0/48s reuse, complete5 files154identities; original per-leaf5s/60s/120s budgets, no waived inherited failures or wholeP16 acceptance",
+  "accountingCorrection": "12 source-derived it.each $field names rendered with installed Vitest objDisplay; original terminal98/accounting failure preserved",
+  "counts": {
+    "passed": 149,
+    "failed": 5
+  },
+  "identities": 154,
+  "rows": [
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight happy path"
+      ],
+      "fullName": "applyActions \u2014 greenlight happy path adds exactly one production with contract-derived id/startTick/remainingTicks",
+      "status": "passed",
+      "title": "adds exactly one production with contract-derived id/startTick/remainingTicks",
+      "duration": 32.08641,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight happy path"
+      ],
+      "fullName": "applyActions \u2014 greenlight happy path forecastSnapshot is a 4-segment Forecast equal to an independent computeForecast",
+      "status": "passed",
+      "title": "forecastSnapshot is a 4-segment Forecast equal to an independent computeForecast",
+      "duration": 12.94655899999998,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight happy path"
+      ],
+      "fullName": "applyActions \u2014 greenlight happy path debits cash by negative + marketing + \u03a3 salaries (D-1 ledger)",
+      "status": "passed",
+      "title": "debits cash by negative + marketing + \u03a3 salaries (D-1 ledger)",
+      "duration": 12.979131000000052,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight happy path"
+      ],
+      "fullName": "applyActions \u2014 greenlight happy path allows cash to go negative with no throw (D-1: no insolvency)",
+      "status": "passed",
+      "title": "allows cash to go negative with no throw (D-1: no insolvency)",
+      "duration": 12.717720999999983,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight happy path"
+      ],
+      "fullName": "applyActions \u2014 greenlight happy path does NOT touch state.rngState (greenlight draws from the forecast stream, not sim)",
+      "status": "passed",
+      "title": "does NOT touch state.rngState (greenlight draws from the forecast stream, not sim)",
+      "duration": 5.957875999999942,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight happy path"
+      ],
+      "fullName": "applyActions \u2014 greenlight happy path does not mutate the input state (activeProductions length unchanged)",
+      "status": "passed",
+      "title": "does not mutate the input state (activeProductions length unchanged)",
+      "duration": 6.070309000000066,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections unknown conceptId throws",
+      "status": "passed",
+      "title": "unknown conceptId throws",
+      "duration": 5.60542200000009,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections unknown writerId throws",
+      "status": "passed",
+      "title": "unknown writerId throws",
+      "duration": 6.3602710000000116,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections unknown directorId throws",
+      "status": "passed",
+      "title": "unknown directorId throws",
+      "duration": 10.939345000000117,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections unknown cast (lead) id throws",
+      "status": "passed",
+      "title": "unknown cast (lead) id throws",
+      "duration": 5.579398999999967,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections unknown craftId throws",
+      "status": "passed",
+      "title": "unknown craftId throws",
+      "duration": 5.246505999999954,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections cross-discipline: writerId may be a director-role talent (legal, does not throw)",
+      "status": "passed",
+      "title": "cross-discipline: writerId may be a director-role talent (legal, does not throw)",
+      "duration": 7.30967499999997,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections cross-discipline: directorId may be an actor-role talent (legal, does not throw)",
+      "status": "passed",
+      "title": "cross-discipline: directorId may be an actor-role talent (legal, does not throw)",
+      "duration": 5.577134999999998,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections cross-discipline: a cast slot may be filled by a writer-role talent (legal)",
+      "status": "passed",
+      "title": "cross-discipline: a cast slot may be filled by a writer-role talent (legal)",
+      "duration": 5.4191339999999855,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections cross-discipline: a craftId may be an actor-role talent (legal)",
+      "status": "passed",
+      "title": "cross-discipline: a craftId may be an actor-role talent (legal)",
+      "duration": 5.8655019999998785,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections same actor in two cast slots throws (M16: no person fills two slots)",
+      "status": "passed",
+      "title": "same actor in two cast slots throws (M16: no person fills two slots)",
+      "duration": 4.514108999999962,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections same talent as writerId AND cast.lead in one production throws (single-role uniqueness)",
+      "status": "passed",
+      "title": "same talent as writerId AND cast.lead in one production throws (single-role uniqueness)",
+      "duration": 4.5994949999999335,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections cross-discipline single-role: an actor-role talent used ONLY as writerId still succeeds",
+      "status": "passed",
+      "title": "cross-discipline single-role: an actor-role talent used ONLY as writerId still succeeds",
+      "duration": 13.423628000000008,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections a normal all-distinct greenlight still succeeds (no over-rejection)",
+      "status": "passed",
+      "title": "a normal all-distinct greenlight still succeeds (no over-rejection)",
+      "duration": 5.412401000000045,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections the six-seat baseline is legal and its six ids are distinct (fixture guard)",
+      "status": "passed",
+      "title": "the six-seat baseline is legal and its six ids are distinct (fixture guard)",
+      "duration": 5.3768740000000435,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections one talent in both writerId and directorId throws (single-role uniqueness)",
+      "status": "passed",
+      "title": "one talent in both writerId and directorId throws (single-role uniqueness)",
+      "duration": 4.7169830000000275,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections one talent in both writerId and craftIds[0] throws (single-role uniqueness)",
+      "status": "passed",
+      "title": "one talent in both writerId and craftIds[0] throws (single-role uniqueness)",
+      "duration": 9.84103499999992,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections one talent in both writerId and cast.lead throws (single-role uniqueness)",
+      "status": "passed",
+      "title": "one talent in both writerId and cast.lead throws (single-role uniqueness)",
+      "duration": 11.443797000000131,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections one talent in both writerId and cast.antagonist throws (single-role uniqueness)",
+      "status": "passed",
+      "title": "one talent in both writerId and cast.antagonist throws (single-role uniqueness)",
+      "duration": 4.3871939999999086,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections one talent in both writerId and cast.support throws (single-role uniqueness)",
+      "status": "passed",
+      "title": "one talent in both writerId and cast.support throws (single-role uniqueness)",
+      "duration": 4.4034999999998945,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections one talent in both directorId and craftIds[0] throws (single-role uniqueness)",
+      "status": "passed",
+      "title": "one talent in both directorId and craftIds[0] throws (single-role uniqueness)",
+      "duration": 20.08266299999991,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections one talent in both directorId and cast.lead throws (single-role uniqueness)",
+      "status": "passed",
+      "title": "one talent in both directorId and cast.lead throws (single-role uniqueness)",
+      "duration": 4.576792999999952,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections one talent in both directorId and cast.antagonist throws (single-role uniqueness)",
+      "status": "passed",
+      "title": "one talent in both directorId and cast.antagonist throws (single-role uniqueness)",
+      "duration": 4.5459860000000845,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections one talent in both directorId and cast.support throws (single-role uniqueness)",
+      "status": "passed",
+      "title": "one talent in both directorId and cast.support throws (single-role uniqueness)",
+      "duration": 3.8418269999999666,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections one talent in both craftIds[0] and cast.lead throws (single-role uniqueness)",
+      "status": "passed",
+      "title": "one talent in both craftIds[0] and cast.lead throws (single-role uniqueness)",
+      "duration": 3.9734209999999166,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections one talent in both craftIds[0] and cast.antagonist throws (single-role uniqueness)",
+      "status": "passed",
+      "title": "one talent in both craftIds[0] and cast.antagonist throws (single-role uniqueness)",
+      "duration": 4.496184000000085,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections one talent in both craftIds[0] and cast.support throws (single-role uniqueness)",
+      "status": "passed",
+      "title": "one talent in both craftIds[0] and cast.support throws (single-role uniqueness)",
+      "duration": 4.222942000000103,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections one talent in both cast.lead and cast.antagonist throws (single-role uniqueness)",
+      "status": "passed",
+      "title": "one talent in both cast.lead and cast.antagonist throws (single-role uniqueness)",
+      "duration": 4.0615459999999075,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections one talent in both cast.lead and cast.support throws (single-role uniqueness)",
+      "status": "passed",
+      "title": "one talent in both cast.lead and cast.support throws (single-role uniqueness)",
+      "duration": 4.628112999999985,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections one talent in both cast.antagonist and cast.support throws (single-role uniqueness)",
+      "status": "passed",
+      "title": "one talent in both cast.antagonist and cast.support throws (single-role uniqueness)",
+      "duration": 18.002230999999938,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections promise.genre !== concept.genre throws (M4)",
+      "status": "passed",
+      "title": "promise.genre !== concept.genre throws (M4)",
+      "duration": 4.201876000000084,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections exclusivity: a talent already engaged in an active production throws (M16)",
+      "status": "passed",
+      "title": "exclusivity: a talent already engaged in an active production throws (M16)",
+      "duration": 12.436488000000054,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections exclusivity: reusing ONLY the credited writer across two productions succeeds (P04A.2)",
+      "status": "passed",
+      "title": "exclusivity: reusing ONLY the credited writer across two productions succeeds (P04A.2)",
+      "duration": 5.0069200000000365,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections concurrency: no global counter refuses the third picture (the cap is deleted)",
+      "status": "passed",
+      "title": "concurrency: no global counter refuses the third picture (the cap is deleted)",
+      "duration": 6.314818999999943,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 greenlight M16 validation rejections"
+      ],
+      "fullName": "applyActions \u2014 greenlight M16 validation rejections two greenlight actions in one applyActions call throws (\u22641 greenlight/tick, B3)",
+      "status": "passed",
+      "title": "two greenlight actions in one applyActions call throws (\u22641 greenlight/tick, B3)",
+      "duration": 3.854759999999942,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 cancel (M15)"
+      ],
+      "fullName": "applyActions \u2014 cancel (M15) valid cancel removes the active production; cash and standing unchanged",
+      "status": "passed",
+      "title": "valid cancel removes the active production; cash and standing unchanged",
+      "duration": 4.278121000000056,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 cancel (M15)"
+      ],
+      "fullName": "applyActions \u2014 cancel (M15) cancel of an unknown productionId throws",
+      "status": "passed",
+      "title": "cancel of an unknown productionId throws",
+      "duration": 3.760571000000027,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 cancel (M15)"
+      ],
+      "fullName": "applyActions \u2014 cancel (M15) cancel of a non-active productionId throws",
+      "status": "passed",
+      "title": "cancel of a non-active productionId throws",
+      "duration": 3.8816629999998895,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 createTalent (\u00a710 / D-9.14 creation budget)"
+      ],
+      "fullName": "applyActions \u2014 createTalent (\u00a710 / D-9.14 creation budget) appends one authored talent; fame/authored/perceived=actual, D-9 skill proxy + derived salary",
+      "status": "passed",
+      "title": "appends one authored talent; fame/authored/perceived=actual, D-9 skill proxy + derived salary",
+      "duration": 14.504670000000033,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 createTalent (\u00a710 / D-9.14 creation budget)"
+      ],
+      "fullName": "applyActions \u2014 createTalent (\u00a710 / D-9.14 creation budget) does NOT touch state.rngState (createTalent is deterministic, no sim draw)",
+      "status": "passed",
+      "title": "does NOT touch state.rngState (createTalent is deterministic, no sim draw)",
+      "duration": 6.672984000000042,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 createTalent (\u00a710 / D-9.14 creation budget)"
+      ],
+      "fullName": "applyActions \u2014 createTalent (\u00a710 / D-9.14 creation budget) age below 18 throws (\u00a710 range 18..70)",
+      "status": "passed",
+      "title": "age below 18 throws (\u00a710 range 18..70)",
+      "duration": 11.969108000000006,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 createTalent (\u00a710 / D-9.14 creation budget)"
+      ],
+      "fullName": "applyActions \u2014 createTalent (\u00a710 / D-9.14 creation budget) age above 70 throws (\u00a710 range 18..70)",
+      "status": "passed",
+      "title": "age above 70 throws (\u00a710 range 18..70)",
+      "duration": 3.2642029999999522,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 createTalent (\u00a710 / D-9.14 creation budget)"
+      ],
+      "fullName": "applyActions \u2014 createTalent (\u00a710 / D-9.14 creation budget) created talent fame/skill come from the engine, not the player (no skill/fame input field)",
+      "status": "passed",
+      "title": "created talent fame/skill come from the engine, not the player (no skill/fame input field)",
+      "duration": 3.4070349999999507,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/actions.test.ts",
+      "ancestorTitles": [
+        "applyActions \u2014 createTalent then greenlight (same call)"
+      ],
+      "fullName": "applyActions \u2014 createTalent then greenlight (same call) a greenlight may cast a talent created earlier in the same actions array",
+      "status": "passed",
+      "title": "a greenlight may cast a talent created earlier in the same actions array",
+      "duration": 4.502291999999898,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "P14B.5 T1 \u2014 the module and its named exports exist (RED at import; never a spurious pass)"
+      ],
+      "fullName": "P14B.5 T1 \u2014 the module and its named exports exist (RED at import; never a spurious pass) every binding this file calls is a function or a defined constant",
+      "status": "passed",
+      "title": "every binding this file calls is a function or a defined constant",
+      "duration": 6.393025000000307,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "P14B.5 T1 \u2014 the module and its named exports exist (RED at import; never a spurious pass)"
+      ],
+      "fullName": "P14B.5 T1 \u2014 the module and its named exports exist (RED at import; never a spurious pass) the hypothesis constants carry the companion values named in the expansion and the ONE pinned relation",
+      "status": "passed",
+      "title": "the hypothesis constants carry the companion values named in the expansion and the ONE pinned relation",
+      "duration": 1306.5364959999997,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 1 \u2014 EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a))"
+      ],
+      "fullName": "family 1 \u2014 EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) the seam exists and refuses in the copied guard order: empty delta before the root guard, then the LOUD root guard, then hollywood null",
+      "status": "passed",
+      "title": "the seam exists and refuses in the copied guard order: empty delta before the root guard, then the LOUD root guard, then hollywood null",
+      "duration": 37.70412100000067,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 1 \u2014 EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a))"
+      ],
+      "fullName": "family 1 \u2014 EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) advancing the genuine player picture through its first take mints EXACTLY six edges in the receipt's seat order, each with the proximity delta and every week = the tail week",
+      "status": "passed",
+      "title": "advancing the genuine player picture through its first take mints EXACTLY six edges in the receipt's seat order, each with the proximity delta and every week = the tail week",
+      "duration": 36.43957000000046,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 1 \u2014 EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a))"
+      ],
+      "fullName": "family 1 \u2014 EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) a second advance from the same pre-take state mints byte-identical edges (replay); re-ticking the post-take state leaves the six untouched (idempotent) and mints only from THAT week's delta",
+      "status": "passed",
+      "title": "a second advance from the same pre-take state mints byte-identical edges (replay); re-ticking the post-take state leaves the six untouched (idempotent) and mints only from THAT week's delta",
+      "duration": 150.03316300000006,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 1 \u2014 EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a))"
+      ],
+      "fullName": "family 1 \u2014 EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) no RNG reaches the seam: rngState is byte-equal before/after the seam and the tick's rngState equals the frozen control; everything but the root is byte-identical to the frozen post-tick state",
+      "status": "failed",
+      "title": "no RNG reaches the seam: rngState is byte-equal before/after the seam and the tick's rngState equals the frozen control; everything but the root is byte-identical to the frozen post-tick state",
+      "duration": 398.2664050000003,
+      "failureMessages": [
+        "Error: validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 Hollywood save: exact keys required: capacity,signing,payroll,overhead,facilityOpex,development,production,marketing,studioRevenue,technologyAdoption,researchSpend,researchCapacity,technologyRestoration,technologyRefund,termination,facilityDemolitionRefund,loanPrincipal,loanInstallment,claimPayment\n    at validateSaveV37WithProfession (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:10793:11)\n    at proveProfessionSave (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:10855:3)\n    at validateSaveV42Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11074:3)\n    at validateSaveV43Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11124:3)\n    at validateSaveV44Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11184:3)\n    at validateSaveV45Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11346:3)\n    at validateSaveV46Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11397:3)\n    at validateSaveV47Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11508:3)\n    at validateSaveP15BEra (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11654:3)\n    at validateSaveP15B (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11639:10)"
+      ],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 1 \u2014 EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a))"
+      ],
+      "fullName": "family 1 \u2014 EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) a person seated twice on one take is refused loudly, never skipped",
+      "status": "passed",
+      "title": "a person seated twice on one take is refused loudly, never skipped",
+      "duration": 242.10859299999993,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 1 \u2014 EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a))"
+      ],
+      "fullName": "family 1 \u2014 EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) a headless world (legacy-v28-shooting-5: hollywood null) lifted through migrateToV32 keeps relationships empty across a tick",
+      "status": "passed",
+      "title": "a headless world (legacy-v28-shooting-5: hollywood null) lifted through migrateToV32 keeps relationships empty across a tick",
+      "duration": 696.6883200000002,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry)"
+      ],
+      "fullName": "family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3)",
+      "status": "failed",
+      "title": "the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3)",
+      "duration": 2421.396866,
+      "failureMessages": [
+        "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]\n    at rivalWorld (/Users/zacheryspector/studio-specialists/p16/tests/p14b5-relationships.test.ts:454:53)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p14b5-relationships.test.ts:716:46\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ],
+      "meta": {},
+      "originalBudgetMs": 60000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry)"
+      ],
+      "fullName": "family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) the same pair on a second production is ONE edge with sharedProductions 2 and a repeatedCollaboration driver of the capped accelerator; a < b regardless of seat order",
+      "status": "failed",
+      "title": "the same pair on a second production is ONE edge with sharedProductions 2 and a repeatedCollaboration driver of the capped accelerator; a < b regardless of seat order",
+      "duration": 1665.5308459999997,
+      "failureMessages": [
+        "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]\n    at rivalWorld (/Users/zacheryspector/studio-specialists/p16/tests/p14b5-relationships.test.ts:454:53)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p14b5-relationships.test.ts:725:40\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ],
+      "meta": {},
+      "originalBudgetMs": 60000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 3 \u2014 DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); \u00a75.5 :467-468)"
+      ],
+      "fullName": "family 3 \u2014 DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); \u00a75.5 :467-468) currentCloseness/currentTier are functions; inside the grace window the stored value and tier read unchanged",
+      "status": "passed",
+      "title": "currentCloseness/currentTier are functions; inside the grace window the stored value and tier read unchanged",
+      "duration": 30.519781999999395,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 3 \u2014 DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); \u00a75.5 :467-468)"
+      ],
+      "fullName": "family 3 \u2014 DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); \u00a75.5 :467-468) past the grace window the value drifts toward the baseline by the plan formula (independent oracle), from either side, never past it, and is fully returned at GRACE + RETURN",
+      "status": "passed",
+      "title": "past the grace window the value drifts toward the baseline by the plan formula (independent oracle), from either side, never past it, and is fully returned at GRACE + RETURN",
+      "duration": 279.80758499999865,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 3 \u2014 DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); \u00a75.5 :467-468)"
+      ],
+      "fullName": "family 3 \u2014 DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); \u00a75.5 :467-468) drift never moves a tier AWAY from Acquaintances and touches no counter, milestone or peak (a read is pure)",
+      "status": "passed",
+      "title": "drift never moves a tier AWAY from Acquaintances and touches no counter, milestone or peak (a read is pure)",
+      "duration": 95.67219400000067,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 3 \u2014 DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); \u00a75.5 :467-468)"
+      ],
+      "fullName": "family 3 \u2014 DRIFT ON READ and FOLD-BY-COUNT (scope (3), (9); \u00a75.5 :467-468) a WRITE after dormancy materialises the drifted value first, then applies the delta; counters, firstSharedWeek and the peak survive; recent folds by count at the cap",
+      "status": "passed",
+      "title": "a WRITE after dormancy materialises the drifted value first, then applies the delta; counters, firstSharedWeek and the peak survive; recent folds by count at the cap",
+      "duration": 178.00379500000054,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 4 \u2014 TIER RULE under RELATIONSHIP_RULES_VERSION 2 and the D2 reachability (scope (3)-(4))"
+      ],
+      "fullName": "family 4 \u2014 TIER RULE under RELATIONSHIP_RULES_VERSION 2 and the D2 reachability (scope (3)-(4)) eight members, byte-equal output for byte-equal input, and a value in the Enemies/Nemeses bands WITHOUT a conflict record reads Strained",
+      "status": "passed",
+      "title": "eight members, byte-equal output for byte-equal input, and a value in the Enemies/Nemeses bands WITHOUT a conflict record reads Strained",
+      "duration": 30.149853000000803,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 4 \u2014 TIER RULE under RELATIONSHIP_RULES_VERSION 2 and the D2 reachability (scope (3)-(4))"
+      ],
+      "fullName": "family 4 \u2014 TIER RULE under RELATIONSHIP_RULES_VERSION 2 and the D2 reachability (scope (3)-(4)) a released flop nets a LOW-proximity pair below where it stood before the take (FAILURE > PROXIMITY_LOW by name)",
+      "status": "passed",
+      "title": "a released flop nets a LOW-proximity pair below where it stood before the take (FAILURE > PROXIMITY_LOW by name)",
+      "duration": 71.67250500000046,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 4 \u2014 TIER RULE under RELATIONSHIP_RULES_VERSION 2 and the D2 reachability (scope (3)-(4))"
+      ],
+      "fullName": "family 4 \u2014 TIER RULE under RELATIONSHIP_RULES_VERSION 2 and the D2 reachability (scope (3)-(4)) a staged pair at the Acquaintances floor reads Strained after one flop and pairChemistry reads sign \u22121; Enemies/Nemeses never read on any B.5-minted edge",
+      "status": "passed",
+      "title": "a staged pair at the Acquaintances floor reads Strained after one flop and pairChemistry reads sign \u22121; Enemies/Nemeses never read on any B.5-minted edge",
+      "duration": 131.50607499999933,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 5 \u2014 RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam)"
+      ],
+      "fullName": "family 5 \u2014 RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) the genuine player release mints the driver its real criticScore selects on all six pairs ONCE, stamped driver.week = state.market.tick = film.releaseTick + 1; rngState equals the frozen release control",
+      "status": "passed",
+      "title": "the genuine player release mints the driver its real criticScore selects on all six pairs ONCE, stamped driver.week = state.market.tick = film.releaseTick + 1; rngState equals the frozen release control",
+      "duration": 37.86121500000081,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 5 \u2014 RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam)"
+      ],
+      "fullName": "family 5 \u2014 RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2)",
+      "status": "failed",
+      "title": "a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2)",
+      "duration": 1769.336451000001,
+      "failureMessages": [
+        "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]\n    at rivalWorld (/Users/zacheryspector/studio-specialists/p16/tests/p14b5-relationships.test.ts:454:53)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p14b5-relationships.test.ts:933:42\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ],
+      "meta": {},
+      "originalBudgetMs": 60000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 5 \u2014 RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam)"
+      ],
+      "fullName": "family 5 \u2014 RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) a player cancel of a picture WITH a first take mints cancelledAfterFirstTake on its six pairs once (week = the action week) while breakPromisesOnCancel is a no-op for it",
+      "status": "passed",
+      "title": "a player cancel of a picture WITH a first take mints cancelledAfterFirstTake on its six pairs once (week = the action week) while breakPromisesOnCancel is a no-op for it",
+      "duration": 35.726534000001266,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 5 \u2014 RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam)"
+      ],
+      "fullName": "family 5 \u2014 RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) a cancel of a picture WITHOUT a take mints nothing while the promise seam judges on its own (coexistence; both seams fire independently)",
+      "status": "passed",
+      "title": "a cancel of a picture WITHOUT a take mints nothing while the promise seam judges on its own (coexistence; both seams fire independently)",
+      "duration": 34.05155500000001,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 6 \u2014 D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120)"
+      ],
+      "fullName": "family 6 \u2014 D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) the base (no edge) declines by the tie order: every landed band ties between the two survivors (measured premise)",
+      "status": "passed",
+      "title": "the base (no edge) declines by the tie order: every landed band ties between the two survivors (measured premise)",
+      "duration": 4575.348215000002,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 120000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 6 \u2014 D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120)"
+      ],
+      "fullName": "family 6 \u2014 D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) a CloseFriends counterpart on the player's OFF-CYCLE row (startWeek < W, active at W) settles the case for the player with the D5 sentence as the ONLY reason",
+      "status": "passed",
+      "title": "a CloseFriends counterpart on the player's OFF-CYCLE row (startWeek < W, active at W) settles the case for the player with the D5 sentence as the ONLY reason",
+      "duration": 262.9826379999977,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 120000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 6 \u2014 D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120)"
+      ],
+      "fullName": "family 6 \u2014 D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) the same case at a W where that edge has DRIFTED below Close Friends declines by the tie order",
+      "status": "passed",
+      "title": "the same case at a W where that edge has DRIFTED below Close Friends declines by the tie order",
+      "duration": 135.63002899999992,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 120000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 6 \u2014 D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120)"
+      ],
+      "fullName": "family 6 \u2014 D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) a row CLOSED AT W (the actor signed at 0 for 208 weeks) never counts \u2014 the predicate's strict upper end",
+      "status": "passed",
+      "title": "a row CLOSED AT W (the actor signed at 0 for 208 weeks) never counts \u2014 the predicate's strict upper end",
+      "duration": 132.83200700000089,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 120000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 6 \u2014 D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120)"
+      ],
+      "fullName": "family 6 \u2014 D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) a row COMMITTED AT W (startWeek === W) never counts \u2014 the predicate's strict lower end; the same row one week earlier does",
+      "status": "passed",
+      "title": "a row COMMITTED AT W (startWeek === W) never counts \u2014 the predicate's strict lower end; the same row one week earlier does",
+      "duration": 295.16904799999975,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 120000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 6 \u2014 D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120)"
+      ],
+      "fullName": "family 6 \u2014 D5 IN THE CHOOSER under the D1 roster predicate (scope (5); companion :116, :120) `enemies here` is never read: without a Close Friends counterpart no D5 sentence appears, whatever the value on the record",
+      "status": "passed",
+      "title": "`enemies here` is never read: without a Close Friends counterpart no D5 sentence appears, whatever the value on the record",
+      "duration": 151.92136100000062,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 120000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 6b \u2014 D5 SETTLEMENT-LEVEL through the real bandsFor (record 1348-C2, review 1348-D blocking defect 2)"
+      ],
+      "fullName": "family 6b \u2014 D5 SETTLEMENT-LEVEL through the real bandsFor (record 1348-C2, review 1348-D blocking defect 2) a player issuer: both a close tie and an enemy (with conflict evidence) on the roster \u2014 settlement reads close ties here (2) [RED under v2, 1347-F/1348-F4: the tier premise below now requires Enemies; the settlement outcome is unchanged under either law]",
+      "status": "passed",
+      "title": "a player issuer: both a close tie and an enemy (with conflict evidence) on the roster \u2014 settlement reads close ties here (2) [RED under v2, 1347-F/1348-F4: the tier premise below now requires Enemies; the settlement outcome is unchanged under either law]",
+      "duration": 248.60656999999992,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 120000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 6b \u2014 D5 SETTLEMENT-LEVEL through the real bandsFor (record 1348-C2, review 1348-D blocking defect 2)"
+      ],
+      "fullName": "family 6b \u2014 D5 SETTLEMENT-LEVEL through the real bandsFor (record 1348-C2, review 1348-D blocking defect 2) a player issuer: only the enemy (with conflict evidence) on the roster \u2014 settlement reads enemies here (0), the rival wins with the AT-ODDS sentence (1348-F2)",
+      "status": "passed",
+      "title": "a player issuer: only the enemy (with conflict evidence) on the roster \u2014 settlement reads enemies here (0), the rival wins with the AT-ODDS sentence (1348-F2)",
+      "duration": 153.7011590000002,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 120000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 6c \u2014 D5 reads a Partners counterpart as a close tie, still below hostility (slice B, 1358-C5)"
+      ],
+      "fullName": "family 6c \u2014 D5 reads a Partners counterpart as a close tie, still below hostility (slice B, 1358-C5) a player issuer: a Partners counterpart at Friends on the roster \u2014 settlement reads close ties here (2)",
+      "status": "passed",
+      "title": "a player issuer: a Partners counterpart at Friends on the roster \u2014 settlement reads close ties here (2)",
+      "duration": 64.82947299999796,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 120000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 6c \u2014 D5 reads a Partners counterpart as a close tie, still below hostility (slice B, 1358-C5)"
+      ],
+      "fullName": "family 6c \u2014 D5 reads a Partners counterpart as a close tie, still below hostility (slice B, 1358-C5) a player issuer: a Partners pair whose own tier is Enemies (with conflict evidence) \u2014 settlement reads enemies here (0), and the rival wins with the AT-ODDS sentence [control: passes at RED]",
+      "status": "passed",
+      "title": "a player issuer: a Partners pair whose own tier is Enemies (with conflict evidence) \u2014 settlement reads enemies here (0), and the rival wins with the AT-ODDS sentence [control: passes at RED]",
+      "duration": 64.94299200000023,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 120000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "D5 REASON SENTENCE \u2014 companion-copy test per branch (record 1348-C3/C4, parent decision 1348-F2)"
+      ],
+      "fullName": "D5 REASON SENTENCE \u2014 companion-copy test per branch (record 1348-C3/C4, parent decision 1348-F2) BRANCH 2 over 1: a close tie beats a roster holding no signal \u2014 reads the close-ties sentence, unchanged [control]",
+      "status": "passed",
+      "title": "BRANCH 2 over 1: a close tie beats a roster holding no signal \u2014 reads the close-ties sentence, unchanged [control]",
+      "duration": 132.0795999999973,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 120000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "D5 REASON SENTENCE \u2014 companion-copy test per branch (record 1348-C3/C4, parent decision 1348-F2)"
+      ],
+      "fullName": "D5 REASON SENTENCE \u2014 companion-copy test per branch (record 1348-C3/C4, parent decision 1348-F2) BRANCH 2 over 0: the exported relationshipsReasonSentence(2) is the close-ties sentence, unchanged \u2014 the winner's own band governs, no loser band matters [RED: export does not exist at BASE]",
+      "status": "passed",
+      "title": "BRANCH 2 over 0: the exported relationshipsReasonSentence(2) is the close-ties sentence, unchanged \u2014 the winner's own band governs, no loser band matters [RED: export does not exist at BASE]",
+      "duration": 0.6351190000023053,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "D5 REASON SENTENCE \u2014 companion-copy test per branch (record 1348-C3/C4, parent decision 1348-F2)"
+      ],
+      "fullName": "D5 REASON SENTENCE \u2014 companion-copy test per branch (record 1348-C3/C4, parent decision 1348-F2) BRANCH 1 over 0: a roster holding no signal beats a roster holding evidence-backed enemies \u2014 reads the NEW at-odds sentence [RED under v1]",
+      "status": "passed",
+      "title": "BRANCH 1 over 0: a roster holding no signal beats a roster holding evidence-backed enemies \u2014 reads the NEW at-odds sentence [RED under v1]",
+      "duration": 158.46348800000123,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 120000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 7 \u2014 PUBLIC ORDER: the SEVEN-member companion orders (\u00a72.1.7 :120), term preference unchanged"
+      ],
+      "fullName": "family 7 \u2014 PUBLIC ORDER: the SEVEN-member companion orders (\u00a72.1.7 :120), term preference unchanged publicPriorityOrder is byte-equal to the companion order for both archetypes and publicPreferredTerm is value-identical",
+      "status": "passed",
+      "title": "publicPriorityOrder is byte-equal to the companion order for both archetypes and publicPreferredTerm is value-identical",
+      "duration": 14.224756999999954,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 8 \u2014 RESERVATION enumerated and CHEMISTRY read-only (scope (6)-(7); \u00a75.6 :476, :482)"
+      ],
+      "fullName": "family 8 \u2014 RESERVATION enumerated and CHEMISTRY read-only (scope (6)-(7); \u00a75.6 :476, :482) pairChemistry returns {null, 0, []} without an edge, sign +1 for Colleagues and above, \u22121 for Strained and below, no digit in any reason, and reads nothing but the record",
+      "status": "passed",
+      "title": "pairChemistry returns {null, 0, []} without an edge, sign +1 for Colleagues and above, \u22121 for Strained and below, no digit in any reason, and reads nothing but the record",
+      "duration": 341.84778800000277,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 8 \u2014 RESERVATION enumerated and CHEMISTRY read-only (scope (6)-(7); \u00a75.6 :476, :482)"
+      ],
+      "fullName": "family 8 \u2014 RESERVATION enumerated and CHEMISTRY read-only (scope (6)-(7); \u00a75.6 :476, :482) nemesisOnRoster is an enumerated FreezeDrop member; Nemeses needs a conflict record B.5 never mints, so no genuine edge can trip it",
+      "status": "passed",
+      "title": "nemesisOnRoster is an enumerated FreezeDrop member; Nemeses needs a conflict record B.5 never mints, so no genuine edge can trip it",
+      "duration": 30.140665000002627,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10))"
+      ],
+      "fullName": "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) validateSaveV32/validateRelationshipsRoot exist and admit the genuinely minted world round-trip",
+      "status": "passed",
+      "title": "validateSaveV32/validateRelationshipsRoot exist and admit the genuinely minted world round-trip",
+      "duration": 95.24105699999927,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10))"
+      ],
+      "fullName": "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) refuses a missing root",
+      "status": "passed",
+      "title": "refuses a missing root",
+      "duration": 92.27506700000231,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10))"
+      ],
+      "fullName": "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) refuses a non-ordinal edgeId",
+      "status": "passed",
+      "title": "refuses a non-ordinal edgeId",
+      "duration": 83.19363700000031,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10))"
+      ],
+      "fullName": "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) refuses a duplicate pair",
+      "status": "passed",
+      "title": "refuses a duplicate pair",
+      "duration": 114.03549099999873,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10))"
+      ],
+      "fullName": "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) refuses a non-canonical key",
+      "status": "passed",
+      "title": "refuses a non-canonical key",
+      "duration": 78.90999400000146,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10))"
+      ],
+      "fullName": "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) refuses a person not in state.talent",
+      "status": "passed",
+      "title": "refuses a person not in state.talent",
+      "duration": 80.73586799999975,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10))"
+      ],
+      "fullName": "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) refuses firstSharedWeek > lastEventWeek",
+      "status": "passed",
+      "title": "refuses firstSharedWeek > lastEventWeek",
+      "duration": 80.318342999999,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10))"
+      ],
+      "fullName": "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) refuses a week outside the recording interval (before the boundary; after market.tick)",
+      "status": "passed",
+      "title": "refuses a week outside the recording interval (before the boundary; after market.tick)",
+      "duration": 162.52299499999936,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10))"
+      ],
+      "fullName": "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) refuses a driver week after lastEventWeek",
+      "status": "passed",
+      "title": "refuses a driver week after lastEventWeek",
+      "duration": 79.90569600000163,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10))"
+      ],
+      "fullName": "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) refuses recent over the cap",
+      "status": "passed",
+      "title": "refuses recent over the cap",
+      "duration": 82.8616759999968,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10))"
+      ],
+      "fullName": "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) refuses peakTier outside the catalogue",
+      "status": "passed",
+      "title": "refuses peakTier outside the catalogue",
+      "duration": 79.09051099999851,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10))"
+      ],
+      "fullName": "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) refuses closeness outside 0..100 or non-integer",
+      "status": "passed",
+      "title": "refuses closeness outside 0..100 or non-integer",
+      "duration": 256.9546310000005,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10))"
+      ],
+      "fullName": "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) refuses inconsistent counters",
+      "status": "passed",
+      "title": "refuses inconsistent counters",
+      "duration": 239.02937699999893,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10))"
+      ],
+      "fullName": "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) refuses an unknown driver kind, an empty ref and a non-integer delta",
+      "status": "passed",
+      "title": "refuses an unknown driver kind, an empty ref and a non-integer delta",
+      "duration": 242.0802790000016,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10))"
+      ],
+      "fullName": "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) refuses an extra key on an edge",
+      "status": "passed",
+      "title": "refuses an extra key on an edge",
+      "duration": 94.88476100000116,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10))"
+      ],
+      "fullName": "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) a V31 world holding ONE edge, and the SAME world with relationships emptied, both refuse migrateToV30 \u2014 MEASURED: the nearest guard is now V33s own materialization gate, one week past its migration boundary, not the V31-specific message",
+      "status": "failed",
+      "title": "a V31 world holding ONE edge, and the SAME world with relationships emptied, both refuse migrateToV30 \u2014 MEASURED: the nearest guard is now V33s own materialization gate, one week past its migration boundary, not the V31-specific message",
+      "duration": 168.22230400000262,
+      "failureMessages": [
+        "AssertionError: expected [Function] to throw error matching /^migrateToV47: cannot downgrade or di\u2026/ but got 'validateSaveV37: state is invalid \u2014 v\u2026'\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1509:21)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/chai/index.js:1686:25)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p14b5-relationships.test.ts:1475:67\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T case 1: a joint reservation conflict is not causal proof (plan :249-256; 26 \u00a72 \"a joint reservation conflict ... is not target-specific physical impossibility\")"
+      ],
+      "fullName": "629-T case 1: a joint reservation conflict is not causal proof (plan :249-256; 26 \u00a72 \"a joint reservation conflict ... is not target-specific physical impossibility\") one person, two bound OPEN count-1 promises, seated LEAD on one greenlit picture, one event still reachable after the cancel: NEITHER is BROKEN at the cancel; the due-week owner decides",
+      "status": "passed",
+      "title": "one person, two bound OPEN count-1 promises, seated LEAD on one greenlit picture, one event still reachable after the cancel: NEITHER is BROKEN at the cancel; the due-week owner decides",
+      "duration": 1393.8463770000003,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T case 1: a joint reservation conflict is not causal proof (plan :249-256; 26 \u00a72 \"a joint reservation conflict ... is not target-specific physical impossibility\")"
+      ],
+      "fullName": "629-T case 1: a joint reservation conflict is not causal proof (plan :249-256; 26 \u00a72 \"a joint reservation conflict ... is not target-specific physical impossibility\") \"either lead claimant could still be kept when one film remains\": two beneficiaries each promised ONE lead, both seated on the cancelled picture (lead / antagonist), one film reachable \u2014 neither is BROKEN (plan :251-252)",
+      "status": "passed",
+      "title": "\"either lead claimant could still be kept when one film remains\": two beneficiaries each promised ONE lead, both seated on the cancelled picture (lead / antagonist), one film reachable \u2014 neither is BROKEN (plan :251-252)",
+      "duration": 163.81653600000027,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T case 2: a bound legacy P2 is never routed through fresh-offer refusal (26 \u00a72 last sentence; plan :257 \"legacy generic-cast compatibility\")"
+      ],
+      "fullName": "629-T case 2: a bound legacy P2 is never routed through fresh-offer refusal (26 \u00a72 last sentence; plan :257 \"legacy generic-cast compatibility\") legacy count-only P2 (no kind), person seated SUPPORT (generic cast qualifies any seat), wide window: NOT broken at the cancel",
+      "status": "passed",
+      "title": "legacy count-only P2 (no kind), person seated SUPPORT (generic cast qualifies any seat), wide window: NOT broken at the cancel",
+      "duration": 47.771780000000035,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T case 2: a bound legacy P2 is never routed through fresh-offer refusal (26 \u00a72 last sentence; plan :257 \"legacy generic-cast compatibility\")"
+      ],
+      "fullName": "629-T case 2: a bound legacy P2 is never routed through fresh-offer refusal (26 \u00a72 last sentence; plan :257 \"legacy generic-cast compatibility\") legacy count-only P2, person seated SUPPORT, window physically too tight after the cancel (due = week + 2): BROKEN at the cancel \u2014 target-specific physical impossibility applies to legacy roots too",
+      "status": "passed",
+      "title": "legacy count-only P2, person seated SUPPORT, window physically too tight after the cancel (due = week + 2): BROKEN at the cancel \u2014 target-specific physical impossibility applies to legacy roots too",
+      "duration": 78.3531780000003,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T case 3: an unsupported legacy family is not causal proof (26 \u00a72 \"unsupported legacy family ... is not target-specific physical impossibility\")"
+      ],
+      "fullName": "629-T case 3: an unsupported legacy family is not causal proof (26 \u00a72 \"unsupported legacy family ... is not target-specific physical impossibility\") a bound OPEN DIRECTING_COUNT root is a lawful persisted record (validateSaveV32) and is NOT broken by a cancel with a wide window",
+      "status": "passed",
+      "title": "a bound OPEN DIRECTING_COUNT root is a lawful persisted record (validateSaveV32) and is NOT broken by a cancel with a wide window",
+      "duration": 48.67131999999992,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T case 4: the cancelled picture must be able to satisfy THIS class (26 \u00a72 \"check whether the cancelled picture could satisfy this class\"; plan :246 \"relevant ... seams\")"
+      ],
+      "fullName": "629-T case 4: the cancelled picture must be able to satisfy THIS class (26 \u00a72 \"check whether the cancelled picture could satisfy this class\"; plan :246 \"relevant ... seams\") tagged 'lead' P2, person seated 'support' on the cancelled picture, due = week + 2: NOT broken at the cancel (no path was removed); the due-week owner breaks it at the due week",
+      "status": "passed",
+      "title": "tagged 'lead' P2, person seated 'support' on the cancelled picture, due = week + 2: NOT broken at the cancel (no path was removed); the due-week owner breaks it at the due week",
+      "duration": 142.02826499999992,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T case 4: the cancelled picture must be able to satisfy THIS class (26 \u00a72 \"check whether the cancelled picture could satisfy this class\"; plan :246 \"relevant ... seams\")"
+      ],
+      "fullName": "629-T case 4: the cancelled picture must be able to satisfy THIS class (26 \u00a72 \"check whether the cancelled picture could satisfy this class\"; plan :246 \"relevant ... seams\") tagged 'leadOrAntagonist' P2, person seated 'support' on the cancelled picture, due = week + 2: NOT broken at the cancel (no path was removed); the due-week owner breaks it at the due week",
+      "status": "passed",
+      "title": "tagged 'leadOrAntagonist' P2, person seated 'support' on the cancelled picture, due = week + 2: NOT broken at the cancel (no path was removed); the due-week owner breaks it at the due week",
+      "duration": 122.55324199999995,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T case 4: the cancelled picture must be able to satisfy THIS class (26 \u00a72 \"check whether the cancelled picture could satisfy this class\"; plan :246 \"relevant ... seams\")"
+      ],
+      "fullName": "629-T case 4: the cancelled picture must be able to satisfy THIS class (26 \u00a72 \"check whether the cancelled picture could satisfy this class\"; plan :246 \"relevant ... seams\") tagged leadOrAntagonist P2, person seated ANTAGONIST (in class), due = week + 2: a relevant seam, judged physically -> BROKEN at the cancel",
+      "status": "passed",
+      "title": "tagged leadOrAntagonist P2, person seated ANTAGONIST (in class), due = week + 2: a relevant seam, judged physically -> BROKEN at the cancel",
+      "duration": 45.57378500000004,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T case 5: the remaining count uses ACTUAL class-qualified takes (plan :331-334)"
+      ],
+      "fullName": "629-T case 5: the remaining count uses ACTUAL class-qualified takes (plan :331-334) count-2 tagged lead P2, ONE real qualifying take on A (progress 1), seated LEAD on pre-first-take B, one more event reachable: NOT broken when B is cancelled",
+      "status": "passed",
+      "title": "count-2 tagged lead P2, ONE real qualifying take on A (progress 1), seated LEAD on pre-first-take B, one more event reachable: NOT broken when B is cancelled",
+      "duration": 242.37269800000013,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T case 5: the remaining count uses ACTUAL class-qualified takes (plan :331-334)"
+      ],
+      "fullName": "629-T case 5: the remaining count uses ACTUAL class-qualified takes (plan :331-334) stale progress counter (0) while the real take exists: still NOT broken \u2014 the proof reads qualifyingTakes, not progress",
+      "status": "passed",
+      "title": "stale progress counter (0) while the real take exists: still NOT broken \u2014 the proof reads qualifyingTakes, not progress",
+      "duration": 60.26550599999973,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T case 6: target-specific physical impossibility still breaks at the cancel (plan :252-254)"
+      ],
+      "fullName": "629-T case 6: target-specific physical impossibility still breaks at the cancel (plan :252-254) 'tagged lead P2' count-1, person LEAD on the only pre-first-take picture, due = week + 2: BROKEN at the cancel with ONE own receipt, idempotent under a following owner pass and tick",
+      "status": "passed",
+      "title": "'tagged lead P2' count-1, person LEAD on the only pre-first-take picture, due = week + 2: BROKEN at the cancel with ONE own receipt, idempotent under a following owner pass and tick",
+      "duration": 115.48276400000032,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T case 6: target-specific physical impossibility still breaks at the cancel (plan :252-254)"
+      ],
+      "fullName": "629-T case 6: target-specific physical impossibility still breaks at the cancel (plan :252-254) 'P1 APPEARANCE_COUNT' count-1, person LEAD on the only pre-first-take picture, due = week + 2: BROKEN at the cancel with ONE own receipt, idempotent under a following owner pass and tick",
+      "status": "passed",
+      "title": "'P1 APPEARANCE_COUNT' count-1, person LEAD on the only pre-first-take picture, due = week + 2: BROKEN at the cancel with ONE own receipt, idempotent under a following owner pass and tick",
+      "duration": 120.54985800000031,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T case 6: target-specific physical impossibility still breaks at the cancel (plan :252-254)"
+      ],
+      "fullName": "629-T case 6: target-specific physical impossibility still breaks at the cancel (plan :252-254) differential shape: the picture at remainingTicks 5 COULD have served (take expected week + 1 < due = week + 3) and nothing else can after the cancel \u2014 BROKEN at the cancel",
+      "status": "passed",
+      "title": "differential shape: the picture at remainingTicks 5 COULD have served (take expected week + 1 < due = week + 3) and nothing else can after the cancel \u2014 BROKEN at the cancel",
+      "duration": 166.01025299999992,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T case 7: immunity and the other owners are unchanged (plan :244, :256-257)"
+      ],
+      "fullName": "629-T case 7: immunity and the other owners are unchanged (plan :244, :256-257) first take THEN cancel never un-satisfies (re-pin of tests/p14b4-cast-class-outcomes :488): the real owner SATISFIES at the take; the cancel changes nothing",
+      "status": "passed",
+      "title": "first take THEN cancel never un-satisfies (re-pin of tests/p14b4-cast-class-outcomes :488): the real owner SATISFIES at the take; the cancel changes nothing",
+      "duration": 64.82296499999984,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T case 7: immunity and the other owners are unchanged (plan :244, :256-257)"
+      ],
+      "fullName": "629-T case 7: immunity and the other owners are unchanged (plan :244, :256-257) early termination owner unchanged: releaseTalent breaks every open promise to that person immediately on the real route",
+      "status": "passed",
+      "title": "early termination owner unchanged: releaseTalent breaks every open promise to that person immediately on the real route",
+      "duration": 37.39041100000031,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T case 8: no-change control"
+      ],
+      "fullName": "629-T case 8: no-change control cancelling a picture whose cast holds nobody with a bound OPEN promise leaves state.promises and the receipts byte-identical",
+      "status": "passed",
+      "title": "cancelling a picture whose cast holds nobody with a bound OPEN promise leaves state.promises and the receipts byte-identical",
+      "duration": 39.281496999999945,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T2 case 5N: the remaining count is CLASS-qualified \u2014 a SUPPORT take never serves a lead mask (plan :324-326, :331-334; R1 \"actual class-qualified distinct first takes\")"
+      ],
+      "fullName": "629-T2 case 5N: the remaining count is CLASS-qualified \u2014 a SUPPORT take never serves a lead mask (plan :324-326, :331-334; R1 \"actual class-qualified distinct first takes\") count-2 tagged lead P2, the ONE real take on A recorded with the person in SUPPORT, then seated LEAD on pre-first-take B at 30, window [21,38): BROKEN when B is cancelled (remaining 2 > nMax 1)",
+      "status": "passed",
+      "title": "count-2 tagged lead P2, the ONE real take on A recorded with the person in SUPPORT, then seated LEAD on pre-first-take B at 30, window [21,38): BROKEN when B is cancelled (remaining 2 > nMax 1)",
+      "duration": 262.12735999999995,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T2 separator: the landed bound is the 5-week floor chain t0 + 5k, not the quote's SEAT_CYCLE_WEEKS cadence (record 630 R1; 629-B Q2 D2; plan :341-343, :350-351 \"a valid hard bound\")"
+      ],
+      "fullName": "629-T2 separator: the landed bound is the 5-week floor chain t0 + 5k, not the quote's SEAT_CYCLE_WEEKS cadence (record 630 R1; 629-B Q2 D2; plan :341-343, :350-351 \"a valid hard bound\") count-2 tagged lead P2, person LEAD on the greenlit-this-week picture, window [21,33): the quote estimate refuses (its nMax 1 < 2) yet the cancel leaves the root untouched (hard nMax 2); the due-week owner breaks it at 33",
+      "status": "passed",
+      "title": "count-2 tagged lead P2, person LEAD on the greenlit-this-week picture, window [21,33): the quote estimate refuses (its nMax 1 < 2) yet the cancel leaves the root untouched (hard nMax 2); the due-week owner breaks it at 33",
+      "duration": 428.7848990000002,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T2 D1: the window start clamps the TAKE week t0, not the greenlight week (record 630 R1 \"the window start is a floor because a picture can be held at ticks 5\"; 629-B Q2 D1)"
+      ],
+      "fullName": "629-T2 D1: the window start clamps the TAKE week t0, not the greenlight week (record 630 R1 \"the window start is a floor because a picture can be held at ticks 5\"; 629-B Q2 D1) count-1 tagged lead, person LEAD on the picture greenlit at 21, window [23,28): untouched at the cancel (t0 = max(23, 26) = 26 < 28 -> nMax 1); the due-week owner breaks it at 28",
+      "status": "passed",
+      "title": "count-1 tagged lead, person LEAD on the picture greenlit at 21, window [23,28): untouched at the cancel (t0 = max(23, 26) = 26 < 28 -> nMax 1); the due-week owner breaks it at 28",
+      "duration": 213.0232879999994,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T2 D1: the window start clamps the TAKE week t0, not the greenlight week (record 630 R1 \"the window start is a floor because a picture can be held at ticks 5\"; 629-B Q2 D1)"
+      ],
+      "fullName": "629-T2 D1: the window start clamps the TAKE week t0, not the greenlight week (record 630 R1 \"the window start is a floor because a picture can be held at ticks 5\"; 629-B Q2 D1) mirror, window [23,26): t0 = max(23, 26) = 26 >= 26 -> nMax 0 -> BROKEN at the cancel with the cancel cause and ONE own receipt",
+      "status": "passed",
+      "title": "mirror, window [23,26): t0 = max(23, 26) = 26 >= 26 -> nMax 0 -> BROKEN at the cancel with the cancel cause and ONE own receipt",
+      "duration": 80.54736899999989,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T2 direct pins on the exported proof (record 630 R1 boundaries; promises.ts :667-673)"
+      ],
+      "fullName": "629-T2 direct pins on the exported proof (record 630 R1 boundaries; promises.ts :667-673) bound tagged lead roots, no running picture at week 21 (t0 = 26): the sentence iff remaining > ceil((due - 26) / 5)",
+      "status": "passed",
+      "title": "bound tagged lead roots, no running picture at week 21 (t0 = 26): the sentence iff remaining > ceil((due - 26) / 5)",
+      "duration": 144.87686899999972,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b4-cancel-causal-proof.test.ts",
+      "ancestorTitles": [
+        "629-T2 direct pins on the exported proof (record 630 R1 boundaries; promises.ts :667-673)"
+      ],
+      "fullName": "629-T2 direct pins on the exported proof (record 630 R1 boundaries; promises.ts :667-673) remaining 0 (count 1 with the real qualifying lead take on A) -> null even with due = week + 1: a met predicate belongs to the weekly owner, not the proof",
+      "status": "passed",
+      "title": "remaining 0 (count 1 with the real qualifying lead take on A) -> null even with due = week + 1: a met predicate belongs to the weekly owner, not the proof",
+      "duration": 72.46030299999984,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) validates the genuine V23 fixture legacy-v23-sound-operational-315 directly (sha256-pinned, week-pinned) before it is migrated in the chain test below",
+      "status": "passed",
+      "title": "validates the genuine V23 fixture legacy-v23-sound-operational-315 directly (sha256-pinned, week-pinned) before it is migrated in the chain test below",
+      "duration": 132.38331299999993,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) migrates legacy-v23-sound-operational-315 and its identical V20 ancestor to V24 with an honest first-prototype lift, byte-identical otherwise",
+      "status": "passed",
+      "title": "migrates legacy-v23-sound-operational-315 and its identical V20 ancestor to V24 with an honest first-prototype lift, byte-identical otherwise",
+      "duration": 471.38753799999995,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) migrates the genuine V23 fixture legacy-v23-lighting-complete-plan-queued: rival EMPTY-physicalProjectIds adoption lifts to ONE aggregated installation row (placementId null), one held commercial asset, the queued physical plan survives byte-identically",
+      "status": "passed",
+      "title": "migrates the genuine V23 fixture legacy-v23-lighting-complete-plan-queued: rival EMPTY-physicalProjectIds adoption lifts to ONE aggregated installation row (placementId null), one held commercial asset, the queued physical plan survives byte-identically",
+      "duration": 151.94693600000005,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) chains the genuine V22 fixture './fixtures/p13b/legacy-v22-staffed-4-\u2026' through V23 to V24 with the same honest lift",
+      "status": "passed",
+      "title": "chains the genuine V22 fixture './fixtures/p13b/legacy-v22-staffed-4-\u2026' through V23 to V24 with the same honest lift",
+      "duration": 188.36731400000008,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) chains the genuine V22 fixture './fixtures/p13b/legacy-v22-two-labs-c\u2026' through V23 to V24 with the same honest lift",
+      "status": "passed",
+      "title": "chains the genuine V22 fixture './fixtures/p13b/legacy-v22-two-labs-c\u2026' through V23 to V24 with the same honest lift",
+      "duration": 175.75874999999996,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) chains the genuine V21 fixture './fixtures/p13b/legacy-v21-staffed-4-\u2026' through V22, V23 to V24",
+      "status": "passed",
+      "title": "chains the genuine V21 fixture './fixtures/p13b/legacy-v21-staffed-4-\u2026' through V22, V23 to V24",
+      "duration": 252.58733000000007,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) chains the genuine V21 fixture './fixtures/p13b/legacy-v21-released-p\u2026' through V22, V23 to V24",
+      "status": "passed",
+      "title": "chains the genuine V21 fixture './fixtures/p13b/legacy-v21-released-p\u2026' through V22, V23 to V24",
+      "duration": 270.0261429999996,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) chains the genuine V21 fixture './fixtures/p13b/legacy-v21-two-labs-t\u2026' through V22, V23 to V24",
+      "status": "passed",
+      "title": "chains the genuine V21 fixture './fixtures/p13b/legacy-v21-two-labs-t\u2026' through V22, V23 to V24",
+      "duration": 244.0666809999998,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-a\u2026' through V21, V22, V23 to V24",
+      "status": "passed",
+      "title": "chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-a\u2026' through V21, V22, V23 to V24",
+      "duration": 233.8199380000001,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-p\u2026' through V21, V22, V23 to V24",
+      "status": "passed",
+      "title": "chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-p\u2026' through V21, V22, V23 to V24",
+      "duration": 243.90546399999994,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-c\u2026' through V21, V22, V23 to V24",
+      "status": "passed",
+      "title": "chains the genuine V20 fixture './fixtures/p13b/legacy-v20-research-c\u2026' through V21, V22, V23 to V24",
+      "duration": 232.28347600000006,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) migrateToV23 / migrateToV22 / migrateToV21 / migrateToV20 refuse a V24 save",
+      "status": "passed",
+      "title": "migrateToV23 / migrateToV22 / migrateToV21 / migrateToV20 refuse a V24 save",
+      "duration": 1049.7781170000003,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) makeSave writes the live saveVersion 37 (stale title corrected post-C.4)",
+      "status": "passed",
+      "title": "makeSave writes the live saveVersion 37 (stale title corrected post-C.4)",
+      "duration": 413.6051389999993,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (stale numbers corrected post-C.2b)",
+      "status": "passed",
+      "title": "an unknown saveVersion 46 is refused, naming the handled range \"1 through 45 only\" (stale numbers corrected post-C.2b)",
+      "duration": 272.77811799999927,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational",
+      "status": "passed",
+      "title": "save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational",
+      "duration": 10767.566248,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 era surface"
+      ],
+      "fullName": "Save49 era surface LIVE_SAVE_VERSION is P16_SAVE_VERSION (49 at this base) with predecessor48, and the V49 functions exist",
+      "status": "passed",
+      "title": "LIVE_SAVE_VERSION is P16_SAVE_VERSION (49 at this base) with predecessor48, and the V49 functions exist",
+      "duration": 2.9457680000000437,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 era surface"
+      ],
+      "fullName": "Save49 era surface validateSave dispatches49 and names the handled range \"1 through 49\"",
+      "status": "passed",
+      "title": "validateSave dispatches49 and names the handled range \"1 through 49\"",
+      "duration": 455.43971999999997,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 convertV48ToV49 adds exactly the empty rights root at the save week and zero P16 movements on every rival period; nothing else moves",
+      "status": "passed",
+      "title": "convertV48ToV49 adds exactly the empty rights root at the save week and zero P16 movements on every rival period; nothing else moves",
+      "duration": 415.03608499999996,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 migrateToLive lifts the genuine raw capture to 46 through importSave, and a second migration is a no-op",
+      "status": "passed",
+      "title": "migrateToLive lifts the genuine raw capture to 46 through importSave, and a second migration is a no-op",
+      "duration": 361.67996700000026,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 convertV49ToV48 is lossless while the root is empty and every P16 movement is zero, round-tripping to the genuine bytes",
+      "status": "passed",
+      "title": "convertV49ToV48 is lossless while the root is empty and every P16 movement is zero, round-tripping to the genuine bytes",
+      "duration": 866.8915849999998,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 the downgrade refuses by name once a rights record exists; a P16 movement or ledger row without its transaction is refused by the validator first",
+      "status": "passed",
+      "title": "the downgrade refuses by name once a rights record exists; a P16 movement or ledger row without its transaction is refused by the validator first",
+      "duration": 356.68247500000007,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45"
+      ],
+      "fullName": "Save49 migration from a public-chain Save48 predecessor derived from genuine Save45 a Save45 envelope is refused the P16 kinds below their era: a rightsConsideration movement or ledger row cannot be written under version 45",
+      "status": "passed",
+      "title": "a Save45 envelope is refused the P16 kinds below their era: a rightsConsideration movement or ledger row cannot be written under version 45",
+      "duration": 100.06056500000022,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [],
+      "fullName": "the actual migrated Save48 predecessor refuses rights authority below Save49 without retagging a modern envelope",
+      "status": "passed",
+      "title": "the actual migrated Save48 predecessor refuses rights authority below Save49 without retagging a modern envelope",
+      "duration": 292.85143500000004,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates the control: a materialized genesis pair validates",
+      "status": "passed",
+      "title": "the control: a materialized genesis pair validates",
+      "duration": 262.673765,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates refuses a missing root, a wrong version, a recordedFromWeek outside [0, tick], or unknown keys",
+      "status": "passed",
+      "title": "refuses a missing root, a wrong version, a recordedFromWeek outside [0, tick], or unknown keys",
+      "duration": 338.560207,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates refuses a duplicate genesis, a broken priorHolder chain, a future-dated event, bad ordinals, duplicate ids, a mismatched subject and an unknown holder",
+      "status": "passed",
+      "title": "refuses a duplicate genesis, a broken priorHolder chain, a future-dated event, bad ordinals, duplicate ids, a mismatched subject and an unknown holder",
+      "duration": 448.9112729999997,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates refuses a persisted record that contradicts the authentic source (creator, date or title) as ambiguous provenance",
+      "status": "passed",
+      "title": "refuses a persisted record that contradicts the authentic source (creator, date or title) as ambiguous provenance",
+      "duration": 339.69760099999985,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates an archive event needs its estate record, and an estate record must name a reserved identity",
+      "status": "passed",
+      "title": "an archive event needs its estate record, and an estate record must name a reserved identity",
+      "duration": 341.7535619999999,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [
+        "Save49 rights root validator: shape, title events, holders, estates"
+      ],
+      "fullName": "Save49 rights root validator: shape, title events, holders, estates every authored-start manifest film stays resolvable after migration: the root invents none of them",
+      "status": "passed",
+      "title": "every authored-start manifest film stays resolvable after migration: the root invents none of them",
+      "duration": 242.5122999999994,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16a-save-v46.test.ts",
+      "ancestorTitles": [],
+      "fullName": "F15 genuine predecessor migration keeps observational frontier and lossless empty-era roundtrip",
+      "status": "passed",
+      "title": "F15 genuine predecessor migration keeps observational frontier and lossless empty-era roundtrip",
+      "duration": 444.90613399999984,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    }
+  ],
+  "allBudgetQualified": false,
+  "maxMs": 10767.566248,
+  "failures": [
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 1 \u2014 EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a))"
+      ],
+      "fullName": "family 1 \u2014 EDGE MINTING at the tick tail from the advance's delta (scope (2), (2a)) no RNG reaches the seam: rngState is byte-equal before/after the seam and the tick's rngState equals the frozen control; everything but the root is byte-identical to the frozen post-tick state",
+      "status": "failed",
+      "title": "no RNG reaches the seam: rngState is byte-equal before/after the seam and the tick's rngState equals the frozen control; everything but the root is byte-identical to the frozen post-tick state",
+      "duration": 398.2664050000003,
+      "failureMessages": [
+        "Error: validateSaveV37: state is invalid \u2014 validateSaveV36: frozen V35 state is invalid \u2014 validateSaveV35: frozen V34 state is invalid \u2014 validateSaveV34: frozen V33 state is invalid \u2014 validateSaveV33: frozen V32 state is invalid \u2014 validateSaveV32: frozen V31 state is invalid \u2014 validateSaveV31: frozen V30 state is invalid \u2014 validateSaveV30: frozen V28 state is invalid \u2014 validateSaveV28: frozen V27 state is invalid \u2014 validateSaveV27: frozen V26 state is invalid \u2014 validateSaveV26: frozen V25 state is invalid \u2014 validateSaveV25: frozen V24 state is invalid \u2014 Hollywood save: exact keys required: capacity,signing,payroll,overhead,facilityOpex,development,production,marketing,studioRevenue,technologyAdoption,researchSpend,researchCapacity,technologyRestoration,technologyRefund,termination,facilityDemolitionRefund,loanPrincipal,loanInstallment,claimPayment\n    at validateSaveV37WithProfession (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:10793:11)\n    at proveProfessionSave (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:10855:3)\n    at validateSaveV42Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11074:3)\n    at validateSaveV43Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11124:3)\n    at validateSaveV44Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11184:3)\n    at validateSaveV45Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11346:3)\n    at validateSaveV46Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11397:3)\n    at validateSaveV47Era (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11508:3)\n    at validateSaveP15BEra (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11654:3)\n    at validateSaveP15B (/Users/zacheryspector/studio-specialists/p16/src/core/save.ts:11639:10)"
+      ],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry)"
+      ],
+      "fullName": "family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3)",
+      "status": "failed",
+      "title": "the first post-migration RIVAL take mints six edges under the same law; the 45 pre-migration takes mint none (Q3)",
+      "duration": 2421.396866,
+      "failureMessages": [
+        "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]\n    at rivalWorld (/Users/zacheryspector/studio-specialists/p16/tests/p14b5-relationships.test.ts:454:53)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p14b5-relationships.test.ts:716:46\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ],
+      "meta": {},
+      "originalBudgetMs": 60000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry)"
+      ],
+      "fullName": "family 2 \u2014 CANONICAL KEY and REPETITION on the rival chain (scope (2a); S25 symmetry) the same pair on a second production is ONE edge with sharedProductions 2 and a repeatedCollaboration driver of the capped accelerator; a < b regardless of seat order",
+      "status": "failed",
+      "title": "the same pair on a second production is ONE edge with sharedProductions 2 and a repeatedCollaboration driver of the capped accelerator; a < b regardless of seat order",
+      "duration": 1665.5308459999997,
+      "failureMessages": [
+        "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]\n    at rivalWorld (/Users/zacheryspector/studio-specialists/p16/tests/p14b5-relationships.test.ts:454:53)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p14b5-relationships.test.ts:725:40\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ],
+      "meta": {},
+      "originalBudgetMs": 60000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 5 \u2014 RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam)"
+      ],
+      "fullName": "family 5 \u2014 RELEASE and CANCEL drivers (scope (2b)-(2c); 647-B R1 week stamp; coexistence with the promise seam) a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2)",
+      "status": "failed",
+      "title": "a rival release (hollywood.films / industry.growth) mints under the same law; a release whose take predates every edge mints nothing (I2)",
+      "duration": 1769.336451000001,
+      "failureMessages": [
+        "AssertionError: expected [] to deeply equal [ 'studio-aca408ec-r01:film:6' ]\n    at rivalWorld (/Users/zacheryspector/studio-specialists/p16/tests/p14b5-relationships.test.ts:454:53)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p14b5-relationships.test.ts:933:42\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ],
+      "meta": {},
+      "originalBudgetMs": 60000
+    },
+    {
+      "file": "tests/p14b5-relationships.test.ts",
+      "ancestorTitles": [
+        "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10))"
+      ],
+      "fullName": "family 10 \u2014 the V31 ROOT VALIDATOR refuses every malformed edge; family 9's ONE-EDGE downgrade refusal (scope (10)) a V31 world holding ONE edge, and the SAME world with relationships emptied, both refuse migrateToV30 \u2014 MEASURED: the nearest guard is now V33s own materialization gate, one week past its migration boundary, not the V31-specific message",
+      "status": "failed",
+      "title": "a V31 world holding ONE edge, and the SAME world with relationships emptied, both refuse migrateToV30 \u2014 MEASURED: the nearest guard is now V33s own materialization gate, one week past its migration boundary, not the V31-specific message",
+      "duration": 168.22230400000262,
+      "failureMessages": [
+        "AssertionError: expected [Function] to throw error matching /^migrateToV47: cannot downgrade or di\u2026/ but got 'validateSaveV37: state is invalid \u2014 v\u2026'\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:1509:21)\n    at Proxy.<anonymous> (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/expect/dist/index.js:972:17)\n    at Proxy.methodWrapper (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/chai/index.js:1686:25)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p14b5-relationships.test.ts:1475:67\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)"
+      ],
+      "meta": {},
+      "originalBudgetMs": 5000
+    }
+  ],
+  "overBudget": [
+    {
+      "file": "tests/p13b-s5-save-v24.test.ts",
+      "ancestorTitles": [
+        "P13B-S5 Save V24 (test 4)"
+      ],
+      "fullName": "P13B-S5 Save V24 (test 4) save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational",
+      "status": "passed",
+      "title": "save/reload mid-deployment continues identically (byte for byte): a lighting adoption committed but not yet operational",
+      "duration": 10767.566248,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    }
+  ]
+}

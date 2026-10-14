@@ -1,0 +1,11 @@
+# Companion R8 actual independent review
+
+Original wrapper98 RETAINED: actual runtimechild1/52s, complete fivefiles154=149PASS5FAIL; original identity accountant failed on12 it.each display names, not missing tests. Supplemental corrected accounting matches all154 raw names exactly with unchanged sourcehash/file/count/line/budget association. Installed Vitest objDisplay quoting/truncation replaces only original raw $field interpolation; extractor imports utility and TypeScript syntax, no game/test collection. Source or expectations are not changed to erase actual failures. Original audit accounting failure after strictfreeze and original runner artifacts remain preserved.
+
+Current budgets139×5000,3×60000,12×120000 retained. One reportedPASS overbudget: S5 mid-deployment10767.566248ms versus5000; previously also over default5s in Save47/P15B retained reports. Thus148 budget-qualified passes, not149 or wholegatePASS. Strict originalroot0/48s reuse and2checks0errors; parent fresh independent corrected audit PASS1618sources343inputs, protected freeze fields match except per-capture autoMetadata wrapper.
+
+Five failures all in relationships: inherited family2 first rival take/repetition and family5 rivalrelease stop on expected film6 versusactual[] premise, matching exact same identities/first assertion in both Save47 and P15B retained reports. Their later edge/driver/repetition assertions do not execute; inherited classification grants no waiver. Additional family1 no-RNG/frozenpost projection and family10 downgrade boundary were previouslyPASS and now encounter earlier frozen Hollywood money-key validation. Source trace rightsStripped drops three zeroP16 rival movement keys but leaves new fourth estateSaleProceeds, so the projected predecessor cannot admit before the intended old boundary. Family10 later intended downgrade comparisons unexecuted; no relationship law defect inferred from this earlier projection failure.
+
+Current185 manual source qualification remains separately bounded by actual3PASS; this companion run adds reported per-identity evidence but not newcompleteP16/native acceptance. Original98/5failures/timing residual retained. No reviewer engine/helper/compiler/K/R changes.
+
+Raw reporter SHA256 b0db7ea169130a63ed2f5a26f76f7a9c82944d90925d2df83038fa74c2e02dd3.
