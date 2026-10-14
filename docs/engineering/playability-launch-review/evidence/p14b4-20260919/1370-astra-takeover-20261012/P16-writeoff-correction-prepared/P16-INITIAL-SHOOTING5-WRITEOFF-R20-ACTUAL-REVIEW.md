@@ -1,0 +1,9 @@
+# R20 explicit nonretention actual first cause
+
+Retain terminal1: fresh root0/80s, complete writeoff3 allFAIL at completed():94 exact missingParticipants expectation. Durations1011.325632/833.767232/688.806015ms are within original5000ms but failed assertions are unqualified. No stopped/native/replay/hostile/publication-fault behavior is credited after the failed assertion.
+
+Mandatory actual165 source/no take/lock164, real all-six capped exits/publicask/affordability/cancelRequired quote and public close return are reached, and originalUnchanged(p) after close executes. Full strict close publication occurs inside real close; nevertheless final test completed() assertions still fail before checking the resulting stopped row and money/source state, so returned close alone is not full test qualification.
+
+Actual acquisition.ts:229 participantsOf is writer,director,craft IDs,cast values in that order. quoteAbsorption:299–303 filters actual target employee/nonretained contracts before insertion-preserving Set deduplication. Current test uses director,cast,craft and omits writer: reporter actual6 versus expected5, not only a permutation. Earlier static review incorrectly selected productionCompanyTalentIds instead of the real acquisition owner. Source-grounded expected-order correction must include writer and preserve actual employment/retention semantics; no sorting, partial matcher or production-law change.
+
+Fresh independent reconciliation PASS and five strict checks/zero metadata errors protect exact current195 source/index/input envelope; only receipt-wrapper autoMetadata differs from initial freeze. Detailed source/input counts remain in parent receipt. Original R20 failures/raw stacks retained. Exact successor delta review pending; later source money/stopped/hostile/timing premises remain open. No runtime/helper/compiler or K/R edits by reviewer.

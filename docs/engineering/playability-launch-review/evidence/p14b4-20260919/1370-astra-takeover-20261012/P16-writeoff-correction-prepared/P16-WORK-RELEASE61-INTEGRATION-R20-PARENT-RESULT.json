@@ -1,0 +1,159 @@
+{
+  "terminal": {
+    "overallExit": 1,
+    "groups": {
+      "tsc-root": 0,
+      "estate-red": 1,
+      "identity-accounting": 0
+    },
+    "scope": "Fresh root and complete initial5 explicit-nonretention writeoff file3/default5000ms; genuine165, actual capped exits and paid source lock preserved, native stopped continuation/save and publication rollback; no whole-P16 or native acceptance",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1792008892,
+      "endEpoch": 1792008972,
+      "seconds": 80,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r20-run/tsc-root.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 1,
+      "startEpoch": 1792008982,
+      "endEpoch": 1792008990,
+      "seconds": 8,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r20-run/results.json",
+        "tests/p16-initial-shooting5-writeoff.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r20-run/estate-red.log"
+    }
+  ],
+  "independentFinalFreeze": "PASS",
+  "sourceCount": 1624,
+  "inputCount": 120,
+  "strictChecks": 5,
+  "strictErrorsBytes": 0,
+  "audit": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r20-parent-reconciliation",
+  "scope": "Fresh root and complete initial5 explicit-nonretention writeoff file3/default5000ms; genuine165, actual capped exits and paid source lock preserved, native stopped continuation/save and publication rollback; no whole-P16 or native acceptance",
+  "counts": {
+    "failed": 3
+  },
+  "identities": 3,
+  "rows": [
+    {
+      "file": "tests/p16-initial-shooting5-writeoff.test.ts",
+      "ancestorTitles": [
+        "P16 genuine initial shooting5 explicit nonretention writeoff"
+      ],
+      "fullName": "P16 genuine initial shooting5 explicit nonretention writeoff fixed empty retention pays actual capped exits and preserves stopped paid source work and silent lock without buyer work refund take or release through ordinary deadline",
+      "status": "failed",
+      "title": "fixed empty retention pays actual capped exits and preserves stopped paid source work and silent lock without buyer work refund take or release through ordinary deadline",
+      "duration": 1011.325632,
+      "failureMessages": [
+        "AssertionError: expected [ Array(6) ] to deeply equal [ Array(5) ]\n    at completed (/Users/zacheryspector/studio-specialists/p16/tests/p16-initial-shooting5-writeoff.test.ts:94:54)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-initial-shooting5-writeoff.test.ts:114:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-initial-shooting5-writeoff.test.ts",
+      "ancestorTitles": [
+        "P16 genuine initial shooting5 explicit nonretention writeoff"
+      ],
+      "fullName": "P16 genuine initial shooting5 explicit nonretention writeoff actual stopped shooting5 positive refuses missing disposition or altered paid remaining work without modifying rejected caller",
+      "status": "failed",
+      "title": "actual stopped shooting5 positive refuses missing disposition or altered paid remaining work without modifying rejected caller",
+      "duration": 833.7672320000001,
+      "failureMessages": [
+        "AssertionError: expected [ Array(6) ] to deeply equal [ Array(5) ]\n    at completed (/Users/zacheryspector/studio-specialists/p16/tests/p16-initial-shooting5-writeoff.test.ts:94:54)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-initial-shooting5-writeoff.test.ts:132:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-initial-shooting5-writeoff.test.ts",
+      "ancestorTitles": [
+        "P16 genuine initial shooting5 explicit nonretention writeoff"
+      ],
+      "fullName": "P16 genuine initial shooting5 explicit nonretention writeoff real joined publication failure rolls back public empty-retention acquisition after valid capped exits and paid-work disposition",
+      "status": "failed",
+      "title": "real joined publication failure rolls back public empty-retention acquisition after valid capped exits and paid-work disposition",
+      "duration": 688.8060150000001,
+      "failureMessages": [
+        "AssertionError: expected [ Array(6) ] to deeply equal [ Array(5) ]\n    at completed (/Users/zacheryspector/studio-specialists/p16/tests/p16-initial-shooting5-writeoff.test.ts:94:54)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-initial-shooting5-writeoff.test.ts:140:22\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ],
+      "meta": {},
+      "originalBudgetMs": 5000
+    }
+  ],
+  "allBudgetQualified": true,
+  "maxMs": 1011.325632,
+  "failures": [
+    {
+      "file": "tests/p16-initial-shooting5-writeoff.test.ts",
+      "ancestorTitles": [
+        "P16 genuine initial shooting5 explicit nonretention writeoff"
+      ],
+      "fullName": "P16 genuine initial shooting5 explicit nonretention writeoff fixed empty retention pays actual capped exits and preserves stopped paid source work and silent lock without buyer work refund take or release through ordinary deadline",
+      "status": "failed",
+      "title": "fixed empty retention pays actual capped exits and preserves stopped paid source work and silent lock without buyer work refund take or release through ordinary deadline",
+      "duration": 1011.325632,
+      "failureMessages": [
+        "AssertionError: expected [ Array(6) ] to deeply equal [ Array(5) ]\n    at completed (/Users/zacheryspector/studio-specialists/p16/tests/p16-initial-shooting5-writeoff.test.ts:94:54)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-initial-shooting5-writeoff.test.ts:114:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-initial-shooting5-writeoff.test.ts",
+      "ancestorTitles": [
+        "P16 genuine initial shooting5 explicit nonretention writeoff"
+      ],
+      "fullName": "P16 genuine initial shooting5 explicit nonretention writeoff actual stopped shooting5 positive refuses missing disposition or altered paid remaining work without modifying rejected caller",
+      "status": "failed",
+      "title": "actual stopped shooting5 positive refuses missing disposition or altered paid remaining work without modifying rejected caller",
+      "duration": 833.7672320000001,
+      "failureMessages": [
+        "AssertionError: expected [ Array(6) ] to deeply equal [ Array(5) ]\n    at completed (/Users/zacheryspector/studio-specialists/p16/tests/p16-initial-shooting5-writeoff.test.ts:94:54)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-initial-shooting5-writeoff.test.ts:132:24\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-initial-shooting5-writeoff.test.ts",
+      "ancestorTitles": [
+        "P16 genuine initial shooting5 explicit nonretention writeoff"
+      ],
+      "fullName": "P16 genuine initial shooting5 explicit nonretention writeoff real joined publication failure rolls back public empty-retention acquisition after valid capped exits and paid-work disposition",
+      "status": "failed",
+      "title": "real joined publication failure rolls back public empty-retention acquisition after valid capped exits and paid-work disposition",
+      "duration": 688.8060150000001,
+      "failureMessages": [
+        "AssertionError: expected [ Array(6) ] to deeply equal [ Array(5) ]\n    at completed (/Users/zacheryspector/studio-specialists/p16/tests/p16-initial-shooting5-writeoff.test.ts:94:54)\n    at /Users/zacheryspector/studio-specialists/p16/tests/p16-initial-shooting5-writeoff.test.ts:140:22\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:146:14\n    at file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:533:11\n    at runWithTimeout (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:39:7)\n    at runTest (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1056:17)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runSuite (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1205:15)\n    at runFiles (file:///Users/zacheryspector/The-Movies-headless-program/node_modules/@vitest/runner/dist/index.js:1262:5)"
+      ],
+      "meta": {},
+      "originalBudgetMs": 5000
+    }
+  ],
+  "overBudget": []
+}
