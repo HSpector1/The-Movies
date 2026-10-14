@@ -1,0 +1,161 @@
+{
+  "terminal": {
+    "overallExit": 0,
+    "groups": {
+      "tsc-root": 0,
+      "estate-red": 0,
+      "identity-accounting": 0
+    },
+    "scope": "Fresh root and three complete files7/default5000ms: corrected rival163 final3, player shooting5 writeoff3 with three repeated admissions removed, fixed genuine171 funded drafting diagnostic1; original R24 failure and both overruns retained; no broader P16 acceptance",
+    "identityAccounting": "parent independent complete reporter identity validation required",
+    "freezeQualification": "see preserved before/post snapshots and metadata checks; no blanket success on abnormal stop"
+  },
+  "children": [
+    {
+      "name": "tsc-root",
+      "exit": 0,
+      "startEpoch": 1792018840,
+      "endEpoch": 1792018927,
+      "seconds": 87,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "--noEmit"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r25-run/tsc-root.log"
+    },
+    {
+      "name": "estate-red",
+      "exit": 0,
+      "startEpoch": 1792018938,
+      "endEpoch": 1792018965,
+      "seconds": 27,
+      "node": "v20.20.2",
+      "command": [
+        "node",
+        "node_modules/vitest/vitest.mjs",
+        "run",
+        "--project",
+        "core",
+        "--no-file-parallelism",
+        "--no-cache",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r25-run/results.json",
+        "tests/p16-rival-buyer-absorption163-baseline.test.ts",
+        "tests/p16-initial-shooting5-writeoff.test.ts",
+        "tests/p16-healthy-drafting171-funded-baseline.test.ts"
+      ],
+      "log": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r25-run/estate-red.log"
+    }
+  ],
+  "independentFinalFreeze": "PASS",
+  "sourceCount": 1627,
+  "inputCount": 175,
+  "strictChecks": 5,
+  "strictErrorsBytes": 0,
+  "audit": "/Users/zacheryspector/studio-scratch/1370-astra-takeover-20261012/p16-work-release61-integration-r25-parent-reconciliation",
+  "scope": "Fresh root and three complete files7/default5000ms: corrected rival163 final3, player shooting5 writeoff3 with three repeated admissions removed, fixed genuine171 funded drafting diagnostic1; original R24 failure and both overruns retained; no broader P16 acceptance",
+  "counts": {
+    "passed": 7
+  },
+  "identities": 7,
+  "rows": [
+    {
+      "file": "tests/p16-rival-buyer-absorption163-baseline.test.ts",
+      "ancestorTitles": [
+        "P16 genuine actual163 rival buyer explicit nonretention acquisition"
+      ],
+      "fullName": "P16 genuine actual163 rival buyer explicit nonretention acquisition real R02 funded close owns exact money and titles without player pollution then preserves paid target work through ordinary ticks save reload and replay",
+      "status": "passed",
+      "title": "real R02 funded close owns exact money and titles without player pollution then preserves paid target work through ordinary ticks save reload and replay",
+      "duration": 3187.8551850000003,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-rival-buyer-absorption163-baseline.test.ts",
+      "ancestorTitles": [
+        "P16 genuine actual163 rival buyer explicit nonretention acquisition"
+      ],
+      "fullName": "P16 genuine actual163 rival buyer explicit nonretention acquisition actual rival close full reader refuses wrong buyer cash and missing paid work disposition without modifying hostile callers",
+      "status": "passed",
+      "title": "actual rival close full reader refuses wrong buyer cash and missing paid work disposition without modifying hostile callers",
+      "duration": 2288.894982,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-rival-buyer-absorption163-baseline.test.ts",
+      "ancestorTitles": [
+        "P16 genuine actual163 rival buyer explicit nonretention acquisition"
+      ],
+      "fullName": "P16 genuine actual163 rival buyer explicit nonretention acquisition real full joined rival publication fault after all actual effects validates then rolls back the original caller",
+      "status": "passed",
+      "title": "real full joined rival publication fault after all actual effects validates then rolls back the original caller",
+      "duration": 1592.620825,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-initial-shooting5-writeoff.test.ts",
+      "ancestorTitles": [
+        "P16 genuine initial shooting5 explicit nonretention writeoff"
+      ],
+      "fullName": "P16 genuine initial shooting5 explicit nonretention writeoff fixed empty retention pays actual capped exits and preserves stopped paid source work and silent lock without buyer work refund take or release through ordinary deadline",
+      "status": "passed",
+      "title": "fixed empty retention pays actual capped exits and preserves stopped paid source work and silent lock without buyer work refund take or release through ordinary deadline",
+      "duration": 3657.8167240000002,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-initial-shooting5-writeoff.test.ts",
+      "ancestorTitles": [
+        "P16 genuine initial shooting5 explicit nonretention writeoff"
+      ],
+      "fullName": "P16 genuine initial shooting5 explicit nonretention writeoff actual stopped shooting5 positive refuses missing disposition or altered paid remaining work without modifying rejected caller",
+      "status": "passed",
+      "title": "actual stopped shooting5 positive refuses missing disposition or altered paid remaining work without modifying rejected caller",
+      "duration": 1729.2574009999998,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-initial-shooting5-writeoff.test.ts",
+      "ancestorTitles": [
+        "P16 genuine initial shooting5 explicit nonretention writeoff"
+      ],
+      "fullName": "P16 genuine initial shooting5 explicit nonretention writeoff real joined publication failure rolls back public empty-retention acquisition after valid capped exits and paid-work disposition",
+      "status": "passed",
+      "title": "real joined publication failure rolls back public empty-retention acquisition after valid capped exits and paid-work disposition",
+      "duration": 1966.4982710000004,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    },
+    {
+      "file": "tests/p16-healthy-drafting171-funded-baseline.test.ts",
+      "ancestorTitles": [
+        "P16 fixed genuine171 funded drafting refusal"
+      ],
+      "fullName": "P16 fixed genuine171 funded drafting refusal real paid player diligence and fixed empty retention produce an affordable exact171 quote before the current drafting producer refusal",
+      "status": "passed",
+      "title": "real paid player diligence and fixed empty retention produce an affordable exact171 quote before the current drafting producer refusal",
+      "duration": 2794.1554340000002,
+      "failureMessages": [],
+      "meta": {},
+      "originalBudgetMs": 5000
+    }
+  ],
+  "allBudgetQualified": true,
+  "maxMs": 3657.8167240000002,
+  "failures": [],
+  "overBudget": []
+}

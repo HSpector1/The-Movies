@@ -1,0 +1,41 @@
+{
+  "sourceFiles": [
+    {
+      "path": "src/core/acquisition.ts",
+      "preimageSHA256": "768ab13b1720f4a706ca3629f5b84cbcc4f58a75575c21d47a518fc02f7a24e0",
+      "postimageSHA256": "d299020887724698f89ff481a8c1dd1d73a8cc7bba27ef40faf14294db1ba9fc",
+      "preimageBytes": 53054,
+      "postimageBytes": 54478
+    },
+    {
+      "path": "src/core/continuedWork.ts",
+      "preimageSHA256": "fd98ab197eb8a487b65defa313bda8f46de1e97ece9397a167dc26aed22c340b",
+      "postimageSHA256": "74aa3c51e82119fac5f33871ee8aa374423f4a1a8453f1b72e3be94f91b8df17",
+      "preimageBytes": 14237,
+      "postimageBytes": 14703
+    },
+    {
+      "path": "src/core/continuedWorkValidation.ts",
+      "preimageSHA256": "3cdeed5497d134672cee428ac0025a76a0e847af9026a871ca64095caabf9321",
+      "postimageSHA256": "9d247da650337af644ce964ef62c4ac0110916774e0e52c22621a23c1057d027",
+      "preimageBytes": 22652,
+      "postimageBytes": 23112
+    },
+    {
+      "path": "src/core/absorbedRuns.ts",
+      "preimageSHA256": "54b364d82ec0f21ac5a01e6413397025c4f8db9c7a17ab61c65767ac116eb497",
+      "postimageSHA256": "220ea2e7570a7f14a1f5c410b7c326fcab62c261b988a84e87e23338c9af83f6",
+      "preimageBytes": 7439,
+      "postimageBytes": 8040
+    }
+  ],
+  "sourcePatchSHA256": "aef920dd9ef8dea4b1100fc6d5d9750703f972ea861aba46ebb40cb310e2ea8f",
+  "compiledTests": {
+    "tests/p16-rival-buyer-absorption163-baseline.test.ts": "0e18140198c43ed14312bc8c53ef38e913f5a3e13e52281c285c11a383cba724",
+    "tests/p16-initial-shooting5-writeoff.test.ts": "2ac0824121bf4f13bbd9e04741cfa62d97fa5f245f4edadd6f85a42b99924f69",
+    "tests/p16-healthy-drafting171-funded-baseline.test.ts": "6758bf66ab75ebd4230fe75b81869ca81b5fb3b0c0d3478d39a46b124cb39f28"
+  },
+  "testOnlyCorrectionSHA256": "b8d4cca0660f82d2d14db989d459893c3a35959cc5ffaa090e203d955d1ad7d0",
+  "fundedDiagnosticSHA256": "33f25442453437576c1b68c230d484e216be0d989ce64b46a3c005b839b3b8ff",
+  "status": "Reviewed current198 test-only correction and genuine funded-route diagnostic; source unchanged from R24; measurement pending"
+}
