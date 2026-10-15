@@ -1,6 +1,13 @@
 > **CURRENT AUTHORITY (2026-10-15): read `HANDOFF.md` → "Claude cold start" first.** It carries the live
 > Owner order (P16 completion focus → P17 → bounded P18), branch/HEAD, the single heavy lane and the exact next
 > action. Every scope/stop block below is historical; where it conflicts with HANDOFF, HANDOFF governs.
+>
+> **Skills for this program:** session start → `handoff` (resume mode). Heavy work (tsc, vitest, generators)
+> → only `lane-run-r8.sh` after `equipment-run-preflight-r3.py` passes; the `.claude/hooks/lane-guard.sh` hook
+> blocks direct runs. A failure or unexpected result → `superpowers:systematic-debugging`. Independent review of a
+> candidate before landing → `differential-review` (blast radius, untested changes) plus the `pr-review-toolkit`
+> agents `silent-failure-hunter` and `pr-test-analyzer`. Before claiming anything passed or qualified →
+> `superpowers:verification-before-completion`. Checkpoints and stops → `handoff` (write mode).
 
 > **CURRENT SCOPE — FABLE CONTINUATION / EXPLICIT HANDOFF GATES**
 >
