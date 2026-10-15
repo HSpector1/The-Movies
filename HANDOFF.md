@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last writer: Claude (Opus 5.5, parent), 2026-10-15 11:18 CDT; resumed from ac35b5ca, fresh R6 preflight REFUSED (live external Ghidra PID8701), documented safe storage reclaim restored launch headroom by 22180KiB only; generationR6 UNRUN, no polling
+Last writer: Claude (Opus 5.5, parent), 2026-10-15 13:07 CDT. Stopped for the day at Owner request. GenerationR6 is still UNRUN: the 11:15 preflight refused launch, and at 13:07 the external Ghidra PID 8701 was still running and free disk was 2,180,572 KiB below the launch minimum. No polling is scheduled.
 
 ## Claude cold start — current handoff, read first
 
@@ -11,6 +11,8 @@ Owner is switching to Claude. Continue the authorized founding/P15B → qualifie
 - **Quiescent boundary:** shared `S/HEAVY-LANE-LOCK` and `A/p16-work-release61-generation-r6-run` are absent. All three GPT-6.1 Sol specialists are parked with no tools or writers. No generator, compiler, tests, cleanup or resource preflight was run for this handoff. The hook's legitimate AUTO refresh is preserved byte-for-byte.
 - **Latest actual preflight (Claude resume, 2026-10-15 11:15:37 CDT) REFUSED launch:** receipt `A/P16-GENERATION-R6-CLAUDE-RESUME-PREFLIGHT-20261015-111536.LOCAL.json`, all six pins unchanged, AC power, lane/lock absent. Free **2,324,904 KiB** (swap grew 3072M→4096M total since 07:45, one new 1GiB swapfile) and one competing heavy process: external Ghidra headless Java **PID 8701** (parent `rea mcp` 98396, driven by a live Codex session PID 73762; its server stderr was last written 09:50 today, evidence files written today, so it is active work, not abandoned). Parent then deleted only the documented safe reclaim targets (Codex daemon releases 0.160.0/0.160.1, not `current`; VS Code extensions listed in `.obsolete`: claude-code 2.1.296/2.1.299, python 2026.8.0, python-envs 1.38.0; `CachedExtensionVSIXs` contents). Measured 2,303,192→3,692,196 KiB (+1,389,004 KiB), only **22,180 KiB above** the 3,670,016 launch minimum; another swapfile would erase it. The preflight was not rerun because the Ghidra condition is unchanged. Launch remains blocked until that session yields; do not terminate it.
 - **Later readings, not preflights:** free space rose to 3,927,688 KiB at 11:20 and fell to 3,464,328 KiB at 11:37 CDT with swap unchanged at 4096M; plugin installs (~43 MB) and the REA directory (+472 KiB) do not explain the drop, and no inventory was opened. Expect the disk check to fail again until headroom returns.
+- **Stop reading, 2026-10-15 13:07 CDT (not a preflight):** free disk **1,489,444 KiB**, 2,180,572 KiB below the launch minimum. Swap grew to 5120M total, one more 1 GiB swapfile since 11:37. Ghidra PID 8701 was still alive after 19h07m. The next resume must run a fresh preflight; if disk is still short, report the measured shortfall and wait for the Owner. Do not repeat the cleanup.
+- **How the Owner resumes Claude:** run `cd ~/The-Movies-headless-program`, then `cr`, the alias in `~/.bash_profile` that starts Claude with the handoff resume prompt. Launch from the repo folder: that loads the project lane-guard hook and the CLAUDE.md skill map at start. A launch from the home folder skips the lane guard and finds no HANDOFF.md.
 - **Older resource reading:** the earlier actual check was **2026-10-15 07:45 CDT**, with **3,056,272 KiB free**, **613,744 KiB (599.36 MiB) below** the unchanged 3,670,016 KiB launch minimum, and one competing Ghidra process, PID 8701. Runtime floor remains 3,145,728 KiB. These are not fresh readings. Do not stop either terminal or the other analysis, or reclassify it to bypass the guard.
 - **Automatic checks are cancelled:** job `7c086ebd` was deleted at Owner request; this handoff's CronList also returned no jobs. Do not recreate periodic polling. A normal fresh preflight is required when actually resuming the next engineering execution; if it fails, report the actual blocker and do not loop an unchanged failed check.
 - **Acceptance:** the real closing-day estate settlement has qualified success/save/replay and atomic refusal/rollback evidence. Current200 stopped-drafting changes and future retained drafting/Accept/Rewrite have not qualified at runtime. R25 reached seven measured passes, but later evidence established external execution overlap; exclusive successor qualification is still required. P16, broader integration and player acceptance remain open.
@@ -465,17 +467,17 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-15 11:35 CDT by **claude** on SessionEnd (session f99154de-b31c-4fb4-a24d-6563d54cad6d)
-- Branch: `wip/headless-program-20260916-ts` @ `5ee57b86332713fc756f1403c23be1cc6a281291`
+- Stamped: 2026-10-15 13:07 CDT by **claude** on SessionEnd (session 33101034-add8-41b1-be8c-558084040e24)
+- Branch: `wip/headless-program-20260916-ts` @ `50cf64876cdf4376b73c4c23302f67587654475d`
 - Upstream: `none`, unpushed commits: ?
 - Uncommitted files: 1
   - `M HANDOFF.md`
 - Last commits:
+  - 50cf6487 Ignore private .LOCAL. receipts in the public repo
+  - 955f0442 Map program steps to skills in CLAUDE.md pointer
+  - afad1ea0 Add Claude lane-guard hook for direct heavy commands
   - 5ee57b86 Archive superseded HANDOFF history verbatim
   - e5ab638a Point CLAUDE.md at HANDOFF cold start as current authority
-  - 45342b76 Record refused R6 resume preflight and measured storage reclaim
-  - ac35b5ca Prepare reconciled P16 handoff for Claude
-  - 08b3e859 Record owner cancellation of periodic readiness checks
 <!-- AUTO:END -->
 
 ### P16 lessons 102 onward
