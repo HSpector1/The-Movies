@@ -58,3 +58,6 @@ m5-playtest-wrap.json
 
 # Disposable generated Playability review fixtures; generator and provenance are retained separately.
 artifacts/playability-interaction-01/
+
+# Private local receipts (process inventories, private filenames) never enter this public repo.
+*.LOCAL.*
