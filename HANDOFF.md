@@ -10,6 +10,7 @@ Owner is switching to Claude. Continue the authorized founding/P15B → qualifie
 - **Candidate verified now:** `A/p16-stopped-drafting-bridge62-integration-r1` is current200. Its exact PATCH/MANIFEST, 200 staged paths, all index/worktree bodies and base match. Only K/p16 HANDOFF metadata is unstaged, with no foreign untracked paths. Do not reset, reconstruct or recopy this candidate. Root HANDOFF is the current continuation authority; K's older local metadata is preserved.
 - **Quiescent boundary:** shared `S/HEAVY-LANE-LOCK` and `A/p16-work-release61-generation-r6-run` are absent. All three GPT-6.1 Sol specialists are parked with no tools or writers. No generator, compiler, tests, cleanup or resource preflight was run for this handoff. The hook's legitimate AUTO refresh is preserved byte-for-byte.
 - **Latest actual preflight (Claude resume, 2026-10-15 11:15:37 CDT) REFUSED launch:** receipt `A/P16-GENERATION-R6-CLAUDE-RESUME-PREFLIGHT-20261015-111536.LOCAL.json`, all six pins unchanged, AC power, lane/lock absent. Free **2,324,904 KiB** (swap grew 3072M→4096M total since 07:45, one new 1GiB swapfile) and one competing heavy process: external Ghidra headless Java **PID 8701** (parent `rea mcp` 98396, driven by a live Codex session PID 73762; its server stderr was last written 09:50 today, evidence files written today, so it is active work, not abandoned). Parent then deleted only the documented safe reclaim targets (Codex daemon releases 0.160.0/0.160.1, not `current`; VS Code extensions listed in `.obsolete`: claude-code 2.1.296/2.1.299, python 2026.8.0, python-envs 1.38.0; `CachedExtensionVSIXs` contents). Measured 2,303,192→3,692,196 KiB (+1,389,004 KiB), only **22,180 KiB above** the 3,670,016 launch minimum; another swapfile would erase it. The preflight was not rerun because the Ghidra condition is unchanged. Launch remains blocked until that session yields; do not terminate it.
+- **Later readings, not preflights:** free space rose to 3,927,688 KiB at 11:20 and fell to 3,464,328 KiB at 11:37 CDT with swap unchanged at 4096M; plugin installs (~43 MB) and the REA directory (+472 KiB) do not explain the drop, and no inventory was opened. Expect the disk check to fail again until headroom returns.
 - **Older resource reading:** the earlier actual check was **2026-10-15 07:45 CDT**, with **3,056,272 KiB free**, **613,744 KiB (599.36 MiB) below** the unchanged 3,670,016 KiB launch minimum, and one competing Ghidra process, PID 8701. Runtime floor remains 3,145,728 KiB. These are not fresh readings. Do not stop either terminal or the other analysis, or reclassify it to bypass the guard.
 - **Automatic checks are cancelled:** job `7c086ebd` was deleted at Owner request; this handoff's CronList also returned no jobs. Do not recreate periodic polling. A normal fresh preflight is required when actually resuming the next engineering execution; if it fails, report the actual blocker and do not loop an unchanged failed check.
 - **Acceptance:** the real closing-day estate settlement has qualified success/save/replay and atomic refusal/rollback evidence. Current200 stopped-drafting changes and future retained drafting/Accept/Rewrite have not qualified at runtime. R25 reached seven measured passes, but later evidence established external execution overlap; exclusive successor qualification is still required. P16, broader integration and player acceptance remain open.
@@ -262,6 +263,7 @@ Current AQ index semantic equality and publication are also complete at their re
 
 ## Operational details that will otherwise waste a session
 
+- **Claude lane guard (2026-10-15):** project hook `.claude/hooks/lane-guard.sh` (registered in `.claude/settings.json`) blocks a direct `tsc`/`vitest`/`vite-node`/`npm test|typecheck|check:|generate:|build`/`vite build`/`playwright` Bash call while `S/HEAVY-LANE-LOCK` exists, free disk is under 3,670,016 KiB, power is on battery, or a heavy process runs. Commands containing `lane-run-r8.sh` pass. It is a backstop; `equipment-run-preflight-r3.py` stays the qualification gate. Self-check: `bash .claude/hooks/lane-guard.test.sh` (18 cases). Codex does not read Claude hooks.
 - **No active game worker at latest review:** at 18:37 CDT on 2026-10-10, no matching project Python/Node/test/lane workers were observed and `S/HEAVY-LANE-LOCK` was absent. Raw process evidence in `S/1370-as-claude-review-20261010-r1/processes-before.LOCAL.txt` is not exported. Earlier restart requests concerned historical stuck workers; this review does not require a restart. Recheck current state rather than acting on old PIDs.
 - **Disk:** latest pre-review snapshot was 2,764,251,136 bytes (about 2.57 GiB), replacing the older 4.09 GiB observation. Preserve shared 3.5 GiB reserve/live 3 GiB runtime floors and any stricter selected-route requirements. No cleanup was performed. A read-only cache inventory found only small previously approved candidates; do not claim they restore the full reserve. Cache approval never authorizes deleting source, saves, evidence or arbitrary user files.
 - **Python:** use the exact reviewed interpreter `/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14` with `-I -B`, never `-O` (many gates use assertions). Its measured 50,472-byte SHA256 is `7673432d7f09628764bff0664b0ed1605743a266593d73434e82fd2fa8da2835`. Revalidate current executable identity when required by a new contract.
@@ -463,16 +465,17 @@ On resume, reconcile Git, current process/disk state and the exact draft manifes
 
 ## Auto snapshot
 <!-- AUTO:BEGIN (handoff_guard.py rewrites this block) -->
-- Stamped: 2026-10-15 10:45 CDT by **codex** on PreCompact (session 01a13050-fe8f-7903-9af3-0a45b7130787)
-- Branch: `wip/headless-program-20260916-ts` @ `08b3e8597c4782f0b2fbfa40cf95af064b78c715`
+- Stamped: 2026-10-15 11:35 CDT by **claude** on SessionEnd (session f99154de-b31c-4fb4-a24d-6563d54cad6d)
+- Branch: `wip/headless-program-20260916-ts` @ `5ee57b86332713fc756f1403c23be1cc6a281291`
 - Upstream: `none`, unpushed commits: ?
-- Uncommitted files: 0
+- Uncommitted files: 1
+  - `M HANDOFF.md`
 - Last commits:
+  - 5ee57b86 Archive superseded HANDOFF history verbatim
+  - e5ab638a Point CLAUDE.md at HANDOFF cold start as current authority
+  - 45342b76 Record refused R6 resume preflight and measured storage reclaim
+  - ac35b5ca Prepare reconciled P16 handoff for Claude
   - 08b3e859 Record owner cancellation of periodic readiness checks
-  - c0a99e36 Record authorized half-hour P16 readiness retries
-  - 856e96c3 Preserve reviewed retained-writing implementation and ten pending tests
-  - 76534191 Restore storage headroom and prepare reviewed P16 Bridge consumers
-  - ecf1881f Record restored disk headroom and preserve P16 continuation
 <!-- AUTO:END -->
 
 ### P16 lessons 102 onward
