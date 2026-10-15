@@ -1,0 +1,1178 @@
+{
+  "status": "STATIC_UNRUN_UNINSTALLED; no new runtime acceptance",
+  "archiveSHA256": "0d0435ff6474e8cbb2eb859a653ae3177cb55652b01d278cdd6a716b814d103d",
+  "archiveBytes": 2236535,
+  "members": [
+    {
+      "path": "P16-CARRIED-SCRIPT-ACCEPT-TESTS-R1-INDEPENDENT-REVIEW.md",
+      "sha256": "9f739d5d352ca4600d710fae3d4483b3bb8d894250d4a6c4efeb7bf098a822bd",
+      "bytes": 2502,
+      "mode": 420
+    },
+    {
+      "path": "P16-CARRIED-SCRIPT-ACCEPT-TESTS-R2-INDEPENDENT-REVIEW.md",
+      "sha256": "6ae294cc88e316ff7ac2a15399cd0d5885244d72a9d286d7be3052c5cb3868ca",
+      "bytes": 982,
+      "mode": 420
+    },
+    {
+      "path": "P16-CARRIED-SCRIPT-ACTIONS-R2-INDEPENDENT-REVIEW.md",
+      "sha256": "0b68e18b40f1f90bef8e93826a3e0bfeaa381c1ca909a08caf4b4496d155f8b2",
+      "bytes": 3822,
+      "mode": 420
+    },
+    {
+      "path": "P16-CARRIED-SCRIPT-REWRITE-AND-ACCEPT-TESTS-R3-INDEPENDENT-REVIEW.md",
+      "sha256": "4f85d9777d3e0320f4fda2616e181235e335c0c5e263d91eb10cc36158890bbd",
+      "bytes": 4880,
+      "mode": 420
+    },
+    {
+      "path": "P16-CARRIED-SCRIPT-REWRITE-R1-INDEPENDENT-REVIEW.md",
+      "sha256": "029471168c04493784442f9ed3963b58dc5c5a3fe47de92f68106eb2416af950",
+      "bytes": 3789,
+      "mode": 420
+    },
+    {
+      "path": "P16-CARRIED-SCRIPT-REWRITE-R2-INDEPENDENT-REVIEW.md",
+      "sha256": "67c802d535a319ee22a041a074b84b9fa636d929224334957ef4999e776888ff",
+      "bytes": 3608,
+      "mode": 420
+    },
+    {
+      "path": "P16-CARRIED-SCRIPT-REWRITE-R3-INDEPENDENT-REVIEW.md",
+      "sha256": "335dc4d5dad9bbcf7d967017faa070bb07f32073a962d4813d1766d35a335d60",
+      "bytes": 3675,
+      "mode": 420
+    },
+    {
+      "path": "P16-RETAINED-DRAFTING-CONTINUATION-SOURCE-R1-INDEPENDENT-REVIEW.md",
+      "sha256": "8819430cf050a9c33965ca8edf56ef0b6e8a4d7ffe2a3b0f45e2696944b5ca35",
+      "bytes": 4545,
+      "mode": 420
+    },
+    {
+      "path": "P16-RETAINED-DRAFTING-CONTINUATION-TESTS-R3-INDEPENDENT-REVIEW.md",
+      "sha256": "bbdb966e7fcb7d271b8737e3ae2fb5d5606bd992a35cf78e6dccf2e59fc26e46",
+      "bytes": 3924,
+      "mode": 420
+    },
+    {
+      "path": "P16-RETAINED-WRITING-FINAL-TEST-BINDING-RECEIPT.json",
+      "sha256": "1c19b3a07f4ce503796274b44f69b205361fdf8604f12780270854950e4e423a",
+      "bytes": 5081,
+      "mode": 420
+    },
+    {
+      "path": "P16-RETAINED-WRITING-FINAL-TEST-COMPATIBILITY-R1.md",
+      "sha256": "8b2bd7f10e3b1ad563dbbf35702ec0699ec5472b41684a936feed3b98c6c35a8",
+      "bytes": 3258,
+      "mode": 420
+    },
+    {
+      "path": "P16-RETAINED-WRITING-STATIC-COMPOSITION-RECEIPT.json",
+      "sha256": "0fcd447a5169e8507187edc30c1737b5ad41553910b8d5443a7d90d5beb77982",
+      "bytes": 3860,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r1/EXPECTED-IDENTITIES.json",
+      "sha256": "b453086dffd1bb6026c3335b7b2645e8d8175a22a1cea4cead4849591cabc352",
+      "bytes": 808,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r1/MANIFEST.json",
+      "sha256": "c64757063995df2948e5924b28417c38c51f4b4ef808525b93c9f2e813b76594",
+      "bytes": 644,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r1/REPORT.md",
+      "sha256": "5ee85fa5b83a22b006f0c92a32fcdf6e1cdcc81f0c131bb30894ea14215add80",
+      "bytes": 1031,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r1/SOURCE.patch",
+      "sha256": "faa2ebb1d2a1570f9b5f64eb087981acfa5acc954f9913ae054836751344aa06",
+      "bytes": 23258,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r1/p16-carried-script-accept.test.ts",
+      "sha256": "2b4e6c3d34e06bfde1a39a887377670afdf3f9bd06295febd81d0525e69f2662",
+      "bytes": 22935,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r2-import/DELTA.diff",
+      "sha256": "731a3ae6c187d623a88bae8f7476104ed8d9ddda2d518477e0865f7853b7ec84",
+      "bytes": 577,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r2-import/EXPECTED-IDENTITIES.json",
+      "sha256": "197e99de2519397290e64e84b8e0a451cbbe3d3ff10e5d5fccdcc5076e46d940",
+      "bytes": 808,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r2-import/MANIFEST.json",
+      "sha256": "19b71b6277bbb5099ac244de4f27b1b1611d4e861d42231f8c1dd36d3ba9b000",
+      "bytes": 817,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r2-import/REPORT.md",
+      "sha256": "9cd13152561ee9f67ac8e094709256d9dc5a9fc906c3678090bccf6eba712e1e",
+      "bytes": 1194,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r2-import/SOURCE.patch",
+      "sha256": "06905264e5442de872d4697cf1fab5c293b78ab2566146757a8b690c27eb032c",
+      "bytes": 23175,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r2-import/p16-carried-script-accept.test.ts",
+      "sha256": "d1bd005ec03eae1d1174df58d726a393d883b205586e22bef2ddbe162f915d4e",
+      "bytes": 22853,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r3-rewrite-compatible/DELTA.diff",
+      "sha256": "0f56073d4679d738d3d894d092eed81f9240aa9876de49ea13a57b54aeae438d",
+      "bytes": 2111,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r3-rewrite-compatible/EXPECTED-IDENTITIES.json",
+      "sha256": "ccb08b58b817eae56aa8d9a54900b343eb8571b738bbb8a65eb4362664338095",
+      "bytes": 808,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r3-rewrite-compatible/MANIFEST.json",
+      "sha256": "0afe14d146100667789264b0a0a68cdadf271440d508d9aba45143f93952ff2b",
+      "bytes": 896,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r3-rewrite-compatible/REPORT.md",
+      "sha256": "cfb3977a496b3b3f20bcae30dc0d2e606cf90c448d5214c4bf5c25a2c496e477",
+      "bytes": 621,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r3-rewrite-compatible/SOURCE.patch",
+      "sha256": "94158f22a18a61020a714912010fda5a2e8506922dc14a318e00e6b7aeff29eb",
+      "bytes": 23184,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r3-rewrite-compatible/p16-carried-script-accept.test.ts",
+      "sha256": "a7bd894bd802569aa52455a57483b5d46c9111bdb59d4e525027e2c5751603e0",
+      "bytes": 22862,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r4-rewrite-bound/DELTA.diff",
+      "sha256": "0f56073d4679d738d3d894d092eed81f9240aa9876de49ea13a57b54aeae438d",
+      "bytes": 2111,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r4-rewrite-bound/EXPECTED-IDENTITIES.json",
+      "sha256": "ccb08b58b817eae56aa8d9a54900b343eb8571b738bbb8a65eb4362664338095",
+      "bytes": 808,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r4-rewrite-bound/MANIFEST.json",
+      "sha256": "213f08ff64a9bcb26ecc9829013286a168f9c2bc01fbcbaedcb30ea07566de6f",
+      "bytes": 1021,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r4-rewrite-bound/REPORT.md",
+      "sha256": "182dcab55942f39bd380a9b60cc3ab9fb9e02bccca9a96cadcaff6e99e12bc09",
+      "bytes": 703,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r4-rewrite-bound/SOURCE.patch",
+      "sha256": "94158f22a18a61020a714912010fda5a2e8506922dc14a318e00e6b7aeff29eb",
+      "bytes": 23184,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r4-rewrite-bound/p16-carried-script-accept.test.ts",
+      "sha256": "a7bd894bd802569aa52455a57483b5d46c9111bdb59d4e525027e2c5751603e0",
+      "bytes": 22862,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r5-rewrite-r3-bound/DELTA.diff",
+      "sha256": "0f56073d4679d738d3d894d092eed81f9240aa9876de49ea13a57b54aeae438d",
+      "bytes": 2111,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r5-rewrite-r3-bound/EXPECTED-IDENTITIES.json",
+      "sha256": "ccb08b58b817eae56aa8d9a54900b343eb8571b738bbb8a65eb4362664338095",
+      "bytes": 808,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r5-rewrite-r3-bound/MANIFEST.json",
+      "sha256": "5ede4ebe0e268a71db6313b5dbec85085e73810de9fb97165537dd62d7c41c94",
+      "bytes": 1025,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r5-rewrite-r3-bound/REPORT.md",
+      "sha256": "387a55d239af4691c415a7e321b0d6a30742d3b10160825401cbb3dc5f45dd5a",
+      "bytes": 612,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r5-rewrite-r3-bound/SOURCE.patch",
+      "sha256": "94158f22a18a61020a714912010fda5a2e8506922dc14a318e00e6b7aeff29eb",
+      "bytes": 23184,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-accept-tests-r5-rewrite-r3-bound/p16-carried-script-accept.test.ts",
+      "sha256": "a7bd894bd802569aa52455a57483b5d46c9111bdb59d4e525027e2c5751603e0",
+      "bytes": 22862,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r1/BRIEF.md",
+      "sha256": "0d76a8038ffdea2691cb7d28e2104d5b14d5d5b78c6cb3a5108767fd5dee5bd8",
+      "bytes": 4220,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r1/MANIFEST.json",
+      "sha256": "e103b0d059b09317dbb112b5ca18d79fb70c896f8b3f008efa2c07c760c94c27",
+      "bytes": 1818,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r1/SOURCE.patch",
+      "sha256": "898db3b8c654298532068f399c248861b48c1832bff284c33c198b15b3b1c4c1",
+      "bytes": 16444,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r1/postimages/src/core/absorbedScripts.ts",
+      "sha256": "c2af7ec20b642010a425d8202f40b8ec12f1bba0d0a219155b7fa47c18ef779e",
+      "bytes": 4011,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r1/postimages/src/core/acquisition.ts",
+      "sha256": "f61f4e11d7b13d3023725bfff34e6ed8a4b8a1fd608023cd61604a5458d14b16",
+      "bytes": 60755,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r1/postimages/src/core/actions.ts",
+      "sha256": "e1339b2efdd658338423959e59307e0074d6a3c28a029478ed9a3f9412fe8ce8",
+      "bytes": 136153,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r1/postimages/src/core/continuedScripts.ts",
+      "sha256": "784654c1b0fb96f4075401fc0bc8f656cf4cc4541524d450cc5ee9ac4dbbaaba",
+      "bytes": 18109,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r1/postimages/src/core/occupancy.ts",
+      "sha256": "7bf8e25b13d1cfe171b69800354aae089f9c1153d8a7923dfe32233b33353a35",
+      "bytes": 32380,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r1/postimages/src/core/rights.ts",
+      "sha256": "086541be1ced9033b6560b91ecaf8b908c5ee634e814b89f8df9b1cd88cb85ac",
+      "bytes": 104259,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r1/postimages/src/core/studioClosure.ts",
+      "sha256": "00caca7d4eacc6595230cd8b61d353526f5e5a4b62fc6b499ac9312dcf8b8d28",
+      "bytes": 81358,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r1/preimages/src/core/absorbedScripts.ts",
+      "sha256": "d74fb9d6ec8c7d8990a4b5a1279a03bcc2f8abc2ba8801d7b8c3f472b9bbed29",
+      "bytes": 3919,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r1/preimages/src/core/acquisition.ts",
+      "sha256": "70f286f4f01f6e86bfaa3c3d9b7c88eefc5a914345e32641a9f65be42ad87265",
+      "bytes": 60578,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r1/preimages/src/core/actions.ts",
+      "sha256": "bc7f2fa76f19cfc4937c306952f0624852a354d313f0489e372959b819da3aef",
+      "bytes": 136154,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r1/preimages/src/core/continuedScripts.ts",
+      "sha256": "2a8bee2f5501bd37ec4cdcd7ff6a296f3ba6baaa4b33ca072766d2e0d0edb989",
+      "bytes": 15526,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r1/preimages/src/core/occupancy.ts",
+      "sha256": "1fe37c4355fb8608151533f1049da910e7377dd87f472b99aa53d82cbae4a8ed",
+      "bytes": 32333,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r1/preimages/src/core/rights.ts",
+      "sha256": "e29d7b595b9773bd516efb79b8a07b51f13b2b9e946fec0e652a794bc02f6002",
+      "bytes": 103791,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r1/preimages/src/core/studioClosure.ts",
+      "sha256": "de2221ba6205eb361de2ab6b4279869e30289042050221a2d8db7605140c5307",
+      "bytes": 81311,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/BRIEF.md",
+      "sha256": "0c99850c61c910d7fda491075873e953869c6b564f4445bd1d519b3507e7eba8",
+      "bytes": 4777,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/MANIFEST.json",
+      "sha256": "d896b1ac57577dab2369ca82fb5681ff5700df7fe360808ff6382c85cb64bd81",
+      "bytes": 2406,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/SOURCE.patch",
+      "sha256": "ac8245a8eae9d5471c23495958c9a0dd51eebba5b90b6dc99cc9838bdc5b2cb1",
+      "bytes": 20808,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/postimages/bridge/schema/bridge-schema.ts",
+      "sha256": "6b9406d5b2b42397f3b0793d086a7d28a2247b2676f707e09ad307e07b5f355e",
+      "bytes": 199310,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/postimages/src/core/absorbedScripts.ts",
+      "sha256": "c2af7ec20b642010a425d8202f40b8ec12f1bba0d0a219155b7fa47c18ef779e",
+      "bytes": 4011,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/postimages/src/core/acquisition.ts",
+      "sha256": "f61f4e11d7b13d3023725bfff34e6ed8a4b8a1fd608023cd61604a5458d14b16",
+      "bytes": 60755,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/postimages/src/core/actions.ts",
+      "sha256": "e1339b2efdd658338423959e59307e0074d6a3c28a029478ed9a3f9412fe8ce8",
+      "bytes": 136153,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/postimages/src/core/continuedScripts.ts",
+      "sha256": "784654c1b0fb96f4075401fc0bc8f656cf4cc4541524d450cc5ee9ac4dbbaaba",
+      "bytes": 18109,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/postimages/src/core/occupancy.ts",
+      "sha256": "7bf8e25b13d1cfe171b69800354aae089f9c1153d8a7923dfe32233b33353a35",
+      "bytes": 32380,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/postimages/src/core/rights.ts",
+      "sha256": "086541be1ced9033b6560b91ecaf8b908c5ee634e814b89f8df9b1cd88cb85ac",
+      "bytes": 104259,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/postimages/src/core/scriptReadModel.ts",
+      "sha256": "174ebd34ed9238db49d26f8a0dac8d39c9ce33f668b85bfe1d88c81bfdbd5a47",
+      "bytes": 60118,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/postimages/src/core/studioClosure.ts",
+      "sha256": "00caca7d4eacc6595230cd8b61d353526f5e5a4b62fc6b499ac9312dcf8b8d28",
+      "bytes": 81358,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/preimages/bridge/schema/bridge-schema.ts",
+      "sha256": "e5a604a8474c1411ec10aec9d54cbe6cf366f66a607fd6e279c996839b84e5b3",
+      "bytes": 199288,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/preimages/src/core/absorbedScripts.ts",
+      "sha256": "d74fb9d6ec8c7d8990a4b5a1279a03bcc2f8abc2ba8801d7b8c3f472b9bbed29",
+      "bytes": 3919,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/preimages/src/core/acquisition.ts",
+      "sha256": "70f286f4f01f6e86bfaa3c3d9b7c88eefc5a914345e32641a9f65be42ad87265",
+      "bytes": 60578,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/preimages/src/core/actions.ts",
+      "sha256": "bc7f2fa76f19cfc4937c306952f0624852a354d313f0489e372959b819da3aef",
+      "bytes": 136154,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/preimages/src/core/continuedScripts.ts",
+      "sha256": "2a8bee2f5501bd37ec4cdcd7ff6a296f3ba6baaa4b33ca072766d2e0d0edb989",
+      "bytes": 15526,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/preimages/src/core/occupancy.ts",
+      "sha256": "1fe37c4355fb8608151533f1049da910e7377dd87f472b99aa53d82cbae4a8ed",
+      "bytes": 32333,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/preimages/src/core/rights.ts",
+      "sha256": "e29d7b595b9773bd516efb79b8a07b51f13b2b9e946fec0e652a794bc02f6002",
+      "bytes": 103791,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/preimages/src/core/scriptReadModel.ts",
+      "sha256": "d0e874e99e4b81d7eb9c0d4c3d92d83776474b98da47bbbfb2668fd43a052df3",
+      "bytes": 58657,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-actions-r2/preimages/src/core/studioClosure.ts",
+      "sha256": "de2221ba6205eb361de2ab6b4279869e30289042050221a2d8db7605140c5307",
+      "bytes": 81311,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r1/BRIEF.md",
+      "sha256": "2283e6f1c6f656785745600791a9c1e6f57cba6163b339daf38a778ea09606cc",
+      "bytes": 5163,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r1/MANIFEST.json",
+      "sha256": "70d80c9774d1ac8135e216d4af83f3625ff7deadd7c31c417ed824259af52ec0",
+      "bytes": 2146,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r1/SOURCE.patch",
+      "sha256": "badfba9932c419d7a13d066d43925fa4f1ed89f51795e693b597a03c62fab82c",
+      "bytes": 36921,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r1/postimages/src/core/absorbedScripts.ts",
+      "sha256": "160bcad29aa90ac79e6fde23df300767bca1b2c33171726c49076bee320f3289",
+      "bytes": 4101,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r1/postimages/src/core/acquisition.ts",
+      "sha256": "5b331304e2bb9288511f661d946bb1c194434da0476ef911bdf843742dabe566",
+      "bytes": 60851,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r1/postimages/src/core/actions.ts",
+      "sha256": "6a435b52abe1b5635be0e5cb8160c7159bb33963f2b0965905e5d1698b350ed0",
+      "bytes": 136159,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r1/postimages/src/core/continuedScripts.ts",
+      "sha256": "0869afd735440999165db507f6c4eb9679c36c3a820a8f857e3b0552aea01d89",
+      "bytes": 25190,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r1/postimages/src/core/occupancy.ts",
+      "sha256": "5ab4894a99a213e9ea4be109418e1f4a5b892b9ab992e72284c673dc45383786",
+      "bytes": 32425,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r1/postimages/src/core/rights.ts",
+      "sha256": "1c3b7171eebfa34cbeb0b7719b344815e7854db1212daebdc798ab5c80fb6bb5",
+      "bytes": 104930,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r1/postimages/src/core/scriptReadModel.ts",
+      "sha256": "a227bf8d64b09c43156764c6d47eae6aa976098af0799fb97a81e236dcb39542",
+      "bytes": 59827,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r1/postimages/src/core/studioClosure.ts",
+      "sha256": "f4927c0b1a0322440c95b1e805ba9fe2151a2001ca74f48d8f96ceaef56c851e",
+      "bytes": 81403,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r1/preimages/src/core/absorbedScripts.ts",
+      "sha256": "c2af7ec20b642010a425d8202f40b8ec12f1bba0d0a219155b7fa47c18ef779e",
+      "bytes": 4011,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r1/preimages/src/core/acquisition.ts",
+      "sha256": "f61f4e11d7b13d3023725bfff34e6ed8a4b8a1fd608023cd61604a5458d14b16",
+      "bytes": 60755,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r1/preimages/src/core/actions.ts",
+      "sha256": "e1339b2efdd658338423959e59307e0074d6a3c28a029478ed9a3f9412fe8ce8",
+      "bytes": 136153,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r1/preimages/src/core/continuedScripts.ts",
+      "sha256": "784654c1b0fb96f4075401fc0bc8f656cf4cc4541524d450cc5ee9ac4dbbaaba",
+      "bytes": 18109,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r1/preimages/src/core/occupancy.ts",
+      "sha256": "7bf8e25b13d1cfe171b69800354aae089f9c1153d8a7923dfe32233b33353a35",
+      "bytes": 32380,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r1/preimages/src/core/rights.ts",
+      "sha256": "086541be1ced9033b6560b91ecaf8b908c5ee634e814b89f8df9b1cd88cb85ac",
+      "bytes": 104259,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r1/preimages/src/core/scriptReadModel.ts",
+      "sha256": "174ebd34ed9238db49d26f8a0dac8d39c9ce33f668b85bfe1d88c81bfdbd5a47",
+      "bytes": 60118,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r1/preimages/src/core/studioClosure.ts",
+      "sha256": "00caca7d4eacc6595230cd8b61d353526f5e5a4b62fc6b499ac9312dcf8b8d28",
+      "bytes": 81358,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/BRIEF.md",
+      "sha256": "61f41e54ebfbdc86c75274fe01e31420fb2303c9ca3e5dc97269f529442a688d",
+      "bytes": 4720,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/DELTA-MANIFEST.json",
+      "sha256": "80b89f0bf7707ece9fab7102329f0621e0dbd2649e38dadf85d8c630997a188c",
+      "bytes": 624,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/DELTA.patch",
+      "sha256": "25b0a21952037a96e6f093220e4eb9c7aa9f273e4d9811e33400558e8d9963d8",
+      "bytes": 15224,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/MANIFEST.json",
+      "sha256": "e1a744e129e715a3791a1c043f37b5f42b8588ffcee4181635238aa2c0b31934",
+      "bytes": 2238,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/SOURCE.patch",
+      "sha256": "ab6cdffc9631a5da58de29dcd187003ca8cd1a00e53ee5dc2095d8091a7d7479",
+      "bytes": 43830,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/delta-preimages/src/core/continuedScripts.ts",
+      "sha256": "0869afd735440999165db507f6c4eb9679c36c3a820a8f857e3b0552aea01d89",
+      "bytes": 25190,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/delta-preimages/src/core/rights.ts",
+      "sha256": "1c3b7171eebfa34cbeb0b7719b344815e7854db1212daebdc798ab5c80fb6bb5",
+      "bytes": 104930,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/postimages/src/core/absorbedScripts.ts",
+      "sha256": "160bcad29aa90ac79e6fde23df300767bca1b2c33171726c49076bee320f3289",
+      "bytes": 4101,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/postimages/src/core/acquisition.ts",
+      "sha256": "5b331304e2bb9288511f661d946bb1c194434da0476ef911bdf843742dabe566",
+      "bytes": 60851,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/postimages/src/core/actions.ts",
+      "sha256": "6a435b52abe1b5635be0e5cb8160c7159bb33963f2b0965905e5d1698b350ed0",
+      "bytes": 136159,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/postimages/src/core/continuedScripts.ts",
+      "sha256": "335eee1f333dce3565b6e16e81ebddcb844ca548d136db23324137458db6817f",
+      "bytes": 31842,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/postimages/src/core/occupancy.ts",
+      "sha256": "5ab4894a99a213e9ea4be109418e1f4a5b892b9ab992e72284c673dc45383786",
+      "bytes": 32425,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/postimages/src/core/rights.ts",
+      "sha256": "4df5636ac1966030fa19c84c03c7c67691c0a046146a63cf6acb34d0f8abb017",
+      "bytes": 105133,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/postimages/src/core/scriptReadModel.ts",
+      "sha256": "a227bf8d64b09c43156764c6d47eae6aa976098af0799fb97a81e236dcb39542",
+      "bytes": 59827,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/postimages/src/core/studioClosure.ts",
+      "sha256": "f4927c0b1a0322440c95b1e805ba9fe2151a2001ca74f48d8f96ceaef56c851e",
+      "bytes": 81403,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/preimages/src/core/absorbedScripts.ts",
+      "sha256": "c2af7ec20b642010a425d8202f40b8ec12f1bba0d0a219155b7fa47c18ef779e",
+      "bytes": 4011,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/preimages/src/core/acquisition.ts",
+      "sha256": "f61f4e11d7b13d3023725bfff34e6ed8a4b8a1fd608023cd61604a5458d14b16",
+      "bytes": 60755,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/preimages/src/core/actions.ts",
+      "sha256": "e1339b2efdd658338423959e59307e0074d6a3c28a029478ed9a3f9412fe8ce8",
+      "bytes": 136153,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/preimages/src/core/continuedScripts.ts",
+      "sha256": "784654c1b0fb96f4075401fc0bc8f656cf4cc4541524d450cc5ee9ac4dbbaaba",
+      "bytes": 18109,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/preimages/src/core/occupancy.ts",
+      "sha256": "7bf8e25b13d1cfe171b69800354aae089f9c1153d8a7923dfe32233b33353a35",
+      "bytes": 32380,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/preimages/src/core/rights.ts",
+      "sha256": "086541be1ced9033b6560b91ecaf8b908c5ee634e814b89f8df9b1cd88cb85ac",
+      "bytes": 104259,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/preimages/src/core/scriptReadModel.ts",
+      "sha256": "174ebd34ed9238db49d26f8a0dac8d39c9ce33f668b85bfe1d88c81bfdbd5a47",
+      "bytes": 60118,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r2/preimages/src/core/studioClosure.ts",
+      "sha256": "00caca7d4eacc6595230cd8b61d353526f5e5a4b62fc6b499ac9312dcf8b8d28",
+      "bytes": 81358,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/BRIEF.md",
+      "sha256": "d3af5f50d9457c38657e3f863278fb78ab91413a6db2321ce7cf6e71f3e56132",
+      "bytes": 3876,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/DELTA.patch",
+      "sha256": "d7ec85532346148aa1406dc9e95a2675f81f8bce7e0b14322aafa833c3966091",
+      "bytes": 4269,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/MANIFEST.json",
+      "sha256": "deec9523f4e8efbb88d5d42ef7aac02d83ba95f5470939abab332215d71ba1f3",
+      "bytes": 2830,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/SOURCE.patch",
+      "sha256": "8cb3ef4d8c95a8d61d91737b43e6699cc566bb4f5c9ffad87854c0dbfe197a33",
+      "bytes": 45665,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/delta-preimages/src/core/continuedScripts.ts",
+      "sha256": "335eee1f333dce3565b6e16e81ebddcb844ca548d136db23324137458db6817f",
+      "bytes": 31842,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/delta-preimages/src/core/scriptReadModel.ts",
+      "sha256": "a227bf8d64b09c43156764c6d47eae6aa976098af0799fb97a81e236dcb39542",
+      "bytes": 59827,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/postimages/src/core/absorbedScripts.ts",
+      "sha256": "160bcad29aa90ac79e6fde23df300767bca1b2c33171726c49076bee320f3289",
+      "bytes": 4101,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/postimages/src/core/acquisition.ts",
+      "sha256": "5b331304e2bb9288511f661d946bb1c194434da0476ef911bdf843742dabe566",
+      "bytes": 60851,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/postimages/src/core/actions.ts",
+      "sha256": "6a435b52abe1b5635be0e5cb8160c7159bb33963f2b0965905e5d1698b350ed0",
+      "bytes": 136159,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/postimages/src/core/continuedScripts.ts",
+      "sha256": "40657e5d9c7eca1ff944927de48516189f6bdf75ca0a748767ba3f80f911c6c7",
+      "bytes": 32677,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/postimages/src/core/occupancy.ts",
+      "sha256": "5ab4894a99a213e9ea4be109418e1f4a5b892b9ab992e72284c673dc45383786",
+      "bytes": 32425,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/postimages/src/core/rights.ts",
+      "sha256": "4df5636ac1966030fa19c84c03c7c67691c0a046146a63cf6acb34d0f8abb017",
+      "bytes": 105133,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/postimages/src/core/scriptReadModel.ts",
+      "sha256": "30973f9bf29f08e217de97dc024472acd0890dd54cffa2a3f27f10a7eca29b3b",
+      "bytes": 60180,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/postimages/src/core/studioClosure.ts",
+      "sha256": "f4927c0b1a0322440c95b1e805ba9fe2151a2001ca74f48d8f96ceaef56c851e",
+      "bytes": 81403,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/preimages/src/core/absorbedScripts.ts",
+      "sha256": "c2af7ec20b642010a425d8202f40b8ec12f1bba0d0a219155b7fa47c18ef779e",
+      "bytes": 4011,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/preimages/src/core/acquisition.ts",
+      "sha256": "f61f4e11d7b13d3023725bfff34e6ed8a4b8a1fd608023cd61604a5458d14b16",
+      "bytes": 60755,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/preimages/src/core/actions.ts",
+      "sha256": "e1339b2efdd658338423959e59307e0074d6a3c28a029478ed9a3f9412fe8ce8",
+      "bytes": 136153,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/preimages/src/core/continuedScripts.ts",
+      "sha256": "784654c1b0fb96f4075401fc0bc8f656cf4cc4541524d450cc5ee9ac4dbbaaba",
+      "bytes": 18109,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/preimages/src/core/occupancy.ts",
+      "sha256": "7bf8e25b13d1cfe171b69800354aae089f9c1153d8a7923dfe32233b33353a35",
+      "bytes": 32380,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/preimages/src/core/rights.ts",
+      "sha256": "086541be1ced9033b6560b91ecaf8b908c5ee634e814b89f8df9b1cd88cb85ac",
+      "bytes": 104259,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/preimages/src/core/scriptReadModel.ts",
+      "sha256": "174ebd34ed9238db49d26f8a0dac8d39c9ce33f668b85bfe1d88c81bfdbd5a47",
+      "bytes": 60118,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-r3/preimages/src/core/studioClosure.ts",
+      "sha256": "00caca7d4eacc6595230cd8b61d353526f5e5a4b62fc6b499ac9312dcf8b8d28",
+      "bytes": 81358,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-tests-r1-prospective/EXPECTED-IDENTITIES.json",
+      "sha256": "6e4b2c7c24af4bf24725f80e1174a19d05198947bb673b554fc707d1b342dc53",
+      "bytes": 742,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-tests-r1-prospective/MANIFEST.json",
+      "sha256": "9373cd7394df23d00cc62e8343e42263b6bde820d4a88a5dac8ef935e13af49a",
+      "bytes": 566,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-tests-r1-prospective/REPORT.md",
+      "sha256": "b4917ed4b6eb892a88870f7e152fbbf149f88c83c4de37d6beb835d75ba50447",
+      "bytes": 701,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-tests-r1-prospective/SOURCE.patch",
+      "sha256": "8ea46630709596cfa4aecae535e4a25c8f44a58eff855f277869fc963c26af66",
+      "bytes": 23002,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-tests-r1-prospective/p16-carried-script-rewrite.test.ts",
+      "sha256": "b84ca3263be02ae99e06022a5d38acffc28710daae0ea967ad1a06cd60940d11",
+      "bytes": 22679,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-tests-r2-bound/DELTA-vs-r1.diff",
+      "sha256": "0adeb4b5ddf9452337f891763fd69f64bbd7dcace41d2b5bf0833c7bb34e5f13",
+      "bytes": 6641,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-tests-r2-bound/EXPECTED-IDENTITIES.json",
+      "sha256": "891c3eafd106dfe328096fd3cae8ed599a167c63a46888b7f54a422f814ddb4a",
+      "bytes": 742,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-tests-r2-bound/MANIFEST.json",
+      "sha256": "32fc2e0747b30a2702d0f8e90eabcd4d0c3b1b2d69e01ccae905b6d81db03896",
+      "bytes": 855,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-tests-r2-bound/REPORT.md",
+      "sha256": "a8bbca6b4b8174d50a64f412dd1bac4bc3a6b6cee0cfd82d321de1bfc8d4f091",
+      "bytes": 1073,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-tests-r2-bound/SOURCE.patch",
+      "sha256": "0e2cdf88aabc5441cbf2a435906145783184879cecb404f2020bb3187ee6680d",
+      "bytes": 25474,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-tests-r2-bound/p16-carried-script-rewrite.test.ts",
+      "sha256": "8f496d6c85aa367afd903b6dafb7e889f8b99d78d19171da4c7fee061e48e6fd",
+      "bytes": 25143,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-tests-r3-bound/DELTA-vs-r2.diff",
+      "sha256": "a173593c041990d7ac762fb6c9debb43f0adf9be0416801bd68863f2fea4e217",
+      "bytes": 2976,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-tests-r3-bound/EXPECTED-IDENTITIES.json",
+      "sha256": "7dfc4d64eca07f0c8298ce9e58a269362e1048ac0546f9186409de7f8995a085",
+      "bytes": 742,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-tests-r3-bound/MANIFEST.json",
+      "sha256": "e12056efba53f60a745bba777a4104ade6109c18ea742c019c8d3d5768004bb9",
+      "bytes": 855,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-tests-r3-bound/REPORT.md",
+      "sha256": "74090f003326fdfcc22c8808dffa1692a0cf59e7ff9003b6b131a0a926d535bb",
+      "bytes": 1054,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-tests-r3-bound/SOURCE.patch",
+      "sha256": "95dcce5025e781fc35d4fa102b741f7bba2a5bf33464f09c13bd75cf0ce8581f",
+      "bytes": 26215,
+      "mode": 420
+    },
+    {
+      "path": "p16-carried-script-rewrite-tests-r3-bound/p16-carried-script-rewrite.test.ts",
+      "sha256": "2fd0f1a06cb6656b5c97320137a71ddae537b3b0cf534e9d0e15d6b18bb14d85",
+      "bytes": 25880,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/BRIEF.md",
+      "sha256": "a6d06498988a18de9339c4edcc69585f67b0104c15f976860e846ca0ad4d509a",
+      "bytes": 5359,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/MANIFEST.json",
+      "sha256": "3812ba7b3e4d71712158a4dde3da10a89989e013b20a3150182eee45a7c9c730",
+      "bytes": 3980,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/SOURCE.patch",
+      "sha256": "e449d2c693e2b9259edaa534bb38554b339388b418fb3b7b74e09c7e84f08a5b",
+      "bytes": 51456,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/STATUS.md",
+      "sha256": "6864f7b98d770bedc3c9de5d0009bde2f8121789fa6f9449e641cc7275b80362",
+      "bytes": 101,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/postimages/bridge/schema/bridge-schema.ts",
+      "sha256": "e5a604a8474c1411ec10aec9d54cbe6cf366f66a607fd6e279c996839b84e5b3",
+      "bytes": 199288,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/postimages/src/core/absorbedScripts.ts",
+      "sha256": "d74fb9d6ec8c7d8990a4b5a1279a03bcc2f8abc2ba8801d7b8c3f472b9bbed29",
+      "bytes": 3919,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/postimages/src/core/acquisition.ts",
+      "sha256": "70f286f4f01f6e86bfaa3c3d9b7c88eefc5a914345e32641a9f65be42ad87265",
+      "bytes": 60578,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/postimages/src/core/actions.ts",
+      "sha256": "bc7f2fa76f19cfc4937c306952f0624852a354d313f0489e372959b819da3aef",
+      "bytes": 136154,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/postimages/src/core/continuedScripts.ts",
+      "sha256": "2a8bee2f5501bd37ec4cdcd7ff6a296f3ba6baaa4b33ca072766d2e0d0edb989",
+      "bytes": 15526,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/postimages/src/core/employment.ts",
+      "sha256": "81f1d148f33438d2e664c5866c1b425974841ea59f138a6a0af9e0c7b455641a",
+      "bytes": 30122,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/postimages/src/core/occupancy.ts",
+      "sha256": "1fe37c4355fb8608151533f1049da910e7377dd87f472b99aa53d82cbae4a8ed",
+      "bytes": 32333,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/postimages/src/core/rights.ts",
+      "sha256": "e29d7b595b9773bd516efb79b8a07b51f13b2b9e946fec0e652a794bc02f6002",
+      "bytes": 103791,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/postimages/src/core/save.ts",
+      "sha256": "b182acc75daa473cb8125084e5755eee2e9ade47c9f7b71fcfdb2c03d5bc0f29",
+      "bytes": 582271,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/postimages/src/core/scriptDevelopment.ts",
+      "sha256": "3f65e7d0f2c6e6e3a1f8816c64ca233749213842b85746f65fcb693f87d68bfa",
+      "bytes": 47284,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/postimages/src/core/scriptReadModel.ts",
+      "sha256": "d0e874e99e4b81d7eb9c0d4c3d92d83776474b98da47bbbfb2668fd43a052df3",
+      "bytes": 58657,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/postimages/src/core/studioClosure.ts",
+      "sha256": "de2221ba6205eb361de2ab6b4279869e30289042050221a2d8db7605140c5307",
+      "bytes": 81311,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/postimages/src/core/tick.ts",
+      "sha256": "adce639eee7f44956e18af86170be0a5cba6e98bb4389b708647b06005712c17",
+      "bytes": 69473,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/preimages/bridge/schema/bridge-schema.ts",
+      "sha256": "0ce8e0848ecdd1d8a3694c0cb4d95fc8c009351079dc394aa2d2b92b838b2534",
+      "bytes": 199191,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/preimages/src/core/absorbedScripts.ts",
+      "sha256": "0310bd54d964226413fc1ae3a2cad08d58cc6320717a045d4e7f374deb5d4767",
+      "bytes": 3641,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/preimages/src/core/acquisition.ts",
+      "sha256": "5e8574be12b68bf5071e9b95ec24ce730029f804f8b27220b9f4d32c3f4b26c9",
+      "bytes": 57280,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/preimages/src/core/actions.ts",
+      "sha256": "59495ec2ed40a36f33b41d5f988dbf129f5a068319f9d4f3e0aae99d7860f8b7",
+      "bytes": 135099,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/preimages/src/core/employment.ts",
+      "sha256": "0fceaca2610c2a0892217cb14f2c3246d090626ed00acad6a95b79cbe67197b4",
+      "bytes": 30020,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/preimages/src/core/occupancy.ts",
+      "sha256": "35131b9778c59bf0d5e12d871ac23c2e6d2141a1320fc1c92c5138a3608b295c",
+      "bytes": 32033,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/preimages/src/core/rights.ts",
+      "sha256": "76f6910918a6a53e0332bcf98e1f44a7f399b2f628b42fdeec11782a828a4b92",
+      "bytes": 102620,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/preimages/src/core/save.ts",
+      "sha256": "c34b552bdff1e40681f182b8e5db8e1e6cc5a57ec83bb51fe4c50f1ef9fb47c3",
+      "bytes": 582202,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/preimages/src/core/scriptDevelopment.ts",
+      "sha256": "88ab848828a7eadad1a818a61d37cf0ab7d962ef06858c58d923ab50a56181b0",
+      "bytes": 46802,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/preimages/src/core/scriptReadModel.ts",
+      "sha256": "93b3c99876c0c252a63388f5fd8c3df97d8a704f81ce22666f068f4a010875ef",
+      "bytes": 58459,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/preimages/src/core/studioClosure.ts",
+      "sha256": "6ab3c5fd96a8bf0ebf83e5cdcc77eef8952d3fea9363b315e5aadbc04f50d1f0",
+      "bytes": 81132,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-source-r1/preimages/src/core/tick.ts",
+      "sha256": "efefdc2b8f1ef01f8005ae1c3c07d388dd2d8b10994838b55a5d2236056a1ed8",
+      "bytes": 69523,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-tests-r3-bound/DELTA-vs-r2.diff",
+      "sha256": "4f64218315dbb09e3fccaf046aa6fc5c91135db18e0beb318c589d286fe90a00",
+      "bytes": 10899,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-tests-r3-bound/EXPECTED-IDENTITIES.json",
+      "sha256": "7dd099fd0662d415efdc6ff0fe5483b0d06b3fe8aa36e4890699788924c5a4ac",
+      "bytes": 983,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-tests-r3-bound/MANIFEST.json",
+      "sha256": "5b07b3dabbe6bec29d24608f5c32a09985d5d4c270d87f7a375aba72b9a91b58",
+      "bytes": 755,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-tests-r3-bound/REPORT.md",
+      "sha256": "79543caae30da014c1f57a520101483cd283df5e2e30b96f4bba239bd8b7fb3e",
+      "bytes": 1267,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-tests-r3-bound/SOURCE.patch",
+      "sha256": "7db36d6282c246f2613c144c3e16cb286d6d4030b3f7f63deb70e8f0e4d0c325",
+      "bytes": 20279,
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-tests-r3-bound/p16-retained-drafting-continuation.test.ts",
+      "sha256": "c26900d8ddf8f95f501d7ed6d6b41d67fea903027809c68157fb4821677cbec0",
+      "bytes": 19986,
+      "mode": 420
+    }
+  ],
+  "verification": "Exact member path, bytes, SHA256 and mode verified without extraction; private LOCAL process/app inventories excluded."
+}
