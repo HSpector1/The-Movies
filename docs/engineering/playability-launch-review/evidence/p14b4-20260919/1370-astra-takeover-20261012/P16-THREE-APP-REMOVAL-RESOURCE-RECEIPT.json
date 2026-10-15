@@ -1,0 +1,45 @@
+{
+  "at": "2026-10-14T18:57:38.321146-05:00",
+  "scope": "Owner-authorized PowerPoint, Adobe Digital Editions and HP application removal only",
+  "applications": [
+    {
+      "name": "Microsoft PowerPoint.app",
+      "estimatedAllocatedKiB": 1840128,
+      "sourceAbsent": true,
+      "exactTrashItemAbsent": true
+    },
+    {
+      "name": "Adobe Digital Editions 4.5.app",
+      "estimatedAllocatedKiB": 66896,
+      "sourceAbsent": true,
+      "exactTrashItemAbsent": true
+    },
+    {
+      "name": "HP.app",
+      "estimatedAllocatedKiB": 281464,
+      "sourceAbsent": true,
+      "exactTrashItemAbsent": true
+    }
+  ],
+  "beforeFreeKiB": 4079656,
+  "afterFreeKiB": 6211428,
+  "actualNetRecoveredKiB": 2131772,
+  "attribution": "Owner reports concurrently moving apps; parent used Finder move/Delete Immediately for exact selected apps. Net recovery includes Owner actions and background activity; not attributed solely to parent.",
+  "parentPreserved": [
+    "personal documents",
+    "shared Office data",
+    "ebooks",
+    "printer settings",
+    "unrelated Trash",
+    "all game source, inputs, evidence, assets, dependencies and active tools"
+  ],
+  "freshPreflight": {
+    "freeKiB": 6211440,
+    "launchMinimumKiB": 3670016,
+    "runtimeMinimumKiB": 3145728,
+    "launchAllowed": false,
+    "competingHeavy": 1
+  },
+  "generationR6Started": false,
+  "next": "Preserve admitted current200/R6; run only after real execution availability. Continue sparse static P16 implementation/test preparation."
+}

@@ -1,0 +1,361 @@
+{
+  "status": "STATIC/UNRUN preparation only; no new product qualification",
+  "archiveSHA256": "eb1dbd87367fd5dfd3f88a59cf4470e4fa65a583ffee8184f0875a38a309fbec",
+  "archiveBytes": 335882,
+  "members": [
+    {
+      "path": "P16-BRIDGE62-CURRENT-CONSUMER-TESTS-PARENT-R1-INDEPENDENT-REVIEW.md",
+      "bytes": 2034,
+      "sha256": "6a0e0da31d2fdb2f308b14f5e2e1c8693c28817421970f58273e2954d35c33ab",
+      "mode": 420
+    },
+    {
+      "path": "P16-BRIDGE62-CURRENT-LITERALS-COMPANION-R1-INDEPENDENT-REVIEW.md",
+      "bytes": 1768,
+      "sha256": "0383afa143a9853a8707820246ed3fb53e95c7cb967d1b4f1101f84c287e86f4",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-consumer-tests-parent-r1/BRIEF.md",
+      "bytes": 932,
+      "sha256": "3af683842e4967775cb0888fb9f3b7c14383bbfada0c6fc098807794cf7f6bfb",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-consumer-tests-parent-r1/MANIFEST.json",
+      "bytes": 1595,
+      "sha256": "a053cb18d2b74508c6e844f94eed0b8565d294f57e374e9caf5da5c3bb5db41c",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-consumer-tests-parent-r1/ROSTER-PROOF.json",
+      "bytes": 2630,
+      "sha256": "e0dda7feccaa10982f8f177d8a3c50415abc302ebceb6e85896eb7eec482a9f7",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-consumer-tests-parent-r1/TEST.patch",
+      "bytes": 9443,
+      "sha256": "ce8e5732db6937e0c863e0ed3571785ce58d30e71e11db398402d5fffedb71bd",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-consumer-tests-parent-r1/postimages/tests/bridge-p14b4-runtime47-compatibility.test.ts",
+      "bytes": 21629,
+      "sha256": "5e33dd588f58e1908212e714effe28c52cd79e1840bd66451a8963ecc31543c7",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-consumer-tests-parent-r1/postimages/tests/bridge-p14p4p5-opportunities.test.ts",
+      "bytes": 44967,
+      "sha256": "b39f414b177778af8fc4a8d5e31c3508a8f733c0a12d07e589a6c74c13d50ee2",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-consumer-tests-parent-r1/postimages/tests/bridge-p14r2r3-prior55.test.ts",
+      "bytes": 17246,
+      "sha256": "fb509690e818d07190bfebb2d2950bdeeb93ba5bec5d2d33e67f85b77b58b908",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-consumer-tests-parent-r1/postimages/tests/bridge-runtime-checkpoint.test.ts",
+      "bytes": 55456,
+      "sha256": "e4b22c2640231454a82825b7ce2b9b548f68ad613606c0bad468cc09a7a8c174",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-consumer-tests-parent-r1/preimages/tests/bridge-p14b4-runtime47-compatibility.test.ts",
+      "bytes": 20745,
+      "sha256": "cc7284651080c597de5298a8ed6a99c1ee8a9e252b33fcedcc1ba10c147ddf60",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-consumer-tests-parent-r1/preimages/tests/bridge-p14p4p5-opportunities.test.ts",
+      "bytes": 44867,
+      "sha256": "b896f366884ef3797e1e6c5562304275d325a40f64e4384616ecf969c76a4d48",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-consumer-tests-parent-r1/preimages/tests/bridge-p14r2r3-prior55.test.ts",
+      "bytes": 17146,
+      "sha256": "d4158883dc368aa528d0843b97f56fad3d6cb98b24b9ac7a37a458be2aa84521",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-consumer-tests-parent-r1/preimages/tests/bridge-runtime-checkpoint.test.ts",
+      "bytes": 54982,
+      "sha256": "bedbee57ca1b1ad7ae6f0a470583eceaaadf7d6455983ba371559fdb10960cb2",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/BRIEF.md",
+      "bytes": 731,
+      "sha256": "d64941a6c40b13f612f1b4fe3bc5361e9aeabd26c0baf06c9a1b0c6372152b71",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/MANIFEST.json",
+      "bytes": 16990,
+      "sha256": "204e8c76d6ca76463bf464ee6ab95b061185374d1d07f2a696391c70ea4439ee",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/TEST.patch",
+      "bytes": 22345,
+      "sha256": "b3e299b58a6b347e87a1a760edef9bc20aa1cfe2c3e0e7a3247349cb4d6b2d21",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-operations-events.test.ts",
+      "bytes": 17322,
+      "sha256": "74791e230c0b9ae1aede69238ceb09578f6629b73ba59f8972b70ac814731788",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-owner-ux-projection21-schema.test.ts",
+      "bytes": 5026,
+      "sha256": "e1fc32851d727d4e9c4be2a0ae1186f0cca8ead91add977d54561c4dfb3f68cb",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p10a-w0-people-projection.test.ts",
+      "bytes": 18217,
+      "sha256": "d5759cbb090d6487af4dda484ff81a4d35b0c4d31cba9e4fc1284a02e465fb4a",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p11-capital-contributors.test.ts",
+      "bytes": 9715,
+      "sha256": "732de50676c617a87e9b7e8bc18889ec9d3e75d20f5d7090798f44ce750ca5ed",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p11-ready.test.ts",
+      "bytes": 23497,
+      "sha256": "17027c3c5282d62c86be69249bd47c23f7f6afc2f06aa3d91b53a488a15ddc88",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p13b-r07-setup.test.ts",
+      "bytes": 35996,
+      "sha256": "51b3479924003b68fa0ef9386a8e36fdaa12ead42c81191efdc4137c3e474d85",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p13b-s1b-seats.test.ts",
+      "bytes": 11197,
+      "sha256": "7ead9cc85bb0c9037122b35ac92c58985f5c08016431d38e8a133dbd5407d38c",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p13b-s2-labs.test.ts",
+      "bytes": 32713,
+      "sha256": "f67106302f306c8257707b1cb9e7618e1705e2d02ec2ee0890fa5fd2cf0b693f",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p13b-s3-plans.test.ts",
+      "bytes": 35579,
+      "sha256": "0e438d3bdfa6c2ccef4796d95f0ed92d0e340fa36cf4b4fca35cbfb51985623c",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p13b-s4-office.test.ts",
+      "bytes": 37203,
+      "sha256": "d4c5c2f9320f7af00f07e04e3fdf228d40f3fdfae1c4b7929443ca8154aa01f8",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p13b-s5-adoption.test.ts",
+      "bytes": 33491,
+      "sha256": "24788baa2512fa57c4aeba1921568efeb68ceee449e2ec2f3d48fc0f9c3aabf9",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p13b-s6-cancellation.test.ts",
+      "bytes": 42938,
+      "sha256": "956b2d511ba74e4d3a91c6ded49490841b394987ea62d50794d17596aeebaf99",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p13b-s7-disclosure.test.ts",
+      "bytes": 46032,
+      "sha256": "a3381bae7165732a27dd66c6748d2808b0a1576993a35be4222709aca707e45c",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p13b-s8-rivals.test.ts",
+      "bytes": 35298,
+      "sha256": "f008d0a754404a363d2be3bf74ee1d5ebd19934dd91145de89b583b5c26b7c7a",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p14a1-market.test.ts",
+      "bytes": 37554,
+      "sha256": "ecb31f770a4a3dd41948079516435123d4cce549eec982569495423c5e3a4362",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p14a1-release-busy-set.test.ts",
+      "bytes": 21020,
+      "sha256": "9f19b52fa231eed649ee89a9a254558d62650320bc96214e683233c095fa7fca",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p14a2-market.test.ts",
+      "bytes": 56218,
+      "sha256": "80553949212a6ff9a10f34e20d879c24b88dd5c59c0529c8220c7379c8733a36",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p14a3-world.test.ts",
+      "bytes": 41359,
+      "sha256": "fb53b8e9c2f01e1a08f87f4d51148919da84e2c1e693480d2ea20233fd7b5ba1",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p14b1-promises.test.ts",
+      "bytes": 38630,
+      "sha256": "b0728c87c7dbc21c29ea86bc79242ffd236404c4335e021ddb47f301d6dcb27e",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p14b10-relationship-labels.test.ts",
+      "bytes": 29646,
+      "sha256": "3ff328e07b92863fb95e1c024088b143f9db1e31f699e460f4a45e47057835aa",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p14b2-trust.test.ts",
+      "bytes": 32477,
+      "sha256": "436040e42fdad3a0b8d8ae667797b20536757556d616401c12f6bb0e2e863395",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p14b3-promise-command.test.ts",
+      "bytes": 35681,
+      "sha256": "ae2656c36fd52adeb43a0c891530aea596efe8f0a6596f9e9df2bb5d3f78fe40",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p14b5-relationships.test.ts",
+      "bytes": 50938,
+      "sha256": "fa91d57a0d6e8610e09b3be01c9ec0a2278f8882942b9abf86cf9ce2ad8f269f",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p14b7-promise-waiver.test.ts",
+      "bytes": 16891,
+      "sha256": "22eeed1b7a055191c208c83e75e5345a7cf7711fb0f060ce1ac03bfd9da16c2f",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p14b8-waiver-surface.test.ts",
+      "bytes": 62643,
+      "sha256": "fd4c64e06d6a0054d6ffcc1c1078a0df33543d034d3263183bd2c4186c791e9a",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p14c2rm-runtime.test.ts",
+      "bytes": 15565,
+      "sha256": "cde3c2c7288ba246ee31aaeb424a7842365dccb930b7eac0fc1f4f42e2578636",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p14c2s-scientist-runtime.test.ts",
+      "bytes": 18176,
+      "sha256": "929cf8beaa020d1c0e45976b65f5b0fd486c5fc831fd2a8b3a7b8d41894307d4",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p14c3-promise-digest-continuity.test.ts",
+      "bytes": 14541,
+      "sha256": "b550a22e5dff2bbe7488d7c3fa36453b761690620c59613c67a1bb87b801ea95",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p14c3-runtime.test.ts",
+      "bytes": 21912,
+      "sha256": "e75b39736520d8cfd4b23589e9c757577012b1ffe0551ed3d5b43cec21887a7c",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-p14p3-directing-promises.test.ts",
+      "bytes": 51949,
+      "sha256": "d456f698c272d78408fb9e99a0bcf8d1870f68bf7d5938c3b145a04ce1b67ed8",
+      "mode": 420
+    },
+    {
+      "path": "p16-bridge62-current-literals-companion-r1/postimages/tests/bridge-r3n4-read-model-deltas.test.ts",
+      "bytes": 17677,
+      "sha256": "bfc51fa536f7fb1a314fa3fd7765d0172690d47eed3fd5ed84f2faec0df2d97f",
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-tests-r1/EXPECTED-IDENTITIES.json",
+      "bytes": 983,
+      "sha256": "0978be23bf3febc6aa32cb6c8f5a16a13dc94454a431839aa8ba1e2d5a88da72",
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-tests-r1/MANIFEST.json",
+      "bytes": 623,
+      "sha256": "ddd66f0a56a21d280b64a42c4dbc685c25b744a86496e7718de568400a6639d8",
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-tests-r1/REPORT.md",
+      "bytes": 881,
+      "sha256": "0fa6d03241a2ae28981b437f8623dd60b11c88d64ca6d794069c379c7bd30ace",
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-tests-r1/SOURCE.patch",
+      "bytes": 14702,
+      "sha256": "7c964fb2cd572d5c5ed424cf3599e2c7f15fc22ec067162e1545999f5a693c30",
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-tests-r1/p16-retained-drafting-continuation.test.ts",
+      "bytes": 14459,
+      "sha256": "1b65cbf2470fbbc9b815307a58b15717d6a61bca0adf7dceaa8ea19936244e3c",
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-tests-r2-interface/DELTA-vs-r1.diff",
+      "bytes": 7013,
+      "sha256": "fe1f767c61747ba06423eb143088ca5dd3f6d4edb12d56f9169c15f3d7971582",
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-tests-r2-interface/EXPECTED-IDENTITIES.json",
+      "bytes": 983,
+      "sha256": "a5fd7805449b2f9eb1fa6e73538b9746edac271b4af697d5e298e401587d354c",
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-tests-r2-interface/MANIFEST.json",
+      "bytes": 805,
+      "sha256": "dc7cfeed089752e5195211d5789ec453a2662e8486db2ca19a695e606c2a5822",
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-tests-r2-interface/REPORT.md",
+      "bytes": 932,
+      "sha256": "b992cf2b4e3f004be0e750361d089be3dafe71eb7e32186ae5495aa90a041d89",
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-tests-r2-interface/SOURCE.patch",
+      "bytes": 16069,
+      "sha256": "586da8c716fccfaf255e305ce69497961a8e80885bde97693eb20680edf759f1",
+      "mode": 420
+    },
+    {
+      "path": "p16-retained-drafting-continuation-tests-r2-interface/p16-retained-drafting-continuation.test.ts",
+      "bytes": 15810,
+      "sha256": "5ecb9e1994690ad1b354f75ee465e09652546ae961f6d3f7c9cf59b914cccfe6",
+      "mode": 420
+    }
+  ]
+}
