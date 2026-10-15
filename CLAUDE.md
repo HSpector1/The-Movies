@@ -1,3 +1,7 @@
+> **CURRENT AUTHORITY (2026-10-15): read `HANDOFF.md` → "Claude cold start" first.** It carries the live
+> Owner order (P16 completion focus → P17 → bounded P18), branch/HEAD, the single heavy lane and the exact next
+> action. Every scope/stop block below is historical; where it conflicts with HANDOFF, HANDOFF governs.
+
 > **CURRENT SCOPE — FABLE CONTINUATION / EXPLICIT HANDOFF GATES**
 >
 > Read `docs/operations/fable-team/FABLE-COORDINATOR.md`, its SOURCE-INDEX, and
