@@ -173,12 +173,22 @@ version, exact HEAD/snapshot, read paths and outcomes; use existing subscription
 
 ## Publication and adoption
 
-Locally installed and verified at the sole coordinator's idle checkpoint. Exactly 43 changed
-paths are listed in WORKFLOW_CHANGED_PATHS.txt; source/package locks/hooks and K/p16 were
-preserved. Staged whitespace, current relative links/anchors, all eight frontmatters, 20
-instruction/license hashes, archive identity, remaining-table identity and unchanged AUTO passed.
-Publication is pending for `chore/studio-shared-workflow-20261018`, based on the explicit working
-ref, with a PR targeting that working branch rather than main. The coordinator may integrate
-this exact reviewed bounded change at the existing idle boundary through normal branch rules;
-publication/adoption will be recorded after actual verification. No main merge, force push or
-gameplay resumption is authorized by this record.
+Core implementation commit: `c6cd29ee1c6c27c7f91a05e0889be0ce123b1593`.
+Published branch: `chore/studio-shared-workflow-20261018`.
+PR: https://github.com/HSpector1/The-Movies/pull/18, targeting
+`wip/headless-program-20260916-ts` (not main). Explicit ls-remote and PR head both matched
+that core SHA. Existing repository TypeScript validation started automatically on push/PR;
+no remote job was manually dispatched or claimed as game qualification by this task.
+
+Locally installed and verified by the sole coordinator at an idle boundary. Exactly 43 paths
+are listed in WORKFLOW_CHANGED_PATHS.txt. Staged whitespace, 35 current relative links/anchors,
+eight frontmatters, 20 instruction/license hashes, archive/table/AUTO identity and unchanged
+source/package locks/hooks passed. The active checkout was not switched or copied; local
+working-ref commits are being published on the bounded PR branch, with the explicit remote
+working ref preserved until coordinator adoption.
+
+Current state: **PREPARED, not yet remotely ADOPTED**. Coordinator source-only review and 22
+focused tests are complete. Integration is permitted only at this idle boundary through normal
+non-main branch rules with the exact PR head; no required review/check bypass, administrator
+merge or force push. Actual adoption or its concrete blocker will be recorded after the normal
+merge attempt. Gameplay remains paused regardless of publication/adoption state.

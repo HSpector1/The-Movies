@@ -15,6 +15,15 @@ Last writer: Codex, 2026-10-18, sole Studio workflow coordinator under the lates
 - **Safe boundary observed:** recorded shared lane lock and R6 output directory absent at setup entry; no recorded Studio run awaiting audit was found. Old disk readings and PIDs in history are not current prerequisites. No generator, game compiler, runtime test or process termination performed by setup.
 - **Workflow state:** entrypoints, eight instruction routes and setup helper implemented; 22 focused tooling tests PASS. Restricted fresh CLI discovery/routing checks and their failures/limits are recorded in WORKFLOW_VALIDATION; publication/adoption status is recorded there. Read AGENTS.md, one WORKFLOW route and matching LESSON_MAP entries; archives are on demand.
 
+## Workflow checkpoint publication
+
+Core `c6cd29ee1c6c27c7f91a05e0889be0ce123b1593` is published and explicit remote verified on
+`chore/studio-shared-workflow-20261018`; [PR 18](https://github.com/HSpector1/The-Movies/pull/18)
+targets the existing working ref, not main. Locally installed; remotely PREPARED until normal
+coordinator adoption. Existing CI started automatically; no game job was dispatched here.
+The local working ref contains the workflow commits without switching checkouts; remote
+working-ref adoption is recorded in WORKFLOW_VALIDATION. Gameplay remains PAUSED.
+
 ## Where the work is
 
 `R` = this production checkout (currently `/Users/zacheryspector/The-Movies-headless-program`).
