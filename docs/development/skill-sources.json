@@ -1,0 +1,367 @@
+{
+  "schema_version": 1,
+  "scope": "repository-instructions-only",
+  "sources": [
+    {
+      "name": "ponytail",
+      "repository": "DietrichGebert/ponytail",
+      "commit": "e3ba2aa6f1e6f0bc4d69eb09c9f0d0a93af56156",
+      "license": "MIT",
+      "delivery": "repository instruction copy, not vendor plugin installation",
+      "adaptations": "none; project instructions constrain activation and side effects",
+      "trigger": "Coding; default full unless Owner opts out",
+      "codex_route": "explicit read .agents/skills/ponytail/SKILL.md",
+      "claude_route": ".claude/skills/ponytail relative link; existing namespaced plugin routes remain available",
+      "files": [
+        {
+          "path": ".agents/skills/ponytail/SKILL.md",
+          "source_path": "skills/ponytail/SKILL.md",
+          "upstream_git_blob": "02c0712c86277d49d18a77da3a2b825657bf02d1",
+          "upstream_sha256": "1316a2f3f95741d2300b116fe0c2d81ce4a9568656ed0a62643f54aaf09957f2",
+          "sha256": "1316a2f3f95741d2300b116fe0c2d81ce4a9568656ed0a62643f54aaf09957f2",
+          "bytes": 6637,
+          "adapted": false
+        },
+        {
+          "path": ".agents/skills/ponytail/LICENSE",
+          "source_path": "LICENSE",
+          "upstream_git_blob": "715d483338cea4365f0d91a27799cf61226d6bcf",
+          "upstream_sha256": "fb1bc6909ac3ef82d5c22106e32ef682b0cff66788fa915fb9b53b15c9d2f3ab",
+          "sha256": "fb1bc6909ac3ef82d5c22106e32ef682b0cff66788fa915fb9b53b15c9d2f3ab",
+          "bytes": 1071,
+          "adapted": false
+        }
+      ],
+      "license_path": ".agents/skills/ponytail/LICENSE",
+      "required_files": [
+        ".agents/skills/ponytail/SKILL.md",
+        ".agents/skills/ponytail/LICENSE"
+      ],
+      "adopted_source_version": "4.10.0"
+    },
+    {
+      "name": "ponytail-review",
+      "repository": "DietrichGebert/ponytail",
+      "commit": "e3ba2aa6f1e6f0bc4d69eb09c9f0d0a93af56156",
+      "license": "MIT",
+      "delivery": "repository instruction copy, not vendor plugin installation",
+      "adaptations": "none; project instructions constrain activation and side effects",
+      "trigger": "Focused complexity review within the single findings list",
+      "codex_route": "explicit read .agents/skills/ponytail-review/SKILL.md",
+      "claude_route": ".claude/skills/ponytail-review relative link; existing namespaced plugin routes remain available",
+      "files": [
+        {
+          "path": ".agents/skills/ponytail-review/SKILL.md",
+          "source_path": "skills/ponytail-review/SKILL.md",
+          "upstream_git_blob": "e137a855bd87119a4517895a1000a59b0999e1b8",
+          "upstream_sha256": "40df33b58fc6ef889b93585733feb9566b76e9586efa7f376785c1e995197ac0",
+          "sha256": "40df33b58fc6ef889b93585733feb9566b76e9586efa7f376785c1e995197ac0",
+          "bytes": 2383,
+          "adapted": false
+        },
+        {
+          "path": ".agents/skills/ponytail-review/LICENSE",
+          "source_path": "LICENSE",
+          "upstream_git_blob": "715d483338cea4365f0d91a27799cf61226d6bcf",
+          "upstream_sha256": "fb1bc6909ac3ef82d5c22106e32ef682b0cff66788fa915fb9b53b15c9d2f3ab",
+          "sha256": "fb1bc6909ac3ef82d5c22106e32ef682b0cff66788fa915fb9b53b15c9d2f3ab",
+          "bytes": 1071,
+          "adapted": false
+        }
+      ],
+      "license_path": ".agents/skills/ponytail-review/LICENSE",
+      "required_files": [
+        ".agents/skills/ponytail-review/SKILL.md",
+        ".agents/skills/ponytail-review/LICENSE"
+      ],
+      "adopted_source_version": "4.10.0"
+    },
+    {
+      "name": "verification-before-completion",
+      "repository": "obra/superpowers",
+      "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+      "license": "MIT",
+      "delivery": "repository instruction copy, not vendor plugin installation",
+      "adaptations": "none; project instructions constrain activation and side effects",
+      "trigger": "Before completion or qualification claims; reuse evidence only with explicit scope/identity basis",
+      "codex_route": "explicit read .agents/skills/verification-before-completion/SKILL.md",
+      "claude_route": ".claude/skills/verification-before-completion relative link; existing namespaced plugin routes remain available",
+      "files": [
+        {
+          "path": ".agents/skills/verification-before-completion/SKILL.md",
+          "source_path": "skills/verification-before-completion/SKILL.md",
+          "upstream_git_blob": "7d45333cc4a49c57a80df6c1fe2fa777a207afbc",
+          "upstream_sha256": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3",
+          "sha256": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3",
+          "bytes": 3646,
+          "adapted": false
+        },
+        {
+          "path": ".agents/skills/verification-before-completion/LICENSE",
+          "source_path": "LICENSE",
+          "upstream_git_blob": "abf0390320aa14406af7a520b9b0739fdda9bf08",
+          "upstream_sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+          "sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+          "bytes": 1070,
+          "adapted": false
+        }
+      ],
+      "license_path": ".agents/skills/verification-before-completion/LICENSE",
+      "required_files": [
+        ".agents/skills/verification-before-completion/SKILL.md",
+        ".agents/skills/verification-before-completion/LICENSE"
+      ],
+      "adopted_source_version": "7.0.0"
+    },
+    {
+      "name": "differential-review",
+      "repository": "trailofbits/skills",
+      "commit": "1f68e03536f7980d4c0e6869596f708043a19443",
+      "license": "CC-BY-SA-4.0",
+      "delivery": "repository instruction copy, not vendor plugin installation",
+      "adaptations": "none; project instructions constrain activation and side effects",
+      "trigger": "Consequential diff/security/validation review; one read-only pass; no delegated agents",
+      "codex_route": "explicit read .agents/skills/differential-review/SKILL.md",
+      "claude_route": ".claude/skills/differential-review relative link; existing namespaced plugin routes remain available",
+      "files": [
+        {
+          "path": ".agents/skills/differential-review/SKILL.md",
+          "source_path": "plugins/differential-review/skills/differential-review/SKILL.md",
+          "upstream_git_blob": "536e9258092876017b098f1712a92e7d06bb1480",
+          "upstream_sha256": "f9af6a8193fc1a9f8ca3c54bb8d19095a5f20c9472ca6d014488bbde50b67da0",
+          "sha256": "f9af6a8193fc1a9f8ca3c54bb8d19095a5f20c9472ca6d014488bbde50b67da0",
+          "bytes": 7439,
+          "adapted": false
+        },
+        {
+          "path": ".agents/skills/differential-review/methodology.md",
+          "source_path": "plugins/differential-review/skills/differential-review/methodology.md",
+          "upstream_git_blob": "71d9dc0babf1417ee79ec8d5214ea690d0c2fe6b",
+          "upstream_sha256": "16b335d24cf2145e3dc4a37f50056550d29db2efa20e6df78fec95ec1e6fb0b4",
+          "sha256": "16b335d24cf2145e3dc4a37f50056550d29db2efa20e6df78fec95ec1e6fb0b4",
+          "bytes": 6738,
+          "adapted": false
+        },
+        {
+          "path": ".agents/skills/differential-review/adversarial.md",
+          "source_path": "plugins/differential-review/skills/differential-review/adversarial.md",
+          "upstream_git_blob": "0176d374bc2d9d59f114b647cb21f0685bc7e9f3",
+          "upstream_sha256": "3cb823f38c6e551cbcf5f72325d2bb219dacdad774072519c31d50d92db19800",
+          "sha256": "3cb823f38c6e551cbcf5f72325d2bb219dacdad774072519c31d50d92db19800",
+          "bytes": 5062,
+          "adapted": false
+        },
+        {
+          "path": ".agents/skills/differential-review/reporting.md",
+          "source_path": "plugins/differential-review/skills/differential-review/reporting.md",
+          "upstream_git_blob": "cb5e37b4eab89c429bf6f968d3e3482adaa39faa",
+          "upstream_sha256": "0016876dc6f158e926448bff1b6f634796757c7afe09dff177cfe30250724fc4",
+          "sha256": "0016876dc6f158e926448bff1b6f634796757c7afe09dff177cfe30250724fc4",
+          "bytes": 7006,
+          "adapted": false
+        },
+        {
+          "path": ".agents/skills/differential-review/patterns.md",
+          "source_path": "plugins/differential-review/skills/differential-review/patterns.md",
+          "upstream_git_blob": "71078a725d986c90d014cceff0cc54414ad3b1a1",
+          "upstream_sha256": "52abb18abbc73502a3d3b2f36a7a035adc1db40fd812d1d5424cf065036a06e9",
+          "sha256": "52abb18abbc73502a3d3b2f36a7a035adc1db40fd812d1d5424cf065036a06e9",
+          "bytes": 6999,
+          "adapted": false
+        },
+        {
+          "path": ".agents/skills/differential-review/LICENSE",
+          "source_path": "LICENSE",
+          "upstream_git_blob": "3b7b82d0da2db857eda1a798dbd908ea136f07b5",
+          "upstream_sha256": "7abe19ec9bb73b36141b999b861d24ad855e808bafe0f81e84cce28556f6c297",
+          "sha256": "7abe19ec9bb73b36141b999b861d24ad855e808bafe0f81e84cce28556f6c297",
+          "bytes": 20131,
+          "adapted": false
+        }
+      ],
+      "license_path": ".agents/skills/differential-review/LICENSE",
+      "required_files": [
+        ".agents/skills/differential-review/SKILL.md",
+        ".agents/skills/differential-review/methodology.md",
+        ".agents/skills/differential-review/adversarial.md",
+        ".agents/skills/differential-review/reporting.md",
+        ".agents/skills/differential-review/patterns.md",
+        ".agents/skills/differential-review/LICENSE"
+      ],
+      "adopted_source_version": "1.1.4"
+    },
+    {
+      "name": "studio-review",
+      "repository": "anthropics/claude-plugins-official",
+      "commit": "8f814f49002ff824e8a9ba43cf96112dc7f5948d",
+      "license": "Apache-2.0",
+      "delivery": "repository instruction copy, not vendor plugin installation",
+      "adaptations": "Original Studio router plus unmodified Apache-2.0 test/silent-failure agent instruction references; no agent installation",
+      "trigger": "Test adequacy or swallowed failure review; preserve independent test ownership",
+      "codex_route": "explicit read .agents/skills/studio-review/SKILL.md",
+      "claude_route": ".claude/skills/studio-review relative link; existing namespaced plugin routes remain available",
+      "files": [
+        {
+          "path": ".agents/skills/studio-review/references/pr-test-analyzer.md",
+          "source_path": "plugins/pr-review-toolkit/agents/pr-test-analyzer.md",
+          "upstream_git_blob": "05b342b9175af85c5d7404bac67f5c62da375aa2",
+          "upstream_sha256": "fcb1cde9ba7b21694b508766a8d6a79bc91bed9982f828f816210059934f46b4",
+          "sha256": "fcb1cde9ba7b21694b508766a8d6a79bc91bed9982f828f816210059934f46b4",
+          "bytes": 4560,
+          "adapted": false
+        },
+        {
+          "path": ".agents/skills/studio-review/references/silent-failure-hunter.md",
+          "source_path": "plugins/pr-review-toolkit/agents/silent-failure-hunter.md",
+          "upstream_git_blob": "b8a8dfa41e18ef6ac801ae64be38b2508aa04f44",
+          "upstream_sha256": "fa9b0daec5a267e7e66435cc48b3328301fc9f70c3af259fe248881327a1babc",
+          "sha256": "fa9b0daec5a267e7e66435cc48b3328301fc9f70c3af259fe248881327a1babc",
+          "bytes": 7807,
+          "adapted": false
+        },
+        {
+          "path": ".agents/skills/studio-review/LICENSE",
+          "source_path": "plugins/pr-review-toolkit/LICENSE",
+          "upstream_git_blob": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+          "upstream_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "bytes": 11358,
+          "adapted": false
+        },
+        {
+          "path": ".agents/skills/studio-review/SKILL.md",
+          "source_path": null,
+          "sha256": "7baf8b6de6db6ee870895899842cb9984a6ca0ae92f987923e7fb71ac3886910",
+          "bytes": 1481,
+          "adapted": true
+        }
+      ],
+      "license_path": ".agents/skills/studio-review/LICENSE",
+      "required_files": [
+        ".agents/skills/studio-review/references/pr-test-analyzer.md",
+        ".agents/skills/studio-review/references/silent-failure-hunter.md",
+        ".agents/skills/studio-review/LICENSE",
+        ".agents/skills/studio-review/SKILL.md"
+      ],
+      "adopted_source_version": "unknown in adopted plugin registry"
+    },
+    {
+      "name": "systematic-debugging",
+      "repository": "obra/superpowers",
+      "commit": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+      "license": "MIT",
+      "delivery": "repository instruction copy, not vendor plugin installation",
+      "adaptations": "self-contained Studio procedure; no executable references, TDD pack, new approval loop or timeout relaxation",
+      "trigger": "Existing failure or unexpected behavior; trace root cause before edits",
+      "codex_route": "explicit read .agents/skills/systematic-debugging/SKILL.md",
+      "claude_route": ".claude/skills/systematic-debugging relative link; existing namespaced plugin routes remain available",
+      "files": [
+        {
+          "path": ".agents/skills/systematic-debugging/SKILL.md",
+          "source_path": "skills/systematic-debugging/SKILL.md",
+          "upstream_git_blob": "62fc752aaef59a8bbed5d305f4cadc60f8ae07ed",
+          "upstream_sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202",
+          "sha256": "20e174ebf0ff5f9f51ba9637038262c3363efde6729713150360f78a7bbd42d4",
+          "bytes": 1916,
+          "adapted": true
+        },
+        {
+          "path": ".agents/skills/systematic-debugging/LICENSE",
+          "source_path": "LICENSE",
+          "upstream_git_blob": "abf0390320aa14406af7a520b9b0739fdda9bf08",
+          "upstream_sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+          "sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400",
+          "bytes": 1070,
+          "adapted": false
+        }
+      ],
+      "license_path": ".agents/skills/systematic-debugging/LICENSE",
+      "required_files": [
+        ".agents/skills/systematic-debugging/SKILL.md",
+        ".agents/skills/systematic-debugging/LICENSE"
+      ],
+      "adopted_source_version": "7.0.0"
+    },
+    {
+      "name": "studio-workflow",
+      "repository": null,
+      "commit": null,
+      "license": "Project-authored instructions; no upstream text redistributed",
+      "delivery": "repository-native original",
+      "adaptations": "none",
+      "trigger": "Resume/checkpoint/stop and ownership selection",
+      "codex_route": "explicit read .agents/skills/studio-workflow/SKILL.md",
+      "claude_route": ".claude/skills/studio-workflow relative link",
+      "files": [
+        {
+          "path": ".agents/skills/studio-workflow/SKILL.md",
+          "source_path": null,
+          "sha256": "83af31db96ad8891e51a7621b501ede91e2f94871a9e93543bbfc70bfe1f04ba",
+          "bytes": 1538,
+          "adapted": true
+        }
+      ],
+      "required_files": [
+        ".agents/skills/studio-workflow/SKILL.md"
+      ]
+    },
+    {
+      "name": "studio-playtest",
+      "repository": null,
+      "commit": null,
+      "license": "Project-authored instructions; no upstream text redistributed",
+      "delivery": "repository-native original",
+      "adaptations": "none",
+      "trigger": "Future authorized player-facing work; no execution permission",
+      "codex_route": "explicit read .agents/skills/studio-playtest/SKILL.md",
+      "claude_route": ".claude/skills/studio-playtest relative link",
+      "files": [
+        {
+          "path": ".agents/skills/studio-playtest/SKILL.md",
+          "source_path": null,
+          "sha256": "05abb8486b0f9f23e40daaa24e641ead9d00b6dc6bb5cfa43fa6ea0826a5bf09",
+          "bytes": 1841,
+          "adapted": true
+        }
+      ],
+      "required_files": [
+        ".agents/skills/studio-playtest/SKILL.md"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "name": "game-playtest candidate",
+      "repository": "openai/plugins",
+      "commit": "27651a43bf55185d924f7a1fc49043a0a8be65a0",
+      "source_path": "plugins/game-studio/skills/game-playtest/SKILL.md",
+      "git_blob": "d74823c9231966b8bc49924932f4b1c7d3a19e0a",
+      "license": "No LICENSE/NOTICE/COPYING found in inspected root or game-studio directory; redistribution not established",
+      "delivery": "REFERENCE ONLY, no upstream copy; Studio checklist is original",
+      "closure": "Upstream references other game skills and two shared references; deliberately not imported"
+    },
+    {
+      "name": "approved shared handoff support",
+      "delivery": "REUSED if already available; not copied/installed globally",
+      "source_path": "~/.claude/skills/handoff/SKILL.md (Codex existing global link)",
+      "sha256": "9239174c59f0ef7f512dc82a483ee76c2958e3a00303c31811684f17472ab4d5",
+      "license": "Local approved support; no redistribution of its text",
+      "trigger": "Resume/checkpoint/stop; native studio-workflow provides complete manual fallback",
+      "client_route": "Both clients may explicitly read existing approved global skill; no dependency on its presence"
+    }
+  ],
+  "same_name_observations": [
+    {
+      "name": "ponytail",
+      "scope": "existing Codex standalone user skill",
+      "sha256": "9badd22a32e19cb884e46dfa8d3aae82bb81dfa5484105b8b4f0262df823a509",
+      "matches_repository_copy": false,
+      "action": "Preserved; explicitly select repository path for this workflow"
+    },
+    {
+      "name": "Ponytail/Superpowers/differential-review/pr-review-toolkit",
+      "scope": "existing Claude user plugin namespaces",
+      "action": "Preserved, not reinstalled or globally reconfigured; local route is instruction-only"
+    }
+  ]
+}
