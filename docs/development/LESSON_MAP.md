@@ -1,0 +1,23 @@
+# Lesson map — select a symptom
+
+This indexes existing canonical lessons and active handoff lessons; it is not a new register.
+Current Owner order and HANDOFF override historical tasks and host observations. Read the
+bounded section or numbered lesson, preserving symptom, cause, correction, original failure,
+regression and remaining uncertainty. Add future lessons to the existing canonical record
+or current HANDOFF section, not to each skill. Archives are not mandatory startup reading.
+
+| Route / symptom | Source owner and existing lesson anchors | Nearest regression / verification |
+| --- | --- | --- |
+| Persistence, money, ownership; duplicate credit or wrong title | `src/core/save.ts`, `src/core/hollywood.ts`, `src/core/financeReport.ts`; [canonical Q/R](../LESSONS-LEARNED.md#q-reconstruct-from-the-signed-ledger-do-not-add-persistence--br), [P04 roots](../engineering/P04-IMPLEMENTATION-AND-OWNER-PLAYTEST-LESSONS-LEARNED.md#6-root-causes); [handoff lessons](../../HANDOFF-through-workflow-20261018.md#major-lessons-to-carry-forward) 18–23, 63–64 and P16 91–99, 117, 125 | `tests/save.test.ts`, `tests/p15b4-studio-closure-save.test.ts`, `tests/p11-finance-report.test.ts`; core/save gates and real transaction refusal/save/replay. P16-only acquisition owner and `tests/p16-absorption-clean-target.test.ts` exist in K/p16, not landed production; use only its admitted candidate runner. |
+| Input and focus; wrong project selected or disabled action | `ui/src/engine/session.ts`, `ui/src/screens/next-event-destination-focus.test.tsx`; [P04 6.1–6.4](../engineering/P04-IMPLEMENTATION-AND-OWNER-PLAYTEST-LESSONS-LEARNED.md#6-root-causes), [P05 fourteen](../engineering/P05-IMPLEMENTATION-AND-OWNER-PLAYTEST-LESSONS-LEARNED.md#the-fourteen-p05-lessons); handoff P16 lessons 91–99, 123–125 native input-week versus observed week | `ui/src/screens/next-event-destination-focus.test.tsx`, `ui/src/session.test.tsx`; UI complete files plus existing ordinary input journey at its authorized platform gate. |
+| Scene and resource lifetime; hidden tab or orphaned canvas | `ui/src/lot/hollywood/HollywoodScene.ts`, `ui/src/lot/scene/LotScene.ts`; [canonical M](../LESSONS-LEARNED.md#m-phaser-hidden-tab-disposal--br-phaser-games), [canonical C](../LESSONS-LEARNED.md#c-enginepresentation-ownership--p-br), [P07 record](../engineering/P07-IMPLEMENTATION-AND-OWNER-PLAYTEST-LESSONS-LEARNED.md) | `ui/src/lot/hollywood/HollywoodScene.test.ts`, `ui/src/lot/hollywood/hollywood-bridge.test.ts`; UI complete files and actual close/reopen/disposal evidence where affected. |
+| Compiler, Bridge and schema; stale identity or enum storage | `bridge/schema/bridge-schema.ts`, `bridge/session.ts`, `scripts/generate-bridge-contract.ts`; [P04 reopened launch](../engineering/P04-IMPLEMENTATION-AND-OWNER-PLAYTEST-LESSONS-LEARNED.md#p04a-reopen--the-owners-launch-command-failed-on-his-own-profile); handoff lessons 4, 9, 23 and [P16 78–101](../../HANDOFF-through-workflow-20261018.md#p16-lessons-78101) 91–99 | `tests/bridge-schema.test.ts`, `tests/bridge-contract-consumer-lock.test.ts`; affected typecheck/Bridge consumers, both canonical checks under the existing lane. Real generated identity precedes literal/golden changes; canonical-62 remains paused/unrun. |
+| Harness, performance and continuation; PASS over budget or wrong ownership | Existing checkpoint runner, `tests/contracts/determinism-floor.contract.test.ts`, `scripts/studio-workflow-setup.py` for instructions only; [canonical E/F/H](../LESSONS-LEARNED.md#e-executable-evidence-over-manual-counts--br), handoff lessons 2, 5–17, 24, [P16 78–101](../../HANDOFF-through-workflow-20261018.md#p16-lessons-78101) 79 and [102 onward](../../HANDOFF-through-workflow-20261018.md#p16-lessons-102-onward) 116–128 | Existing candidate complete-file selection and unchanged deadlines/exclusivity/audit; instruction-only tests `scripts/tests/test_studio_workflow_setup.py`. No REA matrix port, game bootstrap or broad gate during workflow setup. |
+
+All routes: `ponytail` full for coding, `systematic-debugging` for a failure,
+`verification-before-completion` before qualification claims. Input/lifetime/player work also
+uses `studio-playtest`; harness/resume uses `studio-workflow`; review uses `studio-review` and
+applicable `differential-review` / `ponytail-review`. Explicit paths are under `.agents/skills`.
+Commands and execution boundaries are in WORKFLOW. These names select guidance, not automatic
+execution. Full core after game landing and required coherent/native/player milestones remain
+mandatory where the current checkpoint requires them; narrow passes do not replace them.

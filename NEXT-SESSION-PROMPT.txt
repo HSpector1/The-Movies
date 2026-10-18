@@ -1,0 +1,1 @@
+Open this Studio checkout, read AGENTS.md and the current HANDOFF, check ownership and the Owner pause, explicitly load the matching workflow skill and lessons, and continue only the next authorized task without repeating setup.
