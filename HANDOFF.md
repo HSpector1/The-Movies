@@ -11,18 +11,21 @@ Last writer: Codex, 2026-10-18, sole Studio workflow coordinator under the lates
 - **STATIC-UNRUN:** stopped-drafting source7/final3/refusal2 installed in current200; canonical-62 generation and qualification remain unrun. Retained-writing composition13 and final bound completion4/accept3/rewrite3 remain future, uninstalled, ten UNRUN tests. P17/P18 are inactive.
 - **FAILED / REUSED:** original R24 failures/overruns and R25 seven reached passes remain preserved. R25 external-overlap supplement prevents exclusive runtime qualification; no assertion or timing waiver. Prior qualified settlement/save/replay evidence is reused only within its recorded identities and limits.
 - **ACCEPTANCE OPEN:** P16, broader integration, historical timing fallout, native/browser/player journeys and Owner acceptance. The unchanged remaining-requirements table below governs; setup closes none of it.
-- **Next permissible action:** complete the bounded publication receipt if still pending, then return control with gameplay paused. Once publication is verified, no setup repetition or game action follows automatically. A future Owner gameplay-resume order is required before the preserved game sequence below. Do not rerun a preflight merely to report status.
+- **Next permissible action:** workflow setup is complete; return control with gameplay PAUSED. Do not repeat setup. A future Owner gameplay-resume order is required before the preserved game sequence below. A future Owner gameplay-resume order is required before the preserved game sequence below. Do not rerun a preflight merely to report status.
 - **Safe boundary observed:** recorded shared lane lock and R6 output directory absent at setup entry; no recorded Studio run awaiting audit was found. Old disk readings and PIDs in history are not current prerequisites. No generator, game compiler, runtime test or process termination performed by setup.
 - **Workflow state:** entrypoints, eight instruction routes and setup helper implemented; 22 focused tooling tests PASS. Restricted fresh CLI discovery/routing checks and their failures/limits are recorded in WORKFLOW_VALIDATION; publication/adoption status is recorded there. Read AGENTS.md, one WORKFLOW route and matching LESSON_MAP entries; archives are on demand.
 
 ## Workflow checkpoint publication
 
-Core `c6cd29ee1c6c27c7f91a05e0889be0ce123b1593` is published and explicit remote verified on
-`chore/studio-shared-workflow-20261018`; [PR 18](https://github.com/HSpector1/The-Movies/pull/18)
-targets the existing working ref, not main. Locally installed; remotely PREPARED until normal
-coordinator adoption. Existing CI started automatically; no game job was dispatched here.
-The local working ref contains the workflow commits without switching checkouts; remote
-working-ref adoption is recorded in WORKFLOW_VALIDATION. Gameplay remains PAUSED.
+**ADOPTED on the working ref:** [PR 18](https://github.com/HSpector1/The-Movies/pull/18),
+reviewed head `33066c12aff569803e010728da9aa24b4cd36abf`, merged normally as
+`84943cabbdae298a4a3acfbdc0a53435717e54c3` on 2026-10-18. Explicit remote advertisement
+and PR merge state verified. Core implementation `c6cd29ee1c6c27c7f91a05e0889be0ce123b1593`.
+This checkout was fast-forwarded without switching it. The containing receipt checkpoint adds
+only HANDOFF/validation status. Main, gameplay source, K/p16 and runner bindings are unchanged.
+All eight instruction routes are locally installed; restricted client observations and default
+profile limits are in WORKFLOW_VALIDATION. Existing optional repository CI was pending at adoption,
+not claimed passed or used to waive game gates. No admin/check bypass or automatic merge used.
 
 ## Where the work is
 

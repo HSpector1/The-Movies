@@ -93,7 +93,7 @@ before execution. Do not change old binding hashes or historical receipts to mat
 
 At the trial snapshot, baseline mandatory root content (old CLAUDE + HANDOFF) was 190,313 bytes /
 19,290 whitespace words. Shared AGENTS + thin CLAUDE + current HANDOFF was 25,385 bytes /
-2,592 words, including the unchanged 9,171-byte requirements table. Final checkpoint root content measured 25,777 bytes / 2,643 words;
+2,592 words, including the unchanged 9,171-byte requirements table. Before publication, root content measured 25,777 bytes / 2,643 words;
 the trial input hashes are in workflow-trial-snapshot.json.
 Conditional WORKFLOW/lesson/skill reads are additional. These are content-size observations,
 not measured token savings, orientation time or gameplay/development speed improvements.
@@ -173,22 +173,32 @@ version, exact HEAD/snapshot, read paths and outcomes; use existing subscription
 
 ## Publication and adoption
 
-Core implementation commit: `c6cd29ee1c6c27c7f91a05e0889be0ce123b1593`.
-Published branch: `chore/studio-shared-workflow-20261018`.
-PR: https://github.com/HSpector1/The-Movies/pull/18, targeting
-`wip/headless-program-20260916-ts` (not main). Explicit ls-remote and PR head both matched
-that core SHA. Existing repository TypeScript validation started automatically on push/PR;
-no remote job was manually dispatched or claimed as game qualification by this task.
+**ADOPTED by the sole Owner-authorized coordinator at an idle boundary.**
+Core implementation: `c6cd29ee1c6c27c7f91a05e0889be0ce123b1593`.
+Reviewed publication head: `33066c12aff569803e010728da9aa24b4cd36abf` on
+`chore/studio-shared-workflow-20261018`.
+[PR 18](https://github.com/HSpector1/The-Movies/pull/18) merged normally into
+`wip/headless-program-20260916-ts` as `84943cabbdae298a4a3acfbdc0a53435717e54c3`
+at 2026-10-18 17:49:45 UTC. Explicit ls-remote matched the workflow head before merge,
+PR state is MERGED, and explicit target advertisement matched the merge commit afterward.
+This checkout was fast-forwarded without a branch switch, worktree copy or discarded work.
+The containing final receipt commit updates only HANDOFF and this validation record; identify
+its exact SHA through Git rather than attempting a self-referential hash in its own content.
 
-Locally installed and verified by the sole coordinator at an idle boundary. Exactly 43 paths
-are listed in WORKFLOW_CHANGED_PATHS.txt. Staged whitespace, 35 current relative links/anchors,
-eight frontmatters, 20 instruction/license hashes, archive/table/AUTO identity and unchanged
-source/package locks/hooks passed. The active checkout was not switched or copied; local
-working-ref commits are being published on the bounded PR branch, with the explicit remote
-working ref preserved until coordinator adoption.
+Exactly 43 changed paths are listed in WORKFLOW_CHANGED_PATHS.txt. Staged whitespace, current
+relative links/anchors, eight frontmatters, all 20 instruction/license hashes, archive/table/AUTO
+identity and unchanged gameplay/package locks/hooks passed. Focused tests: 22 PASS, no skips.
+Instruction setup is locally installed and integrated on the explicit working ref. Restricted
+fresh-client observations above are verified only to their stated scope, not default IDE/plugin
+or new-machine/runtime readiness. Gameplay remains PAUSED; canonical-62 is still unrun.
 
-Current state: **PREPARED, not yet remotely ADOPTED**. Coordinator source-only review and 22
-focused tests are complete. Integration is permitted only at this idle boundary through normal
-non-main branch rules with the exact PR head; no required review/check bypass, administrator
-merge or force push. Actual adoption or its concrete blocker will be recorded after the normal
-merge attempt. Gameplay remains paused regardless of publication/adoption state.
+Existing TypeScript validation started automatically on push/PR; no remote job was manually
+dispatched or cancelled. Those optional runs were still pending at adoption. The working branch
+has no required status-check protection; normal `gh pr merge --merge --match-head-commit` was
+used without administrator, force, auto-merge or policy bypass. No CI pass, P16/runtime/player
+qualification or acceptance waiver is claimed. No background polling is scheduled. All required
+focused workflow checks completed; broader game gates remain at their existing milestones.
+
+Publication does not lift the Owner pause. The one next-session instruction is in
+NEXT-SESSION-PROMPT.txt; separate new-machine check/plan/apply instructions are in
+NEW-MACHINE-SETUP.txt. No further setup maintenance or gameplay action is automatic.
