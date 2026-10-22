@@ -287,6 +287,12 @@ export function offerForTalent(
   termWeeks: number,
   week: number,
 ): ContractOffer {
+  // Every signing verb (signContract, renewContract, a market proposal) prices through here, so
+  // a term that is not a positive whole number of weeks is refused once, for all of them; the
+  // clamp below never silently turned NaN into a contract (stabilization 2026-10-22, L-15).
+  if (!Number.isInteger(termWeeks) || termWeeks <= 0) {
+    throw new Error(`offerForTalent: termWeeks must be a positive whole number of weeks (got ${String(termWeeks)})`)
+  }
   const term = clamp(termWeeks, TUNING.CONTRACT_MIN_WEEKS, TUNING.CONTRACT_MAX_WEEKS)
   // P14C.2b (806 §8.5): the factor of the LARGEST catalogue term at or below `term`, so a
   // 52–63-week retirement extension prices as the one-year contract it is. A catalogue

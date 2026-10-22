@@ -9,10 +9,10 @@
 // debited and stored, a contract term of NaN or a fraction was clamped into the state, a
 // non-finite age passed the creator's range check, and the production aliased the caller's
 // payload objects. Authoritative money is checked here, not in the adapter.
-import { describe, expect, it } from 'vitest'
+import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { hiringMarketIds } from '../src/core/employment.js'
-import { FOUNDING_MINIMUMS, beginFounding } from '../src/core/index.js'
+import { FOUNDING_MINIMUMS, beginFounding, stableStringify } from '../src/core/index.js'
 import { makeSave } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { generateWorld } from '../src/core/worldgen.js'
@@ -71,14 +71,19 @@ function toReleaseReady(seed: string): GameState {
 }
 
 describe('L-14: a picture committed to release cannot be cancelled', () => {
+  let ready: GameState, productionId: string
+  beforeAll(() => {
+    ready = toReleaseReady('stabilization-l14')
+    productionId = ready.studio.activeProductions[0]!.id
+  }, 120_000)
+
   it('refuses by name, leaves the state untouched, and the world still ticks and saves', () => {
-    const ready = toReleaseReady('stabilization-l14')
-    const productionId = ready.studio.activeProductions[0]!.id
     const committed = applyActions(ready, [{ kind: 'commitPictureToRelease', productionId }])
     expect(committed.releaseAuthority.commitments.map((row) => row.productionId)).toEqual([productionId])
+    const before = stableStringify(committed)
     expect(() => applyActions(committed, [{ kind: 'cancel', productionId }]))
       .toThrow(`applyActions: cancel rejected — production "${productionId}" is committed to release (P06A); a committed picture cannot be cancelled`)
-    expect(committed.studio.activeProductions.map((p) => p.id)).toEqual([productionId])
+    expect(stableStringify(committed)).toBe(before)
     const released = tick(committed)
     expect(released.studio.activeProductions.find((p) => p.id === productionId)).toBeUndefined()
     expect(released.studio.releasedFilms.some((film) => film.productionId === productionId)).toBe(true)
@@ -86,8 +91,6 @@ describe('L-14: a picture committed to release cannot be cancelled', () => {
   })
 
   it('an uncommitted picture at the same point still cancels', () => {
-    const ready = toReleaseReady('stabilization-l14')
-    const productionId = ready.studio.activeProductions[0]!.id
     const cancelled = applyActions(ready, [{ kind: 'cancel', productionId }])
     expect(cancelled.studio.activeProductions).toEqual([])
     expect(() => makeSave(tick(cancelled))).not.toThrow()
@@ -103,9 +106,10 @@ describe('L-15: the core refuses money and terms it cannot account for', () => {
   ] as const)('greenlight refuses budget.%s = %s', (field, amount) => {
     const state = world()
     const production = { ...payload(state), budget: { ...payload(state).budget, [field]: amount } }
+    const before = stableStringify(state)
     expect(() => applyActions(state, [{ kind: 'greenlight', production }]))
       .toThrow(`applyActions: greenlight rejected — budget.${field} must be a finite, non-negative amount (got ${String(amount)})`)
-    expect(state.studio.activeProductions).toEqual([])
+    expect(stableStringify(state)).toBe(before)
   })
 
   it('the stored production owns copies of the caller\'s cast, craft and budget objects', () => {
@@ -113,19 +117,24 @@ describe('L-15: the core refuses money and terms it cannot account for', () => {
     const production = payload(state)
     const after = applyActions(state, [{ kind: 'greenlight', production }])
     const stored = after.studio.activeProductions[0]!
-    const before = JSON.stringify({ cast: stored.cast, craftIds: stored.craftIds, budget: stored.budget })
+    const before = stableStringify(after)
     production.cast.lead = 'forged'
     production.craftIds.push('forged')
     production.budget.negative = -1
-    expect(JSON.stringify({ cast: stored.cast, craftIds: stored.craftIds, budget: stored.budget })).toBe(before)
+    ;(production.shape as { ending: string }).ending = 'forged'
+    production.promise.intendedSegments.push(production.promise.intendedSegments[0]!)
+    production.promise.ranges.intimacy[0] = -1
+    expect(stableStringify(after)).toBe(before)
+    expect(stored.cast.lead).not.toBe('forged')
   })
 
   it.each([Number.NaN, 1.5, 0, -52, Number.POSITIVE_INFINITY])('signContract refuses termWeeks = %s', (termWeeks) => {
     const state = p13aGeneratedStudio('stabilization-l15-term')
     const talentId = hiringMarketIds(state)[0]!
+    const before = stableStringify(state)
     expect(() => applyActions(state, [{ kind: 'signContract', talentId, termWeeks }]))
       .toThrow(`applyActions: signContract rejected — termWeeks must be a positive whole number of weeks (got ${String(termWeeks)})`)
-    expect(state.contracts).toEqual([])
+    expect(stableStringify(state)).toBe(before)
   })
 
   it('createTalent refuses a non-finite age', () => {

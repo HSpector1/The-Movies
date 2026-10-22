@@ -47,9 +47,21 @@ describe('office conversion seam (R1, R2, R4)', () => {
     // Before the fix the first advance after the cancellation refused the world (operating-cost history).
     state = ticksAdmitted(state, 3)
     const restoration = state.placement.facilities.find((f) => f.blueprintId.startsWith('restoration-') && f.installation?.targetFacilityId === officeFacilityId)
-    if (restoration !== undefined) state = ticksAdmitted(state, Math.max(0, restoration.completesWeek - state.market.tick) + 2)
+    expect(restoration, 'premise: cancelling after site work began owes a restoration').toBeDefined()
+    state = ticksAdmitted(state, Math.max(0, restoration!.completesWeek - state.market.tick) + 2)
+    // Past the cancelled job's own committed completion week: from here the second half of the
+    // law (a cancelled job never becomes a standing standard) is what the reconstruction reads.
+    state = ticksAdmitted(state, Math.max(0, third.completesWeek - state.market.tick) + 2)
+    expect(state.market.tick).toBeGreaterThan(third.completesWeek)
     admitted(state)
-  }, 60_000)
+    // A forged file whose refund row no longer dates the stop is refused by name: the frozen eras
+    // read that row (the receipt is stripped before they see the record); the live era reads the receipt.
+    const forged: GameState = { ...state, ledger: state.ledger.map((row) =>
+      row.kind === 'constructionRefund' && row.constructionProjectId === third.projectId
+        ? { ...row, constructionProjectId: `${row.constructionProjectId}-forged` }
+        : row) }
+    expect(() => makeSave(forged)).toThrow(/has neither a cancellation receipt nor a constructionRefund row/)
+  }, 90_000)
 
   it('R2: two cancel cycles on one body carry two restorations, one in flight at a time', () => {
     const { state: bare, officeFacilityId } = s4BareOfficeStudio('stabilization-fac-r2')

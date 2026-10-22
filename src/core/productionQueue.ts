@@ -192,7 +192,9 @@ export function queueGreenlightScriptProject(
 ): readonly ProductionQueueEntry[] {
   return appendIntent(
     queue,
-    { kind: 'greenlightScriptProject', scriptProjectId, payload },
+    // The queue owns its copy: the caller's payload object may be mutated after the action
+    // (the same aliasing law as the stored production, L-15).
+    { kind: 'greenlightScriptProject', scriptProjectId, payload: structuredClone(payload) },
     week,
   )
 }

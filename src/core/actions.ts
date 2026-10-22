@@ -404,6 +404,15 @@ function applyGreenlight(
     directorId: p.directorId,
     ...forecastHistoryForOwner(state),
   }
+  // The core is the authority on money: a caller (UI adapter, Bridge, test) supplies the
+  // budget, so refuse anything that is not a finite, non-negative amount before the forecast
+  // reads it and before it can be debited or stored (stabilization 2026-10-22, L-15). Menu membership stays the caller's
+  // presentation concern; sign and finiteness do not.
+  for (const [label, amount] of [['negative', p.budget.negative], ['marketing', p.budget.marketing]] as const) {
+    if (!Number.isFinite(amount) || amount < 0) {
+      throw new Error(`applyActions: greenlight rejected — budget.${label} must be a finite, non-negative amount (got ${String(amount)})`)
+    }
+  }
   // D-12: the greenlight forecast saturates fame→opening reach AND applies the P2 economy
   // calibration (gross scale + awareness marketing) with the SAME helper as the realized release
   // when engaged, so forecast and result stay consistent; M0A (not engaged) uses the legacy path
@@ -419,15 +428,6 @@ function applyGreenlight(
   // V11 cash/ledger checkpoint.
   // by logging every cash movement. The production entry always covers
   // negative + marketing; the salary/fee treatment differs by mode.
-  // The core is the authority on money: a caller (UI adapter, Bridge, test) supplies the
-  // budget, so refuse anything that is not a finite, non-negative amount before it can be
-  // debited or stored (stabilization 2026-10-22, L-15). Menu membership stays the caller's
-  // presentation concern; sign and finiteness do not.
-  for (const [label, amount] of [['negative', p.budget.negative], ['marketing', p.budget.marketing]] as const) {
-    if (!Number.isFinite(amount) || amount < 0) {
-      throw new Error(`applyActions: greenlight rejected — budget.${label} must be a finite, non-negative amount (got ${String(amount)})`)
-    }
-  }
   const productionCost = p.budget.negative + p.budget.marketing
   let cash: number
   const ledgerAdds: LedgerEntry[] = []
@@ -509,12 +509,20 @@ function applyGreenlight(
   const production: Production = {
     id,
     conceptId: p.conceptId,
-    shape: p.shape,
-    promise: p.promise,
-    writerId: p.writerId,
-    directorId: p.directorId,
     // Own copies: a caller that keeps mutating its payload after the action must not be
     // able to rewrite authoritative state through a shared reference (L-15).
+    shape: { ...p.shape },
+    promise: {
+      genre: p.promise.genre,
+      intendedSegments: [...p.promise.intendedSegments],
+      ranges: {
+        intimacy: [p.promise.ranges.intimacy[0], p.promise.ranges.intimacy[1]],
+        tonalWeight: [p.promise.ranges.tonalWeight[0], p.promise.ranges.tonalWeight[1]],
+        kineticEnergy: [p.promise.ranges.kineticEnergy[0], p.promise.ranges.kineticEnergy[1]],
+      },
+    },
+    writerId: p.writerId,
+    directorId: p.directorId,
     craftIds: [...p.craftIds],
     cast: { ...p.cast },
     budget: { negative: p.budget.negative, marketing: p.budget.marketing },

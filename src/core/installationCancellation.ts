@@ -380,6 +380,20 @@ export function validateInstallationCancellation(state: GameState): string[] {
     }
   }
 
+  // A restoration is the cost of ONE cancellation: each restoration record is named by exactly
+  // one receipt. The duplicate-installation rule counts restorations in flight, so this is what
+  // keeps a forged file from carrying restorations nobody owed (stabilization 2026-10-22 review).
+  const namedBy = new Map<string, number>()
+  for (const placed of state.placement.facilities) {
+    const named = placed.cancellation?.restorationProjectId
+    if (named !== null && named !== undefined) namedBy.set(named, (namedBy.get(named) ?? 0) + 1)
+  }
+  for (const restoration of state.placement.facilities) {
+    if (!isRestorationBlueprint(restoration.blueprintId)) continue
+    const count = namedBy.get(restoration.projectId) ?? 0
+    if (count !== 1) violations.push(`restoration "${restoration.projectId}" is named by ${String(count)} cancellation receipts; exactly one owes it`)
+  }
+
   for (const entry of refundRows) {
     if (!cancelledProjectIds.has(entry.constructionProjectId)) {
       violations.push(`cancellation refund "${entry.constructionProjectId}" refunds work no cancelled placement owns`)
