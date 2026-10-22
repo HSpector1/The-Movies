@@ -171,20 +171,39 @@ export function conversionIncrementChargedAtWeek(
   placement: StudioPlacement,
   placed: PlacedFacility,
   week: number,
+  /** The week each cancelled installation stopped, by project id, read from the ledger's
+   * `constructionRefund` rows (P13B-S6 writes exactly one per cancelled project). The receipt on
+   * the record says the same in live eras; the frozen eras (V13–V25) validate a record whose
+   * receipt V26 strips (save.ts), and the ledger is what every era keeps, exactly as demolition
+   * history is read from its two rows (C1-M3a). */
+  cancelledAt: ReadonlyMap<string, number>,
 ): boolean {
   const targetFacilityId = placed.installation?.targetFacilityId
   if (conversionStandardOf(placed.blueprintId) === null || targetFacilityId === undefined) return true
   const onBody = placement.facilities.filter(
     (candidate) => candidate.installation?.targetFacilityId === targetFacilityId,
   )
+  // Status matters here exactly as it does in the live rule above: a CANCELLED job closed
+  // its body only until its cancellation week (the restoration it owed is its own record
+  // with its own window), and it never became a standing standard. Reading cancelled
+  // records as if they had completed charged the body's operational increment twice and
+  // made the next tick refuse the reconstruction (stabilization 2026-10-22, L-06).
+  const stoppedWeek = (candidate: PlacedFacility): number => {
+    if (candidate.status !== 'cancelled') return candidate.completesWeek
+    const stopped = candidate.cancellation?.week ?? cancelledAt.get(candidate.projectId)
+    if (stopped === undefined) {
+      throw new Error(`officeConversion: cancelled installation "${candidate.projectId}" has neither a cancellation receipt nor a constructionRefund row to date its stop`)
+    }
+    return stopped
+  }
   const closed = onBody.some(
     (candidate) =>
       blueprintTakesTargetOffline(candidate.blueprintId) &&
       candidate.placedWeek <= week &&
-      week < candidate.completesWeek,
+      week < stoppedWeek(candidate),
   )
   const standing = onBody.filter(
-    (candidate) => candidate.completesWeek <= week && isOfficeConversionBlueprint(candidate.blueprintId),
+    (candidate) => candidate.status !== 'cancelled' && candidate.completesWeek <= week && isOfficeConversionBlueprint(candidate.blueprintId),
   )
   return chargesIncrement(placed, closed, standing)
 }

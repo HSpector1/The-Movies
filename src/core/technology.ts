@@ -717,7 +717,11 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
       if (jobs.length < 1 || jobs.length > 2 || jobs.some(p => !p?.installation)) fail('missing P09 physical owner')
       if (!jobs.some(p => p?.blueprintId === entry.stageInstallationId && p.installation?.targetFacilityId === a.stageFacilityId)) fail('stage job mismatch')
       if(jobs.some(p=>p!.placedWeek!==a.committedWeek || !(p!.blueprintId===entry.stageInstallationId&&p!.installation!.targetFacilityId===a.stageFacilityId || p!.blueprintId===entry.postInstallationId&&p!.installation!.targetFacilityId===a.postFacilityId))) fail('physical job time or its stage or Post target differs from adoption')
-      const post=entry.postInstallationId===null ? undefined : state.placement.facilities.find(p=>p.blueprintId===entry.postInstallationId&&p.installation?.targetFacilityId===a.postFacilityId)
+      // The Post job this adoption relies on: its OWN job first, else an operational fit-out it
+      // reuses. The first record on the target used to win, so a cancelled earlier fit-out
+      // shadowed the real one and every save of the re-adoption failed (L-08).
+      const postRecords=entry.postInstallationId===null ? [] : state.placement.facilities.filter(p=>p.blueprintId===entry.postInstallationId&&p.installation?.targetFacilityId===a.postFacilityId)
+      const post=postRecords.find(p=>a.physicalProjectIds.includes(p.projectId)) ?? postRecords.find(p=>p.status==='operational') ?? postRecords[0]
       if(entry.postInstallationId!==null && (!post || !a.physicalProjectIds.includes(post.projectId) && (post.status!=='operational'||post.completesWeek>a.committedWeek))) fail('adoption lacks its compatible Post commitment')
       const completesWeek=Math.max(...jobs.map(p=>p!.completesWeek),...(post ? [post.completesWeek] : []))
       // P13B-S6: an adoption with CANCELLED physical work is exempt from this clause

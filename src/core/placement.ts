@@ -138,6 +138,7 @@ import {
   FACILITY_MOVE_COST,
   FACILITY_OPEX_LEDGER_NOTE,
   TUNING,
+  isRestorationBlueprint,
 } from './tuning.js'
 import type {
   FacilityBlueprint,
@@ -1321,6 +1322,12 @@ export function moveFacility(state: GameState, request: FacilityMoveRequest): Ga
     origin: quote.origin,
     cells: quote.cells,
   }
+  // Installation records (cancelled history included) carry their body's address; the
+  // invariants require it to agree with the body, so the address moves with it (FAC-04).
+  const carried = (candidate: PlacedFacility): PlacedFacility =>
+    candidate.installation?.targetFacilityId === placed.facilityId
+      ? { ...candidate, parcelId: parcel.id, origin: quote.origin }
+      : candidate
 
   // The fee goes through the ordinary cash path and is charged from the quote,
   // never from a caller. At FACILITY_MOVE_COST = 0 this is a no-op today, which
@@ -1332,7 +1339,7 @@ export function moveFacility(state: GameState, request: FacilityMoveRequest): Ga
       ...state.placement,
       // Rebuilt in place, so ascending-id order is preserved by construction.
       facilities: state.placement.facilities.map((candidate) =>
-        candidate.id === moved.id ? moved : candidate,
+        candidate.id === moved.id ? moved : carried(candidate),
       ),
     },
   }
@@ -1349,7 +1356,25 @@ export function facilityDemolitionRefusal(
   request: FacilityDemolitionRequest,
 ): PlacementMutationRefusal | null {
   const eligibility = facilityMutationEligibility(state, request.placementId)
-  return 'refusal' in eligibility ? eligibility.refusal : null
+  if ('refusal' in eligibility) return eligibility.refusal
+  const { placed } = eligibility
+  // Demolition removes the record. Anything that still names it would dangle and the next
+  // tick would refuse the world: an installation record on this body in ANY status (a
+  // cancelled job is retained history with its own capex and refund rows; FAC-04), and a
+  // started physical plan that proves itself by this placement (FAC-05).
+  const holders: FacilityEngagement[] = []
+  for (const record of state.placement.facilities) {
+    if (record.installation?.targetFacilityId !== placed.facilityId) continue
+    holders.push({ kind: 'installation', facilityId: placed.facilityId, holderId: record.projectId,
+      activity: record.status === 'cancelled' ? 'cancelled installation history retained on this facility' : 'installed equipment attached to this facility' })
+  }
+  for (const plan of state.physicalPlans?.plans ?? []) {
+    if (plan.status === 'started' && plan.startedPlacementId === placed.id) {
+      holders.push({ kind: 'installation', facilityId: placed.facilityId, holderId: plan.id, activity: 'a started physical plan names this building' })
+    }
+  }
+  if (holders.length === 0) return null
+  return { code: 'facilityEngaged', placementId: request.placementId, facilityId: placed.facilityId, holders }
 }
 
 /**
@@ -1729,13 +1754,27 @@ export function expectedWeeklyOperatingCostAt(
   ledger: readonly LedgerEntry[],
   week: number,
 ): number {
-  return expectedOperatingCostFromHistory(placement, demolishedFacilityHistory(ledger), week)
+  return expectedOperatingCostFromHistory(placement, demolishedFacilityHistory(ledger), cancellationWeeksFromLedger(ledger), week)
+}
+
+/** The week each cancelled installation stopped, by project id: its `constructionRefund` row
+ * (P13B-S6 writes exactly one per cancelled project, at the cancel week). The frozen save eras
+ * validate records whose cancellation receipt V26 strips, so the reconstruction reads the
+ * ledger, as it reads demolitions (stabilization 2026-10-22, L-06). */
+function cancellationWeeksFromLedger(ledger: readonly LedgerEntry[]): ReadonlyMap<string, number> {
+  const weeks = new Map<string, number>()
+  for (const entry of ledger) {
+    if (entry.kind !== 'constructionRefund' || entry.constructionProjectId === undefined) continue
+    if (!weeks.has(entry.constructionProjectId)) weeks.set(entry.constructionProjectId, entry.week)
+  }
+  return weeks
 }
 
 /** A validation pass reuses its derived history; no persisted or global cache. */
 function expectedOperatingCostFromHistory(
   placement: StudioPlacement,
   demolishedHistory: ReturnType<typeof demolishedFacilityHistory>,
+  cancelledAt: ReadonlyMap<string, number>,
   week: number,
 ): number {
   let total = 0
@@ -1752,7 +1791,7 @@ function expectedOperatingCostFromHistory(
     // P13B-S4: the same standard law the live charge obeys, asked of that week —
     // a conversion increment is charged only while its body was open and only for
     // the standard the body was actually at.
-    if (!conversionIncrementChargedAtWeek(placement, facility, week)) continue
+    if (!conversionIncrementChargedAtWeek(placement, facility, week, cancelledAt)) continue
     total += blueprint.weeklyOperatingCost
   }
   for (const demolished of demolishedHistory) {
@@ -1919,11 +1958,19 @@ export function assertStudioPlacementInvariants(
       invariant(body !== null && body.parcelId === placed.parcelId && body.origin.gx === placed.origin.gx && body.origin.gy === placed.origin.gy,
         `${label} installation location disagrees with its exact target body`)
       invariant(placed.cells.length === 0, `${label} installation must not occupy a second body`)
-      // P13B-S6: cancelled records are not installations on this body — a restart
-      // after a cancellation is lawfully the same blueprint on the same target.
-      invariant(placed.status === 'cancelled' || placement.facilities.filter((candidate) => candidate.blueprintId === placed.blueprintId &&
-        candidate.installation?.targetFacilityId === targetFacilityId && candidate.status !== 'cancelled').length === 1,
-      `${label} duplicates an installation on the same target`)
+      if (isRestorationBlueprint(placed.blueprintId)) {
+        // A restoration is the cost of EACH cancellation (P13B-S6), so a body cancelled twice
+        // lawfully carries two completed restorations; at most one is ever in flight (L-07).
+        invariant(placement.facilities.filter((candidate) => candidate.blueprintId === placed.blueprintId &&
+          candidate.installation?.targetFacilityId === targetFacilityId && candidate.status === 'underConstruction').length <= 1,
+        `${label} duplicates a restoration in flight on the same target`)
+      } else {
+        // P13B-S6: cancelled records are not installations on this body — a restart
+        // after a cancellation is lawfully the same blueprint on the same target.
+        invariant(placed.status === 'cancelled' || placement.facilities.filter((candidate) => candidate.blueprintId === placed.blueprintId &&
+          candidate.installation?.targetFacilityId === targetFacilityId && candidate.status !== 'cancelled').length === 1,
+        `${label} duplicates an installation on the same target`)
+      }
     } else {
       const expectedCells = footprintCells(blueprint, placed.origin)
       invariant(
@@ -2176,6 +2223,7 @@ export function assertStudioPlacementInvariants(
   // V11 history predates the charge entirely.
   const opexWeeks = new Set<number>()
   const demolishedHistory = demolishedFacilityHistory(state.ledger)
+  const cancelledAt = cancellationWeeksFromLedger(state.ledger)
   for (const entry of opexRows) {
     invariant(
       Number.isInteger(entry.week) && entry.week >= 0 && entry.week < state.market.tick + 1,
@@ -2184,7 +2232,7 @@ export function assertStudioPlacementInvariants(
     invariant(!opexWeeks.has(entry.week), `week ${String(entry.week)} has more than one facility operating cost row`)
     opexWeeks.add(entry.week)
     invariant(entry.note === FACILITY_OPEX_LEDGER_NOTE, 'facility operating cost note is not canonical')
-    const expected = expectedOperatingCostFromHistory(placement, demolishedHistory, entry.week)
+    const expected = expectedOperatingCostFromHistory(placement, demolishedHistory, cancelledAt, entry.week)
     invariant(
       expected > 0 && entry.amount === -expected,
       `facility operating cost at week ${String(entry.week)} disagrees with the operational facilities of that week`,

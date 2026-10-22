@@ -431,9 +431,9 @@ export function validatePhysicalPlans(state: GameState): void {
       if (work.kind === 'installation') {
         const target = resolvedTargetFacilityId(state, work)
         if (placed!.installation?.targetFacilityId !== target) fail(`plan ${plan.id} names a placement installed on another facility`)
-      } else if (placed!.origin.gx !== work.origin.gx || placed!.origin.gy !== work.origin.gy) {
-        fail(`plan ${plan.id} names a placement standing somewhere else`)
       }
+      // A body is identified by its placement id and blueprint, never its coordinates
+      // (C1-M6): a lawful move keeps the plan's proof intact (FAC-05).
       if (startedPlacements.has(plan.startedPlacementId!)) fail(`two started plans claim one placement ${String(plan.startedPlacementId)} — a duplicate commit receipt`)
       startedPlacements.add(plan.startedPlacementId!)
       exact(plan.commitReceipt, ['week', 'fingerprint', 'cost'], `plan ${plan.id} commit receipt`)
