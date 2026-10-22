@@ -298,9 +298,13 @@ export function validateProfessionHistory(raw: Record<string, unknown>): Profess
       ...(h?.employment ?? []).filter(row => row.terms.talentId === change.personId)
         .map(row => ({ start: row.terms.startWeek, end: row.endedWeek ?? row.terms.endWeekExclusive }))]
     if (intervals.some(row => row.start < change.week && row.end > change.week)) fail('profession change straddles an existing employment obligation')
-    // A closed business's retained production is frozen history, not an obligation (closure/v1 §3; L-05).
+    // A closed business's retained production is frozen history, not an obligation, from its
+    // closure week on (closure/v1 §3; L-05). A change recorded in the closure week itself met
+    // the seat still held: the tick settles the lifecycle before it closes the business.
     const closed = closedWeekOf(state)
-    const productions = [...state.studio.activeProductions, ...(h?.businesses ?? []).filter(b => !closed.has(b.studioId)).flatMap(b => b.productions)]
+    const productions = [...state.studio.activeProductions, ...(h?.businesses ?? [])
+      .filter(b => { const closedWeek = closed.get(b.studioId); return closedWeek === undefined || closedWeek >= change.week })
+      .flatMap(b => b.productions)]
     if (productions.some(p => p.startTick < change.week && productionCompanyTalentIds([p]).has(change.personId))) {
       fail('profession change straddles a retained production obligation')
     }

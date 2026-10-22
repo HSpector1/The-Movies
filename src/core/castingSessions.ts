@@ -21,6 +21,7 @@ import {
   CASTING_SESSION_WEEKS,
 } from './tuning.js'
 import type {
+  CreativeRole,
   AuditionResult,
   CastSlot,
   CastingReservation,
@@ -61,9 +62,10 @@ export type CastingSessionsInvariantContext = {
   operations: StudioOperations
   scriptDevelopment: ScriptDevelopment
   talent: readonly Talent[]
-  /** Whether this person's `role` left 'actor' through a recorded 880-B profession change
-   * (`careerLifecycle.professionChanges`). Absent (frozen eras) means no such change exists. */
-  professionChangedFromActor?: (personId: string) => boolean
+  /** The person's profession at a week, from the recorded 880-B history (the live callers answer
+   * from `careerLifecycle`; the save chain hands the frozen V10 check `professionHistory`'s
+   * validation context). Absent for genuine pre-lifecycle saves, which keep the strict law. */
+  professionAtWeek?: (personId: string, week: number) => CreativeRole | undefined
 }
 
 export function emptyCastingSessions(): CastingSessions {
@@ -603,13 +605,17 @@ export function assertCastingSessionsInvariants(
       const person = talentById.get(talentId)
       invariant(person !== undefined, `session "${session.id}" references unknown talent "${talentId}"`)
       // A slate is built from primary Actors. Once the audition has run (review, complete)
-      // the slate is history: an actor who then changed profession through a RECORDED 880-B
-      // transition (which rewrites `role` in place) keeps the row, and the greenlight package
-      // law refuses to seat them. Any other non-actor in a slate, and any non-actor in a
-      // session still auditioning, is refused as before (stabilization 2026-10-22, L-02).
+      // the slate is history: a person who was an Actor when the session started and whose
+      // current role is explained by a RECORDED 880-B transition (which rewrites `role` in
+      // place) keeps the row, and the greenlight package law refuses to seat them. Any other
+      // non-actor in a slate (a forged role, a change that predates the session) and any
+      // non-actor in a session still auditioning is refused (stabilization 2026-10-22, L-02).
       invariant(
         person.role === 'actor' ||
-          (session.status !== 'auditioning' && context.professionChangedFromActor?.(talentId) === true),
+          (session.status !== 'auditioning' &&
+            context.professionAtWeek !== undefined &&
+            context.professionAtWeek(talentId, session.startedWeek) === 'actor' &&
+            context.professionAtWeek(talentId, context.currentWeek) === person.role),
         `session "${session.id}" candidate "${talentId}" is not a primary Actor`,
       )
       invariant(

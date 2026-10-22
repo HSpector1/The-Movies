@@ -11,7 +11,9 @@ import {
 import { TUNING } from './tuning.js'
 import { assertScriptDevelopmentInvariants } from './scriptDevelopment.js'
 import { persistedProductionIds } from './productionIdentity.js'
+import { professionAtWeek as recordedProfessionAtWeek } from './professionTransitions.js'
 import type {
+  CreativeRole,
   CashLedgerCheckpoint,
   ConstructionProject,
   GameState,
@@ -94,6 +96,11 @@ function isExactAnnexFacility(operations: StudioOperations): boolean {
 
 export type ConstructionInvariantOptions = {
   retirementWriting?: import('./retirementWriting.js').RetirementWritingAuthority | undefined
+  /** The recorded profession history for the casting slate law (stabilization 2026-10-22, L-02).
+   * The frozen save eras pass `professionHistory`'s validation context here, because the state
+   * they hand this walker has its lifecycle root stripped; a live caller leaves it unset and the
+   * walker reads `careerLifecycle` itself. */
+  professionAtWeek?: ((personId: string, week: number) => CreativeRole | undefined) | undefined
   // `configured` exists only so the committed research observatory can continue
   // projecting arbitrary counterfactual capacity. SaveFileV11 always uses the
   // default exact Annex V1 policy; SaveFileV12 always uses `placement-v12`.
@@ -410,8 +417,10 @@ export function assertStudioConstructionInvariants(
     operations: state.operations,
     scriptDevelopment: orderedScriptDevelopment,
     talent: state.talent,
-    professionChangedFromActor: (personId) =>
-      state.careerLifecycle.professionChanges.some((change) => change.personId === personId && change.from === 'actor'),
+    professionAtWeek: options?.professionAtWeek ?? ((personId, week) =>
+      state.careerLifecycle?.professionAnchors.some((row) => row.personId === personId)
+        ? recordedProfessionAtWeek(state, personId, week)
+        : undefined),
   })
 
   // Native and already-reconciled histories retain the original full-ledger

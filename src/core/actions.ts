@@ -5,6 +5,7 @@ import { discardUnfilmedProductionTechnology } from './technologyProduction.js'
 import { withResearchFoundation } from './researchPeople.js'
 import { ageAt, withTalentProvenance } from './aging.js'
 import { assignmentRefusal, contractEndRefusal, retirementRecordFor, retirementWindow } from './careerLifecycle.js'
+import { professionAtWeek } from './professionTransitions.js'
 // ── §3 applyActions ──────────────────────────────────────────────────────────
 // `applyActions(state, actions): GameState` — pure; validates, then applies the
 // three action kinds (greenlight / cancel / createTalent). This is the
@@ -341,8 +342,9 @@ function applyGreenlight(
   // first two, so a person whose rival employment expired mid-production (released to
   // the hiring market while the rival picture keeps its seat) could be signed and
   // seated here, and the next save refused the world as "simultaneous active
-  // assignments" (stabilization 2026-10-22, L-04). Writers are credited, not seated,
-  // so a rival's drafting writer is never in `engagedIds` and stays commissionable.
+  // assignments" (stabilization 2026-10-22, L-04). Writers are credited, not seated: a
+  // writer reaches `engagedIds` only through a seat, and `requireCommissionableWriter`
+  // applies the same one set on the writing side.
   assertGreenlightStaffingIdle(staffing.engagedIds, busyTalentIds(state))
   // P14C.2a (773 D9, obligations first): no seat is assigned that cannot release before
   // its holder's effective retirement week, and a finishing or retired person takes no
@@ -1948,8 +1950,10 @@ function assertCurrentScriptState(state: GameState, writingContext: LiveWritingC
     operations: state.operations,
     scriptDevelopment: state.scriptDevelopment,
     talent: state.talent,
-    professionChangedFromActor: (personId) =>
-      state.careerLifecycle.professionChanges.some((change) => change.personId === personId && change.from === 'actor'),
+    professionAtWeek: (personId, week) =>
+      state.careerLifecycle?.professionAnchors.some((row) => row.personId === personId)
+        ? professionAtWeek(state, personId, week)
+        : undefined,
   })
   return state
 }
@@ -2037,11 +2041,11 @@ function requireWriterTermCoversDraft(
     const person = state.talent.find((candidate) => candidate.id === writerId)
     const row = state.talentProvenance.rows.find((candidate) => candidate.personId === writerId)
     const window = person === undefined ? null : retirementWindow(person.role)
-    if (row !== undefined && window !== null && ageAt(row, contract.endWeekExclusive) >= window.hard) return
+    if (row !== undefined && window !== null && ageAt(row, week) < window.hard && ageAt(row, contract.endWeekExclusive) >= window.hard) return
   }
   throw new Error(
     `applyActions: ${verb} rejected — writer "${writerId}" is contracted through week ${String(contract.endWeekExclusive)}` +
-      ` but this draft would be due at week ${String(dueWeek)}; extend the contract or pick a writer whose term covers the draft`,
+      ` but this draft would be due at week ${String(dueWeek)}; renew the writer's contract where the market allows, or pick a writer whose term covers the draft`,
   )
 }
 

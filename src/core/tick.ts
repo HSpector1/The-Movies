@@ -986,8 +986,9 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   const careerEvents = newCareerEvents.length > 0 ? [...state.careerEvents,...newCareerEvents] : state.careerEvents
 
   // ── 7. PAYROLL (D-11.5) ────────────────────────────────────────────────────
-  // Weekly Σ contracted salaries, debited from cash EXACTLY ONCE per tick and
-  // logged to the ledger. Applied for the week being advanced (currentTick).
+  // Weekly Σ contracted salaries, booked row by row exactly as the ledger validator
+  // folds them (base payroll, then research payroll; stabilization 2026-10-22, L-03).
+  // Applied for the week being advanced (currentTick).
   // Naturally 0 — and no ledger entry — when no contracts exist (the headless M0A
   // corpus), so M0A/D-6 stay byte-identical. Skipped during a founding draft
   // (no operations before the studio is founded).

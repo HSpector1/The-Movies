@@ -23,14 +23,19 @@ const SEED = 'r1314-casting-01'
 const SHAPE = { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' } as const
 const RANGES = { intimacy: [-0.5, 0.5] as [number, number], tonalWeight: [-0.5, 0.5] as [number, number], kineticEnergy: [-0.5, 0.5] as [number, number] }
 
-function invariants(state: GameState, talent = state.talent, changed: readonly string[] = []): void {
+/** The invariant with the recorded-history predicate the live callers and the save chain pass
+ * (`professionAtWeek`): `changedAt` names the week each listed person's recorded change to
+ * 'director' took effect; before it the original role answers. */
+function invariants(state: GameState, talent = state.talent, changedAt: ReadonlyMap<string, number> = new Map()): void {
+  const original = (personId: string) => state.talent.find((t) => t.id === personId)?.role
   assertCastingSessionsInvariants(state.castingSessions, {
     currentWeek: state.market.tick, operations: state.operations, scriptDevelopment: state.scriptDevelopment, talent,
-    // The live callers (actions.ts, construction.ts) answer this from `careerLifecycle.professionChanges`.
-    professionChangedFromActor: (personId) => changed.includes(personId),
+    professionAtWeek: (personId, week) => ((changedAt.get(personId) ?? Number.POSITIVE_INFINITY) <= week ? 'director' : original(personId)),
   })
 }
-/** The 880-B outcome on the person: `role` rewritten in place (professionTransitions.ts), nothing else. */
+/** The role rewrite of an 880-B transition alone (professionTransitions.ts rewrites `role` in
+ * place); a real transition also records the change, its evaluation and the market rows, which
+ * the `changedAt` map above stands in for. */
 function becameDirector(state: GameState, personId: string): GameState['talent'] {
   return state.talent.map((person) => (person.id === personId ? { ...person, role: 'director' as const } : person))
 }
@@ -79,19 +84,28 @@ describe('L-02: a candidate who changed profession after auditioning does not in
     expect(complete.castingSessions.sessions[0]!.status).toBe('complete')
   })
 
+  const after = (state: GameState) => new Map([[candidate, state.castingSessions.sessions[0]!.startedWeek + 1]])
+  const before = (state: GameState) => new Map([[candidate, state.castingSessions.sessions[0]!.startedWeek - 1]])
+
   it('a session still auditioning requires the current role, even after a recorded change', () => {
-    expect(() => invariants(auditioning, becameDirector(auditioning, candidate), [candidate]))
+    expect(() => invariants(auditioning, becameDirector(auditioning, candidate), after(auditioning)))
       .toThrow(/candidate "[^"]+" is not a primary Actor/)
   })
 
-  it('a non-actor with NO recorded profession change is still refused in every status (a forged slate)', () => {
+  it('a non-actor with NO recorded profession change is still refused in every status (a forged role)', () => {
     for (const state of [auditioning, review, complete]) {
       expect(() => invariants(state, becameDirector(state, candidate))).toThrow(/candidate "[^"]+" is not a primary Actor/)
     }
   })
 
+  it('a change recorded BEFORE the session started is refused: the person was never an Actor on that slate', () => {
+    for (const state of [review, complete]) {
+      expect(() => invariants(state, becameDirector(state, candidate), before(state))).toThrow(/candidate "[^"]+" is not a primary Actor/)
+    }
+  })
+
   it('a session in review or complete keeps its historical slate after a recorded profession change', () => {
-    expect(() => invariants(review, becameDirector(review, candidate), [candidate])).not.toThrow()
-    expect(() => invariants(complete, becameDirector(complete, candidate), [candidate])).not.toThrow()
+    expect(() => invariants(review, becameDirector(review, candidate), after(review))).not.toThrow()
+    expect(() => invariants(complete, becameDirector(complete, candidate), after(complete))).not.toThrow()
   })
 })

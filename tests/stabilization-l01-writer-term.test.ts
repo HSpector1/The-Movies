@@ -23,7 +23,9 @@ import { originalCommission } from './helpers/p14c2rm-writer-fixtures.js'
 const END = 52
 
 describe('L-01: an original draft cannot be commissioned past its writer\'s paid term', () => {
-  let at44: GameState, writerId: string
+  // Every route (the creator, the signing, the advances to week 44 and to E−1, the admitted
+  // commission at 44 ticked through expiry) runs once here; the tests are assertions only.
+  let at44: GameState, atE1: GameState, commissioned: GameState, settled: GameState, writerId: string
   beforeAll(() => {
     const genesis = admitted(p13aGeneratedStudio(SEED))
     const created = applyActions(genesis, [{ kind: 'createTalent', talent: {
@@ -35,6 +37,11 @@ describe('L-01: an original draft cannot be commissioned past its writer\'s paid
       { kind: 'activateScriptDevelopment' }])
     expect(activeContract(signed, writerId)).toMatchObject({ startWeek: 0, endWeekExclusive: END })
     at44 = admitted(advanceTo(signed, 44))
+    atE1 = admitted(advanceTo(at44, END - 1))
+    commissioned = admitted(applyActions(at44, [originalCommission(writerId)]))
+    let state = commissioned
+    while (state.market.tick < END) state = admitted(tick(state))
+    settled = state
   }, 300_000)
 
   it('premise: an original draft starts from more than one week, so a late commission outlasts the term', () => {
@@ -43,35 +50,30 @@ describe('L-01: an original draft cannot be commissioned past its writer\'s paid
   })
 
   it('refuses the commission at E−1 by name, and the world stays admitted and saveable', () => {
-    const input = admitted(advanceTo(at44, END - 1))
-    expect(activeContract(input, writerId)).toMatchObject({ endWeekExclusive: END })
-    expect(input.careerLifecycle.records.filter((row) => row.personId === writerId)).toEqual([])
-    const before = snap(input)
-    expect(() => applyActions(input, [originalCommission(writerId)]))
+    expect(activeContract(atE1, writerId)).toMatchObject({ endWeekExclusive: END })
+    expect(atE1.careerLifecycle.records.filter((row) => row.personId === writerId)).toEqual([])
+    const before = snap(atE1)
+    expect(() => applyActions(atE1, [originalCommission(writerId)]))
       .toThrow(/commissionOriginalScreenplay rejected — writer "[^"]+" is contracted through week 52 but this draft would be due at week 5[3-9]/)
-    expect(snap(input)).toBe(before)
-    expect(input.scriptDevelopment.projects.filter((row) => row.writerIds.includes(writerId))).toEqual([])
+    expect(snap(atE1)).toBe(before)
+    expect(atE1.scriptDevelopment.projects.filter((row) => row.writerIds.includes(writerId))).toEqual([])
     // The refusal leaves a lawful world: the next advance and a save both succeed.
-    const next = admitted(tick(input))
+    const next = admitted(tick(atE1))
     expect(next.market.tick).toBe(END)
     expect(activeContract(next, writerId)).toBeUndefined()
     expect(() => makeSave(next)).not.toThrow()
   })
 
   it('admits the same commission while the term still covers the draft, and the draft completes before expiry', () => {
-    const before = snap(at44)
-    const commissioned = admitted(applyActions(at44, [originalCommission(writerId)]))
-    expect(snap(at44)).toBe(before)
     const project = commissioned.scriptDevelopment.projects.at(-1)!
     expect(project).toMatchObject({ commissionedWeek: 44, status: 'drafting' })
     expect(project.writerIds).toContain(writerId)
     expect(project.dueWeek).not.toBeNull()
     expect(project.dueWeek!).toBeLessThanOrEqual(END)
     // Natural ticks through expiry: the draft reaches review, the contract expires, every state admits.
-    let state = commissioned
-    while (state.market.tick < END) state = admitted(tick(state))
-    expect(state.scriptDevelopment.projects.find((row) => row.id === project.id)).toMatchObject({ status: 'review', dueWeek: null })
-    expect(activeContract(state, writerId)).toBeUndefined()
-    expect(() => makeSave(state)).not.toThrow()
-  }, 30_000)
+    expect(settled.market.tick).toBe(END)
+    expect(settled.scriptDevelopment.projects.find((row) => row.id === project.id)).toMatchObject({ status: 'review', dueWeek: null })
+    expect(activeContract(settled, writerId)).toBeUndefined()
+    expect(() => makeSave(settled)).not.toThrow()
+  })
 })

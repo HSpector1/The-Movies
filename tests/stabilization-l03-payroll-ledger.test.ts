@@ -68,9 +68,10 @@ describe('L-03: payroll and research rows are booked exactly as the ledger valid
     // least two mantissa bits below the finer grid. Which balances qualify depends on this
     // studio's own split, so the search walks every whole balance up to the payroll's order
     // of magnitude, with its lowest three bits in every setting, positive balances first. Each
-    // candidate is reached the way play does, through two rows booked as the validator folds
-    // them (one movement to a whole balance, one fractional revenue share on top): the
-    // "fractional cash near zero" state the P15B economy designs for.
+    // candidate is CONSTRUCTED: two hand-booked rows (no producer writes them) that fold
+    // exactly as the validator folds them, one movement to a whole balance and one fractional
+    // share on top, standing in for the "fractional cash near zero" state the P15B economy
+    // designs for.
     const ulp = (n: number): number => 2 ** (Math.floor(Math.log2(n)) - 52)
     const findWitness = (): GameState | null => {
       for (const sign of [1, -1]) {
