@@ -791,7 +791,10 @@ function bakeCraftAnnex(scene: Phaser.Scene): void {
  * caller can re-measure its own telemetry rather than report a stale total.
  */
 export function bakeBlueprintTexture(scene: Phaser.Scene, texKey: string): boolean {
-  if (texKey === '' || TYCOON_BUILDING_TEX[texKey] !== undefined) return false
+  // The module-level record outlives `game.destroy`; a Lot remounted after a deep screen
+  // has a NEW texture manager, and a key it does not hold must be baked again or the
+  // building draws as Phaser's missing-texture placeholder (stabilization 2026-10-22, L-10).
+  if (texKey === '' || (TYCOON_BUILDING_TEX[texKey] !== undefined && scene.textures.exists(texKey))) return false
   switch (texKey) {
     case 'tw-office-2':
       bakeDevelopmentOffice(scene, 'tw-office-2', 2)

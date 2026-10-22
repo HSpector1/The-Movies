@@ -393,9 +393,17 @@ function PeriodAccounting({ receipt }: { receipt: LotNextEventReceipt }) {
     { label: "Publicity", value: summary.publicity },
     { label: "Studio construction", value: summary.construction },
     {
+      // P15B's own bucket; it was summed into "Net this period" but never listed, so a
+      // loan week's net did not add up from the rows shown (stabilization 2026-10-22, L-36).
+      label: "Financing",
+      value: summary.financing,
+      explanation: "Loan principal received less installments paid.",
+    },
+    {
       label: "Other cash",
       value: summary.otherCash,
-      explanation: "Signing bonuses, freelancer fees, and termination.",
+      explanation:
+        "Signing bonuses, freelancer fees, termination and closure claim payments.",
     },
     { label: "Net this period", value: summary.netCash },
     { label: "Releases", value: summary.releases, count: true },

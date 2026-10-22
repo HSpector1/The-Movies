@@ -40,6 +40,10 @@ export const LOT_FACILITY_ACTIVITY_LABEL: Readonly<Record<string, string>> = {
   'rewriting a screenplay': 'rewriting a screenplay',
   auditioning: 'auditioning',
   construction: 'under construction',
+  // The two holders the facility cancellation seam publishes (src/core/placement.ts
+  // `facilityDemolitionRefusal`; stabilization 2026-10-22, L-30 / L-31).
+  'cancelled installation history retained on this facility': 'keeping the record of cancelled installation work',
+  'a started physical plan names this building': 'built from a physical plan that still names it',
 }
 
 /** The player word for one engine activity, or null when there is no honest one. */

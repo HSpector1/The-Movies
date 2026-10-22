@@ -1726,6 +1726,23 @@ export function App() {
     profileWasOpenRef.current = profileIsOpen
   }, [openProfileId])
 
+  /**
+   * The Lot's presentation memory ends with the studio it belonged to. A deferred
+   * release playback (a closure over the OLD studio, matched by week number only) and
+   * a running Living Turn transport both survived Load and New Game, so the previous
+   * studio's newspaper could take over the new one and a freshly loaded studio advanced
+   * weeks nobody asked for (stabilization 2026-10-22, L-25 / L-26).
+   */
+  function resetLotPresentation() {
+    deferredLotReleaseRef.current = null
+    if (deferredLotReleaseTimerRef.current !== null) {
+      window.clearTimeout(deferredLotReleaseTimerRef.current)
+      deferredLotReleaseTimerRef.current = null
+    }
+    setLivingTurn(INITIAL_LIVING_TURN)
+    setLotCadenceFeedback(null)
+  }
+
   function startGame(next: GameState, details: { converted: boolean }) {
     replaceAuthoritativeState(next)
     clearTalentProfileWithoutFocusRestore()
@@ -1739,6 +1756,7 @@ export function App() {
     // inherited by an unrelated film. Only reached with a valid `next`.
     resetLotStageAssignment()
     resetLotSelectedBuilding()
+    resetLotPresentation()
     // A new PLAYER game opens in the founding draft (D-11.2); a founded game (or a
     // loaded save past founding) goes to the ordinary Studio Home. The new game's first
     // autosave (via the effect above) replaces any prior/quarantined active session.
@@ -1773,6 +1791,7 @@ export function App() {
     // The old studio ends HERE, past the confirm — so its presentation memory ends here too.
     resetLotStageAssignment()
     resetLotSelectedBuilding()
+    resetLotPresentation()
     setScreen({ kind: 'start' })
   }
 
@@ -2701,6 +2720,7 @@ export function App() {
    */
   function handleCancelQueuedIntent(ordinal: number): { ok: true } | { ok: false; error: string } {
     if (!state) return { ok: false, error: 'No studio is loaded.' }
+    if (latestStateRef.current !== state) return { ok: false, error: 'The studio moved on; try again.' }
     const outcome = cancelQueuedIntentAction(state, ordinal)
     if (!outcome.ok) return { ok: false, error: outcome.error }
     replaceAuthoritativeState(outcome.next)
@@ -3126,6 +3146,8 @@ export function App() {
   // it gets its own handler; holding is the ordinary Advance Week already wired.
   function handleCommitPictureToRelease(productionId: string) {
     if (!state) return
+    // The render-time `state` must still be the authority (the advance handlers' guard; L-27).
+    if (latestStateRef.current !== state) return
     const result = commitPictureToReleaseAction(state, productionId)
     if (result.ok) {
       replaceAuthoritativeState(result.next)
@@ -3142,6 +3164,7 @@ export function App() {
   ) {
     if (source === 'mounted-lot' && !currentLotWorldInputOwner()) return
     if (!state) return
+    if (latestStateRef.current !== state) return
     const result = runProductionCommand(state, command)
     if (result.ok) {
       replaceAuthoritativeState(result.next)
@@ -4908,6 +4931,7 @@ export function App() {
             // its stages. See startGame() for why the reset is required.
             resetLotStageAssignment()
             resetLotSelectedBuilding()
+            resetLotPresentation()
             setScreen(
               next.founding !== null ? { kind: 'founding' } : operatingStudioHome(lotEnabled),
             )

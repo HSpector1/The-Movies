@@ -74,6 +74,7 @@ function recorder(): {
   const scene = {
     make: { graphics: () => g },
     add: { graphics: () => g },
+    textures: { exists: (key: string) => textures.some((texture) => texture.key === key) },
   } as unknown as Phaser.Scene
   return { scene, ops, textures, destroyed: () => destroyed }
 }
@@ -158,10 +159,14 @@ describe('C2a-M2 — the Soundstage (Standard) class body', () => {
     })
     expect(TYCOON_BUILDING_TEX['tw-stage-a']).toBeUndefined()
 
-    // Idempotent: a studio's fourth stage costs one sprite and zero further bytes.
+    // Idempotent within ONE scene: a studio's fourth stage costs one sprite and zero further bytes.
+    expect(bakeBlueprintTexture(first.scene, PLACED_SOUNDSTAGE_TEX_KEY)).toBe(false)
+    expect(first.textures).toHaveLength(1)
+    // A NEW scene (the Lot remounted after a deep screen) holds no texture yet, so the
+    // class is baked again for it; the module record alone is not proof (L-10).
     const second = recorder()
-    expect(bakeBlueprintTexture(second.scene, PLACED_SOUNDSTAGE_TEX_KEY)).toBe(false)
-    expect(second.textures).toHaveLength(0)
+    expect(bakeBlueprintTexture(second.scene, PLACED_SOUNDSTAGE_TEX_KEY)).toBe(true)
+    expect(second.textures.map((texture) => texture.key)).toEqual([PLACED_SOUNDSTAGE_TEX_KEY])
   })
 
   it('is reached by CAPABILITY, so no blueprint id has to be taught to the world', () => {

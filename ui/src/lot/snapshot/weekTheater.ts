@@ -155,7 +155,9 @@ export function lotSceneryShopBodies(snapshot: StudioLotSnapshot): readonly Buil
     ? snapshot.placement.placements
     : []
   for (const placed of placements) {
-    if (placed.capability === 'setScenery' && placed.status === 'operational') {
+    // The engine's own capability id (src/core/tuning.ts `capability: 'set-scenery'`); the camel-case
+    // spelling matched nothing, so a built shop never counted as a freight origin (L-39).
+    if (placed.capability === 'set-scenery' && placed.status === 'operational') {
       bodies.add(`placed-${String(placed.id)}`)
     }
   }

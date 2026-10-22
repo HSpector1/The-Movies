@@ -71,6 +71,7 @@ function recorder(): {
   const scene = {
     make: { graphics: () => g },
     add: { graphics: () => g },
+    textures: { exists: (key: string) => textures.some((texture) => texture.key === key) },
   } as unknown as Phaser.Scene
   return { scene, ops, textures }
 }
@@ -164,10 +165,14 @@ describe('C2a-M2 §3.4 — each support class has a body of its own', () => {
       const meta = TYCOON_BUILDING_TEX[entry.texKey]
       expect(meta).toBeDefined()
       expect({ fw: meta!.fw, fd: meta!.fd }).toEqual({ fw: 3, fd: 2 })
-      // A second request for a key already baked costs nothing and draws nothing.
+      // A second request on the SAME scene costs nothing and draws nothing.
+      const drawn = first.ops.length
+      expect(bakeBlueprintTexture(first.scene, entry.texKey)).toBe(false)
+      expect(first.ops).toHaveLength(drawn)
+      // A NEW scene holds no texture yet and is baked again (L-10).
       const second = recorder()
-      expect(bakeBlueprintTexture(second.scene, entry.texKey)).toBe(false)
-      expect(second.ops).toHaveLength(0)
+      expect(bakeBlueprintTexture(second.scene, entry.texKey)).toBe(true)
+      expect(second.textures.map((texture) => texture.key)).toEqual([entry.texKey])
     }
   })
 

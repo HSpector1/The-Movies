@@ -4907,8 +4907,10 @@ export function StudioLotScreen({
     productionId: string,
     grantsStage7Detail = false,
   ): boolean => {
-    const stage7 = currentStageProductionDetail(latestSnapshotRef.current)
-    if (stage7?.operation.productionId !== productionId) return false
+    // The load-in's OWN production, on whichever stage it stands; Stage 7's picture used to
+    // gate this, so the control went dead while the load-in was elsewhere (L-38).
+    const loadIn = currentStageSceneryLoadIn(latestSnapshotRef.current)
+    if (loadIn?.operation.productionId !== productionId) return false
     if (grantsStage7Detail) ownHollywoodStage7DetailContext(productionId)
     return enterHollywoodSceneryLoadInContext({
       productionId,
@@ -6130,8 +6132,11 @@ export function StudioLotScreen({
       // one alone. A picture on a stage the player BUILT opens its detail the
       // same way Soundstage 7's always has.
       if (hollywood && isLotStageBuildingId(latestSnapshotRef.current, id)) {
-        const operation = currentStageProductionDetail(
+        // THIS stage's picture, not the first stage that has one: clicking Stage 12 used to
+        // open Soundstage 7's detail and mark both rows current (L-38).
+        const operation = anyStageProductionDetailContext(
           latestSnapshotRef.current,
+          [id],
         )?.operation
         if (
           operation &&

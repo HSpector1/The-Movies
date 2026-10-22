@@ -3915,10 +3915,15 @@ export class TycoonScene extends Phaser.Scene {
     const colour = filming ? C.lampFilming : card ? C.lampIdle : C.lampAvailable
     view.lamp.setFillStyle(colour, 1)
     view.chip.setData('status', true).setFillStyle(colour, 1).setVisible(true)
-    view.badge
-      .setText(`${sign} · ${filming ? 'FILMING' : card ? 'IDLE' : 'AVAILABLE'}`)
-      .setBackgroundColor(filming ? '#7a5c22ee' : '#3f6a4aee')
-      .setData('want', true)
+    // A stage that needs the player's decision keeps the decision badge the building pass
+    // just painted; the status text used to overwrite it (stabilization 2026-10-22, L-42).
+    const decisionRequired = this.snapshot.buildings.find((building) => building.id === id)?.attention === 'decision-required'
+    if (!decisionRequired) {
+      view.badge
+        .setText(`${sign} · ${filming ? 'FILMING' : card ? 'IDLE' : 'AVAILABLE'}`)
+        .setBackgroundColor(filming ? '#7a5c22ee' : '#3f6a4aee')
+        .setData('want', true)
+    }
     if (id === 'stage-a') this.activityGraphics?.clear()
   }
 
@@ -4460,14 +4465,19 @@ export class TycoonScene extends Phaser.Scene {
 
     const keyboard = this.input.keyboard
     if (keyboard) {
+      // Letters are registered with capture OFF: Phaser's KeyboardManager would otherwise
+      // preventDefault every w/a/s/d/r keydown on the WHOLE page while the Lot is mounted,
+      // whatever has focus, so a text field or a Settings control over the Lot lost them
+      // (stabilization 2026-10-22, L-09). Cursor keys and Space keep capture (page scroll),
+      // released by `setInputSuspended` while a modal owns interaction.
       this.wasd = {
-        up: keyboard.addKey('W'),
-        down: keyboard.addKey('S'),
-        left: keyboard.addKey('A'),
-        right: keyboard.addKey('D'),
+        up: keyboard.addKey('W', false),
+        down: keyboard.addKey('S', false),
+        left: keyboard.addKey('A', false),
+        right: keyboard.addKey('D', false),
       }
       this.cursors = keyboard.createCursorKeys()
-      keyboard.addKey('R').on('down', () => {
+      keyboard.addKey('R', false).on('down', () => {
         if (!this.inputSuspended) this.resetCamera()
       })
       // Esc and Space skip a week playback, both behind the suspension latch so a modal
@@ -4602,7 +4612,13 @@ export class TycoonScene extends Phaser.Scene {
     this.input.resetPointers()
     this.input.keyboard?.resetKeys()
     this.input.enabled = !on
-    if (this.input.keyboard) this.input.keyboard.enabled = !on
+    if (this.input.keyboard) {
+      this.input.keyboard.enabled = !on
+      // The capture list lives on the KeyboardManager and keeps calling preventDefault
+      // after the plugin is disabled; release it while a modal owns the keys (L-09).
+      if (on) this.input.keyboard.disableGlobalCapture()
+      else this.input.keyboard.enableGlobalCapture()
+    }
   }
 
   setReducedMotion(on: boolean): void {

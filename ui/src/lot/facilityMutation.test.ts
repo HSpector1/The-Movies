@@ -165,6 +165,14 @@ describe('C1-M3b — the words never invent a name and never print an engine wor
     expect(engaged([{ title: 'The Long Take', activity: 'someKindNobodyTaughtIt' }])).toBe(
       'Annex 2 is reserved by The Long Take.',
     )
+    // The two phrases the cancellation seam publishes (placement.ts, L-30 / L-31) have words,
+    // so a body held by its own history is not called "current studio work" alone.
+    expect(engaged([{ title: null, activity: 'cancelled installation history retained on this facility' }])).toBe(
+      'Annex 2 is reserved by current studio work — keeping the record of cancelled installation work.',
+    )
+    expect(engaged([{ title: null, activity: 'a started physical plan names this building' }])).toBe(
+      'Annex 2 is reserved by current studio work — built from a physical plan that still names it.',
+    )
     // An unresolvable title becomes neutral — never a guessed name.
     expect(engaged([{ title: null, activity: 'auditioning' }])).toBe(
       'Annex 2 is reserved by current studio work — auditioning.',

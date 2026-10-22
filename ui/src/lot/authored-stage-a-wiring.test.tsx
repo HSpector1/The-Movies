@@ -41,6 +41,8 @@ const phaser = vi.hoisted(() => {
       },
     }
     scale = { resize: () => {} }
+    // The real Phaser.Game carries a TimeStep; the view wakes it before destroy (L-44).
+    loop = { sleep: () => {}, wake: () => {} }
     destroy(_removeCanvas?: boolean) {}
   }
   const P = {

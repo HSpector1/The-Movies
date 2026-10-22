@@ -557,6 +557,10 @@ export class StudioLotView {
     this.tycoonScene = null
     this.threeScene?.destroy()
     this.threeScene = null
+    // Phaser destroys on the NEXT loop step; a loop put to sleep by `pause()` (hidden tab)
+    // never takes one, so the canvas, its context and its key capture outlived the Lot
+    // (Lesson M; stabilization 2026-10-22, L-44). Wake it first; waking a running loop is a no-op.
+    this.game?.loop.wake()
     this.game?.destroy(true)
     this.hollywoodFailureReported = false
     if (this.useThree) {
@@ -574,6 +578,7 @@ export class StudioLotView {
     this.tycoonScene = null
     this.threeScene?.destroy()
     this.threeScene = null
+    this.game?.loop.wake() // L-44, see recreate()
     this.game?.destroy(true)
   }
 

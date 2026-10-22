@@ -1320,14 +1320,15 @@ export class LotScene extends Phaser.Scene {
 
     const kb = this.input.keyboard
     if (kb) {
+      // Letters with capture OFF (L-09): see TycoonScene for why.
       this.wasd = {
-        up: kb.addKey('W'),
-        down: kb.addKey('S'),
-        left: kb.addKey('A'),
-        right: kb.addKey('D'),
+        up: kb.addKey('W', false),
+        down: kb.addKey('S', false),
+        left: kb.addKey('A', false),
+        right: kb.addKey('D', false),
       }
       this.cursors = kb.createCursorKeys()
-      kb.addKey('R').on('down', () => {
+      kb.addKey('R', false).on('down', () => {
         if (!this.inputSuspended) this.resetCamera()
       })
     }

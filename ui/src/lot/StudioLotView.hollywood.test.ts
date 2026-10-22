@@ -256,6 +256,24 @@ const visitor = (
 })
 
 describe('StudioLotView Hollywood lifecycle', () => {
+  it('wakes a sleeping loop before destroying the game, so a Lot unmounted in a hidden tab is actually torn down (L-44)', () => {
+    const view = new StudioLotView({
+      parent: document.createElement('div'),
+      snapshot,
+      hollywood: true,
+    })
+    const game = runtime.games.at(-1)!
+    game.events.emit('ready')
+    view.pause()
+    expect(game.loop.sleep).toHaveBeenCalledOnce()
+    const order: string[] = []
+    game.loop.wake.mockImplementation(() => { order.push('wake') })
+    game.destroy.mockImplementation(() => { order.push('destroy') })
+    view.destroy()
+    expect(order).toEqual(['wake', 'destroy'])
+    expect(game.destroy).toHaveBeenCalledWith(true)
+  })
+
   it('boots delayed readiness from the latest exact snapshot without a ready-time duplicate', () => {
     const mountSnapshot = { ...snapshot, week: 0 }
     const finalSnapshot = { ...snapshot, week: 4 }

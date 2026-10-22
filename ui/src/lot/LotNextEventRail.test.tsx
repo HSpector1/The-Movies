@@ -33,7 +33,7 @@ const summary: PeriodSummary = {
   production: -700.25,
   publicity: -40.5,
   construction: -2_000.25,
-  financing: 0, // P15B (1370-ar): the loan bucket of the period summary
+  financing: 150.5, // P15B (1370-ar): the loan bucket of the period summary (listed since L-36)
   otherCash: -55.5,
   netCash: -1_971.999,
   releases: 0,
@@ -151,6 +151,7 @@ describe("LotNextEventRail", () => {
       "Production spend",
       "Publicity",
       "Studio construction",
+      "Financing",
       "Other cash",
       "Net this period",
       "Releases",
@@ -163,7 +164,7 @@ describe("LotNextEventRail", () => {
       "Disengaged compatibility truth; not engaged Studio Revenue.",
     );
     expect(rail).toHaveTextContent(
-      "Signing bonuses, freelancer fees, and termination.",
+      "Signing bonuses, freelancer fees, termination and closure claim payments.",
     );
     expect(rail).toHaveTextContent("$1,000.50");
     expect(rail).toHaveTextContent("$250.25");
