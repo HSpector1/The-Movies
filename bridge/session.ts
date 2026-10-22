@@ -113,7 +113,8 @@ import type {
   BridgeQuoteWaivePromiseRequest,
   BridgePromiseWaiverQuoteSnapshot,
 } from './schema/bridge-schema.ts'
-import { projectStudioProjectionBundle } from './schema/runtime.ts'
+import { BRIDGE_SCHEMA } from './schema/bridge-schema.ts'
+import { parseWireValue, projectStudioProjectionBundle } from './schema/runtime.ts'
 import {
   commissionQuoteSnapshot,
   draftToEngine,
@@ -1810,18 +1811,24 @@ export class BridgeSession {
     stateDigest: string,
     quote: TQuote,
   ): AcceptedQuoteResponseFor<TQuote> {
-    return {
+    const response = {
       protocolVersion: PROTOCOL_VERSION,
       schemaId: SCHEMA_ID,
       sessionId: this.sessionId,
       commandId: request.commandId,
-      accepted: true,
+      accepted: true as const,
       stateRevision: this.revision,
       gameWeek: this.state.market.tick,
       stateDigest,
       quote,
       processingMs: performance.now() - started,
     }
+    // Every quote leaves through the published contract, exactly as every request enters
+    // through it. Quote snapshots are built by hand (cashBefore/cashAfter are `integer()`
+    // on the wire while cash is a double elsewhere), so an out-of-contract value failed
+    // only in the Unity consumer; refuse it here instead (stabilization 2026-10-22, L-24).
+    parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteResponse, response)
+    return response
   }
 
   /**

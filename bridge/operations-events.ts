@@ -222,6 +222,10 @@ export function operationsEventsProjection(state: GameState): BridgeOperationsEv
     const tier = isTierDStudioEventKind(row.kind) ? 'permanent' : 'windowed'
     return {
       seq: row.seq,
+      // The INPUT week the producer stamped: a row written during the advance from week t
+      // carries t, while the settled state the consumer reads is at t + 1 (the engine's
+      // two-rule window, src/core/studioWeekTheater.ts). Consumers joining on the observed
+      // week must subtract one (BRIDGE-09).
       week: row.week,
       date: campaignDate(row.week).label,
       kind: row.kind,
