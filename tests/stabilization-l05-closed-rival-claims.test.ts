@@ -28,8 +28,6 @@ import { signRole } from './helpers/stabilization-staffing.js'
 
 const SHAPE: FilmShape = { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' }
 
-/** Free people of one role, never a studio's employee (the p15a1 held-slate rule). */
-
 describe('L-05: a closed business\'s retained work claims nobody at validation', () => {
   // The route (the forged estate boundary, one signing from the released people, five more
   // signings, one greenlight, a 10-week soak) runs once; each test below is assertions only.
@@ -66,7 +64,7 @@ describe('L-05: a closed business\'s retained work claims nobody at validation',
       state = tick(state)
       soak.push(state)
     }
-  }, 180_000)
+  }, 120_000)
 
   it('premise: r03 is closed, its released actor is in the hiring market and out of the busy set, and the world saves', () => {
     expect(closed.market.tick).toBe(ESTATE_CLOSURE_WEEK)

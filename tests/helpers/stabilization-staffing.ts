@@ -1,5 +1,6 @@
-// Stabilization 2026-10-22: one staffing helper for the constructed-witness tests on the
-// week-130 capture (L-04, L-05).
+// Stabilization 2026-10-22: one staffing helper for the stabilization tests that sign people from
+// a live hiring market (the week-130 capture in L-04 and L-05; the genuine C.3 campaign in the
+// L-02 save-path witness).
 import { applyActions } from '../../src/core/actions.js'
 import { assignmentRefusal } from '../../src/core/careerLifecycle.js'
 import { busyTalentIds, hiringMarketIds } from '../../src/core/employment.js'

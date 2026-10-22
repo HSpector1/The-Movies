@@ -25,7 +25,7 @@ const END = 52
 describe('L-01: an original draft cannot be commissioned past its writer\'s paid term', () => {
   // Every route (the creator, the signing, the advances to week 44 and to E−1, the admitted
   // commission at 44 ticked through expiry) runs once here; the tests are assertions only.
-  let at44: GameState, atE1: GameState, commissioned: GameState, settled: GameState, writerId: string
+  let at44: GameState, atE1: GameState, commissioned: GameState, settled: GameState, writerId: string, at44Snap: string
   beforeAll(() => {
     const genesis = admitted(p13aGeneratedStudio(SEED))
     const created = applyActions(genesis, [{ kind: 'createTalent', talent: {
@@ -37,8 +37,11 @@ describe('L-01: an original draft cannot be commissioned past its writer\'s paid
       { kind: 'activateScriptDevelopment' }])
     expect(activeContract(signed, writerId)).toMatchObject({ startWeek: 0, endWeekExclusive: END })
     at44 = admitted(advanceTo(signed, 44))
+    at44Snap = snap(at44)
     atE1 = admitted(advanceTo(at44, END - 1))
     commissioned = admitted(applyActions(at44, [originalCommission(writerId)]))
+    // Neither the advance nor the admitted commission may mutate their input.
+    expect(snap(at44)).toBe(at44Snap)
     let state = commissioned
     while (state.market.tick < END) state = admitted(tick(state))
     settled = state
@@ -65,6 +68,7 @@ describe('L-01: an original draft cannot be commissioned past its writer\'s paid
   })
 
   it('admits the same commission while the term still covers the draft, and the draft completes before expiry', () => {
+    expect(snap(at44)).toBe(at44Snap)
     const project = commissioned.scriptDevelopment.projects.at(-1)!
     expect(project).toMatchObject({ commissionedWeek: 44, status: 'drafting' })
     expect(project.writerIds).toContain(writerId)

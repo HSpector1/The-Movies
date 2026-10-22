@@ -28,7 +28,6 @@ import { signRole } from './helpers/stabilization-staffing.js'
 
 const SHAPE: FilmShape = { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' }
 
-
 /** The constructed witness: r03's seated actor's employment ended, the person in free agency, the seat kept. */
 function releasedWhileSeated(): { state: GameState; actor: string } {
   const start = base()

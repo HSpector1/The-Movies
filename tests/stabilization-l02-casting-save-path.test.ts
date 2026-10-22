@@ -15,6 +15,7 @@ import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { busyTalentIds } from '../src/core/employment.js'
 import { professionAtWeek } from '../src/core/professionTransitions.js'
+import { prepareLiveWritingContext } from '../src/core/liveRetirementWriting.js'
 import { exportSave, importSave, makeSave } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import type { CastingSlate, GameState } from '../src/core/types.js'
@@ -62,8 +63,8 @@ describe('L-02 on the save path: a recorded profession change of an acknowledged
     s = applyActions(s, [{ kind: 'acceptScript', projectId }])
     // The slate is drawn from the people free at THIS week (the engine's own busy set), not at 208.
     expect(busyTalentIds(s).has(SUBJECT), 'premise: the subject is free to be slated').toBe(false)
-    const freeNow = busyTalentIds(s)
-    const actors = signedActors.filter((id) => !freeNow.has(id)).slice(0, 3)
+    const busyNow = busyTalentIds(s)
+    const actors = signedActors.filter((id) => !busyNow.has(id)).slice(0, 3)
     expect(actors, 'premise: three signed actors are free when the session starts').toHaveLength(3)
     const [a, b, c] = actors as [string, string, string]
     const slate: CastingSlate = { lead: [SUBJECT, a], antagonist: [b, c], support: [c, SUBJECT] }
@@ -76,7 +77,7 @@ describe('L-02 on the save path: a recorded profession change of an acknowledged
     complete = applyActions(s, [{ kind: 'acknowledgeCastingSession', sessionId }])
     expect(complete.market.tick).toBeLessThan(260)
     changed = advanceTo(complete, 261)
-  }, 900_000)
+  }, 120_000)
 
   it('premise: the acknowledged session names the subject, who was an Actor when it started and is a Director now', () => {
     const session = complete.castingSessions.sessions.find((x) => x.id === sessionId)!
@@ -92,6 +93,9 @@ describe('L-02 on the save path: a recorded profession change of an acknowledged
 
   it('every save after the change admits and round-trips (the frozen V10 check reads the recorded history)', () => {
     expect(() => makeSave(changed)).not.toThrow()
+    // The live retirement-writing authority runs the same chain; a refusal there would have
+    // silently withdrawn it (liveRetirementWriting.ts turns a chain failure into 'rejected').
+    expect(prepareLiveWritingContext(changed).kind).not.toBe('rejected')
     const reloaded = importSave(exportSave(makeSave(changed))).state as GameState
     expect(reloaded.market.tick).toBe(changed.market.tick)
     expect(person(reloaded, SUBJECT).role).toBe('director')

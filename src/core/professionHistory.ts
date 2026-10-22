@@ -292,6 +292,7 @@ export function validateProfessionHistory(raw: Record<string, unknown>): Profess
   if (!same(due, expectedDue.sort(compareTransitionDue))) fail('transitionDue differs from exact prospective reconciliation or deferred schedule')
   // A retained old binding cannot straddle a change. Later new-role intervals
   // starting at/after that change are legitimate and remain independently capped.
+  const closed = closedWeekOf(state)
   for (const change of changes) {
     const intervals = [...state.contracts.filter(row => row.talentId === change.personId)
       .map(row => ({ start: row.startWeek, end: row.endWeekExclusive })),
@@ -301,7 +302,6 @@ export function validateProfessionHistory(raw: Record<string, unknown>): Profess
     // A closed business's retained production is frozen history, not an obligation, from its
     // closure week on (closure/v1 §3; L-05). A change recorded in the closure week itself met
     // the seat still held: the tick settles the lifecycle before it closes the business.
-    const closed = closedWeekOf(state)
     const productions = [...state.studio.activeProductions, ...(h?.businesses ?? [])
       .filter(b => { const closedWeek = closed.get(b.studioId); return closedWeek === undefined || closedWeek >= change.week })
       .flatMap(b => b.productions)]

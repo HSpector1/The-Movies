@@ -28,6 +28,12 @@ export function professionAtWeek(state: Pick<GameState, 'careerLifecycle'>, pers
   return change && change.week <= week ? change.to : anchor.profession
 }
 
+/** `professionAtWeek` for a person the history may not know (no anchor yet): undefined instead
+ * of a throw, which is what the casting slate law's predicate wants (stabilization 2026-10-22, L-02). */
+export function professionAtWeekIfKnown(state: Pick<GameState, 'careerLifecycle'>, personId: string, week: number): CreativeRole | undefined {
+  return state.careerLifecycle?.professionAnchors.some(row => row.personId === personId) ? professionAtWeek(state, personId, week) : undefined
+}
+
 type Context = { contextCount: number; contextBand: 0 | 1 | 2; contextWitness: TransitionContextWitness }
 type Evidence = Pick<TransitionInputs, 'actingFirstTakes' | 'leadFirstTakes' | 'actingWitnesses'> & {
   director: Context; writer: Context

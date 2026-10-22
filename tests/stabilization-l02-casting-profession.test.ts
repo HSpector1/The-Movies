@@ -104,6 +104,14 @@ describe('L-02: a candidate who changed profession after auditioning does not in
     }
   })
 
+  it('without a recorded history (a genuine pre-lifecycle save) the strict law stands in every status', () => {
+    for (const state of [auditioning, review, complete]) {
+      expect(() => assertCastingSessionsInvariants(state.castingSessions, {
+        currentWeek: state.market.tick, operations: state.operations, scriptDevelopment: state.scriptDevelopment, talent: becameDirector(state, candidate),
+      })).toThrow(/candidate "[^"]+" is not a primary Actor/)
+    }
+  })
+
   it('a session in review or complete keeps its historical slate after a recorded profession change', () => {
     expect(() => invariants(review, becameDirector(review, candidate), after(review))).not.toThrow()
     expect(() => invariants(complete, becameDirector(complete, candidate), after(complete))).not.toThrow()

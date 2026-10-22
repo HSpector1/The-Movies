@@ -5,7 +5,7 @@ import { discardUnfilmedProductionTechnology } from './technologyProduction.js'
 import { withResearchFoundation } from './researchPeople.js'
 import { ageAt, withTalentProvenance } from './aging.js'
 import { assignmentRefusal, contractEndRefusal, retirementRecordFor, retirementWindow } from './careerLifecycle.js'
-import { professionAtWeek } from './professionTransitions.js'
+import { professionAtWeekIfKnown } from './professionTransitions.js'
 // ── §3 applyActions ──────────────────────────────────────────────────────────
 // `applyActions(state, actions): GameState` — pure; validates, then applies the
 // three action kinds (greenlight / cancel / createTalent). This is the
@@ -1958,10 +1958,7 @@ function assertCurrentScriptState(state: GameState, writingContext: LiveWritingC
     operations: state.operations,
     scriptDevelopment: state.scriptDevelopment,
     talent: state.talent,
-    professionAtWeek: (personId, week) =>
-      state.careerLifecycle?.professionAnchors.some((row) => row.personId === personId)
-        ? professionAtWeek(state, personId, week)
-        : undefined,
+    professionAtWeek: (personId, week) => professionAtWeekIfKnown(state, personId, week),
   })
   return state
 }

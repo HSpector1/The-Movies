@@ -11,7 +11,7 @@ import {
 import { TUNING } from './tuning.js'
 import { assertScriptDevelopmentInvariants } from './scriptDevelopment.js'
 import { persistedProductionIds } from './productionIdentity.js'
-import { professionAtWeek as recordedProfessionAtWeek } from './professionTransitions.js'
+import { professionAtWeekIfKnown } from './professionTransitions.js'
 import type {
   CreativeRole,
   CashLedgerCheckpoint,
@@ -417,10 +417,7 @@ export function assertStudioConstructionInvariants(
     operations: state.operations,
     scriptDevelopment: orderedScriptDevelopment,
     talent: state.talent,
-    professionAtWeek: options?.professionAtWeek ?? ((personId, week) =>
-      state.careerLifecycle?.professionAnchors.some((row) => row.personId === personId)
-        ? recordedProfessionAtWeek(state, personId, week)
-        : undefined),
+    professionAtWeek: options?.professionAtWeek ?? ((personId, week) => professionAtWeekIfKnown(state, personId, week)),
   })
 
   // Native and already-reconciled histories retain the original full-ledger
