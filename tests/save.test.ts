@@ -454,8 +454,8 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
 
   it("rejects an unknown saveVersion one past the live version with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.2b)", () => {
     const save = wellFormedV15Save();
-    expect(() => validateSave({ ...save, saveVersion: 49 })).toThrow(
-      /versions 1 through 48 only/,
+    expect(() => validateSave({ ...save, saveVersion: LIVE_SAVE_VERSION + 1 })).toThrow(
+      new RegExp(`versions 1 through ${String(LIVE_SAVE_VERSION)} only`),
     );
     expect(() => migrateToV14(save)).toThrow(/cannot downgrade SaveFileV15/);
   });
