@@ -11537,51 +11537,67 @@ function p15bEraOf(raw: Record<string, unknown>): P15BEra {
   return { studioLoans: true, closure: closureStops(raw) };
 }
 
-/** Both roots present; the predecessor chain proves the state without them under the P15B era; then each
- * root's own validator, and the one allocator check over all six roots last. */
 /**
- * The studio-event sequence law over the UNSTRIPPED log (stabilization 2026-10-22, L-19). Every
- * frozen era strips the kinds it introduced before delegating (V16 `releaseCommitted`, V25 the
- * setup kinds) and re-checks only their shape, so a stripped row escaped the seq-strictly-
- * ascending, seq < nextSeq and not-in-the-future laws the V14 validator applies to the rest.
- * The engine cannot produce such a row; an import can, and the Bridge relies on seq uniqueness.
+ * The message tail for the first non-finite number in a value tree (stabilization 2026-10-22,
+ * SAVE-07), or null when every number is finite. The path is built only on the way back out of a
+ * failure, so the lawful walk allocates nothing (the validator runs on every accepted state, L-20).
  */
-/** Refuses the first non-finite number anywhere in a value tree, naming its path (SAVE-07). */
-function assertFiniteNumbers(value: unknown, path: string): void {
-  if (typeof value === 'number') {
-    if (!Number.isFinite(value)) throw new Error(`${path} contains a non-finite number (${String(value)})`);
-    return;
-  }
+function nonFiniteNumberTail(value: unknown): string | null {
+  if (typeof value === 'number') return Number.isFinite(value) ? null : ` contains a non-finite number (${String(value)})`;
   if (Array.isArray(value)) {
-    for (let i = 0; i < value.length; i++) assertFiniteNumbers(value[i], `${path}[${String(i)}]`);
-    return;
+    for (let i = 0; i < value.length; i++) {
+      const tail = nonFiniteNumberTail(value[i]);
+      if (tail !== null) return `[${String(i)}]${tail}`;
+    }
+    return null;
   }
   if (value !== null && typeof value === 'object') {
-    for (const [key, child] of Object.entries(value as Record<string, unknown>)) assertFiniteNumbers(child, `${path}.${key}`);
+    for (const key in value as Record<string, unknown>) {
+      if (!Object.hasOwn(value, key)) continue;
+      const tail = nonFiniteNumberTail((value as Record<string, unknown>)[key]);
+      if (tail !== null) return `.${key}${tail}`;
+    }
   }
+  return null;
 }
 
+/**
+ * The studio-event laws over the UNSTRIPPED log (stabilization 2026-10-22, L-19). Every frozen era
+ * strips the kinds it introduced before delegating (V16 `releaseCommitted`, V25 the setup kinds)
+ * and re-checks only their shape, so a stripped row escaped the four laws the V14 validator applies
+ * to the rest: seq strictly ascending, seq below nextSeq, week not in the future, and a windowed
+ * (Tier W) row inside the retention window the tick's compaction enforces. The engine cannot
+ * produce such a row; an import can, and the Bridge relies on seq uniqueness. Malformed shapes,
+ * and a negative seq or week, are left to the frozen chain, which refuses them by name.
+ */
 function assertStudioEventSequenceLaw(raw: Record<string, unknown>, context: string): void {
   const events = raw.studioEvents;
   const market = raw.market;
-  if (!isRecord(events) || !Array.isArray(events.rows) || !isRecord(market)) return; // shape is the frozen chain's to refuse
+  if (!isRecord(events) || !Array.isArray(events.rows) || !isRecord(market)) return;
   const nextSeq = events.nextSeq;
   const currentWeek = market.tick;
   if (!Number.isInteger(nextSeq) || !Number.isInteger(currentWeek)) return;
+  const oldestKeptWeek = (currentWeek as number) - (TUNING.STUDIO_EVENT_WINDOW_WEEKS - 1);
   let previousSeq = -1;
   for (let i = 0; i < events.rows.length; i++) {
     const row = events.rows[i];
     if (!isRecord(row) || !Number.isInteger(row.seq) || !Number.isInteger(row.week)) continue;
     const seq = row.seq as number;
     const week = row.week as number;
+    if (seq < 0 || week < 0) continue;
     const label = `state.studioEvents.rows[${String(i)}]`;
     if (seq <= previousSeq) throw new Error(`${context}: ${label}.seq must be strictly ascending`);
     if (seq >= (nextSeq as number)) throw new Error(`${context}: ${label}.seq is at or above nextSeq — the sequence never rewinds`);
     if (week > (currentWeek as number)) throw new Error(`${context}: ${label}.week is in the future`);
+    if (typeof row.kind === 'string' && !isTierDStudioEventKind(row.kind as never) && week < oldestKeptWeek) {
+      throw new Error(`${context}: ${label}.week is outside the ${String(TUNING.STUDIO_EVENT_WINDOW_WEEKS)}-week retention window and should have been compacted`);
+    }
     previousSeq = seq;
   }
 }
 
+/** Both roots present; the predecessor chain proves the state without them under the P15B era; then each
+ * root's own validator, and the one allocator check over all six roots last. */
 export function validateSaveP15B(save: unknown): SaveFileP15B {
   if (!isRecord(save)) throw new Error('validateSaveP15B: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
@@ -11592,7 +11608,8 @@ export function validateSaveP15B(save: unknown): SaveFileP15B {
   // became `null` on reload (stabilization 2026-10-22, SAVE-07). Only non-finite numbers are
   // refused here: the rest of the plain-JSON law (undefined, holes, non-objects) stays with the
   // named validators, whose refusals must keep firing first (1361-F6 ruling 4).
-  assertFiniteNumbers(raw, 'validateSaveP15B: state');
+  const nonFinite = nonFiniteNumberTail(raw);
+  if (nonFinite !== null) throw new Error(`validateSaveP15B: state${nonFinite}`);
   assertStudioEventSequenceLaw(raw, 'validateSaveP15B');
   for (const key of P15B_ROOT_KEYS) {
     if (!Object.hasOwn(raw, key)) throw new Error(`validateSaveP15B: the ${key} root is missing`);

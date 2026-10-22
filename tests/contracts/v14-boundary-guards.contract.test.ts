@@ -31,7 +31,7 @@
 
 import { beforeAll, describe, expect, it } from 'vitest'
 
-import { applyActions, LIVE_SAVE_VERSION, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, convertV47ToV46, stableStringify, tick } from '../../src/core/index.js'
+import { applyActions, convertV38ToV37, convertV39ToV38, convertV40ToV39, convertV41ToV40, convertV42ToV41, convertV43ToV42, convertV44ToV43, convertV45ToV44, convertV46ToV45, convertV47ToV46, stableStringify, tick } from '../../src/core/index.js'
 import type { GameState } from '../../src/core/index.js'
 
 import { clone, operationsStudio, productionPayload, withCash } from './_contractFixtures.js'
@@ -49,6 +49,7 @@ import {
 } from './_v14Contract.js'
 import type { SaveModule } from './_v14Contract.js'
 import { predecessorSave } from '../helpers/p15-roots.js'
+import { EXPECTED_LIVE_SAVE_VERSION } from '../helpers/live-era.js'
 
 type Envelope = { saveVersion: number; state: Record<string, unknown> } & Record<string, unknown>
 
@@ -326,7 +327,7 @@ describe('C2a-M1 · guards (B) — the live boundary moves one way', () => {
     // 1358-N S3: 44 is now live (src/core/save.ts:5443-5445 handles 1 through 44), so the unknown sentinel is 45.
     // 1361-N S3: 45 is now live (src/core/save.ts:5455-5457 handles 1 through 45), so the unknown sentinel is 46.
     // Stabilization 2026-10-22 (SAVE-06): derived from the live version so the next bump cannot strand this guard.
-    expect(() => validateSave({ ...save, saveVersion: LIVE_SAVE_VERSION + 1 })).toThrow(new RegExp(`unknown saveVersion ${String(LIVE_SAVE_VERSION + 1)}`))
+    expect(() => validateSave({ ...save, saveVersion: EXPECTED_LIVE_SAVE_VERSION + 1 })).toThrow(new RegExp(`unknown saveVersion ${String(EXPECTED_LIVE_SAVE_VERSION + 1)}`))
   })
 })
 

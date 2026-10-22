@@ -50,6 +50,7 @@ import { buildTalentProvenance } from "../src/core/aging.js";
 import { initialProperty } from "../src/core/lot.js";
 import { contendedStudio, freePackage } from "./_m4Fixtures.js";
 import { predecessorSave } from './helpers/p15-roots.js'
+import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
 
 // ── Minimal valid fixtures (all values are chosen inputs) ────────────────────
 
@@ -454,8 +455,8 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
 
   it("rejects an unknown saveVersion one past the live version with the updated range, and rejects downgrading V15 to V14 (stale number corrected post-C.2b)", () => {
     const save = wellFormedV15Save();
-    expect(() => validateSave({ ...save, saveVersion: LIVE_SAVE_VERSION + 1 })).toThrow(
-      new RegExp(`versions 1 through ${String(LIVE_SAVE_VERSION)} only`),
+    expect(() => validateSave({ ...save, saveVersion: EXPECTED_LIVE_SAVE_VERSION + 1 })).toThrow(
+      new RegExp(`versions 1 through ${String(EXPECTED_LIVE_SAVE_VERSION)} only`),
     );
     expect(() => migrateToV14(save)).toThrow(/cannot downgrade SaveFileV15/);
   });

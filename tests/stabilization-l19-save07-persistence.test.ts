@@ -2,22 +2,25 @@
 //
 // L-19: every frozen era strips the studio-event kinds it introduced before delegating to its
 // predecessor (V16 `releaseCommitted`, V25 the four setup kinds) and re-checks only their shape,
-// so a stripped row escaped the sequence law the V14 validator applies to every other row: seq
-// strictly ascending, seq < nextSeq, week not in the future. The engine cannot produce such a
-// row; a hostile import can, and the Bridge relies on seq uniqueness. The live validator now
-// applies the law once over the unstripped log.
+// so a stripped row escaped the laws the V14 validator applies to every other row: seq strictly
+// ascending, seq below nextSeq, week not in the future, and a windowed (Tier W) row inside the
+// retention window. The engine cannot produce such a row; a hostile import can, and the Bridge
+// relies on seq uniqueness. The live validator now applies the laws once over the unstripped log.
 //
 // SAVE-07: the V8 plain-JSON walker ran only on the V8 roots the frozen chain handed down, so a
-// NaN in a later root passed validation and became `null` on reload. The live validator now
-// walks the whole state.
-import { describe, expect, it } from 'vitest'
+// NaN in a later root passed validation and became `null` on reload. The live validator now walks
+// the whole state for non-finite numbers.
+import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { FOUNDING_MINIMUMS, beginFounding } from '../src/core/index.js'
 import { exportSave, importSave, makeSave, validateSave } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
+import { TUNING } from '../src/core/tuning.js'
 import { generateWorld } from '../src/core/worldgen.js'
-import type { CastSlot, GameState, SegmentId } from '../src/core/types.js'
-import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+import type { Action, CastSlot, GameState, SegmentId } from '../src/core/types.js'
+import { advance, operationsStudio, productionPayload, withCash } from './contracts/_contractFixtures.js'
+
+type LiveSave = ReturnType<typeof makeSave>
 
 function assignment(state: GameState) {
   const roster = state.contracts.map((contract) => state.talent.find((t) => t.id === contract.talentId)!)
@@ -61,42 +64,109 @@ function committedWorld(seed: string): GameState {
   state = tick(state); state = tick(state); state = tick(state); state = tick(state)
   return applyActions(state, [{ kind: 'commitPictureToRelease', productionId: production.id }])
 }
+/** The ordinary setup route (tests/p13b-r07-timeline.test.ts) on a studio old enough that a week
+ * outside the retention window is still a non-negative week: the log holds the three setup rows. */
+function setupWorld(seed: string): GameState {
+  // The cash identity adjustment comes AFTER the advance: thirty idle weeks of payroll and
+  // overhead drain the studio below the picture's commitment (the D-12 solvency gate).
+  let state = withCash(advance(withCash(operationsStudio(seed), 5_000_000), TUNING.STUDIO_EVENT_WINDOW_WEEKS + 4), 5_000_000)
+  state = applyActions(state, [{ kind: 'greenlight', production: productionPayload(state) }])
+  state = tick(state); state = tick(state); state = tick(state)
+  const productionId = state.studio.activeProductions[0]!.id
+  state = applyActions(state, [{ kind: 'setProductionSetupRecipe', productionId, recipeId: 'ordinary-interior-01', expectedPlanRevision: 0 } as unknown as Action])
+  return tick(tick(state))
+}
 
-describe('L-19: the sequence law covers every studio-event row, stripped kinds included', () => {
-  const save = makeSave(committedWorld('stabilization-l19'))
-  const index = save.state.studioEvents.rows.findIndex((row) => row.kind === 'releaseCommitted')
-  const forge = (change: (row: Record<string, unknown>) => Record<string, unknown>) => {
-    const rows = save.state.studioEvents.rows.map((row, i) => (i === index ? change({ ...row }) : row))
-    return JSON.parse(JSON.stringify({ ...save, state: { ...save.state, studioEvents: { ...save.state.studioEvents, rows } } }))
-  }
+let committedSave: LiveSave | null = null
+/** The committed world's live save, built once for every describe that reads it. */
+function committedSaveOnce(): LiveSave {
+  committedSave ??= makeSave(committedWorld('stabilization-l19'))
+  return committedSave
+}
 
-  it('premise: the committed world holds a releaseCommitted row and round-trips', () => {
-    expect(index).toBeGreaterThanOrEqual(0)
-    expect(() => validateSave(JSON.parse(exportSave(save)))).not.toThrow()
-    expect(() => importSave(exportSave(save))).not.toThrow()
+/** The forged file: one row replaced, byte-round-tripped the way an import arrives. */
+function forgeRow(save: LiveSave, index: number, change: (row: Record<string, unknown>) => Record<string, unknown>): unknown {
+  const rows = save.state.studioEvents.rows.map((row, i) => (i === index ? change({ ...row }) : row))
+  return JSON.parse(JSON.stringify({ ...save, state: { ...save.state, studioEvents: { ...save.state.studioEvents, rows } } }))
+}
+const label = (index: number) => `^validateSaveP15B: state\\.studioEvents\\.rows\\[${String(index)}\\]`
+
+describe('L-19: the sequence laws cover every studio-event row, stripped kinds included', () => {
+  describe('a Tier D row the V16 era strips (releaseCommitted)', () => {
+    let save: LiveSave
+    let index: number
+    beforeAll(() => {
+      save = committedSaveOnce()
+      index = save.state.studioEvents.rows.findIndex((row) => row.kind === 'releaseCommitted')
+    }, 120_000)
+
+    it('premise: the committed world holds the row at the lawful edges (this week, the last seq) and round-trips', () => {
+      expect(index).toBeGreaterThan(0)
+      const row = save.state.studioEvents.rows[index]!
+      expect(row.week).toBe(save.state.market.tick)
+      expect(row.seq).toBe(save.state.studioEvents.nextSeq - 1)
+      expect(() => validateSave(JSON.parse(exportSave(save)))).not.toThrow()
+      expect(() => importSave(exportSave(save))).not.toThrow()
+    })
+
+    it('refuses the row when its seq is at nextSeq', () => {
+      const forged = forgeRow(save, index, (row) => ({ ...row, seq: save.state.studioEvents.nextSeq }))
+      expect(() => validateSave(forged)).toThrow(new RegExp(`${label(index)}\\.seq is at or above nextSeq`))
+    })
+
+    it('refuses the row when its seq rewinds to its predecessor', () => {
+      const forged = forgeRow(save, index, (row) => ({ ...row, seq: save.state.studioEvents.rows[index - 1]!.seq }))
+      expect(() => validateSave(forged)).toThrow(new RegExp(`${label(index)}\\.seq must be strictly ascending$`))
+    })
+
+    it('refuses the row when it is dated in the future', () => {
+      const forged = forgeRow(save, index, (row) => ({ ...row, week: save.state.market.tick + 1 }))
+      expect(() => validateSave(forged)).toThrow(new RegExp(`${label(index)}\\.week is in the future$`))
+    })
   })
 
-  it('refuses a stripped row whose seq is at or above nextSeq', () => {
-    const forged = forge((row) => ({ ...row, seq: save.state.studioEvents.nextSeq }))
-    expect(() => validateSave(forged)).toThrow(/studioEvents\.rows\[\d+\]\.seq is at or above nextSeq/)
-  })
+  describe('a Tier W row the V25 era strips (setupUnitCredited)', () => {
+    let save: LiveSave
+    let index: number
+    beforeAll(() => {
+      save = makeSave(setupWorld('stabilization-l19-setup'))
+      index = save.state.studioEvents.rows.findIndex((row) => row.kind === 'setupUnitCredited')
+    }, 120_000)
 
-  it('refuses a stripped row whose seq rewinds below its predecessor', () => {
-    if (index === 0) return // the committed row is first: nothing precedes it to rewind below
-    const forged = forge((row) => ({ ...row, seq: (save.state.studioEvents.rows[index - 1]!.seq) }))
-    expect(() => validateSave(forged)).toThrow(/studioEvents\.rows\[\d+\]\.seq must be strictly ascending/)
-  })
+    it('premise: the route wrote the setup rows inside the window, and the file round-trips', () => {
+      expect(index).toBeGreaterThan(0)
+      expect(save.state.studioEvents.rows.map((row) => row.kind)).toEqual(expect.arrayContaining(['setupAdmitted', 'setupUnitCredited', 'setupCompleted']))
+      expect(save.state.market.tick).toBeGreaterThanOrEqual(TUNING.STUDIO_EVENT_WINDOW_WEEKS)
+      expect(() => importSave(exportSave(save))).not.toThrow()
+    })
 
-  it('refuses a stripped row dated in the future', () => {
-    const forged = forge((row) => ({ ...row, week: save.state.market.tick + 1 }))
-    expect(() => validateSave(forged)).toThrow(/studioEvents\.rows\[\d+\]\.week is in the future/)
+    it('refuses the row when its seq is at nextSeq', () => {
+      const forged = forgeRow(save, index, (row) => ({ ...row, seq: save.state.studioEvents.nextSeq }))
+      expect(() => validateSave(forged)).toThrow(new RegExp(`${label(index)}\\.seq is at or above nextSeq`))
+    })
+
+    it('refuses the row when it is dated outside the retention window the tick would have compacted', () => {
+      const forged = forgeRow(save, index, (row) => ({ ...row, week: save.state.market.tick - TUNING.STUDIO_EVENT_WINDOW_WEEKS }))
+      expect(() => validateSave(forged)).toThrow(new RegExp(`${label(index)}\\.week is outside the ${String(TUNING.STUDIO_EVENT_WINDOW_WEEKS)}-week retention window`))
+    })
   })
 })
 
 describe('SAVE-07: the live validator refuses a non-finite number anywhere in the state', () => {
-  it('a NaN in a post-V8 root is refused instead of becoming null on reload', () => {
-    const state = p13aGeneratedStudio('stabilization-save07')
-    const forged = { ...state, hollywood: state.hollywood === null ? null : { ...state.hollywood, nextReceipt: Number.NaN } } as GameState
-    expect(() => makeSave(forged)).toThrow(/contains a non-finite number/)
-  })
+  // A numeric leaf of the committed world's live save that no named validator checks: a probe that
+  // nulled every numeric leaf in turn and ran the chain found this one admitted (stabilization
+  // 2026-10-22). The audited class, a folded standing row's numbers (studioHistory.ts), is the same
+  // hole on a world old enough to fold. A NaN here became `null` on reload; the walk names it.
+  const LEAF = '.studioHistory.rows[1].facts.anchor'
+  const parts = LEAF.replace(/\[(\d+)\]/g, '.$1').split('.').filter((part) => part !== '')
+  const parent = (root: unknown) => parts.slice(0, -1).reduce<unknown>((node, part) => (node as Record<string, unknown>)[part], root) as Record<string, unknown>
+
+  it(`a NaN at ${LEAF} is refused by name instead of becoming null on reload`, () => {
+    const forged = JSON.parse(JSON.stringify(committedSaveOnce())) as LiveSave
+    const holder = parent(forged.state)
+    const key = parts[parts.length - 1]!
+    expect(Number.isFinite(holder[key])).toBe(true)
+    holder[key] = Number.NaN
+    expect(() => validateSave(forged)).toThrow(/^validateSaveP15B: state\.studioHistory\.rows\[1\]\.facts\.anchor contains a non-finite number \(NaN\)$/)
+  }, 120_000)
 })

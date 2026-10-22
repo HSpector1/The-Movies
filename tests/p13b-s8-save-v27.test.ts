@@ -60,6 +60,7 @@ import * as save from '../src/core/save.js'
 import { rivalWeeklyOperatingCost } from '../src/core/hollywood.js'
 import { TUNING } from '../src/core/tuning.js'
 import { advanceTo, p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+import { EXPECTED_LIVE_SAVE_VERSION } from './helpers/live-era.js'
 import type { GameState } from '../src/core/types.js'
 import type { HollywoodState, RivalBusiness } from '../src/core/hollywoodTypes.js'
 // RED-by-design: src/core/rivalResearch.ts does not exist yet. This is the
@@ -241,11 +242,11 @@ describe('P13B-S8 Save V27: genuine V26 fixtures, honest lift, conditional downg
     })).toThrow()
   })
 
-  it('an unknown saveVersion 49 is refused, naming the handled range "1 through 48 only" (B4 additive reader boundary; stale numbers corrected post-C.2b)', () => {
+  it('an unknown saveVersion one past the live version is refused, naming the handled range (B4 additive reader boundary; pinned to the independent live-version constant)', () => {
     const json = load(V26_FIXTURES.soundMidDeployment.file)
     const v27 = withV27.migrateToV27(JSON.parse(json))
-    const forged = { ...v27, saveVersion: save.LIVE_SAVE_VERSION + 1 }
-    expect(() => save.validateSave(forged as never)).toThrow(new RegExp(`versions 1 through ${String(save.LIVE_SAVE_VERSION)} only`))
+    const forged = { ...v27, saveVersion: EXPECTED_LIVE_SAVE_VERSION + 1 }
+    expect(() => save.validateSave(forged as never)).toThrow(new RegExp(`versions 1 through ${String(EXPECTED_LIVE_SAVE_VERSION)} only`))
   })
 
   it('genuine usage of admitRivalPlans (not just an unused import — the same measured-risk guard tests/p13b-s6-save-v26.test.ts names for cancellationQuote): admitting a well-funded rival Laboratory books a real, nonzero researchCapacity movement — the same fact the natural-campaign downgrade-refused cases above observe emerging on their own', () => {
