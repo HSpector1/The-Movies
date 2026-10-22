@@ -29,6 +29,7 @@
 import { fnv1a64 } from './math.js'
 import { assignmentRefusal, retirementRecordFor } from './careerLifecycle.js'
 import { occupiedResourceSlots } from './occupancy.js'
+import { closedWeekOf } from './operatingState.js'
 import { productionCompanyTalentIds } from './productionPeople.js'
 import { openMarketCaseFor } from './talentMarket.js'
 import { TUNING } from './tuning.js'
@@ -336,8 +337,10 @@ type PromiseProductionOccupancy = { studioId: string; production: Production }
 function promiseProductionOccupancy(state: GameState, draft: PromiseDraft): readonly PromiseProductionOccupancy[] {
   const qualifying = new Set(committedPromiseSeats(state, draft))
   const playerStudioId = state.hollywood?.playerStudioId ?? draft.issuerStudioId
+  // A closed business's retained productions are frozen history and seat nobody (closure/v1 §3; L-05).
+  const closed = closedWeekOf(state)
   const owners = [{ studioId: playerStudioId, productions: state.studio.activeProductions },
-    ...(state.hollywood?.businesses.filter(business => business.studioId !== playerStudioId)
+    ...(state.hollywood?.businesses.filter(business => business.studioId !== playerStudioId && !closed.has(business.studioId))
       .map(business => ({ studioId: business.studioId, productions: business.productions })) ?? [])]
   return owners.flatMap(owner => owner.productions
     .filter(production => !qualifying.has(production)
@@ -915,8 +918,9 @@ export function targetSpecificImpossibility(state: GameState, promise: Professio
  * decision cadence, so it can rule timing out, never certify a complete plan. */
 function rivalUncappedPromiseCapacity(state: GameState, promise: ProfessionalPromise, week: number): number {
   const personId = promise.beneficiaryPersonId
+  const closed = closedWeekOf(state)
   const productions = [...state.studio.activeProductions,
-    ...(state.hollywood?.businesses.flatMap((business) => business.productions) ?? [])]
+    ...(state.hollywood?.businesses.filter((business) => !closed.has(business.studioId)).flatMap((business) => business.productions) ?? [])]
   let released = week
   for (const production of productions) {
     if (production.directorId === personId || production.craftIds.includes(personId)

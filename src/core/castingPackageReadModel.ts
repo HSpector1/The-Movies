@@ -519,7 +519,11 @@ function buildPool(
     .map((t) => t.id)
 
   const allIds = new Set<string>(eligibleIds)
-  for (const id of evidenceByTalent.keys()) allIds.add(id)
+  // Session evidence names people who were Actors when they auditioned; one who has
+  // since changed profession is no longer a candidate for this role (L-02).
+  for (const id of evidenceByTalent.keys()) {
+    if (state.talent.find((t) => t.id === id)?.role === requiredRole) allIds.add(id)
+  }
 
   const candidates = [...allIds]
     .sort(compareId)

@@ -61,6 +61,9 @@ export type CastingSessionsInvariantContext = {
   operations: StudioOperations
   scriptDevelopment: ScriptDevelopment
   talent: readonly Talent[]
+  /** Whether this person's `role` left 'actor' through a recorded 880-B profession change
+   * (`careerLifecycle.professionChanges`). Absent (frozen eras) means no such change exists. */
+  professionChangedFromActor?: (personId: string) => boolean
 }
 
 export function emptyCastingSessions(): CastingSessions {
@@ -599,8 +602,14 @@ export function assertCastingSessionsInvariants(
     for (const talentId of new Set(castingSlateTalentIds(session.slate))) {
       const person = talentById.get(talentId)
       invariant(person !== undefined, `session "${session.id}" references unknown talent "${talentId}"`)
+      // A slate is built from primary Actors. Once the audition has run (review, complete)
+      // the slate is history: an actor who then changed profession through a RECORDED 880-B
+      // transition (which rewrites `role` in place) keeps the row, and the greenlight package
+      // law refuses to seat them. Any other non-actor in a slate, and any non-actor in a
+      // session still auditioning, is refused as before (stabilization 2026-10-22, L-02).
       invariant(
-        person.role === 'actor',
+        person.role === 'actor' ||
+          (session.status !== 'auditioning' && context.professionChangedFromActor?.(talentId) === true),
         `session "${session.id}" candidate "${talentId}" is not a primary Actor`,
       )
       invariant(

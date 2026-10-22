@@ -3,8 +3,8 @@ import { liveRetirementWritingAuthority, prepareLiveWritingContext, type LiveWri
 import { applyTechnologyAction, researchAfterEmploymentRelease, researchCandidates, RESEARCH_SCIENTISTS_PER_STUDIO, spelled } from './technology.js'
 import { discardUnfilmedProductionTechnology } from './technologyProduction.js'
 import { withResearchFoundation } from './researchPeople.js'
-import { withTalentProvenance } from './aging.js'
-import { assignmentRefusal, contractEndRefusal } from './careerLifecycle.js'
+import { ageAt, withTalentProvenance } from './aging.js'
+import { assignmentRefusal, contractEndRefusal, retirementRecordFor, retirementWindow } from './careerLifecycle.js'
 // ── §3 applyActions ──────────────────────────────────────────────────────────
 // `applyActions(state, actions): GameState` — pure; validates, then applies the
 // three action kinds (greenlight / cancel / createTalent). This is the
@@ -44,8 +44,6 @@ import { assignmentRefusal, contractEndRefusal } from './careerLifecycle.js'
 
 import {
   activeContract,
-  activeProductionCompanyTalentIds,
-  activeWritingAssignmentIds,
   busyTalentIds,
   canAfford,
   economyEngaged,
@@ -337,11 +335,14 @@ function applyGreenlight(
   // IN THIS SAME production (M16.7), so nothing here lets one person hold two
   // jobs on one picture. Writing exclusivity is unchanged: a writer already
   // drafting cannot be commissioned again (`requireCommissionableWriter`).
-  // Share the production/writing owners with `busyTalentIds`, but retain this
-  // gate's narrower scope: no additional industry/research busy categories.
-  const busy = activeProductionCompanyTalentIds(state)
-  for (const id of activeWritingAssignmentIds(state)) busy.add(id)
-  assertGreenlightStaffingIdle(staffing.engagedIds, busy)
+  // The ONE availability set (`busyTalentIds`): own production seats, own writing
+  // tasks, research seats and INDUSTRY seats alike. The gate used to read only the
+  // first two, so a person whose rival employment expired mid-production (released to
+  // the hiring market while the rival picture keeps its seat) could be signed and
+  // seated here, and the next save refused the world as "simultaneous active
+  // assignments" (stabilization 2026-10-22, L-04). Writers are credited, not seated,
+  // so a rival's drafting writer is never in `engagedIds` and stays commissionable.
+  assertGreenlightStaffingIdle(staffing.engagedIds, busyTalentIds(state))
   // P14C.2a (773 D9, obligations first): no seat is assigned that cannot release before
   // its holder's effective retirement week, and a finishing or retired person takes no
   // seat at all. The ONE commit both `greenlight` and `greenlightScriptProject` (front
@@ -1926,6 +1927,8 @@ function assertCurrentScriptState(state: GameState, writingContext: LiveWritingC
     operations: state.operations,
     scriptDevelopment: state.scriptDevelopment,
     talent: state.talent,
+    professionChangedFromActor: (personId) =>
+      state.careerLifecycle.professionChanges.some((change) => change.personId === personId && change.from === 'actor'),
   })
   return state
 }
@@ -1985,6 +1988,43 @@ function requireCommissionableWriter(
 }
 
 /**
+ * A paid draft must finish inside its writer's term. `completeDueScriptWork` runs at the
+ * entry of the due week's advance, before that advance expires contracts, so
+ * `dueWeek <= endWeekExclusive` is the exact bound; the rival commission in
+ * `hollywoodTick.ts` already applies the same one. The ONE lawful exception is 880-B
+ * retirement writing: a writer announced to retire at or after the term's end finishes
+ * the draft under the retirement-writing authority once the contract has expired. That
+ * announcement is either already recorded, or is the deterministic `hardBoundary` one
+ * (careerLifecycle): a writer who reaches the hard age of their window by the term's end
+ * is announced on that birthday, at the latest on the expiry week itself (880-B's
+ * natural gap route). Every other draft that outlasted its contract used to pass here and
+ * then strand the campaign on `active project … writer is not contracted` at the next
+ * tick, action and save (stabilization 2026-10-22, L-01).
+ */
+function requireWriterTermCoversDraft(
+  state: GameState,
+  writerId: string,
+  week: number,
+  dueWeek: number,
+  verb: string,
+): void {
+  const contract = activeContract(state, writerId, week)
+  if (contract === undefined || dueWeek <= contract.endWeekExclusive) return
+  const retirement = retirementRecordFor(state, writerId)
+  if (retirement?.status === 'announced' && contract.endWeekExclusive <= retirement.effectiveWeek) return
+  if (retirement === undefined && state.hollywood !== null) {
+    const person = state.talent.find((candidate) => candidate.id === writerId)
+    const row = state.talentProvenance.rows.find((candidate) => candidate.personId === writerId)
+    const window = person === undefined ? null : retirementWindow(person.role)
+    if (row !== undefined && window !== null && ageAt(row, contract.endWeekExclusive) >= window.hard) return
+  }
+  throw new Error(
+    `applyActions: ${verb} rejected — writer "${writerId}" is contracted through week ${String(contract.endWeekExclusive)}` +
+      ` but this draft would be due at week ${String(dueWeek)}; extend the contract or pick a writer whose term covers the draft`,
+  )
+}
+
+/**
  * THE BLUEPRINT EVERY COMMISSION MINTS (charter §3.5 — ONE PRODUCTION PATH).
  *
  * A pool concept gets one too, on its FIRST commission, with a null ordinal and
@@ -2021,6 +2061,15 @@ function applyCommissionScript(
   allowQueue = true,
 ): GameState {
   requireCommissionableWriter(state, action.project.writerId, 'commissionScript')
+  // Adapting a premise the market already owns is the fast path, and it is the
+  // C1 clock to the week (`00E`.9's bounded blast radius).
+  const poolDraftWeeks = scriptDraftWeeks({
+    origin: 'pool',
+    officeTierAtMint: developmentOfficeTier(state),
+    writerExperience: 0,
+    writerCount: 1,
+  })
+  requireWriterTermCoversDraft(state, action.project.writerId, week, week + poolDraftWeeks, 'commissionScript')
   const projectId = nextScriptProjectId(state.scriptDevelopment)
   const concept = state.concepts.find((candidate) => candidate.id === action.project.conceptId)
   if (concept === undefined) {
@@ -2045,14 +2094,7 @@ function applyCommissionScript(
         action.project,
         week,
         castingOccupiedFacilitySlots(state.castingSessions),
-        // Adapting a premise the market already owns is the fast path, and it is the
-        // C1 clock to the week (`00E`.9's bounded blast radius).
-        scriptDraftWeeks({
-          origin: 'pool',
-          officeTierAtMint: developmentOfficeTier(state),
-          writerExperience: 0,
-          writerCount: 1,
-        }),
+        poolDraftWeeks,
       )
       return assertCurrentScreenplayState(
         assertCurrentScriptState({
@@ -2151,6 +2193,7 @@ function applyCommissionOriginalScreenplay(
     writerExperience: writingPaceExperience([writer], payload.genre),
     writerCount: 1,
   })
+  requireWriterTermCoversDraft(state, writer.id, week, week + draftWeeks, 'commissionOriginalScreenplay')
 
   // The EXISTING draft machinery, unchanged: it allocates the slot, marks the
   // writer busy, and refuses if either is impossible. Nothing below this line is
@@ -2232,6 +2275,11 @@ function applyAssignScreenplayWriter(
     writerExperience: writingPaceExperience(pooled, concept.genre),
     writerCount: pooled.length,
   })
+  // The pooled due week (`joinScreenplayWriterPool`) binds EVERY writer on the draft.
+  const pooledDueWeek = Math.max(state.market.tick + 1, project.commissionedWeek + draftWeeks)
+  for (const person of pooled) {
+    requireWriterTermCoversDraft(state, person.id, state.market.tick, pooledDueWeek, 'assignScreenplayWriter')
+  }
   return assertCurrentScriptState({
     ...state,
     scriptDevelopment: joinScreenplayWriterPool(

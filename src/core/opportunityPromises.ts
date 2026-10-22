@@ -2,6 +2,7 @@
 import { assignmentRefusal } from './careerLifecycle.js'
 import { activeContract } from './employment.js'
 import { occupiedResourceSlots, resourceClaimsOf } from './occupancy.js'
+import { closedWeekOf } from './operatingState.js'
 import { productionCompanyTalentIds } from './productionPeople.js'
 import { scriptProjectWriterIds } from './scriptDevelopment.js'
 import { takeSubjectOwner } from './firstTakeSubjects.js'
@@ -57,8 +58,10 @@ export function opportunityReservations(state: GameState, draft: PromiseDraft, f
 }
 
 function owners(state: GameState) {
+  // A closed business's retained work is frozen history and occupies nobody (closure/v1 §3; L-05).
+  const closed = closedWeekOf(state)
   return [{ studioId: state.hollywood?.playerStudioId ?? '', productions: state.studio.activeProductions, development: state.scriptDevelopment },
-    ...(state.hollywood?.businesses.map(row => ({ studioId: row.studioId, productions: row.productions, development: row.development })) ?? [])]
+    ...(state.hollywood?.businesses.filter(row => !closed.has(row.studioId)).map(row => ({ studioId: row.studioId, productions: row.productions, development: row.development })) ?? [])]
 }
 const earliestTake = (p: Production, week: number): number => week + Math.max(1, p.remainingTicks - 4) + (p.startTick >= week ? 1 : 0)
 const earliestRelease = (p: Production, week: number): number => week + Math.max(1, p.remainingTicks) + (p.startTick >= week ? 1 : 0)

@@ -561,8 +561,15 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // D-11.18 financial ledger — every cash movement is recorded (reconciles with cash).
   const ledger: LedgerEntry[] = [...admitted.ledger]
   const researchAdvance = advanceResearchWeek(admitted)
-  cash -= researchAdvance.cost
-  ledger.push(...researchAdvance.entries)
+  // Book each row as it is pushed: cash must fold EXACTLY as the ledger validator folds
+  // it (row by row, in order). One subtraction of a two-row total differs from the
+  // row-by-row fold by an ULP once cash is fractional, and the next tick then refused the
+  // world as "studio cash must equal initial cash plus the ordered ledger"
+  // (stabilization 2026-10-22, L-03). Byte-identical for every history that validated.
+  for (const entry of researchAdvance.entries) {
+    cash += entry.amount
+    ledger.push(entry)
+  }
   // ── D-12 economy (gated) — a shallow copy of the run history so weekly progress can be
   // recorded without mutating the input. Empty (and untouched) for the M0A corpus.
   const engaged = economyEngaged(state)
@@ -988,9 +995,15 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     const payroll = weeklyPayroll(state, currentTick)
     const researchPayroll = weeklyResearchPayroll(state, currentTick)
     if (payroll > 0) {
-      cash -= payroll
-      if (payroll > researchPayroll) ledger.push({ week: currentTick, kind: 'payroll', amount: -(payroll-researchPayroll), note: 'weekly payroll' })
-      if (researchPayroll > 0) ledger.push({week: currentTick, kind:'researchPayroll', amount:-researchPayroll, note:'weekly research payroll'})
+      // Two rows, two subtractions in row order (L-03): the validator folds row by row.
+      if (payroll > researchPayroll) {
+        cash -= payroll - researchPayroll
+        ledger.push({ week: currentTick, kind: 'payroll', amount: -(payroll-researchPayroll), note: 'weekly payroll' })
+      }
+      if (researchPayroll > 0) {
+        cash -= researchPayroll
+        ledger.push({week: currentTick, kind:'researchPayroll', amount:-researchPayroll, note:'weekly research payroll'})
+      }
     }
   }
 

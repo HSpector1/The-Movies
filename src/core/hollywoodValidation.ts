@@ -224,7 +224,10 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     requireFact(!assignments.has(personId),`person ${personId} has simultaneous active assignments`)
     assignments.set(personId,workId)
   }
-  const verifyParticipants=(p:Production,required:boolean)=>{
+  // `claim` is false for an actually closed business: its retained productions and drafts are
+  // terminal history, its people were released at the closure week (the busy set skips them,
+  // closure/v1 §3), so they must not hold a live assignment here (stabilization 2026-10-22, L-05).
+  const verifyParticipants=(p:Production,required:boolean,claim=true)=>{
     const expected=[{id:p.writerId,role:'writer',discipline:'writing'},{id:p.directorId,role:'director',discipline:'directing'},
       ...(['lead','antagonist','support'] as const).map(role=>({id:p.cast[role],role,discipline:'acting'})),
       ...p.craftIds.map(id=>({id,role:'craft',discipline:'craft'}))]
@@ -235,7 +238,7 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
         const e=expected[i]!;return a.talentId===e.id&&a.role===e.role&&a.discipline===e.discipline&&a.name===talent.get(e.id)?.name
       }),'frozen participants differ from the production company and screenplay credit')
     }
-    for(const id of productionCompanyTalentIds([p]))claimAssignment(id,p.id)
+    if(claim)for(const id of productionCompanyTalentIds([p]))claimAssignment(id,p.id)
   }
   for(const p of state.studio.activeProductions)verifyParticipants(p,false)
   for(const a of activeScriptWriterAssignments(state.scriptDevelopment,state.concepts))claimAssignment(a.talentId,`${h.playerStudioId}:${a.projectId}`)
@@ -369,7 +372,7 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     list(b.productions); list(b.runs); list(b.projects)
     for (const p of b.productions) {
       shared.production(p,concepts); requireFact(!productionIds.has(p.id),'production identity collision'); productionIds.add(p.id)
-      verifyParticipants(p,true)
+      verifyParticipants(p,true,terminalWeek===null)
       const script=b.development.projects.find(s=>s.productionId===p.id)
       requireFact(script?.writerId===p.writerId,'production writer differs from its costed screenplay')
       for(const id of [p.writerId,...productionCompanyTalentIds([p])]){
@@ -377,7 +380,7 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
         requireFact(employed.some(e=>e.terms.talentId===id&&e.terms.startWeek<=at&&at<(e.endedWeek??e.terms.endWeekExclusive)), 'rival production lacks its historical employer authority')
       }
     }
-    for(const a of activeScriptWriterAssignments(b.development,h.concepts))claimAssignment(a.talentId,`${b.studioId}:${a.projectId}`)
+    if(terminalWeek===null)for(const a of activeScriptWriterAssignments(b.development,h.concepts))claimAssignment(a.talentId,`${b.studioId}:${a.projectId}`)
     list(b.activeScriptOrdinals);list(b.activeRunFilmOrdinals)
     requireFact(b.activeScriptOrdinals.length<=2 && new Set(b.activeScriptOrdinals).size===b.activeScriptOrdinals.length, 'bounded unique active screenplay index')
     for(const i of b.activeScriptOrdinals){integer(i);requireFact(i<b.development.projects.length,'screenplay index out of bounds')}

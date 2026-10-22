@@ -410,6 +410,8 @@ export function assertStudioConstructionInvariants(
     operations: state.operations,
     scriptDevelopment: orderedScriptDevelopment,
     talent: state.talent,
+    professionChangedFromActor: (personId) =>
+      state.careerLifecycle.professionChanges.some((change) => change.personId === personId && change.from === 'actor'),
   })
 
   // Native and already-reconciled histories retain the original full-ledger

@@ -4,6 +4,7 @@ import { ageAt } from './aging.js'
 import { roleTier } from './talentSummary.js'
 import { TUNING } from './tuning.js'
 import { productionCompanyTalentIds } from './productionPeople.js'
+import { closedWeekOf } from './operatingState.js'
 import { chooseProfessionTransition, nextTransitionWeek, retainedTransitionEvidence, TRANSITION_POTENTIAL_TIERS, transitionInputsDigest } from './professionTransitions.js'
 import type { CareerLifecycleRootV38, CreativeRole, GameState, IndustryRetirement, ProfessionChange, RetirementKey, TransitionDue, TransitionEvaluation, TransitionInputs } from './types.js'
 
@@ -297,7 +298,9 @@ export function validateProfessionHistory(raw: Record<string, unknown>): Profess
       ...(h?.employment ?? []).filter(row => row.terms.talentId === change.personId)
         .map(row => ({ start: row.terms.startWeek, end: row.endedWeek ?? row.terms.endWeekExclusive }))]
     if (intervals.some(row => row.start < change.week && row.end > change.week)) fail('profession change straddles an existing employment obligation')
-    const productions = [...state.studio.activeProductions, ...(h?.businesses ?? []).flatMap(b => b.productions)]
+    // A closed business's retained production is frozen history, not an obligation (closure/v1 §3; L-05).
+    const closed = closedWeekOf(state)
+    const productions = [...state.studio.activeProductions, ...(h?.businesses ?? []).filter(b => !closed.has(b.studioId)).flatMap(b => b.productions)]
     if (productions.some(p => p.startTick < change.week && productionCompanyTalentIds([p]).has(change.personId))) {
       fail('profession change straddles a retained production obligation')
     }
