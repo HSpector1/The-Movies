@@ -3,8 +3,9 @@ node_modules/
 /.venv/
 dist/
 coverage/
-out/
-tools/
+# Anchored (stabilization 2026-10-22, L-46): committed evidence trees hold out/ and tools/ subfolders.
+/out/
+/tools/
 test-results/
 playwright-report/
 ui/e2e/fixtures/
@@ -38,9 +39,8 @@ ui/e2e/fixtures/
 
 # Design-archive material awaiting relocation by the owner — NOT FOR BUILD,
 # must never enter git history. Remove these lines once the files leave the repo.
-design-spec.md
-README.md
-!docs/adr/README.md
+/design-spec.md
+/README.md
 1-career-talent-market.md
 2-historical-talent.md
 3-acquisition.md

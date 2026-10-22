@@ -1,0 +1,35 @@
+{
+  "mode": "part-a",
+  "arm": "part-a",
+  "exitCode": 0,
+  "elapsedSeconds": 21.21058431500569,
+  "pinsSha256": "ed65f23ac5dce61e9cd8ed0af2d0bb7f5db0b67a69b29e1830c20cff3cd04ef4",
+  "runnerSha256": "76f171922b40bf04a4d77270c89550fa1f35d482f05650655fc1581ea265b2ec",
+  "before": {
+    "head": "bc5f3b0ee86358d8af4cfff2762e5ff8519ee80e",
+    "indexSha256": "27a636e8153b5e6effb01ee99ba8d2c4ae8431b0bd72c1cafbcb98b8e9ca8644",
+    "sourceDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "after": {
+    "head": "bc5f3b0ee86358d8af4cfff2762e5ff8519ee80e",
+    "indexSha256": "27a636e8153b5e6effb01ee99ba8d2c4ae8431b0bd72c1cafbcb98b8e9ca8644",
+    "sourceDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "allGuardsExact": true,
+  "command": [
+    "python3",
+    "/Users/zacheryspector/studio-scratch/1361-capture-runner/bounded-child.py",
+    "330",
+    "node",
+    "node_modules/vitest/vitest.mjs",
+    "run",
+    "--workspace",
+    "boundary.workspace.ts",
+    "--project",
+    "boundary",
+    "--maxWorkers=1",
+    "--minWorkers=1",
+    "--no-file-parallelism",
+    "--reporter=verbose"
+  ]
+}

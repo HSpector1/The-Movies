@@ -1,0 +1,11 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/studio-scratch/1367-part-a-boundary-runs/control/tree
+
+ ✓ |boundary| tests/probes/1367-boundary.probe.ts > observes genesis through produced week93 without changing inputs 19980ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  19:56:36
+   Duration  23.74s (transform 2.47s, setup 0ms, collect 3.29s, tests 19.98s, environment 0ms, prepare 137ms)
+
+{"boundedCaptureChild": true, "timeoutSeconds": 330, "timedOut": false, "childExit": 0, "elapsedMs": 24778.00626400858}

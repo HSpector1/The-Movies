@@ -38,6 +38,9 @@ mkdirSync(out, { recursive: true })
  * load -> validateSave -> re-serialise must equal the file byte for byte.
  */
 function emit(file: string, save: SaveFileV28 | SaveFileV29 | SaveFileV30 | SaveFileV31 | SaveFileV32 | SaveFileV33 | LiveSaveFile, week: number): void {
+  // Refuse BEFORE touching the frozen fixture: the guard below used to run only after
+  // writeFileSync had already replaced the committed V28 bytes (stabilization 2026-10-22, L-47).
+  if (save.saveVersion !== 28) throw new Error(`${file}: the live writer emits saveVersion ${save.saveVersion}, not 28; the committed V28 fixtures are frozen`)
   const json = exportSave(save)
   const bytes = Buffer.from(json, 'utf8')
   writeFileSync(new URL(file, out), gzipSync(bytes, { level: 9 }))

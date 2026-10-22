@@ -2,6 +2,9 @@
   "name": "project-studio-core",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.20.2 <21"
+  },
   "description": "Project: Studio — pure simulation core (M0A/M1A build contract rev. 4)",
   "type": "module",
   "scripts": {

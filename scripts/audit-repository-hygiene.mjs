@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process'
-import { readFileSync } from 'node:fs'
+import { lstatSync, readFileSync } from 'node:fs'
 import { extname } from 'node:path'
 
 const repositoryFiles = execFileSync(
@@ -7,13 +7,22 @@ const repositoryFiles = execFileSync(
   ['ls-files', '-z', '--cached', '--others', '--exclude-standard'],
   {
     encoding: 'utf8',
+    // The evidence tree lists tens of thousands of paths; the 1 MiB default
+    // maxBuffer made this call fail with ENOBUFS on every push (L-13).
+    maxBuffer: 256 * 1024 * 1024,
   },
 ).split('\0').filter(Boolean)
 
 const allowedCredentialExamples = new Set(['.env.example', '.env.sample'])
+// Generated-output ROOTS, anchored to the repository root (and the one nested build
+// output, ui/dist). Committed evidence trees legitimately contain `out/` and
+// `coverage/` directories deep under docs/; an unanchored pattern flagged 185 of
+// them and made this audit fail on every push (stabilization 2026-10-22, L-13).
 const generatedPaths = [
   /^(?:Evidence|Builds|Library|Logs|Temp)\//,
-  /(?:^|\/)(?:node_modules|dist|coverage|out|test-results|playwright-report)\//,
+  /(?:^|\/)node_modules\//,
+  /^(?:dist|coverage|out|test-results|playwright-report)\//,
+  /^ui\/dist\//,
   /^ui\/e2e\/fixtures\//,
   /^\.tmp\/3d-asset-audit\.json$/,
 ]
@@ -64,6 +73,9 @@ function assertGuardsDetectKnownRisks() {
     !isSecretLikePath('config/.envrc') ||
     isSecretLikePath('.env.example') ||
     !generatedPaths.some((pattern) => pattern.test('node_modules/example/index.js')) ||
+    !generatedPaths.some((pattern) => pattern.test('dist/studio/studio.mjs')) ||
+    !generatedPaths.some((pattern) => pattern.test('ui/dist/index.html')) ||
+    generatedPaths.some((pattern) => pattern.test('docs/engineering/evidence/run/out/log.txt')) ||
     !shouldScanContent('.env.example') ||
     matchedMarkers(npmToken).every((marker) => marker.label !== 'npm access token') ||
     matchedMarkers(privateKey).every((marker) => marker.label !== 'private-key marker')
@@ -84,6 +96,9 @@ for (const file of repositoryFiles) {
     continue
   }
   if (!shouldScanContent(file)) continue
+  // Symlinks (the committed .claude/skills/* links) and other non-regular entries
+  // have no content of their own; reading them threw EISDIR and aborted the audit.
+  if (!lstatSync(file).isFile()) continue
 
   const contents = readFileSync(file, 'utf8')
   for (const marker of matchedMarkers(contents)) {

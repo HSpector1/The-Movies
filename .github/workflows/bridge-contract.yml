@@ -5,22 +5,31 @@ on:
   push:
   workflow_dispatch:
     inputs:
+      run_full_suites:
+        description: Run the full vitest suites (lane gates; red by design, hours)
+        required: false
+        type: boolean
+        default: false
       typescript_commit:
-        description: Exact 40-character TypeScript contract commit
-        required: true
+        description: Exact 40-character TypeScript contract commit (Unity consumer check)
+        required: false
         type: string
+        default: ""
       typescript_ref:
         description: Exact TypeScript ref resolving to that commit
-        required: true
+        required: false
         type: string
+        default: ""
       unity_commit:
         description: Exact 40-character Unity consumer commit
-        required: true
+        required: false
         type: string
+        default: ""
       unity_ref:
         description: Exact Unity ref resolving to that commit
-        required: true
+        required: false
         type: string
+        default: ""
 
 permissions:
   contents: read
@@ -30,9 +39,14 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Static validation on every push and pull request. The full vitest suites are
+  # NOT here: the recorded core gate runs 6,425 s wall on the Owner's lane and is
+  # red by design (162 inherited failures), so a 20-minute CI job could never
+  # carry them; those remain lane gates with their own evidence (HANDOFF). The
+  # `full-suites` job below runs them only on manual dispatch.
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - name: Check out source
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
@@ -41,7 +55,7 @@ jobs:
       - name: Configure Node.js
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
-          node-version: 22
+          node-version-file: .nvmrc
           cache: npm
       - name: Configure Python
         uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
@@ -68,17 +82,38 @@ jobs:
         run: npm run typecheck:bridge
       - name: Typecheck application
         run: npm run typecheck
-      - name: Test bridge
-        run: npm run test:bridge
-      - name: Test application
-        run: npm test
+      - name: Self-test the lane-guard hook
+        run: bash .claude/hooks/lane-guard.test.sh
+      - name: Test the workflow setup helper
+        run: python -I -B -m unittest discover -s scripts/tests -p 'test_studio_workflow_setup.py'
       - name: Build production client
         run: npm run build
       - name: Audit adopted 3D assets
         run: npm run audit:3d-assets
 
+  full-suites:
+    if: github.event_name == 'workflow_dispatch' && inputs.run_full_suites
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: Check out source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Configure Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Test bridge
+        run: npm run test:bridge
+      - name: Test application
+        run: npm test
+
   verify-exact-unity-consumer:
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' && inputs.typescript_commit != ''
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
@@ -120,7 +155,7 @@ jobs:
       - name: Configure Node.js
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
-          node-version: 22
+          node-version-file: .nvmrc
           cache: npm
           cache-dependency-path: typescript/package-lock.json
       - name: Install locked verifier dependencies
