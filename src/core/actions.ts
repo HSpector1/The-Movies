@@ -135,6 +135,7 @@ import {
 } from './sets.js'
 import {
   commitPictureToReleaseRefusal,
+  releaseCommitmentFor,
   withReleaseCommitment,
 } from './releaseAuthority.js'
 import {
@@ -416,6 +417,15 @@ function applyGreenlight(
   // V11 cash/ledger checkpoint.
   // by logging every cash movement. The production entry always covers
   // negative + marketing; the salary/fee treatment differs by mode.
+  // The core is the authority on money: a caller (UI adapter, Bridge, test) supplies the
+  // budget, so refuse anything that is not a finite, non-negative amount before it can be
+  // debited or stored (stabilization 2026-10-22, L-15). Menu membership stays the caller's
+  // presentation concern; sign and finiteness do not.
+  for (const [label, amount] of [['negative', p.budget.negative], ['marketing', p.budget.marketing]] as const) {
+    if (!Number.isFinite(amount) || amount < 0) {
+      throw new Error(`applyActions: greenlight rejected — budget.${label} must be a finite, non-negative amount (got ${String(amount)})`)
+    }
+  }
   const productionCost = p.budget.negative + p.budget.marketing
   let cash: number
   const ledgerAdds: LedgerEntry[] = []
@@ -501,9 +511,11 @@ function applyGreenlight(
     promise: p.promise,
     writerId: p.writerId,
     directorId: p.directorId,
-    craftIds: p.craftIds,
-    cast: p.cast,
-    budget: p.budget,
+    // Own copies: a caller that keeps mutating its payload after the action must not be
+    // able to rewrite authoritative state through a shared reference (L-15).
+    craftIds: [...p.craftIds],
+    cast: { ...p.cast },
+    budget: { negative: p.budget.negative, marketing: p.budget.marketing },
     startTick,
     remainingTicks,
     forecastSnapshot,
@@ -603,6 +615,15 @@ function applyCancel(state: GameState, action: Action & { kind: 'cancel' }): Gam
     )
   }
   const cancelled = state.studio.activeProductions[idx]!
+  // P06A: a picture committed to release is past the point of cancellation. Removing it
+  // here left an orphan release commitment, and the next tick entry and every save then
+  // refused the world ("releaseAuthority row … is an orphan"). The prepared P16 work states
+  // this refusal; it did not exist (stabilization 2026-10-22, L-14).
+  if (releaseCommitmentFor(state.releaseAuthority, action.productionId) !== null) {
+    throw new Error(
+      `applyActions: cancel rejected — production "${action.productionId}" is committed to release (P06A); a committed picture cannot be cancelled`,
+    )
+  }
   const scriptDevelopment =
     state.scriptDevelopment.mode === 'managed'
       ? returnScriptProjectToReady(state.scriptDevelopment, action.productionId)
@@ -793,8 +814,8 @@ function constructAuthoredTalent(
 function applyCreateTalent(state: GameState, action: Action & { kind: 'createTalent' }): GameState {
   const a = action.talent
 
-  // Validation: age in [18,70].
-  if (a.age < 18 || a.age > 70) {
+  // Validation: age in [18,70] (a non-finite age passed both comparisons; L-15).
+  if (!Number.isFinite(a.age) || a.age < 18 || a.age > 70) {
     throw new Error(`applyActions: createTalent age ${a.age} out of range [18, 70]`)
   }
   // Validation: role is a valid CreativeRole.
@@ -2585,6 +2606,10 @@ function applySignContract(state: GameState, action: Action & { kind: 'signContr
   const { talentId, termWeeks } = action
   const week = state.market.tick
   requireTalent(state.talent, talentId, 'signContract talentId')
+  // A term is a whole number of weeks; `clamp` alone let NaN and fractions through (L-15).
+  if (!Number.isInteger(termWeeks) || termWeeks <= 0) {
+    throw new Error(`applyActions: signContract rejected — termWeeks must be a positive whole number of weeks (got ${String(termWeeks)})`)
+  }
   if (isContracted(state, talentId)) {
     throw new Error(`applyActions: signContract rejected — talent "${talentId}" is already contracted (D-11)`)
   }
