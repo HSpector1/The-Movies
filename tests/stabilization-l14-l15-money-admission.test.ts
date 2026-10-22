@@ -18,6 +18,7 @@ import { tick } from '../src/core/tick.js'
 import { generateWorld } from '../src/core/worldgen.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/types.js'
 import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
+import { signRole } from './helpers/stabilization-staffing.js'
 
 function assignment(state: GameState) {
   const roster = state.contracts.map((contract) => state.talent.find((t) => t.id === contract.talentId)!)
@@ -135,6 +136,12 @@ describe('L-15: the core refuses money and terms it cannot account for', () => {
     expect(() => applyActions(state, [{ kind: 'signContract', talentId, termWeeks }]))
       .toThrow(`applyActions: signContract rejected — termWeeks must be a positive whole number of weeks (got ${String(termWeeks)})`)
     expect(stableStringify(state)).toBe(before)
+  })
+
+  it.each([Number.NaN, 1.5, 0])('renewContract refuses termWeeks = %s by name', (termWeeks) => {
+    const signed = signRole(p13aGeneratedStudio('stabilization-l15-renew'), 'writer', 1, new Set())
+    expect(() => applyActions(signed.state, [{ kind: 'renewContract', talentId: signed.ids[0]!, termWeeks }]))
+      .toThrow(`applyActions: renewContract rejected — termWeeks must be a positive whole number of weeks (got ${String(termWeeks)})`)
   })
 
   it('createTalent refuses a non-finite age', () => {

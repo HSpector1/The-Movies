@@ -14,6 +14,7 @@ import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { assertCastingSessionsInvariants } from '../src/core/castingSessions.js'
 import { hiringMarketIds } from '../src/core/employment.js'
+import { professionAtWeek, professionAtWeekIfKnown } from '../src/core/professionTransitions.js'
 import { tick } from '../src/core/tick.js'
 import type { CastingSlate, GameState } from '../src/core/types.js'
 import { p13aGeneratedStudio } from '../src/harness/p13a/fixtures.js'
@@ -110,6 +111,12 @@ describe('L-02: a candidate who changed profession after auditioning does not in
         currentWeek: state.market.tick, operations: state.operations, scriptDevelopment: state.scriptDevelopment, talent: becameDirector(state, candidate),
       })).toThrow(/candidate "[^"]+" is not a primary Actor/)
     }
+  })
+
+  it('professionAtWeekIfKnown (the live callers\' reader) answers undefined for an unknown person and the recorded profession otherwise', () => {
+    expect(professionAtWeekIfKnown(complete, 'nobody-of-that-id', complete.market.tick)).toBeUndefined()
+    expect(professionAtWeekIfKnown(complete, candidate, complete.market.tick)).toBe(professionAtWeek(complete, candidate, complete.market.tick))
+    expect(professionAtWeekIfKnown(complete, candidate, complete.market.tick)).toBe('actor')
   })
 
   it('a session in review or complete keeps its historical slate after a recorded profession change', () => {

@@ -134,9 +134,11 @@ function appendIntent(
   row: Omit<ProductionQueueEntry, 'ordinal' | 'queuedWeek'> & Record<string, unknown>,
   week: number,
 ): readonly ProductionQueueEntry[] {
+  // The queue owns its copy of every intent: a caller's payload object may be mutated after
+  // the action (the same aliasing law as the stored production, L-15).
   return [
     ...queue,
-    { ...row, ordinal: nextQueueOrdinal(queue), queuedWeek: week } as ProductionQueueEntry,
+    { ...structuredClone(row), ordinal: nextQueueOrdinal(queue), queuedWeek: week } as ProductionQueueEntry,
   ]
 }
 
@@ -192,9 +194,7 @@ export function queueGreenlightScriptProject(
 ): readonly ProductionQueueEntry[] {
   return appendIntent(
     queue,
-    // The queue owns its copy: the caller's payload object may be mutated after the action
-    // (the same aliasing law as the stored production, L-15).
-    { kind: 'greenlightScriptProject', scriptProjectId, payload: structuredClone(payload) },
+    { kind: 'greenlightScriptProject', scriptProjectId, payload },
     week,
   )
 }

@@ -16,7 +16,7 @@ import { applyActions } from '../src/core/actions.js'
 import { busyTalentIds } from '../src/core/employment.js'
 import { professionAtWeek } from '../src/core/professionTransitions.js'
 import { prepareLiveWritingContext } from '../src/core/liveRetirementWriting.js'
-import { exportSave, importSave, makeSave } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, validatedLiveProfessionContext } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import type { CastingSlate, GameState } from '../src/core/types.js'
 import { actorSettlement } from './helpers/p14c3-dual-extension-fixtures.js'
@@ -93,9 +93,11 @@ describe('L-02 on the save path: a recorded profession change of an acknowledged
 
   it('every save after the change admits and round-trips (the frozen V10 check reads the recorded history)', () => {
     expect(() => makeSave(changed)).not.toThrow()
-    // The live retirement-writing authority runs the same chain; a refusal there would have
-    // silently withdrawn it (liveRetirementWriting.ts turns a chain failure into 'rejected').
-    expect(prepareLiveWritingContext(changed).kind).not.toBe('rejected')
+    // The validated live profession context is the chain the retirement-writing authority runs
+    // when its gate trips (liveRetirementWriting.ts turns a failure there into 'rejected'). On
+    // this world the gate does not trip (kind 'legacy'), so the chain is asserted directly.
+    expect(prepareLiveWritingContext(changed).kind).toBe('legacy')
+    expect(() => validatedLiveProfessionContext(changed)).not.toThrow()
     const reloaded = importSave(exportSave(makeSave(changed))).state as GameState
     expect(reloaded.market.tick).toBe(changed.market.tick)
     expect(person(reloaded, SUBJECT).role).toBe('director')

@@ -876,6 +876,10 @@ export function queryFacilityInstallation(state: GameState, request: FacilityIns
   const rejections: FacilityInstallationRefusal[] = []
   if (!placementRegimeReady(state)) rejections.push('regimeNotReady')
   if (blueprint?.installationTargetCapability === undefined) rejections.push('unknownInstallation')
+  // Restoration is the cost of a cancellation (P13B-S6), never work to order: a restoration record
+  // no receipt names would fail the V26 one-receipt law at the next save, so the quote refuses it
+  // here, which the plan queue already treats as permanent (stabilization 2026-10-22 review).
+  else if (isRestorationBlueprint(request.blueprintId)) rejections.push('unknownInstallation')
   if (target === undefined) rejections.push('unknownTarget')
   else if (blueprint?.installationTargetCapability !== target.capability) rejections.push('incompatibleTarget')
   if (installationTargetBody(state, request.targetFacilityId) === null) rejections.push('targetHasNoBody')

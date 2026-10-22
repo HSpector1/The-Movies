@@ -511,16 +511,8 @@ function applyGreenlight(
     conceptId: p.conceptId,
     // Own copies: a caller that keeps mutating its payload after the action must not be
     // able to rewrite authoritative state through a shared reference (L-15).
-    shape: { ...p.shape },
-    promise: {
-      genre: p.promise.genre,
-      intendedSegments: [...p.promise.intendedSegments],
-      ranges: {
-        intimacy: [p.promise.ranges.intimacy[0], p.promise.ranges.intimacy[1]],
-        tonalWeight: [p.promise.ranges.tonalWeight[0], p.promise.ranges.tonalWeight[1]],
-        kineticEnergy: [p.promise.ranges.kineticEnergy[0], p.promise.ranges.kineticEnergy[1]],
-      },
-    },
+    shape: structuredClone(p.shape),
+    promise: structuredClone(p.promise),
     writerId: p.writerId,
     directorId: p.directorId,
     craftIds: [...p.craftIds],
@@ -2699,6 +2691,10 @@ function applyRenewContract(state: GameState, action: Action & { kind: 'renewCon
   // its recruitment fund does not allocate.
   if (state.founding !== null) {
     throw new Error('applyActions: renewContract rejected — the founding draft is still open; renewal waits until the studio is founded (1364 R-E)')
+  }
+  // A term is a whole number of weeks (L-15); the shared offer guard says the same without the verb's name.
+  if (!Number.isInteger(termWeeks) || termWeeks <= 0) {
+    throw new Error(`applyActions: renewContract rejected — termWeeks must be a positive whole number of weeks (got ${String(termWeeks)})`)
   }
   const contract = activeContract(state, talentId)
   if (contract === undefined) {

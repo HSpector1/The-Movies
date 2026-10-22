@@ -14,7 +14,7 @@
 // R3 (re-adopting sound on a Post whose earlier fit-out was cancelled) is in the second describe.
 import { describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
-import { facilityDemolitionRefusal, facilityMoveRefusal, commitFacilityInstallation, commitPlacement, moveFacility } from '../src/core/placement.js'
+import { facilityDemolitionRefusal, facilityMoveRefusal, commitFacilityInstallation, commitPlacement, moveFacility, queryFacilityInstallation } from '../src/core/placement.js'
 import { makeSave } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState } from '../src/core/types.js'
@@ -78,6 +78,13 @@ describe('office conversion seam (R1, R2, R4)', () => {
     state = admitted(cancel(state, conversion(state, 'office-conversion-ii', officeFacilityId).projectId))
     const restorations = state.placement.facilities.filter((f) => f.blueprintId === 'restoration-office' && f.installation?.targetFacilityId === officeFacilityId)
     expect(restorations.map((f) => f.status)).toEqual(['operational', 'underConstruction'])
+    // The one-receipt law (V26): a forged file whose second receipt names the FIRST restoration
+    // passes every per-receipt check (same blueprint, same target) and is refused by this law alone.
+    const forged: GameState = { ...state, placement: { ...state.placement, facilities: state.placement.facilities.map((f) =>
+      f.status === 'cancelled' && f.cancellation?.restorationProjectId === restorations[1]!.projectId
+        ? { ...f, cancellation: { ...f.cancellation!, restorationProjectId: restorations[0]!.projectId } }
+        : f) } }
+    expect(() => makeSave(forged)).toThrow(/named by 2 cancellation receipts/)
     state = ticksAdmitted(state, restorations[1]!.completesWeek - state.market.tick + 1)
     expect(state.placement.facilities.filter((f) => f.blueprintId === 'restoration-office').map((f) => f.status)).toEqual(['operational', 'operational'])
   }, 60_000)
@@ -100,6 +107,17 @@ describe('office conversion seam (R1, R2, R4)', () => {
     expect(refusal?.code).toBe('facilityEngaged')
     expect(refusal && 'holders' in refusal ? refusal.holders.map((h) => h.holderId) : []).toEqual([cancelled.projectId])
   }, 30_000)
+})
+
+describe('a restoration is never work to order', () => {
+  it('the quote, a direct commit and a queued plan all refuse a restoration blueprint by name', () => {
+    const { state: bare, officeFacilityId } = s4BareOfficeStudio('stabilization-fac-restoration-order')
+    expect(queryFacilityInstallation(bare, { blueprintId: 'restoration-office', targetFacilityId: officeFacilityId }).rejections).toContain('unknownInstallation')
+    // A direct commit on a refused quote returns the input unchanged (placement.ts): nothing is minted.
+    expect(commitFacilityInstallation(bare, { blueprintId: 'restoration-office', targetFacilityId: officeFacilityId }).placement.facilities).toEqual(bare.placement.facilities)
+    expect(() => applyActions(bare, [{ kind: 'queuePhysicalPlan', work: { kind: 'installation', blueprintId: 'restoration-office', target: { facilityId: officeFacilityId } }, approvedMaximumDebit: 5_000_000 } as never]))
+      .toThrow(/can never be installed there: unknownInstallation/)
+  })
 })
 
 describe('physical plans seam (R5)', () => {
