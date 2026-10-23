@@ -31,6 +31,7 @@ import {
   setOperationHollywoodOverride,
   setStudioLotIdentityOverride,
   setStudioLotSoundstageProofOverride,
+  setTycoonWorldOverride,
 } from '../flags.ts'
 import { StudioLotScreen as StudioLotScreenImpl } from './StudioLotScreen.tsx'
 import type { LotRoute } from './navigation.ts'
@@ -1520,6 +1521,7 @@ describe('StudioLotScreen — authoritative Hollywood operations host', () => {
 
   it('keeps a Soundstage 12 operation truthful in the inspector and dispatches no Stage 7 fiction', async () => {
     setOperationHollywoodOverride(true)
+    setTycoonWorldOverride(false) // 16C: the Stage 7 plate copy is asserted where the plate renders
     const state = foundManagedStudio('hollywood-stage-12')
     const base = studioLotSnapshot(state)
     const fakeOperation = {
@@ -1570,6 +1572,33 @@ describe('StudioLotScreen — authoritative Hollywood operations host', () => {
     expect(queryByText(/Assign to Stage 7/i)).not.toBeInTheDocument()
     fireEvent.click(getByTestId('hollywood-production-command-scheduleShootingTake'))
     expect(onProductionCommand).toHaveBeenCalledWith(fakeOperation.currentCommand)
+  })
+
+  // 16C (LOT-13): "This district view depicts Soundstage 7" is true of the painted plate only.
+  async function renderStage12InWorld(tycoon: boolean) {
+    setOperationHollywoodOverride(true)
+    setTycoonWorldOverride(tycoon)
+    const state = foundManagedStudio('hollywood-stage-12-plate-copy')
+    const stage12 = stage12Operation()
+    const adapter = await import('../engine/adapter.ts')
+    vi.spyOn(adapter, 'studioLotSnapshot').mockReturnValue(
+      managedOperationsSnapshot(studioLotSnapshot(state), [stage12]),
+    )
+    const utils = renderScreen(state)
+    expect(utils.getByTestId('hollywood-inspector')).toHaveTextContent(stage12.title)
+    return utils
+  }
+
+  it('16C: shows no Stage 7 plate copy for a Soundstage 12 operation in the tycoon grid world', async () => {
+    const { queryByTestId } = await renderStage12InWorld(true)
+    expect(queryByTestId('hollywood-stage-12-fallback')).not.toBeInTheDocument()
+  })
+
+  it('16C: shows the Stage 7 plate copy for a Soundstage 12 operation on the painted plate', async () => {
+    const { getByTestId } = await renderStage12InWorld(false)
+    expect(getByTestId('hollywood-stage-12-fallback')).toHaveTextContent(
+      'Soundstage 12 + Scenery Shop is authoritative. This district view depicts Soundstage 7',
+    )
   })
 
   it('keeps a selected person and the production command in one two-film inspector context', async () => {

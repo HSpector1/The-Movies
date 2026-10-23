@@ -40,6 +40,7 @@ import {
   clearStudioLotOverviewOverride,
   setOperationHollywoodOverride,
   setStudioLotOverviewOverride,
+  setTycoonWorldOverride,
 } from '../flags.ts'
 import { foundedRosterIds, newHistoricalFoundedGame, newFoundedGame } from '../test/founding.ts'
 import {
@@ -1497,6 +1498,7 @@ describe('World-First Lot-Native Next-Event Cadence V1 — App/Lot integration',
     if (stage7 === undefined)
       throw new Error('setup: expected the earlier Stage 7 production')
     resetAdapterProbe()
+    setTycoonWorldOverride(false) // 16C: the Stage 7 plate copy is asserted where the plate renders
 
     const { view } = await renderStudio(before)
     const selectionsBefore = view.productionSelections.length

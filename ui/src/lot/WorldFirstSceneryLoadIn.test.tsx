@@ -14,6 +14,7 @@ import {
 import {
   setOperationHollywoodOverride,
   setStudioLotOverviewOverride,
+  setTycoonWorldOverride,
 } from '../flags.ts'
 import type {
   LotPersonState,
@@ -716,6 +717,7 @@ describe('World-First Scenery Load-In V1 — StudioLotScreen contract', () => {
   it.each(['Stage 12 first', 'Stage 7 first'] as const)(
     'selects exact Stage 7 with reversed multi-production order: %s',
     async (order) => {
+      setTycoonWorldOverride(false) // 16C: the Stage 7 plate copy is asserted where the plate renders
       const state = loadFixture(BLOCKED_FIXTURE)
       const exact = operationAt(state)
       const hostile = stage12From(exact)

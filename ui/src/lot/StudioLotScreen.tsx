@@ -9090,7 +9090,9 @@ export function StudioLotScreen({
                         <span className={hollywoodInspectorOperation.currentCommand ? '' : 'done'}>STATUS<b>{hollywoodInspectorOperation.statusLabel}</b></span>
                       </div>
                     )}
-                    {hollywoodPlace === null && hollywoodInspectorOperation?.locationBuildingId === 'stage-b' && (
+                    {/* 16C (LOT-13): this copy is true only of the painted plate. Inside this
+                        `hollywood` block, `!tycoon` is the plate world StudioLotView renders. */}
+                    {!tycoon && hollywoodPlace === null && hollywoodInspectorOperation?.locationBuildingId === 'stage-b' && (
                       <p className="hollywood-stage-fallback" data-testid="hollywood-stage-12-fallback">
                         {hollywoodInspectorOperation.facilityLabel} is authoritative. This district view depicts Soundstage 7; manage this production from the inspector.
                       </p>
