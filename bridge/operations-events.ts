@@ -226,8 +226,9 @@ export function operationsEventsProjection(state: GameState): BridgeOperationsEv
       // (src/core/studioWeekTheater.ts): a row the tick writes carries the week the advance
       // started from (the settled state the consumer reads is one week later); a row a
       // player command writes carries the settled week itself; and a tick row with an
-      // explicit week (the setup kinds at the week the advance produces, constructionCompleted
-      // and setBuilt at their completion weeks) carries that week. `date` labels this same
+      // explicit week (setupAdmitted, setupUnitCredited and setupCompleted at the week the advance
+      // produces; constructionCompleted and setBuilt at their completion weeks) carries that week;
+      // setupRebound is a command row. `date` labels this same
       // week, unadjusted (BRIDGE-09).
       week: row.week,
       date: campaignDate(row.week).label,

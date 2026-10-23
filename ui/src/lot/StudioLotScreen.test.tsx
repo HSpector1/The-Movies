@@ -2362,9 +2362,14 @@ describe('L-38: a Lot click on a built stage opens that stage\'s own picture', (
     fireEvent.click(getByTestId('lot-nav-stage-b'))
     await waitFor(() => expect(getByTestId('hollywood-current-production')).toHaveTextContent('Second Unit Picture'))
     expect(getByTestId('hollywood-current-production')).not.toHaveTextContent('First Unit Picture')
+    // The audit's second symptom: both rows marked current. Exactly the clicked stage is.
+    expect(getByTestId('lot-nav-stage-b')).toHaveAttribute('aria-current', 'true')
+    expect(getByTestId('lot-nav-stage-a')).not.toHaveAttribute('aria-current', 'true')
 
     fireEvent.click(getByTestId('lot-nav-stage-a'))
     await waitFor(() => expect(getByTestId('hollywood-current-production')).toHaveTextContent('First Unit Picture'))
     expect(getByTestId('hollywood-current-production')).not.toHaveTextContent('Second Unit Picture')
+    expect(getByTestId('lot-nav-stage-a')).toHaveAttribute('aria-current', 'true')
+    expect(getByTestId('lot-nav-stage-b')).not.toHaveAttribute('aria-current', 'true')
   })
 })

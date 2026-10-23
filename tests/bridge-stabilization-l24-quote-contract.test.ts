@@ -1,9 +1,10 @@
 // Stabilization 2026-10-22, audit finding L-24 (BRIDGE-07): quote snapshots are built by hand
 // with `integer()` money fields, and the generated C# consumer types every schema integer as a
 // 32-bit int, so a studio holding $2,147,483,648 or more produced quotes that parsed on the
-// TypeScript side and failed in Unity on every quote. The runtime's integer is now the
-// consumer's int32, every quote response leaves through the published contract, and a
-// violation is a NAMED rejection that leaves the session (and the runtime around it) alive.
+// TypeScript side only because the parse THREW (the runtime coordinator then failed every later
+// call). Every quote response leaves through the published contract, the declared int32 bounds
+// name the refusal, a schema without bounds still meets the int32 floor, and a violation is a
+// NAMED rejection that leaves the session (and the runtime around it) alive.
 import { describe, expect, it } from 'vitest'
 import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
 import type { BridgePlacementDraftPayload } from '../bridge/schema/bridge-schema.ts'
@@ -60,12 +61,17 @@ describe('L-24: a quote the consumer could not read is a named rejection, and th
     expect(refused.accepted).toBe(false)
     if (refused.accepted) throw new Error('unreachable')
     expect(refused.reasonCode).toBe('SCHEMA_MISMATCH')
-    expect(refused.message).toMatch(/quote response violates the published contract: .*32-bit integer/)
+    // The quote snapshot's `integer()` fields declare the int32 bounds, so the declared bound names the refusal.
+    expect(refused.message).toMatch(/quote response violates the published contract: .*expected a value <= 2147483647/)
     expect(session.stateRevision).toBe(revision)
+    // Nothing was registered: the intent registers only after a lawful mint (the session's own map).
+    expect((session as unknown as { pendingQuotes: Map<string, unknown> }).pendingQuotes.size).toBe(0)
     // The session is not failed: the same question is answered again, the same way, and a
     // lawful session on the same world (cash inside the range) quotes and registers normally.
     const again = session.quote(quoteEnvelope(session, 'l24-overflow-again', draft))
     expect(again.accepted).toBe(false)
+    if (again.accepted) throw new Error('unreachable')
+    expect(again.reasonCode).toBe('SCHEMA_MISMATCH')
     const lawful = new BridgeSession(withCash(state, INT32_MAX))
     const accepted = lawful.quote(quoteEnvelope(lawful, 'l24-lawful', draft))
     expect(accepted.accepted).toBe(true)

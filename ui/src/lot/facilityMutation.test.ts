@@ -179,6 +179,15 @@ describe('C1-M3b — the words never invent a name and never print an engine wor
     expect(engaged([{ title: null, activity: 'installed equipment attached to this facility' }])).toBe(
       'Annex 2 is reserved by current studio work — fitted with installed equipment.',
     )
+    expect(engaged([{ title: null, activity: 'installed equipment retained on its exact facility' }])).toBe(
+      'Annex 2 is reserved by current studio work — keeping installed equipment on this facility.',
+    )
+    expect(engaged([{ title: null, activity: 'research' }])).toBe(
+      'Annex 2 is reserved by current studio work — hosting research.',
+    )
+    expect(engaged([{ title: null, activity: 'a retained research project for this Laboratory' }])).toBe(
+      'Annex 2 is reserved by current studio work — keeping a retained research project.',
+    )
     // An unresolvable title becomes neutral — never a guessed name.
     expect(engaged([{ title: null, activity: 'auditioning' }])).toBe(
       'Annex 2 is reserved by current studio work — auditioning.',

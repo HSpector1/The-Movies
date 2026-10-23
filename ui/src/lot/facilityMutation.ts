@@ -46,6 +46,9 @@ export const LOT_FACILITY_ACTIVITY_LABEL: Readonly<Record<string, string>> = {
   'a started physical plan names this building': 'built from a physical plan that still names it',
   'physical installation work': 'under installation work',
   'installed equipment attached to this facility': 'fitted with installed equipment',
+  'installed equipment retained on its exact facility': 'keeping installed equipment on this facility',
+  research: 'hosting research',
+  'a retained research project for this Laboratory': 'keeping a retained research project',
 }
 
 /** The player word for one engine activity, or null when there is no honest one. */
