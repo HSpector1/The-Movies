@@ -154,14 +154,23 @@ type StampedDraft = { draft: StudioEventDraft; week: number }
  * exactly the code it was — no `if (managed)` sprinkled through the engine.
  */
 export class StudioEventSink {
-  private readonly drafts: StampedDraft[] = []
-
   constructor(
     /** The week the recording context is in. Producers inherit it. */
     private readonly baseWeek: number,
     /** False for the legacy/headless path: every append is discarded. */
     private readonly recording: boolean,
+    /** Shared with every view `at` hands out, so one advance keeps one append order. */
+    private readonly drafts: StampedDraft[] = [],
   ) {}
+
+  /**
+   * This same sink, dating rows `week` unless a producer names its own. For a step
+   * that acts at the week the advance produces (the queue's admission, L-18): its
+   * rows land here, in call order, with every other row of the advance.
+   */
+  at(week: number): StudioEventSink {
+    return new StudioEventSink(week, this.recording, this.drafts)
+  }
 
   /** True when this sink will keep what it is given. */
   get enabled(): boolean {

@@ -256,21 +256,16 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // the M0A acceptance corpus byte-identical across this bump.
   //
   // Rows are stamped with `currentTick` — the week being advanced — which is the
-  // same clock the cash ledger has stamped its rows with since D-11. Owner decision
-  // 5A (L-18): every row this advance writes carries week t, except
-  //   * the completion-dated kinds, which carry their own week: `constructionCompleted`
-  //     and `setBuilt` at their completion weeks, and `setupAdmitted`,
-  //     `setupUnitCredited`, `setupCompleted` at the week this advance produces;
-  //   * four ledger producers that still write t + 1 (the arrived week):
-  //     - a queue-admitted greenlight's `production` and `freelancerFee` rows, which
-  //       the placement and Annex reservation invariants (placement.ts:2291,
-  //       construction.ts:342) tie to its `startTick`, the schedule gate;
-  //     - `constructionCapex` from plan admission (step 1.06), tied to the
-  //       placement's committed week;
-  //     - `signingBonus` from talent-market settlement and `claimPayment` from
-  //       studio closure, both written in the tick's tail on the incremented week.
-  // The Owner decides whether the queued picture's schedule moves to close the first
-  // of these; tests/stabilization-l18-tick-row-weeks.test.ts pins the status quo.
+  // same clock the cash ledger has stamped its rows with since D-11. The rule, as
+  // L-18 and the Owner's 2026-10-23 ruling (decision 5A) leave it: a row for what
+  // happens DURING the advance carries t; a row for what the advance PRODUCES at the
+  // arrived week carries t + 1. The t + 1 rows are the three setup kinds
+  // (`setupAdmitted`, `setupUnitCredited`, `setupCompleted`), the two completion
+  // kinds (`constructionCompleted`, `setBuilt`, at their completion weeks), every row
+  // of a queue admission (step 1.05: the ledger rows, `startTick` and, through
+  // `events.at`, its studio-event rows), plan-admission `constructionCapex` (step
+  // 1.06), and the tail settlements `signingBonus` and `claimPayment`.
+  // tests/stabilization-l18-tick-row-weeks.test.ts pins the rule.
   const events =
     state.operations.mode === 'managed'
       ? new StudioEventSink(currentTick, true)
@@ -421,6 +416,9 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   //
   // The verbs it commits are the player's own verbs, called with the tick's own
   // event sink, so a queued picture and a played picture are the same picture.
+  // The sink is viewed at the arrived week (L-18, 2026-10-23): an admission is an
+  // act of week t + 1 in every row it writes, its ledger rows and `startTick`
+  // included, so its studio-event rows carry t + 1 too.
   const admission = admitQueuedIntents(
     {
       ...state,
@@ -446,7 +444,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       market: { ...state.market, tick: currentTick + 1 },
     },
     currentTick + 1,
-    events,
+    events.at(currentTick + 1),
     writingContext,
   )
   const queueAdmitted: GameState = { ...admission.state, technology: technologyProduction.technology(), market: state.market }

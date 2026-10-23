@@ -228,6 +228,7 @@ export function operationsEventsProjection(state: GameState): BridgeOperationsEv
       // player command writes carries the settled week itself; and a tick row with an
       // explicit week (setupAdmitted, setupUnitCredited and setupCompleted at the week the advance
       // produces; constructionCompleted and setBuilt at their completion weeks) carries that week;
+      // a queue admission's rows (reservationGranted, phaseEntered, queueIntentExpired) also carry the week the advance produces (L-18, 2026-10-23);
       // setupRebound is a command row. `date` labels this same
       // week, unadjusted (BRIDGE-09).
       week: row.week,
