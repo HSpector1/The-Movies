@@ -247,10 +247,10 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
     specs.push({ id, action, label, detail, buildingId, enabled: disabledReason === null, disabledReason, quote })
   }
   // P13B-S2: every catalogue brief a seat can still lawfully be opened for — neither
-  // completed nor otherwise acquired by this studio. Seating before the brief's research
-  // opens is retained P13A law (the engine accepts the seat; begin/weekly work waits for
-  // `researchPrerequisiteRefusal`), so the page publishes what the engine accepts and dates
-  // the wait on the row instead of hiding the brief.
+  // completed nor otherwise acquired by this studio. Owner decision 10A (L-33): the engine
+  // refuses a seat before the brief's research opens, so before that week the row is
+  // published disabled with the engine's own sentence (the dry run in `add`) and dated on
+  // its detail, instead of hiding the brief.
   const briefs = TECHNOLOGY_CATALOGUE.filter(entry =>
     !playerTechnologyAccess(state, entry.id) &&
     !state.technology.projects.some(p => p.studioId === own && p.technologyId === entry.id && p.status === 'completed'))
@@ -290,7 +290,7 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
         { kind: 'assignResearchScientist', laboratoryFacilityId: lab.facilityId, scientistId: person.id, technologyId: entry.id },
         `Assign ${person.name} · ${entry.name}`,
         `Seat this named Scientist on this Laboratory's ${entry.name.toLowerCase()} project (${occupiedHere} of ${capacity} seats occupied). No R&D is charged until the project runs.` +
-        (state.market.tick < entry.researchableWeek ? ` Research opens ${campaignDate(entry.researchableWeek).label}; the seat waits until then.` : ''), buildingId)
+        (state.market.tick < entry.researchableWeek ? ` Research opens ${campaignDate(entry.researchableWeek).label}.` : ''), buildingId)
     }
     for (const project of labProjects) for (const seat of occupiedSeats(project, lab.facilityId)) {
       const person = state.talent.find(t => t.id === seat.talentId)
@@ -379,8 +379,9 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
   const posts = ordered(state.operations.facilities.filter(f => f.capability === 'post'))
   // P13B-S5: one adopt row per (technology, compatible stage, and — where the technology HAS a
   // Post component — one exact Post). The stage rule is PER TECHNOLOGY: a stage already carrying
-  // an adoption of this technology offers no second row for it, while every other technology is
-  // still offered on that same stage. Every row publishes the engine's own `adoptionQuote`
+  // a live adoption of this technology offers no second row for it, while every other technology is
+  // still offered on that same stage. Owner decision 9A (L-32): a cancelled adoption is history, so
+  // its stage is offered again for the restart. Every row publishes the engine's own `adoptionQuote`
   // verbatim, refused or not, so the row never restates a price the engine owns.
   for (const entry of TECHNOLOGY_CATALOGUE) {
     // Synchronized sound keeps its P13A presence: its row is published from week 0 and disabled
@@ -390,7 +391,7 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
     if (entry.postInstallationId === null && !playerTechnologyAccess(state, entry.id)) continue
     const word = entry.id === SYNCHRONIZED_SOUND.id ? 'sound' : entry.name.toLowerCase()
     for (const stage of stages) {
-      if (state.technology.adoptions.some(a => a.studioId === own && a.technologyId === entry.id && a.stageFacilityId === stage.id)) continue
+      if (state.technology.adoptions.some(a => a.studioId === own && a.technologyId === entry.id && a.stageFacilityId === stage.id && a.cancelledWeek === null)) continue
       for (const post of entry.postInstallationId === null ? [null] : posts) {
         const request: AdoptionRequest = { technologyId: entry.id, stageFacilityId: stage.id, ...(post === null ? {} : { postFacilityId: post.id }) }
         const quote = adoptionQuote(state, request)

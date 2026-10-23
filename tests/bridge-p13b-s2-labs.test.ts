@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
+import { campaignDate } from '../src/core/calendar.js'
 import { commitPlacement } from '../src/core/placement.js'
 import { occupiedSeats, PROJECT_UNIT, researchCandidates, researchWeekQuote } from '../src/core/technology.js'
 import { technologyEntry } from '../src/core/technologyCatalogue.js'
@@ -128,18 +129,15 @@ describe('case 1: a fresh Laboratory publishes snapshotVersion 38 and an empty p
   })
 })
 
-// Re-derived from the ENGINE law after the coordinator's correction (2026-09-16):
-// the engine has no researchable-week gate on SEATING (src/core/technology.ts's
-// `researchPrerequisiteRefusal` gates begin/weekly work only), and retained P13A
-// law seats a Scientist before research opens (tests/bridge-p13-laboratory.test.ts
-// seats at week 12 for sound, which opens 260). bridge/laboratory.ts publishes an
-// assign row for every catalogue brief the studio has not completed/acquired,
-// enabled exactly as the engine's own dry run decides, and dates the wait on the
-// row's `detail` ("Research opens <date>; the seat waits until then.") instead of
-// hiding the brief. This describe block asserts exactly that shape, not a bridge
-// gate that never matched the engine.
-describe('case 2: seating is lawful before a brief\'s research opens; the wire dates the wait instead of hiding the brief', () => {
-  it('before week 780 (week 263, S1-style state): both the sound and lighting assign rows exist for a free employed person; the lighting row\'s detail names the wait, the sound row\'s does not (sound opened 260); dispatching the lighting assign through the bridge is accepted, publishing a paused lighting project whose bottleneckLabel also names the wait; its begin row is disabled with the same engine text', () => {
+// Re-derived from the ENGINE law. Owner decision 10A (2026-10-23, audit L-33) replaced
+// the retained P13A seat-before-research law: `assignSeat` (src/core/technology.ts) now
+// refuses a seat before the brief's research opens, so no paused, zero-work project can
+// exist early. bridge/laboratory.ts still publishes an assign row for every catalogue brief
+// the studio has not completed/acquired, disabled exactly as the engine's own dry run
+// decides, and dates the opening on the row's `detail` ("Research opens <date>.") instead
+// of hiding the brief. This describe block asserts exactly that shape.
+describe('case 2: a seat is refused before a brief\'s research opens; the wire dates the opening instead of hiding the brief', () => {
+  it('before week 780 (week 263, S1-style state): both the sound and lighting assign rows exist for a free employed person; the lighting row\'s detail names the opening, the sound row\'s does not (sound opened 260); the lighting row is disabled with the engine\'s own refusal, so no lighting project exists', () => {
     let state = p13aResearchEntry() // week 260: acoustic instruments operational, sound researchable; lighting opens 780
     state = advanceTo(state, 263)
     const laboratoryFacilityId = state.operations.facilities.find(f => f.capability === 'laboratory')!.id
@@ -155,16 +153,10 @@ describe('case 2: seating is lawful before a brief\'s research opens; the wire d
     expect(soundRow.detail).not.toMatch(/Research opens/)
     expect(lightingRow.detail).toMatch(/Research opens/)
     expect(soundRow.enabled).toBe(true)
-    expect(lightingRow.enabled).toBe(true) // seating is lawful even before research opens (retained P13A law)
-
-    dispatch(session, buildingId, `assign-${rl}-${candidateId}-lighting-control-01`)
-    const after = labPage(session, buildingId, nextRequestId('pre780-after'))
-    const lightingProject = required(after.projects.find(p => p.technologyId === 'lighting-control-01'), 'lighting project absent after the assign dispatched')
-    expect(lightingProject.status).toBe('paused')
-    expect(lightingProject.bottleneckLabel).toMatch(/Research opens/)
-    const beginRow = required(after.actions.find(a => a.id === `run-${lightingProject.projectId}`), 'lighting begin row absent')
-    expect(beginRow.enabled).toBe(false)
-    expect(beginRow.disabledReason).toMatch(/Research opens/)
+    expect(lightingRow.enabled).toBe(false) // Owner decision 10A: no seat before research opens
+    expect(lightingRow.intent).toBeNull()
+    expect(lightingRow.disabledReason).toBe(`Lighting control research opens ${campaignDate(technologyEntry('lighting-control-01').researchableWeek).label}. Assign a Laboratory seat from that week.`)
+    expect(lab.projects.some(p => p.technologyId === 'lighting-control-01')).toBe(false)
   })
 
   describe('at week 780 (two-Laboratory world): both briefs are open, so no assign row still names the wait', () => {

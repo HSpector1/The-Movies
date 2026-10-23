@@ -44,10 +44,15 @@ describe('P13A Scientist expiration at the shared Gate Hiring boundary', () => {
     expect(hire.enabled).toBe(true)
     expect(hire.detail).toContain('$2,000/week')
     expect(makeSave(expired)).toEqual(original)
+    // The rehire commits the same person: the Scientist count does not grow. It is compared, not
+    // pinned at 1, because rivals hire their own Scientists once a paused player project no longer
+    // stands them down (Owner decision 10A, 2026-10-23).
+    const scientistsBefore = session.gameState.talent.filter(person => person.role === 'scientist').length
     expect(session.command({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, type: 'submitIntent',
       commandId: 'rehire-expired-scientist', sessionId: session.sessionId, expectedStateRevision: session.stateRevision,
       payload: { intentId: hire.intent!.intentId } }).accepted).toBe(true)
-    expect(session.gameState.talent.filter(person => person.role === 'scientist')).toHaveLength(1)
+    expect(session.gameState.talent.filter(person => person.role === 'scientist')).toHaveLength(scientistsBefore)
+    expect(session.gameState.talent.some(person => person.id === scientist.id && person.role === 'scientist')).toBe(true)
     expect(activeContract(session.gameState, scientist.id)?.annualSalary).toBe(104_000)
     expect(session.gameState.technology.projects).toEqual(expired.technology.projects)
     expect(() => session.snapshot()).not.toThrow()

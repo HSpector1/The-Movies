@@ -363,8 +363,8 @@ export function adoptionRefusal(state: GameState, studioId: string, stageId: str
  * P13B-S8 (audit item 4): seating a named Scientist, for whichever studio the
  * context names. The player's intent boundary derives `own` once and delegates
  * here; the rival policy step calls the same internal with its own context, so
- * one seat law — Laboratory, employment, double assignment, two-Laboratory limit
- * and the body's four-seat cap — governs every studio.
+ * one seat law — Laboratory, employment, double assignment, the research opening
+ * week, two-Laboratory limit and the body's four-seat cap — governs every studio.
  */
 export function assignSeat(state: GameState, context: StudioContext,
   request: {laboratoryFacilityId: string; scientistId: string; technologyId: TechnologyId}): GameState {
@@ -375,6 +375,9 @@ export function assignSeat(state: GameState, context: StudioContext,
   if (state.technology.projects.some(p => occupiedSeats(p).some(s => s.talentId === request.scientistId))) throw new Error('This Scientist already holds a Laboratory seat.')
   if (busyTalentIds(state).has(request.scientistId)) throw new Error('This Scientist already has an active assignment.')
   const entry = technologyEntry(request.technologyId)
+  // Owner decision 10A (L-33): no seat before the brief's research opens, so no studio holds a
+  // paused, zero-work project on a technology nobody may research yet.
+  if (state.market.tick < entry.researchableWeek) throw new Error(`${entry.name} research opens ${campaignDate(entry.researchableWeek).label}. Assign a Laboratory seat from that week.`)
   const existing = state.technology.projects.find(p => p.studioId === own && p.technologyId === request.technologyId)
   if (existing?.status === 'completed') throw new Error(`${entry.name} research is complete; its seats accept no further assignment.`)
   if (existing) {
@@ -702,10 +705,19 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
     if (!['research','purchase'].includes(a.route) || !technologyAccess(state,a.studioId,a.technologyId)) fail('adoption without lawful access')
     const access=root.access.find(access=>access.studioId===a.studioId && access.technologyId===a.technologyId)!
     if(access.acquiredWeek===null || access.acquiredWeek>a.committedWeek || access.route!==a.route) fail('adoption precedes or misrepresents acquired access')
+    // P13B-S6: whether this player adoption's physical work was cancelled, read from its placement
+    // records because the frozen V24/V25 delegation strips `cancelledWeek` (both reach one verdict).
+    const cancelledAdoption = a.studioId === own && Array.isArray(a.physicalProjectIds) && a.physicalProjectIds.some(id =>
+      state.placement.facilities.some(p => p.projectId === id && p.status === 'cancelled'))
     // Per technology (P13B-S5): one adoption per (studio, technology, stage). A
     // lighting fit-out and a sound conversion are different work on one stage.
+    // Owner decision 9A (L-32): under the cancellation-era policy only a LIVE adoption
+    // holds its stage, so a restart after a cancellation is a new adoption.
+    const holdsStage = !(cancellationAwarePolicy && cancelledAdoption)
     const stageKey = `${a.studioId}/${a.technologyId}/${a.stageFacilityId}`
-    if (stages.has(stageKey) || adoptionIds.has(a.id)) fail('duplicate adoption');stages.add(stageKey);adoptionIds.add(a.id)
+    if (holdsStage && stages.has(stageKey) || adoptionIds.has(a.id)) fail('duplicate adoption')
+    if (holdsStage) stages.add(stageKey)
+    adoptionIds.add(a.id)
     const operations = a.studioId === own ? state.operations : state.hollywood!.businesses.find(b => b.studioId === a.studioId)?.operations
     if (!operations?.facilities.some(f => f.id === a.stageFacilityId && f.capability === 'soundstage')) fail('adoption has no exact compatible chain')
     if (entry.postInstallationId === null) {
@@ -789,13 +801,11 @@ function validateSharedTechnology(state: TechnologyBearingState, v: Validator, p
       // Frozen pre-cancellation policy keeps its original null-holder exception.
       // The explicit cancellation-era policy also permits a later live holder,
       // while historical references never consume current ownership.
-      const cancelled = a.studioId === own && a.physicalProjectIds.some(id =>
-        state.placement.facilities.some(p => p.projectId === id && p.status === 'cancelled'))
-      if (cancellationAwarePolicy && cancelled) {
+      if (cancellationAwarePolicy && cancelledAdoption) {
         // Historical references survive reuse; only an uncancelled adoption owns now.
         if (asset!.holderAdoptionId === a.id) fail('equipment asset is still held by a cancelled adoption')
       } else {
-        if (asset!.holderAdoptionId !== a.id && !(cancelled && asset!.holderAdoptionId === null) || heldAssets.has(asset!.id)) fail('equipment asset is held by another adoption')
+        if (asset!.holderAdoptionId !== a.id && !(cancelledAdoption && asset!.holderAdoptionId === null) || heldAssets.has(asset!.id)) fail('equipment asset is held by another adoption')
         if (asset!.holderAdoptionId !== null) heldAssets.add(asset!.id)
       }
     }

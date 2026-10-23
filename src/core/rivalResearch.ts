@@ -95,6 +95,9 @@ function ownPlans(plans: StudioPhysicalPlans, studioId: string): readonly Physic
  * it the way it always has — by commercial purchase once it is on sale. Without
  * that, every rival invents every technology within weeks of its research week
  * and the commercial route never happens again in any campaign.
+ *
+ * Owner decision 10A (L-33): only a STARTED project stands the industry down. A
+ * paused, zero-work project that never began is private state, not a pursuit.
  */
 function interests(state: GameState, business: RivalBusiness, week: number): readonly RivalResearchPolicyRow[] {
   return RIVAL_RESEARCH_POLICY.filter(row => {
@@ -102,7 +105,8 @@ function interests(state: GameState, business: RivalBusiness, week: number): rea
     if (state.technology.access.some(a => a.studioId === business.studioId && a.technologyId === row.technologyId && a.acquiredWeek !== null)) return false
     if (state.technology.access.some(a => a.studioId !== business.studioId && a.technologyId === row.technologyId &&
       a.route === 'research' && a.acquiredWeek !== null)) return false
-    return !state.technology.projects.some(p => p.studioId !== business.studioId && p.technologyId === row.technologyId && p.status !== 'cancelled')
+    return !state.technology.projects.some(p => p.studioId !== business.studioId && p.technologyId === row.technologyId &&
+      p.status !== 'cancelled' && p.startedWeek !== null)
   })
 }
 

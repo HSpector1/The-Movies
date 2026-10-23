@@ -95,7 +95,7 @@ describe('P13A Laboratory bridge', () => {
     expect(state.talent.some(t => t.role === 'scientist')).toBe(false)
   })
 
-  it('commits the exact named hire once, rejects its stale sibling intent, then assigns the employed Scientist', () => {
+  it('commits the exact named hire once, rejects its stale sibling intent, then publishes each seat refused until its research opens', () => {
     const session = new BridgeSession(laboratory(), 'lab-test')
     const page = session.industry(query())
     if (!('laboratory' in page) || !page.laboratory) throw new Error('Laboratory page absent')
@@ -116,11 +116,14 @@ describe('P13A Laboratory bridge', () => {
     if (!('laboratory' in current) || !current.laboratory) throw new Error('Laboratory page absent')
     expect(current.laboratory.scientistId).toBeNull()
     expect(current.laboratory.scientistLabel).toContain(session.gameState.talent.find(t => t.role === 'scientist')!.name + ' is employed')
-    const assign = current.laboratory.actions.find(a => a.id.startsWith('assign-'))!
-    expect(assign.enabled).toBe(true)
-    expect(session.command({ ...command, commandId: 'assign-scientist', expectedStateRevision: session.stateRevision,
-      payload: { intentId: assign.intent!.intentId } }).accepted).toBe(true)
-    expect(session.gameState.technology.projects[0]).toMatchObject({ status: 'paused', verifiedWork: 0, expenditure: 0 })
+    // Owner decision 10A (L-33): at week 12 neither brief's research is open, so the engine refuses
+    // both seats; each row carries that sentence and no paused, zero-work project is created.
+    const assigns = current.laboratory.actions.filter(a => a.id.startsWith('assign-'))
+    expect(assigns.map(a => [a.id, a.enabled, a.intent, a.disabledReason])).toEqual([
+      ['assign-1-t-sci-00-lighting-control-01', false, null, `Lighting control research opens ${campaignDate(780).label}. Assign a Laboratory seat from that week.`],
+      ['assign-1-t-sci-00-synchronized-sound', false, null, `Synchronized sound research opens ${campaignDate(260).label}. Assign a Laboratory seat from that week.`],
+    ])
+    expect(session.gameState.technology.projects).toEqual([])
   })
 
   it('acknowledges completed acoustic instruments while the Scientist seat remains unassigned', () => {

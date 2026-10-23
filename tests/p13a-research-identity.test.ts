@@ -12,7 +12,8 @@ describe('P13A retained research Laboratory identity', () => {
     const generated = generateWorld('p13a-research-identity')
     let state = initializeHollywood(applyActions({ ...generated, economyEngagedEver: true }, [{ kind: 'activateStudioOperations' }]), 'fresh')
     state = commitPlacement(state, { blueprintId: 'research-laboratory', origin: { gx: 0, gy: 9 } })
-    while (state.market.tick < 12) state = tick(state)
+    // Owner decision 10A (L-33): a seat waits for the brief's research week (sound: 260), not week 12.
+    while (state.market.tick < 260) state = tick(state)
     const lab = state.placement.facilities[0]!
     state = applyActions(state, [{ kind: 'recruitScientist', laboratoryFacilityId: lab.facilityId }])
     const scientistId = state.talent.find(person => person.role === 'scientist')!.id

@@ -119,7 +119,10 @@ export function adoptionRejections(state: GameState, studioId: string, request: 
     const post = resolvedPostFacilityId(state, studioId, request)
     if (post === null || !operations?.facilities.some(f => f.id === post && f.capability === 'post')) rejections.push('Select an exact Post facility.')
   }
-  if (state.technology.adoptions.some(a => a.studioId === studioId && a.technologyId === entry.id && a.stageFacilityId === request.stageFacilityId)) {
+  // Owner decision 9A (L-32): only a LIVE adoption holds its stage. A cancelled one is history, so a
+  // restart on that stage is a new placement and a new adoption that owns it.
+  if (state.technology.adoptions.some(a => a.studioId === studioId && a.technologyId === entry.id &&
+    a.stageFacilityId === request.stageFacilityId && (a.cancelledWeek ?? null) === null)) {
     rejections.push(`This stage already has a ${entry.id} adoption commitment.`)
   }
   // The commit path refuses a stage or Post whose body cannot begin the P09 installation (engaged by
