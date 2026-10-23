@@ -17,7 +17,7 @@ import { exportSave, importSave, makeSave, validateSave } from '../src/core/save
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import { generateWorld } from '../src/core/worldgen.js'
-import type { Action, CastSlot, GameState, SegmentId } from '../src/core/types.js'
+import type { CastSlot, GameState, SegmentId } from '../src/core/types.js'
 import { advance, operationsStudio, productionPayload, withCash } from './contracts/_contractFixtures.js'
 
 type LiveSave = ReturnType<typeof makeSave>
@@ -73,7 +73,7 @@ function setupWorld(seed: string): GameState {
   state = applyActions(state, [{ kind: 'greenlight', production: productionPayload(state) }])
   state = tick(state); state = tick(state); state = tick(state)
   const productionId = state.studio.activeProductions[0]!.id
-  state = applyActions(state, [{ kind: 'setProductionSetupRecipe', productionId, recipeId: 'ordinary-interior-01', expectedPlanRevision: 0 } as unknown as Action])
+  state = applyActions(state, [{ kind: 'setProductionSetupRecipe', productionId, recipeId: 'ordinary-interior-01', expectedPlanRevision: 0 }])
   return tick(tick(state))
 }
 
@@ -143,6 +143,11 @@ describe('L-19: the sequence laws cover every studio-event row, stripped kinds i
     it('refuses the row when its seq is at nextSeq', () => {
       const forged = forgeRow(save, index, (row) => ({ ...row, seq: save.state.studioEvents.nextSeq }))
       expect(() => validateSave(forged)).toThrow(new RegExp(`${label(index)}\\.seq is at or above nextSeq`))
+    })
+
+    it('admits the row at the oldest kept week (the window is inclusive of that edge)', () => {
+      const forged = forgeRow(save, index, (row) => ({ ...row, week: save.state.market.tick - (TUNING.STUDIO_EVENT_WINDOW_WEEKS - 1) }))
+      expect(() => validateSave(forged)).not.toThrow()
     })
 
     it('refuses the row when it is dated outside the retention window the tick would have compacted', () => {

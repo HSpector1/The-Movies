@@ -143,6 +143,9 @@ const phaser = vi.hoisted(() => {
       keyboard: {
         enabled: true,
         resetKeys: vi.fn(),
+        // The real KeyboardPlugin owns the page's keys until told otherwise (L-09).
+        disableGlobalCapture: vi.fn(),
+        enableGlobalCapture: vi.fn(),
       },
     }
     readonly add = {
@@ -402,6 +405,9 @@ describe('LotScene managed production occupancy renderer', () => {
     expect(scene.input.keyboard!.enabled).toBe(false)
     expect(scene.input.resetPointers).toHaveBeenCalledTimes(1)
     expect(scene.input.keyboard!.resetKeys).toHaveBeenCalledTimes(1)
+    // A modal over the Lot owns the page's keys while it is open (L-09).
+    expect(scene.input.keyboard!.disableGlobalCapture).toHaveBeenCalledTimes(1)
+    expect(scene.input.keyboard!.enableGlobalCapture).not.toHaveBeenCalled()
 
     internals.dragging = true
     internals.dragMoved = true
@@ -414,6 +420,7 @@ describe('LotScene managed production occupancy renderer', () => {
     expect(scene.input.keyboard!.enabled).toBe(true)
     expect(scene.input.resetPointers).toHaveBeenCalledTimes(2)
     expect(scene.input.keyboard!.resetKeys).toHaveBeenCalledTimes(2)
+    expect(scene.input.keyboard!.enableGlobalCapture).toHaveBeenCalledTimes(1)
   })
 
   it.each([

@@ -2309,3 +2309,62 @@ describe('StudioLotScreen — world-first D-17B publicity campaign', () => {
     expect(onRunPublicity).toHaveBeenCalledTimes(1)
   })
 })
+
+describe('L-38: a Lot click on a built stage opens that stage\'s own picture', () => {
+  it('with pictures on Soundstage 7 and Soundstage 12, clicking Stage 12 then Stage 7 opens each stage\'s picture', async () => {
+    setOperationHollywoodOverride(true)
+    const state = foundManagedStudio('stabilization-l38')
+    const base = studioLotSnapshot(state)
+    const picture = (suffix: string, locationBuildingId: 'stage-a' | 'stage-b', facilityLabel: string, title: string) => ({
+      productionId: `production-${suffix}`,
+      title,
+      phase: 'shooting' as const,
+      phaseLabel: 'Shooting',
+      weeksRemaining: 5,
+      progress01: 3 / 8,
+      locationBuildingId,
+      facilityLabel,
+      directorId: `director-${suffix}`,
+      directorName: 'Avery Cole',
+      taskStatus: 'ready' as const,
+      statusLabel: 'Decision required',
+      blocker: {
+        kind: 'take-scheduling' as const,
+        headline: 'Take ready to schedule',
+        detail: `${facilityLabel} is ready.`,
+      },
+      attention: 'decision-required' as const,
+      currentCommand: {
+        kind: 'scheduleShootingTake' as const,
+        productionId: `production-${suffix}`,
+        label: 'Schedule the shooting take',
+      },
+    })
+    const stage7 = picture('stage-7', 'stage-a', 'Soundstage 7', 'First Unit Picture')
+    const stage12 = picture('stage-12', 'stage-b', 'Soundstage 12 + Scenery Shop', 'Second Unit Picture')
+    const adapter = await import('../engine/adapter.ts')
+    vi.spyOn(adapter, 'studioLotSnapshot').mockReturnValue({
+      ...base,
+      productionOperations: [stage7, stage12],
+      people: [],
+    })
+    const { getByTestId } = render(
+      <StudioLotScreen
+        state={state}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onProductionCommand={vi.fn()}
+      />,
+    )
+
+    // Before the fix the any-stage resolver gave Soundstage 7 precedence, so this click opened
+    // the Stage 7 picture (the audit's symptom).
+    fireEvent.click(getByTestId('lot-nav-stage-b'))
+    await waitFor(() => expect(getByTestId('hollywood-current-production')).toHaveTextContent('Second Unit Picture'))
+    expect(getByTestId('hollywood-current-production')).not.toHaveTextContent('First Unit Picture')
+
+    fireEvent.click(getByTestId('lot-nav-stage-a'))
+    await waitFor(() => expect(getByTestId('hollywood-current-production')).toHaveTextContent('First Unit Picture'))
+    expect(getByTestId('hollywood-current-production')).not.toHaveTextContent('Second Unit Picture')
+  })
+})

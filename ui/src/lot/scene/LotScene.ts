@@ -1236,7 +1236,12 @@ export class LotScene extends Phaser.Scene {
     this.input.resetPointers()
     this.input.keyboard?.resetKeys()
     this.input.enabled = !on
-    if (this.input.keyboard) this.input.keyboard.enabled = !on
+    if (this.input.keyboard) {
+      this.input.keyboard.enabled = !on
+      // A modal over the Lot owns the page's keys (arrows, Space, Shift) while it is open (L-09).
+      if (on) this.input.keyboard.disableGlobalCapture()
+      else this.input.keyboard.enableGlobalCapture()
+    }
     this.input.setDefaultCursor(on ? 'default' : 'grab')
     this.refreshHighlights()
   }

@@ -3891,6 +3891,9 @@ export class TycoonScene extends Phaser.Scene {
     if (!view?.lamp || view.chip === null || view.badge === null) return
     const sign = view.place.label
     const card = this.snapshot.activeProductions.find((production) => production.stageId === id)
+    // A stage that needs the player's decision keeps the decision badge the building pass
+    // just painted; the status text used to overwrite it on either branch (L-42).
+    const decisionRequired = this.snapshot.buildings.find((building) => building.id === id)?.attention === 'decision-required'
 
     if (id === 'stage-a' && stage7 !== null) {
       const colour =
@@ -3903,10 +3906,12 @@ export class TycoonScene extends Phaser.Scene {
               : C.lampAvailable
       view.lamp.setFillStyle(colour, 1)
       view.chip.setData('status', true).setFillStyle(colour, 1).setVisible(true)
-      view.badge
-        .setText(`${sign} · ${stage7.statusLabel.toUpperCase()}`)
-        .setBackgroundColor('#7a5c22ee')
-        .setData('want', true)
+      if (!decisionRequired) {
+        view.badge
+          .setText(`${sign} · ${stage7.statusLabel.toUpperCase()}`)
+          .setBackgroundColor('#7a5c22ee')
+          .setData('want', true)
+      }
       this.paintStageActivity(stage7.taskStatus)
       return
     }
@@ -3915,9 +3920,6 @@ export class TycoonScene extends Phaser.Scene {
     const colour = filming ? C.lampFilming : card ? C.lampIdle : C.lampAvailable
     view.lamp.setFillStyle(colour, 1)
     view.chip.setData('status', true).setFillStyle(colour, 1).setVisible(true)
-    // A stage that needs the player's decision keeps the decision badge the building pass
-    // just painted; the status text used to overwrite it (stabilization 2026-10-22, L-42).
-    const decisionRequired = this.snapshot.buildings.find((building) => building.id === id)?.attention === 'decision-required'
     if (!decisionRequired) {
       view.badge
         .setText(`${sign} · ${filming ? 'FILMING' : card ? 'IDLE' : 'AVAILABLE'}`)

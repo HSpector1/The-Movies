@@ -130,7 +130,12 @@ function project(
       if (typeof value !== 'boolean') throw new BridgeSchemaError(path, 'expected a boolean')
       return value
     case 'integer':
-      if (!Number.isSafeInteger(value)) throw new BridgeSchemaError(path, 'expected a safe integer')
+      // The generated C# consumer types every schema `integer` as `int` (scripts/bridge-contract-csharp.ts),
+      // so the wire contract is the 32-bit range; a wider value failed only in Unity (stabilization
+      // 2026-10-22, L-24).
+      if (!Number.isSafeInteger(value) || (value as number) > 2147483647 || (value as number) < -2147483648) {
+        throw new BridgeSchemaError(path, 'expected a 32-bit integer (the published C# consumer types every integer as int)')
+      }
       assertConstraints(schema, value as number, path)
       return value
     case 'number':

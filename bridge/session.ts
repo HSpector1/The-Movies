@@ -114,7 +114,7 @@ import type {
   BridgePromiseWaiverQuoteSnapshot,
 } from './schema/bridge-schema.ts'
 import { BRIDGE_SCHEMA } from './schema/bridge-schema.ts'
-import { parseWireValue, projectStudioProjectionBundle } from './schema/runtime.ts'
+import { BridgeSchemaError, parseWireValue, projectStudioProjectionBundle } from './schema/runtime.ts'
 import {
   commissionQuoteSnapshot,
   draftToEngine,
@@ -1810,7 +1810,8 @@ export class BridgeSession {
     started: number,
     stateDigest: string,
     quote: TQuote,
-  ): AcceptedQuoteResponseFor<TQuote> {
+    pending?: { intentId: string; entry: PendingQuote },
+  ): AcceptedQuoteResponseFor<TQuote> | RejectedResponse {
     const response = {
       protocolVersion: PROTOCOL_VERSION,
       schemaId: SCHEMA_ID,
@@ -1826,8 +1827,22 @@ export class BridgeSession {
     // Every quote leaves through the published contract, exactly as every request enters
     // through it. Quote snapshots are built by hand (cashBefore/cashAfter are `integer()`
     // on the wire while cash is a double elsewhere), so an out-of-contract value failed
-    // only in the Unity consumer; refuse it here instead (stabilization 2026-10-22, L-24).
-    parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteResponse, response)
+    // only in the Unity consumer; refuse it here instead, as a NAMED rejection (a throw
+    // would fail the runtime coordinator and every later call), and register the quote's
+    // intent only once the answer is lawful (stabilization 2026-10-22, L-24).
+    try {
+      parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteResponse, response)
+    } catch (error) {
+      if (error instanceof BridgeSchemaError) {
+        return this.reject(request.commandId, 'SCHEMA_MISMATCH',
+          `quote response violates the published contract: ${error.message}`, started)
+      }
+      throw error
+    }
+    if (pending !== undefined) {
+      this.pendingQuotes.set(pending.intentId, pending.entry)
+      this.capPendingQuotes()
+    }
     return response
   }
 
@@ -1858,12 +1873,9 @@ export class BridgeSession {
       const stateDigest = authoritativeDigest(this.state)
       const intentId = opaqueIntentId(stateDigest, { loanDraft: request.draft })
       const quote = loanQuoteSnapshot(this.state, request.draft, intentId)
-      if (quote.ok) {
-        this.pendingQuotes.set(intentId, { family: 'loan', draft: { ...request.draft }, stateDigest,
-          kind: 'takeLoan', commitLabel: quote.commitLabel })
-        this.capPendingQuotes()
-      }
-      return this.mintQuoteResponse(request, started, stateDigest, quote)
+      return this.mintQuoteResponse(request, started, stateDigest, quote, quote.ok
+        ? { intentId, entry: { family: 'loan', draft: { ...request.draft }, stateDigest, kind: 'takeLoan', commitLabel: quote.commitLabel } }
+        : undefined)
     }
     if (request.type === 'quotePlacement') {
       // P09 §18: a PREVIEW is a first-class answer. The engine's legality
@@ -1891,15 +1903,13 @@ export class BridgeSession {
         return this.reject(request.commandId, 'ENGINE_REJECTED', preflight.error, started)
       }
       const quote = placementQuoteSnapshot(this.state, request.draft, conversion, intentId)
-      this.pendingQuotes.set(intentId, {
+      return this.mintQuoteResponse(request, started, stateDigest, quote, { intentId, entry: {
         family: 'placement',
         draft: request.draft,
         stateDigest,
         kind: 'placeFacility',
         commitLabel: quote.commitLabel,
-      })
-      this.capPendingQuotes()
-      return this.mintQuoteResponse(request, started, stateDigest, quote)
+      } })
     }
 
     if (request.type === 'quoteSetCommission') {
@@ -1922,15 +1932,13 @@ export class BridgeSession {
         return this.reject(request.commandId, 'ENGINE_REJECTED', preflight.error, started)
       }
       const quote = setCommissionQuoteSnapshot(this.state, request.draft, conversion, intentId)
-      this.pendingQuotes.set(intentId, {
+      return this.mintQuoteResponse(request, started, stateDigest, quote, { intentId, entry: {
         family: 'setCommission',
         draft: request.draft,
         stateDigest,
         kind: 'commissionSet',
         commitLabel: quote.commitLabel,
-      })
-      this.capPendingQuotes()
-      return this.mintQuoteResponse(request, started, stateDigest, quote)
+      } })
     }
 
     if (request.type === 'quoteContract') {
@@ -1953,15 +1961,13 @@ export class BridgeSession {
         return this.reject(request.commandId, 'ENGINE_REJECTED', preflight.error, started)
       }
       const quote = contractQuoteSnapshot(this.state, request.draft, conversion, intentId, preflight.next)
-      this.pendingQuotes.set(intentId, {
+      return this.mintQuoteResponse(request, started, stateDigest, quote, { intentId, entry: {
         family: 'contract',
         draft: request.draft,
         stateDigest,
         kind: conversion.kind,
         commitLabel: quote.commitLabel,
-      })
-      this.capPendingQuotes()
-      return this.mintQuoteResponse(request, started, stateDigest, quote)
+      } })
     }
 
     if (request.type === 'quoteCommission') {
@@ -1982,15 +1988,13 @@ export class BridgeSession {
         preflight.next,
         intentId,
       )
-      this.pendingQuotes.set(intentId, {
+      return this.mintQuoteResponse(request, started, stateDigest, quote, { intentId, entry: {
         family: 'commission',
         draft: request.draft,
         stateDigest,
         kind: conversion.kind,
         commitLabel: quote.commitLabel,
-      })
-      this.capPendingQuotes()
-      return this.mintQuoteResponse(request, started, stateDigest, quote)
+      } })
     }
 
     if (request.type === 'quoteMarketProposal') {
@@ -2013,15 +2017,13 @@ export class BridgeSession {
       if (!preflight.ok) {
         return this.reject(request.commandId, 'ENGINE_REJECTED', preflight.error, started)
       }
-      this.pendingQuotes.set(intentId, {
+      return this.mintQuoteResponse(request, started, stateDigest, quote, { intentId, entry: {
         family: 'marketProposal',
         draft: payload,
         stateDigest,
         kind: 'marketProposalAction',
         commitLabel: quote.commitLabel,
-      })
-      this.capPendingQuotes()
-      return this.mintQuoteResponse(request, started, stateDigest, quote)
+      } })
     }
 
     if (request.type === 'quoteWaivePromise') {
@@ -2044,15 +2046,13 @@ export class BridgeSession {
       if (!preflight.ok) {
         return this.reject(request.commandId, 'ENGINE_REJECTED', preflight.error, started)
       }
-      this.pendingQuotes.set(intentId, {
+      return this.mintQuoteResponse(request, started, stateDigest, quote, { intentId, entry: {
         family: 'promiseWaiver',
         draft,
         stateDigest,
         kind: 'waivePromise',
         commitLabel: quote.commitLabel,
-      })
-      this.capPendingQuotes()
-      return this.mintQuoteResponse(request, started, stateDigest, quote)
+      } })
     }
 
     if (request.type === 'quoteCasting') {
@@ -2073,15 +2073,13 @@ export class BridgeSession {
         preflight.next,
         intentId,
       )
-      this.pendingQuotes.set(intentId, {
+      return this.mintQuoteResponse(request, started, stateDigest, quote, { intentId, entry: {
         family: 'casting',
         draft: request.draft,
         stateDigest,
         kind: conversion.kind,
         commitLabel: quote.commitLabel,
-      })
-      this.capPendingQuotes()
-      return this.mintQuoteResponse(request, started, stateDigest, quote)
+      } })
     }
 
     // FAIL LOUD (P14A.1): every family above is explicit, so an unrecognized `type`

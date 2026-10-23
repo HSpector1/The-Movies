@@ -4306,6 +4306,10 @@ export function App() {
     if (!currentLotWorldInputOwner()) {
       return { ok: false as const, error: 'The live Lot is suspended while Package decisions are open.' }
     }
+    // The render-time state must still be the authority (the advance handlers' guard; L-27):
+    // these handlers move money, and a build click between the loop's advance and the
+    // re-render would charge week N and then replace the advanced state with it.
+    if (latestStateRef.current !== loadedState) return { ok: false as const, error: 'The studio moved on; try again.' }
     const result = startDevelopmentCastingAnnexAction(loadedState)
     if (result.ok) {
       replaceAuthoritativeState(result.next)
@@ -4323,6 +4327,10 @@ export function App() {
     if (!currentLotWorldInputOwner()) {
       return { ok: false as const, error: 'The live Lot is suspended while Package decisions are open.' }
     }
+    // The render-time state must still be the authority (the advance handlers' guard; L-27):
+    // these handlers move money, and a build click between the loop's advance and the
+    // re-render would charge week N and then replace the advanced state with it.
+    if (latestStateRef.current !== loadedState) return { ok: false as const, error: 'The studio moved on; try again.' }
     const result = placeFacilityAction(loadedState, placement)
     if (result.ok) {
       replaceAuthoritativeState(result.next)
@@ -4340,6 +4348,10 @@ export function App() {
     if (!currentLotWorldInputOwner()) {
       return { ok: false as const, error: 'The live Lot is suspended while Package decisions are open.' }
     }
+    // The render-time state must still be the authority (the advance handlers' guard; L-27):
+    // these handlers move money, and a build click between the loop's advance and the
+    // re-render would charge week N and then replace the advanced state with it.
+    if (latestStateRef.current !== loadedState) return { ok: false as const, error: 'The studio moved on; try again.' }
     const result = moveFacilityAction(loadedState, move)
     if (result.ok && result.next !== loadedState) {
       replaceAuthoritativeState(result.next)
@@ -4352,6 +4364,10 @@ export function App() {
     if (!currentLotWorldInputOwner()) {
       return { ok: false as const, error: 'The live Lot is suspended while Package decisions are open.' }
     }
+    // The render-time state must still be the authority (the advance handlers' guard; L-27):
+    // these handlers move money, and a build click between the loop's advance and the
+    // re-render would charge week N and then replace the advanced state with it.
+    if (latestStateRef.current !== loadedState) return { ok: false as const, error: 'The studio moved on; try again.' }
     const result = demolishFacilityAction(loadedState, demolition)
     if (result.ok && result.next !== loadedState) {
       replaceAuthoritativeState(result.next)

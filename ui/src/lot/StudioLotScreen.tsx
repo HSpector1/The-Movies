@@ -93,6 +93,7 @@ import {
 import {
   anyStageProductionDetailContext,
   sameStage7ProductionDetailContext,
+  stageProductionDetailContext,
   type Stage7ProductionDetailContext,
   type Stage7ProductionOwnerIntent,
 } from './snapshot/stage7Production.ts'
@@ -2430,16 +2431,20 @@ export function StudioLotScreen({
     productionId: string,
     options: {
       stage7Only: boolean
+      /** Match the picture on THIS stage body (a Lot click), whatever Soundstage 7 holds (L-38). */
+      stageId?: BuildingId
       detailEligible: boolean
       focus: 'primary' | 'heading' | false
     },
   ): boolean => {
     if (worldInputSuspendedRef.current) return false
     const current = latestSnapshotRef.current
-    const stage7 = options.stage7Only ? currentStageProductionDetail(current) : null
-    const matches = options.stage7Only
-      ? stage7?.operation.productionId === productionId
-        ? [stage7.operation]
+    const staged = options.stageId !== undefined
+      ? stageProductionDetailContext(current, options.stageId)
+      : options.stage7Only ? currentStageProductionDetail(current) : null
+    const matches = options.stageId !== undefined || options.stage7Only
+      ? staged?.operation.productionId === productionId
+        ? [staged.operation]
         : []
       : (current.productionOperations ?? []).filter(
           (operation) => operation.productionId === productionId,
@@ -6133,15 +6138,15 @@ export function StudioLotScreen({
       // same way Soundstage 7's always has.
       if (hollywood && isLotStageBuildingId(latestSnapshotRef.current, id)) {
         // THIS stage's picture, not the first stage that has one: clicking Stage 12 used to
-        // open Soundstage 7's detail and mark both rows current (L-38).
-        const operation = anyStageProductionDetailContext(
-          latestSnapshotRef.current,
-          [id],
-        )?.operation
+        // open Soundstage 7's detail and mark both rows current (L-38). The resolver is the
+        // per-stage one (the any-stage resolver gives Soundstage 7 precedence), and the entry
+        // matches the picture on this very stage.
+        const operation = stageProductionDetailContext(latestSnapshotRef.current, id)?.operation
         if (
           operation &&
           enterHollywoodProductionContext(operation.productionId, {
-            stage7Only: true,
+            stage7Only: false,
+            stageId: id,
             detailEligible: true,
             focus: 'primary',
           })

@@ -44,7 +44,6 @@ import type {
   Segment,
 } from "../src/core/index.js";
 import type { SaveFileV14, SaveFileV15, LiveSaveFile } from "../src/core/save.js";
-import { LIVE_SAVE_VERSION } from "../src/core/save.js";
 import { initialCareerLifecycle } from "../src/core/careerLifecycle.js";
 import { buildTalentProvenance } from "../src/core/aging.js";
 import { initialProperty } from "../src/core/lot.js";
@@ -288,8 +287,8 @@ describe("§17 — loud rejection of an unknown saveVersion", () => {
     // recognizes versions 1–38 after the C.3 cutover; the unsupported
     // sentinel remains one version past that CURRENT dispatch ceiling.
     const save = wellFormedSave();
-    const bad = { ...save, saveVersion: LIVE_SAVE_VERSION + 1 } as unknown as SaveFileV14;
-    expect(() => loadSave(bad)).toThrow(new RegExp(`unknown saveVersion ${LIVE_SAVE_VERSION + 1}`));
+    const bad = { ...save, saveVersion: EXPECTED_LIVE_SAVE_VERSION + 1 } as unknown as SaveFileV14;
+    expect(() => loadSave(bad)).toThrow(new RegExp(`unknown saveVersion ${EXPECTED_LIVE_SAVE_VERSION + 1}`));
   });
 });
 
