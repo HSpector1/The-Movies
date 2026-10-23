@@ -1,0 +1,75 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p15c2-campaign-legacy-integration.test.ts > p15c2 controls: the fixtures are lawful at RED and at GREEN > legacy-control-late-founding-route-lawful
+{"kind":"1359-legacy-route-timing","seed":"1359-legacy-late-founding-01","headlessTo6188":3310.596458,"industry6188To6241":5773.709373999999}
+
+stdout | tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-ticks-after-freeze
+{"kind":"1359-legacy-extension-timing","headlessTo6188":3310.596458,"industry6188To6241":5773.709373999999,"extension520Ms":12954.331390000003}
+
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 controls: the fixtures are lawful at RED and at GREEN > legacy-control-late-founding-route-lawful 9659ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 controls: the fixtures are lawful at RED and at GREEN > legacy-control-genuine-save38-6240-lawful 10448ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-film-facts 747ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-run-status
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-run-status-natural-no-run
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-private-money-never-read 353ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-career-events
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-studios
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-domain-facts
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-sibling-roots
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-p15-watermarks
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 adapter: legacyFactsFromState (1359-A §3.1-§3.2, RED A1-A9) > legacy-adapter-missing-concept-refuses
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-tick-freezes-once-at-6240
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-freeze-writes-only-its-root 301ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-condition-at-6240-outside
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-adapter-only-at-boundary 13378ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-ticks-after-freeze
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-hollywood-null-no-freeze
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 boundary: the freeze as the tick's last step (1359-A §4, RED B1-B9) > legacy-determinism 6958ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-root-fresh
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-empty-root 1280ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-empty-root-genuine-save38 29285ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-before-boundary 702ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-past-boundary 568ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-migration-past-boundary-genuine-save38 916ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 root: seed, migration and downgrade (1359-A §5.2, RED C1-C5) > legacy-root-downgrade 105302ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-marker 3126ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-manifest-identity 3795ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-stamp 5709ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-bounds 9106ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-refs 4808ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-validate-refs-post-boundary-row
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-definition-era-guard 829ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359-F Amendment 1, RED C6-C12) > legacy-round-trip 739ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) > legacy-validate-replay 7833ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 replay: the validator re-runs the definition the manifest names (1359-F Amendment 1) > legacy-old-law-fixture-v1-validates-after-retune 5550ms
+ ✓ |core| tests/p15c2-campaign-legacy-integration.test.ts > p15c2 law: an authored film may settle with no week (1359-F2 F1; 1359-D item 7) > legacy-law-settled-week-null-authored-only
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 1: projection version bump 39 -> 40; 46 after the P14B.2 bump > bumps PROJECTION_VERSION to 41 and its schema $id / x-project-studio.projectionVersion move with it
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 2: Laboratory forecast rows — windowed before 884 (no leak), exact at/after 884, sound exact throughout > week 793 (windowed, unannounced): lighting forecast row is a window 884..988; campaignDate(936).label appears NOWHERE in the Laboratory page JSON 410ms
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 2: Laboratory forecast rows — windowed before 884 (no leak), exact at/after 884, sound exact throughout > week 884 and week 900 (exact, announced): lighting forecast row publishes the exact 936 date, window labels null 559ms
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 2: Laboratory forecast rows — windowed before 884 (no leak), exact at/after 884, sound exact throughout > sound forecast row is exact at every week (793, 884, 900) — never a window
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 3: replacementLabel on the purchase row, adopt-* rows and adoptions[] rows, for both technologies > purchase-synchronized-sound and purchase-lighting-control-01 (week 900, pre-commercial) carry replacementLabel verbatim from the catalogue
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 3: replacementLabel on the purchase row, adopt-* rows and adoptions[] rows, for both technologies > an uncommitted adopt-synchronized-sound-* row and an uncommitted adopt-lighting-control-01-* row both carry replacementLabel verbatim 360ms
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 3: replacementLabel on the purchase row, adopt-* rows and adoptions[] rows, for both technologies > committed adoptions[] rows for both technologies carry replacementLabel verbatim (s6SoundReady/s6LightingReady) 17212ms
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 4: generalised wait-<id>/purchase-<id> rows — sound unchanged, lighting per the MEASURED engine law (see header) > wait-synchronized-sound / purchase-synchronized-sound: ids, labels, detail text and enabled law are byte-identical to today (regression pin)
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 4: generalised wait-<id>/purchase-<id> rows — sound unchanged, lighting per the MEASURED engine law (see header) > both wait-lighting-control-01 and purchase-lighting-control-01 are ABSENT at week 793 (before the 884 public announcement — RULING: rows exist only while technologyForecast(entry,week).kind === 'exact')
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 4: generalised wait-<id>/purchase-<id> rows — sound unchanged, lighting per the MEASURED engine law (see header) > at week 884 (just announced): wait-lighting-control-01 present and enabled; purchase-lighting-control-01 present and disabled with the engine's own commercialAccessRefusal sentence (RULING: the date may be named from 884 on — it is public then)
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 4: generalised wait-<id>/purchase-<id> rows — sound unchanged, lighting per the MEASURED engine law (see header) > purchase-lighting-control-01 at week 900 (announced, pre-commercial, "before 936"): disabled with the engine's own commercialAccessRefusal sentence
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 4: generalised wait-<id>/purchase-<id> rows — sound unchanged, lighting per the MEASURED engine law (see header) > purchase-lighting-control-01 at week 936 (commercial open): enabled, accessCost in its own text; commit charges accessCost once, advances stateRevision, refuses the same intent at the old revision, and both rows publish disabled with the engine's access-held sentence once access is held 4421ms
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 5: Industry announcement row — derived, nullable studioId, excluded from per-studio History, absent for sound, Save As identical > at week 884: exactly one announcements-group activity, eventId technology-announcement-lighting-control-01, studioId null, headline/detail as specified
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 5: Industry announcement row — derived, nullable studioId, excluded from per-studio History, absent for sound, Save As identical > absent at week 793 (before the public announcement)
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 5: Industry announcement row — derived, nullable studioId, excluded from per-studio History, absent for sound, Save As identical > never a sound announcement, spot-checked at weeks 793/884/900 (degenerate publicWindow, per the landed engine law)
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 5: Industry announcement row — derived, nullable studioId, excluded from per-studio History, absent for sound, Save As identical > excluded from a non-player studio's own History view by construction (studioId: null never matches a real studioId)
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 5: Industry announcement row — derived, nullable studioId, excluded from per-studio History, absent for sound, Save As identical > StudioIndustryActivity.studioId is nullable on the wire schema, while an existing receipt-based row keeps its real studioId
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 5: Industry announcement row — derived, nullable studioId, excluded from per-studio History, absent for sound, Save As identical > identical in a Save As world: two independently-saved-as campaign slots of the same week-884 state publish byte-identical announcement rows 14734ms
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 6: rival-independence on the wire — identical forecast/announcement rows across states differing only in rival facts (PARTIAL until S8, per the engine's own test 2 scope) > precondition: the rival-purchase variant genuinely differs from the base world in rival facts only, at the identical week
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 6: rival-independence on the wire — identical forecast/announcement rows across states differing only in rival facts (PARTIAL until S8, per the engine's own test 2 scope) > Laboratory forecast rows (both technologies) are byte-identical across the two rival-divergent states at week 416 1053ms
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 6: rival-independence on the wire — identical forecast/announcement rows across states differing only in rival facts (PARTIAL until S8, per the engine's own test 2 scope) > industry announcement rows are byte-identical across the two rival-divergent states, both at week 416 (empty) and advanced independently to week 900 (one lighting row) 26170ms
+ ✓ |core| tests/bridge-p13b-s7-disclosure.test.ts > P13B-S7-T3 item 7: genuine V26 fixture loads through the bridge and publishes the windowed lighting forecast at week 795 > sha256 matches provenance; BridgeSession.fromSaveJson loads it; the Laboratory page publishes a windowed lighting forecast (884..988), never 936 5167ms
+
+ Test Files  2 passed (2)
+      Tests  59 passed (59)
+   Start at  01:14:27
+   Duration  335.81s (transform 4.19s, setup 0ms, collect 42.36s, tests 292.08s, environment 1ms, prepare 401ms)
+
+JSON report written to /private/tmp/claude-501/-Users-zacheryspector/21e515ff-0aed-48b0-9b7f-11c9d5239850/scratchpad/baseline-r8/isolated-2files.vitest.json

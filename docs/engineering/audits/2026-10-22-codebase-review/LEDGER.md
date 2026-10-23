@@ -241,6 +241,33 @@ One blocker, seven optional items; dispositions below. Lane run `lane-logs/focus
 | Optional 7: checks a–f (registration move, rejection path, Stage 7 ownership, the L-27 identity, determinism, no lawful value newly refused) | VERIFIED | No change. |
 | Missing evidence: browser (two-picture clicks with one current row and the world's painting; the decision badge on repaint; modal keys), an L-27 race witness, the Unity client's handling of a quote `SCHEMA_MISMATCH` | DEFERRED (named) | Browser and Unity claims stay out of this phase; the L-27 race needs the audit's item 8 harness. |
 
+## Owner decisions, 2026-10-23 (execution record)
+
+The Owner chose, from the options presented after the phase: 1A, 2C, 3A, 4A, 5A, 6A, and the recommended option for every other item (7A, 8A, 9A, 10A, 11A, 12A, 13A, 14B, 15A, 16C, 17A, 18A, 19A, 20A, 21A). Executed in value order under a near-exhausted token budget; each line records its state.
+
+| Decision | State | Record |
+|---|---|---|
+| 1A: promote to `main` now | DONE 2026-10-23 | `main` fast-forwarded from `c902a704` to `6a06dc53` and verified by `ls-remote`; `main` was an ancestor of the branch and unprotected, so no merge commit and no history change. |
+| 2C: rerun the two four-case suites alone, accept the rest as the new baseline | DONE | `p15b4-studio-closure`, `p15c2-campaign-legacy-integration` alone through the lane; both suites pass alone, 60 of 60 with the provenance exporter (`lane-logs/decisions-r1.log`), so their eight recorded failures are no longer failures and are not attributed to a named fix; the remaining 51 single-case entries are accepted as timing; the new baseline is the final gate's failure set at `ba238f30` less the kernel tests removed under 8A. |
+| 21A: install the Python imaging library | DONE (Pillow 13.0.0 and numpy 2.5.4, user level) | Eight of the eleven exporter cases and the core provenance exporter pass with Pillow; the three `rgba-export tool contract` cases also need numpy, installed after that run and rerun in the next lane job. |
+| 8A: delete the detached promise-capacity kernel | DONE (typecheck in `lane-logs/decisions-r2.log`) | Four core modules (≈240 KB) and the 48 `p14b4-*` test files that imported them; no production, UI or Bridge importer. 29 of the recorded baseline failures were those tests and leave the baseline with them. |
+| 6A: relabel the recap row | DONE | "Payroll, overhead and facilities paid". |
+| 13A: confirm the one-availability-set rule for a research-seated Scientist | DONE (confirmed) | No change. |
+| 20A: retire projections 32–44 formally; track the evidence logs | HALF DONE | The twelve evidence logs under the playability review (44 KB) are tracked through a `.gitignore` negation; the formal retirement of projections 32–44 in `bridge/runtime-checkpoint.ts`'s registry is SCHEDULED for the Bridge owner. |
+| 5A: every tick row carries the week the advance started from, with an allow-list and a property test | STATE_5A | |
+| 9A, 10A: adoption uniqueness on non-cancelled adoptions; rival interest counts started or active projects, seats refused before the researchable week | STATE_9A10A | |
+| 3A: rebase the P16 candidate with the seven merge rules | SCHEDULED (P16 owner) | Steps in HANDOFF; not feasible in the remaining budget. |
+| 4A: typed refusals, faults surface as faults | SCHEDULED (after P16) | Its own phase. |
+| 7A: managed-mode feasibility drops the stock path | SCHEDULED (inside P16) | |
+| 11A: placement history reconciles against the committed capex row | SCHEDULED (before any retune) | |
+| 12A: the Legacy manifest reports the paid input week behind an adapter revision | SCHEDULED | |
+| 14B: demolition of a plan-built body admitted through its refund row | SCHEDULED | |
+| 15A: exact receipts beyond the founding stages; the two-production cap lifted | SCHEDULED (Lot phase) | |
+| 16C: the plate copy shown only when the plate world renders; the four contract tests take a world flag | SCHEDULED | |
+| 17A: the Lot captures arrows and Space only with canvas focus | SCHEDULED (needs a browser) | |
+| 18A: Bridge cash fields widen to `number` with a projection bump | SCHEDULED (canonical-62) | |
+| 19A: one design note for the greenlight tail (continuation links, otherwise mint) | SCHEDULED (before Save49 freezes) | |
+
 ## Ledger summary
 
 Finding rows (one per audit finding or finding group, review-item rows excluded): 68. Dispositions: FIXED 34, DEFERRED 31, BLOCKED 2. Six independent read-only reviews (Batch 2 twice, Batches 3/4, the follow-ups, Batch 5, Batches 6/7 with the Batch 5 follow-up, follow-up 4) raised eleven blockers; every one is answered by a landed follow-up with a lane run named beside it. No finding was waived, no test budget changed, no history rewritten, no `main` merge.

@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/Users/zacheryspector/studio-scratch/1367-part-a-candidate/run.py", line 11, in <module>
+    before=guard();node='/Users/zacheryspector/.nvm/versions/node/v20.20.2/bin/node'
+  File "/Users/zacheryspector/studio-scratch/1367-part-a-candidate/run.py", line 10, in guard
+    return {'head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=r,text=True).strip(),'diff':hashlib.sha256(subprocess.check_output(['git','diff','HEAD','--','src','tests','generated','bridge','ui','scripts'],cwd=r)).hexdigest(),'index':hashlib.sha256((r/'.git/index').read_bytes()).hexdigest(),'candidatePinsSha256':hashlib.sha256((s/'SOURCE-PINS.json').read_bytes()).hexdigest(),'manual':manual}
+                                                                                                                                                                                                                                                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 777, in read_bytes
+    with self.open(mode='rb', buffering=0) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/Cellar/python@3.14/3.14.4_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotADirectoryError: [Errno 20] Not a directory: '/Users/zacheryspector/The-Movies-headless-program/.git/index'

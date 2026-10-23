@@ -61,3 +61,6 @@ artifacts/playability-interaction-01/
 
 # Private local receipts (process inventories, private filenames) never enter this public repo.
 *.LOCAL.*
+
+# Stabilization 2026-10-23 (Owner decision 20A): evidence logs under the playability review are records, not scratch.
+!docs/engineering/playability-launch-review/evidence/**/*.log

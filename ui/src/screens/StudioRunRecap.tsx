@@ -344,7 +344,7 @@ export function StudioRunRecap({
         <div className="inset" style={{ marginTop: 14 }} data-testid="recap-fixedcost-reconciliation">
           <h3 style={{ marginTop: 0 }}>Where the studio&rsquo;s fixed costs went</h3>
           <div className="spread">
-            <span>Payroll + overhead paid (run)</span>
+            <span>Payroll, overhead and facilities paid (run)</span>
             <span className="mono" data-testid="recap-fixedcost-total">{moneyExact(capital.totalLedgerFixedCost)}</span>
           </div>
           <div className="spread">
