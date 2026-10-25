@@ -272,7 +272,8 @@ export function quoteAbsorption(state: GameState, input: AbsorptionInput, week: 
   for (const p of business.productions) for (const id of participantsOf(p)) if (!busyOn.has(id)) busyOn.set(id, p.id)
   const buyer = buyerOperations(state, input.buyerId)
   const verdicts = seatTargetProductions(buyer.operations, buyer.occupied, business.productions)
-  const hostable = (talentId: string): boolean => { const pid = busyOn.get(talentId); return pid === undefined || verdicts.get(pid)!.kind === 'seated' }
+  const hostablePeople = new Set(business.productions.filter(p => verdicts.get(p.id)!.kind === 'seated').flatMap(participantsOf))
+  const hostable = (talentId: string): boolean => !busyOn.has(talentId) || hostablePeople.has(talentId)
   const buyerFixed = weeklyFixedCost(state, input.buyerId)
   const spendable = spendableCash(state, input.buyerId)
   const targetCash = business.account.cash

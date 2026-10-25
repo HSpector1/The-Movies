@@ -27,7 +27,7 @@ export function validateAbsorbedProductionStops(state: GameState, business: Riva
     if(row.reason==='missingParticipants') {
       if(row.blockedCapability!==null || row.missingParticipants.length===0)fail('missing-participant write-off lacks actual subjects')
       const missing=[...new Set(people.filter(id=>transaction.contracts.some(c=>c.talentId===id && c.buyerContractId===null)))]
-      if(missing.join()!==row.missingParticipants.join())fail('missing-participant cancellation differs from actual coupled retention')
+      if(missing.length!==row.missingParticipants.length || missing.some(id=>!row.missingParticipants.includes(id)))fail('missing-participant cancellation differs from actual coupled retention')
       for(const id of row.missingParticipants) {
         const disposition=transaction.contracts.find(c=>c.talentId===id)
         const old=state.hollywood!.employment.find(e=>e.contractId===disposition?.sourceContractId)

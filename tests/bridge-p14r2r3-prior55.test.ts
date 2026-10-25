@@ -203,9 +203,10 @@ describe('P14 1308-C: the outgoing projection55 runtime checkpoint migrates to c
     // (tests/bridge-p14p4p5-opportunities.test.ts).
     const older = [...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS].filter(([id]) => id !== OLD_SCHEMA)
       .sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0)
-    // Actual shipped outgoing57 adds one prior identity; exclude only genuine55 here.
-    expect(older).toHaveLength(45)
-    expect(sha(canonicalJson(older))).toBe('fc2e8804eb1c4729cc21403d7722114deb49cb1c234421e7629fa12430f316b9')
+    // Projection 62 registers outgoing58–61 as well; exclude only genuine55.
+    // Recomputed by the same sorted canonical-pair method; the predecessor retains its 45/fc2e8804 pin.
+    expect(older).toHaveLength(49)
+    expect(sha(canonicalJson(older))).toBe('9bf201f42187876c1bffe9209303f3f870c3a4c80b1335d695f555f1e0ad446c')
 
     const loaded = loadBridgeRuntimeCheckpoint(old.raw, undefined, factory)
     expect(loaded.migratedFromProtocolVersion).toBe(4)

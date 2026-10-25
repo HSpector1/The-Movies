@@ -123,7 +123,27 @@ describe('P16 real funded171 stopped drafting writeoff',()=>{
   expect(saves.exportCurrentState(final)).toBe(saves.exportCurrentState(replay))
   const target=final.hollywood!.businesses.find(b=>b.studioId===TARGET)!
   expect(target.account.cash).toBe(0);expect(target.development.projects).toEqual(c.target.development.projects);expect(target.projects).toEqual(c.target.projects);expect(target.productions).toEqual(c.target.productions)
-  expect(v2(final,c.record.id)).toEqual(c.record)
+  // Stopped work stays frozen; the separate, already released film13 still earns its locked run.
+  const {runReceipts,...finalRecord}=v2(final,c.record.id),{runReceipts:closeReceipts,...closeRecord}=c.record
+  expect(finalRecord).toEqual(closeRecord);expect(closeReceipts).toEqual([])
+  expect(c.target.runs).toHaveLength(1)
+  const run=c.target.runs[0]!
+  expect(run).toMatchObject({productionId:TARGET+':film:13',weekIndex:2})
+  const expected=[171,172,173].map(week=>{
+   const weekIndex=week-run.releaseTick,gross=run.weeklyGross[weekIndex]!
+   return {week,productionId:run.productionId,weekIndex,gross,revenue:gross*run.studioShare}
+  })
+  expect(runReceipts.map(({id,...row})=>row)).toEqual(expected)
+  expect(new Set(runReceipts.map(row=>row.id)).size).toBe(3)
+  expect(final.ledger.filter(row=>row.kind==='absorbedRunRevenue')).toEqual(runReceipts.map(row=>({week:row.week,kind:'absorbedRunRevenue',amount:row.revenue,note:row.id})))
+  expect(target.account).toEqual(c.target.account)
+  expect(target.runs).toEqual([{...run,weekIndex:5,
+   cumulativeGrossPaid:expected.reduce((sum,row)=>sum+row.gross,run.cumulativeGrossPaid),
+   cumulativeStudioRevenuePaid:expected.reduce((sum,row)=>sum+row.revenue,run.cumulativeStudioRevenuePaid)}])
+  const film=final.hollywood!.films.find(f=>f.filmId===run.productionId)!
+  expect(film.provenance).toBe('simulation/v1')
+  if(film.provenance!=='simulation/v1')throw new Error('actual acquired run requires simulation film')
+  expect(film.studioRevenueReceived).toBe(target.runs[0]!.cumulativeStudioRevenuePaid)
   expect(target.development.projects.find(s=>s.id==='script-0014')).toMatchObject({status:'drafting',commissionedWeek:170,dueWeek:173,productionId:null})
   expect(final.scriptDevelopment.projects).toEqual(c.result.scriptDevelopment.projects)
   expect(final.hollywood!.receipts.filter(r=>r.studioId===TARGET)).toEqual(c.result.hollywood!.receipts.filter(r=>r.studioId===TARGET))

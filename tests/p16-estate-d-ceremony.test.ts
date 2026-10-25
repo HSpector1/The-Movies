@@ -74,6 +74,12 @@ it('P16 D ceremony actual13M sale intake pays partial claims once before one arc
  expect(tx).toMatchObject({week:176,payerId:player,payeeId:null,amount:BID,lotId:lot.lotId})
  expect(result.proceeds).toEqual([{transactionId:tx.id,lotId:lot.lotId,amount:BID}])
  expect(final.studio.cash-control.studio.cash).toBe(-BID)
+ // Round 8: compare with the same ordinary tick without the bid, so payroll and natural career changes
+ // remain legitimate while an estate title purchase cannot transfer any person or employment authority.
+ expect(final.hollywood!.employment).toEqual(control.hollywood!.employment)
+ expect(final.hollywood!.activeEmploymentOrdinals).toEqual(control.hollywood!.activeEmploymentOrdinals)
+ expect(final.contracts).toEqual(control.contracts)
+ expect(final.freeAgents).toEqual(control.freeAgents)
  expect(currentHolder(final,{right:'R2',filmId:FILM},176)).toMatchObject({kind:'holder',holderId:player})
  const events=final.studioClosure.estateEvents.filter(e=>e.closureId===closure.closureId&&e.week===176)
  const intake=events.filter(e=>String(e.kind)==='saleReceipt'),distribution=events.filter(e=>e.kind==='distribution'),archive=events.filter(e=>e.kind==='archival')

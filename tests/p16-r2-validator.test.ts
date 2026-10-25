@@ -8,6 +8,7 @@
 // A1); minors F58 (three validator rules), F53 (the boundary week), F65 (a missing title is null, never '').
 
 import { describe, expect, it } from 'vitest'
+import { actualEstateClosure } from './helpers/p16-actual-estate.js'
 import { applyActions } from '../src/core/actions.js'
 import * as estate from '../src/core/estate.js'
 import * as sale from '../src/core/assetSale.js'
@@ -17,7 +18,7 @@ import { convertV48ToV49, makeSave, stableStringify, validateSaveV49 } from '../
 import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import type { GameState } from '../src/core/types.js'
-import { detached, estateHandoffFor, genuinePredecessorEnvelope, greenlightPayload, liveFromGenuine, mintRoute, STABLE } from './helpers/p16-fixtures.js'
+import { detached, genuinePredecessorEnvelope, greenlightPayload, liveFromGenuine, mintRoute, STABLE } from './helpers/p16-fixtures.js'
 
 type Save = ReturnType<typeof makeSave>
 
@@ -177,19 +178,30 @@ describe('r2 F58: the licence-overlap, bid-window and estate-proceeds rules each
   })
 
   it('a sealed bid dated before its window, and estate proceeds that differ from the estate sales, refuse', () => {
-    const { state, player, r03, week, h } = world()
-    const film = h.films.find((f) => f.studioId === r03 && f.provenance === 'simulation/v1' && f.settledWeek !== null)!
-    const handoff = estateHandoffFor(state, r03, week, [{ lotId: 'lot-a', subjects: [{ right: 'R2', filmId: film.filmId }], minimumBid: 1 }])
-    let s = estate.openEstate(state, handoff, week, STABLE).state
-    s = estate.submitEstateBid(s, { estateId: handoff.estateId, lotId: 'lot-a', bidderId: player, amount: 7_000 }, week, STABLE).state
-    const early = detached(makeSave(s))
-    early.state.rights.estates[0]!.bids[0]!.week = week - 1
+    const { state, estate: opened } = actualEstateClosure()
+    let s = state
+    // Reuse the fixed 13M public bid from p16-estate-d-ceremony, not an arbitrary below-valuation bid.
+    while (s.market.tick < opened.closesWeek - 1) s = tick(s)
+    const lot = opened.lots.find(l => l.subjects.length === 1 && l.subjects[0]!.right === 'R2'
+      && l.subjects[0]!.filmId === 'studio-aca408ec-r04:film:0')!
+    expect(lot).toBeDefined()
+    expect(lot.minimumBid).toBeLessThanOrEqual(13_000_000)
+    const input = { estateId: opened.estateId, lotId: lot.lotId, bidderId: s.hollywood!.playerStudioId, amount: 13_000_000 }
+    expect(estate.estateBidRefusal(s, input, s.market.tick)).toBeNull()
+    s = estate.submitEstateBid(s, input, s.market.tick).state
+    const baseline = makeSave(s)
+    expect(() => validateSaveV49(baseline)).not.toThrow()
+    const early = detached(baseline)
+    early.state.rights.estates.find(e => e.estateId === opened.estateId)!.bids[0]!.week = opened.opensWeek - 1
     expect(() => validateSaveV49(early)).toThrow(/bids\[0\] admitted only inside/)
-    const D = handoff.closesWeek
-    const closed = estate.resolveEstate({ ...s, market: { ...s.market, tick: D } } as GameState, handoff.estateId, D, STABLE)
+    const before = stableStringify(s)
+    const closed = estate.resolveEstate(s, opened.estateId, opened.closesWeek)
+    expect(stableStringify(s)).toBe(before)
     expect(() => rights.validateRightsRoot(closed as unknown as Record<string, unknown>, 'r2')).not.toThrow()
     const proceeds = detached(closed)
-    proceeds.rights.estates[0]!.proceeds[0]!.amount += 1
+    const record = proceeds.rights.estates.find(e => e.estateId === opened.estateId)!
+    expect(record.proceeds).toHaveLength(1)
+    record.proceeds[0]!.amount += 1
     expect(() => rights.validateRightsRoot(proceeds as unknown as Record<string, unknown>, 'r2')).toThrow(/proceeds must equal the estate sale transactions/)
   })
 })

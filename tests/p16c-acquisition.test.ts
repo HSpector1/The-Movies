@@ -252,3 +252,53 @@ describe('P16C healthy absorption: work continues only where the buyer\'s operat
     for (const p of collided.productions) expect(p).toMatchObject({ disposition: 'cancelRequired', reason: 'productionIdCollision', blockedCapability: null })
   })
 })
+
+// C-08 bounded diagnostic only: constructed quote boundary, NOT an admitted save or natural gameplay route.
+// The genuine input is copied; its production histories are deliberately not forged to admit the clone.
+// No closeAbsorption/full-save claim. Original tests, fixtures and default deadline stay unchanged.
+describe('C-08 shared credited writer quote-boundary diagnostic', () => {
+  it('a first unhostable production must not drop a writer required by a later hostable production', () => {
+    const w = world(), source = detached(w.state)
+    const target = source.hollywood!.businesses.find(b => b.studioId === w.r03)!
+    const original = target.productions[0]!
+    expect(original).toBeDefined()
+    const writer = w.contracts(w.r03).find(e => e.terms.talentId === original.writerId)!
+    expect(writer, 'premise: credited writer has an actual target employment contract').toBeDefined()
+    const first = { ...original, id: 'c08-first-unhostable', remainingTicks: 8 }
+    const second = { ...original, id: 'c08-second-hostable', remainingTicks: 1 }
+    target.productions = [first, second]
+    // Isolate hostability from financing only at this constructed quote boundary.
+    // This cash is not represented as an admitted ledger or a new fixture.
+    source.studio.cash = 1_000_000_000
+    source.operations = { ...source.operations,
+      facilities: source.operations.facilities.filter(f => f.capability !== 'soundstage') }
+    const { state, disclosureId } = disclosed(source, w.player, w.r03)
+    const input = { buyerId: w.player, targetId: w.r03, retention: { kind: 'default' as const }, disclosureId }
+    const before = stableStringify(state)
+    let quote = quoteAtAsk(state, input, w.week)
+    // The existing helper deliberately only parses whole asks. If the unrelated fractional-ask
+    // blocker answers, submit the smallest whole consideration ABOVE that quoted ask. This chooses
+    // an offer price; it does not round/change the producer's ask or resolve its Owner decision.
+    if (quote.kind === 'refusal') {
+      const match = /^targetNotWilling:considerationBelowAsk:(\d+\.\d+)$/.exec(quote.refusal)
+      expect(match, 'only the recorded fractional ask may precede this hostability diagnostic').not.toBeNull()
+      if (!match) throw new Error(quote.refusal)
+      quote = acq.quoteAbsorption(state, { ...input, consideration: Math.ceil(Number(match[1])) }, w.week, STABLE)
+    }
+    expect(quote.kind).toBe('quote')
+    if (quote.kind !== 'quote') throw new Error(quote.refusal)
+    expect(quote.productions.find(p => p.productionId === first.id)).toMatchObject({
+      disposition: 'cancelRequired', reason: 'noFacility:soundstage' })
+    expect(quote.productions.find(p => p.productionId === second.id)).toMatchObject({
+      disposition: 'continues', reason: null, missingParticipants: [] })
+    expect(stableStringify(state)).toBe(before)
+    const disposition = quote.contracts.find(c => c.contractId === writer.contractId)!
+    expect(disposition).toBeDefined()
+    // Diagnostic detail remains visible even when this final regression assertion is RED.
+    console.info('C08_CONSTRUCTED_QUOTE', JSON.stringify({ first: first.id, second: second.id,
+      writerId: original.writerId, disposition, affordable: quote.affordable,
+      scope: 'quote-boundary only; not admitted save, close, Bridge or natural reachability proof' }))
+    expect(disposition, 'hostable later work requires retaining its shared credited writer')
+      .toMatchObject({ retained: true, reason: null })
+  })
+})

@@ -55,12 +55,11 @@ export function moveRivalMoney(account: RivalAccount, kind: RivalMoneyKind, amou
     throw new Error('V27 rival finance does not admit later movement kinds')
   }
   if (!Number.isFinite(amount) || !Number.isFinite(account.cash + amount)) throw new Error('Nonfinite rival money')
-  let period = account.periods[account.periods.length-1]!
-  if (Math.floor(week/52) !== Math.floor(period.fromWeek/52)) {
-    period = newFinancePeriod(week,account.cash,era)
-    account.periods.push(period)
-  }
+  const previous = account.periods[account.periods.length-1]!
+  const period = Math.floor(week/52) !== Math.floor(previous.fromWeek/52)
+    ? newFinancePeriod(week,account.cash,era) : previous
   if (!Object.hasOwn(period.movements, kind)) throw new Error(`Rival finance period from week ${period.fromWeek} has no ${kind} movement`)
+  if (period !== previous) account.periods.push(period)
   account.cash += amount
   period.movements[kind] += amount
   period.closing = account.cash
