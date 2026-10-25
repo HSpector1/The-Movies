@@ -987,7 +987,7 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       'sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e',
       'sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5',
       'sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f',
-      // Actual published outgoing58 remains supported beneath current59.
+      // Actual published outgoing58 remains supported beneath current62.
       'sha256:13b7933fdd1e3dc9851dd08630e46efd43e70227f5e0c6f6cf130d885752ab74',
       'sha256:15033cf9ca43be65abcb25fc6f910f9487ac23056090126ec7d3e2353f6ce587',
       'sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78',
@@ -1012,6 +1012,8 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       // bridge-p14b4-runtime47-compatibility.test.ts.
       'sha256:60af24c58bc4bea8f04e7fc818f8401daeadd87da91252e60cfcf3ee028d8e1b',
       'sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1',
+      // P16 (candidate current200): outgoing59, the F40 manifest identity bridge-contract-generator.test.ts pins.
+      'sha256:6347433150a8ed3988573840bfa22621d5f5aa35b3d053b25ff5e6700ad02dcd',
       'sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9',
       // P14B.5 (662-T2): the outgoing projection-47 identity — the checked-in
       // contract-manifest schemaId before the projection-48 bump (040651b4^), also
@@ -1020,10 +1022,14 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       'sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b',
       // Actual shipped projection57, independent of unlanded candidate57 identity.
       C17_SHIPPED_OUTGOING_57,
+      // P16: outgoing61, the candidate's generated C# header (PATCH.diff d59d331b).
+      'sha256:7d23fdb9a710175afb88208170cfe5692510febe06fb898a3ccd95edc9c53306',
       'sha256:7e3af4db0d3d18cdeaab00082e0034f304a9141f46ea87e9e64e5a99d985483c',
       'sha256:80f2f0fcd14d1b25e713c2624286a6c05a98c53ea5cfcb2b47612f8c030f5e47',
       'sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236',
       'sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85',
+      // P16: outgoing60; the candidate's registry is its only record in this repository.
+      'sha256:8bf350135c7a8b69b4fc2258d1082f452047d37964d0d58b6cc8ceefc87153e4',
       'sha256:92317ec179456cdc5bd5cc7c4ca47dd066b768a9e2e45519f1263ef921a211a4',
       'sha256:97940e51e0566bed80231b223e5b7303a45d62db8d698f693e525eb244775211',
       // P4/P5: genuine1221 outgoing54 current-waived/saved-earned slots.

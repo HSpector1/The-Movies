@@ -63,6 +63,14 @@ const OUTGOING_55 = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb
 const OUTGOING_56 = 'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1' // relationship slice B: outgoing56, the manifest schemaId before projection 57
 // Actual shipped outgoing57 is preserved alongside the historic identities.
 const OUTGOING_57 = 'sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253'
+// P16 (candidate current200): the outgoing identities 58-61 bridge/runtime-checkpoint.ts registers beneath current62.
+// 58 is main's shipped manifest at 8792de52; 59 the F40 manifest bridge-contract-generator.test.ts pins; 61 the
+// candidate's generated C# header (PATCH.diff d59d331b). 60 has no generated header in this repository: the
+// candidate's registry is its only record (audit: "decide identities 59-61").
+const OUTGOING_58 = 'sha256:13b7933fdd1e3dc9851dd08630e46efd43e70227f5e0c6f6cf130d885752ab74'
+const OUTGOING_59 = 'sha256:6347433150a8ed3988573840bfa22621d5f5aa35b3d053b25ff5e6700ad02dcd'
+const OUTGOING_60 = 'sha256:8bf350135c7a8b69b4fc2258d1082f452047d37964d0d58b6cc8ceefc87153e4'
+const OUTGOING_61 = 'sha256:7d23fdb9a710175afb88208170cfe5692510febe06fb898a3ccd95edc9c53306'
 const PINS = {
   gzip: '3db0599c6e183140b79c83880eb967dde37aecc0d178a85d192283893ea0cc34',
   raw: 'e344be06db6794e9d1523c036befb4180595564ef8a3fb6e6062328e477e7699',
@@ -218,11 +226,11 @@ describe('P14B4 genuine outgoing46 runtime compatibility — current Save39/proj
 
   it('requires literal projection54/Save39 and exact 42 prior IDs, excluding the running identity', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(58)
+    expect(PROJECTION_VERSION).toBe(62)
     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
     expect(SCHEMA_ID).not.toBe(OUTGOING_46)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_PRIOR_IDS, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_53)).toBe('projection-v53')

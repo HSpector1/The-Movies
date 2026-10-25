@@ -2050,8 +2050,10 @@ const StudioCastingQuoteSnapshot = object('StudioCastingQuoteSnapshot', {
   marketing: nullable(nonNegativeInteger()),
   freelancerFees: nullable(nonNegativeInteger()),
   totalImmediate: nullable(nonNegativeInteger()),
-  cashBefore: nullable(integer()),
-  cashAfter: nullable(integer()),
+  // 18A (projection 62): studio cash is a double everywhere else on the wire; an int32 here made a studio holding
+  // $2,147,483,648 or more unquotable (audit L-24).
+  cashBefore: nullable(number()),
+  cashAfter: nullable(number()),
   affordable: nullable(bool()),
   strongestAssignmentLine: nullable(text()),
   weakestAssignmentLine: nullable(text()),
@@ -2119,8 +2121,8 @@ const StudioPlacementQuoteSnapshot = object('StudioPlacementQuoteSnapshot', {
   unmetRequirements: array(reference('StudioPlacementUnmetRequirementSnapshot', StudioPlacementUnmetRequirementSnapshot)),
   instanceCount: nonNegativeInteger(),
   maxInstances: nullable(nonNegativeInteger()),
-  cashBefore: integer(),
-  cashAfter: integer(),
+  cashBefore: number(), // 18A (projection 62): cash is a double on the wire, as in StudioFinancialConsequence
+  cashAfter: number(),
   affordable: bool(),
   consequence: nonEmptyText(),
 })
@@ -2148,8 +2150,8 @@ const StudioSetCommissionQuoteSnapshot = object('StudioSetCommissionQuoteSnapsho
   refusal: nullable(enumeration(SET_COMMISSION_REFUSAL_KINDS)),
   refusalReason: nullable(text()),
   refusalRemedy: nullable(text()),
-  cashBefore: integer(),
-  cashAfter: integer(),
+  cashBefore: number(), // 18A (projection 62): cash is a double on the wire, as in StudioFinancialConsequence
+  cashAfter: number(),
   affordable: bool(),
   consequence: nonEmptyText(),
 })
@@ -2189,8 +2191,8 @@ const StudioContractQuoteSnapshot = object('StudioContractQuoteSnapshot', {
   refusal: nullable(enumeration(CONTRACT_REFUSAL_KINDS)),
   refusalReason: nullable(text()),
   refusalRemedy: nullable(text()),
-  cashBefore: integer(),
-  cashAfter: integer(),
+  cashBefore: number(), // 18A (projection 62): cash is a double on the wire, as in StudioFinancialConsequence
+  cashAfter: number(),
   affordable: bool(),
   consequence: nonEmptyText(),
 })

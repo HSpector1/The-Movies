@@ -1839,9 +1839,9 @@ export class BridgeSession {
       processingMs: performance.now() - started,
     }
     // Every quote leaves through the published contract, exactly as every request enters
-    // through it. Quote snapshots are built by hand (cashBefore/cashAfter are `integer()`
-    // on the wire while cash is a double elsewhere), so an out-of-contract value failed
-    // only in the Unity consumer; refuse it here instead, as a NAMED rejection (a throw
+    // through it. Quote snapshots are built by hand (cashBefore/cashAfter were `integer()`
+    // on the wire until 18A widened them to `number()` at projection 62), so an out-of-contract
+    // value failed only in the Unity consumer; refuse it here instead, as a NAMED rejection (a throw
     // would fail the runtime coordinator and every later call), and register the quote's
     // intent only once the answer is lawful (stabilization 2026-10-22, L-24).
     try {

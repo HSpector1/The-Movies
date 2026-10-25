@@ -773,9 +773,9 @@ describe('P14B.8 group11 — A8: the waiver draft offers only what this surface 
 // group12 — 744 §11 A3: the projection bump, complete and consistent, in ONE commit.
 describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing identity is registered as a prior', () => {
   it('PROJECTION_VERSION is 54 and the schema document agrees', () => {
-    expect(PROJECTION_VERSION).toBe(58)
-    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-58`)
-    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(58)
+    expect(PROJECTION_VERSION).toBe(62)
+    expect(BRIDGE_SCHEMA.$id).toBe(`urn:project-studio:bridge:protocol-${String(PROTOCOL_VERSION)}:projection-62`)
+    expect(BRIDGE_SCHEMA['x-project-studio'].projectionVersion).toBe(62)
     expect(PROJECTION_VERSION).toBeGreaterThan(OUTGOING_PROJECTION)
   })
 
@@ -785,7 +785,7 @@ describe('P14B.8 group12 — the projection moves 49 -> 50 and the outgoing iden
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID), 'the RUNNING identity is never its own prior').toBe(false)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:f036ccdd62c4ac2a700a27796631e1c4f8c85f9cccfb14ac6850083fb8dba5f2')).toBe('projection-v52')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:d59e144e4077f669804ca87dd6184ef23bd44c9d93e44eb795f2b66350926a4d')).toBe('projection-v53')
-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, 'P15B adds actual shipped outgoing57: 45 -> 46').toBe(46)
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size, 'P15B adds actual shipped outgoing57: 45 -> 46; P16 adds outgoing58-61: 46 -> 50').toBe(50)
   })
 
   it('the checked-in JSON schema, the contract manifest and the C# header all equal the running identity', () => {

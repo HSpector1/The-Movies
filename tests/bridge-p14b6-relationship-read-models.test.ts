@@ -102,8 +102,16 @@ const OUTGOING_54 = 'sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae
 const OUTGOING_55 = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158' // R2/R3: genuine1307 outgoing55
 const OUTGOING_56 = 'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1' // 1358-N P2: outgoing56, projection-v56 at bridge/runtime-checkpoint.ts:64
 const OUTGOING_57 = 'sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253' // P15B: actual shipped projection57 becomes prior under current58
+// P16 (candidate current200): the outgoing identities 58-61 bridge/runtime-checkpoint.ts registers beneath current62.
+// 58 is main's shipped manifest at 8792de52; 59 the F40 manifest bridge-contract-generator.test.ts pins; 61 the
+// candidate's generated C# header (PATCH.diff d59d331b). 60 has no generated header in this repository: the
+// candidate's registry is its only record (audit: "decide identities 59-61").
+const OUTGOING_58 = 'sha256:13b7933fdd1e3dc9851dd08630e46efd43e70227f5e0c6f6cf130d885752ab74'
+const OUTGOING_59 = 'sha256:6347433150a8ed3988573840bfa22621d5f5aa35b3d053b25ff5e6700ad02dcd'
+const OUTGOING_60 = 'sha256:8bf350135c7a8b69b4fc2258d1082f452047d37964d0d58b6cc8ceefc87153e4'
+const OUTGOING_61 = 'sha256:7d23fdb9a710175afb88208170cfe5692510febe06fb898a3ccd95edc9c53306'
 const OUTGOING_PROJECTION = 48
-const INCOMING_PROJECTION = 58
+const INCOMING_PROJECTION = 62
 // The 36 accepted prior literals as they stand today (tests/bridge-p14b4-runtime47-compatibility.test.ts
 // :40-80, exact-count pin at :162). B.6 took this roster to 37 by adding OUTGOING_48;
 // B.8 takes it to 38 by adding OUTGOING_49.
@@ -796,10 +804,10 @@ describe('family 8 — the WIRE (RED BY VALUE: version literals and a registry c
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_46)).toBe('projection-v46')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect(EXPECTED_36_PRIOR_IDS).toHaveLength(36)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_36_PRIOR_IDS, OUTGOING_48, OUTGOING_49, OUTGOING_50, OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
-    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(46)
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.size).toBe(50) // P16: + outgoing58-61
   })
 
   it('the checked-in generator artifacts equal the running identity (`--check` clean), and priorityOrder keeps its seven members and its line', () => {

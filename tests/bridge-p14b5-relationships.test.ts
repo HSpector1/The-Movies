@@ -64,7 +64,7 @@ function withZeroLoanMovements<T extends { hollywood: { businesses: readonly { a
   if (state.hollywood === null) return state
   return { ...state, hollywood: { ...state.hollywood, businesses: state.hollywood.businesses.map((business) => ({
     ...business, account: { ...business.account, periods: business.account.periods.map((period) => ({
-      ...period, movements: { ...period.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0 } })) },
+      ...period, movements: { ...period.movements, loanPrincipal: 0, loanInstallment: 0, claimPayment: 0, rightsConsideration: 0, dueDiligenceFee: 0, acquisitionOutlay: 0, estateSaleProceeds: 0 } })) },
   })) } }
 }
 function withRivalTermination<T extends { hollywood: GameStateV30['hollywood'] }>(state: T): T {
@@ -104,6 +104,14 @@ const OUTGOING_54 = 'sha256:9c5bba3fcc58e857fe57e33623a86f096cd04e00547bea8f2dae
 const OUTGOING_55 = 'sha256:2c377b6fa3c559eee753e7a9d91d4956399cca1a5693edb15adb3de7c4f27158' // R2/R3: genuine1307 outgoing55
 const OUTGOING_56 = 'sha256:349b2d3ec0614f2c9a6c481888e826651c230c6bcc9c84b2b13a82b566bfcec1' // 1358-N P2: outgoing56, projection-v56 at bridge/runtime-checkpoint.ts:64
 const OUTGOING_57 = 'sha256:74826ef419bfa816647b3de156de3e24fb50327879e207c844c1e1a12b9c1253' // P15B: actual shipped projection57 becomes prior under current58
+// P16 (candidate current200): the outgoing identities 58-61 bridge/runtime-checkpoint.ts registers beneath current62.
+// 58 is main's shipped manifest at 8792de52; 59 the F40 manifest bridge-contract-generator.test.ts pins; 61 the
+// candidate's generated C# header (PATCH.diff d59d331b). 60 has no generated header in this repository: the
+// candidate's registry is its only record (audit: "decide identities 59-61").
+const OUTGOING_58 = 'sha256:13b7933fdd1e3dc9851dd08630e46efd43e70227f5e0c6f6cf130d885752ab74'
+const OUTGOING_59 = 'sha256:6347433150a8ed3988573840bfa22621d5f5aa35b3d053b25ff5e6700ad02dcd'
+const OUTGOING_60 = 'sha256:8bf350135c7a8b69b4fc2258d1082f452047d37964d0d58b6cc8ceefc87153e4'
+const OUTGOING_61 = 'sha256:7d23fdb9a710175afb88208170cfe5692510febe06fb898a3ccd95edc9c53306'
 const OUTGOING_PROJECTION = 47
 // The 35 accepted prior literals (tests/bridge-p14b4-runtime47-compatibility.test.ts :41-83); never derived from the registry.
 const EXPECTED_35_PRIOR_IDS = [
@@ -394,7 +402,7 @@ const wireEnum = (): string[] => {
 describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, re-expressed by 700-T2 after P14B.8 landed projection 50 / Save V32 unchanged)', () => {
   it('live projection52/Save37 and literal current hash retain all40 independent prior identities (875)', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(58)
+    expect(PROJECTION_VERSION).toBe(62)
     expect(OUTGOING_PROJECTION).toBe(47)
     // 1309-X3 ruling 5: SCHEMA_ID tracks the LIVE (projection56) schema now,
     // not projection53's identity (OUTGOING_53) -- states the received value.
@@ -402,7 +410,7 @@ describe('P14B.5 frozen side — the OUTGOING wire identities (R-VERSION class, 
     expect(SCHEMA_ID).toBe('sha256:13b7933fdd1e3dc9851dd08630e46efd43e70227f5e0c6f6cf130d885752ab74')
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
     expect(LIVE_SAVE_VERSION).toBe(EXPECTED_LIVE_SAVE_VERSION)
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61].sort())
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_51)).toBe('projection-v51')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_52)).toBe('projection-v52')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_57)).toBe('projection-v57')
@@ -452,7 +460,7 @@ describe('family 11 — projection 48 THIN (RED by value): the enum, the registr
     expect(SCHEMA_ID).not.toBe(OUTGOING_47)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_47)).toBe('projection-v47')
-    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57].sort())
+    expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([...EXPECTED_35_PRIOR_IDS, OUTGOING_47, OUTGOING_48, OUTGOING_49, 'sha256:e2d354dcbae1a6dc93a2367756512c14243b11be202a26107de0c81a4f3e0698', OUTGOING_51, OUTGOING_52, OUTGOING_53, OUTGOING_54, OUTGOING_55, OUTGOING_56, OUTGOING_57, OUTGOING_58, OUTGOING_59, OUTGOING_60, OUTGOING_61].sort())
     expect(LIVE_SAVE_VERSION).toBeGreaterThan(30) // the governed inner-save step rides the same wave (R22 :610)
   })
 

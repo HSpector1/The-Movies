@@ -526,10 +526,13 @@ describe('CF-08 sound union-to-C# generation', () => {
         member.discriminatorValues,
         member.properties.map((property) => property.wireName),
       ])).toEqual([
+        // P16: the healthy-absorption and paid-due-diligence quote families join the envelope (bridge-schema.ts).
+        ['StudioQuoteAbsorptionRequest', ['quoteHealthyAbsorption'], ['draft', 'type']],
         ['StudioQuoteCastingRequest', ['quoteCasting'], ['draft', 'type']],
         ['StudioQuoteCommissionRequest', ['quoteCommission'], ['draft', 'type']],
         // P10-R1: the contract quote family (renewal / early release) joins the same envelope.
         ['StudioQuoteContractRequest', ['quoteContract'], ['draft', 'type']],
+        ['StudioQuoteDiligenceRequest', ['quotePaidDueDiligence'], ['draft', 'type']],
         ['StudioQuoteLoanRequest', ['quoteLoan'], ['draft', 'type']],
         // P14A.1: the market-proposal quote family (propose/revise/withdraw) joins it too.
         ['StudioQuoteMarketProposalRequest', ['quoteMarketProposal'], ['draft', 'type']],
