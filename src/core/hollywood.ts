@@ -60,6 +60,7 @@ export function moveRivalMoney(account: RivalAccount, kind: RivalMoneyKind, amou
     period = newFinancePeriod(week,account.cash,era)
     account.periods.push(period)
   }
+  if (!Object.hasOwn(period.movements, kind)) throw new Error(`Rival finance period from week ${period.fromWeek} has no ${kind} movement`)
   account.cash += amount
   period.movements[kind] += amount
   period.closing = account.cash
