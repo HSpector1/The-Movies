@@ -153,7 +153,11 @@ describe('P14B.2 group1 — projection46, unchanged Save29/intents, closed wire 
       'startConstruction', 'commissionOriginalScreenplay', 'signContract', 'commitPictureToRelease', 'placeFacility', 'commissionSet',
       'renewContract', 'releaseTalent', 'researchAction', 'physicalPlanAction', 'installationAction', 'adoptTechnology',
       'productionSetupAction', 'cancellationAction', 'marketProposalAction', 'waivePromise',
-      'takeLoan']) // P15B Wave 5 (1370-ar): the one loan verb (1357-A §7)
+      'takeLoan', // P15B Wave 5 (1370-ar): the one loan verb (1357-A §7)
+      // P16 rebase round 6: the candidate's two rights verbs, minted by the quotePaidDueDiligence and
+      // quoteHealthyAbsorption families (bridge/rights.ts); read from bridge/schema/intent-schema.ts, whose enumeration
+      // is inside the projection-62 schema identity measured at 839bb7c5 (lane wave3c).
+      'requestDueDiligence', 'absorbStudio'])
   })
   it('validates actual session profile, Market, Pulse and studio DTOs without stripping the new members', () => {
     const f = retentionFixture()

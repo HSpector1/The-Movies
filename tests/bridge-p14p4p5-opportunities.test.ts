@@ -532,8 +532,11 @@ describe('P4/P5 closed Bridge material and outgoing runtime authority', () => {
     // 1358-N P2: outgoing56 (projection-v56) is registered too, so the older count
     // grows to 44; the digest is recomputed by the same method.
     // Actual shipped outgoing57 is also prior; literal-map sorted pairs excluding54 now number45.
-    expect(older).toHaveLength(45)
-    expect(sha(canonicalJson(older))).toBe('66ff414a2aec7abe942744415e65e4984181aceb2244c71855639adce902610a')
+    // P16 rebase round 6: the registry gained outgoing58-61 (projection-v58..v61, the P16 rebase's own entries,
+    // 53571456), so the sorted pairs excluding 54 number 49. Recomputed by the same method, never from a run: the
+    // method reproduces the prior pin 66ff414a... from main 8792de52's map, then gives 0ce03cea... for this map.
+    expect(older).toHaveLength(49)
+    expect(sha(canonicalJson(older))).toBe('0ce03ceaf04a0a67cd225e8c83ea3bb58867486a35c24bd15ccfe751da659193')
     const current = loaded.hydrated.checkpoint
     expect(current).toMatchObject({ schemaId: SCHEMA_ID, sessionId: '1236-prior54', stateRevision: 0, journal: [], journalDigest: sha('[]') })
     expect(current.sessionId).not.toBe(old.value.sessionId)

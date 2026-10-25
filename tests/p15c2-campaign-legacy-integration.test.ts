@@ -683,7 +683,10 @@ describe('p15c2 boundary: the freeze as the tick\'s last step (1359-A §4, RED B
     expect(official.p15DomainSequence).toBe(next - 1)
     expect(official.legacySnapshotId).toBe(`campaign-legacy-${official.p15DomainSequence}`)
     expect(official.phaseId).toBe('p15c.finale')
-    expect(official.phaseOrderVersion).toBe(2) // P15B Wave 4 (1370-ar): written under phase-order version 2
+    // P15B Wave 4 (1370-ar): written under phase-order version 2. P16 rebase round 6: the writer stamps the table by the
+    // state's era (campaignLegacy.ts finale triple, `Object.hasOwn(state, 'rights') ? 3 : 2`); this route is rights-era.
+    expect(Object.hasOwn(s6240, 'rights'), 'premise: a rights-era route').toBe(true)
+    expect(official.phaseOrderVersion).toBe(P15_PHASE_ORDER_VERSION)
     expect(Number.isSafeInteger(official.phaseOrdinal)).toBe(true)
     expect([official.kind, official.definition, official.boundaryWeek, official.postFinaleMode])
       .toEqual(['official2040', 'campaign-legacy/v3', B, LEGACY_POST_FINALE_MODE])
