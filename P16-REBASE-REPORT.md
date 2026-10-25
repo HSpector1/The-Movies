@@ -480,6 +480,16 @@ Candidate-own defects left red for the P16 lane (audit C-03):
      to antagonist, lead, support, so importSave recomputes the list in another order and refuses.
      Fix owed: compare as sets, or derive both lists from the fixed seat order instead of Object.values.
      No Owner ruling needed.
+  4. (round 6, FIXED in src, not left red) V27-era rival finance roster: hollywood.ts newFinancePeriod's
+     research-v27 filter (:43-46) kept the four P16 rights kinds the candidate appended to RIVAL_MONEY_KINDS (:30),
+     so the explicit pre-recovery admission (rivalResearch.ts admitRivalPlans) opened a V27 period with 18 kinds
+     (p13b-s8-old-era-period :88). The filter now drops them, beside termination, demolition and the loan kinds.
+  P16 lane note (round 6, not a defect): the rights root records, for a rival film's materialized property, whether
+     the film was announced: authenticTitles (rights.ts:456) gives the virtual property the provenance ref
+     'announcement:<filmId>', and materializeLegacyTitles (:746-748) writes that source into the persisted genesis
+     title event. It names an already persisted filmAnnounced receipt, so it adds no announcement record and does not
+     conflict with 1363 S7, whose law is that the technology announcement stays derived (p13b-s7-announcements now
+     pins that law as a key walk).
   Coverage gaps to close with them: the V45 market guard on a recorded assessment (a genuine Save45
   capture with assessments, or a ruled projection for table-3 market rows; audit C-06), and the L-24
   emission SCHEMA_MISMATCH path, which no quote can reach after 18A (round 4 gives it a forced witness).
@@ -624,3 +634,58 @@ sparse worktree, branch p16-rebase-20261024-r5), unrun:
   The reviewer's verdicts that stand: the 73a7feca identity law holds; O1's coverage is total; the week-133
   world is a real Save48 envelope; the composition rule is exercised at two depths; the projection 62 pins
   equal the measurement; no budget, persisted fixture or history was touched.
+
+Round 6 (the full gate wave3f on 07e6c669: 21 non-candidate failures in 16 files; edited in the side worktree,
+branch p16-rebase-20261024-r5 from 72036a93), unrun:
+  Gate: every static gate green; UI 0 new; bridge 2 new (the recorded load timeouts); core 5948 tests, 149 failed,
+  106 recorded baseline by name, 43 new: 2 load timeouts, 3 sparse ENOENT, 21 candidate-own (recorded), 17 era-class
+  and pin failures, plus 4 hidden ones found by the message comparison with final-core.json.
+  98d8fbb2  C, Save48-assumed-live pins: p1364-late-founding :1051 (P15B step = FOUNDING_STEP + 1, live =
+            EXPECTED_LIVE_SAVE_VERSION), :1074 (convertV49ToV48 then convertV48ToV47; the week-0 world converts
+            losslessly at the P16 step: no title, instrument, rights money or ledger row, unchanged cutover anchors,
+            no table-3 row), p15b2-corporate-condition-live :75 (P15B = FOUNDING + 1, live = 49).
+  898b3e96  F, facility-move-demolish law 19 :882-893: the forged V11 envelope also strips the rights root, after
+            asserting it equals initialRightsRoot(0). The unknown field was "rights" (chai truncated it; Save49 adds no
+            other top-level root, and this world has no industry, so no P16 money kind).
+  779440a9, 7d50aa7b  E, p13b-s7-announcements :138: a key walk (no key starting "announcement") replaces the text
+            match; every string value starting "announcement" must sit at state.rights.titleEvents[n].source.ref
+            (PREDICTED path). The follow-up narrows the key test to the old regex's reach (ageAtAnnouncement is a
+            persisted retirement field).
+  9ff07f1a  D, candidate-own FIXED (C-03 item 4 above): hollywood.ts:43-46.
+  eacb7869  G, the three p15b4 pending-family cases: refusePure (tests/helpers/p15b-pending-family-assertions.ts:15-18)
+            passes {rightsEstate: Object.hasOwn(s, 'rights')}. The check that fired first was studioClosure.ts:729,
+            "closure <id> uses current estate phase table below its era", under the default predecessor policy; the
+            disposition law ('no disposition for live subject adoption:/proposal:') is reached again. removeAndRedigest
+            drops no P16 field.
+  09c2bc56  B, table-3 history: the helper stays strict (table 3 inserts p16.estateSale at ordinal 2; relabelling
+            rewrites every later ordinal, the finale's 6 to 5, which no root proves neutral). p14c3-transitions
+            A05/A06 :183: LIVE_DOWNGRADE_REFUSAL and PHASE_HISTORY_PROJECTION asserted; ACCEPTANCE OPEN on this world:
+            convertV45ToV44's recorded Power Ranking quarter refusal (p15a2 keeps its genuine witness). p15c2
+            legacy-root-downgrade and legacy-old-law-fixture-v1-validates-after-retune: historicalV2FrozenControl is
+            rebuilt in the predecessor era (genuineFrozen48 pattern: rightsStripped genuine 6240, frozen at table 2,
+            admitted by validateSaveP15B and predecessorSave, lifted by convertV48ToV49, admitted by makeSave); both
+            cases keep their laws (PREDICTED; legacy-root-downgrade had a 120 s budget issue at the stabilized main).
+  8074719c  H, p15c2 legacy-validate-stamp :1035: the forgery moves to P15_PHASE_ORDER_VERSION + 1 (refused at
+            campaignLegacy.ts:1316). ACCEPTANCE OPEN: a stamp-versus-era rule (a table-3 official only in a world that
+            recorded under table 3): the root admits 2 and 3 under the rights era, because a Save48 freeze lifted by
+            convertV48ToV49 keeps table 2.
+  68dfe1d3  I, hidden regressions: bridge-p14b2-trust :151 adds requestDueDiligence and absorbStudio (from
+            intent-schema.ts; inside the measured projection-62 schema identity); bridge-p14p4p5-opportunities :535
+            pins 49 prior pairs and digest 0ce03cea... (Python, the test's documented method, which reproduces the
+            old 66ff414a... from main's map); p15c2 :684 pins P15_PHASE_ORDER_VERSION with a rights-era premise.
+  fef0bdd3  A, nondefault table-3 market history. ACCEPTANCE OPEN, by name:
+              p1364-late-founding :782: Save46's 'employment start lacks its actual player signing payment' on the
+                injected week-30 second grant (the live-reader refusals before it stay).
+              p1364-late-founding :1123: convertV47ToV46's fund refusal with the P15 quarter appended.
+              p14c3-offmenu-extensions :236 (both cases): R8's recovery refusal on this world (projected witness in
+                p14c3-transitions' Scientist case).
+              p14d1-rival-shelving :584: K4's historical equality with the genuine Save44 week-77 input (the K4
+                premises, the receipts equality and the shelving probe now read the live state).
+              p14r3-save-v41 :389: the P15 step's market-then-ranking composition.
+            Each case asserts the live step's LIVE_DOWNGRADE_REFUSAL and/or NONDEFAULT_MARKET_PROJECTION. On the
+            question asked: the sharedMarket slot is ordinal 1 in tables 2 and 3, so a stamp relabel of a nondefault
+            market row is ordinal-neutral, but whether its content is what the predecessor engine wrote is not
+            provable from the root; widening rightsStripped beyond the default class needs a ruling (audit C-06).
+  Mechanical self-check: no skip or only, no budget or timeout change, no fixture file; expect( lines +35 / -35 over
+  12 test files. The removals are the assertions that needed a Save45 or Save46 operand (p1364 :782 block, p14d1 K4
+  operand checks and its dead saveVersion-45 branch), each recorded ACCEPTANCE OPEN above.
