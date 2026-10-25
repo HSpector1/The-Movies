@@ -105,6 +105,7 @@ import type { GameState, TalentCareerEvent } from '../src/core/types.js'
 import { generateWorld } from '../src/core/worldgen.js'
 import { P15_ROOTS, p15Rows, predecessorSave, stripP15 } from './helpers/p15-roots.js'
 import { rightsStripped } from './helpers/p16-era.js'
+import { P15_PHASE_ORDER_VERSION } from '../src/core/p15Phases.js'
 import {
   asSaveFile,
   B,
@@ -1042,7 +1043,13 @@ describe('p15c2 validation: validateSaveVN over the root (1359-A §5.1 with 1359
     refuses(tamper(frozen, (o) => { o.legacySnapshotId = `power-ranking-${o.p15DomainSequence}` }), 'campaignLegacy.official.legacySnapshotId')
     refuses(tamper(frozen, (o) => { o.phaseId = 'p15b.condition' }), 'campaignLegacy.official.phase')
     refuses(tamper(frozen, (o) => { o.phaseOrdinal += 1 }), 'campaignLegacy.official.phase')
-    refuses(tamper(frozen, (o) => { o.phaseOrderVersion = 3 }), 'campaignLegacy.official.phase') // P15B Wave 4 (1370-ar): 2 has a table now
+    // P15B Wave 4 (1370-ar): 2 has a table now. P16 rebase round 6: so has 3, the live table this rights-era freeze
+    // stamps (campaignLegacy.ts finale writer, `Object.hasOwn(state, 'rights') ? 3 : 2`), so the forgery moves to the
+    // first version with no table; the modern-definition rule refuses it (campaignLegacy.ts:1316). ACCEPTANCE OPEN:
+    // a stamp-versus-era rule (a table-3 official only in a world that recorded under table 3) is not provable from
+    // the root, which admits 2 and 3 alike under the rights era (a Save48 freeze lifted by convertV48ToV49 keeps 2).
+    expect(officialOf(frozen).phaseOrderVersion, 'premise: the rights-era freeze stamps the live table').toBe(P15_PHASE_ORDER_VERSION)
+    refuses(tamper(frozen, (o) => { o.phaseOrderVersion = P15_PHASE_ORDER_VERSION + 1 }), 'campaignLegacy.official.phase')
   }), FIXTURE_MS)
 
   it('legacy-validate-bounds', budgeted(FIXTURE_MS, () => {
