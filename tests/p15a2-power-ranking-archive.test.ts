@@ -73,6 +73,7 @@ import { tick } from '../src/core/tick.js'
 import { TUNING } from '../src/core/tuning.js'
 import { generateWorld } from '../src/core/worldgen.js'
 import type { AuthoredFilm, LiveIndustryFilm } from '../src/core/hollywoodTypes.js'
+import { P16_RIVAL_MONEY_KINDS } from '../src/core/hollywoodTypes.js'
 import type { FilmResult, GameState, TheatricalRun } from '../src/core/types.js'
 import { p13aGeneratedStudio, p13aResearchReady } from '../src/harness/p13a/fixtures.js'
 import { migrated } from './helpers/p14c3-fixtures.js'
@@ -954,6 +955,16 @@ describe('p15a2 archive: root and persistence (1356-A §5; RED 12, 13, 16)', () 
     // route at 133 above; the frozen ranking step below keeps its genuine Save45 witness.
     expect(() => convertOutOfStep(currentSave)).toThrow(/^migrateToV48: cannot downgrade or discard current phase history \(corporateCondition\)$/)
     expect(stableStringify(currentSave), 'the refused current input remains unchanged').toBe(currentBefore)
+    // The Save48 reader's own table-3 guard (corporateConditionLive.ts, the condition events), exact: the envelope
+    // convertV49ToV48 built before round 4 named it, so the same envelope is forged here (the rights root and the four
+    // P16 money kinds dropped, saveVersion 48). It was the guard's only exact witness before the step named the refusal.
+    const forged48 = JSON.parse(JSON.stringify(currentSave)) as { saveVersion: number; state: Record<string, unknown> }
+    delete forged48.state.rights
+    for (const business of (forged48.state.hollywood as { businesses: { account: { periods: { movements: Record<string, number> }[] } }[] }).businesses) {
+      for (const period of business.account.periods) for (const kind of P16_RIVAL_MONEY_KINDS) delete period.movements[kind]
+    }
+    forged48.saveVersion = saveModule.P15B_SAVE_VERSION
+    expect(() => saveModule.validateSaveV48(forged48)).toThrow(/^validateSaveP15B: corporateCondition estate phase table is not admitted in this predecessor era$/)
 
     // An original Save45 engine advanced the genuine Save42 week-130 capture through five
     // default ticks. Its claims-less week-135 save predates recovery authority and can
