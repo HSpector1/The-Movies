@@ -443,17 +443,28 @@ describe('p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2)', () =>
     expect(rows.some((row) => row.factor < 1)).toBe(true)
   }, MEDIUM)
 
-  it('market-week-diff-confined (K1): one pressured tick differs from the RED-commit pin only inside the pressured chain [control, fixture-pending]', () => {
+  it('market-week-diff-confined (K1): one pressured tick keeps the RED-commit pin\'s named facts; the diff confinement is ACCEPTANCE OPEN [control, fixture-pending]', () => {
     const { k1 } = kRoute()
     const post = tick(k1.pre)
     const pins = readPins(`K1 week ${k1.week}, committed ${String(k1.committed)}, post-tick digest ${digest(post)}`)
     expect(k1.week).toBe(pins.k1.week)
     expect(k1.committed).toBe(pins.k1.committed)
-    readGz(PIN_DIRECTORY, pins.k1.capture) // the Save44 pin itself stays verified (bytes and SHA-256)
-    // MOVED (P16 rebase): the comparison operand is the Save45 projection of the live post-tick state, set against
-    // the Save44 engine's pin. In a P16 world this week's pressured assessments are nondefault rows of the Save49
-    // phase table 3, which `rightsStripped` refuses to relabel, so no lawful operand exists and the projection
-    // refuses by name. The pressured-week law itself stays asserted on the live state in the case above.
+    const old = JSON.parse(readGz(PIN_DIRECTORY, pins.k1.capture)) as Record<string, unknown> // the Save44 pin, bytes and SHA-256 verified
+    // 1355-A §4 K1: identical facts, named. P16 rebase round 5: these seven read fields no Save45 projection changes,
+    // so they compare the live post-tick state itself (PREDICTED until the lane runs it).
+    const now = keepKeys(detached(post), pins.k1.keys)
+    const h = (s: Record<string, unknown>) => s.hollywood as GameState['hollywood']
+    expect(now.rngState).toBe(old.rngState)
+    expect(canon(h(now)!.receipts.map((r) => [r.eventId, r.kind, r.week, r.studioId]))).toBe(canon(h(old)!.receipts.map((r) => [r.eventId, r.kind, r.week, r.studioId])))
+    expect(canon(h(now)!.films.map((f) => f.filmId))).toBe(canon(h(old)!.films.map((f) => f.filmId)))
+    expect(canon(h(now)!.businesses.map((b) => b.productions.map((p) => p.id)))).toBe(canon(h(old)!.businesses.map((b) => b.productions.map((p) => p.id))))
+    expect(canon(now.firstTakes)).toBe(canon(old.firstTakes))
+    expect(canon(h(now)!.businesses.map((b) => b.screenplayShelving))).toBe(canon(h(old)!.businesses.map((b) => b.screenplayShelving)))
+    expect(canon([h(now)!.employment, h(now)!.activeEmploymentOrdinals])).toBe(canon([h(old)!.employment, h(old)!.activeEmploymentOrdinals]))
+    // ACCEPTANCE OPEN (P16 rebase): every other difference staying inside the pressured releases' chain. That check
+    // diffs the whole state against the Save44 pin, so it needs the Save45 projection of the live post-tick state; in a
+    // P16 world this week's pressured assessments are nondefault table-3 rows `rightsStripped` refuses to relabel, and
+    // the projection refuses by name. The sibling case above checks which releases are pressured, not this confinement.
     expect(() => historicalSave45Comparison(post)).toThrow(NONDEFAULT_MARKET_PROJECTION)
   }, MEDIUM)
 
@@ -469,15 +480,16 @@ describe('p15a1 market chronology controls (RED 10-11, 1355-A §4 K1/K2)', () =>
     }
   }, MEDIUM)
 
-  it('market-no-pressure-week-identity (K2): the post-tick state minus the new roots is byte-equal to the RED-commit pin [control, fixture-pending]', () => {
+  it('market-no-pressure-week-identity (K2): the byte identity with the RED-commit pin is ACCEPTANCE OPEN; its Save45 operand refuses by name [control, fixture-pending]', () => {
     const { k2 } = kRoute()
     const post = tick(k2.pre)
     const keys = Object.keys(stripP15(post)).sort()
     const pins = readPins(`K2 week ${k2.week}, digest ${digest(keepKeys(post, keys))}`)
     expect(k2.week).toBe(pins.k2.week)
-    // MOVED (P16 rebase): the digest compares the Save45 projection of the live post-tick state with the Save44
-    // engine's pin. This world's records since week 0 carry the Save49 phase table 3, which `rightsStripped` refuses
-    // to project, so no lawful operand exists. The no-pressure law itself stays asserted on the live state above.
+    // ACCEPTANCE OPEN (P16 rebase): the post-tick state minus the new roots byte-equal to the Save44 engine's pin. The
+    // digest needs the Save45 projection of the live post-tick state; this world's records since week 0 carry the
+    // Save49 phase table 3, which `rightsStripped` refuses to project, so no lawful operand exists. The sibling case
+    // above checks only that the week's releases are assessed at P = 0 and f = 1, not this identity.
     expect(() => historicalSave45Comparison(post)).toThrow(PHASE_HISTORY_PROJECTION)
   }, MEDIUM)
 })

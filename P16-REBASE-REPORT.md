@@ -482,6 +482,11 @@ Candidate-own defects left red for the P16 lane (audit C-03):
   Coverage gaps to close with them: the V45 market guard on a recorded assessment (a genuine Save45
   capture with assessments, or a ruled projection for table-3 market rows; audit C-06), and the L-24
   emission SCHEMA_MISMATCH path, which no quote can reach after 18A (round 4 gives it a forced witness).
+  ACCEPTANCE OPEN since 3ba586cb (round 5 reviewer): p15a1 K1's diff confinement (every difference from the
+  Save44 engine pin inside the pressured chain) and K2's byte identity with its pin. Both need the Save45
+  projection of a live post-tick state, which refuses by name in a P16 world. The sibling cases check which
+  releases are pressured (K1) and P = 0, f = 1 (K2), not these laws; the 3ba586cb comments and commit message
+  said otherwise. Round 5 restores K1's seven named-fact equalities on the live state (PREDICTED).
 
 Round 4 (the round-2 reviewer's blockers and optional items; lane wave3e on c0a6c64e), unrun:
   Lane wave3e: typecheck 0, typecheck:bridge 0, both contract checks 0; 18 files, 211 of 240 passing; the 29
