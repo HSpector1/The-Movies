@@ -10859,7 +10859,7 @@ function proveProfessionSave(save: unknown, version: 38 | 39 | 40 | 41, rivalShe
   if (save.saveVersion !== version) throw new Error(`validateSaveV${version}: expected version ${version}`);
   const raw = v14Record(checkEnvelope(save, `validateSaveV${version}`), 'state');
   validateTalentProvenanceRoot(raw);
-  const professionContext = validateProfessionHistory(raw);
+  const professionContext = validateProfessionHistory(raw, era.rights ? era.absorptions : undefined);
   const writing = retirementWritingAuthority(raw, professionContext);
   // Save41 moves no promise law: its promise roots validate as Save40's.
   validateSaveV37WithProfession({ ...save, saveVersion: 37, state: stripProfessionHistory(raw) }, professionContext, writing,

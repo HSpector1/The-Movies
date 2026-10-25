@@ -7,6 +7,7 @@ import { productionCompanyTalentIds } from './productionPeople.js'
 import { closedWeekOf } from './operatingState.js'
 import { chooseProfessionTransition, nextTransitionWeek, retainedTransitionEvidence, TRANSITION_POTENTIAL_TIERS, transitionInputsDigest } from './professionTransitions.js'
 import type { CareerLifecycleRootV38, CreativeRole, GameState, IndustryRetirement, ProfessionChange, RetirementKey, TransitionDue, TransitionEvaluation, TransitionInputs } from './types.js'
+import type { AbsorptionRecord } from './rights.js'
 
 export const TRANSITION_ROOT_FIELDS = ['transitionBoundaryWeek', 'professionAnchors', 'transitionEvaluations',
   'professionChanges', 'industryRetirements', 'transitionDue'] as const
@@ -128,7 +129,7 @@ function checkInputs(value: unknown): TransitionInputs {
 
 /** Prove all new authority before any private historical delegate sees it. The
  * returned closures capture copied scalar facts, never caller-owned mutable rows. */
-export function validateProfessionHistory(raw: Record<string, unknown>): ProfessionValidationContext {
+export function validateProfessionHistory(raw: Record<string, unknown>, absorptions?: ReadonlyMap<string, AbsorptionRecord>): ProfessionValidationContext {
   const root = object(raw.careerLifecycle, ['boundaryWeek', 'records', 'cohorts', ...TRANSITION_ROOT_FIELDS], 'careerLifecycle')
   const tick = integer((raw.market as { tick?: unknown } | undefined)?.tick, 'market.tick')
   const boundary = integer(root.transitionBoundaryWeek, 'careerLifecycle.transitionBoundaryWeek')
@@ -293,6 +294,12 @@ export function validateProfessionHistory(raw: Record<string, unknown>): Profess
   // A retained old binding cannot straddle a change. Later new-role intervals
   // starting at/after that change are legitimate and remain independently capped.
   const closed = closedWeekOf(state)
+  // P16 rebase (audit C-01, the busy set's live-work rule): an absorbed business is frozen history from its
+  // absorption week on, like a closed one, except the buyer-continued productions the buyer has not cancelled,
+  // which stay obligations. The Save49 era hands the absorptions in; every earlier era has none.
+  const absorbedWeek = new Map([...(absorptions?.values() ?? [])].map(a => [a.targetId, a.week] as const))
+  const continued = new Set([...(absorptions?.values() ?? [])].flatMap(a => a.continuedProductions
+    .filter(row => !a.workCancellations.some(c => c.productionId === row.productionId)).map(row => row.productionId)))
   for (const change of changes) {
     const intervals = [...state.contracts.filter(row => row.talentId === change.personId)
       .map(row => ({ start: row.startWeek, end: row.endWeekExclusive })),
@@ -303,8 +310,8 @@ export function validateProfessionHistory(raw: Record<string, unknown>): Profess
     // closure week on (closure/v1 §3; L-05). A change recorded in the closure week itself met
     // the seat still held: the tick settles the lifecycle before it closes the business.
     const productions = [...state.studio.activeProductions, ...(h?.businesses ?? [])
-      .filter(b => { const closedWeek = closed.get(b.studioId); return closedWeek === undefined || closedWeek >= change.week })
-      .flatMap(b => b.productions)]
+      .filter(b => { const closedWeek = closed.get(b.studioId) ?? absorbedWeek.get(b.studioId); return closedWeek === undefined || closedWeek >= change.week })
+      .flatMap(b => b.productions), ...(h?.businesses ?? []).flatMap(b => b.productions.filter(p => continued.has(p.id)))]
     if (productions.some(p => p.startTick < change.week && productionCompanyTalentIds([p]).has(change.personId))) {
       fail('profession change straddles a retained production obligation')
     }

@@ -30,7 +30,7 @@ import type { AbsorptionRecord } from './rights.js'
 import { fnv1a64 } from './math.js'
 import { assignmentRefusal, retirementRecordFor } from './careerLifecycle.js'
 import { occupiedResourceSlots } from './occupancy.js'
-import { closedWeekOf } from './operatingState.js'
+import { terminalWeekOf } from './operatingState.js'
 import { productionCompanyTalentIds } from './productionPeople.js'
 import { openMarketCaseFor } from './talentMarket.js'
 import { TUNING } from './tuning.js'
@@ -43,6 +43,8 @@ import type {
   CastRoleCountPredicate, DirectorCountPredicate, OpportunityPredicate, Genre, CastSlot, FirstTakeReceipt, GameState, GameStateV30, GameStateV40, ProfessionalPromise, ProfessionalPromiseV30, Production,
   PromiseClassification, PromiseFamily, PromiseFeasibilityReceipt, TalentMarketStateV36,
 } from './types.js'
+// Last, so the module graph's evaluation order is unchanged (careerLifecycle already reaches continuedWork).
+import { buyerOperatedProductions } from './continuedWork.js'
 
 const CAST_SLOTS: readonly CastSlot[] = ['lead', 'antagonist', 'support'] as const
 
@@ -339,8 +341,10 @@ function promiseProductionOccupancy(state: GameState, draft: PromiseDraft): read
   const qualifying = new Set(committedPromiseSeats(state, draft))
   const playerStudioId = state.hollywood?.playerStudioId ?? draft.issuerStudioId
   // A closed business's retained productions are frozen history and seat nobody (closure/v1 §3; L-05).
-  const closed = closedWeekOf(state)
-  const owners = [{ studioId: playerStudioId, productions: state.studio.activeProductions },
+  // P16 rebase (audit C-01, the busy set's live-work rule): so is an absorbed business's work, except the
+  // buyer-continued productions, which seat their people as the buyer's (`buyerOperatedProductions`).
+  const closed = terminalWeekOf(state)
+  const owners = [{ studioId: playerStudioId, productions: buyerOperatedProductions(state) },
     ...(state.hollywood?.businesses.filter(business => business.studioId !== playerStudioId && !closed.has(business.studioId))
       .map(business => ({ studioId: business.studioId, productions: business.productions })) ?? [])]
   return owners.flatMap(owner => owner.productions
@@ -919,8 +923,8 @@ export function targetSpecificImpossibility(state: GameState, promise: Professio
  * decision cadence, so it can rule timing out, never certify a complete plan. */
 function rivalUncappedPromiseCapacity(state: GameState, promise: ProfessionalPromise, week: number): number {
   const personId = promise.beneficiaryPersonId
-  const closed = closedWeekOf(state)
-  const productions = [...state.studio.activeProductions,
+  const closed = terminalWeekOf(state) // L-05 and C-01: the busy set's live-work rule, as above
+  const productions = [...buyerOperatedProductions(state),
     ...(state.hollywood?.businesses.filter((business) => !closed.has(business.studioId)).flatMap((business) => business.productions) ?? [])]
   let released = week
   for (const production of productions) {
